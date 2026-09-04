@@ -7,3 +7,5 @@ dist
 
 debug/
 .agents/
+public/waitlist.json
+web/waitlist.json
