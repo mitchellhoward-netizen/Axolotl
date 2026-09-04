@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Axolotl — an AI family liaison for public schools</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+<style>
+  html, body { margin: 0; padding: 0; background: #FAF2E8; }
+  * { box-sizing: border-box; }
+  a { color: #C2416A; text-decoration: none; }
+  a:hover { color: #241C18; }
+  .btn-primary { background: #C2416A; color: #FFFFFF; transition: background 0.15s ease; }
+  .btn-primary:hover { background: #A32F55; color: #FFFFFF; }
+  @keyframes rise { from { opacity: 0; transform: translateY(12px) } to { opacity: 1; transform: none } }
+  @keyframes pop { 0% { opacity: 0; transform: translateY(12px) scale(0.96) } 70% { transform: translateY(0) scale(1.02) } 100% { opacity: 1; transform: none } }
+  @keyframes breathe { 0%, 100% { opacity: 0.35 } 50% { opacity: 1 } }
+  @keyframes ring { 0% { transform: scale(0.7); opacity: 0.8 } 100% { transform: scale(2.2); opacity: 0 } }
+  @keyframes sweep { from { width: 0 } to { width: 100% } }
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+</style>
+</head>
+<body>
+<div style="background:#FAF2E8;color:#241C18;font-family:'Instrument Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden">
+  <header style="max-width:1120px;margin:0 auto;padding:22px 26px;display:flex;align-items:center;justify-content:space-between;gap:20px">
+    <div style="display:flex;align-items:center;gap:9px">
+      <img src="./ollie.png" alt="" style="width:32px;height:32px;object-fit:contain" />
+      <span style="font-family:'Instrument Serif',Georgia,serif;font-size:25px;letter-spacing:-0.01em">Axolotl</span>
+    </div>
+    <a href="#schools" style="flex:0 0 auto;white-space:nowrap;font-size:16.5px;font-weight:500;color:#5C4D45">For schools →</a>
+  </header>
+  <section style="max-width:1120px;margin:0 auto;padding:34px 26px 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:52px 60px;align-items:center">
+    <div>
+      <h1 style="margin:0;font-family:'Instrument Serif',Georgia,serif;font-weight:400;font-size:clamp(42px,6.4vw,64px);line-height:1.02;letter-spacing:-0.025em;max-width:18ch;text-wrap:balance;animation:rise 0.6s ease-out both">Tell Axolotl what's going on. He'll figure out what to do.</h1>
+      <p style="margin:24px 0 0;font-size:20px;line-height:1.55;color:#3A302B;max-width:44ch;text-wrap:pretty;animation:rise 0.6s ease-out 0.08s both">You don't have to know what your family needs. Tell Axolotl what's happening. He'll ask the right questions, figure out what's getting in the way, make a plan, and help make it happen.</p>
+      <p style="margin:16px 0 0;font-size:17px;color:#6B5A50;animation:rise 0.6s ease-out 0.14s both">Axolotl is an AI family liaison for public schools.</p>
+      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin-top:32px;animation:rise 0.6s ease-out 0.2s both">
+        <a href="#try" class="btn-primary" style="display:inline-flex;flex:0 0 auto;white-space:nowrap;align-items:center;min-height:58px;padding:17px 28px;font-size:18.5px;font-weight:600;border-radius:14px">Try Axolotl →</a>
+        <a href="#schools" style="display:inline-flex;flex:0 0 auto;white-space:nowrap;align-items:center;min-height:58px;padding:17px 22px;font-size:18.5px;font-weight:500;color:#5C4D45">For schools →</a>
+      </div>
+    </div>
+    <div style="justify-self:center;width:100%;max-width:392px;background:#1C1917;border-radius:52px;padding:11px;box-shadow:0 2px 4px rgba(36,28,24,0.06),0 40px 80px -46px rgba(36,28,24,0.7);animation:rise 0.7s ease-out 0.1s both">
+      <div style="background:#FFFFFF;border-radius:42px;overflow:hidden;font-family:-apple-system,'SF Pro Text','Helvetica Neue',Helvetica,sans-serif">
+        <div style="background:#F7F7F7;border-bottom:1px solid rgba(0,0,0,0.12);padding:12px 18px">
+          <div style="display:flex;align-items:center;justify-content:space-between;font-size:14px;font-weight:600;color:#000000;letter-spacing:-0.01em">
+            <span>9:41</span>
+            <div style="display:flex;align-items:center;gap:5px">
+              <span style="display:inline-flex;align-items:flex-end;gap:1.5px;height:11px"><span style="width:3px;height:4px;border-radius:1px;background:#000000"></span><span style="width:3px;height:6px;border-radius:1px;background:#000000"></span><span style="width:3px;height:8.5px;border-radius:1px;background:#000000"></span><span style="width:3px;height:11px;border-radius:1px;background:#000000"></span></span>
+              <span style="font-size:12.5px;font-weight:500">5G</span>
+              <span style="display:inline-flex;align-items:center;width:24px;height:12px;border:1.3px solid rgba(0,0,0,0.42);border-radius:3.5px;padding:1.5px"><span style="display:block;width:100%;height:100%;border-radius:2px;background:#000000"></span></span>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px;margin-top:12px">
+            <span style="font-size:24px;line-height:1;color:#007AFF">‹</span>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;flex:1 1 auto"><img src="./ollie.png" alt="" style="width:32px;height:32px;object-fit:contain" /><span style="font-size:12.5px;font-weight:500;color:#000000">Axolotl ›</span></div>
+            <span style="width:22px"></span>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:3px;padding:18px 14px 12px">
+          <p style="margin:0 0 8px;text-align:center;font-size:11.5px;color:#8E8E93"><span style="font-weight:600;color:#6E6E73">Today</span> 8:12 AM</p>
+          <div style="align-self:flex-end;max-width:76%;background:#007AFF;color:#FFFFFF;border-radius:19px;padding:9px 14px;font-size:16.5px;line-height:1.32;animation:rise 0.5s ease-out 0.5s both">My daughter keeps missing school and I don't know what to do.</div>
+          <div style="align-self:flex-start;max-width:78%;margin-top:5px;background:#E9E9EB;color:#000000;border-radius:19px;padding:9px 14px;font-size:16.5px;line-height:1.32;animation:rise 0.5s ease-out 1.1s both">I'm sorry you're dealing with that. What's been making it hard for her to get to school?</div>
+          <div style="align-self:flex-end;max-width:76%;margin-top:5px;background:#007AFF;color:#FFFFFF;border-radius:19px;padding:9px 14px;font-size:16.5px;line-height:1.32;animation:rise 0.5s ease-out 1.9s both">Our car broke down and I think her bus situation is messed up too.</div>
+          <div style="align-self:flex-start;max-width:78%;margin-top:5px;background:#E9E9EB;color:#000000;border-radius:19px;padding:9px 14px;font-size:16.5px;line-height:1.32;font-weight:600;animation:pop 0.6s ease-out 2.6s both">Got it. Let me look into the transportation side first. What school does she attend?</div>
+          <div style="align-self:stretch;display:flex;flex-direction:column;gap:10px;margin:12px 2px 8px;padding:14px 16px;background:#F2F2F7;border:1px solid rgba(0,0,0,0.06);border-radius:17px;animation:rise 0.5s ease-out 3.3s both">
+            <div style="display:flex;align-items:center;gap:9px"><span style="position:relative;display:inline-flex;width:9px;height:9px;flex:0 0 auto"><span style="position:absolute;inset:0;border-radius:999px;background:#34C759;animation:breathe 1.6s ease-in-out infinite"></span><span style="position:absolute;inset:0;border-radius:999px;background:#34C759;animation:ring 1.8s ease-out infinite"></span></span><span style="font-size:12px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:#6E6E73">Axolotl is working</span></div>
+            <div style="display:flex;align-items:center;gap:9px;font-size:14.5px;color:#3C3C43;animation:rise 0.4s ease-out 3.6s both"><span style="flex:0 0 auto;color:#34C759;font-weight:600">✓</span> Checking transportation eligibility</div>
+            <div style="display:flex;align-items:center;gap:9px;font-size:14.5px;color:#3C3C43;animation:rise 0.4s ease-out 4.1s both"><span style="flex:0 0 auto;color:#34C759;font-weight:600">✓</span> Calling school transportation</div>
+            <div style="display:flex;align-items:center;gap:9px;font-size:14.5px;font-weight:500;color:#000000;animation:rise 0.4s ease-out 4.6s both"><span style="flex:0 0 auto;color:#8E8E93">→</span> Following up on her request</div>
+          </div>
+          <div style="align-self:flex-start;max-width:80%;background:#E9E9EB;color:#000000;border-radius:19px;padding:9px 14px;font-size:16.5px;line-height:1.32;animation:rise 0.5s ease-out 5.2s both">I found the issue. Her transportation request was never completed. I'm getting that sorted out and I'll keep you posted.</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:9px;padding:9px 14px 12px;border-top:1px solid rgba(0,0,0,0.07)"><span style="display:inline-flex;align-items:center;justify-content:center;width:31px;height:31px;flex:0 0 auto;border-radius:999px;background:#E9E9EB;font-size:19px;color:#8E8E93;line-height:1">+</span><span style="flex:1 1 auto;padding:8px 15px;border:1px solid rgba(0,0,0,0.14);border-radius:999px;font-size:15.5px;color:#AEAEB2">iMessage</span></div>
+        <div style="display:flex;justify-content:center;padding:0 0 9px"><span style="display:block;width:128px;height:5px;border-radius:999px;background:#000000;opacity:0.22"></span></div>
+      </div>
+    </div>
+  </section>
+  <section style="max-width:1120px;margin:0 auto;padding:112px 26px 0">
+    <h2 style="margin:0;font-family:'Instrument Serif',Georgia,serif;font-weight:400;font-size:clamp(34px,5.4vw,54px);line-height:1.04;letter-spacing:-0.02em;max-width:20ch;text-wrap:balance">You don't have to know what you need.</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:30px 56px;margin-top:30px;align-items:start">
+      <div>
+        <p style="margin:0;font-size:20px;line-height:1.6;color:#3A302B;max-width:46ch;text-wrap:pretty">Parents talk in situations. Schools run on programs, eligibility rules, departments, forms, deadlines, portals, and phone trees. Axolotl translates between those worlds.</p>
+        <p style="margin:20px 0 0;font-size:20px;line-height:1.6;color:#3A302B;max-width:46ch;text-wrap:pretty">His first job isn't to answer. It's to understand, and to keep asking until he knows what the family is actually trying to accomplish and what's in the way.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <p style="margin:0 0 2px;font-size:15px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:#9A8B82">A parent might say</p>
+        <div style="background:#FFFFFF;border-radius:18px 18px 18px 6px;padding:14px 18px;font-family:'Instrument Serif',Georgia,serif;font-size:22px;line-height:1.3;box-shadow:0 2px 3px rgba(36,28,24,0.04)">“School has been really hard lately.”</div>
+        <div style="background:#FFFFFF;border-radius:18px 18px 18px 6px;padding:14px 18px;font-family:'Instrument Serif',Georgia,serif;font-size:22px;line-height:1.3;box-shadow:0 2px 3px rgba(36,28,24,0.04)">“My kid keeps missing school.”</div>
+        <div style="background:#FFFFFF;border-radius:18px 18px 18px 6px;padding:14px 18px;font-family:'Instrument Serif',Georgia,serif;font-size:22px;line-height:1.3;box-shadow:0 2px 3px rgba(36,28,24,0.04)">“I don't know what's going on with my daughter.”</div>
+        <p style="margin:6px 0 0;font-size:17px;color:#6B5A50">All of these are enough to start.</p>
+      </div>
+    </div>
+  </section>
+  <section style="max-width:1120px;margin:0 auto;padding:104px 26px 0">
+    <p style="margin:0;font-size:15px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:#C2416A">Three families</p>
+    <h2 style="margin:14px 0 0;font-family:'Instrument Serif',Georgia,serif;font-weight:400;font-size:clamp(32px,5vw,48px);line-height:1.05;letter-spacing:-0.02em;max-width:24ch;text-wrap:balance">A situation goes in. An outcome comes out.</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:18px;margin-top:38px">
+      <div style="background:#FFFFFF;border-radius:28px;padding:28px 26px 30px;box-shadow:0 2px 3px rgba(36,28,24,0.04)"><p style="margin:0;font-size:14.5px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:#9A8B82">Transportation</p><p style="margin:14px 0 0;font-family:'Instrument Serif',Georgia,serif;font-size:25px;line-height:1.24">“My daughter keeps missing school because we can't reliably get her there.”</p><p style="margin:18px 0 0;font-size:17.5px;line-height:1.55;color:#4A3F39">Axolotl checks what she's eligible for and finds the blocker: eligibility, a missing request, a route or capacity problem, or something at home.</p><div style="margin-top:20px;padding-top:18px;border-top:1px solid rgba(36,28,24,0.1)"><p style="margin:0 0 12px;font-size:14.5px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:#C2416A">The plan</p><div style="display:flex;flex-direction:column;gap:8px;font-size:16.5px;line-height:1.4;color:#332A25"><div style="display:flex;gap:10px"><span style="color:#9A8B82;flex:0 0 auto">1</span> Find what transportation is available</div><div style="display:flex;gap:10px"><span style="color:#9A8B82;flex:0 0 auto">2</span> Identify the blocker</div><div style="display:flex;gap:10px"><span style="color:#9A8B82;flex:0 0 auto">3</span> Reach the person responsible</div><div style="display:flex;gap:10px"><span style="color:#9A8B82;flex:0 0 auto">4</span> Move the request forward</div><div style="display:flex;gap:10px"><span style="color:#9A8B82;flex:0 0 auto">5</span> Confirm the ride actually works</div></div></div><p style="margin:20px 0 0;font-size:16.5px;line-height:1.5;color:#6B5A50">She never asked for a “transportation intervention.” She said what was happening.</p></div>
+      <div style="background:#FFFFFF;border-radius:28px;padding:28px 26px 30px;box-shadow:0 2px 3px rgba(36,28,24,0.04)"><p style="margin:0;font-size:14.5px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:#9A8B82">Food</p><p style="margin:14px 0 0;font-family:'Instrument Serif',Georgia,serif;font-size:25px;line-height:1.24">“We're having a really hard time making food last until the end of the month.”</p><p style="margin:18px 0 0;font-size:17.5px;line-height:1.55;color:#4A3F39">She doesn't need to know which program applies, what she might qualify for, or who to call. Axolotl asks enough to understand the month, then works the options.</p><div style="margin-top:20px;padding-top:18px;border-top:1px solid rgba(36,28,24,0.1)"><p style="margin:0 0 12px;font-size:14.5px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:#C2416A">The plan</p><div style="display:flex;flex-direction:column;gap:8px;font-size:16.5px;line-height:1.4;color:#332A25"><div style="display:flex;gap:10px"><span style="color:#9A8B82;flex:0 0 auto">1</span> Sort out what school already provides</div><div style="display:flex;gap:10px"><span style="color:#9A8B82;flex:0 0 auto">2</span> Check benefits she may qualify for</div><div style="display:flex;gap:10px"><span style="color:#9A8B82;flex:0 0 auto">3</span> Complete what needs completing</div><div style="display:flex;gap:10px"><span style="color:#9A8B82;flex:0 0 auto">4</span> Look past the school when it can't help</div><div style="display:flex;gap:10px"><span style="color:#9A8B82;flex:0 0 auto">5</span> Check the food actually arrived</div></div></div><p style="margin:20px 0 0;font-size:16.5px;line-height:1.5;color:#6B5A50">Nobody has to learn a program's name to get fed.</p></div>
+      <div style="background:#FFFFFF;border-radius:28px;padding:28px 26px 30px;box-shadow:0 2px 3px rgba(36,28,24,0.04)"><p style="margin:0;font-size:14.5px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:#9A8B82">Learning support</p><p style="margin:14px 0 0;font-family:'Instrument Serif',Georgia,serif;font-size:25px;line-height:1.24">“My son is really struggling with math. I don't know what to do.”</p><p style="margin:18px 0 0;font-size:17.5px;line-height:1.55;color:#4A3F39">Axolotl doesn't jump to “get an IEP.” He asks what he's struggling with, how long it's been going on, what the teacher has tried, and what the family wants to happen.</p><div style="margin-top:20px;padding-top:18px;border-top:1px solid rgba(36,28,24,0.1)"><p style="margin:0 0 12px;font-size:14.5px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:#C2416A">The plan</p><div style="display:flex;flex-direction:column;gap:8px;font-size:16.5px;line-height:1.4;color:#332A25"><div style="display:flex;gap:10px"><span style="color:#9A8B82;flex:0 0 auto">1</span> Get support in place now</div><div style="display:flex;gap:10px"><span style="color:#9A8B82;flex:0 0 auto">2</span> Coordinate teacher and counselor</div><div style="display:flex;gap:10px"><span style="color:#9A8B82;flex:0 0 auto">3</span> Watch whether it's helping</div><div style="display:flex;gap:10px"><span style="color:#9A8B82;flex:0 0 auto">4</span> If concerns widen, explore evaluation</div><div style="display:flex;gap:10px"><span style="color:#9A8B82;flex:0 0 auto">5</span> Walk the 504 or IEP path with her</div></div></div><p style="margin:20px 0 0;font-size:16.5px;line-height:1.5;color:#6B5A50">Axolotl helps families navigate these processes. He isn't a clinician, a lawyer, or a diagnostician.</p></div>
+    </div>
+  </section>
+  <section style="max-width:1120px;margin:0 auto;padding:112px 26px 0">
+    <h2 style="margin:0;font-family:'Instrument Serif',Georgia,serif;font-weight:400;font-size:clamp(32px,5vw,48px);line-height:1.05;letter-spacing:-0.02em">How Axolotl works</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px;margin-top:34px">
+      <div style="background:#FFFFFF;border-radius:22px;padding:22px 22px 24px;box-shadow:0 2px 3px rgba(36,28,24,0.04)"><p style="margin:0;font-size:14px;font-weight:600;letter-spacing:0.08em;color:#C2416A">01 LISTEN</p><p style="margin:12px 0 0;font-size:17.5px;line-height:1.45;color:#332A25">Let the family tell the story.</p></div>
+      <div style="background:#FFFFFF;border-radius:22px;padding:22px 22px 24px;box-shadow:0 2px 3px rgba(36,28,24,0.04)"><p style="margin:0;font-size:14px;font-weight:600;letter-spacing:0.08em;color:#C2416A">02 UNDERSTAND</p><p style="margin:12px 0 0;font-size:17.5px;line-height:1.45;color:#332A25">Ask questions until what's happening is clear.</p></div>
+      <div style="background:#FFFFFF;border-radius:22px;padding:22px 22px 24px;box-shadow:0 2px 3px rgba(36,28,24,0.04)"><p style="margin:0;font-size:14px;font-weight:600;letter-spacing:0.08em;color:#C2416A">03 DISCOVER</p><p style="margin:12px 0 0;font-size:17.5px;line-height:1.45;color:#332A25">Find the barriers, the options, and what's owed.</p></div>
+      <div style="background:#FFFFFF;border-radius:22px;padding:22px 22px 24px;box-shadow:0 2px 3px rgba(36,28,24,0.04)"><p style="margin:0;font-size:14px;font-weight:600;letter-spacing:0.08em;color:#C2416A">04 PLAN</p><p style="margin:12px 0 0;font-size:17.5px;line-height:1.45;color:#332A25">Decide what needs to happen, in order.</p></div>
+      <div style="background:#5A2440;color:#FBF1E6;border-radius:22px;padding:22px 22px 24px"><p style="margin:0;font-size:14px;font-weight:600;letter-spacing:0.08em;color:#F0A0B8">05 ACT</p><p style="margin:12px 0 0;font-size:17.5px;line-height:1.45">Call, email, file, navigate the portal, follow up.</p></div>
+      <div style="background:#FFFFFF;border-radius:22px;padding:22px 22px 24px;box-shadow:0 2px 3px rgba(36,28,24,0.04)"><p style="margin:0;font-size:14px;font-weight:600;letter-spacing:0.08em;color:#C2416A">06 VERIFY</p><p style="margin:12px 0 0;font-size:17.5px;line-height:1.45;color:#332A25">Confirm the family actually got the support.</p></div>
+      <div style="background:#FFFFFF;border-radius:22px;padding:22px 22px 24px;box-shadow:0 2px 3px rgba(36,28,24,0.04)"><p style="margin:0;font-size:14px;font-weight:600;letter-spacing:0.08em;color:#C2416A">07 LEARN</p><p style="margin:12px 0 0;font-size:17.5px;line-height:1.45;color:#332A25">Remember what happened and what worked.</p></div>
+      <div style="background:#FFFFFF;border-radius:22px;padding:22px 22px 24px;box-shadow:0 2px 3px rgba(36,28,24,0.04)"><p style="margin:0;font-size:14px;font-weight:600;letter-spacing:0.08em;color:#C2416A">08 ANTICIPATE</p><p style="margin:12px 0 0;font-size:17.5px;line-height:1.45;color:#332A25">Use that context to catch the next problem earlier.</p></div>
+    </div>
+  </section>
+  <section style="max-width:1120px;margin:0 auto;padding:112px 26px 0">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:40px 60px;align-items:center">
+      <div>
+        <h2 style="margin:0;font-family:'Instrument Serif',Georgia,serif;font-weight:400;font-size:clamp(32px,5vw,48px);line-height:1.05;letter-spacing:-0.02em;max-width:20ch;text-wrap:balance">Axolotl doesn't just respond. He remembers.</h2>
+        <p style="margin:22px 0 0;font-size:20px;line-height:1.6;color:#3A302B;max-width:46ch;text-wrap:pretty">Because Axolotl holds a real understanding of your family, he notices when something you mentioned weeks ago never got resolved. He doesn't wait for you to ask again.</p>
+        <p style="margin:20px 0 0;font-size:20px;line-height:1.6;color:#3A302B;max-width:46ch;text-wrap:pretty">He also knows what a family is owed, and what it takes to actually collect it.</p>
+      </div>
+      <div style="justify-self:center;width:100%;max-width:404px;background:#FFFFFF;border-radius:28px;padding:24px 20px 22px;box-shadow:0 2px 4px rgba(36,28,24,0.04),0 28px 60px -44px rgba(36,28,24,0.5);font-family:-apple-system,'SF Pro Text','Helvetica Neue',Helvetica,sans-serif">
+        <p style="margin:0 0 14px;text-align:center;font-size:11.5px;color:#8E8E93"><span style="font-weight:600;color:#6E6E73">Three weeks later</span> · Tue 7:52 AM</p>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;align-items:center;gap:9px;padding:11px 14px;background:#F2F2F7;border:1px solid rgba(0,0,0,0.06);border-radius:15px"><span style="position:relative;display:inline-flex;width:9px;height:9px;flex:0 0 auto"><span style="position:absolute;inset:0;border-radius:999px;background:#FF9500;animation:breathe 1.8s ease-in-out infinite"></span></span><span style="font-size:13.5px;font-weight:500;color:#3C3C43">Attendance slipping · transport request still pending</span></div>
+          <div style="align-self:flex-start;max-width:88%;background:#E9E9EB;color:#000000;border-radius:19px;padding:10px 15px;font-size:16.5px;line-height:1.35">Hey — you mentioned Maya's transportation was still giving you trouble. I checked on the request and it's still pending. Is that still happening? I can follow up.</div>
+          <p style="margin:4px 0 0;text-align:center;font-size:12.5px;color:#8E8E93">Axolotl started this one.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section style="max-width:1120px;margin:0 auto;padding:112px 26px 0">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:34px 56px;align-items:start">
+      <div>
+        <h2 style="margin:0;font-family:'Instrument Serif',Georgia,serif;font-weight:400;font-size:clamp(32px,5vw,48px);line-height:1.05;letter-spacing:-0.02em;max-width:22ch;text-wrap:balance">Knowing you're entitled to something isn't the same as getting it.</h2>
+        <p style="margin:22px 0 0;font-size:20px;line-height:1.6;color:#3A302B;max-width:46ch;text-wrap:pretty">A parent can know their child is supposed to receive support and still be left with the hard part: who's responsible, which process applies, what paperwork is missing, what got skipped, and what happens when nobody answers.</p>
+        <p style="margin:20px 0 0;font-size:20px;line-height:1.6;color:#3A302B;max-width:46ch;text-wrap:pretty">Axolotl knows which rule is the lever, then pulls it.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div style="background:#FFFFFF;border-radius:20px;padding:20px 22px;box-shadow:0 2px 3px rgba(36,28,24,0.04)"><p style="margin:0;font-size:18.5px;font-weight:600;line-height:1.3">Staying at a cousin's house counts</p><p style="margin:8px 0 0;font-size:17px;line-height:1.5;color:#4A3F39">Under <strong style="font-weight:600">McKinney-Vento</strong>, that student keeps their school and gets a ride to it. Axolotl makes the claim and chases the route.</p></div>
+        <div style="background:#FFFFFF;border-radius:20px;padding:20px 22px;box-shadow:0 2px 3px rgba(36,28,24,0.04)"><p style="margin:0;font-size:18.5px;font-weight:600;line-height:1.3">An evaluation has a clock on it</p><p style="margin:8px 0 0;font-size:17px;line-height:1.5;color:#4A3F39">Ask under <strong style="font-weight:600">IDEA</strong> and the district has a legal deadline. Axolotl puts the request in writing and tracks the date.</p></div>
+        <div style="background:#FFFFFF;border-radius:20px;padding:20px 22px;box-shadow:0 2px 3px rgba(36,28,24,0.04)"><p style="margin:0;font-size:18.5px;font-weight:600;line-height:1.3">An interpreter is not a favor</p><p style="margin:8px 0 0;font-size:17px;line-height:1.5;color:#4A3F39"><strong style="font-weight:600">Title VI</strong> requires the school to communicate with you in a language you understand. Axolotl asks for it before the meeting, not during.</p></div>
+        <p style="margin:4px 0 0;font-size:16.5px;color:#6B5A50">Same for meals, accommodations, and school stability. You describe the situation; Axolotl handles which rule applies.</p>
+      </div>
+    </div>
+  </section>
+  <section id="schools" style="margin-top:112px;background:#5A2440;color:#FBF1E6">
+    <div style="max-width:1120px;margin:0 auto;padding:88px 26px">
+      <h2 style="margin:0;font-family:'Instrument Serif',Georgia,serif;font-weight:400;font-size:clamp(32px,4.8vw,50px);line-height:1.06;letter-spacing:-0.02em;max-width:24ch;text-wrap:balance">Schools identify who needs help. Axolotl helps make sure they actually get it.</h2>
+      <p style="margin:26px 0 0;font-size:20px;line-height:1.65;color:rgba(251,241,230,0.84);max-width:54ch;text-wrap:pretty">Assigning an intervention isn't the same as delivering it. Districts lose most of their student-support effort in that gap: a counselor refers a family, the family doesn't know what to do next, and nobody has the hours to find out what happened. Axolotl closes it, and the district gets the outcome it was already paying for.</p>
+      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:40px;font-size:16.5px">
+        <span style="padding:11px 17px;background:rgba(251,241,230,0.12);border-radius:999px">Need identified</span><span style="color:#F0A0B8">→</span><span style="padding:11px 17px;background:rgba(251,241,230,0.12);border-radius:999px">Intervention assigned</span><span style="color:#F0A0B8">→</span><span style="padding:11px 17px;background:rgba(251,241,230,0.12);border-radius:999px">Family knows what to do</span><span style="color:#F0A0B8">→</span><span style="padding:11px 17px;background:#FBF1E6;color:#5A2440;font-weight:600;border-radius:999px">Axolotl executes</span><span style="color:#F0A0B8">→</span><span style="padding:11px 17px;background:rgba(251,241,230,0.12);border-radius:999px">Support delivered</span><span style="color:#F0A0B8">→</span><span style="padding:11px 17px;background:rgba(251,241,230,0.12);border-radius:999px">Outcome verified</span>
+      </div>
+      <p style="margin:48px 0 0;font-size:15px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:#F0A0B8">What that's worth to a district</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;margin-top:20px">
+        <div style="background:rgba(251,241,230,0.08);border-radius:24px;padding:28px 24px"><p style="margin:0;font-family:'Instrument Serif',Georgia,serif;font-size:44px;line-height:1">$75–95</p><p style="margin:8px 0 0;font-size:16px;color:rgba(251,241,230,0.7)">per student, per absent day</p><p style="margin:16px 0 0;font-size:17.5px;line-height:1.5;color:rgba(251,241,230,0.84)">Where funding follows attendance, a recovered kid is recovered revenue. Resolving one family's bus problem is worth more than the software that flagged it.</p></div>
+        <div style="background:rgba(251,241,230,0.08);border-radius:24px;padding:28px 24px"><p style="margin:0;font-family:'Instrument Serif',Georgia,serif;font-size:44px;line-height:1">36 states</p><p style="margin:8px 0 0;font-size:16px;color:rgba(251,241,230,0.7)">score schools on chronic absence under ESSA</p><p style="margin:16px 0 0;font-size:17.5px;line-height:1.5;color:rgba(251,241,230,0.84)">It's a published number tied to their rating, and it barely moves with reminders, because the causes sit outside the building. Axolotl works on the causes.</p></div>
+        <div style="background:rgba(251,241,230,0.08);border-radius:24px;padding:28px 24px"><p style="margin:0;font-family:'Instrument Serif',Georgia,serif;font-size:44px;line-height:1">Zero</p><p style="margin:8px 0 0;font-size:16px;color:rgba(251,241,230,0.7)">new staff hours</p><p style="margin:16px 0 0;font-size:17.5px;line-height:1.5;color:rgba(251,241,230,0.84)">Axolotl does the calling and chasing itself, in the family's language, and reports back. It's capacity, not another inbox for a counselor to answer.</p></div>
+        <div style="background:rgba(251,241,230,0.08);border-radius:24px;padding:28px 24px"><p style="margin:0;font-family:'Instrument Serif',Georgia,serif;font-size:44px;line-height:1">~75%</p><p style="margin:8px 0 0;font-size:16px;color:rgba(251,241,230,0.7)">of homeless students go unidentified</p><p style="margin:16px 0 0;font-size:17.5px;line-height:1.5;color:rgba(251,241,230,0.84)">Districts are obligated to find them and funded for the ones they do. Every claim Axolotl files is an identification the district was already required to make.</p></div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-top:20px">
+        <div style="background:rgba(251,241,230,0.08);border-radius:24px;padding:26px 24px"><p style="margin:0;font-family:'Instrument Serif',Georgia,serif;font-size:25px;line-height:1.2">It runs the other way too</p><p style="margin:14px 0 0;font-size:17.5px;line-height:1.5;color:rgba(251,241,230,0.82)">No family says “we need a Tier 2 attendance intervention.” They say their kid hasn't wanted to go to school. Axolotl surfaces the problem before the school has a name for it, which is earlier than any screener can catch.</p></div>
+        <div style="background:rgba(251,241,230,0.08);border-radius:24px;padding:26px 24px"><p style="margin:0;font-family:'Instrument Serif',Georgia,serif;font-size:25px;line-height:1.2">What districts finally see</p><p style="margin:14px 0 0;font-size:17.5px;line-height:1.5;color:rgba(251,241,230,0.82)">Which barriers are most common, which services are hardest to reach, where requests stall, how long need-to-support takes, and how far the support they intend sits from the support families receive. Nobody can currently answer that last one.</p></div>
+      </div>
+    </div>
+  </section>
+  <section style="max-width:1120px;margin:0 auto;padding:112px 26px 0">
+    <p style="margin:0;font-size:15px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:#C2416A">The bigger idea</p>
+    <h2 style="margin:14px 0 0;font-family:'Instrument Serif',Georgia,serif;font-weight:400;font-size:clamp(34px,5.4vw,54px);line-height:1.04;letter-spacing:-0.02em;max-width:22ch;text-wrap:balance">From family intent to student outcome.</h2>
+    <p style="margin:22px 0 0;font-size:20px;line-height:1.6;color:#3A302B;max-width:52ch;text-wrap:pretty">The unit of work isn't a conversation. It's a family situation that becomes a plan, an action, and eventually something that actually changed for the kid.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-top:38px">
+      <div style="background:#FFFFFF;border-radius:20px;padding:22px 20px;box-shadow:0 2px 3px rgba(36,28,24,0.04)"><p style="margin:0;font-size:13.5px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:#9A8B82">Situation</p><p style="margin:10px 0 0;font-family:'Instrument Serif',Georgia,serif;font-size:21px;line-height:1.25">“My kid keeps missing school.”</p></div>
+      <div style="background:#FFFFFF;border-radius:20px;padding:22px 20px;box-shadow:0 2px 3px rgba(36,28,24,0.04)"><p style="margin:0;font-size:13.5px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:#9A8B82">Barrier</p><p style="margin:10px 0 0;font-family:'Instrument Serif',Georgia,serif;font-size:21px;line-height:1.25">Transportation, not motivation.</p></div>
+      <div style="background:#FFFFFF;border-radius:20px;padding:22px 20px;box-shadow:0 2px 3px rgba(36,28,24,0.04)"><p style="margin:0;font-size:13.5px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:#9A8B82">Plan &amp; action</p><p style="margin:10px 0 0;font-family:'Instrument Serif',Georgia,serif;font-size:21px;line-height:1.25">Eligibility, the right person, the request, the follow-up.</p></div>
+      <div style="background:#FFFFFF;border-radius:20px;padding:22px 20px;box-shadow:0 2px 3px rgba(36,28,24,0.04)"><p style="margin:0;font-size:13.5px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:#9A8B82">Outcome</p><p style="margin:10px 0 0;font-family:'Instrument Serif',Georgia,serif;font-size:21px;line-height:1.25">She gets to school.</p></div>
+      <div style="background:#F5E4DC;border-radius:20px;padding:22px 20px"><p style="margin:0;font-size:13.5px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:#B4544D">What Axolotl learns</p><p style="margin:10px 0 0;font-family:'Instrument Serif',Georgia,serif;font-size:21px;line-height:1.25">Transportation was the attendance barrier all along.</p></div>
+    </div>
+  </section>
+  <section id="try" style="max-width:1120px;margin:0 auto;padding:112px 26px 0;text-align:center">
+    <p style="margin:0 auto;font-family:'Instrument Serif',Georgia,serif;font-size:clamp(36px,5.8vw,58px);line-height:1.05;letter-spacing:-0.025em;max-width:24ch;text-wrap:balance">Tell Axolotl what's going on. He'll figure out what to do, and help make it happen.</p>
+    <div style="max-width:400px;margin:38px auto 0">
+      <form id="waitlist-form" novalidate>
+        <input id="waitlist-phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="Your phone number" aria-label="Your phone number" style="width:100%;padding:17px 19px;font-family:'Instrument Sans',sans-serif;font-size:19px;text-align:center;color:#241C18;background:#FFFFFF;border:1.5px solid #E0CDBF;border-radius:14px;outline:none" />
+        <button id="waitlist-submit" type="submit" class="btn-primary" style="width:100%;margin-top:11px;min-height:58px;border:0;cursor:pointer;padding:17px 22px;font-family:'Instrument Sans',sans-serif;font-weight:600;font-size:19px;border-radius:14px">Try Axolotl</button>
+        <p id="waitlist-error" hidden role="alert" style="margin:11px 0 0;font-size:16px;color:#C2416A">Something went wrong. Please try again.</p>
+        <p style="margin:13px 0 0;font-size:16px;color:#5C4D45">Free. Over text. English or Spanish.</p>
+      </form>
+      <p id="waitlist-sent" hidden style="margin:0;font-family:'Instrument Serif',Georgia,serif;font-size:26px;line-height:1.3">You're on the list. Axolotl will text you.</p>
+    </div>
+  </section>
+  <footer style="max-width:1120px;margin:0 auto;padding:88px 26px 46px">
+    <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;padding-top:22px;border-top:1px solid rgba(36,28,24,0.13);font-size:16px;color:#6B5A50">
+      <span>Axolotl Learning</span>
+      <div style="display:flex;gap:20px"><a href="#privacy" style="color:#6B5A50">Privacy</a><a href="#contact" style="color:#6B5A50">Contact</a></div>
+    </div>
+  </footer>
+</div>
+<script>
+  (function () {
+    var WAITLIST_ENDPOINT = '/api/waitlist';
+    function buildPayload(digits) { return { phone: digits }; }
+    var form  = document.getElementById('waitlist-form');
+    var phone = document.getElementById('waitlist-phone');
+    var sent  = document.getElementById('waitlist-sent');
+    var btn   = document.getElementById('waitlist-submit');
+    var error = document.getElementById('waitlist-error');
+    if (!form) return;
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      error.hidden = true;
+      var digits = (phone.value || '').replace(/\D/g, '');
+      if (digits.length < 7) { phone.focus(); phone.style.borderColor = '#C2416A'; return; }
+      var label = btn.textContent;
+      btn.disabled = true; btn.textContent = 'Sending…'; btn.style.opacity = '0.7';
+      try {
+        var res = await fetch(WAITLIST_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(buildPayload(digits)) });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        form.hidden = true; sent.hidden = false;
+      } catch (err) {
+        console.error('[waitlist] submit failed:', err);
+        error.hidden = false; btn.disabled = false; btn.textContent = label; btn.style.opacity = '';
+      }
+    });
+    phone.addEventListener('input', function () { phone.style.borderColor = '#E0CDBF'; error.hidden = true; });
+  })();
+</script>
+</body>
+</html>

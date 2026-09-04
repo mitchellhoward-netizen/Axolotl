@@ -5,14 +5,22 @@
   "type": "module",
   "scripts": {
     "start": "tsx src/index.ts",
-    "dev": "tsx watch src/index.ts"
+    "dev": "tsx watch src/index.ts",
+    "demo": "tsx src/demo.ts",
+    "demo:steps": "tsx src/agent/steps/demo.ts",
+    "db:init": "tsx scripts/init-db.ts"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.114.0",
+    "dotenv": "^17.4.2",
+    "pg": "^8.23.0",
     "spectrum-ts": "^12.8.0"
   },
   "devDependencies": {
-    "typescript": "^5",
     "@types/node": "^22",
-    "tsx": "^4"
+    "@types/pg": "^8.23.1",
+    "prisma": "^8.0.0-rc.12",
+    "tsx": "^4",
+    "typescript": "^5"
   }
 }

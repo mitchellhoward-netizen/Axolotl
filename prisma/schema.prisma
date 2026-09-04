@@ -1,0 +1,248 @@
+// School / Family Liaison Agent — Postgres schema (this IS the ontology).
+// Tables + controlled-vocabulary enums express the domain model: families,
+// students, schools, districts, staff, cases, tasks, actions, and the
+// per-district/state knowledge "wiki" (policies + pages + embeddings).
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─────────────────────── Controlled vocabulary (enums) ────────────────────────
+
+enum RootCause {
+  TRANSPORTATION
+  HOMELESSNESS
+  MEALS
+  BULLYING
+  HEALTH
+  ACADEMIC
+  ATTENDANCE
+  LANGUAGE
+  BEHAVIOR
+  OTHER
+}
+
+enum MtssTier {
+  TIER_1
+  TIER_2
+  TIER_3
+}
+
+enum CaseStatus {
+  OPEN
+  AWAITING
+  RESOLVED
+}
+
+enum TaskKind {
+  DRAFT_EMAIL
+  SEND_EMAIL
+  PLACE_CALL
+  FILL_FORM
+  SCHEDULE_MEETING
+  FOLLOW_UP
+  REQUEST_DOCUMENT
+  OTHER
+}
+
+enum TaskStatus {
+  TODO
+  DONE
+  STUCK
+  DROPPED
+}
+
+enum ActionChannel {
+  EMAIL
+  PHONE
+  SMS
+  WEB
+  IN_PERSON
+}
+
+enum ContactRole {
+  PRINCIPAL
+  ATTENDANCE
+  HOMELESS_LIAISON
+  BUS_PASSES
+  COUNSELOR
+  SPED_COORDINATOR
+  NURSE
+  DISTRICT
+  OTHER
+}
+
+enum Relationship {
+  PARENT
+  GUARDIAN
+  STEP_PARENT
+  FOSTER_PARENT
+  OTHER
+}
+
+// ────────────────────────────────── Core ──────────────────────────────────────
+
+model District {
+  id        String          @id @default(cuid())
+  name      String
+  state     String
+  createdAt DateTime        @default(now())
+  schools   School[]
+  staff     Staff[]
+  policies  Policy[]
+  pages     KnowledgePage[]
+  cases     Case[]
+}
+
+model School {
+  id         String   @id @default(cuid())
+  district   District @relation(fields: [districtId], references: [id])
+  districtId String
+  name       String
+  students   Student[]
+  staff      Staff[]
+  pages      KnowledgePage[]
+}
+
+model Staff {
+  id         String      @id @default(cuid())
+  district   District    @relation(fields: [districtId], references: [id])
+  districtId String
+  school     School?     @relation(fields: [schoolId], references: [id])
+  schoolId   String?
+  name       String
+  role       ContactRole
+  phone      String?
+  email      String?
+}
+
+model Guardian {
+  id        String        @id @default(cuid())
+  name      String
+  phone     String?
+  email     String?
+  locale    String?
+  createdAt DateTime      @default(now())
+  children  ChildLink[]
+  profile   FamilyProfile?
+  cases     Case[]
+  activity  Activity[]
+}
+
+model Student {
+  id        String      @id @default(cuid())
+  school    School      @relation(fields: [schoolId], references: [id])
+  schoolId  String
+  firstName String
+  lastName  String
+  grade     String
+  guardians ChildLink[]
+  cases     Case[]
+  activity  Activity[]
+}
+
+model ChildLink {
+  guardian     Guardian     @relation(fields: [guardianId], references: [id])
+  guardianId   String
+  student      Student      @relation(fields: [studentId], references: [id])
+  studentId    String
+  relationship Relationship
+  @@id([guardianId, studentId])
+}
+
+model FamilyProfile {
+  id         String    @id @default(cuid())
+  guardian   Guardian  @relation(fields: [guardianId], references: [id])
+  guardianId String    @unique
+  needs      Json?
+  challenges Json?
+  notes      String?
+  updatedAt  DateTime  @updatedAt
+}
+
+model Case {
+  id           String       @id @default(cuid())
+  guardian     Guardian     @relation(fields: [guardianId], references: [id])
+  guardianId   String
+  student      Student?     @relation(fields: [studentId], references: [id])
+  studentId    String?
+  district     District     @relation(fields: [districtId], references: [id])
+  districtId   String
+  rootCause    RootCause
+  tier         MtssTier?
+  intervention String
+  status       CaseStatus   @default(OPEN)
+  summary      String
+  childName    String?
+  contactName  String?
+  contactRole  ContactRole?
+  reminder     String?
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+  tasks        Task[]
+}
+
+model Task {
+  id          String     @id @default(cuid())
+  case        Case       @relation(fields: [caseId], references: [id])
+  caseId      String
+  kind        TaskKind
+  status      TaskStatus @default(TODO)
+  dueAt       DateTime?
+  completedAt DateTime?
+  createdAt   DateTime   @default(now())
+  actions     Action[]
+}
+
+model Action {
+  id         String        @id @default(cuid())
+  task       Task          @relation(fields: [taskId], references: [id])
+  taskId     String
+  channel    ActionChannel
+  direction  String // outbound | inbound
+  contactId  String?
+  status     String?
+  content    String?
+  occurredAt DateTime      @default(now())
+}
+
+// ─────────────────── Knowledge "wiki" (per-district + state law) ──────────────
+
+model Policy {
+  id           String    @id @default(cuid())
+  district     District? @relation(fields: [districtId], references: [id])
+  districtId   String?
+  jurisdiction String // federal | state | district
+  domain       String // homeless, special-ed, meals, language, bullying…
+  statute      String?
+  text         String
+  embedding    Unsupported("vector")?
+}
+
+model KnowledgePage {
+  id         String    @id @default(cuid())
+  district   District? @relation(fields: [districtId], references: [id])
+  districtId String?
+  url        String
+  title      String
+  text       String
+  embedding  Unsupported("vector")?
+}
+
+// ───────────────────────────── Longitudinal timeline ──────────────────────────
+
+model Activity {
+  id         String    @id @default(cuid())
+  guardian   Guardian  @relation(fields: [guardianId], references: [id])
+  guardianId String
+  student    Student?  @relation(fields: [studentId], references: [id])
+  studentId  String?
+  eventType  String
+  payload    Json?
+  ts         DateTime  @default(now())
+}
