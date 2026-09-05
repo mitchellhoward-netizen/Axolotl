@@ -109,7 +109,9 @@ async function reactWithAxolotl(space: { placeSticker?: unknown }, message: { id
 }
 
 // ── Website + waitlist: always up, independent of the iMessage connection ─────
-startWebServer();
+// When running the agent on a long-lived host (Railway/Fly) we only want the
+// agent + worker, not a duplicate landing page (that's served by Vercel).
+if (process.env.RUN_AGENT_ONLY !== 'true') startWebServer();
 
 // ── Spectrum: one agent loop, delivered over iMessage (non-fatal) ─────────────
 let app: Awaited<ReturnType<typeof Spectrum>> | null = null;
