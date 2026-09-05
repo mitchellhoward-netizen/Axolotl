@@ -13,6 +13,7 @@ import { MockCalendarProvider } from "./integrations/calendar";
 import { MockMealsProvider } from "./integrations/meals";
 import { MockSis } from "./integrations/sis";
 import { createSeedDb, provisionalParent } from "./seed";
+import { loadIdentityIntoSeed } from "./integrations/identity";
 import { createEmailProvider } from "./integrations/email";
 import { createRetellClient } from "./integrations/phones";
 import { startWebServer } from "./integrations/web";
@@ -23,10 +24,11 @@ import { toPlainText } from "./lib/plain";
 
 // ── Identity ───────────────────────────────────────────────────────────────────
 // Phone = parent ID. There is NO pre-seeded family: an unknown number gets a
-// provisional parent created on first contact, and the agent onboards them. In
-// a real deployment the SIS supplies these records; the provisional parent is
-// the in-memory stand-in so the agent can start a fresh conversation.
+// provisional parent created on first contact, and the agent onboards them.
+// Self-onboarded families are persisted to Supabase and rehydrated here, so we
+// don't need the school SIS and the data survives restarts.
 const db = createSeedDb();
+await loadIdentityIntoSeed(db);
 
 // LLM brain — OpenAI-compatible; DeepSeek by default. Without a key it's off.
 const LLM_API_KEY = process.env.DEEPSEEK_API_KEY ?? process.env.OPENAI_API_KEY;

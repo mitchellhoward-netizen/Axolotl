@@ -35,6 +35,7 @@ import type { Counterparty, Mode, StepResult, ExecutionContext, Step } from './s
 import { resolveDistrict, type DistrictProfile } from '../knowledge/districts.js';
 import type { SeedDb } from '../seed.js';
 import { provisionFamily } from '../seed.js';
+import { persistProvisionedFamily } from '../integrations/identity.js';
 import { executeTool } from '../tools/registry.js';
 import type { ToolContext } from '../tools/types.js';
 import type { IntentEngine } from './intent/engine.js';
@@ -250,8 +251,10 @@ export class Agent {
         const ob = advanceOnboarding(state.onboarding, text.trim());
         if (ob.done) {
           const district = await this.resolveDistrictAsync(ob.state.profile);
-          // Materialize the parent + students from the profile (true fresh start).
+          // Materialize the parent + students from the profile (true fresh start),
+          // and persist them (durable, SIS-free).
           provisionFamily(this.opts.db, parentId, ob.state.profile);
+          await persistProvisionedFamily(this.opts.db, parentId);
           const plan = finalizeOnboarding(ob.state.profile, district);
           this.save(conversationId, { phase: 'done', collected: {}, profile: ob.state.profile }, state);
           turn = { text: plan, phase: 'done' };
