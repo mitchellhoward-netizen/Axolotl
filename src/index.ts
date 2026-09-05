@@ -12,7 +12,7 @@ import { RulesIntentEngine } from "./agent/intent/rules";
 import { MockCalendarProvider } from "./integrations/calendar";
 import { MockMealsProvider } from "./integrations/meals";
 import { MockSis } from "./integrations/sis";
-import { createSeedDb } from "./seed";
+import { createSeedDb, provisionalParent } from "./seed";
 import { createEmailProvider } from "./integrations/email";
 import { createRetellClient } from "./integrations/phones";
 import { startWebServer } from "./integrations/web";
@@ -21,14 +21,11 @@ import { takePendingGreeting } from "./integrations/pending-greeting.js";
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import { toPlainText } from "./lib/plain";
 
-// ── Demo identity ──────────────────────────────────────────────────────────────
-// v0 ships with one seeded family (see `seed.ts`). Every iMessage conversation
-// falls back to this parent until a sender's phone/email matches a real parent
-// record. ⚠️ Production TODO: verify the sender (message.sender.id) against the
-// SIS contact records — this fallback is for local demos only.
-const DEFAULT_PARENT_ID = "parent-mitch";
-
-// ── Wire the agent (mock integrations — swap for real SIS/calendar/meals) ─────
+// ── Identity ───────────────────────────────────────────────────────────────────
+// Phone = parent ID. There is NO pre-seeded family: an unknown number gets a
+// provisional parent created on first contact, and the agent onboards them. In
+// a real deployment the SIS supplies these records; the provisional parent is
+// the in-memory stand-in so the agent can start a fresh conversation.
 const db = createSeedDb();
 
 // LLM brain — OpenAI-compatible; DeepSeek by default. Without a key it's off.
@@ -45,20 +42,22 @@ const agent = new Agent({
   calendar: new MockCalendarProvider(),
   meals: new MockMealsProvider(Object.fromEntries(db.students.map((s) => [s.id, s.mealStatus]))),
   db,
-  defaultParentId: DEFAULT_PARENT_ID,
+  defaultParentId: undefined,
   llm,
   email: createEmailProvider(),
 });
 const retell = createRetellClient();
 
 // Resolve the parent from the inbound sender's canonical handle (E.164 phone or
-// email). Returns undefined when the sender isn't a known parent.
+// email). Unknown phone → create a provisional parent so the agent can onboard.
 function resolveParentId(senderId?: string): string | undefined {
   if (!senderId) return undefined;
   const p = db.parents.find(
     (parent) => parent.phone === senderId || parent.email.toLowerCase() === senderId.toLowerCase(),
   );
-  return p?.id;
+  if (p) return p.id;
+  const phone = senderPhone(senderId);
+  return phone ? provisionalParent(db, phone)?.id : undefined;
 }
 
 /** The sender's phone number, if they texted from a phone number (not an Apple ID email). */

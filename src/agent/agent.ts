@@ -34,6 +34,7 @@ import { detectGaps, staleKnowledgeNodes } from './gaps.js';
 import type { Counterparty, Mode, StepResult, ExecutionContext, Step } from './steps/types.js';
 import { resolveDistrict, type DistrictProfile } from '../knowledge/districts.js';
 import type { SeedDb } from '../seed.js';
+import { provisionFamily } from '../seed.js';
 import { executeTool } from '../tools/registry.js';
 import type { ToolContext } from '../tools/types.js';
 import type { IntentEngine } from './intent/engine.js';
@@ -234,11 +235,23 @@ export class Agent {
 
       let turn: AgentTurn;
 
+      // Fresh family (created for an unknown phone, no children yet): onboard.
+      const freshFamily =
+        this.opts.db.parents.some((p) => p.id === parentId && p.studentIds.length === 0) &&
+        !state.onboarding &&
+        !state.profile;
+
       // Onboarding: learn the family + district, reconcile with law, propose help.
-      if (state.onboarding) {
+      if (freshFamily) {
+        const ob = openOnboarding();
+        this.save(conversationId, { phase: 'clarifying', collected: {}, onboarding: ob.state, profile: ob.state.profile }, state);
+        turn = { text: ob.text, phase: 'clarifying' };
+      } else if (state.onboarding) {
         const ob = advanceOnboarding(state.onboarding, text.trim());
         if (ob.done) {
           const district = await this.resolveDistrictAsync(ob.state.profile);
+          // Materialize the parent + students from the profile (true fresh start).
+          provisionFamily(this.opts.db, parentId, ob.state.profile);
           const plan = finalizeOnboarding(ob.state.profile, district);
           this.save(conversationId, { phase: 'done', collected: {}, profile: ob.state.profile }, state);
           turn = { text: plan, phase: 'done' };
@@ -778,7 +791,10 @@ export class Agent {
 
     const students = this.opts.db.students.filter((s) => parent.studentIds.includes(s.id));
     const schoolId = students[0]?.schoolId;
-    const school = this.opts.db.schools.find((s) => s.id === schoolId);
+    // A fresh family (created for an unknown phone) has no students yet; fall back
+    // to the default school so onboarding can run. Real students/school come from
+    // provisioning after onboarding.
+    const school = this.opts.db.schools.find((s) => s.id === schoolId) ?? this.opts.db.schools[0];
     if (!school) return undefined;
 
     const teachers = this.opts.db.teachers.filter((t) => t.schoolId === school.id);

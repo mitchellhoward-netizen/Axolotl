@@ -28,56 +28,85 @@ export function createSeedDb(): SeedDb {
     { id: 'teacher-chen', schoolId: 'school-soquel', firstName: 'Lily', lastName: 'Chen', subject: 'Math' },
   ];
 
-  const students: Student[] = [
-    {
-      id: 'student-emma',
-      firstName: 'Emma',
-      lastName: 'Rodriguez',
-      grade: 3,
-      schoolId: 'school-soquel',
-      homeroomTeacherId: 'teacher-rivera',
-      mealStatus: 'unknown',
-    },
-    {
-      id: 'student-liam',
-      firstName: 'Liam',
-      lastName: 'Rodriguez',
-      grade: 1,
-      schoolId: 'school-soquel',
-      homeroomTeacherId: 'teacher-okafor',
-      mealStatus: 'reduced',
-    },
-    {
-      id: 'student-patrick',
-      firstName: 'Patrick',
-      lastName: 'Howard',
-      grade: 1,
-      schoolId: 'school-soquel',
-      homeroomTeacherId: 'teacher-okafor',
-      mealStatus: 'free',
-    },
-  ];
-
-  const parents: Parent[] = [
-    {
-      id: 'parent-maya',
-      phone: '+15550001111',
-      email: 'maya.rodriguez@example.com',
-      firstName: 'Maya',
-      lastName: 'Rodriguez',
-      studentIds: ['student-emma', 'student-liam'],
-    },
-    {
-      id: 'parent-mitch',
-      phone: '+18313459066',
-      email: 'mitch.howard@example.com',
-      firstName: 'Mitch',
-      lastName: 'Howard',
-      studentIds: ['student-patrick'],
-    },
-  ];
+  // No pre-seeded parents/students: every number is a fresh family that gets
+  // onboarded. (In a real deployment the SIS supplies these records; here the
+  // agent creates them from onboarding — see provisionFamily below.)
+  const students: Student[] = [];
+  const parents: Parent[] = [];
 
   return { parents, students, schools, teachers };
+}
+
+/**
+ * Resolve (or create) a parent for a sender's phone. This is the "phone = parent
+ * ID" identity: an unknown number gets a stable provisional parent so the agent
+ * can onboard them instead of bouncing them.
+ */
+export function provisionalParent(db: SeedDb, phone: string): Parent | undefined {
+  const digits = (phone ?? '').replace(/\D/g, '');
+  if (!digits) return undefined;
+  const existing = db.parents.find((p) => p.phone === phone || p.phone?.replace(/\D/g, '') === digits);
+  if (existing) return existing;
+  const parent: Parent = {
+    id: 'parent-' + digits.slice(-10),
+    phone,
+    email: '',
+    firstName: '',
+    lastName: '',
+    studentIds: [],
+  };
+  db.parents.push(parent);
+  return parent;
+}
+
+/**
+ * Turn a completed onboarding profile into parent + student records (the "fresh
+ * start" materialization). Called when onboarding finishes; afterwards the
+ * family is an established parent with children + a school.
+ */
+export function provisionFamily(db: SeedDb, parentId: string, profile: import('./domain/types.js').FamilyProfile): Parent | undefined {
+  const parent = db.parents.find((p) => p.id === parentId);
+  if (!parent) return undefined;
+  if (profile.parentName) {
+    const parts = profile.parentName.trim().split(/\s+/);
+    parent.firstName = parts[0] ?? '';
+    parent.lastName = parts.slice(1).join(' ');
+  }
+  const school = db.schools.find(
+    (s) => profile.school && s.name.toLowerCase().includes(profile.school.toLowerCase()),
+  ) ?? db.schools[0];
+  const homeroom = db.teachers.find((t) => t.schoolId === school?.id) ?? db.teachers[0];
+
+  const ids: string[] = [];
+  for (const child of profile.children) {
+    const slug = (child.name || 'child').toLowerCase().replace(/[^a-z0-9]+/g, '-');
+    const sid = `student-${parent.id}-${slug}`;
+    let student = db.students.find((s) => s.id === sid);
+    if (!student) {
+      student = {
+        id: sid,
+        firstName: child.name,
+        lastName: '',
+        grade: gradeNumber(child.grade),
+        schoolId: school?.id ?? '',
+        homeroomTeacherId: homeroom?.id ?? '',
+        mealStatus: 'unknown',
+      };
+      db.students.push(student);
+    }
+    ids.push(student.id);
+  }
+  parent.studentIds = ids;
+  return parent;
+}
+
+/** "K"/"pre-k" → 0, "3" → 3, else 0. */
+export function gradeNumber(grade?: string): number {
+  if (!grade) return 0;
+  const g = grade.trim().toLowerCase();
+  if (/^(pre[- ]?k|k|tk)$/.test(g)) return 0;
+  const n = parseInt(g, 10);
+  return Number.isFinite(n) ? n : 0;
 }
 
 export function mealStatusLabel(status: MealStatus): string {
