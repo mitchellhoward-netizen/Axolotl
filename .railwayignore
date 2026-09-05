@@ -1,0 +1,9 @@
+# Railway: don't upload the local env or agent-specific dirs so Railway stops
+# auto-injecting `.env` (which overrides the Variables set in the dashboard/CLI).
+.env
+.env.local
+.debug/
+debug/
+.agents/
+.git/
+node_modules
