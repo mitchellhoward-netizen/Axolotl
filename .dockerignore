@@ -1,0 +1,14 @@
+node_modules
+.env
+.env.local
+.debug/
+debug/
+.git/
+.agents/
+*.log
+.DS_Store
+db/*.sql
+scripts/
+docs/
+public/waitlist.json
+web/waitlist.json
