@@ -124,6 +124,38 @@ export class LlmClient {
     }
   }
 
+  /**
+   * From a fetched district/school web page, extract grounded knowledge nodes
+   * (category/title/summary/url) for the canonical 10 categories. Returns null on
+   * failure or when the content doesn't support confident facts — callers then
+   * fall back to the generic grounded-law drafts.
+   */
+  async generateKnowledgeNodes(
+    districtName: string,
+    pageText: string,
+  ): Promise<Array<{ category: string; title: string; summary: string; url: string }> | null> {
+    const raw = await this.complete(
+      'You extract grounded facts about a school district from web content. Return ONLY a JSON object: ' +
+        '{"nodes":[{"category":"TRANSPORTATION|MEALS|BASIC_NEEDS|ATTENDANCE|LEARNING|BEHAVIOR|SPECIAL_ED|ACCOMMODATIONS|ACTIVITIES|GENERAL_NAVIGATION","title":string,"summary":string,"url":string}]} . ' +
+        'Use exactly one of those 10 category values per node. Only include facts actually supported by the content; if a fact is missing, omit it (do NOT invent policies, phone numbers, names, or laws). ' +
+        'summary = one honest, plain-language sentence. url = the source page.',
+      `District: ${districtName}\n\nWeb content:\n${pageText.slice(0, 12_000)}`,
+      true,
+    );
+    if (!raw) return null;
+    try {
+      // The model may wrap JSON in ``` fences or add prose; extract the object.
+      const cleaned = raw.replace(/```(?:json)?/gi, '').replace(/```/g, '').trim();
+      const match = cleaned.match(/\{[\s\S]*\}/);
+      const json = match ? match[0] : cleaned;
+      const parsed = JSON.parse(json) as { nodes?: Array<{ category: string; title: string; summary: string; url: string }> };
+      if (!Array.isArray(parsed.nodes)) return null;
+      return parsed.nodes;
+    } catch {
+      return null;
+    }
+  }
+
   /** Fluent, grounded answer to an open-ended parent question (or null). */
   async answerQuestion(
     question: string,

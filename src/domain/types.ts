@@ -73,6 +73,10 @@ export interface FamilyProfile {
   needs: string[];
   /** Challenges: homeless/transitional housing, IEP/504, health, language, recently moved, … */
   challenges: string[];
+  /** Preferred message language. Defaults to English; Spanish is first-class. */
+  locale?: 'en' | 'es';
+  /** What the family has already secured (free meals, a 504 plan, a bus pass). */
+  getting?: string[];
   notes?: string;
 }
 

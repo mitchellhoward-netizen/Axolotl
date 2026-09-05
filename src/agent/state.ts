@@ -1,6 +1,7 @@
 import type { ActionIntent } from '../domain/intents.js';
 import type { CollectedSlots } from '../domain/slots.js';
 import type { CaseRecord, FamilyProfile } from '../domain/types.js';
+import type { FamilyMemory } from '../domain/memory.js';
 import type { Step } from './steps/types.js';
 import type { MckinneyState } from './mckinney.js';
 import type { OnboardingState } from './onboarding.js';
@@ -30,6 +31,10 @@ export interface ConversationState {
   profile?: FamilyProfile;
   /** Persistent case record (the "remember" layer). */
   cases?: CaseRecord[];
+  /** The family's continuing memory graph (needs/getting/initiatives/issues). */
+  memory?: FamilyMemory;
+  /** We're awaiting an OTP code to prove the parent owns this number. */
+  verify?: { phone: string };
   /** Set by the brain's call tool: the channel should place a phone call. */
   pendingCall?: boolean;
   /** We're waiting for the parent to clarify what the call is about before dialing. */

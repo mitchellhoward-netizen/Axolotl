@@ -12,6 +12,13 @@ export interface ToolDeps {
   saveProfile?: (p: FamilyProfile) => void;
   /** Queue steps for execution — they still require parent consent (hard gate). */
   proposeSteps: (steps: Step[]) => void;
+  /** Retrieve grounded knowledge-graph facts for the school/district. */
+  knowledge?: (category?: string, query?: string) => Promise<string>;
+  /** Record what the family has secured / focuses the family is working on. */
+  memory?: {
+    addGetting: (item: string) => Promise<string>;
+    startInitiative: (label: string) => Promise<string>;
+  };
   studentName?: string;
 }
 
@@ -148,6 +155,37 @@ export const LLM_TOOLS = [
       parameters: { type: 'object', properties: {} },
     },
   },
+  {
+    type: 'function',
+    function: {
+      name: 'get_knowledge',
+      description:
+        'Retrieve the grounded facts Axolotl has researched about this school/district. Pass `query` (the parent\u2019s question/topic, for meaning-based search) and optionally a `category` (transportation, meals, basic needs, attendance, learning, behavior, special ed, accommodations, activities, general navigation).',
+      parameters: {
+        type: 'object',
+        properties: { query: { type: 'string' }, category: { type: 'string' } },
+        required: [],
+      },
+    },
+  },
+  {
+    type: 'function',
+    function: {
+      name: 'record_getting',
+      description:
+        'Record that the family has now SECURED something (e.g. "free meals", "a 504 plan", "a bus pass") so I stop re-pursuing it and remember they have it.',
+      parameters: { type: 'object', properties: { item: { type: 'string' } }, required: ['item'] },
+    },
+  },
+  {
+    type: 'function',
+    function: {
+      name: 'start_initiative',
+      description:
+        'Start (or refresh) a focused item the family is actively working toward, so the memory graph tracks it.',
+      parameters: { type: 'object', properties: { label: { type: 'string' } }, required: ['label'] },
+    },
+  },
   { type: 'function', function: { name: 'now', description: 'Current date/time.', parameters: { type: 'object', properties: {} } } },
 ];
 
@@ -211,6 +249,15 @@ export async function runTool(name: string, args: Record<string, unknown>, deps:
     }
     case 'list_open_cases':
       return openCaseSummary(deps.getCases());
+    case 'get_knowledge':
+      return (
+        (await deps.knowledge?.(String(args.category ?? ''), String(args.query ?? ''))) ??
+        'No researched knowledge for that yet.'
+      );
+    case 'record_getting':
+      return (await deps.memory?.addGetting(String(args.item ?? '').trim())) ?? 'Recorded.';
+    case 'start_initiative':
+      return (await deps.memory?.startInitiative(String(args.label ?? '').trim())) ?? 'Started.';
     case 'save_profile': {
       const c = Array.isArray(args.children) ? (args.children as Array<{ name?: string; grade?: string }>) : [];
       deps.saveProfile?.({

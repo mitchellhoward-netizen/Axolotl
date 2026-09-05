@@ -17,6 +17,7 @@ import { createEmailProvider } from "./integrations/email";
 import { createRetellClient } from "./integrations/phones";
 import { startWebServer } from "./integrations/web";
 import { AXOLOTL_EMOJI, hasAxolotlImage, axolotlImagePath } from "./integrations/axolotl";
+import { takePendingGreeting } from "./integrations/pending-greeting.js";
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import { toPlainText } from "./lib/plain";
 
@@ -130,18 +131,43 @@ console.log(
 );
 
 if (app) {
+  // Always-on advocate: proactively follow up on the family's behalf, but never
+  // nag — relevance + throttle (quiet hours, cooldown, daily cap) live in the
+  // FollowUpEngine. Fires on a timer AND when a parent texts so we never miss.
+  const proactiveEveryMs = Number(process.env.PROACTIVE_INTERVAL_MS) || 5 * 60 * 1000;
+  setInterval(() => {
+    agent.runProactive().catch((e) => console.error('[proactive] tick error:', e));
+  }, proactiveEveryMs);
+
 for await (const [space, message] of app.messages) {
   // Never answer our own outbound echoes.
   if (message.direction === "outbound") continue;
 
-  // Drive the "keep working until done" loop: fire any due follow-ups/verify prompts.
-  agent.setParentSender(async (text) => { await space.send(text).catch(() => {}); });
-  await agent.runScheduler().catch(() => {});
+  // Register this family's messenger + mark the inbound so cooldown applies,
+  // then fire any due, relevant follow-ups (best-effort, never blocks the reply).
+  agent.registerConversation(space.id, async (text) => { await space.send(text).catch(() => {}); });
+  agent.noteInbound(space.id);
+  await agent.runProactive().catch(() => {});
 
   if (message.content.type !== "text") continue;
 
   const text = message.content.text;
   console.log(`[imessage] ${space.id} < ${text}`);
+
+  // iMessage fallback: if the waitlist confirmation couldn't be sent as SMS, we
+  // held it keyed by the phone. The moment this parent texts us (creating a real
+  // iMessage chat), send it — this is the reliable iMessage-via-Photon path.
+  const greetingPhone = senderPhone(message.sender?.id);
+  if (greetingPhone) {
+    const greeting = await takePendingGreeting(greetingPhone).catch((e) => {
+      console.error('[greeting] take failed:', e);
+      return undefined;
+    });
+    if (greeting) {
+      console.log(`[greeting] sending waitlist confirmation to ${greetingPhone}`);
+      await space.send(greeting).catch(() => {});
+    }
+  }
 
   // TEMP diagnostic: dump the live space/message shape once to locate the low-level client.
   if (!(globalThis as { __axolotlDump?: boolean }).__axolotlDump) {

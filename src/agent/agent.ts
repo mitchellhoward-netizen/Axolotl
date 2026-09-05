@@ -11,11 +11,26 @@ import type { EmailProvider } from '../integrations/email.js';
 import { MockEmailProvider } from '../integrations/email.js';
 import type { CallResult } from '../integrations/phones.js';
 import { getSupabase, ensureSeedDistrict, saveFamilyProfile, saveCaseRecord, loadFamilySnapshot } from '../integrations/db.js';
+import { loadFamilyMemory, saveFamilyMemory, addGetting, startInitiative } from '../integrations/family-memory.js';
+import { deriveFamilyMemory } from '../domain/memory.js';
+import { startVerification, verifyCode, isVerified, sendVerificationCode } from '../integrations/verification.js';
+import { KnowledgeGraph, autoResearchDistrict } from '../knowledge/graph.js';
+import { resolveAnyDistrict } from '../knowledge/discovery.js';
+import { researchDistrictNodes } from '../knowledge/research.js';
+import { embeddingsConfigured, embedTexts } from '../integrations/embeddings.js';
+import { KNOWLEDGE_CATEGORIES, type KnowledgeCategory } from '../domain/knowledge.js';
 import { answerSchoolInfo, DISTRICT, LIAISON, BUS_PASSES, SOQUEL_ELEMENTARY } from '../knowledge/suesd.js';
 import { StepExecutor } from './steps/executor.js';
 import { planSteps } from './steps/planner.js';
 import { buildAdapters } from './steps/registry.js';
-import { Scheduler } from './scheduler.js';
+import {
+  FollowUpEngine,
+  DEFAULT_FOLLOWUP_POLICY,
+  isQuietHours,
+  type FollowUpRunResult,
+  type FollowUpPolicy,
+} from './followup.js';
+import { detectGaps, staleKnowledgeNodes } from './gaps.js';
 import type { Counterparty, Mode, StepResult, ExecutionContext, Step } from './steps/types.js';
 import { resolveDistrict, type DistrictProfile } from '../knowledge/districts.js';
 import type { SeedDb } from '../seed.js';
@@ -23,6 +38,8 @@ import { executeTool } from '../tools/registry.js';
 import type { ToolContext } from '../tools/types.js';
 import type { IntentEngine } from './intent/engine.js';
 import { InMemoryStore, type ChatMessage } from './memory.js';
+import { resolveLocale, localizeFollowup, detectLocale } from '../lib/bilingual.js';
+import { createFollowUpStore } from '../integrations/followup-store.js';
 import { advanceMckinney, openMckinney } from './mckinney.js';
 import { advanceOnboarding, finalizeOnboarding, openOnboarding } from './onboarding.js';
 import { advanceAttendance, openAttendance } from './attendance.js';
@@ -69,6 +86,8 @@ export interface AgentOptions {
   db: SeedDb;
   /** Fallback identity used by CLI conversations. */
   defaultParentId?: string;
+  /** When true, a first-contact phone must pass OTP before onboarding. */
+  requireVerification?: boolean;
   /** Injectable clock for deterministic tests. */
   now?: () => Date;
   /** Optional LLM brain (research + grounded answers). Falls back offline without it. */
@@ -110,9 +129,11 @@ export class Agent {
   private readonly store = new InMemoryStore();
   private readonly hydrated = new Set<string>();
   private readonly now: () => Date;
+  private readonly requireVerification: boolean;
 
   constructor(private readonly opts: AgentOptions) {
     this.now = opts.now ?? (() => new Date());
+    this.requireVerification = opts.requireVerification ?? process.env.REQUIRE_VERIFICATION === 'true';
   }
 
   async handle(conversationId: string, text: string): Promise<AgentTurn> {
@@ -129,11 +150,50 @@ export class Agent {
       return { text: "I couldn't find your family record. Please contact your school.", phase: 'idle' };
     }
 
+    // Tag this turn so any follow-ups scheduled while handling it reach THIS family,
+    // and record that they just messaged us so proactive pings don't interrupt.
+    this.currentConversationId = conversationId;
+    this.lastMessageAt.set(conversationId, Date.now());
+
     // Defensive: a single message must never crash the loop.
     try {
       const record = this.store.ensure(conversationId, parentId);
       const state = record.state;
       this.store.appendHistory(conversationId, 'user', text.trim());
+
+      // ── Phone + OTP identity ────────────────────────────────────────────────
+      // Phone = parent ID. When verification is on and this number isn't verified,
+      // gate onboarding behind a one-time SMS code (parent replies the code over
+      // iMessage to prove they own the number). Off by default (REQUIRE_VERIFICATION).
+      if (this.requireVerification && ctx.parent.phone && !(await isVerified(ctx.parent.phone))) {
+        if (!state.verify) {
+          const started = await startVerification(ctx.parent.phone);
+          if (started.ok) {
+            await sendVerificationCode(ctx.parent.phone, started.code).catch(() => {});
+            this.save(conversationId, { phase: 'clarifying', collected: {}, verify: { phone: ctx.parent.phone } }, state);
+            return {
+              text: "To make sure it's you, I texted a 6-digit code to your number. Reply with the code to continue.",
+              phase: 'clarifying',
+            };
+          }
+        } else {
+          const reply = text.trim();
+          if (/^\d{6}$/.test(reply)) {
+            const r = await verifyCode(ctx.parent.phone, reply);
+            if (r.ok) {
+              this.save(conversationId, { phase: 'idle', collected: {}, verify: undefined }, state);
+              return { text: "Thanks — you're confirmed. What can I help with?", phase: 'idle' };
+            }
+            return { text: "That code didn't work. Reply with the 6-digit code I texted, or say 'resend'.", phase: 'clarifying' };
+          }
+          if (/^resend$/i.test(reply)) {
+            const started = await startVerification(ctx.parent.phone);
+            if (started.ok) await sendVerificationCode(ctx.parent.phone, started.code).catch(() => {});
+            return { text: "I sent you a new code. Reply with the 6-digit code to continue.", phase: 'clarifying' };
+          }
+          return { text: "Reply with the 6-digit confirmation code I texted to your number, or say 'resend'.", phase: 'clarifying' };
+        }
+      }
 
       // Remember a returning family from Postgres so it doesn't re-onboard.
       if (!this.hydrated.has(conversationId)) {
@@ -147,6 +207,29 @@ export class Agent {
             console.error('[hydrate] error:', e);
           }
         }
+        // The family's continuing memory graph (needs/getting/initiatives/issues).
+        if (!state.memory) {
+          try {
+            const memory = await loadFamilyMemory(parentId);
+            if (memory) {
+              state.memory = deriveFamilyMemory(state.profile, state.cases ?? []);
+              // Keep externally-recorded getting/initiatives (may be richer than derived).
+              state.memory.getting = memory.getting ?? state.memory.getting;
+              state.memory.initiatives = memory.initiatives ?? state.memory.initiatives;
+            } else {
+              state.memory = deriveFamilyMemory(state.profile, state.cases ?? []);
+            }
+          } catch (e) {
+            console.error('[hydrate] memory error:', e);
+          }
+        }
+      }
+
+      // Bilingual: remember the family's preferred language (Spanish is first-class,
+      // and never downgrades back off once set). The LLM also matches per-message.
+      if (state.profile) {
+        const detected = detectLocale(text);
+        if (state.profile.locale !== 'es') state.profile = { ...state.profile, locale: detected };
       }
 
       let turn: AgentTurn;
@@ -186,7 +269,7 @@ export class Agent {
         this.save(conversationId, { phase: mc.done ? 'done' : 'clarifying', collected: {}, mckinney: mc.done ? undefined : mc.state }, state);
         turn = { text: mc.text, phase: mc.done ? 'done' : 'clarifying' };
       } else {
-        const r = await this.advance(state, text.trim(), ctx, this.store.getHistory(conversationId));
+        const r = await this.advance(state, text.trim(), ctx, this.store.getHistory(conversationId), parentId);
         this.save(conversationId, r.state, state);
         turn = r.turn;
       }
@@ -252,14 +335,33 @@ export class Agent {
     const guardianId = record.parentId ?? this.opts.defaultParentId;
     if (!guardianId) return;
     const districtId = await ensureSeedDistrict();
-    const { profile, cases } = record.state;
+    const { profile, cases, memory } = record.state;
     if (profile) await saveFamilyProfile(guardianId, profile);
     for (const c of cases ?? []) await saveCaseRecord(guardianId, districtId, c);
+    try {
+      await saveFamilyMemory(guardianId, memory ?? deriveFamilyMemory(profile, cases ?? []));
+    } catch (e) {
+      console.error('[persist] family-memory error:', e);
+    }
   }
 
   // ── Step spine: plan → consent → execute → schedule (channel-agnostic) ──
   private readonly executor = new StepExecutor(buildAdapters());
-  private readonly scheduler = new Scheduler();
+  // Durable follow-up queue when Supabase is configured, else in-memory.
+  private readonly followups = new FollowUpEngine(createFollowUpStore() ?? undefined);
+  // Grounded per-district knowledge graph (verifiable RAG corpus).
+  private readonly knowledge = new KnowledgeGraph();
+
+  /** Per-conversation messenger (the Spectrum space) so background pings reach the right family. */
+  private readonly spaceMessengers = new Map<string, (text: string) => Promise<void>>();
+  /** Last time each family sent us a message (for cooldown). */
+  private readonly lastMessageAt = new Map<string, number>();
+  /** Proactive pings sent today, per conversation. */
+  private readonly sentToday = new Map<string, { day: string; count: number }>();
+  /** Which gap alerts we've already raised today, per conversation (avoid repeat). */
+  private readonly gapAlerts = new Map<string, { day: string; labels: Set<string> }>();
+  /** The conversation being handled right now (so scheduled follow-ups are tagged correctly). */
+  private currentConversationId = '';
 
   private resolveMode(): Mode {
     return process.env.AGENT_MODE === 'live' ? 'live' : 'demo';
@@ -272,17 +374,122 @@ export class Agent {
     this.parentSender = fn;
   }
 
-  /** Fire any due follow-up / verify prompts to the parent. Returns how many fired. */
-  async runScheduler(now: Date = new Date()): Promise<number> {
-    const due = this.scheduler.due(now);
-    for (const t of due) {
-      await this.parentSender(
-        t.verify
-          ? (t.prompt ?? 'Any update on this?')
-          : 'Quick follow-up — I\u2019m still on this and will chase the school. Anything new on your end?',
+  /** Register the messenger for a conversation (the family's iMessage space). */
+  registerConversation(conversationId: string, send: (text: string) => Promise<void>): void {
+    this.spaceMessengers.set(conversationId, send);
+    this.parentSender = send; // keep the in-band path working too
+  }
+
+  /** Record an inbound message (used BEFORE the proactive pass so cooldown kicks in). */
+  noteInbound(conversationId: string): void {
+    this.currentConversationId = conversationId;
+    this.lastMessageAt.set(conversationId, Date.now());
+  }
+
+  /** Localized text for a follow-up body. */
+  private localize(conversationId: string, text: string): string {
+    const state = this.store.getState(conversationId);
+    return localizeFollowup(text, resolveLocale(state?.profile?.locale));
+  }
+
+  private scheduleFollowUp(
+    conversationId: string,
+    caseId: string,
+    at: Date,
+    verify: boolean,
+    prompt?: string,
+  ): void {
+    const kind = verify ? 'verify' : 'chase';
+    const body = verify ? this.localize(conversationId, prompt ?? 'Any update on this?') : '';
+    this.followups.schedule({ conversationId, caseId, kind, dueAt: at, body });
+  }
+
+  /**
+   * The background "advocate" pass. Runs on a timer (and on each inbound message)
+   * to fire relevant, throttled follow-ups for every family. Never pings a family
+   * for an agent-side chase, respects quiet hours, cooldown, and a daily cap.
+   */
+  async runProactive(now: Date = new Date()): Promise<FollowUpRunResult> {
+    const policy: FollowUpPolicy = {
+      maxPerFamilyPerDay: Number(process.env.PROACTIVE_MAX_PER_DAY) || DEFAULT_FOLLOWUP_POLICY.maxPerFamilyPerDay,
+      cooldownMs: Number(process.env.PROACTIVE_COOLDOWN_MS) || DEFAULT_FOLLOWUP_POLICY.cooldownMs,
+      quietHours: {
+        start: Number(process.env.PROACTIVE_QUIET_START) || DEFAULT_FOLLOWUP_POLICY.quietHours.start,
+        end: Number(process.env.PROACTIVE_QUIET_END) || DEFAULT_FOLLOWUP_POLICY.quietHours.end,
+      },
+      maxDueDays: Number(process.env.PROACTIVE_MAX_DUE_DAYS) || DEFAULT_FOLLOWUP_POLICY.maxDueDays,
+    };
+    const dayKey = () => now.toISOString().slice(0, 10);
+    const sentCount = (conversationId: string) =>
+      this.sentToday.get(conversationId)?.day === dayKey() ? this.sentToday.get(conversationId)!.count : 0;
+    const bumpSent = (conversationId: string) => {
+      const cur = this.sentToday.get(conversationId);
+      this.sentToday.set(conversationId, { day: dayKey(), count: cur?.day === dayKey() ? cur.count + 1 : 1 });
+    };
+    const lastMessage = (conversationId: string) => {
+      const t = this.lastMessageAt.get(conversationId);
+      return t ? new Date(t) : undefined;
+    };
+
+    const result = await this.followups.run({
+      now,
+      policy,
+      isCaseResolved: (conversationId, caseId) =>
+        this.followups.isResolved(this.store.getState(conversationId)?.cases, caseId),
+      lastMessageAt: lastMessage,
+      sentToday: sentCount,
+      messenger: async (conversationId, text) => {
+        const send = this.spaceMessengers.get(conversationId) ?? this.parentSender;
+        await send(text);
+      },
+      recordSent: bumpSent,
+    });
+
+    // ── Always-on advocate: surface actionable gaps (throttled, never repeated) ──
+    for (const conversationId of this.spaceMessengers.keys()) {
+      const st = this.store.getState(conversationId);
+      const profile = st?.profile;
+      if (!profile) continue;
+      const gaps = detectGaps(profile, st?.cases ?? [], st?.memory?.getting ?? []);
+      const top = gaps[0];
+      if (!top) continue;
+      if (isQuietHours(now, policy.quietHours)) continue;
+      const last = lastMessage(conversationId);
+      if (last && now.getTime() - last.getTime() < policy.cooldownMs) continue;
+      if (sentCount(conversationId) >= policy.maxPerFamilyPerDay) continue;
+      const rec = this.gapAlerts.get(conversationId);
+      if (rec?.day === dayKey() && rec.labels.has(top.id)) continue;
+
+      const send = this.spaceMessengers.get(conversationId) ?? this.parentSender;
+      await send(this.localize(conversationId, top.message)).catch((e) =>
+        console.error('[gap] send failed:', (e as Error)?.message ?? e),
       );
+      bumpSent(conversationId);
+      const cur = this.gapAlerts.get(conversationId);
+      this.gapAlerts.set(conversationId, {
+        day: dayKey(),
+        labels: new Set([...(cur?.day === dayKey() ? cur.labels : []), top.id]),
+      });
+      console.log(`[gap] alerted ${conversationId}: ${top.title}`);
     }
-    return due.length;
+
+    // ── Freshness: flag stale knowledge nodes for re-verification ─────────────
+    const maxAgeDays = Number(process.env.KNOWLEDGE_STALE_DAYS) || 30;
+    for (const conversationId of this.spaceMessengers.keys()) {
+      const district = this.store.getState(conversationId)?.profile?.district;
+      if (!district) continue;
+      const nodes = await this.knowledge.get(resolveAnyDistrict(district).id).catch(() => []);
+      const stale = staleKnowledgeNodes(nodes, maxAgeDays);
+      if (stale.length) console.log(`[freshness] ${stale.length} stale node(s) for ${district} (re-crawl next)`);
+    }
+
+    if (result.fired) console.log(`[proactive] sent ${result.fired} follow-up(s)`);
+    if (result.skipped.length) {
+      const by = new Map<string, number>();
+      for (const s of result.skipped) by.set(s.reason, (by.get(s.reason) ?? 0) + 1);
+      console.log('[proactive] skipped:', [...by.entries()].map(([k, v]) => `${k}=${v}`).join(', '));
+    }
+    return result;
   }
 
   /** Resolve the counterparty by role + mode. Demo NEVER resolves a real contact. */
@@ -302,7 +509,11 @@ export class Agent {
     }
   }
 
-  private buildExecContext(record: { state: ConversationState }, mode: Mode): ExecutionContext {
+  private buildExecContext(
+    record: { state: ConversationState },
+    mode: Mode,
+    conversationId: string = this.currentConversationId,
+  ): ExecutionContext {
     return {
       mode,
       demoClockScale: 1440,
@@ -315,15 +526,21 @@ export class Agent {
         );
         return 'action-' + Date.now().toString(36);
       },
-      scheduleFollowUp: async (caseId, at, verify, prompt) => this.scheduler.schedule(caseId, at, verify, prompt),
+      scheduleFollowUp: async (caseId, at, verify, prompt) =>
+        this.scheduleFollowUp(conversationId, caseId, at, verify, prompt),
       messageParent: async (text) => this.parentSender(text),
     };
   }
 
   /** Run the given steps through the executor (caller sets consent/executing). */
-  async runSteps(steps: Step[], mode: Mode, state?: ConversationState): Promise<StepResult[]> {
+  async runSteps(
+    steps: Step[],
+    mode: Mode,
+    state?: ConversationState,
+    conversationId: string = this.currentConversationId,
+  ): Promise<StepResult[]> {
     const record = { state: state ?? this.store.ensure('steps', this.opts.defaultParentId ?? '').state };
-    const ctx = this.buildExecContext(record, mode);
+    const ctx = this.buildExecContext(record, mode, conversationId);
     const results: StepResult[] = [];
     for (const s of steps) results.push(await this.executor.run({ ...s, status: 'executing' }, ctx));
     return results;
@@ -338,7 +555,7 @@ export class Agent {
     const student = profile.children?.[0]?.name ?? 'your child';
     const counterparty = this.resolveCounterparty('HOMELESS_LIAISON', mode);
     const steps = planSteps({ intent, family: profile, student, counterparty });
-    return this.runSteps(steps, mode);
+    return this.runSteps(steps, mode, undefined, conversationId);
   }
 
   private save(conversationId: string, next: ConversationState, prev: ConversationState): void {
@@ -356,6 +573,7 @@ export class Agent {
     text: string,
     state: ConversationState,
     history: ChatMessage[],
+    parentId: string,
   ): Promise<{ turn: AgentTurn; state: ConversationState } | null> {
     const llm = this.opts.llm;
     if (!llm?.enabled) return null;
@@ -379,6 +597,49 @@ export class Agent {
             ...s.counterparty,
           },
         }));
+      },
+      knowledge: async (category, query) => {
+        const input = state.profile?.district ?? state.profile?.school ?? '';
+        const district = resolveAnyDistrict(input);
+        const cat = category?.trim().toUpperCase().replace(/\s+/g, '_');
+        const validCat =
+          cat && (KNOWLEDGE_CATEGORIES as string[]).includes(cat) ? (cat as KnowledgeCategory | 'LAW') : undefined;
+        let nodes = await this.knowledge.get(district.id, validCat);
+        // Prefer meaning-based (vector) retrieval when embeddings are configured.
+        const qText = (query ?? category ?? '').trim();
+        if (qText && embeddingsConfigured()) {
+          const qb = await embedTexts([qText])
+            .then((a) => a?.[0])
+            .catch(() => undefined);
+          if (qb?.length) {
+            const hits = await this.knowledge.search(district.id, qb, 6, validCat);
+            if (hits.length) nodes = hits;
+          }
+        }
+        if (nodes.length === 0) {
+          // Auto-create knowledge for an un-researched district: real crawl + LLM
+          // categorization into grounded `draft` nodes (marked "confirm with the
+          // school" so nothing unverified is ever stated as authoritative).
+          const schoolName = district.schools[0]?.name ?? district.name;
+          const added = await autoResearchDistrict(this.knowledge, district.id, schoolName, district.name, () =>
+            researchDistrictNodes(district.name, schoolName, this.opts.llm),
+          );
+          if (added.length) nodes = await this.knowledge.get(district.id, validCat);
+        }
+        if (!nodes.length) return 'No researched knowledge for that yet.';
+        return nodes
+          .map((n) => `- [${n.status}] ${n.category}: ${n.title} — ${n.summary}${n.law ? ` (${n.law})` : ''}`)
+          .join('\n');
+      },
+      memory: {
+        addGetting: async (item) => {
+          await addGetting(parentId, item);
+          return `Recorded "${item}" as something the family now has.`;
+        },
+        startInitiative: async (label) => {
+          await startInitiative(parentId, label);
+          return `Started initiative "${label}".`;
+        },
       },
       studentName: state.profile?.children[0]?.name,
     };
@@ -538,6 +799,7 @@ export class Agent {
     text: string,
     ctx: ToolContext,
     history: ChatMessage[],
+    parentId: string,
   ): Promise<{ turn: AgentTurn; state: ConversationState }> {
     const roster: Roster = { students: ctx.students, teachers: ctx.teachers };
 
@@ -662,7 +924,7 @@ export class Agent {
     }
 
     if (this.opts.llm?.enabled) {
-      const brain = await this.brain(text, state, history);
+      const brain = await this.brain(text, state, history, parentId);
       if (brain) return brain;
     }
 

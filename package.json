@@ -8,7 +8,8 @@
     "dev": "tsx watch src/index.ts",
     "demo": "tsx src/demo.ts",
     "demo:steps": "tsx src/agent/steps/demo.ts",
-    "db:init": "tsx scripts/init-db.ts"
+    "db:init": "tsx scripts/init-db.ts",
+    "index:knowledge": "tsx scripts/index-knowledge.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.114.0",
