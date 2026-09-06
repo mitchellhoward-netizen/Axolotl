@@ -1,6 +1,6 @@
 import type { ChannelAdapter } from '../adapter.js';
 import type { Step, StepResult, ExecutionContext } from '../types.js';
-import { browserOpen, browserFill, browserAct } from '../../../integrations/browser.js';
+import { browserOpen, browserFill, browserSubmit } from '../../../integrations/browser.js';
 
 /**
  * The browser "hand": drive a real web form via Stagehand. Fills by
@@ -38,8 +38,9 @@ export class BrowserAdapter implements ChannelAdapter {
       }
 
       let referenceId: string | undefined;
+      let responseLink: string | undefined;
       if (p.submit) {
-        const sub = await browserAct('click the submit button');
+        const sub = await browserSubmit();
         if (!sub.ok) {
           return {
             status: 'failed',
@@ -48,6 +49,7 @@ export class BrowserAdapter implements ChannelAdapter {
             action: { channel: 'WEB', direction: 'outbound', content: p.url, status: 'failed' },
           };
         }
+        responseLink = sub.data.responseLink;
         referenceId = `browser-${Date.now().toString(36)}`;
       }
 
@@ -55,11 +57,13 @@ export class BrowserAdapter implements ChannelAdapter {
       return {
         status: 'done',
         referenceId,
-        parentSummary: p.submit ? 'Filled and submitted the form.' : 'Filled the form (not submitted).',
+        parentSummary: p.submit
+          ? `Filled and submitted the form.\nHere's your response: ${responseLink ?? 'your school will confirm by email.'}`
+          : 'Filled the form (not submitted).',
         action: {
           channel: 'WEB',
           direction: 'outbound',
-          content: JSON.stringify({ url: p.url, fields: p.fields }),
+          content: JSON.stringify({ url: p.url, fields: p.fields, responseLink }),
           status: p.submit ? 'submitted' : 'drafted',
         },
         followUpAt: chase ? new Date(Date.now() + (ctx.mode === 'demo' ? chase / ctx.demoClockScale : chase)) : undefined,

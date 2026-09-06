@@ -230,10 +230,11 @@ async function fillByType(page: Page, selector: string, type: string, value: str
  */
 export async function browserFill(
   fields: Array<{ label: string; value: string }>,
-): Promise<BrowserResult<{ filled: number; verified?: boolean; mismatches?: Array<{ label: string; value: string }> }>> {
+): Promise<BrowserResult<{ filled: number; verified?: boolean; mismatches?: Array<{ label: string; value: string }>; url?: string }>> {
   const h = await getPage();
   if (!h) return { ok: false, reason: 'browser not configured' };
-  if (!fields.length) return { ok: true, data: { filled: 0, verified: true, mismatches: [] } };
+  const pageUrl = (await h.page.url().catch(() => '')) as string;
+  if (!fields.length) return { ok: true, data: { filled: 0, verified: true, mismatches: [], url: pageUrl } };
   try {
     let form = await getFormMap(h.page);
     const used = new Set<string>();
@@ -251,7 +252,7 @@ export async function browserFill(
     }
     if (leftovers.length) await h.stagehand.act(buildFillInstruction(leftovers));
 
-    if (form.fields.length === 0) return { ok: true, data: { filled: fields.length, verified: false, mismatches: [] } };
+    if (form.fields.length === 0) return { ok: true, data: { filled: fields.length, verified: false, mismatches: [], url: pageUrl } };
 
     const isFilled = (f: { label: string; value: string }) => {
       const dom = findField(form.fields, f.label);
@@ -268,7 +269,7 @@ export async function browserFill(
 
     return {
       ok: true,
-      data: { filled: fields.length - mismatches.length, verified: mismatches.length === 0, mismatches },
+      data: { filled: fields.length - mismatches.length, verified: mismatches.length === 0, mismatches, url: pageUrl },
     };
   } catch (e) {
     return { ok: false, reason: String((e as Error)?.message ?? e) };
@@ -346,6 +347,40 @@ export async function browserAssessPage(url: string, target?: string): Promise<B
   } catch (e) {
     return { ok: false, reason: String((e as Error)?.message ?? e) };
   }
+}
+
+/** Read the Google Forms "view my response" link from the post-submit page, else the page URL. */
+async function captureResponseLink(page: Page): Promise<string> {
+  try {
+    const link = (await page.evaluate(
+      `(() => {
+        const a = [...document.querySelectorAll('a')].find((a) => /view my response|your response|responses/i.test((a.textContent || '') + ' ' + (a.getAttribute('href') || '')));
+        return a ? a.href : '';
+      })()`,
+    )) as string;
+    if (link) return link;
+  } catch {
+    /* fall through */
+  }
+  try {
+    return page.url();
+  } catch {
+    return '';
+  }
+}
+
+/**
+ * Submit the form on the current page and capture the post-submit response link,
+ * so we can hand the parent the "filled form" link. Returns the response link.
+ */
+export async function browserSubmit(): Promise<BrowserResult<{ responseLink: string }>> {
+  const h = await getPage();
+  if (!h) return { ok: false, reason: 'browser not configured' };
+  const sub = await browserAct('click the submit button');
+  if (!sub.ok) return { ok: false, reason: sub.reason };
+  await h.page.waitForTimeout(5000); // let the confirmation page load
+  const responseLink = await captureResponseLink(h.page);
+  return { ok: true, data: { responseLink } };
 }
 
 export async function browserClose(): Promise<void> {
