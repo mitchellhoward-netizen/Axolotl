@@ -467,6 +467,42 @@ export async function browserClickByText(text: string): Promise<BrowserResult<bo
   }
 }
 
+export interface BrowserFieldInfo {
+  label: string;
+  type: string;
+  value: string;
+}
+
+export interface BrowserRadioGroup {
+  question: string;
+  type: 'radio' | 'checkbox';
+  options: string[];
+}
+
+/** Read the current page's fillable fields + radio/checkbox groups (deterministic). */
+export async function browserFields(): Promise<
+  BrowserResult<{ fields: BrowserFieldInfo[]; optionGroups: BrowserRadioGroup[] }>
+> {
+  const h = await getPage();
+  if (!h) return { ok: false, reason: 'browser not configured' };
+  try {
+    const map = await getFormMap(h.page);
+    return {
+      ok: true,
+      data: {
+        fields: map.fields.map((f) => ({ label: f.label, type: f.type ?? 'text', value: f.value })),
+        optionGroups: map.optionGroups.map((g) => ({
+          question: g.question,
+          type: g.type,
+          options: g.options.map((o) => o.label),
+        })),
+      },
+    };
+  } catch (e) {
+    return { ok: false, reason: String((e as Error)?.message ?? e) };
+  }
+}
+
 /** Extract text from a PDF by URL. Scanned PDFs may yield no text (→ OCR later). */
 export async function extractPdf(url: string): Promise<BrowserResult<{ text: string }>> {
   try {
