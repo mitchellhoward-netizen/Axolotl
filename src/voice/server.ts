@@ -120,7 +120,15 @@ export function attachVoiceWebSocket(server: Server): void {
             reminder,
             onProgress: (message: string) => {
               // Narrate during slow live research so the caller is never in silence.
-              ws.send(JSON.stringify({ response_type: 'agent_interrupt', interrupt_id: Date.now(), content: message }));
+              ws.send(
+                JSON.stringify({
+                  response_type: 'agent_interrupt',
+                  interrupt_id: Date.now(),
+                  content: message,
+                  content_complete: true,
+                  no_interruption_allowed: true,
+                }),
+              );
             },
           };
 

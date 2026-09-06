@@ -51,7 +51,10 @@ const VOICE_TOOLS = LLM_TOOLS.filter(
   (t) => VOICE_TOOL_NAMES.has((t as { function?: { name?: string } }).function?.name ?? ''),
 );
 
-const SLOW_TOOLS = new Set(['web_search', 'web_fetch']);
+// Tools that can take a moment (or trigger background research) — narrate before
+// them so the caller is never left in silence. get_knowledge can auto-research
+// an un-researched school (slow), so it counts even though the cached lookup is fast.
+const RESEARCH_TOOLS = new Set(['get_knowledge', 'search_school_graph', 'get_school_info', 'web_search', 'web_fetch']);
 
 /** A spoken, natural-language system prompt. No markdown, no bullets, short. */
 function voiceSystemPrompt(vars: Record<string, unknown>, context: string): string {
@@ -80,6 +83,7 @@ function voiceSystemPrompt(vars: Record<string, unknown>, context: string): stri
     'TOOLS — use them to help, never just to talk:',
     '- Answer from WHAT WE KNOW plus plain, uncontroversial school basics. Don\u2019t call tools for something already answered above.',
     '- For a specific fact you don\u2019t have (a policy, process, form, deadline, or phone number), use get_knowledge / search_school_graph first (fast), then web_search / web_fetch if still missing.',
+    '- DISAMBIGUATE SCHOOLS: if the school isn\u2019t one you have on file, or it\u2019s a common name (Lakeside, Lincoln, Washington, etc.), ASK which city and state it\u2019s in before researching, and include the city/state in any web search. Never research a different school with the same name.',
     '- BE PROACTIVE AS THE DEFAULT: turn every answer into an action and offer to DO it. NEVER end by just informing or handing off ("you should contact them") — instead say "I can do that for you" and ask a quick yes/no.',
     '- You CAN act: send emails, place calls, fill forms. NEVER say you can\u2019t do something, can\u2019t help, or can\u2019t access it — you drive it for the parent. If a step is needed, say you\u2019ll do it and handle it.',
     '- When the parent asks you to DO something (sign up, enroll, request, reach out), CALL send_email or call_school RIGHT AWAY — do not just describe it. Do NOT research every detail first; act, then offer.',
@@ -368,9 +372,9 @@ export async function generateVoiceReply(turn: VoiceTurn): Promise<VoiceReply> {
     if (!res) break;
 
     if (res.calls?.length) {
-      // Narrate only before SLOW work (web research); instant lookups need no silence-filler.
-      if (res.calls.some((c) => SLOW_TOOLS.has(c.name))) {
-        turn.onProgress?.(slowNarrated ? 'Still on it — just another moment.' : 'Let me look into that for you — give me about thirty seconds.');
+      // Narrate before any research so the caller is never left in silence.
+      if (res.calls.some((c) => RESEARCH_TOOLS.has(c.name))) {
+        turn.onProgress?.(slowNarrated ? 'Still on it — almost there.' : 'Let me look into that for you — hang tight, be right back.');
         slowNarrated = true;
       }
 
