@@ -35,7 +35,7 @@ export function attachVoiceWebSocket(server: Server): void {
       JSON.stringify({
         response_type: 'response',
         response_id: 0,
-        content: "Hey — I'm the school assistant. What can I help you with?",
+        content: "Hey, I'm your school assistant. I can look up policies, find the right forms, and figure out what your family qualifies for. What do you need help with?",
         content_complete: true,
         end_call: false,
       }),
@@ -69,14 +69,13 @@ export function attachVoiceWebSocket(server: Server): void {
               transcript,
               variables: callVars,
               reminder: msg.interaction_type === 'reminder_required',
-              onResearching: () => {
-                // Announce the pause the moment it starts researching, so the
-                // caller isn't left in silence.
+              onProgress: (message) => {
+                // Narrate what the agent is doing so the caller is never left in silence.
                 ws.send(
                   JSON.stringify({
                     response_type: 'agent_interrupt',
                     interrupt_id: Date.now(),
-                    content: "Let me look that up — give me just a second.",
+                    content: message,
                   }),
                 );
               },

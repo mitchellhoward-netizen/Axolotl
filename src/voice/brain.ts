@@ -41,8 +41,8 @@ export interface VoiceTurn {
   variables?: Record<string, unknown>;
   /** True for a `reminder_required` event (caller went quiet). */
   reminder?: boolean;
-  /** Invoked when the model decides to run a tool (research) — let the caller announce it. */
-  onResearching?: () => void;
+  /** Narrate what the agent is doing (with a time hint) so the caller is never left in silence. */
+  onProgress?: (message: string) => void;
 }
 
 /** A spoken, natural-language system prompt. No markdown, no bullets, short. */
@@ -117,15 +117,18 @@ export async function generateVoiceReply(turn: VoiceTurn): Promise<string> {
 
   let working: unknown[] = [...messages];
   let guard = 0;
-  let announcedResearch = false;
+  let toolRound = 0;
   while (guard < 6) {
     const res = await model.chatWithTools(voiceSystemPrompt(vars), working, LLM_TOOLS, 'auto');
     if (!res) break;
     if (res.calls?.length) {
-      if (!announcedResearch) {
-        announcedResearch = true;
-        turn.onResearching?.();
+      // Narrate the research — first a time estimate, then a brief "almost done".
+      if (toolRound === 0) {
+        turn.onProgress?.('Let me look into that for you — give me about twenty seconds.');
+      } else {
+        turn.onProgress?.('Still on it — just another moment.');
       }
+      toolRound++;
       const assistantMsg = {
         role: 'assistant',
         content: null,
