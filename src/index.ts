@@ -252,7 +252,7 @@ for await (const [space, message] of app.messages) {
       // demo "school" line (SCHOOL_CALL_NUMBER, else CALL_ME_NUMBER).
       const phone = turn.callSchool
         ? (process.env.SCHOOL_CALL_NUMBER ?? process.env.CALL_ME_NUMBER)
-        : ((space as unknown as { phone?: string }).phone ?? senderPhone(message.sender?.id) ?? undefined);
+        : (senderPhone(message.sender?.id) ?? senderPhone((space as unknown as { phone?: string }).phone) ?? undefined);
       if (phone && retell) {
         const vars = turn.callContext
           ? { ...turn.callContext, call_kind: turn.callSchool ? 'school' : 'parent' }
