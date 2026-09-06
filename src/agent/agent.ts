@@ -999,7 +999,17 @@ export class Agent {
       }
     }
 
-    const detected = await this.opts.intentEngine.detect(text);
+    let detected = await this.opts.intentEngine.detect(text);
+
+    // Rule-based fast-path for call requests — the LLM classifier is slow and
+    // flaky, and "call me" MUST never fall through to the brain (which can only
+    // call the school, not ring the parent). These are unambiguous phrases.
+    const intentText = text.toLowerCase();
+    if (detected.name !== 'call_me' && /\b(call me|call my (phone|number)|call me back|call this number|give me a call|ring me|have (the agent|axolotl) call)\b/.test(intentText)) {
+      detected = { name: 'call_me', confidence: 1 };
+    } else if (detected.name !== 'call_school' && /\b(call the (school|office|district|principal|them|front desk)|call (the )?(school|office|district))\b/.test(intentText)) {
+      detected = { name: 'call_school', confidence: 1 };
+    }
 
     // Step consent gate: the brain proposed steps; the parent's YES/NO resolves them.
     if (state.pendingSteps?.length) {
