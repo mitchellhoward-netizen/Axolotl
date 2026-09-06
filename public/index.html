@@ -38,7 +38,7 @@
         <a href="#try" class="btn-primary" style="display:inline-flex;flex:0 0 auto;white-space:nowrap;align-items:center;min-height:58px;padding:17px 28px;font-size:18.5px;font-weight:600;border-radius:14px">Try Axolotl →</a>
         <div style="display:flex;flex-wrap:wrap;align-items:center;gap:9px">
           <input id="call-phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="Your phone number" aria-label="Your phone number" style="min-height:58px;padding:17px 18px;font-family:'Instrument Sans',sans-serif;font-size:17.5px;color:#241C18;background:#FFFFFF;border:1.5px solid #E0CDBF;border-radius:14px;outline:none" />
-          <button id="call-submit" type="button" class="btn-primary" style="min-height:58px;border:0;cursor:pointer;padding:17px 24px;font-family:'Instrument Sans',sans-serif;font-weight:600;font-size:17.5px;border-radius:14px">📞 Talk to the agent</button>
+          <button id="call-submit" type="button" class="btn-primary" style="min-height:58px;border:0;cursor:pointer;padding:17px 24px;font-family:'Instrument Sans',sans-serif;font-weight:600;font-size:17.5px;border-radius:14px">📞 Talk to your assistant</button>
         </div>
         <p id="call-status" hidden role="status" style="width:100%;margin:4px 0 0;font-family:'Instrument Serif',Georgia,serif;font-size:23px;color:#241C18">Calling you now — pick up! 🤙</p>
       </div>
@@ -225,7 +225,7 @@
     });
     phone.addEventListener('input', function () { phone.style.borderColor = '#E0CDBF'; error.hidden = true; });
 
-    // "Talk to the agent" — places a demo voice call to the visitor's number.
+    // "Talk to your assistant" — places a demo voice call to the visitor's number.
     var callPhone  = document.getElementById('call-phone');
     var callSubmit = document.getElementById('call-submit');
     var callStatus = document.getElementById('call-status');
@@ -242,12 +242,12 @@
           if (!res.ok || !data.ok) throw new Error(data.error || ('HTTP ' + res.status));
           callStatus.textContent = 'Calling you now — pick up! 🤙';
           callStatus.hidden = false;
-          callSubmit.textContent = '📞 Talk to the agent'; callSubmit.style.opacity = '';
+          callSubmit.textContent = '📞 Talk to your assistant'; callSubmit.style.opacity = '';
         } catch (err) {
           console.error('[call-me] failed:', err);
           callStatus.textContent = 'Couldn\u2019t place the call — please try again.';
           callStatus.hidden = false;
-          callSubmit.disabled = false; callSubmit.textContent = '📞 Talk to the agent'; callSubmit.style.opacity = '';
+          callSubmit.disabled = false; callSubmit.textContent = '📞 Talk to your assistant'; callSubmit.style.opacity = '';
         }
       });
     }
