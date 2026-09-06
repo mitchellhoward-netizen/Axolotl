@@ -18,6 +18,7 @@ import { KnowledgeGraph, autoResearchDistrict } from '../knowledge/graph.js';
 import { resolveAnyDistrict } from '../knowledge/discovery.js';
 import { researchDistrictNodes, inferCategory } from '../knowledge/research.js';
 import { searchSchoolGraph, chainSummary } from '../knowledge/resource-graph.js';
+import { buildPreCallBrief } from '../knowledge/precall.js';
 import { embeddingsConfigured, embedTexts } from '../integrations/embeddings.js';
 import { KNOWLEDGE_CATEGORIES, type KnowledgeCategory } from '../domain/knowledge.js';
 import { answerSchoolInfo, DISTRICT, LIAISON, BUS_PASSES, SOQUEL_ELEMENTARY } from '../knowledge/suesd.js';
@@ -792,6 +793,27 @@ export class Agent {
     return { parent_name: profile?.parentName ?? 'the parent', student, grade, school, district, issue, goal, what_we_know };
   }
 
+  /**
+   * Research the school/district BEFORE the call and fold the result into the
+   * brief, so the voice agent starts informed (rights + forms + contacts) and
+   * never has to research live. Deterministic + cached — fast even for a cold
+   * district; empty for a district we've never researched.
+   */
+  private async enrichCallContext(base: CallContext): Promise<CallContext> {
+    try {
+      const research = await buildPreCallBrief(base.district, base.school);
+      if (research) {
+        return {
+          ...base,
+          what_we_know: `${base.what_we_know}\n\nResearched about this school before the call:\n${research}`,
+        };
+      }
+    } catch (e) {
+      console.error('[precall] brief build failed:', (e as Error)?.message ?? e);
+    }
+    return base;
+  }
+
   /** Brief for the voice call, built from the LIVE chat (history) + family context. */
   private async resolveCallBrief(
     state: ConversationState,
@@ -802,12 +824,12 @@ export class Agent {
     if (this.opts.llm?.enabled) {
       try {
         const b = await this.opts.llm.buildCallBrief(state.profile, history, hint ?? '');
-        if (b) return { ...base, issue: b.issue, goal: b.goal, what_we_know: b.what_we_know || base.what_we_know };
+        if (b) return this.enrichCallContext({ ...base, issue: b.issue, goal: b.goal, what_we_know: b.what_we_know || base.what_we_know });
       } catch {
         /* fall through to the deterministic brief */
       }
     }
-    return base;
+    return this.enrichCallContext(base);
   }
 
   private buildToolContext(parentId: string): ToolContext | undefined {
@@ -932,11 +954,12 @@ export class Agent {
     if (state.awaitingCallDemo) {
       state.awaitingCallDemo = false;
       if (/^(yes|yeah|yep|sure|ok|okay|call me|call|do it|go ahead|please|absolutely)\b/i.test(text.trim())) {
+        const callContext = await this.enrichCallContext(this.buildCallContext(state));
         return {
           turn: {
             text: "Great — calling you now. Pick up and I'll show you how I'd handle a real call.",
             callMe: true,
-            callContext: this.buildCallContext(state),
+            callContext,
             phase: 'done',
           },
           state: { phase: 'done', collected: {}, cases: state.cases },
@@ -961,11 +984,12 @@ export class Agent {
     }
 
     if (detected.name === 'call_me') {
+      const callContext = await this.enrichCallContext(this.buildCallContext(state));
       return {
         turn: {
           text: "Alright — calling you now. Pick up and I'll show you how I'd handle that on a real call.",
           callMe: true,
-          callContext: this.buildCallContext(state),
+          callContext,
           phase: 'done',
         },
         state: { phase: 'done', collected: {}, cases: state.cases },

@@ -231,14 +231,17 @@ for await (const [space, message] of app.messages) {
         ? (process.env.SCHOOL_CALL_NUMBER ?? process.env.CALL_ME_NUMBER)
         : (senderPhone(message.sender?.id) ?? process.env.CALL_ME_NUMBER);
       if (phone && retell) {
-        const vars = turn.callContext ?? {
-          parent_name: 'a parent',
-          student: 'your child',
-          school: 'your child\u2019s school',
-          issue: 'the thing you asked about',
-          what_we_know:
-            'This is a demonstration call so you can hear how the assistant would talk to the school.',
-        };
+        const vars = turn.callContext
+          ? { ...turn.callContext, call_kind: turn.callSchool ? 'school' : 'parent' }
+          : {
+              parent_name: 'a parent',
+              student: 'your child',
+              school: 'your child\u2019s school',
+              issue: 'the thing you asked about',
+              what_we_know:
+                'This is a demonstration call so you can hear how the assistant would talk to the school.',
+              call_kind: 'parent',
+            };
         retell
           .createCall(phone, space.id, vars)
           .catch((e) => console.error('[retell] create-call error:', e));

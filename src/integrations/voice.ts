@@ -47,6 +47,7 @@ export class RealtimeVoiceProvider implements VoiceProvider {
       what_we_know: b.whatWeKnow,
       disclosure: input.disclosure,
       cannot_commit: (b.cannotCommit ?? []).join('; '),
+      call_kind: 'school',
     };
     try {
       const { call_id } = await this.client.createCall(input.toPhone, 'step-call', vars);

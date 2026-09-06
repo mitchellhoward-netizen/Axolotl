@@ -1,62 +1,33 @@
-import 'dotenv/config';
-import { LlmClient } from '../agent/llm.js';
-import { LLM_TOOLS, runTool, type ToolDeps } from '../agent/tools.js';
-import { KnowledgeGraph } from '../knowledge/graph.js';
-import { searchSchoolGraph, chainSummary } from '../knowledge/resource-graph.js';
-import { resolveAnyDistrict } from '../knowledge/discovery.js';
-import { assessKnowledgeNode } from '../agent/verify.js';
+import { getVoiceLlm } from './llm.js';
+import { buildPreCallBrief } from '../knowledge/precall.js';
 
 /**
- * The voice brain. Turns a live phone-call transcript + family context into the
- * assistant's next spoken reply — using the SAME DeepSeek model and the SAME
- * knowledge graph / resource graph / live web search as the text agent. This is
- * what makes the phone call "the assistant" rather than a canned script.
+ * The parent-facing voice brain. This is deliberately NOT the text brain with a
+ * voice bolted on: it uses the FAST model, calls NO tools in the hot path, and
+ * answers from the context we already fetched. Anything it doesn't know it
+ * DEFERS — the parent hears "let me text you the full answer" instead of sitting
+ * through a live 20-60s research loop on the phone.
  */
-
-let llm: LlmClient | null | undefined;
-let graph: KnowledgeGraph | undefined;
-
-function getLlm(): LlmClient | null {
-  if (llm !== undefined) return llm;
-  const key = process.env.VOICE_API_KEY ?? process.env.DEEPSEEK_API_KEY ?? process.env.OPENAI_API_KEY;
-  llm = key
-    ? new LlmClient({
-        apiKey: key,
-        baseUrl: process.env.VOICE_BASE_URL ?? process.env.LLM_BASE_URL ?? process.env.OPENAI_BASE_URL ?? 'https://api.deepseek.com',
-        // Voice uses the main (reasoning) model by default for answer quality.
-        // Set VOICE_MODEL to a faster model to trade quality for latency.
-        model: process.env.VOICE_MODEL ?? process.env.LLM_MODEL ?? 'deepseek-chat',
-        maxTokens: process.env.VOICE_MAX_TOKENS ? Number(process.env.VOICE_MAX_TOKENS) : undefined,
-      })
-    : null;
-  return llm;
-}
-
-function getGraph(): KnowledgeGraph {
-  if (!graph) graph = new KnowledgeGraph();
-  return graph;
-}
 
 export interface VoiceTurn {
   transcript: Array<{ role: string; content: string }>;
   variables?: Record<string, unknown>;
   /** True for a `reminder_required` event (caller went quiet). */
   reminder?: boolean;
-  /** Narrate what the agent is doing (with a time hint) so the caller is never left in silence. */
+  /** Narrate what the agent is doing (reserved for opt-in live research). */
   onProgress?: (message: string) => void;
-  /** Stream the answer's tokens as they're generated (for low perceived latency). */
+  /** Stream the answer's tokens as they're generated (reserved). */
   onToken?: (token: string) => void;
 }
 
 /** A spoken, natural-language system prompt. No markdown, no bullets, short. */
-function voiceSystemPrompt(vars: Record<string, unknown>): string {
+function voiceSystemPrompt(vars: Record<string, unknown>, context: string): string {
   const parent = String(vars.parent_name ?? 'the parent');
   const student = String(vars.student ?? 'their child');
   const grade = vars.grade ? ` (grade ${String(vars.grade)})` : '';
   const school = vars.school ? String(vars.school) : 'their school';
   const district = vars.district ? String(vars.district) : '';
   const issue = vars.issue ? String(vars.issue) : '';
-  const whatWeKnow = vars.what_we_know ? String(vars.what_we_know) : '';
 
   return [
     'You are Axolotl, a warm, plain-spoken assistant helping a parent with their child\u2019s school. ' +
@@ -64,26 +35,61 @@ function voiceSystemPrompt(vars: Record<string, unknown>): string {
     'Rules:',
     '- Speak naturally in short sentences, 1-3 sentences per turn. Never use markdown, bullet points, headings, or emoji.',
     '- Never announce you are an AI or a demo.',
-    '- NEVER quote statute numbers or section codes to the parent — say what they have a right to in plain words.',
-    '- Before answering a school question, use web_search or get_knowledge to ground it. Never invent phone numbers, policies, or facts.',
-    '- Never claim you already submitted a form, scheduled a meeting, or talked to the school — you can offer to help and explain next steps.',
-    '- If you don\u2019t know something, say so and offer to look into it.',
+    '- NEVER quote statute numbers or section codes — say what they have a right to in plain words.',
+    '- Never claim you already submitted a form, scheduled a meeting, or talked to the school — offer to help and explain next steps instead.',
     '- Be warm and proactive: turn answers into a next step and offer to do it.',
-    '- Match the caller\u2019s language exactly: an English caller gets English, a Spanish caller gets Spanish. NEVER mix languages or switch mid-sentence. If you are not sure which language they are using, default to English.',
+    '- Match the caller\u2019s language exactly: an English caller gets English, a Spanish caller gets Spanish. NEVER mix languages or switch mid-sentence. If unsure, default to English.',
     '',
-    `FAMILY CONTEXT (use it, don't re-ask): parent ${parent}, child ${student}${grade}, school ${school}${district ? ` (${district})` : ''}. They mentioned: ${issue || 'nothing specific yet'}. What we know: ${whatWeKnow || 'not much yet'}.`,
+    `FAMILY CONTEXT (use it, don't re-ask): parent ${parent}, child ${student}${grade}, school ${school}${district ? ` (${district})` : ''}. They mentioned: ${issue || 'nothing specific yet'}.`,
+    '',
+    'WHAT WE KNOW about this school and family (answer from this — do NOT look anything up on the call):',
+    context || '(nothing pre-researched for this school yet)',
+    '',
+    'IMPORTANT — answer ONLY from WHAT WE KNOW plus plain, uncontroversial school basics. If the caller asks for any specific policy, process, form, deadline, appeal step, or phone number that is NOT already in WHAT WE KNOW, reply with EXACTLY the single word DEFER and nothing else. Do NOT answer those from general knowledge — such specifics vary by district and state, and guessing could mislead this family. When you reply DEFER, we research the exact answer and text it to the parent.',
   ].join('\n');
+}
+
+/**
+ * Build the context the fast model answers from. `what_we_know` usually already
+ * carries the pre-call research (the agent enriches it before dialing); if not
+ * (e.g. a direct Retell call), fetch it now — it's deterministic and cached.
+ */
+async function buildContext(vars: Record<string, unknown>): Promise<string> {
+  const whatWeKnow = String(vars.what_we_know ?? '').trim();
+  if (/researched about this school/i.test(whatWeKnow)) return whatWeKnow;
+
+  const parts: string[] = [];
+  if (whatWeKnow) parts.push(whatWeKnow);
+
+  const district = String(vars.district ?? '').trim();
+  const school = String(vars.school ?? '').trim();
+  if (district || school) {
+    try {
+      const brief = await buildPreCallBrief(district, school);
+      if (brief) parts.push(`Researched about this school before the call:\n${brief}`);
+    } catch {
+      /* ignore — the model answers from what it has */
+    }
+  }
+  return parts.join('\n\n');
 }
 
 const FALLBACK = 'Sorry — I lost the thread there. Could you say that again?';
 const REMINDER_FALLBACK = 'Still here — anything else I can help you with?';
+const DEFER_REPLY =
+  "That's a great question — let me look it up properly and text you the full answer in a few minutes, so I don't keep you on the phone.";
 
 function fallbackFor(reminder?: boolean): string {
   return reminder ? REMINDER_FALLBACK : FALLBACK;
 }
 
+/** Does the reply hand the question off to async research + text? */
+function looksLikeDefer(text: string): boolean {
+  return /look into it and text|text you (the|an|my) (answer|details|full)|research (it|this) and (text|send)|text you the details|send you (the|an) answer/i.test(text);
+}
+
 export async function generateVoiceReply(turn: VoiceTurn): Promise<string> {
-  const model = getLlm();
+  const model = getVoiceLlm();
   if (!model) {
     console.error('[voice] no LLM configured');
     return fallbackFor(turn.reminder);
@@ -99,80 +105,28 @@ export async function generateVoiceReply(turn: VoiceTurn): Promise<string> {
   }
   if (messages.length === 0) return fallbackFor(turn.reminder);
 
-  const deps: ToolDeps = {
-    profile: undefined,
-    getCases: () => [],
-    appendCase: () => {},
-    // Voice is live: there is no consent gate to queue steps through, so proposed
-    // actions become "offer to do it next" text rather than executing.
-    proposeSteps: () => {},
-    knowledge: async (category, query) => {
-      const districtName = String(vars.district ?? vars.school ?? '');
-      const district = resolveAnyDistrict(districtName);
-      const g = getGraph();
-      let nodes = await g.get(district.id);
-      const cat = (category ?? '').trim().toUpperCase().replace(/\s+/g, '_');
-      if (cat && cat !== 'LAW') {
-        const filtered = nodes.filter((n) => n.category === cat);
-        if (filtered.length) nodes = filtered;
-      }
-      const chain = await searchSchoolGraph(district.id, cat && cat !== 'LAW' ? cat : undefined);
-      const parts = nodes.map(
-        (n) => `- [${assessKnowledgeNode(n)}] ${n.title}: ${n.summary}${n.law ? ` (${n.law})` : ''}`,
-      );
-      if (chain && chain.nodes.length) parts.push(`Forms/contacts: ${chainSummary(chain)}`);
-      return parts.join('\n') || 'No researched info yet — use web_search to look it up.';
-    },
-    memory: undefined,
-    studentName: String(vars.student ?? ''),
-  };
+  const context = await buildContext(vars);
 
   const startedAt = Date.now();
-  let working: unknown[] = [...messages];
-  let guard = 0;
-  let toolRound = 0;
-  while (guard < 6) {
-    const callStart = Date.now();
-    const res = await model.chatWithTools(voiceSystemPrompt(vars), working, LLM_TOOLS, 'auto', turn.onToken);
-    console.log(`[voice] llm#${guard} ${Date.now() - callStart}ms ${res?.calls?.length ? `(tools: ${res.calls.map((c) => c.name).join(',')})` : '(answer)'}`);
-    if (!res) break;
-    if (res.calls?.length) {
-      // Narrate the research — first a time estimate, then a brief "almost done".
-      if (toolRound === 0) {
-        turn.onProgress?.('Let me look into that for you — give me about twenty seconds.');
-      } else {
-        turn.onProgress?.('Still on it — just another moment.');
-      }
-      toolRound++;
-      const assistantMsg = {
-        role: 'assistant',
-        content: null,
-        tool_calls: res.calls.map((c) => ({
-          id: c.id,
-          type: 'function',
-          function: { name: c.name, arguments: c.arguments },
-        })),
-      };
-      const results: unknown[] = [];
-      for (const c of res.calls) {
-        let out = 'tool error';
-        try {
-          out = await runTool(c.name, JSON.parse(c.arguments || '{}') as Record<string, unknown>, deps);
-        } catch {
-          /* keep 'tool error' */
-        }
-        results.push({ role: 'tool', tool_call_id: c.id, content: JSON.stringify({ result: out }) });
-      }
-      working.push(assistantMsg, ...results);
-      guard++;
-      continue;
+  // One fast call, NO tools. The model answers from context or replies DEFER.
+  const res = await model.chatWithTools(voiceSystemPrompt(vars, context), messages, [], 'none');
+  console.log(`[voice] turn ${Date.now() - startedAt}ms`);
+
+  if (res?.text) {
+    const text = res.text.trim();
+    if (/^DEFER\b/i.test(text)) {
+      // Literal signal — the model chose to hand off entirely.
+      console.log('[voice] deferred research → text');
+      return DEFER_REPLY;
     }
-    if (res.text) {
-      console.log(`[voice] turn ${Date.now() - startedAt}ms (${guard} llm calls)`);
-      return res.text;
+    if (looksLikeDefer(text)) {
+      // Natural handoff ("let me look into it and text you the details").
+      // Phase 4 hook: trigger async research + iMessage the parent here.
+      console.log('[voice] natural defer → text handoff');
     }
-    break;
+    return text;
   }
+
   console.error(`[voice] fallback fired after ${Date.now() - startedAt}ms`);
   return fallbackFor(turn.reminder);
 }
