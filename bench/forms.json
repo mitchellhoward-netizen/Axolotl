@@ -1,0 +1,92 @@
+{
+  "$comment": "Axolotl form-fill benchmark materials. Real forms the agent must navigate, fill, and (with consent) submit. Each form lists its capability tier, URL, and a deterministic verifier spec. Pulled + verified against the live sources.",
+  "updated": "2026-02-11",
+  "capabilityStatus": {
+    "web_form_fill": "done (browser_open/browser_assess/browser_fill/browser_submit)",
+    "pdf_fill": "done (pdf_fields/pdf_fill via pdf-lib)",
+    "pdf_label_autofill": "partial (label->field-name fuzzy match; broken-metadata PDFs need a per-form map)",
+    "account_creation": "NOT built (blocks Tier 3)"
+  },
+  "tiers": {
+    "tier1_web_forms": {
+      "capability": "browser_fill",
+      "verifier": "browser_assess VERIFIED + browser_fill returns filled>=N and machine-verified; browser_submit returns a responseLink when submitted",
+      "forms": [
+        {
+          "id": "ckc-soquel-afterschool",
+          "title": "2026-2027 CKC Soquel Application (Solicitud)",
+          "url": "https://docs.google.com/forms/d/e/1FAIpQLSd6KaS8fLGLY8T_QuRJkcYh2fmrwvfb0PJs67W2Ius9MbLTFQ/viewform",
+          "type": "google_form",
+          "status": "filling verified (scripts/test-signup.ts PASSES)",
+          "notes": "Radio/checkbox are [role=radio]/[role=checkbox] widgets; question labels resolve via aria-labelledby."
+        }
+      ]
+    },
+    "tier2_pdfs": {
+      "capability": "pdf_fill",
+      "verifier": "pdf_fill -> reload saved bytes with pdf-lib and assert getText()/isChecked()/getSelected() match each requested value",
+      "forms": [
+        {
+          "id": "capitola-scholarship-es",
+          "title": "Solicitud de beca de programas juveniles (Capitola Recreation)",
+          "url": "https://www.cityofcapitola.gov/DocumentCenter/View/212/Scholarship-Application--Spanish",
+          "language": "es",
+          "type": "acroform_pdf",
+          "fieldCount": 30,
+          "status": "fillable (pdf-lib writes + values persist + Helvetica field font renders correctly)",
+          "finding": "Field /T names AND /TU labels are stored through a broken font ToUnicode (deterministic case-collapsing substitution). Direct label->name matching fails; a decoded per-form field map is required. See fieldMap below.",
+          "fieldMap": [
+            { "semantic": "parent_guardian_name", "field": "538  259  89 5  589H", "type": "text", "label": "Nombre de los padres o tutores", "confidence": "high" },
+            { "semantic": "child_name", "field": "538 2 4O5H", "type": "text", "label": "Nombre del niño", "confidence": "high" },
+            { "semantic": "address", "field": "8Q4H", "type": "text", "label": "Dirección", "confidence": "medium" },
+            { "semantic": "state", "field": "95H", "type": "text", "label": "Estado", "confidence": "high" },
+            { "semantic": "zip", "field": "6H", "type": "text", "label": "C.P. / código postal", "confidence": "medium" },
+            { "semantic": "primary_phone", "field": "2 545 68462H", "type": "text", "label": "Teléfono principal", "confidence": "high" },
+            { "semantic": "secondary_phone", "field": "2 545  485H", "type": "text", "label": "Teléfono secundario", "confidence": "high" },
+            { "semantic": "email", "field": "5885 28Q45H", "type": "text", "label": "Correo electrónico", "confidence": "high" },
+            { "semantic": "program_row_1_example", "field": "03625H 36 652 9954 œ Row1", "type": "text", "label": "Ejemplo / Camp / Capitola / Session (row 1)", "confidence": "high" },
+            { "semantic": "program_row_1_name", "field": "œ žRow1", "type": "text", "label": "(row 1 name field)", "confidence": "medium" },
+            { "semantic": "program_row_1_field3", "field": "4 œŸRow1", "type": "text", "label": "(row 1 third field)", "confidence": "low" },
+            { "semantic": "program_row_2_example", "field": "03625H 36 652 9954 œ Row2", "type": "text", "label": "Ejemplo / Camp / Capitola / Session (row 2)", "confidence": "high" },
+            { "semantic": "program_row_2_name", "field": "œ žRow2", "type": "text", "label": "(row 2 name field)", "confidence": "medium" },
+            { "semantic": "program_row_2_field3", "field": "4 œŸRow2", "type": "text", "label": "(row 2 third field)", "confidence": "low" },
+            { "semantic": "program_row_3_example", "field": "03625H 36 652 9954 œ Row3", "type": "text", "label": "Ejemplo / Camp / Capitola / Session (row 3)", "confidence": "high" },
+            { "semantic": "program_row_3_name", "field": "œ žRow3", "type": "text", "label": "(row 3 name field)", "confidence": "medium" },
+            { "semantic": "program_row_3_field3", "field": "4 œŸRow3", "type": "text", "label": "(row 3 third field)", "confidence": "low" },
+            { "semantic": "program_row_4_example", "field": "03625H 36 652 9954 œ Row4", "type": "text", "label": "Ejemplo / Camp / Capitola / Session (row 4)", "confidence": "high" },
+            { "semantic": "program_row_4_name", "field": "œ žRow4", "type": "text", "label": "(row 4 name field)", "confidence": "medium" },
+            { "semantic": "program_row_4_field3", "field": "4 œŸRow4", "type": "text", "label": "(row 4 third field)", "confidence": "low" },
+            { "semantic": "program_row_5_example", "field": "03625H 36 652 9954 œ Row5", "type": "text", "label": "Ejemplo / Camp / Capitola / Session (row 5)", "confidence": "high" },
+            { "semantic": "program_row_5_name", "field": "œ žRow5", "type": "text", "label": "(row 5 name field)", "confidence": "medium" },
+            { "semantic": "program_row_5_field3", "field": "4 œŸRow5", "type": "text", "label": "(row 5 third field)", "confidence": "low" },
+            { "semantic": "program_row_6_example", "field": "03625H 36 652 9954 œ Row6", "type": "text", "label": "Ejemplo / Camp / Capitola / Session (row 6)", "confidence": "high" },
+            { "semantic": "program_row_6_name", "field": "œ žRow6", "type": "text", "label": "(row 6 name field)", "confidence": "medium" },
+            { "semantic": "program_row_6_field3", "field": "4 œŸRow6", "type": "text", "label": "(row 6 third field)", "confidence": "low" },
+            { "semantic": "monthly_income", "field": "48959 34929  2 32 P59 29 49  48959QH", "type": "text", "label": "Ingresos mensuales de la familia (todas las fuentes de ingresos)", "confidence": "high" },
+            { "semantic": "monthly_expenses", "field": "52  959 34929H", "type": "text", "label": "Total de gastos mensuales", "confidence": "high" },
+            { "semantic": "signature", "field": "Signature1", "type": "signature", "label": "Firma", "confidence": "high" },
+            { "semantic": "date", "field": "Date2_af_date", "type": "text", "label": "Fecha", "confidence": "high" }
+          ]
+        }
+      ]
+    },
+    "tier3_account_forms": {
+      "capability": "account_creation (NOT built)",
+      "verifier": "sign up -> email verify -> login -> reach the form -> fill; success = authenticated session reaches the waitlist form",
+      "forms": [
+        {
+          "id": "mycare-connect-carewait",
+          "title": "MyCare Connect care waitlist",
+          "url": "TODO: paste the URL",
+          "type": "account_required",
+          "status": "blocked on account-creation capability"
+        }
+      ]
+    }
+  },
+  "roadmap": [
+    "1. Encode the Capitola fieldMap so pdf_fill can accept Spanish labels for this form (closes Tier 2 end-to-end).",
+    "2. Build account-creation (sign up -> email verify -> login) for Tier 3 (MyCare Connect care waitlist).",
+    "3. Build the benchmark harness: run each form task + deterministic verifier, report per-form pass/fail + overall success rate."
+  ]
+}

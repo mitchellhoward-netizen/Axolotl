@@ -13,6 +13,7 @@ import {
   browserAssessPage,
   extractPdf,
 } from '../integrations/browser.js';
+import { fillPdf, listPdfFields } from '../integrations/pdf.js';
 import { createEvidence } from '../integrations/evidence-store.js';
 import type { EvidenceRecord, SourceType } from '../domain/evidence.js';
 import { searchSchoolGraph, saveResource, chainSummary } from '../knowledge/resource-graph.js';
@@ -221,6 +222,40 @@ export const LLM_TOOLS = [
       name: 'extract_pdf',
       description: 'Extract text from a PDF at a URL (policies, administrative regulations, applications).',
       parameters: { type: 'object', properties: { url: { type: 'string' } }, required: ['url'] },
+    },
+  },
+  {
+    type: 'function',
+    function: {
+      name: 'pdf_fields',
+      description: 'List the fillable fields of a PDF form at a URL (name, type, current value, choices). Use before pdf_fill to see exact field names and radio/dropdown options.',
+      parameters: { type: 'object', properties: { url: { type: 'string' } }, required: ['url'] },
+    },
+  },
+  {
+    type: 'function',
+    function: {
+      name: 'pdf_fill',
+      description: 'Fill a fillable PDF form at a URL and produce a completed PDF. Each field has a value plus either a label (matched to the closest field name) or the exact field name from pdf_fields. NEVER auto-submits — it returns a filled PDF the parent reviews, then emails/upload (still needs the parent\u2019s YES).',
+      parameters: {
+        type: 'object',
+        properties: {
+          url: { type: 'string' },
+          fields: {
+            type: 'array',
+            items: {
+              type: 'object',
+              properties: {
+                label: { type: 'string' },
+                field: { type: 'string' },
+                value: { type: 'string' },
+              },
+              required: ['value'],
+            },
+          },
+        },
+        required: ['url', 'fields'],
+      },
     },
   },
   {
@@ -470,6 +505,55 @@ export async function runTool(name: string, args: Record<string, unknown>, deps:
       const r = await extractPdf(url);
       return r.ok ? truncate(r.data.text, 4000) : `PDF extraction failed: ${r.reason}`;
     }
+    case 'pdf_fields': {
+      const url = String(args.url ?? '').trim();
+      if (!/^https?:\/\//i.test(url)) return 'Provide a valid http(s) url.';
+      const r = await listPdfFields(url);
+      if (!r.ok || !r.data) return `PDF unavailable (${r.reason}).`;
+      const fields = r.data.fields;
+      if (!fields.length) return 'That PDF has no fillable form fields (flat or scanned PDF).';
+      return (
+        `${fields.length} field(s):\n` +
+        fields
+          .map(
+            (f) =>
+              `- ${f.label && f.label !== f.name ? `${f.label} → ` : ''}${f.name} (${f.type})${
+                f.value ? ` = "${f.value}"` : ''
+              }${f.options?.length ? ` [${f.options.join(' | ')}]` : ''}`,
+          )
+          .join('\n')
+      );
+    }
+    case 'pdf_fill': {
+      const url = String(args.url ?? '').trim();
+      if (!/^https?:\/\//i.test(url)) return 'Provide a valid http(s) url.';
+      const raw = Array.isArray(args.fields)
+        ? (args.fields as Array<{ label?: unknown; field?: unknown; value?: unknown }>)
+        : [];
+      const fields = raw
+        .map((f) => ({
+          label: f.label ? String(f.label).trim() : undefined,
+          field: f.field ? String(f.field).trim() : undefined,
+          value: String(f.value ?? ''),
+        }))
+        .filter((f) => f.label || f.field);
+      if (!fields.length) return 'Provide fields: [{label?, field?, value}]';
+      const r = await fillPdf(url, fields);
+      if (!r.ok || !r.data) return `PDF fill failed (${r.reason}).`;
+      const d = r.data;
+      const parts = [`Filled ${d.filled}/${d.total} field(s) in a ${d.fieldCount}-field PDF.`];
+      if (d.unmatched.length)
+        parts.push(
+          `Unmatched (no field name matched — use pdf_fields for exact names, then pass "field"): ${d.unmatched.join(', ')}.`,
+        );
+      if (d.failed.length)
+        parts.push(`Failed: ${d.failed.map((x) => `${x.field} (${x.error})`).join(', ')}.`);
+      if (d.filePath) parts.push(`Filled PDF saved to ${d.filePath}.`);
+      parts.push(
+        `NOT auto-submitted — share the filled PDF with the parent to review, then propose emailing/uploading it (needs the parent's YES).`,
+      );
+      return parts.join(' ');
+    }
     case 'browser_assess': {
       const url = String(args.url ?? '').trim();
       if (!/^https?:\/\//i.test(url)) return 'Provide a valid http(s) url.';
@@ -691,7 +775,7 @@ export function systemPrompt(ctx: BrainContext): string {
   return (
     `You are a warm, BILINGUAL (English + Spanish) school liaison helping a parent over iMessage. Match the parent's language — if they write in Spanish, reply in Spanish; if they switch, switch with them. Be concise (1-4 short sentences), plain language, plain text (no Markdown, **, #, or bullets). ` +
     `You HAVE live internet access: use web_search to find anything about a school, district, policy, or law, and web_fetch to read a specific page. ` +
-    `For JS-heavy portals, Google/Microsoft forms, or pages web_fetch cannot read, use browser_open then browser_observe/browser_act/browser_extract. For PDFs (policies, regulations), use extract_pdf. ` +
+    `For JS-heavy portals, Google/Microsoft forms, or pages web_fetch cannot read, use browser_open then browser_observe/browser_act/browser_extract. For PDFs: use extract_pdf for policies/regulations; for FILLABLE PDF application forms use pdf_fields to list its fields, then pdf_fill to fill them (returns a completed PDF to review — never auto-submit; emailing/uploading it still needs the parent's YES). ` +
     `VERIFY A PAGE BEFORE YOU FILL IT: a top web-search result is often a blank/dead/duplicate page while the real form is further down. Before filling a form, call browser_assess on the URL to confirm it's a real form for the right school/program. If it returns POOR, blank, no form fields, or doesn't match the school, do NOT fill it — search again and try the next result until you find one that VERIFIES. ` +
     `SIGN-UP FLOW (follow this to sign a student up for a school program): 1) Research to find the RIGHT enrollment form for the correct school's program (many schools have per-school/per-program forms; a top result is often a blank/wrong page — use browser_assess to verify). 2) browser_open the form, then browser_assess to confirm it VERIFIES (real form, right school). 3) Fill text fields (name, email, phone, address) with browser_fill; for checkboxes, radios, and dropdowns use browser_act to select the right option. 4) After filling, VERIFY the form is complete (re-observe or browser_assess). 5) Share the form link (browser_fill returns the URL) with the parent so they can review it, then propose the SUBMIT step — the system requires the parent's explicit YES before anything is submitted, so DO NOT submit without approval. 6) After it submits, SHARE the response link with the parent (the submit step returns the 'view my response' link). ` +
     `Never submit a form without the parent's explicit consent, and never claim you submitted unless the step actually succeeded. ` +

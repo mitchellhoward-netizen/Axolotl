@@ -19,12 +19,15 @@
     "test:benchmark": "tsx scripts/test-benchmark.ts",
     "test:browser": "tsx scripts/test-browser.ts",
     "test:entitlements": "tsx scripts/test-entitlements.ts",
-    "test:signup": "tsx scripts/test-signup.ts"
+    "test:signup": "tsx scripts/test-signup.ts",
+    "test:pdf": "tsx scripts/test-pdf.ts",
+    "test:pdf-capitola": "tsx scripts/test-pdf-capitola.ts"
   },
   "dependencies": {
     "@browserbasehq/stagehand": "^4.0.2",
     "@supabase/supabase-js": "^2.114.0",
     "dotenv": "^17.4.2",
+    "pdf-lib": "^1.17.1",
     "pg": "^8.23.0",
     "spectrum-ts": "^12.8.0",
     "unpdf": "^1.8.1",
