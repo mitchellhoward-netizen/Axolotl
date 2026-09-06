@@ -67,6 +67,8 @@ export interface FamilyProfile {
   children: ChildProfile[];
   /** e.g. "Soquel Elementary School". */
   school?: string;
+  /** City/state to disambiguate a school, e.g. "Seattle, WA". */
+  location?: string;
   /** e.g. "Soquel Union Elementary School District". */
   district?: string;
   /** Areas they want help with: transportation, meals, attendance, conferences, enrollment, special education, … */

@@ -130,6 +130,7 @@ function buildProfile(vars: Record<string, unknown>): FamilyProfile | undefined 
     parentName: String(vars.parent_name ?? 'the parent'),
     children: student ? [{ name: student, grade: vars.grade ? String(vars.grade) : undefined }] : [],
     school: school || undefined,
+    location: String(vars.location ?? '').trim() || undefined,
     district: district || undefined,
     needs: [],
     challenges: [],

@@ -127,6 +127,8 @@ export const LLM_TOOLS = [
         properties: {
           children: { type: 'array', items: { type: 'object', properties: { name: { type: 'string' }, grade: { type: 'string' } } } },
           school: { type: 'string' },
+          /** City/state to disambiguate the school, e.g. "Seattle, WA". */
+          location: { type: 'string' },
           needs: { type: 'array', items: { type: 'string' } },
           challenges: { type: 'array', items: { type: 'string' } },
           notes: { type: 'string' },
@@ -553,6 +555,7 @@ export async function runTool(name: string, args: Record<string, unknown>, deps:
       deps.saveProfile?.({
         children: c.map((x) => ({ name: String(x.name ?? ''), grade: x.grade ? String(x.grade) : undefined })),
         school: typeof args.school === 'string' ? args.school : undefined,
+        location: typeof args.location === 'string' ? args.location : undefined,
         needs: Array.isArray(args.needs) ? (args.needs as string[]).map(String) : [],
         challenges: Array.isArray(args.challenges) ? (args.challenges as string[]).map(String) : [],
         notes: typeof args.notes === 'string' ? args.notes : undefined,
@@ -664,7 +667,7 @@ export function systemPrompt(ctx: BrainContext): string {
     `You HAVE live internet access: use web_search to find anything about a school, district, policy, or law, and web_fetch to read a specific page. ` +
     `For JS-heavy portals, Google/Microsoft forms, or pages web_fetch cannot read, use browser_open then browser_observe/browser_act/browser_extract. For PDFs (policies, regulations), use extract_pdf. ` +
     `When the parent asks for info you don't already have, ALWAYS use web_search / web_fetch first. Never say you don't have internet access or that you can't look it up. ` +
-    `DISAMBIGUATE SCHOOLS: if the school isn't one you have on file, or it's a common name (Lakeside, Lincoln, Washington, etc.), ALWAYS ask which city and state it's in, then include the city/state in every web search (e.g. "Lakeside School Seattle WA", "Lakeside School Seattle WA afterschool math"). Never research or assume a different school with the same name. ` +
+    `DISAMBIGUATE SCHOOLS: if the school isn't one you have on file, or it's a common name (Lakeside, Lincoln, Washington, etc.), ALWAYS ask which city and state it's in, then include the city/state in every web search (e.g. "Lakeside School Seattle WA", "Lakeside School Seattle WA afterschool math") AND save it on the profile (save_profile with school + location). Never research or assume a different school with the same name. ` +
     `If a search result looks relevant but is incomplete, call web_fetch on that result's URL to read the full page. ` +
     `Only if a search genuinely finds nothing, say so and suggest the school office. ` +
     `Remember the conversation — don't re-ask things already answered. Don't announce you're an AI, a demo, or a bot. ` +

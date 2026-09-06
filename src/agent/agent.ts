@@ -58,6 +58,12 @@ import { findSkillFor, skillSummary } from './skills.js';
 /** Tools that take long enough that we tell the parent we're on it. */
 const SLOW_TEXT_TOOLS = new Set(['web_search', 'web_fetch', 'browser_open', 'browser_observe', 'browser_act', 'browser_extract', 'browser_fill', 'extract_pdf']);
 
+/** School name with its city/state disambiguation, so research targets the right one. */
+function qualifiedSchool(p?: FamilyProfile): string {
+  if (!p?.school) return 'their school';
+  return p.location?.trim() ? `${p.school} ${p.location.trim()}` : p.school;
+}
+
 export interface Suggestion {
   kind: 'quickReplies' | 'listPicker';
   title?: string;
@@ -646,7 +652,7 @@ export class Agent {
         }));
       },
       knowledge: async (category, query) => {
-        const input = state.profile?.district ?? state.profile?.school ?? '';
+        const input = state.profile?.district ?? qualifiedSchool(state.profile);
         const district = resolveAnyDistrict(input);
         const cat = category?.trim().toUpperCase().replace(/\s+/g, '_');
         const validCat =
@@ -794,8 +800,9 @@ export class Agent {
     const child = hinted ?? profile?.children?.[0];
     const student = child?.name ?? lastCase?.child ?? (nameFromHint ?? 'your child');
     const grade = child?.grade ?? '';
-    const school = profile?.school ?? 'your child\u2019s school';
-    const district = profile?.district ?? '';
+    const qualified = qualifiedSchool(profile);
+    const school = profile?.school ? qualified : 'your child\u2019s school';
+    const district = profile?.district ?? (profile?.location && profile?.school ? `${profile.school} ${profile.location}` : '');
     const need = (profile?.needs ?? []).join(' and ');
     const notes = profile?.notes ?? '';
     const isTransport = /transport|bus|ride/.test(need) || /bus|route|far|transport|drive/.test(notes);

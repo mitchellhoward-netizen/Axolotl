@@ -1,8 +1,9 @@
 import type { ChildProfile, FamilyProfile } from '../domain/types.js';
 import type { DistrictProfile } from '../knowledge/districts.js';
+import { resolveDistrict } from '../knowledge/districts.js';
 import { assessRights } from '../knowledge/rights.js';
 
-export type OnboardingStep = 'kids' | 'school' | 'needs' | 'challenges' | 'review';
+export type OnboardingStep = 'kids' | 'school' | 'location' | 'needs' | 'challenges' | 'review';
 
 export interface OnboardingState {
   step: OnboardingStep;
@@ -50,6 +51,24 @@ export function advanceOnboarding(state: OnboardingState, text: string): Onboard
 
     case 'school': {
       const profile = { ...state.profile, school: t, district: t };
+      // Ask for the city/state when the school isn't one we have on file, so we
+      // research the right one (there are many common/duplicate school names).
+      if (!resolveDistrict(t).known) {
+        return {
+          text: `Got it — ${t}. Which city and state is that in? (e.g. "Seattle, WA") I want to make sure I look up the right one.`,
+          state: { step: 'location', profile },
+          done: false,
+        };
+      }
+      return {
+        text: "What would you like help with? I can help with things like transportation, meals, attendance, conferences, enrollment, or special education. (You can list a few, or say \"not sure\".)",
+        state: { step: 'needs', profile },
+        done: false,
+      };
+    }
+
+    case 'location': {
+      const profile = { ...state.profile, location: t };
       return {
         text: "What would you like help with? I can help with things like transportation, meals, attendance, conferences, enrollment, or special education. (You can list a few, or say \"not sure\".)",
         state: { step: 'needs', profile },
