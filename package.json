@@ -18,7 +18,8 @@
     "test:models": "tsx scripts/test-model-policy.ts",
     "test:benchmark": "tsx scripts/test-benchmark.ts",
     "test:browser": "tsx scripts/test-browser.ts",
-    "test:entitlements": "tsx scripts/test-entitlements.ts"
+    "test:entitlements": "tsx scripts/test-entitlements.ts",
+    "test:signup": "tsx scripts/test-signup.ts"
   },
   "dependencies": {
     "@browserbasehq/stagehand": "^4.0.2",

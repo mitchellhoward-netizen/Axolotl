@@ -166,27 +166,15 @@ async function getFormMap(page: Page): Promise<FormMap> {
     let n = 0;
     const questionOf = (el) => {
       const lid = (el.getAttribute('aria-labelledby') || el.getAttribute('aria-describedby')) || '';
-      let q = '';
-      if (lid) { const ref = document.getElementById(lid.split(' ')[0]); if (ref) q = ref.textContent || ''; }
-      if (!q) q = el.getAttribute('aria-label') || el.placeholder || (el.labels && el.labels[0] ? el.labels[0].textContent : '') || el.getAttribute('name') || '';
-      return (q || '').replace(/\\s*\\*\\s*$/, '').trim();
+      if (lid) { const ref = document.getElementById(lid.split(' ')[0]); if (ref) return (ref.textContent || '').trim(); }
+      return '';
     };
     document.querySelectorAll('input, select, textarea').forEach((el) => {
-      const t = ((el.type || '')).toLowerCase();
-      if (['hidden','submit','button','file'].indexOf(t) !== -1) return;
-      if (t === 'radio' || t === 'checkbox') {
-        el.setAttribute('data-axl', String(n));
-        const q = questionOf(el);
-        const opt = ((el.labels && el.labels[0] ? el.labels[0].textContent : '') || el.getAttribute('aria-label') || '').trim();
-        if (q && opt) {
-          (groups[q] = groups[q] || { question: q, type: t, options: [] }).options.push({ label: opt, selector: '[data-axl="' + n + '"]' });
-        }
-        n++;
-        return;
-      }
+      const t = (el.type || '').toLowerCase();
+      if (['hidden','submit','button','checkbox','radio','file'].indexOf(t) !== -1) return;
       el.setAttribute('data-axl', String(n));
-      const q = questionOf(el);
-      if (q) out.push({ label: q, selector: '[data-axl="' + n + '"]', type: el.tagName.toLowerCase() === 'select' ? 'select' : (t || 'text'), value: el.value || '' });
+      const q = questionOf(el) || el.getAttribute('aria-label') || el.placeholder || (el.labels && el.labels[0] ? el.labels[0].textContent : '') || el.getAttribute('name') || '';
+      if (q.trim()) out.push({ label: (q || '').replace(/\\s*\\*\\s*$/, '').trim(), selector: '[data-axl="' + n + '"]', type: el.tagName.toLowerCase() === 'select' ? 'select' : (t || 'text'), value: el.value || '' });
       n++;
     });
     return { fields: out, optionGroups: Object.values(groups) };
@@ -217,26 +205,6 @@ function findField(state: FormField[], label: string): FormField | undefined {
   return bestScore >= 0.6 ? best : undefined;
 }
 
-/** Find the option (label = value) whose question matches the target question. */
-function findOption(group: OptionGroup | undefined, value: string): { label: string; selector: string } | undefined {
-  if (!group) return undefined;
-  const target = normLabel(value);
-  for (const opt of group.options) if (normLabel(opt.label) === target) return opt;
-  // fall back to token overlap
-  let best: { label: string; selector: string } | undefined;
-  let bestScore = 0;
-  for (const opt of group.options) {
-    const dl = normLabel(opt.label);
-    const overlap = target.split(' ').filter((t) => t && dl.includes(t)).length;
-    const score = overlap / Math.max(target.split(' ').filter(Boolean).length, 1);
-    if (score > bestScore) {
-      bestScore = score;
-      best = opt;
-    }
-  }
-  return bestScore >= 0.6 ? best : undefined;
-}
-
 function sameValue(a: string, b: string): boolean {
   return normLabel(a) === normLabel(b);
 }
@@ -247,16 +215,6 @@ async function fillByType(page: Page, selector: string, type: string, value: str
   try {
     if (type === 'select') await loc.selectOption(value);
     else await loc.fill(value);
-    return true;
-  } catch {
-    return false;
-  }
-}
-
-/** Check a radio/checkbox option (clicking checks/selects it). */
-async function checkOption(page: Page, selector: string): Promise<boolean> {
-  try {
-    await page.locator(selector).click();
     return true;
   } catch {
     return false;
@@ -277,35 +235,34 @@ export async function browserFill(
   if (!h) return { ok: false, reason: 'browser not configured' };
   if (!fields.length) return { ok: true, data: { filled: 0, verified: true, mismatches: [] } };
   try {
-    let fieldsList = (await getFormMap(h.page)).fields;
+    let form = await getFormMap(h.page);
     const used = new Set<string>();
     const leftovers: Array<{ label: string; value: string }> = [];
 
     for (const f of fields) {
-      // Text/select/textarea → deterministic fill.
-      const target = findField(fieldsList, f.label);
+      // Text/select/textarea → deterministic fill. Radio/checkbox/dropdown fall
+      // through to a natural-language act (Stagehand reads the accessibility tree).
+      const target = findField(form.fields, f.label);
       if (target?.selector && target.type && !used.has(target.selector) && (await fillByType(h.page, target.selector, target.type, f.value))) {
         used.add(target.selector);
       } else {
-        // Radio/checkbox/dropdown → one natural-language act (Stagehand reads the
-        // accessibility tree, which is reliable for these even on Google Forms).
         leftovers.push(f);
       }
     }
     if (leftovers.length) await h.stagehand.act(buildFillInstruction(leftovers));
 
-    if (fieldsList.length === 0) return { ok: true, data: { filled: fields.length, verified: false, mismatches: [] } };
+    if (form.fields.length === 0) return { ok: true, data: { filled: fields.length, verified: false, mismatches: [] } };
 
     const isFilled = (f: { label: string; value: string }) => {
-      const dom = findField(fieldsList, f.label);
+      const dom = findField(form.fields, f.label);
       if (dom && sameValue(dom.value, f.value)) return true;
-      return fieldsList.some((item) => sameValue(item.value, f.value));
+      return form.fields.some((item) => sameValue(item.value, f.value));
     };
 
     let mismatches = fields.filter((f) => !isFilled(f));
     if (mismatches.length) {
       await h.stagehand.act(buildFillInstruction(mismatches));
-      fieldsList = (await getFormMap(h.page)).fields;
+      form = await getFormMap(h.page);
       mismatches = fields.filter((f) => !isFilled(f));
     }
 
