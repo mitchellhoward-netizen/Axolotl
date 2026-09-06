@@ -5,6 +5,8 @@ import { TextAdapter } from './adapters/text.js';
 import { FormAdapter } from './adapters/form.js';
 import { CallAdapter } from './adapters/call.js';
 import { BrowserAdapter } from './adapters/browser.js';
+import { AccountAdapter } from './adapters/account.js';
+import { BrowserAuthDriver } from '../../integrations/auth.js';
 import { createEmailProvider } from '../../integrations/email.js';
 import { createVoiceProvider } from '../../integrations/voice.js';
 
@@ -21,5 +23,6 @@ export function buildAdapters(env: NodeJS.ProcessEnv = process.env): Record<Chan
     form: new FormAdapter(env.FORM_ENDPOINT, email),
     call: new CallAdapter(voice),
     browser: new BrowserAdapter(),
+    account: new AccountAdapter(new BrowserAuthDriver()),
   };
 }

@@ -71,15 +71,16 @@
       ]
     },
     "tier3_account_forms": {
-      "capability": "account_creation (NOT built)",
-      "verifier": "sign up -> email verify -> login -> reach the form -> fill; success = authenticated session reaches the waitlist form",
+      "capability": "account_creation (NOT built — see docs/TIER3-ACCOUNT-SPEC.md)",
+      "verifier": "login -> assert authenticated (session cookie + dashboard DOM) -> reach the waitlist form (browser_assess VERIFIED) -> fill (machine-verified)",
       "forms": [
         {
-          "id": "mycare-connect-carewait",
-          "title": "MyCare Connect care waitlist",
-          "url": "TODO: paste the URL",
-          "type": "account_required",
-          "status": "blocked on account-creation capability"
+          "id": "gki-carewait",
+          "title": "Go Kids, Inc. — Child Care Waitlist Self-Service Tool (CareWait)",
+          "url": "https://app.mycareconnect.io/carewait/gki",
+          "type": "account_required (self-serve signup)",
+          "status": "spec'd (docs/TIER3-ACCOUNT-SPEC.md); not built",
+          "notes": "Agency: Go Kids, Inc. (gokids.org), 831-637-9205. Landing page 'Apply for Child Care' has two buttons: 'Apply' (create a user account) and 'Returning Families' (log in). Self-serve signup — unlike the invite-only family portal. JS SPA, needs the browser hand. Login uses email/SMS OTP (10-min code)."
         }
       ]
     }

@@ -21,7 +21,8 @@
     "test:entitlements": "tsx scripts/test-entitlements.ts",
     "test:signup": "tsx scripts/test-signup.ts",
     "test:pdf": "tsx scripts/test-pdf.ts",
-    "test:pdf-capitola": "tsx scripts/test-pdf-capitola.ts"
+    "test:pdf-capitola": "tsx scripts/test-pdf-capitola.ts",
+    "test:account": "tsx scripts/test-account.ts"
   },
   "dependencies": {
     "@browserbasehq/stagehand": "^4.0.2",

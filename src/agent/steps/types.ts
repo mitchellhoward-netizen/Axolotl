@@ -4,7 +4,7 @@
  * adapter. "Call the school" is structurally identical to "email the liaison."
  */
 
-export type Channel = 'form' | 'email' | 'text' | 'call' | 'browser';
+export type Channel = 'form' | 'email' | 'text' | 'call' | 'browser' | 'account';
 
 export type Mode = 'demo' | 'live';
 
@@ -31,7 +31,20 @@ export type StepPayload =
   | { channel: 'text'; body: string }
   | { channel: 'form'; formId: string; fields: Record<string, string> }
   | { channel: 'call'; objective: CallBrief }
-  | { channel: 'browser'; url: string; fields: Array<{ label: string; value: string }>; submit?: boolean };
+  | { channel: 'browser'; url: string; fields: Array<{ label: string; value: string }>; submit?: boolean }
+  | {
+      channel: 'account';
+      url: string;
+      /** Which phase of the auth flow this step drives. */
+      phase: 'signup' | 'login' | 'verify';
+      /** Login identifier (email or cell). */
+      identifier?: string;
+      password?: string;
+      /** Account-creation fields (name, email, cell, password) for `signup`. */
+      fields?: Array<{ label: string; value: string }>;
+      /** One-time code supplied by the parent, for `verify`. */
+      code?: string;
+    };
 
 /** The brief handed to the voice adapter. */
 export interface CallBrief {

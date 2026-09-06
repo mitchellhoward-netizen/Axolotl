@@ -153,6 +153,25 @@ export const LLM_TOOLS = [
   {
     type: 'function',
     function: {
+      name: 'account_action',
+      description: 'Propose a consent-gated account action on an auth-required portal (child-care waitlist, school portal): create an account (signup), log in (login), or finish a one-time code the parent just sent (verify). It PROPOSES the step — the system gates it behind the parent\u2019s YES before anything executes. NEVER auto-submit.',
+      parameters: {
+        type: 'object',
+        properties: {
+          url: { type: 'string' },
+          phase: { type: 'string', enum: ['signup', 'login', 'verify'] },
+          identifier: { type: 'string' },
+          password: { type: 'string' },
+          fields: { type: 'array', items: { type: 'object', properties: { label: { type: 'string' }, value: { type: 'string' } }, required: ['label', 'value'] } },
+          code: { type: 'string' },
+        },
+        required: ['url', 'phase'],
+      },
+    },
+  },
+  {
+    type: 'function',
+    function: {
       name: 'web_search',
       description: 'Search the web for current info about a school, district, policy, or law. Returns text results.',
       parameters: { type: 'object', properties: { query: { type: 'string' } }, required: ['query'] },
@@ -438,6 +457,44 @@ export async function runTool(name: string, args: Record<string, unknown>, deps:
         },
       ]);
       return `Drafted the email to ${to}. Ask the parent to reply YES to send it (or NO to change it).`;
+    }
+    case 'account_action': {
+      const url = String(args.url ?? '').trim();
+      const phase = String(args.phase ?? '').trim();
+      if (!/^https?:\/\//i.test(url)) return 'Provide a valid http(s) url.';
+      if (phase !== 'signup' && phase !== 'login' && phase !== 'verify') {
+        return 'account_action needs phase: signup, login, or verify.';
+      }
+      const fields = Array.isArray(args.fields)
+        ? (args.fields as Array<{ label?: unknown; value?: unknown }>)
+            .map((f) => ({ label: String(f.label ?? '').trim(), value: String(f.value ?? '') }))
+            .filter((f) => f.label)
+        : [];
+      const payload: Extract<Step['payload'], { channel: 'account' }> = {
+        channel: 'account',
+        url,
+        phase,
+        identifier: typeof args.identifier === 'string' ? args.identifier : undefined,
+        password: typeof args.password === 'string' ? args.password : undefined,
+        fields: fields.length ? fields : undefined,
+        code: typeof args.code === 'string' ? args.code : undefined,
+      };
+      deps.proposeSteps([
+        {
+          id: 'account-' + Date.now().toString(36),
+          caseId: 'account',
+          intent: 'account_' + phase,
+          channel: 'account',
+          counterparty: { role: 'OTHER' },
+          payload,
+          successCondition: { describe: 'Account ' + phase, kind: 'manual' },
+          requiresConsent: phase !== 'verify',
+          status: 'awaiting_consent',
+        },
+      ]);
+      return phase === 'verify'
+        ? 'Finishing the login with that code — will confirm once signed in.'
+        : `Ready to ${phase === 'signup' ? 'create the account' : 'log in'}. Ask the parent to reply YES to proceed (or NO to change it).`;
     }
     case 'call_school': {
       deps.proposeSteps([callStep(deps)]);
@@ -739,6 +796,12 @@ export function pendingActionsSummary(steps: Step[] | undefined): string {
         const p = s.payload as { channel: 'call'; objective: CallBrief };
         return `call ${s.counterparty.name ?? 'the school'} (${p.objective.goal})`;
       }
+      if (s.channel === 'account') {
+        const p = s.payload as { channel: 'account'; phase: string };
+        const label =
+          p.phase === 'signup' ? 'create the account' : p.phase === 'login' ? 'log into the account' : 'finish the login code';
+        return `${label} (${s.intent})`;
+      }
       return `${s.channel}: ${s.intent}`;
     })
     .join('; ');
@@ -779,6 +842,7 @@ export function systemPrompt(ctx: BrainContext): string {
     `VERIFY A PAGE BEFORE YOU FILL IT: a top web-search result is often a blank/dead/duplicate page while the real form is further down. Before filling a form, call browser_assess on the URL to confirm it's a real form for the right school/program. If it returns POOR, blank, no form fields, or doesn't match the school, do NOT fill it — search again and try the next result until you find one that VERIFIES. ` +
     `SIGN-UP FLOW (follow this to sign a student up for a school program): 1) Research to find the RIGHT enrollment form for the correct school's program (many schools have per-school/per-program forms; a top result is often a blank/wrong page — use browser_assess to verify). 2) browser_open the form, then browser_assess to confirm it VERIFIES (real form, right school). 3) Fill text fields (name, email, phone, address) with browser_fill; for checkboxes, radios, and dropdowns use browser_act to select the right option. 4) After filling, VERIFY the form is complete (re-observe or browser_assess). 5) Share the form link (browser_fill returns the URL) with the parent so they can review it, then propose the SUBMIT step — the system requires the parent's explicit YES before anything is submitted, so DO NOT submit without approval. 6) After it submits, SHARE the response link with the parent (the submit step returns the 'view my response' link). ` +
     `Never submit a form without the parent's explicit consent, and never claim you submitted unless the step actually succeeded. ` +
+    `ACCOUNT FLOW (for auth-gated portals/waitlists, e.g. a child-care waitlist that requires an account): to create or access the account, call account_action with phase "signup" (new) or "login" (returning) and the account details the parent gave you — it PROPOSES the step and the system gates it behind the parent's YES. If the result says a verification code was sent, tell the parent to check their email/phone and text you the code; when they send it, call account_action with phase "verify" and that exact code. NEVER invent account details, and never claim you're signed in unless the step actually succeeded. ` +
     `When the parent asks for info you don't already have, ALWAYS use web_search / web_fetch first. Never say you don't have internet access or that you can't look it up. ` +
     `DISAMBIGUATE SCHOOLS: if the school isn't one you have on file, or it's a common name (Lakeside, Lincoln, Washington, etc.), ALWAYS ask which city and state it's in, then include the city/state in every web search (e.g. "Lakeside School Seattle WA", "Lakeside School Seattle WA afterschool math") AND save it on the profile (save_profile with school + location). Never research or assume a different school with the same name. ` +
     `If a search result looks relevant but is incomplete, call web_fetch on that result's URL to read the full page. ` +

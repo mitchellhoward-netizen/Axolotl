@@ -388,6 +388,85 @@ export async function browserClose(): Promise<void> {
   await s?.close().catch(() => {});
 }
 
+/** Pause the shared browser (lets a SPA finish re-rendering after a click/submit). */
+export async function browserWait(ms: number): Promise<BrowserResult<void>> {
+  const h = await getPage();
+  if (!h) return { ok: false, reason: 'browser not configured' };
+  try {
+    await h.page.waitForTimeout(ms);
+    return { ok: true, data: undefined };
+  } catch (e) {
+    return { ok: false, reason: String((e as Error)?.message ?? e) };
+  }
+}
+
+export interface BrowserState {
+  url: string;
+  title: string;
+  text: string;
+  hasCodePrompt: boolean;
+  isLoggedIn: boolean;
+  hasLoginForm: boolean;
+}
+
+/**
+ * Snapshot the current page's auth-relevant state: is there a verification-code
+ * prompt, are we logged in, is a login form present. Heuristic (text + input
+ * shape) — good enough to steer the account flow.
+ */
+export async function browserState(): Promise<BrowserResult<BrowserState>> {
+  const h = await getPage();
+  if (!h) return { ok: false, reason: 'browser not configured' };
+  try {
+    const raw = (await (h.page as unknown as { evaluate: (expr: string) => Promise<unknown> }).evaluate(
+      `(() => {
+        const text = ((document.body && document.body.innerText) || '').trim();
+        const inputs = [...document.querySelectorAll('input')].filter(
+          (e) => ['hidden', 'submit', 'button'].indexOf((e.type || '').toLowerCase()) === -1,
+        );
+        const codeLike = inputs.length > 0 && inputs.length <= 3 && /code|verification|confirm your|enter the|otp|6-digit/i.test(text);
+        const loginLike = /log in|login|sign in|password|logon/i.test(text);
+        const loggedIn = !loginLike && /welcome|dashboard|sign out|log out|my account|my connections|my applications/i.test(text);
+        return {
+          url: location.href,
+          title: (document.title || '').trim(),
+          text: text.slice(0, 2000),
+          hasCodePrompt: codeLike,
+          isLoggedIn: loggedIn,
+          hasLoginForm: loginLike,
+        };
+      })()`,
+    )) as BrowserState;
+    return { ok: true, data: raw };
+  } catch (e) {
+    return { ok: false, reason: String((e as Error)?.message ?? e) };
+  }
+}
+
+/**
+ * Click the first button/link/submit whose visible text equals (then contains)
+ * the given label. Deterministic — complements the LLM-driven `browser_act`.
+ */
+export async function browserClickByText(text: string): Promise<BrowserResult<boolean>> {
+  const h = await getPage();
+  if (!h) return { ok: false, reason: 'browser not configured' };
+  try {
+    const clicked = (await (h.page as unknown as { evaluate: (expr: string) => Promise<unknown> }).evaluate(
+      `((t) => {
+        const norm = (s) => (s || '').trim().toLowerCase().replace(/\\s+/g, ' ');
+        const els = [...document.querySelectorAll('button, a, [role="button"], input[type="submit"], input[type="button"]')];
+        const el = els.find((e) => norm(e.textContent || e.value || '') === norm(t)) ||
+                   els.find((e) => norm(e.textContent || e.value || '').includes(norm(t)));
+        if (el) { el.click(); return true; }
+        return false;
+      })(${JSON.stringify(text)})`,
+    )) as boolean;
+    return { ok: true, data: clicked };
+  } catch (e) {
+    return { ok: false, reason: String((e as Error)?.message ?? e) };
+  }
+}
+
 /** Extract text from a PDF by URL. Scanned PDFs may yield no text (→ OCR later). */
 export async function extractPdf(url: string): Promise<BrowserResult<{ text: string }>> {
   try {
