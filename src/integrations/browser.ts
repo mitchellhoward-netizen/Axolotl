@@ -141,34 +141,60 @@ interface FormField {
   type?: string;
 }
 
+/** A radio/checkbox option group: a question with selectable options. */
+interface OptionGroup {
+  question: string;
+  type: 'radio' | 'checkbox';
+  options: Array<{ label: string; selector: string }>;
+}
+
+interface FormMap {
+  fields: FormField[];
+  optionGroups: OptionGroup[];
+}
+
 /**
- * Read every form field's label + value straight from the DOM (deterministic, fast),
- * resolving the question via aria-labelledby (Google Forms + a11y-wired fields get
- * real labels like 'Child First Name', not generic 'Your answer'). Assigns data-axl
- * so we can fill by selector. Runs as a browser JS string (no DOM types in Node tsconfig).
+ * Read every form field (text/select/textarea → fillable) plus radio/checkbox
+ * option groups straight from the DOM (deterministic, fast). Resolves the question
+ * via aria-labelledby so Google Form fields get real labels, not generic 'Your answer'.
+ * Assigns data-axl so we can fill/check by selector.
  */
-async function getFormFields(page: Page): Promise<FormField[]> {
+async function getFormMap(page: Page): Promise<FormMap> {
   const JS = `(() => {
     const out = [];
+    const groups = {};
     let n = 0;
-    document.querySelectorAll('input, select, textarea').forEach((el) => {
-      const t = (el.type || '').toLowerCase();
-      if (['hidden','submit','button','checkbox','radio','file'].indexOf(t) !== -1) return;
-      el.setAttribute('data-axl', String(n));
-      let q = '';
+    const questionOf = (el) => {
       const lid = (el.getAttribute('aria-labelledby') || el.getAttribute('aria-describedby')) || '';
+      let q = '';
       if (lid) { const ref = document.getElementById(lid.split(' ')[0]); if (ref) q = ref.textContent || ''; }
       if (!q) q = el.getAttribute('aria-label') || el.placeholder || (el.labels && el.labels[0] ? el.labels[0].textContent : '') || el.getAttribute('name') || '';
-      q = (q || '').replace(/\\s*\\*\\s*$/, '').trim();
+      return (q || '').replace(/\\s*\\*\\s*$/, '').trim();
+    };
+    document.querySelectorAll('input, select, textarea').forEach((el) => {
+      const t = ((el.type || '')).toLowerCase();
+      if (['hidden','submit','button','file'].indexOf(t) !== -1) return;
+      if (t === 'radio' || t === 'checkbox') {
+        el.setAttribute('data-axl', String(n));
+        const q = questionOf(el);
+        const opt = ((el.labels && el.labels[0] ? el.labels[0].textContent : '') || el.getAttribute('aria-label') || '').trim();
+        if (q && opt) {
+          (groups[q] = groups[q] || { question: q, type: t, options: [] }).options.push({ label: opt, selector: '[data-axl="' + n + '"]' });
+        }
+        n++;
+        return;
+      }
+      el.setAttribute('data-axl', String(n));
+      const q = questionOf(el);
       if (q) out.push({ label: q, selector: '[data-axl="' + n + '"]', type: el.tagName.toLowerCase() === 'select' ? 'select' : (t || 'text'), value: el.value || '' });
       n++;
     });
-    return out;
+    return { fields: out, optionGroups: Object.values(groups) };
   })()`;
   try {
-    return (await (page as unknown as { evaluate: (expr: string) => Promise<unknown> }).evaluate(JS)) as FormField[];
+    return (await (page as unknown as { evaluate: (expr: string) => Promise<unknown> }).evaluate(JS)) as FormMap;
   } catch {
-    return [];
+    return { fields: [], optionGroups: [] };
   }
 }
 
@@ -191,6 +217,26 @@ function findField(state: FormField[], label: string): FormField | undefined {
   return bestScore >= 0.6 ? best : undefined;
 }
 
+/** Find the option (label = value) whose question matches the target question. */
+function findOption(group: OptionGroup | undefined, value: string): { label: string; selector: string } | undefined {
+  if (!group) return undefined;
+  const target = normLabel(value);
+  for (const opt of group.options) if (normLabel(opt.label) === target) return opt;
+  // fall back to token overlap
+  let best: { label: string; selector: string } | undefined;
+  let bestScore = 0;
+  for (const opt of group.options) {
+    const dl = normLabel(opt.label);
+    const overlap = target.split(' ').filter((t) => t && dl.includes(t)).length;
+    const score = overlap / Math.max(target.split(' ').filter(Boolean).length, 1);
+    if (score > bestScore) {
+      bestScore = score;
+      best = opt;
+    }
+  }
+  return bestScore >= 0.6 ? best : undefined;
+}
+
 function sameValue(a: string, b: string): boolean {
   return normLabel(a) === normLabel(b);
 }
@@ -201,6 +247,16 @@ async function fillByType(page: Page, selector: string, type: string, value: str
   try {
     if (type === 'select') await loc.selectOption(value);
     else await loc.fill(value);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+/** Check a radio/checkbox option (clicking checks/selects it). */
+async function checkOption(page: Page, selector: string): Promise<boolean> {
+  try {
+    await page.locator(selector).click();
     return true;
   } catch {
     return false;
@@ -221,35 +277,35 @@ export async function browserFill(
   if (!h) return { ok: false, reason: 'browser not configured' };
   if (!fields.length) return { ok: true, data: { filled: 0, verified: true, mismatches: [] } };
   try {
-    let formFields = await getFormFields(h.page);
+    let fieldsList = (await getFormMap(h.page)).fields;
     const used = new Set<string>();
     const leftovers: Array<{ label: string; value: string }> = [];
 
     for (const f of fields) {
-      const target = findField(formFields, f.label);
-      // Prefer deterministic selector fill; only reuse a selector once.
+      // Text/select/textarea → deterministic fill.
+      const target = findField(fieldsList, f.label);
       if (target?.selector && target.type && !used.has(target.selector) && (await fillByType(h.page, target.selector, target.type, f.value))) {
         used.add(target.selector);
       } else {
+        // Radio/checkbox/dropdown → one natural-language act (Stagehand reads the
+        // accessibility tree, which is reliable for these even on Google Forms).
         leftovers.push(f);
       }
     }
     if (leftovers.length) await h.stagehand.act(buildFillInstruction(leftovers));
 
-    // Couldn't read the form: be optimistic but honest about it.
-    let state = await getFormFields(h.page);
-    if (state.length === 0) return { ok: true, data: { filled: fields.length, verified: false, mismatches: [] } };
+    if (fieldsList.length === 0) return { ok: true, data: { filled: fields.length, verified: false, mismatches: [] } };
 
     const isFilled = (f: { label: string; value: string }) => {
-      const dom = findField(state, f.label);
+      const dom = findField(fieldsList, f.label);
       if (dom && sameValue(dom.value, f.value)) return true;
-      return state.some((item) => sameValue(item.value, f.value));
+      return fieldsList.some((item) => sameValue(item.value, f.value));
     };
 
     let mismatches = fields.filter((f) => !isFilled(f));
     if (mismatches.length) {
       await h.stagehand.act(buildFillInstruction(mismatches));
-      state = await getFormFields(h.page);
+      fieldsList = (await getFormMap(h.page)).fields;
       mismatches = fields.filter((f) => !isFilled(f));
     }
 
