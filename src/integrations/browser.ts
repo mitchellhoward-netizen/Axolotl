@@ -134,37 +134,49 @@ function buildFillInstruction(fields: Array<{ label: string; value: string }>): 
   return `Fill this form with exactly these values:\n${lines.join('\n')}\nFill every one of these fields with its value. Do not submit.`;
 }
 
+interface FormField {
+  label: string;
+  value: string;
+  selector?: string;
+  type?: string;
+}
+
 /**
- * Read every form field's label + current value straight from the DOM
- * (deterministic). Runs as a browser JS string so it doesn't need DOM types in
- * this Node project's tsconfig. Returns [] when the page can't be read.
+ * Read every form field's label + value straight from the DOM (deterministic, fast),
+ * resolving the question via aria-labelledby (Google Forms + a11y-wired fields get
+ * real labels like 'Child First Name', not generic 'Your answer'). Assigns data-axl
+ * so we can fill by selector. Runs as a browser JS string (no DOM types in Node tsconfig).
  */
-async function readFormState(page: Page): Promise<Array<{ label: string; value: string }>> {
+async function getFormFields(page: Page): Promise<FormField[]> {
   const JS = `(() => {
     const out = [];
-    const els = document.querySelectorAll('input, select, textarea');
-    for (const el of els) {
+    let n = 0;
+    document.querySelectorAll('input, select, textarea').forEach((el) => {
       const t = (el.type || '').toLowerCase();
-      if (['hidden','submit','button','checkbox','radio','file'].indexOf(t) !== -1) continue;
-      const label = (el.labels && el.labels[0] && el.labels[0].textContent) || el.getAttribute('aria-label') || el.placeholder || el.getAttribute('name') || '';
-      if (!label.trim()) continue;
-      out.push({ label: label.trim(), value: el.value || '' });
-    }
+      if (['hidden','submit','button','checkbox','radio','file'].indexOf(t) !== -1) return;
+      el.setAttribute('data-axl', String(n));
+      let q = '';
+      const lid = (el.getAttribute('aria-labelledby') || el.getAttribute('aria-describedby')) || '';
+      if (lid) { const ref = document.getElementById(lid.split(' ')[0]); if (ref) q = ref.textContent || ''; }
+      if (!q) q = el.getAttribute('aria-label') || el.placeholder || (el.labels && el.labels[0] ? el.labels[0].textContent : '') || el.getAttribute('name') || '';
+      q = (q || '').replace(/\\s*\\*\\s*$/, '').trim();
+      if (q) out.push({ label: q, selector: '[data-axl="' + n + '"]', type: el.tagName.toLowerCase() === 'select' ? 'select' : (t || 'text'), value: el.value || '' });
+      n++;
+    });
     return out;
   })()`;
   try {
-    const items = (await (page as unknown as { evaluate: (expr: string) => Promise<unknown> }).evaluate(JS)) as Array<{ label: string; value: string }>;
-    return items;
+    return (await (page as unknown as { evaluate: (expr: string) => Promise<unknown> }).evaluate(JS)) as FormField[];
   } catch {
     return [];
   }
 }
 
-/** Find the read-back field whose label best matches the target label. */
-function findField(state: Array<{ label: string; value: string }>, label: string): { label: string; value: string } | undefined {
+/** Find the field whose label best matches the target label. */
+function findField(state: FormField[], label: string): FormField | undefined {
   const target = normLabel(label).split(' ').filter(Boolean);
   if (!target.length) return undefined;
-  let best: { label: string; value: string } | undefined;
+  let best: FormField | undefined;
   let bestScore = 0;
   for (const item of state) {
     const dl = normLabel(item.label);
@@ -183,11 +195,24 @@ function sameValue(a: string, b: string): boolean {
   return normLabel(a) === normLabel(b);
 }
 
+/** Deterministically fill one field by selector (text → fill, select → selectOption). */
+async function fillByType(page: Page, selector: string, type: string, value: string): Promise<boolean> {
+  const loc = page.locator(selector);
+  try {
+    if (type === 'select') await loc.selectOption(value);
+    else await loc.fill(value);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 /**
- * Fill form fields by natural-language label — ALL AT ONCE (one LLM call), then
- * machine-verify by reading the values back from the DOM (not trusting the fill).
- * If any field is wrong/missing, re-fill just those and verify again. NEVER submits
- * — submission stays behind the consent gate upstream.
+ * Fill form fields by natural-language label. Strategy: read the fields + their DOM
+ * selectors straight from the DOM (deterministic, fast), fill via page.locator().fill()
+ * where we can match a label; fall back to one natural-language act for the rest.
+ * Then machine-verify by reading the values back and self-heal any misses.
+ * NEVER submits — submission stays behind the consent gate upstream.
  */
 export async function browserFill(
   fields: Array<{ label: string; value: string }>,
@@ -196,16 +221,25 @@ export async function browserFill(
   if (!h) return { ok: false, reason: 'browser not configured' };
   if (!fields.length) return { ok: true, data: { filled: 0, verified: true, mismatches: [] } };
   try {
-    await h.stagehand.act(buildFillInstruction(fields));
-    let state = await readFormState(h.page);
+    let formFields = await getFormFields(h.page);
+    const used = new Set<string>();
+    const leftovers: Array<{ label: string; value: string }> = [];
 
-    // Couldn't read the form (no labelled fields): be optimistic but honest about it.
-    if (state.length === 0) {
-      return { ok: true, data: { filled: fields.length, verified: false, mismatches: [] } };
+    for (const f of fields) {
+      const target = findField(formFields, f.label);
+      // Prefer deterministic selector fill; only reuse a selector once.
+      if (target?.selector && target.type && !used.has(target.selector) && (await fillByType(h.page, target.selector, target.type, f.value))) {
+        used.add(target.selector);
+      } else {
+        leftovers.push(f);
+      }
     }
+    if (leftovers.length) await h.stagehand.act(buildFillInstruction(leftovers));
 
-    // Verify each field: strict label match first; if that's unreliable (Google
-    // Forms expose only generic aria-labels), accept when the value is present.
+    // Couldn't read the form: be optimistic but honest about it.
+    let state = await getFormFields(h.page);
+    if (state.length === 0) return { ok: true, data: { filled: fields.length, verified: false, mismatches: [] } };
+
     const isFilled = (f: { label: string; value: string }) => {
       const dom = findField(state, f.label);
       if (dom && sameValue(dom.value, f.value)) return true;
@@ -213,21 +247,15 @@ export async function browserFill(
     };
 
     let mismatches = fields.filter((f) => !isFilled(f));
-
-    // Self-heal: re-fill only the fields that didn't verify, then read back again.
     if (mismatches.length) {
       await h.stagehand.act(buildFillInstruction(mismatches));
-      state = await readFormState(h.page);
+      state = await getFormFields(h.page);
       mismatches = fields.filter((f) => !isFilled(f));
     }
 
     return {
       ok: true,
-      data: {
-        filled: fields.length - mismatches.length,
-        verified: mismatches.length === 0,
-        mismatches,
-      },
+      data: { filled: fields.length - mismatches.length, verified: mismatches.length === 0, mismatches },
     };
   } catch (e) {
     return { ok: false, reason: String((e as Error)?.message ?? e) };
