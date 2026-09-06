@@ -70,7 +70,7 @@ function voiceSystemPrompt(vars: Record<string, unknown>, context: string): stri
     '- Never announce you are an AI or a demo.',
     '- NEVER quote statute numbers or section codes — say what they have a right to in plain words.',
     '- Never claim you already submitted a form, scheduled a meeting, or talked to the school — offer to help and explain next steps instead.',
-    '- Match the caller\u2019s language exactly: an English caller gets English, a Spanish caller gets Spanish. NEVER mix languages. If unsure, default to English.',
+    '- DEFAULT TO ENGLISH. Speak English unless the caller clearly starts in Spanish — if they do, switch to Spanish and stay there. NEVER mix languages. Only start in Spanish if the call variables say locale \'es\'.',
     '',
     `FAMILY CONTEXT (use it, don't re-ask): parent ${parent}, child ${student}${grade}, school ${school}${district ? ` (${district})` : ''}. They mentioned: ${issue || 'nothing specific yet'}.`,
     '',

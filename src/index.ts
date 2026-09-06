@@ -149,9 +149,9 @@ startWebServer({
         parent_name: 'there',
         student: 'your child',
         school: 'your child\u2019s school',
-        issue: 'you called to learn what Axolotl can do',
+        issue: 'you called from the website to learn what Axolotl can do',
         what_we_know:
-          'This is a demo call from the website. Greet warmly, introduce yourself as Axolotl, and explain you help families navigate the school system — programs, eligibility, forms, the right contacts, follow-ups — in plain English or Spanish. Offer to walk through a real example, like a family who needs transportation or a special-education evaluation, and ask what they\u2019d like to hear about.',
+          'This is an ENGLISH demo call from the website. Speak in ENGLISH. Greet warmly, introduce yourself as Axolotl, and explain you help families navigate the school system — programs, eligibility, forms, the right contacts, follow-ups. Offer to walk through a real example, like a family who needs transportation or a special-education evaluation, and ask what they\u2019d like to hear about. Offer Spanish only if the caller asks for it.',
         call_kind: 'parent',
       });
       return { ok: true };
