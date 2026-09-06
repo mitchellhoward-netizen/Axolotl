@@ -949,14 +949,12 @@ export class Agent {
           state: { phase: 'clarifying', intent: state.intent, collected: {} },
         };
       }
-      return {
-        turn: {
-          text: "Sorry, I didn't catch that. Reply YES to confirm or NO to change.",
-          suggestions: yesNo(),
-          phase: 'confirming',
-        },
-        state,
-      };
+      // Not yes/no — the parent changed the subject. Drop the pending plan and
+      // fall through to respond to the new message (never loop on "reply yes/no").
+      state.phase = 'idle';
+      state.pendingPlan = undefined;
+      state.intent = undefined;
+      state.collected = {};
     }
 
     // 2. Continue collecting slots.
@@ -1014,7 +1012,9 @@ export class Agent {
       if (answer === false) {
         return { turn: { text: 'No problem — nothing was sent. What would you like to change?', phase: 'idle' }, state: { phase: 'idle', collected: {}, cases: state.cases, pendingSteps: undefined } };
       }
-      return { turn: { text: 'Reply YES to send this, or NO to change.', suggestions: yesNo(), phase: 'done' }, state };
+      // Not a yes/no — the parent changed the subject. Drop the pending action and
+      // respond to what they actually said; never loop on "reply yes or no."
+      state.pendingSteps = undefined;
     }
 
     if (detected.name === 'call_me') {
