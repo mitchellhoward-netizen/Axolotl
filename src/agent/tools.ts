@@ -443,9 +443,13 @@ export async function runTool(name: string, args: Record<string, unknown>, deps:
         .filter((f) => f.label);
       if (!norm.length) return 'Provide fields: [{label, value}]';
       const r = await browserFill(norm);
-      return r.ok
-        ? `Pre-filled ${r.data.filled} field(s). NOT submitted — submission needs the parent\u2019s explicit YES.`
-        : `browser unavailable (${r.reason}).`;
+      if (!r.ok) return `browser unavailable (${r.reason}).`;
+      const verif = r.data.verified === false
+        ? ' (not machine-verified)'
+        : r.data.mismatches?.length
+          ? ` — ${r.data.mismatches.length} field(s) couldn\u2019t be filled: ${r.data.mismatches.map((m) => m.label).join(', ')}`
+          : '';
+      return `Pre-filled ${r.data.filled} field(s)${verif}. NOT submitted — submission needs the parent\u2019s explicit YES.`;
     }
     case 'extract_pdf': {
       const url = String(args.url ?? '').trim();

@@ -123,19 +123,110 @@ export async function browserExtract(
   }
 }
 
-/** Fill form fields by natural-language label. NEVER submits — consent-gated upstream. */
+/** Normalize a label/name for fuzzy matching. */
+function normLabel(s: string): string {
+  return s.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+}
+
+/** One natural-language instruction to fill ALL fields at once (fewer LLM calls). */
+function buildFillInstruction(fields: Array<{ label: string; value: string }>): string {
+  const lines = fields.map((f) => `- ${f.label}: ${f.value}`);
+  return `Fill this form with exactly these values:\n${lines.join('\n')}\nFill every one of these fields with its value. Do not submit.`;
+}
+
+/**
+ * Read every form field's label + current value straight from the DOM
+ * (deterministic). Runs as a browser JS string so it doesn't need DOM types in
+ * this Node project's tsconfig. Returns [] when the page can't be read.
+ */
+async function readFormState(page: Page): Promise<Array<{ label: string; value: string }>> {
+  const JS = `(() => {
+    const out = [];
+    const els = document.querySelectorAll('input, select, textarea');
+    for (const el of els) {
+      const t = (el.type || '').toLowerCase();
+      if (['hidden','submit','button','checkbox','radio','file'].indexOf(t) !== -1) continue;
+      const label = (el.labels && el.labels[0] && el.labels[0].textContent) || el.getAttribute('aria-label') || el.placeholder || el.getAttribute('name') || '';
+      if (!label.trim()) continue;
+      out.push({ label: label.trim(), value: el.value || '' });
+    }
+    return out;
+  })()`;
+  try {
+    const items = (await (page as unknown as { evaluate: (expr: string) => Promise<unknown> }).evaluate(JS)) as Array<{ label: string; value: string }>;
+    return items;
+  } catch {
+    return [];
+  }
+}
+
+/** Find the read-back field whose label best matches the target label. */
+function findField(state: Array<{ label: string; value: string }>, label: string): { label: string; value: string } | undefined {
+  const target = normLabel(label).split(' ').filter(Boolean);
+  if (!target.length) return undefined;
+  let best: { label: string; value: string } | undefined;
+  let bestScore = 0;
+  for (const item of state) {
+    const dl = normLabel(item.label);
+    if (!dl) continue;
+    const overlap = target.filter((t) => dl.includes(t)).length;
+    const score = overlap / target.length;
+    if (score > bestScore) {
+      bestScore = score;
+      best = item;
+    }
+  }
+  return bestScore >= 0.6 ? best : undefined;
+}
+
+function sameValue(a: string, b: string): boolean {
+  return normLabel(a) === normLabel(b);
+}
+
+/**
+ * Fill form fields by natural-language label — ALL AT ONCE (one LLM call), then
+ * machine-verify by reading the values back from the DOM (not trusting the fill).
+ * If any field is wrong/missing, re-fill just those and verify again. NEVER submits
+ * — submission stays behind the consent gate upstream.
+ */
 export async function browserFill(
   fields: Array<{ label: string; value: string }>,
-): Promise<BrowserResult<{ filled: number }>> {
+): Promise<BrowserResult<{ filled: number; verified?: boolean; mismatches?: Array<{ label: string; value: string }> }>> {
   const h = await getPage();
   if (!h) return { ok: false, reason: 'browser not configured' };
+  if (!fields.length) return { ok: true, data: { filled: 0, verified: true, mismatches: [] } };
   try {
-    let filled = 0;
-    for (const f of fields) {
-      const res = await h.stagehand.act(`type "${f.value}" into the field labeled "${f.label}"`);
-      if (res.data?.success) filled++;
+    await h.stagehand.act(buildFillInstruction(fields));
+    let state = await readFormState(h.page);
+
+    // Couldn't read the form (no labelled fields): be optimistic but honest about it.
+    if (state.length === 0) {
+      return { ok: true, data: { filled: fields.length, verified: false, mismatches: [] } };
     }
-    return { ok: true, data: { filled } };
+
+    let mismatches = fields.filter((f) => {
+      const dom = findField(state, f.label);
+      return !dom || !sameValue(dom.value, f.value);
+    });
+
+    // Self-heal: re-fill only the fields that didn't verify, then read back again.
+    if (mismatches.length) {
+      await h.stagehand.act(buildFillInstruction(mismatches));
+      state = await readFormState(h.page);
+      mismatches = fields.filter((f) => {
+        const dom = findField(state, f.label);
+        return !dom || !sameValue(dom.value, f.value);
+      });
+    }
+
+    return {
+      ok: true,
+      data: {
+        filled: fields.length - mismatches.length,
+        verified: mismatches.length === 0,
+        mismatches,
+      },
+    };
   } catch (e) {
     return { ok: false, reason: String((e as Error)?.message ?? e) };
   }
