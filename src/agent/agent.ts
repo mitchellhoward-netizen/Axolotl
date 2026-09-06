@@ -416,6 +416,12 @@ export class Agent {
     return true;
   }
 
+  /** Run parent-approved voice actions and return the parent-facing summary. */
+  async executeVoiceSteps(conversationId: string, steps: Step[]): Promise<string> {
+    const results = await this.runSteps(steps, this.resolveMode(), undefined, conversationId);
+    return results.map((r) => r.parentSummary).join('\n') || 'Done.';
+  }
+
   /** Record an inbound message (used BEFORE the proactive pass so cooldown kicks in). */
   noteInbound(conversationId: string): void {
     this.currentConversationId = conversationId;

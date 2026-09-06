@@ -3,6 +3,8 @@ import { WebSocketServer, type WebSocket, type RawData } from 'ws';
 import { generateVoiceReply } from './brain.js';
 import { generateSchoolReply } from './school-brain.js';
 import { deferQuestion } from './defer.js';
+import { executeVoiceSteps } from './actions.js';
+import type { Step } from '../agent/steps/types.js';
 
 /**
  * Retell "custom LLM" WebSocket server. Retell handles telephony / STT / TTS /
@@ -29,6 +31,8 @@ export function attachVoiceWebSocket(server: Server): void {
     let conversationId = '';
     let latestResponseId = 0;
     let greeted = false;
+    // Actions the agent proposed (email/call) awaiting the parent's spoken YES.
+    let pendingSteps: Step[] = [];
 
     ws.on('error', (e) => console.error('[voice] ws error:', (e as Error).message));
 
@@ -90,21 +94,52 @@ export function attachVoiceWebSocket(server: Server): void {
           latestResponseId = id;
           const transcript = normalizeTranscript(msg.transcript);
           const reminder = msg.interaction_type === 'reminder_required';
-          const turn = { transcript, variables: callVars, reminder };
+          const school = isSchoolCall(callVars);
+
+          // The parent just approved a proposed action → execute it + follow up by text.
+          if (!school && !reminder && pendingSteps.length && isAffirmative(lastUserUtterance(transcript))) {
+            const steps = pendingSteps;
+            pendingSteps = [];
+            const spoken = await executeVoiceSteps(conversationId, steps);
+            if (id !== latestResponseId) break;
+            ws.send(
+              JSON.stringify({
+                response_type: 'response',
+                response_id: id,
+                content: spoken,
+                content_complete: true,
+                end_call: false,
+              }),
+            );
+            break;
+          }
+
+          const turn = {
+            transcript,
+            variables: callVars,
+            reminder,
+            onProgress: (message: string) => {
+              // Narrate during slow live research so the caller is never in silence.
+              ws.send(JSON.stringify({ response_type: 'agent_interrupt', interrupt_id: Date.now(), content: message }));
+            },
+          };
 
           const reply = await Promise.race([
-            isSchoolCall(callVars)
-              ? generateSchoolReply(turn).then((text) => ({ text, deferred: false }))
+            school
+              ? generateSchoolReply(turn).then((text) => ({ text, deferred: false, proposedSteps: undefined }))
               : generateVoiceReply(turn),
-            new Promise<{ text: string; deferred: boolean }>((resolve) => setTimeout(() => resolve({ text: 'Still working on that — hang tight, just a few more seconds.', deferred: false }), 45000)),
-          ]).catch(() => ({ text: 'Sorry — one second, could you repeat that?', deferred: false }));
+            new Promise<{ text: string; deferred?: boolean; proposedSteps?: Step[] }>((resolve) =>
+              setTimeout(() => resolve({ text: 'Still working on that — hang tight, just a few more seconds.', deferred: false, proposedSteps: undefined }), 45000),
+            ),
+          ]).catch(() => ({ text: 'Sorry — one second, could you repeat that?', deferred: false, proposedSteps: undefined }));
 
           // Voice→text handoff: the parent asked something that needs research.
-          // Say "I'll text you" on the call, then research + iMessage the answer.
           if (reply.deferred && conversationId) {
             const question = lastUserUtterance(transcript);
             if (question) deferQuestion({ question, conversationId, vars: callVars });
           }
+          // Hold proposed actions until the parent says YES on the call.
+          if (reply.proposedSteps?.length) pendingSteps = reply.proposedSteps;
 
           if (id !== latestResponseId) break; // a newer request superseded this one
           ws.send(
@@ -166,4 +201,9 @@ function lastUserUtterance(transcript: Array<{ role: string; content: string }>)
     if (turn && turn.role === 'user') return turn.content;
   }
   return '';
+}
+
+/** Is the caller approving a proposed action ("yes, send it")? */
+function isAffirmative(text: string): boolean {
+  return /^(y|yes|yeah|yep|sure|ok|okay|confirm|go ahead|do it|please|please do|send it|send the|sign .* up)\b/i.test(text.trim());
 }

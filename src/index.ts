@@ -19,6 +19,7 @@ import { createEmailProvider } from "./integrations/email";
 import { createRetellClient } from "./integrations/phones";
 import { startWebServer } from "./integrations/web";
 import { setDeferHandler, answerDeferredQuestion } from "./voice/defer";
+import { setVoiceActionHandler } from "./voice/actions";
 import { AXOLOTL_EMOJI, hasAxolotlImage, axolotlImagePath } from "./integrations/axolotl";
 import { takePendingGreeting } from "./integrations/pending-greeting.js";
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
@@ -67,6 +68,14 @@ setDeferHandler(async (q) => {
   const answer = await answerDeferredQuestion(q, llm);
   const sent = await agent.sendToConversation(q.conversationId, answer);
   if (!sent) console.warn('[defer] could not deliver answer to', q.conversationId);
+});
+
+// Voice→action: parent approved an action on the call → run it + text the result.
+setVoiceActionHandler(async (conversationId, steps) => {
+  const summary = await agent.executeVoiceSteps(conversationId, steps);
+  const sent = await agent.sendToConversation(conversationId, summary);
+  if (!sent) console.warn('[voice-action] could not deliver summary to', conversationId);
+  return summary;
 });
 
 // Resolve the parent from the inbound sender's canonical handle (E.164 phone or

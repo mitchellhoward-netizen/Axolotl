@@ -46,9 +46,24 @@ text you" and fires `deferQuestion` (`src/voice/defer.ts`). The handler (wired i
 answer, and texts it via `agent.sendToConversation` (the Retell `metadata.
 conversationId` tells it which iMessage space to reach).
 
-## Not yet built (planned)
+## Live research + proactive action (Phase 3, shipped)
 
-- **Phase 3 — opt-in live tool use.** When the parent says they'll wait on the
-  call, the voice agent researches live with explicit narration ("going silent
-  ~30s… still working… found it"). Today it always defers to text.
+The parent voice now runs a small tool loop on the FAST model: instant lookups
+(get_knowledge / search_school_graph) first, then live `web_search` / `web_fetch`
+with clear narration ("give me about thirty seconds… still on it"). It only DEFERs
+to text when even research can't answer.
+
+Proactivity: when the parent asks to DO something (sign up, enroll, request), a
+focused action-proposal step (`proposeAction` in `brain.ts`) returns a concrete
+email/call; the agent speaks the offer, and on the parent's spoken "yes" the
+server runs it via `agent.executeVoiceSteps` and texts the confirmation. Consent
+is a spoken yes/no, held per-call in `server.ts` (`pendingSteps`).
+
+## Known gaps
+
+- Contact resolution for third-party programs (e.g. an afterschool provider like
+  Campus Kids Connection): the agent can only reach the school office/liaison it
+  has on file, so a "sign up for X" action currently resolves to "call the school
+  office to get X's process," rather than reaching the third party directly.
+
 
