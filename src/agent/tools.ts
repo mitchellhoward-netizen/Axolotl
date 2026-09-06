@@ -10,6 +10,7 @@ import {
   browserAct,
   browserExtract,
   browserFill,
+  browserAssessPage,
   extractPdf,
 } from '../integrations/browser.js';
 import { createEvidence } from '../integrations/evidence-store.js';
@@ -220,6 +221,18 @@ export const LLM_TOOLS = [
       name: 'extract_pdf',
       description: 'Extract text from a PDF at a URL (policies, administrative regulations, applications).',
       parameters: { type: 'object', properties: { url: { type: 'string' } }, required: ['url'] },
+    },
+  },
+  {
+    type: 'function',
+    function: {
+      name: 'browser_assess',
+      description: 'Evaluate whether a web page is a real, working form for the target school/program BEFORE you fill it. Returns whether the page is blank, has real form fields, and mentions the target. Use this to skip blank, broken, or wrong pages — a top search result is often a dead/empty page while the real form is further down.',
+      parameters: {
+        type: 'object',
+        properties: { url: { type: 'string' }, target: { type: 'string', description: 'e.g. "Soquel afterschool" or the school name' } },
+        required: ['url'],
+      },
     },
   },
   {
@@ -457,6 +470,15 @@ export async function runTool(name: string, args: Record<string, unknown>, deps:
       const r = await extractPdf(url);
       return r.ok ? truncate(r.data.text, 4000) : `PDF extraction failed: ${r.reason}`;
     }
+    case 'browser_assess': {
+      const url = String(args.url ?? '').trim();
+      if (!/^https?:\/\//i.test(url)) return 'Provide a valid http(s) url.';
+      const target = args.target ? String(args.target).trim() : undefined;
+      const r = await browserAssessPage(url, target);
+      if (!r.ok) return `browser unavailable (${r.reason}).`;
+      const a = r.data;
+      return `${a.ok ? 'VERIFIED' : 'POOR'} page (${a.url}): title="${a.title.slice(0, 60)}"; ${a.hasForm ? `${a.fieldCount} form field(s)` : 'NO form fields'}; ${a.blank ? 'BLANK page' : `${a.contentLength} chars`}; ${a.problem ? `problem: ${a.problem}` : 'matches target'}. If POOR, try the next search result.`;
+    }
     case 'save_evidence': {
       const claim = String(args.claim ?? '').trim();
       const sourceUrl = String(args.source_url ?? '').trim();
@@ -670,6 +692,7 @@ export function systemPrompt(ctx: BrainContext): string {
     `You are a warm, BILINGUAL (English + Spanish) school liaison helping a parent over iMessage. Match the parent's language — if they write in Spanish, reply in Spanish; if they switch, switch with them. Be concise (1-4 short sentences), plain language, plain text (no Markdown, **, #, or bullets). ` +
     `You HAVE live internet access: use web_search to find anything about a school, district, policy, or law, and web_fetch to read a specific page. ` +
     `For JS-heavy portals, Google/Microsoft forms, or pages web_fetch cannot read, use browser_open then browser_observe/browser_act/browser_extract. For PDFs (policies, regulations), use extract_pdf. ` +
+    `VERIFY A PAGE BEFORE YOU FILL IT: a top web-search result is often a blank/dead/duplicate page while the real form is further down. Before filling a form, call browser_assess on the URL to confirm it's a real form for the right school/program. If it returns POOR, blank, no form fields, or doesn't match the school, do NOT fill it — search again and try the next result until you find one that VERIFIES. ` +
     `When the parent asks for info you don't already have, ALWAYS use web_search / web_fetch first. Never say you don't have internet access or that you can't look it up. ` +
     `DISAMBIGUATE SCHOOLS: if the school isn't one you have on file, or it's a common name (Lakeside, Lincoln, Washington, etc.), ALWAYS ask which city and state it's in, then include the city/state in every web search (e.g. "Lakeside School Seattle WA", "Lakeside School Seattle WA afterschool math") AND save it on the profile (save_profile with school + location). Never research or assume a different school with the same name. ` +
     `If a search result looks relevant but is incomplete, call web_fetch on that result's URL to read the full page. ` +

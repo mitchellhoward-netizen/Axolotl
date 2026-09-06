@@ -262,6 +262,77 @@ export async function browserFill(
   }
 }
 
+export interface PageAssessment {
+  ok: boolean;
+  url: string;
+  title: string;
+  hasForm: boolean;
+  fieldCount: number;
+  contentLength: number;
+  blank: boolean;
+  text: string;
+  score: number;
+  signals: string[];
+  problem?: string;
+}
+
+/**
+ * Evaluate the quality + correctness of a web page before we trust it. This is
+ * the "wrong form is a blank shell" guard: a page that's basically empty, has no
+ * real form fields, or doesn't mention the target school/program is flagged so
+ * the agent moves to the next candidate instead of filling a dead page.
+ */
+export async function browserAssessPage(url: string, target?: string): Promise<BrowserResult<PageAssessment>> {
+  const h = await getPage();
+  if (!h) return { ok: false, reason: 'browser not configured' };
+  try {
+    await h.page.goto(url, { waitUntil: 'domcontentloaded' as 'load' }).catch(() => {});
+    await h.page.waitForTimeout(6000);
+    const raw = (await h.page.evaluate(
+      `(() => {
+        const title = (document.title || '').trim();
+        const bodyText = ((document.body && document.body.innerText) || '').trim();
+        let fieldCount = 0;
+        document.querySelectorAll('input, select, textarea').forEach((el) => {
+          const t = (el.type || '').toLowerCase();
+          if (['hidden','submit','button','checkbox','radio','file'].indexOf(t) !== -1) return;
+          fieldCount++;
+        });
+        return { title, contentLength: bodyText.length, fieldCount, text: bodyText.slice(0, 300) };
+      })()`,
+    )) as { title: string; contentLength: number; fieldCount: number; text: string };
+
+    const blank = raw.contentLength < 60;
+    const hasForm = raw.fieldCount > 0;
+    const mentionsTarget = target ? (raw.title + ' ' + raw.text).toLowerCase().includes(target.toLowerCase()) : true;
+    const signals: string[] = [];
+    if (blank) signals.push('blank');
+    if (hasForm) signals.push('has-form');
+    if (raw.contentLength > 300) signals.push('has-content');
+    if (!mentionsTarget) signals.push('no-target-match');
+    const ok = !blank && (hasForm || raw.contentLength > 250);
+    const score = (hasForm ? 0.5 : 0) + (!blank && raw.contentLength > 250 ? 0.3 : 0) + (mentionsTarget ? 0.2 : 0);
+    return {
+      ok: true,
+      data: {
+        ok,
+        url,
+        title: raw.title,
+        hasForm,
+        fieldCount: raw.fieldCount,
+        contentLength: raw.contentLength,
+        blank,
+        text: raw.text,
+        score: Number(score.toFixed(2)),
+        signals,
+        problem: blank ? 'blank page' : !hasForm ? 'no form fields found' : mentionsTarget ? undefined : 'does not mention the target school/program',
+      },
+    };
+  } catch (e) {
+    return { ok: false, reason: String((e as Error)?.message ?? e) };
+  }
+}
+
 export async function browserClose(): Promise<void> {
   const s = await getStagehand();
   await s?.close().catch(() => {});
