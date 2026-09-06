@@ -15,6 +15,13 @@ export interface PlaceCallResult {
   error?: string;
 }
 
+export interface PlaceCallInfo {
+  /** The child's school, so the agent can do a little research. */
+  school?: string;
+  /** The child's first name, for a tiny bit of personalization. */
+  student?: string;
+}
+
 /**
  * Serves the Axolotl landing page + captures waitlist signups.
  *   GET  /               → web/index.html
@@ -22,7 +29,7 @@ export interface PlaceCallResult {
  *   POST /api/waitlist   → { phone } appended to web/waitlist.json (and logged)
  *   POST /api/call-me    → { phone } places a demo voice call to that number
  */
-export function startWebServer(opts: { placeCall?: (phone: string) => Promise<PlaceCallResult> } = {}, port: number = Number(process.env.WEB_PORT) || 3000): void {
+export function startWebServer(opts: { placeCall?: (phone: string, info?: PlaceCallInfo) => Promise<PlaceCallResult> } = {}, port: number = Number(process.env.WEB_PORT) || 3000): void {
   const server = createServer(async (req, res) => {
     try {
       const url = new URL(req.url ?? '/', 'http://localhost');
@@ -82,11 +89,11 @@ export function startWebServer(opts: { placeCall?: (phone: string) => Promise<Pl
         return;
       }
 
-      // "Talk to the agent" — place a demo voice call to the visitor's number.
+      // "Talk to your assistant" — place a demo voice call to the visitor's number.
       if (req.method === 'POST' && url.pathname === '/api/call-me') {
         let body = '';
         for await (const chunk of req) body += String(chunk);
-        const { phone } = JSON.parse(body || '{}') as { phone?: string };
+        const { phone, school, student } = JSON.parse(body || '{}') as { phone?: string; school?: string; student?: string };
         const normalized = normalizeE164(phone ?? '');
         if (!normalized) {
           res.writeHead(400, { 'Content-Type': 'application/json' });
@@ -98,7 +105,7 @@ export function startWebServer(opts: { placeCall?: (phone: string) => Promise<Pl
           res.end(JSON.stringify({ ok: false, error: 'Voice is not configured.' }));
           return;
         }
-        const result = await opts.placeCall(normalized);
+        const result = await opts.placeCall(normalized, { school: (school ?? '').trim(), student: (student ?? '').trim() });
         res.writeHead(result.ok ? 200 : 502, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify(result));
         return;

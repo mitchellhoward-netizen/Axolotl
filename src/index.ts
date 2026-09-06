@@ -20,6 +20,8 @@ import { createRetellClient } from "./integrations/phones";
 import { startWebServer } from "./integrations/web";
 import { setDeferHandler, answerDeferredQuestion } from "./voice/defer";
 import { setVoiceActionHandler } from "./voice/actions";
+import { buildPreCallBrief } from "./knowledge/precall";
+import { researchQuestion } from "./knowledge/research";
 import { AXOLOTL_EMOJI, hasAxolotlImage, axolotlImagePath } from "./integrations/axolotl";
 import { takePendingGreeting } from "./integrations/pending-greeting.js";
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
@@ -95,6 +97,10 @@ function senderPhone(senderId?: string): string | undefined {
   return senderId && /^\+\d{6,}$/.test(senderId) ? senderId : undefined;
 }
 
+function withTimeout<T>(promise: Promise<T>, ms: number, fallback: T): Promise<T> {
+  return Promise.race([promise, new Promise<T>((resolve) => setTimeout(() => resolve(fallback), ms))]);
+}
+
 // Whimsical ocean/reef-themed reaction emoji — reacts to the vibe of the message
 // with cute sea creatures, coral, and bubbles, with a varied fallback.
 const REACTIONS: Array<[RegExp, string]> = [
@@ -142,16 +148,38 @@ async function reactWithAxolotl(space: { placeSticker?: unknown }, message: { id
 // skipped when RUN_AGENT_ONLY=true (Vercel serves it); /api/waitlist and
 // /voice-llm always run.
 startWebServer({
-  placeCall: async (phone) => {
+  placeCall: async (phone, info) => {
     if (!retell) return { ok: false, error: 'Voice is not configured.' };
+    const school = info?.school?.trim() ?? '';
+    const student = info?.student?.trim() ?? '';
+
+    // Tiny pre-call research so the agent already knows about the school. For an
+    // un-researched school, do a quick, bounded web lookup if we have the time.
+    let research = '';
+    if (school) {
+      try {
+        research = await buildPreCallBrief(school, school);
+        if (!research) {
+          const pages = await withTimeout(researchQuestion(`${school} school`, school, undefined, 1), 6000, '');
+          research = pages ? `(from the web) ${pages.slice(0, 1200)}` : '';
+        }
+        if (research) console.log('[call-me] researched school:', school, '-', research.slice(0, 60));
+      } catch (e) {
+        console.error('[call-me] research failed:', (e as Error)?.message ?? e);
+      }
+    }
+
     try {
       await retell.createCall(phone, 'website-demo', {
         parent_name: 'there',
-        student: 'your child',
-        school: 'your child\u2019s school',
-        issue: 'you called from the website to learn what Axolotl can do',
+        student: student || 'your child',
+        school: school || 'your child\u2019s school',
+        district: school || '',
+        issue: student ? `you called from the website to learn what Axolotl can do for ${student}` : 'you called from the website to learn what Axolotl can do',
         what_we_know:
-          'This is an ENGLISH demo call from the website. Speak in ENGLISH. Greet warmly, introduce yourself as Axolotl, and explain you help families navigate the school system — programs, eligibility, forms, the right contacts, follow-ups. Offer to walk through a real example, like a family who needs transportation or a special-education evaluation, and ask what they\u2019d like to hear about. Offer Spanish only if the caller asks for it.',
+          'This is an ENGLISH demo call from the website. Speak in ENGLISH. Greet warmly, introduce yourself as Axolotl, and explain you help families navigate the school system — programs, eligibility, forms, the right contacts, follow-ups. Offer to walk through a real example (transportation, special-education evaluation, meals) and ask what they\u2019d like to hear about. Offer Spanish only if the caller asks for it.' +
+          `${school ? ` The family\u2019s school is ${school}.` : ''}` +
+          `${research ? `\n\nResearched about this school before the call:\n${research}` : ''}`,
         call_kind: 'parent',
       });
       return { ok: true };
