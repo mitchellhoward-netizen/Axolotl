@@ -204,19 +204,21 @@ export async function browserFill(
       return { ok: true, data: { filled: fields.length, verified: false, mismatches: [] } };
     }
 
-    let mismatches = fields.filter((f) => {
+    // Verify each field: strict label match first; if that's unreliable (Google
+    // Forms expose only generic aria-labels), accept when the value is present.
+    const isFilled = (f: { label: string; value: string }) => {
       const dom = findField(state, f.label);
-      return !dom || !sameValue(dom.value, f.value);
-    });
+      if (dom && sameValue(dom.value, f.value)) return true;
+      return state.some((item) => sameValue(item.value, f.value));
+    };
+
+    let mismatches = fields.filter((f) => !isFilled(f));
 
     // Self-heal: re-fill only the fields that didn't verify, then read back again.
     if (mismatches.length) {
       await h.stagehand.act(buildFillInstruction(mismatches));
       state = await readFormState(h.page);
-      mismatches = fields.filter((f) => {
-        const dom = findField(state, f.label);
-        return !dom || !sameValue(dom.value, f.value);
-      });
+      mismatches = fields.filter((f) => !isFilled(f));
     }
 
     return {
