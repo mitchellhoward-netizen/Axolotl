@@ -1,6 +1,7 @@
 {
   "cleanUrls": true,
   "rewrites": [
-    { "source": "/api/waitlist", "destination": "/api/waitlist" }
+    { "source": "/api/waitlist", "destination": "/api/waitlist" },
+    { "source": "/api/call-me", "destination": "https://get-axolotl-agent-production.up.railway.app/api/call-me" }
   ]
 }
