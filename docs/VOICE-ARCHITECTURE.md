@@ -37,11 +37,18 @@ One Retell WebSocket serves both. The caller sets a `call_kind` dynamic variable
 (`"parent"` vs `"school"`); `src/voice/server.ts` reads it and dispatches to the
 right brain + the right opening line (warm greeting vs. advocate disclosure).
 
+## Voice → text handoff (Phase 4, shipped)
+
+When the parent voice can't answer from context, it says "let me look it up and
+text you" and fires `deferQuestion` (`src/voice/defer.ts`). The handler (wired in
+`index.ts`) researches the question asynchronously — a focused web search + fetch
+(`researchQuestion` in `src/knowledge/research.ts`) — synthesizes a plain-language
+answer, and texts it via `agent.sendToConversation` (the Retell `metadata.
+conversationId` tells it which iMessage space to reach).
+
 ## Not yet built (planned)
 
 - **Phase 3 — opt-in live tool use.** When the parent says they'll wait on the
   call, the voice agent researches live with explicit narration ("going silent
   ~30s… still working… found it"). Today it always defers to text.
-- **Phase 4 — the actual text handoff.** The brain already *detects* the defer
-  (`looksLikeDefer` in `brain.ts`); the async research → iMessage send is not
-  wired yet. Hook point is marked in the code.
+
