@@ -245,9 +245,12 @@ for await (const [space, message] of app.messages) {
     reply = toPlainText(turn.text);
     // If the parent asked us to call, dial them (demo) or the school with the voice agent.
     if (turn.callMe || turn.callSchool) {
+      // `callMe` must ring THIS sender's own number (from the conversation's
+      // `phone`), never a hardcoded CALL_ME_NUMBER. `callSchool` still uses the
+      // demo "school" line (SCHOOL_CALL_NUMBER, else CALL_ME_NUMBER).
       const phone = turn.callSchool
         ? (process.env.SCHOOL_CALL_NUMBER ?? process.env.CALL_ME_NUMBER)
-        : (senderPhone(message.sender?.id) ?? process.env.CALL_ME_NUMBER);
+        : ((space as unknown as { phone?: string }).phone ?? senderPhone(message.sender?.id) ?? undefined);
       if (phone && retell) {
         const vars = turn.callContext
           ? { ...turn.callContext, call_kind: turn.callSchool ? 'school' : 'parent' }
@@ -266,7 +269,7 @@ for await (const [space, message] of app.messages) {
       } else if (!retell) {
         reply += "\n\nI can't call yet — add RETELL_API_KEY, RETELL_AGENT_ID and RETELL_FROM_NUMBER to your .env and restart.";
       } else {
-        reply += "\n\nI don't have a number to dial. Add CALL_ME_NUMBER=+1XXXXXXXXXX to your .env (your phone), or text me from your phone number instead.";
+        reply += "\n\nI don't have a phone number for you to call. Text me from a phone number (not an Apple ID email), or send me the number you'd like me to call.";
       }
     }
     // Persist the family profile + cases to Supabase (best-effort, never blocks the reply).
