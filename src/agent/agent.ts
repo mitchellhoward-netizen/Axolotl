@@ -48,7 +48,7 @@ import { advanceMckinney, openMckinney } from './mckinney.js';
 import { advanceOnboarding, finalizeOnboarding, openOnboarding } from './onboarding.js';
 import { advanceAttendance, openAttendance } from './attendance.js';
 import { addCase, makeCase, openCaseSummary } from './family.js';
-import { LLM_TOOLS, runTool, systemPrompt, type ToolDeps } from './tools.js';
+import { LLM_TOOLS, runTool, systemPrompt, pendingActionsSummary, type ToolDeps } from './tools.js';
 import { LlmClient } from './llm.js';
 import { extractSlots, missingRequired, SLOT_SPECS, type Roster, type SlotSpec } from './slots.js';
 import { initialState, type ConversationState, type Plan } from './state.js';
@@ -707,7 +707,7 @@ export class Agent {
     let resolved = false;
     while (guard < 6) {
       const res = await llm.chatWithTools(
-        systemPrompt({ profile: state.profile, cases: state.cases, activeGoal: state.activeGoal, lastAction: state.lastAction }),
+        systemPrompt({ profile: state.profile, cases: state.cases, activeGoal: state.activeGoal, lastAction: state.lastAction, pendingActions: pendingActionsSummary(state.pendingSteps) }),
         messages,
         LLM_TOOLS,
         'auto',
@@ -1012,9 +1012,9 @@ export class Agent {
       if (answer === false) {
         return { turn: { text: 'No problem — nothing was sent. What would you like to change?', phase: 'idle' }, state: { phase: 'idle', collected: {}, cases: state.cases, pendingSteps: undefined } };
       }
-      // Not a yes/no — the parent changed the subject. Drop the pending action and
-      // respond to what they actually said; never loop on "reply yes or no."
-      state.pendingSteps = undefined;
+      // Not a yes/no — answer what they said and KEEP the action pending (the
+      // brain is told about it and reminds them at the end). Never loop on
+      // "reply yes or no".
     }
 
     if (detected.name === 'call_me') {

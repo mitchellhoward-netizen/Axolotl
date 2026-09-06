@@ -609,6 +609,26 @@ export interface BrainContext {
   cases?: CaseRecord[];
   activeGoal?: string;
   lastAction?: string;
+  /** Proposed actions still awaiting the parent's YES/NO (so the brain reminds, not re-proposes). */
+  pendingActions?: string;
+}
+
+/** Human-readable summary of steps awaiting consent, for the brain's context. */
+export function pendingActionsSummary(steps: Step[] | undefined): string {
+  if (!steps?.length) return '';
+  return steps
+    .map((s) => {
+      if (s.channel === 'email') {
+        const p = s.payload as { channel: 'email'; subject: string };
+        return `email to ${s.counterparty.name ?? s.counterparty.email ?? 'the school'} ("${p.subject}")`;
+      }
+      if (s.channel === 'call') {
+        const p = s.payload as { channel: 'call'; objective: CallBrief };
+        return `call ${s.counterparty.name ?? 'the school'} (${p.objective.goal})`;
+      }
+      return `${s.channel}: ${s.intent}`;
+    })
+    .join('; ');
 }
 
 export function systemPrompt(ctx: BrainContext): string {
@@ -656,8 +676,10 @@ export function systemPrompt(ctx: BrainContext): string {
     `NEVER say you can't help, can't do it, can't access, can't fill, don't have that ability, or that you're just coordinating. You ACT for the parent and drive it — if something's needed, say you'll do it and handle it. ` +
     `Use save_profile to remember the family, and log_case for new items. ` +
     `When the parent refers to something we're already doing ("try again", "go on", "the call", "the bus"), use the OPEN WORK and NOW context below to continue it — never act lost. ` +
+    `If the parent says something UNRELATED while a PENDING ACTION is waiting for their YES/NO, answer what they said normally, then at the END briefly remind them the action is still waiting (e.g. "Still want me to call the school? Reply yes or no."). Do NOT re-propose the same action or ask a fresh yes/no for it — just remind. ` +
     `\nFAMILY & SITUATION (refreshed every message — use it, don't re-ask): ${kids} at ${school} (${district}). Needs: ${needs}. Challenges: ${challenges}.${notes}` +
     `\nOPEN WORK:\n${openWork}` +
+    (ctx.pendingActions ? `\nPENDING ACTIONS (proposed, waiting for the parent's YES/NO): ${ctx.pendingActions}` : '') +
     `\nNOW: ${now}. LAST ACTION: ${last}.` +
     `\nENTITLED TO (audited against the family — pursue these):\n${auditStr}` +
     `\nQUESTIONS THAT HELP ${kid} (ask these, one at a time, each tied to helping them; don't overwhelm):\n${qsStr}` +
