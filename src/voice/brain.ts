@@ -26,6 +26,7 @@ function getLlm(): LlmClient | null {
         // Voice uses the main (reasoning) model by default for answer quality.
         // Set VOICE_MODEL to a faster model to trade quality for latency.
         model: process.env.VOICE_MODEL ?? process.env.LLM_MODEL ?? 'deepseek-chat',
+        maxTokens: process.env.VOICE_MAX_TOKENS ? Number(process.env.VOICE_MAX_TOKENS) : undefined,
       })
     : null;
   return llm;
@@ -126,11 +127,14 @@ export async function generateVoiceReply(turn: VoiceTurn): Promise<string> {
     studentName: String(vars.student ?? ''),
   };
 
+  const startedAt = Date.now();
   let working: unknown[] = [...messages];
   let guard = 0;
   let toolRound = 0;
   while (guard < 6) {
+    const callStart = Date.now();
     const res = await model.chatWithTools(voiceSystemPrompt(vars), working, LLM_TOOLS, 'auto', turn.onToken);
+    console.log(`[voice] llm#${guard} ${Date.now() - callStart}ms ${res?.calls?.length ? `(tools: ${res.calls.map((c) => c.name).join(',')})` : '(answer)'}`);
     if (!res) break;
     if (res.calls?.length) {
       // Narrate the research — first a time estimate, then a brief "almost done".
@@ -163,9 +167,12 @@ export async function generateVoiceReply(turn: VoiceTurn): Promise<string> {
       guard++;
       continue;
     }
-    if (res.text) return res.text;
+    if (res.text) {
+      console.log(`[voice] turn ${Date.now() - startedAt}ms (${guard} llm calls)`);
+      return res.text;
+    }
     break;
   }
-  console.error('[voice] fallback fired — model returned no usable reply');
+  console.error(`[voice] fallback fired after ${Date.now() - startedAt}ms`);
   return fallbackFor(turn.reminder);
 }

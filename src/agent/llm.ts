@@ -5,6 +5,8 @@ export interface LlmOptions {
   apiKey?: string;
   baseUrl: string;
   model: string;
+  /** Cap total tokens per call (bounds reasoning time for latency-sensitive paths like voice). */
+  maxTokens?: number;
 }
 
 export interface ToolCall {
@@ -53,6 +55,7 @@ export class LlmClient {
           tools,
           tool_choice: toolChoice,
           ...(onToken ? { stream: true } : {}),
+          ...(this.opts.maxTokens ? { max_tokens: this.opts.maxTokens } : {}),
         }),
       });
       if (!res.ok) return null;
