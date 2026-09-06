@@ -304,7 +304,9 @@ export async function browserAssessPage(url: string, target?: string): Promise<B
 
     const blank = raw.contentLength < 60;
     const hasForm = raw.fieldCount > 0;
-    const mentionsTarget = target ? (raw.title + ' ' + raw.text).toLowerCase().includes(target.toLowerCase()) : true;
+    // Space-insensitive so "afterschool" matches "after school", "afterschool", etc.
+    const strip = (s: string) => s.toLowerCase().replace(/[^a-z0-9]/g, '');
+    const mentionsTarget = target ? strip(raw.title + ' ' + raw.text).includes(strip(target)) : true;
     const signals: string[] = [];
     if (blank) signals.push('blank');
     if (hasForm) signals.push('has-form');
