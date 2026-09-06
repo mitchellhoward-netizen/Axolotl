@@ -24,22 +24,28 @@ export function attachVoiceWebSocket(server: Server): void {
     console.log(`[voice] Retell connected: ${req.url}`);
     let callVars: Record<string, unknown> = {};
     let latestResponseId = 0;
+    let greeted = false;
 
     ws.on('error', (e) => console.error('[voice] ws error:', (e as Error).message));
 
     // 1. Enable call details (so we get dynamic_variables) + keepalive.
     ws.send(JSON.stringify({ response_type: 'config', config: { call_details: true, auto_reconnect: true } }));
 
-    // 2. Begin message: the assistant introduces itself and waits for the parent.
+    // 2. Make the agent snappy and easy to interrupt.
     ws.send(
       JSON.stringify({
-        response_type: 'response',
-        response_id: 0,
-        content: "Hey, I'm your school assistant. I can look up policies, find the right forms, and figure out what your family qualifies for. What do you need help with?",
-        content_complete: true,
-        end_call: false,
+        response_type: 'update_agent',
+        agent_config: {
+          responsiveness: 0.8,
+          interruption_sensitivity: 0.9,
+          reminder_trigger_ms: 8000,
+          reminder_max_count: 2,
+        },
       }),
     );
+
+    // 3. Begin message: stay silent until we know who we're talking to, then greet warmly.
+    ws.send(JSON.stringify({ response_type: 'response', response_id: 0, content: '', content_complete: true, end_call: false }));
 
     ws.on('message', async (data: RawData) => {
       let msg: Record<string, unknown>;
@@ -53,6 +59,16 @@ export function attachVoiceWebSocket(server: Server): void {
         case 'call_details': {
           const call = (msg.call ?? msg) as Record<string, unknown>;
           callVars = (call.dynamic_variables ?? msg.dynamic_variables ?? {}) as Record<string, unknown>;
+          if (!greeted) {
+            greeted = true;
+            ws.send(
+              JSON.stringify({
+                response_type: 'agent_interrupt',
+                interrupt_id: Date.now(),
+                content: buildGreeting(callVars),
+              }),
+            );
+          }
           break;
         }
         case 'ping_pong': {
@@ -108,8 +124,13 @@ export function attachVoiceWebSocket(server: Server): void {
   wss.on('error', (e) => console.error('[voice] server error:', (e as Error).message));
 }
 
-function normalizeTranscript(t: unknown): Array<{ role: string; content: string }> {
-  if (!Array.isArray(t)) return [];
+function buildGreeting(vars: Record<string, unknown>): string {
+  const first = String(vars.parent_name ?? '').trim().split(/\s+/)[0] ?? '';
+  const who = first ? ` ${first}` : ' there';
+  return `Hey${who} — thanks for picking up. I'm the school helper you've been texting with, so now I can just talk you through this. What's going on?`;
+}
+
+function normalizeTranscript(t: unknown): Array<{ role: string; content: string }> {  if (!Array.isArray(t)) return [];
   return t
     .map((u) => {
       const o = u as Record<string, unknown>;
