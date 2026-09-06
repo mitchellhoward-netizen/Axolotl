@@ -23,8 +23,9 @@ function getLlm(): LlmClient | null {
     ? new LlmClient({
         apiKey: key,
         baseUrl: process.env.VOICE_BASE_URL ?? process.env.LLM_BASE_URL ?? process.env.OPENAI_BASE_URL ?? 'https://api.deepseek.com',
-        // Voice prioritizes latency over deep reasoning — use a fast model by default.
-        model: process.env.VOICE_MODEL ?? 'deepseek-chat',
+        // Voice uses the main (reasoning) model by default for answer quality.
+        // Set VOICE_MODEL to a faster model to trade quality for latency.
+        model: process.env.VOICE_MODEL ?? process.env.LLM_MODEL ?? 'deepseek-chat',
       })
     : null;
   return llm;
@@ -65,7 +66,6 @@ function voiceSystemPrompt(vars: Record<string, unknown>): string {
     '- Never claim you already submitted a form, scheduled a meeting, or talked to the school — you can offer to help and explain next steps.',
     '- If you don\u2019t know something, say so and offer to look into it.',
     '- Be warm and proactive: turn answers into a next step and offer to do it.',
-    '- SPEED MATTERS: answer directly and briefly from context. Only use a tool (web_search / get_knowledge) when you genuinely need to look something up. Keep replies to 1-2 short spoken sentences.',
     '',
     `FAMILY CONTEXT (use it, don't re-ask): parent ${parent}, child ${student}${grade}, school ${school}${district ? ` (${district})` : ''}. They mentioned: ${issue || 'nothing specific yet'}. What we know: ${whatWeKnow || 'not much yet'}.`,
   ].join('\n');
@@ -118,7 +118,7 @@ export async function generateVoiceReply(turn: VoiceTurn): Promise<string> {
   let working: unknown[] = [...messages];
   let guard = 0;
   let announcedResearch = false;
-  while (guard < 3) {
+  while (guard < 6) {
     const res = await model.chatWithTools(voiceSystemPrompt(vars), working, LLM_TOOLS, 'auto');
     if (!res) break;
     if (res.calls?.length) {

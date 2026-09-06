@@ -81,7 +81,7 @@ export function attachVoiceWebSocket(server: Server): void {
                 );
               },
             }),
-            new Promise<string>((resolve) => setTimeout(() => resolve('Still checking on that — just a moment more.'), 12000)),
+            new Promise<string>((resolve) => setTimeout(() => resolve('Still working on that — hang tight, just a few more seconds.'), 45000)),
           ]).catch(() => 'Sorry — one second, could you repeat that?');
           if (id !== latestResponseId) break; // a newer request superseded this one
           ws.send(
