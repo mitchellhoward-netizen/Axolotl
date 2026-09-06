@@ -39,6 +39,7 @@ export class LlmClient {
     messages: unknown[],
     tools: unknown[],
     toolChoice: 'auto' | 'required' | 'none' = 'auto',
+    onToken?: (token: string) => void,
   ): Promise<ToolsResult | null> {
     if (!this.enabled) return null;
     try {
@@ -51,19 +52,66 @@ export class LlmClient {
           messages: [{ role: 'system', content: system }, ...messages],
           tools,
           tool_choice: toolChoice,
+          ...(onToken ? { stream: true } : {}),
         }),
       });
       if (!res.ok) return null;
-      const data = (await res.json()) as {
-        choices?: Array<{ message?: { content?: string | null; tool_calls?: Array<{ id?: string; function?: { name?: string; arguments?: string } }> } }>;
-      };
-      const msg = data.choices?.[0]?.message;
-      if (!msg) return null;
-      const text = msg.content ?? undefined;
-      const calls = (msg.tool_calls ?? [])
-        .map((c) => ({ id: c.id ?? '', name: c.function?.name ?? '', arguments: c.function?.arguments ?? '{}' }))
-        .filter((c) => c.name);
-      return { text, calls: calls.length ? calls : undefined };
+
+      // Non-streaming path (unchanged).
+      if (!onToken || !res.body) {
+        const data = (await res.json()) as {
+          choices?: Array<{ message?: { content?: string | null; tool_calls?: Array<{ id?: string; function?: { name?: string; arguments?: string } }> } }>;
+        };
+        const msg = data.choices?.[0]?.message;
+        if (!msg) return null;
+        const text = msg.content ?? undefined;
+        const calls = (msg.tool_calls ?? [])
+          .map((c) => ({ id: c.id ?? '', name: c.function?.name ?? '', arguments: c.function?.arguments ?? '{}' }))
+          .filter((c) => c.name);
+        return { text, calls: calls.length ? calls : undefined };
+      }
+
+      // Streaming path: emit content deltas, accumulate tool_calls by index.
+      let text = '';
+      const toolAcc = new Map<number, { id: string; name: string; args: string }>();
+      const decoder = new TextDecoder();
+      let buffer = '';
+      const stream = res.body as unknown as AsyncIterable<Uint8Array>;
+      for await (const chunk of stream) {
+        buffer += decoder.decode(chunk, { stream: true });
+        const lines = buffer.split('\n');
+        buffer = lines.pop() ?? '';
+        for (const line of lines) {
+          const t = line.trim();
+          if (!t.startsWith('data:')) continue;
+          const payload = t.slice(5).trim();
+          if (payload === '[DONE]') continue;
+          let json: { choices?: Array<{ delta?: { content?: string | null; tool_calls?: Array<{ index?: number; id?: string; function?: { name?: string; arguments?: string } }> } }> };
+          try {
+            json = JSON.parse(payload);
+          } catch {
+            continue;
+          }
+          const delta = json.choices?.[0]?.delta;
+          if (!delta) continue;
+          if (delta.content) {
+            text += delta.content;
+            onToken(delta.content);
+          }
+          for (const tc of delta.tool_calls ?? []) {
+            const idx = tc.index ?? 0;
+            const acc = toolAcc.get(idx) ?? { id: '', name: '', args: '' };
+            if (tc.id) acc.id = tc.id;
+            if (tc.function?.name) acc.name = tc.function.name;
+            if (tc.function?.arguments) acc.args += tc.function.arguments;
+            toolAcc.set(idx, acc);
+          }
+        }
+      }
+      const calls = [...toolAcc.values()]
+        .filter((a) => a.name)
+        .map((a) => ({ id: a.id, name: a.name, arguments: a.args || '{}' }));
+      return { text: text || undefined, calls: calls.length ? calls : undefined };
     } catch {
       return null;
     }

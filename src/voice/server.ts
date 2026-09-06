@@ -77,6 +77,7 @@ export function attachVoiceWebSocket(server: Server): void {
           const id = typeof msg.response_id === 'number' ? msg.response_id : 0;
           latestResponseId = id;
           const transcript = normalizeTranscript(msg.transcript);
+          let streamed = false;
           const reply = await Promise.race([
             generateVoiceReply({
               transcript,
@@ -92,6 +93,19 @@ export function attachVoiceWebSocket(server: Server): void {
                   }),
                 );
               },
+              onToken: (token) => {
+                if (id !== latestResponseId) return; // superseded — stop streaming
+                streamed = true;
+                ws.send(
+                  JSON.stringify({
+                    response_type: 'response',
+                    response_id: id,
+                    content: token,
+                    content_complete: false,
+                    end_call: false,
+                  }),
+                );
+              },
             }),
             new Promise<string>((resolve) => setTimeout(() => resolve('Still working on that — hang tight, just a few more seconds.'), 45000)),
           ]).catch(() => 'Sorry — one second, could you repeat that?');
@@ -100,7 +114,7 @@ export function attachVoiceWebSocket(server: Server): void {
             JSON.stringify({
               response_type: 'response',
               response_id: id,
-              content: reply,
+              content: streamed ? '' : reply,
               content_complete: true,
               end_call: false,
             }),

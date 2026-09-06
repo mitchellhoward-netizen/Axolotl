@@ -43,6 +43,8 @@ export interface VoiceTurn {
   reminder?: boolean;
   /** Narrate what the agent is doing (with a time hint) so the caller is never left in silence. */
   onProgress?: (message: string) => void;
+  /** Stream the answer's tokens as they're generated (for low perceived latency). */
+  onToken?: (token: string) => void;
 }
 
 /** A spoken, natural-language system prompt. No markdown, no bullets, short. */
@@ -66,6 +68,7 @@ function voiceSystemPrompt(vars: Record<string, unknown>): string {
     '- Never claim you already submitted a form, scheduled a meeting, or talked to the school — you can offer to help and explain next steps.',
     '- If you don\u2019t know something, say so and offer to look into it.',
     '- Be warm and proactive: turn answers into a next step and offer to do it.',
+    '- Match the caller\u2019s language exactly: an English caller gets English, a Spanish caller gets Spanish. NEVER mix languages or switch mid-sentence. If you are not sure which language they are using, default to English.',
     '',
     `FAMILY CONTEXT (use it, don't re-ask): parent ${parent}, child ${student}${grade}, school ${school}${district ? ` (${district})` : ''}. They mentioned: ${issue || 'nothing specific yet'}. What we know: ${whatWeKnow || 'not much yet'}.`,
   ].join('\n');
@@ -119,7 +122,7 @@ export async function generateVoiceReply(turn: VoiceTurn): Promise<string> {
   let guard = 0;
   let toolRound = 0;
   while (guard < 6) {
-    const res = await model.chatWithTools(voiceSystemPrompt(vars), working, LLM_TOOLS, 'auto');
+    const res = await model.chatWithTools(voiceSystemPrompt(vars), working, LLM_TOOLS, 'auto', turn.onToken);
     if (!res) break;
     if (res.calls?.length) {
       // Narrate the research — first a time estimate, then a brief "almost done".
