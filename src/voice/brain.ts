@@ -18,12 +18,13 @@ let graph: KnowledgeGraph | undefined;
 
 function getLlm(): LlmClient | null {
   if (llm !== undefined) return llm;
-  const key = process.env.DEEPSEEK_API_KEY ?? process.env.OPENAI_API_KEY;
+  const key = process.env.VOICE_API_KEY ?? process.env.DEEPSEEK_API_KEY ?? process.env.OPENAI_API_KEY;
   llm = key
     ? new LlmClient({
         apiKey: key,
-        baseUrl: process.env.LLM_BASE_URL ?? process.env.OPENAI_BASE_URL ?? 'https://api.deepseek.com',
-        model: process.env.LLM_MODEL ?? process.env.OPENAI_MODEL ?? 'deepseek-chat',
+        baseUrl: process.env.VOICE_BASE_URL ?? process.env.LLM_BASE_URL ?? process.env.OPENAI_BASE_URL ?? 'https://api.deepseek.com',
+        // Voice prioritizes latency over deep reasoning — use a fast model by default.
+        model: process.env.VOICE_MODEL ?? 'deepseek-chat',
       })
     : null;
   return llm;
@@ -39,6 +40,8 @@ export interface VoiceTurn {
   variables?: Record<string, unknown>;
   /** True for a `reminder_required` event (caller went quiet). */
   reminder?: boolean;
+  /** Invoked when the model decides to run a tool (research) — let the caller announce it. */
+  onResearching?: () => void;
 }
 
 /** A spoken, natural-language system prompt. No markdown, no bullets, short. */
@@ -62,6 +65,7 @@ function voiceSystemPrompt(vars: Record<string, unknown>): string {
     '- Never claim you already submitted a form, scheduled a meeting, or talked to the school — you can offer to help and explain next steps.',
     '- If you don\u2019t know something, say so and offer to look into it.',
     '- Be warm and proactive: turn answers into a next step and offer to do it.',
+    '- SPEED MATTERS: answer directly and briefly from context. Only use a tool (web_search / get_knowledge) when you genuinely need to look something up. Keep replies to 1-2 short spoken sentences.',
     '',
     `FAMILY CONTEXT (use it, don't re-ask): parent ${parent}, child ${student}${grade}, school ${school}${district ? ` (${district})` : ''}. They mentioned: ${issue || 'nothing specific yet'}. What we know: ${whatWeKnow || 'not much yet'}.`,
   ].join('\n');
@@ -113,10 +117,15 @@ export async function generateVoiceReply(turn: VoiceTurn): Promise<string> {
 
   let working: unknown[] = [...messages];
   let guard = 0;
-  while (guard < 6) {
+  let announcedResearch = false;
+  while (guard < 3) {
     const res = await model.chatWithTools(voiceSystemPrompt(vars), working, LLM_TOOLS, 'auto');
     if (!res) break;
     if (res.calls?.length) {
+      if (!announcedResearch) {
+        announcedResearch = true;
+        turn.onResearching?.();
+      }
       const assistantMsg = {
         role: 'assistant',
         content: null,

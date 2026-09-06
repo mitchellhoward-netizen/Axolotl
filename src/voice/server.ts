@@ -23,6 +23,7 @@ export function attachVoiceWebSocket(server: Server): void {
   wss.on('connection', (ws: WebSocket, req) => {
     console.log(`[voice] Retell connected: ${req.url}`);
     let callVars: Record<string, unknown> = {};
+    let latestResponseId = 0;
 
     ws.on('error', (e) => console.error('[voice] ws error:', (e as Error).message));
 
@@ -60,16 +61,33 @@ export function attachVoiceWebSocket(server: Server): void {
         }
         case 'response_required':
         case 'reminder_required': {
+          const id = typeof msg.response_id === 'number' ? msg.response_id : 0;
+          latestResponseId = id;
           const transcript = normalizeTranscript(msg.transcript);
-          const reply = await generateVoiceReply({
-            transcript,
-            variables: callVars,
-            reminder: msg.interaction_type === 'reminder_required',
-          }).catch(() => "Sorry — one second, could you repeat that?");
+          const reply = await Promise.race([
+            generateVoiceReply({
+              transcript,
+              variables: callVars,
+              reminder: msg.interaction_type === 'reminder_required',
+              onResearching: () => {
+                // Announce the pause the moment it starts researching, so the
+                // caller isn't left in silence.
+                ws.send(
+                  JSON.stringify({
+                    response_type: 'agent_interrupt',
+                    interrupt_id: Date.now(),
+                    content: "Let me look that up — give me just a second.",
+                  }),
+                );
+              },
+            }),
+            new Promise<string>((resolve) => setTimeout(() => resolve('Still checking on that — just a moment more.'), 12000)),
+          ]).catch(() => 'Sorry — one second, could you repeat that?');
+          if (id !== latestResponseId) break; // a newer request superseded this one
           ws.send(
             JSON.stringify({
               response_type: 'response',
-              response_id: typeof msg.response_id === 'number' ? msg.response_id : 0,
+              response_id: id,
               content: reply,
               content_complete: true,
               end_call: false,
