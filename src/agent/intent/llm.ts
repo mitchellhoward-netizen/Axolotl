@@ -11,6 +11,8 @@ const INTENT_NAMES: IntentName[] = [
   'schedule_conference',
   'report_absence',
   'request_meal_voucher',
+  'call_me',
+  'call_school',
   'list_students',
   'help',
   'unknown',
@@ -40,7 +42,8 @@ export class LlmIntentEngine implements IntentEngine {
               role: 'system',
               content:
                 'Classify the parent message into one intent and return JSON: {"intent": string, "confidence": number}. ' +
-                `Allowed intents: ${INTENT_NAMES.join(', ')}.`,
+                `Allowed intents: ${INTENT_NAMES.join(', ')}. ` +
+                'call_me means the parent wants you to call THEM (a demo). call_school means they want you to call the school/office/district.',
             },
             { role: 'user', content: text },
           ],

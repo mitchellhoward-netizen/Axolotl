@@ -9,6 +9,8 @@ export interface DistrictProfile {
   schools?: string;
   /** True when we have a researched profile; false = still to be researched. */
   known: boolean;
+  /** public | private | charter | unknown — gates which federal entitlements apply. */
+  type?: 'public' | 'private' | 'charter' | 'unknown';
 }
 
 /**
@@ -27,11 +29,13 @@ export function resolveDistrict(input: string): DistrictProfile {
       busPasses: BUS_PASSES,
       schools: SCHOOLS_LIST,
       known: true,
+      type: 'public',
     };
   }
   return {
     name: input.trim() || 'your school district',
     short: '',
     known: false,
+    type: 'unknown',
   };
 }

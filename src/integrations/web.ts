@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { addWaitlist } from './waitlist.js';
 import { WAITLIST_MESSAGE, createSmsSender, normalizeE164 } from './sms.js';
 import { recordPendingGreeting } from './pending-greeting.js';
+import { attachVoiceWebSocket } from '../voice/server.js';
 
 const WEB_DIR = path.resolve(fileURLToPath(new URL('../../public', import.meta.url)));
 const WAITLIST_FILE = path.join(WEB_DIR, 'waitlist.json');
@@ -75,7 +76,13 @@ export function startWebServer(port: number = Number(process.env.WEB_PORT) || 30
         return;
       }
 
-      // Static files
+      // Static files (landing page). Skipped in RUN_AGENT_ONLY mode — Vercel
+      // serves the site; this host only runs the agent + waitlist + voice LLM.
+      if (process.env.RUN_AGENT_ONLY === 'true') {
+        res.writeHead(404, { 'Content-Type': 'text/plain' });
+        res.end('Not found');
+        return;
+      }
       const file = url.pathname === '/' ? 'index.html' : url.pathname.replace(/^\//, '');
       const fp = path.join(WEB_DIR, file);
       if (!existsSync(fp)) {
@@ -94,5 +101,12 @@ export function startWebServer(port: number = Number(process.env.WEB_PORT) || 30
     }
   });
 
-  server.listen(port, () => console.log(`🌐 Axolotl site → http://localhost:${port}`));
+  // Live voice (Retell custom LLM) — the assistant drives outbound calls to parents.
+  attachVoiceWebSocket(server);
+
+  const host = process.env.RAILWAY_PUBLIC_DOMAIN ?? `localhost:${port}`;
+  server.listen(port, () => {
+    console.log(`🌐 Axolotl site → http://${host}`);
+    console.log(`🎙️  Voice LLM → wss://${host}/voice-llm`);
+  });
 }

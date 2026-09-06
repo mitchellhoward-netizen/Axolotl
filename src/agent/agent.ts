@@ -16,7 +16,8 @@ import { deriveFamilyMemory } from '../domain/memory.js';
 import { startVerification, verifyCode, isVerified, sendVerificationCode } from '../integrations/verification.js';
 import { KnowledgeGraph, autoResearchDistrict } from '../knowledge/graph.js';
 import { resolveAnyDistrict } from '../knowledge/discovery.js';
-import { researchDistrictNodes } from '../knowledge/research.js';
+import { researchDistrictNodes, inferCategory } from '../knowledge/research.js';
+import { searchSchoolGraph, chainSummary } from '../knowledge/resource-graph.js';
 import { embeddingsConfigured, embedTexts } from '../integrations/embeddings.js';
 import { KNOWLEDGE_CATEGORIES, type KnowledgeCategory } from '../domain/knowledge.js';
 import { answerSchoolInfo, DISTRICT, LIAISON, BUS_PASSES, SOQUEL_ELEMENTARY } from '../knowledge/suesd.js';
@@ -50,6 +51,8 @@ import { LLM_TOOLS, runTool, systemPrompt, type ToolDeps } from './tools.js';
 import { LlmClient } from './llm.js';
 import { extractSlots, missingRequired, SLOT_SPECS, type Roster, type SlotSpec } from './slots.js';
 import { initialState, type ConversationState, type Plan } from './state.js';
+import { assessKnowledgeNode } from './verify.js';
+import { findSkillFor, skillSummary } from './skills.js';
 
 export interface Suggestion {
   kind: 'quickReplies' | 'listPicker';
@@ -94,6 +97,8 @@ export interface AgentOptions {
   now?: () => Date;
   /** Optional LLM brain (research + grounded answers). Falls back offline without it. */
   llm?: LlmClient;
+  /** Small/specialized model for research/extraction (cheap tier). Defaults to `llm`. */
+  researchLlm?: LlmClient;
   /** Email sender. Defaults to a mock that just logs. */
   email?: EmailProvider;
 }
@@ -251,12 +256,15 @@ export class Agent {
         const ob = advanceOnboarding(state.onboarding, text.trim());
         if (ob.done) {
           const district = await this.resolveDistrictAsync(ob.state.profile);
+          // Persist the resolved school type so the entitlement audit + system
+          // prompt don't over-claim public-school programs for a private/unknown school.
+          ob.state.profile.schoolType = district.type;
           // Materialize the parent + students from the profile (true fresh start),
           // and persist them (durable, SIS-free).
           provisionFamily(this.opts.db, parentId, ob.state.profile);
           await persistProvisionedFamily(this.opts.db, parentId);
           const plan = finalizeOnboarding(ob.state.profile, district);
-          this.save(conversationId, { phase: 'done', collected: {}, profile: ob.state.profile }, state);
+          this.save(conversationId, { phase: 'done', collected: {}, profile: ob.state.profile, awaitingCallDemo: true }, state);
           turn = { text: plan, phase: 'done' };
         } else {
           this.save(conversationId, { phase: 'clarifying', collected: {}, onboarding: ob.state, profile: ob.state.profile }, state);
@@ -638,14 +646,23 @@ export class Agent {
           // school" so nothing unverified is ever stated as authoritative).
           const schoolName = district.schools[0]?.name ?? district.name;
           const added = await autoResearchDistrict(this.knowledge, district.id, schoolName, district.name, () =>
-            researchDistrictNodes(district.name, schoolName, this.opts.llm),
+            researchDistrictNodes(district.name, schoolName, this.opts.researchLlm ?? this.opts.llm, qText),
           );
           if (added.length) nodes = await this.knowledge.get(district.id, validCat);
         }
         if (!nodes.length) return 'No researched knowledge for that yet.';
-        return nodes
-          .map((n) => `- [${n.status}] ${n.category}: ${n.title} — ${n.summary}${n.law ? ` (${n.law})` : ''}`)
+        const nodeText = nodes
+          .map((n) => `- [${assessKnowledgeNode(n)}] ${n.category}: ${n.title} — ${n.summary}${n.law ? ` (${n.law})` : ''}`)
           .join('\n');
+        // Reuse path: prefer the typed resource graph's concrete chain (form/
+        // contact/deadline) and a saved procedure over re-deriving them.
+        const chainCat = validCat && validCat !== 'LAW' ? validCat : inferCategory(qText);
+        const chain = chainCat ? await searchSchoolGraph(district.id, chainCat) : null;
+        const skill = chainCat ? await findSkillFor(chainCat.toLowerCase(), district.id) : null;
+        const parts = [nodeText];
+        if (chain && chain.nodes.length) parts.push(`RESOURCE CHAIN (forms/contacts/deadlines):\n${chainSummary(chain)}`);
+        if (skill) parts.push(`SAVED PROCEDURE (reuse this):\n${skillSummary(skill)}`);
+        return parts.join('\n\n');
       },
       memory: {
         addGetting: async (item) => {
@@ -722,11 +739,16 @@ export class Agent {
 
   private async resolveDistrictAsync(profile: FamilyProfile): Promise<DistrictProfile> {
     const input = profile.school ?? profile.district ?? '';
+    // Prefer the curated (hand-verified) profile — it carries the liaison and
+    // bus-pass contacts the LLM is told to omit when unsure. Only fall back to
+    // the LLM for a district we don't already have researched.
+    const curated = resolveDistrict(input);
+    if (curated.known) return curated;
     if (this.opts.llm?.enabled) {
       const researched = await this.opts.llm.researchDistrict(input);
       if (researched) return researched;
     }
-    return resolveDistrict(input);
+    return curated;
   }
 
   private buildCallContext(state: ConversationState, hint?: string): CallContext {
@@ -905,6 +927,23 @@ export class Agent {
     }
 
     // 3. Fresh request. LLM-first: the brain drives every message when available.
+
+    // Onboarding call-demo offer: the parent replied after we offered to call.
+    if (state.awaitingCallDemo) {
+      state.awaitingCallDemo = false;
+      if (/^(yes|yeah|yep|sure|ok|okay|call me|call|do it|go ahead|please|absolutely)\b/i.test(text.trim())) {
+        return {
+          turn: {
+            text: "Great — calling you now. Pick up and I'll show you how I'd handle a real call.",
+            callMe: true,
+            callContext: this.buildCallContext(state),
+            phase: 'done',
+          },
+          state: { phase: 'done', collected: {}, cases: state.cases },
+        };
+      }
+    }
+
     const detected = await this.opts.intentEngine.detect(text);
 
     // Step consent gate: the brain proposed steps; the parent's YES/NO resolves them.
@@ -923,7 +962,12 @@ export class Agent {
 
     if (detected.name === 'call_me') {
       return {
-        turn: { text: "Alright — calling you now. Pick up and I'll show you how I'd handle that on a real call.", callMe: true, phase: 'done' },
+        turn: {
+          text: "Alright — calling you now. Pick up and I'll show you how I'd handle that on a real call.",
+          callMe: true,
+          callContext: this.buildCallContext(state),
+          phase: 'done',
+        },
         state: { phase: 'done', collected: {}, cases: state.cases },
       };
     }

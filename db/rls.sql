@@ -29,3 +29,21 @@ create policy family_memory_write on family_memory for insert
 create policy verification_write on verification for insert with check (auth.role() = 'service_role');
 create policy followup_write on followup for insert with check (auth.role() = 'service_role');
 create policy pending_greeting_write on pending_greeting for insert with check (auth.role() = 'service_role');
+
+-- Evidence: district-shared knowledge. Reads allowed; writes via service_role.
+alter table evidence enable row level security;
+create policy evidence_read on evidence for select using (true);
+create policy evidence_write on evidence for insert with check (auth.role() = 'service_role');
+
+-- Resource graph: district-shared. Reads allowed; writes via service_role.
+alter table resource enable row level security;
+alter table resource_edge enable row level security;
+create policy resource_read on resource for select using (true);
+create policy resource_write on resource for insert with check (auth.role() = 'service_role');
+create policy resource_edge_read on resource_edge for select using (true);
+create policy resource_edge_write on resource_edge for insert with check (auth.role() = 'service_role');
+
+-- Procedural-memory skills: district-shared. Reads allowed; writes via service_role.
+alter table skill enable row level security;
+create policy skill_read on skill for select using (true);
+create policy skill_write on skill for insert with check (auth.role() = 'service_role');

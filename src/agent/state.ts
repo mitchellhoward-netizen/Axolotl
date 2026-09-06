@@ -39,6 +39,8 @@ export interface ConversationState {
   pendingCall?: boolean;
   /** We're waiting for the parent to clarify what the call is about before dialing. */
   awaitingCallClarify?: boolean;
+  /** We just offered a demo call during onboarding; awaiting their yes/no. */
+  awaitingCallDemo?: boolean;
   /** What the family is actively working toward right now (refreshed each turn). */
   activeGoal?: string;
   /** The most recent action we took for the family (call/email/reminder…). */

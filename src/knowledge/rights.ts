@@ -11,8 +11,18 @@ export interface Right {
  * what their children may be entitled to. Keep this grounded and cite the law;
  * the agent should phrase these as "may be entitled to" — the district/state
  * ultimately determines eligibility.
+ *
+ * These entitlements (McKinney-Vento, NSLP, IDEA, Title III, attendance-area
+ * enrollment) are PUBLIC-school programs. For a private/unknown school they
+ * generally don't apply — pass `schoolType` and this returns nothing rather than
+ * over-claiming.
  */
-export function assessRights(profile: FamilyProfile): Right[] {
+export function assessRights(profile: FamilyProfile, schoolType?: string): Right[] {
+  // Gate: only assert public-school entitlements for public districts. A private
+  // school (or an unresolved one) sets its own policies for transportation,
+  // meals, accommodations, and language support.
+  if (schoolType !== undefined && schoolType !== 'public') return [];
+
   const needs = profile.needs.map((s) => s.toLowerCase()).join(' ');
   const chal = profile.challenges.map((s) => s.toLowerCase()).join(' ');
   const rights: Right[] = [];

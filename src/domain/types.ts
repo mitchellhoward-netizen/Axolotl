@@ -75,6 +75,8 @@ export interface FamilyProfile {
   challenges: string[];
   /** Preferred message language. Defaults to English; Spanish is first-class. */
   locale?: 'en' | 'es';
+  /** public | private | charter | unknown — set at onboarding; gates public-school entitlements. */
+  schoolType?: 'public' | 'private' | 'charter' | 'unknown';
   /** What the family has already secured (free meals, a 504 plan, a bus pass). */
   getting?: string[];
   notes?: string;

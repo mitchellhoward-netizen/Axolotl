@@ -4,6 +4,21 @@ import { answerSchoolInfo, LIAISON, SOQUEL_ELEMENTARY } from '../knowledge/suesd
 import { barrierByCategory, detectBarriers } from '../knowledge/barriers.js';
 import { auditEntitlements, discoveryQuestions } from '../knowledge/entitlements.js';
 import { addCase, makeCase, openCaseSummary } from './family.js';
+import {
+  browserOpen,
+  browserObserve,
+  browserAct,
+  browserExtract,
+  browserFill,
+  extractPdf,
+} from '../integrations/browser.js';
+import { createEvidence } from '../integrations/evidence-store.js';
+import type { EvidenceRecord, SourceType } from '../domain/evidence.js';
+import { searchSchoolGraph, saveResource, chainSummary } from '../knowledge/resource-graph.js';
+import { inferCategory } from '../knowledge/research.js';
+import type { ResourceNode, ResourceType } from '../domain/graph.js';
+import { saveSkill, listSkills, skillSummary } from './skills.js';
+import { makeSkillKey, type Skill } from '../domain/skill.js';
 
 export interface ToolDeps {
   profile?: FamilyProfile;
@@ -150,6 +165,151 @@ export const LLM_TOOLS = [
   {
     type: 'function',
     function: {
+      name: 'browser_open',
+      description: 'Open a URL in a real browser (Stagehand) — for JS-heavy portals, Google/Microsoft forms, and pages static fetch cannot read.',
+      parameters: { type: 'object', properties: { url: { type: 'string' } }, required: ['url'] },
+    },
+  },
+  {
+    type: 'function',
+    function: {
+      name: 'browser_observe',
+      description: 'List what is actionable on the current browser page (returns element selectors + descriptions).',
+      parameters: { type: 'object', properties: { instruction: { type: 'string' } }, required: [] },
+    },
+  },
+  {
+    type: 'function',
+    function: {
+      name: 'browser_act',
+      description: 'Perform an action in the browser by natural language (click, type, scroll, select).',
+      parameters: { type: 'object', properties: { instruction: { type: 'string' } }, required: ['instruction'] },
+    },
+  },
+  {
+    type: 'function',
+    function: {
+      name: 'browser_extract',
+      description: 'Extract structured data from the current browser page. Provide field names to pull.',
+      parameters: {
+        type: 'object',
+        properties: { instruction: { type: 'string' }, fields: { type: 'array', items: { type: 'string' } } },
+        required: ['instruction', 'fields'],
+      },
+    },
+  },
+  {
+    type: 'function',
+    function: {
+      name: 'browser_fill',
+      description: 'Pre-fill form fields in the browser (label + value). NEVER submits — submission requires the parent\u2019s explicit YES.',
+      parameters: {
+        type: 'object',
+        properties: {
+          fields: { type: 'array', items: { type: 'object', properties: { label: { type: 'string' }, value: { type: 'string' } }, required: ['label', 'value'] } },
+        },
+        required: ['fields'],
+      },
+    },
+  },
+  {
+    type: 'function',
+    function: {
+      name: 'extract_pdf',
+      description: 'Extract text from a PDF at a URL (policies, administrative regulations, applications).',
+      parameters: { type: 'object', properties: { url: { type: 'string' } }, required: ['url'] },
+    },
+  },
+  {
+    type: 'function',
+    function: {
+      name: 'save_evidence',
+      description: 'Persist a verified claim with its source (claim, source_url, source_title, and optional source_type/evidence_span/jurisdiction/official/confidence). Returns the trust status after verification.',
+      parameters: {
+        type: 'object',
+        properties: {
+          claim: { type: 'string' },
+          source_url: { type: 'string' },
+          source_title: { type: 'string' },
+          source_type: { type: 'string' },
+          evidence_span: { type: 'string' },
+          jurisdiction: { type: 'string' },
+          official: { type: 'boolean' },
+          confidence: { type: 'number' },
+        },
+        required: ['claim', 'source_url', 'source_title'],
+      },
+    },
+  },
+  {
+    type: 'function',
+    function: {
+      name: 'search_school_graph',
+      description: 'Search the school resource graph (school→district→department→program→eligibility→policy→application→form→contact→deadline) for a program chain matching a goal or category. Returns forms, contacts, and deadlines when available.',
+      parameters: {
+        type: 'object',
+        properties: {
+          query: { type: 'string' },
+          category: { type: 'string' },
+          district_id: { type: 'string' },
+        },
+        required: [],
+      },
+    },
+  },
+  {
+    type: 'function',
+    function: {
+      name: 'save_resource',
+      description: 'Persist a resource-graph node (type: district|school|department|program|eligibility|policy|application|form|contact|deadline) with its canonical URL.',
+      parameters: {
+        type: 'object',
+        properties: {
+          type: { type: 'string' },
+          title: { type: 'string' },
+          summary: { type: 'string' },
+          canonical_url: { type: 'string' },
+          category: { type: 'string' },
+          district_id: { type: 'string' },
+          status: { type: 'string' },
+          confidence: { type: 'number' },
+        },
+        required: ['type', 'title', 'canonical_url'],
+      },
+    },
+  },
+  {
+    type: 'function',
+    function: {
+      name: 'save_procedure',
+      description: 'Persist a verified, parameterized workflow (skill) keyed by intent+jurisdiction, with its steps and evidence deps. Use {child}/{parent}/{school} placeholders in args.',
+      parameters: {
+        type: 'object',
+        properties: {
+          name: { type: 'string' },
+          intent: { type: 'string' },
+          jurisdiction: { type: 'string' },
+          description: { type: 'string' },
+          when_to_use: { type: 'string' },
+          steps: { type: 'array', items: { type: 'object', properties: { tool: { type: 'string' }, args: { type: 'object' }, note: { type: 'string' } }, required: ['tool'] } },
+          evidence_deps: { type: 'array', items: { type: 'string' } },
+          approved: { type: 'boolean' },
+        },
+        required: ['name', 'intent'],
+      },
+    },
+  },
+  {
+    type: 'function',
+    function: {
+      name: 'list_skills',
+      description: 'List the saved procedures (skills) the agent has learned.',
+      parameters: { type: 'object', properties: {}, required: [] },
+    },
+  },
+  {
+    type: 'function',
+    function: {
       name: 'call_school',
       description: 'Place a phone call to the school. Use it when the parent asks you to call the school, office, district, principal, or "them." This is a real capability — you CAN call.',
       parameters: { type: 'object', properties: {} },
@@ -246,6 +406,136 @@ export async function runTool(name: string, args: Record<string, unknown>, deps:
       const res = await fetch(`https://r.jina.ai/${encodeURIComponent(url)}`);
       const txt = res.ok ? await res.text() : '';
       return truncate(txt || 'Could not fetch that page.', 4000);
+    }
+    case 'browser_open': {
+      const url = String(args.url ?? '').trim();
+      if (!/^https?:\/\//i.test(url)) return 'Provide a valid http(s) url.';
+      const r = await browserOpen(url);
+      return r.ok
+        ? `Opened ${r.data}. Use browser_observe to see what is actionable on the page.`
+        : `browser unavailable (${r.reason}). Fall back to web_fetch.`;
+    }
+    case 'browser_observe': {
+      const r = await browserObserve(String(args.instruction ?? '').trim() || undefined);
+      return r.ok ? JSON.stringify(r.data) : `browser unavailable (${r.reason}).`;
+    }
+    case 'browser_act': {
+      const instruction = String(args.instruction ?? '').trim();
+      if (!instruction) return 'Provide an instruction.';
+      const r = await browserAct(instruction);
+      return r.ok ? `Action done: ${r.data}` : `browser unavailable (${r.reason}).`;
+    }
+    case 'browser_extract': {
+      const instruction = String(args.instruction ?? '').trim();
+      const fields = Array.isArray(args.fields) ? (args.fields as unknown[]).map(String) : [];
+      if (!instruction || !fields.length) return 'Provide an instruction and a fields array.';
+      const r = await browserExtract(instruction, fields);
+      return r.ok ? JSON.stringify(r.data) : `browser unavailable (${r.reason}).`;
+    }
+    case 'browser_fill': {
+      const fields = Array.isArray(args.fields)
+        ? (args.fields as Array<{ label?: unknown; value?: unknown }>)
+        : [];
+      const norm = fields
+        .map((f) => ({ label: String(f.label ?? '').trim(), value: String(f.value ?? '') }))
+        .filter((f) => f.label);
+      if (!norm.length) return 'Provide fields: [{label, value}]';
+      const r = await browserFill(norm);
+      return r.ok
+        ? `Pre-filled ${r.data.filled} field(s). NOT submitted — submission needs the parent\u2019s explicit YES.`
+        : `browser unavailable (${r.reason}).`;
+    }
+    case 'extract_pdf': {
+      const url = String(args.url ?? '').trim();
+      if (!/^https?:\/\//i.test(url)) return 'Provide a valid http(s) url.';
+      const r = await extractPdf(url);
+      return r.ok ? truncate(r.data.text, 4000) : `PDF extraction failed: ${r.reason}`;
+    }
+    case 'save_evidence': {
+      const claim = String(args.claim ?? '').trim();
+      const sourceUrl = String(args.source_url ?? '').trim();
+      const sourceTitle = String(args.source_title ?? '').trim();
+      if (!claim || !sourceUrl || !sourceTitle) return 'save_evidence needs claim, source_url, source_title.';
+      const res = await createEvidence({
+        claim,
+        sourceUrl,
+        sourceTitle,
+        sourceType: typeof args.source_type === 'string' ? (args.source_type as SourceType) : undefined,
+        evidenceSpan: typeof args.evidence_span === 'string' ? args.evidence_span : undefined,
+        jurisdiction: typeof args.jurisdiction === 'string' ? (args.jurisdiction as EvidenceRecord['jurisdiction']) : undefined,
+        official: typeof args.official === 'boolean' ? args.official : undefined,
+        confidence: typeof args.confidence === 'number' ? args.confidence : undefined,
+      });
+      return `Saved evidence [${res.status}] "${claim}".${res.reasons.length ? ` Caveats: ${res.reasons.join('; ')}` : ' Verified.'}`;
+    }
+    case 'search_school_graph': {
+      const query = String(args.query ?? '').trim();
+      const districtId = String(args.district_id ?? '').trim() || 'district-suesd';
+      let category = String(args.category ?? '').trim().toUpperCase();
+      if (!category && query) category = inferCategory(query) ?? '';
+      const chain = await searchSchoolGraph(districtId, category || undefined);
+      return chain && chain.nodes.length ? chainSummary(chain) : 'No resource-graph chain found for that yet.';
+    }
+    case 'save_resource': {
+      const type = String(args.type ?? '').trim();
+      const title = String(args.title ?? '').trim();
+      const url = String(args.canonical_url ?? '').trim();
+      if (!type || !title || !url) return 'save_resource needs type, title, canonical_url.';
+      const node: ResourceNode = {
+        id: 'res-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 6),
+        type: type as ResourceType,
+        districtId: typeof args.district_id === 'string' ? args.district_id : undefined,
+        category: typeof args.category === 'string' ? args.category.toUpperCase() : undefined,
+        title,
+        summary: String(args.summary ?? '').trim(),
+        canonicalUrl: url,
+        sources: [{ title, url }],
+        status: (typeof args.status === 'string' ? args.status : 'draft') as ResourceNode['status'],
+        confidence: typeof args.confidence === 'number' ? args.confidence : 0.6,
+        discoveredAt: new Date().toISOString(),
+      };
+      await saveResource(node);
+      return `Saved ${type} "${title}" to the resource graph.`;
+    }
+    case 'save_procedure': {
+      const name = String(args.name ?? '').trim();
+      const intent = String(args.intent ?? '').trim();
+      const jurisdiction = String(args.jurisdiction ?? '').trim() || 'district-suesd';
+      if (!name || !intent) return 'save_procedure needs name and intent.';
+      const steps = Array.isArray(args.steps)
+        ? (args.steps as Array<{ tool?: unknown; args?: unknown; note?: unknown }>)
+        : [];
+      const normSteps = steps.map((s, i) => ({
+        order: i + 1,
+        tool: String(s.tool ?? ''),
+        args:
+          typeof s.args === 'object' && s.args
+            ? Object.fromEntries(Object.entries(s.args as Record<string, unknown>).map(([k, v]) => [k, String(v)]))
+            : {},
+        note: typeof s.note === 'string' ? s.note : undefined,
+      }));
+      const now = new Date().toISOString();
+      const skill: Skill = {
+        id: 'skill-' + makeSkillKey(intent, jurisdiction),
+        name,
+        key: makeSkillKey(intent, jurisdiction),
+        description: String(args.description ?? '').trim(),
+        whenToUse: String(args.when_to_use ?? '').trim(),
+        steps: normSteps,
+        evidenceDeps: Array.isArray(args.evidence_deps) ? (args.evidence_deps as string[]).map(String) : [],
+        status: 'active',
+        approved: Boolean(args.approved),
+        version: 1,
+        createdAt: now,
+        updatedAt: now,
+        lastVerifiedAt: now,
+      };
+      await saveSkill(skill);
+      return `Saved procedure "${name}" [${skill.key}] with ${normSteps.length} step(s).${skill.approved ? '' : ' Pending parent approval before reuse.'}`;
+    }
+    case 'list_skills': {
+      const skills = await listSkills();
+      return skills.length ? skills.map(skillSummary).join('\n\n') : 'No saved procedures yet.';
     }
     case 'list_open_cases':
       return openCaseSummary(deps.getCases());
@@ -352,6 +642,7 @@ export function systemPrompt(ctx: BrainContext): string {
   return (
     `You are a warm, BILINGUAL (English + Spanish) school liaison helping a parent over iMessage. Match the parent's language — if they write in Spanish, reply in Spanish; if they switch, switch with them. Be concise (1-4 short sentences), plain language, plain text (no Markdown, **, #, or bullets). ` +
     `You HAVE live internet access: use web_search to find anything about a school, district, policy, or law, and web_fetch to read a specific page. ` +
+    `For JS-heavy portals, Google/Microsoft forms, or pages web_fetch cannot read, use browser_open then browser_observe/browser_act/browser_extract. For PDFs (policies, regulations), use extract_pdf. ` +
     `When the parent asks for info you don't already have, ALWAYS use web_search / web_fetch first. Never say you don't have internet access or that you can't look it up. ` +
     `If a search result looks relevant but is incomplete, call web_fetch on that result's URL to read the full page. ` +
     `Only if a search genuinely finds nothing, say so and suggest the school office. ` +

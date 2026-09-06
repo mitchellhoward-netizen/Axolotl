@@ -6,20 +6,34 @@
   "scripts": {
     "start": "tsx src/index.ts",
     "dev": "tsx watch src/index.ts",
+    "chat": "tsx src/chat.ts",
     "demo": "tsx src/demo.ts",
     "demo:steps": "tsx src/agent/steps/demo.ts",
     "db:init": "tsx scripts/init-db.ts",
-    "index:knowledge": "tsx scripts/index-knowledge.ts"
+    "index:knowledge": "tsx scripts/index-knowledge.ts",
+    "test:research": "tsx scripts/test-trajectory.ts",
+    "test:evidence": "tsx scripts/test-evidence.ts",
+    "test:graph": "tsx scripts/test-graph.ts",
+    "test:skills": "tsx scripts/test-skills.ts",
+    "test:models": "tsx scripts/test-model-policy.ts",
+    "test:benchmark": "tsx scripts/test-benchmark.ts",
+    "test:browser": "tsx scripts/test-browser.ts",
+    "test:entitlements": "tsx scripts/test-entitlements.ts"
   },
   "dependencies": {
+    "@browserbasehq/stagehand": "^4.0.2",
     "@supabase/supabase-js": "^2.114.0",
     "dotenv": "^17.4.2",
     "pg": "^8.23.0",
-    "spectrum-ts": "^12.8.0"
+    "spectrum-ts": "^12.8.0",
+    "unpdf": "^1.8.1",
+    "ws": "^8.21.3",
+    "zod": "^4.5.4"
   },
   "devDependencies": {
     "@types/node": "^22",
     "@types/pg": "^8.23.1",
+    "@types/ws": "^8.18.1",
     "prisma": "^8.0.0-rc.12",
     "tsx": "^4",
     "typescript": "^5"

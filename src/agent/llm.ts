@@ -99,8 +99,10 @@ export class LlmClient {
    */
   async researchDistrict(name: string): Promise<DistrictProfile | null> {
     const raw = await this.complete(
-      'You research a U.S. K-12 school district and return ONLY a JSON object with keys: ' +
-        'name, short, elementary, liaison ({name,role,phone,email}), busPasses ({name,phone}), schools, known. ' +
+      'You research a U.S. K-12 school or district and return ONLY a JSON object with keys: ' +
+        'name, short, elementary, liaison ({name,role,phone,email}), busPasses ({name,phone}), schools, type, known. ' +
+        '`type` is one of "public", "private", "charter", or "unknown" — it matters a lot, because ' +
+        'public-school programs (McKinney-Vento, free/reduced meals) do NOT apply to private schools. ' +
         'Be accurate and honest: if you are unsure about a field, omit it or use an empty string. ' +
         'Never invent phone numbers, names, or addresses.',
       `District or school: ${name}`,
@@ -108,8 +110,11 @@ export class LlmClient {
     );
     if (!raw) return null;
     try {
-      const d = JSON.parse(raw) as Partial<DistrictProfile>;
+      const d = JSON.parse(raw) as Partial<DistrictProfile> & { type?: string };
       if (!d.name) return null;
+      const type = ['public', 'private', 'charter', 'unknown'].includes(String(d.type ?? ''))
+        ? (String(d.type) as DistrictProfile['type'])
+        : undefined;
       return {
         name: d.name,
         short: d.short ?? '',
@@ -118,6 +123,7 @@ export class LlmClient {
         busPasses: d.busPasses,
         schools: d.schools,
         known: d.known === true,
+        type: type ?? 'unknown',
       };
     } catch {
       return null;
@@ -151,6 +157,61 @@ export class LlmClient {
       const parsed = JSON.parse(json) as { nodes?: Array<{ category: string; title: string; summary: string; url: string }> };
       if (!Array.isArray(parsed.nodes)) return null;
       return parsed.nodes;
+    } catch {
+      return null;
+    }
+  }
+
+  /**
+   * Suggest the next web-search query from the research trajectory so far.
+   * Returns null on failure (caller falls back to deterministic formulation).
+   */
+  async suggestNextQuery(input: {
+    question: string;
+    district: string;
+    school: string;
+    priorQueries: string[];
+    learnedTerms: string[];
+    gaps: string[];
+  }): Promise<string | null> {
+    const raw = await this.complete(
+      'You are choosing the next web-search query for a school-bureaucracy research loop. ' +
+        'Return ONLY a JSON object {"query": string}. The query must advance research toward the ' +
+        'uncovered gaps, use any learned terminology, and never repeat a prior query. ' +
+        'Do not invent facts — a query, not an answer.',
+      JSON.stringify(input),
+      true,
+    );
+    if (!raw) return null;
+    try {
+      const cleaned = raw.replace(/```(?:json)?/gi, '').replace(/```/g, '').trim();
+      const parsed = JSON.parse(cleaned) as { query?: string };
+      return parsed.query?.trim() || null;
+    } catch {
+      return null;
+    }
+  }
+
+  /**
+   * Extract search-relevant terminology from a fetched school/district page
+   * (policy/regulation numbers, program + form names, office names). Null on
+   * failure (caller falls back to deterministic `extractSearchTerms`).
+   */
+  async extractSearchTerms(pageText: string): Promise<string[] | null> {
+    const raw = await this.complete(
+      'Extract the search-relevant terminology from this school/district web page: policy or ' +
+        'regulation numbers, program names, form names, office names, and proper nouns useful for ' +
+        'further searching. Return ONLY a JSON object {"terms": [string, ...]} with at most 12 terms. ' +
+        'Do not invent terms.',
+      pageText.slice(0, 12_000),
+      true,
+    );
+    if (!raw) return null;
+    try {
+      const cleaned = raw.replace(/```(?:json)?/gi, '').replace(/```/g, '').trim();
+      const match = cleaned.match(/\{[\s\S]*\}/);
+      const parsed = JSON.parse(match ? match[0] : cleaned) as { terms?: string[] };
+      return Array.isArray(parsed.terms) ? parsed.terms.map(String).slice(0, 12) : null;
     } catch {
       return null;
     }

@@ -85,7 +85,8 @@ export function advanceOnboarding(state: OnboardingState, text: string): Onboard
 }
 
 export function finalizeOnboarding(profile: FamilyProfile, district: DistrictProfile): string {
-  const rights = assessRights(profile);
+  const isPublic = district.type === 'public';
+  const rights = isPublic ? assessRights(profile, 'public') : [];
 
   const lines: string[] = [];
   lines.push("Perfect — here's what I've learned and what I can help with:");
@@ -101,7 +102,14 @@ export function finalizeOnboarding(profile: FamilyProfile, district: DistrictPro
 
   if (!district.known) {
     lines.push('');
-    lines.push(`I don't have ${district.name} researched yet. In a live version I'd look up their site, McKinney-Vento liaison, enrollment, and transportation pages now. For now I can still walk you through the general rights below.`);
+    if (district.type === 'private') {
+      lines.push(`${district.name} looks like a private school. Public-school programs — McKinney-Vento, free/reduced meals, a district homeless liaison — generally don't apply to private schools; they set their own policies (transportation, financial aid, etc.). In a live version I'd look those up specifically instead of assuming.`);
+    } else {
+      lines.push(`I don't have ${district.name} researched yet, and I don't know whether it's public or private — that changes what your family is entitled to a lot. In a live version I'd look it up first and only then tell you what actually applies.`);
+    }
+  } else if (!isPublic) {
+    lines.push('');
+    lines.push(`${district.name} isn't a public district, so the federal public-school programs I usually check (McKinney-Vento, free/reduced meals) generally don't apply — it sets its own policies. I'd look up its actual programs instead.`);
   }
 
   if (rights.length) {
@@ -112,28 +120,38 @@ export function finalizeOnboarding(profile: FamilyProfile, district: DistrictPro
 
   lines.push('');
   lines.push("Here's how I can help right now:");
-  lines.push(suggestedActions(profile, district.known));
+  lines.push(suggestedActions(profile, district.known, isPublic));
 
-  if (district.known && district.liaison) {
+  if (district.known && isPublic && district.liaison) {
     lines.push('');
     lines.push(`Key contact: district homeless liaison ${district.liaison.name}, ${district.liaison.phone}, ${district.liaison.email}.`);
   }
 
   lines.push('');
+  lines.push('Want to hear how I sound on a real call? Just say "call me" and I\'ll ring you right now.');
+  lines.push('');
   lines.push('Reply "help" anytime, or just ask me to do one of those. (Demo: nothing is actually sent to the school.)');
   return lines.join('\n');
 }
 
-function suggestedActions(profile: FamilyProfile, districtKnown: boolean): string {
+function suggestedActions(profile: FamilyProfile, districtKnown: boolean, isPublic: boolean): string {
   const n = profile.needs.map((s) => s.toLowerCase()).join(' ');
   const c = profile.challenges.map((s) => s.toLowerCase()).join(' ');
   const items: string[] = [];
 
   if (/transport|bus|ride/.test(n) || /homeless|transition|shelter|motel|car/.test(c)) {
-    items.push('• Walk you through the McKinney-Vento school-bus request');
+    items.push(
+      isPublic
+        ? '• Walk you through the McKinney-Vento school-bus request'
+        : '• Help with transportation to school (and financial aid if it applies)',
+    );
   }
   if (/meal|lunch|food|breakfast/.test(n)) {
-    items.push('• Help you apply for free & reduced meals');
+    items.push(
+      isPublic
+        ? '• Help you apply for free & reduced meals'
+        : '• Help with meals / food support at the school',
+    );
   }
   if (/absent|attendance|sick/.test(n)) {
     items.push('• Report an absence');
@@ -142,7 +160,7 @@ function suggestedActions(profile: FamilyProfile, districtKnown: boolean): strin
     items.push('• Book a parent-teacher conference');
   }
   if (/enroll|register|new/.test(n)) {
-    items.push('• Walk you through enrollment');
+    items.push(isPublic ? '• Walk you through enrollment' : '• Help with admissions / enrollment');
   }
   if (districtKnown) {
     items.push('• Answer questions about the school and point you to the right contact');

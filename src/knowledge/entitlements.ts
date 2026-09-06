@@ -109,6 +109,9 @@ export interface AuditItem {
 
 /** Map the family's situation to every entitlement they may be owed. */
 export function auditEntitlements(profile: FamilyProfile, accessed: string[] = []): AuditItem[] {
+  // Public-school programs only apply to public districts. For a private (or
+  // not-yet-resolved) school, assert nothing — the school sets its own policies.
+  if (profile.schoolType && profile.schoolType !== 'public') return [];
   return ENTITLEMENTS.filter((e) => e.matches(profile)).map((e) => ({
     entitlement: e,
     status: accessed.includes(e.id) ? 'accessed' : 'likely',
@@ -134,6 +137,8 @@ const IMPACT: Record<string, string> = {
 
 /** The well-founded, self-directed curiosity questions (only what could unlock help). */
 export function discoveryQuestions(profile: FamilyProfile): DiscoveryQuestion[] {
+  // Same gate as auditEntitlements: no public-school curiosity for private/unknown schools.
+  if (profile.schoolType && profile.schoolType !== 'public') return [];
   return ENTITLEMENTS.filter((e) => e.matches(profile) || (e.worthAsking ? e.worthAsking(profile) : false))
     .map((a) => ({
       id: a.id,

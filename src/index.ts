@@ -8,6 +8,7 @@ import { imessage } from "@spectrum-ts/imessage";
 import { Agent } from "./agent/agent";
 import { LlmIntentEngine } from "./agent/intent/llm";
 import { LlmClient } from "./agent/llm";
+import { smallModel } from "./agent/model-policy";
 import { RulesIntentEngine } from "./agent/intent/rules";
 import { MockCalendarProvider } from "./integrations/calendar";
 import { MockMealsProvider } from "./integrations/meals";
@@ -36,6 +37,14 @@ const LLM_BASE_URL = process.env.LLM_BASE_URL ?? process.env.OPENAI_BASE_URL ?? 
 const LLM_MODEL = process.env.LLM_MODEL ?? process.env.OPENAI_MODEL ?? "deepseek-chat";
 
 const llm = new LlmClient({ apiKey: LLM_API_KEY, baseUrl: LLM_BASE_URL, model: LLM_MODEL });
+
+// A small/specialized model for the researcher (query reformulation, extraction,
+// classification) — never the frontier brain. Falls back to the frontier client.
+const small = smallModel();
+const researchLlm = small.apiKey
+  ? new LlmClient({ apiKey: small.apiKey, baseUrl: small.baseUrl, model: small.model })
+  : llm;
+
 const agent = new Agent({
   intentEngine: LLM_API_KEY
     ? new LlmIntentEngine({ apiKey: LLM_API_KEY, baseUrl: LLM_BASE_URL, model: LLM_MODEL })
@@ -46,6 +55,7 @@ const agent = new Agent({
   db,
   defaultParentId: undefined,
   llm,
+  researchLlm,
   email: createEmailProvider(),
 });
 const retell = createRetellClient();
@@ -109,10 +119,11 @@ async function reactWithAxolotl(space: { placeSticker?: unknown }, message: { id
   }
 }
 
-// ── Website + waitlist: always up, independent of the iMessage connection ─────
-// When running the agent on a long-lived host (Railway/Fly) we only want the
-// agent + worker, not a duplicate landing page (that's served by Vercel).
-if (process.env.RUN_AGENT_ONLY !== 'true') startWebServer();
+// ── Website + waitlist + voice LLM (Retell WebSocket) ─────────────────────────
+// Always up on the long-lived host. The landing page is served here in dev but
+// skipped when RUN_AGENT_ONLY=true (Vercel serves it); /api/waitlist and
+// /voice-llm always run.
+startWebServer();
 
 // ── Spectrum: one agent loop, delivered over iMessage (non-fatal) ─────────────
 let app: Awaited<ReturnType<typeof Spectrum>> | null = null;

@@ -4,6 +4,7 @@ import { EmailAdapter } from './adapters/email.js';
 import { TextAdapter } from './adapters/text.js';
 import { FormAdapter } from './adapters/form.js';
 import { CallAdapter } from './adapters/call.js';
+import { BrowserAdapter } from './adapters/browser.js';
 import { createEmailProvider } from '../../integrations/email.js';
 import { createVoiceProvider } from '../../integrations/voice.js';
 
@@ -19,5 +20,6 @@ export function buildAdapters(env: NodeJS.ProcessEnv = process.env): Record<Chan
     text: new TextAdapter(),
     form: new FormAdapter(env.FORM_ENDPOINT, email),
     call: new CallAdapter(voice),
+    browser: new BrowserAdapter(),
   };
 }
