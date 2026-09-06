@@ -2,6 +2,7 @@ import type { Server } from 'node:http';
 import { WebSocketServer, type WebSocket, type RawData } from 'ws';
 import { generateVoiceReply } from './brain.js';
 import { generateSchoolReply } from './school-brain.js';
+import { deferQuestion } from './defer.js';
 
 /**
  * Retell "custom LLM" WebSocket server. Retell handles telephony / STT / TTS /
@@ -25,6 +26,7 @@ export function attachVoiceWebSocket(server: Server): void {
   wss.on('connection', (ws: WebSocket, req) => {
     console.log(`[voice] Retell connected: ${req.url}`);
     let callVars: Record<string, unknown> = {};
+    let conversationId = '';
     let latestResponseId = 0;
     let greeted = false;
 
@@ -57,7 +59,11 @@ export function attachVoiceWebSocket(server: Server): void {
       switch (msg.interaction_type) {
         case 'call_details': {
           const call = (msg.call ?? msg) as Record<string, unknown>;
-          callVars = (call.dynamic_variables ?? msg.dynamic_variables ?? {}) as Record<string, unknown>;
+          // Retell sends these as `retell_llm_dynamic_variables` + `metadata` on
+          // the `call` object (the same names we set in create-phone-call).
+          callVars = (call.retell_llm_dynamic_variables ?? call.dynamic_variables ?? msg.retell_llm_dynamic_variables ?? msg.dynamic_variables ?? {}) as Record<string, unknown>;
+          const meta = (call.metadata ?? msg.metadata ?? {}) as Record<string, unknown>;
+          conversationId = String(meta.conversationId ?? '');
           // Greet once we know the call kind (parent vs school), so the opening
           // line is right for whoever is on the other end.
           if (!greeted) {
@@ -87,16 +93,25 @@ export function attachVoiceWebSocket(server: Server): void {
           const turn = { transcript, variables: callVars, reminder };
 
           const reply = await Promise.race([
-            isSchoolCall(callVars) ? generateSchoolReply(turn) : generateVoiceReply(turn),
-            new Promise<string>((resolve) => setTimeout(() => resolve('Still working on that — hang tight, just a few more seconds.'), 45000)),
-          ]).catch(() => 'Sorry — one second, could you repeat that?');
+            isSchoolCall(callVars)
+              ? generateSchoolReply(turn).then((text) => ({ text, deferred: false }))
+              : generateVoiceReply(turn),
+            new Promise<{ text: string; deferred: boolean }>((resolve) => setTimeout(() => resolve({ text: 'Still working on that — hang tight, just a few more seconds.', deferred: false }), 45000)),
+          ]).catch(() => ({ text: 'Sorry — one second, could you repeat that?', deferred: false }));
+
+          // Voice→text handoff: the parent asked something that needs research.
+          // Say "I'll text you" on the call, then research + iMessage the answer.
+          if (reply.deferred && conversationId) {
+            const question = lastUserUtterance(transcript);
+            if (question) deferQuestion({ question, conversationId, vars: callVars });
+          }
 
           if (id !== latestResponseId) break; // a newer request superseded this one
           ws.send(
             JSON.stringify({
               response_type: 'response',
               response_id: id,
-              content: reply,
+              content: reply.text,
               content_complete: true,
               end_call: false,
             }),
@@ -142,4 +157,13 @@ function normalizeTranscript(t: unknown): Array<{ role: string; content: string 
       return { role: String(o.role ?? 'user'), content: String(o.content ?? '').trim() };
     })
     .filter((u) => u.content);
+}
+
+/** The most recent caller (user) utterance — the question to hand off to research. */
+function lastUserUtterance(transcript: Array<{ role: string; content: string }>): string {
+  for (let i = transcript.length - 1; i >= 0; i--) {
+    const turn = transcript[i];
+    if (turn && turn.role === 'user') return turn.content;
+  }
+  return '';
 }

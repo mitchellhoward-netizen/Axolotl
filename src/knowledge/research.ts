@@ -150,6 +150,40 @@ async function formulateQueries(
 }
 
 /**
+ * Focused research for a SINGLE question (vs. the broad district crawl above):
+ * one/two searches + fetch the top pages, and return the raw page text for the
+ * LLM to synthesize a direct answer. Used by the voice→text handoff so a
+ * deferred question is answered quickly, not via the whole knowledge-graph crawl.
+ */
+export async function researchQuestion(
+  question: string,
+  districtName?: string,
+  schoolName?: string,
+  maxPages = 2,
+): Promise<string> {
+  const query = [question, districtName, schoolName].filter(Boolean).join(' ');
+  const md = await searchWeb(query);
+  const urls = extractUrls(md, maxPages + 2);
+  const pages: string[] = [];
+  for (const url of urls) {
+    if (pages.length >= maxPages) break;
+    try {
+      let page: string;
+      if (isPdfUrl(url)) {
+        const pr = await extractPdf(url);
+        page = pr.ok ? pr.data.text : '';
+      } else {
+        page = await fetchWeb(url);
+      }
+      if (page) pages.push(page.slice(0, 8000));
+    } catch {
+      /* skip a bad page */
+    }
+  }
+  return pages.join('\n\n');
+}
+
+/**
  * The deep-research loop for a school/district. Iteratively searches, fetches
  * unseen pages, extracts learned terminology, and categorizes grounded knowledge
  * nodes — trajectory-aware (prior queries + useful docs + learned terms), bounded

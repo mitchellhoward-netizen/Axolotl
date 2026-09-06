@@ -405,6 +405,17 @@ export class Agent {
     this.parentSender = send; // keep the in-band path working too
   }
 
+  /** Send a message to a specific conversation (e.g. a voice→text handoff). */
+  async sendToConversation(conversationId: string, text: string): Promise<boolean> {
+    const send = this.spaceMessengers.get(conversationId);
+    if (!send) {
+      console.warn('[agent] no messenger registered for', conversationId);
+      return false;
+    }
+    await send(text);
+    return true;
+  }
+
   /** Record an inbound message (used BEFORE the proactive pass so cooldown kicks in). */
   noteInbound(conversationId: string): void {
     this.currentConversationId = conversationId;

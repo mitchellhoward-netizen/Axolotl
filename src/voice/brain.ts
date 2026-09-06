@@ -20,6 +20,13 @@ export interface VoiceTurn {
   onToken?: (token: string) => void;
 }
 
+/** The spoken reply, plus whether the question should be researched async + texted. */
+export interface VoiceReply {
+  text: string;
+  /** True when the parent's question needs deep research (hand off to text). */
+  deferred?: boolean;
+}
+
 /** A spoken, natural-language system prompt. No markdown, no bullets, short. */
 function voiceSystemPrompt(vars: Record<string, unknown>, context: string): string {
   const parent = String(vars.parent_name ?? 'the parent');
@@ -88,11 +95,11 @@ function looksLikeDefer(text: string): boolean {
   return /look into it and text|text you (the|an|my) (answer|details|full)|research (it|this) and (text|send)|text you the details|send you (the|an) answer/i.test(text);
 }
 
-export async function generateVoiceReply(turn: VoiceTurn): Promise<string> {
+export async function generateVoiceReply(turn: VoiceTurn): Promise<VoiceReply> {
   const model = getVoiceLlm();
   if (!model) {
     console.error('[voice] no LLM configured');
-    return fallbackFor(turn.reminder);
+    return { text: fallbackFor(turn.reminder) };
   }
 
   const vars = turn.variables ?? {};
@@ -103,7 +110,7 @@ export async function generateVoiceReply(turn: VoiceTurn): Promise<string> {
   if (turn.reminder) {
     messages.push({ role: 'user', content: '(The caller has gone quiet. Gently check they\u2019re still there or ask if they need anything.)' });
   }
-  if (messages.length === 0) return fallbackFor(turn.reminder);
+  if (messages.length === 0) return { text: fallbackFor(turn.reminder) };
 
   const context = await buildContext(vars);
 
@@ -117,16 +124,16 @@ export async function generateVoiceReply(turn: VoiceTurn): Promise<string> {
     if (/^DEFER\b/i.test(text)) {
       // Literal signal — the model chose to hand off entirely.
       console.log('[voice] deferred research → text');
-      return DEFER_REPLY;
+      return { text: DEFER_REPLY, deferred: true };
     }
     if (looksLikeDefer(text)) {
       // Natural handoff ("let me look into it and text you the details").
-      // Phase 4 hook: trigger async research + iMessage the parent here.
       console.log('[voice] natural defer → text handoff');
+      return { text, deferred: true };
     }
-    return text;
+    return { text };
   }
 
   console.error(`[voice] fallback fired after ${Date.now() - startedAt}ms`);
-  return fallbackFor(turn.reminder);
+  return { text: fallbackFor(turn.reminder) };
 }

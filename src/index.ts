@@ -18,6 +18,7 @@ import { loadIdentityIntoSeed } from "./integrations/identity";
 import { createEmailProvider } from "./integrations/email";
 import { createRetellClient } from "./integrations/phones";
 import { startWebServer } from "./integrations/web";
+import { setDeferHandler, answerDeferredQuestion } from "./voice/defer";
 import { AXOLOTL_EMOJI, hasAxolotlImage, axolotlImagePath } from "./integrations/axolotl";
 import { takePendingGreeting } from "./integrations/pending-greeting.js";
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
@@ -59,6 +60,14 @@ const agent = new Agent({
   email: createEmailProvider(),
 });
 const retell = createRetellClient();
+
+// Voice→text handoff: when a voice question needs research, answer it async and
+// text the parent the result over iMessage (rather than making them wait on the call).
+setDeferHandler(async (q) => {
+  const answer = await answerDeferredQuestion(q, llm);
+  const sent = await agent.sendToConversation(q.conversationId, answer);
+  if (!sent) console.warn('[defer] could not deliver answer to', q.conversationId);
+});
 
 // Resolve the parent from the inbound sender's canonical handle (E.164 phone or
 // email). Unknown phone → create a provisional parent so the agent can onboard.
