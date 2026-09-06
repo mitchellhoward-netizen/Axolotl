@@ -16,10 +16,15 @@ import { generateVoiceReply } from './brain.js';
  */
 
 export function attachVoiceWebSocket(server: Server): void {
-  const wss = new WebSocketServer({ server, path: '/voice-llm' });
+  // No `path` restriction — accept the WS on any path, so a Retell URL of
+  // `wss://host` or `wss://host/voice-llm` both connect.
+  const wss = new WebSocketServer({ server });
 
-  wss.on('connection', (ws: WebSocket) => {
+  wss.on('connection', (ws: WebSocket, req) => {
+    console.log(`[voice] Retell connected: ${req.url}`);
     let callVars: Record<string, unknown> = {};
+
+    ws.on('error', (e) => console.error('[voice] ws error:', (e as Error).message));
 
     // 1. Enable call details (so we get dynamic_variables) + keepalive.
     ws.send(JSON.stringify({ response_type: 'config', config: { call_details: true, auto_reconnect: true } }));
@@ -82,6 +87,8 @@ export function attachVoiceWebSocket(server: Server): void {
       callVars = {};
     });
   });
+
+  wss.on('error', (e) => console.error('[voice] server error:', (e as Error).message));
 }
 
 function normalizeTranscript(t: unknown): Array<{ role: string; content: string }> {
