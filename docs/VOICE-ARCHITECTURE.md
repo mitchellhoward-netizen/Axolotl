@@ -59,11 +59,13 @@ email/call; the agent speaks the offer, and on the parent's spoken "yes" the
 server runs it via `agent.executeVoiceSteps` and texts the confirmation. Consent
 is a spoken yes/no, held per-call in `server.ts` (`pendingSteps`).
 
-## Known gaps
+## Third-party contact resolution (shipped)
 
-- Contact resolution for third-party programs (e.g. an afterschool provider like
-  Campus Kids Connection): the agent can only reach the school office/liaison it
-  has on file, so a "sign up for X" action currently resolves to "call the school
-  office to get X's process," rather than reaching the third party directly.
+When a proposed action targets a third-party program (e.g. an afterschool provider
+like Campus Kids Connection), `resolveContact` in `brain.ts` does a focused web
+search for the provider's email/phone and puts it on the step's counterparty — so
+the email/call reaches the provider directly, not the school office. If no contact
+is found, it falls back to the school office. The offer is always approved by the
+parent ("want me to send it / do that?") before anything executes.
 
 

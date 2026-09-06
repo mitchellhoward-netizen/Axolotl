@@ -1,5 +1,6 @@
 import { getVoiceLlm } from './llm.js';
 import { buildPreCallBrief } from '../knowledge/precall.js';
+import { researchQuestion } from '../knowledge/research.js';
 import { LLM_TOOLS, runTool, type ToolDeps } from '../agent/tools.js';
 import { KnowledgeGraph } from '../knowledge/graph.js';
 import { searchSchoolGraph, chainSummary } from '../knowledge/resource-graph.js';
@@ -173,7 +174,10 @@ const ACTION_KEYWORDS = /\b(sign|signup|sign up|enroll|enrollment|register|regis
 interface ProposedAction {
   kind: 'email' | 'call';
   summary: string;
+  /** WHO the assistant contacts: the school office, the liaison, or a third-party provider. */
+  target: string;
   to?: string;
+  phone?: string;
   subject?: string;
   body?: string;
 }
@@ -184,24 +188,54 @@ function extractJson(text: string): string {
   return start >= 0 && end > start ? text.slice(start, end + 1) : text;
 }
 
+function withTimeout<T>(promise: Promise<T>, ms: number, fallback: T): Promise<T> {
+  return Promise.race([promise, new Promise<T>((resolve) => setTimeout(() => resolve(fallback), ms))]);
+}
+
+/** Is `target` the school/district (whose contact we already have on file)? */
+function isSchoolTarget(target: string, vars: Record<string, unknown>): boolean {
+  const t = target.toLowerCase();
+  if (!t) return true;
+  if (/school|district|office|liaison|principal|elementary|union/.test(t)) return true;
+  const school = String(vars.school ?? '').toLowerCase();
+  const district = String(vars.district ?? '').toLowerCase();
+  return Boolean((school && (school.includes(t) || t.includes(school))) || (district && (district.includes(t) || t.includes(district))));
+}
+
+/** Find a third-party provider's email/phone via a focused web search. */
+async function resolveContact(target: string, districtName: string): Promise<{ email?: string; phone?: string }> {
+  try {
+    const pages = await withTimeout(researchQuestion(`${target} contact email phone`, districtName, undefined, 2), 20000, '');
+    if (!pages) return {};
+    const email = pages.match(/[\w.+-]+@[\w.-]+\.[A-Za-z]{2,}/)?.[0];
+    // Require a separator or parentheses so we don't grab a bare digit run (IDs etc).
+    const phone = pages.match(/(?:\+?1[\s.-]?)?(?:\(\d{3}\)\s?|\d{3}[\s.-])\d{3}[\s.-]\d{4}/)?.[0];
+    return { email, phone };
+  } catch {
+    return {};
+  }
+}
+
 async function proposeAction(
   question: string,
   answer: string,
   context: string,
+  vars: Record<string, unknown>,
   model: ReturnType<typeof getVoiceLlm>,
 ): Promise<ProposedAction | null> {
   if (!model) return null;
   const system = [
-    'You decide whether the assistant should offer to DO a concrete action for the parent (send an email or place a call).',
+    'You decide whether the assistant should offer to DO a concrete action for the parent (send an email or place a call) and WHO to do it to.',
     'Return ONLY valid JSON, exactly one of:',
     '{"action": null}',
-    '{"action": {"kind":"email","summary":"short phrase","to":"recipient email","subject":"...","body":"..."}}',
-    '{"action": {"kind":"call","summary":"short phrase"}}',
+    '{"action": {"kind":"email","summary":"...","target":"...","to":"recipient email","subject":"...","body":"..."}}',
+    '{"action": {"kind":"call","summary":"...","target":"..."}}',
     'Rules:',
     '- Propose ONLY if the parent asked to sign up, enroll, register, apply, request, send, call, reach out, or schedule something.',
-    '- `summary` is the thing to do as a short phrase WITHOUT a leading verb, e.g. "add Patrick to the afterschool waitlist" or "request a bus pass".',
-    '- Aim the action at the SCHOOL OFFICE or the district homeless liaison — those are the contacts you have. Do NOT propose contacting a third-party provider.',
-    '- For email, use a recipient from the context (school office or district homeless liaison). NEVER invent an email. If none is available, propose "call" instead.',
+    '- `target` is WHO the assistant contacts, as a natural name: "the school office", "the district homeless liaison", or the provider\'s name (e.g. "Campus Kids Connection").',
+    '- `summary` is the thing to do WITHOUT a leading verb, e.g. "add Patrick to the afterschool waitlist" or "request a bus pass".',
+    '- For email, include a subject and body. Only include `to` if you are SURE of the recipient email — otherwise leave `to` empty (we will find it).',
+    '- NEVER invent an email or phone number. If unsure, leave them empty.',
     '- If the parent only asked for information, return {"action": null}.',
   ].join('\n');
   const user = `Parent question: ${question}\nAssistant answer: ${answer}\nFamily/school context: ${context}`;
@@ -209,10 +243,20 @@ async function proposeAction(
   const raw = res?.text?.trim();
   if (!raw) return null;
   try {
-    const parsed = JSON.parse(extractJson(raw)) as { action?: ProposedAction | null };
+    const parsed = JSON.parse(extractJson(raw)) as { action?: Partial<ProposedAction> | null };
     const a = parsed.action;
-    if (a && (a.kind === 'email' || a.kind === 'call') && a.summary) return a;
-    return null;
+    if (!a || !a.summary || (a.kind !== 'email' && a.kind !== 'call')) return null;
+    const action = { kind: a.kind, summary: a.summary, target: (a.target ?? 'the school office').trim(), to: a.to, phone: a.phone, subject: a.subject, body: a.body } as ProposedAction;
+
+    // Third-party provider → resolve its real contact so we reach it directly.
+    if (!isSchoolTarget(action.target, vars)) {
+      const contact = await resolveContact(action.target, String(vars.district ?? vars.school ?? ''));
+      action.phone = action.phone || contact.phone;
+      action.to = action.to || contact.email;
+      // No email for an email-intent → prefer calling if we found a number.
+      if (action.kind === 'email' && !action.to && action.phone) action.kind = 'call';
+    }
+    return action;
   } catch {
     return null;
   }
@@ -220,14 +264,20 @@ async function proposeAction(
 
 function buildActionStep(action: ProposedAction, vars: Record<string, unknown>): Step | null {
   const now = Date.now().toString(36);
-  if (action.kind === 'email' && action.to && action.subject && action.body) {
+  const target = action.target || 'the school office';
+
+  if (action.kind === 'email' && action.to) {
     return {
       id: 'email-' + now,
       caseId: 'email',
       intent: 'send_email',
       channel: 'email',
-      counterparty: { role: 'OTHER', email: action.to },
-      payload: { channel: 'email', subject: action.subject, body: action.body },
+      counterparty: { role: 'OTHER', name: target, email: action.to },
+      payload: {
+        channel: 'email',
+        subject: action.subject || `Inquiry: ${action.summary}`,
+        body: action.body || `Hello,\n\nI'm writing on behalf of a parent to ${action.summary}. Could you share the next steps? Thank you.`,
+      },
       successCondition: { describe: 'Email sent', kind: 'reference_received' },
       requiresConsent: true,
       status: 'awaiting_consent',
@@ -250,9 +300,10 @@ function buildActionStep(action: ProposedAction, vars: Record<string, unknown>):
       caseId: 'call',
       intent: 'call_school',
       channel: 'call',
-      counterparty: { role: 'OTHER' },
+      // A third-party phone reaches them directly; otherwise the school office.
+      counterparty: action.phone ? { role: 'OTHER', name: target, phone: action.phone } : { role: 'OTHER', name: target },
       payload: { channel: 'call', objective: brief },
-      successCondition: { describe: 'Called the school', kind: 'manual' },
+      successCondition: { describe: `Called ${target}`, kind: 'manual' },
       requiresConsent: true,
       status: 'awaiting_consent',
     };
@@ -261,8 +312,8 @@ function buildActionStep(action: ProposedAction, vars: Record<string, unknown>):
 }
 
 function offerText(action: ProposedAction): string {
-  if (action.kind === 'email') return 'I can send that email for you — want me to?';
-  return 'I can make that call for you — want me to?';
+  if (action.kind === 'email') return `I can email them to ${action.summary} — want me to send it?`;
+  return `I can call them to ${action.summary} — want me to do that?`;
 }
 
 function lastUserQuestion(transcript: Array<{ role: string; content: string }>): string {
@@ -362,7 +413,7 @@ export async function generateVoiceReply(turn: VoiceTurn): Promise<VoiceReply> {
       // Proactivity fallback: if the parent asked for an action and the model
       // didn't propose one itself, propose one reliably (and capture the step).
       if (!proposed.length && question && ACTION_KEYWORDS.test(question)) {
-        const action = await proposeAction(question, text, context, model);
+        const action = await proposeAction(question, text, context, vars, model);
         if (action) {
           const step = buildActionStep(action, vars);
           if (step) {
