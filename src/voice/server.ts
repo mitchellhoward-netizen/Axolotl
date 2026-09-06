@@ -24,7 +24,6 @@ export function attachVoiceWebSocket(server: Server): void {
     console.log(`[voice] Retell connected: ${req.url}`);
     let callVars: Record<string, unknown> = {};
     let latestResponseId = 0;
-    let greeted = false;
 
     ws.on('error', (e) => console.error('[voice] ws error:', (e as Error).message));
 
@@ -44,8 +43,16 @@ export function attachVoiceWebSocket(server: Server): void {
       }),
     );
 
-    // 3. Begin message: stay silent until we know who we're talking to, then greet warmly.
-    ws.send(JSON.stringify({ response_type: 'response', response_id: 0, content: '', content_complete: true, end_call: false }));
+    // 3. Begin message: a warm, human greeting (spoken reliably when the call starts).
+    ws.send(
+      JSON.stringify({
+        response_type: 'response',
+        response_id: 0,
+        content: "Hey there — thanks for picking up! I'm the school helper you've been texting with. Figured it'd be easier to just talk. What's going on?",
+        content_complete: true,
+        end_call: false,
+      }),
+    );
 
     ws.on('message', async (data: RawData) => {
       let msg: Record<string, unknown>;
@@ -59,16 +66,6 @@ export function attachVoiceWebSocket(server: Server): void {
         case 'call_details': {
           const call = (msg.call ?? msg) as Record<string, unknown>;
           callVars = (call.dynamic_variables ?? msg.dynamic_variables ?? {}) as Record<string, unknown>;
-          if (!greeted) {
-            greeted = true;
-            ws.send(
-              JSON.stringify({
-                response_type: 'agent_interrupt',
-                interrupt_id: Date.now(),
-                content: buildGreeting(callVars),
-              }),
-            );
-          }
           break;
         }
         case 'ping_pong': {
@@ -122,12 +119,6 @@ export function attachVoiceWebSocket(server: Server): void {
   });
 
   wss.on('error', (e) => console.error('[voice] server error:', (e as Error).message));
-}
-
-function buildGreeting(vars: Record<string, unknown>): string {
-  const first = String(vars.parent_name ?? '').trim().split(/\s+/)[0] ?? '';
-  const who = first ? ` ${first}` : ' there';
-  return `Hey${who} — thanks for picking up. I'm the school helper you've been texting with, so now I can just talk you through this. What's going on?`;
 }
 
 function normalizeTranscript(t: unknown): Array<{ role: string; content: string }> {  if (!Array.isArray(t)) return [];
