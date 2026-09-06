@@ -10,13 +10,19 @@ import { attachVoiceWebSocket } from '../voice/server.js';
 const WEB_DIR = path.resolve(fileURLToPath(new URL('../../public', import.meta.url)));
 const WAITLIST_FILE = path.join(WEB_DIR, 'waitlist.json');
 
+export interface PlaceCallResult {
+  ok: boolean;
+  error?: string;
+}
+
 /**
  * Serves the Axolotl landing page + captures waitlist signups.
  *   GET  /               → web/index.html
  *   GET  /ollie.png      → the axolotl logo
  *   POST /api/waitlist   → { phone } appended to web/waitlist.json (and logged)
+ *   POST /api/call-me    → { phone } places a demo voice call to that number
  */
-export function startWebServer(port: number = Number(process.env.WEB_PORT) || 3000): void {
+export function startWebServer(opts: { placeCall?: (phone: string) => Promise<PlaceCallResult> } = {}, port: number = Number(process.env.WEB_PORT) || 3000): void {
   const server = createServer(async (req, res) => {
     try {
       const url = new URL(req.url ?? '/', 'http://localhost');
@@ -73,6 +79,28 @@ export function startWebServer(port: number = Number(process.env.WEB_PORT) || 30
 
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ ok: true, sms: smsStatus, fallback: fallbackChannel }));
+        return;
+      }
+
+      // "Talk to the agent" — place a demo voice call to the visitor's number.
+      if (req.method === 'POST' && url.pathname === '/api/call-me') {
+        let body = '';
+        for await (const chunk of req) body += String(chunk);
+        const { phone } = JSON.parse(body || '{}') as { phone?: string };
+        const normalized = normalizeE164(phone ?? '');
+        if (!normalized) {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ ok: false, error: 'A valid phone number is required.' }));
+          return;
+        }
+        if (!opts.placeCall) {
+          res.writeHead(503, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ ok: false, error: 'Voice is not configured.' }));
+          return;
+        }
+        const result = await opts.placeCall(normalized);
+        res.writeHead(result.ok ? 200 : 502, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify(result));
         return;
       }
 

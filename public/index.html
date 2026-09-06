@@ -36,6 +36,11 @@
       <p style="margin:16px 0 0;font-size:17px;color:#6B5A50;animation:rise 0.6s ease-out 0.14s both">Axolotl is always looking out for your student.</p>
       <div style="display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin-top:32px;animation:rise 0.6s ease-out 0.2s both">
         <a href="#try" class="btn-primary" style="display:inline-flex;flex:0 0 auto;white-space:nowrap;align-items:center;min-height:58px;padding:17px 28px;font-size:18.5px;font-weight:600;border-radius:14px">Try Axolotl →</a>
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:9px">
+          <input id="call-phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="Your phone number" aria-label="Your phone number" style="min-height:58px;padding:17px 18px;font-family:'Instrument Sans',sans-serif;font-size:17.5px;color:#241C18;background:#FFFFFF;border:1.5px solid #E0CDBF;border-radius:14px;outline:none" />
+          <button id="call-submit" type="button" class="btn-primary" style="min-height:58px;border:0;cursor:pointer;padding:17px 24px;font-family:'Instrument Sans',sans-serif;font-weight:600;font-size:17.5px;border-radius:14px">📞 Talk to the agent</button>
+        </div>
+        <p id="call-status" hidden role="status" style="width:100%;margin:4px 0 0;font-family:'Instrument Serif',Georgia,serif;font-size:23px;color:#241C18">Calling you now — pick up! 🤙</p>
       </div>
     </div>
     <div style="justify-self:center;width:100%;max-width:min(392px,100%);height:clamp(560px,86vw,745px);background:#1C1917;border-radius:52px;padding:11px;box-shadow:0 2px 4px rgba(36,28,24,0.06),0 40px 80px -46px rgba(36,28,24,0.7);animation:rise 0.7s ease-out 0.1s both">
@@ -219,6 +224,33 @@
       }
     });
     phone.addEventListener('input', function () { phone.style.borderColor = '#E0CDBF'; error.hidden = true; });
+
+    // "Talk to the agent" — places a demo voice call to the visitor's number.
+    var callPhone  = document.getElementById('call-phone');
+    var callSubmit = document.getElementById('call-submit');
+    var callStatus = document.getElementById('call-status');
+    if (callPhone && callSubmit) {
+      callSubmit.addEventListener('click', async function () {
+        callStatus.hidden = true;
+        var digits = (callPhone.value || '').replace(/\D/g, '');
+        if (digits.length < 7) { callPhone.focus(); callPhone.style.borderColor = '#C2416A'; return; }
+        callPhone.style.borderColor = '#E0CDBF';
+        callSubmit.disabled = true; callSubmit.textContent = 'Calling…'; callSubmit.style.opacity = '0.7';
+        try {
+          var res = await fetch('/api/call-me', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ phone: digits }) });
+          var data = await res.json();
+          if (!res.ok || !data.ok) throw new Error(data.error || ('HTTP ' + res.status));
+          callStatus.textContent = 'Calling you now — pick up! 🤙';
+          callStatus.hidden = false;
+          callSubmit.textContent = '📞 Talk to the agent'; callSubmit.style.opacity = '';
+        } catch (err) {
+          console.error('[call-me] failed:', err);
+          callStatus.textContent = 'Couldn\u2019t place the call — please try again.';
+          callStatus.hidden = false;
+          callSubmit.disabled = false; callSubmit.textContent = '📞 Talk to the agent'; callSubmit.style.opacity = '';
+        }
+      });
+    }
   })();
 </script>
 </body>

@@ -141,7 +141,26 @@ async function reactWithAxolotl(space: { placeSticker?: unknown }, message: { id
 // Always up on the long-lived host. The landing page is served here in dev but
 // skipped when RUN_AGENT_ONLY=true (Vercel serves it); /api/waitlist and
 // /voice-llm always run.
-startWebServer();
+startWebServer({
+  placeCall: async (phone) => {
+    if (!retell) return { ok: false, error: 'Voice is not configured.' };
+    try {
+      await retell.createCall(phone, 'website-demo', {
+        parent_name: 'there',
+        student: 'your child',
+        school: 'your child\u2019s school',
+        issue: 'you called to learn what Axolotl can do',
+        what_we_know:
+          'This is a demo call from the website. Greet warmly, introduce yourself as Axolotl, and explain you help families navigate the school system — programs, eligibility, forms, the right contacts, follow-ups — in plain English or Spanish. Offer to walk through a real example, like a family who needs transportation or a special-education evaluation, and ask what they\u2019d like to hear about.',
+        call_kind: 'parent',
+      });
+      return { ok: true };
+    } catch (e) {
+      console.error('[call-me] failed:', e);
+      return { ok: false, error: (e as Error)?.message ?? 'Could not place the call.' };
+    }
+  },
+});
 
 // ── Spectrum: one agent loop, delivered over iMessage (non-fatal) ─────────────
 let app: Awaited<ReturnType<typeof Spectrum>> | null = null;
