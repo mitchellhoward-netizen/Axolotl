@@ -74,11 +74,19 @@ function voiceSystemPrompt(vars: Record<string, unknown>): string {
   ].join('\n');
 }
 
-const FALLBACK = "I'm here — what would you like help with?";
+const FALLBACK = 'Sorry — I lost the thread there. Could you say that again?';
+const REMINDER_FALLBACK = 'Still here — anything else I can help you with?';
+
+function fallbackFor(reminder?: boolean): string {
+  return reminder ? REMINDER_FALLBACK : FALLBACK;
+}
 
 export async function generateVoiceReply(turn: VoiceTurn): Promise<string> {
   const model = getLlm();
-  if (!model) return FALLBACK;
+  if (!model) {
+    console.error('[voice] no LLM configured');
+    return fallbackFor(turn.reminder);
+  }
 
   const vars = turn.variables ?? {};
   const messages: unknown[] = turn.transcript
@@ -88,7 +96,7 @@ export async function generateVoiceReply(turn: VoiceTurn): Promise<string> {
   if (turn.reminder) {
     messages.push({ role: 'user', content: '(The caller has gone quiet. Gently check they\u2019re still there or ask if they need anything.)' });
   }
-  if (messages.length === 0) return FALLBACK;
+  if (messages.length === 0) return fallbackFor(turn.reminder);
 
   const deps: ToolDeps = {
     profile: undefined,
@@ -158,5 +166,6 @@ export async function generateVoiceReply(turn: VoiceTurn): Promise<string> {
     if (res.text) return res.text;
     break;
   }
-  return FALLBACK;
+  console.error('[voice] fallback fired — model returned no usable reply');
+  return fallbackFor(turn.reminder);
 }
