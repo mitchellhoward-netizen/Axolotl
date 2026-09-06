@@ -235,14 +235,16 @@ for await (const [space, message] of app.messages) {
   if (parentId) agent.bindParent(space.id, parentId);
 
   // Best-effort niceties — these must NEVER prevent the reply from going out.
-  console.log('[axolotl] image:', hasAxolotlImage(), '| space.placeSticker:', typeof (space as unknown as { placeSticker?: unknown }).placeSticker);
-  await reactWithAxolotl(space as unknown as { placeSticker?: unknown }, message as unknown as { id: string; react: (e: string) => unknown }).catch(() => {});
+  // Read receipt first: show the parent we read their message.
+  await (message as unknown as { read?: () => Promise<void> }).read?.().catch(() => {});
   await space.startTyping().catch(() => {});
 
   let reply: string;
+  let resolved = false;
   try {
     const turn = await agent.handle(space.id, text);
     reply = toPlainText(turn.text);
+    resolved = turn.resolved === true;
     // If the parent asked us to call, dial them (demo) or the school with the voice agent.
     if (turn.callMe || turn.callSchool) {
       // `callMe` must ring THIS sender's own number (from the conversation's
@@ -280,6 +282,12 @@ for await (const [space, message] of app.messages) {
   }
 
   await space.stopTyping().catch(() => {});
+
+  // React with the axolotl (🦎 / sticker) when we RESOLVED something for the
+  // parent — a "win" marker — not on every message.
+  if (resolved) {
+    await reactWithAxolotl(space as unknown as { placeSticker?: unknown }, message as unknown as { id: string; react: (e: string) => unknown }).catch(() => {});
+  }
 
   // Send reliably: threaded reply if the platform supports it, else a plain message.
   try {

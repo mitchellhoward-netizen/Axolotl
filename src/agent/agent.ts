@@ -55,6 +55,9 @@ import { initialState, type ConversationState, type Plan } from './state.js';
 import { assessKnowledgeNode } from './verify.js';
 import { findSkillFor, skillSummary } from './skills.js';
 
+/** Tools that take long enough that we tell the parent we're on it. */
+const SLOW_TEXT_TOOLS = new Set(['web_search', 'web_fetch', 'browser_open', 'browser_observe', 'browser_act', 'browser_extract', 'browser_fill', 'extract_pdf']);
+
 export interface Suggestion {
   kind: 'quickReplies' | 'listPicker';
   title?: string;
@@ -71,6 +74,8 @@ export interface AgentTurn {
   callSchool?: boolean;
   /** What to brief the voice agent with on the call (replaces generic demo text). */
   callContext?: CallContext;
+  /** True when this turn RESOLVED something for the family (a win) — the channel reacts accordingly. */
+  resolved?: boolean;
 }
 
 export type CallContext = {
@@ -698,6 +703,8 @@ export class Agent {
     console.log('[brain] invoked:', text.slice(0, 60));
     const messages: unknown[] = [...history];
     let guard = 0;
+    let narrated = false;
+    let resolved = false;
     while (guard < 6) {
       const res = await llm.chatWithTools(
         systemPrompt({ profile: state.profile, cases: state.cases, activeGoal: state.activeGoal, lastAction: state.lastAction }),
@@ -708,6 +715,12 @@ export class Agent {
       if (!res) break;
       // If the model wants to call tools, do it — never return early on a preamble.
       if (res.calls?.length) {
+        // Tell the parent we're on it before any slow research (web/browser/PDF).
+        if (!narrated && res.calls.some((c) => SLOW_TEXT_TOOLS.has(c.name))) {
+          narrated = true;
+          void this.parentSender('Looking into that right now — be back in a sec.');
+        }
+        if (res.calls.some((c) => c.name === 'record_getting')) resolved = true;
         const assistantMsg = {
           role: 'assistant',
           content: null,
@@ -735,6 +748,10 @@ export class Agent {
         // If the model refuses to look something up ("can't browse / check the website"),
         // the agent does the web search itself and feeds the results back.
         if (isLookupRefusal(res.text) && guard < 4) {
+          if (!narrated) {
+            narrated = true;
+            void this.parentSender('Looking into that right now — be back in a sec.');
+          }
           const srch = await runTool('web_search', { query: text }, deps);
           messages.push({
             role: 'user',
@@ -743,7 +760,7 @@ export class Agent {
           guard++;
           continue;
         }
-        return { turn: { text: res.text, phase: 'done' }, state };
+        return { turn: { text: res.text, phase: 'done', resolved }, state };
       }
       break;
     }
@@ -992,7 +1009,7 @@ export class Agent {
       if (answer === true) {
         const results = await this.runSteps(state.pendingSteps, this.resolveMode(), state);
         const summary = results.map((r) => r.parentSummary).join('\n');
-        return { turn: { text: `Done!\n${summary}`, phase: 'done' }, state: { phase: 'done', collected: {}, cases: state.cases, pendingSteps: undefined } };
+        return { turn: { text: `Done!\n${summary}`, phase: 'done', resolved: true }, state: { phase: 'done', collected: {}, cases: state.cases, pendingSteps: undefined } };
       }
       if (answer === false) {
         return { turn: { text: 'No problem — nothing was sent. What would you like to change?', phase: 'idle' }, state: { phase: 'idle', collected: {}, cases: state.cases, pendingSteps: undefined } };
