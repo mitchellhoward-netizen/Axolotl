@@ -21,7 +21,7 @@ const CATEGORY_QUERY_HINTS: Record<KnowledgeCategory, string> = {
   BEHAVIOR: 'bullying safety plan',
   SPECIAL_ED: 'special education IEP evaluation',
   ACCOMMODATIONS: '504 plan accommodations',
-  ACTIVITIES: 'after school programs',
+  ACTIVITIES: 'free before after school program enrichment fee waiver sign up',
   GENERAL_NAVIGATION: 'office contact',
 };
 
@@ -103,7 +103,7 @@ export function inferCategory(goal: string): KnowledgeCategory | undefined {
   if (/bull|harass|safety plan|threat/.test(g)) return 'BEHAVIOR';
   if (/504|accommodation|disability|adhd|autism/.test(g)) return 'ACCOMMODATIONS';
   if (/iep|special education|evaluation|assessment|speech|occupational/.test(g)) return 'SPECIAL_ED';
-  if (/after school|summer|tutor|club|sport|enrichment/.test(g)) return 'ACTIVITIES';
+  if (/after ?school|before ?school|afterschool|enrich|club|sport|tutor|extra?curricular|youth program|(programs? for)|summer (school|program|camp)|day ?care|child ?care/.test(g)) return 'ACTIVITIES';
   return undefined;
 }
 

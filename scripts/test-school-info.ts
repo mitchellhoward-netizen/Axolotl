@@ -12,6 +12,9 @@ import { answerSchoolInfo, busProcessSummary, HOMELESS_DEFINITION } from '../src
 import { contextFromProfile, detectBarriers, barrierByCategory } from '../src/knowledge/barriers.js';
 import { resolveAnyDistrict, resolveAnySchool } from '../src/knowledge/discovery.js';
 import { createSeedDb, provisionalParent, provisionFamily } from '../src/seed.js';
+import { auditEntitlements } from '../src/knowledge/entitlements.js';
+import { inferCategory } from '../src/knowledge/research.js';
+import { buildDraftNodes } from '../src/knowledge/graph.js';
 import type { LlmClient } from '../src/agent/llm.js';
 
 let passed = 0;
@@ -158,6 +161,32 @@ ok('resolveAnySchool returns a stable (non-Soquel) ref for an unknown school', (
   const s = resolveAnySchool('Redwood Academy Portland OR');
   assert.strictEqual(s.name, 'Redwood Academy Portland OR');
   assert.strictEqual(s.resolved, false);
+});
+
+// ── The mission: entitlement→delta surfaced for after-school/enrichment ──────
+ok('MISSION: free before/after-school programs are surfaced as an entitlement-delta', () => {
+  const audit = auditEntitlements({
+    children: [{ name: 'Emma', grade: '3' }],
+    school: 'Lincoln Elementary',
+    needs: ['after school programs'],
+    challenges: [],
+    schoolType: 'public',
+  });
+  assert.ok(audit.some((a) => a.entitlement.id === 'free-enrichment'));
+  const gapText = audit.find((a) => a.entitlement.id === 'free-enrichment');
+  assert.match(gapText?.entitlement.action ?? '', /sign up/i);
+});
+
+ok('MISSION: after-school free-text maps to ACTIVITIES research', () => {
+  assert.strictEqual(inferCategory('give me the after school programs for free'), 'ACTIVITIES');
+});
+
+ok('MISSION: the generic ACTIVITIES node is actionable (not just "check with the office")', () => {
+  const nodes = buildDraftNodes('district-x', 'Maple Elementary', 'Maple School District');
+  const act = nodes.find((n) => n.category === 'ACTIVITIES');
+  assert.ok(act);
+  assert.match(act.summary, /fee/i);
+  assert.match(act.summary, /form/i);
 });
 
 setTimeout(() => {

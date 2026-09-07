@@ -205,11 +205,11 @@ const GENERIC_DRAFTS: Array<{
   },
   {
     category: 'ACTIVITIES',
-    title: 'School activities & enrichment',
+    title: 'Before/after-school programs & enrichment (often free)',
     summary:
-      'Schools offer clubs, sports, and after-school programs; check with the office for what is available and whether fees can be waived.',
+      'Districts and schools often run free or fee-waived before- & after-school programs, clubs, and enrichment (some are federally funded 21st Century Community Learning Center sites — often free to low-income families). Find the district/school enrichment page or ask the front office; many programs waive fees or use a sliding scale. I can find the program, the sign-up form, and request a fee waiver.',
     jurisdiction: 'district',
-    law: 'District policy',
+    law: '21st Century Community Learning Centers, 20 U.S.C. §7171',
   },
   {
     category: 'GENERAL_NAVIGATION',

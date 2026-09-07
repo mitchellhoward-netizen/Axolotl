@@ -100,6 +100,17 @@ export const ENTITLEMENTS: Entitlement[] = [
     why: 'If attendance is at risk, the district should offer supports — and we can help shape those.',
     action: 'Request attendance supports / a student-success plan.',
   },
+  {
+    id: 'free-enrichment',
+    title: 'Free & low-cost before/after-school programs and enrichment',
+    law: '21st Century Community Learning Centers, 20 U.S.C. §7171 (federal afterschool funding)',
+    domain: 'enrichment',
+    matches: (p) => /after ?school|afterschool|before ?school|enrich|club|program|tutor|extra?curricular|youth|activity/i.test(text(p, 'needs', 'challenges')),
+    worthAsking: (p) => /low|free|income|afford|help|money/i.test(text(p, 'needs', 'challenges')),
+    question: 'Would your child like to join a free or low-cost before- or after-school program or club?',
+    why: 'Districts often run fee-waived before-/after-school and enrichment programs; joining gives your child a structured, safe afternoon (and is a real benefit).',
+    action: 'Find the district/school before- & after-school or enrichment programs, request a fee waiver, and sign up.',
+  },
 ];
 
 export interface AuditItem {
@@ -133,6 +144,7 @@ const IMPACT: Record<string, string> = {
   support: 'gets a real assessment and a support plan',
   language: 'gets language support',
   attendance: 'attendance improves',
+  enrichment: 'gets into a free before/after-school program',
 };
 
 /** The well-founded, self-directed curiosity questions (only what could unlock help). */

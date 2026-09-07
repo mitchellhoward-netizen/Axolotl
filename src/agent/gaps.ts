@@ -34,6 +34,7 @@ export function detectGaps(
     support: 'special_ed',
     language: 'language',
     attendance: 'attendance',
+    enrichment: 'enrichment',
   };
   const audit = auditEntitlements(profile, getting);
   const gaps: Gap[] = [];
