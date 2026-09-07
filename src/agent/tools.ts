@@ -14,6 +14,7 @@ import {
   extractPdf,
 } from '../integrations/browser.js';
 import { fillPdf, listPdfFields } from '../integrations/pdf.js';
+import { getFormRecipe, saveFormRecipe, type FormRecipe } from '../integrations/form-recipes.js';
 import { createEvidence } from '../integrations/evidence-store.js';
 import type { EvidenceRecord, SourceType } from '../domain/evidence.js';
 import { searchSchoolGraph, saveResource, chainSummary } from '../knowledge/resource-graph.js';
@@ -175,6 +176,33 @@ export const LLM_TOOLS = [
       name: 'submit_form',
       description: 'Propose the consent-gated SUBMIT of the form you just filled in the browser. ONLY call AFTER the form is filled and you shared the link for the parent to review. It PROPOSES the step — the system gates it behind the parent\u2019s YES. NEVER auto-submit.',
       parameters: { type: 'object', properties: { url: { type: 'string' } }, required: ['url'] },
+    },
+  },
+  {
+    type: 'function',
+    function: {
+      name: 'get_form_recipe',
+      description: 'Get the saved fill recipe for a form URL (learned from a past successful fill). Returns the text-field labels, radio/checkbox labels+types, and select names+options to fill. Call BEFORE filling a known form to fill it perfectly on the first try.',
+      parameters: { type: 'object', properties: { url: { type: 'string' } }, required: ['url'] },
+    },
+  },
+  {
+    type: 'function',
+    function: {
+      name: 'save_form_recipe',
+      description: 'Save the fill recipe for a form URL AFTER successfully filling it, so the agent fills that form instantly next time. Pass the STRUCTURE you filled (text-field labels, radio/checkbox labels+types, select names+options) — NOT the values.',
+      parameters: {
+        type: 'object',
+        properties: {
+          url: { type: 'string' },
+          title: { type: 'string' },
+          fills: { type: 'array', items: { type: 'object', properties: { label: { type: 'string' } }, required: ['label'] } },
+          controls: { type: 'array', items: { type: 'object', properties: { label: { type: 'string' }, kind: { type: 'string', enum: ['radio', 'checkbox'] } }, required: ['label', 'kind'] } },
+          selects: { type: 'array', items: { type: 'object', properties: { name: { type: 'string' }, option: { type: 'string' } }, required: ['name', 'option'] } },
+          notes: { type: 'string' },
+        },
+        required: ['url'],
+      },
     },
   },
   {
@@ -527,6 +555,44 @@ export async function runTool(name: string, args: Record<string, unknown>, deps:
       ]);
       return 'Ready to submit the form. Ask the parent to reply YES to submit (or NO to change it).';
     }
+    case 'get_form_recipe': {
+      const url = String(args.url ?? '').trim();
+      if (!url) return 'Provide a form url.';
+      const r = await getFormRecipe(url);
+      if (!r) return 'No saved recipe for that form yet.';
+      const parts: string[] = [];
+      if (r.fills.length) parts.push(`Fields: ${r.fills.map((f) => f.label).join(', ')}`);
+      if (r.controls.length) parts.push(`Controls: ${r.controls.map((c) => `${c.label} (${c.kind})`).join(', ')}`);
+      if (r.selects.length) parts.push(`Selects: ${r.selects.map((s) => `${s.name} → ${s.option}`).join(', ')}`);
+      return `Recipe for ${r.url}:\n${parts.join('\n')}${r.notes ? `\nNotes: ${r.notes}` : ''}`;
+    }
+    case 'save_form_recipe': {
+      const url = String(args.url ?? '').trim();
+      if (!url) return 'Provide a form url.';
+      const fills = Array.isArray(args.fills)
+        ? (args.fills as Array<{ label?: unknown }>).map((f) => ({ label: String(f.label ?? '').trim() })).filter((f) => f.label)
+        : [];
+      const controls = Array.isArray(args.controls)
+        ? (args.controls as Array<{ label?: unknown; kind?: unknown }>)
+            .map((c) => ({ label: String(c.label ?? '').trim(), kind: (String(c.kind ?? '').toLowerCase() === 'checkbox' ? 'checkbox' : 'radio') as 'radio' | 'checkbox' }))
+            .filter((c) => c.label)
+        : [];
+      const selects = Array.isArray(args.selects)
+        ? (args.selects as Array<{ name?: unknown; option?: unknown }>)
+            .map((s) => ({ name: String(s.name ?? '').trim(), option: String(s.option ?? '').trim() }))
+            .filter((s) => s.name)
+        : [];
+      const recipe: FormRecipe = {
+        url,
+        title: typeof args.title === 'string' ? args.title : undefined,
+        fills,
+        controls,
+        selects,
+        notes: typeof args.notes === 'string' ? args.notes : undefined,
+      };
+      await saveFormRecipe(recipe);
+      return `Saved recipe for ${url} (${fills.length} fields, ${controls.length} controls, ${selects.length} selects). ${fills.length || controls.length || selects.length ? 'Next time I\u2019ll fill this form in one shot.' : ''}`;
+    }
     case 'call_school': {
       deps.proposeSteps([callStep(deps)]);
       return 'Ready to call the school. Ask the parent to reply YES to place the call (or NO to skip it).';
@@ -873,6 +939,7 @@ export function systemPrompt(ctx: BrainContext): string {
     `For JS-heavy portals, Google/Microsoft forms, or pages web_fetch cannot read, use browser_open then browser_observe/browser_act/browser_extract. For PDFs: use extract_pdf for policies/regulations; for FILLABLE PDF application forms use pdf_fields to list its fields, then pdf_fill to fill them (returns a completed PDF to review — never auto-submit; emailing/uploading it still needs the parent's YES). ` +
     `VERIFY A PAGE BEFORE YOU FILL IT: a top web-search result is often a blank/dead/duplicate page while the real form is further down. Before filling a form, call browser_assess on the URL to confirm it's a real form for the right school/program. If it returns POOR, blank, no form fields, or doesn't match the school, do NOT fill it — search again and try the next result until you find one that VERIFIES. ` +
     `SIGN-UP FLOW (follow this to sign a student up for a school program): If the parent GAVE you the exact form URL, do NOT research or re-search — just browser_open that URL and fill it (skip browser_assess). Only research/search when the parent asked for a program but gave NO URL. Trust a parent-provided URL as-is and treat the form by its OWN title from the page — NEVER assume it's for the profile's default school or invent a school name for it (only name the school when the parent's request actually says it). If the parent sends a URL or repeats a form you ALREADY have open, do NOT re-open or re-assess it — continue from where you left off. To fill: text fields via browser_fill; checkboxes/radios/dropdowns via browser_act. Then share the form link for the parent to review, call submit_form (the system gates it behind the parent's YES), and after it submits SHARE the response link. ` +
+    `FORM RECIPE (how you get better at forms over time — use it): before filling a form, call get_form_recipe with its URL. If a recipe exists, fill using the listed fields/controls/selects (with the parent's actual values) — no trial-and-error. After you successfully fill a NEW form, call save_form_recipe with the URL and the structure you filled (the field labels, radio/checkbox labels+types, select names+options). This way every form you work once, you fill perfectly forever after. ` +
     `Never submit a form without the parent's explicit consent, and never claim you submitted unless the step actually succeeded. ` +
     `ACCOUNT FLOW (for auth-gated portals/waitlists, e.g. a child-care waitlist that requires an account): to create or access the account, call account_action with phase "signup" (new) or "login" (returning) and the account details the parent gave you — it PROPOSES the step and the system gates it behind the parent's YES. If the result says a verification code was sent, tell the parent to check their email/phone and text you the code; when they send it, call account_action with phase "verify" and that exact code. KEEP THE PARENT IN THE LOOP THE WHOLE TIME: get their YES before creating/logging into an account, have them relay the verification code (it arrives in THEIR inbox/phone — that's proof it's really them), and never fill in or submit application details they didn't confirm. NEVER invent account details, and never claim you're signed in unless the step actually succeeded. ` +
     `LIMITS & HANDOFF (very important): if a page says "sign in to continue", "must be signed in", or shows a CAPTCHA / "I'm not a robot", you have hit a hard limit that automation cannot pass. DO NOT try to bypass it and do NOT claim you did. Instead, tell the parent plainly: "I've filled in everything I can, but this form requires you to sign in yourself / pass a security check — here's the link, you'll need to finish that last step." Hand them the exact URL. This keeps you honest and keeps the parent moving. ` +
