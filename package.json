@@ -26,7 +26,8 @@
     "test:submit": "tsx scripts/test-submit-flow.ts",
     "test:forms": "tsx scripts/test-form-benchmark.ts",
     "test:recipe": "tsx scripts/test-recipe.ts",
-    "test:vision": "tsx scripts/test-vision.ts"
+    "test:vision": "tsx scripts/test-vision.ts",
+    "test:recipe-replay": "tsx scripts/test-recipe-replay.ts"
   },
   "dependencies": {
     "@browserbasehq/stagehand": "^4.0.2",
