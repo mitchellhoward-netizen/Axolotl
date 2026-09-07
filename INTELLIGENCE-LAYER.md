@@ -16,11 +16,11 @@ with the confidence to ask, the honesty to not guess, and the guardrail to never
 | Belief state, info-gain scoring, ask/research/commit policy | `src/agent/intention.ts` |
 | LLM solution-generation | `LlmClient.generateIntentHypotheses` (`src/agent/llm.ts`) |
 | Consent-gated execution wiring | `Agent.resolveFuzzyIntent` / `stepsForCommittedIntention` (`src/agent/agent.ts`) |
-| Tests (54 cases) | `scripts/test-intention.ts` → `npm run test:intention` |
+| Tests (58 cases) | `scripts/test-intention.ts` → `npm run test:intention` |
 
 ## Status
 
-Implemented and green (`npm run test:intention` → 54/54, `npx tsc --noEmit` clean). It resolves and
+Implemented and green (`npm run test:intention` → 58/58, `npx tsc --noEmit` clean). It resolves and
 grounds, maps to a consent-gated step, and **never executes a consequential action without an
 explicit parent `YES`**. The browser hand's fill/submit still depends on the form being
 machine-fillable (see `bench/form-quirks.json`).
@@ -33,10 +33,14 @@ machine-fillable (see `bench/form-quirks.json`).
   **under-commits rather than guess** (a generic node → 1/4 → stays `concentrated`).
 - **Consent is bound to the turn** — `pendingSteps` is resolved at the top of `handle()` with a strict
   whole-message YES/NO; anything else **expires** the proposal, so a stray "ok thanks" can never fire
-  stale steps. (The brain loop's side-effecting tools `send_email`/`account_action`/`submit_form`
-  **propose** consent-gated steps rather than execute, so the gate holds on submission.)
-- **Sensitive-dimension carve-out** — residency/housing is marked `sensitive`; for a displaced family
-  it is excluded from ask candidates and the fallback (hand off rather than interrogate housing).
+  stale steps. The second, loose `pendingSteps`+`parseYesNo` gate in `advance()` was **removed** so the
+  strict top gate is the single source of truth, and the top block now clears the **live**
+  `state.pendingSteps` (not just writes a new object via `save()`), closing a state-aliasing hole.
+  (The brain loop's side-effecting tools `send_email`/`account_action`/`submit_form` **propose**
+  consent-gated steps rather than execute, so the gate holds on submission.)
+- **Sensitive-dimension carve-out** — residency/housing **and** `docsOnHand` (proof-of-residency
+  request) are marked `sensitive`; for a displaced family they are excluded from ask candidates and
+  the fallback (hand off rather than interrogate housing/documents).
 - **Identity verification ON by default** — `requireVerification` now defaults to `true` unless
   explicitly disabled via env or option; local `demo`/`chat` disable it.
 - **Commit is evidence-driven, not belief-driven (calibration)** — `committedHypothesis` selects the
@@ -549,7 +553,7 @@ to be an explicit policy step**, not something the model does implicitly.
   generates the hypothesis space (LLM first, stub fallback), (2) grounds the leading hypothesis via
   `groundClaim` (runs `researchDistrictNodes`), and (3) acts — surfacing the most informative
   clarifying question, a grounded answer, or an honest handoff.
-- **`scripts/test-intention.ts`** — 54 checks incl. the even-partition rule, divergence detection,
+- **`scripts/test-intention.ts`** — 58 checks incl. the even-partition rule, divergence detection,
   grounding-vs-discrimination, Ask-F1, LLM mapping, and grounding-before-commit, plus the end-to-end
   seam on real fuzzy parent messages.
 

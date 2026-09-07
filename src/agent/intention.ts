@@ -92,6 +92,7 @@ const DIMENSION_SPECS: Record<FamilyDimension, { decisionFlip: boolean; sensitiv
   },
   docsOnHand: {
     decisionFlip: false,
+    sensitive: true,
     askPrompt: 'Do you have proof of residency (like a utility bill or lease) and the child’s birth certificate handy?',
   },
   language: {
@@ -607,9 +608,9 @@ export interface EvidenceNode {
   url?: string;
 }
 
-const DEADLINE_RE = /(?:by|before|due|deadline|on)\s+(?:\w+\s+)?\d{1,2}(?:st|nd|rd|th)?(?:,?\s+\d{4})?|\d{1,2}[/-]\d{1,2}[/-]\d{2,4}|(?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\s+\d{1,2}(?:st|nd|rd|th)?(?:,?\s+\d{4})?/i;
+const DEADLINE_RE = /(?:by|before|due|deadline|on|until)\s+(?:\w+\s+)?(?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\s+\d{1,2}(?:st|nd|rd|th)?(?:,?\s+\d{4})?|\d{1,2}[/-]\d{1,2}(?:[/-]\d{2,4})?|(?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\s+\d{1,2}(?:st|nd|rd|th)?(?:,?\s+\d{4})?/i;
 const CONTACT_RE = /[\w.+-]+@[\w-]+\.[\w.]+|\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}/;
-const ELIGIBILITY_RE = /free.{0,3}and.{0,3}reduced|free\/reduced|snap|calfresh|food (?:stamps|assistance)|income.{0,12}eligib|18[0-9]%|federal poverty|low.{0,6}income/i;
+const ELIGIBILITY_RE = /\bfree\b.{0,3}\band\b.{0,3}\breduced\b|\bfree\/reduced\b|\bsnap\b|\bcalfresh\b|\bfood\s+(?:stamps|assistance)\b|\bincome\b.{0,12}eligib|18[0-9]%\s*(?:of|\bthe\b)?\s*.*?\bfederal\s+poverty\b|\bfederal\s+poverty|low.{0,6}income/i;
 
 /**
  * Attest each requested sub-claim kind ONLY from evidence that genuinely supports THAT kind.

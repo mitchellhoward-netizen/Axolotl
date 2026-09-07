@@ -210,20 +210,27 @@ export class Agent {
       // If we proposed consent-gated steps (intelligence layer or brain) and the parent is now
       // replying, this message is consent resolution ONLY. Anything that isn't a strict whole-message
       // YES or NO EXPIRES the proposal, so a stray "ok thanks" (continuing some other exchange) can
-      // never fire a stale submission. Execution never happens until the parent affirms explicitly.
+      // never fire a stale submission. We clear the LIVE `state.pendingSteps` — not just write a new
+      // object via save() — so nothing downstream (advance/brain) can ever see it again.
       if (state.pendingSteps?.some((s) => s.requiresConsent)) {
         if (isStrictConsent(text)) {
-          const results = await this.runSteps(state.pendingSteps, this.resolveMode(), state);
+          const steps = state.pendingSteps;
+          state.pendingSteps = undefined;
+          const results = await this.runSteps(steps, this.resolveMode(), state);
           const summary = results.map((r) => r.parentSummary).join('\n');
           this.save(conversationId, { phase: 'done', collected: {}, pendingSteps: undefined }, state);
           return { text: `Done!\n${summary}`, phase: 'done', resolved: true };
         }
         if (isStrictDecline(text)) {
+          state.pendingSteps = undefined;
+          state.phase = 'idle';
           this.save(conversationId, { phase: 'idle', collected: {}, pendingSteps: undefined }, state);
           return { text: 'No problem — I won\u2019t send anything. What else can I help with?', phase: 'idle' };
         }
-        // Not a clear yes/no: the parent changed subject or wasn't consenting. Expire the proposal
-        // and fall through to respond to the NEW message — never loop on "reply yes/no".
+        // Not a clear yes/no: the parent changed subject or wasn't consenting. Expire on the LIVE
+        // object and fall through to respond to the NEW message — never loop on "reply yes/no".
+        state.pendingSteps = undefined;
+        state.phase = 'idle';
         this.save(conversationId, { phase: 'idle', collected: {}, pendingSteps: undefined }, state);
       }
 
@@ -1069,21 +1076,8 @@ export class Agent {
       detected = { name: 'call_school', confidence: 1 };
     }
 
-    // Step consent gate: the brain proposed steps; the parent's YES/NO resolves them.
-    if (state.pendingSteps?.length) {
-      const answer = parseYesNo(text);
-      if (answer === true) {
-        const results = await this.runSteps(state.pendingSteps, this.resolveMode(), state);
-        const summary = results.map((r) => r.parentSummary).join('\n');
-        return { turn: { text: `Done!\n${summary}`, phase: 'done', resolved: true }, state: { phase: 'done', collected: {}, cases: state.cases, pendingSteps: undefined } };
-      }
-      if (answer === false) {
-        return { turn: { text: 'No problem — nothing was sent. What would you like to change?', phase: 'idle' }, state: { phase: 'idle', collected: {}, cases: state.cases, pendingSteps: undefined } };
-      }
-      // Not a yes/no — answer what they said and KEEP the action pending (the
-      // brain is told about it and reminds them at the end). Never loop on
-      // "reply yes or no".
-    }
+    // Step consent is resolved at the TOP of handle() via the strict whole-message gate — it clears
+    // the live `state.pendingSteps`, so by here nothing can fire stale steps. No loose gate below.
 
     if (detected.name === 'call_me') {
       const callContext = await this.enrichCallContext(this.buildCallContext(state));

@@ -324,6 +324,22 @@ console.log('\n# 13. Commit is evidence-driven, not belief-driven (calibration)'
   check('high belief + weak evidence -> concentrated (not committed)', divergence(highBeliefLowEvidence) === 'concentrated' && concentrated(highBeliefLowEvidence)?.id === 'a');
 }
 
+console.log('\n# 14. Grounding regex false-positives + docsOnHand is sensitive');
+{
+  // "snapshot" must NOT attest eligibility (word-boundary bug).
+  const snap = extractGrounding([{ title: 'Guide', summary: 'Take a snapshot of your progress.', url: 'https://x' }], ['eligibility']);
+  check('"snapshot" does NOT attest eligibility', !snap?.eligibility, JSON.stringify(snap?.eligibility));
+  // "based on 5 criteria" must NOT attest a deadline (bare-number branch removed).
+  const based = extractGrounding([{ title: 'Criteria', summary: 'The decision is based on 5 criteria.', url: 'https://x' }], ['deadline']);
+  check('"based on 5 criteria" does NOT attest a deadline', !based?.deadline, JSON.stringify(based?.deadline));
+  // A real "Apply by March 1" still attests.
+  const deadline = extractGrounding([{ title: 'App', summary: 'Apply by March 1 to be considered.', url: 'https://x' }], ['deadline']);
+  check('"Apply by March 1" attests a deadline', !!deadline?.deadline, JSON.stringify(deadline?.deadline));
+  // docsOnHand is now sensitive -> excluded for a displaced family.
+  const docs = structuredIgnorance(EMPTY_PROFILE).find((x) => x.dimension === 'docsOnHand');
+  check('docsOnHand is sensitive', docs?.sensitive === true);
+}
+
 console.log('\n========================================');
 console.log(`  ${pass} passed, ${fail} failed`);
 console.log('========================================');
