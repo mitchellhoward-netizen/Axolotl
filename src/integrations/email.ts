@@ -1,7 +1,15 @@
+import { readFile } from 'node:fs/promises';
+
+export interface EmailAttachment {
+  filename: string;
+  path: string;
+}
+
 export interface EmailMessage {
   to: string;
   subject: string;
   body: string;
+  attachments?: EmailAttachment[];
 }
 
 export interface EmailReceipt {
@@ -24,13 +32,27 @@ export class ResendEmailProvider implements EmailProvider {
   ) {}
 
   async send(msg: EmailMessage): Promise<EmailReceipt> {
+    const attachments = msg.attachments?.length
+      ? await Promise.all(
+          msg.attachments.map(async (a) => {
+            const buf = await readFile(a.path);
+            return { filename: a.filename, content: buf.toString('base64') };
+          }),
+        )
+      : undefined;
     const res = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${this.apiKey}`,
       },
-      body: JSON.stringify({ from: this.from, to: [msg.to], subject: msg.subject, text: msg.body }),
+      body: JSON.stringify({
+        from: this.from,
+        to: [msg.to],
+        subject: msg.subject,
+        text: msg.body,
+        ...(attachments ? { attachments } : {}),
+      }),
     });
     const raw = await res.text();
     if (!res.ok) throw new Error(`Resend error ${res.status}: ${raw.slice(0, 200)}`);
@@ -42,7 +64,8 @@ export class ResendEmailProvider implements EmailProvider {
 /** Offline fallback: logs + returns a fake receipt so the flow stays testable. */
 export class MockEmailProvider implements EmailProvider {
   async send(msg: EmailMessage): Promise<EmailReceipt> {
-    console.log(`[email][mock] → ${msg.to}\nSubject: ${msg.subject}\n${msg.body}`);
+    const att = msg.attachments?.length ? `\nAttachments: ${msg.attachments.map((a) => a.filename).join(', ')}` : '';
+    console.log(`[email][mock] → ${msg.to}\nSubject: ${msg.subject}\n${msg.body}${att}`);
     return { sent: true, id: `mock-${Date.now().toString(36)}` };
   }
 }

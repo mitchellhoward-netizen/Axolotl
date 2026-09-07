@@ -795,6 +795,18 @@ export async function browserFillBySelector(selector: string, value: string): Pr
   }
 }
 
+/** Upload a file into an <input type="file"> by selector (documents, I-9, proof of residence). */
+export async function browserFillFile(selector: string, filePath: string): Promise<BrowserResult<boolean>> {
+  const h = await getPage();
+  if (!h) return { ok: false, reason: 'browser not configured' };
+  try {
+    await h.page.locator(selector).setInputFiles(filePath);
+    return { ok: true, data: true };
+  } catch (e) {
+    return { ok: false, reason: String((e as Error)?.message ?? e) };
+  }
+}
+
 /** Capture a screenshot of the current page (base64 PNG) — for vision-based reading. */
 export async function browserScreenshot(): Promise<BrowserResult<{ data: string; mimeType: string }>> {
   const h = await getPage();

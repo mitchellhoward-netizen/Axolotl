@@ -16,8 +16,8 @@
       "urls": ["https://apply.cps.edu/", "https://www.schools.nyc.gov/learning/student-journey/nyc-schools-account", "https://www.sfusd.edu/schools/enroll/apply"],
       "quirk": "SSO/login/account-creation (+OTP) then a multi-step application wizard. GoCPS is powered by EnrollWise; login identifier = email OR cell; existing CPS families have PRE-CREATED accounts (use Password Reset before creating a new one); program browsing before applying.",
       "exercises": "account hand (signup/login/OTP), session persistence, multi-step fill",
-      "status": "assessed (apply.cps.edu, EnrollWise, email/cell login, pre-created accounts); action flow not yet driven",
-      "notes": "GoCPS portal: 'Create a New Account' / 'Login to an Existing Account' / 'Browse Programs'. Account creation asks 'Use Email' or 'Use Cell Phone Number' first. Application windows (Sept 9 - Nov 13). OAE contact gocps@cps.edu / 773-553-2060."
+      "status": "GoCPS deeply probed (EnrollWise, email/cell login, pre-created-account gotcha, cell signup = masked phone+password+terms). NYCSA + SFUSD identified as account-gated panels (login/SSO) — not yet driven.",
+      "notes": "GoCPS portal: 'Create a New Account' / 'Login to an Existing Account' / 'Browse Programs'. Account creation first asks 'Use Email' or 'Use Cell Phone Number'. Application windows (Sept 9 - Nov 13). OAE contact gocps@cps.edu / 773-553-2060."
     },
     {
       "id": "benefits-eligibility-portal",
@@ -34,7 +34,7 @@
       "urls": ["https://dev.aeries.website/solutions/aeries-enrollment/"],
       "quirk": "Web enrollment form tied to a Student Information System (Aeries/SIS). Account/session tied to an existing SIS record; multi-step; data pre-populated from the SIS.",
       "exercises": "SIS-linked auth + synced form fields",
-      "status": "not yet tested",
+      "status": "identified (Aeries is SIS-integrated + common across districts); needs a district-hosted Aeries enrollment URL to test",
       "notes": "Aeries is among the most common K-12 enrollment SaaS; the form reflects the district's SIS schema."
     },
     {
