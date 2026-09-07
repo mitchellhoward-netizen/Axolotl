@@ -427,6 +427,7 @@ export const LLM_TOOLS = [
 ];
 
 export async function runTool(name: string, args: Record<string, unknown>, deps: ToolDeps): Promise<string> {
+  console.log(`[tool] ${name} ${JSON.stringify(args).slice(0, 300)}`);
   switch (name) {
     case 'get_school_info':
       return answerSchoolInfo(String(args.query ?? '')) ?? 'Not found in the knowledge base.';

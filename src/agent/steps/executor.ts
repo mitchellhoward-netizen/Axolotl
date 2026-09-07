@@ -18,6 +18,7 @@ export class StepExecutor {
   async run(step: Step, ctx: ExecutionContext): Promise<StepResult> {
     // 1. HARD consent gate — code-level, not a prompt instruction.
     if (step.requiresConsent && step.status !== 'executing') {
+      console.log(`[step] ${step.channel}/${step.intent} BLOCKED (awaiting consent)`);
       throw new ConsentRequiredError(step.id);
     }
 
@@ -25,7 +26,9 @@ export class StepExecutor {
     //    does not know or care which channel ran.
     const adapter = this.adapters[step.channel];
     if (!adapter) throw new Error(`No adapter registered for channel "${step.channel}"`);
+    console.log(`[step] ${step.channel}/${step.intent} → executing`);
     const result = await adapter.execute(step, ctx);
+    console.log(`[step-result] ${step.channel} → ${result.status}${result.referenceId ? ' ref=' + result.referenceId : ''}`);
 
     // 3. Persist the Action.
     await ctx.logAction(step.caseId, result.action);

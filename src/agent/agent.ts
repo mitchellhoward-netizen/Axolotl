@@ -412,8 +412,12 @@ export class Agent {
 
   /** Register the messenger for a conversation (the family's iMessage space). */
   registerConversation(conversationId: string, send: (text: string) => Promise<void>): void {
-    this.spaceMessengers.set(conversationId, send);
-    this.parentSender = send; // keep the in-band path working too
+    const logged = (text: string) => {
+      console.log(`[out] ${text}`);
+      return send(text);
+    };
+    this.spaceMessengers.set(conversationId, logged);
+    this.parentSender = logged; // keep the in-band path working too
   }
 
   /** Send a message to a specific conversation (e.g. a voice→text handoff). */
