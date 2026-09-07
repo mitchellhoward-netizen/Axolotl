@@ -9,11 +9,12 @@ export function resolveLocale(locale?: string, fallback: Locale = 'en'): Locale 
 export function detectLocale(text: string): Locale {
   const t = String(text ?? '').toLowerCase();
   if (!t.trim()) return 'en';
-  // Spanish function words / accented chars are strong signals.
+  // Strong signal: accented Spanish chars are unambiguous.
   if (/[áéíóúñ¿¡]/.test(t)) return 'es';
-  // Spanish stop-words appear more often than English-only ones in short messages.
-  const es = /\b(el|la|los|las|yo|mi|mí|tu|si|sí|no|se|una|un|con|para|pero|por|porque|qué|cómo|dónde|ayuda|hija|hijo|niño|niña|gracias|me|te|que|es|son|está)\b/.test(t);
-  if (es) return 'es';
+  // Strong, UNAMBIGUOUS Spanish words only. (Previously we matched short words
+  // like "me"/"no"/"es"/"con" that also occur in English, which wrongly flipped
+  // English messages — e.g. "for me" — to Spanish.)
+  if (/\b(gracias|hola|ayuda|ayudame|porque|donde|como|que|cuando|esta|nino|nina|hijo|hija|quiero|necesito|escuela|beca|solicitud|inscripcion|matricula|familia|ayudar|informacion|tambien|entonces)\b/.test(t)) return 'es';
   return 'en';
 }
 
