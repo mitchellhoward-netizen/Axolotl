@@ -1,5 +1,5 @@
 import type { Student } from '../domain/types.js';
-import { busProcessSummary, LIAISON } from '../knowledge/suesd.js';
+import { busProcessSummary } from '../knowledge/suesd.js';
 
 export type MckinneyStep = 'student' | 'school_of_origin';
 
@@ -43,7 +43,7 @@ export function advanceMckinney(state: MckinneyState, text: string, students: St
 
   if (/^(stop|cancel|never ?mind|nvm|quit|not right now)\b/i.test(t)) {
     return {
-      text: `Of course. I'll leave it here — and if you ever want to pick this back up, just say so. You can also call the district's homeless liaison, ${LIAISON.name}, at ${LIAISON.phone}.`,
+      text: `Of course. I'll leave it here — and if you ever want to pick this back up, just say so. You can also call your district's homeless liaison to pick this back up.`,
       state,
       done: true,
     };

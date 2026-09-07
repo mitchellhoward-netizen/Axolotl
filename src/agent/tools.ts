@@ -1,6 +1,6 @@
 import type { CaseRecord, FamilyProfile } from '../domain/types.js';
 import type { Step, CallBrief } from './steps/types.js';
-import { answerSchoolInfo, LIAISON, SOQUEL_ELEMENTARY } from '../knowledge/suesd.js';
+import { answerSchoolInfo } from '../knowledge/suesd.js';
 import { barrierByCategory, detectBarriers } from '../knowledge/barriers.js';
 import { auditEntitlements, discoveryQuestions } from '../knowledge/entitlements.js';
 import { addCase, makeCase, openCaseSummary } from './family.js';
@@ -329,7 +329,7 @@ export const LLM_TOOLS = [
       description: 'Evaluate whether a web page is a real, working form for the target school/program BEFORE you fill it. Returns whether the page is blank, has real form fields, and mentions the target. Use this to skip blank, broken, or wrong pages — a top search result is often a dead/empty page while the real form is further down.',
       parameters: {
         type: 'object',
-        properties: { url: { type: 'string' }, target: { type: 'string', description: 'e.g. "Soquel afterschool" or the school name' } },
+        properties: { url: { type: 'string' }, target: { type: 'string', description: 'e.g. "<school> afterschool" or the school name' } },
         required: ['url'],
       },
     },
@@ -1011,8 +1011,7 @@ export function systemPrompt(ctx: BrainContext): string {
     `\nQUESTIONS THAT HELP ${kid} (ask these, one at a time, each tied to helping them; don't overwhelm):\n${qsStr}` +
     `\nFOCUS & PROOF: pursue only what ${kid} is reasonably owed or clearly needs that would PROVABLY help and that YOU can execute. Do NOT hunt for random activities, clubs, or programs — that's noise. ` +
     `Act on concrete obligations and data gaps: transportation (does ${kid} reliably get to school?), meals (check meal status), attendance, an evaluation/accommodation, language support, summer access. ` +
-    `For each, name the measurable outcome (${kid} arrives at school; gets lunch; gets the assessment; attendance improves) and drive it yourself — draft the email (send_email), place the call (call_school), request the application or evaluation (log_case + a follow-up reminder). You execute it, you don't just point at it.` +
-    `\nDistrict homeless liaison: ${LIAISON.name}, ${LIAISON.phone}, ${LIAISON.email}. School: ${SOQUEL_ELEMENTARY.name}, ${SOQUEL_ELEMENTARY.phone}.`
+    `For each, name the measurable outcome (${kid} arrives at school; gets lunch; gets the assessment; attendance improves) and drive it yourself — draft the email (send_email), place the call (call_school), request the application or evaluation (log_case + a follow-up reminder). You execute it, you don't just point at it.`
   );
 }
 

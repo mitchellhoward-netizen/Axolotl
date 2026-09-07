@@ -43,7 +43,7 @@ export function advanceOnboarding(state: OnboardingState, text: string): Onboard
       }
       const profile = { ...state.profile, children: kids };
       return {
-        text: `Got it — ${kids.map((k) => k.name).join(' and ')}.\n\nWhich school do they go to? (e.g. "Soquel Elementary School")`,
+        text: `Got it — ${kids.map((k) => k.name).join(' and ')}.\n\nWhich school do they go to? (e.g. "Lincoln Elementary")`,
         state: { step: 'school', profile },
         done: false,
       };
