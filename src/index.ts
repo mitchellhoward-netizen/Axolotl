@@ -258,9 +258,17 @@ if (app) {
   }, proactiveEveryMs);
 
 const seenMessages = new Set<string>(); // dedupe duplicate deliveries by message id
+const logInbound = (kind: string, info: string): void => {
+  try {
+    appendFileSync('debug/inbound.log', `${new Date().toISOString()} [${kind}] ${info}\n`);
+  } catch { /* ignore */ }
+};
 for await (const [space, message] of app.messages) {
   // Never answer our own outbound echoes.
   if (message.direction === "outbound") continue;
+
+  // Log every inbound event (msgId + service + content) so a double delivery is visible.
+  logInbound('IN', `space=${space.id} msgId=${(message as { id?: string })?.id ?? '(no-id)'} service=${(message as { service?: string })?.service ?? '?'} text=${(message.content?.type === 'text' ? (message.content.text ?? '') : message.content?.type ?? '?').slice(0, 50).replace(/\n/g, ' ⏎ ')}`);
 
   // The iMessage SDK can deliver the same message twice (read/typing re-emit or a
   // retried webhook). Dedupe by message id so a single text never gets TWO replies.
