@@ -388,13 +388,10 @@ for await (const [space, message] of app.messages) {
   }
 
   // Send reliably: threaded reply if the platform supports it, else a plain message.
-  try {
-    await message.reply(reply);
-    logOut('REPLY', `space=${space.id} msgId=${MsgId(message)} text=${reply.slice(0, 60).replace(/\n/g, ' ⏎ ')}`);
-  } catch {
-    await space.send(reply).catch(() => {});
-    logOut('REPLY(fallback)', `space=${space.id} msgId=${MsgId(message)} text=${reply.slice(0, 60).replace(/\n/g, ' ⏎ ')}`);
-  }
+  // Send reliably as ONE message. `message.reply(...)` double-sends on this platform
+  // (a threaded reply + a copy); `space.send` emits a single message.
+  await space.send(reply).catch(() => {});
+  logOut('REPLY', `space=${space.id} msgId=${MsgId(message)} text=${reply.slice(0, 60).replace(/\n/g, ' ⏎ ')}`);
 }
 }
 
