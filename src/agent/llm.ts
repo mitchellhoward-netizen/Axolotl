@@ -181,6 +181,45 @@ export class LlmClient {
   }
 
   /**
+   * Generate candidate hypotheses (the "solution space" H) for a fuzzy parent message — the
+   * solution-generation side of the intelligence layer (TAD's load-shifting insight). Returns a
+   * raw array of `{ claim, direction, program?, assumptions?, belief }`, or null on failure. The
+   * caller maps these onto the `Intention` Hypothesis shape.
+   */
+  async generateIntentHypotheses(
+    message: string,
+    profileSummary: string,
+  ): Promise<Array<{ claim: string; direction: string; program?: string; assumptions?: Record<string, string>; belief: number }> | null> {
+    const raw = await this.complete(
+      'You are an education-bureaucracy agent. A parent texted you. Enumerate the PLAUSIBLE answers ' +
+        '(the "space of viable solutions") for what the family needs to do next. Return ONLY a JSON ' +
+        'array of 2–4 objects, each with: ' +
+        '"claim" (a short, concrete answer, e.g. "Request a speech/language IEP evaluation"), ' +
+        '"direction" (one line describing that path), ' +
+        '"program" (the program or form family it belongs to, if any), ' +
+        '"assumptions" (an object of decision-flip dimension -> assumed value the claim relies on, e.g. ' +
+        '{"iep504":"has-iep"}, {"incomeEligibility":"snap"}), and ' +
+        '"belief" (a 0..1 prior you think this is the right answer; make them roughly sum to 1). ' +
+        'The dimensions can be any of: residency, grade, school, schoolType, incomeEligibility, ' +
+        'language, iep504, docsOnHand, existingEnrollment. Be honest: if the message is genuinely ' +
+        'ambiguous, list the competing paths; if not, return fewer. Never invent a specific form URL, ' +
+        'deadline, or phone number.',
+      `Parent message: "${message}"\n\nKnown about the family: ${profileSummary || 'not much yet'}`,
+      true,
+    );
+    if (!raw) return null;
+    try {
+      const arr = JSON.parse(raw) as Array<{ claim?: string; direction?: string; program?: string; assumptions?: Record<string, string>; belief?: number }>;
+      if (!Array.isArray(arr) || arr.length < 2) return null;
+      return arr
+        .filter((a) => typeof a.claim === 'string' && a.claim.length > 0)
+        .map((a) => ({ claim: a.claim!, direction: a.direction ?? a.claim!, program: a.program, assumptions: a.assumptions, belief: typeof a.belief === 'number' ? a.belief : 0.5 }));
+    } catch {
+      return null;
+    }
+  }
+
+  /**
    * From a fetched district/school web page, extract grounded knowledge nodes
    * (category/title/summary/url) for the canonical 10 categories. Returns null on
    * failure or when the content doesn't support confident facts — callers then

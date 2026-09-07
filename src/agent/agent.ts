@@ -41,6 +41,8 @@ import { persistProvisionedFamily } from '../integrations/identity.js';
 import { executeTool } from '../tools/registry.js';
 import type { ToolContext } from '../tools/types.js';
 import type { IntentEngine } from './intent/engine.js';
+import { hypothesesFromLLM, buildIntention, decide, concentrated, hypothesize, askFromUnknowns, groundIntention } from './intention.js';
+import type { Hypothesis, Intention, SubClaimKind } from './intention.js';
 import { InMemoryStore, type ChatMessage } from './memory.js';
 import { resolveLocale, localizeFollowup, detectLocale } from '../lib/bilingual.js';
 import { createFollowUpStore } from '../integrations/followup-store.js';
@@ -1102,16 +1104,186 @@ export class Agent {
     }
 
     // Fallback (no key, or the LLM couldn't resolve): structured flows.
+    // Honor a consent-gated intention proposal even without the LLM: if we proposed
+    // consent-requiring steps (from the intelligence layer) and the parent affirms, run them.
+    if (state.pendingSteps?.some((s) => s.requiresConsent) && isAffirmative(text)) {
+      const results = await this.runSteps(state.pendingSteps, this.resolveMode(), state);
+      const summary = results.map((r) => r.parentSummary).join('\n');
+      return { turn: { text: `Done!\n${summary}`, phase: 'done', resolved: true }, state: { phase: 'done', collected: {}, cases: state.cases, pendingSteps: undefined } };
+    }
     if (detected.name === 'case_status') {
       return { turn: { text: openCaseSummary(state.cases), phase: 'done' }, state: { phase: 'done', collected: {}, cases: state.cases } };
     }
     if (detected.name === 'unknown') {
+      // Before giving up with "I don't understand", let the intelligence layer resolve the fuzzy
+      // intent: build the belief state (LLM solution-generation, else the stub), ground it if
+      // needed, and surface the most informative clarifying question, a grounded answer, or an
+      // honest handoff.
+      const fuzzy = await this.resolveFuzzyIntent(text, state);
+      if (fuzzy) return fuzzy;
       return { turn: { text: UNKNOWN_TEXT, phase: 'idle' }, state: { phase: 'idle', collected: {}, cases: state.cases } };
     }
     return this.startDetectedIntent(detected.name, text, ctx, roster, state.profile);
   }
 
   /** Start a freshly-detected intent from scratch (used for new requests and pivots). */
+  /**
+   * Intelligence-layer resolution for an ambiguous ("unknown-intent") parent message.
+   * Builds the belief state (preferring the LLM's solution-generation, falling back to the stub),
+   * grounds the leading hypothesis if needed, then acts: ask the most informative clarifying
+   * question, present a grounded answer, or hand off honestly. Returns null when the message is
+   * not genuinely multi-hypothesis (so the caller falls through to the generic fallback).
+   */
+  private async resolveFuzzyIntent(text: string, state: ConversationState): Promise<{ turn: AgentTurn; state: ConversationState } | null> {
+    const profile = state.profile ?? { children: [], needs: [], challenges: [] };
+
+    // 1. Generate the hypothesis space (H). Prefer the LLM; the stub is a deterministic fallback.
+    let hypotheses: Hypothesis[] = [];
+    if (this.opts.llm?.enabled) {
+      const profileSummary = [profile.location, profile.school, profile.schoolType, profile.children?.[0]?.grade, (profile.challenges ?? []).join(', '), profile.locale].filter(Boolean).join('; ');
+      const raw = await this.opts.llm.generateIntentHypotheses(text, profileSummary);
+      hypotheses = raw ? hypothesesFromLLM(raw) : [];
+    }
+    if (hypotheses.length < 2) hypotheses = hypothesize(text, profile);
+    if (hypotheses.length < 2) return null;
+
+    let intention: Intention = buildIntention(text, profile, hypotheses);
+    let decision = decide(intention, [], { minValue: 0.05, budgetUsed: 0, budgetCap: 3, askCost: 0.4, decisionFlipQuestion: askFromUnknowns(intention.unknowns) });
+
+    // 2. If the policy wants (grounding) research, run it once, then re-decide.
+    if (decision.action === 'research' && decision.researchQuery) {
+      const grounded = await groundIntention(intention, (claim, kinds) => this.groundClaim(claim, kinds, profile));
+      if (grounded !== intention) {
+        intention = grounded;
+        decision = decide(intention, [], { minValue: 0.05, budgetUsed: 1, budgetCap: 3, askCost: 0.4, decisionFlipQuestion: askFromUnknowns(intention.unknowns) });
+      } else {
+        // Grounding returned nothing (no district to research / no LLM): don't guess a form or
+        // deadline the parent could act on — hand off honestly instead.
+        decision = { action: 'handoff', reason: 'Could not verify the exact form or deadline, so I will not guess.', scored: [] };
+      }
+    }
+
+    // 3. Act on the final decision.
+    if (decision.action === 'ask' && decision.question) {
+      return { turn: { text: decision.question, phase: 'clarifying' }, state: { phase: 'clarifying', collected: {}, profile } };
+    }
+
+    const best = concentrated(intention.hypotheses);
+    if ((decision.action === 'commit' || decision.action === 'research') && best) {
+      // If the intention is genuinely committed and we have an actionable grounded step (a form URL
+      // or an email contact), map it to a consent-gated Step set and ask the parent for YES before
+      // doing anything consequential. This is the "never act without consent" rule.
+      if (intention.status === 'committed') {
+        const steps = this.stepsForCommittedIntention(intention, best);
+        if (steps.length) {
+          return {
+            turn: {
+              text: `I found the path for this. Here's what I'd do — and it needs your OK before I send anything:\n\n` +
+                steps.map((s, i) => `${i + 1}. ${s.successCondition.describe}`).join('\n') +
+                `\n\nReply "submit it" and I'll go ahead.`,
+              phase: 'confirming',
+            },
+            state: { phase: 'confirming', collected: {}, pendingSteps: steps, profile, cases: state.cases },
+          };
+        }
+      }
+      const groundedLines = best.subClaims
+        .filter((s) => s.attested && (s.value || s.source))
+        .map((s) => `• ${s.kind}: ${s.value ?? s.source}`);
+      const groundedInfo = groundedLines.length ? `\n${groundedLines.join('\n')}` : '';
+      const grounded = intention.status === 'committed'
+        ? `Here's what I found for you:\n\n• ${best.claim}${best.program ? ` (${best.program})` : ''}${groundedInfo}\n\nWant me to take the next step for you?`
+        : `I believe this is about "${best.claim}"${best.program ? ` (${best.program})` : ''}, but I couldn't yet verify the exact form and deadline, so I'd rather not guess. Share a bit more and I'll pin it down.`;
+      return { turn: { text: grounded, phase: 'done', resolved: intention.status === 'committed' }, state: { phase: intention.status === 'committed' ? 'done' : 'idle', collected: {}, profile } };
+    }
+
+    return {
+      turn: { text: `I want to be straight with you rather than guess, and I don't yet have enough to answer that reliably.`, phase: 'idle' },
+      state: { phase: 'idle', collected: {}, profile },
+    };
+  }
+
+  /**
+   * Ground a claim by running real web research for the district/school and attesting the claim's
+   * sub-claims (form URL, deadline, eligibility, contact) from what comes back. Returns null when
+   * there's no district to research (or no LLM), which makes `groundIntention` a no-op.
+   */
+  private async groundClaim(
+    claim: string,
+    kinds: SubClaimKind[],
+    profile: FamilyProfile,
+  ): Promise<Partial<Record<SubClaimKind, { value: string; source: string }>> | null> {
+    const llm = this.opts.researchLlm ?? this.opts.llm;
+    const districtName = profile.district ?? profile.location ?? '';
+    const schoolName = profile.school ?? '';
+    if (!districtName || !llm?.enabled) return null;
+    const nodes = await researchDistrictNodes(districtName, schoolName, llm, claim);
+    if (!nodes.length) return null;
+    const top = nodes[0]!;
+    const out: Partial<Record<SubClaimKind, { value: string; source: string }>> = {};
+    if (kinds.includes('formUrl')) out.formUrl = { value: top.url, source: top.title };
+    if (kinds.includes('contact')) out.contact = { value: top.summary, source: top.title };
+    if (kinds.includes('deadline')) out.deadline = { value: top.summary, source: top.title };
+    if (kinds.includes('eligibility')) out.eligibility = { value: top.summary, source: top.title };
+    return out;
+  }
+
+  /**
+   * Map a committed intention (grounded hypothesis) to consent-gated Steps. Prefers a browser
+   * form-fill+submit at the grounded form URL; falls back to an email to the grounded contact.
+   * Returns [] when nothing actionable is grounded — caller then just informs the parent.
+   */
+  private stepsForCommittedIntention(intention: Intention, best: Hypothesis): Step[] {
+    const profile = intention.profile;
+    const formUrl = best.subClaims.find((s) => s.kind === 'formUrl' && s.attested)?.value;
+    const contact = best.subClaims.find((s) => s.kind === 'contact' && s.attested)?.value;
+    const student = profile.children?.[0]?.name ?? 'your child';
+    const mode = this.resolveMode();
+    const sped = /special|iep|speech|504|evaluation/i.test(`${best.program ?? ''} ${best.claim}`);
+    const role: Counterparty['role'] = sped ? 'SPED_COORDINATOR' : 'DISTRICT';
+    const counterparty = this.resolveCounterparty(role, mode);
+    const intentId = (best.program ?? best.claim).toLowerCase().replace(/[^a-z0-9]+/g, '_').slice(0, 40) || 'request';
+
+    if (formUrl) {
+      const fields: Array<{ label: string; value: string }> = [
+        { label: 'student', value: student },
+        { label: 'school', value: profile.school ?? '' },
+      ];
+      if (profile.children?.[0]?.grade) fields.push({ label: 'grade', value: profile.children[0].grade });
+      return [{
+        id: `${intentId}-browser`,
+        caseId: intentId,
+        intent: intentId,
+        channel: 'browser',
+        counterparty,
+        payload: { channel: 'browser', url: formUrl, fields, submit: true },
+        successCondition: { describe: `${best.program ?? 'the request'} — fill and submit the form`, kind: 'confirmation_parsed' },
+        requiresConsent: true,
+        status: 'planned',
+      }];
+    }
+
+    if (contact && /@/.test(contact)) {
+      return [{
+        id: `${intentId}-email`,
+        caseId: intentId,
+        intent: intentId,
+        channel: 'email',
+        counterparty,
+        payload: {
+          channel: 'email',
+          subject: `Request regarding ${student}`,
+          body: `Hi,\n\n${student} attends ${profile.school ?? 'our school'}.\n\n${best.claim}.\n\n${intention.message}\n\nThanks.`,
+        },
+        successCondition: { describe: `${best.program ?? 'the request'} — send the request to the contact`, kind: 'reference_received' },
+        requiresConsent: true,
+        status: 'planned',
+      }];
+    }
+
+    return [];
+  }
+
   private startDetectedIntent(
     name: IntentName,
     text: string,

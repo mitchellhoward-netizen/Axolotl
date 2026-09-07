@@ -2,6 +2,24 @@
 
 This is a [Spectrum](https://photon.codes/docs/spectrum-ts) app, pinned to `spectrum-ts@^12.8.0`. The entry point is `src/index.ts`, which configures the imessage provider(s) and runs the echo loop.
 
+## Agent codebase (the parent↔school agent)
+
+This app is an **Axolotl** parent-facing agent: a parent texts a need and the agent navigates to the
+right form, fills it, and submits **with explicit consent**, or guides the parent where it hits
+limits (SSO/CAPTCHA). The agent core is `src/agent/agent.ts`; channel hands are in
+`src/agent/steps/` + `src/integrations/`.
+
+For fuzzy/ambiguous parent messages ("we moved, how do I enroll?", "my kid needs speech services"),
+there is an **intelligence layer** (`src/agent/intention.ts`) that treats intent as a **belief state
+over a hypothesis space** — not a single label to classify — and chooses *ask* vs *research* vs
+*commit* vs *handoff* by **information gain**, committing only on **grounded evidence** and never
+executing a consequential action without an explicit parent `YES`.
+
+- Design + rationale (verified research, annotated `verified`/`inferred`): **`INTELLIGENCE-LAYER.md`**.
+- Run the tests: `npm run test:intention`.
+- The existing single-label `IntentEngine` (`src/agent/intent/`) is a coarse classifier; the
+  intelligence layer runs on top of it for the cases it can't confidently resolve.
+
 ## Working in this project
 
 - Run the app with `npm run start`.

@@ -28,7 +28,8 @@
     "test:recipe": "tsx scripts/test-recipe.ts",
     "test:vision": "tsx scripts/test-vision.ts",
     "test:recipe-replay": "tsx scripts/test-recipe-replay.ts",
-    "test:pdf-email": "tsx scripts/test-pdf-email.ts"
+    "test:pdf-email": "tsx scripts/test-pdf-email.ts",
+    "test:intention": "tsx scripts/test-intention.ts"
   },
   "dependencies": {
     "@browserbasehq/stagehand": "^4.0.2",

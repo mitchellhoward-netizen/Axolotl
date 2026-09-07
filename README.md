@@ -25,6 +25,7 @@ npm run start
 - **McKinney-Vento school-bus help** — for families that are homeless or displaced. A guided, empathetic conversation that explains the rights, gathers only what it needs (which child, which school), and gives the exact contacts (district homeless liaison **Carissa Lemos**, bus passes **Erika Cortes**). **v1 takes no action** — it explains the process so we can test real action next.
 - **School info** — answers about the principal, address, phone, and the district's five schools from a sourced knowledge base (`src/knowledge/suesd.ts`).
 - **Parent-teacher conferences**, **absences**, and **free/reduced meals** — multi-turn slot filling + a **YES/NO confirmation gate** before anything executes.
+- **Intelligence layer** (`src/agent/intention.ts`) — for fuzzy/ambiguous messages, treats intent as a belief state over a hypothesis space and chooses *ask* vs *research* vs *commit* vs *handoff* by information gain, committing only on grounded evidence and never acting without an explicit parent `YES`. Design + annotated rationale: `INTELLIGENCE-LAYER.md`.
 - Conversation state keyed on `space.id`; the parent is resolved from `message.sender` (falls back to the seeded demo family in `src/seed.ts`).
 
 ### Design principles (kind, helpful, constrained)
