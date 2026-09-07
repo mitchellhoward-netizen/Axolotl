@@ -30,7 +30,8 @@
     "test:recipe-replay": "tsx scripts/test-recipe-replay.ts",
     "test:pdf-email": "tsx scripts/test-pdf-email.ts",
     "test:intention": "tsx scripts/test-intention.ts",
-    "test:consent": "tsx scripts/test-consent.ts"
+    "test:consent": "tsx scripts/test-consent.ts",
+    "reset:conversations": "tsx scripts/reset-conversations.ts"
   },
   "dependencies": {
     "@browserbasehq/stagehand": "^4.0.2",
