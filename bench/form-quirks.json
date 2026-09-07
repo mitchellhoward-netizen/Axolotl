@@ -1,0 +1,105 @@
+{
+  "$comment": "Axolotl form-quirks catalog. The taxonomy of real form systems/quirks a school-bureaucracy agent will hit, with concrete examples from big urban districts (NYC/SF/Chicago) plus the benchmark tiers. Each entry: the form system, the quirk, the capability it exercises, and how we handle it. This shapes the roadmap of what to harden next.",
+  "updated": "2026-02-11",
+  "capabilityStatus": {
+    "browser_form_fill": "proven (Google Form + basic HTML + form.io radios/checkboxes/selects)",
+    "pdf_fill": "proven",
+    "account_hand": "proven (Go Kids signup/login/OTP)",
+    "vision_read": "proven (Astra reads image/iframe content)",
+    "recipe_cache": "proven (learn once -> reuse forever)",
+    "raw_keystrokes": "NOT available (Stagehand wrapper hides page.keyboard/pressSequentially)"
+  },
+  "quirks": [
+    {
+      "id": "account-gated-application-portal",
+      "system": "GoCPS (Chicago), NYCSA (NYC), SFUSD enrollment portal",
+      "urls": ["https://www.cps.edu/GoCPS", "https://www.schools.nyc.gov/learning/student-journey/nyc-schools-account", "https://www.sfusd.edu/schools/enroll/apply"],
+      "quirk": "SSO/login/account-creation + OTP, then a multi-step application wizard. Session-bound.",
+      "exercises": "account hand (signup/login/OTP), session persistence, multi-step fill",
+      "status": "hand proven on Go Kids; each portal is bespoke",
+      "notes": "GoCPS: 'log in to the GoCPS portal', application windows (Sept 9 - Nov 13). Non-CPS students must sign up for testing via the app."
+    },
+    {
+      "id": "benefits-eligibility-portal",
+      "system": "ACCESS NYC (New York), BenefitsCal",
+      "urls": ["https://access.nyc.gov", "https://benefitscal.com/ApplyForBenefits/ABHLT"],
+      "quirk": "Multi-step, account-gated, many categorical-eligibility questions (like Go Kids step 1 scaled up).",
+      "exercises": "account hand + long multi-step questionnaire",
+      "status": "reached + language-select; full wizard not yet filled",
+      "notes": "BenefitsCal starts with a language selector; the wizard is account-gated."
+    },
+    {
+      "id": "sis-integrated-enrollment",
+      "system": "Aeries Online Enrollment (CPS + many districts)",
+      "urls": ["https://dev.aeries.website/solutions/aeries-enrollment/"],
+      "quirk": "Web enrollment form tied to a Student Information System (Aeries/SIS). Account/session tied to an existing SIS record; multi-step; data pre-populated from the SIS.",
+      "exercises": "SIS-linked auth + synced form fields",
+      "status": "not yet tested",
+      "notes": "Aeries is among the most common K-12 enrollment SaaS; the form reflects the district's SIS schema."
+    },
+    {
+      "id": "embedded-form-builder",
+      "system": "JotForm / Google Forms / Microsoft Forms embedded on district sites",
+      "urls": ["https://www.jotform.com/platform/salesforce/enterprise/education/school-district-administration-software/"],
+      "quirk": "Third-party builder widgets (JotForm custom components, Google Forms role=radio, MS Forms), variable label access, CAPTCHA on some.",
+      "exercises": "browserFill + clickControl + selectOption",
+      "status": "Google Forms proven; JotForm/MS Forms untested",
+      "notes": "JotForm wraps fields in custom widgets; may need selector/vision escalation."
+    },
+    {
+      "id": "fillable-pdf",
+      "system": "District PDF applications (Capitola, many more)",
+      "urls": ["https://www.cityofcapitola.gov/DocumentCenter/View/212/Scholarship-Application--Spanish"],
+      "quirk": "AcroForm fields; garbled names / broken ToUnicode; scanned (image) PDFs need OCR.",
+      "exercises": "pdf_fill + per-form field map (recipe)",
+      "status": "proven (incl. garbled-name decode)",
+      "notes": "Scan/form.pdf need a per-form map; delivery = email attachment (unwired)."
+    },
+    {
+      "id": "facebook-forms-embed",
+      "system": "Facebook Forms embedded on org sites (SPINSC, Encompass)",
+      "urls": ["https://www.spinsc.org/ourstory#contact", "https://www.encompasscs.org/contact_us"],
+      "quirk": "Controlled inputs that reject fill(); bot detection. Anti-automation tech.",
+      "exercises": "hard-stop (like CAPTCHA)",
+      "status": "reached + 4/5 fill; controlled fields don't persist",
+      "notes": "Needs raw keystrokes (page.keyboard / pressSequentially), which Stagehand's wrapper hides. Treat as 'guide the parent'."
+    },
+    {
+      "id": "captcha",
+      "system": "reCAPTCHA / hCaptcha on many contact + enrollment forms",
+      "quirk": "Human-verification challenge on submit.",
+      "exercises": "hard-stop; guide the parent",
+      "status": "detected in browserState (hasCaptcha); hard-stop",
+      "notes": "Never try to bypass — hand off the link and explain."
+    },
+    {
+      "id": "file-upload-documents",
+      "system": "Proof-of-residence, I-9, immunization, income docs on enrollment/pdfs/portals",
+      "quirk": "File-upload widget (multi-file, drag-drop), often on account-gated portals or PDF portals.",
+      "exercises": "file input (setInputFiles) — not yet built",
+      "status": "not yet tested",
+      "notes": "Needs a browserFillFile primitive (Stagehand could setInputFiles)."
+    },
+    {
+      "id": "bilingual-forms",
+      "system": "Spanish/dual-language applications (Capitola, SF/NYC)",
+      "quirk": "Labels in another language + garbled encodings; need label mapping + locale.",
+      "exercises": "label map + locale detection",
+      "status": "proven (Capitola field map; Spanish locale fix)",
+      "notes": "detectLocale now conservative (only unambiguous Spanish triggers)."
+    }
+  ],
+  "top-district-map": {
+    "nyc": { "portal": "NYCSA (account)", "enroll": "NYC DOE 3-K/Pre-K via ACCESS NYC (benefits portal)", "forms": "mixed builders + PDFs" },
+    "sf": { "portal": "SFUSD apply/early-ed (portal)", "forms": "mixed builders + PDFs" },
+    "chicago": { "portal": "GoCPS (account) + Aeries enrollment", "prek": "chicagoearlylearning.org", "forms": "Aeries + JotForm" }
+  },
+  "roadmap": [
+    "1. Account portals (GoCPS/NYCSA/SFUSD): reuse the account hand + multi-step fill; add session persistence (Browserbase sessionId).",
+    "2. SIS-integrated (Aeries): test a real Aeries enrollment; handle SIS-linked auth + pre-populated fields.",
+    "3. JotForm/MS Forms: test + harden the builder widgets (selector/vision escalation).",
+    "4. File upload: add a browserFillFile primitive (setInputFiles) for document uploads.",
+    "5. Raw keystrokes for FB/hard forms: expose a typing path (Playwright keyboard) for controlled inputs.",
+    "6. PDF delivery: wire filled PDF into the email step (needs email backend)."
+  ]
+}
