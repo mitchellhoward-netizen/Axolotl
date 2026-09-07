@@ -825,7 +825,8 @@ export class Agent {
     let guard = 0;
     let narrated = false;
     let resolved = false;
-    while (guard < 6) {
+    // Research is allowed to iterate hard — never settle for a thin/partial answer.
+    while (guard < 12) {
       const res = await llm.chatWithTools(
         systemPrompt({ profile: state.profile, cases: state.cases, activeGoal: state.activeGoal, lastAction: state.lastAction, pendingActions: pendingActionsSummary(state.pendingSteps) }),
         messages,
@@ -867,7 +868,7 @@ export class Agent {
       if (res.text) {
         // If the model refuses to look something up ("can't browse / check the website"),
         // the agent does the web search itself and feeds the results back.
-        if (isLookupRefusal(res.text) && guard < 4) {
+        if (isLookupRefusal(res.text) && guard < 6) {
           if (!narrated) {
             narrated = true;
             void this.parentSender(nextBusyLine());
@@ -876,6 +877,21 @@ export class Agent {
           messages.push({
             role: 'user',
             content: `I looked this up online and found:\n${srch}\n\nUse this to answer the parent accurately.`,
+          });
+          guard++;
+          continue;
+        }
+        // If the answer is thin/punting (asking the parent to describe what they want
+        // instead of researching), do NOT settle for it — force more research.
+        if (isThinResearchAnswer(res.text) && guard < 10) {
+          if (!narrated) {
+            narrated = true;
+            void this.parentSender(nextBusyLine());
+          }
+          messages.push({
+            role: 'user',
+            content:
+              "Don't ask the parent to describe what they want or tell you which option — that's not helpful. Research it yourself and keep going: more web_search with different queries, and web_fetch the school/district site (before/after-school, enrichment, ELO-P/ELOP, childcare, enrollment, fee pages) until you have SPECIFIC programs with a name, grade range, free/paid, and how to sign up. Only answer once you have concrete programs. If a search returns nothing, try a different query or a different page.",
           });
           guard++;
           continue;
@@ -1562,4 +1578,32 @@ function isLookupRefusal(s: string): boolean {
     `can${a}?t (browse|search|look|access)|no (internet|web) (access|connection)|don${a}?t have (internet|web|live|access)|cannot (browse|search|access)|unable to (browse|search|look up|access)|check (the )?(school|district|official|website)|visit (the )?(school|district|website)|i don${a}?t (have|know) (internet|web|current|live)`,
     'i',
   ).test(s);
+}
+
+/**
+ * True when a model answer is "thin" — it punts by asking the parent to describe
+ * what they want (or gives up) instead of researching and delivering concrete
+ * programs. We use this to FORCE more research rather than settling for an
+ * unhelpful answer. Deliberately does NOT match a normal yes/no offer like
+ * "Want me to sign Patrick up?".
+ */
+function isThinResearchAnswer(s: string): boolean {
+  const t = s.toLowerCase();
+  const askedTheParent =
+    /i (don'?t|do not|can'?t) (have|know|find|see|have the|get)/.test(t) ||
+    /i won'?t make|can'?t (make|find (a|the|any)|come up with)/.test(t) ||
+    /not (sure|certain)/.test(t) ||
+    /i want to get this right/.test(t) ||
+    /tell me (if|which|whether|more|what you|the)/.test(t) ||
+    /which (one|kind|one (do|would) you want|do you want)/.test(t) ||
+    /do you (want|prefer|have a specific|know of|have|already have)/.test(t) ||
+    /are you looking for/.test(t) ||
+    /what (days|times|specific|kind|would|program|children|subject)/.test(t) ||
+    /what'?s (available|out there|open|going on)/.test(t) ||
+    /should i help you (figure|find|look|nail)/.test(t) ||
+    /let me help you (figure|find|look|nail|compare)/.test(t) ||
+    /can you tell me (what|which)|could you tell me (what|which)|let me know (what|which|if|the)/.test(t) ||
+    /i need (more (info|information|details)|to know what|to understand what)/.test(t) ||
+    /for more information/.test(t);
+  return (askedTheParent && s.length < 1400) || s.trim().length < 25;
 }

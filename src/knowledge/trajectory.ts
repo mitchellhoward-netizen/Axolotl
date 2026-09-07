@@ -17,10 +17,10 @@ export interface SearchBudget {
 }
 
 export const DEFAULT_BUDGET: SearchBudget = {
-  maxSearches: 6,
-  maxFetches: 8,
-  maxSteps: 20,
-  maxNoProgress: 3,
+  maxSearches: 10,
+  maxFetches: 14,
+  maxSteps: 30,
+  maxNoProgress: 5,
 };
 
 export type StepKind = 'search' | 'recover' | 'fetch';
