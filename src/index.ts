@@ -25,6 +25,7 @@ import { researchQuestion } from "./knowledge/research";
 import { AXOLOTL_EMOJI, hasAxolotlImage, axolotlImagePath } from "./integrations/axolotl";
 import { takePendingGreeting } from "./integrations/pending-greeting.js";
 import { readFileSync, writeFileSync, mkdirSync, existsSync, unlinkSync, appendFileSync } from "node:fs";
+import { resolve as pathResolve } from "node:path";
 import { toPlainText } from "./lib/plain";
 
 // ── Single-instance guard ──────────────────────────────────────────────────────
@@ -32,7 +33,8 @@ import { toPlainText } from "./lib/plain";
 // respond to each message (duplicate/conflicting replies, e.g. an OTP code being
 // treated as a normal message by the second instance because verification status is
 // shared via Supabase). Refuse to start if another live instance is already running.
-const LOCK_FILE = new URL("./.agent.lock", import.meta.url);
+// Lock lives at the process cwd (the project root when run via `npm run start`).
+const LOCK_FILE = pathResolve(process.cwd(), ".agent.lock");
 try {
   const pid = Number(readFileSync(LOCK_FILE, "utf8").trim());
   if (pid && Number.isInteger(pid)) {
