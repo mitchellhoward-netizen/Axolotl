@@ -598,34 +598,120 @@ export interface SelectControl {
   name: string;
   options: Array<{ value: string; text: string }>;
 }
-export interface RoleControl {
-  role: string;
+export interface RadioCheckboxControl {
+  role: 'radio' | 'checkbox';
   text: string;
   checked: boolean;
 }
 
-/** Read native <select> options and custom checkbox/radio widgets (Angular Material etc.). */
+/** Read native <select> options and radio/checkbox widgets (form.io / Angular Material). */
 export async function browserFormControls(): Promise<
-  BrowserResult<{ selects: SelectControl[]; roleControls: RoleControl[] }>
+  BrowserResult<{ selects: SelectControl[]; controls: RadioCheckboxControl[] }>
 > {
   const h = await getPage();
   if (!h) return { ok: false, reason: 'browser not configured' };
   try {
     const raw = (await (h.page as unknown as { evaluate: (expr: string) => Promise<unknown> }).evaluate(
       `(() => {
+        const norm = (s) => (s || '').trim().replace(/\\s+/g, ' ');
+        const textOf = (el) => {
+          const label = el.closest('label');
+          return norm(label ? label.textContent : (el.textContent || ''));
+        };
+        const controls = [...document.querySelectorAll('input[type="radio"], input[type="checkbox"], [role="radio"], [role="checkbox"]')]
+          .map((el) => ({
+            role: el.getAttribute('role') || (el.type === 'radio' ? 'radio' : 'checkbox'),
+            text: textOf(el),
+            checked: el.checked === true || el.getAttribute('aria-checked') === 'true' || el.classList.contains('mat-radio-checked') || el.classList.contains('mat-checkbox-checked'),
+          }))
+          .filter((c) => c.text);
         const selects = [...document.querySelectorAll('select')].map((s) => ({
           name: s.getAttribute('name') || '',
           options: [...s.options].map((o) => ({ value: o.value, text: (o.textContent || '').trim() })),
         }));
-        const roleControls = [...document.querySelectorAll('[role="radio"], [role="checkbox"], mat-radio-button, mat-checkbox, .mat-radio-button, .mat-checkbox')].map((e) => ({
-          role: e.getAttribute('role') || e.tagName.toLowerCase(),
-          text: (e.textContent || '').trim().replace(/\\s+/g, ' '),
-          checked: e.getAttribute('aria-checked') === 'true' || e.classList.contains('mat-radio-checked') || e.classList.contains('mat-checkbox-checked'),
-        }));
-        return { selects, roleControls };
+        return { controls, selects };
       })()`,
-    )) as { selects: SelectControl[]; roleControls: RoleControl[] };
+    )) as { selects: SelectControl[]; controls: RadioCheckboxControl[] };
     return { ok: true, data: raw };
+  } catch (e) {
+    return { ok: false, reason: String((e as Error)?.message ?? e) };
+  }
+}
+
+/** Click a radio/checkbox by its visible label text (form.io / Angular Material widgets). */
+export async function browserClickControl(label: string, kind: 'radio' | 'checkbox'): Promise<BrowserResult<boolean>> {
+  const h = await getPage();
+  if (!h) return { ok: false, reason: 'browser not configured' };
+  try {
+    const idx = (await (h.page as unknown as { evaluate: (expr: string) => Promise<unknown> }).evaluate(
+      `((t, kind) => {
+        const norm = (s) => (s || '').trim().toLowerCase().replace(/\\s+/g, ' ');
+        const sel = kind === 'radio' ? 'input[type="radio"], [role="radio"]' : 'input[type="checkbox"], [role="checkbox"]';
+        const els = [...document.querySelectorAll(sel)];
+        els.forEach((el, i) => el.setAttribute('data-axl-ctrl', String(i)));
+        const textOf = (el) => { const l = el.closest('label'); return norm(l ? l.textContent : (el.textContent || '')); };
+        const n = norm(t);
+        const exact = els.findIndex((e) => textOf(e) === n);
+        if (exact !== -1) return exact;
+        return els.findIndex((e) => textOf(e).includes(n));
+      })(${JSON.stringify(label)}, ${JSON.stringify(kind)})`,
+    )) as number;
+    if (idx < 0) return { ok: true, data: false };
+    await h.page.locator(`[data-axl-ctrl="${idx}"]`).click();
+    return { ok: true, data: true };
+  } catch (e) {
+    return { ok: false, reason: String((e as Error)?.message ?? e) };
+  }
+}
+
+/** Dump the outerHTML of elements matching a CSS selector (for form debugging). */
+export async function browserDumpHtml(selector: string): Promise<BrowserResult<string[]>> {
+  const h = await getPage();
+  if (!h) return { ok: false, reason: 'browser not configured' };
+  try {
+    const html = (await (h.page as unknown as { evaluate: (expr: string) => Promise<unknown> }).evaluate(
+      `((sel) => [...document.querySelectorAll(sel)].map((e) => e.outerHTML.slice(0, 2000)))(${JSON.stringify(selector)})`,
+    )) as string[];
+    return { ok: true, data: html };
+  } catch (e) {
+    return { ok: false, reason: String((e as Error)?.message ?? e) };
+  }
+}
+
+/** Select an option in a form.io/choices.js select by its name + option text. */
+export async function browserSelectOption(name: string, optionText: string): Promise<BrowserResult<boolean>> {
+  const h = await getPage();
+  if (!h) return { ok: false, reason: 'browser not configured' };
+  try {
+    const opened = (await (h.page as unknown as { evaluate: (expr: string) => Promise<unknown> }).evaluate(
+      `((name) => {
+        const sel = [...document.querySelectorAll('select')].find((s) => s.getAttribute('name') === name);
+        if (!sel) return false;
+        const wrapper = sel.closest('.choices') || sel.parentElement;
+        const opener = wrapper && wrapper.querySelector('.bb-custom-select-opener, .choices__inner, [role="combobox"]');
+        if (opener) { opener.click(); return true; }
+        return false;
+      })(${JSON.stringify(name)})`,
+    )) as boolean;
+    if (opened) await h.page.waitForTimeout(700);
+
+    const idx = (await (h.page as unknown as { evaluate: (expr: string) => Promise<unknown> }).evaluate(
+      `((name, text) => {
+        const norm = (s) => (s || '').trim().toLowerCase().replace(/\\s+/g, ' ');
+        const sel = [...document.querySelectorAll('select')].find((s) => s.getAttribute('name') === name);
+        if (!sel) return -1;
+        const wrapper = sel.closest('.choices') || sel.parentElement;
+        const opts = [...(wrapper ? wrapper.querySelectorAll('[role="option"]') : document.querySelectorAll('[role="option"]'))];
+        opts.forEach((el, i) => el.setAttribute('data-axl-opt', String(i)));
+        const n = norm(text);
+        const exact = opts.findIndex((e) => norm(e.textContent) === n);
+        if (exact !== -1) return exact;
+        return opts.findIndex((e) => norm(e.textContent).includes(n));
+      })(${JSON.stringify(name)}, ${JSON.stringify(optionText)})`,
+    )) as number;
+    if (idx < 0) return { ok: true, data: false };
+    await h.page.locator(`[data-axl-opt="${idx}"]`).click();
+    return { ok: true, data: true };
   } catch (e) {
     return { ok: false, reason: String((e as Error)?.message ?? e) };
   }
