@@ -79,8 +79,8 @@
           "title": "Go Kids, Inc. — Child Care Waitlist Self-Service Tool (CareWait)",
           "url": "https://app.mycareconnect.io/carewait/gki",
           "type": "account_required (self-serve signup)",
-          "status": "spec'd (docs/TIER3-ACCOUNT-SPEC.md); not built",
-          "notes": "Agency: Go Kids, Inc. (gokids.org), 831-637-9205. Landing page 'Apply for Child Care' has two buttons: 'Apply' (create a user account) and 'Returning Families' (log in). Self-serve signup — unlike the invite-only family portal. JS SPA, needs the browser hand. Login uses email/SMS OTP (10-min code)."
+          "status": "account creation VERIFIED (real account created); application form reached but not yet filled/submitted",
+          "notes": "Agency: Go Kids, Inc. (gokids.org), 831-637-9205. Signup: Apply -> Sign Up -> Email/Cell + Verification Code + Password(<=16) + Confirm + Terms checkbox -> Send Verification Code -> code -> Sign Up -> /application/create-traditional. Code is SESSION-BOUND (send+enter same browser session). SPA ignores synthetic clicks. See docs/TIER3-ACCOUNT-SPEC.md."
         }
       ]
     }

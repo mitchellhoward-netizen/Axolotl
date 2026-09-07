@@ -102,6 +102,12 @@ Metric: `passed / total` where a task passes only if all three hold.
 ## 7. Phased plan
 
 - **Phase 1 (DONE):** the `account` channel + `AccountAdapter` (signup → OTP pause → verify → logged-in), an `AuthDriver` abstraction (`BrowserAuthDriver` in prod, an in-memory mock in tests), the pause/resume expressed as `awaiting_reply`, and the `account_action` tool so the brain can propose it. Tested offline (`npm run test:account`): signup/login → awaiting code → verify → done, plus the consent gate. No real accounts used.
+- **Phase 2 (DONE — real Go Kids account created):** drove the live `app.mycareconnect.io/carewait/gki` end-to-end and created a real account (`scripts/signup-gki-onesession.ts`). Hard-won facts that shape the adapter:
+  - The **verification code is session-bound** — send + enter must happen in the SAME browser session (splitting across process runs fails). ⇒ the adapter needs persistent-session support, and the OTP relay must keep the browser alive during the parent's "check email" pause.
+  - A **Terms-of-Use checkbox gates the "Sign Up" button** (the button is `disabled` until checked).
+  - Password is capped at **16 chars**.
+  - The SPA **ignores synthetic `.click()`** for the send/submit actions — only trusted Playwright `locator.click()` works.
+  - Flow: Apply → Sign Up → (Email/Cell, Verification Code, Password, Confirm Password, Terms checkbox) → **Send Verification Code** → enter code → **Sign Up** → `/application/create-traditional`.
 - **Phase 2 (needs a real URL/agency):** the CareWait "start an application" self-serve flow against a real agency, using the parent-relay OTP.
 - **Phase 3 (optional, env-flagged):** inbound-email OTP automation (Resend inbound or IMAP) for autonomy.
 

@@ -445,23 +445,26 @@ export async function browserState(): Promise<BrowserResult<BrowserState>> {
 
 /**
  * Click the first button/link/submit whose visible text equals (then contains)
- * the given label. Deterministic — complements the LLM-driven `browser_act`.
+ * the given label. Uses a TRUSTED Playwright click (not a synthetic DOM .click(),
+ * which some SPAs ignore for async actions like "send code").
  */
 export async function browserClickByText(text: string): Promise<BrowserResult<boolean>> {
   const h = await getPage();
   if (!h) return { ok: false, reason: 'browser not configured' };
   try {
-    const clicked = (await (h.page as unknown as { evaluate: (expr: string) => Promise<unknown> }).evaluate(
+    const idx = (await (h.page as unknown as { evaluate: (expr: string) => Promise<unknown> }).evaluate(
       `((t) => {
         const norm = (s) => (s || '').trim().toLowerCase().replace(/\\s+/g, ' ');
         const els = [...document.querySelectorAll('button, a, [role="button"], input[type="submit"], input[type="button"]')];
-        const el = els.find((e) => norm(e.textContent || e.value || '') === norm(t)) ||
-                   els.find((e) => norm(e.textContent || e.value || '').includes(norm(t)));
-        if (el) { el.click(); return true; }
-        return false;
+        els.forEach((el, i) => el.setAttribute('data-axl-click', String(i)));
+        const exact = els.findIndex((e) => norm(e.textContent || e.value || '') === norm(t));
+        if (exact !== -1) return exact;
+        return els.findIndex((e) => norm(e.textContent || e.value || '').includes(norm(t)));
       })(${JSON.stringify(text)})`,
-    )) as boolean;
-    return { ok: true, data: clicked };
+    )) as number;
+    if (idx < 0) return { ok: true, data: false };
+    await h.page.locator(`[data-axl-click="${idx}"]`).click();
+    return { ok: true, data: true };
   } catch (e) {
     return { ok: false, reason: String((e as Error)?.message ?? e) };
   }
@@ -498,6 +501,88 @@ export async function browserFields(): Promise<
         })),
       },
     };
+  } catch (e) {
+    return { ok: false, reason: String((e as Error)?.message ?? e) };
+  }
+}
+
+/** Read the current page's clickable button/link labels (deterministic). */
+export async function browserButtons(): Promise<BrowserResult<string[]>> {
+  const h = await getPage();
+  if (!h) return { ok: false, reason: 'browser not configured' };
+  try {
+    const btns = (await (h.page as unknown as { evaluate: (expr: string) => Promise<unknown> }).evaluate(
+      `(() => [...document.querySelectorAll('button, a, [role="button"], input[type="submit"], input[type="button"]')]
+        .map((b) => ((b.textContent || b.value || '') || '').trim().replace(/\\s+/g, ' '))
+        .filter(Boolean))()`,
+    )) as string[];
+    return { ok: true, data: btns };
+  } catch (e) {
+    return { ok: false, reason: String((e as Error)?.message ?? e) };
+  }
+}
+
+export interface BrowserButtonState {
+  text: string;
+  disabled: boolean;
+}
+export interface BrowserInputState {
+  type: string;
+  checked: boolean;
+  disabled: boolean;
+  placeholder: string;
+  name: string;
+  value: string;
+  required: boolean;
+}
+export interface BrowserInspect {
+  url: string;
+  title: string;
+  text: string;
+  buttons: BrowserButtonState[];
+  inputs: BrowserInputState[];
+  errors: string[];
+}
+
+/** Deep DOM snapshot: buttons (disabled state), inputs (checked/disabled), and validation errors. */
+export async function browserInspect(): Promise<BrowserResult<BrowserInspect>> {
+  const h = await getPage();
+  if (!h) return { ok: false, reason: 'browser not configured' };
+  try {
+    const raw = (await (h.page as unknown as { evaluate: (expr: string) => Promise<unknown> }).evaluate(
+      `(() => {
+        const text = ((document.body && document.body.innerText) || '').trim();
+        const buttons = [...document.querySelectorAll('button, input[type="submit"], input[type="button"], a[role="button"]')]
+          .map((b) => ({ text: ((b.textContent || b.value || '') || '').trim().replace(/\\s+/g, ' '), disabled: Boolean(b.disabled) || b.getAttribute('aria-disabled') === 'true' }))
+          .filter((b) => b.text);
+        const inputs = [...document.querySelectorAll('input, select, textarea')].map((e) => ({
+          type: (e.type || e.tagName || '').toLowerCase(),
+          checked: Boolean(e.checked),
+          disabled: Boolean(e.disabled),
+          placeholder: e.getAttribute('placeholder') || '',
+          name: e.getAttribute('name') || '',
+          value: e.value || '',
+          required: Boolean(e.required),
+        }));
+        const errors = [...document.querySelectorAll('[role="alert"], .error, .invalid, [class*="error"], [class*="invalid"]')]
+          .map((e) => (e.textContent || '').trim().replace(/\\s+/g, ' '))
+          .filter((t) => t && t.length < 200);
+        return { url: location.href, title: (document.title || '').trim(), text: text.slice(0, 3000), buttons, inputs, errors };
+      })()`,
+    )) as BrowserInspect;
+    return { ok: true, data: raw };
+  } catch (e) {
+    return { ok: false, reason: String((e as Error)?.message ?? e) };
+  }
+}
+
+/** Click the first element matching a CSS selector (trusted Playwright click). */
+export async function browserClickBySelector(selector: string): Promise<BrowserResult<boolean>> {
+  const h = await getPage();
+  if (!h) return { ok: false, reason: 'browser not configured' };
+  try {
+    await h.page.locator(selector).click();
+    return { ok: true, data: true };
   } catch (e) {
     return { ok: false, reason: String((e as Error)?.message ?? e) };
   }

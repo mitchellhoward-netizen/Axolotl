@@ -5,6 +5,7 @@ import {
   browserState,
   browserClickByText,
   browserFields,
+  browserButtons,
   browserClose,
 } from '../src/integrations/browser.js';
 
@@ -20,6 +21,7 @@ async function main(): Promise<void> {
   const dump = async (label: string) => {
     const s = await browserState();
     const f = await browserFields();
+    const b = await browserButtons();
     console.log(`\n=== ${label} ===`);
     if (s.ok) {
       console.log(
@@ -35,6 +37,8 @@ async function main(): Promise<void> {
     } else {
       console.log('fields err:', f.reason);
     }
+    if (b.ok) console.log('buttons:', JSON.stringify(b.data));
+    else console.log('buttons err:', b.reason);
   };
 
   await browserOpen(URL);
