@@ -24,7 +24,7 @@ import { buildPreCallBrief } from "./knowledge/precall";
 import { researchQuestion } from "./knowledge/research";
 import { AXOLOTL_EMOJI, hasAxolotlImage, axolotlImagePath } from "./integrations/axolotl";
 import { takePendingGreeting } from "./integrations/pending-greeting.js";
-import { readFileSync, writeFileSync, mkdirSync, existsSync, unlinkSync, appendFileSync } from "node:fs";
+import { readFileSync, writeFileSync, unlinkSync } from "node:fs";
 import { resolve as pathResolve } from "node:path";
 import { toPlainText } from "./lib/plain";
 
@@ -240,14 +240,6 @@ console.log(
     : `🧠 Brain: offline rules (set DEEPSEEK_API_KEY in .env to enable the LLM)`,
 );
 
-// Diagnostic: log each outbound send (greeting vs reply) with the triggering inbound id.
-const logOut = (kind: string, info: string): void => {
-  try {
-    appendFileSync('debug/outbound.log', `${new Date().toISOString()} [${kind}] ${info}\n`);
-  } catch { /* ignore */ }
-};
-const MsgId = (m: unknown): string => (m as { id?: string })?.id ?? '(no-id)';
-
 if (app) {
   // Always-on advocate: proactively follow up on the family's behalf, but never
   // nag — relevance + throttle (quiet hours, cooldown, daily cap) live in the
@@ -258,17 +250,9 @@ if (app) {
   }, proactiveEveryMs);
 
 const seenMessages = new Set<string>(); // dedupe duplicate deliveries by message id
-const logInbound = (kind: string, info: string): void => {
-  try {
-    appendFileSync('debug/inbound.log', `${new Date().toISOString()} [${kind}] ${info}\n`);
-  } catch { /* ignore */ }
-};
 for await (const [space, message] of app.messages) {
   // Never answer our own outbound echoes.
   if (message.direction === "outbound") continue;
-
-  // Log every inbound event (msgId + service + content) so a double delivery is visible.
-  logInbound('IN', `space=${space.id} msgId=${(message as { id?: string })?.id ?? '(no-id)'} service=${(message as { service?: string })?.service ?? '?'} text=${(message.content?.type === 'text' ? (message.content.text ?? '') : message.content?.type ?? '?').slice(0, 50).replace(/\n/g, ' ⏎ ')}`);
 
   // The iMessage SDK can deliver the same message twice (read/typing re-emit or a
   // retried webhook). Dedupe by message id so a single text never gets TWO replies.
@@ -284,14 +268,13 @@ for await (const [space, message] of app.messages) {
 
   // Register this family's messenger + mark the inbound so cooldown applies,
   // then fire any due, relevant follow-ups (best-effort, never blocks the reply).
-  agent.registerConversation(space.id, async (text) => { await space.send(text).catch(() => {}); logOut('CALLBACK', `space=${space.id} text=${text.slice(0, 60).replace(/\n/g, ' ⏎ ')}`); });
+  agent.registerConversation(space.id, async (text) => { await space.send(text).catch(() => {}); });
   agent.noteInbound(space.id);
   await agent.runProactive().catch(() => {});
 
   if (message.content.type !== "text") continue;
 
   const text = message.content.text;
-  console.log(`[imessage] ${space.id} < ${text}`);
   // iMessage fallback: if the waitlist confirmation couldn't be sent as SMS, we
   // held it keyed by the phone. The moment this parent texts us (creating a real
   // iMessage chat), send it — this is the reliable iMessage-via-Photon path.
@@ -302,38 +285,7 @@ for await (const [space, message] of app.messages) {
       return undefined;
     });
     if (greeting) {
-      console.log(`[greeting] sending waitlist confirmation to ${greetingPhone}`);
       await space.send(greeting).catch(() => {});
-      logOut('GREETING', `phone=${greetingPhone} msg=${greeting.slice(0, 60)}`);
-    }
-  }
-
-  // TEMP diagnostic: dump the live space/message shape once to locate the low-level client.
-  if (!(globalThis as { __axolotlDump?: boolean }).__axolotlDump) {
-    (globalThis as { __axolotlDump?: boolean }).__axolotlDump = true;
-    try {
-      const syms = (o: object) => Object.getOwnPropertySymbols(o).map((s) => String(s));
-      const protoNames = (o: object) => {
-        const out: string[] = []; let p = Object.getPrototypeOf(o);
-        while (p && p !== Object.prototype) { out.push(...Object.getOwnPropertyNames(p)); p = Object.getPrototypeOf(p); }
-        return out;
-      };
-      const dump = {
-        spaceOwnKeys: Object.getOwnPropertyNames(space),
-        spaceProto: protoNames(space),
-        spaceSymbols: syms(space),
-        spacePropTypes: Object.fromEntries(Object.getOwnPropertyNames(space).map((k) => [k, typeof (space as unknown as Record<string, unknown>)[k]])),
-        messageOwnKeys: Object.getOwnPropertyNames(message),
-        messageProto: protoNames(message),
-        messageSymbols: syms(message),
-        messagePropTypes: Object.fromEntries(Object.getOwnPropertyNames(message).map((k) => [k, typeof (message as unknown as Record<string, unknown>)[k]])),
-        clientLike: [...Object.getOwnPropertyNames(space), ...protoNames(space), ...Object.getOwnPropertyNames(message), ...protoNames(message)].filter((k) => /client|platform|raw|ctx|remote|grpc|transport|phone|guid/i.test(k)),
-      };
-      mkdirSync('debug', { recursive: true });
-      writeFileSync('debug/space-dump.json', JSON.stringify(dump, null, 2));
-      console.log('[axolotl] dumped space/message shape -> debug/space-dump.json');
-    } catch (e) {
-      console.error('[axolotl] dump failed:', e);
     }
   }
 
@@ -399,7 +351,6 @@ for await (const [space, message] of app.messages) {
   // Send reliably as ONE message. `message.reply(...)` double-sends on this platform
   // (a threaded reply + a copy); `space.send` emits a single message.
   await space.send(reply).catch(() => {});
-  logOut('REPLY', `space=${space.id} msgId=${MsgId(message)} text=${reply.slice(0, 60).replace(/\n/g, ' ⏎ ')}`);
 }
 }
 
