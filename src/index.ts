@@ -247,9 +247,22 @@ if (app) {
     agent.runProactive().catch((e) => console.error('[proactive] tick error:', e));
   }, proactiveEveryMs);
 
+const seenMessages = new Set<string>(); // dedupe duplicate deliveries by message id
 for await (const [space, message] of app.messages) {
   // Never answer our own outbound echoes.
   if (message.direction === "outbound") continue;
+
+  // The iMessage SDK can deliver the same message twice (read/typing re-emit or a
+  // retried webhook). Dedupe by message id so a single text never gets TWO replies.
+  const messageId = (message as { id?: string }).id;
+  if (messageId) {
+    if (seenMessages.has(messageId)) {
+      console.log(`[imessage] dup message ${messageId} (${space.id}) — skipping`);
+      continue;
+    }
+    seenMessages.add(messageId);
+    if (seenMessages.size > 2000) seenMessages.clear();
+  }
 
   // Register this family's messenger + mark the inbound so cooldown applies,
   // then fire any due, relevant follow-ups (best-effort, never blocks the reply).
