@@ -58,6 +58,27 @@ import { findSkillFor, skillSummary } from './skills.js';
 /** Tools that take long enough that we tell the parent we're on it. */
 const SLOW_TEXT_TOOLS = new Set(['web_search', 'web_fetch', 'browser_open', 'browser_observe', 'browser_act', 'browser_extract', 'browser_fill', 'extract_pdf', 'pdf_fields', 'pdf_fill']);
 
+/** Varied, human "stepping away to look this up" acknowledgments (no repeats). */
+const BUSY_LINES = [
+  'One sec, let me check that.',
+  'On it — give me a moment.',
+  'Let me pull that up…',
+  "Hang tight, I'm looking now.",
+  'Give me a minute.',
+  'Looking into it…',
+  'Let me dig into that for you.',
+  'On it now.',
+  'Checking for you — one moment.',
+  "One moment, I'm on it.",
+];
+let lastBusyLine = -1;
+function nextBusyLine(): string {
+  let i = lastBusyLine;
+  while (i === lastBusyLine) i = Math.floor(Math.random() * BUSY_LINES.length);
+  lastBusyLine = i;
+  return BUSY_LINES[i]!;
+}
+
 /** School name with its city/state disambiguation, so research targets the right one. */
 function qualifiedSchool(p?: FamilyProfile): string {
   if (!p?.school) return 'their school';
@@ -728,7 +749,7 @@ export class Agent {
         // Tell the parent we're on it before any slow research (web/browser/PDF).
         if (!narrated && res.calls.some((c) => SLOW_TEXT_TOOLS.has(c.name))) {
           narrated = true;
-          void this.parentSender('Looking into that right now — be back in a sec.');
+          void this.parentSender(nextBusyLine());
         }
         if (res.calls.some((c) => c.name === 'record_getting')) resolved = true;
         const assistantMsg = {
@@ -760,7 +781,7 @@ export class Agent {
         if (isLookupRefusal(res.text) && guard < 4) {
           if (!narrated) {
             narrated = true;
-            void this.parentSender('Looking into that right now — be back in a sec.');
+            void this.parentSender(nextBusyLine());
           }
           const srch = await runTool('web_search', { query: text }, deps);
           messages.push({
