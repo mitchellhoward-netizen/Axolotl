@@ -22,7 +22,7 @@ import { searchSchoolGraph, chainSummary } from '../knowledge/resource-graph.js'
 import { buildPreCallBrief } from '../knowledge/precall.js';
 import { embeddingsConfigured, embedTexts } from '../integrations/embeddings.js';
 import { KNOWLEDGE_CATEGORIES, type KnowledgeCategory } from '../domain/knowledge.js';
-import { answerSchoolInfo, DISTRICT, LIAISON, BUS_PASSES, SOQUEL_ELEMENTARY } from '../knowledge/suesd.js';
+import { answerSchoolInfo, DISTRICT } from '../knowledge/suesd.js';
 import { StepExecutor } from './steps/executor.js';
 import { planSteps } from './steps/planner.js';
 import { buildAdapters } from './steps/registry.js';
@@ -175,7 +175,7 @@ const HELP_TEXT = [
 ].join('\n');
 
 const UNKNOWN_TEXT =
-  `I'm not sure I can help with that. I can help with school bus / transportation (McKinney-Vento), parent-teacher conferences, absences, and meals. For anything else, the ${SOQUEL_ELEMENTARY.name} office can point you right: ${SOQUEL_ELEMENTARY.phone}.`;
+  `I'm not sure I can help with that. I can help with school bus / transportation (McKinney-Vento), parent-teacher conferences, absences, and meals. For anything else, your school's office can point you right.`;
 
 /**
  * The orchestrator. Two flows share one conversation store:
@@ -631,20 +631,24 @@ export class Agent {
     return result;
   }
 
-  /** Resolve the counterparty by role + mode. Demo NEVER resolves a real contact. */
-  private resolveCounterparty(role: Counterparty['role'], mode: Mode): Counterparty {
+  /** Resolve the counterparty by role + mode. Uses the FAMILY's own school/district (never a hardcoded one). */
+  private resolveCounterparty(role: Counterparty['role'], mode: Mode, profile?: FamilyProfile): Counterparty {
     if (mode === 'demo') {
       return { role, name: 'Demo School Liaison', email: 'demo-liaison@example.com', phone: '+15550001111' };
     }
+    const school = profile?.school?.trim() || 'the school';
+    const district = profile?.district?.trim() || school;
+    const org = district;
+    const c = (name: string, extra?: Partial<Counterparty>): Counterparty => ({ role, name, ...extra });
     switch (role) {
       case 'HOMELESS_LIAISON':
-        return { role, name: LIAISON.name, email: LIAISON.email, phone: LIAISON.phone };
+        return c(`${org} homeless liaison`, { email: process.env.CONTACT_EMAIL, phone: process.env.CONTACT_PHONE });
       case 'BUS_PASSES':
-        return { role, name: BUS_PASSES.name, phone: BUS_PASSES.phone };
+        return c(`${org} transportation`);
       case 'PRINCIPAL':
-        return { role, name: SOQUEL_ELEMENTARY.principal, phone: SOQUEL_ELEMENTARY.phone };
+        return c(`principal at ${school}`);
       default:
-        return { role, name: SOQUEL_ELEMENTARY.name, phone: SOQUEL_ELEMENTARY.phone };
+        return c(school);
     }
   }
 
@@ -657,7 +661,7 @@ export class Agent {
       mode,
       demoClockScale: 1440,
       parentPhone: process.env.CALL_ME_NUMBER,
-      resolveCounterparty: (r, m) => this.resolveCounterparty(r, m),
+      resolveCounterparty: (r, m) => this.resolveCounterparty(r, m, record.state.profile),
       logAction: async (_caseId, a) => {
         record.state.cases = addCase(
           record.state.cases,
@@ -692,7 +696,7 @@ export class Agent {
     if (!profile) throw new Error('No family profile to plan from — onboard first.');
 
     const student = profile.children?.[0]?.name ?? 'your child';
-    const counterparty = this.resolveCounterparty('HOMELESS_LIAISON', mode);
+    const counterparty = this.resolveCounterparty('HOMELESS_LIAISON', mode, profile);
     const steps = planSteps({ intent, family: profile, student, counterparty });
     return this.runSteps(steps, mode, undefined, conversationId);
   }
@@ -732,7 +736,7 @@ export class Agent {
         state.pendingSteps = steps.map((s) => ({
           ...s,
           counterparty: {
-            ...this.resolveCounterparty(s.counterparty.role, this.resolveMode()),
+            ...this.resolveCounterparty(s.counterparty.role, this.resolveMode(), state.profile),
             ...s.counterparty,
           },
         }));
@@ -1010,7 +1014,7 @@ export class Agent {
           const profile = state.profile ?? { children: [], needs: [], challenges: [] };
           const student = state.profile?.children?.[0]?.name ?? 'your child';
           const mode = this.resolveMode();
-          const counterparty = this.resolveCounterparty('OTHER', mode);
+          const counterparty = this.resolveCounterparty('OTHER', mode, profile);
           const steps = planSteps({
             intent: state.intent,
             family: profile,
@@ -1290,7 +1294,7 @@ export class Agent {
     const mode = this.resolveMode();
     const sped = /special|iep|speech|504|evaluation/i.test(`${best.program ?? ''} ${best.claim}`);
     const role: Counterparty['role'] = sped ? 'SPED_COORDINATOR' : 'DISTRICT';
-    const counterparty = this.resolveCounterparty(role, mode);
+    const counterparty = this.resolveCounterparty(role, mode, intention.profile);
     const intentId = (best.program ?? best.claim).toLowerCase().replace(/[^a-z0-9]+/g, '_').slice(0, 40) || 'request';
 
     if (formUrl) {
