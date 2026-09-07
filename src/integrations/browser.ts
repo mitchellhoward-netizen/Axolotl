@@ -724,6 +724,18 @@ export async function browserSelectOption(name: string, optionText: string): Pro
   }
 }
 
+/** Fill an input by CSS selector (e.g. `[name="data[field]"]`). For fields label-matching can't reach. */
+export async function browserFillBySelector(selector: string, value: string): Promise<BrowserResult<boolean>> {
+  const h = await getPage();
+  if (!h) return { ok: false, reason: 'browser not configured' };
+  try {
+    await h.page.locator(selector).fill(value);
+    return { ok: true, data: true };
+  } catch (e) {
+    return { ok: false, reason: String((e as Error)?.message ?? e) };
+  }
+}
+
 /** Extract text from a PDF by URL. Scanned PDFs may yield no text (→ OCR later). */
 export async function extractPdf(url: string): Promise<BrowserResult<{ text: string }>> {
   try {
