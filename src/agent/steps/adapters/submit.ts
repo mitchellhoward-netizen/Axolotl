@@ -23,14 +23,17 @@ export class SubmitAdapter implements ChannelAdapter {
       };
     }
     const link = sub.data.responseLink;
+    const confirmed = sub.data.confirmed;
     return {
       status: 'done',
       referenceId: 'submit-' + Date.now().toString(36),
-      parentSummary: `Submitted!\nHere's your response: ${link || 'your school will confirm by email.'}`,
+      parentSummary: confirmed
+        ? `✅ Done — your response was submitted and saved. Here's the link to it (it shows the answers you submitted): ${link}`
+        : `I submitted it. Here's the link it gave back: ${link}`,
       action: {
         channel: 'WEB',
         direction: 'outbound',
-        content: JSON.stringify({ url: p.url, responseLink: link }),
+        content: JSON.stringify({ url: p.url, responseLink: link, confirmed }),
         status: 'submitted',
       },
     };

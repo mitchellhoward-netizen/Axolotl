@@ -396,14 +396,17 @@ async function captureResponseLink(page: Page): Promise<string> {
  * Submit the form on the current page and capture the post-submit response link,
  * so we can hand the parent the "filled form" link. Returns the response link.
  */
-export async function browserSubmit(): Promise<BrowserResult<{ responseLink: string }>> {
+export async function browserSubmit(): Promise<BrowserResult<{ responseLink: string; confirmed: boolean }>> {
   const h = await getPage();
   if (!h) return { ok: false, reason: 'browser not configured' };
   const sub = await browserAct('click the submit button');
   if (!sub.ok) return { ok: false, reason: sub.reason };
   await h.page.waitForTimeout(5000); // let the confirmation page load
+  const confirmed = (await (h.page as unknown as { evaluate: (expr: string) => Promise<unknown> }).evaluate(
+    `(() => /thank you for your response|your response has been recorded|response submitted|has been submitted|submitted successfully/i.test((document.body && document.body.innerText) || ''))()`,
+  )) as boolean;
   const responseLink = await captureResponseLink(h.page);
-  return { ok: true, data: { responseLink } };
+  return { ok: true, data: { responseLink, confirmed } };
 }
 
 export async function browserClose(): Promise<void> {
