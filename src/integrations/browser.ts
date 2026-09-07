@@ -23,6 +23,19 @@ export function browserBackend(): 'stagehand' | 'none' {
   return process.env.BROWSER_BACKEND?.toLowerCase() === 'stagehand' ? 'stagehand' : 'none';
 }
 
+/** Bound a browser op so a stuck navigation/act can never hang the agent forever. */
+async function withTimeout<T>(p: Promise<T>, ms: number, label: string): Promise<T> {
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  const timeout = new Promise<never>((_, reject) => {
+    timer = setTimeout(() => reject(new Error(`${label} timed out after ${ms}ms`)), ms);
+  });
+  try {
+    return await Promise.race([p, timeout]);
+  } finally {
+    if (timer) clearTimeout(timer);
+  }
+}
+
 let stagehandPromise: Promise<Stagehand | null> | undefined;
 
 async function getStagehand(): Promise<Stagehand | null> {
@@ -77,7 +90,7 @@ export async function browserOpen(url: string): Promise<BrowserResult<string>> {
   const h = await getPage();
   if (!h) return { ok: false, reason: 'browser not configured' };
   try {
-    await h.page.goto(url);
+    await withTimeout(h.page.goto(url), 20000, 'browserOpen.goto');
     return { ok: true, data: url };
   } catch (e) {
     return { ok: false, reason: String((e as Error)?.message ?? e) };
@@ -306,7 +319,11 @@ export async function browserAssessPage(url: string, target?: string): Promise<B
   const h = await getPage();
   if (!h) return { ok: false, reason: 'browser not configured' };
   try {
-    await h.page.goto(url, { waitUntil: 'domcontentloaded' as 'load' }).catch(() => {});
+    await withTimeout(
+      h.page.goto(url, { waitUntil: 'domcontentloaded' as 'load' }).catch(() => {}),
+      20000,
+      'browserAssessPage.goto',
+    );
     await h.page.waitForTimeout(6000);
     const raw = (await h.page.evaluate(
       `(() => {
