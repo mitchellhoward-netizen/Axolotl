@@ -276,7 +276,7 @@ for await (const [space, message] of app.messages) {
 
   // Register this family's messenger + mark the inbound so cooldown applies,
   // then fire any due, relevant follow-ups (best-effort, never blocks the reply).
-  agent.registerConversation(space.id, async (text) => { await space.send(text).catch(() => {}); });
+  agent.registerConversation(space.id, async (text) => { await space.send(text).catch(() => {}); logOut('CALLBACK', `space=${space.id} text=${text.slice(0, 60).replace(/\n/g, ' ⏎ ')}`); });
   agent.noteInbound(space.id);
   await agent.runProactive().catch(() => {});
 
