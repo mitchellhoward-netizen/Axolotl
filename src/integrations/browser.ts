@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import type { Stagehand, StagehandBrowser, Page, StagehandCreateOptions } from '@browserbasehq/stagehand';
 import { createDeepseekGenerate } from './stagehand-llm.js';
+import { createOpenAIResponsesGenerate } from './stagehand-openai.js';
 
 /**
  * Browser "hands" layer (Stagehand). Env-gated and graceful: every call returns a
@@ -36,11 +37,16 @@ async function getStagehand(): Promise<Stagehand | null> {
       } else {
         browser = await localBrowser.launch({ headless: true });
       }
+      const modelName = process.env.STAGEHAND_MODEL ?? '';
       const llmKey = process.env.STAGEHAND_API_KEY ?? process.env.OPENAI_API_KEY;
+      const isResponsesApi = /gpt-6/i.test(modelName) || process.env.STAGEHAND_USE_RESPONSES_API === '1';
       let model: unknown;
-      if (llmKey) {
+      if (isResponsesApi && process.env.OPENAI_API_KEY) {
+        // Responses-API-only models (gpt-6-astra) need our custom adapter.
+        model = { generate: createOpenAIResponsesGenerate() };
+      } else if (llmKey) {
         // OpenAI-compatible provider via modelName
-        model = { modelName: process.env.STAGEHAND_MODEL ?? 'openai/gpt-4o-mini', apiKey: llmKey };
+        model = { modelName: modelName || 'openai/gpt-4o-mini', apiKey: llmKey };
       } else if (process.env.DEEPSEEK_API_KEY) {
         // DeepSeek via the custom `generate` adapter
         model = { generate: createDeepseekGenerate() };
