@@ -4,7 +4,7 @@
  * adapter. "Call the school" is structurally identical to "email the liaison."
  */
 
-export type Channel = 'form' | 'email' | 'text' | 'call' | 'browser' | 'account';
+export type Channel = 'form' | 'email' | 'text' | 'call' | 'browser' | 'account' | 'submit';
 
 export type Mode = 'demo' | 'live';
 
@@ -44,7 +44,8 @@ export type StepPayload =
       fields?: Array<{ label: string; value: string }>;
       /** One-time code supplied by the parent, for `verify`. */
       code?: string;
-    };
+    }
+  | { channel: 'submit'; url: string };
 
 /** The brief handed to the voice adapter. */
 export interface CallBrief {

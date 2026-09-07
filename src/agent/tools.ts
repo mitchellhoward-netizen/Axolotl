@@ -172,6 +172,14 @@ export const LLM_TOOLS = [
   {
     type: 'function',
     function: {
+      name: 'submit_form',
+      description: 'Propose the consent-gated SUBMIT of the form you just filled in the browser. ONLY call AFTER the form is filled and you shared the link for the parent to review. It PROPOSES the step — the system gates it behind the parent\u2019s YES. NEVER auto-submit.',
+      parameters: { type: 'object', properties: { url: { type: 'string' } }, required: ['url'] },
+    },
+  },
+  {
+    type: 'function',
+    function: {
       name: 'web_search',
       description: 'Search the web for current info about a school, district, policy, or law. Returns text results.',
       parameters: { type: 'object', properties: { query: { type: 'string' } }, required: ['query'] },
@@ -500,6 +508,24 @@ export async function runTool(name: string, args: Record<string, unknown>, deps:
         ? 'Finishing the login with that code — will confirm once signed in.'
         : `Ready to ${phase === 'signup' ? 'create the account' : 'log in'}. Ask the parent to reply YES to proceed (or NO to change it).`;
     }
+    case 'submit_form': {
+      const url = String(args.url ?? '').trim();
+      if (!/^https?:\/\//i.test(url)) return 'Provide the form url.';
+      deps.proposeSteps([
+        {
+          id: 'submit-' + Date.now().toString(36),
+          caseId: 'form',
+          intent: 'submit_form',
+          channel: 'submit',
+          counterparty: { role: 'OTHER' },
+          payload: { channel: 'submit', url },
+          successCondition: { describe: 'Form submitted', kind: 'reference_received' },
+          requiresConsent: true,
+          status: 'awaiting_consent',
+        },
+      ]);
+      return 'Ready to submit the form. Ask the parent to reply YES to submit (or NO to change it).';
+    }
     case 'call_school': {
       deps.proposeSteps([callStep(deps)]);
       return 'Ready to call the school. Ask the parent to reply YES to place the call (or NO to skip it).';
@@ -806,6 +832,7 @@ export function pendingActionsSummary(steps: Step[] | undefined): string {
           p.phase === 'signup' ? 'create the account' : p.phase === 'login' ? 'log into the account' : 'finish the login code';
         return `${label} (${s.intent})`;
       }
+      if (s.channel === 'submit') return `submit the form (${s.intent})`;
       return `${s.channel}: ${s.intent}`;
     })
     .join('; ');
@@ -844,9 +871,10 @@ export function systemPrompt(ctx: BrainContext): string {
     `You HAVE live internet access: use web_search to find anything about a school, district, policy, or law, and web_fetch to read a specific page. ` +
     `For JS-heavy portals, Google/Microsoft forms, or pages web_fetch cannot read, use browser_open then browser_observe/browser_act/browser_extract. For PDFs: use extract_pdf for policies/regulations; for FILLABLE PDF application forms use pdf_fields to list its fields, then pdf_fill to fill them (returns a completed PDF to review — never auto-submit; emailing/uploading it still needs the parent's YES). ` +
     `VERIFY A PAGE BEFORE YOU FILL IT: a top web-search result is often a blank/dead/duplicate page while the real form is further down. Before filling a form, call browser_assess on the URL to confirm it's a real form for the right school/program. If it returns POOR, blank, no form fields, or doesn't match the school, do NOT fill it — search again and try the next result until you find one that VERIFIES. ` +
-    `SIGN-UP FLOW (follow this to sign a student up for a school program): 1) Research to find the RIGHT enrollment form for the correct school's program (many schools have per-school/per-program forms; a top result is often a blank/wrong page — use browser_assess to verify). 2) browser_open the form, then browser_assess to confirm it VERIFIES (real form, right school). 3) Fill text fields (name, email, phone, address) with browser_fill; for checkboxes, radios, and dropdowns use browser_act to select the right option. 4) After filling, VERIFY the form is complete (re-observe or browser_assess). 5) Share the form link (browser_fill returns the URL) with the parent so they can review it, then propose the SUBMIT step — the system requires the parent's explicit YES before anything is submitted, so DO NOT submit without approval. 6) After it submits, SHARE the response link with the parent (the submit step returns the 'view my response' link). ` +
+    `SIGN-UP FLOW (follow this to sign a student up for a school program): 1) Research to find the RIGHT enrollment form for the correct school's program (many schools have per-school/per-program forms; a top result is often a blank/wrong page — use browser_assess to verify). 2) browser_open the form, then browser_assess to confirm it VERIFIES (real form, right school). 3) Fill text fields (name, email, phone, address) with browser_fill; for checkboxes, radios, and dropdowns use browser_act to select the right option. 4) After filling, VERIFY the form is complete (re-observe or browser_assess). 5) Share the form link (browser_fill returns the URL) with the parent so they can review it, then call submit_form with that URL — it PROPOSES the submit step and the system requires the parent's explicit YES before anything is submitted, so DO NOT submit without approval. 6) After it submits, SHARE the response link with the parent (the submit step returns the 'view my response' link). ` +
     `Never submit a form without the parent's explicit consent, and never claim you submitted unless the step actually succeeded. ` +
     `ACCOUNT FLOW (for auth-gated portals/waitlists, e.g. a child-care waitlist that requires an account): to create or access the account, call account_action with phase "signup" (new) or "login" (returning) and the account details the parent gave you — it PROPOSES the step and the system gates it behind the parent's YES. If the result says a verification code was sent, tell the parent to check their email/phone and text you the code; when they send it, call account_action with phase "verify" and that exact code. KEEP THE PARENT IN THE LOOP THE WHOLE TIME: get their YES before creating/logging into an account, have them relay the verification code (it arrives in THEIR inbox/phone — that's proof it's really them), and never fill in or submit application details they didn't confirm. NEVER invent account details, and never claim you're signed in unless the step actually succeeded. ` +
+    `LIMITS & HANDOFF (very important): if a page says "sign in to continue", "must be signed in", or shows a CAPTCHA / "I'm not a robot", you have hit a hard limit that automation cannot pass. DO NOT try to bypass it and do NOT claim you did. Instead, tell the parent plainly: "I've filled in everything I can, but this form requires you to sign in yourself / pass a security check — here's the link, you'll need to finish that last step." Hand them the exact URL. This keeps you honest and keeps the parent moving. ` +
     `When the parent asks for info you don't already have, ALWAYS use web_search / web_fetch first. Never say you don't have internet access or that you can't look it up. ` +
     `DISAMBIGUATE SCHOOLS: if the school isn't one you have on file, or it's a common name (Lakeside, Lincoln, Washington, etc.), ALWAYS ask which city and state it's in, then include the city/state in every web search (e.g. "Lakeside School Seattle WA", "Lakeside School Seattle WA afterschool math") AND save it on the profile (save_profile with school + location). Never research or assume a different school with the same name. ` +
     `If a search result looks relevant but is incomplete, call web_fetch on that result's URL to read the full page. ` +

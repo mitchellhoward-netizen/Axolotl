@@ -22,7 +22,8 @@
     "test:signup": "tsx scripts/test-signup.ts",
     "test:pdf": "tsx scripts/test-pdf.ts",
     "test:pdf-capitola": "tsx scripts/test-pdf-capitola.ts",
-    "test:account": "tsx scripts/test-account.ts"
+    "test:account": "tsx scripts/test-account.ts",
+    "test:submit": "tsx scripts/test-submit-flow.ts"
   },
   "dependencies": {
     "@browserbasehq/stagehand": "^4.0.2",

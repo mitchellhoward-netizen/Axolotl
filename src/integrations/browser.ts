@@ -413,6 +413,8 @@ export interface BrowserState {
   hasCodePrompt: boolean;
   isLoggedIn: boolean;
   hasLoginForm: boolean;
+  hasSignInWall: boolean;
+  hasCaptcha: boolean;
 }
 
 /**
@@ -440,6 +442,8 @@ export async function browserState(): Promise<BrowserResult<BrowserState>> {
           hasCodePrompt: codeLike,
           isLoggedIn: loggedIn,
           hasLoginForm: loginLike,
+          hasSignInWall: /sign in to continue|must be signed in|sign in required|to fill out this form, you must be signed in/i.test(text),
+          hasCaptcha: /captcha|not a robot|recaptcha/i.test(text),
         };
       })()`,
     )) as BrowserState;
