@@ -124,7 +124,12 @@ export async function isVerified(phone: string): Promise<boolean> {
 /** Send a verification code by SMS (returns the sender result). */
 export async function sendVerificationCode(phone: string, code: string): Promise<{ ok: boolean; error?: string }> {
   const sms = createSmsSender();
-  if (!sms) return { ok: false, error: 'No SMS provider configured.' };
+  if (!sms) {
+    // No SMS provider configured (local dev): surface the code in the server log so a demo can
+    // proceed. Production always configures SMS, so the code is never logged there.
+    console.log(`[dev-verification] no SMS provider — code for ${normalizeE164(phone)}: ${code}`);
+    return { ok: false, error: 'No SMS provider configured (dev fallback: see server log).' };
+  }
   const message = `Your Axolotl confirmation code is ${code}. It expires in 5 minutes.`;
   const r = await sms.send(normalizeE164(phone), message);
   return { ok: r.ok, error: r.error };
