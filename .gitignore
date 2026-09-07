@@ -9,3 +9,6 @@ debug/
 .agents/
 public/waitlist.json
 web/waitlist.json
+
+# runtime single-instance lock
+.agent.lock

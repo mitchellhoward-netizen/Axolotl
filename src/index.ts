@@ -24,8 +24,37 @@ import { buildPreCallBrief } from "./knowledge/precall";
 import { researchQuestion } from "./knowledge/research";
 import { AXOLOTL_EMOJI, hasAxolotlImage, axolotlImagePath } from "./integrations/axolotl";
 import { takePendingGreeting } from "./integrations/pending-greeting.js";
-import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
+import { readFileSync, writeFileSync, mkdirSync, existsSync, unlinkSync } from "node:fs";
 import { toPlainText } from "./lib/plain";
+
+// ── Single-instance guard ──────────────────────────────────────────────────────
+// Running two identical bot instances against the same Spectrum line makes BOTH
+// respond to each message (duplicate/conflicting replies, e.g. an OTP code being
+// treated as a normal message by the second instance because verification status is
+// shared via Supabase). Refuse to start if another live instance is already running.
+const LOCK_FILE = new URL("./.agent.lock", import.meta.url);
+try {
+  const pid = Number(readFileSync(LOCK_FILE, "utf8").trim());
+  if (pid && Number.isInteger(pid)) {
+    try {
+      process.kill(pid, 0); // throws if the pid is not alive
+      console.error(`Another Axolotl instance is already running (pid ${pid}). Stop it before starting a second one.`);
+      process.exit(1);
+    } catch {
+      /* stale pidfile from a crashed run — take over */
+    }
+  }
+} catch {
+  /* no/invalid lock file */
+}
+writeFileSync(LOCK_FILE, String(process.pid));
+process.on("exit", () => {
+  try {
+    if (readFileSync(LOCK_FILE, "utf8").trim() === String(process.pid)) unlinkSync(LOCK_FILE);
+  } catch {
+    /* ignore */
+  }
+});
 
 // ── Identity ───────────────────────────────────────────────────────────────────
 // Phone = parent ID. There is NO pre-seeded family: an unknown number gets a
