@@ -37,6 +37,10 @@ const CAPITOLA = 'https://www.cityofcapitola.gov/DocumentCenter/View/212/Scholar
 const GKIBASE = 'https://app.mycareconnect.io/carewait/gki';
 const GKI_EMAIL = 'mitchgrom16@gmail.com';
 const GKI_PASS = 'AxolotlGKI2026!';
+const SPINSC = 'https://www.spinsc.org/ourstory#contact';
+const ENCOMPASS = 'https://www.encompasscs.org/contact_us';
+const CDR_FORM = 'https://childcare.santacruzcoe.org/child-care-referral-form/';
+const BENEFITSCAL = 'https://benefitscal.com/ApplyForBenefits/ABHLT';
 
 // Tier 2 — PDF fill by Spanish label (offline, no browser).
 async function pdfTask(): Promise<{ pass: boolean; detail: string }> {
@@ -110,6 +114,54 @@ async function gkiReachTask(): Promise<{ pass: boolean; detail: string }> {
   return { pass: ok, detail: `logged in + reached eligibility step 1 (url=${s.data.url})` };
 }
 
+// Tier 1 — contact form fill (SPINSC). Fill-only (submit would hit a reCAPTCHA).
+async function spinscContactTask(): Promise<{ pass: boolean; detail: string }> {
+  await browserOpen(SPINSC);
+  await browserWait(10000);
+  const f = await browserFill([
+    { label: 'First Name', value: 'Jane' },
+    { label: 'Last Name', value: 'Parent' },
+    { label: 'Email', value: 'test@example.com' },
+    { label: 'Phone', value: '8315551234' },
+    { label: 'Message', value: 'Requesting info about programs.' },
+  ]);
+  if (!f.ok) return { pass: false, detail: f.reason ?? 'fill failed' };
+  return { pass: f.data.verified === true, detail: `verified=${f.data.verified}, filled=${f.data.filled}` };
+}
+
+// Tier 1 — contact form fill (Encompass). Fill-only.
+async function encompassContactTask(): Promise<{ pass: boolean; detail: string }> {
+  await browserOpen(ENCOMPASS);
+  await browserWait(10000);
+  const f = await browserFill([
+    { label: 'First Name', value: 'Jane' },
+    { label: 'Last Name', value: 'Parent' },
+    { label: 'Email', value: 'test@example.com' },
+    { label: 'Phone', value: '8315551234' },
+    { label: 'Question or issue needing our help', value: 'Looking for child care programs.' },
+  ]);
+  if (!f.ok) return { pass: false, detail: f.reason ?? 'fill failed' };
+  return { pass: f.data.verified === true, detail: `verified=${f.data.verified}, filled=${f.data.filled}` };
+}
+
+// Tier 1 — reach + language select for the Child Care Referral form (multi-step).
+async function cdrReachTask(): Promise<{ pass: boolean; detail: string }> {
+  await browserOpen(CDR_FORM);
+  await browserWait(12000);
+  const s = await browserState();
+  const ok = Boolean(s.ok && s.data.text.length > 100 && /language|english|español/i.test(s.data.text));
+  return { pass: ok, detail: `loaded (chars=${s.ok ? s.data.text.length : 0})` };
+}
+
+// Tier 3 — reach + language select for BenefitsCal (big account-gated wizard).
+async function benefitsReachTask(): Promise<{ pass: boolean; detail: string }> {
+  await browserOpen(BENEFITSCAL);
+  await browserWait(15000);
+  const s = await browserState();
+  const ok = Boolean(s.ok && s.data.text.length > 100 && !s.data.hasSignInWall);
+  return { pass: ok, detail: `loaded (chars=${s.ok ? s.data.text.length : 0})` };
+}
+
 async function main(): Promise<void> {
   process.env.BROWSER_BACKEND = 'stagehand';
   const results: TaskResult[] = [];
@@ -134,6 +186,14 @@ async function main(): Promise<void> {
   await run('t2-pdf-fill', 'Capitola scholarship (PDF fill)', 2, pdfTask);
   await browserReset();
   await run('t3-gki-reach', 'Go Kids (login + step 1 fill)', 3, gkiReachTask);
+  await browserReset();
+  await run('t1-spinsc-contact', 'SPINSC contact form fill', 1, spinscContactTask);
+  await browserReset();
+  await run('t1-encompass-contact', 'Encompass contact form fill', 1, encompassContactTask);
+  await browserReset();
+  await run('t1-cdr-reach', 'Child Care Referral (reach + language select)', 1, cdrReachTask);
+  await browserReset();
+  await run('t3-benefits-reach', 'BenefitsCal (reach, account-gated wizard)', 3, benefitsReachTask);
 
   const passed = results.filter((r) => r.pass).length;
   const rate = (passed / results.length) * 100;
