@@ -1,9 +1,11 @@
 import type { CaseRecord, FamilyProfile } from '../domain/types.js';
 import type { Step, CallBrief } from './steps/types.js';
-import { answerSchoolInfo } from '../knowledge/suesd.js';
-import { barrierByCategory, detectBarriers } from '../knowledge/barriers.js';
+import { answerSchoolInfo } from '../knowledge/school-info.js';
+import { barrierByCategory, detectBarriers, contextFromProfile } from '../knowledge/barriers.js';
+import { researchDistrictProfile, districtIdFromName, type DistrictProfile } from '../knowledge/districts.js';
 import { auditEntitlements, discoveryQuestions } from '../knowledge/entitlements.js';
 import { addCase, makeCase, openCaseSummary } from './family.js';
+import type { LlmClient } from './llm.js';
 import {
   browserOpen,
   browserObserve,
@@ -26,6 +28,10 @@ import { makeSkillKey, type Skill } from '../domain/skill.js';
 
 export interface ToolDeps {
   profile?: FamilyProfile;
+  /** The family's researched district profile (authoritative contacts/school type). */
+  district?: DistrictProfile;
+  /** The research/brain LLM, so the get_school_info tool can research on demand. */
+  llm?: LlmClient;
   getCases: () => CaseRecord[];
   appendCase: (rec: Omit<CaseRecord, 'id' | 'createdAt'>) => void;
   saveProfile?: (p: FamilyProfile) => void;
@@ -488,20 +494,34 @@ export function redactForLog(value: unknown): unknown {
 export async function runTool(name: string, args: Record<string, unknown>, deps: ToolDeps): Promise<string> {
   console.log(`[tool] ${name} ${JSON.stringify(redactForLog(args)).slice(0, 300)}`);
   switch (name) {
-    case 'get_school_info':
-      return answerSchoolInfo(String(args.query ?? '')) ?? 'Not found in the knowledge base.';
+    case 'get_school_info': {
+      const query = String(args.query ?? '').trim();
+      const input = deps.profile?.district ?? qualifiedProfileSchool(deps.profile);
+      // The researched district profile is the authoritative source. Research it on
+      // demand when we don't have it yet (else the parent gets an honest "not yet").
+      const profile = await researchDistrictProfile(input, deps.llm);
+      const fromProfile = answerSchoolInfo(profile, query);
+      // Grounded school-info (principal/phone/address/bell schedule) lives in the
+      // knowledge graph's GENERAL_NAVIGATION node, from real web research.
+      const researched = (await deps.knowledge?.('GENERAL_NAVIGATION', query)) ?? '';
+      const parts = [fromProfile, researched].filter(Boolean);
+      if (!parts.length) {
+        return `I don't have ${profile.name || 'this district'} researched yet. Let me look it up — or tell me the school and city/state.`;
+      }
+      return parts.map(String).join('\n');
+    }
     case 'get_law':
       return LAW_FACTS[String(args.topic ?? '').toLowerCase()] ?? 'I don’t have grounded law for that topic — suggest the school office.';
     case 'diagnose_barrier': {
-      const b = detectBarriers(String(args.description ?? ''))[0];
+      const b = detectBarriers(String(args.description ?? ''), contextFromProfile(deps.district))[0];
       return b ? `category=${b.category}; title=${b.title}; law=${b.law}` : 'No clear barrier detected — assume general attendance.';
     }
     case 'get_remedy': {
-      const b = barrierByCategory(String(args.category ?? ''));
+      const b = barrierByCategory(String(args.category ?? ''), contextFromProfile(deps.district));
       return b ? `${b.title}\n${b.law}\nContact: ${b.contact}${b.email ? `\nEmail: ${b.email}` : ''}\n${b.reminder}` : 'Unknown category.';
     }
     case 'draft_outreach': {
-      const b = barrierByCategory(String(args.category ?? ''));
+      const b = barrierByCategory(String(args.category ?? ''), contextFromProfile(deps.district));
       if (!b) return 'Unknown category.';
       const child = String(args.child ?? deps.studentName ?? 'my child');
       return `${b.draft.replaceAll('{child}', child)}\n\nContact: ${b.contact}${b.email ? `\nEmail: ${b.email}` : ''}\nNotes: ${b.reminder}`;
@@ -780,7 +800,7 @@ export async function runTool(name: string, args: Record<string, unknown>, deps:
     }
     case 'search_school_graph': {
       const query = String(args.query ?? '').trim();
-      const districtId = String(args.district_id ?? '').trim() || 'district-suesd';
+      const districtId = String(args.district_id ?? '').trim() || districtKey(deps);
       let category = String(args.category ?? '').trim().toUpperCase();
       if (!category && query) category = inferCategory(query) ?? '';
       const chain = await searchSchoolGraph(districtId, category || undefined);
@@ -810,7 +830,7 @@ export async function runTool(name: string, args: Record<string, unknown>, deps:
     case 'save_procedure': {
       const name = String(args.name ?? '').trim();
       const intent = String(args.intent ?? '').trim();
-      const jurisdiction = String(args.jurisdiction ?? '').trim() || 'district-suesd';
+      const jurisdiction = String(args.jurisdiction ?? '').trim() || districtKey(deps);
       if (!name || !intent) return 'save_procedure needs name and intent.';
       const steps = Array.isArray(args.steps)
         ? (args.steps as Array<{ tool?: unknown; args?: unknown; note?: unknown }>)
@@ -995,7 +1015,7 @@ export function systemPrompt(ctx: BrainContext): string {
     `Remember the conversation — don't re-ask things already answered. Don't announce you're an AI, a demo, or a bot. ` +
     `NEVER quote statutes, case numbers, or section codes to the parent. Say what the child has a RIGHT to in plain words ("Patrick has a right to a bus and I'm requesting it"). Statutes may only appear when you draft a message TO the school, as leverage. ` +
     `Be INSANELY PROACTIVE as the default. Answer briefly, then ALWAYS propose the concrete next action and offer to do it — never just inform or hand off. ` +
-    `Turn every answer into an action and ask a quick yes/no, e.g.: "I can draft an email to Carissa about the summer-meal sign-up — want me to send it?", "I can call the office about the bus — want me to?", "I can set a follow-up reminder for Friday." ` +
+    `Turn every answer into an action and ask a quick yes/no, e.g.: "I can draft an email to the district liaison about the summer-meal sign-up — want me to send it?", "I can call the office about the bus — want me to?", "I can set a follow-up reminder for Friday." ` +
     `NEVER end with a passive handoff — no "contact X", "please reach out to", "your best bet is to". Instead offer: "I can reach out to X for you — want me to?" ` +
     `Act for the parent: when you decide to send an email or place a call, CALL the send_email / call_school tool RIGHT AWAY. The system enforces a hard consent gate and will ask the parent for a YES/NO before anything is actually sent — so do NOT ask for consent yourself. Just call the tool; it proposes the action and the system gates it. Log with log_case and set a follow-up reminder. ` +
     `You CAN place phone calls: if the parent asks you to call the school, office, district, principal, or "them," call the call_school tool. Never say you can't make calls — you can. ` +
@@ -1013,6 +1033,18 @@ export function systemPrompt(ctx: BrainContext): string {
     `Act on concrete obligations and data gaps: transportation (does ${kid} reliably get to school?), meals (check meal status), attendance, an evaluation/accommodation, language support, summer access. ` +
     `For each, name the measurable outcome (${kid} arrives at school; gets lunch; gets the assessment; attendance improves) and drive it yourself — draft the email (send_email), place the call (call_school), request the application or evaluation (log_case + a follow-up reminder). You execute it, you don't just point at it.`
   );
+}
+
+/** School name with its city/state disambiguation, so research targets the right one. */
+function qualifiedProfileSchool(p?: FamilyProfile): string {
+  if (!p?.school) return 'your school district';
+  return p.location?.trim() ? `${p.school} ${p.location.trim()}` : p.school;
+}
+
+/** The stable district key for the family's resolved district (knowledge-graph key). */
+function districtKey(deps: ToolDeps): string {
+  if (deps.district?.id) return deps.district.id;
+  return districtIdFromName(deps.profile?.district ?? qualifiedProfileSchool(deps.profile));
 }
 
 function truncate(s: string, max: number): string {

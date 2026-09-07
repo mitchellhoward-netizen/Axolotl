@@ -46,7 +46,7 @@ export interface Teacher {
 export interface FamilyContext {
   parent: Parent;
   students: Student[];
-  school: School;
+  school?: School;
   teachers: Teacher[];
 }
 
@@ -71,6 +71,8 @@ export interface FamilyProfile {
   location?: string;
   /** e.g. "Soquel Union Elementary School District". */
   district?: string;
+  /** Stable district key (set once the district is researched). */
+  districtId?: string;
   /** Areas they want help with: transportation, meals, attendance, conferences, enrollment, special education, … */
   needs: string[];
   /** Challenges: homeless/transitional housing, IEP/504, health, language, recently moved, … */

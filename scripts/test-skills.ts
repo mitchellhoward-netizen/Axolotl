@@ -1,7 +1,6 @@
 import assert from 'node:assert';
 import { makeSkillKey, parameterize, type Skill } from '../src/domain/skill.js';
 import { isSkillStale, verifySkillLeaves, distillSkill, skillSummary, saveSkill, findSkillFor, listSkills } from '../src/agent/skills.js';
-import { seedSuesdResourceGraph } from '../src/knowledge/resource-graph.js';
 import type { Step } from '../src/agent/steps/types.js';
 import type { ResourceNode } from '../src/domain/graph.js';
 
@@ -29,7 +28,24 @@ function skill(partial: Partial<Skill>): Skill {
   };
 }
 
-const seedNodes = seedSuesdResourceGraph().nodes;
+const NOW = new Date().toISOString();
+// A generic (district-agnostic) resource node, so skills don't depend on a seeded district.
+const seedNodes: ResourceNode[] = [
+  {
+    id: 'suesd-transport-form',
+    type: 'form',
+    districtId: 'district-test',
+    category: 'TRANSPORTATION',
+    title: 'Transportation Request Form',
+    summary: 'Request transportation to the school of origin.',
+    canonicalUrl: 'https://example.com/form',
+    sources: [{ title: 'Transportation Request', url: 'https://example.com/form' }],
+    status: 'draft',
+    confidence: 0.6,
+    discoveredAt: NOW,
+    lastVerifiedAt: NOW,
+  },
+];
 
 console.log('skills / procedural memory logic');
 

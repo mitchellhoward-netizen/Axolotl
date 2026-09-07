@@ -1,9 +1,12 @@
 import type { ID, MealStatus, Parent, School, Student, Teacher } from './domain/types.js';
+import { schoolIdFromName } from './knowledge/districts.js';
 
 /**
- * Demo/seed data. In production these records come from the SIS (via Edlink,
- * OneRoster, PowerSchool API, etc.). Keeping it in one place makes the v0 run
- * with zero external dependencies.
+ * Demo/seed data. There is NO hardcoded district/school/teacher here: the seed
+ * starts empty, and each family's students + school are created from what the
+ * parent tells us during onboarding (their children + school). In production the
+ * same records come from a real SIS (via Edlink, OneRoster, PowerSchool API, …)
+ * — swap the `Sis` implementation for it; the agent code is agnostic.
  */
 export interface SeedDb {
   parents: Parent[];
@@ -13,24 +16,10 @@ export interface SeedDb {
 }
 
 export function createSeedDb(): SeedDb {
-  const schools: School[] = [
-    {
-      id: 'school-soquel',
-      name: 'Soquel Elementary School',
-      district: 'Soquel Union Elementary School District',
-      timezone: 'America/Los_Angeles',
-    },
-  ];
-
-  const teachers: Teacher[] = [
-    { id: 'teacher-rivera', schoolId: 'school-soquel', firstName: 'Ana', lastName: 'Rivera', subject: '3rd Grade' },
-    { id: 'teacher-okafor', schoolId: 'school-soquel', firstName: 'Ben', lastName: 'Okafor', subject: '1st Grade' },
-    { id: 'teacher-chen', schoolId: 'school-soquel', firstName: 'Lily', lastName: 'Chen', subject: 'Math' },
-  ];
-
+  const schools: School[] = [];
+  const teachers: Teacher[] = [];
   // No pre-seeded parents/students: every number is a fresh family that gets
-  // onboarded. (In a real deployment the SIS supplies these records; here the
-  // agent creates them from onboarding — see provisionFamily below.)
+  // onboarded, and their students are materialized from the profile.
   const students: Student[] = [];
   const parents: Parent[] = [];
 
@@ -61,8 +50,10 @@ export function provisionalParent(db: SeedDb, phone: string): Parent | undefined
 
 /**
  * Turn a completed onboarding profile into parent + student records (the "fresh
- * start" materialization). Called when onboarding finishes; afterwards the
- * family is an established parent with children + a school.
+ * start" materialization). Called when onboarding finishes. Students are created
+ * from the PARENT-PROVIDED children, and the school is resolved from the
+ * profile's school name (+ city/state) — never a hardcoded default. No teacher is
+ * invented: a real SIS supplies homeroom teachers, so we leave it unset.
  */
 export function provisionFamily(db: SeedDb, parentId: string, profile: import('./domain/types.js').FamilyProfile): Parent | undefined {
   const parent = db.parents.find((p) => p.id === parentId);
@@ -72,10 +63,7 @@ export function provisionFamily(db: SeedDb, parentId: string, profile: import('.
     parent.firstName = parts[0] ?? '';
     parent.lastName = parts.slice(1).join(' ');
   }
-  const school = db.schools.find(
-    (s) => profile.school && s.name.toLowerCase().includes(profile.school.toLowerCase()),
-  ) ?? db.schools[0];
-  const homeroom = db.teachers.find((t) => t.schoolId === school?.id) ?? db.teachers[0];
+  const school = ensureSchool(db, profile);
 
   const ids: string[] = [];
   for (const child of profile.children) {
@@ -89,7 +77,7 @@ export function provisionFamily(db: SeedDb, parentId: string, profile: import('.
         lastName: '',
         grade: gradeNumber(child.grade),
         schoolId: school?.id ?? '',
-        homeroomTeacherId: homeroom?.id ?? '',
+        homeroomTeacherId: '',
         mealStatus: 'unknown',
       };
       db.students.push(student);
@@ -98,6 +86,23 @@ export function provisionFamily(db: SeedDb, parentId: string, profile: import('.
   }
   parent.studentIds = ids;
   return parent;
+}
+
+/** Find or create the family's School record from the profile (never a hardcoded default). */
+function ensureSchool(db: SeedDb, profile: import('./domain/types.js').FamilyProfile): School | undefined {
+  const name = profile.school?.trim();
+  if (!name) return undefined;
+  const id = schoolIdFromName(`${name} ${profile.location ?? ''}`.trim());
+  const existing = db.schools.find((s) => s.id === id) ?? db.schools.find((s) => s.name.toLowerCase() === name.toLowerCase());
+  if (existing) return existing;
+  const school: School = {
+    id,
+    name,
+    district: profile.district?.trim() || name,
+    timezone: 'America/Los_Angeles',
+  };
+  db.schools.push(school);
+  return school;
 }
 
 /** "K"/"pre-k" → 0, "3" → 3, else 0. */

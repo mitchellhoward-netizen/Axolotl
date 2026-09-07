@@ -19,7 +19,7 @@ export interface SkillStep {
 export interface Skill {
   id: string;
   name: string;
-  /** Canonical lookup key, e.g. `transportation::district-suesd`. */
+  /** Canonical lookup key, e.g. `transportation::district-lincoln-elementary`. */
   key: string;
   description: string;
   whenToUse: string;
@@ -35,7 +35,7 @@ export interface Skill {
   lastVerifiedAt?: string;
 }
 
-/** Canonical key for intent + jurisdiction, e.g. `transportation::district-suesd`. */
+/** Canonical key for intent + jurisdiction, e.g. `transportation::district-lincoln-elementary`. */
 export function makeSkillKey(intent: string, jurisdiction: string): string {
   const i = intent.toLowerCase().replace(/[^a-z0-9]+/g, '-');
   const j = jurisdiction.toLowerCase().replace(/[^a-z0-9]+/g, '-');

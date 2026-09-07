@@ -1,35 +1,23 @@
 import 'dotenv/config';
 import { getSupabase } from '../integrations/db.js';
 import { KNOWLEDGE_CATEGORIES, type KnowledgeCategory, type KnowledgeNode, type KnowledgeSource } from '../domain/knowledge.js';
-import { LIAISON, BUS_PASSES, SOQUEL_ELEMENTARY, DISTRICT } from './suesd.js';
 import type { CandidateNode } from './research.js';
 
-const SOURCES = {
-  suesdMv: { title: 'McKinney-Vento (SUESD)', url: 'https://www.suesd.org/mckinny-vento' },
-  suesdSchools: { title: 'SUESD schools', url: 'https://www.suesd.org/our-schools' },
-};
-
 let cache = new Map<string, KnowledgeNode[]>();
-
-/** Only these districts have our curated, district-specific verified facts. */
-const VERIFIED_DISTRICT_IDS = new Set<string>(['district-suesd']);
 
 /**
  * The knowledge graph. Canonical, category-tagged facts per district/school,
  * backed by Supabase (`knowledge_node`) with an in-memory fallback. This is the
- * RAG corpus the agent retrieves from (grounded, verified-or-draft).
+ * RAG corpus the agent retrieves from (grounded, verified-or-draft). Districts
+ * are researched on demand — there is no seeded "known" district; the gated
+ * `autoResearchDistrict` fills a district when a parent names it.
  */
 export class KnowledgeGraph {
-  /** Return nodes for a district, seeded from curated facts if not yet present. */
+  /** Return nodes for a district. Empty until a district is researched. */
   async get(districtId: string, category?: KnowledgeCategory | 'LAW'): Promise<KnowledgeNode[]> {
     let nodes = cache.get(districtId);
     if (!nodes) {
       nodes = await this.loadFromDb(districtId);
-      if (nodes.length === 0 && VERIFIED_DISTRICT_IDS.has(districtId)) {
-        nodes = seedDistrictGraph(districtId);
-        // Make the curated, verified facts durable so they can be indexed/embedded.
-        for (const n of nodes) await this.persistToDb(n);
-      }
       cache.set(districtId, nodes);
     }
     if (category) return nodes.filter((n) => n.category === category);
@@ -136,125 +124,6 @@ function rowFromNode(n: KnowledgeNode): Record<string, unknown> {
 /** Slugs a stable node id per category/title. */
 function nodeId(districtId: string, slug: string): string {
   return `${districtId}-${slug}`;
-}
-
-/**
- * Seed the knowledge graph for a district from our curated, verified facts.
- * This is the "verified" half; the research pipeline adds "draft" nodes.
- */
-export function seedDistrictGraph(districtId: string): KnowledgeNode[] {
-  const rows: Array<Omit<KnowledgeNode, 'id' | 'createdAt' | 'districtId'>> = [
-    {
-      category: 'TRANSPORTATION',
-      title: 'Transportation to school of origin (McKinney-Vento)',
-      summary:
-        'A student experiencing homelessness/displacement has the right to transportation to their school of origin at the parent/guardian request.',
-      sources: [SOURCES.suesdMv],
-      jurisdiction: 'federal',
-      law: '42 U.S.C. §11432(g)(1)(J)',
-      status: 'verified',
-      confidence: 0.97,
-    },
-    {
-      category: 'TRANSPORTATION',
-      title: 'Free & subsidized bus passes',
-      summary: `Free/subsidized bus passes are handled by ${BUS_PASSES.name} at the district. Ask for transportation support under McKinney-Vento first.`,
-      sources: [SOURCES.suesdMv],
-      jurisdiction: 'district',
-      status: 'verified',
-      confidence: 0.92,
-    },
-    {
-      category: 'MEALS',
-      title: 'Free & reduced-price meals (NSLP)',
-      summary:
-        'Income and most benefit programs qualify for free/reduced meals. Students experiencing homelessness are automatically eligible for free meals.',
-      sources: [{ title: 'USDA NSLP', url: 'https://www.fns.usda.gov/cn/free-reduced-price-meals' }],
-      jurisdiction: 'federal',
-      law: '42 U.S.C. §1758',
-      status: 'verified',
-      confidence: 0.96,
-    },
-    {
-      category: 'BASIC_NEEDS',
-      title: 'Immediate enrollment without documents',
-      summary:
-        'A child experiencing homelessness can enroll and stay at their school of origin right away — no proof of residency, birth certificate, or records required.',
-      sources: [SOURCES.suesdMv],
-      jurisdiction: 'federal',
-      law: '42 U.S.C. §11432(g)(1)(H)',
-      status: 'verified',
-      confidence: 0.96,
-    },
-    {
-      category: 'BASIC_NEEDS',
-      title: 'District homeless liaison',
-      summary: `The district homeless liaison is ${LIAISON.name} (${LIAISON.phone}, ${LIAISON.email}). This is the person to contact for McKinney-Vento enrollment/transportation help.`,
-      sources: [SOURCES.suesdMv],
-      jurisdiction: 'district',
-      status: 'verified',
-      confidence: 0.95,
-    },
-    {
-      category: 'LEARNING',
-      title: 'English-learner / language support (Title III)',
-      summary:
-        'Students learning English are entitled to language support; the school must communicate with the family in a language they understand.',
-      sources: [{ title: 'Title III (US ED)', url: 'https://www2.ed.gov/policy/elsec/leg/essa/essa-titleiii.pdf' }],
-      jurisdiction: 'federal',
-      law: '20 U.S.C. §6811',
-      status: 'verified',
-      confidence: 0.93,
-    },
-    {
-      category: 'SPECIAL_ED',
-      title: 'FAPE, IEP & 504',
-      summary:
-        'Eligible students get an IEP or 504 plan with accommodations/related services, and the plan follows them if they change schools.',
-      sources: [
-        { title: 'IDEA', url: 'https://sites.ed.gov/idea/' },
-        { title: 'Section 504', url: 'https://www2.ed.gov/about/offices/list/ocr/504faq.html' },
-      ],
-      jurisdiction: 'federal',
-      law: 'IDEA 20 U.S.C. §1400; §504 29 U.S.C. §794',
-      status: 'verified',
-      confidence: 0.95,
-    },
-    {
-      category: 'BEHAVIOR',
-      title: 'Bullying / safety plan',
-      summary:
-        'Bullying is actionable: report to the school and request a safety plan. Title IX and state anti-bullying law require a response.',
-      sources: [{ title: 'StopBullying.gov', url: 'https://www.stopbullying.gov/' }],
-      jurisdiction: 'state',
-      law: 'Ed Code §234',
-      status: 'verified',
-      confidence: 0.88,
-    },
-    {
-      category: 'GENERAL_NAVIGATION',
-      title: `Contact: ${SOQUEL_ELEMENTARY.name}`,
-      summary: `${SOQUEL_ELEMENTARY.name}: ${SOQUEL_ELEMENTARY.phone}. Principal ${SOQUEL_ELEMENTARY.principal}. ${SOQUEL_ELEMENTARY.address}. District: ${DISTRICT.name}.`,
-      sources: [SOURCES.suesdSchools],
-      jurisdiction: 'school',
-      status: 'verified',
-      confidence: 0.97,
-    },
-  ];
-
-  const nodes: KnowledgeNode[] = [];
-  const now = new Date().toISOString();
-  for (const r of rows) {
-    const slug = r.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').slice(0, 48);
-    nodes.push({
-      ...r,
-      id: nodeId(districtId, slug),
-      districtId,
-      createdAt: now,
-      lastVerifiedAt: now,
-    });
-  }
-  return nodes;
 }
 
 /**

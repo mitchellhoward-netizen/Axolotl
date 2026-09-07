@@ -87,12 +87,15 @@ export async function loadFamilySnapshot(guardianId: string): Promise<{ profile?
   return { profile, cases };
 }
 
-export async function ensureSeedDistrict(): Promise<string> {
+/** Upsert a `district` row for the family's resolved district (no hardcoded seed). */
+export async function ensureSeedDistrict(d?: { id: string; name: string; state?: string }): Promise<string> {
   const c = getSupabase();
-  if (!c) return 'district-suesd';
-  await c.from('district').upsert({ id: 'district-suesd', name: 'Soquel Union Elementary School District', state: 'CA' }, { onConflict: 'id' });
-  await c.from('school').upsert({ id: 'school-soquel', district_id: 'district-suesd', name: 'Soquel Elementary School' }, { onConflict: 'id' });
-  return 'district-suesd';
+  if (!c) return d?.id ?? 'district-unknown';
+  if (!d) return 'district-unknown';
+  await c
+    .from('district')
+    .upsert({ id: d.id, name: d.name, state: d.state ?? 'CA' }, { onConflict: 'id' });
+  return d.id;
 }
 
 export async function saveCaseRecord(guardianId: string, districtId: string, rec: CaseRecord): Promise<void> {

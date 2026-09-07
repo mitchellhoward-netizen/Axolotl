@@ -1,5 +1,6 @@
 import type { Student } from '../domain/types.js';
-import { busProcessSummary } from '../knowledge/suesd.js';
+import { busProcessSummary } from '../knowledge/school-info.js';
+import type { DistrictProfile } from '../knowledge/districts.js';
 
 export type MckinneyStep = 'student' | 'school_of_origin';
 
@@ -38,7 +39,12 @@ export function openMckinney(): MckinneyTurn {
   };
 }
 
-export function advanceMckinney(state: MckinneyState, text: string, students: Student[]): MckinneyTurn {
+export function advanceMckinney(
+  state: MckinneyState,
+  text: string,
+  students: Student[],
+  profile?: DistrictProfile,
+): MckinneyTurn {
   const t = text.trim();
 
   if (/^(stop|cancel|never ?mind|nvm|quit|not right now)\b/i.test(t)) {
@@ -80,7 +86,7 @@ export function advanceMckinney(state: MckinneyState, text: string, students: St
     .filter((n): n is string => Boolean(n))
     .join(' and ');
   return {
-    text: busProcessSummary(school, names || undefined),
+    text: busProcessSummary(profile ?? { id: 'district-unknown', name: 'your school district', known: false, type: 'unknown' }, school, names || undefined),
     state,
     done: true,
   };

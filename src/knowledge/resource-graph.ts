@@ -2,31 +2,24 @@ import 'dotenv/config';
 import { getSupabase } from '../integrations/db.js';
 import type { ResourceNode, ResourceEdge, ResourceChain, ResourceType } from '../domain/graph.js';
 import { emptyChain } from '../domain/graph.js';
-import { LIAISON, BUS_PASSES, SOQUEL_ELEMENTARY, DISTRICT } from './suesd.js';
-
-export const SUESD_ID = 'district-suesd';
 
 const nodesCache = new Map<string, ResourceNode[]>();
 const edgesCache = new Map<string, ResourceEdge[]>();
+/** In-session edges saved via the module graph (e.g. research/save_procedure). */
+const allEdges: ResourceEdge[] = [];
 
 /**
  * The typed resource graph store (school → district → department → program →
  * eligibility → policy → application → form → contact → deadline). Backed by
  * Supabase (`resource` / `resource_edge`) with an in-memory fallback, like
- * `KnowledgeGraph`. SUESD/Soquel is seeded with a real transportation chain.
+ * `KnowledgeGraph`. There is no seeded district — chains are built per district
+ * as the agent researches + saves them.
  */
 export class ResourceGraph {
   async get(districtId: string, type?: ResourceType): Promise<ResourceNode[]> {
     let nodes = nodesCache.get(districtId);
     if (!nodes) {
       nodes = await this.loadFromDb(districtId);
-      if (nodes.length === 0 && districtId === SUESD_ID) {
-        const seed = seedSuesdResourceGraph();
-        nodes = seed.nodes;
-        edgesCache.set(districtId, seed.edges);
-        for (const n of nodes) await this.persistNode(n);
-        for (const e of seed.edges) await this.persistEdge(e);
-      }
       nodesCache.set(districtId, nodes);
     }
     return type ? nodes.filter((n) => n.type === type) : nodes;
@@ -34,11 +27,20 @@ export class ResourceGraph {
 
   async edges(districtId: string): Promise<ResourceEdge[]> {
     let edges = edgesCache.get(districtId);
-    if (!edges) {
-      edges = await this.loadEdgesFromDb(districtId);
-      edgesCache.set(districtId, edges);
+    if (edges) return edges;
+    const nodes = new Set((await this.get(districtId)).map((n) => n.id));
+    const db = await this.loadEdgesFromDb(districtId);
+    const mem = allEdges.filter((e) => nodes.has(e.from) || nodes.has(e.to));
+    const merged: ResourceEdge[] = [];
+    const seen = new Set<string>();
+    for (const e of [...db, ...mem]) {
+      const key = `${e.from}->${e.to}->${e.type}`;
+      if (seen.has(key)) continue;
+      seen.add(key);
+      merged.push(e);
     }
-    return edges;
+    edgesCache.set(districtId, merged);
+    return merged;
   }
 
   async save(node: ResourceNode): Promise<void> {
@@ -48,6 +50,8 @@ export class ResourceGraph {
   }
 
   async saveEdge(edge: ResourceEdge): Promise<void> {
+    allEdges.push(edge);
+    edgesCache.clear();
     await this.persistEdge(edge);
   }
 
@@ -210,56 +214,7 @@ export function chainSummary(chain: ResourceChain): string {
   return lines.join('\n');
 }
 
-/** The seeded SUESD/Soquel transportation chain (the brief's worked example). */
-export function seedSuesdResourceGraph(): { nodes: ResourceNode[]; edges: ResourceEdge[] } {
-  const now = new Date().toISOString();
-  const mk = (
-    id: string,
-    type: ResourceNode['type'],
-    title: string,
-    summary: string,
-    url: string,
-    category?: string,
-  ): ResourceNode => ({
-    id,
-    type,
-    districtId: SUESD_ID,
-    schoolId: type === 'school' ? id : undefined,
-    category,
-    title,
-    summary,
-    canonicalUrl: url,
-    sources: [{ title, url }],
-    status: 'verified',
-    confidence: 0.9,
-    discoveredAt: now,
-    lastVerifiedAt: now,
-  });
-
-  const nodes: ResourceNode[] = [
-    mk('suesd-district', 'district', DISTRICT.name, `${DISTRICT.name} — Capitola, CA`, 'https://www.suesd.org'),
-    mk('school-soquel', 'school', SOQUEL_ELEMENTARY.name, `${SOQUEL_ELEMENTARY.name} — ${SOQUEL_ELEMENTARY.address}`, 'https://www.suesd.org/soquel'),
-    mk('suesd-transportation', 'department', 'Transportation', 'District transportation department.', 'https://www.suesd.org/transportation'),
-    mk('suesd-bus-eligibility', 'program', 'Bus Eligibility (McKinney-Vento)', 'Transportation to the school of origin for homeless/displaced students, and free/subsidized bus passes.', 'https://www.suesd.org/mckinney-vento', 'TRANSPORTATION'),
-    mk('suesd-bus-eligibility-rule', 'eligibility', 'Bus eligibility', 'Homeless/displaced (McKinney-Vento) OR living beyond the distance threshold from the school of origin.', 'https://www.suesd.org/mckinney-vento'),
-    mk('suesd-mv-policy', 'policy', 'McKinney-Vento Act', '42 U.S.C. §11432(g)(1)(J): transportation to the school of origin at the parent/guardian request.', 'https://www2.ed.gov/policy/elsec/leg/essa/legislation/mckinney-vento.pdf'),
-    mk('suesd-transport-request', 'application', 'Transportation Request', 'Request transportation to the school of origin under McKinney-Vento.', 'https://www.suesd.org/transportation-request'),
-    mk('suesd-transport-form', 'form', 'Transportation Request Form', 'Google Form to request bus transportation.', 'https://docs.google.com/forms/d/e/example'),
-    mk('suesd-liaison', 'contact', `Homeless liaison: ${LIAISON.name}`, `${LIAISON.phone}, ${LIAISON.email}`, 'https://www.suesd.org/mckinney-vento'),
-    mk('suesd-buspasses', 'contact', `Bus passes: ${BUS_PASSES.name}`, `${BUS_PASSES.phone}`, 'https://www.suesd.org/mckinney-vento'),
-  ];
-
-  const edges: ResourceEdge[] = [
-    { from: 'school-soquel', to: 'suesd-district', type: 'belongs_to' },
-    { from: 'suesd-district', to: 'suesd-transportation', type: 'has_department' },
-    { from: 'suesd-transportation', to: 'suesd-bus-eligibility', type: 'runs' },
-    { from: 'suesd-bus-eligibility', to: 'suesd-bus-eligibility-rule', type: 'has_eligibility' },
-    { from: 'suesd-bus-eligibility', to: 'suesd-mv-policy', type: 'cites' },
-    { from: 'suesd-bus-eligibility', to: 'suesd-transport-request', type: 'applied_via' },
-    { from: 'suesd-transport-request', to: 'suesd-transport-form', type: 'uses_form' },
-    { from: 'suesd-transport-request', to: 'suesd-liaison', type: 'has_contact' },
-    { from: 'suesd-transport-request', to: 'suesd-buspasses', type: 'has_contact' },
-  ];
-
-  return { nodes, edges };
+/** Persist a resource-graph edge (via the module-level graph) for any district. */
+export async function saveResourceEdge(edge: ResourceEdge): Promise<void> {
+  await defaultGraph.saveEdge(edge);
 }

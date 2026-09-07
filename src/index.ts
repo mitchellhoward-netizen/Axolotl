@@ -12,7 +12,7 @@ import { smallModel } from "./agent/model-policy";
 import { RulesIntentEngine } from "./agent/intent/rules";
 import { MockCalendarProvider } from "./integrations/calendar";
 import { MockMealsProvider } from "./integrations/meals";
-import { MockSis } from "./integrations/sis";
+import { createSis } from "./integrations/sis";
 import { createSeedDb, provisionalParent } from "./seed";
 import { loadIdentityIntoSeed } from "./integrations/identity";
 import { createEmailProvider } from "./integrations/email";
@@ -84,7 +84,7 @@ const agent = new Agent({
   intentEngine: LLM_API_KEY
     ? new LlmIntentEngine({ apiKey: LLM_API_KEY, baseUrl: LLM_BASE_URL, model: LLM_MODEL })
     : new RulesIntentEngine(),
-  sis: new MockSis(db),
+  sis: createSis(db),
   calendar: new MockCalendarProvider(),
   meals: new MockMealsProvider(Object.fromEntries(db.students.map((s) => [s.id, s.mealStatus]))),
   db,

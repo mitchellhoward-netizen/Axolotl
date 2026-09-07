@@ -166,8 +166,11 @@ export class LlmClient {
         ? (String(d.type) as DistrictProfile['type'])
         : undefined;
       return {
+        id: '', // filled by researchDistrictProfile with the stable derived id
         name: d.name,
         short: d.short ?? '',
+        city: d.city,
+        state: d.state,
         elementary: d.elementary,
         liaison: d.liaison,
         busPasses: d.busPasses,

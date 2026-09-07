@@ -61,6 +61,18 @@ export class MockSis implements Sis {
   }
 }
 
+/** Resolve the SIS. Default is the parent-provided-children-backed `MockSis` (which
+ * serves the students + school created from onboarding). To wire a REAL SIS per
+ * district, point `SIS_PROVIDER` at a client for OneRoster / Edlink / PowerSchool
+ * and return it here — the agent already talks to the `Sis` interface, so it's a
+ * drop-in swap with no agent-code change. */
+export function createSis(db: SeedDb): Sis {
+  // eslint-disable-next-line no-console
+  if (process.env.SIS_PROVIDER) console.log(`[sis] using remote SIS provider: ${process.env.SIS_PROVIDER}`);
+  // TODO: return a real SIS client (OneRoster/Edlink/PowerSchool) when configured.
+  return new MockSis(db);
+}
+
 export function schoolById(db: SeedDb, id: ID): School | undefined {
   return db.schools.find((s) => s.id === id);
 }

@@ -22,7 +22,8 @@ import { searchSchoolGraph, chainSummary } from '../knowledge/resource-graph.js'
 import { buildPreCallBrief } from '../knowledge/precall.js';
 import { embeddingsConfigured, embedTexts } from '../integrations/embeddings.js';
 import { KNOWLEDGE_CATEGORIES, type KnowledgeCategory } from '../domain/knowledge.js';
-import { answerSchoolInfo, DISTRICT } from '../knowledge/suesd.js';
+import { answerSchoolInfo } from '../knowledge/school-info.js';
+import { resolveDistrict, researchDistrictProfile, districtIdFromName, getResearchedDistrict, getResearchedDistrictById, type DistrictProfile } from '../knowledge/districts.js';
 import { StepExecutor } from './steps/executor.js';
 import { planSteps } from './steps/planner.js';
 import { buildAdapters } from './steps/registry.js';
@@ -35,7 +36,6 @@ import {
 } from './followup.js';
 import { detectGaps, staleKnowledgeNodes } from './gaps.js';
 import type { Counterparty, Mode, StepResult, ExecutionContext, Step } from './steps/types.js';
-import { resolveDistrict, type DistrictProfile } from '../knowledge/districts.js';
 import type { SeedDb } from '../seed.js';
 import { provisionFamily } from '../seed.js';
 import { persistProvisionedFamily } from '../integrations/identity.js';
@@ -373,7 +373,7 @@ export class Agent {
           turn = { text: at.text, phase: at.done ? 'done' : 'clarifying' };
         }
       } else if (state.mckinney) {
-        const mc = advanceMckinney(state.mckinney, text.trim(), ctx.students);
+        const mc = advanceMckinney(state.mckinney, text.trim(), ctx.students, state.profile ? this.researchedDistrict(state.profile) ?? resolveDistrict(state.profile.school ?? state.profile.district ?? '') : undefined);
         this.save(conversationId, { phase: mc.done ? 'done' : 'clarifying', collected: {}, mckinney: mc.done ? undefined : mc.state }, state);
         turn = { text: mc.text, phase: mc.done ? 'done' : 'clarifying' };
       } else {
@@ -452,8 +452,12 @@ export class Agent {
     const record = this.store.ensure(conversationId, this.opts.defaultParentId ?? '');
     const guardianId = record.parentId ?? this.opts.defaultParentId;
     if (!guardianId) return;
-    const districtId = await ensureSeedDistrict();
     const { profile, cases, memory } = record.state;
+    const districtId = await ensureSeedDistrict(
+      profile?.districtId || profile?.district
+        ? { id: profile.districtId ?? districtIdFromName(profile.district ?? profile.school ?? ''), name: profile.district ?? profile.school ?? 'School', state: profile.location?.slice(-2) ?? 'CA' }
+        : undefined,
+    );
     if (profile) await saveFamilyProfile(guardianId, profile);
     for (const c of cases ?? []) await saveCaseRecord(guardianId, districtId, c);
     try {
@@ -631,24 +635,37 @@ export class Agent {
     return result;
   }
 
-  /** Resolve the counterparty by role + mode. Uses the FAMILY's own school/district (never a hardcoded one). */
+  /** The researched district profile for a family (sync registry lookup). */
+  private researchedDistrict(profile?: FamilyProfile): DistrictProfile | undefined {
+    if (!profile) return undefined;
+    if (profile.districtId) return getResearchedDistrictById(profile.districtId);
+    return getResearchedDistrict(profile.district ?? qualifiedSchool(profile));
+  }
+
+  /** Resolve the counterparty by role + mode. Contacts come from the researched district (never env). */
   private resolveCounterparty(role: Counterparty['role'], mode: Mode, profile?: FamilyProfile): Counterparty {
     if (mode === 'demo') {
       return { role, name: 'Demo School Liaison', email: 'demo-liaison@example.com', phone: '+15550001111' };
     }
     const school = profile?.school?.trim() || 'the school';
     const district = profile?.district?.trim() || school;
-    const org = district;
-    const c = (name: string, extra?: Partial<Counterparty>): Counterparty => ({ role, name, ...extra });
+    const researched = this.researchedDistrict(profile);
     switch (role) {
-      case 'HOMELESS_LIAISON':
-        return c(`${org} homeless liaison`, { email: process.env.CONTACT_EMAIL, phone: process.env.CONTACT_PHONE });
-      case 'BUS_PASSES':
-        return c(`${org} transportation`);
+      case 'HOMELESS_LIAISON': {
+        const l = researched?.liaison;
+        if (l) return { role, name: l.name, email: l.email, phone: l.phone };
+        // No researched liaison yet — don't invent a number/address; the step will
+        // fail-safe until the district is researched.
+        return { role, name: `${district} homeless liaison` };
+      }
+      case 'BUS_PASSES': {
+        const b = researched?.busPasses;
+        return b ? { role, name: b.name, phone: b.phone } : { role, name: `${district} transportation` };
+      }
       case 'PRINCIPAL':
-        return c(`principal at ${school}`);
+        return { role, name: `principal at ${school}` };
       default:
-        return c(school);
+        return { role, name: school };
     }
   }
 
@@ -723,6 +740,8 @@ export class Agent {
 
     const deps: ToolDeps = {
       profile: state.profile,
+      district: this.researchedDistrict(state.profile),
+      llm: this.opts.researchLlm ?? this.opts.llm,
       getCases: () => state.cases ?? [],
       appendCase: (rec: Omit<CaseRecord, 'id' | 'createdAt'>) => {
         state.cases = addCase(state.cases, makeCase(rec));
@@ -743,7 +762,12 @@ export class Agent {
       },
       knowledge: async (category, query) => {
         const input = state.profile?.district ?? qualifiedSchool(state.profile);
-        const district = resolveAnyDistrict(input);
+        const profile = state.profile;
+        // Key the district by the profile's STABLE id so the knowledge graph,
+        // contacts, and entitlements all look up the same district.
+        const district = profile?.districtId
+          ? { id: profile.districtId, name: profile.district ?? profile.school ?? input, state: 'CA', schools: [] }
+          : resolveAnyDistrict(input);
         const cat = category?.trim().toUpperCase().replace(/\s+/g, '_');
         const validCat =
           cat && (KNOWLEDGE_CATEGORIES as string[]).includes(cat) ? (cat as KnowledgeCategory | 'LAW') : undefined;
@@ -763,7 +787,7 @@ export class Agent {
           // Auto-create knowledge for an un-researched district: real crawl + LLM
           // categorization into grounded `draft` nodes (marked "confirm with the
           // school" so nothing unverified is ever stated as authoritative).
-          const schoolName = district.schools[0]?.name ?? district.name;
+          const schoolName = profile?.school?.trim() || district.name;
           const added = await autoResearchDistrict(this.knowledge, district.id, schoolName, district.name, () =>
             researchDistrictNodes(district.name, schoolName, this.opts.researchLlm ?? this.opts.llm, qText),
           );
@@ -862,24 +886,24 @@ export class Agent {
     }
     // Tool loop didn't resolve → fall back to a plain, grounded answer.
     console.log('[brain] → answerQuestion fallback');
-    const district = state.profile?.school ? resolveDistrict(state.profile.school) : undefined;
+    const district = this.researchedDistrict(state.profile) ?? (state.profile?.school ? resolveDistrict(state.profile.school) : undefined);
     const ans = await llm.answerQuestion(text, state.profile, district);
     if (ans) return { turn: { text: ans, phase: 'done' }, state };
     return null;
   }
 
   private async resolveDistrictAsync(profile: FamilyProfile): Promise<DistrictProfile> {
-    const input = profile.school ?? profile.district ?? '';
-    // Prefer the curated (hand-verified) profile — it carries the liaison and
-    // bus-pass contacts the LLM is told to omit when unsure. Only fall back to
-    // the LLM for a district we don't already have researched.
-    const curated = resolveDistrict(input);
-    if (curated.known) return curated;
-    if (this.opts.llm?.enabled) {
-      const researched = await this.opts.llm.researchDistrict(input);
-      if (researched) return researched;
-    }
-    return curated;
+    // Research the (ANY) district the parent named — the researched profile is the
+    // single source of truth for contacts/school type. Never a hardcoded district.
+    const input = qualifiedSchool(profile) || profile.district || profile.school || '';
+    const researched = await researchDistrictProfile(input, this.opts.researchLlm ?? this.opts.llm);
+    // Persist the stable district key so every subsequent lookup (knowledge graph,
+    // contacts, entitlements) keys the same district.
+    if (researched.id) profile.districtId = researched.id;
+    if (researched.name) profile.district = researched.name;
+    // Set the resolved school type so entitlement audit + prompt don't over-claim.
+    profile.schoolType = researched.type ?? profile.schoolType;
+    return researched;
   }
 
   private buildCallContext(state: ConversationState, hint?: string): CallContext {
@@ -969,13 +993,12 @@ export class Agent {
 
     const students = this.opts.db.students.filter((s) => parent.studentIds.includes(s.id));
     const schoolId = students[0]?.schoolId;
-    // A fresh family (created for an unknown phone) has no students yet; fall back
-    // to the default school so onboarding can run. Real students/school come from
-    // provisioning after onboarding.
-    const school = this.opts.db.schools.find((s) => s.id === schoolId) ?? this.opts.db.schools[0];
-    if (!school) return undefined;
+    // The family's school comes from their OWN students (provisioned from the
+    // parent-supplied children), never a hardcoded default. A fresh family (no
+    // students yet) gets a school-less context — onboarding provides the school.
+    const school = schoolId ? this.opts.db.schools.find((s) => s.id === schoolId) : undefined;
 
-    const teachers = this.opts.db.teachers.filter((t) => t.schoolId === school.id);
+    const teachers = school ? this.opts.db.teachers.filter((t) => t.schoolId === school.id) : [];
     return {
       parent,
       students,
@@ -1372,8 +1395,12 @@ export class Agent {
       };
     }
     if (name === 'school_info') {
-      const answer = answerSchoolInfo(text) ?? UNKNOWN_TEXT;
-      return { turn: { text: answer, phase: 'done' }, state: { phase: 'done', collected: {}, profile } };
+      const d = profile ? this.researchedDistrict(profile) ?? resolveDistrict(profile.school ?? profile.district ?? '') : undefined;
+      const answer = d ? answerSchoolInfo(d, text) : undefined;
+      const text2 =
+        answer ??
+        `I don't have that for ${d?.name ?? 'your district'} yet — tell me the school and city/state and I'll research it, or call the school office and they can tell you right away.`;
+      return { turn: { text: text2, phase: 'done' }, state: { phase: 'done', collected: {}, profile } };
     }
     if (name === 'demo_status') {
       return {
