@@ -414,6 +414,13 @@ export async function browserClose(): Promise<void> {
   await s?.close().catch(() => {});
 }
 
+/** Close the shared browser and reset the singleton so the next task starts fresh. */
+export async function browserReset(): Promise<void> {
+  const s = await getStagehand();
+  if (s) await s.close().catch(() => {});
+  stagehandPromise = undefined;
+}
+
 /** Pause the shared browser (lets a SPA finish re-rendering after a click/submit). */
 export async function browserWait(ms: number): Promise<BrowserResult<void>> {
   const h = await getPage();

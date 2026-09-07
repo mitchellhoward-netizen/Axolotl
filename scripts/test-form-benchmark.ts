@@ -4,10 +4,12 @@ import {
   browserWait,
   browserAssessPage,
   browserFill,
+  browserClickByText,
   browserClickControl,
   browserSelectOption,
   browserState,
   browserClose,
+  browserReset,
 } from '../src/integrations/browser.js';
 import { fillPdf } from '../src/integrations/pdf.js';
 
@@ -125,9 +127,12 @@ async function main(): Promise<void> {
   };
 
   console.log('Benchmark: filling representative form tasks per tier…\n');
+  await browserReset();
   await run('t1-ckc-fill', 'CKC Soquel (Google Form fill)', 1, ckcFillTask);
+  await browserReset();
   await run('t1-gform-fill', 'Google Form fill (test form)', 1, gformFillTask);
   await run('t2-pdf-fill', 'Capitola scholarship (PDF fill)', 2, pdfTask);
+  await browserReset();
   await run('t3-gki-reach', 'Go Kids (login + step 1 fill)', 3, gkiReachTask);
 
   const passed = results.filter((r) => r.pass).length;
