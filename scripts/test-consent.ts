@@ -5,6 +5,7 @@ import { MockMealsProvider } from '../src/integrations/meals.js';
 import { MockSis } from '../src/integrations/sis.js';
 import { createEmailProvider } from '../src/integrations/email.js';
 import { createSeedDb, provisionFamily } from '../src/seed.js';
+import { redactForLog } from '../src/agent/tools.js';
 import type { Step } from '../src/agent/steps/types.js';
 import type { ConversationState } from '../src/agent/state.js';
 
@@ -84,6 +85,14 @@ async function main(): Promise<void> {
   agent.setStateForTest(ID, { phase: 'confirming', collected: {}, pendingSteps: [makeEmailStep()] } as ConversationState);
   const okThanks2 = await agent.handle(ID, 'yes please');
   check('"yes please" is a valid consent', okThanks2.text.includes('Done!'), okThanks2.text.slice(0, 60));
+
+  // 4. Sensitive creds must be redacted from any logged args (password/code/SSN never leak).
+  const redacted = redactForLog({ password: 'hunter2', code: '123456', url: 'https://x', fields: [{ label: 'Password', value: 'hunter2' }, { label: 'Email', value: 'a@b.com' }] });
+  check('password redacted', redacted.password === '[redacted]', JSON.stringify(redacted));
+  check('code redacted', redacted.code === '[redacted]', JSON.stringify(redacted));
+  check('sensitive labeled field redacted', (redacted.fields as Array<{ label: string; value: string }>)[0]!.value === '[redacted]', JSON.stringify(redacted.fields));
+  check('non-sensitive field preserved', (redacted.fields as Array<{ label: string; value: string }>)[1]!.value === 'a@b.com', JSON.stringify(redacted.fields));
+  check('url preserved', redacted.url === 'https://x');
 
   console.log('\n========================================');
   console.log(`  ${pass} passed, ${fail} failed`);

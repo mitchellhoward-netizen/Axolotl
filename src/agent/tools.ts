@@ -463,8 +463,30 @@ export const LLM_TOOLS = [
   { type: 'function', function: { name: 'now', description: 'Current date/time.', parameters: { type: 'object', properties: {} } } },
 ];
 
+/** Mask sensitive values before logging/inspection so a password, OTP, code, or SSN never leaks. */
+export function redactForLog(value: unknown): unknown {
+  if (Array.isArray(value)) return value.map(redactForLog);
+  if (value && typeof value === 'object') {
+    const obj = value as Record<string, unknown>;
+    // A labeled field (e.g. `{label:'password', value:'...'}`) — mask the value if the label is sensitive.
+    if (typeof obj.label === 'string' && 'value' in obj) {
+      const label = obj.label.toLowerCase();
+      const sensitive = /password|passwd|pwd|secret|ssn|dob|birth|cvv|card|account|pin|code|otp/.test(label);
+      return { ...obj, value: sensitive ? '[redacted]' : redactForLog(obj.value) };
+    }
+    const out: Record<string, unknown> = {};
+    for (const [k, v] of Object.entries(obj)) {
+      const key = k.toLowerCase();
+      const sensitive = /password|passwd|pwd|secret|token|code|otp|pin|ssn|dob|birth/.test(key);
+      out[k] = sensitive ? '[redacted]' : redactForLog(v);
+    }
+    return out;
+  }
+  return value;
+}
+
 export async function runTool(name: string, args: Record<string, unknown>, deps: ToolDeps): Promise<string> {
-  console.log(`[tool] ${name} ${JSON.stringify(args).slice(0, 300)}`);
+  console.log(`[tool] ${name} ${JSON.stringify(redactForLog(args)).slice(0, 300)}`);
   switch (name) {
     case 'get_school_info':
       return answerSchoolInfo(String(args.query ?? '')) ?? 'Not found in the knowledge base.';
@@ -963,7 +985,7 @@ export function systemPrompt(ctx: BrainContext): string {
     `SIGN-UP FLOW (follow this to sign a student up for a school program): If the parent GAVE you the exact form URL, do NOT research or re-search — just browser_open that URL and fill it (skip browser_assess). Only research/search when the parent asked for a program but gave NO URL. Trust a parent-provided URL as-is and treat the form by its OWN title from the page — NEVER assume it's for the profile's default school or invent a school name for it (only name the school when the parent's request actually says it). If the parent sends a URL or repeats a form you ALREADY have open, do NOT re-open or re-assess it — continue from where you left off. To fill: text fields via browser_fill; checkboxes/radios/dropdowns via browser_act. Then share the form link for the parent to review, call submit_form (the system gates it behind the parent's YES), and after it submits SHARE the response link. ` +
     `FORM RECIPE (how you get better at forms over time — use it): before filling a form, call get_form_recipe with its URL. If a recipe exists, fill using the listed fields/controls/selects (with the parent's actual values) — no trial-and-error. After you successfully fill a NEW form, call save_form_recipe with the URL and the structure you filled (the field labels, radio/checkbox labels+types, select names+options). This way every form you work once, you fill perfectly forever after. ` +
     `Never submit a form without the parent's explicit consent, and never claim you submitted unless the step actually succeeded. ` +
-    `ACCOUNT FLOW (for auth-gated portals/waitlists, e.g. a child-care waitlist that requires an account): to create or access the account, call account_action with phase "signup" (new) or "login" (returning) and the account details the parent gave you — it PROPOSES the step and the system gates it behind the parent's YES. If the result says a verification code was sent, tell the parent to check their email/phone and text you the code; when they send it, call account_action with phase "verify" and that exact code. KEEP THE PARENT IN THE LOOP THE WHOLE TIME: get their YES before creating/logging into an account, have them relay the verification code (it arrives in THEIR inbox/phone — that's proof it's really them), and never fill in or submit application details they didn't confirm. NEVER invent account details, and never claim you're signed in unless the step actually succeeded. ` +
+    `ACCOUNT FLOW (for auth-gated portals/waitlists, e.g. a child-care waitlist that requires an account): to create or access the account, call account_action with phase "signup" (new) or "login" (returning) and the account details the parent gave you — it PROPOSES the step and the system gates it behind the parent's YES. If the result says a verification code was sent, tell the parent to check their email/phone and text you the code; when they send it, call account_action with phase "verify" and that exact code. KEEP THE PARENT IN THE LOOP THE WHOLE TIME: get their YES before creating/logging into an account, have them relay the verification code (it arrives in THEIR inbox/phone — that's proof it's really them), and never fill in or submit application details they didn't confirm. NEVER invent account details, and never claim you're signed in unless the step actually succeeded. Never state the parent\u2019s account password or a verification code back in a visible message, a summary, or any explanation — keep them only inside the account_action call, which the system redacts from logs. ` +
     `LIMITS & HANDOFF (very important): if a page says "sign in to continue", "must be signed in", or shows a CAPTCHA / "I'm not a robot", you have hit a hard limit that automation cannot pass. DO NOT try to bypass it and do NOT claim you did. Instead, tell the parent plainly: "I've filled in everything I can, but this form requires you to sign in yourself / pass a security check — here's the link, you'll need to finish that last step." Hand them the exact URL. This keeps you honest and keeps the parent moving. ` +
     `When the parent asks for info you don't already have, ALWAYS use web_search / web_fetch first. Never say you don't have internet access or that you can't look it up. ` +
     `DISAMBIGUATE SCHOOLS: if the school isn't one you have on file, or it's a common name (Lakeside, Lincoln, Washington, etc.), ALWAYS ask which city and state it's in, then include the city/state in every web search (e.g. "Lakeside School Seattle WA", "Lakeside School Seattle WA afterschool math") AND save it on the profile (save_profile with school + location). Never research or assume a different school with the same name. ` +
