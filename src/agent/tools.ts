@@ -470,12 +470,16 @@ export async function runTool(name: string, args: Record<string, unknown>, deps:
             .map((f) => ({ label: String(f.label ?? '').trim(), value: String(f.value ?? '') }))
             .filter((f) => f.label)
         : [];
+      const password = typeof args.password === 'string' ? args.password : undefined;
+      if (password && password.length > 16) {
+        return 'That password is too long — this portal caps passwords at 16 characters. Please give a shorter one.';
+      }
       const payload: Extract<Step['payload'], { channel: 'account' }> = {
         channel: 'account',
         url,
         phase,
         identifier: typeof args.identifier === 'string' ? args.identifier : undefined,
-        password: typeof args.password === 'string' ? args.password : undefined,
+        password,
         fields: fields.length ? fields : undefined,
         code: typeof args.code === 'string' ? args.code : undefined,
       };
@@ -842,7 +846,7 @@ export function systemPrompt(ctx: BrainContext): string {
     `VERIFY A PAGE BEFORE YOU FILL IT: a top web-search result is often a blank/dead/duplicate page while the real form is further down. Before filling a form, call browser_assess on the URL to confirm it's a real form for the right school/program. If it returns POOR, blank, no form fields, or doesn't match the school, do NOT fill it — search again and try the next result until you find one that VERIFIES. ` +
     `SIGN-UP FLOW (follow this to sign a student up for a school program): 1) Research to find the RIGHT enrollment form for the correct school's program (many schools have per-school/per-program forms; a top result is often a blank/wrong page — use browser_assess to verify). 2) browser_open the form, then browser_assess to confirm it VERIFIES (real form, right school). 3) Fill text fields (name, email, phone, address) with browser_fill; for checkboxes, radios, and dropdowns use browser_act to select the right option. 4) After filling, VERIFY the form is complete (re-observe or browser_assess). 5) Share the form link (browser_fill returns the URL) with the parent so they can review it, then propose the SUBMIT step — the system requires the parent's explicit YES before anything is submitted, so DO NOT submit without approval. 6) After it submits, SHARE the response link with the parent (the submit step returns the 'view my response' link). ` +
     `Never submit a form without the parent's explicit consent, and never claim you submitted unless the step actually succeeded. ` +
-    `ACCOUNT FLOW (for auth-gated portals/waitlists, e.g. a child-care waitlist that requires an account): to create or access the account, call account_action with phase "signup" (new) or "login" (returning) and the account details the parent gave you — it PROPOSES the step and the system gates it behind the parent's YES. If the result says a verification code was sent, tell the parent to check their email/phone and text you the code; when they send it, call account_action with phase "verify" and that exact code. NEVER invent account details, and never claim you're signed in unless the step actually succeeded. ` +
+    `ACCOUNT FLOW (for auth-gated portals/waitlists, e.g. a child-care waitlist that requires an account): to create or access the account, call account_action with phase "signup" (new) or "login" (returning) and the account details the parent gave you — it PROPOSES the step and the system gates it behind the parent's YES. If the result says a verification code was sent, tell the parent to check their email/phone and text you the code; when they send it, call account_action with phase "verify" and that exact code. KEEP THE PARENT IN THE LOOP THE WHOLE TIME: get their YES before creating/logging into an account, have them relay the verification code (it arrives in THEIR inbox/phone — that's proof it's really them), and never fill in or submit application details they didn't confirm. NEVER invent account details, and never claim you're signed in unless the step actually succeeded. ` +
     `When the parent asks for info you don't already have, ALWAYS use web_search / web_fetch first. Never say you don't have internet access or that you can't look it up. ` +
     `DISAMBIGUATE SCHOOLS: if the school isn't one you have on file, or it's a common name (Lakeside, Lincoln, Washington, etc.), ALWAYS ask which city and state it's in, then include the city/state in every web search (e.g. "Lakeside School Seattle WA", "Lakeside School Seattle WA afterschool math") AND save it on the profile (save_profile with school + location). Never research or assume a different school with the same name. ` +
     `If a search result looks relevant but is incomplete, call web_fetch on that result's URL to read the full page. ` +
