@@ -1088,7 +1088,17 @@ export class Agent {
 
     if (this.opts.llm?.enabled) {
       const brain = await this.brain(text, state, history, parentId);
-      if (brain) return brain;
+      if (brain) {
+        // If the brain just proposed consent-gated steps AND the parent's message
+        // was an explicit "yes/submit it/do it", treat that as consent and run the
+        // steps NET NOW — don't make the parent confirm twice.
+        if (state.pendingSteps?.some((s) => s.requiresConsent) && isAffirmative(text)) {
+          const results = await this.runSteps(state.pendingSteps, this.resolveMode(), state);
+          const summary = results.map((r) => r.parentSummary).join('\n');
+          return { turn: { text: `Done!\n${summary}`, phase: 'done', resolved: true }, state: { phase: 'done', collected: {}, cases: state.cases, pendingSteps: undefined } };
+        }
+        return brain;
+      }
     }
 
     // Fallback (no key, or the LLM couldn't resolve): structured flows.
@@ -1254,9 +1264,15 @@ export class Agent {
 }
 
 function parseYesNo(text: string): boolean | null {
-  if (/^(y|yes|yeah|yep|sure|ok|okay|confirm|go ahead|do it|please do)\b/i.test(text)) return true;
+  if (/^(y|yes|yeah|yep|sure|ok|okay|confirm|go ahead|do it|please do|submit|submit it|go)\b/i.test(text)) return true;
   if (/^(n|no|nope|cancel|change|not that|stop|hold on)\b/i.test(text)) return false;
   return null;
+}
+
+/** Broader affirmative check — catches "yes", "submit it", "go ahead", "do it". */
+function isAffirmative(text: string): boolean {
+  const t = text.trim().toLowerCase().replace(/[.!?]+$/, '');
+  return /^(y|yes|yeah|yep|yup|sure|ok|okay|kk|confirm|do it|go ahead|go|please|absolutely|definitely|submit|submit it|yes please|go for it|do it now)\b/.test(t);
 }
 
 function yesNo(): Suggestion[] {
