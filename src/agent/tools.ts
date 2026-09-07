@@ -635,6 +635,13 @@ export async function runTool(name: string, args: Record<string, unknown>, deps:
     case 'browser_act': {
       const instruction = String(args.instruction ?? '').trim();
       if (!instruction) return 'Provide an instruction.';
+      // Submitting a form must go through the gated `submit_form` step — browser_act is the ungated
+      // arbitrary-action primitive and is the one consent-bypass path. Block submit-like actions here
+      // (the internal gated browserSubmit still works via the executor, so this only stops the LLM
+      // tool from directly clicking submit).
+      if (/\b(submit|submits|submitting|send (this|the) form|complete (the|this) (form|application|enrollment)|finali[sz]e|submit button|hit submit)\b/i.test(instruction)) {
+        return 'Use submit_form (the system gates it behind the parent\u2019s explicit YES) to submit — not browser_act.';
+      }
       const r = await browserAct(instruction);
       return r.ok ? `Action done: ${r.data}` : `browser unavailable (${r.reason}).`;
     }

@@ -36,8 +36,14 @@ machine-fillable (see `bench/form-quirks.json`).
   stale steps. The second, loose `pendingSteps`+`parseYesNo` gate in `advance()` was **removed** so the
   strict top gate is the single source of truth, and the top block now clears the **live**
   `state.pendingSteps` (not just writes a new object via `save()`), closing a state-aliasing hole.
-  (The brain loop's side-effecting tools `send_email`/`account_action`/`submit_form` **propose**
-  consent-gated steps rather than execute, so the gate holds on submission.)
+- **`browser_act` no longer submits** — the LLM-facing tool blocks submit-like instructions and routes
+  them to the gated `submit_form` (the internal `browserSubmit` still works via the executor). This
+  closes the last consent-bypass path on the tool loop.
+- **Informed consent prompt** — the "reply submit it" message now shows the concrete target + data
+  (form URL + fields, or the email recipient/subject), not just a generic describe line.
+- **Consent regression test** — `scripts/test-consent.ts` drives `handle()` with a seeded consent-gated
+  step and asserts "ok thanks" does **not** execute while "submit it"/"go"/"yes please" do (6 tests).
+  (`setStateForTest`/`getStateForTest` expose the store just for this.)
 - **Sensitive-dimension carve-out** — residency/housing **and** `docsOnHand` (proof-of-residency
   request) are marked `sensitive`; for a displaced family they are excluded from ask candidates and
   the fallback (hand off rather than interrogate housing/documents).

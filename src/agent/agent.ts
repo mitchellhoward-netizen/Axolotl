@@ -88,6 +88,24 @@ function qualifiedSchool(p?: FamilyProfile): string {
   return p.location?.trim() ? `${p.school} ${p.location.trim()}` : p.school;
 }
 
+/** Parent-facing description of an action step, incl. its concrete target + data (informed consent). */
+function describeStepWithTarget(step: Step): string {
+  const base = step.successCondition.describe;
+  const p = step.payload;
+  if (p.channel === 'browser') {
+    const data = p.fields?.length ? ` — ${p.fields.map((f) => `${f.label}: ${f.value}`).join(', ')}` : '';
+    return `${base} at ${p.url}${data}`;
+  }
+  if (p.channel === 'email') {
+    const to = step.counterparty.email ? ` to ${step.counterparty.email}` : '';
+    return `${base}${to} — "${p.subject}"`;
+  }
+  if (p.channel === 'form') {
+    return `${base} — form ${p.formId}`;
+  }
+  return base;
+}
+
 /** Scan candidate nodes for the first evidence matching `pattern`; return `{value, source}`. */
 
 export interface Suggestion {
@@ -415,6 +433,16 @@ export class Agent {
     });
     record.state.cases = addCase(record.state.cases, rec);
     return record.state.cases;
+  }
+
+  /** Test/dev hook: inject a conversation state (e.g. a pre-set pendingSteps) so the consent flow can
+   * be regression-tested without a full OTP/onboarding run. */
+  setStateForTest(conversationId: string, state: ConversationState): void {
+    this.store.setState(conversationId, state);
+  }
+  /** Test/dev hook: read a conversation's current state. */
+  getStateForTest(conversationId: string): ConversationState | undefined {
+    return this.store.getState(conversationId);
   }
 
   /** Persist the conversation's family profile + cases to Postgres (Supabase API). */
@@ -1189,7 +1217,7 @@ export class Agent {
           return {
             turn: {
               text: `I found the path for this. Here's what I'd do — and it needs your OK before I send anything:\n\n` +
-                steps.map((s, i) => `${i + 1}. ${s.successCondition.describe}`).join('\n') +
+                steps.map((s, i) => `${i + 1}. ${describeStepWithTarget(s)}`).join('\n') +
                 `\n\nReply "submit it" and I'll go ahead.`,
               phase: 'confirming',
             },
