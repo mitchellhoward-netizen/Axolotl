@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import type { Stagehand, StagehandBrowser, Page, StagehandCreateOptions } from '@browserbasehq/stagehand';
 import { createDeepseekGenerate } from './stagehand-llm.js';
-import { createOpenAIResponsesGenerate } from './stagehand-openai.js';
+import { createOpenAIResponsesGenerate, askVision } from './stagehand-openai.js';
 
 /**
  * Browser "hands" layer (Stagehand). Env-gated and graceful: every call returns a
@@ -800,8 +800,21 @@ export async function browserScreenshot(): Promise<BrowserResult<{ data: string;
   const h = await getPage();
   if (!h) return { ok: false, reason: 'browser not configured' };
   try {
-    const buf = (await h.page.screenshot()) as Buffer;
-    return { ok: true, data: { data: buf.toString('base64'), mimeType: 'image/png' } };
+    const raw = (await h.page.screenshot()) as Buffer | Uint8Array;
+    const bytes = Buffer.isBuffer(raw) ? raw : Buffer.from(raw);
+    return { ok: true, data: { data: bytes.toString('base64'), mimeType: 'image/png' } };
+  } catch (e) {
+    return { ok: false, reason: String((e as Error)?.message ?? e) };
+  }
+}
+
+/** Vision fallback: screenshot the page and ask a vision model to read it (hostile DOMs, slides). */
+export async function browserVision(instruction: string): Promise<BrowserResult<string>> {
+  const shot = await browserScreenshot();
+  if (!shot.ok) return { ok: false, reason: shot.reason };
+  try {
+    const text = await withTimeout(askVision(shot.data.data, shot.data.mimeType, instruction), 30000, 'vision');
+    return { ok: true, data: text };
   } catch (e) {
     return { ok: false, reason: String((e as Error)?.message ?? e) };
   }

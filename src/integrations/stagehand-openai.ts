@@ -156,3 +156,34 @@ export function createOpenAIResponsesGenerate() {
     return { role: 'assistant', content, usage, outputFormat: 'text' };
   };
 }
+
+/** Ask a vision-capable model (gpt-6-astra) to read a screenshot and reply in text. */
+export async function askVision(imageBase64: string, mimeType: string, instruction: string): Promise<string> {
+  const baseUrl = (process.env.OPENAI_BASE_URL ?? 'https://api.openai.com').replace(/\/$/, '');
+  const apiKey = process.env.OPENAI_API_KEY;
+  if (!apiKey) throw new Error('OPENAI_API_KEY not set');
+  const model = (process.env.STAGEHAND_MODEL ?? 'openai/gpt-6-astra').replace(/^openai\//, '');
+  const res = await fetch(`${baseUrl}/v1/responses`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${apiKey}` },
+    body: JSON.stringify({
+      model,
+      input: [
+        {
+          role: 'user',
+          content: [
+            { type: 'input_text', text: instruction },
+            { type: 'input_image', image_url: `data:${mimeType};base64,${imageBase64}` },
+          ],
+        },
+      ],
+    }),
+  });
+  if (!res.ok) throw new Error(`vision ${res.status}: ${await res.text()}`);
+  const data = (await res.json()) as { output?: Array<{ type?: string; content?: Array<{ type?: string; text?: string }> }> };
+  const text = (data.output ?? [])
+    .filter((o) => o.type === 'message')
+    .flatMap((o) => (o.content ?? []).map((c) => c.text ?? ''))
+    .join('');
+  return text || '(no text)';
+}

@@ -11,6 +11,7 @@ import {
   browserExtract,
   browserFill,
   browserAssessPage,
+  browserVision,
   extractPdf,
 } from '../integrations/browser.js';
 import { fillPdf, listPdfFields } from '../integrations/pdf.js';
@@ -269,6 +270,14 @@ export const LLM_TOOLS = [
         },
         required: ['fields'],
       },
+    },
+  },
+  {
+    type: 'function',
+    function: {
+      name: 'browser_vision',
+      description: 'Use vision (Astra) to READ the current page from a screenshot. For pages the DOM/accessibility tree can\u2019t read — iframes, shadow DOM, image-rendered slides, or a form you can\u2019t see in the fields. Returns the visual text/description. Use browser_get_text/browser_observe first; only fall back to vision when those fail.',
+      parameters: { type: 'object', properties: { instruction: { type: 'string' } }, required: ['instruction'] },
     },
   },
   {
@@ -636,6 +645,12 @@ export async function runTool(name: string, args: Record<string, unknown>, deps:
       const r = await browserExtract(instruction, fields);
       return r.ok ? JSON.stringify(r.data) : `browser unavailable (${r.reason}).`;
     }
+    case 'browser_vision': {
+      const instruction = String(args.instruction ?? '').trim();
+      if (!instruction) return 'Provide an instruction for the vision model.';
+      const r = await browserVision(instruction);
+      return r.ok ? r.data : `vision unavailable (${r.reason}).`;
+    }
     case 'browser_fill': {
       const fields = Array.isArray(args.fields)
         ? (args.fields as Array<{ label?: unknown; value?: unknown }>)
@@ -936,7 +951,7 @@ export function systemPrompt(ctx: BrainContext): string {
   return (
     `You are a warm, BILINGUAL (English + Spanish) school liaison helping a parent over iMessage. Match the parent's language — if they write in Spanish, reply in Spanish; if they switch, switch with them. Be concise (1-4 short sentences), plain language, plain text (no Markdown, **, #, or bullets). ` +
     `You HAVE live internet access: use web_search to find anything about a school, district, policy, or law, and web_fetch to read a specific page. ` +
-    `For JS-heavy portals, Google/Microsoft forms, or pages web_fetch cannot read, use browser_open then browser_observe/browser_act/browser_extract. For PDFs: use extract_pdf for policies/regulations; for FILLABLE PDF application forms use pdf_fields to list its fields, then pdf_fill to fill them (returns a completed PDF to review — never auto-submit; emailing/uploading it still needs the parent's YES). ` +
+    `For JS-heavy portals, Google/Microsoft forms, or pages web_fetch cannot read, use browser_open then browser_observe/browser_act/browser_extract. For PDFs: use extract_pdf for policies/regulations; for FILLABLE PDF application forms use pdf_fields to list its fields, then pdf_fill to fill them (returns a completed PDF to review — never auto-submit; emailing/uploading it still needs the parent's YES). For pages the DOM/accessibility tree can't read (iframes, shadow DOM, image-rendered slides like a resources guide, or a form you can't see in the fields), use browser_vision to read them from a screenshot. ` +
     `VERIFY A PAGE BEFORE YOU FILL IT: a top web-search result is often a blank/dead/duplicate page while the real form is further down. Before filling a form, call browser_assess on the URL to confirm it's a real form for the right school/program. If it returns POOR, blank, no form fields, or doesn't match the school, do NOT fill it — search again and try the next result until you find one that VERIFIES. ` +
     `SIGN-UP FLOW (follow this to sign a student up for a school program): If the parent GAVE you the exact form URL, do NOT research or re-search — just browser_open that URL and fill it (skip browser_assess). Only research/search when the parent asked for a program but gave NO URL. Trust a parent-provided URL as-is and treat the form by its OWN title from the page — NEVER assume it's for the profile's default school or invent a school name for it (only name the school when the parent's request actually says it). If the parent sends a URL or repeats a form you ALREADY have open, do NOT re-open or re-assess it — continue from where you left off. To fill: text fields via browser_fill; checkboxes/radios/dropdowns via browser_act. Then share the form link for the parent to review, call submit_form (the system gates it behind the parent's YES), and after it submits SHARE the response link. ` +
     `FORM RECIPE (how you get better at forms over time — use it): before filling a form, call get_form_recipe with its URL. If a recipe exists, fill using the listed fields/controls/selects (with the parent's actual values) — no trial-and-error. After you successfully fill a NEW form, call save_form_recipe with the URL and the structure you filled (the field labels, radio/checkbox labels+types, select names+options). This way every form you work once, you fill perfectly forever after. ` +

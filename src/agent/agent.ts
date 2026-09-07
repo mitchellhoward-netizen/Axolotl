@@ -56,7 +56,7 @@ import { assessKnowledgeNode } from './verify.js';
 import { findSkillFor, skillSummary } from './skills.js';
 
 /** Tools that take long enough that we tell the parent we're on it. */
-const SLOW_TEXT_TOOLS = new Set(['web_search', 'web_fetch', 'browser_open', 'browser_observe', 'browser_act', 'browser_extract', 'browser_fill', 'extract_pdf', 'pdf_fields', 'pdf_fill']);
+const SLOW_TEXT_TOOLS = new Set(['web_search', 'web_fetch', 'browser_open', 'browser_observe', 'browser_act', 'browser_extract', 'browser_fill', 'browser_vision', 'extract_pdf', 'pdf_fields', 'pdf_fill']);
 
 /** Varied, human "stepping away to look this up" acknowledgments (no repeats). */
 const BUSY_LINES = [
