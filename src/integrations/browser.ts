@@ -649,7 +649,14 @@ export async function browserClickControl(label: string, kind: 'radio' | 'checkb
         const sel = kind === 'radio' ? 'input[type="radio"], [role="radio"]' : 'input[type="checkbox"], [role="checkbox"]';
         const els = [...document.querySelectorAll(sel)];
         els.forEach((el, i) => el.setAttribute('data-axl-ctrl', String(i)));
-        const textOf = (el) => { const l = el.closest('label'); return norm(l ? l.textContent : (el.textContent || '')); };
+        const textOf = (el) => {
+          const norm2 = (s) => (s || '').trim().toLowerCase().replace(/\\s+/g, ' ');
+          const l = el.closest('label');
+          if (l && norm2(l.textContent)) return norm2(l.textContent);
+          const p = el.parentElement;
+          if (p && norm2(p.textContent)) return norm2(p.textContent);
+          return norm2(el.textContent || '');
+        };
         const n = norm(t);
         const exact = els.findIndex((e) => textOf(e) === n);
         if (exact !== -1) return exact;
