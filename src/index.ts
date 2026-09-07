@@ -24,7 +24,7 @@ import { buildPreCallBrief } from "./knowledge/precall";
 import { researchQuestion } from "./knowledge/research";
 import { AXOLOTL_EMOJI, hasAxolotlImage, axolotlImagePath } from "./integrations/axolotl";
 import { takePendingGreeting } from "./integrations/pending-greeting.js";
-import { readFileSync, writeFileSync, mkdirSync, existsSync, unlinkSync } from "node:fs";
+import { readFileSync, writeFileSync, mkdirSync, existsSync, unlinkSync, appendFileSync } from "node:fs";
 import { toPlainText } from "./lib/plain";
 
 // ── Single-instance guard ──────────────────────────────────────────────────────
@@ -238,6 +238,14 @@ console.log(
     : `🧠 Brain: offline rules (set DEEPSEEK_API_KEY in .env to enable the LLM)`,
 );
 
+// Diagnostic: log each outbound send (greeting vs reply) with the triggering inbound id.
+const logOut = (kind: string, info: string): void => {
+  try {
+    appendFileSync('debug/outbound.log', `${new Date().toISOString()} [${kind}] ${info}\n`);
+  } catch { /* ignore */ }
+};
+const MsgId = (m: unknown): string => (m as { id?: string })?.id ?? '(no-id)';
+
 if (app) {
   // Always-on advocate: proactively follow up on the family's behalf, but never
   // nag — relevance + throttle (quiet hours, cooldown, daily cap) live in the
@@ -274,7 +282,6 @@ for await (const [space, message] of app.messages) {
 
   const text = message.content.text;
   console.log(`[imessage] ${space.id} < ${text}`);
-
   // iMessage fallback: if the waitlist confirmation couldn't be sent as SMS, we
   // held it keyed by the phone. The moment this parent texts us (creating a real
   // iMessage chat), send it — this is the reliable iMessage-via-Photon path.
@@ -287,6 +294,7 @@ for await (const [space, message] of app.messages) {
     if (greeting) {
       console.log(`[greeting] sending waitlist confirmation to ${greetingPhone}`);
       await space.send(greeting).catch(() => {});
+      logOut('GREETING', `phone=${greetingPhone} msg=${greeting.slice(0, 60)}`);
     }
   }
 
@@ -380,8 +388,10 @@ for await (const [space, message] of app.messages) {
   // Send reliably: threaded reply if the platform supports it, else a plain message.
   try {
     await message.reply(reply);
+    logOut('REPLY', `space=${space.id} msgId=${MsgId(message)} text=${reply.slice(0, 60).replace(/\n/g, ' ⏎ ')}`);
   } catch {
     await space.send(reply).catch(() => {});
+    logOut('REPLY(fallback)', `space=${space.id} msgId=${MsgId(message)} text=${reply.slice(0, 60).replace(/\n/g, ' ⏎ ')}`);
   }
 }
 }
