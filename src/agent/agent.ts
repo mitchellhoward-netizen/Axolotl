@@ -3,7 +3,7 @@ import type { ActionIntent, IntentName } from '../domain/intents.js';
 import { isActionIntent } from '../domain/intents.js';
 import { getBool, getString, getStudentIds, type CollectedSlots } from '../domain/slots.js';
 import { fullName, type CaseRecord, type FamilyProfile } from '../domain/types.js';
-import { formatDate, parseDateHint } from '../lib/dates.js';
+import { formatDate, parseDateHint, parseReminderWhen, formatReminderWhen } from '../lib/dates.js';
 import type { CalendarProvider } from '../integrations/calendar.js';
 import type { MealsProvider } from '../integrations/meals.js';
 import type { Sis } from '../integrations/sis.js';
@@ -816,6 +816,20 @@ export class Agent {
           await startInitiative(parentId, label);
           return `Started initiative "${label}".`;
         },
+      },
+      remind: async (what, when) => {
+        const at = parseReminderWhen(when, this.now());
+        const caseId = `remind-${Date.now().toString(36)}`;
+        this.followups.schedule({
+          conversationId: this.currentConversationId,
+          caseId,
+          kind: 'verify',
+          dueAt: at,
+          body: this.localize(this.currentConversationId, `Reminder: ${what}`),
+        });
+        // Track it as an open case so it's visible in OPEN WORK (the follow-up is what fires).
+        state.cases = addCase(state.cases, makeCase({ kind: 'reminder', summary: `Reminder: ${what}`, reminder: formatReminderWhen(at), status: 'open' }));
+        return `Got it — I'll remind you ${formatReminderWhen(at)}: "${what}".`;
       },
       studentName: state.profile?.children[0]?.name,
     };

@@ -44,6 +44,8 @@ export interface ToolDeps {
     addGetting: (item: string) => Promise<string>;
     startInitiative: (label: string) => Promise<string>;
   };
+  /** Schedule a proactive reminder to message the parent at a time. */
+  remind?: (what: string, when: string) => Promise<string>;
   studentName?: string;
 }
 
@@ -464,6 +466,15 @@ export const LLM_TOOLS = [
       description:
         'Start (or refresh) a focused item the family is actively working toward, so the memory graph tracks it.',
       parameters: { type: 'object', properties: { label: { type: 'string' } }, required: ['label'] },
+    },
+  },
+  {
+    type: 'function',
+    function: {
+      name: 'set_reminder',
+      description:
+        'Set a reminder to MESSAGE THE PARENT at a time. Use when the parent asks to be reminded of something ("remind me to…", "remind me on Friday", "set a reminder for…"). Pass `what` = the thing to remind about and `when` = the time (e.g. "Friday", "tomorrow at 3pm", "in 2 hours", "next week"). The system schedules + fires it.',
+      parameters: { type: 'object', properties: { what: { type: 'string' }, when: { type: 'string' } }, required: ['what'] },
     },
   },
   { type: 'function', function: { name: 'now', description: 'Current date/time.', parameters: { type: 'object', properties: {} } } },
@@ -901,6 +912,13 @@ export async function runTool(name: string, args: Record<string, unknown>, deps:
       });
       return 'Logged.';
     }
+    case 'set_reminder': {
+      const what = String(args.what ?? '').trim();
+      const when = String(args.when ?? '').trim();
+      if (!what) return 'set_reminder needs "what" to remind about.';
+      if (!when) return 'set_reminder needs a "when" (e.g. "Friday", "tomorrow at 3pm", "in 2 hours").';
+      return (await deps.remind?.(what, when)) ?? `Got it — I'll remind you: ${what}.`;
+    }
     case 'now':
       return new Date().toISOString();
     default:
@@ -1025,6 +1043,7 @@ export function systemPrompt(ctx: BrainContext): string {
     `NEVER end with a passive handoff — no "contact X", "please reach out to", "your best bet is to". Instead offer: "I can reach out to X for you — want me to?" ` +
     `Act for the parent: when you decide to send an email or place a call, CALL the send_email / call_school tool RIGHT AWAY. The system enforces a hard consent gate and will ask the parent for a YES/NO before anything is actually sent — so do NOT ask for consent yourself. Just call the tool; it proposes the action and the system gates it. Log with log_case and set a follow-up reminder. ` +
     `You CAN place phone calls: if the parent asks you to call the school, office, district, principal, or "them," call the call_school tool. Never say you can't make calls — you can. ` +
+    `REMINDERS: when the parent asks to be reminded of something ("remind me to…", "remind me on Friday", "set a reminder for…"), CALL the set_reminder tool with the thing and the time — it schedules and messages them at that time. Never just say "ok" — actually call set_reminder, and confirm back when you'll remind them. ` +
     `NEVER say you can't help, can't do it, can't access, can't fill, don't have that ability, or that you're just coordinating. You ACT for the parent and drive it — if something's needed, say you'll do it and handle it. ` +
     `Use save_profile to remember the family, and log_case for new items. ` +
     `When the parent refers to something we're already doing ("try again", "go on", "the call", "the bus"), use the OPEN WORK and NOW context below to continue it — never act lost. ` +

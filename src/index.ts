@@ -132,21 +132,21 @@ function withTimeout<T>(promise: Promise<T>, ms: number, fallback: T): Promise<T
   return Promise.race([promise, new Promise<T>((resolve) => setTimeout(() => resolve(fallback), ms))]);
 }
 
-// Whimsical ocean/reef-themed reaction emoji — reacts to the vibe of the message
-// with cute sea creatures, coral, and bubbles, with a varied fallback.
+// Fun school-themed reaction emoji — reacts to the vibe of the message with
+// friendly classroom items, with a varied fallback.
 const REACTIONS: Array<[RegExp, string]> = [
-  [/\b(hello|hi|hey|yo|sup|morning|evening)\b/i, '🐬'], // dolphin surfacing
-  [/\b(bus|transport|ride|pickup|dropoff)\b/i, '🐢'], // turtle crossing
-  [/\b(meeting|conference|appointment|schedule|parent-teacher)\b/i, '🧜‍♀️'], // mermaid plans
-  [/\b(absence|absent|sick|missed|fever|doctor)\b/i, '🐳'], // whale of a day
-  [/\b(meal|lunch|food|voucher|breakfast|hungry)\b/i, '🐟'], // fish snack
-  [/\b(school|office|district|counselor|principal|teacher|class)\b/i, '🐙'], // octo-school
-  [/\b(homework|grade|assignment|test|progress)\b/i, '🐡'], // puffy study time
-  [/\b(call|phone|dial|ring)\b/i, '🐚'], // conch call
-  [/\b(email|send|message|letter)\b/i, '🏝️'], // island message
-  [/\b(thank|thanks|great|awesome|perfect|got it)\b/i, '🌟'], // starfish thanks
+  [/\b(hello|hi|hey|yo|sup|morning|evening)\b/i, '👋'], // waving hello
+  [/\b(bus|transport|ride|pickup|dropoff)\b/i, '🚌'], // school bus
+  [/\b(meeting|conference|appointment|schedule|parent-teacher)\b/i, '📅'], // calendar
+  [/\b(absence|absent|sick|missed|fever|doctor)\b/i, '🤒'], // sick day
+  [/\b(meal|lunch|food|voucher|breakfast|hungry)\b/i, '🍎'], // apple for lunch
+  [/\b(school|office|district|counselor|principal|teacher|class)\b/i, '🏫'], // schoolhouse
+  [/\b(homework|grade|assignment|test|progress)\b/i, '📓'], // homework
+  [/\b(call|phone|dial|ring)\b/i, '📞'], // phone
+  [/\b(email|send|message|letter)\b/i, '✉️'], // envelope
+  [/\b(thank|thanks|great|awesome|perfect|got it)\b/i, '⭐'], // gold star
 ];
-const FALLBACK_REACTIONS = ['🪸', '🐠', '🐬', '🐡', '🐳', '🐢', '🐚', '🌊', '🐟', '🦀', '🍥', '🪼', '🫧', '🏝️', '🌺', '🦑', '🐞', '🐙', '🧜‍♀️', '🐬', '🦎'];
+const FALLBACK_REACTIONS = ['🎒', '📚', '✏️', '🧮', '🔬', '🎨', '🧩', '🏀', '🎵', '🚀', '🌱', '☀️', '🦉', '🐻', '🏫'];
 
 function pickReaction(text: string): string {
   for (const [re, emoji] of REACTIONS) if (re.test(text)) return emoji;

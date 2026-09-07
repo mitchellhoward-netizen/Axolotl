@@ -109,3 +109,79 @@ export function formatDateTime(iso: string): string {
     minute: '2-digit',
   });
 }
+
+/**
+ * Parse a parent's free-text "when" into a concrete Date for a reminder.
+ * Understands "in N minutes/hours/days/weeks", today/tomorrow/next week, weekdays,
+ * "month day", and time-of-day words ("morning"=9am, "afternoon"=2pm,
+ * "evening"/"tonight"=6pm) plus "at H(:MM) am/pm". Falls back to one hour from
+ * now. If the parsed day+time is already past, it rolls to the next day.
+ */
+export function parseReminderWhen(when: string, now: Date = new Date()): Date {
+  const t = (when ?? '').toLowerCase().trim();
+
+  // "in 30 minutes" / "in 2 hours" / "in 3 days" / "in 1 week"
+  const inMatch = t.match(/in\s+(\d+)\s*(minute|min|hour|hrs?|day|week)/);
+  if (inMatch) {
+    const n = Number(inMatch[1]);
+    const u = inMatch[2]!;
+    const ms = /min/.test(u) ? 60_000 : /hour|hr/.test(u) ? 3_600_000 : /day/.test(u) ? 86_400_000 : 604_800_000;
+    return new Date(now.getTime() + n * ms);
+  }
+
+  // Base calendar day from a hint (today / tomorrow / weekday / next week / month day).
+  const baseIso = parseDateHint(when, now);
+  const base = baseIso ? new Date(`${baseIso}T00:00:00`) : null;
+
+  // Time of day — only when it's clearly a time (has am/pm or a colon), so we
+  // never misread e.g. "the 504 plan" or "grade 1".
+  let hour = 9;
+  let minute = 0;
+  let explicitTime = false;
+  const tm = t.match(/(\d{1,2})(?::(\d{2}))?\s*(am|pm)/) || t.match(/(\d{1,2}):(\d{2})/);
+  if (tm) {
+    let h = Number(tm[1]);
+    const m = tm[2] ? Number(tm[2]) : 0;
+    const mer = tm[3]?.toLowerCase();
+    if (mer === 'pm' && h < 12) h += 12;
+    else if (mer === 'am' && h === 12) h = 0;
+    hour = h;
+    minute = m;
+    explicitTime = true;
+  } else if (/morning/.test(t)) {
+    hour = 9;
+    explicitTime = true;
+  } else if (/afternoon/.test(t)) {
+    hour = 14;
+    explicitTime = true;
+  } else if (/\b(evening|night|tonight)\b/.test(t)) {
+    hour = 18;
+    explicitTime = true;
+  }
+
+  if (base) {
+    const d = new Date(base);
+    d.setHours(hour, minute, 0, 0);
+    if (d.getTime() <= now.getTime()) d.setDate(d.getDate() + 1);
+    return d;
+  }
+  if (explicitTime) {
+    const d = new Date(now);
+    d.setHours(hour, minute, 0, 0);
+    if (d.getTime() <= now.getTime()) d.setDate(d.getDate() + 1);
+    return d;
+  }
+  // Ambiguous date + time -> default to an hour from now.
+  return new Date(now.getTime() + 60 * 60 * 1000);
+}
+
+/** Friendly "when" for a reminder confirmation, e.g. "Fri, Sep 12 at 9:00 AM". */
+export function formatReminderWhen(d: Date): string {
+  return d.toLocaleString('en-US', {
+    weekday: 'short',
+    month: 'short',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: '2-digit',
+  });
+}
