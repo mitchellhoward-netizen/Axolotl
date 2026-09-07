@@ -16,23 +16,32 @@ with the confidence to ask, the honesty to not guess, and the guardrail to never
 | Belief state, info-gain scoring, ask/research/commit policy | `src/agent/intention.ts` |
 | LLM solution-generation | `LlmClient.generateIntentHypotheses` (`src/agent/llm.ts`) |
 | Consent-gated execution wiring | `Agent.resolveFuzzyIntent` / `stepsForCommittedIntention` (`src/agent/agent.ts`) |
-| Tests (48 cases) | `scripts/test-intention.ts` → `npm run test:intention` |
+| Tests (54 cases) | `scripts/test-intention.ts` → `npm run test:intention` |
 
 ## Status
 
-Implemented and green (`npm run test:intention` → 48/48, `npx tsc --noEmit` clean). It resolves and
+Implemented and green (`npm run test:intention` → 54/54, `npx tsc --noEmit` clean). It resolves and
 grounds, maps to a consent-gated step, and **never executes a consequential action without an
 explicit parent `YES`**. The browser hand's fill/submit still depends on the form being
 machine-fillable (see `bench/form-quirks.json`).
 
-**Review round (Claude) — fixed:** grounding is no longer hollow — each sub-claim kind is attested
-**only** from evidence that genuinely supports it (`extractGrounding`): a real URL for `formUrl`, a
-real date for `deadline`, a real email/phone for `contact`, an explicit eligibility signal for
-`eligibility`. A single node can no longer "attest" all four, so evidence-confidence reflects real
-grounding and the system **under-commits rather than guess** (a generic node yields 1/4 → stays
-`concentrated`). Verified: the brain loop's side-effecting tools (`send_email`, `account_action`,
-`submit_form`) **propose** consent-gated steps rather than execute, so the consent gate holds on
-submission.
+**Review round (Claude) — fixed:**
+- **Grounding is not hollow** — each sub-claim is attested **only** from evidence that genuinely
+  supports it (`extractGrounding`: a real URL for `formUrl`, a real date for `deadline`, a real
+  email/phone for `contact`, an explicit eligibility signal for `eligibility`). A single node can no
+  longer "attest" all four, so evidence-confidence reflects real grounding and the system
+  **under-commits rather than guess** (a generic node → 1/4 → stays `concentrated`).
+- **Consent is bound to the turn** — `pendingSteps` is resolved at the top of `handle()` with a strict
+  whole-message YES/NO; anything else **expires** the proposal, so a stray "ok thanks" can never fire
+  stale steps. (The brain loop's side-effecting tools `send_email`/`account_action`/`submit_form`
+  **propose** consent-gated steps rather than execute, so the gate holds on submission.)
+- **Sensitive-dimension carve-out** — residency/housing is marked `sensitive`; for a displaced family
+  it is excluded from ask candidates and the fallback (hand off rather than interrogate housing).
+- **Identity verification ON by default** — `requireVerification` now defaults to `true` unless
+  explicitly disabled via env or option; local `demo`/`chat` disable it.
+- **Commit is evidence-driven, not belief-driven (calibration)** — `committedHypothesis` selects the
+  best-**evidenced** hypothesis (no miscalibrated-LLM-belief gate on pursuit); high belief + weak
+  evidence stays `concentrated` (not committed).
 
 ## Provenance
 
@@ -540,7 +549,7 @@ to be an explicit policy step**, not something the model does implicitly.
   generates the hypothesis space (LLM first, stub fallback), (2) grounds the leading hypothesis via
   `groundClaim` (runs `researchDistrictNodes`), and (3) acts — surfacing the most informative
   clarifying question, a grounded answer, or an honest handoff.
-- **`scripts/test-intention.ts`** — 48 checks incl. the even-partition rule, divergence detection,
+- **`scripts/test-intention.ts`** — 54 checks incl. the even-partition rule, divergence detection,
   grounding-vs-discrimination, Ask-F1, LLM mapping, and grounding-before-commit, plus the end-to-end
   seam on real fuzzy parent messages.
 

@@ -4,6 +4,7 @@ import {
   unknownDecisionFlips,
   eigForPartition,
   divergence,
+  concentrated,
   buildIntention,
   decide,
   AskF1Tracker,
@@ -293,6 +294,34 @@ console.log('\n# 11. Grounding is NOT hollow — a single node cannot attest eve
   const grounded = await groundIntention(intention, async () => extractGrounding(generic, ['formUrl', 'deadline', 'eligibility', 'contact']));
   const conf = grounded.hypotheses[0]!.evidenceConfidence;
   check('generic node -> evidenceConfidence = 1/4, NOT committed (under-commits safely)', Math.abs(conf - 0.25) < 1e-9 && grounded.status !== 'committed', `conf=${conf} status=${grounded.status}`);
+}
+
+console.log('\n# 12. Sensitive-dimension carve-out (displaced family is never interrogated on housing)');
+{
+  const u = structuredIgnorance(EMPTY_PROFILE);
+  check('by default residency is a decision-flip candidate', unknownDecisionFlips(u)[0]?.dimension === 'residency');
+  const flipsNoSensitive = unknownDecisionFlips(u, false);
+  check('displaced context -> residency excluded from ask candidates', !flipsNoSensitive.some((f) => f.dimension === 'residency'), flipsNoSensitive.map((f) => f.dimension).join(','));
+  check('displaced -> askFromUnknowns does NOT probe residence', !/district|city/.test(askFromUnknowns(u, false) ?? ''), askFromUnknowns(u, false) ?? '');
+  // Sensitive dims are still available when the context is NOT displaced.
+  check('non-displaced -> residency still the default ask', /district|city/.test(askFromUnknowns(u, true) ?? ''));
+}
+
+console.log('\n# 13. Commit is evidence-driven, not belief-driven (calibration)');
+{
+  // Low belief but strong evidence -> COMMITS (evidence gates commit, not miscalibrated belief).
+  const lowBeliefHighEvidence = [
+    h({ id: 'a', claim: 'X', belief: 0.3, evidenceConfidence: 0.9, subClaims: [sc('formUrl', true), sc('deadline', true), sc('eligibility', true), sc('contact', true)] }),
+    h({ id: 'b', claim: 'Y', belief: 0.7, evidenceConfidence: 0.1, subClaims: [sc('formUrl', false)] }),
+  ];
+  check('evidence commits even with low belief', divergence(lowBeliefHighEvidence) === 'committed');
+
+  // High belief but weak evidence -> concentrated, NOT committed (no over-confident commit).
+  const highBeliefLowEvidence = [
+    h({ id: 'a', claim: 'X', belief: 0.9, evidenceConfidence: 0.2, subClaims: [sc('formUrl', false)] }),
+    h({ id: 'b', claim: 'Y', belief: 0.1, evidenceConfidence: 0.1 }),
+  ];
+  check('high belief + weak evidence -> concentrated (not committed)', divergence(highBeliefLowEvidence) === 'concentrated' && concentrated(highBeliefLowEvidence)?.id === 'a');
 }
 
 console.log('\n========================================');

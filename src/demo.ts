@@ -14,6 +14,7 @@ const agent = new Agent({
   db,
   defaultParentId: 'parent-maya',
   now: () => new Date('2026-09-02T12:00:00-07:00'),
+  requireVerification: false, // local scripted demo; production defaults ON
 });
 
 const SCRIPT = [

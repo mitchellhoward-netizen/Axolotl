@@ -27,6 +27,7 @@ const agent = new Agent({
   meals: new MockMealsProvider(Object.fromEntries(db.students.map((s) => [s.id, s.mealStatus]))),
   db,
   llm: LLM_API_KEY ? new LlmClient({ apiKey: LLM_API_KEY, baseUrl: LLM_BASE_URL, model: LLM_MODEL }) : undefined,
+  requireVerification: false, // local interactive dev; production defaults ON
 });
 
 agent.bindParent('terminal', parent!.id);

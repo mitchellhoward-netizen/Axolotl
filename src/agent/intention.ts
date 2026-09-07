@@ -41,6 +41,8 @@ export interface FamilyUnknown {
   value?: string;
   /** Absence of this dimension could CHANGE which program/entitlement a family qualifies for. */
   decisionFlip: boolean;
+  /** Sensitive (housing/residency) — for displaced families we hand off rather than interrogate. */
+  sensitive: boolean;
   /** The clarifying question to ask if we need this dimension. */
   askPrompt: string;
 }
@@ -58,9 +60,10 @@ const DIMENSION_PRIORITY: FamilyDimension[] = [
   'language',
 ];
 
-const DIMENSION_SPECS: Record<FamilyDimension, { decisionFlip: boolean; askPrompt: string }> = {
+const DIMENSION_SPECS: Record<FamilyDimension, { decisionFlip: boolean; sensitive?: boolean; askPrompt: string }> = {
   residency: {
     decisionFlip: true,
+    sensitive: true,
     askPrompt: 'Which district or city do you live in now? That determines which enrollment portal and programs apply.',
   },
   schoolType: {
@@ -139,20 +142,23 @@ export function structuredIgnorance(profile: FamilyProfile): FamilyUnknown[] {
   return (Object.keys(DIMENSION_SPECS) as FamilyDimension[]).map((dimension) => {
     const spec = DIMENSION_SPECS[dimension]!;
     const { known, value } = profileValue(profile, dimension);
-    return { dimension, known, value, decisionFlip: spec.decisionFlip, askPrompt: spec.askPrompt };
+    return { dimension, known, value, decisionFlip: spec.decisionFlip, sensitive: spec.sensitive ?? false, askPrompt: spec.askPrompt };
   });
 }
 
-/** The decision-flip unknowns we have NOT yet confirmed — the ones we must ask about before committing. */
-export function unknownDecisionFlips(unknowns: FamilyUnknown[]): FamilyUnknown[] {
+/**
+ * The decision-flip unknowns we have NOT yet confirmed. Pass `allowSensitive = false` in a
+ * displaced/homeless/housing-sensitive context so the agent never interrogates residency/housing.
+ */
+export function unknownDecisionFlips(unknowns: FamilyUnknown[], allowSensitive = true): FamilyUnknown[] {
   return unknowns
-    .filter((u) => u.decisionFlip && !u.known)
+    .filter((u) => u.decisionFlip && !u.known && (allowSensitive || !u.sensitive))
     .sort((a, b) => DIMENSION_PRIORITY.indexOf(a.dimension) - DIMENSION_PRIORITY.indexOf(b.dimension));
 }
 
 /** Pick the clarifying question targeting the highest-value decision-flip unknown (or null if none). */
-export function askFromUnknowns(unknowns: FamilyUnknown[]): string | null {
-  const flip = unknownDecisionFlips(unknowns);
+export function askFromUnknowns(unknowns: FamilyUnknown[], allowSensitive = true): string | null {
+  const flip = unknownDecisionFlips(unknowns, allowSensitive);
   return flip[0]?.askPrompt ?? null;
 }
 
@@ -213,19 +219,35 @@ export function beliefEntropy(hypotheses: Hypothesis[]): number {
   return entropy;
 }
 
-/** A hypothesis is committed-when the belief is concentrated AND the grounding is attested (DualStake). */
-export function concentrated(hypotheses: Hypothesis[], beliefThreshold = 0.65): Hypothesis | null {
+/** Evidence-confidence required for a hypothesis to be treated as committed (DualStake: real grounding, not belief). */
+export const EVIDENCE_COMMIT_THRESHOLD = 0.6;
+/** Belief dominance threshold for picking a directional leader when evidence is weak (miscalibrated LLM prior). */
+export const BELIEF_DOMINANCE = 0.65;
+
+/**
+ * The hypothesis we COMMIT to is the best-EVIDENCED one (highest evidence-confidence above the
+ * commit threshold) — NOT the highest raw LLM belief. LLM beliefs are miscalibrated (DualStake),
+ * whereas attestation is real; so evidence, not belief concentration, gates the commitment.
+ */
+export function committedHypothesis(hypotheses: Hypothesis[]): Hypothesis | null {
+  if (hypotheses.length === 0) return null;
+  const best = [...hypotheses].sort((a, b) => b.evidenceConfidence - a.evidenceConfidence)[0]!;
+  return best.evidenceConfidence >= EVIDENCE_COMMIT_THRESHOLD ? best : null;
+}
+
+/** The candidate to act on: the committed (best-evidenced) hypothesis, else the directional belief leader. */
+export function concentrated(hypotheses: Hypothesis[], beliefThreshold = BELIEF_DOMINANCE): Hypothesis | null {
+  const commit = committedHypothesis(hypotheses);
+  if (commit) return commit;
   const total = hypotheses.reduce((s, h) => s + h.belief, 0) || 1;
-  const best = [...hypotheses].sort((a, b) => b.belief - a.belief)[0];
-  if (!best) return null;
+  const best = [...hypotheses].sort((a, b) => b.belief - a.belief)[0]!;
   return best.belief / total >= beliefThreshold ? best : null;
 }
 
-export function divergence(hypotheses: Hypothesis[], beliefThreshold = 0.65): IntentionStatus {
+export function divergence(hypotheses: Hypothesis[], beliefThreshold = BELIEF_DOMINANCE): IntentionStatus {
   if (hypotheses.length === 0) return 'unresolvable';
-  const best = concentrated(hypotheses, beliefThreshold);
-  if (best) return best.evidenceConfidence >= 0.6 ? 'committed' : 'concentrated';
-  // Several plausible directions with no dominant one => divergent state (HypoSearch).
+  if (committedHypothesis(hypotheses)) return 'committed';
+  if (concentrated(hypotheses, beliefThreshold)) return 'concentrated';
   if (hypotheses.length >= 2) return 'divergent';
   return 'concentrated';
 }
@@ -284,9 +306,10 @@ export function buildAskCandidates(
   unknowns: FamilyUnknown[],
   hypotheses: Hypothesis[],
   askCost: number,
+  allowSensitive = true,
 ): CandidateAction[] {
   const out: CandidateAction[] = [];
-  for (const u of unknownDecisionFlips(unknowns)) {
+  for (const u of unknownDecisionFlips(unknowns, allowSensitive)) {
     const buckets = new Map<string, number>();
     for (const h of hypotheses) {
       const key = h.assumptions?.[u.dimension] ?? '?';
@@ -321,6 +344,8 @@ export interface PolicyOptions {
   askCost: number;
   /** For an 'ask', the fallback decision-flip question if no candidate action is better. */
   decisionFlipQuestion?: string | null;
+  /** When false, sensitive dimensions (housing/residency) are excluded from ask candidates. */
+  allowSensitive?: boolean;
   evidenceNeeded?: SubClaimKind[];
   /** If provided, used as the research query when grounding a concentrated-but-unattested hypothesis. */
   groundQuery?: string;
@@ -391,7 +416,7 @@ export function decide(
   }
 
   // Priority: a family-private decision-flip ask over research, because research can't answer it.
-  const askCandidates = buildAskCandidates(unknowns, hypotheses, opts.askCost);
+  const askCandidates = buildAskCandidates(unknowns, hypotheses, opts.askCost, opts.allowSensitive ?? true);
   const scoredAsks = scoreActions(askCandidates, count);
   const bestAsk = scoredAsks
     .filter((a) => a.score > opts.minValue)

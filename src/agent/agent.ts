@@ -178,7 +178,7 @@ export class Agent {
 
   constructor(private readonly opts: AgentOptions) {
     this.now = opts.now ?? (() => new Date());
-    this.requireVerification = opts.requireVerification ?? process.env.REQUIRE_VERIFICATION === 'true';
+    this.requireVerification = opts.requireVerification ?? process.env.REQUIRE_VERIFICATION !== 'false';
   }
 
   async handle(conversationId: string, text: string): Promise<AgentTurn> {
@@ -206,10 +206,31 @@ export class Agent {
       const state = record.state;
       this.store.appendHistory(conversationId, 'user', text.trim());
 
+      // ── Consent resolution for a pending consequential action ───────────────
+      // If we proposed consent-gated steps (intelligence layer or brain) and the parent is now
+      // replying, this message is consent resolution ONLY. Anything that isn't a strict whole-message
+      // YES or NO EXPIRES the proposal, so a stray "ok thanks" (continuing some other exchange) can
+      // never fire a stale submission. Execution never happens until the parent affirms explicitly.
+      if (state.pendingSteps?.some((s) => s.requiresConsent)) {
+        if (isStrictConsent(text)) {
+          const results = await this.runSteps(state.pendingSteps, this.resolveMode(), state);
+          const summary = results.map((r) => r.parentSummary).join('\n');
+          this.save(conversationId, { phase: 'done', collected: {}, pendingSteps: undefined }, state);
+          return { text: `Done!\n${summary}`, phase: 'done', resolved: true };
+        }
+        if (isStrictDecline(text)) {
+          this.save(conversationId, { phase: 'idle', collected: {}, pendingSteps: undefined }, state);
+          return { text: 'No problem — I won\u2019t send anything. What else can I help with?', phase: 'idle' };
+        }
+        // Not a clear yes/no: the parent changed subject or wasn't consenting. Expire the proposal
+        // and fall through to respond to the NEW message — never loop on "reply yes/no".
+        this.save(conversationId, { phase: 'idle', collected: {}, pendingSteps: undefined }, state);
+      }
+
       // ── Phone + OTP identity ────────────────────────────────────────────────
       // Phone = parent ID. When verification is on and this number isn't verified,
       // gate onboarding behind a one-time SMS code (parent replies the code over
-      // iMessage to prove they own the number). Off by default (REQUIRE_VERIFICATION).
+      // iMessage to prove they own the number). On by default (REQUIRE_VERIFICATION=false disables).
       if (this.requireVerification && ctx.parent.phone && !(await isVerified(ctx.parent.phone))) {
         if (!state.verify) {
           const started = await startVerification(ctx.parent.phone);
@@ -1094,26 +1115,13 @@ export class Agent {
     if (this.opts.llm?.enabled) {
       const brain = await this.brain(text, state, history, parentId);
       if (brain) {
-        // If the brain just proposed consent-gated steps AND the parent's message
-        // was an explicit "yes/submit it/do it", treat that as consent and run the
-        // steps NET NOW — don't make the parent confirm twice.
-        if (state.pendingSteps?.some((s) => s.requiresConsent) && isAffirmative(text)) {
-          const results = await this.runSteps(state.pendingSteps, this.resolveMode(), state);
-          const summary = results.map((r) => r.parentSummary).join('\n');
-          return { turn: { text: `Done!\n${summary}`, phase: 'done', resolved: true }, state: { phase: 'done', collected: {}, cases: state.cases, pendingSteps: undefined } };
-        }
+        // Any pending consent-gated steps are resolved at the top of handle() (before the brain),
+        // so a brain turn here never also fires stale steps.
         return brain;
       }
     }
 
     // Fallback (no key, or the LLM couldn't resolve): structured flows.
-    // Honor a consent-gated intention proposal even without the LLM: if we proposed
-    // consent-requiring steps (from the intelligence layer) and the parent affirms, run them.
-    if (state.pendingSteps?.some((s) => s.requiresConsent) && isAffirmative(text)) {
-      const results = await this.runSteps(state.pendingSteps, this.resolveMode(), state);
-      const summary = results.map((r) => r.parentSummary).join('\n');
-      return { turn: { text: `Done!\n${summary}`, phase: 'done', resolved: true }, state: { phase: 'done', collected: {}, cases: state.cases, pendingSteps: undefined } };
-    }
     if (detected.name === 'case_status') {
       return { turn: { text: openCaseSummary(state.cases), phase: 'done' }, state: { phase: 'done', collected: {}, cases: state.cases } };
     }
@@ -1150,15 +1158,20 @@ export class Agent {
     if (hypotheses.length < 2) hypotheses = hypothesize(text, profile);
     if (hypotheses.length < 2) return null;
 
+    // In a displaced/homeless context, never interrogate sensitive housing/residency dimensions —
+    // hand off (or ask a non-sensitive question) instead of probing where the family lives.
+    const displaced = /homeless|displaced|mckinney|evict(ed)?|no (permanent|fixed|stable) address|staying (at|in a)? ?(the )?(car|motel|hotel|shelter|sofa|couch)|doubled.?up|transitional housing|couch ?surf/i.test(`${(profile.challenges ?? []).join(' ')} ${text}`);
+    const allowSensitive = !displaced;
+
     let intention: Intention = buildIntention(text, profile, hypotheses);
-    let decision = decide(intention, [], { minValue: 0.05, budgetUsed: 0, budgetCap: 3, askCost: 0.4, decisionFlipQuestion: askFromUnknowns(intention.unknowns) });
+    let decision = decide(intention, [], { minValue: 0.05, budgetUsed: 0, budgetCap: 3, askCost: 0.4, decisionFlipQuestion: askFromUnknowns(intention.unknowns, allowSensitive), allowSensitive });
 
     // 2. If the policy wants (grounding) research, run it once, then re-decide.
     if (decision.action === 'research' && decision.researchQuery) {
       const grounded = await groundIntention(intention, (claim, kinds) => this.groundClaim(claim, kinds, profile));
       if (grounded !== intention) {
         intention = grounded;
-        decision = decide(intention, [], { minValue: 0.05, budgetUsed: 1, budgetCap: 3, askCost: 0.4, decisionFlipQuestion: askFromUnknowns(intention.unknowns) });
+        decision = decide(intention, [], { minValue: 0.05, budgetUsed: 1, budgetCap: 3, askCost: 0.4, decisionFlipQuestion: askFromUnknowns(intention.unknowns, allowSensitive), allowSensitive });
       } else {
         // Grounding returned nothing (no district to research / no LLM): don't guess a form or
         // deadline the parent could act on — hand off honestly instead.
@@ -1455,10 +1468,21 @@ function parseYesNo(text: string): boolean | null {
   return null;
 }
 
-/** Broader affirmative check — catches "yes", "submit it", "go ahead", "do it". */
-function isAffirmative(text: string): boolean {
+/**
+ * Strict, whole-message consent for a consequential action (filling/submitting a form on behalf of a
+ * child). Unlike the looser "yes/submit it" prefix match used for casual affirmatives, this requires
+ * the entire message to BE a confirmation phrase, so a stray "ok thanks" (which continues another
+ * exchange) can never fire a stale submission.
+ */
+function isStrictConsent(text: string): boolean {
   const t = text.trim().toLowerCase().replace(/[.!?]+$/, '');
-  return /^(y|yes|yeah|yep|yup|sure|ok|okay|kk|confirm|do it|go ahead|go|please|absolutely|definitely|submit|submit it|yes please|go for it|do it now)\b/.test(t);
+  return /^(y|yes|yeah|yep|yup|sure|ok|okay|kk|confirm|do it|go ahead|go ahead and do it|go|please|absolutely|definitely|submit|submit it|submit it now|yes please|go for it|do it now)\s*$/.test(t);
+}
+
+/** Strict, whole-message refusal for a pending consequential action. */
+function isStrictDecline(text: string): boolean {
+  const t = text.trim().toLowerCase().replace(/[.!?]+$/, '');
+  return /^(n|no|nope|cancel|change|not that|stop|hold on|don't|dont|never mind|nevermind|skip|change it)\s*$/.test(t);
 }
 
 function yesNo(): Suggestion[] {
