@@ -588,6 +588,43 @@ export async function browserClickBySelector(selector: string): Promise<BrowserR
   }
 }
 
+export interface SelectControl {
+  name: string;
+  options: Array<{ value: string; text: string }>;
+}
+export interface RoleControl {
+  role: string;
+  text: string;
+  checked: boolean;
+}
+
+/** Read native <select> options and custom checkbox/radio widgets (Angular Material etc.). */
+export async function browserFormControls(): Promise<
+  BrowserResult<{ selects: SelectControl[]; roleControls: RoleControl[] }>
+> {
+  const h = await getPage();
+  if (!h) return { ok: false, reason: 'browser not configured' };
+  try {
+    const raw = (await (h.page as unknown as { evaluate: (expr: string) => Promise<unknown> }).evaluate(
+      `(() => {
+        const selects = [...document.querySelectorAll('select')].map((s) => ({
+          name: s.getAttribute('name') || '',
+          options: [...s.options].map((o) => ({ value: o.value, text: (o.textContent || '').trim() })),
+        }));
+        const roleControls = [...document.querySelectorAll('[role="radio"], [role="checkbox"], mat-radio-button, mat-checkbox, .mat-radio-button, .mat-checkbox')].map((e) => ({
+          role: e.getAttribute('role') || e.tagName.toLowerCase(),
+          text: (e.textContent || '').trim().replace(/\\s+/g, ' '),
+          checked: e.getAttribute('aria-checked') === 'true' || e.classList.contains('mat-radio-checked') || e.classList.contains('mat-checkbox-checked'),
+        }));
+        return { selects, roleControls };
+      })()`,
+    )) as { selects: SelectControl[]; roleControls: RoleControl[] };
+    return { ok: true, data: raw };
+  } catch (e) {
+    return { ok: false, reason: String((e as Error)?.message ?? e) };
+  }
+}
+
 /** Extract text from a PDF by URL. Scanned PDFs may yield no text (→ OCR later). */
 export async function extractPdf(url: string): Promise<BrowserResult<{ text: string }>> {
   try {
