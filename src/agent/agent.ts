@@ -795,7 +795,10 @@ export class Agent {
         }
         if (!nodes.length) return 'No researched knowledge for that yet.';
         const nodeText = nodes
-          .map((n) => `- [${assessKnowledgeNode(n)}] ${n.category}: ${n.title} — ${n.summary}${n.law ? ` (${n.law})` : ''}`)
+          .map((n) => {
+            const urls = (n.sources ?? []).map((s) => s.url).filter(Boolean).join(', ');
+            return `- [${assessKnowledgeNode(n)}] ${n.category}: ${n.title} — ${n.summary}${n.law ? ` (${n.law})` : ''}${urls ? ` · ${urls}` : ''}`;
+          })
           .join('\n');
         // Reuse path: prefer the typed resource graph's concrete chain (form/
         // contact/deadline) and a saved procedure over re-deriving them.
