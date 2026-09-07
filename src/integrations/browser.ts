@@ -240,6 +240,29 @@ async function fillByType(page: Page, selector: string, type: string, value: str
   }
 }
 
+/** Find a selector for a field by matching its placeholder/name/aria-label to the label. */
+async function findSelectorByLabel(page: Page, label: string): Promise<string | undefined> {
+  try {
+    const sel = (await (page as unknown as { evaluate: (expr: string) => Promise<unknown> }).evaluate(
+      `((label) => {
+        const norm = (s) => (s || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+        const ls = norm(label);
+        const els = [...document.querySelectorAll('input, textarea, select')];
+        const el =
+          els.find((e) => norm(e.getAttribute('placeholder') || '') === ls) ||
+          els.find((e) => e.getAttribute('name') && norm(e.getAttribute('name') || '').replace(/[_\\[\\]]/g, ' ').trim() === ls) ||
+          els.find((e) => norm(e.getAttribute('aria-label') || '') === ls) ||
+          els.find((e) => e.getAttribute('name') && ls.split(' ').some((w) => w.length >= 3 && norm(e.getAttribute('name') || '').includes(w)));
+        if (el) { el.setAttribute('data-axl-alt', '1'); return '[data-axl-alt="1"]'; }
+        return null;
+      })(${JSON.stringify(label)})`,
+    )) as string | null;
+    return sel ?? undefined;
+  } catch {
+    return undefined;
+  }
+}
+
 /**
  * Fill form fields by natural-language label. Strategy: read the fields + their DOM
  * selectors straight from the DOM (deterministic, fast), fill via page.locator().fill()
@@ -260,13 +283,18 @@ export async function browserFill(
     const leftovers: Array<{ label: string; value: string }> = [];
 
     for (const f of fields) {
-      // Text/select/textarea → deterministic fill. Radio/checkbox/dropdown fall
-      // through to a natural-language act (Stagehand reads the accessibility tree).
+      // Text/select/textarea → deterministic fill. Escalate: label → selector
+      // (placeholder/name) → natural-language act for the rest.
       const target = findField(form.fields, f.label);
       if (target?.selector && target.type && !used.has(target.selector) && (await fillByType(h.page, target.selector, target.type, f.value))) {
         used.add(target.selector);
       } else {
-        leftovers.push(f);
+        const altSel = await findSelectorByLabel(h.page, f.label);
+        if (altSel && !used.has(altSel) && (await fillByType(h.page, altSel, 'text', f.value))) {
+          used.add(altSel);
+        } else {
+          leftovers.push(f);
+        }
       }
     }
     if (leftovers.length) await h.stagehand.act(buildFillInstruction(leftovers));
@@ -762,6 +790,18 @@ export async function browserFillBySelector(selector: string, value: string): Pr
   try {
     await h.page.locator(selector).fill(value);
     return { ok: true, data: true };
+  } catch (e) {
+    return { ok: false, reason: String((e as Error)?.message ?? e) };
+  }
+}
+
+/** Capture a screenshot of the current page (base64 PNG) — for vision-based reading. */
+export async function browserScreenshot(): Promise<BrowserResult<{ data: string; mimeType: string }>> {
+  const h = await getPage();
+  if (!h) return { ok: false, reason: 'browser not configured' };
+  try {
+    const buf = (await h.page.screenshot()) as Buffer;
+    return { ok: true, data: { data: buf.toString('base64'), mimeType: 'image/png' } };
   } catch (e) {
     return { ok: false, reason: String((e as Error)?.message ?? e) };
   }
