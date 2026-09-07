@@ -23,7 +23,8 @@
     "test:pdf": "tsx scripts/test-pdf.ts",
     "test:pdf-capitola": "tsx scripts/test-pdf-capitola.ts",
     "test:account": "tsx scripts/test-account.ts",
-    "test:submit": "tsx scripts/test-submit-flow.ts"
+    "test:submit": "tsx scripts/test-submit-flow.ts",
+    "test:forms": "tsx scripts/test-form-benchmark.ts"
   },
   "dependencies": {
     "@browserbasehq/stagehand": "^4.0.2",
