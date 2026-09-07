@@ -17,6 +17,7 @@ import { startVerification, verifyCode, isVerified, sendVerificationCode } from 
 import { KnowledgeGraph, autoResearchDistrict } from '../knowledge/graph.js';
 import { resolveAnyDistrict } from '../knowledge/discovery.js';
 import { researchDistrictNodes, inferCategory } from '../knowledge/research.js';
+import type { CandidateNode } from '../knowledge/research.js';
 import { searchSchoolGraph, chainSummary } from '../knowledge/resource-graph.js';
 import { buildPreCallBrief } from '../knowledge/precall.js';
 import { embeddingsConfigured, embedTexts } from '../integrations/embeddings.js';
@@ -41,7 +42,7 @@ import { persistProvisionedFamily } from '../integrations/identity.js';
 import { executeTool } from '../tools/registry.js';
 import type { ToolContext } from '../tools/types.js';
 import type { IntentEngine } from './intent/engine.js';
-import { hypothesesFromLLM, buildIntention, decide, concentrated, hypothesize, askFromUnknowns, groundIntention } from './intention.js';
+import { hypothesesFromLLM, buildIntention, decide, concentrated, hypothesize, askFromUnknowns, groundIntention, extractGrounding } from './intention.js';
 import type { Hypothesis, Intention, SubClaimKind } from './intention.js';
 import { InMemoryStore, type ChatMessage } from './memory.js';
 import { resolveLocale, localizeFollowup, detectLocale } from '../lib/bilingual.js';
@@ -86,6 +87,8 @@ function qualifiedSchool(p?: FamilyProfile): string {
   if (!p?.school) return 'their school';
   return p.location?.trim() ? `${p.school} ${p.location.trim()}` : p.school;
 }
+
+/** Scan candidate nodes for the first evidence matching `pattern`; return `{value, source}`. */
 
 export interface Suggestion {
   kind: 'quickReplies' | 'listPicker';
@@ -1205,8 +1208,17 @@ export class Agent {
 
   /**
    * Ground a claim by running real web research for the district/school and attesting the claim's
-   * sub-claims (form URL, deadline, eligibility, contact) from what comes back. Returns null when
-   * there's no district to research (or no LLM), which makes `groundIntention` a no-op.
+   * sub-claims. Each sub-claim kind is attested ONLY from evidence that actually supports that kind:
+   *  - formUrl      → a real URL from a retrieved node (never a made-up one);
+   *  - deadline     → a concrete date/date-range string found in the evidence;
+   *  - contact      → an email/phone found in the evidence;
+   *  - eligibility  → an explicit eligibility signal (free/reduced, SNAP/CalFresh, income threshold).
+   * A single node is never allowed to "attest" every kind at once — that was a bug: `deadline`,
+   * `contact`, and `eligibility` were all being copied verbatim from the same `summary`, so
+   * "evidence-confidence ≥ 0.6" reduced to "the research call returned at least one node." Now a
+   * kind that isn't genuinely evidenced stays unattested, so the hypothesis can only `commit` on
+   * real grounding. Returns null (a no-op for `groundIntention`) when little/no evidence exists —
+   * which makes the system under-commit rather than guess — or when the research call throws.
    */
   private async groundClaim(
     claim: string,
@@ -1217,15 +1229,17 @@ export class Agent {
     const districtName = profile.district ?? profile.location ?? '';
     const schoolName = profile.school ?? '';
     if (!districtName || !llm?.enabled) return null;
-    const nodes = await researchDistrictNodes(districtName, schoolName, llm, claim);
+    let nodes: CandidateNode[];
+    try {
+      nodes = await researchDistrictNodes(districtName, schoolName, llm, claim);
+    } catch {
+      // Never let a research failure surface as a generic error — hand off honestly.
+      return null;
+    }
     if (!nodes.length) return null;
-    const top = nodes[0]!;
-    const out: Partial<Record<SubClaimKind, { value: string; source: string }>> = {};
-    if (kinds.includes('formUrl')) out.formUrl = { value: top.url, source: top.title };
-    if (kinds.includes('contact')) out.contact = { value: top.summary, source: top.title };
-    if (kinds.includes('deadline')) out.deadline = { value: top.summary, source: top.title };
-    if (kinds.includes('eligibility')) out.eligibility = { value: top.summary, source: top.title };
-    return out;
+    // Attest each sub-claim kind ONLY from evidence that genuinely supports that kind (a single
+    // node can no longer "attest" deadline/contact/eligibility from one summary blob).
+    return extractGrounding(nodes, kinds);
   }
 
   /**

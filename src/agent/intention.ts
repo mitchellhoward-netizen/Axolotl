@@ -274,21 +274,6 @@ export function scoreActions(actions: CandidateAction[], total: number): ScoredA
 }
 
 /**
- * Compute the info-gain of a clarifying question about a decision-flip dimension, by grouping the
- * hypotheses according to the value each ASSUMES for that dimension. A question that splits the
- * hypotheses evenly (i.e., along a genuinely discriminating dimension) has high EIG; a question
- * on a dimension where every hypothesis agrees has ~0 EIG and is dropped.
- */
-export function askEig(dimension: FamilyDimension, hypotheses: Hypothesis[]): number {
-  const buckets = new Map<string, number>();
-  for (const h of hypotheses) {
-    const key = h.assumptions?.[dimension] ?? '?';
-    buckets.set(key, (buckets.get(key) ?? 0) + 1);
-  }
-  return eigForPartition([...buckets.values()], hypotheses.length);
-}
-
-/**
  * Build the candidate clarifying questions from the UNCONFIRMED decision-flip unknowns, each scored
  * by how well it discriminates the current hypothesis space. We group the hypotheses by the value
  * each ASSUMES for the dimension, and a question only counts if that split is non-trivial (eig > 0).
@@ -589,6 +574,56 @@ export function groundIntention(
     const hypotheses = [...byId.values()];
     return buildIntention(intention.message, intention.profile, hypotheses);
   });
+}
+
+export interface EvidenceNode {
+  title?: string;
+  summary?: string;
+  url?: string;
+}
+
+const DEADLINE_RE = /(?:by|before|due|deadline|on)\s+(?:\w+\s+)?\d{1,2}(?:st|nd|rd|th)?(?:,?\s+\d{4})?|\d{1,2}[/-]\d{1,2}[/-]\d{2,4}|(?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\s+\d{1,2}(?:st|nd|rd|th)?(?:,?\s+\d{4})?/i;
+const CONTACT_RE = /[\w.+-]+@[\w-]+\.[\w.]+|\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}/;
+const ELIGIBILITY_RE = /free.{0,3}and.{0,3}reduced|free\/reduced|snap|calfresh|food (?:stamps|assistance)|income.{0,12}eligib|18[0-9]%|federal poverty|low.{0,6}income/i;
+
+/**
+ * Attest each requested sub-claim kind ONLY from evidence that genuinely supports THAT kind.
+ * A single node is never permitted to attest every kind: `deadline`, `contact`, and `eligibility`
+ * require the evidence to actually contain a date, an email/phone, or an eligibility signal
+ * respectively. `formUrl` uses a real node URL. Any kind without genuine evidence is left out, so
+ * the hypothesis can only reach `committed` on real grounding (and under-commits otherwise).
+ */
+export function extractGrounding(
+  nodes: EvidenceNode[],
+  kinds: SubClaimKind[],
+): Partial<Record<SubClaimKind, { value: string; source: string }>> | null {
+  if (!nodes.length) return null;
+  const out: Partial<Record<SubClaimKind, { value: string; source: string }>> = {};
+  const top = nodes[0]!;
+  if (kinds.includes('formUrl') && top.url) out.formUrl = { value: top.url, source: top.title ?? top.url };
+
+  const scan = (re: RegExp): { value: string; source: string } | null => {
+    for (const n of nodes) {
+      const text = `${n.summary ?? ''} ${n.title ?? ''}`;
+      const m = text.match(re);
+      if (m?.[0]) return { value: m[0], source: n.title || text };
+    }
+    return null;
+  };
+
+  if (kinds.includes('deadline')) {
+    const d = scan(DEADLINE_RE);
+    if (d) out.deadline = d;
+  }
+  if (kinds.includes('contact')) {
+    const c = scan(CONTACT_RE);
+    if (c) out.contact = c;
+  }
+  if (kinds.includes('eligibility')) {
+    const e = scan(ELIGIBILITY_RE);
+    if (e) out.eligibility = e;
+  }
+  return Object.keys(out).length ? out : null;
 }
 
 /**

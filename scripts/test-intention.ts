@@ -11,6 +11,7 @@ import {
   resolveFuzzyMessage,
   hypothesesFromLLM,
   groundIntention,
+  extractGrounding,
 } from '../src/agent/intention.js';
 import type {
   Hypothesis,
@@ -268,6 +269,30 @@ console.log('\n# 10. LLM hypothesis mapping + grounding (DualStake: evidence bef
   // A researchFn that returns null -> no-op -> stays concentrated.
   const unchanged = await groundIntention(conc, async () => null);
   check('null research -> no change', unchanged.status === 'concentrated' && unchanged.hypotheses[0]!.evidenceConfidence === 0);
+}
+
+console.log('\n# 11. Grounding is NOT hollow — a single node cannot attest every kind');
+{
+  // Generic node: has a URL but no deadline/contact/eligibility signal in its text.
+  const generic = [{ title: 'Enrollment', summary: 'Please see the enrollments page.', url: 'https://district.edu/enroll' }];
+  const out = extractGrounding(generic, ['formUrl', 'deadline', 'eligibility', 'contact']);
+  check('generic node -> ONLY formUrl attested', !!out?.formUrl && !out?.deadline && !out?.contact && !out?.eligibility, JSON.stringify(out));
+
+  // Rich node: a real date, email, and eligibility signal are present.
+  const rich = [{ title: 'Meal application', summary: 'Apply by March 1. For free or reduced meals, email meals@district.edu. Income under 185% of the federal poverty line.', url: 'https://district.edu/meals' }];
+  const out2 = extractGrounding(rich, ['formUrl', 'deadline', 'eligibility', 'contact']);
+  check('rich node -> deadline attested (real date)', !!out2?.deadline, JSON.stringify(out2?.deadline));
+  check('rich node -> contact attested (real email)', !!out2?.contact, JSON.stringify(out2?.contact));
+  check('rich node -> eligibility attested (free/reduced + 185%)', !!out2?.eligibility, JSON.stringify(out2?.eligibility));
+
+  // evidenceConfidence must reflect only genuinely-evidenced kinds (no 4/4 from one generic node).
+  const intention = buildIntention('how do I enroll?', { children: [], needs: [], challenges: [] }, [
+    h({ id: 'a', claim: 'Enroll', belief: 0.9, evidenceConfidence: 0, subClaims: [sc('formUrl', false), sc('deadline', false), sc('eligibility', false), sc('contact', false)] }),
+    h({ id: 'b', claim: 'Transfer', belief: 0.1, evidenceConfidence: 0, subClaims: [sc('formUrl', false)] }),
+  ]);
+  const grounded = await groundIntention(intention, async () => extractGrounding(generic, ['formUrl', 'deadline', 'eligibility', 'contact']));
+  const conf = grounded.hypotheses[0]!.evidenceConfidence;
+  check('generic node -> evidenceConfidence = 1/4, NOT committed (under-commits safely)', Math.abs(conf - 0.25) < 1e-9 && grounded.status !== 'committed', `conf=${conf} status=${grounded.status}`);
 }
 
 console.log('\n========================================');
