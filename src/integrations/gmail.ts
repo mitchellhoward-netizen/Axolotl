@@ -62,6 +62,16 @@ export function gmailConnectUrl(guardianId: string): string {
   return `${host}/oauth/gmail?state=${encodeURIComponent(guardianId)}`;
 }
 
+/**
+ * A Gmail compose URL that pre-fills a draft (to/subject/body) so the parent can
+ * REVIEW + SEND it themselves in their own Gmail — no API call, no OAuth token.
+ * The tap opens Gmail with the draft ready; the parent hits Send.
+ */
+export function gmailDraftUrl(to: string, subject: string, body: string): string {
+  const params = new URLSearchParams({ view: 'cm', fs: '1', to, su: subject, body });
+  return `https://mail.google.com/mail/?${params.toString()}`;
+}
+
 /** Exchange an authorization code for access + refresh tokens. */
 export async function exchangeGmailCode(code: string, redirectUri?: string): Promise<{
   accessToken: string;
