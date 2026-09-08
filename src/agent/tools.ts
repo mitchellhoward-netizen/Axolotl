@@ -46,6 +46,8 @@ export interface ToolDeps {
   };
   /** Schedule a proactive reminder to message the parent at a time. */
   remind?: (what: string, when: string) => Promise<string>;
+  /** Query the FULL conversation history for a past exchange (e.g. something the parent said earlier). */
+  recall?: (query: string) => Promise<string>;
   studentName?: string;
 }
 
@@ -466,6 +468,15 @@ export const LLM_TOOLS = [
       description:
         'Start (or refresh) a focused item the family is actively working toward, so the memory graph tracks it.',
       parameters: { type: 'object', properties: { label: { type: 'string' } }, required: ['label'] },
+    },
+  },
+  {
+    type: 'function',
+    function: {
+      name: 'recall_history',
+      description:
+        'Search the ENTIRE conversation history for a past exchange (e.g. something the parent said earlier, a name, a school, or a detail). Use when you need to remember something from earlier that is no longer in your immediate context. Pass a keyword or short phrase.',
+      parameters: { type: 'object', properties: { query: { type: 'string' } }, required: ['query'] },
     },
   },
   {
@@ -916,6 +927,11 @@ export async function runTool(name: string, args: Record<string, unknown>, deps:
       });
       return 'Logged.';
     }
+    case 'recall_history': {
+      const query = String(args.query ?? '').trim();
+      if (!query) return 'Provide a query to search the conversation for.';
+      return (await deps.recall?.(query)) ?? 'Nothing found in the conversation.';
+    }
     case 'set_reminder': {
       const what = String(args.what ?? '').trim();
       const when = String(args.when ?? '').trim();
@@ -1048,6 +1064,7 @@ export function systemPrompt(ctx: BrainContext): string {
     `If a search result looks relevant but is incomplete, call web_fetch on that result's URL to read the full page. ` +
     `Only if a search genuinely finds nothing AFTER a thorough effort, say so plainly and offer to keep looking or confirm with the school — never stop at the first thin result. ` +
     `Remember the conversation — don't re-ask things already answered. Don't announce you're an AI, a demo, or a bot. ` +
+    `You can query the WHOLE conversation history with recall_history (search by a keyword or phrase) if you need an earlier detail that isn't in your immediate context — use it rather than re-asking the parent. ` +
     `NEVER quote statutes, case numbers, or section codes to the parent. Say what the child has a RIGHT to in plain words ("Patrick has a right to a bus and I'm requesting it"). Statutes may only appear when you draft a message TO the school, as leverage. ` +
     `Be INSANELY PROACTIVE as the default. Answer briefly, then ALWAYS propose the concrete next action and offer to do it — never just inform or hand off. ` +
     `Turn every answer into an action and ask a quick yes/no, e.g.: "I can draft an email to the district liaison about the summer-meal sign-up — want me to send it?", "I can call the office about the bus — want me to?", "I can set a follow-up reminder for Friday." ` +

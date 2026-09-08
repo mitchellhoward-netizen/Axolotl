@@ -944,11 +944,22 @@ export class Agent {
         state.cases = addCase(state.cases, makeCase({ kind: 'reminder', summary: `Reminder: ${what}`, reminder: formatReminderWhen(at), status: 'open' }));
         return `Got it — I'll remind you ${formatReminderWhen(at)}: "${what}".`;
       },
+      recall: async (query) => {
+        // Query the FULL conversation history (keyword/substring), not just the window.
+        const full = this.store.getHistory(this.currentConversationId) ?? [];
+        const q = query.toLowerCase();
+        const hits = full.filter((m) => m.content.toLowerCase().includes(q)).slice(-6);
+        return hits.length
+          ? hits.map((m) => `${m.role === 'user' ? 'Parent' : 'Axolotl'}: ${m.content.slice(0, 260)}`).join('\n')
+          : 'Nothing found in the conversation.';
+      },
       studentName: state.profile?.children[0]?.name,
     };
 
     console.log('[brain] invoked:', text.slice(0, 60));
-    const messages: unknown[] = [...history];
+    // Immediate context = the last 30 messages (bounded for tokens); the FULL
+    // history is queryable via the recall_history tool.
+    const messages: unknown[] = [...history.slice(-30)];
     let guard = 0;
     let narrated = false;
     let resolved = false;
