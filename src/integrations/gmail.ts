@@ -118,16 +118,34 @@ export async function fetchGmailAddress(accessToken: string): Promise<string> {
   return j.emailAddress ?? '';
 }
 
+/** RFC 2047-encode a header value that contains non-ASCII (emoji, accents), so
+ * it displays correctly and never gets double-encoded into mojibake. */
+function encodeHeader(value: string): string {
+  if (/^[\x20-\x7E]*$/.test(value)) return value;
+  return `=?UTF-8?B?${Buffer.from(value, 'utf8').toString('base64')}?=`;
+}
+
+/** Wrap base64 at 76 chars (RFC 2045) so the body always decodes cleanly. */
+function wrapBase64(b64: string, width = 76): string {
+  const out: string[] = [];
+  for (let i = 0; i < b64.length; i += width) out.push(b64.slice(i, i + width));
+  return out.join('\r\n');
+}
+
 function rfc2822Message(msg: EmailMessage): string {
-  const headers: string[] = [
-    msg.from ? `From: ${msg.from}` : 'From: me',
-    `To: ${msg.to}`,
-    `Subject: ${msg.subject.replace(/[\r\n]/g, ' ')}`,
-    'MIME-Version: 1.0',
-    'Content-Type: text/plain; charset=UTF-8',
-    '',
-  ];
-  return headers.join('\r\n') + msg.body;
+  // From: omit when unknown (Gmail sets it to the authenticated account), so we
+  // never emit a bogus "From: me". Subject is RFC 2047-encoded for non-ASCII, and
+  // the body is base64 (Content-Transfer-Encoding) so accented/emoji text survives.
+  const lines: string[] = [];
+  if (msg.from) lines.push(`From: ${encodeHeader(msg.from)}`);
+  lines.push(`To: ${msg.to}`);
+  lines.push(`Subject: ${encodeHeader(msg.subject.replace(/[\r\n]/g, ' '))}`);
+  lines.push('MIME-Version: 1.0');
+  lines.push('Content-Type: text/plain; charset=UTF-8');
+  lines.push('Content-Transfer-Encoding: base64');
+  lines.push('');
+  lines.push(wrapBase64(Buffer.from(msg.body, 'utf8').toString('base64')));
+  return lines.join('\r\n');
 }
 
 /** Send a message FROM the connected parent's account via the Gmail API. */
