@@ -358,8 +358,11 @@ export class Agent {
           provisionFamily(this.opts.db, parentId, ob.state.profile);
           await persistProvisionedFamily(this.opts.db, parentId);
           const plan = finalizeOnboarding(ob.state.profile, district);
+          // Email connect is a real part of onboarding — an active, skippable invite
+          // (one tap) so the agent can email the school as the parent.
+          const connectLine = `\n\nWant me to email the school as you? Link your Gmail (one tap):\n${gmailConnectUrl(parentId)}\n\n(Just skip this — I can still help and email from the shared address.)`;
           this.save(conversationId, { phase: 'done', collected: {}, profile: ob.state.profile, awaitingCallDemo: true }, state);
-          turn = { text: plan, phase: 'done' };
+          turn = { text: plan + connectLine, phase: 'done' };
         } else {
           this.save(conversationId, { phase: 'clarifying', collected: {}, onboarding: ob.state, profile: ob.state.profile }, state);
           turn = { text: ob.text, phase: 'clarifying' };

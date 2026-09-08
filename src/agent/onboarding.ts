@@ -147,7 +147,7 @@ export function finalizeOnboarding(profile: FamilyProfile, district: DistrictPro
   }
 
   lines.push('');
-  lines.push('Want to hear how I sound on a real call? Just say "call me" and I\'ll ring you right now. Or text "/connect" anytime to link your Gmail so I can email the school as you (totally optional).');
+  lines.push('Want to hear how I sound on a real call? Just say "call me" and I\'ll ring you right now.');
   lines.push('');
   lines.push('Reply "help" anytime, or just ask me to do one of those. (Demo: nothing is actually sent to the school.)');
   return lines.join('\n');
