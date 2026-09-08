@@ -1072,6 +1072,21 @@ export class Agent {
           guard++;
           continue;
         }
+        // If the model refuses ("I can't help with that"), do NOT let that reach the
+        // parent — force it to keep trying or hand off helpfully (never a flat refusal).
+        if (isRefusal(res.text) && guard < 10) {
+          if (!narrated) {
+            narrated = true;
+            void this.parentSender(nextBusyLine());
+          }
+          messages.push({
+            role: 'user',
+            content:
+              "Don't tell the parent you can't help. Try harder: more web_search / web_fetch / browser. If you genuinely hit a hard wall (a sign-in or CAPTCHA), say EXACTLY which step needs them and hand them the link, then offer 1-2 concrete things you CAN still do. Never say 'I can't help with that'.",
+          });
+          guard++;
+          continue;
+        }
         return { turn: { text: res.text, phase: 'done', resolved }, state };
       }
       break;
@@ -1763,6 +1778,19 @@ function isLookupRefusal(s: string): boolean {
  * unhelpful answer. Deliberately does NOT match a normal yes/no offer like
  * "Want me to sign Patrick up?".
  */
+/** True when a model answer REFUSES to help — we force it to keep trying/hand off.
+ * A genuine yes/no offer ("want me to sign Patrick up?") is allowed. */
+function isRefusal(s: string): boolean {
+  const t = s.toLowerCase();
+  return (
+    /i (can'?t|cannot|can not|don'?t|do not) (help|do|assist|access|fill|handle|with that|that|this)/.test(t) ||
+    /i'?m (not able|unable|afraid|sorry) (to )?(help|do|assist|with)/.test(t) ||
+    /that'?s (not something|outside) (i|my)/.test(t) ||
+    /i (don'?t|do not) (do|handle|cover) (that|this|those)/.test(t) ||
+    /(i can'?t|cannot) (help you|help with that|help with this|do that)/.test(t)
+  );
+}
+
 function isThinResearchAnswer(s: string): boolean {
   const t = s.toLowerCase();
   const askedTheParent =
