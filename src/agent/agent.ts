@@ -419,6 +419,9 @@ export class Agent {
 
       // Refresh working memory every turn so the agent always knows what we're doing.
       const st = record.state;
+      // Maintain a rolling conversation summary so the brain keeps the thread even
+      // past the windowed history (ChatGPT-like continuity).
+      this.updateSummary(st, text, turn.text);
       if (turn.callSchool || turn.callMe) {
         st.activeGoal = turn.callContext?.goal ?? 'resolve the school matter';
         st.lastAction = turn.callSchool
@@ -789,6 +792,15 @@ export class Agent {
     parent.studentIds = [];
   }
 
+  /** Append a concise line to the rolling conversation summary (capped), so the
+   * brain keeps the thread even past the windowed history. */
+  private updateSummary(state: ConversationState, parentText: string, agentText: string): void {
+    if (!parentText && !agentText) return;
+    const line = `Parent: "${parentText.slice(0, 140)}" → Axolotl: "${agentText.slice(0, 220)}"`.replace(/\s+/g, ' ');
+    state.summary = (state.summary ? state.summary + '\n' : '') + line;
+    if ((state.summary?.length ?? 0) > 5000) state.summary = state.summary!.slice(-5000);
+  }
+
   /** Run the given steps through the executor (caller sets consent/executing). */
   async runSteps(
     steps: Step[],
@@ -818,6 +830,7 @@ export class Agent {
   private save(conversationId: string, next: ConversationState, prev: ConversationState): void {
     if (next.profile === undefined) next.profile = prev.profile;
     if (next.cases === undefined) next.cases = prev.cases;
+    if (next.summary === undefined) next.summary = prev.summary;
     this.store.setState(conversationId, next);
   }
 
@@ -942,7 +955,7 @@ export class Agent {
     // Research is allowed to iterate hard — never settle for a thin/partial answer.
     while (guard < 12) {
       const res = await llm.chatWithTools(
-        systemPrompt({ profile: state.profile, cases: state.cases, activeGoal: state.activeGoal, lastAction: state.lastAction, pendingActions: pendingActionsSummary(state.pendingSteps) }),
+        systemPrompt({ profile: state.profile, cases: state.cases, activeGoal: state.activeGoal, lastAction: state.lastAction, pendingActions: pendingActionsSummary(state.pendingSteps), summary: state.summary }),
         messages,
         LLM_TOOLS,
         'auto',

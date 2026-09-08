@@ -47,6 +47,9 @@ export interface ConversationState {
   lastAction?: string;
   /** Steps the brain has planned but not yet executed — awaiting parent consent. */
   pendingSteps?: Step[];
+  /** A rolling, compressed summary of the conversation so the brain keeps the
+   * thread even past the windowed history (ChatGPT-like continuity). */
+  summary?: string;
 }
 
 export function initialState(): ConversationState {

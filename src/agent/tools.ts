@@ -964,6 +964,8 @@ export interface BrainContext {
   lastAction?: string;
   /** Proposed actions still awaiting the parent's YES/NO (so the brain reminds, not re-proposes). */
   pendingActions?: string;
+  /** Rolling compressed transcript so the brain keeps the thread beyond the history window. */
+  summary?: string;
 }
 
 /** Human-readable summary of steps awaiting consent, for the brain's context. */
@@ -1063,6 +1065,7 @@ export function systemPrompt(ctx: BrainContext): string {
     `\nFAMILY & SITUATION (refreshed every message — use it, don't re-ask): ${kids} at ${school} (${district}). Needs: ${needs}. Challenges: ${challenges}.${notes}${emailInfo}${localeInfo}` +
     `\nOPEN WORK:\n${openWork}` +
     (ctx.pendingActions ? `\nPENDING ACTIONS (proposed, waiting for the parent's YES/NO): ${ctx.pendingActions}` : '') +
+    (ctx.summary ? `\nCONVERSATION SO FAR (the thread — use it, don't re-ask):\n${ctx.summary}` : '') +
     `\nNOW: ${now}. LAST ACTION: ${last}.` +
     `\nENTITLED TO (audited against the family — pursue these):\n${auditStr}` +
     `\nTHINGS I CAN ALSO DO FOR ${kid} (offer these, one at a time, AFTER you've already helped — never interrogate the parent with them):\n${qsStr}` +
