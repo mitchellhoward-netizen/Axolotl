@@ -394,9 +394,13 @@ export class Agent {
         st.lastAction = turn.callSchool
           ? `calling the school about ${turn.callContext?.issue ?? 'the matter'}`
           : 'showing a phone call';
-      } else if (!st.activeGoal) {
-        const latest = (st.cases ?? []).slice().reverse().find((c) => c.status !== 'resolved');
-        if (latest) st.activeGoal = latest.summary;
+      } else if (turn.text) {
+        // Pin "NOW / LAST ACTION" to the MOST RECENT thing the agent just did, so
+        // "try again" / "go on" / "continue" / "repeat" point at that exact turn
+        // — never a stale open case from an earlier topic (which caused "try that
+        // again" to drift back to an old conversation).
+        st.lastAction = turn.text.replace(/\s+/g, ' ').slice(0, 110);
+        st.activeGoal = turn.text.split('\n')[0]!.replace(/\s+/g, ' ').slice(0, 64);
       }
       if (turn.callContext?.issue && st.lastAction === 'showing a phone call') {
         st.lastAction = `calling the school about ${turn.callContext.issue}`;
