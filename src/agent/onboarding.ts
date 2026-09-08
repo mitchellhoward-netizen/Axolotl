@@ -162,8 +162,14 @@ export function finalizeOnboarding(profile: FamilyProfile, district: DistrictPro
   lines.push("Here's how I can help right now:");
   lines.push(suggestedActions(profile, district.known, isPublic));
 
+  // The district homeless liaison is a McKinney-Vento (homeless/displaced) contact —
+  // only surface it when the family actually flagged housing instability, not for a
+  // generic family.
+  const housingAffected = /homeless|transition|shelter|motel|hotel|car|displac|couch|doubled|camp|no address/i.test(
+    (profile.challenges ?? []).join(' '),
+  );
   const l = district.liaison;
-  if (district.known && isPublic && l?.name && l.phone) {
+  if (housingAffected && district.known && isPublic && l?.name && l.phone) {
     lines.push('');
     lines.push(`Key contact: district homeless liaison ${l.name}, ${l.phone}${l.email ? `, ${l.email}` : ''}.`);
   }
