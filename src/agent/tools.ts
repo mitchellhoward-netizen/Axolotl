@@ -3,7 +3,6 @@ import type { Step, CallBrief } from './steps/types.js';
 import { answerSchoolInfo } from '../knowledge/school-info.js';
 import { barrierByCategory, detectBarriers, contextFromProfile } from '../knowledge/barriers.js';
 import { researchDistrictProfile, districtIdFromName, type DistrictProfile } from '../knowledge/districts.js';
-import { gmailDraftUrl } from '../integrations/gmail.js';
 import { auditEntitlements, discoveryQuestions } from '../knowledge/entitlements.js';
 import { addCase, makeCase, openCaseSummary } from './family.js';
 import type { LlmClient } from './llm.js';
@@ -543,12 +542,10 @@ export async function runTool(name: string, args: Record<string, unknown>, deps:
       const subject = String(args.subject ?? '');
       const body = String(args.body ?? '');
       if (!to || !subject || !body) return 'send_email needs to, subject, body.';
-      // Primary path: give the parent a Gmail compose link so THEY review + send it
-      // themselves in their own Gmail (no OAuth/API send needed, unambiguously from them).
-      const draftLink = gmailDraftUrl(to, subject, body);
-      // Fallback: still propose a consent-gated send so the agent can send it if the
-      // parent asks ("you send it"). The parent picks one — tapping the link to send
-      // themselves, or approving the agent to send.
+      // Present the draft as readable text (NOT a giant compose URL — the Gmail
+      // compose link only pre-fills on desktop web, not mobile) so the parent can
+      // review it, then approve the agent to send it from their connected Gmail
+      // (reliable + unambiguously from them). Still consent-gated.
       deps.proposeSteps([
         {
           id: 'email-' + Date.now().toString(36),
@@ -562,7 +559,7 @@ export async function runTool(name: string, args: Record<string, unknown>, deps:
           status: 'awaiting_consent',
         },
       ]);
-      return `Here's the email to ${to} — tap to open it in Gmail, review it, and hit send:\n${draftLink}\n\nOr say "you send it" and I'll send it for you (you still approve it first).`;
+      return `Here's the email I'll send — review it, then reply "send it" and I'll send it from your Gmail (you approve it first):\n\nTo: ${to}\nSubject: ${subject}\n\n${body}`;
     }
     case 'account_action': {
       const url = String(args.url ?? '').trim();
@@ -1055,7 +1052,7 @@ export function systemPrompt(ctx: BrainContext): string {
     `You CAN place phone calls: if the parent asks you to call the school, office, district, principal, or "them," call the call_school tool. Never say you can't make calls — you can. ` +
     `REMINDERS: when the parent asks to be reminded of something ("remind me to…", "remind me on Friday", "set a reminder for…"), CALL the set_reminder tool with the thing and the time — it schedules and messages them at that time. Never just say "ok" — actually call set_reminder, and confirm back when you'll remind them. ` +
     `NEVER say you can't help, can't do it, can't access, can't fill, don't have that ability, or that you're just coordinating. You ACT for the parent and drive it — if something's needed, say you'll do it and handle it. ` +
-    `CONNECT & SEND EMAIL (optional — offer, NEVER gate help on it): to email the school, ALWAYS hand the parent a Gmail compose link so THEY review + send it themselves (the send_email tool returns it — a tap opens the pre-filled draft in their Gmail). That's the easiest + most trustworthy path. If they say "you send it", you can send via the agent (still consent-gated: they say YES and you send it from their connected Gmail, or the shared address). Never make connecting email a prerequisite to helping. ` +
+    `CONNECT & SEND EMAIL (optional — offer, NEVER gate help on it): to email the school, draft it and SHOW the parent the readable text (To / Subject / body) so they review it. Their choice: reply "send it" (or "yes") and you send it from their connected Gmail via the agent — reliable + from them, still consent-gated. Do NOT send a huge Gmail compose URL (it only pre-fills on desktop web, not mobile). If they ask to send it themselves instead, a plain mailto link is fine. Never make connecting email a prerequisite to helping. ` +
     `Use save_profile to remember the family, and log_case for new items. ` +
     `When the parent says "try again", "again", "repeat", "redo", "go on", "continue", "that" — they mean REPLAY or CONTINUE the ENTIRE last thing YOU just said (the programs, the list, the offer). Re-present that SAME list/offer, do NOT switch to a different topic, do NOT research a new angle. Use the LAST ACTION shown just below. Never act lost. ` +
     `If the parent says something UNRELATED while a PENDING ACTION is waiting for their YES/NO, answer what they said normally, then at the END briefly remind them the action is still waiting (e.g. "Still want me to call the school? Reply yes or no."). Do NOT re-propose the same action or ask a fresh yes/no for it — just remind. ` +
