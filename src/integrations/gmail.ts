@@ -50,6 +50,15 @@ export function buildGmailAuthUrl(state?: string, redirectUri?: string): string 
   return `https://accounts.google.com/o/oauth2/v2/auth?${params.toString()}`;
 }
 
+/** The tap-able connect link to hand a parent (state = their guardian id). */
+export function gmailConnectUrl(guardianId: string): string {
+  const host =
+    process.env.RAILWAY_PUBLIC_DOMAIN ||
+    process.env.GOOGLE_REDIRECT_URI?.replace(/\/oauth\/gmail\/callback$/, '') ||
+    'http://localhost:3000';
+  return `${host}/oauth/gmail?state=${encodeURIComponent(guardianId)}`;
+}
+
 /** Exchange an authorization code for access + refresh tokens. */
 export async function exchangeGmailCode(code: string, redirectUri?: string): Promise<{
   accessToken: string;

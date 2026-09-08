@@ -15,7 +15,9 @@ alter table gmail_token enable row level security;
 
 -- Read/write access for the service role (the agent). Owners (guardians) read
 -- their own row if they need to (e.g. to check connected status).
+drop policy if exists "gmail_token_select_own" on gmail_token;
 create policy "gmail_token_select_own" on gmail_token
   for select using (auth.uid()::text = guardian_id);
+drop policy if exists "gmail_token_service_all" on gmail_token;
 create policy "gmail_token_service_all" on gmail_token
   for all using (auth.role() = 'service_role') with check (auth.role() = 'service_role');

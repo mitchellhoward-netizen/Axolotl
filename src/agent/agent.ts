@@ -9,7 +9,7 @@ import type { MealsProvider } from '../integrations/meals.js';
 import type { Sis } from '../integrations/sis.js';
 import type { EmailProvider } from '../integrations/email.js';
 import { MockEmailProvider } from '../integrations/email.js';
-import { gmailProviderFor } from '../integrations/gmail.js';
+import { gmailProviderFor, gmailConnectUrl } from '../integrations/gmail.js';
 import type { CallResult } from '../integrations/phones.js';
 import { getSupabase, ensureSeedDistrict, saveFamilyProfile, saveCaseRecord, loadFamilySnapshot } from '../integrations/db.js';
 import { loadFamilyMemory, saveFamilyMemory, addGetting, startInitiative } from '../integrations/family-memory.js';
@@ -325,6 +325,15 @@ export class Agent {
       }
 
       let turn: AgentTurn;
+
+      // Connect the parent's Gmail (send-as-parent) — a simple, always-available
+      // command: "/connect" or "connect my email/gmail".
+      if (/^(?:\/?connect|connect (my )?(email|gmail)|link (my )?(email|gmail))\b/i.test(text.trim())) {
+        return {
+          text: `To let me email the school as you, connect your Gmail here (one tap):\n${gmailConnectUrl(parentId)}\n\nI'll always show you the exact message and get your OK before I send anything.`,
+          phase: 'done',
+        };
+      }
 
       // Fresh family (created for an unknown phone, no children yet): onboard.
       const freshFamily =
