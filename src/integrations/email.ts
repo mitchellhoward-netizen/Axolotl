@@ -9,6 +9,8 @@ export interface EmailMessage {
   to: string;
   subject: string;
   body: string;
+  /** Optional sender display ("Parent Name <parent@school.org>"); default is provider default. */
+  from?: string;
   attachments?: EmailAttachment[];
 }
 

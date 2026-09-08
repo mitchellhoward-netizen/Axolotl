@@ -132,6 +132,8 @@ export interface ExecutionContext {
   parentPhone?: string;
   /** Resolve the real vs sandbox counterparty for the given role. */
   resolveCounterparty: (role: Counterparty['role'], mode: Mode) => Counterparty;
+  /** Resolve the EmailProvider for the parent (e.g. Gmail send-as-parent), or undefined for default. */
+  resolveSender?: () => Promise<import('../../integrations/email.js').EmailProvider | undefined>;
   /** Persist an Action; returns its id. */
   logAction: (caseId: string, a: StepResult['action']) => Promise<string>;
   /** Schedule a follow-up Task. */

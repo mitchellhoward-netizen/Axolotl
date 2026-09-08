@@ -31,7 +31,8 @@ export class FormAdapter implements ChannelAdapter {
         if (!res.ok) throw new Error(`Form POST ${res.status}`);
         referenceId = `form-${Date.now().toString(36)}`;
       } else if (step.counterparty.email) {
-        const rec = await this.email.send({
+        const email = (await ctx.resolveSender?.()) ?? this.email;
+        const rec = await email.send({
           to: step.counterparty.email,
           subject: `Form submission: ${p.formId}`,
           body: `Form ${p.formId} fields:\n${Object.entries(p.fields)

@@ -6,6 +6,7 @@ import { addWaitlist } from './waitlist.js';
 import { WAITLIST_MESSAGE, createSmsSender, normalizeE164 } from './sms.js';
 import { recordPendingGreeting } from './pending-greeting.js';
 import { attachVoiceWebSocket } from '../voice/server.js';
+import { buildGmailAuthUrl, exchangeGmailCode, fetchGmailAddress, saveGmailToken } from './gmail.js';
 
 const WEB_DIR = path.resolve(fileURLToPath(new URL('../../public', import.meta.url)));
 const WAITLIST_FILE = path.join(WEB_DIR, 'waitlist.json');
@@ -33,6 +34,48 @@ export function startWebServer(opts: { placeCall?: (phone: string, info?: PlaceC
   const server = createServer(async (req, res) => {
     try {
       const url = new URL(req.url ?? '/', 'http://localhost');
+
+      // OAuth: connect the parent's Gmail so the agent can send as them (the gate).
+      //   GET /oauth/gmail?state=<guardianId> -> bounce to Google consent
+      //   GET /oauth/gmail/callback?state=<guardianId>&code=<code> -> store the token
+      if (req.method === 'GET' && url.pathname === '/oauth/gmail') {
+        const state = url.searchParams.get('state') ?? '';
+        res.writeHead(302, { Location: buildGmailAuthUrl(state) });
+        res.end();
+        return;
+      }
+      if (req.method === 'GET' && url.pathname === '/oauth/gmail/callback') {
+        const code = url.searchParams.get('code') ?? '';
+        const guardianId = url.searchParams.get('state') ?? '';
+        if (!code || !guardianId) {
+          res.writeHead(400, { 'Content-Type': 'text/plain' });
+          res.end('Missing code or state.');
+          return;
+        }
+        try {
+          const tok = await exchangeGmailCode(code);
+          const email = await fetchGmailAddress(tok.accessToken);
+          await saveGmailToken(guardianId, {
+            guardianId,
+            email,
+            refreshToken: tok.refreshToken,
+            accessToken: tok.accessToken,
+            expiresAt: Date.now() + tok.expiresIn * 1000,
+          });
+          console.log(`[oauth/gmail] connected guardian ${guardianId}${email ? ` (${email})` : ''}`);
+          res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+          res.end(
+            '<html><body style="font-family:sans-serif"><h2>✅ Email connected</h2>' +
+              `<p>${email ?? 'Your Gmail'} is now linked to Axolotl. The agent can send to the school as you (you always approve each message). ` +
+              'You can close this tab and go back to iMessage.</p></body></html>',
+          );
+        } catch (e) {
+          console.error('[oauth/gmail] exchange failed:', (e as Error)?.message ?? e);
+          res.writeHead(502, { 'Content-Type': 'text/plain' });
+          res.end('Could not connect your Google account. Please try again.');
+        }
+        return;
+      }
 
       // Waitlist submit
       if (req.method === 'POST' && url.pathname === '/api/waitlist') {

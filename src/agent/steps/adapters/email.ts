@@ -20,7 +20,10 @@ export class EmailAdapter implements ChannelAdapter {
       };
     }
     try {
-      const rec = await this.email.send({ to, subject: p.subject, body: p.body });
+      // Prefer the parent's connected email provider (e.g. Gmail send-as-parent);
+      // fall back to the default (Resend / mock).
+      const email = (await ctx.resolveSender?.()) ?? this.email;
+      const rec = await email.send({ to, subject: p.subject, body: p.body });
       return {
         status: 'done',
         referenceId: rec.id,

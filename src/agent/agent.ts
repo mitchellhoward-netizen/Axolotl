@@ -9,6 +9,7 @@ import type { MealsProvider } from '../integrations/meals.js';
 import type { Sis } from '../integrations/sis.js';
 import type { EmailProvider } from '../integrations/email.js';
 import { MockEmailProvider } from '../integrations/email.js';
+import { gmailProviderFor } from '../integrations/gmail.js';
 import type { CallResult } from '../integrations/phones.js';
 import { getSupabase, ensureSeedDistrict, saveFamilyProfile, saveCaseRecord, loadFamilySnapshot } from '../integrations/db.js';
 import { loadFamilyMemory, saveFamilyMemory, addGetting, startInitiative } from '../integrations/family-memory.js';
@@ -678,11 +679,13 @@ export class Agent {
     mode: Mode,
     conversationId: string = this.currentConversationId,
   ): ExecutionContext {
+    const parentId = this.store.getParentId(conversationId) ?? this.opts.defaultParentId;
     return {
       mode,
       demoClockScale: 1440,
       parentPhone: process.env.CALL_ME_NUMBER,
       resolveCounterparty: (r, m) => this.resolveCounterparty(r, m, record.state.profile),
+      resolveSender: () => this.resolveEmailProvider(parentId),
       logAction: async (_caseId, a) => {
         record.state.cases = addCase(
           record.state.cases,
@@ -694,6 +697,18 @@ export class Agent {
         this.scheduleFollowUp(conversationId, caseId, at, verify, prompt),
       messageParent: async (text) => this.parentSender(text),
     };
+  }
+
+  /** The email provider to send FROM for a parent: their connected Gmail, else default. */
+  private async resolveEmailProvider(parentId: string | undefined): Promise<EmailProvider | undefined> {
+    if (!parentId) return undefined;
+    try {
+      const gmail = await gmailProviderFor(parentId);
+      if (gmail) return gmail;
+    } catch (e) {
+      console.error('[email] gmail provider failed (falling back):', (e as Error)?.message ?? e);
+    }
+    return undefined;
   }
 
   /** Run the given steps through the executor (caller sets consent/executing). */
