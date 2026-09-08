@@ -52,10 +52,13 @@ export function buildGmailAuthUrl(state?: string, redirectUri?: string): string 
 
 /** The tap-able connect link to hand a parent (state = their guardian id). */
 export function gmailConnectUrl(guardianId: string): string {
-  const host =
+  let host =
     process.env.RAILWAY_PUBLIC_DOMAIN ||
     process.env.GOOGLE_REDIRECT_URI?.replace(/\/oauth\/gmail\/callback$/, '') ||
     'http://localhost:3000';
+  // RAILWAY_PUBLIC_DOMAIN is a bare hostname; without the scheme iMessage won't
+  // auto-link it. Always emit a full https:// URL.
+  if (!/^https?:\/\//i.test(host)) host = `https://${host}`;
   return `${host}/oauth/gmail?state=${encodeURIComponent(guardianId)}`;
 }
 
