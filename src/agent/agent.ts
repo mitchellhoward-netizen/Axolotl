@@ -1093,12 +1093,28 @@ export class Agent {
       }
       break;
     }
-    // Tool loop didn't resolve → fall back to a plain, grounded answer.
+    // Tool loop didn't resolve → a plain, grounded answer; if that's a refusal or
+    // thin, fall through to a HELPFUL handoff — never a flat "can't help".
     console.log('[brain] → answerQuestion fallback');
     const district = this.researchedDistrict(state.profile) ?? (state.profile?.school ? resolveDistrict(state.profile.school) : undefined);
     const ans = await llm.answerQuestion(text, state.profile, district);
-    if (ans) return { turn: { text: ans, phase: 'done' }, state };
-    return null;
+    if (ans && !isRefusal(ans) && !isThinResearchAnswer(ans)) {
+      return { turn: { text: ans, phase: 'done' }, state };
+    }
+    const kid = state.profile?.children?.[0]?.name ?? 'your child';
+    const school = state.profile?.school ?? 'their school';
+    return {
+      turn: {
+        text:
+          `I can definitely help with ${kid} at ${school}. Here's what I can do — just pick one and I'll take it from there:\n` +
+          `• Research what ${kid} is entitled to / eligible for at ${school} (programs, free stuff)\n` +
+          `• Email the school or fill out a form for you\n` +
+          `• Make a call to the school and leave a voicemail\n\n` +
+          `Or tell me the need in your own words (e.g. "help with after-school programs", "my kid needs meals") and I'll get specific.`,
+        phase: 'done',
+      },
+      state,
+    };
   }
 
   private async resolveDistrictAsync(profile: FamilyProfile): Promise<DistrictProfile> {
