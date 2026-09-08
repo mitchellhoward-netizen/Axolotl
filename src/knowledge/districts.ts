@@ -35,6 +35,13 @@ function slug(s: string): string {
     .slice(0, 60);
 }
 
+/** Drop a contact object that has no real fields (the LLM sometimes returns an
+ * empty/blank contact, which is truthy but produces "liaison , , ." in output). */
+function cleanContact<T extends Record<string, unknown>>(obj: T | undefined): T | undefined {
+  if (!obj) return undefined;
+  return Object.values(obj).some((v) => v && String(v).trim()) ? obj : undefined;
+}
+
 /** Stable district id derived from a district/school name (+ location, if present). */
 export function districtIdFromName(name: string): string {
   return 'district-' + slug(name) || 'district-unknown';
@@ -80,7 +87,7 @@ function lookupByName(input: string): DistrictProfile | undefined {
 /** Register a researched profile (call after a successful research/web lookup). */
 export function registerDistrict(p: DistrictProfile): DistrictProfile {
   const id = p.id || districtIdFromName(p.name);
-  const profile: DistrictProfile = { ...p, id, known: true };
+  const profile: DistrictProfile = { ...p, id, known: true, liaison: cleanContact(p.liaison), busPasses: cleanContact(p.busPasses) };
   researched.set(id, profile);
   return profile;
 }
@@ -136,8 +143,8 @@ export async function researchDistrictProfile(input: string, llm?: LlmClient): P
     city: r.city,
     state: r.state,
     elementary: r.elementary,
-    liaison: r.liaison,
-    busPasses: r.busPasses,
+    liaison: cleanContact(r.liaison),
+    busPasses: cleanContact(r.busPasses),
     schools: r.schools,
     known: r.known === true || Boolean(r.liaison || r.schools || r.elementary || (r.type && r.type !== 'unknown')),
     type: r.type ?? 'unknown',

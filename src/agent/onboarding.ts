@@ -162,9 +162,10 @@ export function finalizeOnboarding(profile: FamilyProfile, district: DistrictPro
   lines.push("Here's how I can help right now:");
   lines.push(suggestedActions(profile, district.known, isPublic));
 
-  if (district.known && isPublic && district.liaison) {
+  const l = district.liaison;
+  if (district.known && isPublic && l?.name && l.phone) {
     lines.push('');
-    lines.push(`Key contact: district homeless liaison ${district.liaison.name}, ${district.liaison.phone}, ${district.liaison.email}.`);
+    lines.push(`Key contact: district homeless liaison ${l.name}, ${l.phone}${l.email ? `, ${l.email}` : ''}.`);
   }
 
   lines.push('');
@@ -227,7 +228,7 @@ function parseKids(text: string): ChildProfile[] {
 }
 
 function parseList(text: string): string[] {
-  if (/^(none|no|n\/a|nothing|not sure|idk|dont know|don't know|i don'?t know)\b/i.test(text)) return [];
+  if (/^(none|no|n\/a|nothing|not sure|not really sure|not totally sure|no idea|idk|dont know|don't know|i don'?t know|not sure yet)\b/i.test(text)) return [];
   return text
     .split(/\s*(?:,|;|\/|&|\band\b)\s*/)
     .map((s) => s.trim().replace(/[.!?]+$/, ''))
