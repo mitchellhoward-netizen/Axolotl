@@ -79,6 +79,8 @@ export interface FamilyProfile {
   challenges: string[];
   /** Preferred message language. Defaults to English; Spanish is first-class. */
   locale?: 'en' | 'es';
+  /** A parent-provided email (used to send the welcome/proof email, even without Gmail). */
+  email?: string;
   /** public | private | charter | unknown — set at onboarding; gates public-school entitlements. */
   schoolType?: 'public' | 'private' | 'charter' | 'unknown';
   /** What the family has already secured (free meals, a 504 plan, a bus pass). */

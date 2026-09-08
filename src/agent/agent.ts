@@ -9,7 +9,7 @@ import type { MealsProvider } from '../integrations/meals.js';
 import type { Sis } from '../integrations/sis.js';
 import type { EmailProvider } from '../integrations/email.js';
 import { MockEmailProvider } from '../integrations/email.js';
-import { gmailProviderFor, gmailConnectUrl } from '../integrations/gmail.js';
+import { gmailProviderFor, gmailConnectUrl, getGmailToken } from '../integrations/gmail.js';
 import type { CallResult } from '../integrations/phones.js';
 import { getSupabase, ensureSeedDistrict, saveFamilyProfile, saveCaseRecord, loadFamilySnapshot } from '../integrations/db.js';
 import { loadFamilyMemory, saveFamilyMemory, addGetting, startInitiative } from '../integrations/family-memory.js';
@@ -22,7 +22,7 @@ import type { CandidateNode } from '../knowledge/research.js';
 import { searchSchoolGraph, chainSummary } from '../knowledge/resource-graph.js';
 import { buildPreCallBrief } from '../knowledge/precall.js';
 import { embeddingsConfigured, embedTexts } from '../integrations/embeddings.js';
-import { KNOWLEDGE_CATEGORIES, type KnowledgeCategory } from '../domain/knowledge.js';
+import { KNOWLEDGE_CATEGORIES, type KnowledgeCategory, type KnowledgeNode } from '../domain/knowledge.js';
 import { answerSchoolInfo } from '../knowledge/school-info.js';
 import { resolveDistrict, researchDistrictProfile, districtIdFromName, getResearchedDistrict, getResearchedDistrictById, type DistrictProfile } from '../knowledge/districts.js';
 import { StepExecutor } from './steps/executor.js';
@@ -39,7 +39,7 @@ import { detectGaps, staleKnowledgeNodes } from './gaps.js';
 import type { Counterparty, Mode, StepResult, ExecutionContext, Step } from './steps/types.js';
 import type { SeedDb } from '../seed.js';
 import { provisionFamily } from '../seed.js';
-import { persistProvisionedFamily } from '../integrations/identity.js';
+import { persistProvisionedFamily, clearFamilyIdentity } from '../integrations/identity.js';
 import { executeTool } from '../tools/registry.js';
 import type { ToolContext } from '../tools/types.js';
 import type { IntentEngine } from './intent/engine.js';
@@ -326,6 +326,14 @@ export class Agent {
 
       let turn: AgentTurn;
 
+      // Reset the family so the next message onboards them COMPLETELY fresh — clears
+      // the in-memory conversation + the persisted identity (+ students/cases/memory).
+      if (/^(?:\/reset|reset|start over|fresh start|start again)\b/i.test(text.trim())) {
+        this.store.reset(conversationId);
+        await clearFamilyIdentity(parentId);
+        return { text: "Fresh start! I've forgotten everything and we'll set you up again — let's go.", phase: 'idle' };
+      }
+
       // Connect the parent's Gmail (send-as-parent) — a simple, always-available
       // command: "/connect" or "connect my email/gmail".
       if (/^(?:\/?connect|connect (my )?(email|gmail)|link (my )?(email|gmail))\b/i.test(text.trim())) {
@@ -358,11 +366,13 @@ export class Agent {
           provisionFamily(this.opts.db, parentId, ob.state.profile);
           await persistProvisionedFamily(this.opts.db, parentId);
           const plan = finalizeOnboarding(ob.state.profile, district);
-          // Email connect is a real part of onboarding — an active, skippable invite
-          // (one tap) so the agent can email the school as the parent.
-          const connectLine = `\n\nWant me to email the school as you? Link your Gmail (one tap):\n${gmailConnectUrl(parentId)}\n\n(Just skip this — I can still help and email from the shared address.)`;
+          // Kick off background research on the district + send a "wow" welcome
+          // email that proves it can email AND already knows the child's district
+          // (the Town-style minute-zero value). Fire-and-forget so the reply is instant.
+          const welcomeNote = `\n\nI'm researching ${district.name} right now (programs, free stuff) and I'll email you what I find — watch your inbox.`;
           this.save(conversationId, { phase: 'done', collected: {}, profile: ob.state.profile, awaitingCallDemo: true }, state);
-          turn = { text: plan + connectLine, phase: 'done' };
+          void this.backgroundResearchAndWelcome(ob.state.profile, parentId, district);
+          turn = { text: plan + welcomeNote, phase: 'done' };
         } else {
           this.save(conversationId, { phase: 'clarifying', collected: {}, onboarding: ob.state, profile: ob.state.profile }, state);
           turn = { text: ob.text, phase: 'clarifying' };
@@ -721,6 +731,56 @@ export class Agent {
       console.error('[email] gmail provider failed (falling back):', (e as Error)?.message ?? e);
     }
     return undefined;
+  }
+
+  /**
+   * The "minute-zero" value (Town-style): right after onboarding, research the
+   * child's district in the background and send the parent a welcome email that
+   * proves Axolotl can email AND already knows what's available (programs, free
+   * stuff). Fire-and-forget so the text reply is instant.
+   */
+  private async backgroundResearchAndWelcome(profile: FamilyProfile, parentId: string, district: DistrictProfile): Promise<void> {
+    try {
+      const schoolName = profile.school?.trim() || district.name;
+      const researched = await autoResearchDistrict(this.knowledge, district.id, schoolName, district.name, () =>
+        researchDistrictNodes(district.name, schoolName, this.opts.researchLlm ?? this.opts.llm, ''),
+      );
+      const summary = this.buildWelcomeSummary(researched, profile);
+      const to = profile.email ?? (await getGmailToken(parentId))?.email ?? '';
+      if (!to) return;
+      const gmailProvider = await this.resolveEmailProvider(parentId);
+      const provider = gmailProvider ?? this.opts.email;
+      if (!provider) return;
+      const kids = profile.children.map((c) => c.name).join(', ') || 'your child';
+      await provider.send({
+        to,
+        subject: `Welcome to Axolotl — ${district.name}`,
+        body:
+          `Hi ${profile.parentName ?? 'there'},\n\n` +
+          `This confirms I can email you. And I've already started researching ${district.name} for ${kids} — here's a head start:\n\n` +
+          `${summary}\n\n` +
+          `I can also email the school, fill out forms, and make calls — always with your OK. Just text me anything.\n\n` +
+          `— Axolotl${gmailProvider ? '' : '\n\n(PS: to send TO the school as you, text /connect to link your Gmail.)'}`,
+      });
+      console.log('[onboarding] welcome email sent to', to);
+    } catch (e) {
+      console.error('[onboarding] welcome email failed:', (e as Error)?.message ?? e);
+    }
+  }
+
+  /** Turn researched knowledge nodes into a short, plain welcome list (free stuff first). */
+  private buildWelcomeSummary(nodes: KnowledgeNode[], profile: FamilyProfile): string {
+    const order: string[] = ['ACTIVITIES', 'MEALS', 'BASIC_NEEDS', 'TRANSPORTATION', 'GENERAL_NAVIGATION', 'SPECIAL_ED', 'LEARNING', 'ACCOMMODATIONS', 'BEHAVIOR', 'ATTENDANCE'];
+    const seen = new Set<string>();
+    const lines: string[] = [];
+    for (const cat of order) {
+      const node = nodes.find((n) => n.category === cat && !seen.has(n.title));
+      if (node) {
+        seen.add(node.title);
+        lines.push(`• ${node.title}: ${node.summary}`);
+      }
+    }
+    return lines.length ? lines.join('\n') : `I'm still digging into ${profile.school ?? 'your school'} — I'll text you what I find.`;
   }
 
   /** Run the given steps through the executor (caller sets consent/executing). */

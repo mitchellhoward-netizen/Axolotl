@@ -42,8 +42,7 @@ function parentFromRow(r: { id: string; name?: string | null; phone?: string | n
 }
 
 /** Rehydrate the in-memory seed from Supabase (guardians + students + links). */
-export async function loadIdentityIntoSeed(db: SeedDb): Promise<void> {
-  const c = getSupabase();
+export async function loadIdentityIntoSeed(db: SeedDb): Promise<void> {  const c = getSupabase();
   if (!c) return;
   try {
     const [g, s, l] = await Promise.all([
@@ -87,5 +86,28 @@ export async function persistProvisionedFamily(db: SeedDb, parentId: string): Pr
     }
   } catch (e) {
     console.error('[identity] persist failed (in-memory only):', (e as Error)?.message ?? e);
+  }
+}
+
+/**
+ * Wipe a family's persisted identity so the agent treats them as brand new on the
+ * next message (a truly fresh re-onboard). Clears guardian, profile, cases,
+ * students, links, and the memory graph. Keeps the Gmail connection (a capability,
+ * not identity) so reconnnect isn't needed.
+ */
+export async function clearFamilyIdentity(guardianId: string): Promise<void> {
+  const c = getSupabase();
+  if (!c) return;
+  try {
+    await c.from('family_profile').delete().eq('guardian_id', guardianId);
+    await c.from('case_record').delete().eq('guardian_id', guardianId);
+    await c.from('family_memory').delete().eq('guardian_id', guardianId);
+    const studentIds = (await c.from('child_link').select('student_id').eq('guardian_id', guardianId)).data?.map((r) => r.student_id as string) ?? [];
+    await c.from('child_link').delete().eq('guardian_id', guardianId);
+    if (studentIds.length) await c.from('student').delete().in('id', studentIds);
+    await c.from('guardian').delete().eq('id', guardianId);
+    console.log(`[identity] cleared family ${guardianId}`);
+  } catch (e) {
+    console.error('[identity] clear failed:', (e as Error)?.message ?? e);
   }
 }

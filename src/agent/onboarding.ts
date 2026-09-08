@@ -3,7 +3,7 @@ import type { DistrictProfile } from '../knowledge/districts.js';
 import { resolveDistrict } from '../knowledge/districts.js';
 import { assessRights } from '../knowledge/rights.js';
 
-export type OnboardingStep = 'kids' | 'school' | 'location' | 'needs' | 'challenges' | 'review';
+export type OnboardingStep = 'email' | 'kids' | 'school' | 'location' | 'needs' | 'challenges' | 'review';
 
 export interface OnboardingState {
   step: OnboardingStep;
@@ -17,17 +17,21 @@ export interface OnboardingTurn {
 }
 
 /**
- * Guided onboarding. A parent texts in, tells us about their kids and school,
- * and we learn that district + reconcile it with law + propose how we can help.
+ * Guided onboarding. A parent texts in. We lead with WHAT Axolotl can do (build
+ * trust), capture their email (so we can prove the email path + send a wow email
+ * that already knows their district), then learn the family + school.
  */
 export function openOnboarding(): OnboardingTurn {
   return {
     text: [
-      "Let's get you set up — a minute of info and I can actually help.",
+      "Hi! I'm Axolotl — your school assistant. Here's what I can do for you (always with your OK):",
+      '• Email the school on your behalf',
+      '• Fill out forms and applications',
+      '• Place calls (and leave a voicemail)',
       '',
-      "First: what are your children's names? (e.g. \"Emma and Liam\", or just \"Emma\")",
+      'To begin, let me get your email so I can show you I actually send email. Text /connect to link your Gmail, or just send me the email address you want me to use.',
     ].join('\n'),
-    state: { step: 'kids', profile: { children: [], needs: [], challenges: [] } },
+    state: { step: 'email', profile: { children: [], needs: [], challenges: [] } },
     done: false,
   };
 }
@@ -36,6 +40,23 @@ export function advanceOnboarding(state: OnboardingState, text: string): Onboard
   const t = text.trim();
 
   switch (state.step) {
+    case 'email': {
+      const email = t.match(/\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/i)?.[0];
+      if (!email) {
+        return {
+          text: `I didn't catch an email. Send me the address you'd like me to use (e.g. you@email.com), or text /connect to link your Gmail.`,
+          state,
+          done: false,
+        };
+      }
+      const profile = { ...state.profile, email };
+      return {
+        text: `Got it — ${email}. Now let's get set up.\n\nWhat are your children's names? (e.g. "Emma and Liam", or just "Emma")`,
+        state: { step: 'kids', profile },
+        done: false,
+      };
+    }
+
     case 'kids': {
       const kids = parseKids(t);
       if (kids.length === 0) {
