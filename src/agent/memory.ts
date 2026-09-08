@@ -47,11 +47,11 @@ export class InMemoryStore {
     else this.records.set(conversationId, { parentId, state: initialState(), history: [] });
   }
 
-  /** Append a message to the rolling history (cap at 8). */
+  /** Append a message to the rolling history (cap at 24 — enough to keep the thread). */
   appendHistory(conversationId: string, role: 'user' | 'assistant', content: string): void {
     const record = this.records.get(conversationId);
     if (!record) return;
-    record.history = [...record.history, { role, content }].slice(-8);
+    record.history = [...record.history, { role, content }].slice(-24);
   }
 
   getHistory(conversationId: string): ChatMessage[] {

@@ -22,7 +22,7 @@ import type { CandidateNode } from '../knowledge/research.js';
 import { searchSchoolGraph, chainSummary } from '../knowledge/resource-graph.js';
 import { buildPreCallBrief } from '../knowledge/precall.js';
 import { embeddingsConfigured, embedTexts } from '../integrations/embeddings.js';
-import { KNOWLEDGE_CATEGORIES, type KnowledgeCategory, type KnowledgeNode } from '../domain/knowledge.js';
+import { KNOWLEDGE_CATEGORIES, type KnowledgeCategory } from '../domain/knowledge.js';
 import { answerSchoolInfo } from '../knowledge/school-info.js';
 import { resolveDistrict, researchDistrictProfile, districtIdFromName, getResearchedDistrict, getResearchedDistrictById, type DistrictProfile } from '../knowledge/districts.js';
 import { StepExecutor } from './steps/executor.js';
@@ -748,47 +748,35 @@ export class Agent {
    */
   private async backgroundResearchAndWelcome(profile: FamilyProfile, parentId: string, district: DistrictProfile): Promise<void> {
     try {
-      const schoolName = profile.school?.trim() || district.name;
-      const researched = await autoResearchDistrict(this.knowledge, district.id, schoolName, district.name, () =>
-        researchDistrictNodes(district.name, schoolName, this.opts.researchLlm ?? this.opts.llm, ''),
-      );
-      const summary = this.buildWelcomeSummary(researched, profile);
       const to = profile.email ?? (await getGmailToken(parentId))?.email ?? '';
       if (!to) return;
       const gmailProvider = await this.resolveEmailProvider(parentId);
       const provider = gmailProvider ?? this.opts.email;
       if (!provider) return;
       const kids = profile.children.map((c) => c.name).join(', ') || 'your child';
+      // Send the welcome email IMMEDIATELY — never gated on research (research is
+      // slow and was the reason the email kept not going out).
       await provider.send({
         to,
         subject: `Welcome to Axolotl — ${district.name}`,
         body:
           `Hi ${profile.parentName ?? 'there'},\n\n` +
-          `This confirms I can email you. And I've already started researching ${district.name} for ${kids} — here's a head start:\n\n` +
-          `${summary}\n\n` +
-          `I can also email the school, fill out forms, and make calls — always with your OK. Just text me anything.\n\n` +
-          `— Axolotl${gmailProvider ? '' : '\n\n(PS: to send TO the school as you, text /connect to link your Gmail.)'}`,
+          `This is your Axolotl assistant, confirming I can email you reliably. I'm already researching ${district.name} for ${kids} so I can tell you what they're eligible for and help you get it.\n\n` +
+          `I can email the school, fill out forms, and make calls — always with your OK. Just text me anything.\n\n` +
+          `— Axolotl\n\n(PS: to send TO the school as you, text /connect if you haven't.)`,
       });
       console.log('[onboarding] welcome email sent to', to);
+      // Now warm the knowledge graph in the background (never blocks the email).
+      const schoolName = profile.school?.trim() || district.name;
+      void autoResearchDistrict(this.knowledge, district.id, schoolName, district.name, () =>
+        researchDistrictNodes(district.name, schoolName, this.opts.researchLlm ?? this.opts.llm, ''),
+      );
     } catch (e) {
       console.error('[onboarding] welcome email failed:', (e as Error)?.message ?? e);
     }
   }
 
-  /** Turn researched knowledge nodes into a short, plain welcome list (free stuff first). */
-  private buildWelcomeSummary(nodes: KnowledgeNode[], profile: FamilyProfile): string {
-    const order: string[] = ['ACTIVITIES', 'MEALS', 'BASIC_NEEDS', 'TRANSPORTATION', 'GENERAL_NAVIGATION', 'SPECIAL_ED', 'LEARNING', 'ACCOMMODATIONS', 'BEHAVIOR', 'ATTENDANCE'];
-    const seen = new Set<string>();
-    const lines: string[] = [];
-    for (const cat of order) {
-      const node = nodes.find((n) => n.category === cat && !seen.has(n.title));
-      if (node) {
-        seen.add(node.title);
-        lines.push(`• ${node.title}: ${node.summary}`);
-      }
-    }
-    return lines.length ? lines.join('\n') : `I'm still digging into ${profile.school ?? 'your school'} — I'll text you what I find.`;
-  }
+
 
   /** Drop a parent's students from the RUNNING seed so a /reset truly starts fresh.
    * Keeps the parent record (so buildToolContext still resolves the number) but
