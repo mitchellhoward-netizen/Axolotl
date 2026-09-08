@@ -47,9 +47,10 @@ function norm(s: unknown): string {
 }
 
 /** Split a researched `schools` string (e.g. "• Soquel Elementary — Name, (831)…") into refs. */
-function parseSchools(schools: string, districtId: string, districtName: string, state: string): SchoolRef[] {
+function parseSchools(schools: unknown, districtId: string, districtName: string, state: string): SchoolRef[] {
   const refs: SchoolRef[] = [];
-  for (const line of schools.split('\n')) {
+  const text = typeof schools === 'string' ? schools : Array.isArray(schools) ? schools.filter((s) => typeof s === 'string').join('\n') : '';
+  for (const line of text.split('\n')) {
     const m = line.match(/^\s*(?:•|[-*])\s*(.+?)(?:\s*[—-]\s*(.*))?$/i);
     if (!m) continue;
     const name = m[1]?.trim() ?? '';

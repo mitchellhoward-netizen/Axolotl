@@ -189,6 +189,23 @@ ok('MISSION: the generic ACTIVITIES node is actionable (not just "check with the
   assert.match(act.summary, /form/i);
 });
 
+ok('non-string LLM district fields are sanitized + never crash resolution', () => {
+  const d = registerDistrict({
+    id: 'district-llm-garbage',
+    name: ['bogus'] as unknown as string,
+    short: 123 as unknown as string,
+    elementary: ['List'] as unknown as string,
+    schools: ['A School', null, 'B School'] as unknown as string,
+    liaison: { name: '', role: '', phone: '', email: '' },
+    type: 'public',
+  });
+  assert.strictEqual(typeof d.name, 'string');
+  assert.strictEqual(d.liaison, undefined);
+  assert.ok(typeof d.schools === 'string');
+  assert.ok(resolveDistrict('Whatever school').name.length >= 0);
+  assert.ok(resolveAnyDistrict('Whatever school').name.length >= 0);
+});
+
 setTimeout(() => {
   console.log(`\n${passed} passed, ${failed} failed`);
   if (failed > 0) process.exit(1);

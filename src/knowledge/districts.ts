@@ -27,12 +27,24 @@ export interface DistrictProfile {
   type?: 'public' | 'private' | 'charter' | 'unknown';
 }
 
-function slug(s: string): string {
-  return (s ?? '')
+function slug(s: unknown): string {
+  return String(s ?? '')
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '')
     .slice(0, 60);
+}
+
+/** Coerce a profile field to a plain string, or drop it if it isn't one. */
+function asString(v: unknown): string | undefined {
+  return typeof v === 'string' ? v : undefined;
+}
+
+/** Coerce a schools field to a string (the LLM sometimes returns an array). */
+function asSchools(v: unknown): string | undefined {
+  if (typeof v === 'string') return v;
+  if (Array.isArray(v)) return v.filter((s) => typeof s === 'string').join('\n') || undefined;
+  return undefined;
 }
 
 /** Drop a contact object that has no real fields (the LLM sometimes returns an
@@ -59,8 +71,8 @@ export function schoolIdFromName(name: string): string {
  */
 const researched = new Map<string, DistrictProfile>();
 
-function normName(s: string): string {
-  return (s ?? '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+function normName(s: unknown): string {
+  return String(s ?? '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
 }
 
 /** Find a registered profile by matching its name (or elementary/short) to input. */
@@ -87,7 +99,17 @@ function lookupByName(input: string): DistrictProfile | undefined {
 /** Register a researched profile (call after a successful research/web lookup). */
 export function registerDistrict(p: DistrictProfile): DistrictProfile {
   const id = p.id || districtIdFromName(p.name);
-  const profile: DistrictProfile = { ...p, id, known: true, liaison: cleanContact(p.liaison), busPasses: cleanContact(p.busPasses) };
+  const profile: DistrictProfile = {
+    ...p,
+    id,
+    name: asString(p.name) ?? 'your school district',
+    short: asString(p.short),
+    elementary: asString(p.elementary),
+    schools: asSchools(p.schools),
+    liaison: cleanContact(p.liaison),
+    busPasses: cleanContact(p.busPasses),
+    known: true,
+  };
   researched.set(id, profile);
   return profile;
 }
@@ -138,14 +160,14 @@ export async function researchDistrictProfile(input: string, llm?: LlmClient): P
   }
   const profile: DistrictProfile = {
     id,
-    name: r.name,
-    short: r.short ?? '',
-    city: r.city,
-    state: r.state,
-    elementary: r.elementary,
+    name: asString(r.name) ?? name,
+    short: asString(r.short) ?? '',
+    city: asString(r.city),
+    state: asString(r.state),
+    elementary: asString(r.elementary),
     liaison: cleanContact(r.liaison),
     busPasses: cleanContact(r.busPasses),
-    schools: r.schools,
+    schools: asSchools(r.schools),
     known: r.known === true || Boolean(r.liaison || r.schools || r.elementary || (r.type && r.type !== 'unknown')),
     type: r.type ?? 'unknown',
   };
