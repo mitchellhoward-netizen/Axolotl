@@ -21,7 +21,7 @@ export function getVoiceLlm(): LlmClient | null {
         baseUrl: isOpenAI
           ? (process.env.VOICE_BASE_URL ?? process.env.OPENAI_BASE_URL ?? 'https://api.openai.com/v1')
           : (process.env.VOICE_BASE_URL ?? process.env.LLM_BASE_URL ?? 'https://api.deepseek.com'),
-        model: process.env.VOICE_MODEL ?? (isOpenAI ? 'gpt-4o-mini' : 'deepseek-chat'),
+        model: process.env.VOICE_MODEL ?? (isOpenAI ? 'gpt-4.1-mini' : 'deepseek-chat'),
         maxTokens: process.env.VOICE_MAX_TOKENS ? Number(process.env.VOICE_MAX_TOKENS) : undefined,
       })
     : null;
