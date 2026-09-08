@@ -761,15 +761,22 @@ export class Agent {
     if (!provider) return;
     const kids = profile.children.map((c) => c.name).join(', ') || 'your child';
 
-    // 1. Immediate welcome email (reliable, never gated on research).
+    // ONE welcome email that already carries a small bit of research (a bounded
+    // quick pass), so the very first thing the parent gets has real value. Then
+    // warm the knowledge graph in the background. No separate research email.
+    const summary = await withTimeout(this.quickDistrictSummary(profile, district), 12000, '');
+    const researched = summary
+      ? `Here's a head start on what's available:\n\n${summary}\n\n`
+      : `I'm digging into ${district.name} for specifics right now, but here's what usually applies and I'll confirm with the school:\n\n· free & reduced-price meals · transportation support · before/after-school programs (ELO-P in CA)\n\n`;
     try {
       await provider.send({
         to,
         subject: `Welcome to Axolotl — ${district.name}`,
         body:
           `Hi ${profile.parentName ?? 'there'},\n\n` +
-          `This is your Axolotl assistant, confirming I can email you reliably. I'm already researching ${district.name} for ${kids} so I can tell you what they're eligible for and help you get it.\n\n` +
-          `I can email the school, fill out forms, and make calls — always with your OK. Just text me anything.\n\n` +
+          `This is your Axolotl assistant. I can email the school, fill out forms, and make calls for you (always with your OK). I looked into ${district.name} for ${kids}:\n\n` +
+          `${researched}` +
+          `Just text me anything — I can act on any of these or answer a question.\n\n` +
           `— Axolotl`,
       });
       console.log('[onboarding] welcome email sent to', to);
@@ -777,28 +784,23 @@ export class Agent {
       console.error('[onboarding] welcome email failed:', (e as Error)?.message ?? e);
     }
 
-    // 2. Research the district (bounded) then send the "wow" email with what it found.
+    // Warm the knowledge graph in the background (never blocks the email; no 2nd email).
+    const schoolName = profile.school?.trim() || district.name;
+    void autoResearchDistrict(this.knowledge, district.id, schoolName, district.name, () =>
+      researchDistrictNodes(district.name, schoolName, this.opts.researchLlm ?? this.opts.llm, ''),
+    );
+  }
+
+  /** A bounded quick research pass so the welcome email has a real snippet fast. */
+  private async quickDistrictSummary(profile: FamilyProfile, district: DistrictProfile): Promise<string> {
+    const schoolName = profile.school?.trim() || district.name;
     try {
-      const schoolName = profile.school?.trim() || district.name;
       const nodes = await autoResearchDistrict(this.knowledge, district.id, schoolName, district.name, () =>
         researchDistrictNodes(district.name, schoolName, this.opts.researchLlm ?? this.opts.llm, ''),
       );
-      const summary = this.buildWelcomeSummary(nodes, profile);
-      if (summary) {
-        await provider.send({
-          to,
-          subject: `What I found for ${kids} at ${district.name}`,
-          body:
-            `Hi ${profile.parentName ?? 'there'},\n\n` +
-            `I looked into ${district.name} for ${kids} — here's a head start on what's available:\n\n` +
-            `${summary}\n\n` +
-            `Want me to act on any of these? Just text me — I can email the school, fill out a form, or call for you (with your OK).\n\n` +
-            `— Axolotl`,
-        });
-        console.log('[onboarding] research email sent to', to);
-      }
-    } catch (e) {
-      console.error('[onboarding] research email failed:', (e as Error)?.message ?? e);
+      return this.buildWelcomeSummary(nodes, profile);
+    } catch {
+      return '';
     }
   }
 
@@ -1780,6 +1782,11 @@ function isLookupRefusal(s: string): boolean {
  */
 /** True when a model answer REFUSES to help — we force it to keep trying/hand off.
  * A genuine yes/no offer ("want me to sign Patrick up?") is allowed. */
+/** Resolve a promise to `fallback` if it doesn't settle within `ms` (best-effort). */
+function withTimeout<T>(p: Promise<T>, ms: number, fallback: T): Promise<T> {
+  return Promise.race([p, new Promise<T>((resolve) => setTimeout(() => resolve(fallback), ms))]);
+}
+
 function isRefusal(s: string): boolean {
   const t = s.toLowerCase();
   return (
