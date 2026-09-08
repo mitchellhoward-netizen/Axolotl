@@ -327,11 +327,18 @@ export class Agent {
       let turn: AgentTurn;
 
       // Reset the family so the next message onboards them COMPLETELY fresh — clears
-      // the in-memory conversation + the persisted identity (+ students/cases/memory).
+      // the in-memory conversation + the running seed (so a parent's students are gone)
+      // + the persisted identity, then immediately starts onboarding (the intro).
       if (/^(?:\/reset|reset|start over|fresh start|start again)\b/i.test(text.trim())) {
         this.store.reset(conversationId);
+        this.clearInMemoryFamily(parentId);
         await clearFamilyIdentity(parentId);
-        return { text: "Fresh start! I've forgotten everything and we'll set you up again — let's go.", phase: 'idle' };
+        const rec = this.store.ensure(conversationId, parentId);
+        const ob = openOnboarding();
+        rec.state.onboarding = ob.state;
+        rec.state.profile = ob.state.profile;
+        rec.state.phase = 'clarifying';
+        return { text: ob.text, phase: 'clarifying' };
       }
 
       // Connect the parent's Gmail (send-as-parent) — a simple, always-available
@@ -781,6 +788,17 @@ export class Agent {
       }
     }
     return lines.length ? lines.join('\n') : `I'm still digging into ${profile.school ?? 'your school'} — I'll text you what I find.`;
+  }
+
+  /** Drop a parent's students from the RUNNING seed so a /reset truly starts fresh.
+   * Keeps the parent record (so buildToolContext still resolves the number) but
+   * clears their kids — otherwise the agent keeps thinking they have a child. */
+  private clearInMemoryFamily(parentId: string): void {
+    const db = this.opts.db;
+    const parent = db.parents.find((p) => p.id === parentId);
+    if (!parent) return;
+    for (const sid of parent.studentIds) db.students = db.students.filter((s) => s.id !== sid);
+    parent.studentIds = [];
   }
 
   /** Run the given steps through the executor (caller sets consent/executing). */
