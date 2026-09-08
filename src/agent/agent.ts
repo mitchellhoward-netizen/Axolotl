@@ -40,6 +40,7 @@ import type { Counterparty, Mode, StepResult, ExecutionContext, Step } from './s
 import type { SeedDb } from '../seed.js';
 import { provisionFamily } from '../seed.js';
 import { persistProvisionedFamily, clearFamilyIdentity } from '../integrations/identity.js';
+import { clearMessages } from '../integrations/conversation-store.js';
 import { executeTool } from '../tools/registry.js';
 import type { ToolContext } from '../tools/types.js';
 import type { IntentEngine } from './intent/engine.js';
@@ -223,6 +224,8 @@ export class Agent {
     try {
       const record = this.store.ensure(conversationId, parentId);
       const state = record.state;
+      // Rehydrate the full persisted thread (survives restarts) before appending.
+      await this.store.rehydrate(conversationId);
       this.store.appendHistory(conversationId, 'user', text.trim());
 
       // ── Consent resolution for a pending consequential action ───────────────
@@ -333,6 +336,7 @@ export class Agent {
         this.store.reset(conversationId);
         this.clearInMemoryFamily(parentId);
         await clearFamilyIdentity(parentId);
+        await clearMessages(conversationId);
         const rec = this.store.ensure(conversationId, parentId);
         const ob = openOnboarding();
         rec.state.onboarding = ob.state;
