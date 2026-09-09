@@ -1082,6 +1082,16 @@ export class Agent {
           guard++;
           continue;
         }
+        // Don't re-send the onboarding-setup block as an answer to a real request.
+        if (isCompletionEcho(res.text) && guard < 10) {
+          messages.push({
+            role: 'user',
+            content:
+              "That's the setup confirmation you already sent. The parent is now asking for help — do NOT repeat it. Answer their actual question: research what they asked about and give a specific, useful answer (e.g. name the program + how to sign up).",
+          });
+          guard++;
+          continue;
+        }
         return { turn: { text: res.text, phase: 'done', resolved }, state };
       }
       break;
@@ -1845,6 +1855,13 @@ function isRefusal(s: string): boolean {
     /i (don'?t|do not) (do|handle|cover) (that|this|those)/.test(t) ||
     /(i can'?t|cannot) (help you|help with that|help with this|do that)/.test(t)
   );
+}
+
+/** The brain re-emitting the onboarding-setup confirmation ("You're all set…") as a
+ * reply to a real request — it chewed up the loop and echoed the big block. Treat
+ * it as a non-answer and force it to actually help. */
+function isCompletionEcho(s: string): boolean {
+  return /you're all set|all saved — you won'?t have to repeat|what would you like help with first|here's what i can do for you \(always with your ok/i.test(s);
 }
 
 function isThinResearchAnswer(s: string): boolean {
