@@ -41,7 +41,6 @@ import type { Counterparty, Mode, StepResult, ExecutionContext, Step } from './s
 import type { SeedDb } from '../seed.js';
 import { provisionFamily } from '../seed.js';
 import { persistProvisionedFamily, clearFamilyIdentity } from '../integrations/identity.js';
-import { deferQuestion } from '../voice/defer.js';
 import { clearMessages } from '../integrations/conversation-store.js';
 import { executeTool } from '../tools/registry.js';
 import type { ToolContext } from '../tools/types.js';
@@ -839,24 +838,6 @@ export class Agent {
     state.emailProofSent = true;
   }
 
-  /** Kick off an offline DEEPER research on the parent's last request as a follow-up
-   * bubble — the defer seam researches it (focused) + texts the richer answer.
-   * This decouples perceived latency from research time: fast answer now, deeper
-   * findings a few seconds later. Fire-and-forget. */
-  private scheduleDeeperResearch(question: string, state: ConversationState): void {
-    const p = state.profile;
-    deferQuestion({
-      question,
-      conversationId: this.currentConversationId,
-      vars: {
-        parent_name: p?.parentName ?? 'the parent',
-        student: p?.children?.[0]?.name ?? 'your child',
-        school: p?.school ?? '',
-        district: p?.district ?? p?.school ?? '',
-      },
-    });
-  }
-
   private async backgroundResearchAndWelcome(profile: FamilyProfile, parentId: string, district: DistrictProfile): Promise<void> {
     // The proof email already fired at email-capture (sendEmailProof). Here we only
     // warm the knowledge graph in the background so that once the parent says what
@@ -1056,7 +1037,6 @@ export class Agent {
     let guard = 0;
     let resolved = false;
     let researchCalls = 0;
-    let deeperScheduled = false;
     // Cap the live research loop so a "research X" turn answers in seconds, not
     // minutes — after a few searches/fetches the brain must answer what it has and
     // offer to dig deeper, instead of looping until 'thorough' (2.6).
@@ -1083,12 +1063,6 @@ export class Agent {
         const researchThisRound = res.calls.filter((c) => RESEARCH_TOOL_NAMES.has(c.name)).length;
         if (researchThisRound > 0) researchCalls += researchThisRound;
         if (researchCalls >= RESEARCH_CALL_CAP && res.calls.some((c) => RESEARCH_TOOL_NAMES.has(c.name))) {
-          // Kick off a DEEPER offline research (bubble 2) ONCE per turn while the live
-          // answer goes out; the defer seam researches + texts the richer findings.
-          if (!deeperScheduled) {
-            deeperScheduled = true;
-            this.scheduleDeeperResearch(text, state);
-          }
           messages.push({
             role: 'user',
             content:
