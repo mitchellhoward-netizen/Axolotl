@@ -19,10 +19,21 @@ export function splitIntoBubbles(text: string): string[] {
 
   const paras = t.split(/\n{2,}/).map((s) => s.trim()).filter(Boolean);
 
+  // Acknowledgment-only fragment ("Got it!", "Here's what I found:") — never its own
+  // bubble, and never after real content. A preamble ("Got it! Here's what I found:")
+  // at the start of a content segment gets stripped so the bubble opens with substance.
+  const isAckOnly = (s: string) =>
+    /^(got it|ok(ay)?|sure|great news|here'?s what i (found|got)|here you go|alright|perfect)[:!.?\s]*$/i.test(s.trim()) ||
+    (s.trim().length < 25 && /[:!]\s*$/.test(s.trim()));
+  const stripPreamble = (s: string) =>
+    s.replace(/^\s*(got it|ok(ay)?|sure|great news|hey!? so|here'?s what i (found|got))[:!,\s]+/i, '').trim();
+
   // One paragraph → conservative fallback: ≤2 bubbles on sentence boundaries,
   // never mid-sentence; don't over-split short/list/consent/question text.
   if (paras.length === 1) {
-    const single = paras[0]!;
+    const single0 = paras[0]!;
+    if (isAckOnly(single0)) return [];
+    const single = stripPreamble(single0);
     const sentenceCount = (single.match(/[.!?](?=\s|$)/g) ?? []).length;
     if (!isList(single) && !isConsent(single) && !isQuestion(single) && single.length > 140 && sentenceCount >= 2) {
       const sentences = single.split(/(?<=[.!?])\s+/).map((s) => s.trim()).filter(Boolean);
@@ -34,15 +45,16 @@ export function splitIntoBubbles(text: string): string[] {
   }
 
   // Multi-paragraph: keep bullet lists whole; isolate consent + clarifying
-  // questions as their own bubble.
+  // questions as their own bubble. Drop ack-only fragments; strip ack preambles.
   const segs: string[] = [];
   let buf: string[] = [];
   const flush = () => {
     const b = buf.join('\n\n').trim();
-    if (b) segs.push(b);
+    if (b) segs.push(stripPreamble(b));
     buf = [];
   };
   for (const p of paras) {
+    if (isAckOnly(p)) continue; // never its own bubble; never after content
     if (isConsent(p) || isQuestion(p) || isList(p)) {
       flush();
       segs.push(p);
@@ -59,6 +71,8 @@ export function splitIntoBubbles(text: string): string[] {
   return rest ? [rest, last] : [last];
 }
 
+import { toPlainText } from '../lib/plain.js';
+
 export interface BubbleSpace {
   send(t: string): Promise<unknown>;
   startTyping?(): Promise<unknown>;
@@ -71,21 +85,22 @@ const delay = (ms: number) => new Promise((r) => setTimeout(r, ms));
 const pace = (s: string) => Math.min(1200, Math.max(400, Math.round(s.length * 18)));
 
 /** Send 1–3 bubbles. Bubble 1 goes immediately (no pre-delay); bubbles 2–3 are
- * paced with typing indicators. Every operation is best-effort. */
+ * paced with typing indicators. Every operation is best-effort. Markdown is stripped
+ * per-bubble so NO send path can leak **bold**, #, or - to iMessage. */
 export async function sendBubbles(space: BubbleSpace, text: string): Promise<void> {
+  const send = (s: string) => space.send(toPlainText(s)).catch(() => {});
   if (!MULTI_BUBBLE) {
-    await space.send(text).catch(() => {});
+    await send(text);
     return;
   }
   const bubbles = splitIntoBubbles(text);
   if (!bubbles.length) return;
-  const first = bubbles[0]!;
-  await space.send(first).catch(() => {});
+  await send(bubbles[0]!);
   for (let i = 1; i < bubbles.length; i++) {
     const b = bubbles[i]!;
     await space.startTyping?.().catch(() => {});
     await delay(pace(b));
     await space.stopTyping?.().catch(() => {});
-    await space.send(b).catch(() => {});
+    await send(b);
   }
 }

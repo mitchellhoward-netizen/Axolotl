@@ -33,10 +33,16 @@ async function main() {
     const b = splitIntoBubbles(text);
     check('list: stays one bubble', b.length === 1 && /✓|•/.test(b[0] ?? '') && /ELO-P/.test(b[0] ?? ''));
   }
-  // 4. Short one-liner → exactly one bubble.
+  // 4a. Short content one-liner → exactly one bubble.
   {
-    const b = splitIntoBubbles('Got it!');
-    check('short one-liner: exactly one bubble', b.length === 1 && b[0] === 'Got it!');
+    const b = splitIntoBubbles('Yep, Soquel is the right school!');
+    check('short one-liner: exactly one bubble', b.length === 1 && b[0] === 'Yep, Soquel is the right school!');
+  }
+  // 4b. Acknowledgment-only fragment → dropped; preamble stripped from content.
+  {
+    check('ack-only "Got it!" is dropped', splitIntoBubbles('Got it!').length === 0);
+    const b = splitIntoBubbles('Got it! Here\u2019s what I found for Patrick:\n\nFree ELO-P is available.');
+    check('preamble stripped from content', b.length >= 1 && !/^got it/i.test(b[0] ?? ''));
   }
   // 5. Clarifying question → its own bubble.
   {
