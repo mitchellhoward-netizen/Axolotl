@@ -135,12 +135,12 @@ export function attachVoiceWebSocket(server: Server): void {
 
           const reply = await Promise.race([
             school
-              ? generateSchoolReply(turn).then((text) => ({ text, deferred: false, proposedSteps: undefined }))
+              ? generateSchoolReply(turn).then((text) => ({ text, deferred: false, proposedSteps: undefined, endCall: undefined }))
               : generateVoiceReply(turn),
-            new Promise<{ text: string; deferred?: boolean; proposedSteps?: Step[] }>((resolve) =>
+            new Promise<{ text: string; deferred?: boolean; proposedSteps?: Step[]; endCall?: boolean }>((resolve) =>
               setTimeout(() => resolve({ text: 'Still working on that — one sec, just a moment.', deferred: false, proposedSteps: undefined }), 10000),
             ),
-          ]).catch(() => ({ text: 'Sorry — one second, could you repeat that?', deferred: false, proposedSteps: undefined }));
+          ]).catch(() => ({ text: 'Sorry — one second, could you repeat that?', deferred: false, proposedSteps: undefined, endCall: undefined }));
 
           // Voice→text handoff: the parent asked something that needs research.
           if (reply.deferred && conversationId) {
@@ -158,7 +158,7 @@ export function attachVoiceWebSocket(server: Server): void {
               response_id: id,
               content: reply.text,
               content_complete: true,
-              end_call: false,
+              end_call: reply.endCall === true,
             }),
           );
           break;

@@ -31,6 +31,8 @@ export interface VoiceReply {
   deferred?: boolean;
   /** Actions proposed this turn (email/call) awaiting the parent's spoken YES. */
   proposedSteps?: Step[];
+  /** True when the agent is done (goodbye / task complete) — hang up the call. */
+  endCall?: boolean;
 }
 
 /** Voice-safe tools: instant, in-memory only. Everything slow is deferred. */
@@ -41,9 +43,17 @@ const VOICE_TOOL_NAMES = new Set([
   'log_case',
   'now',
 ]);
-const VOICE_TOOLS = LLM_TOOLS.filter(
-  (t) => VOICE_TOOL_NAMES.has((t as { function?: { name?: string } }).function?.name ?? ''),
-);
+const VOICE_TOOLS = [
+  ...LLM_TOOLS.filter((t) => VOICE_TOOL_NAMES.has((t as { function?: { name?: string } }).function?.name ?? '')),
+  {
+    type: 'function',
+    function: {
+      name: 'end_call',
+      description: 'The call is over — the parent said goodbye, or the task is done. End the call politely.',
+      parameters: { type: 'object', properties: {} },
+    },
+  },
+];
 
 /** A spoken, natural-language system prompt. No markdown, no bullets, short. */
 function voiceSystemPrompt(vars: Record<string, unknown>, context: string): string {
@@ -83,6 +93,7 @@ function voiceSystemPrompt(vars: Record<string, unknown>, context: string): stri
     '- When they ask you to DO something (email, call, sign-up), call send_email or call_school. These stage the action instantly and the system asks them for a YES \u2014 so just call the tool and move on; never wait on it, never ask for consent yourself.',
     '- Be warm and proactive: after you answer, offer the next step and ask a quick yes/no ("I can call the office about the bus \u2014 want me to?"). But proactive means OFFER and hand off to text \u2014 never "let me look that up" while they wait.',
     '- Never claim you already sent, called, submitted, or scheduled anything. Offer, then let their YES trigger it.',
+    '- When the parent says goodbye ("bye", "thanks, that\u2019s all", "goodbye") or the task is done, call end_call to hang up. Don\u2019t keep the call open or repeat the offer.',
     '',
     'IMPORTANT \u2014 never invent a specific policy, process, form, deadline, or phone number. If it\u2019s not in WHAT WE KNOW, DEFER rather than guess.',
   ].join('\n');
@@ -333,6 +344,10 @@ export async function generateVoiceReply(turn: VoiceTurn): Promise<VoiceReply> {
     if (!res) break;
 
     if (res.calls?.length) {
+      // The model signaled the call is over → hang up after a warm goodbye.
+      if (res.calls.some((c) => c.name === 'end_call')) {
+        return { text: 'Alright — I\u2019ll follow up by text if anything comes up. Take care!', endCall: true, proposedSteps: proposed.length ? proposed : undefined };
+      }
       const assistantMsg = {
         role: 'assistant',
         content: null,

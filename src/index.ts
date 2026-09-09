@@ -98,6 +98,10 @@ const retell = createRetellClient();
 // Voice→text handoff: when a voice question needs research, answer it async and
 // text the parent the result over iMessage (rather than making them wait on the call).
 setDeferHandler(async (q) => {
+  // Confirm immediately so the parent knows their on-call question was captured,
+  // then research + text the full answer (both land in the same thread as the call).
+  const acked = await agent.sendToConversation(q.conversationId, "Got it — I\u2019m looking into that and I\u2019ll text you the answer in a few minutes.");
+  if (!acked) console.warn('[defer] could not ack', q.conversationId);
   const answer = await answerDeferredQuestion(q, llm);
   const sent = await agent.sendToConversation(q.conversationId, answer);
   if (!sent) console.warn('[defer] could not deliver answer to', q.conversationId);
