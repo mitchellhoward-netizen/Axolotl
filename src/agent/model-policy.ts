@@ -43,12 +43,22 @@ export function routeTool(tool: string): ModelTier {
 }
 
 export function frontierModel(): ModelSpec {
-  const key = process.env.ANTHROPIC_API_KEY ?? process.env.DEEPSEEK_API_KEY ?? process.env.OPENAI_API_KEY;
   const isAnthropic = Boolean(process.env.ANTHROPIC_API_KEY);
+  if (isAnthropic) {
+    // A CONSISTENT Anthropic provider — never mix the Anthropic key with a stale
+    // DeepSeek model/base (LLM_MODEL=deepseek-v4-pro etc. cause 401s and silently
+    // break research -> 'district type unknown').
+    return {
+      model: process.env.FRONTIER_MODEL ?? 'claude-haiku-4-5',
+      apiKey: process.env.ANTHROPIC_API_KEY,
+      baseUrl: process.env.FRONTIER_BASE_URL ?? 'https://api.anthropic.com/v1',
+    };
+  }
+  const key = process.env.DEEPSEEK_API_KEY ?? process.env.OPENAI_API_KEY;
   return {
-    model: process.env.FRONTIER_MODEL ?? process.env.LLM_MODEL ?? process.env.OPENAI_MODEL ?? (isAnthropic ? 'claude-haiku-4-5' : 'deepseek-chat'),
+    model: process.env.FRONTIER_MODEL ?? process.env.LLM_MODEL ?? process.env.OPENAI_MODEL ?? 'deepseek-chat',
     apiKey: key,
-    baseUrl: process.env.LLM_BASE_URL ?? process.env.OPENAI_BASE_URL ?? (isAnthropic ? 'https://api.anthropic.com/v1' : 'https://api.deepseek.com'),
+    baseUrl: process.env.LLM_BASE_URL ?? process.env.OPENAI_BASE_URL ?? 'https://api.deepseek.com',
   };
 }
 

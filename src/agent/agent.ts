@@ -1940,7 +1940,8 @@ function onboardingSituation(profile?: FamilyProfile): string | undefined {
   const block = computeOnboardingBlock(profile);
   if (block) return block;
   return (
-    `ONBOARDING: the family's fields are all in. Do NOT research, search the web, or list programs. ` +
-    `Acknowledge briefly; the system finishes setting up the family and emails you what applies. Keep this turn to one short confirmation.`
+    `ONBOARDING: the family's fields (email, child name, school, city/state) are ALL present. ` +
+    `Do NOT ask for anything else, do NOT research, search the web, or list programs. ` +
+    `The system finishes setting up the family and emails you what applies. Reply with ONE short confirmation line and stop.`
   );
 }
