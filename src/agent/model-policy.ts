@@ -59,15 +59,16 @@ export function frontierModel(): ModelSpec {
  * behavior is preserved and the app still boots without a key.
  */
 export function chatModel(): ModelSpec {
-  const key = process.env.CHAT_API_KEY ?? process.env.ANTHROPIC_API_KEY ?? process.env.DEEPSEEK_API_KEY ?? process.env.OPENAI_API_KEY;
   const isAnthropic = Boolean(process.env.CHAT_API_KEY ?? process.env.ANTHROPIC_API_KEY);
-  return {
-    model: process.env.CHAT_MODEL ?? (isAnthropic ? 'claude-haiku-4-5' : 'deepseek-chat'),
-    apiKey: key,
-    baseUrl:
-      process.env.CHAT_BASE_URL ??
-      (isAnthropic ? 'https://api.anthropic.com/v1' : 'https://api.deepseek.com'),
-  };
+  if (isAnthropic) {
+    return {
+      model: process.env.CHAT_MODEL ?? 'claude-haiku-4-5',
+      apiKey: process.env.CHAT_API_KEY ?? process.env.ANTHROPIC_API_KEY,
+      baseUrl: process.env.CHAT_BASE_URL ?? 'https://api.anthropic.com/v1',
+    };
+  }
+  // No Anthropic key -> behave exactly like the legacy parent path (DeepSeek/OpenAI via LLM_*).
+  return frontierModel();
 }
 
 export function smallModel(): ModelSpec {
