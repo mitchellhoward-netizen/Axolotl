@@ -892,6 +892,8 @@ export class Agent {
     if (next.profile === undefined) next.profile = prev.profile;
     if (next.cases === undefined) next.cases = prev.cases;
     if (next.summary === undefined) next.summary = prev.summary;
+    if (next.onboarded === undefined) next.onboarded = prev.onboarded;
+    if (next.emailProofSent === undefined) next.emailProofSent = prev.emailProofSent;
     this.store.setState(conversationId, next);
   }
 

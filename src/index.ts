@@ -370,11 +370,7 @@ for await (const [space, message] of app.messages) {
   const reactFn = (message as unknown as { react?: (e: string) => unknown }).react;
   if (typeof reactFn === 'function') await Promise.resolve(reactFn(pickReaction(text))).catch(() => {});
 
-  // React with the axolotl (🦎 / sticker) when we RESOLVED something for the
-  // parent — a "win" marker — not on every message.
-  if (resolved) {
-    await reactWithAxolotl(space as unknown as { placeSticker?: unknown }, message as unknown as { id: string; react: (e: string) => unknown }).catch(() => {});
-  }
+  // (Removed the axolotl reaction — user found the 🦎 noisy.)
 
   // Send reliably as ONE (or a few paced) message(s). `message.reply(...)` double-sends
   // on this platform; `space.send` emits a single bubble — sendBubbles handles pacing.
