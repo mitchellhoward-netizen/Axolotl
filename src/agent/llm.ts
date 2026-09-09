@@ -32,6 +32,12 @@ export class LlmClient {
     return Boolean(this.opts.apiKey);
   }
 
+  /** Anthropic's OpenAI-compat endpoint rejects `response_format:{type:'json_object'}`
+   * (it wants `json_schema`); detect it so we omit that field and rely on the prompt. */
+  private get isAnthropic(): boolean {
+    return /anthropic/i.test(this.opts.baseUrl) || /^claude/i.test(this.opts.model);
+  }
+
   /**
    * Function-calling turn. Returns the model's text reply and/or the tool calls
    * it wants to make, for the caller to drive the loop. Null on failure.
@@ -132,9 +138,11 @@ export class LlmClient {
         body: JSON.stringify({
           model: this.opts.model,
           temperature: 0,
-          ...(json ? { response_format: { type: 'json_object' } } : {}),
-          // Anthropic requires a token cap; default to 1024.
-          max_tokens: this.opts.maxTokens ?? 1024,
+          // Anthropic rejects response_format json_object (wants json_schema); the
+          // prompts already instruct "return ONLY a JSON object", so omit it there.
+          ...(json && !this.isAnthropic ? { response_format: { type: 'json_object' } } : {}),
+          // Anthropic requires a token cap; offline JSON reasoning needs room -> 2048.
+          max_tokens: this.opts.maxTokens ?? 2048,
           messages: [
             { role: 'system', content: system },
             { role: 'user', content: user },
