@@ -1055,7 +1055,10 @@ export class Agent {
           : LLM_TOOLS,
         'auto',
       );
-      if (!res) break;
+      if (!res) {
+        console.warn('[brain] chatWithTools returned null (LLM/tool error) — breaking', { guard });
+        break;
+      }
       // If the model wants to call tools, do it — never return early on a preamble.
       if (res.calls?.length) {
         // Enforce the live research cap (2.6): too many search/fetch calls -> force
@@ -1088,7 +1091,8 @@ export class Agent {
           let out: string;
           try {
             out = await runTool(c.name, JSON.parse(c.arguments || '{}') as Record<string, unknown>, deps);
-          } catch {
+          } catch (e) {
+            console.warn('[brain] tool failed', c.name, (e as Error)?.message ?? e);
             out = 'tool error';
           }
           results.push({ role: 'tool', tool_call_id: c.id, content: JSON.stringify({ result: out }) });
@@ -1155,6 +1159,21 @@ export class Agent {
     }
     const kid = state.profile?.children?.[0]?.name ?? 'your child';
     const school = state.profile?.school ?? 'their school';
+    // A clear, concrete action request must NEVER fall to the generic menu — give a
+    // request-specific message (what I attempted + exact form + next step/wall).
+    if (/\b(fill|sign[\s-]*up|enroll|register|submit|apply|email|call)\b/i.test(text) && /\b(form|sign[\s-]*up|enrollment|waitlist|portal|program|school|district|application)\b/i.test(text)) {
+      return {
+        turn: {
+          text:
+            `I tried to do that for ${kid} at ${school}, but I hit a snag — likely the program's form needs an account/sign-in, or I couldn't reach the exact enrollment page. Here's the specific next step:\n\n` +
+            `• I can find + open the program's enrollment form and fill what I can (name, grade, email) — no submission until you say so\n` +
+            `• If it needs a sign-in, I'll create/access the account with your OK\n\n` +
+            `Want me to open the form now, or tell me the program and I'll go get the exact enrollment link?`,
+          phase: 'done',
+        },
+        state,
+      };
+    }
     return {
       turn: {
         text:
