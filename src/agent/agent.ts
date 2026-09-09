@@ -1927,6 +1927,7 @@ export function computeOnboardingBlock(profile?: FamilyProfile): string | undefi
   return (
     `ONBOARDING: this family isn't set up yet. Still needed: ${missing.join(', ')}. ` +
     `Ask for these naturally, one thing at a time — do NOT interrogate. Gather them via save_profile. ` +
-    `Once they're all in, I'll set up the family and email you what applies.`
+    `Do NOT look up / research the school or search the web during onboarding — just collect the field and ask for the next one. ` +
+    `Once all the fields are in I'll set up the family AUTOMATICALLY and email you what applies — you don't research anything now.`
   );
 }
