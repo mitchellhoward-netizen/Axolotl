@@ -1,4 +1,5 @@
 import { SearchSession, DEFAULT_BUDGET, extractSearchTerms, normalizeQuery, type SearchBudget } from './trajectory.js';
+import { search as tavilySearch, fetchUrl, cachedContent, searchEnabled } from '../integrations/search.js';
 import { KNOWLEDGE_CATEGORIES, type KnowledgeCategory } from '../domain/knowledge.js';
 import { extractPdf, isPdfUrl } from '../integrations/browser.js';
 import type { LlmClient } from '../agent/llm.js';
@@ -35,8 +36,18 @@ function envBudget(): SearchBudget {
   };
 }
 
-/** DuckDuckGo HTML via the jina.ai reader → markdown containing result links. */
+/** Search the web. When Tavily is enabled it returns hit URLs (content is cached
+ * so fetchWeb serves it inline — no second round-trip). Falls back to the jina
+ * reader (DuckDuckGo HTML) when no Tavily key / on failure. */
 async function searchWeb(query: string): Promise<string> {
+  try {
+    if (searchEnabled()) {
+      const r = await tavilySearch(query, { maxResults: 5 });
+      return r.hits.map((h) => `• ${h.url}${h.title ? ` — ${h.title}` : ''}`).join('\n');
+    }
+  } catch {
+    /* fall through to jina */
+  }
   try {
     const res = await fetch(`https://r.jina.ai/https://html.duckduckgo.com/html/?q=${encodeURIComponent(query)}`);
     return res.ok ? await res.text() : '';
@@ -45,14 +56,12 @@ async function searchWeb(query: string): Promise<string> {
   }
 }
 
-/** Fetch a page as text via the jina.ai reader. (Static text; the browser layer is Phase 2.) */
+/** Fetch a page as text — serves the Tavily-inline content first (no re-fetch),
+ * else jina reader. */
 async function fetchWeb(url: string): Promise<string> {
-  try {
-    const res = await fetch(`https://r.jina.ai/${encodeURIComponent(url)}`);
-    return res.ok ? await res.text() : '';
-  } catch {
-    return '';
-  }
+  const cached = cachedContent(url);
+  if (cached) return cached;
+  return fetchUrl(url);
 }
 
 /** Extract candidate result URLs (multiple) from DuckDuckGo markdown. */
