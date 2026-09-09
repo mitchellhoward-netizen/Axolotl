@@ -366,6 +366,12 @@ for await (const [space, message] of app.messages) {
 
   await space.stopTyping().catch(() => {});
 
+  // React with a school-themed emoji on the parent's message (👋 hello, 🚌 bus, …),
+  // on every inbound message via the same emoji-reaction path (safe no-op if the
+  // SDK message doesn't expose `react`).
+  const reactFn = (message as unknown as { react?: (e: string) => unknown }).react;
+  if (typeof reactFn === 'function') await Promise.resolve(reactFn(pickReaction(text))).catch(() => {});
+
   // React with the axolotl (🦎 / sticker) when we RESOLVED something for the
   // parent — a "win" marker — not on every message.
   if (resolved) {

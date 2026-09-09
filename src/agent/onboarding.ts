@@ -139,9 +139,11 @@ export function finalizeOnboarding(profile: FamilyProfile, district: DistrictPro
   lines.push("All saved — you won't have to repeat it.");
   lines.push('');
   lines.push("Here's what I can do for you (always with your OK first):");
-  lines.push('📄 Fill out a sign-up form — like the free ELO-P after-school program. I fill it, show you, and only submit when you say go.');
+  lines.push('📄 Fill out a form or sign-up — I fill it with your child\u2019s info, show you, and only submit when you say go.');
   lines.push('✉️ Email the school or district for you — I draft it, you approve it, it sends from you.');
   lines.push('📞 Call the office and handle it — then text you what they said. Want to hear it? Just say "call me."');
+  lines.push('⏰ Set a reminder to follow up on something, so nothing slips.');
+  lines.push('🔑 Connect to your parent portal(s) so I can see assignments, forms, and what\u2019s available.');
 
   // The district homeless liaison is a McKinney-Vento (homeless/displaced) contact —
   // only surface it when the family actually flagged housing instability, not a generic family.
@@ -160,7 +162,7 @@ export function finalizeOnboarding(profile: FamilyProfile, district: DistrictPro
   }
 
   lines.push('');
-  lines.push(`I'm looking up ${district.name}'s free programs right now and I'll text you the shortlist in a minute. What do you want to start with?`);
+  lines.push('What would you like help with first? Tell me what\u2019s going on, or just pick one of the above.');
   return lines.join('\n');
 }
 

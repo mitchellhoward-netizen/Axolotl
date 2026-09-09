@@ -804,68 +804,14 @@ export class Agent {
   }
 
   private async backgroundResearchAndWelcome(profile: FamilyProfile, parentId: string, district: DistrictProfile): Promise<void> {
-    const to = profile.email ?? (await getGmailToken(parentId))?.email ?? '';
-    if (!to) return;
-    const provider = this.opts.email; // Axolotl's own sender (Resend) — works for ANY parent.
-    if (!provider) return;
-    const kids = profile.children.map((c) => c.name).join(', ') || 'your child';
-
-    // ONE welcome email that already carries a small bit of research (a bounded
-    // quick pass), so the very first thing the parent gets has real value. Then
-    // warm the knowledge graph in the background. No separate research email.
-    const summary = await withTimeout(this.quickDistrictSummary(profile, district), 12000, '');
-    const researched = summary
-      ? `Here's a head start on what's available:\n\n${summary}\n\n`
-      : `I'm digging into ${district.name} for specifics right now, but here's what usually applies and I'll confirm with the school:\n\n· free & reduced-price meals · transportation support · before/after-school programs (ELO-P in CA)\n\n`;
-    try {
-      await provider.send({
-        to,
-        subject: `Welcome to Axolotl — ${district.name}`,
-        body:
-          `Hi ${profile.parentName ?? 'there'},\n\n` +
-          `This is your Axolotl assistant. I can email the school, fill out forms, and make calls for you (always with your OK). I looked into ${district.name} for ${kids}:\n\n` +
-          `${researched}` +
-          `Just text me anything — I can act on any of these or answer a question.\n\n` +
-          `— Axolotl`,
-      });
-      console.log('[onboarding] welcome email sent to', to);
-    } catch (e) {
-      console.error('[onboarding] welcome email failed:', (e as Error)?.message ?? e);
-    }
-
-    // Warm the knowledge graph in the background (never blocks the email; no 2nd email).
+    // The proof email already fired at email-capture (sendEmailProof). Here we only
+    // warm the knowledge graph in the background so that once the parent says what
+    // they need, the agent can answer thoroughly — WITHOUT dumping programs (that's
+    // too early / too slow for minute-zero).
     const schoolName = profile.school?.trim() || district.name;
     void autoResearchDistrict(this.knowledge, district.id, schoolName, district.name, () =>
       researchDistrictNodes(district.name, schoolName, this.opts.researchLlm ?? this.opts.llm, ''),
     );
-  }
-
-  /** A bounded quick research pass so the welcome email has a real snippet fast. */
-  private async quickDistrictSummary(profile: FamilyProfile, district: DistrictProfile): Promise<string> {
-    const schoolName = profile.school?.trim() || district.name;
-    try {
-      const nodes = await autoResearchDistrict(this.knowledge, district.id, schoolName, district.name, () =>
-        researchDistrictNodes(district.name, schoolName, this.opts.researchLlm ?? this.opts.llm, ''),
-      );
-      return this.buildWelcomeSummary(nodes, profile);
-    } catch {
-      return '';
-    }
-  }
-
-  /** Turn researched knowledge nodes into a short, plain "here's what's available" list. */
-  private buildWelcomeSummary(nodes: KnowledgeNode[], profile: FamilyProfile): string {
-    const order: string[] = ['ACTIVITIES', 'MEALS', 'BASIC_NEEDS', 'TRANSPORTATION', 'GENERAL_NAVIGATION', 'SPECIAL_ED', 'LEARNING', 'ACCOMMODATIONS', 'BEHAVIOR', 'ATTENDANCE'];
-    const seen = new Set<string>();
-    const lines: string[] = [];
-    for (const cat of order) {
-      const node = nodes.find((n) => n.category === cat && !seen.has(n.title));
-      if (node) {
-        seen.add(node.title);
-        lines.push(`• ${node.title}: ${node.summary}`);
-      }
-    }
-    return lines.length ? lines.join('\n') : '';
   }
 
 
