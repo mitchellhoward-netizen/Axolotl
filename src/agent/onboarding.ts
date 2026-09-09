@@ -125,59 +125,42 @@ export function advanceOnboarding(state: OnboardingState, text: string): Onboard
 }
 
 export function finalizeOnboarding(profile: FamilyProfile, district: DistrictProfile): string {
-  const isPublic = district.type === 'public';
-  const rights = isPublic ? assessRights(profile, 'public') : [];
+  const kidLine = profile.children.map((c) => `${c.name}${c.grade ? `, grade ${c.grade}` : ''}`).join(' and ');
+  const school = profile.school ?? district.name;
+  const city = profile.location ?? '';
+  const email = profile.email ?? '';
 
   const lines: string[] = [];
-  lines.push("Perfect — here's what I've learned and what I can help with:");
+  lines.push(`You're all set — here's what I've got:`);
+  lines.push(`• ${kidLine}`);
+  lines.push(`• ${school}${city ? ` — ${city}` : ''}`);
+  if (email) lines.push(`• Your email: ${email}`);
   lines.push('');
-  const kids = profile.children.map((c) => `${c.name}${c.grade ? ` (${c.grade})` : ''}`).join(', ');
-  lines.push(`Your family: ${kids} — ${district.name}.`);
-  if (profile.needs.length && profile.needs[0] !== 'general help') {
-    lines.push(`You're looking for help with: ${profile.needs.join(', ')}.`);
-  }
-  if (profile.challenges.length) {
-    lines.push(`I'm keeping in mind: ${profile.challenges.join(', ')}.`);
-  }
-
-  if (!district.known) {
-    lines.push('');
-    if (district.type === 'private') {
-      lines.push(`${district.name} looks like a private school. Public-school programs — McKinney-Vento, free/reduced meals, a district homeless liaison — generally don't apply to private schools; they set their own policies (transportation, financial aid, etc.). In a live version I'd look those up specifically instead of assuming.`);
-    } else {
-      lines.push(`I don't have ${district.name} researched yet, and I don't know whether it's public or private — that changes what your family is entitled to a lot. In a live version I'd look it up first and only then tell you what actually applies.`);
-    }
-  } else if (!isPublic) {
-    lines.push('');
-    lines.push(`${district.name} isn't a public district, so the federal public-school programs I usually check (McKinney-Vento, free/reduced meals) generally don't apply — it sets its own policies. I'd look up its actual programs instead.`);
-  }
-
-  if (rights.length) {
-    lines.push('');
-    lines.push('Based on what you told me, your children may be entitled to:');
-    for (const r of rights) lines.push(`• ${r.title} — ${r.law}`);
-  }
-
+  lines.push("All saved — you won't have to repeat it.");
   lines.push('');
-  lines.push("Here's how I can help right now:");
-  lines.push(suggestedActions(profile, district.known, isPublic));
+  lines.push("Here's what I can do for you (always with your OK first):");
+  lines.push('📄 Fill out a sign-up form — like the free ELO-P after-school program. I fill it, show you, and only submit when you say go.');
+  lines.push('✉️ Email the school or district for you — I draft it, you approve it, it sends from you.');
+  lines.push('📞 Call the office and handle it — then text you what they said. Want to hear it? Just say "call me."');
 
   // The district homeless liaison is a McKinney-Vento (homeless/displaced) contact —
-  // only surface it when the family actually flagged housing instability, not for a
-  // generic family.
+  // only surface it when the family actually flagged housing instability, not a generic family.
   const housingAffected = /homeless|transition|shelter|motel|hotel|car|displac|couch|doubled|camp|no address/i.test(
     (profile.challenges ?? []).join(' '),
   );
   const l = district.liaison;
-  if (housingAffected && district.known && isPublic && l?.name && l.phone) {
+  if (housingAffected && district.known && district.type === 'public' && l?.name && l.phone) {
     lines.push('');
-    lines.push(`Key contact: district homeless liaison ${l.name}, ${l.phone}${l.email ? `, ${l.email}` : ''}.`);
+    lines.push(`📞 If you're staying somewhere temporary, McKinney-Vento covers you — your child stays at their school with a ride, no paperwork. Key contact: ${l.name}, ${l.phone}${l.email ? `, ${l.email}` : ''}.`);
+  }
+
+  if (district.type !== 'public') {
+    lines.push('');
+    lines.push(`${district.name} isn't a public district, so the public-school programs I usually check may not apply — I'll look up its actual programs instead.`);
   }
 
   lines.push('');
-  lines.push('Want to hear how I sound on a real call? Just say "call me" and I\'ll ring you right now.');
-  lines.push('');
-  lines.push('Reply "help" anytime, or just ask me to do one of those. (Demo: nothing is actually sent to the school.)');
+  lines.push(`I'm looking up ${district.name}'s free programs right now and I'll text you the shortlist in a minute. What do you want to start with?`);
   return lines.join('\n');
 }
 

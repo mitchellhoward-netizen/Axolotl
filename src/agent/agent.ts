@@ -789,7 +789,7 @@ export class Agent {
     const plan = finalizeOnboarding(profile, district);
     // Fire-and-forget the minute-zero research + welcome email.
     void this.backgroundResearchAndWelcome(profile, parentId, district);
-    return plan + `\n\nI'm researching ${district.name} right now (programs, free stuff) and I'll email you what I find — watch your inbox.`;
+    return plan;
   }
 
   private async backgroundResearchAndWelcome(profile: FamilyProfile, parentId: string, district: DistrictProfile): Promise<void> {
@@ -1044,8 +1044,8 @@ export class Agent {
     let narrated = false;
     let resolved = false;
     // Research is allowed to iterate hard — never settle for a thin/partial answer.
-    const situation = this.brainOnboarding
-      ? [computeOnboardingBlock(state.profile), computeSituation(state)].filter(Boolean).join('\n') || undefined
+    const situation = this.brainOnboarding && !state.onboarded
+      ? [onboardingSituation(state.profile), computeSituation(state)].filter(Boolean).join('\n') || undefined
       : computeSituation(state);
     while (guard < 12) {
       const res = await llm.chatWithTools(
@@ -1442,7 +1442,9 @@ export class Agent {
             try {
               const welcome = await this.materializeOnboarding(brain.state.profile, parentId);
               brain.state.onboarded = true;
-              return { turn: { text: `${brain.turn.text ? brain.turn.text + '\n\n' : ''}${welcome}`, phase: 'done', resolved: true }, state: brain.state };
+              // The finalize owns this turn exclusively — the brain was told not to
+              // research/produce a competing answer (see onboardingSituation).
+              return { turn: { text: welcome, phase: 'done', resolved: true }, state: brain.state };
             } catch (e) {
               console.error('[onboarding] brain materialize failed:', (e as Error)?.message ?? e);
             }
@@ -1929,5 +1931,17 @@ export function computeOnboardingBlock(profile?: FamilyProfile): string | undefi
     `Ask for these naturally, one thing at a time — do NOT interrogate. Gather them via save_profile. ` +
     `Do NOT look up / research the school or search the web during onboarding — just collect the field and ask for the next one. ` +
     `Once all the fields are in I'll set up the family AUTOMATICALLY and email you what applies — you don't research anything now.`
+  );
+}
+
+/** Onboarding context for the brain per turn. When the fields are all present but the
+ * family isn't finalized yet, tell the brain to hold — do NOT research or produce a
+ * competing answer (the deterministic finalize owns that turn). */
+function onboardingSituation(profile?: FamilyProfile): string | undefined {
+  const block = computeOnboardingBlock(profile);
+  if (block) return block;
+  return (
+    `ONBOARDING: the family's fields are all in. Do NOT research, search the web, or list programs. ` +
+    `Acknowledge briefly; the system finishes setting up the family and emails you what applies. Keep this turn to one short confirmation.`
   );
 }
