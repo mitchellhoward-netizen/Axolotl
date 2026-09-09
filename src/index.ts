@@ -10,6 +10,7 @@ import { LlmIntentEngine } from "./agent/intent/llm";
 import { LlmClient } from "./agent/llm";
 import { chatModel, smallModel } from "./agent/model-policy";
 import { sendBubbles } from "./agent/bubbles";
+import { recordProcessedMessage } from "./integrations/dedupe.js";
 import { RulesIntentEngine } from "./agent/intent/rules";
 import { MockCalendarProvider } from "./integrations/calendar";
 import { MockMealsProvider } from "./integrations/meals";
@@ -234,21 +235,22 @@ if (app) {
     agent.runProactive().catch((e) => console.error('[proactive] tick error:', e));
   }, proactiveEveryMs);
 
-const seenMessages = new Set<string>(); // dedupe duplicate deliveries by message id
+  // (durable message dedupe now via recordProcessedMessage / processed_message)
 for await (const [space, message] of app.messages) {
   // Never answer our own outbound echoes.
   if (message.direction === "outbound") continue;
 
   // The iMessage SDK can deliver the same message twice (read/typing re-emit or a
-  // retried webhook). Dedupe by message id so a single text never gets TWO replies.
+  // retried webhook), and a stray second instance would re-answer. Dedupe DURABLY by
+  // message id (Supabase `processed_message`) so a single text never gets 2 replies,
+  // even across instances/redeploys.
   const messageId = (message as { id?: string }).id;
   if (messageId) {
-    if (seenMessages.has(messageId)) {
+    const fresh = await recordProcessedMessage(messageId);
+    if (!fresh) {
       console.log(`[imessage] dup message ${messageId} (${space.id}) — skipping`);
       continue;
     }
-    seenMessages.add(messageId);
-    if (seenMessages.size > 2000) seenMessages.clear();
   }
 
   // Register this family's messenger + mark the inbound so cooldown applies,

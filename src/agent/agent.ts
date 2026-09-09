@@ -296,9 +296,15 @@ export class Agent {
             // A returning family whose persisted profile is complete has already
             // finished onboarding — mark it durably so the finalize hook never
             // re-materializes it after a restart / redeploy / second instance.
-            if (state.profile && computeOnboardingBlock(state.profile) === undefined) {
-              state.onboarded = true;
-              state.emailProofSent = true;
+            if (state.profile) {
+              const persisted = state.profile as FamilyProfile & { onboarded?: boolean; emailProofSent?: boolean };
+              if (typeof persisted.onboarded === 'boolean') {
+                state.onboarded = persisted.onboarded;
+                state.emailProofSent = persisted.onboarded;
+              } else if (computeOnboardingBlock(state.profile) === undefined) {
+                state.onboarded = true;
+                state.emailProofSent = true;
+              }
             }
           } catch (e) {
             console.error('[hydrate] error:', e);
@@ -500,7 +506,15 @@ export class Agent {
         ? { id: profile.districtId ?? districtIdFromName(profile.district ?? profile.school ?? ''), name: profile.district ?? profile.school ?? 'School', state: profile.location?.slice(-2) ?? 'CA' }
         : undefined,
     );
-    if (profile) await saveFamilyProfile(guardianId, profile);
+    if (profile) {
+      // 1C: stash onboarding flags on the persisted snapshot so they survive a
+      // restart/redeploy even before hydration, and can't be re-derived incorrectly.
+      await saveFamilyProfile(guardianId, {
+        ...profile,
+        onboarded: record.state.onboarded === true,
+        emailProofSent: record.state.emailProofSent === true,
+      } as FamilyProfile);
+    }
     for (const c of cases ?? []) await saveCaseRecord(guardianId, districtId, c);
     try {
       await saveFamilyMemory(guardianId, memory ?? deriveFamilyMemory(profile, cases ?? []));

@@ -13,7 +13,7 @@ function readEnv(name: string): string | undefined {
 }
 
 /** Apply ONLY the new tables added this session (idempotent) + their RLS. */
-const FILES = ['evidence.sql', 'resource_graph.sql', 'skills.sql', 'gmail-token.sql', 'conversation.sql'];
+const FILES = ['evidence.sql', 'resource_graph.sql', 'skills.sql', 'gmail-token.sql', 'conversation.sql', 'processed-message.sql'];
 const RLS = `
 alter table evidence enable row level security;
 drop policy if exists evidence_read on evidence;
