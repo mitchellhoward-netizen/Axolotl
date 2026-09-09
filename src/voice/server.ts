@@ -46,7 +46,7 @@ export function attachVoiceWebSocket(server: Server): void {
         agent_config: {
           responsiveness: 0.8,
           interruption_sensitivity: 0.9,
-          reminder_trigger_ms: 8000,
+          reminder_trigger_ms: 4500,
           reminder_max_count: 2,
         },
       }),
@@ -92,6 +92,7 @@ export function attachVoiceWebSocket(server: Server): void {
         case 'reminder_required': {
           const id = typeof msg.response_id === 'number' ? msg.response_id : 0;
           latestResponseId = id;
+          const turnStart = Date.now();
           const transcript = normalizeTranscript(msg.transcript);
           const reminder = msg.interaction_type === 'reminder_required';
           const school = isSchoolCall(callVars);
@@ -137,7 +138,7 @@ export function attachVoiceWebSocket(server: Server): void {
               ? generateSchoolReply(turn).then((text) => ({ text, deferred: false, proposedSteps: undefined }))
               : generateVoiceReply(turn),
             new Promise<{ text: string; deferred?: boolean; proposedSteps?: Step[] }>((resolve) =>
-              setTimeout(() => resolve({ text: 'Still working on that — hang tight, just a few more seconds.', deferred: false, proposedSteps: undefined }), 45000),
+              setTimeout(() => resolve({ text: 'Still working on that — one sec, just a moment.', deferred: false, proposedSteps: undefined }), 10000),
             ),
           ]).catch(() => ({ text: 'Sorry — one second, could you repeat that?', deferred: false, proposedSteps: undefined }));
 
@@ -150,6 +151,7 @@ export function attachVoiceWebSocket(server: Server): void {
           if (reply.proposedSteps?.length) pendingSteps = reply.proposedSteps;
 
           if (id !== latestResponseId) break; // a newer request superseded this one
+          console.log(`[voice] turn total ${Date.now() - turnStart}ms`);
           ws.send(
             JSON.stringify({
               response_type: 'response',

@@ -27,7 +27,7 @@ export interface Counterparty {
 
 /** Channel-specific content, discriminated on `channel`. */
 export type StepPayload =
-  | { channel: 'email'; subject: string; body: string }
+  | { channel: 'email'; subject: string; body: string; target?: string; district?: string }
   | { channel: 'text'; body: string }
   | { channel: 'form'; formId: string; fields: Record<string, string> }
   | { channel: 'call'; objective: CallBrief }

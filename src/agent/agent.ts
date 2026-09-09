@@ -21,6 +21,7 @@ import { researchDistrictNodes, inferCategory } from '../knowledge/research.js';
 import type { CandidateNode } from '../knowledge/research.js';
 import { searchSchoolGraph, chainSummary } from '../knowledge/resource-graph.js';
 import { buildPreCallBrief } from '../knowledge/precall.js';
+import { resolveContact } from '../voice/brain.js';
 import { embeddingsConfigured, embedTexts } from '../integrations/embeddings.js';
 import { KNOWLEDGE_CATEGORIES, type KnowledgeCategory, type KnowledgeNode } from '../domain/knowledge.js';
 import { answerSchoolInfo } from '../knowledge/school-info.js';
@@ -560,6 +561,24 @@ export class Agent {
 
   /** Run parent-approved voice actions and return the parent-facing summary. */
   async executeVoiceSteps(conversationId: string, steps: Step[]): Promise<string> {
+    // Resolve any third-party contact AFTER consent (off the call), before running —
+    // the in-call offer only needs the plain target name, never a live lookup.
+    for (const step of steps) {
+      const cp = step.counterparty;
+      const hasContact = Boolean(cp && (cp.email || cp.phone));
+      const isSchool = !cp?.name || /school|district|office|liaison|principal|elementary|union/i.test(cp.name);
+      if (!hasContact && cp?.name && !isSchool) {
+        const payload = step.payload as { district?: string; objective?: { district?: string } };
+        const district = String(payload?.district ?? payload?.objective?.district ?? '');
+        const { email, phone } = await resolveContact(cp.name, district);
+        if (email) cp.email = email;
+        if (phone) cp.phone = phone;
+        if (step.intent === 'send_email' && !cp.email && cp.phone) {
+          step.intent = 'call_school';
+          step.channel = 'call';
+        }
+      }
+    }
     const results = await this.runSteps(steps, this.resolveMode(), undefined, conversationId);
     return results.map((r) => r.parentSummary).join('\n') || 'Done.';
   }

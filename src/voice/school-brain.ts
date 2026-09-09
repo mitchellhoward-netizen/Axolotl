@@ -1,5 +1,4 @@
 import { getVoiceLlm } from './llm.js';
-import { buildPreCallBrief } from '../knowledge/precall.js';
 
 /**
  * The school-facing voice brain. When the agent calls a school office, it is a
@@ -56,18 +55,10 @@ function schoolSystemPrompt(vars: Record<string, unknown>, context: string): str
   ].join('\n');
 }
 
-async function buildContext(vars: Record<string, unknown>): Promise<string> {
-  const whatWeKnow = String(vars.what_we_know ?? '').trim();
-  if (/researched about this school/i.test(whatWeKnow)) return '';
-
-  const district = String(vars.district ?? '').trim();
-  const school = String(vars.school ?? '').trim();
-  if (!district && !school) return '';
-  try {
-    return await buildPreCallBrief(district, school);
-  } catch {
-    return '';
-  }
+/** Synchronous, no network — the brief is front-loaded into vars.what_we_know
+ * (shown in WHAT WE KNOW) before dialing. Never research on the call. */
+function buildContext(vars: Record<string, unknown>): string {
+  return '';
 }
 
 const FALLBACK = 'I\u2019ll need to confirm that with the parent and call you back. Is there a good number or extension to reach you at?';
@@ -94,7 +85,7 @@ export async function generateSchoolReply(turn: SchoolTurn): Promise<string> {
   }
   if (messages.length === 0) return fallbackFor(turn.reminder);
 
-  const context = await buildContext(vars);
+  const context = buildContext(vars);
   const startedAt = Date.now();
   const res = await model.chatWithTools(schoolSystemPrompt(vars, context), messages, [], 'none');
   console.log(`[voice:school] turn ${Date.now() - startedAt}ms`);

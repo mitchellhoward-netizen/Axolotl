@@ -178,6 +178,27 @@ async function reactWithAxolotl(space: { placeSticker?: unknown }, message: { id
 // Always up on the long-lived host. The landing page is served here in dev but
 // skipped when RUN_AGENT_ONLY=true (Vercel serves it); /api/waitlist and
 // /voice-llm always run.
+/** Front-load the pre-call research brief into call vars (once, before dialing)
+ * so the in-call agent never has to look anything up. No-op if already briefed. */
+async function withBrief(vars: Record<string, unknown>): Promise<Record<string, unknown>> {
+  const wk = String(vars.what_we_know ?? '');
+  if (/researched about this school/i.test(wk)) return vars; // already briefed
+  const school = String(vars.school ?? '').trim();
+  const district = String(vars.district ?? vars.school ?? '').trim();
+  if (!school && !district) return vars;
+  try {
+    let brief = await buildPreCallBrief(district, school);
+    if (!brief) {
+      const pages = await withTimeout(researchQuestion(`${school || district} school programs enrollment contacts`, district, school, 1), 6000, '');
+      brief = pages ? pages.slice(0, 1500) : '';
+    }
+    if (brief) return { ...vars, what_we_know: `${wk}\n\nResearched about this school before the call:\n${brief}`.trim() };
+  } catch (e) {
+    console.error('[brief] pre-call research failed:', (e as Error)?.message ?? e);
+  }
+  return vars;
+}
+
 startWebServer({
   placeCall: async (phone, info) => {
     if (!retell) return { ok: false, error: 'Voice is not configured.' };
@@ -324,7 +345,7 @@ for await (const [space, message] of app.messages) {
               call_kind: 'parent',
             };
         retell
-          .createCall(phone, space.id, vars)
+          .createCall(phone, space.id, await withBrief(vars))
           .catch((e) => console.error('[retell] create-call error:', e));
       } else if (!retell) {
         reply += "\n\nI can't call yet — add RETELL_API_KEY, RETELL_AGENT_ID and RETELL_FROM_NUMBER to your .env and restart.";

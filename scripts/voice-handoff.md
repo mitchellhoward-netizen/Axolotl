@@ -1,7 +1,17 @@
+# Voice latency handoff — for Claude
+
+Context: Retell custom-LLM WebSocket voice agent. KEY BUG: buildContext() re-runs buildPreCallBrief() on every turn when vars.what_we_know is empty (voice/brain.ts:121), and chatWithTools() awaits every tool synchronously (voice/brain.ts:402). Files below are the two Claude asked for.
+
+---
+## src/voice/brain.ts
+
+```ts
 import { getVoiceLlm } from './llm.js';
+import { buildPreCallBrief } from '../knowledge/precall.js';
 import { researchQuestion } from '../knowledge/research.js';
 import { LLM_TOOLS, runTool, type ToolDeps } from '../agent/tools.js';
 import { KnowledgeGraph } from '../knowledge/graph.js';
+import { searchSchoolGraph, chainSummary } from '../knowledge/resource-graph.js';
 import { resolveAnyDistrict } from '../knowledge/discovery.js';
 import type { Step, CallBrief } from '../agent/steps/types.js';
 import type { FamilyProfile } from '../domain/types.js';
@@ -33,17 +43,26 @@ export interface VoiceReply {
   proposedSteps?: Step[];
 }
 
-/** Voice-safe tools: instant, in-memory only. Everything slow is deferred. */
+/** Voice-safe tools: instant lookups + live research + the two action tools. */
 const VOICE_TOOL_NAMES = new Set([
-  'get_knowledge', // cached-only (see §D) — instant
-  'send_email',    // proposeSteps → staged instantly, consent-gated
-  'call_school',   // proposeSteps → staged instantly, consent-gated
+  'get_school_info',
+  'get_knowledge',
+  'search_school_graph',
+  'web_search',
+  'web_fetch',
+  'send_email',
+  'call_school',
   'log_case',
   'now',
 ]);
 const VOICE_TOOLS = LLM_TOOLS.filter(
   (t) => VOICE_TOOL_NAMES.has((t as { function?: { name?: string } }).function?.name ?? ''),
 );
+
+// Tools that can take a moment (or trigger background research) — narrate before
+// them so the caller is never left in silence. get_knowledge can auto-research
+// an un-researched school (slow), so it counts even though the cached lookup is fast.
+const RESEARCH_TOOLS = new Set(['get_knowledge', 'search_school_graph', 'get_school_info', 'web_search', 'web_fetch']);
 
 /** A spoken, natural-language system prompt. No markdown, no bullets, short. */
 function voiceSystemPrompt(vars: Record<string, unknown>, context: string): string {
@@ -76,25 +95,44 @@ function voiceSystemPrompt(vars: Record<string, unknown>, context: string): stri
     'WHAT WE KNOW about this school and family (answer from this first; don\u2019t re-ask):',
     context || '(nothing pre-researched for this school yet)',
     '',
-    'TOOLS — you are ON A LIVE CALL, so speed matters more than completeness:',
-    '- Answer from WHAT WE KNOW plus plain, uncontroversial school basics. That is the job most of the time.',
-    '- You do NOT browse or search on the call. If they ask for a specific fact you don\u2019t have (a policy, form, deadline, phone number, program list), say you\u2019ll get the exact answer and text it in a minute \u2014 then reply with EXACTLY the single word DEFER. We research it properly and text them; you keep the conversation going.',
-    '- If get_knowledge returns NOT_CACHED, treat it as "I don\u2019t have that yet" \u2192 offer to look it up and DEFER. Never stall.',
-    '- When they ask you to DO something (email, call, sign-up), call send_email or call_school. These stage the action instantly and the system asks them for a YES \u2014 so just call the tool and move on; never wait on it, never ask for consent yourself.',
-    '- Be warm and proactive: after you answer, offer the next step and ask a quick yes/no ("I can call the office about the bus \u2014 want me to?"). But proactive means OFFER and hand off to text \u2014 never "let me look that up" while they wait.',
-    '- Never claim you already sent, called, submitted, or scheduled anything. Offer, then let their YES trigger it.',
+    'TOOLS — use them to help, never just to talk:',
+    '- Answer from WHAT WE KNOW plus plain, uncontroversial school basics. Don\u2019t call tools for something already answered above.',
+    '- For a specific fact you don\u2019t have (a policy, process, form, deadline, or phone number), use get_knowledge / search_school_graph first (fast), then web_search / web_fetch if still missing.',
+    '- DISAMBIGUATE SCHOOLS: if the school isn\u2019t one you have on file, or it\u2019s a common name (Lakeside, Lincoln, Washington, etc.), ASK which city and state it\u2019s in before researching, and include the city/state in any web search. Never research a different school with the same name.',
+    '- BE PROACTIVE AS THE DEFAULT: turn every answer into an action and offer to DO it. NEVER end by just informing or handing off ("you should contact them") — instead say "I can do that for you" and ask a quick yes/no.',
+    '- You CAN act: send emails, place calls, fill forms. NEVER say you can\u2019t do something, can\u2019t help, or can\u2019t access it — you drive it for the parent. If a step is needed, say you\u2019ll do it and handle it.',
+    '- When the parent asks you to DO something (sign up, enroll, request, reach out), CALL send_email or call_school RIGHT AWAY — do not just describe it. Do NOT research every detail first; act, then offer.',
+    '- If you don\u2019t have a verified email for the recipient, use call_school (call the school office) instead of inventing an email. Use the contacts in WHAT WE KNOW.',
+    '- Do NOT over-research: after at most one or two lookups, either answer or propose the action.',
+    '- If, even after looking it up, you still can\u2019t answer a question that needs deep research, reply with EXACTLY the single word DEFER and nothing else — we will research it and text the parent.',
     '',
-    'IMPORTANT \u2014 never invent a specific policy, process, form, deadline, or phone number. If it\u2019s not in WHAT WE KNOW, DEFER rather than guess.',
+    'IMPORTANT — never invent a specific policy, process, form, deadline, or phone number. If it\u2019s not in WHAT WE KNOW and you can\u2019t find it with tools, DEFER rather than guess.',
   ].join('\n');
 }
 
 /**
- * Build the context the model answers from — INSTANT, no network. The pre-call
- * brief is front-loaded into vars.what_we_know before dialing (see index.ts §F).
- * If it's missing, the model answers from vars and DEFERS specifics (see §C).
+ * Build the context the model answers from. `what_we_know` usually already
+ * carries the pre-call research (the agent enriches it before dialing); if not
+ * (e.g. a direct Retell call), fetch it now — it's deterministic and cached.
  */
-function buildContext(vars: Record<string, unknown>): string {
-  return String(vars.what_we_know ?? '').trim();
+async function buildContext(vars: Record<string, unknown>): Promise<string> {
+  const whatWeKnow = String(vars.what_we_know ?? '').trim();
+  if (/researched about this school/i.test(whatWeKnow)) return whatWeKnow;
+
+  const parts: string[] = [];
+  if (whatWeKnow) parts.push(whatWeKnow);
+
+  const district = String(vars.district ?? '').trim();
+  const school = String(vars.school ?? '').trim();
+  if (district || school) {
+    try {
+      const brief = await buildPreCallBrief(district, school);
+      if (brief) parts.push(`Researched about this school before the call:\n${brief}`);
+    } catch {
+      /* ignore — the model answers from what it has */
+    }
+  }
+  return parts.join('\n\n');
 }
 
 /** Build a lightweight profile from the call vars so action tools get real context. */
@@ -115,18 +153,22 @@ function buildProfile(vars: Record<string, unknown>): FamilyProfile | undefined 
   };
 }
 
-/** Cached-only knowledge lookup — in-memory graph only, never the network. */
+/** Grounded knowledge lookup for the get_knowledge tool (same as the text brain's). */
 function makeKnowledgeDep(vars: Record<string, unknown>) {
-  return async (category?: string): Promise<string> => {
-    const district = resolveAnyDistrict(String(vars.district ?? vars.school ?? ''));
-    // KnowledgeGraph.get is an in-memory cache (fast); timeout is belt-and-suspenders.
-    const nodes = await withTimeout(new KnowledgeGraph().get(district.id), 300, [] as Awaited<ReturnType<KnowledgeGraph['get']>>);
-    if (!nodes.length) return 'NOT_CACHED'; // prompt reads this as "defer"
+  return async (category?: string, query?: string): Promise<string> => {
+    const districtName = String(vars.district ?? vars.school ?? '');
+    const district = resolveAnyDistrict(districtName);
+    const g = new KnowledgeGraph();
+    let nodes = await g.get(district.id);
     const cat = (category ?? '').trim().toUpperCase().replace(/\s+/g, '_');
-    const picked = cat && cat !== 'LAW' ? nodes.filter((n) => n.category === cat) : nodes;
-    return (picked.length ? picked : nodes)
-      .map((n) => `- ${n.title}: ${n.summary}${n.law ? ` (${n.law})` : ''}`)
-      .join('\n');
+    if (cat && cat !== 'LAW') {
+      const filtered = nodes.filter((n) => n.category === cat);
+      if (filtered.length) nodes = filtered;
+    }
+    const chain = await searchSchoolGraph(district.id, cat && cat !== 'LAW' ? cat : undefined);
+    const parts = nodes.map((n) => `- ${n.title}: ${n.summary}${n.law ? ` (${n.law})` : ''}`);
+    if (chain && chain.nodes.length) parts.push(`Forms/contacts: ${chainSummary(chain)}`);
+    return parts.join('\n') || 'No researched info yet — use web_search to look it up.';
   };
 }
 
@@ -171,9 +213,17 @@ function withTimeout<T>(promise: Promise<T>, ms: number, fallback: T): Promise<T
 }
 
 /** Is `target` the school/district (whose contact we already have on file)? */
-/** Find a third-party provider's email/phone via a focused web search (runs at
- * execution, off the call — after the parent's YES). */
-export async function resolveContact(target: string, districtName: string): Promise<{ email?: string; phone?: string }> {
+function isSchoolTarget(target: string, vars: Record<string, unknown>): boolean {
+  const t = target.toLowerCase();
+  if (!t) return true;
+  if (/school|district|office|liaison|principal|elementary|union/.test(t)) return true;
+  const school = String(vars.school ?? '').toLowerCase();
+  const district = String(vars.district ?? '').toLowerCase();
+  return Boolean((school && (school.includes(t) || t.includes(school))) || (district && (district.includes(t) || t.includes(district))));
+}
+
+/** Find a third-party provider's email/phone via a focused web search. */
+async function resolveContact(target: string, districtName: string): Promise<{ email?: string; phone?: string }> {
   try {
     const pages = await withTimeout(researchQuestion(`${target} contact email phone`, districtName, undefined, 2), 20000, '');
     if (!pages) return {};
@@ -218,8 +268,14 @@ async function proposeAction(
     if (!a || !a.summary || (a.kind !== 'email' && a.kind !== 'call')) return null;
     const action = { kind: a.kind, summary: a.summary, target: (a.target ?? 'the school office').trim(), to: a.to, phone: a.phone, subject: a.subject, body: a.body } as ProposedAction;
 
-    // Contact is resolved at EXECUTION (after the parent's YES), off the call —
-    // never look it up in the turn. The offer only needs the plain target name.
+    // Third-party provider → resolve its real contact so we reach it directly.
+    if (!isSchoolTarget(action.target, vars)) {
+      const contact = await resolveContact(action.target, String(vars.district ?? vars.school ?? ''));
+      action.phone = action.phone || contact.phone;
+      action.to = action.to || contact.email;
+      // No email for an email-intent → prefer calling if we found a number.
+      if (action.kind === 'email' && !action.to && action.phone) action.kind = 'call';
+    }
     return action;
   } catch {
     return null;
@@ -241,8 +297,6 @@ function buildActionStep(action: ProposedAction, vars: Record<string, unknown>):
         channel: 'email',
         subject: action.subject || `Inquiry: ${action.summary}`,
         body: action.body || `Hello,\n\nI'm writing on behalf of a parent to ${action.summary}. Could you share the next steps? Thank you.`,
-        target: action.target,
-        district: String(vars.district ?? vars.school ?? ''),
       },
       successCondition: { describe: 'Email sent', kind: 'reference_received' },
       requiresConsent: true,
@@ -307,7 +361,7 @@ export async function generateVoiceReply(turn: VoiceTurn): Promise<VoiceReply> {
   }
   if (messages.length === 0) return { text: fallbackFor(turn.reminder) };
 
-  const context = buildContext(vars);
+  const context = await buildContext(vars);
   const proposed: Step[] = [];
 
   const deps: ToolDeps = {
@@ -325,14 +379,21 @@ export async function generateVoiceReply(turn: VoiceTurn): Promise<VoiceReply> {
   const question = lastUserQuestion(turn.transcript);
   let working: unknown[] = [...messages];
   let guard = 0;
+  let slowNarrated = false;
 
-  while (guard < 4) {
+  while (guard < 8) {
     const callStart = Date.now();
     const res = await model.chatWithTools(voiceSystemPrompt(vars, context), working, VOICE_TOOLS, 'auto');
     console.log(`[voice] llm#${guard} ${Date.now() - callStart}ms ${res?.calls?.length ? `(tools: ${res.calls.map((c) => c.name).join(',')})` : '(answer)'}`);
     if (!res) break;
 
     if (res.calls?.length) {
+      // Narrate before any research so the caller is never left in silence.
+      if (res.calls.some((c) => RESEARCH_TOOLS.has(c.name))) {
+        turn.onProgress?.(slowNarrated ? 'Still on it — almost there.' : 'Let me look into that for you — hang tight, be right back.');
+        slowNarrated = true;
+      }
+
       const assistantMsg = {
         role: 'assistant',
         content: null,
@@ -345,13 +406,11 @@ export async function generateVoiceReply(turn: VoiceTurn): Promise<VoiceReply> {
       const results: unknown[] = [];
       for (const c of res.calls) {
         let out = 'tool error';
-        const toolStart = Date.now();
         try {
           out = await runTool(c.name, JSON.parse(c.arguments || '{}') as Record<string, unknown>, deps);
         } catch {
           /* keep 'tool error' */
         }
-        console.log(`[voice] tool ${c.name} ${Date.now() - toolStart}ms`);
         results.push({ role: 'tool', tool_call_id: c.id, content: JSON.stringify({ result: out }) });
       }
       working.push(assistantMsg, ...results);
@@ -395,3 +454,227 @@ export async function generateVoiceReply(turn: VoiceTurn): Promise<VoiceReply> {
   }
   return { text: fallbackFor(turn.reminder) };
 }
+```
+
+---
+## src/voice/server.ts
+
+```ts
+import type { Server } from 'node:http';
+import { WebSocketServer, type WebSocket, type RawData } from 'ws';
+import { generateVoiceReply } from './brain.js';
+import { generateSchoolReply } from './school-brain.js';
+import { deferQuestion } from './defer.js';
+import { executeVoiceSteps } from './actions.js';
+import type { Step } from '../agent/steps/types.js';
+
+/**
+ * Retell "custom LLM" WebSocket server. Retell handles telephony / STT / TTS /
+ * turn-taking and opens this socket per call; we generate every spoken reply.
+ *
+ * One socket serves BOTH call kinds, routed by the `call_kind` dynamic variable
+ * (set by the caller when placing the call):
+ *   - "parent" → the warm, fast parent voice (answer from context, or defer to text)
+ *   - "school" → the professional advocate voice (representing the parent)
+ *
+ * Protocol (see https://docs.retellai.com/api-references/llm-websocket):
+ *   Retell → us   { interaction_type: call_details | ping_pong | update_only | response_required | reminder_required, ... }
+ *   us → Retell   { response_type: config | response | ping_pong, ... }
+ */
+
+export function attachVoiceWebSocket(server: Server): void {
+  // No `path` restriction — accept the WS on any path, so a Retell URL of
+  // `wss://host` or `wss://host/voice-llm` both connect.
+  const wss = new WebSocketServer({ server });
+
+  wss.on('connection', (ws: WebSocket, req) => {
+    console.log(`[voice] Retell connected: ${req.url}`);
+    let callVars: Record<string, unknown> = {};
+    let conversationId = '';
+    let latestResponseId = 0;
+    let greeted = false;
+    // Actions the agent proposed (email/call) awaiting the parent's spoken YES.
+    let pendingSteps: Step[] = [];
+
+    ws.on('error', (e) => console.error('[voice] ws error:', (e as Error).message));
+
+    // 1. Enable call details (so we get dynamic_variables) + keepalive.
+    ws.send(JSON.stringify({ response_type: 'config', config: { call_details: true, auto_reconnect: true } }));
+
+    // 2. Make the agent snappy and easy to interrupt.
+    ws.send(
+      JSON.stringify({
+        response_type: 'update_agent',
+        agent_config: {
+          responsiveness: 0.8,
+          interruption_sensitivity: 0.9,
+          reminder_trigger_ms: 8000,
+          reminder_max_count: 2,
+        },
+      }),
+    );
+
+    ws.on('message', async (data: RawData) => {
+      let msg: Record<string, unknown>;
+      try {
+        msg = JSON.parse(String(data)) as Record<string, unknown>;
+      } catch {
+        return;
+      }
+
+      switch (msg.interaction_type) {
+        case 'call_details': {
+          const call = (msg.call ?? msg) as Record<string, unknown>;
+          // Retell sends these as `retell_llm_dynamic_variables` + `metadata` on
+          // the `call` object (the same names we set in create-phone-call).
+          callVars = (call.retell_llm_dynamic_variables ?? call.dynamic_variables ?? msg.retell_llm_dynamic_variables ?? msg.dynamic_variables ?? {}) as Record<string, unknown>;
+          const meta = (call.metadata ?? msg.metadata ?? {}) as Record<string, unknown>;
+          conversationId = String(meta.conversationId ?? '');
+          // Greet once we know the call kind (parent vs school), so the opening
+          // line is right for whoever is on the other end.
+          if (!greeted) {
+            greeted = true;
+            ws.send(
+              JSON.stringify({
+                response_type: 'response',
+                response_id: 0,
+                content: isSchoolCall(callVars) ? schoolGreeting(callVars) : parentGreeting(),
+                content_complete: true,
+                end_call: false,
+              }),
+            );
+          }
+          break;
+        }
+        case 'ping_pong': {
+          ws.send(JSON.stringify({ response_type: 'ping_pong', timestamp: Date.now() }));
+          break;
+        }
+        case 'response_required':
+        case 'reminder_required': {
+          const id = typeof msg.response_id === 'number' ? msg.response_id : 0;
+          latestResponseId = id;
+          const transcript = normalizeTranscript(msg.transcript);
+          const reminder = msg.interaction_type === 'reminder_required';
+          const school = isSchoolCall(callVars);
+
+          // The parent just approved a proposed action → execute it + follow up by text.
+          if (!school && !reminder && pendingSteps.length && isAffirmative(lastUserUtterance(transcript))) {
+            const steps = pendingSteps;
+            pendingSteps = [];
+            const spoken = await executeVoiceSteps(conversationId, steps);
+            if (id !== latestResponseId) break;
+            ws.send(
+              JSON.stringify({
+                response_type: 'response',
+                response_id: id,
+                content: spoken,
+                content_complete: true,
+                end_call: false,
+              }),
+            );
+            break;
+          }
+
+          const turn = {
+            transcript,
+            variables: callVars,
+            reminder,
+            onProgress: (message: string) => {
+              // Narrate during slow live research so the caller is never in silence.
+              ws.send(
+                JSON.stringify({
+                  response_type: 'agent_interrupt',
+                  interrupt_id: Date.now(),
+                  content: message,
+                  content_complete: true,
+                  no_interruption_allowed: true,
+                }),
+              );
+            },
+          };
+
+          const reply = await Promise.race([
+            school
+              ? generateSchoolReply(turn).then((text) => ({ text, deferred: false, proposedSteps: undefined }))
+              : generateVoiceReply(turn),
+            new Promise<{ text: string; deferred?: boolean; proposedSteps?: Step[] }>((resolve) =>
+              setTimeout(() => resolve({ text: 'Still working on that — hang tight, just a few more seconds.', deferred: false, proposedSteps: undefined }), 45000),
+            ),
+          ]).catch(() => ({ text: 'Sorry — one second, could you repeat that?', deferred: false, proposedSteps: undefined }));
+
+          // Voice→text handoff: the parent asked something that needs research.
+          if (reply.deferred && conversationId) {
+            const question = lastUserUtterance(transcript);
+            if (question) deferQuestion({ question, conversationId, vars: callVars });
+          }
+          // Hold proposed actions until the parent says YES on the call.
+          if (reply.proposedSteps?.length) pendingSteps = reply.proposedSteps;
+
+          if (id !== latestResponseId) break; // a newer request superseded this one
+          ws.send(
+            JSON.stringify({
+              response_type: 'response',
+              response_id: id,
+              content: reply.text,
+              content_complete: true,
+              end_call: false,
+            }),
+          );
+          break;
+        }
+        case 'update_only':
+        default:
+          break; // no response required
+      }
+    });
+
+    ws.on('close', () => {
+      callVars = {};
+    });
+  });
+
+  wss.on('error', (e) => console.error('[voice] server error:', (e as Error).message));
+}
+
+function isSchoolCall(vars: Record<string, unknown>): boolean {
+  return vars.call_kind === 'school';
+}
+
+function parentGreeting(): string {
+  return "Hey there — thanks for picking up! I'm the school helper you've been texting with. Figured it'd be easier to just talk. What's going on?";
+}
+
+function schoolGreeting(vars: Record<string, unknown>): string {
+  const parent = String(vars.parent_name ?? 'a parent');
+  const student = String(vars.student ?? 'their child');
+  const disclosure = String(
+    vars.disclosure ?? "I'm an automated assistant, and this call is transcribed for the parent's records.",
+  );
+  return `Hello — I'm calling on behalf of ${parent} about ${student}. ${disclosure}`;
+}
+
+function normalizeTranscript(t: unknown): Array<{ role: string; content: string }> {
+  if (!Array.isArray(t)) return [];
+  return t
+    .map((u) => {
+      const o = u as Record<string, unknown>;
+      return { role: String(o.role ?? 'user'), content: String(o.content ?? '').trim() };
+    })
+    .filter((u) => u.content);
+}
+
+/** The most recent caller (user) utterance — the question to hand off to research. */
+function lastUserUtterance(transcript: Array<{ role: string; content: string }>): string {
+  for (let i = transcript.length - 1; i >= 0; i--) {
+    const turn = transcript[i];
+    if (turn && turn.role === 'user') return turn.content;
+  }
+  return '';
+}
+
+/** Is the caller approving a proposed action ("yes, send it")? */
+function isAffirmative(text: string): boolean {
+  return /^(y|yes|yeah|yep|sure|ok|okay|confirm|go ahead|do it|please|please do|send it|send the|sign .* up)\b/i.test(text.trim());
+}
+```
