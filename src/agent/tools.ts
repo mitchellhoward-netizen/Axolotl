@@ -17,6 +17,7 @@ import {
   extractPdf,
 } from '../integrations/browser.js';
 import { fillPdf, listPdfFields } from '../integrations/pdf.js';
+import { fillFormForReview, skyvernEnabled } from '../integrations/skyvern.js';
 import { getFormRecipe, saveFormRecipe, type FormRecipe } from '../integrations/form-recipes.js';
 import { createEvidence } from '../integrations/evidence-store.js';
 import type { EvidenceRecord, SourceType } from '../domain/evidence.js';
@@ -188,6 +189,21 @@ export const LLM_TOOLS = [
       name: 'submit_form',
       description: 'Propose the consent-gated SUBMIT of the form you just filled in the browser. ONLY call AFTER the form is filled and you shared the link for the parent to review. It PROPOSES the step — the system gates it behind the parent\u2019s YES. NEVER auto-submit.',
       parameters: { type: 'object', properties: { url: { type: 'string' } }, required: ['url'] },
+    },
+  },
+  {
+    type: 'function',
+    function: {
+      name: 'skyvern_fill_form',
+      description: 'Fill a web form (e.g. a school program enrollment/waitlist Google Form) with the parent\u2019s info using Skyvern, and PROPOSE the consent-gated submit. FILLS ONLY — it never submits, and it shares the filled form screenshot for review. Submit only happens after the parent\u2019s explicit YES (submitted via submit_form). Use for real sign-up/enrollment forms.',
+      parameters: {
+        type: 'object',
+        properties: {
+          url: { type: 'string' },
+          values: { type: 'object', additionalProperties: { type: 'string' } },
+        },
+        required: ['url', 'values'],
+      },
     },
   },
   {
@@ -632,6 +648,32 @@ export async function runTool(name: string, args: Record<string, unknown>, deps:
         },
       ]);
       return 'Ready to submit the form. Ask the parent to reply YES to submit (or NO to change it).';
+    }
+    case 'skyvern_fill_form': {
+      const url = String(args.url ?? '').trim();
+      if (!/^https?:\/\//i.test(url)) return 'Provide the form url.';
+      if (!skyvernEnabled()) return "Skyvern isn't configured — use browser_open/browser_fill to fill it instead.";
+      const values = (args.values ?? {}) as Record<string, string>;
+      const res = await fillFormForReview({ formUrl: url, values });
+      if (!res.ok) {
+        return `I filled what I could but it didn't complete (${res.status}${res.blocked ? `, blocked: ${res.blocked}` : ''})${res.detail ? ` — ${res.detail}` : ''}.${res.reviewScreenshotUrl ? `\nReview: ${res.reviewScreenshotUrl}` : ''}`;
+      }
+      // Phase B is a SEPARATE consent-gated step — submit only fires after the parent's
+      // strict YES (the executor's requiresConsent gate).
+      deps.proposeSteps([
+        {
+          id: 'submit-' + Date.now().toString(36),
+          caseId: 'form',
+          intent: 'submit_form',
+          channel: 'submit',
+          counterparty: { role: 'OTHER' },
+          payload: { channel: 'submit', url, skyvernSessionId: res.browserSessionId },
+          successCondition: { describe: 'Form submitted', kind: 'reference_received' },
+          requiresConsent: true,
+          status: 'awaiting_consent',
+        },
+      ]);
+      return `I filled the form — nothing submitted yet. Review it here: ${res.reviewScreenshotUrl ?? url}\n\nReply YES to submit, or tell me what to change.`;
     }
     case 'get_form_recipe': {
       const url = String(args.url ?? '').trim();

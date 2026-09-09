@@ -45,7 +45,7 @@ export type StepPayload =
       /** One-time code supplied by the parent, for `verify`. */
       code?: string;
     }
-  | { channel: 'submit'; url: string };
+  | { channel: 'submit'; url: string; skyvernSessionId?: string };
 
 /** The brief handed to the voice adapter. */
 export interface CallBrief {
