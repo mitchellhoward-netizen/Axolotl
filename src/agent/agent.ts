@@ -152,6 +152,10 @@ export interface AgentOptions {
   defaultParentId?: string;
   /** When true, a first-contact phone must pass OTP before onboarding. */
   requireVerification?: boolean;
+  /** When true, route mckinney/attendance conversational turns through the brain
+   * (with context + tools) instead of the deterministic sub-machines. Default off;
+   * keep the sub-machines as the fallback until the brain version is validated. */
+  brainFlows?: boolean;
   /** Injectable clock for deterministic tests. */
   now?: () => Date;
   /** Optional LLM brain (research + grounded answers). Falls back offline without it. */
@@ -196,10 +200,12 @@ export class Agent {
   private readonly hydrated = new Set<string>();
   private readonly now: () => Date;
   private readonly requireVerification: boolean;
+  private readonly brainFlows: boolean;
 
   constructor(private readonly opts: AgentOptions) {
     this.now = opts.now ?? (() => new Date());
     this.requireVerification = opts.requireVerification ?? process.env.REQUIRE_VERIFICATION !== 'false';
+    this.brainFlows = opts.brainFlows ?? process.env.BRAIN_FLOWS === 'true';
   }
 
   async handle(conversationId: string, text: string): Promise<AgentTurn> {
@@ -389,7 +395,7 @@ export class Agent {
           this.save(conversationId, { phase: 'clarifying', collected: {}, onboarding: ob.state, profile: ob.state.profile }, state);
           turn = { text: ob.text, phase: 'clarifying' };
         }
-      } else if (state.attendance) {
+      } else if (state.attendance && !this.brainFlows) {
         const at = advanceAttendance(state.attendance, text.trim());
         if (at.done && at.state.chosen) {
           const c = at.state.chosen;
@@ -407,7 +413,7 @@ export class Agent {
           this.save(conversationId, { phase: at.done ? 'done' : 'clarifying', collected: {}, attendance: at.done ? undefined : at.state, profile: state.profile }, state);
           turn = { text: at.text, phase: at.done ? 'done' : 'clarifying' };
         }
-      } else if (state.mckinney) {
+      } else if (state.mckinney && !this.brainFlows) {
         const mc = advanceMckinney(state.mckinney, text.trim(), ctx.students, state.profile ? this.researchedDistrict(state.profile) ?? resolveDistrict(state.profile.school ?? state.profile.district ?? '') : undefined);
         this.save(conversationId, { phase: mc.done ? 'done' : 'clarifying', collected: {}, mckinney: mc.done ? undefined : mc.state }, state);
         turn = { text: mc.text, phase: mc.done ? 'done' : 'clarifying' };
@@ -1023,9 +1029,10 @@ export class Agent {
     let narrated = false;
     let resolved = false;
     // Research is allowed to iterate hard — never settle for a thin/partial answer.
+    const situation = computeSituation(state);
     while (guard < 12) {
       const res = await llm.chatWithTools(
-        systemPrompt({ profile: state.profile, cases: state.cases, activeGoal: state.activeGoal, lastAction: state.lastAction, pendingActions: pendingActionsSummary(state.pendingSteps), summary: state.summary }),
+        systemPrompt({ profile: state.profile, cases: state.cases, activeGoal: state.activeGoal, lastAction: state.lastAction, pendingActions: pendingActionsSummary(state.pendingSteps), summary: state.summary, situation }),
         messages,
         LLM_TOOLS,
         'auto',
@@ -1820,6 +1827,28 @@ function isLookupRefusal(s: string): boolean {
 /** Resolve a promise to `fallback` if it doesn't settle within `ms` (best-effort). */
 function withTimeout<T>(p: Promise<T>, ms: number, fallback: T): Promise<T> {
   return Promise.race([p, new Promise<T>((resolve) => setTimeout(() => resolve(fallback), ms))]);
+}
+
+/** A "SITUATION FLAG" block for the brain's context, from the active flow/state.
+ * Preserves the McKinney-Vento sensitive-dimension carve-out: never let the brain
+ * probe residency/docs for a displaced family. */
+export function computeSituation(state: ConversationState): string | undefined {
+  const challenges = state.profile?.challenges ?? [];
+  const housing = challenges.some((c) => /homeless|displaced|shelter|transitional|motel|motel|no fixed|doubled-up|couch|temporary|evict/i.test(c));
+  const displaced = housing || Boolean(state.mckinney);
+  const parts: string[] = [];
+  if (displaced) {
+    parts.push(
+      'This family may be in transitional/homeless housing, so McKinney-Vento applies: the child must be enrolled immediately without documents, keep their school of origin, get transportation there, and free meals. ' +
+        'Do NOT ask where they live or for proof-of-residency — those are waived. Offer to request transportation and immediate enrollment directly (use call_school / send_email / log_case + a reminder).',
+    );
+  }
+  if (state.attendance) {
+    parts.push(
+      'The parent flagged attendance/barriers. Ask what is getting in the way (transport, meals, bullying, health, or not sure), diagnose, and offer to draft the outreach to the right contact.',
+    );
+  }
+  return parts.length ? parts.join('\n') : undefined;
 }
 
 function isRefusal(s: string): boolean {
