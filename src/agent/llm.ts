@@ -177,7 +177,11 @@ export class LlmClient {
     );
     if (!raw) return null;
     try {
-      const d = JSON.parse(raw) as Partial<DistrictProfile> & { type?: string };
+      // The model may wrap the JSON in ``` fences or prose; extract the object (like
+      // the other json callers) so fence-formatted output still parses.
+      const cleaned = raw.replace(/```(?:json)?/gi, '').replace(/```/g, '').trim();
+      const match = cleaned.match(/\{[\s\S]*\}/);
+      const d = JSON.parse(match ? match[0] : cleaned) as Partial<DistrictProfile> & { type?: string };
       if (!d.name) return null;
       const type = ['public', 'private', 'charter', 'unknown'].includes(String(d.type ?? ''))
         ? (String(d.type) as DistrictProfile['type'])
