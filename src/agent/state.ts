@@ -47,6 +47,9 @@ export interface ConversationState {
   lastAction?: string;
   /** Steps the brain has planned but not yet executed — awaiting parent consent. */
   pendingSteps?: Step[];
+  /** True when the family has been provisioned (onboarding finalized) in the
+   * brain-driven path — guarantees the materialization runs exactly once. */
+  onboarded?: boolean;
   /** A rolling, compressed summary of the conversation so the brain keeps the
    * thread even past the windowed history (ChatGPT-like continuity). */
   summary?: string;

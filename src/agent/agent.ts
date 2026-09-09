@@ -156,6 +156,10 @@ export interface AgentOptions {
    * (with context + tools) instead of the deterministic sub-machines. Default off;
    * keep the sub-machines as the fallback until the brain version is validated. */
   brainFlows?: boolean;
+  /** When true, onboarding is gathered by the brain (save_profile + an ONBOARDING
+   * still-needed block), with the deterministic materialization run exactly once by
+   * a hook. Default off; the deterministic wizard is the fallback. */
+  brainOnboarding?: boolean;
   /** Injectable clock for deterministic tests. */
   now?: () => Date;
   /** Optional LLM brain (research + grounded answers). Falls back offline without it. */
@@ -201,11 +205,13 @@ export class Agent {
   private readonly now: () => Date;
   private readonly requireVerification: boolean;
   private readonly brainFlows: boolean;
+  private readonly brainOnboarding: boolean;
 
   constructor(private readonly opts: AgentOptions) {
     this.now = opts.now ?? (() => new Date());
     this.requireVerification = opts.requireVerification ?? process.env.REQUIRE_VERIFICATION !== 'false';
     this.brainFlows = opts.brainFlows ?? process.env.BRAIN_FLOWS === 'true';
+    this.brainOnboarding = opts.brainOnboarding ?? process.env.BRAIN_ONBOARDING === 'true';
   }
 
   async handle(conversationId: string, text: string): Promise<AgentTurn> {
@@ -368,29 +374,24 @@ export class Agent {
         !state.profile;
 
       // Onboarding: learn the family + district, reconcile with law, propose help.
-      if (freshFamily) {
+      if (this.brainOnboarding && freshFamily) {
+        // Brain-driven onboarding: seed an empty profile (so freshFamily is false
+        // from here) + show the capabilities intro; the brain gathers the fields
+        // via save_profile, and materializeOnboarding runs the deterministic
+        // sequence exactly once when the required fields are complete (see advance).
+        const intro = openOnboarding().text;
+        this.save(conversationId, { phase: 'clarifying', collected: {}, profile: { children: [], needs: [], challenges: [] } }, state);
+        turn = { text: intro, phase: 'clarifying' };
+      } else if (freshFamily) {
         const ob = openOnboarding();
         this.save(conversationId, { phase: 'clarifying', collected: {}, onboarding: ob.state, profile: ob.state.profile }, state);
         turn = { text: ob.text, phase: 'clarifying' };
-      } else if (state.onboarding) {
+      } else if (state.onboarding && !this.brainOnboarding) {
         const ob = advanceOnboarding(state.onboarding, text.trim());
         if (ob.done) {
-          const district = await this.resolveDistrictAsync(ob.state.profile);
-          // Persist the resolved school type so the entitlement audit + system
-          // prompt don't over-claim public-school programs for a private/unknown school.
-          ob.state.profile.schoolType = district.type;
-          // Materialize the parent + students from the profile (true fresh start),
-          // and persist them (durable, SIS-free).
-          provisionFamily(this.opts.db, parentId, ob.state.profile);
-          await persistProvisionedFamily(this.opts.db, parentId);
-          const plan = finalizeOnboarding(ob.state.profile, district);
-          // Kick off background research on the district + send a "wow" welcome
-          // email that proves it can email AND already knows the child's district
-          // (the Town-style minute-zero value). Fire-and-forget so the reply is instant.
-          const welcomeNote = `\n\nI'm researching ${district.name} right now (programs, free stuff) and I'll email you what I find — watch your inbox.`;
-          this.save(conversationId, { phase: 'done', collected: {}, profile: ob.state.profile, awaitingCallDemo: true }, state);
-          void this.backgroundResearchAndWelcome(ob.state.profile, parentId, district);
-          turn = { text: plan + welcomeNote, phase: 'done' };
+          const plan = await this.materializeOnboarding(ob.state.profile, parentId);
+          this.save(conversationId, { phase: 'done', collected: {}, profile: ob.state.profile, awaitingCallDemo: true, onboarded: true }, state);
+          turn = { text: plan, phase: 'done' };
         } else {
           this.save(conversationId, { phase: 'clarifying', collected: {}, onboarding: ob.state, profile: ob.state.profile }, state);
           turn = { text: ob.text, phase: 'clarifying' };
@@ -779,6 +780,18 @@ export class Agent {
    * instant. Gmail connect is the send-as-parent path (to the school), not a
    * prerequisite for Axolotl to email the parent.
    */
+  private async materializeOnboarding(profile: FamilyProfile, parentId: string): Promise<string> {
+    const district = await this.resolveDistrictAsync(profile);
+    // Persist the resolved school type so the entitlement audit + prompt don't over-claim.
+    profile.schoolType = district.type;
+    provisionFamily(this.opts.db, parentId, profile);
+    await persistProvisionedFamily(this.opts.db, parentId);
+    const plan = finalizeOnboarding(profile, district);
+    // Fire-and-forget the minute-zero research + welcome email.
+    void this.backgroundResearchAndWelcome(profile, parentId, district);
+    return plan + `\n\nI'm researching ${district.name} right now (programs, free stuff) and I'll email you what I find — watch your inbox.`;
+  }
+
   private async backgroundResearchAndWelcome(profile: FamilyProfile, parentId: string, district: DistrictProfile): Promise<void> {
     const to = profile.email ?? (await getGmailToken(parentId))?.email ?? '';
     if (!to) return;
@@ -1029,7 +1042,9 @@ export class Agent {
     let narrated = false;
     let resolved = false;
     // Research is allowed to iterate hard — never settle for a thin/partial answer.
-    const situation = computeSituation(state);
+    const situation = this.brainOnboarding
+      ? [computeOnboardingBlock(state.profile), computeSituation(state)].filter(Boolean).join('\n') || undefined
+      : computeSituation(state);
     while (guard < 12) {
       const res = await llm.chatWithTools(
         systemPrompt({ profile: state.profile, cases: state.cases, activeGoal: state.activeGoal, lastAction: state.lastAction, pendingActions: pendingActionsSummary(state.pendingSteps), summary: state.summary, situation }),
@@ -1417,6 +1432,20 @@ export class Agent {
       if (brain) {
         // Any pending consent-gated steps are resolved at the top of handle() (before the brain),
         // so a brain turn here never also fires stale steps.
+        // Brain-driven onboarding finalize hook: once the required fields are present
+        // and the family isn't yet provisioned, run the deterministic materialization
+        // EXACTLY ONCE (guarded by state.onboarded) + append the welcome text.
+        if (this.brainOnboarding && !brain.state.onboarded && computeOnboardingBlock(brain.state.profile) === undefined) {
+          if (brain.state.profile) {
+            try {
+              const welcome = await this.materializeOnboarding(brain.state.profile, parentId);
+              brain.state.onboarded = true;
+              return { turn: { text: `${brain.turn.text ? brain.turn.text + '\n\n' : ''}${welcome}`, phase: 'done', resolved: true }, state: brain.state };
+            } catch (e) {
+              console.error('[onboarding] brain materialize failed:', (e as Error)?.message ?? e);
+            }
+          }
+        }
         return brain;
       }
     }
@@ -1881,4 +1910,21 @@ function isThinResearchAnswer(s: string): boolean {
     /i need (more (info|information|details)|to know what|to understand what)/.test(t) ||
     /for more information/.test(t);
   return (askedTheParent && s.length < 1400) || s.trim().length < 25;
+}
+
+/** An ONBOARDING block for the brain's context: what's still missing to provision a
+ * family, or undefined when complete. The server's field set is the source of truth,
+ * not the prompt — the brain asks, the code decides completeness. */
+export function computeOnboardingBlock(profile?: FamilyProfile): string | undefined {
+  const missing: string[] = [];
+  if (!profile?.email) missing.push('their email');
+  if (!profile?.children?.length) missing.push("their children's names (and grade if known)");
+  if (!profile?.school) missing.push('the school name');
+  if (!profile?.location && !(profile?.districtId)) missing.push('the city/state of the school');
+  if (missing.length === 0) return undefined;
+  return (
+    `ONBOARDING: this family isn't set up yet. Still needed: ${missing.join(', ')}. ` +
+    `Ask for these naturally, one thing at a time — do NOT interrogate. Gather them via save_profile. ` +
+    `Once they're all in, I'll set up the family and email you what applies.`
+  );
 }

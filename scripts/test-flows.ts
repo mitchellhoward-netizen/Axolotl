@@ -5,7 +5,7 @@
  * dimension carve-out — it must NEVER be prompted to ask for residency/proof-of-
  * residency. The old deterministic sub-machines remain the default (flag off).
  */
-import { computeSituation } from '../src/agent/agent.js';
+import { computeSituation, computeOnboardingBlock } from '../src/agent/agent.js';
 import { systemPrompt } from '../src/agent/tools.js';
 import type { ConversationState } from '../src/agent/state.js';
 
@@ -55,6 +55,15 @@ async function main() {
   // The brain's system prompt actually renders the situation block.
   const sp = systemPrompt({ profile: { children: [{ name: 'Pat' }] }, situation: displaced });
   check('systemPrompt renders SITUATION FLAG', /SITUATION FLAG/.test(sp) && /proof-of-residency/.test(sp));
+
+  // ── Onboarding completeness (the server's source of truth for step 3) ──────
+  const full = { email: 'p@x.com', children: [{ name: 'Pat' }], school: 'Main St', location: 'Soquel, CA', needs: [], challenges: [] };
+  const empty = { children: [], needs: [], challenges: [] };
+  const noCity = { email: 'p@x.com', children: [{ name: 'Pat' }], school: 'Main St', districtId: 'district-x', needs: [], challenges: [] };
+  check('onboarding: empty profile lists every missing field', /email/.test(computeOnboardingBlock(empty as never) ?? '') && /school name/.test(computeOnboardingBlock(empty as never) ?? ''));
+  check('onboarding: complete profile => undefined (ready to materialize)', computeOnboardingBlock(full) === undefined);
+  check('onboarding: districtId resolves without city/state', computeOnboardingBlock(noCity) === undefined);
+  check('onboarding: missing school is flagged', /school name/.test(computeOnboardingBlock({ ...full, school: '' }) ?? ''));
 
   console.log(`\n${pass} passed, ${fail} failed`);
   if (fail > 0) process.exit(1);
