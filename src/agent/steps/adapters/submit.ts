@@ -19,10 +19,11 @@ export class SubmitAdapter implements ChannelAdapter {
     const p = step.payload;
     if (p.channel !== 'submit') throw new Error('SubmitAdapter received a non-submit step');
 
-    // Skyvern Phase B: only here (the consent-gated executor path). Close the session.
-    if (skyvernEnabled() && p.skyvernSessionId) {
-      const sub = await submitFilledForm(p.skyvernSessionId);
-      await closeSession(p.skyvernSessionId);
+    // Skyvern Phase B: navigate + re-fill + submit in ONE post-YES task (only reached
+    // from the consent-gated executor path). Close the session if present.
+    if (skyvernEnabled() && p.values) {
+      const sub = await submitFilledForm({ url: p.url, values: p.values, browserSessionId: p.skyvernSessionId });
+      if (p.skyvernSessionId) await closeSession(p.skyvernSessionId);
       if (!sub.ok) {
         return {
           status: 'failed',

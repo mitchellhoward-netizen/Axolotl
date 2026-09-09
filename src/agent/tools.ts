@@ -667,7 +667,7 @@ export async function runTool(name: string, args: Record<string, unknown>, deps:
           intent: 'submit_form',
           channel: 'submit',
           counterparty: { role: 'OTHER' },
-          payload: { channel: 'submit', url, skyvernSessionId: res.browserSessionId },
+          payload: { channel: 'submit', url, values, skyvernSessionId: res.browserSessionId },
           successCondition: { describe: 'Form submitted', kind: 'reference_received' },
           requiresConsent: true,
           status: 'awaiting_consent',

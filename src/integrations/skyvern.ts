@@ -91,9 +91,9 @@ async function reviewScreenshot(runId: string): Promise<string | undefined> {
   try {
     const r = await withTimeout(fetch(`${BASE}/v1/runs/${runId}/artifacts`, { headers: { 'x-api-key': KEY } }), 10000, null);
     if (!r?.ok) return undefined;
-    const j = (await r.json()) as { artifacts?: Array<{ type?: string; artifact_type?: string; signed_url?: string }> };
-    const final = (j.artifacts ?? []).find((a) => a.artifact_type === 'screenshot_final');
-    return final?.signed_url;
+    const j = (await r.json()) as unknown;
+    const arts = (Array.isArray(j) ? j : ((j as { artifacts?: unknown[] })?.artifacts ?? [])) as Array<{ artifact_type?: string; signed_url?: string }>;
+    return arts.find((a) => a.artifact_type === 'screenshot_final')?.signed_url;
   } catch {
     return undefined;
   }
@@ -149,18 +149,33 @@ export async function fillFormForReview(input: {
   };
 }
 
-/** Phase B: submit the already-filled form in the SAME session. ONLY from the consent path. */
-export async function submitFilledForm(browserSessionId: string): Promise<{ ok: boolean; status: string; confirmationScreenshotUrl?: string }> {
+/**
+ * Phase B: navigate to the form, RE-FILL it with the same values, then submit.
+ * Called ONLY from the post-YES consent path (SubmitAdapter). The filled page from
+ * Phase A does not survive between Skyvern tasks, so we re-fill here; Phase A's
+ * screenshot was the review preview. `browserSessionId` is optional and only needed
+ * to carry sign-in cookies for auth-gated forms.
+ */
+export async function submitFilledForm(input: {
+  url: string;
+  values: Record<string, string>;
+  browserSessionId?: string;
+}): Promise<{ ok: boolean; status: string; confirmationScreenshotUrl?: string }> {
   if (!KEY) return { ok: false, status: 'disabled' };
-  if (!browserSessionId) return { ok: false, status: 'no_session' };
+  if (!input.url) return { ok: false, status: 'no_url' };
+  const fieldLines = Object.entries(input.values).map(([k, v]) => `- ${k}: ${v}`).join('\n');
+  const prompt =
+    `Go to this form, fill it in with the following information, then CLICK the Submit button to submit it. ` +
+    `Do not create an account or pay. Fill every field you can, then submit.\n\nFields:\n${fieldLines}`;
   const runRes = await api('/v1/run/tasks', {
-    prompt: 'Click the Submit button on the currently open, already-filled form to submit it. Do not change any field. If it asks for confirmation, click submit/confirm.',
-    browser_session_id: browserSessionId,
-    max_steps: 8,
+    prompt,
+    url: input.url,
+    max_steps: 12,
+    ...(input.browserSessionId ? { browser_session_id: input.browserSessionId } : {}),
   });
   const runId = String(runRes?.run_id ?? '');
   if (!runId) return { ok: false, status: 'task_failed' };
-  const terminal = await pollRun(runId, 30000);
+  const terminal = await pollRun(runId, 60000);
   const screenshot = await reviewScreenshot(runId);
   return { ok: terminal.status === 'completed', status: terminal.status, confirmationScreenshotUrl: screenshot };
 }
