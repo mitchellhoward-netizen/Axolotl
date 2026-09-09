@@ -1006,6 +1006,12 @@ export class Agent {
     const messages: unknown[] = [...history.slice(-30)];
     let guard = 0;
     let resolved = false;
+    let researchCalls = 0;
+    // Cap the live research loop so a "research X" turn answers in seconds, not
+    // minutes — after a few searches/fetches the brain must answer what it has and
+    // offer to dig deeper, instead of looping until 'thorough' (2.6).
+    const RESEARCH_CALL_CAP = Number(process.env.RESEARCH_CALL_CAP) || 4;
+    const RESEARCH_TOOL_NAMES = new Set(['web_search', 'web_fetch', 'get_knowledge', 'get_school_info']);
     // Research is allowed to iterate hard — never settle for a thin/partial answer.
     const situation = this.brainOnboarding && !state.onboarded
       ? [onboardingSituation(state.profile), computeSituation(state)].filter(Boolean).join('\n') || undefined
@@ -1022,6 +1028,19 @@ export class Agent {
       if (!res) break;
       // If the model wants to call tools, do it — never return early on a preamble.
       if (res.calls?.length) {
+        // Enforce the live research cap (2.6): too many search/fetch calls -> force
+        // the brain to answer with what it has + offer to dig deeper, not loop.
+        const researchThisRound = res.calls.filter((c) => RESEARCH_TOOL_NAMES.has(c.name)).length;
+        if (researchThisRound > 0) researchCalls += researchThisRound;
+        if (researchCalls >= RESEARCH_CALL_CAP && res.calls.some((c) => RESEARCH_TOOL_NAMES.has(c.name))) {
+          messages.push({
+            role: 'user',
+            content:
+              "That's enough research for now — don't keep searching. Answer with what you have (name any specific programs you found), and offer to dig deeper if they want more detail. Keep it short and act on it.",
+          });
+          guard++;
+          continue;
+        }
         // No more "hang tight" text bubble — the agent reacts to the parent's message
         // with an emoji and just does the work. No busy-line narration.
         if (res.calls.some((c) => c.name === 'record_getting')) resolved = true;
