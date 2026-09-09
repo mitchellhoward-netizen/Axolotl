@@ -762,13 +762,20 @@ export class Agent {
    * prerequisite for Axolotl to email the parent.
    */
   private async materializeOnboarding(profile: FamilyProfile, parentId: string): Promise<string> {
-    const district = await this.resolveDistrictAsync(profile);
-    // Persist the resolved school type so the entitlement audit + prompt don't over-claim.
-    profile.schoolType = district.type;
+    // Resolve the district INSTANTLY — never block the reply on a slow full research
+    // (that's what made the finalize take minutes). Cache-first; else default to public
+    // (most schools) and let the background research confirm + set the real type.
+    const input = qualifiedSchool(profile) || profile.district || profile.school || '';
+    const cached = resolveDistrict(input);
+    const district: DistrictProfile = cached.known
+      ? cached
+      : { id: districtIdFromName(input), name: profile.school ?? input, type: 'public', known: false };
+    profile.schoolType = district.type ?? 'public';
+    if (district.id) profile.districtId = district.id;
     provisionFamily(this.opts.db, parentId, profile);
     await persistProvisionedFamily(this.opts.db, parentId);
     const plan = finalizeOnboarding(profile, district);
-    // Fire-and-forget the minute-zero research + welcome email.
+    // Fire-and-forget the real district research (warm the graph in the background).
     void this.backgroundResearchAndWelcome(profile, parentId, district);
     return plan;
   }
