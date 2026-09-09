@@ -4,6 +4,10 @@ import { KNOWLEDGE_CATEGORIES, type KnowledgeCategory, type KnowledgeNode, type 
 import type { CandidateNode } from './research.js';
 
 let cache = new Map<string, KnowledgeNode[]>();
+/** When each district was last deep-researched (in-process). Read-through cache:
+ * a district researched within RESEARCH_TTL_DAYS is NOT re-crawled on a live turn. */
+const researchedAt = new Map<string, number>();
+const RESEARCH_TTL_MS = () => (Number(process.env.RESEARCH_TTL_DAYS) || 14) * 24 * 3600 * 1000;
 
 /**
  * The knowledge graph. Canonical, category-tagged facts per district/school,
@@ -264,10 +268,15 @@ export async function autoResearchDistrict(
   const existing = await graph.get(districtId);
   const covered = new Set<string>(existing.map((n) => n.category as string));
 
+  // Read-through cache: if this district was deep-researched within the TTL (in this
+  // process), skip the live crawl entirely — a warm district does ZERO live research.
+  const fresh = existing.length > 0 && Date.now() - (researchedAt.get(districtId) ?? 0) < RESEARCH_TTL_MS();
+
   let researched: CandidateNode[] = [];
-  if (researcher) {
+  if (researcher && !fresh) {
     try {
       researched = await researcher();
+      researchedAt.set(districtId, Date.now());
     } catch (e) {
       console.error('[knowledge] researcher failed:', (e as Error)?.message ?? e);
     }

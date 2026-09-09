@@ -172,23 +172,21 @@ export async function researchQuestion(
 ): Promise<string> {
   const query = [question, districtName, schoolName].filter(Boolean).join(' ');
   const md = await searchWeb(query);
-  const urls = extractUrls(md, maxPages + 2);
-  const pages: string[] = [];
-  for (const url of urls) {
-    if (pages.length >= maxPages) break;
-    try {
-      let page: string;
+  const urls = extractUrls(md, maxPages + 2).slice(0, maxPages);
+  // Fetch the pages in parallel (bounded by maxPages) — one slow page can't stall the batch.
+  const settled = await Promise.allSettled(
+    urls.map(async (url) => {
       if (isPdfUrl(url)) {
         const pr = await extractPdf(url);
-        page = pr.ok ? pr.data.text : '';
-      } else {
-        page = await fetchWeb(url);
+        return pr.ok ? pr.data.text.slice(0, 8000) : '';
       }
-      if (page) pages.push(page.slice(0, 8000));
-    } catch {
-      /* skip a bad page */
-    }
-  }
+      const page = await fetchWeb(url);
+      return page.slice(0, 8000);
+    }),
+  );
+  const pages = settled
+    .filter((r): r is PromiseFulfilledResult<string> => r.status === 'fulfilled' && Boolean(r.value.trim()))
+    .map((r) => r.value);
   return pages.join('\n\n');
 }
 
@@ -272,15 +270,25 @@ export async function researchDistrictNodes(
     }
 
     const stepTerms = new Set<string>();
-    for (const url of urls) {
-      if (!session.canFetch()) break;
-      let page: string;
-      if (isPdfUrl(url)) {
-        const pr = await extractPdf(url);
-        page = pr.ok ? pr.data.text : '';
-      } else {
-        page = await fetchWeb(url);
-      }
+    // Fetch the batch of pages in parallel (bounded by the remaining fetch budget),
+    // then extract/categorize each page in the results order. One slow page can't
+    // stall the whole loop.
+    const batch = urls.filter((u) => !session.hasSeen(u)).slice(0, session.canFetch() ? 3 : 0);
+    const pageResults = await Promise.allSettled(
+      batch.map(async (url) => {
+        let page: string;
+        if (isPdfUrl(url)) {
+          const pr = await extractPdf(url);
+          page = pr.ok ? pr.data.text : '';
+        } else {
+          page = await fetchWeb(url);
+        }
+        return { url, page };
+      }),
+    );
+    for (const r of pageResults) {
+      if (r.status !== 'fulfilled') continue;
+      const { url, page } = r.value;
       if (!page || page.length < 40) {
         session.markFetched({ url, useful: false });
         continue;
