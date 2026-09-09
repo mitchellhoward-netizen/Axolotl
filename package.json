@@ -32,6 +32,7 @@
     "test:intention": "tsx scripts/test-intention.ts",
     "test:consent": "tsx scripts/test-consent.ts",
     "test:gating": "tsx scripts/test-gating.ts",
+    "test:bubbles": "tsx scripts/test-bubbles.ts",
     "test:flows": "tsx scripts/test-flows.ts",
     "test:school-info": "tsx scripts/test-school-info.ts",
     "reset:conversations": "tsx scripts/reset-conversations.ts"

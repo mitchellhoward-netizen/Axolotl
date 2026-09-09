@@ -43,10 +43,30 @@ export function routeTool(tool: string): ModelTier {
 }
 
 export function frontierModel(): ModelSpec {
+  const key = process.env.ANTHROPIC_API_KEY ?? process.env.DEEPSEEK_API_KEY ?? process.env.OPENAI_API_KEY;
+  const isAnthropic = Boolean(process.env.ANTHROPIC_API_KEY);
   return {
-    model: process.env.FRONTIER_MODEL ?? process.env.LLM_MODEL ?? process.env.OPENAI_MODEL ?? 'deepseek-chat',
-    apiKey: process.env.DEEPSEEK_API_KEY ?? process.env.OPENAI_API_KEY,
-    baseUrl: process.env.LLM_BASE_URL ?? process.env.OPENAI_BASE_URL ?? 'https://api.deepseek.com',
+    model: process.env.FRONTIER_MODEL ?? process.env.LLM_MODEL ?? process.env.OPENAI_MODEL ?? (isAnthropic ? 'claude-haiku-4-5' : 'deepseek-chat'),
+    apiKey: key,
+    baseUrl: process.env.LLM_BASE_URL ?? process.env.OPENAI_BASE_URL ?? (isAnthropic ? 'https://api.anthropic.com/v1' : 'https://api.deepseek.com'),
+  };
+}
+
+/**
+ * The parent-facing "fast" tier — the model the parent waits on. Defaults to
+ * Anthropic Haiku (lowest initial latency, strong bilingual, drives the tool loop).
+ * If no Anthropic key is present it falls back to DeepSeek/OpenAI so the current
+ * behavior is preserved and the app still boots without a key.
+ */
+export function chatModel(): ModelSpec {
+  const key = process.env.CHAT_API_KEY ?? process.env.ANTHROPIC_API_KEY ?? process.env.DEEPSEEK_API_KEY ?? process.env.OPENAI_API_KEY;
+  const isAnthropic = Boolean(process.env.CHAT_API_KEY ?? process.env.ANTHROPIC_API_KEY);
+  return {
+    model: process.env.CHAT_MODEL ?? (isAnthropic ? 'claude-haiku-4-5' : 'deepseek-chat'),
+    apiKey: key,
+    baseUrl:
+      process.env.CHAT_BASE_URL ??
+      (isAnthropic ? 'https://api.anthropic.com/v1' : 'https://api.deepseek.com'),
   };
 }
 

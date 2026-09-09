@@ -54,10 +54,14 @@ export class LlmClient {
           messages: [{ role: 'system', content: system }, ...messages],
           ...(tools.length ? { tools, tool_choice: toolChoice } : {}),
           ...(onToken ? { stream: true } : {}),
-          ...(this.opts.maxTokens ? { max_tokens: this.opts.maxTokens } : {}),
+          // Anthropic requires a token cap; default to 1024 (reply turns are short).
+          max_tokens: this.opts.maxTokens ?? 1024,
         }),
       });
-      if (!res.ok) return null;
+      if (!res.ok) {
+        console.warn(`[llm] ${this.opts.model} non-OK ${res.status}: ${(await res.text().catch(() => '')).slice(0, 200)}`);
+        return null;
+      }
 
       // Non-streaming path (unchanged).
       if (!onToken || !res.body) {
@@ -129,13 +133,18 @@ export class LlmClient {
           model: this.opts.model,
           temperature: 0,
           ...(json ? { response_format: { type: 'json_object' } } : {}),
+          // Anthropic requires a token cap; default to 1024.
+          max_tokens: this.opts.maxTokens ?? 1024,
           messages: [
             { role: 'system', content: system },
             { role: 'user', content: user },
           ],
         }),
       });
-      if (!res.ok) return null;
+      if (!res.ok) {
+        console.warn(`[llm] ${this.opts.model} non-OK ${res.status}: ${(await res.text().catch(() => '')).slice(0, 200)}`);
+        return null;
+      }
       const data = (await res.json()) as { choices?: Array<{ message?: { content?: string } }> };
       return data.choices?.[0]?.message?.content ?? null;
     } catch {

@@ -8,7 +8,8 @@ import { imessage } from "@spectrum-ts/imessage";
 import { Agent } from "./agent/agent";
 import { LlmIntentEngine } from "./agent/intent/llm";
 import { LlmClient } from "./agent/llm";
-import { smallModel } from "./agent/model-policy";
+import { chatModel, smallModel } from "./agent/model-policy";
+import { sendBubbles } from "./agent/bubbles";
 import { RulesIntentEngine } from "./agent/intent/rules";
 import { MockCalendarProvider } from "./integrations/calendar";
 import { MockMealsProvider } from "./integrations/meals";
@@ -66,12 +67,10 @@ process.on("exit", () => {
 const db = createSeedDb();
 await loadIdentityIntoSeed(db);
 
-// LLM brain — OpenAI-compatible; DeepSeek by default. Without a key it's off.
-const LLM_API_KEY = process.env.DEEPSEEK_API_KEY ?? process.env.OPENAI_API_KEY;
-const LLM_BASE_URL = process.env.LLM_BASE_URL ?? process.env.OPENAI_BASE_URL ?? "https://api.deepseek.com";
-const LLM_MODEL = process.env.LLM_MODEL ?? process.env.OPENAI_MODEL ?? "deepseek-chat";
-
-const llm = new LlmClient({ apiKey: LLM_API_KEY, baseUrl: LLM_BASE_URL, model: LLM_MODEL });
+// LLM brain — OpenAI-compatible; Anthropic Haiku by default for the parent-facing
+// path (fast + strong bilingual), DeepSeek/OpenAI as fallback. Without a key it's off.
+const chat = chatModel();
+const llm = new LlmClient({ apiKey: chat.apiKey, baseUrl: chat.baseUrl, model: chat.model });
 
 // A small/specialized model for the researcher (query reformulation, extraction,
 // classification) — never the frontier brain. Falls back to the frontier client.
@@ -81,8 +80,8 @@ const researchLlm = small.apiKey
   : llm;
 
 const agent = new Agent({
-  intentEngine: LLM_API_KEY
-    ? new LlmIntentEngine({ apiKey: LLM_API_KEY, baseUrl: LLM_BASE_URL, model: LLM_MODEL })
+  intentEngine: chat.apiKey
+    ? new LlmIntentEngine({ apiKey: chat.apiKey, baseUrl: chat.baseUrl, model: chat.model })
     : new RulesIntentEngine(),
   sis: createSis(db),
   calendar: new MockCalendarProvider(),
@@ -260,9 +259,9 @@ try {
 
 console.log(`🏫 Axolotl is listening for iMessages…`);
 console.log(
-  LLM_API_KEY
-    ? `🧠 Brain: LLM (${LLM_MODEL} @ ${LLM_BASE_URL})`
-    : `🧠 Brain: offline rules (set DEEPSEEK_API_KEY in .env to enable the LLM)`,
+  chat.apiKey
+    ? `🧠 Brain: LLM (${chat.model} @ ${chat.baseUrl})`
+    : `🧠 Brain: offline rules (set ANTHROPIC_API_KEY / DEEPSEEK_API_KEY in .env to enable the LLM)`,
 );
 
 if (app) {
@@ -293,13 +292,14 @@ for await (const [space, message] of app.messages) {
 
   // Register this family's messenger + mark the inbound so cooldown applies,
   // then fire any due, relevant follow-ups (best-effort, never blocks the reply).
-  agent.registerConversation(space.id, async (text) => { await space.send(text).catch(() => {}); });
+  agent.registerConversation(space.id, async (text) => { await sendBubbles(space, text); });
   agent.noteInbound(space.id);
   await agent.runProactive().catch(() => {});
 
   if (message.content.type !== "text") continue;
 
   const text = message.content.text;
+  const t0 = Date.now();
   // iMessage fallback: if the waitlist confirmation couldn't be sent as SMS, we
   // held it keyed by the phone. The moment this parent texts us (creating a real
   // iMessage chat), send it — this is the reliable iMessage-via-Photon path.
@@ -372,10 +372,10 @@ for await (const [space, message] of app.messages) {
     await reactWithAxolotl(space as unknown as { placeSticker?: unknown }, message as unknown as { id: string; react: (e: string) => unknown }).catch(() => {});
   }
 
-  // Send reliably: threaded reply if the platform supports it, else a plain message.
-  // Send reliably as ONE message. `message.reply(...)` double-sends on this platform
-  // (a threaded reply + a copy); `space.send` emits a single message.
-  await space.send(reply).catch(() => {});
+  // Send reliably as ONE (or a few paced) message(s). `message.reply(...)` double-sends
+  // on this platform; `space.send` emits a single bubble — sendBubbles handles pacing.
+  console.info('[latency] ttfb_ms=' + (Date.now() - t0));
+  await sendBubbles(space, reply);
 }
 }
 
