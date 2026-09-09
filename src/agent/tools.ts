@@ -135,10 +135,11 @@ export const LLM_TOOLS = [
     type: 'function',
     function: {
       name: 'save_profile',
-      description: 'Save/update the family profile (children, school, needs, challenges, notes) so I can remember them. Use this during onboarding.',
+      description: 'Save/update the family profile (email, children, school, location, needs, challenges, notes) so I can remember them. Use this during onboarding; it merges into what you already saved.',
       parameters: {
         type: 'object',
         properties: {
+          email: { type: 'string' },
           children: { type: 'array', items: { type: 'object', properties: { name: { type: 'string' }, grade: { type: 'string' } } } },
           school: { type: 'string' },
           /** City/state to disambiguate the school, e.g. "Seattle, WA". */
@@ -911,6 +912,7 @@ export async function runTool(name: string, args: Record<string, unknown>, deps:
     case 'save_profile': {
       const c = Array.isArray(args.children) ? (args.children as Array<{ name?: string; grade?: string }>) : [];
       deps.saveProfile?.({
+        email: typeof args.email === 'string' ? args.email : undefined,
         children: c.map((x) => ({ name: String(x.name ?? ''), grade: x.grade ? String(x.grade) : undefined })),
         school: typeof args.school === 'string' ? args.school : undefined,
         location: typeof args.location === 'string' ? args.location : undefined,

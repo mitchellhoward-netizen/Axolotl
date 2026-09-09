@@ -935,7 +935,9 @@ export class Agent {
         state.cases = addCase(state.cases, makeCase(rec));
       },
       saveProfile: (p: FamilyProfile) => {
-        state.profile = p;
+        // Merge so the brain can collect fields incrementally without wiping
+        // fields it already gathered (email, then kids, then school, ...).
+        state.profile = { ...(state.profile ?? { children: [], needs: [], challenges: [] }), ...p };
       },
       proposeSteps: (steps) => {
         // Resolve each counterparty (real contact in live, sandbox in demo) so a
