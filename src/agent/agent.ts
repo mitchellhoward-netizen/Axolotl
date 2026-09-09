@@ -61,33 +61,10 @@ import { initialState, type ConversationState, type Plan } from './state.js';
 import { assessKnowledgeNode } from './verify.js';
 import { findSkillFor, skillSummary } from './skills.js';
 
-/** Tools that take long enough that we tell the parent we're on it. */
-const SLOW_TEXT_TOOLS = new Set(['web_search', 'web_fetch', 'browser_open', 'browser_observe', 'browser_act', 'browser_extract', 'browser_fill', 'browser_vision', 'extract_pdf', 'pdf_fields', 'pdf_fill']);
 /** During onboarding the brain may ONLY collect fields (save_profile) + log/now —
  * no web search, no get_school_info, no browser. Research + the email happen AFTER
  * setup, automatically. This is deterministic — the brain can't research mid-onboarding. */
 const ONBOARDING_TOOL_NAMES = new Set(['save_profile', 'log_case', 'now']);
-
-/** Varied, human "stepping away to look this up" acknowledgments (no repeats). */
-const BUSY_LINES = [
-  'One sec, let me check that.',
-  'On it — give me a moment.',
-  'Let me pull that up…',
-  "Hang tight, I'm looking now.",
-  'Give me a minute.',
-  'Looking into it…',
-  'Let me dig into that for you.',
-  'On it now.',
-  'Checking for you — one moment.',
-  "One moment, I'm on it.",
-];
-let lastBusyLine = -1;
-function nextBusyLine(): string {
-  let i = lastBusyLine;
-  while (i === lastBusyLine) i = Math.floor(Math.random() * BUSY_LINES.length);
-  lastBusyLine = i;
-  return BUSY_LINES[i]!;
-}
 
 /** School name with its city/state disambiguation, so research targets the right one. */
 function qualifiedSchool(p?: FamilyProfile): string {
@@ -1075,7 +1052,6 @@ export class Agent {
     // history is queryable via the recall_history tool.
     const messages: unknown[] = [...history.slice(-30)];
     let guard = 0;
-    let narrated = false;
     let resolved = false;
     // Research is allowed to iterate hard — never settle for a thin/partial answer.
     const situation = this.brainOnboarding && !state.onboarded
@@ -1093,11 +1069,8 @@ export class Agent {
       if (!res) break;
       // If the model wants to call tools, do it — never return early on a preamble.
       if (res.calls?.length) {
-        // Tell the parent we're on it before any slow research (web/browser/PDF).
-        if (!narrated && res.calls.some((c) => SLOW_TEXT_TOOLS.has(c.name))) {
-          narrated = true;
-          void this.parentSender(nextBusyLine());
-        }
+        // No more "hang tight" text bubble — the agent reacts to the parent's message
+        // with an emoji and just does the work. No busy-line narration.
         if (res.calls.some((c) => c.name === 'record_getting')) resolved = true;
         const assistantMsg = {
           role: 'assistant',
@@ -1126,10 +1099,6 @@ export class Agent {
         // If the model refuses to look something up ("can't browse / check the website"),
         // the agent does the web search itself and feeds the results back.
         if (isLookupRefusal(res.text) && guard < 6) {
-          if (!narrated) {
-            narrated = true;
-            void this.parentSender(nextBusyLine());
-          }
           const srch = await runTool('web_search', { query: text }, deps);
           messages.push({
             role: 'user',
@@ -1141,10 +1110,6 @@ export class Agent {
         // If the answer is thin/punting (asking the parent to describe what they want
         // instead of researching), do NOT settle for it — force more research.
         if (isThinResearchAnswer(res.text) && guard < 10) {
-          if (!narrated) {
-            narrated = true;
-            void this.parentSender(nextBusyLine());
-          }
           messages.push({
             role: 'user',
             content:
@@ -1156,10 +1121,6 @@ export class Agent {
         // If the model refuses ("I can't help with that"), do NOT let that reach the
         // parent — force it to keep trying or hand off helpfully (never a flat refusal).
         if (isRefusal(res.text) && guard < 10) {
-          if (!narrated) {
-            narrated = true;
-            void this.parentSender(nextBusyLine());
-          }
           messages.push({
             role: 'user',
             content:
