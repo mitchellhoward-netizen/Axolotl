@@ -23,7 +23,6 @@ import { setDeferHandler, answerDeferredQuestion } from "./voice/defer";
 import { setVoiceActionHandler } from "./voice/actions";
 import { buildPreCallBrief } from "./knowledge/precall";
 import { researchQuestion } from "./knowledge/research";
-import { AXOLOTL_EMOJI, hasAxolotlImage, axolotlImagePath } from "./integrations/axolotl";
 import { takePendingGreeting } from "./integrations/pending-greeting.js";
 import { readFileSync, writeFileSync, unlinkSync } from "node:fs";
 import { resolve as pathResolve } from "node:path";
@@ -133,47 +132,11 @@ function withTimeout<T>(promise: Promise<T>, ms: number, fallback: T): Promise<T
   return Promise.race([promise, new Promise<T>((resolve) => setTimeout(() => resolve(fallback), ms))]);
 }
 
-// Fun school-themed reaction emoji — reacts to the vibe of the message with
-// friendly classroom items, with a varied fallback.
-const REACTIONS: Array<[RegExp, string]> = [
-  [/\b(hello|hi|hey|yo|sup|morning|evening)\b/i, '👋'], // waving hello
-  [/\b(bus|transport|ride|pickup|dropoff)\b/i, '🚌'], // school bus
-  [/\b(meeting|conference|appointment|schedule|parent-teacher)\b/i, '📅'], // calendar
-  [/\b(absence|absent|sick|missed|fever|doctor)\b/i, '🤒'], // sick day
-  [/\b(meal|lunch|food|voucher|breakfast|hungry)\b/i, '🍎'], // apple for lunch
-  [/\b(school|office|district|counselor|principal|teacher|class)\b/i, '🏫'], // schoolhouse
-  [/\b(homework|grade|assignment|test|progress)\b/i, '📓'], // homework
-  [/\b(call|phone|dial|ring)\b/i, '📞'], // phone
-  [/\b(email|send|message|letter)\b/i, '✉️'], // envelope
-  [/\b(thank|thanks|great|awesome|perfect|got it)\b/i, '⭐'], // gold star
-];
-const FALLBACK_REACTIONS = ['🎒', '📚', '✏️', '🧮', '🔬', '🎨', '🧩', '🏀', '🎵', '🚀', '🌱', '☀️', '🦉', '🐻', '🏫'];
-
-function pickReaction(text: string): string {
-  for (const [re, emoji] of REACTIONS) if (re.test(text)) return emoji;
-  return FALLBACK_REACTIONS[Math.floor(Math.random() * FALLBACK_REACTIONS.length)] ?? '\u{1F44D}';
-}
-
 /**
- * The axolotl "reaction". Real path = iMessage sticker tapback via the SDK's
- * `placeSticker` (see docs/AXOLOTL.md); until the SDK exposes it, fall back to 🦎.
+ * Emoji reactions removed entirely — no school-themed reactions, no axolotl. The 🦎
+ * the user sees is the iMessage line's contact photo / avatar, a line setting in
+ * Photon/BlueBubbles — NOT this code. Change it there.
  */
-async function reactWithAxolotl(space: { placeSticker?: unknown }, message: { id: string; react: (e: string) => unknown }): Promise<void> {
-  // Always give the reliable visible reaction (🦎), then attempt the sticker on top.
-  await message.react(AXOLOTL_EMOJI);
-  if (hasAxolotlImage()) {
-    try {
-      if (typeof (space as { placeSticker?: (i: unknown) => unknown }).placeSticker === 'function') {
-        const bytes = readFileSync(axolotlImagePath());
-        await (space as { placeSticker: (i: unknown) => unknown }).placeSticker({
-          data: bytes, fileName: 'axolotl.png', targetId: message.id,
-        });
-      }
-    } catch (e) {
-      console.error('[axolotl] sticker path failed — keeping 🦎:', (e as Error)?.message ?? e);
-    }
-  }
-}
 
 // ── Website + waitlist + voice LLM (Retell WebSocket) ─────────────────────────
 // Always up on the long-lived host. The landing page is served here in dev but
@@ -364,13 +327,7 @@ for await (const [space, message] of app.messages) {
 
   await space.stopTyping().catch(() => {});
 
-  // React with a school-themed emoji on the parent's message (👋 hello, 🚌 bus, …),
-  // on every inbound message via the same emoji-reaction path (safe no-op if the
-  // SDK message doesn't expose `react`).
-  const reactFn = (message as unknown as { react?: (e: string) => unknown }).react;
-  if (typeof reactFn === 'function') await Promise.resolve(reactFn(pickReaction(text))).catch(() => {});
-
-  // (Removed the axolotl reaction — user found the 🦎 noisy.)
+  // (Emoji reactions removed entirely — user wants none. Avatar is a line setting.)
 
   // Send reliably as ONE (or a few paced) message(s). `message.reply(...)` double-sends
   // on this platform; `space.send` emits a single bubble — sendBubbles handles pacing.
