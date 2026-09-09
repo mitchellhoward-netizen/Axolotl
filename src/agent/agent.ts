@@ -293,6 +293,13 @@ export class Agent {
             const snap = await loadFamilySnapshot(parentId);
             if (snap.profile) state.profile = snap.profile;
             if (snap.cases?.length) state.cases = snap.cases;
+            // A returning family whose persisted profile is complete has already
+            // finished onboarding — mark it durably so the finalize hook never
+            // re-materializes it after a restart / redeploy / second instance.
+            if (state.profile && computeOnboardingBlock(state.profile) === undefined) {
+              state.onboarded = true;
+              state.emailProofSent = true;
+            }
           } catch (e) {
             console.error('[hydrate] error:', e);
           }
@@ -348,6 +355,10 @@ export class Agent {
           phase: 'done',
         };
       }
+
+      // True when the family was ALREADY fully onboarded before we processed this
+      // turn — the finalize hook must never re-materialize them (1B).
+      this._onboardedAtTurnStart = state.onboarded === true || computeOnboardingBlock(state.profile) === undefined;
 
       // Fresh family (created for an unknown phone, no children yet): onboard.
       const freshFamily =
@@ -509,6 +520,9 @@ export class Agent {
   private readonly spaceMessengers = new Map<string, (text: string) => Promise<void>>();
   /** Last time each family sent us a message (for cooldown). */
   private readonly lastMessageAt = new Map<string, number>();
+  /** True when the family was already fully onboarded before we processed this turn
+   * (set in handle() after hydration) — the finalize hook must not re-materialize. */
+  private _onboardedAtTurnStart = false;
   /** Proactive pings sent today, per conversation. */
   private readonly sentToday = new Map<string, { day: string; count: number }>();
   /** Which gap alerts we've already raised today, per conversation (avoid repeat). */
@@ -1446,7 +1460,7 @@ export class Agent {
         // Brain-driven onboarding finalize hook: once the required fields are present
         // and the family isn't yet provisioned, run the deterministic materialization
         // EXACTLY ONCE (guarded by state.onboarded) + append the welcome text.
-        if (this.brainOnboarding && !brain.state.onboarded && computeOnboardingBlock(brain.state.profile) === undefined) {
+        if (this.brainOnboarding && !this._onboardedAtTurnStart && !brain.state.onboarded && computeOnboardingBlock(brain.state.profile) === undefined) {
           if (brain.state.profile) {
             try {
               const welcome = await this.materializeOnboarding(brain.state.profile, parentId);
