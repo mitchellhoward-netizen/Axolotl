@@ -910,16 +910,17 @@ export async function runTool(name: string, args: Record<string, unknown>, deps:
     case 'start_initiative':
       return (await deps.memory?.startInitiative(String(args.label ?? '').trim())) ?? 'Started.';
     case 'save_profile': {
-      const c = Array.isArray(args.children) ? (args.children as Array<{ name?: string; grade?: string }>) : [];
-      deps.saveProfile?.({
-        email: typeof args.email === 'string' ? args.email : undefined,
-        children: c.map((x) => ({ name: String(x.name ?? ''), grade: x.grade ? String(x.grade) : undefined })),
-        school: typeof args.school === 'string' ? args.school : undefined,
-        location: typeof args.location === 'string' ? args.location : undefined,
-        needs: Array.isArray(args.needs) ? (args.needs as string[]).map(String) : [],
-        challenges: Array.isArray(args.challenges) ? (args.challenges as string[]).map(String) : [],
-        notes: typeof args.notes === 'string' ? args.notes : undefined,
-      });
+      // Build a PATCH of only the fields the model actually provided, so a partial
+      // call (e.g. just email) doesn't wipe fields already gathered (kids/school).
+      const patch: Partial<FamilyProfile> = {};
+      if (typeof args.email === 'string') patch.email = args.email;
+      if (Array.isArray(args.children)) patch.children = (args.children as Array<{ name?: string; grade?: string }>).map((x) => ({ name: String(x.name ?? ''), grade: x.grade ? String(x.grade) : undefined })).filter((c) => c.name);
+      if (typeof args.school === 'string') patch.school = args.school;
+      if (typeof args.location === 'string') patch.location = args.location;
+      if (Array.isArray(args.needs)) patch.needs = (args.needs as string[]).map(String);
+      if (Array.isArray(args.challenges)) patch.challenges = (args.challenges as string[]).map(String);
+      if (typeof args.notes === 'string') patch.notes = args.notes;
+      deps.saveProfile?.(patch as FamilyProfile);
       return 'Saved.';
     }
     case 'log_case': {

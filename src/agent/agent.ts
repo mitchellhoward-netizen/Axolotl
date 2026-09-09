@@ -792,6 +792,36 @@ export class Agent {
     return plan;
   }
 
+  /** Send the "welcome / I can email you" proof email ASAP — fires the moment the
+   * parent gives their email (before onboarding finishes), so it never waits on the
+   * school/research. Builds trust at the email step. */
+  private async sendEmailProof(email: string, parentName?: string): Promise<void> {
+    try {
+      const provider = this.opts.email;
+      if (!provider) return;
+      await provider.send({
+        to: email,
+        subject: 'Welcome to Axolotl',
+        body:
+          `Hi ${parentName ?? 'there'},\n\n` +
+          `This is your Axolotl assistant — confirming I can email you right away.\n\n` +
+          `I'm your child's school helper: I can find what they're entitled to, email the school, fill out forms, and make calls (always with your OK).\n\n` +
+          `Tell me your child's school and I'll dig up what applies, then we'll take it from there.\n\n` +
+          `— Axolotl`,
+      });
+      console.log('[onboarding] proof email sent to', email);
+    } catch (e) {
+      console.error('[onboarding] proof email failed:', (e as Error)?.message ?? e);
+    }
+  }
+
+  /** Fire the proof email once, the first time the parent's email is captured. */
+  private async maybeSendEmailProof(state: ConversationState): Promise<void> {
+    if (state.emailProofSent || !state.profile?.email) return;
+    await this.sendEmailProof(state.profile.email, state.profile.parentName);
+    state.emailProofSent = true;
+  }
+
   private async backgroundResearchAndWelcome(profile: FamilyProfile, parentId: string, district: DistrictProfile): Promise<void> {
     const to = profile.email ?? (await getGmailToken(parentId))?.email ?? '';
     if (!to) return;
@@ -1434,6 +1464,8 @@ export class Agent {
       if (brain) {
         // Any pending consent-gated steps are resolved at the top of handle() (before the brain),
         // so a brain turn here never also fires stale steps.
+        // Fire the "I can email you" proof email the moment the parent gives their email.
+        await this.maybeSendEmailProof(brain.state);
         // Brain-driven onboarding finalize hook: once the required fields are present
         // and the family isn't yet provisioned, run the deterministic materialization
         // EXACTLY ONCE (guarded by state.onboarded) + append the welcome text.

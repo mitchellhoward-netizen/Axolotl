@@ -50,6 +50,9 @@ export interface ConversationState {
   /** True when the family has been provisioned (onboarding finalized) in the
    * brain-driven path — guarantees the materialization runs exactly once. */
   onboarded?: boolean;
+  /** True once we've sent the "welcome / I can email you" proof email (fires as soon
+   * as the parent gives their email, not at the end of onboarding). */
+  emailProofSent?: boolean;
   /** A rolling, compressed summary of the conversation so the brain keeps the
    * thread even past the windowed history (ChatGPT-like continuity). */
   summary?: string;

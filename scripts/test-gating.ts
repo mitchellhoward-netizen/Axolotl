@@ -28,15 +28,17 @@ function check(name: string, cond: boolean, detail?: string): void {
  * execute directly would fail loudly (proposing is the only allowed side effect). */
 function makeDeps() {
   const recorded: Step[] = [];
+  const savedProfiles: Array<Record<string, unknown>> = [];
   const deps: ToolDeps = {
     profile: undefined,
     getCases: () => [],
     appendCase: () => {},
     proposeSteps: (steps) => recorded.push(...steps),
+    saveProfile: (p) => savedProfiles.push(p as unknown as Record<string, unknown>),
     knowledge: () => Promise.resolve(''),
     llm: undefined,
   };
-  return { deps, recorded };
+  return { deps, recorded, savedProfiles };
 }
 
 async function main() {
@@ -95,6 +97,19 @@ async function main() {
     const browserFill = LLM_TOOLS.find((t) => (t as { function?: { name?: string } }).function?.name === 'browser_fill');
     check('pdf_fill is declared never-to-auto-submit', /NEVER auto-?submits/i.test(String(pdfFill?.function?.description ?? '')));
     check('browser_fill is declared NEVER submits', /NEVER submits/i.test(String(browserFill?.function?.description ?? '')));
+  }
+
+  // save_profile builds a PATCH (only provided fields) so a partial call doesn't
+  // wipe earlier-gathered onboarding fields (email -> kids -> school).
+  {
+    const { deps, savedProfiles } = makeDeps();
+    await runTool('save_profile', { email: 'p@x.com' }, deps);
+    const patch = savedProfiles[0] ?? {};
+    check('save_profile(email) patch has email', patch.email === 'p@x.com');
+    check('save_profile(email) patch does NOT include children/school (won\'t wipe)', !('children' in patch) && !('school' in patch));
+    await runTool('save_profile', { children: [{ name: 'Mitch', grade: '1' }] }, deps);
+    const patch2 = savedProfiles[1] ?? {};
+    check('save_profile(children) patch has children, no email (email preserved by merge)', patch2.children && !('email' in patch2));
   }
 
   console.log(`\n${pass} passed, ${fail} failed`);
