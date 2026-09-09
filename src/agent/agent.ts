@@ -1026,6 +1026,7 @@ export class Agent {
     let guard = 0;
     let resolved = false;
     let researchCalls = 0;
+    let deeperScheduled = false;
     // Cap the live research loop so a "research X" turn answers in seconds, not
     // minutes — after a few searches/fetches the brain must answer what it has and
     // offer to dig deeper, instead of looping until 'thorough' (2.6).
@@ -1052,9 +1053,12 @@ export class Agent {
         const researchThisRound = res.calls.filter((c) => RESEARCH_TOOL_NAMES.has(c.name)).length;
         if (researchThisRound > 0) researchCalls += researchThisRound;
         if (researchCalls >= RESEARCH_CALL_CAP && res.calls.some((c) => RESEARCH_TOOL_NAMES.has(c.name))) {
-          // Kick off a DEEPER offline research (bubble 2) while the live answer goes
-          // out; the defer seam researches + sends the richer findings as a follow-up.
-          this.scheduleDeeperResearch(text, state);
+          // Kick off a DEEPER offline research (bubble 2) ONCE per turn while the live
+          // answer goes out; the defer seam researches + texts the richer findings.
+          if (!deeperScheduled) {
+            deeperScheduled = true;
+            this.scheduleDeeperResearch(text, state);
+          }
           messages.push({
             role: 'user',
             content:
