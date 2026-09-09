@@ -704,11 +704,15 @@ export async function runTool(name: string, args: Record<string, unknown>, deps:
       const instruction = String(args.instruction ?? '').trim();
       if (!instruction) return 'Provide an instruction.';
       // Submitting a form must go through the gated `submit_form` step — browser_act is the ungated
-      // arbitrary-action primitive and is the one consent-bypass path. Block submit-like actions here
-      // (the internal gated browserSubmit still works via the executor, so this only stops the LLM
-      // tool from directly clicking submit).
-      if (/\b(submit|submits|submitting|send (this|the) form|complete (the|this) (form|application|enrollment)|finali[sz]e|submit button|hit submit)\b/i.test(instruction)) {
-        return 'Use submit_form (the system gates it behind the parent\u2019s explicit YES) to submit — not browser_act.';
+      // arbitrary-action primitive and is the one consent-bypass path. Block submit/advance-like
+      // actions here (the internal gated browserSubmit still works via the executor, so this only
+      // stops the LLM tool from directly clicking submit/continue/finish).
+      if (
+        /\b(submit|submits|submitting|sign and submit|submit (this|the|now)|send (this|the) (form|application|request)|complete (the|this) (form|application|enrollment|signup|sign[- ]?up|request)|finali[sz]e|finish (the|this|signup|sign[- ]?up|enrollment|form)|click (the )?(submit|final|finish|next|continue)|hit (the )?(submit|next|continue|finish)|proceed|advance|next (step|page|button|screen)|continue (to|on|with|the) (the|this|next|payment|enrollment|application|checkout)|checkout|place order|enroll(ment)? now)\b/i.test(
+          instruction,
+        )
+      ) {
+        return 'Use submit_form (or account_action for signup/login/verify — the system gates it behind the parent\u2019s explicit YES) to submit — not browser_act.';
       }
       const r = await browserAct(instruction);
       return r.ok ? `Action done: ${r.data}` : `browser unavailable (${r.reason}).`;

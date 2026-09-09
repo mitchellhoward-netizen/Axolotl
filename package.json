@@ -31,6 +31,7 @@
     "test:pdf-email": "tsx scripts/test-pdf-email.ts",
     "test:intention": "tsx scripts/test-intention.ts",
     "test:consent": "tsx scripts/test-consent.ts",
+    "test:gating": "tsx scripts/test-gating.ts",
     "test:school-info": "tsx scripts/test-school-info.ts",
     "reset:conversations": "tsx scripts/reset-conversations.ts"
   },
