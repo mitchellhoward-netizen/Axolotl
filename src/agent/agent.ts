@@ -63,6 +63,10 @@ import { findSkillFor, skillSummary } from './skills.js';
 
 /** Tools that take long enough that we tell the parent we're on it. */
 const SLOW_TEXT_TOOLS = new Set(['web_search', 'web_fetch', 'browser_open', 'browser_observe', 'browser_act', 'browser_extract', 'browser_fill', 'browser_vision', 'extract_pdf', 'pdf_fields', 'pdf_fill']);
+/** During onboarding the brain may ONLY collect fields (save_profile) + log/now —
+ * no web search, no get_school_info, no browser. Research + the email happen AFTER
+ * setup, automatically. This is deterministic — the brain can't research mid-onboarding. */
+const ONBOARDING_TOOL_NAMES = new Set(['save_profile', 'log_case', 'now']);
 
 /** Varied, human "stepping away to look this up" acknowledgments (no repeats). */
 const BUSY_LINES = [
@@ -1081,7 +1085,9 @@ export class Agent {
       const res = await llm.chatWithTools(
         systemPrompt({ profile: state.profile, cases: state.cases, activeGoal: state.activeGoal, lastAction: state.lastAction, pendingActions: pendingActionsSummary(state.pendingSteps), summary: state.summary, situation }),
         messages,
-        LLM_TOOLS,
+        this.brainOnboarding && !state.onboarded
+          ? LLM_TOOLS.filter((t) => ONBOARDING_TOOL_NAMES.has((t as { function?: { name?: string } }).function?.name ?? ''))
+          : LLM_TOOLS,
         'auto',
       );
       if (!res) break;
