@@ -54,6 +54,7 @@ import { advanceMckinney, openMckinney } from './mckinney.js';
 import { advanceOnboarding, finalizeOnboarding, openOnboarding } from './onboarding.js';
 import { advanceAttendance, openAttendance } from './attendance.js';
 import { addCase, makeCase, openCaseSummary } from './family.js';
+import { closeSession as closeSkyvernSession } from '../integrations/skyvern.js';
 import { LLM_TOOLS, runTool, systemPrompt, pendingActionsSummary, type ToolDeps } from './tools.js';
 import { LlmClient } from './llm.js';
 import { extractSlots, missingRequired, SLOT_SPECS, type Roster, type SlotSpec } from './slots.js';
@@ -238,6 +239,7 @@ export class Agent {
           return { text: `Done!\n${summary}`, phase: 'done', resolved: true };
         }
         if (isStrictDecline(text)) {
+          this.closeSkyvernSessions(state.pendingSteps);
           state.pendingSteps = undefined;
           state.phase = 'idle';
           this.save(conversationId, { phase: 'idle', collected: {}, pendingSteps: undefined }, state);
@@ -245,6 +247,7 @@ export class Agent {
         }
         // Not a clear yes/no: the parent changed subject or wasn't consenting. Expire on the LIVE
         // object and fall through to respond to the NEW message — never loop on "reply yes/no".
+        this.closeSkyvernSessions(state.pendingSteps);
         state.pendingSteps = undefined;
         state.phase = 'idle';
         this.save(conversationId, { phase: 'idle', collected: {}, pendingSteps: undefined }, state);
@@ -603,6 +606,43 @@ export class Agent {
   noteInbound(conversationId: string): void {
     this.currentConversationId = conversationId;
     this.lastMessageAt.set(conversationId, Date.now());
+  }
+
+  /** Best-effort close of any Skyvern browser session referenced by steps being dropped
+   * (a declined or expired consent). Fire-and-forget — never blocks the turn. */
+  private closeSkyvernSessions(steps?: Step[]): void {
+    for (const s of steps ?? []) {
+      if (s.channel === 'submit' && s.payload.channel === 'submit' && s.payload.skyvernSessionId) {
+        void closeSkyvernSession(s.payload.skyvernSessionId);
+      }
+    }
+  }
+
+  /**
+   * Stage a consent-gated SUBMIT step (a form the async Skyvern fill completed) onto a
+   * conversation, so the parent's strict YES (top-of-handle gate) runs the submit. Used
+   * by the fill-completion handler in the app shell — NOT by the prompt (the prompt only
+   * fires the fill; the submit is staged here after the fill is reviewed).
+   */
+  async stageFormSubmit(
+    conversationId: string,
+    input: { url: string; values?: Record<string, string>; skyvernSessionId?: string },
+  ): Promise<void> {
+    const record = this.store.ensure(conversationId, this.opts.defaultParentId ?? '');
+    const mode = this.resolveMode();
+    const step: Step = {
+      id: 'submit-' + Date.now().toString(36),
+      caseId: 'form',
+      intent: 'submit_form',
+      channel: 'submit',
+      counterparty: this.resolveCounterparty('OTHER', mode, record.state.profile),
+      payload: { channel: 'submit', url: input.url, values: input.values, skyvernSessionId: input.skyvernSessionId },
+      successCondition: { describe: 'Form submitted', kind: 'reference_received' },
+      requiresConsent: true,
+      status: 'awaiting_consent',
+    };
+    record.state.pendingSteps = [step];
+    record.state.phase = 'confirming';
   }
 
   /** Localized text for a follow-up body. */
@@ -1028,6 +1068,7 @@ export class Agent {
           : 'Nothing found in the conversation.';
       },
       studentName: state.profile?.children[0]?.name,
+      conversationId: this.currentConversationId,
     };
 
     console.log('[brain] invoked:', text.slice(0, 60));

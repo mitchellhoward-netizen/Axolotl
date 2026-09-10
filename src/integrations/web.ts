@@ -1,4 +1,5 @@
 import { createServer } from 'node:http';
+import { createHmac, timingSafeEqual } from 'node:crypto';
 import { readFileSync, existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -7,6 +8,7 @@ import { WAITLIST_MESSAGE, createSmsSender, normalizeE164 } from './sms.js';
 import { recordPendingGreeting } from './pending-greeting.js';
 import { attachVoiceWebSocket } from '../voice/server.js';
 import { buildGmailAuthUrl, exchangeGmailCode, fetchGmailAddress, saveGmailToken } from './gmail.js';
+import { handleFillComplete } from './skyvern.js';
 
 const WEB_DIR = path.resolve(fileURLToPath(new URL('../../public', import.meta.url)));
 const WAITLIST_FILE = path.join(WEB_DIR, 'waitlist.json');
@@ -21,6 +23,21 @@ export interface PlaceCallInfo {
   school?: string;
   /** The child's first name, for a tiny bit of personalization. */
   student?: string;
+}
+
+/**
+ * Skyvern signs every webhook with the API key (HMAC-SHA256 over the RAW body,
+ * hex-encoded in `x-skyvern-signature`). Reject a missing/invalid signature so a
+ * forged `run_id` can't trigger completion. Act ON the comparison result.
+ */
+function verifySkyvernSignature(rawBody: Buffer, signature: unknown): boolean {
+  if (typeof signature !== 'string' || signature.length === 0) return false;
+  const apiKey = process.env.SKYVERN_API_KEY;
+  if (!apiKey) return false;
+  const expected = createHmac('sha256', apiKey).update(rawBody).digest('hex');
+  const a = Buffer.from(signature, 'utf8');
+  const b = Buffer.from(expected, 'utf8');
+  return a.length === b.length && timingSafeEqual(a, b);
 }
 
 /**
@@ -74,6 +91,33 @@ export function startWebServer(opts: { placeCall?: (phone: string, info?: PlaceC
           res.writeHead(502, { 'Content-Type': 'text/plain' });
           res.end('Could not connect your Google account. Please try again.');
         }
+        return;
+      }
+
+      // Skyvern async-fill webhook: the fill task finished (info: run_id + status).
+      // Verify the signature, then ACK 200 IMMEDIATELY and complete the run in the
+      // background — Skyvern only waits ~10s for a response, so we must not block.
+      if (req.method === 'POST' && url.pathname === '/webhooks/skyvern') {
+        const chunks: Buffer[] = [];
+        for await (const chunk of req) chunks.push(Buffer.isBuffer(chunk) ? chunk : Buffer.from(String(chunk)));
+        const raw = Buffer.concat(chunks);
+        if (!verifySkyvernSignature(raw, req.headers['x-skyvern-signature'])) {
+          console.warn('[webhooks/skyvern] rejected bad signature');
+          res.writeHead(401, { 'Content-Type': 'text/plain' });
+          res.end('Invalid signature');
+          return;
+        }
+        let runId = '';
+        try {
+          const payload = JSON.parse(raw.toString('utf8') || '{}') as { run_id?: string; status?: string };
+          runId = payload.run_id ?? '';
+          console.log(`[webhooks/skyvern] run ${runId} status=${payload.status ?? '?'}`);
+        } catch {
+          /* malformed body — still ACK, nothing to do */
+        }
+        res.writeHead(200, { 'Content-Type': 'text/plain' });
+        res.end('OK');
+        if (runId) void handleFillComplete(runId).catch((e) => console.error('[webhooks/skyvern] handle error:', (e as Error)?.message ?? e));
         return;
       }
 

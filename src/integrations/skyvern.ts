@@ -189,3 +189,205 @@ export async function closeSession(browserSessionId: string): Promise<void> {
     /* best-effort */
   }
 }
+
+// ── Async fill (fire-and-forget + webhook) ──────────────────────────────────
+// The browser often needs several minutes to fill a form. Instead of holding the
+// parent's turn open on that (or worse, hitting a short timeout and cancelling),
+// we FIRE the fill task and return instantly. The Skyvern webhook (or a fallback
+// poller) completes the run later; the parent is then texted the filled-form
+// preview + a consent-gated "reply YES to submit" step. Nothing submits until the
+// parent's strict YES.
+//
+// SAFETY: the "fill" task is NEVER a submit. The submit only happens through the
+// post-YES, consent-gated SubmitAdapter (Phase B), unchanged.
+
+/** How long to poll a webhook-reported run for a true terminal state (never short). */
+const POLL_TIMEOUT_MS = Number(process.env.SKYVERN_POLL_TIMEOUT_MS) || 900000; // 15 min
+const TERMINAL = ['completed', 'failed', 'terminated', 'canceled', 'timed_out'];
+
+interface PendingFill {
+  runId: string;
+  formUrl: string;
+  values: Record<string, string>;
+  browserSessionId: string;
+  startedAt: number;
+  /** Opaque context carried through to the completion handler (e.g. conversationId). */
+  meta?: Record<string, unknown>;
+}
+
+export interface FillCompleteInfo {
+  runId: string;
+  ok: boolean;
+  status: string;
+  reviewScreenshotUrl?: string;
+  blocked?: FillResult['blocked'];
+  detail?: string;
+  meta?: Record<string, unknown>;
+}
+
+type FillCompleteHandler = (info: FillCompleteInfo) => Promise<void>;
+
+const pendingFills = new Map<string, PendingFill>();
+/** runId's actually DELIVERED to the handler — a later webhook/poller won't re-deliver. */
+const completedFills = new Set<string>();
+/** runId's currently being resolved (in-flight) — guards concurrent webhook+poller double-fire. */
+const handlingFills = new Set<string>();
+let fillCompleteHandler: FillCompleteHandler | undefined;
+
+/** Register the callback that receives a finished fill (texts the parent + stages the submit). */
+export function setFillCompleteHandler(fn: FillCompleteHandler): void {
+  fillCompleteHandler = fn;
+}
+
+/**
+ * Fire the Phase A FILL task but DON'T wait for it to finish. Creates a persistent
+ * browser session, submits a fill-only task (never a submit), records it as pending,
+ * and returns as soon as the run is created. The parent keeps the conversation going
+ * meanwhile; the webhook/poller completes it.
+ */
+export async function fillFormForReviewAsync(input: {
+  formUrl: string;
+  values: Record<string, string>;
+  program?: string;
+  maxSteps?: number;
+  meta?: Record<string, string>;
+}): Promise<{ ok: boolean; runId?: string; browserSessionId?: string; detail?: string }> {
+  if (!KEY) return { ok: false, detail: 'disabled' };
+  // 1. Open a persistent browser session (carried so Phase B can reuse sign-in cookies).
+  const session = await api('/v1/browser_sessions', {});
+  const browserSessionId = String(session?.browser_session_id ?? '');
+  if (!browserSessionId) return { ok: false, detail: 'session_failed' };
+
+  // 2. Phase A task: FILL ONLY. The prompt NEVER instructs submit / enroll / pay /
+  // account-creation — stop after filling and report a wall.
+  const fieldLines = Object.entries(input.values)
+    .map(([k, v]) => `- ${k}: ${v}`)
+    .join('\n');
+  const prompt =
+    `Fill out this form using the following information (for the family's own application). Do NOT click Submit, Enroll, Pay, purchase, or create an account. ` +
+    `Stop after filling every field. If you hit a sign-in, CAPTCHA, or account-creation wall, stop and report which. ` +
+    `Leave any field you don't have empty. Do NOT submit or complete the form.\n\nFields to enter:\n${fieldLines}`;
+  const webhookUrl =
+    process.env.SKYVERN_WEBHOOK_URL || (process.env.RAILWAY_PUBLIC_DOMAIN ? `https://${process.env.RAILWAY_PUBLIC_DOMAIN}/webhooks/skyvern` : undefined);
+  const runRes = await api('/v1/run/tasks', {
+    prompt,
+    url: input.formUrl,
+    max_steps: input.maxSteps ?? MAX_STEPS,
+    browser_session_id: browserSessionId,
+    ...(webhookUrl ? { webhook_url: webhookUrl } : {}),
+  });
+  const runId = String(runRes?.run_id ?? '');
+  if (!runId) {
+    await closeSession(browserSessionId);
+    return { ok: false, browserSessionId, detail: 'task_failed' };
+  }
+
+  pendingFills.set(runId, {
+    runId,
+    formUrl: input.formUrl,
+    values: input.values,
+    browserSessionId,
+    startedAt: Date.now(),
+    // Fill in the run-specific context so the completion handler can text the right
+    // family the preview and stage a consent-gated submit (reusing the session).
+    meta: { ...(input.meta ?? {}), formUrl: input.formUrl, browserSessionId },
+  });
+  return { ok: true, runId, browserSessionId };
+}
+
+/**
+ * Resolve a run to a true terminal state (polling, never a short timeout), fetch the
+ * review screenshot, drop the pending row, and hand the result to the registered
+ * handler. On a FAILED fill the browser session is closed; on a SUCCESSFUL fill it is
+ * left open so the post-YES Phase B submit can reuse it (SubmitAdapter closes it
+ * after). Idempotent: called by both the webhook and the fallback poller; a concurrent
+ * in-flight call is skipped, and a delivered run is never re-delivered. A run that has
+ * NOT reached a true terminal state (poll timed out) stays reloadable — a later
+ * webhook/poller can retry it.
+ */
+export async function handleFillComplete(runId: string): Promise<void> {
+  // Synchronous in-flight guard: claim the run before any await so a concurrent
+  // webhook + poller for the same runId can't double-deliver.
+  if (handlingFills.has(runId) || completedFills.has(runId)) return;
+  handlingFills.add(runId);
+  try {
+    const terminal = await pollRun(runId, POLL_TIMEOUT_MS);
+    if (terminal.status === 'timed_out') {
+      // Not actually terminal — leave it pending so the webhook/poller can retry later.
+      return;
+    }
+
+    const pending = pendingFills.get(runId);
+    const screenshot = await reviewScreenshot(runId);
+    if (pending) {
+      pendingFills.delete(runId);
+      // On a FAILED fill there's nothing to submit, so close the session. On a SUCCESSFUL
+      // fill we KEEP it open — the post-YES Phase B submit reuses it to carry sign-in
+      // cookies, and SubmitAdapter closes it after that submit.
+      if (pending.browserSessionId && terminal.status !== 'completed') await closeSession(pending.browserSessionId);
+    }
+
+    const info: FillCompleteInfo = {
+      runId,
+      ok: terminal.status === 'completed',
+      status: terminal.status,
+      reviewScreenshotUrl: screenshot,
+      blocked: blockedFrom(terminal.output, terminal.failure),
+      detail: terminal.status === 'completed' ? undefined : `Skyvern ${terminal.status}${terminal.failure ? ` — ${String(terminal.failure).slice(0, 160)}` : ''}`,
+      // Deliver the family context + values so the handler can text the right parent and
+      // stage a consent-gated submit (Phase B re-fills these exact values).
+      meta: pending
+        ? { ...(pending.meta ?? {}), formUrl: pending.formUrl, browserSessionId: pending.browserSessionId, values: pending.values }
+        : undefined,
+    };
+
+    // Only mark delivered once we actually have a terminal result to hand off.
+    completedFills.add(runId);
+    if (!fillCompleteHandler) {
+      console.warn('[skyvern] fill complete but no handler registered:', runId, terminal.status);
+      return;
+    }
+    await fillCompleteHandler(info);
+  } catch (e) {
+    console.error('[skyvern] fill-complete handler error:', (e as Error)?.message ?? e);
+  } finally {
+    handlingFills.delete(runId);
+  }
+}
+
+/**
+ * Fallback poller (safety net in case the Skyvern webhook never reaches us — e.g. a
+ * misconfigured URL or a private host): sweep pending runs and complete any that have
+ * reached a terminal state. NEVER imposes a short timeout; a still-running fill is
+ * left alone.
+ */
+export async function checkPendingFills(): Promise<void> {
+  for (const runId of [...pendingFills.keys()]) {
+    const r = await withTimeout(fetch(`${BASE}/v1/runs/${runId}`, { headers: { 'x-api-key': KEY } }), 10000, null);
+    if (!r?.ok) continue;
+    const j = (await r.json().catch(() => null)) as { status?: string } | null;
+    if (j?.status && TERMINAL.includes(j.status)) {
+      void handleFillComplete(runId);
+    }
+  }
+  expireStaleFills();
+}
+
+/** Drop pending fills that never resolved (e.g. a redeploy while a run was in flight). */
+export function expireStaleFills(maxAgeMs = POLL_TIMEOUT_MS + 60_000): void {
+  const now = Date.now();
+  for (const [runId, p] of pendingFills) {
+    if (now - p.startedAt > maxAgeMs) {
+      pendingFills.delete(runId);
+      console.warn('[skyvern] expired stale pending fill', runId);
+    }
+  }
+}
+
+/** Start the interim sweep (interval) that completes orphaned fills. */
+export function startFillPoller(intervalMs = Number(process.env.SKYVERN_POLLER_MS) || 60_000): void {
+  if (!KEY) return;
+  setInterval(() => {
+    checkPendingFills().catch((e) => console.error('[skyvern] poller error:', (e as Error)?.message ?? e));
+  }, intervalMs);
+}

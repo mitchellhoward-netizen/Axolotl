@@ -17,7 +17,7 @@ import {
   extractPdf,
 } from '../integrations/browser.js';
 import { fillPdf, listPdfFields } from '../integrations/pdf.js';
-import { fillFormForReview, skyvernEnabled } from '../integrations/skyvern.js';
+import { fillFormForReviewAsync, skyvernEnabled } from '../integrations/skyvern.js';
 import { getFormRecipe, saveFormRecipe, type FormRecipe } from '../integrations/form-recipes.js';
 import { createEvidence } from '../integrations/evidence-store.js';
 import type { EvidenceRecord, SourceType } from '../domain/evidence.js';
@@ -50,6 +50,9 @@ export interface ToolDeps {
   /** Query the FULL conversation history for a past exchange (e.g. something the parent said earlier). */
   recall?: (query: string) => Promise<string>;
   studentName?: string;
+  /** The active conversation's id — carried through to the async Skyvern fill so the
+   * completion handler can text THIS family the review link + stage the submit. */
+  conversationId?: string;
 }
 
 /** Grounded law snippets the LLM can pull (never invented — cited). */
@@ -187,7 +190,7 @@ export const LLM_TOOLS = [
     type: 'function',
     function: {
       name: 'submit_form',
-      description: 'Propose the consent-gated SUBMIT of the form you just filled in the browser. ONLY call AFTER the form is filled and you shared the link for the parent to review. It PROPOSES the step — the system gates it behind the parent\u2019s YES. NEVER auto-submit.',
+      description: 'Propose the consent-gated SUBMIT of the form you just filled in the browser. ONLY call AFTER the form is filled and you shared the link for the parent to review. It PROPOSES the step — the system gates it behind the parent\u2019s YES. NEVER auto-submit. (For a Skyvern fill via skyvern_fill_form, do NOT call this — the review + consent-gated submit are staged automatically when the fill completes.)',
       parameters: { type: 'object', properties: { url: { type: 'string' } }, required: ['url'] },
     },
   },
@@ -195,7 +198,7 @@ export const LLM_TOOLS = [
     type: 'function',
     function: {
       name: 'skyvern_fill_form',
-      description: 'Fill a web form (e.g. a school program enrollment/waitlist Google Form) with the parent\u2019s info using Skyvern, and PROPOSE the consent-gated submit. FILLS ONLY — it never submits, and it shares the filled form screenshot for review. Submit only happens after the parent\u2019s explicit YES (submitted via submit_form). Use for real sign-up/enrollment forms.',
+      description: 'Fill a web form (e.g. a school program enrollment/waitlist Google Form) with the parent\u2019s info using Skyvern. FILLS ONLY — it never submits. It kicks off the fill in the background and returns immediately; when it finishes, the agent text the parent the filled-form screenshot for review and stages the consent-gated submit (only firing after the parent\u2019s explicit YES). Use for real sign-up/enrollment forms.',
       parameters: {
         type: 'object',
         properties: {
@@ -654,26 +657,19 @@ export async function runTool(name: string, args: Record<string, unknown>, deps:
       if (!/^https?:\/\//i.test(url)) return 'Provide the form url.';
       if (!skyvernEnabled()) return "Skyvern isn't configured — use browser_open/browser_fill to fill it instead.";
       const values = (args.values ?? {}) as Record<string, string>;
-      const res = await fillFormForReview({ formUrl: url, values });
-      if (!res.ok) {
-        return `I filled what I could but it didn't complete (${res.status}${res.blocked ? `, blocked: ${res.blocked}` : ''})${res.detail ? ` — ${res.detail}` : ''}.${res.reviewScreenshotUrl ? `\nReview: ${res.reviewScreenshotUrl}` : ''}`;
+      // Fire the fill and let the Skyvern webhook (or fallback poller) complete it later.
+      // The parent keeps the conversation going rather than waiting minutes on the fill.
+      // Nothing is submitted — the completion handler shares the filled-form preview and
+      // stages a consent-gated submit step that only fires on the parent's strict YES.
+      const res = await fillFormForReviewAsync({
+        formUrl: url,
+        values,
+        meta: { conversationId: deps.conversationId ?? '' },
+      });
+      if (!res.ok || !res.runId) {
+        return `I couldn't start filling that form (${res.detail ?? 'unknown'}). It's best to use the link and fill it yourself: ${url}`;
       }
-      // Phase B is a SEPARATE consent-gated step — submit only fires after the parent's
-      // strict YES (the executor's requiresConsent gate).
-      deps.proposeSteps([
-        {
-          id: 'submit-' + Date.now().toString(36),
-          caseId: 'form',
-          intent: 'submit_form',
-          channel: 'submit',
-          counterparty: { role: 'OTHER' },
-          payload: { channel: 'submit', url, values, skyvernSessionId: res.browserSessionId },
-          successCondition: { describe: 'Form submitted', kind: 'reference_received' },
-          requiresConsent: true,
-          status: 'awaiting_consent',
-        },
-      ]);
-      return `I filled the form — nothing submitted yet. Review it here: ${res.reviewScreenshotUrl ?? url}\n\nReply YES to submit, or tell me what to change.`;
+      return "On it — I'm filling the form with your info. I'll share it for you to review shortly, and nothing gets submitted without your OK.";
     }
     case 'get_form_recipe': {
       const url = String(args.url ?? '').trim();
@@ -1107,8 +1103,8 @@ export function systemPrompt(ctx: BrainContext): string {
     `You HAVE live internet access: use web_search to find anything about a school, district, policy, or law, and web_fetch to read a specific page. ` +
     `To FILL or SUBMIT any web form (enrollment, waitlist, sign-up, Google/Microsoft form), use skyvern_fill_form — NOT browser_open/browser_fill. The browser_* tools are for READING pages web_fetch cannot (browser_open + browser_observe/browser_extract); never use them to fill a form. For PDFs: use extract_pdf for policies/regulations; for FILLABLE PDF application forms use pdf_fields to list its fields, then pdf_fill to fill them (returns a completed PDF to review — never auto-submit; emailing/uploading it still needs the parent's YES). For pages the DOM/accessibility tree can't read (iframes, shadow DOM, image-rendered slides like a resources guide, or a form you can't see in the fields), use browser_vision to read them from a screenshot. ` +
     `VERIFY A PAGE BEFORE YOU FILL IT: a top web-search result is often a blank/dead/duplicate page while the real form is further down. Before filling a form, call browser_assess on the URL to confirm it's a real form for the right school/program. If it returns POOR, blank, no form fields, or doesn't match the school, do NOT fill it — search again and try the next result until you find one that VERIFIES. ` +
-    `SIGN-UP FLOW (to sign a student up / fill any form): call skyvern_fill_form with the form URL and values (the child + guardian fields from the profile: child first/last name, grade, DOB, guardian name, phone, email). If you don't have the EXACT form URL, pass the program's site URL — Skyvern navigates to find the right form. skyvern_fill_form FILLS ONLY, never submits: it returns a screenshot of the filled form and stages the consent-gated submit. Do NOT browser_open/browser_fill to fill — Skyvern handles navigation + filling. After it returns, share the review screenshot and ask the parent to reply YES; the submit happens only after their YES. ` +
-    `FILL-BUT-DON'T-SUBMIT (first-class): if the parent says "fill but don't submit" / "don't submit yet" / "fill the [X] form", call skyvern_fill_form with the form (or program-site) URL + the profile values. It fills only and never submits, and shares the filled screenshot for review — the submit is a separate step gated on the parent's YES. Never refuse a fill request and never bail to a generic "here's what I can do" menu. If skyvern_fill_form reports the form needs an account/sign-in/CAPTCHA, use account_action (with the parent's YES + relayed code) or state the specific blocking step and hand over the link. ` +
+    `SIGN-UP FLOW (to sign a student up / fill any form): call skyvern_fill_form with the form URL and values (the child + guardian fields from the profile: child first/last name, grade, DOB, guardian name, phone, email). If you don't have the EXACT form URL, pass the program's site URL — Skyvern navigates to find the right form. skyvern_fill_form FILLS ONLY, never submits, and runs in the BACKGROUND: reply "On it — I'm filling the form with your info; nothing gets submitted without your OK" and stop (do NOT claim a review screenshot now). When the fill finishes the agent texts the parent the filled-form screenshot to review and stages the consent-gated submit — the parent's YES is what actually submits. Do NOT browser_open/browser_fill to fill — Skyvern handles navigation + filling. ` +
+    `FILL-BUT-DON'T-SUBMIT (first-class): if the parent says "fill but don't submit" / "don't submit yet" / "fill the [X] form", call skyvern_fill_form with the form (or program-site) URL + the profile values. It fills only and never submits; the review screenshot + the submit (a separate step gated on the parent's YES) come when the fill finishes. Never refuse a fill request and never bail to a generic "here's what I can do" menu. If skyvern_fill_form reports the form needs an account/sign-in/CAPTCHA, use account_action (with the parent's YES + relayed code) or state the specific blocking step and hand over the link. ` +
     `FORM RECIPE (how you get better at forms over time — use it): before filling a form, call get_form_recipe with its URL. If a recipe exists, fill using the listed fields/controls/selects (with the parent's actual values) — no trial-and-error. After you successfully fill a NEW form, call save_form_recipe with the URL and the structure you filled (the field labels, radio/checkbox labels+types, select names+options). This way every form you work once, you fill perfectly forever after. ` +
     `Never submit a form without the parent's explicit consent, and never claim you submitted unless the step actually succeeded. ` +
     `ACCOUNT FLOW (for auth-gated portals/waitlists, e.g. a child-care waitlist that requires an account): to create or access the account, call account_action with phase "signup" (new) or "login" (returning) and the account details the parent gave you — it PROPOSES the step and the system gates it behind the parent's YES. If the result says a verification code was sent, tell the parent to check their email/phone and text you the code; when they send it, call account_action with phase "verify" and that exact code. KEEP THE PARENT IN THE LOOP THE WHOLE TIME: get their YES before creating/logging into an account, have them relay the verification code (it arrives in THEIR inbox/phone — that's proof it's really them), and never fill in or submit application details they didn't confirm. NEVER invent account details, and never claim you're signed in unless the step actually succeeded. Never state the parent\u2019s account password or a verification code back in a visible message, a summary, or any explanation — keep them only inside the account_action call, which the system redacts from logs. ` +
@@ -1136,7 +1132,7 @@ export function systemPrompt(ctx: BrainContext): string {
     `If the parent says something UNRELATED while a PENDING ACTION is waiting for their YES/NO, answer what they said normally, then at the END briefly remind them the action is still waiting (e.g. "Still want me to call the school? Reply yes or no."). Do NOT re-propose the same action or ask a fresh yes/no for it — just remind. ` +
     `READ TYPOS & CORRECTIONS AS THE SAME PROGRAM: the parent types fast. "flop"/"elop"/"elp"/"elop" = ELO-P (Expanded Learning Opportunities Program). If they write a program name or abbreviation you JUST named, or the one you're already signing up for, treat it as that program and continue — never re-ask, never re-open, never re-research it. A short follow-up (a program name, "ok", "continue", "go ahead", a typo fix) means "KEEP GOING with the current thing." ` +
     `NEVER RESTART MID-SIGNUP: the moment you've found the program and opened the form, you are mid-signup. Do NOT re-search, re-open, or say "one moment, I'm on it" again. If the parent then sends anything that isn't the required fields (a correction, "ok", the program name), CONTINUE the same sign-up: name the program you're on and re-ask ONLY the fields you still need (e.g. "I'm on the ELO-P sign-up — I just need your email, Patrick's last name, birthdate, and your name/phone. Can you send those?"). Never start the research over. ` +
-    `When you start doing the work (filling a form, placing a call), send ONE short substantive "on it" line naming the step + the review/consent point, e.g. "Opening the CKC enrollment form now — I'll fill it with Patrick's info and show you before I submit." Then proceed to the fill/draft and STOP at the consent gate. The parent's YES (submit_form / send_email / call_school) is the intervention point — never submit/send/call before it, never go silent for a long operation. ` +
+    `When you start doing the work (filling a form, placing a call), send ONE short substantive "on it" line naming the step + the review/consent point, e.g. "Opening the CKC enrollment form now — I'll fill it with Patrick's info and show you before I submit." Then proceed to the fill/draft and STOP at the consent gate. For skyvern_fill_form, calling it IS the start of the work: after it fires (async), reply your short "on it" line and STOP — do NOT also call submit_form. The review screenshot + the consent-gated submit are staged automatically when the fill finishes; the parent's reply YES is the intervention point. The parent's YES (send_email / call_school / a staged submit) is the intervention point — never submit/send/call before it, never go silent for a long operation. ` +
     `\nFAMILY & SITUATION (refreshed every message — use it, don't re-ask): ${kids} at ${school} (${district}). Needs: ${needs}. Challenges: ${challenges}.${notes}${emailInfo}${localeInfo}` +
     `\nOPEN WORK:\n${openWork}` +
     (ctx.pendingActions ? `\nPENDING ACTIONS (proposed, waiting for the parent's YES/NO): ${ctx.pendingActions}` : '') +
@@ -1147,7 +1143,7 @@ export function systemPrompt(ctx: BrainContext): string {
     `\nTHINGS I CAN ALSO DO FOR ${kid} (offer these, one at a time, AFTER you've already helped — never interrogate the parent with them):\n${qsStr}` +
     `\nMISSION (the whole point): figure out the delta between what ${kid} is entitled to / eligible for and what they're ACTUALLY receiving — then DO the steps to close it. Never just inform. For each benefit name what the child gets if it's closed (${kid} arrives at school; gets lunch; gets the assessment; gets into a free before/after-school program) and drive it yourself. ` +
     `PURSUE the concrete, provable gaps AND the available benefits: transportation, meals, attendance, an evaluation/accommodation, language support, summer access, AND free/low-cost before- & after-school programs and enrichment (fee waivers, 21st Century Community Learning Centers, district programs). These are real benefits — NOT noise. If the parent asks about a program, research the ACTUAL district/school programs (program names, ages/grades, fees, form links, contacts, deadlines) and sign the child up. ` +
-    `For each, name the measurable outcome and drive it yourself — fill the sign-up form via skyvern_fill_form (it navigates + fills + returns a review screenshot + stages the consent-gated submit) as the FIRST choice, else draft the email (send_email), request the application/evaluation (log_case + a follow-up reminder), and place a call (call_school) only as the backstop. You execute it, you don't just point at it.`
+    `For each, name the measurable outcome and drive it yourself — fill the sign-up form via skyvern_fill_form (it navigates + fills in the background; when it finishes the agent texts the review screenshot + stages the consent-gated submit) as the FIRST choice, else draft the email (send_email), request the application/evaluation (log_case + a follow-up reminder), and place a call (call_school) only as the backstop. You execute it, you don't just point at it.`
   );
 }
 

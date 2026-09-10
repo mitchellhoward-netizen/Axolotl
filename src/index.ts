@@ -11,6 +11,7 @@ import { LlmClient } from "./agent/llm";
 import { chatModel, smallModel } from "./agent/model-policy";
 import { sendBubbles } from "./agent/bubbles";
 import { recordProcessedMessage } from "./integrations/dedupe.js";
+import { setFillCompleteHandler, startFillPoller } from "./integrations/skyvern.js";
 import { RulesIntentEngine } from "./agent/intent/rules";
 import { MockCalendarProvider } from "./integrations/calendar";
 import { MockMealsProvider } from "./integrations/meals";
@@ -93,6 +94,46 @@ const agent = new Agent({
   email: createEmailProvider(),
 });
 const retell = createRetellClient();
+
+// ── Async Skyvern fill: fire the fill, and when it completes text THIS family the
+// filled-form preview + stage a consent-gated submit step. Nothing submits without the
+// parent's strict YES. The webhook (POST /webhooks/skyvern) or the fallback poller
+// calls handleFillComplete, which delivers a FillCompleteInfo here.
+setFillCompleteHandler(async (info) => {
+  const conversationId = info.meta?.conversationId as string | undefined;
+  const formUrl = (info.meta?.formUrl as string | undefined) ?? '';
+  if (!conversationId) {
+    console.warn('[skyvern] fill complete without conversationId; dropping', info.runId);
+    return;
+  }
+  if (!info.ok) {
+    const why =
+      info.status === 'timed_out'
+        ? `I couldn't finish filling that form in time${info.detail ? ` (${info.detail})` : ''}.`
+        : `I hit a snag filling that form${info.detail ? ` (${info.detail})` : ''}.`;
+    const text = `${why}${formUrl ? `\n\nYou can fill it yourself here: ${formUrl}` : ''}`;
+    await agent.sendToConversation(conversationId, text).catch((e) => console.error('[skyvern] fill-fail text error:', (e as Error)?.message ?? e));
+    return;
+  }
+  // Stage the consent-gated submit (Phase B runs only on the parent's strict YES), then
+  // share the preview + ask for the YES.
+  try {
+    await agent.stageFormSubmit(conversationId, {
+      url: formUrl,
+      values: info.meta?.values as Record<string, string> | undefined,
+      skyvernSessionId: info.meta?.browserSessionId as string | undefined,
+    });
+  } catch (e) {
+    console.error('[skyvern] stageFormSubmit error:', (e as Error)?.message ?? e);
+  }
+  const preview = info.reviewScreenshotUrl ?? formUrl;
+  const text = `I filled the form — nothing submitted yet. Review it here: ${preview}\n\nReply YES to submit, or tell me what to change.`;
+  await agent.sendToConversation(conversationId, text).catch((e) => console.error('[skyvern] fill-done text error:', (e as Error)?.message ?? e));
+});
+
+// Fallback sweep: if the Skyvern webhook can't reach this host, complete any fill whose
+// run has reached a terminal state. Runs on a timer; never imposes a short timeout.
+startFillPoller();
 
 // Voice→text handoff: when a voice question needs research, answer it async and
 // text the parent the result over iMessage (rather than making them wait on the call).
