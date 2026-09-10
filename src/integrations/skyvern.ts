@@ -203,6 +203,10 @@ export async function closeSession(browserSessionId: string): Promise<void> {
 
 /** How long to poll a webhook-reported run for a true terminal state (never short). */
 const POLL_TIMEOUT_MS = Number(process.env.SKYVERN_POLL_TIMEOUT_MS) || 900000; // 15 min
+/** After this long, send the parent a gentle "still working" notice (once per fill). */
+const STILL_WORKING_MS = Number(process.env.SKYVERN_STILL_WORKING_MS) || 20 * 60 * 1000; // 20 min
+/** Safety valve — drop a pending fill that never resolved (well beyond any real fill). */
+const STALE_MS = Number(process.env.SKYVERN_EXPIRE_MS) || 3 * 60 * 60 * 1000; // 3 h
 const TERMINAL = ['completed', 'failed', 'terminated', 'canceled', 'timed_out'];
 
 interface PendingFill {
@@ -211,6 +215,8 @@ interface PendingFill {
   values: Record<string, string>;
   browserSessionId: string;
   startedAt: number;
+  /** When (ms epoch) we last sent the parent a "still working" notice (once). */
+  progressNoticeAt?: number;
   /** Opaque context carried through to the completion handler (e.g. conversationId). */
   meta?: Record<string, unknown>;
 }
@@ -226,6 +232,8 @@ export interface FillCompleteInfo {
 }
 
 type FillCompleteHandler = (info: FillCompleteInfo) => Promise<void>;
+/** Optional gentle "still working" notice (parent told "On it" but the fill is slow). */
+type FillStillWorkingHandler = (info: { runId: string; meta?: Record<string, unknown> }) => Promise<void>;
 
 const pendingFills = new Map<string, PendingFill>();
 /** runId's actually DELIVERED to the handler — a later webhook/poller won't re-deliver. */
@@ -233,10 +241,16 @@ const completedFills = new Set<string>();
 /** runId's currently being resolved (in-flight) — guards concurrent webhook+poller double-fire. */
 const handlingFills = new Set<string>();
 let fillCompleteHandler: FillCompleteHandler | undefined;
+let fillStillWorkingHandler: FillStillWorkingHandler | undefined;
 
 /** Register the callback that receives a finished fill (texts the parent + stages the submit). */
 export function setFillCompleteHandler(fn: FillCompleteHandler): void {
   fillCompleteHandler = fn;
+}
+
+/** Register the callback that sends a gentle "still working" notice for a slow fill. */
+export function setFillStillWorkingHandler(fn: FillStillWorkingHandler): void {
+  fillStillWorkingHandler = fn;
 }
 
 /**
@@ -358,23 +372,36 @@ export async function handleFillComplete(runId: string): Promise<void> {
 /**
  * Fallback poller (safety net in case the Skyvern webhook never reaches us — e.g. a
  * misconfigured URL or a private host): sweep pending runs and complete any that have
- * reached a terminal state. NEVER imposes a short timeout; a still-running fill is
- * left alone.
+ * reached a terminal state; for a still-running fill past ~20 min, send the parent a
+ * gentle "still working" notice (once). NEVER imposes a short timeout on the run.
  */
 export async function checkPendingFills(): Promise<void> {
-  for (const runId of [...pendingFills.keys()]) {
+  const now = Date.now();
+  for (const [runId, p] of [...pendingFills]) {
     const r = await withTimeout(fetch(`${BASE}/v1/runs/${runId}`, { headers: { 'x-api-key': KEY } }), 10000, null);
     if (!r?.ok) continue;
     const j = (await r.json().catch(() => null)) as { status?: string } | null;
-    if (j?.status && TERMINAL.includes(j.status)) {
+    if (!j?.status) continue;
+    if (TERMINAL.includes(j.status)) {
       void handleFillComplete(runId);
+      continue;
+    }
+    // Still running — if it's been a while and we haven't told the parent, send a soft
+    // "still working" notice (once) so they don't think it's stuck.
+    if (p.startedAt && now - p.startedAt > STILL_WORKING_MS && !p.progressNoticeAt) {
+      p.progressNoticeAt = now;
+      if (fillStillWorkingHandler) {
+        void fillStillWorkingHandler({ runId, meta: p.meta ?? {} }).catch((e) =>
+          console.error('[skyvern] still-working handler error:', (e as Error)?.message ?? e),
+        );
+      }
     }
   }
   expireStaleFills();
 }
 
-/** Drop pending fills that never resolved (e.g. a redeploy while a run was in flight). */
-export function expireStaleFills(maxAgeMs = POLL_TIMEOUT_MS + 60_000): void {
+/** Drop pending fills that never resolved — a long safety valve (never mid-fill). */
+export function expireStaleFills(maxAgeMs = STALE_MS): void {
   const now = Date.now();
   for (const [runId, p] of pendingFills) {
     if (now - p.startedAt > maxAgeMs) {

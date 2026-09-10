@@ -11,7 +11,7 @@ import { LlmClient } from "./agent/llm";
 import { chatModel, smallModel } from "./agent/model-policy";
 import { sendBubbles } from "./agent/bubbles";
 import { recordProcessedMessage } from "./integrations/dedupe.js";
-import { setFillCompleteHandler, startFillPoller } from "./integrations/skyvern.js";
+import { setFillCompleteHandler, setFillStillWorkingHandler, startFillPoller } from "./integrations/skyvern.js";
 import { RulesIntentEngine } from "./agent/intent/rules";
 import { MockCalendarProvider } from "./integrations/calendar";
 import { MockMealsProvider } from "./integrations/meals";
@@ -132,8 +132,18 @@ setFillCompleteHandler(async (info) => {
 });
 
 // Fallback sweep: if the Skyvern webhook can't reach this host, complete any fill whose
-// run has reached a terminal state. Runs on a timer; never imposes a short timeout.
+// run has reached a terminal state (and send a gentle "still working" notice on a slow one).
+// Runs on a timer; never imposes a short timeout.
 startFillPoller();
+
+// A fill that runs long (e.g. past ~20 min): the parent told them "On it", so send ONE
+// gentle reassurance that it's still going, never a second request to do anything.
+setFillStillWorkingHandler(async (info) => {
+  const conversationId = info.meta?.conversationId as string | undefined;
+  if (!conversationId) return;
+  const text = "Still working on that form — the site can take a few minutes. I'll ping you the moment it's ready to review. Thanks for your patience!";
+  await agent.sendToConversation(conversationId, text).catch((e) => console.error('[skyvern] still-working text error:', (e as Error)?.message ?? e));
+});
 
 // Voice→text handoff: when a voice question needs research, answer it async and
 // text the parent the result over iMessage (rather than making them wait on the call).
