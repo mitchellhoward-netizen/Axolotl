@@ -55,6 +55,7 @@ import { advanceOnboarding, finalizeOnboarding, openOnboarding } from './onboard
 import { advanceAttendance, openAttendance } from './attendance.js';
 import { addCase, makeCase, openCaseSummary } from './family.js';
 import { closeSession as closeSkyvernSession } from '../integrations/skyvern.js';
+import { logConsent } from '../integrations/consent.js';
 import { LLM_TOOLS, runTool, systemPrompt, pendingActionsSummary, type ToolDeps } from './tools.js';
 import { LlmClient } from './llm.js';
 import { extractSlots, missingRequired, SLOT_SPECS, type Roster, type SlotSpec } from './slots.js';
@@ -233,6 +234,18 @@ export class Agent {
         if (isStrictConsent(text)) {
           const steps = state.pendingSteps;
           state.pendingSteps = undefined;
+          // Record the consent BEFORE executing — the parent's strict YES is the
+          // authorization for every step we are about to run.
+          const familyId = this.store.getParentId(conversationId) ?? this.opts.defaultParentId ?? '';
+          for (const s of steps) {
+            if (!s.requiresConsent) continue;
+            void logConsent(familyId, `action:${s.intent || s.channel}`, {
+              channel: s.channel,
+              intent: s.intent,
+              url: s.payload.channel === 'submit' ? s.payload.url : s.payload.channel === 'account' ? s.payload.url : undefined,
+              target: s.counterparty?.email ?? s.counterparty?.name ?? undefined,
+            });
+          }
           const results = await this.runSteps(steps, this.resolveMode(), state);
           const summary = results.map((r) => r.parentSummary).join('\n');
           this.save(conversationId, { phase: 'done', collected: {}, pendingSteps: undefined }, state);
@@ -842,6 +855,12 @@ export class Agent {
     if (district.id) profile.districtId = district.id;
     provisionFamily(this.opts.db, parentId, profile);
     await persistProvisionedFamily(this.opts.db, parentId);
+    // Record that the family completed onboarding (their consent to be helped).
+    void logConsent(parentId, 'onboarding', {
+      school: profile.school ?? district.name,
+      district: district.name,
+      children: profile.children?.length ?? 0,
+    });
     const plan = finalizeOnboarding(profile, district);
     // Fire-and-forget the real district research (warm the graph in the background).
     void this.backgroundResearchAndWelcome(profile, parentId, district);
