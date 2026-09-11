@@ -25,3 +25,4 @@ jobs:
           npm run test:consent
           npm run test:gating
           npm run test:intention
+          npm run test:email

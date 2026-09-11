@@ -51,6 +51,9 @@ export interface ConversationState {
    * Skyvern fill). Kept so a back-reference ("that form") and the generic-menu guard know
    * we're mid-flow — and so the pending fill can be persisted durably. */
   pendingForm?: string;
+  /** Numbered actionable items from the latest email digest, so a reply like "do 1" or
+   * "do all" can map back to the exact incoming_email rows. */
+  emailDigest?: Array<{ n: number; id: string; actionType: string; summary: string; fromAddress?: string }>;
   /** True when the family has been provisioned (onboarding finalized) in the
    * brain-driven path — guarantees the materialization runs exactly once. */
   onboarded?: boolean;

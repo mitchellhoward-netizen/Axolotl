@@ -35,6 +35,19 @@ export class InMemoryStore {
     return this.records.get(conversationId)?.parentId;
   }
 
+  /** Every known conversation + its bound family (so a family can be reached by id). */
+  conversations(): Array<{ conversationId: string; parentId: string }> {
+    return [...this.records.entries()].map(([conversationId, r]) => ({ conversationId, parentId: r.parentId }));
+  }
+
+  /** The conversation bound to a family (first match), if any. */
+  conversationForFamily(parentId: string): string | undefined {
+    for (const [conversationId, r] of this.records) {
+      if (r.parentId === parentId) return conversationId;
+    }
+    return undefined;
+  }
+
   getState(conversationId: string): ConversationState | undefined {
     return this.records.get(conversationId)?.state;
   }

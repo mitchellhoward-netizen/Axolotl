@@ -57,6 +57,7 @@ import { addCase, makeCase, openCaseSummary } from './family.js';
 import { closeSession as closeSkyvernSession } from '../integrations/skyvern.js';
 import { logConsent } from '../integrations/consent.js';
 import { finalizePendingForFamily } from '../integrations/connections/index.js';
+import { getEmailsByStatus, setEmailStatus } from '../integrations/email-triage/store.js';
 import { LLM_TOOLS, runTool, systemPrompt, pendingActionsSummary, type ToolDeps } from './tools.js';
 import { LlmClient } from './llm.js';
 import { extractSlots, missingRequired, SLOT_SPECS, type Roster, type SlotSpec } from './slots.js';
@@ -397,6 +398,58 @@ export class Agent {
         }
       }
 
+      // Email digest reply (Block 2d): "do 1" / "do all" / "yes" against a pending
+      // digest. Builds consent-gated reply steps (fired only on the parent's strict YES)
+      // and schedules a reminder for each item so nothing slips.
+      if (state.emailDigest?.length) {
+        const t = text.trim().toLowerCase();
+        const nums = [...t.matchAll(/\b([1-9])\b/g)].map((m) => Number(m[1]));
+        const wantsAll = /\b(do all|all of them|handle (them|these)|yes|sure|ok(ay)?|go ahead|please do)\b/.test(t) && !/\bno\b/.test(t);
+        const picks = wantsAll ? state.emailDigest : state.emailDigest.filter((d) => nums.includes(d.n));
+        if (picks.length) {
+          state.emailDigest = undefined;
+          const steps: Step[] = [];
+          for (const p of picks) {
+            // A reminder is not consequential — schedule it now.
+            this.followups.schedule({
+              conversationId,
+              caseId: `email-${p.id}`,
+              kind: 'verify',
+              dueAt: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000),
+              body: this.localize(conversationId, `Checking in on that school email: ${p.summary}`),
+            });
+            if (p.fromAddress) {
+              steps.push({
+                id: 'email-' + Date.now().toString(36) + '-' + p.n,
+                caseId: 'email',
+                intent: 'send_email',
+                channel: 'email',
+                counterparty: { role: 'OTHER', email: p.fromAddress },
+                payload: {
+                  channel: 'email',
+                  subject: `Re: ${p.summary}`.slice(0, 120),
+                  body:
+                    `Hello,\n\nI'm ${state.profile?.parentName ?? 'a parent'}${state.profile?.children?.[0]?.name ? `, ${state.profile.children[0].name}'s parent` : ''}. ` +
+                    `I received your note about "${p.summary}". Could you let me know the next step on our end, and anything you need from us? Thank you.`,
+                },
+                successCondition: { describe: 'Email sent', kind: 'reference_received' },
+                requiresConsent: true,
+                status: 'awaiting_consent',
+              });
+            }
+          }
+          this.save(conversationId, { ...state, phase: 'confirming', pendingSteps: steps.length ? steps : undefined }, state);
+          const list = picks.map((p) => `• ${p.summary}`).join('\n');
+          if (!steps.length) {
+            return { text: `Got it — I set a reminder for each so nothing slips:\n${list}`, phase: 'done' };
+          }
+          return {
+            text: `Here's what I'll send to the school for:\n${list}\n\nReply YES and I'll send it (I'll show nothing else without your OK).`,
+            phase: 'confirming',
+          };
+        }
+      }
+
       // True when the family was ALREADY fully onboarded before we processed this
       // turn — the finalize hook must never re-materialize them (1B).
       this._onboardedAtTurnStart = state.onboarded === true || computeOnboardingBlock(state.profile) === undefined;
@@ -646,8 +699,7 @@ export class Agent {
 
   /** Best-effort close of any Skyvern browser session referenced by steps being dropped
    * (a declined or expired consent). Fire-and-forget — never blocks the turn. */
-  private closeSkyvernSessions(steps?: Step[]): void {
-    for (const s of steps ?? []) {
+  private closeSkyvernSessions(steps?: Step[]): void {    for (const s of steps ?? []) {
       if (s.channel === 'submit' && s.payload.channel === 'submit' && s.payload.skyvernSessionId) {
         void closeSkyvernSession(s.payload.skyvernSessionId);
       }
@@ -679,6 +731,61 @@ export class Agent {
     };
     record.state.pendingSteps = [step];
     record.state.phase = 'confirming';
+  }
+
+  /**
+   * Email triage digest (Block 2d). Build a per-family digest from the un-surfaced
+   * incoming_email rows and text it. Batched — never one message per email. Marks the
+   * rows surfaced and records the numbered items on the conversation so "do 1" maps back.
+   * Returns false when there's nothing new (or no conversation to reach).
+   */
+  async sendEmailDigestForFamily(familyId: string): Promise<boolean> {
+    const conversationId = this.store.conversationForFamily(familyId);
+    if (!conversationId) return false;
+    const fresh = await getEmailsByStatus(familyId, 'new', 25);
+    if (!fresh.length) return false;
+
+    const actionable = fresh.filter((e) => (e.action_type ?? 'info') !== 'info');
+    const digest: Array<{ n: number; id: string; actionType: string; summary: string; fromAddress?: string }> = [];
+    const lines: string[] = [];
+    actionable.forEach((e, i) => {
+      const n = i + 1;
+      digest.push({
+        n,
+        id: e.id,
+        actionType: e.action_type ?? 'info',
+        summary: e.summary ?? 'school email',
+        fromAddress: e.from_address ?? undefined,
+      });
+      lines.push(`${n}. ${e.summary ?? 'school email'}${e.deadline ? ` (by ${e.deadline})` : ''}`);
+    });
+
+    const fyi = fresh.length - actionable.length;
+    const n = fresh.length;
+    const head = `${n} school email${n === 1 ? '' : 's'} came in.`;
+    const body = actionable.length
+      ? `${actionable.length} need${actionable.length === 1 ? 's' : ''} action:\n${lines.join('\n')}`
+      : `Nothing needs action — all FYI.`;
+    const tail = actionable.length
+      ? `\n\nWant me to tackle ${actionable.length === 1 ? 'it' : 'these'}? Say "do 1"${actionable.length > 1 ? ' (or "do all")' : ''}.`
+      : '';
+    const text = `${head} ${body}${fyi > 0 && actionable.length ? `\n\nThe other ${fyi} ${fyi === 1 ? 'is' : 'are'} just FYI.` : ''}${tail}`;
+
+    const rec = this.store.ensure(conversationId, familyId);
+    rec.state.emailDigest = digest;
+    const sent = await this.sendToConversation(conversationId, text).catch(() => false);
+    await setEmailStatus(fresh.map((e) => e.id), 'surfaced');
+    return sent;
+  }
+
+  /** The proactive sweep: send any pending digests (throttling lives in the caller). */
+  async runEmailDigest(): Promise<void> {
+    for (const { parentId } of this.store.conversations()) {
+      if (!parentId) continue;
+      await this.sendEmailDigestForFamily(parentId).catch((e) =>
+        console.warn('[email] digest failed:', (e as Error)?.message ?? e),
+      );
+    }
   }
 
   /** Localized text for a follow-up body. */

@@ -14,6 +14,7 @@ import { recordProcessedMessage } from "./integrations/dedupe.js";
 import { setFillCompleteHandler, setFillStillWorkingHandler, startFillPoller } from "./integrations/skyvern.js";
 // Register connectors at startup (side effect): the parent-portal connector.
 import "./integrations/connections/parentPortal.js";
+import { setUrgentEmailHandler } from "./integrations/email-triage/triage.js";
 import { RulesIntentEngine } from "./agent/intent/rules";
 import { MockCalendarProvider } from "./integrations/calendar";
 import { MockMealsProvider } from "./integrations/meals";
@@ -147,6 +148,12 @@ setFillStillWorkingHandler(async (info) => {
   await agent.sendToConversation(conversationId, text).catch((e) => console.error('[skyvern] still-working text error:', (e as Error)?.message ?? e));
 });
 
+// Email triage (Block 2): an URGENT forwarded school email (due within ~48h) is surfaced
+// immediately rather than waiting for the next proactive digest tick.
+setUrgentEmailHandler(async (familyId) => {
+  await agent.sendEmailDigestForFamily(familyId).catch((e) => console.error('[email] urgent digest failed:', (e as Error)?.message ?? e));
+});
+
 // Voice→text handoff: when a voice question needs research, answer it async and
 // text the parent the result over iMessage (rather than making them wait on the call).
 setDeferHandler(async (q) => {
@@ -218,6 +225,7 @@ async function withBrief(vars: Record<string, unknown>): Promise<Record<string, 
 }
 
 startWebServer({
+  emailLlm: researchLlm,
   placeCall: async (phone, info) => {
     if (!retell) return { ok: false, error: 'Voice is not configured.' };
     const school = info?.school?.trim() ?? '';
@@ -286,6 +294,8 @@ if (app) {
   const proactiveEveryMs = Number(process.env.PROACTIVE_INTERVAL_MS) || 5 * 60 * 1000;
   setInterval(() => {
     agent.runProactive().catch((e) => console.error('[proactive] tick error:', e));
+    // Email triage digest (Block 2d): batch any un-surfaced forwarded school emails.
+    agent.runEmailDigest().catch((e) => console.error('[email] digest tick error:', e));
   }, proactiveEveryMs);
 
   // (durable message dedupe now via recordProcessedMessage / processed_message)

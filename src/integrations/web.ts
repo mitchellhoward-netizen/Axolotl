@@ -13,6 +13,8 @@ import { attachConnectWebSocket } from './connect-stream.js';
 import { getConnectionByToken } from './connections/store.js';
 import { connectorFor } from './connections/index.js';
 import './connections/parentPortal.js'; // registers the parent_portal connector
+import { handleInboundEmail } from './email-triage/triage.js';
+import type { LlmClient } from '../agent/llm.js';
 
 const WEB_DIR = path.resolve(fileURLToPath(new URL('../../public', import.meta.url)));
 const WAITLIST_FILE = path.join(WEB_DIR, 'waitlist.json');
@@ -120,7 +122,14 @@ function connectPage(token: string, label: string): string {
  *   POST /api/waitlist   → { phone } appended to web/waitlist.json (and logged)
  *   POST /api/call-me    → { phone } places a demo voice call to that number
  */
-export function startWebServer(opts: { placeCall?: (phone: string, info?: PlaceCallInfo) => Promise<PlaceCallResult> } = {}, port: number = Number(process.env.WEB_PORT) || 3000): void {
+export function startWebServer(
+  opts: {
+    placeCall?: (phone: string, info?: PlaceCallInfo) => Promise<PlaceCallResult>;
+    /** Small model for email classification (temperature 0). Falls back to no-LLM. */
+    emailLlm?: LlmClient;
+  } = {},
+  port: number = Number(process.env.WEB_PORT) || 3000,
+): void {
   const server = createServer(async (req, res) => {
     try {
       const url = new URL(req.url ?? '/', 'http://localhost');
@@ -195,6 +204,43 @@ export function startWebServer(opts: { placeCall?: (phone: string, info?: PlaceC
         }
         res.writeHead(405, { 'Content-Type': 'text/plain' });
         res.end('Method not allowed');
+        return;
+      }
+
+      // Inbound email (Block 2c): a Cloudflare Email Worker posts a forwarded school
+      // email here with `x-inbound-secret`. Verify, ACK fast, triage in the background
+      // (never leak whether an address exists; the raw body is never stored or logged).
+      if (req.method === 'POST' && url.pathname === '/webhooks/inbound-email') {
+        const chunks: Buffer[] = [];
+        for await (const chunk of req) chunks.push(Buffer.isBuffer(chunk) ? chunk : Buffer.from(String(chunk)));
+        const raw = Buffer.concat(chunks);
+        const secret = process.env.INBOUND_WEBHOOK_SECRET ?? '';
+        const got = req.headers['x-inbound-secret'];
+        const ok =
+          secret.length > 0 &&
+          typeof got === 'string' &&
+          got.length === secret.length &&
+          timingSafeEqual(Buffer.from(got), Buffer.from(secret));
+        if (!ok) {
+          console.warn('[webhooks/inbound-email] rejected: bad secret');
+          res.writeHead(401, { 'Content-Type': 'text/plain' });
+          res.end('unauthorized');
+          return;
+        }
+        let payload: Record<string, unknown> = {};
+        try {
+          payload = JSON.parse(raw.toString('utf8') || '{}') as Record<string, unknown>;
+        } catch {
+          /* malformed — still ACK so the worker doesn't retry-storm */
+        }
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ ok: true }));
+        void handleInboundEmail(payload, opts.emailLlm)
+          .then((r) => {
+            if (r.status !== 'ok') console.log(`[email] ${r.status}${r.detail ? ` — ${r.detail}` : ''}`);
+            else console.log(`[email] triaged ${r.emailId} (${r.urgency})`);
+          })
+          .catch((e) => console.error('[webhooks/inbound-email] triage error:', (e as Error)?.message ?? e));
         return;
       }
 

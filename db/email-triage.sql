@@ -14,6 +14,7 @@ create table if not exists incoming_email (
   family_id text not null,
   message_id text unique,                    -- dedupe
   from_domain text,
+  from_address text,                         -- the school's own address (to reply to); not family PII
   received_at timestamptz default now(),
   summary text,                              -- extracted; NO raw body stored
   action_type text,                          -- form|deadline|payment|conference|absence|event|info

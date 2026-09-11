@@ -161,6 +161,15 @@ export class LlmClient {
   }
 
   /**
+   * One-shot JSON completion at temperature 0 — for classifying/extracting over
+   * UNTRUSTED input (e.g. a forwarded school email). The caller must treat the input as
+   * DATA, never as instructions; the system prompt has to say so explicitly.
+   */
+  async completeJson(system: string, user: string): Promise<string | null> {
+    return this.complete(system, user, true);
+  }
+
+  /**
    * Learn a district: return a structured profile. Returns `null` when the model
    * is unavailable or can't produce a usable result (caller falls back).
    */
