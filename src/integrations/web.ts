@@ -9,6 +9,10 @@ import { recordPendingGreeting } from './pending-greeting.js';
 import { attachVoiceWebSocket } from '../voice/server.js';
 import { buildGmailAuthUrl, exchangeGmailCode, fetchGmailAddress, saveGmailToken } from './gmail.js';
 import { handleFillComplete } from './skyvern.js';
+import { attachConnectWebSocket } from './connect-stream.js';
+import { getConnectionByToken } from './connections/store.js';
+import { connectorFor } from './connections/index.js';
+import './connections/parentPortal.js'; // registers the parent_portal connector
 
 const WEB_DIR = path.resolve(fileURLToPath(new URL('../../public', import.meta.url)));
 const WAITLIST_FILE = path.join(WEB_DIR, 'waitlist.json');
@@ -38,6 +42,75 @@ function verifySkyvernSignature(rawBody: Buffer, signature: unknown): boolean {
   const a = Buffer.from(signature, 'utf8');
   const b = Buffer.from(expected, 'utf8');
   return a.length === b.length && timingSafeEqual(a, b);
+}
+
+function escapeHtml(s: string): string {
+  return s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!);
+}
+
+/**
+ * The parent-takeover page (Block 3d). A noVNC client connects to our server-side VNC
+ * proxy (`/connect/<token>/stream`) so the parent drives the live browser and signs in
+ * themselves — our Skyvern key never reaches the page, and we never see the password.
+ */
+function connectPage(token: string, label: string): string {
+  const safeLabel = escapeHtml(label);
+  const safeToken = escapeHtml(token);
+  return `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sign in to your school portal</title>
+<style>
+  body { font-family: -apple-system, system-ui, sans-serif; margin: 0; background: #0f172a; color: #e2e8f0; }
+  header { padding: 14px 18px; }
+  h1 { font-size: 17px; margin: 0 0 6px; }
+  p.note { font-size: 13px; color: #94a3b8; margin: 0 0 10px; line-height: 1.4; }
+  #screen { background: #000; min-height: 320px; height: 62vh; display: flex; align-items: center; justify-content: center; }
+  footer { padding: 14px 18px; }
+  button { background: #22c55e; color: #052e16; border: 0; border-radius: 10px; padding: 12px 18px; font-size: 15px; font-weight: 600; width: 100%; }
+  #status { font-size: 13px; color: #cbd5e1; margin: 0 0 12px; min-height: 18px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Sign in to ${safeLabel}</h1>
+  <p class="note">This is your own private browser window. Axolotl never sees your password — when you're signed in and tap Done, we save only the signed-in session so we can read your child's info for you (never change anything).</p>
+</header>
+<div id="screen"></div>
+<footer>
+  <p id="status">Loading the secure browser…</p>
+  <button id="done">I'm signed in — Done</button>
+</footer>
+<script type="module">
+  const token = ${JSON.stringify(safeToken)};
+  const statusEl = document.getElementById('status');
+  const setStatus = (t) => { statusEl.textContent = t; };
+  try {
+    const mod = await import('https://cdn.jsdelivr.net/npm/@novnc/novnc@1.5.0/core/rfb.js');
+    const RFB = mod.default;
+    const wsUrl = (location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host + '/connect/' + token + '/stream';
+    const rfb = new RFB(document.getElementById('screen'), wsUrl, { credentials: { password: '' } });
+    rfb.scaleViewport = true;
+    rfb.addEventListener('connect', () => setStatus('Connected. Sign in below, then tap Done.'));
+    rfb.addEventListener('disconnect', () => setStatus('Disconnected. Reload this page to reconnect.'));
+  } catch (e) {
+    setStatus('Could not load the live view: ' + (e && e.message ? e.message : e) + '. Reload to retry.');
+  }
+  document.getElementById('done').addEventListener('click', async () => {
+    setStatus('Checking your sign-in…');
+    try {
+      const r = await fetch('/connect/' + token + '/done', { method: 'POST' });
+      const j = await r.json().catch(() => ({}));
+      setStatus(j.ok ? '✅ Connected — you can close this and go back to iMessage.' : (j.detail || 'Not signed in yet — finish signing in, then tap Done again.'));
+    } catch (e) {
+      setStatus('Could not reach the server. Try again.');
+    }
+  });
+</script>
+</body>
+</html>`;
 }
 
 /**
@@ -91,6 +164,37 @@ export function startWebServer(opts: { placeCall?: (phone: string, info?: PlaceC
           res.writeHead(502, { 'Content-Type': 'text/plain' });
           res.end('Could not connect your Google account. Please try again.');
         }
+        return;
+      }
+
+      // ── Portal takeover (Block 3d) ─────────────────────────────────────────
+      // GET  /connect/:token      → the live-view page (noVNC → our VNC proxy)
+      // POST /connect/:token/done → verify the parent's sign-in and save the profile
+      const connectMatch = url.pathname.match(/^\/connect\/([A-Za-z0-9_-]+)(\/done)?$/);
+      if (connectMatch) {
+        const token = connectMatch[1]!;
+        const row = await getConnectionByToken(token).catch(() => null);
+        if (!row) {
+          res.writeHead(404, { 'Content-Type': 'text/html; charset=utf-8' });
+          res.end('<h1>This link is no longer active.</h1><p>Ask Axolotl to send you a fresh sign-in link.</p>');
+          return;
+        }
+        if (req.method === 'GET' && !connectMatch[2]) {
+          res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+          res.end(connectPage(token, row.label ?? row.portal_type ?? 'your school portal'));
+          return;
+        }
+        if (req.method === 'POST' && connectMatch[2]) {
+          const connector = connectorFor(row.kind);
+          const result = connector
+            ? await connector.finalizeConnect(row.id).catch((e) => ({ ok: false, detail: (e as Error)?.message ?? 'failed' }))
+            : { ok: false, detail: 'no connector for this connection' };
+          res.writeHead(200, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify(result));
+          return;
+        }
+        res.writeHead(405, { 'Content-Type': 'text/plain' });
+        res.end('Method not allowed');
         return;
       }
 
@@ -225,6 +329,8 @@ export function startWebServer(opts: { placeCall?: (phone: string, info?: PlaceC
 
   // Live voice (Retell custom LLM) — the assistant drives outbound calls to parents.
   attachVoiceWebSocket(server);
+  // Portal-takeover live view: proxy noVNC → Skyvern's authenticated VNC stream.
+  attachConnectWebSocket(server);
 
   const host = process.env.RAILWAY_PUBLIC_DOMAIN ?? `localhost:${port}`;
   server.listen(port, () => {

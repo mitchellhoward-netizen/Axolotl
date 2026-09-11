@@ -47,6 +47,10 @@ export interface ConversationState {
   lastAction?: string;
   /** Steps the brain has planned but not yet executed — awaiting parent consent. */
   pendingSteps?: Step[];
+  /** A form fill the agent has kicked off but not yet shared for review (e.g. an async
+   * Skyvern fill). Kept so a back-reference ("that form") and the generic-menu guard know
+   * we're mid-flow — and so the pending fill can be persisted durably. */
+  pendingForm?: string;
   /** True when the family has been provisioned (onboarding finalized) in the
    * brain-driven path — guarantees the materialization runs exactly once. */
   onboarded?: boolean;

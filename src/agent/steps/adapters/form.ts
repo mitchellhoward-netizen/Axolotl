@@ -19,9 +19,13 @@ export class FormAdapter implements ChannelAdapter {
     const p = step.payload;
     if (p.channel !== 'form') throw new Error('FormAdapter received a non-form step');
     const content = JSON.stringify({ formId: p.formId, fields: p.fields });
+    const target = step.counterparty.name ?? 'the school';
 
     try {
       let referenceId: string | undefined;
+      let parentSummary: string;
+      // Be exact about what actually happened — never report "submitted" when we only
+      // emailed the fields, or when nothing was wired up at all.
       if (this.formEndpoint) {
         const res = await fetch(this.formEndpoint, {
           method: 'POST',
@@ -30,6 +34,7 @@ export class FormAdapter implements ChannelAdapter {
         });
         if (!res.ok) throw new Error(`Form POST ${res.status}`);
         referenceId = `form-${Date.now().toString(36)}`;
+        parentSummary = `Submitted the form to ${target}.`;
       } else if (step.counterparty.email) {
         const email = (await ctx.resolveSender?.()) ?? this.email;
         const rec = await email.send({
@@ -40,13 +45,22 @@ export class FormAdapter implements ChannelAdapter {
             .join('\n')}`,
         });
         referenceId = rec.id;
+        parentSummary = `There's no online form wired for this one, so I emailed the details to ${target} instead. Want me to chase them for a confirmation?`;
+      } else {
+        // Nothing actually happened — say so honestly instead of claiming success.
+        return {
+          status: 'failed',
+          note: 'no form endpoint configured and no contact email on file',
+          parentSummary: `I couldn't submit that form — there's no online form for it and no email on file for ${target}. Send me the form link or a contact and I'll take it from there.`,
+          action: { channel: 'WEB', direction: 'outbound', content, status: 'failed' },
+        };
       }
 
       const chase = step.followUp?.chaseAfterMs;
       return {
         status: 'done',
         referenceId,
-        parentSummary: `Submitted the form to ${step.counterparty.name ?? 'the school'}.`,
+        parentSummary,
         action: { channel: 'WEB', direction: 'outbound', content, status: 'submitted' },
         followUpAt: chase ? new Date(Date.now() + (ctx.mode === 'demo' ? chase / ctx.demoClockScale : chase)) : undefined,
       };

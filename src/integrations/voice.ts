@@ -17,15 +17,17 @@ export interface VoiceProvider {
   }): Promise<CallOutcome>;
 }
 
-/** Test/CI provider: returns a scripted, sensible outcome for any brief. */
+/**
+ * Fallback when no real voice provider is configured. It does NOT place a call, and it
+ * must never fabricate an outcome — a parent must never be told a school was called (or
+ * that "the office confirmed") when no call actually happened.
+ */
 export class MockVoiceProvider implements VoiceProvider {
-  async placeCall(input: { toPhone: string; brief: CallBrief; disclosure: string; mode: Mode }): Promise<CallOutcome> {
-    const b = input.brief;
+  async placeCall(_input: { toPhone: string; brief: CallBrief; disclosure: string; mode: Mode }): Promise<CallOutcome> {
     return {
-      disposition: 'resolved',
-      referenceId: 'mock-call-' + Date.now().toString(36),
-      transcriptSummary: `Called ${b.school} for ${b.parentName}. Stated the goal (${b.goal}); the office confirmed they'll handle it.`,
-      nextStep: `${b.school} will follow up with next steps.`,
+      disposition: 'failed',
+      transcriptSummary: 'Voice calling is not configured, so no call was placed.',
+      nextStep: 'Connect RETELL_API_KEY + RETELL_AGENT_ID to enable real calls, or email the school instead.',
     };
   }
 }

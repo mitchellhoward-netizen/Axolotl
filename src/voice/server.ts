@@ -21,9 +21,16 @@ import type { Step } from '../agent/steps/types.js';
  */
 
 export function attachVoiceWebSocket(server: Server): void {
-  // No `path` restriction — accept the WS on any path, so a Retell URL of
-  // `wss://host` or `wss://host/voice-llm` both connect.
-  const wss = new WebSocketServer({ server });
+  // Retell may use `wss://host` or `wss://host/voice-llm`. Claim ONLY those paths so a
+  // second upgrade handler (the portal-takeover VNC proxy) can own `/connect/*/stream`.
+  const wss = new WebSocketServer({ noServer: true });
+  server.on('upgrade', (req, socket, head) => {
+    const path = (req.url ?? '/').split('?')[0];
+    if (path === '/' || path === '/voice-llm') {
+      wss.handleUpgrade(req, socket, head, (ws) => wss.emit('connection', ws, req));
+    }
+    // every other path is left untouched for another handler
+  });
 
   wss.on('connection', (ws: WebSocket, req) => {
     console.log(`[voice] Retell connected: ${req.url}`);

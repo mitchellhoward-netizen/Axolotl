@@ -67,7 +67,7 @@ export class CallAdapter implements ChannelAdapter {
         return {
           status: 'escalated',
           note: outcome.nextStep ?? 'Could not reach anyone.',
-          parentSummary: `I couldn't reach ${who} — flagging this for a person to handle.`,
+          parentSummary: `I couldn't place that call${outcome.transcriptSummary ? ` — ${outcome.transcriptSummary}` : ''}${outcome.nextStep ? ` ${outcome.nextStep}` : ''}`,
           action: { channel: 'PHONE', direction: 'outbound', content: outcome.transcriptSummary, status: 'failed' },
         };
     }

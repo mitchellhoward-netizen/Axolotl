@@ -12,6 +12,8 @@ import { chatModel, smallModel } from "./agent/model-policy";
 import { sendBubbles } from "./agent/bubbles";
 import { recordProcessedMessage } from "./integrations/dedupe.js";
 import { setFillCompleteHandler, setFillStillWorkingHandler, startFillPoller } from "./integrations/skyvern.js";
+// Register connectors at startup (side effect): the parent-portal connector.
+import "./integrations/connections/parentPortal.js";
 import { RulesIntentEngine } from "./agent/intent/rules";
 import { MockCalendarProvider } from "./integrations/calendar";
 import { MockMealsProvider } from "./integrations/meals";

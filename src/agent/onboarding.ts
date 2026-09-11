@@ -27,7 +27,7 @@ export function openOnboarding(): OnboardingTurn {
       "Hi! I'm Axolotl — your school assistant. Here's what I can do for you (always with your OK):",
       '• Email the school on your behalf',
       '• Fill out forms and applications',
-      '• Place calls (and leave a voicemail)',
+      '• Place calls to the office and handle it with you',
       '',
       'To begin, let me get your email so I can show you I actually send email. Text /connect to link your Gmail, or just send me the email address you want me to use.',
     ].join('\n'),
@@ -140,10 +140,10 @@ export function finalizeOnboarding(profile: FamilyProfile, district: DistrictPro
   lines.push('');
   lines.push("Here's what I can do for you (always with your OK first):");
   lines.push('📄 Fill out a form or sign-up — I fill it with your child\u2019s info, show you, and only submit when you say go.');
-  lines.push('✉️ Email the school or district for you — I draft it, you approve it, it sends from you.');
-  lines.push('📞 Call the office and handle it — then text you what they said. Want to hear it? Just say "call me."');
+  lines.push('✉️ Email the school or district for you — I draft it, you approve it, then it sends (from your Gmail if you connect it, otherwise from your Axolotl address).');
+  lines.push('📞 Call the office and handle it live with you. Want to hear it? Just say "call me."');
   lines.push('⏰ Set a reminder to follow up on something, so nothing slips.');
-  lines.push('🔑 Connect to your parent portal(s) so I can see assignments, forms, and what\u2019s available.');
+  lines.push('🔑 Connect your school portal (Aeries/PowerSchool) so I can READ what your child is actually getting — you sign in yourself, I never see your password.');
 
   // The district homeless liaison is a McKinney-Vento (homeless/displaced) contact —
   // only surface it when the family actually flagged housing instability, not a generic family.

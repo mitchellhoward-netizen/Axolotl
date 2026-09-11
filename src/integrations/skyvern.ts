@@ -21,6 +21,68 @@ export function skyvernEnabled(): boolean {
   return Boolean(KEY);
 }
 
+// ── Shared low-level access (used by the connector in integrations/connections) ──
+// Keeps the API key encapsulated: callers pass a path, never the key.
+
+/** POST a JSON body to a Skyvern v1 path (x-api-key auth). Returns null on any failure. */
+export async function skyvernApi(path: string, body: unknown, timeoutMs = 20000): Promise<Record<string, unknown> | null> {
+  return api(path, body, timeoutMs);
+}
+
+/** GET a Skyvern v1 path as JSON. Returns null on any failure. */
+export async function skyvernApiGet(path: string): Promise<Record<string, unknown> | null> {
+  try {
+    const r = await withTimeout(fetch(`${BASE}${path}`, { headers: { 'x-api-key': KEY } }), 15000, null);
+    if (!r?.ok) return null;
+    return (await r.json()) as Record<string, unknown>;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Build the authenticated RFB-over-WebSocket URL for a live browser session. This is the
+ * ONLY handle that can see the portal as the parent — it carries our API key, so it must
+ * NEVER reach a parent's browser. `web.ts` proxies it server-side for the takeover page.
+ */
+export function skyvernVncUrl(browserSessionId: string): { url: string; clientId: string } | null {
+  if (!KEY || !browserSessionId) return null;
+  const clientId = 'chuy-' + Math.random().toString(36).slice(2, 10);
+  const wsBase = BASE.replace(/^http/i, 'ws');
+  return {
+    url: `${wsBase}/v1/stream/vnc/browser_session/${browserSessionId}?apikey=${encodeURIComponent(KEY)}&client_id=${encodeURIComponent(clientId)}`,
+    clientId,
+  };
+}
+
+/** Close a Skyvern browser profile (revoke a connection's only credential). */
+export async function deleteBrowserProfile(browserProfileId: string): Promise<boolean> {
+  if (!KEY || !browserProfileId) return false;
+  try {
+    const r = await withTimeout(
+      fetch(`${BASE}/v1/browser_profiles/${browserProfileId}`, { method: 'DELETE', headers: { 'x-api-key': KEY } }),
+      15000,
+      null,
+    );
+    return Boolean(r?.ok);
+  } catch {
+    return false;
+  }
+}
+
+/** Poll a run to a terminal state (bounded). Exposed for the connector's read/verify tasks. */
+export async function skyvernPollRun(
+  runId: string,
+  timeoutMs: number,
+): Promise<{ status: string; output?: unknown; failure?: unknown }> {
+  return pollRun(runId, timeoutMs);
+}
+
+/** The artifacts (screenshot) URL for a finished run. */
+export async function skyvernRunScreenshot(runId: string): Promise<string | undefined> {
+  return reviewScreenshot(runId);
+}
+
 export interface FillResult {
   ok: boolean;
   runId?: string;

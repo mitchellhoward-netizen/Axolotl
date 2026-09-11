@@ -56,6 +56,7 @@ import { advanceAttendance, openAttendance } from './attendance.js';
 import { addCase, makeCase, openCaseSummary } from './family.js';
 import { closeSession as closeSkyvernSession } from '../integrations/skyvern.js';
 import { logConsent } from '../integrations/consent.js';
+import { finalizePendingForFamily } from '../integrations/connections/index.js';
 import { LLM_TOOLS, runTool, systemPrompt, pendingActionsSummary, type ToolDeps } from './tools.js';
 import { LlmClient } from './llm.js';
 import { extractSlots, missingRequired, SLOT_SPECS, type Roster, type SlotSpec } from './slots.js';
@@ -198,6 +199,10 @@ export class Agent {
   }
 
   async handle(conversationId: string, text: string): Promise<AgentTurn> {
+    // Is the parent pointing back at something we already discussed? If so, the generic
+    // capabilities menu is never a valid answer (see the brain's GENERIC_MENU guard).
+    const backRef = isBackReference(text);
+    this._backRefThisTurn = backRef;
     const parentId = this.store.getParentId(conversationId) ?? this.opts.defaultParentId;
     if (!parentId) {
       return {
@@ -377,6 +382,21 @@ export class Agent {
         };
       }
 
+      // Portal takeover (Block 3): the parent finished signing into their school portal
+      // on the takeover page and texted DONE (the iMessage-friendly path). Verify the
+      // sign-in and save the session. No-op when nothing is awaiting a sign-in.
+      if (/^(done|ready|i'?m in|i am in|signed in|finished|all set|ok done|done ✅)$/i.test(text.trim())) {
+        const fin = await finalizePendingForFamily(parentId).catch((e) => {
+          console.error('[connect] finalize failed:', (e as Error)?.message ?? e);
+          return null;
+        });
+        if (fin) {
+          return fin.ok
+            ? { text: `✅ Connected to ${fin.label ?? 'your school portal'}. Ask me what your child is getting and I'll read it (I never change anything there).`, phase: 'done' }
+            : { text: `I couldn't confirm the sign-in yet${fin.detail ? ` (${fin.detail})` : ''}. Finish signing in on that page, then reply DONE again.`, phase: 'done' };
+        }
+      }
+
       // True when the family was ALREADY fully onboarded before we processed this
       // turn — the finalize hook must never re-materialize them (1B).
       this._onboardedAtTurnStart = state.onboarded === true || computeOnboardingBlock(state.profile) === undefined;
@@ -552,6 +572,9 @@ export class Agent {
   /** True when the family was already fully onboarded before we processed this turn
    * (set in handle() after hydration) — the finalize hook must not re-materialize. */
   private _onboardedAtTurnStart = false;
+  /** True when THIS turn points back at something earlier (set at the top of handle());
+   * the brain must then recall + continue, never dump the generic capabilities menu. */
+  private _backRefThisTurn = false;
   /** Proactive pings sent today, per conversation. */
   private readonly sentToday = new Map<string, { day: string; count: number }>();
   /** Which gap alerts we've already raised today, per conversation (avoid repeat). */
@@ -1088,6 +1111,7 @@ export class Agent {
       },
       studentName: state.profile?.children[0]?.name,
       conversationId: this.currentConversationId,
+      familyId: parentId,
     };
 
     console.log('[brain] invoked:', text.slice(0, 60));
@@ -1106,17 +1130,21 @@ export class Agent {
     const situation = this.brainOnboarding && !state.onboarded
       ? [onboardingSituation(state.profile), computeSituation(state)].filter(Boolean).join('\n') || undefined
       : computeSituation(state);
+    const sysPrompt = systemPrompt({ profile: state.profile, cases: state.cases, activeGoal: state.activeGoal, lastAction: state.lastAction, pendingActions: pendingActionsSummary(state.pendingSteps), summary: state.summary, situation });
+    const tools = this.brainOnboarding && !state.onboarded
+      ? LLM_TOOLS.filter((t) => ONBOARDING_TOOL_NAMES.has((t as { function?: { name?: string } }).function?.name ?? ''))
+      : LLM_TOOLS;
     while (guard < 12) {
-      const res = await llm.chatWithTools(
-        systemPrompt({ profile: state.profile, cases: state.cases, activeGoal: state.activeGoal, lastAction: state.lastAction, pendingActions: pendingActionsSummary(state.pendingSteps), summary: state.summary, situation }),
-        messages,
-        this.brainOnboarding && !state.onboarded
-          ? LLM_TOOLS.filter((t) => ONBOARDING_TOOL_NAMES.has((t as { function?: { name?: string } }).function?.name ?? ''))
-          : LLM_TOOLS,
-        'auto',
-      );
+      let res = await llm.chatWithTools(sysPrompt, messages, tools, 'auto');
       if (!res) {
-        console.warn('[brain] chatWithTools returned null (LLM/tool error) — breaking', { guard });
+        // Transient LLM/tool error — retry ONCE before any fallback, so a hiccup never
+        // silently drops the thread (or a back-reference) to the generic menu.
+        console.warn('[brain] chatWithTools returned null — retrying once', { guard });
+        await new Promise((r) => setTimeout(r, 400));
+        res = await llm.chatWithTools(sysPrompt, messages, tools, 'auto');
+      }
+      if (!res) {
+        console.warn('[brain] chatWithTools returned null twice (LLM/tool error) — breaking', { guard });
         break;
       }
       // If the model wants to call tools, do it — never return early on a preamble.
@@ -1234,13 +1262,45 @@ export class Agent {
         state,
       };
     }
+    // ── GENERIC_MENU guard ────────────────────────────────────────────────────
+    // The capabilities menu is only ever valid for a genuinely fresh, context-free
+    // message. If we have history, the parent is pointing back at something, or an
+    // action/form is still pending, dumping the menu is a context failure — recall and
+    // continue instead.
+    const hasHistory = history.length > 0;
+    const backRef = this._backRefThisTurn || isBackReference(text);
+    const hasPending = Boolean(state.pendingForm || state.pendingSteps?.length || state.pendingPlan);
+    if (hasHistory || backRef || hasPending) {
+      console.warn('[brain] GENERIC_MENU suppressed', { text: text.slice(0, 80), hasHistory, backRef, hasPending });
+      const recent = history
+        .slice(-10)
+        .map((m) => `${m.role === 'user' ? 'Parent' : 'Axolotl'}: ${m.content.slice(0, 220)}`)
+        .join('\n');
+      const continued = await llm.answerQuestion(
+        `The parent just said: "${text}". They are referring BACK to our earlier exchange. Recent thread:\n${recent}\n\n` +
+          `Continue THAT thread — re-present or answer the specific thing they are pointing at (the program, form, or schedule you already discussed). ` +
+          `Do NOT list your general capabilities, do NOT say "here's what I can do", and do NOT ask them to restate the question.`,
+        state.profile,
+        district,
+      );
+      if (continued && !isRefusal(continued) && !isThinResearchAnswer(continued)) {
+        return { turn: { text: continued, phase: 'done' }, state };
+      }
+      return {
+        turn: {
+          text: "Let me pull that back up. If you can name it (the program or the form), I'll jump straight to it — otherwise give me a second and I'll pick up right where we left off.",
+          phase: 'done',
+        },
+        state,
+      };
+    }
     return {
       turn: {
         text:
           `I can definitely help with ${kid} at ${school}. Here's what I can do — just pick one and I'll take it from there:\n` +
           `• Research what ${kid} is entitled to / eligible for at ${school} (programs, free stuff)\n` +
           `• Email the school or fill out a form for you\n` +
-          `• Make a call to the school and leave a voicemail\n\n` +
+          `• Make a call to the school office with me on the line\n\n` +
           `Or tell me the need in your own words (e.g. "help with after-school programs", "my kid needs meals") and I'll get specific.`,
         phase: 'done',
       },
@@ -1893,6 +1953,15 @@ function parseYesNo(text: string): boolean | null {
   if (/^(y|yes|yeah|yep|sure|ok|okay|confirm|go ahead|do it|please do|submit|submit it|go)\b/i.test(text)) return true;
   if (/^(n|no|nope|cancel|change|not that|stop|hold on)\b/i.test(text)) return false;
   return null;
+}
+
+/**
+ * True when the parent is referring BACK to something earlier ("the art schedule we
+ * were talking about", "that program", "again", "continue"). Such a message must never
+ * be answered with the generic capabilities menu — the brain has to recall and continue.
+ */
+function isBackReference(text: string): boolean {
+  return /\b(again|that|the one|we (were|had)|you (said|mentioned)|earlier|continue|go on|same one|what you found)\b/i.test(text);
 }
 
 /**
