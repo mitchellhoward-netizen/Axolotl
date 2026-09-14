@@ -5,6 +5,10 @@
 FROM node:22-slim
 WORKDIR /app
 
+# Local-only document text extraction/OCR; no document vendor API required.
+RUN apt-get update && apt-get install -y --no-install-recommends poppler-utils tesseract-ocr tesseract-ocr-eng util-linux \
+    && rm -rf /var/lib/apt/lists/*
+
 COPY package.json package-lock.json ./
 RUN npm ci
 
