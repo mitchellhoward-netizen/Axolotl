@@ -27,6 +27,7 @@ export class BenefitStore {
         id uuid PRIMARY KEY, token_hash text UNIQUE NOT NULL, wall_start bigint NOT NULL,
         advance_ms bigint NOT NULL DEFAULT 0
       );
+      ALTER TABLE workspaces ADD COLUMN IF NOT EXISTS discovery_enabled boolean NOT NULL DEFAULT false;
       CREATE TABLE IF NOT EXISTS cases (
         id uuid PRIMARY KEY, owner uuid NOT NULL REFERENCES workspaces(id),
         scenario_id text NOT NULL, data jsonb NOT NULL, UNIQUE(owner, scenario_id)
@@ -110,6 +111,14 @@ export class BenefitStore {
 
   async owners(): Promise<string[]> {
     return (await this.pool.query('SELECT id FROM workspaces')).rows.map(r => r.id);
+  }
+
+  async discoveryEnabled(owner: string): Promise<boolean> {
+    return (await this.pool.query('SELECT discovery_enabled FROM workspaces WHERE id=$1', [owner])).rows[0]?.discovery_enabled === true;
+  }
+
+  async setDiscovery(owner: string, enabled: boolean): Promise<void> {
+    await this.pool.query('UPDATE workspaces SET discovery_enabled=$2 WHERE id=$1', [owner, enabled]);
   }
 
   async metrics(owner: string) {

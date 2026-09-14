@@ -4,8 +4,9 @@ import { assess, contextHash, isClaim, prepareProposal } from './policy.js';
 import { SimulatedProvider, type BenefitProvider, type ProviderOrder } from './provider.js';
 import { SCENARIOS } from './scenarios.js';
 import { BenefitStore, LabError } from './store.js';
+import { discover, FICTIONAL_SOURCES, nudge, type Finding } from './discovery.js';
 
-export type Command = 'prepare' | 'approve' | 'cancel' | 'repair' | 'revise' | 'confirm';
+export type Command = 'prepare' | 'approve' | 'cancel' | 'repair' | 'revise' | 'confirm' | 'snooze';
 function event(c: BenefitCase, now: number, type: string, text: string): void {
   c.events.push({ at: new Date(now).toISOString(), type, text });
 }
@@ -47,14 +48,53 @@ export class BenefitsEngine {
   }
 
   async state(owner: string): Promise<LabState> {
-    return { mode: 'simulation', now: new Date(await this.store.now(owner)).toISOString(), timezone: 'America/Los_Angeles',
+    const now = await this.store.now(owner);
+    const cases = await this.store.list(owner);
+    const enabled = await this.store.discoveryEnabled(owner);
+    const findings = enabled ? discover(FICTIONAL_SOURCES, now).map(({ finding }) => {
+      const c = cases.find(c => c.scenarioId === `receipt:${finding.expenseId}`);
+      if (!c) return finding;
+      const decision: Finding['decision'] = TERMINAL.includes(c.status) ? 'closed' :
+        ['queued', 'executing', 'reconciling', 'pending', 'ready'].includes(c.status) ? 'in_progress' :
+          ['opportunity', 'awaiting_approval'].includes(c.status) ? 'actionable' : 'needs_information';
+      return { ...finding, caseId: c.id, decision, reason: c.nextAction };
+    }) : [];
+    return { mode: 'simulation', now: new Date(now).toISOString(), timezone: 'America/Los_Angeles',
       scenarios: SCENARIOS.map(({ id, workflow, title, description, expected }) => ({ id, workflow, title, description, expected })),
-      cases: await this.store.list(owner), metrics: await this.store.metrics(owner) };
+      cases, discovery: { enabled, findings, nudges: cases.flatMap(c => c.events
+        .filter(e => ['opportunity_nudge', 'deadline_nudge'].includes(e.type)).map(e => ({ caseId: c.id, at: e.at, text: e.text })))
+        .sort((a, b) => b.at.localeCompare(a.at)) }, metrics: await this.store.metrics(owner) };
+  }
+
+  async scan(owner: string): Promise<void> {
+    if (!await this.store.discoveryEnabled(owner)) return;
+    const now = await this.store.now(owner);
+    const existing = await this.store.list(owner);
+    for (const { candidate } of discover(FICTIONAL_SOURCES, now)) {
+      if (candidate && !existing.some(c => c.scenarioId === candidate.scenarioId)) await this.store.insert(owner, candidate);
+    }
+    for (const c of await this.store.list(owner)) {
+      if (!c.scenarioId.startsWith('receipt:')) continue;
+      await this.store.change(owner, c.id, async (current, tx) => {
+        // A pause waits for any in-flight nudge transaction; after acknowledgement,
+        // another worker cannot append new previews until discovery is re-enabled.
+        const r = await tx.query('SELECT discovery_enabled FROM workspaces WHERE id=$1 FOR SHARE', [owner]);
+        if (r.rows[0]?.discovery_enabled) nudge(current, now);
+      });
+    }
   }
 
   async command(owner: string, id: string, command: Command, revision?: number, hash?: string): Promise<void> {
     const now = await this.store.now(owner);
     await this.store.change(owner, id, async (c, tx) => {
+      if (command === 'snooze') {
+        if (!c.scenarioId.startsWith('receipt:') || !['opportunity', 'needs_information', 'awaiting_approval'].includes(c.status)) {
+          throw new LabError('Only open discovery opportunities can be snoozed');
+        }
+        c.snoozedUntil = new Date(now + 86400000).toISOString();
+        event(c, now, 'snoozed', `Reminder previews snoozed until ${c.snoozedUntil}. The filing deadline is unchanged.`);
+        return;
+      }
       if (command === 'approve') {
         const p = c.proposal;
         if (!p || p.revision !== revision || p.hash !== hash) throw new LabError('Proposal changed. Review the current revision before approving.');
@@ -130,6 +170,7 @@ export class BenefitsEngine {
   }
 
   async tick(owner: string): Promise<void> {
+    await this.scan(owner);
     for (const candidate of await this.store.list(owner)) {
       const now = await this.store.now(owner);
       // Claiming the lease commits before the provider call. A restarted worker can reclaim it.

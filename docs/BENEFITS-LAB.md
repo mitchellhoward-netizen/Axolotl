@@ -41,6 +41,38 @@ The lab is a reviewer/operator interface. It is not the eventual employee chat U
 Do not enter credentials, receipts, health information, or other real personal data.
 There are no upload, free-text, credential, live-send or account-login fields.
 
+## Discover opportunities instead of selecting a scenario
+
+Choose **Enable fictional inbox discovery**. This opts this browser workspace into
+scanning a built-in bundle of separate receipt, enrollment, identity and versioned
+plan records. It is not permission to read a real inbox. Eight inbox records contain
+seven distinct expenses; the forwarded glasses receipt is deduplicated by expense ID.
+
+The initial report finds two actionable matches ($184.35 and $73.20), two exclusions,
+and three items needing information. An open filing window does not make an expense
+from before coverage eligible. Unknown rules, missing enrollment or authority, and
+conflicting copies are never treated as confirmed entitlement. A dental receipt with
+two possible plans stops for coordination review rather than choosing one arbitrarily.
+
+Four reviewable cases are created without submitting anything. **Review Sam’s glasses
+receipt** leads into the existing exact-approval flow. Repeated or concurrent scans
+preserve case IDs and approvals; cancelled or completed cases are not recreated.
+The report follows persisted case status so paid claims do not stay labelled actionable.
+
+Reminder previews are stored in the case timeline. They are **not sent to iMessage,
+email or any provider**. Each open, never-submitted case can receive one initial
+preview and at most one final-day preview, at least 24 hours apart. Quiet hours are
+10 p.m.–8 a.m. in America/Los_Angeles, including daylight-saving offsets.
+**Snooze nudges 24 hours** preserves the actual filing deadline. **Pause discovery &
+nudges** stops new scans and previews; it does not cancel already-approved work.
+An in-flight source import may finish during a pause, but cannot append new previews
+after the pause is acknowledged. Existing preview history remains visible.
+
+The worker applies these rules on ordinary ticks and after a simulated clock advance.
+Late opportunities expire without a new reminder. Submitted cases that later need
+documents are handled through their existing request, not a new filing prompt.
+Per-workspace opt-in, snoozes and preview history persist in PostgreSQL.
+
 ## What is exercised
 
 | Workflow | What Benny prepares | What counts as the outcome |
@@ -94,12 +126,15 @@ its local data; this is not a backup or production availability arrangement.
 
 ## Verification
 
-`npm run test:benefits` creates and removes a randomized `benefits_test_*` schema in
+`npm run test:benefits` runs workflow and discovery suites, each using its own randomized `benefits_test_*` schema in
 the dedicated database. It exercises all 19 fixtures plus concurrent workers,
 restart recovery, a crash after provider acceptance, changed evidence, stale consent,
 deadline boundaries, cancellation, actual outcome values and HTTP workspace isolation.
 It needs neither an LLM nor external credentials. The benefits CI job provisions its
 own PostgreSQL 15 service; adding the workflow locally does not run GitHub Actions.
+The discovery suite additionally checks source joins, conflicting duplicates,
+ambiguous plans, concurrent scans, pause/snooze behavior, Pacific quiet-hour boundaries
+in summer and winter, and source discovery through consent to simulated payment.
 
 For changes to the browser interface, also render desktop and mobile widths, exercise
 stale-proposal review and confirm that accepted-but-unpaid cases still show $0 received.
@@ -115,9 +150,11 @@ stale-proposal review and confirm that accepted-but-unpaid cases still show $0 r
    identities, qualifying-event dates, coverage selection, coordination of benefits,
    balance reservations across claims and authoritative document extraction are not
    implemented here. Cases currently have independent fixture facts and balances.
-3. **Actual discovery and notifications.** The deadline/receipt opportunity is loaded
-   from a fixture, not discovered in an inbox or portal. Add consented read access,
-   event ingestion, deduplication, notification preferences, quiet hours and escalation.
+3. **Live discovery and notifications.** Matching and bounded reminder previews now
+   work against structured fictional sources. Add authorized inbox/portal ingestion,
+   source validation and freshness checks, changing-plan reconciliation, real delivery
+   with its own consent/preferences, delivery receipts and escalation. Fixed fixture
+   documents are not a live source of eligibility or benefit balances.
    No real iMessage reminders or scheduled prescription requests are sent by this lab.
 4. **Production privacy and operations.** Employee authentication, employer/employee
    access separation, encrypted document/session storage, retention/deletion, audit

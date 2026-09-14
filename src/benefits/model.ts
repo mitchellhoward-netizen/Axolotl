@@ -1,3 +1,5 @@
+import type { DiscoveryState } from './discovery.js';
+
 /** Shared workflow contracts. This lab only accepts fictional, built-in scenarios. */
 export type Workflow = 'fsa' | 'reimbursement' | 'appointment' | 'dependent' | 'refill';
 export type Status = 'opportunity' | 'needs_information' | 'ineligible' | 'awaiting_approval' |
@@ -71,6 +73,7 @@ export interface BenefitCase {
   nextAction: string;
   owner: 'Benny' | 'You' | 'Provider' | 'Operator' | 'None';
   nextRunAt?: string;
+  snoozedUntil?: string;
   leaseUntil?: string;
   leaseToken?: string;
   actionKey?: string;
@@ -101,6 +104,7 @@ export interface LabState {
   timezone: string;
   scenarios: Array<Pick<Scenario, 'id' | 'workflow' | 'title' | 'description' | 'expected'>>;
   cases: BenefitCase[];
+  discovery: DiscoveryState;
   metrics: { cases: number; completed: number; realizedCents: number; providerSubmissions: number; approvals: number };
 }
 

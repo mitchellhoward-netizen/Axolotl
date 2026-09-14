@@ -308,6 +308,13 @@ async function main(): Promise<void> {
     assert.equal((await post(cookieA, `/api/cases/${id}/command`, { command: 'prepare' }, { 'sec-fetch-site': 'cross-site' })).status, 403);
     assert.equal((await post(cookieA, `/api/cases/${id}/command`, { command: 'approve', revision: 999, hash: '0'.repeat(64) })).status, 409);
     checks += 7;
+    assert.equal((await post(cookieA, '/api/discovery', { enabled: true, receipts: [] })).status, 400);
+    assert.equal((await post(cookieA, '/api/discovery', { enabled: true })).status, 200);
+    const isolated = await (await request('/api/state', { headers: { cookie: cookieB } })).json();
+    assert.equal(isolated.discovery.enabled, false);
+    assert.equal(isolated.cases.length, 0);
+    assert.equal((await post(cookieB, `/api/cases/${id}/command`, { command: 'snooze' })).status, 404);
+    checks += 5;
   } finally { await new Promise<void>(resolve => server.close(() => resolve())); }
 
   console.log(`benefits lab: ${checks} assertions passed; all 19 built-in scenarios covered`);

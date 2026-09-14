@@ -50,7 +50,8 @@
       const data = await request("/api/state");
       const changed =
         !state.data ||
-        JSON.stringify(data.cases) !== JSON.stringify(state.data.cases);
+        JSON.stringify(data.cases) !== JSON.stringify(state.data.cases) ||
+        JSON.stringify(data.discovery) !== JSON.stringify(state.data.discovery);
       if (!initial && state.caseId) {
         const next = data.cases.find((c) => c.id === state.caseId);
         const shown = state.displayed.get(state.caseId);
@@ -98,17 +99,76 @@
     $("m-money").textContent = money(m.realizedCents);
     $("m-submitted").textContent = m.providerSubmissions;
     $("m-approvals").textContent = m.approvals;
+    renderDiscovery();
     renderFilters();
     renderScenarios();
     renderCases();
     renderCase();
     document
-      .querySelectorAll("[data-clock], #tick, #empty-load")
+      .querySelectorAll("[data-clock], #tick, #empty-load, #discovery-toggle")
       .forEach((b) => {
         b.disabled = state.busy;
       });
     document.querySelectorAll("button").forEach((b) => {
       if (!b.dataset.local) b.disabled = state.busy || b.disabled;
+    });
+  }
+  function renderDiscovery() {
+    const d = state.data.discovery;
+    $("discovery-toggle").textContent = d.enabled
+      ? "Pause discovery & nudges"
+      : "Enable fictional inbox discovery";
+    $("discovery-status").textContent = d.enabled
+      ? "Discovery is on. Matches come from fictional receipts, enrollment and versioned plan rules. Submission still requires exact approval."
+      : "Discovery is off. No new reminder previews. Previously approved work is not cancelled.";
+    const findings = $("discovery-findings");
+    findings.replaceChildren();
+    if (!d.findings.length)
+      findings.append(
+        el(
+          "li",
+          "muted",
+          "Enable the fictional sources to see what matches—and what does not.",
+        ),
+      );
+    d.findings.forEach((f) => {
+      const li = el("li");
+      li.append(
+        el("strong", "", f.description),
+        el("small", "", f.decision.replaceAll("_", " ")),
+        el("p", "", f.reason),
+      );
+      if (f.caseId) {
+        const open = el("button", "", `Review ${f.description}`);
+        open.onclick = () => {
+          const c = state.data.cases.find((c) => c.id === f.caseId);
+          if (!c) return;
+          state.caseId = c.id;
+          acceptProposal(c);
+          render();
+          $("case-detail").scrollIntoView({ block: "start" });
+        };
+        li.append(open);
+      }
+      findings.append(li);
+    });
+    const previews = $("discovery-nudges");
+    previews.replaceChildren();
+    if (!d.nudges.length)
+      previews.append(
+        el(
+          "li",
+          "muted",
+          "No reminder previews yet. Snooze and quiet hours defer them; cancelled and submitted cases are not nudged.",
+        ),
+      );
+    d.nudges.forEach((n) => {
+      const li = el("li");
+      li.append(
+        el("small", "", `${time(n.at)} · preview only, not sent`),
+        el("p", "", n.text),
+      );
+      previews.append(li);
     });
   }
   function renderFilters() {
@@ -291,6 +351,26 @@
       bar.append(b);
     };
     if (c.status === "opportunity") add("Prepare exact proposal", "prepare");
+    if (
+      c.scenarioId.startsWith("receipt:") &&
+      ["opportunity", "needs_information", "awaiting_approval"].includes(
+        c.status,
+      )
+    ) {
+      add("Snooze nudges 24 hours", "snooze");
+      if (
+        c.snoozedUntil &&
+        Date.parse(c.snoozedUntil) > Date.parse(state.data.now)
+      ) {
+        bar.append(
+          el(
+            "p",
+            "muted",
+            `Snoozed until ${time(c.snoozedUntil)}. Filing deadline unchanged.`,
+          ),
+        );
+      }
+    }
     if (["needs_information", "blocked"].includes(c.status))
       add("Supply simulated evidence / reconnect", "repair");
     if (["awaiting_approval", "queued"].includes(c.status))
@@ -436,6 +516,9 @@
       ),
     );
   $("tick").addEventListener("click", () => mutate("/api/tick", {}));
+  $("discovery-toggle").addEventListener("click", () =>
+    mutate("/api/discovery", { enabled: !state.data.discovery.enabled }),
+  );
   $("empty-load").addEventListener("click", () =>
     mutate("/api/cases", { scenarioId: "fsa-glasses" }).then(() => {
       const c = state.data?.cases.find((x) => x.scenarioId === "fsa-glasses");

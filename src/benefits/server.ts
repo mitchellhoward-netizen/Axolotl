@@ -6,7 +6,7 @@ import { z } from 'zod';
 import { BenefitsEngine } from './engine.js';
 import { BenefitStore, LabError } from './store.js';
 
-const commandBody = z.object({ command: z.enum(['prepare', 'approve', 'cancel', 'repair', 'revise', 'confirm']),
+const commandBody = z.object({ command: z.enum(['prepare', 'approve', 'cancel', 'repair', 'revise', 'confirm', 'snooze']),
   revision: z.number().int().positive().optional(), hash: z.string().regex(/^[a-f0-9]{64}$/).optional() }).strict();
 async function body(req: IncomingMessage): Promise<unknown> {
   if (req.headers['content-type'] !== 'application/json' || req.headers['x-benny-lab'] !== '1' ||
@@ -52,6 +52,9 @@ export function labServer(engine: BenefitsEngine) {
       if (path === '/api/cases') {
         const { scenarioId } = z.object({ scenarioId: z.string().max(64) }).strict().parse(input);
         await engine.load(owner, scenarioId);
+      } else if (path === '/api/discovery') {
+        const { enabled } = z.object({ enabled: z.boolean() }).strict().parse(input);
+        await engine.store.setDiscovery(owner, enabled); await engine.scan(owner);
       } else if (path === '/api/clock') {
         const { minutes } = z.object({ minutes: z.union([z.literal(1), z.literal(60), z.literal(1440)]) }).strict().parse(input);
         await engine.store.advance(owner, minutes); await engine.tick(owner);
