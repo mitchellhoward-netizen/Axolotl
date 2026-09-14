@@ -7,7 +7,9 @@ These mascots use the supplied `benny_faux_clay_render.html` and
   Named groups separate the face, eyes, gills, and ground shadow for animation.
 - `benny-mark.svg` is the supplied flat pink mark. All eight supplied family
   colors are generated: pink, coral, amber, green, teal, blue, indigo, and ink.
-  Teal, indigo, and amber peek from distinct section edges on the marketing page.
+  Coral, teal, blue, indigo, and amber appear in decorative placements on the
+  marketing page. Coral sits above “Sound familiar?”; blue sits at the trust
+  section’s top edge. Both are upright.
 - `benny-rest.svg` composites the awake clay layers in the animation's exact
   viewBox. The hero keeps the clay head, with no change of style at the end.
 
@@ -19,9 +21,10 @@ layers (not raster images or an After Effects vector export). Embedding the
 supplied SVG preserves its gradients without extra network requests. It sleeps,
 hops, opens its eyes at frame 84, and settles by frame 116.
 The gills move independently; the contact shadow stays on the ground.
-`mountWake(container, onAwake)` plays once and replaces the canvas with the
+`mountWake(container)` plays once and replaces the canvas with the
 matching awake clay image on completion. Reduced motion and failed loads show
 that same awake image immediately. The flat mark stays in smaller brand placements.
+The full headline stays visible throughout; its visibility never depends on animation events.
 The settled hero has a gentle six-second CSS float, with a pause/resume control.
 Reduced motion disables the float too; the smaller peeking marks never animate.
 

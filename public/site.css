@@ -259,9 +259,6 @@ button:disabled {
 .wake-line {
   display: block;
 }
-.wake-pending .wake-line {
-  opacity: 0;
-}
 .hero-copy {
   font-size: 16px;
   line-height: 1.6;
@@ -421,6 +418,8 @@ button:disabled {
   background: var(--panel);
 }
 .how,
+.problem .section-intro,
+.trust,
 .employers,
 .waitlist {
   position: relative;
@@ -457,6 +456,20 @@ button:disabled {
 }
 .benny-peek-bottom img {
   transform: rotate(-9deg);
+}
+.benny-peek-familiar {
+  top: -64px;
+  right: auto;
+  left: 0;
+  width: 80px;
+  height: 52px;
+}
+.benny-peek-familiar img {
+  width: 80px;
+  height: 80px;
+}
+.benny-peek-trust {
+  top: 0;
 }
 .section-heading {
   display: grid;
@@ -995,8 +1008,5 @@ textarea {
   }
   .motion-toggle {
     display: none;
-  }
-  .wake-pending .wake-line {
-    opacity: 1;
   }
 }

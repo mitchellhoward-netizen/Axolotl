@@ -1,26 +1,18 @@
 import lottie from "./vendor/lottie_canvas.esm.js";
 
-const LANDING_FRAME = 84;
 const STATIC_MASCOT = "/animation/benny-rest.svg?v=clay-rest-1";
 const ANIMATION_DATA = "/animation/wake.json?v=clay-rest-1";
 
 /** Mounts Benny's one-shot wake-up animation into a dedicated container. */
-export async function mountWake(container, onAwake) {
+export async function mountWake(container) {
   if (!(container instanceof Element))
     throw new TypeError("mountWake requires a container Element");
 
   let animation = null;
-  let awakeSent = false;
   let disposed = false;
   const motionPreference = window.matchMedia(
     "(prefers-reduced-motion: reduce)",
   );
-
-  const notifyAwake = () => {
-    if (awakeSent || disposed) return;
-    awakeSent = true;
-    onAwake?.();
-  };
 
   const showStatic = () => {
     animation?.destroy();
@@ -33,7 +25,6 @@ export async function mountWake(container, onAwake) {
       "display:block;width:100%;height:100%;object-fit:contain";
     container.replaceChildren(image);
     container.dataset.settled = "true";
-    notifyAwake();
   };
 
   const onPreferenceChange = (event) => {
@@ -80,9 +71,6 @@ export async function mountWake(container, onAwake) {
       for (const child of [...container.children])
         if (child !== canvas) child.remove();
       animation.play();
-    });
-    animation.addEventListener("enterFrame", ({ currentTime }) => {
-      if (currentTime >= LANDING_FRAME) notifyAwake();
     });
     animation.addEventListener("data_failed", showStatic);
     animation.addEventListener("complete", showStatic);

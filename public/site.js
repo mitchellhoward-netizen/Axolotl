@@ -91,8 +91,7 @@
     }
   });
 
-  // The full headline and awake artwork are the no-JS / failed-load baseline.
-  const hero = document.querySelector(".hero");
+  // Animate only the mascot; the full headline always stays visible.
   const mascot = document.getElementById("benny-wake");
   const motionToggle = document.getElementById("benny-motion");
   motionToggle.hidden = false;
@@ -101,22 +100,9 @@
     mascot.dataset.paused = String(paused);
     motionToggle.textContent = paused ? "Resume motion" : "Pause motion";
   });
-  const awake = () => {
-    hero.classList.remove("wake-pending");
-    hero.dataset.awake = "true";
-  };
-  if (!matchMedia("(prefers-reduced-motion: reduce)").matches)
-    hero.classList.add("wake-pending");
-  const fallback = setTimeout(awake, 4000);
-  import("/animation/wake.js?v=clay-rest-1")
-    .then(({ mountWake }) =>
-      mountWake(document.getElementById("benny-wake"), () => {
-        clearTimeout(fallback);
-        awake();
-      }),
-    )
+  import("/animation/wake.js?v=independent-headline-1")
+    .then(({ mountWake }) => mountWake(mascot))
     .catch(() => {
-      clearTimeout(fallback);
-      awake();
+      // The static awake artwork is already present if the module cannot load.
     });
 })();
