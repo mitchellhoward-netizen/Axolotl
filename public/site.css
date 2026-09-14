@@ -543,9 +543,14 @@ button:disabled {
 }
 .trust-icon {
   display: block;
-  height: 30px;
-  font-size: 21px;
-  margin-bottom: 16px;
+  width: 24px;
+  height: 24px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.75;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  margin-bottom: 22px;
 }
 .trust-grid h3 {
   font-size: 17px;
