@@ -11,6 +11,8 @@
     "demo:steps": "tsx src/agent/steps/demo.ts",
     "db:init": "tsx scripts/init-db.ts",
     "typecheck": "tsc --noEmit",
+    "benefits:lab": "bash scripts/benefits-lab-start.sh",
+    "test:benefits": "tsx scripts/test-benefits.ts",
     "check:secrets": "tsx scripts/check-secrets.ts",
     "test:rls": "tsx scripts/test-rls.ts",
     "test:email": "tsx scripts/test-email-triage.ts",

@@ -26,3 +26,26 @@ jobs:
           npm run test:gating
           npm run test:intention
           npm run test:email
+  benefits-lab:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: benny_lab
+          POSTGRES_DB: benny_benefits_lab
+          POSTGRES_HOST_AUTH_METHOD: trust
+        ports:
+          - 127.0.0.1:55432:5432
+        options: >-
+          --health-cmd "pg_isready -U benny_lab -d benny_benefits_lab"
+          --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npm run test:benefits
+      - run: node --check public/benefits-lab/lab.js

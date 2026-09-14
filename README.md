@@ -47,6 +47,17 @@ The declared `website` service previews `public/` through an Amp portal. It is
 static: form APIs and the messaging agent are not started. Setup and resume logs
 are in `~/.cache/amp/logs/setup.log` and `~/.cache/amp/logs/resume.log`.
 
+## Benefits workflow lab
+
+`amp orb services ensure` also starts **Benny Benefits Lab** and its dedicated local
+PostgreSQL database. It tests reimbursement, child appointments, dependent enrollment
+and prescription coordination using fictional records and simulated providers only.
+It does not connect to real accounts or send messages through the school agent.
+
+Run `npm run test:benefits` after starting the services. See the
+[lab guide](docs/BENEFITS-LAB.md) for the scenario walkthrough, approval/recovery
+contracts and what remains before a real pilot.
+
 ## What's wired in
 
 `src/index.ts` runs a parent↔school agent that works for **ANY parent in ANY

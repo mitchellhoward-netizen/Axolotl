@@ -6,3 +6,13 @@ services:
     portal:
       title: Benny website
       description: Static marketing preview only. Forms are not connected; no messaging agent or external integrations are started.
+  benefits-db:
+    command: bash scripts/benefits-lab-db.sh
+    port: 55432
+  benefits-lab:
+    command: npm run benefits:lab
+    port: 3100
+    health: /health
+    portal:
+      title: Benny Benefits Lab
+      description: Fictional reimbursement, appointment, enrollment and refill workflows. No real accounts or submissions.

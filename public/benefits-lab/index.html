@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Benny Benefits Lab</title>
+    <link rel="stylesheet" href="/benefits-lab/lab.css" />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to lab</a>
+    <div class="simulation" role="note">
+      Simulation only <span aria-hidden="true">•</span> no real accounts or
+      submissions
+    </div>
+    <header>
+      <a class="brand" href="/">Benny</a>
+      <div>
+        <strong>Benefits lab</strong><span>Fictional workflow review</span>
+      </div>
+    </header>
+    <main id="main">
+      <section class="intro">
+        <div>
+          <p class="eyebrow">CONTROL CENTER</p>
+          <h1>Test the follow-through.</h1>
+          <p>
+            Review built-in fictional cases from discovery through approval and
+            outcome. No credentials, health details, or real provider access.
+          </p>
+        </div>
+        <div class="clock" aria-labelledby="clock-title">
+          <span id="clock-title">Simulated clock · Pacific</span
+          ><strong id="clock">—</strong>
+          <div class="button-row">
+            <button data-clock="1">+ 1 minute</button
+            ><button data-clock="60">+ 1 hour</button
+            ><button data-clock="1440">+ 1 day</button
+            ><button class="dark" id="tick">Run due work</button>
+          </div>
+        </div>
+      </section>
+
+      <div id="error" class="error" role="alert" hidden></div>
+      <section class="metrics" aria-label="Lab metrics">
+        <div><span>Loaded cases</span><strong id="m-cases">—</strong></div>
+        <div><span>Completed</span><strong id="m-completed">—</strong></div>
+        <div><span>Money received</span><strong id="m-money">—</strong></div>
+        <div>
+          <span>Provider submissions</span><strong id="m-submitted">—</strong>
+        </div>
+        <div><span>Approvals</span><strong id="m-approvals">—</strong></div>
+      </section>
+
+      <section class="scenario-area" aria-labelledby="scenario-title">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">FIXTURES</p>
+            <h2 id="scenario-title">Choose a scenario</h2>
+          </div>
+          <label
+            >Workflow
+            <select id="workflow">
+              <option value="all">All workflows</option>
+            </select></label
+          >
+        </div>
+        <div class="scenario-grid">
+          <div id="scenarios" class="scenario-list" role="list"></div>
+          <article id="scenario-detail" class="scenario-detail">
+            <p class="muted">Select a scenario to see what it tests.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="workspace" aria-labelledby="cases-title">
+        <aside>
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">WORKSPACE</p>
+              <h2 id="cases-title">Loaded cases</h2>
+            </div>
+          </div>
+          <div id="cases" class="case-list"></div>
+        </aside>
+        <div id="case-detail" class="case-detail" aria-live="polite">
+          <div class="empty">
+            <p class="eyebrow">NO CASE SELECTED</p>
+            <h2>Start with a clear recovery.</h2>
+            <p>
+              Load the fictional glasses receipt to test eligibility, exact
+              approval, submission, and payment tracking.
+            </p>
+            <button class="dark" id="empty-load">
+              Load FSA glasses scenario
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer>
+      Built-in fictional records only. This lab does not connect to CVS,
+      insurers, providers, or real people.
+    </footer>
+    <script src="/benefits-lab/lab.js" defer></script>
+  </body>
+</html>

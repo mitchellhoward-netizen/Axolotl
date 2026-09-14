@@ -19,6 +19,7 @@ missing=()
 command -v curl >/dev/null || missing+=(curl)
 command -v xz >/dev/null || missing+=(xz-utils)
 command -v python3 >/dev/null || missing+=(python3)
+[[ -x /usr/lib/postgresql/15/bin/postgres ]] || missing+=(postgresql-15)
 [[ -s /etc/ssl/certs/ca-certificates.crt ]] || missing+=(ca-certificates)
 if ((${#missing[@]})); then
   echo "[setup] Installing missing system packages: ${missing[*]}"

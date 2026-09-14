@@ -1,0 +1,88 @@
+import { LAB_START, type Facts, type Scenario, type Workflow, type Fault, type Evidence } from './model.js';
+
+const facts: Facts = {
+  covered: true, enrolled: true, authorizedDependent: true, documentsComplete: true,
+  serviceAt: '2026-08-21T19:00:00.000Z', coverageStart: '2026-01-01T08:00:00.000Z',
+  coverageEnd: '2027-01-01T07:59:59.999Z', deadline: '2026-09-19T06:59:59.999Z',
+  balanceCents: 47500, amountCents: 18435, alreadyReimbursed: false,
+  slotAvailable: true, refillsRemaining: 2, existingRequest: false, connectionActive: true,
+};
+
+function scenario(id: string, workflow: Workflow, title: string, need: string,
+  expected: string, overrides: Partial<Facts> = {}, fault: Fault = 'none'): Scenario {
+  const f = { ...facts, ...overrides };
+  const evidence: Evidence[] = [
+    { id: 'plan', title: 'Fictional employer plan · version 1', source: 'fictional_plan', observedAt: LAB_START,
+      detail: `Synthetic rule: ${f.covered === null ? 'eligibility not established' : f.covered ? 'covered' : 'excluded'}. Coverage ${f.coverageStart} through ${f.coverageEnd}. Claim/enrollment cutoff ${f.deadline}. These are not universal FSA or insurance rules.` },
+    { id: 'portal', title: 'Fictional account snapshot', source: 'fictional_portal', observedAt: LAB_START,
+      detail: `Enrollment: ${f.enrolled ? 'active' : 'inactive'}; dependent authority: ${f.authorizedDependent ? 'confirmed' : 'unconfirmed'}; ${f.existingRequest ? 'existing request already in progress' : 'no existing request recorded'}.` },
+  ];
+  if (workflow === 'fsa' || workflow === 'reimbursement') evidence.push({
+    id: f.expenseId ?? id, title: 'Fictional itemized receipt', source: 'fictional_receipt', observedAt: LAB_START,
+    detail: `Expense ${f.expenseId ?? id}; service date ${f.serviceAt}; amount $${(f.amountCents / 100).toFixed(2)}; documents ${f.documentsComplete ? 'complete' : 'missing'}.`,
+  });
+  return { id, workflow, title, need, expected, description: expected,
+    person: workflow === 'refill' || workflow === 'reimbursement' ? 'Alex (fictional adult)' : 'Sam (fictional dependent)', facts: f, fault, evidence };
+}
+
+export const SCENARIOS: Scenario[] = [
+  scenario('fsa-glasses', 'fsa', 'FSA · an unclaimed glasses receipt',
+    'Your fictional FSA claim deadline is Friday, September 18 at 11:59 p.m. Pacific. There is an unreimbursed $184.35 receipt for Sam’s glasses. Check eligibility and prepare a claim?',
+    'Verify the receipt and plan window, request approval, then track payment.', { expenseId: 'glasses-0821' }),
+  scenario('health-reimbursement', 'reimbursement', 'Healthcare · out-of-pocket reimbursement',
+    'Can Benny help recover a covered out-of-pocket healthcare expense?',
+    'Prepare a $73.20 claim and distinguish submission from money received.', { amountCents: 7320, expenseId: 'health-0901' }),
+  scenario('kids-appointment', 'appointment', 'Care · book a child’s doctor visit',
+    'Sam needs a routine appointment after school. Find an available covered slot.',
+    'Approve a specific provider and time; booking is not evidence of attendance.',
+    { amountCents: 2500, serviceAt: '2026-09-16T23:00:00.000Z', appointmentAt: '2026-09-16T23:00:00.000Z' }),
+  scenario('dependent-enrollment', 'dependent', 'Coverage · enroll a dependent',
+    'A qualifying life event opened an enrollment window. Help add Sam to the selected plan.',
+    'Verify authority and documents, approve the exact enrollment, then confirm active coverage.', { amountCents: 0 }),
+  scenario('refill', 'refill', 'Pharmacy · coordinate a refill',
+    'Help track one existing fictional prescription. Do not change treatment.',
+    'Request a refill with consent; pharmacy readiness is not pickup.', { amountCents: 1200 }),
+  scenario('refill-existing', 'refill', 'Pharmacy · automatic refill already underway',
+    'Check whether a refill is already being handled before requesting another.',
+    'Observe the existing request without placing a duplicate.', { existingRequest: true, amountCents: 1200 }),
+  scenario('renewal', 'refill', 'Pharmacy · no refills remain',
+    'The fictional prescription has zero refills remaining.',
+    'Prepare a prescriber renewal request, not a prescription or treatment change.', { refillsRemaining: 0, amountCents: 1200 }),
+  scenario('fsa-unknown', 'fsa', 'FSA · eligibility is unknown',
+    'A receipt looks relevant, but the plan rule has not been confirmed.',
+    'Ask for evidence. Never treat a need as proof of eligibility.', { covered: null, expenseId: 'unknown-expense' }),
+  scenario('fsa-outside-window', 'fsa', 'FSA · expense outside coverage period',
+    'The filing deadline has not passed, but the expense predates coverage.',
+    'Reject the expense despite an open claim-submission window.', { serviceAt: '2025-12-31T20:00:00.000Z', expenseId: 'old-expense' }),
+  scenario('fsa-insufficient', 'fsa', 'FSA · insufficient balance',
+    'The receipt is eligible but the remaining balance is less than its amount.',
+    'Do not silently change the claim amount or promise full reimbursement.', { balanceCents: 5000, expenseId: 'large-expense' }),
+  scenario('fsa-paid', 'fsa', 'FSA · already reimbursed',
+    'A duplicate receipt was found in the fictional inbox.',
+    'Do not claim an already reimbursed expense.', { alreadyReimbursed: true, expenseId: 'paid-expense' }),
+  scenario('fsa-timeout', 'fsa', 'Reliability · submission response lost',
+    'The fictional provider accepts the claim, but the response times out.',
+    'Reconcile by the stable action key; exactly one provider submission.', { expenseId: 'timeout-expense' }, 'timeout_after_submit'),
+  scenario('claim-denied', 'reimbursement', 'Exception · claim denied',
+    'The claim passes the initial rules but the provider denies it after review.',
+    'Record denial and an operator next step; do not count delivered value.', { expenseId: 'denied-expense', amountCents: 9100 }, 'denial'),
+  scenario('claim-documents', 'reimbursement', 'Exception · provider requests documents',
+    'After submission, the provider asks for an additional document.',
+    'Block, request evidence, and require new approval before resubmission.', { expenseId: 'documents-expense' }, 'missing_document'),
+  scenario('appointment-slot-lost', 'appointment', 'Exception · appointment slot disappears',
+    'The selected appointment becomes unavailable during booking.',
+    'Do not book a different time without renewed approval.',
+    { appointmentAt: '2026-09-16T23:00:00.000Z', serviceAt: '2026-09-16T23:00:00.000Z', amountCents: 2500 }, 'slot_lost'),
+  scenario('dependent-documents', 'dependent', 'Enrollment · missing supporting documents',
+    'The selected dependent enrollment needs a qualifying-event document.',
+    'Prepare nothing for submission until the missing evidence is supplied.', { documentsComplete: false, amountCents: 0 }),
+  scenario('dependent-authority', 'dependent', 'Enrollment · authority unconfirmed',
+    'The dependent is named, but authority to act for them is unconfirmed.',
+    'Block disclosure and enrollment until authority is established.', { authorizedDependent: false, amountCents: 0 }),
+  scenario('provider-unavailable', 'refill', 'Reliability · provider unavailable',
+    'The provider cannot be reached.',
+    'Back off and escalate after bounded retries; never fabricate success.', { amountCents: 1200 }, 'unavailable'),
+  scenario('connection-expired', 'refill', 'Access · connection expires before action',
+    'Access expires when Benny tries to execute the approved request.',
+    'Request reconnection; do not keep executing against a stale session.', { amountCents: 1200 }, 'expired_connection'),
+];
