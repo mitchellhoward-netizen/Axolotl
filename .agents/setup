@@ -1,0 +1,72 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+repo_root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
+cd -- "$repo_root"
+started=$SECONDS
+
+# Match the production Dockerfile's Node 22 line; Prisma requires >=22.18.
+node_version=22.23.2
+runtime_root="$HOME/.local/share/benny-orb"
+case "$(uname -m)" in
+  x86_64) arch=x64 ;;
+  aarch64) arch=arm64 ;;
+  *) echo '[setup] Unsupported CPU architecture' >&2; exit 1 ;;
+esac
+toolchain="$runtime_root/node-v$node_version-linux-$arch"
+
+missing=()
+command -v curl >/dev/null || missing+=(curl)
+command -v xz >/dev/null || missing+=(xz-utils)
+command -v python3 >/dev/null || missing+=(python3)
+[[ -s /etc/ssl/certs/ca-certificates.crt ]] || missing+=(ca-certificates)
+if ((${#missing[@]})); then
+  echo "[setup] Installing missing system packages: ${missing[*]}"
+  sudo apt-get update -qq
+  sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y "${missing[@]}"
+fi
+
+if [[ ! -x "$toolchain/bin/node" ]] || [[ "$("$toolchain/bin/node" --version)" != "v$node_version" ]]; then
+  echo "[setup] Installing Node $node_version"
+  temp_dir="$(mktemp -d)"
+  trap 'rm -rf -- "$temp_dir"' EXIT
+  archive="node-v$node_version-linux-$arch.tar.xz"
+  base="https://nodejs.org/dist/v$node_version"
+  curl --fail --silent --show-error --location --retry 2 --max-time 120 "$base/$archive" -o "$temp_dir/$archive"
+  curl --fail --silent --show-error --location --retry 2 --max-time 30 "$base/SHASUMS256.txt" -o "$temp_dir/SHASUMS256.txt"
+  (cd -- "$temp_dir"; grep -F "  $archive" SHASUMS256.txt | sha256sum --check --strict -)
+  mkdir -p -- "$runtime_root"
+  tar -xJf "$temp_dir/$archive" -C "$runtime_root"
+  rm -rf -- "$temp_dir"
+  trap - EXIT
+fi
+ln -sfn -- "$toolchain/bin" "$runtime_root/bin"
+export PATH="$runtime_root/bin:$PATH"
+echo "[setup] Node $(node --version), npm $(npm --version) ready (${SECONDS}s elapsed)"
+
+# Amp and supervised services use separate login shells. Keep the base orb's
+# global Node untouched and activate this runtime only in this repository.
+marker='# Benny orb Node.js'
+if ! grep -Fqx "$marker" "$HOME/.bash_profile" 2>/dev/null; then
+  printf '\n%s\nif [[ "$PWD" == %q || "$PWD" == %q/* ]]; then\n  if [[ ":$PATH:" != *":%s:"* ]]; then\n    export PATH=%q:"$PATH"\n  fi\nfi\n' \
+    "$marker" "$repo_root" "$repo_root" "$runtime_root/bin" "$runtime_root/bin" >> "$HOME/.bash_profile"
+fi
+
+# Measured warm npm ci at 28s: it deletes/reinstalls all 640 packages. Reuse the
+# snapshot's tree only when inputs match and npm confirms direct dependencies.
+fingerprint="$( { sha256sum package.json package-lock.json .agents/setup; node --version; npm --version; uname -sm; } | sha256sum | cut -d ' ' -f 1)"
+stamp=node_modules/.amp-install-fingerprint
+if [[ -f "$stamp" ]] && [[ "$(cat "$stamp")" == "$fingerprint" ]] \
+  && [[ -x node_modules/.bin/tsx && -x node_modules/.bin/tsc ]] \
+  && npm ls --depth=0 --offline >/dev/null 2>&1; then
+  echo '[setup] Dependencies unchanged; reusing installed packages'
+else
+  echo '[setup] Installing locked dependencies (including development tools)'
+  install_started=$SECONDS
+  npm ci --include=dev --prefer-offline --no-audit --no-fund
+  printf '%s\n' "$fingerprint" > "$stamp"
+  echo "[setup] Dependencies installed in $((SECONDS - install_started))s"
+fi
+
+# Never source/copy .env, authenticate providers, run db:init, or start the agent.
+echo "[setup] Ready in $((SECONDS - started))s. No credentials or databases changed."

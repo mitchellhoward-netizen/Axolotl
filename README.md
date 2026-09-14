@@ -18,6 +18,35 @@ npm install
 npm run start
 ```
 
+## Amp orbs
+
+`.agents/setup` installs Node 22.23.2 (matching the Docker Node 22 line) and
+dependencies from `package-lock.json`, including development tools. It verifies
+the Node download checksum and makes the runtime available in this repository's
+non-interactive login shells without replacing the orb's global Node.
+
+Amp snapshots the prepared environment. On a stale snapshot, setup reuses
+`node_modules` when the package manifests, setup script, Node/npm versions, and
+platform match the last successful install and the dependency check passes.
+`.agents/resume` only checks readiness; it never reinstalls packages on wake.
+To repair an incomplete environment, run `.agents/setup` again.
+
+The setup does **not** read or create `.env`, authenticate providers, initialize
+databases, or start the messaging agent. Typechecking and the offline intention
+tests need no credentials or local database. Live integrations require their
+credentials through Amp secrets and explicit configuration; do not run `db:init`
+against a shared database as part of setup.
+
+```sh
+npm run typecheck
+DOTENV_CONFIG_PATH=/dev/null npm run test:intention
+amp orb services ensure
+```
+
+The declared `website` service previews `public/` through an Amp portal. It is
+static: form APIs and the messaging agent are not started. Setup and resume logs
+are in `~/.cache/amp/logs/setup.log` and `~/.cache/amp/logs/resume.log`.
+
 ## What's wired in
 
 `src/index.ts` runs a parent↔school agent that works for **ANY parent in ANY

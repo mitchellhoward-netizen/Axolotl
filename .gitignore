@@ -6,7 +6,10 @@ dist
 .DS_Store
 
 debug/
-.agents/
+.agents/*
+!.agents/setup
+!.agents/resume
+.amp/portals/
 public/waitlist.json
 web/waitlist.json
 

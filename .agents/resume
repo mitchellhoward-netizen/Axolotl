@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+repo_root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
+cd -- "$repo_root"
+export PATH="$HOME/.local/share/benny-orb/bin:$PATH"
+
+# No per-user authentication or database daemon is needed for offline work.
+# Diagnose an incomplete snapshot without reinstalling during every wake.
+if [[ ! -x "$HOME/.local/share/benny-orb/bin/node" || ! -x node_modules/.bin/tsx || ! -x node_modules/.bin/tsc ]]; then
+  echo '[resume] Toolchain or dependencies missing. Run .agents/setup to repair.' >&2
+  exit 1
+fi
+echo "[resume] Node $(node --version); dependencies ready."

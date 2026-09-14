@@ -1,0 +1,8 @@
+services:
+  website:
+    command: python3 -m http.server "$PORT" --bind 0.0.0.0 --directory public
+    port: 3000
+    health: /
+    portal:
+      title: Benny website
+      description: Static marketing preview only. Forms are not connected; no messaging agent or external integrations are started.
