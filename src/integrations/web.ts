@@ -4,6 +4,7 @@ import { readFileSync, existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { addWaitlist } from './waitlist.js';
+import { handleInquiry } from './inquiry.js';
 import { WAITLIST_MESSAGE, createSmsSender, normalizeE164 } from './sms.js';
 import { recordPendingGreeting } from './pending-greeting.js';
 import { attachVoiceWebSocket } from '../voice/server.js';
@@ -18,6 +19,14 @@ import type { LlmClient } from '../agent/llm.js';
 
 const WEB_DIR = path.resolve(fileURLToPath(new URL('../../public', import.meta.url)));
 const WAITLIST_FILE = path.join(WEB_DIR, 'waitlist.json');
+const CONTENT_TYPES: Record<string, string> = {
+  '.html': 'text/html; charset=utf-8',
+  '.png': 'image/png',
+  '.css': 'text/css; charset=utf-8',
+  '.js': 'text/javascript; charset=utf-8',
+  '.svg': 'image/svg+xml',
+  '.json': 'application/json',
+};
 
 export interface PlaceCallResult {
   ok: boolean;
@@ -133,6 +142,19 @@ export function startWebServer(
   const server = createServer(async (req, res) => {
     try {
       const url = new URL(req.url ?? '/', 'http://localhost');
+
+      if (url.pathname === '/api/inquiry') {
+        if (req.method !== 'POST') {
+          res.writeHead(405, { Allow: 'POST' });
+          res.end();
+          return;
+        }
+        const response = await handleInquiry(req.iterator({ destroyOnReturn: false }));
+        res.writeHead(response.status, { 'Content-Type': 'application/json' });
+        res.end(await response.text());
+        req.resume();
+        return;
+      }
 
       // OAuth: connect the parent's Gmail so the agent can send as them (the gate).
       //   GET /oauth/gmail?state=<guardianId> -> bounce to Google consent
@@ -363,7 +385,7 @@ export function startWebServer(
         return;
       }
       const content = readFileSync(fp);
-      const type = fp.endsWith('.html') ? 'text/html; charset=utf-8' : fp.endsWith('.png') ? 'image/png' : 'application/octet-stream';
+      const type = CONTENT_TYPES[path.extname(fp)] ?? 'application/octet-stream';
       res.writeHead(200, { 'Content-Type': type });
       res.end(content);
     } catch (e) {

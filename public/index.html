@@ -1,265 +1,626 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Axolotl — an AI family liaison for public schools</title>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
-<style>
-  html, body { margin: 0; padding: 0; background: #FAF2E8; }
-  * { box-sizing: border-box; }
-  a { color: #C2416A; text-decoration: none; }
-  a:hover { color: #241C18; }
-  .btn-primary { background: #C2416A; color: #FFFFFF; transition: background 0.15s ease; }
-  .btn-primary:hover { background: #A32F55; color: #FFFFFF; }
-  @keyframes rise { from { opacity: 0; transform: translateY(12px) } to { opacity: 1; transform: none } }
-  @keyframes pop { 0% { opacity: 0; transform: translateY(12px) scale(0.96) } 70% { transform: translateY(0) scale(1.02) } 100% { opacity: 1; transform: none } }
-  @keyframes breathe { 0%, 100% { opacity: 0.35 } 50% { opacity: 1 } }
-  @keyframes ring { 0% { transform: scale(0.7); opacity: 0.8 } 100% { transform: scale(2.2); opacity: 0 } }
-  @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
-</style>
-</head>
-<body>
-<div style="background:#FAF2E8;color:#241C18;font-family:'Instrument Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden">
-  <header style="max-width:1120px;margin:0 auto;padding:26px 26px;display:flex;align-items:center;justify-content:space-between;gap:24px">
-    <div style="display:flex;align-items:center;gap:16px">
-      <img src="./ollie.png" alt="" style="width:clamp(64px,14vw,190px);height:clamp(64px,14vw,190px);object-fit:contain;filter:drop-shadow(0 10px 26px rgba(194,65,106,0.4));animation:pop 0.6s ease-out both" />
-      <span style="font-family:'Instrument Serif',Georgia,serif;font-size:clamp(30px,7vw,82px);letter-spacing:-0.01em;line-height:1">Axolotl</span>
-    </div>
-  </header>
-  <section style="max-width:1120px;margin:0 auto;padding:34px 26px 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:52px 60px;align-items:center">
-    <div>
-      <h1 style="margin:0;font-family:'Instrument Serif',Georgia,serif;font-weight:400;font-size:clamp(42px,6.4vw,64px);line-height:1.02;letter-spacing:-0.025em;max-width:22ch;text-wrap:balance;animation:rise 0.6s ease-out both">Every family deserves someone who’s on their side.</h1>
-      <p style="margin:24px 0 0;font-size:20px;line-height:1.55;color:#3A302B;max-width:46ch;text-wrap:pretty;animation:rise 0.6s ease-out 0.08s both">You know what your child needs. Tell Axolotl what’s going on — he figures out what applies, what your school is responsible for, and how to get it.</p>
-      <p style="margin:16px 0 0;font-size:17px;color:#6B5A50;animation:rise 0.6s ease-out 0.14s both">Axolotl is always looking out for your student.</p>
-      <div style="display:flex;flex-wrap:wrap;align-items:flex-start;gap:18px;margin-top:32px;animation:rise 0.6s ease-out 0.2s both">
-        <div style="display:flex;flex-direction:column;gap:11px;flex:1 1 auto;min-width:280px;max-width:420px">
-          <a href="#try" class="btn-primary" style="display:inline-flex;flex:0 0 auto;white-space:nowrap;align-items:center;justify-content:center;min-height:58px;padding:17px 28px;font-size:18.5px;font-weight:600;border-radius:14px">Try Axolotl →</a>
-          <p style="margin:2px 0 0;font-size:14px;color:#6B5A50">Or hear it live — your number and your child's school:</p>
-          <input id="call-phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="Your phone number" aria-label="Your phone number" style="min-height:54px;padding:15px 17px;font-family:'Instrument Sans',sans-serif;font-size:17px;color:#241C18;background:#FFFFFF;border:1.5px solid #E0CDBF;border-radius:14px;outline:none" />
-          <input id="call-school" type="text" inputmode="text" autocomplete="organization" placeholder="Your child's school (optional)" aria-label="Your child's school" style="min-height:54px;padding:15px 17px;font-family:'Instrument Sans',sans-serif;font-size:17px;color:#241C18;background:#FFFFFF;border:1.5px solid #E0CDBF;border-radius:14px;outline:none" />
-          <input id="call-student" type="text" inputmode="text" autocomplete="given-name" placeholder="Your child's first name (optional)" aria-label="Your child's first name" style="min-height:54px;padding:15px 17px;font-family:'Instrument Sans',sans-serif;font-size:17px;color:#241C18;background:#FFFFFF;border:1.5px solid #E0CDBF;border-radius:14px;outline:none" />
-          <button id="call-submit" type="button" class="btn-primary" style="min-height:56px;border:0;cursor:pointer;padding:16px 22px;font-family:'Instrument Sans',sans-serif;font-weight:600;font-size:17.5px;border-radius:14px">📞 Talk to your assistant</button>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Benny — benefits that get to work</title>
+    <meta
+      name="description"
+      content="Benny connects your benefits to your life — closing the gap between what your family needs and what your coverage can provide. A new kind of employee benefit."
+    />
+    <meta name="theme-color" content="#FFFFFF" />
+    <link rel="icon" href="/animation/benny-mark.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/site.css?v=benny-peeks-1" />
+    <script src="/site.js?v=benny-peeks-1" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header wrap">
+      <a class="brand" href="#main" aria-label="Benny home"
+        ><img
+          src="/animation/benny-mark.svg"
+          alt=""
+          width="30"
+          height="26"
+        /><span>Benny</span></a
+      >
+      <nav aria-label="Main navigation">
+        <a href="#how-it-works">How it works</a
+        ><a href="#trust">Trust &amp; care</a
+        ><a href="#employers">For employers</a>
+      </nav>
+    </header>
+    <main id="main">
+      <section class="hero wrap" aria-labelledby="hero-title">
+        <figure class="hero-scene">
+          <div
+            id="benny-wake"
+            role="img"
+            aria-label="Benny, a pink axolotl head with three gills on each side, wakes up, hops, and settles with open eyes."
+          >
+            <img
+              src="/animation/benny-rest.svg?v=clay-rest-1"
+              alt=""
+              width="256"
+              height="224"
+            />
+          </div>
+          <figcaption>
+            Your life. Your benefits. Connected.
+            <button class="motion-toggle" id="benny-motion" type="button" hidden>
+              Pause motion
+            </button>
+          </figcaption>
+        </figure>
+        <div class="hero-content">
+          <h1 id="hero-title">
+            Your benefits<br />have been asleep.<span class="wake-line"
+              >It’s time they<br />got to work.</span
+            >
+          </h1>
+          <p class="hero-copy">
+            Benny understands both your benefits and your life — your kids’
+            schools, your doctors, your parents, your deadlines — and works the
+            space between them, so the coverage you have actually reaches the
+            life you’re living.
+          </p>
+          <p class="trust-triad">
+            Provided by your employer. Acting on your behalf. With your
+            approval.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#employers"
+              >For employers <span aria-hidden="true">→</span></a
+            ><a class="text-link" href="#waitlist">Join the waitlist</a>
+          </div>
+          <p class="stage-note">An early look at the benefit we’re building.</p>
         </div>
-        <p id="call-status" hidden role="status" style="flex:1 1 100%;margin:4px 0 0;font-family:'Instrument Serif',Georgia,serif;font-size:23px;color:#241C18">Calling you now — pick up! 🤙</p>
-      </div>
-    </div>
-    <div style="justify-self:center;width:100%;max-width:min(392px,100%);height:clamp(560px,86vw,745px);background:#1C1917;border-radius:52px;padding:11px;box-shadow:0 2px 4px rgba(36,28,24,0.06),0 40px 80px -46px rgba(36,28,24,0.7);animation:rise 0.7s ease-out 0.1s both">
-      <div style="background:#FFFFFF;border-radius:42px;overflow:hidden;height:100%;display:flex;flex-direction:column;font-family:-apple-system,'SF Pro Text','Helvetica Neue',Helvetica,sans-serif">
-        <div style="background:#F7F7F7;border-bottom:1px solid rgba(0,0,0,0.12);padding:12px 18px">
-          <div style="display:flex;align-items:center;justify-content:space-between;font-size:14px;font-weight:600;color:#000000;letter-spacing:-0.01em">
-            <span>9:41</span>
-            <div style="display:flex;align-items:center;gap:5px">
-              <span style="display:inline-flex;align-items:flex-end;gap:1.5px;height:11px"><span style="width:3px;height:4px;border-radius:1px;background:#000000"></span><span style="width:3px;height:6px;border-radius:1px;background:#000000"></span><span style="width:3px;height:8.5px;border-radius:1px;background:#000000"></span><span style="width:3px;height:11px;border-radius:1px;background:#000000"></span></span>
-              <span style="font-size:12.5px;font-weight:500">5G</span>
-              <span style="display:inline-flex;align-items:center;width:24px;height:12px;border:1.3px solid rgba(0,0,0,0.42);border-radius:3.5px;padding:1.5px"><span style="display:block;width:100%;height:100%;border-radius:2px;background:#000000"></span></span>
+      </section>
+
+      <section class="delta" aria-labelledby="delta-title">
+        <div class="wrap">
+          <div class="delta-heading">
+            <h2 id="delta-title">
+              A benefit is only worth what someone can actually claim from it.
+            </h2>
+            <div>
+              <p>
+                Coverage sits on one side. Your life sits on the other — the
+                school that needs an immunization record, the kid who needs
+                speech therapy, the parent who needs care at home.
+              </p>
+              <p>
+                The value is in the gap between them. Closing that gap is a job
+                no benefit does for itself. Your employer buys the coverage.
+                Benny is being built to do the work that makes it count.
+              </p>
             </div>
           </div>
-          <div style="display:flex;align-items:center;gap:14px;margin-top:12px">
-            <span style="font-size:24px;line-height:1;color:#007AFF">‹</span>
-            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;flex:1 1 auto"><img src="./ollie.png" alt="" style="width:58px;height:58px;object-fit:contain" /><span style="font-size:12.5px;font-weight:500;color:#000000">Axolotl ›</span></div>
-            <span style="width:22px"></span>
+          <div
+            class="two-maps"
+            role="group"
+            aria-label="Benny reconciles your life with your coverage"
+          >
+            <div class="map">
+              <h3>Your life</h3>
+              <ul>
+                <li>A child’s speech-therapy IEP</li>
+                <li>A newborn to add to the plan</li>
+                <li>A parent who needs care</li>
+                <li>A gap in Thursday’s childcare</li>
+              </ul>
+            </div>
+            <div class="map-bridge">
+              <img
+                src="/animation/benny-mark.svg"
+                alt=""
+                width="52"
+                height="34"
+              />
+              <strong>Benny closes the gap.</strong>
+              <p>Find the fit. Get your approval.<br />Carry it through.</p>
+            </div>
+            <div class="map">
+              <h3>Your coverage</h3>
+              <ul>
+                <li>Therapy eligibility &amp; providers</li>
+                <li>Enrollment rules &amp; deadlines</li>
+                <li>Care benefits &amp; covered services</li>
+                <li>Backup care &amp; reimbursements</li>
+              </ul>
+            </div>
+          </div>
+          <div class="delta-close">
+            <h3>
+              Not another benefit on the list.<br />The one that connects it to
+              your life.
+            </h3>
+            <p>
+              A tool that knows your plan but not your kid’s IEP sees half the
+              picture. So does a life-admin tool that doesn’t know your
+              coverage. Benny holds both maps, reconciles them continuously, and
+              does the work between them. That’s the new class of benefit we’re
+              building.
+            </p>
           </div>
         </div>
-        <div style="display:flex;flex-direction:column;gap:3px;padding:18px 14px 12px;flex:1;min-height:0;overflow-y:auto;scrollbar-width:none">
-          <p style="margin:0 0 8px;text-align:center;font-size:11.5px;color:#8E8E93"><span style="font-weight:600;color:#6E6E73">Today</span> 8:12 AM</p>
-          <div style="align-self:flex-end;max-width:76%;background:#007AFF;color:#FFFFFF;border-radius:19px;padding:9px 14px;font-size:16.5px;line-height:1.32;animation:rise 0.5s ease-out 0.5s both">We’re staying with my sister for a while and I can’t get my daughter to school.</div>
-          <div style="align-self:flex-start;max-width:80%;margin-top:5px;background:#E9E9EB;color:#000000;border-radius:19px;padding:9px 14px;font-size:16.5px;line-height:1.32;animation:rise 0.5s ease-out 1.1s both">I can help. Is this because you lost your housing, or is there another reason you’re staying with her?</div>
-          <div style="align-self:flex-end;max-width:76%;margin-top:5px;background:#007AFF;color:#FFFFFF;border-radius:19px;padding:9px 14px;font-size:16.5px;line-height:1.32;animation:rise 0.5s ease-out 1.9s both">We had to leave our apartment and we’re staying with her until we can find another place.</div>
-          <div style="align-self:flex-start;max-width:78%;margin-top:5px;background:#E9E9EB;color:#000000;border-radius:19px;padding:9px 14px;font-size:16.5px;line-height:1.32;animation:rise 0.5s ease-out 2.6s both">Got it. And she’s still enrolled at Soquel Elementary?</div>
-          <div style="align-self:flex-end;max-width:76%;margin-top:5px;background:#007AFF;color:#FFFFFF;border-radius:19px;padding:9px 14px;font-size:16.5px;line-height:1.32;animation:rise 0.5s ease-out 3.1s both">Yes.</div>
-          <div style="align-self:stretch;display:flex;flex-direction:column;gap:10px;margin:12px 2px 8px;padding:14px 16px;background:#F2F2F7;border:1px solid rgba(0,0,0,0.06);border-radius:17px;animation:rise 0.5s ease-out 3.6s both">
-            <div style="display:flex;align-items:center;gap:9px"><span style="position:relative;display:inline-flex;width:9px;height:9px;flex:0 0 auto"><span style="position:absolute;inset:0;border-radius:999px;background:#34C759;animation:breathe 1.6s ease-in-out infinite"></span><span style="position:absolute;inset:0;border-radius:999px;background:#34C759;animation:ring 1.8s ease-out infinite"></span></span><span style="font-size:12px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:#6E6E73">Axolotl is working</span></div>
-            <div style="display:flex;align-items:center;gap:9px;font-size:14.5px;color:#3C3C43;animation:rise 0.4s ease-out 3.9s both"><span style="flex:0 0 auto;color:#34C759;font-weight:600">✓</span> Understanding her situation</div>
-            <div style="display:flex;align-items:center;gap:9px;font-size:14.5px;color:#3C3C43;animation:rise 0.4s ease-out 4.2s both"><span style="flex:0 0 auto;color:#34C759;font-weight:600">✓</span> Checking applicable student rights</div>
-            <div style="display:flex;align-items:center;gap:9px;font-size:14.5px;color:#3C3C43;animation:rise 0.4s ease-out 4.5s both"><span style="flex:0 0 auto;color:#34C759;font-weight:600">✓</span> Finding the right district process</div>
-            <div style="display:flex;align-items:center;gap:9px;font-size:14.5px;color:#3C3C43;animation:rise 0.4s ease-out 4.8s both"><span style="flex:0 0 auto;color:#34C759;font-weight:600">✓</span> Preparing the request</div>
-            <div style="display:flex;align-items:center;gap:9px;font-size:14.5px;font-weight:500;color:#000000;animation:rise 0.4s ease-out 5.1s both"><span style="flex:0 0 auto;color:#8E8E93">→</span> Contacting transportation</div>
-            <div style="display:flex;align-items:center;gap:9px;font-size:14.5px;font-weight:500;color:#000000;animation:rise 0.4s ease-out 5.4s both"><span style="flex:0 0 auto;color:#8E8E93">→</span> Following up</div>
-          </div>
-        </div>
-        <div style="display:flex;align-items:center;gap:9px;padding:9px 14px 12px;border-top:1px solid rgba(0,0,0,0.07)"><span style="display:inline-flex;align-items:center;justify-content:center;width:31px;height:31px;flex:0 0 auto;border-radius:999px;background:#E9E9EB;font-size:19px;color:#8E8E93;line-height:1">+</span><span style="flex:1 1 auto;padding:8px 15px;border:1px solid rgba(0,0,0,0.14);border-radius:999px;font-size:15.5px;color:#AEAEB2">iMessage</span></div>
-        <div style="display:flex;justify-content:center;padding:0 0 9px"><span style="display:block;width:128px;height:5px;border-radius:999px;background:#000000;opacity:0.22"></span></div>
-      </div>
-    </div>
-  </section>
-  <section style="max-width:1120px;margin:0 auto;padding:clamp(56px,12vw,112px) 26px 0">
-    <h2 style="margin:0;font-family:'Instrument Serif',Georgia,serif;font-weight:400;font-size:clamp(34px,5.4vw,54px);line-height:1.04;letter-spacing:-0.02em;max-width:22ch;text-wrap:balance">You know what your family needs.<br>You shouldn’t have to know how to get it.</h2>
-    <p style="margin:22px 0 0;font-size:20px;line-height:1.6;color:#3A302B;max-width:52ch;text-wrap:pretty">Schools have programs, eligibility rules, forms, deadlines, and people responsible for different things. Axolotl puts that system together for you.</p>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,290px),1fr));gap:16px;margin-top:38px;align-items:start">
-      <div style="background:#FFFFFF;border-radius:24px;padding:24px 24px 26px;box-shadow:0 2px 3px rgba(36,28,24,0.04)"><p style="margin:0;font-family:'Instrument Serif',Georgia,serif;font-size:25px;line-height:1.24">“We can’t get her to school.”</p><div style="margin-top:16px;padding-top:16px;border-top:1px solid rgba(36,28,24,0.1);display:flex;gap:10px;font-size:17px;line-height:1.5;color:#4A3F39"><span style="flex:0 0 auto;color:#34C759;font-weight:600">→</span> Figures out what transportation options apply.</div></div>
-      <div style="background:#FFFFFF;border-radius:24px;padding:24px 24px 26px;box-shadow:0 2px 3px rgba(36,28,24,0.04)"><p style="margin:0;font-family:'Instrument Serif',Georgia,serif;font-size:25px;line-height:1.24">“He’s falling behind in math.”</p><div style="margin-top:16px;padding-top:16px;border-top:1px solid rgba(36,28,24,0.1);display:flex;gap:10px;font-size:17px;line-height:1.5;color:#4A3F39"><span style="flex:0 0 auto;color:#34C759;font-weight:600">→</span> Looks at the student’s situation and the support available through the school.</div></div>
-      <div style="background:#FFFFFF;border-radius:24px;padding:24px 24px 26px;box-shadow:0 2px 3px rgba(36,28,24,0.04)"><p style="margin:0;font-family:'Instrument Serif',Georgia,serif;font-size:25px;line-height:1.24">“We’re staying with family right now.”</p><div style="margin-top:16px;padding-top:16px;border-top:1px solid rgba(36,28,24,0.1);display:flex;gap:10px;font-size:17px;line-height:1.5;color:#4A3F39"><span style="flex:0 0 auto;color:#34C759;font-weight:600">→</span> Helps determine what changes for the student’s education and what the school needs to do.</div></div>
-    </div>
-    <p style="margin:48px 0 0;text-align:center;font-family:'Instrument Serif',Georgia,serif;font-size:clamp(24px,3.2vw,32px);line-height:1.2;letter-spacing:-0.01em;color:#241C18">You tell us what’s happening. We’ll figure out the rest.</p>
-  </section>
-  <section style="max-width:1120px;margin:0 auto;padding:clamp(56px,12vw,112px) 26px 0">
-    <h2 style="margin:0;font-family:'Instrument Serif',Georgia,serif;font-weight:400;font-size:clamp(34px,5.4vw,54px);line-height:1.04;letter-spacing:-0.02em;max-width:24ch;text-wrap:balance">Axolotl knows the system.<br>Getting help from a school shouldn’t require knowing how the school, district, and state work.</h2>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr));gap:16px;margin-top:38px">
-      <div style="background:#FFFFFF;border-radius:22px;padding:22px 22px 24px;box-shadow:0 2px 3px rgba(36,28,24,0.04)"><p style="margin:0;font-size:14px;font-weight:600;letter-spacing:0.08em;color:#C2416A">01 LISTEN</p><p style="margin:12px 0 0;font-size:17.5px;line-height:1.45;color:#332A25">Start with whatever’s happening. No forms. No school jargon.</p></div>
-      <div style="background:#FFFFFF;border-radius:22px;padding:22px 22px 24px;box-shadow:0 2px 3px rgba(36,28,24,0.04)"><p style="margin:0;font-size:14px;font-weight:600;letter-spacing:0.08em;color:#C2416A">02 UNDERSTAND</p><p style="margin:12px 0 0;font-size:17.5px;line-height:1.45;color:#332A25">Axolotl asks the questions that matter and builds a picture of your child’s situation.</p></div>
-      <div style="background:#FFFFFF;border-radius:22px;padding:22px 22px 24px;box-shadow:0 2px 3px rgba(36,28,24,0.04)"><p style="margin:0;font-size:14px;font-weight:600;letter-spacing:0.08em;color:#C2416A">03 CHECK</p><p style="margin:12px 0 0;font-size:17.5px;line-height:1.45;color:#332A25">It looks at the programs, policies, eligibility rules, and services that apply to that student.</p></div>
-      <div style="background:#5A2440;color:#FBF1E6;border-radius:22px;padding:22px 22px 24px"><p style="margin:0;font-size:14px;font-weight:600;letter-spacing:0.08em;color:#F0A0B8">04 ACT</p><p style="margin:12px 0 0;font-size:17.5px;line-height:1.45">It fills out forms, contacts the right person, makes calls, and helps move the request forward.</p></div>
-      <div style="background:#FFFFFF;border-radius:22px;padding:22px 22px 24px;box-shadow:0 2px 3px rgba(36,28,24,0.04)"><p style="margin:0;font-size:14px;font-weight:600;letter-spacing:0.08em;color:#C2416A">05 FOLLOW UP</p><p style="margin:12px 0 0;font-size:17.5px;line-height:1.45;color:#332A25">It keeps track of what happened and what still needs to happen.</p></div>
-    </div>
-  </section>
-  <section style="max-width:1120px;margin:0 auto;padding:clamp(56px,12vw,112px) 26px 0">
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:40px 60px;align-items:center">
-      <div>
-        <p style="margin:0;font-size:15px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:#C2416A">What Axolotl sees</p>
-        <h2 style="margin:14px 0 0;font-family:'Instrument Serif',Georgia,serif;font-weight:400;font-size:clamp(34px,5.4vw,54px);line-height:1.04;letter-spacing:-0.02em;max-width:22ch;text-wrap:balance">Axolotl builds a picture of your student, one message at a time.</h2>
-        <p style="margin:24px 0 0;font-size:22px;line-height:1.6;color:#3A302B;max-width:46ch;text-wrap:pretty">Axolotl connects the dots between a student’s circumstances and the support available to them.</p>
-      </div>
-      <div style="justify-self:center;width:100%;max-width:392px;background:#FFFFFF;border-radius:30px;padding:26px 24px 28px;box-shadow:0 2px 4px rgba(36,28,24,0.06),0 36px 70px -46px rgba(36,28,24,0.6)">
-        <p style="margin:0;font-family:'Instrument Serif',Georgia,serif;font-size:34px;line-height:1">MAYA</p>
-        <p style="margin:6px 0 0;font-size:16px;color:#6B5A50">Soquel Elementary · 3rd grade</p>
-        <div style="margin-top:22px;display:flex;flex-direction:column;gap:18px">
-          <div><p style="margin:0 0 8px;font-size:13.5px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:#9A8B82">Current situation</p><p style="margin:0;font-size:17px;line-height:1.5;color:#332A25">Staying with family<br>Temporary housing<br>Transportation barrier</p></div>
-          <div><p style="margin:0 0 8px;font-size:13.5px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:#9A8B82">What may apply</p><p style="margin:0;font-size:17px;line-height:1.5;color:#332A25"><span style="display:flex;gap:9px"><span style="color:#34C759;font-weight:600">✓</span> Transportation</span><span style="display:flex;gap:9px"><span style="color:#34C759;font-weight:600">✓</span> School-of-origin protections</span><span style="display:flex;gap:9px"><span style="color:#34C759;font-weight:600">✓</span> District support</span></p></div>
-          <div><p style="margin:0 0 8px;font-size:13.5px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:#9A8B82">What’s next</p><p style="margin:0;font-size:17px;line-height:1.5;color:#332A25"><span style="display:flex;gap:9px"><span style="flex:0 0 auto;color:#8E8E93;font-weight:600">→</span> Confirm eligibility</span><span style="display:flex;gap:9px"><span style="flex:0 0 auto;color:#8E8E93;font-weight:600">→</span> Submit request</span><span style="display:flex;gap:9px"><span style="flex:0 0 auto;color:#8E8E93;font-weight:600">→</span> Contact transportation</span><span style="display:flex;gap:9px"><span style="flex:0 0 auto;color:#8E8E93;font-weight:600">→</span> Follow up</span></p></div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <section style="max-width:1120px;margin:0 auto;padding:clamp(56px,12vw,112px) 26px 0">
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:40px 60px;align-items:center">
-      <div>
-        <h2 style="margin:0;font-family:'Instrument Serif',Georgia,serif;font-weight:400;font-size:clamp(32px,5vw,48px);line-height:1.05;letter-spacing:-0.02em;max-width:20ch;text-wrap:balance">Axolotl gets to know your family.</h2>
-        <p style="margin:22px 0 0;font-size:20px;line-height:1.6;color:#3A302B;max-width:46ch;text-wrap:pretty">He keeps a real picture of your family over time. If something you mentioned weeks ago never got resolved, he'll come back to it on his own — you won't have to remind him.</p>
-        <p style="margin:20px 0 0;font-size:20px;line-height:1.6;color:#3A302B;max-width:46ch;text-wrap:pretty">He also knows what your child is actually entitled to, and what it takes to get it.</p>
-      </div>
-      <div style="justify-self:center;width:100%;max-width:404px;background:#FFFFFF;border-radius:28px;padding:24px 20px 22px;box-shadow:0 2px 4px rgba(36,28,24,0.04),0 28px 60px -44px rgba(36,28,24,0.5);font-family:-apple-system,'SF Pro Text','Helvetica Neue',Helvetica,sans-serif">
-        <p style="margin:0 0 14px;text-align:center;font-size:11.5px;color:#8E8E93"><span style="font-weight:600;color:#6E6E73">Three weeks later</span> · Tue 7:52 AM</p>
-        <div style="display:flex;flex-direction:column;gap:10px">
-          <div style="display:flex;align-items:center;gap:9px;padding:11px 14px;background:#F2F2F7;border:1px solid rgba(0,0,0,0.06);border-radius:15px"><span style="position:relative;display:inline-flex;width:9px;height:9px;flex:0 0 auto"><span style="position:absolute;inset:0;border-radius:999px;background:#FF9500;animation:breathe 1.8s ease-in-out infinite"></span></span><span style="font-size:13.5px;font-weight:500;color:#3C3C43">Attendance slipping · transport request still pending</span></div>
-          <div style="align-self:flex-start;max-width:88%;background:#E9E9EB;color:#000000;border-radius:19px;padding:10px 15px;font-size:16.5px;line-height:1.35">Hey — you mentioned Maya's transportation was still giving you trouble. I checked on the request and it's still pending. Is that still happening? I can follow up.</div>
-          <p style="margin:4px 0 0;text-align:center;font-size:12.5px;color:#8E8E93">Axolotl started this one.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-  <section style="max-width:1120px;margin:0 auto;padding:clamp(56px,12vw,112px) 26px 0">
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:34px 56px;align-items:start">
-      <div>
-        <h2 style="margin:0;font-family:'Instrument Serif',Georgia,serif;font-weight:400;font-size:clamp(32px,5vw,48px);line-height:1.05;letter-spacing:-0.02em;max-width:22ch;text-wrap:balance">The school system wasn’t built around the parent.</h2>
-        <p style="margin:22px 0 0;font-size:20px;line-height:1.6;color:#3A302B;max-width:46ch;text-wrap:pretty">There are programs to help families. There are people whose job is to help. There are rules about what schools provide.</p>
-        <p style="margin:20px 0 0;font-size:20px;line-height:1.6;color:#3A302B;max-width:46ch;text-wrap:pretty">But knowing something exists isn’t the same as getting it.</p>
-        <p style="margin:28px 0 0;font-family:'Instrument Serif',Georgia,serif;font-size:clamp(24px,3.2vw,31px);line-height:1.3;letter-spacing:-0.01em;color:#241C18">Axolotl helps families get from “something’s wrong” to “it’s taken care of.”</p>
-      </div>
-      <div style="display:flex;flex-direction:column;gap:12px">
-        <div style="background:#FFFFFF;border-radius:20px;padding:20px 22px;box-shadow:0 2px 3px rgba(36,28,24,0.04)"><p style="margin:0;font-size:18.5px;font-weight:600;line-height:1.3">Staying at a cousin's house counts</p><p style="margin:8px 0 0;font-size:17px;line-height:1.5;color:#4A3F39">Under <strong style="font-weight:600">McKinney-Vento</strong>, that student keeps their school and gets a ride to it. Axolotl makes the claim and chases the route.</p></div>
-        <div style="background:#FFFFFF;border-radius:20px;padding:20px 22px;box-shadow:0 2px 3px rgba(36,28,24,0.04)"><p style="margin:0;font-size:18.5px;font-weight:600;line-height:1.3">An evaluation has a clock on it</p><p style="margin:8px 0 0;font-size:17px;line-height:1.5;color:#4A3F39">Ask under <strong style="font-weight:600">IDEA</strong> and the district has a legal deadline. Axolotl puts the request in writing and tracks the date.</p></div>
-        <div style="background:#FFFFFF;border-radius:20px;padding:20px 22px;box-shadow:0 2px 3px rgba(36,28,24,0.04)"><p style="margin:0;font-size:18.5px;font-weight:600;line-height:1.3">An interpreter is not a favor</p><p style="margin:8px 0 0;font-size:17px;line-height:1.5;color:#4A3F39"><strong style="font-weight:600">Title VI</strong> requires the school to communicate with you in a language you understand. Axolotl asks for it before the meeting, not during.</p></div>
-        <p style="margin:4px 0 0;font-size:16.5px;color:#6B5A50">Same for meals, accommodations, and school stability. You describe the situation; Axolotl handles which rule applies.</p>
-      </div>
-    </div>
-  </section>
-  <section id="schools" style="margin-top:clamp(56px,12vw,112px);background:#5A2440;color:#FBF1E6">
-    <div style="max-width:1120px;margin:0 auto;padding:clamp(68px,12vw,88px) 26px">
-      <h2 style="margin:0;font-family:'Instrument Serif',Georgia,serif;font-weight:400;font-size:clamp(32px,4.8vw,50px);line-height:1.06;letter-spacing:-0.02em;max-width:24ch;text-wrap:balance">The help exists. Getting to it is the hard part.</h2>
-      <p style="margin:26px 0 0;font-size:20px;line-height:1.65;color:rgba(251,241,230,0.84);max-width:54ch;text-wrap:pretty">School data systems are usually stateless. An absence or a missed meal fires a notification, but nothing connects it to what’s actually going on, and nobody closes the loop to make sure the support reaches the family. When a family tells Axolotl what’s happening, the need becomes clear — and Axolotl does the work to actually resolve it. Many students experiencing housing instability never enter the systems designed to support them.</p>
-      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:40px;font-size:16.5px">
-        <span style="padding:11px 17px;background:rgba(251,241,230,0.12);border-radius:999px">Family tells Axolotl</span><span style="color:#F0A0B8">→</span><span style="padding:11px 17px;background:rgba(251,241,230,0.12);border-radius:999px">Need understood</span><span style="color:#F0A0B8">→</span><span style="padding:11px 17px;background:#FBF1E6;color:#5A2440;font-weight:600;border-radius:999px">Axolotl executes</span><span style="color:#F0A0B8">→</span><span style="padding:11px 17px;background:rgba(251,241,230,0.12);border-radius:999px">Support delivered</span><span style="color:#F0A0B8">→</span><span style="padding:11px 17px;background:rgba(251,241,230,0.12);border-radius:999px">Outcome verified</span>
-      </div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:20px;margin-top:52px">
-        <div style="background:rgba(251,241,230,0.08);border-radius:24px;padding:26px 24px"><p style="margin:0;font-family:'Instrument Serif',Georgia,serif;font-size:25px;line-height:1.2">It runs the other way too</p><p style="margin:14px 0 0;font-size:17.5px;line-height:1.5;color:rgba(251,241,230,0.82)">No family says “we need a Tier 2 attendance intervention.” They say their kid hasn't wanted to go to school. Axolotl surfaces the problem before the school has a name for it, which is earlier than any screener can catch.</p></div>
-        <div style="background:rgba(251,241,230,0.08);border-radius:24px;padding:26px 24px"><p style="margin:0;font-family:'Instrument Serif',Georgia,serif;font-size:25px;line-height:1.2">What districts finally see</p><p style="margin:14px 0 0;font-size:17.5px;line-height:1.5;color:rgba(251,241,230,0.82)">Which barriers are most common, which services are hardest to reach, where requests stall, how long need-to-support takes, and how far the support they intend sits from the support families receive. Nobody can currently answer that last one.</p></div>
-      </div>
-    </div>
-  </section>
-  <section style="max-width:1120px;margin:0 auto;padding:clamp(56px,12vw,112px) 26px 0">
-    <p style="margin:0;font-size:15px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:#C2416A">The bigger idea</p>
-    <h2 style="margin:14px 0 0;font-family:'Instrument Serif',Georgia,serif;font-weight:400;font-size:clamp(34px,5.4vw,54px);line-height:1.04;letter-spacing:-0.02em;max-width:22ch;text-wrap:balance">From family intent to student outcome.</h2>
-    <p style="margin:22px 0 0;font-size:20px;line-height:1.6;color:#3A302B;max-width:52ch;text-wrap:pretty">The unit of work isn't a conversation. It's a family situation that becomes a plan, an action, and eventually something that actually changed for the kid.</p>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:14px;margin-top:38px">
-      <div style="background:#FFFFFF;border-radius:20px;padding:22px 20px;box-shadow:0 2px 3px rgba(36,28,24,0.04)"><p style="margin:0;font-size:13.5px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:#9A8B82">Situation</p><p style="margin:10px 0 0;font-family:'Instrument Serif',Georgia,serif;font-size:21px;line-height:1.25">“My kid keeps missing school.”</p></div>
-      <div style="background:#FFFFFF;border-radius:20px;padding:22px 20px;box-shadow:0 2px 3px rgba(36,28,24,0.04)"><p style="margin:0;font-size:13.5px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:#9A8B82">Barrier</p><p style="margin:10px 0 0;font-family:'Instrument Serif',Georgia,serif;font-size:21px;line-height:1.25">Transportation, not motivation.</p></div>
-      <div style="background:#FFFFFF;border-radius:20px;padding:22px 20px;box-shadow:0 2px 3px rgba(36,28,24,0.04)"><p style="margin:0;font-size:13.5px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:#9A8B82">Plan &amp; action</p><p style="margin:10px 0 0;font-family:'Instrument Serif',Georgia,serif;font-size:21px;line-height:1.25">Eligibility, the right person, the request, the follow-up.</p></div>
-      <div style="background:#FFFFFF;border-radius:20px;padding:22px 20px;box-shadow:0 2px 3px rgba(36,28,24,0.04)"><p style="margin:0;font-size:13.5px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:#9A8B82">Outcome</p><p style="margin:10px 0 0;font-family:'Instrument Serif',Georgia,serif;font-size:21px;line-height:1.25">She gets to school.</p></div>
-      <div style="background:#F5E4DC;border-radius:20px;padding:22px 20px"><p style="margin:0;font-size:13.5px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:#B4544D">What Axolotl learns</p><p style="margin:10px 0 0;font-family:'Instrument Serif',Georgia,serif;font-size:21px;line-height:1.25">Transportation was the attendance barrier all along.</p></div>
-    </div>
-  </section>
-  <section id="try" style="max-width:1120px;margin:0 auto;padding:clamp(56px,12vw,112px) 26px 0;text-align:center">
-    <p style="margin:0 auto;font-family:'Instrument Serif',Georgia,serif;font-size:clamp(34px,5.4vw,54px);line-height:1.05;letter-spacing:-0.025em;max-width:24ch;text-wrap:balance">Tell us what’s happening. We’ll figure out what applies.<br>Then we’ll help get it done.</p>
-    <div style="max-width:400px;margin:38px auto 0">
-      <form id="waitlist-form" novalidate>
-        <input id="waitlist-phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="Your phone number" aria-label="Your phone number" style="width:100%;padding:17px 19px;font-family:'Instrument Sans',sans-serif;font-size:19px;text-align:center;color:#241C18;background:#FFFFFF;border:1.5px solid #E0CDBF;border-radius:14px;outline:none" />
-        <button id="waitlist-submit" type="submit" class="btn-primary" style="width:100%;margin-top:11px;min-height:58px;border:0;cursor:pointer;padding:17px 22px;font-family:'Instrument Sans',sans-serif;font-weight:600;font-size:19px;border-radius:14px">Try Axolotl</button>
-        <p id="waitlist-error" hidden role="alert" style="margin:11px 0 0;font-size:16px;color:#C2416A">Something went wrong. Please try again.</p>
-        <p style="margin:13px 0 0;font-size:16px;color:#5C4D45">Free. Over text. English or Spanish.</p>
-      </form>
-      <p id="waitlist-sent" hidden style="margin:0;font-family:'Instrument Serif',Georgia,serif;font-size:26px;line-height:1.3">You're on the list. Axolotl will text you.</p>
-    </div>
-  </section>
-  <footer style="max-width:1120px;margin:0 auto;padding:clamp(68px,12vw,88px) 26px 46px">
-    <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;padding-top:22px;border-top:1px solid rgba(36,28,24,0.13);font-size:16px;color:#6B5A50">
-      <span>Axolotl Learning</span>
-      <div style="display:flex;gap:20px"><a href="#privacy" style="color:#6B5A50">Privacy</a><a href="#contact" style="color:#6B5A50">Contact</a></div>
-    </div>
-  </footer>
-</div>
-<script>
-  (function () {
-    var WAITLIST_ENDPOINT = '/api/waitlist';
-    function buildPayload(digits) { return { phone: digits }; }
-    var form  = document.getElementById('waitlist-form');
-    var phone = document.getElementById('waitlist-phone');
-    var sent  = document.getElementById('waitlist-sent');
-    var btn   = document.getElementById('waitlist-submit');
-    var error = document.getElementById('waitlist-error');
-    if (!form) return;
-    form.addEventListener('submit', async function (e) {
-      e.preventDefault();
-      error.hidden = true;
-      var digits = (phone.value || '').replace(/\D/g, '');
-      if (digits.length < 7) { phone.focus(); phone.style.borderColor = '#C2416A'; return; }
-      var label = btn.textContent;
-      btn.disabled = true; btn.textContent = 'Sending…'; btn.style.opacity = '0.7';
-      try {
-        var res = await fetch(WAITLIST_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(buildPayload(digits)) });
-        if (!res.ok) throw new Error('HTTP ' + res.status);
-        form.hidden = true; sent.hidden = false;
-      } catch (err) {
-        console.error('[waitlist] submit failed:', err);
-        error.hidden = false; btn.disabled = false; btn.textContent = label; btn.style.opacity = '';
-      }
-    });
-    phone.addEventListener('input', function () { phone.style.borderColor = '#E0CDBF'; error.hidden = true; });
+      </section>
 
-    // "Talk to your assistant" — places a demo voice call to the visitor's number.
-    var callPhone   = document.getElementById('call-phone');
-    var callSchool  = document.getElementById('call-school');
-    var callStudent = document.getElementById('call-student');
-    var callSubmit  = document.getElementById('call-submit');
-    var callStatus  = document.getElementById('call-status');
-    if (callPhone && callSubmit) {
-      callSubmit.addEventListener('click', async function () {
-        callStatus.hidden = true;
-        var digits = (callPhone.value || '').replace(/\D/g, '');
-        if (digits.length < 7) { callPhone.focus(); callPhone.style.borderColor = '#C2416A'; return; }
-        callPhone.style.borderColor = '#E0CDBF';
-        callSubmit.disabled = true; callSubmit.textContent = 'Calling…'; callSubmit.style.opacity = '0.7';
-        var payload = { phone: digits };
-        if (callSchool)   payload.school  = callSchool.value.trim();
-        if (callStudent)  payload.student = callStudent.value.trim();
-        try {
-          var res = await fetch('/api/call-me', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
-          var data = await res.json();
-          if (!res.ok || !data.ok) throw new Error(data.error || ('HTTP ' + res.status));
-          callStatus.textContent = 'Calling you now — pick up! 🤙';
-          callStatus.hidden = false;
-          callSubmit.textContent = '📞 Talk to your assistant'; callSubmit.style.opacity = '';
-        } catch (err) {
-          console.error('[call-me] failed:', err);
-          callStatus.textContent = 'Couldn\u2019t place the call — please try again.';
-          callStatus.hidden = false;
-          callSubmit.disabled = false; callSubmit.textContent = '📞 Talk to your assistant'; callSubmit.style.opacity = '';
-        }
-      });
-    }
-  })();
-</script>
-</body>
+      <section class="section wrap problem" aria-labelledby="problem-title">
+        <div class="section-intro">
+          <p class="section-label">Sound familiar?</p>
+          <h2 id="problem-title">The work that<br />never sleeps.</h2>
+          <p>
+            This is the coordination tax — the unpaid second job of reconciling
+            everything your family needs against everything your benefits cover,
+            one institution at a time.
+          </p>
+          <p class="strong-line">
+            The need is real. The coverage exists.<br />Getting from one to the
+            other shouldn’t be another job.
+          </p>
+        </div>
+        <div
+          class="messages"
+          role="group"
+          aria-label="Everyday coordination questions"
+        >
+          <blockquote>
+            <p>
+              “My daughter qualifies for speech therapy at school — is that
+              covered by our plan, and how do I actually get it started?”
+            </p>
+            <footer>School support meets health coverage</footer>
+          </blockquote>
+          <blockquote>
+            <p>
+              “The baby’s here. What’s the deadline to add him to the plan? I
+              don’t know where to begin.”
+            </p>
+            <footer>A new family member meets enrollment rules</footer>
+          </blockquote>
+          <blockquote>
+            <p>
+              “Mom needs a home aide. What help does her Medicare actually
+              cover?”
+            </p>
+            <footer>Care at home meets covered services</footer>
+          </blockquote>
+          <blockquote>
+            <p>
+              “Childcare fell through Thursday. Does my employer have backup
+              care, and how do I use it today?”
+            </p>
+            <footer>Real-life urgency meets an unused benefit</footer>
+          </blockquote>
+          <blockquote>
+            <p>
+              “The school sent 40 emails this month — which ones actually need
+              me, and which ones cost me money if I miss them?”
+            </p>
+            <footer>Institutional noise meets household deadlines</footer>
+          </blockquote>
+          <p class="caption">
+            Illustrative situations. One familiar second job.
+          </p>
+        </div>
+      </section>
+
+      <section
+        class="how section"
+        id="how-it-works"
+        aria-labelledby="how-title"
+      >
+        <span class="benny-peek" aria-hidden="true">
+          <img
+            src="/animation/benny-mark-teal.svg"
+            alt=""
+            width="96"
+            height="96"
+            loading="lazy"
+          />
+        </span>
+        <div class="wrap">
+          <div class="section-heading">
+            <div>
+              <p class="section-label">Two maps. One place to start.</p>
+              <h2 id="how-title">Benny’s already awake.</h2>
+            </div>
+            <p>
+              An email can start the work. Understanding your life and your
+              coverage is what makes the next step the right one.
+            </p>
+          </div>
+          <ol class="steps">
+            <li class="reconciliation">
+              <span class="step-number" aria-hidden="true">01</span>
+              <h3>It holds both maps.</h3>
+              <p>
+                A living picture of your household — dependents, schools,
+                providers, deadlines, history — reconciled against your
+                employer’s benefits package, continuously.
+              </p>
+              <strong>See the gap before it becomes another task.</strong>
+            </li>
+            <li>
+              <span class="step-number" aria-hidden="true">02</span>
+              <h3>It notices.</h3>
+              <p>
+                Connect your inbox. Benny triages the school, health-plan,
+                childcare, and benefits noise in light of what it knows about
+                your life and coverage — and surfaces what actually needs you.
+              </p>
+            </li>
+            <li>
+              <span class="step-number" aria-hidden="true">03</span>
+              <h3>It does the thing.</h3>
+              <p>
+                With your approval: fill the form, book the appointment, submit
+                the claim, prepare an appeal, enroll in a benefit, register the
+                kids. Close the specific gap between a need and the coverage for
+                it.
+              </p>
+            </li>
+            <li class="follow-through">
+              <span class="step-number" aria-hidden="true">04</span>
+              <h3>It doesn’t drop it.</h3>
+              <p>
+                A reply still pending. A claim needing another document. A
+                school request that takes weeks. Benny’s job isn’t done when it
+                gives you an answer.
+              </p>
+              <strong>It’s done when the work is.</strong>
+            </li>
+          </ol>
+          <p class="how-note">
+            Built from our work helping families navigate schools. The broader
+            benefits offering is in development; these are not live integrations
+            on this website.
+          </p>
+        </div>
+      </section>
+
+      <section
+        class="section wrap trust"
+        id="trust"
+        aria-labelledby="trust-title"
+      >
+        <div class="section-heading">
+          <div>
+            <p class="section-label">Care is in the details</p>
+            <h2 id="trust-title">
+              Built to be trusted with<br />the things that matter.
+            </h2>
+          </div>
+          <p>
+            Serious responsibilities need more than a friendly face. Here’s what
+            our approach supports today, and what has to be settled before an
+            employer rollout.
+          </p>
+        </div>
+        <div class="trust-grid">
+          <article>
+            <span class="trust-icon" aria-hidden="true">✓</span>
+            <h3>Your approval comes first.</h3>
+            <p>
+              Our existing consent gate requires explicit approval before
+              consequential action. A proposal is not permission to send,
+              submit, or spend.
+            </p>
+          </article>
+          <article>
+            <span class="trust-icon" aria-hidden="true">⌑</span>
+            <h3>Permission, not a blank check.</h3>
+            <p>
+              Institution-specific access is a requirement for the employer
+              offering. Employees should choose what Benny can connect to and
+              what it may do.
+            </p>
+          </article>
+          <article>
+            <span class="trust-icon" aria-hidden="true">≡</span>
+            <h3>A record. And honest limits.</h3>
+            <p>
+              We log consent and actions. Not every action can be undone — a
+              sent message or submitted claim may need a follow-up, not an undo
+              button.
+            </p>
+          </article>
+          <article>
+            <span class="trust-icon" aria-hidden="true">↔</span>
+            <h3>Your life isn’t tied to a job.</h3>
+            <p>
+              Data portability and deletion controls belong in the benefits
+              offering. Those controls are still being developed; this site
+              doesn’t connect to employee records.
+            </p>
+          </article>
+          <article>
+            <span class="trust-icon" aria-hidden="true">⊙</span>
+            <h3>Clear boundaries with employers.</h3>
+            <p>
+              Our design requirement: employers do not see identifiable
+              individual records. Reporting and access terms must be agreed
+              before any rollout.
+            </p>
+          </article>
+          <article>
+            <span class="trust-icon" aria-hidden="true">◇</span>
+            <h3>Security review before rollout.</h3>
+            <p>
+              SOC 2 status, a DPA, and company security requirements need to be
+              verified in review. We’re not claiming SOC 2 certification or a
+              completed enterprise review here.
+            </p>
+          </article>
+        </div>
+        <div class="trust-footnote">
+          <p>
+            Benny is AI-powered, but medical, legal, and coverage decisions stay
+            with the qualified people and institutions responsible for them.
+          </p>
+          <a class="text-link" href="#contact" data-inquiry
+            >Discuss privacy &amp; security</a
+          >
+        </div>
+      </section>
+
+      <section
+        class="employers section"
+        id="employers"
+        aria-labelledby="employers-title"
+      >
+        <span class="benny-peek benny-peek-left" aria-hidden="true">
+          <img
+            src="/animation/benny-mark-indigo.svg"
+            alt=""
+            width="96"
+            height="96"
+            loading="lazy"
+          />
+        </span>
+        <div class="wrap employer-grid">
+          <div>
+            <p class="section-label">For employers</p>
+            <h2 id="employers-title">
+              You’ve already bought the value. Benny realizes it.
+            </h2>
+            <p class="employer-intro">
+              Health plans, FSAs, backup care, EAPs. You’ve funded the benefits.
+              But the value stays out of reach when no one connects what an
+              employee needs to what their coverage can provide.
+            </p>
+            <p class="employer-intro">
+              Benny turns coverage you’ve already paid for into care actually
+              claimed. Not another point solution competing for attention — the
+              benefit that runs all the others.
+            </p>
+            <a class="button primary" href="#contact" data-inquiry
+              >Book a walkthrough</a
+            >
+            <p class="caption">Explore the offering with the Benny team.</p>
+          </div>
+          <div class="employer-points">
+            <article>
+              <h3>From coverage bought to care claimed.</h3>
+              <p>
+                Connect the child who needs therapy to the covered provider.
+                Connect the childcare gap to the backup care benefit. Help
+                people realize the value already on your invoice.
+              </p>
+            </article>
+            <article>
+              <h3>Give back time and attention.</h3>
+              <p>
+                Less workday lost to figuring out eligibility, gathering the
+                right documents, and chasing a claim across institutions.
+              </p>
+            </article>
+            <article>
+              <h3>Support the people who care for others.</h3>
+              <p>
+                Help caregivers use the support that fits their actual lives, as
+                their families, providers, and needs change.
+              </p>
+            </article>
+            <p class="caption">
+              These are the outcomes we aim to measure with employers, not
+              measured results or a guaranteed return.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="section wrap waitlist"
+        id="waitlist"
+        aria-labelledby="waitlist-title"
+      >
+        <span class="benny-peek benny-peek-bottom" aria-hidden="true">
+          <img
+            src="/animation/benny-mark-amber.svg"
+            alt=""
+            width="96"
+            height="96"
+            loading="lazy"
+          />
+        </span>
+        <div>
+          <p class="section-label">For you and yours</p>
+          <h2 id="waitlist-title">Wish your workplace<br />had Benny?</h2>
+          <p>
+            Join the waitlist and we’ll work on bringing Benny to your employer.
+          </p>
+        </div>
+        <div>
+          <form id="waitlist-form">
+            <label for="waitlist-phone">Your phone number</label>
+            <div class="waitlist-fields">
+              <input
+                id="waitlist-phone"
+                type="tel"
+                autocomplete="tel"
+                inputmode="tel"
+                maxlength="30"
+                required
+                placeholder="Your phone number"
+              /><button class="text-link" type="submit">
+                Join the waitlist
+              </button>
+            </div>
+            <p class="form-note">
+              By joining, you agree to receive texts about Benny access.
+              <a href="#privacy" data-privacy>Website privacy</a>
+            </p>
+            <p id="waitlist-error" class="form-error" role="alert" hidden>
+              Please try again.
+            </p>
+          </form>
+          <div
+            id="waitlist-sent"
+            class="form-success"
+            role="status"
+            tabindex="-1"
+            hidden
+          >
+            <h3>You’re on the list.</h3>
+            <p>Benny will text you about access.</p>
+          </div>
+        </div>
+      </section>
+      <div class="wrap page-details">
+        <details id="contact" class="inline-panel">
+          <summary>Employer inquiries &amp; walkthroughs</summary>
+          <div class="panel-body">
+            <p class="section-label">Let’s put benefits to work</p>
+            <h2 id="contact-title">Meet Benny.</h2>
+            <p class="panel-intro">
+              Tell us about your team, request a walkthrough, or ask a privacy
+              question. We’ll save your inquiry for the team to follow up by
+              email.
+            </p>
+            <form id="inquiry-form">
+              <div class="field">
+                <label for="inquiry-email">Work email</label
+                ><input
+                  id="inquiry-email"
+                  name="email"
+                  type="email"
+                  autocomplete="email"
+                  maxlength="254"
+                  placeholder="you@company.com"
+                  required
+                />
+              </div>
+              <div class="field">
+                <label for="inquiry-company"
+                  >Company <span>(optional)</span></label
+                ><input
+                  id="inquiry-company"
+                  name="company"
+                  autocomplete="organization"
+                  maxlength="160"
+                  placeholder="Company name"
+                />
+              </div>
+              <div class="field">
+                <label for="inquiry-message"
+                  >What would you like to discuss?
+                  <span>(optional)</span></label
+                ><textarea
+                  id="inquiry-message"
+                  name="message"
+                  maxlength="2000"
+                  placeholder="Your team’s needs, a walkthrough, or a question about Benny."
+                ></textarea>
+              </div>
+              <p class="form-note">
+                We’ll use these details to respond. Please don’t include health
+                information or employee records.
+                <a href="#privacy" data-privacy>How we handle website data</a>
+              </p>
+              <button class="button" type="submit">Send an inquiry</button>
+              <p class="form-error" id="inquiry-error" role="alert" hidden>
+                We couldn’t save your inquiry. Please try again.
+              </p>
+            </form>
+            <div
+              class="form-success"
+              id="inquiry-sent"
+              role="status"
+              tabindex="-1"
+              hidden
+            >
+              <h3>Your inquiry is saved.</h3>
+              <p>
+                Thank you for your interest in Benny. The team can follow up at
+                the email you provided.
+              </p>
+            </div>
+          </div>
+        </details>
+        <details id="privacy" class="inline-panel">
+          <summary>Website privacy</summary>
+          <div class="panel-body">
+            <p class="section-label">Website data</p>
+            <h2 id="privacy-title">What you share here.</h2>
+            <h3>Employer and general inquiries</h3>
+            <p>
+              We collect the email address, company, and message you submit so
+              the Benny team can respond. Inquiries are stored in Supabase.
+              Don’t include health information, employee records, or benefit
+              account credentials.
+            </p>
+            <h3>Individual waitlist</h3>
+            <p>
+              We collect your phone number to register your interest and contact
+              you about access. Signups are stored in our database; the server
+              deployment may use a local file if database storage is
+              unavailable. Textbelt or Retell may process your number to send a
+              confirmation text.
+            </p>
+            <h3>This website is not the benefits service</h3>
+            <p>
+              These forms don’t connect to your employer, insurer, or health
+              records. The site loads fonts from Google Fonts. Your browser
+              makes requests to Google and our hosting provider when you visit.
+            </p>
+            <h3>Questions about your information?</h3>
+            <p>
+              Use the inquiry form for privacy questions or a request concerning
+              information you submitted. You can use your own email address and
+              leave the company field blank.
+            </p>
+            <a class="text-link" href="#contact" data-inquiry
+              >Contact the Benny team</a
+            >
+          </div>
+        </details>
+      </div>
+    </main>
+    <footer class="site-footer wrap">
+      <div>
+        <a class="brand" href="#main"
+          ><img
+            src="/animation/benny-mark.svg"
+            alt=""
+            width="30"
+            height="26"
+          />Benny</a
+        >
+        <p>Connecting the coverage you have to the life you live.</p>
+      </div>
+      <nav aria-label="Footer">
+        <a href="#contact" data-inquiry>Contact</a
+        ><a href="#privacy" data-privacy>Privacy</a
+        ><a href="#trust">Security &amp; trust</a>
+      </nav>
+    </footer>
+  </body>
 </html>

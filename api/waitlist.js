@@ -6,7 +6,7 @@ import { createClient } from '@supabase/supabase-js';
 // registration. Set SMS_PROVIDER=retell to use Retell instead.
 const TEXTBELT_ENDPOINT = 'https://textbelt.com/text';
 const WAITLIST_MESSAGE =
-  "Hey — you're on the waitlist. We'll text you when it's your turn to use Axolotl.";
+  "Hey — you're on the waitlist. We'll text you when it's your turn to use Benny.";
 
 /** The form sends digits only (e.g. "18313459066"); assume NANP (+1) when bare. */
 function normalizeE164(input) {

@@ -20,7 +20,7 @@ const TEXTBELT_ENDPOINT = 'https://textbelt.com/text';
 
 /** The confirmation text sent to a parent the moment they join the waitlist. */
 export const WAITLIST_MESSAGE =
-  "Hey — you're on the waitlist. We'll text you when it's your turn to use Axolotl.";
+  "Hey — you're on the waitlist. We'll text you when it's your turn to use Benny.";
 
 /**
  * Textbelt sender — the free / cheap SMS path with NO business profile needed.
