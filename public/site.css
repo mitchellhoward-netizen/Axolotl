@@ -406,8 +406,9 @@ button:disabled {
   letter-spacing: -0.025em;
 }
 .messages blockquote footer {
-  color: var(--muted);
-  font-size: 12px;
+  color: var(--secondary);
+  font-size: 14px;
+  line-height: 1.55;
   margin-top: 10px;
 }
 .messages .caption {
