@@ -177,7 +177,11 @@ export function startDemoServer(port = Number(process.env.DEMO_PORT) || 4310): P
         const q = (u.searchParams.get('q') ?? '').toLowerCase();
         const words = q.split(/\s+/).filter((w) => w.length > 2);
         const hits = q ? BOOKS.filter((b) => words.some((w) => `${b.title} ${b.author}`.toLowerCase().includes(w))) : BOOKS;
-        return json(res, 200, hits.length ? hits : BOOKS);
+        // A REAL, tappable listing link (Bookshop.org search) so the person can open the
+        // actual book on their phone. The order itself is the demo's fictional step.
+        const withUrl = (list: Book[]) =>
+          list.map((b) => ({ ...b, url: `https://bookshop.org/search?keywords=${encodeURIComponent(`${b.title} ${b.author}`)}` }));
+        return json(res, 200, withUrl(hits.length ? hits : BOOKS));
       }
       if (req.method === 'POST' && path === '/books/order') {
         const b = await readBody(req);

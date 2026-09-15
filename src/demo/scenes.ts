@@ -153,9 +153,12 @@ export async function books(sc: SceneCtx, arg?: string): Promise<SceneResult> {
   }
   const book = results[0]!;
   const covered = book.priceCents <= w.unitMaxCents * left;
-  await sc.send(`Found it — "${book.title}" by ${book.author}, ${book.format}, ${dollars(book.priceCents)}.`);
+  const usedLabel = left === w.unitsPerMonth ? 'none used yet' : `${left} left this month`;
+  await sc.send(`Found it — "${book.title}" by ${book.author}, ${book.format}, ${dollars(book.priceCents)}.\n${book.url}`);
   await sc.send(
-    `I'll buy it and file it with Ramp as a wellness expense${covered ? ' — fully covered by your stipend' : ''}. Reply YES and it's done.`,
+    `Your ${w.label} covers it (${w.unitsPerMonth} a month, ${usedLabel})${covered ? '' : ' — partly'}. ` +
+      `I'd ship it to your address on file: ${sc.state.shippingAddress}.\n` +
+      `Reply YES and I'll buy it and file it with Ramp — or send a different address.`,
   );
 
   return {
@@ -163,16 +166,16 @@ export async function books(sc: SceneCtx, arg?: string): Promise<SceneResult> {
       label: `"${book.title}"`,
       onApprove: async () => {
         const order = await orderBook(book.id, `book|${book.id}`);
-        await sc.send(`✅ Ordered — "${order.title}", ${dollars(order.priceCents)}, arriving ${order.eta}.`);
+        await sc.send(`✅ Ordered — "${order.title}", ${dollars(order.priceCents)}, arriving ${order.eta}. I'll send tracking when it ships.`);
         const prep = await rampConnector.prepare(sc.ctx, {
           workflow: 'reimbursement', request: 'file wellness book expense',
-          contextFacts: [fact('expense', 'coverage', `Bookshop|${order.priceCents}|"${order.title}"`)], documents: [],
+          contextFacts: [fact('expense', 'coverage', `Bookshop.org|${order.priceCents}|"${order.title}"`)], documents: [],
         });
         if (!('action' in prep)) { await sc.send(`I ordered it but couldn't file the expense — want me to try again?`); return {}; }
         const sub = await rampConnector.submit(sc.ctx, prep.action, `ramp:${prep.action.resourceKey}`);
         sc.state.booksUsedThisMonth += 1;
         sc.state.filed.push({ category: 'wellness-books', amountCents: order.priceCents, description: `"${order.title}"`, ref: sub.reference, status: 'submitted' });
-        await sc.send(`✅ Filed with Ramp (${sub.reference}) — it'll show up as a wellness expense and reimburse to you.`);
+        await sc.send(`✅ Filed with Ramp (${sub.reference}) — ${dollars(order.priceCents)} comes back to you as a wellness expense.`);
         return { followUp: [{ via: 'ramp', ref: sub.reference }] };
       },
       onDecline: async () => { await sc.send(`No problem — I'll leave it.`); },

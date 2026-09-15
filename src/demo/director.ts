@@ -94,6 +94,10 @@ export class BennyDemo {
     switch (route.kind) {
       case 'approve': return this.approve();
       case 'decline': return this.decline();
+      case 'address':
+        this.state.shippingAddress = route.value;
+        await this.send(`Got it — shipping to ${route.value}.` + (this.pending ? ` Reply YES and I'll place it.` : ''));
+        return;
       case 'menu': await this.send(MENU_TEXT); return;
       case 'stop': return this.stop();
       case 'scene': return this.runScene(route.scene, route.arg);

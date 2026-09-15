@@ -16,6 +16,7 @@ export type RouteResult =
   | { kind: 'scene'; scene: SceneId; arg?: string }
   | { kind: 'approve' }
   | { kind: 'decline' }
+  | { kind: 'address'; value: string }
   | { kind: 'menu' }
   | { kind: 'stop' }
   | { kind: 'say'; text: string };
@@ -47,6 +48,7 @@ function systemPrompt(state: DemoState, pending?: string): string {
     `- {"do":"status"}  — what's left / any update / did it get paid / what's outstanding / a recap`,
     `- {"do":"approve"} — they are agreeing to the pending proposal (yes/sure/do it/book it/file it/send)`,
     `- {"do":"decline"} — they are saying no / not now`,
+    `- {"do":"address","value":"<the address>"} — they are giving a shipping address for a pending order`,
     `- {"do":"menu"}    — they ask what you can do / for help`,
     `- {"do":"stop"}    — they want to end`,
     `- {"say":"..."}    — anything else: a question, chit-chat, or a request you can't fully do`,
@@ -64,12 +66,26 @@ function systemPrompt(state: DemoState, pending?: string): string {
   ].join('\n');
 }
 
-function coerce(raw: unknown): RouteResult | null {
-  if (!raw || typeof raw !== 'object') return null;
+/** Strip the command words so we echo the ADDRESS, not "ship it to 456 Oak Ave". */
+export function cleanAddress(text: string): string {
+  return text
+    .trim()
+    .replace(/^(please\s+)?(ship|send|deliver|mail|address)\b.*?\bto\s+/i, '')
+    .replace(/^(my\s+)?address\s*(is)?\s*:?\s*/i, '')
+    .replace(/^to\s+/i, '')
+    .trim()
+    .slice(0, 200);
+}
+
+function coerce(raw: unknown): RouteResult | null {  if (!raw || typeof raw !== 'object') return null;
   const o = raw as Record<string, unknown>;
   if (typeof o.do === 'string') {
     const d = o.do;
     if (d === 'approve' || d === 'decline' || d === 'menu' || d === 'stop') return { kind: d };
+    if (d === 'address') {
+      const value = typeof o.value === 'string' ? cleanAddress(o.value) : '';
+      return value ? { kind: 'address', value } : null;
+    }
     if (d === 'books') {
       const title = typeof o.title === 'string' && o.title.trim() ? o.title.trim().slice(0, 200) : undefined;
       return { kind: 'scene', scene: 'books', arg: title };
@@ -116,6 +132,11 @@ export function keywordRouter(): Router {
       return pending ? { kind: 'approve' } : { kind: 'scene', scene: 'audit' };
     }
     if (/^(no|nope|not now|not yet|later|cancel|skip|don'?t)\b/.test(t)) return { kind: 'decline' };
+    // A street address ("… St/Ave/Rd/Ct…" or a ZIP with a comma) — for a pending order.
+    if (/\b\d+\s+\S+.*\b(st|street|ave|avenue|rd|road|dr|drive|blvd|ln|lane|way|ct|court|pl|place|ter|terrace)\b/i.test(text.trim()) ||
+        (/\b\d{5}(-\d{4})?\b/.test(text) && /,/.test(text))) {
+      return pending ? { kind: 'address', value: cleanAddress(text) } : { kind: 'say', text: 'Got it — I\'ll use that address when something needs shipping.' };
+    }
     if (/\b(menu|help|what can you|what do you do|options)\b/.test(t)) return { kind: 'menu' };
     // "Any update / did it get paid / what's left" must win over "claim"/"reimburse" —
     // an update question is not a request to file again.

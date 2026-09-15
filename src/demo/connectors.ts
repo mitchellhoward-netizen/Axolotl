@@ -198,7 +198,7 @@ export const northstarConnector: BennyConnector = {
 // The book is a PURCHASE (a merchant transaction), so it isn't a benefits connector;
 // the reimbursement that follows IS, because Ramp is where the money comes back.
 
-export interface Book { id: string; title: string; author: string; priceCents: number; format: string }
+export interface Book { id: string; title: string; author: string; priceCents: number; format: string; url: string }
 export interface BookOrder { orderId: string; title: string; author: string; priceCents: number; eta: string }
 
 export async function searchBooks(query: string): Promise<Book[]> {

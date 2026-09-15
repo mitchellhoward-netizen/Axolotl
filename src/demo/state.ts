@@ -29,6 +29,8 @@ export interface DemoState {
   booking?: Booking;
   /** Whether the school absence note has gone out. */
   absenceSent: boolean;
+  /** Where physical goods ship — defaults to the household address on file. */
+  shippingAddress: string;
   /** The triage digest has been shown. */
   triaged: boolean;
 }
@@ -43,6 +45,7 @@ export function initialState(): DemoState {
     unclaimed: [{ category: 'vision', amountCents: 18_435, description: "Leo's glasses receipt" }],
     filed: [],
     absenceSent: false,
+    shippingAddress: demoCatalog.member.address,
     triaged: false,
   };
 }

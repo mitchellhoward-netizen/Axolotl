@@ -29,8 +29,8 @@ await say('yes');                                        // book it
 await say('am I using my benefits correctly? is there anything I haven’t used up?');
 await say('yes');                                        // file the FSA
 await say('yes');                                        // confirm the claim
-await say('books');                                      // jump to the stipend
 await say('buy Love in the Time of Cholera by Gabriel Garcia Marquez');
+await say('ship it to 456 Oak Ave, Santa Cruz, CA 95060');  // change the shipping address
 await say('yes');                                        // buy it + file with Ramp
 await say('can you also tell the school Leo’s out Tuesday?');
 await say('SEND');                                       // send the note
@@ -50,6 +50,10 @@ ok('audit answers the natural question', /I checked your plan/i.test(text) && /F
 ok('audit prioritizes the FSA', /the one I'?d act on is the FSA/i.test(text));
 ok('FSA filed', /Filed — .*FSA/i.test(text));
 ok('book is found by name', /Love in the Time of Cholera/i.test(text));
+ok('book returns a tappable listing link', /https:\/\/bookshop\.org\//i.test(text));
+ok('names the funding source (stipend)', /stipend covers it/i.test(text));
+ok('confirms the shipping address on file', /ship it to your address on file/i.test(text));
+ok('accepts a changed shipping address', /shipping to 456 Oak Ave/i.test(text) && !/ship to ship it to/i.test(text));
 ok('book is actually purchased', /✅ Ordered — .*Love in the Time of Cholera/i.test(text));
 ok('reimbursement filed in Ramp', /Filed with Ramp/i.test(text));
 ok('absence: pure-life note sent', /no benefit needed/i.test(text) && /Sent to the school/i.test(text));

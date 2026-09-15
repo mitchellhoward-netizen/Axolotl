@@ -59,7 +59,8 @@ export interface EapBenefit {
 export interface CoverageCatalog {
   employer: string;
   planName: string;
-  member: { id: string; name: string };
+  /** The household — the "life map". Benny ships things here, reminders go here. */
+  member: { id: string; name: string; address: string };
   dependents: Dependent[];
   network: { id: string; name: string };
   benefits: {
@@ -78,7 +79,7 @@ export interface CoverageCatalog {
 export const demoCatalog: CoverageCatalog = {
   employer: 'Demo Robotics, Inc.',
   planName: 'Demo Choice PPO',
-  member: { id: 'member-maya', name: 'Maya' },
+  member: { id: 'member-maya', name: 'Maya', address: '123 Main St, Soquel, CA 95073' },
   dependents: [
     { id: 'dep-leo', name: 'Leo', relation: 'child', age: 5 },
     { id: 'dep-self', name: 'Maya', relation: 'self', age: 37 },
