@@ -22,7 +22,9 @@ create table if not exists connection (
 );
 
 create index if not exists connection_family_idx on connection(family_id);
-create unique index if not exists connection_family_kind_idx on connection(family_id, kind);
+-- NOT unique: a family may reconnect (e.g. after an expired login), which inserts a new
+-- row. Reads pick the newest non-revoked row for (family_id, kind).
+create index if not exists connection_family_kind_idx on connection(family_id, kind);
 
 alter table connection enable row level security;
 -- RLS policies live in db/rls-family.sql (family_id = current family only).

@@ -8,6 +8,7 @@ import { PortalAccess } from './portal-access.js';
 import { SkyvernBrowserClient, portalAccessPolicySchema } from './skyvern-browser.js';
 import { handlePortalHttp } from './portal-http.js';
 import { personalModelContext, type LifeTools } from '../agent/personal.js';
+import { demoConnectors } from '../demo/connectors.js';
 
 /** No provider credentials, fake providers, or auto-migrations are wired here. */
 export async function createBennyMessaging(env = process.env): Promise<BennyMessaging | undefined> {
@@ -19,7 +20,10 @@ export async function createBennyMessaging(env = process.env): Promise<BennyMess
   const store = new BennyStore(url, new BennyVault(key));
   try {
     await store.check();
-    const runtime = new BennyRuntime(store, [], origin, Date.now, sender => allowlist.has(sender));
+    // Fictional demo connectors (src/demo/) only when explicitly enabled; the default
+    // is still no connectors (nothing real is registered).
+    const connectors = env.BENNY_DEMO_CONNECTORS === 'true' ? demoConnectors : [];
+    const runtime = new BennyRuntime(store, connectors, origin, Date.now, sender => allowlist.has(sender));
     runtime.requireEnrollment = true;
     if (env.BENNY_SKYVERN_ENABLED === 'true') {
       if (!env.SKYVERN_API_KEY || !env.BENNY_SKYVERN_POLICIES) throw new Error('Skyvern access requires an API key and reviewed portal policies');

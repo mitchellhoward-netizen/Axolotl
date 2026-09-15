@@ -18,6 +18,9 @@ export const PORTALS = [
   { id: 'workday', label: 'Workday', pattern: /\bworkday\b/i },
   { id: 'rippling', label: 'Rippling', pattern: /\brippling\b/i },
   { id: 'mychart', label: 'MyChart (organization-specific)', pattern: /\bmychart\b/i },
+  // Fictional demo institutions (see src/demo/). Real connectors must be added above.
+  { id: 'northstar', label: 'Northstar Benefits (demo)', pattern: /\bnorthstar benefits\b/i },
+  { id: 'bright', label: 'Bright Pediatrics (demo)', pattern: /\bbright pediatrics\b/i },
 ] as const;
 
 export function portalIn(text: string): string | undefined {
