@@ -1,17 +1,14 @@
 # Benny demo — two maps, four beats
 
 A self-contained, offline demo of Benny's core loop: **hold both maps → notice → act
-(with approval) → follow through**, in an iMessage-style transcript. It's the "agentic
-benefit" in one running script — no real accounts, providers, or money.
+(with approval) → follow through**. It runs two ways:
 
-## Run it
-
-```sh
-npm run demo:benny
-```
-
-It starts two fictional institutions and prints the conversation. `npm run test:demo`
-runs the pure trigger-engine unit tests (13).
+- **Live iMessage** (the demo) — text the line `demo` and Benny plays all four beats as
+  real bubbles, pausing at each `YES <code>` / `SEND` for your reply (and auto-advancing
+  if you don't). Fictional, offline, deterministic; works on the deployed agent.
+- **Console transcript** — `npm run demo:benny` prints the same conversation.
+  `npm run test:demo` and `npm run test:demo-director` run the trigger-engine and
+  director tests.
 
 ## The four beats
 
