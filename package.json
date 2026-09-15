@@ -22,6 +22,7 @@
     "test:rls": "tsx scripts/test-rls.ts",
     "test:email": "tsx scripts/test-email-triage.ts",
     "test:demo": "tsx scripts/test-demo.ts",
+    "demo:benny": "tsx scripts/demo-benny.ts",
     "check": "npm run check:secrets && npm run typecheck",
     "index:knowledge": "tsx scripts/index-knowledge.ts",
     "test:research": "tsx scripts/test-trajectory.ts",
