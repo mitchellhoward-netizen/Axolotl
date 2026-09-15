@@ -38,7 +38,7 @@ export async function handlePortalHttp(access: PortalAccess, req: IncomingMessag
       if (path === '/benny/portal/status') {
         const grant = await access.view(viewToken(req));
         if (!grant) json(401, { error: 'Connection link expired, paused or revoked. Request a fresh link in iMessage.' });
-        else json(200, { provider: grant.provider, phase: grant.connection.status === 'awaiting_confirmation' ? 'confirm' : grant.connection.browser?.phase ?? 'unavailable' });
+        else json(200, { provider: grant.provider, phase: grant.connection.status === 'awaiting_verification' ? 'setup_saved' : grant.connection.status === 'awaiting_confirmation' ? 'confirm' : grant.connection.browser?.phase ?? 'unavailable' });
         return true;
       }
     }

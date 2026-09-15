@@ -11,7 +11,7 @@ import { BennyStore, BennyVault } from '../src/benefits/runtime-store.js';
 import { BennyRuntime } from '../src/benefits/runtime.js';
 import { PortalAccess } from '../src/benefits/portal-access.js';
 import { attachPortalWebSocket, handlePortalHttp } from '../src/benefits/portal-http.js';
-import { SkyvernBrowserClient, SkyvernRequestError, navigateBrowser, passiveSnapshot, portalPolicySchema, type PortalPolicy, type SkyvernBrowser } from '../src/benefits/skyvern-browser.js';
+import { SkyvernBrowserClient, SkyvernRequestError, navigateBrowser, passiveSnapshot, portalPolicySchema, portalAccessPolicySchema, type PortalAccessPolicy, type PortalPolicy, type SkyvernBrowser } from '../src/benefits/skyvern-browser.js';
 import { personalModelContext } from '../src/agent/personal.js';
 
 // Only fictional adapters and a disposable local schema. Never load .env or call Skyvern.
@@ -23,7 +23,7 @@ const policy: PortalPolicy = { id: 'wex', revision: 'fictional-v1', loginUrl: 'h
 before(async () => { await store.pool.query((await readFile(new URL('../db/benny.sql', import.meta.url), 'utf8')).replace(/\bbenny\b/g, schema)); });
 after(async () => { await store.pool.query(`DROP SCHEMA ${schema} CASCADE`); await store.close(); });
 
-function fixture() {
+function fixture(config: PortalAccessPolicy = policy) {
   let now = Date.parse('2026-09-14T12:00:00Z'); let allowed = true;
   const sender = `${randomUUID()}@example.invalid`;
   const runtime = new BennyRuntime(store, [], 'https://benny.invalid', () => now, s => allowed && s === sender);
@@ -51,7 +51,7 @@ function fixture() {
     },
     viewer() { throw new Error('No real stream'); },
   };
-  const access = new PortalAccess(store, browser, [policy], 'https://benny.invalid', a => allowed && runtime.enrolled(a), () => now);
+  const access = new PortalAccess(store, browser, [config], 'https://benny.invalid', a => allowed && runtime.enrolled(a), () => now);
   runtime.portalAccess = access;
   const say = (text: string) => runtime.receive({ id: randomUUID(), sender, space: 'fictional-dm', line: 'fictional-line', text });
   const account = async () => (await store.read(owner))!;
@@ -66,6 +66,41 @@ function fixture() {
   return { runtime, access, browser, calls, profiles, owner, say, account, connection, step, begin, login, connect,
     advance(ms: number) { now += ms; }, disallow() { allowed = false; }, switchAccount() { accountId = 'someone-else'; } };
 }
+
+test('sign-in-only setup saves an unverified session without reads, confirmation or lasting access', async () => {
+  const config = { mode: 'login_only', id: 'wex', revision: 'setup-v1', loginUrl: 'https://fixture.invalid/login' } satisfies PortalAccessPolicy;
+  assert.equal(portalAccessPolicySchema.safeParse(config).success, true);
+  assert.equal(portalAccessPolicySchema.safeParse({ ...config, readUrl: policy.readUrl }).success, false);
+  assert.equal(portalAccessPolicySchema.safeParse({ ...config, loginUrl: 'http://fixture.invalid/login' }).success, false);
+  const f = fixture(config);
+  const view = await f.login();
+  const c = await f.connection();
+  assert.equal(c.status, 'awaiting_verification');
+  assert.equal(c.code, undefined); assert.equal(c.accountId, undefined);
+  assert.ok(c.browser?.profile); assert.equal(c.browser?.session, undefined);
+  assert.equal(f.calls.filter(c => c.method === 'create').length, 1);
+  assert.equal(f.calls.filter(c => c.method === 'read').length, 0);
+  assert.deepEqual(f.access.readPortalIds, []);
+  assert.deepEqual(personalModelContext(await f.account(), Date.parse('2026-09-14T13:00:00Z')).portalReads, []);
+  await f.say('CONNECT A1B2C3D4'); await f.say('CHECK wex'); await f.step(4);
+  assert.equal((await f.connection()).status, 'awaiting_verification');
+  assert.equal(f.calls.filter(c => c.method === 'create').length, 1);
+  assert.match((await f.account()).outbox.at(-1)!.text, /No read was started/);
+  const server = createServer((req, res) => { void handlePortalHttp(f.access, req, res); });
+  server.listen(0); await once(server, 'listening');
+  try {
+    const response = await fetch(`http://127.0.0.1:${(server.address() as AddressInfo).port}/benny/portal/status`, { headers: { Cookie: `__Host-benny_portal=${view}` } });
+    assert.deepEqual(await response.json(), { provider: 'wex', phase: 'setup_saved' });
+  } finally { await new Promise<void>(resolve => server.close(() => resolve())); }
+  // Keep access right up to the expiry, then remove the saved profile.
+  const deadline = Date.parse('2026-09-15T12:00:03Z');
+  assert.equal(c.expiresAt, deadline);
+  f.advance(deadline - f.runtime.now() - 1); await f.runtime.tick();
+  assert.equal(f.profiles.size, 1);
+  f.advance(1); await f.runtime.tick(); await f.runtime.tick();
+  assert.equal((await f.connection()).status, 'expired');
+  assert.equal(f.profiles.size, 0);
+});
 
 test('login closes/restores before identity confirmation, then requested reads refresh the profile', async () => {
   const f = fixture(); const ticket = await f.begin();

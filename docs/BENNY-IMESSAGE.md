@@ -151,7 +151,7 @@ do not commit values or copy credentials into chat):
 | `BENNY_ATTACHMENTS_ENABLED=true` | Separate opt-in after document-handling review; default off |
 | `BENNY_SKYVERN_ENABLED=true` | Separate opt-in for reviewed browser login/read policies; default off |
 | `SKYVERN_API_KEY` | Server-only Skyvern organization key; never sent to the client/model |
-| `BENNY_SKYVERN_POLICIES` | JSON array of operator-reviewed `portalPolicySchema` policies; no default CVS or other real-site selectors |
+| `BENNY_SKYVERN_POLICIES` | JSON array validated by `portalAccessPolicySchema`: reviewed read policies or explicitly labeled sign-in-only setup policies |
 
 Existing Spectrum provider configuration is still required. Provision the schema
 by explicitly applying `db/benny.sql` to the reviewed database; startup only checks
@@ -220,6 +220,27 @@ policies. All three Benny enablement flags were off. Local changes were not depl
 This adds browser access to the same encrypted account/context and iMessage
 runtime, not a second assistant. It is **read infrastructure, not a claim/refill
 executor**. `PREPARE` still requires a separately validated action connector.
+
+### Sign-in-only setup before account verification is implemented
+
+A policy with `mode: "login_only"`, provider `id`, `revision` and a fixed HTTPS
+`loginUrl` enables human-controlled sign-in without inventing account selectors.
+`CONNECT` sends the private link through the same iMessage conversation. The
+notice explains that Skyvern may record page content and the pilot is not
+HIPAA-validated. Opening the link starts a billed browser session; previews do not.
+Finish sign-in closes that browser and saves its profile as `awaiting_verification`.
+It does **not** verify login, restore the profile, expose account content to the
+model, offer a confirmation code, or permit automated reads or actions. `CHECK`
+reports that limitation instead of starting a browser. The UI says “saved for
+setup—not verified,” and the model sees login availability separately from reads.
+
+The local setup grant expires after 24 hours. DISCONNECT or expiry queues remote
+profile removal; worker availability and vendor responses determine cleanup time.
+This does not erase vendor recordings or backups. A read policy still needs actual
+account-identity verification and portal-specific tests. A saved setup session is
+not a completed CVS integration, refill request or benefits claim.
+
+### Verified read policies
 
 1. `CONNECT provider` creates a private ten-minute link with a single-use fragment
    capability. A link preview GET cannot consume it or create a paid browser.

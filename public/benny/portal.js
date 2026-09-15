@@ -84,12 +84,16 @@ const poll = async () => {
       }
     } else {
       stopView();
+      if (state.phase === 'setup_saved') {
+        status.textContent = 'Browser session saved for setup—not verified. Return to iMessage. Automated reads and actions are not enabled; saved access expires within 24 hours.';
+        clearTimeout(polling); return;
+      }
       if (state.phase === 'confirm' || state.phase === 'idle') {
         status.textContent = 'Login saved and checked. Return to iMessage to confirm the account before further reads.';
         clearTimeout(polling); return;
       }
       if (state.phase === 'unavailable') throw new Error('Sign-in could not be verified. Request a fresh link in iMessage.');
-      status.textContent = ['open', 'creating', 'inspect'].includes(state.phase) ? 'Opening your private browser…' : 'Saving and checking the login. You can return to iMessage; Benny will send the result.';
+      status.textContent = ['open', 'creating', 'inspect'].includes(state.phase) ? 'Opening your private browser…' : 'Saving the browser session. Account checks run only where configured. Return to iMessage for the result.';
     }
     polling = setTimeout(poll, 2000);
   } catch (error) { if (version === pollVersion) { stopView(); status.textContent = error.message; } }

@@ -5,7 +5,7 @@ import { BennyRuntime, type Inbound } from './runtime.js';
 import { BennyStore, BennyVault } from './runtime-store.js';
 import { z } from 'zod';
 import { PortalAccess } from './portal-access.js';
-import { SkyvernBrowserClient, portalPolicySchema } from './skyvern-browser.js';
+import { SkyvernBrowserClient, portalAccessPolicySchema } from './skyvern-browser.js';
 import { handlePortalHttp } from './portal-http.js';
 import { personalModelContext, type LifeTools } from '../agent/personal.js';
 
@@ -24,7 +24,7 @@ export async function createBennyMessaging(env = process.env): Promise<BennyMess
     if (env.BENNY_SKYVERN_ENABLED === 'true') {
       if (!env.SKYVERN_API_KEY || !env.BENNY_SKYVERN_POLICIES) throw new Error('Skyvern access requires an API key and reviewed portal policies');
       let policies;
-      try { policies = z.array(portalPolicySchema).min(1).max(20).parse(JSON.parse(env.BENNY_SKYVERN_POLICIES)); }
+      try { policies = z.array(portalAccessPolicySchema).min(1).max(20).parse(JSON.parse(env.BENNY_SKYVERN_POLICIES)); }
       catch { throw new Error('Invalid reviewed Skyvern portal policies'); }
       runtime.portalAccess = new PortalAccess(store, new SkyvernBrowserClient(env.SKYVERN_API_KEY), policies, new URL(origin).origin,
         a => runtime.enrolled(a) && allowlist.has(a.sender));
@@ -82,7 +82,10 @@ export class BennyMessaging {
       context: async () => {
         const a = await this.runtime.store.read(this.runtime.owner(sender));
         if (!this.runtime.enrolled(a) || !a) return { enrolled: false, instruction: 'Ask the person to text JOIN PILOT to read the disclosure. No account was created by this tool.' };
-        return { enrolled: true, ...personalModelContext(a, this.runtime.now(), input.text), availableConnectors: this.runtime.connectorIds, availableReadPortals: [...(this.runtime.portalAccess?.policies.keys() ?? [])] };
+        return { enrolled: true, ...personalModelContext(a, this.runtime.now(), input.text), availableConnectors: this.runtime.connectorIds,
+          availableReadPortals: this.runtime.portalAccess?.readPortalIds ?? [],
+          availableLoginPortals: [...(this.runtime.portalAccess?.policies.keys() ?? [])],
+          instruction: 'Login availability is not verified account access. Portals absent from availableReadPortals support sign-in-only setup; no automated reads or actions.' };
       },
       plan: async raw => await this.runtime.plan(input, raw)
         ? 'Saved one plan for this message. Exact updates are queued in this iMessage conversation; do not repeat or paraphrase approval codes. Nothing was submitted. Read current context for generated IDs.'

@@ -17,6 +17,13 @@ export const portalPolicySchema = z.object({
   fields: z.array(field.extend({ label: z.string().min(1).max(80) }).strict()).min(1).max(8),
 }).strict();
 export type PortalPolicy = z.infer<typeof portalPolicySchema>;
+/** Bring-up can capture a human-controlled session before account selectors are
+ * validated. It grants no automated read or action capability. */
+export const portalAccessPolicySchema = z.union([portalPolicySchema, z.object({
+  mode: z.literal('login_only'), id: z.enum(PORTALS.map(p => p.id)),
+  revision: z.string().min(1).max(80), loginUrl: httpsUrl,
+}).strict()]);
+export type PortalAccessPolicy = z.infer<typeof portalAccessPolicySchema>;
 export interface PortalSnapshot {
   accountId: string; accountLabel: string; fields: Array<{ label: string; value: string }>;
   source: string; observedAt: string; policyRevision: string;

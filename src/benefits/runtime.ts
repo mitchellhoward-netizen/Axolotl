@@ -26,7 +26,7 @@ export interface Task {
   events: Array<{ at: number; type: string; detail: string }>;
 }
 interface Connection {
-  generation: string; status: 'awaiting_login' | 'awaiting_confirmation' | 'active' | 'expired' | 'revoked';
+  generation: string; status: 'awaiting_login' | 'awaiting_verification' | 'awaiting_confirmation' | 'active' | 'expired' | 'revoked';
   expiresAt: number; credential?: string; accountId?: string; accountLabel?: string; code?: string; confirmBy?: number;
   browser?: PortalState;
 }
@@ -163,7 +163,7 @@ export class BennyRuntime {
       }
       if (/^(help|hi|hello|hey|benny)$/i.test(text)) { enqueue(a, HELP, now); return; }
       if (/^connections$/i.test(text)) {
-        enqueue(a, PORTALS.map(p => `${p.label}: ${a.connections[p.id]?.status ?? (this.connectors.has(p.id) ? 'available to connect' : this.portalAccess?.policies.has(p.id) ? 'configured browser reads only' : 'not enabled')}`).join('\n'), now); return;
+        enqueue(a, PORTALS.map(p => `${p.label}: ${a.connections[p.id]?.status ?? (this.connectors.has(p.id) ? 'available to connect' : this.portalAccess?.readPortalIds.includes(p.id) ? 'configured browser reads only' : this.portalAccess?.policies.has(p.id) ? 'sign-in-only setup; no automated reads or actions' : 'not enabled')}`).join('\n'), now); return;
       }
       if (/^status$/i.test(text)) {
         enqueue(a, `${a.paused ? 'Background work is paused.\n' : ''}${a.tasks.length ? a.tasks.slice(-10).map(taskSummary).join('\n\n') : 'No tasks yet. Tell me what you need and which provider you use.'}`, now); return;
@@ -375,7 +375,7 @@ export class BennyRuntime {
    * classifier and no forwarding private turns to legacy transcript storage. */
   private async converse(a: Account, tx: PoolClient, input: Inbound, text: string): Promise<void> {
     const now = this.now();
-    const plan = personalPlanSchema.parse(await this.personalPlanner!(text, structuredClone(a), now, [...this.connectors.keys()], [...(this.portalAccess?.policies.keys() ?? [])]));
+    const plan = personalPlanSchema.parse(await this.personalPlanner!(text, structuredClone(a), now, [...this.connectors.keys()], this.portalAccess?.readPortalIds ?? []));
     await this.applyPlan(a, tx, input, text, plan);
   }
 
