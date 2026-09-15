@@ -23,6 +23,7 @@ export interface InboxSignal {
 
 export type Trigger =
   | { kind: 'dependent-physical'; dependentId: string; dependentName: string; sourceId: string; reason: string }
+  | { kind: 'school-absence'; dependentId: string; dependentName: string; sourceId: string; reason: string }
   | { kind: 'fsa-expiring'; amountCents: number; daysLeft: number; reason: string }
   | { kind: 'wellness-unused'; unitsLeft: number; unitLabel: string; unitMaxCents: number; reason: string }
   | { kind: 'eap-unused'; sessionsLeft: number; reason: string };
@@ -53,7 +54,22 @@ export function findTriggers(cat: CoverageCatalog, now: Date, signals: InboxSign
     }
   }
 
-  // 2. FSA use-it-or-lose-it: a balance and a hard deadline closing in.
+  // 2. Pure-life coordination — no benefit attached, still Benny's job.
+  for (const s of signals) {
+    if (s.actionType !== 'absence' || !s.dependentId) continue;
+    const dep = cat.dependents.find((d) => d.id === s.dependentId);
+    if (dep) {
+      out.push({
+        kind: 'school-absence',
+        dependentId: dep.id,
+        dependentName: dep.name,
+        sourceId: s.id,
+        reason: `${dep.name} will be out — I can tell the school so you don't have to.`,
+      });
+    }
+  }
+
+  // 3. FSA use-it-or-lose-it: a balance and a hard deadline closing in.
   const fsa = cat.benefits.fsa;
   if (fsa.balanceCents > 0) {
     const days = daysUntil(fsa.deadline, now);
@@ -67,7 +83,7 @@ export function findTriggers(cat: CoverageCatalog, now: Date, signals: InboxSign
     }
   }
 
-  // 3. Wellness stipend unused this period (the "two books a month" beat).
+  // 4. Wellness stipend unused this period (the "two books a month" beat).
   const w = cat.benefits.wellness;
   const unitsLeft = w.unitsPerMonth - w.usedThisMonth;
   if (unitsLeft > 0) {
@@ -80,7 +96,7 @@ export function findTriggers(cat: CoverageCatalog, now: Date, signals: InboxSign
     });
   }
 
-  // 4. EAP: free confidential sessions, almost never used.
+  // 5. EAP: free confidential sessions, almost never used.
   const eap = cat.benefits.eap;
   if (eap.remainingSessions > 0) {
     out.push({

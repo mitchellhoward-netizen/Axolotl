@@ -34,6 +34,14 @@ ok('fires when unused this month', findTriggers(demoCatalog, nearDeadline, []).s
 console.log('\n# EAP');
 ok('fires with remaining sessions', findTriggers(demoCatalog, nearDeadline, []).some(t => t.kind === 'eap-unused' && t.sessionsLeft === 8));
 
+console.log('\n# pure-life coordination (absence → notify school, no benefit)');
+const absenceSignal: InboxSignal = { id: 'm2', subject: 'Leo will be out Tuesday', actionType: 'absence', dependentId: 'dep-leo' };
+const tAbs = findTriggers(demoCatalog, nearDeadline, [absenceSignal]);
+const absenceTrigger = tAbs.find(t => t.kind === 'school-absence');
+ok('fires school-absence', Boolean(absenceTrigger));
+ok('absence reason is pure-life (no coverage claim)', absenceTrigger ? !/cover|in-network|benefit/i.test(absenceTrigger.reason) : false);
+ok('life trigger coexists with benefit triggers', tAbs.some(t => t.kind === 'fsa-expiring') && tAbs.some(t => t.kind === 'wellness-unused'));
+
 console.log('\n# every beat has a reason the agent can say verbatim');
 for (const t of findTriggers(demoCatalog, nearDeadline, [physicalSignal])) ok(`${t.kind} has a reason`, t.reason.length > 10);
 
