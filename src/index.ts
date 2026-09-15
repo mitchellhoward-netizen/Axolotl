@@ -308,6 +308,7 @@ try {
 }
 
 console.log(`🏫 Axolotl is listening for iMessages…`);
+console.log(`🎬 Benny demo ready — text "demo" to play the four beats (physical, FSA, books, absence).`);
 console.log(
   chat.apiKey
     ? `🧠 Brain: LLM (${chat.model} @ ${chat.baseUrl})`
@@ -379,11 +380,14 @@ for await (const [space, message] of app.messages) {
   // ── Benny iMessage demo (text "demo" to start) ─────────────────────────────
   // Plays the four beats as real bubbles in THIS thread; any reply advances a gate,
   // and it auto-advances so the demo never stalls. Fictional, offline, deterministic.
-  if (imessage.is(space) && space.type === 'dm' && message.content.type === 'text') {
+  // No space-type guard: triggers on the exact text in any thread so it can never
+  // silently no-op (and logs, so it's diagnosable from the deploy logs).
+  if (message.content.type === 'text') {
     const demoText = message.content.text;
     const running = demos.get(space.id);
     if (running?.active) { running.onMessage(demoText); continue; }
     if (/^\s*(demo|benny demo|start demo|run demo)\s*$/i.test(demoText)) {
+      console.log(`[demo] trigger matched (space=${space.id}) — starting four beats`);
       const d = demos.get(space.id) ?? new BennyDemo((t) => space.send(t).then(() => {}));
       demos.set(space.id, d);
       await d.start().catch((e) => console.error('[demo] start error:', (e as Error)?.message ?? e));
