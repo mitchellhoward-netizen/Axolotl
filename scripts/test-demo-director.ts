@@ -1,36 +1,58 @@
 #!/usr/bin/env tsx
 /**
- * Benny demo — director test (no iMessage line needed). Drives the live director with a
- * fake `send` and fast auto-advance, then asserts every beat landed as a bubble and the
- * claims flipped to "paid". This is the same code path the iMessage loop uses.
+ * Benny demo — interactive director test (no iMessage line, no LLM needed).
+ *
+ * Drives the real director with scripted user messages through the deterministic
+ * keyword router, asserting that natural steering works: triage → approve → audit
+ * ("am I using my benefits right?") → FSA → books → absence → status → paid.
  *
  *   npm run test:demo-director
  */
 import { BennyDemo } from '../src/demo/director.js';
 
-const out: string[] = [];
-const demo = new BennyDemo(async (t) => { out.push(t); }, 40, 2); // fast auto-advance
+const out: Array<{ from: 'you' | 'benny'; text: string }> = [];
+const demo = new BennyDemo(
+  async (t) => { out.push({ from: 'benny', text: t }); },
+  undefined, // keyword router (deterministic)
+  { nudgeMs: 0, followUpMs: 3000, bubbleDelayMs: 1, idleEndMs: 0 },
+);
+
+const say = async (text: string) => { out.push({ from: 'you', text }); await demo.onMessage(text); };
+const benny = () => out.filter((m) => m.from === 'benny').map((m) => m.text);
+const all = () => benny().join('\n');
+
 await demo.start();
 
-const deadline = Date.now() + 15_000;
-while (demo.active && Date.now() < deadline) await new Promise((r) => setTimeout(r, 40));
+// drive the conversation
+await say('yes');                                        // handle the physical
+await say('yes');                                        // book it
+await say('am I using my benefits correctly? is there anything I haven’t used up?');
+await say('yes');                                        // file the FSA
+await say('yes');                                        // confirm the claim
+await say('books');                                      // jump to the stipend
+await say('yes');                                        // take the books
+await say('can you also tell the school Leo’s out Tuesday?');
+await say('SEND');                                       // send the note
+await say('what’s left?');                               // status (curly apostrophe, like iOS)
+await new Promise((r) => setTimeout(r, 3400));           // let the paid follow-up land
+await say('stop');
 
-let pass = 0;
-let fail = 0;
+let pass = 0, fail = 0;
 const ok = (label: string, cond: boolean) => { if (cond) { pass++; console.log(`  ✓ ${label}`); } else { fail++; console.error(`  ✗ ${label}`); } };
-const all = out.join('\n');
+const text = all();
 
-ok('sent more than a handful of bubbles', out.length >= 12);
-ok('beat 1: physical coverage', /physical before enrollment/i.test(all) && /in-network/i.test(all));
-ok('beat 1: booked the provider', /Dr\. Camila Reyes/i.test(all));
-ok('beat 2: FSA use-it-or-lose-it', /use it or lose it/i.test(all) && /glasses/i.test(all));
-ok('beat 3: books stipend', /books/i.test(all) && /haven't used any/i.test(all));
-ok('beat 4: pure-life absence + SEND', /just life/i.test(all) && /SEND/i.test(all));
-ok('approval codes were issued', /\bYES [0-9A-F]{6}\b/.test(all));
-ok('follow-through: FSA claim paid', /vision claim paid/i.test(all));
-ok('follow-through: books paid', /wellness-books claim paid/i.test(all));
-ok('follow-through: appointment confirmed', /Appointment confirmed/i.test(all));
-ok('closing two-maps line', /two maps/i.test(all));
+ok('proactive opening = inbox triage', /3 school emails came in today/i.test(text) && /requires a physical for Leo/i.test(text));
+ok('physical proposal is in-network + $0', /Dr\. Camila Reyes/i.test(text) && /in-network/i.test(text));
+ok('physical booked after approval', /✅ Booked/i.test(text));
+ok('audit answers the natural question', /I checked your plan/i.test(text) && /FSA —/i.test(text) && /Books —/i.test(text) && /EAP —/i.test(text));
+ok('audit prioritizes the FSA', /the one I'?d act on is the FSA/i.test(text));
+ok('FSA filed', /Filed — .*FSA/i.test(text));
+ok('books taken', /stipend/i.test(text));
+ok('absence: pure-life note sent', /no benefit needed/i.test(text) && /Sent to the school/i.test(text));
+ok('status summarizes', /Done so far:/i.test(text) || /Still open:/i.test(text));
+ok('follow-through reports PAID (not just submitted)', /just got paid/i.test(text));
+ok('stop ends the session', /Ending the demo/i.test(text));
+ok('never auto-acts without approval', !/Ending the demo/.test(benny()[0] ?? ''));
 
-console.log(`\n${fail === 0 ? '✓' : '✗'} ${pass} passed, ${fail} failed (${out.length} bubbles)`);
+console.log(`\n${fail === 0 ? '✓' : '✗'} ${pass} passed, ${fail} failed (${benny().length} benny bubbles)`);
 process.exit(fail === 0 ? 0 : 1);

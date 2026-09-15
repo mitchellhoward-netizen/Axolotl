@@ -1,114 +1,189 @@
 /**
- * Benny demo — the live iMessage director.
+ * Benny demo — the interactive director.
  *
- * Runs the scripted four-beat conversation as real iMessage bubbles: it sends each
- * Benny turn through the provided `send` callback, pauses on every approval point
- * (`YES <code>` / `SEND`) for the person's actual reply, and — if they don't reply —
- * auto-advances so the demo never stalls. Follow-through polls the ledger so the claims
- * visibly flip to "paid".
- *
- * Triggered from `src/index.ts` by texting `demo`. Fictional, offline, deterministic.
+ * One proactive beat (the triage), then the person drives: every message is routed
+ * (LLM-first) to a deterministic scene, an approval, or an in-world improv reply. It
+ * remembers what actually happened (state), nudges on silence instead of auto-acting
+ * (a product selling "nothing happens without your approval" can't book things while
+ * you're not looking), and reports claims as they get paid.
  */
 import { startDemoServer, type DemoServer } from './server.js';
-import { buildDemoScript, resolveFollowThrough, type DemoScript } from './script.js';
+import { SCENES, type Pending, type SceneId } from './scenes.js';
+import { initialState, dollars, type DemoState } from './state.js';
+import { keywordRouter, MENU_TEXT, type RouteResult, type Router } from './router.js';
+import { brightConnector, northstarConnector } from './connectors.js';
 import type { ConnectorContext } from '../benefits/connectors.js';
 
 export type DemoSender = (text: string) => Promise<void>;
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
+export interface DemoOptions {
+  /** ms of silence at an approval gate before a gentle nudge (0 = never). */
+  nudgeMs?: number;
+  /** ms after a claim is filed before reporting it paid. */
+  followUpMs?: number;
+  /** ms between bubbles. */
+  bubbleDelayMs?: number;
+  /** end the session after this much silence (0 = never). */
+  idleEndMs?: number;
+}
+
 export class BennyDemo {
   private server?: DemoServer;
-  private script?: DemoScript;
-  private playing = false;
-  private waiting = false;
-  private resolveWait?: () => void;
-  private timer?: NodeJS.Timeout;
-  private stopped = false;
+  private state: DemoState = initialState();
+  private pending?: Pending;
+  private readonly router: Router;
+  private busy = false;
+  private ended = false;
+  private nudgeTimer?: NodeJS.Timeout;
+  private idleTimer?: NodeJS.Timeout;
+  private readonly opts: Required<DemoOptions>;
 
   constructor(
     private readonly send: DemoSender,
-    private readonly autoAdvanceMs = 20000,
-    private readonly bubbleDelayMs = 1300,
-  ) {}
+    router?: Router,
+    opts: DemoOptions = {},
+  ) {
+    this.router = router ?? keywordRouter();
+    this.opts = {
+      nudgeMs: opts.nudgeMs ?? 30_000,
+      followUpMs: opts.followUpMs ?? 25_000,
+      bubbleDelayMs: opts.bubbleDelayMs ?? 900,
+      idleEndMs: opts.idleEndMs ?? 45 * 60_000,
+    };
+  }
 
-  get active(): boolean { return this.playing; }
+  /** Active until `stop` (or a long idle timeout). */
+  get active(): boolean { return !this.ended; }
 
   private ctx(): ConnectorContext {
     return { owner: 'member-maya', credential: 'demo-credential', signal: new AbortController().signal };
   }
 
+  /** Paced send for scene bubbles, so a scene's lines arrive one at a time. */
+  private async sceneSend(text: string): Promise<void> {
+    await this.send(text);
+    await sleep(this.opts.bubbleDelayMs);
+  }
+
+  /** Start the session with the one proactive beat. */
   async start(): Promise<void> {
-    if (this.playing) return;
-    this.stopped = false;
-    if (!this.server) this.server = await startDemoServer();
-    this.server.reset();
-    this.script = await buildDemoScript(this.ctx());
-    void this.run();
+    if (this.server) { this.server.reset(); }
+    else { this.server = await startDemoServer(); }
+    this.state = initialState();
+    this.pending = undefined;
+    this.ended = false;
+    await this.runScene('triage');
+    this.armIdle();
   }
 
-  private async run(): Promise<void> {
-    if (!this.script) return;
-    this.playing = true;
+  async onMessage(text: string): Promise<void> {
+    if (this.ended) return;
+    this.armIdle();
+    if (this.busy) return; // a scene is mid-send; ignore overlap
+    this.clearNudge();
+    const route = await this.router({ text, state: this.state, pending: this.pending?.label });
+    await this.handle(route);
+  }
+
+  private async handle(route: RouteResult): Promise<void> {
+    switch (route.kind) {
+      case 'approve': return this.approve();
+      case 'decline': return this.decline();
+      case 'menu': await this.send(MENU_TEXT); return;
+      case 'stop': return this.stop();
+      case 'scene': return this.runScene(route.scene);
+      case 'say': await this.send(route.text); return;
+    }
+  }
+
+  private async runScene(id: SceneId): Promise<void> {
+    this.busy = true;
     try {
-      for (const turn of this.script.turns) {
-        if (this.stopped) break;
-        for (const line of turn.benny) {
-          if (this.stopped) break;
-          await this.send(line);
-          await sleep(this.bubbleDelayMs);
-        }
-        if (turn.reply && !this.stopped) await this.waitForReply();
-      }
-      if (!this.stopped) {
-        await this.send(this.script.introFollowThrough);
-        const lines = await resolveFollowThrough(this.script.followThrough, this.ctx());
-        for (const line of lines) {
-          if (this.stopped) break;
-          await this.send(line);
-          await sleep(700);
-        }
-        await this.send(this.script.summary);
-      }
+      const result = await SCENES[id]({ send: (t) => this.sceneSend(t), state: this.state, ctx: this.ctx() });
+      this.pending = result.pending;
+      if (result.followUp) this.scheduleFollowUp(result.followUp);
+      if (this.pending) this.armNudge();
     } catch (e) {
-      console.error('[demo] run error:', (e as Error)?.message ?? e);
+      console.error('[demo] scene error:', (e as Error)?.message ?? e);
+      await this.send(`Sorry — I hit a snag there. Want to try something else?`);
     } finally {
-      this.playing = false;
-      this.waiting = false;
+      this.busy = false;
     }
   }
 
-  private waitForReply(): Promise<void> {
-    this.waiting = true;
-    return new Promise((resolve) => {
-      this.resolveWait = resolve;
-      this.timer = setTimeout(() => {
-        this.timer = undefined;
-        this.release();
-      }, this.autoAdvanceMs);
-    });
-  }
-
-  /** Called on every inbound text while the demo is active. Any reply advances a gate. */
-  onMessage(text: string): void {
-    if (!this.playing) return;
-    if (/^\s*(stop|end demo|demo stop|cancel)\s*$/i.test(text)) {
-      this.stopped = true;
-      this.release();
-      return;
+  private async approve(): Promise<void> {
+    const p = this.pending;
+    this.pending = undefined;
+    this.clearNudge();
+    if (!p) { await this.send(`Nothing's waiting on you right now.`); return; }
+    this.busy = true;
+    try {
+      const result = await p.onApprove();
+      this.pending = result.pending;
+      if (result.followUp) this.scheduleFollowUp(result.followUp);
+      if (this.pending) this.armNudge();
+    } catch (e) {
+      console.error('[demo] approve error:', (e as Error)?.message ?? e);
+    } finally {
+      this.busy = false;
     }
-    if (this.waiting) this.release();
   }
 
-  private release(): void {
-    if (this.timer) { clearTimeout(this.timer); this.timer = undefined; }
-    this.waiting = false;
-    this.resolveWait?.();
-    this.resolveWait = undefined;
+  private async decline(): Promise<void> {
+    const p = this.pending;
+    this.pending = undefined;
+    this.clearNudge();
+    if (!p) { await this.send(`Okay.`); return; }
+    if (p.onDecline) await p.onDecline();
+  }
+
+  // ── Follow-through: report claims as they get paid ──────────────────────────
+  private scheduleFollowUp(items: Array<{ via: 'northstar' | 'bright'; ref: string }>): void {
+    setTimeout(() => { void this.reportPaid(items); }, this.opts.followUpMs);
+  }
+
+  private async reportPaid(items: Array<{ via: 'northstar' | 'bright'; ref: string }>): Promise<void> {
+    if (this.ended) return;
+    const lines: string[] = [];
+    for (const item of items) {
+      if (item.via !== 'northstar') continue;
+      const r = await northstarConnector.lookup(this.ctx(), `northstar:${item.ref}`).catch(() => ({ kind: 'absent' as const }));
+      if (r.kind !== 'found' || r.outcome.state !== 'completed') continue;
+      const claim = this.state.filed.find((f) => f.ref === item.ref);
+      if (claim) claim.status = 'paid';
+      lines.push(`Update — ${claim?.description ?? 'your claim'} just got paid: ${claim ? dollars(claim.amountCents) : 'reimbursed'}.`);
+    }
+    if (lines.length) await this.send(lines.join('\n'));
+  }
+
+  // ── Nudge on silence (never auto-act) ───────────────────────────────────────
+  private armNudge(): void {
+    this.clearNudge();
+    if (!this.opts.nudgeMs || !this.pending) return;
+    const label = this.pending.label;
+    this.nudgeTimer = setTimeout(() => {
+      this.nudgeTimer = undefined;
+      if (this.ended || this.busy || !this.pending) return;
+      void this.send(`No rush — just say yes when you want me to handle ${label}.`);
+    }, this.opts.nudgeMs);
+  }
+  private clearNudge(): void {
+    if (this.nudgeTimer) { clearTimeout(this.nudgeTimer); this.nudgeTimer = undefined; }
+  }
+
+  private armIdle(): void {
+    if (this.idleTimer) clearTimeout(this.idleTimer);
+    if (!this.opts.idleEndMs) return;
+    this.idleTimer = setTimeout(() => { void this.stop(); }, this.opts.idleEndMs);
   }
 
   async stop(): Promise<void> {
-    this.stopped = true;
-    this.release();
+    if (this.ended) return;
+    this.ended = true;
+    this.clearNudge();
+    if (this.idleTimer) { clearTimeout(this.idleTimer); this.idleTimer = undefined; }
+    await this.send(`Ending the demo — nothing here was real, and nothing was sent anywhere. Text "demo" anytime to run it again.`).catch(() => {});
   }
 }

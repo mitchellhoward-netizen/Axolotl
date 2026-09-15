@@ -37,6 +37,7 @@ import { isLifeControl } from "./agent/personal.js";
 import { emptyPersonalContext, importSchoolContext } from "./domain/personal-context.js";
 import { loadFamilySnapshot } from "./integrations/db.js";
 import { BennyDemo } from "./demo/director.js";
+import { makeLlmRouter } from "./demo/router.js";
 
 // ── Single-instance guard ──────────────────────────────────────────────────────
 // Running two identical bot instances against the same Spectrum line makes BOTH
@@ -355,6 +356,8 @@ if (app) {
 messagingReady = true;
 // ── Benny iMessage demo — text "demo" to play the four beats as real bubbles ──
 const demos = new Map<string, BennyDemo>();
+// The demo router understands natural steering ("am I using my benefits right?").
+const demoRouter = makeLlmRouter(researchLlm);
 try {
 for await (const [space, message] of app.messages) {
   // Never answer our own outbound echoes.
@@ -385,10 +388,10 @@ for await (const [space, message] of app.messages) {
   if (message.content.type === 'text') {
     const demoText = message.content.text;
     const running = demos.get(space.id);
-    if (running?.active) { running.onMessage(demoText); continue; }
+    if (running?.active) { await running.onMessage(demoText); continue; }
     if (/^\s*(demo|benny demo|start demo|run demo)\s*$/i.test(demoText)) {
-      console.log(`[demo] trigger matched (space=${space.id}) — starting four beats`);
-      const d = demos.get(space.id) ?? new BennyDemo((t) => space.send(t).then(() => {}));
+      console.log(`[demo] trigger matched (space=${space.id}) — starting`);
+      const d = demos.get(space.id) ?? new BennyDemo((t) => space.send(t).then(() => {}), demoRouter);
       demos.set(space.id, d);
       await d.start().catch((e) => console.error('[demo] start error:', (e as Error)?.message ?? e));
       continue;

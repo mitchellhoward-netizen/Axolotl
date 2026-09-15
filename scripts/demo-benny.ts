@@ -1,28 +1,38 @@
 #!/usr/bin/env tsx
 /**
- * Benny demo — print the conversation that the live iMessage director sends.
- * Same script as the real thing (src/demo/script.ts); just renders it to the console.
+ * Benny demo — print the interactive conversation the live iMessage director produces.
+ * Drives the REAL director (same code as the deployed agent) with a scripted run, so the
+ * console preview and iMessage can't drift.
  *
  *   npm run demo:benny
  */
-import { startDemoServer } from '../src/demo/server.js';
-import { buildDemoScript, resolveFollowThrough } from '../src/demo/script.js';
-import type { ConnectorContext } from '../src/benefits/connectors.js';
+import { BennyDemo } from '../src/demo/director.js';
 
-const server = await startDemoServer();
-const ctx: ConnectorContext = { owner: 'member-maya', credential: 'demo-credential', signal: new AbortController().signal };
-const script = await buildDemoScript(ctx);
+const out: Array<{ from: 'Benny' | '        You'; text: string }> = [];
+const demo = new BennyDemo(
+  async (t) => { out.push({ from: 'Benny', text: t }); },
+  undefined, // keyword router for a deterministic print
+  { nudgeMs: 0, followUpMs: 3000, bubbleDelayMs: 0, idleEndMs: 0 },
+);
+const say = async (t: string) => { out.push({ from: '        You', text: t }); await demo.onMessage(t); };
+
+await demo.start();
+for (const m of [
+  'yes',                                                   // handle the physical
+  'yes',                                                   // book it
+  'am I using my benefits correctly? anything I haven’t used up?',
+  'yes',                                                   // file the FSA
+  'yes',                                                   // confirm the claim
+  'books',                                                 // jump to the stipend
+  'yes',                                                   // take the books
+  'can you also tell the school Leo’s out Tuesday?',
+  'SEND',                                                  // send the note
+  'what’s left?',                                          // status
+]) await say(m);
+await new Promise((r) => setTimeout(r, 3400));             // let the paid updates land
 
 console.log('\n════════════════════════  Benny · iMessage  ════════════════════════════\n');
-for (const turn of script.turns) {
-  for (const line of turn.benny) console.log(`Benny\n${line}\n`);
-  if (turn.reply) console.log(`        You\n${turn.reply}\n`);
-}
-console.log(`Benny\n${script.introFollowThrough}\n`);
-const lines = await resolveFollowThrough(script.followThrough, ctx);
-for (const line of lines) console.log(`Benny\n${line}\n`);
-console.log(`Benny\n${script.summary}\n`);
+for (const m of out) console.log(`${m.from}\n${m.text}\n`);
 console.log('════════════════════════════════════════════════════════════════════════\n');
 console.log('fictional demo — no real accounts, providers, or money');
-
-await server.close();
+process.exit(0);
