@@ -12,7 +12,7 @@ const out: Array<{ from: 'Benny' | '        You'; text: string }> = [];
 const demo = new BennyDemo(
   async (t) => { out.push({ from: 'Benny', text: t }); },
   undefined, // keyword router for a deterministic print
-  { nudgeMs: 0, followUpMs: 3000, bubbleDelayMs: 0, idleEndMs: 0 },
+  { nudgeMs: 0, followUpMs: 0, bubbleDelayMs: 0, idleEndMs: 0 },
 );
 const say = async (t: string) => { out.push({ from: '        You', text: t }); await demo.onMessage(t); };
 
@@ -23,13 +23,14 @@ for (const m of [
   'am I using my benefits correctly? anything I haven’t used up?',
   'yes',                                                   // file the FSA
   'yes',                                                   // confirm the claim
-  'books',                                                 // jump to the stipend
-  'yes',                                                   // take the books
+  'buy Love in the Time of Cholera by Gabriel Garcia Marquez',
+  'yes',                                                   // buy it + file with Ramp
   'can you also tell the school Leo’s out Tuesday?',
   'SEND',                                                  // send the note
   'what’s left?',                                          // status
 ]) await say(m);
-await new Promise((r) => setTimeout(r, 3400));             // let the paid updates land
+await new Promise((r) => setTimeout(r, 26_500));           // let the FSA claim settle
+await say('did my claim get paid?');                       // on-demand follow-through
 
 console.log('\n════════════════════════  Benny · iMessage  ════════════════════════════\n');
 for (const m of out) console.log(`${m.from}\n${m.text}\n`);

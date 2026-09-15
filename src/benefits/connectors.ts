@@ -21,6 +21,7 @@ export const PORTALS = [
   // Fictional demo institutions (see src/demo/). Real connectors must be added above.
   { id: 'northstar', label: 'Northstar Benefits (demo)', pattern: /\bnorthstar benefits\b/i },
   { id: 'bright', label: 'Bright Pediatrics (demo)', pattern: /\bbright pediatrics\b/i },
+  { id: 'ramp', label: 'Ramp (demo)', pattern: /\bramp\b/i },
 ] as const;
 
 export function portalIn(text: string): string | undefined {

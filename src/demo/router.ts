@@ -13,7 +13,7 @@ import { stateSummary, unused, type DemoState } from './state.js';
 import type { SceneId } from './scenes.js';
 
 export type RouteResult =
-  | { kind: 'scene'; scene: SceneId }
+  | { kind: 'scene'; scene: SceneId; arg?: string }
   | { kind: 'approve' }
   | { kind: 'decline' }
   | { kind: 'menu' }
@@ -41,10 +41,10 @@ function systemPrompt(state: DemoState, pending?: string): string {
     `- {"do":"audit"}   — "am I using my benefits correctly / what haven't I used / what am I missing"`,
     `- {"do":"physical"}— book the child's physical / a doctor's appointment`,
     `- {"do":"fsa"}     — the FSA / a reimbursement / use-it-or-lose-it / a receipt`,
-    `- {"do":"books"}   — the monthly books stipend / wellness`,
+    `- {"do":"books"}   — the monthly books stipend / wellness; if they named a book, add {"title":"<book title>"}`,
     `- {"do":"eap"}     — therapy / mental health / EAP`,
     `- {"do":"absence"} — tell the school the child will be absent`,
-    `- {"do":"status"}  — what's left / what's outstanding / a recap`,
+    `- {"do":"status"}  — what's left / any update / did it get paid / what's outstanding / a recap`,
     `- {"do":"approve"} — they are agreeing to the pending proposal (yes/sure/do it/book it/file it/send)`,
     `- {"do":"decline"} — they are saying no / not now`,
     `- {"do":"menu"}    — they ask what you can do / for help`,
@@ -70,6 +70,10 @@ function coerce(raw: unknown): RouteResult | null {
   if (typeof o.do === 'string') {
     const d = o.do;
     if (d === 'approve' || d === 'decline' || d === 'menu' || d === 'stop') return { kind: d };
+    if (d === 'books') {
+      const title = typeof o.title === 'string' && o.title.trim() ? o.title.trim().slice(0, 200) : undefined;
+      return { kind: 'scene', scene: 'books', arg: title };
+    }
     if ((SCENE_IDS as string[]).includes(d)) return { kind: 'scene', scene: d as SceneId };
   }
   if (typeof o.say === 'string' && o.say.trim()) return { kind: 'say', text: o.say.trim().slice(0, 600) };
@@ -113,12 +117,17 @@ export function keywordRouter(): Router {
     }
     if (/^(no|nope|not now|not yet|later|cancel|skip|don'?t)\b/.test(t)) return { kind: 'decline' };
     if (/\b(menu|help|what can you|what do you do|options)\b/.test(t)) return { kind: 'menu' };
+    // "Any update / did it get paid / what's left" must win over "claim"/"reimburse" —
+    // an update question is not a request to file again.
+    if (/\b(any update|update|did .*paid|paid yet|paid|reimbursed|money back|status|what'?s left|whats left|outstanding|recap|summary|all set)\b/.test(t)) return { kind: 'scene', scene: 'status' };
     if (/\b(using my benefits|benefits correctly|haven'?t used|have not used|unused|missing out|leaving .*(money|on the table)|check.?up|audit)\b/.test(t)) return { kind: 'scene', scene: 'audit' };
     if (/\b(fsa|reimburse|reimbursement|claim|receipt)\b/.test(t)) return { kind: 'scene', scene: 'fsa' };
     if (/\b(eap|therapy|therapist|mental health|counsel)\b/.test(t)) return { kind: 'scene', scene: 'eap' };
-    if (/\b(book(s)?|stipend|wellness)\b/.test(t)) return { kind: 'scene', scene: 'books' };
+    // A book request (but not "book the physical/appointment", which is the physical).
+    if (/\b(book|books|novel|read|reading|buy)\b/.test(t) && !/\b(physical|appointment|doctor|pediatric|check.?up|dentist)\b/.test(t)) {
+      return { kind: 'scene', scene: 'books', arg: text };
+    }
     if (/\b(absent|absence|out (on )?(tuesday|monday|wednesday|thursday|friday|tomorrow)|school note|tell the school)\b/.test(t)) return { kind: 'scene', scene: 'absence' };
-    if (/\b(status|what'?s left|whats left|outstanding|recap|summary|all set)\b/.test(t)) return { kind: 'scene', scene: 'status' };
     if (/\b(what came in|what did i miss|inbox|emails?|missed)\b/.test(t)) return { kind: 'scene', scene: 'triage' };
     if (/\b(physical|appointment|doctor|pediatric|checkup|check-up)\b/.test(t)) return { kind: 'scene', scene: 'physical' };
     return { kind: 'say', text: `I can help with your plan. Want the check-up on what you haven't used, your FSA, your books, or something at school?` };

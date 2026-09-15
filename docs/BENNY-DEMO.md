@@ -23,8 +23,13 @@ A self-contained, offline demo of Benny's core loop: **hold both maps → notice
   selling "nothing happens without your approval" can't book things while you're not looking.
 - **It remembers.** The audit and `status` read live session state, so after filing, the
   check-up says *"$1,655.65 left — you filed $184.35."*
-- **It follows through: ~25s after a claim is filed, Benny pings you that it was paid** —
-  unprompted, mid-conversation.
+- **It buys the thing and files the expense.** Name a book — *"buy Love in the Time of
+  Cholera"* — and Benny finds it, orders it, **then files the reimbursement in Ramp** (the
+  employer's spend platform). The purchase is real (a merchant order), the reimbursement
+  is real (an expense), and neither happens without `YES`.
+- **Reimbursements are earned, not instant.** A claim settles ~25s later and a Ramp
+  expense ~45s later, so *"did my claim get paid?"* has a truthful answer first
+  ("submitted") and then flips — no auto-ping interrupting the conversation.
 
 ## The scenes
 

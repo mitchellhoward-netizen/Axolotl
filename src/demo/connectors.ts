@@ -194,6 +194,84 @@ export const northstarConnector: BennyConnector = {
   },
 };
 
+// ── Bookstore (a merchant) + Ramp (the employer's spend platform) ────────────
+// The book is a PURCHASE (a merchant transaction), so it isn't a benefits connector;
+// the reimbursement that follows IS, because Ramp is where the money comes back.
+
+export interface Book { id: string; title: string; author: string; priceCents: number; format: string }
+export interface BookOrder { orderId: string; title: string; author: string; priceCents: number; eta: string }
+
+export async function searchBooks(query: string): Promise<Book[]> {
+  return getJson<Book[]>(`/books/search?q=${encodeURIComponent(query)}`);
+}
+export async function orderBook(bookId: string, idempotencyKey: string): Promise<BookOrder> {
+  return postJson<BookOrder>('/books/order', { bookId, idempotencyKey });
+}
+
+/** Ramp — submit the wellness expense so the person actually gets reimbursed. */
+export const rampConnector: BennyConnector = {
+  id: 'ramp',
+  label: 'Ramp',
+  validated: true,
+  method: 'oauth',
+  workflows: ['reimbursement'],
+  idempotentSubmit: true,
+  ...demoOAuth('ramp'),
+
+  async prepare(_ctx, input) {
+    // The scene encodes the expense as an `expense` fact: "merchant|amountCents|description".
+    const raw = fact(input.contextFacts, 'expense');
+    if (!raw) return { blocked: 'Nothing to file yet.' };
+    const [merchant = '', amountStr = '0', description = ''] = raw.split('|');
+    const amountCents = Number(amountStr ?? 0);
+    const action: Action = {
+      operation: 'submit_claim',
+      resourceKey: `${MEMBER}|ramp|${merchant}|${amountCents}|${description}`,
+      destination: 'Ramp',
+      subject: `Wellness expense — ${description || merchant}`,
+      summary: `File ${description || merchant} (${(amountCents / 100).toFixed(2)}) with Ramp for reimbursement.`,
+      amountCents,
+      disclosures: [
+        'Wellness stipend expense — reimbursed to you through Ramp.',
+        `Amount: $${(amountCents / 100).toFixed(2)}`,
+      ],
+      payload: { merchant, amountCents, description, memberId: MEMBER },
+      evidence: [{ source: 'order', detail: description || merchant, observedAt: nowIso() }],
+      expiresAt: inTenMinutes(),
+    };
+    return { action };
+  },
+
+  async validate(_ctx, action) {
+    const p = action.payload as { amountCents: number };
+    return Number.isFinite(p.amountCents) && p.amountCents > 0;
+  },
+
+  async lookup(_ctx, key) {
+    const ref = key.replace(/^ramp:/, '');
+    const e = await getJson<{ reference: string; status: 'submitted' | 'reimbursed'; amountCents: number; description: string }>(`/ramp/expenses/${ref}`).catch(() => undefined);
+    if (!e) return { kind: 'absent' };
+    const outcome: Outcome = {
+      state: e.status === 'reimbursed' ? 'completed' : 'pending',
+      reference: e.reference, detail: `Ramp expense ${e.status} — ${e.description}.`,
+      evidence: `Expense ${e.reference}`, observedAt: nowIso(), realizedCents: e.status === 'reimbursed' ? e.amountCents : 0,
+    };
+    return { kind: 'found', outcome };
+  },
+
+  async submit(_ctx, action) {
+    const p = action.payload as { merchant: string; amountCents: number; description: string; memberId: string };
+    const e = await postJson<{ reference: string; status: 'submitted' }>('/ramp/expenses', {
+      memberId: p.memberId, merchant: p.merchant, amountCents: p.amountCents,
+      category: 'wellness', description: p.description, idempotencyKey: action.resourceKey,
+    });
+    return {
+      state: 'submitted', reference: e.reference, detail: `Filed with Ramp (${e.reference}).`,
+      evidence: `Expense ${e.reference}`, observedAt: nowIso(), realizedCents: 0,
+    };
+  },
+};
+
 /** The demo connector set — register these into the runtime (or use directly). */
-export const demoConnectors: BennyConnector[] = [brightConnector, northstarConnector];
-export const workflowOf: Record<string, WorkflowKind> = { bright: 'appointment', northstar: 'reimbursement' };
+export const demoConnectors: BennyConnector[] = [brightConnector, northstarConnector, rampConnector];
+export const workflowOf: Record<string, WorkflowKind> = { bright: 'appointment', northstar: 'reimbursement', ramp: 'reimbursement' };

@@ -35,9 +35,25 @@ const PROVIDERS: Provider[] = [
 interface Claim { reference: string; memberId: string; category: string; amountCents: number; description: string; status: 'submitted' | 'paid'; createdAt: number }
 interface Appointment { confirmationId: string; providerId: string; providerName: string; dependentId: string; when: string; status: 'confirmed' | 'reminded'; createdAt: number }
 
+// ── Bookstore + Ramp (the merchant purchase and the employer's spend platform) ──
+export interface Book { id: string; title: string; author: string; priceCents: number; format: string }
+const BOOKS: Book[] = [
+  { id: 'bk-cholera', title: 'Love in the Time of Cholera', author: 'Gabriel García Márquez', priceCents: 1799, format: 'Paperback' },
+  { id: 'bk-solitude', title: 'One Hundred Years of Solitude', author: 'Gabriel García Márquez', priceCents: 1899, format: 'Paperback' },
+  { id: 'bk-chronicle', title: 'Chronicle of a Death Foretold', author: 'Gabriel García Márquez', priceCents: 1599, format: 'Paperback' },
+  { id: 'bk-design', title: 'The Design of Everyday Things', author: 'Don Norman', priceCents: 2199, format: 'Paperback' },
+  { id: 'bk-thinking', title: 'Thinking, Fast and Slow', author: 'Daniel Kahneman', priceCents: 1999, format: 'Paperback' },
+];
+interface BookOrder { orderId: string; bookId: string; title: string; author: string; priceCents: number; status: 'ordered'; eta: string; createdAt: number }
+interface RampExpense { reference: string; merchant: string; amountCents: number; category: string; description: string; status: 'submitted' | 'reimbursed'; createdAt: number }
+
 const claims = new Map<string, Claim>();
 const claimByKey = new Map<string, string>();
 const appointments = new Map<string, Appointment>();
+const bookOrders = new Map<string, BookOrder>();
+const bookOrderByKey = new Map<string, string>();
+const rampExpenses = new Map<string, RampExpense>();
+const rampByKey = new Map<string, string>();
 
 function json(res: ServerResponse, code: number, body: unknown): void {
   res.writeHead(code, { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store' });
@@ -55,12 +71,20 @@ async function readBody(req: IncomingMessage): Promise<Record<string, unknown>> 
 }
 
 function scheduleAdvance(ref: string): void {
-  // The "follow-through" beat: a claim flips to paid a moment after acceptance, so the
-  // demo can poll and watch the money land (like the lab's $0 → realized transition).
+  // Real claims don't settle instantly. Slow enough that "did it get paid?" has a real
+  // answer ("not yet"), then flips — so the follow-through is earned, not instant.
   setTimeout(() => {
     const c = claims.get(ref);
     if (c && c.status === 'submitted') claims.set(ref, { ...c, status: 'paid' });
-  }, 2500);
+  }, 25_000);
+}
+
+/** Ramp reimburses on its own clock — slower still, on purpose. */
+function scheduleRampReimbursement(ref: string): void {
+  setTimeout(() => {
+    const e = rampExpenses.get(ref);
+    if (e && e.status === 'submitted') rampExpenses.set(ref, { ...e, status: 'reimbursed' });
+  }, 45_000);
 }
 
 const NORTHSTAR_HTML = `<!doctype html><html><head><meta charset="utf-8"><title>Northstar Benefits</title><style>body{font-family:system-ui;max-width:640px;margin:40px auto;color:#0f172a} h1{font-size:20px} .muted{color:#64748b} .card{border:1px solid #e2e8f0;border-radius:12px;padding:16px;margin:12px 0} .badge{background:#eef2ff;color:#4338ca;border-radius:999px;padding:2px 10px;font-size:12px}</style></head><body>
@@ -148,6 +172,52 @@ export function startDemoServer(port = Number(process.env.DEMO_PORT) || 4310): P
         return appt ? json(res, 200, appt) : json(res, 404, { error: 'not found' });
       }
 
+      // ── Bookstore: search + buy ─────────────────────────────────────────────
+      if (req.method === 'GET' && path === '/books/search') {
+        const q = (u.searchParams.get('q') ?? '').toLowerCase();
+        const words = q.split(/\s+/).filter((w) => w.length > 2);
+        const hits = q ? BOOKS.filter((b) => words.some((w) => `${b.title} ${b.author}`.toLowerCase().includes(w))) : BOOKS;
+        return json(res, 200, hits.length ? hits : BOOKS);
+      }
+      if (req.method === 'POST' && path === '/books/order') {
+        const b = await readBody(req);
+        const key = String(b.idempotencyKey ?? '');
+        const existing = key ? bookOrderByKey.get(key) : undefined;
+        if (existing) return json(res, 200, bookOrders.get(existing));
+        const book = BOOKS.find((x) => x.id === String(b.bookId ?? ''));
+        if (!book) return json(res, 400, { error: 'book not found' });
+        const orderId = `ORD-${randomUUID().slice(0, 8).toUpperCase()}`;
+        const order: BookOrder = {
+          orderId, bookId: book.id, title: book.title, author: book.author,
+          priceCents: book.priceCents, status: 'ordered', eta: 'in 2 days', createdAt: Date.now(),
+        };
+        bookOrders.set(orderId, order);
+        if (key) bookOrderByKey.set(key, orderId);
+        return json(res, 201, order);
+      }
+
+      // ── Ramp: expense reimbursement (the employer's spend platform) ─────────
+      if (req.method === 'POST' && path === '/ramp/expenses') {
+        const b = await readBody(req);
+        const key = String(b.idempotencyKey ?? '');
+        const existing = key ? rampByKey.get(key) : undefined;
+        if (existing) return json(res, 200, rampExpenses.get(existing));
+        const reference = `EXP-${randomUUID().slice(0, 8).toUpperCase()}`;
+        const exp: RampExpense = {
+          reference, merchant: String(b.merchant ?? ''), amountCents: Number(b.amountCents ?? 0),
+          category: String(b.category ?? ''), description: String(b.description ?? ''),
+          status: 'submitted', createdAt: Date.now(),
+        };
+        rampExpenses.set(reference, exp);
+        if (key) rampByKey.set(key, reference);
+        scheduleRampReimbursement(reference);
+        return json(res, 201, exp);
+      }
+      if (req.method === 'GET' && path.startsWith('/ramp/expenses/')) {
+        const e = rampExpenses.get(path.slice('/ramp/expenses/'.length));
+        return e ? json(res, 200, e) : json(res, 404, { error: 'not found' });
+      }
+
       // ── Human-viewable landing pages ────────────────────────────────────────
       if (req.method === 'GET' && path === '/northstar/') return html(res, 200, NORTHSTAR_HTML);
       if (req.method === 'GET' && path === '/bright/') return html(res, 200, BRIGHT_HTML);
@@ -164,7 +234,10 @@ export function startDemoServer(port = Number(process.env.DEMO_PORT) || 4310): P
     server.listen(port, () => resolve({
       url: `http://localhost:${port}`,
       close: () => new Promise((r) => server.close(() => r())),
-      reset: () => { claims.clear(); claimByKey.clear(); appointments.clear(); },
+      reset: () => {
+        claims.clear(); claimByKey.clear(); appointments.clear();
+        bookOrders.clear(); bookOrderByKey.clear(); rampExpenses.clear(); rampByKey.clear();
+      },
     }));
   });
 }

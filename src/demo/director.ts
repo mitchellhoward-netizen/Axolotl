@@ -8,10 +8,9 @@
  * you're not looking), and reports claims as they get paid.
  */
 import { startDemoServer, type DemoServer } from './server.js';
-import { SCENES, type Pending, type SceneId } from './scenes.js';
+import { SCENES, refreshClaims, type Pending, type SceneCtx, type SceneId, type SceneResult } from './scenes.js';
 import { initialState, dollars, type DemoState } from './state.js';
 import { keywordRouter, MENU_TEXT, type RouteResult, type Router } from './router.js';
-import { brightConnector, northstarConnector } from './connectors.js';
 import type { ConnectorContext } from '../benefits/connectors.js';
 
 export type DemoSender = (text: string) => Promise<void>;
@@ -36,6 +35,8 @@ export class BennyDemo {
   private readonly router: Router;
   private busy = false;
   private ended = false;
+  /** Refs already announced as reimbursed (so we never repeat). */
+  private readonly reported = new Set<string>();
   private nudgeTimer?: NodeJS.Timeout;
   private idleTimer?: NodeJS.Timeout;
   private readonly opts: Required<DemoOptions>;
@@ -48,7 +49,9 @@ export class BennyDemo {
     this.router = router ?? keywordRouter();
     this.opts = {
       nudgeMs: opts.nudgeMs ?? 30_000,
-      followUpMs: opts.followUpMs ?? 25_000,
+      // No auto-ping by default: reimbursements are reported on demand ("any update?")
+      // so they never interrupt — real money doesn't land in 3 seconds.
+      followUpMs: opts.followUpMs ?? 0,
       bubbleDelayMs: opts.bubbleDelayMs ?? 900,
       idleEndMs: opts.idleEndMs ?? 45 * 60_000,
     };
@@ -93,15 +96,16 @@ export class BennyDemo {
       case 'decline': return this.decline();
       case 'menu': await this.send(MENU_TEXT); return;
       case 'stop': return this.stop();
-      case 'scene': return this.runScene(route.scene);
+      case 'scene': return this.runScene(route.scene, route.arg);
       case 'say': await this.send(route.text); return;
     }
   }
 
-  private async runScene(id: SceneId): Promise<void> {
+  private async runScene(id: SceneId, arg?: string): Promise<void> {
     this.busy = true;
     try {
-      const result = await SCENES[id]({ send: (t) => this.sceneSend(t), state: this.state, ctx: this.ctx() });
+      const run = SCENES[id] as unknown as (sc: SceneCtx, arg?: string) => Promise<SceneResult>;
+      const result = await run({ send: (t) => this.sceneSend(t), state: this.state, ctx: this.ctx() }, arg);
       this.pending = result.pending;
       if (result.followUp) this.scheduleFollowUp(result.followUp);
       if (this.pending) this.armNudge();
@@ -139,21 +143,25 @@ export class BennyDemo {
     if (p.onDecline) await p.onDecline();
   }
 
-  // ── Follow-through: report claims as they get paid ──────────────────────────
-  private scheduleFollowUp(items: Array<{ via: 'northstar' | 'bright'; ref: string }>): void {
+  // ── Follow-through: report reimbursements as they actually land ─────────────
+  private scheduleFollowUp(items: Array<{ via: 'northstar' | 'bright' | 'ramp'; ref: string }>): void {
+    if (!this.opts.followUpMs) return; // on-demand by default
     setTimeout(() => { void this.reportPaid(items); }, this.opts.followUpMs);
   }
 
-  private async reportPaid(items: Array<{ via: 'northstar' | 'bright'; ref: string }>): Promise<void> {
+  /** Poll the ledger for these refs and announce anything that has now cleared. */
+  private async reportPaid(items: Array<{ via: 'northstar' | 'bright' | 'ramp'; ref: string }>): Promise<void> {
     if (this.ended) return;
+    await refreshClaims({ send: this.send, state: this.state, ctx: this.ctx() }).catch(() => {});
     const lines: string[] = [];
     for (const item of items) {
-      if (item.via !== 'northstar') continue;
-      const r = await northstarConnector.lookup(this.ctx(), `northstar:${item.ref}`).catch(() => ({ kind: 'absent' as const }));
-      if (r.kind !== 'found' || r.outcome.state !== 'completed') continue;
+      if (item.via === 'bright') continue;
       const claim = this.state.filed.find((f) => f.ref === item.ref);
-      if (claim) claim.status = 'paid';
-      lines.push(`Update — ${claim?.description ?? 'your claim'} just got paid: ${claim ? dollars(claim.amountCents) : 'reimbursed'}.`);
+      if (claim && claim.status === 'paid' && !this.reported.has(item.ref)) {
+        this.reported.add(item.ref);
+        const verb = item.via === 'ramp' ? 'reimbursed' : 'paid';
+        lines.push(`Update — ${claim.description} just got ${verb}: ${dollars(claim.amountCents)}.`);
+      }
     }
     if (lines.length) await this.send(lines.join('\n'));
   }

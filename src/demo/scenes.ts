@@ -7,7 +7,7 @@
  * may return a `pending` approval gate for the director to wait on.
  */
 import { demoCatalog } from './catalog.js';
-import { brightConnector, northstarConnector } from './connectors.js';
+import { brightConnector, northstarConnector, rampConnector, searchBooks, orderBook } from './connectors.js';
 import { dollars, unused, type DemoState } from './state.js';
 import type { PersonalFact } from '../domain/personal-context.js';
 import type { ConnectorContext } from '../benefits/connectors.js';
@@ -24,8 +24,8 @@ export interface Pending {
 }
 export interface SceneResult {
   pending?: Pending;
-  /** Claim refs to poll later and report "paid". */
-  followUp?: Array<{ via: 'northstar' | 'bright'; ref: string }>;
+  /** Claim/expense refs to poll later and report as reimbursed. */
+  followUp?: Array<{ via: 'northstar' | 'bright' | 'ramp'; ref: string }>;
 }
 
 const kid = () => demoCatalog.dependents.find((d) => d.id === 'dep-leo')!;
@@ -130,33 +130,52 @@ export async function fsa(sc: SceneCtx): Promise<SceneResult> {
   };
 }
 
-// ── books — the monthly stipend ──────────────────────────────────────────────
-export async function books(sc: SceneCtx): Promise<SceneResult> {
+// ── books — buy the book they actually want, then get reimbursed ────────────
+export async function books(sc: SceneCtx, arg?: string): Promise<SceneResult> {
   const w = demoCatalog.benefits.wellness;
   const left = w.unitsPerMonth - sc.state.booksUsedThisMonth;
   if (left <= 0) {
     await sc.send(`You've already used your ${w.unitsPerMonth} ${w.unitLabel}s this month — they reset on the 1st.`);
     return {};
   }
-  const amountCents = w.unitMaxCents * left;
-  const prep = await northstarConnector.prepare(sc.ctx, {
-    workflow: 'reimbursement', request: 'reimburse books',
-    contextFacts: [fact('claim', 'coverage', `wellness-books|${amountCents}|${left} book${left === 1 ? '' : 's'}`)], documents: [],
-  });
-  if (!('action' in prep)) { await sc.send(`I couldn't prepare that — want me to try again?`); return {}; }
-  const action = prep.action;
-  await sc.send(`${left} book${left === 1 ? '' : 's'}, ${dollars(amountCents)}, on your ${w.label}. Reply YES and they're yours.`);
+
+  // A named book → find it and buy it. No title → ask for one (clear, not a menu).
+  const query = (arg ?? '').trim();
+  if (!query || query.length < 3) {
+    await sc.send(`You've got ${left} book${left === 1 ? '' : 's'} a month on your ${w.label} — name one and I'll buy it and expense it.`);
+    return {};
+  }
+
+  const results = await searchBooks(query).catch(() => []);
+  if (!results.length) {
+    await sc.send(`I couldn't find that one — try the title again?`);
+    return {};
+  }
+  const book = results[0]!;
+  const covered = book.priceCents <= w.unitMaxCents * left;
+  await sc.send(`Found it — "${book.title}" by ${book.author}, ${book.format}, ${dollars(book.priceCents)}.`);
+  await sc.send(
+    `I'll buy it and file it with Ramp as a wellness expense${covered ? ' — fully covered by your stipend' : ''}. Reply YES and it's done.`,
+  );
+
   return {
     pending: {
-      label: 'the books',
+      label: `"${book.title}"`,
       onApprove: async () => {
-        const sub = await northstarConnector.submit(sc.ctx, action, `northstar:${action.resourceKey}`);
-        sc.state.booksUsedThisMonth += left;
-        sc.state.filed.push({ category: 'wellness-books', amountCents, description: `your ${left} book${left === 1 ? '' : 's'}`, ref: sub.reference, status: 'submitted' });
-        await sc.send(`✅ Done — ${dollars(amountCents)} on your stipend. I'll ping you when it's reimbursed.`);
-        return { followUp: [{ via: 'northstar', ref: sub.reference }] };
+        const order = await orderBook(book.id, `book|${book.id}`);
+        await sc.send(`✅ Ordered — "${order.title}", ${dollars(order.priceCents)}, arriving ${order.eta}.`);
+        const prep = await rampConnector.prepare(sc.ctx, {
+          workflow: 'reimbursement', request: 'file wellness book expense',
+          contextFacts: [fact('expense', 'coverage', `Bookshop|${order.priceCents}|"${order.title}"`)], documents: [],
+        });
+        if (!('action' in prep)) { await sc.send(`I ordered it but couldn't file the expense — want me to try again?`); return {}; }
+        const sub = await rampConnector.submit(sc.ctx, prep.action, `ramp:${prep.action.resourceKey}`);
+        sc.state.booksUsedThisMonth += 1;
+        sc.state.filed.push({ category: 'wellness-books', amountCents: order.priceCents, description: `"${order.title}"`, ref: sub.reference, status: 'submitted' });
+        await sc.send(`✅ Filed with Ramp (${sub.reference}) — it'll show up as a wellness expense and reimburse to you.`);
+        return { followUp: [{ via: 'ramp', ref: sub.reference }] };
       },
-      onDecline: async () => { await sc.send(`No problem — they'll be there next month.`); },
+      onDecline: async () => { await sc.send(`No problem — I'll leave it.`); },
     },
   };
 }
@@ -195,8 +214,9 @@ export async function absence(sc: SceneCtx): Promise<SceneResult> {
   };
 }
 
-// ── status — what's in flight ────────────────────────────────────────────────
+// ── status — what's in flight (polls the ledger, so it's never stale) ────────
 export async function status(sc: SceneCtx): Promise<SceneResult> {
+  await refreshClaims(sc);
   const LABEL: Record<string, string> = { vision: 'glasses claim', 'wellness-books': 'books' };
   const done: string[] = [];
   const open: string[] = [];
@@ -210,6 +230,17 @@ export async function status(sc: SceneCtx): Promise<SceneResult> {
       (open.length ? `Still open:\n${open.map((o) => `• ${o}`).join('\n')}` : `Nothing left — you're all set.`),
   );
   return {};
+}
+
+/** Poll every filed claim/expense so state reflects the provider, not our last guess. */
+export async function refreshClaims(sc: SceneCtx): Promise<void> {
+  for (const f of sc.state.filed) {
+    if (f.status === 'paid') continue;
+    const via = f.ref.startsWith('EXP-') ? 'ramp' : 'northstar';
+    const connector = via === 'ramp' ? rampConnector : northstarConnector;
+    const r = await connector.lookup(sc.ctx, `${via}:${f.ref}`).catch(() => ({ kind: 'absent' as const }));
+    if (r.kind === 'found' && r.outcome.state === 'completed') f.status = 'paid';
+  }
 }
 
 export const SCENES = {
