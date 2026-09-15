@@ -32,6 +32,10 @@ import { takePendingGreeting } from "./integrations/pending-greeting.js";
 import { readFileSync, writeFileSync, unlinkSync } from "node:fs";
 import { resolve as pathResolve } from "node:path";
 import { toPlainText } from "./lib/plain";
+import { createBennyMessaging } from "./benefits/messaging.js";
+import { isLifeControl } from "./agent/personal.js";
+import { emptyPersonalContext, importSchoolContext } from "./domain/personal-context.js";
+import { loadFamilySnapshot } from "./integrations/db.js";
 
 // ── Single-instance guard ──────────────────────────────────────────────────────
 // Running two identical bot instances against the same Spectrum line makes BOTH
@@ -63,6 +67,9 @@ process.on("exit", () => {
   }
 });
 
+// Optional life tools extend the existing school agent; never replace its brain.
+const benny = await createBennyMessaging();
+
 // ── Identity ───────────────────────────────────────────────────────────────────
 // Phone = parent ID. There is NO pre-seeded family: an unknown number gets a
 // provisional parent created on first contact, and the agent onboards them.
@@ -75,6 +82,17 @@ await loadIdentityIntoSeed(db);
 // path (fast + strong bilingual), DeepSeek/OpenAI as fallback. Without a key it's off.
 const chat = chatModel();
 const llm = new LlmClient({ apiKey: chat.apiKey, baseUrl: chat.baseUrl, model: chat.model });
+
+if (benny) {
+  if (!llm.enabled) throw new Error('The personal iMessage pilot requires a configured conversation model');
+  benny.runtime.seedPersonalContext = async (sender) => {
+    // A single exact identity match only; never merge accounts by family name.
+    const matches = db.parents.filter(p => p.phone.toLowerCase() === sender || p.email.toLowerCase() === sender);
+    if (matches.length > 1) throw new Error('Ambiguous existing family identity');
+    const parent = matches[0];
+    return parent ? importSchoolContext(await loadFamilySnapshot(parent.id), `school-profile:${parent.id}`, Date.now()) : emptyPersonalContext();
+  };
+}
 
 // A small/specialized model for the researcher (query reformulation, extraction,
 // classification) — never the frontier brain. Falls back to the frontier client.
@@ -224,7 +242,14 @@ async function withBrief(vars: Record<string, unknown>): Promise<Record<string, 
   return vars;
 }
 
+let messagingReady = false;
 startWebServer({
+  benny,
+  ready: async () => {
+    if (!messagingReady) return false;
+    await benny?.runtime.store.check();
+    return messagingReady;
+  },
   emailLlm: researchLlm,
   placeCall: async (phone, info) => {
     if (!retell) return { ok: false, error: 'Voice is not configured.' };
@@ -268,7 +293,7 @@ startWebServer({
   },
 });
 
-// ── Spectrum: one agent loop, delivered over iMessage (non-fatal) ─────────────
+// ── Spectrum: readiness requires a running iMessage consumer ────────────────
 let app: Awaited<ReturnType<typeof Spectrum>> | null = null;
 try {
   app = await Spectrum({
@@ -276,8 +301,9 @@ try {
     projectSecret: process.env.PROJECT_SECRET!,
     providers: [imessage.config()],
   });
-} catch (err) {
-  console.error('⚠️ iMessage connection failed — the website is still up:', (err as Error)?.message ?? err);
+} catch {
+  console.error('iMessage initialization failed. Verify the Spectrum project credentials and provider configuration.');
+  process.exit(1);
 }
 
 console.log(`🏫 Axolotl is listening for iMessages…`);
@@ -287,7 +313,32 @@ console.log(
     : `🧠 Brain: offline rules (set ANTHROPIC_API_KEY / DEEPSEEK_API_KEY in .env to enable the LLM)`,
 );
 
+let stopBenny: (() => void) | undefined;
+let shuttingDown = false;
+for (const signal of ["SIGINT", "SIGTERM"] as const) {
+  process.on(signal, () => {
+    if (shuttingDown) return;
+    shuttingDown = true;
+    messagingReady = false;
+    stopBenny?.();
+    void (async () => {
+      await app?.stop();
+      await benny?.runtime.store.close();
+      process.exit(0);
+    })();
+  });
+}
+
 if (app) {
+  if (benny) {
+    const platform = imessage(app);
+    stopBenny = benny.start(async (route, text) => {
+      const destination = await platform.space.get(route.space, { phone: route.line });
+      if (destination.type !== 'dm') throw new Error('Private delivery required');
+      // One complete consent/status bubble, with failure propagated to the outbox.
+      if (!await destination.send(text)) throw new Error('Message was not accepted');
+    });
+  }
   // Always-on advocate: proactively follow up on the family's behalf, but never
   // nag — relevance + throttle (quiet hours, cooldown, daily cap) live in the
   // FollowUpEngine. Fires on a timer AND when a parent texts so we never miss.
@@ -299,9 +350,28 @@ if (app) {
   }, proactiveEveryMs);
 
   // (durable message dedupe now via recordProcessedMessage / processed_message)
+messagingReady = true;
+try {
 for await (const [space, message] of app.messages) {
   // Never answer our own outbound echoes.
   if (message.direction === "outbound") continue;
+
+  // Exact life controls bypass the LLM and legacy message dedupe. Ordinary
+  // conversation still runs through the same Agent and keeps its school tools.
+  const lifeControl = message.content.type === 'text' && benny?.allowed(message.sender?.id ?? '') && isLifeControl(message.content.text);
+  const lifeAttachment = message.content.type === 'attachment' && benny?.allowed(message.sender?.id ?? '');
+  if (benny && (lifeControl || lifeAttachment)) {
+    try {
+      if (imessage.is(space) && space.type === 'dm' && benny.allowed(message.sender?.id ?? '')) agent.expirePendingConsent(space.id);
+      await benny.receive(space, message);
+    } catch {
+      console.error('[benny] inbound processing unavailable; no successful handling acknowledged');
+      if (imessage.is(space) && space.type === 'dm') {
+        await space.send('Benny could not confirm whether this message was saved. Send STATUS before repeating an approval.').catch(() => {});
+      }
+    }
+    continue;
+  }
 
   // The iMessage SDK can deliver the same message twice (read/typing re-emit or a
   // retried webhook), and a stray second instance would re-answer. Dedupe DURABLY by
@@ -318,7 +388,14 @@ for await (const [space, message] of app.messages) {
 
   // Register this family's messenger + mark the inbound so cooldown applies,
   // then fire any due, relevant follow-ups (best-effort, never blocks the reply).
-  agent.registerConversation(space.id, async (text) => { await sendBubbles(space, text); });
+  agent.registerConversation(space.id, async (text) => {
+    if (benny && message.sender?.id) {
+      const sender = message.sender.id.toLowerCase();
+      const account = await benny.runtime.store.read(benny.runtime.owner(sender));
+      if (account && (account.paused || !benny.allowed(sender))) throw new Error('Background delivery paused');
+    }
+    await sendBubbles(space, text);
+  });
   agent.noteInbound(space.id);
   await agent.runProactive().catch(() => {});
 
@@ -352,7 +429,7 @@ for await (const [space, message] of app.messages) {
   let reply: string;
   let resolved = false;
   try {
-    const turn = await agent.handle(space.id, text);
+    const turn = await agent.handle(space.id, text, benny?.tools(space, message));
     reply = toPlainText(turn.text);
     resolved = turn.resolved === true;
     // If the parent asked us to call, dial them or the school with the voice agent.
@@ -399,11 +476,13 @@ for await (const [space, message] of app.messages) {
   console.info('[latency] ttfb_ms=' + (Date.now() - t0));
   await sendBubbles(space, reply);
 }
+} catch {
+  // Do not print provider errors, which can contain message bodies or credentials.
+  console.error('iMessage consumer failed; restarting is required.');
+} finally {
+  messagingReady = false;
+  stopBenny?.();
 }
-
-// Graceful shutdown.
-for (const signal of ["SIGINT", "SIGTERM"] as const) {
-  process.on(signal, () => {
-    void app?.stop().finally(() => process.exit(0));
-  });
+// A closed stream is not a healthy, idle agent. Let the supervisor restart it.
+if (!shuttingDown) process.exit(1);
 }

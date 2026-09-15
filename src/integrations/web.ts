@@ -1,4 +1,4 @@
-import { createServer } from 'node:http';
+import { createServer, type Server } from 'node:http';
 import { createHmac, timingSafeEqual } from 'node:crypto';
 import { readFileSync, existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
@@ -16,6 +16,8 @@ import { connectorFor } from './connections/index.js';
 import './connections/parentPortal.js'; // registers the parent_portal connector
 import { handleInboundEmail } from './email-triage/triage.js';
 import type { LlmClient } from '../agent/llm.js';
+import type { BennyMessaging } from '../benefits/messaging.js';
+import { attachPortalWebSocket } from '../benefits/portal-http.js';
 
 const WEB_DIR = path.resolve(fileURLToPath(new URL('../../public', import.meta.url)));
 const WAITLIST_FILE = path.join(WEB_DIR, 'waitlist.json');
@@ -136,12 +138,35 @@ export function startWebServer(
     placeCall?: (phone: string, info?: PlaceCallInfo) => Promise<PlaceCallResult>;
     /** Small model for email classification (temperature 0). Falls back to no-LLM. */
     emailLlm?: LlmClient;
+    benny?: BennyMessaging;
+    ready?: () => Promise<boolean>;
   } = {},
   port: number = Number(process.env.WEB_PORT) || 3000,
-): void {
+): Server {
   const server = createServer(async (req, res) => {
     try {
       const url = new URL(req.url ?? '/', 'http://localhost');
+      if (url.pathname === '/health/ready') {
+        if (req.method !== 'GET' && req.method !== 'HEAD') {
+          res.writeHead(405, { Allow: 'GET, HEAD', 'Cache-Control': 'no-store' });
+          res.end();
+          return;
+        }
+        let ready = false;
+        try {
+          ready = await opts.ready?.() === true;
+        } catch {
+          // Readiness failures are intentionally represented only by the status.
+        }
+        res.writeHead(ready ? 200 : 503, {
+          'Content-Type': 'text/plain; charset=utf-8',
+          'Cache-Control': 'no-store',
+        });
+        res.end(req.method === 'HEAD' ? undefined : ready ? 'ready' : 'unready');
+        return;
+      }
+      // Additive routes: enabling life tools does not remove school/voice APIs.
+      if (opts.benny && await opts.benny.http(req, res)) return;
 
       if (url.pathname === '/api/inquiry') {
         if (req.method !== 'POST') {
@@ -389,20 +414,22 @@ export function startWebServer(
       res.writeHead(200, { 'Content-Type': type });
       res.end(content);
     } catch (e) {
-      console.error('[web] error:', e);
+      if (opts.benny) console.error('[benny] callback request unavailable');
+      else console.error('[web] error:', e);
       res.writeHead(500, { 'Content-Type': 'text/plain' });
       res.end('error');
     }
   });
 
-  // Live voice (Retell custom LLM) — the assistant drives outbound calls to parents.
+  // Each handler owns distinct paths; keep school/voice alongside life portals.
   attachVoiceWebSocket(server);
-  // Portal-takeover live view: proxy noVNC → Skyvern's authenticated VNC stream.
   attachConnectWebSocket(server);
+  if (opts.benny?.runtime.portalAccess) attachPortalWebSocket(server, opts.benny.runtime.portalAccess);
 
   const host = process.env.RAILWAY_PUBLIC_DOMAIN ?? `localhost:${port}`;
   server.listen(port, () => {
     console.log(`🌐 Axolotl site → http://${host}`);
     console.log(`🎙️  Voice LLM → wss://${host}/voice-llm`);
   });
+  return server;
 }

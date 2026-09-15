@@ -12,7 +12,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
           cache: npm
       - run: npm ci
       # Fail the build if a key-shaped string was committed.
@@ -47,5 +47,16 @@ jobs:
           node-version: '22'
           cache: npm
       - run: npm ci
+      - name: Native document readers
+        run: sudo apt-get update && sudo apt-get install -y poppler-utils tesseract-ocr tesseract-ocr-eng util-linux
+      - name: Shared personal context, durable runtime and document checks
+        env:
+          DOTENV_CONFIG_PATH: /dev/null
+        run: |
+          npm run test:personal
+          npm run test:documents
+          npm run test:benny
+          npm run test:portals
+          npm run test:readiness
       - run: npm run test:benefits
       - run: node --check public/benefits-lab/lab.js

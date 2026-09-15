@@ -9,6 +9,12 @@ export interface LlmOptions {
   maxTokens?: number;
 }
 
+export interface CompletionOptions {
+  signal?: AbortSignal;
+  /** Never log a vendor response body that may echo personal context. */
+  private?: boolean;
+}
+
 export interface ToolCall {
   id: string;
   name: string;
@@ -129,11 +135,12 @@ export class LlmClient {
     }
   }
 
-  private async complete(system: string, user: string, json = false): Promise<string | null> {
+  private async complete(system: string, user: string, json = false, options: CompletionOptions = {}): Promise<string | null> {
     if (!this.enabled) return null;
     try {
       const res = await fetch(`${this.opts.baseUrl.replace(/\/$/, '')}/chat/completions`, {
         method: 'POST',
+        signal: options.signal,
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${this.opts.apiKey}` },
         body: JSON.stringify({
           model: this.opts.model,
@@ -150,7 +157,8 @@ export class LlmClient {
         }),
       });
       if (!res.ok) {
-        console.warn(`[llm] ${this.opts.model} non-OK ${res.status}: ${(await res.text().catch(() => '')).slice(0, 200)}`);
+        if (options.private) console.warn(`[llm] private completion unavailable (${res.status})`);
+        else console.warn(`[llm] ${this.opts.model} non-OK ${res.status}: ${(await res.text().catch(() => '')).slice(0, 200)}`);
         return null;
       }
       const data = (await res.json()) as { choices?: Array<{ message?: { content?: string } }> };
@@ -165,8 +173,8 @@ export class LlmClient {
    * UNTRUSTED input (e.g. a forwarded school email). The caller must treat the input as
    * DATA, never as instructions; the system prompt has to say so explicitly.
    */
-  async completeJson(system: string, user: string): Promise<string | null> {
-    return this.complete(system, user, true);
+  async completeJson(system: string, user: string, options: CompletionOptions = {}): Promise<string | null> {
+    return this.complete(system, user, true, options);
   }
 
   /**

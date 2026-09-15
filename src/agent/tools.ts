@@ -30,8 +30,11 @@ import { inferCategory } from '../knowledge/research.js';
 import type { ResourceNode, ResourceType } from '../domain/graph.js';
 import { saveSkill, listSkills, skillSummary } from './skills.js';
 import { makeSkillKey, type Skill } from '../domain/skill.js';
+import { z } from 'zod';
+import { personalPlanSchema, type LifeTools } from './personal.js';
 
 export interface ToolDeps {
+  life?: LifeTools;
   profile?: FamilyProfile;
   /** The family's researched district profile (authoritative contacts/school type). */
   district?: DistrictProfile;
@@ -75,6 +78,22 @@ const LAW_FACTS: Record<string, string> = {
 };
 
 export const LLM_TOOLS = [
+  {
+    type: 'function',
+    function: {
+      name: 'get_life_context',
+      description: 'Read the same person’s life/benefits context, cross-institution cases, task status and configured portal-read capabilities. Does not connect or submit anything. Identity comes from the current private iMessage, never a supplied person ID.',
+      parameters: { type: 'object', properties: {}, additionalProperties: false },
+    },
+  },
+  {
+    type: 'function',
+    function: {
+      name: 'plan_life_work',
+      description: 'After get_life_context confirms enrollment, save one plan per human message: reported facts, new/extended cross-institution cases, linked benefits tasks, or a requested non-approval command. Existing school tools stay available. Reuse existing IDs; new-case IDs become available on the next turn. Never infer eligibility or completion. Exact server receipts are delivered separately; do not repeat them. No YES/NO, account confirmation or submission is accepted.',
+      parameters: z.toJSONSchema(personalPlanSchema),
+    },
+  },
   {
     type: 'function',
     function: {
@@ -605,6 +624,12 @@ export function redactForLog(value: unknown): unknown {
 }
 
 export async function runTool(name: string, args: Record<string, unknown>, deps: ToolDeps): Promise<string> {
+  // Life context/plan contents never enter the generic tool argument logger.
+  if (name === 'get_life_context' || name === 'plan_life_work') {
+    if (!deps.life) return 'Life/benefits tools are not enabled for this sender. Existing school tools still work. Do not claim portal access or ask for medical details.';
+    if (name === 'get_life_context') return JSON.stringify(await deps.life.context());
+    return deps.life.plan(personalPlanSchema.parse(args));
+  }
   console.log(`[tool] ${name} ${JSON.stringify(redactForLog(args)).slice(0, 300)}`);
   switch (name) {
     case 'get_school_info': {

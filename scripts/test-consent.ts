@@ -1,4 +1,5 @@
 import { Agent } from '../src/agent/agent.js';
+import { LlmClient } from '../src/agent/llm.js';
 import { RulesIntentEngine } from '../src/agent/intent/rules.js';
 import { MockCalendarProvider } from '../src/integrations/calendar.js';
 import { MockMealsProvider } from '../src/integrations/meals.js';
@@ -37,7 +38,7 @@ function makeEmailStep(): Step {
   };
 }
 
-function makeAgent(): Agent {
+function makeAgent(llm?: LlmClient): Agent {
   const db = createSeedDb();
   // The seed has no parents/students; create + provision one so buildToolContext resolves.
   db.parents.push({ id: 'parent-maya', phone: '15555550100', email: '', firstName: 'Maya', lastName: 'Lee', studentIds: [] });
@@ -50,6 +51,7 @@ function makeAgent(): Agent {
     challenges: ['speech'],
   });
   return new Agent({
+    llm,
     intentEngine: new RulesIntentEngine(),
     sis: new MockSis(db),
     calendar: new MockCalendarProvider(),
@@ -87,12 +89,53 @@ async function main(): Promise<void> {
   check('"yes please" is a valid consent', okThanks2.text.includes('Done!'), okThanks2.text.slice(0, 60));
 
   // 4. Sensitive creds must be redacted from any logged args (password/code/SSN never leak).
-  const redacted = redactForLog({ password: 'hunter2', code: '123456', url: 'https://x', fields: [{ label: 'Password', value: 'hunter2' }, { label: 'Email', value: 'a@b.com' }] });
+  const redacted = redactForLog({ password: 'hunter2', code: '123456', url: 'https://x', fields: [{ label: 'Password', value: 'hunter2' }, { label: 'Email', value: 'a@b.com' }] }) as Record<string, unknown>;
   check('password redacted', redacted.password === '[redacted]', JSON.stringify(redacted));
   check('code redacted', redacted.code === '[redacted]', JSON.stringify(redacted));
   check('sensitive labeled field redacted', (redacted.fields as Array<{ label: string; value: string }>)[0]!.value === '[redacted]', JSON.stringify(redacted.fields));
   check('non-sensitive field preserved', (redacted.fields as Array<{ label: string; value: string }>)[1]!.value === 'a@b.com', JSON.stringify(redacted.fields));
   check('url preserved', redacted.url === 'https://x');
+
+  // A diverted life command expires the old school proposal, never authorizes it.
+  agent.setStateForTest(ID, { phase: 'confirming', collected: {}, pendingSteps: [makeEmailStep()], pendingCall: true });
+  agent.expirePendingConsent(ID);
+  check('life control clears school consent and call flags', !agent.getStateForTest(ID)?.pendingSteps && !agent.getStateForTest(ID)?.pendingCall);
+  const afterLife = await agent.handle(ID, 'YES');
+  check('YES after a life control cannot execute an old school step', !afterLife.text.includes('Done!'));
+
+  // Exercise the real Agent tool loop, not just the new tool dispatcher.
+  const llm = new LlmClient({ apiKey: 'fixture', baseUrl: 'https://fixture.invalid', model: 'fixture' });
+  const results: string[] = [];
+  llm.chatWithTools = async (_system, messages, tools) => {
+    const turns = messages as Array<{ role: string; content?: string }>;
+    if (!turns.some(m => m.role === 'tool')) {
+      const names = tools.map(t => (t as { function: { name: string } }).function.name);
+      check('same brain offers both life and school tools', ['get_life_context', 'plan_life_work', 'send_email'].every(n => names.includes(n)));
+      return { calls: [
+        { id: 'context', name: 'get_life_context', arguments: '{}' },
+        { id: 'plan', name: 'plan_life_work', arguments: JSON.stringify({ reply: 'Plan saved', facts: [], newCases: [], reports: [] }) },
+        { id: 'school', name: 'send_email', arguments: JSON.stringify({ to: 'fixture@example.invalid', subject: 'Paperwork', body: 'Please share the form.' }) },
+      ] };
+    }
+    results.push(...turns.filter(m => m.role === 'tool').map(m => m.content ?? ''));
+    return { text: 'I drafted the school email for your approval.' };
+  };
+  const unified = makeAgent(llm);
+  const seed = () => ({ phase: 'idle' as const, collected: {}, onboarded: true, emailProofSent: true,
+    profile: { children: [{ name: 'Emma' }], school: 'Fictional School', needs: [], challenges: [] } });
+  unified.setStateForTest('with-life', seed());
+  let plans = 0;
+  await unified.handle('with-life', 'Help me organize paperwork', {
+    context: async () => ({ enrolled: true, marker: 'only-this-sender' }),
+    plan: async () => { plans++; return 'Saved one plan'; },
+  });
+  check('same turn reads life context and saves a plan', plans === 1 && results.some(r => r.includes('only-this-sender')));
+  check('same turn still stages school email for consent', unified.getStateForTest('with-life')?.pendingSteps?.[0]?.requiresConsent === true);
+  results.length = 0;
+  unified.setStateForTest('without-life', seed());
+  await unified.handle('without-life', 'Help me organize paperwork');
+  check('life binding cannot leak into the next sender', plans === 1 && !results.some(r => r.includes('only-this-sender')) && results.some(r => r.includes('not enabled')));
+  check('school email still available without life enrollment', unified.getStateForTest('without-life')?.pendingSteps?.[0]?.requiresConsent === true);
 
   console.log('\n========================================');
   console.log(`  ${pass} passed, ${fail} failed`);

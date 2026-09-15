@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Connect privately · Benny</title>
+  <link rel="stylesheet" href="/benny/portal.css">
+  <script type="module" src="/benny/portal.js"></script>
+</head>
+<body>
+  <main>
+    <header><a href="https://get-axolotl.com/">benny<span>by Axolotl</span></a><span class="badge">PRIVATE CONNECTION</span></header>
+    <section class="card">
+      <p class="eyebrow">YOUR ACCOUNTS. YOUR CONTROL.</p>
+      <h1>Sign in once.<br>Keep Benny in the loop.</h1>
+      <p>Use a private Skyvern-hosted browser to sign in to your provider. Keep passwords and verification codes out of iMessage.</p>
+      <ol><li>Open the browser and sign in yourself.</li><li>Tap “Finish sign-in.” Benny saves and restores the login to check the account.</li><li>Return to iMessage to confirm. Automated portal writes are not enabled.</li></ol>
+      <div class="notice">You control this browser. Actions you take inside it happen at the provider. Only sign in here—don’t submit a claim, purchase or refill.</div>
+      <p id="status" role="status" aria-live="polite">Ready when you are.</p>
+      <div id="screen" hidden aria-label="Your provider’s sign-in browser"></div>
+      <div id="keyboard-controls" hidden>
+        <p class="footnote">On your phone, tap a sign-in field in the browser above, then tap Keyboard. These keys go directly to that browser.</p>
+        <div class="keyboard-actions"><button id="keyboard" type="button">Keyboard</button><button id="backspace" type="button" aria-label="Backspace in remote browser">⌫</button><button id="enter" type="button">Enter</button></div>
+        <input id="keyboard-input" type="password" tabindex="-1" aria-label="Remote keyboard input" autocomplete="off" autocapitalize="off" spellcheck="false">
+      </div>
+      <div class="actions"><button id="open">Open private browser</button><button id="done" hidden>Finish sign-in</button></div>
+      <button id="reconnect" type="button" hidden>Reconnect browser</button>
+      <p class="footnote">This link expires in 10 minutes. STOP pauses access; DISCONNECT in iMessage removes saved access. Closing this page alone does not disconnect an account.</p>
+    </section>
+  </main>
+</body>
+</html>
