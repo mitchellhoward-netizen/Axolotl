@@ -36,6 +36,7 @@ import { createBennyMessaging } from "./benefits/messaging.js";
 import { isLifeControl } from "./agent/personal.js";
 import { emptyPersonalContext, importSchoolContext } from "./domain/personal-context.js";
 import { loadFamilySnapshot } from "./integrations/db.js";
+import { BennyDemo } from "./demo/director.js";
 
 // ── Single-instance guard ──────────────────────────────────────────────────────
 // Running two identical bot instances against the same Spectrum line makes BOTH
@@ -351,6 +352,8 @@ if (app) {
 
   // (durable message dedupe now via recordProcessedMessage / processed_message)
 messagingReady = true;
+// ── Benny iMessage demo — text "demo" to play the four beats as real bubbles ──
+const demos = new Map<string, BennyDemo>();
 try {
 for await (const [space, message] of app.messages) {
   // Never answer our own outbound echoes.
@@ -371,6 +374,21 @@ for await (const [space, message] of app.messages) {
       }
     }
     continue;
+  }
+
+  // ── Benny iMessage demo (text "demo" to start) ─────────────────────────────
+  // Plays the four beats as real bubbles in THIS thread; any reply advances a gate,
+  // and it auto-advances so the demo never stalls. Fictional, offline, deterministic.
+  if (imessage.is(space) && space.type === 'dm' && message.content.type === 'text') {
+    const demoText = message.content.text;
+    const running = demos.get(space.id);
+    if (running?.active) { running.onMessage(demoText); continue; }
+    if (/^\s*(demo|benny demo|start demo|run demo)\s*$/i.test(demoText)) {
+      const d = demos.get(space.id) ?? new BennyDemo((t) => space.send(t).then(() => {}));
+      demos.set(space.id, d);
+      await d.start().catch((e) => console.error('[demo] start error:', (e as Error)?.message ?? e));
+      continue;
+    }
   }
 
   // The iMessage SDK can deliver the same message twice (read/typing re-emit or a

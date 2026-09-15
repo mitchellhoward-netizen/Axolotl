@@ -80,7 +80,7 @@ const d=await(await fetch('/bright/providers?specialty=pediatrics&zip=95073&netw
 document.getElementById('r').innerHTML=d.map(p=>\`<li style="margin:8px 0"><b>${'${p.name}'}</b> — ${'${p.specialty}'} · ${'${p.address}'} · ${'${p.inNetwork ? "In-network" : "Out-of-network"}'} · ${'${p.nextSlots.join(", ")}'}</li>\`).join('');
 </script></body></html>`;
 
-export interface DemoServer { url: string; close: () => Promise<void> }
+export interface DemoServer { url: string; close: () => Promise<void>; reset: () => void }
 
 export function startDemoServer(port = Number(process.env.DEMO_PORT) || 4310): Promise<DemoServer> {
   const server = createServer(async (req, res) => {
@@ -161,6 +161,10 @@ export function startDemoServer(port = Number(process.env.DEMO_PORT) || 4310): P
   });
 
   return new Promise<DemoServer>((resolve) => {
-    server.listen(port, () => resolve({ url: `http://localhost:${port}`, close: () => new Promise((r) => server.close(() => r())) }));
+    server.listen(port, () => resolve({
+      url: `http://localhost:${port}`,
+      close: () => new Promise((r) => server.close(() => r())),
+      reset: () => { claims.clear(); claimByKey.clear(); appointments.clear(); },
+    }));
   });
 }
