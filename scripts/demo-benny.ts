@@ -1,6 +1,9 @@
 #!/usr/bin/env tsx
 /**
  * Benny demo — print the interactive conversation the live iMessage director produces.
+ * The opening run is the whole point: the school's inbox read → the one requirement that
+ * needs a parent → in-network booking → an FSA filing → the completed forms returned to
+ * the school. Then it keeps going, because the same loop covers the rest of the plan.
  * Drives the REAL director (same code as the deployed agent) with a scripted run, so the
  * console preview and iMessage can't drift.
  *
@@ -18,8 +21,8 @@ const say = async (t: string) => { out.push({ from: '        You', text: t }); a
 
 await demo.start();
 for (const m of [
-  'yes',                                                   // handle the physical
-  'yes',                                                   // book it
+  'yes',                                                   // book both school-required visits in-network
+  'yes',                                                   // file the dental with the plan + return the forms
   'am I using my benefits correctly? anything I haven’t used up?',
   'yes',                                                   // file the FSA
   'yes',                                                   // confirm the claim

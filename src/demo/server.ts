@@ -4,6 +4,8 @@
  * Two institutions served from one process, so the demo harness and connectors have
  * real HTTP endpoints to hit while everything stays deterministic and offline:
  *
+ *   /school/*     — "Soquel Elementary": the parent inbox (a week of school messages,
+ *                   exactly one of which needs a parent to act) + the form it is waiting on.
  *   /northstar/*  — "Northstar Benefits": the employer coverage portal (plan, dependents,
  *                   FSA balance, wellness/books stipend) + the claims ledger.
  *   /bright/*     — "Bright Pediatrics": the in-network provider directory (search + book).
@@ -25,11 +27,17 @@ export interface Provider {
   inNetwork: boolean;
   networkId: string;
   nextSlots: string[];
+  /** What this visit costs the member AFTER the plan's in-network rate (0 = fully covered). */
+  estimateCents?: number;
 }
 const PROVIDERS: Provider[] = [
-  { id: 'pr-reyes', name: 'Dr. Camila Reyes', specialty: 'Pediatrics', address: '221 Ocean St, Soquel, CA', zip: '95073', inNetwork: true, networkId: 'bright-net', nextSlots: ['Thu 3:40 PM', 'Fri 9:00 AM'] },
-  { id: 'pr-chen', name: 'Dr. Marcus Chen', specialty: 'Pediatrics', address: '18 Bay Ave, Capitola, CA', zip: '95010', inNetwork: true, networkId: 'bright-net', nextSlots: ['Fri 1:20 PM', 'Mon 8:30 AM'] },
+  { id: 'pr-reyes', name: 'Dr. Camila Reyes', specialty: 'Pediatrics', address: '221 Ocean St, Soquel, CA', zip: '95073', inNetwork: true, networkId: 'bright-net', nextSlots: ['Thu 3:40 PM', 'Fri 9:00 AM'], estimateCents: 0 },
+  { id: 'pr-chen', name: 'Dr. Marcus Chen', specialty: 'Pediatrics', address: '18 Bay Ave, Capitola, CA', zip: '95010', inNetwork: true, networkId: 'bright-net', nextSlots: ['Fri 1:20 PM', 'Mon 8:30 AM'], estimateCents: 0 },
   { id: 'pr-okafor', name: 'Dr. Aisha Okafor', specialty: 'Pediatrics', address: '77 Ridge Rd, Aptos, CA', zip: '95003', inNetwork: false, networkId: 'other-net', nextSlots: ['Wed 11:00 AM'] },
+  // A school form needs a dentist's signature — the exam isn't a covered preventive, so
+  // there's a real out-of-pocket cost. That's the money the plan (via the FSA) then handles.
+  { id: 'pr-sato', name: 'Dr. Elena Sato, DDS', specialty: 'Dentistry', address: '412 Capitola Rd, Santa Cruz, CA', zip: '95062', inNetwork: true, networkId: 'bright-net', nextSlots: ['Fri 1:20 PM', 'Tue 4:10 PM'], estimateCents: 8_500 },
+  { id: 'pr-nunez', name: 'Dr. Paul Nunez, DDS', specialty: 'Dentistry', address: '9 Soquel Dr, Santa Cruz, CA', zip: '95062', inNetwork: false, networkId: 'other-net', nextSlots: ['Mon 10:00 AM'] },
 ];
 
 interface Claim { reference: string; memberId: string; category: string; amountCents: number; description: string; status: 'submitted' | 'paid'; createdAt: number }
@@ -55,6 +63,65 @@ const THERAPISTS: Therapist[] = [
   { id: 'th-adeyemi', name: 'Samuel Adeyemi', credentials: 'PhD', focus: 'adolescents', inNetwork: false, networkId: 'other-net', nextSlots: ['Mon 4:00 PM'], telehealth: false },
 ];
 interface TherapistRequest { reference: string; therapistId: string; therapistName: string; when: string; status: 'requested' | 'accepted'; createdAt: number }
+
+// ── The school (the DEMAND side: where the need actually shows up) ───────────
+// A week of real-shaped school communication. Seven of these are genuinely FYI and one
+// needs a parent to act — which is the whole point: the inbox is loud, the signal is thin,
+// and the signal happens to be the one thing an employer benefit can pay for.
+export interface SchoolMessage {
+  id: string;
+  from: string;
+  receivedAt: string;
+  subject: string;
+  body: string;
+  needsAction: boolean;
+  /** Machine-readable class of the ask (only meaningful when needsAction). */
+  actionType?: string;
+  /** Set only on the actionable one — the form the school is waiting for. */
+  formId?: string;
+  due?: string;
+  dependentId?: string;
+}
+export interface SchoolInbox {
+  id: string; name: string; child: string; messages: SchoolMessage[];
+}
+export interface SchoolFormReceipt {
+  confirmationId: string; formId: string; status: 'received'; submittedAt: string;
+  attachments: string[];
+}
+
+const SCHOOL = { id: 'soquel-elementary', name: 'Soquel Elementary', child: 'Leo' };
+
+const SCHOOL_MESSAGES: SchoolMessage[] = [
+  {
+    id: 'msg-health', from: 'Soquel Elementary — Office', receivedAt: 'Mon 7:42 AM',
+    subject: 'Kindergarten health requirements — due Oct 15',
+    body:
+      'Every incoming kindergartener must have a physical exam and an oral health assessment on file ' +
+      'before Oct 15. Both forms must be signed by your provider. Leo is missing both.',
+    needsAction: true, actionType: 'health_requirement',
+    formId: 'form-health-2026', due: 'Oct 15', dependentId: 'dep-leo',
+  },
+  { id: 'msg-pictures', from: 'Soquel Elementary — Office', receivedAt: 'Mon 9:10 AM', subject: 'Picture day is Thursday', body: 'Class photos Thursday morning. Order forms went home in backpacks.', needsAction: false },
+  { id: 'msg-bookfair', from: 'Soquel PTA', receivedAt: 'Mon 11:03 AM', subject: 'Book fair Oct 6–10 — volunteers needed', body: 'The fall book fair runs all next week in the library.', needsAction: false },
+  { id: 'msg-early', from: 'Soquel Elementary — Office', receivedAt: 'Tue 6:55 AM', subject: 'Early dismissal Wed 1:15 PM (parent conferences)', body: 'Wednesday is a minimum day for conferences. Pick-up is 1:15 PM.', needsAction: false },
+  { id: 'msg-volunteer', from: 'Ms. Alvarez (Room 4)', receivedAt: 'Tue 2:20 PM', subject: 'Classroom volunteers — sign-up open', body: 'We need two helpers for Thursday centers.', needsAction: false },
+  { id: 'msg-fundraiser', from: 'Soquel PTA', receivedAt: 'Wed 8:00 AM', subject: 'Fall fundraiser: cookie dough through Oct 20', body: 'Order forms due Oct 20. Proceeds go to the playground fund.', needsAction: false },
+  { id: 'msg-holiday', from: 'Soquel Elementary — Office', receivedAt: 'Wed 4:15 PM', subject: 'No school Nov 11 (Veterans Day)', body: 'School is closed Tuesday, Nov 11. After-school care is also closed.', needsAction: false },
+  { id: 'msg-newsletter', from: "Principal Okafor", receivedAt: 'Fri 3:30 PM', subject: "Principal's newsletter — October", body: 'Attendance, the new drop-off loop, and conference week.', needsAction: false },
+];
+
+const schoolSubmissions = new Map<string, SchoolFormReceipt>();
+
+function schoolInbox(): SchoolInbox {
+  return {
+    id: SCHOOL.id, name: SCHOOL.name, child: SCHOOL.child,
+    messages: SCHOOL_MESSAGES.map((m) => {
+      const done = m.formId ? schoolSubmissions.get(m.formId) : undefined;
+      return done ? { ...m, needsAction: false } : { ...m };
+    }),
+  };
+}
 
 const claims = new Map<string, Claim>();
 const claimByKey = new Map<string, string>();
@@ -115,8 +182,18 @@ const d=await(await fetch('/bright/providers?specialty=pediatrics&zip=95073&netw
 document.getElementById('r').innerHTML=d.map(p=>\`<li style="margin:8px 0"><b>${'${p.name}'}</b> — ${'${p.specialty}'} · ${'${p.address}'} · ${'${p.inNetwork ? "In-network" : "Out-of-network"}'} · ${'${p.nextSlots.join(", ")}'}</li>\`).join('');
 </script></body></html>`;
 
-export interface DemoServer { url: string; close: () => Promise<void>; reset: () => void }
+function schoolPage(): string {
+  const rows = schoolInbox().messages
+    .map((m) => `<li style="margin:10px 0"><b>${m.subject}</b>${m.needsAction ? ' <span class="badge">needs you</span>' : ''}<br><span class="muted">${m.from} · ${m.receivedAt}</span><br>${m.body}</li>`)
+    .join('');
+  return `<!doctype html><html><head><meta charset="utf-8"><title>${SCHOOL.name} — parent inbox</title><style>body{font-family:system-ui;max-width:680px;margin:40px auto;color:#0f172a} h1{font-size:20px} .muted{color:#64748b} .badge{background:#fef3c7;color:#92400e;border-radius:999px;padding:2px 10px;font-size:12px} ul{list-style:none;padding:0}</style></head><body>
+<h1>${SCHOOL.name} <span class="badge">Demo — fictional</span></h1>
+<p class="muted">Parent inbox for ${SCHOOL.child} · one message needs action; the rest are FYI</p>
+<ul>${rows}</ul>
+</body></html>`;
+}
 
+export interface DemoServer { url: string; close: () => Promise<void>; reset: () => void }
 export function startDemoServer(port = Number(process.env.DEMO_PORT) || 4310): Promise<DemoServer> {
   const server = createServer(async (req, res) => {
     try {
@@ -260,7 +337,27 @@ export function startDemoServer(port = Number(process.env.DEMO_PORT) || 4310): P
         return r ? json(res, 200, r) : json(res, 404, { error: 'not found' });
       }
 
+      // ── Soquel Elementary: the parent inbox + the form the school is waiting on ──
+      if (req.method === 'GET' && path === '/school/inbox') {
+        return json(res, 200, schoolInbox());
+      }
+      if (req.method === 'POST' && path === '/school/forms/submit') {
+        const b = await readBody(req);
+        const formId = String(b.formId ?? '');
+        if (!SCHOOL_MESSAGES.some((m) => m.formId === formId)) return json(res, 400, { error: 'unknown form' });
+        const existing = schoolSubmissions.get(formId);
+        if (existing) return json(res, 200, existing);
+        const receipt: SchoolFormReceipt = {
+          confirmationId: `SCH-${randomUUID().slice(0, 8).toUpperCase()}`,
+          formId, status: 'received', submittedAt: new Date().toISOString(),
+          attachments: Array.isArray(b.attachments) ? (b.attachments as string[]).map(String) : [],
+        };
+        schoolSubmissions.set(formId, receipt);
+        return json(res, 201, receipt);
+      }
+
       // ── Human-viewable landing pages ────────────────────────────────────────
+      if (req.method === 'GET' && path === '/school/') return html(res, 200, schoolPage());
       if (req.method === 'GET' && path === '/northstar/') return html(res, 200, NORTHSTAR_HTML);
       if (req.method === 'GET' && path === '/bright/') return html(res, 200, BRIGHT_HTML);
       if (req.method === 'GET' && path === '/health') return json(res, 200, { ok: true });
@@ -280,6 +377,7 @@ export function startDemoServer(port = Number(process.env.DEMO_PORT) || 4310): P
         claims.clear(); claimByKey.clear(); appointments.clear();
         bookOrders.clear(); bookOrderByKey.clear(); rampExpenses.clear(); rampByKey.clear();
         therapistRequests.clear(); therapistByKey.clear();
+        schoolSubmissions.clear();
       },
     }));
   });

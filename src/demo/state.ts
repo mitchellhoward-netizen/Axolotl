@@ -29,6 +29,12 @@ export interface DemoState {
   filed: FiledClaim[];
   /** The appointment, once booked. */
   booking?: Booking;
+  /** The dentist visit the school form required, once booked. */
+  dentalBooking?: Booking;
+  /** School forms returned to the school this session (form ids). */
+  schoolFormsSent: string[];
+  /** How many school messages came in, and the one that needed action. */
+  schoolInbox?: { count: number; actionSubject: string; due?: string };
   /** Whether the school absence note has gone out. */
   absenceSent: boolean;
   /** Where physical goods ship — defaults to the household address on file. */
@@ -49,6 +55,7 @@ export function initialState(): DemoState {
     absenceSent: false,
     shippingAddress: demoCatalog.member.address,
     triaged: false,
+    schoolFormsSent: [],
   };
 }
 
@@ -92,6 +99,8 @@ export function stateSummary(state: DemoState): string {
   const bits: string[] = [];
   bits.push(`FSA remaining: ${dollars(state.fsaRemainingCents)}`);
   if (state.booking) bits.push(`physical booked with ${state.booking.providerName} ${state.booking.when}`);
+  if (state.dentalBooking) bits.push(`dental exam booked with ${state.dentalBooking.providerName} ${state.dentalBooking.when}`);
+  if (state.schoolFormsSent.length) bits.push(`school health form sent to the school (${state.schoolFormsSent.length})`);
   for (const f of state.filed) bits.push(`${f.category} claim ${f.ref} ${f.status} (${dollars(f.amountCents)})`);
   if (state.absenceSent) bits.push('school absence note sent');
   const left = unused(state);

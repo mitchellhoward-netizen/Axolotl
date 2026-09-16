@@ -309,7 +309,7 @@ try {
 }
 
 console.log(`🏫 Axolotl is listening for iMessages…`);
-console.log(`🎬 Benny demo ready — text "demo" to play the four beats (physical, FSA, books, absence).`);
+console.log(`🎬 Benny demo ready — text "demo" for the school→plan run: school inbox triage → in-network booking → FSA filing → forms back to the school.`);
 console.log(
   chat.apiKey
     ? `🧠 Brain: LLM (${chat.model} @ ${chat.baseUrl})`
@@ -354,7 +354,7 @@ if (app) {
 
   // (durable message dedupe now via recordProcessedMessage / processed_message)
 messagingReady = true;
-// ── Benny iMessage demo — text "demo" to play the four beats as real bubbles ──
+// ── Benny iMessage demo — text "demo" for the school→plan run as real bubbles ──
 const demos = new Map<string, BennyDemo>();
 // The demo router understands natural steering ("am I using my benefits right?").
 const demoRouter = makeLlmRouter(researchLlm);
@@ -381,7 +381,7 @@ for await (const [space, message] of app.messages) {
   }
 
   // ── Benny iMessage demo (text "demo" to start) ─────────────────────────────
-  // Plays the four beats as real bubbles in THIS thread; any reply advances a gate,
+  // Plays the school→plan run as real bubbles in THIS thread; any reply advances a gate,
   // and it auto-advances so the demo never stalls. Fictional, offline, deterministic.
   // No space-type guard: triggers on the exact text in any thread so it can never
   // silently no-op (and logs, so it's diagnosable from the deploy logs).

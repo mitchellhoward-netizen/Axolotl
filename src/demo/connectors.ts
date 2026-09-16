@@ -12,6 +12,7 @@
  */
 import type { PersonalFact } from '../domain/personal-context.js';
 import type { Action, BennyConnector, ConnectorContext, Outcome, WorkflowKind } from '../benefits/connectors.js';
+import type { SchoolInbox, SchoolFormReceipt } from './server.js';
 
 const BASE = () => (process.env.DEMO_BASE_URL ?? 'http://localhost:4310').replace(/\/$/, '');
 const DEMO_ORIGIN = () => new URL(BASE()).origin;
@@ -53,7 +54,9 @@ function demoOAuth(id: string): Pick<BennyConnector, 'authorizationUrl' | 'excha
 }
 
 interface Coverage { member: { id: string }; network: { id: string; name: string }; benefits: { preventive: { covered: boolean; costShare: string } } }
-interface Provider { id: string; name: string; specialty: string; address: string; inNetwork: boolean; nextSlots: string[] }
+interface Provider { id: string; name: string; specialty: string; address: string; inNetwork: boolean; nextSlots: string[]; estimateCents?: number }
+
+const money = (cents: number) => `$${(cents / 100).toFixed(2)}`;
 
 /** Bright Pediatrics — the in-network directory + appointment booking. */
 export const brightConnector: BennyConnector = {
@@ -74,6 +77,9 @@ export const brightConnector: BennyConnector = {
     const pick = inNetwork[0];
     if (!pick) return { blocked: `No in-network ${specialty} found in your area.` };
     const when = pick.nextSlots[0]!;
+    // A visit that isn't covered preventive still has a member cost — and that cost is
+    // exactly what the plan (via the FSA) can take off the parent's plate afterwards.
+    const estimateCents = pick.estimateCents ?? 0;
 
     const action: Action = {
       operation: 'book_appointment',
@@ -81,12 +87,14 @@ export const brightConnector: BennyConnector = {
       destination: 'Bright Pediatrics',
       subject: `In-network ${specialty} for ${dependent}`,
       summary: `${pick.name}, ${when} at ${pick.address}.`,
-      amountCents: 0,
+      amountCents: estimateCents,
       disclosures: [
-        `${coverage.benefits.preventive.costShare} preventive visit (your plan's in-network rate).`,
+        estimateCents > 0
+          ? `${money(estimateCents)} after your plan's in-network rate (not a covered preventive) — your FSA can cover it.`
+          : `${coverage.benefits.preventive.costShare} preventive visit (your plan's in-network rate).`,
         'Booking an appointment — this does not submit a claim or charge you now.',
       ],
-      payload: { providerId: pick.id, dependentId: fact(input.contextFacts, 'dependentId') ?? dependent, when },
+      payload: { providerId: pick.id, specialty: pick.specialty, dependentId: fact(input.contextFacts, 'dependentId') ?? dependent, when },
       evidence: [
         { source: 'coverage', detail: `Network: ${coverage.network.name}`, observedAt: nowIso() },
         { source: 'directory', detail: `${pick.name} is in-network`, observedAt: nowIso() },
@@ -97,8 +105,9 @@ export const brightConnector: BennyConnector = {
   },
 
   async validate(_ctx, action) {
-    const providers = await getJson<Provider[]>('/bright/providers?specialty=pediatrics&network=bright-net');
-    const p = providers.find((x) => x.id === (action.payload as { providerId?: string }).providerId);
+    const payload = action.payload as { providerId?: string; specialty?: string };
+    const providers = await getJson<Provider[]>(`/bright/providers?specialty=${payload.specialty ?? 'pediatrics'}&network=bright-net`);
+    const p = providers.find((x) => x.id === payload.providerId);
     return Boolean(p?.inNetwork);
   },
 
@@ -206,6 +215,18 @@ export async function searchBooks(query: string): Promise<Book[]> {
 }
 export async function orderBook(bookId: string, idempotencyKey: string): Promise<BookOrder> {
   return postJson<BookOrder>('/books/order', { bookId, idempotencyKey });
+}
+
+// ── The school (demand side) ────────────────────────────────────────────────
+// Not a benefits connector: the school is a *life* institution. It's where the need
+// arrives, and where the finished proof has to go back to. Everything here is HTTP
+// against the demo's fictional school, exactly like the real adapter would be against a
+// district portal / ParentSquare / a forwarded inbox.
+export async function fetchSchoolInbox(): Promise<SchoolInbox> {
+  return getJson<SchoolInbox>('/school/inbox');
+}
+export async function submitSchoolForm(formId: string, attachments: string[], idempotencyKey: string): Promise<SchoolFormReceipt> {
+  return postJson<SchoolFormReceipt>('/school/forms/submit', { formId, attachments, idempotencyKey });
 }
 
 // ── EAP: the plan's therapist directory + appointment requests ──────────────

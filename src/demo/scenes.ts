@@ -7,10 +7,10 @@
  * may return a `pending` approval gate for the director to wait on.
  */
 import { demoCatalog } from './catalog.js';
-import { brightConnector, northstarConnector, rampConnector, searchBooks, orderBook, searchTherapists, requestTherapist, type Therapist } from './connectors.js';
+import { brightConnector, northstarConnector, rampConnector, searchBooks, orderBook, searchTherapists, requestTherapist, fetchSchoolInbox, submitSchoolForm, type Therapist } from './connectors.js';
 import { dollars, unused, type DemoState } from './state.js';
 import type { PersonalFact } from '../domain/personal-context.js';
-import type { ConnectorContext } from '../benefits/connectors.js';
+import type { Action, ConnectorContext } from '../benefits/connectors.js';
 
 export interface SceneCtx {
   send: (text: string) => Promise<void>;
@@ -31,20 +31,162 @@ export interface SceneResult {
   followUp?: Array<{ via: 'northstar' | 'bright' | 'ramp'; ref: string }>;
 }
 
-const kid = () => demoCatalog.dependents.find((d) => d.id === 'dep-leo')!;
 const fact = (subject: string, category: PersonalFact['category'], statement: string): PersonalFact => ({
   id: subject, subject, category, statement,
   source: { kind: 'person_report', messageId: 'demo', observedAt: new Date().toISOString() },
 });
 
-// ── triage — what came in (the proactive opening) ────────────────────────────
+// ── triage — the school inbox, triaged down to the one thing that matters ────
+//
+// This is the demo's spine, and it is ONE continuous story: the school's requirement
+// arrives → Benny reads the plan and prices the network → books it → files it against the
+// plan → returns the completed form to the school. Demand (school) meets supply (the
+// benefit the employer already bought), with a human YES at each consequential step.
 export async function triage(sc: SceneCtx): Promise<SceneResult> {
   sc.state.triaged = true;
+
+  const inbox = await fetchSchoolInbox().catch(() => undefined);
+  if (!inbox || !inbox.messages.length) {
+    await sc.send(`I couldn't reach Leo's school inbox just now — want me to try again?`);
+    return {};
+  }
+  const needs = inbox.messages.filter((m) => m.needsAction);
+  const fyi = inbox.messages.filter((m) => !m.needsAction);
+  const lead = needs[0];
+  sc.state.schoolInbox = { count: inbox.messages.length, actionSubject: lead?.subject ?? '', due: lead?.due };
+
+  // Beat 1 — the raw inbox, exactly as loud as it really is.
   await sc.send(
-    `3 school emails came in today. One needs you: the school requires a physical for ${kid().name} before enrollment — your plan covers it ${demoCatalog.benefits.preventive.costShare}. The other two are FYI (picture day, book fair).`,
+    `${inbox.messages.length} messages from ${inbox.name} this week:\n` +
+      inbox.messages.map((m) => `• ${m.subject}`).join('\n'),
   );
-  await sc.send(`Want me to handle the physical?`);
-  return { pending: { label: 'the physical', onApprove: () => physical(sc) } };
+
+  if (!lead) {
+    await sc.send(`Nothing in there needs you — all ${fyi.length} are FYI. I'll keep watching Leo's inbox.`);
+    return {};
+  }
+
+  // Beat 2 — the verdict: 8 messages → 1 action.
+  await sc.send(
+    `${fyi.length} of them are FYI — I've filed those.\n` +
+      `The one that needs you: ${lead.subject}.\n${lead.body}`,
+  );
+
+  // Beat 3 — the requirement meets the coverage map. Real network lookups, real prices.
+  const physicalPrep = await brightConnector.prepare(sc.ctx, {
+    workflow: 'appointment', request: 'school-required physical exam',
+    contextFacts: [fact('dependent', 'family', 'Leo'), fact('dependentId', 'family', 'dep-leo'), fact('specialty', 'health', 'pediatrics')],
+    documents: [],
+  });
+  const dentalPrep = await brightConnector.prepare(sc.ctx, {
+    workflow: 'appointment', request: 'school-required oral health assessment',
+    contextFacts: [fact('dependent', 'family', 'Leo'), fact('dependentId', 'family', 'dep-leo'), fact('specialty', 'health', 'dentistry')],
+    documents: [],
+  });
+  if (!('action' in physicalPrep) || !('action' in dentalPrep)) {
+    await sc.send(`I found what the school needs, but I couldn't reach your plan's network directory just now. Want me to try again?`);
+    return {};
+  }
+  const phys = physicalPrep.action;
+  const dent = dentalPrep.action;
+  await sc.send(
+    `The good news: this is exactly what your plan is for. The physical is ${demoCatalog.benefits.preventive.costShare} as preventive care, ` +
+      `and the dental exam is ${dollars(dent.amountCents)} after your plan's rate — your FSA covers that. ` +
+      `I pulled the next in-network openings:\n` +
+      `• ${phys.summary}\n• ${dent.summary}\n` +
+      `Reply YES and I'll book both — then file the dental with your plan and send ${inbox.name} the completed forms.`,
+  );
+
+  return {
+    pending: {
+      label: `both of Leo's appointments${lead.due ? ` (due ${lead.due})` : ''}`,
+      onApprove: () => bookSchoolVisits(sc, { school: inbox.name, lead, phys, dent }),
+      onDecline: async () => {
+        await sc.send(`Okay — I'll leave the forms with you. The requirement is due ${lead.due ?? 'soon'}, so tell me when you want it handled.`);
+      },
+    },
+  };
+}
+
+/** Book the physical + the dental exam the school's form requires. */
+async function bookSchoolVisits(
+  sc: SceneCtx,
+  args: { school: string; lead: { formId?: string; due?: string }; phys: Action; dent: Action },
+): Promise<SceneResult> {
+  const { school, lead, phys, dent } = args;
+  const physSub = await brightConnector.submit(sc.ctx, phys, `bright:${phys.resourceKey}`);
+  const dentSub = await brightConnector.submit(sc.ctx, dent, `bright:${dent.resourceKey}`);
+  const physName = phys.summary.split(',')[0]?.trim() || 'the pediatrician';
+  const dentName = dent.summary.split(',')[0]?.trim() || 'the dentist';
+  const physWhen = (phys.payload as { when?: string }).when ?? '';
+  const dentWhen = (dent.payload as { when?: string }).when ?? '';
+  sc.state.booking = { providerName: physName, when: physWhen, ref: physSub.reference };
+  sc.state.dentalBooking = { providerName: dentName, when: dentWhen, ref: dentSub.reference };
+  sc.state.preventiveBooked = true;
+
+  await sc.send(
+    `✅ Booked both, in-network:\n` +
+      `• Physical — ${physName}, ${physWhen} (${physSub.reference})\n` +
+      `• Dental exam — ${dentName}, ${dentWhen} (${dentSub.reference})`,
+  );
+  await sc.send(
+    `Last step, and this is the part your employer already paid for: the dental exam is ${dollars(dent.amountCents)}. ` +
+      `I'll file it against your FSA and send ${school} the completed health forms with both confirmations attached.\nReply YES.`,
+  );
+
+  return {
+    pending: {
+      label: `the FSA claim and ${school}'s forms`,
+      onApprove: () =>
+        fileAndReturnForms(sc, {
+          school, lead, amountCents: dent.amountCents,
+          physicalRef: physSub.reference, dentalRef: dentSub.reference,
+        }),
+      onDecline: async () => {
+        await sc.send(`Both visits are booked either way. Say the word and I'll file the claim and send the forms.`);
+      },
+    },
+  };
+}
+
+/** File the out-of-pocket with the plan (FSA), then return the signed forms to school. */
+async function fileAndReturnForms(
+  sc: SceneCtx,
+  args: { school: string; lead: { formId?: string; due?: string }; amountCents: number; physicalRef: string; dentalRef: string },
+): Promise<SceneResult> {
+  const { school, lead, amountCents, physicalRef, dentalRef } = args;
+  const description = "Leo's dental exam (school health requirement)";
+  const prep = await northstarConnector.prepare(sc.ctx, {
+    workflow: 'reimbursement', request: 'file FSA claim',
+    contextFacts: [fact('claim', 'coverage', `dental|${amountCents}|${description}`)], documents: [],
+  });
+  if (!('action' in prep)) {
+    await sc.send(`I couldn't prepare that claim — want me to try again?`);
+    return {};
+  }
+  const sub = await northstarConnector.submit(sc.ctx, prep.action, `northstar:${prep.action.resourceKey}`);
+  sc.state.filed.push({ category: 'dental', amountCents, description, ref: sub.reference, status: 'submitted' });
+  sc.state.fsaRemainingCents = Math.max(0, sc.state.fsaRemainingCents - amountCents);
+  await sc.send(
+    `✅ Filed with your plan — ${dollars(amountCents)} against your FSA (${sub.reference}), submitted, not paid yet. I'll tell you when it lands.`,
+  );
+
+  const formId = lead.formId ?? 'form-health-2026';
+  const rec = await submitSchoolForm(
+    formId,
+    [`Physical exam — ${physicalRef}`, `Oral health assessment — ${dentalRef}`, `FSA claim — ${sub.reference}`],
+    `school:${formId}`,
+  ).catch(() => undefined);
+  if (!rec) {
+    await sc.send(`The claim is filed, but I couldn't reach ${school} to return the forms — want me to retry?`);
+    return { followUp: [{ via: 'northstar', ref: sub.reference }] };
+  }
+  sc.state.schoolFormsSent.push(formId);
+  await sc.send(
+    `✅ Sent ${school} both completed forms with the visit confirmations attached — their receipt: ${rec.confirmationId}.`,
+  );
+  await sc.send(`That's the enrollment requirement done: read, booked, filed, and returned. Nothing left for you to chase.`);
+  return { followUp: [{ via: 'northstar', ref: sub.reference }] };
 }
 
 // ── audit — "am I using my benefits correctly?" ──────────────────────────────
@@ -250,12 +392,14 @@ export async function absence(sc: SceneCtx): Promise<SceneResult> {
 // ── status — what's in flight (polls the ledger, so it's never stale) ────────
 export async function status(sc: SceneCtx): Promise<SceneResult> {
   await refreshClaims(sc);
-  const LABEL: Record<string, string> = { vision: 'glasses claim', 'wellness-books': 'books' };
+  const LABEL: Record<string, string> = { vision: 'glasses claim', 'wellness-books': 'books', dental: 'dental claim (school requirement)' };
   const done: string[] = [];
   const open: string[] = [];
   if (sc.state.booking) done.push(`physical booked (${sc.state.booking.providerName}, ${sc.state.booking.when})`);
+  if (sc.state.dentalBooking) done.push(`dental exam booked (${sc.state.dentalBooking.providerName}, ${sc.state.dentalBooking.when})`);
   if (sc.state.eapRequest) done.push(`EAP session requested (${sc.state.eapRequest.therapistName}, ${sc.state.eapRequest.when})`);
   for (const f of sc.state.filed) done.push(`${LABEL[f.category] ?? f.category} ${f.status} (${dollars(f.amountCents)})`);
+  if (sc.state.schoolFormsSent.length) done.push(`health forms returned to the school`);
   if (sc.state.absenceSent) done.push('school note sent');
   const left = unused(sc.state);
   for (const u of left) open.push(`${u.label} — ${u.detail}`);

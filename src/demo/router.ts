@@ -38,7 +38,7 @@ function systemPrompt(state: DemoState, pending?: string): string {
     `You are Benny, a benefits copilot that texts a parent. You hold two maps: their employer benefits, and their life (family, school, providers). Warm, brief, concrete. Never robotic.`,
     ``,
     `Return ONLY a JSON object. Choose exactly one:`,
-    `- {"do":"triage"}  — what came in today (school inbox)`,
+    `- {"do":"triage"}  — what came in from the school / the school inbox / the school's forms, requirements or deadlines`,
     `- {"do":"audit"}   — "am I using my benefits correctly / what haven't I used / what am I missing"`,
     `- {"do":"physical"}— book the child's physical / a doctor's appointment`,
     `- {"do":"fsa"}     — the FSA / a reimbursement / use-it-or-lose-it / a receipt`,
@@ -150,11 +150,11 @@ export function keywordRouter(): Router {
       return { kind: 'scene', scene: 'books', arg: text };
     }
     if (/\b(absent|absence|out (on )?(tuesday|monday|wednesday|thursday|friday|tomorrow)|school note|tell the school)\b/.test(t)) return { kind: 'scene', scene: 'absence' };
-    if (/\b(what came in|what did i miss|inbox|emails?|missed)\b/.test(t)) return { kind: 'scene', scene: 'triage' };
+    if (/\b(what came in|what did i miss|inbox|emails?|missed|school)\b/.test(t)) return { kind: 'scene', scene: 'triage' };
     if (/\b(physical|appointment|doctor|pediatric|checkup|check-up)\b/.test(t)) return { kind: 'scene', scene: 'physical' };
     return { kind: 'say', text: `I can help with your plan. Want the check-up on what you haven't used, your FSA, your books, or something at school?` };
   };
 }
 
 export const MENU_TEXT =
-  `Here's what I can do right now:\n• check what you haven't used (FSA, books, EAP, preventive)\n• file an FSA reimbursement\n• book an in-network appointment\n• send your two books\n• tell the school about an absence\n\nJust ask in your own words — or say "what haven't I used?" to start.`;
+  `Here's what I can do right now:\n• read Leo's school inbox and triage what actually needs you\n• book in-network care and return the school's forms\n• check what you haven't used (FSA, books, EAP, preventive)\n• file an FSA reimbursement\n• send your two books\n• tell the school about an absence\n\nJust ask in your own words — or say "what came in?" to start.`;
