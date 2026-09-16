@@ -47,6 +47,15 @@ const BOOKS: Book[] = [
 interface BookOrder { orderId: string; bookId: string; title: string; author: string; priceCents: number; status: 'ordered'; eta: string; createdAt: number }
 interface RampExpense { reference: string; merchant: string; amountCents: number; category: string; description: string; status: 'submitted' | 'reimbursed'; createdAt: number }
 
+// ── EAP therapists (the plan's network directory) ───────────────────────────
+export interface Therapist { id: string; name: string; credentials: string; focus: string; inNetwork: boolean; networkId: string; nextSlots: string[]; telehealth: boolean }
+const THERAPISTS: Therapist[] = [
+  { id: 'th-whitfield', name: 'Dana Whitfield', credentials: 'LCSW', focus: 'anxiety, parenting stress', inNetwork: true, networkId: 'bright-net', nextSlots: ['Tue 6:00 PM', 'Thu 7:30 PM'], telehealth: true },
+  { id: 'th-raman', name: 'Priya Raman', credentials: 'LMFT', focus: 'family + kids', inNetwork: true, networkId: 'bright-net', nextSlots: ['Wed 5:30 PM', 'Sat 9:00 AM'], telehealth: true },
+  { id: 'th-adeyemi', name: 'Samuel Adeyemi', credentials: 'PhD', focus: 'adolescents', inNetwork: false, networkId: 'other-net', nextSlots: ['Mon 4:00 PM'], telehealth: false },
+];
+interface TherapistRequest { reference: string; therapistId: string; therapistName: string; when: string; status: 'requested' | 'accepted'; createdAt: number }
+
 const claims = new Map<string, Claim>();
 const claimByKey = new Map<string, string>();
 const appointments = new Map<string, Appointment>();
@@ -54,6 +63,8 @@ const bookOrders = new Map<string, BookOrder>();
 const bookOrderByKey = new Map<string, string>();
 const rampExpenses = new Map<string, RampExpense>();
 const rampByKey = new Map<string, string>();
+const therapistRequests = new Map<string, TherapistRequest>();
+const therapistByKey = new Map<string, string>();
 
 function json(res: ServerResponse, code: number, body: unknown): void {
   res.writeHead(code, { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store' });
@@ -222,6 +233,33 @@ export function startDemoServer(port = Number(process.env.DEMO_PORT) || 4310): P
         return e ? json(res, 200, e) : json(res, 404, { error: 'not found' });
       }
 
+      // ── EAP: the plan's therapist directory + appointment requests ──────────
+      if (req.method === 'GET' && path === '/bright/therapists') {
+        const network = u.searchParams.get('network') ?? '';
+        const hits = THERAPISTS.filter((t) => (!network || t.networkId === network));
+        return json(res, 200, hits);
+      }
+      if (req.method === 'POST' && path === '/bright/therapist-requests') {
+        const b = await readBody(req);
+        const key = String(b.idempotencyKey ?? '');
+        const existing = key ? therapistByKey.get(key) : undefined;
+        if (existing) return json(res, 200, therapistRequests.get(existing));
+        const t = THERAPISTS.find((x) => x.id === String(b.therapistId ?? '') && x.inNetwork);
+        if (!t) return json(res, 400, { error: 'therapist not in-network or not found' });
+        const reference = `EAP-${randomUUID().slice(0, 8).toUpperCase()}`;
+        const reqRow: TherapistRequest = {
+          reference, therapistId: t.id, therapistName: `${t.name}, ${t.credentials}`,
+          when: String(b.when ?? t.nextSlots[0]), status: 'requested', createdAt: Date.now(),
+        };
+        therapistRequests.set(reference, reqRow);
+        if (key) therapistByKey.set(key, reference);
+        return json(res, 201, reqRow);
+      }
+      if (req.method === 'GET' && path.startsWith('/bright/therapist-requests/')) {
+        const r = therapistRequests.get(path.slice('/bright/therapist-requests/'.length));
+        return r ? json(res, 200, r) : json(res, 404, { error: 'not found' });
+      }
+
       // ── Human-viewable landing pages ────────────────────────────────────────
       if (req.method === 'GET' && path === '/northstar/') return html(res, 200, NORTHSTAR_HTML);
       if (req.method === 'GET' && path === '/bright/') return html(res, 200, BRIGHT_HTML);
@@ -241,6 +279,7 @@ export function startDemoServer(port = Number(process.env.DEMO_PORT) || 4310): P
       reset: () => {
         claims.clear(); claimByKey.clear(); appointments.clear();
         bookOrders.clear(); bookOrderByKey.clear(); rampExpenses.clear(); rampByKey.clear();
+        therapistRequests.clear(); therapistByKey.clear();
       },
     }));
   });

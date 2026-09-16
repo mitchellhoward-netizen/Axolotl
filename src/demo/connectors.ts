@@ -208,6 +208,17 @@ export async function orderBook(bookId: string, idempotencyKey: string): Promise
   return postJson<BookOrder>('/books/order', { bookId, idempotencyKey });
 }
 
+// ── EAP: the plan's therapist directory + appointment requests ──────────────
+export interface Therapist { id: string; name: string; credentials: string; focus: string; inNetwork: boolean; networkId: string; nextSlots: string[]; telehealth: boolean }
+export interface TherapistRequest { reference: string; therapistName: string; when: string; status: 'requested' | 'accepted' }
+
+export async function searchTherapists(networkId: string): Promise<Therapist[]> {
+  return getJson<Therapist[]>(`/bright/therapists?network=${encodeURIComponent(networkId)}`);
+}
+export async function requestTherapist(therapistId: string, when: string, idempotencyKey: string): Promise<TherapistRequest> {
+  return postJson<TherapistRequest>('/bright/therapist-requests', { therapistId, when, idempotencyKey });
+}
+
 /** Ramp — submit the wellness expense so the person actually gets reimbursed. */
 export const rampConnector: BennyConnector = {
   id: 'ramp',

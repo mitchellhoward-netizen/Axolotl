@@ -19,6 +19,8 @@ export interface DemoState {
   booksUsedThisMonth: number;
   /** EAP sessions used. */
   eapUsed: number;
+  /** A requested EAP appointment, if any. */
+  eapRequest?: { therapistName: string; when: string };
   /** Whether a preventive visit has been booked/used this year. */
   preventiveBooked: boolean;
   /** Receipts found but not yet filed. */
@@ -73,7 +75,7 @@ export function unused(state: DemoState): UnusedItem[] {
   }
   const eapLeft = demoCatalog.benefits.eap.sessionsPerYear - state.eapUsed;
   if (eapLeft > 0) {
-    out.push({ label: 'EAP', detail: `${eapLeft} free, confidential sessions, none used.`, priority: 3 });
+    out.push({ label: 'EAP', detail: `${eapLeft} free, confidential session${eapLeft === 1 ? '' : 's'} left.`, priority: 3 });
   }
   if (!state.preventiveBooked) {
     out.push({

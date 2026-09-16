@@ -86,6 +86,23 @@ export class BennyDemo {
     this.armIdle();
     if (this.busy) return; // a scene is mid-send; ignore overlap
     this.clearNudge();
+    // A pending may want to interpret free text itself (e.g. "the other one").
+    if (this.pending?.onText) {
+      this.busy = true;
+      try {
+        const handled = await this.pending.onText(text);
+        if (handled) {
+          this.pending = handled.pending;
+          if (handled.followUp) this.scheduleFollowUp(handled.followUp);
+          if (this.pending) this.armNudge();
+          return;
+        }
+      } catch (e) {
+        console.error('[demo] pending text error:', (e as Error)?.message ?? e);
+      } finally {
+        this.busy = false;
+      }
+    }
     const route = await this.router({ text, state: this.state, pending: this.pending?.label });
     await this.handle(route);
   }

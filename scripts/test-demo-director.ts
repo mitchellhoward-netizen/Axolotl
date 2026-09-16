@@ -29,6 +29,8 @@ await say('yes');                                        // book it
 await say('am I using my benefits correctly? is there anything I haven’t used up?');
 await say('yes');                                        // file the FSA
 await say('yes');                                        // confirm the claim
+await say('I’m burned out — can you find me a therapist?');
+await say('yes');                                        // request the EAP session
 await say('buy Love in the Time of Cholera by Gabriel Garcia Marquez');
 await say('ship it to 456 Oak Ave, Santa Cruz, CA 95060');  // change the shipping address
 await say('yes');                                        // buy it + file with Ramp
@@ -49,6 +51,8 @@ ok('physical booked after approval', /✅ Booked/i.test(text));
 ok('audit answers the natural question', /I checked your plan/i.test(text) && /FSA —/i.test(text) && /Books —/i.test(text) && /EAP —/i.test(text));
 ok('audit prioritizes the FSA', /the one I'?d act on is the FSA/i.test(text));
 ok('FSA filed', /Filed — .*FSA/i.test(text));
+ok('EAP offers real in-network therapists + availability', /in-network therapists with evening openings/i.test(text) && /Dana Whitfield/.test(text) && /Tue 6:00 PM/.test(text));
+ok('EAP actually requests the appointment', /✅ Requested — .*Dana Whitfield/i.test(text));
 ok('book is found by name', /Love in the Time of Cholera/i.test(text));
 ok('book returns a tappable listing link', /https:\/\/bookshop\.org\//i.test(text));
 ok('names the funding source (stipend)', /stipend covers it/i.test(text));

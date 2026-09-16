@@ -7,7 +7,7 @@
  * may return a `pending` approval gate for the director to wait on.
  */
 import { demoCatalog } from './catalog.js';
-import { brightConnector, northstarConnector, rampConnector, searchBooks, orderBook } from './connectors.js';
+import { brightConnector, northstarConnector, rampConnector, searchBooks, orderBook, searchTherapists, requestTherapist, type Therapist } from './connectors.js';
 import { dollars, unused, type DemoState } from './state.js';
 import type { PersonalFact } from '../domain/personal-context.js';
 import type { ConnectorContext } from '../benefits/connectors.js';
@@ -21,6 +21,9 @@ export interface Pending {
   label: string;
   onApprove: () => Promise<SceneResult>;
   onDecline?: () => Promise<void>;
+  /** Optional free-text handling while pending (e.g. "the other one"). Return a result to
+   * consume the message; return undefined to let the router handle it. */
+  onText?: (text: string) => Promise<SceneResult | undefined>;
 }
 export interface SceneResult {
   pending?: Pending;
@@ -183,19 +186,46 @@ export async function books(sc: SceneCtx, arg?: string): Promise<SceneResult> {
   };
 }
 
-// ── eap — free confidential sessions ─────────────────────────────────────────
+// ── eap — real therapists from the plan's directory, with availability ───────
 export async function eap(sc: SceneCtx): Promise<SceneResult> {
   const left = demoCatalog.benefits.eap.sessionsPerYear - sc.state.eapUsed;
-  await sc.send(`Your EAP covers ${left} free, confidential sessions a year and you haven't used any. I can find in-network therapists with evening openings — want me to?`);
+  if (left <= 0) {
+    await sc.send(`You've used all ${demoCatalog.benefits.eap.sessionsPerYear} EAP sessions this year — they reset in January.`);
+    return {};
+  }
+  const all = await searchTherapists(demoCatalog.network.id).catch(() => [] as Therapist[]);
+  const inNet = all.filter((t) => t.inNetwork);
+  if (!inNet.length) {
+    await sc.send(`I couldn't reach your plan's therapist directory just now — want me to try again?`);
+    return {};
+  }
+  const picks = inNet.slice(0, 2);
+  await sc.send(`Your EAP covers ${left} free, confidential sessions a year — none used. I found ${picks.length} in-network therapists with evening openings:`);
+  await sc.send(picks.map((t) => `• ${t.name}, ${t.credentials} — ${t.focus} · ${t.nextSlots.join(', ')}${t.telehealth ? ' · telehealth' : ''}`).join('\n'));
+
+  const request = async (t: Therapist, when: string): Promise<SceneResult> => {
+    const r = await requestTherapist(t.id, when, `eap|${t.id}|${when}`);
+    sc.state.eapUsed += 1;
+    sc.state.eapRequest = { therapistName: r.therapistName, when: r.when };
+    await sc.send(`✅ Requested — ${r.when} with ${r.therapistName} (free under your EAP). Nothing's charged, and I'll confirm as soon as they accept.`);
+    return {};
+  };
+
+  const first = picks[0]!;
+  const second = picks[1];
+  await sc.send(`Want me to request ${first.nextSlots[0]} with ${first.name}${second ? `, or ${second.nextSlots[0]} with ${second.name}` : ''}?`);
   return {
     pending: {
-      label: 'a therapist',
-      onApprove: async () => {
-        sc.state.eapUsed += 1;
-        await sc.send(`Done — I'll send you two in-network options with evening slots to pick from. Nothing's booked until you choose.`);
-        return {};
+      label: `${first.name} (EAP)`,
+      onApprove: () => request(first, first.nextSlots[0]!),
+      onDecline: async () => { await sc.send(`No problem — your EAP is there whenever you want it.`); },
+      onText: async (text) => {
+        if (!second) return undefined;
+        const t = text.toLowerCase();
+        const otherName = second.name.toLowerCase().split(' ')[0]!;
+        if (t.includes(otherName) || /\b(other|second|2nd|latter)\b/.test(t)) return request(second, second.nextSlots[0]!);
+        return undefined;
       },
-      onDecline: async () => { await sc.send(`Totally fine — it's there whenever you want it.`); },
     },
   };
 }
@@ -224,6 +254,7 @@ export async function status(sc: SceneCtx): Promise<SceneResult> {
   const done: string[] = [];
   const open: string[] = [];
   if (sc.state.booking) done.push(`physical booked (${sc.state.booking.providerName}, ${sc.state.booking.when})`);
+  if (sc.state.eapRequest) done.push(`EAP session requested (${sc.state.eapRequest.therapistName}, ${sc.state.eapRequest.when})`);
   for (const f of sc.state.filed) done.push(`${LABEL[f.category] ?? f.category} ${f.status} (${dollars(f.amountCents)})`);
   if (sc.state.absenceSent) done.push('school note sent');
   const left = unused(sc.state);
