@@ -308,8 +308,16 @@ try {
   process.exit(1);
 }
 
+// The benefits demo is OFF unless explicitly switched on for a staged run. Default is
+// the school agent and nothing else: no parent can reach another product by texting a word.
+const demoEnabled = process.env.BENNY_DEMO_ENABLED === 'true';
+
 console.log(`🏫 Axolotl is listening for iMessages…`);
-console.log(`🎬 Benny demo ready — text "demo" for the school→plan run: school inbox triage → in-network booking → FSA filing → forms back to the school.`);
+console.log(
+  demoEnabled
+    ? `🎬 Benefits demo ENABLED (BENNY_DEMO_ENABLED=true) — text "demo" to run it; every other message is the school agent.`
+    : `🎒 School agent only — parents text in about anything school. (Set BENNY_DEMO_ENABLED=true to stage the benefits demo.)`,
+);
 console.log(
   chat.apiKey
     ? `🧠 Brain: LLM (${chat.model} @ ${chat.baseUrl})`
@@ -380,7 +388,7 @@ for await (const [space, message] of app.messages) {
     continue;
   }
 
-  // ── Benny iMessage demo (text "demo" to start) ─────────────────────────────
+  // ── Benefits demo — STAGED ONLY (BENNY_DEMO_ENABLED=true, default off) ─────
   // Plays the school→plan run as real bubbles in THIS thread; any reply advances a gate,
   // and it auto-advances so the demo never stalls. Fictional, offline, deterministic.
   // No space-type guard: triggers on the exact text in any thread so it can never
@@ -389,7 +397,7 @@ for await (const [space, message] of app.messages) {
     const demoText = message.content.text;
     const running = demos.get(space.id);
     if (running?.active) { await running.onMessage(demoText); continue; }
-    if (/^\s*(demo|benny demo|start demo|run demo)\s*$/i.test(demoText)) {
+    if (demoEnabled && /^\s*(demo|benny demo|start demo|run demo)\s*$/i.test(demoText)) {
       console.log(`[demo] trigger matched (space=${space.id}) — starting`);
       const d = demos.get(space.id) ?? new BennyDemo((t) => space.send(t).then(() => {}), demoRouter);
       demos.set(space.id, d);

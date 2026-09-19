@@ -106,11 +106,13 @@ async function main(): Promise<void> {
   // Exercise the real Agent tool loop, not just the new tool dispatcher.
   const llm = new LlmClient({ apiKey: 'fixture', baseUrl: 'https://fixture.invalid', model: 'fixture' });
   const results: string[] = [];
-  llm.chatWithTools = async (_system, messages, tools) => {
+  const offered: string[][] = [];
+  const systems: string[] = [];
+  llm.chatWithTools = async (system, messages, tools) => {
     const turns = messages as Array<{ role: string; content?: string }>;
     if (!turns.some(m => m.role === 'tool')) {
-      const names = tools.map(t => (t as { function: { name: string } }).function.name);
-      check('same brain offers both life and school tools', ['get_life_context', 'plan_life_work', 'send_email'].every(n => names.includes(n)));
+      systems.push(system);
+      offered.push(tools.map(t => (t as { function: { name: string } }).function.name));
       return { calls: [
         { id: 'context', name: 'get_life_context', arguments: '{}' },
         { id: 'plan', name: 'plan_life_work', arguments: JSON.stringify({ reply: 'Plan saved', facts: [], newCases: [], reports: [] }) },
@@ -129,6 +131,7 @@ async function main(): Promise<void> {
     context: async () => ({ enrolled: true, marker: 'only-this-sender' }),
     plan: async () => { plans++; return 'Saved one plan'; },
   });
+  check('same brain offers both life and school tools', ['get_life_context', 'plan_life_work', 'send_email'].every(n => offered[0]!.includes(n)));
   check('same turn reads life context and saves a plan', plans === 1 && results.some(r => r.includes('only-this-sender')));
   check('same turn still stages school email for consent', unified.getStateForTest('with-life')?.pendingSteps?.[0]?.requiresConsent === true);
   results.length = 0;
@@ -136,6 +139,11 @@ async function main(): Promise<void> {
   await unified.handle('without-life', 'Help me organize paperwork');
   check('life binding cannot leak into the next sender', plans === 1 && !results.some(r => r.includes('only-this-sender')) && results.some(r => r.includes('not enabled')));
   check('school email still available without life enrollment', unified.getStateForTest('without-life')?.pendingSteps?.[0]?.requiresConsent === true);
+  // The school agent a plain parent talks to must be school-only: no benefits tools
+  // offered, and no benefits instructions in its prompt.
+  check('a sender without life tools is never offered benefits tools', !offered[1]!.includes('get_life_context') && !offered[1]!.includes('plan_life_work') && offered[1]!.includes('send_email'));
+  check('a sender without life tools gets a school-only prompt', !/LIFE AND BENEFITS|get_life_context|plan_life_work/.test(systems[1] ?? ''));
+  check('life-enabled prompt still carries the benefits instructions', /LIFE AND BENEFITS/.test(systems[0] ?? ''));
 
   console.log('\n========================================');
   console.log(`  ${pass} passed, ${fail} failed`);

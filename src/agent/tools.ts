@@ -77,6 +77,14 @@ const LAW_FACTS: Record<string, string> = {
   enrollment: 'State Education Code & Title VI — immediate enrollment rights.',
 };
 
+/**
+ * The ONLY tools that belong to the life/benefits pilot. They are offered to a sender
+ * exactly when that sender actually has life tools bound — a plain parent asking about
+ * school is never shown benefits tools, and the school brain never carries benefits
+ * instructions. `runTool` still refuses them without a binding, as a second line.
+ */
+export const LIFE_TOOL_NAMES: ReadonlySet<string> = new Set(['get_life_context', 'plan_life_work']);
+
 export const LLM_TOOLS = [
   {
     type: 'function',
@@ -625,7 +633,7 @@ export function redactForLog(value: unknown): unknown {
 
 export async function runTool(name: string, args: Record<string, unknown>, deps: ToolDeps): Promise<string> {
   // Life context/plan contents never enter the generic tool argument logger.
-  if (name === 'get_life_context' || name === 'plan_life_work') {
+  if (LIFE_TOOL_NAMES.has(name)) {
     if (!deps.life) return 'Life/benefits tools are not enabled for this sender. Existing school tools still work. Do not claim portal access or ask for medical details.';
     if (name === 'get_life_context') return JSON.stringify(await deps.life.context());
     return deps.life.plan(personalPlanSchema.parse(args));
