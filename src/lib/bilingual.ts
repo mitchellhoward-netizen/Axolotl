@@ -5,6 +5,52 @@ export function resolveLocale(locale?: string, fallback: Locale = 'en'): Locale 
   return locale === 'es' ? 'es' : fallback;
 }
 
+/**
+ * An EXPLICIT answer to "which language do you prefer?" — as opposed to guessing the
+ * language from how someone happens to write one message. Onboarding asks the question,
+ * so the answer must beat detection (including the one-way sticky rule): a family that
+ * chooses Spanish keeps Spanish even when a later message is written in English.
+ *
+ * Deliberately conservative: only a message that IS a language answer counts. Bare "en"
+ * or "es" mid-sentence must not flip anyone ("en la escuela…" is Spanish, not English).
+ */
+export function explicitLocaleChoice(text: string): Locale | undefined {
+  const t = String(text ?? '')
+    .toLowerCase()
+    .replace(/[¿?¡!.,;:]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+  if (!t) return undefined;
+  const core = t
+    .replace(/^(?:i (?:prefer|want|would like|speak|use)|prefiero|quiero|hablo|use|in|en)\s+/, '')
+    .replace(/\s+(?:please|por favor)$/, '')
+    .trim();
+  if (/^(english|ingl[eé]s)$/.test(core)) return 'en';
+  if (/^(spanish|espa[nñ]ol)$/.test(core)) return 'es';
+  // Or the message OPENS with the unambiguous English word for the language
+  // ("Spanish please, my email is …"). "English"/"Spanish" as an opening word is
+  // never anything but this answer.
+  if (/^(spanish|espa[nñ]ol)\b/.test(t)) return 'es';
+  if (/^(english|ingl[eé]s)\b/.test(t)) return 'en';
+  return undefined;
+}
+
+/**
+ * The locale for the NEXT turn, given what the family currently has and what they just
+ * wrote. Order of authority:
+ *   1. An explicit answer to the language question wins outright — including turning a
+ *      previously-Spanish family back to English, because that's them telling us.
+ *   2. Otherwise Spanish is STICKY: one English line (an email address, say) must never
+ *      flip a Spanish-speaking family back to English.
+ *   3. Otherwise guess from the message.
+ */
+export function nextLocale(current: string | undefined, text: string): Locale {
+  const chosen = explicitLocaleChoice(text);
+  if (chosen) return chosen;
+  if (current === 'es') return 'es';
+  return detectLocale(text);
+}
+
 /** Detect the likely message language from text (Spanish vs English), default en. */
 export function detectLocale(text: string): Locale {
   const t = String(text ?? '').toLowerCase();

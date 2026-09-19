@@ -48,7 +48,7 @@ import type { IntentEngine } from './intent/engine.js';
 import { hypothesesFromLLM, buildIntention, decide, concentrated, hypothesize, askFromUnknowns, groundIntention, extractGrounding } from './intention.js';
 import type { Hypothesis, Intention, SubClaimKind } from './intention.js';
 import { InMemoryStore, type ChatMessage } from './memory.js';
-import { resolveLocale, localizeFollowup, detectLocale } from '../lib/bilingual.js';
+import { resolveLocale, localizeFollowup, nextLocale } from '../lib/bilingual.js';
 import { createFollowUpStore } from '../integrations/followup-store.js';
 import { advanceMckinney, openMckinney } from './mckinney.js';
 import { advanceOnboarding, finalizeOnboarding, openOnboarding } from './onboarding.js';
@@ -376,11 +376,11 @@ export class Agent {
         }
       }
 
-      // Bilingual: remember the family's preferred language (Spanish is first-class,
-      // and never downgrades back off once set). The LLM also matches per-message.
+      // Bilingual: remember the family's preferred language. An EXPLICIT answer to
+      // onboarding's "English or Spanish?" wins outright; otherwise Spanish is sticky and
+      // a one-line English reply can't flip the family back. See nextLocale().
       if (state.profile) {
-        const detected = detectLocale(text);
-        if (state.profile.locale !== 'es') state.profile = { ...state.profile, locale: detected };
+        state.profile = { ...state.profile, locale: nextLocale(state.profile.locale, text) };
       }
 
       let turn: AgentTurn;

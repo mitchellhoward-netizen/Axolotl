@@ -1,5 +1,6 @@
 /** splitIntoBubbles unit tests (multi-bubble replies). */
 import { splitIntoBubbles } from '../src/agent/bubbles.js';
+import { openOnboarding } from '../src/agent/onboarding.js';
 
 let pass = 0;
 let fail = 0;
@@ -59,6 +60,22 @@ async function main() {
   // 7. Empty/whitespace → [].
   {
     check('empty -> []', splitIntoBubbles('   ').length === 0);
+  }
+  // 8. The onboarding intro: language question, privacy promise, capabilities/email.
+  //    Three bubbles, in that order — the privacy line must NOT be merged into the
+  //    language question, or the first thing a parent sees is a wall of text.
+  {
+    const b = splitIntoBubbles(openOnboarding().text);
+    check('intro: exactly 3 bubbles', b.length === 3, String(b.length));
+    check('intro: bubble 1 is the language question, both languages', /Which language do you prefer, English or Spanish\?/.test(b[0] ?? '') && /¿Qué idioma prefieres, inglés o español\?/.test(b[0] ?? ''));
+    check('intro: bubble 1 asks nothing else', !/email|forms/i.test(b[0] ?? ''));
+    check('intro: bubble 2 is the privacy promise', /private by design/i.test(b[1] ?? '') && /never sold/i.test(b[1] ?? '') && /without your OK/i.test(b[1] ?? ''));
+    check('intro: bubble 2 says who reads their messages', /only system that reads your messages/i.test(b[1] ?? ''));
+    check('intro: bubble 3 leads with what Axolotl does', /Email the school/.test(b[2] ?? '') && /Fill out forms/.test(b[2] ?? ''));
+    check('intro: bubble 3 carries the permission promise too', /only with your permission/i.test(b[2] ?? ''));
+    check('intro: email ask is in the last bubble (answerable in one reply)', /email/i.test(b[2] ?? ''));
+    check('intro: bubble 1 asks the language question twice (en + es)', (b[0] ?? '').split('?').length - 1 === 2);
+    check('intro: the privacy bubble asks them for nothing', !/\?/.test(b[1] ?? ''));
   }
 
   console.log(`\n${pass} passed, ${fail} failed`);

@@ -17,20 +17,26 @@ export interface OnboardingTurn {
 }
 
 /**
- * Guided onboarding. A parent texts in. We lead with WHAT Axolotl can do (build
- * trust), capture their email (so we can prove the email path + send a wow email
- * that already knows their district), then learn the family + school.
+ * Guided onboarding. A parent texts in. Three things, in this order:
+ *
+ *  1. Ask which language they want — in BOTH languages, as the very first thing. Getting
+ *     this wrong makes everything after it useless, and guessing from one message is how
+ *     a Spanish-speaking family gets an English assistant.
+ *  2. Say plainly what Axolotl does with their data (trust before we ask for anything).
+ *  3. Lead with WHAT it can do, then capture their email (so we can prove the email path
+ *     and send a wow email that already knows their district).
+ *
+ * The blank-line structure is deliberate: it renders as three iMessage bubbles
+ * (the multi-bubble splitter caps at 3 and would otherwise merge the language question
+ * into the privacy line). See src/agent/bubbles.ts.
  */
 export function openOnboarding(): OnboardingTurn {
   return {
     text: [
-      "Hi! I'm Axolotl — your school assistant. Here's what I can do for you (always with your OK):",
-      '• Email the school on your behalf',
-      '• Fill out forms and applications',
-      '• Place calls to the office and handle it with you',
-      '',
-      'To begin, let me get your email so I can show you I actually send email. Text /connect to link your Gmail, or just send me the email address you want me to use.',
-    ].join('\n'),
+      `Which language do you prefer, English or Spanish?\n¿Qué idioma prefieres, inglés o español?`,
+      `Axolotl is private by design. Your family's information is yours: never sold, never shared with your school or anyone else without your OK. I show you exactly what I'd send before it leaves. The only system that reads your messages is the AI that writes my replies.`,
+      `• Email the school on your behalf\n• Fill out forms and applications\n• Place calls to the office and handle it with you\n• All of it only with your permission\nTo begin, what's the best email for you? (Or text /connect to link your Gmail.)`,
+    ].join('\n\n'),
     state: { step: 'email', profile: { children: [], needs: [], challenges: [] } },
     done: false,
   };

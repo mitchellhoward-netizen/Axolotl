@@ -172,7 +172,7 @@ export const LLM_TOOLS = [
     type: 'function',
     function: {
       name: 'save_profile',
-      description: 'Save/update the family profile (email, children, school, location, needs, challenges, notes) so I can remember them. Use this during onboarding; it merges into what you already saved.',
+      description: 'Save/update the family profile (email, children, school, location, needs, challenges, notes, locale) so I can remember them. Use this during onboarding; it merges into what you already saved.',
       parameters: {
         type: 'object',
         properties: {
@@ -184,6 +184,8 @@ export const LLM_TOOLS = [
           needs: { type: 'array', items: { type: 'string' } },
           challenges: { type: 'array', items: { type: 'string' } },
           notes: { type: 'string' },
+          /** The language the parent asked for, once they tell you. */
+          locale: { type: 'string', enum: ['en', 'es'], description: 'Their preferred language: "en" for English, "es" for Spanish. Set this when they answer the language question.' },
         },
       },
     },
@@ -1141,6 +1143,7 @@ export async function runTool(name: string, args: Record<string, unknown>, deps:
       if (Array.isArray(args.needs)) patch.needs = (args.needs as string[]).map(String);
       if (Array.isArray(args.challenges)) patch.challenges = (args.challenges as string[]).map(String);
       if (typeof args.notes === 'string') patch.notes = args.notes;
+      if (args.locale === 'en' || args.locale === 'es') patch.locale = args.locale;
       deps.saveProfile?.(patch as FamilyProfile);
       return 'Saved.';
     }
@@ -1267,7 +1270,11 @@ export function systemPrompt(ctx: BrainContext): string {
     ? qs.map((q) => `- "${q.question}" — ${q.why} (outcome: ${q.impact})`).join('\n')
     : '- none right now';
   const emailInfo = profile?.email ? ` Email: ${profile.email}.` : '';
-  const localeInfo = profile?.locale === 'es' ? ' They prefer Spanish.' : '';
+  // A language they CHOSE outranks "match their last message" — otherwise a Spanish-
+  // speaking parent who sends one English line (an email address, say) gets flipped back.
+  const localeInfo = profile?.locale === 'es'
+    ? ' LANGUAGE: they chose SPANISH — reply in Spanish, even when a message from them is in English.'
+    : '';
 
   return (
     `You are a warm, BILINGUAL (English + Spanish) school liaison helping a parent over iMessage. YOUR JOB: for this family, find what their child is entitled to or eligible for but isn't yet receiving, then do the steps to close that gap — research it, find the form/program/contact, fill + submit with consent, or guide where you hit a hard wall. ALWAYS reply in the language of the parent's MOST RECENT message: if they wrote English, reply English; only reply in Spanish when they write Spanish (default English). Follow the conversation thread — remember what was just said and continue it; never act like you lost the last exchange. Be concise and warm in casual chat. When the parent wants programs/benefits, RESEARCH WELL internally but PRESENT SUCCINCTLY (see ANSWER STYLE below). Plain text (no **, #); simple "-" or numbered lines are fine for a list. ` +
