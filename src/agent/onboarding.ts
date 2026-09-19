@@ -17,25 +17,28 @@ export interface OnboardingTurn {
 }
 
 /**
- * Guided onboarding. A parent texts in. Three things, in this order:
+ * Guided onboarding, in a deliberate ORDER OF OPERATIONS:
  *
- *  1. Ask which language they want — in BOTH languages, as the very first thing. Getting
- *     this wrong makes everything after it useless, and guessing from one message is how
- *     a Spanish-speaking family gets an English assistant.
- *  2. Say plainly what Axolotl does with their data (trust before we ask for anything).
- *  3. Lead with WHAT it can do, then capture their email (so we can prove the email path
- *     and send a wow email that already knows their district).
+ *  1. Say who Axolotl is, and what it does with their data — in BOTH languages, so the
+ *     whole introduction works whichever one they read.
+ *  2. Ask which language they prefer — also in both languages — as the LAST thing in the
+ *     introduction, so it is the only thing they can answer yet. (Asked first, parents
+ *     reply immediately and the rest of the introduction arrives after their answer, out
+ *     of order, while the brain starts onboarding on top of it.)
+ *  3. Nothing else. No email ask here: the language answer comes back, and THEN the
+ *     onboarding asks for the email, in the language they chose. Asking for the email in
+ *     the introduction is what made it get asked twice.
  *
- * The blank-line structure is deliberate: it renders as three iMessage bubbles
- * (the multi-bubble splitter caps at 3 and would otherwise merge the language question
- * into the privacy line). See src/agent/bubbles.ts.
+ * The blank-line structure is deliberate: it renders as TWO iMessage bubbles — the
+ * bilingual introduction (English, then Spanish, in one bubble), then the question on
+ * its own. See src/agent/bubbles.ts.
  */
 export function openOnboarding(): OnboardingTurn {
   return {
     text: [
+      `Hi, I'm Axolotl — your school assistant. I email the school, fill out forms and make calls with you, always with your OK. I'm private by design: your family's information is yours, never sold, and never shared with your school or anyone else without your permission. The only system that reads your messages is the AI that writes my replies.`,
+      `Hola, soy Axolotl, tu asistente escolar. Le escribo a la escuela, lleno formularios y hago llamadas contigo, siempre con tu permiso. Soy privado por diseño: la información de tu familia es tuya, nunca la vendemos ni la compartimos con la escuela ni con nadie sin tu permiso. El único sistema que lee tus mensajes es la IA que escribe mis respuestas.`,
       `Which language do you prefer, English or Spanish?\n¿Qué idioma prefieres, inglés o español?`,
-      `Axolotl is private by design. Your family's information is yours: never sold, never shared with your school or anyone else without your OK. I show you exactly what I'd send before it leaves. The only system that reads your messages is the AI that writes my replies.`,
-      `• Email the school on your behalf\n• Fill out forms and applications\n• Place calls to the office and handle it with you\n• All of it only with your permission\nTo begin, what's the best email for you? (Or text /connect to link your Gmail.)`,
     ].join('\n\n'),
     state: { step: 'email', profile: { children: [], needs: [], challenges: [] } },
     done: false,

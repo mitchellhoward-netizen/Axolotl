@@ -61,21 +61,24 @@ async function main() {
   {
     check('empty -> []', splitIntoBubbles('   ').length === 0);
   }
-  // 8. The onboarding intro: language question, privacy promise, capabilities/email.
-  //    Three bubbles, in that order — the privacy line must NOT be merged into the
-  //    language question, or the first thing a parent sees is a wall of text.
+  // 8. The onboarding intro: introduce + explain in BOTH languages in one bubble, then
+  //    ask the language question LAST in its own bubble so it is the only thing
+  //    answerable yet. Regression guards for the real-thread bugs: it used to open with
+  //    a bare question, explain itself in English only, and ask for the email twice.
   {
     const b = splitIntoBubbles(openOnboarding().text);
-    check('intro: exactly 3 bubbles', b.length === 3, String(b.length));
-    check('intro: bubble 1 is the language question, both languages', /Which language do you prefer, English or Spanish\?/.test(b[0] ?? '') && /¿Qué idioma prefieres, inglés o español\?/.test(b[0] ?? ''));
-    check('intro: bubble 1 asks nothing else', !/email|forms/i.test(b[0] ?? ''));
-    check('intro: bubble 2 is the privacy promise', /private by design/i.test(b[1] ?? '') && /never sold/i.test(b[1] ?? '') && /without your OK/i.test(b[1] ?? ''));
-    check('intro: bubble 2 says who reads their messages', /only system that reads your messages/i.test(b[1] ?? ''));
-    check('intro: bubble 3 leads with what Axolotl does', /Email the school/.test(b[2] ?? '') && /Fill out forms/.test(b[2] ?? ''));
-    check('intro: bubble 3 carries the permission promise too', /only with your permission/i.test(b[2] ?? ''));
-    check('intro: email ask is in the last bubble (answerable in one reply)', /email/i.test(b[2] ?? ''));
-    check('intro: bubble 1 asks the language question twice (en + es)', (b[0] ?? '').split('?').length - 1 === 2);
-    check('intro: the privacy bubble asks them for nothing', !/\?/.test(b[1] ?? ''));
+    check('intro: exactly 2 bubbles', b.length === 2, String(b.length));
+    const intro = b[0] ?? '';
+    check('intro: introduces Axolotl in English', /Hi, I'm Axolotl/.test(intro));
+    check('intro: says what it does in English', /email the school/i.test(intro) && /fill out forms/i.test(intro) && /calls/i.test(intro));
+    check('intro: privacy promise in English', /private by design/i.test(intro) && /never sold/i.test(intro) && /without your permission/i.test(intro));
+    check('intro: says who reads their messages in English', /only system that reads your messages/i.test(intro));
+    check('intro: introduces Axolotl in Spanish too', /Hola, soy Axolotl/.test(intro));
+    check('intro: says what it does in Spanish', /escribo a la escuela/i.test(intro) && /formularios/i.test(intro));
+    check('intro: privacy promise in Spanish', /privado por diseño/i.test(intro) && /nunca la vendemos/i.test(intro) && /sin tu permiso/i.test(intro));
+    check('intro: language question is its own final bubble, both languages', /Which language do you prefer, English or Spanish\?/.test(b[1] ?? '') && /¿Qué idioma prefieres, inglés o español\?/.test(b[1] ?? ''));
+    check('intro: only the last bubble asks anything', /\?/.test(b[1] ?? '') && !/\?/.test(intro));
+    check('intro: it does NOT ask for the email (the brain asks once, after the answer)', !/\bemail address\b/i.test(b.join(' ')) && !/correo/i.test(b.join(' ')));
   }
 
   console.log(`\n${pass} passed, ${fail} failed`);
