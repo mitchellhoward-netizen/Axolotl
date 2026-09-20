@@ -280,3 +280,24 @@ supersedes this placeholder. Headlines that change decisions:
 - Three operational failures caused a $5.1M edtech settlement and are cheap to prevent:
   **terminated-employee credentials, no login-anomaly alerting, and backups not segregated from
   production.**
+---
+
+## Evidence log
+
+- **G3 closed on the live database.** Ran `db/APPLY-NOW.sql` in the Supabase SQL editor. Before,
+  `family_memory_read` was `using (true)` — every family's situation graph was readable by any role
+  holding the anon key. `pg_policies` now returns:
+
+  ```
+  policyname            | cmd    | qual
+  family_memory_read    | SELECT | (guardian_id = current_family_id())
+  family_memory_write   | INSERT | NULL
+  ```
+
+  `qual NULL` on the INSERT policy is correct: INSERT policies carry their condition in
+  `with_check`, not `qual`.
+
+- **Still outstanding:** the Block 1 RLS audit output — which `public` tables report
+  `relrowsecurity = false`. That output is the evidence for **G4**, and it is the only way to know
+  whether the remaining `db/*.sql` policy files were ever applied. The service holds only the
+  `service_role` key, which bypasses RLS, so it cannot be read from the application side.
