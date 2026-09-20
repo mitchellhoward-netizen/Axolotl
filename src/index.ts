@@ -40,6 +40,7 @@ import { BennyDemo } from "./demo/director.js";
 import { makeLlmRouter } from "./demo/router.js";
 import { reviewUrlFor } from "./integrations/review-links.js";
 import { allowInbound, denialMessage } from "./lib/inbound-guard.js";
+import { reactionFor } from "./agent/reactions.js";
 
 // ── Single-instance guard ──────────────────────────────────────────────────────
 // Running two identical bot instances against the same Spectrum line makes BOTH
@@ -552,6 +553,18 @@ for await (const [space, message] of app.messages) {
   // on this platform; `space.send` emits a single bubble — sendBubbles handles pacing.
   console.info('[latency] ttfb_ms=' + (Date.now() - t0));
   await sendBubbles(space, reply);
+
+  // A small, earned acknowledgement on the parent's own message. Rules live in
+  // src/agent/reactions.ts: never instead of the reply, never on a hard message (IEP, illness,
+  // housing, money), never on a bare yes/no, and at most one per window. Silence is the default.
+  const reactFn = (message as unknown as { react?: (e: string) => unknown }).react;
+  if (typeof reactFn === 'function') {
+    const emoji = reactionFor(space.id, {
+      text,
+      stagedConsent: /reply yes|reply send|\byes\b[^.]{0,30}\b(confirm|submit|to send)\b/i.test(reply),
+    });
+    if (emoji) await Promise.resolve(reactFn(emoji)).catch(() => {});
+  }
 }
 } catch {
   // Do not print provider errors, which can contain message bodies or credentials.

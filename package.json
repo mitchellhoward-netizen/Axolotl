@@ -56,7 +56,8 @@
     "test:privacy": "tsx scripts/test-privacy.ts",
     "test:triage": "tsx scripts/test-triage.ts",
     "test:world": "tsx scripts/test-world.ts",
-    "rehearse:world": "tsx scripts/rehearse-world.ts"
+    "rehearse:world": "tsx scripts/rehearse-world.ts",
+    "test:reactions": "tsx scripts/test-reactions.ts"
   },
   "dependencies": {
     "@browserbasehq/stagehand": "^4.0.2",
