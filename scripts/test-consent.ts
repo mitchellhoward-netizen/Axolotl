@@ -223,6 +223,24 @@ async function main(): Promise<void> {
     check('"change it to Howard" keeps the work and asks which field', crAgent.getStateForTest(ID)?.pendingSteps?.length === 1 && /which field/i.test(d.text), d.text.slice(0, 140));
     check('...and never executes on a vague instruction', outbox.length === 0 && !d.text.includes('Done!'));
 
+    // (d2) THE SHORTEST FORM OF OUR OWN INVITATION. The review message ends "Reply YES to submit,
+    // or tell me what to change", so a bare "change it" is the parent doing exactly what we asked.
+    // It was matched as a whole-message DECLINE, which expired the proposal and destroyed the work.
+    for (const bare of ['change it', 'update it', 'edit it']) {
+      crAgent.setStateForTest(ID, { phase: 'confirming', collected: {}, pendingSteps: [makeSubmitStep()] });
+      const r = await crAgent.handle(ID, bare);
+      check(`"${bare}" keeps the work and asks which field`, crAgent.getStateForTest(ID)?.pendingSteps?.length === 1 && /which field/i.test(r.text), r.text.slice(0, 130));
+      check(`"${bare}" never executes`, outbox.length === 0 && !r.text.includes('Done!'));
+    }
+
+    // (d3) ...while genuine refusals that merely read like the change verbs still decline.
+    for (const decline of ['no', 'cancel', 'cancel it', 'forget it']) {
+      crAgent.setStateForTest(ID, { phase: 'confirming', collected: {}, pendingSteps: [makeSubmitStep()] });
+      const r = await crAgent.handle(ID, decline);
+      check(`"${decline}" still clears the work`, !crAgent.getStateForTest(ID)?.pendingSteps?.length, r.text.slice(0, 90));
+      check(`"${decline}" does not execute`, outbox.length === 0 && !r.text.includes('Done!'));
+    }
+
     // (e) REGRESSION GUARD: messages that are not change requests must still expire, or a stale
     // proposal lingers and a later "yes" could fire work the parent has moved on from.
     for (const unrelated of ['what about the bus?', 'ok thanks', 'the office said we should change the address to 456 Oak Ave because we moved']) {
@@ -259,6 +277,10 @@ async function main(): Promise<void> {
     check('parser: a question is not a change request', parseChangeRequest('what about the bus?') === null);
     check('parser: a plain decline is not a change request', parseChangeRequest('no thanks') === null);
     check('parser: an unrunnable change asks instead of guessing', parseChangeRequest('change it to Howard')?.kind === 'ask');
+    check('parser: a bare "change it" asks rather than expiring', parseChangeRequest('change it')?.kind === 'ask');
+    check('parser: a bare "update it" asks too', parseChangeRequest('update it')?.kind === 'ask');
+    check('parser: "cancel it" is NOT a change request', parseChangeRequest('cancel it') === null);
+    check('parser: "forget it" is NOT a change request', parseChangeRequest('forget it') === null);
     check('parser: a narrative that merely mentions a change is not a change request', parseChangeRequest('the office said we should change the address to 456 Oak Ave because we moved') === null);
     check('parser: a non-value is not applied ("my email is different")', parseChangeRequest('change my email to different')?.kind === 'ask');
     check('parser: a real email value IS applied', parseChangeRequest('change the email to parent@example.com')?.kind === 'apply');

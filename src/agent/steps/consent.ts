@@ -157,7 +157,7 @@ export type ChangeRequest = { kind: 'apply'; amendment: Amendment } | { kind: 'a
  * narrative out: "the office said we should change the address to 456 Oak Ave because we moved"
  * is a new subject and must expire the proposal, not silently rewrite it.
  */
-const CHANGE_LEAD = /^(?:please\s+)?(?:change|set|update|correct|fix|amend)\b|^(?:please\s+)?make\s+it\b|^(?:the\s+|my\s+|his\s+|her\s+)?(?:last\s*name|first\s*name|surname|given\s*name|grade|e-?mail|address|phone|dob|date\s+of\s+birth|subject)\b/i;
+const CHANGE_LEAD = /^(?:please\s+)?(?:change|set|update|edit|correct|fix|amend)\b|^(?:please\s+)?make\s+it\b|^(?:the\s+|my\s+|his\s+|her\s+)?(?:last\s*name|first\s*name|surname|given\s*name|grade|e-?mail|address|phone|dob|date\s+of\s+birth|subject)\b/i;
 
 /** Softeners a parent may open a correction with; stripped before looking for the instruction. */
 const CHANGE_SOFTENER = /^(?:no|nope|nah|actually|wait|hold on|hmm|ok|okay|sorry|i\s+mean|rather)[\s,.:;-]+/i;

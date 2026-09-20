@@ -301,6 +301,7 @@ export class Agent {
         if (isStrictDecline(text)) {
           this.closeSkyvernSessions(state.pendingSteps);
           state.pendingSteps = undefined;
+          state.completedFill = undefined;
           state.phase = 'idle';
           this.save(conversationId, { phase: 'idle', collected: {}, pendingSteps: undefined }, state);
           return { text: 'No problem — I won\u2019t send anything. What else can I help with?', phase: 'idle' };
@@ -2224,7 +2225,14 @@ function isStrictDecline(text: string): boolean {
   const t = text.trim().toLowerCase().replace(/[.!?]+$/, '');
   // "no wait" / "wait" is a retraction: kill the proposal rather than leave an authorization
   // armed that a later "yes" could fire against a proposal the parent has moved on from.
-  return /^(n|no|nope|cancel|change|not that|stop|hold on|wait|no wait|actually no|don't|dont|never mind|nevermind|skip|change it)\s*$/.test(t);
+  //
+  // "change" and "change it" deliberately do NOT appear here. Our review message ends "Reply YES
+  // to submit, or tell me what to change", so a bare "change it" is the parent doing exactly what
+  // we asked. Matching it as a refusal silently destroyed the staged work. A change verb is a
+  // change request and is handled by parseChangeRequest (which asks WHICH field and executes
+  // nothing). "cancel it" and "forget it" are added below because they are genuine refusals that
+  // merely read like the change verbs.
+  return /^(n|no|nope|cancel|cancel it|forget it|forget|not that|stop|hold on|wait|no wait|actually no|don't|dont|never mind|nevermind|skip)\s*$/.test(t);
 }
 
 function yesNo(): Suggestion[] {
