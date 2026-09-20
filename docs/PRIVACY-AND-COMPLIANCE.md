@@ -146,9 +146,25 @@ cannot be back-filled.
 **Move up:** a **vulnerability-disclosure policy + `security.txt` + safe-harbour language** — of ~20
 competitors reviewed, essentially none have one, and it is the cheapest credibility in the category.
 
-**Add to Tier 2:** HECVAT 4.1.5 (the questionnaire districts actually hand you), 1EdTech TrustEd Apps
+**Add to Tier 2:** **CoSN's K-12CVAT** (the questionnaire K-12 districts actually hand a vendor —
+HECVAT is the *higher-education* tool; pre-fill both, K-12CVAT first), 1EdTech TrustEd Apps
 data-privacy certification (achievable pre-SOC 2 and education-specific), and a two-page ADMT/risk-
 assessment screening for the IEP and benefits surfaces from 1 Jan 2027.
+
+**Add to Tier 1, and it is the best value per dollar in this document:** a documented **HIPAA risk
+analysis** (NIST SP 800-30 structure is fine). 45 CFR 160.103 enumerates **"benefit management"** as
+a business-associate function, so routing plan-sourced PHI through benefits navigation makes us a BA
+by default — we cannot escape it by calling ourselves "navigation". OCR's *BST & Co.* resolution
+(2025, $175k + a two-year corrective action plan) was charged for **the absence of an accurate risk
+analysis**, not for a breach. Write it before the first BAA, and keep the parent-direct and
+plan-sourced data planes separate.
+
+**Insurance we will be asked to carry** (borrowed from real public-sector and school contracts, not
+from employer-benefits norms — no fetchable family-benefits RFP publishes dollar minimums): CGL
+$1M/occurrence–$2M aggregate, **cyber $2M per claim in force through the term and ≥1 year after**,
+E&O $1M/$3M, employers' liability $500K, district named additional insured, primary and
+non-contributory, 30-day cancellation notice, carrier A.M. Best A- or better — **and insurance
+flow-down to every subprocessor**, which is a question to ask our vendors before a district asks us.
 
 **Drop:** HITRUST unless a health buyer appears; the Student Privacy Pledge (retired 25 Apr 2025);
 and any claim built on "NDPA v3.0", "CSoDA", or AB 1584's "72-hour" breach notice (that clock is
