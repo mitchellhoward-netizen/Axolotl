@@ -67,6 +67,28 @@ The forwarding address and mailbox token exist only while the family is connecte
 Each step is counted and reported, because a partial deletion that reports success is worse than one
 that says exactly what survived.
 
+## 4b. Where data is processed (and why we cannot claim "US only")
+
+- **Do not claim US-only processing.** Anthropic's named subprocessor list (public at
+  `trust.anthropic.com/subprocessors`) includes **human support vendors in South Africa (Nutun) and
+  Canada (Boldr)** and identity verification in the UK (Yoti). A US-only promise does not survive that
+  chain. The defensible sentence is narrower: *inference happens in the US; some provider support and
+  security vendors are elsewhere and can see limited account/support data, not your child's profile.*
+- **Anthropic's own US data residency is "coming soon"** — the available regions are APAC, Canada and
+  Europe. So region pinning is only achievable **through AWS Bedrock or Vertex AI**, not through the
+  direct Anthropic API.
+- **Anthropic is not a Data Privacy Framework participant** (verified against the DPF list: zero
+  records for Anthropic/Claude, while Google/Microsoft/AWS return active entries). Its EU→US transfers
+  rest on SCCs plus a UK addendum, so our transfer impact assessment must stand on its own — a reason
+  to prefer **Claude via Bedrock/Vertex**, which also gets us region pinning and a cleaner transfer
+  story while keeping Anthropic's contractual no-training commitment.
+- **Anthropic DPA §I.4 obliges them to give us what we need for a transfer impact assessment.** Ask
+  for it — and ask OpenAI and Google for theirs. Free, contractually grounded, almost nobody asks.
+- **"ZDR" is a per-feature claim, not a vendor claim, and a vendor term can override it.** Anthropic's
+  Covered Models terms supersede zero-retention commitments for named models; flagged sessions can be
+  kept up to 2 years and safety classifier scores longer. If we say "about 30 days", that is the
+  honest version. Never say "7 days" — that tier does not exist.
+
 ## 5. Incident runbook
 
 **Clocks (the whole point of this section):**

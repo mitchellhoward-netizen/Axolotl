@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Privacy — Axolotl</title>
+    <meta
+      name="description"
+      content="What Axolotl collects, who processes it, how long we keep it, and what we cannot promise."
+    />
+    <link rel="stylesheet" href="/site.css" />
+    <style>
+      body { margin: 0; background: #0b0f14; color: #e6edf3; font: 16px/1.65 system-ui, -apple-system, Segoe UI, sans-serif; }
+      main { max-width: 720px; margin: 0 auto; padding: 48px 20px 96px; }
+      h1 { font-size: 30px; margin: 0 0 8px; }
+      h2 { font-size: 19px; margin: 36px 0 10px; }
+      p, li { color: #c3cede; }
+      .lede { color: #93a3b8; }
+      table { border-collapse: collapse; width: 100%; margin: 12px 0; font-size: 14px; }
+      th, td { border: 1px solid #22303f; padding: 8px 10px; text-align: left; vertical-align: top; }
+      th { background: #121b24; color: #dbe6f3; font-weight: 600; }
+      code { background: #121b24; padding: 1px 5px; border-radius: 4px; font-size: 13px; }
+      a { color: #8ec5ff; }
+      .updated { color: #7c8ba1; font-size: 14px; margin-top: 40px; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Privacy</h1>
+      <p class="lede">
+        Plainly: what we collect, who processes it, how long we keep it, and the parts we cannot
+        promise. We are a small team, so this page says exactly what is true rather than what sounds
+        strongest.
+      </p>
+
+      <h2>What we collect</h2>
+      <ul>
+        <li>Your phone number, so the agent knows who it is talking to (verified once by text code).</li>
+        <li>What you tell us: your children's names and grades, their school, and the things you ask
+          us to help with.</li>
+        <li>What the school sends: emails you forward or connect, and the forms and pages involved.</li>
+        <li>What we do on your behalf: drafts, forms filled, emails sent, and the confirmation the
+          school gives back.</li>
+      </ul>
+      <p>
+        We do not ask for your child's Social Security number, and we do not want medical records.
+        Please do not send health details you would not want stored.
+      </p>
+
+      <h2>Who processes it</h2>
+      <p>
+        Your messages are read by the AI that writes our replies, and pages are read by the browser
+        service that visits them. These are the companies involved, and what each one sees:
+      </p>
+      <table>
+        <tr><th>Provider</th><th>What it sees</th></tr>
+        <tr><td>Anthropic</td><td>Your messages and family details, to write replies and do research</td></tr>
+        <tr><td>OpenAI</td><td>Page content from sites the agent reads</td></tr>
+        <tr><td>Skyvern</td><td>Form details and pages, plus a saved school-portal sign-in while you stay connected</td></tr>
+        <tr><td>Browserbase</td><td>The browsing session (session recording is switched off)</td></tr>
+        <tr><td>Tavily</td><td>Search queries about schools and districts</td></tr>
+        <tr><td>Resend</td><td>Emails we send to a school when your Gmail is not connected</td></tr>
+        <tr><td>Google</td><td>Gmail and Calendar, only if you connect them</td></tr>
+        <tr><td>Retell</td><td>Phone calls, if you ask us to call</td></tr>
+        <tr><td>Supabase, Railway, Vercel</td><td>Where the data is stored, hosted and logged</td></tr>
+      </table>
+      <p>
+        We do not sell your information and we do not share it for advertising. Outside of the
+        providers above, nothing goes to a school or anyone else until you approve the exact message
+        or form.
+      </p>
+
+      <h2>How long we keep it</h2>
+      <table>
+        <tr><th>Data</th><th>Kept</th></tr>
+        <tr><td>Conversation messages</td><td>90 days</td></tr>
+        <tr><td>School emails we triaged</td><td>60 days</td></tr>
+        <tr><td>Family profile, children, cases</td><td>While your account is active</td></tr>
+        <tr><td>Connected Gmail or school-portal sign-in</td><td>Until you disconnect</td></tr>
+        <tr><td>Consent records (what you approved)</td><td>7 years — audit trail, no family details</td></tr>
+        <tr><td>Browser session recordings</td><td>Not collected</td></tr>
+      </table>
+
+      <h2>Deleting everything</h2>
+      <p>
+        Text <code>reset</code> and we delete your family's data: the profile, your children, the
+        cases, the messages, the emails we triaged, and the connected mailbox token. We disconnect
+        the saved school-portal sign-in first, because that is a live key to your account. We then
+        keep one record saying a deletion happened — the fact, the date, and the counts, never the
+        content — so nothing gets re-created by accident.
+      </p>
+      <p>What we cannot delete, and will not pretend to:</p>
+      <ul>
+        <li>Encrypted backups, which clear on a rolling cycle.</li>
+        <li>Copies our AI providers keep for a period under their own safety and anti-abuse rules.</li>
+        <li>Emails already sent to a school — those cannot be recalled.</li>
+      </ul>
+
+      <h2>What we cannot promise</h2>
+      <ul>
+        <li>Your messages are not "never shared": they reach the AI provider that writes our replies,
+          as listed above.</li>
+        <li>We are not "FERPA compliant" and we are not a school official. We act on your own access
+          to your child's information, with your permission.</li>
+        <li>We cannot guarantee an AI is never tricked by something on a webpage. That is why nothing
+          is sent, submitted or changed without your explicit yes, and why a form submission is only
+          reported as done when the site itself confirms it.</li>
+        <li>We do not yet hold a SOC 2 report. We will say so plainly here if and when we do, and we
+          will not describe a report we do not have.</li>
+      </ul>
+
+      <h2>Contact</h2>
+      <p>
+        Questions, a deletion request, or a security concern:
+        <a href="mailto:privacy@get-axolotl.com">privacy@get-axolotl.com</a>.
+      </p>
+
+      <p class="updated">
+        This page describes the assistant service. The website's own form data is covered separately
+        in the privacy panel on the home page.
+      </p>
+    </main>
+  </body>
+</html>

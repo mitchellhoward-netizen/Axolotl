@@ -150,6 +150,9 @@ technology — is what stops a district or employer from signing.
 - **"We are HIPAA compliant" / "FERPA compliant".** Neither is a certification a vendor can simply
   hold; both are fact-specific. Say what we do instead (no health-data integration is authorized in
   the current rollout; we act on the parent's instructions) and get counsel before implying either.
+- **"Your data never leaves the United States."** False through the Anthropic chain (support
+  vendors in South Africa and Canada; Anthropic's own US residency is not yet available). Region
+  pinning requires Bedrock/Vertex. See `docs/PRIVACY-AND-COMPLIANCE.md` §4b.
 - **"SOC 2"** — until a real report exists. A district questionnaire will ask for the report, not
   the roadmap.
 
