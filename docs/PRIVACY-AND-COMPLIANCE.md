@@ -89,6 +89,40 @@ that says exactly what survived.
   kept up to 2 years and safety classifier scores longer. If we say "about 30 days", that is the
   honest version. Never say "7 days" — that tier does not exist.
 
+### 4c. Data Privacy Framework status (the transfer route, per vendor)
+
+Determines whether we can rely on an **adequacy** route for EU/EEA→US transfers or must run a full
+Transfer Impact Assessment with SCCs standing alone. Checked against the official DPF list
+(version 19 Sep 2026), with control checks. **Re-check at contract and annually.**
+
+| Vendor | DPF | Note |
+|---|---|---|
+| **AWS / Bedrock** | **Yes** — EU/US, UK, Swiss | Via `Amazon.com, Inc.`'s certification with AWS Inc. as a covered entity. HR=false, non-HR=true. EU customers contract with AWS EMEA SARL, so the assessed transfer is that entity's onward transfer. |
+| **Google / Vertex** | **Yes** — all three | Google LLC. Covered-entity scope is *not* enumerated — confirm the specific service is inside the certified purposes. |
+| **Microsoft / Azure** | Yes — all three | Flagged "re-certification under review": keep the SCC fallback operative until it clears. |
+| **Vercel, Stripe, Twilio, Sentry, PostHog** | Yes | For Sentry, only `Functional Software Inc.` is our vendor — the Inactive list matches unrelated companies. |
+| **OpenAI** | **No** — absent from both lists | EU→US rests on SCCs alone; full TIA, no adequacy shortcut. |
+| **Anthropic** | **No** — absent from both lists | Consistent with its DPA, which pleads only SCCs + UK/Swiss addenda. |
+| **Supabase, Browserbase, Skyvern** | **No** — absent from both lists | All three require SCCs + a TIA that stands on technical and contractual measures. |
+| **Mistral** | No | Expected for an EU provider — but it is therefore not an adequacy route. |
+| **Meta** | Partial | EU and Swiss yes; **no UK extension**. |
+| **xAI** | No | Trap: `X Corp.`'s listing does **not** cover xAI. |
+| **DeepSeek, Together AI, OpenRouter** | No | Excluded on other grounds: their terms prohibit our data categories. |
+
+**Settled recommendation for the family-data path:** **AWS Bedrock (or Google Vertex)** with a signed
+DPA and enforced `data_retention_mode: none` — that is the only route that gives us **US region
+pinning today** (the direct Anthropic API cannot, its US residency is "coming soon"), a
+**DPF-covered transfer chain**, and Anthropic's no-training commitment if we run Claude. Direct
+Anthropic/OpenAI are viable only with SCCs plus a documented TIA.
+
+**The sharpest finding:** the two vendors that would receive child-identified portal content —
+**Browserbase and Skyvern — have no DPF route at all.** That is now the third independent reason to
+keep session recording off at source, alongside retention and the CIPA replay exposure.
+
+*If we remain genuinely US-only with no EU/UK data subjects, GDPR Art. 3 is not engaged and none of
+this binds. Treat the table as a trigger list: the first EU/UK user, employee or entity switches on
+the per-vendor TIA work.*
+
 ## 5. Incident runbook
 
 **Clocks (the whole point of this section):**
