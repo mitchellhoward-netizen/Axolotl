@@ -53,7 +53,8 @@
     "test:school-info": "tsx scripts/test-school-info.ts",
     "reset:conversations": "tsx scripts/reset-conversations.ts",
     "test:skyvern": "tsx scripts/test-skyvern.ts",
-    "test:privacy": "tsx scripts/test-privacy.ts"
+    "test:privacy": "tsx scripts/test-privacy.ts",
+    "test:triage": "tsx scripts/test-triage.ts"
   },
   "dependencies": {
     "@browserbasehq/stagehand": "^4.0.2",
