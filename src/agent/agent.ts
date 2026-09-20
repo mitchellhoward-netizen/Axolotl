@@ -58,6 +58,7 @@ import { closeSession as closeSkyvernSession } from '../integrations/skyvern.js'
 import { logConsent } from '../integrations/consent.js';
 import {
   parseConsentAmendment,
+  parseChangeRequest,
   amendmentHasEdits,
   applyAmendmentToSteps,
   describeProposal,
@@ -335,6 +336,40 @@ export class Agent {
           // Do not guess and do not expire: keep the proposal staged and ask one short question.
           return {
             text: `I've still got ${describeShortly(state.pendingSteps)} — did you want to change something in it? Tell me what to change, or reply YES and I\u2019ll go ahead.`,
+            phase: 'confirming',
+            resolved: true,
+          };
+        }
+        // A CHANGE REQUEST with no affirmation — "change the last name to Howard". The review
+        // message invites exactly this ("...or tell me what to change"), and the old gate treated
+        // it as a subject change and EXPIRED the proposal, silently destroying staged work. A
+        // change is not a decision to abandon the work: apply what we can read, keep it STAGED,
+        // re-show it, and execute nothing. Consent is still only ever given by a strict YES.
+        const change = parseChangeRequest(text);
+        if (change) {
+          if (change.kind === 'apply') {
+            const { applied, unapplied } = applyAmendmentToSteps(state.pendingSteps, change.amendment);
+            this.save(conversationId, { phase: 'confirming', collected: state.collected, pendingSteps: state.pendingSteps }, state);
+            if (applied.length) {
+              const notes = [
+                `Updated — ${applied.join('; ')}.`,
+                unapplied.length ? `I couldn't place: ${unapplied.join('; ')}.` : '',
+                describeProposal(state.pendingSteps),
+                'Reply YES and I\u2019ll go ahead, or tell me what else to change.',
+              ].filter(Boolean);
+              return { text: notes.join('\n\n'), phase: 'confirming', resolved: true };
+            }
+            return {
+              text: `I've still got ${describeShortly(state.pendingSteps)}, but I couldn't change ${unapplied.join('; ')}. Tell me what to change, or reply YES and I\u2019ll go ahead as it is.`,
+              phase: 'confirming',
+              resolved: true,
+            };
+          }
+          // They want a change but not one we can place on a field ("change it to Howard"): keep
+          // the work, ask which field, and never guess a field or execute. Expiring here would be
+          // the same silent destruction we are fixing, just for a vaguer message.
+          return {
+            text: `I've still got ${describeShortly(state.pendingSteps)} — tell me which field to change (for example "change the last name to Howard"), or reply YES and I\u2019ll go ahead as it is.`,
             phase: 'confirming',
             resolved: true,
           };

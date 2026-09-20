@@ -12,6 +12,7 @@ import { chatModel, smallModel } from "./agent/model-policy";
 import { sendBubbles } from "./agent/bubbles";
 import { recordProcessedMessage } from "./integrations/dedupe.js";
 import { setFillCompleteHandler, setFillStillWorkingHandler, startFillPoller } from "./integrations/skyvern.js";
+import { fillFailureMessage, fillStillWorkingMessage } from "./agent/tools.js";
 // Register connectors at startup (side effect): the parent-portal connector.
 import "./integrations/connections/parentPortal.js";
 import { setUrgentEmailHandler } from "./integrations/email-triage/triage.js";
@@ -136,22 +137,12 @@ setFillCompleteHandler(async (info) => {
     return;
   }
   if (!info.ok) {
-    // Say WHICH thing went wrong. "I hit a snag" told the parent nothing and told us nothing —
-    // these are the cases we can actually distinguish, and two of them are the parent's to fix.
-    const why =
-      info.errorCode === 'no_form'
-        ? `that page doesn't have a form on it — it's an information page, not the application`
-        : info.errorCode === 'signin_required'
-          ? `that form needs you to sign in first`
-          : info.errorCode === 'captcha_blocked'
-            ? `that form is behind a bot check (CAPTCHA)`
-            : info.errorCode === 'access_denied'
-              ? `that site refused access to the form`
-              : info.status === 'timed_out'
-                ? `I couldn't finish filling it in time`
-                : `I hit a snag filling it${info.detail ? ` (${info.detail})` : ''}`;
-    const text = `I couldn't fill that form: ${why}.${formUrl ? `\n\nHere's the link: ${formUrl}` : ''}`;
-    await agent.sendToConversation(conversationId, text).catch((e) => console.error('[skyvern] fill-fail text error:', (e as Error)?.message ?? e));
+    // Say WHICH thing went wrong and what happens next. Every branch names a reason and a next
+    // step; the vendor's own prose is logged for us and kept out of the parent's thread.
+    console.log(`[skyvern] fill failed run=${info.runId} code=${info.errorCode ?? '-'} status=${info.status} detail=${info.detail ?? '-'}`);
+    await agent
+      .sendToConversation(conversationId, fillFailureMessage({ errorCode: info.errorCode, status: info.status, detail: info.detail, formUrl }))
+      .catch((e) => console.error('[skyvern] fill-fail text error:', (e as Error)?.message ?? e));
     return;
   }
   // Stage the consent-gated submit (Phase B runs only on the parent's strict YES), then
@@ -189,8 +180,10 @@ startFillPoller();
 setFillStillWorkingHandler(async (info) => {
   const conversationId = info.meta?.conversationId as string | undefined;
   if (!conversationId) return;
-  const text = "Still working on that form — the site can take a few minutes. I'll ping you the moment it's ready to review. Thanks for your patience!";
-  await agent.sendToConversation(conversationId, text).catch((e) => console.error('[skyvern] still-working text error:', (e as Error)?.message ?? e));
+  const formUrl = (info.meta?.formUrl as string | undefined) ?? '';
+  await agent
+    .sendToConversation(conversationId, fillStillWorkingMessage({ formUrl }))
+    .catch((e) => console.error('[skyvern] still-working text error:', (e as Error)?.message ?? e));
 });
 
 // Email triage (Block 2): an URGENT forwarded school email (due within ~48h) is surfaced

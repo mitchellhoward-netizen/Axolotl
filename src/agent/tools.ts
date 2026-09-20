@@ -1363,6 +1363,60 @@ export function fillEvidenceLine(state: {
   return 'none — no form fill has completed in this conversation';
 }
 
+/**
+ * The parent-facing text for a failed fill.
+ *
+ * "I hit a snag" was the failure mode this replaces: it told the parent nothing, so the only
+ * thing they could do was ask again. Every branch here names the reason AND one concrete next
+ * step. The vendor's own prose (`detail`) is deliberately NOT used in the parent text — it is
+ * written for us, not for a parent, and it can name internals; it gets logged instead.
+ */
+export function fillFailureMessage(input: {
+  errorCode?: string;
+  status?: string;
+  detail?: string;
+  formUrl?: string;
+}): string {
+  const link = input.formUrl ? `\n\n${input.formUrl}` : '';
+  const code = input.errorCode ?? '';
+  const reason: Record<string, string> = {
+    no_form: "that page doesn't have a form on it — it's an information page, not the application",
+    signin_required: 'that form needs you to sign in first',
+    captcha_blocked: 'that form is behind a bot check I cannot pass',
+    access_denied: 'that site refused me access to the form',
+    validation_error: 'the form rejected one of the values — usually a date or a required field',
+  };
+  const next: Record<string, string> = {
+    no_form: 'Send me the actual application link and I will try again.',
+    signin_required: 'If you sign in here and tell me when you are done, I will fill it:',
+    captcha_blocked: 'If you clear the check here and tell me, I will finish it:',
+    access_denied: 'You may be able to open it yourself here:',
+    validation_error: 'Tell me the correct value and I will try again:',
+  };
+  if (reason[code]) return `I couldn't fill that form: ${reason[code]}.\n${next[code]}${link}`;
+  if (input.status === 'timed_out') {
+    return `I stopped filling that form — it was taking too long to finish.\nWant me to try again, or take it from here?${link}`;
+  }
+  return `I couldn't fill that form, and I don't have a specific reason for this one.\nWant me to try again, or take it from here?${link}`;
+}
+
+/**
+ * The parent-facing text for a fill that is genuinely still running.
+ *
+ * The old text promised more waiting ("I'll ping you the moment it's ready") with no bound and
+ * no way out, so a slow form became an open-ended stall. This names what is happening, admits
+ * it is slow, and ends on a decision point. No elapsed number is claimed because the handler
+ * fires at a threshold owned by the poller — inventing a figure here would drift from it.
+ */
+export function fillStillWorkingMessage(input: { formUrl?: string }): string {
+  const link = input.formUrl ? `\n\n${input.formUrl}` : '';
+  return (
+    'Still filling that form — this one is taking longer than most, and some school sites are slow. ' +
+    'I will message you the moment it is ready to review.\n' +
+    `If you would rather not wait, reply "just give me the link" and I will send it and stop.${link}`
+  );
+}
+
 /** Human-readable summary of steps awaiting consent, for the brain's context. */
 export function pendingActionsSummary(steps: Step[] | undefined): string {
   if (!steps?.length) return '';
@@ -1473,6 +1527,7 @@ export function systemPrompt(ctx: BrainContext): string {
     `NEVER RESTART MID-SIGNUP: the moment you've found the program and opened the form, you are mid-signup. Do NOT re-search, re-open, or say "one moment, I'm on it" again. If the parent then sends anything that isn't the required fields (a correction, "ok", the program name), CONTINUE the same sign-up: name the program you're on and re-ask ONLY the fields you still need (e.g. "I'm on the ELO-P sign-up — I just need your email, Patrick's last name, birthdate, and your name/phone. Can you send those?"). Never start the research over. ` +
     `When you start doing the work (filling a form, placing a call), send ONE short substantive "on it" line naming the step + the review/consent point, e.g. "Opening the CKC enrollment form now — I'll fill it with Patrick's info and show you before I submit." Then proceed to the fill/draft and STOP at the consent gate. For skyvern_fill_form, calling it IS the start of the work: after it fires (async), reply your short "on it" line and STOP — do NOT also call submit_form. The review screenshot + the consent-gated submit are staged automatically when the fill finishes; the parent's reply YES is the intervention point. The parent's YES (send_email / call_school / a staged submit) is the intervention point — never submit/send/call before it, never go silent for a long operation. ` +
     `\nFORM FILL EVIDENCE (hard rule — you cannot fake this): ${ctx.fillEvidence ?? 'none'}. You may say a form is filled ONLY when that line says a fill COMPLETED. Never list field values as done, never say "I've filled the form", and never offer to show a filled form unless a fill completed — if the parent asks to see one and none completed, say plainly that you don't have a finished fill and offer to run it again. If a fill is still running, say it is still running. ` +
+    `DO NOT STALL: never send "one moment", "just a moment", "I'll have it shortly", or any second promise about the same fill. "One moment" repeated is indistinguishable from being stuck, and it is what a parent actually experiences as the agent breaking. If a fill is running, name what is running and stop. If they ask again while it is still running, give a DECISION POINT rather than another reassurance: keep waiting, or take the link and finish it themselves. Never promise to "show you a screenshot" unless a fill has already completed (FORM FILL EVIDENCE governs that, not good intentions). ` +
     `NEVER ASK THE PARENT TO INSPECT A PAGE OR LINK: you have the run status and the tools to check it. Never ask "what do you see on that page?" — check it yourself, or say you cannot see it. ` +
     `FILLING IS skyvern_fill_form ONLY: browser_open / browser_observe / browser_extract / browser_vision are for READING a page; browser_fill must NEVER be used to fill a form for a parent. If a fill looks stuck or slow, check the run or call skyvern_fill_form again — never fill by hand, and never turn intended values into a claim that it happened. ` +
     `\nFAMILY & SITUATION (refreshed every message — use it, don't re-ask): ${kids} at ${school} (${district}). Needs: ${needs}. Challenges: ${challenges}.${notes}${emailInfo}${localeInfo}` +

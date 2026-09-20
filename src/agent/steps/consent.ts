@@ -15,9 +15,15 @@
  *   - extra words we cannot turn into a change are never guessed at. The step stays staged and
  *     we ask, instead of expiring it or inventing a value.
  *
- * What this deliberately does NOT do: treat a question, a negation, or an unrelated message as
- * consent. Those still expire the proposal (see the caller), which is what keeps a stray
- * "ok thanks" from firing a stale submission.
+ * A second hole, closed here: the review message also invites "...or tell me what to change",
+ * and a bare change request with no affirmation ("change the last name to Howard") is not an
+ * affirmation, so it fell through to the expiry branch and silently discarded the staged work.
+ * A change is not a decision to abandon the proposal, so it is handled like the affirmation
+ * case: apply what we can read honestly, keep the step STAGED, re-show, and execute NOTHING.
+ *
+ * What this deliberately does NOT do: treat a question, a pleasantry, or an unrelated message as
+ * consent OR as a change. Those still expire the proposal (see the caller), which is what keeps a
+ * stray "ok thanks" or "what about the bus?" from firing a stale submission.
  */
 import type { Step } from './types.js';
 
@@ -56,6 +62,31 @@ const FIELD_PATTERNS: Array<{ field: CanonicalField; re: RegExp }> = [
   { field: 'dob', re: /\b(?:date\s+of\s+birth|dob|birthday|birth\s*date)(?:\s+(?:is|to|should\s+be))?\s*[:=]?\s*(.+)$/i },
 ];
 
+/**
+ * Common words that follow a field label but are not a value: "my email is different",
+ * "the last name is wrong". Without this, a change request would set a field to "different".
+ */
+const NON_VALUE = /^(?:it|that|this|them|those|different|wrong|incorrect|something|anything|nothing|changed|change|the\s+same|unknown|not\s+sure)$/i;
+
+/**
+ * Is this plausible as a value for that field? Deliberately conservative: it only rejects things
+ * that are clearly not values (a "grade" of "different", an email with no @). It never rewrites a
+ * value, and a rejection leaves the clause unparsed so we ASK rather than guess.
+ */
+function looksValidValue(field: CanonicalField, value: string): boolean {
+  const v = value.trim();
+  if (!v || NON_VALUE.test(v)) return false;
+  switch (field) {
+    case 'email': return BARE_EMAIL.test(v);
+    case 'grade': return /^(?:pre[- ]?k|tk|k|[0-9]{1,2}(?:st|nd|rd|th)?)$/i.test(v);
+    case 'phone': return v.replace(/\D/g, '').length >= 7;
+    case 'dob': return /\d/.test(v);
+    case 'first_name':
+    case 'last_name': return v.length <= 40;
+    default: return v.length <= 120;
+  }
+}
+
 /** A bare email or a bare street address, with no field label in front of it. */
 const BARE_EMAIL = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
 const BARE_ADDRESS = /^\d+\s+\S+.*\b(?:st|street|ave|avenue|rd|road|dr|drive|blvd|ln|lane|way|ct|court|pl|place|ter|terrace)\b/i;
@@ -79,19 +110,19 @@ function parseClause(clause: string): { field: CanonicalField; value: string } |
     const m = s.match(re);
     if (m?.[1]) {
       const value = tidy(m[1]);
-      if (value) return { field, value };
+      if (value && looksValidValue(field, value)) return { field, value };
     }
   }
   const bare = tidy(s);
-  if (BARE_EMAIL.test(bare)) return { field: 'email', value: bare };
-  if (BARE_ADDRESS.test(bare)) return { field: 'address', value: bare };
+  if (BARE_EMAIL.test(bare) && looksValidValue('email', bare)) return { field: 'email', value: bare };
+  if (BARE_ADDRESS.test(bare) && looksValidValue('address', bare)) return { field: 'address', value: bare };
   // "use 456 Oak Ave" — an instruction to use something, where the something is an address.
   const use = s.match(/^(?:please\s+)?(?:use|make it|put)\s+(.+)$/i);
   if (use?.[1]) {
     const value = tidy(use[1]);
     if (value) {
-      if (BARE_EMAIL.test(value)) return { field: 'email', value };
-      if (BARE_ADDRESS.test(value)) return { field: 'address', value };
+      if (BARE_EMAIL.test(value) && looksValidValue('email', value)) return { field: 'email', value };
+      if (BARE_ADDRESS.test(value) && looksValidValue('address', value)) return { field: 'address', value };
     }
   }
   return null;
@@ -109,7 +140,57 @@ export function parseConsentAmendment(text: string): Amendment | null {
   if (!m?.[1]) return null;
   const rest = m[1].trim();
   if (!rest || PLEASANTRY_ONLY.test(rest)) return null;
+  return parseAmendmentBody(rest);
+}
 
+/**
+ * What a change request turned out to be.
+ *  - `apply` — we read an edit and can place it on the proposal.
+ *  - `ask`  — they clearly want a change but we cannot tell WHICH field ("change it to Howard").
+ *             Keep the work and ask; never guess a field, never execute.
+ */
+export type ChangeRequest = { kind: 'apply'; amendment: Amendment } | { kind: 'ask' };
+
+/**
+ * A change instruction, as opposed to an answer. A "change request" is a *short imperative* —
+ * it opens with a change verb or names a field. That leading anchor is what keeps a longer
+ * narrative out: "the office said we should change the address to 456 Oak Ave because we moved"
+ * is a new subject and must expire the proposal, not silently rewrite it.
+ */
+const CHANGE_LEAD = /^(?:please\s+)?(?:change|set|update|correct|fix|amend)\b|^(?:please\s+)?make\s+it\b|^(?:the\s+|my\s+|his\s+|her\s+)?(?:last\s*name|first\s*name|surname|given\s*name|grade|e-?mail|address|phone|dob|date\s+of\s+birth|subject)\b/i;
+
+/** Softeners a parent may open a correction with; stripped before looking for the instruction. */
+const CHANGE_SOFTENER = /^(?:no|nope|nah|actually|wait|hold on|hmm|ok|okay|sorry|i\s+mean|rather)[\s,.:;-]+/i;
+
+/**
+ * Read a change request that carries NO affirmation: "change the last name to Howard",
+ * "actually make it grade 2", "no, change the last name to Howard".
+ *
+ * Returns null when the message is not a change instruction, which leaves the caller's existing
+ * expiry behaviour exactly as it was — "ok thanks", "what about the bus?" and plain declines all
+ * still expire the proposal.
+ */
+export function parseChangeRequest(text: string): ChangeRequest | null {
+  const t = text.trim().replace(/\s+/g, ' ');
+  if (!t) return null;
+  // An affirmation opens the other path ("yes last name Howard" is consent-with-a-change); the
+  // strict YES/NO matchers own the bare forms. Keep the three paths disjoint.
+  if (AFFIRM.test(t)) return null;
+  if (PLEASANTRY_ONLY.test(t)) return null;
+
+  // Strip a leading softener/refusal, then require an actual change instruction. "no thanks" has
+  // nothing after the softener and returns null, so a plain decline stays a decline.
+  const stripped = t.replace(CHANGE_SOFTENER, '').trim();
+  if (!stripped || !CHANGE_LEAD.test(stripped)) return null;
+
+  const amendment = parseAmendmentBody(stripped);
+  if (amendmentHasEdits(amendment)) return { kind: 'apply', amendment };
+  // They asked for a change we cannot place on a field. Keep the work and ask.
+  return { kind: 'ask' };
+}
+
+/** The edit-reading itself, shared by "yes <change>" and a bare change request. */
+function parseAmendmentBody(rest: string): Amendment {
   const amendment: Amendment = { changes: [], unparsed: [] };
 
   // An email instruction ("and mention the bus", "subject: bus pass") is not a field edit.

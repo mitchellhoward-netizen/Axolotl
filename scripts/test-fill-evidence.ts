@@ -19,7 +19,7 @@ const check = (n: string, c: boolean, d?: string) => { if (c) { pass++; console.
 delete process.env.RESEND_API_KEY;
 delete process.env.EMAIL_FROM;
 
-const { fillEvidenceLine, systemPrompt, LLM_TOOLS } = await import('../src/agent/tools.js');
+const { fillEvidenceLine, systemPrompt, LLM_TOOLS, fillFailureMessage, fillStillWorkingMessage } = await import('../src/agent/tools.js');
 const { Agent } = await import('../src/agent/agent.js');
 const { RulesIntentEngine } = await import('../src/agent/intent/rules.js');
 const { MockCalendarProvider } = await import('../src/integrations/calendar.js');
@@ -144,6 +144,47 @@ console.log('\n# the /review route actually serves the image from our host (Fix 
   check('an unknown/expired token gets an honest page, not a broken image', badRes.status === 410 && /expired/i.test(await badRes.text()), String(badRes.status));
 
   server.close(); fake.close();
+}
+
+console.log('\n# no failure is a dead end and none of them say "snag" (the stall, part 1)');
+{
+  const URL = 'https://world.example/apply';
+  const codes = ['no_form', 'signin_required', 'captcha_blocked', 'access_denied', 'validation_error'];
+  for (const code of codes) {
+    const msg = fillFailureMessage({ errorCode: code, formUrl: URL });
+    check(`${code}: names a specific reason`, !/don't have a specific reason/i.test(msg), msg.slice(0, 80));
+    check(`${code}: ends on a next step the parent can take`, /tell me|send me|try again|sign in|clear the check|open it yourself/i.test(msg), msg.slice(0, 120));
+    check(`${code}: carries the link`, msg.includes(URL));
+    check(`${code}: never says "snag"`, !/snag/i.test(msg));
+  }
+  // The vendor's prose is written for us, not for a parent — it must not reach the thread.
+  const leaky = fillFailureMessage({ errorCode: 'no_form', detail: 'Skyvern terminated: MissingElement at ref=41', formUrl: URL });
+  check('the vendor\'s own failure text is not shown to the parent', !/MissingElement|ref=41|Skyvern/i.test(leaky), leaky.slice(0, 120));
+  const to = fillFailureMessage({ status: 'timed_out', formUrl: URL });
+  check('a timeout is specific about what happened', /taking too long/i.test(to), to.slice(0, 90));
+  const unknown = fillFailureMessage({ status: 'failed', detail: 'InternalError xyz', formUrl: URL });
+  check('an unrecognised failure still offers a next step, not a snag', /try again|take it from here/i.test(unknown) && !/snag/i.test(unknown) && !/InternalError/.test(unknown), unknown.slice(0, 120));
+}
+
+console.log('\n# a slow fill gets a bounded, honest message with a way out (the stall, part 2)');
+{
+  const msg = fillStillWorkingMessage({ formUrl: 'https://world.example/apply' });
+  check('says what is happening', /still filling that form/i.test(msg), msg.slice(0, 60));
+  check('admits it is slow rather than implying it is nearly done', /longer than most|slow/i.test(msg));
+  check('never says "one moment"', !/one moment|just a moment|shortly/i.test(msg));
+  check('never promises a screenshot', !/screenshot|show you/i.test(msg));
+  check('gives a decision point instead of more waiting', /just give me the link/i.test(msg));
+  check('carries the link so the parent can act now', msg.includes('https://world.example/apply'));
+  check('works without a URL (still offers the choice)', /just give me the link/i.test(fillStillWorkingMessage({})));
+}
+
+console.log('\n# the prompt forbids the stall in words a model can act on');
+{
+  const prompt = systemPrompt({ profile: { children: [{ name: 'Leo' }], school: 'Soquel', needs: [], challenges: [] }, fillEvidence: 'none — no form fill has completed in this conversation' });
+  check('carries a DO NOT STALL rule', /DO NOT STALL/.test(prompt));
+  check('...naming the exact phrases that were sent', /one moment/i.test(prompt) && /just a moment/i.test(prompt));
+  check('...requiring a decision point rather than another reassurance', /DECISION POINT/.test(prompt));
+  check('...and forbidding a screenshot promise without a completed fill', /Never promise to "show you a screenshot"/.test(prompt));
 }
 
 console.log(`\n${fail === 0 ? '✓' : '✗'} ${pass} passed, ${fail} failed`);

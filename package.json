@@ -60,7 +60,8 @@
     "test:reactions": "tsx scripts/test-reactions.ts",
     "prune:retention": "tsx scripts/prune-retention.ts",
     "test:retention": "tsx scripts/test-retention.ts",
-    "test:authorization": "tsx scripts/test-authorization.ts"
+    "test:authorization": "tsx scripts/test-authorization.ts",
+    "eval:reliability": "tsx scripts/eval-reliability.ts"
   },
   "dependencies": {
     "@browserbasehq/stagehand": "^4.0.2",

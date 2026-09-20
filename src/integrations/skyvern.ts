@@ -11,6 +11,14 @@ import 'dotenv/config';
  * IMPORTANT: never log the API key or the family's PII values.
  */
 
+import {
+  resolveFormTarget,
+  recordFormTargetSuccess,
+  markFormTargetUnhealthy,
+  targetKey,
+} from './form-targets.js';
+import { recordVerifiedRecipe } from './form-recipes.js';
+
 const BASE = process.env.SKYVERN_BASE_URL ?? 'https://api.skyvern.com';
 const KEY = process.env.SKYVERN_API_KEY ?? '';
 const MAX_STEPS = Number(process.env.SKYVERN_MAX_STEPS) || 25;
@@ -341,6 +349,19 @@ export async function submitFilledForm(input: {
   // The whole point of M12: a completed run is NOT a submission. We require the site's own
   // confirmation, reported by the task we asked to check for it.
   const confirmed = terminal.status === 'completed' && x.submitted === true;
+  // The strongest evidence we ever get: the site itself confirmed. Record the target from it.
+  if (confirmed) {
+    await recordFormTargetSuccess({ url: input.url, evidence: 'confirmed-submit' }).catch((e) =>
+      console.warn('[skyvern] could not record form target:', (e as Error)?.message ?? e),
+    );
+    await recordVerifiedRecipe({
+      url: input.url,
+      valueKeys: Object.keys(input.values ?? {}),
+      evidence: 'confirmed-submit',
+    }).catch((e) => console.warn('[skyvern] could not record recipe:', (e as Error)?.message ?? e));
+  } else if (errorCode === 'no_form') {
+    await markFormTargetUnhealthy(targetKey({ url: input.url }), 'no_form').catch(() => {});
+  }
   return {
     ok: confirmed,
     status: confirmed ? 'confirmed' : errorCode ? 'blocked' : 'unconfirmed',
@@ -450,12 +471,26 @@ export async function fillFormForReviewAsync(input: {
 }): Promise<{ ok: boolean; runId?: string; browserSessionId?: string; detail?: string; errorCode?: SkyvernErrorCode }> {
   if (!KEY) return { ok: false, detail: 'disabled' };
 
-  // 0. Pre-flight: never spend a browser session on a plainly static page with no form
-  //    (the "we handed Skyvern a landing page" failure). Unknown answers proceed.
+  // 0a. Reuse a target that already worked. The caller's URL is usually a fresh guess or a
+  //     fresh discovery; a stored target is the one we have actually watched succeed, so it
+  //     wins — after a cheap pre-flight that catches a form that has since become an info page.
+  const resolved = await resolveFormTarget(
+    { givenUrl: input.formUrl, program: input.program, school: input.meta?.school, now: Date.now() },
+    { hasForm: input.skipPreflight ? undefined : pageHasForm },
+  ).catch(() => undefined);
+  const formUrl = resolved?.url || input.formUrl;
+  if (resolved?.via === 'stored') {
+    console.log(`[skyvern] reusing verified form target for ${targetKey({ url: input.formUrl, program: input.program })}`);
+  } else if (resolved?.fellBack && resolved.fellBack !== 'none') {
+    console.log(`[skyvern] stored form target not reused (${resolved.fellBack}) — using ${formUrl || 'discovery'}`);
+  }
+  if (!formUrl) return { ok: false, detail: 'no_form_url', errorCode: 'no_form' };
+
+  // 0b. Pre-flight the URL we are actually about to use (the stored one may be the same URL).
   if (!input.skipPreflight) {
-    const hasForm = await pageHasForm(input.formUrl).catch(() => undefined);
+    const hasForm = await pageHasForm(formUrl).catch(() => undefined);
     if (hasForm === false) {
-      console.log('[skyvern] pre-flight found no form on', input.formUrl);
+      console.log('[skyvern] pre-flight found no form on', formUrl);
       return { ok: false, detail: 'no_form', errorCode: 'no_form' };
     }
   }
@@ -475,7 +510,7 @@ export async function fillFormForReviewAsync(input: {
     process.env.SKYVERN_WEBHOOK_URL || (process.env.RAILWAY_PUBLIC_DOMAIN ? `https://${process.env.RAILWAY_PUBLIC_DOMAIN}/webhooks/skyvern` : undefined);
   const runRes = await api('/v1/run/tasks', {
     prompt,
-    url: input.formUrl,
+    url: formUrl,
     max_steps: input.maxSteps ?? MAX_STEPS,
     browser_session_id: browserSessionId,
     ...(webhookUrl ? { webhook_url: webhookUrl } : {}),
@@ -496,7 +531,7 @@ export async function fillFormForReviewAsync(input: {
     startedAt: Date.now(),
     // Fill in the run-specific context so the completion handler can text the right
     // family the preview and stage a consent-gated submit (reusing the session).
-    meta: { ...(input.meta ?? {}), formUrl: input.formUrl, browserSessionId },
+    meta: { ...(input.meta ?? {}), formUrl, browserSessionId, program: input.program ?? '' },
   });
   return { ok: true, runId, browserSessionId };
 }
@@ -572,6 +607,41 @@ export async function handleFillComplete(runId: string): Promise<void> {
         ? { ...(pending.meta ?? {}), formUrl: pending.formUrl, browserSessionId: pending.browserSessionId, values: pending.values }
         : undefined,
     };
+
+    // LEARN, but only from a verified outcome. A completed fill with no error code and no
+    // policy violation is the weaker evidence we accept for a fill-only run; a confirmed
+    // submit (below, in submitFilledForm) is the stronger one. A failure, a timeout, or a
+    // run that merely claimed success while reporting a blocker records NOTHING — a target
+    // learned from a bad run would be preferred over the model's next, better guess, which
+    // would make this feature worse than not having it.
+    if (pending) {
+      const learned = terminal.status === 'completed' && !readErrorCode(terminal.output);
+      if (learned) {
+        await recordFormTargetSuccess({
+          url: pending.formUrl,
+          evidence: 'completed-fill',
+          program: (pending.meta?.program as string | undefined) || undefined,
+          runId,
+        }).catch((e) => console.warn('[skyvern] could not record form target:', (e as Error)?.message ?? e));
+        await recordVerifiedRecipe({
+          url: pending.formUrl,
+          valueKeys: Object.keys(pending.values ?? {}),
+          evidence: 'completed-fill',
+          runId,
+        }).catch((e) => console.warn('[skyvern] could not record recipe:', (e as Error)?.message ?? e));
+      } else {
+        // The URL itself was the problem (a page with no form, or a 404) — mark it unhealthy so
+        // the next attempt skips straight to discovery rather than repeating the failure.
+        const code = readErrorCode(terminal.output);
+        const blocked = blockedFrom(terminal.output, terminal.failure);
+        if (code === 'no_form' || blocked === 'not_found') {
+          await markFormTargetUnhealthy(
+            targetKey({ url: pending.formUrl, program: (pending.meta?.program as string | undefined) || undefined }),
+            code ?? 'not_found',
+          ).catch(() => {});
+        }
+      }
+    }
 
     // Only mark delivered once we actually have a terminal result to hand off.
     completedFills.add(runId);

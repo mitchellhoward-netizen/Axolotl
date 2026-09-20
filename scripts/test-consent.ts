@@ -182,6 +182,63 @@ async function main(): Promise<void> {
     check('a bare YES still executes the pending step', g.text.includes('Done!') && outbox.length === 1, g.text.slice(0, 60));
   }
 
+  // 3b-ii. A CHANGE REQUEST with no affirmation — the second hole in the same flow.
+  // The review message ends "Reply YES to submit, or tell me what to change." A bare change
+  // request is not an affirmation, so the old gate expired the proposal: the parent was invited
+  // to say exactly this and it destroyed the staged work. A change must keep the work, apply what
+  // we can read, re-show it, and execute NOTHING.
+  {
+    const outbox: Array<{ to?: string; subject?: string; body?: string }> = [];
+    const capture = { send: async (m: { to?: string; subject?: string; body?: string }) => { outbox.push(m); return { id: 'test-1' }; } };
+    const crAgent = makeAgent(undefined, capture as never);
+    const staged = () => crAgent.getStateForTest(ID)?.pendingSteps?.[0];
+    const values = () => (staged()?.payload as { values: Record<string, string> } | undefined)?.values ?? {};
+
+    // (a) the exact message the review invites
+    crAgent.setStateForTest(ID, { phase: 'confirming', collected: {}, pendingSteps: [makeSubmitStep()] });
+    const a = await crAgent.handle(ID, 'change the last name to Howard');
+    check('"change the last name to Howard" keeps the step staged', crAgent.getStateForTest(ID)?.pendingSteps?.length === 1, a.text.slice(0, 90));
+    check('...applies the change to the staged payload', values().child_last_name === 'Howard', JSON.stringify(values()));
+    check('...does NOT execute anything', !a.text.includes('Done!') && outbox.length === 0, a.text.slice(0, 60));
+    check('...re-shows the changed proposal and asks for YES', /Howard/.test(a.text) && /reply yes/i.test(a.text), a.text.slice(0, 160));
+
+    // (b) another phrasing, and the earlier edit must not be lost
+    const b = await crAgent.handle(ID, 'actually make it grade 2');
+    check('"actually make it grade 2" applies the change', values().grade === '2', JSON.stringify(values()));
+    check('...and the earlier edit survives (the proposal is amended, not replaced)', values().child_last_name === 'Howard', JSON.stringify(values()));
+    check('...still staged, still not executed', crAgent.getStateForTest(ID)?.pendingSteps?.length === 1 && outbox.length === 0);
+
+    // (c) a refusal that also names the change is NOT a cancellation. Decision (documented in
+    // src/agent/agent.ts and consent.ts): the parent is declining to approve, not abandoning the
+    // work, so we apply the change where we can read it and ask again. We never execute.
+    crAgent.setStateForTest(ID, { phase: 'confirming', collected: {}, pendingSteps: [makeSubmitStep()] });
+    const c = await crAgent.handle(ID, 'no, change the last name to Howard');
+    check('"no, change the last name to Howard" does NOT execute', outbox.length === 0 && !c.text.includes('Done!'), c.text.slice(0, 60));
+    check('...does NOT cancel the staged work either', crAgent.getStateForTest(ID)?.pendingSteps?.length === 1, c.text.slice(0, 90));
+    check('...applies the named change', values().child_last_name === 'Howard', JSON.stringify(values()));
+
+    // (d) a change we cannot place on a field: ask, keep the work, never guess a field
+    crAgent.setStateForTest(ID, { phase: 'confirming', collected: {}, pendingSteps: [makeSubmitStep()] });
+    const d = await crAgent.handle(ID, 'change it to Howard');
+    check('"change it to Howard" keeps the work and asks which field', crAgent.getStateForTest(ID)?.pendingSteps?.length === 1 && /which field/i.test(d.text), d.text.slice(0, 140));
+    check('...and never executes on a vague instruction', outbox.length === 0 && !d.text.includes('Done!'));
+
+    // (e) REGRESSION GUARD: messages that are not change requests must still expire, or a stale
+    // proposal lingers and a later "yes" could fire work the parent has moved on from.
+    for (const unrelated of ['what about the bus?', 'ok thanks', 'the office said we should change the address to 456 Oak Ave because we moved']) {
+      crAgent.setStateForTest(ID, { phase: 'confirming', collected: {}, pendingSteps: [makeSubmitStep()] });
+      const r = await crAgent.handle(ID, unrelated);
+      check(`"${unrelated.slice(0, 34)}…" still expires the proposal`, !crAgent.getStateForTest(ID)?.pendingSteps?.length, r.text.slice(0, 80));
+    }
+
+    // (f) an amendment can never be applied to a DIFFERENT or stale proposal: with nothing staged,
+    // the same change request is just a message and must not resurrect anything.
+    crAgent.setStateForTest(ID, { phase: 'idle', collected: {} });
+    const f = await crAgent.handle(ID, 'change the last name to Howard');
+    check('a change request with nothing staged executes nothing', outbox.length === 0 && !f.text.includes('Done!'));
+    check('...and stages nothing', !crAgent.getStateForTest(ID)?.pendingSteps?.length);
+  }
+
   // 3c. The amendment parser itself, at the unit level.
   {
     const { parseConsentAmendment, amendmentHasEdits, applyAmendmentToSteps } = await import('../src/agent/steps/consent.js');
@@ -194,6 +251,18 @@ async function main(): Promise<void> {
     check('parser: "yes what about the other one" has no edits', Boolean(parseConsentAmendment('yes what about the other one')) && !amendmentHasEdits(parseConsentAmendment('yes what about the other one')!));
     check('parser: a question is not an amendment', parseConsentAmendment('what about the bus?') === null);
     check('parser: a decline is not an amendment', parseConsentAmendment('no wait') === null);
+    const { parseChangeRequest } = await import('../src/agent/steps/consent.js');
+    const cr1 = parseChangeRequest('change the last name to Howard');
+    check('parser: a bare change request is readable', cr1?.kind === 'apply' && cr1.amendment.changes[0]?.field === 'last_name' && cr1.amendment.changes[0]?.value === 'Howard');
+    check('parser: a bare affirmation is NOT a change request (disjoint from consent)', parseChangeRequest('yes') === null);
+    check('parser: "ok thanks" is not a change request', parseChangeRequest('ok thanks') === null);
+    check('parser: a question is not a change request', parseChangeRequest('what about the bus?') === null);
+    check('parser: a plain decline is not a change request', parseChangeRequest('no thanks') === null);
+    check('parser: an unrunnable change asks instead of guessing', parseChangeRequest('change it to Howard')?.kind === 'ask');
+    check('parser: a narrative that merely mentions a change is not a change request', parseChangeRequest('the office said we should change the address to 456 Oak Ave because we moved') === null);
+    check('parser: a non-value is not applied ("my email is different")', parseChangeRequest('change my email to different')?.kind === 'ask');
+    check('parser: a real email value IS applied', parseChangeRequest('change the email to parent@example.com')?.kind === 'apply');
+
     const parsed = parseConsentAmendment('yes last name Howard and grade 2')!;
     check('parser: reads two edits from one message', parsed.changes.length === 2);
     const applied = applyAmendmentToSteps([makeSubmitStep()], { changes: [{ field: 'last_name', value: 'Howard' }], unparsed: [] });
