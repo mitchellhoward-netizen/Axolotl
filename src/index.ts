@@ -38,6 +38,7 @@ import { emptyPersonalContext, importSchoolContext } from "./domain/personal-con
 import { loadFamilySnapshot } from "./integrations/db.js";
 import { BennyDemo } from "./demo/director.js";
 import { makeLlmRouter } from "./demo/router.js";
+import { reviewUrlFor } from "./integrations/review-links.js";
 import { allowInbound, denialMessage } from "./lib/inbound-guard.js";
 
 // ── Single-instance guard ──────────────────────────────────────────────────────
@@ -152,16 +153,25 @@ setFillCompleteHandler(async (info) => {
   // Stage the consent-gated submit (Phase B runs only on the parent's strict YES), then
   // share the preview + ask for the YES.
   try {
-    await agent.stageFormSubmit(conversationId, {
-      url: formUrl,
-      values: info.meta?.values as Record<string, string> | undefined,
-      skyvernSessionId: info.meta?.browserSessionId as string | undefined,
-    });
+    await agent.stageFormSubmit(
+      conversationId,
+      {
+        url: formUrl,
+        values: info.meta?.values as Record<string, string> | undefined,
+        skyvernSessionId: info.meta?.browserSessionId as string | undefined,
+      },
+      // The evidence the brain needs before it may call this form "filled" (see fillEvidenceLine).
+      { runId: info.runId, reviewUrl: info.reviewScreenshotUrl },
+    );
   } catch (e) {
     console.error('[skyvern] stageFormSubmit error:', (e as Error)?.message ?? e);
   }
-  const preview = info.reviewScreenshotUrl ?? formUrl;
-  const text = `I filled the form — nothing submitted yet. Review it here: ${preview}\n\nReply YES to submit, or tell me what to change.`;
+  // Our own review URL, not Skyvern's signed artifact URL (which leaks a vendor link into the
+  // thread and dies on the vendor's clock). Falls back to naming no link rather than a raw one.
+  const review = reviewUrlFor(info.reviewScreenshotUrl);
+  const text = review
+    ? `I filled the form — nothing submitted yet. Review it here: ${review}\n\nReply YES to submit, or tell me what to change.`
+    : `I filled the form — nothing submitted yet. Reply YES to submit, or tell me what to change.`;
   await agent.sendToConversation(conversationId, text).catch((e) => console.error('[skyvern] fill-done text error:', (e as Error)?.message ?? e));
 });
 

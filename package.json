@@ -27,7 +27,7 @@
     "check": "npm run check:secrets && npm run typecheck",
     "index:knowledge": "tsx scripts/index-knowledge.ts",
     "test:research": "tsx scripts/test-trajectory.ts",
-    "test:evidence": "tsx scripts/test-evidence.ts",
+    "test:evidence": "tsx scripts/test-fill-evidence.ts",
     "test:graph": "tsx scripts/test-graph.ts",
     "test:skills": "tsx scripts/test-skills.ts",
     "test:models": "tsx scripts/test-model-policy.ts",

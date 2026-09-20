@@ -4,6 +4,7 @@ import { readFileSync, existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { serveWorld } from '../testworld/world.js';
+import { resolveReviewToken } from './review-links.js';
 import { addWaitlist } from './waitlist.js';
 import { handleInquiry } from './inquiry.js';
 import { WAITLIST_MESSAGE, createSmsSender, normalizeE164 } from './sms.js';
@@ -179,6 +180,41 @@ export function startWebServer(
             return;
           }
         }
+      }
+
+      // ── Review images (/review/<token>) ─────────────────────────────────────
+      // The parent gets OUR url, never a vendor's signed artifact URL. We resolve the opaque
+      // token here and fetch the artifact server-side with our Skyvern key, so the key and the
+      // signed URL stay out of the thread. The mapping is never logged.
+      if (req.method === 'GET' && url.pathname.startsWith('/review/')) {
+        const token = url.pathname.slice('/review/'.length);
+        const artifactUrl = resolveReviewToken(token);
+        if (!artifactUrl) {
+          res.writeHead(410, { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store' });
+          res.end('<h1>This preview has expired.</h1><p>Ask Axolotl to show the form again.</p>');
+          return;
+        }
+        try {
+          const upstream = await fetch(artifactUrl, {
+            headers: process.env.SKYVERN_API_KEY ? { 'x-api-key': process.env.SKYVERN_API_KEY } : {},
+          });
+          if (!upstream.ok || !upstream.body) {
+            // Honest failure: say what happened rather than rendering a broken image.
+            res.writeHead(502, { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store' });
+            res.end('<h1>I could not load that preview.</h1><p>Ask Axolotl to show the form again.</p>');
+            return;
+          }
+          res.writeHead(200, {
+            'Content-Type': upstream.headers.get('content-type') ?? 'image/png',
+            'Cache-Control': 'private, max-age=300',
+          });
+          const buf = Buffer.from(await upstream.arrayBuffer());
+          res.end(buf);
+        } catch {
+          res.writeHead(502, { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store' });
+          res.end('<h1>I could not load that preview.</h1><p>Ask Axolotl to show the form again.</p>');
+        }
+        return;
       }
 
       if (url.pathname === '/health/ready') {

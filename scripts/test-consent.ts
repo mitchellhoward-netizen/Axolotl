@@ -38,7 +38,42 @@ function makeEmailStep(): Step {
   };
 }
 
-function makeAgent(llm?: LlmClient): Agent {
+/**
+ * SAFETY: this suite must never be able to send real mail. `railway run` injects the service's
+ * RESEND_API_KEY/EMAIL_FROM, and the executor picks its provider from the ambient env — which is
+ * how a sibling test once sent a message to a school-shaped address. Strip the credentials, then
+ * assert the effective provider is a mock.
+ */
+delete process.env.RESEND_API_KEY;
+delete process.env.EMAIL_FROM;
+{
+  const provider = createEmailProvider();
+  if (provider.constructor.name !== 'MockEmailProvider') {
+    console.error(`REFUSING TO RUN: a real email provider (${provider.constructor.name}) is configured.`);
+    process.exit(2);
+  }
+}
+
+/** A staged form submit — the step a parent amends with "yes last name Howard". */
+function makeSubmitStep(): Step {
+  return {
+    id: 'submit-test',
+    caseId: 'form',
+    intent: 'submit_form',
+    channel: 'submit',
+    counterparty: { role: 'OTHER' },
+    payload: {
+      channel: 'submit',
+      url: 'https://world.example/apply',
+      values: { child_first_name: 'Patrick', child_last_name: 'Grom', grade: '1', parent_email: 'parent@example.test', address: '1 Main St' },
+    },
+    successCondition: { describe: 'Form submitted', kind: 'reference_received' },
+    requiresConsent: true,
+    status: 'awaiting_consent',
+  };
+}
+
+function makeAgent(llm?: LlmClient, email?: import('../src/integrations/email.js').EmailProvider): Agent {
   const db = createSeedDb();
   // The seed has no parents/students; create + provision one so buildToolContext resolves.
   db.parents.push({ id: 'parent-maya', phone: '15555550100', email: '', firstName: 'Maya', lastName: 'Lee', studentIds: [] });
@@ -59,7 +94,7 @@ function makeAgent(llm?: LlmClient): Agent {
     db,
     defaultParentId: 'parent-maya',
     requireVerification: false,
-    email: createEmailProvider(),
+    email: email ?? createEmailProvider(),
   });
 }
 
@@ -87,6 +122,88 @@ async function main(): Promise<void> {
   agent.setStateForTest(ID, { phase: 'confirming', collected: {}, pendingSteps: [makeEmailStep()] } as ConversationState);
   const okThanks2 = await agent.handle(ID, 'yes please');
   check('"yes please" is a valid consent', okThanks2.text.includes('Done!'), okThanks2.text.slice(0, 60));
+
+  // 3b. "YES <amendment>" — approval of the pending step WITH a change.
+  // This is the real-thread failure: a parent answered "YES Last name Howard" to "Reply YES to
+  // submit, or tell me what to change", the strict matcher did not recognise it, and the
+  // not-a-clear-yes/no branch EXPIRED the staged submit — silently destroying the work and
+  // starting over. An amendment must never expire the proposal, never execute, and never guess.
+  {
+    const outbox: Array<{ to?: string; subject?: string; body?: string }> = [];
+    const capture = { send: async (m: { to?: string; subject?: string; body?: string }) => { outbox.push(m); return { id: 'test-1' }; } };
+    const amendAgent = makeAgent(undefined, capture as never);
+    const staged = () => amendAgent.getStateForTest(ID)?.pendingSteps?.[0];
+    const values = () => (staged()?.payload as { values: Record<string, string> } | undefined)?.values ?? {};
+
+    // (a) the exact production message
+    amendAgent.setStateForTest(ID, { phase: 'confirming', collected: {}, pendingSteps: [makeSubmitStep()] });
+    const a = await amendAgent.handle(ID, 'YES Last name Howard');
+    check('"yes last name Howard" keeps the step staged (does NOT expire it)', amendAgent.getStateForTest(ID)?.pendingSteps?.length === 1);
+    check('...applies the amendment to the staged payload', values().child_last_name === 'Howard', JSON.stringify(values()));
+    check('...does NOT execute anything', !a.text.includes('Done!') && outbox.length === 0, a.text.slice(0, 60));
+    check('...re-shows the changed proposal and asks for YES again', /Howard/.test(a.text) && /reply yes/i.test(a.text), a.text.slice(0, 160));
+
+    // (b) an address amendment
+    amendAgent.setStateForTest(ID, { phase: 'confirming', collected: {}, pendingSteps: [makeSubmitStep()] });
+    const b = await amendAgent.handle(ID, 'yes use 456 Oak Ave');
+    check('"yes use 456 Oak Ave" applies the address', values().address === '456 Oak Ave', JSON.stringify(values()));
+    check('...and is still awaiting their YES', amendAgent.getStateForTest(ID)?.pendingSteps?.length === 1 && !b.text.includes('Done!'));
+
+    // (c) "yes but change the grade to 2" — re-confirm, never auto-execute changed values
+    amendAgent.setStateForTest(ID, { phase: 'confirming', collected: {}, pendingSteps: [makeSubmitStep()] });
+    const c = await amendAgent.handle(ID, 'yes but change the grade to 2');
+    check('"yes but change the grade to 2" applies the change', values().grade === '2', JSON.stringify(values()));
+    check('...and asks for a fresh YES because the proposal changed', amendAgent.getStateForTest(ID)?.pendingSteps?.length === 1 && !c.text.includes('Done!') && /reply yes/i.test(c.text));
+
+    // (d) extra words that are NOT an amendment: do not guess, do not expire
+    amendAgent.setStateForTest(ID, { phase: 'confirming', collected: {}, pendingSteps: [makeSubmitStep()] });
+    const d = await amendAgent.handle(ID, 'yes what about the other one');
+    check('"yes what about the other one" does NOT execute', !d.text.includes('Done!') && outbox.length === 0);
+    check('...and does NOT expire the proposal either', amendAgent.getStateForTest(ID)?.pendingSteps?.length === 1, d.text.slice(0, 120));
+    check('...it asks what to change instead', /change/i.test(d.text), d.text.slice(0, 120));
+
+    // (e) a retraction kills the proposal, and a later "yes" cannot resurrect it
+    amendAgent.setStateForTest(ID, { phase: 'confirming', collected: {}, pendingSteps: [makeSubmitStep()] });
+    const e = await amendAgent.handle(ID, 'no wait');
+    check('"no wait" does not execute', outbox.length === 0 && !e.text.includes('Done!'));
+    check('"no wait" clears the staged proposal', !amendAgent.getStateForTest(ID)?.pendingSteps?.length);
+    const e2 = await amendAgent.handle(ID, 'yes');
+    check('a later "yes" cannot fire the retracted proposal', outbox.length === 0 && !e2.text.includes('Done!'));
+
+    // (f) HARD INVARIANT: a question never executes a pending step, even mid-proposal
+    amendAgent.setStateForTest(ID, { phase: 'confirming', collected: {}, pendingSteps: [makeSubmitStep()] });
+    const f = await amendAgent.handle(ID, 'what does that form need from me?');
+    check('a question never executes a pending step', outbox.length === 0 && !f.text.includes('Done!'));
+
+    // (g) and the plain path still works: a bare YES executes exactly once
+    amendAgent.setStateForTest(ID, { phase: 'confirming', collected: {}, pendingSteps: [makeEmailStep()] });
+    const g = await amendAgent.handle(ID, 'yes');
+    check('a bare YES still executes the pending step', g.text.includes('Done!') && outbox.length === 1, g.text.slice(0, 60));
+  }
+
+  // 3c. The amendment parser itself, at the unit level.
+  {
+    const { parseConsentAmendment, amendmentHasEdits, applyAmendmentToSteps } = await import('../src/agent/steps/consent.js');
+    const p1 = parseConsentAmendment('yes last name Howard');
+    check('parser: "yes last name Howard" is an amendment', Boolean(p1) && p1!.changes[0]?.field === 'last_name' && p1!.changes[0]?.value === 'Howard');
+    const p2 = parseConsentAmendment('yes');
+    check('parser: a bare "yes" is NOT an amendment (strict consent owns it)', p2 === null);
+    const p3 = parseConsentAmendment('ok thanks');
+    check('parser: "ok thanks" is not an amendment (it stays an expiry)', p3 === null);
+    check('parser: "yes what about the other one" has no edits', Boolean(parseConsentAmendment('yes what about the other one')) && !amendmentHasEdits(parseConsentAmendment('yes what about the other one')!));
+    check('parser: a question is not an amendment', parseConsentAmendment('what about the bus?') === null);
+    check('parser: a decline is not an amendment', parseConsentAmendment('no wait') === null);
+    const parsed = parseConsentAmendment('yes last name Howard and grade 2')!;
+    check('parser: reads two edits from one message', parsed.changes.length === 2);
+    const applied = applyAmendmentToSteps([makeSubmitStep()], { changes: [{ field: 'last_name', value: 'Howard' }], unparsed: [] });
+    check('apply: reports what it changed', applied.applied.length === 1 && applied.unapplied.length === 0);
+    const missing = applyAmendmentToSteps([makeSubmitStep()], { changes: [{ field: 'dob', value: '2019-04-02' }], unparsed: [] });
+    check('apply: a field the form does not have is reported, never invented', missing.applied.length === 0 && missing.unapplied.length === 1);
+    const onEmail = applyAmendmentToSteps([makeEmailStep()], { changes: [{ field: 'last_name', value: 'Howard' }], unparsed: [] });
+    check('apply: a name edit is NOT silently rewritten into an email body', onEmail.applied.length === 0 && onEmail.unapplied.length === 1);
+    const added = applyAmendmentToSteps([makeEmailStep()], { changes: [], unparsed: [], appendBody: 'mention the bus' });
+    check('apply: an email body addition does apply', added.applied.length === 1);
+  }
 
   // 4. Sensitive creds AND family PII must be redacted from any logged args. The log
   // store must not become a second copy of the family's data (a real leak: child name,

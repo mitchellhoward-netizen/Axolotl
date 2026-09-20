@@ -56,9 +56,16 @@ import { advanceAttendance, openAttendance } from './attendance.js';
 import { addCase, makeCase, openCaseSummary } from './family.js';
 import { closeSession as closeSkyvernSession } from '../integrations/skyvern.js';
 import { logConsent } from '../integrations/consent.js';
+import {
+  parseConsentAmendment,
+  amendmentHasEdits,
+  applyAmendmentToSteps,
+  describeProposal,
+  describeShortly,
+} from './steps/consent.js';
 import { finalizePendingForFamily } from '../integrations/connections/index.js';
 import { getEmailsByStatus, setEmailStatus } from '../integrations/email-triage/store.js';
-import { LLM_TOOLS, LIFE_TOOL_NAMES, runTool, systemPrompt, pendingActionsSummary, type ToolDeps } from './tools.js';
+import { LLM_TOOLS, LIFE_TOOL_NAMES, runTool, systemPrompt, pendingActionsSummary, fillEvidenceLine, type ToolDeps } from './tools.js';
 import { LlmClient } from './llm.js';
 import { extractSlots, missingRequired, SLOT_SPECS, type Roster, type SlotSpec } from './slots.js';
 import { initialState, type ConversationState, type Plan } from './state.js';
@@ -284,6 +291,8 @@ export class Agent {
             });
           }
           const results = await this.runSteps(steps, this.resolveMode(), state);
+          // The staged fill has been acted on; the evidence line must not outlive it.
+          state.completedFill = undefined;
           const summary = results.map((r) => r.parentSummary).join('\n');
           this.save(conversationId, { phase: 'done', collected: {}, pendingSteps: undefined }, state);
           return { text: `Done!\n${summary}`, phase: 'done', resolved: true };
@@ -295,10 +304,47 @@ export class Agent {
           this.save(conversationId, { phase: 'idle', collected: {}, pendingSteps: undefined }, state);
           return { text: 'No problem — I won\u2019t send anything. What else can I help with?', phase: 'idle' };
         }
-        // Not a clear yes/no: the parent changed subject or wasn't consenting. Expire on the LIVE
-        // object and fall through to respond to the NEW message — never loop on "reply yes/no".
+        // A leading affirmation with extra words is approval OF THIS PROPOSAL WITH A CHANGE —
+        // "yes last name Howard". This is the most natural way a parent answers "reply YES, or
+        // tell me what to change", so it must NOT expire the proposal (which is what used to
+        // happen, silently destroying a staged submit and restarting the work).
+        const amendment = parseConsentAmendment(text);
+        if (amendment) {
+          if (amendmentHasEdits(amendment)) {
+            const { applied, unapplied } = applyAmendmentToSteps(state.pendingSteps, amendment);
+            // Consent is for the EXACT proposal shown, so a changed proposal is re-shown and
+            // needs a fresh YES. We never execute values the parent has not seen.
+            this.save(conversationId, { phase: 'confirming', collected: state.collected, pendingSteps: state.pendingSteps }, state);
+            if (applied.length) {
+              const notes = [
+                `Updated — ${applied.join('; ')}.`,
+                unapplied.length ? `I couldn't place: ${unapplied.join('; ')}.` : '',
+                describeProposal(state.pendingSteps),
+                'Reply YES and I\u2019ll go ahead, or tell me what else to change.',
+              ].filter(Boolean);
+              return { text: notes.join('\n\n'), phase: 'confirming', resolved: true };
+            }
+            // We understood a change but it does not fit this proposal: say so, keep it staged.
+            return {
+              text: `I've still got ${describeShortly(state.pendingSteps)}, but I couldn't change ${unapplied.join('; ')}. Tell me what to change, or reply YES and I\u2019ll go ahead as it is.`,
+              phase: 'confirming',
+              resolved: true,
+            };
+          }
+          // Affirmation plus words we can't read as a change ("yes what about the other one?").
+          // Do not guess and do not expire: keep the proposal staged and ask one short question.
+          return {
+            text: `I've still got ${describeShortly(state.pendingSteps)} — did you want to change something in it? Tell me what to change, or reply YES and I\u2019ll go ahead.`,
+            phase: 'confirming',
+            resolved: true,
+          };
+        }
+        // Not a clear yes/no and not an amendment: the parent changed subject or wasn't consenting.
+        // Expire on the LIVE object and fall through to respond to the NEW message — never loop on
+        // "reply yes/no". This is what stops a stray "ok thanks" firing a stale submission.
         this.closeSkyvernSessions(state.pendingSteps);
         state.pendingSteps = undefined;
+        state.completedFill = undefined;
         state.phase = 'idle';
         this.save(conversationId, { phase: 'idle', collected: {}, pendingSteps: undefined }, state);
       }
@@ -605,6 +651,10 @@ export class Agent {
   /** Test/dev hook: inject a conversation state (e.g. a pre-set pendingSteps) so the consent flow can
    * be regression-tested without a full OTP/onboarding run. */
   setStateForTest(conversationId: string, state: ConversationState): void {
+    // Ensure the conversation exists first. `setState` no-ops on an unknown id, so a test seeding
+    // state on a FRESH agent silently did nothing — and then asserted against an absent proposal,
+    // which passed for the wrong reason. Make the hook do what its name says.
+    this.store.ensure(conversationId, this.opts.defaultParentId ?? '');
     this.store.setState(conversationId, state);
   }
   /** Test/dev hook: read a conversation's current state. */
@@ -746,6 +796,10 @@ export class Agent {
   async stageFormSubmit(
     conversationId: string,
     input: { url: string; values?: Record<string, string>; skyvernSessionId?: string },
+    /** Proof that the fill actually completed. This is the ONLY path that runs when a Skyvern
+     * fill finishes, so it is where the evidence gets recorded — the brain may claim a fill
+     * only when this state backs it (see the FILL EVIDENCE block in systemPrompt). */
+    evidence?: { runId?: string; reviewUrl?: string },
   ): Promise<void> {
     const record = this.store.ensure(conversationId, this.opts.defaultParentId ?? '');
     const mode = this.resolveMode();
@@ -762,6 +816,12 @@ export class Agent {
     };
     record.state.pendingSteps = [step];
     record.state.phase = 'confirming';
+    record.state.completedFill = {
+      url: input.url,
+      runId: evidence?.runId ?? '',
+      at: new Date().toISOString(),
+      hasReview: Boolean(evidence?.reviewUrl),
+    };
   }
 
   /**
@@ -1123,6 +1183,7 @@ export class Agent {
     if (next.summary === undefined) next.summary = prev.summary;
     if (next.onboarded === undefined) next.onboarded = prev.onboarded;
     if (next.emailProofSent === undefined) next.emailProofSent = prev.emailProofSent;
+    if (next.completedFill === undefined) next.completedFill = prev.completedFill;
     this.store.setState(conversationId, next);
   }
 
@@ -1273,7 +1334,7 @@ export class Agent {
     const situation = this.brainOnboarding && !state.onboarded
       ? [onboardingSituation(state.profile), computeSituation(state)].filter(Boolean).join('\n') || undefined
       : computeSituation(state);
-    const sysPrompt = systemPrompt({ profile: state.profile, cases: state.cases, activeGoal: state.activeGoal, lastAction: state.lastAction, pendingActions: pendingActionsSummary(state.pendingSteps), summary: state.summary, situation }) +
+    const sysPrompt = systemPrompt({ profile: state.profile, cases: state.cases, activeGoal: state.activeGoal, lastAction: state.lastAction, pendingActions: pendingActionsSummary(state.pendingSteps), summary: state.summary, situation, fillEvidence: fillEvidenceLine(state) }) +
       (life ? LIFE_AND_BENEFITS_PROMPT : '');
     // A sender without life tools is never offered them — not even as a dead option the
     // model could call and then apologize for.
@@ -2125,7 +2186,9 @@ function isStrictConsent(text: string): boolean {
 /** Strict, whole-message refusal for a pending consequential action. */
 function isStrictDecline(text: string): boolean {
   const t = text.trim().toLowerCase().replace(/[.!?]+$/, '');
-  return /^(n|no|nope|cancel|change|not that|stop|hold on|don't|dont|never mind|nevermind|skip|change it)\s*$/.test(t);
+  // "no wait" / "wait" is a retraction: kill the proposal rather than leave an authorization
+  // armed that a later "yes" could fire against a proposal the parent has moved on from.
+  return /^(n|no|nope|cancel|change|not that|stop|hold on|wait|no wait|actually no|don't|dont|never mind|nevermind|skip|change it)\s*$/.test(t);
 }
 
 function yesNo(): Suggestion[] {

@@ -233,7 +233,7 @@ export const LLM_TOOLS = [
     type: 'function',
     function: {
       name: 'skyvern_fill_form',
-      description: 'Fill a web form (e.g. a school program enrollment/waitlist Google Form) with the parent\u2019s info using Skyvern. FILLS ONLY — it never submits. It kicks off the fill in the background and returns immediately; when it finishes, the agent text the parent the filled-form screenshot for review and stages the consent-gated submit (only firing after the parent\u2019s explicit YES). Use for real sign-up/enrollment forms.',
+      description: 'The ONE tool for filling a form for a parent (school program enrollment, waitlist, Google/Microsoft form). FILLS ONLY — it never submits. It kicks off the fill in the background and returns immediately; when it finishes, the agent text the parent the filled-form screenshot for review and stages the consent-gated submit (only firing after the parent\u2019s explicit YES). Use for real sign-up/enrollment forms.',
       parameters: {
         type: 'object',
         properties: {
@@ -364,7 +364,7 @@ export const LLM_TOOLS = [
     type: 'function',
     function: {
       name: 'browser_observe',
-      description: 'List what is actionable on the current browser page (returns element selectors + descriptions).',
+      description: 'READ the current browser page: list what is actionable (element selectors + descriptions). Reading only — never use this to fill a form for a parent (use skyvern_fill_form).',
       parameters: { type: 'object', properties: { instruction: { type: 'string' } }, required: [] },
     },
   },
@@ -392,7 +392,7 @@ export const LLM_TOOLS = [
     type: 'function',
     function: {
       name: 'browser_fill',
-      description: 'Pre-fill form fields in the browser (label + value). NEVER submits — submission requires the parent\u2019s explicit YES.',
+      description: 'Pre-fill fields on a page ALREADY OPEN in the browser session (label + value). For READING/diagnosing only — NOT for filling a school or program form on a parent\u2019s behalf; that is skyvern_fill_form, always. NEVER submits.',
       parameters: {
         type: 'object',
         properties: {
@@ -1242,6 +1242,35 @@ export interface BrainContext {
   summary?: string;
   /** Active conversational flow/situation (e.g. McKinney-Vento displaced, attendance). */
   situation?: string;
+  /** What we can PROVE about form fills — see fillEvidenceLine(). */
+  fillEvidence?: string;
+}
+
+/**
+ * What we can PROVE about form fills, in one line the model must read before it speaks.
+ *
+ * A fill claim with no completed run behind it is the failure this exists to stop: the agent
+ * once told a parent "Perfect — I've filled the form with Patrick's info" and listed the field
+ * values, when no fill had completed for that attempt. The values came from the profile and an
+ * older screenshot. The fix is structural, not a sternly-worded prompt line: the completion
+ * handler records the fact on the conversation, and the prompt tells the model what is provable.
+ */
+export function fillEvidenceLine(state: {
+  completedFill?: { url: string; runId: string; at: string; hasReview: boolean };
+  pendingSteps?: Step[];
+}): string {
+  const staged = Boolean(state.pendingSteps?.some((s) => s.channel === 'submit'));
+  const fill = state.completedFill;
+  if (fill) {
+    return (
+      `a fill COMPLETED for ${fill.url}` +
+      `${fill.runId ? ` (run ${fill.runId})` : ''}` +
+      `${fill.hasReview ? ', and a review image was sent to the parent' : ''}` +
+      `${staged ? ', and the submit is staged awaiting their YES' : ''}`
+    );
+  }
+  if (staged) return 'a submit is staged, but NO completed fill is recorded — do not describe the form as filled';
+  return 'none — no form fill has completed in this conversation';
 }
 
 /** Human-readable summary of steps awaiting consent, for the brain's context. */
@@ -1353,6 +1382,9 @@ export function systemPrompt(ctx: BrainContext): string {
     `READ TYPOS & CORRECTIONS AS THE SAME PROGRAM: the parent types fast. "flop"/"elop"/"elp"/"elop" = ELO-P (Expanded Learning Opportunities Program). If they write a program name or abbreviation you JUST named, or the one you're already signing up for, treat it as that program and continue — never re-ask, never re-open, never re-research it. A short follow-up (a program name, "ok", "continue", "go ahead", a typo fix) means "KEEP GOING with the current thing." ` +
     `NEVER RESTART MID-SIGNUP: the moment you've found the program and opened the form, you are mid-signup. Do NOT re-search, re-open, or say "one moment, I'm on it" again. If the parent then sends anything that isn't the required fields (a correction, "ok", the program name), CONTINUE the same sign-up: name the program you're on and re-ask ONLY the fields you still need (e.g. "I'm on the ELO-P sign-up — I just need your email, Patrick's last name, birthdate, and your name/phone. Can you send those?"). Never start the research over. ` +
     `When you start doing the work (filling a form, placing a call), send ONE short substantive "on it" line naming the step + the review/consent point, e.g. "Opening the CKC enrollment form now — I'll fill it with Patrick's info and show you before I submit." Then proceed to the fill/draft and STOP at the consent gate. For skyvern_fill_form, calling it IS the start of the work: after it fires (async), reply your short "on it" line and STOP — do NOT also call submit_form. The review screenshot + the consent-gated submit are staged automatically when the fill finishes; the parent's reply YES is the intervention point. The parent's YES (send_email / call_school / a staged submit) is the intervention point — never submit/send/call before it, never go silent for a long operation. ` +
+    `\nFORM FILL EVIDENCE (hard rule — you cannot fake this): ${ctx.fillEvidence ?? 'none'}. You may say a form is filled ONLY when that line says a fill COMPLETED. Never list field values as done, never say "I've filled the form", and never offer to show a filled form unless a fill completed — if the parent asks to see one and none completed, say plainly that you don't have a finished fill and offer to run it again. If a fill is still running, say it is still running. ` +
+    `NEVER ASK THE PARENT TO INSPECT A PAGE OR LINK: you have the run status and the tools to check it. Never ask "what do you see on that page?" — check it yourself, or say you cannot see it. ` +
+    `FILLING IS skyvern_fill_form ONLY: browser_open / browser_observe / browser_extract / browser_vision are for READING a page; browser_fill must NEVER be used to fill a form for a parent. If a fill looks stuck or slow, check the run or call skyvern_fill_form again — never fill by hand, and never turn intended values into a claim that it happened. ` +
     `\nFAMILY & SITUATION (refreshed every message — use it, don't re-ask): ${kids} at ${school} (${district}). Needs: ${needs}. Challenges: ${challenges}.${notes}${emailInfo}${localeInfo}` +
     `\nOPEN WORK:\n${openWork}` +
     (ctx.pendingActions ? `\nPENDING ACTIONS (proposed, waiting for the parent's YES/NO): ${ctx.pendingActions}` : '') +
