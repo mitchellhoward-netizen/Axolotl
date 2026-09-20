@@ -327,10 +327,14 @@ export async function submitFilledForm(input: {
     ok: confirmed,
     status: confirmed ? 'confirmed' : errorCode ? 'blocked' : 'unconfirmed',
     confirmation: x.confirmation,
-    blocker:
-      x.blocker ??
-      errorCodeDetail(errorCode) ??
-      (terminal.status !== 'completed' ? `Skyvern ${terminal.status}` : 'the site never showed a confirmation'),
+    // Only describe a blocker when something actually blocked: a confirmed submission that
+    // still carries a "never showed a confirmation" string is the kind of contradictory
+    // output that makes a log reader distrust the whole result.
+    blocker: confirmed
+      ? undefined
+      : x.blocker ??
+        errorCodeDetail(errorCode) ??
+        (terminal.status !== 'completed' ? `Skyvern ${terminal.status}` : 'the site never showed a confirmation'),
     errorCode,
     confirmationScreenshotUrl: screenshot,
   };
