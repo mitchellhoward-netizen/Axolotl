@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Security | Axolotl</title>
+    <meta
+      name="description"
+      content="What protects your family's information, who processes it, what we cannot promise, and what we have not certified yet."
+    />
+    <link rel="stylesheet" href="/site.css" />
+    <style>
+      body { margin: 0; background: #0b0f14; color: #e6edf3; font: 16px/1.65 system-ui, -apple-system, Segoe UI, sans-serif; }
+      main { max-width: 720px; margin: 0 auto; padding: 48px 20px 96px; }
+      h1 { font-size: 30px; margin: 0 0 8px; }
+      h2 { font-size: 19px; margin: 36px 0 10px; }
+      h3 { font-size: 16px; margin: 24px 0 6px; }
+      p, li { color: #c3cede; }
+      .lede { color: #93a3b8; }
+      table { border-collapse: collapse; width: 100%; margin: 12px 0; font-size: 14px; }
+      th, td { border: 1px solid #22303f; padding: 8px 10px; text-align: left; vertical-align: top; }
+      th { background: #121b24; color: #dbe6f3; font-weight: 600; }
+      code { background: #121b24; padding: 1px 5px; border-radius: 4px; font-size: 13px; }
+      a { color: #8ec5ff; }
+      .updated { color: #7c8ba1; font-size: 14px; margin-top: 40px; }
+      .honest { border-left: 3px solid #b45309; padding: 2px 0 2px 14px; margin: 14px 0; }
+      .honest p { color: #d9c9ae; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Security</h1>
+      <p class="lede">
+        What protects your family's information, what we cannot promise, and what we have not earned
+        yet. This page is written the way we would want a vendor to write it for us: specific things
+        a reviewer can check, and no adjectives.
+      </p>
+
+      <h2>The controls that matter most</h2>
+
+      <h3>Nothing happens without your yes</h3>
+      <p>
+        Every consequential thing the agent does (emailing your school, submitting a form, placing a
+        call) waits for your explicit approval. That is enforced in code, not by asking the AI nicely:
+        the action runner refuses to execute a step that is not approved, and a stray message like
+        "ok thanks" does not count as approval.
+      </p>
+
+      <h3>Filling a form and submitting it are two separate steps</h3>
+      <p>
+        The agent fills a form and stops. It shows you what it filled, and only after you say yes does
+        a second, separate step submit it. There is no code path that submits before you approve.
+      </p>
+
+      <h3>We only say "submitted" when the school's own page confirms it</h3>
+      <p>
+        A browser run reporting that it finished is not evidence that anything was submitted. So we
+        require the confirmation the site itself shows and the reference number it gives back. If we
+        cannot see a confirmation, we tell you we could not confirm it, even if the run says it
+        finished. A failed submission is never reported as a success.
+      </p>
+
+      <h3>Your phone proves it is you</h3>
+      <p>
+        Before the agent does anything, you confirm a six digit code sent to your own number. Until
+        then there is no account and no work.
+      </p>
+
+      <h2>How your information is protected</h2>
+      <table>
+        <tr><th>What</th><th>How</th></tr>
+        <tr>
+          <td>Connections and credentials we hold (such as a connected mailbox token)</td>
+          <td>Encrypted with AES-256-GCM, and the encrypted value is tied to the family it belongs to, so a record copied to another account cannot be opened</td>
+        </tr>
+        <tr>
+          <td>Data in transit</td>
+          <td>TLS between your phone, our servers, and the services we use</td>
+        </tr>
+        <tr>
+          <td>Family records and messages at rest</td>
+          <td>Stored in our database, encrypted at rest by the host, with row level security scoped to the family in the schema, and reachable only through our server. They are not individually encrypted field by field, and we say so rather than implying otherwise</td>
+        </tr>
+        <tr>
+          <td>Application logs</td>
+          <td>Names, email addresses and phone numbers are masked before anything is written, by field and by pattern. If an email address appears in a tool call, the log line holds a placeholder, not the address</td>
+        </tr>
+        <tr>
+          <td>Browser sessions</td>
+          <td>Session recording is switched off. A recording of your child's school portal would be the largest thing we could accidentally keep, and we do not need the video, only the page</td>
+        </tr>
+        <tr>
+          <td>Webhooks we accept</td>
+          <td>Both inbound endpoints reject anything unsigned or stale. They fail closed: if the signing secret is missing, the request is refused rather than trusted</td>
+        </tr>
+        <tr>
+          <td>Secrets</td>
+          <td>Not in the source code. A check runs on every change to catch a key shaped string before it can be committed</td>
+        </tr>
+      </table>
+
+      <h2>Who processes your information</h2>
+      <p>
+        We are a small team, so we use established providers rather than building everything. Here is
+        who sees what.
+      </p>
+      <table>
+        <tr><th>Provider</th><th>What it sees</th></tr>
+        <tr><td>Anthropic</td><td>Your messages and family details, to write replies and do research</td></tr>
+        <tr><td>OpenAI</td><td>Page content from the sites the agent reads</td></tr>
+        <tr><td>Skyvern</td><td>Form details and page content, and a saved school portal sign in while you stay connected</td></tr>
+        <tr><td>Browserbase</td><td>The browsing session (recording is off)</td></tr>
+        <tr><td>Tavily</td><td>Search queries about schools and districts</td></tr>
+        <tr><td>Resend</td><td>Emails we send to a school when your Gmail is not connected</td></tr>
+        <tr><td>Google</td><td>Gmail and Calendar, only if you connect them</td></tr>
+        <tr><td>Retell</td><td>Phone calls, if you ask us to call</td></tr>
+        <tr><td>Supabase, Railway, Vercel</td><td>Where data is stored, hosted and logged</td></tr>
+      </table>
+      <p>
+        We do not sell your information and we do not use it for advertising. A service that reads web
+        pages and writes emails cannot promise that nothing is ever shared: your messages do reach our
+        model provider, and that provider reads them to write the reply. What we can say is that we
+        know which providers are involved, that list is above, and nothing goes to your school or
+        anyone else until you approve the exact message or form.
+      </p>
+
+      <h2>Where your information is processed</h2>
+      <p>
+        Our own systems and the model inference for your messages run in the United States. Some of our
+        providers use support, security and identity vendors in Canada, South Africa and the United
+        Kingdom. Those vendors can see limited account and support data. They do not receive your
+        child's profile. We do not claim that your information never leaves the United States, because
+        that would not be true.
+      </p>
+
+      <h2>What we can delete, and what we cannot</h2>
+      <p>
+        Text <code>reset</code> and we delete your family's data: the profile, your children, the
+        cases, the messages, the emails we triaged, and the connected mailbox token. We disconnect the
+        saved school portal sign in first, because that is a live key to your account. We keep one
+        record saying a deletion happened, with the date and the counts, and none of the content.
+      </p>
+      <p>These we cannot delete, and we will not pretend otherwise:</p>
+      <ul>
+        <li>Encrypted backups, which clear on a rolling cycle.</li>
+        <li>Copies our AI providers keep for a period under their own safety and anti-abuse rules. That is typically 30 days, and in rare safety cases it can be much longer.</li>
+        <li>Emails already sent to a school. Those cannot be recalled.</li>
+      </ul>
+
+      <h2>What an AI agent cannot promise</h2>
+      <div class="honest">
+        <p>
+          An agent that reads web pages and email can be tricked by text inside them. That risk is
+          real, it is not fully solvable, and any vendor telling you otherwise is wrong.
+        </p>
+      </div>
+      <p>What we do about it:</p>
+      <ul>
+        <li>Nothing consequential runs without your explicit yes, so a tricked agent still has to ask you.</li>
+        <li>Filling and submitting are separate, so a page cannot cause a submission on its own.</li>
+        <li>We treat page and email content as information to read, never as instructions to follow.</li>
+        <li>Addresses we reply to come from the message you received, not from instructions inside a page.</li>
+        <li>We are adding further code level limits on which sites the browser may visit and which actions may run at all, so that the boundary is enforced by the program rather than by asking the model to behave.</li>
+      </ul>
+
+      <h2>What we have not earned yet</h2>
+      <p>
+        This is the part most vendors leave out. All of it is true as of the date below.
+      </p>
+      <table>
+        <tr><th>Certification or control</th><th>Status</th></tr>
+        <tr>
+          <td>SOC 2 report</td>
+          <td><strong>We do not have one.</strong> We will not describe a report we do not hold, and we will not use the word compliant for something we have not been examined on. If you need one for procurement, we will tell you plainly that it does not exist yet</td>
+        </tr>
+        <tr>
+          <td>Signed data processing agreements</td>
+          <td>In progress, not complete for every provider listed above. We will not claim they are all in place until they are</td>
+        </tr>
+        <tr>
+          <td>Independent penetration test</td>
+          <td>Not yet done</td>
+        </tr>
+        <tr>
+          <td>HIPAA or FERPA compliance</td>
+          <td>We do not claim either. FERPA binds schools, not vendors like us, and the school official designation is the district's to make. We act on your own access to your child's information, with your permission</td>
+        </tr>
+        <tr>
+          <td>End to end encryption</td>
+          <td>We do not claim it. To write a reply, our systems have to read your message, which means we hold it in readable form</td>
+        </tr>
+        <tr>
+          <td>Accessibility</td>
+          <td>The public pages are plain HTML with no reliance on scripting. We have not completed a formal WCAG 2.1 AA audit</td>
+        </tr>
+        <tr>
+          <td>Compliance certifications (HITRUST, ISO)</td>
+          <td>None held</td>
+        </tr>
+      </table>
+
+      <h2>What we do have</h2>
+      <ul>
+        <li>This page, which names the encryption we use and the things we cannot do.</li>
+        <li><a href="/privacy">A privacy policy</a> with a retention schedule and the same subprocessor list.</li>
+        <li>A published vulnerability disclosure policy with safe harbour for good faith research, and a machine readable <a href="/.well-known/security.txt">security.txt</a>.</li>
+        <li>A consent gate, a fill and submit split, and a confirmation requirement that are enforced in code.</li>
+      </ul>
+
+      <h2>Report a security issue</h2>
+      <p>
+        Email <a href="mailto:security@get-axolotl.com">security@get-axolotl.com</a>. We will acknowledge
+        your report, tell you what we think, and fix what is real. We will not threaten or pursue
+        someone who reports a problem in good faith. The full policy, including what is in scope and
+        what we ask of you, is in our
+        <a href="https://github.com/mitchellhoward-netizen/Axolotl/blob/main/docs/VULNERABILITY-DISCLOSURE.md">vulnerability disclosure policy</a>.
+      </p>
+
+      <p class="updated">
+        Last reviewed: September 2026. If any statement here stops being true, we change the page. A
+        security page that lags behind the system is worse than no security page.
+      </p>
+    </main>
+  </body>
+</html>

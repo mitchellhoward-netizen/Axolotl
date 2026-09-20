@@ -1,0 +1,10 @@
+# Vulnerability disclosure for Axolotl (the school agent for parents).
+# Format: RFC 9116. Policy and scope: see the Policy field below.
+# We are a small team. A report from you is genuinely useful, and we will not
+# threaten or pursue anyone who reports a problem in good faith.
+
+Contact: mailto:security@get-axolotl.com
+Expires: 2027-09-30T00:00:00.000Z
+Canonical: https://www.get-axolotl.com/.well-known/security.txt
+Policy: https://www.get-axolotl.com/security
+Preferred-Languages: en, es
