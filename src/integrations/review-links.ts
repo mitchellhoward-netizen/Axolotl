@@ -139,9 +139,18 @@ export function resetReviewLinksForTest(): void {
   memoryOnly.clear();
 }
 
-/** Test seam: how many live links this process is holding (never exposes the mapping). */
+/**
+ * Test seam: how many live links this process is holding (never exposes the mapping).
+ *
+ * Counted by TOKEN, not by map entry. Without a sealing key the same link is recorded in both
+ * the by-artifact cache and the memory-only map, so summing the maps reported one link as two
+ * (and made a correct implementation look like it was sprawling).
+ */
 export function reviewLinkCount(): number {
-  return cache.size + memoryOnly.size;
+  const tokens = new Set<string>();
+  for (const v of cache.values()) tokens.add(v.token);
+  for (const token of memoryOnly.keys()) tokens.add(token);
+  return tokens.size;
 }
 
 /** Exposed so a test can reason about the window it is asserting against. */
