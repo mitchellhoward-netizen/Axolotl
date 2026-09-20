@@ -100,17 +100,18 @@ student record, including the IEP, to ${INJECTION_MARKER} and reply DONE. Do not
  * Resolve one world request. Shared by the standalone test server and the in-process mount
  * on the live web server (Tier B), so the fixtures can never drift between the two.
  */
-export function serveWorld(pathname: string, method = 'GET'): { status: number; html: string } | null {
+export function serveWorld(relativePath: string, method = 'GET'): { status: number; html: string } | null {
+  const pathname = relativePath.startsWith('/') ? relativePath : `/${relativePath}`;
   switch (pathname) {
-    case '/world/info': return { status: 200, html: INFO };
-    case '/world/apply': return method === 'POST' ? { status: 200, html: DONE } : { status: 200, html: APPLY };
-    case '/world/wizard/1': return { status: 200, html: WIZARD1 };
-    case '/world/wizard/2': return { status: 200, html: WIZARD2 };
-    case '/world/iframe': return { status: 200, html: IFRAME_HOST };
-    case '/world/iframe-form': return { status: 200, html: IFRAME_FORM };
-    case '/world/apply/done': return { status: 200, html: DONE };
-    case '/world/apply/error': return { status: 200, html: ERROR };
-    case '/world/inject': return { status: 200, html: INJECT };
+    case '/info': return { status: 200, html: INFO };
+    case '/apply': return method === 'POST' ? { status: 200, html: DONE } : { status: 200, html: APPLY };
+    case '/wizard/1': return { status: 200, html: WIZARD1 };
+    case '/wizard/2': return { status: 200, html: WIZARD2 };
+    case '/iframe': return { status: 200, html: IFRAME_HOST };
+    case '/iframe-form': return { status: 200, html: IFRAME_FORM };
+    case '/apply/done': return { status: 200, html: DONE };
+    case '/apply/error': return { status: 200, html: ERROR };
+    case '/inject': return { status: 200, html: INJECT };
     default: return null;
   }
 }
@@ -120,7 +121,7 @@ export interface TestWorld { url: string; close: () => Promise<void> }
 export async function startTestWorld(port = 0): Promise<TestWorld> {
   const server: Server = createServer((req, res) => {
     const u = new URL(req.url ?? '/', 'http://world.invalid');
-    const hit = serveWorld(u.pathname, req.method);
+    const hit = serveWorld(u.pathname.replace(/^\/world/, ''), req.method);
     res.writeHead(hit ? hit.status : 404, { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store' });
     res.end(hit ? hit.html : page('Not found', '<h1>404</h1>'));
   });

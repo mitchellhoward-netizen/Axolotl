@@ -61,6 +61,11 @@ const { LlmClient } = await import('../src/agent/llm.js');
 const chat = chatModel();
 const llm = new LlmClient({ apiKey: chat.apiKey, baseUrl: chat.baseUrl, model: chat.model });
 console.log(`classifier: ${llm.enabled ? chat.model : 'OFFLINE FALLBACK (no model key)'}`);
+if (!llm.enabled) {
+  console.error('this proof needs the real classifier — run it with the service env:');
+  console.error('  railway run --service get-axolotl-agent -- npm run test:triage');
+  process.exit(0);
+}
 
 // ── Set up a synthetic family + their forwarding inbox ──────────────────────
 await db.from('incoming_email').delete().eq('family_id', FAMILY);
