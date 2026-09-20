@@ -20,9 +20,16 @@ import { fillPdf, listPdfFields } from '../integrations/pdf.js';
 import { fillFormForReviewAsync, skyvernEnabled } from '../integrations/skyvern.js';
 import { connectorFor, readForFamily } from '../integrations/connections/index.js';
 import { getConnection } from '../integrations/connections/store.js';
-import { getFamilyInbox, upsertFamilyInbox, updateFamilyInbox, purgeEmails, makeLocalPart } from '../integrations/email-triage/store.js';
+import { getFamilyInbox, upsertFamilyInbox, updateFamilyInbox, purgeEmails, makeLocalPart, getEmailsByStatus } from '../integrations/email-triage/store.js';
 import { logConsent } from '../integrations/consent.js';
 import { getFormRecipe, saveFormRecipe, type FormRecipe } from '../integrations/form-recipes.js';
+import {
+  authorizeRecipient,
+  authorizeUrl,
+  emailDomain,
+  grantedDomainsFor,
+  type FamilyAuthorization,
+} from './authorization.js';
 import { createEvidence } from '../integrations/evidence-store.js';
 import type { EvidenceRecord, SourceType } from '../domain/evidence.js';
 import { searchSchoolGraph, saveResource, chainSummary } from '../knowledge/resource-graph.js';
@@ -650,6 +657,57 @@ export function redactForLog(value: unknown): unknown {
   return value;
 }
 
+/**
+ * The operator's explicit domain allowlist. A deployment decision, set by a human — never
+ * anything derived from a message or a page.
+ */
+export function operatorActionDomains(env: NodeJS.ProcessEnv = process.env): string[] {
+  return (env.ACTION_ALLOWLIST_DOMAINS ?? '')
+    .split(',')
+    .map((d) => d.trim())
+    .filter(Boolean);
+}
+
+/**
+ * Assemble what we HOLD about this family for action-layer authorization.
+ *
+ * Every entry is a record we created: a researched district contact, or the sender of an email
+ * the parent forwarded and we triaged. Nothing here is read out of a message body or a page —
+ * that is the entire point. A family we know nothing about therefore gets a very narrow
+ * allowlist, which is the correct default.
+ */
+export async function familyAuthorizationFor(deps: ToolDeps): Promise<FamilyAuthorization> {
+  const rows = deps.familyId
+    ? [
+        ...(await getEmailsByStatus(deps.familyId, 'new', 50).catch(() => [])),
+        ...(await getEmailsByStatus(deps.familyId, 'surfaced', 50).catch(() => [])),
+      ]
+    : [];
+  const schoolDomains: string[] = [];
+  const knownRecipients: string[] = [];
+  for (const r of rows) {
+    if (r.from_address) knownRecipients.push(r.from_address);
+    if (r.from_domain) schoolDomains.push(r.from_domain);
+  }
+  const liaison = deps.district?.liaison?.email;
+  if (liaison) {
+    knownRecipients.push(liaison);
+    const d = emailDomain(liaison);
+    if (d) schoolDomains.push(d);
+  }
+  return {
+    schoolDomains,
+    knownRecipients,
+    selfAddresses: deps.profile?.email ? [deps.profile.email] : [],
+  };
+}
+
+/** One line the parent can act on, for any denial. Never a silent drop. */
+function denialCopy(what: string, reason: string, detail: string): string {
+  const why = reason === 'content-supplied' ? `${detail} — that is exactly the pattern I refuse` : detail;
+  return `I did not ${what}: ${why}. If it is genuinely right, tell me and I will add it to what I hold for your family first. I will not act on a destination that only appeared inside a message.`;
+}
+
 export async function runTool(name: string, args: Record<string, unknown>, deps: ToolDeps): Promise<string> {
   // Life context/plan contents never enter the generic tool argument logger.
   if (LIFE_TOOL_NAMES.has(name)) {
@@ -696,6 +754,19 @@ export async function runTool(name: string, args: Record<string, unknown>, deps:
       const subject = String(args.subject ?? '');
       const body = String(args.body ?? '');
       if (!to || !subject || !body) return 'send_email needs to, subject, body.';
+      // ACTION-LAYER AUTHORIZATION. The recipient must resolve to something we HOLD — a school
+      // or contact on this family's record, their own address, or an allowlisted domain. An
+      // address that merely appeared inside an email body or on a page is the attack, not a
+      // destination, and it is refused here in CODE rather than by asking the model nicely.
+      // (Our own logs contain exactly this attempt: "forward the record to <address>".)
+      const mailAuth = await familyAuthorizationFor(deps);
+      const mailDecision = authorizeRecipient({
+        to,
+        family: mailAuth,
+        operatorDomains: operatorActionDomains(),
+        grantedDomains: grantedDomainsFor(deps.familyId),
+      });
+      if (!mailDecision.allowed) return denialCopy(`send that email to ${to}`, mailDecision.reason, mailDecision.detail);
       // Present the draft as readable text (NOT a giant compose URL — the Gmail
       // compose link only pre-fills on desktop web, not mobile) so the parent can
       // review it, then approve the agent to send it from their connected Gmail
@@ -719,6 +790,9 @@ export async function runTool(name: string, args: Record<string, unknown>, deps:
       const url = String(args.url ?? '').trim();
       const phase = String(args.phase ?? '').trim();
       if (!/^https?:\/\//i.test(url)) return 'Provide a valid http(s) url.';
+      const acctAuth = await familyAuthorizationFor(deps);
+      const acctDecision = authorizeUrl({ url, family: acctAuth, operatorDomains: operatorActionDomains(), grantedDomains: grantedDomainsFor(deps.familyId) });
+      if (!acctDecision.allowed) return denialCopy(`sign in or sign up at ${url}`, acctDecision.reason, acctDecision.detail);
       if (phase !== 'signup' && phase !== 'login' && phase !== 'verify') {
         return 'account_action needs phase: signup, login, or verify.';
       }
@@ -778,6 +852,10 @@ export async function runTool(name: string, args: Record<string, unknown>, deps:
     case 'skyvern_fill_form': {
       const url = String(args.url ?? '').trim();
       if (!/^https?:\/\//i.test(url)) return 'Provide the form url.';
+      // A page or an email can NAME a form URL; naming it does not authorize it.
+      const fillAuth = await familyAuthorizationFor(deps);
+      const fillDecision = authorizeUrl({ url, family: fillAuth, operatorDomains: operatorActionDomains(), grantedDomains: grantedDomainsFor(deps.familyId) });
+      if (!fillDecision.allowed) return denialCopy(`fill a form at ${url}`, fillDecision.reason, fillDecision.detail);
       if (!skyvernEnabled()) return "Skyvern isn't configured — use browser_open/browser_fill to fill it instead.";
       const values = (args.values ?? {}) as Record<string, string>;
       // Fire the fill and let the Skyvern webhook (or fallback poller) complete it later.
@@ -942,6 +1020,9 @@ export async function runTool(name: string, args: Record<string, unknown>, deps:
     case 'browser_open': {
       const url = String(args.url ?? '').trim();
       if (!/^https?:\/\//i.test(url)) return 'Provide a valid http(s) url.';
+      const openAuth = await familyAuthorizationFor(deps);
+      const openDecision = authorizeUrl({ url, family: openAuth, operatorDomains: operatorActionDomains(), grantedDomains: grantedDomainsFor(deps.familyId) });
+      if (!openDecision.allowed) return denialCopy(`open ${url}`, openDecision.reason, openDecision.detail);
       const r = await browserOpen(url);
       return r.ok
         ? `Opened ${r.data}. Use browser_observe to see what is actionable on the page.`

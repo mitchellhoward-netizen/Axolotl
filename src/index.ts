@@ -41,6 +41,9 @@ import { makeLlmRouter } from "./demo/router.js";
 import { reviewUrlFor } from "./integrations/review-links.js";
 import { allowInbound, denialMessage } from "./lib/inbound-guard.js";
 import { reactionFor } from "./agent/reactions.js";
+import { provisionFamilyInbox, parseSchoolDomain, parseMailingAddress, forwardingAddressMessage } from "./integrations/email-triage/provision.js";
+import { getFamilyInbox } from "./integrations/email-triage/store.js";
+import { logConsent } from "./integrations/consent.js";
 
 // ── Single-instance guard ──────────────────────────────────────────────────────
 // Running two identical bot instances against the same Spectrum line makes BOTH
@@ -399,6 +402,58 @@ function noticeDue(sender: string): boolean {
   return true;
 }
 
+/**
+ * Issue the family's forwarding address (workstream 1: give the triage pipeline a trigger).
+ *
+ * Idempotent and safe to run on every message: the local part is minted once and reused, and
+ * we only ever ADD domains we actually read from the parent. The address is announced once
+ * per process lifetime, and the copy is honest when we still don't know the school's domain
+ * (an address that silently drops everything would be worse than none).
+ */
+const inboxAnnounced = new Set<string>();
+async function provisionForwarding(
+  conversationId: string,
+  familyId: string,
+  incomingText: string,
+  send: (t: string) => Promise<unknown>,
+): Promise<void> {
+  // No domain configured means we have no address to hand out. Say nothing rather than
+  // invent one.
+  if (!process.env.INBOUND_DOMAIN) return;
+  // `getStateForTest` is the only public state accessor available to this layer.
+  const state = agent.getStateForTest(conversationId);
+  const onboarded = state?.onboarded === true || Boolean(state?.profile?.school && state?.profile?.children?.length);
+  const existing = await getFamilyInbox(familyId).catch(() => null);
+  if (!existing && !onboarded) return; // don't issue an address before we know the family
+
+  const domain = parseSchoolDomain(incomingText);
+  const mailingAddress = parseMailingAddress(incomingText);
+  const before = (existing?.school_domains ?? []).length;
+  const res = await provisionFamilyInbox({
+    familyId,
+    seed: state?.profile?.children?.[0]?.name ?? state?.profile?.school,
+    domains: domain ? [domain] : [],
+    mailingAddress,
+  });
+  if (!res.address) return;
+
+  const firstTime = !inboxAnnounced.has(familyId);
+  if (firstTime) {
+    inboxAnnounced.add(familyId);
+    const msg = forwardingAddressMessage(res);
+    if (msg) await send(msg).catch(() => {});
+    if (res.domains.length) await logConsent(familyId, 'email_monitoring', { domains: res.domains }).catch(() => {});
+    console.log(`[inbox] issued forwarding address to ${familyId} (${res.domains.length} allowed domain(s))`);
+    return;
+  }
+  // Already told them the address; a newly learned domain is worth one short confirmation so
+  // they know their mail will actually get through now.
+  if (domain && res.domains.length > before) {
+    await send(`Got it — I'll accept mail from ${domain} now. Forward anything from them and I'll triage it.`).catch(() => {});
+    await logConsent(familyId, 'email_monitoring', { domains: res.domains }).catch(() => {});
+  }
+}
+
 for await (const [space, message] of app.messages) {
   // Never answer our own outbound echoes.
   if (message.direction === "outbound") continue;
@@ -564,6 +619,13 @@ for await (const [space, message] of app.messages) {
       stagedConsent: /reply yes|reply send|\byes\b[^.]{0,30}\b(confirm|submit|to send)\b/i.test(reply),
     });
     if (emoji) await Promise.resolve(reactFn(emoji)).catch(() => {});
+  }
+
+  // Forwarding address: the trigger for email triage. Best-effort and never blocks the reply.
+  if (parentId && typeof text === 'string') {
+    await provisionForwarding(space.id, parentId, text, (t) => Promise.resolve(space.send(t))).catch((e) =>
+      console.error('[inbox] provisioning error:', (e as Error)?.message ?? e),
+    );
   }
 }
 } catch {

@@ -14,6 +14,9 @@ export interface FamilyInboxRow {
   local_part: string;
   school_domains: string[];
   monitoring_consented_at?: string | null;
+  /** Kept for one reason: the health-breach rule cannot be satisfied over iMessage, so a
+   *  postal notice path has to exist BEFORE an incident, not after one. */
+  mailing_address?: string | null;
 }
 
 export interface IncomingEmailRow {

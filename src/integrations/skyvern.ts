@@ -141,7 +141,10 @@ function blockedFrom(output: unknown, failure: unknown): FillResult['blocked'] {
 // the agent branches on and the parent is told the truth about, instead of "a snag".
 
 export type SkyvernErrorCode =
-  | 'no_form' | 'signin_required' | 'captcha_blocked' | 'access_denied' | 'validation_error';
+  | 'no_form' | 'signin_required' | 'captcha_blocked' | 'access_denied' | 'validation_error'
+  /** The fill path submitted/sent/paid/finalized something. Must never happen: the ONLY route
+   * to a submission is the consent-gated submit step. Reported so it cannot pass unnoticed. */
+  | 'submitted_without_authorization';
 
 const ERROR_CODES: Record<string, string> = {
   no_form: 'The page contains no form fields to fill — it is an information page, not an application form.',
@@ -149,6 +152,7 @@ const ERROR_CODES: Record<string, string> = {
   captcha_blocked: 'A CAPTCHA or bot check is blocking progress.',
   access_denied: 'The site refused access to this form.',
   validation_error: 'The form rejected the submitted values with a validation error.',
+  submitted_without_authorization: 'The form was submitted, sent, finalized or paid on the page',
 };
 
 /** Guardrails every fill task carries. Stated as completion criteria because Skyvern's
@@ -171,6 +175,19 @@ const SUBMIT_RULES =
   'TERMINATE with "captcha_blocked" for a CAPTCHA, "signin_required" for a login wall, and ' +
   '"validation_error" if the form rejects the values.';
 
+/** The fill task reports whether the page ended up submitted. This is the code-level check
+ * behind the prompt's prohibition: a prohibition alone is a request, and this makes it
+ * observable and refusable. */
+const FILL_SCHEMA = {
+  type: 'object',
+  properties: {
+    form_present: { type: 'boolean', description: 'True if the page actually contained form fields to fill.' },
+    submitted_anything: { type: 'boolean', description: 'True if the form was submitted, sent, paid, finalized or confirmed on the page.' },
+    blocker: { type: 'string', description: 'What stopped you (sign-in, CAPTCHA, no form).' },
+  },
+  required: ['form_present'],
+} as const;
+
 const SUBMIT_SCHEMA = {
   type: 'object',
   properties: {
@@ -182,13 +199,13 @@ const SUBMIT_SCHEMA = {
 } as const;
 
 /** Pull our structured extraction out of a run's output, tolerating nesting. */
-function readExtraction(output: unknown): { submitted?: boolean; confirmation?: string; blocker?: string } {
+function readExtraction(output: unknown): { submitted?: boolean; submitted_anything?: boolean; confirmation?: string; blocker?: string } {
   const seen = new Set<unknown>();
   const visit = (v: unknown, depth: number): Record<string, unknown> | undefined => {
     if (!v || typeof v !== 'object' || depth > 4 || seen.has(v)) return undefined;
     seen.add(v);
     const o = v as Record<string, unknown>;
-    if (typeof o.submitted === 'boolean') return o;
+    if (typeof o.submitted === 'boolean' || typeof o.submitted_anything === 'boolean') return o;
     for (const key of ['extracted', 'extraction', 'data', 'output', 'result', 'extracted_content', 'task_output', 'content']) {
       const hit = visit(o[key], depth + 1);
       if (hit) return hit;
@@ -202,6 +219,7 @@ function readExtraction(output: unknown): { submitted?: boolean; confirmation?: 
   const hit = visit(output, 0) ?? {};
   return {
     submitted: typeof hit.submitted === 'boolean' ? hit.submitted : undefined,
+    submitted_anything: typeof hit.submitted_anything === 'boolean' ? hit.submitted_anything : undefined,
     confirmation: typeof hit.confirmation === 'string' && hit.confirmation.trim() ? hit.confirmation.trim() : undefined,
     blocker: typeof hit.blocker === 'string' && hit.blocker.trim() ? hit.blocker.trim() : undefined,
   };
@@ -462,6 +480,7 @@ export async function fillFormForReviewAsync(input: {
     browser_session_id: browserSessionId,
     ...(webhookUrl ? { webhook_url: webhookUrl } : {}),
     error_code_mapping: ERROR_CODES,
+    data_extraction_schema: FILL_SCHEMA,
   });
   const runId = String(runRes?.run_id ?? '');
   if (!runId) {
@@ -512,6 +531,29 @@ export async function handleFillComplete(runId: string): Promise<void> {
       // fill we KEEP it open — the post-YES Phase B submit reuses it to carry sign-in
       // cookies, and SubmitAdapter closes it after that submit.
       if (pending.browserSessionId && terminal.status !== 'completed') await closeSession(pending.browserSessionId);
+    }
+
+    // CODE-LEVEL GUARD ON THE IRREVERSIBLE ACTION. The fill task is told never to submit, and
+    // it also reports whether the page ended up submitted. A prohibition alone is a request;
+    // this is the refusal. If anything was submitted, we do NOT stage a submit, we kill the
+    // session, and we tell the parent plainly — a silent success here would be the worst
+    // outcome in the product.
+    const fillExtraction = readExtraction(terminal.output);
+    if (terminal.status === 'completed' && (fillExtraction.submitted_anything === true || fillExtraction.submitted === true || readErrorCode(terminal.output) === 'submitted_without_authorization')) {
+      if (pending?.browserSessionId) await closeSession(pending.browserSessionId);
+      console.warn('[skyvern] POLICY: a fill task reported a submission it was not authorized to make', runId);
+      completedFills.add(runId);
+      if (fillCompleteHandler) {
+        await fillCompleteHandler({
+          runId,
+          ok: false,
+          status: 'policy_violation',
+          errorCode: 'submitted_without_authorization',
+          detail: errorCodeDetail('submitted_without_authorization'),
+          meta: pending ? { ...(pending.meta ?? {}), formUrl: pending.formUrl } : undefined,
+        });
+      }
+      return;
     }
 
     const info: FillCompleteInfo = {

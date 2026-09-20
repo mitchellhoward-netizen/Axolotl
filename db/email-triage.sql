@@ -6,8 +6,13 @@ create table if not exists family_inbox (
   family_id text primary key,
   local_part text unique not null,           -- e.g. patrick-a1b2
   school_domains text[] not null default '{}',
-  monitoring_consented_at timestamptz
+  monitoring_consented_at timestamptz,
+  mailing_address text                       -- for postal notice; the health-breach rule
+                                             -- cannot be satisfied over iMessage
 );
+
+-- Idempotent for databases created before mailing_address existed.
+alter table family_inbox add column if not exists mailing_address text;
 
 create table if not exists incoming_email (
   id uuid primary key default gen_random_uuid(),

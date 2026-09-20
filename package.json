@@ -57,7 +57,10 @@
     "test:triage": "tsx scripts/test-triage.ts",
     "test:world": "tsx scripts/test-world.ts",
     "rehearse:world": "tsx scripts/rehearse-world.ts",
-    "test:reactions": "tsx scripts/test-reactions.ts"
+    "test:reactions": "tsx scripts/test-reactions.ts",
+    "prune:retention": "tsx scripts/prune-retention.ts",
+    "test:retention": "tsx scripts/test-retention.ts",
+    "test:authorization": "tsx scripts/test-authorization.ts"
   },
   "dependencies": {
     "@browserbasehq/stagehand": "^4.0.2",

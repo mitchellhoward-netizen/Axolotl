@@ -171,6 +171,15 @@ export function finalizeOnboarding(profile: FamilyProfile, district: DistrictPro
   }
 
   lines.push('');
+  // Two things we cannot invent later and cannot fix after an incident:
+  //  - the school's sending domain, which is what lets us accept their mail (the sender
+  //    guard is strict, so an empty allowlist means nothing gets through);
+  //  - a mailing address, because the health-breach rule requires a postal path and
+  //    iMessage notice does not satisfy it.
+  lines.push('Two things that make the rest work:');
+  lines.push('1. What email address does your school send from? (like office@yourschool.org) — I use it to accept their mail and ignore everything else.');
+  lines.push('2. A mailing address for my records. If anything ever went wrong with your data I am required to be able to reach you by post, not just by text.');
+  lines.push('');
   lines.push('What would you like help with first? Tell me what\u2019s going on, or just pick one of the above.');
   return lines.join('\n');
 }
