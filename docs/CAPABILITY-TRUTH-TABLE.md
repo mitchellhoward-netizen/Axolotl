@@ -138,6 +138,25 @@ These are the **MUST CHANGE** items. Each shows the exact current wording and a 
 - **Why it's false:** no voicemail-specific capability is implemented; the Retell voice agent conducts a live conversation.
 - **Suggested:** `"• Place calls to the school"`.
 
+### M12 — A browser run that reports `completed` is treated as a real submission
+- **Wording:** the parent is told the form was submitted once the Skyvern run reaches a terminal
+  status — `submitFilledForm` returns `ok: terminal.status === 'completed'`
+  (`src/integrations/skyvern.ts`), and `handleFillComplete` marks the fill `ok` the same way.
+- **Why it's false (or at least unproven):** `completed` means the agent *believed* it finished. It is
+  not evidence that a Submit control was clicked, that the site accepted the data, or that a
+  confirmation exists. The most-reported browser-agent failure is exactly this — a status that says
+  the task is done when the action did not happen — and a CAPTCHA or a validation error can appear
+  *after* the click. We also never extract a confirmation number, never re-read the page, and never
+  compare what was submitted against what the parent approved.
+- **Why it is the most dangerous item in this table:** the others overstate what the agent can do; this
+  one can tell a parent their child is enrolled, or their absence note was filed, when nothing was.
+- **Suggested:** treat "clicked submit, no confirmation observed" as **failure**; extract the
+  confirmation reference (Skyvern `data_extraction_schema` / final-page read) and only then say
+  `"Submitted — confirmation ABC123"`. Otherwise: `"I filled the form, but I couldn't confirm it went
+  through. I'd log in and check, or here's the link."` Add `error_code_mapping` so a bot-wall or
+  validation failure comes back as a specific reason instead of a generic snag, and verify against the
+  `har`/final-page artifact rather than the run status. See `docs/COMPUTER-USE-SOTA.md` §5.
+
 ---
 
 ## Capability deep-dives (the specific findings requested)
