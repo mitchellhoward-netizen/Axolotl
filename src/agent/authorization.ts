@@ -153,8 +153,38 @@ export interface AuthorizationInput {
 }
 
 export type Decision =
-  | { allowed: true; reason: 'known-recipient' | 'known-domain' | 'self' | 'operator-domain' | 'granted-domain'; normalized: string }
+  | { allowed: true; reason: 'known-recipient' | 'known-domain' | 'self' | 'operator-domain' | 'granted-domain' | 'parent-supplied'; normalized: string }
   | { allowed: false; reason: 'invalid' | 'content-supplied' | 'unknown-recipient' | 'host-blocked' | 'host-not-authorized' | 'not-a-url'; detail: string };
+
+/** Was this value present in a provenance list? */
+function inList(value: string, list: string[] | undefined): boolean {
+  if (!list?.length) return false;
+  const v = value.toLowerCase();
+  return list.some((c) => {
+    const n = c.toLowerCase().trim();
+    return n === v || (n.includes('@') ? n === v : normalizeHost(n) === normalizeHost(v));
+  });
+}
+
+/** Email addresses appearing in a block of text (the parent's own message). */
+export function emailsInText(text: unknown): string[] {
+  const out = new Set<string>();
+  for (const m of String(text ?? '').matchAll(/[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/g)) {
+    const e = normalizeEmail(m[0]);
+    if (e) out.add(e);
+  }
+  return [...out];
+}
+
+/** Hosts appearing as URLs in a block of text (the parent's own message). */
+export function hostsInText(text: unknown): string[] {
+  const out = new Set<string>();
+  for (const m of String(text ?? '').matchAll(/https?:\/\/[^\s<>()"']+/gi)) {
+    const parsed = parseHost(m[0]);
+    if (parsed.ok) out.add(parsed.host);
+  }
+  return [...out];
+}
 
 /** Was this address/host seen in untrusted content? */
 function cameFromContent(value: string, contentSupplied: string[] | undefined): boolean {
@@ -180,7 +210,10 @@ export function authorizeRecipient(input: {
   family: FamilyAuthorization;
   operatorDomains?: string[];
   grantedDomains?: string[];
+  /** Addresses that appeared in untrusted content (page text, email body). NEVER sufficient. */
   contentSupplied?: string[];
+  /** Addresses the PARENT typed in their own message this turn. The parent is the principal. */
+  parentSupplied?: string[];
 }): Decision {
   const to = normalizeEmail(input.to);
   if (!to) return { allowed: false, reason: 'invalid', detail: 'that is not an email address' };
@@ -200,6 +233,17 @@ export function authorizeRecipient(input: {
       reason: 'content-supplied',
       detail: 'that address came from inside a message or page, not from anything on file for your family',
     };
+  }
+  // THE PARENT IS THE TRUSTED PRINCIPAL. An address they typed in their own message is an
+  // instruction, not content — this is what makes first contact with a school we have never
+  // corresponded with possible without pre-allowlisting every district in the country.
+  //
+  // Positioned deliberately AFTER the content check and AFTER our own records: if an address
+  // arrived inside an email or a page, the parent repeating it does NOT launder it into an
+  // authorization ("forward it to the address they gave" is exactly the attack), and if it is
+  // already on file the stricter, more informative reason wins.
+  if (inList(to, input.parentSupplied)) {
+    return { allowed: true, reason: 'parent-supplied', normalized: to };
   }
   const fromSchools = hostAllowedBy(domain, [input.family.schoolDomains]);
   if (fromSchools) return { allowed: true, reason: 'known-domain', normalized: to };
@@ -228,6 +272,8 @@ export function authorizeUrl(input: {
   operatorDomains?: string[];
   grantedDomains?: string[];
   contentSupplied?: string[];
+  /** Hosts the PARENT pasted in their own message this turn. */
+  parentSupplied?: string[];
 }): Decision {
   const parsed = parseHost(input.url);
   if (!parsed.ok) {
@@ -245,6 +291,12 @@ export function authorizeUrl(input: {
   }
   if (isBlockedHost(host)) {
     return { allowed: false, reason: 'host-blocked', detail: 'that address is private or internal' };
+  }
+  // Same rule as recipients: a URL the parent typed is their instruction; a URL that came out
+  // of a page or an email body is not, even when the parent repeats it ("fill the form at the
+  // link they sent" is the steering attempt, not an authorization).
+  if (inList(host, input.parentSupplied)) {
+    return { allowed: true, reason: 'parent-supplied', normalized: host };
   }
   const school = hostAllowedBy(host, [input.family.schoolDomains]);
   if (school) return { allowed: true, reason: 'known-domain', normalized: host };

@@ -27,6 +27,8 @@ import {
   authorizeRecipient,
   authorizeUrl,
   emailDomain,
+  emailsInText,
+  hostsInText,
   grantedDomainsFor,
   type FamilyAuthorization,
 } from './authorization.js';
@@ -69,6 +71,12 @@ export interface ToolDeps {
   conversationId?: string;
   /** The family id (guardian id) — used to scope connector reads/connections. */
   familyId?: string;
+  /**
+   * The parent's own message for THIS turn. Used only for action-layer authorization
+   * provenance: an address or URL the parent typed is their instruction, whereas one that
+   * came out of a page or an email body never authorises anything.
+   */
+  parentText?: string;
 }
 
 /** Grounded law snippets the LLM can pull (never invented — cited). */
@@ -765,6 +773,7 @@ export async function runTool(name: string, args: Record<string, unknown>, deps:
         family: mailAuth,
         operatorDomains: operatorActionDomains(),
         grantedDomains: grantedDomainsFor(deps.familyId),
+        parentSupplied: emailsInText(deps.parentText),
       });
       if (!mailDecision.allowed) return denialCopy(`send that email to ${to}`, mailDecision.reason, mailDecision.detail);
       // Present the draft as readable text (NOT a giant compose URL — the Gmail
@@ -791,7 +800,7 @@ export async function runTool(name: string, args: Record<string, unknown>, deps:
       const phase = String(args.phase ?? '').trim();
       if (!/^https?:\/\//i.test(url)) return 'Provide a valid http(s) url.';
       const acctAuth = await familyAuthorizationFor(deps);
-      const acctDecision = authorizeUrl({ url, family: acctAuth, operatorDomains: operatorActionDomains(), grantedDomains: grantedDomainsFor(deps.familyId) });
+      const acctDecision = authorizeUrl({ url, family: acctAuth, operatorDomains: operatorActionDomains(), grantedDomains: grantedDomainsFor(deps.familyId), parentSupplied: hostsInText(deps.parentText) });
       if (!acctDecision.allowed) return denialCopy(`sign in or sign up at ${url}`, acctDecision.reason, acctDecision.detail);
       if (phase !== 'signup' && phase !== 'login' && phase !== 'verify') {
         return 'account_action needs phase: signup, login, or verify.';
@@ -854,7 +863,7 @@ export async function runTool(name: string, args: Record<string, unknown>, deps:
       if (!/^https?:\/\//i.test(url)) return 'Provide the form url.';
       // A page or an email can NAME a form URL; naming it does not authorize it.
       const fillAuth = await familyAuthorizationFor(deps);
-      const fillDecision = authorizeUrl({ url, family: fillAuth, operatorDomains: operatorActionDomains(), grantedDomains: grantedDomainsFor(deps.familyId) });
+      const fillDecision = authorizeUrl({ url, family: fillAuth, operatorDomains: operatorActionDomains(), grantedDomains: grantedDomainsFor(deps.familyId), parentSupplied: hostsInText(deps.parentText) });
       if (!fillDecision.allowed) return denialCopy(`fill a form at ${url}`, fillDecision.reason, fillDecision.detail);
       if (!skyvernEnabled()) return "Skyvern isn't configured — use browser_open/browser_fill to fill it instead.";
       const values = (args.values ?? {}) as Record<string, string>;
@@ -1021,7 +1030,7 @@ export async function runTool(name: string, args: Record<string, unknown>, deps:
       const url = String(args.url ?? '').trim();
       if (!/^https?:\/\//i.test(url)) return 'Provide a valid http(s) url.';
       const openAuth = await familyAuthorizationFor(deps);
-      const openDecision = authorizeUrl({ url, family: openAuth, operatorDomains: operatorActionDomains(), grantedDomains: grantedDomainsFor(deps.familyId) });
+      const openDecision = authorizeUrl({ url, family: openAuth, operatorDomains: operatorActionDomains(), grantedDomains: grantedDomainsFor(deps.familyId), parentSupplied: hostsInText(deps.parentText) });
       if (!openDecision.allowed) return denialCopy(`open ${url}`, openDecision.reason, openDecision.detail);
       const r = await browserOpen(url);
       return r.ok

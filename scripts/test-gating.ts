@@ -31,6 +31,11 @@ function makeDeps() {
   const savedProfiles: Array<Record<string, unknown>> = [];
   const deps: ToolDeps = {
     profile: undefined,
+    // The parent's own message for this turn. The action-layer authorization control
+    // (src/agent/authorization.ts) authorizes an address or URL the PARENT typed, and refuses
+    // one that came from a page or an email body. These fixtures model a parent asking for
+    // exactly these actions, so the ask is what supplies the provenance.
+    parentText: 'please email a@b.edu and handle https://example.com for me',
     getCases: () => [],
     appendCase: () => {},
     proposeSteps: (steps) => recorded.push(...steps),

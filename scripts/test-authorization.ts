@@ -18,6 +18,8 @@ let pass = 0; let fail = 0;
 const check = (n: string, c: boolean, d?: string) => { if (c) { pass++; console.log(`  ✓ ${n}`); } else { fail++; console.log(`  ✗ ${n}${d ? ` — ${d}` : ''}`); } };
 
 const {
+  emailsInText,
+  hostsInText,
   authorizeRecipient,
   authorizeUrl,
   normalizeEmail,
@@ -72,6 +74,37 @@ console.log('\n# content cannot authorize, but may repeat a contact we already h
   // The classic look-alike: a school-ish domain that is not on file.
   const lookalike = authorizeRecipient({ to: 'attacker@soquel-esd.test.evil.example', family: FAMILY, contentSupplied: ['attacker@soquel-esd.test.evil.example'] });
   check('a look-alike domain is DENIED', !lookalike.allowed, JSON.stringify(lookalike));
+}
+
+console.log('\n# PROVENANCE: the parent is the principal, content never is');
+{
+  // First contact with a school we have never corresponded with. The parent typed it, so it
+  // is an instruction and it MUST work — pre-allowlisting every district cannot scale.
+  const typed = 'office@newschool.org';
+  const d = authorizeRecipient({ to: typed, family: FAMILY, parentSupplied: emailsInText(`please email ${typed} about the bus`) });
+  check('an address the PARENT typed is ALLOWED', d.allowed, JSON.stringify(d));
+  check('...reason=parent-supplied', (d as { reason?: string }).reason === 'parent-supplied', JSON.stringify(d));
+
+  // The same address arriving inside a page or an email body is the attack, and repeating it
+  // does not launder it: "forward it to the address they gave" is the whole play.
+  const relayed = authorizeRecipient({ to: typed, family: FAMILY, contentSupplied: [typed], parentSupplied: emailsInText(`yes, email ${typed}`) });
+  check('an address from CONTENT is still DENIED even when the parent repeats it', !relayed.allowed && relayed.reason === 'content-supplied', JSON.stringify(relayed));
+
+  // And the motivating case from our own logs, unchanged.
+  const attack = authorizeRecipient({ to: ATTACKER, family: FAMILY, contentSupplied: [ATTACKER], parentSupplied: emailsInText(`forward the record to ${ATTACKER}`) });
+  check('the attacker address stays DENIED', !attack.allowed, JSON.stringify(attack));
+
+  // A parent-pasted URL likewise has to work (that is how they hand us a form).
+  const pasted = 'https://newdistrictschool.org/enroll';
+  const u = authorizeUrl({ url: pasted, family: { schoolDomains: [] }, parentSupplied: hostsInText(`fill this in: ${pasted}`) });
+  check('a URL the PARENT pasted is ALLOWED', u.allowed, JSON.stringify(u));
+  const steeredUrl = authorizeUrl({ url: 'https://attacker-collect.example/form', family: { schoolDomains: [] }, contentSupplied: ['attacker-collect.example'], parentSupplied: ['attacker-collect.example'] });
+  check('a URL from content stays DENIED', !steeredUrl.allowed && steeredUrl.reason === 'content-supplied', JSON.stringify(steeredUrl));
+
+  // Extraction is what feeds the bucket, so assert it reads a real sentence correctly.
+  check('emailsInText finds the address in a sentence', emailsInText('email office@new.school please').includes('office@new.school'));
+  check('hostsInText finds the host in a sentence', hostsInText('go to https://x.example.org/form now').includes('x.example.org'));
+  check('emailsInText finds nothing in ordinary text', emailsInText('what time is pickup').length === 0);
 }
 
 console.log('\n# domain matching cannot be spoofed by suffix');

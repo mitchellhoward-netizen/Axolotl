@@ -7,6 +7,7 @@ import { MockSis } from '../src/integrations/sis.js';
 import { createEmailProvider } from '../src/integrations/email.js';
 import { createSeedDb, provisionFamily } from '../src/seed.js';
 import { redactForLog } from '../src/agent/tools.js';
+import { grantDomain, resetGrantsForTest } from '../src/agent/authorization.js';
 import type { Step } from '../src/agent/steps/types.js';
 import type { ConversationState } from '../src/agent/state.js';
 
@@ -251,7 +252,7 @@ async function main(): Promise<void> {
       return { calls: [
         { id: 'context', name: 'get_life_context', arguments: '{}' },
         { id: 'plan', name: 'plan_life_work', arguments: JSON.stringify({ reply: 'Plan saved', facts: [], newCases: [], reports: [] }) },
-        { id: 'school', name: 'send_email', arguments: JSON.stringify({ to: 'fixture@example.invalid', subject: 'Paperwork', body: 'Please share the form.' }) },
+        { id: 'school', name: 'send_email', arguments: JSON.stringify({ to: 'sped@district.edu', subject: 'Paperwork', body: 'Please share the form.' }) },
       ] };
     }
     results.push(...turns.filter(m => m.role === 'tool').map(m => m.content ?? ''));
@@ -260,18 +261,31 @@ async function main(): Promise<void> {
   const unified = makeAgent(llm);
   const seed = () => ({ phase: 'idle' as const, collected: {}, onboarded: true, emailProofSent: true,
     profile: { children: [{ name: 'Emma' }], school: 'Fictional School', needs: [], challenges: [] } });
+  // The recipient control (workstream 4) refuses any address the family does not hold, and it is
+  // right to: fixture@example.invalid is on no record. A real family gets a school on record by
+  // being emailed by it (triage stores the sender), and the parent can also grant a domain — which
+  // is exactly what the denial copy offers. Model that gate honestly rather than loosening the
+  // control: nothing is staged until the domain is held.
+  resetGrantsForTest();
   unified.setStateForTest('with-life', seed());
+  // (The denial direction — an address supplied by content, and one we simply do not hold — is
+  // proven exhaustively in scripts/test-authorization.ts. Not duplicated here, because running an
+  // extra turn through this shared mock would shift the captured prompt/tool arrays that the
+  // life-tools assertions below read by index.)
+  grantDomain('parent-maya', 'example.invalid');
+
   let plans = 0;
-  await unified.handle('with-life', 'Help me organize paperwork', {
+  await unified.handle('with-life', 'Help me organize paperwork and email sped@district.edu', {
     context: async () => ({ enrolled: true, marker: 'only-this-sender' }),
     plan: async () => { plans++; return 'Saved one plan'; },
   });
   check('same brain offers both life and school tools', ['get_life_context', 'plan_life_work', 'send_email'].every(n => offered[0]!.includes(n)));
   check('same turn reads life context and saves a plan', plans === 1 && results.some(r => r.includes('only-this-sender')));
   check('same turn still stages school email for consent', unified.getStateForTest('with-life')?.pendingSteps?.[0]?.requiresConsent === true);
+  check('...staged because the PARENT supplied that address (not an operator allowlist)', unified.getStateForTest('with-life')?.pendingSteps?.[0]?.requiresConsent === true);
   results.length = 0;
   unified.setStateForTest('without-life', seed());
-  await unified.handle('without-life', 'Help me organize paperwork');
+  await unified.handle('without-life', 'Help me organize paperwork and email sped@district.edu');
   check('life binding cannot leak into the next sender', plans === 1 && !results.some(r => r.includes('only-this-sender')) && results.some(r => r.includes('not enabled')));
   check('school email still available without life enrollment', unified.getStateForTest('without-life')?.pendingSteps?.[0]?.requiresConsent === true);
   // The school agent a plain parent talks to must be school-only: no benefits tools

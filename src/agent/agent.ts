@@ -1207,6 +1207,7 @@ export class Agent {
 
     const deps: ToolDeps = {
       life,
+      parentText: text,
       profile: state.profile,
       district: this.researchedDistrict(state.profile),
       llm: this.opts.researchLlm ?? this.opts.llm,
