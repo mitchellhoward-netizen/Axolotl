@@ -612,21 +612,38 @@ export const LLM_TOOLS = [
 ];
 
 /** Mask sensitive values before logging/inspection so a password, OTP, code, or SSN never leaks. */
+/** PII that must never reach a log line, by key name. A parent's email or a child's name
+ * in the log store is an unmanaged second copy of the family's data — outside every
+ * retention and deletion path — so this list is deliberately broad. */
+const SENSITIVE_KEY = /password|passwd|pwd|secret|token|code|otp|pin|ssn|dob|birth|email|phone|mobile|address|first_?name|last_?name|parent_?name|child|student|guardian|school|grade|diagnos|medication|iep/i;
+const SENSITIVE_LABEL = /password|passwd|pwd|secret|ssn|dob|birth|cvv|card|account|pin|code|otp|email|phone|name|address|school|grade/i;
+const EMAIL_SHAPE = /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/g;
+/**
+ * Phone numbers, without eating the IDs we need for debugging. Three shapes: an
+ * international number (+…), a bare 10–11 digit number, and a US-formatted number with
+ * separators. A Skyvern run id like `tsk_576233651510202774` is 18 digits, so it fails the
+ * 10–11 digit rule and survives — otherwise every failure would become un-diagnosable.
+ */
+const PHONE_SHAPE = /(?:\+\d[\d\s().-]{7,}\d)|(?:\b\d{10,11}\b)|(?:\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4})/g;
+
+/** Mask PII by SHAPE inside a value that isn't identifiable by its key. */
+function maskShapes(s: string): string {
+  return s.replace(EMAIL_SHAPE, '[email]').replace(PHONE_SHAPE, '[number]');
+}
+
 export function redactForLog(value: unknown): unknown {
+  if (typeof value === 'string') return maskShapes(value);
   if (Array.isArray(value)) return value.map(redactForLog);
   if (value && typeof value === 'object') {
     const obj = value as Record<string, unknown>;
     // A labeled field (e.g. `{label:'password', value:'...'}`) — mask the value if the label is sensitive.
     if (typeof obj.label === 'string' && 'value' in obj) {
       const label = obj.label.toLowerCase();
-      const sensitive = /password|passwd|pwd|secret|ssn|dob|birth|cvv|card|account|pin|code|otp/.test(label);
-      return { ...obj, value: sensitive ? '[redacted]' : redactForLog(obj.value) };
+      return { ...obj, value: label.length > 0 && SENSITIVE_LABEL.test(label) ? '[redacted]' : redactForLog(obj.value) };
     }
     const out: Record<string, unknown> = {};
     for (const [k, v] of Object.entries(obj)) {
-      const key = k.toLowerCase();
-      const sensitive = /password|passwd|pwd|secret|token|code|otp|pin|ssn|dob|birth/.test(key);
-      out[k] = sensitive ? '[redacted]' : redactForLog(v);
+      out[k] = SENSITIVE_KEY.test(k.toLowerCase()) ? '[redacted]' : redactForLog(v);
     }
     return out;
   }

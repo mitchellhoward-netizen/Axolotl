@@ -88,13 +88,31 @@ async function main(): Promise<void> {
   const okThanks2 = await agent.handle(ID, 'yes please');
   check('"yes please" is a valid consent', okThanks2.text.includes('Done!'), okThanks2.text.slice(0, 60));
 
-  // 4. Sensitive creds must be redacted from any logged args (password/code/SSN never leak).
+  // 4. Sensitive creds AND family PII must be redacted from any logged args. The log
+  // store must not become a second copy of the family's data (a real leak: child name,
+  // school and parent email were reaching production logs through tool arguments).
   const redacted = redactForLog({ password: 'hunter2', code: '123456', url: 'https://x', fields: [{ label: 'Password', value: 'hunter2' }, { label: 'Email', value: 'a@b.com' }] }) as Record<string, unknown>;
   check('password redacted', redacted.password === '[redacted]', JSON.stringify(redacted));
   check('code redacted', redacted.code === '[redacted]', JSON.stringify(redacted));
   check('sensitive labeled field redacted', (redacted.fields as Array<{ label: string; value: string }>)[0]!.value === '[redacted]', JSON.stringify(redacted.fields));
-  check('non-sensitive field preserved', (redacted.fields as Array<{ label: string; value: string }>)[1]!.value === 'a@b.com', JSON.stringify(redacted.fields));
+  check('email in a labeled field is redacted', (redacted.fields as Array<{ label: string; value: string }>)[1]!.value === '[redacted]', JSON.stringify(redacted.fields));
   check('url preserved', redacted.url === 'https://x');
+
+  // 4b. Family PII in tool arguments never reaches a log line.
+  const fill = redactForLog({
+    url: 'https://ps134.org/afterschool/',
+    values: { first_name: 'Patrick', last_name: 'Grom', grade: '1st', school: 'P.S. 134', parent_email: 'parent@example.com', phone: '+18315550100' },
+  }) as { url: string; values: Record<string, string> };
+  check('child + parent PII in fill values redacted', Object.values(fill.values).every((v) => v === '[redacted]'), JSON.stringify(fill.values));
+  check('the URL being filled is still visible for debugging', fill.url === 'https://ps134.org/afterschool/');
+  const shape = redactForLog({ note: 'reach me at parent@example.com or +1 (831) 555-0100', sent_to: 'maya@school.org', alt: '831-555-0100', bare: '8315550100' }) as Record<string, string>;
+  check('email masked by SHAPE even under an unknown key', shape.sent_to === '[email]', JSON.stringify(shape));
+  check('email + phone masked inside free text', !/parent@example\.com|555-0100|5550100/.test(shape.note ?? ''), JSON.stringify(shape));
+  check('formatted and bare phone numbers both masked', shape.alt === '[number]' && shape.bare === '[number]', JSON.stringify(shape));
+  // Debuggability must survive: run ids and long numeric ids are NOT phone numbers.
+  const ids = redactForLog({ run_id: 'tsk_576233651510202774', claim: 'CLM-F53C498F', ts: '2026-09-19T20:00:53Z' }) as Record<string, string>;
+  check('a Skyvern run id is preserved for diagnosis', ids.run_id === 'tsk_576233651510202774' && ids.claim === 'CLM-F53C498F', JSON.stringify(ids));
+  check('an ISO timestamp is preserved', ids.ts === '2026-09-19T20:00:53Z', JSON.stringify(ids));
 
   // A diverted life command expires the old school proposal, never authorizes it.
   agent.setStateForTest(ID, { phase: 'confirming', collected: {}, pendingSteps: [makeEmailStep()], pendingCall: true });
