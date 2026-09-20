@@ -32,6 +32,18 @@ most for "the agent did something to my child's account without me".
 
 ## 2. Gaps, ordered by risk
 
+> **STATUS — do not read this section as the current state.** It was accurate when written and
+> several items are now CLOSED. Resolved: **G1** PII in logs (redaction by key name and by shape,
+> `d0cfd95`); **G2** plaintext mailbox tokens (sealed AES-256-GCM, ciphertext bound to the family
+> so a copied row cannot be opened, lazy migration, proven against the live database, `0550bbd`);
+> **G3** the world-readable `family_memory` policy (scoped to `current_family_id()` in `db/rls.sql`);
+> **G6** deletion completeness (`deleteFamilyData`, including revoking the vendor-side portal
+> session first, `0550bbd`); **G8** inbound abuse controls (`src/lib/inbound-guard.ts`, `0550bbd`);
+> **G9** the silent foreign-provider fallback (now behind an explicit `ALLOW_FOREIGN_MODEL_FALLBACK`,
+> `0550bbd`). Still open: **G4** (live RLS state unverified — needs a dashboard check), **G5**
+> (vendor DPAs), **G7** (OTP codes at rest), **G10** (assurance artifacts). Current posture:
+> `docs/PRIVACY-AND-COMPLIANCE.md`.
+
 ### G1 — Parent and child PII is written to application logs (live, today) — HIGH
 **Evidence:** production Railway logs contain a real child's name, grade, school and the parent's
 email address, because `runTool` logs tool arguments through `redactForLog`, which only masks keys

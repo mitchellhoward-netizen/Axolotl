@@ -48,23 +48,38 @@ export function normalizeHost(host: string): string {
 }
 
 /**
- * Hosts we refuse outright, whatever any allowlist says. These are the SSRF/internal shapes
- * (a school website is never a private address) plus our own test-world suffix, which must
- * never be reachable through a tool by default.
+ * Hosts we refuse OUTRIGHT, whatever any allowlist says: the SSRF shapes and internal names
+ * that could actually reach something private. A school website is never `10.0.0.5`, never
+ * `foo.local`, never a cloud metadata endpoint.
+ *
+ * DELIBERATE DECISION on reserved TLDs (`.test`, `.example`, `.invalid`, `.localhost`): only
+ * `.localhost` is blocked here. The others cannot resolve on the public internet, so allowing
+ * one carries no SSRF risk — but BLOCKING them refused legitimately configured hosts (our own
+ * fixtures and the family's school domain in tests), and a host check that refuses real school
+ * domains silently breaks enrollments. That is the same bug class we already hit with the
+ * iframe pre-flight, so the rule is:
+ *
+ *   reserved TLDs are reachable ONLY through explicit configuration (a school domain we hold,
+ *   an operator allowlist entry, or a grant the parent made). They are never reachable by
+ *   default, and never because content named them. Deny-by-default still does the work.
  */
 export function isBlockedHost(host: string): boolean {
   const h = normalizeHost(host);
   if (!h) return true;
   if (h === 'localhost' || h.endsWith('.localhost')) return true;
-  if (/\.(local|internal|cluster\.local|svc|test|example|invalid|localhost)$/.test(h)) return true;
+  if (/\.(local|internal|cluster\.local|svc|localhost)$/.test(h)) return true;
   if (/^\d{1,3}(\.\d{1,3}){3}$/.test(h)) return true; // IP literal: never a school
   if (h.startsWith('[') || h.includes(':')) return true; // IPv6 literal
   if (/^(?:0x|0\d)/.test(h)) return true; // octal/hex IP tricks
   return false;
 }
 
-/** Parse a URL down to its host, or explain why it cannot be authorized. */
-export function hostFromUrl(raw: unknown): { ok: true; host: string } | { ok: false; reason: string } {
+/**
+ * Parse a URL down to its host. This does NOT apply the block list, so callers can decide the
+ * order of their checks — naming a content-supplied target correctly matters more than
+ * collapsing every refusal into "blocked".
+ */
+export function parseHost(raw: unknown): { ok: true; host: string } | { ok: false; reason: string } {
   const s = String(raw ?? '').trim();
   if (!s) return { ok: false, reason: 'no url' };
   let u: URL;
@@ -78,8 +93,15 @@ export function hostFromUrl(raw: unknown): { ok: true; host: string } | { ok: fa
   if (u.username || u.password) return { ok: false, reason: 'url carries credentials' };
   const host = normalizeHost(u.hostname);
   if (!host) return { ok: false, reason: 'no host' };
-  if (isBlockedHost(host)) return { ok: false, reason: 'private or reserved host' };
   return { ok: true, host };
+}
+
+/** Parse + refuse the outright-blocked shapes. Kept for callers that want both in one step. */
+export function hostFromUrl(raw: unknown): { ok: true; host: string } | { ok: false; reason: string } {
+  const parsed = parseHost(raw);
+  if (!parsed.ok) return parsed;
+  if (isBlockedHost(parsed.host)) return { ok: false, reason: 'private or reserved host' };
+  return parsed;
 }
 
 /**
@@ -207,17 +229,22 @@ export function authorizeUrl(input: {
   grantedDomains?: string[];
   contentSupplied?: string[];
 }): Decision {
-  const parsed = hostFromUrl(input.url);
+  const parsed = parseHost(input.url);
   if (!parsed.ok) {
     return { allowed: false, reason: parsed.reason === 'no url' || parsed.reason === 'not a url' ? 'not-a-url' : 'host-blocked', detail: parsed.reason };
   }
   const host = parsed.host;
+  // CONTENT is checked before the block list: if a page or an email named this target, that is
+  // the fact worth recording and telling the parent, even when the host is also unroutable.
   if (cameFromContent(host, input.contentSupplied)) {
     return {
       allowed: false,
       reason: 'content-supplied',
       detail: 'that site came from inside a message or page, not from anything on file for your family',
     };
+  }
+  if (isBlockedHost(host)) {
+    return { allowed: false, reason: 'host-blocked', detail: 'that address is private or internal' };
   }
   const school = hostAllowedBy(host, [input.family.schoolDomains]);
   if (school) return { allowed: true, reason: 'known-domain', normalized: host };
