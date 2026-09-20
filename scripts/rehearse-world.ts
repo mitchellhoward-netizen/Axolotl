@@ -15,8 +15,10 @@
  */
 import { CONFIRMATION_REF } from '../src/testworld/world.js';
 
-const BASE = (process.env.TESTWORLD_BASE_URL ?? '').replace(/\/$/, '');
 const TOKEN = process.env.TESTWORLD_TOKEN ?? '';
+// Default to our own deployed world when the service env is present.
+const BASE = (process.env.TESTWORLD_BASE_URL
+  ?? (process.env.RAILWAY_PUBLIC_DOMAIN ? `https://${process.env.RAILWAY_PUBLIC_DOMAIN}/world/${TOKEN}` : '')).replace(/\/$/, '');
 if (!BASE || !TOKEN) {
   console.error('Set TESTWORLD_BASE_URL (e.g. https://<host>/world/<token>) — cannot rehearse without a public world.');
   process.exit(2);
