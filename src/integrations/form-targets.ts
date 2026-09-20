@@ -67,8 +67,11 @@ export function hostOf(url: string): string {
 export function programSlugFrom(url: string): string {
   try {
     const path = new URL(url).pathname.replace(/\/+$/, '');
-    const segs = path.split('/').filter(Boolean).filter((s) => !/\.(html?|php|aspx?|jsp)$/i.test(s));
-    const last = segs[segs.length - 1] ?? '';
+    const segs = path.split('/').filter(Boolean);
+    // Strip a file extension rather than discarding the segment: "/forms/apply.php" is the
+    // "apply" program, not the "forms" one. A bare "index" is not a program name, so step back.
+    let last = (segs[segs.length - 1] ?? '').replace(/\.(html?|php|aspx?|jsp)$/i, '');
+    if (/^index$/i.test(last) && segs.length > 1) last = segs[segs.length - 2]!.replace(/\.(html?|php|aspx?|jsp)$/i, '');
     return last.toLowerCase().replace(/[^a-z0-9-]+/g, '-').slice(0, 60) || 'form';
   } catch {
     return 'form';

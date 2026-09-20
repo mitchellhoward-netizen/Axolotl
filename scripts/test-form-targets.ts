@@ -72,9 +72,8 @@ console.log('\n# resolution: the verified target wins, after a cheap check');
   check('...and it is reported as no fallback, because nothing was skipped', r.fellBack === 'none');
 }
 {
-  const r = await resolveFormTarget({ givenUrl: 'https://ps134.test/apply', now: NOW },
-    { get: async () => undefined, hasForm: async () => true });
-  check('with nothing stored and no URL given, the caller must rediscover', r.url === '' && r.via === 'given');
+  const r = await resolveFormTarget({ now: NOW }, { get: async () => undefined, hasForm: async () => true });
+  check('with nothing stored and no URL given, the caller must rediscover', r.url === '' && r.via === 'given', JSON.stringify(r));
 }
 
 console.log('\n# a stored target that stopped working falls back AND is marked unhealthy');
@@ -129,6 +128,74 @@ const learns = (o: { status: string; errorCode?: string; policyViolation?: boole
   check('an unconfirmed submit does NOT teach', !submitTeaches(false, 'completed'));
   check('a submit with no extraction at all does NOT teach', !submitTeaches(undefined, 'completed'));
   check('a blocked submit does NOT teach', !submitTeaches(undefined, 'terminated'));
+}
+
+console.log('\n# INTEGRATION: the real fill path, against a fake vendor');
+// The pure tests above prove the decision. This proves the WIRING — that a completed run
+// actually records a target, and that the next fill sends the vendor the stored URL instead of
+// the caller's fresh guess. That is the whole point of the workstream.
+{
+  const { createServer } = await import('node:http');
+  const asked: string[] = [];
+  let nextRun = 0;
+  const runs = new Map<string, { status: string }>();
+  const server = createServer(async (req, res) => {
+    const u = new URL(req.url ?? '/', 'http://x');
+    const json = (code: number, body: unknown) => { res.writeHead(code, { 'Content-Type': 'application/json' }); res.end(JSON.stringify(body)); };
+    if (u.pathname === '/v1/browser_sessions') return json(200, { browser_session_id: 'bs_test' });
+    if (u.pathname === '/v1/browser_sessions/bs_test/close') return json(200, {});
+    if (u.pathname === '/v1/run/tasks') {
+      const chunks: Buffer[] = [];
+      for await (const c of req) chunks.push(Buffer.isBuffer(c) ? c : Buffer.from(String(c)));
+      const body = JSON.parse(Buffer.concat(chunks).toString('utf8') || '{}') as { url?: string };
+      asked.push(String(body.url ?? ''));
+      const id = `run_${++nextRun}`;
+      runs.set(id, { status: 'completed' });
+      return json(200, { run_id: id });
+    }
+    if (u.pathname.startsWith('/v1/runs/') && u.pathname.endsWith('/artifacts')) return json(200, []);
+    if (u.pathname.startsWith('/v1/runs/')) {
+      const r = runs.get(u.pathname.split('/')[3]!);
+      return r ? json(200, { status: r.status, output: {} }) : json(404, {});
+    }
+    return json(404, {});
+  });
+  await new Promise<void>((r) => server.listen(0, '127.0.0.1', r));
+  const port = (server.address() as { port: number }).port;
+
+  process.env.SKYVERN_BASE_URL = `http://127.0.0.1:${port}`;
+  process.env.SKYVERN_API_KEY = 'test-key';
+  const { fillFormForReviewAsync, handleFillComplete } = await import('../src/integrations/skyvern.js');
+  const { resetFormTargetsForTest, getFormTarget, targetKey } = await import('../src/integrations/form-targets.js');
+  resetFormTargetsForTest();
+
+  const VERIFIED = `http://127.0.0.1:${port}/world/apply`;
+  const GUESS = `http://127.0.0.1:${port}/world/some-landing-page`;
+  const program = 'afterschool-integration';
+
+  // First fill: the caller's URL is the one we have, and it succeeds.
+  const first = await fillFormForReviewAsync({ formUrl: VERIFIED, values: { child_first_name: 'Leo' }, program, skipPreflight: true });
+  check('the first fill uses the caller\'s URL', first.ok === true && asked[0] === VERIFIED, String(asked[0]));
+  await handleFillComplete(String(first.runId));
+
+  const stored = await getFormTarget(targetKey({ url: VERIFIED, program }));
+  check('a completed fill RECORDS the target', Boolean(stored) && stored?.url === VERIFIED, JSON.stringify(stored));
+  check('...with provenance marked as learned', stored?.source === 'learned');
+  check('...and a success count of one', stored?.successCount === 1, String(stored?.successCount));
+
+  // Second fill: the caller brings a DIFFERENT url (a fresh guess/discovery). The stored one
+  // must win — this is the behaviour the whole workstream exists for.
+  const second = await fillFormForReviewAsync({ formUrl: GUESS, values: { child_first_name: 'Leo' }, program, skipPreflight: true });
+  check('a later fill is sent the STORED url, not the fresh guess', second.ok === true && asked[1] === VERIFIED, `asked=${asked[1]} guess=${GUESS}`);
+
+  // A FAILED run must not teach, and the stored target must survive it.
+  runs.set(String(second.runId), { status: 'failed' });
+  await handleFillComplete(String(second.runId));
+  const after = await getFormTarget(targetKey({ url: VERIFIED, program }));
+  check('a failed run does not raise the success count', after?.successCount === 1, String(after?.successCount));
+  check('...and does not erase the verified target', after?.url === VERIFIED);
+
+  await new Promise<void>((r) => server.close(() => r()));
 }
 
 console.log(`\n${fail === 0 ? '✓' : '✗'} ${pass} passed, ${fail} failed`);
