@@ -238,14 +238,30 @@ Ordered by risk removed per unit of effort. These are engineering/ops actions; t
   of the above can be shown to work.
 - **Cyber liability insurance.**
 
-### 5.3 Legal & regulatory — pending the compliance research stream
+### 5.3 Legal & regulatory
 
-*(this subsection is being populated from a dedicated legal/regulatory research pass; the specific
-statutes, their applicability, and the plain-language claims we may make will be filled in here with
-primary-source citations. Until then, treat every legal question below as open.)*
+The legal/regulatory research is complete and lives in **`docs/PRIVACY-AND-COMPLIANCE.md`**, which
+supersedes this placeholder. Headlines that change decisions:
 
-Open questions that pass will answer: does FERPA bind us when we read a portal on a parent's
-instruction; does COPPA apply when the parent is the user; which California AI/ADMT and student-data
-laws apply; what our CCPA/CPRA deletion and disclosure obligations are; what a district or employer
-questionnaire will demand; and what we must never claim. The "must not claim" list in §3 is already
-safe to rely on — those are architectural facts, not legal interpretations.
+- **FERPA does not bind us directly** (it binds funding recipients; no private right of action), and
+  we must never claim to be a "school official" or "FERPA compliant". Our lawful basis is the
+  parent's own access right, with their credentials. KOPIPA/SOPIPA probably does not reach a
+  parent-marketed product either.
+- **CCPA probably does not cover us yet** (revenue/volume thresholds, not a pre-revenue exemption) —
+  but the 2026 risk-assessment rules and the rule making **all PI of under-16s sensitive PI** have
+  **no small-business exemption**, so instrument the thresholds now.
+- **The FTC Health Breach Notification Rule likely does apply**, and it treats an *unauthorized
+  disclosure* as a breach — which makes every model/browser-vendor hop an authorization-requiring
+  disclosure to paper in the notice.
+- **Our master clock is 30 days, not 60** (California SB 446; New York SHIELD likewise), with a
+  **day 10–14 internal decision gate** because Maryland requires AG-first notice with no threshold
+  and Vermont requires a filing within 14 business days.
+- **The school-facing paperwork requires less than expected and says nothing about AI**: the SDPC
+  National DPA v2.2 mandates no encryption, no MFA, no pen test, no insurance and **zero AI terms**
+  (and v2.3 still won't). California's CA-NDPA Exhibit G does — so a published AI addendum is our
+  differentiator for at least a year.
+- **Anthropic's DPA Schedule 1 declares "None" for special categories**, which is wrong for
+  IEP/health-adjacent content. Amend it, or keep that content out of the API.
+- Three operational failures caused a $5.1M edtech settlement and are cheap to prevent:
+  **terminated-employee credentials, no login-anomaly alerting, and backups not segregated from
+  production.**
