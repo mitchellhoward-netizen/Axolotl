@@ -130,11 +130,21 @@ setFillCompleteHandler(async (info) => {
     return;
   }
   if (!info.ok) {
+    // Say WHICH thing went wrong. "I hit a snag" told the parent nothing and told us nothing —
+    // these are the cases we can actually distinguish, and two of them are the parent's to fix.
     const why =
-      info.status === 'timed_out'
-        ? `I couldn't finish filling that form in time${info.detail ? ` (${info.detail})` : ''}.`
-        : `I hit a snag filling that form${info.detail ? ` (${info.detail})` : ''}.`;
-    const text = `${why}${formUrl ? `\n\nYou can fill it yourself here: ${formUrl}` : ''}`;
+      info.errorCode === 'no_form'
+        ? `that page doesn't have a form on it — it's an information page, not the application`
+        : info.errorCode === 'signin_required'
+          ? `that form needs you to sign in first`
+          : info.errorCode === 'captcha_blocked'
+            ? `that form is behind a bot check (CAPTCHA)`
+            : info.errorCode === 'access_denied'
+              ? `that site refused access to the form`
+              : info.status === 'timed_out'
+                ? `I couldn't finish filling it in time`
+                : `I hit a snag filling it${info.detail ? ` (${info.detail})` : ''}`;
+    const text = `I couldn't fill that form: ${why}.${formUrl ? `\n\nHere's the link: ${formUrl}` : ''}`;
     await agent.sendToConversation(conversationId, text).catch((e) => console.error('[skyvern] fill-fail text error:', (e as Error)?.message ?? e));
     return;
   }

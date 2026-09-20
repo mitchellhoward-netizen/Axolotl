@@ -24,17 +24,25 @@ export class SubmitAdapter implements ChannelAdapter {
     if (skyvernEnabled() && p.values) {
       const sub = await submitFilledForm({ url: p.url, values: p.values, browserSessionId: p.skyvernSessionId });
       if (p.skyvernSessionId) await closeSession(p.skyvernSessionId);
+      // M12: a run that reported "completed" is NOT a submission. Only the site's own
+      // confirmation counts. Never tell a parent their child is enrolled on anything less.
       if (!sub.ok) {
+        const why = sub.blocker ?? 'I could not confirm it went through';
+        const summary =
+          sub.status === 'blocked'
+            ? `I filled the form but couldn't submit it — ${why}\nHere's the link to finish it yourself: ${p.url}`
+            : `I filled the form and clicked submit, but I could NOT confirm it went through (${why}). ` +
+              `I won't tell you it's submitted when I can't see a confirmation. Check it here: ${p.url}`;
         return {
           status: 'failed',
           note: sub.status,
-          parentSummary: `I filled the form but couldn't submit it (${sub.status}). Here's the link to finish: ${p.url}`,
+          parentSummary: summary,
           action: { channel: 'WEB', direction: 'outbound', content: p.url, status: 'failed' },
         };
       }
-      const parentSummary = sub.confirmationScreenshotUrl
-        ? `✅ Submitted — here's the confirmation: ${sub.confirmationScreenshotUrl}`
-        : '✅ Submitted. Here\u2019s the link to the form: ' + p.url;
+      const parentSummary = sub.confirmation
+        ? `✅ Submitted — the site confirmed it. Reference: ${sub.confirmation}${sub.confirmationScreenshotUrl ? `\nProof: ${sub.confirmationScreenshotUrl}` : ''}`
+        : `✅ Submitted — I saw the site's confirmation page.${sub.confirmationScreenshotUrl ? ` Here's the proof: ${sub.confirmationScreenshotUrl}` : ''}`;
       return {
         status: 'done',
         referenceId: 'skyvern-submit-' + Date.now().toString(36),

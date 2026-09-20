@@ -134,6 +134,118 @@ function blockedFrom(output: unknown, failure: unknown): FillResult['blocked'] {
   return null;
 }
 
+// ── Failure classification we can branch on, and a cheap pre-flight ─────────
+//
+// Skyvern's docs call failure_reason string-matching "fragile" and point at
+// `error_code_mapping`, which returns OUR codes in `output.error`. These are the codes
+// the agent branches on and the parent is told the truth about, instead of "a snag".
+
+export type SkyvernErrorCode =
+  | 'no_form' | 'signin_required' | 'captcha_blocked' | 'access_denied' | 'validation_error';
+
+const ERROR_CODES: Record<string, string> = {
+  no_form: 'The page contains no form fields to fill — it is an information page, not an application form.',
+  signin_required: 'A sign-in or account-creation wall is blocking this form.',
+  captcha_blocked: 'A CAPTCHA or bot check is blocking progress.',
+  access_denied: 'The site refused access to this form.',
+  validation_error: 'The form rejected the submitted values with a validation error.',
+};
+
+/** Guardrails every fill task carries. Stated as completion criteria because Skyvern's
+ * documented top failure modes are "completed too early" and "completed without submitting". */
+const FILL_RULES =
+  'Fill ONLY the fields listed above, then STOP — do not click Submit, Enroll, Apply, Pay, ' +
+  'purchase anything, or create an account. COMPLETE when the listed fields are filled. ' +
+  'TERMINATE IMMEDIATELY with error_code "no_form" if the first page contains no form fields to ' +
+  'fill (it may be an information page rather than the application). ' +
+  'TERMINATE with "signin_required" if a sign-in or account-creation wall appears, and with ' +
+  '"captcha_blocked" if a CAPTCHA or bot check blocks you. Leave any field you do not have empty.';
+
+const SUBMIT_RULES =
+  'Fill in this form, then CLICK the Submit button to submit it. Do not create an account and do ' +
+  'not pay for anything. After clicking Submit, REPORT HONESTLY what the site did: set submitted ' +
+  'to true ONLY if the site showed a confirmation, thank-you page, or confirmation/reference ' +
+  'number; set it to false if nothing changed, an error appeared, or you are unsure. Put the ' +
+  'confirmation or reference text in "confirmation", and whatever stopped you in "blocker". ' +
+  'NEVER report submitted = true without a confirmation visible on the page. ' +
+  'TERMINATE with "captcha_blocked" for a CAPTCHA, "signin_required" for a login wall, and ' +
+  '"validation_error" if the form rejects the values.';
+
+const SUBMIT_SCHEMA = {
+  type: 'object',
+  properties: {
+    submitted: { type: 'boolean', description: 'True ONLY if the site confirmed the submission (confirmation or reference shown).' },
+    confirmation: { type: 'string', description: 'The confirmation/reference text the site displayed, if any.' },
+    blocker: { type: 'string', description: 'What prevented submission, if it failed.' },
+  },
+  required: ['submitted'],
+} as const;
+
+/** Pull our structured extraction out of a run's output, tolerating nesting. */
+function readExtraction(output: unknown): { submitted?: boolean; confirmation?: string; blocker?: string } {
+  const seen = new Set<unknown>();
+  const visit = (v: unknown, depth: number): Record<string, unknown> | undefined => {
+    if (!v || typeof v !== 'object' || depth > 4 || seen.has(v)) return undefined;
+    seen.add(v);
+    const o = v as Record<string, unknown>;
+    if (typeof o.submitted === 'boolean') return o;
+    for (const key of ['extracted', 'extraction', 'data', 'output', 'result', 'extracted_content', 'task_output', 'content']) {
+      const hit = visit(o[key], depth + 1);
+      if (hit) return hit;
+    }
+    for (const val of Object.values(o)) {
+      const hit = visit(val, depth + 1);
+      if (hit) return hit;
+    }
+    return undefined;
+  };
+  const hit = visit(output, 0) ?? {};
+  return {
+    submitted: typeof hit.submitted === 'boolean' ? hit.submitted : undefined,
+    confirmation: typeof hit.confirmation === 'string' && hit.confirmation.trim() ? hit.confirmation.trim() : undefined,
+    blocker: typeof hit.blocker === 'string' && hit.blocker.trim() ? hit.blocker.trim() : undefined,
+  };
+}
+
+/** Our error code from `error_code_mapping`, if the run set one. */
+function readErrorCode(output: unknown): SkyvernErrorCode | undefined {
+  if (!output || typeof output !== 'object') return undefined;
+  const e = (output as { error?: unknown }).error;
+  return typeof e === 'string' && e in ERROR_CODES ? (e as SkyvernErrorCode) : undefined;
+}
+
+export function errorCodeDetail(code?: SkyvernErrorCode): string | undefined {
+  return code ? ERROR_CODES[code] : undefined;
+}
+
+/**
+ * Cheap pre-flight: does this URL look like it even has a form? We ask over plain HTTP so
+ * a wrong URL costs one request instead of a browser session and a 50-step timeout — this
+ * is the "handed Skyvern a landing page" failure.
+ *
+ * Deliberately conservative: anything that looks like a client-rendered app returns
+ * `undefined` (unknown, let Skyvern try), because a JS app's form is not in the HTML.
+ * Only a plainly static page with zero form affordances returns false.
+ */
+export async function pageHasForm(url: string): Promise<boolean | undefined> {
+  try {
+    const r = await withTimeout(
+      fetch(url, { redirect: 'follow', headers: { 'User-Agent': 'Mozilla/5.0 (compatible; Axolotl/1.0)' } }),
+      8000,
+      null,
+    );
+    if (!r?.ok) return undefined; // 403/404/etc are not proof of "no form"
+    const ct = r.headers.get('content-type') ?? '';
+    if (!/text\/html/i.test(ct)) return undefined; // PDFs, JSON, images: not our call
+    const html = (await r.text()).slice(0, 400_000);
+    if (/<(input|select|textarea|form)[\s>]/i.test(html)) return true;
+    if (/react|vue|angular|__NEXT_DATA__|svelte|astro|nuxt|data-reactroot|ember/i.test(html)) return undefined;
+    return false;
+  } catch {
+    return undefined;
+  }
+}
+
 async function pollRun(runId: string, timeoutMs: number): Promise<{ status: string; output?: unknown; failure?: unknown }> {
   const end = Date.now() + timeoutMs;
   while (Date.now() < end) {
@@ -161,56 +273,6 @@ async function reviewScreenshot(runId: string): Promise<string | undefined> {
   }
 }
 
-/** Phase A: open a persistent browser session + FILL the form (never submit). */
-export async function fillFormForReview(input: {
-  formUrl: string;
-  values: Record<string, string>;
-  program?: string;
-  maxSteps?: number;
-}): Promise<FillResult> {
-  if (!KEY) return { ok: false, status: 'disabled', blocked: null };
-  // 1. Open a persistent session.
-  const session = await api('/v1/browser_sessions', {});
-  const browserSessionId = String(session?.browser_session_id ?? '');
-  if (!browserSessionId) return { ok: false, status: 'session_failed', blocked: null };
-
-  // 2. Phase A task: FILL ONLY. The prompt NEVER instructs submit, enroll, pay, or
-  // account creation — those are forbidden; stop after filling, report a wall.
-  const fieldLines = Object.entries(input.values)
-    .map(([k, v]) => `- ${k}: ${v}`)
-    .join('\n');
-  const prompt =
-    `Fill out this form using the following information (for the family's own application). Do NOT click Submit, Enroll, Pay, purchase, or create an account. ` +
-    `Stop after filling every field. If you hit a sign-in, CAPTCHA, or account-creation wall, stop and report which. ` +
-    `Leave any field you don't have empty. Do NOT submit or complete the form.\n\nFields to enter:\n${fieldLines}`;
-  const runRes = await api('/v1/run/tasks', {
-    prompt,
-    url: input.formUrl,
-    max_steps: input.maxSteps ?? MAX_STEPS,
-    browser_session_id: browserSessionId,
-  });
-  const runId = String(runRes?.run_id ?? '');
-  if (!runId) return { ok: false, browserSessionId, status: 'task_failed', blocked: null };
-
-  // 3. Poll to terminal (bounded) — on timeout, cancel.
-  const terminal = await pollRun(runId, FILL_TIMEOUT_MS);
-  if (terminal.status === 'timed_out') {
-    void fetch(`${BASE}/v1/runs/${runId}/cancel`, { method: 'POST', headers: { 'x-api-key': KEY } }).catch(() => {});
-    return { ok: false, runId, browserSessionId, status: 'timed_out', blocked: blockedFrom(terminal.output, terminal.failure), detail: 'Timed out filling — I cancelled it; I can hand you the link instead.' };
-  }
-  const screenshot = await reviewScreenshot(runId);
-  const ok = terminal.status === 'completed';
-  return {
-    ok,
-    runId,
-    browserSessionId,
-    status: terminal.status,
-    reviewScreenshotUrl: screenshot,
-    blocked: blockedFrom(terminal.output, terminal.failure),
-    detail: ok ? undefined : `Skyvern ${terminal.status} — check the screenshot / I'll hand you the link.`,
-  };
-}
-
 /**
  * Phase B: navigate to the form, RE-FILL it with the same values, then submit.
  * Called ONLY from the post-YES consent path (SubmitAdapter). The filled page from
@@ -218,28 +280,55 @@ export async function fillFormForReview(input: {
  * screenshot was the review preview. `browserSessionId` is optional and only needed
  * to carry sign-in cookies for auth-gated forms.
  */
+export interface SubmitResult {
+  /** TRUE only when the SITE ITSELF confirmed the submission. Never set from run status alone. */
+  ok: boolean;
+  status: 'confirmed' | 'unconfirmed' | 'blocked' | 'failed' | 'no_url' | 'disabled';
+  /** The confirmation/reference text the site displayed, when we got one. */
+  confirmation?: string;
+  /** What stopped it, when it failed. */
+  blocker?: string;
+  errorCode?: SkyvernErrorCode;
+  confirmationScreenshotUrl?: string;
+}
+
 export async function submitFilledForm(input: {
   url: string;
   values: Record<string, string>;
   browserSessionId?: string;
-}): Promise<{ ok: boolean; status: string; confirmationScreenshotUrl?: string }> {
+}): Promise<SubmitResult> {
   if (!KEY) return { ok: false, status: 'disabled' };
   if (!input.url) return { ok: false, status: 'no_url' };
   const fieldLines = Object.entries(input.values).map(([k, v]) => `- ${k}: ${v}`).join('\n');
-  const prompt =
-    `Go to this form, fill it in with the following information, then CLICK the Submit button to submit it. ` +
-    `Do not create an account or pay. Fill every field you can, then submit.\n\nFields:\n${fieldLines}`;
+  const prompt = `${SUBMIT_RULES}\n\nFields:\n${fieldLines}`;
   const runRes = await api('/v1/run/tasks', {
     prompt,
     url: input.url,
     max_steps: 12,
     ...(input.browserSessionId ? { browser_session_id: input.browserSessionId } : {}),
+    data_extraction_schema: SUBMIT_SCHEMA,
+    error_code_mapping: ERROR_CODES,
   });
   const runId = String(runRes?.run_id ?? '');
-  if (!runId) return { ok: false, status: 'task_failed' };
-  const terminal = await pollRun(runId, 60000);
+  if (!runId) return { ok: false, status: 'failed', blocker: 'could not start the submit task' };
+  const terminal = await pollRun(runId, 60_000);
   const screenshot = await reviewScreenshot(runId);
-  return { ok: terminal.status === 'completed', status: terminal.status, confirmationScreenshotUrl: screenshot };
+  const x = readExtraction(terminal.output);
+  const errorCode = readErrorCode(terminal.output);
+  // The whole point of M12: a completed run is NOT a submission. We require the site's own
+  // confirmation, reported by the task we asked to check for it.
+  const confirmed = terminal.status === 'completed' && x.submitted === true;
+  return {
+    ok: confirmed,
+    status: confirmed ? 'confirmed' : errorCode ? 'blocked' : 'unconfirmed',
+    confirmation: x.confirmation,
+    blocker:
+      x.blocker ??
+      errorCodeDetail(errorCode) ??
+      (terminal.status !== 'completed' ? `Skyvern ${terminal.status}` : 'the site never showed a confirmation'),
+    errorCode,
+    confirmationScreenshotUrl: screenshot,
+  };
 }
 
 /** Always close the persistent session when done / on decline / on timeout. */
@@ -290,6 +379,8 @@ export interface FillCompleteInfo {
   reviewScreenshotUrl?: string;
   blocked?: FillResult['blocked'];
   detail?: string;
+  /** Our machine-readable reason (from error_code_mapping), when Skyvern set one. */
+  errorCode?: SkyvernErrorCode;
   meta?: Record<string, unknown>;
 }
 
@@ -327,8 +418,21 @@ export async function fillFormForReviewAsync(input: {
   program?: string;
   maxSteps?: number;
   meta?: Record<string, string>;
-}): Promise<{ ok: boolean; runId?: string; browserSessionId?: string; detail?: string }> {
+  /** Skip the plain-HTTP pre-flight (used by tests and when we already know the page). */
+  skipPreflight?: boolean;
+}): Promise<{ ok: boolean; runId?: string; browserSessionId?: string; detail?: string; errorCode?: SkyvernErrorCode }> {
   if (!KEY) return { ok: false, detail: 'disabled' };
+
+  // 0. Pre-flight: never spend a browser session on a plainly static page with no form
+  //    (the "we handed Skyvern a landing page" failure). Unknown answers proceed.
+  if (!input.skipPreflight) {
+    const hasForm = await pageHasForm(input.formUrl).catch(() => undefined);
+    if (hasForm === false) {
+      console.log('[skyvern] pre-flight found no form on', input.formUrl);
+      return { ok: false, detail: 'no_form', errorCode: 'no_form' };
+    }
+  }
+
   // 1. Open a persistent browser session (carried so Phase B can reuse sign-in cookies).
   const session = await api('/v1/browser_sessions', {});
   const browserSessionId = String(session?.browser_session_id ?? '');
@@ -339,10 +443,7 @@ export async function fillFormForReviewAsync(input: {
   const fieldLines = Object.entries(input.values)
     .map(([k, v]) => `- ${k}: ${v}`)
     .join('\n');
-  const prompt =
-    `Fill out this form using the following information (for the family's own application). Do NOT click Submit, Enroll, Pay, purchase, or create an account. ` +
-    `Stop after filling every field. If you hit a sign-in, CAPTCHA, or account-creation wall, stop and report which. ` +
-    `Leave any field you don't have empty. Do NOT submit or complete the form.\n\nFields to enter:\n${fieldLines}`;
+  const prompt = `Fill out this form using the following information (for the family's own application).\n\n${FILL_RULES}\n\nFields to enter:\n${fieldLines}`;
   const webhookUrl =
     process.env.SKYVERN_WEBHOOK_URL || (process.env.RAILWAY_PUBLIC_DOMAIN ? `https://${process.env.RAILWAY_PUBLIC_DOMAIN}/webhooks/skyvern` : undefined);
   const runRes = await api('/v1/run/tasks', {
@@ -351,6 +452,7 @@ export async function fillFormForReviewAsync(input: {
     max_steps: input.maxSteps ?? MAX_STEPS,
     browser_session_id: browserSessionId,
     ...(webhookUrl ? { webhook_url: webhookUrl } : {}),
+    error_code_mapping: ERROR_CODES,
   });
   const runId = String(runRes?.run_id ?? '');
   if (!runId) {
@@ -409,7 +511,10 @@ export async function handleFillComplete(runId: string): Promise<void> {
       status: terminal.status,
       reviewScreenshotUrl: screenshot,
       blocked: blockedFrom(terminal.output, terminal.failure),
-      detail: terminal.status === 'completed' ? undefined : `Skyvern ${terminal.status}${terminal.failure ? ` — ${String(terminal.failure).slice(0, 160)}` : ''}`,
+      errorCode: readErrorCode(terminal.output),
+      detail: terminal.status === 'completed'
+        ? undefined
+        : errorCodeDetail(readErrorCode(terminal.output)) ?? `Skyvern ${terminal.status}${terminal.failure ? ` — ${String(terminal.failure).slice(0, 160)}` : ''}`,
       // Deliver the family context + values so the handler can text the right parent and
       // stage a consent-gated submit (Phase B re-fills these exact values).
       meta: pending

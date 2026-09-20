@@ -790,7 +790,17 @@ export async function runTool(name: string, args: Record<string, unknown>, deps:
         meta: { conversationId: deps.conversationId ?? '' },
       });
       if (!res.ok || !res.runId) {
-        return `I couldn't start filling that form (${res.detail ?? 'unknown'}). It's best to use the link and fill it yourself: ${url}`;
+        // Specific, actionable failures instead of a generic snag. "no_form" is the one we
+        // hit by handing the tool a program landing page instead of the application itself.
+        const why =
+          res.errorCode === 'no_form'
+            ? "that page doesn't have a form on it — it's an information page, not the application"
+            : res.errorCode === 'signin_required'
+              ? 'that form needs you to sign in first'
+              : res.errorCode === 'captcha_blocked'
+                ? 'that form is behind a bot check (CAPTCHA)'
+                : (res.detail ?? 'unknown');
+        return `I couldn't fill that form: ${why}. Find the actual application form link and I'll try again, or use this one yourself: ${url}`;
       }
       return "On it — I'm filling the form with your info. I'll share it for you to review shortly, and nothing gets submitted without your OK.";
     }

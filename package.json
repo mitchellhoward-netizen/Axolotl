@@ -51,7 +51,8 @@
     "test:language": "tsx scripts/test-language.ts",
     "test:flows": "tsx scripts/test-flows.ts",
     "test:school-info": "tsx scripts/test-school-info.ts",
-    "reset:conversations": "tsx scripts/reset-conversations.ts"
+    "reset:conversations": "tsx scripts/reset-conversations.ts",
+    "test:skyvern": "tsx scripts/test-skyvern.ts"
   },
   "dependencies": {
     "@browserbasehq/stagehand": "^4.0.2",
