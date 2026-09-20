@@ -239,6 +239,11 @@ export async function pageHasForm(url: string): Promise<boolean | undefined> {
     if (!/text\/html/i.test(ct)) return undefined; // PDFs, JSON, images: not our call
     const html = (await r.text()).slice(0, 400_000);
     if (/<(input|select|textarea|form)[\s>]/i.test(html)) return true;
+    // An embedded frame means the form may be one level down: the top-level HTML has no
+    // inputs even though the page is genuinely fillable. School portals embed forms in
+    // iframes constantly, so refusing here would silently block real enrollments. Unknown,
+    // not "no" — the browser gets to try.
+    if (/<(iframe|frame|object|embed)[\s>]/i.test(html)) return undefined;
     if (/react|vue|angular|__NEXT_DATA__|svelte|astro|nuxt|data-reactroot|ember/i.test(html)) return undefined;
     return false;
   } catch {

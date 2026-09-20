@@ -8,16 +8,20 @@ import { BrowserAdapter } from './adapters/browser.js';
 import { AccountAdapter } from './adapters/account.js';
 import { SubmitAdapter } from './adapters/submit.js';
 import { BrowserAuthDriver } from '../../integrations/auth.js';
-import { createEmailProvider } from '../../integrations/email.js';
-import { createVoiceProvider } from '../../integrations/voice.js';
+import { createEmailProvider, type EmailProvider } from '../../integrations/email.js';
+import { createVoiceProvider, type VoiceProvider } from '../../integrations/voice.js';
 
 /**
  * Builds the channel→adapter registry from env, exactly like createEmailProvider /
  * createVoiceProvider choose real vs mock per channel.
  */
-export function buildAdapters(env: NodeJS.ProcessEnv = process.env): Record<Channel, ChannelAdapter> {
-  const email = createEmailProvider(env);
-  const voice = createVoiceProvider(env);
+export function buildAdapters(
+  env: NodeJS.ProcessEnv = process.env,
+  /** Test seam: inject providers instead of letting the ambient env choose a real one. */
+  override: { email?: EmailProvider; voice?: VoiceProvider } = {},
+): Record<Channel, ChannelAdapter> {
+  const email = override.email ?? createEmailProvider(env);
+  const voice = override.voice ?? createVoiceProvider(env);
   return {
     email: new EmailAdapter(email),
     text: new TextAdapter(),

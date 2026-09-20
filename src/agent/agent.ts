@@ -210,6 +210,10 @@ export class Agent {
     this.requireVerification = opts.requireVerification ?? process.env.REQUIRE_VERIFICATION !== 'false';
     this.brainFlows = opts.brainFlows ?? process.env.BRAIN_FLOWS === 'true';
     this.brainOnboarding = opts.brainOnboarding ?? process.env.BRAIN_ONBOARDING === 'true';
+    // The injected provider (when given) is the test seam: without it, buildAdapters would
+    // pick a REAL sender straight from the ambient env, which is how a test run once sent
+    // mail to a school address. See src/agent/steps/registry.ts.
+    this.executor = new StepExecutor(buildAdapters(process.env, { email: opts.email }));
   }
 
   async handle(conversationId: string, text: string, life?: LifeTools): Promise<AgentTurn> {
@@ -639,7 +643,7 @@ export class Agent {
   }
 
   // ── Step spine: plan → consent → execute → schedule (channel-agnostic) ──
-  private readonly executor = new StepExecutor(buildAdapters());
+  private readonly executor: StepExecutor;
   // Durable follow-up queue when Supabase is configured, else in-memory.
   private readonly followups = new FollowUpEngine(createFollowUpStore() ?? undefined);
   // Grounded per-district knowledge graph (verifiable RAG corpus).

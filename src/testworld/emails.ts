@@ -28,8 +28,9 @@ export interface EmailFixture {
   note?: string;
 }
 
-const DOMAIN = 'soquel.k12.ca.us';
-const PS = 'parentsquare.com';
+// Reserved TLD (RFC 6761): a fixture domain that can never resolve or receive mail.
+const DOMAIN = 'soquel-esd.test';
+const PS = 'parentsquare.test';
 
 export const EMAIL_WEEK: EmailFixture[] = [
   // ── Needs a parent to act (4 of 16) ───────────────────────────────────────
