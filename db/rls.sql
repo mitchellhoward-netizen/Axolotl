@@ -18,10 +18,24 @@ create policy knowledge_node_read on knowledge_node for select using (true);
 create policy knowledge_node_write on knowledge_node for insert
   with check (auth.role() = 'service_role');
 
--- Family memory: a guardian may only read/write their own row. Replace the
--- placeholder with your real guardian binding (e.g. a profile join on auth.uid()).
+-- Family memory: a guardian may only read their own row.
+--
+-- This policy used to be `using (true)` with a TODO. family_memory is the family's
+-- situation graph (needs, challenges, housing, IEP-adjacent detail), so world-readable
+-- was the worst possible default: any role holding the anon key could read every family.
+-- current_family_id() is defined idempotently here as well as in rls-family.sql, so this
+-- file is safe to run on its own.
+create or replace function current_family_id() returns text
+language sql stable as $$
+  select coalesce(
+    nullif(current_setting('request.jwt.claims', true), '')::jsonb ->> 'sub',
+    nullif(current_setting('app.family_id', true), '')
+  )
+$$;
+
+drop policy if exists family_memory_read on family_memory;
 create policy family_memory_read on family_memory for select
-  using (true); -- TODO: guard with (guardian_id = auth.uid()::text) once you map users→guardians.
+  using (guardian_id = current_family_id());
 create policy family_memory_write on family_memory for insert
   with check (auth.role() = 'service_role');
 

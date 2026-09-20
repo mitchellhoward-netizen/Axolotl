@@ -47,15 +47,31 @@ export interface PlaceCallInfo {
  * hex-encoded in `x-skyvern-signature`). Reject a missing/invalid signature so a
  * forged `run_id` can't trigger completion. Act ON the comparison result.
  */
-function verifySkyvernSignature(rawBody: Buffer, signature: unknown): boolean {
+function verifySkyvernSignature(rawBody: Buffer, signature: unknown, timestamp?: unknown): boolean {
   if (typeof signature !== 'string' || signature.length === 0) return false;
   const apiKey = process.env.SKYVERN_API_KEY;
   if (!apiKey) return false;
   const expected = createHmac('sha256', apiKey).update(rawBody).digest('hex');
   const a = Buffer.from(signature, 'utf8');
   const b = Buffer.from(expected, 'utf8');
-  return a.length === b.length && timingSafeEqual(a, b);
+  if (!(a.length === b.length && timingSafeEqual(a, b))) return false;
+
+  // Freshness. A valid signature with no time bound is a permanent replay key: anyone who
+  // captures one webhook body can re-post it forever. Skyvern sends x-skyvern-timestamp
+  // (seconds); we reject anything outside a 5-minute window. If the header is absent we
+  // warn once and allow it (so a vendor change cannot silently break fills), unless
+  // SKYVERN_WEBHOOK_REQUIRE_TS=true makes absence fatal.
+  const MAX_SKEW_S = Number(process.env.SKYVERN_WEBHOOK_MAX_SKEW_S ?? 300);
+  const ts = typeof timestamp === 'string' ? Number(timestamp) : NaN;
+  if (!Number.isFinite(ts)) {
+    if (process.env.SKYVERN_WEBHOOK_REQUIRE_TS === 'true') return false;
+    if (!warnedMissingTs) { warnedMissingTs = true; console.warn('[webhooks/skyvern] no x-skyvern-timestamp — replay window is unbounded'); }
+    return true;
+  }
+  const seconds = ts > 1e12 ? ts / 1000 : ts; // tolerate ms
+  return Math.abs(Date.now() / 1000 - seconds) <= MAX_SKEW_S;
 }
+let warnedMissingTs = false;
 
 function escapeHtml(s: string): string {
   return s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!);
@@ -298,7 +314,7 @@ export function startWebServer(
         const chunks: Buffer[] = [];
         for await (const chunk of req) chunks.push(Buffer.isBuffer(chunk) ? chunk : Buffer.from(String(chunk)));
         const raw = Buffer.concat(chunks);
-        if (!verifySkyvernSignature(raw, req.headers['x-skyvern-signature'])) {
+        if (!verifySkyvernSignature(raw, req.headers['x-skyvern-signature'], req.headers['x-skyvern-timestamp'])) {
           console.warn('[webhooks/skyvern] rejected bad signature');
           res.writeHead(401, { 'Content-Type': 'text/plain' });
           res.end('Invalid signature');

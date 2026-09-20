@@ -46,7 +46,17 @@ async function getStagehand(): Promise<Stagehand | null> {
       const { Stagehand: SH, localBrowser, browserbase } = await import('@browserbasehq/stagehand');
       let browser: StagehandBrowser;
       if (process.env.BROWSERBASE_API_KEY) {
-        browser = await browserbase.launch({ apiKey: process.env.BROWSERBASE_API_KEY });
+        // Recording OFF by default. Browserbase records every session as video by default,
+        // and that replay of a child's school portal is: (a) the largest PII-retention
+        // surface we would own, (b) data we cannot delete (there is no artifact-delete API;
+        // Browserbase keeps replays for weeks), and (c) a session-replay exposure under
+        // all-party-consent wiretap law (CA Penal Code § 638.51). We need the page, not the
+        // video. Opting back in takes an explicit env var.
+        const record = process.env.BROWSERBASE_RECORD_SESSIONS === 'true';
+        browser = await browserbase.launch({
+          apiKey: process.env.BROWSERBASE_API_KEY,
+          browserSettings: { recordSession: record, logSession: record },
+        } as Parameters<typeof browserbase.launch>[0]);
       } else {
         browser = await localBrowser.launch({ headless: true });
       }

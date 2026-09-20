@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import type { EmailMessage, EmailProvider, EmailReceipt } from './email.js';
 import { getSupabase } from './db.js';
+import { SecretBox, secretBox } from '../lib/secret-box.js';
 
 /**
  * Gmail (Google Workspace / personal Gmail) email integration for sending FROM
@@ -171,16 +172,30 @@ export class GmailEmailProvider implements EmailProvider {
 }
 
 // ── Per-parent token persistence (Supabase `gmail_token`) ────────────────────
+//
+// The refresh token is a long-lived key to the parent's whole mailbox, so it is sealed
+// with AES-256-GCM bound to `gmail-token:<guardianId>` (see src/lib/secret-box.ts).
+// Legacy rows written before this change are plain text; we still read them and
+// re-seal on read, so the migration is lazy and no one is logged out by it.
+
+const purposeFor = (guardianId: string) => `gmail-token:${guardianId}`;
 
 export async function saveGmailToken(guardianId: string, tok: GmailToken): Promise<void> {
   const c = getSupabase();
   if (!c) return;
+  const box = secretBox();
+  if (!box) {
+    // Refuse rather than store a mailbox key in the clear. Set SECRETS_ENC_KEY and retry.
+    console.error('[gmail] refusing to store tokens: SECRETS_ENC_KEY is not configured');
+    throw new Error('Email connection is unavailable: the encryption key is not configured.');
+  }
+  const purpose = purposeFor(guardianId);
   await c.from('gmail_token').upsert(
     {
       guardian_id: guardianId,
       email: tok.email ?? null,
-      refresh_token: tok.refreshToken,
-      access_token: tok.accessToken,
+      refresh_token: box.seal(tok.refreshToken, purpose),
+      access_token: box.seal(tok.accessToken, purpose),
       expires_at: tok.expiresAt ?? null,
       updated_at: new Date().toISOString(),
     },
@@ -197,13 +212,34 @@ export async function getGmailToken(guardianId: string): Promise<GmailToken | un
     .eq('guardian_id', guardianId)
     .maybeSingle();
   if (error || !data) return undefined;
-  return {
+
+  const box = secretBox();
+  const purpose = purposeFor(guardianId);
+  const storedRefresh = (data.refresh_token ?? '') as string;
+  const storedAccess = (data.access_token ?? '') as string;
+
+  // Legacy plaintext from before sealing: use it, and migrate it in place.
+  const legacy = storedRefresh.length > 0 && !SecretBox.isSealed(storedRefresh);
+  const refreshToken = SecretBox.isSealed(storedRefresh) ? (box?.open(storedRefresh, purpose) ?? '') : storedRefresh;
+  const accessToken = SecretBox.isSealed(storedAccess) ? (box?.open(storedAccess, purpose) ?? '') : storedAccess;
+
+  const tok: GmailToken = {
     guardianId: data.guardian_id,
     email: data.email ?? undefined,
-    refreshToken: data.refresh_token ?? '',
-    accessToken: data.access_token ?? '',
+    refreshToken,
+    accessToken,
     expiresAt: data.expires_at ? new Date(data.expires_at).getTime() : undefined,
   };
+
+  if (legacy && box && refreshToken) {
+    try {
+      await saveGmailToken(guardianId, tok);
+      console.log('[gmail] migrated stored tokens to sealed form');
+    } catch (e) {
+      console.error('[gmail] token migration failed:', (e as Error).message);
+    }
+  }
+  return tok;
 }
 
 /** Build a Gmail provider for a connected parent, or null if they haven't connected. */

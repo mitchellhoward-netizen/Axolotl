@@ -38,6 +38,7 @@ import { emptyPersonalContext, importSchoolContext } from "./domain/personal-con
 import { loadFamilySnapshot } from "./integrations/db.js";
 import { BennyDemo } from "./demo/director.js";
 import { makeLlmRouter } from "./demo/router.js";
+import { allowInbound, denialMessage } from "./lib/inbound-guard.js";
 
 // ── Single-instance guard ──────────────────────────────────────────────────────
 // Running two identical bot instances against the same Spectrum line makes BOTH
@@ -377,9 +378,32 @@ const demos = new Map<string, BennyDemo>();
 // The demo router understands natural steering ("am I using my benefits right?").
 const demoRouter = makeLlmRouter(researchLlm);
 try {
+// One polite notice per sender per hour when we refuse a message, so a blocked number
+// cannot turn the rate limiter into a message loop.
+const guardNotices = new Map<string, number>();
+function noticeDue(sender: string): boolean {
+  const last = guardNotices.get(sender) ?? 0;
+  if (Date.now() - last < 60 * 60_000) return false;
+  guardNotices.set(sender, Date.now());
+  return true;
+}
+
 for await (const [space, message] of app.messages) {
   // Never answer our own outbound echoes.
   if (message.direction === "outbound") continue;
+
+  // Abuse + cost controls, before anything that costs money (models, browser sessions).
+  // No-op unless configured: AGENT_ALLOWLIST turns the line into an invited pilot, and the
+  // per-sender rate/cap only bites on a flood.
+  const sender = message.sender?.id ?? space.id;
+  const gate = allowInbound(sender);
+  if (!gate.ok) {
+    console.log(`[guard] refused inbound (${gate.reason}) sender=${sender}`);
+    if (noticeDue(sender) && message.content.type === 'text') {
+      await space.send(denialMessage(gate.reason)).catch(() => {});
+    }
+    continue;
+  }
 
   // Exact life controls bypass the LLM and legacy message dedupe. Ordinary
   // conversation still runs through the same Agent and keeps its school tools.

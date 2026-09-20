@@ -42,6 +42,23 @@ export function routeTool(tool: string): ModelTier {
   return MODEL_ROUTING[tool] ?? 'frontier';
 }
 
+/**
+ * Whether conversations may be routed to a non-Anthropic provider when the Anthropic key
+ * is missing. OFF by default, and must be opted into explicitly.
+ *
+ * Why this is a switch and not a fallback: silently rerouting parent messages to a
+ * different provider changes where a family's data is processed, under different retention
+ * terms, in a different jurisdiction — with no code change, no deploy, and until now no log
+ * line. A missing key must degrade to the deterministic flows, not to a quiet data export.
+ */
+export function foreignModelFallbackAllowed(): boolean {
+  return process.env.ALLOW_FOREIGN_MODEL_FALLBACK === 'true';
+}
+
+/** A spec with no key, so LlmClient reports `enabled === false` and the agent falls back
+ * to its deterministic flows instead of sending anything to another provider. */
+const DISABLED: ModelSpec = { model: 'disabled', apiKey: undefined, baseUrl: '' };
+
 export function frontierModel(): ModelSpec {
   const isAnthropic = Boolean(process.env.ANTHROPIC_API_KEY);
   if (isAnthropic) {
@@ -54,6 +71,14 @@ export function frontierModel(): ModelSpec {
       baseUrl: process.env.FRONTIER_BASE_URL ?? 'https://api.anthropic.com/v1',
     };
   }
+  if (!foreignModelFallbackAllowed()) {
+    console.warn(
+      '[models] ANTHROPIC_API_KEY is not set — running WITHOUT a language model. Parent messages ' +
+        'will NOT be sent to another provider. Set ALLOW_FOREIGN_MODEL_FALLBACK=true only if that is a decision you have made.',
+    );
+    return DISABLED;
+  }
+  console.warn('[models] ANTHROPIC_API_KEY missing and ALLOW_FOREIGN_MODEL_FALLBACK=true — using the foreign provider');
   const key = process.env.DEEPSEEK_API_KEY ?? process.env.OPENAI_API_KEY;
   return {
     model: process.env.FRONTIER_MODEL ?? process.env.LLM_MODEL ?? process.env.OPENAI_MODEL ?? 'deepseek-chat',

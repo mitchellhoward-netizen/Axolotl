@@ -40,7 +40,7 @@ import { detectGaps, staleKnowledgeNodes } from './gaps.js';
 import type { Counterparty, Mode, StepResult, ExecutionContext, Step } from './steps/types.js';
 import type { SeedDb } from '../seed.js';
 import { provisionFamily } from '../seed.js';
-import { persistProvisionedFamily, clearFamilyIdentity } from '../integrations/identity.js';
+import { persistProvisionedFamily, deleteFamilyData } from '../integrations/identity.js';
 import { clearMessages } from '../integrations/conversation-store.js';
 import { executeTool } from '../tools/registry.js';
 import type { ToolContext } from '../tools/types.js';
@@ -391,7 +391,7 @@ export class Agent {
       if (/^(?:\/reset|reset|start over|fresh start|start again)\b/i.test(text.trim())) {
         this.store.reset(conversationId);
         this.clearInMemoryFamily(parentId);
-        await clearFamilyIdentity(parentId);
+        await deleteFamilyData(parentId, { conversationId });
         await clearMessages(conversationId);
         const rec = this.store.ensure(conversationId, parentId);
         const ob = openOnboarding();

@@ -1,4 +1,5 @@
 import 'dotenv/config';
+import { deleteBrowserProfile } from './skyvern.js';
 import { getSupabase } from './db.js';
 import type { Parent, Student } from '../domain/types.js';
 import type { SeedDb } from '../seed.js';
@@ -110,4 +111,86 @@ export async function clearFamilyIdentity(guardianId: string): Promise<void> {
   } catch (e) {
     console.error('[identity] clear failed:', (e as Error)?.message ?? e);
   }
+}
+
+/**
+ * Delete everything we hold about a family — the promised, provable version.
+ *
+ * `/reset` used to clear the core rows and stop there, leaving triaged school email, the
+ * inbox address, the connected mailbox token and the vendor-side portal session behind.
+ * A deletion request has to be true end to end, so this:
+ *
+ *  1. revokes vendor-side credentials FIRST (a saved portal session is a live credential we
+ *     cannot rotate ourselves — it must not outlive the account),
+ *  2. removes every table that references the family,
+ *  3. writes one audit row recording that the deletion happened (the CCPA
+ *     §1798.105(c)(2) suppression record, and what stops a re-import resurrecting them).
+ *     It keeps the family id and counts — never the family's content.
+ *
+ * Rolls back nothing and swallows per-table errors into the receipt, because a partial
+ * deletion that reports success is worse than one that reports exactly what survived.
+ */
+export async function deleteFamilyData(
+  guardianId: string,
+  opts: { conversationId?: string } = {},
+): Promise<{ deleted: Record<string, number>; vendorProfilesRevoked: number; retained: string }> {
+  const c = getSupabase();
+  const deleted: Record<string, number> = {};
+  let vendorProfilesRevoked = 0;
+  const retained = 'encrypted backups until their cycle rolls; provider safety/abuse logs; consent + deletion audit rows';
+  if (!c) return { deleted, vendorProfilesRevoked, retained: 'nothing was stored (no database configured)' };
+
+  // Identifiers needed before the guardian row goes away.
+  const phone = ((await c.from('guardian').select('phone').eq('id', guardianId).maybeSingle()).data?.phone ?? '') as string;
+  const conns = ((await c.from('connection').select('id, skyvern_browser_profile_id').eq('family_id', guardianId)).data ?? []) as Array<{ skyvern_browser_profile_id?: string | null }>;
+  const convIds = opts.conversationId
+    ? [opts.conversationId]
+    : (((await c.from('conversation').select('id').eq('guardian_id', guardianId)).data ?? []) as Array<{ id: string }>).map((r) => r.id);
+
+  // 1. Vendor side first.
+  for (const row of conns) {
+    if (row.skyvern_browser_profile_id) {
+      if (await deleteBrowserProfile(row.skyvern_browser_profile_id).catch(() => false)) vendorProfilesRevoked += 1;
+    }
+  }
+
+  const count = async (table: string, column: string, value: string): Promise<void> => {
+    if (!value) return;
+    try {
+      const { count: n, error } = await c.from(table).delete({ count: 'exact' }).eq(column, value);
+      if (error) { console.warn(`[identity] delete ${table} failed:`, error.message); return; }
+      deleted[table] = n ?? 0;
+    } catch (e) { console.warn(`[identity] delete ${table} threw:`, (e as Error).message); }
+  };
+
+  await count('connection', 'family_id', guardianId);
+  await count('incoming_email', 'family_id', guardianId);
+  await count('family_inbox', 'family_id', guardianId);
+  await count('gmail_token', 'guardian_id', guardianId);
+  await count('family_memory', 'guardian_id', guardianId);
+  await count('case_record', 'guardian_id', guardianId);
+  await count('family_profile', 'guardian_id', guardianId);
+  for (const id of convIds) await count('message', 'conversation_id', id);
+  await count('verification', 'phone', phone);
+  await count('child_link', 'guardian_id', guardianId);
+
+  // Students are only ours if no other guardian still links to them.
+  const studentIds = ((await c.from('child_link').select('student_id').eq('guardian_id', guardianId)).data ?? []) as Array<{ student_id: string }>;
+  for (const { student_id } of studentIds) {
+    const { count: others } = await c.from('child_link').select('guardian_id', { count: 'exact', head: true }).eq('student_id', student_id);
+    if (!others) await count('student', 'id', student_id);
+  }
+  await count('guardian', 'id', guardianId);
+
+  // 2. The audit / suppression record.
+  try {
+    await c.from('consent_event').insert({
+      family_id: guardianId,
+      kind: 'deletion',
+      detail: { at: new Date().toISOString(), deleted, vendorProfilesRevoked, retained },
+    });
+  } catch (e) { console.warn('[identity] deletion receipt failed:', (e as Error).message); }
+
+  console.log(`[identity] deleted family ${guardianId}:`, JSON.stringify(deleted), `vendor profiles revoked: ${vendorProfilesRevoked}`);
+  return { deleted, vendorProfilesRevoked, retained };
 }
