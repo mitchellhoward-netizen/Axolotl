@@ -18,23 +18,36 @@
  *   railway run --service get-axolotl-agent -- npm run eval:reliability
  *   EVAL_N=5 EVAL_STEPS=12 EVAL_SCENARIO=apply ... (defaults shown)
  */
-import { CONFIRMATION_REF } from '../src/testworld/world.js';
+import { CONFIRMATION_REF, startTestWorld } from '../src/testworld/world.js';
+
+/**
+ * EVAL_LOCAL=1 runs ONLY the fixture self-check against an in-process world: no Skyvern, no
+ * credits. Use it to prove the ruler before measuring with it, and to validate a fixture change
+ * before it is deployed.
+ */
+const LOCAL = process.env.EVAL_LOCAL === '1';
 
 const TOKEN = process.env.TESTWORLD_TOKEN ?? '';
 const HOST = process.env.RAILWAY_PUBLIC_DOMAIN ?? '';
-const BASE = (process.env.TESTWORLD_BASE_URL
+let BASE = (process.env.TESTWORLD_BASE_URL
   ?? (HOST ? `https://${HOST}/world/${TOKEN}` : '')).replace(/\/$/, '');
+let localWorld: { close: () => Promise<void> } | undefined;
+if (LOCAL) {
+  const w = await startTestWorld();
+  localWorld = w;
+  BASE = `${w.url}/world`;
+}
 
 // ── Hard safety gate, before anything can spend money or touch a site ────────
-if (!BASE || !TOKEN) {
-  console.error('Set TESTWORLD_BASE_URL (https://<host>/world/<token>) or run with the service env.');
+if (!BASE || (!TOKEN && !LOCAL)) {
+  console.error('Set TESTWORLD_BASE_URL (https://<host>/world/<token>), or run with the service env, or EVAL_LOCAL=1.');
   process.exit(2);
 }
-if (!/\/world\/[A-Za-z0-9_-]+\/?$/.test(BASE)) {
+if (!LOCAL && !/\/world\/[A-Za-z0-9_-]+\/?$/.test(BASE)) {
   console.error(`REFUSING: ${BASE} is not the /world/ test mount. This eval must never run against a real site.`);
   process.exit(2);
 }
-if (!process.env.SKYVERN_API_KEY) {
+if (!LOCAL && !process.env.SKYVERN_API_KEY) {
   console.error('SKYVERN_API_KEY is required — this measures real browser runs.');
   process.exit(2);
 }
@@ -56,10 +69,65 @@ if (!scenario) {
 }
 const FORM_URL = `${BASE}${scenario.path}`;
 
-const { fillFormForReviewAsync, submitFilledForm, closeSession } = await import('../src/integrations/skyvern.js');
+const { fillFormForReviewAsync, submitFilledForm, closeSession, skyvernApiGet } = await import('../src/integrations/skyvern.js');
+
+// ── FIXTURE SELF-CHECK, before a cent of vendor spend ───────────────────────
+// The first run of this eval reported 0/5 confirmed and it was MY FIXTURE: every form POSTed to
+// an absolute /world/apply with no token, so the submission 404'd and the number measured a broken
+// test world rather than the product. A measurement that cannot tell "the product failed" from
+// "my ruler is bent" is worthless, so the fixture proves its own submit path over plain HTTP first.
+{
+  const page = await (await fetch(FORM_URL)).text();
+  const action = /<form[^>]*action="([^"]+)"/i.exec(page)?.[1];
+  if (!action) {
+    console.error(`FIXTURE BROKEN: no form action found at ${FORM_URL} — refusing to measure.`);
+    process.exit(3);
+  }
+  const target = new URL(action, FORM_URL).toString();
+  const res = await fetch(target, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams(scenario.fields).toString(),
+  });
+  const body = await res.text();
+  if (res.status !== 200 || !body.includes(CONFIRMATION_REF)) {
+    console.error(
+      `FIXTURE BROKEN: POST ${target} returned ${res.status} and ${body.includes(CONFIRMATION_REF) ? 'had' : 'did NOT have'} the ` +
+        `confirmation reference. The submit path cannot succeed, so any number produced here would measure the fixture, not the product.`,
+    );
+    process.exit(3);
+  }
+  console.log(`fixture self-check OK: POST ${target} -> confirmation ${CONFIRMATION_REF}\n`);
+  if (LOCAL) {
+    console.log('EVAL_LOCAL=1: fixture validated, no vendor spend. Nothing measured.');
+    await localWorld?.close();
+    process.exit(0);
+  }
+}
+
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+/**
+ * The fill call is FIRE-AND-FORGET: `fill.ok === true` only means the task was ACCEPTED, not
+ * that anything was filled. Reporting that as "fill success" would be a lie, so we poll the run
+ * to a terminal state ourselves (read-only) and report the vendor's actual verdict.
+ */
+async function fillOutcome(runId: string, timeoutMs = 90_000): Promise<{ status: string; failure?: string }> {
+  const end = Date.now() + timeoutMs;
+  while (Date.now() < end) {
+    const r = (await skyvernApiGet(`/v1/runs/${runId}`).catch(() => null)) as { status?: string; failure_reason?: string } | null;
+    if (r?.status && ['completed', 'failed', 'terminated', 'canceled', 'timed_out'].includes(r.status)) {
+      return { status: r.status, failure: r.failure_reason };
+    }
+    await sleep(2000);
+  }
+  return { status: 'poll_timeout' };
+}
 
 interface Attempt {
   n: number;
+  /** The vendor ACCEPTED the task. Not success — the fill may still fail. */
+  accepted: boolean;
   /** Did the vendor report the fill finished? This is a VENDOR SELF-REPORT, not verification. */
   fillComplete: boolean;
   fillStatus?: string;
@@ -82,6 +150,7 @@ let sessions = 0;
 
 for (let n = 1; n <= N; n++) {
   const t0 = Date.now();
+  let accepted = false;
   let fillComplete = false;
   let fillStatus: string | undefined;
   let runId: string | undefined;
@@ -93,13 +162,21 @@ for (let n = 1; n <= N; n++) {
 
   try {
     const fill = await fillFormForReviewAsync({ formUrl: FORM_URL, values: scenario.fields, maxSteps: MAX_STEPS });
+    accepted = fill.ok === true && Boolean(fill.runId);
     if (fill.runId) runsStarted += 1;
     if (fill.browserSessionId) sessions += 1;
-    fillComplete = fill.ok === true;
-    fillStatus = fill.detail ?? (fill.ok ? 'completed' : 'not-completed');
     runId = fill.runId;
     errorCode = fill.errorCode;
-    if (!fill.runId && fill.detail) note = fill.detail;
+    if (fill.runId) {
+      // The honest verdict: poll the run. "accepted" is not "filled".
+      const outcome = await fillOutcome(fill.runId);
+      fillComplete = outcome.status === 'completed';
+      fillStatus = outcome.status;
+      if (!fillComplete && outcome.failure) note = String(outcome.failure).slice(0, 90);
+    } else {
+      fillStatus = 'not-started';
+      if (fill.detail) note = fill.detail;
+    }
 
     // The end-to-end truth: does the SITE confirm it, with its own reference?
     if (fill.browserSessionId) {
@@ -118,9 +195,9 @@ for (let n = 1; n <= N; n++) {
   }
 
   const seconds = Math.round((Date.now() - t0) / 1000);
-  attempts.push({ n, fillComplete, fillStatus, runId, errorCode, confirmed, submitStatus, confirmation, seconds, note });
+  attempts.push({ n, accepted, fillComplete, fillStatus, runId, errorCode, confirmed, submitStatus, confirmation, seconds, note });
   console.log(
-    `  attempt ${n}: fill=${fillComplete ? 'complete' : 'NO'} confirmed=${confirmed ? 'YES' : 'no'}` +
+    `  attempt ${n}: accepted=${accepted ? 'yes' : 'NO'} fill=${fillComplete ? 'complete' : 'NO'} confirmed=${confirmed ? 'YES' : 'no'}` +
       ` ${seconds}s run=${runId ?? '-'}${errorCode ? ` code=${errorCode}` : ''}${note ? ` note=${note.slice(0, 70)}` : ''}`,
   );
 }
@@ -143,17 +220,49 @@ const falseSuccesses = attempts.filter((a) => a.fillComplete && !a.confirmed).le
 console.log('\n─────────────────────────────────────────────');
 console.log(`scenario           ${SCENARIO} (${FORM_URL})`);
 console.log(`attempts           ${attempts.length}`);
-console.log(`fill reported      ${fillAll}   [cold ${fillCold} | warm ${fillWarm}]`);
+console.log(`task accepted      ${fmt(attempts, (a) => a.accepted)}   (the vendor took the job — not success)`);
+console.log(`fill COMPLETED     ${fillAll}   [cold ${fillCold} | warm ${fillWarm}]`);
 console.log(`submit confirmed   ${confAll}   [cold ${confCold} | warm ${confWarm}]`);
 console.log(`false successes    ${falseSuccesses}  (vendor said filled, the site never confirmed)`);
 console.log(`browser runs       ${runsStarted}   sessions ${sessions}   wall ${attempts.reduce((s, a) => s + a.seconds, 0)}s`);
 console.log('─────────────────────────────────────────────');
 
+// ── Forensics: why did the failures fail? ───────────────────────────────────
+// Our wrapper returns a status but not the submit run id or its failure_reason, so a bare
+// "Skyvern failed" is not diagnosable from here. This read-only query is the difference
+// between publishing a number and publishing a number plus its cause.
+console.log('\n── recent vendor runs (read-only, for diagnosing the failures) ──');
+interface VendorRun { run_id?: string; status?: string; failure_reason?: string | null; created_at?: string }
+let vendorRuns: VendorRun[] = [];
+try {
+  const raw = await skyvernApiGet('/v1/runs?page=1&page_size=20');
+  const list = Array.isArray(raw) ? raw : ((raw as { runs?: unknown[] } | null)?.runs ?? []);
+  vendorRuns = (list as VendorRun[]).slice(0, 20);
+  const reasons = new Map<string, number>();
+  for (const r of vendorRuns) {
+    const key = `${r.status ?? '?'}${r.failure_reason ? ` — ${String(r.failure_reason).slice(0, 90)}` : ''}`;
+    reasons.set(key, (reasons.get(key) ?? 0) + 1);
+  }
+  for (const [k, v] of reasons) console.log(`   ${v} × ${k}`);
+} catch (e) {
+  console.log(`   (could not read vendor runs: ${(e as Error).message})`);
+}
+
+const failureReasons = (() => {
+  const seen = new Map<string, number>();
+  for (const r of vendorRuns) {
+    if (r.status === 'completed') continue;
+    const key = `${r.status ?? '?'}${r.failure_reason ? ` — ${String(r.failure_reason).slice(0, 160)}` : ' (no failure_reason)'}`;
+    seen.set(key, (seen.get(key) ?? 0) + 1);
+  }
+  return [...seen.entries()].map(([k, v]) => `- ${v} × ${k}`).join('\n') || '- none observed in the last 20 runs';
+})();
+
 // ── The report ──────────────────────────────────────────────────────────────
 const table = attempts
   .map(
     (a) =>
-      `| ${a.n} | ${a.fillComplete ? 'complete' : 'no'} | ${a.confirmed ? 'confirmed' : 'no'} | ${a.errorCode ?? '-'} | ${a.seconds}s | \`${a.runId ?? '-'}\` | ${(a.note ?? '').replace(/\|/g, '/').slice(0, 60) || '-'} |`,
+      `| ${a.n} | ${a.accepted ? 'yes' : 'no'} | ${a.fillComplete ? 'complete' : 'no'} | ${a.confirmed ? 'confirmed' : 'no'} | ${a.submitStatus ?? '-'} | ${a.errorCode ?? '-'} | ${a.seconds}s | \`${a.runId ?? '-'}\` | ${(a.note ?? '').replace(/\|/g, '/').slice(0, 60) || '-'} |`,
   )
   .join('\n');
 
@@ -169,11 +278,11 @@ Measured on ${new Date().toISOString().slice(0, 10)} against our own fake distri
 
 ## The numbers
 
-| | fill reported complete | submit confirmed by the site |
-|---|---|---|
-| **All ${attempts.length}** | ${fillAll} | ${confAll} |
-| **First attempt (cold)** | ${fillCold} | ${confCold} |
-| **Repeat attempts (warm)** | ${fillWarm} | ${confWarm} |
+| | task accepted | fill COMPLETED (vendor verdict) | submit confirmed by the site |
+|---|---|---|---|
+| **All ${attempts.length}** | ${fmt(attempts, (a) => a.accepted)} | ${fillAll} | ${confAll} |
+| **First attempt (cold)** | ${fmt(cold, (a) => a.accepted)} | ${fillCold} | ${confCold} |
+| **Repeat attempts (warm)** | ${warm.length ? fmt(warm, (a) => a.accepted) : 'n/a'} | ${fillWarm} | ${confWarm} |
 
 **False successes: ${falseSuccesses}** — the vendor reported the fill finished and the site never
 confirmed it. This is the number that matters most, because it is the one that would tell a parent
@@ -181,14 +290,16 @@ their child is enrolled when nothing happened.
 
 ### Per attempt
 
-| # | fill | confirmed | error code | time | run id | note |
-|---|---|---|---|---|---|---|
+| # | accepted | fill | confirmed | submit status | error code | time | run id | note |
+|---|---|---|---|---|---|---|---|---|
 ${table}
 
 ## What this measures, precisely
 
-- **"Fill reported complete"** is a **vendor self-report**: Skyvern's run status reached
-  \`completed\`. It is not verification. The fill path asks for no structured extraction, so
+- **"Task accepted"** only means the vendor took the job. It is NOT success, and it is reported
+  separately because the fill call is fire-and-forget and returns before any filling happens.
+- **"Fill COMPLETED"** is a **vendor self-report**: the run polled to Skyvern's \`completed\`.
+  It is not verification. The fill path asks for no structured extraction, so
   **we cannot currently confirm that the fields were actually filled correctly** — the only
   artefact is a screenshot. Treat this column as an upper bound on success, not the truth.
 - **"Submit confirmed"** is verifiable: the fake site's own confirmation page renders the
@@ -214,6 +325,10 @@ for compilation.
 code stands, unreachable — because the mechanism it depends on (\`run_with: "code"\`) is not wired
 in. This measurement is the baseline that change would be measured against.
 
+## Why the failures failed (vendor runs, read-only)
+
+${failureReasons}
+
 ## Limitations, stated so nobody over-reads this
 
 1. One form (a clean single-page form). The iframe and multi-step wizard scenarios were rehearsed
@@ -229,6 +344,11 @@ in. This measurement is the baseline that change would be measured against.
    cannot be separated from ours at this sample size.
 `;
 
-const { writeFileSync } = await import('node:fs');
-writeFileSync(new URL('../docs/RELIABILITY.md', import.meta.url), doc);
-console.log('\nwrote docs/RELIABILITY.md');
+// APPEND, never overwrite: the document carries hand-written analysis that a later run must not
+// silently destroy. Each run adds a dated, self-contained section.
+const { readFileSync, writeFileSync, existsSync } = await import('node:fs');
+const docPath = new URL('../docs/RELIABILITY.md', import.meta.url);
+const header = `\n\n---\n\n## Run — ${new Date().toISOString()}\n\n`;
+const existing = existsSync(docPath) ? readFileSync(docPath, 'utf8') : '';
+writeFileSync(docPath, (existing.trimEnd() + header + doc.split('\n').slice(1).join('\n')).trimStart() + '\n');
+console.log('\nappended a run section to docs/RELIABILITY.md');

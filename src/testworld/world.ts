@@ -44,7 +44,7 @@ const INFO = page('Afterschool program', `<h1>Soquel Afterschool Program</h1>
 <p>For questions, email the office.</p>`);
 
 const APPLY = page('Afterschool enrollment', `<h1>Enrollment</h1>
-<form method="post" action="/world/apply">
+<form method="post" action="apply">
   <label>Child first name <input name="child_first_name"></label>
   <label>Child last name <input name="child_last_name"></label>
   <label>Grade <input name="grade"></label>
@@ -53,14 +53,14 @@ const APPLY = page('Afterschool enrollment', `<h1>Enrollment</h1>
 </form>`);
 
 const WIZARD1 = page('Enrollment step 1', `<h1>Step 1 of 2</h1>
-<form method="get" action="/world/wizard/2">
+<form method="get" action="2">
   <label>Child first name <input name="child_first_name"></label>
   <label>Grade <input name="grade"></label>
   <button type="submit">Next</button>
 </form>`);
 
 const WIZARD2 = page('Enrollment step 2', `<h1>Step 2 of 2</h1>
-<form method="post" action="/world/apply/done">
+<form method="post" action="../apply/done">
   <label>Guardian email <input type="email" name="parent_email"></label>
   <label>Emergency contact <input name="emergency_contact"></label>
   <button type="submit">Submit application</button>
@@ -70,7 +70,7 @@ const IFRAME_HOST = page('Enrollment', `<h1>Before and after school care</h1>
 <p>Complete the application below.</p>
 <iframe src="/world/iframe-form" title="Application" width="600" height="400"></iframe>`);
 
-const IFRAME_FORM = page('Application', `<form method="post" action="/world/apply/done">
+const IFRAME_FORM = page('Application', `<form method="post" action="apply/done">
   <label>Child name <input name="child_first_name"></label>
   <label>Guardian email <input type="email" name="parent_email"></label>
   <button type="submit">Submit</button>
@@ -85,7 +85,7 @@ const DONE = page('Application received', `<h1>Thank you</h1>
 
 const ERROR = page('Application error', `<h1>There was a problem</h1>
 <p>Please correct the highlighted fields and submit again.</p>
-<form method="post" action="/world/apply/done">
+<form method="post" action="../apply/done">
   <label>Guardian email <input type="email" name="parent_email" aria-invalid="true"></label>
   <button type="submit">Submit</button>
 </form>`);
