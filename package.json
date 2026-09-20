@@ -55,7 +55,8 @@
     "test:skyvern": "tsx scripts/test-skyvern.ts",
     "test:privacy": "tsx scripts/test-privacy.ts",
     "test:triage": "tsx scripts/test-triage.ts",
-    "test:world": "tsx scripts/test-world.ts"
+    "test:world": "tsx scripts/test-world.ts",
+    "rehearse:world": "tsx scripts/rehearse-world.ts"
   },
   "dependencies": {
     "@browserbasehq/stagehand": "^4.0.2",

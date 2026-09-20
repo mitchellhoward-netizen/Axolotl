@@ -3,6 +3,7 @@ import { createHmac, timingSafeEqual } from 'node:crypto';
 import { readFileSync, existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { serveWorld } from '../testworld/world.js';
 import { addWaitlist } from './waitlist.js';
 import { handleInquiry } from './inquiry.js';
 import { WAITLIST_MESSAGE, createSmsSender, normalizeE164 } from './sms.js';
@@ -162,6 +163,24 @@ export function startWebServer(
   const server = createServer(async (req, res) => {
     try {
       const url = new URL(req.url ?? '/', 'http://localhost');
+      // ── Test world (Tier B only) ─────────────────────────────────────────────
+      // The fake district, mounted so a REMOTE browser vendor can reach it — Skyvern's
+      // egress guard refuses localhost/private addresses, so Tier A's loopback server is
+      // invisible to it. Off unless TESTWORLD_ENABLED=true, and even then only under an
+      // unguessable token prefix: this must never be a browsable surface on a live host.
+      if (process.env.TESTWORLD_ENABLED === 'true') {
+        const token = process.env.TESTWORLD_TOKEN ?? '';
+        const prefix = `/world/${token}`;
+        if (token && url.pathname.startsWith(prefix + '/')) {
+          const hit = serveWorld(url.pathname.slice(prefix.length), req.method);
+          if (hit) {
+            res.writeHead(hit.status, { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store' });
+            res.end(hit.html);
+            return;
+          }
+        }
+      }
+
       if (url.pathname === '/health/ready') {
         if (req.method !== 'GET' && req.method !== 'HEAD') {
           res.writeHead(405, { Allow: 'GET, HEAD', 'Cache-Control': 'no-store' });
