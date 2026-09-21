@@ -1,6 +1,23 @@
 import type { FamilyProfile, CaseRecord } from './types.js';
+import type { PersonalFact } from './personal-context.js';
 
 export type InitiativeStatus = 'active' | 'paused' | 'done';
+
+/**
+ * Two facts about the same subject that disagree, surfaced for a human to settle.
+ *
+ * The consolidation pass records these and **never picks a winner**: silently choosing one of
+ * two contradictory statements about a child is exactly the failure a parent cannot see and
+ * cannot correct. An explicit `supersedes` is a correction by the parent and is NOT a
+ * contradiction — it is already handled at read time in `personalView`.
+ */
+export interface MemoryContradiction {
+  subject: string;
+  category: PersonalFact['category'];
+  /** Every competing statement with where it came from. Deliberately no `chosen` field. */
+  statements: Array<{ factId: string; statement: string; messageId: string; observedAt: string }>;
+  flaggedAt: string;
+}
 
 /** A focus the advocate is actively working for the family. */
 export interface Initiative {
@@ -24,6 +41,20 @@ export interface FamilyMemory {
   /** Quick summary of open/awaiting cases (issue tracking). */
   issueSummary: string[];
   notes?: string;
+  /**
+   * When the background consolidation pass last rewrote this row. Optional: rows written before
+   * the pass existed simply lack it, and a reader must not assume consolidation has run.
+   */
+  consolidatedAt?: string;
+  /**
+   * Open disagreements between facts about the same subject, for a human to settle.
+   *
+   * Both fields above live INSIDE the existing `family_memory` row on purpose. A separate
+   * derived table would need its own deletion path, and a derived table that `deleteFamilyData`
+   * does not know about is a deletion bug waiting for a parent to exercise `/reset`. Keeping
+   * derived state in this row means deletion coverage is inherited, not re-earned.
+   */
+  contradictions?: MemoryContradiction[];
 }
 
 /**

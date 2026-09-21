@@ -12,7 +12,8 @@ import { MockEmailProvider } from '../integrations/email.js';
 import { gmailProviderFor, gmailConnectUrl, getGmailToken } from '../integrations/gmail.js';
 import type { CallResult } from '../integrations/phones.js';
 import { getSupabase, ensureSeedDistrict, saveFamilyProfile, saveCaseRecord, loadFamilySnapshot } from '../integrations/db.js';
-import { loadFamilyMemory, saveFamilyMemory, addGetting, startInitiative } from '../integrations/family-memory.js';
+import { loadFamilyMemory } from '../integrations/family-memory.js';
+import { persistDerivedMemory, recordGetting, startInitiative, turnRefFor } from './memory-writer.js';
 import { deriveFamilyMemory } from '../domain/memory.js';
 import { startVerification, verifyCode, isVerified, sendVerificationCode } from '../integrations/verification.js';
 import { KnowledgeGraph, autoResearchDistrict } from '../knowledge/graph.js';
@@ -455,6 +456,10 @@ export class Agent {
               // Keep externally-recorded getting/initiatives (may be richer than derived).
               state.memory.getting = memory.getting ?? state.memory.getting;
               state.memory.initiatives = memory.initiatives ?? state.memory.initiatives;
+              // Consolidation output lives on the same row, so re-deriving must carry it
+              // forward — otherwise a restart silently discards the last pass's work.
+              state.memory.contradictions = memory.contradictions;
+              state.memory.consolidatedAt = memory.consolidatedAt;
             } else {
               state.memory = deriveFamilyMemory(state.profile, state.cases ?? []);
             }
@@ -724,7 +729,7 @@ export class Agent {
     }
     for (const c of cases ?? []) await saveCaseRecord(guardianId, districtId, c);
     try {
-      await saveFamilyMemory(guardianId, memory ?? deriveFamilyMemory(profile, cases ?? []));
+      await persistDerivedMemory(guardianId, memory ?? deriveFamilyMemory(profile, cases ?? []));
     } catch (e) {
       console.error('[persist] family-memory error:', e);
     }
@@ -1320,13 +1325,31 @@ export class Agent {
         return parts.join('\n\n');
       },
       memory: {
+        // Both write through the single validating writer. Provenance is the parent's own
+        // turn: `text` is THIS turn's message, so a memory item can always be traced back to
+        // the sentence that produced it — and a validation failure is reported to the model
+        // as a refusal rather than silently becoming a bucket entry.
         addGetting: async (item) => {
-          await addGetting(parentId, item);
-          return `Recorded "${item}" as something the family now has.`;
+          try {
+            await recordGetting(parentId, item, {
+              kind: 'person_report',
+              turnRef: turnRefFor(this.currentConversationId, text),
+            });
+            return `Recorded "${item}" as something the family now has.`;
+          } catch (e) {
+            return `Could not record that: ${(e as Error).message}`;
+          }
         },
         startInitiative: async (label) => {
-          await startInitiative(parentId, label);
-          return `Started initiative "${label}".`;
+          try {
+            await startInitiative(parentId, label, {
+              kind: 'person_report',
+              turnRef: turnRefFor(this.currentConversationId, text),
+            });
+            return `Started initiative "${label}".`;
+          } catch (e) {
+            return `Could not start that: ${(e as Error).message}`;
+          }
         },
       },
       remind: async (what, when) => {
