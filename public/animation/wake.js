@@ -1,6 +1,6 @@
 import lottie from "./vendor/lottie_canvas.esm.js";
 
-const STATIC_MASCOT = "/animation/benny-rest.svg?v=clay-rest-1";
+const STATIC_MASCOT = "/animation/axolotl-rest.svg?v=clay-rest-1";
 const ANIMATION_DATA = "/animation/wake.json?v=clay-rest-1";
 
 /** Mounts Benny's one-shot wake-up animation into a dedicated container. */

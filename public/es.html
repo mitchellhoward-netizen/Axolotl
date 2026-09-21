@@ -1,0 +1,695 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Axolotl: el agente escolar para padres</title>
+    <meta
+      name="description"
+      content="Escríbele a Axolotl y lee el correo de la escuela de tu hijo, responde tus preguntas sobre la escuela, llena los formularios y redacta los correos. Siempre te lo muestra primero y espera tu sí."
+    />
+    <meta name="theme-color" content="#FFFFFF" />
+    <link rel="alternate" hreflang="en" href="/" />
+    <link rel="alternate" hreflang="es" href="/es" />
+    <link rel="alternate" hreflang="x-default" href="/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Axolotl" />
+    <meta property="og:url" content="https://www.get-axolotl.com/es" />
+    <meta property="og:locale" content="es_ES" />
+    <meta property="og:title" content="Axolotl: el agente escolar para padres" />
+    <meta
+      property="og:description"
+      content="Lee el correo de la escuela, responde las preguntas, llena los formularios y da seguimiento. Nada llega a tu escuela sin tu sí."
+    />
+    <meta name="twitter:card" content="summary" />
+    <link rel="icon" href="/animation/axolotl-mark.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/site.css?v=proactive-examples-1" />
+    <script src="/site.js?v=persistent-headline-1" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Saltar al contenido</a>
+    <header class="site-header wrap">
+      <a class="brand" href="#main" aria-label="Axolotl, inicio"
+        ><img
+          src="/animation/axolotl-mark.svg"
+          alt=""
+          width="30"
+          height="26"
+        /><span>Axolotl</span></a
+      >
+      <nav aria-label="Navegación principal">
+        <a href="#how-it-works">Qué hace</a
+        ><a href="#trust">Límites</a
+        ><a href="#waitlist">Únete al piloto</a
+        ><a href="/" hreflang="en" lang="en">English</a>
+      </nav>
+    </header>
+    <main id="main">
+      <section class="hero wrap" aria-labelledby="hero-title">
+        <figure class="hero-scene">
+          <div
+            id="benny-wake"
+            role="img"
+            aria-label="Un ajolote con tres branquias de cada lado se despierta, salta y se acomoda con los ojos abiertos."
+          >
+            <img
+              src="/animation/axolotl-rest.svg?v=clay-rest-1"
+              alt=""
+              width="256"
+              height="224"
+            />
+          </div>
+          <figcaption>
+            Lo de la escuela de tu hijo, resuelto.
+            <button
+              class="motion-toggle"
+              id="benny-motion"
+              type="button"
+              hidden
+            >
+              Pausar movimiento
+            </button>
+          </figcaption>
+        </figure>
+        <div class="hero-content">
+          <h1 id="hero-title">
+            La escuela es tu<br />segundo trabajo.<span class="wake-line"
+              >Axolotl se encarga,<br />por iMessage.</span
+            >
+          </h1>
+          <p class="hero-copy">
+            Axolotl es un agente escolar para padres. Lee el correo de la escuela
+            de tu hijo y convierte ocho mensajes en una lista corta de lo que de
+            verdad necesita algo de ti. Responde preguntas sobre tu escuela,
+            llena los formularios, redacta los correos y hace que no se te pasen
+            las fechas límite.
+          </p>
+          <p class="hero-copy">Todo te lo muestra antes de enviarlo.</p>
+          <p class="trust-triad">
+            Lee lo que le mandas. Te lo muestra primero. Actúa solo con tu sí.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#waitlist"
+              >Unirme a la lista <span aria-hidden="true">→</span></a
+            ><a class="text-link" href="#how-it-works">Ver qué hace</a>
+          </div>
+          <p class="stage-note">
+            Acceso anticipado. Estamos incorporando a un grupo pequeño de
+            familias.
+          </p>
+        </div>
+      </section>
+
+      <section class="section wrap problem" aria-labelledby="problem-title">
+        <div class="section-intro">
+          <span class="benny-peek benny-peek-familiar" aria-hidden="true">
+            <img
+              src="/animation/axolotl-mark-coral.svg"
+              alt=""
+              width="80"
+              height="80"
+              loading="lazy"
+            />
+          </span>
+          <p class="section-label">¿Te suena?</p>
+          <h2 id="problem-title">
+            Ocho correos a la semana.<br />Uno que importa.
+          </h2>
+          <p>
+            La escuela manda unos ocho mensajes por semana. El día de fotos, la
+            feria del libro, la colecta, la semana de actividades especiales, y
+            una cosa con fecha límite. Lo que importa queda enterrado debajo de
+            los siete que no.
+          </p>
+          <p class="strong-line">
+            Axolotl lee el correo de la escuela que le reenvías y te da una lista
+            corta de lo que de verdad necesita algo de ti.
+          </p>
+        </div>
+        <div
+          class="messages"
+          role="group"
+          aria-label="Ejemplos de correos de la escuela y lo que hace Axolotl"
+        >
+          <p class="section-label">Lo que llega y lo que recibes.</p>
+          <blockquote>
+            <p>
+              “Todo niño que entra a kínder debe tener un examen físico y una
+              evaluación oral de salud antes del 15 de octubre. A Leo le faltan
+              los dos.”
+            </p>
+            <footer>
+              Axolotl saca la fecha límite, ve que tu plan cubre la visita, y te
+              ofrece agendar la cita y devolver los dos formularios a la oficina.
+              Espera tu sí.
+            </footer>
+          </blockquote>
+          <blockquote>
+            <p>
+              “El día de fotos es el jueves. Los formularios de pedido van en las
+              mochilas.”
+            </p>
+            <footer>
+              Lo archiva como información. No aparece en tu lista de pendientes,
+              porque no es uno.
+            </footer>
+          </blockquote>
+          <blockquote>
+            <p>
+              “Llegaron ocho correos de la escuela esta semana. Cuatro necesitan
+              algo: los formularios del físico, el permiso, el saldo del almuerzo
+              y agendar la reunión.”
+            </p>
+            <footer>
+              Ese es el mensaje que recibes. Respondes “haz el 1” y redacta la
+              respuesta o llena el formulario, te muestra el texto exacto, y no
+              envía nada hasta que lo apruebes.
+            </footer>
+          </blockquote>
+          <p class="caption">
+            Ejemplos, basados en cómo se lee de verdad la comunicación escolar.
+            Lo que manda tu escuela será distinto.
+          </p>
+        </div>
+      </section>
+
+      <section class="delta" aria-labelledby="delta-title">
+        <div class="wrap">
+          <div class="delta-heading">
+            <h2 id="delta-title">Tú le escribes. Se encarga del resto.</h2>
+            <div>
+              <p>
+                No hay aplicación que instalar ni portal en el que entrar. Le
+                escribes a un número, igual que le escribes a cualquier persona.
+              </p>
+              <p>
+                Cuando va a enviarle algo a tu escuela, te muestra el mensaje
+                primero, completo. Tu sí es lo que lo envía. No es una
+                configuración ni un valor por defecto.
+              </p>
+            </div>
+          </div>
+          <div
+            class="two-maps"
+            role="group"
+            aria-label="Lo que tú mandas y lo que hace Axolotl"
+          >
+            <div class="map">
+              <h3>Tú le mandas</h3>
+              <ul>
+                <li>Un correo de la escuela reenviado</li>
+                <li>Una foto de un formulario</li>
+                <li>Una pregunta sobre tu distrito</li>
+                <li>“Leo no va hoy”</li>
+              </ul>
+            </div>
+            <div class="map-bridge">
+              <img
+                src="/animation/axolotl-mark.svg"
+                alt=""
+                width="52"
+                height="34"
+              />
+              <strong>Tu sí lo envía.</strong>
+              <p>Nada sale<br />sin tu sí.</p>
+            </div>
+            <div class="map">
+              <h3>Axolotl se encarga</h3>
+              <ul>
+                <li>Leer y ordenar el correo</li>
+                <li>Investigar tu escuela y tu distrito</li>
+                <li>Llenar el formulario, redactar la respuesta</li>
+                <li>Poner el recordatorio y dar seguimiento</li>
+              </ul>
+            </div>
+          </div>
+          <div class="delta-close">
+            <h3>Todo por iMessage.<br />Nada más que revisar.</h3>
+            <p>
+              Pregunta con tus propias palabras, en inglés o en español. Te
+              responde, o te dice claramente que no puede y qué hacer en su
+              lugar. No tienes que aprender una aplicación nueva para recibir
+              ayuda con la escuela.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="how section"
+        id="how-it-works"
+        aria-labelledby="how-title"
+      >
+        <span class="benny-peek" aria-hidden="true">
+          <img
+            src="/animation/axolotl-mark-teal.svg"
+            alt=""
+            width="96"
+            height="96"
+            loading="lazy"
+          />
+        </span>
+        <div class="wrap">
+          <div class="section-heading">
+            <div>
+              <p class="section-label">Qué hace</p>
+              <h2 id="how-title">Cuatro cosas, bien hechas.</h2>
+            </div>
+            <p>
+              Leer, responder, el papeleo y el seguimiento. Casi todas las
+              herramientas hacen solo una. El trabajo de la escuela necesita las
+              cuatro, en orden.
+            </p>
+          </div>
+          <ol class="steps">
+            <li class="reconciliation">
+              <span class="step-number" aria-hidden="true">01</span>
+              <h3>Lee.</h3>
+              <p>
+                Reenvía el correo de la escuela y separa los siete mensajes que
+                solo son información del que necesita algo de ti, con la fecha
+                límite incluida.
+              </p>
+              <strong>Una lista en lugar de una avalancha.</strong>
+            </li>
+            <li>
+              <span class="step-number" aria-hidden="true">02</span>
+              <h3>Responde.</h3>
+              <p>
+                Pregunta por tu escuela o tu distrito y busca la respuesta real:
+                la ruta del autobús, el programa de comidas, lo que de verdad
+                piden para la inscripción, y con quién hablar.
+              </p>
+            </li>
+            <li>
+              <span class="step-number" aria-hidden="true">03</span>
+              <h3>Hace el papeleo.</h3>
+              <p>
+                Llena el formulario, redacta el correo a la oficina o hace la
+                llamada. Tú ves exactamente lo que va a enviar, y espera tu sí
+                antes de que salga cualquier cosa.
+              </p>
+            </li>
+            <li class="follow-through">
+              <span class="step-number" aria-hidden="true">04</span>
+              <h3>Da seguimiento.</h3>
+              <p>
+                Un formulario que hay que devolver, una fecha límite la próxima
+                semana, una respuesta que todavía esperas. Lleva el control y te
+                dice cuándo algo quedó realmente terminado.
+              </p>
+              <strong>Terminado quiere decir que la escuela lo confirmó.</strong>
+            </li>
+          </ol>
+          <p class="how-note">
+            Axolotl es nuevo. Funciona mejor con una escuela que se comunica por
+            correo electrónico, y te dirá cuando algo quede fuera de lo que puede
+            hacer.
+          </p>
+        </div>
+      </section>
+
+      <section
+        class="section wrap trust"
+        id="trust"
+        aria-labelledby="trust-title"
+      >
+        <span class="benny-peek benny-peek-trust" aria-hidden="true">
+          <img
+            src="/animation/axolotl-mark-blue.svg"
+            alt=""
+            width="96"
+            height="96"
+            loading="lazy"
+          />
+        </span>
+        <div class="section-heading">
+          <div>
+            <p class="section-label">Lo que no va a hacer</p>
+            <h2 id="trust-title">
+              Los límites, antes de<br />que los encuentres tú.
+            </h2>
+          </div>
+          <p>
+            La lista honesta. El resto de esta página solo significa algo si esta
+            parte es verdad, así que es la parte que quisiéramos que leyeras
+            primero.
+          </p>
+        </div>
+        <div class="trust-grid">
+          <article>
+            <svg
+              class="trust-icon"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <circle cx="12" cy="12" r="9" />
+              <path d="m8 12 3 3 5-6" />
+            </svg>
+            <h3>No va a enviar nada sin tu sí.</h3>
+            <p>
+              Cada correo a tu escuela, cada formulario, cada envío espera un sí
+              explícito de tu parte. Una sugerencia no es un permiso, y no se
+              trata como si lo fuera.
+            </p>
+          </article>
+          <article>
+            <svg
+              class="trust-icon"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <rect x="5" y="10" width="14" height="11" rx="2" />
+              <path d="M8 10V7a4 4 0 0 1 8 0v3M12 15v2" />
+            </svg>
+            <h3>Te va a decir qué no puede abrir.</h3>
+            <p>
+              Una pantalla de inicio de sesión, una verificación de robot, un
+              formulario que solo existe en papel, un distrito que quiere una
+              llamada. Nombra el muro con el que chocó en lugar de quedarse
+              parado o adivinar.
+            </p>
+          </article>
+          <article>
+            <svg
+              class="trust-icon"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <rect x="5" y="3" width="14" height="18" rx="2" />
+              <path d="M9 8h6M9 12h6M9 16h4" />
+            </svg>
+            <h3>No te va a decir que un formulario se envió si la escuela no lo confirmó.</h3>
+            <p>
+              Un envío solo se reporta como hecho cuando llega la confirmación de
+              la propia escuela. Si no puede confirmarlo, te lo dice y te da el
+              enlace, en lugar de decirte que ya quedó.
+            </p>
+          </article>
+          <article>
+            <svg
+              class="trust-icon"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path
+                d="m3 3 18 18M10 5.2A10 10 0 0 1 12 5c6 0 10 7 10 7a18 18 0 0 1-3 3.8M6 6.5A20 20 0 0 0 2 12s4 7 10 7a11 11 0 0 0 5.5-1.5M10 10a3 3 0 0 0 4 4"
+              />
+            </svg>
+            <h3>No puede ver el portal de la escuela hasta que tú inicies sesión.</h3>
+            <p>
+              No tiene tu contraseña y no te la va a pedir. Si para ti es
+              importante leer el portal, inicias sesión tú, y solo lee.
+            </p>
+          </article>
+          <article>
+            <svg
+              class="trust-icon"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path
+                d="M12 3v12m-5-5 5 5 5-5M4 15v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4"
+              />
+            </svg>
+            <h3>Dónde es fuerte y dónde no.</h3>
+            <p>
+              Leer e investigar: muy bien. Un formulario claro que ya ha hecho
+              antes: confiable. Un formulario nuevo y complicado en el sitio de
+              un distrito: puede que te pase el enlace en lugar de fingir.
+              Preferimos eso a decirte algo que no es cierto.
+            </p>
+          </article>
+          <article>
+            <svg
+              class="trust-icon"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path d="m12 3 8 3v6c0 5-8 9-8 9s-8-4-8-9V6l8-3Z" />
+            </svg>
+            <h3>No es médico, ni abogado, ni la escuela.</h3>
+            <p>
+              Te ayuda a navegar el proceso y a sacar el papeleo. Las decisiones
+              sobre tu hijo son tuyas, de tu escuela y de tus proveedores.
+            </p>
+          </article>
+        </div>
+        <div class="trust-footnote">
+          <p>
+            La información de tu familia es tuya. Nunca la vendemos. Nada llega
+            a tu escuela sin tu permiso. El único sistema que lee tus mensajes es
+            la IA que escribe mis respuestas.
+          </p>
+          <a class="text-link" href="/privacy">Cómo manejamos la información</a>
+          <a class="text-link" href="/security">Seguridad y límites</a>
+        </div>
+      </section>
+
+      <section
+        class="section wrap employers"
+        id="handles"
+        aria-labelledby="handles-title"
+      >
+        <span class="benny-peek benny-peek-left" aria-hidden="true">
+          <img
+            src="/animation/axolotl-mark-indigo.svg"
+            alt=""
+            width="96"
+            height="96"
+            loading="lazy"
+          />
+        </span>
+        <div class="wrap employer-grid">
+          <div>
+            <p class="section-label">En la práctica</p>
+            <h2 id="handles-title">Lo que de verdad se acumula.</h2>
+            <p class="employer-intro">
+              No es un asistente genérico. Es el trabajo específico de la escuela
+              que se come tus tardes: el formulario que vence el viernes, la
+              ausencia que olvidaste reportar, la pregunta que nadie contesta.
+            </p>
+            <p class="employer-intro">
+              Tú sigues enterado de todo. Todo lo que hace, lo ves primero.
+            </p>
+            <a class="button primary" href="#waitlist">Unirme a la lista</a>
+            <p class="caption">
+              Acceso anticipado para un grupo pequeño de familias.
+            </p>
+          </div>
+          <div class="employer-points">
+            <article>
+              <h3>Fechas límite y formularios.</h3>
+              <p>
+                Permisos, paquetes de inscripción, requisitos de salud, la hoja
+                que la oficina necesita para el viernes. Lleva el control de lo
+                que falta y de lo que ya quedó.
+              </p>
+            </article>
+            <article>
+              <h3>Ausencias y la oficina.</h3>
+              <p>
+                Dile que tu hijo no va hoy y redacta la nota para la oficina, te
+                la muestra, y la envía cuando tú lo dices.
+              </p>
+            </article>
+            <article>
+              <h3>Las preguntas que normalmente persigues.</h3>
+              <p>
+                Cuál autobús, cuál programa, qué pide el distrito, a quién
+                escribirle. Lo investiga y te da la respuesta y el contacto.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="section wrap waitlist"
+        id="waitlist"
+        aria-labelledby="waitlist-title"
+      >
+        <span class="benny-peek benny-peek-bottom" aria-hidden="true">
+          <img
+            src="/animation/axolotl-mark-amber.svg"
+            alt=""
+            width="96"
+            height="96"
+            loading="lazy"
+          />
+        </span>
+        <div>
+          <p class="section-label">Acceso anticipado</p>
+          <h2 id="waitlist-title">Únete a la lista.</h2>
+          <p>
+            Estamos incorporando a un grupo pequeño de familias. Agrega tu número
+            y te escribiremos sobre el acceso.
+          </p>
+        </div>
+        <div>
+          <form id="waitlist-form">
+            <label for="waitlist-phone">Tu número de teléfono</label>
+            <div class="waitlist-fields">
+              <input
+                id="waitlist-phone"
+                type="tel"
+                autocomplete="tel"
+                inputmode="tel"
+                maxlength="30"
+                required
+                placeholder="Tu número de teléfono"
+              /><button class="text-link" type="submit">
+                Unirme a la lista
+              </button>
+            </div>
+            <p class="form-note">
+              Al unirte, aceptas recibir mensajes sobre el acceso.
+              <a href="#privacy" data-privacy>Privacidad del sitio web</a>
+            </p>
+            <p id="waitlist-error" class="form-error" role="alert" hidden>
+              Inténtalo de nuevo.
+            </p>
+          </form>
+          <div
+            id="waitlist-sent"
+            class="form-success"
+            role="status"
+            tabindex="-1"
+            hidden
+          >
+            <h3>Ya estás en la lista.</h3>
+            <p>Te escribiremos a este número sobre el acceso.</p>
+          </div>
+        </div>
+      </section>
+      <div class="wrap page-details">
+        <details id="contact" class="inline-panel">
+          <summary>Preguntas y solicitudes de acceso</summary>
+          <div class="panel-body">
+            <p class="section-label">Escríbenos</p>
+            <h2 id="contact-title">Pregúntanos lo que quieras.</h2>
+            <p class="panel-intro">
+              Pregunta por el piloto, o pregunta cómo funciona. Guardamos tu
+              mensaje y te respondemos por correo electrónico.
+            </p>
+            <form id="inquiry-form">
+              <div class="field">
+                <label for="inquiry-email">Correo electrónico</label
+                ><input
+                  id="inquiry-email"
+                  name="email"
+                  type="email"
+                  autocomplete="email"
+                  maxlength="254"
+                  placeholder="tu@correo.com"
+                  required
+                />
+              </div>
+              <div class="field">
+                <label for="inquiry-message"
+                  >¿Qué quieres preguntar? <span>(opcional)</span></label
+                ><textarea
+                  id="inquiry-message"
+                  name="message"
+                  maxlength="2000"
+                  placeholder="Una pregunta sobre el piloto, o sobre cómo funciona Axolotl."
+                ></textarea>
+              </div>
+              <p class="form-note">
+                Usaremos estos datos para responderte. Por favor no incluyas
+                expedientes de tu hijo ni información de salud.
+                <a href="#privacy" data-privacy
+                  >Cómo manejamos los datos del sitio</a
+                >
+              </p>
+              <button class="button" type="submit">Enviar</button>
+              <p class="form-error" id="inquiry-error" role="alert" hidden>
+                No pudimos guardar tu mensaje. Inténtalo de nuevo.
+              </p>
+            </form>
+            <div
+              class="form-success"
+              id="inquiry-sent"
+              role="status"
+              tabindex="-1"
+              hidden
+            >
+              <h3>Tu mensaje quedó guardado.</h3>
+              <p>Te responderemos al correo que nos diste.</p>
+            </div>
+          </div>
+        </details>
+        <details id="privacy" class="inline-panel">
+          <summary>Privacidad del sitio web</summary>
+          <div class="panel-body">
+            <p class="section-label">Datos del sitio</p>
+            <h2 id="privacy-title">Lo que compartes aquí.</h2>
+            <h3>Lo que nos envías</h3>
+            <p>
+              Recogemos el correo electrónico y el mensaje que envías para poder
+              responderte. Las consultas se guardan en Supabase. Por favor no
+              envíes expedientes de tu hijo, información de salud ni contraseñas
+              de la escuela.
+            </p>
+            <h3>La lista del piloto</h3>
+            <p>
+              Recogemos tu número de teléfono para registrar tu interés y
+              contactarte sobre el acceso. Los registros se guardan en nuestra
+              base de datos; el servidor puede usar un archivo local si el
+              almacenamiento en la base de datos no está disponible. Textbelt o
+              Retell pueden procesar tu número para enviar un mensaje de
+              confirmación.
+            </p>
+            <h3>Este sitio no es el servicio</h3>
+            <p>
+              Estos formularios no se conectan con tu escuela ni con los
+              expedientes de tu hijo. El sitio carga tipografías de Google Fonts,
+              así que tu navegador hace solicitudes a Google y a nuestro
+              proveedor de alojamiento cuando lo visitas. Cómo maneja el servicio
+              la información de tu familia está en la política de privacidad.
+            </p>
+            <h3>¿Preguntas sobre tu información?</h3>
+            <p>
+              Usa el formulario de arriba para preguntas de privacidad o para
+              solicitar algo sobre la información que enviaste.
+            </p>
+            <a class="text-link" href="/privacy"
+              >Leer la política de privacidad del servicio</a
+            >
+          </div>
+        </details>
+      </div>
+    </main>
+    <footer class="site-footer wrap">
+      <div>
+        <a class="brand" href="#main"
+          ><img
+            src="/animation/axolotl-mark.svg"
+            alt=""
+            width="30"
+            height="26"
+          />Axolotl</a
+        >
+        <p>El agente escolar para padres. Funciona por iMessage.</p>
+      </div>
+      <nav aria-label="Pie de página">
+        <a href="#contact" data-inquiry>Contacto</a
+        ><a href="/privacy">Privacidad</a
+        ><a href="/security">Seguridad</a
+        ><a href="/" hreflang="en" lang="en">English</a>
+      </nav>
+    </footer>
+  </body>
+</html>
