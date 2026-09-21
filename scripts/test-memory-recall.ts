@@ -217,6 +217,11 @@ console.log('\n# the table the code writes and deletes actually exists, with the
     ['family_id', 'alias', 'canonical', 'source'].every((c) => new RegExp(`\\b${c}\\b`, 'i').test(sql)));
   check('RLS is on', /enable row level security/i.test(sql));
   check('service_role only', /service_role/i.test(sql));
+  // The live database did NOT have this table when the code shipped (PostgREST PGRST205), so
+  // the two paths a human or a script actually runs must both carry it — otherwise the table
+  // exists in the repo and nowhere else.
+  check('the outstanding-SQL bundle the human pastes creates it', /create table if not exists memory_alias/i.test(read('db/APPLY-NOW.sql')));
+  check('the apply script applies it', read('scripts/apply-new-tables.ts').includes("'memory-alias.sql'"));
 }
 
 console.log('\n# deletion covers the aliases');

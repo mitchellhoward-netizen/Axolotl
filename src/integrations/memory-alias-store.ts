@@ -35,7 +35,15 @@ export async function saveAliases(
   const { error } = await c
     .from('memory_alias')
     .upsert(rows, { onConflict: 'family_id,alias,canonical', ignoreDuplicates: true });
-  if (error) console.warn('[aliases] save failed:', error.message);
+  if (error) {
+    // Say what the failure COSTS, not just that it happened. If the table is missing (the
+    // live database did not have it at the time of writing — see db/APPLY-NOW.sql BLOCK 5),
+    // every harvested alias is dropped here, and the only symptom is a parent's own word
+    // not finding their own message later.
+    console.warn(
+      `[aliases] save failed (${error.code ?? 'unknown'}): ${error.message} — aliases will not persist; has db/memory-alias.sql been applied?`,
+    );
+  }
 }
 
 /**
@@ -50,7 +58,15 @@ export async function listAliases(familyId: string, limit = 200): Promise<AliasP
     .select('alias, canonical, source')
     .eq('family_id', familyId)
     .limit(limit);
-  if (error || !data) return [];
+  if (error || !data) {
+    // Recall still works without aliases — it just cannot match the family's other word for
+    // something — so this is a warning, not a failure. It must not be silent: the missing
+    // table is indistinguishable from "this family has never used an alias".
+    console.warn(
+      `[aliases] load failed (${error?.code ?? 'unknown'}): ${error?.message ?? 'no data'} — recall will not expand the family's own words`,
+    );
+    return [];
+  }
   const pairs: AliasPair[] = data.map((r) => ({
     a: String(r.alias ?? ''),
     b: String(r.canonical ?? ''),

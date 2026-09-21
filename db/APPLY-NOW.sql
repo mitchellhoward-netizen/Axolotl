@@ -4,11 +4,14 @@
 -- Paste the whole thing into the Supabase SQL editor and run it. Every statement is
 -- idempotent, so running it twice is safe, and nothing here deletes data.
 --
--- Why these three blocks and not the whole db/ folder:
+-- Why these blocks and not the whole db/ folder:
 --   * BLOCK 1 tells you what is actually applied (read-only — run it even if you run
 --     nothing else, and keep the output; it is the evidence we currently lack).
 --   * BLOCK 2 is required by the retention job, which is otherwise correct but slow.
 --   * BLOCK 3 closes the one RLS policy that was world-readable.
+--   * BLOCK 5 creates memory_alias, which the recall alias layer writes to and which is
+--     VERIFIED MISSING on the live database (it is a new table this session).
+-- Each block is followed by a read-only block that confirms it took effect.
 --
 -- The rest of db/*.sql (benny.sql, consent.sql, conversation.sql, email-triage.sql,
 -- gmail-token.sql, processed-message.sql, connections.sql, rls-family.sql) should be
@@ -82,3 +85,43 @@ select policyname, cmd, qual
 from pg_policies
 where schemaname = 'public' and tablename = 'family_memory'
 order by policyname;
+
+
+-- ── BLOCK 5 — memory_alias (family vocabulary for recall) ───────────────────
+-- The agent harvests the parent's OWN words for things ("pasta", also called noodles; we
+-- call it the yellow card) and uses them to expand a later search. Without this table the
+-- write is dropped with a console warning and recall still works — it just cannot find a
+-- message by the family's other word for it. VERIFIED MISSING on the live database
+-- (PostgREST PGRST205, "Could not find the table 'public.memory_alias' in the schema
+-- cache"), so nothing has persisted an alias yet.
+--
+-- Keyed by family_id so a deletion reaches it by the same path as everything else
+-- (db/memory-alias.sql is the source of truth for this block).
+
+create table if not exists memory_alias (
+  family_id   text not null,
+  alias       text not null,
+  canonical   text not null,
+  source      text not null default 'parent',
+  created_at  timestamptz not null default now(),
+  primary key (family_id, alias, canonical)
+);
+
+create index if not exists memory_alias_family_idx on memory_alias (family_id);
+
+alter table memory_alias enable row level security;
+
+drop policy if exists memory_alias_service_all on memory_alias;
+create policy memory_alias_service_all on memory_alias
+  for all using (auth.role() = 'service_role') with check (auth.role() = 'service_role');
+
+
+-- ── BLOCK 6 — confirm BLOCK 5 took effect (read-only) ───────────────────────
+-- Expect one row, rls_enabled = true, one policy named memory_alias_service_all.
+
+select c.relname as table_name, c.relrowsecurity as rls_enabled, count(p.policyname) as policies
+from pg_class c
+join pg_namespace n on n.oid = c.relnamespace
+left join pg_policies p on p.tablename = c.relname and p.schemaname = n.nspname
+where n.nspname = 'public' and c.relname = 'memory_alias'
+group by 1, 2;
