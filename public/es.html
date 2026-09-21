@@ -35,15 +35,14 @@
     <link rel="stylesheet" href="/site.css?v=proactive-examples-1" />
     <script src="/site.js?v=persistent-headline-1" defer></script>
     <style>
-      /* The mascot illustration sits on a cream ground, so multiply blends it into the page
-         instead of showing a square. The motion is a gentle float, and the pause button that
-         site.js provides genuinely stops it. */
+      /* The mascot is a transparent PNG, so it sits on the page with no plate behind it.
+         The motion is a gentle float, and the pause button that site.js provides genuinely
+         stops it. */
       .axolotl-figure {
         display: block;
         width: 100%;
         height: 100%;
         object-fit: contain;
-        mix-blend-mode: multiply;
         animation: axolotl-float 6s ease-in-out infinite;
       }
       #benny-wake[data-paused="true"] .axolotl-figure { animation-play-state: paused; }
@@ -131,15 +130,6 @@
 
       <section class="section wrap problem" aria-labelledby="problem-title">
         <div class="section-intro">
-          <span class="benny-peek benny-peek-familiar" aria-hidden="true">
-            <img
-              src="/animation/axolotl-mark-coral.svg"
-              alt=""
-              width="80"
-              height="80"
-              loading="lazy"
-            />
-          </span>
           <p class="section-label">¿Te suena?</p>
           <h2 id="problem-title">
             Ocho correos a la semana.<br />Uno que importa.
@@ -269,15 +259,6 @@
         id="how-it-works"
         aria-labelledby="how-title"
       >
-        <span class="benny-peek" aria-hidden="true">
-          <img
-            src="/animation/axolotl-mark-teal.svg"
-            alt=""
-            width="96"
-            height="96"
-            loading="lazy"
-          />
-        </span>
         <div class="wrap">
           <div class="section-heading">
             <div>
@@ -343,15 +324,6 @@
         id="trust"
         aria-labelledby="trust-title"
       >
-        <span class="benny-peek benny-peek-trust" aria-hidden="true">
-          <img
-            src="/animation/axolotl-mark-blue.svg"
-            alt=""
-            width="96"
-            height="96"
-            loading="lazy"
-          />
-        </span>
         <div class="section-heading">
           <div>
             <p class="section-label">Lo que no va a hacer</p>
@@ -486,15 +458,6 @@
         id="handles"
         aria-labelledby="handles-title"
       >
-        <span class="benny-peek benny-peek-left" aria-hidden="true">
-          <img
-            src="/animation/axolotl-mark-indigo.svg"
-            alt=""
-            width="96"
-            height="96"
-            loading="lazy"
-          />
-        </span>
         <div class="wrap employer-grid">
           <div>
             <p class="section-label">En la práctica</p>
@@ -544,15 +507,6 @@
         id="waitlist"
         aria-labelledby="waitlist-title"
       >
-        <span class="benny-peek benny-peek-bottom" aria-hidden="true">
-          <img
-            src="/animation/axolotl-mark-amber.svg"
-            alt=""
-            width="96"
-            height="96"
-            loading="lazy"
-          />
-        </span>
         <div>
           <p class="section-label">Acceso anticipado</p>
           <h2 id="waitlist-title">Únete a la lista.</h2>
