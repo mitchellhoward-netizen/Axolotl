@@ -1018,37 +1018,65 @@ textarea {
 }
 
 /* ── Product demo: the consent loop on a phone ─────────────────────────────────
-   Static mockup, adapted from the pre-Benny site's device frame (dark #1C1917 shell,
-   52px radius, status bar, contact header, bubbles, composer, home indicator). The
-   original was inline styles with rise/breathe/ring keyframes; this is classes with no
-   animation, so there is no layout shift and no JavaScript. Labelled as fictional in
-   the markup — it must never read as a real family's thread. */
+   Static mockup, adapted from the pre-Benny site's inline device frame (web/index.html
+   at fa66518: dark #1C1917 shell, 52px radius, status bar, contact header, bubbles,
+   composer, home indicator). Rebuilt as classes, no animation, no JavaScript.
+
+   DIMENSIONS ARE FIXED BY CONSTRUCTION, not by content: the frame is 390:844, the real
+   iPhone logical ratio, and every band has a fixed height, so a bubble can never stretch
+   the device. The thread takes what is left.
+
+   THE THREAD CANNOT GROW, so the copy has to fit it. An earlier version let the copy
+   overflow and pushed it to the bottom (justify-content: flex-end) under a transparent
+   top mask: at a 320px frame the thread held 793px of content in a 530px band, so the top
+   263px was clipped and the mask painted that region white: a clipped bubble above a dead
+   white gap. Fit is now measured, not eyeballed:
+
+       python3 tools/measure-demo.py
+
+   which parses this page's markup, wraps the copy in SF Pro, and exits non-zero if the
+   thread overflows at any supported width.
+
+   Budget at a 320px frame (692.3px tall; 11px padding per side -> 670.3px inner):
+     status bar      24.0  (flex 0 0 24px)
+     contact header  48.0  (flex 0 0 48px)
+     thread area    530.3  (flex 1 1 auto; min-height 0; overflow hidden)
+     composer        48.0  (flex 0 0 48px)
+     home indicator  20.0  (flex 0 0 20px)
+     ---- fixed sum 140.0 + thread 530.3 = 670.3  == frame inner height
+   Below a 360px viewport the frame is narrower than its 320px design width, so the two
+   decorative bands are dropped and their 68px goes to the thread. */
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 .demo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 40px 56px; align-items: center; }
-.demo-phone { justify-self: center; width: 100%; max-width: 350px; aspect-ratio: 390 / 844; overflow: hidden; background: #1C1917; border-radius: 52px; padding: 11px; box-shadow: 0 2px 4px rgba(36, 28, 24, 0.06), 0 40px 80px -46px rgba(36, 28, 24, 0.7); }
-.demo-screen { height: 100%; background: #fff; border-radius: 42px; overflow: hidden; display: flex; flex-direction: column; font-family: -apple-system, "SF Pro Text", "Helvetica Neue", Helvetica, sans-serif; }
-.demo-status { background: #F7F7F7; border-bottom: 1px solid rgba(0, 0, 0, 0.12); padding: 12px 18px; }
-.demo-status-row { display: flex; align-items: center; justify-content: space-between; font-size: 14px; font-weight: 600; color: #000; }
-.demo-contact { display: flex; flex-direction: column; align-items: center; gap: 2px; margin-top: 10px; }
-.demo-contact img { width: 42px; height: 42px; object-fit: contain; }
+.demo-phone { justify-self: center; width: min(320px, 100%); aspect-ratio: 390 / 844; box-sizing: border-box; overflow: hidden; background: #1C1917; border-radius: 52px; padding: 11px; box-shadow: 0 2px 4px rgba(36, 28, 24, 0.06), 0 40px 80px -46px rgba(36, 28, 24, 0.7); }
+.demo-screen { height: 100%; display: flex; flex-direction: column; overflow: hidden; background: #fff; border-radius: 42px; font-family: -apple-system, "SF Pro Text", "Helvetica Neue", Helvetica, sans-serif; }
+.demo-status { flex: 0 0 24px; display: flex; align-items: center; justify-content: space-between; padding: 0 18px; background: #F7F7F7; font-size: 13px; font-weight: 600; color: #000; }
+.demo-contact { flex: 0 0 48px; display: flex; align-items: center; justify-content: center; gap: 7px; background: #F7F7F7; border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
+.demo-contact img { width: 27px; height: 27px; object-fit: contain; }
 .demo-contact span { font-size: 12.5px; font-weight: 500; color: #000; }
-.demo-thread { list-style: none; margin: 0; padding: 16px 14px 12px; display: flex; flex-direction: column; gap: 6px; flex: 1 1 auto; min-height: 0; overflow: hidden; justify-content: flex-end; -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 26px); mask-image: linear-gradient(to bottom, transparent 0, #000 26px); }
+.demo-thread { flex: 1 1 auto; min-height: 0; overflow: hidden; list-style: none; margin: 0; padding: 10px 14px 0; display: flex; flex-direction: column; gap: 6px; }
 .demo-thread li { display: flex; }
-.demo-bubble { max-width: 84%; padding: 9px 14px; border-radius: 19px; font-size: 15.5px; line-height: 1.34; }
+.demo-meta { align-self: center; font-size: 11.5px; line-height: 1.2; color: #8E8E93; padding-bottom: 4px; }
+.demo-meta b { font-weight: 600; color: #6E6E73; }
+.demo-bubble { max-width: 88%; padding: 8px 14px; border-radius: 19px; font-size: 15.5px; line-height: 1.28; }
 .demo-bubble.in { background: #E9E9EB; color: #000; }
 .demo-bubble.out { background: #007AFF; color: #fff; margin-left: auto; }
-.demo-meta { align-self: center; text-align: center; font-size: 11.5px; color: #8E8E93; padding-bottom: 4px; }
-.demo-meta b { font-weight: 600; color: #6E6E73; }
-.demo-shot { background: #F2F2F7; border: 1px solid rgba(0, 0, 0, 0.06); border-radius: 17px; padding: 10px; max-width: 92%; }
-.demo-shot-label { font-size: 10.5px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #6E6E73; margin: 0 0 8px; }
-.demo-form { background: #fff; border-radius: 10px; padding: 10px; display: flex; flex-direction: column; gap: 6px; }
-.demo-form-row { display: flex; justify-content: space-between; gap: 10px; font-size: 12px; color: #3C3C43; border-bottom: 1px solid rgba(0, 0, 0, 0.06); padding-bottom: 5px; }
-.demo-form-row:last-child { border-bottom: 0; padding-bottom: 0; }
+.demo-shot { max-width: 92%; padding: 8px; background: #F2F2F7; border: 1px solid rgba(0, 0, 0, 0.06); border-radius: 15px; }
+.demo-shot-label { margin: 0 0 6px; font-size: 10px; line-height: 1.2; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #6E6E73; }
+.demo-form { display: flex; flex-direction: column; gap: 5px; padding: 7px 9px; background: #fff; border-radius: 9px; }
+.demo-form-row { display: flex; justify-content: space-between; gap: 8px; padding-bottom: 4px; border-bottom: 1px solid rgba(0, 0, 0, 0.06); font-size: 11.5px; line-height: 1.3; color: #3C3C43; }
+.demo-form-row:last-child { padding-bottom: 0; border-bottom: 0; }
 .demo-form-row b { font-weight: 600; color: #000; }
-.demo-composer { display: flex; align-items: center; gap: 9px; padding: 9px 14px 12px; border-top: 1px solid rgba(0, 0, 0, 0.07); }
-.demo-composer .plus { display: inline-flex; align-items: center; justify-content: center; width: 31px; height: 31px; border-radius: 999px; background: #E9E9EB; color: #8E8E93; font-size: 19px; line-height: 1; }
-.demo-composer .field-mock { flex: 1 1 auto; padding: 8px 15px; border: 1px solid rgba(0, 0, 0, 0.14); border-radius: 999px; font-size: 15.5px; color: #AEAEB2; }
-.demo-home { display: flex; justify-content: center; padding: 0 0 9px; }
-.demo-home span { display: block; width: 128px; height: 5px; border-radius: 999px; background: #000; opacity: 0.22; }
-.demo-note { margin: 18px 0 0; font-size: 14px; color: var(--muted, #6B5A50); }
+.demo-shot-caption { margin: 7px 0 0; font-size: 11.5px; line-height: 1.3; color: #3C3C43; }
+.demo-composer { flex: 0 0 48px; display: flex; align-items: center; gap: 9px; padding: 0 14px; border-top: 1px solid rgba(0, 0, 0, 0.07); }
+.demo-composer .plus { display: inline-flex; align-items: center; justify-content: center; width: 29px; height: 29px; flex: 0 0 auto; border-radius: 999px; background: #E9E9EB; color: #8E8E93; font-size: 18px; line-height: 1; }
+.demo-composer .field-mock { flex: 1 1 auto; padding: 7px 14px; border: 1px solid rgba(0, 0, 0, 0.14); border-radius: 999px; font-size: 15px; color: #AEAEB2; }
+.demo-home { flex: 0 0 20px; display: flex; justify-content: center; align-items: center; }
+.demo-home span { display: block; width: 120px; height: 5px; border-radius: 999px; background: #000; opacity: 0.22; }
+/* Narrower than the frame's own 320px design width: the thread cannot scale with the frame,
+   so drop the two decorative bands and give their height to the thread rather than clip copy. */
+@media (max-width: 359px) {
+  .demo-composer, .demo-home { display: none; }
+}
 .demo-figure { margin: 0; }
+.demo-note { margin: 16px 0 0; font-size: 14px; color: #6B5A50; }
