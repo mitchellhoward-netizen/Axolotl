@@ -175,6 +175,7 @@ theatre.
 | Skyvern | browser automation; portal session custody | form values, page content, saved portal session |
 | Browserbase | browser hosting | browsing session (recording disabled) |
 | Tavily | web research | school/district queries |
+| Voyage AI | embeddings so the agent can look up school and district information | **the search query derived from the parent's own message** — it can contain a child's name, grade or needs |
 | Resend | outbound email when Gmail isn't connected | recipient, subject, body |
 | Google | Gmail (send + read, parent-authorized), Calendar | mailbox content, calendar |
 | Retell | voice calls | call variables, audio/transcript on their side |
@@ -188,6 +189,15 @@ default, because its own terms prohibit children's and health data and it stores
 categories**, which is wrong for IEP/health-adjacent content — amend it or keep that content out of
 the API. Subprocessor objection windows are short (Supabase 5 days, Anthropic 15, Resend 14), so
 vendor review runs **quarterly**, not annually, with a named owner and a monitored alias.
+
+**Known gap, being closed (not just a listing):** the district-knowledge lookup embeds a
+query built from the parent's own message (`agent.ts` ~1284, `embedTexts([qText])`) and sends it
+to Voyage AI. So the true boundary is: **we do not embed stored family records, and we do send a
+parent-derived query to a third-party embeddings vendor on every knowledge lookup.** Two actions:
+list it here and in the public privacy page (done), get a DPA, and **stop sending the raw
+sentence** — send category plus district instead, which removes most of the exposure without
+changing the architecture. Voyage's transfer posture was not in the DPF research, so it is
+unverified and must be checked before we describe it anywhere.
 
 ## 8. Where this leaves the Tier plan
 
