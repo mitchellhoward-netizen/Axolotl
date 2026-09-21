@@ -22,7 +22,6 @@
       content="Lee el correo de la escuela, responde las preguntas, llena los formularios y da seguimiento. Nada llega a tu escuela sin tu sí."
     />
     <meta name="twitter:card" content="summary" />
-    <link rel="icon" href="/animation/axolotl-mark.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta property="og:image" content="https://www.get-axolotl.com/icon-512.png" />
@@ -35,16 +34,37 @@
     />
     <link rel="stylesheet" href="/site.css?v=proactive-examples-1" />
     <script src="/site.js?v=persistent-headline-1" defer></script>
+    <style>
+      /* The mascot illustration sits on a cream ground, so multiply blends it into the page
+         instead of showing a square. The motion is a gentle float, and the pause button that
+         site.js provides genuinely stops it. */
+      .axolotl-figure {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        mix-blend-mode: multiply;
+        animation: axolotl-float 6s ease-in-out infinite;
+      }
+      #benny-wake[data-paused="true"] .axolotl-figure { animation-play-state: paused; }
+      @keyframes axolotl-float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .axolotl-figure { animation: none; }
+      }
+    </style>
   </head>
   <body>
     <a class="skip-link" href="#main">Saltar al contenido</a>
     <header class="site-header wrap">
       <a class="brand" href="#main" aria-label="Axolotl, inicio"
         ><img
-          src="/animation/axolotl-mark.svg"
+          src="/animation/axolotl-mascot.png?v=mascot-1"
           alt=""
           width="30"
-          height="26"
+          height="30"
         /><span>Axolotl</span></a
       >
       <nav aria-label="Navegación principal">
@@ -63,10 +83,11 @@
             aria-label="Un ajolote con tres branquias de cada lado se despierta, salta y se acomoda con los ojos abiertos."
           >
             <img
-              src="/animation/axolotl-rest.svg?v=clay-rest-1"
+              class="axolotl-figure"
+              src="/animation/axolotl-mascot.png?v=mascot-1"
               alt=""
               width="256"
-              height="224"
+              height="256"
             />
           </div>
           <figcaption>
@@ -678,10 +699,10 @@
       <div>
         <a class="brand" href="#main"
           ><img
-            src="/animation/axolotl-mark.svg"
+            src="/animation/axolotl-mascot.png?v=mascot-1"
             alt=""
             width="30"
-            height="26"
+            height="30"
           />Axolotl</a
         >
         <p>El agente escolar para padres. Funciona por iMessage.</p>
