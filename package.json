@@ -62,7 +62,8 @@
     "test:retention": "tsx scripts/test-retention.ts",
     "test:authorization": "tsx scripts/test-authorization.ts",
     "eval:reliability": "tsx scripts/eval-reliability.ts",
-    "test:form-targets": "tsx scripts/test-form-targets.ts"
+    "test:form-targets": "tsx scripts/test-form-targets.ts",
+    "test:memory": "tsx scripts/test-memory-recall.ts"
   },
   "dependencies": {
     "@browserbasehq/stagehand": "^4.0.2",

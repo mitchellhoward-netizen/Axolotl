@@ -103,6 +103,9 @@ export async function clearFamilyIdentity(guardianId: string): Promise<void> {
     await c.from('family_profile').delete().eq('guardian_id', guardianId);
     await c.from('case_record').delete().eq('guardian_id', guardianId);
     await c.from('family_memory').delete().eq('guardian_id', guardianId);
+    // A fresh re-onboard starts with no memory, which has to include the words the family
+    // used to describe things — otherwise a brand-new identity inherits the old vocabulary.
+    await c.from('memory_alias').delete().eq('family_id', guardianId);
     const studentIds = (await c.from('child_link').select('student_id').eq('guardian_id', guardianId)).data?.map((r) => r.student_id as string) ?? [];
     await c.from('child_link').delete().eq('guardian_id', guardianId);
     if (studentIds.length) await c.from('student').delete().in('id', studentIds);
@@ -168,6 +171,10 @@ export async function deleteFamilyData(
   await count('family_inbox', 'family_id', guardianId);
   await count('gmail_token', 'guardian_id', guardianId);
   await count('family_memory', 'guardian_id', guardianId);
+  // The family's own vocabulary (memory_alias) is family data like any other: it is keyed by
+  // family_id, and it must go with them rather than leaving "we call it the noodle place"
+  // behind to be matched against a future family's recall.
+  await count('memory_alias', 'family_id', guardianId);
   await count('case_record', 'guardian_id', guardianId);
   await count('family_profile', 'guardian_id', guardianId);
   for (const id of convIds) await count('message', 'conversation_id', id);

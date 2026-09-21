@@ -41,7 +41,9 @@ import type { Counterparty, Mode, StepResult, ExecutionContext, Step } from './s
 import type { SeedDb } from '../seed.js';
 import { provisionFamily } from '../seed.js';
 import { persistProvisionedFamily, deleteFamilyData } from '../integrations/identity.js';
-import { clearMessages } from '../integrations/conversation-store.js';
+import { clearMessages, searchMessages } from '../integrations/conversation-store.js';
+import { listAliases } from '../integrations/memory-alias-store.js';
+import { recallHistory } from './recall.js';
 import { executeTool } from '../tools/registry.js';
 import type { ToolContext } from '../tools/types.js';
 import type { IntentEngine } from './intent/engine.js';
@@ -1342,13 +1344,18 @@ export class Agent {
         return `Got it — I'll remind you ${formatReminderWhen(at)}: "${what}".`;
       },
       recall: async (query) => {
-        // Query the FULL conversation history (keyword/substring), not just the window.
-        const full = this.store.getHistory(this.currentConversationId) ?? [];
-        const q = query.toLowerCase();
-        const hits = full.filter((m) => m.content.toLowerCase().includes(q)).slice(-6);
-        return hits.length
-          ? hits.map((m) => `${m.role === 'user' ? 'Parent' : 'Axolotl'}: ${m.content.slice(0, 260)}`).join('\n')
-          : 'Nothing found in the conversation.';
+        // Search the bounded in-memory window AND the persisted history behind it, expanding
+        // the query through the family's own aliases. The honesty rules — what was actually
+        // searched, capped results, which extra terms were used — live in `./recall.ts` so
+        // they are unit-tested instead of re-derived here. Reads only; never stages an action.
+        const conversationId = this.currentConversationId;
+        const aliases = parentId ? await listAliases(parentId).catch(() => []) : [];
+        return recallHistory(query, {
+          window: this.store.getHistory(conversationId) ?? [],
+          trimmed: this.store.historyWindow(conversationId).trimmed,
+          aliases,
+          searchPersisted: (needle) => searchMessages(conversationId, needle),
+        });
       },
       studentName: state.profile?.children[0]?.name,
       conversationId: this.currentConversationId,
