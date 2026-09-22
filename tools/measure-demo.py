@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Measure the website phone mockup straight from public/index.html.
+"""Measure the website phone mockup straight from the real markup, in every language.
 
 The frame is a fixed 390:844 aspect ratio, so it CANNOT grow. If the thread
-content is taller than the thread band, something clips. On 2026-xx the live
-page shipped 748.8px of content into a 530.5px band with `justify-content:
+content is taller than the thread band, something clips. On 2026-09-21 the live
+page shipped 793.2px of content into a 530.5px band with `justify-content:
 flex-end` plus a top mask: the overflow was clipped off the top and the mask
 painted the top 26px transparent over white, which read as a "clipped bubble
 above a dead white gap".
@@ -14,7 +14,15 @@ can be checked before it is committed. Run it after touching the demo:
 
     python3 tools/measure-demo.py
 
-Exit code is 1 when the content does not fit at any supported width.
+It measures EVERY page listed in PAGES, not just English. The pages share one
+stylesheet but carry their own copy and their own markup, so fixing one leaves
+the others clipping: on the same day the Spanish page still held 778.8px in that
+530.5px band with 9 items, and an English-only version of this script reported
+ok. It also fails when the pages stop mirroring each other structurally (a bubble
+or a form row added to one page and not the other).
+
+Exit code is 1 when a page does not fit at any supported width, or when a page
+has stopped mirroring the others.
 """
 
 import html
@@ -48,6 +56,9 @@ CAP_FS, CAP_LH, CAP_MT = 11.5, 1.3, 7
 
 FONT_PATH = "/System/Library/Fonts/SFNS.ttf"
 WIDTHS = (280, 300, 320, 335, 350)
+# Every page that carries the demo. The pages differ only in language, so they must
+# stay structurally identical; PAGES[0] is the reference the others are compared to.
+PAGES = ("public/index.html", "public/es.html")
 
 
 def font(size):
@@ -101,7 +112,10 @@ def text_of(fragment):
 
 def parse(path="public/index.html"):
     src = open(path, encoding="utf-8").read()
-    block = re.search(r'<ol class="demo-thread">(.*?)</ol>', src, re.S).group(1)
+    found = re.search(r'<ol class="demo-thread">(.*?)</ol>', src, re.S)
+    if not found:
+        raise SystemExit(f'{path}: no <ol class="demo-thread"> found — the demo section is missing.')
+    block = found.group(1)
     items = []
     for li in re.findall(r"<li\b.*?</li>", block, re.S):
         if 'class="demo-meta"' in li:
@@ -140,23 +154,53 @@ def measure(width, items):
     return total, band, detail
 
 
+def signature(items):
+    """Structure only, never the copy: what the language pages must have in common."""
+    return tuple((kind, len(payload[0]) if kind == "shot" else None) for kind, payload in items)
+
+
+def describe(items):
+    return " ".join(
+        f"{kind}({len(payload[0])} rows)" if kind == "shot" else kind for kind, payload in items
+    )
+
+
 def main():
-    items = parse()
-    print(f"demo thread: {len(items)} items "
-          f"({sum(1 for k, _ in items if k in 'in out'.split())} bubbles, "
-          f"{sum(1 for k, _ in items if k == 'shot')} card)\n")
+    pages = {}
+    for path in PAGES:
+        try:
+            pages[path] = parse(path)
+        except FileNotFoundError:
+            print(f"FAIL: {path} not found.")
+            return 1
     ok = True
-    for w in WIDTHS:
-        content, band, _ = measure(w, items)
-        slack = band - content
-        fits = slack >= 0
-        ok &= fits
-        print(f"  frame {w:>3}px   content {content:6.1f}   band {band:6.1f}   "
-              f"slack {slack:+7.1f}   {'ok' if fits else 'CLIPS'}")
+
+    # The pages are translations of one another: same messages, same order, same card.
+    reference = pages[PAGES[0]]
+    for path in PAGES[1:]:
+        if signature(pages[path]) != signature(reference):
+            print(f"FAIL: {path} no longer mirrors {PAGES[0]}")
+            print(f"  {PAGES[0]}: {describe(reference)}")
+            print(f"  {path}: {describe(pages[path])}")
+            ok = False
+
+    for path in PAGES:
+        items = pages[path]
+        print(f"{path}: {len(items)} items "
+              f"({sum(1 for k, _ in items if k in ('in', 'out'))} bubbles, "
+              f"{sum(1 for k, _ in items if k == 'shot')} card)")
+        for w in WIDTHS:
+            content, band, _ = measure(w, items)
+            slack = band - content
+            ok &= slack >= 0
+            print(f"  frame {w:>3}px   content {content:6.1f}   band {band:6.1f}   "
+                  f"slack {slack:+7.1f}   {'ok' if slack >= 0 else 'CLIPS'}")
+        print()
+
     if not ok:
-        print("\nFAIL: the thread clips at one or more supported widths.")
+        print("FAIL: a page clips, or the pages have stopped mirroring each other.")
         return 1
-    print("\nok: fits at every supported width.")
+    print(f"ok: all {len(PAGES)} pages fit at every supported width.")
     return 0
 
 
