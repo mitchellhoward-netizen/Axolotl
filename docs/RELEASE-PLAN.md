@@ -138,3 +138,23 @@ product has to live with**, because we control three things those agents do not:
 
 The measure-first rule stands: the same eye that read "16 emails became 9 tasks" and found the iframe
 false negative should be pointed at reliability before we optimise anything else.
+
+## Verified against the live database before onboarding parents
+
+`memory_alias` does **not** exist in production. A non-head select returns
+`PGRST205: Could not find the table 'public.memory_alias' in the schema cache`. A `head: true`
+count against the same table returns `error.code = none, count = null`, which is how one reviewer
+concluded the table existed. A head request hides the schema-cache error, so a head count is never
+evidence that a table exists.
+
+Consequences, checked rather than assumed:
+
+- **Alias recall is inert.** Every harvested alias is dropped into a warning, so a parent's own
+  word for something will not find their own earlier message. Recall itself still works; it loses
+  only alias expansion.
+- **Deletion is unaffected.** `deleteFamilyData` swallows a per-table error into a warning
+  (`identity.ts`, the `count` helper) and continues, so a missing table cannot fail a deletion
+  request. It does mean the receipt omits the table rather than reporting zero for it.
+
+Apply `db/APPLY-NOW.sql` BLOCK 5 (create + RLS), confirm with BLOCK 6, or check read-only with
+`npx tsx scripts/probe-memory-alias.ts`.
