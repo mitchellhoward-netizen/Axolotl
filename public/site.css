@@ -1054,8 +1054,24 @@ textarea {
    decorative bands are dropped and their 68px goes to the thread. */
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 .demo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 40px 56px; align-items: center; }
-.demo-phone { justify-self: center; width: min(320px, 100%); aspect-ratio: 390 / 844; box-sizing: border-box; overflow: hidden; background: #1C1917; border-radius: 52px; padding: 11px; box-shadow: 0 2px 4px rgba(36, 28, 24, 0.06), 0 40px 80px -46px rgba(36, 28, 24, 0.7); }
-.demo-screen { height: 100%; display: flex; flex-direction: column; overflow: hidden; background: #fff; border-radius: 42px; font-family: -apple-system, "SF Pro Text", "Helvetica Neue", Helvetica, sans-serif; }
+.demo-phone { width: min(320px, 100%); margin: 0 auto; box-sizing: border-box; padding: 11px; background: #1C1917; border-radius: 52px; box-shadow: 0 2px 4px rgba(36, 28, 24, 0.06), 0 40px 80px -46px rgba(36, 28, 24, 0.7); }
+/* The SCREEN carries the ratio, and the bezel simply wraps it. Sizing the phone with
+   `aspect-ratio` plus `padding`, and the screen with `height: 100%`, does not work: a
+   percentage height against an aspect-ratio-derived height is not definite, so the content
+   decided the height instead. The phone then grew to fit the thread (measured shell ratios
+   2.244 in Chrome and 2.093 in Safari, against the 2.164 the frame should be), the thread
+   never got a bounded box, so it could not scroll, and the composer and home indicator were
+   pushed out of the bottom and clipped.
+
+   So the ratio lives on the SCREEN and the bezel is PADDING on the phone. Every size is then
+   definite: the screen's width comes from the phone's content box, its height comes from that
+   width, and the flex column is laid out inside a known height. The thread takes what is left
+   and scrolls. The bezel must be padding, not a margin on the screen: a margin would collapse
+   through this padding-free parent and the top and bottom bezel would disappear, which is the
+   "border drops off at the bottom" symptom. The bezel adds 11px a side, so the BODY is slightly
+   longer than 390:844 while the SCREEN is exactly that, which is the real relationship on a
+   phone. */
+.demo-screen { aspect-ratio: 390 / 844; display: flex; flex-direction: column; overflow: hidden; background: #fff; border-radius: 42px; font-family: -apple-system, "SF Pro Text", "Helvetica Neue", Helvetica, sans-serif; }
 .demo-status { flex: 0 0 24px; display: flex; align-items: center; justify-content: space-between; padding: 0 18px; background: #F7F7F7; font-size: 13px; font-weight: 600; color: #000; }
 .demo-contact { flex: 0 0 48px; display: flex; align-items: center; justify-content: center; gap: 7px; background: #F7F7F7; border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
 .demo-contact img { width: 27px; height: 27px; object-fit: contain; }
@@ -1063,6 +1079,14 @@ textarea {
 .demo-thread { flex: 1 1 auto; min-height: 0; overflow-y: auto; overflow-x: hidden; list-style: none; margin: 0; padding: 10px 14px 0; display: flex; flex-direction: column; gap: 6px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
 .demo-thread::-webkit-scrollbar { width: 0; height: 0; display: none; }
 .demo-thread li { display: flex; }
+/* Anchor the thread to the bottom, the way a real thread reads: the newest message sits
+   just above the composer and the free space falls at the top, under the contact header.
+   This is what the pre-Benny frame did with `justify-content: flex-end`, but flex-end on a
+   SCROLL container pushes overflow above the scrollable area, where it cannot be reached —
+   that is the bug that clipped this demo in the first place. An auto margin on the first
+   item bottom-anchors short content and collapses to zero once the copy overflows, so the
+   top stays scrollable. */
+.demo-thread > li:first-child { margin-top: auto; }
 .demo-meta { align-self: center; font-size: 11.5px; line-height: 1.2; color: #8E8E93; padding-bottom: 4px; }
 .demo-meta b { font-weight: 600; color: #6E6E73; }
 .demo-bubble { max-width: 88%; padding: 8px 14px; border-radius: 19px; font-size: 15.5px; line-height: 1.28; }

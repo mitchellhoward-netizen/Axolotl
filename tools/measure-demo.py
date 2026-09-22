@@ -142,8 +142,14 @@ def parse(path="public/index.html"):
 
 
 def measure(width, items):
-    inner_h = width * FRAME_RATIO - 2 * PHONE_PAD
-    band = inner_h - (BANDS if width >= 320 else BANDS_NARROW)
+    # The ratio lives on the SCREEN, which the phone's 11px padding insets on every side,
+    # so the screen is (width - 22) wide and that width times 844/390 tall. Deriving the
+    # band this way is what makes it correct: the previous model assumed the ratio was on
+    # the phone's border box, which is exactly the mistake that let the content size the
+    # phone and push the composer out of the bottom.
+    screen_w = width - 2 * PHONE_PAD
+    screen_h = screen_w * FRAME_RATIO
+    band = screen_h - (BANDS if width >= 320 else BANDS_NARROW)
     thread_inner = width - 2 * PHONE_PAD - 2 * THREAD_PAD_X
     bubble_w = BUBBLE_MAX * thread_inner - 2 * BUBBLE_PAD_X
     total, detail = THREAD_PAD_TOP, []
