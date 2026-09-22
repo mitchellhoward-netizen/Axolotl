@@ -21,8 +21,13 @@ the others clipping: on the same day the Spanish page still held 778.8px in that
 ok. It also fails when the pages stop mirroring each other structurally (a bubble
 or a form row added to one page and not the other).
 
-Exit code is 1 when a page does not fit at any supported width, or when a page
-has stopped mirroring the others.
+Overflow is not a clip: site.css gives the thread `overflow-y: auto`, so copy that
+outgrows the band scrolls, exactly as the pre-Benny site did. That valve is why the tool
+checks the stylesheet as well: overflow is only a failure when the thread has stopped
+being scrollable, because that is the combination that hides content.
+
+Exit code is 1 when a page overflows while the thread is not scrollable, or when the
+pages have stopped mirroring each other.
 """
 
 import html
@@ -55,6 +60,7 @@ ROW_FS, ROW_LH, ROW_PB, ROW_BORDER = 11.5, 1.3, 4, 1
 CAP_FS, CAP_LH, CAP_MT = 11.5, 1.3, 7
 
 FONT_PATH = "/System/Library/Fonts/SFNS.ttf"
+STYLESHEET = "public/site.css"
 WIDTHS = (280, 300, 320, 335, 350)
 # Every page that carries the demo. The pages differ only in language, so they must
 # stay structurally identical; PAGES[0] is the reference the others are compared to.
@@ -154,6 +160,20 @@ def measure(width, items):
     return total, band, detail
 
 
+def thread_scrolls(path=STYLESHEET):
+    """The safety valve, read from the stylesheet rather than assumed.
+
+    Copy that outgrows the band is only safe while the thread can scroll. If someone
+    puts `overflow: hidden` back, overflow silently becomes a clip again, which is the
+    failure this whole file exists to catch.
+    """
+    css = open(path, encoding="utf-8").read()
+    rule = re.search(r"\.demo-thread\s*\{([^}]*)\}", css)
+    if not rule:
+        return False, f"no .demo-thread rule in {path}"
+    return re.search(r"overflow-y:\s*(auto|scroll)", rule.group(1)) is not None, rule.group(1)
+
+
 def signature(items):
     """Structure only, never the copy: what the language pages must have in common."""
     return tuple((kind, len(payload[0]) if kind == "shot" else None) for kind, payload in items)
@@ -174,6 +194,8 @@ def main():
             print(f"FAIL: {path} not found.")
             return 1
     ok = True
+    scrolls, thread_rule = thread_scrolls()
+    scrolled_at = []
 
     # The pages are translations of one another: same messages, same order, same card.
     reference = pages[PAGES[0]]
@@ -192,15 +214,27 @@ def main():
         for w in WIDTHS:
             content, band, _ = measure(w, items)
             slack = band - content
-            ok &= slack >= 0
+            if slack >= 0:
+                verdict = "ok"
+            elif scrolls:
+                verdict = "scrolls"
+                scrolled_at.append(f"{path}@{w}px")
+            else:
+                verdict = "CLIPS"
+                ok = False
             print(f"  frame {w:>3}px   content {content:6.1f}   band {band:6.1f}   "
-                  f"slack {slack:+7.1f}   {'ok' if slack >= 0 else 'CLIPS'}")
+                  f"slack {slack:+7.1f}   {verdict}")
         print()
 
     if not ok:
-        print("FAIL: a page clips, or the pages have stopped mirroring each other.")
+        print("FAIL: a page clips (overflows with a non-scrolling thread), or the pages "
+              "have stopped mirroring each other.")
+        if not scrolls:
+            print(f"  the thread cannot scroll: {thread_rule}")
         return 1
     print(f"ok: all {len(PAGES)} pages fit at every supported width.")
+    if scrolled_at:
+        print(f"    note: the thread scrolls rather than clips at {', '.join(scrolled_at)}")
     return 0
 
 

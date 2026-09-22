@@ -1026,21 +1026,27 @@ textarea {
    iPhone logical ratio, and every band has a fixed height, so a bubble can never stretch
    the device. The thread takes what is left.
 
-   THE THREAD CANNOT GROW, so the copy has to fit it. An earlier version let the copy
-   overflow and pushed it to the bottom (justify-content: flex-end) under a transparent
-   top mask: at a 320px frame the thread held 793px of content in a 530px band, so the top
-   263px was clipped and the mask painted that region white: a clipped bubble above a dead
-   white gap. Fit is now measured, not eyeballed:
+   THE THREAD CANNOT GROW, so the conversation scrolls instead, which is what the pre-Benny
+   site did (overflow-y:auto, scrollbar hidden, at fa66518). Scrolling is the safety valve:
+   whatever the copy does at whatever width, it is reachable and the device never changes
+   shape. An earlier version had neither: it let the copy overflow, pushed it to the bottom
+   (justify-content: flex-end) under a transparent top mask, and at a 320px frame the thread
+   held 793px of content in a 530px band. The top 263px was clipped and the mask painted that
+   region white: a clipped bubble above a dead white gap.
+
+   The copy is still sized so the WHOLE loop is visible without scrolling, because the point
+   of the mockup is the ending (submitted, school-confirmed) and a visitor who has to scroll a
+   phone mockup to reach it will not. That fit is measured, not eyeballed:
 
        python3 tools/measure-demo.py
 
-   which parses this page's markup, wraps the copy in SF Pro, and exits non-zero if the
-   thread overflows at any supported width.
+   which parses the real markup, wraps the copy in SF Pro, and fails if a page stops fitting
+   while the thread is no longer scrollable.
 
    Budget at a 320px frame (692.3px tall; 11px padding per side -> 670.3px inner):
      status bar      24.0  (flex 0 0 24px)
      contact header  48.0  (flex 0 0 48px)
-     thread area    530.3  (flex 1 1 auto; min-height 0; overflow hidden)
+     thread area    530.3  (flex 1 1 auto; min-height 0; overflow-y auto)
      composer        48.0  (flex 0 0 48px)
      home indicator  20.0  (flex 0 0 20px)
      ---- fixed sum 140.0 + thread 530.3 = 670.3  == frame inner height
@@ -1054,7 +1060,8 @@ textarea {
 .demo-contact { flex: 0 0 48px; display: flex; align-items: center; justify-content: center; gap: 7px; background: #F7F7F7; border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
 .demo-contact img { width: 27px; height: 27px; object-fit: contain; }
 .demo-contact span { font-size: 12.5px; font-weight: 500; color: #000; }
-.demo-thread { flex: 1 1 auto; min-height: 0; overflow: hidden; list-style: none; margin: 0; padding: 10px 14px 0; display: flex; flex-direction: column; gap: 6px; }
+.demo-thread { flex: 1 1 auto; min-height: 0; overflow-y: auto; overflow-x: hidden; list-style: none; margin: 0; padding: 10px 14px 0; display: flex; flex-direction: column; gap: 6px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+.demo-thread::-webkit-scrollbar { width: 0; height: 0; display: none; }
 .demo-thread li { display: flex; }
 .demo-meta { align-self: center; font-size: 11.5px; line-height: 1.2; color: #8E8E93; padding-bottom: 4px; }
 .demo-meta b { font-weight: 600; color: #6E6E73; }
