@@ -1071,11 +1071,21 @@ textarea {
    "border drops off at the bottom" symptom. The bezel adds 11px a side, so the BODY is slightly
    longer than 390:844 while the SCREEN is exactly that, which is the real relationship on a
    phone. */
-.demo-screen { aspect-ratio: 390 / 844; display: flex; flex-direction: column; overflow: hidden; background: #fff; border-radius: 42px; font-family: -apple-system, "SF Pro Text", "Helvetica Neue", Helvetica, sans-serif; }
+.demo-screen { position: relative; aspect-ratio: 390 / 844; display: flex; flex-direction: column; overflow: hidden; background: #fff; border-radius: 42px; font-family: -apple-system, "SF Pro Text", "Helvetica Neue", Helvetica, sans-serif; }
 .demo-status { flex: 0 0 24px; display: flex; align-items: center; justify-content: space-between; padding: 0 18px; background: #F7F7F7; font-size: 13px; font-weight: 600; color: #000; }
 .demo-contact { flex: 0 0 48px; display: flex; align-items: center; justify-content: center; gap: 7px; background: #F7F7F7; border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
 .demo-contact img { width: 27px; height: 27px; object-fit: contain; }
 .demo-contact span { font-size: 12.5px; font-weight: 500; color: #000; }
+/* THE THREAD IS LONGER THAN ITS WINDOW, and a hard cut through a bubble reads as a rendering
+   bug rather than as "the conversation continues". These fades are the affordance that says
+   it does, and they are deliberately NOT the transparent top mask that caused trouble here
+   before: that one sat over an `overflow: hidden` box and painted already-CLIPPED content
+   white, hiding a fit problem. Here the content genuinely scrolls and each fade is 16px on
+   the edge it belongs to. The offsets are the fixed bands around the thread (status 24 +
+   contact 48 above, composer 48 + home 20 below), so the fades land exactly on its edges. */
+.demo-screen::before, .demo-screen::after { content: ""; position: absolute; left: 0; right: 0; height: 16px; z-index: 2; pointer-events: none; }
+.demo-screen::before { top: 72px; background: linear-gradient(to bottom, #fff, rgba(255, 255, 255, 0)); }
+.demo-screen::after { bottom: 68px; background: linear-gradient(to top, #fff, rgba(255, 255, 255, 0)); }
 .demo-thread { flex: 1 1 auto; min-height: 0; overflow-y: auto; overflow-x: hidden; list-style: none; margin: 0; padding: 10px 14px 0; display: flex; flex-direction: column; gap: 6px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
 .demo-thread::-webkit-scrollbar { width: 0; height: 0; display: none; }
 .demo-thread li { display: flex; }
