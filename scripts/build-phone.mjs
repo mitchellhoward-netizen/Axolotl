@@ -9,8 +9,9 @@
  * What it does, per language:
  *   1. renders tools/site/phone-screen.html at the device's own logical size
  *      (iPhone 17 Pro: 402x874pt) at 3x, in Chromium, in SF Pro;
- *   2. fails if the conversation no longer fits the screen (the copy can
- *      outgrow it, and a clipped conversation would ship as a picture);
+ *   2. fails if the conversation is too short to fill the screen (a short thread
+ *      leaves a white gap under the header); a longer one is anchored at the
+ *      bottom and feathered at the top, the way a real conversation sits;
  *   3. composites the screen into Apple's official bezel PNG at 1:1;
  *   4. downscales to 2x of the size the site displays and writes
  *      public/phone-en.webp and public/phone-es.webp;
@@ -349,11 +350,11 @@ for (const lang of langs) {
     const fit = /data-fit="([^"]+)"/.exec(dom)?.[1];
     const measured = /data-measured="([^"]+)"/.exec(dom)?.[1];
     if (!fit || !fit.startsWith('ok')) {
-      console.error(`phone screen ${spec.key} (${lang}) does not fit: ${fit} (content/inner ${measured})`);
-      console.error('shorten the copy in tools/site/strings.*.mjs, or raise the device.');
+      console.error(`phone screen ${spec.key} (${lang}) does not fill the screen: ${fit} (content/inner ${measured})`);
+      console.error('add more to the conversation in tools/site/strings.*.mjs.');
       process.exit(1);
     }
-    console.log(`phone screen ${spec.key} (${lang}): fits (${measured} content/inner)`);
+    console.log(`phone screen ${spec.key} (${lang}): fills (${measured} content/inner)`);
 
     // Pass 2: render at 3x, with SF Pro available to the page.
     await run(chrome, [

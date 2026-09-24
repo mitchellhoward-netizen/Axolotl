@@ -138,10 +138,15 @@
 
       /* ── thread ─────────────────────────────────────────────────────────── */
       .thread {
+        position: relative;
         flex: 1 1 auto;
         min-height: 0;
         display: flex;
         flex-direction: column;
+        /* A real conversation is anchored at the bottom: when it is taller than
+           the glass, the OLDEST messages are the ones off-screen, clipped above
+           the top edge rather than leaving a white gap below the header. */
+        justify-content: flex-end;
         gap: 10px;
         margin: 0;
         padding: 12px 16px 8px;
@@ -149,10 +154,18 @@
         overflow: hidden;
       }
 
-      /* A conversation shorter than the screen sits at the bottom, just above the
-         composer, the way iOS anchors it. */
-      .thread > :first-child {
-        margin-top: auto;
+      /* The cut at the top edge is feathered, so a clipped bubble reads as a
+         conversation continuing above rather than a rendering artifact. */
+      .thread::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 30px;
+        z-index: 2;
+        pointer-events: none;
+        background: linear-gradient(to bottom, #fff 0%, rgba(255, 255, 255, 0) 100%);
       }
 
       .meta {
@@ -427,10 +440,19 @@
         return el;
       };
 
+      // Outgoing turns are written three ways across the strings: `{ out: 'text' }`
+      // in the hero and the week threads, `{ kind: 'out', text }` in the consent
+      // loop, and `{ from: 'You', out: true, text }` in the group chat. All three
+      // have to read as the parent's blue, right-aligned bubble.
+      const isOutTurn = (turn) =>
+        turn.kind === 'out' ||
+        turn.out === true ||
+        (turn.in === undefined && typeof turn.out === 'string');
+
       // One turn -> one row. `from` is set only in a group chat, where an
       // incoming message carries the sender's name and initials.
       const turnRow = (turn, from) => {
-        const out = turn.out === true || turn.kind === 'out';
+        const out = isOutTurn(turn);
         const text = turn.text ?? turn.in ?? turn.out ?? '';
         const li = document.createElement('li');
         li.className = `row ${out ? 'out' : 'in'}`;
@@ -454,7 +476,7 @@
 
       const renderThread = (items, { group = false } = {}) => {
         for (const turn of items) {
-          const out = turn.out === true || turn.kind === 'out';
+          const out = isOutTurn(turn);
           thread.append(turnRow(turn, group && !out ? (turn.from ?? 'Axolotl') : undefined));
         }
       };
@@ -506,10 +528,10 @@
         }
       });
 
-      // Report whether the staged thread fits the screen. The build fails on
-      // overflow rather than shipping a clipped screenshot. The height is the
-      // sum of the children rather than scrollHeight: the auto margin that
-      // bottom-anchors a short thread would otherwise hide the real slack.
+      // The screen must be FILLED: a thread shorter than the glass leaves a white
+      // gap under the header. Overflow is fine — the oldest messages sit above
+      // the glass, feathered — so the build fails only when there is not enough
+      // conversation to fill the screen.
       const style = getComputedStyle(thread);
       const gap = parseFloat(style.rowGap) || 0;
       const kids = [...thread.children];
@@ -520,7 +542,7 @@
       const inner =
         thread.clientHeight - parseFloat(style.paddingTop) - parseFloat(style.paddingBottom);
       document.documentElement.dataset.fit =
-        content <= inner ? 'ok' : `overflow:${(content - inner).toFixed(1)}`;
+        content >= inner ? 'ok' : `short:${(inner - content).toFixed(1)}`;
       document.documentElement.dataset.measured = `${content.toFixed(1)}/${inner.toFixed(1)}`;
     </script>
   </body>
