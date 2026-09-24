@@ -132,8 +132,10 @@
         align-items: center;
       }
 
+      /* Overlap the group's initials, but not so far that one circle's white
+         ring covers the letter of the one before it. */
       .nav-stack .initials + .initials {
-        margin-left: -9px;
+        margin-left: -6px;
       }
 
       /* ── thread ─────────────────────────────────────────────────────────── */
@@ -197,8 +199,13 @@
         margin-top: -7px;
       }
 
-      /* The initials an iPhone falls back to when there is no contact photo. */
+      /* The initials an iPhone falls back to when there is no contact photo.
+         Lifted above the bubble: the tail's white notch is drawn 26px to the
+         left of a bubble, and without this it paints over the avatar beside it
+         and cuts the letter down to a "C". */
       .initials {
+        position: relative;
+        z-index: 1;
         display: inline-flex;
         align-items: center;
         justify-content: center;
@@ -216,7 +223,7 @@
         width: 24px;
         height: 24px;
         font-size: 10.5px;
-        box-shadow: 0 0 0 2px #fff;
+        box-shadow: 0 0 0 1.5px #fff;
       }
 
       /* ── the bubble ─────────────────────────────────────────────────────── */
