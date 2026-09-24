@@ -434,6 +434,7 @@
         const text = turn.text ?? turn.in ?? turn.out ?? '';
         const li = document.createElement('li');
         li.className = `row ${out ? 'out' : 'in'}`;
+        li.dataset.from = from ?? '';
         const bubble = document.createElement('div');
         bubble.className = 'bubble';
         if (!out && from) {
@@ -487,15 +488,18 @@
         renderThread(phone.thread);
       }
 
-      // iOS groups a run of messages from one sender: the gap inside a run is
-      // tight, and only the last bubble of one carries the tail. The direction
-      // is captured up front — mutating className inside the loop made each row
-      // look different from the next one and put a tail on every bubble.
+      // iOS groups a run of messages from ONE sender: the gap inside a run is
+      // tight, and only the last bubble of one carries the tail. In a group chat
+      // the sender matters, so a run is (direction, sender) — not every incoming
+      // bubble. The key is captured up front: mutating className inside the loop
+      // made each row look different from the next and put a tail on everything.
       const rows = [...thread.querySelectorAll('.row')];
-      const dir = rows.map((row) => (row.classList.contains('out') ? 'out' : 'in'));
+      const key = rows.map(
+        (row) => `${row.classList.contains('out') ? 'out' : 'in'}|${row.dataset.from ?? ''}`,
+      );
       rows.forEach((row, i) => {
         const bubble = row.querySelector('.bubble');
-        if (i + 1 < rows.length && dir[i + 1] === dir[i]) {
+        if (i + 1 < rows.length && key[i + 1] === key[i]) {
           rows[i + 1].classList.add('run');
         } else if (bubble) {
           bubble.classList.add('tail');
