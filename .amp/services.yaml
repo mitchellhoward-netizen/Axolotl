@@ -1,10 +1,10 @@
 services:
   website:
-    command: python3 -m http.server "$PORT" --bind 0.0.0.0 --directory public
+    command: node scripts/serve-site.mjs
     port: 3000
     health: /
     portal:
-      title: Benny website
+      title: Axolotl website
       description: Static marketing preview only. Forms are not connected; no messaging agent or external integrations are started.
   benefits-db:
     command: bash scripts/benefits-lab-db.sh

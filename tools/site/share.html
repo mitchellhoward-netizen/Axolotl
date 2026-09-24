@@ -1,0 +1,192 @@
+<!doctype html>
+<!--
+  Source for public/share.png and public/share-es.png, the social cards.
+
+  Rendered by scripts/build-share.mjs at exactly 1200x630 (the Open Graph size),
+  in both languages, from the same design tokens as the site. It is a standalone
+  file because it is not part of any page: it is only ever screenshotted.
+
+  Text in here is allowed to be baked in — the brief's "no text in images" rule
+  is about the site itself, and a share card is not the site.
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600&family=Zilla+Slab:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      html,
+      body {
+        margin: 0;
+        width: 1200px;
+        height: 630px;
+        overflow: hidden;
+      }
+      body {
+        display: flex;
+        align-items: center;
+        gap: 56px;
+        padding: 0 72px;
+        background-color: #FCF9F3;
+        /* The same SVG grain the site uses, so the card is the same paper. */
+        background-image: url("data:image/svg+xml,%3Csvg xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg' width%3D'180' height%3D'180'%3E%3Cfilter id%3D'g'%3E%3CfeTurbulence type%3D'fractalNoise' baseFrequency%3D'0.82' numOctaves%3D'4' stitchTiles%3D'stitch'%2F%3E%3CfeColorMatrix type%3D'matrix' values%3D'0 0 0 0 0.36 0 0 0 0 0.28 0 0 0 0 0.2 0.33 0.33 0.33 0 0'%2F%3E%3C%2Ffilter%3E%3Crect width%3D'100%25' height%3D'100%25' filter%3D'url(%2523g)' opacity%3D'0.085'%2F%3E%3C%2Fsvg%3E");
+        background-size: 180px 180px;
+        color: #2E2117;
+        font-family: "Public Sans", system-ui, sans-serif;
+      }
+      .left {
+        flex: 1 1 auto;
+        max-width: 470px;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-family: "Zilla Slab", Georgia, serif;
+        font-size: 34px;
+        font-weight: 700;
+      }
+      .brand img {
+        width: 44px;
+        height: 44px;
+        object-fit: contain;
+      }
+      h1 {
+        margin: 26px 0 0;
+        font-family: "Zilla Slab", Georgia, serif;
+        font-size: 58px;
+        line-height: 1;
+        letter-spacing: -1px;
+      }
+      p {
+        margin: 22px 0 0;
+        font-size: 22px;
+        line-height: 1.4;
+        color: #5A4D42;
+      }
+      .folder {
+        flex: 0 0 470px;
+        background: #FFDCE2;
+        border-radius: 4px;
+        padding: 0 12px 14px;
+        box-shadow: 0 1px 2px rgba(31, 34, 51, 0.08), 0 26px 44px -20px rgba(31, 34, 51, 0.45);
+      }
+      .tab {
+        display: inline-block;
+        margin: 16px 0 0;
+        padding: 8px 16px 10px;
+        border-radius: 4px 4px 0 0;
+        font-family: "Zilla Slab", Georgia, serif;
+        font-size: 19px;
+        font-weight: 600;
+        color: #2E2117;
+      }
+      .rows {
+        background: #fff;
+        border-radius: 3px;
+        box-shadow: 0 1px 2px rgba(31, 34, 51, 0.14);
+      }
+      .row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 15px 18px;
+      }
+      .row + .row {
+        border-top: 1px solid #EEE7DE;
+      }
+      .row p {
+        margin: 0;
+      }
+      .row .label {
+        font-family: "Zilla Slab", Georgia, serif;
+        font-size: 20px;
+        font-weight: 600;
+        color: #2E2117;
+      }
+      .row .detail {
+        margin-top: 3px;
+        font-size: 14.5px;
+        color: #72675B;
+      }
+      .status {
+        flex: 0 0 auto;
+        font-size: 13px;
+        font-weight: 600;
+        white-space: nowrap;
+      }
+      .confirmed {
+        padding: 4px 10px;
+        border: 3px double #1F7C4B;
+        border-radius: 3px;
+        color: #1F7C4B;
+        font-family: "Zilla Slab", Georgia, serif;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        transform: rotate(-6deg);
+      }
+      .waiting {
+        padding: 4px 12px;
+        border: 1.5px dashed #1F7C4B;
+        border-radius: 999px;
+        color: #1F7C4B;
+      }
+      .requested {
+        padding: 4px 12px;
+        border: 1.5px solid #72675B;
+        border-radius: 999px;
+        color: #72675B;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="left">
+      <div class="brand">
+        <img src="/public/animation/axolotl-mascot.png" alt="" />
+        <span>Axolotl</span>
+      </div>
+      <h1 id="headline"></h1>
+      <p id="sub"></p>
+    </div>
+    <div class="folder">
+      <span class="tab" id="family"></span>
+      <div class="rows" id="rows"></div>
+    </div>
+    <script type="module">
+      const STRINGS = { en: '/tools/site/strings.en.mjs', es: '/tools/site/strings.es.mjs' };
+      const lang = new URLSearchParams(location.search).get('lang') === 'es' ? 'es' : 'en';
+      const s = (await import(STRINGS[lang])).default;
+
+      document.documentElement.lang = s.lang;
+      document.getElementById('headline').textContent = s.hero.h1;
+      document.getElementById('sub').textContent = s.hero.trust;
+      document.getElementById('family').textContent = s.hero.folder.label;
+
+      const tone = { confirmed: 'confirmed', waiting: 'waiting', requested: 'requested', soon: 'requested', reminder: 'requested' };
+      document.getElementById('rows').innerHTML = s.hero.folder.rows
+        .slice(0, 4)
+        .map(
+          (row) => `<div class="row">
+            <div><p class="label"></p><p class="detail"></p></div>
+            <span class="status ${tone[row.status]}"></span>
+          </div>`,
+        )
+        .map((html, i) => {
+          const row = s.hero.folder.rows[i];
+          const el = document.createElement('div');
+          el.innerHTML = html;
+          el.querySelector('.label').textContent = row.label;
+          el.querySelector('.detail').textContent = row.detail;
+          el.querySelector('.status').textContent = s.statuses[row.status];
+          return el.innerHTML;
+        })
+        .join('');
+      document.body.dataset.ready = 'true';
+    </script>
+  </body>
+</html>

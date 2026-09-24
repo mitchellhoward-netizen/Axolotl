@@ -1,0 +1,106 @@
+{
+  "device": "iPhone 17 Pro",
+  "copyHash": "7005887fffe790ee",
+  "art": {
+    "en": {
+      "yes": {
+        "width": 328,
+        "height": 670
+      },
+      "week": {
+        "width": 328,
+        "height": 670
+      },
+      "marks": {
+        "stamp": {
+          "x": 12.004,
+          "y": 41.685,
+          "w": 20.478,
+          "h": 3.141
+        },
+        "pen": {
+          "x": 12.16,
+          "y": 45.489,
+          "w": 64.996,
+          "h": 8.924
+        },
+        "card": {
+          "x": 8.821,
+          "y": 32.652,
+          "w": 71.674,
+          "h": 54.413
+        }
+      },
+      "circles": {
+        "width": 328,
+        "height": 670
+      },
+      "weekcol0": {
+        "width": 336,
+        "height": 687
+      },
+      "weekcol1": {
+        "width": 336,
+        "height": 687
+      },
+      "weekcol2": {
+        "width": 336,
+        "height": 687
+      },
+      "weekcol3": {
+        "width": 336,
+        "height": 687
+      }
+    },
+    "es": {
+      "yes": {
+        "width": 328,
+        "height": 670
+      },
+      "week": {
+        "width": 328,
+        "height": 670
+      },
+      "marks": {
+        "stamp": {
+          "x": 12.004,
+          "y": 41.413,
+          "w": 22.771,
+          "h": 3.239
+        },
+        "pen": {
+          "x": 12.16,
+          "y": 45.272,
+          "w": 64.996,
+          "h": 10.989
+        },
+        "card": {
+          "x": 8.821,
+          "y": 30.37,
+          "w": 71.674,
+          "h": 56.696
+        }
+      },
+      "circles": {
+        "width": 328,
+        "height": 670
+      },
+      "weekcol0": {
+        "width": 336,
+        "height": 687
+      },
+      "weekcol1": {
+        "width": 336,
+        "height": 687
+      },
+      "weekcol2": {
+        "width": 336,
+        "height": 687
+      },
+      "weekcol3": {
+        "width": 336,
+        "height": 687
+      }
+    }
+  }
+}

@@ -18,10 +18,6 @@ const RETELL_BASE = process.env.RETELL_API_BASE ?? 'https://api.retellai.com';
 const RETELL_CREATE_SMS_ENDPOINT = `${RETELL_BASE}/create-sms-chat`;
 const TEXTBELT_ENDPOINT = 'https://textbelt.com/text';
 
-/** The confirmation text sent to a parent the moment they join the waitlist. */
-export const WAITLIST_MESSAGE =
-  "Hey — you're on the waitlist. We'll text you when it's your turn to use Benny.";
-
 /**
  * Textbelt sender — the free / cheap SMS path with NO business profile needed.
  * POST https://textbelt.com/text { phone, message, key }. The free key is

@@ -15,3 +15,6 @@ web/waitlist.json
 
 # runtime single-instance lock
 .agent.lock
+
+# Apple bezel / SF Pro downloads used to build the phone mockup
+.cache/

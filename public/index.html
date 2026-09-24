@@ -3,809 +3,479 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Axolotl: your school assistant</title>
-    <meta
-      name="description"
-      content="Text Axolotl and it reads your kid's school email, answers questions about your school, fills the forms, and drafts the emails. It always shows you first and waits for your yes."
-    />
-    <meta name="theme-color" content="#FFFFFF" />
-    <link rel="alternate" hreflang="en" href="/" />
-    <link rel="alternate" hreflang="es" href="/es" />
-    <link rel="alternate" hreflang="x-default" href="/" />
+    <title>Axolotl: help with school, by text, for working parents.</title>
+    <meta name="description" content="Axolotl handles early releases, sick days and school paperwork by text, and gets your kid what they&#39;re owed. Nothing goes to school without your yes." />
+    <meta name="theme-color" content="#FFE8E6" />
+    <link rel="canonical" href="https://www.get-axolotl.com/" />
+    <link rel="alternate" hreflang="en" href="https://www.get-axolotl.com/" />
+    <link rel="alternate" hreflang="es" href="https://www.get-axolotl.com/es" />
+    <link rel="alternate" hreflang="x-default" href="https://www.get-axolotl.com/" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Axolotl" />
     <meta property="og:url" content="https://www.get-axolotl.com/" />
     <meta property="og:locale" content="en_US" />
-    <meta property="og:title" content="Axolotl: your school assistant" />
-    <meta
-      property="og:description"
-      content="It reads the school email, answers the questions, fills the forms, and follows up. Nothing goes to your school without your yes."
-    />
-    <meta name="twitter:card" content="summary" />
-    <link rel="icon" href="/favicon-32.png?v=mascot-2" sizes="32x32" type="image/png" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=mascot-2" />
-    <meta property="og:image" content="https://www.get-axolotl.com/icon-512.png?v=mascot-2" />
-    <meta name="twitter:image" content="https://www.get-axolotl.com/icon-512.png?v=mascot-2" />
+    <meta property="og:locale:alternate" content="es_US" />
+    <meta property="og:title" content="Axolotl: help with school, by text, for working parents." />
+    <meta property="og:description" content="Axolotl handles early releases, sick days and school paperwork by text, and gets your kid what they&#39;re owed. Nothing goes to school without your yes." />
+    <meta property="og:image" content="https://www.get-axolotl.com/share.png" />
+    <meta property="og:image:alt" content="A manila folder labeled &quot;The Howard family&quot; holding school tasks, each marked Confirmed, Waiting for your yes, or Requested." />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://www.get-axolotl.com/share.png" />
+    <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Public+Sans:wght@400;500;600&family=Zilla+Slab:wght@500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/site.css?v=4" />
-    <script src="/site.js?v=persistent-headline-1" defer></script>
-    <style>
-      /* The mascot is a transparent PNG, so it sits on the page with no plate behind it.
-         The motion is a gentle float, and the pause button that site.js provides genuinely
-         stops it. */
-      .axolotl-figure {
-        display: block;
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-        animation: axolotl-float 6s ease-in-out infinite;
-      }
-      #benny-wake[data-paused="true"] .axolotl-figure { animation-play-state: paused; }
-      @keyframes axolotl-float {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-10px); }
-      }
-      @media (prefers-reduced-motion: reduce) {
-        .axolotl-figure { animation: none; }
-      }
-    </style>
+    <link rel="stylesheet" href="/site.css?v=13" />
+    <script src="/site.js?v=13" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
-    <header class="site-header wrap">
-      <a class="brand" href="#main" aria-label="Axolotl home"
-        ><img
-          src="/animation/axolotl-mascot.png?v=mascot-2"
-          alt=""
-          width="30"
-          height="30"
-        /><span>Axolotl</span></a
-      >
-      <nav aria-label="Main navigation">
-        <a href="#how-it-works">What it does</a
-        ><a href="#trust">Limits</a
-        ><a href="#waitlist">Join the pilot</a
-        ><a href="/es" hreflang="es" lang="es">Español</a>
-      </nav>
-    </header>
+
+  <header class="site-header">
+    <div class="wrap header-bar">
+      <a class="brand" href="/" aria-label="Axolotl home">
+        <img src="/animation/axolotl-mascot.png" alt="" width="34" height="34" />
+        <span>Axolotl</span>
+      </a>
+      <div class="header-actions">
+        <a class="button primary header-cta" href="#join">Join the pilot</a>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Menu">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 6h18M3 12h18M3 18h18" /></svg>
+        </button>
+      </div>
+    </div>
+    <nav class="site-nav" id="site-nav" aria-label="Main navigation">
+      <div class="wrap">
+        <ul><li><a href="#how">How it works</a></li><li><a href="#rights">Your rights</a></li><li><a href="#circles">Circles</a></li><li><a href="#limits">Limits</a></li></ul>
+        <a class="nav-lang" href="/es" hreflang="es" lang="es">Español</a>
+      </div>
+    </nav>
+  </header>
     <main id="main">
-      <section class="hero wrap" aria-labelledby="hero-title">
-        <figure class="hero-scene">
-          <div
-            id="benny-wake"
-            role="img"
-            aria-label="A smiling pink axolotl with frilly gills and one arm raised."
-          >
+
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <h1 id="hero-title">Your family&#39;s school assistant.</h1>
+          <p class="lead">It reads what school sends, covers the early releases and the sick days, and gets your kid what they&#39;re owed. Just text it.</p>
+          <div class="hero-actions">
+            <a class="button primary" href="#join">Join the pilot</a>
+            <a class="text-link" href="#how">See how it works</a>
+          </div>
+          <p class="trust-line">Nothing goes to your school without your yes. Free during the pilot, in English or Spanish.</p>
+        </div>
+
+        <figure class="hero-visual" style="--stamp-x:12.004%;--stamp-y:41.685%;--stamp-w:20.478%;--stamp-h:3.141%;--pen-x:12.16%;--pen-y:45.489%;--pen-w:64.996%;--pen-h:8.924%;--card-x:8.821%;--card-y:32.652%;--card-w:71.674%;--card-h:54.413%">
+          <div class="hero-phone-wrap">
             <img
-              class="axolotl-figure"
-              src="/animation/axolotl-mascot.png?v=mascot-2"
-              alt=""
-              width="256"
-              height="256"
+              class="hero-phone"
+              src="/hero-phone-en.webp?v=7005887fffe790ee"
+              width="328"
+              height="670"
+              alt="Text thread on a phone. Axolotl sends a card titled &quot;This week&quot; listing five things: Wednesday’s early release at 1:20, confirmed with Grandma picking up Leo; Maya’s field trip form, filled in and waiting for the parent’s yes; Leo’s ride to Lincoln, requested from the district under McKinney-Vento; Maya’s reading evaluation, requested September 30; and Friday pickup with another family, coming soon."
+              fetchpriority="high"
+              decoding="async"
+            />
+            <svg class="pen-circle" viewBox="0 0 300 80" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+              <path d="M8 30C7 14 18 7 44 6c76-3 156-2 218-1 23 0 31 7 30 25-1 18 1 32-1 42-2 7-15 5-43 4-73-2-156 1-212 0-22 0-27-7-28-21-1-8 0-17 0-25" pathLength="1" />
+            </svg>
+            <span class="pen-note pen-note-hero" aria-hidden="true">just needs your yes</span>
+            <span class="status status-confirmed hero-stamp">Confirmed</span>
+          </div>
+          <img class="mascot" src="/animation/axolotl-mascot.png" alt="A smiling pink axolotl with frilly gills." width="150" height="150" />
+        </figure>
+      </div>
+    </section>
+    <section class="section" id="layers" aria-labelledby="layers-title">
+      <div class="wrap">
+        <h2 id="layers-title">Built around your family, and the families around you.</h2>
+        <p class="lead">One agent that knows your family, works with the people who help you, and learns how your school works.</p>
+        <div class="layer-grid">
+        <div class="layer">
+          <p class="layer-label">Private</p>
+          <h3>Your family</h3>
+          <p>Your kids, their schools, your schedule and everything still pending. Only you and the people you add can see it.</p>
+        </div>
+        <div class="layer">
+          <p class="layer-label">Household now, circles soon</p>
+          <h3>Your people</h3>
+          <p>Your partner, grandma and the sitter see the same plan, and every task has a name on it. Soon: the parent friends you trade pickups with.</p>
+        </div>
+        <div class="layer">
+          <p class="layer-label">Shared</p>
+          <h3>Your school</h3>
+          <p>What Axolotl learns about your school, like the calendar, the early releases and who handles rides, helps every family there. Nobody&#39;s personal information is shared.</p>
+        </div>
+        </div>
+        <p class="line-note">Circles make it easier. You never need one to get the full help.</p>
+      </div>
+    </section>
+    <section class="section" id="week" aria-labelledby="week-title">
+      <div class="wrap">
+        <h2 id="week-title">It keeps the week running.</h2>
+        <p class="lead">The early releases, sick days and small asks that assume someone&#39;s home at 1:20.</p>
+        <div class="carousel" data-carousel>
+          <button class="carousel-arrow carousel-prev" type="button" aria-label="Previous" hidden>
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14.5 5 8 12l6.5 7" /></svg>
+          </button>
+          <ul class="carousel-track" tabindex="0" aria-label="The week, one screen at a time">
+          <li class="week-card">
+            <h3>Days off and early releases</h3>
+            <img
+              class="week-shot"
+              src="/week-1-en.webp?v=7005887fffe790ee"
+              width="336"
+              height="687"
+              alt="A text conversation with Axolotl: Days off and early releases. Axolotl: The district calendar came out. One thing in it needs you. Axolotl: Wednesday is early release at 1:20 — the kids are out three hours early. You: I have meetings until 3 that day. Axolotl: Grandma can get Leo. Axolotl: Want me to ask her? Waiting for your yes"
+              loading="lazy"
+              decoding="async"
+            />
+          </li>
+          <li class="week-card">
+            <h3>Same-day changes</h3>
+            <img
+              class="week-shot"
+              src="/week-2-en.webp?v=7005887fffe790ee"
+              width="336"
+              height="687"
+              alt="A text conversation with Axolotl: Same-day changes. You: Fwd: Lincoln Elementary: dismissal at noon today Axolotl: Lincoln just texted. Axolotl: Dismissal at noon — twelve minutes from now. You: I can&#39;t leave. I&#39;m in meetings until 3. Axolotl: Grandma is first on your backup list. Axolotl: Want me to ask her? Waiting for your yes"
+              loading="lazy"
+              decoding="async"
+            />
+          </li>
+          <li class="week-card">
+            <h3>The small asks</h3>
+            <img
+              class="week-shot"
+              src="/week-3-en.webp?v=7005887fffe790ee"
+              width="336"
+              height="687"
+              alt="A text conversation with Axolotl: The small asks. Axolotl: Three things this week. Axolotl: Pajama day Thursday, the field trip form due Friday, and Leo needs an absence note. You: He has a dentist appointment Monday morning. Axolotl: The absence note is drafted and the form is filled in. Reply YES to send both. Waiting for your yes"
+              loading="lazy"
+              decoding="async"
+            />
+          </li>
+          <li class="week-card">
+            <h3>Who&#39;s got it</h3>
+            <img
+              class="week-shot"
+              src="/week-4-en.webp?v=7005887fffe790ee"
+              width="336"
+              height="687"
+              alt="A text conversation with Axolotl: Who&#39;s got it. Axolotl: Here is who is on what this week. You: Can you remind Sam about Thursday? Axolotl: Sam sees the same list. Axolotl: I&#39;ll remind whoever&#39;s on it. Reminder set"
+              loading="lazy"
+              decoding="async"
+            />
+          </li>
+          </ul>
+          <button class="carousel-arrow carousel-next" type="button" aria-label="Next" hidden>
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9.5 5 16 12l-6.5 7" /></svg>
+          </button>
+        </div>
+        <p class="caption">Example conversation. Fictional school and family.</p>
+      </div>
+    </section>
+    <section class="section" id="rights" aria-labelledby="rights-title">
+      <div class="wrap">
+        <h2 id="rights-title">Some of this isn&#39;t a favor. It&#39;s the law.</h2>
+        <p class="lead">Describe your situation in your own words. Axolotl works out which rule applies, puts the request in writing, and keeps track of the answer.</p>
+        <table class="year-table">
+          <caption class="sr-only">Some of this isn&#39;t a favor. It&#39;s the law.</caption>
+          <thead>
+            <tr><th scope="col">When you say</th><th scope="col">The rule</th><th scope="col">What Axolotl does</th></tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td data-label="When you say"><q>We lost our apartment and we&#39;re staying with my sister across town. Can he keep going to his school?</q></td>
+            <td data-label="The rule">McKinney-Vento Act: school stability for kids without steady housing</td>
+            <td data-label="What Axolotl does">Finds the district’s transportation contact, requests the ride in writing, and follows up until the route is confirmed.</td>
+          </tr>
+          <tr>
+            <td data-label="When you say"><q>His teacher says his reading is behind. I don&#39;t know what I&#39;m supposed to ask for.</q></td>
+            <td data-label="The rule">IDEA: evaluations for special education</td>
+            <td data-label="What Axolotl does">Drafts your written request for an evaluation, sends it on your yes, and records the date the district&#39;s clock started.</td>
+          </tr>
+          <tr>
+            <td data-label="When you say"><q>The meeting was all in English and I didn&#39;t understand most of it.</q></td>
+            <td data-label="The rule">Title VI, Civil Rights Act: communication in a language you understand</td>
+            <td data-label="What Axolotl does">Asks the school in writing for an interpreter and translated documents before the next meeting.</td>
+          </tr>
+          <tr>
+            <td data-label="When you say"><q>We&#39;re paying full price for lunch and I think we qualify for help.</q></td>
+            <td data-label="The rule">National School Lunch Program: free and reduced-price meals</td>
+            <td data-label="What Axolotl does">Fills the application, shows you exactly what it will send, and files it on your yes.</td>
+          </tr>
+          <tr>
+            <td data-label="When you say"><q>We agreed in the meeting that she gets extra time. It&#39;s not happening in class.</q></td>
+            <td data-label="The rule">Her IEP or 504 plan: accommodations the school agreed to</td>
+            <td data-label="What Axolotl does">Writes to the school quoting what the plan says, and keeps following up until they confirm it&#39;s in place.</td>
+          </tr>
+          </tbody>
+        </table>
+        <p class="line-note">Axolotl isn&#39;t a lawyer. It helps you use the rules that already protect your child.</p>
+      </div>
+    </section>
+    <section class="section" id="how" aria-labelledby="how-title">
+      <div class="wrap how-grid">
+        <div>
+          <h2 id="how-title">Nothing goes out until you say yes.</h2>
+          <p class="lead">Eight emails from school, one deadline that matters, and two forms that have to come back.</p>
+          <ol class="how-steps" aria-label="How it works, in order">
+          <li>
+            <span class="step-number" aria-hidden="true">1</span>
+            <div><h3>It spots the deadline.</h3><p>Seven of the eight emails are just information. One needs you, with the date attached.</p></div>
+          </li>
+          <li>
+            <span class="step-number" aria-hidden="true">2</span>
+            <div><h3>It does the work.</h3><p>It finds an in-network appointment and fills in both forms.</p></div>
+          </li>
+          <li>
+            <span class="step-number" aria-hidden="true">3</span>
+            <div><h3>It waits for your yes.</h3><p>You see exactly what it will send. Your yes is what sends it.</p></div>
+          </li>
+          <li>
+            <span class="step-number" aria-hidden="true">4</span>
+            <div><h3>Done means confirmed.</h3><p>It only calls something finished when the school confirms it.</p></div>
+          </li>
+          </ol>
+        </div>
+
+        <figure class="phone-figure">
+          <div class="phone-tilt">
+            <img
+              class="phone-shot"
+              src="/phone-en.webp?v=7005887fffe790ee"
+              width="undefined"
+              height="undefined"
+              alt="Text conversation on a phone: Axolotl says Leo needs a physical and a dental check on file by October 15 and that both forms are filled in. The parent replies Yes, and Axolotl confirms Lincoln Elementary accepted it, reference K-1042."
+              loading="lazy"
+              decoding="async"
             />
           </div>
-          <figcaption>
-            On your side, for school.
-            <button
-              class="motion-toggle"
-              id="benny-motion"
-              type="button"
-              hidden
-            >
-              Pause motion
-            </button>
-          </figcaption>
+          <p class="pen-note pen-note-phone" aria-hidden="true">all you type is yes
+            <svg class="pen-arrow" viewBox="0 0 60 34" aria-hidden="true" focusable="false">
+              <path d="M57 31C45 29 26 24 13 11" pathLength="1" />
+              <path d="M13 11c1 4 2 7 3 9M13 11c4 1 7 2 9 2" />
+            </svg>
+          </p>
+          <div class="phone-stamp" aria-hidden="true">
+            <span class="phone-stamp-top">Confirmed by Lincoln Elementary</span>
+            <span class="phone-stamp-bottom">Reference K-1042, October 3</span>
+          </div>
+          <figcaption class="caption">Example conversation. Fictional school and family.</figcaption>
         </figure>
-        <div class="hero-content">
-          <h1 id="hero-title">
-            The school system<span class="wake-line"
-              >wasn't built around you.<br />Axolotl is.</span
-            >
-          </h1>
-          <p class="hero-copy">
-            You know what your child needs. Axolotl works out what applies, and
-            gets it done.
-          </p>
-          <p class="hero-copy">
-            It reads the school email you send it, takes care of the forms, and
-            tells you what actually needs you. It never does anything without
-            your OK. It shows you everything before it sends it.
-          </p>
-          <p class="trust-triad">
-            Reads what you send it. Shows you first. Acts only on your yes.
-          </p>
-          <div class="hero-actions">
-            <a class="button primary" href="#waitlist"
-              >Join the pilot <span aria-hidden="true">→</span></a
-            ><a class="text-link" href="#how-it-works">See what it does</a>
+      </div>
+      <div class="wrap channel">
+        <p class="channel-line">Text one number. No app, no portal. English or Spanish.</p>
+        <ul class="channel-bubbles" aria-label="Things parents send">
+          <li class="ios-bubble out">Fwd: Lincoln Weekly Update</li>
+          <li class="ios-bubble out ios-bubble-photo"><span class="photo-thumb" aria-hidden="true"></span>Photo of a form</li>
+          <li class="ios-bubble out">Does the district have summer school?</li>
+          <li class="ios-bubble out">Leo is out sick today.</li>
+        </ul>
+      </div>
+    </section>
+    <section class="section" id="circles" aria-labelledby="circles-title">
+      <div class="wrap circles-grid">
+        <div>
+          <div class="h2-row">
+            <h2 id="circles-title">Trade pickups with families you trust.</h2>
+            <span class="status status-soon">Coming soon</span>
           </div>
-          <p class="stage-note">
-            Early access. We are onboarding a small group of families.
-          </p>
-        </div>
-      </section>
-
-      <section class="section wrap demo" aria-labelledby="demo-title">
-        <div class="demo-grid">
-          <div class="section-intro">
-            <p class="section-label">What it looks like</p>
-            <h2 id="demo-title">Nothing is sent until you say yes.</h2>
-            <p>
-              One thing arrived with a deadline. Axolotl did the work, showed exactly
-              what it would send, and waited. When the school confirmed it, that is
-              what made it done.
-            </p>
-          </div>
-          <figure class="demo-figure">
-            <div class="demo-phone">
-              <div class="demo-screen">
-                <div class="demo-status">
-                  <span>9:41</span>
-                  <span>5G</span>
-                </div>
-                <div class="demo-contact">
-                  <img src="/animation/axolotl-mascot.png?v=mascot-2" alt="" width="27" height="27" loading="lazy" />
-                  <span>Axolotl</span>
-                </div>
-                                <ol class="demo-thread">
-                  <li class="demo-meta"><b>Today</b> 8:12 AM</li>
-                  <li>
-                    <p class="demo-bubble in">
-                      <span class="sr-only">Axolotl: </span>Leo&rsquo;s school sent a note this morning. One thing needs you: every incoming kindergartener needs a physical exam and an oral health assessment on file by October 15. Leo is missing both.
-                    </p>
-                  </li>
-                  <li>
-                    <p class="demo-bubble in">
-                      <span class="sr-only">Axolotl: </span>The physical is covered in-network. I found the next opening and I can book it. Nothing gets sent or submitted without your OK.
-                    </p>
-                  </li>
-                  <li>
-                    <div class="demo-shot">
-                      <p class="demo-shot-label">Filled form &middot; review before sending</p>
-                      <div class="demo-form">
-                        <p class="demo-form-row"><span>Child</span><b>Leo Howard</b></p>
-                        <p class="demo-form-row"><span>Grade</span><b>Kindergarten</b></p>
-                        <p class="demo-form-row"><span>Exam</span><b>Physical &middot; oral health</b></p>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <p class="demo-bubble in">
-                      <span class="sr-only">Axolotl: </span>Reply YES to submit, or tell me what to change.
-                    </p>
-                  </li>
-                  <li>
-                    <p class="demo-bubble out"><span class="sr-only">Parent: </span>yes last name Howard</p>
-                  </li>
-                  <li>
-                    <p class="demo-bubble in">
-                      <span class="sr-only">Axolotl: </span>Updated: last name Howard. Reply YES and I&rsquo;ll submit it.
-                    </p>
-                  </li>
-                  <li>
-                    <p class="demo-bubble out"><span class="sr-only">Parent: </span>yes</p>
-                  </li>
-                  <li>
-                    <p class="demo-bubble in">
-                      <span class="sr-only">Axolotl: </span>Submitted. The school confirmed it. Reference K-1042. If they don&rsquo;t respond, I&rsquo;ll follow up.
-                    </p>
-                  </li>
-                </ol>
-                <div class="demo-composer">
-                  <span class="plus" aria-hidden="true">+</span>
-                  <span class="field-mock">iMessage</span>
-                </div>
-                <div class="demo-home" aria-hidden="true"><span></span></div>
-              </div>
+          <p class="lead">You already trade pickups over text. Soon, Axolotl can do the asking: it works out each family&#39;s part, and only plans it once every family says yes.</p>
+          <ul class="plain-list" aria-label="How circles work">
+          <li>You never need a circle to get the full help.</li>
+          <li>A circle sees only the plan, never why a family needs help.</li>
+          <li>Nothing is agreed until every family says yes.</li>
+          <li>Helping out isn&#39;t only driving, and nobody keeps score.</li>
+          <li>Everyone reads and writes in their own language.</li>
+          <li>If the district owes your family a ride, Axolotl asks the district first.</li>
+          <li>Axolotl coordinates. It doesn&#39;t provide rides; families decide who drives.</li>
+          </ul>
+          <div class="form-block">
+          <h3>Start a circle</h3>
+          <form id="circle-form" novalidate data-error="We couldn&#39;t save your signup. Please try again." data-error-phone="Enter a 10-digit US phone number." data-error-families="Choose how many families.">
+            <div class="field">
+              <label for="circle-phone">Your phone number</label>
+              <input id="circle-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="30" required aria-describedby="circle-error" />
             </div>
-            <figcaption class="demo-note">
-              Example conversation. Scroll to follow it. Fictional school and family.
-            </figcaption>
+            <div class="field">
+              <label for="circle-families">How many families?</label>
+              <select id="circle-families" name="families" required aria-describedby="circle-error">
+                <option value="">&nbsp;</option>
+                <option value="2 to 3">2 to 3</option><option value="4 to 6">4 to 6</option><option value="7 or more">7 or more</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="circle-school">School <span class="hint">(optional)</span></label>
+              <input id="circle-school" name="school" type="text" maxlength="120" autocomplete="organization" />
+            </div>
+            <button class="button primary" type="submit">Start a circle</button>
+            <p class="form-note">We&#39;ll text you when circles open.</p>
+            <p class="form-error" id="circle-error" role="alert" hidden></p>
+          </form>
+          <div class="form-success" id="circle-sent" role="status" tabindex="-1" hidden>
+            <p>You&#39;re on the list. We&#39;ll text you when circles open.</p>
+          </div>
+          </div>
+        </div>
+        <div>
+
+          <figure class="circles-shot">
+            <img
+              class="phone-shot"
+              src="/circles-en.webp?v=7005887fffe790ee"
+              width="328"
+              height="670"
+              alt="Example group chat in the Messages app. You, Dana and Sam work out Wednesday&#39;s early release: Dana takes all four kids, and Sam covers her Friday pickup. Every family said yes."
+              loading="lazy"
+              decoding="async"
+            />
+            <figcaption class="caption">Example conversation. Fictional school and family.</figcaption>
           </figure>
         </div>
-      </section>
-
-      <section class="section wrap problem" aria-labelledby="problem-title">
-        <div class="section-intro">
-          <p class="section-label">The gap</p>
-          <h2 id="problem-title">The help exists.<br />Getting it is the hard part.</h2>
-          <p>
-            Schools have programs to help families, rules about what they have to
-            provide, and people whose job is to help. Knowing that something
-            exists is not the same as getting it. Picture day, the book fair, the
-            fundraiser, a spirit week, and one thing with a deadline on it. The
-            one that matters is buried under the ones that do not.
-          </p>
-          <p class="strong-line">
-            Axolotl reads the school email you forward it, works out what applies,
-            and hands you one short list of what actually needs you.
-          </p>
-          <p class="section-label">Some of this is not a favor. It is the law.</p>
-          <p>
-            If your child is staying somewhere temporary, McKinney-Vento keeps
-            them at their school and gets them a ride to it. If you ask for an
-            evaluation, IDEA puts a deadline on the district. An interpreter is
-            not a courtesy: Title VI requires the school to talk to you in a
-            language you understand. The same goes for meals, accommodations, and
-            school stability. You describe the situation; Axolotl works out which
-            rule applies, and puts the request in writing.
-          </p>
+      </div>
+    </section>
+    <section class="section" id="limits" aria-labelledby="limits-title">
+      <div class="wrap">
+        <h2 id="limits-title">The limits, before you find them yourself.</h2>
+        <p class="lead">The honest list. The rest of this page only means something if this part is true.</p>
+        <div class="limits-grid">
+        <article>
+          <h3>It won&#39;t send anything without your yes.</h3>
+          <p>Every email, form and submission waits for an explicit yes from you. A suggestion is not permission.</p>
+        </article>
+        <article>
+          <h3>It tells you what it can&#39;t open.</h3>
+          <p>A sign-in wall, a form that only exists on paper, a district that wants a phone call. It names the wall instead of guessing.</p>
+        </article>
+        <article>
+          <h3>It won&#39;t pretend a form went through.</h3>
+          <p>Done means the school&#39;s own confirmation came back. If it can&#39;t confirm, it says so and gives you the link.</p>
+        </article>
+        <article>
+          <h3>It can&#39;t see your school portal.</h3>
+          <p>It never asks for your password. If the portal matters, you sign in yourself and it only reads.</p>
+        </article>
+        <article>
+          <h3>It&#39;s strongest at reading and research.</h3>
+          <p>A clean form it has handled before is reliable. A complicated new district form may come back to you as a link.</p>
+        </article>
+        <article>
+          <h3>It isn&#39;t a doctor, a lawyer or the school.</h3>
+          <p>It helps you through the process. Decisions about your child stay with you, your school and your providers.</p>
+        </article>
         </div>
-                <div
-          class="messages"
-          role="group"
-          aria-label="Examples of what parents ask for and what Axolotl gets done"
-        >
-          <p class="section-label">What it does, in practice.</p>
-          <blockquote>
-            <p>
-              “Every incoming kindergartener must have a physical exam and an oral
-              health assessment on file before October 15. Leo is missing both.”
-            </p>
-            <footer>
-              Axolotl pulls the deadline, checks what your plan covers, books the
-              in-network visit on your yes, and returns both signed forms to the
-              office. The school's confirmation is what closes it.
-            </footer>
-          </blockquote>
-          <blockquote>
-            <p>
-              “We moved in with my sister across town. Does he still get
-              transportation to his old school?”
-            </p>
-            <footer>
-              Under McKinney-Vento, a child staying somewhere temporary keeps
-              their place at their original school, and the ride to it is
-              requested, not automatic. Axolotl finds the district's transport
-              contact, puts the request in writing, and chases it until the
-              district confirms the route.
-            </footer>
-          </blockquote>
-          <blockquote>
-            <p>
-              “We're paying full price for lunch and I think we qualify for help.”
-            </p>
-            <footer>
-              Free and reduced-price meals take an application many families never
-              file. Axolotl fills it, shows you what it will send, files it on
-              your yes, and tells you when the school confirms it.
-            </footer>
-          </blockquote>
-          <blockquote>
-            <p>“Is there anything for him after school? I work until six.”</p>
-            <footer>
-              Free after-school programs exist, and seats sometimes go unfilled
-              because nobody tells parents they are there. Axolotl looks up what
-              actually runs at your school, checks the days and hours against your
-              week, and starts the sign-up. The seat is confirmed by the program,
-              not assumed by us.
-            </footer>
-          </blockquote>
-          <blockquote>
-            <p>
-              “His teacher says his reading is behind. I don't know what I'm
-              supposed to ask for.”
-            </p>
-            <footer>
-              You can ask the district, in writing, for a speech or learning
-              evaluation, and IDEA puts a clock on how long they have to respond.
-              Axolotl drafts the request, shows it to you, sends it on your yes,
-              and records the date the clock started.
-            </footer>
-          </blockquote>
-          <blockquote>
-            <p>
-              “We agreed in the meeting that he gets extra time. It's not
-              happening in class.”
-            </p>
-            <footer>
-              An accommodation written into a plan is not the same as one
-              delivered in a classroom. Axolotl writes to the school, quotes what
-              the plan says, and keeps chasing until the school confirms it is in
-              place.
-            </footer>
-          </blockquote>
-          <blockquote>
-            <p>“Picture day is Thursday. Order forms went home in backpacks.”</p>
-            <footer>
-              Filed as information. It does not appear in your list of things to
-              do, because it is not one.
-            </footer>
-          </blockquote>
-          <p class="caption">
-            Examples of the work, and of what it takes to finish it. What your
-            school sends, and what it needs, will be different.
-          </p>
-        </div>
-      </section>
-
-      <section class="delta" aria-labelledby="delta-title">
-        <div class="wrap">
-          <div class="delta-heading">
-            <h2 id="delta-title">You text it. It does the rest.</h2>
-            <div>
-              <p>
-                There is no app to install and no portal to log into. You text one
-                number, the same way you text anyone else.
-              </p>
-              <p>
-                When it is going to send something to your school, it shows you
-                the message first, in full. Your yes is what sends it. Not a
-                setting, not a default.
-              </p>
-            </div>
-          </div>
-          <div
-            class="two-maps"
-            role="group"
-            aria-label="What you send, and what Axolotl does with it"
-          >
-            <div class="map">
-              <h3>You send it</h3>
-              <ul>
-                <li>A forwarded school email</li>
-                <li>A photo of a form</li>
-                <li>A question about your district</li>
-                <li>“Leo is out today”</li>
-              </ul>
-            </div>
-            <div class="map-bridge">
-              <img
-                class="axolotl-figure axolotl-bridge"
-                src="/animation/axolotl-mascot.png?v=mascot-2"
-                alt=""
-                width="52"
-                height="52"
-              />
-              <strong>Your yes sends it.</strong>
-              <p>Nothing leaves<br />without it.</p>
-            </div>
-            <div class="map">
-              <h3>Axolotl handles it</h3>
-              <ul>
-                <li>Reads and sorts the email</li>
-                <li>Researches your school and district</li>
-                <li>Fills the form, drafts the reply</li>
-                <li>Sets the reminder and follows up</li>
-              </ul>
-            </div>
-          </div>
-          <div class="delta-close">
-            <h3>
-              One number, over iMessage.<br />Nothing else to check.
-            </h3>
-            <p>
-              Ask in your own words, in English or Spanish. It answers, or it
-              tells you plainly that it cannot and what to do instead. You do not
-              have to learn a new app to get help with the school.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section
-        class="how section"
-        id="how-it-works"
-        aria-labelledby="how-title"
-      >
-        <div class="wrap">
-          <div class="section-heading">
-            <div>
-              <p class="section-label">What it does</p>
-              <h2 id="how-title">Read it, answer it, file it, chase it.</h2>
-            </div>
-            <p>
-              Reading, answering, paperwork, and follow-through. Most tools pick
-              one. The school work needs all four, in order.
-            </p>
-          </div>
-          <ol class="steps">
-            <li class="reconciliation">
-              <span class="step-number" aria-hidden="true">01</span>
-              <h3>It reads.</h3>
-              <p>
-                Forward your school email and it separates the seven messages
-                that are only information from the one that needs something from
-                you, with the deadline attached.
-              </p>
-              <strong>One list instead of a firehose.</strong>
-            </li>
-            <li>
-              <span class="step-number" aria-hidden="true">02</span>
-              <h3>It answers.</h3>
-              <p>
-                Ask about your school or your district and it researches the real
-                answer: the bus route, the meal program, what enrollment actually
-                requires, and who to contact.
-              </p>
-            </li>
-            <li>
-              <span class="step-number" aria-hidden="true">03</span>
-              <h3>It does the paperwork.</h3>
-              <p>
-                It fills the form, drafts the email to the office, or places the
-                call. You see exactly what it will send, and it waits for your
-                yes before anything goes out.
-              </p>
-            </li>
-            <li class="follow-through">
-              <span class="step-number" aria-hidden="true">04</span>
-              <h3>It follows through.</h3>
-              <p>
-                A form that has to be returned, a deadline next week, a reply you
-                are still waiting on. It keeps track, and it tells you when
-                something is genuinely finished.
-              </p>
-              <strong>Done means the school confirmed it.</strong>
-            </li>
-          </ol>
-          <p class="how-note">
-            Axolotl is new. It works best with a school that communicates by
-            email, and it will tell you when something falls outside what it can
-            do.
-          </p>
-        </div>
-      </section>
-
-      <section
-        class="section wrap trust"
-        id="trust"
-        aria-labelledby="trust-title"
-      >
-        <div class="section-heading">
-          <div>
-            <p class="section-label">What it will not do</p>
-            <h2 id="trust-title">
-              The limits, before<br />you find them yourself.
-            </h2>
-          </div>
-          <p>
-            The honest list. The rest of this page only means something if this
-            part is true, so it is the part we would want you to read first.
-          </p>
-          <p>
-            <strong>It cannot see what your child is already receiving.</strong>
-            Meal balances, attendance, what services are in place: that lives in
-            the school's portal, and Axolotl can only read it if you sign in
-            yourself. It will not guess, and it will not tell you something it
-            has not seen.
-          </p>
-        </div>
-        <div class="trust-grid">
-          <article>
-            <svg
-              class="trust-icon"
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-              focusable="false"
-            >
-              <circle cx="12" cy="12" r="9" />
-              <path d="m8 12 3 3 5-6" />
-            </svg>
-            <h3>It will not send anything without your yes.</h3>
-            <p>
-              Every email to your school, every form, every submission waits for
-              an explicit yes from you. A suggestion is not permission, and it is
-              not treated as one.
-            </p>
-          </article>
-          <article>
-            <svg
-              class="trust-icon"
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-              focusable="false"
-            >
-              <rect x="5" y="10" width="14" height="11" rx="2" />
-              <path d="M8 10V7a4 4 0 0 1 8 0v3M12 15v2" />
-            </svg>
-            <h3>It will tell you what it cannot open.</h3>
-            <p>
-              A sign-in wall, a bot check, a form that only exists on paper, a
-              district that wants a phone call. It names the wall it hit instead
-              of stalling or guessing.
-            </p>
-          </article>
-          <article>
-            <svg
-              class="trust-icon"
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-              focusable="false"
-            >
-              <rect x="5" y="3" width="14" height="18" rx="2" />
-              <path d="M9 8h6M9 12h6M9 16h4" />
-            </svg>
-            <h3>It will not pretend a form went through.</h3>
-            <p>
-              A submission is only reported as done when the school's own
-              confirmation comes back. If it cannot confirm that, it says so and
-              gives you the link rather than telling you it is handled.
-            </p>
-          </article>
-          <article>
-            <svg
-              class="trust-icon"
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-              focusable="false"
-            >
-              <path
-                d="m3 3 18 18M10 5.2A10 10 0 0 1 12 5c6 0 10 7 10 7a18 18 0 0 1-3 3.8M6 6.5A20 20 0 0 0 2 12s4 7 10 7a11 11 0 0 0 5.5-1.5M10 10a3 3 0 0 0 4 4"
-              />
-            </svg>
-            <h3>It cannot see your school portal until you sign in.</h3>
-            <p>
-              It does not have your password and it will not ask you for one. If
-              reading the portal matters to you, you sign in yourself, and it
-              only reads.
-            </p>
-          </article>
-          <article>
-            <svg
-              class="trust-icon"
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-              focusable="false"
-            >
-              <path
-                d="M12 3v12m-5-5 5 5 5-5M4 15v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4"
-              />
-            </svg>
-            <h3>Where it is strong, and where it is not.</h3>
-            <p>
-              Reading and researching: very good. A clean form it has handled
-              before: reliable. A complicated new form on a district site: it may
-              hand you the link rather than pretend. We would rather do that than
-              tell you something that is not true.
-            </p>
-          </article>
-          <article>
-            <svg
-              class="trust-icon"
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-              focusable="false"
-            >
-              <path d="m12 3 8 3v6c0 5-8 9-8 9s-8-4-8-9V6l8-3Z" />
-            </svg>
-            <h3>It is not a doctor, a lawyer, or the school.</h3>
-            <p>
-              It helps you navigate the process and get the paperwork done.
-              Decisions about your child stay with you, your school, and your
-              providers.
-            </p>
-          </article>
-        </div>
-        <div class="trust-footnote">
-          <p>
-            Your family's information is yours. It is never sold. Nothing goes to
-            your school without your OK. The only system that reads your messages
-            is the AI that writes its replies.
-          </p>
+        <div class="privacy-note">
+          <p>Your family&#39;s information is yours. It is never sold. The only system that reads your messages is the AI that writes the replies.</p>
+          <div class="slip-links">
           <a class="text-link" href="/privacy">How we handle information</a>
           <a class="text-link" href="/security">Security and limits</a>
-        </div>
-      </section>
-
-      <section
-        class="section wrap employers"
-        id="handles"
-        aria-labelledby="handles-title"
-      >
-        <div class="wrap employer-grid">
-          <div>
-            <p class="section-label">In practice</p>
-            <h2 id="handles-title">What your child is owed, and what it takes to get it.</h2>
-            <p class="employer-intro">
-              Axolotl is only for school, and that is the point. It takes the school
-              things that fill up your evenings: the form with a Friday deadline, the absence you
-              forgot to report, the question nobody answers.
-            </p>
-            <p class="employer-intro">
-              You stay in the loop on all of it. Everything it does, you see
-              first.
-            </p>
-            <a class="button primary" href="#waitlist">Join the pilot</a>
-            <p class="caption">Early access for a small group of families.</p>
-          </div>
-          <div class="employer-points">
-            <article>
-              <h3>Deadlines and forms.</h3>
-              <p>
-                Permission slips, enrollment packets, health requirements, the
-                one page the office needs back by Friday. It tracks what is
-                outstanding and what is actually done.
-              </p>
-            </article>
-            <article>
-              <h3>Absences and the office.</h3>
-              <p>
-                Tell it your kid is out today and it drafts the note to the
-                office, shows it to you, and sends it when you say so.
-              </p>
-            </article>
-            <article>
-              <h3>The questions you would otherwise chase.</h3>
-              <p>
-                Which bus, which program, what the district requires, who to
-                email. It researches it and gives you the answer and the contact.
-              </p>
-            </article>
           </div>
         </div>
-      </section>
-
-      <section
-        class="section wrap waitlist"
-        id="waitlist"
-        aria-labelledby="waitlist-title"
-      >
+      </div>
+    </section>
+    <section class="section section-sheet" id="join" aria-labelledby="join-title">
+      <div class="wrap">
+        <div class="join-grid">
         <div>
-          <p class="section-label">Early access</p>
-          <h2 id="waitlist-title">Join the pilot.</h2>
-          <p>
-            We are onboarding a small group of families. Add your number and we
-            will be in touch about access.
-          </p>
-          <p class="stage-note">
-            Free during the pilot. Over iMessage. English or Spanish.
+          <h2 id="join-title">Join the pilot.</h2>
+          <p class="lead">We&#39;re onboarding a small group of families. Add your number and we&#39;ll text you about access. Free during the pilot, in English or Spanish.</p>
+          <p class="join-alt">
+            <a class="text-link" href="#circles">Start a circle instead</a>
+            <a class="text-link" href="#contact">Have a question first?</a>
           </p>
         </div>
         <div>
-          <form id="waitlist-form">
-            <label for="waitlist-phone">Your phone number</label>
-            <div class="waitlist-fields">
-              <input
-                id="waitlist-phone"
-                type="tel"
-                autocomplete="tel"
-                inputmode="tel"
-                maxlength="30"
-                required
-                placeholder="Your phone number"
-              /><button class="text-link" type="submit">
-                Join the pilot
-              </button>
+          <form id="join-form" novalidate data-error="We couldn&#39;t save your signup. Please try again." data-error-phone="Enter a 10-digit US phone number.">
+            <div class="field">
+              <label for="join-phone">Your phone number</label>
+              <input id="join-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="30" required aria-describedby="join-error" />
             </div>
-            <p class="form-note">
-              By joining, you agree to receive texts about access.
-              <a href="#privacy" data-privacy>Website privacy</a>
-            </p>
-            <p id="waitlist-error" class="form-error" role="alert" hidden>
-              Please try again.
-            </p>
+            <button class="button primary" type="submit">Join the pilot</button>
+            <p class="form-note"><span class="highlight">By joining, you agree to receive texts about access.</span></p>
+            <p class="form-error" id="join-error" role="alert" hidden></p>
           </form>
-          <div
-            id="waitlist-sent"
-            class="form-success"
-            role="status"
-            tabindex="-1"
-            hidden
-          >
-            <h3>You are on the list.</h3>
-            <p>We will be in touch at this number about access.</p>
+          <div class="form-success" id="join-sent" role="status" tabindex="-1" hidden>
+            <p id="join-sent-text" data-template="You&#39;re on the list. We&#39;ll text you at {phone}."></p>
           </div>
         </div>
-      </section>
-      <div class="wrap page-details">
-        <details id="contact" class="inline-panel">
-          <summary>Questions and access requests</summary>
-          <div class="panel-body">
-            <p class="section-label">Get in touch</p>
-            <h2 id="contact-title">Ask us anything.</h2>
-            <p class="panel-intro">
-              Ask about the pilot, or ask a question about how it works. We save
-              your message and reply by email.
-            </p>
-            <form id="inquiry-form">
-              <div class="field">
-                <label for="inquiry-email">Email</label
-                ><input
-                  id="inquiry-email"
-                  name="email"
-                  type="email"
-                  autocomplete="email"
-                  maxlength="254"
-                  placeholder="you@email.com"
-                  required
-                />
-              </div>
-              <div class="field">
-                <label for="inquiry-message"
-                  >What would you like to ask?
-                  <span>(optional)</span></label
-                ><textarea
-                  id="inquiry-message"
-                  name="message"
-                  maxlength="2000"
-                  placeholder="A question about the pilot, or about how Axolotl works."
-                ></textarea>
-              </div>
-              <p class="form-note">
-                We will use these details to reply. Please do not include your
-                child's records or health information.
-                <a href="#privacy" data-privacy>How we handle website data</a>
-              </p>
-              <button class="button" type="submit">Send</button>
-              <p class="form-error" id="inquiry-error" role="alert" hidden>
-                We could not save your message. Please try again.
-              </p>
-            </form>
-            <div
-              class="form-success"
-              id="inquiry-sent"
-              role="status"
-              tabindex="-1"
-              hidden
-            >
-              <h3>Your message is saved.</h3>
-              <p>We will reply to the email you gave us.</p>
+        </div>
+      </div>
+    </section>
+    <section class="section section-band" aria-labelledby="schools-band-title">
+      <div class="wrap">
+        <div class="band">
+          <h2 id="schools-band-title">For schools and districts.</h2>
+          <p class="lead">Axolotl helps your families keep up: forms back before the deadline, questions answered from your own information, and requests that arrive complete, in writing and to the right office. Nothing to install.</p>
+          <a class="text-link" href="/schools">How Axolotl works with schools</a>
+        </div>
+      </div>
+    </section>
+    <section class="section" id="contact" aria-labelledby="contact-title">
+      <div class="wrap contact-grid">
+        <div>
+          <h2 id="contact-title">Questions.</h2>
+          <p class="lead">Ask about the pilot, or ask a question about how it works. We save your message and reply by email.</p>
+          <form id="inquiry-form" novalidate data-error="We couldn&#39;t save your message. Please try again.">
+            <div class="field">
+              <label for="inquiry-email">Email</label>
+              <input id="inquiry-email" name="email" type="email" autocomplete="email" maxlength="254" required aria-describedby="inquiry-error" />
             </div>
+            <div class="field">
+              <label for="inquiry-message">What would you like to ask? <span class="hint">(optional)</span></label>
+              <textarea id="inquiry-message" name="message" maxlength="2000" rows="4" aria-describedby="inquiry-error"></textarea>
+            </div>
+            <button class="button primary" type="submit">Send</button>
+            <p class="form-note">We&#39;ll use these details to reply. Please don&#39;t include your child&#39;s records, health information or school passwords. <a href="#website-privacy" data-privacy>How we handle website data</a></p>
+            <p class="form-error" id="inquiry-error" role="alert" hidden>We couldn&#39;t save your message. Please try again.</p>
+          </form>
+          <div class="form-success" id="inquiry-sent" role="status" tabindex="-1" hidden>
+            <p>Your message is saved. We&#39;ll reply to the email you gave us.</p>
           </div>
-        </details>
-        <details id="privacy" class="inline-panel">
+        </div>
+        <details id="website-privacy" class="inline-panel">
           <summary>Website privacy</summary>
           <div class="panel-body">
-            <p class="section-label">Website data</p>
-            <h2 id="privacy-title">What you share here.</h2>
+            <h3 class="panel-title">What you share here.</h3>
             <h3>What you send us</h3>
-            <p>
-              We collect the email address and message you submit so we can
-              reply. Inquiries are stored in Supabase. Please do not send your
-              child's records, health information, or school passwords.
-            </p>
-            <h3>The pilot list</h3>
-            <p>
-              We collect your phone number to register your interest and contact
-              you about access. Signups are stored in our database; the server
-              deployment may use a local file if database storage is unavailable.
-              Textbelt or Retell may process your number to send a confirmation
-              text.
-            </p>
+            <p>We collect the email address and message you submit so we can reply. Inquiries are stored in our database. Please do not send your child’s records, health information or school passwords.</p>
+            <h3>The pilot list and school requests</h3>
+            <p>A family or circle signup gives us your phone number, and a circle signup also says how many families and, if you want, your school. A school pilot request gives us your name, role, school or district and email. All of it is stored in our database. A text provider may process your phone number to send a confirmation text.</p>
             <h3>This website is not the service</h3>
-            <p>
-              These forms do not connect to your school or to your child's
-              records. The site loads fonts from Google Fonts, so your browser
-              makes requests to Google and to our hosting provider when you
-              visit. How the service itself handles your family's information is
-              in the privacy policy.
-            </p>
+            <p>These forms do not connect to your school or to your child&#39;s records. The site loads fonts from Google Fonts, so your browser makes requests to Google and to our hosting provider when you visit. How the service itself handles your family&#39;s information is in the privacy policy.</p>
             <h3>Questions about your information?</h3>
-            <p>
-              Use the form above for privacy questions or a request about
-              information you submitted.
-            </p>
-            <a class="text-link" href="/privacy"
-              >Read the service privacy policy</a
-            >
+            <p>Use the form above for privacy questions or a request about information you submitted.</p>
+            <a class="text-link" href="/privacy">Read the service privacy policy</a>
           </div>
         </details>
       </div>
+    </section>
     </main>
-    <footer class="site-footer wrap">
+
+  <footer class="site-footer">
+    <div class="wrap footer-grid">
       <div>
-        <a class="brand" href="#main"
-          ><img
-            src="/animation/axolotl-mascot.png?v=mascot-2"
-            alt=""
-            width="30"
-            height="30"
-          />Axolotl</a
-        >
-        <p>The school agent for parents. Works over iMessage.</p>
+        <a class="brand brand-footer" href="/">
+          <img src="/animation/axolotl-mascot.png" alt="" width="34" height="34" />
+          <span>Axolotl</span>
+        </a>
+        <p>The school agent for parents</p>
       </div>
       <nav aria-label="Footer">
-        <a href="#contact" data-inquiry>Contact</a
-        ><a href="/privacy">Privacy</a
-        ><a href="/security">Security &amp; trust</a
-        ><a href="/es" hreflang="es" lang="es">Español</a>
+        <ul>
+          <li><a href="#contact">Contact</a></li><li><a href="/privacy">Privacy</a></li><li><a href="/security">Security and trust</a></li>
+          <li><a href="/es" hreflang="es" lang="es">Español</a></li>
+        </ul>
       </nav>
-    </footer>
+    </div>
+  </footer>
+    <a class="sticky-join" id="sticky-join" href="#join" hidden>Join the pilot</a>
   </body>
 </html>

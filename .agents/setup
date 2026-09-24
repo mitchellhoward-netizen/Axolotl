@@ -24,6 +24,10 @@ command -v tesseract >/dev/null || missing+=(tesseract-ocr tesseract-ocr-eng)
 command -v prlimit >/dev/null || missing+=(util-linux)
 [[ -x /usr/lib/postgresql/15/bin/postgres ]] || missing+=(postgresql-15)
 [[ -s /etc/ssl/certs/ca-certificates.crt ]] || missing+=(ca-certificates)
+# Building the phone mockup (scripts/build-phone.mjs) composites images with
+# Pillow. SF Pro and the Apple bezel are downloaded into .cache/ at that point.
+python3 -c 'import PIL' >/dev/null 2>&1 || missing+=(python3-pil)
+[[ -s /usr/share/fonts/truetype/dejavu/DejaVuSans.ttf ]] || missing+=(fonts-dejavu-core)
 if ((${#missing[@]})); then
   echo "[setup] Installing missing system packages: ${missing[*]}"
   sudo apt-get update -qq

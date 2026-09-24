@@ -26,6 +26,53 @@ executing a consequential action without an explicit parent `YES`.
 - Add providers by importing them in `src/index.ts` and listing them in the `Spectrum({ providers: [...] })` config.
 - Outgoing message content uses the builders documented in the skill (text, attachment, voice, contact, richlink, poll, group, custom).
 
+### The website is generated — do not hand-edit the HTML
+
+`public/index.html`, `public/schools.html`, `public/es.html` and
+`public/es/schools.html` are **built**, not written. All copy lives in
+`tools/site/strings.en.mjs` and `tools/site/strings.es.mjs`; the structure lives
+in `tools/site/build.mjs`. Edit the strings, then run:
+
+```sh
+npm run build:site     # regenerate the four pages
+npm run check:site     # fail if the committed HTML is not what the strings say
+npm run check          # secrets, phone-mockup fit, site drift, typecheck
+```
+
+The build writes plain static HTML, so nothing changes about how the site is
+served: Vercel serves `public/` as-is, with `cleanUrls`, so `/es` is
+`public/es.html` and `/schools` is `public/schools.html`. The orb's preview
+server (`node scripts/serve-site.mjs`, declared in `.amp/services.yaml`)
+reproduces those clean URLs; it serves files only, so forms on the preview show
+their error state rather than pretending to store a signup.
+
+The phone mockup in "How your yes works" is a **rendered device image**, not
+markup: `scripts/build-phone.mjs` draws the staged conversation at the iPhone's
+own logical size in SF Pro, screenshots it at 3x, and composites it into Apple's
+official bezel (downloaded on demand into the gitignored `.cache/`; the raw bezel
+and font are never committed, only the finished `public/phone-<lang>.webp`).
+
+```sh
+npm run build:phone     # re-render after changing the conversation copy
+npm run check:phone     # fail when the committed art is stale
+```
+
+The build fails if the conversation no longer fits the screen, so a clipped
+screenshot cannot ship. The raw screen template is
+`tools/site/phone-screen.html`; it is a stand-in for a screenshot taken on a real
+iPhone, and swapping in a real one means replacing the image and deleting that
+file.
+
+Social cards are generated too: `node scripts/build-share.mjs` renders
+`public/share.png` and `public/share-es.png` from `tools/site/share.html`, which
+reads the same strings. Re-run it after changing the hero copy.
+
+Website signups (family pilot, parent circle, school request) go through one
+endpoint, `/api/waitlist`, with a `kind` field. Validation and storage are shared
+between the Vercel function (`api/waitlist.ts`) and the long-lived host
+(`src/integrations/web.ts`) via `src/integrations/waitlist.ts`. The table needs
+`db/signups.sql` applied before the new forms can save anything.
+
 ## Environment
 
 This project reads secrets from `.env` (gitignored). **Do not read, write, or echo `.env`** — it contains credentials.
