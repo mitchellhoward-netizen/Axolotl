@@ -880,13 +880,13 @@ h2 + .lead {
   z-index: 2;
   display: inline-flex;
   align-items: center;
-  gap: 7px;
-  height: 34px;
-  padding: 0 12px 0 5px;
+  gap: 8px;
+  height: 42px;
+  padding: 0 15px 0 7px;
   border-radius: 999px;
-  background: oklch(99% 0.006 80 / 0.92);
+  background: oklch(99% 0.006 80 / 0.94);
   color: var(--ink);
-  font-size: 12.5px;
+  font-size: 13px;
   font-weight: 600;
   white-space: nowrap;
   box-shadow:
@@ -895,11 +895,13 @@ h2 + .lead {
     0 10px 22px -10px rgba(29, 17, 8, 0.35);
 }
 
+/* The real app icons are 2x assets, so they stay sharp at this size. */
 .hero-badge img {
   display: block;
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
   flex: 0 0 auto;
+  object-fit: contain;
 }
 
 /* Three down the left edge and one on the right shoulder, under the mascot, so

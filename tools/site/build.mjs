@@ -126,7 +126,7 @@ function heroPhone(s, art) {
     .map(
       (c, i) => `
             <span class="hero-badge hero-badge-${i + 1}">
-              <img src="/integrations/${esc(c.icon)}.svg" alt="" width="24" height="24" decoding="async" />
+              <img src="/integrations/${esc(c.icon)}" alt="" width="28" height="28" decoding="async" />
               <span>${esc(c.label)}</span>
             </span>`,
     )
