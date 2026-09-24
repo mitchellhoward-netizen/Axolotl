@@ -81,10 +81,11 @@ export default {
     // by the founder: the flat brand marks simple-icons ships are not the icons a
     // parent would recognise.
     connects: [
-      { icon: 'imessage.svg', label: 'iMessage' },
+      { icon: 'imessage.png', label: 'iMessage' },
       { icon: 'gmail.png', label: 'Your email' },
       { icon: 'google-calendar.png', label: 'The school calendar' },
       { icon: 'google-forms.png', label: 'Forms, filed' },
+      { icon: 'whatsapp.png', label: 'WhatsApp' },
     ],
     // The phone no longer draws the folder, but the social card (share.html)
     // still does, so its rows live here.

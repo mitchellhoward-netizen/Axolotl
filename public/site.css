@@ -904,26 +904,31 @@ h2 + .lead {
   object-fit: contain;
 }
 
-/* Three down the left edge and one on the right shoulder, under the mascot, so
+/* Three down the left edge and two on the right shoulder, under the mascot, so
    the device stays the subject and every mark stays legible. */
 .hero-badge-1 {
-  top: 6%;
+  top: 3%;
   right: calc(100% - 22px);
 }
 
 .hero-badge-2 {
-  top: 37%;
-  right: calc(100% - 14px);
+  top: 28%;
+  right: calc(100% - 13px);
 }
 
 .hero-badge-3 {
-  bottom: 9%;
+  bottom: 10%;
   right: calc(100% - 18px);
 }
 
 .hero-badge-4 {
-  bottom: 33%;
-  left: calc(100% - 16px);
+  top: 38%;
+  left: calc(100% - 15px);
+}
+
+.hero-badge-5 {
+  bottom: 14%;
+  left: calc(100% - 11px);
 }
 
 @media (max-width: 619px) {
@@ -952,6 +957,10 @@ h2 + .lead {
 
   .hero-badge-4 {
     left: calc(100% - 8px);
+  }
+
+  .hero-badge-5 {
+    left: calc(100% - 6px);
   }
 }
 
