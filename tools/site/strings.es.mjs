@@ -70,6 +70,12 @@ export default {
       ],
       alt: 'Conversación de texto en un teléfono. Axolotl dice que llegaron ocho correos y que dos cosas necesitan a la familia. La familia, en juntas todo el día, le pide a Axolotl que se encargue. Axolotl llenó el formulario de excursión de Maya y lo envía con el visto bueno de la familia, luego confirma que Lincoln lo tiene, referencia K-1042, y que la abuela cubre la salida temprana del miércoles.',
     },
+    connects: [
+      { icon: 'imessage', label: 'iMessage' },
+      { icon: 'gmail', label: 'Tu correo' },
+      { icon: 'school', label: 'Correo escolar' },
+      { icon: 'forms', label: 'Formularios' },
+    ],
     // El teléfono ya no dibuja la carpeta, pero la tarjeta social (share.html)
     // sí, así que sus filas viven aquí.
     folder: {

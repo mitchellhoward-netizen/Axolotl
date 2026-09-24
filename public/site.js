@@ -63,6 +63,9 @@
       const index = at();
       prev.disabled = index === 0;
       next.disabled = index === slides.length - 1;
+      // The centred screen is the live one; its neighbours sit back. Without
+      // this a wide screen would show four phones at equal weight.
+      slides.forEach((slide, i) => slide.classList.toggle("is-active", i === index));
     };
 
     prev.hidden = false;

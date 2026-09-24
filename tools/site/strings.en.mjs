@@ -76,6 +76,16 @@ export default {
       ],
       alt: 'Text thread on a phone. Axolotl says eight school emails came in and two things need the parent. The parent, in meetings all day, asks Axolotl to deal with them. Axolotl has filled in Maya\u2019s field trip form and sends it on the parent\u2019s go-ahead, then confirms Lincoln has it, reference K-1042, and that Grandma is covering Wednesday\u2019s early release.',
     },
+    // What Axolotl actually connects to — the messaging line, the parent's own
+    // email, the school's mail and the forms it files. Real marks, because these
+    // are real integrations; there is deliberately no badge for a school portal
+    // we cannot open.
+    connects: [
+      { icon: 'imessage', label: 'iMessage' },
+      { icon: 'gmail', label: 'Your email' },
+      { icon: 'school', label: 'School mail' },
+      { icon: 'forms', label: 'Forms, filed' },
+    ],
     // The phone no longer draws the folder, but the social card (share.html)
     // still does, so its rows live here.
     folder: {

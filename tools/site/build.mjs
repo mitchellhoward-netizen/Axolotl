@@ -118,6 +118,19 @@ function footer(s, { prefix, langHref }) {
  */
 function heroPhone(s, art) {
   const size = art[s.lang].week;
+  // What the product actually reaches: the line you text, your own email, the
+  // school's mail, and the forms it files. Shown as real marks, floating around
+  // the device, because an integration the parent cannot see is one they will
+  // assume does not exist.
+  const badges = at(s, 'hero.connects')
+    .map(
+      (c, i) => `
+            <span class="hero-badge hero-badge-${i + 1}">
+              <img src="/integrations/${esc(c.icon)}.svg" alt="" width="24" height="24" decoding="async" />
+              <span>${esc(c.label)}</span>
+            </span>`,
+    )
+    .join('');
 
   return `
         <figure class="hero-visual">
@@ -130,7 +143,7 @@ function heroPhone(s, art) {
               alt="${esc(at(s, 'hero.phone.alt'))}"
               fetchpriority="high"
               decoding="async"
-            />
+            />${badges}
           </div>
           <img class="mascot" src="/animation/axolotl-mascot.png" alt="${esc(at(s, 'a11y.mascot'))}" width="150" height="150" />
         </figure>`;
@@ -205,7 +218,6 @@ function week(s, art) {
               width="${size.width}"
               height="${size.height}"
               alt="${esc(alt)}"
-              loading="lazy"
               decoding="async"
             />
           </li>`;

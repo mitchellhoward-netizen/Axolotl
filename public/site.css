@@ -870,6 +870,89 @@ h2 + .lead {
   }
 }
 
+/* ── what it connects to ─────────────────────────────────────────────────────
+   The services Axolotl actually reaches, riding beside the device: the line you
+   text, your email, the school's mail and the forms it files. Paper pills, so
+   they read as the site's own notes rather than a wall of vendor logos. */
+
+.hero-badge {
+  position: absolute;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  height: 34px;
+  padding: 0 12px 0 5px;
+  border-radius: 999px;
+  background: oklch(99% 0.006 80 / 0.92);
+  color: var(--ink);
+  font-size: 12.5px;
+  font-weight: 600;
+  white-space: nowrap;
+  box-shadow:
+    inset 0 1px 0 oklch(100% 0 0 / 0.7),
+    0 0 0 1px oklch(24.5% 0.03 58 / 0.08),
+    0 10px 22px -10px rgba(29, 17, 8, 0.35);
+}
+
+.hero-badge img {
+  display: block;
+  width: 24px;
+  height: 24px;
+  flex: 0 0 auto;
+}
+
+/* Three down the left edge and one on the right shoulder, under the mascot, so
+   the device stays the subject and every mark stays legible. */
+.hero-badge-1 {
+  top: 6%;
+  right: calc(100% - 22px);
+}
+
+.hero-badge-2 {
+  top: 37%;
+  right: calc(100% - 14px);
+}
+
+.hero-badge-3 {
+  bottom: 9%;
+  right: calc(100% - 18px);
+}
+
+.hero-badge-4 {
+  bottom: 33%;
+  left: calc(100% - 16px);
+}
+
+@media (max-width: 619px) {
+  .hero-badge {
+    height: 30px;
+    padding-right: 10px;
+    font-size: 11.5px;
+  }
+
+  .hero-badge img {
+    width: 20px;
+    height: 20px;
+  }
+
+  .hero-badge-1 {
+    right: calc(100% - 10px);
+  }
+
+  .hero-badge-2 {
+    right: calc(100% - 4px);
+  }
+
+  .hero-badge-3 {
+    right: calc(100% - 8px);
+  }
+
+  .hero-badge-4 {
+    left: calc(100% - 8px);
+  }
+}
+
 /* ── status labels (one fixed vocabulary everywhere) ─────────────────────── */
 
 .status {
@@ -1025,6 +1108,40 @@ h2 + .lead {
   scroll-snap-align: center;
   margin: 0;
   text-align: center;
+}
+
+/* On a wide screen the neighbours stay in view — dimmed and slightly shrunk —
+   so the track reads as one screen in a row of screens rather than a single
+   slide. The card has a FIXED width and the track is padded by exactly half the
+   leftover, so the first and last cards can still snap to the centre. (A
+   percentage padding would shrink the content box that a percentage flex-basis
+   then resolves against, and the cards collapse.) */
+@media (min-width: 900px) {
+  .carousel-track {
+    padding-inline: calc(50% - 17rem);
+    /* The neighbours run past the track's edge. Feather that cut so they fade
+       into the page instead of ending on a hard vertical line mid-screen. */
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
+    mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
+  }
+
+  .week-card {
+    flex: 0 0 34rem;
+  }
+
+  .week-card h3,
+  .week-shot {
+    transition: opacity 300ms ease, transform 300ms ease;
+  }
+
+  .week-card:not(.is-active) .week-shot {
+    opacity: 0.55;
+    transform: scale(0.92);
+  }
+
+  .week-card:not(.is-active) h3 {
+    opacity: 0.5;
+  }
 }
 
 .week-card h3 {
