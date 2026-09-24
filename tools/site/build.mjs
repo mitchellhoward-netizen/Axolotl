@@ -125,10 +125,10 @@ function heroPhone(s, art) {
   const badges = at(s, 'hero.connects')
     .map(
       (c, i) => `
-            <span class="hero-badge hero-badge-${i + 1}">
-              <img src="/integrations/${esc(c.icon)}" alt="" width="28" height="28" decoding="async" />
-              <span>${esc(c.label)}</span>
-            </span>`,
+              <span class="hero-badge hero-badge-${i + 1}">
+                <img src="/integrations/${esc(c.icon)}" alt="" width="28" height="28" decoding="async" />
+                <span>${esc(c.label)}</span>
+              </span>`,
     )
     .join('');
 
@@ -143,7 +143,9 @@ function heroPhone(s, art) {
               alt="${esc(at(s, 'hero.phone.alt'))}"
               fetchpriority="high"
               decoding="async"
-            />${badges}
+            />
+            <div class="hero-badges">${badges}
+            </div>
           </div>
           <img class="mascot" src="/animation/axolotl-mascot.png" alt="${esc(at(s, 'a11y.mascot'))}" width="150" height="150" />
         </figure>`;

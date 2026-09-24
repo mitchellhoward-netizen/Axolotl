@@ -218,6 +218,10 @@ p {
 
 body {
   margin: 0;
+  /* The hero's badges sit outside the device on purpose. Nothing on the site
+     should ever produce a sideways scroll, so the overflow is clipped rather
+     than scrolled. `clip` (not `hidden`) keeps the sticky header sticky. */
+  overflow-x: clip;
   color: var(--ink);
   font: 400 16.5px/1.55 var(--sans);
   -webkit-font-smoothing: antialiased;
@@ -931,36 +935,54 @@ h2 + .lead {
   left: calc(100% - 11px);
 }
 
-@media (max-width: 619px) {
-  .hero-badge {
-    height: 30px;
-    padding-right: 10px;
-    font-size: 11.5px;
+/* On a phone the badges stop floating. There is no room beside the device — they
+   were running off both edges of the viewport — so they become a centred row of
+   app icons under the phone, the way a home screen shows a row of icons. */
+@media (max-width: 899px) {
+  .hero-phone-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+
+  .hero-badges {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .hero-badge,
+  .hero-badge-1,
+  .hero-badge-2,
+  .hero-badge-3,
+  .hero-badge-4,
+  .hero-badge-5 {
+    position: static;
+    width: 50px;
+    height: 50px;
+    padding: 0;
+    gap: 0;
+    justify-content: center;
+    border-radius: 14px;
   }
 
   .hero-badge img {
-    width: 20px;
-    height: 20px;
+    width: 32px;
+    height: 32px;
   }
 
-  .hero-badge-1 {
-    right: calc(100% - 10px);
-  }
-
-  .hero-badge-2 {
-    right: calc(100% - 4px);
-  }
-
-  .hero-badge-3 {
-    right: calc(100% - 8px);
-  }
-
-  .hero-badge-4 {
-    left: calc(100% - 8px);
-  }
-
-  .hero-badge-5 {
-    left: calc(100% - 6px);
+  /* The row is icons; the label stays for screen readers only. */
+  .hero-badge span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
   }
 }
 
