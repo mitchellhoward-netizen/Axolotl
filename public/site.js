@@ -45,19 +45,30 @@
     if (!track || !prev || !next || slides.length < 2) return;
 
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const leftOf = (slide) =>
-      slide.getBoundingClientRect().left - track.getBoundingClientRect().left + track.scrollLeft;
-    const at = () =>
-      slides.reduce(
-        (best, slide, i) =>
-          Math.abs(leftOf(slide) - track.scrollLeft) < Math.abs(leftOf(slides[best]) - track.scrollLeft)
-            ? i
-            : best,
-        0,
-      );
+    // The card the visitor is looking at is the one nearest the MIDDLE of the
+    // track, because the cards snap to the centre. Measuring a card's left edge
+    // against scrollLeft is the left-aligned model, and once the neighbours come
+    // into view it lights up the wrong card and dims the one in the middle.
+    const gapToMiddle = (slide) => {
+      const box = slide.getBoundingClientRect();
+      const trackBox = track.getBoundingClientRect();
+      return box.left + box.width / 2 - (trackBox.left + trackBox.width / 2);
+    };
+    const at = () => {
+      let best = 0;
+      let bestGap = Infinity;
+      slides.forEach((slide, i) => {
+        const gap = Math.abs(gapToMiddle(slide));
+        if (gap < bestGap) {
+          bestGap = gap;
+          best = i;
+        }
+      });
+      return best;
+    };
     const go = (i) => {
       const index = Math.max(0, Math.min(slides.length - 1, i));
-      track.scrollTo({ left: leftOf(slides[index]), behavior: reduce ? "auto" : "smooth" });
+      track.scrollTo({ left: track.scrollLeft + gapToMiddle(slides[index]), behavior: reduce ? "auto" : "smooth" });
     };
     const sync = () => {
       const index = at();
