@@ -124,6 +124,9 @@ async function chromePath() {
       }
     }
   }
+  // A standard macOS install: the app bundle ships its own binary.
+  const macApp = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
+  if (existsSync(macApp)) return macApp;
   for (const p of ['/usr/bin/google-chrome', '/usr/bin/chromium', '/usr/bin/chromium-browser']) {
     if (existsSync(p)) return p;
   }
@@ -133,7 +136,9 @@ async function chromePath() {
 /** Download once into .cache/ (gitignored) and extract what we need. */
 async function ensureBezel() {
   await mkdir(CACHE, { recursive: true });
-  const png = path.join(CACHE, path.basename(DEVICE.bezelMember));
+  // 7z `x` preserves the member's full path inside the output dir, so the file
+  // lands at CACHE/<member>, not CACHE/<basename>.
+  const png = path.join(CACHE, DEVICE.bezelMember);
   if (existsSync(png)) return png;
   const dmg = path.join(CACHE, 'bezel.dmg');
   if (!existsSync(dmg)) {
@@ -142,7 +147,7 @@ async function ensureBezel() {
   }
   console.log('extracting the bezel PNG');
   await run('7z', ['x', '-y', `-o${CACHE}`, dmg, DEVICE.bezelMember], { stdio: 'ignore' });
-  if (!existsSync(png)) throw new Error(`bezel not found in the dmg: ${DEVICE.bezelMember}`);
+  if (!existsSync(png)) throw new Error(`bezel not found after extraction: ${png}`);
   return png;
 }
 
@@ -207,9 +212,11 @@ const check = args.includes('--check');
  * purposes: `check:phone` fails when the art no longer matches the copy, and the
  * site appends it to the image URLs so a re-render is never served from a cache.
  *
- * It has to cover every string the screens draw, not just the obvious ones. When
- * it did not cover `week`, the four week screens were re-rendered under unchanged
- * URLs, and browsers kept showing the previous conversations.
+ * It has to cover every string the screens draw and the screen template itself,
+ * not just the obvious ones. When it did not cover `week`, the four week screens
+ * were re-rendered under unchanged URLs, and browsers kept showing the previous
+ * conversations. The same happens if `tools/site/phone-screen.html` changes but
+ * the fingerprint does not.
  */
 const stringsHash = async () => {
   const h = createHash('sha256');
@@ -227,6 +234,7 @@ const stringsHash = async () => {
       }),
     );
   }
+  h.update(await readFile(path.join(ROOT, 'tools', 'site', 'phone-screen.html'), 'utf8'));
   h.update(JSON.stringify(DEVICE));
   return h.digest('hex').slice(0, 16);
 };

@@ -116,21 +116,15 @@ function footer(s, { prefix, langHref }) {
  * The hero: the same five rows the paper folder held, as the card the parent
  * actually gets, rendered inside the real device by scripts/build-phone.mjs.
  *
- * The brief's one load moment survives the hero becoming a device: the pen ring
- * draws around the row that is waiting, then a stamp lands on the confirmed row.
- * Both are positioned from the row rectangles the screen reported when it was
- * rendered (phone.lock.json), so they sit on the right rows in either language
- * without the page having to know anything about the card's layout.
+ * The render is shown clean: a real screenshot has no pen ring or rubber stamp
+ * floating over it. The card's own status chips already carry "waiting for your
+ * yes" and "confirmed", so nothing is lost.
  */
 function heroPhone(s, art) {
   const size = art[s.lang].week;
-  const marks = art[s.lang].marks ?? {};
-  const vars = Object.entries(marks)
-    .map(([key, r]) => `--${key}-x:${r.x}%;--${key}-y:${r.y}%;--${key}-w:${r.w}%;--${key}-h:${r.h}%`)
-    .join(';');
 
   return `
-        <figure class="hero-visual" style="${vars}">
+        <figure class="hero-visual">
           <div class="hero-phone-wrap">
             <img
               class="hero-phone"
@@ -141,11 +135,6 @@ function heroPhone(s, art) {
               fetchpriority="high"
               decoding="async"
             />
-            ${marks.pen ? `<svg class="pen-circle" viewBox="0 0 300 80" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-              <path d="M8 30C7 14 18 7 44 6c76-3 156-2 218-1 23 0 31 7 30 25-1 18 1 32-1 42-2 7-15 5-43 4-73-2-156 1-212 0-22 0-27-7-28-21-1-8 0-17 0-25" pathLength="1" />
-            </svg>
-            <span class="pen-note pen-note-hero" aria-hidden="true">${esc(at(s, 'hero.folder.annotation'))}</span>` : ''}
-            ${marks.stamp ? `<span class="status status-confirmed hero-stamp">${esc(at(s, 'statuses.confirmed'))}</span>` : ''}
           </div>
           <img class="mascot" src="/animation/axolotl-mascot.png" alt="${esc(at(s, 'a11y.mascot'))}" width="150" height="150" />
         </figure>`;
@@ -281,16 +270,10 @@ function year(s) {
 }
 
 /** The phone: a real device render, built by scripts/build-phone.mjs.
- *  It is an image rather than markup because the brief asks for a real iPhone
- *  screenshot in Apple's official device frame; the stamp and the pen note stay
- *  as overlays so they can sit over the device. */
+ *  Shown clean — the thread already ends with the school's confirmation, so no
+ *  stamp or handwritten note is drawn over the device. */
 function phone(s, art) {
-  const size = art[s.lang] ?? art.en;
-  const stamp = `
-          <div class="phone-stamp" aria-hidden="true">
-            <span class="phone-stamp-top">${esc(at(s, 'how.phone.stampTop'))}</span>
-            <span class="phone-stamp-bottom">${esc(at(s, 'how.phone.stampBottom'))}</span>
-          </div>`;
+  const size = art[s.lang].yes;
   return `
         <figure class="phone-figure">
           <div class="phone-tilt">
@@ -304,12 +287,6 @@ function phone(s, art) {
               decoding="async"
             />
           </div>
-          <p class="pen-note pen-note-phone" aria-hidden="true">${esc(at(s, 'how.phone.note'))}
-            <svg class="pen-arrow" viewBox="0 0 60 34" aria-hidden="true" focusable="false">
-              <path d="M57 31C45 29 26 24 13 11" pathLength="1" />
-              <path d="M13 11c1 4 2 7 3 9M13 11c4 1 7 2 9 2" />
-            </svg>
-          </p>${stamp}
           <figcaption class="caption">${esc(at(s, 'how.phone.caption'))}</figcaption>
         </figure>`;
 }
@@ -733,7 +710,7 @@ function document(s, { title, description, canonical, alts, body, prefix, langHr
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Public+Sans:wght@400;500;600&family=Zilla+Slab:wght@500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600&family=Zilla+Slab:wght@500;600;700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="/site.css?v=13" />

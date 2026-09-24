@@ -167,7 +167,6 @@
 
   --slab: "Zilla Slab", Georgia, serif;
   --sans: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --pen: "Caveat", "Segoe Script", cursive;
   --bubble-font: -apple-system, "SF Pro Text", "Helvetica Neue", Helvetica, sans-serif;
 }
 
@@ -835,12 +834,8 @@ h2 + .lead {
 
 /* ── the hero device ─────────────────────────────────────────────────────────
    The hero's five rows are the card the parent actually receives, rendered
-   inside the real device (scripts/build-phone.mjs). The pen ring and the stamp
-   are overlaid on the render, positioned from the row rectangles the screen
-   reported at build time, so the brief's one load moment still plays: the ring
-   draws around the row that is waiting, then the stamp lands on the confirmed
-   one. The stamp is deliberately larger than the status chip it covers, which
-   is what a rubber stamp on a printed card looks like. */
+   inside the real device (scripts/build-phone.mjs). The render is shown clean;
+   the card's own status chips carry the meaning. */
 
 .hero-visual {
   position: relative;
@@ -859,98 +854,6 @@ h2 + .lead {
   height: auto;
 }
 
-.pen-circle {
-  position: absolute;
-  left: var(--pen-x);
-  top: var(--pen-y);
-  width: var(--pen-w);
-  height: var(--pen-h);
-  fill: none;
-  stroke: var(--ink-pen);
-  stroke-width: 2.4;
-  stroke-linecap: round;
-  pointer-events: none;
-}
-
-/* vector-effect belongs on the shape, not the <svg>: it is the path that gets
-   stretched by preserveAspectRatio, and the stroke has to stay 2.4px when it does. */
-.pen-circle path,
-.pen-arrow path {
-  vector-effect: non-scaling-stroke;
-}
-
-.pen-circle path {
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
-  animation: pen-draw 900ms ease-out 260ms both;
-}
-
-.pen-arrow {
-  display: block;
-  width: 58px;
-  height: 32px;
-  margin: 2px 0 0 14px;
-  fill: none;
-  stroke: var(--ink-pen);
-  stroke-width: 2.4;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-.pen-note {
-  position: absolute;
-  color: var(--ink-pen);
-  font-family: var(--pen);
-  font-size: 25px;
-  line-height: 1;
-  transform: rotate(-3deg);
-  pointer-events: none;
-}
-
-/* In the empty space above the card, with the arrow pointing down at the ring.
-   Below the ring it landed on the next row's text. */
-.pen-note-hero {
-  right: 5%;
-  left: auto;
-  top: calc(var(--card-y) - 60px);
-  text-align: right;
-}
-
-.pen-note-hero .pen-arrow {
-  margin: 2px 0 0 auto;
-  transform: rotate(-28deg) scaleX(-1);
-}
-
-.hero-stamp {
-  position: absolute;
-  left: calc(var(--stamp-x) + var(--stamp-w) / 2);
-  top: calc(var(--stamp-y) + var(--stamp-h) / 2 + 5px);
-  /* Sized to the status row it lands on: taller than this and it covers the
-     detail line above it. */
-  padding: 2px 8px;
-  font-size: 11px;
-  animation: hero-stamp-land 180ms ease-out 1160ms both;
-}
-
-@keyframes pen-draw {
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-
-/* The one orchestrated moment on load: the ring draws, then the stamp lands.
-   Nothing else on the page animates in. */
-@keyframes hero-stamp-land {
-  from {
-    opacity: 0;
-    transform: translate(-50%, -50%) rotate(-6deg) scale(1.15);
-  }
-  to {
-    opacity: 1;
-    transform: translate(-50%, -50%) rotate(-6deg) scale(1);
-  }
-}
-
 .mascot {
   position: absolute;
   right: -18px;
@@ -964,10 +867,6 @@ h2 + .lead {
   .mascot {
     right: -6px;
     top: -38px;
-  }
-
-  .pen-note-hero {
-    font-size: 22px;
   }
 }
 
@@ -1379,65 +1278,8 @@ h2 + .lead {
   height: auto;
 }
 
-
-.phone-stamp {
-  position: absolute;
-  left: -62px;
-  bottom: 42px;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  padding: 8px 14px;
-  background: rgba(253, 252, 249, 0.94);
-  border: 3px double var(--confirmed);
-  border-radius: 3px;
-  color: var(--confirmed);
-  font-family: var(--slab);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  transform: rotate(-7deg);
-  box-shadow: 0 1px 2px rgba(31, 34, 51, 0.12);
-}
-
-.phone-stamp-top {
-  font-size: 11px;
-  font-weight: 700;
-  line-height: 1.2;
-}
-
-.phone-stamp-bottom {
-  font-size: 9.5px;
-  line-height: 1.2;
-}
-
-.pen-note-phone {
-  right: -52px;
-  bottom: 122px;
-  transform: rotate(-6deg);
-}
-
-/* The arrow curves back up to the parent's own bubble: the note is about the
-   one thing the parent types, so it has to point at it, not away from it. */
-.pen-note-phone .pen-arrow {
-  margin: 2px 0 0 14px;
-}
-
 .phone-figure .caption {
   margin-top: 24px;
-}
-
-/* Under 1000px the phone is the full column width, so the two decorations pull
-   inside the viewport instead of hanging off it and creating sideways scroll. */
-@media (max-width: 999px) {
-  .phone-stamp {
-    left: 0;
-    bottom: 64px;
-  }
-
-  .pen-note-phone {
-    right: 0;
-    bottom: 128px;
-  }
 }
 
 /* ── channel strip ───────────────────────────────────────────────────────── */
@@ -1915,15 +1757,5 @@ h2 + .lead {
 
   .button:hover {
     transform: none;
-  }
-
-  /* Show the final state of the one load moment instead of playing it. */
-  .pen-circle path,
-  .hero-stamp {
-    animation: none;
-  }
-
-  .pen-circle path {
-    stroke-dashoffset: 0;
   }
 }

@@ -113,7 +113,7 @@
         min-height: 0;
         display: flex;
         flex-direction: column;
-        gap: 8px;
+        gap: 10px;
         margin: 0;
         padding: 12px 16px 8px;
         list-style: none;
@@ -202,7 +202,7 @@
       }
 
       .bubble {
-        padding: 8px 15px;
+        padding: 9px 15px;
         border-radius: 19px;
         font-size: 17px;
         line-height: 22px;
@@ -304,9 +304,7 @@
         color: var(--label);
       }
 
-      /* The status sits on its own line. Beside the label it left no room for
-         the stamp that lands on the confirmed row, and the stamp covered the
-         label's second line. */
+      /* The status chip sits on its own line, below the label and detail. */
       .plan-row .chip {
         display: inline-block;
         margin-top: 6px;
@@ -320,16 +318,14 @@
         white-space: nowrap;
       }
 
-      /* The same vocabulary as the page: the brand colour is the confirmed
-         state, amber is the parent's turn, and everything else is neutral. */
+      /* The same vocabulary as the page: green is the confirmed state, amber is
+         the parent's turn, and everything else is neutral. Confirmed is a plain
+         pill like the rest — a real screenshot has no rubber stamp. */
       .chip-confirmed {
-        padding: 2px 6px;
-        border: 2px double #1f7c4b;
-        border-radius: 2px;
+        padding: 2px 8px;
+        border: 1px solid #1f7c4b;
+        border-radius: 999px;
         color: #1f7c4b;
-        text-transform: uppercase;
-        letter-spacing: 0.4px;
-        transform: rotate(-5deg);
       }
 
       .chip-waiting {
@@ -429,7 +425,7 @@
       }
 
       .row.run {
-        margin-top: -6px;
+        margin-top: -7px;
       }
 
       /* A shared page: iMessage draws the link's own card inside the bubble. */
@@ -487,6 +483,17 @@
         color: #8a8a8e;
         font-size: 20px;
         line-height: 1;
+      }
+
+      .mic {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        flex: 0 0 auto;
+        border-radius: 999px;
+        background: #e9e9eb;
       }
 
       .field {
@@ -551,6 +558,13 @@
     <div class="composer">
       <span class="plus">+</span>
       <span class="field" id="field">iMessage</span>
+      <span class="mic" aria-hidden="true">
+        <svg width="16" height="20" viewBox="0 0 16 20" fill="none">
+          <rect x="5" y="1" width="6" height="11" rx="3" fill="#8a8a8e" />
+          <path d="M2.5 11a5.5 5.5 0 0 0 11 0" stroke="#8a8a8e" stroke-width="1.6" stroke-linecap="round" />
+          <path d="M8 16.5V19" stroke="#8a8a8e" stroke-width="1.6" stroke-linecap="round" />
+        </svg>
+      </span>
     </div>
 
     <div class="home"><span></span></div>
@@ -636,12 +650,6 @@
           const chip = document.createElement('span');
           chip.className = `chip chip-${row.status}`;
           chip.textContent = s.statuses[row.status];
-          if (row.status === 'confirmed') {
-            // The page lands an animated stamp on this row, so the chip holds the
-            // space but does not paint: two "Confirmed" marks would collide.
-            chip.dataset.stamp = 'true';
-            chip.style.visibility = 'hidden';
-          }
 
           line.append(label, detail, chip);
           card.append(line);
