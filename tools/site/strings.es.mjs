@@ -51,14 +51,24 @@ export default {
     secondary: 'Ver cómo funciona',
     trust:
       'Nada llega a tu escuela sin tu sí. Gratis durante el piloto, en inglés o español.',
-    // The hero visual is the same five rows as the folder, shown the way a
-    // parent actually receives them: a card in the text thread on their phone.
+    // The hero visual is the thread the parent actually gets: Axolotl's weekly
+    // triage, the parent's yes, and the school's confirmation. Plain text only.
     phone: {
-    meta: 'Hoy',
+      meta: 'Hoy',
       metaTime: '7:15 AM',
-      cardTitle: 'Esta semana',
-      alt: 'Conversación de texto en un teléfono. Axolotl manda una tarjeta titulada "Esta semana" con cinco cosas: la salida temprana del miércoles a la 1:20, confirmada con la abuela recogiendo a Leo; el formulario de excursión de Maya, lleno y esperando tu sí; el transporte de Leo a Lincoln, solicitado al distrito bajo McKinney-Vento; la evaluación de lectura de Maya, solicitada el 30 de septiembre; y la recogida del viernes con otra familia, próximamente.',
+      thread: [
+        { in: 'Llegaron ocho correos de la escuela esta semana. Una cosa necesita tu atención:' },
+        { in: 'El formulario de excursión de Maya, para el viernes. Ya lo llené y está listo para enviar.' },
+        { in: 'La salida temprana del miércoles a la 1:20 ya está resuelta: la abuela recoge a Leo y confirmó.' },
+        { in: 'El transporte de Leo a Lincoln está solicitado al distrito, bajo McKinney-Vento.' },
+        { in: 'El resto es solo información. ¿Envío el formulario?' },
+        { out: 'sí' },
+        { in: 'Enviado. La oficina de Lincoln lo confirmó \u2014 referencia K-1042.' },
+      ],
+      alt: 'Conversación de texto en un teléfono. Axolotl reporta ocho correos de la semana: el formulario de excursión de Maya ya está lleno y espera tu sí; la salida temprana del miércoles está resuelta con la abuela recogiendo a Leo; el transporte de Leo a Lincoln está solicitado al distrito bajo McKinney-Vento. La familia responde sí, y Axolotl confirma que la escuela aceptó el formulario, referencia K-1042.',
     },
+    // El teléfono ya no dibuja la carpeta, pero la tarjeta social (share.html)
+    // sí, así que sus filas viven aquí.
     folder: {
       label: 'La familia Howard',
       tab: 'Howard',
@@ -148,13 +158,12 @@ export default {
           'Encontró quién está libre el miércoles.',
         ],
         turns: [
-          { link: true },
           { in: 'Salió el calendario del distrito. Hay una cosa que necesita tu atención.' },
           { in: 'El miércoles la salida es a la 1:20: los niños salen tres horas antes.' },
           { out: 'Ese día tengo reuniones hasta las 3.' },
-          { card: true },
-          { in: 'La abuela puede recoger a Leo.' },
-          { in: '¿Quieres que le pregunte?' },
+          { in: 'La abuela está libre. ¿Quieres que le pregunte?' },
+          { out: 'Sí, por favor.' },
+          { in: 'Dijo que sí. Leo está cubierto el miércoles a la 1:20.' },
         ],
         status: 'waiting',
       },
@@ -167,13 +176,12 @@ export default {
           'La abuela es la primera en tu lista de respaldo.',
         ],
         turns: [
-          { out: 'Fwd: Lincoln Elementary: hoy salen al mediodía' },
-          { in: 'Lincoln acaba de escribir.' },
-          { in: 'Salen al mediodía, en doce minutos.' },
+          { in: 'Lincoln acaba de escribir. Hoy salen al mediodía.' },
+          { in: 'Faltan doce minutos.' },
           { out: 'No puedo salir. Tengo reuniones hasta las 3.' },
-          { card: true },
-          { in: 'La abuela es la primera en tu lista de respaldo.' },
-          { in: '¿Quieres que le pregunte?' },
+          { in: 'La abuela es la primera en tu lista de respaldo. ¿Quieres que le pregunte?' },
+          { out: 'Sí, por favor.' },
+          { in: 'Ya los tiene. Le avisé a la oficina que están cubiertos.' },
         ],
         status: 'waiting',
       },
@@ -186,12 +194,12 @@ export default {
           'Redactó la nota de ausencia de Leo.',
         ],
         turns: [
-          { link: true },
           { in: 'Tres cosas esta semana.' },
           { in: 'El jueves es el día de pijama, el formulario de la excursión vence el viernes, y Leo necesita una nota de ausencia.' },
           { out: 'El lunes tiene dentista en la mañana.' },
-          { card: true },
           { in: 'La nota de ausencia está lista y el formulario está lleno. Responde SÍ para enviar los dos.' },
+          { out: 'Sí' },
+          { in: 'Los dos enviados. La oficina confirmó.' },
         ],
         status: 'waiting',
       },
@@ -204,12 +212,12 @@ export default {
           'Dentista el jueves: Sam.',
         ],
         turns: [
-          { link: true },
           { in: 'Así va la semana.' },
-          { card: true },
+          { in: 'Recogida del miércoles: la abuela. El formulario de Maya: tú. Dentista el jueves: Sam.' },
           { out: '¿Le puedes recordar a Sam lo del jueves?' },
-          { in: 'Sam ve la misma lista.' },
-          { in: 'Le recordaré a quien le toque.' },
+          { in: 'Sam ve la misma lista. Le recordaré a quien le toque.' },
+          { out: 'Gracias.' },
+          { in: 'Con gusto. Te escribo el viernes.' },
         ],
         status: 'reminder',
       },
@@ -288,14 +296,8 @@ export default {
           text: 'Su físico está cubierto en la red, y hay lugar el jueves a las 4:10. Llené los dos formularios.',
         },
         {
-          kind: 'form',
-          label: 'Formulario de salud',
-          rows: [
-            ['Estudiante', 'Leo Howard'],
-            ['Grado', 'Kínder'],
-            ['Examen', 'Físico y dental'],
-          ],
-          caption: 'Responde SÍ para agendar y enviar.',
+          kind: 'in',
+          text: 'Listo para enviar: Leo Howard, kínder, físico y dental. Responde SÍ y agendo la cita y lo envío.',
         },
         { kind: 'out', text: 'Sí' },
         {
@@ -303,9 +305,6 @@ export default {
           text: 'Enviado. La Primaria Lincoln lo confirmó. Referencia K-1042.',
         },
       ],
-      stampTop: 'Confirmado por la Primaria Lincoln',
-      stampBottom: 'Referencia K-1042, 3 de octubre',
-      note: 'lo único que escribes es sí',
       caption: 'Conversación de ejemplo. Escuela y familia ficticias.',
       alt: 'Conversación de texto en un teléfono: Axolotl dice que Leo necesita un examen físico y uno dental antes del 15 de octubre y que los dos formularios ya están llenos. La familia responde Sí, y Axolotl confirma que la Primaria Lincoln lo aceptó, referencia K-1042.',
     },
@@ -331,10 +330,10 @@ export default {
       meta: 'Hoy',
       metaTime: '8:02',
       messages: [
-        { from: 'Tú', out: true, text: 'Fwd: Boletín semanal de Lincoln' },
+        { from: 'Tú', out: true, text: 'El miércoles no podemos recogerlos, los dos salimos hasta las 5.' },
         {
           from: 'Axolotl',
-          text: 'El miércoles la salida es a la 1:20. Dana está libre, y tú y Sam trabajan hasta las 5. Dana puede llevar a los cuatro niños si alguien cubre su recogida del viernes. ¿Les parece bien?',
+          text: 'Dana está libre el miércoles. Puede llevar a los cuatro niños si alguien cubre su recogida del viernes. ¿Les parece bien?',
         },
         { from: 'Dana', text: 'Por mí, sí.' },
         { from: 'Sam', text: 'Yo me encargo del viernes.' },

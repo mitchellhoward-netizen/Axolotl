@@ -113,12 +113,8 @@ function footer(s, { prefix, langHref }) {
 }
 
 /**
- * The hero: the same five rows the paper folder held, as the card the parent
- * actually gets, rendered inside the real device by scripts/build-phone.mjs.
- *
- * The render is shown clean: a real screenshot has no pen ring or rubber stamp
- * floating over it. The card's own status chips already carry "waiting for your
- * yes" and "confirmed", so nothing is lost.
+ * The hero: the thread the parent actually gets, rendered inside the real device
+ * by scripts/build-phone.mjs. Plain iMessage text, the way the product sends it.
  */
 function heroPhone(s, art) {
   const size = art[s.lang].week;

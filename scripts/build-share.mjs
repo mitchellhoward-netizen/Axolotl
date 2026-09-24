@@ -62,6 +62,9 @@ async function chromePath() {
       }
     }
   }
+  // A standard macOS install: the app bundle ships its own binary.
+  const macApp = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
+  if (existsSync(macApp)) return macApp;
   for (const p of ['/usr/bin/google-chrome', '/usr/bin/chromium', '/usr/bin/chromium-browser']) {
     if (existsSync(p)) return p;
   }

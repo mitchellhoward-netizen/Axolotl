@@ -12,14 +12,18 @@
   padding, the safe-area insets of the actual device) so the mockup reads as a
   device screenshot rather than a web page drawn to look like one.
 
+  PLAIN TEXT ONLY. Every screen is a real iMessage thread: incoming grey
+  bubbles, outgoing blue ones, a tail on the last bubble of a run, and nothing
+  else. There are no cards, panels or status pills — iMessage has no such
+  component, and the product itself sends text.
+
   THIS IS A STAND-IN for a screenshot taken on a real iPhone. When the founder
   supplies one, drop it in and delete this file: the compositing step only needs
   an image the size of the screen rect.
 
   The page measures itself and records the result on <html data-fit>, so the
-  build fails when the copy outgrows the screen instead of shipping a clipped
-  conversation. It replaces the old check that measured a drawn frame from the
-  markup: this screen is measured as rendered, in the real font.
+  build fails when a thread outgrows the screen instead of shipping a clipped
+  conversation.
 -->
 <html lang="en">
   <head>
@@ -37,7 +41,6 @@
         --composer-h: 54px;
         --bubble-in: #e9e9eb;
         --bubble-out: #0b6fe0;
-        --label: #3c3c43;
         --secondary: #8a8a8e;
         --hairline: rgba(60, 60, 67, 0.29);
       }
@@ -87,6 +90,7 @@
 
       /* ── contact header ─────────────────────────────────────────────────── */
       .nav {
+        position: relative;
         flex: 0 0 var(--nav-h);
         display: flex;
         align-items: center;
@@ -95,16 +99,41 @@
         border-bottom: 0.5px solid var(--hairline);
       }
 
-      .nav img {
+      /* iOS keeps the back chevron hard left while the title stays centred. */
+      .nav-back {
+        position: absolute;
+        left: 14px;
+        top: 50%;
+        display: flex;
+        transform: translateY(-50%);
+      }
+
+      .nav-body {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+      }
+
+      .nav img,
+      .nav-body img {
         width: 26px;
         height: 26px;
         object-fit: contain;
       }
 
-      .nav span {
+      .nav-body span {
         font-size: 13px;
         font-weight: 600;
         letter-spacing: -0.1px;
+      }
+
+      .nav-stack {
+        display: flex;
+        align-items: center;
+      }
+
+      .nav-stack .initials + .initials {
+        margin-left: -9px;
       }
 
       /* ── thread ─────────────────────────────────────────────────────────── */
@@ -149,9 +178,13 @@
         justify-content: flex-end;
       }
 
-      /* A group chat. iOS shows a contact photo beside each message, and falls
-         back to initials on a grey circle when there is not one — which is what
-         these families have. The sender's name is printed inside the bubble. */
+      /* iOS draws a run of messages from one sender tight: the whole run shares
+         one bubble tail and the gap inside it is a few pixels. */
+      .row.run {
+        margin-top: -7px;
+      }
+
+      /* The initials an iPhone falls back to when there is no contact photo. */
       .initials {
         display: inline-flex;
         align-items: center;
@@ -173,15 +206,30 @@
         box-shadow: 0 0 0 2px #fff;
       }
 
-      .nav-stack {
-        display: flex;
-        align-items: center;
+      /* ── the bubble ─────────────────────────────────────────────────────── */
+      .bubble {
+        position: relative;
+        max-width: 272px;
+        padding: 9px 15px;
+        border-radius: 19px;
+        font-size: 17px;
+        line-height: 22px;
+        letter-spacing: -0.4px;
+        word-wrap: break-word;
       }
 
-      .nav-stack .initials + .initials {
-        margin-left: -9px;
+      .row.in .bubble {
+        background: var(--bubble-in);
+        color: #000;
       }
 
+      .row.out .bubble {
+        background: var(--bubble-out);
+        color: #fff;
+      }
+
+      /* A group message carries the sender's name inside the bubble, above the
+         text, the way iOS prints it when there is no photo. */
       .sender {
         display: block;
         margin-bottom: 1px;
@@ -194,194 +242,13 @@
         padding-top: 6px;
       }
 
-      .stack {
-        display: flex;
-        flex-direction: column;
-        gap: 3px;
-        max-width: 268px;
-      }
-
-      .bubble {
-        padding: 9px 15px;
-        border-radius: 19px;
-        font-size: 17px;
-        line-height: 22px;
-        letter-spacing: -0.4px;
-        word-wrap: break-word;
-      }
-
-      .row.in .bubble {
-        background: var(--bubble-in);
-        border-bottom-left-radius: 19px;
-      }
-
-      .row.out .bubble {
-        background: var(--bubble-out);
-        color: #fff;
-      }
-
-      /* The filled form, shown the way iOS shows a rich preview: a card under
-         the bubble it belongs to. */
-      .card {
-        padding: 12px 14px;
-        background: #f2f2f7;
-        border: 0.5px solid rgba(60, 60, 67, 0.12);
-        border-radius: 18px;
-      }
-
-      .card-label {
-        margin: 0 0 8px;
-        font-size: 11px;
-        font-weight: 600;
-        letter-spacing: 0.5px;
-        text-transform: uppercase;
-        color: #6e6e73;
-      }
-
-      .card-body {
-        display: flex;
-        flex-direction: column;
-        gap: 6px;
-        padding: 10px 12px;
-        background: #fff;
-        border-radius: 12px;
-      }
-
-      .card-row {
-        display: flex;
-        justify-content: space-between;
-        gap: 12px;
-        padding-bottom: 5px;
-        border-bottom: 0.5px solid rgba(60, 60, 67, 0.12);
-        font-size: 13px;
-        line-height: 17px;
-        color: var(--label);
-      }
-
-      .card-row:last-child {
-        padding-bottom: 0;
-        border-bottom: 0;
-      }
-
-      .card-row b {
-        font-weight: 600;
-        color: #000;
-      }
-
-      /* The hero card: the family's week, with the site's own status
-         vocabulary. Same five rows the paper folder held. */
-      .card-plan,
-      .card-week {
-        width: 322px;
-      }
-
-      .plan-row {
-        padding: 9px 0;
-        border-bottom: 0.5px solid rgba(60, 60, 67, 0.12);
-      }
-
-      .plan-row:first-child {
-        padding-top: 0;
-      }
-
-      .plan-row:last-child {
-        padding-bottom: 0;
-        border-bottom: 0;
-      }
-
-      .plan-label {
-        display: block;
-        font-size: 15px;
-        font-weight: 600;
-        line-height: 19px;
-        letter-spacing: -0.3px;
-      }
-
-      .plan-detail {
-        margin: 2px 0 0;
-        font-size: 13px;
-        line-height: 17px;
-        color: var(--label);
-      }
-
-      /* The status chip sits on its own line, below the label and detail. */
-      .plan-row .chip {
-        display: inline-block;
-        margin-top: 6px;
-      }
-
-      .chip {
-        flex: 0 0 auto;
-        font-size: 10.5px;
-        font-weight: 600;
-        line-height: 1.25;
-        white-space: nowrap;
-      }
-
-      /* The same vocabulary as the page: green is the confirmed state, amber is
-         the parent's turn, and everything else is neutral. Confirmed is a plain
-         pill like the rest — a real screenshot has no rubber stamp. */
-      .chip-confirmed {
-        padding: 2px 8px;
-        border: 1px solid #1f7c4b;
-        border-radius: 999px;
-        color: #1f7c4b;
-      }
-
-      .chip-waiting {
-        padding: 2px 8px;
-        border: 1px dashed #e46300;
-        border-radius: 999px;
-        color: #9a3700;
-      }
-
-      .chip-requested {
-        padding: 2px 8px;
-        border: 1px solid #dbd3c8;
-        border-radius: 999px;
-        color: #5a4d42;
-      }
-
-      .chip-reminder {
-        padding: 2px 8px;
-        border: 1px solid #dbd3c8;
-        border-radius: 999px;
-        color: #72675b;
-      }
-
-      .chip-soon {
-        padding: 2px 8px;
-        border: 1px dashed #dbd3c8;
-        border-radius: 999px;
-        color: #72675b;
-      }
-
-      /* The work Axolotl did, as a message: the same bubble as everything else,
-         holding the label, the rows and the status. A message from the agent, not
-         a panel floating in the thread. */
-      .bubble.card-msg {
-        width: 322px;
-        padding: 10px 14px 11px;
-      }
-
-      .card-msg .card-label {
-        margin-bottom: 6px;
-      }
-
-      .card-msg .card-row {
-        display: block;
-        padding: 7px 0;
-      }
-
-      .card-msg .chip {
-        display: inline-block;
-        margin-top: 7px;
-      }
-
-      /* iOS draws the tail on the last bubble of a run, and tightens the gap
-         inside one: two messages from the same sender sit almost together. */
+      /* The tail. iOS puts one on the last bubble of a run, on the sender's
+         side. Drawn with two curves behind the bubble: the bubble's own colour,
+         then a white notch that carves it back to a point. `z-index: 0` gives
+         the bubble its own stacking context so those curves paint over the
+         bubble's background instead of disappearing behind it. */
       .bubble.tail {
-        position: relative;
+        z-index: 0;
       }
 
       .bubble.tail::before,
@@ -424,43 +291,6 @@
         border-bottom-left-radius: 13px;
       }
 
-      .row.run {
-        margin-top: -7px;
-      }
-
-      /* A shared page: iMessage draws the link's own card inside the bubble. */
-      .link-preview {
-        margin-top: 7px;
-        padding: 9px 11px;
-        background: rgba(255, 255, 255, 0.2);
-        border-radius: 13px;
-      }
-
-      .link-domain {
-        display: block;
-        font-size: 11px;
-        font-weight: 600;
-        letter-spacing: 0.2px;
-        text-transform: uppercase;
-        color: rgba(255, 255, 255, 0.78);
-      }
-
-      .link-title {
-        display: block;
-        margin-top: 3px;
-        font-size: 15px;
-        font-weight: 600;
-        line-height: 19px;
-        color: #fff;
-      }
-
-      .card-note {
-        margin: 9px 2px 0;
-        font-size: 13px;
-        line-height: 17px;
-        color: var(--label);
-      }
-
       /* ── composer ───────────────────────────────────────────────────────── */
       .composer {
         flex: 0 0 var(--composer-h);
@@ -471,20 +301,7 @@
         border-top: 0.5px solid var(--hairline);
       }
 
-      .plus {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 32px;
-        height: 32px;
-        flex: 0 0 auto;
-        border-radius: 999px;
-        background: #e9e9eb;
-        color: #8a8a8e;
-        font-size: 20px;
-        line-height: 1;
-      }
-
+      .plus,
       .mic {
         display: inline-flex;
         align-items: center;
@@ -494,6 +311,12 @@
         flex: 0 0 auto;
         border-radius: 999px;
         background: #e9e9eb;
+        color: #8a8a8e;
+      }
+
+      .plus {
+        font-size: 20px;
+        line-height: 1;
       }
 
       .field {
@@ -547,8 +370,15 @@
     </div>
 
     <div class="nav">
-      <img src="/public/animation/axolotl-mascot.png" alt="" />
-      <span id="contact">Axolotl</span>
+      <span class="nav-back" aria-hidden="true">
+        <svg width="12" height="21" viewBox="0 0 12 21" fill="none">
+          <path d="M10.5 1.5 2 10.5l8.5 9" stroke="#007aff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </span>
+      <span class="nav-body" id="nav-body">
+        <img src="/public/animation/axolotl-mascot.png" alt="" />
+        <span id="contact">Axolotl</span>
+      </span>
     </div>
 
     <ol class="thread" id="thread">
@@ -574,7 +404,7 @@
       const lang = params.get('lang') === 'es' ? 'es' : 'en';
       // 'yes' is the consent loop in "How your yes works", 'week' is the hero,
       // 'circles' is the group chat the families coordinate in, and 'weekcol' is
-      // one of the four cards of the week section (?i=0..3).
+      // one of the four threads of the week section (?i=0..3).
       const asked = params.get('screen');
       const which = ['week', 'circles', 'weekcol'].includes(asked) ? asked : 'yes';
       const s = (await import(`/tools/site/strings.${lang}.mjs`)).default;
@@ -596,223 +426,84 @@
         el.textContent = letter;
         return el;
       };
-      const groupRow = (from, text) => {
+
+      // One turn -> one row. `from` is set only in a group chat, where an
+      // incoming message carries the sender's name and initials.
+      const turnRow = (turn, from) => {
+        const out = turn.out === true || turn.kind === 'out';
+        const text = turn.text ?? turn.in ?? turn.out ?? '';
         const li = document.createElement('li');
-        li.className = 'row in';
-        const bubble = document.createElement('div');
-        bubble.className = 'bubble has-sender';
-        const who = document.createElement('span');
-        who.className = 'sender';
-        who.textContent = from;
-        const body = document.createElement('span');
-        body.textContent = text;
-        bubble.append(who, body);
-        li.append(initials(from.charAt(0)), bubble);
-        return li;
-      };
-      const bubbleRow = (kind, text) => {
-        const li = document.createElement('li');
-        li.className = `row ${kind}`;
+        li.className = `row ${out ? 'out' : 'in'}`;
         const bubble = document.createElement('div');
         bubble.className = 'bubble';
-        bubble.textContent = text;
+        if (!out && from) {
+          bubble.classList.add('has-sender');
+          const who = document.createElement('span');
+          who.className = 'sender';
+          who.textContent = from;
+          bubble.append(who);
+        }
+        const body = document.createElement('span');
+        body.textContent = text;
+        bubble.append(body);
+        if (!out && from) li.append(initials(from.charAt(0)));
         li.append(bubble);
         return li;
+      };
+
+      const renderThread = (items, { group = false } = {}) => {
+        for (const turn of items) {
+          const out = turn.out === true || turn.kind === 'out';
+          thread.append(turnRow(turn, group && !out ? (turn.from ?? 'Axolotl') : undefined));
+        }
       };
 
       const phone = s.how.phone;
       document.getElementById('contact').textContent = phone.contact;
 
       if (which === 'week') {
-        const hero = s.hero;
-        thread.append(metaRow(hero.phone.meta, hero.phone.metaTime));
-
-        const card = document.createElement('div');
-        card.className = 'card card-plan';
-        const title = document.createElement('p');
-        title.className = 'card-label';
-        title.textContent = hero.phone.cardTitle;
-        card.append(title);
-
-        for (const row of hero.folder.rows) {
-          const line = document.createElement('div');
-          line.className = 'plan-row';
-          if (row.annotated) line.dataset.annotated = 'true';
-
-          const label = document.createElement('span');
-          label.className = 'plan-label';
-          label.textContent = row.label;
-
-          const detail = document.createElement('p');
-          detail.className = 'plan-detail';
-          detail.textContent = row.tag ? `${row.detail} (${row.tag})` : row.detail;
-
-          const chip = document.createElement('span');
-          chip.className = `chip chip-${row.status}`;
-          chip.textContent = s.statuses[row.status];
-
-          line.append(label, detail, chip);
-          card.append(line);
-        }
-
-        const li = document.createElement('li');
-        li.className = 'row in';
-        li.append(card);
-        thread.append(li);
+        thread.append(metaRow(s.hero.phone.meta, s.hero.phone.metaTime));
+        renderThread(s.hero.phone.thread);
       } else if (which === 'weekcol') {
-        // One screen of the week section, as the parent receives it: the school's
-        // notice, what the parent said back, the work the agent did, and the one
-        // thing it needs from them. A conversation, not a card floating in white.
         const col = s.week.cols[Number(params.get('i') ?? 0)] ?? s.week.cols[0];
         thread.append(metaRow(s.week.meta, col.time));
-
-        const card = document.createElement('div');
-        card.className = 'card-msg-body';
-        const label = document.createElement('p');
-        label.className = 'card-label';
-        label.textContent = s.week.stepsLabel;
-        const body = document.createElement('div');
-        body.className = 'card-body';
-        for (const step of col.steps) {
-          const row = document.createElement('div');
-          row.className = 'card-row';
-          const text = document.createElement('span');
-          text.textContent = step;
-          row.append(text);
-          body.append(row);
-        }
-        const chip = document.createElement('span');
-        chip.className = `chip chip-${col.status}`;
-        chip.textContent = s.statuses[col.status];
-        card.append(label, body, chip);
-
-        for (const turn of col.turns) {
-          if (turn.card) {
-            const bubble = document.createElement('div');
-            bubble.className = 'bubble card-msg';
-            bubble.append(card);
-            const li = document.createElement('li');
-            li.className = 'row in';
-            li.append(bubble);
-            thread.append(li);
-            continue;
-          }
-          if (turn.link) {
-            // The parent forwards the school's email, so the message carries the
-            // link preview iOS draws for a shared page.
-            const bubble = document.createElement('div');
-            bubble.className = 'bubble';
-            const preview = document.createElement('div');
-            preview.className = 'link-preview';
-            const domain = document.createElement('span');
-            domain.className = 'link-domain';
-            domain.textContent = s.week.preview.domain;
-            const title = document.createElement('span');
-            title.className = 'link-title';
-            title.textContent = s.week.preview.title;
-            preview.append(domain, title);
-            bubble.append(preview);
-            const li = document.createElement('li');
-            li.className = 'row out';
-            li.append(bubble);
-            thread.append(li);
-            continue;
-          }
-          thread.append(bubbleRow(turn.out === undefined ? 'in' : 'out', turn.out ?? turn.in));
-        }
+        renderThread(col.turns);
       } else if (which === 'circles') {
-        // The group the families actually coordinate in. The nav becomes the
-        // group — initials instead of the one contact — and every message is
-        // signed, which is what makes the plan read as agreed rather than told.
+        // The nav becomes the group: stacked initials instead of one contact.
         const chat = s.circles.chat;
-        const nav = document.querySelector('.nav');
-        nav.textContent = '';
+        const navBody = document.getElementById('nav-body');
+        navBody.textContent = '';
         const stack = document.createElement('div');
         stack.className = 'nav-stack';
         for (const who of chat.group.split(', ')) stack.append(initials(who.charAt(0), true));
         const group = document.createElement('span');
         group.textContent = chat.group;
-        nav.append(stack, group);
+        navBody.append(stack, group);
 
         thread.append(metaRow(chat.meta, chat.metaTime));
-        for (const message of chat.messages) {
-          // The parent's own message is the blue one on the right, with no
-          // sender name — exactly as iOS treats you in a group.
-          thread.append(
-            message.out ? bubbleRow('out', message.text) : groupRow(message.from, message.text),
-          );
-        }
+        renderThread(chat.messages, { group: true });
       } else {
-        // The consent loop: incoming messages, the filled form, the parent's yes.
         thread.append(metaRow(phone.meta, phone.metaTime));
-        let pending = [];
-        const flush = () => {
-          if (!pending.length) return;
-          const stack = document.createElement('div');
-          stack.className = 'stack';
-          pending.forEach((node) => stack.append(node));
-          const li = document.createElement('li');
-          li.className = 'row in';
-          li.append(stack);
-          thread.append(li);
-          pending = [];
-        };
-
-        for (const item of phone.thread) {
-          if (item.kind === 'in') {
-            const bubble = document.createElement('div');
-            bubble.className = 'bubble';
-            bubble.textContent = item.text;
-            pending.push(bubble);
-            continue;
-          }
-          if (item.kind === 'form') {
-            const card = document.createElement('div');
-            card.className = 'card';
-            const label = document.createElement('p');
-            label.className = 'card-label';
-            label.textContent = item.label;
-            const body = document.createElement('div');
-            body.className = 'card-body';
-            for (const [k, v] of item.rows) {
-              const row = document.createElement('div');
-              row.className = 'card-row';
-              const key = document.createElement('span');
-              key.textContent = k;
-              const val = document.createElement('b');
-              val.textContent = v;
-              row.append(key, val);
-              body.append(row);
-            }
-            const note = document.createElement('p');
-            note.className = 'card-note';
-            note.textContent = item.caption;
-            card.append(label, body, note);
-            pending.push(card);
-            continue;
-          }
-          flush();
-          thread.append(bubbleRow('out', item.text));
-        }
-        flush();
+        renderThread(phone.thread);
       }
 
       // iOS groups a run of messages from one sender: the gap inside a run is
-      // tight, and only the last bubble of one carries the tail.
+      // tight, and only the last bubble of one carries the tail. The direction
+      // is captured up front — mutating className inside the loop made each row
+      // look different from the next one and put a tail on every bubble.
       const rows = [...thread.querySelectorAll('.row')];
+      const dir = rows.map((row) => (row.classList.contains('out') ? 'out' : 'in'));
       rows.forEach((row, i) => {
-        const next = rows[i + 1];
-        const last = !next || next.className !== row.className;
         const bubble = row.querySelector('.bubble');
-        if (last) {
-          if (bubble) bubble.classList.add('tail');
-        } else if (next) {
-          next.classList.add('run');
+        if (i + 1 < rows.length && dir[i + 1] === dir[i]) {
+          rows[i + 1].classList.add('run');
+        } else if (bubble) {
+          bubble.classList.add('tail');
         }
       });
 
-      // Report whether the staged conversation fits the screen. The build fails
-      // on overflow rather than shipping a clipped screenshot. The height is the
+      // Report whether the staged thread fits the screen. The build fails on
+      // overflow rather than shipping a clipped screenshot. The height is the
       // sum of the children rather than scrollHeight: the auto margin that
       // bottom-anchors a short thread would otherwise hide the real slack.
       const style = getComputedStyle(thread);
@@ -827,22 +518,6 @@
       document.documentElement.dataset.fit =
         content <= inner ? 'ok' : `overflow:${(content - inner).toFixed(1)}`;
       document.documentElement.dataset.measured = `${content.toFixed(1)}/${inner.toFixed(1)}`;
-
-      // Where the page should draw the pen circle and land the stamp, in screen
-      // pixels. The page overlays those two marks on the render so the brief's
-      // one load moment survives the hero becoming a device.
-      const rectOf = (el) => {
-        const r = el.getBoundingClientRect();
-        return { x: +r.x.toFixed(1), y: +r.y.toFixed(1), w: +r.width.toFixed(1), h: +r.height.toFixed(1) };
-      };
-      const marks = {};
-      const stamped = thread.querySelector('[data-stamp]');
-      const annotated = thread.querySelector('[data-annotated]');
-      const plan = thread.querySelector('.card-plan');
-      if (stamped) marks.stamp = rectOf(stamped);
-      if (annotated) marks.pen = rectOf(annotated);
-      if (plan) marks.card = rectOf(plan);
-      document.documentElement.dataset.marks = JSON.stringify(marks);
     </script>
   </body>
 </html>
