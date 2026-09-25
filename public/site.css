@@ -881,7 +881,11 @@ p {
   height: 200px;
   margin-left: -100px;
   transform-origin: 50% 90%;
-  animation: peek 22s ease-in-out infinite;
+  /* One peek, timed to the rolling line landing on parents, and then he stays:
+     the peek holds its last frame and a slow idle takes over. */
+  animation:
+    peek 22s ease-in-out both,
+    ollie-idle 9s ease-in-out 22s infinite;
 }
 
 @keyframes peek {
@@ -890,8 +894,18 @@ p {
   82.5% { transform: translateY(-8px) rotate(0); }
   85% { transform: translateY(0) rotate(0); }
   88% { transform: translateY(0) rotate(-4deg); }
-  91%, 94% { transform: translateY(0) rotate(0); }
-  99%, 100% { transform: translateY(170px) rotate(0); }
+  91%, 100% { transform: translateY(0) rotate(0); }
+}
+
+/* Settled in: a breath, a look to one side, a small bob. */
+@keyframes ollie-idle {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  20% { transform: translateY(-5px) rotate(0); }
+  40% { transform: translateY(0) rotate(0); }
+  50% { transform: translateY(0) rotate(-4deg); }
+  58% { transform: translateY(0) rotate(-4deg); }
+  66% { transform: translateY(0) rotate(0); }
+  82% { transform: translateY(-4px) rotate(2deg); }
 }
 
 @keyframes float-l {

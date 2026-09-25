@@ -26,6 +26,7 @@ jobs:
           npm run test:gating
           npm run test:intention
           npm run test:email
+          npm run test:contacts
   benefits-lab:
     runs-on: ubuntu-latest
     services:

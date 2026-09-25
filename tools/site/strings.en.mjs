@@ -9,8 +9,9 @@
  *   - Copy in quotes in the brief is final draft. Do not paraphrase it.
  *   - Never invent stats, quotes, features or legal claims.
  *   - Nothing here claims "any phone": the service runs over iMessage today.
- *   - Nothing here claims Axolotl texts a backup caregiver on a parent's
- *     behalf. That is not live, so the week bubbles offer a reminder instead.
+ *   - Axolotl texts the family's own people (grandma, the sitter) only on the
+ *     parent's YES, after showing the exact text: every bubble that sends to
+ *     someone shows the offer, the words, the yes, then the result.
  *   - Plain words, sentence case, second person, short sentences.
  */
 
@@ -245,13 +246,14 @@ export default {
         { in: 'On it. The field trip form for Maya is due Friday \u2014 I filled it in.' },
         { out: 'Send it.' },
         { in: 'Sent. Lincoln confirmed they have it \u2014 reference K-1042.' },
-        { in: 'Wednesday\u2019s early release at 1:20: nobody\u2019s set yet. I\u2019ll have a one-tap message ready for Grandma.' },
-        { out: 'You\u2019re a lifesaver.' },
+        { in: 'Wednesday\u2019s early release at 1:20: nobody\u2019s set yet. Want me to ask Grandma to get them?' },
+        { out: 'Yes please. You\u2019re a lifesaver.' },
+        { in: 'Asked. Grandma says she\u2019s got them.' },
         { in: 'Leo\u2019s ride to Lincoln went in to the district under McKinney-Vento. They have ten days to answer.' },
         { in: 'Maya\u2019s reading evaluation is requested as well \u2014 their clock started September 30.' },
         { in: 'The rest is just FYI: picture day, the book fair, spirit week.' },
       ],
-      alt: 'Text thread on a phone. Axolotl says eight school emails came in and two things need the parent. The parent, in meetings all day, asks Axolotl to deal with them. Axolotl has filled in Maya\u2019s field trip form and sends it on the parent\u2019s go-ahead, then confirms Lincoln has it, reference K-1042. It also flags that Wednesday\u2019s early release still needs cover and offers a one-tap message for Grandma.',
+      alt: 'Text thread on a phone. Axolotl says eight school emails came in and two things need the parent. The parent, in meetings all day, asks Axolotl to deal with them. Axolotl has filled in Maya\u2019s field trip form and sends it on the parent\u2019s go-ahead, then confirms Lincoln has it, reference K-1042. It also flags that Wednesday\u2019s early release still needs cover; on the parent\u2019s yes it asks Grandma, who says she has them.',
     },
     // The phone no longer draws the folder, but the social card (share.html)
     // still does, so its rows live here.
@@ -318,21 +320,21 @@ export default {
         steps: [
           'Read the district calendar.',
           'Checked it against your shifts.',
-          'Found who to ask on your backup list.',
+          'Texted Grandma on your yes.',
         ],
         turns: [
           { in: 'The district calendar came out. Wednesday is early release at 1:20.' },
           { out: 'I can\u2019t get them \u2014 I\u2019m in meetings until 3.' },
-          { in: 'Grandma is first on your backup list. I can\u2019t text her for you.' },
-          { in: 'I\u2019ll write it so it\u2019s one tap, and remind you Tuesday night.' },
+          { in: 'Grandma is first on your backup list. Want me to text her?' },
           { out: 'Please.' },
-          { in: 'Ready: \u201cCan you get all three Wednesday? Out at 1:20.\u201d' },
-          { out: 'Sent. She said yes.' },
-          { in: 'Noted \u2014 Leo is covered. Maya\u2019s campus still needs Dana.' },
-          { out: 'Send me the same for Dana.' },
-          { in: 'Done. I\u2019ll check Wednesday morning if you haven\u2019t.' },
+          { in: 'Here\u2019s what I\u2019ll send: \u201cCan you get Leo and Maya Wednesday? They\u2019re out at 1:20.\u201d' },
+          { out: 'Yes' },
+          { in: 'Sent. Grandma says she\u2019s got them.' },
+          { in: 'I told the office she\u2019s picking them up.' },
+          { out: 'You\u2019re the best.' },
+          { in: 'I\u2019ll check in Wednesday at noon to make sure.' },
         ],
-        status: 'waiting',
+        status: 'confirmed',
       },
       {
         h3: 'Same-day changes',
@@ -340,22 +342,20 @@ export default {
         steps: [
           'School emailed: dismissal at noon.',
           'Checked your calendar: meetings until 3.',
-          'Grandma is first on your backup list.',
+          'Texted Grandma and told the office.',
         ],
         turns: [
           { in: 'Lincoln emailed. Dismissal at noon today.' },
           { in: 'That\u2019s twelve minutes from now.' },
           { out: 'I can\u2019t leave. I\u2019m in meetings until 3.' },
-          { in: 'Grandma is first on your backup list. I can\u2019t text her for you.' },
-          { in: 'Want the message written so it\u2019s one tap?' },
+          { in: 'Grandma is first on your backup list. Want me to text her: \u201cCan you get Leo and Maya at noon? Lincoln moved dismissal up.\u201d' },
           { out: 'Yes \u2014 fast.' },
-          { in: '\u201cCan you get all three at noon? Lincoln moved dismissal up.\u201d' },
-          { out: 'Sent. She\u2019s on it.' },
+          { in: 'Sent. Grandma says she\u2019s on her way.' },
           { in: 'Want me to email the office that she\u2019s collecting them?' },
           { out: 'Yes \u2014 and ask them to send Leo down.' },
-          { in: 'Sent. I\u2019ll tell you the moment the office confirms.' },
+          { in: 'Sent. The office confirmed. Leo will be waiting at the front.' },
         ],
-        status: 'waiting',
+        status: 'confirmed',
       },
       {
         h3: 'The small asks',
@@ -377,29 +377,29 @@ export default {
           { out: 'What about pajama day?' },
           { in: 'Nothing to do \u2014 he just wears pajamas. I\u2019ll remind you Thursday morning.' },
         ],
-        status: 'waiting',
+        status: 'confirmed',
       },
       {
         h3: "Who's got it",
         time: '6:30 PM',
         steps: [
-          "Leo's pickup Wednesday: Grandma.",
-          "Maya's form: you.",
+          'Leo\'s pickup Wednesday: Grandma.',
+          'Maya\'s form: you.',
           'Dentist Thursday: Sam.',
         ],
         turns: [
           { in: 'Here\u2019s who\u2019s on what this week.' },
           { in: 'Wednesday pickup: Grandma. Maya\u2019s form: you. Dentist Thursday: Sam.' },
-          { out: 'Can you remind me to check with Sam about Thursday?' },
-          { in: 'I can\u2019t text Sam for you, but I\u2019ll remind you Thursday morning.' },
-          { out: 'Do that.' },
-          { in: 'Set. Anything else?' },
+          { out: 'Can you check Sam\u2019s still good for Thursday?' },
+          { in: 'Want me to text Sam: \u201cStill good to take Leo to the dentist Thursday at 4?\u201d' },
+          { out: 'Yes' },
+          { in: 'Sent. Sam says yes, 4 o\u2019clock.' },
           { out: 'What about Friday? I might be late.' },
-          { in: 'Nobody\u2019s covering Friday yet. Want a one-tap message for Dana?' },
+          { in: 'Nobody\u2019s covering Friday yet. Dana is next on your list. Want me to ask her?' },
           { out: 'Yes.' },
-          { in: 'Written. Send it whenever you\u2019re ready.' },
+          { in: 'Asked. I\u2019ll tell you what she says.' },
         ],
-        status: 'reminder',
+        status: 'confirmed',
       },
     ],
   },

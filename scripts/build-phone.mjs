@@ -113,6 +113,72 @@ const runCapture = (cmd, args) =>
     child.on('error', reject);
   });
 
+/** 7-Zip 23+ (`7zz`) when installed, else p7zip. Exit 1 is a warning; the caller checks the output. */
+let sevenZipBin;
+async function sevenZip(args) {
+  if (!sevenZipBin) {
+    sevenZipBin = await runCapture('7zz', ['i']).then(() => '7zz', () => '7z');
+  }
+  await new Promise((resolve, reject) => {
+    const child = spawn(sevenZipBin, args, { stdio: ['ignore', 'ignore', 'pipe'] });
+    let err = '';
+    child.stderr.on('data', (d) => (err += d));
+    child.on('exit', (code) => (code === 0 || code === 1 ? resolve() : reject(new Error(`${sevenZipBin} exited ${code}: ${err.trim()}`))));
+    child.on('error', reject);
+  });
+}
+
+/** Every path under dir, relative, for error messages. */
+async function listTree(dir, base = dir) {
+  const out = [];
+  if (!existsSync(dir)) return out;
+  for (const entry of await readdir(dir, { withFileTypes: true })) {
+    const full = path.join(dir, entry.name);
+    out.push(path.relative(base, full) + (entry.isDirectory() ? '/' : ''));
+    if (entry.isDirectory()) out.push(...(await listTree(full, base)));
+  }
+  return out.slice(0, 80);
+}
+
+/** Depth-first search for the first file (or directory) matching `test(name, fullPath)`. */
+async function findFile(dir, test) {
+  if (!existsSync(dir)) return undefined;
+  for (const entry of await readdir(dir, { withFileTypes: true })) {
+    const full = path.join(dir, entry.name);
+    if (test(entry.name, full) && (entry.isFile() || entry.name.endsWith('.pkg'))) return full;
+    if (entry.isDirectory()) {
+      const hit = await findFile(full, test);
+      if (hit) return hit;
+    }
+  }
+  return undefined;
+}
+
+/** Decode Apple's pbzx stream: a header, then chunks that are either xz or stored raw. */
+async function unpbzx(buf) {
+  const parts = [];
+  let off = 12; // 'pbzx' + 8-byte flags
+  while (off + 16 <= buf.length) {
+    const size = Number(buf.readBigUInt64BE(off + 8));
+    const chunk = buf.subarray(off + 16, off + 16 + size);
+    off += 16 + size;
+    const isXz = chunk.subarray(0, 6).equals(Buffer.from([0xfd, 0x37, 0x7a, 0x58, 0x5a, 0x00]));
+    parts.push(isXz ? await xzDecode(chunk) : chunk);
+  }
+  return Buffer.concat(parts);
+}
+
+function xzDecode(chunk) {
+  return new Promise((resolve, reject) => {
+    const child = spawn('xz', ['-dc']);
+    const out = [];
+    child.stdout.on('data', (d) => out.push(d));
+    child.on('exit', (code) => (code === 0 ? resolve(Buffer.concat(out)) : reject(new Error(`xz exited ${code}`))));
+    child.on('error', reject);
+    child.stdin.end(chunk);
+  });
+}
+
 async function chromePath() {
   const home = process.env.HOME ?? '';
   const base = path.join(home, '.agent-browser', 'browsers');
@@ -162,13 +228,40 @@ async function ensureSfPro() {
     await run('curl', ['-sL', '--max-time', '900', '-o', dmg, SF_FONT_DMG]);
   }
   console.log('extracting SF Pro');
-  await run('7z', ['x', '-y', `-o${CACHE}/sf`, dmg, 'SFProFonts.pkg'], { stdio: 'ignore' });
-  await run('7z', ['x', '-y', `-o${CACHE}/sf/x`, `${CACHE}/sf/SFProFonts.pkg`], { stdio: 'ignore' });
-  await run('7z', ['x', '-y', `-o${CACHE}/sf/inner`, `${CACHE}/sf/x/SFProFontsPackage.pkg/Payload`], { stdio: 'ignore' });
-  await run('7z', ['x', '-y', `-o${CACHE}/sf/fonts`, `${CACHE}/sf/inner/Payload~`], { stdio: 'ignore' });
+  // Apple has moved the package around inside the image between releases, and newer images
+  // are APFS with pbzx payloads that only 7-Zip 23+ (`7zz`) reads, so find each layer by
+  // looking rather than by a fixed path.
+  const sf = path.join(CACHE, 'sf');
+  await rm(sf, { recursive: true, force: true });
+  await sevenZip(['x', '-y', `-o${sf}/dmg`, dmg]);
+  const pkg = await findFile(`${sf}/dmg`, (f) => f.endsWith('.pkg'));
+  if (!pkg) throw new Error('no .pkg inside the SF Pro image');
+  await sevenZip(['x', '-y', `-o${sf}/pkg`, pkg]);
+  const payload = await findFile(`${sf}/pkg`, (f) => /^Payload/.test(f));
+  if (!payload) {
+    const listing = await listTree(`${sf}/pkg`);
+    throw new Error(`no Payload inside the SF Pro package; it holds:\n${listing.join('\n')}`);
+  }
+  // Payload is compressed cpio: gzip in older packages, Apple's pbzx (chunked xz) in newer
+  // ones. Unwrap the compression, then the cpio.
+  let cpio;
+  const head = (await readFile(payload)).subarray(0, 4).toString('latin1');
+  if (head === 'pbzx') {
+    cpio = `${sf}/payload.cpio`;
+    await writeFile(cpio, await unpbzx(await readFile(payload)));
+  } else {
+    await sevenZip(['x', '-y', `-o${sf}/inner`, payload]);
+    cpio = (await findFile(`${sf}/inner`, () => true)) ?? '';
+  }
+  // Some 7-Zip builds unwrap the cpio in the same pass and leave the fonts themselves.
+  let fontsRoot = `${sf}/fonts`;
+  if (/\.(otf|ttf)$/.test(cpio)) fontsRoot = `${sf}/inner`;
+  else await sevenZip(['x', '-y', `-o${fontsRoot}`, cpio]);
   await rm(dir, { recursive: true, force: true });
   await mkdir(dir, { recursive: true });
-  const extracted = path.join(CACHE, 'sf', 'fonts', 'Library', 'Fonts');
+  const anyFont = await findFile(fontsRoot, (f) => f.startsWith('SF-Pro-Text-'));
+  if (!anyFont) throw new Error('SF Pro Text did not extract');
+  const extracted = path.dirname(anyFont);
   for (const file of await readdir(extracted)) {
     if (file.startsWith('SF-Pro-Text-') || file.startsWith('SF-Pro-Display-')) {
       await writeFile(path.join(dir, file), await readFile(path.join(extracted, file)));
