@@ -167,7 +167,7 @@ const clutter = `
 function hero(s) {
   const d = at(s, 'day.morning');
   const agents = at(s, 'day.agents');
-  if (agents.items.length !== 8) throw new Error(`day.agents.items must have 8 lines (the animation is timed for 8), ${s.lang} has ${agents.items.length}`);
+  if (agents.items.length !== 11) throw new Error(`day.agents.items must have 11 lines (the animation in site.css is timed for 11), ${s.lang} has ${agents.items.length}`);
   const lines = agents.items.map((line) => `<span>${esc(line)}</span>`).join('');
   const size = art[s.lang];
   return `

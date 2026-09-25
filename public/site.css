@@ -757,7 +757,7 @@ p {
   color: var(--faint);
 }
 
-/* The rolling line. Nine lines in a column: eight people who have an agent,
+/* The rolling line. Twelve lines in a column: eleven people who have an agent,
    then parents, then the first line again so the loop joins without a jump.
    The column slides up one line at a time; each line holds, parents holds
    longest, and the strike and the headline's colour land together. */
@@ -775,7 +775,7 @@ p {
 .agents-track {
   display: flex;
   flex-direction: column;
-  animation: agents 22s cubic-bezier(0.7, 0, 0.2, 1) infinite;
+  animation: agents 27s cubic-bezier(0.7, 0, 0.2, 1) infinite;
 }
 
 .agents-track > span {
@@ -805,35 +805,38 @@ p {
   height: 3px;
   border-radius: 2px;
   background: var(--accent);
-  animation: strike 22s ease-in-out infinite;
+  animation: strike 27s ease-in-out infinite;
 }
 
 .hero h1 em {
-  animation: payoff 22s ease-in-out infinite;
+  animation: payoff 27s ease-in-out infinite;
 }
 
 @keyframes agents {
-  0%, 6% { transform: translateY(0); }
-  7.5%, 13.5% { transform: translateY(calc(var(--line) * -1)); }
-  15%, 21% { transform: translateY(calc(var(--line) * -2)); }
-  22.5%, 28.5% { transform: translateY(calc(var(--line) * -3)); }
-  30%, 36% { transform: translateY(calc(var(--line) * -4)); }
-  37.5%, 43.5% { transform: translateY(calc(var(--line) * -5)); }
-  45%, 51% { transform: translateY(calc(var(--line) * -6)); }
-  52.5%, 58.5% { transform: translateY(calc(var(--line) * -7)); }
-  60%, 97% { transform: translateY(calc(var(--line) * -8)); }
-  100% { transform: translateY(calc(var(--line) * -9)); }
+  0%, 4.89% { transform: translateY(0); }
+  6.11%, 11% { transform: translateY(calc(var(--line) * -1)); }
+  12.22%, 17.11% { transform: translateY(calc(var(--line) * -2)); }
+  18.33%, 23.22% { transform: translateY(calc(var(--line) * -3)); }
+  24.44%, 29.33% { transform: translateY(calc(var(--line) * -4)); }
+  30.56%, 35.44% { transform: translateY(calc(var(--line) * -5)); }
+  36.67%, 41.56% { transform: translateY(calc(var(--line) * -6)); }
+  42.78%, 47.67% { transform: translateY(calc(var(--line) * -7)); }
+  48.89%, 53.78% { transform: translateY(calc(var(--line) * -8)); }
+  55%, 59.89% { transform: translateY(calc(var(--line) * -9)); }
+  61.11%, 66% { transform: translateY(calc(var(--line) * -10)); }
+  67.22%, 97.56% { transform: translateY(calc(var(--line) * -11)); }
+  100% { transform: translateY(calc(var(--line) * -12)); }
 }
 
 @keyframes strike {
-  0%, 64% { width: 0; }
-  68%, 96% { width: 100%; }
+  0%, 70.48% { width: 0; }
+  73.74%, 96.74% { width: 100%; }
   100% { width: 0; }
 }
 
 @keyframes payoff {
-  0%, 68% { color: var(--ink); }
-  72%, 95% { color: var(--accent); }
+  0%, 73.74% { color: var(--ink); }
+  77%, 95.93% { color: var(--accent); }
   100% { color: var(--ink); }
 }
 
@@ -884,8 +887,8 @@ p {
   /* One peek, timed to the rolling line landing on parents, and then he stays:
      the peek holds its last frame and a slow idle takes over. */
   animation:
-    peek 22s ease-in-out both,
-    ollie-idle 9s ease-in-out 22s infinite;
+    peek 22s ease-in-out 4.95s both,
+    ollie-idle 9s ease-in-out 26.95s infinite;
 }
 
 @keyframes peek {
@@ -2269,7 +2272,7 @@ p {
   }
 
   .agents-track {
-    transform: translateY(calc(var(--line) * -8));
+    transform: translateY(calc(var(--line) * -11));
   }
 
   .agents-parents s::after {
