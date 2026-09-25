@@ -12,7 +12,7 @@
 
    Ollie, the mascot, is the only pink on the page.
 
-   Motion: the rotating "who has an agent" line, Ollie peeking from behind the
+   Motion: the rotating "who has an agent" line, Ollie idling on top of the
    phone, floating phones and drifting light. All of it stops under
    prefers-reduced-motion, which shows the final frame instead. */
 
@@ -884,20 +884,8 @@ p {
   height: 200px;
   margin-left: -100px;
   transform-origin: 50% 90%;
-  /* One peek, timed to the rolling line landing on parents, and then he stays:
-     the peek holds its last frame and a slow idle takes over. */
-  animation:
-    peek 22s ease-in-out 4.95s both,
-    ollie-idle 9s ease-in-out 26.95s infinite;
-}
-
-@keyframes peek {
-  0%, 69% { transform: translateY(170px) rotate(0); }
-  74%, 77.5% { transform: translateY(98px) rotate(0); }
-  82.5% { transform: translateY(-8px) rotate(0); }
-  85% { transform: translateY(0) rotate(0); }
-  88% { transform: translateY(0) rotate(-4deg); }
-  91%, 100% { transform: translateY(0) rotate(0); }
+  /* Always there, perched on the phone, with a slow idle. */
+  animation: ollie-idle 9s ease-in-out infinite;
 }
 
 /* Settled in: a breath, a look to one side, a small bob. */
