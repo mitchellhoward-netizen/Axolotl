@@ -28,6 +28,7 @@ import { KNOWLEDGE_CATEGORIES, type KnowledgeCategory, type KnowledgeNode } from
 import { answerSchoolInfo } from '../knowledge/school-info.js';
 import { resolveDistrict, researchDistrictProfile, districtIdFromName, getResearchedDistrict, getResearchedDistrictById, type DistrictProfile } from '../knowledge/districts.js';
 import { StepExecutor } from './steps/executor.js';
+import { recordContactRelay } from '../integrations/family-contacts.js';
 import { planSteps } from './steps/planner.js';
 import { buildAdapters } from './steps/registry.js';
 import {
@@ -301,7 +302,9 @@ export class Agent {
           state.completedFill = undefined;
           const summary = results.map((r) => r.parentSummary).join('\n');
           this.save(conversationId, { phase: 'done', collected: {}, pendingSteps: undefined }, state);
-          return { text: `Done!\n${summary}`, phase: 'done', resolved: true };
+          // "Done!" only when nothing failed; a failed send already says what happened.
+          const failed = results.some((r) => r.status === 'failed');
+          return { text: failed ? summary : `Done!\n${summary}`, phase: 'done', resolved: true };
         }
         if (isStrictDecline(text)) {
           this.closeSkyvernSessions(state.pendingSteps);
@@ -776,6 +779,25 @@ export class Agent {
     this.parentSender = fn;
   }
 
+  /** How texts to a family's own people (grandma, the sitter) go out. Set by the channel. */
+  private contactSender?: (msg: { phone: string; body: string }) => Promise<{ id?: string; linePhone?: string }>;
+
+  setContactSender(fn: (msg: { phone: string; body: string }) => Promise<{ id?: string; linePhone?: string }>): void {
+    this.contactSender = fn;
+  }
+
+  /**
+   * A family contact we texted has replied. Keep the parent's thread whole: the relayed
+   * reply goes into their conversation history, so the agent knows Grandma said yes.
+   */
+  async noteContactReply(conversationId: string, line: string): Promise<void> {
+    const parentId = this.store.getParentId(conversationId) ?? this.opts.defaultParentId ?? '';
+    this.store.ensure(conversationId, parentId);
+    await this.store.rehydrate(conversationId).catch(() => {});
+    this.store.appendHistory(conversationId, 'assistant', line);
+    await this.persist(conversationId).catch(() => {});
+  }
+
   /** Register the messenger for a conversation (the family's iMessage space). */
   registerConversation(conversationId: string, send: (text: string) => Promise<void>): void {
     const logged = (text: string) => {
@@ -1094,6 +1116,20 @@ export class Agent {
       scheduleFollowUp: async (caseId, at, verify, prompt) =>
         this.scheduleFollowUp(conversationId, caseId, at, verify, prompt),
       messageParent: async (text) => this.parentSender(text),
+      textPerson: this.contactSender
+        ? async (to, body) => {
+            const sent = await this.contactSender!({ phone: to.phone, body });
+            // Their reply belongs to this parent's conversation, not to a new "parent".
+            await recordContactRelay({
+              contactPhone: to.phone,
+              familyId: parentId ?? '',
+              conversationId,
+              linePhone: sent.linePhone,
+              contactName: to.name ?? 'Your contact',
+            });
+            return { id: sent.id };
+          }
+        : undefined,
     };
   }
 

@@ -140,4 +140,9 @@ export interface ExecutionContext {
   scheduleFollowUp: (caseId: string, at: Date, verify: boolean, prompt?: string) => Promise<void>;
   /** Send a message to the parent over the messaging line (Spectrum). */
   messageParent: (text: string) => Promise<void>;
+  /**
+   * Text one of the family's own people (grandma, the sitter) over the messaging line, after
+   * the parent's YES. Undefined when no messaging line is connected.
+   */
+  textPerson?: (to: { phone: string; name?: string }, body: string) => Promise<{ id?: string }>;
 }

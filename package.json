@@ -20,6 +20,7 @@
     "test:memory-writer": "tsx --test scripts/test-memory-writer.ts",
     "test:readiness": "tsx --test scripts/test-web-readiness.ts",
     "test:signups": "tsx --test scripts/test-signups.ts",
+    "test:contacts": "tsx --test scripts/test-family-contacts.ts",
     "check:secrets": "tsx scripts/check-secrets.ts",
     "test:rls": "tsx scripts/test-rls.ts",
     "test:email": "tsx scripts/test-email-triage.ts",

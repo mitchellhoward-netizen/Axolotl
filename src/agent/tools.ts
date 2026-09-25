@@ -43,6 +43,13 @@ import { makeSkillKey, type Skill } from '../domain/skill.js';
 import { z } from 'zod';
 import { personalPlanSchema, type LifeTools } from './personal.js';
 import { getGmailToken, gmailConnectUrl } from '../integrations/gmail.js';
+import {
+  composeContactText,
+  findFamilyContact,
+  listFamilyContacts,
+  normalizeContactPhone,
+  saveFamilyContact,
+} from '../integrations/family-contacts.js';
 import { familyInfoPatch, familyInfoLine, formValuesFor, missingBasics, childFor, FAMILY_INFO_TOOL_PROPERTIES, CHILD_TOOL_PROPERTIES } from './family-info.js';
 
 export interface ToolDeps {
@@ -218,6 +225,40 @@ export const LLM_TOOLS = [
         type: 'object',
         properties: { to: { type: 'string' }, subject: { type: 'string' }, body: { type: 'string' } },
         required: ['to', 'subject', 'body'],
+      },
+    },
+  },
+  {
+    type: 'function',
+    function: {
+      name: 'save_family_contact',
+      description:
+        "Save someone the family relies on for school logistics — grandma, the sitter, a partner, a parent they trade pickups with — with their phone number and backup order. Call this when the parent gives you a person and a number (\"Grandma is 555-201-3344, ask her first\"). This is the family's backup list; text_family_contact can only text people on it (or a number the parent types).",
+      parameters: {
+        type: 'object',
+        properties: {
+          name: { type: 'string', description: 'What the parent calls them: "Grandma", "Dana".' },
+          phone: { type: 'string', description: 'Their mobile number, as the parent gave it.' },
+          relation: { type: 'string', description: 'grandparent, sitter, partner, parent friend, neighbor, ...' },
+          rank: { type: 'number', description: 'Backup order: 1 = first person to ask.' },
+        },
+        required: ['name', 'phone'],
+      },
+    },
+  },
+  {
+    type: 'function',
+    function: {
+      name: 'text_family_contact',
+      description:
+        "Text one of the family's people (from the backup list) on the parent's behalf — e.g. ask Grandma to cover Wednesday's 1:20 early release, or tell the sitter pickup moved. The system shows the parent the exact text and sends it only after their YES; the contact's reply comes back to the parent. Be proactive: when someone needs covering, offer to text the first person on the backup list and call this tool rather than asking the parent to text them. Write the message in plain words as if from the parent (no greeting boilerplate needed; the sign-off is added).",
+      parameters: {
+        type: 'object',
+        properties: {
+          contact: { type: 'string', description: 'Who: a saved name ("Grandma"), a relation ("the sitter"), "first" for the top of the backup list, or a number the parent typed.' },
+          message: { type: 'string', description: 'The text to send, e.g. "Can you get Leo and Maya Wednesday? Lincoln lets out at 1:20."' },
+        },
+        required: ['contact', 'message'],
       },
     },
   },
@@ -804,6 +845,53 @@ export async function runTool(name: string, args: Record<string, unknown>, deps:
         },
       ]);
       return `Here's the email I'll send — review it, then reply "send it" and I'll send it from your Gmail (you approve it first):\n\nTo: ${to}\nSubject: ${subject}\n\n${body}`;
+    }
+    case 'save_family_contact': {
+      if (!deps.familyId) return 'I need to know which family this is before I can save a contact.';
+      const name = String(args.name ?? '').trim();
+      const phone = normalizeContactPhone(String(args.phone ?? ''));
+      if (!name) return 'save_family_contact needs a name.';
+      if (!phone) return `"${String(args.phone ?? '')}" doesn't look like a phone number I can text. Ask the parent for a 10-digit US number.`;
+      const rank = typeof args.rank === 'number' && Number.isFinite(args.rank) ? Math.max(1, Math.round(args.rank)) : undefined;
+      const relation = typeof args.relation === 'string' && args.relation.trim() ? args.relation.trim() : undefined;
+      await saveFamilyContact({ familyId: deps.familyId, name, phone, relation, rank });
+      const list = await listFamilyContacts(deps.familyId);
+      return `Saved ${name}${relation ? ` (${relation})` : ''}. Backup list now: ${list
+        .map((c, i) => `${i + 1}. ${c.name}${c.relation ? ` (${c.relation})` : ''}`)
+        .join(', ')}.`;
+    }
+    case 'text_family_contact': {
+      const query = String(args.contact ?? '').trim();
+      const message = String(args.message ?? '').trim();
+      if (!query || !message) return 'text_family_contact needs a contact and a message.';
+      // ACTION-LAYER AUTHORIZATION, same rule as email: the recipient must be someone the
+      // PARENT gave us — a saved contact, or a number they typed in this very message. A
+      // number that surfaced in an email or on a page is never a destination.
+      const saved = deps.familyId ? await findFamilyContact(deps.familyId, query) : undefined;
+      const typed = normalizeContactPhone(query);
+      const typedByParent = typed && (deps.parentText ?? '').replace(/\D/g, '').includes(typed.replace(/^\+1/, '').replace(/\D/g, ''));
+      const contact = saved ?? (typed && typedByParent ? { name: query, phone: typed } : undefined);
+      if (!contact) {
+        const list = deps.familyId ? await listFamilyContacts(deps.familyId) : [];
+        return list.length
+          ? `I don't have "${query}" on this family's backup list (${list.map((c) => c.name).join(', ')}). Ask the parent who to text, or save them with save_family_contact.`
+          : `This family has no backup list yet. Ask the parent who can help and their number, then save them with save_family_contact.`;
+      }
+      const text = composeContactText({ message, parentName: deps.profile?.parentName, lang: deps.profile?.locale });
+      deps.proposeSteps([
+        {
+          id: 'text-' + Date.now().toString(36),
+          caseId: 'contact',
+          intent: 'text_family_contact',
+          channel: 'text',
+          counterparty: { role: 'OTHER', name: contact.name, phone: contact.phone },
+          payload: { channel: 'text', body: text },
+          successCondition: { describe: `${contact.name} answered`, kind: 'reply_received' },
+          requiresConsent: true,
+          status: 'awaiting_consent',
+        },
+      ]);
+      return `Here's the text I'll send ${contact.name} from Axolotl's number — reply YES and it goes out, and I'll tell you what they say:\n\n${text}`;
     }
     case 'account_action': {
       const url = String(args.url ?? '').trim();
@@ -1471,6 +1559,7 @@ export function pendingActionsSummary(steps: Step[] | undefined): string {
         return `${label} (${s.intent})`;
       }
       if (s.channel === 'submit') return `submit the form (${s.intent})`;
+      if (s.channel === 'text') return `text ${s.counterparty.name ?? 'the contact'}`;
       return `${s.channel}: ${s.intent}`;
     })
     .join('; ');
@@ -1550,6 +1639,7 @@ export function systemPrompt(ctx: BrainContext): string {
     `Turn every answer into an action and ask a quick yes/no, e.g.: "I can draft an email to the district liaison about the summer-meal sign-up — want me to send it?", "I can call the office about the bus — want me to?", "I can set a follow-up reminder for Friday." ` +
     `NEVER end with a passive handoff — no "contact X", "please reach out to", "your best bet is to". Instead offer: "I can reach out to X for you — want me to?" ` +
     `Act for the parent: when you decide to send an email or place a call, CALL the send_email / call_school tool RIGHT AWAY. The system enforces a hard consent gate and will ask the parent for a YES/NO before anything is actually sent — so do NOT ask for consent yourself. Just call the tool; it proposes the action and the system gates it. Log with log_case and set a follow-up reminder. ` +
+    `You CAN text the family's own people — grandma, the sitter, a partner, the parents they trade pickups with — on the parent's behalf: when a pickup, early release or sick day needs covering, offer to text the first person on the backup list and call text_family_contact (it shows the parent the exact text and sends only on their YES; the reply comes back to them). Never tell the parent you can't text someone for them, and never hand them a message to send themselves when you could send it. If the family has no backup list yet, ask who helps and their number, and save them with save_family_contact. ` +
     `You CAN place phone calls, but a call is a BACKSTOP, not your default: offer/place a call (call_school) when there is no fillable form or email, or when the parent asks to call. Never say you can't make calls — you can — but prefer filling the form or emailing first. ` +
     `REMINDERS: when the parent asks to be reminded of something ("remind me to…", "remind me on Friday", "set a reminder for…"), CALL the set_reminder tool with the thing and the time — it schedules and messages them at that time. Never just say "ok" — actually call set_reminder, and confirm back when you'll remind them. You CANNOT see the parent's calendar or schedule — never imply you can. Frame it as: "I can set reminders so nothing slips." ` +
     `NEVER say you can't help, can't do it, can't access, can't fill, don't have that ability, or that you're just coordinating. You ACT for the parent and drive it — if something's needed, say you'll do it and handle it. ` +

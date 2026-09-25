@@ -318,6 +318,13 @@ export function describeProposal(steps: Step[] | undefined): string {
         const p = step.payload as { channel: 'call'; objective: { goal: string } };
         return `Call ${step.counterparty.name ?? 'the school'} about ${p.objective.goal}`;
       }
+      if (step.channel === 'text') {
+        const p = step.payload as { channel: 'text'; body: string };
+        return `Text to ${step.counterparty.name ?? step.counterparty.phone ?? 'the contact'}\n${p.body
+          .split('\n')
+          .map((l) => `  ${l}`)
+          .join('\n')}`;
+      }
       return `${step.channel} (${step.intent})`;
     })
     .join('\n\n');
@@ -330,5 +337,6 @@ export function describeShortly(steps: Step[] | undefined): string {
   if (first.channel === 'submit') return 'the form ready to submit';
   if (first.channel === 'email') return 'the email ready to send';
   if (first.channel === 'call') return 'the call ready to make';
+  if (first.channel === 'text') return `the text to ${first.counterparty.name ?? 'them'} ready to send`;
   return `the ${first.channel} step ready to go`;
 }

@@ -31,6 +31,7 @@ import { setVoiceActionHandler } from "./voice/actions";
 import { buildPreCallBrief } from "./knowledge/precall";
 import { researchQuestion } from "./knowledge/research";
 import { takePendingGreeting } from "./integrations/pending-greeting.js";
+import { activeContactRelay, relayAckText, relayToParentText } from "./integrations/family-contacts.js";
 import { readFileSync, writeFileSync, unlinkSync } from "node:fs";
 import { resolve as pathResolve } from "node:path";
 import { toPlainText } from "./lib/plain";
@@ -341,6 +342,27 @@ try {
   process.exit(1);
 }
 
+// ── Texting the family's own people (grandma, the sitter) ─────────────────────
+// Runs only after the parent's strict YES (the StepExecutor consent gate): opens a DM from
+// the Axolotl line to the contact and sends the approved text exactly as the parent saw it.
+if (app) {
+  const texter = imessage(app);
+  agent.setContactSender(async ({ phone, body }) => {
+    const space = await texter.space.create(phone);
+    if (!(await space.send(body))) throw new Error('Message was not accepted');
+    return { linePhone: (space as unknown as { phone?: string }).phone };
+  });
+}
+
+// One thank-you per contact every few hours, so a chatty reply thread is not answered each time.
+const relayAcks = new Map<string, number>();
+function relayAckDue(phone: string): boolean {
+  const last = relayAcks.get(phone) ?? 0;
+  if (Date.now() - last < 6 * 60 * 60_000) return false;
+  relayAcks.set(phone, Date.now());
+  return true;
+}
+
 // The benefits demo is OFF unless explicitly switched on for a staged run. Default is
 // the school agent and nothing else: no parent can reach another product by texting a word.
 const demoEnabled = process.env.BENNY_DEMO_ENABLED === 'true';
@@ -465,6 +487,29 @@ async function provisionForwarding(
 for await (const [space, message] of app.messages) {
   // Never answer our own outbound echoes.
   if (message.direction === "outbound") continue;
+
+  // A family contact we texted for a parent (grandma, the sitter) is answering. Their reply
+  // goes to that parent's conversation; they are not a new parent and never reach the agent.
+  // A number that is already a parent here is never treated as a contact.
+  if (message.content.type === 'text' && app) {
+    const from = senderPhone(message.sender?.id);
+    const knownParent = !!from && db.parents.some((p) => p.phone === from);
+    const relay = from && !knownParent ? await activeContactRelay(from).catch(() => undefined) : undefined;
+    if (relay && from) {
+      const relayedId = (message as { id?: string }).id;
+      if (relayedId && !(await recordProcessedMessage(relayedId))) continue;
+      const line = relayToParentText(relay.contactName, message.content.text);
+      try {
+        const parentSpace = await imessage(app).space.get(relay.conversationId, relay.linePhone ? { phone: relay.linePhone } : undefined);
+        if (!(await parentSpace.send(line))) throw new Error('Message was not accepted');
+        await agent.noteContactReply(relay.conversationId, line);
+        if (relayAckDue(from)) await space.send(relayAckText()).catch(() => {});
+      } catch (e) {
+        console.error('[relay] could not pass a contact reply to the parent:', (e as Error)?.message ?? e);
+      }
+      continue;
+    }
+  }
 
   // Abuse + cost controls, before anything that costs money (models, browser sessions).
   // No-op unless configured: AGENT_ALLOWLIST turns the line into an invited pilot, and the
