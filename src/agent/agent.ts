@@ -58,6 +58,7 @@ import { advanceOnboarding, finalizeOnboarding, openOnboarding } from './onboard
 import { advanceAttendance, openAttendance } from './attendance.js';
 import { addCase, makeCase, openCaseSummary } from './family.js';
 import { closeSession as closeSkyvernSession, skyvernEnabled } from '../integrations/skyvern.js';
+import { mergeProfile } from './family-info.js';
 import { isFormTurn, FORM_TURN_TOOLS, FORM_TURN_PROMPT, FORM_TURN_NUDGE, asksParent } from './form-turn.js';
 import { logConsent } from '../integrations/consent.js';
 import {
@@ -1266,7 +1267,7 @@ export class Agent {
       saveProfile: (p: FamilyProfile) => {
         // Merge so the brain can collect fields incrementally without wiping
         // fields it already gathered (email, then kids, then school, ...).
-        state.profile = { ...(state.profile ?? { children: [], needs: [], challenges: [] }), ...p };
+        state.profile = mergeProfile(state.profile, p);
       },
       proposeSteps: (steps) => {
         // Resolve each counterparty (real contact in live, sandbox in demo) so a

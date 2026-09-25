@@ -59,11 +59,11 @@ export const FORM_TURN_PROMPT =
   '\n\nTHIS TURN IS A FORM REQUEST. The parent wants a form filled. Your job this turn:\n' +
   '1. Get the URL of the application form itself (the page with the input fields), not the program landing page. ' +
   'Use get_form_recipe, then web_search / web_fetch if you do not already have it.\n' +
-  '2. Call skyvern_fill_form with that URL, `program` (the program name), and `values`: every value the family profile and this ' +
-  'conversation give you, keyed by the label a form would use ("Student first name", "Student last name", "Grade", ' +
-  '"Date of birth", "Parent/guardian name", "Phone", "Email", "Home address", "School"). Never invent a value.\n' +
-  '3. If a value the form clearly needs is missing (a date of birth, an address), still start the fill with what you have, and ' +
-  'in the same reply ask the parent for all the missing values in ONE message.\n' +
+  '2. Call skyvern_fill_form with that URL, `program` (the program name) and `child` (which kid). Everything in FAMILY INFO ON ' +
+  'FILE is added automatically; in `values` pass only what this conversation adds, keyed by the label a form would use. ' +
+  'Never invent a value.\n' +
+  '3. If the tool says something is not on file yet (a date of birth, an address), ask the parent for all of it in ONE ' +
+  'message. When they answer, call save_profile with it first, so no form ever asks them again.\n' +
   'If the form is a fillable PDF, use pdf_fields + pdf_fill instead. Do not reply with a list of programs or links instead of filling.';
 
 export const FORM_TURN_NUDGE =

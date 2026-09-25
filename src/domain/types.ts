@@ -59,6 +59,31 @@ export interface ChildProfile {
   name: string;
   /** e.g. "3rd", "1", "K". */
   grade?: string;
+  /** Only when it differs from the parent's, or the parent gave it. */
+  lastName?: string;
+  /** As the parent gave it; forms want different formats, so it is kept as text. */
+  dateOfBirth?: string;
+  gender?: string;
+  previousSchool?: string;
+  /** "none" is a real answer and is kept. */
+  allergies?: string;
+  /** What the parent chose to share for forms (conditions, medications). Never asked for unprompted. */
+  medicalNotes?: string;
+}
+
+/** Someone a form asks about: a guardian, an emergency contact, an authorized pickup. */
+export interface FamilyContact {
+  name: string;
+  relationship?: string;
+  phone?: string;
+  email?: string;
+}
+
+export interface HomeAddress {
+  street?: string;
+  city?: string;
+  state?: string;
+  zip?: string;
 }
 
 /** The family profile gathered during onboarding. */
@@ -86,6 +111,17 @@ export interface FamilyProfile {
   /** What the family has already secured (free meals, a 504 plan, a bus pass). */
   getting?: string[];
   notes?: string;
+  // ── Family info store: what enrollment and sign-up forms ask for, gathered once ──
+  parentLastName?: string;
+  /** The parent's own phone, as they want it on forms. */
+  phone?: string;
+  address?: HomeAddress;
+  /** Other parents/guardians (the texting parent is parentName). */
+  guardians?: FamilyContact[];
+  emergencyContacts?: FamilyContact[];
+  authorizedPickups?: FamilyContact[];
+  /** The language spoken at home, which enrollment forms ask (separate from `locale`). */
+  homeLanguage?: string;
 }
 
 /** An open case the agent is working on for the family (the "remember" layer). */

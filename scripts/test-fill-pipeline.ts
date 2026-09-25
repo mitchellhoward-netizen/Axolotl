@@ -295,6 +295,60 @@ const deliverFill = async (result: FakeRun) => {
   check('an answered or expired review closes its session', closes.includes('bs_second'));
 }
 
+console.log('\n# family info store');
+{
+  const { mergeProfile, formValuesFor, missingBasics, familyInfoLine, familyInfoPatch } = await import('../src/agent/family-info.js');
+  const { runTool } = await import('../src/agent/tools.js');
+  let p = mergeProfile(undefined, { parentName: 'Mitchell', children: [{ name: 'Patrick', grade: '1st' }, { name: 'Ada', grade: 'K' }] });
+  p = mergeProfile(p, familyInfoPatch({ children: [{ name: 'patrick', date_of_birth: '2019-04-02', allergies: 'none' }] }));
+  const pat = p.children.find((c) => c.name === 'Patrick');
+  check('a child update merges by name, case-insensitively', pat?.grade === '1st' && pat?.dateOfBirth === '2019-04-02' && p.children.length === 2, JSON.stringify(p.children));
+  check('...and never touches the other child', p.children.find((c) => c.name === 'Ada')?.grade === 'K');
+  p = mergeProfile(p, familyInfoPatch({ address: { street: '12 Oak St', city: 'Soquel' } }));
+  p = mergeProfile(p, familyInfoPatch({ address: { zip: '95073' } }));
+  check('address fields accumulate', p.address?.street === '12 Oak St' && p.address?.zip === '95073');
+  p = mergeProfile(p, familyInfoPatch({ emergency_contacts: [{ name: 'Grandma Jo', relationship: 'grandmother' }] }));
+  p = mergeProfile(p, familyInfoPatch({ emergency_contacts: [{ name: 'grandma jo', phone: '831-555-0101' }] }));
+  check('contacts merge by name', p.emergencyContacts?.length === 1 && p.emergencyContacts[0]?.phone === '831-555-0101' && p.emergencyContacts[0]?.relationship === 'grandmother');
+  p = mergeProfile(p, { parentLastName: 'Howard', phone: '831-555-0100' });
+  const v = formValuesFor(p, 'Patrick');
+  check('form values use the child on file', v['Student first name'] === 'Patrick' && v['Student date of birth'] === '2019-04-02');
+  check('...fall back to the family last name', v['Student last name'] === 'Howard');
+  check('...and carry the family details', v['Home street address'] === '12 Oak St' && v['Emergency contact 1 phone'] === '831-555-0101' && v['Parent/guardian phone'] === '831-555-0100');
+  check('nothing empty is sent to a form', Object.values(v).every((x) => x.trim().length > 0));
+  check('with two kids and no name, no child is guessed', !('Student first name' in formValuesFor(p)));
+  const miss = missingBasics(p, 'Ada');
+  check('missing basics are per child', miss.includes("child's date of birth") && !miss.includes('home address'), miss.join('; '));
+  const line = familyInfoLine(p);
+  check('the prompt says what is on file…', /Patrick: on file .*dateOfBirth/.test(line));
+  check('…without the values themselves', !line.includes('2019-04-02') && !line.includes('12 Oak St'));
+
+  let saved: import('../src/domain/types.js').FamilyProfile | undefined = p;
+  const deps = {
+    profile: p,
+    getCases: () => [],
+    appendCase: () => {},
+    proposeSteps: () => {},
+    saveProfile: (x: import('../src/domain/types.js').FamilyProfile) => { saved = mergeProfile(saved, x); },
+    conversationId: 'c1',
+  };
+  await runTool('save_profile', { children: [{ name: 'Ada', date_of_birth: '2021-01-05' }], authorized_pickups: [{ name: 'Dana', relationship: 'neighbor' }] }, deps);
+  check('save_profile stores child details and contacts', saved?.children.find((c) => c.name === 'Ada')?.dateOfBirth === '2021-01-05' && saved?.authorizedPickups?.[0]?.name === 'Dana');
+  check('...without erasing the other child', saved?.children.find((c) => c.name === 'Patrick')?.dateOfBirth === '2019-04-02');
+
+  const PUBLIC_FORM = 'https://forms.example.org/ckc-apply';
+  const ask = await runTool('skyvern_fill_form', { url: PUBLIC_FORM, values: {} }, { ...deps, profile: saved });
+  check('with two kids, the fill asks which child', /Which child/.test(ask), ask);
+  taskBodies.length = 0;
+  queue = [{ status: 'running' }];
+  const started = await runTool('skyvern_fill_form', { url: PUBLIC_FORM, child: 'Patrick', values: { 'Shirt size': 'S' } }, { ...deps, profile: saved });
+  const prompt = String(taskBodies[0]?.prompt ?? '');
+  check('the fill starts', /^On it/.test(started), started);
+  check('...with the details on file for that child', prompt.includes('Student date of birth: 2019-04-02') && prompt.includes('Home street address: 12 Oak St'), prompt.slice(-400));
+  check('...plus what this conversation added', prompt.includes('Shirt size: S'));
+  check('...and not the other child\'s', !prompt.includes('2021-01-05'));
+}
+
 server.close();
 console.log(`\n✓ ${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

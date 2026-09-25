@@ -42,6 +42,7 @@ import { saveSkill, listSkills, skillSummary } from './skills.js';
 import { makeSkillKey, type Skill } from '../domain/skill.js';
 import { z } from 'zod';
 import { personalPlanSchema, type LifeTools } from './personal.js';
+import { familyInfoPatch, familyInfoLine, formValuesFor, missingBasics, childFor, FAMILY_INFO_TOOL_PROPERTIES, CHILD_TOOL_PROPERTIES } from './family-info.js';
 
 export interface ToolDeps {
   life?: LifeTools;
@@ -188,12 +189,13 @@ export const LLM_TOOLS = [
     type: 'function',
     function: {
       name: 'save_profile',
-      description: 'Save/update the family profile (email, children, school, location, needs, challenges, notes, locale) so I can remember them. Use this during onboarding; it merges into what you already saved.',
+      description: 'Save/update the family profile so I can remember it: the basics (email, children, school, location, needs, challenges, notes, locale) and the details forms ask for (each child\u2019s last name, date of birth, allergies, previous school; the family\u2019s address, phone, other guardians, emergency contacts, authorized pickups, home language). Call it the moment the parent tells you any of these. It merges: pass only what is new; children and contacts are matched by name, so updating one never erases another.',
       parameters: {
         type: 'object',
         properties: {
           email: { type: 'string' },
-          children: { type: 'array', items: { type: 'object', properties: { name: { type: 'string' }, grade: { type: 'string' } } } },
+          children: { type: 'array', items: { type: 'object', properties: CHILD_TOOL_PROPERTIES, required: ['name'] } },
+          ...FAMILY_INFO_TOOL_PROPERTIES,
           school: { type: 'string' },
           /** City/state to disambiguate the school, e.g. "Seattle, WA". */
           location: { type: 'string' },
@@ -256,6 +258,7 @@ export const LLM_TOOLS = [
           url: { type: 'string', description: 'The application form itself (the page with the input fields), not the program landing page.' },
           program: { type: 'string', description: 'The program or form name, e.g. "CKC After School 2026-27". Lets a form that worked before be reused.' },
           school: { type: 'string', description: 'The school or district the form belongs to, if known.' },
+          child: { type: 'string', description: 'Which child the form is for (first name). Their details on file are added automatically.' },
           values: {
             type: 'object',
             additionalProperties: { type: 'string' },
@@ -807,7 +810,7 @@ export async function runTool(name: string, args: Record<string, unknown>, deps:
       const phase = String(args.phase ?? '').trim();
       if (!/^https?:\/\//i.test(url)) return 'Provide a valid http(s) url.';
       const acctDecision = authorizeFormUrl(url);
-      if (!acctDecision.allowed) return denialCopy(`sign in or sign up at ${url}`, acctDecision.reason, acctDecision.detail);
+      if (!acctDecision.allowed) return `I can't sign in or sign up at ${url}: ${acctDecision.detail}.`;
       if (phase !== 'signup' && phase !== 'login' && phase !== 'verify') {
         return 'account_action needs phase: signup, login, or verify.';
       }
@@ -870,14 +873,23 @@ export async function runTool(name: string, args: Record<string, unknown>, deps:
       // Any public site: the right form is the right form, wherever it is hosted. The parent's
       // YES before submit is the gate; private/internal addresses are still refused.
       const fillDecision = authorizeFormUrl(url);
-      if (!fillDecision.allowed) return denialCopy(`fill a form at ${url}`, fillDecision.reason, fillDecision.detail);
+      if (!fillDecision.allowed) return `I can't fill a form at ${url}: ${fillDecision.detail}. A school or program form is always on a public website — find that link.`;
       if (!skyvernEnabled()) return "Skyvern isn't configured — use browser_open/browser_fill to fill it instead.";
-      const values = Object.fromEntries(
-        Object.entries((args.values ?? {}) as Record<string, unknown>)
-          .map(([k, v]) => [k.trim(), String(v ?? '').trim()] as const)
-          .filter(([k, v]) => k && v),
-      );
+      const childName = String(args.child ?? '').trim() || undefined;
+      if ((deps.profile?.children?.length ?? 0) > 1 && !childFor(deps.profile, childName)) {
+        return `Which child is this form for? Pass \`child\` (one of: ${deps.profile!.children.map((c) => c.name).join(', ')}).`;
+      }
+      // Everything on file first; anything the model passes from this conversation is newer and wins.
+      const values = {
+        ...formValuesFor(deps.profile, childName),
+        ...Object.fromEntries(
+          Object.entries((args.values ?? {}) as Record<string, unknown>)
+            .map(([k, v]) => [k.trim(), String(v ?? '').trim()] as const)
+            .filter(([k, v]) => k && v),
+        ),
+      };
       if (!Object.keys(values).length) return 'Pass the values to type into the form (from the family profile and this conversation).';
+      const stillMissing = missingBasics(deps.profile, childName);
       const program = String(args.program ?? '').trim() || undefined;
       const school = String(args.school ?? '').trim() || deps.profile?.school || '';
       // Fire the fill and let the Skyvern webhook (or fallback poller) complete it later.
@@ -903,7 +915,8 @@ export async function runTool(name: string, args: Record<string, unknown>, deps:
                 : (res.detail ?? 'unknown');
         return `I couldn't fill that form: ${why}. Find the actual application form link and I'll try again, or use this one yourself: ${url}`;
       }
-      return "On it — I'm filling the form with your info. I'll share it for you to review shortly, and nothing gets submitted without your OK.";
+      return "On it — I'm filling the form with your info. I'll share it for you to review shortly, and nothing gets submitted without your OK." +
+        (stillMissing.length ? ` (Not on file yet — ask the parent for these in ONE message, then save_profile them: ${stillMissing.join('; ')}.)` : '');
     }
     case 'connect_portal': {
       const familyId = deps.familyId;
@@ -1044,7 +1057,7 @@ export async function runTool(name: string, args: Record<string, unknown>, deps:
       const url = String(args.url ?? '').trim();
       if (!/^https?:\/\//i.test(url)) return 'Provide a valid http(s) url.';
       const openDecision = authorizeFormUrl(url);
-      if (!openDecision.allowed) return denialCopy(`open ${url}`, openDecision.reason, openDecision.detail);
+      if (!openDecision.allowed) return `I can't open ${url}: ${openDecision.detail}.`;
       const r = await browserOpen(url);
       return r.ok
         ? `Opened ${r.data}. Use browser_observe to see what is actionable on the page.`
@@ -1265,9 +1278,8 @@ export async function runTool(name: string, args: Record<string, unknown>, deps:
     case 'save_profile': {
       // Build a PATCH of only the fields the model actually provided, so a partial
       // call (e.g. just email) doesn't wipe fields already gathered (kids/school).
-      const patch: Partial<FamilyProfile> = {};
+      const patch: Partial<FamilyProfile> = familyInfoPatch(args);
       if (typeof args.email === 'string') patch.email = args.email;
-      if (Array.isArray(args.children)) patch.children = (args.children as Array<{ name?: string; grade?: string }>).map((x) => ({ name: String(x.name ?? ''), grade: x.grade ? String(x.grade) : undefined })).filter((c) => c.name);
       if (typeof args.school === 'string') patch.school = args.school;
       if (typeof args.location === 'string') patch.location = args.location;
       if (Array.isArray(args.needs)) patch.needs = (args.needs as string[]).map(String);
@@ -1539,6 +1551,7 @@ export function systemPrompt(ctx: BrainContext): string {
     `READ TYPOS & CORRECTIONS AS THE SAME PROGRAM: the parent types fast. "flop"/"elop"/"elp"/"elop" = ELO-P (Expanded Learning Opportunities Program). If they write a program name or abbreviation you JUST named, or the one you're already signing up for, treat it as that program and continue — never re-ask, never re-open, never re-research it. A short follow-up (a program name, "ok", "continue", "go ahead", a typo fix) means "KEEP GOING with the current thing." ` +
     `NEVER RESTART MID-SIGNUP: the moment you've found the program and opened the form, you are mid-signup. Do NOT re-search, re-open, or say "one moment, I'm on it" again. If the parent then sends anything that isn't the required fields (a correction, "ok", the program name), CONTINUE the same sign-up: name the program you're on and re-ask ONLY the fields you still need (e.g. "I'm on the ELO-P sign-up — I just need your email, Patrick's last name, birthdate, and your name/phone. Can you send those?"). Never start the research over. ` +
     `When you start doing the work (filling a form, placing a call), send ONE short substantive "on it" line naming the step + the review/consent point, e.g. "Opening the CKC enrollment form now — I'll fill it with Patrick's info and show you before I submit." Then proceed to the fill/draft and STOP at the consent gate. For skyvern_fill_form, calling it IS the start of the work: after it fires (async), reply your short "on it" line and STOP — do NOT also call submit_form. The review screenshot + the consent-gated submit are staged automatically when the fill finishes; the parent's reply YES is the intervention point. The parent's YES (send_email / call_school / a staged submit) is the intervention point — never submit/send/call before it, never go silent for a long operation. ` +
+    (familyInfoLine(profile) ? `\n${familyInfoLine(profile)}` : '') +
     `\nFORM FILL EVIDENCE (hard rule — you cannot fake this): ${ctx.fillEvidence ?? 'none'}. You may say a form is filled ONLY when that line says a fill COMPLETED. Never list field values as done, never say "I've filled the form", and never offer to show a filled form unless a fill completed — if the parent asks to see one and none completed, say plainly that you don't have a finished fill and offer to run it again. If a fill is still running, say it is still running. ` +
     `DO NOT STALL: never send "one moment", "just a moment", "I'll have it shortly", or any second promise about the same fill. "One moment" repeated is indistinguishable from being stuck, and it is what a parent actually experiences as the agent breaking. If a fill is running, name what is running and stop. If they ask again while it is still running, give a DECISION POINT rather than another reassurance: keep waiting, or take the link and finish it themselves. Never promise to "show you a screenshot" unless a fill has already completed (FORM FILL EVIDENCE governs that, not good intentions). ` +
     `NEVER ASK THE PARENT TO INSPECT A PAGE OR LINK: you have the run status and the tools to check it. Never ask "what do you see on that page?" — check it yourself, or say you cannot see it. ` +
