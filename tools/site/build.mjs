@@ -528,20 +528,49 @@ function schoolsPageSections(s) {
         <p class="lead">${esc(at(s, 'schools.hero.sub'))}</p>
         <div class="hero-actions">
           <a class="button primary" href="#school-contact">${esc(at(s, 'schools.hero.primary'))}</a>
-          <a class="text-link" href="#door">${esc(at(s, 'schools.hero.secondary'))}</a>
+          <a class="text-link" href="#office">${esc(at(s, 'schools.hero.secondary'))}</a>
         </div>
       </div>
     </section>`;
 
+  // The office's week: the same back-and-forth parents are stuck in, from the
+  // school's side. This is the table a principal reads first.
+  const o = at(s, 'schools.office');
+  const officeRows = o.rows
+    .map(
+      (r) => `<tr>
+            <td data-label="${esc(o.head[0])}">${esc(r.pain)}</td>
+            <td data-label="${esc(o.head[1])}">${esc(r.does)}</td>
+            <td data-label="${esc(o.head[2])}">${esc(r.who)}</td>
+          </tr>`,
+    )
+    .join('\n          ');
+  const office = `
+    <section class="section t-day" id="office" aria-labelledby="office-title">
+      <div class="wrap">
+        <h2 id="office-title">${payoff(o.h2Plain, o.h2Em)}</h2>
+        <p class="lead">${esc(o.lead)}</p>
+        <table class="year-table">
+          <caption class="sr-only">${esc(o.h2Plain)} ${esc(o.h2Em)}</caption>
+          <thead>
+            <tr><th scope="col">${esc(o.head[0])}</th><th scope="col">${esc(o.head[1])}</th><th scope="col">${esc(o.head[2])}</th></tr>
+          </thead>
+          <tbody>
+          ${officeRows}
+          </tbody>
+        </table>
+      </div>
+    </section>`;
+
   // The same need twice: the letter an AI writes with no front door, and the
-  // request Axolotl sends. The contrast is the whole pitch.
+  // request Axolotl sends.
   const d = at(s, 'schools.door');
   const foot = (items) => items.map((i) => `<li>${esc(i)}</li>`).join('');
   const doorRows = d.after.rows
     .map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`)
     .join('');
   const door = `
-    <section class="section t-day" id="door" aria-labelledby="door-title">
+    <section class="section t-noon" id="door" aria-labelledby="door-title">
       <div class="wrap">
         <h2 id="door-title">${payoff(d.h2Plain, d.h2Em)}</h2>
         <p class="lead">${esc(d.lead)}</p>
@@ -568,6 +597,51 @@ function schoolsPageSections(s) {
       </div>
     </section>`;
 
+  // A text thread in the page's own markup: `out` is the person holding the phone.
+  const thread = (label, msgs, outFrom) => `<figure class="staff-thread">
+            <figcaption>${esc(label)}</figcaption>
+            <ol>${msgs
+              .map((m) => `<li class="staff-msg staff-msg-${m.from === outFrom ? 'out' : 'in'}">${esc(m.text)}</li>`)
+              .join('')}</ol>
+          </figure>`;
+
+  const a = at(s, 'schools.attendance');
+  const attendance = `
+    <section class="section t-afternoon" id="attendance" aria-labelledby="attendance-title">
+      <div class="wrap">
+        <h2 id="attendance-title">${payoff(a.h2Plain, a.h2Em)}</h2>
+        <p class="lead">${esc(a.lead)}</p>
+        <div class="att-split">
+          <div class="att-items">
+            ${a.items.map((i) => `<article><h3>${esc(i.h)}</h3><p>${esc(i.p)}</p></article>`).join('\n            ')}
+          </div>
+          ${thread(a.threadLabel, a.thread, 'parent')}
+        </div>
+        <p class="att-research">${esc(a.research)}</p>
+      </div>
+    </section>`;
+
+  // The flywheel: six steps that end where they began, plus one worked example
+  // of what an official path does to the back-and-forth.
+  const f = at(s, 'schools.flywheel');
+  const dots = (n) => `<span class="fly-dots" aria-hidden="true">${'<i></i>'.repeat(n)}</span>`;
+  const flywheel = `
+    <section class="section t-night-deep" id="flywheel" aria-labelledby="flywheel-title">
+      <div class="wrap">
+        <h2 id="flywheel-title">${payoff(f.h2Plain, f.h2Em)}</h2>
+        <p class="lead">${esc(f.lead)}</p>
+        <ol class="fly-steps">
+          ${f.steps.map((st) => `<li><strong>${esc(st.tag)}</strong><span>${esc(st.text)}</span></li>`).join('\n          ')}
+        </ol>
+        <div class="fly-example">
+          <p class="fly-example-label">${esc(f.example.label)}</p>
+          <p class="fly-row"><span>${esc(f.example.beforeLabel)}</span>${dots(f.example.before)}<b>${esc(f.example.before)}</b></p>
+          <p class="fly-row is-after"><span>${esc(f.example.afterLabel)}</span>${dots(f.example.after)}<b>${esc(f.example.after)}</b></p>
+        </div>
+        <p class="network-note">${esc(f.note)}</p>
+      </div>
+    </section>`;
+
   const p = at(s, 'schools.paths');
   const paths = `
     <section class="section t-golden" id="paths" aria-labelledby="paths-title">
@@ -586,9 +660,6 @@ function schoolsPageSections(s) {
     </section>`;
 
   const st = at(s, 'schools.staff');
-  const thread = st.thread
-    .map((m) => `<li class="staff-msg staff-msg-${m.from === 'staff' ? 'out' : 'in'}">${esc(m.text)}</li>`)
-    .join('');
   const brief = st.brief.rows
     .map(
       (r) => `<li><span class="brief-v">${esc(r.v)}</span><span class="brief-l">${esc(r.l)}<span class="brief-note">${esc(r.note)}</span></span></li>`,
@@ -600,10 +671,7 @@ function schoolsPageSections(s) {
         <h2 id="staff-title">${payoff(st.h2Plain, st.h2Em)}</h2>
         <p class="lead">${esc(st.lead)}</p>
         <div class="staff-pair">
-          <figure class="staff-thread">
-            <figcaption>${esc(st.threadLabel)}</figcaption>
-            <ol>${thread}</ol>
-          </figure>
+          ${thread(st.threadLabel, st.thread, 'staff')}
           <article class="brief-card" aria-labelledby="brief-title">
             <p class="door-label"><span id="brief-title">${esc(st.brief.eyebrow)}</span><span>${esc(st.brief.example)}</span></p>
             <ul class="brief-rows">${brief}</ul>
@@ -613,43 +681,28 @@ function schoolsPageSections(s) {
       </div>
     </section>`;
 
-  const n = at(s, 'schools.network');
-  const network = `
-    <section class="section t-night-deep" id="network" aria-labelledby="network-title">
+  const c = at(s, 'schools.connect');
+  const connect = `
+    <section class="section t-day" id="connect" aria-labelledby="connect-title">
       <div class="wrap">
-        <h2 id="network-title">${payoff(n.h2Plain, n.h2Em)}</h2>
-        <p class="lead">${esc(n.lead)}</p>
-        <div class="network-grid">
-          ${n.items.map((i) => `<article><h3>${esc(i.h)}</h3><p>${esc(i.p)}</p></article>`).join('\n          ')}
-        </div>
-        <p class="network-note">${esc(n.note)}</p>
-      </div>
-    </section>`;
-
-  const head = at(s, 'schools.changes.head');
-  const rows = at(s, 'schools.changes.rows')
-    .map(
-      (r) => `<tr>
-            <td data-label="${esc(head[0])}">${esc(r.pain)}</td>
-            <td data-label="${esc(head[1])}">${esc(r.does)}</td>
-            <td data-label="${esc(head[2])}">${esc(r.who)}</td>
-          </tr>`,
-    )
-    .join('\n          ');
-  const changes = `
-    <section class="section" aria-labelledby="changes-title">
-      <div class="wrap">
-        <h2 id="changes-title">${esc(at(s, 'schools.changes.h2'))}</h2>
-        <p class="lead">${esc(at(s, 'schools.changes.lead'))}</p>
-        <table class="year-table">
-          <caption class="sr-only">${esc(at(s, 'schools.changes.h2'))}</caption>
+        <h2 id="connect-title">${payoff(c.h2Plain, c.h2Em)}</h2>
+        <p class="lead">${esc(c.lead)}</p>
+        <table class="year-table connect-table">
+          <caption class="sr-only">${esc(c.h2Plain)} ${esc(c.h2Em)}</caption>
           <thead>
-            <tr><th scope="col">${esc(head[0])}</th><th scope="col">${esc(head[1])}</th><th scope="col">${esc(head[2])}</th></tr>
+            <tr><th scope="col">${esc(c.head[0])}</th><th scope="col">${esc(c.head[1])}</th></tr>
           </thead>
           <tbody>
-          ${rows}
+          ${c.rows
+            .map(([k, v]) => `<tr><td data-label="${esc(c.head[0])}">${esc(k)}</td><td data-label="${esc(c.head[1])}">${esc(v)}</td></tr>`)
+            .join('\n          ')}
           </tbody>
         </table>
+        <div class="tension">
+          <h3>${esc(c.ruleTitle)}</h3>
+          <p>${esc(c.ruleBody)}</p>
+          <p>${esc(c.start)}</p>
+        </div>
       </div>
     </section>`;
 
@@ -681,6 +734,8 @@ function schoolsPageSections(s) {
       <div class="wrap">
         <h2 id="pilot-title">${esc(at(s, 'schools.pilot.h2'))}</h2>
         <p class="lead">${esc(at(s, 'schools.pilot.lead'))}</p>
+        <h3>${esc(at(s, 'schools.pilot.baselineTitle'))}</h3>
+        <p>${esc(at(s, 'schools.pilot.baseline'))}</p>
         <h3>${esc(at(s, 'schools.pilot.measuresLabel'))}</h3>
         <ul class="plain-list wide">
           ${at(s, 'schools.pilot.measures').map((i) => `<li>${esc(i)}</li>`).join('\n          ')}
@@ -729,7 +784,7 @@ function schoolsPageSections(s) {
       </div>
     </section>`;
 
-  return [heroBlock, door, paths, staff, network, changes, never, equity, pilot, form].join('');
+  return [heroBlock, office, door, attendance, flywheel, paths, staff, connect, never, equity, pilot, form].join('');
 }
 
 // ── document shell ───────────────────────────────────────────────────────────

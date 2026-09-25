@@ -570,7 +570,7 @@ export default {
 
   schoolsBand: {
     h2: 'Para escuelas y distritos.',
-    body: 'Las familias ya le escriben a la escuela con IA. Axolotl le da una puerta de entrada: las solicitudes llegan cortas, completas y a la oficina correcta, las preguntas de rutina se contestan con tu propia información, y tu personal decide la forma oficial de hacer cada trámite. Nada que instalar.',
+    body: 'Cada familia recibe un agente, y tu oficina deja de perseguir: justificaciones de ausencia entregadas, formularios completos, solicitudes en la oficina correcta, y menos faltas cuando tu escuela se conecta. Nada que instalar.',
     link: 'Cómo trabaja Axolotl con las escuelas',
   },
 
@@ -624,16 +624,64 @@ export default {
     meta: {
       title: 'Axolotl para escuelas y distritos',
       description:
-        'Las familias ya le escriben a la escuela con IA. Axolotl es la puerta de entrada que controla tu personal: las solicitudes llegan cortas, completas y a la oficina correcta, las preguntas de rutina se contestan con tu propia información, y tu personal decide la forma oficial de hacer cada trámite.',
+        'Axolotl es un agente gratuito al que las familias le escriben por texto. Tu oficina deja de perseguir formularios, de llamar por ausencias y de reenviar solicitudes, y menos niños faltan. Tu personal decide la forma oficial de hacer cada trámite.',
       shareAlt: 'Una carpeta de manila con pendientes escolares y un sello de Confirmado en la primera fila.',
     },
     hero: {
-      eyebrow: 'Para escuelas y distritos',
-      h1Plain: 'La IA de las familias ya te está escribiendo.',
-      h1Em: 'Dale una puerta de entrada.',
-      sub: 'Cada vez más familias escriben sus correos a la escuela con un asistente de IA. Axolotl es la puerta de entrada que controla tu personal: cada solicitud llega corta, completa y a la oficina correcta, las preguntas de rutina se contestan con tu propia información, y tu personal decide la forma oficial de hacer cada trámite.',
+      eyebrow: 'Para directores y distritos',
+      h1Plain: 'Cada familia recibe un agente.',
+      h1Em: 'Tu oficina deja de perseguir.',
+      sub: 'Axolotl es un agente gratuito al que las familias le escriben por texto. Termina el formulario, entrega la justificación de ausencia, contesta preguntas de rutina con tu propia información, y manda cada solicitud completa a la oficina correcta. Conecta tu escuela y conoce tu calendario, tu asistencia y tus reglas, para que menos niños falten.',
       primary: 'Hablemos de un piloto',
-      secondary: 'Ver la diferencia',
+      secondary: 'Ver lo que recupera tu oficina',
+    },
+    office: {
+      h2Plain: 'El trabajo que tu oficina hace dos veces,',
+      h2Em: 'hecho una sola.',
+      lead: 'Casi todo el día de una oficina escolar es ir y venir: llamar por una ausencia, perseguir un formulario, reenviar una solicitud, contestar la misma pregunta otra vez. Es el mismo trabajo en el que las familias están atoradas del otro lado. Axolotl quita el ir y venir para los dos.',
+      head: ['Hoy', 'Con Axolotl', 'Quién recupera tiempo'],
+      rows: [
+        {
+          pain: 'Llamar a casa por las ausencias',
+          does: 'La familia escribe “está enferma” y Axolotl entrega la justificación en tu formato. Sin llamada, y tus cifras de faltas justificadas e injustificadas quedan bien.',
+          who: 'Personal de asistencia',
+        },
+        {
+          pain: 'Perseguir formularios',
+          does: 'Permisos, contactos de emergencia, solicitudes de comidas y cartillas de vacunas regresan completos, antes de la fecha límite.',
+          who: 'Oficina principal, enfermería',
+        },
+        {
+          pain: 'Paquetes de inscripción incompletos',
+          does: 'Un paquete completo, siguiendo la lista que aprobó tu personal de registro.',
+          who: 'Registro escolar',
+        },
+        {
+          pain: 'La misma pregunta cuarenta veces',
+          does: '“¿Cuándo es la salida temprana?” se contesta con tus propios avisos. Tu personal ni la ve.',
+          who: 'Oficina principal, maestros',
+        },
+        {
+          pain: 'Solicitudes en el escritorio equivocado',
+          does: 'Transporte, educación especial, el enlace de McKinney-Vento o enfermería la reciben directo, con el estudiante ya identificado.',
+          who: 'Oficina principal, dirección',
+        },
+        {
+          pain: 'Buscar a alguien que hable el idioma',
+          does: 'Tu personal escribe en inglés; las familias leen y contestan en su idioma.',
+          who: 'Todos',
+        },
+        {
+          pain: 'Agendar juntas a base de llamadas',
+          does: 'Las juntas de educación especial y las conferencias se agendan alrededor de los turnos de la familia en un solo intercambio.',
+          who: 'Educación especial, maestros',
+        },
+        {
+          pain: 'Cartas largas escritas con IA',
+          does: 'Una solicitud corta y ordenada que dice qué necesita la familia.',
+          who: 'Dirección, educación especial',
+        },
+      ],
     },
     door: {
       h2Plain: 'La misma familia, la misma necesidad.',
@@ -660,9 +708,68 @@ export default {
         sent: 'Enviada con el sí de la familia · 7:42 PM',
         foot: ['64 palabras', 'Una oficina', 'Lista para atender'],
       },
-      tensionTitle: 'Las solicitudes van a llegar de todos modos.',
+      tensionTitle: 'Más solicitudes, menos idas y vueltas.',
       tensionBody:
-        'Las evaluaciones, los apoyos, el transporte y los expedientes son obligaciones que tu escuela ya tiene, y la IA hace que pedirlos sea más fácil que nunca. La pregunta no es si van a llegar. Es si llegan como cartas largas a la persona equivocada o como una solicitud completa a la oficina que la puede resolver.',
+        'Las familias que por fin saben qué pedir van a pedir, y la IA hace que pedir sea más fácil que nunca. La promesa honesta no es menos solicitudes. Es que cada una llegue completa, a la oficina que la puede resolver, y tome un intercambio en vez de cinco.',
+    },
+    attendance: {
+      h2Plain: 'Menos días perdidos,',
+      h2Em: 'una familia a la vez.',
+      lead: 'Una ventana de chat no arregla la asistencia. Saber el número real, recibir una respuesta clara a las 6:45 AM y quitar lo que deja a un niño en casa, sí.',
+      items: [
+        {
+          h: 'El número real, dicho con cariño.',
+          p: 'Las familias suelen creer que su hijo ha faltado menos de lo que en verdad ha faltado. Axolotl les dice el número real, a tiempo y con apoyo. Nunca con amenazas.',
+        },
+        {
+          h: 'La pregunta de las 6:45 AM.',
+          p: '“Tiene mocos, sin fiebre. ¿Puede ir?” Contestada con las reglas de tu propia enfermería, para que el niño que puede estar en la escuela, esté.',
+        },
+        {
+          h: 'El día de la logística.',
+          p: 'Salida temprana, un cambio de camión, un turno que se alarga: un plan con el propio círculo de la familia antes de perder el día.',
+        },
+        {
+          h: 'La barrera detrás del patrón.',
+          p: 'Cuando las faltas tienen una causa, como el transporte, un plan para el asma o un niño que evita la escuela, la solicitud llega a la oficina que la puede resolver.',
+        },
+      ],
+      research:
+        'Decirles a las familias el número real de faltas es una de las pocas intervenciones de asistencia probadas a gran escala (Rogers y Feller, Nature Human Behaviour, 2018). Axolotl agrega la conversación que sigue al mensaje.',
+      threadLabel: 'Una mamá, un domingo en la noche',
+      thread: [
+        {
+          from: 'axolotl',
+          text: 'Un aviso: Maya ha faltado 7 días desde septiembre, casi todos lunes. A este paso serían unos 18 este año. ¿Algo hace difíciles los lunes?',
+        },
+        { from: 'parent', text: 'Los lunes entro a las 6. Nadie la puede llevar.' },
+        {
+          from: 'axolotl',
+          text: 'Dana, de tu círculo, pasa por Lincoln a las 7:40 los lunes. ¿Le pregunto? También puedo preguntar a transporte si Maya califica para el camión.',
+        },
+        { from: 'parent', text: 'Sí a las dos.' },
+      ],
+    },
+    flywheel: {
+      h2Plain: 'Cada semana',
+      h2Em: 'es más fácil.',
+      lead: 'Cada trámite que Axolotl termina hace más ligero el siguiente, para la próxima familia y para tu oficina.',
+      steps: [
+        { tag: 'Una familia escribe lo que necesita', text: 'En su idioma, a las 10 PM, después del turno.' },
+        { tag: 'Axolotl lo hace bien a la primera', text: 'Completo, en tu formato, a la oficina correcta. La familia lo aprueba.' },
+        { tag: 'Tu oficina recibe una solicitud limpia', text: 'Sin perseguir, sin reenviar, sin descifrar.' },
+        { tag: 'Tu personal hace oficial la ruta', text: 'Una respuesta. Treinta segundos en vez de cuarenta llamadas.' },
+        { tag: 'La siguiente familia la sigue', text: 'Más rápido y con menos errores. Tú la promueves porque le ahorra tiempo a tu personal.' },
+        { tag: 'El resumen muestra dónde se atoran', text: 'Arreglas la causa, como un aviso más claro o un formulario más corto, y la pregunta deja de llegar.' },
+      ],
+      example: {
+        label: 'Ejemplo · inscripción a mitad de año',
+        beforeLabel: 'Idas y vueltas hoy',
+        before: 5,
+        afterLabel: 'Con una ruta oficial',
+        after: 1,
+      },
+      note: 'En todo un distrito, las rutas oficiales forman un manual de cómo funcionan tus escuelas. Tu personal decide qué incluye, y puede publicarlo para que cualquier asistente de IA que use una familia mande una solicitud completa a la oficina correcta.',
     },
     paths: {
       h2Plain: 'Tu personal decide',
@@ -693,9 +800,9 @@ export default {
       },
     },
     staff: {
-      h2Plain: 'Sin sistema que aprender.',
-      h2Em: 'Solo mándale un texto.',
-      lead: 'Directores, personal de registro y maestros usan Axolotl igual que las familias: por texto. Pregunta en qué se atoran las familias, corrige una ruta con tus propias palabras, o describe una nueva y aprueba lo que escribe.',
+      h2Plain: 'Tu personal también lo usa,',
+      h2Em: 'desde el primer día.',
+      lead: 'Directores, personal de registro y maestros le escriben a Axolotl igual que las familias. Pregunta en qué se atoran, corrige una ruta con tus palabras, traduce un aviso, o pregunta quién debe todavía un formulario.',
       threadLabel: 'Personal de registro, escribiéndole a Axolotl',
       thread: [
         { from: 'staff', text: '¿En qué se están atorando las familias esta semana?' },
@@ -715,56 +822,23 @@ export default {
         foot: 'Patrones, no personas. El resumen nunca muestra quién preguntó ni qué dijo.',
       },
     },
-    network: {
-      h2Plain: 'Cada familia se lo hace más fácil',
-      h2Em: 'a la siguiente.',
-      lead: 'Cada solicitud que funciona enseña una ruta. Cada ruta que tu personal hace oficial ayuda a todas las familias que vienen después. En todo un distrito, las rutas forman el manual de cómo funcionan de verdad tus escuelas.',
-      items: [
-        { h: 'Para las familias', p: 'La forma correcta, a la primera, en su propio idioma.' },
-        { h: 'Para tu personal', p: 'Menos preguntas repetidas, menos solicitudes que redirigir, y una vista semanal de dónde se atoran las familias.' },
-        {
-          h: 'Para cualquier IA',
-          p: 'Tus rutas oficiales, publicadas para que cualquier asistente que use una familia, no solo Axolotl, mande una solicitud completa a la oficina correcta.',
-        },
-      ],
-      note: 'Tus rutas son tuyas. Tu personal decide qué se publica, y puede cambiar o retirar una ruta cuando quiera.',
-    },
-    changes: {
-      h2: 'Qué cambia para tu personal.',
-      lead: 'Las familias se mantienen al día, y las solicitudes llegan como tus oficinas las necesitan.',
-      head: ['Hoy', 'Con Axolotl', 'Quién se beneficia'],
+    connect: {
+      h2Plain: 'Conecta tu escuela,',
+      h2Em: 'y el agente de cada familia la conoce.',
+      lead: 'Axolotl funciona para las familias sin ti. Conectado, deja de adivinar: contesta con tu información e invita a las familias que te preocupan.',
+      head: ['Lo que compartes', 'Lo que reciben las familias'],
       rows: [
-        {
-          pain: 'Solicitudes largas escritas con IA, a la persona equivocada',
-          does: 'Una solicitud corta con lo que la oficina necesita, dirigida a transporte, al enlace de McKinney-Vento, a educación especial o a registro escolar',
-          who: 'Dirección, enlaces, educación especial',
-        },
-        {
-          pain: 'Preguntas repetidas de rutina',
-          does: 'Respuestas primero de la información que tu escuela ya publica: camión, calendario, qué llevar',
-          who: 'Oficina principal, maestros',
-        },
-        {
-          pain: 'Formularios y fechas límite sin cumplir',
-          does: 'Las familias ven lo único que importa; los formularios regresan completos antes de la fecha límite',
-          who: 'Oficina principal, enfermería escolar',
-        },
-        {
-          pain: 'Familias difíciles de contactar',
-          does: 'Funciona por texto, en español, alrededor de los turnos de trabajo; pide la opción de noche o por teléfono',
-          who: 'Personal de Título I y de participación familiar',
-        },
-        {
-          pain: 'Llegadas tarde por logística',
-          does: 'Las familias se organizan para recoger en sus propios círculos, para que haya menos días de "nadie pudo llevarlos"',
-          who: 'Personal de asistencia y transporte',
-        },
-        {
-          pain: 'Programas que nadie reclama',
-          does: 'Solicitudes de comidas entregadas; lugares en programas después de clases encontrados y apartados',
-          who: 'Servicios de nutrición, programas después de clases',
-        },
+        ['Asistencia diaria', 'El número real de faltas de su hijo, a tiempo y con apoyo'],
+        ['Las reglas de enfermería', 'Una respuesta clara en las mañanas de enfermedad'],
+        ['Calendario y rutas de camión', 'Salidas tempranas y cambios de ruta, sin llamarte'],
+        ['Directorio de oficinas y personal', 'Cada solicitud a la persona correcta, con el estudiante ya identificado'],
+        ['Lista de estudiantes con teléfonos de las familias', 'Una invitación de su propia escuela, y siempre el niño correcto'],
       ],
+      ruleTitle: 'La información va hacia las familias, no sale de ellas.',
+      ruleBody:
+        'Tus datos ayudan a cada familia con su propio hijo. Sus conversaciones con Axolotl nunca regresan a ti, a menos que decidan enviarte algo. Tu personal ve patrones, nunca personas.',
+      start:
+        'Se empieza con un archivo nocturno, no con un proyecto de integración, bajo un acuerdo de privacidad estudiantil.',
     },
     never: {
       h2: 'Lo que Axolotl nunca va a hacer.',
@@ -799,18 +873,21 @@ export default {
     },
     pilot: {
       h2: 'Un piloto juntos.',
-      lead: 'Una escuela, un grupo de familias, y tu personal haciendo oficiales las primeras rutas.',
+      lead: 'Una escuela, un semestre, y un número de antes en el que puedas confiar.',
+      baselineTitle: 'Empezamos contando.',
+      baseline:
+        'Antes de lanzar nada, pasamos un día en tu oficina contando lo que toma tiempo: llamadas, formularios perseguidos, solicitudes reenviadas, preguntas repetidas. Ese es tu número de antes.',
       measuresLabel: 'Lo que mediríamos',
       measures: [
-        'Porcentaje de solicitudes que llegaron a la oficina correcta a la primera.',
-        'Días para resolver una solicitud de derechos o servicios.',
+        'Idas y vueltas por solicitud, contra el número de antes.',
+        'Ausentismo crónico entre las familias invitadas, comparado con las familias invitadas después.',
+        'Solicitudes que llegaron a la oficina correcta a la primera.',
         'Porcentaje de formularios entregados a tiempo, comparado con el año pasado.',
-        'Preguntas de rutina contestadas sin que intervenga el personal.',
       ],
       consent:
-        'Siempre con el consentimiento de las familias. Las familias deciden unirse, y pueden salir cuando quieran. Nada que instalar: Axolotl empieza con lo que tu escuela ya publica.',
+        'Siempre con el consentimiento de las familias. Las familias deciden unirse, y pueden salir cuando quieran.',
       integration:
-        'Si tu distrito quiere una integración más profunda, primero hacen falta el consentimiento explícito de las familias y un acuerdo de privacidad estudiantil.',
+        'Conectar datos de asistencia o de la lista de estudiantes requiere primero un acuerdo de privacidad estudiantil firmado.',
       guardrail:
         'Ningún número de resultados hasta que un piloto produzca números reales. Los números en esta página son ejemplos. Vamos a publicar lo que medimos, incluso lo que no funcione.',
     },
