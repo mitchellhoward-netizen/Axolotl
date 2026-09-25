@@ -20,7 +20,7 @@ export default {
   locale: 'en_US',
 
   meta: {
-    title: 'Axolotl: every family deserves an agent for school.',
+    title: 'Axolotl: every parent deserves an agent for school.',
     description:
       'Axolotl is your family\'s agent for school, by text. It reads what school sends, handles the forms and pickups, and gets your kid the help they qualify for. Nothing goes out without your yes.',
     shareAlt:
@@ -79,7 +79,7 @@ export default {
     morning: {
       time: '7:15 AM',
       label: 'A school day',
-      h1Plain: 'Every family deserves',
+      h1Plain: 'Every parent deserves',
       h1Em: 'an agent.',
     },
     inbox: {
@@ -267,7 +267,7 @@ export default {
   },
 
   hero: {
-    h1: 'Every family deserves an agent.',
+    h1: 'Every parent deserves an agent.',
     sub: 'Axolotl is your family\'s agent for school. It reads what school sends, handles the forms and pickups, and gets your kid the help they qualify for. Just text. Nothing goes out without your yes.',
     primary: 'Join the pilot',
     secondary: 'See how it works',
@@ -583,7 +583,7 @@ export default {
 
   schoolsBand: {
     h2: 'For schools and districts.',
-    body: 'Axolotl helps your families keep up: forms back before the deadline, questions answered from your own information, and requests that arrive complete, in writing and to the right office. Nothing to install.',
+    body: "Parents are writing to school with AI now. Axolotl gives it a front door: requests arrive short, complete and at the right office, routine questions are answered from your own information, and your staff decides the official way things get done. Nothing to install.",
     link: 'How Axolotl works with schools',
   },
 
@@ -638,28 +638,130 @@ export default {
     meta: {
       title: 'Axolotl for schools and districts',
       description:
-        'Axolotl helps parents handle what school asks of them, by text. Your staff gets complete forms, clear requests and fewer repeat questions. Nothing to install.',
+        "Parents are writing to school with AI. Axolotl is the front door your staff controls: requests arrive short, complete and at the right office, routine questions are answered from your own information, and your staff decides the official way things get done.",
       shareAlt: 'A manila folder of school tasks with a Confirmed stamp on the first row.',
     },
     hero: {
-      h1: 'Families who can finally keep up.',
-      sub: 'Axolotl helps parents handle what school asks of them, by text, in English or Spanish. Your staff gets complete forms, clear requests and fewer repeat questions. Nothing to install.',
+      eyebrow: 'For schools and districts',
+      h1Plain: 'Parents’ AI is already writing to you.',
+      h1Em: 'Give it a front door.',
+      sub: 'More parents now draft school emails with an AI assistant. Axolotl is the front door your staff controls: every request arrives short, complete and at the right office, routine questions are answered from your own information, and your staff decides the official way things get done.',
       primary: 'Talk to us about a pilot',
+      secondary: 'See the difference',
+    },
+    door: {
+      h2Plain: 'Same parent, same need.',
+      h2Em: 'One you can act on.',
+      lead: 'A parent worried about their daughter’s speech asks an AI for help. Without a front door, you get a legal letter sent to everyone on the thread. Through Axolotl, the right office gets one request it can act on today.',
+      example: 'Example',
+      before: {
+        label: 'Without a front door',
+        to: 'To: Principal · Cc: Superintendent, School Board',
+        subject: 'FORMAL REQUEST pursuant to IDEA, Section 504 and FERPA',
+        body: 'Dear Principal Ruiz, I am writing to formally request, pursuant to the Individuals with Disabilities Education Act (20 U.S.C. § 1400 et seq.) and Section 504 of the Rehabilitation Act of 1973, a comprehensive multidisciplinary evaluation of my child in all areas of suspected disability, and I further request that you preserve all records…',
+        foot: ['1,380 words', '3 laws cited', 'No grade or classroom', 'Sent to the principal'],
+      },
+      after: {
+        label: 'Through Axolotl',
+        to: 'To: Special education coordinator',
+        rows: [
+          ['Request', 'Evaluation for speech and language'],
+          ['Student', 'Maya R., grade 2, Room 12'],
+          ['What the parent sees', 'Hard to understand at times; gets upset reading aloud.'],
+          ['Attached', 'Signed consent to evaluate'],
+          ['Parent prefers', 'Text, in Spanish, after 5 PM'],
+        ],
+        sent: "Sent with the parent's yes · 7:42 PM",
+        foot: ['64 words', 'One office', 'Ready to act on'],
+      },
+      tensionTitle: 'The requests are coming either way.',
+      tensionBody:
+        'Evaluations, accommodations, rides and records are obligations your school already has, and AI makes them easier than ever to ask for. The choice is not whether they arrive. It is whether they arrive as long letters to the wrong person or as one complete request to the office that can resolve it.',
+    },
+    paths: {
+      h2Plain: 'Your staff decides',
+      h2Em: 'how things get done.',
+      lead: 'A path is the official way to get one thing done at your school: what the family sends, which office handles it, and when they hear back. Axolotl learns paths from real families. Your staff makes them official.',
+      steps: [
+        { tag: 'Learned', text: 'Axolotl sees what actually worked for families at your school: which form, which office, what came back.' },
+        { tag: 'Blessed', text: 'Someone on your staff reviews the path, fixes what is wrong, and makes it official with one reply.' },
+        { tag: 'Followed', text: 'Every family after that is walked through the official way, in their language, with an honest wait time.' },
+      ],
+      card: {
+        eyebrow: 'Example · Lincoln Elementary',
+        version: 'Path v3',
+        title: 'Enroll a student mid-year',
+        doLabel: 'The family sends',
+        doText: 'Proof of address, birth certificate and shot record, in one packet. Phone photos are fine.',
+        happensLabel: 'Your office',
+        happensText: 'The registrar gets one complete packet and confirms a start date within two school days.',
+        stats: [
+          { v: '48', l: 'families used it' },
+          { v: '2 days', l: 'promised reply' },
+          { v: '0', l: 'sent to the wrong office' },
+        ],
+        neverLabel: 'Never asks for:',
+        neverText: "immigration status or a Social Security number. Your school can't require either to enroll.",
+        stamp: { top: 'Official', name: ['Registrar', 'Okafor'], date: 'Aug 2026' },
+        stampAlt: 'Made official by Registrar Okafor, August 2026',
+      },
+    },
+    staff: {
+      h2Plain: 'No dashboard to learn.',
+      h2Em: 'Just text it.',
+      lead: 'Principals, registrars and teachers use Axolotl the way parents do: by text. Ask what families are stuck on, fix a path in plain words, or describe a new one and approve what it writes.',
+      threadLabel: 'A registrar, texting Axolotl',
+      thread: [
+        { from: 'staff', text: 'What are families stuck on this week?' },
+        { from: 'axolotl', text: 'Enrollment: 6 families didn’t know what counts as proof of address. Everything else was answered from your Monday notice.' },
+        { from: 'staff', text: 'A lease or any utility bill works. Add that.' },
+        { from: 'axolotl', text: 'Done, the enrollment path is v4. Want me to tell those 6 families?' },
+        { from: 'staff', text: 'Yes please.' },
+      ],
+      brief: {
+        eyebrow: 'Monday brief · Lincoln Elementary',
+        example: 'Example',
+        rows: [
+          { v: '31', l: 'routine questions answered from your own information', note: 'Bus, calendar, what to bring' },
+          { v: '14', l: 'families asked about the Route 9 change', note: 'Answered from your notice' },
+          { v: '6', l: 'families stuck on proof of address', note: 'Path updated to v4' },
+        ],
+        foot: 'Patterns, not people. The brief never shows who asked or what they said.',
+      },
+    },
+    network: {
+      h2Plain: 'Every family makes it easier',
+      h2Em: 'for the next one.',
+      lead: 'Each request that works teaches a path. Each path your staff makes official helps every family after it. Across a district, the paths add up to the manual for how your schools actually work.',
+      items: [
+        { h: 'For families', p: 'The right way, the first time, in their own language.' },
+        { h: 'For your staff', p: 'Fewer repeat questions, fewer requests to re-route, and a weekly view of where families get stuck.' },
+        {
+          h: 'For every AI',
+          p: 'Your official paths, published so any assistant a parent uses, not just Axolotl, sends a complete request to the right office.',
+        },
+      ],
+      note: 'Your paths stay yours. Your staff decides what is published, and can change or retire a path at any time.',
     },
     changes: {
       h2: 'What changes for your staff.',
-      lead: "Axolotl helps your families keep up, without adding anything to your staff's plate.",
+      lead: 'Families keep up, and requests arrive the way your offices need them.',
       head: ['Today', 'With Axolotl', 'Who benefits'],
       rows: [
+        {
+          pain: 'Long AI-written requests to the wrong person',
+          does: 'One short request with what the office needs, routed to transportation, the McKinney-Vento liaison, special education or the registrar',
+          who: 'Principals, liaisons, special education',
+        },
+        {
+          pain: 'Repeat routine questions',
+          does: "Answered from your school's own published information first: bus, calendar, what to bring",
+          who: 'Front office, teachers',
+        },
         {
           pain: 'Forms and deadlines missed',
           does: 'Parents see the one thing that matters; forms come back complete before the deadline',
           who: 'Front office, school nurse',
-        },
-        {
-          pain: 'Repeat routine questions',
-          does: "Answers from the school's own published information first: bus, calendar, what to bring",
-          who: 'Front office, teachers',
         },
         {
           pain: 'Hard-to-reach families',
@@ -667,13 +769,8 @@ export default {
           who: 'Title I and family engagement staff',
         },
         {
-          pain: 'Requests that arrive messy',
-          does: 'Rights and services requests arrive in writing, complete, dated and routed to transportation, the McKinney-Vento liaison or special education',
-          who: 'Liaisons, special education, transportation',
-        },
-        {
-          pain: 'Late arrivals and absences caused by logistics',
-          does: 'Coverage plans now, circles soon, so fewer "no one could get them" days',
+          pain: 'Late arrivals caused by logistics',
+          does: 'Parents coordinate pickups in their own circles, so there are fewer "no one could get them" days',
           who: 'Attendance and transportation staff',
         },
         {
@@ -683,26 +780,16 @@ export default {
         },
       ],
     },
-    how: {
-      h2: 'How it works with your school.',
-      lead: 'Nothing to install at the start. Axolotl reads what your school already sends and replies through your normal channels.',
-      items: [
-        'It reads what you already send: the weekly update, the calendar, the notice home.',
-        'It replies through your normal channels, so your staff does not learn a new system.',
-        'It routes a request to the right office instead of the front desk.',
-        'It counts something as done only when your staff confirms it.',
-      ],
-      tensionTitle: 'More requests will arrive, not fewer.',
-      tensionBody:
-        'Evaluations, accommodations and rides are obligations your school already has. Axolotl makes them arrive complete, in writing and routed correctly, so they take less staff time to resolve than the same request made over three phone calls.',
-      integration:
-        'If your district ever wants a deeper integration, it needs explicit parent consent and a student-privacy agreement first. Until then, Axolotl only uses what families choose to forward.',
-    },
     never: {
       h2: 'What Axolotl will never do.',
       items: [
-        { title: 'Report on families.', body: 'Your staff sees only what a parent chooses to send.' },
+        { title: 'Report on families.', body: 'Your staff sees only what a parent chooses to send. The brief shows patterns, never people.' },
         { title: 'Sell data.', body: 'Not to vendors, not to advertisers, not to anyone.' },
+        { title: 'Make a path official on its own.', body: 'It can suggest a path. Only your staff can make one official.' },
+        {
+          title: 'Make up an answer.',
+          body: 'Routine answers come from your own published information. When it is not sure, it says so and routes the question.',
+        },
         {
           title: 'Replace your staff or your obligations.',
           body: 'It helps families use what your school already offers.',
@@ -719,23 +806,27 @@ export default {
       items: [
         'English and Spanish, written for a plain reading level.',
         'Works around shifts, and asks for the evening or phone option instead of a mid-morning meeting.',
+        'A family that has never written a formal letter gets the same complete, well-routed request as one with a lawyer.',
         'Circles are never required. A family with no one to trade pickups with gets the full help.',
         'Supports your Title I engagement goals: flexible times, a language parents understand, and a yearly look at what worked.',
       ],
     },
     pilot: {
       h2: 'A pilot together.',
-      lead: 'A small group of families, one school, and something you can actually measure.',
+      lead: 'One school, a group of families, and your staff making the first paths official.',
       measuresLabel: "What we'd measure",
       measures: [
-        'On-time return rate for forms, against last year.',
+        'Share of requests that reached the right office the first time.',
         'Days to resolve a rights or services request.',
-        'Conference and meeting participation among pilot families.',
+        'On-time return rate for forms, against last year.',
+        'Routine questions answered without a staff member.',
       ],
       consent:
-        'Always with family consent. Families choose to join, and a family can leave at any time.',
+        'Always with family consent. Families choose to join, and a family can leave at any time. Nothing to install: Axolotl starts from what your school already publishes.',
+      integration:
+        'If your district ever wants a deeper integration, it needs explicit parent consent and a student-privacy agreement first.',
       guardrail:
-        'No outcome numbers until a pilot produces real ones. We will publish what we measure, including the parts that do not work.',
+        'No outcome numbers until a pilot produces real ones. The numbers on this page are examples. We will publish what we measure, including the parts that do not work.',
     },
     form: {
       h2: 'Talk to us about a pilot.',
