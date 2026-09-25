@@ -163,7 +163,8 @@ export async function provisionFamilyInbox(input: ProvisionInput): Promise<Provi
     address,
     domains,
     hasMailingAddress: Boolean(row?.mailing_address ?? existing?.mailing_address),
-    detail: row ? (inboundDomain ? undefined : 'INBOUND_DOMAIN is not set on this deployment, so there is no address to hand out yet') : 'could not save the inbox row',
+    // No inbound domain is the more basic problem, so it is named even when the save also failed.
+    detail: !inboundDomain ? 'INBOUND_DOMAIN is not set on this deployment, so there is no address to hand out yet' : row ? undefined : 'could not save the inbox row',
   };
 }
 
