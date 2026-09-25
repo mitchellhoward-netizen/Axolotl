@@ -1,0 +1,67 @@
+name: Render phone art
+
+# The homepage's phone screens are rendered device images (scripts/build-phone.mjs), built
+# inside Apple's official iPhone bezel and set in SF Pro. Both are downloaded from Apple at
+# build time and never committed, so the art has to be rendered somewhere with ordinary
+# internet access. This runs that build on a GitHub runner whenever a Claude branch changes
+# the conversation copy, and commits the finished images back to the branch.
+#
+# A push made with GITHUB_TOKEN does not start another workflow, so this cannot loop. It
+# also means CI does not run on the render commit itself; the next push to the branch runs it.
+on:
+  push:
+    branches: ['claude/**']
+    paths:
+      - 'tools/site/strings.en.mjs'
+      - 'tools/site/strings.es.mjs'
+      - 'tools/site/phone-screen.html'
+      - 'scripts/build-phone.mjs'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: render-phones-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - name: Tools the renderer shells out to
+        run: |
+          sudo apt-get update -q
+          sudo apt-get install -y -q p7zip-full
+          python3 -m pip install --quiet pillow
+      - name: Skip when the art already matches the copy
+        id: fresh
+        run: |
+          if npm run --silent check:phone; then echo "stale=false" >> "$GITHUB_OUTPUT"; else echo "stale=true" >> "$GITHUB_OUTPUT"; fi
+      - name: Render the phones and rebuild the pages that point at them
+        if: steps.fresh.outputs.stale == 'true'
+        run: |
+          npm run build:phone
+          npm run build:site
+          npm run check:phone
+          npm run check:site
+      - name: Commit the renders
+        if: steps.fresh.outputs.stale == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git add public/*.webp tools/site/phone.lock.json public/*.html public/es/*.html
+          if git diff --cached --quiet; then
+            echo "Nothing to commit."
+          else
+            git commit -m "chore(site): re-render the phone art for the new conversation copy"
+            git push
+          fi
