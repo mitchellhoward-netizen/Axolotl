@@ -5,6 +5,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { serveWorld } from '../testworld/world.js';
 import { resolveReviewToken } from './review-links.js';
+import { verifyState } from '../lib/signed-state.js';
 import { addSignup, confirmationText, parseSignup } from './waitlist.js';
 import { handleInquiry } from './inquiry.js';
 import { createSmsSender, normalizeE164 } from './sms.js';
@@ -262,10 +263,11 @@ export function startWebServer(
       }
       if (req.method === 'GET' && url.pathname === '/oauth/gmail/callback') {
         const code = url.searchParams.get('code') ?? '';
-        const guardianId = url.searchParams.get('state') ?? '';
+        // Only a link we issued, still in date, can say which family this account joins.
+        const guardianId = verifyState(url.searchParams.get('state') ?? '') ?? '';
         if (!code || !guardianId) {
           res.writeHead(400, { 'Content-Type': 'text/plain' });
-          res.end('Missing code or state.');
+          res.end('This connect link is invalid or has expired. Ask Axolotl for a fresh one.');
           return;
         }
         try {
@@ -282,7 +284,7 @@ export function startWebServer(
           res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
           res.end(
             '<html><body style="font-family:sans-serif"><h2>✅ Email connected</h2>' +
-              `<p>${email ?? 'Your Gmail'} is now linked to Axolotl. The agent can send to the school as you (you always approve each message). ` +
+              `<p>${email ?? 'Your Gmail'} is now linked to Axolotl. If you turned on school-email monitoring, Axolotl checks for new mail from your school every few minutes and texts you only what needs doing. It can also send to the school as you — you approve every message. ` +
               'You can close this tab and go back to iMessage.</p></body></html>',
           );
         } catch (e) {

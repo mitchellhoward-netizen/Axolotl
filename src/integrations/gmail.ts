@@ -2,6 +2,7 @@ import 'dotenv/config';
 import type { EmailMessage, EmailProvider, EmailReceipt } from './email.js';
 import { getSupabase } from './db.js';
 import { SecretBox, secretBox } from '../lib/secret-box.js';
+import { signState } from '../lib/signed-state.js';
 
 /**
  * Gmail (Google Workspace / personal Gmail) email integration for sending FROM
@@ -51,8 +52,12 @@ export function buildGmailAuthUrl(state?: string, redirectUri?: string): string 
   return `https://accounts.google.com/o/oauth2/v2/auth?${params.toString()}`;
 }
 
-/** The tap-able connect link to hand a parent (state = their guardian id). */
+/** The tap-able connect link to hand a parent. The state is their guardian id, SIGNED and
+ * expiring (see lib/signed-state.ts): the callback only accepts a link we issued. Without a
+ * signing key there is no link, rather than an unsigned one. */
 export function gmailConnectUrl(guardianId: string): string {
+  const state = signState(guardianId, 24 * 60 * 60 * 1000);
+  if (!state) throw new Error('Email connection is unavailable: the signing key is not configured.');
   let host =
     process.env.RAILWAY_PUBLIC_DOMAIN ||
     process.env.GOOGLE_REDIRECT_URI?.replace(/\/oauth\/gmail\/callback$/, '') ||
@@ -60,7 +65,7 @@ export function gmailConnectUrl(guardianId: string): string {
   // RAILWAY_PUBLIC_DOMAIN is a bare hostname; without the scheme iMessage won't
   // auto-link it. Always emit a full https:// URL.
   if (!/^https?:\/\//i.test(host)) host = `https://${host}`;
-  return `${host}/oauth/gmail?state=${encodeURIComponent(guardianId)}`;
+  return `${host}/oauth/gmail?state=${encodeURIComponent(state)}`;
 }
 
 /** Exchange an authorization code for access + refresh tokens. */

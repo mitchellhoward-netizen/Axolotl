@@ -87,6 +87,44 @@ export function authVerdicts(auth: unknown): { spf?: string; dkim?: string; dmar
   return out;
 }
 
+/**
+ * Where school mail actually comes from. Many schools send almost nothing from their own
+ * domain: announcements, teacher messages and sign-ups arrive through these platforms. A
+ * family's school domains are always accepted too. Extend with EMAIL_PLATFORM_SENDERS
+ * (comma-separated domains).
+ */
+export const SCHOOL_PLATFORM_SENDERS = [
+  'parentsquare.com',
+  'classdojo.com',
+  'remind.com',
+  'seesaw.me',
+  'konstella.com',
+  'schoology.com',
+  'powerschool.com',
+  'infinitecampus.com',
+  'infinitecampus.org',
+  'schoolmessenger.com',
+  'bloomz.net',
+  'signupgenius.com',
+  'membershiptoolkit.com',
+  'schoolcash.net',
+  'myschoolbucks.com',
+];
+
+function platformSenders(): string[] {
+  const extra = (process.env.EMAIL_PLATFORM_SENDERS ?? '').split(',').map((d) => d.trim().toLowerCase()).filter(Boolean);
+  return [...SCHOOL_PLATFORM_SENDERS, ...extra];
+}
+
+const underDomain = (host: string, domain: string) => host === domain || host.endsWith(`.${domain}`);
+
+/** Is this sender the family's school (or a subdomain of it), or a school platform? */
+export function isSchoolSender(fromDomain: string, schoolDomains: string[] = []): boolean {
+  const host = fromDomain.toLowerCase();
+  if (!host) return false;
+  return [...schoolDomains.map((d) => d.toLowerCase()), ...platformSenders()].some((d) => d && underDomain(host, d));
+}
+
 /** Stable dedupe key when the mail has no Message-ID (very rare). */
 export function deriveMessageId(p: InboundEmailPayload): string {
   const headerId = p.headers?.['message-id'] ?? p.headers?.['Message-ID'];
@@ -171,8 +209,7 @@ export function evaluateInbound(
   const localPart = localPartOf(payload.to);
   if (!localPart || !fromDomain) return 'missing to/from';
   if (!inbox.monitoring_consented_at) return 'no monitoring consent';
-  const allowed = (inbox.school_domains ?? []).map((d) => d.toLowerCase());
-  if (!allowed.includes(fromDomain)) return 'sender domain not allowed';
+  if (!isSchoolSender(fromDomain, inbox.school_domains ?? [])) return 'sender domain not allowed';
   const auth = authVerdicts(payload.auth_results);
   if (auth.spf !== 'pass' || auth.dkim !== 'pass' || auth.dmarc === 'fail') {
     return `auth failed (spf=${auth.spf ?? '?'} dkim=${auth.dkim ?? '?'} dmarc=${auth.dmarc ?? '?'})`;
@@ -180,33 +217,51 @@ export function evaluateInbound(
   return null;
 }
 
+/** Where triaged mail is stored. Swappable so the pipeline can be tested without a database. */
+export interface TriageSink {
+  exists: (messageId: string) => Promise<boolean>;
+  insert: (row: Omit<IncomingEmailRow, 'id'>) => Promise<IncomingEmailRow | null>;
+}
+const defaultSink: TriageSink = { exists: emailExists, insert: insertIncomingEmail };
+
 /**
  * The full pipeline for one inbound email. Every guard returns a NON-throwing status so
  * the webhook can always answer 200 (and never leak whether an address exists).
  */
 export async function handleInboundEmail(payload: InboundEmailPayload, llm?: LlmClient): Promise<TriageResult> {
-  const to = payload.to;
-  const from = payload.from ?? '';
-  const fromDomain = domainOf(from);
-  const localPart = localPartOf(to);
-  if (!localPart || !fromDomain) return { status: 'dropped', detail: 'missing to/from' };
-
-  // 1. Resolve the family + their consent + allowlist (+ spoofing guard).
+  const localPart = localPartOf(payload.to);
+  if (!localPart || !domainOf(payload.from)) return { status: 'dropped', detail: 'missing to/from' };
   const inbox = await getFamilyInboxByLocalPart(localPart);
   if (!inbox) return { status: 'dropped', detail: 'unknown recipient' };
   const guard = evaluateInbound(payload, inbox);
   if (guard) return { status: 'dropped', detail: guard };
-  // 3. Dedupe on Message-ID (unique constraint is the real guarantee).
-  const messageId = deriveMessageId(payload);
-  if (await emailExists(messageId)) return { status: 'duplicate' };
+  return triageForFamily(inbox.family_id, payload, llm);
+}
 
-  // 4. Classify + extract (never store the raw body).
+/**
+ * Dedupe, classify and store one email that already passed its source's guards (the
+ * forwarding webhook's, or the Gmail reader's). Shared so both sources behave identically,
+ * and so the same email arriving both ways is stored once (Message-ID is the key).
+ */
+export async function triageForFamily(
+  familyId: string,
+  payload: InboundEmailPayload,
+  llm?: LlmClient,
+  sink: TriageSink = defaultSink,
+): Promise<TriageResult> {
+  const from = payload.from ?? '';
+  const fromDomain = domainOf(from);
+  // Dedupe on Message-ID (unique constraint is the real guarantee).
+  const messageId = deriveMessageId(payload);
+  if (await sink.exists(messageId)) return { status: 'duplicate' };
+
+  // Classify + extract (never store the raw body).
   const subject = payload.subject ?? '';
   const text = payload.text ?? (payload.html ? payload.html.replace(/<[^>]+>/g, ' ') : '');
   const cls = await classifyEmail({ subject, text, fromDomain }, llm);
 
-  const inserted: IncomingEmailRow | null = await insertIncomingEmail({
-    family_id: inbox.family_id,
+  const inserted: IncomingEmailRow | null = await sink.insert({
+    family_id: familyId,
     message_id: messageId,
     from_domain: fromDomain,
     from_address: (from.match(/<([^>]+)>/)?.[1] ?? from).trim().toLowerCase() || null,
@@ -218,9 +273,9 @@ export async function handleInboundEmail(payload: InboundEmailPayload, llm?: Llm
   });
   if (!inserted) return { status: 'duplicate' };
 
-  // 5. Urgent → surface immediately (else the digest pass picks it up).
+  // Urgent → surface immediately (else the digest pass picks it up).
   if (cls.urgency === 'now' && urgentHandler) {
-    void urgentHandler(inbox.family_id).catch((e) => console.warn('[email] urgent handler failed:', (e as Error)?.message ?? e));
+    void urgentHandler(familyId).catch((e) => console.warn('[email] urgent handler failed:', (e as Error)?.message ?? e));
   }
   return { status: 'ok', emailId: inserted.id, urgency: cls.urgency };
 }

@@ -42,6 +42,7 @@ import { saveSkill, listSkills, skillSummary } from './skills.js';
 import { makeSkillKey, type Skill } from '../domain/skill.js';
 import { z } from 'zod';
 import { personalPlanSchema, type LifeTools } from './personal.js';
+import { getGmailToken, gmailConnectUrl } from '../integrations/gmail.js';
 import { familyInfoPatch, familyInfoLine, formValuesFor, missingBasics, childFor, FAMILY_INFO_TOOL_PROPERTIES, CHILD_TOOL_PROPERTIES } from './family-info.js';
 
 export interface ToolDeps {
@@ -316,13 +317,12 @@ export const LLM_TOOLS = [
     type: 'function',
     function: {
       name: 'monitor_school_email',
-      description: 'Set up school-email monitoring for the family: gives them a private forwarding address and starts triaging mail forwarded from their school. Use when the parent wants help staying on top of school emails. Requires their OK (it is a consent step). Pass school_domains = the school/district email domains to accept (e.g. ["suesd.org"]).',
+      description: 'Turn on school-email monitoring: I read NEW mail from the school (their school/district domains plus school platforms like ParentSquare, ClassDojo and Remind) and text the parent only what needs doing. With Google connected I read their Gmail directly; otherwise it returns a one-tap connect link (or, where set up, a forwarding address). Call it once the parent says yes to monitoring. Pass school_domains when you know them (from the school or district website, e.g. ["suesd.org"]); platforms are always included.',
       parameters: {
         type: 'object',
         properties: {
-          school_domains: { type: 'array', items: { type: 'string' }, description: 'School/district sender domains to accept' },
+          school_domains: { type: 'array', items: { type: 'string' }, description: 'School/district sender domains, e.g. ["suesd.org"]' },
         },
-        required: ['school_domains'],
       },
     },
   },
@@ -967,26 +967,35 @@ export async function runTool(name: string, args: Record<string, unknown>, deps:
       const familyId = deps.familyId;
       if (!familyId) return "I couldn't identify the family account for that.";
       const domains = (Array.isArray(args.school_domains) ? (args.school_domains as unknown[]) : [])
-        .map((d) => String(d).trim().toLowerCase().replace(/^@/, ''))
-        .filter(Boolean);
-      if (!domains.length) return 'I need the school/district email domain(s) to accept (e.g. "suesd.org").';
-      const domain = process.env.INBOUND_DOMAIN;
-      if (!domain) return "Email monitoring isn't set up on my side yet.";
+        .map((d) => String(d).trim().toLowerCase().replace(/^@/, '').replace(/^https?:\/\//, '').replace(/\/.*$/, '').replace(/^www\./, ''))
+        .filter((d) => /^[a-z0-9.-]+\.[a-z]{2,}$/.test(d));
+      const google = Boolean(process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET);
+      const inboundDomain = process.env.INBOUND_DOMAIN;
+      if (!google && !inboundDomain) return "Email monitoring isn't set up on my side yet.";
       const existing = await getFamilyInbox(familyId);
-      const localPart = existing?.local_part ?? makeLocalPart(deps.studentName ?? deps.profile?.children?.[0]?.name);
+      const merged = [...new Set([...(existing?.school_domains ?? []), ...domains])];
       const row = await upsertFamilyInbox({
         family_id: familyId,
-        local_part: localPart,
-        school_domains: domains,
-        monitoring_consented_at: new Date().toISOString(),
+        local_part: existing?.local_part ?? makeLocalPart(deps.studentName ?? deps.profile?.children?.[0]?.name),
+        school_domains: merged,
+        monitoring_consented_at: existing?.monitoring_consented_at ?? new Date().toISOString(),
       });
       if (!row) return "I couldn't save that — try again in a moment.";
-      void logConsent(familyId, 'email_monitoring', { domains });
-      const addr = `${row.local_part}@${domain}`;
+      void logConsent(familyId, 'email_monitoring', { domains: merged, source: google ? 'gmail' : 'forwarding' });
+      const from = merged.length ? `${merged.join(', ')} and school apps like ParentSquare, ClassDojo and Remind` : 'school apps like ParentSquare, ClassDojo and Remind (tell me your school\u2019s email domain and I\u2019ll add it)';
+      const promise = 'I keep a short summary and what needs doing — never the full email — and text you only what needs action. Say "stop email monitoring" anytime and I delete it all.';
+      if (google) {
+        const connected = Boolean((await getGmailToken(familyId).catch(() => undefined))?.refreshToken);
+        if (connected) return `Done — I'm now checking your Gmail every few minutes for mail from ${from}, starting with the last few days. ${promise}`;
+        let link = '';
+        try { link = gmailConnectUrl(familyId); } catch { /* no signing key */ }
+        if (link) return `One tap to finish: connect your Gmail here so I can read school mail (read-only for this; I never send without your OK):\n${link}\n\nThen I'll check every few minutes for mail from ${from}. ${promise}`;
+        if (!inboundDomain) return "Connecting Gmail isn't available right now — it isn't set up on my side yet.";
+      }
+      const addr = `${row.local_part}@${inboundDomain}`;
       return (
         `You're set. I'll only see school emails you forward to:\n${addr}\n\n` +
-        `To set it up: in Gmail, Settings → Filters and Blocked Addresses → Create a filter → From: ${domains.join(' OR ')} → Forward to: ${addr}. ` +
-        `I keep a short summary and what needs doing — never the full email — and only from ${domains.join(', ')}. Say "stop email monitoring" anytime to delete it all.`
+        `To set it up: in Gmail, Settings → Filters and Blocked Addresses → Create a filter → From: ${merged.join(' OR ') || 'your school'} → Forward to: ${addr}. ${promise}`
       );
     }
     case 'stop_email_monitoring': {

@@ -12,6 +12,7 @@ import { chatModel, smallModel } from "./agent/model-policy";
 import { sendBubbles } from "./agent/bubbles";
 import { recordProcessedMessage } from "./integrations/dedupe.js";
 import { setFillCompleteHandler, setFillStillWorkingHandler, startFillPoller } from "./integrations/skyvern.js";
+import { startGmailIngest } from "./integrations/email-triage/gmail-ingest.js";
 import { fillFailureMessage, fillStillWorkingMessage } from "./agent/tools.js";
 // Register connectors at startup (side effect): the parent-portal connector.
 import "./integrations/connections/parentPortal.js";
@@ -184,6 +185,10 @@ setFillCompleteHandler(async (info) => {
 // run has reached a terminal state (and send a gentle "still working" notice on a slow one).
 // Runs on a timer; never imposes a short timeout.
 startFillPoller();
+
+// Read school mail straight from connected Gmail inboxes (families who turned monitoring on),
+// into the same triage + digest as forwarded mail. Off unless Google OAuth is configured.
+startGmailIngest(researchLlm);
 
 // A fill that runs long (e.g. past ~20 min): the parent told them "On it", so send ONE
 // gentle reassurance that it's still going, never a second request to do anything.

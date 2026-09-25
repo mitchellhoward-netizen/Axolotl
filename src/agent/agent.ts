@@ -499,8 +499,12 @@ export class Agent {
       // Connect the parent's Gmail (send-as-parent) — a simple, always-available
       // command: "/connect" or "connect my email/gmail".
       if (/^(?:\/?connect|connect (my )?(email|gmail)|link (my )?(email|gmail))\b/i.test(text.trim())) {
+        let link = '';
+        try { link = gmailConnectUrl(parentId); } catch { /* no signing key: say so, never an unsigned link */ }
         return {
-          text: `To let me email the school as you, connect your Gmail here (one tap):\n${gmailConnectUrl(parentId)}\n\nI'll always show you the exact message and get your OK before I send anything.`,
+          text: link
+            ? `Connect your Gmail here (one tap):\n${link}\n\nOnce it's connected I can send to the school as you — I always show you the exact message and get your OK first — and, if you turn on school-email monitoring, I'll read new mail from the school and tell you only what needs doing.`
+            : "Connecting email isn't available right now — it isn't set up on my side yet.",
           phase: 'done',
         };
       }

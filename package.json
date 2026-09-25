@@ -60,6 +60,7 @@
     "reset:conversations": "tsx scripts/reset-conversations.ts",
     "test:skyvern": "tsx scripts/test-skyvern.ts",
     "test:fill-pipeline": "tsx scripts/test-fill-pipeline.ts",
+    "test:gmail-ingest": "tsx scripts/test-gmail-ingest.ts",
     "test:privacy": "tsx scripts/test-privacy.ts",
     "test:triage": "tsx scripts/test-triage.ts",
     "test:world": "tsx scripts/test-world.ts",
