@@ -128,6 +128,18 @@ async function sevenZip(args) {
   });
 }
 
+/** Every path under dir, relative, for error messages. */
+async function listTree(dir, base = dir) {
+  const out = [];
+  if (!existsSync(dir)) return out;
+  for (const entry of await readdir(dir, { withFileTypes: true })) {
+    const full = path.join(dir, entry.name);
+    out.push(path.relative(base, full) + (entry.isDirectory() ? '/' : ''));
+    if (entry.isDirectory()) out.push(...(await listTree(full, base)));
+  }
+  return out.slice(0, 80);
+}
+
 /** Depth-first search for the first file (or directory) matching `test(name, fullPath)`. */
 async function findFile(dir, test) {
   if (!existsSync(dir)) return undefined;
@@ -225,8 +237,11 @@ async function ensureSfPro() {
   const pkg = await findFile(`${sf}/dmg`, (f) => f.endsWith('.pkg'));
   if (!pkg) throw new Error('no .pkg inside the SF Pro image');
   await sevenZip(['x', '-y', `-o${sf}/pkg`, pkg]);
-  const payload = await findFile(`${sf}/pkg`, (f, full) => path.basename(full) === 'Payload' && full.includes('SFPro'));
-  if (!payload) throw new Error('no Payload inside the SF Pro package');
+  const payload = await findFile(`${sf}/pkg`, (f) => /^Payload/.test(f));
+  if (!payload) {
+    const listing = await listTree(`${sf}/pkg`);
+    throw new Error(`no Payload inside the SF Pro package; it holds:\n${listing.join('\n')}`);
+  }
   // Payload is compressed cpio: gzip in older packages, Apple's pbzx (chunked xz) in newer
   // ones. Unwrap the compression, then the cpio.
   let cpio;
