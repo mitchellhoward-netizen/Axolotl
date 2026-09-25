@@ -312,16 +312,34 @@ function qualify(s) {
     </section>`;
 }
 
+/** One path, shown the way a school would see it: what the family does, what the
+ * office does, what the path has recorded, and who made it official. */
+function pathCard(c) {
+  const stats = c.stats
+    .map((st) => `<div><span class="path-stat-v">${esc(st.v)}</span><span class="path-stat-l">${esc(st.l)}</span></div>`)
+    .join('');
+  return `<article class="path-card" aria-labelledby="path-title">
+            <p class="path-eyebrow"><span>${esc(c.eyebrow)}</span><span>${esc(c.version)}</span></p>
+            <h3 id="path-title">${esc(c.title)}</h3>
+            <div class="path-two">
+              <div><p class="path-label">${esc(c.doLabel)}</p><p>${esc(c.doText)}</p></div>
+              <div><p class="path-label">${esc(c.happensLabel)}</p><p>${esc(c.happensText)}</p></div>
+            </div>
+            <div class="path-stats">${stats}</div>
+            <p class="path-never"><strong>${esc(c.neverLabel)}</strong> ${esc(c.neverText)}</p>
+            <div class="path-stamp" role="img" aria-label="${esc(c.stampAlt)}">
+              <span class="path-stamp-top" aria-hidden="true">${esc(c.stamp.top)}</span>
+              <span class="path-stamp-name" aria-hidden="true">${esc(c.stamp.name[0])}<br />${esc(c.stamp.name[1])}</span>
+              <span class="path-stamp-date" aria-hidden="true">${esc(c.stamp.date)}</span>
+            </div>
+          </article>`;
+}
+
 function schoolNet(s) {
   const d = at(s, 'day.school');
   const c = d.card;
-  // One path, shown the way a school would see it: what the family does, what the
-  // office does, what the path has recorded, and who made it official.
   const steps = d.steps
     .map((st) => `<li><span class="path-step-tag">${esc(st.tag)}</span>${esc(st.text)}</li>`)
-    .join('');
-  const stats = c.stats
-    .map((st) => `<div><span class="path-stat-v">${esc(st.v)}</span><span class="path-stat-l">${esc(st.l)}</span></div>`)
     .join('');
   const more = d.more
     .map((m) => `<li>${esc(m.name)} <span class="${m.official ? 'path-official' : 'path-status'}">${esc(m.status)}</span></li>`)
@@ -337,21 +355,7 @@ function schoolNet(s) {
           <a class="text-link" href="${s.lang === 'es' ? '/es/schools' : '/schools'}">${esc(d.link)}</a>
         </div>
         <div class="path-side">
-          <article class="path-card" aria-labelledby="path-title">
-            <p class="path-eyebrow"><span>${esc(c.eyebrow)}</span><span>${esc(c.version)}</span></p>
-            <h3 id="path-title">${esc(c.title)}</h3>
-            <div class="path-two">
-              <div><p class="path-label">${esc(c.doLabel)}</p><p>${esc(c.doText)}</p></div>
-              <div><p class="path-label">${esc(c.happensLabel)}</p><p>${esc(c.happensText)}</p></div>
-            </div>
-            <div class="path-stats">${stats}</div>
-            <p class="path-never"><strong>${esc(c.neverLabel)}</strong> ${esc(c.neverText)}</p>
-            <div class="path-stamp" role="img" aria-label="${esc(c.stampAlt)}">
-              <span class="path-stamp-top" aria-hidden="true">${esc(c.stamp.top)}</span>
-              <span class="path-stamp-name" aria-hidden="true">${esc(c.stamp.name[0])}<br />${esc(c.stamp.name[1])}</span>
-              <span class="path-stamp-date" aria-hidden="true">${esc(c.stamp.date)}</span>
-            </div>
-          </article>
+          ${pathCard(c)}
           <div class="path-more">
             <p class="path-label">${esc(d.moreLabel)}</p>
             <ul>${more}</ul>
@@ -519,11 +523,106 @@ function schoolsPageSections(s) {
   const heroBlock = `
     <section class="hero hero-schools" aria-labelledby="schools-hero-title">
       <div class="wrap">
-        <h1 id="schools-hero-title">${esc(at(s, 'schools.hero.h1'))}</h1>
+        <p class="schools-eyebrow">${esc(at(s, 'schools.hero.eyebrow'))}</p>
+        <h1 id="schools-hero-title">${payoff(at(s, 'schools.hero.h1Plain'), at(s, 'schools.hero.h1Em'))}</h1>
         <p class="lead">${esc(at(s, 'schools.hero.sub'))}</p>
         <div class="hero-actions">
           <a class="button primary" href="#school-contact">${esc(at(s, 'schools.hero.primary'))}</a>
+          <a class="text-link" href="#door">${esc(at(s, 'schools.hero.secondary'))}</a>
         </div>
+      </div>
+    </section>`;
+
+  // The same need twice: the letter an AI writes with no front door, and the
+  // request Axolotl sends. The contrast is the whole pitch.
+  const d = at(s, 'schools.door');
+  const foot = (items) => items.map((i) => `<li>${esc(i)}</li>`).join('');
+  const doorRows = d.after.rows
+    .map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`)
+    .join('');
+  const door = `
+    <section class="section t-day" id="door" aria-labelledby="door-title">
+      <div class="wrap">
+        <h2 id="door-title">${payoff(d.h2Plain, d.h2Em)}</h2>
+        <p class="lead">${esc(d.lead)}</p>
+        <div class="door-pair">
+          <article class="door-card door-before" aria-label="${esc(d.before.label)}">
+            <p class="door-label"><span>${esc(d.before.label)}</span><span>${esc(d.example)}</span></p>
+            <p class="door-to">${esc(d.before.to)}</p>
+            <p class="door-subject">${esc(d.before.subject)}</p>
+            <p class="door-body">${esc(d.before.body)}</p>
+            <ul class="door-foot">${foot(d.before.foot)}</ul>
+          </article>
+          <article class="door-card door-after" aria-label="${esc(d.after.label)}">
+            <p class="door-label"><span>${esc(d.after.label)}</span><span>${esc(d.example)}</span></p>
+            <p class="door-to">${esc(d.after.to)}</p>
+            <dl class="door-rows">${doorRows}</dl>
+            <p class="door-sent">${esc(d.after.sent)}</p>
+            <ul class="door-foot">${foot(d.after.foot)}</ul>
+          </article>
+        </div>
+        <div class="tension">
+          <h3>${esc(d.tensionTitle)}</h3>
+          <p>${esc(d.tensionBody)}</p>
+        </div>
+      </div>
+    </section>`;
+
+  const p = at(s, 'schools.paths');
+  const paths = `
+    <section class="section t-golden" id="paths" aria-labelledby="paths-title">
+      <div class="wrap split path-split">
+        <div class="split-copy">
+          <h2 id="paths-title">${payoff(p.h2Plain, p.h2Em)}</h2>
+          <p class="lead">${esc(p.lead)}</p>
+          <ol class="path-steps path-steps-stack">${p.steps
+            .map((st) => `<li><span class="path-step-tag">${esc(st.tag)}</span>${esc(st.text)}</li>`)
+            .join('')}</ol>
+        </div>
+        <div class="path-side">
+          ${pathCard(p.card)}
+        </div>
+      </div>
+    </section>`;
+
+  const st = at(s, 'schools.staff');
+  const thread = st.thread
+    .map((m) => `<li class="staff-msg staff-msg-${m.from === 'staff' ? 'out' : 'in'}">${esc(m.text)}</li>`)
+    .join('');
+  const brief = st.brief.rows
+    .map(
+      (r) => `<li><span class="brief-v">${esc(r.v)}</span><span class="brief-l">${esc(r.l)}<span class="brief-note">${esc(r.note)}</span></span></li>`,
+    )
+    .join('');
+  const staff = `
+    <section class="section t-noon" id="staff" aria-labelledby="staff-title">
+      <div class="wrap">
+        <h2 id="staff-title">${payoff(st.h2Plain, st.h2Em)}</h2>
+        <p class="lead">${esc(st.lead)}</p>
+        <div class="staff-pair">
+          <figure class="staff-thread">
+            <figcaption>${esc(st.threadLabel)}</figcaption>
+            <ol>${thread}</ol>
+          </figure>
+          <article class="brief-card" aria-labelledby="brief-title">
+            <p class="door-label"><span id="brief-title">${esc(st.brief.eyebrow)}</span><span>${esc(st.brief.example)}</span></p>
+            <ul class="brief-rows">${brief}</ul>
+            <p class="brief-foot">${esc(st.brief.foot)}</p>
+          </article>
+        </div>
+      </div>
+    </section>`;
+
+  const n = at(s, 'schools.network');
+  const network = `
+    <section class="section t-night-deep" id="network" aria-labelledby="network-title">
+      <div class="wrap">
+        <h2 id="network-title">${payoff(n.h2Plain, n.h2Em)}</h2>
+        <p class="lead">${esc(n.lead)}</p>
+        <div class="network-grid">
+          ${n.items.map((i) => `<article><h3>${esc(i.h)}</h3><p>${esc(i.p)}</p></article>`).join('\n          ')}
+        </div>
+        <p class="network-note">${esc(n.note)}</p>
       </div>
     </section>`;
 
@@ -551,22 +650,6 @@ function schoolsPageSections(s) {
           ${rows}
           </tbody>
         </table>
-      </div>
-    </section>`;
-
-  const how = `
-    <section class="section" aria-labelledby="schools-how-title">
-      <div class="wrap">
-        <h2 id="schools-how-title">${esc(at(s, 'schools.how.h2'))}</h2>
-        <p class="lead">${esc(at(s, 'schools.how.lead'))}</p>
-        <ul class="plain-list wide">
-          ${at(s, 'schools.how.items').map((i) => `<li>${esc(i)}</li>`).join('\n          ')}
-        </ul>
-        <div class="tension">
-          <h3>${esc(at(s, 'schools.how.tensionTitle'))}</h3>
-          <p>${esc(at(s, 'schools.how.tensionBody'))}</p>
-          <p>${esc(at(s, 'schools.how.integration'))}</p>
-        </div>
       </div>
     </section>`;
 
@@ -603,6 +686,7 @@ function schoolsPageSections(s) {
           ${at(s, 'schools.pilot.measures').map((i) => `<li>${esc(i)}</li>`).join('\n          ')}
         </ul>
         <p>${esc(at(s, 'schools.pilot.consent'))}</p>
+        <p>${esc(at(s, 'schools.pilot.integration'))}</p>
         <p><span class="highlight">${esc(at(s, 'schools.pilot.guardrail'))}</span></p>
       </div>
     </section>`;
@@ -645,7 +729,7 @@ function schoolsPageSections(s) {
       </div>
     </section>`;
 
-  return [heroBlock, changes, how, never, equity, pilot, form].join('');
+  return [heroBlock, door, paths, staff, network, changes, never, equity, pilot, form].join('');
 }
 
 // ── document shell ───────────────────────────────────────────────────────────

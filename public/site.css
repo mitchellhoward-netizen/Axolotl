@@ -2285,6 +2285,343 @@ p {
   max-width: 680px;
 }
 
+.schools-eyebrow {
+  margin: 0 0 18px;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+.hero-schools h1 em {
+  color: var(--accent);
+}
+
+.hero-schools .hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 18px 26px;
+}
+
+/* the same request, with and without a front door */
+
+.door-pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+  margin-top: 44px;
+  align-items: start;
+}
+
+.door-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 26px 28px;
+  border-radius: 22px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+}
+
+.door-after {
+  border: 1.5px solid var(--done);
+  box-shadow: 0 30px 60px -20px rgba(31, 107, 69, 0.28);
+}
+
+.door-label {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+.door-after .door-label span:first-child {
+  color: var(--done);
+}
+
+.door-to {
+  margin: 0;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--line);
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.door-subject {
+  margin: 0;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.door-body {
+  position: relative;
+  max-height: 9.6em;
+  margin: 0;
+  overflow: hidden;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.door-body::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 3.2em;
+  background: linear-gradient(180deg, rgba(255, 251, 246, 0), var(--paper));
+}
+
+.door-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+}
+
+.door-rows div {
+  display: grid;
+  grid-template-columns: 9.5em minmax(0, 1fr);
+  gap: 12px;
+}
+
+.door-rows dt {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.door-rows dd {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.45;
+  color: var(--ink-2);
+}
+
+.door-sent {
+  margin: 0;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--done);
+}
+
+.door-foot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 4px 0 0;
+  padding: 12px 0 0;
+  border-top: 1px solid var(--line);
+  list-style: none;
+}
+
+.door-foot li {
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #f5ebdd;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.door-before .door-foot li {
+  background: #f8e1d9;
+  color: var(--error);
+}
+
+.door-after .door-foot li {
+  background: #e3efe6;
+  color: var(--done);
+}
+
+/* paths: steps stacked beside the card */
+
+.path-steps-stack {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 18px;
+  margin-bottom: 0;
+}
+
+/* staff texting, and the Monday brief */
+
+.staff-pair {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 22px;
+  margin-top: 44px;
+  align-items: start;
+}
+
+.staff-thread {
+  margin: 0;
+  padding: 22px 22px 24px;
+  border-radius: 26px;
+  background: #fff;
+  border: 1px solid var(--line);
+}
+
+.staff-thread figcaption {
+  margin-bottom: 14px;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--faint);
+}
+
+.staff-thread ol {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.staff-msg {
+  max-width: 82%;
+  padding: 9px 14px;
+  border-radius: 18px;
+  font-size: 15px;
+  line-height: 1.38;
+}
+
+.staff-msg-in {
+  align-self: flex-start;
+  background: #e9e9eb;
+  color: #111;
+}
+
+.staff-msg-out {
+  align-self: flex-end;
+  background: #0b7ae5;
+  color: #fff;
+}
+
+.brief-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 26px 28px;
+  border-radius: 22px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  box-shadow: 0 30px 60px -24px rgba(90, 45, 15, 0.25);
+}
+
+.brief-rows {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.brief-rows li {
+  display: grid;
+  grid-template-columns: 2.4em minmax(0, 1fr);
+  gap: 14px;
+  align-items: baseline;
+  padding: 14px 0;
+  border-top: 1px solid var(--line);
+}
+
+.brief-v {
+  font-family: var(--serif);
+  font-size: 38px;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.brief-l {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font-size: 15.5px;
+  line-height: 1.4;
+}
+
+.brief-note {
+  font-size: 13.5px;
+  color: var(--done);
+}
+
+.brief-foot {
+  margin: 0;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: #f5ebdd;
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+/* the network */
+
+.network-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 44px;
+}
+
+.network-grid article {
+  padding: 24px 26px;
+  border-radius: 20px;
+  border: 1px solid var(--night-line);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.network-grid article:last-child {
+  border-color: rgba(201, 195, 255, 0.5);
+  background: rgba(201, 195, 255, 0.08);
+}
+
+.network-grid h3 {
+  margin-bottom: 8px;
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 1.1;
+}
+
+.network-grid p {
+  color: var(--on-night-muted);
+  line-height: 1.55;
+}
+
+.network-note {
+  margin-top: 28px;
+  max-width: 720px;
+  color: var(--on-night-faint);
+}
+
+@media (max-width: 899px) {
+  .door-pair,
+  .staff-pair,
+  .network-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 599px) {
+  .door-card,
+  .brief-card {
+    padding: 22px 20px;
+  }
+
+  .door-rows div {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2px;
+  }
+}
+
 .section h2 + .lead {
   margin-top: 18px;
 }
