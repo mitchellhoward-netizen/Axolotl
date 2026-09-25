@@ -46,7 +46,7 @@ server (`node scripts/serve-site.mjs`, declared in `.amp/services.yaml`)
 reproduces those clean URLs; it serves files only, so forms on the preview show
 their error state rather than pretending to store a signup.
 
-The phone mockup in "How your yes works" is a **rendered device image**, not
+The phone mockups on the homepage are **rendered device images**, not
 markup: `scripts/build-phone.mjs` draws the staged conversation at the iPhone's
 own logical size in SF Pro, screenshots it at 3x, and composites it into Apple's
 official bezel (downloaded on demand into the gitignored `.cache/`; the raw bezel

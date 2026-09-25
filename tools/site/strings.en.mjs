@@ -19,9 +19,9 @@ export default {
   locale: 'en_US',
 
   meta: {
-    title: 'Axolotl: help with school, by text, for working parents.',
+    title: 'Axolotl: every family deserves an agent for school.',
     description:
-      "Axolotl handles early releases, sick days and school paperwork by text, and gets your kid what they're owed. Nothing goes to school without your yes.",
+      'Axolotl is your family\'s agent for school, by text. It reads what school sends, handles the forms and pickups, and gets your kid the help they qualify for. Nothing goes out without your yes.',
     shareAlt:
       'A manila folder labeled "The Howard family" holding school tasks, each marked Confirmed, Waiting for your yes, or Requested.',
   },
@@ -38,9 +38,8 @@ export default {
 
   nav: {
     how: 'How it works',
-    rights: 'Your rights',
-    circles: 'Circles',
-    limits: 'Limits',
+    help: 'Help available',
+    schools: 'For schools',
     join: 'Join the pilot',
     langSwitch: 'Español',
     langSwitchHref: '/es',
@@ -49,13 +48,191 @@ export default {
   exampleCaption:
     'Example conversation. Fictional school and family.',
 
+  // ── The homepage, as one school day ─────────────────────────────────────────
+  // Each section is a moment in a parent's day, and the page's light moves with
+  // it: dawn, daylight, golden hour, dusk, night. Times are part of the copy.
+  day: {
+    // Short enough to fit inside the signup field on a small phone.
+    phonePlaceholder: 'Your phone number',
+    agents: {
+      // The line above the headline rolls through people who have someone in
+      // their corner, then lands on parents. Decorative: screen readers get the
+      // headline alone, and reduced motion shows only the last line.
+      label: 'Who has an agent',
+      items: [
+        'Movie stars have agents.',
+        'Athletes have agents.',
+        'Authors have agents.',
+        'Comedians have agents.',
+        'Influencers have agents.',
+        'Pro gamers have agents.',
+        'Hand models have agents.',
+        'Clowns have agents.',
+      ],
+      parentsLead: 'Parents have',
+      parentsTail: 'a stack of permission slips.',
+    },
+    morning: {
+      time: '7:15 AM',
+      label: 'A school day',
+      h1Plain: 'Every family deserves',
+      h1Em: 'an agent.',
+    },
+    inbox: {
+      time: '8:30 AM',
+      label: 'The inbox',
+      h2Plain: 'Eight school emails.',
+      h2Em: 'One that matters.',
+      lead: 'Axolotl reads everything school sends, pulls out the one with a deadline, fills in the form, and waits for your yes. Done means the school confirmed it.',
+      steps: [
+        { tag: 'Reads', body: 'Forwarded mail, a photo of a paper form, or your Gmail' },
+        { tag: 'Finds', body: 'The one thing with a date attached' },
+        { tag: 'Asks', body: 'You see what it will send. Your yes sends it' },
+        { tag: 'Confirms', body: "Only the school's confirmation counts as done" },
+      ],
+      inboxLabel: 'Inbox · 8 new from Lincoln Elementary',
+      emails: [
+        'Picture day, Oct 3',
+        'Book fair next week',
+        'Kindergarten: physical and dental by Oct 15',
+        'Spirit week theme days',
+        'PTA meeting, Thursday',
+        'October lunch menu',
+        'Library books due',
+      ],
+      // Which email above is the one that needs the parent.
+      highlight: 2,
+    },
+    midday: {
+      time: '11:48 AM',
+      label: 'Midday',
+    },
+    qualify: {
+      time: '3:05 PM',
+      label: 'The car line',
+      h2Plain: 'Help your kid',
+      h2Em: 'already qualifies for.',
+      lead: 'Rides, evaluations, interpreters, free meals. The help exists, but you have to know to ask, ask in writing, and keep asking. Axolotl notices when your kid might qualify, then does all three.',
+      timelineTitle: 'One ask, start to finish',
+      steps: [
+        {
+          when: 'Sep 30 · 2:14 PM',
+          title: 'The school emails',
+          kind: 'email',
+          from: 'Ms. Park, 2nd grade · Lincoln Elementary',
+          subject: 'Fall reading screener results',
+          before: 'Maya scored ',
+          mark: 'well below benchmark',
+          after: " in reading fluency. We'll add small-group practice in class.",
+        },
+        {
+          when: '3:05 PM',
+          title: 'Axolotl spots what it means',
+          kind: 'text',
+          in: "Maya's reading screener came back well below benchmark. You can ask the school to evaluate her for more help. It has to be in writing. Want me to draft it?",
+          out: 'Yes, please',
+        },
+        {
+          when: '9:40 PM',
+          title: 'It writes the letter',
+          kind: 'letter',
+          to: 'To Ms. Alvarez, special education, Lincoln Elementary',
+          before: 'I am requesting a full evaluation of my daughter, Maya Howard, for special education services under the ',
+          mark: 'Individuals with Disabilities Education Act',
+          after: '. I consent to the evaluation.',
+          sent: 'Sent on your yes',
+        },
+        {
+          when: 'Oct 8 · Day 8',
+          title: 'No answer, so it follows up',
+          kind: 'text',
+          in: 'No reply from Lincoln yet. I sent Ms. Alvarez a friendly follow-up and copied the front office.',
+          pending: true,
+        },
+        {
+          when: 'Oct 10 · Day 10',
+          title: 'The school answers',
+          kind: 'reply',
+          from: 'Lincoln Elementary',
+          text: "Received. Maya's evaluation is scheduled for October 21.",
+          track: 'Tracking: day 10 of 60. Due by Nov 29.',
+          done: true,
+        },
+      ],
+      alsoLabel: 'It can ask for these too:',
+      also: [
+        'A ride to school',
+        'An interpreter at meetings',
+        'Free or reduced-price lunch',
+        'The extra time in her plan',
+        'A spot in after-school',
+      ],
+      note: "Axolotl isn't a lawyer. It asks for what your child already qualifies for.",
+    },
+    school: {
+      time: '3:40 PM',
+      label: 'At the school gate',
+      h2Plain: 'Every family makes it better',
+      h2Em: 'for the next one.',
+      lead: 'Axolotl learns how each school works: the calendar, who handles rides, which forms come back and how fast. That helps every family there. Nobody’s personal information is shared.',
+      sharedLabel: 'Shared at the school',
+      shared: ['Early releases and days off', 'Who handles rides', 'Which forms, and where they go', 'How long each office takes'],
+      privateLabel: 'Never leaves your family',
+      private: ['Your kids and their records', 'Your messages', 'Why you need help', 'Anything you file'],
+      link: 'Run a school or district? How Axolotl works with schools',
+      diagram: {
+        alt: 'Diagram: families around Lincoln Elementary. What each family learns about how the school works joins one shared picture.',
+        school: ['Lincoln', 'Elementary'],
+        family: 'Family',
+        you: 'You',
+        notes: ['early release 1:20', 'rides: transport office', 'forms back in 2 days'],
+      },
+    },
+    dinner: {
+      time: '6:30 PM',
+      label: 'Dinner',
+      h2Plain: 'Who’s got what',
+      h2Em: 'this week.',
+      lead: 'Your partner, grandma and the sitter see the same plan, and every task has a name on it.',
+      soon: 'Coming soon · Circles',
+      circles: 'Trade pickups and sick days with the families you trust. Nothing is set until everyone says yes.',
+    },
+    night: {
+      time: '9:40 PM',
+      label: 'Kids are asleep',
+      h2Plain: 'Everything’s',
+      h2Em: 'handled.',
+      lead: 'Instead of a kitchen table covered in forms, one summary: what went out, what the school confirmed, and what is still waiting.',
+      summaryLabel: 'Today, in one summary',
+      summary: [
+        { title: 'Leo’s health forms', detail: 'Lincoln confirmed · K-1042', done: true },
+        { title: 'Noon pickup', detail: 'Grandma collected Leo · office told', done: true },
+        { title: 'Ride to Lincoln', detail: 'Requested · district has 10 days', done: false },
+        { title: 'Maya’s reading evaluation', detail: 'Requested · clock started Sep 30', done: false },
+      ],
+      doneWord: 'Done',
+      waitingWord: 'Waiting on the school',
+      promises: [
+        { title: 'Your yes sends it.', body: 'Every email, form and request waits for an explicit yes. A suggestion is not permission.' },
+        { title: 'Done means confirmed.', body: 'Only the school’s own confirmation counts. If it can’t confirm, it says so and gives you the link.' },
+        { title: 'Never sold.', body: 'Your family’s information is yours. It never asks for your school portal password.' },
+      ],
+      links: [
+        { label: 'Read every limit, in plain words', href: '/security' },
+        { label: 'How we handle information', href: '/privacy' },
+      ],
+      closePlain: 'Tomorrow’s',
+      closeEm: 'already handled.',
+    },
+  },
+
   hero: {
-    h1: "Your family's school assistant.",
-    sub: "It reads what school sends, covers the early releases and the sick days, and gets your kid what they're owed. Just text it.",
+    h1: 'Every family deserves an agent.',
+    sub: 'Axolotl is your family\'s agent for school. It reads what school sends, handles the forms and pickups, and gets your kid the help they qualify for. Just text. Nothing goes out without your yes.',
     primary: 'Join the pilot',
     secondary: 'See how it works',
     trust:
-      'Nothing goes to your school without your yes. Free during the pilot, in English or Spanish.',
+      'Free during the pilot, in English or Spanish.',
     // The hero visual is the thread the parent actually gets: Axolotl's weekly
     // triage, the parent's yes, and the school's confirmation. Plain text only,
     // the way the product really sends it.
@@ -76,17 +253,6 @@ export default {
       ],
       alt: 'Text thread on a phone. Axolotl says eight school emails came in and two things need the parent. The parent, in meetings all day, asks Axolotl to deal with them. Axolotl has filled in Maya\u2019s field trip form and sends it on the parent\u2019s go-ahead, then confirms Lincoln has it, reference K-1042. It also flags that Wednesday\u2019s early release still needs cover and offers a one-tap message for Grandma.',
     },
-    // What Axolotl actually connects to — the messaging line, the parent's own
-    // email, the school calendar and the forms it files. Real app icons, supplied
-    // by the founder: the flat brand marks simple-icons ships are not the icons a
-    // parent would recognise.
-    connects: [
-      { icon: 'imessage.png', label: 'iMessage' },
-      { icon: 'gmail.png', label: 'Your email' },
-      { icon: 'google-calendar.png', label: 'The school calendar' },
-      { icon: 'google-forms.png', label: 'Forms, filed' },
-      { icon: 'whatsapp.png', label: 'WhatsApp' },
-    ],
     // The phone no longer draws the folder, but the social card (share.html)
     // still does, so its rows live here.
     folder: {
@@ -132,29 +298,6 @@ export default {
     requested: 'Requested, waiting on the district',
     reminder: 'Reminder set',
     soon: 'Coming soon',
-  },
-
-  layers: {
-    h2: 'Built around your family, and the families around you.',
-    lead: 'One agent that knows your family, works with the people who help you, and learns how your school works.',
-    cols: [
-      {
-        h3: 'Your family',
-        label: 'Private',
-        body: 'Your kids, their schools, your schedule and everything still pending. Only you and the people you add can see it.',
-      },
-      {
-        h3: 'Your people',
-        label: 'Household now, circles soon',
-        body: 'Your partner, grandma and the sitter see the same plan, and every task has a name on it. Soon: the parents you trade the school run, sick days and pickups with.',
-      },
-      {
-        h3: 'Your school',
-        label: 'Shared',
-        body: "What Axolotl learns about your school, like the calendar, the early releases and who handles rides, helps every family there. Nobody's personal information is shared.",
-      },
-    ],
-    line: 'Circles make it easier. You never need one to get the full help.',
   },
 
   week: {
@@ -259,40 +402,6 @@ export default {
         status: 'reminder',
       },
     ],
-  },
-
-  year: {
-    h2: "Some of this isn't a favor. It's the law.",
-    lead: 'Describe your situation in your own words. Axolotl works out which rule applies, puts the request in writing, and keeps track of the answer.',
-    head: ['When you say', 'The rule', 'What Axolotl does'],
-    rows: [
-      {
-        say: '"We lost our apartment and we\'re staying with my sister across town. Can he keep going to his school?"',
-        rule: 'McKinney-Vento Act: school stability for kids without steady housing',
-        does: 'Finds the district\u2019s transportation contact, requests the ride in writing, and follows up until the route is confirmed.',
-      },
-      {
-        say: '"His teacher says his reading is behind. I don\'t know what I\'m supposed to ask for."',
-        rule: 'IDEA: evaluations for special education',
-        does: "Drafts your written request for an evaluation, sends it on your yes, and records the date the district's clock started.",
-      },
-      {
-        say: '"The meeting was all in English and I didn\'t understand most of it."',
-        rule: 'Title VI, Civil Rights Act: communication in a language you understand',
-        does: 'Asks the school in writing for an interpreter and translated documents before the next meeting.',
-      },
-      {
-        say: '"We\'re paying full price for lunch and I think we qualify for help."',
-        rule: 'National School Lunch Program: free and reduced-price meals',
-        does: 'Fills the application, shows you exactly what it will send, and files it on your yes.',
-      },
-      {
-        say: '"We agreed in the meeting that she gets extra time. It\'s not happening in class."',
-        rule: 'Her IEP or 504 plan: accommodations the school agreed to',
-        does: "Writes to the school quoting what the plan says, and keeps following up until they confirm it's in place.",
-      },
-    ],
-    line: "Axolotl isn't a lawyer. It helps you use the rules that already protect your child.",
   },
 
   how: {
@@ -411,43 +520,6 @@ export default {
         generic: "We couldn't save your signup. Please try again.",
       },
     },
-  },
-
-  limits: {
-    h2: 'The limits, before you find them yourself.',
-    lead: 'The honest list. The rest of this page only means something if this part is true.',
-    items: [
-      {
-        title: "It won't send anything without your yes.",
-        body: 'Every email, form and submission waits for an explicit yes from you. A suggestion is not permission.',
-      },
-      {
-        title: "It tells you what it can't open.",
-        body: 'A sign-in wall, a form that only exists on paper, a district that wants a phone call. It names the wall instead of guessing.',
-      },
-      {
-        title: "It won't pretend a form went through.",
-        body: "Done means the school's own confirmation came back. If it can't confirm, it says so and gives you the link.",
-      },
-      {
-        title: "It can't see your school portal.",
-        body: 'It never asks for your password. If the portal matters, you sign in yourself and it only reads.',
-      },
-      {
-        title: "It's strongest at reading and research.",
-        body: 'A clean form it has handled before is reliable. A complicated new district form may come back to you as a link.',
-      },
-      {
-        title: "It isn't a doctor, a lawyer or the school.",
-        body: 'It helps you through the process. Decisions about your child stay with you, your school and your providers.',
-      },
-    ],
-    privacy:
-      "Your family's information is yours. It is never sold. The only system that reads your messages is the AI that writes the replies.",
-    privacyLinks: [
-      { label: 'How we handle information', href: '/privacy' },
-      { label: 'Security and limits', href: '/security' },
-    ],
   },
 
   // Rendered only when at least two permissioned quotes exist. Empty today:
