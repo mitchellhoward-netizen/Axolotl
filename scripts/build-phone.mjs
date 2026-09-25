@@ -253,10 +253,13 @@ async function ensureSfPro() {
     await sevenZip(['x', '-y', `-o${sf}/inner`, payload]);
     cpio = (await findFile(`${sf}/inner`, () => true)) ?? '';
   }
-  await sevenZip(['x', '-y', `-o${sf}/fonts`, cpio]);
+  // Some 7-Zip builds unwrap the cpio in the same pass and leave the fonts themselves.
+  let fontsRoot = `${sf}/fonts`;
+  if (/\.(otf|ttf)$/.test(cpio)) fontsRoot = `${sf}/inner`;
+  else await sevenZip(['x', '-y', `-o${fontsRoot}`, cpio]);
   await rm(dir, { recursive: true, force: true });
   await mkdir(dir, { recursive: true });
-  const anyFont = await findFile(path.join(sf, 'fonts'), (f) => f.startsWith('SF-Pro-Text-'));
+  const anyFont = await findFile(fontsRoot, (f) => f.startsWith('SF-Pro-Text-'));
   if (!anyFont) throw new Error('SF Pro Text did not extract');
   const extracted = path.dirname(anyFont);
   for (const file of await readdir(extracted)) {
