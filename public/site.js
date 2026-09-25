@@ -3,7 +3,7 @@
    Kept deliberately small: the site is static and every word of it is in the
    HTML before this file runs, so this only adds the things a page cannot do
    without scripting — the mobile menu, the sticky join bar, the privacy panel
-   link, and the four forms.
+   link, the week carousel on small screens, and the forms.
 
    The load animation is not here: it is CSS, so it plays even if this file
    fails to load. */
@@ -175,19 +175,22 @@
   const field = (id) => document.getElementById(id);
 
   // ── Join the pilot (family) ───────────────────────────────────────────────
-  wireForm({
-    form: field("join-form"),
-    error: field("join-error"),
-    sent: field("join-sent"),
-    validate: () =>
-      isUsPhone(field("join-phone").value)
-        ? null
-        : { message: field("join-form").dataset.errorPhone, field: field("join-phone") },
-    payload: () => ({ kind: "family", phone: digits(field("join-phone").value) }),
-    onSuccess: () => {
-      const text = field("join-sent-text");
-      text.textContent = text.dataset.template.replace("{phone}", field("join-phone").value.trim());
-    },
+  // Two copies of the same signup: one at 7:15 AM in the hero, one at night at
+  // the end of the day. Each keeps its own ids so their messages never mix.
+  ["hero-join", "join"].forEach((id) => {
+    const form = field(`${id}-form`);
+    const phone = field(`${id}-phone`);
+    wireForm({
+      form,
+      error: field(`${id}-error`),
+      sent: field(`${id}-sent`),
+      validate: () => (isUsPhone(phone.value) ? null : { message: form.dataset.errorPhone, field: phone }),
+      payload: () => ({ kind: "family", phone: digits(phone.value) }),
+      onSuccess: () => {
+        const text = field(`${id}-sent-text`);
+        text.textContent = text.dataset.template.replace("{phone}", phone.value.trim());
+      },
+    });
   });
 
   // ── Start a circle ────────────────────────────────────────────────────────

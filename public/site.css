@@ -1,312 +1,97 @@
-/* Axolotl website stylesheet — one sky, and school paperwork on it.
+/* Axolotl website stylesheet — one school day, dawn to night.
    ============================================================================
-   The page is a single gradient running the whole length of the document: cream
-   at the top, pink and orange through the middle, deep rose at dusk where the
-   footer sits. Everything else is paper lying on that sky — notices, forms, a
-   stamped status. Axolotl marks what matters in orange ballpoint; "done" is a
-   green school stamp.
+   The homepage is a parent's day. Every section carries its time (7:15 AM to
+   9:40 PM) and a `t-*` class for its light, and each section's gradient starts
+   where the one above it ended, so scrolling reads as the day getting later:
+   dawn apricot, daylight cream, golden afternoon, rose-to-lilac dusk, indigo
+   night. The page ends in the dark, with the footer inside the night.
 
-   There are no painted sections: no desk band, no tinted band, no torn edge
-   dividing the footer. Sections are separated by space, by hairlines drawn in
-   ink rather than in paper, and by the sheets themselves. That is the point of
-   the refresh — the colours blend, so the page reads as one continuous thing
-   instead of a stack of panels.
+   Everything that is not light stays constant through the day: one serif for
+   headlines (the last words in italic are the payoff), one sans for text, one
+   mono for small labels, one ink, one button. Only the sky changes.
 
-   Tokens are named after carbon-copy school forms and are the only colours
-   allowed. `--accent` is the single action colour, `--agent` is the brand's own
-   hand, `--confirmed` is the only "done". Never let status meaning depend on
-   colour alone — every status also carries a word. */
+   Ollie, the mascot, is the only pink on the page.
+
+   Motion: the rotating "who has an agent" line, Ollie peeking from behind the
+   phone, floating phones and drifting light. All of it stops under
+   prefers-reduced-motion, which shows the final frame instead. */
 
 :root {
-  /* Xochimilco, warm: the palette of the reference — cream sky, coral brand,
-     orange action, green done.
-     ----------------------------------------------------------------------------
-     Built in OKLCH, so equal lightness steps look equal to the eye: if one hue
-     passes contrast at a given L, another hue at the same L behaves the same
-     way, which is what makes a ramp predictable rather than hand-tuned.
+  /* type */
+  --serif: "Instrument Serif", Georgia, "Times New Roman", serif;
+  --sans: Geist, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 
-     The structure is the point, not the hues:
-       - Most of the page is ONE warm neutral ramp (cream paper drifting to ink).
-         Nothing is pure white and nothing is a cold grey.
-       - ONE brand colour (coral pink) does real work: it is the agent's own
-         voice — its marks, its sketch — and the colour the sky is made of.
-       - ONE action colour (orange) means "this is your turn": primary buttons,
-         links, and the only coloured status.
-       - Green is "done", and nothing else. Red is errors, and nothing else.
-       - The sky spends its chroma in pink and orange only. Nothing else is
-         allowed in the ground, which is what keeps seven competing colours from
-         coming back.
+  /* ink on the light part of the day. Measured against the darkest light
+     background (golden #F2C58E): ink 13.9:1, ink-2 9.7:1, muted 6.2:1,
+     faint 4.6:1, accent 4.6:1. */
+  --ink: #1e1712;
+  --ink-2: #3a2e26;
+  --muted: #54443a;
+  --faint: #6b5a4d;
+  --accent: #9a4518;
+  --accent-soft: #ffe2c4;
+  --line: rgba(30, 23, 18, 0.14);
+  --paper: #fffbf6;
 
-     The sky is light on purpose — never below L88% before the footer — because
-     every text token was measured against the DARKEST stop of the ramp
-     (oklch(88.2% 0.098 20), just above the footer), which is the worst case on
-     every page:
+  /* the night. On #0B0D26: on-night 16.8:1, muted 8.7:1, faint 6.1:1. */
+  --night: #0b0d26;
+  --on-night: #f4f1ff;
+  --on-night-muted: #bcb9dc;
+  --on-night-faint: #9f9cc9;
+  --lilac: #c9c3ff;
+  --peach: #ffc3a8;
+  --night-line: rgba(255, 255, 255, 0.14);
 
-       headings ink 10.41:1 · body paper-700 6.30:1 · secondary paper-600 4.77:1
-       link orange-700 4.61:1 · white on the orange button 4.95:1
-       cream on the dusk footer 15.06:1 · the orange button's own edge 3.16:1
-     Non-text marks (need 3:1): pink-600 3.24:1 · the dashed attention pill 3.16:1
+  /* the one status colour that means done */
+  --done: #1f6b45;
+  --error: #9f2a1c;
 
-     The footer is not a band with a line above it: it is where the sky finishes
-     setting, so it fades from the last light to night across its own padding. */
+  /* the day's light, one stop per boundary */
+  --dawn: #fad6b6;
+  --morning: #f7eee4;
+  --day: #f5f2ec;
+  --noon: #f4ede2;
+  --afternoon: #f6ddb6;
+  --golden: #f2c58e;
+  --dusk: #2b2656;
 
-  /* paper — warm neutral, drifting light to dark so it reads as paper, then ink */
-  --paper-50: oklch(98.2% 0.008 78);
-  --paper-100: oklch(96.4% 0.011 76);
-  --paper-200: oklch(93% 0.014 74);
-  --paper-300: oklch(87% 0.017 72);
-  --paper-400: oklch(75% 0.019 70);
-  --paper-500: oklch(63% 0.021 68);
-  --paper-600: oklch(45% 0.028 64);
-  --paper-700: oklch(38.5% 0.028 62);
-  --paper-800: oklch(31% 0.029 60);
-  --paper-900: oklch(24.5% 0.03 58);
-  --paper-950: oklch(19% 0.026 58);
-
-  /* pink — the brand, and the agent's own hand */
-  --pink-50: oklch(97.5% 0.012 8);
-  --pink-100: oklch(93% 0.045 8);
-  --pink-200: oklch(88% 0.075 8);
-  --pink-300: oklch(81% 0.11 8);
-  --pink-400: oklch(74% 0.14 8);
-  --pink-500: oklch(66% 0.17 8);
-  --pink-600: oklch(56% 0.16 8);
-  --pink-700: oklch(47% 0.14 8);
-  --pink-800: oklch(37% 0.11 8);
-  --pink-900: oklch(28% 0.08 8);
-
-  /* orange — the action colour, at two depths */
-  --orange-50: oklch(97.5% 0.02 62);
-  --orange-100: oklch(93.5% 0.055 60);
-  --orange-200: oklch(88.5% 0.09 58);
-  --orange-300: oklch(81% 0.13 56);
-  --orange-400: oklch(73% 0.16 54);
-  --orange-500: oklch(65% 0.19 52);
-  --orange-600: oklch(56% 0.175 50);
-  --orange-700: oklch(47% 0.15 48);
-  --orange-800: oklch(38% 0.12 46);
-  --orange-900: oklch(29% 0.09 44);
-
-  /* green — done */
-  --green-100: oklch(93% 0.05 155);
-  --green-300: oklch(81% 0.09 155);
-  --green-500: oklch(65% 0.13 155);
-  --green-600: oklch(52% 0.115 155);
-  --green-700: oklch(43% 0.1 155);
-
-  /* red — errors only */
-  --danger: oklch(52% 0.19 27);
-  --danger-strong: oklch(44% 0.17 27);
-
-  /* surfaces and text */
-  --page: var(--paper-50);
-  --desk: var(--paper-100);
-  --sheet: oklch(99.4% 0.006 80);
-  /* The one fill left: translucent, so a form field reads as somewhere you can
-     type without becoming a white rectangle on the sky. */
-  --paper-fill: oklch(99% 0.006 80 / 0.5);
-
-  /* iOS system values, taken from the component set the device render is built
-     from (tools/site/phone-screen.html): the received bubble, the rich card a
-     message can carry, the surface inside it, and its hairline.
-     The fills are translucent — iOS's own materials are — so the sky keeps
-     moving through a card instead of stopping at a white edge. */
-  --ios-bubble-in: rgba(233, 233, 235, 0.78);
-  --ios-bubble-out: #0b6fe0;
-  --ink: var(--paper-900);
-  --text: var(--paper-700);
-  --muted: var(--paper-600);
-  --rule: var(--paper-300);
-  /* Every line on the page, because every line is on the sky now. A
-     paper-coloured hairline would vanish against a tinted ground, so the rule is
-     drawn in ink at low alpha instead, which reads on every stop of the
-     gradient: the layer columns, the week ledger, the rights table, the channel
-     strip, the disclosure panel, the privacy note. */
-  --rule-sky: oklch(24.5% 0.03 58 / 0.16);
-
-  /* the action colour, in its roles */
-  --accent: var(--orange-600);
-  --accent-hover: var(--orange-700);
-  --link: var(--orange-700);
-  --link-hover: var(--orange-800);
-  --attention: var(--orange-600);
-  --attention-strong: var(--orange-700);
-  --ink-pen: var(--orange-600);
-  --highlight: var(--orange-100);
-
-  /* the brand, in its roles */
-  --agent: var(--pink-500);
-  --agent-strong: var(--pink-600);
-  --brand-tint: var(--pink-100);
-  --deep: var(--pink-900);
-  --confirmed: var(--green-600);
-
-  /* Where the sky finishes setting. `--dusk` is the last warm light above the
-     footer, `--night` is the water it goes down into. It sits at L27% rather than
-     higher for a measurable reason: the sticky "Join the pilot" pill floats over
-     this ground near the bottom of the page, and an orange button has to clear
-     3:1 against what is behind it to read as a button. It does, at 3.11:1. */
-  --dusk: oklch(46% 0.095 8);
-  --night: oklch(27% 0.058 6);
-  --deepest: var(--night);
-
-  /* Texture, not an image: SVG filters generate it in under a kilobyte, at any
-     resolution, cached by the browser. Both are background layers, never
-     overlays on top of type, so neither can cost contrast.
-
-     Two scales, because one is not enough over a document this long: `--weather`
-     is the slow mottle of the sky itself (and is what keeps a 13,000px gradient
-     from banding on an 8-bit screen), `--grain` is the tooth of the paper. */
-  --grain: url("data:image/svg+xml,%3Csvg xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg' width%3D'180' height%3D'180'%3E%3Cfilter id%3D'g'%3E%3CfeTurbulence type%3D'fractalNoise' baseFrequency%3D'0.82' numOctaves%3D'4' stitchTiles%3D'stitch'%2F%3E%3CfeColorMatrix type%3D'matrix' values%3D'0 0 0 0 0.36 0 0 0 0 0.28 0 0 0 0 0.2 0.33 0.33 0.33 0 0'%2F%3E%3C%2Ffilter%3E%3Crect width%3D'100%25' height%3D'100%25' filter%3D'url(%23g)' opacity%3D'0.1'%2F%3E%3C%2Fsvg%3E");
-  --weather: url("data:image/svg+xml,%3Csvg xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg' width%3D'700' height%3D'700'%3E%3Cfilter id%3D'w'%3E%3CfeTurbulence type%3D'fractalNoise' baseFrequency%3D'0.008' numOctaves%3D'3' stitchTiles%3D'stitch'%2F%3E%3CfeColorMatrix type%3D'matrix' values%3D'0 0 0 0 0.45 0 0 0 0 0.3 0 0 0 0 0.26 0.32 0.32 0.32 0 0'%2F%3E%3C%2Ffilter%3E%3Crect width%3D'100%25' height%3D'100%25' filter%3D'url(%23w)' opacity%3D'0.11'%2F%3E%3C%2Fsvg%3E");
-  /* The faint dot grid that makes the paper read as school paper. */
-  --dots: radial-gradient(circle at 1px 1px, oklch(43% 0.025 64 / 0.11) 1px, transparent 0);
-
-  --paper-shadow: 0 1px 2px rgba(29, 17, 8, 0.07), 0 16px 32px -16px rgba(29, 17, 8, 0.28);
-  --paper-shadow-lifted: 0 2px 4px rgba(29, 17, 8, 0.09), 0 34px 60px -28px rgba(29, 17, 8, 0.38);
-
-  --slab: "Zilla Slab", Georgia, serif;
-  --sans: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --bubble-font: -apple-system, "SF Pro Text", "Helvetica Neue", Helvetica, sans-serif;
+  --wrap: 1200px;
+  --radius: 18px;
 }
 
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
-/* The page is one sky.
-   ----------------------------------------------------------------------------
-   A single gradient runs the whole length of the document — cream at the top,
-   then pink and orange light, then the deep rose of dusk where the footer sits —
-   so there is no painted section anywhere: no desk band, no tinted band, no torn
-   edge dividing the footer. Every section simply sits on the sky and is separated
-   by space and by its own paper.
-
-   Three details make it work:
-
-   1. `html` carries the night colour, so the body's gradient is NOT propagated
-      to the canvas. That is what lets the gradient resolve against the document's
-      own height and run the full length of the page rather than tiling per
-      viewport — and it means the overscroll past the footer is night, not a pale
-      strip under a dark footer.
-
-   2. The stops spend the whole document, so the sky changes as you scroll and
-      never repeats. There is no bright top edge and no bar across the header:
-      the ramp starts in a rose dawn at L95.8% and deepens the whole way down, so
-      the header sits on the sky exactly like the footer does.
-
-   3. The chroma is spent in pink and orange only, and the lightness is kept high
-      (never below L88%) so that every text token clears WCAG AA at the worst
-      point of the gradient. */
 html {
-  background-color: var(--night);
-  scroll-padding-top: 24px;
+  background: var(--morning);
+  scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
-}
-
-/* Smooth anchor scrolling only when the visitor has not asked for less motion.
-   Doing this in CSS keeps the JS free of scroll handling entirely. */
-@media (prefers-reduced-motion: no-preference) {
-  html {
-    scroll-behavior: smooth;
-  }
-}
-
-p {
-  text-wrap: pretty;
 }
 
 body {
   margin: 0;
-  /* The hero's badges sit outside the device on purpose. Nothing on the site
-     should ever produce a sideways scroll, so the overflow is clipped rather
-     than scrolled. `clip` (not `hidden`) keeps the sticky header sticky. */
-  overflow-x: clip;
+  background: var(--morning);
   color: var(--ink);
-  font: 400 16.5px/1.55 var(--sans);
+  font: 400 17px/1.6 var(--sans);
   -webkit-font-smoothing: antialiased;
-  background-color: var(--paper-50);
-  /* Back to front: the dot grid of school paper, the slow weather of the sky,
-     the tooth of the paper, then the ramp itself. The gradient is last because
-     it is the ground; everything above it is texture laid on that ground, and
-     none of it touches the type. */
-  background-image:
-    var(--dots),
-    var(--weather),
-    var(--grain),
-    linear-gradient(
-      180deg,
-      oklch(95.8% 0.038 22) 0%,
-      oklch(95.2% 0.05 18) 7%,
-      oklch(94.4% 0.062 16) 15%,
-      oklch(93.8% 0.072 22) 23%,
-      oklch(93.2% 0.082 14) 31%,
-      oklch(92.6% 0.09 10) 39%,
-      oklch(92.2% 0.094 24) 47%,
-      oklch(92% 0.098 40) 55%,
-      oklch(91.4% 0.1 30) 63%,
-      oklch(90.8% 0.104 18) 71%,
-      oklch(90.2% 0.104 34) 79%,
-      oklch(89.4% 0.104 46) 87%,
-      oklch(88.8% 0.1 34) 94%,
-      oklch(88.2% 0.098 20) 100%
-    );
-  background-size: 26px 26px, 700px 700px, 180px 180px, 100% 100%;
-  background-repeat: repeat, repeat, repeat, no-repeat;
+  text-rendering: optimizeLegibility;
 }
 
-h1,
-h2,
-h3,
-p,
-figure,
-blockquote,
-ul,
-ol {
-  margin: 0;
-}
-
-ul,
-ol {
-  padding: 0;
-  list-style: none;
-}
-
-h1,
-h2,
-h3 {
-  font-family: var(--slab);
-  font-weight: 700;
-  text-wrap: balance;
-}
-
-h1 {
-  font-size: clamp(44px, 5.3vw, 76px);
-  line-height: 0.98;
-  letter-spacing: -1.2px;
-}
-
-h2 {
-  font-size: clamp(36px, 3.9vw, 56px);
-  line-height: 1.02;
-  letter-spacing: -0.8px;
-}
-
-h3 {
-  font-size: clamp(24px, 2.1vw, 30px);
-  line-height: 1.1;
-}
-
-a {
-  color: var(--link);
-  text-underline-offset: 4px;
-  text-decoration-thickness: 1.5px;
-  transition: text-decoration-thickness 140ms ease, color 140ms ease;
-}
-
-a:hover {
-  color: var(--link-hover);
-  text-decoration-thickness: 2.5px;
+/* Film grain over the whole day, so the gradients read as light rather than
+   as flat fills. It never takes clicks. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+  opacity: 0.09;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 img {
@@ -314,302 +99,295 @@ img {
   height: auto;
 }
 
-button,
-input,
-textarea,
-select {
-  font: inherit;
+a {
   color: inherit;
 }
 
-button {
-  cursor: pointer;
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-weight: 400;
 }
 
-/* Focus is the same everywhere and never removed: 3px ballpoint, 3px offset. */
-:focus-visible {
-  outline: 3px solid var(--ink-pen);
-  outline-offset: 3px;
+h1,
+h2 {
+  font-family: var(--serif);
+  letter-spacing: -0.022em;
+  line-height: 0.98;
+  text-wrap: balance;
 }
 
-::selection {
-  background: var(--brand-tint);
-  color: var(--ink);
+h1 {
+  font-size: clamp(50px, 7.4vw, 104px);
 }
 
-.site-footer ::selection {
-  background: var(--pink-800);
-  color: var(--page);
+h2 {
+  font-size: clamp(42px, 5.6vw, 78px);
 }
 
-.site-footer :focus-visible {
-  outline-color: var(--pink-300);
+h1 em,
+h2 em {
+  font-style: italic;
+  color: var(--accent);
+}
+
+p {
+  margin: 0;
+}
+
+.wrap {
+  width: 100%;
+  max-width: var(--wrap);
+  margin: 0 auto;
+  padding: 0 24px;
 }
 
 .sr-only {
-  position: absolute;
+  position: absolute !important;
   width: 1px;
   height: 1px;
-  padding: 0;
-  margin: -1px;
   overflow: hidden;
   clip: rect(0 0 0 0);
   white-space: nowrap;
-  border: 0;
 }
 
 .skip-link {
   position: absolute;
-  top: -80px;
-  left: 16px;
-  z-index: 20;
-  padding: 12px 16px;
-  background: var(--page);
-  border-radius: 10px;
-  box-shadow: var(--paper-shadow);
+  left: 12px;
+  top: -60px;
+  z-index: 100;
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--morning);
+  text-decoration: none;
 }
 
 .skip-link:focus {
   top: 12px;
 }
 
-/* ── layout ──────────────────────────────────────────────────────────────── */
-
-.wrap {
-  width: min(1200px, 100% - 44px);
-  margin-inline: auto;
+:focus-visible {
+  outline: 3px solid #1f7ae8;
+  outline-offset: 3px;
+  border-radius: 6px;
 }
-
-@media (min-width: 1440px) {
-  .wrap {
-    width: min(1200px, 100% - 240px);
-  }
-}
-
-.section {
-  padding-block: 64px;
-}
-
-@media (min-width: 900px) {
-  .section {
-    padding-block: 128px;
-  }
-}
-
-/* Nothing on this page is a filled box.
-   ----------------------------------------------------------------------------
-   An earlier pass put every section on a white sheet, and the sheets were the
-   problem: opaque rectangles punch holes in the sky, and the eye reads a stack
-   of panels instead of one continuous ground. So there are no filled surfaces
-   left. Sections are separated by space, by hairlines drawn in ink, and by the
-   weight of the type.
-
-   The only things that still take a fill are the ones a fill is a *function* of,
-   never a decoration: a form input has to look like somewhere you can type, and
-   the paper thumb inside a message bubble is a photograph. Those use
-   `--paper-fill`, a translucent paper that lets the sky through instead of
-   blocking it. */
-
-.highlight {
-  background: var(--highlight);
-  box-decoration-break: clone;
-  -webkit-box-decoration-break: clone;
-  padding: 2px 6px;
-}
-
-
 
 .lead {
-  max-width: 62ch;
-  margin-top: 20px;
-  color: var(--text);
-  font-size: 19px;
-  line-height: 1.5;
-}
-
-@media (min-width: 900px) {
-  .lead {
-    font-size: 21px;
-  }
-}
-
-h2 + .lead {
-  margin-top: 20px;
-}
-
-.line-note {
-  margin-top: 32px;
+  font-size: clamp(17px, 1.5vw, 19.5px);
+  line-height: 1.6;
   color: var(--muted);
-  font-size: 16px;
+  max-width: 620px;
 }
 
 .caption {
-  margin-top: 14px;
-  color: var(--muted);
-  font-size: 14px;
+  font-size: 13.5px;
+  color: var(--faint);
 }
 
-.hint {
-  color: var(--muted);
-  font-weight: 400;
+.caption.center {
+  text-align: center;
+  margin-top: 28px;
 }
 
-/* ── buttons, links, inputs ──────────────────────────────────────────────── */
+.line-note {
+  margin-top: 28px;
+  font-size: 14.5px;
+  color: var(--faint);
+}
+
+.text-link {
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 5px;
+}
+
+.text-link:hover {
+  color: var(--accent);
+}
+
+/* ── the time stamp every section opens with ────────────────────────────── */
+
+.time-chip {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.time-chip-time {
+  font-family: var(--serif);
+  font-size: clamp(32px, 3.2vw, 44px);
+  line-height: 1;
+  color: var(--accent);
+}
+
+.time-chip-label {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+/* ── buttons and forms ──────────────────────────────────────────────────── */
 
 .button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 56px;
-  padding: 14px 26px;
+  min-height: 48px;
+  padding: 0 24px;
   border: 0;
-  border-radius: 12px;
-  background: var(--accent);
-  color: var(--page);
-  font-size: 16.5px;
-  font-weight: 600;
-  line-height: 1.3;
-  text-align: center;
+  border-radius: 999px;
+  font: 600 15.5px/1 var(--sans);
   text-decoration: none;
-  /* The button is an object on the paper, so it has an edge and it moves when
-     pressed: one pixel up on hover, back down on click. */
-  box-shadow:
-    inset 0 1px 0 oklch(73% 0.16 54 / 0.55),
-    0 1px 2px rgba(29, 17, 8, 0.18),
-    0 10px 20px -12px rgba(29, 17, 8, 0.5);
-  transition: background-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.15s ease;
 }
 
-.button:hover {
-  background: var(--accent-hover);
-  color: var(--page);
-  transform: translateY(-1px);
-  box-shadow:
-    inset 0 1px 0 oklch(73% 0.16 54 / 0.45),
-    0 2px 3px rgba(29, 17, 8, 0.2),
-    0 16px 26px -14px rgba(29, 17, 8, 0.55);
+.button.primary {
+  background: var(--ink);
+  color: var(--morning);
+}
+
+.button.primary:hover {
+  background: #3a2c22;
 }
 
 .button:active {
-  transform: translateY(0);
-  box-shadow:
-    inset 0 2px 4px rgba(29, 17, 8, 0.28),
-    0 1px 2px rgba(29, 17, 8, 0.2);
+  transform: translateY(1px);
 }
 
-.button:focus-visible {
-  outline-color: var(--ink);
+.button:disabled {
+  opacity: 0.7;
+  cursor: progress;
 }
 
-.button[disabled] {
-  cursor: wait;
-  opacity: 0.75;
+.pill-form {
+  width: 100%;
+  max-width: 540px;
 }
 
-/* Secondary action is a ballpoint text link, never a second button, and never
-   an arrow glyph. */
-.text-link {
-  display: inline-flex;
-  align-items: center;
-  min-height: 44px;
-  color: var(--link);
-  font-size: 16.5px;
-  font-weight: 600;
-  text-decoration: underline;
-  text-decoration-thickness: 1.5px;
-  background: none;
+.pill-field {
+  display: flex;
+  gap: 8px;
+  padding: 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid var(--line);
+  box-shadow: 0 16px 40px -24px rgba(90, 45, 15, 0.45);
+}
+
+.pill-field:focus-within {
+  border-color: rgba(30, 23, 18, 0.4);
+}
+
+.pill-field input {
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 50px;
+  padding: 0 20px;
   border: 0;
-  padding: 0;
+  background: transparent;
+  color: var(--ink);
+  font: 400 16px var(--sans);
 }
 
-.text-link:hover {
-  color: var(--link-hover);
-  text-decoration-thickness: 2.5px;
+.pill-field input:focus {
+  outline: none;
+}
+
+.pill-field input::placeholder {
+  color: var(--faint);
+}
+
+.pill-field .button {
+  min-height: 50px;
+}
+
+.form-note {
+  margin-top: 10px;
+  font-size: 13.5px;
+  color: var(--faint);
+}
+
+.form-error {
+  margin-top: 10px;
+  font-size: 14.5px;
+  font-weight: 500;
+  color: var(--error);
+}
+
+.form-success {
+  max-width: 540px;
+  padding: 18px 22px;
+  border-radius: var(--radius);
+  background: var(--paper);
+  border: 1px solid var(--line);
+  font-weight: 500;
+}
+
+.form-success:focus {
+  outline: none;
 }
 
 .field {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  margin-bottom: 20px;
+  gap: 6px;
+  margin-bottom: 16px;
 }
 
 .field label {
-  font-size: 15px;
-  font-weight: 600;
+  font-size: 14.5px;
+  font-weight: 500;
+}
+
+.field .hint {
+  font-weight: 400;
+  color: var(--faint);
 }
 
 .field input,
-.field textarea,
-.field select {
-  min-height: 58px;
-  padding: 14px 16px;
-  border: 1.5px solid var(--ink);
-  border-radius: 12px;
-  background: var(--paper-fill);
-  font-size: 16.5px;
+.field select,
+.field textarea {
+  width: 100%;
+  min-height: 50px;
+  padding: 12px 16px;
+  border-radius: 14px;
+  border: 1px solid rgba(30, 23, 18, 0.22);
+  background: #fff;
+  color: var(--ink);
+  font: 400 16px/1.4 var(--sans);
 }
 
 .field textarea {
-  min-height: 120px;
   resize: vertical;
 }
 
-.field input:focus,
-.field textarea:focus,
-.field select:focus {
-  box-shadow: 0 0 0 6px oklch(65% 0.19 52 / 0.16);
+.highlight {
+  background: var(--accent-soft);
+  padding: 2px 6px;
+  border-radius: 6px;
 }
 
-.field select {
-  appearance: none;
-  background-image: linear-gradient(45deg, transparent 50%, var(--ink) 50%),
-    linear-gradient(135deg, var(--ink) 50%, transparent 50%);
-  background-position: calc(100% - 22px) 26px, calc(100% - 16px) 26px;
-  background-size: 6px 6px, 6px 6px;
-  background-repeat: no-repeat;
-}
+/* ── header ─────────────────────────────────────────────────────────────── */
 
-.form-note {
-  margin-top: 14px;
-  color: var(--muted);
-  font-size: 14px;
-  line-height: 1.5;
-}
-
-/* A validation failure is the one place red is allowed: green here would say the
-   opposite of what the message says. The word carries the meaning either way. */
-.form-error {
-  margin-top: 14px;
-  padding: 12px 14px;
-  border: 1.5px solid var(--danger);
-  border-radius: 10px;
-  color: var(--danger-strong);
-  font-size: 15px;
-  font-weight: 600;
-}
-
-.form-success {
-  padding: 20px;
-  background: var(--paper-fill);
-  border: 1.5px solid var(--confirmed);
-  border-radius: 12px;
-}
-
-/* ── header ──────────────────────────────────────────────────────────────── */
-
-/* The header paints nothing. It is not a bar and it has no line under it: it
-   sits on the first, deepest stretch of the sky, which is what makes the top of
-   the page feel like the bottom of it without a single edge anywhere. */
 .site-header {
-  background: transparent;
+  position: relative;
+  z-index: 20;
+  background: var(--dawn);
 }
 
 .header-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 20px;
+  gap: 16px;
   min-height: 84px;
 }
 
@@ -617,17 +395,15 @@ h2 + .lead {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  color: var(--ink);
-  font-family: var(--slab);
-  font-size: 27px;
-  font-weight: 700;
-  line-height: 1;
   text-decoration: none;
+  font-family: var(--serif);
+  font-size: 30px;
+  line-height: 1;
 }
 
 .brand img {
-  width: 34px;
-  height: 34px;
+  width: 46px;
+  height: 46px;
   object-fit: contain;
 }
 
@@ -638,667 +414,1672 @@ h2 + .lead {
 }
 
 .header-cta {
-  min-height: 48px;
-  padding: 10px 20px;
-  font-size: 15.5px;
+  min-height: 44px;
+  padding: 0 20px;
 }
 
 .nav-toggle {
-  display: inline-flex;
+  display: none;
+  width: 44px;
+  height: 44px;
   align-items: center;
   justify-content: center;
-  width: 48px;
-  height: 48px;
-  padding: 0;
-  border: 1.5px solid var(--ink);
-  border-radius: 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(30, 23, 18, 0.25);
   background: transparent;
+  color: var(--ink);
+  cursor: pointer;
 }
 
 .nav-toggle svg {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   fill: none;
-  stroke: var(--ink);
-  stroke-width: 2;
+  stroke: currentColor;
+  stroke-width: 1.8;
   stroke-linecap: round;
-}
-
-.site-nav {
-  border-top: 1px solid var(--rule-sky);
-}
-
-.site-nav > .wrap {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px 28px;
 }
 
 .site-nav ul {
   display: flex;
-  flex-wrap: wrap;
-  gap: 4px 28px;
+  gap: 34px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
 .site-nav a {
-  display: inline-flex;
-  align-items: center;
-  min-height: 48px;
-  color: var(--ink);
-  font-size: 15px;
-  font-weight: 500;
   text-decoration: none;
+  font-size: 15px;
+  color: var(--ink-2);
 }
 
 .site-nav a:hover {
-  text-decoration: underline;
+  color: var(--accent);
 }
 
-.nav-lang {
-  font-weight: 600;
-  color: var(--link) !important;
+@media (min-width: 900px) {
+  .site-nav {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    height: 84px;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+  }
+
+  .site-nav .wrap {
+    display: flex;
+    align-items: center;
+    gap: 34px;
+    padding: 0;
+  }
 }
 
-/* Below 900px the nav collapses behind the menu button, so the bar stays one
-   line on the phones most of these families are using. */
 @media (max-width: 899px) {
+  .nav-toggle {
+    display: inline-flex;
+  }
+
   .site-nav {
     display: none;
+    padding: 4px 0 20px;
+    border-top: 1px solid var(--line);
   }
 
   .site-header[data-nav-open="true"] .site-nav {
     display: block;
   }
 
-  .site-header[data-nav-open="true"] .site-nav > .wrap {
-    flex-direction: column;
-    align-items: flex-start;
-    padding-block: 8px 18px;
-  }
-
   .site-nav ul {
     flex-direction: column;
-    width: 100%;
+    gap: 0;
   }
 
-  .site-nav ul a {
-    min-height: 52px;
+  .site-nav li a,
+  .nav-lang {
+    display: block;
+    padding: 12px 0;
     font-size: 17px;
   }
 }
 
-@media (min-width: 900px) {
-  .nav-toggle {
-    display: none;
-  }
+/* ── the day's light ────────────────────────────────────────────────────── */
+
+.section {
+  position: relative;
+  padding: clamp(80px, 10vw, 136px) 0;
 }
 
-/* Slim bar that appears once the hero is out of view, so "Join the pilot" is
-   always one tap away on a phone without covering the hero itself. */
-.sticky-join,
-.sticky-join[hidden] {
-  display: none;
+.t-morning {
+  background: linear-gradient(180deg, var(--dawn) 0%, #f9e2cc 55%, var(--morning) 100%);
 }
 
-@keyframes sticky-in {
-  from {
-    opacity: 0;
-    transform: translateY(14px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
+.t-day {
+  background: linear-gradient(180deg, var(--morning), var(--day));
+}
+
+.t-noon {
+  background: linear-gradient(180deg, var(--day), var(--noon));
+}
+
+.t-afternoon {
+  background: linear-gradient(180deg, var(--noon), var(--afternoon));
+}
+
+.t-golden {
+  background: linear-gradient(180deg, var(--afternoon), var(--golden));
+}
+
+.t-golden h2 em,
+.t-golden .time-chip-time {
+  color: #8c3d12;
+}
+
+.t-dusk {
+  background: linear-gradient(180deg, var(--golden) 0%, #e4a08a 26%, #a86e8a 55%, #4e3c74 80%, var(--dusk) 100%);
+}
+
+.t-dusk h2 em {
+  color: var(--ink);
+}
+
+.t-dusk .time-chip-time {
+  color: #7a2e1c;
+}
+
+.t-night,
+.t-night-deep,
+.site-footer {
+  color: var(--on-night);
+}
+
+.t-night {
+  background: linear-gradient(180deg, var(--dusk) 0%, #151739 30%, var(--night) 100%);
+  overflow: hidden;
+}
+
+.t-night-deep {
+  background: var(--night);
+}
+
+:is(.t-night, .t-night-deep) .lead {
+  color: var(--on-night-muted);
+}
+
+:is(.t-night, .t-night-deep) .caption,
+:is(.t-night, .t-night-deep) .form-note,
+:is(.t-night, .t-night-deep) .time-chip-label {
+  color: var(--on-night-faint);
+}
+
+:is(.t-night, .t-night-deep) .time-chip-time {
+  color: var(--lilac);
+}
+
+:is(.t-night, .t-night-deep) h2 em {
+  color: var(--peach);
+}
+
+:is(.t-night, .t-night-deep) .text-link:hover {
+  color: var(--peach);
+}
+
+:is(.t-night, .t-night-deep) .button.primary {
+  background: var(--on-night);
+  color: var(--night);
+}
+
+:is(.t-night, .t-night-deep) .button.primary:hover {
+  background: #fff;
+}
+
+:is(.t-night, .t-night-deep) .pill-field {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: none;
+}
+
+:is(.t-night, .t-night-deep) .pill-field input {
+  color: var(--on-night);
+}
+
+:is(.t-night, .t-night-deep) .pill-field input::placeholder {
+  color: var(--on-night-faint);
+}
+
+:is(.t-night, .t-night-deep) .form-error {
+  color: #ffb4a6;
+}
+
+:is(.t-night, .t-night-deep) .form-success {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--night-line);
+}
+
+:is(.t-night, .t-night-deep) .field input,
+:is(.t-night, .t-night-deep) .field textarea {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(255, 255, 255, 0.22);
+  color: var(--on-night);
+}
+
+:is(.t-night, .t-night-deep) .field .hint {
+  color: var(--on-night-faint);
+}
+
+/* ── shared layouts ─────────────────────────────────────────────────────── */
+
+.split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(40px, 6vw, 88px);
+  align-items: center;
+}
+
+.split-copy .lead {
+  margin-top: 22px;
+}
+
+.center-head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.center-head .lead {
+  margin-top: 20px;
+}
+
+.head-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr);
+  gap: 64px;
+  align-items: end;
+  margin-bottom: 52px;
+}
+
+.glass {
+  background: rgba(255, 251, 244, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  border-radius: 28px;
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+}
+
+:is(.t-night, .t-night-deep) .glass {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: var(--night-line);
+}
+
+.device {
+  display: block;
+  height: auto;
+  filter: drop-shadow(0 34px 44px rgba(90, 45, 15, 0.3));
 }
 
 @media (max-width: 899px) {
-  .sticky-join:not([hidden]) {
-    animation: sticky-in 220ms ease-out both;
-    position: fixed;
-    left: 14px;
-    right: 14px;
-    bottom: 14px;
-    z-index: 10;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 56px;
-    border-radius: 12px;
-    background: var(--accent);
-    color: #fff;
-    font-size: 16.5px;
-    font-weight: 600;
-    text-decoration: none;
-    box-shadow: var(--paper-shadow-lifted);
+  .split,
+  .head-split {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .head-split {
+    gap: 20px;
+    margin-bottom: 36px;
   }
 }
 
-/* ── hero and the family folder ──────────────────────────────────────────── */
+/* ── 7:15 AM · the hero ─────────────────────────────────────────────────── */
 
-/* The one quiet wash on the page: a pool of warm light behind the device that
-   ties the mascot to the sky without carrying any meaning. It is a gradient, so
-   the grain and the weather over it are doing real work here — they are what
-   stop a large, soft gradient from banding on a cheap screen. */
 .hero {
-  background-image: radial-gradient(
-    58% 46% at 72% 42%,
-    oklch(93.5% 0.07 26 / 0.55),
-    oklch(95% 0.05 44 / 0.22) 48%,
-    transparent 74%
-  );
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  padding-block: 44px 64px;
+  position: relative;
+  overflow: hidden;
+  padding: 28px 0 0;
 }
 
-@media (min-width: 900px) {
-  .hero {
-    padding-block: 84px 120px;
-  }
+/* The phones rise out of the morning instead of stopping on a hard edge. */
+.hero::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 150px;
+  background: linear-gradient(180deg, rgba(247, 238, 228, 0), var(--morning));
+  pointer-events: none;
 }
 
-.hero-grid {
-  display: grid;
-  gap: 48px;
-  align-items: center;
+.sun {
+  position: absolute;
+  left: 50%;
+  top: 360px;
+  width: min(1000px, 140vw);
+  aspect-ratio: 1;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(closest-side, #ffc08a 0%, rgba(255, 192, 138, 0.55) 45%, rgba(255, 192, 138, 0) 100%);
+  animation: sun 10s ease-in-out infinite;
+  pointer-events: none;
 }
 
-@media (min-width: 900px) {
-  .hero-grid {
-    grid-template-columns: 1.05fr 0.95fr;
-    gap: 72px;
-  }
-}
-
-.hero-copy h1 {
-  max-width: 20ch;
-}
-
-.hero-actions {
+.hero-copy {
+  position: relative;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   align-items: center;
-  gap: 12px 26px;
-  margin-top: 32px;
+  text-align: center;
+}
+
+.hero-copy .time-chip {
+  margin-bottom: 18px;
+}
+
+.hero-copy .lead {
+  margin: 24px auto 28px;
+  max-width: 660px;
+}
+
+.hero-copy .pill-form {
+  margin: 0 auto;
+  text-align: left;
+}
+
+.hero-copy .form-note {
+  text-align: center;
 }
 
 .trust-line {
-  margin-top: 20px;
-  max-width: 46ch;
-  color: var(--muted);
+  margin-top: 6px;
+  font-size: 13.5px;
+  color: var(--faint);
+}
+
+/* The rolling line. Nine lines in a column: eight people who have an agent,
+   then parents, then the first line again so the loop joins without a jump.
+   The column slides up one line at a time; each line holds, parents holds
+   longest, and the strike and the headline's colour land together. */
+.agents {
+  --line: 1.25em;
+  height: var(--line);
+  overflow: hidden;
+  margin-bottom: 14px;
+  font-family: var(--serif);
+  font-size: clamp(26px, 3.3vw, 46px);
+  line-height: var(--line);
+  color: var(--faint);
+}
+
+.agents-track {
+  display: flex;
+  flex-direction: column;
+  animation: agents 22s cubic-bezier(0.7, 0, 0.2, 1) infinite;
+}
+
+.agents-track > span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--line);
+  white-space: nowrap;
+}
+
+.agents-parents {
+  color: var(--ink);
+}
+
+.agents-parents s {
+  position: relative;
+  text-decoration: none;
+  margin-left: 0.25em;
+}
+
+.agents-parents s::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 55%;
+  width: 0;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--accent);
+  animation: strike 22s ease-in-out infinite;
+}
+
+.hero h1 em {
+  animation: payoff 22s ease-in-out infinite;
+}
+
+@keyframes agents {
+  0%, 6% { transform: translateY(0); }
+  7.5%, 13.5% { transform: translateY(calc(var(--line) * -1)); }
+  15%, 21% { transform: translateY(calc(var(--line) * -2)); }
+  22.5%, 28.5% { transform: translateY(calc(var(--line) * -3)); }
+  30%, 36% { transform: translateY(calc(var(--line) * -4)); }
+  37.5%, 43.5% { transform: translateY(calc(var(--line) * -5)); }
+  45%, 51% { transform: translateY(calc(var(--line) * -6)); }
+  52.5%, 58.5% { transform: translateY(calc(var(--line) * -7)); }
+  60%, 97% { transform: translateY(calc(var(--line) * -8)); }
+  100% { transform: translateY(calc(var(--line) * -9)); }
+}
+
+@keyframes strike {
+  0%, 64% { width: 0; }
+  68%, 96% { width: 100%; }
+  100% { width: 0; }
+}
+
+@keyframes payoff {
+  0%, 68% { color: var(--ink); }
+  72%, 95% { color: var(--accent); }
+  100% { color: var(--ink); }
+}
+
+/* Three phones stacked in depth, Ollie hiding behind the middle one. */
+.hero-stage {
+  position: relative;
+  width: 780px;
+  max-width: 100%;
+  height: 560px;
+  margin: 116px auto 0;
+}
+
+.hero-stage .device {
+  position: absolute;
+}
+
+.hero-stage .device:nth-child(1) {
+  left: 0;
+  top: 96px;
+  width: 270px;
+  animation: float-l 9s ease-in-out infinite;
+}
+
+.hero-stage .device:nth-child(2) {
+  right: 0;
+  top: 96px;
+  width: 270px;
+  animation: float-r 10s ease-in-out 0.8s infinite;
+}
+
+.hero-stage .device:nth-child(4) {
+  left: 50%;
+  top: 56px;
+  width: 310px;
+  margin-left: -155px;
+  filter: drop-shadow(0 40px 50px rgba(90, 45, 15, 0.35));
+  animation: float-m 8s ease-in-out 0.3s infinite;
+}
+
+.peek {
+  position: absolute;
+  left: 50%;
+  top: -86px;
+  width: 200px;
+  height: 200px;
+  margin-left: -100px;
+  transform-origin: 50% 90%;
+  animation: peek 22s ease-in-out infinite;
+}
+
+@keyframes peek {
+  0%, 69% { transform: translateY(170px) rotate(0); }
+  74%, 77.5% { transform: translateY(98px) rotate(0); }
+  82.5% { transform: translateY(-8px) rotate(0); }
+  85% { transform: translateY(0) rotate(0); }
+  88% { transform: translateY(0) rotate(-4deg); }
+  91%, 94% { transform: translateY(0) rotate(0); }
+  99%, 100% { transform: translateY(170px) rotate(0); }
+}
+
+@keyframes float-l {
+  0%, 100% { transform: translateY(0) rotate(-11deg); }
+  50% { transform: translateY(-12px) rotate(-11deg); }
+}
+
+@keyframes float-r {
+  0%, 100% { transform: translateY(0) rotate(11deg); }
+  50% { transform: translateY(-10px) rotate(11deg); }
+}
+
+@keyframes float-m {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
+}
+
+@keyframes sun {
+  0%, 100% { transform: translateX(-50%) scale(1); opacity: 0.9; }
+  50% { transform: translateX(-50%) scale(1.06); opacity: 1; }
+}
+
+/* School paper drifting behind the phones: the mess the phones sort out. */
+.clutter {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.paper {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+  background: #fffdf8;
+  box-shadow: 0 12px 30px rgba(90, 45, 15, 0.15);
+  filter: blur(2.5px);
+  opacity: 0.82;
+}
+
+.paper i {
+  display: block;
+  height: 6px;
+  border-radius: 3px;
+  background: #e6d9cb;
+}
+
+.paper i:nth-child(2n) {
+  width: 70%;
+}
+
+.paper b {
+  margin-top: auto;
+  height: 1px;
+  background: #b9a99a;
+}
+
+.paper-slip {
+  left: calc(50% - 560px);
+  top: 700px;
+  width: 210px;
+  height: 280px;
+  transform: rotate(-9deg);
+}
+
+.paper-menu {
+  left: calc(50% + 380px);
+  top: 660px;
+  width: 220px;
+  height: 290px;
+  background: #fff8ec;
+  transform: rotate(7deg);
+  filter: blur(3px);
+}
+
+.paper-note {
+  left: calc(50% + 470px);
+  top: 520px;
+  width: 128px;
+  height: 128px;
+  background: #ffe58f;
+  transform: rotate(-4deg);
+}
+
+.paper-card {
+  left: calc(50% - 640px);
+  top: 520px;
+  width: 190px;
+  height: 118px;
+  background: #fff;
+  transform: rotate(12deg);
+  filter: blur(3px);
+  opacity: 0.7;
+}
+
+@media (max-width: 899px) {
+  .clutter {
+    display: none;
+  }
+
+  .hero-stage {
+    width: 100%;
+    height: 440px;
+    margin-top: 96px;
+  }
+
+  .hero-stage .device:nth-child(1),
+  .hero-stage .device:nth-child(2) {
+    display: none;
+  }
+
+  .hero-stage .device:nth-child(4) {
+    width: 260px;
+    margin-left: -130px;
+  }
+
+  .peek {
+    width: 170px;
+    height: 170px;
+    margin-left: -85px;
+    top: -60px;
+  }
+
+  /* On a phone the rolling line wraps to two lines, so each step is taller. */
+  .agents {
+    --line: 2.5em;
+    font-size: 24px;
+    line-height: 1.25;
+  }
+
+  .agents-track > span {
+    white-space: normal;
+    text-align: center;
+    padding: 0 8px;
+  }
+
+  .agents-parents {
+    flex-wrap: wrap;
+    gap: 0 0.25em;
+  }
+
+  .agents-parents s {
+    margin-left: 0;
+  }
+}
+
+/* ── 8:30 AM · the inbox ───────────────────────────────────────────────── */
+
+.step-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px 32px;
+  margin: 36px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.step-grid li {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding-top: 14px;
+  border-top: 1px solid var(--ink);
   font-size: 15.5px;
   line-height: 1.5;
 }
 
-.hero-visual {
+.step-tag {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+.inbox-stage {
+  position: relative;
+  height: 690px;
   margin: 0;
 }
 
-/* ── the hero device ─────────────────────────────────────────────────────────
-   The hero's five rows are the card the parent actually receives, rendered
-   inside the real device (scripts/build-phone.mjs). The render is shown clean;
-   the card's own status chips carry the meaning. */
-
-.hero-visual {
-  position: relative;
-  width: min(328px, 100%);
-  margin: 0;
-  justify-self: center;
-}
-
-.hero-phone-wrap {
-  position: relative;
-}
-
-.hero-phone {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-.mascot {
-  position: absolute;
-  right: -18px;
-  top: -46px;
-  width: clamp(88px, 15vw, 124px);
-  height: auto;
-  filter: drop-shadow(0 12px 22px rgba(31, 34, 51, 0.22));
-}
-
-@media (max-width: 619px) {
-  .mascot {
-    right: -6px;
-    top: -38px;
-  }
-}
-
-/* ── what it connects to ─────────────────────────────────────────────────────
-   The services Axolotl actually reaches, riding beside the device: the line you
-   text, your email, the school's mail and the forms it files. Paper pills, so
-   they read as the site's own notes rather than a wall of vendor logos. */
-
-.hero-badge {
+.inbox-card {
   position: absolute;
   z-index: 2;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  height: 42px;
-  padding: 0 15px 0 7px;
-  border-radius: 999px;
-  background: oklch(99% 0.006 80 / 0.94);
-  color: var(--ink);
-  font-size: 13px;
-  font-weight: 600;
-  white-space: nowrap;
-  box-shadow:
-    inset 0 1px 0 oklch(100% 0 0 / 0.7),
-    0 0 0 1px oklch(24.5% 0.03 58 / 0.08),
-    0 10px 22px -10px rgba(29, 17, 8, 0.35);
+  left: 0;
+  top: 70px;
+  width: 300px;
+  padding: 22px;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0 30px 60px -30px rgba(60, 40, 20, 0.35);
 }
 
-/* The real app icons are 2x assets, so they stay sharp at this size. */
-.hero-badge img {
-  display: block;
-  width: 28px;
-  height: 28px;
-  flex: 0 0 auto;
-  object-fit: contain;
+.inbox-label {
+  padding-bottom: 10px;
+  font-size: 12.5px;
+  color: var(--faint);
 }
 
-/* Three down the left edge and two on the right shoulder, under the mascot, so
-   the device stays the subject and every mark stays legible. */
-.hero-badge-1 {
-  top: 3%;
-  right: calc(100% - 22px);
-}
-
-.hero-badge-2 {
-  top: 28%;
-  right: calc(100% - 13px);
-}
-
-.hero-badge-3 {
-  bottom: 10%;
-  right: calc(100% - 18px);
-}
-
-.hero-badge-4 {
-  top: 38%;
-  left: calc(100% - 15px);
-}
-
-.hero-badge-5 {
-  bottom: 14%;
-  left: calc(100% - 11px);
-}
-
-/* On a phone the badges stop floating. There is no room beside the device — they
-   were running off both edges of the viewport — so they become a centred row of
-   app icons under the phone, the way a home screen shows a row of icons. */
-@media (max-width: 899px) {
-  .hero-phone-wrap {
-    display: flex;
-    flex-direction: column;
-    gap: 22px;
-  }
-
-  .hero-badges {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-  }
-
-  .hero-badge,
-  .hero-badge-1,
-  .hero-badge-2,
-  .hero-badge-3,
-  .hero-badge-4,
-  .hero-badge-5 {
-    position: static;
-    width: 50px;
-    height: 50px;
-    padding: 0;
-    gap: 0;
-    justify-content: center;
-    border-radius: 14px;
-  }
-
-  .hero-badge img {
-    width: 32px;
-    height: 32px;
-  }
-
-  /* The row is icons; the label stays for screen readers only. */
-  .hero-badge span {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    margin: -1px;
-    padding: 0;
-    border: 0;
-    overflow: hidden;
-    clip: rect(0 0 0 0);
-    white-space: nowrap;
-  }
-}
-
-/* ── status labels (one fixed vocabulary everywhere) ─────────────────────── */
-
-.status {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 13px;
-  font-weight: 600;
-  line-height: 1.3;
-  white-space: nowrap;
-}
-
-.status-confirmed {
-  padding: 4px 10px;
-  border: 3px double var(--confirmed);
-  border-radius: 3px;
-  color: var(--confirmed);
-  font-family: var(--slab);
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  transform: rotate(-6deg);
-}
-
-/* "Waiting for your yes" is the only status that is the parent's turn, so it is
-   the only status that gets the attention colour. Everything else is neutral:
-   the word carries the meaning, and a permission slip never reads as an alert. */
-.status-waiting {
-  padding: 4px 12px;
-  border: 1.5px dashed var(--attention);
-  border-radius: 999px;
-  color: var(--attention-strong);
-}
-
-.status-requested {
-  padding: 4px 12px;
-  border: 1.5px solid var(--rule);
-  border-radius: 999px;
-  color: var(--paper-700);
-}
-
-.status-reminder {
-  padding: 4px 12px;
-  border: 1.5px solid var(--rule);
-  border-radius: 999px;
-  color: var(--muted);
-}
-
-.status-soon {
-  padding: 4px 12px;
-  border: 1.5px dashed var(--rule);
-  border-radius: 999px;
-  color: var(--muted);
-}
-
-/* On the pink band and the ink band the graphite needs a lighter neighbour. */
-/* ── the iOS components ───────────────────────────────────────────────────────
-   The message bubble and the card a message can carry, at the metrics iOS uses.
-   These are the same numbers the device render is built from, so the cards on
-   the page are the component the product actually sends rather than a web page
-   drawn to look like iOS.
-
-   The components are Apple's; the words in them are Axolotl's. */
-.ios-bubble {
-  max-width: 34rem;
-  padding: 8px 15px;
-  border-radius: 19px;
-  font-family: var(--bubble-font);
-  font-size: 17px;
-  line-height: 22px;
-  letter-spacing: -0.4px;
-}
-
-.ios-bubble.in {
-  background: var(--ios-bubble-in);
-  color: #000;
-}
-
-.ios-bubble.out {
-  background: var(--ios-bubble-out);
-  color: #fff;
-}
-
-.ios-bubble-example {
-  margin-top: 24px;
-}
-
-/* ── layers ──────────────────────────────────────────────────────────────── */
-
-.layer-grid {
-  display: grid;
-  gap: 40px;
-  margin-top: 48px;
-}
-
-@media (min-width: 900px) {
-  .layer-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0;
-  }
-
-  .layer {
-    padding-inline: 40px;
-    border-left: 1px solid var(--rule-sky);
-  }
-
-  .layer:first-child {
-    padding-left: 0;
-    border-left: 0;
-  }
-
-  .layer:last-child {
-    padding-right: 0;
-  }
-}
-
-.layer-label {
-  margin-bottom: 10px;
-  color: var(--muted);
-  font-size: 14px;
-}
-
-.layer p {
-  margin-top: 12px;
-  color: var(--text);
-}
-
-/* ── the week ────────────────────────────────────────────────────────────── */
-
-/* One screen at a time, with an arrow either side, and the heading above the
-   device. The track is a scroll container first: without scripting it is still
-   a row you can swipe, and with it the arrows step one screen and stop at the
-   ends. */
-.carousel {
-  position: relative;
-  margin-top: 48px;
-}
-
-.carousel-track {
-  display: flex;
-  gap: 24px;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-
-.carousel-track::-webkit-scrollbar {
-  display: none;
-}
-
-.week-card {
-  flex: 0 0 100%;
-  scroll-snap-align: center;
+.inbox-card ul {
   margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.inbox-card li {
+  padding: 9px 0;
+  border-top: 1px solid #efe7dd;
+  font-size: 14px;
+  color: #8a7b70;
+}
+
+.inbox-card li.is-flagged {
+  margin: 0 -12px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border-top: 0;
+  background: var(--accent-soft);
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.inbox-stage .device {
+  position: absolute;
+  left: 268px;
+  top: 0;
+  width: 310px;
+  animation: float-m 9s ease-in-out infinite;
+}
+
+.inbox-stage .caption {
+  position: absolute;
+  left: 268px;
+  bottom: 0;
+  width: 310px;
   text-align: center;
 }
 
-/* On a wide screen the neighbours stay in view — dimmed and slightly shrunk —
-   so the track reads as one screen in a row of screens rather than a single
-   slide. The card has a FIXED width and the track is padded by exactly half the
-   leftover, so the first and last cards can still snap to the centre. (A
-   percentage padding would shrink the content box that a percentage flex-basis
-   then resolves against, and the cards collapse.) */
-@media (min-width: 900px) {
-  .carousel-track {
-    padding-inline: calc(50% - 17rem);
-    /* The neighbours run past the track's edge. Feather that cut so they fade
-       into the page instead of ending on a hard vertical line mid-screen. */
-    -webkit-mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
-    mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
+@media (max-width: 899px) {
+  .step-grid {
+    grid-template-columns: minmax(0, 1fr);
   }
 
-  .week-card {
-    flex: 0 0 34rem;
+  .inbox-stage {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
-  .week-card h3,
-  .week-shot {
-    transition: opacity 300ms ease, transform 300ms ease;
+  .inbox-card,
+  .inbox-stage .device,
+  .inbox-stage .caption {
+    position: static;
   }
 
-  .week-card:not(.is-active) .week-shot {
-    opacity: 0.55;
-    transform: scale(0.92);
+  .inbox-card {
+    width: 100%;
+    max-width: 400px;
   }
 
-  .week-card:not(.is-active) h3 {
-    opacity: 0.5;
+  .inbox-stage .device {
+    width: 250px;
+    margin-top: -40px;
   }
+
+  .inbox-stage .caption {
+    width: auto;
+    margin-top: 12px;
+  }
+}
+
+/* ── 11:48 AM · the week ───────────────────────────────────────────────── */
+
+.carousel {
+  position: relative;
+  margin-top: 56px;
+}
+
+.carousel-track {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 32px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.week-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+}
+
+.week-card .device {
+  width: 100%;
+  max-width: 265px;
+  margin-bottom: 14px;
+  transform: rotate(-2.5deg);
+}
+
+.week-card:nth-child(even) {
+  padding-top: 64px;
+}
+
+.week-card:nth-child(even) .device {
+  transform: rotate(2.5deg);
+}
+
+.week-time {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: var(--faint);
 }
 
 .week-card h3 {
-  margin-bottom: 20px;
-  font-size: 22px;
-  line-height: 1.15;
+  font-family: var(--serif);
+  font-size: 28px;
+  line-height: 1.1;
 }
 
-.week-shot {
-  display: block;
-  width: min(328px, 100%);
-  height: auto;
-  margin-inline: auto;
-}
-
-/* A white disc on the sky, the way a carousel arrow reads on any ground. */
 .carousel-arrow {
+  display: none;
+}
+
+@media (max-width: 999px) {
+  .carousel-track {
+    display: flex;
+    gap: 18px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    padding: 0 calc(50% - 130px) 8px;
+  }
+
+  .carousel-track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .week-card {
+    flex: 0 0 260px;
+    scroll-snap-align: center;
+    transition: opacity 0.2s ease;
+  }
+
+  .week-card:nth-child(even) {
+    padding-top: 0;
+  }
+
+  .week-card .device,
+  .week-card:nth-child(even) .device {
+    transform: none;
+  }
+
+  .week-card:not(.is-active) {
+    opacity: 0.55;
+  }
+
+  .carousel-arrow:not([hidden]) {
+    position: absolute;
+    top: 240px;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: rgba(255, 255, 255, 0.9);
+    color: var(--ink);
+    cursor: pointer;
+  }
+
+  .carousel-arrow svg {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .carousel-arrow:disabled {
+    opacity: 0.35;
+  }
+
+  .carousel-prev {
+    left: 0;
+  }
+
+  .carousel-next {
+    right: 0;
+  }
+}
+
+/* ── 3:05 PM · help your kid already qualifies for ──────────────────────── */
+
+.timeline {
+  padding: 34px 36px 36px;
+}
+
+.timeline-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 30px;
+}
+
+.timeline-head h3 {
+  font-family: var(--serif);
+  font-size: 30px;
+}
+
+.tl {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tl-step {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 22px 18px 0 0;
+  border-top: 1px solid #d9bfa0;
+}
+
+.tl-step::before {
+  content: "";
   position: absolute;
-  top: 55%;
-  z-index: 2;
+  top: -6px;
+  left: 0;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--ink);
+  box-shadow: 0 0 0 4px #fbf3e6;
+}
+
+.tl-step.is-pending::before {
+  background: #fbf3e6;
+  border: 2px dashed var(--accent);
+}
+
+.tl-step.is-done::before {
+  background: var(--done);
+}
+
+.tl-when {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+.tl-step h3 {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.tl-card {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: #fff;
+  border: 1px solid #e9dccb;
+  font-size: 13.5px;
+  line-height: 1.45;
+}
+
+.tl-meta {
+  font-size: 11.5px;
+  color: var(--faint);
+}
+
+.tl-card strong {
+  font-weight: 600;
+}
+
+.tl-card mark {
+  background: var(--accent-soft);
+  color: inherit;
+  padding: 0 2px;
+}
+
+.tl-letter {
+  border: 0;
+  border-radius: 6px;
+  box-shadow: 0 14px 30px -14px rgba(60, 35, 15, 0.35);
+  transform: rotate(-1.2deg);
+}
+
+.tl-letter-text {
+  font-family: Georgia, "Times New Roman", serif;
+  color: #2a221c;
+}
+
+.tl-sent {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--done);
+}
+
+.tl-track {
+  font-size: 12.5px;
+  color: var(--muted);
+}
+
+.tl-bar {
+  display: block;
+  height: 6px;
+  margin-bottom: 7px;
+  border-radius: 99px;
+  background: #ebd9c2;
+  overflow: hidden;
+}
+
+.tl-bar span {
+  display: block;
+  width: 17%;
+  height: 100%;
+  background: var(--ink);
+}
+
+.bubble {
+  width: fit-content;
+  max-width: 96%;
+  padding: 10px 13px;
+  border-radius: 18px;
+  font-size: 14.5px;
+  line-height: 1.38;
+}
+
+.bubble.in {
+  background: #e9e6df;
+}
+
+.bubble.out {
+  margin-left: auto;
+  background: #1f7ae8;
+  color: #fff;
+}
+
+.also {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 14px;
+  margin-top: 36px;
+}
+
+.also-label {
+  font-weight: 500;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.chips li {
+  padding: 9px 15px;
+  border-radius: 999px;
+  background: rgba(255, 251, 244, 0.72);
+  border: 1px solid var(--line);
+  font-size: 14.5px;
+}
+
+@media (max-width: 999px) {
+  .timeline {
+    padding: 24px 20px;
+  }
+
+  .timeline-head {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .tl {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .tl-step {
+    padding: 0 0 26px 24px;
+    border-top: 0;
+    border-left: 1px solid #d9bfa0;
+  }
+
+  .tl-step:last-child {
+    border-left-color: transparent;
+    padding-bottom: 0;
+  }
+
+  .tl-step::before {
+    top: 2px;
+    left: -6px;
+  }
+
+  .bubble.out {
+    margin-left: auto;
+  }
+}
+
+/* ── 3:40 PM · every family makes it better ──────────────────────────────── */
+
+.two-lists {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 36px;
+  margin: 34px 0 30px;
+}
+
+.two-lists h3 {
+  padding-top: 14px;
+  border-top: 1px solid var(--ink);
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
+.two-lists ul {
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.two-lists li {
+  padding: 5px 0;
+  font-size: 15.5px;
+}
+
+.net {
+  width: 100%;
+  max-width: 540px;
+  height: auto;
+  justify-self: center;
+}
+
+.net-ring {
+  fill: none;
+  stroke: rgba(140, 80, 30, 0.35);
+}
+
+.net-ring-inner {
+  stroke-dasharray: 2 6;
+}
+
+.net-lines line {
+  stroke: rgba(80, 50, 30, 0.45);
+}
+
+.net-school {
+  fill: var(--ink);
+}
+
+.net-school-text {
+  font-family: var(--serif);
+  font-size: 25px;
+  fill: var(--morning);
+}
+
+.net-dots circle {
+  fill: var(--paper);
+  stroke: var(--ink);
+}
+
+.net-you {
+  fill: var(--accent);
+}
+
+.net-label text {
+  font-family: var(--sans);
+  font-size: 13px;
+  fill: var(--muted);
+}
+
+.net-label .net-you-label {
+  font-weight: 600;
+  fill: var(--ink);
+}
+
+.net-note text {
+  font-family: var(--mono);
+  font-size: 11px;
+  fill: var(--muted);
+  paint-order: stroke;
+  stroke: #f4d09e;
+  stroke-width: 5px;
+  stroke-linejoin: round;
+}
+
+@media (max-width: 599px) {
+  .two-lists {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+  }
+}
+
+/* ── 6:30 PM · who's got what ───────────────────────────────────────────── */
+
+.dinner-stage {
+  display: flex;
+  justify-content: center;
+  margin-top: 56px;
+}
+
+.dinner-stage .device {
+  width: 300px;
+  filter: drop-shadow(0 34px 44px rgba(40, 20, 40, 0.4));
+}
+
+.dinner-stage .device:first-child {
+  transform: rotate(-5deg);
+  margin-right: -40px;
+}
+
+.dinner-stage .device:last-child {
+  margin-top: -20px;
+  transform: rotate(4deg);
+  animation: float-m 9s ease-in-out infinite;
+}
+
+.soon-line {
+  max-width: 660px;
+  margin: 52px auto 0;
+  text-align: center;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #efe8f7;
+}
+
+.soon-tag {
+  display: block;
+  margin-bottom: 6px;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--peach);
+}
+
+@media (max-width: 599px) {
+  .dinner-stage .device {
+    width: 190px;
+  }
+
+  .dinner-stage .device:first-child {
+    margin-right: -30px;
+  }
+}
+
+/* ── 9:40 PM · everything's handled ─────────────────────────────────────── */
+
+.stars i {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #fff;
+  animation: twinkle 4s ease-in-out infinite;
+}
+
+.stars i:nth-child(1) { left: 12%; top: 40px; }
+.stars i:nth-child(2) { left: 34%; top: 72px; width: 2px; height: 2px; animation-delay: 1s; }
+.stars i:nth-child(3) { left: 48%; top: 28px; animation-delay: 0.5s; }
+.stars i:nth-child(4) { left: 95%; top: 64px; width: 2px; height: 2px; animation-delay: 2s; }
+.stars i:nth-child(5) { left: 4%; top: 300px; width: 2px; height: 2px; animation-delay: 1.5s; }
+.stars i:nth-child(6) { left: 72%; top: 110px; animation-delay: 2.5s; }
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.25; }
+  50% { opacity: 0.9; }
+}
+
+.sum-label {
+  margin-bottom: 14px;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--on-night-faint);
+}
+
+.summary {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 0 0 14px;
+  padding: 0;
+  list-style: none;
+}
+
+.summary li {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 18px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.sum-mark {
+  flex: 0 0 30px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 52px;
-  height: 52px;
-  padding: 0;
-  border: 0;
-  border-radius: 999px;
-  background: var(--paper-fill);
-  color: var(--ink);
-  box-shadow:
-    inset 0 1px 0 oklch(100% 0 0 / 0.7),
-    0 0 0 1px oklch(24.5% 0.03 58 / 0.08),
-    0 8px 20px -8px rgba(29, 17, 8, 0.4);
-  transition: transform 160ms ease, opacity 160ms ease;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
 }
 
-.carousel-arrow svg {
-  width: 24px;
-  height: 24px;
+.is-done .sum-mark {
+  background: var(--on-night);
+}
+
+.is-done .sum-mark svg {
+  width: 15px;
+  height: 15px;
   fill: none;
-  stroke: currentColor;
-  stroke-width: 2;
+  stroke: var(--night);
+  stroke-width: 2.6;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
 
-.carousel-prev {
-  left: 0;
+.is-waiting .sum-mark {
+  border: 1.5px dashed var(--peach);
 }
 
-.carousel-next {
-  right: 0;
+.sum-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
 
-@media (hover: hover) {
-  .carousel-arrow:hover:not(:disabled) {
-    transform: scale(1.06);
-  }
-}
-
-.carousel-arrow:disabled {
-  opacity: 0.4;
-  cursor: default;
-}
-
-@media (max-width: 719px) {
-  .carousel-arrow {
-    width: 44px;
-    height: 44px;
-    top: auto;
-    bottom: -4px;
-  }
-}
-
-/* ── the year (rights) ───────────────────────────────────────────────────── */
-
-.year-table {
-  width: 100%;
-  margin-top: 44px;
-  border-collapse: collapse;
-  text-align: left;
-}
-
-.year-table caption {
-  text-align: left;
-}
-
-.year-table th {
-  padding: 0 20px 14px 0;
-  border-bottom: 2px solid var(--ink);
-  font-family: var(--sans);
-  font-size: 14px;
-  font-weight: 600;
-}
-
-.year-table td {
-  padding: 22px 20px 22px 0;
-  border-bottom: 1px solid var(--rule-sky);
-  vertical-align: top;
-  font-size: 16px;
-  line-height: 1.5;
-}
-
-/* The same table appears on the desk background (/schools) and on the deep band
-   (the rights table), so the rules and the secondary text follow the band. */
-.year-table q {
-  display: block;
-  hanging-punctuation: first last;
-  font-family: var(--slab);
-  font-size: 21px;
+.sum-text strong {
   font-weight: 500;
-  line-height: 1.3;
-  quotes: "\201C" "\201D";
 }
 
-.year-table td:nth-child(2) {
-  color: var(--muted);
+.sum-text span {
+  font-size: 13.5px;
+  color: var(--on-night-muted);
+}
+
+.promises {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  margin-top: 96px;
+}
+
+.promise {
+  padding: 28px;
+}
+
+.promise h3 {
+  margin-bottom: 10px;
+  font-family: var(--serif);
+  font-size: 30px;
+  line-height: 1.1;
+}
+
+.promise p {
+  font-size: 15.5px;
+  line-height: 1.55;
+  color: var(--on-night-muted);
+}
+
+.promise-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 28px;
+  margin-top: 22px;
+}
+
+.quote-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  margin-top: 28px;
+}
+
+.quote {
+  margin: 0;
+  padding: 28px;
+}
+
+#voices {
+  margin-top: 96px;
+}
+
+#voices h2 {
+  font-size: clamp(34px, 4vw, 52px);
+}
+
+.join {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 120px;
+  text-align: center;
+}
+
+.join::before {
+  content: "";
+  position: absolute;
+  top: -80px;
+  left: 50%;
+  width: 620px;
+  max-width: 100%;
+  aspect-ratio: 1;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(255, 195, 168, 0.18), rgba(255, 195, 168, 0));
+  pointer-events: none;
+}
+
+.sleeper {
+  position: relative;
+  width: 300px;
+  margin: -30px 0 -40px;
+  animation: float-m 7s ease-in-out infinite;
+}
+
+.join h2 {
+  position: relative;
+}
+
+.join .lead {
+  position: relative;
+  margin: 22px auto 28px;
+}
+
+.join .pill-form {
+  position: relative;
+  text-align: left;
+}
+
+.join .form-note {
+  text-align: center;
+}
+
+.join-alt {
+  position: relative;
+  margin-top: 18px;
 }
 
 @media (max-width: 899px) {
-  /* Stack the table, but keep the header cells in the accessibility tree: they
-     are clipped, not display:none, so a screen reader on a phone still hears
-     the column each value belongs to. */
+  .promises,
+  .quote-grid {
+    grid-template-columns: minmax(0, 1fr);
+    margin-top: 64px;
+  }
+
+  .sleeper {
+    width: 230px;
+  }
+}
+
+/* ── schools band, questions, footer ────────────────────────────────────── */
+
+.section-band {
+  padding: 96px 0 40px;
+}
+
+.band {
+  padding-top: 40px;
+  border-top: 1px solid var(--night-line);
+}
+
+.band .lead {
+  margin: 18px 0 20px;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+  gap: 64px;
+  align-items: start;
+}
+
+.contact-grid form {
+  margin-top: 30px;
+  max-width: 560px;
+}
+
+.contact-grid h2 {
+  font-size: clamp(38px, 4.4vw, 60px);
+}
+
+.contact-grid .lead {
+  margin-top: 16px;
+}
+
+.inline-panel {
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  background: var(--paper);
+}
+
+:is(.t-night, .t-night-deep) .inline-panel {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--night-line);
+}
+
+.inline-panel summary {
+  padding: 18px 22px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.panel-body {
+  padding: 0 22px 22px;
+}
+
+.panel-body h3 {
+  margin: 18px 0 6px;
+  font-size: 15.5px;
+  font-weight: 600;
+}
+
+.panel-body .panel-title {
+  margin-top: 0;
+  font-family: var(--serif);
+  font-size: 26px;
+  font-weight: 400;
+}
+
+.panel-body p {
+  font-size: 14.5px;
+  line-height: 1.55;
+  opacity: 0.85;
+}
+
+.panel-body .text-link {
+  display: inline-block;
+  margin-top: 16px;
+}
+
+@media (max-width: 899px) {
+  .contact-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 36px;
+  }
+}
+
+.site-footer {
+  background: var(--night);
+  border-top: 1px solid var(--night-line);
+  padding: 36px 0 110px;
+}
+
+.footer-grid {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.brand-footer {
+  font-size: 26px;
+}
+
+.brand-footer img {
+  width: 38px;
+  height: 38px;
+}
+
+.site-footer p {
+  margin-top: 8px;
+  font-size: 14px;
+  color: var(--on-night-faint);
+}
+
+.site-footer ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 28px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.site-footer ul a {
+  font-size: 14.5px;
+  text-decoration: none;
+  color: var(--on-night-muted);
+}
+
+.site-footer ul a:hover {
+  color: var(--on-night);
+}
+
+.sticky-join {
+  position: fixed;
+  left: 50%;
+  bottom: 18px;
+  z-index: 40;
+  transform: translateX(-50%);
+  padding: 14px 26px;
+  border-radius: 999px;
+  border: 1px solid rgba(30, 23, 18, 0.12);
+  background: #fffdf9;
+  color: var(--ink);
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.5);
+}
+
+.sticky-join[hidden] {
+  display: none;
+}
+
+/* ── /schools ───────────────────────────────────────────────────────────── */
+
+.hero-schools {
+  padding: 72px 0 96px;
+  background: linear-gradient(180deg, var(--dawn) 0%, #f9e2cc 60%, var(--morning) 100%);
+}
+
+.hero-schools h1 {
+  max-width: 900px;
+}
+
+.hero-schools .lead {
+  margin: 24px 0 30px;
+  max-width: 680px;
+}
+
+.section h2 + .lead {
+  margin-top: 18px;
+}
+
+.year-table {
+  width: 100%;
+  margin-top: 40px;
+  border-collapse: collapse;
+  font-size: 15.5px;
+}
+
+.year-table th {
+  padding: 0 16px 14px 0;
+  border-bottom: 1px solid var(--ink);
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-align: left;
+  color: var(--faint);
+}
+
+.year-table td {
+  padding: 20px 16px 20px 0;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+  line-height: 1.55;
+}
+
+.year-table td:first-child {
+  font-family: var(--serif);
+  font-size: 22px;
+  line-height: 1.25;
+}
+
+@media (max-width: 799px) {
   .year-table thead {
     position: absolute;
     width: 1px;
@@ -1312,600 +2093,184 @@ h2 + .lead {
   .year-table tr,
   .year-table td {
     display: block;
-    width: 100%;
   }
 
   .year-table tr {
-    padding: 22px 0;
-    border-bottom: 1px solid var(--rule-sky);
+    padding: 18px 0;
+    border-bottom: 1px solid var(--line);
   }
 
   .year-table td {
-    padding: 0 0 14px;
-    border-bottom: 0;
-  }
-
-  .year-table td:last-child {
-    padding-bottom: 0;
+    padding: 4px 0;
+    border: 0;
   }
 
   .year-table td::before {
-    display: block;
-    margin-bottom: 4px;
-    color: var(--muted);
-    font-family: var(--sans);
-    font-size: 13px;
-    font-weight: 600;
     content: attr(data-label);
+    display: block;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--faint);
   }
-
-}
-
-/* ── how your yes works, and the phone ───────────────────────────────────── */
-
-.how-grid {
-  display: grid;
-  gap: 56px;
-  align-items: center;
-}
-
-@media (min-width: 1000px) {
-  .how-grid {
-    grid-template-columns: 1fr 0.85fr;
-    gap: 80px;
-  }
-}
-
-.how-steps {
-  display: flex;
-  flex-direction: column;
-  gap: 28px;
-  margin-top: 40px;
-}
-
-.how-steps li {
-  display: flex;
-  gap: 18px;
-}
-
-.step-number {
-  flex: 0 0 auto;
-  width: 38px;
-  height: 38px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border: 1.5px solid var(--agent-strong);
-  border-radius: 999px;
-  color: var(--agent-strong);
-  font-family: var(--slab);
-  font-size: 18px;
-  font-weight: 600;
-}
-
-.how-steps h3 {
-  font-size: 22px;
-}
-
-.how-steps p {
-  margin-top: 6px;
-  color: var(--text);
-}
-
-.phone-figure {
-  position: relative;
-  margin: 0;
-  justify-self: center;
-}
-
-.phone-tilt {
-  transform: none;
-}
-
-@media (min-width: 1000px) {
-  .phone-tilt {
-    transform: rotate(-2deg);
-  }
-}
-
-/* ── the device ───────────────────────────────────────────────────────────────
-   A real device render: the staged conversation is drawn at the iPhone's own
-   logical size in SF Pro, screenshotted at 3x, and composited into Apple's
-   official bezel by scripts/build-phone.mjs. The page ships the finished image
-   (public/phone-<lang>.webp) and never lays the conversation out itself, which is
-   why nothing here can clip: the screen's fit is measured at build time, in the
-   real font, and the build fails if the copy outgrows the device.
-
-       npm run build:phone     # re-render after changing the conversation copy
-       npm run check:phone     # fail if the committed art is stale
-
-   The width and height on the <img> are the 1x size the build recorded, so the
-   device reserves its space before the image loads. */
-
-.phone-shot {
-  display: block;
-  width: min(328px, 100%);
-  height: auto;
-}
-
-.phone-figure .caption {
-  margin-top: 24px;
-}
-
-/* ── channel strip ───────────────────────────────────────────────────────── */
-
-.channel {
-  margin-top: 72px;
-  padding-top: 40px;
-  border-top: 1px solid var(--rule-sky);
-}
-
-.channel-line {
-  color: var(--text);
-  font-size: 19px;
-}
-
-.channel-bubbles {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 22px;
-}
-
-.channel-bubbles .ios-bubble {
-  max-width: none;
-}
-
-.ios-bubble-photo {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.photo-thumb {
-  display: inline-block;
-  width: 22px;
-  height: 26px;
-  border-radius: 3px;
-  background: var(--sheet);
-  box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.6);
-  background-image: linear-gradient(var(--rule) 1.5px, transparent 1.5px),
-    linear-gradient(var(--rule) 1.5px, transparent 1.5px);
-  background-size: 12px 1.5px, 8px 1.5px;
-  background-position: 5px 8px, 5px 14px;
-  background-repeat: no-repeat;
-}
-
-/* ── circles ─────────────────────────────────────────────────────────────── */
-
-.circles-grid {
-  display: grid;
-  gap: 56px;
-  align-items: start;
-}
-
-@media (min-width: 1000px) {
-  .circles-grid {
-    grid-template-columns: 1.1fr 0.9fr;
-    gap: 80px;
-  }
-}
-
-.h2-row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 16px;
 }
 
 .plain-list {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-top: 28px;
+  margin: 26px 0 0;
+  padding: 0;
+  list-style: none;
+  max-width: 720px;
 }
 
 .plain-list li {
   position: relative;
-  padding-left: 22px;
-  color: var(--text);
-  font-size: 16.5px;
-  line-height: 1.5;
+  padding: 8px 0 8px 22px;
+  line-height: 1.55;
 }
 
 .plain-list li::before {
   content: "";
   position: absolute;
-  left: 2px;
-  top: 0.62em;
-  width: 8px;
-  height: 8px;
-  border-radius: 999px;
-  /* Deeper than the agent's own pink: this dot sits on the sky, not on a sheet,
-     and has to stay a visible mark there. */
-  background: var(--agent-strong);
-}
-
-.plain-list.wide {
-  max-width: 68ch;
-}
-
-.circles-shot {
-  margin: 0;
-  justify-self: center;
-}
-
-.form-block {
-  margin-top: 44px;
-}
-
-.form-block h3 {
-  font-size: 24px;
-  margin-bottom: 20px;
-}
-
-/* ── limits ──────────────────────────────────────────────────────────────── */
-
-.limits-grid {
-  display: grid;
-  gap: 32px;
-  margin-top: 48px;
-}
-
-@media (min-width: 800px) {
-  .limits-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 40px 48px;
-  }
-}
-
-.limits-grid article {
-  padding-top: 16px;
-  border-top: 2px solid var(--ink);
-}
-
-.limits-grid h3 {
-  font-size: 21px;
-}
-
-.limits-grid p {
-  margin-top: 10px;
-  color: var(--text);
-}
-
-.privacy-note {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 20px;
-  margin-top: 56px;
-  padding-top: 28px;
-  border-top: 1px solid var(--rule-sky);
-}
-
-.privacy-note p {
-  max-width: 56ch;
-  color: var(--text);
-}
-
-.slip-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 24px;
-}
-
-/* ── pilot voices (hidden until real quotes exist) ───────────────────────── */
-
-.card-grid {
-  display: grid;
-  gap: 28px;
-  margin-top: 40px;
-}
-
-@media (min-width: 800px) {
-  .card-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-.index-card {
-  margin: 0;
-  padding: 28px;
-  border-radius: 3px;
-}
-
-.card-canary {
-  background: oklch(93.5% 0.055 60 / 0.5);
-  color: var(--ink);
-}
-
-.card-pink {
-  background: oklch(93% 0.045 8 / 0.5);
-}
-
-.index-card blockquote p {
-  font-family: var(--slab);
-  font-size: 22px;
-  font-weight: 500;
-  line-height: 1.3;
-}
-
-.index-card figcaption {
-  margin-top: 16px;
-  font-size: 14px;
-}
-
-/* ── join ────────────────────────────────────────────────────────────────── */
-
-.join-grid {
-  display: grid;
-  gap: 40px;
-  align-items: start;
-}
-
-@media (min-width: 900px) {
-  .join-grid {
-    grid-template-columns: 1.1fr 0.9fr;
-    gap: 80px;
-  }
-}
-
-.join-alt {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 28px;
-  margin-top: 28px;
-}
-
-/* ── schools band ────────────────────────────────────────────────────────── */
-
-/* The schools band is a stretch of the sky with no rule above it: a line here
-   would cut the gradient in two, which is the one thing this page must not do. */
-.section-band {
-  padding-block: 72px;
-}
-
-@media (min-width: 900px) {
-  .section-band {
-    padding-block: 112px;
-  }
-}
-
-.band {
-  max-width: 74ch;
-}
-
-/* ── contact, privacy panel, footer ──────────────────────────────────────── */
-
-.contact-grid {
-  display: grid;
-  gap: 48px;
-  align-items: start;
-}
-
-@media (min-width: 900px) {
-  .contact-grid {
-    grid-template-columns: 1.05fr 0.95fr;
-    gap: 72px;
-  }
-}
-
-.contact-grid form {
-  margin-top: 32px;
-}
-
-.inline-panel {
-  border-block: 1px solid var(--rule-sky);
-}
-
-.inline-panel summary {
-  display: flex;
-  align-items: center;
-  min-height: 56px;
-  padding: 16px 20px;
-  cursor: pointer;
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--link);
-}
-
-.inline-panel summary::marker {
-  color: var(--ink-pen);
-}
-
-.panel-body {
-  padding: 4px 20px 24px;
-}
-
-.panel-body h3 {
-  font-size: 17px;
-  margin-top: 18px;
-}
-
-.panel-title {
-  font-family: var(--slab);
-  font-size: 22px !important;
-  margin-top: 8px !important;
-}
-
-.panel-body p {
-  margin-top: 8px;
-  color: var(--text);
-  font-size: 15px;
-  line-height: 1.55;
-}
-
-.panel-body .text-link {
-  margin-top: 18px;
-}
-
-/* The footer is not a band with a line above it. It is where the sky finishes
-   setting: the ground goes on deepening past the last section and ends in night
-   behind the links. So the footer paints no background of its own — it lets the
-   sky through at the top and fades to `--night` over its own generous top
-   padding, which is why there is nothing to divide it from the page.
-
-   The first stop is the sky's own last colour at zero alpha, so the seam is not
-   a seam: whatever the gradient is doing when the footer begins, the dusk
-   continues from it. The stop list then walks the last light down — warm dusk,
-   then rose, then the water. */
-.site-footer {
-  position: relative;
-  background-color: transparent;
-  background-image:
-    var(--grain),
-    linear-gradient(
-      180deg,
-      oklch(88.4% 0.098 22 / 0) 0%,
-      oklch(84% 0.105 18 / 0.5) 18%,
-      oklch(66% 0.11 12 / 0.92) 46%,
-      var(--dusk) 66%,
-      var(--night) 100%
-    );
-  background-size: 180px 180px, 100% 100%;
-  background-repeat: repeat, no-repeat;
-  color: var(--page);
-  padding-block: 150px 56px;
-}
-
-@media (min-width: 900px) {
-  .site-footer {
-    padding-block: 210px 64px;
-  }
-}
-
-.footer-grid {
-  display: grid;
-  gap: 28px;
-}
-
-@media (min-width: 800px) {
-  .footer-grid {
-    grid-template-columns: 1fr auto;
-    align-items: start;
-  }
-}
-
-.brand-footer {
-  color: var(--page);
-}
-
-.site-footer p {
-  margin-top: 12px;
-  color: var(--paper-300);
-  font-size: 15px;
-}
-
-.site-footer nav ul {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px 26px;
-}
-
-.site-footer nav a {
-  display: inline-flex;
-  align-items: center;
-  min-height: 44px;
-  color: var(--page);
-  font-size: 15px;
-  text-decoration: none;
-}
-
-.site-footer nav a:hover {
-  text-decoration: underline;
-}
-
-/* ── /schools ────────────────────────────────────────────────────────────── */
-
-.hero-schools {
-  padding-block: 44px 56px;
-}
-
-@media (min-width: 900px) {
-  .hero-schools {
-    padding-block: 84px 88px;
-  }
-}
-
-.hero-schools h1,
-.hero-schools .lead {
-  max-width: 30ch;
-}
-
-.hero-schools .lead {
-  max-width: 62ch;
+  left: 0;
+  top: 18px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
 }
 
 .tension {
-  max-width: 70ch;
-  margin-top: 48px;
-  padding-top: 28px;
-  border-top: 2px solid var(--rule-sky);
+  max-width: 820px;
+  margin-top: 40px;
+  padding: 28px 30px;
+  border-radius: 24px;
+  background: var(--paper);
+  border: 1px solid var(--line);
 }
 
 .tension h3 {
-  font-size: 22px;
+  margin-bottom: 10px;
+  font-family: var(--serif);
+  font-size: 30px;
+  line-height: 1.1;
 }
 
-.tension p {
+.tension p + p {
   margin-top: 12px;
-  color: var(--text);
 }
 
 .never-grid {
   display: grid;
-  gap: 32px;
-  margin-top: 44px;
-}
-
-@media (min-width: 800px) {
-  .never-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 40px 56px;
-  }
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 36px;
 }
 
 .never-grid article {
-  padding-top: 16px;
-  border-top: 2px solid var(--rule-sky);
+  padding: 24px 26px;
+  border-radius: 20px;
+  background: var(--paper);
+  border: 1px solid var(--line);
 }
 
 .never-grid h3 {
-  font-size: 21px;
+  margin-bottom: 6px;
+  font-family: var(--serif);
+  font-size: 26px;
+  line-height: 1.1;
 }
 
-.never-grid p {
-  margin-top: 10px;
-  color: var(--paper-700);
+.section-sheet {
+  background: var(--paper);
 }
 
-/* A sheet section paints nothing — the sky runs behind it. These two rules are
-   only the prose rhythm inside the sheet: a heading with room above it, and the
-   plain paragraphs that breathe. Form furniture (.form-note, .form-error) and
-   .join-alt carry their own spacing, so they are left out. */
 .section-sheet h3 {
-  margin-top: 40px;
+  margin-top: 28px;
+  font-size: 17px;
+  font-weight: 600;
 }
 
-.section-sheet p:not([class]) {
-  margin-top: 16px;
-  max-width: 68ch;
-  color: var(--text);
+.section-sheet p {
+  margin-top: 14px;
+  max-width: 760px;
 }
 
-/* ── reduced motion ──────────────────────────────────────────────────────── */
+@media (max-width: 699px) {
+  .never-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ── small screens ──────────────────────────────────────────────────────── */
+
+@media (max-width: 599px) {
+  body {
+    font-size: 16px;
+  }
+
+  .wrap {
+    padding: 0 16px;
+  }
+
+  .brand {
+    font-size: 26px;
+  }
+
+  .brand img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .header-bar {
+    min-height: 68px;
+  }
+
+  .header-cta {
+    padding: 0 16px;
+    font-size: 14.5px;
+  }
+
+  .pill-field input {
+    padding: 0 14px;
+  }
+
+  .pill-field .button {
+    padding: 0 18px;
+  }
+}
+
+/* ── reduced motion: the final frame, held ──────────────────────────────── */
 
 @media (prefers-reduced-motion: reduce) {
-  /* Every transition and animation added for polish, off. */
+  html {
+    scroll-behavior: auto;
+  }
+
   *,
   *::before,
   *::after {
-    transition-duration: 0.01ms !important;
-    animation-duration: 0.01ms !important;
+    animation: none !important;
+    transition: none !important;
   }
 
-  .button:hover {
-    transform: none;
+  .agents-track {
+    transform: translateY(calc(var(--line) * -8));
+  }
+
+  .agents-parents s::after {
+    width: 100%;
+  }
+
+  .hero h1 em {
+    color: var(--accent);
+  }
+
+  .hero-stage .device:nth-child(1) {
+    transform: rotate(-11deg);
+  }
+
+  .hero-stage .device:nth-child(2) {
+    transform: rotate(11deg);
   }
 }

@@ -45,31 +45,25 @@ const fill = (template, vars) =>
 
 // ── shared pieces ────────────────────────────────────────────────────────────
 
-/** A finished agent step: a circled tick, in the same 24px-grid, 1.75px-stroke,
- *  round-capped language as the icons below and as the device render. */
-const stepTick = `<svg class="step-tick" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" /><path d="M8.2 12.4l2.6 2.6 5-5.4" /></svg>`;
-
-
-
-const status = (s, key, extra = '') =>
-  `<span class="status status-${key}">${esc(at(s, `statuses.${key}`))}${extra}</span>`;
-
 /** The header. `prefix` is '' on the home page and '/' on /schools, so the
  *  section links keep working from a page that does not have those sections. */
 function header(s, { prefix, cta, langHref }) {
+  // Section links point at this language's home page, so /es/schools does not
+  // send a Spanish reader to the English page.
+  const home = s.lang === 'es' ? '/es' : '/';
+  const base = prefix ? home : '';
   const nav = [
-    [at(s, 'nav.how'), `${prefix}#how`],
-    [at(s, 'nav.rights'), `${prefix}#rights`],
-    [at(s, 'nav.circles'), `${prefix}#circles`],
-    [at(s, 'nav.limits'), `${prefix}#limits`],
+    [at(s, 'nav.how'), `${base}#inbox`],
+    [at(s, 'nav.help'), `${base}#qualify`],
+    [at(s, 'nav.schools'), s.lang === 'es' ? '/es/schools' : '/schools'],
   ]
     .map(([label, href]) => `<li><a href="${href}">${esc(label)}</a></li>`)
     .join('');
   return `
   <header class="site-header">
     <div class="wrap header-bar">
-      <a class="brand" href="${prefix || '/'}" aria-label="${esc(at(s, 'a11y.home'))}">
-        <img src="/animation/axolotl-mascot.png" alt="" width="34" height="34" />
+      <a class="brand" href="${home}" aria-label="${esc(at(s, 'a11y.home'))}">
+        <img src="/ollie/ollie.webp" alt="" width="44" height="44" />
         <span>Axolotl</span>
       </a>
       <div class="header-actions">
@@ -88,7 +82,8 @@ function header(s, { prefix, cta, langHref }) {
   </header>`;
 }
 
-function footer(s, { prefix, langHref }) {
+function footer(s, { langHref }) {
+  const home = s.lang === 'es' ? '/es' : '/';
   const links = at(s, 'footer.links')
     .map((l) => `<li><a href="${l.href}">${esc(l.label)}</a></li>`)
     .join('');
@@ -96,8 +91,8 @@ function footer(s, { prefix, langHref }) {
   <footer class="site-footer">
     <div class="wrap footer-grid">
       <div>
-        <a class="brand brand-footer" href="${prefix || '/'}">
-          <img src="/animation/axolotl-mascot.png" alt="" width="34" height="34" />
+        <a class="brand brand-footer" href="${home}">
+          <img src="/ollie/ollie.webp" alt="" width="44" height="44" />
           <span>Axolotl</span>
         </a>
         <p>${esc(at(s, 'footer.tagline'))}</p>
@@ -112,127 +107,143 @@ function footer(s, { prefix, langHref }) {
   </footer>`;
 }
 
-/**
- * The hero: the thread the parent actually gets, rendered inside the real device
- * by scripts/build-phone.mjs. Plain iMessage text, the way the product sends it.
- */
-function heroPhone(s, art) {
-  const size = art[s.lang].week;
-  // What the product actually reaches: the line you text, your own email, the
-  // school's mail, and the forms it files. Shown as real marks, floating around
-  // the device, because an integration the parent cannot see is one they will
-  // assume does not exist.
-  const badges = at(s, 'hero.connects')
-    .map(
-      (c, i) => `
-              <span class="hero-badge hero-badge-${i + 1}">
-                <img src="/integrations/${esc(c.icon)}" alt="" width="28" height="28" decoding="async" />
-                <span>${esc(c.label)}</span>
-              </span>`,
-    )
-    .join('');
+// ── the homepage: one school day ─────────────────────────────────────────────
+//
+// Each section is a moment in a parent's day (7:15 AM to 9:40 PM) and carries
+// its time. The light is done in CSS: every section has a `t-*` class that sets
+// its own background, and neighbouring sections start where the last one ended,
+// so the page reads as one day getting later rather than a stack of panels.
 
+/** The small time stamp that opens every section: "7:15 AM · A school day". */
+const timeChip = (d) =>
+  `<p class="time-chip"><span class="time-chip-time">${esc(d.time)}</span><span class="time-chip-label">${esc(d.label)}</span></p>`;
+
+/** A heading whose last words are the italic payoff: "Help your kid <em>already qualifies for.</em>" */
+const payoff = (plain, em) => `${esc(plain)} <em>${esc(em)}</em>`;
+
+/** A device render from scripts/build-phone.mjs. `alt` '' marks a decorative copy. */
+function device(name, size, alt, extra = '') {
+  return `<img class="device" src="${shot(name)}" width="${size.width}" height="${size.height}" alt="${esc(alt)}" decoding="async" ${extra}/>`;
+}
+
+/** The alt text for one of the week screens: the conversation, then its status. */
+function weekAlt(s, i) {
+  const c = at(s, 'week.cols')[i];
+  const said = c.turns
+    .filter((t) => t.in || t.out)
+    .map((t) => `${t.out ? at(s, 'week.you') : 'Axolotl'}: ${t.out ?? t.in}`)
+    .join(' ');
+  return `${at(s, 'week.shotAlt')} ${c.h3}. ${said} ${s.statuses[c.status]}`;
+}
+
+/** A phone-number signup. The hero and the night section each carry one, so a
+ *  parent never has to scroll the whole day to join; `id` keeps them apart. */
+function joinForm(s, id) {
   return `
-        <figure class="hero-visual">
-          <div class="hero-phone-wrap">
-            <img
-              class="hero-phone"
-              src="${shot(`hero-phone-${s.lang}.webp`)}"
-              width="${size.width}"
-              height="${size.height}"
-              alt="${esc(at(s, 'hero.phone.alt'))}"
-              fetchpriority="high"
-              decoding="async"
-            />
-            <div class="hero-badges">${badges}
+          <form id="${id}-form" class="pill-form" novalidate data-error="${esc(at(s, 'join.generic'))}" data-error-phone="${esc(at(s, 'join.error'))}">
+            <label class="sr-only" for="${id}-phone">${esc(at(s, 'join.phoneLabel'))}</label>
+            <div class="pill-field">
+              <input id="${id}-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="30" required placeholder="${esc(at(s, 'day.phonePlaceholder'))}" aria-describedby="${id}-error" />
+              <button class="button primary" type="submit">${esc(at(s, 'join.submit'))}</button>
             </div>
-          </div>
-          <img class="mascot" src="/animation/axolotl-mascot.png" alt="${esc(at(s, 'a11y.mascot'))}" width="150" height="150" />
-        </figure>`;
+            <p class="form-note">${esc(at(s, 'join.note'))}</p>
+            <p class="form-error" id="${id}-error" role="alert" hidden></p>
+          </form>
+          <div class="form-success" id="${id}-sent" role="status" tabindex="-1" hidden>
+            <p id="${id}-sent-text" data-template="${esc(at(s, 'join.success'))}"></p>
+          </div>`;
 }
 
-function hero(s, art) {
+/** Blurred school paper drifting behind the phones: the mess Axolotl sorts out.
+ *  Pure decoration, so it carries no words a screen reader would trip over. */
+const clutter = `
+        <div class="clutter" aria-hidden="true">
+          <span class="paper paper-slip"><i></i><i></i><i></i><b></b></span>
+          <span class="paper paper-menu"><i></i><i></i><i></i><i></i></span>
+          <span class="paper paper-note"></span>
+          <span class="paper paper-card"><i></i><i></i></span>
+        </div>`;
+
+function hero(s) {
+  const d = at(s, 'day.morning');
+  const agents = at(s, 'day.agents');
+  if (agents.items.length !== 8) throw new Error(`day.agents.items must have 8 lines (the animation is timed for 8), ${s.lang} has ${agents.items.length}`);
+  const lines = agents.items.map((line) => `<span>${esc(line)}</span>`).join('');
+  const size = art[s.lang];
   return `
-    <section class="hero" aria-labelledby="hero-title">
-      <div class="wrap hero-grid">
-        <div class="hero-copy">
-          <h1 id="hero-title">${esc(at(s, 'hero.h1'))}</h1>
-          <p class="lead">${esc(at(s, 'hero.sub'))}</p>
-          <div class="hero-actions">
-            <a class="button primary" href="#join">${esc(at(s, 'hero.primary'))}</a>
-            <a class="text-link" href="#how">${esc(at(s, 'hero.secondary'))}</a>
-          </div>
-          <p class="trust-line">${esc(at(s, 'hero.trust'))}</p>
+    <section class="hero t-morning" id="top" aria-labelledby="hero-title">
+      <div class="sun" aria-hidden="true"></div>${clutter}
+      <div class="wrap hero-copy">
+        ${timeChip(d)}
+        <div class="agents" aria-hidden="true">
+          <div class="agents-track">${lines}<span class="agents-parents">${esc(agents.parentsLead)} <s>${esc(agents.parentsTail)}</s></span><span>${esc(agents.items[0])}</span></div>
         </div>
-${heroPhone(s, art)}
+        <h1 id="hero-title">${payoff(d.h1Plain, d.h1Em)}</h1>
+        <p class="lead">${esc(at(s, 'hero.sub'))}</p>
+${joinForm(s, 'hero-join')}
+        <p class="trust-line">${esc(at(s, 'hero.trust'))}</p>
+      </div>
+      <div class="hero-stage">
+        ${device(`week-1-${s.lang}.webp`, size.weekcol0, '', 'loading="lazy" ')}
+        ${device(`circles-${s.lang}.webp`, size.circles, '', 'loading="lazy" ')}
+        <img class="peek" src="/ollie/ollie-think.webp" alt="" width="900" height="900" decoding="async" />
+        ${device(`hero-phone-${s.lang}.webp`, size.week, at(s, 'hero.phone.alt'), 'fetchpriority="high" ')}
       </div>
     </section>`;
 }
 
-function layers(s) {
-  const cols = at(s, 'layers.cols')
-    .map(
-      (c) => `<div class="layer">
-          <p class="layer-label">${esc(c.label)}</p>
-          <h3>${esc(c.h3)}</h3>
-          <p>${esc(c.body)}</p>
-        </div>`,
-    )
-    .join('\n        ');
+function inbox(s) {
+  const d = at(s, 'day.inbox');
+  const steps = d.steps
+    .map((st, i) => `<li><span class="step-tag">${String(i + 1).padStart(2, '0')} · ${esc(st.tag)}</span>${esc(st.body)}</li>`)
+    .join('\n            ');
+  const emails = d.emails
+    .map((e, i) => `<li${i === d.highlight ? ' class="is-flagged"' : ''}>${esc(e)}</li>`)
+    .join('');
   return `
-    <section class="section" id="layers" aria-labelledby="layers-title">
-      <div class="wrap">
-        <h2 id="layers-title">${esc(at(s, 'layers.h2'))}</h2>
-        <p class="lead">${esc(at(s, 'layers.lead'))}</p>
-        <div class="layer-grid">
-        ${cols}
+    <section class="section t-day" id="inbox" aria-labelledby="inbox-title">
+      <div class="wrap split">
+        <div class="split-copy">
+          ${timeChip(d)}
+          <h2 id="inbox-title">${payoff(d.h2Plain, d.h2Em)}</h2>
+          <p class="lead">${esc(d.lead)}</p>
+          <ol class="step-grid">
+            ${steps}
+          </ol>
         </div>
-        <p class="line-note">${esc(at(s, 'layers.line'))}</p>
+        <figure class="inbox-stage">
+          <div class="inbox-card" aria-hidden="true">
+            <p class="inbox-label">${esc(d.inboxLabel)}</p>
+            <ul>${emails}</ul>
+          </div>
+          ${device(`phone-${s.lang}.webp`, art[s.lang].yes, at(s, 'how.phone.alt'), 'loading="lazy" ')}
+          <figcaption class="caption">${esc(at(s, 'how.phone.caption'))}</figcaption>
+        </figure>
       </div>
     </section>`;
 }
 
-/**
- * The week, as four device renders — one phone per card, the same way the hero
- * is a device render. Nothing here is drawn by the page: each phone is a real
- * iOS screen built by scripts/build-phone.mjs, so the cards carry the system
- * font and the system metrics on every device, not just on Apple's.
- *
- * The alt text carries what the screen shows, including the status, because the
- * status word is the one thing a picture cannot say out loud on its own.
- */
-function week(s, art) {
+/** The week, as four device renders. A row on a wide screen; on a phone the row
+ *  scrolls sideways with arrows, which ship hidden until the script wires them. */
+function midday(s) {
+  const d = at(s, 'day.midday');
   const slides = at(s, 'week.cols')
-    .map((c, i) => {
-      const size = art[s.lang][`weekcol${i}`];
-      // The screen is a picture, so the alt has to carry the conversation it
-      // shows, speaker by speaker, and the status at the end.
-      const said = c.turns
-        .filter((t) => t.in || t.out)
-        .map((t) => `${t.out ? at(s, 'week.you') : 'Axolotl'}: ${t.out ?? t.in}`)
-        .join(' ');
-      const alt = `${at(s, 'week.shotAlt')} ${c.h3}. ${said} ${s.statuses[c.status]}`;
-      return `<li class="week-card">
+    .map(
+      (c, i) => `<li class="week-card">
+            ${device(`week-${i + 1}-${s.lang}.webp`, art[s.lang][`weekcol${i}`], weekAlt(s, i), 'loading="lazy" ')}
+            <p class="week-time">${esc(c.time)}</p>
             <h3>${esc(c.h3)}</h3>
-            <img
-              class="week-shot"
-              src="${shot(`week-${i + 1}-${s.lang}.webp`)}"
-              width="${size.width}"
-              height="${size.height}"
-              alt="${esc(alt)}"
-              decoding="async"
-            />
-          </li>`;
-    })
+          </li>`,
+    )
     .join('\n          ');
-  // One screen at a time, stepped with an arrow, the way the reference does it.
-  // The arrows ship hidden and the script reveals them, so a visitor without
-  // scripting gets a row they can still swipe through instead of dead buttons.
   return `
-    <section class="section" id="week" aria-labelledby="week-title">
-      <div class="wrap">
+    <section class="section t-noon" id="week" aria-labelledby="week-title">
+      <div class="wrap center-head">
+        ${timeChip(d)}
         <h2 id="week-title">${esc(at(s, 'week.h2'))}</h2>
         <p class="lead">${esc(at(s, 'week.lead'))}</p>
+      </div>
+      <div class="wrap">
         <div class="carousel" data-carousel>
           <button class="carousel-arrow carousel-prev" type="button" aria-label="${esc(at(s, 'week.prev'))}" hidden>
             <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14.5 5 8 12l6.5 7" /></svg>
@@ -244,200 +255,123 @@ function week(s, art) {
             <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9.5 5 16 12l-6.5 7" /></svg>
           </button>
         </div>
-        <p class="caption">${esc(at(s, 'exampleCaption'))}</p>
+        <p class="caption center">${esc(at(s, 'exampleCaption'))}</p>
       </div>
     </section>`;
 }
 
-function year(s) {
-  const head = at(s, 'year.head');
-  const rows = at(s, 'year.rows')
+/** One ask, start to finish: the school's email, Axolotl's reading of it, the
+ *  letter, the follow-up, the answer. The law is named only inside the letter,
+ *  which is where a parent would actually meet it. */
+function qualify(s) {
+  const d = at(s, 'day.qualify');
+  const body = (st) => {
+    if (st.kind === 'email')
+      return `<div class="tl-card tl-email"><span class="tl-meta">${esc(st.from)}</span><strong>${esc(st.subject)}</strong><span>${esc(st.before)}<mark>${esc(st.mark)}</mark>${esc(st.after)}</span></div>`;
+    if (st.kind === 'letter')
+      return `<div class="tl-card tl-letter"><span class="tl-meta">${esc(st.to)}</span><span class="tl-letter-text">${esc(st.before)}<mark>${esc(st.mark)}</mark>${esc(st.after)}</span><span class="tl-sent">${esc(st.sent)}</span></div>`;
+    if (st.kind === 'reply')
+      return `<div class="tl-card tl-reply"><span class="tl-meta">${esc(st.from)}</span><span>${esc(st.text)}</span></div><p class="tl-track"><span class="tl-bar" aria-hidden="true"><span></span></span>${esc(st.track)}</p>`;
+    return `<p class="bubble in">${esc(st.in)}</p>${st.out ? `<p class="bubble out">${esc(st.out)}</p>` : ''}`;
+  };
+  const steps = d.steps
     .map(
-      (r) => `<tr>
-            <td data-label="${esc(head[0])}"><q>${esc(r.say.replace(/^"|"$/g, ''))}</q></td>
-            <td data-label="${esc(head[1])}">${esc(r.rule)}</td>
-            <td data-label="${esc(head[2])}">${esc(r.does)}</td>
-          </tr>`,
+      (st) => `<li class="tl-step${st.pending ? ' is-pending' : ''}${st.done ? ' is-done' : ''}">
+              <p class="tl-when">${esc(st.when)}</p>
+              <h3>${esc(st.title)}</h3>
+              ${body(st)}
+            </li>`,
     )
-    .join('\n          ');
+    .join('\n            ');
+  const also = d.also.map((a) => `<li>${esc(a)}</li>`).join('');
   return `
-    <section class="section" id="rights" aria-labelledby="rights-title">
+    <section class="section t-afternoon" id="qualify" aria-labelledby="qualify-title">
       <div class="wrap">
-        <h2 id="rights-title">${esc(at(s, 'year.h2'))}</h2>
-        <p class="lead">${esc(at(s, 'year.lead'))}</p>
-        <table class="year-table">
-          <caption class="sr-only">${esc(at(s, 'year.h2'))}</caption>
-          <thead>
-            <tr><th scope="col">${esc(head[0])}</th><th scope="col">${esc(head[1])}</th><th scope="col">${esc(head[2])}</th></tr>
-          </thead>
-          <tbody>
-          ${rows}
-          </tbody>
-        </table>
-        <p class="line-note">${esc(at(s, 'year.line'))}</p>
-      </div>
-    </section>`;
-}
-
-/** The phone: a real device render, built by scripts/build-phone.mjs.
- *  Shown clean — the thread already ends with the school's confirmation, so no
- *  stamp or handwritten note is drawn over the device. */
-function phone(s, art) {
-  const size = art[s.lang].yes;
-  return `
-        <figure class="phone-figure">
-          <div class="phone-tilt">
-            <img
-              class="phone-shot"
-              src="${shot(`phone-${s.lang}.webp`)}"
-              width="${size.width}"
-              height="${size.height}"
-              alt="${esc(at(s, 'how.phone.alt'))}"
-              loading="lazy"
-              decoding="async"
-            />
+        <div class="head-split">
+          <div>
+            ${timeChip(d)}
+            <h2 id="qualify-title">${payoff(d.h2Plain, d.h2Em)}</h2>
           </div>
-          <figcaption class="caption">${esc(at(s, 'how.phone.caption'))}</figcaption>
-        </figure>`;
-}
-
-function how(s, art) {
-  const steps = at(s, 'how.steps')
-    .map(
-      (step, i) => `<li>
-            <span class="step-number" aria-hidden="true">${i + 1}</span>
-            <div><h3>${esc(step.title)}</h3><p>${esc(step.body)}</p></div>
-          </li>`,
-    )
-    .join('\n          ');
-  const channel = at(s, 'how.channel.items')
-    .map((item) =>
-      item.kind === 'photo'
-        ? `<li class="ios-bubble out ios-bubble-photo"><span class="photo-thumb" aria-hidden="true"></span>${esc(item.text)}</li>`
-        : `<li class="ios-bubble out">${esc(item.text)}</li>`,
-    )
-    .join('\n          ');
-  return `
-    <section class="section" id="how" aria-labelledby="how-title">
-      <div class="wrap how-grid">
-        <div>
-          <h2 id="how-title">${esc(at(s, 'how.h2'))}</h2>
-          <p class="lead">${esc(at(s, 'how.lead'))}</p>
-          <ol class="how-steps" aria-label="${esc(at(s, 'how.stepsLabel'))}">
-          ${steps}
+          <p class="lead">${esc(d.lead)}</p>
+        </div>
+        <div class="glass timeline">
+          <div class="timeline-head">
+            <h3>${esc(d.timelineTitle)}</h3>
+            <p class="caption">${esc(at(s, 'exampleCaption'))}</p>
+          </div>
+          <ol class="tl">
+            ${steps}
           </ol>
         </div>
-${phone(s, art)}
-      </div>
-      <div class="wrap channel">
-        <p class="channel-line">${esc(at(s, 'how.channel.line'))}</p>
-        <ul class="channel-bubbles" aria-label="${esc(at(s, 'how.channel.label'))}">
-          ${channel}
-        </ul>
+        <div class="also">
+          <p class="also-label">${esc(d.alsoLabel)}</p>
+          <ul class="chips">${also}</ul>
+        </div>
+        <p class="line-note">${esc(d.note)}</p>
       </div>
     </section>`;
 }
 
-/**
- * The circles section is one device render too: the group chat the families
- * actually coordinate in. An earlier pass drew this as a ring of families
- * around a plan, which read as a diagram of a feature rather than as the
- * product — and the brief's own rule is to show the product.
- */
-function circlesShot(s, art) {
-  const size = art[s.lang].circles;
+function schoolNet(s) {
+  const d = at(s, 'day.school');
+  const g = d.diagram;
+  const list = (items) => items.map((i) => `<li>${esc(i)}</li>`).join('');
+  // Six families around one school. Plain geometry, so it is drawn inline and
+  // takes the page's colours instead of being a picture of them.
+  const pts = [[270, 55], [456, 162], [456, 378], [270, 485], [84, 378], [84, 162]];
+  const lines = pts.map(([x, y]) => `<line x1="270" y1="270" x2="${x}" y2="${y}" />`).join('');
+  const dots = pts.slice(0, 5).map(([x, y]) => `<circle cx="${x}" cy="${y}" r="9" />`).join('');
   return `
-          <figure class="circles-shot">
-            <img
-              class="phone-shot"
-              src="${shot(`circles-${s.lang}.webp`)}"
-              width="${size.width}"
-              height="${size.height}"
-              alt="${esc(at(s, 'circles.chat.alt'))}"
-              loading="lazy"
-              decoding="async"
-            />
-            <figcaption class="caption">${esc(at(s, 'exampleCaption'))}</figcaption>
-          </figure>`;
-}
-
-function circles(s, art) {
-  const list = at(s, 'circles.list').map((item) => `<li>${esc(item)}</li>`).join('\n          ');
-  const options = at(s, 'circles.form.familiesOptions')
-    .map((o) => `<option value="${esc(o)}">${esc(o)}</option>`)
-    .join('');
-  return `
-    <section class="section" id="circles" aria-labelledby="circles-title">
-      <div class="wrap circles-grid">
-        <div>
-          <div class="h2-row">
-            <h2 id="circles-title">${esc(at(s, 'circles.h2'))}</h2>
-            ${status(s, 'soon')}
+    <section class="section t-golden" id="school" aria-labelledby="school-title">
+      <div class="wrap split">
+        <div class="split-copy">
+          ${timeChip(d)}
+          <h2 id="school-title">${payoff(d.h2Plain, d.h2Em)}</h2>
+          <p class="lead">${esc(d.lead)}</p>
+          <div class="two-lists">
+            <div><h3>${esc(d.sharedLabel)}</h3><ul>${list(d.shared)}</ul></div>
+            <div><h3>${esc(d.privateLabel)}</h3><ul>${list(d.private)}</ul></div>
           </div>
-          <p class="lead">${esc(at(s, 'circles.lead'))}</p>
-          <ul class="plain-list" aria-label="${esc(at(s, 'circles.listLabel'))}">
-          ${list}
-          </ul>
-          <div class="form-block">
-          <h3>${esc(at(s, 'circles.form.legend'))}</h3>
-          <form id="circle-form" novalidate data-error="${esc(at(s, 'circles.form.errors.generic'))}" data-error-phone="${esc(at(s, 'circles.form.errors.phone'))}" data-error-families="${esc(at(s, 'circles.form.errors.families'))}">
-            <div class="field">
-              <label for="circle-phone">${esc(at(s, 'circles.form.phoneLabel'))}</label>
-              <input id="circle-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="30" required aria-describedby="circle-error" />
-            </div>
-            <div class="field">
-              <label for="circle-families">${esc(at(s, 'circles.form.familiesLabel'))}</label>
-              <select id="circle-families" name="families" required aria-describedby="circle-error">
-                <option value="">&nbsp;</option>
-                ${options}
-              </select>
-            </div>
-            <div class="field">
-              <label for="circle-school">${esc(at(s, 'circles.form.schoolLabel'))} <span class="hint">${esc(at(s, 'circles.form.schoolHint'))}</span></label>
-              <input id="circle-school" name="school" type="text" maxlength="120" autocomplete="organization" />
-            </div>
-            <button class="button primary" type="submit">${esc(at(s, 'circles.form.submit'))}</button>
-            <p class="form-note">${esc(at(s, 'circles.form.note'))}</p>
-            <p class="form-error" id="circle-error" role="alert" hidden></p>
-          </form>
-          <div class="form-success" id="circle-sent" role="status" tabindex="-1" hidden>
-            <p>${esc(at(s, 'circles.form.success'))}</p>
-          </div>
-          </div>
+          <a class="text-link" href="${s.lang === 'es' ? '/es/schools' : '/schools'}">${esc(d.link)}</a>
         </div>
-        <div>
-${circlesShot(s, art)}
-        </div>
+        <svg class="net" viewBox="0 0 540 540" role="img" aria-label="${esc(g.alt)}">
+          <circle class="net-ring" cx="270" cy="270" r="215" />
+          <circle class="net-ring net-ring-inner" cx="270" cy="270" r="140" />
+          <g class="net-lines">${lines}</g>
+          <circle class="net-school" cx="270" cy="270" r="88" />
+          <text class="net-school-text" x="270" y="262" text-anchor="middle">${esc(g.school[0])}</text>
+          <text class="net-school-text" x="270" y="292" text-anchor="middle">${esc(g.school[1])}</text>
+          <g class="net-dots">${dots}</g>
+          <circle class="net-you" cx="84" cy="162" r="13" />
+          <g class="net-label">
+            <text x="288" y="50">${esc(g.family)}</text><text x="474" y="158">${esc(g.family)}</text><text x="474" y="383">${esc(g.family)}</text>
+            <text x="288" y="500">${esc(g.family)}</text><text x="18" y="404">${esc(g.family)}</text>
+            <text class="net-you-label" x="44" y="136">${esc(g.you)}</text>
+          </g>
+          <g class="net-note">
+            <text x="284" y="126">${esc(g.notes[0])}</text><text x="256" y="432" text-anchor="end">${esc(g.notes[1])}</text><text x="284" y="432">${esc(g.notes[2])}</text>
+          </g>
+        </svg>
       </div>
     </section>`;
 }
 
-function limits(s) {
-  const items = at(s, 'limits.items')
-    .map(
-      (item) => `<article>
-          <h3>${esc(item.title)}</h3>
-          <p>${esc(item.body)}</p>
-        </article>`,
-    )
-    .join('\n        ');
-  const links = at(s, 'limits.privacyLinks')
-    .map((l) => `<a class="text-link" href="${l.href}">${esc(l.label)}</a>`)
-    .join('\n          ');
+function dinner(s) {
+  const d = at(s, 'day.dinner');
+  const size = art[s.lang];
   return `
-    <section class="section" id="limits" aria-labelledby="limits-title">
+    <section class="section t-dusk" id="dinner" aria-labelledby="dinner-title">
+      <div class="wrap center-head">
+        ${timeChip(d)}
+        <h2 id="dinner-title">${payoff(d.h2Plain, d.h2Em)}</h2>
+        <p class="lead">${esc(d.lead)}</p>
+      </div>
+      <div class="dinner-stage">
+        ${device(`week-4-${s.lang}.webp`, size.weekcol3, weekAlt(s, 3), 'loading="lazy" ')}
+        ${device(`circles-${s.lang}.webp`, size.circles, at(s, 'circles.chat.alt'), 'loading="lazy" ')}
+      </div>
       <div class="wrap">
-        <h2 id="limits-title">${esc(at(s, 'limits.h2'))}</h2>
-        <p class="lead">${esc(at(s, 'limits.lead'))}</p>
-        <div class="limits-grid">
-        ${items}
-        </div>
-        <div class="privacy-note">
-          <p>${esc(at(s, 'limits.privacy'))}</p>
-          <div class="slip-links">
-          ${links}
-          </div>
-        </div>
+        <p class="soon-line"><span class="soon-tag">${esc(d.soon)}</span>${esc(d.circles)}</p>
       </div>
     </section>`;
 }
@@ -448,64 +382,80 @@ function voices(s) {
   if (quotes.length < 2) return '';
   const cards = quotes
     .map(
-      (q) => `<figure class="index-card ${q.tone === 'pink' ? 'card-pink' : 'card-canary'}">
+      (q) => `<figure class="glass quote">
           <blockquote><p>${esc(q.text)}</p></blockquote>
           <figcaption>${esc(q.name)}, ${esc(q.grade)}, ${esc(q.city)}</figcaption>
         </figure>`,
     )
     .join('\n        ');
   return `
-    <section class="section" id="voices" aria-labelledby="voices-title">
-      <div class="wrap">
-        <h2 id="voices-title">${esc(at(s, 'voices.h2'))}</h2>
-        <div class="card-grid">
+      <div class="wrap" id="voices">
+        <h2>${esc(at(s, 'voices.h2'))}</h2>
+        <div class="quote-grid">
         ${cards}
         </div>
-      </div>
-    </section>`;
+      </div>`;
 }
 
-function join(s) {
+/** Night: the day's summary, the promises, and the way in. The footer lives in
+ *  here too, so the page ends in the dark instead of on a separate band. */
+function night(s) {
+  const d = at(s, 'day.night');
+  const tick = `<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12l5 5 9-10" /></svg>`;
+  const summary = d.summary
+    .map(
+      (item) => `<li class="${item.done ? 'is-done' : 'is-waiting'}">
+              <span class="sum-mark">${item.done ? tick : ''}</span>
+              <span class="sum-text"><strong>${esc(item.title)}</strong><span>${esc(item.detail)}</span></span>
+              <span class="sr-only">${esc(item.done ? d.doneWord : d.waitingWord)}</span>
+            </li>`,
+    )
+    .join('\n            ');
+  const promises = d.promises
+    .map((p) => `<article class="glass promise"><h3>${esc(p.title)}</h3><p>${esc(p.body)}</p></article>`)
+    .join('\n          ');
+  const links = d.links.map((l) => `<a class="text-link" href="${l.href}">${esc(l.label)}</a>`).join('\n          ');
   return `
-    <section class="section section-sheet" id="join" aria-labelledby="join-title">
-      <div class="wrap">
-        <div class="join-grid">
-        <div>
-          <h2 id="join-title">${esc(at(s, 'join.h2'))}</h2>
-          <p class="lead">${esc(at(s, 'join.lead'))}</p>
-          <p class="join-alt">
-            <a class="text-link" href="#circles">${esc(at(s, 'join.circleLink'))}</a>
-            <a class="text-link" href="#contact">${esc(at(s, 'join.questionLink'))}</a>
-          </p>
+    <section class="section t-night" id="night" aria-labelledby="night-title">
+      <div class="stars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="wrap split">
+        <div class="split-copy">
+          ${timeChip(d)}
+          <h2 id="night-title">${payoff(d.h2Plain, d.h2Em)}</h2>
+          <p class="lead">${esc(d.lead)}</p>
         </div>
         <div>
-          <form id="join-form" novalidate data-error="${esc(at(s, 'join.generic'))}" data-error-phone="${esc(at(s, 'join.error'))}">
-            <div class="field">
-              <label for="join-phone">${esc(at(s, 'join.phoneLabel'))}</label>
-              <input id="join-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="30" required aria-describedby="join-error" />
-            </div>
-            <button class="button primary" type="submit">${esc(at(s, 'join.submit'))}</button>
-            <p class="form-note"><span class="highlight">${esc(at(s, 'join.note'))}</span></p>
-            <p class="form-error" id="join-error" role="alert" hidden></p>
-          </form>
-          <div class="form-success" id="join-sent" role="status" tabindex="-1" hidden>
-            <p id="join-sent-text" data-template="${esc(at(s, 'join.success'))}"></p>
-          </div>
+          <p class="sum-label">${esc(d.summaryLabel)}</p>
+          <ul class="summary">
+            ${summary}
+          </ul>
+          <p class="caption">${esc(at(s, 'exampleCaption'))}</p>
         </div>
-        </div>
+      </div>
+      <div class="wrap promises">
+          ${promises}
+      </div>
+      <div class="wrap promise-links">
+          ${links}
+      </div>
+${voices(s)}
+      <div class="wrap join" id="join" aria-labelledby="join-title">
+        <img class="sleeper" src="/ollie/ollie-sleep.webp" alt="" width="900" height="900" loading="lazy" decoding="async" />
+        <h2 id="join-title">${payoff(d.closePlain, d.closeEm)}</h2>
+        <p class="lead">${esc(at(s, 'join.lead'))}</p>
+${joinForm(s, 'join')}
+        <p class="join-alt"><a class="text-link" href="#contact">${esc(at(s, 'join.questionLink'))}</a></p>
       </div>
     </section>`;
 }
 
 function schoolsBand(s) {
   return `
-    <section class="section section-band" aria-labelledby="schools-band-title">
-      <div class="wrap">
-        <div class="band">
-          <h2 id="schools-band-title">${esc(at(s, 'schoolsBand.h2'))}</h2>
-          <p class="lead">${esc(at(s, 'schoolsBand.body'))}</p>
-          <a class="text-link" href="/schools">${esc(at(s, 'schoolsBand.link'))}</a>
-        </div>
+    <section class="section t-night-deep section-band" aria-labelledby="schools-band-title">
+      <div class="wrap band">
+        <h2 id="schools-band-title">${esc(at(s, 'schoolsBand.h2'))}</h2>
+        <p class="lead">${esc(at(s, 'schoolsBand.body'))}</p>
+        <a class="text-link" href="${s.lang === 'es' ? '/es/schools' : '/schools'}">${esc(at(s, 'schoolsBand.link'))}</a>
       </div>
     </section>`;
 }
@@ -515,7 +465,7 @@ function contact(s) {
     .map((b) => `<h3>${esc(b.h3)}</h3>\n            <p>${esc(b.body)}</p>`)
     .join('\n            ');
   return `
-    <section class="section" id="contact" aria-labelledby="contact-title">
+    <section class="section t-night-deep" id="contact" aria-labelledby="contact-title">
       <div class="wrap contact-grid">
         <div>
           <h2 id="contact-title">${esc(at(s, 'contact.h2'))}</h2>
@@ -549,7 +499,7 @@ function contact(s) {
     </section>`;
 }
 
-const homeSections = (s, art) => [hero(s, art), layers(s), week(s, art), year(s), how(s, art), circles(s, art), limits(s), voices(s), join(s), schoolsBand(s), contact(s)].join('');
+const homeSections = (s) => [hero(s), inbox(s), midday(s), qualify(s), schoolNet(s), dinner(s), night(s), schoolsBand(s), contact(s)].join('');
 
 // ── /schools ─────────────────────────────────────────────────────────────────
 
@@ -699,7 +649,7 @@ function document(s, { title, description, canonical, alts, body, prefix, langHr
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>${esc(title)}</title>
     <meta name="description" content="${esc(description)}" />
-    <meta name="theme-color" content="#FFE8E6" />
+    <meta name="theme-color" content="#FAD6B6" />
     <link rel="canonical" href="${SITE}${canonical}" />
     ${alt}
     <meta property="og:type" content="website" />
@@ -720,11 +670,11 @@ function document(s, { title, description, canonical, alts, body, prefix, langHr
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600&family=Zilla+Slab:wght@500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/site.css?v=13" />
-    <script src="/site.js?v=13" defer></script>
+    <link rel="stylesheet" href="/site.css?v=14" />
+    <script src="/site.js?v=14" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main">${esc(at(s, 'a11y.skip'))}</a>
@@ -733,8 +683,8 @@ ${header(s, { prefix, cta, langHref })}
 ${body}
     </main>
 ${footer(s, { prefix, langHref })}
-    <a class="sticky-join" id="sticky-join" href="#join" hidden>${esc(at(s, 'nav.join'))}</a>
-  </body>
+${cta === '#join' ? `    <a class="sticky-join" id="sticky-join" href="#join" hidden>${esc(at(s, 'nav.join'))}</a>
+` : ''}  </body>
 </html>
 `;
 }
@@ -773,7 +723,7 @@ async function render() {
         description: at(s, 'meta.description'),
         canonical: dir ? '/es' : '/',
         alts: [['en', '/'], ['es', '/es'], ['x-default', '/']],
-        body: homeSections(s, art),
+        body: homeSections(s),
         prefix: '',
         langHref: dir ? '/' : '/es',
         cta: '#join',

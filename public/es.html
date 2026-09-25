@@ -3,9 +3,9 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Axolotl: ayuda con la escuela, por texto, para familias que trabajan.</title>
-    <meta name="description" content="Axolotl se encarga de las salidas tempranas, los días de enfermedad y el papeleo de la escuela por texto, y consigue lo que a tu hijo le corresponde. Nada llega a la escuela sin tu sí." />
-    <meta name="theme-color" content="#FFE8E6" />
+    <title>Axolotl: toda familia merece un agente para la escuela.</title>
+    <meta name="description" content="Axolotl es el agente de tu familia para la escuela, por texto. Lee lo que manda la escuela, se encarga de los formularios y de quién recoge a los niños, y consigue la ayuda que le corresponde a tu hijo. Nada se envía sin tu sí." />
+    <meta name="theme-color" content="#FAD6B6" />
     <link rel="canonical" href="https://www.get-axolotl.com/es" />
     <link rel="alternate" hreflang="en" href="https://www.get-axolotl.com/" />
     <link rel="alternate" hreflang="es" href="https://www.get-axolotl.com/es" />
@@ -15,8 +15,8 @@
     <meta property="og:url" content="https://www.get-axolotl.com/es" />
     <meta property="og:locale" content="es_US" />
     <meta property="og:locale:alternate" content="en_US" />
-    <meta property="og:title" content="Axolotl: ayuda con la escuela, por texto, para familias que trabajan." />
-    <meta property="og:description" content="Axolotl se encarga de las salidas tempranas, los días de enfermedad y el papeleo de la escuela por texto, y consigue lo que a tu hijo le corresponde. Nada llega a la escuela sin tu sí." />
+    <meta property="og:title" content="Axolotl: toda familia merece un agente para la escuela." />
+    <meta property="og:description" content="Axolotl es el agente de tu familia para la escuela, por texto. Lee lo que manda la escuela, se encarga de los formularios y de quién recoge a los niños, y consigue la ayuda que le corresponde a tu hijo. Nada se envía sin tu sí." />
     <meta property="og:image" content="https://www.get-axolotl.com/share-es.png" />
     <meta property="og:image:alt" content="Una carpeta de manila con la etiqueta &quot;La familia Howard&quot; con pendientes escolares, cada uno marcado Confirmado, Esperando tu sí o Solicitado." />
     <meta property="og:image:width" content="1200" />
@@ -28,19 +28,19 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600&family=Zilla+Slab:wght@500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/site.css?v=13" />
-    <script src="/site.js?v=13" defer></script>
+    <link rel="stylesheet" href="/site.css?v=14" />
+    <script src="/site.js?v=14" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main">Saltar al contenido</a>
 
   <header class="site-header">
     <div class="wrap header-bar">
-      <a class="brand" href="/" aria-label="Axolotl, inicio">
-        <img src="/animation/axolotl-mascot.png" alt="" width="34" height="34" />
+      <a class="brand" href="/es" aria-label="Axolotl, inicio">
+        <img src="/ollie/ollie.webp" alt="" width="44" height="44" />
         <span>Axolotl</span>
       </a>
       <div class="header-actions">
@@ -52,376 +52,281 @@
     </div>
     <nav class="site-nav" id="site-nav" aria-label="Navegación principal">
       <div class="wrap">
-        <ul><li><a href="#how">Cómo funciona</a></li><li><a href="#rights">Tus derechos</a></li><li><a href="#circles">Círculos</a></li><li><a href="#limits">Límites</a></li></ul>
+        <ul><li><a href="#inbox">Cómo funciona</a></li><li><a href="#qualify">Ayuda disponible</a></li><li><a href="/es/schools">Para escuelas</a></li></ul>
         <a class="nav-lang" href="/" hreflang="en" lang="en">English</a>
       </div>
     </nav>
   </header>
     <main id="main">
 
-    <section class="hero" aria-labelledby="hero-title">
-      <div class="wrap hero-grid">
-        <div class="hero-copy">
-          <h1 id="hero-title">El asistente de tu familia para la escuela.</h1>
-          <p class="lead">Lee lo que manda la escuela, cubre las salidas tempranas y los días de enfermedad, y consigue lo que a tu hijo le corresponde. Solo mándale un mensaje.</p>
-          <div class="hero-actions">
-            <a class="button primary" href="#join">Únete al piloto</a>
-            <a class="text-link" href="#how">Ver cómo funciona</a>
-          </div>
-          <p class="trust-line">Nada llega a tu escuela sin tu sí. Gratis durante el piloto, en inglés o español.</p>
+    <section class="hero t-morning" id="top" aria-labelledby="hero-title">
+      <div class="sun" aria-hidden="true"></div>
+        <div class="clutter" aria-hidden="true">
+          <span class="paper paper-slip"><i></i><i></i><i></i><b></b></span>
+          <span class="paper paper-menu"><i></i><i></i><i></i><i></i></span>
+          <span class="paper paper-note"></span>
+          <span class="paper paper-card"><i></i><i></i></span>
         </div>
+      <div class="wrap hero-copy">
+        <p class="time-chip"><span class="time-chip-time">7:15 AM</span><span class="time-chip-label">Un día de escuela</span></p>
+        <div class="agents" aria-hidden="true">
+          <div class="agents-track"><span>Las estrellas de cine tienen agente.</span><span>Los atletas tienen agente.</span><span>Los escritores tienen agente.</span><span>Los comediantes tienen agente.</span><span>Los influencers tienen agente.</span><span>Los gamers profesionales tienen agente.</span><span>Los modelos de manos tienen agente.</span><span>Los payasos tienen agente.</span><span class="agents-parents">Mamás y papás tienen <s>una pila de permisos por firmar.</s></span><span>Las estrellas de cine tienen agente.</span></div>
+        </div>
+        <h1 id="hero-title">Toda familia merece <em>un agente.</em></h1>
+        <p class="lead">Axolotl es el agente de tu familia para la escuela. Lee lo que manda la escuela, se encarga de los formularios y de quién recoge a los niños, y consigue la ayuda que le corresponde a tu hijo. Solo mándale un mensaje. Nada se envía sin tu sí.</p>
 
-        <figure class="hero-visual">
-          <div class="hero-phone-wrap">
-            <img
-              class="hero-phone"
-              src="/hero-phone-es.webp?v=8cd7f87125462286"
-              width="328"
-              height="670"
-              alt="Conversación de texto en un teléfono. Axolotl dice que llegaron ocho correos y que dos cosas necesitan a la familia. La familia, en juntas todo el día, le pide a Axolotl que se encargue. Axolotl llenó el formulario de excursión de Maya y lo envía con el visto bueno de la familia, luego confirma que Lincoln lo tiene, referencia K-1042, y avisa que la salida temprana del miércoles sigue sin cubrir, con un mensaje de un toque listo para la abuela."
-              fetchpriority="high"
-              decoding="async"
-            />
-            <div class="hero-badges">
-              <span class="hero-badge hero-badge-1">
-                <img src="/integrations/imessage.png" alt="" width="28" height="28" decoding="async" />
-                <span>iMessage</span>
-              </span>
-              <span class="hero-badge hero-badge-2">
-                <img src="/integrations/gmail.png" alt="" width="28" height="28" decoding="async" />
-                <span>Tu correo</span>
-              </span>
-              <span class="hero-badge hero-badge-3">
-                <img src="/integrations/google-calendar.png" alt="" width="28" height="28" decoding="async" />
-                <span>El calendario escolar</span>
-              </span>
-              <span class="hero-badge hero-badge-4">
-                <img src="/integrations/google-forms.png" alt="" width="28" height="28" decoding="async" />
-                <span>Formularios</span>
-              </span>
-              <span class="hero-badge hero-badge-5">
-                <img src="/integrations/whatsapp.png" alt="" width="28" height="28" decoding="async" />
-                <span>WhatsApp</span>
-              </span>
+          <form id="hero-join-form" class="pill-form" novalidate data-error="No pudimos guardar tu registro. Inténtalo de nuevo." data-error-phone="Escribe un número de 10 dígitos de EE. UU.">
+            <label class="sr-only" for="hero-join-phone">Tu número de teléfono</label>
+            <div class="pill-field">
+              <input id="hero-join-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="30" required placeholder="Tu teléfono" aria-describedby="hero-join-error" />
+              <button class="button primary" type="submit">Únete al piloto</button>
             </div>
+            <p class="form-note">Al unirte, aceptas recibir mensajes sobre el acceso.</p>
+            <p class="form-error" id="hero-join-error" role="alert" hidden></p>
+          </form>
+          <div class="form-success" id="hero-join-sent" role="status" tabindex="-1" hidden>
+            <p id="hero-join-sent-text" data-template="Ya estás en la lista. Te escribimos al {phone}."></p>
           </div>
-          <img class="mascot" src="/animation/axolotl-mascot.png" alt="Un ajolote rosa sonriente con branquias." width="150" height="150" />
+        <p class="trust-line">Gratis durante el piloto, en inglés o español.</p>
+      </div>
+      <div class="hero-stage">
+        <img class="device" src="/week-1-es.webp?v=8cd7f87125462286" width="336" height="687" alt="" decoding="async" loading="lazy" />
+        <img class="device" src="/circles-es.webp?v=8cd7f87125462286" width="328" height="670" alt="" decoding="async" loading="lazy" />
+        <img class="peek" src="/ollie/ollie-think.webp" alt="" width="900" height="900" decoding="async" />
+        <img class="device" src="/hero-phone-es.webp?v=8cd7f87125462286" width="328" height="670" alt="Conversación de texto en un teléfono. Axolotl dice que llegaron ocho correos y que dos cosas necesitan a la familia. La familia, en juntas todo el día, le pide a Axolotl que se encargue. Axolotl llenó el formulario de excursión de Maya y lo envía con el visto bueno de la familia, luego confirma que Lincoln lo tiene, referencia K-1042, y avisa que la salida temprana del miércoles sigue sin cubrir, con un mensaje de un toque listo para la abuela." decoding="async" fetchpriority="high" />
+      </div>
+    </section>
+    <section class="section t-day" id="inbox" aria-labelledby="inbox-title">
+      <div class="wrap split">
+        <div class="split-copy">
+          <p class="time-chip"><span class="time-chip-time">8:30 AM</span><span class="time-chip-label">El correo</span></p>
+          <h2 id="inbox-title">Ocho correos de la escuela. <em>Uno que importa.</em></h2>
+          <p class="lead">Axolotl lee todo lo que manda la escuela, encuentra el que tiene fecha límite, llena el formulario y espera tu sí. Listo significa que la escuela lo confirmó.</p>
+          <ol class="step-grid">
+            <li><span class="step-tag">01 · Lee</span>Correos reenviados, la foto de un formulario en papel o tu Gmail</li>
+            <li><span class="step-tag">02 · Encuentra</span>Lo único que tiene fecha</li>
+            <li><span class="step-tag">03 · Pregunta</span>Ves lo que va a mandar. Tu sí lo manda</li>
+            <li><span class="step-tag">04 · Confirma</span>Solo cuenta como listo cuando la escuela lo confirma</li>
+          </ol>
+        </div>
+        <figure class="inbox-stage">
+          <div class="inbox-card" aria-hidden="true">
+            <p class="inbox-label">Correo · 8 nuevos de la Primaria Lincoln</p>
+            <ul><li>Día de fotos, 3 de oct.</li><li>Feria del libro la próxima semana</li><li class="is-flagged">Kínder: examen físico y dental antes del 15 de oct.</li><li>Semana de espíritu escolar</li><li>Junta de padres, jueves</li><li>Menú de octubre</li><li>Devolver libros de la biblioteca</li></ul>
+          </div>
+          <img class="device" src="/phone-es.webp?v=8cd7f87125462286" width="328" height="670" alt="Conversación de texto en un teléfono: Axolotl dice que Leo necesita un examen físico y uno dental antes del 15 de octubre. La familia le pide que se encargue. Axolotl encuentra una cita en la red, llena los dos formularios y muestra los datos listos para enviar. La familia responde Sí, y Axolotl confirma que la Primaria Lincoln lo aceptó, referencia K-1042." decoding="async" loading="lazy" />
+          <figcaption class="caption">Conversación de ejemplo. Escuela y familia ficticias.</figcaption>
         </figure>
       </div>
     </section>
-    <section class="section" id="layers" aria-labelledby="layers-title">
-      <div class="wrap">
-        <h2 id="layers-title">Hecho para tu familia, y para las familias que están cerca.</h2>
-        <p class="lead">Un agente que conoce a tu familia, trabaja con las personas que te ayudan y aprende cómo funciona tu escuela.</p>
-        <div class="layer-grid">
-        <div class="layer">
-          <p class="layer-label">Privado</p>
-          <h3>Tu familia</h3>
-          <p>Tus hijos, sus escuelas, tu horario y todo lo que sigue pendiente. Solo lo ves tú y las personas que agregues.</p>
-        </div>
-        <div class="layer">
-          <p class="layer-label">La casa ahora, los círculos después</p>
-          <h3>Tu gente</h3>
-          <p>Tu pareja, la abuela y la niñera ven el mismo plan, y cada tarea tiene un nombre. Pronto: las familias con las que compartes la ida a la escuela, los días de enfermedad y las recogidas.</p>
-        </div>
-        <div class="layer">
-          <p class="layer-label">Compartido</p>
-          <h3>Tu escuela</h3>
-          <p>Lo que Axolotl aprende de tu escuela, como el calendario, las salidas tempranas y quién maneja el transporte, ayuda a todas las familias de ahí. No se comparte información personal de nadie.</p>
-        </div>
-        </div>
-        <p class="line-note">Los círculos lo hacen más fácil. Nunca necesitas uno para recibir toda la ayuda.</p>
-      </div>
-    </section>
-    <section class="section" id="week" aria-labelledby="week-title">
-      <div class="wrap">
+    <section class="section t-noon" id="week" aria-labelledby="week-title">
+      <div class="wrap center-head">
+        <p class="time-chip"><span class="time-chip-time">11:48 AM</span><span class="time-chip-label">Mediodía</span></p>
         <h2 id="week-title">Mantiene la semana en marcha.</h2>
         <p class="lead">Las salidas tempranas, los días de enfermedad y los pendientes pequeños que dan por hecho que alguien está en casa a la 1:20.</p>
+      </div>
+      <div class="wrap">
         <div class="carousel" data-carousel>
           <button class="carousel-arrow carousel-prev" type="button" aria-label="Anterior" hidden>
             <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14.5 5 8 12l6.5 7" /></svg>
           </button>
           <ul class="carousel-track" tabindex="0" aria-label="La semana, una pantalla a la vez">
           <li class="week-card">
+            <img class="device" src="/week-1-es.webp?v=8cd7f87125462286" width="336" height="687" alt="Una conversación de texto con Axolotl: Días libres y salidas tempranas. Axolotl: Salió el calendario del distrito. El miércoles la salida es a la 1:20. Tú: No puedo recogerlos, tengo reuniones hasta las 3. Axolotl: La abuela es la primera en tu lista de respaldo. No puedo escribirle yo. Axolotl: Te lo dejo redactado para que sea un toque, y te recuerdo el martes por la noche. Tú: Por favor. Axolotl: Listo: «¿Puedes recoger a los tres el miércoles? Salen a la 1:20.» Tú: Enviado. Dijo que sí. Axolotl: Anotado: Leo está cubierto. El plantel de Maya todavía necesita a Dana. Tú: Mándame lo mismo para Dana. Axolotl: Hecho. Si no lo has hecho, te pregunto el miércoles en la mañana. Esperando tu sí" decoding="async" loading="lazy" />
+            <p class="week-time">7:15</p>
             <h3>Días libres y salidas tempranas</h3>
-            <img
-              class="week-shot"
-              src="/week-1-es.webp?v=8cd7f87125462286"
-              width="336"
-              height="687"
-              alt="Una conversación de texto con Axolotl: Días libres y salidas tempranas. Axolotl: Salió el calendario del distrito. El miércoles la salida es a la 1:20. Tú: No puedo recogerlos, tengo reuniones hasta las 3. Axolotl: La abuela es la primera en tu lista de respaldo. No puedo escribirle yo. Axolotl: Te lo dejo redactado para que sea un toque, y te recuerdo el martes por la noche. Tú: Por favor. Axolotl: Listo: «¿Puedes recoger a los tres el miércoles? Salen a la 1:20.» Tú: Enviado. Dijo que sí. Axolotl: Anotado: Leo está cubierto. El plantel de Maya todavía necesita a Dana. Tú: Mándame lo mismo para Dana. Axolotl: Hecho. Si no lo has hecho, te pregunto el miércoles en la mañana. Esperando tu sí"
-              decoding="async"
-            />
           </li>
           <li class="week-card">
+            <img class="device" src="/week-2-es.webp?v=8cd7f87125462286" width="336" height="687" alt="Una conversación de texto con Axolotl: Cambios del mismo día. Axolotl: Lincoln escribió. Hoy salen al mediodía. Axolotl: Faltan doce minutos. Tú: No puedo salir. Tengo reuniones hasta las 3. Axolotl: La abuela es la primera en tu lista de respaldo. No puedo escribirle yo. Axolotl: ¿Te dejo el mensaje redactado para que sea un toque? Tú: Sí, rápido. Axolotl: «¿Puedes recoger a los tres al mediodía? Lincoln adelantó la salida.» Tú: Enviado. Ya va. Axolotl: ¿Quieres que le escriba a la oficina que ella los recoge? Tú: Sí, y pide que manden a Leo a la oficina. Axolotl: Enviado. Te aviso en cuanto la oficina confirme. Esperando tu sí" decoding="async" loading="lazy" />
+            <p class="week-time">11:48</p>
             <h3>Cambios del mismo día</h3>
-            <img
-              class="week-shot"
-              src="/week-2-es.webp?v=8cd7f87125462286"
-              width="336"
-              height="687"
-              alt="Una conversación de texto con Axolotl: Cambios del mismo día. Axolotl: Lincoln escribió. Hoy salen al mediodía. Axolotl: Faltan doce minutos. Tú: No puedo salir. Tengo reuniones hasta las 3. Axolotl: La abuela es la primera en tu lista de respaldo. No puedo escribirle yo. Axolotl: ¿Te dejo el mensaje redactado para que sea un toque? Tú: Sí, rápido. Axolotl: «¿Puedes recoger a los tres al mediodía? Lincoln adelantó la salida.» Tú: Enviado. Ya va. Axolotl: ¿Quieres que le escriba a la oficina que ella los recoge? Tú: Sí, y pide que manden a Leo a la oficina. Axolotl: Enviado. Te aviso en cuanto la oficina confirme. Esperando tu sí"
-              decoding="async"
-            />
           </li>
           <li class="week-card">
+            <img class="device" src="/week-3-es.webp?v=8cd7f87125462286" width="336" height="687" alt="Una conversación de texto con Axolotl: Los pendientes pequeños. Axolotl: Tres cosas esta semana: el jueves es el día de pijama, el formulario de la excursión vence el viernes, y Leo necesita una nota de ausencia. Tú: El lunes tiene dentista en la mañana. Axolotl: Entonces escribo la nota de ausencia para el lunes y lleno el formulario. Tú: ¿Necesitas algo de mí? Axolotl: Solo un sí. Lo demás ya lo tengo. Axolotl: Listo para enviar: la nota de ausencia y el formulario de Maya. Tú: Sí Axolotl: Los dos enviados. La oficina confirmó que los tiene. Tú: ¿Y el día de pijama? Axolotl: Nada que hacer: solo va en pijama. Te recuerdo el jueves en la mañana. Esperando tu sí" decoding="async" loading="lazy" />
+            <p class="week-time">16:05</p>
             <h3>Los pendientes pequeños</h3>
-            <img
-              class="week-shot"
-              src="/week-3-es.webp?v=8cd7f87125462286"
-              width="336"
-              height="687"
-              alt="Una conversación de texto con Axolotl: Los pendientes pequeños. Axolotl: Tres cosas esta semana: el jueves es el día de pijama, el formulario de la excursión vence el viernes, y Leo necesita una nota de ausencia. Tú: El lunes tiene dentista en la mañana. Axolotl: Entonces escribo la nota de ausencia para el lunes y lleno el formulario. Tú: ¿Necesitas algo de mí? Axolotl: Solo un sí. Lo demás ya lo tengo. Axolotl: Listo para enviar: la nota de ausencia y el formulario de Maya. Tú: Sí Axolotl: Los dos enviados. La oficina confirmó que los tiene. Tú: ¿Y el día de pijama? Axolotl: Nada que hacer: solo va en pijama. Te recuerdo el jueves en la mañana. Esperando tu sí"
-              decoding="async"
-            />
           </li>
           <li class="week-card">
+            <img class="device" src="/week-4-es.webp?v=8cd7f87125462286" width="336" height="687" alt="Una conversación de texto con Axolotl: Quién se encarga. Axolotl: Así va la semana. Axolotl: Recogida del miércoles: la abuela. El formulario de Maya: tú. Dentista el jueves: Sam. Tú: ¿Me puedes recordar hablar con Sam lo del jueves? Axolotl: No puedo escribirle a Sam, pero te lo recuerdo el jueves en la mañana. Tú: Hazlo. Axolotl: Listo. ¿Algo más? Tú: ¿Y el viernes? Puede que salga tarde. Axolotl: El viernes sigue sin cubrir. ¿Te dejo un mensaje de un toque para Dana? Tú: Sí. Axolotl: Redactado. Envíalo cuando quieras. Recordatorio puesto" decoding="async" loading="lazy" />
+            <p class="week-time">18:30</p>
             <h3>Quién se encarga</h3>
-            <img
-              class="week-shot"
-              src="/week-4-es.webp?v=8cd7f87125462286"
-              width="336"
-              height="687"
-              alt="Una conversación de texto con Axolotl: Quién se encarga. Axolotl: Así va la semana. Axolotl: Recogida del miércoles: la abuela. El formulario de Maya: tú. Dentista el jueves: Sam. Tú: ¿Me puedes recordar hablar con Sam lo del jueves? Axolotl: No puedo escribirle a Sam, pero te lo recuerdo el jueves en la mañana. Tú: Hazlo. Axolotl: Listo. ¿Algo más? Tú: ¿Y el viernes? Puede que salga tarde. Axolotl: El viernes sigue sin cubrir. ¿Te dejo un mensaje de un toque para Dana? Tú: Sí. Axolotl: Redactado. Envíalo cuando quieras. Recordatorio puesto"
-              decoding="async"
-            />
           </li>
           </ul>
           <button class="carousel-arrow carousel-next" type="button" aria-label="Siguiente" hidden>
             <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9.5 5 16 12l-6.5 7" /></svg>
           </button>
         </div>
-        <p class="caption">Conversación de ejemplo. Escuela y familia ficticias.</p>
+        <p class="caption center">Conversación de ejemplo. Escuela y familia ficticias.</p>
       </div>
     </section>
-    <section class="section" id="rights" aria-labelledby="rights-title">
+    <section class="section t-afternoon" id="qualify" aria-labelledby="qualify-title">
       <div class="wrap">
-        <h2 id="rights-title">Algunas de estas cosas no son un favor. Son la ley.</h2>
-        <p class="lead">Describe tu situación con tus propias palabras. Axolotl averigua qué norma aplica, pone la solicitud por escrito y sigue el rastro de la respuesta.</p>
-        <table class="year-table">
-          <caption class="sr-only">Algunas de estas cosas no son un favor. Son la ley.</caption>
-          <thead>
-            <tr><th scope="col">Cuando dices</th><th scope="col">La norma</th><th scope="col">Lo que hace Axolotl</th></tr>
-          </thead>
-          <tbody>
-          <tr>
-            <td data-label="Cuando dices"><q>Perdimos el departamento y estamos con mi hermana al otro lado de la ciudad. ¿Puede seguir en su escuela?</q></td>
-            <td data-label="La norma">Ley McKinney-Vento: estabilidad escolar para niños sin vivienda estable</td>
-            <td data-label="Lo que hace Axolotl">Busca el contacto de transporte del distrito, pide el transporte por escrito y da seguimiento hasta que confirmen la ruta.</td>
-          </tr>
-          <tr>
-            <td data-label="Cuando dices"><q>Su maestra dice que va atrasado en lectura. No sé qué tengo que pedir.</q></td>
-            <td data-label="La norma">IDEA: evaluaciones para educación especial</td>
-            <td data-label="Lo que hace Axolotl">Redacta tu solicitud de evaluación por escrito, la envía con tu sí y anota la fecha en que empezó el reloj del distrito.</td>
-          </tr>
-          <tr>
-            <td data-label="Cuando dices"><q>La junta fue toda en inglés y no entendí casi nada.</q></td>
-            <td data-label="La norma">Título VI, Ley de Derechos Civiles: comunicación en un idioma que entiendas</td>
-            <td data-label="Lo que hace Axolotl">Pide por escrito a la escuela un intérprete y los documentos traducidos antes de la próxima junta.</td>
-          </tr>
-          <tr>
-            <td data-label="Cuando dices"><q>Estamos pagando el almuerzo completo y creo que calificamos para ayuda.</q></td>
-            <td data-label="La norma">Programa Nacional de Almuerzos Escolares: comidas gratis o a precio reducido</td>
-            <td data-label="Lo que hace Axolotl">Llena la solicitud, te muestra exactamente lo que enviará y la entrega con tu sí.</td>
-          </tr>
-          <tr>
-            <td data-label="Cuando dices"><q>En la junta acordamos que ella tiene más tiempo. No está pasando en el salón.</q></td>
-            <td data-label="La norma">Su IEP o su plan 504: los apoyos que la escuela aceptó</td>
-            <td data-label="Lo que hace Axolotl">Escribe a la escuela citando lo que dice el plan y sigue insistiendo hasta que confirmen que ya está en marcha.</td>
-          </tr>
-          </tbody>
-        </table>
-        <p class="line-note">Axolotl no es abogado. Te ayuda a usar las normas que ya protegen a tu hijo.</p>
-      </div>
-    </section>
-    <section class="section" id="how" aria-labelledby="how-title">
-      <div class="wrap how-grid">
-        <div>
-          <h2 id="how-title">Nada sale hasta que digas sí.</h2>
-          <p class="lead">Ocho correos de la escuela, una fecha límite que importa y dos formularios que tienen que regresar.</p>
-          <ol class="how-steps" aria-label="Cómo funciona, en orden">
-          <li>
-            <span class="step-number" aria-hidden="true">1</span>
-            <div><h3>Detecta la fecha límite.</h3><p>Siete de los ocho correos son solo información. Uno necesita tu atención, con la fecha incluida.</p></div>
-          </li>
-          <li>
-            <span class="step-number" aria-hidden="true">2</span>
-            <div><h3>Hace el trabajo.</h3><p>Encuentra una cita dentro de la red y llena los dos formularios.</p></div>
-          </li>
-          <li>
-            <span class="step-number" aria-hidden="true">3</span>
-            <div><h3>Espera tu sí.</h3><p>Ves exactamente lo que va a enviar. Tu sí es lo que lo envía.</p></div>
-          </li>
-          <li>
-            <span class="step-number" aria-hidden="true">4</span>
-            <div><h3>Hecho quiere decir confirmado.</h3><p>Solo da algo por terminado cuando la escuela lo confirma.</p></div>
-          </li>
+        <div class="head-split">
+          <div>
+            <p class="time-chip"><span class="time-chip-time">3:05 PM</span><span class="time-chip-label">A la salida</span></p>
+            <h2 id="qualify-title">La ayuda que a tu hijo <em>ya le corresponde.</em></h2>
+          </div>
+          <p class="lead">Transporte, evaluaciones, intérpretes, comidas gratis. La ayuda existe, pero hay que saber pedirla, pedirla por escrito y seguir insistiendo. Axolotl se da cuenta cuando tu hijo podría calificar, y hace las tres cosas.</p>
+        </div>
+        <div class="glass timeline">
+          <div class="timeline-head">
+            <h3>Una solicitud, de principio a fin</h3>
+            <p class="caption">Conversación de ejemplo. Escuela y familia ficticias.</p>
+          </div>
+          <ol class="tl">
+            <li class="tl-step">
+              <p class="tl-when">30 de sep. · 2:14 PM</p>
+              <h3>La escuela manda un correo</h3>
+              <div class="tl-card tl-email"><span class="tl-meta">Sra. Park, 2.º grado · Primaria Lincoln</span><strong>Resultados de la evaluación de lectura de otoño</strong><span>Maya obtuvo un resultado <mark>muy por debajo del nivel esperado</mark> en fluidez lectora. Vamos a darle práctica en grupos pequeños en clase.</span></div>
+            </li>
+            <li class="tl-step">
+              <p class="tl-when">3:05 PM</p>
+              <h3>Axolotl entiende lo que significa</h3>
+              <p class="bubble in">La evaluación de lectura de Maya salió muy por debajo del nivel esperado. Puedes pedirle a la escuela que la evalúe para darle más apoyo. Tiene que ser por escrito. ¿Quieres que lo redacte?</p><p class="bubble out">Sí, por favor</p>
+            </li>
+            <li class="tl-step">
+              <p class="tl-when">9:40 PM</p>
+              <h3>Escribe la carta</h3>
+              <div class="tl-card tl-letter"><span class="tl-meta">Para la Sra. Alvarez, educación especial, Primaria Lincoln</span><span class="tl-letter-text">Solicito una evaluación completa de mi hija, Maya Howard, para servicios de educación especial conforme a la <mark>Ley de Educación para Personas con Discapacidades (IDEA)</mark>. Doy mi consentimiento para la evaluación.</span><span class="tl-sent">Enviada con tu sí</span></div>
+            </li>
+            <li class="tl-step is-pending">
+              <p class="tl-when">8 de oct. · Día 8</p>
+              <h3>Sin respuesta, así que insiste</h3>
+              <p class="bubble in">Lincoln todavía no contesta. Le mandé a la Sra. Alvarez un recordatorio amable, con copia a la oficina.</p>
+            </li>
+            <li class="tl-step is-done">
+              <p class="tl-when">10 de oct. · Día 10</p>
+              <h3>La escuela contesta</h3>
+              <div class="tl-card tl-reply"><span class="tl-meta">Primaria Lincoln</span><span>Recibido. La evaluación de Maya está programada para el 21 de octubre.</span></div><p class="tl-track"><span class="tl-bar" aria-hidden="true"><span></span></span>Seguimiento: día 10 de 60. Vence el 29 de nov.</p>
+            </li>
           </ol>
         </div>
-
-        <figure class="phone-figure">
-          <div class="phone-tilt">
-            <img
-              class="phone-shot"
-              src="/phone-es.webp?v=8cd7f87125462286"
-              width="328"
-              height="670"
-              alt="Conversación de texto en un teléfono: Axolotl dice que Leo necesita un examen físico y uno dental antes del 15 de octubre. La familia le pide que se encargue. Axolotl encuentra una cita en la red, llena los dos formularios y muestra los datos listos para enviar. La familia responde Sí, y Axolotl confirma que la Primaria Lincoln lo aceptó, referencia K-1042."
-              loading="lazy"
-              decoding="async"
-            />
-          </div>
-          <figcaption class="caption">Conversación de ejemplo. Escuela y familia ficticias.</figcaption>
-        </figure>
-      </div>
-      <div class="wrap channel">
-        <p class="channel-line">Un solo número. Sin app, sin portal. En inglés o español.</p>
-        <ul class="channel-bubbles" aria-label="Cosas que mandan las familias">
-          <li class="ios-bubble out">Fwd: Boletín semanal de Lincoln</li>
-          <li class="ios-bubble out ios-bubble-photo"><span class="photo-thumb" aria-hidden="true"></span>Foto de un formulario</li>
-          <li class="ios-bubble out">¿El distrito tiene escuela de verano?</li>
-          <li class="ios-bubble out">Leo no va hoy, está enfermo.</li>
-        </ul>
+        <div class="also">
+          <p class="also-label">También puede pedir:</p>
+          <ul class="chips"><li>Transporte a la escuela</li><li>Un intérprete en las juntas</li><li>Almuerzo gratis o a precio reducido</li><li>El tiempo extra que dice su plan</li><li>Un lugar en el programa después de clases</li></ul>
+        </div>
+        <p class="line-note">Axolotl no es abogado. Pide lo que a tu hijo ya le corresponde.</p>
       </div>
     </section>
-    <section class="section" id="circles" aria-labelledby="circles-title">
-      <div class="wrap circles-grid">
-        <div>
-          <div class="h2-row">
-            <h2 id="circles-title">Coordina sin esfuerzo con la gente en la que ya confías.</h2>
-            <span class="status status-soon">Próximamente</span>
+    <section class="section t-golden" id="school" aria-labelledby="school-title">
+      <div class="wrap split">
+        <div class="split-copy">
+          <p class="time-chip"><span class="time-chip-time">3:40 PM</span><span class="time-chip-label">En la puerta de la escuela</span></p>
+          <h2 id="school-title">Cada familia la mejora <em>para la siguiente.</em></h2>
+          <p class="lead">Axolotl aprende cómo funciona cada escuela: el calendario, quién se encarga del transporte, qué formularios regresan y qué tan rápido. Eso ayuda a todas las familias de esa escuela. La información personal de nadie se comparte.</p>
+          <div class="two-lists">
+            <div><h3>Se comparte en la escuela</h3><ul><li>Salidas tempranas y días libres</li><li>Quién se encarga del transporte</li><li>Qué formularios hay y a dónde van</li><li>Cuánto tarda cada oficina</li></ul></div>
+            <div><h3>Nunca sale de tu familia</h3><ul><li>Tus hijos y sus expedientes</li><li>Tus mensajes</li><li>Por qué necesitas ayuda</li><li>Lo que envías</li></ul></div>
           </div>
-          <p class="lead">Tu círculo es la gente que ya te ayuda: tu pareja, tu mamá, la niñera, las familias con las que te turnas. Pronto, Axolotl los mete en un solo plan — pregunta con tus palabras, reparte quién hace qué, y solo lo cierra cuando todos dicen que sí. Las recogidas son el principio, no todo.</p>
-          <ul class="plain-list" aria-label="Cómo funcionan los círculos">
-          <li>Nunca necesitas un círculo para recibir toda la ayuda.</li>
-          <li>Un círculo solo ve el plan, nunca por qué una familia necesita ayuda.</li>
-          <li>Nada se acuerda hasta que todos digan sí.</li>
-          <li>No son solo las recogidas: días de enfermedad, la ida a la escuela, cambios de cita, y compartir lo que averiguaste sobre una maestra o un programa.</li>
-          <li>Cada quien lee y escribe en su propio idioma.</li>
-          <li>Si el distrito le debe transporte a tu familia, Axolotl le pregunta primero al distrito.</li>
-          <li>Axolotl coordina. No maneja; las familias deciden.</li>
+          <a class="text-link" href="/es/schools">¿Diriges una escuela o distrito? Cómo trabaja Axolotl con las escuelas</a>
+        </div>
+        <svg class="net" viewBox="0 0 540 540" role="img" aria-label="Diagrama: familias alrededor de la Primaria Lincoln. Lo que cada familia aprende sobre cómo funciona la escuela se suma a una sola imagen compartida.">
+          <circle class="net-ring" cx="270" cy="270" r="215" />
+          <circle class="net-ring net-ring-inner" cx="270" cy="270" r="140" />
+          <g class="net-lines"><line x1="270" y1="270" x2="270" y2="55" /><line x1="270" y1="270" x2="456" y2="162" /><line x1="270" y1="270" x2="456" y2="378" /><line x1="270" y1="270" x2="270" y2="485" /><line x1="270" y1="270" x2="84" y2="378" /><line x1="270" y1="270" x2="84" y2="162" /></g>
+          <circle class="net-school" cx="270" cy="270" r="88" />
+          <text class="net-school-text" x="270" y="262" text-anchor="middle">Primaria</text>
+          <text class="net-school-text" x="270" y="292" text-anchor="middle">Lincoln</text>
+          <g class="net-dots"><circle cx="270" cy="55" r="9" /><circle cx="456" cy="162" r="9" /><circle cx="456" cy="378" r="9" /><circle cx="270" cy="485" r="9" /><circle cx="84" cy="378" r="9" /></g>
+          <circle class="net-you" cx="84" cy="162" r="13" />
+          <g class="net-label">
+            <text x="288" y="50">Familia</text><text x="474" y="158">Familia</text><text x="474" y="383">Familia</text>
+            <text x="288" y="500">Familia</text><text x="18" y="404">Familia</text>
+            <text class="net-you-label" x="44" y="136">Tú</text>
+          </g>
+          <g class="net-note">
+            <text x="284" y="126">salida temprana 1:20</text><text x="256" y="432" text-anchor="end">transporte: oficina</text><text x="284" y="432">formularios en 2 días</text>
+          </g>
+        </svg>
+      </div>
+    </section>
+    <section class="section t-dusk" id="dinner" aria-labelledby="dinner-title">
+      <div class="wrap center-head">
+        <p class="time-chip"><span class="time-chip-time">6:30 PM</span><span class="time-chip-label">La cena</span></p>
+        <h2 id="dinner-title">Quién se encarga de qué <em>esta semana.</em></h2>
+        <p class="lead">Tu pareja, la abuela y la niñera ven el mismo plan, y cada pendiente tiene un nombre.</p>
+      </div>
+      <div class="dinner-stage">
+        <img class="device" src="/week-4-es.webp?v=8cd7f87125462286" width="336" height="687" alt="Una conversación de texto con Axolotl: Quién se encarga. Axolotl: Así va la semana. Axolotl: Recogida del miércoles: la abuela. El formulario de Maya: tú. Dentista el jueves: Sam. Tú: ¿Me puedes recordar hablar con Sam lo del jueves? Axolotl: No puedo escribirle a Sam, pero te lo recuerdo el jueves en la mañana. Tú: Hazlo. Axolotl: Listo. ¿Algo más? Tú: ¿Y el viernes? Puede que salga tarde. Axolotl: El viernes sigue sin cubrir. ¿Te dejo un mensaje de un toque para Dana? Tú: Sí. Axolotl: Redactado. Envíalo cuando quieras. Recordatorio puesto" decoding="async" loading="lazy" />
+        <img class="device" src="/circles-es.webp?v=8cd7f87125462286" width="328" height="670" alt="Ejemplo de chat grupal en Mensajes, con la función de círculos. La familia dice que los dos están atorados el miércoles por la salida temprana y pide ayuda. Axolotl reporta que Dana está libre el miércoles y puede llevar a los cuatro niños; Dana acepta si alguien cubre su recogida del viernes, Sam toma el viernes, y Axolotl confirma el plan: Dana el miércoles, Sam el viernes. Luego Sam pregunta al grupo por el programa después de clases." decoding="async" loading="lazy" />
+      </div>
+      <div class="wrap">
+        <p class="soon-line"><span class="soon-tag">Muy pronto · Círculos</span>Túrnense para recoger a los niños y cubrir días de enfermedad con las familias en las que confías. Nada queda acordado hasta que todos dicen que sí.</p>
+      </div>
+    </section>
+    <section class="section t-night" id="night" aria-labelledby="night-title">
+      <div class="stars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="wrap split">
+        <div class="split-copy">
+          <p class="time-chip"><span class="time-chip-time">9:40 PM</span><span class="time-chip-label">Los niños ya duermen</span></p>
+          <h2 id="night-title">Todo <em>resuelto.</em></h2>
+          <p class="lead">En lugar de una mesa llena de formularios, un solo resumen: qué se mandó, qué confirmó la escuela y qué sigue pendiente.</p>
+        </div>
+        <div>
+          <p class="sum-label">Hoy, en un resumen</p>
+          <ul class="summary">
+            <li class="is-done">
+              <span class="sum-mark"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12l5 5 9-10" /></svg></span>
+              <span class="sum-text"><strong>Formularios de salud de Leo</strong><span>Lincoln confirmó · K-1042</span></span>
+              <span class="sr-only">Listo</span>
+            </li>
+            <li class="is-done">
+              <span class="sum-mark"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12l5 5 9-10" /></svg></span>
+              <span class="sum-text"><strong>Salida al mediodía</strong><span>La abuela recogió a Leo · se avisó a la oficina</span></span>
+              <span class="sr-only">Listo</span>
+            </li>
+            <li class="is-waiting">
+              <span class="sum-mark"></span>
+              <span class="sum-text"><strong>Transporte a Lincoln</strong><span>Solicitado · el distrito tiene 10 días</span></span>
+              <span class="sr-only">Esperando a la escuela</span>
+            </li>
+            <li class="is-waiting">
+              <span class="sum-mark"></span>
+              <span class="sum-text"><strong>Evaluación de lectura de Maya</strong><span>Solicitada · el plazo empezó el 30 de sep.</span></span>
+              <span class="sr-only">Esperando a la escuela</span>
+            </li>
           </ul>
-          <div class="form-block">
-          <h3>Empieza un círculo</h3>
-          <form id="circle-form" novalidate data-error="No pudimos guardar tu registro. Inténtalo de nuevo." data-error-phone="Escribe un número de 10 dígitos de EE. UU." data-error-families="Elige cuántas familias.">
-            <div class="field">
-              <label for="circle-phone">Tu número de teléfono</label>
-              <input id="circle-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="30" required aria-describedby="circle-error" />
-            </div>
-            <div class="field">
-              <label for="circle-families">¿Cuántas familias?</label>
-              <select id="circle-families" name="families" required aria-describedby="circle-error">
-                <option value="">&nbsp;</option>
-                <option value="2 a 3">2 a 3</option><option value="4 a 6">4 a 6</option><option value="7 o más">7 o más</option>
-              </select>
-            </div>
-            <div class="field">
-              <label for="circle-school">Escuela <span class="hint">(opcional)</span></label>
-              <input id="circle-school" name="school" type="text" maxlength="120" autocomplete="organization" />
-            </div>
-            <button class="button primary" type="submit">Empezar un círculo</button>
-            <p class="form-note">Te escribimos cuando abran los círculos.</p>
-            <p class="form-error" id="circle-error" role="alert" hidden></p>
-          </form>
-          <div class="form-success" id="circle-sent" role="status" tabindex="-1" hidden>
-            <p>Ya estás en la lista. Te escribimos cuando abran los círculos.</p>
-          </div>
-          </div>
-        </div>
-        <div>
-
-          <figure class="circles-shot">
-            <img
-              class="phone-shot"
-              src="/circles-es.webp?v=8cd7f87125462286"
-              width="328"
-              height="670"
-              alt="Ejemplo de chat grupal en Mensajes, con la función de círculos. La familia dice que los dos están atorados el miércoles por la salida temprana y pide ayuda. Axolotl reporta que Dana está libre el miércoles y puede llevar a los cuatro niños; Dana acepta si alguien cubre su recogida del viernes, Sam toma el viernes, y Axolotl confirma el plan: Dana el miércoles, Sam el viernes. Luego Sam pregunta al grupo por el programa después de clases."
-              loading="lazy"
-              decoding="async"
-            />
-            <figcaption class="caption">Conversación de ejemplo. Escuela y familia ficticias.</figcaption>
-          </figure>
+          <p class="caption">Conversación de ejemplo. Escuela y familia ficticias.</p>
         </div>
       </div>
-    </section>
-    <section class="section" id="limits" aria-labelledby="limits-title">
-      <div class="wrap">
-        <h2 id="limits-title">Los límites, antes de que los descubras tú.</h2>
-        <p class="lead">La lista honesta. El resto de esta página solo significa algo si esta parte es cierta.</p>
-        <div class="limits-grid">
-        <article>
-          <h3>No va a enviar nada sin tu sí.</h3>
-          <p>Cada correo, formulario y envío espera un sí explícito de tu parte. Una sugerencia no es permiso.</p>
-        </article>
-        <article>
-          <h3>Te dice qué no puede abrir.</h3>
-          <p>Una pantalla que pide contraseña, un formulario que solo existe en papel, un distrito que quiere una llamada. Nombra el muro en vez de adivinar.</p>
-        </article>
-        <article>
-          <h3>No te va a decir que un formulario se envió si la escuela no lo confirmó.</h3>
-          <p>Hecho quiere decir que llegó la confirmación de la escuela. Si no puede confirmarlo, te lo dice y te da el enlace.</p>
-        </article>
-        <article>
-          <h3>No puede ver el portal de tu escuela.</h3>
-          <p>Nunca te pide tu contraseña. Si el portal importa, tú inicias sesión y él solo lee.</p>
-        </article>
-        <article>
-          <h3>Es más fuerte leyendo e investigando.</h3>
-          <p>Un formulario limpio que ya ha hecho es confiable. Un formulario nuevo y complicado del distrito puede regresar a ti como un enlace.</p>
-        </article>
-        <article>
-          <h3>No es médico, ni abogado, ni la escuela.</h3>
-          <p>Te ayuda con el proceso. Las decisiones sobre tu hijo siguen siendo tuyas, de tu escuela y de tus médicos.</p>
-        </article>
-        </div>
-        <div class="privacy-note">
-          <p>La información de tu familia es tuya. Nunca se vende. El único sistema que lee tus mensajes es la IA que escribe las respuestas.</p>
-          <div class="slip-links">
+      <div class="wrap promises">
+          <article class="glass promise"><h3>Tu sí lo manda.</h3><p>Cada correo, formulario y solicitud espera un sí explícito. Una sugerencia no es permiso.</p></article>
+          <article class="glass promise"><h3>Listo significa confirmado.</h3><p>Solo cuenta la confirmación de la propia escuela. Si no puede confirmar, te lo dice y te da el enlace.</p></article>
+          <article class="glass promise"><h3>Nunca se vende.</h3><p>La información de tu familia es tuya. Nunca te pide la contraseña del portal escolar.</p></article>
+      </div>
+      <div class="wrap promise-links">
+          <a class="text-link" href="/security">Lee todos los límites, en palabras simples</a>
           <a class="text-link" href="/privacy">Cómo manejamos la información</a>
-          <a class="text-link" href="/security">Seguridad y límites</a>
-          </div>
-        </div>
       </div>
-    </section>
-    <section class="section section-sheet" id="join" aria-labelledby="join-title">
-      <div class="wrap">
-        <div class="join-grid">
-        <div>
-          <h2 id="join-title">Únete al piloto.</h2>
-          <p class="lead">Estamos incorporando a un grupo pequeño de familias. Agrega tu número y te escribimos sobre el acceso. Gratis durante el piloto, en inglés o español.</p>
-          <p class="join-alt">
-            <a class="text-link" href="#circles">Mejor empieza un círculo</a>
-            <a class="text-link" href="#contact">¿Tienes una pregunta primero?</a>
-          </p>
-        </div>
-        <div>
-          <form id="join-form" novalidate data-error="No pudimos guardar tu registro. Inténtalo de nuevo." data-error-phone="Escribe un número de 10 dígitos de EE. UU.">
-            <div class="field">
-              <label for="join-phone">Tu número de teléfono</label>
-              <input id="join-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="30" required aria-describedby="join-error" />
+
+      <div class="wrap join" id="join" aria-labelledby="join-title">
+        <img class="sleeper" src="/ollie/ollie-sleep.webp" alt="" width="900" height="900" loading="lazy" decoding="async" />
+        <h2 id="join-title">Lo de mañana <em>ya está resuelto.</em></h2>
+        <p class="lead">Estamos incorporando a un grupo pequeño de familias. Agrega tu número y te escribimos sobre el acceso. Gratis durante el piloto, en inglés o español.</p>
+
+          <form id="join-form" class="pill-form" novalidate data-error="No pudimos guardar tu registro. Inténtalo de nuevo." data-error-phone="Escribe un número de 10 dígitos de EE. UU.">
+            <label class="sr-only" for="join-phone">Tu número de teléfono</label>
+            <div class="pill-field">
+              <input id="join-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="30" required placeholder="Tu teléfono" aria-describedby="join-error" />
+              <button class="button primary" type="submit">Únete al piloto</button>
             </div>
-            <button class="button primary" type="submit">Únete al piloto</button>
-            <p class="form-note"><span class="highlight">Al unirte, aceptas recibir mensajes sobre el acceso.</span></p>
+            <p class="form-note">Al unirte, aceptas recibir mensajes sobre el acceso.</p>
             <p class="form-error" id="join-error" role="alert" hidden></p>
           </form>
           <div class="form-success" id="join-sent" role="status" tabindex="-1" hidden>
             <p id="join-sent-text" data-template="Ya estás en la lista. Te escribimos al {phone}."></p>
           </div>
-        </div>
-        </div>
+        <p class="join-alt"><a class="text-link" href="#contact">¿Tienes una pregunta primero?</a></p>
       </div>
     </section>
-    <section class="section section-band" aria-labelledby="schools-band-title">
-      <div class="wrap">
-        <div class="band">
-          <h2 id="schools-band-title">Para escuelas y distritos.</h2>
-          <p class="lead">Axolotl ayuda a tus familias a mantenerse al día: formularios que regresan antes de la fecha límite, preguntas contestadas con tu propia información, y solicitudes que llegan completas, por escrito y a la oficina correcta. Nada que instalar.</p>
-          <a class="text-link" href="/schools">Cómo trabaja Axolotl con las escuelas</a>
-        </div>
+    <section class="section t-night-deep section-band" aria-labelledby="schools-band-title">
+      <div class="wrap band">
+        <h2 id="schools-band-title">Para escuelas y distritos.</h2>
+        <p class="lead">Axolotl ayuda a tus familias a mantenerse al día: formularios que regresan antes de la fecha límite, preguntas contestadas con tu propia información, y solicitudes que llegan completas, por escrito y a la oficina correcta. Nada que instalar.</p>
+        <a class="text-link" href="/es/schools">Cómo trabaja Axolotl con las escuelas</a>
       </div>
     </section>
-    <section class="section" id="contact" aria-labelledby="contact-title">
+    <section class="section t-night-deep" id="contact" aria-labelledby="contact-title">
       <div class="wrap contact-grid">
         <div>
           <h2 id="contact-title">Preguntas.</h2>
@@ -465,8 +370,8 @@
   <footer class="site-footer">
     <div class="wrap footer-grid">
       <div>
-        <a class="brand brand-footer" href="/">
-          <img src="/animation/axolotl-mascot.png" alt="" width="34" height="34" />
+        <a class="brand brand-footer" href="/es">
+          <img src="/ollie/ollie.webp" alt="" width="44" height="44" />
           <span>Axolotl</span>
         </a>
         <p>El agente escolar para las familias</p>

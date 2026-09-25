@@ -14,9 +14,9 @@ export default {
   locale: 'es_US',
 
   meta: {
-    title: 'Axolotl: ayuda con la escuela, por texto, para familias que trabajan.',
+    title: 'Axolotl: toda familia merece un agente para la escuela.',
     description:
-      'Axolotl se encarga de las salidas tempranas, los días de enfermedad y el papeleo de la escuela por texto, y consigue lo que a tu hijo le corresponde. Nada llega a la escuela sin tu sí.',
+      'Axolotl es el agente de tu familia para la escuela, por texto. Lee lo que manda la escuela, se encarga de los formularios y de quién recoge a los niños, y consigue la ayuda que le corresponde a tu hijo. Nada se envía sin tu sí.',
     shareAlt:
       'Una carpeta de manila con la etiqueta "La familia Howard" con pendientes escolares, cada uno marcado Confirmado, Esperando tu sí o Solicitado.',
   },
@@ -33,9 +33,8 @@ export default {
 
   nav: {
     how: 'Cómo funciona',
-    rights: 'Tus derechos',
-    circles: 'Círculos',
-    limits: 'Límites',
+    help: 'Ayuda disponible',
+    schools: 'Para escuelas',
     join: 'Únete al piloto',
     langSwitch: 'English',
     langSwitchHref: '/',
@@ -44,13 +43,187 @@ export default {
   exampleCaption:
     'Conversación de ejemplo. Escuela y familia ficticias.',
 
+  // ── La página de inicio, como un día de escuela ─────────────────────────────
+  // Cada sección es un momento del día, y la luz de la página cambia con él:
+  // amanecer, día, tarde dorada, atardecer, noche. Las horas son parte del texto.
+  day: {
+    // Short enough to fit inside the signup field on a small phone.
+    phonePlaceholder: 'Tu teléfono',
+    agents: {
+      label: 'Quién tiene agente',
+      items: [
+        'Las estrellas de cine tienen agente.',
+        'Los atletas tienen agente.',
+        'Los escritores tienen agente.',
+        'Los comediantes tienen agente.',
+        'Los influencers tienen agente.',
+        'Los gamers profesionales tienen agente.',
+        'Los modelos de manos tienen agente.',
+        'Los payasos tienen agente.',
+      ],
+      parentsLead: 'Mamás y papás tienen',
+      parentsTail: 'una pila de permisos por firmar.',
+    },
+    morning: {
+      time: '7:15 AM',
+      label: 'Un día de escuela',
+      h1Plain: 'Toda familia merece',
+      h1Em: 'un agente.',
+    },
+    inbox: {
+      time: '8:30 AM',
+      label: 'El correo',
+      h2Plain: 'Ocho correos de la escuela.',
+      h2Em: 'Uno que importa.',
+      lead: 'Axolotl lee todo lo que manda la escuela, encuentra el que tiene fecha límite, llena el formulario y espera tu sí. Listo significa que la escuela lo confirmó.',
+      steps: [
+        { tag: 'Lee', body: 'Correos reenviados, la foto de un formulario en papel o tu Gmail' },
+        { tag: 'Encuentra', body: 'Lo único que tiene fecha' },
+        { tag: 'Pregunta', body: 'Ves lo que va a mandar. Tu sí lo manda' },
+        { tag: 'Confirma', body: 'Solo cuenta como listo cuando la escuela lo confirma' },
+      ],
+      inboxLabel: 'Correo · 8 nuevos de la Primaria Lincoln',
+      emails: [
+        'Día de fotos, 3 de oct.',
+        'Feria del libro la próxima semana',
+        'Kínder: examen físico y dental antes del 15 de oct.',
+        'Semana de espíritu escolar',
+        'Junta de padres, jueves',
+        'Menú de octubre',
+        'Devolver libros de la biblioteca',
+      ],
+      highlight: 2,
+    },
+    midday: {
+      time: '11:48 AM',
+      label: 'Mediodía',
+    },
+    qualify: {
+      time: '3:05 PM',
+      label: 'A la salida',
+      h2Plain: 'La ayuda que a tu hijo',
+      h2Em: 'ya le corresponde.',
+      lead: 'Transporte, evaluaciones, intérpretes, comidas gratis. La ayuda existe, pero hay que saber pedirla, pedirla por escrito y seguir insistiendo. Axolotl se da cuenta cuando tu hijo podría calificar, y hace las tres cosas.',
+      timelineTitle: 'Una solicitud, de principio a fin',
+      steps: [
+        {
+          when: '30 de sep. · 2:14 PM',
+          title: 'La escuela manda un correo',
+          kind: 'email',
+          from: 'Sra. Park, 2.º grado · Primaria Lincoln',
+          subject: 'Resultados de la evaluación de lectura de otoño',
+          before: 'Maya obtuvo un resultado ',
+          mark: 'muy por debajo del nivel esperado',
+          after: ' en fluidez lectora. Vamos a darle práctica en grupos pequeños en clase.',
+        },
+        {
+          when: '3:05 PM',
+          title: 'Axolotl entiende lo que significa',
+          kind: 'text',
+          in: 'La evaluación de lectura de Maya salió muy por debajo del nivel esperado. Puedes pedirle a la escuela que la evalúe para darle más apoyo. Tiene que ser por escrito. ¿Quieres que lo redacte?',
+          out: 'Sí, por favor',
+        },
+        {
+          when: '9:40 PM',
+          title: 'Escribe la carta',
+          kind: 'letter',
+          to: 'Para la Sra. Alvarez, educación especial, Primaria Lincoln',
+          before: 'Solicito una evaluación completa de mi hija, Maya Howard, para servicios de educación especial conforme a la ',
+          mark: 'Ley de Educación para Personas con Discapacidades (IDEA)',
+          after: '. Doy mi consentimiento para la evaluación.',
+          sent: 'Enviada con tu sí',
+        },
+        {
+          when: '8 de oct. · Día 8',
+          title: 'Sin respuesta, así que insiste',
+          kind: 'text',
+          in: 'Lincoln todavía no contesta. Le mandé a la Sra. Alvarez un recordatorio amable, con copia a la oficina.',
+          pending: true,
+        },
+        {
+          when: '10 de oct. · Día 10',
+          title: 'La escuela contesta',
+          kind: 'reply',
+          from: 'Primaria Lincoln',
+          text: 'Recibido. La evaluación de Maya está programada para el 21 de octubre.',
+          track: 'Seguimiento: día 10 de 60. Vence el 29 de nov.',
+          done: true,
+        },
+      ],
+      alsoLabel: 'También puede pedir:',
+      also: [
+        'Transporte a la escuela',
+        'Un intérprete en las juntas',
+        'Almuerzo gratis o a precio reducido',
+        'El tiempo extra que dice su plan',
+        'Un lugar en el programa después de clases',
+      ],
+      note: 'Axolotl no es abogado. Pide lo que a tu hijo ya le corresponde.',
+    },
+    school: {
+      time: '3:40 PM',
+      label: 'En la puerta de la escuela',
+      h2Plain: 'Cada familia la mejora',
+      h2Em: 'para la siguiente.',
+      lead: 'Axolotl aprende cómo funciona cada escuela: el calendario, quién se encarga del transporte, qué formularios regresan y qué tan rápido. Eso ayuda a todas las familias de esa escuela. La información personal de nadie se comparte.',
+      sharedLabel: 'Se comparte en la escuela',
+      shared: ['Salidas tempranas y días libres', 'Quién se encarga del transporte', 'Qué formularios hay y a dónde van', 'Cuánto tarda cada oficina'],
+      privateLabel: 'Nunca sale de tu familia',
+      private: ['Tus hijos y sus expedientes', 'Tus mensajes', 'Por qué necesitas ayuda', 'Lo que envías'],
+      link: '¿Diriges una escuela o distrito? Cómo trabaja Axolotl con las escuelas',
+      diagram: {
+        alt: 'Diagrama: familias alrededor de la Primaria Lincoln. Lo que cada familia aprende sobre cómo funciona la escuela se suma a una sola imagen compartida.',
+        school: ['Primaria', 'Lincoln'],
+        family: 'Familia',
+        you: 'Tú',
+        notes: ['salida temprana 1:20', 'transporte: oficina', 'formularios en 2 días'],
+      },
+    },
+    dinner: {
+      time: '6:30 PM',
+      label: 'La cena',
+      h2Plain: 'Quién se encarga de qué',
+      h2Em: 'esta semana.',
+      lead: 'Tu pareja, la abuela y la niñera ven el mismo plan, y cada pendiente tiene un nombre.',
+      soon: 'Muy pronto · Círculos',
+      circles: 'Túrnense para recoger a los niños y cubrir días de enfermedad con las familias en las que confías. Nada queda acordado hasta que todos dicen que sí.',
+    },
+    night: {
+      time: '9:40 PM',
+      label: 'Los niños ya duermen',
+      h2Plain: 'Todo',
+      h2Em: 'resuelto.',
+      lead: 'En lugar de una mesa llena de formularios, un solo resumen: qué se mandó, qué confirmó la escuela y qué sigue pendiente.',
+      summaryLabel: 'Hoy, en un resumen',
+      summary: [
+        { title: 'Formularios de salud de Leo', detail: 'Lincoln confirmó · K-1042', done: true },
+        { title: 'Salida al mediodía', detail: 'La abuela recogió a Leo · se avisó a la oficina', done: true },
+        { title: 'Transporte a Lincoln', detail: 'Solicitado · el distrito tiene 10 días', done: false },
+        { title: 'Evaluación de lectura de Maya', detail: 'Solicitada · el plazo empezó el 30 de sep.', done: false },
+      ],
+      doneWord: 'Listo',
+      waitingWord: 'Esperando a la escuela',
+      promises: [
+        { title: 'Tu sí lo manda.', body: 'Cada correo, formulario y solicitud espera un sí explícito. Una sugerencia no es permiso.' },
+        { title: 'Listo significa confirmado.', body: 'Solo cuenta la confirmación de la propia escuela. Si no puede confirmar, te lo dice y te da el enlace.' },
+        { title: 'Nunca se vende.', body: 'La información de tu familia es tuya. Nunca te pide la contraseña del portal escolar.' },
+      ],
+      links: [
+        { label: 'Lee todos los límites, en palabras simples', href: '/security' },
+        { label: 'Cómo manejamos la información', href: '/privacy' },
+      ],
+      closePlain: 'Lo de mañana',
+      closeEm: 'ya está resuelto.',
+    },
+  },
+
   hero: {
-    h1: 'El asistente de tu familia para la escuela.',
-    sub: 'Lee lo que manda la escuela, cubre las salidas tempranas y los días de enfermedad, y consigue lo que a tu hijo le corresponde. Solo mándale un mensaje.',
+    h1: 'Toda familia merece un agente.',
+    sub: 'Axolotl es el agente de tu familia para la escuela. Lee lo que manda la escuela, se encarga de los formularios y de quién recoge a los niños, y consigue la ayuda que le corresponde a tu hijo. Solo mándale un mensaje. Nada se envía sin tu sí.',
     primary: 'Únete al piloto',
     secondary: 'Ver cómo funciona',
     trust:
-      'Nada llega a tu escuela sin tu sí. Gratis durante el piloto, en inglés o español.',
+      'Gratis durante el piloto, en inglés o español.',
     // The hero visual is the thread the parent actually gets: Axolotl's weekly
     // triage, the parent's yes, and the school's confirmation. Plain text only.
     phone: {
@@ -70,13 +243,6 @@ export default {
       ],
       alt: 'Conversación de texto en un teléfono. Axolotl dice que llegaron ocho correos y que dos cosas necesitan a la familia. La familia, en juntas todo el día, le pide a Axolotl que se encargue. Axolotl llenó el formulario de excursión de Maya y lo envía con el visto bueno de la familia, luego confirma que Lincoln lo tiene, referencia K-1042, y avisa que la salida temprana del miércoles sigue sin cubrir, con un mensaje de un toque listo para la abuela.',
     },
-    connects: [
-      { icon: 'imessage.png', label: 'iMessage' },
-      { icon: 'gmail.png', label: 'Tu correo' },
-      { icon: 'google-calendar.png', label: 'El calendario escolar' },
-      { icon: 'google-forms.png', label: 'Formularios' },
-      { icon: 'whatsapp.png', label: 'WhatsApp' },
-    ],
     // El teléfono ya no dibuja la carpeta, pero la tarjeta social (share.html)
     // sí, así que sus filas viven aquí.
     folder: {
@@ -122,29 +288,6 @@ export default {
     requested: 'Solicitado, esperando al distrito',
     reminder: 'Recordatorio puesto',
     soon: 'Próximamente',
-  },
-
-  layers: {
-    h2: 'Hecho para tu familia, y para las familias que están cerca.',
-    lead: 'Un agente que conoce a tu familia, trabaja con las personas que te ayudan y aprende cómo funciona tu escuela.',
-    cols: [
-      {
-        h3: 'Tu familia',
-        label: 'Privado',
-        body: 'Tus hijos, sus escuelas, tu horario y todo lo que sigue pendiente. Solo lo ves tú y las personas que agregues.',
-      },
-      {
-        h3: 'Tu gente',
-        label: 'La casa ahora, los círculos después',
-        body: 'Tu pareja, la abuela y la niñera ven el mismo plan, y cada tarea tiene un nombre. Pronto: las familias con las que compartes la ida a la escuela, los días de enfermedad y las recogidas.',
-      },
-      {
-        h3: 'Tu escuela',
-        label: 'Compartido',
-        body: 'Lo que Axolotl aprende de tu escuela, como el calendario, las salidas tempranas y quién maneja el transporte, ayuda a todas las familias de ahí. No se comparte información personal de nadie.',
-      },
-    ],
-    line: 'Los círculos lo hacen más fácil. Nunca necesitas uno para recibir toda la ayuda.',
   },
 
   week: {
@@ -249,40 +392,6 @@ export default {
         status: 'reminder',
       },
     ],
-  },
-
-  year: {
-    h2: 'Algunas de estas cosas no son un favor. Son la ley.',
-    lead: 'Describe tu situación con tus propias palabras. Axolotl averigua qué norma aplica, pone la solicitud por escrito y sigue el rastro de la respuesta.',
-    head: ['Cuando dices', 'La norma', 'Lo que hace Axolotl'],
-    rows: [
-      {
-        say: '"Perdimos el departamento y estamos con mi hermana al otro lado de la ciudad. ¿Puede seguir en su escuela?"',
-        rule: 'Ley McKinney-Vento: estabilidad escolar para niños sin vivienda estable',
-        does: 'Busca el contacto de transporte del distrito, pide el transporte por escrito y da seguimiento hasta que confirmen la ruta.',
-      },
-      {
-        say: '"Su maestra dice que va atrasado en lectura. No sé qué tengo que pedir."',
-        rule: 'IDEA: evaluaciones para educación especial',
-        does: 'Redacta tu solicitud de evaluación por escrito, la envía con tu sí y anota la fecha en que empezó el reloj del distrito.',
-      },
-      {
-        say: '"La junta fue toda en inglés y no entendí casi nada."',
-        rule: 'Título VI, Ley de Derechos Civiles: comunicación en un idioma que entiendas',
-        does: 'Pide por escrito a la escuela un intérprete y los documentos traducidos antes de la próxima junta.',
-      },
-      {
-        say: '"Estamos pagando el almuerzo completo y creo que calificamos para ayuda."',
-        rule: 'Programa Nacional de Almuerzos Escolares: comidas gratis o a precio reducido',
-        does: 'Llena la solicitud, te muestra exactamente lo que enviará y la entrega con tu sí.',
-      },
-      {
-        say: '"En la junta acordamos que ella tiene más tiempo. No está pasando en el salón."',
-        rule: 'Su IEP o su plan 504: los apoyos que la escuela aceptó',
-        does: 'Escribe a la escuela citando lo que dice el plan y sigue insistiendo hasta que confirmen que ya está en marcha.',
-      },
-    ],
-    line: 'Axolotl no es abogado. Te ayuda a usar las normas que ya protegen a tu hijo.',
   },
 
   how: {
@@ -401,43 +510,6 @@ export default {
         generic: 'No pudimos guardar tu registro. Inténtalo de nuevo.',
       },
     },
-  },
-
-  limits: {
-    h2: 'Los límites, antes de que los descubras tú.',
-    lead: 'La lista honesta. El resto de esta página solo significa algo si esta parte es cierta.',
-    items: [
-      {
-        title: 'No va a enviar nada sin tu sí.',
-        body: 'Cada correo, formulario y envío espera un sí explícito de tu parte. Una sugerencia no es permiso.',
-      },
-      {
-        title: 'Te dice qué no puede abrir.',
-        body: 'Una pantalla que pide contraseña, un formulario que solo existe en papel, un distrito que quiere una llamada. Nombra el muro en vez de adivinar.',
-      },
-      {
-        title: 'No te va a decir que un formulario se envió si la escuela no lo confirmó.',
-        body: 'Hecho quiere decir que llegó la confirmación de la escuela. Si no puede confirmarlo, te lo dice y te da el enlace.',
-      },
-      {
-        title: 'No puede ver el portal de tu escuela.',
-        body: 'Nunca te pide tu contraseña. Si el portal importa, tú inicias sesión y él solo lee.',
-      },
-      {
-        title: 'Es más fuerte leyendo e investigando.',
-        body: 'Un formulario limpio que ya ha hecho es confiable. Un formulario nuevo y complicado del distrito puede regresar a ti como un enlace.',
-      },
-      {
-        title: 'No es médico, ni abogado, ni la escuela.',
-        body: 'Te ayuda con el proceso. Las decisiones sobre tu hijo siguen siendo tuyas, de tu escuela y de tus médicos.',
-      },
-    ],
-    privacy:
-      'La información de tu familia es tuya. Nunca se vende. El único sistema que lee tus mensajes es la IA que escribe las respuestas.',
-    privacyLinks: [
-      { label: 'Cómo manejamos la información', href: '/privacy' },
-      { label: 'Seguridad y límites', href: '/security' },
-    ],
   },
 
   voices: {
