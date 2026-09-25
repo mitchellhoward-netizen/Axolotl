@@ -583,7 +583,7 @@ export default {
 
   schoolsBand: {
     h2: 'For schools and districts.',
-    body: "Parents are writing to school with AI now. Axolotl gives it a front door: requests arrive short, complete and at the right office, routine questions are answered from your own information, and your staff decides the official way things get done. Nothing to install.",
+    body: 'Every family gets an agent, and your office stops chasing: absence notes filed, forms back complete, requests at the right office, and fewer missed days once your school connects. Nothing to install.',
     link: 'How Axolotl works with schools',
   },
 
@@ -638,16 +638,64 @@ export default {
     meta: {
       title: 'Axolotl for schools and districts',
       description:
-        "Parents are writing to school with AI. Axolotl is the front door your staff controls: requests arrive short, complete and at the right office, routine questions are answered from your own information, and your staff decides the official way things get done.",
+        "Axolotl is a free agent parents text for school. Your office stops chasing forms, calling about absences and forwarding requests, and fewer kids miss school. Your staff decides the official way things get done.",
       shareAlt: 'A manila folder of school tasks with a Confirmed stamp on the first row.',
     },
     hero: {
-      eyebrow: 'For schools and districts',
-      h1Plain: 'Parents’ AI is already writing to you.',
-      h1Em: 'Give it a front door.',
-      sub: 'More parents now draft school emails with an AI assistant. Axolotl is the front door your staff controls: every request arrives short, complete and at the right office, routine questions are answered from your own information, and your staff decides the official way things get done.',
+      eyebrow: 'For principals and districts',
+      h1Plain: 'Every family gets an agent.',
+      h1Em: 'Your office stops chasing.',
+      sub: 'Axolotl is a free agent parents text for school. It finishes the form, files the absence note, answers routine questions from your own information, and sends every request complete to the right office. Connect your school and it knows your calendar, attendance and rules, so fewer kids miss school.',
       primary: 'Talk to us about a pilot',
-      secondary: 'See the difference',
+      secondary: 'See what your office gets back',
+    },
+    office: {
+      h2Plain: 'The work your office does twice,',
+      h2Em: 'done once.',
+      lead: 'Most of a front office’s day is back-and-forth: calling about an absence, chasing a form, forwarding a request, answering the same question again. That is the same work parents are stuck in from the other side. Axolotl removes the back-and-forth for both.',
+      head: ['Today', 'With Axolotl', 'Who gets time back'],
+      rows: [
+        {
+          pain: 'Calling home about absences',
+          does: 'The parent texts “she’s sick” and Axolotl files the note in your format. No call, and your excused and unexcused counts are right.',
+          who: 'Attendance clerk',
+        },
+        {
+          pain: 'Chasing forms',
+          does: 'Permission slips, emergency contacts, meal applications and shot records come back complete, before the deadline.',
+          who: 'Front office, school nurse',
+        },
+        {
+          pain: 'Enrollment packets with pieces missing',
+          does: 'One complete packet, following the checklist your registrar approved.',
+          who: 'Registrar',
+        },
+        {
+          pain: 'The same question forty times',
+          does: '“When is early release?” is answered from your own notices. Your staff never sees it.',
+          who: 'Front office, teachers',
+        },
+        {
+          pain: 'Requests landing on the wrong desk',
+          does: 'Transportation, special education, the McKinney-Vento liaison or the nurse gets it directly, with the student already identified.',
+          who: 'Front office, principal',
+        },
+        {
+          pain: 'Finding someone who speaks the language',
+          does: 'Your staff writes in English; families read and reply in their own language.',
+          who: 'Everyone',
+        },
+        {
+          pain: 'Scheduling meetings by phone tag',
+          does: 'Special education and conference meetings get booked around the parent’s work shifts in one exchange.',
+          who: 'Special education, teachers',
+        },
+        {
+          pain: 'Long AI-written letters',
+          does: 'One short, structured request that says what the family needs.',
+          who: 'Principal, special education',
+        },
+      ],
     },
     door: {
       h2Plain: 'Same parent, same need.',
@@ -674,9 +722,68 @@ export default {
         sent: "Sent with the parent's yes · 7:42 PM",
         foot: ['64 words', 'One office', 'Ready to act on'],
       },
-      tensionTitle: 'The requests are coming either way.',
+      tensionTitle: 'More requests, fewer back-and-forths.',
       tensionBody:
-        'Evaluations, accommodations, rides and records are obligations your school already has, and AI makes them easier than ever to ask for. The choice is not whether they arrive. It is whether they arrive as long letters to the wrong person or as one complete request to the office that can resolve it.',
+        'Families who finally know what to ask for will ask, and AI makes asking easier than ever. The honest promise is not fewer requests. It is that each one arrives complete, at the office that can resolve it, and takes one exchange instead of five.',
+    },
+    attendance: {
+      h2Plain: 'Fewer missed days,',
+      h2Em: 'one family at a time.',
+      lead: 'A chat window does not fix attendance. Knowing the real number, getting a straight answer at 6:45 AM, and removing the thing that keeps a kid home can.',
+      items: [
+        {
+          h: 'The real count, said kindly.',
+          p: 'Parents consistently underestimate how many days their child has missed. Axolotl tells them the real number, early, in a supportive tone. Never a threat.',
+        },
+        {
+          h: 'The 6:45 AM question.',
+          p: '“Runny nose, no fever. Can she go?” Answered from your nurse’s own rules, so a kid who can be in school is.',
+        },
+        {
+          h: 'The logistics day.',
+          p: 'Early release, a bus change, a shift that runs late: a backup plan with the family’s own circle before the day is lost.',
+        },
+        {
+          h: 'The barrier behind the pattern.',
+          p: 'When absences have a cause, like a ride, an asthma plan or a kid avoiding school, the request goes to the office that can fix it.',
+        },
+      ],
+      research:
+        'Telling parents their child’s real absence count is one of the few attendance interventions tested at scale (Rogers & Feller, Nature Human Behaviour, 2018). Axolotl adds the conversation after the message.',
+      threadLabel: 'A parent, on a Sunday evening',
+      thread: [
+        {
+          from: 'axolotl',
+          text: 'Quick heads-up: Maya has missed 7 days since September, mostly Mondays. At this pace that’s about 18 this year. Is something making Mondays hard?',
+        },
+        { from: 'parent', text: 'I start at 6 on Mondays. Nobody can drive her.' },
+        {
+          from: 'axolotl',
+          text: 'Dana from your circle drives past Lincoln at 7:40 on Mondays. Want me to ask her? I can also ask transportation whether Maya qualifies for the bus.',
+        },
+        { from: 'parent', text: 'Yes to both.' },
+      ],
+    },
+    flywheel: {
+      h2Plain: 'It gets easier',
+      h2Em: 'every week.',
+      lead: 'Every task Axolotl finishes makes the next one lighter, for the next family and for your office.',
+      steps: [
+        { tag: 'A parent texts a need', text: 'In their language, at 10 PM, after a shift.' },
+        { tag: 'Axolotl does it right the first time', text: 'Complete, in your format, to the right office. The parent approves it.' },
+        { tag: 'Your office gets a clean request', text: 'No chasing, no forwarding, no decoding.' },
+        { tag: 'Your staff makes the path official', text: 'One reply. Thirty seconds instead of forty phone calls.' },
+        { tag: 'The next family follows it', text: 'Faster, with fewer mistakes. You promote it because it saves your staff time.' },
+        { tag: 'The brief shows where families get stuck', text: 'You fix the source, like a clearer notice or a shorter form, and the question stops coming.' },
+      ],
+      example: {
+        label: 'Example · enrolling mid-year',
+        beforeLabel: 'Back-and-forths today',
+        before: 5,
+        afterLabel: 'With an official path',
+        after: 1,
+      },
+      note: 'Across a district, the official paths add up to a manual for how your schools work. Your staff decides what is in it, and can publish it so any AI assistant a parent uses sends a complete request to the right office.',
     },
     paths: {
       h2Plain: 'Your staff decides',
@@ -707,9 +814,9 @@ export default {
       },
     },
     staff: {
-      h2Plain: 'No dashboard to learn.',
-      h2Em: 'Just text it.',
-      lead: 'Principals, registrars and teachers use Axolotl the way parents do: by text. Ask what families are stuck on, fix a path in plain words, or describe a new one and approve what it writes.',
+      h2Plain: 'Your staff uses it too,',
+      h2Em: 'from day one.',
+      lead: 'Principals, registrars and teachers text Axolotl the way parents do. Ask what families are stuck on, fix a path in plain words, translate a notice, or ask who still owes a form.',
       threadLabel: 'A registrar, texting Axolotl',
       thread: [
         { from: 'staff', text: 'What are families stuck on this week?' },
@@ -729,56 +836,23 @@ export default {
         foot: 'Patterns, not people. The brief never shows who asked or what they said.',
       },
     },
-    network: {
-      h2Plain: 'Every family makes it easier',
-      h2Em: 'for the next one.',
-      lead: 'Each request that works teaches a path. Each path your staff makes official helps every family after it. Across a district, the paths add up to the manual for how your schools actually work.',
-      items: [
-        { h: 'For families', p: 'The right way, the first time, in their own language.' },
-        { h: 'For your staff', p: 'Fewer repeat questions, fewer requests to re-route, and a weekly view of where families get stuck.' },
-        {
-          h: 'For every AI',
-          p: 'Your official paths, published so any assistant a parent uses, not just Axolotl, sends a complete request to the right office.',
-        },
-      ],
-      note: 'Your paths stay yours. Your staff decides what is published, and can change or retire a path at any time.',
-    },
-    changes: {
-      h2: 'What changes for your staff.',
-      lead: 'Families keep up, and requests arrive the way your offices need them.',
-      head: ['Today', 'With Axolotl', 'Who benefits'],
+    connect: {
+      h2Plain: 'Connect your school,',
+      h2Em: 'and every family’s agent knows it.',
+      lead: 'Axolotl works for families without you. Connected, it stops guessing: it answers from your information and invites the families you are worried about.',
+      head: ['What you share', 'What families get'],
       rows: [
-        {
-          pain: 'Long AI-written requests to the wrong person',
-          does: 'One short request with what the office needs, routed to transportation, the McKinney-Vento liaison, special education or the registrar',
-          who: 'Principals, liaisons, special education',
-        },
-        {
-          pain: 'Repeat routine questions',
-          does: "Answered from your school's own published information first: bus, calendar, what to bring",
-          who: 'Front office, teachers',
-        },
-        {
-          pain: 'Forms and deadlines missed',
-          does: 'Parents see the one thing that matters; forms come back complete before the deadline',
-          who: 'Front office, school nurse',
-        },
-        {
-          pain: 'Hard-to-reach families',
-          does: 'Works by text, in Spanish, around work shifts; asks for the evening or phone option',
-          who: 'Title I and family engagement staff',
-        },
-        {
-          pain: 'Late arrivals caused by logistics',
-          does: 'Parents coordinate pickups in their own circles, so there are fewer "no one could get them" days',
-          who: 'Attendance and transportation staff',
-        },
-        {
-          pain: 'Unclaimed programs',
-          does: 'Meal applications filed; after-school seats found and signed up',
-          who: 'Nutrition services, after-school programs',
-        },
+        ['Daily attendance', 'Their child’s real absence count, early and kindly'],
+        ['Your nurse’s illness rules', 'A straight answer on sick mornings'],
+        ['Calendar and bus routes', 'Early release and route changes, without calling you'],
+        ['Office and staff directory', 'Every request to the right person, student already identified'],
+        ['Roster with parent phone numbers', 'An invite from their own school, and the right child every time'],
       ],
+      ruleTitle: 'Information flows to families, not from them.',
+      ruleBody:
+        'Your data helps each parent with their own child. Their conversations with Axolotl never come back to you unless they choose to send something. Your staff sees patterns, never people.',
+      start:
+        'Start with a nightly file export, not an integration project, under a student-privacy agreement.',
     },
     never: {
       h2: 'What Axolotl will never do.',
@@ -813,18 +887,21 @@ export default {
     },
     pilot: {
       h2: 'A pilot together.',
-      lead: 'One school, a group of families, and your staff making the first paths official.',
+      lead: 'One school, one semester, and a before number you can trust.',
+      baselineTitle: 'We start by counting.',
+      baseline:
+        'Before anything launches, we spend a day in your front office tallying what takes time: calls, forms chased, requests forwarded, questions repeated. That is your before number.',
       measuresLabel: "What we'd measure",
       measures: [
-        'Share of requests that reached the right office the first time.',
-        'Days to resolve a rights or services request.',
+        'Back-and-forths per request, against the before number.',
+        'Chronic absence among invited families, compared with families invited later.',
+        'Requests that reached the right office the first time.',
         'On-time return rate for forms, against last year.',
-        'Routine questions answered without a staff member.',
       ],
       consent:
-        'Always with family consent. Families choose to join, and a family can leave at any time. Nothing to install: Axolotl starts from what your school already publishes.',
+        'Always with family consent. Families choose to join, and a family can leave at any time.',
       integration:
-        'If your district ever wants a deeper integration, it needs explicit parent consent and a student-privacy agreement first.',
+        'Connecting attendance or roster data requires a signed student-privacy agreement first.',
       guardrail:
         'No outcome numbers until a pilot produces real ones. The numbers on this page are examples. We will publish what we measure, including the parts that do not work.',
     },
