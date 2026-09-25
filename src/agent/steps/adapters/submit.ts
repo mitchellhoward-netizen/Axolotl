@@ -23,7 +23,7 @@ export class SubmitAdapter implements ChannelAdapter {
     // from the consent-gated executor path). Close the session if present.
     if (skyvernEnabled() && p.values) {
       const sub = await submitFilledForm({ url: p.url, values: p.values, browserSessionId: p.skyvernSessionId });
-      if (p.skyvernSessionId) await closeSession(p.skyvernSessionId);
+      if (p.skyvernSessionId) await closeSession(p.skyvernSessionId, 'submit finished');
       // M12: a run that reported "completed" is NOT a submission. Only the site's own
       // confirmation counts. Never tell a parent their child is enrolled on anything less.
       if (!sub.ok) {

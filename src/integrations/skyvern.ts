@@ -19,6 +19,9 @@ import {
 } from './form-targets.js';
 import { recordVerifiedRecipe } from './form-recipes.js';
 import { savePendingFill, deletePendingFill, loadPendingFill, loadAllPendingFills } from './pending-fill-store.js';
+import { closeSession, trackSession, isSessionOpen, sweepSessions, rehydrateSessions, REVIEW_WINDOW_MS } from './skyvern-sessions.js';
+
+export { closeSession } from './skyvern-sessions.js';
 
 const BASE = process.env.SKYVERN_BASE_URL ?? 'https://api.skyvern.com';
 const KEY = process.env.SKYVERN_API_KEY ?? '';
@@ -26,8 +29,9 @@ const MAX_STEPS = Number(process.env.SKYVERN_MAX_STEPS) || 25;
 const FILL_TIMEOUT_MS = Number(process.env.SKYVERN_FILL_TIMEOUT_MS) || 60000;
 const POLL_MS = 1500;
 /** A submit is a short task on an already-filled page, but a slow site can take a while. */
-/** Minutes a fill's browser session stays open (Skyvern bills idle time; the default is 60). */
-const FILL_SESSION_TIMEOUT_MIN = Number(process.env.SKYVERN_FILL_SESSION_TIMEOUT_MIN) || 120;
+/** Skyvern's own hard cap on a fill's session, in minutes — the backstop if our ledger ever
+ * loses track. Our sweep normally closes it much sooner (see skyvern-sessions.ts). */
+const FILL_SESSION_TIMEOUT_MIN = Number(process.env.SKYVERN_FILL_SESSION_TIMEOUT_MIN) || 60;
 const SUBMIT_TIMEOUT_MS = Number(process.env.SKYVERN_SUBMIT_TIMEOUT_MS) || 180_000;
 
 export function skyvernEnabled(): boolean {
@@ -353,11 +357,14 @@ export async function submitFilledForm(input: {
   // 1. Submit the page the parent actually reviewed. The fill left its browser session open
   //    for exactly this, so the approved values should still be on screen. No URL: passing one
   //    would navigate, reload, and throw the filled form away.
-  if (input.browserSessionId) {
+  const sessionOpen = isSessionOpen(input.browserSessionId);
+  // Keep the sweep off this session while the submit runs, even if the review window ends now.
+  if (sessionOpen) await trackSession(input.browserSessionId!, 'submit', SUBMIT_TIMEOUT_MS * 2 + 60_000);
+  if (sessionOpen) {
     const sameSession = await runSubmitTask(
       {
         prompt: `${SAME_SESSION_SUBMIT_RULES}\n\nApproved values:\n${fieldLines}`,
-        browser_session_id: input.browserSessionId,
+        browser_session_id: input.browserSessionId!,
         max_steps: 15,
       },
       input,
@@ -376,7 +383,8 @@ export async function submitFilledForm(input: {
       prompt: `${SUBMIT_RULES}\n\nFields:\n${fieldLines}`,
       url: input.url,
       max_steps: MAX_STEPS,
-      ...(input.browserSessionId ? { browser_session_id: input.browserSessionId } : {}),
+      // A closed session cannot host a task; only reuse one that is still open (sign-in cookies).
+      ...(sessionOpen ? { browser_session_id: input.browserSessionId } : {}),
     },
     input,
   );
@@ -427,16 +435,6 @@ async function runSubmitTask(
     errorCode,
     confirmationScreenshotUrl: screenshot,
   };
-}
-
-/** Always close the persistent session when done / on decline / on timeout. */
-export async function closeSession(browserSessionId: string): Promise<void> {
-  if (!browserSessionId) return;
-  try {
-    await fetch(`${BASE}/v1/browser_sessions/${browserSessionId}/close`, { method: 'POST', headers: { 'x-api-key': KEY } }).catch(() => {});
-  } catch {
-    /* best-effort */
-  }
 }
 
 // ── Async fill (fire-and-forget + webhook) ──────────────────────────────────
@@ -546,11 +544,12 @@ export async function fillFormForReviewAsync(input: {
   }
 
   // 1. Open a persistent browser session (carried so Phase B can reuse sign-in cookies).
-  // Sized for the parent, not the robot: the session has to outlive the fill AND the time a
-  // parent takes to read the review and reply YES, or the submit loses the filled page.
+  // Hard cap at Skyvern; the ledger closes it sooner — at the end of the review window, or the
+  // moment the fill fails, the parent answers, or a new fill replaces this one.
   const session = await api('/v1/browser_sessions', { timeout: FILL_SESSION_TIMEOUT_MIN });
   const browserSessionId = String(session?.browser_session_id ?? '');
   if (!browserSessionId) return { ok: false, detail: 'session_failed' };
+  await trackSession(browserSessionId, 'fill', FILL_SESSION_TIMEOUT_MIN * 60_000);
 
   // 2. Phase A task: FILL ONLY. The prompt NEVER instructs submit / enroll / pay /
   // account-creation — stop after filling and report a wall.
@@ -571,7 +570,7 @@ export async function fillFormForReviewAsync(input: {
   });
   const runId = String(runRes?.run_id ?? '');
   if (!runId) {
-    await closeSession(browserSessionId);
+    await closeSession(browserSessionId, 'fill task never started');
     return { ok: false, browserSessionId, detail: 'task_failed' };
   }
 
@@ -624,7 +623,7 @@ export async function handleFillComplete(runId: string): Promise<void> {
       // On a FAILED fill there's nothing to submit, so close the session. On a SUCCESSFUL
       // fill we KEEP it open — the post-YES Phase B submit reuses it to carry sign-in
       // cookies, and SubmitAdapter closes it after that submit.
-      if (pending.browserSessionId && terminal.status !== 'completed') await closeSession(pending.browserSessionId);
+      if (pending.browserSessionId && terminal.status !== 'completed') await closeSession(pending.browserSessionId, `fill ${terminal.status}`);
     }
 
     // CODE-LEVEL GUARD ON THE IRREVERSIBLE ACTION. The fill task is told never to submit, and
@@ -634,7 +633,7 @@ export async function handleFillComplete(runId: string): Promise<void> {
     // outcome in the product.
     const fillExtraction = readExtraction(terminal.output);
     if (terminal.status === 'completed' && (fillExtraction.submitted_anything === true || fillExtraction.submitted === true || readErrorCode(terminal.output) === 'submitted_without_authorization')) {
-      if (pending?.browserSessionId) await closeSession(pending.browserSessionId);
+      if (pending?.browserSessionId) await closeSession(pending.browserSessionId, 'policy violation');
       console.warn('[skyvern] POLICY: a fill task reported a submission it was not authorized to make', runId);
       completedFills.add(runId);
       if (fillCompleteHandler) {
@@ -702,6 +701,10 @@ export async function handleFillComplete(runId: string): Promise<void> {
       }
     }
 
+    // The filled page waits for the parent's YES — for the review window, not until Skyvern's
+    // hard cap. A YES after that re-fills at the URL.
+    if (info.ok && pending?.browserSessionId) await trackSession(pending.browserSessionId, 'review', REVIEW_WINDOW_MS);
+
     // Only mark delivered once we actually have a terminal result to hand off.
     completedFills.add(runId);
     if (!fillCompleteHandler) {
@@ -754,6 +757,7 @@ export function expireStaleFills(maxAgeMs = STALE_MS): void {
     if (now - p.startedAt > maxAgeMs) {
       pendingFills.delete(runId);
       void deletePendingFill(runId).catch(() => {});
+      if (p.browserSessionId) void closeSession(p.browserSessionId, 'fill never resolved');
       console.warn('[skyvern] expired stale pending fill', runId);
     }
   }
@@ -762,6 +766,10 @@ export function expireStaleFills(maxAgeMs = STALE_MS): void {
 /** Start the interim sweep (interval) that completes orphaned fills. */
 export function startFillPoller(intervalMs = Number(process.env.SKYVERN_POLLER_MS) || 60_000): void {
   if (!KEY) return;
+  // Pick up the sessions a previous process opened, so their deadlines still hold.
+  void rehydrateSessions()
+    .then((n) => { if (n) console.log(`[skyvern] rehydrated ${n} open browser session(s)`); })
+    .catch(() => {});
   // Pick up fills a previous process started, so the sweep can finish them.
   void loadAllPendingFills()
     .then((rows) => {
@@ -771,5 +779,6 @@ export function startFillPoller(intervalMs = Number(process.env.SKYVERN_POLLER_M
     .catch(() => {});
   setInterval(() => {
     checkPendingFills().catch((e) => console.error('[skyvern] poller error:', (e as Error)?.message ?? e));
+    sweepSessions().catch((e) => console.error('[skyvern] session sweep error:', (e as Error)?.message ?? e));
   }, intervalMs);
 }

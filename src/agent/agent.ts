@@ -824,9 +824,10 @@ export class Agent {
 
   /** Best-effort close of any Skyvern browser session referenced by steps being dropped
    * (a declined or expired consent). Fire-and-forget — never blocks the turn. */
-  private closeSkyvernSessions(steps?: Step[]): void {    for (const s of steps ?? []) {
+  private closeSkyvernSessions(steps?: Step[]): void {
+    for (const s of steps ?? []) {
       if (s.channel === 'submit' && s.payload.channel === 'submit' && s.payload.skyvernSessionId) {
-        void closeSkyvernSession(s.payload.skyvernSessionId);
+        void closeSkyvernSession(s.payload.skyvernSessionId, 'staged submit dropped');
       }
     }
   }
@@ -858,6 +859,9 @@ export class Agent {
       requiresConsent: true,
       status: 'awaiting_consent',
     };
+    // A new fill replaces whatever was waiting for a YES; that one's browser is no longer
+    // needed and would otherwise bill until it timed out.
+    this.closeSkyvernSessions(record.state.pendingSteps?.filter((s) => !(s.payload.channel === 'submit' && s.payload.skyvernSessionId === input.skyvernSessionId)));
     record.state.pendingSteps = [step];
     record.state.phase = 'confirming';
     record.state.completedFill = {
