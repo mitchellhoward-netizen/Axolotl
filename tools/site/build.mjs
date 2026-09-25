@@ -314,44 +314,50 @@ function qualify(s) {
 
 function schoolNet(s) {
   const d = at(s, 'day.school');
-  const g = d.diagram;
-  const list = (items) => items.map((i) => `<li>${esc(i)}</li>`).join('');
-  // Six families around one school. Plain geometry, so it is drawn inline and
-  // takes the page's colours instead of being a picture of them.
-  const pts = [[270, 55], [456, 162], [456, 378], [270, 485], [84, 378], [84, 162]];
-  const lines = pts.map(([x, y]) => `<line x1="270" y1="270" x2="${x}" y2="${y}" />`).join('');
-  const dots = pts.slice(0, 5).map(([x, y]) => `<circle cx="${x}" cy="${y}" r="9" />`).join('');
+  const c = d.card;
+  // One path, shown the way a school would see it: what the family does, what the
+  // office does, what the path has recorded, and who made it official.
+  const steps = d.steps
+    .map((st) => `<li><span class="path-step-tag">${esc(st.tag)}</span>${esc(st.text)}</li>`)
+    .join('');
+  const stats = c.stats
+    .map((st) => `<div><span class="path-stat-v">${esc(st.v)}</span><span class="path-stat-l">${esc(st.l)}</span></div>`)
+    .join('');
+  const more = d.more
+    .map((m) => `<li>${esc(m.name)} <span class="${m.official ? 'path-official' : 'path-status'}">${esc(m.status)}</span></li>`)
+    .join('');
   return `
     <section class="section t-golden" id="school" aria-labelledby="school-title">
-      <div class="wrap split">
+      <div class="wrap split path-split">
         <div class="split-copy">
           ${timeChip(d)}
           <h2 id="school-title">${payoff(d.h2Plain, d.h2Em)}</h2>
           <p class="lead">${esc(d.lead)}</p>
-          <div class="two-lists">
-            <div><h3>${esc(d.sharedLabel)}</h3><ul>${list(d.shared)}</ul></div>
-            <div><h3>${esc(d.privateLabel)}</h3><ul>${list(d.private)}</ul></div>
-          </div>
+          <ol class="path-steps">${steps}</ol>
           <a class="text-link" href="${s.lang === 'es' ? '/es/schools' : '/schools'}">${esc(d.link)}</a>
         </div>
-        <svg class="net" viewBox="0 0 540 540" role="img" aria-label="${esc(g.alt)}">
-          <circle class="net-ring" cx="270" cy="270" r="215" />
-          <circle class="net-ring net-ring-inner" cx="270" cy="270" r="140" />
-          <g class="net-lines">${lines}</g>
-          <circle class="net-school" cx="270" cy="270" r="88" />
-          <text class="net-school-text" x="270" y="262" text-anchor="middle">${esc(g.school[0])}</text>
-          <text class="net-school-text" x="270" y="292" text-anchor="middle">${esc(g.school[1])}</text>
-          <g class="net-dots">${dots}</g>
-          <circle class="net-you" cx="84" cy="162" r="13" />
-          <g class="net-label">
-            <text x="288" y="50">${esc(g.family)}</text><text x="474" y="158">${esc(g.family)}</text><text x="474" y="383">${esc(g.family)}</text>
-            <text x="288" y="500">${esc(g.family)}</text><text x="18" y="404">${esc(g.family)}</text>
-            <text class="net-you-label" x="44" y="136">${esc(g.you)}</text>
-          </g>
-          <g class="net-note">
-            <text x="284" y="126">${esc(g.notes[0])}</text><text x="256" y="432" text-anchor="end">${esc(g.notes[1])}</text><text x="284" y="432">${esc(g.notes[2])}</text>
-          </g>
-        </svg>
+        <div class="path-side">
+          <article class="path-card" aria-labelledby="path-title">
+            <p class="path-eyebrow"><span>${esc(c.eyebrow)}</span><span>${esc(c.version)}</span></p>
+            <h3 id="path-title">${esc(c.title)}</h3>
+            <div class="path-two">
+              <div><p class="path-label">${esc(c.doLabel)}</p><p>${esc(c.doText)}</p></div>
+              <div><p class="path-label">${esc(c.happensLabel)}</p><p>${esc(c.happensText)}</p></div>
+            </div>
+            <div class="path-stats">${stats}</div>
+            <p class="path-never"><strong>${esc(c.neverLabel)}</strong> ${esc(c.neverText)}</p>
+            <div class="path-stamp" role="img" aria-label="${esc(c.stampAlt)}">
+              <span class="path-stamp-top" aria-hidden="true">${esc(c.stamp.top)}</span>
+              <span class="path-stamp-name" aria-hidden="true">${esc(c.stamp.name[0])}<br />${esc(c.stamp.name[1])}</span>
+              <span class="path-stamp-date" aria-hidden="true">${esc(c.stamp.date)}</span>
+            </div>
+          </article>
+          <div class="path-more">
+            <p class="path-label">${esc(d.moreLabel)}</p>
+            <ul>${more}</ul>
+            <p class="path-note">${esc(d.note)}</p>
+          </div>
+        </div>
       </div>
     </section>`;
 }
@@ -359,19 +365,25 @@ function schoolNet(s) {
 function dinner(s) {
   const d = at(s, 'day.dinner');
   const size = art[s.lang];
+  const week = d.week
+    .map((w) => `<li${w.set ? ' class="is-set"' : ''}><span>${esc(w.day)}</span>${esc(w.who)}</li>`)
+    .join('');
+  const rules = d.rules.map((r) => `<li><strong>${esc(r.h)}</strong> ${esc(r.p)}</li>`).join('');
   return `
     <section class="section t-dusk" id="dinner" aria-labelledby="dinner-title">
-      <div class="wrap center-head">
-        ${timeChip(d)}
-        <h2 id="dinner-title">${payoff(d.h2Plain, d.h2Em)}</h2>
-        <p class="lead">${esc(d.lead)}</p>
-      </div>
-      <div class="dinner-stage">
-        ${device(`week-4-${s.lang}.webp`, size.weekcol3, weekAlt(s, 3), 'loading="lazy" ')}
-        ${device(`circles-${s.lang}.webp`, size.circles, at(s, 'circles.chat.alt'), 'loading="lazy" ')}
-      </div>
-      <div class="wrap">
-        <p class="soon-line"><span class="soon-tag">${esc(d.soon)}</span>${esc(d.circles)}</p>
+      <div class="wrap split circle-split">
+        <div class="circle-phone">
+          ${device(`circles-${s.lang}.webp`, size.circles, at(s, 'circles.chat.alt'), 'loading="lazy" ')}
+        </div>
+        <div class="split-copy">
+          ${timeChip(d)}
+          <h2 id="dinner-title">${payoff(d.h2Plain, d.h2Em)}</h2>
+          <p class="lead">${esc(d.lead)}</p>
+          <p class="circle-week-label">${esc(d.weekLabel)}</p>
+          <ol class="circle-week">${week}</ol>
+          <ul class="circle-rules">${rules}</ul>
+          <p class="circle-soon"><span class="soon-tag">${esc(d.soon)}</span><a class="text-link" href="#join">${esc(d.circles)}</a></p>
+        </div>
       </div>
     </section>`;
 }
