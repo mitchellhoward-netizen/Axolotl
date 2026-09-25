@@ -40,7 +40,7 @@ jobs:
       - name: Tools the renderer shells out to
         run: |
           sudo apt-get update -q
-          sudo apt-get install -y -q p7zip-full
+          sudo apt-get install -y -q p7zip-full 7zip xz-utils
           python3 -m pip install --quiet pillow
       - name: Skip when the art already matches the copy
         id: fresh
