@@ -87,10 +87,10 @@ const benny = await createBennyMessaging();
 const db = createSeedDb();
 await loadIdentityIntoSeed(db);
 
-// LLM brain — OpenAI-compatible; Anthropic Haiku by default for the parent-facing
-// path (fast + strong bilingual), DeepSeek/OpenAI as fallback. Without a key it's off.
+// LLM brain — Claude via the native Messages API for the parent-facing path (see
+// model-policy.ts for the default and why), DeepSeek/OpenAI as fallback. Without a key it's off.
 const chat = chatModel();
-const llm = new LlmClient({ apiKey: chat.apiKey, baseUrl: chat.baseUrl, model: chat.model });
+const llm = new LlmClient({ apiKey: chat.apiKey, baseUrl: chat.baseUrl, model: chat.model, effort: chat.effort });
 
 if (benny) {
   if (!llm.enabled) throw new Error('The personal iMessage pilot requires a configured conversation model');
@@ -107,12 +107,12 @@ if (benny) {
 // classification) — never the frontier brain. Falls back to the frontier client.
 const small = smallModel();
 const researchLlm = small.apiKey
-  ? new LlmClient({ apiKey: small.apiKey, baseUrl: small.baseUrl, model: small.model })
+  ? new LlmClient({ apiKey: small.apiKey, baseUrl: small.baseUrl, model: small.model, effort: small.effort })
   : llm;
 
 const agent = new Agent({
   intentEngine: chat.apiKey
-    ? new LlmIntentEngine({ apiKey: chat.apiKey, baseUrl: chat.baseUrl, model: chat.model })
+    ? new LlmIntentEngine({ apiKey: small.apiKey ?? chat.apiKey, baseUrl: small.apiKey ? small.baseUrl : chat.baseUrl, model: small.apiKey ? small.model : chat.model })
     : new RulesIntentEngine(),
   sis: createSis(db),
   calendar: new MockCalendarProvider(),
@@ -164,9 +164,15 @@ setFillCompleteHandler(async (info) => {
   // Our own review URL, not Skyvern's signed artifact URL (which leaks a vendor link into the
   // thread and dies on the vendor's clock). Falls back to naming no link rather than a raw one.
   const review = reviewUrlFor(info.reviewScreenshotUrl);
+  // The screenshot is the last screen only; on a long form that is the bottom of the page.
+  // The parent approves every value, so list every value in the thread itself.
+  const values = Object.entries((info.meta?.values as Record<string, string> | undefined) ?? {});
+  const entered = values.length
+    ? `\n\nWhat I entered:\n${values.slice(0, 25).map(([k, v]) => `• ${k}: ${v}`).join('\n')}${values.length > 25 ? `\n• …and ${values.length - 25} more` : ''}`
+    : '';
   const text = review
-    ? `I filled the form — nothing submitted yet. Review it here: ${review}\n\nReply YES to submit, or tell me what to change.`
-    : `I filled the form — nothing submitted yet. Reply YES to submit, or tell me what to change.`;
+    ? `I filled the form — nothing submitted yet.${entered}\n\nSee the form here: ${review}\n\nReply YES to submit, or tell me what to change.`
+    : `I filled the form — nothing submitted yet.${entered}\n\nReply YES to submit, or tell me what to change.`;
   await agent.sendToConversation(conversationId, text).catch((e) => console.error('[skyvern] fill-done text error:', (e as Error)?.message ?? e));
 });
 

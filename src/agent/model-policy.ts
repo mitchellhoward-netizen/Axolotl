@@ -10,11 +10,30 @@
 
 export type ModelTier = 'frontier' | 'small' | 'deterministic';
 
+export type Effort = 'low' | 'medium' | 'high' | 'xhigh' | 'max';
+
 export interface ModelSpec {
   model: string;
   apiKey?: string;
   baseUrl: string;
+  /** Thinking depth on current Claude models; ignored by other providers and by Haiku. */
+  effort?: Effort;
 }
+
+const EFFORTS: readonly Effort[] = ['low', 'medium', 'high', 'xhigh', 'max'];
+function effortFrom(v: string | undefined, fallback: Effort): Effort {
+  return EFFORTS.includes(v as Effort) ? (v as Effort) : fallback;
+}
+
+/**
+ * The Claude model that drives the agent when nothing is configured. It decides which tool
+ * to call (research, fill a form, draft an email) and writes the values the browser types,
+ * so it is the model whose mistakes the parent actually sees. Haiku was the old default and
+ * was the weak link in tool selection; override with FRONTIER_MODEL / CHAT_MODEL.
+ */
+export const DEFAULT_CLAUDE_MODEL = 'claude-opus-5';
+/** The cheap tier: research query reformulation, extraction, classification. */
+export const DEFAULT_CLAUDE_SMALL_MODEL = 'claude-haiku-4-5';
 
 /** Tool-name → tier. Unlisted tools default to `frontier`. */
 export const MODEL_ROUTING: Record<string, ModelTier> = {
@@ -66,9 +85,10 @@ export function frontierModel(): ModelSpec {
     // DeepSeek model/base (LLM_MODEL=deepseek-v4-pro etc. cause 401s and silently
     // break research -> 'district type unknown').
     return {
-      model: process.env.FRONTIER_MODEL ?? 'claude-haiku-4-5',
+      model: process.env.FRONTIER_MODEL ?? DEFAULT_CLAUDE_MODEL,
       apiKey: process.env.ANTHROPIC_API_KEY,
       baseUrl: process.env.FRONTIER_BASE_URL ?? 'https://api.anthropic.com/v1',
+      effort: effortFrom(process.env.FRONTIER_EFFORT, 'high'),
     };
   }
   if (!foreignModelFallbackAllowed()) {
@@ -88,8 +108,10 @@ export function frontierModel(): ModelSpec {
 }
 
 /**
- * The parent-facing "fast" tier — the model the parent waits on. Defaults to
- * Anthropic Haiku (lowest initial latency, strong bilingual, drives the tool loop).
+ * The parent-facing tier — the model the parent waits on, and the one that drives the tool
+ * loop. Defaults to the same Claude model as the frontier at medium effort: a wrong tool
+ * choice (researching when the parent asked for a form to be filled) costs the parent far
+ * more than a few seconds of latency. CHAT_EFFORT=low trades depth for speed.
  * If no Anthropic key is present it falls back to DeepSeek/OpenAI so the current
  * behavior is preserved and the app still boots without a key.
  */
@@ -97,9 +119,10 @@ export function chatModel(): ModelSpec {
   const isAnthropic = Boolean(process.env.CHAT_API_KEY ?? process.env.ANTHROPIC_API_KEY);
   if (isAnthropic) {
     return {
-      model: process.env.CHAT_MODEL ?? 'claude-haiku-4-5',
+      model: process.env.CHAT_MODEL ?? DEFAULT_CLAUDE_MODEL,
       apiKey: process.env.CHAT_API_KEY ?? process.env.ANTHROPIC_API_KEY,
       baseUrl: process.env.CHAT_BASE_URL ?? 'https://api.anthropic.com/v1',
+      effort: effortFrom(process.env.CHAT_EFFORT, 'medium'),
     };
   }
   // No Anthropic key -> behave exactly like the legacy parent path (DeepSeek/OpenAI via LLM_*).
@@ -108,10 +131,12 @@ export function chatModel(): ModelSpec {
 
 export function smallModel(): ModelSpec {
   const frontier = frontierModel();
+  const onClaude = Boolean(process.env.ANTHROPIC_API_KEY) && !process.env.SMALL_BASE_URL;
   return {
-    model: process.env.SMALL_MODEL ?? frontier.model,
+    model: process.env.SMALL_MODEL ?? (onClaude ? DEFAULT_CLAUDE_SMALL_MODEL : frontier.model),
     apiKey: process.env.SMALL_API_KEY ?? frontier.apiKey,
     baseUrl: process.env.SMALL_BASE_URL ?? frontier.baseUrl,
+    effort: effortFrom(process.env.SMALL_EFFORT, 'low'),
   };
 }
 

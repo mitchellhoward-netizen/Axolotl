@@ -356,6 +356,7 @@ export async function generateVoiceReply(turn: VoiceTurn): Promise<VoiceReply> {
           type: 'function',
           function: { name: c.name, arguments: c.arguments },
         })),
+        ...(res.raw ? { _anthropic_content: res.raw } : {}),
       };
       const results: unknown[] = [];
       for (const c of res.calls) {

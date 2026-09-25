@@ -59,6 +59,7 @@
     "test:school-info": "tsx scripts/test-school-info.ts",
     "reset:conversations": "tsx scripts/reset-conversations.ts",
     "test:skyvern": "tsx scripts/test-skyvern.ts",
+    "test:fill-pipeline": "tsx scripts/test-fill-pipeline.ts",
     "test:privacy": "tsx scripts/test-privacy.ts",
     "test:triage": "tsx scripts/test-triage.ts",
     "test:world": "tsx scripts/test-world.ts",
@@ -73,6 +74,7 @@
     "test:memory": "tsx scripts/test-memory-recall.ts"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.128.0",
     "@browserbasehq/stagehand": "^4.0.2",
     "@novnc/novnc": "^1.7.0",
     "@supabase/supabase-js": "^2.114.0",

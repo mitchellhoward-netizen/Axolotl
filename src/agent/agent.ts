@@ -57,7 +57,8 @@ import { advanceMckinney, openMckinney } from './mckinney.js';
 import { advanceOnboarding, finalizeOnboarding, openOnboarding } from './onboarding.js';
 import { advanceAttendance, openAttendance } from './attendance.js';
 import { addCase, makeCase, openCaseSummary } from './family.js';
-import { closeSession as closeSkyvernSession } from '../integrations/skyvern.js';
+import { closeSession as closeSkyvernSession, skyvernEnabled } from '../integrations/skyvern.js';
+import { isFormTurn, FORM_TURN_TOOLS, FORM_TURN_PROMPT, FORM_TURN_NUDGE, asksParent } from './form-turn.js';
 import { logConsent } from '../integrations/consent.js';
 import {
   parseConsentAmendment,
@@ -1395,20 +1396,30 @@ export class Agent {
     // Cap the live research loop so a "research X" turn answers in seconds, not
     // minutes — after a few searches/fetches the brain must answer what it has and
     // offer to dig deeper, instead of looping until 'thorough' (2.6).
-    const RESEARCH_CALL_CAP = Number(process.env.RESEARCH_CALL_CAP) || 4;
+    // A form turn needs room to find the application page itself, so it gets a wider cap.
+    const lastAssistant = [...history].reverse().find((m) => m.role === 'assistant')?.content;
+    const onboardingOnly = Boolean(this.brainOnboarding && !state.onboarded);
+    const formTurn = !onboardingOnly && skyvernEnabled() && isFormTurn(text, lastAssistant);
+    if (formTurn) console.log('[brain] form turn — form tools only, fill enforced');
+    const RESEARCH_CALL_CAP = (Number(process.env.RESEARCH_CALL_CAP) || 4) + (formTurn ? 3 : 0);
     const RESEARCH_TOOL_NAMES = new Set(['web_search', 'web_fetch', 'get_knowledge', 'get_school_info']);
     // Research is allowed to iterate hard — never settle for a thin/partial answer.
     const situation = this.brainOnboarding && !state.onboarded
       ? [onboardingSituation(state.profile), computeSituation(state)].filter(Boolean).join('\n') || undefined
       : computeSituation(state);
     const sysPrompt = systemPrompt({ profile: state.profile, cases: state.cases, activeGoal: state.activeGoal, lastAction: state.lastAction, pendingActions: pendingActionsSummary(state.pendingSteps), summary: state.summary, situation, fillEvidence: fillEvidenceLine(state) }) +
-      (life ? LIFE_AND_BENEFITS_PROMPT : '');
+      (life ? LIFE_AND_BENEFITS_PROMPT : '') +
+      (formTurn ? FORM_TURN_PROMPT : '');
     // A sender without life tools is never offered them — not even as a dead option the
     // model could call and then apologize for.
     const catalogue = life ? LLM_TOOLS : LLM_TOOLS.filter((t) => !LIFE_TOOL_NAMES.has(toolName(t)));
-    const tools = this.brainOnboarding && !state.onboarded
+    const tools = onboardingOnly
       ? catalogue.filter((t) => ONBOARDING_TOOL_NAMES.has(toolName(t)))
-      : catalogue;
+      : formTurn
+        ? catalogue.filter((t) => FORM_TURN_TOOLS.has(toolName(t)))
+        : catalogue;
+    let fillStarted = false;
+    let formNudged = false;
     while (guard < 12) {
       let res = await llm.chatWithTools(sysPrompt, messages, tools, 'auto');
       if (!res) {
@@ -1448,12 +1459,14 @@ export class Agent {
             type: 'function',
             function: { name: c.name, arguments: c.arguments },
           })),
+          ...(res.raw ? { _anthropic_content: res.raw } : {}),
         };
         const results: unknown[] = [];
         for (const c of res.calls) {
           let out: string;
           try {
             out = await runTool(c.name, JSON.parse(c.arguments || '{}') as Record<string, unknown>, deps);
+            if (c.name === 'skyvern_fill_form' && /^On it\b/.test(out)) fillStarted = true;
           } catch (e) {
             console.warn('[brain] tool failed', c.name, (e as Error)?.message ?? e);
             out = 'tool error';
@@ -1478,7 +1491,16 @@ export class Agent {
         }
         // If the answer is thin/punting (asking the parent to describe what they want
         // instead of researching), do NOT settle for it — force more research.
-        if (isThinResearchAnswer(res.text) && guard < 10) {
+        // A form turn ends in a started fill or a question to the parent — never in a list of
+        // programs. One nudge; if the model still won't fill, its answer goes out as is.
+        if (formTurn && !fillStarted && !formNudged && !asksParent(res.text) && guard < 10) {
+          formNudged = true;
+          messages.push({ role: 'assistant', content: res.text }, { role: 'user', content: FORM_TURN_NUDGE });
+          guard++;
+          continue;
+        }
+        // Asking for a missing date of birth is not a thin answer on a form turn.
+        if (!formTurn && isThinResearchAnswer(res.text) && guard < 10) {
           messages.push({
             role: 'user',
             content:

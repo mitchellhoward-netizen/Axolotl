@@ -18,12 +18,17 @@ import {
   targetKey,
 } from './form-targets.js';
 import { recordVerifiedRecipe } from './form-recipes.js';
+import { savePendingFill, deletePendingFill, loadPendingFill, loadAllPendingFills } from './pending-fill-store.js';
 
 const BASE = process.env.SKYVERN_BASE_URL ?? 'https://api.skyvern.com';
 const KEY = process.env.SKYVERN_API_KEY ?? '';
 const MAX_STEPS = Number(process.env.SKYVERN_MAX_STEPS) || 25;
 const FILL_TIMEOUT_MS = Number(process.env.SKYVERN_FILL_TIMEOUT_MS) || 60000;
 const POLL_MS = 1500;
+/** A submit is a short task on an already-filled page, but a slow site can take a while. */
+/** Minutes a fill's browser session stays open (Skyvern bills idle time; the default is 60). */
+const FILL_SESSION_TIMEOUT_MIN = Number(process.env.SKYVERN_FILL_SESSION_TIMEOUT_MIN) || 120;
+const SUBMIT_TIMEOUT_MS = Number(process.env.SKYVERN_SUBMIT_TIMEOUT_MS) || 180_000;
 
 export function skyvernEnabled(): boolean {
   return Boolean(KEY);
@@ -150,6 +155,8 @@ function blockedFrom(output: unknown, failure: unknown): FillResult['blocked'] {
 
 export type SkyvernErrorCode =
   | 'no_form' | 'signin_required' | 'captcha_blocked' | 'access_denied' | 'validation_error'
+  /** The same-session submit found no filled form on screen (session expired, page reloaded). */
+  | 'form_not_loaded'
   /** The fill path submitted/sent/paid/finalized something. Must never happen: the ONLY route
    * to a submission is the consent-gated submit step. Reported so it cannot pass unnoticed. */
   | 'submitted_without_authorization';
@@ -160,6 +167,7 @@ const ERROR_CODES: Record<string, string> = {
   captcha_blocked: 'A CAPTCHA or bot check is blocking progress.',
   access_denied: 'The site refused access to this form.',
   validation_error: 'The form rejected the submitted values with a validation error.',
+  form_not_loaded: 'The current page is not the filled-in form (it is blank, reloaded, expired, or a different page).',
   submitted_without_authorization: 'The form was submitted, sent, finalized or paid on the page',
 };
 
@@ -182,6 +190,17 @@ const SUBMIT_RULES =
   'NEVER report submitted = true without a confirmation visible on the page. ' +
   'TERMINATE with "captcha_blocked" for a CAPTCHA, "signin_required" for a login wall, and ' +
   '"validation_error" if the form rejects the values.';
+
+/** Phase B on the page the parent reviewed: check, correct in place, submit. No navigation. */
+const SAME_SESSION_SUBMIT_RULES =
+  'The form on the CURRENT page was already filled in, and the parent reviewed and approved these exact values. ' +
+  'Do NOT navigate away or reload. First check every field below against the page: if a field is empty or differs, set it ' +
+  'to the listed value. Then CLICK the Submit button. Do not create an account and do not pay for anything. ' +
+  'TERMINATE IMMEDIATELY with "form_not_loaded" if the current page is not this filled-in form (blank page, a different ' +
+  'page, an expired-session notice, or the fields are all empty). After clicking Submit, REPORT HONESTLY: set submitted ' +
+  'to true ONLY if the site showed a confirmation, thank-you page, or confirmation/reference number. Put that text in ' +
+  '"confirmation" and whatever stopped you in "blocker". NEVER report submitted = true without a visible confirmation. ' +
+  'TERMINATE with "captcha_blocked" for a CAPTCHA, "signin_required" for a login wall, "validation_error" if the form rejects the values.';
 
 /** The fill task reports whether the page ended up submitted. This is the code-level check
  * behind the prompt's prohibition: a prohibition alone is a request, and this makes it
@@ -305,11 +324,10 @@ async function reviewScreenshot(runId: string): Promise<string | undefined> {
 }
 
 /**
- * Phase B: navigate to the form, RE-FILL it with the same values, then submit.
- * Called ONLY from the post-YES consent path (SubmitAdapter). The filled page from
- * Phase A does not survive between Skyvern tasks, so we re-fill here; Phase A's
- * screenshot was the review preview. `browserSessionId` is optional and only needed
- * to carry sign-in cookies for auth-gated forms.
+ * Phase B: submit the form the parent approved. Called ONLY from the post-YES consent path
+ * (SubmitAdapter). First on the page the fill left open in its browser session (check the
+ * approved values, click Submit); only if that page is gone does it re-open the form, fill
+ * the same approved values, and submit.
  */
 export interface SubmitResult {
   /** TRUE only when the SITE ITSELF confirmed the submission. Never set from run status alone. */
@@ -331,18 +349,50 @@ export async function submitFilledForm(input: {
   if (!KEY) return { ok: false, status: 'disabled' };
   if (!input.url) return { ok: false, status: 'no_url' };
   const fieldLines = Object.entries(input.values).map(([k, v]) => `- ${k}: ${v}`).join('\n');
-  const prompt = `${SUBMIT_RULES}\n\nFields:\n${fieldLines}`;
-  const runRes = await api('/v1/run/tasks', {
-    prompt,
-    url: input.url,
-    max_steps: 12,
-    ...(input.browserSessionId ? { browser_session_id: input.browserSessionId } : {}),
-    data_extraction_schema: SUBMIT_SCHEMA,
-    error_code_mapping: ERROR_CODES,
-  });
+
+  // 1. Submit the page the parent actually reviewed. The fill left its browser session open
+  //    for exactly this, so the approved values should still be on screen. No URL: passing one
+  //    would navigate, reload, and throw the filled form away.
+  if (input.browserSessionId) {
+    const sameSession = await runSubmitTask(
+      {
+        prompt: `${SAME_SESSION_SUBMIT_RULES}\n\nApproved values:\n${fieldLines}`,
+        browser_session_id: input.browserSessionId,
+        max_steps: 15,
+      },
+      input,
+    );
+    // Only "there is no filled form here" (or a task that never started) justifies a second
+    // attempt. Anything else — a CAPTCHA, a rejected value, an unconfirmed click — is the real
+    // answer, and repeating the submit could send the application twice.
+    if (sameSession && sameSession.errorCode !== 'form_not_loaded') return sameSession;
+    console.log(`[skyvern] same-session submit ${sameSession ? 'found no filled form' : 'could not start'} — re-filling at the URL`);
+  }
+
+  // 2. Fallback: open the form fresh, fill the SAME approved values, submit. The values are the
+  //    parent's approved ones; only the typing is repeated.
+  const fresh = await runSubmitTask(
+    {
+      prompt: `${SUBMIT_RULES}\n\nFields:\n${fieldLines}`,
+      url: input.url,
+      max_steps: MAX_STEPS,
+      ...(input.browserSessionId ? { browser_session_id: input.browserSessionId } : {}),
+    },
+    input,
+  );
+  return fresh ?? { ok: false, status: 'failed', blocker: 'could not start the submit task' };
+}
+
+/** Start one submit task, wait for it, and judge it by the site's own confirmation. Null when
+ * the task could not even be created. */
+async function runSubmitTask(
+  task: Record<string, unknown>,
+  input: { url: string; values: Record<string, string> },
+): Promise<SubmitResult | null> {
+  const runRes = await api('/v1/run/tasks', { ...task, data_extraction_schema: SUBMIT_SCHEMA, error_code_mapping: ERROR_CODES });
   const runId = String(runRes?.run_id ?? '');
-  if (!runId) return { ok: false, status: 'failed', blocker: 'could not start the submit task' };
-  const terminal = await pollRun(runId, 60_000);
+  if (!runId) return null;
+  const terminal = await pollRun(runId, SUBMIT_TIMEOUT_MS);
   const screenshot = await reviewScreenshot(runId);
   const x = readExtraction(terminal.output);
   const errorCode = readErrorCode(terminal.output);
@@ -496,7 +546,9 @@ export async function fillFormForReviewAsync(input: {
   }
 
   // 1. Open a persistent browser session (carried so Phase B can reuse sign-in cookies).
-  const session = await api('/v1/browser_sessions', {});
+  // Sized for the parent, not the robot: the session has to outlive the fill AND the time a
+  // parent takes to read the review and reply YES, or the submit loses the filled page.
+  const session = await api('/v1/browser_sessions', { timeout: FILL_SESSION_TIMEOUT_MIN });
   const browserSessionId = String(session?.browser_session_id ?? '');
   if (!browserSessionId) return { ok: false, detail: 'session_failed' };
 
@@ -523,16 +575,21 @@ export async function fillFormForReviewAsync(input: {
     return { ok: false, browserSessionId, detail: 'task_failed' };
   }
 
-  pendingFills.set(runId, {
+  const pending: PendingFill = {
     runId,
-    formUrl: input.formUrl,
+    // The URL the fill actually ran on (a stored target may have replaced the caller's
+    // guess). The submit and the learning both have to use this one.
+    formUrl,
     values: input.values,
     browserSessionId,
     startedAt: Date.now(),
     // Fill in the run-specific context so the completion handler can text the right
     // family the preview and stage a consent-gated submit (reusing the session).
     meta: { ...(input.meta ?? {}), formUrl, browserSessionId, program: input.program ?? '' },
-  });
+  };
+  pendingFills.set(runId, pending);
+  // Durable copy, so a redeploy before the webhook arrives does not lose the family.
+  await savePendingFill(pending).catch((e) => console.warn('[skyvern] could not persist pending fill:', (e as Error)?.message ?? e));
   return { ok: true, runId, browserSessionId };
 }
 
@@ -558,10 +615,12 @@ export async function handleFillComplete(runId: string): Promise<void> {
       return;
     }
 
-    const pending = pendingFills.get(runId);
+    // After a redeploy the Map is empty; the durable row still knows whose fill this is.
+    const pending = pendingFills.get(runId) ?? (await loadPendingFill(runId).catch(() => undefined));
     const screenshot = await reviewScreenshot(runId);
     if (pending) {
       pendingFills.delete(runId);
+      await deletePendingFill(runId).catch(() => {});
       // On a FAILED fill there's nothing to submit, so close the session. On a SUCCESSFUL
       // fill we KEEP it open — the post-YES Phase B submit reuses it to carry sign-in
       // cookies, and SubmitAdapter closes it after that submit.
@@ -694,6 +753,7 @@ export function expireStaleFills(maxAgeMs = STALE_MS): void {
   for (const [runId, p] of pendingFills) {
     if (now - p.startedAt > maxAgeMs) {
       pendingFills.delete(runId);
+      void deletePendingFill(runId).catch(() => {});
       console.warn('[skyvern] expired stale pending fill', runId);
     }
   }
@@ -702,6 +762,13 @@ export function expireStaleFills(maxAgeMs = STALE_MS): void {
 /** Start the interim sweep (interval) that completes orphaned fills. */
 export function startFillPoller(intervalMs = Number(process.env.SKYVERN_POLLER_MS) || 60_000): void {
   if (!KEY) return;
+  // Pick up fills a previous process started, so the sweep can finish them.
+  void loadAllPendingFills()
+    .then((rows) => {
+      for (const r of rows) if (!pendingFills.has(r.runId) && !completedFills.has(r.runId)) pendingFills.set(r.runId, r);
+      if (rows.length) console.log(`[skyvern] rehydrated ${rows.length} in-flight fill(s)`);
+    })
+    .catch(() => {});
   setInterval(() => {
     checkPendingFills().catch((e) => console.error('[skyvern] poller error:', (e as Error)?.message ?? e));
   }, intervalMs);

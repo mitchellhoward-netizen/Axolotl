@@ -1,5 +1,6 @@
 import type { FamilyProfile } from '../domain/types.js';
 import type { DistrictProfile } from '../knowledge/districts.js';
+import { isAnthropicApi, nativeChatWithTools, nativeComplete, type Effort } from './anthropic-native.js';
 
 export interface LlmOptions {
   apiKey?: string;
@@ -7,6 +8,8 @@ export interface LlmOptions {
   model: string;
   /** Cap total tokens per call (bounds reasoning time for latency-sensitive paths like voice). */
   maxTokens?: number;
+  /** Thinking depth on current Claude models (ignored elsewhere). */
+  effort?: Effort;
 }
 
 export interface CompletionOptions {
@@ -24,6 +27,9 @@ export interface ToolCall {
 export interface ToolsResult {
   text?: string;
   calls?: ToolCall[];
+  /** Provider-native assistant content. Callers that append the assistant turn to history
+   * must carry it as `_anthropic_content`, so thinking survives across tool calls. */
+  raw?: unknown[];
 }
 
 /**
@@ -44,6 +50,15 @@ export class LlmClient {
     return /anthropic/i.test(this.opts.baseUrl) || /^claude/i.test(this.opts.model);
   }
 
+  /** Anthropic's own API goes through the native Messages API, not the OpenAI shim. */
+  private get native(): boolean {
+    return Boolean(this.opts.apiKey) && isAnthropicApi(this.opts.baseUrl) && process.env.ANTHROPIC_NATIVE !== 'false';
+  }
+
+  private get nativeOpts() {
+    return { apiKey: this.opts.apiKey ?? '', baseUrl: this.opts.baseUrl, model: this.opts.model, maxTokens: this.opts.maxTokens, effort: this.opts.effort };
+  }
+
   /**
    * Function-calling turn. Returns the model's text reply and/or the tool calls
    * it wants to make, for the caller to drive the loop. Null on failure.
@@ -56,6 +71,7 @@ export class LlmClient {
     onToken?: (token: string) => void,
   ): Promise<ToolsResult | null> {
     if (!this.enabled) return null;
+    if (this.native) return nativeChatWithTools(this.nativeOpts, system, messages, tools, toolChoice, onToken);
     try {
       const res = await fetch(`${this.opts.baseUrl.replace(/\/$/, '')}/chat/completions`, {
         method: 'POST',
@@ -137,6 +153,7 @@ export class LlmClient {
 
   private async complete(system: string, user: string, json = false, options: CompletionOptions = {}): Promise<string | null> {
     if (!this.enabled) return null;
+    if (this.native) return nativeComplete(this.nativeOpts, system, user, options);
     try {
       const res = await fetch(`${this.opts.baseUrl.replace(/\/$/, '')}/chat/completions`, {
         method: 'POST',
