@@ -26,6 +26,7 @@ import { getFormRecipe, saveFormRecipe, type FormRecipe } from '../integrations/
 import {
   authorizeRecipient,
   authorizeUrl,
+  authorizeFormUrl,
   emailDomain,
   emailsInText,
   hostsInText,
@@ -805,8 +806,7 @@ export async function runTool(name: string, args: Record<string, unknown>, deps:
       const url = String(args.url ?? '').trim();
       const phase = String(args.phase ?? '').trim();
       if (!/^https?:\/\//i.test(url)) return 'Provide a valid http(s) url.';
-      const acctAuth = await familyAuthorizationFor(deps);
-      const acctDecision = authorizeUrl({ url, family: acctAuth, operatorDomains: operatorActionDomains(), grantedDomains: grantedDomainsFor(deps.familyId), parentSupplied: hostsInText(deps.parentText) });
+      const acctDecision = authorizeFormUrl(url);
       if (!acctDecision.allowed) return denialCopy(`sign in or sign up at ${url}`, acctDecision.reason, acctDecision.detail);
       if (phase !== 'signup' && phase !== 'login' && phase !== 'verify') {
         return 'account_action needs phase: signup, login, or verify.';
@@ -867,9 +867,9 @@ export async function runTool(name: string, args: Record<string, unknown>, deps:
     case 'skyvern_fill_form': {
       const url = String(args.url ?? '').trim();
       if (!/^https?:\/\//i.test(url)) return 'Provide the form url.';
-      // A page or an email can NAME a form URL; naming it does not authorize it.
-      const fillAuth = await familyAuthorizationFor(deps);
-      const fillDecision = authorizeUrl({ url, family: fillAuth, operatorDomains: operatorActionDomains(), grantedDomains: grantedDomainsFor(deps.familyId), parentSupplied: hostsInText(deps.parentText) });
+      // Any public site: the right form is the right form, wherever it is hosted. The parent's
+      // YES before submit is the gate; private/internal addresses are still refused.
+      const fillDecision = authorizeFormUrl(url);
       if (!fillDecision.allowed) return denialCopy(`fill a form at ${url}`, fillDecision.reason, fillDecision.detail);
       if (!skyvernEnabled()) return "Skyvern isn't configured — use browser_open/browser_fill to fill it instead.";
       const values = Object.fromEntries(
@@ -1043,8 +1043,7 @@ export async function runTool(name: string, args: Record<string, unknown>, deps:
     case 'browser_open': {
       const url = String(args.url ?? '').trim();
       if (!/^https?:\/\//i.test(url)) return 'Provide a valid http(s) url.';
-      const openAuth = await familyAuthorizationFor(deps);
-      const openDecision = authorizeUrl({ url, family: openAuth, operatorDomains: operatorActionDomains(), grantedDomains: grantedDomainsFor(deps.familyId), parentSupplied: hostsInText(deps.parentText) });
+      const openDecision = authorizeFormUrl(url);
       if (!openDecision.allowed) return denialCopy(`open ${url}`, openDecision.reason, openDecision.detail);
       const r = await browserOpen(url);
       return r.ok

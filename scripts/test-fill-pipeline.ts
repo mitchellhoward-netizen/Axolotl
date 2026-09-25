@@ -44,6 +44,18 @@ check('form turns cannot send or call on their own', !FORM_TURN_TOOLS.has('send_
 check('a question back to the parent counts as asking', asksParent("What's Maya's date of birth?"));
 check('a list of programs does not', !asksParent('Here are three programs:\n1. CKC\n2. YMCA'));
 
+// ── Where a form may be filled ──────────────────────────────────────────────
+const { authorizeFormUrl } = await import('../src/agent/authorization.js');
+console.log('\n# any public form site, never a private address');
+for (const u of [
+  'https://docs.google.com/forms/d/e/abc/viewform',
+  'https://www.campuskidsconnection.com/register',
+  'https://form.jotform.com/12345',
+  'https://www.signupgenius.com/go/abc',
+]) check(`fill allowed: ${u}`, authorizeFormUrl(u).allowed);
+for (const u of ['http://localhost:3000/form', 'http://10.0.0.5/admin', 'http://metadata.internal/', 'ftp://example.com/f', 'https://user:pw@evil.com/f', 'not a url'])
+  check(`fill refused: ${u}`, !authorizeFormUrl(u).allowed);
+
 // ── History translation for the native API ─────────────────────────────────
 const { toAnthropicMessages, isAnthropicApi } = await import('../src/agent/anthropic-native.js');
 console.log('\n# OpenAI-shaped history → Anthropic messages');

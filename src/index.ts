@@ -170,9 +170,13 @@ setFillCompleteHandler(async (info) => {
   const entered = values.length
     ? `\n\nWhat I entered:\n${values.slice(0, 25).map(([k, v]) => `• ${k}: ${v}`).join('\n')}${values.length > 25 ? `\n• …and ${values.length - 25} more` : ''}`
     : '';
+  // Any public site can be filled now, so the parent sees which one before saying YES.
+  let site = '';
+  try { site = new URL(formUrl).host.replace(/^www\./, ''); } catch { /* no site to name */ }
+  const on = site ? ` on ${site}` : '';
   const text = review
-    ? `I filled the form — nothing submitted yet.${entered}\n\nSee the form here: ${review}\n\nReply YES to submit, or tell me what to change.`
-    : `I filled the form — nothing submitted yet.${entered}\n\nReply YES to submit, or tell me what to change.`;
+    ? `I filled the form${on} — nothing submitted yet.${entered}\n\nSee the form here: ${review}\n\nReply YES to submit, or tell me what to change.`
+    : `I filled the form${on} — nothing submitted yet.${entered}\n\nReply YES to submit, or tell me what to change.`;
   await agent.sendToConversation(conversationId, text).catch((e) => console.error('[skyvern] fill-done text error:', (e as Error)?.message ?? e));
 });
 

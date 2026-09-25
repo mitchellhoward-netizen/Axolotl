@@ -153,7 +153,7 @@ export interface AuthorizationInput {
 }
 
 export type Decision =
-  | { allowed: true; reason: 'known-recipient' | 'known-domain' | 'self' | 'operator-domain' | 'granted-domain' | 'parent-supplied'; normalized: string }
+  | { allowed: true; reason: 'known-recipient' | 'known-domain' | 'self' | 'operator-domain' | 'granted-domain' | 'parent-supplied' | 'public-form'; normalized: string }
   | { allowed: false; reason: 'invalid' | 'content-supplied' | 'unknown-recipient' | 'host-blocked' | 'host-not-authorized' | 'not-a-url'; detail: string };
 
 /** Was this value present in a provenance list? */
@@ -309,6 +309,22 @@ export function authorizeUrl(input: {
     reason: 'host-not-authorized',
     detail: 'that site is not one I have on file for your family',
   };
+}
+
+/**
+ * Where a FORM FILL may go: any public http(s) site. A school program's form lives on Google
+ * Forms, Jotform, SignUpGenius or the provider's own site far more often than on the school's
+ * domain, so an allowlist here blocked nearly every form research found. The protections that
+ * matter for a fill sit elsewhere: nothing is submitted without the parent's YES, the review
+ * names the site, and private/internal addresses are still refused here.
+ */
+export function authorizeFormUrl(url: unknown): Decision {
+  const parsed = parseHost(url);
+  if (!parsed.ok) {
+    return { allowed: false, reason: parsed.reason === 'no url' || parsed.reason === 'not a url' ? 'not-a-url' : 'host-blocked', detail: parsed.reason };
+  }
+  if (isBlockedHost(parsed.host)) return { allowed: false, reason: 'host-blocked', detail: 'that address is private or internal' };
+  return { allowed: true, reason: 'public-form', normalized: parsed.host };
 }
 
 // ── Irreversible verbs ──────────────────────────────────────────────────────
