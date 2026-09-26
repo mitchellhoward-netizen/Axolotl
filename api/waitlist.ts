@@ -33,7 +33,10 @@ export async function POST(req: Request): Promise<Response> {
   const error = await addSignup(row);
   if (error) {
     console.error('[signup] store failed:', error);
-    return Response.json({ ok: false, error: 'Signups are temporarily unavailable' }, { status: 503 });
+    // `reason` names which setup step is missing without exposing the database
+    // error itself, so a failed signup can be diagnosed from the browser.
+    const reason = error.startsWith('Supabase not configured') ? 'not_configured' : 'store_failed';
+    return Response.json({ ok: false, error: 'Signups are temporarily unavailable', reason }, { status: 503 });
   }
 
   // Only the family and circle signups get a confirmation text. A school request

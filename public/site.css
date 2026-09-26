@@ -301,6 +301,15 @@ p {
   outline: none;
 }
 
+/* Browsers paint autofilled fields light blue; keep the pill's own look. */
+.pill-field input:-webkit-autofill,
+.pill-field input:-webkit-autofill:hover,
+.pill-field input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--ink);
+  caret-color: var(--ink);
+  transition: background-color 600000s 0s, color 600000s 0s;
+}
+
 .pill-field input::placeholder {
   color: var(--faint);
 }
@@ -603,6 +612,11 @@ p {
 
 :is(.t-night, .t-night-deep) .pill-field input {
   color: var(--on-night);
+}
+
+:is(.t-night, .t-night-deep) .pill-field input:-webkit-autofill {
+  -webkit-text-fill-color: var(--on-night);
+  caret-color: var(--on-night);
 }
 
 :is(.t-night, .t-night-deep) .pill-field input::placeholder {
