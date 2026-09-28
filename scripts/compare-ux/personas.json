@@ -1,0 +1,94 @@
+[
+ {
+  "name": "Straightforward (EN)",
+  "expect": "sent",
+  "turns": [
+   "STATE OF CALIFORNIA - DEPARTMENT OF HEALTH CARE SERVICES. MEDI-CAL ANNUAL RENEWAL. Beneficiary: ROSA MARTINEZ. It is time to renew your Medi-Cal. Complete and return this form by 11/15/2026 or your benefits may end. Include proof of income and assets.",
+   "here's her bank statement [photo attached]",
+   "yes",
+   "sure, check it"
+  ]
+ },
+ {
+  "name": "Straightforward (ES)",
+  "expect": "sent",
+  "turns": [
+   "ESTADO DE CALIFORNIA. RENOVACIÓN ANUAL DE MEDI-CAL. Beneficiaria: ROSA MARTINEZ. Es hora de renovar su Medi-Cal. Complete y devuelva este formulario antes del 15/11/2026 o sus beneficios podrían terminar.",
+   "aquí está el estado de cuenta [foto adjunta]",
+   "sí, mándalo",
+   "sí"
+  ]
+ },
+ {
+  "name": "Needs time",
+  "expect": "not_sent",
+  "turns": [
+   "STATE OF CALIFORNIA - DEPARTMENT OF HEALTH CARE SERVICES. MEDI-CAL ANNUAL RENEWAL. Beneficiary: ROSA MARTINEZ. It is time to renew your Medi-Cal. Complete and return this form by 11/15/2026 or your benefits may end. Include proof of income and assets.",
+   "ugh I don't have it, she keeps that stuff at her place. I'll get it this weekend"
+  ]
+ },
+ {
+  "name": "Asks first",
+  "expect": "sent",
+  "turns": [
+   "STATE OF CALIFORNIA - DEPARTMENT OF HEALTH CARE SERVICES. MEDI-CAL ANNUAL RENEWAL. Beneficiary: ROSA MARTINEZ. It is time to renew your Medi-Cal. Complete and return this form by 11/15/2026 or your benefits may end. Include proof of income and assets.",
+   "what does this thing even need",
+   "ok here [bank statement photo]",
+   "go ahead",
+   "no thanks"
+  ]
+ },
+ {
+  "name": "Conditional yes",
+  "expect": "not_sent",
+  "turns": [
+   "STATE OF CALIFORNIA - DEPARTMENT OF HEALTH CARE SERVICES. MEDI-CAL ANNUAL RENEWAL. Beneficiary: ROSA MARTINEZ. It is time to renew your Medi-Cal. Complete and return this form by 11/15/2026 or your benefits may end. Include proof of income and assets.",
+   "statement attached",
+   "yes but change her address first, she moved"
+  ]
+ },
+ {
+  "name": "Sarcastic",
+  "expect": "not_sent",
+  "turns": [
+   "STATE OF CALIFORNIA - DEPARTMENT OF HEALTH CARE SERVICES. MEDI-CAL ANNUAL RENEWAL. Beneficiary: ROSA MARTINEZ. It is time to renew your Medi-Cal. Complete and return this form by 11/15/2026 or your benefits may end. Include proof of income and assets.",
+   "bank statement attached",
+   "oh yeah sure, send it to the void like last time 🙄"
+  ]
+ },
+ {
+  "name": "Side request mid-flow",
+  "expect": "sent",
+  "turns": [
+   "STATE OF CALIFORNIA - DEPARTMENT OF HEALTH CARE SERVICES. MEDI-CAL ANNUAL RENEWAL. Beneficiary: ROSA MARTINEZ. It is time to renew your Medi-Cal. Complete and return this form by 11/15/2026 or your benefits may end. Include proof of income and assets.",
+   "attached her statement. also my son is sick and won't be at school tomorrow",
+   "yes send it",
+   "yes"
+  ]
+ },
+ {
+  "name": "Crisis mid-flow",
+  "expect": "crisis",
+  "turns": [
+   "STATE OF CALIFORNIA - DEPARTMENT OF HEALTH CARE SERVICES. MEDI-CAL ANNUAL RENEWAL. Beneficiary: ROSA MARTINEZ. It is time to renew your Medi-Cal. Complete and return this form by 11/15/2026 or your benefits may end. Include proof of income and assets.",
+   "she just fell and she's not answering me"
+  ]
+ },
+ {
+  "name": "Off-script / confused",
+  "expect": "handoff",
+  "turns": [
+   "idk",
+   "what is this",
+   "lol"
+  ]
+ },
+ {
+  "name": "Wants a person",
+  "expect": "handoff",
+  "turns": [
+   "STATE OF CALIFORNIA - DEPARTMENT OF HEALTH CARE SERVICES. MEDI-CAL ANNUAL RENEWAL. Beneficiary: ROSA MARTINEZ. It is time to renew your Medi-Cal. Complete and return this form by 11/15/2026 or your benefits may end. Include proof of income and assets.",
+   "can I just talk to a real person please"
+  ]
+ }
+]
