@@ -52,6 +52,8 @@
     "test:recipe-replay": "tsx scripts/test-recipe-replay.ts",
     "test:pdf-email": "tsx scripts/test-pdf-email.ts",
     "test:intention": "tsx scripts/test-intention.ts",
+    "test:jev": "tsx --test scripts/test-jev-intent.ts",
+    "compare:intents": "tsx scripts/compare-intents.ts",
     "test:consent": "tsx scripts/test-consent.ts",
     "test:gating": "tsx scripts/test-gating.ts",
     "test:bubbles": "tsx scripts/test-bubbles.ts",
