@@ -5,7 +5,8 @@ members (`personas.json`), two architectures, scored on the same outcomes.
 
 ```sh
 python3 scripts/compare-ux/jevflow.py 5                      # Jev-first: code owns the flow, Jev decides, replies are pre-written
-npx tsx scripts/compare-ux/llmflow.ts claude-opus-5 3        # LLM agent loop (needs ANTHROPIC_API_KEY)
+python3 scripts/compare-ux/llmflow_cli.py claude-opus-5 3      # LLM agent loop via the claude CLI (no API key needed)
+npx tsx scripts/compare-ux/llmflow.ts claude-opus-5 3        # same loop via the SDK (needs ANTHROPIC_API_KEY)
 npx tsx scripts/compare-ux/llmflow.ts claude-haiku-4-5 3
 ```
 
