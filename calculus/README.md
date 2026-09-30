@@ -49,6 +49,23 @@ One page with four parts:
 
 Set `ADAPTCALC_PASSWORD` to require a password (HTTP basic auth, any user name) before exposing it beyond your machine. With `ANTHROPIC_API_KEY` set, photos are read by Claude vision. Without it, an upload waits in `inbox/` for a manual `*.transcript.json`, and the header shows which mode is active.
 
+## Deploy on Railway
+
+The app ships as its own Railway service (the repo's root `railway.json` is the Axolotl agent's).
+In the Railway project:
+
+1. **New → GitHub Repo →** this repository (branch with `calculus/`).
+2. Service **Settings**: set **Root Directory** to `/calculus` and **Config-as-code file** to `/calculus/railway.json`.
+3. **Variables**: set `ADAPTCALC_PASSWORD` and `TYPESAFE_API_KEY`, and set `ANTHROPIC_API_KEY`.
+   If the key already lives in the project, reference it rather than copying it:
+   `${{shared.ANTHROPIC_API_KEY}}` for a shared variable, or `${{<other-service>.ANTHROPIC_API_KEY}}`.
+4. **Volume**: attach one to the service, mounted at `/data` (the image sets `ADAPTCALC_DATA=/data`).
+   This is where your progress, packets and photos live.
+5. **Networking → Generate Domain**, then open it and sign in with any user name and the password.
+
+The image downloads the book, figures, fonts and Typst packages at build time (`python -m adaptcalc warm`).
+It will not serve on a public address without `ADAPTCALC_PASSWORD`.
+
 ## Commands
 
 | Command | What it does |

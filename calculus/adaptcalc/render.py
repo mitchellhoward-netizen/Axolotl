@@ -252,7 +252,8 @@ BODY_CLIP = (0, 0.9 * 72, 8.5 * 72, 11 * 72 - 0.85 * 72)  # exclude running head
 def compile_typst(src: str, out_pdf: Path) -> Path:
     assets.ensure_fonts()
     out_pdf.parent.mkdir(parents=True, exist_ok=True)
-    typ_path = out_pdf.with_suffix(".typ")
+    paths.BUILD.mkdir(parents=True, exist_ok=True)
+    typ_path = paths.BUILD / (out_pdf.stem + ".typ")
     typ_path.write_text(src, encoding="utf-8")
     pdf = typst.compile(str(typ_path), root=str(paths.ROOT), font_paths=[str(paths.FONT_DIR)])
     out_pdf.write_bytes(pdf)

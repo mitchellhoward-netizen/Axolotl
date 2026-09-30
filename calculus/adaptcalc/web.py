@@ -34,7 +34,7 @@ app = FastAPI(title="Adaptive calculus", docs_url=None, redoc_url=None)
 @app.middleware("http")
 async def password(request: Request, call_next):
     pw = os.environ.get("ADAPTCALC_PASSWORD")
-    if pw:
+    if pw and request.url.path != "/health":
         auth = request.headers.get("authorization", "")
         ok = False
         if auth.startswith("Basic "):
@@ -55,6 +55,11 @@ def db() -> LearnerDB:
 def transcriber_name() -> str:
     t = transcribe.default_transcriber()
     return "Claude vision" if t.backend == "claude-vision" else "manual transcript (no Anthropic key set)"
+
+
+@app.get("/health")
+def health():
+    return {"ok": True}
 
 
 @app.get("/", response_class=HTMLResponse)

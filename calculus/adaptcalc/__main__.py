@@ -8,12 +8,14 @@
   process PHOTO           run one photo through the pipeline
   watch [--once]          watch ./inbox for photos
   grade PACKET "1:c 2:x"  grade without a photo (c = correct, x = wrong, s = skipped)
-  serve [--host --port]   the browser app (http://127.0.0.1:8000)
+  serve [--host --port]   the browser app (http://127.0.0.1:8000; HOST/PORT env also work)
+  warm                    download the book, figures, fonts and Typst packages (for images)
 """
 from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
 
 from . import diagnostic, extract, packets, paths, pipeline, templates
@@ -114,9 +116,28 @@ def cmd_grade(a):
         print(f"{prid}: {'correct' if c else 'wrong/skipped'}")
 
 
+def cmd_warm(a):
+    """Download everything the app needs once (used by the Dockerfile)."""
+    from . import assets, extract, render, source
+
+    source.fetch_chapter()
+    assets.ensure_fonts()
+    for img in sorted(paths.MEDIA_DIR.glob("*.jpg")):
+        assets.duotone(img.name)
+    extract.load_chapter()
+    # first compile downloads the cetz Typst package into the image
+    render.compile_typst(render.doc_head("warm", "warm", "W") + "#cetz.canvas({ cetz.draw.line((0, 0), (1, 1)) })\n",
+                         paths.BUILD / "warm.pdf")
+    print("warm: source, figures, fonts and Typst packages cached")
+
+
 def cmd_serve(a):
     from . import assets, web
 
+    if a.host not in ("127.0.0.1", "localhost") and not os.environ.get("ADAPTCALC_PASSWORD") \
+            and not os.environ.get("ADAPTCALC_ALLOW_OPEN"):
+        sys.exit("Refusing to serve on a public address without ADAPTCALC_PASSWORD "
+                 "(set it, or ADAPTCALC_ALLOW_OPEN=1 to override).")
     assets.ensure_fonts()
     print(f"open http://{a.host}:{a.port}")
     web.serve(a.host, a.port)
@@ -147,9 +168,10 @@ def main(argv=None):
     g.add_argument("packet")
     g.add_argument("marks")
     g.set_defaults(fn=cmd_grade)
+    sub.add_parser("warm").set_defaults(fn=cmd_warm)
     sv = sub.add_parser("serve")
-    sv.add_argument("--host", default="127.0.0.1")
-    sv.add_argument("--port", type=int, default=8000)
+    sv.add_argument("--host", default=os.environ.get("HOST", "127.0.0.1"))
+    sv.add_argument("--port", type=int, default=int(os.environ.get("PORT", 8000)))
     sv.set_defaults(fn=cmd_serve)
     a = ap.parse_args(argv)
     return a.fn(a) or 0

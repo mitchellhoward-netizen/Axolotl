@@ -1,0 +1,6 @@
+.cache/
+state/
+out/
+inbox/
+**/__pycache__/
+samples/*.pdf
