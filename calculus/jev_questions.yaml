@@ -122,7 +122,10 @@ tutor:
     instructions: >-
       Does `reply` state, use, or hint at a mathematical definition, theorem, rule,
       technique, or fact that does not appear anywhere in `canonical`? Ordinary
-      arithmetic and algebra that `canonical` itself uses do not count as new.
+      arithmetic and algebra that `canonical` itself uses do not count as new, and
+      neither does reasoning that follows directly from a definition or formula in
+      `canonical` (for example, noting that a formula gives the same value when
+      computed another way, or applying it to different numbers).
     criteria:
       "true": The reply relies on a mathematical idea that is absent from the canonical passages.
       "false": Every mathematical idea in the reply appears in, or is used by, the canonical passages.

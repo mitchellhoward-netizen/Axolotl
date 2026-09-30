@@ -9,8 +9,8 @@ misconception's root skill). Claude writes the reply; before it is shown:
   3. Jev judges whether it gives away the final answer (unless the learner asked
      for it) and whether it brings in an idea the passages don't contain.
 
-A reply that fails is regenerated once with the failures listed; if it fails
-again, the learner gets the canonical fallback: the book's worked example for
+A reply that fails is regenerated with the failures listed (up to three tries);
+if every try fails, the learner gets the canonical fallback: the book's worked example for
 this skill, verbatim, and a pointer to the line to compare.
 """
 from __future__ import annotations
@@ -24,6 +24,7 @@ from . import answers, cnxml, extract, notation, stepcheck
 from .jev import Jev, noul, spec
 
 MODEL = "claude-opus-5-5"
+TRIES = 3  # a reply that fails its checks is regenerated with the failures listed, up to this many times
 
 SYSTEM = """You are a patient math tutor helping an adult relearn math from a textbook. The learner writes their work on paper; you see a transcription of it, one line per step, plus an exact SymPy check of every step.
 
@@ -31,7 +32,7 @@ How to answer:
 - Answer the learner's question about their own work. Be brief: 2 to 6 sentences.
 - Guide; don't solve. Point to the exact line and the idea it needs, ask one question that leads to the next step, or show the method on a different number than the problem uses. Do not state the final answer unless the learner explicitly asks for it, or their own work already reached it.
 - Use only ideas and notation that appear in the textbook passages provided. Refer to the book's own worked example by its label (e.g. "Example 6") when it helps.
-- Equations: never type an equation (anything with "=") into `reply`. Put each one in `equations` as a chain of equal parts in SymPy syntax, and write [[1]], [[2]], ... in `reply` where equation 1, 2, ... belongs. The server checks every chain with SymPy and typesets it. A chain may start with a label such as f(3) or m. Use ** for powers, sqrt(), Limit(expr, x, a) for limits.
+- Equations: never type an equation (anything with "=") into `reply`. Put each one in `equations` as a chain of equal parts in SymPy syntax, and write [[1]], [[2]], ... in `reply` where equation 1, 2, ... belongs. The server checks every chain with SymPy and typesets it. A chain may start with a label such as f(3) or m. A label followed by a general formula (m = (y_2 - y_1)/(x_2 - x_1)) is fine; a label for a number must show the computation (m = (1 - 6)/(2 - 3) = 5), never just m = 5. Use ** for powers, sqrt(), Limit(expr, x, a) for limits.
 - Other math without "=" (a single expression or symbol) goes in `reply` as LaTeX between $...$.
 - If you point out a false equation the learner wrote, don't restate it as an equation; refer to their line number instead."""
 
@@ -207,6 +208,12 @@ def check_equations(equations: list[dict]) -> tuple[list[str], list[str]]:
         parsed = [stepcheck._parse(p) for p in parts]
         checkable = [e for j, e in enumerate(parsed) if not stepcheck._is_label(e, j, len(parsed), parts[j])]
         ok = len(checkable) >= 2 and all(e is not stepcheck.UNPARSEABLE for e in checkable)
+        # "m = (y_2 - y_1)/(x_2 - x_1)": a name for a general formula states a definition, which
+        # SymPy cannot check; allow it. A name for a bare value (m = 5) must show its computation.
+        if len(parts) == 2 and len(checkable) == 1 and checkable[0] is not stepcheck.UNPARSEABLE \
+                and isinstance(checkable[0], sp.Basic) and checkable[0].free_symbols:
+            ok = True
+            checkable = []
         if ok:
             for a, b in zip(checkable, checkable[1:]):
                 va, vb = stepcheck._value(a), stepcheck._value(b)
@@ -303,7 +310,7 @@ def ask(problem: dict, attempt: dict, question: str, line: int | None = None,
     context = _context(problem, attempt, question, line, texts)
     reached = learner_reached_answer(problem, attempt)
     feedback, history = None, []
-    for attempt_no in range(2):
+    for attempt_no in range(TRIES):
         r = _claude(context, feedback, client=claude_client)
         problems = []
         bad, rendered = check_equations(r.get("equations", []))
@@ -333,5 +340,5 @@ def ask(problem: dict, attempt: dict, question: str, line: int | None = None,
     return {"status": "fallback",
             "reply": (f"I couldn't write an explanation that passed its checks, so here is the book's own worked "
                       f"example to compare with{where}:"),
-            "canonical": fallback, "cites": labels[:1], "checks": history[-1]["checks"], "tries": 2,
+            "canonical": fallback, "cites": labels[:1], "checks": history[-1]["checks"], "tries": TRIES,
             "rejected": [h["problems"] for h in history]}

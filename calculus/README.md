@@ -26,7 +26,7 @@ pip install -r requirements.txt
 export TYPESAFE_API_KEY=...        # Jev (TypeSafe)
 export ANTHROPIC_API_KEY=...       # Claude vision transcription (or `ant auth login`)
 python -m adaptcalc extract        # fetch Chapter 2, write skills.json + misconceptions.json
-python -m pytest -q tests          # 42 tests
+python -m pytest -q tests          # 46 tests
 ```
 
 Fonts (Fira Sans, SIL OFL), the OpenStax source and its figures are downloaded

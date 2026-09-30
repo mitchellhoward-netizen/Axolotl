@@ -66,20 +66,28 @@ def test_false_math_is_sent_back_and_fixed(db, fake_jev):
 def test_equations_typed_into_the_reply_are_rejected(db, fake_jev):
     prob, att = graded(db)
     reply = {"reply": "Note $x^2-4=(x-2)(x+2)$.", "equations": [], "cites": []}
-    r = tutor.ask(prob, att, "hint?", None, claude_client=FakeClaude(reply, reply), jev_client=jev(fake_jev))
+    r = tutor.ask(prob, att, "hint?", None, claude_client=FakeClaude(*[reply] * tutor.TRIES), jev_client=jev(fake_jev))
     assert r["status"] == "fallback" and "typed into the reply" in r["rejected"][0][0]
 
 
 def test_giving_away_the_answer_falls_back_to_the_book(db, fake_jev):
     prob, att = graded(db)
     reply = {"reply": "The answer is just the limit value.", "equations": [], "cites": []}
-    r = tutor.ask(prob, att, "why?", None, claude_client=FakeClaude(reply, reply), jev_client=jev(fake_jev, gives=0.9))
+    r = tutor.ask(prob, att, "why?", None, claude_client=FakeClaude(*[reply] * tutor.TRIES), jev_client=jev(fake_jev, gives=0.9))
     assert r["status"] == "fallback" and r["canonical"] and r["canonical"].startswith("Example")
 
 
 def test_notation_from_later_chapters_is_rejected(db, fake_jev):
     prob, att = graded(db)
     reply = {"reply": "Take the derivative: $f'(x)$ tells you the slope.", "equations": [], "cites": []}
-    r = tutor.ask(prob, att, "why?", None, claude_client=FakeClaude(reply, reply), jev_client=jev(fake_jev))
+    r = tutor.ask(prob, att, "why?", None, claude_client=FakeClaude(*[reply] * tutor.TRIES), jev_client=jev(fake_jev))
     assert r["status"] == "fallback"
     assert any("notation" in p for p in r["rejected"][0])
+
+
+def test_formula_definitions_pass_but_bare_values_need_their_computation():
+    bad, _ = tutor.check_equations([{"parts": ["m", "(y_2 - y_1)/(x_2 - x_1)"]},
+                                    {"parts": ["m", "(1 - 6)/(2 - 3)", "5"]}])
+    assert bad == []
+    bad, _ = tutor.check_equations([{"parts": ["m", "5"]}, {"parts": ["m", "(1 - 6)/(2 - 3)", "6"]}])
+    assert len(bad) == 2
