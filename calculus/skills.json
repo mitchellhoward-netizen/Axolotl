@@ -40,6 +40,11 @@
     "license": "CC BY-NC-SA 4.0"
   },
   "topological_order": [
+    "pre_order_ops",
+    "pre_fractions",
+    "pre_exponents",
+    "pre_polynomial_ops",
+    "pre_linear_eq",
     "alg_eval",
     "alg_slope",
     "alg_factor",
@@ -83,14 +88,1271 @@
   ],
   "skills": [
     {
+      "id": "pre_order_ops",
+      "name": "Order of operations and evaluating expressions",
+      "kind": "foundation",
+      "section": null,
+      "book": "at2e",
+      "origin": "Algebra and Trigonometry 2e, 1.1",
+      "lesson": [
+        {
+          "book": "at2e",
+          "section": "1.1",
+          "module": "m51239",
+          "title": "Real Numbers: Algebra Essentials",
+          "url": "https://openstax.org/books/algebra-and-trigonometry-2e",
+          "subsections": [
+            {
+              "id": "fs-id3574670",
+              "title": "Performing Calculations Using the Order of Operations"
+            },
+            {
+              "id": "fs-id2146838",
+              "title": "Evaluating Algebraic Expressions"
+            }
+          ]
+        }
+      ],
+      "prerequisites": [],
+      "learning_objectives": [
+        "Perform calculations using order of operations.",
+        "Evaluate algebraic expressions."
+      ],
+      "anchors": [
+        {
+          "book": "at2e",
+          "module": "m51239",
+          "section": "1.1",
+          "id": "fs-id1342923",
+          "type": "box",
+          "label": null,
+          "title": "Order of Operations"
+        },
+        {
+          "book": "at2e",
+          "module": "m51239",
+          "section": "1.1",
+          "id": "fs-id1545011",
+          "type": "box",
+          "label": null,
+          "title": ""
+        },
+        {
+          "book": "at2e",
+          "module": "m51239",
+          "section": "1.1",
+          "id": "Example_01_01_06",
+          "type": "example",
+          "label": "Example 6",
+          "title": "Using the Order of Operations"
+        },
+        {
+          "book": "at2e",
+          "module": "m51239",
+          "section": "1.1",
+          "id": "fs-id2261204",
+          "type": "checkpoint",
+          "label": "Try It #6",
+          "title": ""
+        },
+        {
+          "book": "at2e",
+          "module": "m51239",
+          "section": "1.1",
+          "id": "Example_01_01_08",
+          "type": "example",
+          "label": "Example 8",
+          "title": "Describing Algebraic Expressions"
+        },
+        {
+          "book": "at2e",
+          "module": "m51239",
+          "section": "1.1",
+          "id": "fs-id1459253",
+          "type": "checkpoint",
+          "label": "Try It #8",
+          "title": ""
+        },
+        {
+          "book": "at2e",
+          "module": "m51239",
+          "section": "1.1",
+          "id": "Example_01_01_09",
+          "type": "example",
+          "label": "Example 9",
+          "title": "Evaluating an Algebraic Expression at Different Values"
+        },
+        {
+          "book": "at2e",
+          "module": "m51239",
+          "section": "1.1",
+          "id": "fs-id2989790",
+          "type": "checkpoint",
+          "label": "Try It #9",
+          "title": ""
+        },
+        {
+          "book": "at2e",
+          "module": "m51239",
+          "section": "1.1",
+          "id": "Example_01_01_10",
+          "type": "example",
+          "label": "Example 10",
+          "title": "Evaluating Algebraic Expressions"
+        },
+        {
+          "book": "at2e",
+          "module": "m51239",
+          "section": "1.1",
+          "id": "fs-id3636122",
+          "type": "checkpoint",
+          "label": "Try It #10",
+          "title": ""
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 23,
+        "ids": [
+          "fs-id1170572337207",
+          "fs-id1170572642384",
+          "fs-id1170572217395",
+          "fs-id1170572540848",
+          "fs-id1170572268108",
+          "fs-id1170572219513",
+          "fs-id1170572435026",
+          "fs-id1170572590126",
+          "fs-id1170572552638",
+          "fs-id1170573442080",
+          "fs-id1170573389760",
+          "fs-id1170573429945",
+          "fs-id1170570976463",
+          "fs-id1170573355402",
+          "fs-id1170571120881",
+          "fs-id1170573439386",
+          "fs-id1170570996536",
+          "fs-id1170571100300",
+          "fs-id1170571121705",
+          "fs-id1170571087121",
+          "fs-id1170571290233",
+          "fs-id1170573359564",
+          "fs-id1170573512268"
+        ]
+      },
+      "dependents": [
+        "pre_fractions",
+        "pre_exponents",
+        "pre_linear_eq",
+        "alg_eval"
+      ],
+      "depth": 0,
+      "templates": [
+        "pre_order_ops.evaluate"
+      ],
+      "misconceptions": [
+        "pre_order_ops.left_to_right",
+        "pre_order_ops.negative_square",
+        "pre_order_ops.partial_distribution"
+      ]
+    },
+    {
+      "id": "pre_fractions",
+      "name": "Add, subtract and simplify fractions",
+      "kind": "foundation",
+      "section": null,
+      "book": "pa2e",
+      "origin": "Prealgebra 2e, 4.5",
+      "lesson": [
+        {
+          "book": "pa2e",
+          "section": "4.5",
+          "module": "m81289",
+          "title": "Add and Subtract Fractions with Different Denominators",
+          "url": "https://openstax.org/books/prealgebra-2e",
+          "subsections": [
+            {
+              "id": "fs-id1833017",
+              "title": "Find the Least Common Denominator"
+            },
+            {
+              "id": "fs-id1920865",
+              "title": "Convert Fractions to Equivalent Fractions with the LCD"
+            },
+            {
+              "id": "fs-id1276143",
+              "title": "Add and Subtract Fractions with Different Denominators"
+            }
+          ]
+        }
+      ],
+      "prerequisites": [
+        "pre_order_ops"
+      ],
+      "learning_objectives": [
+        "Find the least common denominator (LCD)",
+        "Add and subtract fractions with different denominators"
+      ],
+      "anchors": [
+        {
+          "book": "pa2e",
+          "module": "m81289",
+          "section": "4.5",
+          "id": "eip-334",
+          "type": "box",
+          "label": null,
+          "title": "Least Common Denominator"
+        },
+        {
+          "book": "pa2e",
+          "module": "m81289",
+          "section": "4.5",
+          "id": "fs-id1858347",
+          "type": "example",
+          "label": "Example 4.63",
+          "title": ""
+        },
+        {
+          "book": "pa2e",
+          "module": "m81289",
+          "section": "4.5",
+          "id": "fs-id1566083",
+          "type": "checkpoint",
+          "label": "Try It 4.125",
+          "title": ""
+        },
+        {
+          "book": "pa2e",
+          "module": "m81289",
+          "section": "4.5",
+          "id": "fs-id1988591",
+          "type": "checkpoint",
+          "label": "Try It 4.126",
+          "title": ""
+        },
+        {
+          "book": "pa2e",
+          "module": "m81289",
+          "section": "4.5",
+          "id": "fs-id2263834",
+          "type": "box",
+          "label": null,
+          "title": "Find the least common denominator (LCD) of two fractions."
+        },
+        {
+          "book": "pa2e",
+          "module": "m81289",
+          "section": "4.5",
+          "id": "fs-id1481942",
+          "type": "example",
+          "label": "Example 4.64",
+          "title": ""
+        },
+        {
+          "book": "pa2e",
+          "module": "m81289",
+          "section": "4.5",
+          "id": "fs-id2265364",
+          "type": "checkpoint",
+          "label": "Try It 4.127",
+          "title": ""
+        },
+        {
+          "book": "pa2e",
+          "module": "m81289",
+          "section": "4.5",
+          "id": "fs-id1891509",
+          "type": "checkpoint",
+          "label": "Try It 4.128",
+          "title": ""
+        },
+        {
+          "book": "pa2e",
+          "module": "m81289",
+          "section": "4.5",
+          "id": "fs-id2154719",
+          "type": "box",
+          "label": null,
+          "title": "Equivalent Fractions Property"
+        },
+        {
+          "book": "pa2e",
+          "module": "m81289",
+          "section": "4.5",
+          "id": "fs-id1744424",
+          "type": "example",
+          "label": "Example 4.65",
+          "title": ""
+        },
+        {
+          "book": "pa2e",
+          "module": "m81289",
+          "section": "4.5",
+          "id": "fs-id2948402",
+          "type": "checkpoint",
+          "label": "Try It 4.129",
+          "title": ""
+        },
+        {
+          "book": "pa2e",
+          "module": "m81289",
+          "section": "4.5",
+          "id": "fs-id2388743",
+          "type": "checkpoint",
+          "label": "Try It 4.130",
+          "title": ""
+        },
+        {
+          "book": "pa2e",
+          "module": "m81289",
+          "section": "4.5",
+          "id": "fs-id1383519",
+          "type": "box",
+          "label": null,
+          "title": "Convert two fractions to equivalent fractions with their LCD as the common denominator."
+        },
+        {
+          "book": "pa2e",
+          "module": "m81289",
+          "section": "4.5",
+          "id": "fs-id1987883",
+          "type": "example",
+          "label": "Example 4.66",
+          "title": ""
+        },
+        {
+          "book": "pa2e",
+          "module": "m81289",
+          "section": "4.5",
+          "id": "fs-id4349540",
+          "type": "checkpoint",
+          "label": "Try It 4.131",
+          "title": ""
+        },
+        {
+          "book": "pa2e",
+          "module": "m81289",
+          "section": "4.5",
+          "id": "fs-id2151741",
+          "type": "checkpoint",
+          "label": "Try It 4.132",
+          "title": ""
+        },
+        {
+          "book": "pa2e",
+          "module": "m81289",
+          "section": "4.5",
+          "id": "fs-id1594414",
+          "type": "box",
+          "label": null,
+          "title": "Add or subtract fractions with different denominators."
+        },
+        {
+          "book": "pa2e",
+          "module": "m81289",
+          "section": "4.5",
+          "id": "fs-id2376018",
+          "type": "example",
+          "label": "Example 4.67",
+          "title": ""
+        },
+        {
+          "book": "pa2e",
+          "module": "m81289",
+          "section": "4.5",
+          "id": "fs-id1582076",
+          "type": "checkpoint",
+          "label": "Try It 4.133",
+          "title": ""
+        },
+        {
+          "book": "pa2e",
+          "module": "m81289",
+          "section": "4.5",
+          "id": "fs-id2932730",
+          "type": "checkpoint",
+          "label": "Try It 4.134",
+          "title": ""
+        },
+        {
+          "book": "pa2e",
+          "module": "m81289",
+          "section": "4.5",
+          "id": "fs-id1457880",
+          "type": "example",
+          "label": "Example 4.68",
+          "title": ""
+        },
+        {
+          "book": "pa2e",
+          "module": "m81289",
+          "section": "4.5",
+          "id": "fs-id1377668",
+          "type": "checkpoint",
+          "label": "Try It 4.135",
+          "title": ""
+        },
+        {
+          "book": "pa2e",
+          "module": "m81289",
+          "section": "4.5",
+          "id": "fs-id1784079",
+          "type": "checkpoint",
+          "label": "Try It 4.136",
+          "title": ""
+        },
+        {
+          "book": "pa2e",
+          "module": "m81289",
+          "section": "4.5",
+          "id": "fs-id1851766",
+          "type": "example",
+          "label": "Example 4.69",
+          "title": ""
+        },
+        {
+          "book": "pa2e",
+          "module": "m81289",
+          "section": "4.5",
+          "id": "fs-id2952072",
+          "type": "checkpoint",
+          "label": "Try It 4.137",
+          "title": ""
+        },
+        {
+          "book": "pa2e",
+          "module": "m81289",
+          "section": "4.5",
+          "id": "fs-id1834467",
+          "type": "checkpoint",
+          "label": "Try It 4.138",
+          "title": ""
+        },
+        {
+          "book": "pa2e",
+          "module": "m81289",
+          "section": "4.5",
+          "id": "fs-id2668537",
+          "type": "example",
+          "label": "Example 4.70",
+          "title": ""
+        },
+        {
+          "book": "pa2e",
+          "module": "m81289",
+          "section": "4.5",
+          "id": "fs-id1517188",
+          "type": "checkpoint",
+          "label": "Try It 4.139",
+          "title": ""
+        },
+        {
+          "book": "pa2e",
+          "module": "m81289",
+          "section": "4.5",
+          "id": "fs-id1835990",
+          "type": "checkpoint",
+          "label": "Try It 4.140",
+          "title": ""
+        },
+        {
+          "book": "pa2e",
+          "module": "m81289",
+          "section": "4.5",
+          "id": "fs-id1250061",
+          "type": "example",
+          "label": "Example 4.71",
+          "title": ""
+        },
+        {
+          "book": "pa2e",
+          "module": "m81289",
+          "section": "4.5",
+          "id": "fs-id2294244",
+          "type": "checkpoint",
+          "label": "Try It 4.141",
+          "title": ""
+        },
+        {
+          "book": "pa2e",
+          "module": "m81289",
+          "section": "4.5",
+          "id": "fs-id1756676",
+          "type": "checkpoint",
+          "label": "Try It 4.142",
+          "title": ""
+        },
+        {
+          "book": "pa2e",
+          "module": "m81289",
+          "section": "4.5",
+          "id": "fs-id4337738",
+          "type": "example",
+          "label": "Example 4.72",
+          "title": ""
+        },
+        {
+          "book": "pa2e",
+          "module": "m81289",
+          "section": "4.5",
+          "id": "fs-id1269584",
+          "type": "checkpoint",
+          "label": "Try It 4.143",
+          "title": ""
+        },
+        {
+          "book": "pa2e",
+          "module": "m81289",
+          "section": "4.5",
+          "id": "fs-id1931671",
+          "type": "checkpoint",
+          "label": "Try It 4.144",
+          "title": ""
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 27,
+        "ids": [
+          "fs-id1170573387465",
+          "fs-id1170573399904",
+          "fs-id1170571259931",
+          "fs-id1170572174644",
+          "fs-id1170572509954",
+          "fs-id1170572305829",
+          "fs-id1170571669713",
+          "fs-id1170571597999",
+          "fs-id1170572307613",
+          "fs-id1170571611949",
+          "fs-id1170571612021",
+          "fs-id1170571648139",
+          "fs-id1170571681422",
+          "fs-id1170571611196",
+          "fs-id1170572243714",
+          "fs-id1170571654968",
+          "fs-id1170572482649",
+          "fs-id1170571586166",
+          "fs-id1170572499899",
+          "fs-id1170571657390",
+          "fs-id1170572551466",
+          "fs-id1170572480473",
+          "fs-id1170573580625",
+          "fs-id1170573449551",
+          "fs-id1170571123500"
+        ]
+      },
+      "dependents": [
+        "pre_linear_eq",
+        "alg_slope",
+        "alg_rational",
+        "alg_complex_fraction",
+        "trig_values"
+      ],
+      "depth": 1,
+      "templates": [
+        "pre_fractions.add"
+      ],
+      "misconceptions": [
+        "pre_fractions.add_across",
+        "pre_fractions.scale_one_part",
+        "pre_fractions.invert_wrong_fraction"
+      ]
+    },
+    {
+      "id": "pre_exponents",
+      "name": "Exponent rules (product, quotient, power, negative)",
+      "kind": "foundation",
+      "section": null,
+      "book": "at2e",
+      "origin": "Algebra and Trigonometry 2e, 1.2",
+      "lesson": [
+        {
+          "book": "at2e",
+          "section": "1.2",
+          "module": "m51241",
+          "title": "Exponents and Scientific Notation",
+          "url": "https://openstax.org/books/algebra-and-trigonometry-2e",
+          "subsections": [
+            {
+              "id": "fs-id1167339172684",
+              "title": "Using the Product Rule of Exponents"
+            },
+            {
+              "id": "fs-id1167339149599",
+              "title": "Using the Quotient Rule of Exponents"
+            },
+            {
+              "id": "fs-id1167339220944",
+              "title": "Using the Power Rule of Exponents"
+            },
+            {
+              "id": "fs-id1167339240237",
+              "title": "Using the Negative Rule of Exponents"
+            }
+          ]
+        }
+      ],
+      "prerequisites": [
+        "pre_order_ops"
+      ],
+      "learning_objectives": [
+        "Use the product rule of exponents.",
+        "Use the quotient rule of exponents.",
+        "Use the power rule of exponents."
+      ],
+      "anchors": [
+        {
+          "book": "at2e",
+          "module": "m51241",
+          "section": "1.2",
+          "id": "fs-id1167339157846",
+          "type": "box",
+          "label": null,
+          "title": "The Product Rule of Exponents"
+        },
+        {
+          "book": "at2e",
+          "module": "m51241",
+          "section": "1.2",
+          "id": "Example_01_02_01",
+          "type": "example",
+          "label": "Example 1",
+          "title": "Using the Product Rule"
+        },
+        {
+          "book": "at2e",
+          "module": "m51241",
+          "section": "1.2",
+          "id": "fs-id1167339126338",
+          "type": "checkpoint",
+          "label": "Try It #1",
+          "title": ""
+        },
+        {
+          "book": "at2e",
+          "module": "m51241",
+          "section": "1.2",
+          "id": "fs-id1167339226601",
+          "type": "box",
+          "label": null,
+          "title": "The Quotient Rule of Exponents"
+        },
+        {
+          "book": "at2e",
+          "module": "m51241",
+          "section": "1.2",
+          "id": "Example_01_02_02",
+          "type": "example",
+          "label": "Example 2",
+          "title": "Using the Quotient Rule"
+        },
+        {
+          "book": "at2e",
+          "module": "m51241",
+          "section": "1.2",
+          "id": "fs-id1167339220640",
+          "type": "checkpoint",
+          "label": "Try It #2",
+          "title": ""
+        },
+        {
+          "book": "at2e",
+          "module": "m51241",
+          "section": "1.2",
+          "id": "fs-id1167339223491",
+          "type": "box",
+          "label": null,
+          "title": "The Power Rule of Exponents"
+        },
+        {
+          "book": "at2e",
+          "module": "m51241",
+          "section": "1.2",
+          "id": "Example_01_02_03",
+          "type": "example",
+          "label": "Example 3",
+          "title": "Using the Power Rule"
+        },
+        {
+          "book": "at2e",
+          "module": "m51241",
+          "section": "1.2",
+          "id": "fs-id1167339219665",
+          "type": "checkpoint",
+          "label": "Try It #3",
+          "title": ""
+        },
+        {
+          "book": "at2e",
+          "module": "m51241",
+          "section": "1.2",
+          "id": "fs-id1167339241544",
+          "type": "box",
+          "label": null,
+          "title": "The Negative Rule of Exponents"
+        },
+        {
+          "book": "at2e",
+          "module": "m51241",
+          "section": "1.2",
+          "id": "Example_01_02_05",
+          "type": "example",
+          "label": "Example 5",
+          "title": "Using the Negative Exponent Rule"
+        },
+        {
+          "book": "at2e",
+          "module": "m51241",
+          "section": "1.2",
+          "id": "fs-id1167339242315",
+          "type": "checkpoint",
+          "label": "Try It #5",
+          "title": ""
+        },
+        {
+          "book": "at2e",
+          "module": "m51241",
+          "section": "1.2",
+          "id": "Example_01_02_06",
+          "type": "example",
+          "label": "Example 6",
+          "title": "Using the Product and Quotient Rules"
+        },
+        {
+          "book": "at2e",
+          "module": "m51241",
+          "section": "1.2",
+          "id": "fs-id1167339225268",
+          "type": "checkpoint",
+          "label": "Try It #6",
+          "title": ""
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 110,
+        "ids": [
+          "fs-id1170573387465",
+          "fs-id1170573399904",
+          "fs-id1170573397285",
+          "fs-id1170573306956",
+          "fs-id1170573406196",
+          "fs-id1170573571035",
+          "fs-id1170571259931",
+          "fs-id1170573615200",
+          "fs-id1170572455161",
+          "fs-id1170571614880",
+          "fs-id1170571612124",
+          "fs-id1170571596330",
+          "fs-id1170571656614",
+          "fs-id1170571652132",
+          "fs-id1170572624544",
+          "fs-id1170572499914",
+          "fs-id1170571599593",
+          "fs-id1170572174644",
+          "fs-id1170572509954",
+          "fs-id1170572305829",
+          "fs-id1170571675270",
+          "fs-id1170571669713",
+          "fs-id1170571597999",
+          "fs-id1170571681422",
+          "fs-id1170571558882"
+        ]
+      },
+      "dependents": [
+        "pre_polynomial_ops"
+      ],
+      "depth": 1,
+      "templates": [
+        "pre_exponents.simplify"
+      ],
+      "misconceptions": [
+        "pre_exponents.multiply_exponents",
+        "pre_exponents.add_power_exponents",
+        "pre_exponents.negative_exponent_sign"
+      ]
+    },
+    {
+      "id": "pre_polynomial_ops",
+      "name": "Multiply polynomials (distributive property, FOIL, special products)",
+      "kind": "foundation",
+      "section": null,
+      "book": "at2e",
+      "origin": "Algebra and Trigonometry 2e, 1.4",
+      "lesson": [
+        {
+          "book": "at2e",
+          "section": "1.4",
+          "module": "m51246",
+          "title": "Polynomials",
+          "url": "https://openstax.org/books/algebra-and-trigonometry-2e",
+          "subsections": [
+            {
+              "id": "fs-id1167339198311",
+              "title": "Multiplying Polynomials Using the Distributive Property"
+            },
+            {
+              "id": "fs-id1167339243382",
+              "title": "Using FOIL to Multiply Binomials"
+            },
+            {
+              "id": "fs-id1167339428910",
+              "title": "Perfect Square Trinomials"
+            },
+            {
+              "id": "fs-id1167339429838",
+              "title": "Difference of Squares"
+            }
+          ]
+        }
+      ],
+      "prerequisites": [
+        "pre_exponents"
+      ],
+      "learning_objectives": [
+        "Multiply polynomials.",
+        "Use FOIL to multiply binomials."
+      ],
+      "anchors": [
+        {
+          "book": "at2e",
+          "module": "m51246",
+          "section": "1.4",
+          "id": "fs-id1167339260622",
+          "type": "box",
+          "label": null,
+          "title": ""
+        },
+        {
+          "book": "at2e",
+          "module": "m51246",
+          "section": "1.4",
+          "id": "Example_01_04_04",
+          "type": "example",
+          "label": "Example 4",
+          "title": "Multiplying Polynomials Using the Distributive Property"
+        },
+        {
+          "book": "at2e",
+          "module": "m51246",
+          "section": "1.4",
+          "id": "fs-id1167339260552",
+          "type": "checkpoint",
+          "label": "Try It #4",
+          "title": ""
+        },
+        {
+          "book": "at2e",
+          "module": "m51246",
+          "section": "1.4",
+          "id": "fs-id1167339429094",
+          "type": "box",
+          "label": null,
+          "title": ""
+        },
+        {
+          "book": "at2e",
+          "module": "m51246",
+          "section": "1.4",
+          "id": "Example_01_04_05",
+          "type": "example",
+          "label": "Example 5",
+          "title": "Using FOIL to Multiply Binomials"
+        },
+        {
+          "book": "at2e",
+          "module": "m51246",
+          "section": "1.4",
+          "id": "fs-id1167339223541",
+          "type": "checkpoint",
+          "label": "Try It #5",
+          "title": ""
+        },
+        {
+          "book": "at2e",
+          "module": "m51246",
+          "section": "1.4",
+          "id": "fs-id1167339224300",
+          "type": "box",
+          "label": null,
+          "title": "Perfect Square Trinomials"
+        },
+        {
+          "book": "at2e",
+          "module": "m51246",
+          "section": "1.4",
+          "id": "fs-id1167339220526",
+          "type": "box",
+          "label": null,
+          "title": ""
+        },
+        {
+          "book": "at2e",
+          "module": "m51246",
+          "section": "1.4",
+          "id": "Example_01_04_06",
+          "type": "example",
+          "label": "Example 6",
+          "title": "Expanding Perfect Squares"
+        },
+        {
+          "book": "at2e",
+          "module": "m51246",
+          "section": "1.4",
+          "id": "fs-id1167339328808",
+          "type": "checkpoint",
+          "label": "Try It #6",
+          "title": ""
+        },
+        {
+          "book": "at2e",
+          "module": "m51246",
+          "section": "1.4",
+          "id": "fs-id1167339199666",
+          "type": "box",
+          "label": null,
+          "title": "Difference of Squares"
+        },
+        {
+          "book": "at2e",
+          "module": "m51246",
+          "section": "1.4",
+          "id": "fs-id1167339137913",
+          "type": "box",
+          "label": null,
+          "title": ""
+        },
+        {
+          "book": "at2e",
+          "module": "m51246",
+          "section": "1.4",
+          "id": "Example_01_04_07",
+          "type": "example",
+          "label": "Example 7",
+          "title": "Multiplying Binomials Resulting in a Difference of Squares"
+        },
+        {
+          "book": "at2e",
+          "module": "m51246",
+          "section": "1.4",
+          "id": "fs-id1167339138650",
+          "type": "checkpoint",
+          "label": "Try It #7",
+          "title": ""
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 3,
+        "ids": [
+          "fs-id1170571612021",
+          "fs-id1170572482649",
+          "fs-id1170570976348"
+        ]
+      },
+      "dependents": [
+        "alg_factor",
+        "alg_conjugate"
+      ],
+      "depth": 2,
+      "templates": [
+        "pre_polynomial_ops.expand"
+      ],
+      "misconceptions": [
+        "pre_polynomial_ops.square_of_sum",
+        "pre_polynomial_ops.foil_missing_term",
+        "pre_polynomial_ops.negative_distribution"
+      ]
+    },
+    {
+      "id": "pre_linear_eq",
+      "name": "Solve linear equations in one variable",
+      "kind": "foundation",
+      "section": null,
+      "book": "at2e",
+      "origin": "Algebra and Trigonometry 2e, 2.2",
+      "lesson": [
+        {
+          "book": "at2e",
+          "section": "2.2",
+          "module": "m51253",
+          "title": "Linear Equations in One Variable",
+          "url": "https://openstax.org/books/algebra-and-trigonometry-2e",
+          "subsections": [
+            {
+              "id": "fs-id2454936",
+              "title": "Solving Linear Equations in One Variable"
+            }
+          ]
+        }
+      ],
+      "prerequisites": [
+        "pre_order_ops",
+        "pre_fractions"
+      ],
+      "learning_objectives": [
+        "Solve equations in one variable algebraically."
+      ],
+      "anchors": [
+        {
+          "book": "at2e",
+          "module": "m51253",
+          "section": "2.2",
+          "id": "fs-id1549902",
+          "type": "box",
+          "label": null,
+          "title": "Linear Equation in One Variable"
+        },
+        {
+          "book": "at2e",
+          "module": "m51253",
+          "section": "2.2",
+          "id": "fs-id1592386",
+          "type": "box",
+          "label": null,
+          "title": ""
+        },
+        {
+          "book": "at2e",
+          "module": "m51253",
+          "section": "2.2",
+          "id": "Example_02_02_01",
+          "type": "example",
+          "label": "Example 3",
+          "title": "Solving an Equation in One Variable"
+        },
+        {
+          "book": "at2e",
+          "module": "m51253",
+          "section": "2.2",
+          "id": "fs-id1531582",
+          "type": "checkpoint",
+          "label": "Try It #1",
+          "title": ""
+        },
+        {
+          "book": "at2e",
+          "module": "m51253",
+          "section": "2.2",
+          "id": "Example_02_02_02",
+          "type": "example",
+          "label": "Example 4",
+          "title": "Solving an Equation Algebraically When the Variable Appears on Both Sides"
+        },
+        {
+          "book": "at2e",
+          "module": "m51253",
+          "section": "2.2",
+          "id": "fs-id1533557",
+          "type": "checkpoint",
+          "label": "Try It #2",
+          "title": ""
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 32,
+        "ids": [
+          "fs-id1170571290233",
+          "fs-id1170573571185",
+          "fs-id1170571124644",
+          "fs-id1170571626094",
+          "fs-id1170572333023",
+          "fs-id1170571597356",
+          "fs-id1170571712674",
+          "fs-id1170571657118",
+          "fs-id1170572332174",
+          "fs-id1170571690430",
+          "fs-id1170572243112",
+          "fs-id1170572550055",
+          "fs-id1170572330921",
+          "fs-id1170571711155",
+          "fs-id1170572233832",
+          "fs-id1170572294410",
+          "fs-id1170571699048",
+          "fs-id1170572338483",
+          "fs-id1170572624813",
+          "fs-id1170571637496",
+          "fs-id1170572618071",
+          "fs-id1170572618102",
+          "fs-id1170572601177",
+          "fs-id1170571599654",
+          "fs-id1170572448375"
+        ]
+      },
+      "dependents": [
+        "alg_abs_ineq",
+        "continuity_parameter"
+      ],
+      "depth": 2,
+      "templates": [
+        "pre_linear_eq.solve"
+      ],
+      "misconceptions": [
+        "pre_linear_eq.move_without_sign_change",
+        "pre_linear_eq.divide_one_term"
+      ]
+    },
+    {
       "id": "alg_eval",
       "name": "Evaluate a function at a point (incl. piecewise)",
       "kind": "foundation",
       "section": null,
-      "origin": "Ch. 1 Functions and Graphs",
-      "prerequisites": [],
-      "learning_objectives": [],
-      "anchors": [],
+      "book": "at2e",
+      "origin": "Algebra and Trigonometry 2e, 3.1-3.2",
+      "lesson": [
+        {
+          "book": "at2e",
+          "section": "3.1",
+          "module": "m51261",
+          "title": "Functions and Function Notation",
+          "url": "https://openstax.org/books/algebra-and-trigonometry-2e",
+          "subsections": [
+            {
+              "id": "fs-id1165137425943",
+              "title": "Evaluation of Functions in Algebraic Forms"
+            }
+          ]
+        },
+        {
+          "book": "at2e",
+          "section": "3.2",
+          "module": "m51262",
+          "title": "Domain and Range",
+          "url": "https://openstax.org/books/algebra-and-trigonometry-2e",
+          "subsections": [
+            {
+              "id": "fs-id1165135440477",
+              "title": "Graphing Piecewise-Defined Functions"
+            }
+          ]
+        }
+      ],
+      "prerequisites": [
+        "pre_order_ops"
+      ],
+      "learning_objectives": [
+        "Find the value of a function.",
+        "Graph piecewise-defined functions."
+      ],
+      "anchors": [
+        {
+          "book": "at2e",
+          "module": "m51261",
+          "section": "3.1",
+          "id": "fs-id1165135613610",
+          "type": "box",
+          "label": null,
+          "title": ""
+        },
+        {
+          "book": "at2e",
+          "module": "m51261",
+          "section": "3.1",
+          "id": "Example_01_01_06",
+          "type": "example",
+          "label": "Example 7",
+          "title": "Evaluating Functions at Specific Values"
+        },
+        {
+          "book": "at2e",
+          "module": "m51261",
+          "section": "3.1",
+          "id": "Example_01_01_07",
+          "type": "example",
+          "label": "Example 8",
+          "title": "Evaluating Functions"
+        },
+        {
+          "book": "at2e",
+          "module": "m51261",
+          "section": "3.1",
+          "id": "fs-id1165137704746",
+          "type": "checkpoint",
+          "label": "Try It #4",
+          "title": ""
+        },
+        {
+          "book": "at2e",
+          "module": "m51261",
+          "section": "3.1",
+          "id": "Example_01_01_08",
+          "type": "example",
+          "label": "Example 9",
+          "title": "Solving Functions"
+        },
+        {
+          "book": "at2e",
+          "module": "m51261",
+          "section": "3.1",
+          "id": "fs-id1165133056923",
+          "type": "checkpoint",
+          "label": "Try It #5",
+          "title": ""
+        },
+        {
+          "book": "at2e",
+          "module": "m51262",
+          "section": "3.2",
+          "id": "fs-id1165137531241",
+          "type": "box",
+          "label": null,
+          "title": "Piecewise Function"
+        },
+        {
+          "book": "at2e",
+          "module": "m51262",
+          "section": "3.2",
+          "id": "fs-id1165137768426",
+          "type": "box",
+          "label": null,
+          "title": ""
+        },
+        {
+          "book": "at2e",
+          "module": "m51262",
+          "section": "3.2",
+          "id": "Example_01_02_11",
+          "type": "example",
+          "label": "Example 14",
+          "title": "Writing a Piecewise Function"
+        },
+        {
+          "book": "at2e",
+          "module": "m51262",
+          "section": "3.2",
+          "id": "Example_01_02_12",
+          "type": "example",
+          "label": "Example 15",
+          "title": "Working with a Piecewise Function"
+        },
+        {
+          "book": "at2e",
+          "module": "m51262",
+          "section": "3.2",
+          "id": "fs-id1165137600493",
+          "type": "box",
+          "label": null,
+          "title": ""
+        },
+        {
+          "book": "at2e",
+          "module": "m51262",
+          "section": "3.2",
+          "id": "Example_01_02_13",
+          "type": "example",
+          "label": "Example 16",
+          "title": "Graphing a Piecewise Function"
+        },
+        {
+          "book": "at2e",
+          "module": "m51262",
+          "section": "3.2",
+          "id": "fs-id1165137762558",
+          "type": "checkpoint",
+          "label": "Try It #8",
+          "title": ""
+        }
+      ],
       "glossary": [],
       "exercised_in": {
         "count": 57,
@@ -134,7 +1396,7 @@
         "continuity_point",
         "ivt"
       ],
-      "depth": 0,
+      "depth": 1,
       "templates": [
         "alg_eval.poly",
         "alg_eval.piecewise"
@@ -150,12 +1412,68 @@
       "name": "Slope of the line through two points",
       "kind": "foundation",
       "section": null,
-      "origin": "Ch. 1 Functions and Graphs",
-      "prerequisites": [
-        "alg_eval"
+      "book": "at2e",
+      "origin": "Algebra and Trigonometry 2e, 2.2",
+      "lesson": [
+        {
+          "book": "at2e",
+          "section": "2.2",
+          "module": "m51253",
+          "title": "Linear Equations in One Variable",
+          "url": "https://openstax.org/books/algebra-and-trigonometry-2e",
+          "subsections": [
+            {
+              "id": "fs-id2737079",
+              "title": "The Slope of a Line"
+            }
+          ]
+        }
       ],
-      "learning_objectives": [],
-      "anchors": [],
+      "prerequisites": [
+        "alg_eval",
+        "pre_fractions"
+      ],
+      "learning_objectives": [
+        "Find a linear equation."
+      ],
+      "anchors": [
+        {
+          "book": "at2e",
+          "module": "m51253",
+          "section": "2.2",
+          "id": "fs-id1467947",
+          "type": "box",
+          "label": null,
+          "title": "The Slope of a Line"
+        },
+        {
+          "book": "at2e",
+          "module": "m51253",
+          "section": "2.2",
+          "id": "Example_02_02_08",
+          "type": "example",
+          "label": "Example 10",
+          "title": "Finding the Slope of a Line Given Two Points"
+        },
+        {
+          "book": "at2e",
+          "module": "m51253",
+          "section": "2.2",
+          "id": "fs-id1225501",
+          "type": "checkpoint",
+          "label": "Try It #7",
+          "title": ""
+        },
+        {
+          "book": "at2e",
+          "module": "m51253",
+          "section": "2.2",
+          "id": "Example_02_02_09",
+          "type": "example",
+          "label": "Example 11",
+          "title": "Identifying the Slope and y-intercept of a Line Given an Equation"
+        }
+      ],
       "glossary": [],
       "exercised_in": {
         "count": 20,
@@ -186,7 +1504,7 @@
         "secant_slope",
         "avg_velocity"
       ],
-      "depth": 1,
+      "depth": 2,
       "templates": [
         "alg_slope.two_points"
       ],
@@ -200,10 +1518,207 @@
       "name": "Factor polynomials (common factor, trinomials, difference of squares/cubes)",
       "kind": "foundation",
       "section": null,
-      "origin": "Algebra",
-      "prerequisites": [],
-      "learning_objectives": [],
-      "anchors": [],
+      "book": "at2e",
+      "origin": "Algebra and Trigonometry 2e, 1.5",
+      "lesson": [
+        {
+          "book": "at2e",
+          "section": "1.5",
+          "module": "m51247",
+          "title": "Factoring Polynomials",
+          "url": "https://openstax.org/books/algebra-and-trigonometry-2e",
+          "subsections": [
+            {
+              "id": "fs-id1167339224262",
+              "title": "Factoring the Greatest Common Factor of a Polynomial"
+            },
+            {
+              "id": "fs-id1167339432992",
+              "title": "Factoring a Trinomial with Leading Coefficient 1"
+            },
+            {
+              "id": "fs-id1167339344862",
+              "title": "Factoring a Difference of Squares"
+            },
+            {
+              "id": "fs-id1167339281638",
+              "title": "Factoring the Sum and Difference of Cubes"
+            }
+          ]
+        }
+      ],
+      "prerequisites": [
+        "pre_polynomial_ops"
+      ],
+      "learning_objectives": [
+        "Factor a trinomial.",
+        "Factor a difference of squares.",
+        "Factor the sum and difference of cubes."
+      ],
+      "anchors": [
+        {
+          "book": "at2e",
+          "module": "m51247",
+          "section": "1.5",
+          "id": "fs-id1167339144723",
+          "type": "box",
+          "label": null,
+          "title": "Greatest Common Factor"
+        },
+        {
+          "book": "at2e",
+          "module": "m51247",
+          "section": "1.5",
+          "id": "fs-id1167339220518",
+          "type": "box",
+          "label": null,
+          "title": ""
+        },
+        {
+          "book": "at2e",
+          "module": "m51247",
+          "section": "1.5",
+          "id": "Example_01_05_01",
+          "type": "example",
+          "label": "Example 1",
+          "title": "Factoring the Greatest Common Factor"
+        },
+        {
+          "book": "at2e",
+          "module": "m51247",
+          "section": "1.5",
+          "id": "fs-id1167339144942",
+          "type": "checkpoint",
+          "label": "Try It #1",
+          "title": ""
+        },
+        {
+          "book": "at2e",
+          "module": "m51247",
+          "section": "1.5",
+          "id": "fs-id1167339149443",
+          "type": "box",
+          "label": null,
+          "title": "Factoring a Trinomial with Leading Coefficient 1"
+        },
+        {
+          "book": "at2e",
+          "module": "m51247",
+          "section": "1.5",
+          "id": "fs-id1167339157766",
+          "type": "box",
+          "label": null,
+          "title": ""
+        },
+        {
+          "book": "at2e",
+          "module": "m51247",
+          "section": "1.5",
+          "id": "Example_01_05_02",
+          "type": "example",
+          "label": "Example 2",
+          "title": "Factoring a Trinomial with Leading Coefficient 1"
+        },
+        {
+          "book": "at2e",
+          "module": "m51247",
+          "section": "1.5",
+          "id": "fs-id1167339261843",
+          "type": "checkpoint",
+          "label": "Try It #2",
+          "title": ""
+        },
+        {
+          "book": "at2e",
+          "module": "m51247",
+          "section": "1.5",
+          "id": "fs-id1167339139367",
+          "type": "box",
+          "label": null,
+          "title": "Differences of Squares"
+        },
+        {
+          "book": "at2e",
+          "module": "m51247",
+          "section": "1.5",
+          "id": "fs-id1167339243070",
+          "type": "box",
+          "label": null,
+          "title": ""
+        },
+        {
+          "book": "at2e",
+          "module": "m51247",
+          "section": "1.5",
+          "id": "Example_01_05_05",
+          "type": "example",
+          "label": "Example 5",
+          "title": "Factoring a Difference of Squares"
+        },
+        {
+          "book": "at2e",
+          "module": "m51247",
+          "section": "1.5",
+          "id": "fs-id1167339432780",
+          "type": "checkpoint",
+          "label": "Try It #5",
+          "title": ""
+        },
+        {
+          "book": "at2e",
+          "module": "m51247",
+          "section": "1.5",
+          "id": "fs-id1167339281550",
+          "type": "box",
+          "label": null,
+          "title": "Sum and Difference of Cubes"
+        },
+        {
+          "book": "at2e",
+          "module": "m51247",
+          "section": "1.5",
+          "id": "fs-id1167339324784",
+          "type": "box",
+          "label": null,
+          "title": ""
+        },
+        {
+          "book": "at2e",
+          "module": "m51247",
+          "section": "1.5",
+          "id": "Example_01_05_06",
+          "type": "example",
+          "label": "Example 6",
+          "title": "Factoring a Sum of Cubes"
+        },
+        {
+          "book": "at2e",
+          "module": "m51247",
+          "section": "1.5",
+          "id": "fs-id1167339243153",
+          "type": "checkpoint",
+          "label": "Try It #6",
+          "title": ""
+        },
+        {
+          "book": "at2e",
+          "module": "m51247",
+          "section": "1.5",
+          "id": "Example_01_05_07",
+          "type": "example",
+          "label": "Example 7",
+          "title": "Factoring a Difference of Cubes"
+        },
+        {
+          "book": "at2e",
+          "module": "m51247",
+          "section": "1.5",
+          "id": "fs-id1167339259671",
+          "type": "checkpoint",
+          "label": "Try It #7",
+          "title": ""
+        }
+      ],
       "glossary": [],
       "exercised_in": {
         "count": 33,
@@ -238,9 +1753,10 @@
       "dependents": [
         "alg_rational",
         "alg_domain",
+        "trig_identities",
         "factor_cancel"
       ],
-      "depth": 0,
+      "depth": 3,
       "templates": [
         "alg_factor.trinomial",
         "alg_factor.cubes"
@@ -256,12 +1772,59 @@
       "name": "Simplify rational expressions by cancelling common factors",
       "kind": "foundation",
       "section": null,
-      "origin": "Algebra",
-      "prerequisites": [
-        "alg_factor"
+      "book": "at2e",
+      "origin": "Algebra and Trigonometry 2e, 1.6",
+      "lesson": [
+        {
+          "book": "at2e",
+          "section": "1.6",
+          "module": "m51248",
+          "title": "Rational Expressions",
+          "url": "https://openstax.org/books/algebra-and-trigonometry-2e",
+          "subsections": [
+            {
+              "id": "fs-id1167339317968",
+              "title": "Simplifying Rational Expressions"
+            }
+          ]
+        }
       ],
-      "learning_objectives": [],
-      "anchors": [],
+      "prerequisites": [
+        "alg_factor",
+        "pre_fractions"
+      ],
+      "learning_objectives": [
+        "Simplify rational expressions."
+      ],
+      "anchors": [
+        {
+          "book": "at2e",
+          "module": "m51248",
+          "section": "1.6",
+          "id": "fs-id1167339281673",
+          "type": "box",
+          "label": null,
+          "title": ""
+        },
+        {
+          "book": "at2e",
+          "module": "m51248",
+          "section": "1.6",
+          "id": "Example_01_06_01",
+          "type": "example",
+          "label": "Example 1",
+          "title": "Simplifying Rational Expressions"
+        },
+        {
+          "book": "at2e",
+          "module": "m51248",
+          "section": "1.6",
+          "id": "fs-id1167339154122",
+          "type": "checkpoint",
+          "label": "Try It #1",
+          "title": ""
+        }
+      ],
       "glossary": [],
       "exercised_in": {
         "count": 33,
@@ -297,7 +1860,7 @@
         "alg_complex_fraction",
         "factor_cancel"
       ],
-      "depth": 1,
+      "depth": 4,
       "templates": [
         "alg_rational.cancel"
       ],
@@ -311,10 +1874,85 @@
       "name": "Rationalize using a conjugate",
       "kind": "foundation",
       "section": null,
-      "origin": "Algebra",
-      "prerequisites": [],
-      "learning_objectives": [],
-      "anchors": [],
+      "book": "at2e",
+      "origin": "Algebra and Trigonometry 2e, 1.3",
+      "lesson": [
+        {
+          "book": "at2e",
+          "section": "1.3",
+          "module": "m51242",
+          "title": "Radicals and Rational Exponents",
+          "url": "https://openstax.org/books/algebra-and-trigonometry-2e",
+          "subsections": [
+            {
+              "id": "fs-id1483223",
+              "title": "Rationalizing Denominators"
+            }
+          ]
+        }
+      ],
+      "prerequisites": [
+        "pre_polynomial_ops"
+      ],
+      "learning_objectives": [
+        "Rationalize denominators."
+      ],
+      "anchors": [
+        {
+          "book": "at2e",
+          "module": "m51242",
+          "section": "1.3",
+          "id": "fs-id1507274",
+          "type": "box",
+          "label": null,
+          "title": ""
+        },
+        {
+          "book": "at2e",
+          "module": "m51242",
+          "section": "1.3",
+          "id": "Example_01_03_08",
+          "type": "example",
+          "label": "Example 8",
+          "title": "Rationalizing a Denominator Containing a Single Term"
+        },
+        {
+          "book": "at2e",
+          "module": "m51242",
+          "section": "1.3",
+          "id": "fs-id1485671",
+          "type": "checkpoint",
+          "label": "Try It #8",
+          "title": ""
+        },
+        {
+          "book": "at2e",
+          "module": "m51242",
+          "section": "1.3",
+          "id": "fs-id1167339431925",
+          "type": "box",
+          "label": null,
+          "title": ""
+        },
+        {
+          "book": "at2e",
+          "module": "m51242",
+          "section": "1.3",
+          "id": "Example_01_03_09",
+          "type": "example",
+          "label": "Example 9",
+          "title": "Rationalizing a Denominator Containing Two Terms"
+        },
+        {
+          "book": "at2e",
+          "module": "m51242",
+          "section": "1.3",
+          "id": "fs-id1167339431968",
+          "type": "checkpoint",
+          "label": "Try It #9",
+          "title": ""
+        }
+      ],
       "glossary": [],
       "exercised_in": {
         "count": 9,
@@ -333,7 +1971,7 @@
       "dependents": [
         "conjugate_limit"
       ],
-      "depth": 0,
+      "depth": 3,
       "templates": [
         "alg_conjugate.rationalize"
       ],
@@ -348,12 +1986,100 @@
       "name": "Simplify complex fractions (common denominators)",
       "kind": "foundation",
       "section": null,
-      "origin": "Algebra",
-      "prerequisites": [
-        "alg_rational"
+      "book": "at2e",
+      "origin": "Algebra and Trigonometry 2e, 1.6",
+      "lesson": [
+        {
+          "book": "at2e",
+          "section": "1.6",
+          "module": "m51248",
+          "title": "Rational Expressions",
+          "url": "https://openstax.org/books/algebra-and-trigonometry-2e",
+          "subsections": [
+            {
+              "id": "fs-id1167339429240",
+              "title": "Adding and Subtracting Rational Expressions"
+            },
+            {
+              "id": "fs-id1167339268842",
+              "title": "Simplifying Complex Rational Expressions"
+            }
+          ]
+        }
       ],
-      "learning_objectives": [],
-      "anchors": [],
+      "prerequisites": [
+        "alg_rational",
+        "pre_fractions"
+      ],
+      "learning_objectives": [
+        "Add and subtract rational expressions.",
+        "Simplify complex rational expressions."
+      ],
+      "anchors": [
+        {
+          "book": "at2e",
+          "module": "m51248",
+          "section": "1.6",
+          "id": "fs-id1167339231542",
+          "type": "box",
+          "label": null,
+          "title": ""
+        },
+        {
+          "book": "at2e",
+          "module": "m51248",
+          "section": "1.6",
+          "id": "Example_01_06_04",
+          "type": "example",
+          "label": "Example 4",
+          "title": "Adding Rational Expressions"
+        },
+        {
+          "book": "at2e",
+          "module": "m51248",
+          "section": "1.6",
+          "id": "Example_01_06_05",
+          "type": "example",
+          "label": "Example 5",
+          "title": "Subtracting Rational Expressions"
+        },
+        {
+          "book": "at2e",
+          "module": "m51248",
+          "section": "1.6",
+          "id": "fs-id1167339243167",
+          "type": "checkpoint",
+          "label": "Try It #4",
+          "title": ""
+        },
+        {
+          "book": "at2e",
+          "module": "m51248",
+          "section": "1.6",
+          "id": "fs-id1167339196667",
+          "type": "box",
+          "label": null,
+          "title": ""
+        },
+        {
+          "book": "at2e",
+          "module": "m51248",
+          "section": "1.6",
+          "id": "Example_01_06_06",
+          "type": "example",
+          "label": "Example 6",
+          "title": "Simplifying Complex Rational Expressions"
+        },
+        {
+          "book": "at2e",
+          "module": "m51248",
+          "section": "1.6",
+          "id": "fs-id1167339223469",
+          "type": "checkpoint",
+          "label": "Try It #5",
+          "title": ""
+        }
+      ],
       "glossary": [],
       "exercised_in": {
         "count": 21,
@@ -384,7 +2110,7 @@
       "dependents": [
         "complex_fraction_limit"
       ],
-      "depth": 2,
+      "depth": 5,
       "templates": [
         "alg_complex_fraction.simplify"
       ],
@@ -398,12 +2124,59 @@
       "name": "Absolute value as a piecewise function",
       "kind": "foundation",
       "section": null,
-      "origin": "Ch. 1 Functions and Graphs",
+      "book": "at2e",
+      "origin": "Algebra and Trigonometry 2e, 3.6",
+      "lesson": [
+        {
+          "book": "at2e",
+          "section": "3.6",
+          "module": "m51267",
+          "title": "Absolute Value Functions",
+          "url": "https://openstax.org/books/algebra-and-trigonometry-2e",
+          "subsections": [
+            {
+              "id": "fs-id1165137426078",
+              "title": "Understanding Absolute Value"
+            }
+          ]
+        }
+      ],
       "prerequisites": [
         "alg_eval"
       ],
-      "learning_objectives": [],
-      "anchors": [],
+      "learning_objectives": [
+        "Graph an absolute value function.",
+        "Solve an absolute value equation."
+      ],
+      "anchors": [
+        {
+          "book": "at2e",
+          "module": "m51267",
+          "section": "3.6",
+          "id": "fs-id1165135404116",
+          "type": "box",
+          "label": null,
+          "title": "Absolute Value Function"
+        },
+        {
+          "book": "at2e",
+          "module": "m51267",
+          "section": "3.6",
+          "id": "Example_01_06_02",
+          "type": "example",
+          "label": "Example 2",
+          "title": "Using Absolute Value to Determine Resistance"
+        },
+        {
+          "book": "at2e",
+          "module": "m51267",
+          "section": "3.6",
+          "id": "fs-id1165137540249",
+          "type": "checkpoint",
+          "label": "Try It #1",
+          "title": ""
+        }
+      ],
       "glossary": [],
       "exercised_in": {
         "count": 53,
@@ -439,7 +2212,7 @@
         "alg_abs_ineq",
         "one_sided"
       ],
-      "depth": 1,
+      "depth": 2,
       "templates": [
         "alg_abs.unfold"
       ],
@@ -453,12 +2226,130 @@
       "name": "Find where a function is undefined (domain)",
       "kind": "foundation",
       "section": null,
-      "origin": "Ch. 1 Functions and Graphs",
+      "book": "at2e",
+      "origin": "Algebra and Trigonometry 2e, 3.2",
+      "lesson": [
+        {
+          "book": "at2e",
+          "section": "3.2",
+          "module": "m51262",
+          "title": "Domain and Range",
+          "url": "https://openstax.org/books/algebra-and-trigonometry-2e",
+          "subsections": [
+            {
+              "id": "fs-id1165135193832",
+              "title": "Finding the Domain of a Function Defined by an Equation"
+            }
+          ]
+        }
+      ],
       "prerequisites": [
         "alg_factor"
       ],
-      "learning_objectives": [],
-      "anchors": [],
+      "learning_objectives": [
+        "Find the domain of a function defined by an equation."
+      ],
+      "anchors": [
+        {
+          "book": "at2e",
+          "module": "m51262",
+          "section": "3.2",
+          "id": "Example_01_02_01",
+          "type": "example",
+          "label": "Example 4",
+          "title": "Finding the Domain of a Function as a Set of Ordered Pairs"
+        },
+        {
+          "book": "at2e",
+          "module": "m51262",
+          "section": "3.2",
+          "id": "fs-id1165137569901",
+          "type": "checkpoint",
+          "label": "Try It #1",
+          "title": ""
+        },
+        {
+          "book": "at2e",
+          "module": "m51262",
+          "section": "3.2",
+          "id": "fs-id1165134225655",
+          "type": "box",
+          "label": null,
+          "title": ""
+        },
+        {
+          "book": "at2e",
+          "module": "m51262",
+          "section": "3.2",
+          "id": "Example_01_02_02",
+          "type": "example",
+          "label": "Example 5",
+          "title": "Finding the Domain of a Function"
+        },
+        {
+          "book": "at2e",
+          "module": "m51262",
+          "section": "3.2",
+          "id": "fs-id1165135639906",
+          "type": "checkpoint",
+          "label": "Try It #2",
+          "title": ""
+        },
+        {
+          "book": "at2e",
+          "module": "m51262",
+          "section": "3.2",
+          "id": "fs-id1165137417188",
+          "type": "box",
+          "label": null,
+          "title": ""
+        },
+        {
+          "book": "at2e",
+          "module": "m51262",
+          "section": "3.2",
+          "id": "Example_01_02_03",
+          "type": "example",
+          "label": "Example 6",
+          "title": "Finding the Domain of a Function Involving a Denominator"
+        },
+        {
+          "book": "at2e",
+          "module": "m51262",
+          "section": "3.2",
+          "id": "fs-id1165133349280",
+          "type": "checkpoint",
+          "label": "Try It #3",
+          "title": ""
+        },
+        {
+          "book": "at2e",
+          "module": "m51262",
+          "section": "3.2",
+          "id": "fs-id1165135527005",
+          "type": "box",
+          "label": null,
+          "title": ""
+        },
+        {
+          "book": "at2e",
+          "module": "m51262",
+          "section": "3.2",
+          "id": "Example_01_02_04",
+          "type": "example",
+          "label": "Example 7",
+          "title": "Finding the Domain of a Function with an Even Root"
+        },
+        {
+          "book": "at2e",
+          "module": "m51262",
+          "section": "3.2",
+          "id": "fs-id1165137737842",
+          "type": "checkpoint",
+          "label": "Try It #4",
+          "title": ""
+        }
+      ],
       "glossary": [],
       "exercised_in": {
         "count": 94,
@@ -494,7 +2385,7 @@
         "vertical_asymptote",
         "continuity_interval"
       ],
-      "depth": 1,
+      "depth": 4,
       "templates": [
         "alg_domain.rational"
       ],
@@ -508,12 +2399,121 @@
       "name": "Determine the sign of an expression near a point",
       "kind": "foundation",
       "section": null,
-      "origin": "Algebra",
+      "book": "at2e",
+      "origin": "Algebra and Trigonometry 2e, 5.6",
+      "lesson": [
+        {
+          "book": "at2e",
+          "section": "5.6",
+          "module": "m51279",
+          "title": "Rational Functions",
+          "url": "https://openstax.org/books/algebra-and-trigonometry-2e",
+          "subsections": [
+            {
+              "id": "fs-id1165135397235",
+              "title": "Using Arrow Notation"
+            },
+            {
+              "id": "fs-id1165137759950",
+              "title": "Local Behavior of f(x)=(1)/(x)"
+            },
+            {
+              "id": "fs-id1165135194731",
+              "title": "Vertical Asymptotes"
+            }
+          ]
+        }
+      ],
       "prerequisites": [
         "alg_eval"
       ],
-      "learning_objectives": [],
-      "anchors": [],
+      "learning_objectives": [
+        "Use arrow notation.",
+        "Identify vertical asymptotes."
+      ],
+      "anchors": [
+        {
+          "book": "at2e",
+          "module": "m51279",
+          "section": "5.6",
+          "id": "fs-id1165137732344",
+          "type": "box",
+          "label": null,
+          "title": "Vertical Asymptote"
+        },
+        {
+          "book": "at2e",
+          "module": "m51279",
+          "section": "5.6",
+          "id": "fs-id1165137901226",
+          "type": "box",
+          "label": null,
+          "title": "Horizontal Asymptote"
+        },
+        {
+          "book": "at2e",
+          "module": "m51279",
+          "section": "5.6",
+          "id": "Example_03_07_01",
+          "type": "example",
+          "label": "Example 2",
+          "title": "Using Arrow Notation"
+        },
+        {
+          "book": "at2e",
+          "module": "m51279",
+          "section": "5.6",
+          "id": "fs-id1165137597363",
+          "type": "checkpoint",
+          "label": "Try It #1",
+          "title": ""
+        },
+        {
+          "book": "at2e",
+          "module": "m51279",
+          "section": "5.6",
+          "id": "Example_03_07_02",
+          "type": "example",
+          "label": "Example 3",
+          "title": "Using Transformations to Graph a Rational Function"
+        },
+        {
+          "book": "at2e",
+          "module": "m51279",
+          "section": "5.6",
+          "id": "fs-id1165137434563",
+          "type": "checkpoint",
+          "label": "Try It #2",
+          "title": ""
+        },
+        {
+          "book": "at2e",
+          "module": "m51279",
+          "section": "5.6",
+          "id": "fs-id1165137732344",
+          "type": "box",
+          "label": null,
+          "title": "Vertical Asymptote"
+        },
+        {
+          "book": "at2e",
+          "module": "m51279",
+          "section": "5.6",
+          "id": "fs-id1165133097252",
+          "type": "box",
+          "label": null,
+          "title": ""
+        },
+        {
+          "book": "at2e",
+          "module": "m51279",
+          "section": "5.6",
+          "id": "Example_03_07_05",
+          "type": "example",
+          "label": "Example 6",
+          "title": "Identifying Vertical Asymptotes"
+        }
+      ],
       "glossary": [],
       "exercised_in": {
         "count": 31,
@@ -549,7 +2549,7 @@
         "infinite_limits",
         "nonzero_over_zero"
       ],
-      "depth": 1,
+      "depth": 2,
       "templates": [
         "alg_sign.near_point"
       ],
@@ -563,12 +2563,86 @@
       "name": "Solve and manipulate absolute-value inequalities",
       "kind": "foundation",
       "section": null,
-      "origin": "Algebra",
-      "prerequisites": [
-        "alg_abs"
+      "book": "at2e",
+      "origin": "Algebra and Trigonometry 2e, 2.7",
+      "lesson": [
+        {
+          "book": "at2e",
+          "section": "2.7",
+          "module": "m51259",
+          "title": "Linear Inequalities and Absolute Value Inequalities",
+          "url": "https://openstax.org/books/algebra-and-trigonometry-2e",
+          "subsections": [
+            {
+              "id": "fs-id1161758",
+              "title": "Solving Absolute Value Inequalities"
+            }
+          ]
+        }
       ],
-      "learning_objectives": [],
-      "anchors": [],
+      "prerequisites": [
+        "alg_abs",
+        "pre_linear_eq"
+      ],
+      "learning_objectives": [
+        "Solve absolute value inequalities."
+      ],
+      "anchors": [
+        {
+          "book": "at2e",
+          "module": "m51259",
+          "section": "2.7",
+          "id": "fs-id2930959",
+          "type": "box",
+          "label": null,
+          "title": "Absolute Value Inequalities"
+        },
+        {
+          "book": "at2e",
+          "module": "m51259",
+          "section": "2.7",
+          "id": "Example_02_07_09",
+          "type": "example",
+          "label": "Example 9",
+          "title": "Determining a Number within a Prescribed Distance"
+        },
+        {
+          "book": "at2e",
+          "module": "m51259",
+          "section": "2.7",
+          "id": "fs-id2957557",
+          "type": "checkpoint",
+          "label": "Try It #9",
+          "title": ""
+        },
+        {
+          "book": "at2e",
+          "module": "m51259",
+          "section": "2.7",
+          "id": "Example_02_07_10",
+          "type": "example",
+          "label": "Example 10",
+          "title": "Solving an Absolute Value Inequality"
+        },
+        {
+          "book": "at2e",
+          "module": "m51259",
+          "section": "2.7",
+          "id": "Example_02_07_11",
+          "type": "example",
+          "label": "Example 11",
+          "title": "Using a Graphical Approach to Solve Absolute Value Inequalities"
+        },
+        {
+          "book": "at2e",
+          "module": "m51259",
+          "section": "2.7",
+          "id": "fs-id1969441",
+          "type": "checkpoint",
+          "label": "Try It #10",
+          "title": ""
+        }
+      ],
       "glossary": [],
       "exercised_in": {
         "count": 29,
@@ -603,7 +2677,7 @@
       "dependents": [
         "epsilon_delta_def"
       ],
-      "depth": 2,
+      "depth": 3,
       "templates": [
         "alg_abs_ineq.solve"
       ],
@@ -617,10 +2691,164 @@
       "name": "Exact trig values at special angles (radians)",
       "kind": "foundation",
       "section": null,
-      "origin": "Ch. 1 Trigonometric Functions",
-      "prerequisites": [],
-      "learning_objectives": [],
-      "anchors": [],
+      "book": "at2e",
+      "origin": "Algebra and Trigonometry 2e, 7.3-7.4",
+      "lesson": [
+        {
+          "book": "at2e",
+          "section": "7.3",
+          "module": "m51285",
+          "title": "Unit Circle",
+          "url": "https://openstax.org/books/algebra-and-trigonometry-2e",
+          "subsections": [
+            {
+              "id": "fs-id2052108",
+              "title": "Finding Sines and Cosines of Angles on an Axis"
+            },
+            {
+              "id": "fs-id1602132",
+              "title": "Finding Sines and Cosines of Special Angles"
+            },
+            {
+              "id": "fs-id1791875",
+              "title": "Using Reference Angles to Evaluate Trigonometric Functions"
+            }
+          ]
+        },
+        {
+          "book": "at2e",
+          "section": "7.4",
+          "module": "m51286",
+          "title": "The Other Trigonometric Functions",
+          "url": "https://openstax.org/books/algebra-and-trigonometry-2e",
+          "subsections": [
+            {
+              "id": "fs-id1615539",
+              "title": "Using Reference Angles to Evaluate Tangent, Secant, Cosecant, and Cotangent"
+            }
+          ]
+        }
+      ],
+      "prerequisites": [
+        "pre_fractions"
+      ],
+      "learning_objectives": [
+        "Find function values for the sine and cosine of 30° or ( π 6 ),45° or ( π 4 ), and 60 ∘ or ( π 3 ).",
+        "Identify the domain and range of sine and cosine functions.",
+        "Find reference angles.",
+        "Use reference angles to evaluate trigonometric functions.",
+        "Use reference angles to evaluate the trigonometric functions secant, tangent, and cotangent."
+      ],
+      "anchors": [
+        {
+          "book": "at2e",
+          "module": "m51285",
+          "section": "7.3",
+          "id": "Example_07_03_02",
+          "type": "example",
+          "label": "Example 2",
+          "title": "Calculating Sines and Cosines along an Axis"
+        },
+        {
+          "book": "at2e",
+          "module": "m51285",
+          "section": "7.3",
+          "id": "fs-id1841712",
+          "type": "checkpoint",
+          "label": "Try It #2",
+          "title": ""
+        },
+        {
+          "book": "at2e",
+          "module": "m51285",
+          "section": "7.3",
+          "id": "fs-id2063619",
+          "type": "box",
+          "label": null,
+          "title": ""
+        },
+        {
+          "book": "at2e",
+          "module": "m51285",
+          "section": "7.3",
+          "id": "Example_07_03_04",
+          "type": "example",
+          "label": "Example 4",
+          "title": "Using a Graphing Calculator to Find Sine and Cosine"
+        },
+        {
+          "book": "at2e",
+          "module": "m51285",
+          "section": "7.3",
+          "id": "fs-id1332638",
+          "type": "checkpoint",
+          "label": "Try It #4",
+          "title": ""
+        },
+        {
+          "book": "at2e",
+          "module": "m51285",
+          "section": "7.3",
+          "id": "fs-id2673706",
+          "type": "box",
+          "label": null,
+          "title": "Using Reference Angles to Find Cosine and Sine"
+        },
+        {
+          "book": "at2e",
+          "module": "m51285",
+          "section": "7.3",
+          "id": "fs-id2660231",
+          "type": "box",
+          "label": null,
+          "title": ""
+        },
+        {
+          "book": "at2e",
+          "module": "m51285",
+          "section": "7.3",
+          "id": "Example_07_03_06",
+          "type": "example",
+          "label": "Example 6",
+          "title": "Using Reference Angles to Find Sine and Cosine"
+        },
+        {
+          "book": "at2e",
+          "module": "m51285",
+          "section": "7.3",
+          "id": "fs-id2262383",
+          "type": "checkpoint",
+          "label": "Try It #6",
+          "title": ""
+        },
+        {
+          "book": "at2e",
+          "module": "m51286",
+          "section": "7.4",
+          "id": "fs-id1476281",
+          "type": "box",
+          "label": null,
+          "title": ""
+        },
+        {
+          "book": "at2e",
+          "module": "m51286",
+          "section": "7.4",
+          "id": "Example_07_04_03",
+          "type": "example",
+          "label": "Example 3",
+          "title": "Using Reference Angles to Find Trigonometric Functions"
+        },
+        {
+          "book": "at2e",
+          "module": "m51286",
+          "section": "7.4",
+          "id": "fs-id1676954",
+          "type": "checkpoint",
+          "label": "Try It #3",
+          "title": ""
+        }
+      ],
       "glossary": [],
       "exercised_in": {
         "count": 7,
@@ -638,7 +2866,7 @@
         "trig_identities",
         "composite_continuity"
       ],
-      "depth": 0,
+      "depth": 2,
       "templates": [
         "trig_values.special"
       ],
@@ -653,12 +2881,284 @@
       "name": "Basic trig identities (Pythagorean, quotient)",
       "kind": "foundation",
       "section": null,
-      "origin": "Ch. 1 Trigonometric Functions",
-      "prerequisites": [
-        "trig_values"
+      "book": "at2e",
+      "origin": "Algebra and Trigonometry 2e, 7.4 and 9.1",
+      "lesson": [
+        {
+          "book": "at2e",
+          "section": "7.4",
+          "module": "m51286",
+          "title": "The Other Trigonometric Functions",
+          "url": "https://openstax.org/books/algebra-and-trigonometry-2e",
+          "subsections": [
+            {
+              "id": "fs-id1609679",
+              "title": "Recognizing and Using Fundamental Identities"
+            },
+            {
+              "id": "fs-id2811451",
+              "title": "Alternate Forms of the Pythagorean Identity"
+            }
+          ]
+        },
+        {
+          "book": "at2e",
+          "section": "9.1",
+          "module": "m51288",
+          "title": "Verifying Trigonometric Identities and Using Trigonometric Identities to Simplify Trigonometric Expressions",
+          "url": "https://openstax.org/books/algebra-and-trigonometry-2e",
+          "subsections": [
+            {
+              "id": "fs-id2485952",
+              "title": "Using Algebra to Simplify Trigonometric Expressions"
+            }
+          ]
+        }
       ],
-      "learning_objectives": [],
-      "anchors": [],
+      "prerequisites": [
+        "trig_values",
+        "alg_factor"
+      ],
+      "learning_objectives": [
+        "Recognize and use fundamental identities.",
+        "Simplify trigonometric expressions using algebra and the identities."
+      ],
+      "anchors": [
+        {
+          "book": "at2e",
+          "module": "m51286",
+          "section": "7.4",
+          "id": "fs-id2211168",
+          "type": "box",
+          "label": null,
+          "title": "Fundamental Identities"
+        },
+        {
+          "book": "at2e",
+          "module": "m51286",
+          "section": "7.4",
+          "id": "Example_07_04_05",
+          "type": "example",
+          "label": "Example 5",
+          "title": "Using Identities to Evaluate Trigonometric Functions"
+        },
+        {
+          "book": "at2e",
+          "module": "m51286",
+          "section": "7.4",
+          "id": "fs-id2382454",
+          "type": "checkpoint",
+          "label": "Try It #5",
+          "title": ""
+        },
+        {
+          "book": "at2e",
+          "module": "m51286",
+          "section": "7.4",
+          "id": "Example_07_04_06",
+          "type": "example",
+          "label": "Example 6",
+          "title": "Using Identities to Simplify Trigonometric Expressions"
+        },
+        {
+          "book": "at2e",
+          "module": "m51286",
+          "section": "7.4",
+          "id": "fs-id1601420",
+          "type": "checkpoint",
+          "label": "Try It #6",
+          "title": ""
+        },
+        {
+          "book": "at2e",
+          "module": "m51286",
+          "section": "7.4",
+          "id": "fs-id2041755",
+          "type": "box",
+          "label": null,
+          "title": "Alternate Forms of the Pythagorean Identity"
+        },
+        {
+          "book": "at2e",
+          "module": "m51286",
+          "section": "7.4",
+          "id": "Example_07_04_07",
+          "type": "example",
+          "label": "Example 7",
+          "title": "Using Identities to Relate Trigonometric Functions"
+        },
+        {
+          "book": "at2e",
+          "module": "m51286",
+          "section": "7.4",
+          "id": "fs-id2441325",
+          "type": "checkpoint",
+          "label": "Try It #7",
+          "title": ""
+        },
+        {
+          "book": "at2e",
+          "module": "m51286",
+          "section": "7.4",
+          "id": "fs-id2211792",
+          "type": "box",
+          "label": null,
+          "title": "Period of a Function"
+        },
+        {
+          "book": "at2e",
+          "module": "m51286",
+          "section": "7.4",
+          "id": "Example_07_04_08",
+          "type": "example",
+          "label": "Example 8",
+          "title": "Finding the Values of Trigonometric Functions"
+        },
+        {
+          "book": "at2e",
+          "module": "m51286",
+          "section": "7.4",
+          "id": "fs-id2562464",
+          "type": "checkpoint",
+          "label": "Try It #8",
+          "title": ""
+        },
+        {
+          "book": "at2e",
+          "module": "m51286",
+          "section": "7.4",
+          "id": "Example_07_04_09",
+          "type": "example",
+          "label": "Example 9",
+          "title": "Finding the Value of Trigonometric Functions"
+        },
+        {
+          "book": "at2e",
+          "module": "m51286",
+          "section": "7.4",
+          "id": "fs-id2028568",
+          "type": "checkpoint",
+          "label": "Try It #9",
+          "title": ""
+        },
+        {
+          "book": "at2e",
+          "module": "m51286",
+          "section": "7.4",
+          "id": "fs-id2041755",
+          "type": "box",
+          "label": null,
+          "title": "Alternate Forms of the Pythagorean Identity"
+        },
+        {
+          "book": "at2e",
+          "module": "m51286",
+          "section": "7.4",
+          "id": "Example_07_04_07",
+          "type": "example",
+          "label": "Example 7",
+          "title": "Using Identities to Relate Trigonometric Functions"
+        },
+        {
+          "book": "at2e",
+          "module": "m51286",
+          "section": "7.4",
+          "id": "fs-id2441325",
+          "type": "checkpoint",
+          "label": "Try It #7",
+          "title": ""
+        },
+        {
+          "book": "at2e",
+          "module": "m51286",
+          "section": "7.4",
+          "id": "fs-id2211792",
+          "type": "box",
+          "label": null,
+          "title": "Period of a Function"
+        },
+        {
+          "book": "at2e",
+          "module": "m51286",
+          "section": "7.4",
+          "id": "Example_07_04_08",
+          "type": "example",
+          "label": "Example 8",
+          "title": "Finding the Values of Trigonometric Functions"
+        },
+        {
+          "book": "at2e",
+          "module": "m51286",
+          "section": "7.4",
+          "id": "fs-id2562464",
+          "type": "checkpoint",
+          "label": "Try It #8",
+          "title": ""
+        },
+        {
+          "book": "at2e",
+          "module": "m51286",
+          "section": "7.4",
+          "id": "Example_07_04_09",
+          "type": "example",
+          "label": "Example 9",
+          "title": "Finding the Value of Trigonometric Functions"
+        },
+        {
+          "book": "at2e",
+          "module": "m51286",
+          "section": "7.4",
+          "id": "fs-id2028568",
+          "type": "checkpoint",
+          "label": "Try It #9",
+          "title": ""
+        },
+        {
+          "book": "at2e",
+          "module": "m51288",
+          "section": "9.1",
+          "id": "Example_07_01_08",
+          "type": "example",
+          "label": "Example 8",
+          "title": "Writing the Trigonometric Expression as an Algebraic Expression"
+        },
+        {
+          "book": "at2e",
+          "module": "m51288",
+          "section": "9.1",
+          "id": "Example_07_05_09",
+          "type": "example",
+          "label": "Example 9",
+          "title": "Rewriting a Trigonometric Expression Using the Difference of Squares"
+        },
+        {
+          "book": "at2e",
+          "module": "m51288",
+          "section": "9.1",
+          "id": "fs-id2438482",
+          "type": "checkpoint",
+          "label": "Try It #4",
+          "title": ""
+        },
+        {
+          "book": "at2e",
+          "module": "m51288",
+          "section": "9.1",
+          "id": "Example_07_01_10",
+          "type": "example",
+          "label": "Example 10",
+          "title": "Simplify by Rewriting and Using Substitution"
+        },
+        {
+          "book": "at2e",
+          "module": "m51288",
+          "section": "9.1",
+          "id": "fs-id2607392",
+          "type": "checkpoint",
+          "label": "Try It #5",
+          "title": ""
+        }
+      ],
       "glossary": [],
       "exercised_in": {
         "count": 26,
@@ -693,7 +3193,7 @@
       "dependents": [
         "trig_limits"
       ],
-      "depth": 1,
+      "depth": 4,
       "templates": [
         "trig_identities.simplify"
       ],
@@ -707,7 +3207,9 @@
       "name": "Slopes of secant lines approaching a tangent",
       "kind": "chapter",
       "section": "2.1",
+      "book": "calc1",
       "origin": "Section 2.1",
+      "lesson": [],
       "prerequisites": [
         "alg_slope",
         "alg_eval"
@@ -751,7 +3253,7 @@
         "ids": []
       },
       "dependents": [],
-      "depth": 2,
+      "depth": 3,
       "templates": [
         "secant_slope.value"
       ],
@@ -765,7 +3267,9 @@
       "name": "Average velocity approaching instantaneous velocity",
       "kind": "chapter",
       "section": "2.1",
+      "book": "calc1",
       "origin": "Section 2.1",
+      "lesson": [],
       "prerequisites": [
         "alg_slope"
       ],
@@ -807,7 +3311,7 @@
         "ids": []
       },
       "dependents": [],
-      "depth": 2,
+      "depth": 3,
       "templates": [
         "avg_velocity.interval"
       ],
@@ -821,7 +3325,9 @@
       "name": "Estimate area under a curve with rectangles",
       "kind": "chapter",
       "section": "2.1",
+      "book": "calc1",
       "origin": "Section 2.1",
+      "lesson": [],
       "prerequisites": [
         "alg_eval"
       ],
@@ -853,7 +3359,7 @@
         "ids": []
       },
       "dependents": [],
-      "depth": 1,
+      "depth": 2,
       "templates": [
         "area_rectangles.right"
       ],
@@ -867,7 +3373,9 @@
       "name": "Meaning and notation of a limit",
       "kind": "chapter",
       "section": "2.2",
+      "book": "calc1",
       "origin": "Section 2.2",
+      "lesson": [],
       "prerequisites": [
         "alg_eval"
       ],
@@ -903,7 +3411,7 @@
         "limit_laws",
         "epsilon_delta_def"
       ],
-      "depth": 1,
+      "depth": 2,
       "templates": [
         "limit_intuitive.value_vs_limit"
       ],
@@ -918,7 +3426,9 @@
       "name": "Estimate a limit from a table of values",
       "kind": "chapter",
       "section": "2.2",
+      "book": "calc1",
       "origin": "Section 2.2",
+      "lesson": [],
       "prerequisites": [
         "limit_intuitive",
         "alg_eval"
@@ -975,7 +3485,7 @@
         "ids": []
       },
       "dependents": [],
-      "depth": 2,
+      "depth": 3,
       "templates": [
         "limit_table.estimate"
       ],
@@ -989,7 +3499,9 @@
       "name": "Estimate limits from a graph",
       "kind": "chapter",
       "section": "2.2",
+      "book": "calc1",
       "origin": "Section 2.2",
+      "lesson": [],
       "prerequisites": [
         "limit_intuitive"
       ],
@@ -1036,7 +3548,7 @@
         "ids": []
       },
       "dependents": [],
-      "depth": 2,
+      "depth": 3,
       "templates": [
         "limit_graph.read"
       ],
@@ -1050,7 +3562,9 @@
       "name": "One-sided limits",
       "kind": "chapter",
       "section": "2.2",
+      "book": "calc1",
       "origin": "Section 2.2",
+      "lesson": [],
       "prerequisites": [
         "limit_intuitive",
         "alg_abs"
@@ -1100,7 +3614,7 @@
         "limit_existence",
         "infinite_limits"
       ],
-      "depth": 2,
+      "depth": 3,
       "templates": [
         "one_sided.piecewise"
       ],
@@ -1114,7 +3628,9 @@
       "name": "Two-sided limit exists iff one-sided limits agree",
       "kind": "chapter",
       "section": "2.2",
+      "book": "calc1",
       "origin": "Section 2.2",
+      "lesson": [],
       "prerequisites": [
         "one_sided"
       ],
@@ -1156,7 +3672,7 @@
       "dependents": [
         "piecewise_limits"
       ],
-      "depth": 3,
+      "depth": 4,
       "templates": [
         "limit_existence.sides"
       ],
@@ -1170,7 +3686,9 @@
       "name": "Infinite limits",
       "kind": "chapter",
       "section": "2.2",
+      "book": "calc1",
       "origin": "Section 2.2",
+      "lesson": [],
       "prerequisites": [
         "one_sided",
         "alg_sign"
@@ -1229,7 +3747,7 @@
         "vertical_asymptote",
         "nonzero_over_zero"
       ],
-      "depth": 3,
+      "depth": 4,
       "templates": [
         "infinite_limits.power"
       ],
@@ -1244,7 +3762,9 @@
       "name": "Identify vertical asymptotes",
       "kind": "chapter",
       "section": "2.2",
+      "book": "calc1",
       "origin": "Section 2.2",
+      "lesson": [],
       "prerequisites": [
         "infinite_limits",
         "alg_domain"
@@ -1291,7 +3811,7 @@
         "ids": []
       },
       "dependents": [],
-      "depth": 4,
+      "depth": 5,
       "templates": [
         "vertical_asymptote.rational"
       ],
@@ -1305,7 +3825,9 @@
       "name": "Apply the limit laws",
       "kind": "chapter",
       "section": "2.3",
+      "book": "calc1",
       "origin": "Section 2.3",
+      "lesson": [],
       "prerequisites": [
         "limit_intuitive"
       ],
@@ -1405,7 +3927,7 @@
         "squeeze",
         "trig_limits"
       ],
-      "depth": 2,
+      "depth": 3,
       "templates": [
         "limit_laws.given"
       ],
@@ -1419,7 +3941,9 @@
       "name": "Limits of polynomial and rational functions by substitution",
       "kind": "chapter",
       "section": "2.3",
+      "book": "calc1",
       "origin": "Section 2.3",
+      "lesson": [],
       "prerequisites": [
         "limit_laws",
         "alg_eval"
@@ -1465,7 +3989,7 @@
         "complex_fraction_limit",
         "piecewise_limits"
       ],
-      "depth": 3,
+      "depth": 4,
       "templates": [
         "direct_substitution.rational"
       ],
@@ -1479,7 +4003,9 @@
       "name": "Resolve 0/0 by factoring and cancelling",
       "kind": "chapter",
       "section": "2.3",
+      "book": "calc1",
       "origin": "Section 2.3",
+      "lesson": [],
       "prerequisites": [
         "direct_substitution",
         "alg_factor",
@@ -1523,7 +4049,7 @@
       "dependents": [
         "discontinuity_types"
       ],
-      "depth": 4,
+      "depth": 5,
       "templates": [
         "factor_cancel.quadratic"
       ],
@@ -1539,7 +4065,9 @@
       "name": "Resolve 0/0 by multiplying by a conjugate",
       "kind": "chapter",
       "section": "2.3",
+      "book": "calc1",
       "origin": "Section 2.3",
+      "lesson": [],
       "prerequisites": [
         "direct_substitution",
         "alg_conjugate"
@@ -1571,7 +4099,7 @@
         "ids": []
       },
       "dependents": [],
-      "depth": 4,
+      "depth": 5,
       "templates": [
         "conjugate_limit.sqrt"
       ],
@@ -1586,7 +4114,9 @@
       "name": "Resolve 0/0 by simplifying a complex fraction",
       "kind": "chapter",
       "section": "2.3",
+      "book": "calc1",
       "origin": "Section 2.3",
+      "lesson": [],
       "prerequisites": [
         "direct_substitution",
         "alg_complex_fraction"
@@ -1634,7 +4164,7 @@
         "ids": []
       },
       "dependents": [],
-      "depth": 4,
+      "depth": 6,
       "templates": [
         "complex_fraction_limit.reciprocal"
       ],
@@ -1649,7 +4179,9 @@
       "name": "Limits of the form K/0 (K ≠ 0)",
       "kind": "chapter",
       "section": "2.3",
+      "book": "calc1",
       "origin": "Section 2.3",
+      "lesson": [],
       "prerequisites": [
         "infinite_limits",
         "alg_sign"
@@ -1683,7 +4215,7 @@
       "dependents": [
         "discontinuity_types"
       ],
-      "depth": 4,
+      "depth": 5,
       "templates": [
         "nonzero_over_zero.sides"
       ],
@@ -1698,7 +4230,9 @@
       "name": "One- and two-sided limits of piecewise functions",
       "kind": "chapter",
       "section": "2.3",
+      "book": "calc1",
       "origin": "Section 2.3",
+      "lesson": [],
       "prerequisites": [
         "limit_existence",
         "direct_substitution"
@@ -1749,7 +4283,7 @@
       "dependents": [
         "continuity_point"
       ],
-      "depth": 4,
+      "depth": 5,
       "templates": [
         "piecewise_limits.boundary"
       ],
@@ -1764,7 +4298,9 @@
       "name": "The squeeze theorem",
       "kind": "chapter",
       "section": "2.3",
+      "book": "calc1",
       "origin": "Section 2.3",
+      "lesson": [],
       "prerequisites": [
         "limit_laws"
       ],
@@ -1812,7 +4348,7 @@
       "dependents": [
         "trig_limits"
       ],
-      "depth": 3,
+      "depth": 4,
       "templates": [
         "squeeze.oscillating"
       ],
@@ -1827,7 +4363,9 @@
       "name": "Limits involving sin(x)/x and (1 - cos x)/x",
       "kind": "chapter",
       "section": "2.3",
+      "book": "calc1",
       "origin": "Section 2.3",
+      "lesson": [],
       "prerequisites": [
         "squeeze",
         "trig_identities",
@@ -1860,7 +4398,7 @@
         "ids": []
       },
       "dependents": [],
-      "depth": 4,
+      "depth": 5,
       "templates": [
         "trig_limits.sinkx"
       ],
@@ -1875,7 +4413,9 @@
       "name": "Continuity at a point (three conditions)",
       "kind": "chapter",
       "section": "2.4",
+      "book": "calc1",
       "origin": "Section 2.4",
+      "lesson": [],
       "prerequisites": [
         "piecewise_limits",
         "alg_eval"
@@ -1960,7 +4500,7 @@
         "continuity_parameter",
         "composite_continuity"
       ],
-      "depth": 5,
+      "depth": 6,
       "templates": [
         "continuity_point.piecewise"
       ],
@@ -1974,7 +4514,9 @@
       "name": "Classify discontinuities (removable, jump, infinite)",
       "kind": "chapter",
       "section": "2.4",
+      "book": "calc1",
       "origin": "Section 2.4",
+      "lesson": [],
       "prerequisites": [
         "continuity_point",
         "factor_cancel",
@@ -2056,7 +4598,7 @@
         "ids": []
       },
       "dependents": [],
-      "depth": 6,
+      "depth": 7,
       "templates": [
         "discontinuity_types.classify"
       ],
@@ -2070,7 +4612,9 @@
       "name": "Continuity over an interval",
       "kind": "chapter",
       "section": "2.4",
+      "book": "calc1",
       "origin": "Section 2.4",
+      "lesson": [],
       "prerequisites": [
         "continuity_point",
         "alg_domain"
@@ -2160,7 +4704,7 @@
       "dependents": [
         "ivt"
       ],
-      "depth": 6,
+      "depth": 7,
       "templates": [
         "continuity_interval.rational"
       ],
@@ -2174,9 +4718,12 @@
       "name": "Choose a constant that makes a piecewise function continuous",
       "kind": "chapter",
       "section": "2.4",
+      "book": "calc1",
       "origin": "Section 2.4",
+      "lesson": [],
       "prerequisites": [
-        "continuity_point"
+        "continuity_point",
+        "pre_linear_eq"
       ],
       "learning_objectives": [
         "Explain the three conditions for continuity at a point."
@@ -2192,7 +4739,7 @@
         ]
       },
       "dependents": [],
-      "depth": 6,
+      "depth": 7,
       "templates": [
         "continuity_parameter.solve_k"
       ],
@@ -2206,7 +4753,9 @@
       "name": "Limits of composite functions via continuity",
       "kind": "chapter",
       "section": "2.4",
+      "book": "calc1",
       "origin": "Section 2.4",
+      "lesson": [],
       "prerequisites": [
         "continuity_point",
         "trig_values"
@@ -2256,7 +4805,7 @@
         "ids": []
       },
       "dependents": [],
-      "depth": 6,
+      "depth": 7,
       "templates": [
         "composite_continuity.cos"
       ],
@@ -2270,7 +4819,9 @@
       "name": "The Intermediate Value Theorem",
       "kind": "chapter",
       "section": "2.4",
+      "book": "calc1",
       "origin": "Section 2.4",
+      "lesson": [],
       "prerequisites": [
         "continuity_interval",
         "alg_eval"
@@ -2341,7 +4892,7 @@
         "ids": []
       },
       "dependents": [],
-      "depth": 7,
+      "depth": 8,
       "templates": [
         "ivt.zero"
       ],
@@ -2356,7 +4907,9 @@
       "name": "The epsilon-delta definition of a limit",
       "kind": "chapter",
       "section": "2.5",
+      "book": "calc1",
       "origin": "Section 2.5",
+      "lesson": [],
       "prerequisites": [
         "limit_intuitive",
         "alg_abs_ineq"
@@ -2389,7 +4942,7 @@
       "dependents": [
         "epsilon_delta_linear"
       ],
-      "depth": 3,
+      "depth": 4,
       "templates": [
         "epsilon_delta_def.complete"
       ],
@@ -2403,7 +4956,9 @@
       "name": "Find delta for a linear function",
       "kind": "chapter",
       "section": "2.5",
+      "book": "calc1",
       "origin": "Section 2.5",
+      "lesson": [],
       "prerequisites": [
         "epsilon_delta_def"
       ],
@@ -2461,7 +5016,7 @@
       "dependents": [
         "epsilon_delta_nonlinear"
       ],
-      "depth": 4,
+      "depth": 5,
       "templates": [
         "epsilon_delta_linear.delta"
       ],
@@ -2476,7 +5031,9 @@
       "name": "Find delta for a nonlinear function",
       "kind": "chapter",
       "section": "2.5",
+      "book": "calc1",
       "origin": "Section 2.5",
+      "lesson": [],
       "prerequisites": [
         "epsilon_delta_linear"
       ],
@@ -2523,7 +5080,7 @@
         "ids": []
       },
       "dependents": [],
-      "depth": 5,
+      "depth": 6,
       "templates": [
         "epsilon_delta_nonlinear.square"
       ],

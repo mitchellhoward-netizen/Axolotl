@@ -39,6 +39,7 @@ class Ctx:
     omitted: list = field(default_factory=list)
     printed_ids: list = field(default_factory=list)
     solutions: list = field(default_factory=list)  # checkpoint solutions moved to the key
+    images: bool = True                              # False: captions only (compile checks)
 
 
 # ---------------------------------------------------------------------------
@@ -106,15 +107,18 @@ def block(b: dict, ctx: Ctx, in_solution: bool = False) -> str:
     if t == "list":
         items = [f"[{blocks(it, ctx, in_solution)}]" for it in b["items"]]
         title = f"#strong[{inl(b['title'], ctx)}]\n" if b.get("title") else ""
+        if b["ordered"] and all(circled_start(it) for it in b["items"]):
+            # the items already carry their own letters (ⓐ, ⓑ, ...): don't number them twice
+            return pre + title + "#list(marker: none, indent: 0.4em, " + ", ".join(items) + ")\n"
         if b["ordered"]:
             num = {"lower-alpha": "a.", "lower-roman": "i.", "upper-alpha": "A.", "upper-roman": "I."}.get(b["style"], "1.")
             return pre + title + f"#enum(numbering: \"{num}\", " + ", ".join(items) + ")\n"
         return pre + title + "#list(" + ", ".join(items) + ")\n"
     if t == "figure":
-        imgs = ", ".join(image_markup(n, b.get("splash")) for n in b["images"])
+        imgs = ", ".join(image_markup(n, b.get("splash")) for n in b["images"]) if ctx.images else ""
         cap = f"[{inl(b['caption'], ctx)}]" if b["caption"] else "none"
         label = f'"{b["label"]}"' if b.get("label") else "none"
-        return pre + f"#fig(({imgs},), {label}, {cap})\n"
+        return pre + f"#fig(({imgs + ',' if imgs else ''}), {label}, {cap})\n"
     if t == "table":
         return pre + table_markup(b, ctx)
     if t == "box":
@@ -131,7 +135,11 @@ def block(b: dict, ctx: Ctx, in_solution: bool = False) -> str:
         if kind == "problem-solving":
             return pre + f"#strategy([{title}], [{body}])\n"
         if kind == "checkpoint":
-            return pre + f"#checkpoint(\"{b['label']}\", [{body}])\n"
+            return pre + f"#checkpoint(\"{b.get('label') or 'Try It'}\", [{body}])\n"
+        if kind == "howto":
+            return pre + f"#howto([{title}], [{body}])\n"
+        if kind == "qa":
+            return pre + f"#qa([{title} {body}])\n"
         return pre + f"#note-box({'[' + title + ']' if title else 'none'}, [{body}])\n"
     if t == "example":
         if not ctx.select(b):
@@ -158,6 +166,11 @@ def block(b: dict, ctx: Ctx, in_solution: bool = False) -> str:
     return pre
 
 
+def circled_start(item_blocks: list[dict]) -> bool:
+    text = " ".join(cnxml.block_plain(x) for x in item_blocks).strip()
+    return bool(text) and "\u24b6" <= text[0] <= "\u24e9"
+
+
 def table_markup(b: dict, ctx: Ctx) -> str:
     rows = b["rows"]
     if not rows:
@@ -173,7 +186,8 @@ def table_markup(b: dict, ctx: Ctx) -> str:
             cells.append(f"table.cell({span}inset: 5pt{fill})[#set text(size: 9pt); {content}]")
     stroke = "stroke: none, " if b.get("unstyled") else ""
     label = f'#text(font: sans, size: 9pt, weight: "bold", fill: spot)[{b["label"]}]\n' if b.get("label") else ""
-    return (f"#block(breakable: false, above: 0.8em, below: 1em)[{label}#align(center, table(columns: {ncols}, {stroke}"
+    breakable = "true" if len(rows) > 12 else "false"  # long tables continue on the next page
+    return (f"#block(breakable: {breakable}, above: 0.8em, below: 1em)[{label}#align(center, table(columns: {ncols}, {stroke}"
             + ", ".join(cells) + "))]\n")
 
 
@@ -287,10 +301,19 @@ def attribution() -> str:
     return "OpenStax Calculus Vol. 1 (CC BY-NC-SA 4.0), adapted for personal study"
 
 
-def doc_head(title: str, running: str, code: str) -> str:
+def doc_head(title: str, running: str, code: str, attribution_text: str | None = None,
+             kicker: str | None = None) -> str:
+    k = f', kicker: [#smallcaps[#"{esc(kicker)}"]]' if kicker else ""
     return (TEMPLATE_IMPORT +
             f'#show: book.with(title: "{esc(title)}", running: [{esc(running)}], code: "{code}", '
-            f'attribution: "{esc(attribution())}")\n')
+            f'attribution: "{esc(attribution_text or attribution())}"{k})\n')
+
+
+def book_attribution(book: str) -> str:
+    from .source import BOOKS
+
+    b = BOOKS[book]
+    return f"OpenStax {b.title} ({b.license}), adapted for personal study"
 
 
 def write_json(path: Path, obj) -> None:

@@ -5,7 +5,7 @@ import re
 
 import sympy as sp
 
-from . import cnxml, extract, notation, paths, render, templates, textgen
+from . import answers, cnxml, extract, notation, paths, render, source, templates, textgen
 from .learner import LearnerDB, config
 
 
@@ -88,18 +88,47 @@ def choose_focus(db: LearnerDB) -> tuple[str, list[str]]:
     return section, chapter_focus + foundation_focus
 
 
-def canonical_problem(cp: dict, generated: dict) -> dict:
-    """A canonical checkpoint printed in place of a rejected template problem.
+def canonical_key(problem_text: str, solution_text: str) -> dict | None:
+    """An answer key read from the book's own answer, when it is a single value or expression.
 
-    It is graded when the book's answer is a plain number (e.g. "17 unit2");
+    Multi-part answers (ⓐ ⓑ ...), approximations and word answers give None (print-only).
+    The key must re-grade the book's answer as correct, or it is not used.
+    """
+    t = " ".join(solution_text.split())
+    t = re.sub(r"\s*(units?\s*\^?\(?2?\)?|unit2|ft/s(ec)?|ft|m/s)\.?$", "", t)
+    if not t or re.search(r"[\u24b6-\u24e9]|approximately|\bor\b|[a-z]{4,}", t) or t.count("=") > 1:
+        return None
+    t = re.sub(r"^\s*[A-Za-z]\s*=\s*", "", t)
+    try:
+        v = answers.parse(t)
+    except ValueError:
+        return None
+    if not isinstance(v, sp.Expr):
+        return None
+    if v.free_symbols:
+        key = {"kind": "expr", "value": sp.srepr(v)}
+        if problem_text.strip().lower().startswith("factor"):
+            key["form"] = "factored"
+    else:
+        key = {"kind": "value", "value": sp.srepr(sp.nsimplify(v))}
+    ok, _ = answers.grade(key, solution_text)
+    return key if ok else None
+
+
+def canonical_problem(cp: dict, generated: dict) -> dict:
+    """A canonical checkpoint / Try It printed in place of a rejected template problem.
+
+    It is graded when the book's answer is a single value or expression (canonical_key);
     otherwise it is printed for practice only (key None, not stored).
     """
-    sol = " ".join(" ".join(cnxml.block_plain(b) for b in ex["solution"]) for ex in cp["blocks"] if ex["t"] == "exercise")
-    m = re.fullmatch(r"\s*(-?\d+(?:\.\d+)?)\s*(?:unit.*|ft.*|m/s.*)?\s*", sol)
-    key = {"kind": "value", "value": sp.srepr(sp.nsimplify(m.group(1)))} if m else None
+    exercises = [ex for ex in cp["blocks"] if ex["t"] == "exercise"]
+    sol = " ".join(" ".join(cnxml.block_plain(b) for b in ex["solution"]) for ex in exercises)
+    prob = " ".join(" ".join(cnxml.block_plain(b) for b in ex["problem"]) for ex in exercises)
+    key = canonical_key(prob, sol) if len(exercises) == 1 else None
+    display = " ".join(sol.split())
     return generated | {"prompt": None, "plain": " ".join(cnxml.block_plain(cp).split()), "key": key,
-                        "key_display": m.group(1) if m else "", "canonical_fallback": cp["id"],
-                        "verification": f"canonical answer from the book: {sol.strip()}" if m else ""}
+                        "key_display": f'"{render.esc(display)}"' if key else "", "canonical_fallback": cp["id"],
+                        "verification": f"answer from the book: {display}; SymPy re-grades it as correct" if key else ""}
 
 
 def canonical_passages(mod, select, anchor_ids, limit: int = 24000) -> list[str]:
@@ -281,3 +310,180 @@ def build_lesson(db: LearnerDB, focus: list[str] | None = None, section: str | N
     db.set_packet_pdf(pid, str(out))
     render.write_json(paths.OUT / f"{pid}.gate.json", {"packet": pid, "decisions": decisions, "verbatim_audit": audit})
     return {"pid": pid, "pdf": out, "key": key, "audit": audit, "decisions": decisions, "focus": focus}
+
+
+# ---------------------------------------------------------------------------
+# Refresh packets: re-learning a foundation skill you once knew
+
+def _practice_problems(skills: list[str], per_skill: int, seed0: int) -> list[dict]:
+    problems = []
+    for s in skills:
+        tpls = templates.for_skill(s)
+        for j in range(per_skill):
+            tpl = tpls[j % len(tpls)]
+            problems.append(templates.generate(tpl.id, seed0 + len(problems) + 1).to_json())
+    return problems
+
+
+def choose_refresh(db: LearnerDB) -> list[str]:
+    """Unmastered foundation skills on the frontier, deepest first (at most two per packet)."""
+    sk = extract.skills()
+    n = config()["lesson"]["target_skills_per_packet"]
+    return [s for s in db.frontier() if sk[s]["kind"] == "foundation" and sk[s].get("lesson")][:n]
+
+
+def recent_misconceptions(db: LearnerDB) -> dict[str, str]:
+    """skill -> the latest misconception whose root is that skill (from graded work)."""
+    out = {}
+    for a in db.attempts():
+        ev = (a["evidence"] or {}).get("decision") or {}
+        root, mis = ev.get("misconception_root"), ev.get("misconception")
+        if root and mis and "." in str(mis):
+            out[root] = mis
+    return out
+
+
+def build_refresh(db: LearnerDB, focus: list[str], log=None, jev_client=None, use_jev: bool = True) -> dict:
+    """Refresh-then-test: the book's own subsections for each skill (verbatim), then practice.
+
+    Only the subsections that teach the skill are printed, not whole sections; all their
+    worked examples, How To boxes and Try Its are kept (Try It answers go to the key).
+    """
+    cfg = config()["lesson"]
+    sk = extract.skills()
+    n = len([p for p in db.packets() if p["kind"] == "refresh"]) + 1
+    pid = f"R{n}"
+    problems = _practice_problems(focus, cfg["problems_per_skill"], 5000 * n)
+    number_of: dict[str, list[int]] = {}
+    for i, p in enumerate(problems, 1):
+        number_of.setdefault(p["skill"], []).append(i)
+
+    # the canonical excerpt: every lesson part of every focus skill, in order, without repeats
+    parts, seen = [], set()
+    for s in focus:
+        for part in sk[s]["lesson"]:
+            mod = extract.module(part["book"], part["section"])
+            secs = [extract.find_subsection(mod, sub["title"]) for sub in part["subsections"]]
+            secs = [x for x in secs if x and x["id"] not in seen]
+            seen |= {x["id"] for x in secs}
+            if secs:
+                parts.append({"skill": s, "book": part["book"], "mod": mod, "sections": secs})
+    books = list(dict.fromkeys(p["book"] for p in parts))
+    source_title = " and ".join(f"OpenStax {source.BOOKS[b].title}" for b in books)
+    excerpt_blocks = [x for p in parts for x in p["sections"]]
+    allowed = notation.BASELINE_FOUNDATION | notation.features_in_blocks(excerpt_blocks)
+
+    # generated snippets ----------------------------------------------------------
+    first_obj = next((o for s in focus for o in sk[s]["learning_objectives"]), "")
+    fb = {"kind": "objective", "text": first_obj}
+    snippets: list[textgen.Snippet] = [textgen.refresh_roadmap([sk[s]["name"] for s in focus], source_title, fb)]
+    recent = recent_misconceptions(db)
+    mis_by_id = {m["id"]: m for lst in extract.misconceptions().values() for m in lst}
+    for s in focus:
+        ex = next((a for a in sk[s]["anchors"] if a["type"] == "example" and a["id"] in
+                   {b["id"] for p in parts if p["skill"] == s for sec in p["sections"] for b in cnxml.walk([sec])}), None)
+        if ex and s in number_of:
+            sfb = {"kind": "objective", "text": (sk[s]["learning_objectives"] or [first_obj])[0]}
+            sn = textgen.pointer(ex["label"], number_of[s], 0, sfb)
+            sn.slot = f"before:{ex['id']}"
+            snippets.append(sn)
+            if s in recent:
+                w = textgen.watch(ex["label"], mis_by_id[recent[s]]["description"], 0, sfb)
+                w.slot = f"before:{ex['id']}"
+                snippets.append(w)
+    for i, p in enumerate(problems, 1):
+        try_it = next((a for a in sk[p["skill"]]["anchors"] if a["type"] == "checkpoint"), None)
+        snippets.append(textgen.Snippet(f"problem:{i}", "problem", p["prompt"], p["plain"], 0,
+                                        {"kind": "canonical_block", "id": try_it["id"] if try_it else None,
+                                         "book": try_it.get("book") if try_it else None,
+                                         "text": (sk[p["skill"]]["learning_objectives"] or [""])[0]},
+                                        problem=p))
+    for sn in snippets:
+        sn.allowed = allowed
+    canonical = []
+    for p in parts:
+        canonical.append("Learning objectives: " + "; ".join(p["mod"].objectives))
+        canonical += [" ".join(cnxml.block_plain(x).split())[:4000] for x in p["sections"]]
+    textgen.gate(snippets, canonical, log=log, client=jev_client, use_jev=use_jev)
+
+    # assemble ------------------------------------------------------------------
+    ctx = render.Ctx(select=lambda b: not (b["t"] == "box" and b["kind"] in ("media", "aside", "project")))
+    decisions = []
+
+    def use(sn: textgen.Snippet):
+        decisions.append({"slot": sn.slot, "kind": sn.kind, "text": sn.plain, "accepted": sn.accepted, **sn.checks,
+                          "fallback": sn.fallback})
+        if sn.accepted:
+            return f"#transition[{sn.typst}]" if sn.kind == "transition" else sn.typst
+        if sn.kind == "transition":
+            return f'#transition[#"{render.esc(sn.fallback["text"])}"]' if sn.fallback.get("text") else ""
+        return None
+
+    for sn in snippets:
+        if sn.slot.startswith("before:"):
+            m = use(sn)
+            if m:
+                ctx.before.setdefault(sn.slot.split(":", 1)[1], []).append(m)
+    names = [sk[s]["name"] for s in focus]
+    attribution = " · ".join(render.book_attribution(b) for b in books)
+    kicker = " · ".join(source.BOOKS[b].title for b in books)
+    src = [render.doc_head(f"Refresh {pid}", "Refresh", pid, attribution, kicker=kicker)]
+    src.append(f'#cover("Refresh · {pid}", "{render.esc("; ".join(names))}", '
+               f'"From {render.esc(source_title)}", "{pid}")\n')
+    roadmap = use(snippets[0])
+    if roadmap:
+        src.append(roadmap)
+    for p in parts:
+        mod = p["mod"]
+        objs = [o for o in sk[p["skill"]]["learning_objectives"] if o in mod.objectives]
+        src.append(f'#section-head("{mod.number}", "{render.esc(mod.title)}")\n')
+        if objs:
+            src.append("#objectives((" + ", ".join(f'[#"{render.esc(o)}"]' for o in objs) + ",))\n")
+            ctx.runs.extend(objs)
+        for sec in p["sections"]:
+            src.append(render.block(sec, ctx))
+    src.append('#practice-head("Practice")\n')
+    src.append("#instructions[#list([Write the code #strong[" + pid + "] at the top of every page.], "
+               "[Number each problem. One step per line.], [Cross mistakes out; do not erase.], [Box your final answer.])]\n")
+    practice, used_fallbacks = [], set()
+    for i, p in enumerate(problems, 1):
+        sn = next(s for s in snippets if s.slot == f"problem:{i}")
+        if use(sn) is not None:
+            src.append(render.problem_markup(len(practice) + 1, p))
+            practice.append(p)
+            continue
+        bid, bbook = sn.fallback.get("id"), sn.fallback.get("book")
+        if bid and bid not in used_fallbacks and bbook:
+            cp = next((b for m in extract.load_book(bbook) for b in cnxml.walk(m.blocks) if b.get("id") == bid
+                       and b["t"] == "box"), None)
+            if cp:
+                used_fallbacks.add(bid)
+                fctx = render.Ctx()
+                body = render.blocks(cp["blocks"], fctx)
+                ctx.runs.extend(fctx.runs)
+                src.append(f"#problem({len(practice) + 1}, [#text(font: sans, size: 8pt, fill: spot)[{cp.get('label') or 'Try It'} "
+                           f"(from the text)] {body}], space: 6)\n")
+                practice.append(canonical_problem(cp, p))
+    db.add_packet(pid, "refresh", None, {"focus": focus, "sources": [
+        {"book": p["book"], "section": p["mod"].number, "subsections": [cnxml.plain(x["title"]) for x in p["sections"]]}
+        for p in parts], "gate": decisions})
+    for i, p in enumerate(practice, 1):
+        if p.get("key") is not None:
+            db.add_problem(pid, i, p)
+    out = paths.OUT / f"{pid}.pdf"
+    render.compile_typst("\n".join(src), out)
+    audit = render.verbatim_audit(out, ctx.runs)
+    key = render_key(db, pid, extra=ctx.solutions)
+    db.set_packet_pdf(pid, str(out))
+    render.write_json(paths.OUT / f"{pid}.gate.json", {"packet": pid, "decisions": decisions, "verbatim_audit": audit})
+    return {"pid": pid, "pdf": out, "key": key, "audit": audit, "decisions": decisions, "focus": focus, "kind": "refresh"}
+
+
+def next_lesson(db: LearnerDB, log=None, jev_client=None, use_jev: bool = True) -> dict:
+    """Refresh the deepest rusty foundation first; once foundations hold, teach the chapter."""
+    refresh = choose_refresh(db)
+    if refresh:
+        return build_refresh(db, refresh, log=log, jev_client=jev_client, use_jev=use_jev)
+    r = build_lesson(db, log=log, jev_client=jev_client, use_jev=use_jev)
+    r["kind"] = "lesson"
+    return r

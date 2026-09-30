@@ -214,8 +214,10 @@ class Converter:
         if _text(b).strip() in ("lim", "max", "min", "sup", "inf"):
             return f"attach({_text(b).strip()}, b: {self.typ(u)})"
         ut = _text(u).strip()
-        if ut in ("_", "̲", "‾"):
+        if ut in ("_", "̲", "‾") or (ut and set(ut) == {"_"}):
             return f"underline({base})"
+        if ut in ("︸", "⏟", ""):
+            return f"underbrace({base})"
         return f"attach(limits({base}), b: {self.typ(u)})"
 
     def t_mover(self, el):
@@ -225,6 +227,8 @@ class Converter:
         accents = {"¯": "overline", "‾": "overline", "→": "arrow", "^": "hat", "˙": "dot", "~": "tilde"}
         if ot in accents:
             return f"{accents[ot]}({base})"
+        if ot in ("︷", "⏞", ""):
+            return f"overbrace({base})"
         return f"attach(limits({base}), t: {self.typ(o)})"
 
     def t_munderover(self, el):

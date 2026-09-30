@@ -110,6 +110,28 @@ def end_of_section(number: str) -> int:
     return registry()["sections"][number][1]
 
 
+# What a reader of an algebra refresh can be assumed to know without the excerpt itself.
+BASELINE_FOUNDATION = {"fraction", "power", "function_notation", "inequality", "interval", "pi"}
+
+
+def features_in_blocks(blocks: list[dict]) -> set[str]:
+    """Notation used by canonical math in these blocks (and everything nested in them)."""
+    used = set()
+    for b in cnxml.walk(blocks):
+        for m in _math_of_block(b):
+            used |= features(m)
+    return used
+
+
+def check_allowed(typst_texts: list[str], allowed: set[str]) -> tuple[bool, set[str]]:
+    used = set()
+    for t in typst_texts:
+        for m in re.findall(r"\$([^$]*)\$", t):
+            used |= features(m)
+    bad = used - allowed
+    return (not bad), bad
+
+
 def check(typst_texts: list[str], position: int) -> tuple[bool, set[str]]:
     """Every math segment must use only notation introduced by `position`."""
     allowed = introduced_by(position)

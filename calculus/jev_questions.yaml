@@ -93,3 +93,39 @@ generation:
 
   thresholds:
     new_idea_max: 0.35   # snippets with noul above this fall back to canonical text
+
+# ---------------------------------------------------------------------------
+# "Ask about this": checks on each tutor reply before it is shown. The state is
+# the problem, the learner's question, the reply, and the canonical passages
+# the reply may draw on. (The tutor itself is Claude; Jev only judges.)
+tutor:
+  state_note: >-
+    `problem` is a math exercise and `correct_answer` its answer key. `question` is what
+    the learner asked about their own work. `reply` is a tutor's answer to that question.
+    `canonical` holds passages of the textbook the learner is using, verbatim.
+  gives_away:
+    type: noul
+    instructions: >-
+      Does `reply` state the final answer to `problem` (the value in `correct_answer`, or
+      something equivalent to it), instead of leaving that last step to the learner?
+    criteria:
+      "true": The reply states the final answer, or an expression equivalent to it, outright.
+      "false": The reply gives hints, points to a step or an example, or checks a step, but the learner still has to reach the final answer.
+  asked_for_answer:
+    type: noul
+    instructions: Does `question` explicitly ask to be told the final answer?
+    criteria:
+      "true": The learner asks outright for the answer (e.g. "what is the answer?", "just tell me").
+      "false": The learner asks why something is wrong, what to do next, or for an explanation.
+  new_idea:
+    type: noul
+    instructions: >-
+      Does `reply` state, use, or hint at a mathematical definition, theorem, rule,
+      technique, or fact that does not appear anywhere in `canonical`? Ordinary
+      arithmetic and algebra that `canonical` itself uses do not count as new.
+    criteria:
+      "true": The reply relies on a mathematical idea that is absent from the canonical passages.
+      "false": Every mathematical idea in the reply appears in, or is used by, the canonical passages.
+  thresholds:
+    gives_away_max: 0.5
+    new_idea_max: 0.5

@@ -9,6 +9,7 @@ learner:
     prerequisites_missing: 0.08
   slip: 0.10                # P(wrong | all required skills mastered)
   learn: 0.12               # BKT transition per practiced problem, scaled by credit
+  learn_foundation: 0.30    # rusty foundations come back faster than new material is learned
   mastery_threshold: 0.85   # "mastered" for scheduling / frontier
   review:
     first_interval_days: 1.0

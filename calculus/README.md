@@ -1,4 +1,4 @@
-# Adaptive calculus textbook (slice one: OpenStax Calculus Vol. 1, Chapter 2)
+# Adaptive math textbook (OpenStax: prealgebra and algebra up to Calculus Vol. 1, Chapter 2)
 
 A personal textbook that adapts to you. The canonical text is OpenStax
 *Calculus Volume 1*, Chapter 2 (Limits), printed verbatim. What changes from
@@ -26,7 +26,7 @@ pip install -r requirements.txt
 export TYPESAFE_API_KEY=...        # Jev (TypeSafe)
 export ANTHROPIC_API_KEY=...       # Claude vision transcription (or `ant auth login`)
 python -m adaptcalc extract        # fetch Chapter 2, write skills.json + misconceptions.json
-python -m pytest -q tests          # 32 tests
+python -m pytest -q tests          # 42 tests
 ```
 
 Fonts (Fira Sans, SIL OFL), the OpenStax source and its figures are downloaded
@@ -83,20 +83,26 @@ It will not serve on a public address without `ADAPTCALC_PASSWORD`.
 ## How each part works
 
 **1. Source and skill graph** (`source.py`, `cnxml.py`, `mathml.py`, `extract.py`, `ontology.yaml`).
-The chapter comes from `github.com/openstax/osbooks-calculus-bundle`: the
+Three OpenStax books are used: *Calculus Volume 1* Chapter 2 (the course),
+*Algebra and Trigonometry 2e* and *Prealgebra 2e* (the foundations underneath
+it); see `source.BOOKS`. The chapter comes from `github.com/openstax/osbooks-calculus-bundle`: the
 collection file lists the six modules of "Limits"; each is CNXML with MathML.
 The parser keeps every character of text and converts all 1,601 formulas in the
-chapter to Typst. The skill graph is a curated ontology (40 skills: 28 chapter
-skills plus 12 algebra/trig foundations underneath them) whose every claim is
+chapter to Typst. The skill graph is a curated ontology (45 skills: 28 chapter
+skills, 12 algebra/trig foundations directly underneath them, and 5 deeper
+prealgebra/algebra basics: order of operations, fractions, exponents,
+multiplying polynomials, linear equations) whose every claim is
 resolved against the parsed source: learning objectives (verbatim), example
 and box titles (to element ids and "Example 2.13" labels), glossary terms, and,
 for the foundations, detectors that find where the chapter exercises them.
 Extraction fails if an anchor does not resolve, a prerequisite is unknown, or
-the graph has a cycle. `misconceptions.json` holds 96 misconceptions, each with
+the graph has a cycle. Each foundation skill is tied to the exact subsections
+of *Algebra and Trigonometry 2e* or *Prealgebra 2e* that teach it, with their
+worked examples and Try Its. `misconceptions.json` holds 110 misconceptions, each with
 the root skill it points to; five are tied to the chapter's own True/False
 exercises that address them.
 
-**2. Problem templates** (`templates.py`, `answers.py`). There are 42 templates,
+**2. Problem templates** (`templates.py`, `answers.py`). There are 47 templates,
 covering every skill. Each builds a problem constructively, then SymPy
 recomputes the answer independently (`limit`, `solve`, `trigsimp`,
 `continuous_domain`, inequality solving, and an exact supremum for δ–ε); a
@@ -167,6 +173,37 @@ learner model, diagnostic, packets or pipeline modules, even indirectly.
 All Jev questions and thresholds are in `jev_questions.yaml`. Non-Jev policy
 (prior, slip, credit rules, round sizes) is in `config.yaml`.
 
+**7. Refresh-then-test** (`packets.build_refresh`). Most adults who return to
+math are rusty rather than new to it. When a foundation skill is on your
+frontier, the next packet is a *refresh*: only the book subsections that teach
+that skill (verbatim, with their worked examples, How To boxes and Try Its),
+then practice. Foundation skills use a faster learning rate
+(`learner.learn_foundation`) because relearning is quicker than learning.
+Chapter lessons start once the basics hold. When Jev rejects a generated
+problem, the book's own Try It is printed instead; it is graded when the book's
+answer is a single value or expression that SymPy can re-grade.
+
+**8. Ask about this** (`tutor.py`). Every graded problem has an *Ask about this*
+box. Claude answers from three things only: your transcribed work, what SymPy
+found in it, and the book's passages for the skill (and for the root skill of
+the misconception). Before a reply is shown:
+* every equation in it is re-checked by SymPy;
+* its math may only use notation the book has introduced;
+* Jev checks that it doesn't give away the final answer (unless you asked for
+  it) and doesn't bring in ideas the passages lack.
+
+A failing reply is regenerated once. If it fails again, you get the book's
+worked example instead.
+
+**9. Progress** (`/progress`). A page you or a parent can read at a glance:
+* skills mastered;
+* problems checked per day;
+* the mistakes that keep coming up, each with its underlying skill;
+* what's next and what's due for review.
+
+It prints cleanly. Packets you don't want to finish can be set aside from the
+main page.
+
 ## The sample run in `samples/`
 
 These files come from one run from an empty state:
@@ -203,10 +240,14 @@ These files come from one run from an empty state:
   `ANTHROPIC_API_KEY` set, `transcribe.ClaudeTranscriber` is used automatically.
 * The Jev calls in the sample run are real (`jev-1.13.0`), logged in the
   `jev_log` table.
+* The sample run below predates the foundations layer; today's first diagnostic
+  round starts lower (exponents, linear equations) because the skill map now goes deeper.
+* The tutor is tested with fake Claude and Jev clients locally; live, it runs on
+  Railway where the Anthropic key lives.
 * Graph-reading problems are drawn from their formula with cetz. The OpenStax
   graph exercises themselves are printed only as canonical content.
 * Chapter-wide numbering ("Example 2.13", "Figure 2.24") is recomputed from the
   source the way the web book numbers it.
 
-Canonical text: OpenStax, *Calculus Volume 1*, Chapter 2, CC BY-NC-SA 4.0,
-https://openstax.org/books/calculus-volume-1/pages/2-introduction.
+Canonical text: OpenStax *Calculus Volume 1*, Chapter 2 (CC BY-NC-SA 4.0),
+*Algebra and Trigonometry 2e* (CC BY 4.0) and *Prealgebra 2e* (CC BY 4.0), https://openstax.org.

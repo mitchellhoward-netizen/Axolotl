@@ -70,6 +70,16 @@ CREATE TABLE IF NOT EXISTS updates (
   reason TEXT,
   at TEXT NOT NULL
 );
+CREATE TABLE IF NOT EXISTS questions (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  problem_id TEXT NOT NULL REFERENCES problems(id),
+  line INTEGER,
+  question TEXT NOT NULL,
+  reply TEXT NOT NULL,
+  status TEXT NOT NULL,
+  detail TEXT,
+  at TEXT NOT NULL
+);
 CREATE TABLE IF NOT EXISTS jev_log (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   purpose TEXT NOT NULL,
@@ -180,6 +190,25 @@ class LearnerDB:
         return [dict(r) | {"pdata": json.loads(r["pdata"]),
                            "evidence": json.loads(r["evidence"]) if r["evidence"] else None} for r in rows]
 
+    def attempt(self, prid: str) -> dict | None:
+        r = self.conn.execute("SELECT * FROM attempts WHERE problem_id=?", (prid,)).fetchone()
+        if r is None:
+            return None
+        d = dict(r)
+        for k in ("transcript", "stepcheck", "evidence"):
+            d[k] = json.loads(d[k]) if d[k] else None
+        return d
+
+    def add_question(self, prid: str, line: int | None, question: str, result: dict) -> int:
+        with self.tx() as c:
+            cur = c.execute("INSERT INTO questions (problem_id, line, question, reply, status, detail, at) VALUES (?,?,?,?,?,?,?)",
+                            (prid, line, question, result["reply"], result["status"], json.dumps(result), now()))
+            return cur.lastrowid
+
+    def questions(self, prid: str | None = None) -> list[dict]:
+        q = "SELECT * FROM questions" + (" WHERE problem_id=?" if prid else "") + " ORDER BY id"
+        return [dict(r) | {"detail": json.loads(r["detail"] or "{}")} for r in self.conn.execute(q, (prid,) if prid else ())]
+
     def is_graded(self, prid: str) -> bool:
         return self.conn.execute("SELECT 1 FROM attempts WHERE problem_id=?", (prid,)).fetchone() is not None
 
@@ -258,7 +287,9 @@ class LearnerDB:
         new = {s: post[s] / z for s in involved}
         # learning from the practice opportunity itself (main skill only)
         main = data["skill"]
-        new[main] = new[main] + (1 - new[main]) * cfg["learn"] * c
+        # foundations are usually relearned, not learned from scratch: they come back faster
+        learn = cfg["learn_foundation"] if extract.skills()[main]["kind"] == "foundation" else cfg["learn"]
+        new[main] = new[main] + (1 - new[main]) * learn * c
         self.set_mastery(new, f"problem {problem['id']} credit={c:.2f}" + (f" misconception root={root}" if root else ""),
                          problem["id"], source="practice")
         self._schedule(main, c)

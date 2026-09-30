@@ -68,8 +68,11 @@ def cmd_status(a):
 
 def cmd_lesson(a):
     db = LearnerDB()
-    r = packets.build_lesson(db, focus=a.focus.split(",") if a.focus else None, section=a.section,
-                             log=db.log_jev, use_jev=not a.no_jev)
+    if a.focus or a.section:
+        r = packets.build_lesson(db, focus=a.focus.split(",") if a.focus else None, section=a.section,
+                                 log=db.log_jev, use_jev=not a.no_jev)
+    else:
+        r = packets.next_lesson(db, log=db.log_jev, use_jev=not a.no_jev)
     acc = sum(1 for d in r["decisions"] if d["accepted"])
     print(f"{r['pid']}: focus {', '.join(r['focus'])}; {acc}/{len(r['decisions'])} generated snippets accepted; "
           f"verbatim audit {'ok' if r['audit']['ok'] else 'FAILED'} ({r['audit']['runs']} canonical runs)")
@@ -120,11 +123,27 @@ def cmd_warm(a):
     """Download everything the app needs once (used by the Dockerfile)."""
     from . import assets, extract, render, source
 
-    source.fetch_chapter()
+    from . import cnxml
+
+    for book in source.BOOKS:
+        source.fetch_book(book)
+        extract.load_book(book)
     assets.ensure_fonts()
     for img in sorted(paths.MEDIA_DIR.glob("*.jpg")):
         assets.duotone(img.name)
-    extract.load_chapter()
+    # figures inside the subsections that refresh packets print
+    n = 0
+    for s in extract.skills().values():
+        for part in s.get("lesson") or []:
+            mod = extract.module(part["book"], part["section"])
+            for sub in part["subsections"]:
+                sec = extract.find_subsection(mod, sub["title"])
+                for b in cnxml.walk([sec]) if sec else []:
+                    if b["t"] == "figure":
+                        for name in b["images"]:
+                            assets.duotone(name)
+                            n += 1
+    print(f"warm: {n} refresh figures")
     # first compile downloads the cetz Typst package into the image
     render.compile_typst(render.doc_head("warm", "warm", "W") + "#cetz.canvas({ cetz.draw.line((0, 0), (1, 1)) })\n",
                          paths.BUILD / "warm.pdf")

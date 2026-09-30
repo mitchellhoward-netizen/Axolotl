@@ -15,7 +15,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 from . import mathml
-from .source import CHAPTER_NUMBER, Module
+from .source import BOOKS, CHAPTER_NUMBER, Book, Module
 
 C = "{http://cnx.rice.edu/cnxml}"
 MD = "{http://cnx.rice.edu/mdml}"
@@ -34,16 +34,59 @@ class ModuleIR:
     objectives: list[str]
     blocks: list[dict]
     glossary: list[dict] = field(default_factory=list)
+    book: str = "calc1"
+    chapter: int = CHAPTER_NUMBER
+
+
+NOTE_SKIP = ("be-prepared", "manipulative-math", "media", "project", "links-to-literacy")
+
+
+def note_kind(cls: str, title_text: str) -> str:
+    """Normalize the box classes used across OpenStax books."""
+    tokens = cls.split()
+    if any(t in ("checkpoint", "try") for t in tokens):
+        return "checkpoint"          # Calculus "Checkpoint", Algebra/Prealgebra "Try It"
+    if "theorem" in tokens:
+        return "theorem"
+    if "problem-solving" in tokens:
+        return "problem-solving"
+    if any(t.startswith("how-to") or t == "howto" for t in tokens):
+        return "howto"
+    if "qa" in tokens:
+        return "qa"
+    if any(t.startswith("media") for t in tokens):
+        return "media"
+    if any(t in NOTE_SKIP for t in tokens):
+        return "aside"
+    if title_text.startswith("Definition"):
+        return "definition"
+    return "note"
 
 
 class Numbering:
-    """Chapter-wide numbering the way the OpenStax web book prints it."""
+    """Labels the way each OpenStax web book prints them.
 
-    def __init__(self) -> None:
-        self.labels: dict[str, str] = {}
-        self.counts = {"Figure": 0, "Table": 0, "Example": 0, "Checkpoint": 0}
+    Calculus numbers across a chapter ("Example 2.13", "Checkpoint 2.13");
+    Algebra and Trigonometry restarts in every section ("Example 3", "Try It #3").
+    """
 
-    def scan(self, root: ET.Element) -> None:
+    def __init__(self, book: Book | None = None) -> None:
+        self.book = book or BOOKS["calc1"]
+        self.labels: dict[tuple[str, str], str] = {}   # (module id, element id) -> label
+        self.by_id: dict[str, str] = {}                 # element id -> label (first seen), for cross-module links
+        self.counts: dict[str, int] = {}
+        self._scope = None
+
+    def get(self, module_id: str, eid: str | None) -> str | None:
+        if not eid:
+            return None
+        return self.labels.get((module_id, eid)) or self.by_id.get(eid)
+
+    def scan(self, root: ET.Element, chapter: int = CHAPTER_NUMBER, module_id: str = "") -> None:
+        scope = chapter if self.book.numbering == "chapter" else module_id
+        if scope != self._scope:
+            self.counts = {"Figure": 0, "Table": 0, "Example": 0, "Checkpoint": 0}
+            self._scope = scope
         for el in root.iter():
             tag = local(el.tag)
             eid = el.get("id")
@@ -54,17 +97,33 @@ class Numbering:
                 kind = "Table"
             elif tag == "example":
                 kind = "Example"
-            elif tag == "note" and el.get("class") == "checkpoint":
+            elif tag == "note" and note_kind(el.get("class") or "", "") == "checkpoint":
                 kind = "Checkpoint"
             if kind and eid:
                 self.counts[kind] += 1
-                self.labels[eid] = f"{kind} {CHAPTER_NUMBER}.{self.counts[kind]}"
+                n = self.counts[kind]
+                name = self.book.try_label if kind == "Checkpoint" else kind
+                if self.book.numbering == "chapter":
+                    label = f"{name} {chapter}.{n}"
+                else:
+                    label = f"{name} #{n}" if kind == "Checkpoint" else f"{name} {n}"
+                self.labels[(module_id, eid)] = label
+                self.by_id.setdefault(eid, label)
 
 
 class Parser:
-    def __init__(self, numbering: Numbering, module_number: str) -> None:
+    def __init__(self, numbering: Numbering, module_number: str, module_id: str = "") -> None:
         self.num = numbering
         self.module_number = module_number
+        self.mid = module_id
+
+    def label(self, eid):
+        """This element's own label (never borrowed: ids repeat across modules)."""
+        return self.num.labels.get((self.mid, eid)) if eid else None
+
+    def ref_label(self, tid):
+        """Label for a link target: this module first, then anywhere in the book."""
+        return self.num.get(self.mid, tid)
 
     # ----- inline -----
     def inlines(self, el: ET.Element, include_tail_of_children: bool = True) -> list[dict]:
@@ -96,8 +155,8 @@ class Parser:
             if kids:
                 return [{"k": "em", "style": "link", "c": kids}]
             tid = el.get("target-id")
-            if tid and tid in self.num.labels:
-                return [{"k": "ref", "s": self.num.labels[tid]}]
+            if tid and self.ref_label(tid):
+                return [{"k": "ref", "s": self.ref_label(tid)}]
             if el.get("document") and not tid:
                 return [{"k": "ref", "s": "another chapter"}]
             return [{"k": "ref", "s": "the text"}]
@@ -167,7 +226,7 @@ class Parser:
             return [{
                 "t": "figure", "id": eid, "images": imgs, "alt": alts,
                 "caption": self.inlines(cap) if cap is not None else [],
-                "label": self.num.labels.get(eid),
+                "label": self.label(eid),
                 "splash": "splash" in (el.get("class") or ""),
             }]
         if tag == "media":
@@ -196,7 +255,7 @@ class Parser:
             title = el.find(C + "title")
             return [{
                 "t": "table", "id": eid, "rows": rows, "header_rows": header,
-                "label": self.num.labels.get(eid),
+                "label": self.label(eid),
                 "title": self.inlines(title) if title is not None else None,
                 "unstyled": "unstyled" in (el.get("class") or ""),
             }]
@@ -205,15 +264,10 @@ class Parser:
             title_el = el.find(C + "title")
             title = self.inlines(title_el) if title_el is not None else []
             title_text = plain(title)
-            if cls in ("theorem", "problem-solving", "checkpoint", "media-2", "project"):
-                kind = {"media-2": "media"}.get(cls, cls)
-            elif title_text.startswith("Definition"):
-                kind = "definition"
-            else:
-                kind = "note"
+            kind = note_kind(cls, title_text)
             return [{
                 "t": "box", "id": eid, "kind": kind, "title": title,
-                "label": self.num.labels.get(eid),
+                "label": self.label(eid),
                 "blocks": self.blocks(el),
             }]
         if tag == "example":
@@ -232,7 +286,7 @@ class Parser:
             for c in rest:
                 extra.extend(self.block(c) or [])
             return [{
-                "t": "example", "id": eid, "label": self.num.labels.get(eid),
+                "t": "example", "id": eid, "label": self.label(eid),
                 "title": self.inlines(title_el) if title_el is not None else [],
                 "problem": problem, "solution": solution, "after": extra,
             }]
@@ -373,14 +427,17 @@ def source_text(el: ET.Element) -> str:
     return " ".join("".join(parts).split())
 
 
-def parse_chapter(modules: list[Module]) -> list[ModuleIR]:
+def parse_modules(modules: list[Module]) -> list[ModuleIR]:
+    """Parse the modules of one book (in book order) into IR."""
+    if not modules:
+        return []
     roots = [(m, ET.parse(m.path).getroot()) for m in modules]
-    num = Numbering()
-    for _, r in roots:
-        num.scan(r)
+    num = Numbering(BOOKS[modules[0].book])
+    for m, r in roots:
+        num.scan(r, m.chapter, m.module_id)
     out = []
     for m, r in roots:
-        p = Parser(num, m.section_number)
+        p = Parser(num, m.section_number, m.module_id)
         title = r.find(C + "title").text
         abstract = r.find(f"{C}metadata/{MD}abstract")
         objectives = ([" ".join("".join(it.itertext()).split()) for it in abstract.iter(C + "item")]
@@ -396,8 +453,12 @@ def parse_chapter(modules: list[Module]) -> list[ModuleIR]:
                 glossary.append({"id": d.get("id"),
                                  "term": " ".join("".join(term.itertext()).split()),
                                  "meaning": p.inlines(meaning) if meaning is not None else []})
-        out.append(ModuleIR(m.module_id, m.section_number, title, objectives, blocks, glossary))
+        out.append(ModuleIR(m.module_id, m.section_number, title, objectives, blocks, glossary,
+                            book=m.book, chapter=m.chapter))
     return out
+
+
+parse_chapter = parse_modules
 
 
 def element_index(modules: list[Module]) -> dict[str, tuple[str, ET.Element]]:

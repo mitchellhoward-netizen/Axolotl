@@ -102,7 +102,7 @@ def parse_set(s: str) -> set:
 
 # ---------------------------------------------------------------------------
 
-UNITS = re.compile(r"\s*(ft\s*/\s*s(ec)?|m\s*/\s*s|feet per second|ft|feet|sec|seconds|m|square units|sq\.? units|units\^?2?|units)\.?\s*$", re.I)
+UNITS = re.compile(r"\s*(ft\s*/\s*s(ec)?|m\s*/\s*s|feet per second|square units|sq\.? units|units?\s*\^?\s*\(?2\)?|units?|ft|feet|sec|seconds|m)\.?\s*$", re.I)
 
 
 def strip_units(s: str) -> str:
@@ -162,6 +162,11 @@ def grade(key: dict, student: str | None) -> tuple[bool, str]:
                 return False, "still contains absolute value"
             if form == "polynomial" and not sp.sympify(stu).is_polynomial():
                 return False, "not simplified to a polynomial"
+            if form == "single_power" and not (stu == X or (isinstance(stu, sp.Pow) and stu.base == X)
+                                                or (isinstance(stu, sp.Pow) and stu.base == X ** -1)):
+                return False, "equivalent but not written as a single power of x"
+            if form == "expanded" and sp.expand(stu) != stu:
+                return False, "equivalent but not multiplied out"
             return True, "equivalent"
         if kind == "delta":
             return check_delta(key, parse(student))

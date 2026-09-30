@@ -1,93 +1,227 @@
-# Skill ontology for OpenStax Calculus Vol. 1, Chapter 2 (Limits).
+# Skill ontology: OpenStax Calculus Vol. 1, Chapter 2 (Limits), and the
+# algebra/trig/prealgebra foundations underneath it.
 #
 # This is the curated half of the skill graph. `extract.py` resolves every
-# anchor below against the fetched CNXML (learning objectives, example /
-# box titles, glossary terms, and text matches), records the element ids and
-# verbatim text it found, and fails if an anchor does not resolve. Foundation
-# skills (algebra/trig from Chapter 1 and earlier) are anchored by *detectors*
-# that find the places in Chapter 2 where the skill is exercised.
+# anchor below against the fetched CNXML, records the element ids and verbatim
+# text it found, and fails if an anchor does not resolve.
 #
-# Anchor keys:
+# Chapter skills (kind: chapter) are anchored in Calculus Vol. 1, Chapter 2:
 #   objectives: regexes matched against the section's learning objectives
 #   examples:   exact Example titles (all matches are taken)
 #   boxes:      exact titles of definition/theorem/problem-solving boxes
-#   checkpoints_after: Example titles whose following checkpoint belongs here
 #   glossary:   glossary terms
-#   detect:     detector names (see extract.DETECTORS)
+# Foundation skills (kind: foundation) are taught from other OpenStax books:
+#   lesson:     [{book, section, subsections: [subsection titles], objectives: [regexes]}]
+#               the subsections are what a refresh packet prints, verbatim
+#   detect:     detector names (extract.DETECTORS) that find where Chapter 2 exercises the skill
 
 skills:
-  # ---------------- Foundations (prerequisites under the chapter) ----------------
+  # ---------------- Deep foundations (prealgebra / beginning algebra) ----------------
+  - id: pre_order_ops
+    name: Order of operations and evaluating expressions
+    kind: foundation
+    origin: "Algebra and Trigonometry 2e, 1.1"
+    prerequisites: []
+    lesson:
+      - book: at2e
+        section: "1.1"
+        subsections: ["Performing Calculations Using the Order of Operations", "Evaluating Algebraic Expressions"]
+        objectives: ["order of operations", "Evaluate algebraic expressions"]
+    detect: [evaluate_at_point]
+  - id: pre_fractions
+    name: Add, subtract and simplify fractions
+    kind: foundation
+    origin: "Prealgebra 2e, 4.5"
+    prerequisites: [pre_order_ops]
+    lesson:
+      - book: pa2e
+        section: "4.5"
+        subsections: ["Find the Least Common Denominator", "Convert Fractions to Equivalent Fractions with the LCD",
+                      "Add and Subtract Fractions with Different Denominators"]
+        objectives: ["least common denominator", "Add and subtract fractions"]
+    detect: [numeric_fraction]
+  - id: pre_exponents
+    name: Exponent rules (product, quotient, power, negative)
+    kind: foundation
+    origin: "Algebra and Trigonometry 2e, 1.2"
+    prerequisites: [pre_order_ops]
+    lesson:
+      - book: at2e
+        section: "1.2"
+        subsections: ["Using the Product Rule of Exponents", "Using the Quotient Rule of Exponents",
+                      "Using the Power Rule of Exponents", "Using the Negative Rule of Exponents"]
+        objectives: ["product rule", "quotient rule", "power rule"]
+    detect: [exponent]
+  - id: pre_polynomial_ops
+    name: Multiply polynomials (distributive property, FOIL, special products)
+    kind: foundation
+    origin: "Algebra and Trigonometry 2e, 1.4"
+    prerequisites: [pre_exponents]
+    lesson:
+      - book: at2e
+        section: "1.4"
+        subsections: ["Multiplying Polynomials Using the Distributive Property", "Using FOIL to Multiply Binomials",
+                      "Perfect Square Trinomials", "Difference of Squares"]
+        objectives: ["Multiply polynomials", "FOIL"]
+    detect: [binomial_product]
+  - id: pre_linear_eq
+    name: Solve linear equations in one variable
+    kind: foundation
+    origin: "Algebra and Trigonometry 2e, 2.2"
+    prerequisites: [pre_order_ops, pre_fractions]
+    lesson:
+      - book: at2e
+        section: "2.2"
+        subsections: ["Solving Linear Equations in One Variable"]
+        objectives: ["Solve equations in one variable algebraically"]
+    detect: [unknown_constant_piecewise, epsilon_delta]
+
+  # ---------------- Foundations (algebra / trig directly under the chapter) ----------------
   - id: alg_eval
     name: Evaluate a function at a point (incl. piecewise)
     kind: foundation
-    origin: "Ch. 1 Functions and Graphs"
-    prerequisites: []
+    origin: "Algebra and Trigonometry 2e, 3.1-3.2"
+    prerequisites: [pre_order_ops]
+    lesson:
+      - book: at2e
+        section: "3.1"
+        subsections: ["Evaluation of Functions in Algebraic Forms"]
+        objectives: ["Find the value of a function"]
+      - book: at2e
+        section: "3.2"
+        subsections: ["Graphing Piecewise-Defined Functions"]
+        objectives: ["piecewise-defined functions"]
     detect: [evaluate_at_point, piecewise]
   - id: alg_slope
     name: Slope of the line through two points
     kind: foundation
-    origin: "Ch. 1 Functions and Graphs"
-    prerequisites: [alg_eval]
+    origin: "Algebra and Trigonometry 2e, 2.2"
+    prerequisites: [alg_eval, pre_fractions]
+    lesson:
+      - book: at2e
+        section: "2.2"
+        subsections: ["The Slope of a Line"]
+        objectives: ["Find a linear equation"]
     detect: [slope_quotient]
   - id: alg_factor
     name: Factor polynomials (common factor, trinomials, difference of squares/cubes)
     kind: foundation
-    origin: "Algebra"
-    prerequisites: []
+    origin: "Algebra and Trigonometry 2e, 1.5"
+    prerequisites: [pre_polynomial_ops]
+    lesson:
+      - book: at2e
+        section: "1.5"
+        subsections: ["Factoring the Greatest Common Factor of a Polynomial", "Factoring a Trinomial with Leading Coefficient 1",
+                      "Factoring a Difference of Squares", "Factoring the Sum and Difference of Cubes"]
+        objectives: ["Factor a trinomial", "Factor a difference of squares", "sum and difference of cubes"]
     detect: [factorable_rational]
   - id: alg_rational
     name: Simplify rational expressions by cancelling common factors
     kind: foundation
-    origin: "Algebra"
-    prerequisites: [alg_factor]
+    origin: "Algebra and Trigonometry 2e, 1.6"
+    prerequisites: [alg_factor, pre_fractions]
+    lesson:
+      - book: at2e
+        section: "1.6"
+        subsections: ["Simplifying Rational Expressions"]
+        objectives: ["Simplify rational expressions"]
     detect: [factorable_rational]
   - id: alg_conjugate
     name: Rationalize using a conjugate
     kind: foundation
-    origin: "Algebra"
-    prerequisites: []
+    origin: "Algebra and Trigonometry 2e, 1.3"
+    prerequisites: [pre_polynomial_ops]
+    lesson:
+      - book: at2e
+        section: "1.3"
+        subsections: ["Rationalizing Denominators"]
+        objectives: ["Rationalize denominators"]
     detect: [radical_in_fraction]
   - id: alg_complex_fraction
     name: Simplify complex fractions (common denominators)
     kind: foundation
-    origin: "Algebra"
-    prerequisites: [alg_rational]
+    origin: "Algebra and Trigonometry 2e, 1.6"
+    prerequisites: [alg_rational, pre_fractions]
+    lesson:
+      - book: at2e
+        section: "1.6"
+        subsections: ["Adding and Subtracting Rational Expressions", "Simplifying Complex Rational Expressions"]
+        objectives: ["Add and subtract rational expressions", "complex rational expressions"]
     detect: [nested_fraction]
   - id: alg_abs
     name: Absolute value as a piecewise function
     kind: foundation
-    origin: "Ch. 1 Functions and Graphs"
+    origin: "Algebra and Trigonometry 2e, 3.6"
     prerequisites: [alg_eval]
+    lesson:
+      - book: at2e
+        section: "3.6"
+        subsections: ["Understanding Absolute Value"]
+        objectives: ["absolute value"]
     detect: [absolute_value]
   - id: alg_domain
     name: Find where a function is undefined (domain)
     kind: foundation
-    origin: "Ch. 1 Functions and Graphs"
+    origin: "Algebra and Trigonometry 2e, 3.2"
     prerequisites: [alg_factor]
+    lesson:
+      - book: at2e
+        section: "3.2"
+        subsections: ["Finding the Domain of a Function Defined by an Equation"]
+        objectives: ["Find the domain"]
     detect: [rational_function]
   - id: alg_sign
     name: Determine the sign of an expression near a point
     kind: foundation
-    origin: "Algebra"
+    origin: "Algebra and Trigonometry 2e, 5.6"
     prerequisites: [alg_eval]
+    lesson:
+      - book: at2e
+        section: "5.6"
+        subsections: ["Using Arrow Notation", "Local Behavior of f(x)=(1)/(x)", "Vertical Asymptotes"]
+        objectives: ["arrow notation", "vertical asymptotes"]
     detect: [infinite_result]
   - id: alg_abs_ineq
     name: Solve and manipulate absolute-value inequalities
     kind: foundation
-    origin: "Algebra"
-    prerequisites: [alg_abs]
+    origin: "Algebra and Trigonometry 2e, 2.7"
+    prerequisites: [alg_abs, pre_linear_eq]
+    lesson:
+      - book: at2e
+        section: "2.7"
+        subsections: ["Solving Absolute Value Inequalities"]
+        objectives: ["absolute value inequalities"]
     detect: [epsilon_delta]
   - id: trig_values
     name: Exact trig values at special angles (radians)
     kind: foundation
-    origin: "Ch. 1 Trigonometric Functions"
-    prerequisites: []
+    origin: "Algebra and Trigonometry 2e, 7.3-7.4"
+    prerequisites: [pre_fractions]
+    lesson:
+      - book: at2e
+        section: "7.3"
+        subsections: ["Finding Sines and Cosines of Angles on an Axis", "Finding Sines and Cosines of Special Angles",
+                      "Using Reference Angles to Evaluate Trigonometric Functions"]
+        objectives: ["sine and cosine", "reference angles"]
+      - book: at2e
+        section: "7.4"
+        subsections: ["Using Reference Angles to Evaluate Tangent, Secant, Cosecant, and Cotangent"]
+        objectives: ["reference angles"]
     detect: [trig_at_special_angle]
   - id: trig_identities
     name: Basic trig identities (Pythagorean, quotient)
     kind: foundation
-    origin: "Ch. 1 Trigonometric Functions"
-    prerequisites: [trig_values]
+    origin: "Algebra and Trigonometry 2e, 7.4 and 9.1"
+    prerequisites: [trig_values, alg_factor]
+    lesson:
+      - book: at2e
+        section: "7.4"
+        subsections: ["Recognizing and Using Fundamental Identities", "Alternate Forms of the Pythagorean Identity"]
+        objectives: ["fundamental identities"]
+      - book: at2e
+        section: "9.1"
+        subsections: ["Using Algebra to Simplify Trigonometric Expressions"]
+        objectives: ["Simplify trigonometric expressions"]
     detect: [trig_ratio]
 
   # ---------------- 2.1 A Preview of Calculus ----------------
@@ -283,7 +417,7 @@ skills:
     name: Choose a constant that makes a piecewise function continuous
     kind: chapter
     section: "2.4"
-    prerequisites: [continuity_point]
+    prerequisites: [continuity_point, pre_linear_eq]
     objectives: ["three conditions for continuity"]
     detect: [unknown_constant_piecewise]
   - id: composite_continuity
@@ -337,9 +471,28 @@ skills:
 # `source` is optional text in the chapter that addresses the misconception;
 # extract.py resolves it to the element id and records the verbatim passage.
 misconceptions:
+  pre_order_ops:
+    - {id: left_to_right, root: pre_order_ops, desc: "Works strictly left to right, adding or subtracting before multiplying or dividing (ignores the order of operations)."}
+    - {id: negative_square, root: pre_order_ops, desc: "Squares the negative sign: treats -3^2 as 9, or (-3)^2 as -9."}
+    - {id: partial_distribution, root: pre_order_ops, desc: "Distributes a factor to only the first term inside parentheses, e.g. 2(x + 3) = 2x + 3."}
+  pre_fractions:
+    - {id: add_across, root: pre_fractions, desc: "Adds numerators and denominators: 1/2 + 1/3 = 2/5."}
+    - {id: scale_one_part, root: pre_fractions, desc: "Changes a denominator to the common denominator without scaling the numerator by the same factor."}
+    - {id: invert_wrong_fraction, root: pre_fractions, desc: "When dividing fractions, inverts the first fraction instead of the second."}
+  pre_exponents:
+    - {id: multiply_exponents, root: pre_exponents, desc: "Multiplies exponents when multiplying powers of the same base: x^2 * x^3 = x^6."}
+    - {id: add_power_exponents, root: pre_exponents, desc: "Adds exponents for a power of a power: (x^2)^3 = x^5."}
+    - {id: negative_exponent_sign, root: pre_exponents, desc: "Treats a negative exponent as a negative number: x^(-2) = -x^2."}
+  pre_polynomial_ops:
+    - {id: square_of_sum, root: pre_polynomial_ops, desc: "Squares each term separately: (a + b)^2 = a^2 + b^2 (drops the middle term 2ab)."}
+    - {id: foil_missing_term, root: pre_polynomial_ops, desc: "Misses one of the four products when multiplying two binomials."}
+    - {id: negative_distribution, root: pre_polynomial_ops, desc: "Sign error distributing a negative: -(x - 3) = -x - 3."}
+  pre_linear_eq:
+    - {id: move_without_sign_change, root: pre_linear_eq, desc: "Moves a term to the other side of the equals sign without changing its sign."}
+    - {id: divide_one_term, root: pre_linear_eq, desc: "Divides only one term, or only one side, by the coefficient."}
   alg_eval:
     - {id: wrong_piece, root: alg_eval, desc: "Uses the wrong piece of a piecewise function for the given input (ignores the condition on x)."}
-    - {id: order_of_operations, root: alg_eval, desc: "Order-of-operations or sign error when substituting, e.g. -2^2 evaluated as 4 or 3(-1)^2 as -3."}
+    - {id: order_of_operations, root: pre_order_ops, desc: "Order-of-operations or sign error when substituting, e.g. -2^2 evaluated as 4 or 3(-1)^2 as -3."}
     - {id: undefined_as_zero, root: alg_eval, desc: "Treats an undefined value (division by zero) as 0 instead of undefined."}
   alg_slope:
     - {id: slope_inverted, root: alg_slope, desc: "Computes run over rise, (x2 - x1)/(y2 - y1), instead of rise over run."}
@@ -353,10 +506,10 @@ misconceptions:
     - {id: forget_domain_restriction, root: alg_rational, desc: "Treats the simplified expression as identical to the original, including at the excluded point."}
   alg_conjugate:
     - {id: conjugate_numerator_only, root: alg_conjugate, desc: "Multiplies only the numerator (or only the denominator) by the conjugate, changing the value."}
-    - {id: conjugate_product_wrong, root: alg_conjugate, desc: "Expands (sqrt(a) - b)(sqrt(a) + b) incorrectly, e.g. as a - b instead of a - b^2."}
+    - {id: conjugate_product_wrong, root: pre_polynomial_ops, desc: "Expands (sqrt(a) - b)(sqrt(a) + b) incorrectly, e.g. as a - b instead of a - b^2."}
     - {id: sqrt_of_sum, root: alg_conjugate, desc: "Splits a square root over a sum: sqrt(a + b) = sqrt(a) + sqrt(b)."}
   alg_complex_fraction:
-    - {id: add_across, root: alg_complex_fraction, desc: "Adds fractions by adding numerators and denominators: 1/a + 1/b = 2/(a + b)."}
+    - {id: add_across, root: pre_fractions, desc: "Adds fractions by adding numerators and denominators: 1/a + 1/b = 2/(a + b)."}
     - {id: invert_wrong_part, root: alg_complex_fraction, desc: "Inverts the wrong fraction or drops the outer denominator when clearing a complex fraction."}
   alg_abs:
     - {id: abs_drop, root: alg_abs, desc: "Drops absolute-value bars, treating |x - a| as x - a on both sides of a."}
@@ -417,7 +570,7 @@ misconceptions:
        source: "You can use the quotient rule to evaluate"}
     - {id: law_misapplied, root: limit_laws, desc: "Misapplies a law, e.g. lim(f g) = lim f + lim g, or applies a law to limits that do not exist."}
   direct_substitution:
-    - {id: sub_arithmetic, root: alg_eval, desc: "Arithmetic slip when substituting."}
+    - {id: sub_arithmetic, root: pre_order_ops, desc: "Arithmetic slip when substituting."}
     - {id: zero_over_zero_is_answer, root: direct_substitution, desc: "Stops at 0/0 and reports the limit as 0, 1, or 'does not exist' without further work."}
   factor_cancel:
     - {id: fc_cancel_terms, root: alg_rational, desc: "Cancels terms rather than factors."}
@@ -426,10 +579,10 @@ misconceptions:
     - {id: fc_forget_substitute, root: factor_cancel, desc: "Cancels correctly but reports an expression, or substitutes into the original form again."}
   conjugate_limit:
     - {id: cj_numerator_only, root: alg_conjugate, desc: "Multiplies only one part by the conjugate."}
-    - {id: cj_product_wrong, root: alg_conjugate, desc: "Expands the conjugate product incorrectly."}
+    - {id: cj_product_wrong, root: pre_polynomial_ops, desc: "Expands the conjugate product incorrectly."}
     - {id: cj_zero_over_zero, root: conjugate_limit, desc: "Declares the limit 0, 1, or DNE on seeing 0/0 instead of rationalizing."}
   complex_fraction_limit:
-    - {id: cf_add_across, root: alg_complex_fraction, desc: "Adds fractions across numerators and denominators."}
+    - {id: cf_add_across, root: pre_fractions, desc: "Adds fractions across numerators and denominators."}
     - {id: cf_zero_over_zero, root: complex_fraction_limit, desc: "Declares the limit 0, 1, or DNE on seeing 0/0 instead of simplifying."}
     - {id: cf_sign_error, root: alg_complex_fraction, desc: "Sign error when combining over a common denominator (e.g. a - x vs x - a)."}
   nonzero_over_zero:
@@ -459,7 +612,7 @@ misconceptions:
     - {id: ci_endpoint_brackets, root: continuity_interval, desc: "Uses closed brackets at an excluded endpoint or open brackets where one-sided continuity holds."}
   continuity_parameter:
     - {id: cpar_match_wrong, root: continuity_parameter, desc: "Sets the wrong pieces equal, or evaluates the pieces at the wrong point."}
-    - {id: cpar_algebra, root: alg_eval, desc: "Sets up the right equation but solves it incorrectly."}
+    - {id: cpar_algebra, root: pre_linear_eq, desc: "Sets up the right equation but solves it incorrectly."}
   composite_continuity:
     - {id: cc_inside_out, root: composite_continuity, desc: "Moves the limit inside a function that is not continuous at the inner limit."}
     - {id: cc_trig_value, root: trig_values, desc: "Correct method but wrong exact trig value."}

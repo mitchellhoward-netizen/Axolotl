@@ -82,6 +82,7 @@ def state():
     rows = {r["id"]: r for r in d.skill_rows()}
     thr = config()["learner"]["mastery_threshold"]
     skills = [{"id": s, "name": sk[s]["name"], "section": sk[s]["section"] or "found.",
+               "group": "basics" if s.startswith("pre_") else (sk[s]["section"] or "found."),
                "kind": sk[s]["kind"], "p": round(rows[s]["p_mastery"], 3), "source": rows[s]["source"],
                "next_review": rows[s]["next_review"], "mastered": rows[s]["p_mastery"] >= thr}
               for s in extract.skill_order()]
@@ -130,15 +131,15 @@ def diagnostic_next():
 def lesson_next():
     d = db()
     use_jev = bool(os.environ.get("TYPESAFE_API_KEY"))
-    r = packets.build_lesson(d, log=d.log_jev, use_jev=use_jev)
-    return {"packet": r["pid"], "pdf": f"/packets/{r['pid']}.pdf", "focus": r["focus"],
+    r = packets.next_lesson(d, log=d.log_jev, use_jev=use_jev)
+    return {"packet": r["pid"], "pdf": f"/packets/{r['pid']}.pdf", "focus": r["focus"], "kind": r["kind"],
             "accepted": sum(1 for x in r["decisions"] if x["accepted"]), "snippets": len(r["decisions"]),
             "verbatim_ok": r["audit"]["ok"]}
 
 
 @app.get("/packets/{name}.pdf")
 def packet_pdf(name: str):
-    if not re.fullmatch(r"[DL]\d+(-key)?", name):
+    if not re.fullmatch(r"[DLR]\d+(-key)?", name):
         raise HTTPException(404)
     p = paths.OUT / f"{name}.pdf"
     if not p.exists():
@@ -188,7 +189,7 @@ def _public_report(rep: dict) -> dict:
            "at": rep.get("at"), "error": rep.get("error"), "problems": []}
     lines_by_num = {p["number"]: p.get("lines", []) for p in (rep.get("transcript") or {}).get("problems", [])}
     for p in rep.get("problems", []):
-        e = {"number": p["number"], "status": p.get("status")}
+        e = {"number": p["number"], "status": p.get("status"), "problem_id": p.get("problem_id")}
         if p.get("status") == "graded":
             d, c = p["decision"], p["stepcheck"]
             status_by_line = {x["line"]: x for x in c["lines"]}
@@ -208,6 +209,115 @@ def _public_report(rep: dict) -> dict:
             })
         out["problems"].append(e)
     return out
+
+
+@app.post("/api/ask")
+async def ask(request: Request):
+    body = await request.json()
+    prid, question = str(body.get("problem_id", "")), str(body.get("question", "")).strip()
+    line = body.get("line")
+    if not question or len(question) > 1000:
+        raise HTTPException(400, "Ask a question (up to 1000 characters).")
+    from starlette.concurrency import run_in_threadpool
+
+    return await run_in_threadpool(_ask, prid, question, int(line) if line else None, not body.get("dry_run"))
+
+
+def _ask(prid: str, question: str, line: int | None, store: bool) -> dict:
+    from . import tutor
+
+    d = db()
+    prob, att = d.problem(prid), d.attempt(prid)
+    if prob is None or att is None:
+        raise HTTPException(404, "That problem hasn't been graded yet.")
+    prob = prob | {"id": prid}
+    try:
+        result = tutor.ask(prob, att, question, line, log=d.log_jev)
+    except Exception as e:  # noqa: BLE001 - show the reason on the page
+        raise HTTPException(502, f"The tutor is unavailable right now ({type(e).__name__}: {str(e)[:200]}).") from e
+    if store:
+        d.add_question(prid, line, question, result)
+    return {"status": result["status"], "reply": result["reply"], "canonical": result.get("canonical"),
+            "cites": result.get("cites", [])}
+
+
+@app.get("/api/questions/{prid}")
+def questions(prid: str):
+    return [{"question": q["question"], "line": q["line"], "reply": q["reply"], "status": q["status"],
+             "canonical": q["detail"].get("canonical"), "at": q["at"]} for q in db().questions(prid)]
+
+
+@app.post("/api/packets/{pid}/set-aside")
+def set_aside(pid: str):
+    d = db()
+    pk = d.packet(pid)
+    if pk is None:
+        raise HTTPException(404, "No such packet.")
+    if pk["status"] != "open":
+        raise HTTPException(409, "Only open packets can be set aside.")
+    with d.tx() as c:
+        c.execute("UPDATE packets SET status='set_aside' WHERE id=?", (pid,))
+    return {"packet": pid, "status": "set_aside"}
+
+
+@app.get("/progress", response_class=HTMLResponse)
+def progress_page():
+    return (STATIC / "progress.html").read_text(encoding="utf-8")
+
+
+@app.get("/api/progress")
+def progress():
+    import collections
+    import datetime as dt
+
+    d = db()
+    sk = extract.skills()
+    thr = config()["learner"]["mastery_threshold"]
+    rows = {r["id"]: r for r in d.skill_rows()}
+    groups = collections.OrderedDict()
+    for s in extract.skill_order():
+        k = sk[s]
+        g = ("Prealgebra & algebra basics" if s.startswith("pre_") else
+             "Algebra & trig for calculus" if k["kind"] == "foundation" else f"Calculus {k['section']}")
+        p = rows[s]["p_mastery"]
+        state = ("mastered" if p >= thr else "practicing" if rows[s]["n_obs"]
+                 else "assessed" if rows[s]["source"] == "diagnostic" else "not started")
+        groups.setdefault(g, []).append({"id": s, "name": k["name"], "p": round(p, 3), "state": state,
+                                         "next_review": rows[s]["next_review"]})
+    attempts = d.attempts()
+    days = collections.OrderedDict()
+    today = dt.datetime.now(dt.timezone.utc).date()
+    for i in range(13, -1, -1):
+        days[(today - dt.timedelta(days=i)).isoformat()] = {"problems": 0, "correct": 0, "pages": set()}
+    for a in attempts:
+        day = a["graded_at"][:10]
+        if day in days:
+            days[day]["problems"] += 1
+            days[day]["correct"] += int(a["correct"])
+            if a.get("photo"):
+                days[day]["pages"].add(a["photo"])
+    mis_by_id = {m["id"]: m for lst in extract.misconceptions().values() for m in lst}
+    counts = collections.Counter()
+    for a in attempts:
+        m = ((a["evidence"] or {}).get("decision") or {}).get("misconception")
+        if m in mis_by_id:
+            counts[m] += 1
+    summ = diagnostic.summary(d)
+    total = len(sk)
+    mastered = sum(1 for g in groups.values() for x in g if x["state"] == "mastered")
+    return {
+        "mastered": mastered, "total": total,
+        "problems": len(attempts), "correct": sum(int(a["correct"]) for a in attempts),
+        "questions": len(d.questions()),
+        "diagnostic": {"answered": summ["answered"], "asked": summ["asked"],
+                       "uncertainty_bits": round(summ["entropy"]["sum_marginal_bits"], 1)},
+        "groups": [{"name": g, "skills": v, "mastered": sum(x["state"] == "mastered" for x in v)} for g, v in groups.items()],
+        "days": [{"day": k, "problems": v["problems"], "correct": v["correct"], "pages": len(v["pages"])} for k, v in days.items()],
+        "misconceptions": [{"id": m, "count": c, "description": mis_by_id[m]["description"],
+                            "root": sk[mis_by_id[m]["root_skill"]]["name"]} for m, c in counts.most_common(5)],
+        "next": [sk[s]["name"] for s in d.frontier()[:4]],
+        "reviews": [sk[s]["name"] for s in d.due_reviews()],
+    }
 
 
 @app.get("/api/reports")

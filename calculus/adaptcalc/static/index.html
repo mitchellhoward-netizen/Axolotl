@@ -4,6 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Calculus · Limits</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
 <style>
 @font-face { font-family: "Fira Sans"; src: url(/fonts/FiraSans-Regular.ttf); font-weight: 400; }
 @font-face { font-family: "Fira Sans"; src: url(/fonts/FiraSans-Medium.ttf); font-weight: 500; }
@@ -79,14 +82,23 @@ td, th { text-align: left; padding: 6px 4px; border-bottom: 1px solid var(--line
 .changes { font-size: 13px; color: var(--muted); margin-top: 6px; }
 .changes b { color: var(--ink); font-weight: 500; }
 .err { color: var(--bad); }
+.nav { font-size: 13px; font-weight: 600; color: var(--spot); text-decoration: none; border: 1px solid var(--spot); border-radius: 99px; padding: 2px 10px; }
+.askbtn { font-size: 13px; padding: 4px 10px; margin-top: 8px; }
+.ask { margin-top: 8px; display: none; }
+.ask.on { display: block; }
+.ask textarea { width: 100%; min-height: 60px; font: inherit; font-size: 14px; padding: 8px; border-radius: 8px; border: 1px solid var(--line); background: var(--card); color: var(--ink); }
+.ask select { font: inherit; font-size: 13px; }
+.answer { border-left: 3px solid var(--spot); padding: 6px 10px; margin-top: 8px; font-size: 14px; background: var(--tint2); border-radius: 0 6px 6px 0; }
+.answer .q { color: var(--muted); font-size: 13px; }
+.canon { font-family: "Libertinus Serif", Georgia, serif; font-size: 14px; margin-top: 6px; padding: 8px; border: 1px solid var(--line); border-radius: 6px; white-space: pre-wrap; }
 </style>
 </head>
 <body>
 <main>
   <header>
-    <div class="kicker">OpenStax Calculus Vol. 1 · Chapter 2</div>
+    <div class="kicker">OpenStax · Prealgebra and algebra up to Calculus Vol. 1, Chapter 2</div>
     <h1>Limits</h1>
-    <div class="chips"><span id="chips" class="chips"></span><button class="theme" id="theme" type="button">Dark</button></div>
+    <div class="chips"><a class="nav" href="/progress">Progress</a><span id="chips" class="chips"></span><button class="theme" id="theme" type="button">Dark</button></div>
   </header>
 
   <div class="grid">
@@ -135,6 +147,7 @@ let savedTheme = "light";
 try { savedTheme = localStorage.getItem("theme") || "light"; } catch (e) {}
 applyTheme(savedTheme);
 $("#theme").onclick = () => applyTheme(document.documentElement.dataset.theme === "dark" ? "light" : "dark");
+const KIND = { diagnostic: "Diagnostic round", lesson: "Lesson", refresh: "Refresh" };
 const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 let state = null;
 
@@ -148,39 +161,44 @@ async function api(path, opts = {}) {
 function renderNext() {
   const d = state.diagnostic;
   const opens = state.packets.filter((p) => p.status === "open").reverse();
-  const open = opens[0];
   let html = "<h2>Next step</h2>";
-  if (open) {
-    html += `<p class="big">Work through ${opens.length > 1 ? "these packets" : `packet ${esc(open.id)}`} on paper</p>
-      <p class="muted">Print or work from the screen, then photograph your pages below.</p>`;
+  if (opens.length) {
+    html += `<p class="big">Work through ${opens.length > 1 ? "these packets" : `packet ${esc(opens[0].id)}`} on paper</p>
+      <p class="muted">Print or work from the screen, then photograph your pages below. Set a packet aside if you don't want to finish it.</p>`;
     for (const o of opens) {
       html += `<div class="row"><a class="btn primary" href="${o.pdf}" target="_blank">Open ${esc(o.id)} (PDF)</a>
-        <span class="tag">${o.kind === "diagnostic" ? "Diagnostic round" : "Lesson"} · ${o.graded} of ${o.problems} graded</span></div>`;
+        <span class="tag">${KIND[o.kind] || o.kind} · ${o.graded} of ${o.problems} graded</span>
+        <button class="secondary askbtn" data-aside="${esc(o.id)}">Set aside</button></div>`;
     }
   } else if (!d.finished) {
     html += `<p class="big">${d.asked === 0 ? "Start the diagnostic" : "Next diagnostic round"}</p>
-      <p class="muted">${d.asked} of ${d.min}–${d.max} questions so far. Each round is chosen to split what is still uncertain about your skills (${d.uncertainty_bits} bits left).</p>
+      <p class="muted">${d.asked} of ${d.min}–${d.max} questions so far. Each round is chosen to split what is still uncertain about your skills (${d.uncertainty_bits} bits left). Skip anything you haven't seen.</p>
       <div class="row"><button class="primary" data-act="diagnostic">Make the next round</button></div>`;
   } else {
-    html += `<p class="big">Your next lesson</p>
-      <p class="muted">The diagnostic is done. Lessons print the book's section verbatim, keep the examples you need, and end with practice.</p>
-      <div class="row"><button class="primary" data-act="lesson">Make my next lesson</button></div>`;
+    html += `<p class="big">Your next packet</p>
+      <p class="muted">If a basic skill is rusty you get a short refresh from the book first; once the basics hold, you get the next calculus lesson.</p>
+      <div class="row"><button class="primary" data-act="lesson">Make my next packet</button></div>`;
   }
   const extra = [];
-  if (!d.finished && !d.open_round && open) extra.push(`<button class="secondary" data-act="diagnostic">Next diagnostic round</button>`);
-  extra.push(`<button class="secondary" data-act="lesson">Make a lesson now</button>`);
+  if (!d.finished && !d.open_round && opens.length) extra.push(`<button class="secondary" data-act="diagnostic">Next diagnostic round</button>`);
+  if (!(d.finished && !opens.length)) extra.push(`<button class="secondary" data-act="lesson">Make a refresh or lesson now</button>`);
   html += `<div class="row">${extra.join("")}</div><div id="actMsg" class="muted" style="margin-top:8px"></div>`;
   $("#next").innerHTML = html;
   $("#next").querySelectorAll("button[data-act]").forEach((b) => b.onclick = () => act(b.dataset.act, b));
+  $("#next").querySelectorAll("button[data-aside]").forEach((b) => b.onclick = async () => {
+    if (!confirm(`Set packet ${b.dataset.aside} aside? Problems you already sent in stay graded.`)) return;
+    try { await api(`/api/packets/${b.dataset.aside}/set-aside`, { method: "POST" }); await load(); }
+    catch (e) { $("#actMsg").innerHTML = `<span class="err">${esc(e.message)}</span>`; }
+  });
 }
 
 async function act(kind, btn) {
   btn.disabled = true;
-  $("#actMsg").textContent = kind === "lesson" ? "Building the lesson (checking every generated line)…" : "Choosing the questions that tell us the most…";
+  $("#actMsg").textContent = kind === "lesson" ? "Building your next packet (every generated line is checked)…" : "Choosing the questions that tell us the most…";
   try {
     const r = await api(`/api/${kind}/next`, { method: "POST" });
     if (r.finished) $("#actMsg").textContent = "The diagnostic is finished.";
-    else { window.open(r.pdf, "_blank"); $("#actMsg").textContent = `Packet ${r.packet} is ready.`; }
+    else { window.open(r.pdf, "_blank"); $("#actMsg").textContent = `${KIND[r.kind] || "Packet"} ${r.packet} is ready.`; }
     await load();
   } catch (e) { $("#actMsg").innerHTML = `<span class="err">${esc(e.message)}</span>`; btn.disabled = false; }
 }
@@ -189,13 +207,13 @@ function renderSkills() {
   const d = state.diagnostic;
   $("#diag").textContent = `Diagnostic: ${d.answered} answered of ${d.asked} asked · ${d.uncertainty_bits} bits of uncertainty left`;
   const bySec = {};
-  for (const s of state.skills) (bySec[s.section] ||= []).push(s);
-  const names = { "found.": "Algebra & trig underneath", "2.1": "2.1 A Preview of Calculus", "2.2": "2.2 The Limit of a Function",
+  for (const s of state.skills) (bySec[s.group] ||= []).push(s);
+  const names = { "basics": "Prealgebra & algebra basics", "found.": "Algebra & trig for calculus", "2.1": "2.1 A Preview of Calculus", "2.2": "2.2 The Limit of a Function",
                   "2.3": "2.3 The Limit Laws", "2.4": "2.4 Continuity", "2.5": "2.5 The Precise Definition of a Limit" };
   let html = "";
   for (const [sec, list] of Object.entries(bySec)) {
     const done = list.filter((s) => s.mastered).length;
-    html += `<details ${sec === "found." ? "" : "open"}><summary class="sec">${esc(names[sec] || sec)} · ${done}/${list.length}</summary>`;
+    html += `<details ${["basics", "found."].includes(sec) ? "open" : ""}><summary class="sec">${esc(names[sec] || sec)} · ${done}/${list.length}</summary>`;
     for (const s of list) {
       html += `<div class="skill ${s.mastered ? "mastered" : ""}"><span class="name">${esc(s.name)}</span><span class="p">${Math.round(s.p * 100)}%</span>
         <div class="bar"><i style="width:${(s.p * 100).toFixed(1)}%"></i><span class="thr" style="left:${state.threshold * 100}%"></span></div></div>`;
@@ -207,7 +225,7 @@ function renderSkills() {
 
 function renderPackets() {
   $("#packets").innerHTML = state.packets.map((p) => `<tr>
-    <td><b>${esc(p.id)}</b> <span class="tag">${p.kind}</span></td>
+    <td><b>${esc(p.id)}</b> <span class="tag">${KIND[p.kind] || p.kind}${p.status === "set_aside" ? " · set aside" : ""}</span></td>
     <td class="tag">${p.graded}/${p.problems} graded</td>
     <td>${p.pdf ? `<a href="${p.pdf}" target="_blank">packet</a>` : ""}</td>
     <td>${p.key && p.status !== "open" ? `<a href="${p.key}" target="_blank">key</a>` : `<span class="tag">key after grading</span>`}</td></tr>`).join("")
@@ -235,11 +253,61 @@ function renderReport(rep) {
     }
     if (!ok && !p.skipped) html += `<div class="tag">Answer given: ${esc(p.final_answer)} (${esc(p.final_note)})</div>`;
     if (p.misconception_text) html += `<div class="mis"><b>What went wrong:</b> ${esc(p.misconception_text)}</div>`;
+    if (p.problem_id) {
+      const opts = p.lines.map((l, i) => `<option value="${i + 1}" ${l.status === "invalid" ? "selected" : ""}>line ${i + 1}</option>`).join("");
+      html += `<button class="secondary askbtn" data-ask="${esc(p.problem_id)}">Ask about this</button>
+        <div class="ask" id="ask-${esc(p.problem_id)}">
+          <textarea placeholder="e.g. Why is this line wrong? What should I do next?"></textarea>
+          <div class="row" style="margin-top:6px"><select><option value="">whole problem</option>${opts}</select>
+          <button class="primary askbtn" data-send="${esc(p.problem_id)}">Ask</button></div>
+          <div class="answers"></div></div>`;
+    }
     if (p.changes.length) html += `<div class="changes">Model updates: ` + p.changes.map((c) => `<b>${esc(c.name)}</b> ${Math.round(c.before * 100)}→${Math.round(c.after * 100)}%`).join(" · ") + `</div>`;
     html += `</div>`;
   }
   return html;
 }
+
+function mathify(el) {
+  if (window.renderMathInElement) renderMathInElement(el, { delimiters: [{ left: "$", right: "$", display: false }], throwOnError: false });
+}
+
+function answerHtml(a) {
+  return `<div class="answer">${a.question ? `<div class="q">You asked: ${esc(a.question)}</div>` : ""}
+    <div>${esc(a.reply)}</div>${a.canonical ? `<div class="canon">${esc(a.canonical)}</div>` : ""}</div>`;
+}
+
+document.addEventListener("click", async (ev) => {
+  const open = ev.target.closest("[data-ask]");
+  if (open) {
+    const box = document.getElementById(`ask-${open.dataset.ask}`);
+    box.classList.toggle("on");
+    if (box.classList.contains("on") && !box.dataset.loaded) {
+      box.dataset.loaded = "1";
+      const past = await api(`/api/questions/${open.dataset.ask}`).catch(() => []);
+      box.querySelector(".answers").innerHTML = past.map(answerHtml).join("");
+      mathify(box);
+    }
+    return;
+  }
+  const send = ev.target.closest("[data-send]");
+  if (!send) return;
+  const box = document.getElementById(`ask-${send.dataset.send}`);
+  const q = box.querySelector("textarea").value.trim();
+  if (!q) return;
+  send.disabled = true;
+  const slot = document.createElement("div");
+  slot.className = "muted"; slot.textContent = "Thinking, then checking the math…";
+  box.querySelector(".answers").appendChild(slot);
+  try {
+    const r = await api("/api/ask", { method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ problem_id: send.dataset.send, question: q, line: box.querySelector("select").value || null }) });
+    slot.outerHTML = answerHtml({ ...r, question: q });
+    box.querySelector("textarea").value = "";
+    mathify(box);
+  } catch (e) { slot.innerHTML = `<span class="err">${esc(e.message)}</span>`; }
+  send.disabled = false;
+});
 
 async function loadReports() {
   const reps = await api("/api/reports");

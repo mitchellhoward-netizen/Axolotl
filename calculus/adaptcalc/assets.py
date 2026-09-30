@@ -33,7 +33,9 @@ def duotone(name: str) -> Path:
     saturated pixels (the colored curves) are printed in the spot color with
     the same density. The result reads like a two-color printed figure.
     """
-    src = paths.MEDIA_DIR / name
+    from .source import fetch_media
+
+    src = fetch_media(name)
     dest = paths.DUOTONE_DIR / (Path(name).stem + ".png")
     if dest.exists() and dest.stat().st_mtime >= src.stat().st_mtime:
         return dest

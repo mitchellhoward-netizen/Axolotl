@@ -135,6 +135,102 @@ def disp(v):
 
 # ============================ Foundations ============================
 
+@template("pre_order_ops.evaluate", "pre_order_ops", guess=0.03, work_lines=4,
+          substeps=["evaluate inside parentheses and exponents first", "multiply and divide before adding and subtracting"],
+          strategies={"order_of_operations": "parentheses, exponents, multiply/divide, add/subtract", "other": "other", "unsure": "unsure"})
+def _(rng):
+    a, b, c = rng.randint(2, 9), rng.randint(2, 6), nz(rng, -5, 5)
+    d = rng.choice([2, 3, 4, 6])
+    form = rng.choice(["mixed", "negative_square"])
+    if form == "mixed":
+        expr = sp.Add(a, sp.Mul(d, sp.Pow(sp.Add(b, c, evaluate=False), 2, evaluate=False), evaluate=False),
+                      evaluate=False)
+        tp, pl = f"{a} + {d} ({b} {'+' if c > 0 else '-'} {abs(c)})^2", f"{a} + {d}*({b} {'+' if c > 0 else '-'} {abs(c)})^2"
+        val = a + d * (b + c) ** 2
+    else:
+        expr = None
+        tp, pl = f"-{b}^2 + {a} dot {d}", f"-{b}^2 + {a}*{d}"
+        val = -(b ** 2) + a * d
+    check(sp.sympify(pl.replace("^", "**")) == val, "order of operations")
+    return {"prompt": f"Evaluate ${tp}$.", "plain": f"Evaluate {pl}.",
+            "key": {"kind": "value", "value": sp.srepr(sp.Integer(val))}, "display": T(val),
+            "verified": f"sympy: {pl} = {val}"}
+
+
+@template("pre_fractions.add", "pre_fractions", requires=["pre_order_ops"], guess=0.02, work_lines=5,
+          substeps=["find the least common denominator", "rewrite each fraction over the LCD", "add or subtract the numerators and simplify"],
+          strategies={"lcd": "least common denominator", "cross_multiply": "multiply denominators together", "other": "other", "unsure": "unsure"})
+def _(rng):
+    b, d = rng.sample([2, 3, 4, 5, 6, 8, 9, 10, 12], 2)
+    a, c = rng.randint(1, b - 1 if b > 2 else 1), rng.randint(1, 7)
+    op = rng.choice(["+", "-"])
+    val = sp.Rational(a, b) + (sp.Rational(c, d) if op == "+" else -sp.Rational(c, d))
+    check(sp.gcd(a, b) == 1 and sp.gcd(c, d) == 1, "fractions in lowest terms")
+    return {"prompt": f"{'Add' if op == '+' else 'Subtract'}: $frac({a}, {b}) {op} frac({c}, {d})$. Simplify your answer.",
+            "plain": f"{'Add' if op == '+' else 'Subtract'}: {a}/{b} {op} {c}/{d}. Simplify.",
+            "key": {"kind": "value", "value": sp.srepr(val)}, "display": T(val),
+            "verified": f"sympy: {a}/{b} {op} {c}/{d} = {val}"}
+
+
+@template("pre_exponents.simplify", "pre_exponents", requires=["pre_order_ops"], guess=0.03, work_lines=4,
+          substeps=["apply the product rule (add exponents)", "apply the quotient or power rule"],
+          strategies={"exponent_rules": "product, quotient and power rules", "expand": "write out the factors", "other": "other", "unsure": "unsure"})
+def _(rng):
+    a, b, c = rng.randint(2, 6), rng.randint(2, 6), rng.randint(2, 7)
+    form = rng.choice(["product_quotient", "power"])
+    if form == "product_quotient":
+        expr = x**a * x**b / x**c
+        tp = f"frac(x^{a} dot x^{b}, x^{c})"
+        pl = f"(x^{a} * x^{b})/x^{c}"
+    else:
+        expr = (x**a) ** b / x**c
+        tp = f"frac((x^{a})^{b}, x^{c})"
+        pl = f"(x^{a})^{b}/x^{c}"
+    n = a + b - c if form == "product_quotient" else a * b - c
+    check(n not in (0, 1), "answer must be a genuine power of x")
+    key = sp.powsimp(expr)
+    check(key == x ** n, "exponent rules")
+    return {"prompt": f"Simplify ${tp}$. Write your answer as a single power of $x$.",
+            "plain": f"Simplify {pl} to a single power of x.",
+            "key": {"kind": "expr", "value": sp.srepr(key), "form": "single_power"}, "display": T(key),
+            "verified": f"sympy: powsimp = {key}"}
+
+
+@template("pre_polynomial_ops.expand", "pre_polynomial_ops", requires=["pre_exponents"], guess=0.02, work_lines=4,
+          substeps=["multiply every term of the first factor by every term of the second", "combine like terms"],
+          strategies={"foil": "FOIL / distributive property", "special_product": "special product pattern", "other": "other", "unsure": "unsure"})
+def _(rng):
+    form = rng.choice(["foil", "square", "diff_squares"])
+    a, b = nz(rng, -7, 7), nz(rng, -7, 7)
+    if form == "foil":
+        expr = sp.Mul(x + a, x + b, evaluate=False)
+    elif form == "square":
+        expr = sp.Pow(x + a, 2, evaluate=False)
+    else:
+        expr = sp.Mul(x + abs(a), x - abs(a), evaluate=False)
+    key = sp.expand(expr)
+    check(sp.expand(sp.sympify(str(expr))) == key, "expand")
+    return {"prompt": f"Multiply and simplify: ${T(expr)}$.", "plain": f"Multiply and simplify: {P(expr)}.",
+            "key": {"kind": "expr", "value": sp.srepr(key), "form": "expanded"}, "display": T(key),
+            "verified": f"sympy: expand = {key}"}
+
+
+@template("pre_linear_eq.solve", "pre_linear_eq", requires=["pre_order_ops"], guess=0.02, work_lines=5,
+          substeps=["collect the x terms on one side", "collect the constants on the other side", "divide by the coefficient"],
+          strategies={"isolate": "inverse operations to isolate x", "guess_check": "guess and check", "other": "other", "unsure": "unsure"})
+def _(rng):
+    sol = rng.randint(-6, 6)
+    a, c = rng.sample([v for v in range(-6, 8) if v not in (0,)], 2)
+    b = rng.randint(-9, 9)
+    d = a * sol + b - c * sol
+    eq = sp.Eq(a * x + b, c * x + d)
+    check(sp.solve(eq, x) == [sol], "linear equation")
+    return {"prompt": f"Solve for $x$: ${T(a * x + b)} = {T(c * x + d)}$.",
+            "plain": f"Solve for x: {P(a * x + b)} = {P(c * x + d)}.",
+            "key": {"kind": "value", "value": sp.srepr(sp.Integer(sol))}, "display": f"x = {sol}",
+            "verified": f"sympy: solve = {sol}"}
+
+
 @template("alg_eval.poly", "alg_eval", guess=0.02, work_lines=3,
           substeps=["substitute the value into each term", "evaluate powers before multiplying"],
           strategies={"substitute": "direct substitution and arithmetic", "other": "other", "unsure": "unsure"})

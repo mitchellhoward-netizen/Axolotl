@@ -9,7 +9,8 @@
 #let serif = ("Libertinus Serif",)
 
 #let book(
-  title: none, running: none, code: none, attribution: none, body,
+  title: none, running: none, code: none, attribution: none,
+  kicker: [#smallcaps[Chapter 2] #h(0.4em) #text(fill: black)[Limits]], body,
 ) = {
   set document(title: title)
   set page(
@@ -20,7 +21,7 @@
       if n > 1 {
         set text(font: sans, size: 8pt, fill: spot)
         grid(columns: (1fr, auto),
-          [#smallcaps[Chapter 2] #h(0.4em) #text(fill: ink)[Limits]],
+          kicker,
           [#running #h(0.6em) #box(fill: spot, inset: (x: 4pt, y: 2pt), text(fill: white, weight: "bold", code))])
         v(-4pt)
         line(length: 100%, stroke: 0.5pt + spot)
@@ -85,6 +86,18 @@
   #block(width: 100%, fill: spot, inset: (x: 10pt, y: 5pt), below: 0pt,
     text(font: sans, size: 9.5pt, weight: "semibold", fill: white)[Problem-Solving Strategy: #title])
   #block(inset: 10pt, body)
+]
+
+#let howto(title, body) = block(width: 100%, breakable: true, stroke: 1pt + spot, radius: 2pt, below: 1em)[
+  #block(width: 100%, fill: tint1, inset: (x: 10pt, y: 5pt), below: 0pt,
+    [#text(font: sans, size: 8.5pt, weight: "bold", fill: spot, tracking: 0.08em)[HOW TO] #h(0.4em) #text(font: sans, size: 9.5pt, weight: "semibold", title)])
+  #block(inset: 10pt, body)
+]
+
+#let qa(body) = block(width: 100%, breakable: true, fill: tint2, inset: 9pt, below: 1em)[
+  #text(font: sans, size: 8.5pt, weight: "bold", fill: spot, tracking: 0.08em)[Q & A]
+  #v(-3pt)
+  #body
 ]
 
 #let note-box(title, body) = block(width: 100%, breakable: true, stroke: (y: 0.6pt + spot), inset: (y: 8pt), below: 1em)[
@@ -153,6 +166,7 @@
 ]
 
 #let cover(kicker, title, subtitle, code) = block(width: 100%, below: 1.4em)[
+  #set par(justify: false)
   #grid(columns: (1fr, auto), align: horizon,
     [#text(font: sans, size: 9pt, weight: "bold", fill: spot, tracking: 0.12em, upper(kicker))
      #v(-6pt)

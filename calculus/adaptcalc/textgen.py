@@ -36,6 +36,7 @@ class Snippet:
     claims: list = field(default_factory=list)   # SymPy relations asserted by the snippet
     problem: dict | None = None
     checks: dict = field(default_factory=dict)
+    allowed: set | None = None     # explicit notation allow-list (refresh packets); else chapter position
 
     @property
     def accepted(self) -> bool:
@@ -71,7 +72,10 @@ def sympy_check(s: Snippet) -> tuple[bool, str]:
 
 
 def notation_check(s: Snippet) -> tuple[bool, str]:
-    ok, bad = notation.check([s.typst], s.position)
+    if s.allowed is not None:
+        ok, bad = notation.check_allowed([s.typst], s.allowed)
+    else:
+        ok, bad = notation.check([s.typst], s.position)
     return ok, ("ok" if ok else f"notation not yet introduced: {sorted(bad)}")
 
 
@@ -122,6 +126,13 @@ def roadmap(skill_names: list[str], section_title: str, position: int, fallback:
     text = (f"This packet is Section {section_title}, read straight through. It concentrates on: {names}. "
             f"The examples kept in it are the ones that use these skills, and the practice set at the end follows them.")
     return Snippet("roadmap", "transition", text.replace('"', "'"), text, position, fallback)
+
+
+def refresh_roadmap(skill_names: list[str], source_title: str, fallback: dict) -> Snippet:
+    names = "; ".join(n[0].lower() + n[1:] for n in skill_names)
+    text = (f"This is a refresh of something you have probably seen before: {names}. The pages below are from "
+            f"{source_title}. Read the worked examples, then try the practice problems without looking back at them.")
+    return Snippet("roadmap", "transition", text, text, 0, fallback)
 
 
 def pointer(label: str, problem_numbers: list[int], position: int, fallback: dict) -> Snippet:

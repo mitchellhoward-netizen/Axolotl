@@ -28,7 +28,28 @@ def norm(s: str) -> str:
 
 @lru_cache(maxsize=1)
 def load_chapter() -> tuple[cnxml.ModuleIR, ...]:
-    return tuple(cnxml.parse_chapter(source.fetch_chapter()))
+    """Calculus Volume 1, Chapter 2: the course."""
+    return load_book("calc1")
+
+
+@lru_cache(maxsize=None)
+def load_book(book: str) -> tuple[cnxml.ModuleIR, ...]:
+    return tuple(cnxml.parse_modules(source.fetch_book(book)))
+
+
+def module(book: str, number: str) -> cnxml.ModuleIR:
+    for m in load_book(book):
+        if m.number == number:
+            return m
+    raise KeyError(f"{book} section {number} not loaded")
+
+
+def find_subsection(mod: cnxml.ModuleIR, title: str) -> dict | None:
+    """A <section> block anywhere in the module whose title matches (ignoring case and punctuation)."""
+    for b in cnxml.walk(mod.blocks):
+        if b["t"] == "section" and norm(cnxml.plain(b["title"])) == norm(title):
+            return b
+    return None
 
 
 def load_ontology() -> dict:
@@ -105,7 +126,40 @@ DETECTORS = {
     "trig_at_special_angle": _has(r"(sin|cos|tan|cot|sec|csc)\W{0,3}\(?[^a-z]{0,6}π"),
     "trig_ratio": _has(r"(sin|cos|tan)[^\n]{0,40}\)/\(|\)/\([^\n]{0,20}(sin|cos|tan)"),
     "unknown_constant_piecewise": lambda t: "{ " in t and bool(re.search(r"\b[kc]\b", t)) and "continuous" in t,
+    "numeric_fraction": _has(r"\(\s*-?\d+\s*\)/\(\s*\d+\s*\)"),
+    "exponent": _has(r"\^\(\s*-?\d+\s*\)"),
+    "binomial_product": _has(r"\([a-z]\s*[-+−]\s*\d+\)\s*\(\s*[a-z]\s*[-+−]"),
 }
+
+
+def resolve_lesson(sk: dict) -> tuple[list[dict], list[str], list[dict]]:
+    """Resolve a foundation skill's lesson against its book: subsections to print, the worked
+    examples / Try Its / How Tos inside them, and the section's matching learning objectives."""
+    parts, anchors, objectives = [], [], []
+    for part in sk["lesson"]:
+        mod = module(part["book"], part["section"])
+        subs = []
+        for title in part["subsections"]:
+            sec = find_subsection(mod, title)
+            if sec is None:
+                raise ValueError(f"{sk['id']}: subsection {title!r} not found in {part['book']} {part['section']}")
+            subs.append({"id": sec["id"], "title": cnxml.plain(sec["title"]).strip()})
+            for b in cnxml.walk(sec["blocks"]):
+                if b["t"] == "example" or (b["t"] == "box" and b["kind"] in ("checkpoint", "howto", "note", "definition")):
+                    kind = "example" if b["t"] == "example" else ("checkpoint" if b["kind"] == "checkpoint" else "box")
+                    anchors.append({"book": part["book"], "module": mod.module_id, "section": part["section"],
+                                    "id": b["id"], "type": kind, "label": b.get("label"),
+                                    "title": cnxml.plain(b.get("title")).strip()})
+        for rx in part.get("objectives", []):
+            hits = [o for o in mod.objectives if re.search(rx, o, re.I)]
+            if not hits:
+                raise ValueError(f"{sk['id']}: objective /{rx}/ not found in {part['book']} {part['section']}")
+            objectives += [h for h in hits if h not in objectives]
+        parts.append({"book": part["book"], "section": part["section"], "module": mod.module_id,
+                      "title": mod.title, "url": f"{source.book_url(part['book'])}", "subsections": subs})
+    if not any(a["type"] == "example" for a in anchors):
+        raise ValueError(f"{sk['id']}: lesson has no worked examples")
+    return parts, anchors, objectives
 
 
 # ---------------------------------------------------------------------------
@@ -171,13 +225,20 @@ def resolve_skill(sk: dict, chapter, all_items, all_boxes) -> dict:
                 problems.append(it["id"])
     anchored_items = {a["id"] for a in anchors}
     problems = [p for p in dict.fromkeys(problems) if p not in anchored_items]
+    lesson = []
+    if sk.get("lesson"):
+        lesson, lesson_anchors, lesson_objectives = resolve_lesson(sk)
+        anchors += lesson_anchors
+        objectives += lesson_objectives
 
     out = {
         "id": sk["id"],
         "name": sk["name"],
         "kind": sk["kind"],
         "section": sec,
+        "book": "calc1" if sk["kind"] == "chapter" else (lesson[0]["book"] if lesson else None),
         "origin": sk.get("origin") or f"Section {sec}",
+        "lesson": lesson,
         "prerequisites": sk.get("prerequisites", []),
         "learning_objectives": objectives,
         "anchors": anchors,
