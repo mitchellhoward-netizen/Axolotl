@@ -60,14 +60,19 @@ def test_false_math_is_sent_back_and_fixed(db, fake_jev):
                         {"reply": "Note [[1]].", "equations": [{"parts": ["f(2)", "2**2 - 4", "0"]}], "cites": []})
     r = tutor.ask(prob, att, "hint?", None, claude_client=claude, jev_client=jev(fake_jev))
     assert r["status"] == "ok" and r["tries"] == 2
-    assert "not true" in claude.sent[1]["messages"][0]["content"]
+    assert "did not check out" in claude.sent[1]["messages"][0]["content"]
 
 
-def test_equations_typed_into_the_reply_are_rejected(db, fake_jev):
+def test_equations_typed_into_the_reply_are_checked_like_the_rest(db, fake_jev):
     prob, att = graded(db)
-    reply = {"reply": "Note $x^2-4=(x-2)(x+2)$.", "equations": [], "cites": []}
-    r = tutor.ask(prob, att, "hint?", None, claude_client=FakeClaude(*[reply] * tutor.TRIES), jev_client=jev(fake_jev))
-    assert r["status"] == "fallback" and "typed into the reply" in r["rejected"][0][0]
+    ok = {"reply": r"Compare with $\frac{9-1}{3-1} = 4$ and $\lim_{x \to 2} (x^2 - 4)/(x - 2) = 4$.", "equations": [], "cites": []}
+    r = tutor.ask(prob, att, "hint?", None, claude_client=FakeClaude(ok), jev_client=jev(fake_jev))
+    assert r["status"] == "ok" and r["tries"] == 1 and "Limit(" not in r["reply"]
+    wrong = {"reply": r"Note $\frac{9-1}{3-1} = 5$.", "equations": [], "cites": []}
+    unreadable = {"reply": r"Note $\int_0^1 x\,dx = 1/2$.", "equations": [], "cites": []}
+    r = tutor.ask(prob, att, "hint?", None, claude_client=FakeClaude(wrong, unreadable, wrong), jev_client=jev(fake_jev))
+    assert r["status"] == "fallback"
+    assert "did not check out" in r["rejected"][0][0] and "could not be read" in r["rejected"][1][0]
 
 
 def test_giving_away_the_answer_falls_back_to_the_book(db, fake_jev):

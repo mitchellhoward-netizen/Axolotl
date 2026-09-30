@@ -227,6 +227,74 @@ def check_equations(equations: list[dict]) -> tuple[list[str], list[str]]:
     return bad, rendered
 
 
+def _braced(t: str, i: int) -> tuple[str, int]:
+    """The {...} group starting at t[i] and the index after it."""
+    if i >= len(t) or t[i] != "{":
+        raise ValueError("expected {")
+    depth = 0
+    for j in range(i, len(t)):
+        depth += {"{": 1, "}": -1}.get(t[j], 0)
+        if depth == 0:
+            return t[i + 1:j], j + 1
+    raise ValueError("unbalanced")
+
+
+def latex_to_sympy(t: str) -> str:
+    """Plain LaTeX arithmetic (\\frac, \\sqrt, powers, subscripts, \\cdot) as SymPy syntax."""
+    t = re.sub(r"\\left|\\right|\\,|\\;|\\!", "", t).strip()
+    m = re.match(r"\\lim_\{\s*([a-z])\s*\\to\s*([^{}]+?)\s*(\^[+-]|\^\{[+-]\})?\s*\}(.*)$", t, re.S)
+    if m:
+        side = (m.group(3) or "").strip("^{}")
+        return f"Limit({latex_to_sympy(m.group(4))}, {m.group(1)}, {latex_to_sympy(m.group(2))}" + \
+            (f", '{side}')" if side else ")")
+    t = t.replace("\\cdot", "*").replace("\\times", "*").replace("\\div", "/").replace("\\pi", "pi")
+    out, i = [], 0
+    while i < len(t):
+        if t.startswith("\\frac", i) or t.startswith("\\dfrac", i):
+            i = t.index("{", i)
+            a, i = _braced(t, i)
+            b, i = _braced(t, i)
+            out.append(f"(({latex_to_sympy(a)})/({latex_to_sympy(b)}))")
+        elif t.startswith("\\sqrt", i):
+            a, i = _braced(t, i + 5)
+            out.append(f"sqrt({latex_to_sympy(a)})")
+        elif t[i] == "^":
+            if t[i + 1:i + 2] == "{":
+                a, i = _braced(t, i + 1)
+            else:
+                a, i = t[i + 1], i + 2
+            out.append(f"**({latex_to_sympy(a)})")
+        elif t[i] == "_" and t[i + 1:i + 2] == "{":
+            a, i = _braced(t, i + 1)
+            out.append("_" + a)
+        elif t[i] == "\\":
+            raise ValueError("unsupported LaTeX")
+        else:
+            out.append({"{": "(", "}": ")"}.get(t[i], t[i]))
+            i += 1
+    return "".join(out)
+
+
+def lift_typed_equations(reply: str, equations: list[dict]) -> tuple[str, list[dict], list[str]]:
+    """Equations typed into the reply as $a = b$ become checked equations when their LaTeX is
+    plain arithmetic; the ones that can't be read are returned as failures."""
+    equations, unreadable = list(equations), []
+
+    def sub(m):
+        body = m.group(1)
+        try:
+            parts = [latex_to_sympy(x).strip() for x in body.split("=")]
+            if any(not p for p in parts) or any(stepcheck._parse(p) is stepcheck.UNPARSEABLE for p in parts):
+                raise ValueError(body)
+        except ValueError:
+            unreadable.append(body)
+            return m.group(0)
+        equations.append({"parts": parts})
+        return f"[[{len(equations)}]]"
+
+    return re.sub(r"\$([^$]*=[^$]*)\$", sub, reply), equations, unreadable
+
+
 def render_reply(reply: str, rendered: list[str]) -> tuple[str, list[str]]:
     """Put the verified equations into the reply; report placeholders that don't exist."""
     missing = []
@@ -313,12 +381,13 @@ def ask(problem: dict, attempt: dict, question: str, line: int | None = None,
     for attempt_no in range(TRIES):
         r = _claude(context, feedback, client=claude_client)
         problems = []
-        bad, rendered = check_equations(r.get("equations", []))
+        text, equations, unreadable = lift_typed_equations(r["reply"].strip(), r.get("equations", []))
+        bad, rendered = check_equations(equations)
         if bad:
-            problems.append("these equations are not true (checked with SymPy): " + "; ".join(bad))
-        if re.search(r"\$[^$]*=[^$]*\$", r["reply"]):
-            problems.append("an equation was typed into the reply; put every equation in `equations` and use [[n]]")
-        reply, missing = render_reply(r["reply"].strip(), rendered)
+            problems.append("these equations did not check out with SymPy (false, or about symbols with no numbers to check; write the numbers in): " + "; ".join(bad))
+        if unreadable:
+            problems.append("an equation typed into the reply could not be read; put every equation in `equations` and use [[n]]")
+        reply, missing = render_reply(text, rendered)
         if missing:
             problems.append(f"placeholders with no equation: {missing}")
         extra = latex_features(reply) - allowed
@@ -332,7 +401,7 @@ def ask(problem: dict, attempt: dict, question: str, line: int | None = None,
                 problems.append("do not state the final answer; leave the last step to the learner")
             if jc["new_idea"]:
                 problems.append("use only ideas that appear in the textbook passages")
-        history.append({"reply": reply, "equations": r.get("equations", []), "checks": checks, "problems": problems})
+        history.append({"reply": reply, "equations": equations, "checks": checks, "problems": problems})
         if not problems:
             return {"status": "ok", "reply": reply, "cites": r.get("cites", []), "checks": checks, "tries": attempt_no + 1}
         feedback = "\n".join(f"- {p}" for p in problems)
