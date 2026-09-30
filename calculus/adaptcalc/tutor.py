@@ -117,18 +117,86 @@ def learner_reached_answer(problem: dict, attempt: dict) -> bool:
         return False
 
 
-def _display(part: str) -> str:
-    """LaTeX for one part, as written (unevaluated), so the learner sees the chain's steps."""
-    from sympy.parsing.sympy_parser import parse_expr
+GREEK = {"epsilon": r"\varepsilon", "delta": r"\delta", "theta": r"\theta", "pi": r"\pi", "alpha": r"\alpha"}
+FUNCS = {"sin": r"\sin", "cos": r"\cos", "tan": r"\tan", "ln": r"\ln", "log": r"\log", "exp": r"\exp"}
 
+
+def _tex(node) -> str:
+    """LaTeX for a Python/SymPy-syntax expression tree, keeping the order and grouping as written."""
+    import ast
+
+    def atom(n):
+        return isinstance(n, (ast.Name, ast.Constant, ast.Call))
+
+    def group(n):
+        t = _tex(n)
+        return t if atom(n) or isinstance(n, ast.BinOp) and isinstance(n.op, (ast.Pow, ast.Div)) else rf"\left({t}\right)"
+
+    if isinstance(node, ast.Expression):
+        return _tex(node.body)
+    if isinstance(node, ast.Constant):
+        return str(node.value)
+    if isinstance(node, ast.Name):
+        return {"oo": r"\infty", "E": "e"}.get(node.id, GREEK.get(node.id, node.id))
+    if isinstance(node, ast.UnaryOp) and isinstance(node.op, ast.USub):
+        inner = node.operand
+        body = _tex(inner) if atom(inner) or isinstance(inner, ast.BinOp) and isinstance(inner.op, (ast.Pow, ast.Div, ast.Mult)) \
+            else rf"\left({_tex(inner)}\right)"
+        return f"-{body}"
+    if isinstance(node, ast.BinOp):
+        l, r, op = node.left, node.right, node.op
+        if isinstance(op, ast.Div):
+            return rf"\frac{{{_tex(l)}}}{{{_tex(r)}}}"
+        if isinstance(op, ast.Pow):
+            return f"{group(l)}^{{{_tex(r)}}}"
+        if isinstance(op, (ast.Add, ast.Sub)):
+            rt = _tex(r)
+            if isinstance(r, ast.UnaryOp) or (isinstance(r, ast.Constant) and isinstance(r.value, (int, float)) and r.value < 0):
+                rt = f"({rt})"
+            elif isinstance(op, ast.Sub) and isinstance(r, ast.BinOp) and isinstance(r.op, (ast.Add, ast.Sub)):
+                rt = rf"\left({rt}\right)"
+            return f"{_tex(l)} {'+' if isinstance(op, ast.Add) else '-'} {rt}"
+        if isinstance(op, ast.Mult):
+            lt = _tex(l) if not (isinstance(l, ast.BinOp) and isinstance(l.op, (ast.Add, ast.Sub))) else rf"\left({_tex(l)}\right)"
+            rt = _tex(r) if not (isinstance(r, ast.BinOp) and isinstance(r.op, (ast.Add, ast.Sub))) and not isinstance(r, ast.UnaryOp) \
+                else rf"\left({_tex(r)}\right)"
+            implicit = (isinstance(l, ast.Constant) and not isinstance(r, ast.Constant)) or rt.startswith(r"\left(") \
+                or (isinstance(r, ast.Name) and not isinstance(l, ast.Constant))
+            sep = "" if implicit else r" \cdot "
+            return lt + sep + rt
+    if isinstance(node, ast.Call) and isinstance(node.func, ast.Name):
+        name, args = node.func.id, node.args
+        if name == "sqrt" and len(args) == 1:
+            return rf"\sqrt{{{_tex(args[0])}}}"
+        if name in ("Abs", "abs") and len(args) == 1:
+            return rf"\left|{_tex(args[0])}\right|"
+        if name == "Limit" and len(args) >= 3:
+            side = ""
+            if len(args) == 4 and isinstance(args[3], ast.Constant) and args[3].value in ("+", "-"):
+                side = f"^{{{args[3].value}}}"
+            return rf"\lim_{{{_tex(args[1])} \to {_tex(args[2])}{side}}} {group(args[0])}"
+        if name in FUNCS:
+            return rf"{FUNCS[name]}\left({', '.join(_tex(a) for a in args)}\right)"
+        return rf"{name}\left({', '.join(_tex(a) for a in args)}\right)"
+    raise ValueError("unsupported")
+
+
+def _display(part: str) -> str:
+    """LaTeX for one chain part exactly as written (order and grouping kept), so the learner
+    sees the steps; falls back to SymPy's own LaTeX when the part isn't plain SymPy syntax."""
+    import ast
+
+    t = part.strip()
+    for a, b in answers.UNICODE.items():
+        t = t.replace(a, b)
+    t = t.replace("^", "**")
     try:
-        t = part
-        for a, b in answers.UNICODE.items():
-            t = t.replace(a, b)
-        e = parse_expr(t, local_dict=dict(answers.LOCALS), transformations=answers.TRANSFORMS, evaluate=False)
-        return sp.latex(e)
+        return _tex(ast.parse(t, mode="eval"))
     except Exception:  # noqa: BLE001
-        return part
+        try:
+            return sp.latex(answers.parse(part))
+        except ValueError:
+            return part
 
 
 def check_equations(equations: list[dict]) -> tuple[list[str], list[str]]:
