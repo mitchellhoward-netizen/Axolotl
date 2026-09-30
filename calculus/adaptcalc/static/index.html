@@ -15,13 +15,16 @@
   --good: #1f7a4d; --bad: #b3372e; --warn: #9a6a00;
   --radius: 10px;
 }
-@media (prefers-color-scheme: dark) {
-  :root {
-    --spot: #3fb4c8; --spot-ink: #06222a; --tint: #16353b; --tint2: #122a2f;
-    --bg: #111416; --card: #181c1f; --ink: #e8eaeb; --muted: #9aa2a8; --line: #2a3136;
-    --good: #5cc28f; --bad: #ef7a70; --warn: #e0b04a;
-  }
+:root { color-scheme: light; }
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --spot: #5aa9b5; --spot-ink: #0d1a1c; --tint: #22292c; --tint2: #1b2124;
+  --bg: #141618; --card: #1b1e21; --ink: #e6e8e9; --muted: #9ba2a7; --line: #2b3034;
+  --good: #6cbf8f; --bad: #e0837a; --warn: #d9b25a;
 }
+:root[data-theme="dark"] .card h2, :root[data-theme="dark"] header .kicker { color: var(--muted); }
+:root[data-theme="dark"] .bar > i { opacity: .8; }
+.theme { font-size: 12px; padding: 2px 10px; border-radius: 99px; border: 1px solid var(--line); background: transparent; color: var(--muted); font-weight: 500; }
 * { box-sizing: border-box; }
 body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.5 "Fira Sans", system-ui, sans-serif; }
 main { max-width: 980px; margin: 0 auto; padding: 20px 16px 60px; }
@@ -83,7 +86,7 @@ td, th { text-align: left; padding: 6px 4px; border-bottom: 1px solid var(--line
   <header>
     <div class="kicker">OpenStax Calculus Vol. 1 · Chapter 2</div>
     <h1>Limits</h1>
-    <div class="chips" id="chips"></div>
+    <div class="chips"><span id="chips" class="chips"></span><button class="theme" id="theme" type="button">Dark</button></div>
   </header>
 
   <div class="grid">
@@ -122,6 +125,16 @@ td, th { text-align: left; padding: 6px 4px; border-bottom: 1px solid var(--line
 
 <script>
 const $ = (s) => document.querySelector(s);
+// Light by default (it matches the printed packets); remember the choice on this device.
+function applyTheme(t) {
+  document.documentElement.dataset.theme = t;
+  $("#theme").textContent = t === "dark" ? "Light" : "Dark";
+  try { localStorage.setItem("theme", t); } catch (e) {}
+}
+let savedTheme = "light";
+try { savedTheme = localStorage.getItem("theme") || "light"; } catch (e) {}
+applyTheme(savedTheme);
+$("#theme").onclick = () => applyTheme(document.documentElement.dataset.theme === "dark" ? "light" : "dark");
 const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 let state = null;
 
