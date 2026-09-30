@@ -298,7 +298,9 @@ def verbatim_audit(pdf: Path, runs: list[str]) -> dict:
 
 
 def attribution() -> str:
-    return "OpenStax Calculus Vol. 1 (CC BY-NC-SA 4.0), adapted for personal study"
+    from .source import attribution_line
+
+    return attribution_line("calc1") + " Personal study only (non-commercial license)."
 
 
 def doc_head(title: str, running: str, code: str, attribution_text: str | None = None,
@@ -310,10 +312,9 @@ def doc_head(title: str, running: str, code: str, attribution_text: str | None =
 
 
 def book_attribution(book: str) -> str:
-    from .source import BOOKS
+    from .source import attribution_line
 
-    b = BOOKS[book]
-    return f"OpenStax {b.title} ({b.license}), adapted for personal study"
+    return attribution_line(book)
 
 
 def write_json(path: Path, obj) -> None:

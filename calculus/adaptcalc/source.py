@@ -36,25 +36,36 @@ class Book:
     numbering: str
     try_label: str          # what the book calls its practice-after-example boxes
     license: str
+    # The exact source commit we use, so the license we rely on is the one in the text we ship.
+    # OpenStax relicensed its algebra books from CC BY 4.0 to CC BY-NC-SA 4.0 on 2026-04-23;
+    # a CC license can't be withdrawn from copies already released under it, so we pin the last
+    # CC BY commit (2026-04-09) of each bundle. See LICENSES.md.
+    ref: str = "main"
+    license_url: str = ""
+    commercial: bool = True  # may appear in what we sell (False: personal study only)
+    authors: str = ""
 
 
 BOOKS: dict[str, Book] = {
     "calc1": Book("calc1", "Calculus Volume 1", "osbooks-calculus-bundle", "calculus-volume-1", "calculus-volume-1",
-                  (2,), "chapter", "Checkpoint", "CC BY-NC-SA 4.0"),
+                  (2,), "chapter", "Checkpoint", "CC BY-NC-SA 4.0",
+                  license_url="http://creativecommons.org/licenses/by-nc-sa/4.0/", commercial=False,
+                  authors="Gilbert Strang and Edwin Herman"),
     "at2e": Book("at2e", "Algebra and Trigonometry 2e", "osbooks-college-algebra-bundle", "algebra-and-trigonometry-2e",
-                 "algebra-and-trigonometry-2e", (1, 2, 3, 4, 5, 7, 9), "section", "Try It", "CC BY 4.0"),
+                 "algebra-and-trigonometry-2e", (1, 2, 3, 4, 5, 7, 9), "section", "Try It", "CC BY 4.0",
+                 ref="d1bd19c69107ba7f45775670809ae161d63db864",
+                 license_url="https://creativecommons.org/licenses/by/4.0/", authors="Jay Abramson"),
     "pa2e": Book("pa2e", "Prealgebra 2e", "osbooks-prealgebra-bundle", "prealgebra-2e", "prealgebra-2e",
-                 (2, 4), "chapter", "Try It", "CC BY 4.0"),
+                 (2, 4), "chapter", "Try It", "CC BY 4.0",
+                 ref="c1bbed4b86ff5c80686d339a6ca5e4e48fae2483",
+                 license_url="https://creativecommons.org/licenses/by/4.0/",
+                 authors="Lynn Marecek, MaryAnne Anthony-Smith and Andrea Honeycutt Mathis"),
 }
 
 # Chapter 2 of Calculus Volume 1 is the course; kept for the modules that predate multiple books.
 CHAPTER_NUMBER = 2
 BOOK_URL = "https://openstax.org/books/calculus-volume-1/pages/2-introduction"
 RAW = f"https://raw.githubusercontent.com/openstax/{BOOKS['calc1'].repo}/main"
-ATTRIBUTION = (
-    "Canonical text: OpenStax, Calculus Volume 1 (CC BY-NC-SA 4.0), Algebra and Trigonometry 2e "
-    "(CC BY 4.0) and Prealgebra 2e (CC BY 4.0)."
-)
 
 
 @dataclass
@@ -69,6 +80,17 @@ class Module:
 
 def book_url(book: str) -> str:
     return f"https://openstax.org/books/{BOOKS[book].slug}"
+
+
+def attribution_line(book: str) -> str:
+    """The credit CC licenses require: title, authors, licensor, license, link, and that it was changed."""
+    b = BOOKS[book]
+    return (f"Adapted from {b.title} by {b.authors}, OpenStax, {b.license} "
+            f"({b.license_url.replace('http://', 'https://')}). Access for free at {book_url(book)}. "
+            f"Excerpted, reordered and interleaved with generated practice.")
+
+
+ATTRIBUTION = " ".join(attribution_line(b) for b in ("calc1", "at2e", "pa2e"))
 
 
 def _get(url: str, tries: int = 5) -> bytes:
@@ -100,14 +122,28 @@ def _cached(url: str, dest: Path, refresh: bool = False) -> Path:
 
 
 def raw(book: str) -> str:
-    return f"https://raw.githubusercontent.com/openstax/{BOOKS[book].repo}/main"
+    b = BOOKS[book]
+    return f"https://raw.githubusercontent.com/openstax/{b.repo}/{b.ref}"
+
+
+def book_dir(book: str) -> Path:
+    b = BOOKS[book]
+    return paths.SOURCE_DIR / book / b.ref[:12]
+
+
+class LicenseMismatch(RuntimeError):
+    pass
 
 
 def chapter_modules(book: str, refresh: bool = False) -> list[tuple[int, int, str, str]]:
     """[(chapter number, index in chapter, module id, chapter title)] for the chapters we use."""
     b = BOOKS[book]
     coll = _cached(f"{raw(book)}/collections/{b.collection}.collection.xml",
-                   paths.SOURCE_DIR / book / "collection.xml", refresh)
+                   book_dir(book) / "collection.xml", refresh)
+    declared = re.search(r'license url="([^"]*)"', coll.read_text(encoding="utf-8"))
+    if b.license_url and (not declared or declared.group(1) != b.license_url):
+        raise LicenseMismatch(f"{b.title} at {b.ref[:7]} declares {declared.group(1) if declared else 'no license'}, "
+                              f"expected {b.license_url}")
     root = ET.parse(coll).getroot()
     subs = list(root.iter(f"{{{NS['col']}}}subcollection"))
     out = []
@@ -122,7 +158,7 @@ def chapter_modules(book: str, refresh: bool = False) -> list[tuple[int, int, st
 
 def fetch_media(name: str, book: str | None = None) -> Path:
     """A figure, fetched on first use from the book's repository (or any of ours)."""
-    dest = paths.MEDIA_DIR / name
+    dest = paths.MEDIA_DIR / name  # media names are unique hashes-with-names across the bundles
     if dest.exists():
         return dest
     import urllib.error
@@ -148,7 +184,7 @@ def fetch_book(book: str, refresh: bool = False, with_media: bool | None = None)
     paths.ensure_dirs()
     mods: list[Module] = []
     for ch, i, mid, _ in chapter_modules(book, refresh):
-        p = _cached(f"{raw(book)}/modules/{mid}/index.cnxml", paths.SOURCE_DIR / book / f"{mid}.cnxml", refresh)
+        p = _cached(f"{raw(book)}/modules/{mid}/index.cnxml", book_dir(book) / f"{mid}.cnxml", refresh)
         number = str(ch) if i == 0 else f"{ch}.{i}"
         text = p.read_text(encoding="utf-8")
         t = re.search(r"<title>([^<]*)</title>", text)
