@@ -109,6 +109,17 @@ def strip_units(s: str) -> str:
     return UNITS.sub("", s) if re.search(r"\d", s) else s
 
 
+def show(key: dict) -> str:
+    """Readable form of a key's value for messages."""
+    v = key.get("value")
+    if key["kind"] in ("choice", "set") or v == "DNE":
+        return str(v)
+    try:
+        return sp.sstr(sp.sympify(v), order="lex").replace("**", "^")
+    except Exception:  # noqa: BLE001
+        return str(v)
+
+
 def grade(key: dict, student: str | None) -> tuple[bool, str]:
     """Return (correct, explanation) for a student's final answer string."""
     if student is None or not str(student).strip():
@@ -123,24 +134,24 @@ def grade(key: dict, student: str | None) -> tuple[bool, str]:
             if key["value"] == "DNE":
                 return is_dne(student), "key: DNE"
             if is_dne(student):
-                return False, f"student wrote DNE; key {key['value']}"
-            return equal(parse(student), sp.sympify(key["value"]), key.get("tol", 0.0)), f"key {key['value']}"
+                return False, f"you wrote DNE; the answer is {show(key)}"
+            return equal(parse(student), sp.sympify(key["value"]), key.get("tol", 0.0)), f"the answer is {show(key)}"
         if kind == "value":
-            return equal(parse(student), sp.sympify(key["value"]), key.get("tol", 0.0)), f"key {key['value']}"
+            return equal(parse(student), sp.sympify(key["value"]), key.get("tol", 0.0)), f"the answer is {show(key)}"
         if kind == "choice":
             s = norm_choice(student)
             accepted = {norm_choice(key["value"])} | {norm_choice(a) for a in key.get("aliases", [])}
-            return s in accepted, f"key {key['value']}"
+            return s in accepted, f"the answer is {show(key)}"
         if kind == "set":
             got = parse_set(student) if not re.fullmatch(r"\s*(none|no\s*\w*|∅|\{\})\s*", student, re.I) else set()
             want = {sp.nsimplify(sp.sympify(v)) for v in key["value"]}
-            return got == want, f"key {sorted(map(str, want))}"
+            return got == want, f"the answer is {', '.join(sorted(map(str, want)))}"
         if kind == "interval":
-            return parse_intervals(student) == sp.sympify(key["value"]), f"key {key['value']}"
+            return parse_intervals(student) == sp.sympify(key["value"]), f"the answer is {show(key)}"
         if kind == "expr":
             stu = parse(student)
             if not equal(stu, sp.sympify(key["value"])):
-                return False, f"not equivalent to {key['value']}"
+                return False, f"not equal to {show(key)}"
             form = key.get("form")
             if form == "factored" and not _is_factored(stu):
                 return False, "equivalent but not factored"

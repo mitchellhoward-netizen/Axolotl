@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calculus · Limits</title>
+<style>
+@font-face { font-family: "Fira Sans"; src: url(/fonts/FiraSans-Regular.ttf); font-weight: 400; }
+@font-face { font-family: "Fira Sans"; src: url(/fonts/FiraSans-Medium.ttf); font-weight: 500; }
+@font-face { font-family: "Fira Sans"; src: url(/fonts/FiraSans-SemiBold.ttf); font-weight: 600; }
+@font-face { font-family: "Fira Sans"; src: url(/fonts/FiraSans-Bold.ttf); font-weight: 700; }
+:root {
+  --spot: #006b7f; --spot-ink: #ffffff; --tint: #e3f0f2; --tint2: #f1f7f8;
+  --bg: #fbfaf7; --card: #ffffff; --ink: #1c1d1f; --muted: #5d6166; --line: #dde3e5;
+  --good: #1f7a4d; --bad: #b3372e; --warn: #9a6a00;
+  --radius: 10px;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --spot: #3fb4c8; --spot-ink: #06222a; --tint: #16353b; --tint2: #122a2f;
+    --bg: #111416; --card: #181c1f; --ink: #e8eaeb; --muted: #9aa2a8; --line: #2a3136;
+    --good: #5cc28f; --bad: #ef7a70; --warn: #e0b04a;
+  }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.5 "Fira Sans", system-ui, sans-serif; }
+main { max-width: 980px; margin: 0 auto; padding: 20px 16px 60px; }
+header { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 16px; border-bottom: 3px solid var(--spot); padding-bottom: 10px; margin-bottom: 20px; }
+header h1 { margin: 0; font-size: 26px; font-weight: 700; }
+header .kicker { color: var(--spot); font-weight: 700; letter-spacing: .1em; font-size: 12px; text-transform: uppercase; width: 100%; }
+.chips { margin-left: auto; display: flex; gap: 6px; flex-wrap: wrap; }
+.chip { font-size: 12px; padding: 2px 8px; border-radius: 99px; border: 1px solid var(--line); color: var(--muted); }
+.chip.on { border-color: var(--spot); color: var(--spot); }
+.grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+@media (min-width: 820px) { .grid { grid-template-columns: 1.15fr .85fr; } }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; }
+.card h2 { margin: 0 0 10px; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--spot); }
+.next { border-top: 4px solid var(--spot); }
+.next .big { font-size: 20px; font-weight: 600; margin: 0 0 6px; }
+.muted { color: var(--muted); }
+.row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 12px; }
+button, .btn { font: inherit; font-weight: 600; border-radius: 8px; border: 1px solid var(--spot); padding: 8px 14px; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
+.primary { background: var(--spot); color: var(--spot-ink); }
+.secondary { background: transparent; color: var(--spot); }
+button:disabled { opacity: .5; cursor: default; }
+.upload { border: 2px dashed var(--line); border-radius: var(--radius); padding: 16px; text-align: center; margin-top: 12px; }
+.upload.drag { border-color: var(--spot); background: var(--tint2); }
+input[type=file] { max-width: 100%; }
+.progress { display: none; margin-top: 10px; color: var(--muted); }
+.progress.on { display: block; }
+.bar { height: 8px; border-radius: 4px; background: var(--tint); position: relative; overflow: hidden; }
+.bar > i { position: absolute; inset: 0 auto 0 0; background: var(--spot); border-radius: 4px; }
+.bar .thr { position: absolute; top: -2px; bottom: -2px; width: 2px; background: var(--ink); opacity: .35; }
+.skill { display: grid; grid-template-columns: 1fr 44px; gap: 2px 10px; align-items: center; padding: 6px 0; border-bottom: 1px solid var(--line); font-size: 14px; }
+.skill:last-child { border-bottom: 0; }
+.skill .bar { grid-column: 1 / -1; }
+.skill .p { text-align: right; font-variant-numeric: tabular-nums; color: var(--muted); }
+.skill.mastered .name::after { content: " ✓"; color: var(--good); }
+.sec { margin-top: 14px; font-weight: 600; font-size: 13px; color: var(--muted); }
+details summary { cursor: pointer; font-weight: 600; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+td, th { text-align: left; padding: 6px 4px; border-bottom: 1px solid var(--line); }
+.prob { border: 1px solid var(--line); border-left: 4px solid var(--line); border-radius: 8px; padding: 10px 12px; margin-top: 10px; }
+.prob.ok { border-left-color: var(--good); }
+.prob.no { border-left-color: var(--bad); }
+.prob .head { display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+.prob .num { font-weight: 700; color: var(--spot); }
+.verdict.ok { color: var(--good); font-weight: 600; } .verdict.no { color: var(--bad); font-weight: 600; }
+.work { font-family: ui-monospace, Menlo, monospace; font-size: 13px; margin: 8px 0; padding-left: 0; list-style: none; }
+.work li { padding: 1px 0; }
+.work .x { text-decoration: line-through; color: var(--muted); }
+.work .invalid { color: var(--bad); }
+.work .boxed { outline: 1.5px solid var(--ink); outline-offset: 2px; border-radius: 2px; }
+.tag { font-size: 12px; color: var(--muted); }
+.mis { background: var(--tint2); border-radius: 6px; padding: 6px 8px; font-size: 14px; margin-top: 6px; }
+.changes { font-size: 13px; color: var(--muted); margin-top: 6px; }
+.changes b { color: var(--ink); font-weight: 500; }
+.err { color: var(--bad); }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <div class="kicker">OpenStax Calculus Vol. 1 · Chapter 2</div>
+    <h1>Limits</h1>
+    <div class="chips" id="chips"></div>
+  </header>
+
+  <div class="grid">
+    <div>
+      <section class="card next" id="next"><p class="muted">Loading…</p></section>
+
+      <section class="card" style="margin-top:16px">
+        <h2>Photograph your work</h2>
+        <div class="muted" style="font-size:14px">Write the packet code at the top of the page, number each problem, one step per line, cross out instead of erasing, and box your answers.</div>
+        <form id="uploadForm" class="upload">
+          <input id="photo" name="photo" type="file" accept="image/*" capture="environment" multiple>
+          <div class="row" style="justify-content:center"><button class="primary" id="uploadBtn" type="submit">Check my work</button></div>
+          <div class="progress" id="progress">Reading your page, checking every step, asking Jev about the work… this can take a minute.</div>
+        </form>
+      </section>
+
+      <section class="card" style="margin-top:16px">
+        <h2>Feedback</h2>
+        <div id="reports"><p class="muted">No graded pages yet.</p></div>
+      </section>
+    </div>
+
+    <div>
+      <section class="card">
+        <h2>What you know</h2>
+        <div id="diag" class="muted" style="font-size:14px"></div>
+        <div id="skills"></div>
+      </section>
+      <section class="card" style="margin-top:16px">
+        <h2>Packets</h2>
+        <table><tbody id="packets"></tbody></table>
+      </section>
+    </div>
+  </div>
+</main>
+
+<script>
+const $ = (s) => document.querySelector(s);
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+let state = null;
+
+async function api(path, opts = {}) {
+  const r = await fetch(path, opts);
+  const body = await r.json().catch(() => ({}));
+  if (!r.ok && r.status !== 202) throw new Error(body.detail || `HTTP ${r.status}`);
+  return body;
+}
+
+function renderNext() {
+  const d = state.diagnostic;
+  const opens = state.packets.filter((p) => p.status === "open").reverse();
+  const open = opens[0];
+  let html = "<h2>Next step</h2>";
+  if (open) {
+    html += `<p class="big">Work through ${opens.length > 1 ? "these packets" : `packet ${esc(open.id)}`} on paper</p>
+      <p class="muted">Print or work from the screen, then photograph your pages below.</p>`;
+    for (const o of opens) {
+      html += `<div class="row"><a class="btn primary" href="${o.pdf}" target="_blank">Open ${esc(o.id)} (PDF)</a>
+        <span class="tag">${o.kind === "diagnostic" ? "Diagnostic round" : "Lesson"} · ${o.graded} of ${o.problems} graded</span></div>`;
+    }
+  } else if (!d.finished) {
+    html += `<p class="big">${d.asked === 0 ? "Start the diagnostic" : "Next diagnostic round"}</p>
+      <p class="muted">${d.asked} of ${d.min}–${d.max} questions so far. Each round is chosen to split what is still uncertain about your skills (${d.uncertainty_bits} bits left).</p>
+      <div class="row"><button class="primary" data-act="diagnostic">Make the next round</button></div>`;
+  } else {
+    html += `<p class="big">Your next lesson</p>
+      <p class="muted">The diagnostic is done. Lessons print the book's section verbatim, keep the examples you need, and end with practice.</p>
+      <div class="row"><button class="primary" data-act="lesson">Make my next lesson</button></div>`;
+  }
+  const extra = [];
+  if (!d.finished && !d.open_round && open) extra.push(`<button class="secondary" data-act="diagnostic">Next diagnostic round</button>`);
+  extra.push(`<button class="secondary" data-act="lesson">Make a lesson now</button>`);
+  html += `<div class="row">${extra.join("")}</div><div id="actMsg" class="muted" style="margin-top:8px"></div>`;
+  $("#next").innerHTML = html;
+  $("#next").querySelectorAll("button[data-act]").forEach((b) => b.onclick = () => act(b.dataset.act, b));
+}
+
+async function act(kind, btn) {
+  btn.disabled = true;
+  $("#actMsg").textContent = kind === "lesson" ? "Building the lesson (checking every generated line)…" : "Choosing the questions that tell us the most…";
+  try {
+    const r = await api(`/api/${kind}/next`, { method: "POST" });
+    if (r.finished) $("#actMsg").textContent = "The diagnostic is finished.";
+    else { window.open(r.pdf, "_blank"); $("#actMsg").textContent = `Packet ${r.packet} is ready.`; }
+    await load();
+  } catch (e) { $("#actMsg").innerHTML = `<span class="err">${esc(e.message)}</span>`; btn.disabled = false; }
+}
+
+function renderSkills() {
+  const d = state.diagnostic;
+  $("#diag").textContent = `Diagnostic: ${d.answered} answered of ${d.asked} asked · ${d.uncertainty_bits} bits of uncertainty left`;
+  const bySec = {};
+  for (const s of state.skills) (bySec[s.section] ||= []).push(s);
+  const names = { "found.": "Algebra & trig underneath", "2.1": "2.1 A Preview of Calculus", "2.2": "2.2 The Limit of a Function",
+                  "2.3": "2.3 The Limit Laws", "2.4": "2.4 Continuity", "2.5": "2.5 The Precise Definition of a Limit" };
+  let html = "";
+  for (const [sec, list] of Object.entries(bySec)) {
+    const done = list.filter((s) => s.mastered).length;
+    html += `<details ${sec === "found." ? "" : "open"}><summary class="sec">${esc(names[sec] || sec)} · ${done}/${list.length}</summary>`;
+    for (const s of list) {
+      html += `<div class="skill ${s.mastered ? "mastered" : ""}"><span class="name">${esc(s.name)}</span><span class="p">${Math.round(s.p * 100)}%</span>
+        <div class="bar"><i style="width:${(s.p * 100).toFixed(1)}%"></i><span class="thr" style="left:${state.threshold * 100}%"></span></div></div>`;
+    }
+    html += "</details>";
+  }
+  $("#skills").innerHTML = html;
+}
+
+function renderPackets() {
+  $("#packets").innerHTML = state.packets.map((p) => `<tr>
+    <td><b>${esc(p.id)}</b> <span class="tag">${p.kind}</span></td>
+    <td class="tag">${p.graded}/${p.problems} graded</td>
+    <td>${p.pdf ? `<a href="${p.pdf}" target="_blank">packet</a>` : ""}</td>
+    <td>${p.key && p.status !== "open" ? `<a href="${p.key}" target="_blank">key</a>` : `<span class="tag">key after grading</span>`}</td></tr>`).join("")
+    || `<tr><td class="muted">None yet.</td></tr>`;
+}
+
+function renderChips() {
+  $("#chips").innerHTML = `<span class="chip ${state.transcriber.startsWith("Claude") ? "on" : ""}">${esc(state.transcriber)}</span>
+    <span class="chip ${state.jev ? "on" : ""}">${state.jev ? "Jev connected" : "Jev not configured"}</span>`;
+}
+
+function renderReport(rep) {
+  if (rep.pending) return `<p class="muted">${esc(rep.photo)}: ${esc(rep.message)}</p>`;
+  if (rep.error) return `<p class="err">${esc(rep.photo)}: ${esc(rep.error)}</p>`;
+  let html = `<div class="tag" style="margin-top:14px">${esc(rep.photo)} → packet ${esc(rep.packet)} · ${esc(rep.transcriber)}</div>`;
+  for (const p of rep.problems) {
+    if (p.status !== "graded") { html += `<div class="prob"><span class="num">#${p.number}</span> <span class="tag">${esc(p.status)}</span></div>`; continue; }
+    const ok = p.correct;
+    html += `<div class="prob ${ok ? "ok" : "no"}"><div class="head"><span class="num">#${p.number}</span>
+      <span class="verdict ${ok ? "ok" : "no"}">${p.skipped ? "Skipped" : ok ? "Correct" : "Not yet"}</span>
+      <span class="tag">credit ${p.credit.toFixed(2)}${p.attempts > 1 ? ` · ${p.attempts} attempts` : ""}${p.strategy && p.strategy !== "skipped" ? ` · strategy: ${esc(p.strategy.replaceAll("_", " "))}` : ""}</span></div>`;
+    if (p.lines.length) {
+      html += `<ul class="work">` + p.lines.map((l) => `<li class="${l.crossed_out ? "x" : ""} ${l.status === "invalid" ? "invalid" : ""}">
+        <span class="${l.boxed ? "boxed" : ""}">${esc(l.text)}</span>${l.status === "invalid" ? ` ← ${esc(l.note || "this step is not equal to the one before")}` : ""}</li>`).join("") + `</ul>`;
+    }
+    if (!ok && !p.skipped) html += `<div class="tag">Answer given: ${esc(p.final_answer)} (${esc(p.final_note)})</div>`;
+    if (p.misconception_text) html += `<div class="mis"><b>What went wrong:</b> ${esc(p.misconception_text)}</div>`;
+    if (p.changes.length) html += `<div class="changes">Model updates: ` + p.changes.map((c) => `<b>${esc(c.name)}</b> ${Math.round(c.before * 100)}→${Math.round(c.after * 100)}%`).join(" · ") + `</div>`;
+    html += `</div>`;
+  }
+  return html;
+}
+
+async function loadReports() {
+  const reps = await api("/api/reports");
+  if (reps.length) $("#reports").innerHTML = reps.slice(0, 5).map(renderReport).join("");
+}
+
+async function load() {
+  state = await api("/api/state");
+  renderChips(); renderNext(); renderSkills(); renderPackets();
+}
+
+$("#uploadForm").onsubmit = async (ev) => {
+  ev.preventDefault();
+  const files = $("#photo").files;
+  if (!files.length) return;
+  $("#uploadBtn").disabled = true; $("#progress").classList.add("on");
+  const out = [];
+  for (const f of files) {
+    const fd = new FormData(); fd.append("photo", f);
+    try { out.push(renderReport(await api("/api/photos", { method: "POST", body: fd }))); }
+    catch (e) { out.push(`<p class="err">${esc(f.name)}: ${esc(e.message)}</p>`); }
+  }
+  $("#reports").innerHTML = out.join("") + $("#reports").innerHTML.replace(/<p class="muted">No graded pages yet.<\/p>/, "");
+  $("#uploadBtn").disabled = false; $("#progress").classList.remove("on"); $("#photo").value = "";
+  await load();
+};
+const drop = $("#uploadForm");
+drop.ondragover = (e) => { e.preventDefault(); drop.classList.add("drag"); };
+drop.ondragleave = () => drop.classList.remove("drag");
+drop.ondrop = (e) => { e.preventDefault(); drop.classList.remove("drag"); $("#photo").files = e.dataTransfer.files; };
+
+load().then(loadReports).catch((e) => { $("#next").innerHTML = `<p class="err">${esc(e.message)}</p>`; });
+</script>
+</body>
+</html>

@@ -26,12 +26,28 @@ pip install -r requirements.txt
 export TYPESAFE_API_KEY=...        # Jev (TypeSafe)
 export ANTHROPIC_API_KEY=...       # Claude vision transcription (or `ant auth login`)
 python -m adaptcalc extract        # fetch Chapter 2, write skills.json + misconceptions.json
-python -m pytest -q tests          # 30 tests
+python -m pytest -q tests          # 32 tests
 ```
 
 Fonts (Fira Sans, SIL OFL), the OpenStax source and its figures are downloaded
 on first use into the gitignored `.cache/`. Learner state lives in
 `state/learner.db`; packets are written to `out/`.
+
+## In the browser
+
+```sh
+python -m adaptcalc serve              # http://127.0.0.1:8000
+python -m adaptcalc serve --host 0.0.0.0   # reachable from your phone on the same Wi-Fi
+```
+
+One page with four parts:
+
+* **Next step**: open the current packet, or make the next diagnostic round or lesson.
+* **Photograph your work**: on a phone this opens the camera; drag-and-drop on a computer.
+* **Feedback**: your transcribed lines, the step SymPy rejected, the misconception, and how the model changed.
+* **What you know**: mastery per skill, grouped by section.
+
+Set `ADAPTCALC_PASSWORD` to require a password (HTTP basic auth, any user name) before exposing it beyond your machine. With `ANTHROPIC_API_KEY` set, photos are read by Claude vision. Without it, an upload waits in `inbox/` for a manual `*.transcript.json`, and the header shows which mode is active.
 
 ## Commands
 
@@ -45,6 +61,7 @@ on first use into the gitignored `.cache/`. Learner state lives in
 | `python -m adaptcalc lesson` | Build the next lesson packet for your frontier skills |
 | `python -m adaptcalc status` | Mastery per skill, remaining diagnostic uncertainty, frontier, reviews due |
 | `python -m adaptcalc grade D1 "1:c 2:x 3:s"` | Grade without a photo (correct / wrong / skipped) |
+| `python -m adaptcalc serve` | The browser app |
 
 ## How each part works
 

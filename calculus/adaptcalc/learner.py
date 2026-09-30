@@ -107,12 +107,18 @@ class LearnerDB:
             raise
 
     def _seed_skills(self) -> None:
-        cfg = config()["learner"]["prior"]
+        """Start every skill at the diagnostic's graph-structured prior marginal, so the
+        first diagnostic update moves mastery only because of evidence."""
         have = {r["id"] for r in self.conn.execute("SELECT id FROM skills")}
+        missing = [sid for sid in extract.skills() if sid not in have]
+        if not missing:
+            return
+        from . import diagnostic  # local: diagnostic imports this module
+
+        prior = diagnostic.marginals(*diagnostic.prior_particles())
         with self.tx() as c:
-            for sid, s in extract.skills().items():
-                if sid not in have:
-                    c.execute("INSERT INTO skills (id, p_mastery) VALUES (?, ?)", (sid, cfg[s["kind"]]))
+            for sid in missing:
+                c.execute("INSERT INTO skills (id, p_mastery) VALUES (?, ?)", (sid, prior[sid]))
 
     # ---------------- skills ----------------
     def mastery(self) -> dict[str, float]:

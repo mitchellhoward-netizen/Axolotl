@@ -8,6 +8,7 @@
   process PHOTO           run one photo through the pipeline
   watch [--once]          watch ./inbox for photos
   grade PACKET "1:c 2:x"  grade without a photo (c = correct, x = wrong, s = skipped)
+  serve [--host --port]   the browser app (http://127.0.0.1:8000)
 """
 from __future__ import annotations
 
@@ -113,6 +114,14 @@ def cmd_grade(a):
         print(f"{prid}: {'correct' if c else 'wrong/skipped'}")
 
 
+def cmd_serve(a):
+    from . import assets, web
+
+    assets.ensure_fonts()
+    print(f"open http://{a.host}:{a.port}")
+    web.serve(a.host, a.port)
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(prog="adaptcalc", description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -138,6 +147,10 @@ def main(argv=None):
     g.add_argument("packet")
     g.add_argument("marks")
     g.set_defaults(fn=cmd_grade)
+    sv = sub.add_parser("serve")
+    sv.add_argument("--host", default="127.0.0.1")
+    sv.add_argument("--port", type=int, default=8000)
+    sv.set_defaults(fn=cmd_serve)
     a = ap.parse_args(argv)
     return a.fn(a) or 0
 
