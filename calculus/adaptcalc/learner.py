@@ -199,6 +199,41 @@ class LearnerDB:
             d[k] = json.loads(d[k]) if d[k] else None
         return d
 
+    def recheck(self, prid: str) -> dict:
+        """Re-run the SymPy check on a stored transcript with the current grader.
+
+        Diagnostic answers only: the diagnostic belief is recomputed from all stored
+        answers, so correcting one answer is exact. (Lesson updates are sequential,
+        so they are not rewritten.)
+        """
+        from . import diagnostic, stepcheck
+        from .pipeline import credit_from
+
+        prob, att = self.problem(prid), self.attempt(prid)
+        if prob is None or att is None:
+            raise KeyError(prid)
+        if self.packet(prob["packet_id"])["kind"] != "diagnostic":
+            return {"changed": False, "note": "Only diagnostic answers can be rechecked."}
+        tp = att["transcript"]
+        if not tp:
+            return {"changed": False, "note": "No transcript stored for this problem."}
+        check = stepcheck.check(tp, prob["data"]["key"])
+        decision = (att["evidence"] or {}).get("decision") or {}
+        if decision.get("manual") or "attempts" not in decision:
+            decision = {"attempts": 1, "substeps_written_fraction": 1.0, "strategy": "unsure"} | decision
+        credit = credit_from(check, decision, prob["data"]["strategies"])
+        before = {"correct": bool(att["correct"]), "credit": att["credit"]}
+        if bool(check["final_correct"]) == before["correct"] and abs(credit - before["credit"]) < 1e-9:
+            return {"changed": False, "correct": before["correct"], "note": check["final_note"]}
+        with self.tx() as c:
+            c.execute("UPDATE attempts SET correct=?, credit=?, stepcheck=? WHERE problem_id=?",
+                      (int(bool(check["final_correct"])), credit, json.dumps(check), prid))
+        post = diagnostic.posterior_marginals(self)
+        self.set_mastery(post, f"recheck {prid}: correct {before['correct']} -> {check['final_correct']}", prid,
+                         source="diagnostic")
+        return {"changed": True, "before": before, "correct": bool(check["final_correct"]), "credit": credit,
+                "note": check["final_note"]}
+
     def add_question(self, prid: str, line: int | None, question: str, result: dict) -> int:
         with self.tx() as c:
             cur = c.execute("INSERT INTO questions (problem_id, line, question, reply, status, detail, at) VALUES (?,?,?,?,?,?,?)",

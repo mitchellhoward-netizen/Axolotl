@@ -204,8 +204,19 @@ def check(tproblem: dict, key: dict) -> dict:
         if boxed:
             final = split_chain(boxed[-1].get("sympy") or boxed[-1].get("text") or "")[-1:] or [None]
             final = final[0]
+    boxed = True
+    if not final:
+        # nothing boxed: take the last value the learner wrote (last part of the last live line)
+        live = [ln for ln in lines if not ln.get("crossed_out") and (ln.get("sympy") or "").strip()]
+        if live:
+            last = live[-1]["sympy"]
+            final = last if last.startswith("Eq(") else split_chain(last)[-1]
+            boxed = False
     skipped = bool(tproblem.get("skipped"))
     correct, why = (False, "skipped") if skipped else answers.grade(key, final)
+    if not boxed and final:
+        why += " (answer not boxed; read from the last line)"
     return {"lines": out_lines, "first_invalid_line": first_invalid,
             "all_steps_valid": first_invalid is None,
-            "final_answer": final, "final_correct": bool(correct), "final_note": why, "skipped": skipped}
+            "final_answer": final, "final_correct": bool(correct), "final_note": why, "skipped": skipped,
+            "final_boxed": boxed}

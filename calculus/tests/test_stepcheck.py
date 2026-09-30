@@ -49,3 +49,10 @@ def test_equations_compare_solution_sets():
 def test_skipped():
     r = stepcheck.check({"lines": [line("", text="skip")], "skipped": True}, KEY4)
     assert r["skipped"] and not r["final_correct"]
+
+
+def test_unboxed_final_answer_is_read_from_the_last_line():
+    tp = {"lines": [line("f(3) = 3**2 - 3 = 6"), line("f(2) = 2**2 - 3 = 1"),
+                    line("(6 - 1)/(3 - 2) = 5/1 = 5")]}      # correct work, nothing boxed
+    r = stepcheck.check(tp, {"kind": "value", "value": sp.srepr(sp.Integer(5))})
+    assert r["final_correct"] and not r["final_boxed"] and "not boxed" in r["final_note"]

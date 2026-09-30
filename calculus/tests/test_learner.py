@@ -57,3 +57,20 @@ def test_diagnostic_round_and_posterior(db, monkeypatch):
     assert plan["expected_info_bits"] > 1.0
     gains = [i["gain_bits"] for i in plan["items"]]
     assert all(g > 0 for g in gains)
+
+
+def test_recheck_corrects_a_diagnostic_answer(db):
+    import sympy as sp
+
+    db.add_packet("D1", "diagnostic", 1, {})
+    p = templates.generate("alg_slope.two_points", 2).to_json()
+    prid = db.add_problem("D1", 1, p)
+    k = sp.sympify(p["key"]["value"])
+    tp = {"lines": [{"text": "", "sympy": f"(a) = {k}", "crossed_out": False, "boxed": False, "continues": False}]}
+    # graded before the unboxed-answer fix: stored as wrong
+    db.record_attempt(db.problem(prid) | {"id": prid}, {"correct": False, "credit": 0.0, "misconception_root": None,
+                                                       "transcript": tp, "evidence": {"decision": {"manual": True}}})
+    before = db.mastery()["alg_slope"]
+    r = db.recheck(prid)
+    assert r["changed"] and r["correct"] and db.mastery()["alg_slope"] > before
+    assert not db.recheck(prid)["changed"]                     # idempotent

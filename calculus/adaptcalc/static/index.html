@@ -251,7 +251,8 @@ function renderReport(rep) {
       html += `<ul class="work">` + p.lines.map((l) => `<li class="${l.crossed_out ? "x" : ""} ${l.status === "invalid" ? "invalid" : ""}">
         <span class="${l.boxed ? "boxed" : ""}">${esc(l.text)}</span>${l.status === "invalid" ? ` ← ${esc(l.note || "this step is not equal to the one before")}` : ""}</li>`).join("") + `</ul>`;
     }
-    if (!ok && !p.skipped) html += `<div class="tag">Answer given: ${esc(p.final_answer)} (${esc(p.final_note)})</div>`;
+    if (!ok && !p.skipped) html += `<div class="tag">Answer given: ${esc(p.final_answer ?? "none found")} (${esc(p.final_note)})
+      ${p.packet_kind === "diagnostic" ? ` <button class="secondary askbtn" data-recheck="${esc(p.problem_id)}">Recheck</button>` : ""}</div>`;
     if (p.misconception_text) html += `<div class="mis"><b>What went wrong:</b> ${esc(p.misconception_text)}</div>`;
     if (p.problem_id) {
       const opts = p.lines.map((l, i) => `<option value="${i + 1}" ${l.status === "invalid" ? "selected" : ""}>line ${i + 1}</option>`).join("");
@@ -288,6 +289,16 @@ document.addEventListener("click", async (ev) => {
       box.querySelector(".answers").innerHTML = past.map(answerHtml).join("");
       mathify(box);
     }
+    return;
+  }
+  const rc = ev.target.closest("[data-recheck]");
+  if (rc) {
+    rc.disabled = true;
+    try {
+      const r = await api(`/api/problems/${rc.dataset.recheck}/recheck`, { method: "POST" });
+      rc.outerHTML = `<span class="tag">${r.changed ? (r.correct ? "Rechecked: now marked correct." : "Rechecked: changed.") : "Rechecked: no change."} ${esc(r.note || "")}</span>`;
+      if (r.changed) await load();
+    } catch (e) { rc.outerHTML = `<span class="err">${esc(e.message)}</span>`; }
     return;
   }
   const send = ev.target.closest("[data-send]");

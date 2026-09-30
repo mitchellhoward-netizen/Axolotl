@@ -119,6 +119,12 @@ def cmd_grade(a):
         print(f"{prid}: {'correct' if c else 'wrong/skipped'}")
 
 
+def cmd_recheck(a):
+    db = LearnerDB()
+    for prid in a.problems:
+        print(prid, db.recheck(prid))
+
+
 def cmd_warm(a):
     """Download everything the app needs once (used by the Dockerfile)."""
     from . import assets, extract, render, source
@@ -188,6 +194,9 @@ def main(argv=None):
     g.add_argument("marks")
     g.set_defaults(fn=cmd_grade)
     sub.add_parser("warm").set_defaults(fn=cmd_warm)
+    rc = sub.add_parser("recheck")
+    rc.add_argument("problems", nargs="+")
+    rc.set_defaults(fn=cmd_recheck)
     sv = sub.add_parser("serve")
     sv.add_argument("--host", default=os.environ.get("HOST", "127.0.0.1"))
     sv.add_argument("--port", type=int, default=int(os.environ.get("PORT", 8000)))

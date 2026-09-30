@@ -183,6 +183,7 @@ def upload_photo(photo: UploadFile = File(...)):
 
 
 def _public_report(rep: dict) -> dict:
+    d_pk = db()
     mis = {m["id"]: m["description"] for lst in extract.misconceptions().values() for m in lst}
     sk = extract.skills()
     out = {"photo": rep.get("photo"), "packet": rep.get("packet"), "transcriber": rep.get("transcriber"),
@@ -195,6 +196,7 @@ def _public_report(rep: dict) -> dict:
             status_by_line = {x["line"]: x for x in c["lines"]}
             e.update({
                 "correct": p["correct"], "credit": p["credit"], "skipped": c["skipped"],
+                "packet_kind": (d_pk.packet(rep.get("packet")) or {"kind": None})["kind"] if rep.get("packet") else None,
                 "final_answer": c["final_answer"], "final_note": c["final_note"],
                 "lines": [{"text": ln.get("text", ""), "crossed_out": ln.get("crossed_out"), "boxed": ln.get("boxed"),
                            "status": status_by_line.get(i, {}).get("status"), "note": status_by_line.get(i, {}).get("note", "")}
@@ -238,7 +240,7 @@ def _ask(prid: str, question: str, line: int | None, store: bool) -> dict:
     if store:
         d.add_question(prid, line, question, result)
     return {"status": result["status"], "reply": result["reply"], "canonical": result.get("canonical"),
-            "cites": result.get("cites", [])}
+            "cites": result.get("cites", []), "rejected": result.get("rejected")}
 
 
 @app.get("/api/questions/{prid}")
@@ -258,6 +260,14 @@ def set_aside(pid: str):
     with d.tx() as c:
         c.execute("UPDATE packets SET status='set_aside' WHERE id=?", (pid,))
     return {"packet": pid, "status": "set_aside"}
+
+
+@app.post("/api/problems/{prid}/recheck")
+def recheck(prid: str):
+    try:
+        return db().recheck(prid)
+    except KeyError as e:
+        raise HTTPException(404, "That problem hasn't been graded yet.") from e
 
 
 @app.get("/progress", response_class=HTMLResponse)

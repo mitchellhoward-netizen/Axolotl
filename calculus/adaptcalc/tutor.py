@@ -104,6 +104,18 @@ def key_text(data: dict) -> str:
     return key_plain(data["key"]) if data.get("key") else str(data.get("key_display", ""))
 
 
+def learner_reached_answer(problem: dict, attempt: dict) -> bool:
+    """True when the learner's own work already ends at the correct answer (boxed or not)."""
+    check = attempt.get("stepcheck") or {}
+    if check.get("final_correct"):
+        return True
+    tp = attempt.get("transcript") or {}
+    try:
+        return bool(stepcheck.check(tp, problem["data"]["key"])["final_correct"])
+    except Exception:  # noqa: BLE001
+        return False
+
+
 def check_claims(claims: list[dict]) -> list[str]:
     bad = []
     for c in claims:
@@ -163,7 +175,8 @@ def _claude(context: str, feedback: str | None, client=None) -> dict:
     return json.loads(text)
 
 
-def _jev_checks(problem: dict, question: str, reply: str, texts: list[str], log=None, client=None) -> dict:
+def _jev_checks(problem: dict, question: str, reply: str, texts: list[str], log=None, client=None,
+                reached: bool = False) -> dict:
     t = spec()["tutor"]
     state = {"note": t["state_note"], "problem": problem["data"]["plain"],
              "correct_answer": key_text(problem["data"]), "question": question,
@@ -172,7 +185,7 @@ def _jev_checks(problem: dict, question: str, reply: str, texts: list[str], log=
     out = Jev("tutor_gate", log=log, client=client).ask(state, qs)
     a = {k: out["answers"][k]["noul"] for k in qs}
     th = t["thresholds"]
-    gives = a["gives_away"] > th["gives_away_max"] and a["asked_for_answer"] <= 0.5
+    gives = a["gives_away"] > th["gives_away_max"] and a["asked_for_answer"] <= 0.5 and not reached
     return {"gives_away_p": a["gives_away"], "asked_for_answer_p": a["asked_for_answer"],
             "new_idea_p": a["new_idea"], "gives_away": gives, "new_idea": a["new_idea"] > th["new_idea_max"]}
 
@@ -184,6 +197,7 @@ def ask(problem: dict, attempt: dict, question: str, line: int | None = None,
     texts, allowed, fallback, labels = passages(data["skill"], root)
     allowed |= notation.features(data.get("prompt") or "") | notation.BASELINE
     context = _context(problem, attempt, question, line, texts)
+    reached = learner_reached_answer(problem, attempt)
     feedback, history = None, []
     for attempt_no in range(2):
         r = _claude(context, feedback, client=claude_client)
@@ -200,7 +214,7 @@ def ask(problem: dict, attempt: dict, question: str, line: int | None = None,
             problems.append(f"notation the book has not introduced here: {sorted(extra)}")
         checks = {"sympy_failures": bad, "notation_extra": sorted(extra)}
         if not problems:
-            jc = _jev_checks(problem, question, reply, texts, log=log, client=jev_client)
+            jc = _jev_checks(problem, question, reply, texts, log=log, client=jev_client, reached=reached)
             checks.update(jc)
             if jc["gives_away"]:
                 problems.append("do not state the final answer; leave the last step to the learner")
