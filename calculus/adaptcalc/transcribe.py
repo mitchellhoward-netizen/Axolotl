@@ -106,6 +106,42 @@ def packet_context(problems: list[dict]) -> str:
     return "\n".join(f"{p['number']}. {p['data']['plain']}" for p in problems)
 
 
+MAX_SIDE = 2400          # px; keeps handwriting legible and the request well under the API's image limits
+MAX_BYTES = 4_500_000    # the API rejects base64 images over 5 MB
+
+
+def prepare_image(photo: Path) -> tuple[str, bytes]:
+    """Any phone photo (HEIC, JPEG, PNG, ...) -> upright JPEG within the API's size limits."""
+    import io
+
+    from PIL import Image, ImageOps
+
+    try:
+        import pillow_heif
+
+        pillow_heif.register_heif_opener()
+    except ImportError:  # HEIC support is optional outside the server image
+        pass
+    try:
+        im = Image.open(photo)
+        im = ImageOps.exif_transpose(im).convert("RGB")
+    except Exception as e:  # noqa: BLE001
+        raise UnreadableImage(f"could not open {photo.name} as an image: {e}") from e
+    side = MAX_SIDE
+    while True:
+        work = im.copy()
+        work.thumbnail((side, side), Image.LANCZOS)
+        buf = io.BytesIO()
+        work.save(buf, "JPEG", quality=88, optimize=True)
+        if buf.tell() <= MAX_BYTES or side <= 1000:
+            return "image/jpeg", buf.getvalue()
+        side = int(side * 0.8)
+
+
+class UnreadableImage(Exception):
+    pass
+
+
 class ClaudeTranscriber:
     backend = "claude-vision"
 
@@ -117,8 +153,8 @@ class ClaudeTranscriber:
         self.model = model
 
     def transcribe(self, photo: Path, context: str = "") -> dict:
-        media = mimetypes.guess_type(photo.name)[0] or "image/jpeg"
-        data = base64.standard_b64encode(photo.read_bytes()).decode()
+        media, raw = prepare_image(photo)
+        data = base64.standard_b64encode(raw).decode()
         prompt = INSTRUCTIONS
         if context:
             prompt += "\n\nThe printed problems on the packet were:\n" + context

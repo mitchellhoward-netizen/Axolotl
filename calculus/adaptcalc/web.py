@@ -169,10 +169,15 @@ def upload_photo(photo: UploadFile = File(...)):
     dest = _save_upload(photo)
     try:
         rep = pipeline.process_photo(d, dest)
+    except transcribe.UnreadableImage as e:
+        raise HTTPException(415, f"{e}. Try exporting the photo as JPEG.") from e
     except transcribe.PendingTranscription:
         return JSONResponse({"pending": True, "photo": dest.name,
                              "message": "Saved. No Anthropic key is set, so this photo waits in the inbox for a "
                                         "manual transcript."}, status_code=202)
+    except Exception as e:  # noqa: BLE001 - show the reason on the page instead of a bare 500
+        raise HTTPException(502, f"Grading failed ({type(e).__name__}: {str(e)[:300]}). "
+                                 "The photo is saved; try again in a minute.") from e
     return _public_report(rep)
 
 

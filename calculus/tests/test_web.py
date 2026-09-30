@@ -22,3 +22,20 @@ def test_password(tmp_path, monkeypatch):
     assert c.get("/api/state").status_code == 401
     good = base64.b64encode(b"me:limits").decode()
     assert c.get("/api/state", headers={"Authorization": f"Basic {good}"}).status_code == 200
+
+
+def test_phone_photos_are_converted_for_claude(tmp_path):
+    import io
+
+    import pillow_heif
+    from PIL import Image
+
+    from adaptcalc import transcribe
+
+    pillow_heif.register_heif_opener()
+    src = tmp_path / "IMG_0001.HEIC"
+    Image.new("RGB", (4032, 3024), "white").save(src)
+    media, data = transcribe.prepare_image(src)
+    out = Image.open(io.BytesIO(data))
+    assert media == "image/jpeg" and out.format == "JPEG"
+    assert max(out.size) <= transcribe.MAX_SIDE and len(data) <= transcribe.MAX_BYTES
