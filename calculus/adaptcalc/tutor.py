@@ -29,22 +29,23 @@ SYSTEM = """You are a patient math tutor helping an adult relearn math from a te
 
 How to answer:
 - Answer the learner's question about their own work. Be brief: 2 to 6 sentences.
-- Guide; don't solve. Point to the exact line and the idea it needs, ask one question that leads to the next step, or show the method on a different number than the problem uses. Do not state the final answer unless the learner explicitly asks for it.
+- Guide; don't solve. Point to the exact line and the idea it needs, ask one question that leads to the next step, or show the method on a different number than the problem uses. Do not state the final answer unless the learner explicitly asks for it, or their own work already reached it.
 - Use only ideas and notation that appear in the textbook passages provided. Refer to the book's own worked example by its label (e.g. "Example 6") when it helps.
-- Write math in LaTeX between $...$.
-- Every equation you state in the reply must also appear in `claims` as SymPy expressions (lhs, rhs) that are exactly equal. Use SymPy syntax: ** for powers, sqrt(), Limit(expr, x, a) for limits. If you point out a false equation the learner wrote, don't list it as a claim; describe it in words instead."""
+- Equations: never type an equation (anything with "=") into `reply`. Put each one in `equations` as a chain of equal parts in SymPy syntax, and write [[1]], [[2]], ... in `reply` where equation 1, 2, ... belongs. The server checks every chain with SymPy and typesets it. A chain may start with a label such as f(3) or m. Use ** for powers, sqrt(), Limit(expr, x, a) for limits.
+- Other math without "=" (a single expression or symbol) goes in `reply` as LaTeX between $...$.
+- If you point out a false equation the learner wrote, don't restate it as an equation; refer to their line number instead."""
 
 SCHEMA = {
     "type": "object",
     "properties": {
         "reply": {"type": "string"},
-        "claims": {"type": "array", "items": {
+        "equations": {"type": "array", "items": {
             "type": "object",
-            "properties": {"lhs": {"type": "string"}, "rhs": {"type": "string"}},
-            "required": ["lhs", "rhs"], "additionalProperties": False}},
+            "properties": {"parts": {"type": "array", "items": {"type": "string"}}},
+            "required": ["parts"], "additionalProperties": False}},
         "cites": {"type": "array", "items": {"type": "string"}},
     },
-    "required": ["reply", "claims", "cites"],
+    "required": ["reply", "equations", "cites"],
     "additionalProperties": False,
 }
 
@@ -116,18 +117,53 @@ def learner_reached_answer(problem: dict, attempt: dict) -> bool:
         return False
 
 
-def check_claims(claims: list[dict]) -> list[str]:
-    bad = []
-    for c in claims:
-        try:
-            lhs, rhs = answers.parse(c["lhs"]), answers.parse(c["rhs"])
-            lv, rv = stepcheck._value(lhs), stepcheck._value(rhs)
-            ok = lv is not None and rv is not None and (lv == rv if "DNE" in (lv, rv) else answers.equal(lv, rv))
-        except (ValueError, TypeError):
-            ok = False
+def _display(part: str) -> str:
+    """LaTeX for one part, as written (unevaluated), so the learner sees the chain's steps."""
+    from sympy.parsing.sympy_parser import parse_expr
+
+    try:
+        t = part
+        for a, b in answers.UNICODE.items():
+            t = t.replace(a, b)
+        e = parse_expr(t, local_dict=dict(answers.LOCALS), transformations=answers.TRANSFORMS, evaluate=False)
+        return sp.latex(e)
+    except Exception:  # noqa: BLE001
+        return part
+
+
+def check_equations(equations: list[dict]) -> tuple[list[str], list[str]]:
+    """Verify every chain with SymPy. Returns (failures, rendered LaTeX for each equation)."""
+    bad, rendered = [], []
+    for eq in equations:
+        parts = [p for p in eq.get("parts", []) if str(p).strip()]
+        parsed = [stepcheck._parse(p) for p in parts]
+        checkable = [e for j, e in enumerate(parsed) if not stepcheck._is_label(e, j, len(parsed), parts[j])]
+        ok = len(checkable) >= 2 and all(e is not stepcheck.UNPARSEABLE for e in checkable)
+        if ok:
+            for a, b in zip(checkable, checkable[1:]):
+                va, vb = stepcheck._value(a), stepcheck._value(b)
+                if va is None or vb is None or ("DNE" in (va, vb) and va != vb) or \
+                        ("DNE" not in (va, vb) and not answers.equal(va, vb)):
+                    ok = False
+                    break
         if not ok:
-            bad.append(f"{c.get('lhs')} = {c.get('rhs')}")
-    return bad
+            bad.append(" = ".join(parts))
+        rendered.append(" = ".join(_display(p) for p in parts))
+    return bad, rendered
+
+
+def render_reply(reply: str, rendered: list[str]) -> tuple[str, list[str]]:
+    """Put the verified equations into the reply; report placeholders that don't exist."""
+    missing = []
+
+    def sub(m):
+        i = int(m.group(1)) - 1
+        if 0 <= i < len(rendered):
+            return f"${rendered[i]}$"
+        missing.append(m.group(0))
+        return ""
+
+    return re.sub(r"\[\[(\d+)\]\]", sub, reply), missing
 
 
 def _context(problem: dict, attempt: dict, question: str, line: int | None, texts: list[str]) -> str:
@@ -201,14 +237,15 @@ def ask(problem: dict, attempt: dict, question: str, line: int | None = None,
     feedback, history = None, []
     for attempt_no in range(2):
         r = _claude(context, feedback, client=claude_client)
-        reply = r["reply"].strip()
         problems = []
-        bad = check_claims(r.get("claims", []))
+        bad, rendered = check_equations(r.get("equations", []))
         if bad:
-            problems.append("these claims are not equal: " + "; ".join(bad))
-        n_eq = len(re.findall(r"\$[^$]*=[^$]*\$", reply))
-        if n_eq > len(r.get("claims", [])):
-            problems.append("every equation in the reply must be listed in claims")
+            problems.append("these equations are not true (checked with SymPy): " + "; ".join(bad))
+        if re.search(r"\$[^$]*=[^$]*\$", r["reply"]):
+            problems.append("an equation was typed into the reply; put every equation in `equations` and use [[n]]")
+        reply, missing = render_reply(r["reply"].strip(), rendered)
+        if missing:
+            problems.append(f"placeholders with no equation: {missing}")
         extra = latex_features(reply) - allowed
         if extra:
             problems.append(f"notation the book has not introduced here: {sorted(extra)}")
@@ -220,7 +257,7 @@ def ask(problem: dict, attempt: dict, question: str, line: int | None = None,
                 problems.append("do not state the final answer; leave the last step to the learner")
             if jc["new_idea"]:
                 problems.append("use only ideas that appear in the textbook passages")
-        history.append({"reply": reply, "claims": r.get("claims", []), "checks": checks, "problems": problems})
+        history.append({"reply": reply, "equations": r.get("equations", []), "checks": checks, "problems": problems})
         if not problems:
             return {"status": "ok", "reply": reply, "cites": r.get("cites", []), "checks": checks, "tries": attempt_no + 1}
         feedback = "\n".join(f"- {p}" for p in problems)
