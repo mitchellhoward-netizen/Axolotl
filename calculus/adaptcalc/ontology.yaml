@@ -1,0 +1,480 @@
+# Skill ontology for OpenStax Calculus Vol. 1, Chapter 2 (Limits).
+#
+# This is the curated half of the skill graph. `extract.py` resolves every
+# anchor below against the fetched CNXML (learning objectives, example /
+# box titles, glossary terms, and text matches), records the element ids and
+# verbatim text it found, and fails if an anchor does not resolve. Foundation
+# skills (algebra/trig from Chapter 1 and earlier) are anchored by *detectors*
+# that find the places in Chapter 2 where the skill is exercised.
+#
+# Anchor keys:
+#   objectives: regexes matched against the section's learning objectives
+#   examples:   exact Example titles (all matches are taken)
+#   boxes:      exact titles of definition/theorem/problem-solving boxes
+#   checkpoints_after: Example titles whose following checkpoint belongs here
+#   glossary:   glossary terms
+#   detect:     detector names (see extract.DETECTORS)
+
+skills:
+  # ---------------- Foundations (prerequisites under the chapter) ----------------
+  - id: alg_eval
+    name: Evaluate a function at a point (incl. piecewise)
+    kind: foundation
+    origin: "Ch. 1 Functions and Graphs"
+    prerequisites: []
+    detect: [evaluate_at_point, piecewise]
+  - id: alg_slope
+    name: Slope of the line through two points
+    kind: foundation
+    origin: "Ch. 1 Functions and Graphs"
+    prerequisites: [alg_eval]
+    detect: [slope_quotient]
+  - id: alg_factor
+    name: Factor polynomials (common factor, trinomials, difference of squares/cubes)
+    kind: foundation
+    origin: "Algebra"
+    prerequisites: []
+    detect: [factorable_rational]
+  - id: alg_rational
+    name: Simplify rational expressions by cancelling common factors
+    kind: foundation
+    origin: "Algebra"
+    prerequisites: [alg_factor]
+    detect: [factorable_rational]
+  - id: alg_conjugate
+    name: Rationalize using a conjugate
+    kind: foundation
+    origin: "Algebra"
+    prerequisites: []
+    detect: [radical_in_fraction]
+  - id: alg_complex_fraction
+    name: Simplify complex fractions (common denominators)
+    kind: foundation
+    origin: "Algebra"
+    prerequisites: [alg_rational]
+    detect: [nested_fraction]
+  - id: alg_abs
+    name: Absolute value as a piecewise function
+    kind: foundation
+    origin: "Ch. 1 Functions and Graphs"
+    prerequisites: [alg_eval]
+    detect: [absolute_value]
+  - id: alg_domain
+    name: Find where a function is undefined (domain)
+    kind: foundation
+    origin: "Ch. 1 Functions and Graphs"
+    prerequisites: [alg_factor]
+    detect: [rational_function]
+  - id: alg_sign
+    name: Determine the sign of an expression near a point
+    kind: foundation
+    origin: "Algebra"
+    prerequisites: [alg_eval]
+    detect: [infinite_result]
+  - id: alg_abs_ineq
+    name: Solve and manipulate absolute-value inequalities
+    kind: foundation
+    origin: "Algebra"
+    prerequisites: [alg_abs]
+    detect: [epsilon_delta]
+  - id: trig_values
+    name: Exact trig values at special angles (radians)
+    kind: foundation
+    origin: "Ch. 1 Trigonometric Functions"
+    prerequisites: []
+    detect: [trig_at_special_angle]
+  - id: trig_identities
+    name: Basic trig identities (Pythagorean, quotient)
+    kind: foundation
+    origin: "Ch. 1 Trigonometric Functions"
+    prerequisites: [trig_values]
+    detect: [trig_ratio]
+
+  # ---------------- 2.1 A Preview of Calculus ----------------
+  - id: secant_slope
+    name: Slopes of secant lines approaching a tangent
+    kind: chapter
+    section: "2.1"
+    prerequisites: [alg_slope, alg_eval]
+    objectives: ["tangent problem"]
+    examples: ["Finding Slopes of Secant Lines"]
+    glossary: [secant, tangent]
+  - id: avg_velocity
+    name: Average velocity approaching instantaneous velocity
+    kind: chapter
+    section: "2.1"
+    prerequisites: [alg_slope]
+    objectives: ["instantaneous velocity"]
+    examples: ["Finding Average Velocity"]
+    glossary: [average velocity, instantaneous velocity]
+  - id: area_rectangles
+    name: Estimate area under a curve with rectangles
+    kind: chapter
+    section: "2.1"
+    prerequisites: [alg_eval]
+    objectives: ["area problem"]
+    examples: ["Estimation Using Rectangles"]
+
+  # ---------------- 2.2 The Limit of a Function ----------------
+  - id: limit_intuitive
+    name: Meaning and notation of a limit
+    kind: chapter
+    section: "2.2"
+    prerequisites: [alg_eval]
+    objectives: ["correct notation, describe the limit of a function"]
+    boxes: ["Definition@Intuitive Definition of a Limit"]
+    glossary: [intuitive definition of the limit]
+  - id: limit_table
+    name: Estimate a limit from a table of values
+    kind: chapter
+    section: "2.2"
+    prerequisites: [limit_intuitive, alg_eval]
+    objectives: ["table of values"]
+    examples: ["Evaluating a Limit Using a Table of Functional Values 1",
+               "Evaluating a Limit Using a Table of Functional Values 2"]
+    boxes: ["Evaluating a Limit Using a Table of Functional Values"]
+  - id: limit_graph
+    name: Estimate limits from a graph
+    kind: chapter
+    section: "2.2"
+    prerequisites: [limit_intuitive]
+    objectives: ["Use a graph to estimate"]
+    examples: ["Evaluating a Limit Using a Graph", "Behavior of a Function at Different Points"]
+  - id: one_sided
+    name: One-sided limits
+    kind: chapter
+    section: "2.2"
+    prerequisites: [limit_intuitive, alg_abs]
+    objectives: ["Define one-sided limits"]
+    examples: ["Evaluating One-Sided Limits"]
+    boxes: ["Definition@One-Sided Limits"]
+    glossary: [one-sided limit]
+  - id: limit_existence
+    name: Two-sided limit exists iff one-sided limits agree
+    kind: chapter
+    section: "2.2"
+    prerequisites: [one_sided]
+    objectives: ["relationship between one-sided and two-sided limits"]
+    examples: ["Evaluating a Limit That Fails to Exist"]
+    boxes: ["Relating One-Sided and Two-Sided Limits"]
+  - id: infinite_limits
+    name: Infinite limits
+    kind: chapter
+    section: "2.2"
+    prerequisites: [one_sided, alg_sign]
+    objectives: ["describe an infinite limit"]
+    examples: ["Recognizing an Infinite Limit"]
+    boxes: ["Definition@Infinite Limits#1", "Infinite Limits from Positive Integers"]
+    glossary: [infinite limit]
+  - id: vertical_asymptote
+    name: Identify vertical asymptotes
+    kind: chapter
+    section: "2.2"
+    prerequisites: [infinite_limits, alg_domain]
+    objectives: ["Define a vertical asymptote"]
+    examples: ["Finding a Vertical Asymptote"]
+    boxes: ["Definition@Infinite Limits#2"]
+    glossary: [vertical asymptote]
+
+  # ---------------- 2.3 The Limit Laws ----------------
+  - id: limit_laws
+    name: Apply the limit laws
+    kind: chapter
+    section: "2.3"
+    prerequisites: [limit_intuitive]
+    objectives: ["Recognize the basic limit laws", "Use the limit laws"]
+    examples: ["Evaluating a Basic Limit", "Evaluating a Limit Using Limit Laws", "Using Limit Laws Repeatedly"]
+    boxes: ["Basic Limit Results", "Limit Laws"]
+    glossary: [limit laws, sum law for limits, product law for limits, quotient law for limits]
+  - id: direct_substitution
+    name: Limits of polynomial and rational functions by substitution
+    kind: chapter
+    section: "2.3"
+    prerequisites: [limit_laws, alg_eval]
+    objectives: ["polynomial or rational function"]
+    examples: ["Evaluating a Limit of a Rational Function"]
+    boxes: ["Limits of Polynomial and Rational Functions"]
+  - id: factor_cancel
+    name: Resolve 0/0 by factoring and cancelling
+    kind: chapter
+    section: "2.3"
+    prerequisites: [direct_substitution, alg_factor, alg_rational]
+    objectives: ["by factoring\\."]
+    examples: ["Evaluating a Limit by Factoring and Canceling"]
+    boxes: ["Calculating a Limit When f(x)/g(x) has the Indeterminate Form 0/0"]
+  - id: conjugate_limit
+    name: Resolve 0/0 by multiplying by a conjugate
+    kind: chapter
+    section: "2.3"
+    prerequisites: [direct_substitution, alg_conjugate]
+    objectives: ["by using conjugates"]
+    examples: ["Evaluating a Limit by Multiplying by a Conjugate"]
+  - id: complex_fraction_limit
+    name: Resolve 0/0 by simplifying a complex fraction
+    kind: chapter
+    section: "2.3"
+    prerequisites: [direct_substitution, alg_complex_fraction]
+    objectives: ["polynomial or rational function"]
+    examples: ["Evaluating a Limit by Simplifying a Complex Fraction",
+               "Evaluating a Limit When the Limit Laws Do Not Apply"]
+  - id: nonzero_over_zero
+    name: Limits of the form K/0 (K ≠ 0)
+    kind: chapter
+    section: "2.3"
+    prerequisites: [infinite_limits, alg_sign]
+    objectives: ["polynomial or rational function"]
+    examples: ["Evaluating a Limit of the Form K/0,K≠0 Using the Limit Laws"]
+  - id: piecewise_limits
+    name: One- and two-sided limits of piecewise functions
+    kind: chapter
+    section: "2.3"
+    prerequisites: [limit_existence, direct_substitution]
+    objectives: ["Use the limit laws"]
+    examples: ["Evaluating a One-Sided Limit Using the Limit Laws",
+               "Evaluating a Two-Sided Limit Using the Limit Laws"]
+  - id: squeeze
+    name: The squeeze theorem
+    kind: chapter
+    section: "2.3"
+    prerequisites: [limit_laws]
+    objectives: ["squeeze theorem"]
+    examples: ["Applying the Squeeze Theorem"]
+    boxes: ["The Squeeze Theorem"]
+    glossary: [squeeze theorem]
+  - id: trig_limits
+    name: Limits involving sin(x)/x and (1 - cos x)/x
+    kind: chapter
+    section: "2.3"
+    prerequisites: [squeeze, trig_identities, limit_laws]
+    objectives: ["squeeze theorem"]
+    examples: ["Evaluating an Important Trigonometric Limit"]
+
+  # ---------------- 2.4 Continuity ----------------
+  - id: continuity_point
+    name: Continuity at a point (three conditions)
+    kind: chapter
+    section: "2.4"
+    prerequisites: [piecewise_limits, alg_eval]
+    objectives: ["three conditions for continuity"]
+    examples: ["Determining Continuity at a Point, Condition 1",
+               "Determining Continuity at a Point, Condition 2",
+               "Determining Continuity at a Point, Condition 3"]
+    boxes: ["Definition@Continuity at a Point", "Determining Continuity at a Point"]
+    glossary: [continuity at a point]
+  - id: discontinuity_types
+    name: Classify discontinuities (removable, jump, infinite)
+    kind: chapter
+    section: "2.4"
+    prerequisites: [continuity_point, factor_cancel, nonzero_over_zero]
+    objectives: ["three kinds of discontinuities"]
+    examples: ["Classifying a Discontinuity"]
+    boxes: ["Definition@Types of Discontinuities"]
+    glossary: [removable discontinuity, jump discontinuity, infinite discontinuity]
+  - id: continuity_interval
+    name: Continuity over an interval
+    kind: chapter
+    section: "2.4"
+    prerequisites: [continuity_point, alg_domain]
+    objectives: ["continuity on an interval"]
+    examples: ["Continuity on an Interval", "Continuity over an Interval", "Continuity of a Rational Function"]
+    boxes: ["Continuity of Polynomials and Rational Functions", "Continuity from the Right and from the Left"]
+    glossary: [continuity over an interval]
+  - id: continuity_parameter
+    name: Choose a constant that makes a piecewise function continuous
+    kind: chapter
+    section: "2.4"
+    prerequisites: [continuity_point]
+    objectives: ["three conditions for continuity"]
+    detect: [unknown_constant_piecewise]
+  - id: composite_continuity
+    name: Limits of composite functions via continuity
+    kind: chapter
+    section: "2.4"
+    prerequisites: [continuity_point, trig_values]
+    objectives: ["composite functions"]
+    examples: ["Limit of a Composite Cosine Function"]
+    boxes: ["Composite Function Theorem", "Continuity of Trigonometric Functions"]
+  - id: ivt
+    name: The Intermediate Value Theorem
+    kind: chapter
+    section: "2.4"
+    prerequisites: [continuity_interval, alg_eval]
+    objectives: ["Intermediate Value Theorem"]
+    examples: ["Application of the Intermediate Value Theorem", "When Can You Apply the Intermediate Value Theorem?"]
+    boxes: ["The Intermediate Value Theorem"]
+    glossary: [Intermediate Value Theorem]
+
+  # ---------------- 2.5 The Precise Definition of a Limit ----------------
+  - id: epsilon_delta_def
+    name: The epsilon-delta definition of a limit
+    kind: chapter
+    section: "2.5"
+    prerequisites: [limit_intuitive, alg_abs_ineq]
+    objectives: ["^Describe the epsilon-delta definition of a limit"]
+    boxes: ["Definition@Quantifying Closeness"]
+    glossary: [epsilon-delta definition of the limit]
+  - id: epsilon_delta_linear
+    name: Find delta for a linear function
+    kind: chapter
+    section: "2.5"
+    prerequisites: [epsilon_delta_def]
+    objectives: ["Apply the epsilon-delta definition"]
+    examples: ["Proving a Statement about the Limit of a Specific Function",
+               "Proving a Statement about a Limit"]
+    boxes: ["Proving That limx→af(x)=L for a Specific Function f(x)"]
+  - id: epsilon_delta_nonlinear
+    name: Find delta for a nonlinear function
+    kind: chapter
+    section: "2.5"
+    prerequisites: [epsilon_delta_linear]
+    objectives: ["Apply the epsilon-delta definition"]
+    examples: ["Proving a Statement about the Limit of a Specific Function (Geometric Approach)",
+               "Proving a Statement about the Limit of a Specific Function (Algebraic Approach)"]
+
+# ---------------------------------------------------------------------------
+# Misconception library. `root` is the skill the misconception actually
+# indicates a gap in (it can be a prerequisite of the skill it shows up in).
+# `source` is optional text in the chapter that addresses the misconception;
+# extract.py resolves it to the element id and records the verbatim passage.
+misconceptions:
+  alg_eval:
+    - {id: wrong_piece, root: alg_eval, desc: "Uses the wrong piece of a piecewise function for the given input (ignores the condition on x)."}
+    - {id: order_of_operations, root: alg_eval, desc: "Order-of-operations or sign error when substituting, e.g. -2^2 evaluated as 4 or 3(-1)^2 as -3."}
+    - {id: undefined_as_zero, root: alg_eval, desc: "Treats an undefined value (division by zero) as 0 instead of undefined."}
+  alg_slope:
+    - {id: slope_inverted, root: alg_slope, desc: "Computes run over rise, (x2 - x1)/(y2 - y1), instead of rise over run."}
+    - {id: slope_mixed_order, root: alg_slope, desc: "Subtracts in inconsistent order, (y2 - y1)/(x1 - x2), giving the wrong sign."}
+  alg_factor:
+    - {id: factor_sign_error, root: alg_factor, desc: "Sign error in a factor, e.g. x^2 - x - 6 = (x + 3)(x - 2)."}
+    - {id: sum_of_squares_factors, root: alg_factor, desc: "Factors a sum of squares as if it were a difference, e.g. x^2 + 4 = (x - 2)(x + 2)."}
+    - {id: cubes_pattern_wrong, root: alg_factor, desc: "Misremembers the sum/difference of cubes pattern, e.g. x^3 - 8 = (x - 2)(x^2 + 4)."}
+  alg_rational:
+    - {id: cancel_terms, root: alg_rational, desc: "Cancels terms rather than factors, e.g. (x^2 - 4)/(x - 2) -> x - 2 by cancelling x with x^2 or (x + 3)/x -> 3."}
+    - {id: forget_domain_restriction, root: alg_rational, desc: "Treats the simplified expression as identical to the original, including at the excluded point."}
+  alg_conjugate:
+    - {id: conjugate_numerator_only, root: alg_conjugate, desc: "Multiplies only the numerator (or only the denominator) by the conjugate, changing the value."}
+    - {id: conjugate_product_wrong, root: alg_conjugate, desc: "Expands (sqrt(a) - b)(sqrt(a) + b) incorrectly, e.g. as a - b instead of a - b^2."}
+    - {id: sqrt_of_sum, root: alg_conjugate, desc: "Splits a square root over a sum: sqrt(a + b) = sqrt(a) + sqrt(b)."}
+  alg_complex_fraction:
+    - {id: add_across, root: alg_complex_fraction, desc: "Adds fractions by adding numerators and denominators: 1/a + 1/b = 2/(a + b)."}
+    - {id: invert_wrong_part, root: alg_complex_fraction, desc: "Inverts the wrong fraction or drops the outer denominator when clearing a complex fraction."}
+  alg_abs:
+    - {id: abs_drop, root: alg_abs, desc: "Drops absolute-value bars, treating |x - a| as x - a on both sides of a."}
+    - {id: abs_distribute, root: alg_abs, desc: "Distributes absolute value over a sum: |x - a| = |x| - |a|."}
+  alg_domain:
+    - {id: domain_after_cancel, root: alg_domain, desc: "Finds where the function is undefined from the simplified form, missing points removed by cancelling."}
+    - {id: numerator_zeros, root: alg_domain, desc: "Treats zeros of the numerator as points where the function is undefined."}
+  alg_sign:
+    - {id: even_power_sign, root: alg_sign, desc: "Loses track of sign through an even power, e.g. thinks (x - 2)^2 is negative for x < 2."}
+    - {id: side_sign_swap, root: alg_sign, desc: "Uses the sign from the wrong side of the point (e.g. x - a > 0 for x slightly less than a)."}
+  alg_abs_ineq:
+    - {id: abs_ineq_one_sided, root: alg_abs_ineq, desc: "Solves |x - a| < d as x - a < d only, missing the lower bound."}
+    - {id: abs_ineq_scale, root: alg_abs_ineq, desc: "Mishandles a constant factor, e.g. |3x - 6| < e read as |x - 2| < e instead of |x - 2| < e/3."}
+  trig_values:
+    - {id: sin_cos_swap, root: trig_values, desc: "Swaps sine and cosine values at special angles (e.g. sin(pi/6) = sqrt(3)/2)."}
+    - {id: degrees_radians, root: trig_values, desc: "Treats a radian input as degrees (or vice versa)."}
+    - {id: trig_sign_quadrant, root: trig_values, desc: "Wrong sign for a trig value outside the first quadrant."}
+  trig_identities:
+    - {id: pythag_wrong, root: trig_identities, desc: "Misuses the Pythagorean identity, e.g. 1 - cos^2 x = sin x or sin^2 x + cos^2 x = 0."}
+    - {id: trig_cancel_argument, root: trig_identities, desc: "Cancels inside a trig function, e.g. sin(2x)/x = sin 2 or sin(x)/x = sin."}
+  secant_slope:
+    - {id: secant_is_tangent, root: secant_slope, desc: "Treats a single secant slope as the exact tangent slope rather than an approximation that improves as x approaches a."}
+    - {id: secant_wrong_points, root: alg_slope, desc: "Uses the wrong pair of points (e.g. (a, f(x)) and (x, f(a)))."}
+  avg_velocity:
+    - {id: avg_is_average_of_speeds, root: avg_velocity, desc: "Averages two velocities or positions instead of dividing displacement by elapsed time."}
+    - {id: position_as_velocity, root: avg_velocity, desc: "Reports a position (or displacement) as the velocity."}
+  area_rectangles:
+    - {id: wrong_endpoints, root: area_rectangles, desc: "Uses left endpoints when right endpoints were asked (or vice versa)."}
+    - {id: forget_width, root: area_rectangles, desc: "Adds heights without multiplying by the rectangle width."}
+  limit_intuitive:
+    - {id: limit_is_value, root: limit_intuitive, desc: "Thinks the limit at a must equal f(a), or uses f(a) when it differs from the nearby values.",
+       source: "A function has to be continuous at"}
+    - {id: undefined_means_no_limit, root: limit_intuitive, desc: "Thinks that if f(a) is undefined then the limit cannot exist.",
+       source: "then f is undefined at the point"}
+    - {id: limit_reached, root: limit_intuitive, desc: "Thinks the function must actually reach the limit value."}
+  limit_table:
+    - {id: table_one_side, root: limit_table, desc: "Uses values from only one side of a when estimating a two-sided limit."}
+    - {id: table_last_value, root: limit_table, desc: "Reports the last table entry verbatim instead of the value the entries approach."}
+  limit_graph:
+    - {id: graph_uses_dot, root: limit_graph, desc: "Reads the filled dot (the function value) as the limit instead of where the curve heads."}
+    - {id: graph_wrong_side, root: limit_graph, desc: "Reads the left piece for a right-hand limit or vice versa."}
+  one_sided:
+    - {id: sides_swapped, root: one_sided, desc: "Swaps left- and right-hand limits (x -> a^- read as from the right)."}
+    - {id: one_sided_uses_value, root: one_sided, desc: "Uses f(a) for a one-sided limit when the function value differs."}
+  limit_existence:
+    - {id: exists_if_one_side, root: limit_existence, desc: "Says the two-sided limit exists because one one-sided limit exists."}
+    - {id: average_of_sides, root: limit_existence, desc: "Averages unequal one-sided limits to get a two-sided limit."}
+  infinite_limits:
+    - {id: k_over_zero_is_zero, root: infinite_limits, desc: "Evaluates K/0 as 0 (or as K)."}
+    - {id: infinite_sign, root: alg_sign, desc: "Gets the sign of an infinite limit wrong (+infinity vs -infinity)."}
+    - {id: infinity_is_number, root: infinite_limits, desc: "Treats infinity as a number that the limit equals in the ordinary sense (e.g. says the limit exists and equals infinity, then does arithmetic with it)."}
+  vertical_asymptote:
+    - {id: va_at_hole, root: vertical_asymptote, desc: "Puts a vertical asymptote where the factor cancels (a removable point).",
+       source: "If there is a vertical asymptote at"}
+    - {id: va_numerator_zero, root: alg_domain, desc: "Puts a vertical asymptote at a zero of the numerator."}
+  limit_laws:
+    - {id: quotient_law_zero_den, root: limit_laws, desc: "Applies the quotient law when the limit of the denominator is 0.",
+       source: "You can use the quotient rule to evaluate"}
+    - {id: law_misapplied, root: limit_laws, desc: "Misapplies a law, e.g. lim(f g) = lim f + lim g, or applies a law to limits that do not exist."}
+  direct_substitution:
+    - {id: sub_arithmetic, root: alg_eval, desc: "Arithmetic slip when substituting."}
+    - {id: zero_over_zero_is_answer, root: direct_substitution, desc: "Stops at 0/0 and reports the limit as 0, 1, or 'does not exist' without further work."}
+  factor_cancel:
+    - {id: fc_cancel_terms, root: alg_rational, desc: "Cancels terms rather than factors."}
+    - {id: fc_factor_error, root: alg_factor, desc: "Factors incorrectly before cancelling."}
+    - {id: fc_zero_over_zero, root: factor_cancel, desc: "Declares the limit 0, 1, or DNE on seeing 0/0 instead of simplifying."}
+    - {id: fc_forget_substitute, root: factor_cancel, desc: "Cancels correctly but reports an expression, or substitutes into the original form again."}
+  conjugate_limit:
+    - {id: cj_numerator_only, root: alg_conjugate, desc: "Multiplies only one part by the conjugate."}
+    - {id: cj_product_wrong, root: alg_conjugate, desc: "Expands the conjugate product incorrectly."}
+    - {id: cj_zero_over_zero, root: conjugate_limit, desc: "Declares the limit 0, 1, or DNE on seeing 0/0 instead of rationalizing."}
+  complex_fraction_limit:
+    - {id: cf_add_across, root: alg_complex_fraction, desc: "Adds fractions across numerators and denominators."}
+    - {id: cf_zero_over_zero, root: complex_fraction_limit, desc: "Declares the limit 0, 1, or DNE on seeing 0/0 instead of simplifying."}
+    - {id: cf_sign_error, root: alg_complex_fraction, desc: "Sign error when combining over a common denominator (e.g. a - x vs x - a)."}
+  nonzero_over_zero:
+    - {id: kz_zero, root: infinite_limits, desc: "Evaluates K/0 as 0."}
+    - {id: kz_no_sides, root: nonzero_over_zero, desc: "Declares +infinity (or DNE) without checking the sign on each side."}
+    - {id: kz_sign_error, root: alg_sign, desc: "Wrong sign on one side of the point."}
+  piecewise_limits:
+    - {id: pw_wrong_piece, root: alg_eval, desc: "Uses the wrong piece for a one-sided limit."}
+    - {id: pw_uses_value, root: one_sided, desc: "Uses the function value at the boundary instead of the one-sided limits."}
+    - {id: pw_exists_if_defined, root: limit_existence, desc: "Concludes the limit exists because the function is defined at the point."}
+  squeeze:
+    - {id: sq_bounds_differ, root: squeeze, desc: "Uses bounding functions whose limits are not equal and still concludes a limit."}
+    - {id: sq_bounded_osc_zero, root: squeeze, desc: "Claims sin(1/x) (or cos(1/x)) itself tends to 0, or drops the oscillating factor."}
+    - {id: sq_wrong_inequality, root: squeeze, desc: "Writes an incorrect bound (e.g. -1 <= x sin(1/x) <= 1 used as if it proved the limit)."}
+  trig_limits:
+    - {id: tl_cancel_x, root: trig_identities, desc: "Cancels x inside the sine: sin(kx)/x = sin k."}
+    - {id: tl_sinx_over_x_zero, root: trig_limits, desc: "Says lim sin(x)/x = 0 (from 0/0) or DNE."}
+    - {id: tl_missing_factor, root: trig_limits, desc: "Forgets the rescaling factor, e.g. lim sin(3x)/x = 1 instead of 3."}
+  continuity_point:
+    - {id: cp_only_defined, root: continuity_point, desc: "Checks only that f(a) is defined (or only that the limit exists), not all three conditions."}
+    - {id: cp_limit_is_value, root: limit_intuitive, desc: "Assumes lim f = f(a) without computing the limit."}
+  discontinuity_types:
+    - {id: dt_removable_vs_jump, root: discontinuity_types, desc: "Confuses removable and jump discontinuities."}
+    - {id: dt_infinite_vs_removable, root: discontinuity_types, desc: "Calls a cancelling factor an infinite discontinuity, or a non-cancelling one removable."}
+  continuity_interval:
+    - {id: ci_include_bad_point, root: alg_domain, desc: "Includes a point where the function is undefined in an interval of continuity."}
+    - {id: ci_endpoint_brackets, root: continuity_interval, desc: "Uses closed brackets at an excluded endpoint or open brackets where one-sided continuity holds."}
+  continuity_parameter:
+    - {id: cpar_match_wrong, root: continuity_parameter, desc: "Sets the wrong pieces equal, or evaluates the pieces at the wrong point."}
+    - {id: cpar_algebra, root: alg_eval, desc: "Sets up the right equation but solves it incorrectly."}
+  composite_continuity:
+    - {id: cc_inside_out, root: composite_continuity, desc: "Moves the limit inside a function that is not continuous at the inner limit."}
+    - {id: cc_trig_value, root: trig_values, desc: "Correct method but wrong exact trig value."}
+  ivt:
+    - {id: ivt_discontinuous, root: ivt, desc: "Applies the IVT to a function that is not continuous on the closed interval.",
+       source: "According to the IVT"}
+    - {id: ivt_converse, root: ivt, desc: "Concludes no zero exists because f(a) and f(b) have the same sign."}
+    - {id: ivt_locates_zero, root: ivt, desc: "Claims the IVT gives the location or number of zeros."}
+  epsilon_delta_def:
+    - {id: ed_quantifier_order, root: epsilon_delta_def, desc: "Reverses the roles of epsilon and delta (chooses epsilon given delta)."}
+    - {id: ed_missing_zero, root: epsilon_delta_def, desc: "Omits the 0 < |x - a| condition or the strictness of the inequalities."}
+  epsilon_delta_linear:
+    - {id: edl_delta_equals_eps, root: epsilon_delta_linear, desc: "Takes delta = epsilon regardless of the slope."}
+    - {id: edl_multiply_slope, root: alg_abs_ineq, desc: "Multiplies by the slope instead of dividing (delta = m * epsilon)."}
+    - {id: edl_delta_depends_x, root: epsilon_delta_def, desc: "Lets delta depend on x."}
+  epsilon_delta_nonlinear:
+    - {id: edn_no_bound, root: epsilon_delta_nonlinear, desc: "Leaves |x + a| unbounded (no preliminary restriction such as delta <= 1)."}
+    - {id: edn_min_missing, root: epsilon_delta_nonlinear, desc: "Forgets to take the minimum of the two restrictions on delta."}

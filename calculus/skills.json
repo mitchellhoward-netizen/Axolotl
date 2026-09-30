@@ -1,0 +1,2536 @@
+{
+  "source": {
+    "book": "Calculus Volume 1 (OpenStax)",
+    "chapter": 2,
+    "title": "Limits",
+    "url": "https://openstax.org/books/calculus-volume-1/pages/2-introduction",
+    "repository": "https://raw.githubusercontent.com/openstax/osbooks-calculus-bundle/main",
+    "modules": [
+      {
+        "id": "m53483",
+        "section": "2",
+        "title": "Introduction"
+      },
+      {
+        "id": "m53485",
+        "section": "2.1",
+        "title": "A Preview of Calculus"
+      },
+      {
+        "id": "m53491",
+        "section": "2.2",
+        "title": "The Limit of a Function"
+      },
+      {
+        "id": "m53492",
+        "section": "2.3",
+        "title": "The Limit Laws"
+      },
+      {
+        "id": "m53489",
+        "section": "2.4",
+        "title": "Continuity"
+      },
+      {
+        "id": "m53493",
+        "section": "2.5",
+        "title": "The Precise Definition of a Limit"
+      }
+    ],
+    "license": "CC BY-NC-SA 4.0"
+  },
+  "topological_order": [
+    "alg_eval",
+    "alg_slope",
+    "alg_factor",
+    "alg_rational",
+    "alg_conjugate",
+    "alg_complex_fraction",
+    "alg_abs",
+    "alg_domain",
+    "alg_sign",
+    "alg_abs_ineq",
+    "trig_values",
+    "trig_identities",
+    "secant_slope",
+    "avg_velocity",
+    "area_rectangles",
+    "limit_intuitive",
+    "limit_table",
+    "limit_graph",
+    "one_sided",
+    "limit_existence",
+    "infinite_limits",
+    "vertical_asymptote",
+    "limit_laws",
+    "direct_substitution",
+    "factor_cancel",
+    "conjugate_limit",
+    "complex_fraction_limit",
+    "nonzero_over_zero",
+    "piecewise_limits",
+    "squeeze",
+    "trig_limits",
+    "continuity_point",
+    "discontinuity_types",
+    "continuity_interval",
+    "continuity_parameter",
+    "composite_continuity",
+    "ivt",
+    "epsilon_delta_def",
+    "epsilon_delta_linear",
+    "epsilon_delta_nonlinear"
+  ],
+  "skills": [
+    {
+      "id": "alg_eval",
+      "name": "Evaluate a function at a point (incl. piecewise)",
+      "kind": "foundation",
+      "section": null,
+      "origin": "Ch. 1 Functions and Graphs",
+      "prerequisites": [],
+      "learning_objectives": [],
+      "anchors": [],
+      "glossary": [],
+      "exercised_in": {
+        "count": 57,
+        "ids": [
+          "fs-id1170572337207",
+          "fs-id1170572642384",
+          "fs-id1170572217395",
+          "fs-id1170572540848",
+          "fs-id1170572268108",
+          "fs-id1170572219513",
+          "fs-id1170572435026",
+          "fs-id1170572590126",
+          "fs-id1170572552638",
+          "fs-id1170573442080",
+          "fs-id1170573389760",
+          "fs-id1170573429945",
+          "fs-id1170570976463",
+          "fs-id1170573355402",
+          "fs-id1170571120881",
+          "fs-id1170573439386",
+          "fs-id1170570996536",
+          "fs-id1170571100300",
+          "fs-id1170571121705",
+          "fs-id1170571087121",
+          "fs-id1170571290233",
+          "fs-id1170573359564",
+          "fs-id1170573512268",
+          "fs-id1170571614880",
+          "fs-id1170572451489"
+        ]
+      },
+      "dependents": [
+        "alg_slope",
+        "alg_abs",
+        "alg_sign",
+        "secant_slope",
+        "area_rectangles",
+        "limit_intuitive",
+        "limit_table",
+        "direct_substitution",
+        "continuity_point",
+        "ivt"
+      ],
+      "depth": 0,
+      "templates": [
+        "alg_eval.poly",
+        "alg_eval.piecewise"
+      ],
+      "misconceptions": [
+        "alg_eval.wrong_piece",
+        "alg_eval.order_of_operations",
+        "alg_eval.undefined_as_zero"
+      ]
+    },
+    {
+      "id": "alg_slope",
+      "name": "Slope of the line through two points",
+      "kind": "foundation",
+      "section": null,
+      "origin": "Ch. 1 Functions and Graphs",
+      "prerequisites": [
+        "alg_eval"
+      ],
+      "learning_objectives": [],
+      "anchors": [],
+      "glossary": [],
+      "exercised_in": {
+        "count": 20,
+        "ids": [
+          "fs-id1170573387465",
+          "fs-id1170573399904",
+          "fs-id1170573397285",
+          "fs-id1170573306956",
+          "fs-id1170570997908",
+          "fs-id1170570990874",
+          "fs-id1170573414344",
+          "fs-id1170571048191",
+          "fs-id1170573371452",
+          "fs-id1170573419319",
+          "fs-id1170573350763",
+          "fs-id1170573449494",
+          "fs-id1170573419372",
+          "fs-id1170573408094",
+          "fs-id1170573393541",
+          "fs-id1170573430332",
+          "fs-id1170573425872",
+          "fs-id1170571136683",
+          "fs-id1170572218614",
+          "fs-id1170572386138"
+        ]
+      },
+      "dependents": [
+        "secant_slope",
+        "avg_velocity"
+      ],
+      "depth": 1,
+      "templates": [
+        "alg_slope.two_points"
+      ],
+      "misconceptions": [
+        "alg_slope.slope_inverted",
+        "alg_slope.slope_mixed_order"
+      ]
+    },
+    {
+      "id": "alg_factor",
+      "name": "Factor polynomials (common factor, trinomials, difference of squares/cubes)",
+      "kind": "foundation",
+      "section": null,
+      "origin": "Algebra",
+      "prerequisites": [],
+      "learning_objectives": [],
+      "anchors": [],
+      "glossary": [],
+      "exercised_in": {
+        "count": 33,
+        "ids": [
+          "fs-id1170572455161",
+          "fs-id1170571612124",
+          "fs-id1170571596330",
+          "fs-id1170571652132",
+          "fs-id1170572499914",
+          "fs-id1170571599593",
+          "fs-id1170572174644",
+          "fs-id1170572509954",
+          "fs-id1170572305829",
+          "fs-id1170571669713",
+          "fs-id1170571597999",
+          "fs-id1170571611196",
+          "fs-id1170572243714",
+          "fs-id1170572347613",
+          "fs-id1170572482649",
+          "fs-id1170572503561",
+          "fs-id1170571599916",
+          "fs-id1170572551466",
+          "fs-id1170572174658",
+          "fs-id1170572174729",
+          "fs-id1170572174801",
+          "fs-id1170571610811",
+          "fs-id1170570976348",
+          "fs-id1170571690430",
+          "fs-id1170572448375"
+        ]
+      },
+      "dependents": [
+        "alg_rational",
+        "alg_domain",
+        "factor_cancel"
+      ],
+      "depth": 0,
+      "templates": [
+        "alg_factor.trinomial",
+        "alg_factor.cubes"
+      ],
+      "misconceptions": [
+        "alg_factor.factor_sign_error",
+        "alg_factor.sum_of_squares_factors",
+        "alg_factor.cubes_pattern_wrong"
+      ]
+    },
+    {
+      "id": "alg_rational",
+      "name": "Simplify rational expressions by cancelling common factors",
+      "kind": "foundation",
+      "section": null,
+      "origin": "Algebra",
+      "prerequisites": [
+        "alg_factor"
+      ],
+      "learning_objectives": [],
+      "anchors": [],
+      "glossary": [],
+      "exercised_in": {
+        "count": 33,
+        "ids": [
+          "fs-id1170572455161",
+          "fs-id1170571612124",
+          "fs-id1170571596330",
+          "fs-id1170571652132",
+          "fs-id1170572499914",
+          "fs-id1170571599593",
+          "fs-id1170572174644",
+          "fs-id1170572509954",
+          "fs-id1170572305829",
+          "fs-id1170571669713",
+          "fs-id1170571597999",
+          "fs-id1170571611196",
+          "fs-id1170572243714",
+          "fs-id1170572347613",
+          "fs-id1170572482649",
+          "fs-id1170572503561",
+          "fs-id1170571599916",
+          "fs-id1170572551466",
+          "fs-id1170572174658",
+          "fs-id1170572174729",
+          "fs-id1170572174801",
+          "fs-id1170571610811",
+          "fs-id1170570976348",
+          "fs-id1170571690430",
+          "fs-id1170572448375"
+        ]
+      },
+      "dependents": [
+        "alg_complex_fraction",
+        "factor_cancel"
+      ],
+      "depth": 1,
+      "templates": [
+        "alg_rational.cancel"
+      ],
+      "misconceptions": [
+        "alg_rational.cancel_terms",
+        "alg_rational.forget_domain_restriction"
+      ]
+    },
+    {
+      "id": "alg_conjugate",
+      "name": "Rationalize using a conjugate",
+      "kind": "foundation",
+      "section": null,
+      "origin": "Algebra",
+      "prerequisites": [],
+      "learning_objectives": [],
+      "anchors": [],
+      "glossary": [],
+      "exercised_in": {
+        "count": 9,
+        "ids": [
+          "fs-id1170571656691",
+          "fs-id1170572307613",
+          "fs-id1170571611949",
+          "fs-id1170572499899",
+          "fs-id1170571599675",
+          "fs-id1170572233865",
+          "fs-id1170572510154",
+          "fs-id1170572419270",
+          "fs-id1170572601237"
+        ]
+      },
+      "dependents": [
+        "conjugate_limit"
+      ],
+      "depth": 0,
+      "templates": [
+        "alg_conjugate.rationalize"
+      ],
+      "misconceptions": [
+        "alg_conjugate.conjugate_numerator_only",
+        "alg_conjugate.conjugate_product_wrong",
+        "alg_conjugate.sqrt_of_sum"
+      ]
+    },
+    {
+      "id": "alg_complex_fraction",
+      "name": "Simplify complex fractions (common denominators)",
+      "kind": "foundation",
+      "section": null,
+      "origin": "Algebra",
+      "prerequisites": [
+        "alg_rational"
+      ],
+      "learning_objectives": [],
+      "anchors": [],
+      "glossary": [],
+      "exercised_in": {
+        "count": 21,
+        "ids": [
+          "fs-id1170572561451",
+          "fs-id1170572212020",
+          "fs-id1170571656076",
+          "fs-id1170571656614",
+          "fs-id1170571652132",
+          "fs-id1170571610933",
+          "fs-id1170572480427",
+          "fs-id1170572509954",
+          "fs-id1170571669713",
+          "fs-id1170572307613",
+          "fs-id1170571612021",
+          "fs-id1170572394353",
+          "fs-id1170571648139",
+          "fs-id1170571681422",
+          "fs-id1170572482649",
+          "fs-id1170571655854",
+          "fs-id1170571657390",
+          "fs-id1170572551466",
+          "fs-id1170570976348",
+          "fs-id1170572550055",
+          "fs-id1170572233865"
+        ]
+      },
+      "dependents": [
+        "complex_fraction_limit"
+      ],
+      "depth": 2,
+      "templates": [
+        "alg_complex_fraction.simplify"
+      ],
+      "misconceptions": [
+        "alg_complex_fraction.add_across",
+        "alg_complex_fraction.invert_wrong_part"
+      ]
+    },
+    {
+      "id": "alg_abs",
+      "name": "Absolute value as a piecewise function",
+      "kind": "foundation",
+      "section": null,
+      "origin": "Ch. 1 Functions and Graphs",
+      "prerequisites": [
+        "alg_eval"
+      ],
+      "learning_objectives": [],
+      "anchors": [],
+      "glossary": [],
+      "exercised_in": {
+        "count": 53,
+        "ids": [
+          "fs-id1170570997908",
+          "fs-id1170573414344",
+          "fs-id1170573371452",
+          "fs-id1170573350763",
+          "fs-id1170573419372",
+          "fs-id1170572561451",
+          "fs-id1170571656691",
+          "fs-id1170571656076",
+          "fs-id1170572455161",
+          "fs-id1170571614880",
+          "fs-id1170571612124",
+          "fs-id1170571611150",
+          "fs-id1170572624544",
+          "fs-id1170571655731",
+          "fs-id1170572482622",
+          "fs-id1170572403273",
+          "fs-id1170571586250",
+          "fs-id1170572499914",
+          "fs-id1170572232003",
+          "fs-id1170571600063",
+          "fs-id1170571599593",
+          "fs-id1170571653910",
+          "fs-id1170572174644",
+          "fs-id1170571610933",
+          "fs-id1170572480427"
+        ]
+      },
+      "dependents": [
+        "alg_abs_ineq",
+        "one_sided"
+      ],
+      "depth": 1,
+      "templates": [
+        "alg_abs.unfold"
+      ],
+      "misconceptions": [
+        "alg_abs.abs_drop",
+        "alg_abs.abs_distribute"
+      ]
+    },
+    {
+      "id": "alg_domain",
+      "name": "Find where a function is undefined (domain)",
+      "kind": "foundation",
+      "section": null,
+      "origin": "Ch. 1 Functions and Graphs",
+      "prerequisites": [
+        "alg_factor"
+      ],
+      "learning_objectives": [],
+      "anchors": [],
+      "glossary": [],
+      "exercised_in": {
+        "count": 94,
+        "ids": [
+          "fs-id1170572561451",
+          "fs-id1170571656691",
+          "fs-id1170572212020",
+          "fs-id1170571656076",
+          "fs-id1170572455161",
+          "fs-id1170571612124",
+          "fs-id1170571611150",
+          "fs-id1170571596330",
+          "fs-id1170571656614",
+          "fs-id1170571652132",
+          "fs-id1170572624544",
+          "fs-id1170572403273",
+          "fs-id1170571586250",
+          "fs-id1170572499827",
+          "fs-id1170572499914",
+          "fs-id1170571600063",
+          "fs-id1170571599593",
+          "fs-id1170571653910",
+          "fs-id1170572174644",
+          "fs-id1170572509954",
+          "fs-id1170572305829",
+          "fs-id1170571669713",
+          "fs-id1170571597999",
+          "fs-id1170572307613",
+          "fs-id1170571611949"
+        ]
+      },
+      "dependents": [
+        "vertical_asymptote",
+        "continuity_interval"
+      ],
+      "depth": 1,
+      "templates": [
+        "alg_domain.rational"
+      ],
+      "misconceptions": [
+        "alg_domain.domain_after_cancel",
+        "alg_domain.numerator_zeros"
+      ]
+    },
+    {
+      "id": "alg_sign",
+      "name": "Determine the sign of an expression near a point",
+      "kind": "foundation",
+      "section": null,
+      "origin": "Algebra",
+      "prerequisites": [
+        "alg_eval"
+      ],
+      "learning_objectives": [],
+      "anchors": [],
+      "glossary": [],
+      "exercised_in": {
+        "count": 31,
+        "ids": [
+          "fs-id1170571611150",
+          "fs-id1170571596330",
+          "fs-id1170571656614",
+          "fs-id1170571652132",
+          "fs-id1170572642384",
+          "fs-id1170571599593",
+          "fs-id1170572480427",
+          "fs-id1170572243335",
+          "fs-id1170572219513",
+          "fs-id1170572435026",
+          "fs-id1170572590126",
+          "fs-id1170572552638",
+          "fs-id1170571679268",
+          "fs-id1170571558882",
+          "fs-id1170571611196",
+          "fs-id1170571650517",
+          "fs-id1170572174658",
+          "fs-id1170572174801",
+          "fs-id1170571626094",
+          "fs-id1170573355402",
+          "fs-id1170573395559",
+          "fs-id1170573403253",
+          "fs-id1170571120881",
+          "fs-id1170571246283",
+          "fs-id1170573512268"
+        ]
+      },
+      "dependents": [
+        "infinite_limits",
+        "nonzero_over_zero"
+      ],
+      "depth": 1,
+      "templates": [
+        "alg_sign.near_point"
+      ],
+      "misconceptions": [
+        "alg_sign.even_power_sign",
+        "alg_sign.side_sign_swap"
+      ]
+    },
+    {
+      "id": "alg_abs_ineq",
+      "name": "Solve and manipulate absolute-value inequalities",
+      "kind": "foundation",
+      "section": null,
+      "origin": "Algebra",
+      "prerequisites": [
+        "alg_abs"
+      ],
+      "learning_objectives": [],
+      "anchors": [],
+      "glossary": [],
+      "exercised_in": {
+        "count": 29,
+        "ids": [
+          "fs-id1170571626094",
+          "fs-id1170572333023",
+          "fs-id1170571597356",
+          "fs-id1170571712674",
+          "fs-id1170571657118",
+          "fs-id1170572332174",
+          "fs-id1170571690430",
+          "fs-id1170572243112",
+          "fs-id1170572550055",
+          "fs-id1170572330921",
+          "fs-id1170571711155",
+          "fs-id1170572233832",
+          "fs-id1170572294410",
+          "fs-id1170571699048",
+          "fs-id1170572338483",
+          "fs-id1170572624813",
+          "fs-id1170571637496",
+          "fs-id1170572618071",
+          "fs-id1170572618102",
+          "fs-id1170572601177",
+          "fs-id1170571599654",
+          "fs-id1170572448375",
+          "fs-id1170572337116",
+          "fs-id1170571599727",
+          "fs-id1170571547600"
+        ]
+      },
+      "dependents": [
+        "epsilon_delta_def"
+      ],
+      "depth": 2,
+      "templates": [
+        "alg_abs_ineq.solve"
+      ],
+      "misconceptions": [
+        "alg_abs_ineq.abs_ineq_one_sided",
+        "alg_abs_ineq.abs_ineq_scale"
+      ]
+    },
+    {
+      "id": "trig_values",
+      "name": "Exact trig values at special angles (radians)",
+      "kind": "foundation",
+      "section": null,
+      "origin": "Ch. 1 Trigonometric Functions",
+      "prerequisites": [],
+      "learning_objectives": [],
+      "anchors": [],
+      "glossary": [],
+      "exercised_in": {
+        "count": 7,
+        "ids": [
+          "fs-id1170571610933",
+          "fs-id1170572480427",
+          "fs-id1170571657390",
+          "fs-id1170571120881",
+          "fs-id1170571120275",
+          "fs-id1170572601282",
+          "fs-id1170572401275"
+        ]
+      },
+      "dependents": [
+        "trig_identities",
+        "composite_continuity"
+      ],
+      "depth": 0,
+      "templates": [
+        "trig_values.special"
+      ],
+      "misconceptions": [
+        "trig_values.sin_cos_swap",
+        "trig_values.degrees_radians",
+        "trig_values.trig_sign_quadrant"
+      ]
+    },
+    {
+      "id": "trig_identities",
+      "name": "Basic trig identities (Pythagorean, quotient)",
+      "kind": "foundation",
+      "section": null,
+      "origin": "Ch. 1 Trigonometric Functions",
+      "prerequisites": [
+        "trig_values"
+      ],
+      "learning_objectives": [],
+      "anchors": [],
+      "glossary": [],
+      "exercised_in": {
+        "count": 26,
+        "ids": [
+          "fs-id1170572561451",
+          "fs-id1170571656691",
+          "fs-id1170572212020",
+          "fs-id1170571656076",
+          "fs-id1170572403273",
+          "fs-id1170571586250",
+          "fs-id1170572499827",
+          "fs-id1170571653910",
+          "fs-id1170571610933",
+          "fs-id1170572480427",
+          "fs-id1170572633047",
+          "fs-id1170572243714",
+          "fs-id1170571610215",
+          "fs-id1170571654878",
+          "fs-id1170571657390",
+          "fs-id1170572511389",
+          "fs-id1170573429945",
+          "fs-id1170573718134",
+          "fs-id1170571120881",
+          "fs-id1170570999796",
+          "fs-id1170571120275",
+          "fs-id1170571068186",
+          "fs-id1170572601177",
+          "fs-id1170571653946",
+          "fs-id1170571733984"
+        ]
+      },
+      "dependents": [
+        "trig_limits"
+      ],
+      "depth": 1,
+      "templates": [
+        "trig_identities.simplify"
+      ],
+      "misconceptions": [
+        "trig_identities.pythag_wrong",
+        "trig_identities.trig_cancel_argument"
+      ]
+    },
+    {
+      "id": "secant_slope",
+      "name": "Slopes of secant lines approaching a tangent",
+      "kind": "chapter",
+      "section": "2.1",
+      "origin": "Section 2.1",
+      "prerequisites": [
+        "alg_slope",
+        "alg_eval"
+      ],
+      "learning_objectives": [
+        "Describe the tangent problem and how it led to the idea of a derivative.",
+        "Explain how the idea of a limit is involved in solving the tangent problem."
+      ],
+      "anchors": [
+        {
+          "module": "m53485",
+          "section": "2.1",
+          "id": "fs-id1170573387465",
+          "type": "example",
+          "label": "Example 2.1",
+          "title": "Finding Slopes of Secant Lines"
+        },
+        {
+          "module": "m53485",
+          "section": "2.1",
+          "id": "fs-id1170573399904",
+          "type": "checkpoint",
+          "label": "Checkpoint 2.1",
+          "title": "Checkpoint following Example 2.1"
+        }
+      ],
+      "glossary": [
+        {
+          "term": "secant",
+          "id": "fs-id1170573753167",
+          "meaning": "A secant line to a function f(x) at a is a line through the point (a,f(a)) and another point on the function; the slope of the secant line is given by m_(sec)=(f(x)-f(a))/(x-a)"
+        },
+        {
+          "term": "tangent",
+          "id": "fs-id1170573396339",
+          "meaning": "A tangent line to the graph of a function at a point (a,f(a)) is the line that secant lines through (a,f(a)) approach as they are taken through points on the function with x-values that approach a; the slope of the tangent line to a graph at a measures the rate of change of the function at a"
+        }
+      ],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [],
+      "depth": 2,
+      "templates": [
+        "secant_slope.value"
+      ],
+      "misconceptions": [
+        "secant_slope.secant_is_tangent",
+        "secant_slope.secant_wrong_points"
+      ]
+    },
+    {
+      "id": "avg_velocity",
+      "name": "Average velocity approaching instantaneous velocity",
+      "kind": "chapter",
+      "section": "2.1",
+      "origin": "Section 2.1",
+      "prerequisites": [
+        "alg_slope"
+      ],
+      "learning_objectives": [
+        "Identify instantaneous velocity as the limit of average velocity over a small time interval."
+      ],
+      "anchors": [
+        {
+          "module": "m53485",
+          "section": "2.1",
+          "id": "fs-id1170573397285",
+          "type": "example",
+          "label": "Example 2.2",
+          "title": "Finding Average Velocity"
+        },
+        {
+          "module": "m53485",
+          "section": "2.1",
+          "id": "fs-id1170573306956",
+          "type": "checkpoint",
+          "label": "Checkpoint 2.2",
+          "title": "Checkpoint following Example 2.2"
+        }
+      ],
+      "glossary": [
+        {
+          "term": "average velocity",
+          "id": "fs-id1170573583169",
+          "meaning": "the change in an object’s position divided by the length of a time period; the average velocity of an object over a time interval [t,a] (if t<a or [a,t] if t>a), with a position given by s(t), that is v_(ave)=(s(t)-s(a))/(t-a)"
+        },
+        {
+          "term": "instantaneous velocity",
+          "id": "fs-id1170571100400",
+          "meaning": "The instantaneous velocity of an object with a position function that is given by s(t) is the value that the average velocities on intervals of the form [t,a] and [a,t] approach as the values of t move closer to a, provided such a value exists"
+        }
+      ],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [],
+      "depth": 2,
+      "templates": [
+        "avg_velocity.interval"
+      ],
+      "misconceptions": [
+        "avg_velocity.avg_is_average_of_speeds",
+        "avg_velocity.position_as_velocity"
+      ]
+    },
+    {
+      "id": "area_rectangles",
+      "name": "Estimate area under a curve with rectangles",
+      "kind": "chapter",
+      "section": "2.1",
+      "origin": "Section 2.1",
+      "prerequisites": [
+        "alg_eval"
+      ],
+      "learning_objectives": [
+        "Describe the area problem and how it was solved by the integral.",
+        "Explain how the idea of a limit is involved in solving the area problem."
+      ],
+      "anchors": [
+        {
+          "module": "m53485",
+          "section": "2.1",
+          "id": "fs-id1170573406196",
+          "type": "example",
+          "label": "Example 2.3",
+          "title": "Estimation Using Rectangles"
+        },
+        {
+          "module": "m53485",
+          "section": "2.1",
+          "id": "fs-id1170573571035",
+          "type": "checkpoint",
+          "label": "Checkpoint 2.3",
+          "title": "Checkpoint following Example 2.3"
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [],
+      "depth": 1,
+      "templates": [
+        "area_rectangles.right"
+      ],
+      "misconceptions": [
+        "area_rectangles.wrong_endpoints",
+        "area_rectangles.forget_width"
+      ]
+    },
+    {
+      "id": "limit_intuitive",
+      "name": "Meaning and notation of a limit",
+      "kind": "chapter",
+      "section": "2.2",
+      "origin": "Section 2.2",
+      "prerequisites": [
+        "alg_eval"
+      ],
+      "learning_objectives": [
+        "Using correct notation, describe the limit of a function."
+      ],
+      "anchors": [
+        {
+          "module": "m53491",
+          "section": "2.2",
+          "id": "fs-id1170572479385",
+          "type": "box",
+          "kind": "definition",
+          "label": null,
+          "title": "Definition (Intuitive Definition of a Limit)"
+        }
+      ],
+      "glossary": [
+        {
+          "term": "intuitive definition of the limit",
+          "id": "fs-id1170572467930",
+          "meaning": "If all values of the function f(x) approach the real number L as the values of x(!=a) approach a, f(x) approaches L"
+        }
+      ],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [
+        "limit_table",
+        "limit_graph",
+        "one_sided",
+        "limit_laws",
+        "epsilon_delta_def"
+      ],
+      "depth": 1,
+      "templates": [
+        "limit_intuitive.value_vs_limit"
+      ],
+      "misconceptions": [
+        "limit_intuitive.limit_is_value",
+        "limit_intuitive.undefined_means_no_limit",
+        "limit_intuitive.limit_reached"
+      ]
+    },
+    {
+      "id": "limit_table",
+      "name": "Estimate a limit from a table of values",
+      "kind": "chapter",
+      "section": "2.2",
+      "origin": "Section 2.2",
+      "prerequisites": [
+        "limit_intuitive",
+        "alg_eval"
+      ],
+      "learning_objectives": [
+        "Use a table of values to estimate the limit of a function or to identify when the limit does not exist."
+      ],
+      "anchors": [
+        {
+          "module": "m53491",
+          "section": "2.2",
+          "id": "fs-id1170572561451",
+          "type": "example",
+          "label": "Example 2.4",
+          "title": "Evaluating a Limit Using a Table of Functional Values 1"
+        },
+        {
+          "module": "m53491",
+          "section": "2.2",
+          "id": "fs-id1170572212020",
+          "type": "checkpoint",
+          "label": "Checkpoint 2.4",
+          "title": "Checkpoint following Example 2.4"
+        },
+        {
+          "module": "m53491",
+          "section": "2.2",
+          "id": "fs-id1170571656691",
+          "type": "example",
+          "label": "Example 2.5",
+          "title": "Evaluating a Limit Using a Table of Functional Values 2"
+        },
+        {
+          "module": "m53491",
+          "section": "2.2",
+          "id": "fs-id1170572212020",
+          "type": "checkpoint",
+          "label": "Checkpoint 2.4",
+          "title": "Checkpoint following Example 2.5"
+        },
+        {
+          "module": "m53491",
+          "section": "2.2",
+          "id": "fs-id1170571656330",
+          "type": "box",
+          "kind": "problem-solving",
+          "label": null,
+          "title": "Evaluating a Limit Using a Table of Functional Values"
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [],
+      "depth": 2,
+      "templates": [
+        "limit_table.estimate"
+      ],
+      "misconceptions": [
+        "limit_table.table_one_side",
+        "limit_table.table_last_value"
+      ]
+    },
+    {
+      "id": "limit_graph",
+      "name": "Estimate limits from a graph",
+      "kind": "chapter",
+      "section": "2.2",
+      "origin": "Section 2.2",
+      "prerequisites": [
+        "limit_intuitive"
+      ],
+      "learning_objectives": [
+        "Use a graph to estimate the limit of a function or to identify when the limit does not exist."
+      ],
+      "anchors": [
+        {
+          "module": "m53491",
+          "section": "2.2",
+          "id": "fs-id1170572337207",
+          "type": "example",
+          "label": "Example 2.6",
+          "title": "Evaluating a Limit Using a Graph"
+        },
+        {
+          "module": "m53491",
+          "section": "2.2",
+          "id": "fs-id1170571654767",
+          "type": "checkpoint",
+          "label": "Checkpoint 2.5",
+          "title": "Checkpoint following Example 2.6"
+        },
+        {
+          "module": "m53491",
+          "section": "2.2",
+          "id": "fs-id1170572642384",
+          "type": "example",
+          "label": "Example 2.11",
+          "title": "Behavior of a Function at Different Points"
+        },
+        {
+          "module": "m53491",
+          "section": "2.2",
+          "id": "fs-id1170572624466",
+          "type": "checkpoint",
+          "label": "Checkpoint 2.10",
+          "title": "Checkpoint following Example 2.11"
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [],
+      "depth": 2,
+      "templates": [
+        "limit_graph.read"
+      ],
+      "misconceptions": [
+        "limit_graph.graph_uses_dot",
+        "limit_graph.graph_wrong_side"
+      ]
+    },
+    {
+      "id": "one_sided",
+      "name": "One-sided limits",
+      "kind": "chapter",
+      "section": "2.2",
+      "origin": "Section 2.2",
+      "prerequisites": [
+        "limit_intuitive",
+        "alg_abs"
+      ],
+      "learning_objectives": [
+        "Define one-sided limits and provide examples."
+      ],
+      "anchors": [
+        {
+          "module": "m53491",
+          "section": "2.2",
+          "id": "fs-id1170571614880",
+          "type": "example",
+          "label": "Example 2.8",
+          "title": "Evaluating One-Sided Limits"
+        },
+        {
+          "module": "m53491",
+          "section": "2.2",
+          "id": "fs-id1170571612124",
+          "type": "checkpoint",
+          "label": "Checkpoint 2.7",
+          "title": "Checkpoint following Example 2.8"
+        },
+        {
+          "module": "m53491",
+          "section": "2.2",
+          "id": "fs-id1170572307695",
+          "type": "box",
+          "kind": "definition",
+          "label": null,
+          "title": "Definition (One-Sided Limits)"
+        }
+      ],
+      "glossary": [
+        {
+          "term": "one-sided limit",
+          "id": "fs-id1170572467997",
+          "meaning": "A one-sided limit of a function is a limit taken from either the left or the right"
+        }
+      ],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [
+        "limit_existence",
+        "infinite_limits"
+      ],
+      "depth": 2,
+      "templates": [
+        "one_sided.piecewise"
+      ],
+      "misconceptions": [
+        "one_sided.sides_swapped",
+        "one_sided.one_sided_uses_value"
+      ]
+    },
+    {
+      "id": "limit_existence",
+      "name": "Two-sided limit exists iff one-sided limits agree",
+      "kind": "chapter",
+      "section": "2.2",
+      "origin": "Section 2.2",
+      "prerequisites": [
+        "one_sided"
+      ],
+      "learning_objectives": [
+        "Explain the relationship between one-sided and two-sided limits."
+      ],
+      "anchors": [
+        {
+          "module": "m53491",
+          "section": "2.2",
+          "id": "fs-id1170571656076",
+          "type": "example",
+          "label": "Example 2.7",
+          "title": "Evaluating a Limit That Fails to Exist"
+        },
+        {
+          "module": "m53491",
+          "section": "2.2",
+          "id": "fs-id1170572455161",
+          "type": "checkpoint",
+          "label": "Checkpoint 2.6",
+          "title": "Checkpoint following Example 2.7"
+        },
+        {
+          "module": "m53491",
+          "section": "2.2",
+          "id": "fs-id1170571598073",
+          "type": "box",
+          "kind": "theorem",
+          "label": null,
+          "title": "Relating One-Sided and Two-Sided Limits"
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [
+        "piecewise_limits"
+      ],
+      "depth": 3,
+      "templates": [
+        "limit_existence.sides"
+      ],
+      "misconceptions": [
+        "limit_existence.exists_if_one_side",
+        "limit_existence.average_of_sides"
+      ]
+    },
+    {
+      "id": "infinite_limits",
+      "name": "Infinite limits",
+      "kind": "chapter",
+      "section": "2.2",
+      "origin": "Section 2.2",
+      "prerequisites": [
+        "one_sided",
+        "alg_sign"
+      ],
+      "learning_objectives": [
+        "Using correct notation, describe an infinite limit."
+      ],
+      "anchors": [
+        {
+          "module": "m53491",
+          "section": "2.2",
+          "id": "fs-id1170571611150",
+          "type": "example",
+          "label": "Example 2.9",
+          "title": "Recognizing an Infinite Limit"
+        },
+        {
+          "module": "m53491",
+          "section": "2.2",
+          "id": "fs-id1170571596330",
+          "type": "checkpoint",
+          "label": "Checkpoint 2.8",
+          "title": "Checkpoint following Example 2.9"
+        },
+        {
+          "module": "m53491",
+          "section": "2.2",
+          "id": "fs-id1170571612277",
+          "type": "box",
+          "kind": "definition",
+          "label": null,
+          "title": "Definition (Infinite Limits)"
+        },
+        {
+          "module": "m53491",
+          "section": "2.2",
+          "id": "fs-id1170571654206",
+          "type": "box",
+          "kind": "theorem",
+          "label": null,
+          "title": "Infinite Limits from Positive Integers"
+        }
+      ],
+      "glossary": [
+        {
+          "term": "infinite limit",
+          "id": "fs-id1170572541944",
+          "meaning": "A function has an infinite limit at a point a if it either increases or decreases without bound as it approaches a"
+        }
+      ],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [
+        "vertical_asymptote",
+        "nonzero_over_zero"
+      ],
+      "depth": 3,
+      "templates": [
+        "infinite_limits.power"
+      ],
+      "misconceptions": [
+        "infinite_limits.k_over_zero_is_zero",
+        "infinite_limits.infinite_sign",
+        "infinite_limits.infinity_is_number"
+      ]
+    },
+    {
+      "id": "vertical_asymptote",
+      "name": "Identify vertical asymptotes",
+      "kind": "chapter",
+      "section": "2.2",
+      "origin": "Section 2.2",
+      "prerequisites": [
+        "infinite_limits",
+        "alg_domain"
+      ],
+      "learning_objectives": [
+        "Define a vertical asymptote."
+      ],
+      "anchors": [
+        {
+          "module": "m53491",
+          "section": "2.2",
+          "id": "fs-id1170571656614",
+          "type": "example",
+          "label": "Example 2.10",
+          "title": "Finding a Vertical Asymptote"
+        },
+        {
+          "module": "m53491",
+          "section": "2.2",
+          "id": "fs-id1170571652132",
+          "type": "checkpoint",
+          "label": "Checkpoint 2.9",
+          "title": "Checkpoint following Example 2.10"
+        },
+        {
+          "module": "m53491",
+          "section": "2.2",
+          "id": "fs-id1170571603845",
+          "type": "box",
+          "kind": "definition",
+          "label": null,
+          "title": "Definition (Infinite Limits)"
+        }
+      ],
+      "glossary": [
+        {
+          "term": "vertical asymptote",
+          "id": "fs-id1170572468006",
+          "meaning": "A function has a vertical asymptote at x=a if the limit as x approaches a from the right or left is infinite"
+        }
+      ],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [],
+      "depth": 4,
+      "templates": [
+        "vertical_asymptote.rational"
+      ],
+      "misconceptions": [
+        "vertical_asymptote.va_at_hole",
+        "vertical_asymptote.va_numerator_zero"
+      ]
+    },
+    {
+      "id": "limit_laws",
+      "name": "Apply the limit laws",
+      "kind": "chapter",
+      "section": "2.3",
+      "origin": "Section 2.3",
+      "prerequisites": [
+        "limit_intuitive"
+      ],
+      "learning_objectives": [
+        "Recognize the basic limit laws.",
+        "Use the limit laws to evaluate the limit of a function.",
+        "Use the limit laws to evaluate the limit of a polynomial or rational function."
+      ],
+      "anchors": [
+        {
+          "module": "m53492",
+          "section": "2.3",
+          "id": "fs-id1170572111463",
+          "type": "example",
+          "label": "Example 2.13",
+          "title": "Evaluating a Basic Limit"
+        },
+        {
+          "module": "m53492",
+          "section": "2.3",
+          "id": "fs-id1170572451489",
+          "type": "example",
+          "label": "Example 2.14",
+          "title": "Evaluating a Limit Using Limit Laws"
+        },
+        {
+          "module": "m53492",
+          "section": "2.3",
+          "id": "fs-id1170571596043",
+          "type": "checkpoint",
+          "label": "Checkpoint 2.11",
+          "title": "Checkpoint following Example 2.14"
+        },
+        {
+          "module": "m53492",
+          "section": "2.3",
+          "id": "fs-id1170572509954",
+          "type": "example",
+          "label": "Example 2.15",
+          "title": "Using Limit Laws Repeatedly"
+        },
+        {
+          "module": "m53492",
+          "section": "2.3",
+          "id": "fs-id1170571596043",
+          "type": "checkpoint",
+          "label": "Checkpoint 2.11",
+          "title": "Checkpoint following Example 2.15"
+        },
+        {
+          "module": "m53492",
+          "section": "2.3",
+          "id": "fs-id1170572451153",
+          "type": "box",
+          "kind": "theorem",
+          "label": null,
+          "title": "Basic Limit Results"
+        },
+        {
+          "module": "m53492",
+          "section": "2.3",
+          "id": "fs-id1170572508800",
+          "type": "box",
+          "kind": "theorem",
+          "label": null,
+          "title": "Limit Laws"
+        }
+      ],
+      "glossary": [
+        {
+          "term": "limit laws",
+          "id": "fs-id1170572478051",
+          "meaning": "the individual properties of limits; for each of the individual laws, let f(x) and g(x) be defined for all x!=a over some open interval containing a; assume that L and M are real numbers so that lim_(x→a) f(x)=L and lim_(x→a) g(x)=M; let c be a constant"
+        },
+        {
+          "term": "sum law for limits",
+          "id": "fs-id1170572419050",
+          "meaning": "The limit law lim_(x→a) (f(x)+g(x))=lim_(x→a) f(x)+lim_(x→a) g(x)=L+M"
+        },
+        {
+          "term": "product law for limits",
+          "id": "fs-id1170572541851",
+          "meaning": "the limit law lim_(x→a) (f(x)*g(x))=lim_(x→a) f(x)*lim_(x→a) g(x)=L*M"
+        },
+        {
+          "term": "quotient law for limits",
+          "id": "fs-id1170572291727",
+          "meaning": "the limit law lim_(x→a) (f(x))/(g(x))=(lim_(x→a) f(x))/(lim_(x→a) g(x))=(L)/(M) for M!=0"
+        }
+      ],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [
+        "direct_substitution",
+        "squeeze",
+        "trig_limits"
+      ],
+      "depth": 2,
+      "templates": [
+        "limit_laws.given"
+      ],
+      "misconceptions": [
+        "limit_laws.quotient_law_zero_den",
+        "limit_laws.law_misapplied"
+      ]
+    },
+    {
+      "id": "direct_substitution",
+      "name": "Limits of polynomial and rational functions by substitution",
+      "kind": "chapter",
+      "section": "2.3",
+      "origin": "Section 2.3",
+      "prerequisites": [
+        "limit_laws",
+        "alg_eval"
+      ],
+      "learning_objectives": [
+        "Use the limit laws to evaluate the limit of a polynomial or rational function."
+      ],
+      "anchors": [
+        {
+          "module": "m53492",
+          "section": "2.3",
+          "id": "fs-id1170572305829",
+          "type": "example",
+          "label": "Example 2.16",
+          "title": "Evaluating a Limit of a Rational Function"
+        },
+        {
+          "module": "m53492",
+          "section": "2.3",
+          "id": "fs-id1170571675270",
+          "type": "checkpoint",
+          "label": "Checkpoint 2.12",
+          "title": "Checkpoint following Example 2.16"
+        },
+        {
+          "module": "m53492",
+          "section": "2.3",
+          "id": "fs-id1170572557796",
+          "type": "box",
+          "kind": "theorem",
+          "label": null,
+          "title": "Limits of Polynomial and Rational Functions"
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [
+        "factor_cancel",
+        "conjugate_limit",
+        "complex_fraction_limit",
+        "piecewise_limits"
+      ],
+      "depth": 3,
+      "templates": [
+        "direct_substitution.rational"
+      ],
+      "misconceptions": [
+        "direct_substitution.sub_arithmetic",
+        "direct_substitution.zero_over_zero_is_answer"
+      ]
+    },
+    {
+      "id": "factor_cancel",
+      "name": "Resolve 0/0 by factoring and cancelling",
+      "kind": "chapter",
+      "section": "2.3",
+      "origin": "Section 2.3",
+      "prerequisites": [
+        "direct_substitution",
+        "alg_factor",
+        "alg_rational"
+      ],
+      "learning_objectives": [
+        "Evaluate the limit of a function by factoring."
+      ],
+      "anchors": [
+        {
+          "module": "m53492",
+          "section": "2.3",
+          "id": "fs-id1170571669713",
+          "type": "example",
+          "label": "Example 2.17",
+          "title": "Evaluating a Limit by Factoring and Canceling"
+        },
+        {
+          "module": "m53492",
+          "section": "2.3",
+          "id": "fs-id1170571597999",
+          "type": "checkpoint",
+          "label": "Checkpoint 2.13",
+          "title": "Checkpoint following Example 2.17"
+        },
+        {
+          "module": "m53492",
+          "section": "2.3",
+          "id": "fs-id1170571611384",
+          "type": "box",
+          "kind": "problem-solving",
+          "label": null,
+          "title": "Calculating a Limit When f(x)/g(x) has the Indeterminate Form 0/0"
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [
+        "discontinuity_types"
+      ],
+      "depth": 4,
+      "templates": [
+        "factor_cancel.quadratic"
+      ],
+      "misconceptions": [
+        "factor_cancel.fc_cancel_terms",
+        "factor_cancel.fc_factor_error",
+        "factor_cancel.fc_zero_over_zero",
+        "factor_cancel.fc_forget_substitute"
+      ]
+    },
+    {
+      "id": "conjugate_limit",
+      "name": "Resolve 0/0 by multiplying by a conjugate",
+      "kind": "chapter",
+      "section": "2.3",
+      "origin": "Section 2.3",
+      "prerequisites": [
+        "direct_substitution",
+        "alg_conjugate"
+      ],
+      "learning_objectives": [
+        "Evaluate the limit of a function by factoring or by using conjugates."
+      ],
+      "anchors": [
+        {
+          "module": "m53492",
+          "section": "2.3",
+          "id": "fs-id1170572307613",
+          "type": "example",
+          "label": "Example 2.18",
+          "title": "Evaluating a Limit by Multiplying by a Conjugate"
+        },
+        {
+          "module": "m53492",
+          "section": "2.3",
+          "id": "fs-id1170571611949",
+          "type": "checkpoint",
+          "label": "Checkpoint 2.14",
+          "title": "Checkpoint following Example 2.18"
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [],
+      "depth": 4,
+      "templates": [
+        "conjugate_limit.sqrt"
+      ],
+      "misconceptions": [
+        "conjugate_limit.cj_numerator_only",
+        "conjugate_limit.cj_product_wrong",
+        "conjugate_limit.cj_zero_over_zero"
+      ]
+    },
+    {
+      "id": "complex_fraction_limit",
+      "name": "Resolve 0/0 by simplifying a complex fraction",
+      "kind": "chapter",
+      "section": "2.3",
+      "origin": "Section 2.3",
+      "prerequisites": [
+        "direct_substitution",
+        "alg_complex_fraction"
+      ],
+      "learning_objectives": [
+        "Use the limit laws to evaluate the limit of a polynomial or rational function."
+      ],
+      "anchors": [
+        {
+          "module": "m53492",
+          "section": "2.3",
+          "id": "fs-id1170571612021",
+          "type": "example",
+          "label": "Example 2.19",
+          "title": "Evaluating a Limit by Simplifying a Complex Fraction"
+        },
+        {
+          "module": "m53492",
+          "section": "2.3",
+          "id": "fs-id1170572394353",
+          "type": "checkpoint",
+          "label": "Checkpoint 2.15",
+          "title": "Checkpoint following Example 2.19"
+        },
+        {
+          "module": "m53492",
+          "section": "2.3",
+          "id": "fs-id1170571648139",
+          "type": "example",
+          "label": "Example 2.20",
+          "title": "Evaluating a Limit When the Limit Laws Do Not Apply"
+        },
+        {
+          "module": "m53492",
+          "section": "2.3",
+          "id": "fs-id1170571681422",
+          "type": "checkpoint",
+          "label": "Checkpoint 2.16",
+          "title": "Checkpoint following Example 2.20"
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [],
+      "depth": 4,
+      "templates": [
+        "complex_fraction_limit.reciprocal"
+      ],
+      "misconceptions": [
+        "complex_fraction_limit.cf_add_across",
+        "complex_fraction_limit.cf_zero_over_zero",
+        "complex_fraction_limit.cf_sign_error"
+      ]
+    },
+    {
+      "id": "nonzero_over_zero",
+      "name": "Limits of the form K/0 (K ≠ 0)",
+      "kind": "chapter",
+      "section": "2.3",
+      "origin": "Section 2.3",
+      "prerequisites": [
+        "infinite_limits",
+        "alg_sign"
+      ],
+      "learning_objectives": [
+        "Use the limit laws to evaluate the limit of a polynomial or rational function."
+      ],
+      "anchors": [
+        {
+          "module": "m53492",
+          "section": "2.3",
+          "id": "fs-id1170571611196",
+          "type": "example",
+          "label": "Example 2.23",
+          "title": "Evaluating a Limit of the Form K/0,K!=0 Using the Limit Laws"
+        },
+        {
+          "module": "m53492",
+          "section": "2.3",
+          "id": "fs-id1170571650517",
+          "type": "checkpoint",
+          "label": "Checkpoint 2.18",
+          "title": "Checkpoint following Example 2.23"
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [
+        "discontinuity_types"
+      ],
+      "depth": 4,
+      "templates": [
+        "nonzero_over_zero.sides"
+      ],
+      "misconceptions": [
+        "nonzero_over_zero.kz_zero",
+        "nonzero_over_zero.kz_no_sides",
+        "nonzero_over_zero.kz_sign_error"
+      ]
+    },
+    {
+      "id": "piecewise_limits",
+      "name": "One- and two-sided limits of piecewise functions",
+      "kind": "chapter",
+      "section": "2.3",
+      "origin": "Section 2.3",
+      "prerequisites": [
+        "limit_existence",
+        "direct_substitution"
+      ],
+      "learning_objectives": [
+        "Use the limit laws to evaluate the limit of a function.",
+        "Use the limit laws to evaluate the limit of a polynomial or rational function."
+      ],
+      "anchors": [
+        {
+          "module": "m53492",
+          "section": "2.3",
+          "id": "fs-id1170571679268",
+          "type": "example",
+          "label": "Example 2.21",
+          "title": "Evaluating a One-Sided Limit Using the Limit Laws"
+        },
+        {
+          "module": "m53492",
+          "section": "2.3",
+          "id": "fs-id1170572235169",
+          "type": "checkpoint",
+          "label": "Checkpoint 2.17",
+          "title": "Checkpoint following Example 2.21"
+        },
+        {
+          "module": "m53492",
+          "section": "2.3",
+          "id": "fs-id1170571558882",
+          "type": "example",
+          "label": "Example 2.22",
+          "title": "Evaluating a Two-Sided Limit Using the Limit Laws"
+        },
+        {
+          "module": "m53492",
+          "section": "2.3",
+          "id": "fs-id1170572235169",
+          "type": "checkpoint",
+          "label": "Checkpoint 2.17",
+          "title": "Checkpoint following Example 2.22"
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [
+        "continuity_point"
+      ],
+      "depth": 4,
+      "templates": [
+        "piecewise_limits.boundary"
+      ],
+      "misconceptions": [
+        "piecewise_limits.pw_wrong_piece",
+        "piecewise_limits.pw_uses_value",
+        "piecewise_limits.pw_exists_if_defined"
+      ]
+    },
+    {
+      "id": "squeeze",
+      "name": "The squeeze theorem",
+      "kind": "chapter",
+      "section": "2.3",
+      "origin": "Section 2.3",
+      "prerequisites": [
+        "limit_laws"
+      ],
+      "learning_objectives": [
+        "Evaluate the limit of a function by using the squeeze theorem."
+      ],
+      "anchors": [
+        {
+          "module": "m53492",
+          "section": "2.3",
+          "id": "fs-id1170571654228",
+          "type": "example",
+          "label": "Example 2.24",
+          "title": "Applying the Squeeze Theorem"
+        },
+        {
+          "module": "m53492",
+          "section": "2.3",
+          "id": "fs-id1170572633047",
+          "type": "checkpoint",
+          "label": "Checkpoint 2.19",
+          "title": "Checkpoint following Example 2.24"
+        },
+        {
+          "module": "m53492",
+          "section": "2.3",
+          "id": "fs-id1170571603679",
+          "type": "box",
+          "kind": "theorem",
+          "label": null,
+          "title": "The Squeeze Theorem"
+        }
+      ],
+      "glossary": [
+        {
+          "term": "squeeze theorem",
+          "id": "fs-id1170572418897",
+          "meaning": "states that if f(x)<=g(x)<=h(x) for all x!=a over an open interval containing a and lim_(x→a) f(x)=L=lim_(x→a) h(x) where L is a real number, then lim_(x→a) g(x)=L"
+        }
+      ],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [
+        "trig_limits"
+      ],
+      "depth": 3,
+      "templates": [
+        "squeeze.oscillating"
+      ],
+      "misconceptions": [
+        "squeeze.sq_bounds_differ",
+        "squeeze.sq_bounded_osc_zero",
+        "squeeze.sq_wrong_inequality"
+      ]
+    },
+    {
+      "id": "trig_limits",
+      "name": "Limits involving sin(x)/x and (1 - cos x)/x",
+      "kind": "chapter",
+      "section": "2.3",
+      "origin": "Section 2.3",
+      "prerequisites": [
+        "squeeze",
+        "trig_identities",
+        "limit_laws"
+      ],
+      "learning_objectives": [
+        "Evaluate the limit of a function by using the squeeze theorem."
+      ],
+      "anchors": [
+        {
+          "module": "m53492",
+          "section": "2.3",
+          "id": "fs-id1170572243714",
+          "type": "example",
+          "label": "Example 2.25",
+          "title": "Evaluating an Important Trigonometric Limit"
+        },
+        {
+          "module": "m53492",
+          "section": "2.3",
+          "id": "fs-id1170571610215",
+          "type": "checkpoint",
+          "label": "Checkpoint 2.20",
+          "title": "Checkpoint following Example 2.25"
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [],
+      "depth": 4,
+      "templates": [
+        "trig_limits.sinkx"
+      ],
+      "misconceptions": [
+        "trig_limits.tl_cancel_x",
+        "trig_limits.tl_sinx_over_x_zero",
+        "trig_limits.tl_missing_factor"
+      ]
+    },
+    {
+      "id": "continuity_point",
+      "name": "Continuity at a point (three conditions)",
+      "kind": "chapter",
+      "section": "2.4",
+      "origin": "Section 2.4",
+      "prerequisites": [
+        "piecewise_limits",
+        "alg_eval"
+      ],
+      "learning_objectives": [
+        "Explain the three conditions for continuity at a point."
+      ],
+      "anchors": [
+        {
+          "module": "m53489",
+          "section": "2.4",
+          "id": "fs-id1170573442080",
+          "type": "example",
+          "label": "Example 2.26",
+          "title": "Determining Continuity at a Point, Condition 1"
+        },
+        {
+          "module": "m53489",
+          "section": "2.4",
+          "id": "fs-id1170573389760",
+          "type": "example",
+          "label": "Example 2.27",
+          "title": "Determining Continuity at a Point, Condition 2"
+        },
+        {
+          "module": "m53489",
+          "section": "2.4",
+          "id": "fs-id1170570976463",
+          "type": "checkpoint",
+          "label": "Checkpoint 2.21",
+          "title": "Checkpoint following Example 2.27"
+        },
+        {
+          "module": "m53489",
+          "section": "2.4",
+          "id": "fs-id1170573429945",
+          "type": "example",
+          "label": "Example 2.28",
+          "title": "Determining Continuity at a Point, Condition 3"
+        },
+        {
+          "module": "m53489",
+          "section": "2.4",
+          "id": "fs-id1170570976463",
+          "type": "checkpoint",
+          "label": "Checkpoint 2.21",
+          "title": "Checkpoint following Example 2.28"
+        },
+        {
+          "module": "m53489",
+          "section": "2.4",
+          "id": "fs-id1170571048312",
+          "type": "box",
+          "kind": "definition",
+          "label": null,
+          "title": "Definition (Continuity at a Point)"
+        },
+        {
+          "module": "m53489",
+          "section": "2.4",
+          "id": "fs-id1170573398041",
+          "type": "box",
+          "kind": "problem-solving",
+          "label": null,
+          "title": "Determining Continuity at a Point"
+        }
+      ],
+      "glossary": [
+        {
+          "term": "continuity at a point",
+          "id": "fs-id1170571119822",
+          "meaning": "A function f(x) is continuous at a point a if and only if the following three conditions are satisfied: (1) f(a) is defined, (2) lim_(x→a) f(x) exists, and (3) lim_(x→a) f(x)=f(a)"
+        }
+      ],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [
+        "discontinuity_types",
+        "continuity_interval",
+        "continuity_parameter",
+        "composite_continuity"
+      ],
+      "depth": 5,
+      "templates": [
+        "continuity_point.piecewise"
+      ],
+      "misconceptions": [
+        "continuity_point.cp_only_defined",
+        "continuity_point.cp_limit_is_value"
+      ]
+    },
+    {
+      "id": "discontinuity_types",
+      "name": "Classify discontinuities (removable, jump, infinite)",
+      "kind": "chapter",
+      "section": "2.4",
+      "origin": "Section 2.4",
+      "prerequisites": [
+        "continuity_point",
+        "factor_cancel",
+        "nonzero_over_zero"
+      ],
+      "learning_objectives": [
+        "Describe three kinds of discontinuities."
+      ],
+      "anchors": [
+        {
+          "module": "m53489",
+          "section": "2.4",
+          "id": "fs-id1170570976348",
+          "type": "example",
+          "label": "Example 2.30",
+          "title": "Classifying a Discontinuity"
+        },
+        {
+          "module": "m53489",
+          "section": "2.4",
+          "id": "fs-id1170573426544",
+          "type": "example",
+          "label": "Example 2.31",
+          "title": "Classifying a Discontinuity"
+        },
+        {
+          "module": "m53489",
+          "section": "2.4",
+          "id": "fs-id1170571047778",
+          "type": "checkpoint",
+          "label": "Checkpoint 2.23",
+          "title": "Checkpoint following Example 2.31"
+        },
+        {
+          "module": "m53489",
+          "section": "2.4",
+          "id": "fs-id1170573355402",
+          "type": "example",
+          "label": "Example 2.32",
+          "title": "Classifying a Discontinuity"
+        },
+        {
+          "module": "m53489",
+          "section": "2.4",
+          "id": "fs-id1170571047778",
+          "type": "checkpoint",
+          "label": "Checkpoint 2.23",
+          "title": "Checkpoint following Example 2.32"
+        },
+        {
+          "module": "m53489",
+          "section": "2.4",
+          "id": "fs-id1170573419172",
+          "type": "box",
+          "kind": "definition",
+          "label": null,
+          "title": "Definition (Types of Discontinuities)"
+        }
+      ],
+      "glossary": [
+        {
+          "term": "removable discontinuity",
+          "id": "fs-id1170571146508",
+          "meaning": "A removable discontinuity occurs at a point a if f(x) is discontinuous at a, but lim_(x→a) f(x) exists"
+        },
+        {
+          "term": "jump discontinuity",
+          "id": "fs-id1170570997709",
+          "meaning": "A jump discontinuity occurs at a point a if lim_(x→a^(-)) f(x) and lim_(x→a^(+)) f(x) both exist, but lim_(x→a^(-)) f(x)!=lim_(x→a^(+)) f(x)"
+        },
+        {
+          "term": "infinite discontinuity",
+          "id": "fs-id1170573573755",
+          "meaning": "An infinite discontinuity occurs at a point a if lim_(x→a^(-)) f(x)=±∞ or lim_(x→a^(+)) f(x)=±∞"
+        }
+      ],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [],
+      "depth": 6,
+      "templates": [
+        "discontinuity_types.classify"
+      ],
+      "misconceptions": [
+        "discontinuity_types.dt_removable_vs_jump",
+        "discontinuity_types.dt_infinite_vs_removable"
+      ]
+    },
+    {
+      "id": "continuity_interval",
+      "name": "Continuity over an interval",
+      "kind": "chapter",
+      "section": "2.4",
+      "origin": "Section 2.4",
+      "prerequisites": [
+        "continuity_point",
+        "alg_domain"
+      ],
+      "learning_objectives": [
+        "Define continuity on an interval."
+      ],
+      "anchors": [
+        {
+          "module": "m53489",
+          "section": "2.4",
+          "id": "fs-id1170573395559",
+          "type": "example",
+          "label": "Example 2.33",
+          "title": "Continuity on an Interval"
+        },
+        {
+          "module": "m53489",
+          "section": "2.4",
+          "id": "fs-id1170573403253",
+          "type": "checkpoint",
+          "label": "Checkpoint 2.24",
+          "title": "Checkpoint following Example 2.33"
+        },
+        {
+          "module": "m53489",
+          "section": "2.4",
+          "id": "fs-id1170573387892",
+          "type": "example",
+          "label": "Example 2.34",
+          "title": "Continuity over an Interval"
+        },
+        {
+          "module": "m53489",
+          "section": "2.4",
+          "id": "fs-id1170573403253",
+          "type": "checkpoint",
+          "label": "Checkpoint 2.24",
+          "title": "Checkpoint following Example 2.34"
+        },
+        {
+          "module": "m53489",
+          "section": "2.4",
+          "id": "fs-id1170573381194",
+          "type": "example",
+          "label": "Example 2.29",
+          "title": "Continuity of a Rational Function"
+        },
+        {
+          "module": "m53489",
+          "section": "2.4",
+          "id": "fs-id1170573434500",
+          "type": "checkpoint",
+          "label": "Checkpoint 2.22",
+          "title": "Checkpoint following Example 2.29"
+        },
+        {
+          "module": "m53489",
+          "section": "2.4",
+          "id": "fs-id1170573430304",
+          "type": "box",
+          "kind": "theorem",
+          "label": null,
+          "title": "Continuity of Polynomials and Rational Functions"
+        },
+        {
+          "module": "m53489",
+          "section": "2.4",
+          "id": "fs-id1170573581958",
+          "type": "box",
+          "kind": "note",
+          "label": null,
+          "title": "Continuity from the Right and from the Left"
+        }
+      ],
+      "glossary": [
+        {
+          "term": "continuity over an interval",
+          "id": "fs-id1170573363352",
+          "meaning": "a function that can be traced with a pencil without lifting the pencil; a function is continuous over an open interval if it is continuous at every point in the interval; a function f(x) is continuous over a closed interval of the form [a,b] if it is continuous at every point in (a,b), and it is continuous from the right at a and from the left at b"
+        }
+      ],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [
+        "ivt"
+      ],
+      "depth": 6,
+      "templates": [
+        "continuity_interval.rational"
+      ],
+      "misconceptions": [
+        "continuity_interval.ci_include_bad_point",
+        "continuity_interval.ci_endpoint_brackets"
+      ]
+    },
+    {
+      "id": "continuity_parameter",
+      "name": "Choose a constant that makes a piecewise function continuous",
+      "kind": "chapter",
+      "section": "2.4",
+      "origin": "Section 2.4",
+      "prerequisites": [
+        "continuity_point"
+      ],
+      "learning_objectives": [
+        "Explain the three conditions for continuity at a point."
+      ],
+      "anchors": [],
+      "glossary": [],
+      "exercised_in": {
+        "count": 3,
+        "ids": [
+          "fs-id1170571290233",
+          "fs-id1170573571185",
+          "fs-id1170571124644"
+        ]
+      },
+      "dependents": [],
+      "depth": 6,
+      "templates": [
+        "continuity_parameter.solve_k"
+      ],
+      "misconceptions": [
+        "continuity_parameter.cpar_match_wrong",
+        "continuity_parameter.cpar_algebra"
+      ]
+    },
+    {
+      "id": "composite_continuity",
+      "name": "Limits of composite functions via continuity",
+      "kind": "chapter",
+      "section": "2.4",
+      "origin": "Section 2.4",
+      "prerequisites": [
+        "continuity_point",
+        "trig_values"
+      ],
+      "learning_objectives": [
+        "State the theorem for limits of composite functions."
+      ],
+      "anchors": [
+        {
+          "module": "m53489",
+          "section": "2.4",
+          "id": "fs-id1170573718134",
+          "type": "example",
+          "label": "Example 2.35",
+          "title": "Limit of a Composite Cosine Function"
+        },
+        {
+          "module": "m53489",
+          "section": "2.4",
+          "id": "fs-id1170573732417",
+          "type": "checkpoint",
+          "label": "Checkpoint 2.25",
+          "title": "Checkpoint following Example 2.35"
+        },
+        {
+          "module": "m53489",
+          "section": "2.4",
+          "id": "fs-id1170573352212",
+          "type": "box",
+          "kind": "theorem",
+          "label": null,
+          "title": "Composite Function Theorem"
+        },
+        {
+          "module": "m53489",
+          "section": "2.4",
+          "id": "fs-id1170573418920",
+          "type": "box",
+          "kind": "theorem",
+          "label": null,
+          "title": "Continuity of Trigonometric Functions"
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [],
+      "depth": 6,
+      "templates": [
+        "composite_continuity.cos"
+      ],
+      "misconceptions": [
+        "composite_continuity.cc_inside_out",
+        "composite_continuity.cc_trig_value"
+      ]
+    },
+    {
+      "id": "ivt",
+      "name": "The Intermediate Value Theorem",
+      "kind": "chapter",
+      "section": "2.4",
+      "origin": "Section 2.4",
+      "prerequisites": [
+        "continuity_interval",
+        "alg_eval"
+      ],
+      "learning_objectives": [
+        "Provide an example of the intermediate value theorem."
+      ],
+      "anchors": [
+        {
+          "module": "m53489",
+          "section": "2.4",
+          "id": "fs-id1170571120881",
+          "type": "example",
+          "label": "Example 2.36",
+          "title": "Application of the Intermediate Value Theorem"
+        },
+        {
+          "module": "m53489",
+          "section": "2.4",
+          "id": "fs-id1170573439386",
+          "type": "example",
+          "label": "Example 2.37",
+          "title": "When Can You Apply the Intermediate Value Theorem?"
+        },
+        {
+          "module": "m53489",
+          "section": "2.4",
+          "id": "fs-id1170571100300",
+          "type": "checkpoint",
+          "label": "Checkpoint 2.26",
+          "title": "Checkpoint following Example 2.37"
+        },
+        {
+          "module": "m53489",
+          "section": "2.4",
+          "id": "fs-id1170570996536",
+          "type": "example",
+          "label": "Example 2.38",
+          "title": "When Can You Apply the Intermediate Value Theorem?"
+        },
+        {
+          "module": "m53489",
+          "section": "2.4",
+          "id": "fs-id1170571100300",
+          "type": "checkpoint",
+          "label": "Checkpoint 2.26",
+          "title": "Checkpoint following Example 2.38"
+        },
+        {
+          "module": "m53489",
+          "section": "2.4",
+          "id": "fs-id1170571120551",
+          "type": "box",
+          "kind": "theorem",
+          "label": null,
+          "title": "The Intermediate Value Theorem"
+        }
+      ],
+      "glossary": [
+        {
+          "term": "Intermediate Value Theorem",
+          "id": "fs-id1170571049355",
+          "meaning": "Let f be continuous over a closed bounded interval [a,b]; if z is any real number between f(a) and f(b), then there is a number c in [a,b] satisfying f(c)=z"
+        }
+      ],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [],
+      "depth": 7,
+      "templates": [
+        "ivt.zero"
+      ],
+      "misconceptions": [
+        "ivt.ivt_discontinuous",
+        "ivt.ivt_converse",
+        "ivt.ivt_locates_zero"
+      ]
+    },
+    {
+      "id": "epsilon_delta_def",
+      "name": "The epsilon-delta definition of a limit",
+      "kind": "chapter",
+      "section": "2.5",
+      "origin": "Section 2.5",
+      "prerequisites": [
+        "limit_intuitive",
+        "alg_abs_ineq"
+      ],
+      "learning_objectives": [
+        "Describe the epsilon-delta definition of a limit."
+      ],
+      "anchors": [
+        {
+          "module": "m53493",
+          "section": "2.5",
+          "id": "fs-id1170572641433",
+          "type": "box",
+          "kind": "definition",
+          "label": null,
+          "title": "Definition (Quantifying Closeness)"
+        }
+      ],
+      "glossary": [
+        {
+          "term": "epsilon-delta definition of the limit",
+          "id": "fs-id1170572386184",
+          "meaning": "lim_(x→a) f(x)=L if for every ε>0, there exists a δ>0 such that if 0<|x-a|<δ, then |f(x)-L|<ε"
+        }
+      ],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [
+        "epsilon_delta_linear"
+      ],
+      "depth": 3,
+      "templates": [
+        "epsilon_delta_def.complete"
+      ],
+      "misconceptions": [
+        "epsilon_delta_def.ed_quantifier_order",
+        "epsilon_delta_def.ed_missing_zero"
+      ]
+    },
+    {
+      "id": "epsilon_delta_linear",
+      "name": "Find delta for a linear function",
+      "kind": "chapter",
+      "section": "2.5",
+      "origin": "Section 2.5",
+      "prerequisites": [
+        "epsilon_delta_def"
+      ],
+      "learning_objectives": [
+        "Apply the epsilon-delta definition to find the limit of a function."
+      ],
+      "anchors": [
+        {
+          "module": "m53493",
+          "section": "2.5",
+          "id": "fs-id1170572333023",
+          "type": "example",
+          "label": "Example 2.39",
+          "title": "Proving a Statement about the Limit of a Specific Function"
+        },
+        {
+          "module": "m53493",
+          "section": "2.5",
+          "id": "fs-id1170571712674",
+          "type": "checkpoint",
+          "label": "Checkpoint 2.27",
+          "title": "Checkpoint following Example 2.39"
+        },
+        {
+          "module": "m53493",
+          "section": "2.5",
+          "id": "fs-id1170571597356",
+          "type": "example",
+          "label": "Example 2.40",
+          "title": "Proving a Statement about a Limit"
+        },
+        {
+          "module": "m53493",
+          "section": "2.5",
+          "id": "fs-id1170571712674",
+          "type": "checkpoint",
+          "label": "Checkpoint 2.27",
+          "title": "Checkpoint following Example 2.40"
+        },
+        {
+          "module": "m53493",
+          "section": "2.5",
+          "id": "fs-id1170571636244",
+          "type": "box",
+          "kind": "problem-solving",
+          "label": null,
+          "title": "Proving That lim_(x→a) f(x)=L for a Specific Function f(x)"
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [
+        "epsilon_delta_nonlinear"
+      ],
+      "depth": 4,
+      "templates": [
+        "epsilon_delta_linear.delta"
+      ],
+      "misconceptions": [
+        "epsilon_delta_linear.edl_delta_equals_eps",
+        "epsilon_delta_linear.edl_multiply_slope",
+        "epsilon_delta_linear.edl_delta_depends_x"
+      ]
+    },
+    {
+      "id": "epsilon_delta_nonlinear",
+      "name": "Find delta for a nonlinear function",
+      "kind": "chapter",
+      "section": "2.5",
+      "origin": "Section 2.5",
+      "prerequisites": [
+        "epsilon_delta_linear"
+      ],
+      "learning_objectives": [
+        "Apply the epsilon-delta definition to find the limit of a function."
+      ],
+      "anchors": [
+        {
+          "module": "m53493",
+          "section": "2.5",
+          "id": "fs-id1170571657118",
+          "type": "example",
+          "label": "Example 2.41",
+          "title": "Proving a Statement about the Limit of a Specific Function (Geometric Approach)"
+        },
+        {
+          "module": "m53493",
+          "section": "2.5",
+          "id": "fs-id1170572332174",
+          "type": "checkpoint",
+          "label": "Checkpoint 2.28",
+          "title": "Checkpoint following Example 2.41"
+        },
+        {
+          "module": "m53493",
+          "section": "2.5",
+          "id": "fs-id1170571690430",
+          "type": "example",
+          "label": "Example 2.42",
+          "title": "Proving a Statement about the Limit of a Specific Function (Algebraic Approach)"
+        },
+        {
+          "module": "m53493",
+          "section": "2.5",
+          "id": "fs-id1170572243112",
+          "type": "checkpoint",
+          "label": "Checkpoint 2.29",
+          "title": "Checkpoint following Example 2.42"
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [],
+      "depth": 5,
+      "templates": [
+        "epsilon_delta_nonlinear.square"
+      ],
+      "misconceptions": [
+        "epsilon_delta_nonlinear.edn_no_bound",
+        "epsilon_delta_nonlinear.edn_min_missing"
+      ]
+    }
+  ]
+}

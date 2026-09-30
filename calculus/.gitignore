@@ -1,0 +1,8 @@
+# fetched OpenStax source, fonts, figures (re-fetched on demand)
+.cache/
+# learner state, packets, photo inbox
+state/
+out/
+inbox/
+__pycache__/
+*.pyc

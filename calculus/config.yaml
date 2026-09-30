@@ -1,0 +1,38 @@
+# Learner model and diagnostic parameters (non-Jev). Jev questions and
+# thresholds live in jev_questions.yaml.
+
+learner:
+  # Structured prior over the skill graph (used by the diagnostic).
+  prior:
+    foundation: 0.80        # P(mastered | all prerequisites mastered)
+    chapter: 0.45
+    prerequisites_missing: 0.08
+  slip: 0.10                # P(wrong | all required skills mastered)
+  learn: 0.12               # BKT transition per practiced problem, scaled by credit
+  mastery_threshold: 0.85   # "mastered" for scheduling / frontier
+  review:
+    first_interval_days: 1.0
+    growth: 2.5             # stability multiplier on a clean success
+    min_credit_for_growth: 0.7
+    max_interval_days: 120
+
+diagnostic:
+  min_questions: 25
+  max_questions: 40
+  round_sizes: [10, 10, 5, 5, 5, 5]   # questions per printed round
+  particles: 30000
+  seed: 20260930
+  stop_max_marginal_entropy_bits: 0.5  # stop (after min_questions) when every skill is this certain
+
+evidence_policy:
+  # How Jev's typed answers turn into one learner-model update per problem.
+  restart_credit: 0.75            # correct, but only after abandoning an approach
+  substeps_floor: 0.6             # credit multiplier when no expected sub-computation is written
+  off_strategy_credit: 0.8        # correct via a strategy outside the target skill (e.g. table, L'Hopital)
+  invalid_step_credit: 0.7        # right final answer but SymPy found an invalid step
+  misconception_likelihood: 0.25  # P(evidence | root skill mastered) relative to 1.0 if not mastered
+  skip_credit: 0.0
+
+lesson:
+  problems_per_skill: 3
+  target_skills_per_packet: 2

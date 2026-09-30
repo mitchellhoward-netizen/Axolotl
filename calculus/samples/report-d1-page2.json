@@ -1,0 +1,954 @@
+{
+  "photo": "d1-page2.jpg",
+  "transcriber": "sidecar",
+  "packet": "D1",
+  "transcript": {
+    "backend": "sidecar: transcribed by Claude (vision, in the agent session) from the photo, following transcribe.INSTRUCTIONS",
+    "packet_code": "D1",
+    "problems": [
+      {
+        "number": 6,
+        "skipped": false,
+        "final_answer": "1 + cos x",
+        "lines": [
+          {
+            "text": "sin^2 x/(1 - cos x) = (1 - cos^2 x)/(1 - cos x)",
+            "sympy": "sin(x)**2/(1 - cos(x)) = (1 - cos(x)**2)/(1 - cos(x))",
+            "continues": false,
+            "crossed_out": false,
+            "boxed": false
+          },
+          {
+            "text": "= (1 - cos x)(1 + cos x)/(1 - cos x)",
+            "sympy": "(1 - cos(x))*(1 + cos(x))/(1 - cos(x))",
+            "continues": true,
+            "crossed_out": false,
+            "boxed": false
+          },
+          {
+            "text": "= 1 + cos x",
+            "sympy": "1 + cos(x)",
+            "continues": true,
+            "crossed_out": false,
+            "boxed": true
+          }
+        ]
+      },
+      {
+        "number": 7,
+        "skipped": false,
+        "final_answer": "3",
+        "lines": [
+          {
+            "text": "f(1) = 2, f(2) = 5",
+            "sympy": "",
+            "continues": false,
+            "crossed_out": false,
+            "boxed": false
+          },
+          {
+            "text": "m = (5 - 2)/(2 - 1) = 3",
+            "sympy": "m = (5 - 2)/(2 - 1) = 3",
+            "continues": false,
+            "crossed_out": false,
+            "boxed": true
+          }
+        ]
+      },
+      {
+        "number": 8,
+        "skipped": false,
+        "final_answer": "-24 ft/s",
+        "lines": [
+          {
+            "text": "s(2) = -64 + 96 = 32",
+            "sympy": "s(2) = -64 + 96 = 32",
+            "continues": false,
+            "crossed_out": false,
+            "boxed": false
+          },
+          {
+            "text": "s(5/2) = -100 + 120 = 20",
+            "sympy": "s(5/2) = -100 + 120 = 20",
+            "continues": false,
+            "crossed_out": false,
+            "boxed": false
+          },
+          {
+            "text": "v = (20 - 32)/(5/2 - 2) = -12/(1/2)",
+            "sympy": "v = (20 - 32)/(5/2 - 2) = -12/(1/2)",
+            "continues": false,
+            "crossed_out": false,
+            "boxed": false
+          },
+          {
+            "text": "= -24 ft/s",
+            "sympy": "-24",
+            "continues": true,
+            "crossed_out": false,
+            "boxed": true
+          }
+        ]
+      },
+      {
+        "number": 9,
+        "skipped": false,
+        "final_answer": "1",
+        "lines": [
+          {
+            "text": "width = 1",
+            "sympy": "width = 1",
+            "continues": false,
+            "crossed_out": false,
+            "boxed": false
+          },
+          {
+            "text": "A = 1\u00b7f(0) + 1\u00b7f(1)",
+            "sympy": "A = 1*f(0) + 1*f(1)",
+            "continues": false,
+            "crossed_out": false,
+            "boxed": false
+          },
+          {
+            "text": "= 0 + 1 = 1",
+            "sympy": "0 + 1 = 1",
+            "continues": true,
+            "crossed_out": false,
+            "boxed": true
+          }
+        ]
+      }
+    ],
+    "notes": "Second page for D1: problems 6-9. Problem 8 box includes units (ft/s)."
+  },
+  "problems": [
+    {
+      "number": 6,
+      "problem_id": "D1-06",
+      "status": "graded",
+      "correct": true,
+      "credit": 0.8,
+      "stepcheck": {
+        "lines": [
+          {
+            "line": 1,
+            "status": "valid",
+            "steps": 1,
+            "note": ""
+          },
+          {
+            "line": 2,
+            "status": "valid",
+            "steps": 1,
+            "note": ""
+          },
+          {
+            "line": 3,
+            "status": "valid",
+            "steps": 1,
+            "note": ""
+          }
+        ],
+        "first_invalid_line": null,
+        "all_steps_valid": true,
+        "final_answer": "1 + cos x",
+        "final_correct": true,
+        "final_note": "equivalent",
+        "skipped": false
+      },
+      "decision": {
+        "misconception": "none",
+        "misconception_root": null,
+        "attempts": 1,
+        "crossed_out_runs": 0,
+        "substeps": {
+          "rewrite using an identity": true,
+          "cancel": false
+        },
+        "substeps_written_fraction": 0.5,
+        "strategy": "pythagorean"
+      },
+      "mastery_changes": {
+        "alg_eval": [
+          0.982,
+          0.982
+        ],
+        "alg_slope": [
+          0.975,
+          0.975
+        ],
+        "alg_rational": [
+          0.632,
+          0.634
+        ],
+        "alg_conjugate": [
+          0.088,
+          0.089
+        ],
+        "alg_complex_fraction": [
+          0.349,
+          0.359
+        ],
+        "alg_abs": [
+          0.512,
+          0.53
+        ],
+        "alg_domain": [
+          0.984,
+          0.984
+        ],
+        "alg_sign": [
+          0.793,
+          0.777
+        ],
+        "alg_abs_ineq": [
+          0.173,
+          0.172
+        ],
+        "trig_values": [
+          0.804,
+          0.922
+        ],
+        "trig_identities": [
+          0.644,
+          0.858
+        ],
+        "secant_slope": [
+          0.457,
+          0.453
+        ],
+        "avg_velocity": [
+          0.406,
+          0.417
+        ],
+        "area_rectangles": [
+          0.452,
+          0.464
+        ],
+        "limit_intuitive": [
+          0.604,
+          0.602
+        ],
+        "limit_table": [
+          0.307,
+          0.304
+        ],
+        "limit_graph": [
+          0.3,
+          0.299
+        ],
+        "one_sided": [
+          0.178,
+          0.181
+        ],
+        "limit_existence": [
+          0.145,
+          0.145
+        ],
+        "infinite_limits": [
+          0.142,
+          0.14
+        ],
+        "vertical_asymptote": [
+          0.137,
+          0.145
+        ],
+        "limit_laws": [
+          0.451,
+          0.449
+        ],
+        "direct_substitution": [
+          0.247,
+          0.253
+        ],
+        "factor_cancel": [
+          0.136,
+          0.146
+        ],
+        "conjugate_limit": [
+          0.093,
+          0.094
+        ],
+        "complex_fraction_limit": [
+          0.107,
+          0.104
+        ],
+        "nonzero_over_zero": [
+          0.132,
+          0.121
+        ],
+        "piecewise_limits": [
+          0.098,
+          0.097
+        ],
+        "squeeze": [
+          0.225,
+          0.221
+        ],
+        "trig_limits": [
+          0.127,
+          0.143
+        ],
+        "continuity_point": [
+          0.117,
+          0.125
+        ],
+        "discontinuity_types": [
+          0.072,
+          0.07
+        ],
+        "continuity_interval": [
+          0.124,
+          0.136
+        ],
+        "continuity_parameter": [
+          0.131,
+          0.141
+        ],
+        "composite_continuity": [
+          0.114,
+          0.128
+        ],
+        "ivt": [
+          0.123,
+          0.132
+        ],
+        "epsilon_delta_def": [
+          0.127,
+          0.134
+        ],
+        "epsilon_delta_linear": [
+          0.132,
+          0.14
+        ],
+        "epsilon_delta_nonlinear": [
+          0.154,
+          0.165
+        ]
+      }
+    },
+    {
+      "number": 7,
+      "problem_id": "D1-07",
+      "status": "graded",
+      "correct": true,
+      "credit": 1.0,
+      "stepcheck": {
+        "lines": [
+          {
+            "line": 1,
+            "status": "text"
+          },
+          {
+            "line": 2,
+            "status": "valid",
+            "steps": 1,
+            "note": ""
+          }
+        ],
+        "first_invalid_line": null,
+        "all_steps_valid": true,
+        "final_answer": "3",
+        "final_correct": true,
+        "final_note": "key Integer(3)",
+        "skipped": false
+      },
+      "decision": {
+        "misconception": "none",
+        "misconception_root": null,
+        "attempts": 1,
+        "crossed_out_runs": 0,
+        "substeps": {
+          "evaluate f at both points": true,
+          "form the difference quotient": true
+        },
+        "substeps_written_fraction": 1.0,
+        "strategy": "difference_quotient"
+      },
+      "mastery_changes": {
+        "alg_eval": [
+          0.982,
+          0.999
+        ],
+        "alg_slope": [
+          0.975,
+          0.998
+        ],
+        "alg_factor": [
+          0.989,
+          0.988
+        ],
+        "alg_rational": [
+          0.634,
+          0.647
+        ],
+        "alg_conjugate": [
+          0.089,
+          0.087
+        ],
+        "alg_complex_fraction": [
+          0.359,
+          0.357
+        ],
+        "alg_abs": [
+          0.53,
+          0.541
+        ],
+        "alg_domain": [
+          0.984,
+          0.983
+        ],
+        "alg_sign": [
+          0.777,
+          0.791
+        ],
+        "alg_abs_ineq": [
+          0.172,
+          0.175
+        ],
+        "trig_values": [
+          0.922,
+          0.923
+        ],
+        "trig_identities": [
+          0.858,
+          0.853
+        ],
+        "secant_slope": [
+          0.453,
+          0.961
+        ],
+        "avg_velocity": [
+          0.417,
+          0.425
+        ],
+        "area_rectangles": [
+          0.464,
+          0.482
+        ],
+        "limit_intuitive": [
+          0.602,
+          0.619
+        ],
+        "limit_table": [
+          0.304,
+          0.247
+        ],
+        "limit_graph": [
+          0.299,
+          0.296
+        ],
+        "one_sided": [
+          0.181,
+          0.2
+        ],
+        "limit_existence": [
+          0.145,
+          0.135
+        ],
+        "infinite_limits": [
+          0.14,
+          0.113
+        ],
+        "vertical_asymptote": [
+          0.145,
+          0.14
+        ],
+        "limit_laws": [
+          0.449,
+          0.465
+        ],
+        "direct_substitution": [
+          0.253,
+          0.258
+        ],
+        "factor_cancel": [
+          0.146,
+          0.153
+        ],
+        "conjugate_limit": [
+          0.094,
+          0.09
+        ],
+        "complex_fraction_limit": [
+          0.104,
+          0.098
+        ],
+        "nonzero_over_zero": [
+          0.121,
+          0.103
+        ],
+        "piecewise_limits": [
+          0.097,
+          0.091
+        ],
+        "squeeze": [
+          0.221,
+          0.224
+        ],
+        "trig_limits": [
+          0.143,
+          0.161
+        ],
+        "continuity_point": [
+          0.125,
+          0.134
+        ],
+        "discontinuity_types": [
+          0.07,
+          0.06
+        ],
+        "continuity_interval": [
+          0.136,
+          0.141
+        ],
+        "continuity_parameter": [
+          0.141,
+          0.134
+        ],
+        "composite_continuity": [
+          0.128,
+          0.122
+        ],
+        "ivt": [
+          0.132,
+          0.14
+        ],
+        "epsilon_delta_def": [
+          0.134,
+          0.134
+        ],
+        "epsilon_delta_linear": [
+          0.14,
+          0.145
+        ],
+        "epsilon_delta_nonlinear": [
+          0.165,
+          0.181
+        ]
+      }
+    },
+    {
+      "number": 8,
+      "problem_id": "D1-08",
+      "status": "graded",
+      "correct": true,
+      "credit": 1.0,
+      "stepcheck": {
+        "lines": [
+          {
+            "line": 1,
+            "status": "valid",
+            "steps": 1,
+            "note": ""
+          },
+          {
+            "line": 2,
+            "status": "valid",
+            "steps": 1,
+            "note": ""
+          },
+          {
+            "line": 3,
+            "status": "valid",
+            "steps": 1,
+            "note": ""
+          },
+          {
+            "line": 4,
+            "status": "valid",
+            "steps": 1,
+            "note": ""
+          }
+        ],
+        "first_invalid_line": null,
+        "all_steps_valid": true,
+        "final_answer": "-24 ft/s",
+        "final_correct": true,
+        "final_note": "key Integer(-24)",
+        "skipped": false
+      },
+      "decision": {
+        "misconception": "none",
+        "misconception_root": null,
+        "attempts": 1,
+        "crossed_out_runs": 0,
+        "substeps": {
+          "evaluate the position at both times": true,
+          "divide the displacement by the elapsed time": true
+        },
+        "substeps_written_fraction": 1.0,
+        "strategy": "displacement_over_time"
+      },
+      "mastery_changes": {
+        "alg_eval": [
+          0.999,
+          1.0
+        ],
+        "alg_slope": [
+          0.998,
+          1.0
+        ],
+        "alg_factor": [
+          0.988,
+          0.986
+        ],
+        "alg_rational": [
+          0.647,
+          0.698
+        ],
+        "alg_conjugate": [
+          0.087,
+          0.093
+        ],
+        "alg_complex_fraction": [
+          0.357,
+          0.404
+        ],
+        "alg_abs": [
+          0.541,
+          0.517
+        ],
+        "alg_domain": [
+          0.983,
+          0.981
+        ],
+        "alg_sign": [
+          0.791,
+          0.784
+        ],
+        "alg_abs_ineq": [
+          0.175,
+          0.182
+        ],
+        "trig_values": [
+          0.923,
+          0.915
+        ],
+        "trig_identities": [
+          0.853,
+          0.866
+        ],
+        "secant_slope": [
+          0.961,
+          0.963
+        ],
+        "avg_velocity": [
+          0.425,
+          0.957
+        ],
+        "area_rectangles": [
+          0.482,
+          0.499
+        ],
+        "limit_intuitive": [
+          0.619,
+          0.599
+        ],
+        "limit_table": [
+          0.247,
+          0.243
+        ],
+        "limit_graph": [
+          0.296,
+          0.322
+        ],
+        "one_sided": [
+          0.2,
+          0.211
+        ],
+        "limit_existence": [
+          0.135,
+          0.135
+        ],
+        "infinite_limits": [
+          0.113,
+          0.12
+        ],
+        "vertical_asymptote": [
+          0.14,
+          0.152
+        ],
+        "limit_laws": [
+          0.465,
+          0.478
+        ],
+        "direct_substitution": [
+          0.258,
+          0.256
+        ],
+        "factor_cancel": [
+          0.153,
+          0.139
+        ],
+        "conjugate_limit": [
+          0.09,
+          0.063
+        ],
+        "complex_fraction_limit": [
+          0.098,
+          0.112
+        ],
+        "nonzero_over_zero": [
+          0.103,
+          0.114
+        ],
+        "piecewise_limits": [
+          0.091,
+          0.084
+        ],
+        "squeeze": [
+          0.224,
+          0.235
+        ],
+        "trig_limits": [
+          0.161,
+          0.17
+        ],
+        "continuity_point": [
+          0.134,
+          0.148
+        ],
+        "discontinuity_types": [
+          0.06,
+          0.062
+        ],
+        "continuity_interval": [
+          0.141,
+          0.124
+        ],
+        "continuity_parameter": [
+          0.134,
+          0.143
+        ],
+        "composite_continuity": [
+          0.122,
+          0.132
+        ],
+        "ivt": [
+          0.14,
+          0.165
+        ],
+        "epsilon_delta_def": [
+          0.134,
+          0.09
+        ],
+        "epsilon_delta_linear": [
+          0.145,
+          0.13
+        ],
+        "epsilon_delta_nonlinear": [
+          0.181,
+          0.191
+        ]
+      }
+    },
+    {
+      "number": 9,
+      "problem_id": "D1-09",
+      "status": "graded",
+      "correct": false,
+      "credit": 0.0,
+      "stepcheck": {
+        "lines": [
+          {
+            "line": 1,
+            "status": "start",
+            "steps": 0,
+            "note": ""
+          },
+          {
+            "line": 2,
+            "status": "start",
+            "steps": 0,
+            "note": ""
+          },
+          {
+            "line": 3,
+            "status": "valid",
+            "steps": 2,
+            "note": ""
+          }
+        ],
+        "first_invalid_line": null,
+        "all_steps_valid": true,
+        "final_answer": "1",
+        "final_correct": false,
+        "final_note": "key Integer(5)",
+        "skipped": false
+      },
+      "decision": {
+        "misconception": "area_rectangles.wrong_endpoints",
+        "misconception_root": "area_rectangles",
+        "attempts": 1,
+        "crossed_out_runs": 0,
+        "substeps": {
+          "find the rectangle width": true,
+          "evaluate f at the right endpoints": false,
+          "sum height times width": true
+        },
+        "substeps_written_fraction": 0.6666666666666666,
+        "strategy": "other"
+      },
+      "mastery_changes": {
+        "alg_eval": [
+          1.0,
+          1.0
+        ],
+        "alg_factor": [
+          0.986,
+          0.982
+        ],
+        "alg_rational": [
+          0.698,
+          0.702
+        ],
+        "alg_conjugate": [
+          0.093,
+          0.106
+        ],
+        "alg_complex_fraction": [
+          0.404,
+          0.388
+        ],
+        "alg_abs": [
+          0.517,
+          0.542
+        ],
+        "alg_domain": [
+          0.981,
+          0.977
+        ],
+        "alg_sign": [
+          0.784,
+          0.811
+        ],
+        "alg_abs_ineq": [
+          0.182,
+          0.229
+        ],
+        "trig_values": [
+          0.915,
+          0.916
+        ],
+        "trig_identities": [
+          0.866,
+          0.867
+        ],
+        "secant_slope": [
+          0.963,
+          0.961
+        ],
+        "avg_velocity": [
+          0.957,
+          0.954
+        ],
+        "area_rectangles": [
+          0.499,
+          0.025
+        ],
+        "limit_intuitive": [
+          0.599,
+          0.627
+        ],
+        "limit_table": [
+          0.243,
+          0.24
+        ],
+        "limit_graph": [
+          0.322,
+          0.309
+        ],
+        "one_sided": [
+          0.211,
+          0.229
+        ],
+        "limit_existence": [
+          0.135,
+          0.139
+        ],
+        "infinite_limits": [
+          0.12,
+          0.114
+        ],
+        "vertical_asymptote": [
+          0.152,
+          0.174
+        ],
+        "limit_laws": [
+          0.478,
+          0.485
+        ],
+        "direct_substitution": [
+          0.256,
+          0.179
+        ],
+        "factor_cancel": [
+          0.139,
+          0.14
+        ],
+        "conjugate_limit": [
+          0.063,
+          0.071
+        ],
+        "complex_fraction_limit": [
+          0.112,
+          0.097
+        ],
+        "nonzero_over_zero": [
+          0.114,
+          0.118
+        ],
+        "piecewise_limits": [
+          0.084,
+          0.066
+        ],
+        "squeeze": [
+          0.235,
+          0.218
+        ],
+        "trig_limits": [
+          0.17,
+          0.103
+        ],
+        "continuity_point": [
+          0.148,
+          0.115
+        ],
+        "discontinuity_types": [
+          0.062,
+          0.056
+        ],
+        "continuity_interval": [
+          0.124,
+          0.126
+        ],
+        "continuity_parameter": [
+          0.143,
+          0.171
+        ],
+        "composite_continuity": [
+          0.132,
+          0.143
+        ],
+        "ivt": [
+          0.165,
+          0.158
+        ],
+        "epsilon_delta_def": [
+          0.09,
+          0.094
+        ],
+        "epsilon_delta_linear": [
+          0.13,
+          0.128
+        ],
+        "epsilon_delta_nonlinear": [
+          0.191,
+          0.174
+        ]
+      }
+    }
+  ],
+  "at": "2026-09-30T08:51:01+00:00"
+}

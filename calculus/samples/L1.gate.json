@@ -1,0 +1,109 @@
+{
+  "packet": "L1",
+  "decisions": [
+    {
+      "slot": "before:fs-id1170573406196",
+      "kind": "transition",
+      "text": "Example 2.3 is the model for practice problems 1, 2, 3.",
+      "accepted": true,
+      "sympy": true,
+      "sympy_note": "0 claim(s) verified",
+      "notation": true,
+      "notation_note": "ok",
+      "jev": true,
+      "jev_new_idea_p": 0.14,
+      "fallback": {
+        "kind": "objective",
+        "text": "Describe the area problem and how it was solved by the integral."
+      }
+    },
+    {
+      "slot": "before:fs-id1170573406196",
+      "kind": "transition",
+      "text": "On your last attempt at this kind of problem the work showed this: uses left endpoints when right endpoints were asked . Compare each line of Example 2.3 with that step.",
+      "accepted": false,
+      "sympy": true,
+      "sympy_note": "0 claim(s) verified",
+      "notation": true,
+      "notation_note": "ok",
+      "jev": false,
+      "jev_new_idea_p": 0.72,
+      "fallback": {
+        "kind": "objective",
+        "text": "Describe the area problem and how it was solved by the integral."
+      }
+    },
+    {
+      "slot": "roadmap",
+      "kind": "transition",
+      "text": "This packet is Section 2.1 A Preview of Calculus, read straight through. It concentrates on: estimate area under a curve with rectangles. The examples kept in it are the ones that use these skills, and the practice set at the end follows them.",
+      "accepted": true,
+      "sympy": true,
+      "sympy_note": "0 claim(s) verified",
+      "notation": true,
+      "notation_note": "ok",
+      "jev": true,
+      "jev_new_idea_p": 0.14,
+      "fallback": {
+        "kind": "objective",
+        "text": "Describe the tangent problem and how it led to the idea of a derivative."
+      }
+    },
+    {
+      "slot": "problem:1",
+      "kind": "problem",
+      "text": "Area under f(x) = x^2 + 1 over [0, 1] with 2 right-endpoint rectangles.",
+      "accepted": false,
+      "sympy": true,
+      "sympy_note": "key Rational(13, 8)",
+      "notation": true,
+      "notation_note": "ok",
+      "jev": false,
+      "jev_new_idea_p": 0.74,
+      "fallback": {
+        "kind": "canonical_block",
+        "id": "fs-id1170573571035",
+        "text": "Describe the area problem and how it was solved by the integral."
+      }
+    },
+    {
+      "slot": "problem:2",
+      "kind": "problem",
+      "text": "Area under f(x) = x^2 + 1 over [0, 2] with 4 right-endpoint rectangles.",
+      "accepted": false,
+      "sympy": true,
+      "sympy_note": "key Rational(23, 4)",
+      "notation": true,
+      "notation_note": "ok",
+      "jev": false,
+      "jev_new_idea_p": 0.65,
+      "fallback": {
+        "kind": "canonical_block",
+        "id": "fs-id1170573571035",
+        "text": "Describe the area problem and how it was solved by the integral."
+      }
+    },
+    {
+      "slot": "problem:3",
+      "kind": "problem",
+      "text": "Area under f(x) = x^2 + 2 over [0, 1] with 4 right-endpoint rectangles.",
+      "accepted": false,
+      "sympy": true,
+      "sympy_note": "key Rational(79, 32)",
+      "notation": true,
+      "notation_note": "ok",
+      "jev": false,
+      "jev_new_idea_p": 0.62,
+      "fallback": {
+        "kind": "canonical_block",
+        "id": "fs-id1170573571035",
+        "text": "Describe the area problem and how it was solved by the integral."
+      }
+    }
+  ],
+  "verbatim_audit": {
+    "runs": 224,
+    "missing": [],
+    "ok": true
+  }
+}

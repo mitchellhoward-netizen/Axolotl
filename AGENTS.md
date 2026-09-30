@@ -20,6 +20,14 @@ executing a consequential action without an explicit parent `YES`.
 - The existing single-label `IntentEngine` (`src/agent/intent/`) is a coarse classifier; the
   intelligence layer runs on top of it for the cases it can't confidently resolve.
 
+## Adaptive calculus textbook (`calculus/`)
+
+`calculus/` is a separate, self-contained Python project: a personal adaptive
+calculus textbook built on OpenStax Calculus Vol. 1, Chapter 2. It shares
+nothing with the TypeScript app. See `calculus/README.md`; run its tests with
+`cd calculus && python -m pytest -q tests`. It uses TypeSafe's Jev
+(`TYPESAFE_API_KEY`; the `typesafe-ai` skill is in `.claude/skills/`).
+
 ## Working in this project
 
 - Run the app with `npm run start`.

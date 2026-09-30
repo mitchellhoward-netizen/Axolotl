@@ -1,0 +1,29 @@
+{
+  "backend": "sidecar: transcribed by Claude (vision, in the agent session) from the photo, following transcribe.INSTRUCTIONS",
+  "packet_code": "D1",
+  "problems": [
+    {"number": 1, "skipped": false, "final_answer": "5", "lines": [
+      {"text": "f(2) = 4 - 3 = 1", "sympy": "f(2) = 4 - 3 = 1", "continues": false, "crossed_out": false, "boxed": false},
+      {"text": "f(3) = 9 - 3 = 6", "sympy": "f(3) = 9 - 3 = 6", "continues": false, "crossed_out": false, "boxed": false},
+      {"text": "m = (6 - 1)/(3 - 2)", "sympy": "m = (6 - 1)/(3 - 2)", "continues": false, "crossed_out": false, "boxed": false},
+      {"text": "= 5", "sympy": "5", "continues": true, "crossed_out": false, "boxed": true}]},
+    {"number": 2, "skipped": false, "final_answer": "(sqrt(x) + 4)/(x - 4)", "lines": [
+      {"text": "1/(sqrt(x) - 4) · (sqrt(x) + 4)/(sqrt(x) + 4)", "sympy": "1/(sqrt(x) - 4) * (sqrt(x) + 4)/(sqrt(x) + 4)", "continues": false, "crossed_out": false, "boxed": false},
+      {"text": "= (sqrt(x) + 4)/(x - 4)", "sympy": "(sqrt(x) + 4)/(x - 4)", "continues": true, "crossed_out": false, "boxed": true}]},
+    {"number": 3, "skipped": false, "final_answer": "-1/(4x)", "lines": [
+      {"text": "(1/x - 1/4)/(x - 4) = (1/x - 1/4)(x - 4)", "sympy": "(1/x - 1/4)/(x - 4) = (1/x - 1/4)*(x - 4)", "continues": false, "crossed_out": true, "boxed": false},
+      {"text": "(1/x - 1/4)/(x - 4) = ((4 - x)/(4x))/(x - 4)", "sympy": "(1/x - 1/4)/(x - 4) = ((4 - x)/(4*x))/(x - 4)", "continues": false, "crossed_out": false, "boxed": false},
+      {"text": "= -(x - 4)/(4x(x - 4))", "sympy": "-(x - 4)/(4*x*(x - 4))", "continues": true, "crossed_out": false, "boxed": false},
+      {"text": "= -1/(4x)", "sympy": "-1/(4*x)", "continues": true, "crossed_out": false, "boxed": true}]},
+    {"number": 4, "skipped": false, "final_answer": "-5, -6", "lines": [
+      {"text": "x^2 + 11x + 30 = 0", "sympy": "Eq(x**2 + 11*x + 30, 0)", "continues": false, "crossed_out": false, "boxed": false},
+      {"text": "(x + 5)(x + 6) = 0", "sympy": "Eq((x + 5)*(x + 6), 0)", "continues": false, "crossed_out": false, "boxed": false},
+      {"text": "x = -5, -6", "sympy": "", "continues": false, "crossed_out": false, "boxed": true}]},
+    {"number": 5, "skipped": true, "final_answer": null, "lines": [
+      {"text": "skip", "sympy": "", "continues": false, "crossed_out": false, "boxed": false}]},
+    {"number": 10, "skipped": false, "final_answer": "19/12", "lines": [
+      {"text": "= (4(-4) - 3)/((-4)(3))", "sympy": "(4*(-4) - 3)/((-4)*(3))", "continues": true, "crossed_out": false, "boxed": false},
+      {"text": "= -19/-12 = 19/12", "sympy": "-19/(-12) = 19/12", "continues": true, "crossed_out": false, "boxed": true}]}
+  ],
+  "notes": "Problem 3, first line: struck through with a wavy line; the small denominators under the scribble are partly hidden (read as x and 4). Problems 6-9 are not on this page."
+}

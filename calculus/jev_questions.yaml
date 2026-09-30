@@ -1,0 +1,95 @@
+# Every question this system asks TypeSafe's Jev model, and every threshold
+# applied to Jev's answers. Code fills the {placeholders}; nothing else about
+# a question is decided in code. Jev answers typed judgments only; SymPy does
+# all mathematics and code does all counting (see docs.typesafe.ai
+# model-jaggedness: keep arithmetic and counting in code).
+
+model: jev-latest
+
+# ---------------------------------------------------------------------------
+# Photo pipeline evidence. Asked once per problem, after transcription and
+# SymPy step checking. The state for these questions is built by
+# adaptcalc/evidence.py from the problem, the transcribed work and the SymPy
+# check ONLY. The learner model is never part of the state (enforced in code).
+evidence:
+  state_note: >-
+    `problem` is a calculus exercise. `student_work` is the student's handwritten
+    solution transcribed one line per step; lines with crossed_out=true were struck
+    through by the student (they cross out instead of erasing); boxed=true marks
+    the final answer. `sympy_check` is an exact algebra check of the steps and of
+    the final answer; `correct_answer` is the answer key.
+
+  misconception:
+    type: choice
+    instructions: >-
+      Which misconception from `misconceptions` best explains the student's work in
+      `student_work` on `problem`? Consider every line, including crossed-out
+      lines. Choose "none" if the final answer is correct and the work shows no
+      misconception. Choose "other" if the work shows an error that none of the
+      listed misconceptions describes. Choose "unsure" if the work is too short
+      or unclear to tell.
+    # code adds one option per misconception in the skill's library (from
+    # misconceptions.json), each described by its description text, plus:
+    extra_options:
+      none: The work is correct; no misconception is shown.
+      other: The work shows an error, but none of the listed misconceptions describes it.
+      unsure: The work is too short or unclear to identify a misconception.
+
+  restart:
+    type: noul
+    # asked once per crossed-out run of lines; code counts the yes answers
+    instructions: >-
+      The student crossed out lines {lines} of `student_work`. Did the student
+      abandon that approach and start the problem over (a new attempt), rather
+      than fixing a small slip inside the same approach?
+    criteria:
+      "true": The crossed-out lines are a whole approach that was abandoned; the work after them restarts with a different method or from the beginning.
+      "false": The crossed-out lines are a local correction (a slip in arithmetic, copying, or one step) and the same approach continues.
+
+  substep:
+    type: noul
+    # asked once per expected sub-computation of the problem's template
+    instructions: >-
+      In `student_work`, did the student write out this sub-computation explicitly,
+      on its own line or lines: "{substep}"? Lines that are crossed out do not
+      count.
+    criteria:
+      "true": The sub-computation appears in writing in a line that is not crossed out.
+      "false": The sub-computation is skipped, done mentally, or only appears in crossed-out lines.
+
+  strategy:
+    type: choice
+    instructions: >-
+      Which strategy did the student use in the lines of `student_work` that are
+      not crossed out, to solve `problem`?
+    # code adds the template's strategy options (templates.py), which always
+    # include "other" and "unsure"
+
+  thresholds:
+    misconception_min_confidence: 0.35   # below this the misconception answer is treated as "unsure"
+    misconception_min_probability: 0.45  # the chosen option's probability must also clear this
+    restart_yes: 0.5                     # noul above this counts as a restart (new attempt)
+    substep_written_yes: 0.5             # noul above this counts the sub-computation as written out
+    strategy_min_confidence: 0.35        # below this the strategy is recorded as "unsure"
+
+# ---------------------------------------------------------------------------
+# Packet generation gate. Every generated snippet (transition sentence or
+# template problem) is checked against the canonical passages it sits among.
+# All snippets in a packet go in one request (one noul each).
+generation:
+  state_note: >-
+    `canonical` holds passages of an introductory calculus textbook, verbatim.
+    `snippets` holds short texts written to go between those passages.
+  new_idea:
+    type: noul
+    instructions: >-
+      Does `snippets[{i}]` state, use, or hint at a mathematical definition,
+      theorem, rule, technique, or fact that does not appear anywhere in
+      `canonical`? Restating, pointing to, or giving practice on ideas that are
+      in `canonical` does not count as new.
+    criteria:
+      "true": The snippet introduces or relies on a mathematical idea that is absent from the canonical passages.
+      "false": Every mathematical idea in the snippet appears in the canonical passages.
+
+  thresholds:
+    new_idea_max: 0.35   # snippets with noul above this fall back to canonical text

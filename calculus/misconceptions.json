@@ -1,0 +1,730 @@
+{
+  "source": {
+    "book": "Calculus Volume 1 (OpenStax)",
+    "chapter": 2,
+    "title": "Limits",
+    "url": "https://openstax.org/books/calculus-volume-1/pages/2-introduction",
+    "repository": "https://raw.githubusercontent.com/openstax/osbooks-calculus-bundle/main",
+    "modules": [
+      {
+        "id": "m53483",
+        "section": "2",
+        "title": "Introduction"
+      },
+      {
+        "id": "m53485",
+        "section": "2.1",
+        "title": "A Preview of Calculus"
+      },
+      {
+        "id": "m53491",
+        "section": "2.2",
+        "title": "The Limit of a Function"
+      },
+      {
+        "id": "m53492",
+        "section": "2.3",
+        "title": "The Limit Laws"
+      },
+      {
+        "id": "m53489",
+        "section": "2.4",
+        "title": "Continuity"
+      },
+      {
+        "id": "m53493",
+        "section": "2.5",
+        "title": "The Precise Definition of a Limit"
+      }
+    ],
+    "license": "CC BY-NC-SA 4.0"
+  },
+  "misconceptions": {
+    "alg_eval": [
+      {
+        "id": "alg_eval.wrong_piece",
+        "skill": "alg_eval",
+        "root_skill": "alg_eval",
+        "description": "Uses the wrong piece of a piecewise function for the given input (ignores the condition on x)."
+      },
+      {
+        "id": "alg_eval.order_of_operations",
+        "skill": "alg_eval",
+        "root_skill": "alg_eval",
+        "description": "Order-of-operations or sign error when substituting, e.g. -2^2 evaluated as 4 or 3(-1)^2 as -3."
+      },
+      {
+        "id": "alg_eval.undefined_as_zero",
+        "skill": "alg_eval",
+        "root_skill": "alg_eval",
+        "description": "Treats an undefined value (division by zero) as 0 instead of undefined."
+      }
+    ],
+    "alg_slope": [
+      {
+        "id": "alg_slope.slope_inverted",
+        "skill": "alg_slope",
+        "root_skill": "alg_slope",
+        "description": "Computes run over rise, (x2 - x1)/(y2 - y1), instead of rise over run."
+      },
+      {
+        "id": "alg_slope.slope_mixed_order",
+        "skill": "alg_slope",
+        "root_skill": "alg_slope",
+        "description": "Subtracts in inconsistent order, (y2 - y1)/(x1 - x2), giving the wrong sign."
+      }
+    ],
+    "alg_factor": [
+      {
+        "id": "alg_factor.factor_sign_error",
+        "skill": "alg_factor",
+        "root_skill": "alg_factor",
+        "description": "Sign error in a factor, e.g. x^2 - x - 6 = (x + 3)(x - 2)."
+      },
+      {
+        "id": "alg_factor.sum_of_squares_factors",
+        "skill": "alg_factor",
+        "root_skill": "alg_factor",
+        "description": "Factors a sum of squares as if it were a difference, e.g. x^2 + 4 = (x - 2)(x + 2)."
+      },
+      {
+        "id": "alg_factor.cubes_pattern_wrong",
+        "skill": "alg_factor",
+        "root_skill": "alg_factor",
+        "description": "Misremembers the sum/difference of cubes pattern, e.g. x^3 - 8 = (x - 2)(x^2 + 4)."
+      }
+    ],
+    "alg_rational": [
+      {
+        "id": "alg_rational.cancel_terms",
+        "skill": "alg_rational",
+        "root_skill": "alg_rational",
+        "description": "Cancels terms rather than factors, e.g. (x^2 - 4)/(x - 2) -> x - 2 by cancelling x with x^2 or (x + 3)/x -> 3."
+      },
+      {
+        "id": "alg_rational.forget_domain_restriction",
+        "skill": "alg_rational",
+        "root_skill": "alg_rational",
+        "description": "Treats the simplified expression as identical to the original, including at the excluded point."
+      }
+    ],
+    "alg_conjugate": [
+      {
+        "id": "alg_conjugate.conjugate_numerator_only",
+        "skill": "alg_conjugate",
+        "root_skill": "alg_conjugate",
+        "description": "Multiplies only the numerator (or only the denominator) by the conjugate, changing the value."
+      },
+      {
+        "id": "alg_conjugate.conjugate_product_wrong",
+        "skill": "alg_conjugate",
+        "root_skill": "alg_conjugate",
+        "description": "Expands (sqrt(a) - b)(sqrt(a) + b) incorrectly, e.g. as a - b instead of a - b^2."
+      },
+      {
+        "id": "alg_conjugate.sqrt_of_sum",
+        "skill": "alg_conjugate",
+        "root_skill": "alg_conjugate",
+        "description": "Splits a square root over a sum: sqrt(a + b) = sqrt(a) + sqrt(b)."
+      }
+    ],
+    "alg_complex_fraction": [
+      {
+        "id": "alg_complex_fraction.add_across",
+        "skill": "alg_complex_fraction",
+        "root_skill": "alg_complex_fraction",
+        "description": "Adds fractions by adding numerators and denominators: 1/a + 1/b = 2/(a + b)."
+      },
+      {
+        "id": "alg_complex_fraction.invert_wrong_part",
+        "skill": "alg_complex_fraction",
+        "root_skill": "alg_complex_fraction",
+        "description": "Inverts the wrong fraction or drops the outer denominator when clearing a complex fraction."
+      }
+    ],
+    "alg_abs": [
+      {
+        "id": "alg_abs.abs_drop",
+        "skill": "alg_abs",
+        "root_skill": "alg_abs",
+        "description": "Drops absolute-value bars, treating |x - a| as x - a on both sides of a."
+      },
+      {
+        "id": "alg_abs.abs_distribute",
+        "skill": "alg_abs",
+        "root_skill": "alg_abs",
+        "description": "Distributes absolute value over a sum: |x - a| = |x| - |a|."
+      }
+    ],
+    "alg_domain": [
+      {
+        "id": "alg_domain.domain_after_cancel",
+        "skill": "alg_domain",
+        "root_skill": "alg_domain",
+        "description": "Finds where the function is undefined from the simplified form, missing points removed by cancelling."
+      },
+      {
+        "id": "alg_domain.numerator_zeros",
+        "skill": "alg_domain",
+        "root_skill": "alg_domain",
+        "description": "Treats zeros of the numerator as points where the function is undefined."
+      }
+    ],
+    "alg_sign": [
+      {
+        "id": "alg_sign.even_power_sign",
+        "skill": "alg_sign",
+        "root_skill": "alg_sign",
+        "description": "Loses track of sign through an even power, e.g. thinks (x - 2)^2 is negative for x < 2."
+      },
+      {
+        "id": "alg_sign.side_sign_swap",
+        "skill": "alg_sign",
+        "root_skill": "alg_sign",
+        "description": "Uses the sign from the wrong side of the point (e.g. x - a > 0 for x slightly less than a)."
+      }
+    ],
+    "alg_abs_ineq": [
+      {
+        "id": "alg_abs_ineq.abs_ineq_one_sided",
+        "skill": "alg_abs_ineq",
+        "root_skill": "alg_abs_ineq",
+        "description": "Solves |x - a| < d as x - a < d only, missing the lower bound."
+      },
+      {
+        "id": "alg_abs_ineq.abs_ineq_scale",
+        "skill": "alg_abs_ineq",
+        "root_skill": "alg_abs_ineq",
+        "description": "Mishandles a constant factor, e.g. |3x - 6| < e read as |x - 2| < e instead of |x - 2| < e/3."
+      }
+    ],
+    "trig_values": [
+      {
+        "id": "trig_values.sin_cos_swap",
+        "skill": "trig_values",
+        "root_skill": "trig_values",
+        "description": "Swaps sine and cosine values at special angles (e.g. sin(pi/6) = sqrt(3)/2)."
+      },
+      {
+        "id": "trig_values.degrees_radians",
+        "skill": "trig_values",
+        "root_skill": "trig_values",
+        "description": "Treats a radian input as degrees (or vice versa)."
+      },
+      {
+        "id": "trig_values.trig_sign_quadrant",
+        "skill": "trig_values",
+        "root_skill": "trig_values",
+        "description": "Wrong sign for a trig value outside the first quadrant."
+      }
+    ],
+    "trig_identities": [
+      {
+        "id": "trig_identities.pythag_wrong",
+        "skill": "trig_identities",
+        "root_skill": "trig_identities",
+        "description": "Misuses the Pythagorean identity, e.g. 1 - cos^2 x = sin x or sin^2 x + cos^2 x = 0."
+      },
+      {
+        "id": "trig_identities.trig_cancel_argument",
+        "skill": "trig_identities",
+        "root_skill": "trig_identities",
+        "description": "Cancels inside a trig function, e.g. sin(2x)/x = sin 2 or sin(x)/x = sin."
+      }
+    ],
+    "secant_slope": [
+      {
+        "id": "secant_slope.secant_is_tangent",
+        "skill": "secant_slope",
+        "root_skill": "secant_slope",
+        "description": "Treats a single secant slope as the exact tangent slope rather than an approximation that improves as x approaches a."
+      },
+      {
+        "id": "secant_slope.secant_wrong_points",
+        "skill": "secant_slope",
+        "root_skill": "alg_slope",
+        "description": "Uses the wrong pair of points (e.g. (a, f(x)) and (x, f(a)))."
+      }
+    ],
+    "avg_velocity": [
+      {
+        "id": "avg_velocity.avg_is_average_of_speeds",
+        "skill": "avg_velocity",
+        "root_skill": "avg_velocity",
+        "description": "Averages two velocities or positions instead of dividing displacement by elapsed time."
+      },
+      {
+        "id": "avg_velocity.position_as_velocity",
+        "skill": "avg_velocity",
+        "root_skill": "avg_velocity",
+        "description": "Reports a position (or displacement) as the velocity."
+      }
+    ],
+    "area_rectangles": [
+      {
+        "id": "area_rectangles.wrong_endpoints",
+        "skill": "area_rectangles",
+        "root_skill": "area_rectangles",
+        "description": "Uses left endpoints when right endpoints were asked (or vice versa)."
+      },
+      {
+        "id": "area_rectangles.forget_width",
+        "skill": "area_rectangles",
+        "root_skill": "area_rectangles",
+        "description": "Adds heights without multiplying by the rectangle width."
+      }
+    ],
+    "limit_intuitive": [
+      {
+        "id": "limit_intuitive.limit_is_value",
+        "skill": "limit_intuitive",
+        "root_skill": "limit_intuitive",
+        "description": "Thinks the limit at a must equal f(a), or uses f(a) when it differs from the nearby values.",
+        "source": {
+          "module": "m53493",
+          "section": "2.5",
+          "id": "fs-id1170572565358",
+          "text": "A function has to be continuous at x=a if the lim_(x→a) f(x) exists."
+        }
+      },
+      {
+        "id": "limit_intuitive.undefined_means_no_limit",
+        "skill": "limit_intuitive",
+        "root_skill": "limit_intuitive",
+        "description": "Thinks that if f(a) is undefined then the limit cannot exist.",
+        "source": {
+          "module": "m53493",
+          "section": "2.5",
+          "id": "fs-id1170572184294",
+          "text": "If there is a vertical asymptote at x=a for the function f(x), then f is undefined at the point x=a."
+        }
+      },
+      {
+        "id": "limit_intuitive.limit_reached",
+        "skill": "limit_intuitive",
+        "root_skill": "limit_intuitive",
+        "description": "Thinks the function must actually reach the limit value."
+      }
+    ],
+    "limit_table": [
+      {
+        "id": "limit_table.table_one_side",
+        "skill": "limit_table",
+        "root_skill": "limit_table",
+        "description": "Uses values from only one side of a when estimating a two-sided limit."
+      },
+      {
+        "id": "limit_table.table_last_value",
+        "skill": "limit_table",
+        "root_skill": "limit_table",
+        "description": "Reports the last table entry verbatim instead of the value the entries approach."
+      }
+    ],
+    "limit_graph": [
+      {
+        "id": "limit_graph.graph_uses_dot",
+        "skill": "limit_graph",
+        "root_skill": "limit_graph",
+        "description": "Reads the filled dot (the function value) as the limit instead of where the curve heads."
+      },
+      {
+        "id": "limit_graph.graph_wrong_side",
+        "skill": "limit_graph",
+        "root_skill": "limit_graph",
+        "description": "Reads the left piece for a right-hand limit or vice versa."
+      }
+    ],
+    "one_sided": [
+      {
+        "id": "one_sided.sides_swapped",
+        "skill": "one_sided",
+        "root_skill": "one_sided",
+        "description": "Swaps left- and right-hand limits (x -> a^- read as from the right)."
+      },
+      {
+        "id": "one_sided.one_sided_uses_value",
+        "skill": "one_sided",
+        "root_skill": "one_sided",
+        "description": "Uses f(a) for a one-sided limit when the function value differs."
+      }
+    ],
+    "limit_existence": [
+      {
+        "id": "limit_existence.exists_if_one_side",
+        "skill": "limit_existence",
+        "root_skill": "limit_existence",
+        "description": "Says the two-sided limit exists because one one-sided limit exists."
+      },
+      {
+        "id": "limit_existence.average_of_sides",
+        "skill": "limit_existence",
+        "root_skill": "limit_existence",
+        "description": "Averages unequal one-sided limits to get a two-sided limit."
+      }
+    ],
+    "infinite_limits": [
+      {
+        "id": "infinite_limits.k_over_zero_is_zero",
+        "skill": "infinite_limits",
+        "root_skill": "infinite_limits",
+        "description": "Evaluates K/0 as 0 (or as K)."
+      },
+      {
+        "id": "infinite_limits.infinite_sign",
+        "skill": "infinite_limits",
+        "root_skill": "alg_sign",
+        "description": "Gets the sign of an infinite limit wrong (+infinity vs -infinity)."
+      },
+      {
+        "id": "infinite_limits.infinity_is_number",
+        "skill": "infinite_limits",
+        "root_skill": "infinite_limits",
+        "description": "Treats infinity as a number that the limit equals in the ordinary sense (e.g. says the limit exists and equals infinity, then does arithmetic with it)."
+      }
+    ],
+    "vertical_asymptote": [
+      {
+        "id": "vertical_asymptote.va_at_hole",
+        "skill": "vertical_asymptote",
+        "root_skill": "vertical_asymptote",
+        "description": "Puts a vertical asymptote where the factor cancels (a removable point).",
+        "source": {
+          "module": "m53493",
+          "section": "2.5",
+          "id": "fs-id1170572184294",
+          "text": "If there is a vertical asymptote at x=a for the function f(x), then f is undefined at the point x=a."
+        }
+      },
+      {
+        "id": "vertical_asymptote.va_numerator_zero",
+        "skill": "vertical_asymptote",
+        "root_skill": "alg_domain",
+        "description": "Puts a vertical asymptote at a zero of the numerator."
+      }
+    ],
+    "limit_laws": [
+      {
+        "id": "limit_laws.quotient_law_zero_den",
+        "skill": "limit_laws",
+        "root_skill": "limit_laws",
+        "description": "Applies the quotient law when the limit of the denominator is 0.",
+        "source": {
+          "module": "m53493",
+          "section": "2.5",
+          "id": "fs-id1170571653946",
+          "text": "You can use the quotient rule to evaluate lim_(x→0) (sin x)/(x). False"
+        }
+      },
+      {
+        "id": "limit_laws.law_misapplied",
+        "skill": "limit_laws",
+        "root_skill": "limit_laws",
+        "description": "Misapplies a law, e.g. lim(f g) = lim f + lim g, or applies a law to limits that do not exist."
+      }
+    ],
+    "direct_substitution": [
+      {
+        "id": "direct_substitution.sub_arithmetic",
+        "skill": "direct_substitution",
+        "root_skill": "alg_eval",
+        "description": "Arithmetic slip when substituting."
+      },
+      {
+        "id": "direct_substitution.zero_over_zero_is_answer",
+        "skill": "direct_substitution",
+        "root_skill": "direct_substitution",
+        "description": "Stops at 0/0 and reports the limit as 0, 1, or 'does not exist' without further work."
+      }
+    ],
+    "factor_cancel": [
+      {
+        "id": "factor_cancel.fc_cancel_terms",
+        "skill": "factor_cancel",
+        "root_skill": "alg_rational",
+        "description": "Cancels terms rather than factors."
+      },
+      {
+        "id": "factor_cancel.fc_factor_error",
+        "skill": "factor_cancel",
+        "root_skill": "alg_factor",
+        "description": "Factors incorrectly before cancelling."
+      },
+      {
+        "id": "factor_cancel.fc_zero_over_zero",
+        "skill": "factor_cancel",
+        "root_skill": "factor_cancel",
+        "description": "Declares the limit 0, 1, or DNE on seeing 0/0 instead of simplifying."
+      },
+      {
+        "id": "factor_cancel.fc_forget_substitute",
+        "skill": "factor_cancel",
+        "root_skill": "factor_cancel",
+        "description": "Cancels correctly but reports an expression, or substitutes into the original form again."
+      }
+    ],
+    "conjugate_limit": [
+      {
+        "id": "conjugate_limit.cj_numerator_only",
+        "skill": "conjugate_limit",
+        "root_skill": "alg_conjugate",
+        "description": "Multiplies only one part by the conjugate."
+      },
+      {
+        "id": "conjugate_limit.cj_product_wrong",
+        "skill": "conjugate_limit",
+        "root_skill": "alg_conjugate",
+        "description": "Expands the conjugate product incorrectly."
+      },
+      {
+        "id": "conjugate_limit.cj_zero_over_zero",
+        "skill": "conjugate_limit",
+        "root_skill": "conjugate_limit",
+        "description": "Declares the limit 0, 1, or DNE on seeing 0/0 instead of rationalizing."
+      }
+    ],
+    "complex_fraction_limit": [
+      {
+        "id": "complex_fraction_limit.cf_add_across",
+        "skill": "complex_fraction_limit",
+        "root_skill": "alg_complex_fraction",
+        "description": "Adds fractions across numerators and denominators."
+      },
+      {
+        "id": "complex_fraction_limit.cf_zero_over_zero",
+        "skill": "complex_fraction_limit",
+        "root_skill": "complex_fraction_limit",
+        "description": "Declares the limit 0, 1, or DNE on seeing 0/0 instead of simplifying."
+      },
+      {
+        "id": "complex_fraction_limit.cf_sign_error",
+        "skill": "complex_fraction_limit",
+        "root_skill": "alg_complex_fraction",
+        "description": "Sign error when combining over a common denominator (e.g. a - x vs x - a)."
+      }
+    ],
+    "nonzero_over_zero": [
+      {
+        "id": "nonzero_over_zero.kz_zero",
+        "skill": "nonzero_over_zero",
+        "root_skill": "infinite_limits",
+        "description": "Evaluates K/0 as 0."
+      },
+      {
+        "id": "nonzero_over_zero.kz_no_sides",
+        "skill": "nonzero_over_zero",
+        "root_skill": "nonzero_over_zero",
+        "description": "Declares +infinity (or DNE) without checking the sign on each side."
+      },
+      {
+        "id": "nonzero_over_zero.kz_sign_error",
+        "skill": "nonzero_over_zero",
+        "root_skill": "alg_sign",
+        "description": "Wrong sign on one side of the point."
+      }
+    ],
+    "piecewise_limits": [
+      {
+        "id": "piecewise_limits.pw_wrong_piece",
+        "skill": "piecewise_limits",
+        "root_skill": "alg_eval",
+        "description": "Uses the wrong piece for a one-sided limit."
+      },
+      {
+        "id": "piecewise_limits.pw_uses_value",
+        "skill": "piecewise_limits",
+        "root_skill": "one_sided",
+        "description": "Uses the function value at the boundary instead of the one-sided limits."
+      },
+      {
+        "id": "piecewise_limits.pw_exists_if_defined",
+        "skill": "piecewise_limits",
+        "root_skill": "limit_existence",
+        "description": "Concludes the limit exists because the function is defined at the point."
+      }
+    ],
+    "squeeze": [
+      {
+        "id": "squeeze.sq_bounds_differ",
+        "skill": "squeeze",
+        "root_skill": "squeeze",
+        "description": "Uses bounding functions whose limits are not equal and still concludes a limit."
+      },
+      {
+        "id": "squeeze.sq_bounded_osc_zero",
+        "skill": "squeeze",
+        "root_skill": "squeeze",
+        "description": "Claims sin(1/x) (or cos(1/x)) itself tends to 0, or drops the oscillating factor."
+      },
+      {
+        "id": "squeeze.sq_wrong_inequality",
+        "skill": "squeeze",
+        "root_skill": "squeeze",
+        "description": "Writes an incorrect bound (e.g. -1 <= x sin(1/x) <= 1 used as if it proved the limit)."
+      }
+    ],
+    "trig_limits": [
+      {
+        "id": "trig_limits.tl_cancel_x",
+        "skill": "trig_limits",
+        "root_skill": "trig_identities",
+        "description": "Cancels x inside the sine: sin(kx)/x = sin k."
+      },
+      {
+        "id": "trig_limits.tl_sinx_over_x_zero",
+        "skill": "trig_limits",
+        "root_skill": "trig_limits",
+        "description": "Says lim sin(x)/x = 0 (from 0/0) or DNE."
+      },
+      {
+        "id": "trig_limits.tl_missing_factor",
+        "skill": "trig_limits",
+        "root_skill": "trig_limits",
+        "description": "Forgets the rescaling factor, e.g. lim sin(3x)/x = 1 instead of 3."
+      }
+    ],
+    "continuity_point": [
+      {
+        "id": "continuity_point.cp_only_defined",
+        "skill": "continuity_point",
+        "root_skill": "continuity_point",
+        "description": "Checks only that f(a) is defined (or only that the limit exists), not all three conditions."
+      },
+      {
+        "id": "continuity_point.cp_limit_is_value",
+        "skill": "continuity_point",
+        "root_skill": "limit_intuitive",
+        "description": "Assumes lim f = f(a) without computing the limit."
+      }
+    ],
+    "discontinuity_types": [
+      {
+        "id": "discontinuity_types.dt_removable_vs_jump",
+        "skill": "discontinuity_types",
+        "root_skill": "discontinuity_types",
+        "description": "Confuses removable and jump discontinuities."
+      },
+      {
+        "id": "discontinuity_types.dt_infinite_vs_removable",
+        "skill": "discontinuity_types",
+        "root_skill": "discontinuity_types",
+        "description": "Calls a cancelling factor an infinite discontinuity, or a non-cancelling one removable."
+      }
+    ],
+    "continuity_interval": [
+      {
+        "id": "continuity_interval.ci_include_bad_point",
+        "skill": "continuity_interval",
+        "root_skill": "alg_domain",
+        "description": "Includes a point where the function is undefined in an interval of continuity."
+      },
+      {
+        "id": "continuity_interval.ci_endpoint_brackets",
+        "skill": "continuity_interval",
+        "root_skill": "continuity_interval",
+        "description": "Uses closed brackets at an excluded endpoint or open brackets where one-sided continuity holds."
+      }
+    ],
+    "continuity_parameter": [
+      {
+        "id": "continuity_parameter.cpar_match_wrong",
+        "skill": "continuity_parameter",
+        "root_skill": "continuity_parameter",
+        "description": "Sets the wrong pieces equal, or evaluates the pieces at the wrong point."
+      },
+      {
+        "id": "continuity_parameter.cpar_algebra",
+        "skill": "continuity_parameter",
+        "root_skill": "alg_eval",
+        "description": "Sets up the right equation but solves it incorrectly."
+      }
+    ],
+    "composite_continuity": [
+      {
+        "id": "composite_continuity.cc_inside_out",
+        "skill": "composite_continuity",
+        "root_skill": "composite_continuity",
+        "description": "Moves the limit inside a function that is not continuous at the inner limit."
+      },
+      {
+        "id": "composite_continuity.cc_trig_value",
+        "skill": "composite_continuity",
+        "root_skill": "trig_values",
+        "description": "Correct method but wrong exact trig value."
+      }
+    ],
+    "ivt": [
+      {
+        "id": "ivt.ivt_discontinuous",
+        "skill": "ivt",
+        "root_skill": "ivt",
+        "description": "Applies the IVT to a function that is not continuous on the closed interval.",
+        "source": {
+          "module": "m53489",
+          "section": "2.4",
+          "id": "fs-id1170571131867",
+          "text": "According to the IVT, cos x-sin x-x=2 has a solution over the interval [−1,1]."
+        }
+      },
+      {
+        "id": "ivt.ivt_converse",
+        "skill": "ivt",
+        "root_skill": "ivt",
+        "description": "Concludes no zero exists because f(a) and f(b) have the same sign."
+      },
+      {
+        "id": "ivt.ivt_locates_zero",
+        "skill": "ivt",
+        "root_skill": "ivt",
+        "description": "Claims the IVT gives the location or number of zeros."
+      }
+    ],
+    "epsilon_delta_def": [
+      {
+        "id": "epsilon_delta_def.ed_quantifier_order",
+        "skill": "epsilon_delta_def",
+        "root_skill": "epsilon_delta_def",
+        "description": "Reverses the roles of epsilon and delta (chooses epsilon given delta)."
+      },
+      {
+        "id": "epsilon_delta_def.ed_missing_zero",
+        "skill": "epsilon_delta_def",
+        "root_skill": "epsilon_delta_def",
+        "description": "Omits the 0 < |x - a| condition or the strictness of the inequalities."
+      }
+    ],
+    "epsilon_delta_linear": [
+      {
+        "id": "epsilon_delta_linear.edl_delta_equals_eps",
+        "skill": "epsilon_delta_linear",
+        "root_skill": "epsilon_delta_linear",
+        "description": "Takes delta = epsilon regardless of the slope."
+      },
+      {
+        "id": "epsilon_delta_linear.edl_multiply_slope",
+        "skill": "epsilon_delta_linear",
+        "root_skill": "alg_abs_ineq",
+        "description": "Multiplies by the slope instead of dividing (delta = m * epsilon)."
+      },
+      {
+        "id": "epsilon_delta_linear.edl_delta_depends_x",
+        "skill": "epsilon_delta_linear",
+        "root_skill": "epsilon_delta_def",
+        "description": "Lets delta depend on x."
+      }
+    ],
+    "epsilon_delta_nonlinear": [
+      {
+        "id": "epsilon_delta_nonlinear.edn_no_bound",
+        "skill": "epsilon_delta_nonlinear",
+        "root_skill": "epsilon_delta_nonlinear",
+        "description": "Leaves |x + a| unbounded (no preliminary restriction such as delta <= 1)."
+      },
+      {
+        "id": "epsilon_delta_nonlinear.edn_min_missing",
+        "skill": "epsilon_delta_nonlinear",
+        "root_skill": "epsilon_delta_nonlinear",
+        "description": "Forgets to take the minimum of the two restrictions on delta."
+      }
+    ]
+  }
+}
