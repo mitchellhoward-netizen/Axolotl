@@ -33,7 +33,7 @@ from pathlib import Path
 from fastapi import FastAPI, File, HTTPException, Request, UploadFile
 from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, RedirectResponse, Response
 
-from . import accounts, diagnostic, extract, packets, paths, pipeline, transcribe
+from . import accounts, billing, diagnostic, extract, mailer, packets, paths, pipeline, transcribe
 from .learner import LearnerDB, config
 
 STATIC = Path(__file__).resolve().parent / "static"
@@ -94,6 +94,28 @@ def require_learner(request: Request, lid: str) -> tuple[accounts.Accounts, dict
         raise HTTPException(404, "No such learner.")
     paths.set_scope(accounts.learner_dir(lid), lr["course"])
     return a, fam, lr
+
+
+def base_url(request: Request | None = None) -> str:
+    """The public address, for links in emails and Stripe redirects."""
+    env = os.environ.get("PUBLIC_URL") or (f"https://{os.environ['RAILWAY_PUBLIC_DOMAIN']}"
+                                           if os.environ.get("RAILWAY_PUBLIC_DOMAIN") else "")
+    if env:
+        return env.rstrip("/")
+    if request is None:
+        return "http://127.0.0.1:8000"
+    proto = request.headers.get("x-forwarded-proto") or request.url.scheme
+    return f"{proto}://{request.headers.get('host') or request.url.netloc}"
+
+
+def require_access(a: accounts.Accounts, fam: dict) -> None:
+    if not a.has_access(fam):
+        raise HTTPException(402, "Start the subscription on the Learners page to make new packets and send in work. "
+                                 "Everything already made stays readable.")
+
+
+def in_background(fn, *args) -> None:
+    threading.Thread(target=fn, args=args, daemon=True).start()
 
 
 def db() -> LearnerDB:
@@ -225,6 +247,12 @@ def progress_page(lid: str, request: Request):
     return page("progress.html")
 
 
+@app.get("/reset", response_class=HTMLResponse)
+@app.get("/forgot", response_class=HTMLResponse)
+def reset_page():
+    return page("reset.html")
+
+
 @app.get("/privacy", response_class=HTMLResponse)
 def privacy_page():
     return page("privacy.html")
@@ -275,6 +303,34 @@ async def signup(request: Request):
         fid = a.sign_up(str(b.get("email", "")), str(b.get("password", "")), str(b.get("name", "")), str(b.get("code", "")))
     except accounts.AuthError as e:
         raise HTTPException(400, str(e)) from e
+    fam = a.family(fid)
+    in_background(mailer.welcome, fam["email"], fam["name"], base_url(request))
+    resp = JSONResponse({"ok": True})
+    set_session(resp, a.new_session(fid), request)
+    return resp
+
+
+@app.post("/api/auth/forgot")
+async def forgot(request: Request):
+    b = await request.json()
+    email = str(b.get("email", "")).strip().lower()
+    rate_limit(f"forgot:{request.client.host if request.client else '-'}", 5, 3600)
+    rate_limit(f"forgot:{email}", 3, 3600)
+    token = acc().start_reset(email)
+    if token:
+        in_background(mailer.reset, email, f"{base_url(request)}/reset?token={token}")
+    return {"ok": True, "message": "If there is an account for that email, a reset link is on its way. It works for one hour."}
+
+
+@app.post("/api/auth/reset")
+async def reset(request: Request):
+    b = await request.json()
+    rate_limit(f"reset:{request.client.host if request.client else '-'}", 10, 3600)
+    a = acc()
+    try:
+        fid = a.finish_reset(str(b.get("token", "")), str(b.get("password", "")))
+    except accounts.AuthError as e:
+        raise HTTPException(400, str(e)) from e
     resp = JSONResponse({"ok": True})
     set_session(resp, a.new_session(fid), request)
     return resp
@@ -321,8 +377,57 @@ def me(request: Request):
                     "next": [sk[s]["name"] for s in front[:2]],
                     "open": [p["id"] for p in d.packets() if p["status"] == "open"],
                     "last": attempts[-1]["graded_at"] if attempts else None})
-    return {"family": {"email": fam["email"], "name": fam["name"], "role": fam["role"]},
-            "learners": out, "courses": courses_for(fam)}
+    bill = {"enabled": billing.enabled(), "plan": fam.get("plan"), "until": fam.get("plan_until"),
+            "access": a.has_access(fam), "trial_days": billing.trial_days(),
+            "price": billing.price_display(a) if billing.enabled() else None,
+            "can_manage": bool(fam.get("stripe_customer"))}
+    return {"family": {"email": fam["email"], "name": fam["name"], "role": fam["role"], "weekly": bool(fam.get("weekly"))},
+            "learners": out, "courses": courses_for(fam), "billing": bill}
+
+
+@app.post("/api/account/weekly")
+async def weekly_pref(request: Request):
+    a, fam = require_family(request)
+    b = await request.json()
+    a.update_family(fam["id"], weekly=1 if b.get("on") else 0)
+    return {"weekly": bool(b.get("on"))}
+
+
+@app.post("/api/billing/checkout")
+def billing_checkout(request: Request):
+    a, fam = require_family(request)
+    if not billing.enabled():
+        raise HTTPException(409, "Billing is not switched on.")
+    try:
+        return {"url": billing.checkout_url(a, fam, base_url(request))}
+    except billing.BillingError as e:
+        raise HTTPException(502, str(e)) from e
+
+
+@app.post("/api/billing/portal")
+def billing_portal(request: Request):
+    a, fam = require_family(request)
+    try:
+        return {"url": billing.portal_url(a, fam, base_url(request))}
+    except billing.BillingError as e:
+        raise HTTPException(409, str(e)) from e
+
+
+@app.post("/stripe/webhook")
+async def stripe_webhook(request: Request):
+    a = acc()
+    payload = await request.body()
+    try:
+        event = billing.verify(payload, request.headers.get("stripe-signature", ""), billing.webhook_secret(a))
+    except billing.BillingError as e:
+        raise HTTPException(400, str(e)) from e
+    try:
+        out = billing.handle(a, event)
+    except billing.BillingError as e:
+        raise HTTPException(502, str(e)) from e
+    if out["changed"] and out["email"]:
+        in_background(mailer.receipt_note, out["email"], out["plan"], base_url(request))
+    return {"received": True, **{k: out[k] for k in ("type", "plan")}}
 
 
 @app.post("/api/learners")
@@ -485,6 +590,7 @@ def _limit(a: accounts.Accounts, lid: str, kind: str) -> None:
 @app.post("/api/l/{lid}/diagnostic/next")
 def diagnostic_next(lid: str, request: Request):
     a, fam, lr = require_learner(request, lid)
+    require_access(a, fam)
     _limit(a, lid, "packets")
 
     def work(progress):
@@ -506,6 +612,7 @@ def diagnostic_next(lid: str, request: Request):
 @app.post("/api/l/{lid}/lesson/next")
 def lesson_next(lid: str, request: Request):
     a, fam, lr = require_learner(request, lid)
+    require_access(a, fam)
     _limit(a, lid, "packets")
 
     def work(progress):
@@ -555,6 +662,7 @@ def upload_photo(lid: str, request: Request, photo: UploadFile = File(...)):
     a, fam, lr = require_learner(request, lid)
     if not os.environ.get("TYPESAFE_API_KEY"):
         raise HTTPException(503, "Photo checking is not set up on this server yet.")
+    require_access(a, fam)
     _limit(a, lid, "photos")
     dest = _save_upload(photo)
 
@@ -617,7 +725,8 @@ def reports(lid: str, request: Request):
 async def ask(lid: str, request: Request):
     from starlette.concurrency import run_in_threadpool
 
-    a, _, lr = require_learner(request, lid)
+    a, fam, lr = require_learner(request, lid)
+    require_access(a, fam)
     body = await request.json()
     prid, question = str(body.get("problem_id", "")), str(body.get("question", "")).strip()
     line = body.get("line")
@@ -732,6 +841,57 @@ def progress(lid: str, request: Request):
 
 
 # ---------------------------------------------------------------------------
+# weekly notes to parents
+
+def week_summary(a: accounts.Accounts, fam: dict) -> list[dict]:
+    """This week, per learner: problems checked, correct, skills learned, what's next, a repeated mistake."""
+    cutoff = (dt.datetime.now(dt.timezone.utc) - dt.timedelta(days=7)).isoformat()
+    out = []
+    for lr in a.learners(fam["id"]):
+        with paths.use_learner(accounts.learner_dir(lr["id"]), lr["course"]):
+            d = db()
+            sk = extract.skills()
+            week = [x for x in d.attempts() if x["graded_at"] >= cutoff]
+            mis = collections.Counter(((x["evidence"] or {}).get("decision") or {}).get("misconception") for x in week)
+            by_id = {m["id"]: m for lst in extract.misconceptions().values() for m in lst}
+            rep = next((by_id[m]["description"] for m, c in mis.most_common() if m in by_id and c > 1), None)
+            front = d.frontier()
+            out.append({"name": lr["name"], "course": course_info(lr["course"])["title"],
+                        "problems_week": len(week), "correct_week": sum(int(x["correct"]) for x in week),
+                        "mastered": len(d.mastered_set()), "total": len(sk),
+                        "next": sk[front[0]]["name"] if front else None, "mistake": rep})
+    return out
+
+
+def send_weekly(a: accounts.Accounts, force: bool = False) -> int:
+    sent = 0
+    now_ = dt.datetime.now(dt.timezone.utc)
+    for fam in a.families():
+        if not fam or not fam.get("weekly"):
+            continue
+        last = fam.get("last_weekly")
+        if not force and last and dt.datetime.fromisoformat(last) > now_ - dt.timedelta(days=7):
+            continue
+        summary = week_summary(a, fam)
+        if not any(x["problems_week"] for x in summary):
+            continue  # nothing happened this week: no email
+        mailer.weekly(fam["email"], fam.get("name") or "", summary, base_url())
+        a.update_family(fam["id"], last_weekly=now_.isoformat(timespec="seconds"))
+        sent += 1
+    return sent
+
+
+def weekly_loop() -> None:
+    time.sleep(120)
+    while True:
+        try:
+            send_weekly(acc())
+        except Exception as e:  # noqa: BLE001 - never stop the loop
+            print(f"weekly notes: {e}")
+        time.sleep(3600)
+
+
+# ---------------------------------------------------------------------------
 
 def startup() -> None:
     from . import assets
@@ -742,6 +902,13 @@ def startup() -> None:
     fid = accounts.adopt_legacy(a)
     if fid:
         print(f"adopted the single-learner data into the owner account ({os.environ.get('ADAPTCALC_OWNER_EMAIL')})")
+    if billing.enabled():
+        try:
+            print("billing:", billing.ensure_setup(a, base_url()))
+        except billing.BillingError as e:
+            print(f"billing setup failed: {e}")
+    if os.environ.get("ADAPTCALC_WEEKLY", "1") == "1":
+        in_background(weekly_loop)
     assets.ensure_fonts()
     try:
         assets.ensure_web_assets()

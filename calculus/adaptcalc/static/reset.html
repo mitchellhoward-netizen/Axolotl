@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Marginalia · Password</title>
+<link rel="stylesheet" href="/static/book.css">
+</head>
+<body>
+<header class="masthead">
+  <a class="brand" href="/"><span class="orn">❦</span>Marginalia</a>
+  <nav><a href="/signin">Sign in</a></nav>
+  <div class="rule"></div>
+</header>
+<main class="narrow">
+  <section class="leaf">
+    <div class="kicker">Your password</div>
+    <h2 id="title">Forgot it?</h2>
+    <hr class="title-rule">
+    <form id="ask" novalidate>
+      <p>Enter the email on the account. We’ll send a link to choose a new password.</p>
+      <label class="field"><span>Email</span><input type="email" id="email" autocomplete="email" required></label>
+      <div class="row"><button class="btn primary" type="submit">Send the link</button></div>
+    </form>
+    <form id="set" class="hidden" novalidate>
+      <p>Choose a new password (10 or more characters). Other devices will be signed out.</p>
+      <label class="field"><span>New password</span><input type="password" id="pw" autocomplete="new-password" minlength="10"></label>
+      <div class="row"><button class="btn primary" type="submit">Save it and sign in</button></div>
+    </form>
+    <p id="msg" role="status"></p>
+  </section>
+</main>
+<script src="/static/book.js"></script>
+<script>
+const token = new URLSearchParams(location.search).get("token");
+if (token) { $("#ask").classList.add("hidden"); $("#set").classList.remove("hidden"); $("#title").textContent = "Choose a new password"; }
+$("#ask").onsubmit = async (e) => {
+  e.preventDefault();
+  try { const r = await api("/api/auth/forgot", { method: "POST", json: { email: $("#email").value } });
+        $("#msg").className = "ok"; $("#msg").textContent = r.message; }
+  catch (err) { $("#msg").className = "err"; $("#msg").textContent = err.message; }
+};
+$("#set").onsubmit = async (e) => {
+  e.preventDefault();
+  try { await api("/api/auth/reset", { method: "POST", json: { token, password: $("#pw").value } }); location.href = "/home"; }
+  catch (err) { $("#msg").className = "err"; $("#msg").textContent = err.message; }
+};
+</script>
+</body>
+</html>

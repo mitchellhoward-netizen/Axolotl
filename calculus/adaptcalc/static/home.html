@@ -45,9 +45,15 @@ details.more summary { cursor: pointer; font-variant-caps: all-small-caps; lette
           <p id="addMsg" class="err" role="alert"></p>
         </form>
       </section>
+      <section class="leaf hidden" id="billLeaf">
+        <div class="section-label"><span class="num">¤</span><h3>Subscription</h3></div>
+        <div id="bill"></div>
+      </section>
       <section class="leaf">
         <div class="section-label"><span class="num">§</span><h3>Account</h3></div>
         <p class="small muted" id="who"></p>
+        <label class="small" style="display:flex;gap:8px;align-items:baseline;margin-top:6px"><input type="checkbox" id="weekly">
+          A short note each week about what each learner did (only in weeks with work).</label>
         <div class="row"><a class="btn quiet" href="/api/account/export">Download my data</a></div>
         <details class="more" style="margin-top:16px"><summary>Change password</summary>
           <form id="pw">
@@ -78,8 +84,34 @@ function startsFor(courseId) {
   const c = me.courses.find((x) => x.id === courseId);
   $("#lstart").innerHTML = (c ? c.starts : []).map((s) => `<option value="${esc(s.id)}">${esc(s.label)}</option>`).join("");
 }
+function renderBilling() {
+  const b = me.billing;
+  if (!b.enabled) return;
+  $("#billLeaf").classList.remove("hidden");
+  const until = b.until ? new Date(b.until).toLocaleDateString(undefined, { month: "long", day: "numeric" }) : "";
+  const words = {
+    comp: "Your family is part of the pilot: everything is included, free.",
+    trialing: `Your free trial runs until ${until}.`,
+    active: `Your subscription is active${until ? `; it renews ${until}` : ""}.`,
+    past_due: "The last payment didn’t go through. Update the card to keep making new packets.",
+    canceled: "The subscription has ended. Books already made stay readable.",
+    none: `One subscription covers every learner in the family${b.price ? `: ${b.price}` : ""}. ${b.trial_days ? `The first ${b.trial_days} days are free, and you can cancel any time.` : ""}`,
+  };
+  let h = `<p>${esc(words[b.plan] || words.none)}</p><div class="row">`;
+  if (b.plan === "none" || b.plan === "canceled") h += `<button class="btn primary" id="subscribe">${b.plan === "canceled" ? "Restart the subscription" : b.trial_days ? "Start the free trial" : "Subscribe"}</button>`;
+  if (b.can_manage && b.plan !== "comp") h += `<button class="btn" id="manage">Manage billing</button>`;
+  h += `</div><p id="billMsg" class="small" role="status"></p>`;
+  $("#bill").innerHTML = h;
+  const go = async (path) => { try { location.href = (await api(path, { method: "POST" })).url; } catch (e) { $("#billMsg").className = "err"; $("#billMsg").textContent = e.message; } };
+  if ($("#subscribe")) $("#subscribe").onclick = () => go("/api/billing/checkout");
+  if ($("#manage")) $("#manage").onclick = () => go("/api/billing/portal");
+  const q = new URLSearchParams(location.search).get("billing");
+  if (q === "done") $("#billMsg").innerHTML = `<span class="ok">Thank you. It can take a few seconds for the subscription to show here.</span>`;
+}
 function render() {
   $("#who").textContent = `Signed in as ${me.family.email}.`;
+  $("#weekly").checked = me.family.weekly;
+  renderBilling();
   if (me.family.name) $("#greeting").textContent = `${me.family.name}’s books`;
   $("#lcourse").innerHTML = me.courses.map((c) => `<option value="${esc(c.id)}">${esc(c.title)}${c.commercial ? "" : " (personal study)"}</option>`).join("");
   startsFor($("#lcourse").value);
@@ -103,6 +135,7 @@ function render() {
 }
 async function load() { me = await api("/api/me"); render(); }
 $("#lcourse").onchange = () => startsFor($("#lcourse").value);
+$("#weekly").onchange = () => api("/api/account/weekly", { method: "POST", json: { on: $("#weekly").checked } }).catch((e) => alert(e.message));
 $("#add").onsubmit = async (e) => {
   e.preventDefault(); $("#addMsg").textContent = "";
   try {

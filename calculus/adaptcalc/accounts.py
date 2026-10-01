@@ -55,6 +55,16 @@ CREATE TABLE IF NOT EXISTS access_codes (
   note TEXT,
   created TEXT NOT NULL
 );
+CREATE TABLE IF NOT EXISTS resets (
+  token_hash TEXT PRIMARY KEY,
+  family_id TEXT NOT NULL REFERENCES families(id) ON DELETE CASCADE,
+  expires TEXT NOT NULL,
+  used INTEGER NOT NULL DEFAULT 0
+);
+CREATE TABLE IF NOT EXISTS settings (
+  key TEXT PRIMARY KEY,
+  value TEXT NOT NULL
+);
 CREATE TABLE IF NOT EXISTS usage (
   learner_id TEXT NOT NULL,
   day TEXT NOT NULL,
@@ -65,6 +75,17 @@ CREATE TABLE IF NOT EXISTS usage (
 """
 
 SESSION_DAYS = 30
+RESET_MINUTES = 60
+FAMILY_COLUMNS = {
+    "weekly": "INTEGER NOT NULL DEFAULT 1",       # weekly progress email
+    "last_weekly": "TEXT",
+    "plan": "TEXT NOT NULL DEFAULT 'none'",       # none | trialing | active | past_due | canceled | comp
+    "plan_until": "TEXT",
+    "stripe_customer": "TEXT",
+    "stripe_subscription": "TEXT",
+}
+# access codes that start with this prefix give the family the book free (pilot families)
+COMP_PREFIX = "COMP-"
 EMAIL = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
 
 
@@ -113,11 +134,25 @@ class Accounts:
         self.conn.row_factory = sqlite3.Row
         self.conn.execute("PRAGMA foreign_keys = ON")
         self.conn.executescript(SCHEMA)
+        cols = {r["name"] for r in self.conn.execute("PRAGMA table_info(families)")}
+        for col, decl in FAMILY_COLUMNS.items():
+            if col not in cols:  # databases from before email and billing
+                self.conn.execute(f"ALTER TABLE families ADD COLUMN {col} {decl}")
+        self.conn.commit()
 
     def close(self):
         self.conn.close()
 
     # ---------------- families ----------------
+    def has_access(self, fam: dict) -> bool:
+        """May this family make new packets and send in work? Billing off: everyone. On: the owner,
+        pilot (comp) families, and active or trialing subscriptions."""
+        from . import billing
+
+        if not billing.enabled() or fam.get("role") == "owner" or fam.get("plan") == "comp":
+            return True
+        return fam.get("plan") in ("active", "trialing")
+
     def family_count(self) -> int:
         return self.conn.execute("SELECT COUNT(*) FROM families").fetchone()[0]
 
@@ -143,6 +178,8 @@ class Accounts:
         if not (row and row["uses_left"] > 0) and code not in env_codes:
             raise AuthError("That access code isn't valid. The program is in a small pilot; ask for a code.")
         fid = self.create_family(email, password, name, code=code)
+        if code.startswith(COMP_PREFIX):
+            self.update_family(fid, plan="comp")
         if row:
             with self.conn:
                 self.conn.execute("UPDATE access_codes SET uses_left = uses_left - 1 WHERE code=?", (code,))
@@ -157,8 +194,56 @@ class Accounts:
         return row["id"]
 
     def family(self, fid: str) -> dict | None:
-        r = self.conn.execute("SELECT id, email, name, role, created FROM families WHERE id=?", (fid,)).fetchone()
+        r = self.conn.execute("SELECT id, email, name, role, created, weekly, last_weekly, plan, plan_until, "
+                              "stripe_customer, stripe_subscription, code FROM families WHERE id=?", (fid,)).fetchone()
         return dict(r) if r else None
+
+    def families(self) -> list[dict]:
+        return [self.family(r["id"]) for r in self.conn.execute("SELECT id FROM families ORDER BY created")]
+
+    def family_by(self, column: str, value: str) -> dict | None:
+        assert column in ("email", "stripe_customer", "stripe_subscription")
+        r = self.conn.execute(f"SELECT id FROM families WHERE {column}=?", (value,)).fetchone()
+        return self.family(r["id"]) if r else None
+
+    def update_family(self, fid: str, **fields) -> None:
+        allowed = {"weekly", "last_weekly", "plan", "plan_until", "stripe_customer", "stripe_subscription", "name"}
+        assert set(fields) <= allowed, fields
+        if fields:
+            sets = ", ".join(f"{k}=?" for k in fields)
+            with self.conn:
+                self.conn.execute(f"UPDATE families SET {sets} WHERE id=?", (*fields.values(), fid))
+
+    # ---------------- password resets ----------------
+    def start_reset(self, email: str) -> str | None:
+        """A one-hour reset token for this email, or None when there is no such account (the caller
+        answers the same either way, so the form does not reveal which emails have accounts)."""
+        row = self.conn.execute("SELECT id FROM families WHERE email=?", (email.strip().lower(),)).fetchone()
+        if not row:
+            return None
+        token = secrets.token_urlsafe(32)
+        with self.conn:
+            self.conn.execute("INSERT INTO resets (token_hash, family_id, expires) VALUES (?,?,?)",
+                              (_token_hash(token), row["id"], iso(now() + dt.timedelta(minutes=RESET_MINUTES))))
+        return token
+
+    def finish_reset(self, token: str, password: str) -> str:
+        r = self.conn.execute("SELECT family_id, expires, used FROM resets WHERE token_hash=?", (_token_hash(token or ""),)).fetchone()
+        if not r or r["used"] or r["expires"] < iso(now()):
+            raise AuthError("That reset link has expired or was already used. Ask for a new one.")
+        self.set_password(r["family_id"], password)
+        with self.conn:
+            self.conn.execute("UPDATE resets SET used=1 WHERE token_hash=?", (_token_hash(token),))
+        return r["family_id"]
+
+    # ---------------- settings (e.g. billing objects created on first start) ----------------
+    def setting(self, key: str) -> str | None:
+        r = self.conn.execute("SELECT value FROM settings WHERE key=?", (key,)).fetchone()
+        return r["value"] if r else None
+
+    def set_setting(self, key: str, value: str) -> None:
+        with self.conn:
+            self.conn.execute("INSERT OR REPLACE INTO settings (key, value) VALUES (?,?)", (key, value))
 
     def set_password(self, fid: str, password: str) -> None:
         if len(password) < 10:

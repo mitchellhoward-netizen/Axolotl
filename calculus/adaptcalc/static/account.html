@@ -29,7 +29,8 @@
           and confirm you have read the <a href="/privacy">privacy notice</a>.</p>
       </div>
       <div class="row"><button class="btn primary" id="submit" type="submit">Sign in</button>
-        <a class="linkish" id="switch" href="/signup">Create an account instead</a></div>
+        <a class="linkish" id="switch" href="/signup">Create an account instead</a>
+        <a class="linkish" id="forgot" href="/forgot">Forgot the password?</a></div>
       <p id="msg" class="err" role="alert"></p>
     </form>
   </section>
@@ -45,6 +46,7 @@ if (signup) {
   $("#submit").textContent = "Create the account";
   $("#switch").textContent = "I already have an account";
   $("#switch").href = "/signin";
+  $("#forgot").classList.add("hidden");
   $("#password").autocomplete = "new-password";
   document.title = "Marginalia · Create an account";
 }
