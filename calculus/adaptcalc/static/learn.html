@@ -213,7 +213,7 @@ function renderReport(rep) {
 
 function noteHtml(a) {
   return `<div class="note">${a.question ? `<span class="q">You asked${a.line ? ` about line ${a.line}` : ""}:</span> <span style="font-style:normal">${esc(a.question)}</span><br>` : ""}
-    ${esc(a.reply).replace(/\$([^$]+)\$/g, (m) => m)}${a.canonical ? `<div class="canon">${esc(a.canonical)}</div>` : ""}</div>`;
+    ${esc(a.reply).replace(/\*\*([^*]+)\*\*/g, "<b>$1</b>").replace(/(^|[^*])\*([^*\s][^*]*)\*/g, "$1<i>$2</i>")}${a.canonical ? `<div class="canon">${esc(a.canonical)}</div>` : ""}</div>`;
 }
 
 document.addEventListener("click", async (ev) => {
