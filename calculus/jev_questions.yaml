@@ -13,7 +13,7 @@ model: jev-latest
 # check ONLY. The learner model is never part of the state (enforced in code).
 evidence:
   state_note: >-
-    `problem` is a calculus exercise. `student_work` is the student's handwritten
+    `problem` is a math exercise. `student_work` is the student's handwritten
     solution transcribed one line per step; lines with crossed_out=true were struck
     through by the student (they cross out instead of erasing); boxed=true marks
     the final answer. `sympy_check` is an exact algebra check of the steps and of
@@ -78,7 +78,7 @@ evidence:
 # All snippets in a packet go in one request (one noul each).
 generation:
   state_note: >-
-    `canonical` holds passages of an introductory calculus textbook, verbatim.
+    `canonical` holds passages of a math textbook, verbatim.
     `snippets` holds short texts written to go between those passages.
   new_idea:
     type: noul

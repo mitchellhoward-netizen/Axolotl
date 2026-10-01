@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Marginalia · Your learners</title>
+<link rel="stylesheet" href="/static/book.css">
+<style>
+.learner { display: grid; grid-template-columns: 1fr auto; gap: 6px 18px; padding: 18px 0; border-bottom: 1px dotted var(--rule); align-items: baseline; }
+.learner:last-child { border-bottom: 0; }
+.learner h3 a { color: var(--ink); text-decoration: none; }
+.learner h3 a:hover { color: var(--spot); }
+.learner .meta { grid-column: 1 / -1; font-size: 15px; color: var(--ink-2); }
+.learner .meter { grid-column: 1 / -1; margin-top: 4px; }
+.learner .acts { display: flex; gap: 14px; align-items: baseline; }
+details.more summary { cursor: pointer; font-variant-caps: all-small-caps; letter-spacing: .1em; color: var(--ink-2); }
+</style>
+</head>
+<body>
+<header class="masthead">
+  <a class="brand" href="/home"><span class="orn">❦</span>Marginalia</a>
+  <nav><a href="/">The book</a><button class="linkish" onclick="toggleTheme()">Light / dark</button><button class="linkish" onclick="signOut()">Sign out</button></nav>
+  <div class="rule"></div>
+</header>
+<main>
+  <div class="kicker" id="greeting">Your family’s books</div>
+  <h1>Learners</h1>
+  <hr class="title-rule">
+
+  <div class="grid2">
+    <div>
+      <section class="leaf">
+        <div id="learners"><p class="muted">Opening the shelf…</p></div>
+      </section>
+    </div>
+    <div>
+      <section class="leaf" id="addLeaf">
+        <div class="section-label"><span class="num">+</span><h3>Add a learner</h3></div>
+        <form id="add">
+          <label class="field"><span>First name</span><input type="text" id="lname" maxlength="40" required autocomplete="off"></label>
+          <label class="field"><span>Course</span><select id="lcourse"></select></label>
+          <label class="field"><span>Where they are starting</span><select id="lstart"></select></label>
+          <p class="caption">The starting point only shapes the first diagnostic questions. The diagnostic finds the rest.</p>
+          <div class="row"><button class="btn primary" type="submit">Add</button></div>
+          <p id="addMsg" class="err" role="alert"></p>
+        </form>
+      </section>
+      <section class="leaf">
+        <div class="section-label"><span class="num">§</span><h3>Account</h3></div>
+        <p class="small muted" id="who"></p>
+        <div class="row"><a class="btn quiet" href="/api/account/export">Download my data</a></div>
+        <details class="more" style="margin-top:16px"><summary>Change password</summary>
+          <form id="pw">
+            <label class="field"><span>Current password</span><input type="password" id="pwOld" autocomplete="current-password"></label>
+            <label class="field"><span>New password (10 or more characters)</span><input type="password" id="pwNew" autocomplete="new-password"></label>
+            <div class="row"><button class="btn" type="submit">Change it</button></div>
+            <p id="pwMsg" role="alert"></p>
+          </form>
+        </details>
+        <details class="more" style="margin-top:12px"><summary>Delete the account</summary>
+          <p class="small">This removes every learner, packet, photo and answer for good.</p>
+          <form id="del">
+            <label class="field"><span>Password</span><input type="password" id="delPw" autocomplete="current-password"></label>
+            <label class="field"><span>Type DELETE to confirm</span><input type="text" id="delConfirm" autocomplete="off"></label>
+            <div class="row"><button class="btn danger" type="submit">Delete everything</button></div>
+            <p id="delMsg" class="err" role="alert"></p>
+          </form>
+        </details>
+      </section>
+    </div>
+  </div>
+</main>
+<footer class="colophon"><a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></footer>
+<script src="/static/book.js"></script>
+<script>
+let me = null;
+function startsFor(courseId) {
+  const c = me.courses.find((x) => x.id === courseId);
+  $("#lstart").innerHTML = (c ? c.starts : []).map((s) => `<option value="${esc(s.id)}">${esc(s.label)}</option>`).join("");
+}
+function render() {
+  $("#who").textContent = `Signed in as ${me.family.email}.`;
+  if (me.family.name) $("#greeting").textContent = `${me.family.name}’s books`;
+  $("#lcourse").innerHTML = me.courses.map((c) => `<option value="${esc(c.id)}">${esc(c.title)}${c.commercial ? "" : " (personal study)"}</option>`).join("");
+  startsFor($("#lcourse").value);
+  if (!me.learners.length) {
+    $("#learners").innerHTML = `<p class="lede" style="margin:0">No learners yet.</p>
+      <p class="muted">Add a learner to begin. Each child gets their own book: their own diagnostic, lessons and progress.</p>`;
+    return;
+  }
+  $("#learners").innerHTML = me.learners.map((l) => {
+    const pct = l.total ? (100 * l.mastered / l.total) : 0;
+    const status = l.open.length ? `Working on ${l.open.map(esc).join(", ")}` : (l.problems ? "Ready for the next packet" : "Ready to begin the diagnostic");
+    return `<div class="learner">
+      <h3><a href="/learn/${l.id}">${esc(l.name)}</a></h3>
+      <div class="acts"><a class="btn primary" href="/learn/${l.id}">Open the book</a><a class="linkish" href="/learn/${l.id}/progress">Report</a></div>
+      <div class="meta">${esc(l.course.title)} · ${l.mastered} of ${l.total} skills learned · ${l.problems} problems checked${l.last ? ` · last work ${fmtDate(l.last)}` : ""}</div>
+      <div class="meter"><i style="width:${pct.toFixed(1)}%"></i></div>
+      <div class="meta">${status}${l.next.length ? ` · next: ${l.next.map(esc).join("; ")}` : ""}
+        · <button class="linkish" style="font-size:15px" data-remove="${l.id}" data-name="${esc(l.name)}">remove</button></div>
+    </div>`;
+  }).join("");
+}
+async function load() { me = await api("/api/me"); render(); }
+$("#lcourse").onchange = () => startsFor($("#lcourse").value);
+$("#add").onsubmit = async (e) => {
+  e.preventDefault(); $("#addMsg").textContent = "";
+  try {
+    const r = await api("/api/learners", { method: "POST", json: { name: $("#lname").value, course: $("#lcourse").value, start: $("#lstart").value } });
+    location.href = `/learn/${r.id}`;
+  } catch (err) { $("#addMsg").textContent = err.message; }
+};
+document.addEventListener("click", async (e) => {
+  const b = e.target.closest("[data-remove]");
+  if (!b) return;
+  if (!confirm(`Remove ${b.dataset.name} and all of their work? This can't be undone.`)) return;
+  try { await api(`/api/learners/${b.dataset.remove}`, { method: "DELETE" }); await load(); } catch (err) { alert(err.message); }
+});
+$("#pw").onsubmit = async (e) => {
+  e.preventDefault();
+  try { await api("/api/account/password", { method: "POST", json: { current: $("#pwOld").value, password: $("#pwNew").value } });
+        $("#pwMsg").className = "ok"; $("#pwMsg").textContent = "Changed. Other devices are signed out."; }
+  catch (err) { $("#pwMsg").className = "err"; $("#pwMsg").textContent = err.message; }
+};
+$("#del").onsubmit = async (e) => {
+  e.preventDefault();
+  try { await api("/api/account/delete", { method: "POST", json: { password: $("#delPw").value, confirm: $("#delConfirm").value } }); location.href = "/"; }
+  catch (err) { $("#delMsg").textContent = err.message; }
+};
+load().catch((e) => { $("#learners").innerHTML = `<p class="err">${esc(e.message)}</p>`; });
+</script>
+</body>
+</html>

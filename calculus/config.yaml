@@ -45,3 +45,21 @@ lesson:
   new_skill_problems: 4         # practice for a new skill: one faded (partly worked) + three
   review_share: 0.35            # share of a packet's practice that is mixed review of earlier skills
   max_review: 4
+
+# Where a parent says their child is starting. It shifts the diagnostic's prior (learner.prior),
+# so a student who finished Algebra 1 is not first asked about fractions. "unsure" keeps the defaults.
+starting_points:
+  algebra1:
+    arithmetic: {label: "Comfortable with arithmetic, new to algebra", prior: {foundation: 0.80, core: 0.08}}
+    partway: {label: "Partway through Algebra 1", prior: {foundation: 0.88, core: 0.40}}
+    reviewing: {label: "Finished Algebra 1 and reviewing", prior: {foundation: 0.92, core: 0.65}}
+    rusty: {label: "Struggles with fractions and negative numbers", prior: {foundation: 0.45, core: 0.05}}
+    unsure: {label: "Not sure", prior: {}}
+  calc_limits:
+    unsure: {label: "Not sure", prior: {}}
+
+# Per-learner daily limits (they bound the cost of the AI checks for one account).
+limits:
+  photos_per_day: 40
+  questions_per_day: 60
+  packets_per_day: 12

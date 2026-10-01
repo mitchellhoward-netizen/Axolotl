@@ -31,6 +31,25 @@ def _cfg():
     return config()
 
 
+def learner_prior(cfg: dict | None = None) -> dict:
+    """The graph prior, shifted by the starting point chosen for this learner (profile.json)."""
+    import json
+
+    from . import paths
+
+    cfg = cfg or _cfg()
+    pr = dict(cfg["learner"]["prior"])
+    prof = paths.learner_dir() / "profile.json"
+    if prof.exists():
+        try:
+            start = json.loads(prof.read_text(encoding="utf-8")).get("start")
+        except ValueError:
+            start = None
+        sp_ = cfg.get("starting_points", {}).get(paths.course(), {}).get(start or "", {})
+        pr.update(sp_.get("prior", {}))
+    return pr
+
+
 def skill_index() -> tuple[list[str], dict[str, int]]:
     order = extract.skill_order()
     return order, {s: i for i, s in enumerate(order)}
@@ -40,7 +59,7 @@ def prior_particles(n: int | None = None, seed: int | None = None) -> tuple[np.n
     cfg = _cfg()
     n = n or cfg["diagnostic"]["particles"]
     seed = cfg["diagnostic"]["seed"] if seed is None else seed
-    pr = cfg["learner"]["prior"]
+    pr = learner_prior(cfg)
     order, idx = skill_index()
     sk = extract.skills()
     rng = np.random.default_rng(seed)
@@ -109,15 +128,38 @@ def entropy_report(S, w) -> dict:
             "max_marginal_bits": float(h2(m).max())}
 
 
-def batch_mi(S, w, items: list[dict], slip: float) -> float:
-    """Exact I(Y_batch; S) for a batch of conditionally independent binary items."""
+def ok_column(S: np.ndarray, requires: list[str]) -> np.ndarray:
+    """For each particle: are all the skills an item requires mastered?"""
+    _, idx = skill_index()
+    return S[:, [idx[s] for s in requires]].all(axis=1)
+
+
+def batch_mi(S, w, items: list[dict], slip: float, ok_cache: dict | None = None) -> float:
+    """Exact I(Y_batch; S) for a batch of conditionally independent binary items.
+
+    Under DINA an item's correctness probability is one of two values (1 - slip or guess),
+    so a particle's pattern over the batch is a bit pattern: particles are collapsed by an
+    integer code (fast), not by comparing float rows."""
     if not items:
         return 0.0
-    P = np.stack([p_correct(S, it["requires"], it["guess"], slip) for it in items], axis=1)  # n x k
-    # collapse particles with identical correctness-probability patterns
-    pats, inv = np.unique(P, axis=0, return_inverse=True)
-    W = np.bincount(inv.ravel(), weights=w, minlength=len(pats))
-    k = P.shape[1]
+    cols = []
+    for it in items:
+        key = it.get("template") or tuple(it["requires"])
+        if ok_cache is not None and key in ok_cache:
+            cols.append(ok_cache[key])
+        else:
+            c = ok_column(S, it["requires"])
+            if ok_cache is not None:
+                ok_cache[key] = c
+            cols.append(c)
+    OK = np.stack(cols, axis=1)
+    k = OK.shape[1]
+    codes = OK.astype(np.int64) @ (np.int64(1) << np.arange(k, dtype=np.int64))
+    uniq, inv = np.unique(codes, return_inverse=True)
+    W = np.bincount(inv.ravel(), weights=w, minlength=len(uniq))
+    bits = ((uniq[:, None] >> np.arange(k)) & 1).astype(bool)
+    guess = np.array([it["guess"] for it in items])
+    pats = np.where(bits, 1 - slip, guess[None, :])
     Y = ((np.arange(2 ** k)[:, None] >> np.arange(k)[None, :]) & 1).astype(float)  # 2^k x k
     lp = np.clip(pats, 1e-12, 1 - 1e-12)
     logp = Y @ np.log(lp).T + (1 - Y) @ np.log(1 - lp).T  # 2^k x npat
@@ -157,12 +199,13 @@ def next_round(db: LearnerDB) -> dict | None:
     chosen: list[dict] = []
     gains = []
     base = 0.0
+    cache: dict = {}
     for _ in range(min(size, len(cands))):
         best, best_mi = None, -1.0
         for c in cands:
             if c in chosen:
                 continue
-            mi = batch_mi(S, w, chosen + [c], slip)
+            mi = batch_mi(S, w, chosen + [c], slip, cache)
             if mi > best_mi + 1e-12:
                 best, best_mi = c, mi
         chosen.append(best)

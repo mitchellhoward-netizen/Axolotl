@@ -3,117 +3,114 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Progress</title>
+<title>Marginalia · Report</title>
+<link rel="stylesheet" href="/static/book.css">
 <style>
-@font-face { font-family: "Fira Sans"; src: url(/fonts/FiraSans-Regular.ttf); font-weight: 400; }
-@font-face { font-family: "Fira Sans"; src: url(/fonts/FiraSans-SemiBold.ttf); font-weight: 600; }
-@font-face { font-family: "Fira Sans"; src: url(/fonts/FiraSans-Bold.ttf); font-weight: 700; }
-:root {
-  color-scheme: light;
-  --spot: #006b7f; --spot-ink: #ffffff; --tint: #e3f0f2; --tint2: #f1f7f8;
-  --bg: #fbfaf7; --card: #ffffff; --ink: #1c1d1f; --muted: #5d6166; --line: #dde3e5;
-  --radius: 10px;
-}
-:root[data-theme="dark"] {
-  color-scheme: dark;
-  --spot: #5aa9b5; --spot-ink: #0d1a1c; --tint: #22292c; --tint2: #1b2124;
-  --bg: #141618; --card: #1b1e21; --ink: #e6e8e9; --muted: #9ba2a7; --line: #2b3034;
-}
-* { box-sizing: border-box; }
-body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.5 "Fira Sans", system-ui, sans-serif; }
-main { max-width: 900px; margin: 0 auto; padding: 20px 16px 60px; }
-header { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 16px; border-bottom: 3px solid var(--spot); padding-bottom: 10px; margin-bottom: 20px; }
-header h1 { margin: 0; font-size: 26px; }
-header .kicker { color: var(--spot); font-weight: 700; letter-spacing: .1em; font-size: 12px; text-transform: uppercase; width: 100%; }
-header .links { margin-left: auto; display: flex; gap: 8px; }
-.nav { font-size: 13px; font-weight: 600; color: var(--spot); text-decoration: none; border: 1px solid var(--spot); border-radius: 99px; padding: 2px 10px; background: none; cursor: pointer; font-family: inherit; }
-.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; }
-.tile { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px; }
-.tile .v { font-size: 28px; font-weight: 700; font-variant-numeric: tabular-nums; }
-.tile .l { font-size: 13px; color: var(--muted); }
-.card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; margin-top: 16px; }
-.card h2 { margin: 0 0 10px; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--spot); }
-.muted { color: var(--muted); font-size: 14px; }
-/* 14-day activity: one series, spot color, 2px gaps, rounded data ends, recessive axis */
-.chart { display: grid; grid-template-columns: repeat(14, 1fr); gap: 2px; align-items: end; height: 120px; border-bottom: 1px solid var(--line); position: relative; }
-.col { position: relative; height: 100%; display: flex; align-items: flex-end; justify-content: center; cursor: default; }
-.col i { display: block; width: 70%; background: var(--spot); border-radius: 4px 4px 0 0; min-height: 0; }
+.figures { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); }
+.figures div { padding: 14px 12px; border-right: 1px dotted var(--rule); }
+.figures div:last-child { border-right: 0; }
+.figures .v { font-family: var(--text); font-weight: 300; font-size: 36px; line-height: 1; font-variant-numeric: lining-nums tabular-nums; }
+.figures .l { font-size: 14px; color: var(--ink-2); margin-top: 4px; }
+/* 14-day activity: one series in the spot ink, 2px gaps, rounded data ends, recessive axis */
+.chart { display: grid; grid-template-columns: repeat(14, 1fr); gap: 2px; align-items: end; height: 120px; border-bottom: 1px solid var(--ink-3); margin-top: 10px; }
+.col { position: relative; height: 100%; display: flex; align-items: flex-end; justify-content: center; }
+.col i { display: block; width: 64%; background: var(--spot); border-radius: 3px 3px 0 0; }
 .col:hover i, .col:focus i { outline: 2px solid var(--ink); outline-offset: 1px; }
-.col .tip { display: none; position: absolute; bottom: calc(100% + 4px); left: 50%; transform: translateX(-50%); background: var(--ink); color: var(--bg); font-size: 12px; padding: 3px 7px; border-radius: 6px; white-space: nowrap; z-index: 2; }
+.col .tip { display: none; position: absolute; bottom: calc(100% + 4px); left: 50%; transform: translateX(-50%); background: var(--ink); color: var(--paper); font-size: 13px; padding: 3px 8px; white-space: nowrap; z-index: 2; border-radius: 2px; }
 .col:hover .tip, .col:focus .tip { display: block; }
-.axis { display: grid; grid-template-columns: repeat(14, 1fr); gap: 2px; font-size: 11px; color: var(--muted); text-align: center; margin-top: 4px; }
-table { width: 100%; border-collapse: collapse; font-size: 14px; }
-td, th { text-align: left; padding: 5px 4px; border-bottom: 1px solid var(--line); }
+.axis { display: grid; grid-template-columns: repeat(14, 1fr); gap: 2px; font-size: 12px; color: var(--ink-3); text-align: center; margin-top: 4px; }
+table { width: 100%; border-collapse: collapse; font-size: 15px; }
+td, th { text-align: left; padding: 6px 4px; border-bottom: 1px dotted var(--rule); font-weight: 400; }
+th { font-variant-caps: all-small-caps; letter-spacing: .08em; color: var(--ink-2); }
 td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
-.group { margin-top: 12px; }
-.group summary { cursor: pointer; font-weight: 600; font-size: 14px; }
-.skill { display: grid; grid-template-columns: 1fr 88px 40px; gap: 4px 10px; align-items: center; font-size: 14px; padding: 5px 0; border-bottom: 1px solid var(--line); }
-.bar { grid-column: 1 / -1; height: 6px; border-radius: 3px; background: var(--tint); position: relative; overflow: hidden; }
-.bar i { position: absolute; inset: 0 auto 0 0; background: var(--spot); border-radius: 3px; }
-.state { font-size: 12px; color: var(--muted); text-align: right; }
-.p { text-align: right; font-variant-numeric: tabular-nums; color: var(--muted); }
-.mis { padding: 8px 0; border-bottom: 1px solid var(--line); font-size: 14px; }
-.mis b { font-variant-numeric: tabular-nums; }
-@media print { .links, details > summary::marker { display: none; } body { background: white; } .card, .tile { break-inside: avoid; } }
+.sk { display: grid; grid-template-columns: 1fr 96px 44px; gap: 4px 10px; align-items: baseline; font-size: 15px; padding: 6px 0; border-bottom: 1px dotted var(--rule-2); }
+.sk .meter { grid-column: 1 / -1; }
+.sk .st { font-size: 13px; color: var(--ink-2); text-align: right; font-variant-caps: all-small-caps; letter-spacing: .06em; }
+.sk .p { text-align: right; font-variant-numeric: tabular-nums; color: var(--ink-3); font-size: 14px; }
+details.ch summary { cursor: pointer; font-family: var(--display); font-size: 19px; padding: 8px 0; }
+.mis { padding: 9px 0; border-bottom: 1px dotted var(--rule); }
+.mis b { font-family: var(--display); font-size: 20px; color: var(--brick); margin-right: 6px; font-variant-numeric: lining-nums; }
+@media print { details { display: block; } details > summary { list-style: none; } .chapter-skills { display: block !important; } }
 </style>
 </head>
 <body>
+<header class="masthead">
+  <a class="brand" href="/home"><span class="orn">❦</span>Marginalia</a>
+  <nav class="noprint"><a href="/home">Learners</a><a id="backLink" href="#">Back to the book</a><button class="linkish" onclick="print()">Print</button><button class="linkish" onclick="toggleTheme()">Light / dark</button></nav>
+  <div class="rule"></div>
+</header>
 <main>
-  <header>
-    <div class="kicker">Progress report</div>
-    <h1>Where things stand</h1>
-    <div class="links"><a class="nav" href="/">Back to work</a><button class="nav" onclick="print()">Print</button></div>
-  </header>
-  <div class="tiles" id="tiles"></div>
-  <section class="card"><h2>Next up</h2><div id="next" class="muted"></div></section>
-  <section class="card">
-    <h2>Problems checked, last 14 days</h2>
-    <div class="chart" id="chart" role="img" aria-label="Problems checked per day"></div>
-    <div class="axis" id="axis"></div>
-    <details style="margin-top:10px"><summary class="muted">Show as a table</summary><table><thead><tr><th>Day</th><th class="n">Pages</th><th class="n">Problems</th><th class="n">Correct</th></tr></thead><tbody id="daytable"></tbody></table></details>
+  <div class="kicker" id="kicker">Progress report</div>
+  <h1 id="title">&nbsp;</h1>
+  <p class="caption" id="when"></p>
+  <hr class="title-rule">
+  <div class="figures" id="figures"></div>
+
+  <section class="leaf" style="margin-top:24px">
+    <div class="section-label"><span class="num">§1</span><h3>What comes next</h3></div>
+    <p id="next" class="muted"></p>
   </section>
-  <section class="card"><h2>Mistakes that keep coming up</h2><div id="mis"></div></section>
-  <section class="card"><h2>Every skill</h2><div id="groups"></div></section>
+  <section class="leaf">
+    <div class="section-label"><span class="num">§2</span><h3>Problems checked, last fourteen days</h3></div>
+    <div class="chart" id="chart" role="img" aria-label="Problems checked per day over the last fourteen days"></div>
+    <div class="axis" id="axis"></div>
+    <details style="margin-top:12px"><summary class="caption">Show as a table</summary>
+      <table><thead><tr><th>Day</th><th class="n">Pages</th><th class="n">Problems</th><th class="n">Correct</th></tr></thead><tbody id="daytable"></tbody></table></details>
+  </section>
+  <section class="leaf">
+    <div class="section-label"><span class="num">§3</span><h3>Mistakes that keep coming back</h3></div>
+    <div id="mis"></div>
+  </section>
+  <section class="leaf">
+    <div class="section-label"><span class="num">§4</span><h3>Every skill in the course</h3></div>
+    <p class="caption">Learned means the skill held up in practice (at least three checked problems) or the diagnostic placed it there.
+      Practicing means it has been worked on; assessed means only the diagnostic has seen it.</p>
+    <div id="groups"></div>
+  </section>
 </main>
+<footer class="colophon" id="colophon"></footer>
+<script src="/static/book.js"></script>
 <script>
-const $ = (s) => document.querySelector(s);
-const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-try { document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"; } catch (e) {}
-
-fetch("/api/progress").then((r) => r.json()).then((d) => {
+const LID = location.pathname.split("/")[2];
+$("#backLink").href = `/learn/${LID}`;
+api(`/api/l/${LID}/progress`).then((d) => {
+  document.title = `${d.learner.name} · Report · Marginalia`;
+  $("#kicker").textContent = `Progress report · ${d.course.title}`;
+  $("#title").textContent = d.learner.name;
+  $("#when").textContent = `As of ${new Date(d.generated).toLocaleString(undefined, { dateStyle: "long", timeStyle: "short" })}`;
   const acc = d.problems ? Math.round(100 * d.correct / d.problems) : 0;
-  $("#tiles").innerHTML = [
-    [`${d.mastered}/${d.total}`, "skills mastered"],
-    [d.problems, `problems checked${d.problems ? ` · ${acc}% correct` : ""}`],
+  $("#figures").innerHTML = [
+    [`${d.mastered}<span style="font-size:20px;color:var(--ink-3)">/${d.total}</span>`, "skills learned"],
+    [d.problems, `problems checked${d.problems ? `, ${acc}% correct` : ""}`],
+    [d.diagnostic.answered, "diagnostic questions answered"],
     [d.questions, "questions asked about the work"],
-    [`${d.diagnostic.answered}/${d.diagnostic.asked}`, `diagnostic questions answered · ${d.diagnostic.uncertainty_bits} bits unsure`],
-  ].map(([v, l]) => `<div class="tile"><div class="v">${esc(v)}</div><div class="l">${esc(l)}</div></div>`).join("");
+  ].map(([v, l]) => `<div><div class="v">${v}</div><div class="l">${esc(l)}</div></div>`).join("");
 
-  $("#next").innerHTML = (d.next.length ? `Working on: <b>${d.next.map(esc).join("</b>, <b>")}</b>.` : "Nothing on the frontier right now.")
-    + (d.reviews.length ? ` Due for review: ${d.reviews.map(esc).join(", ")}.` : "");
+  $("#next").innerHTML = (d.next.length ? `Next to learn: <b>${d.next.map(esc).join("</b>; <b>")}</b>.` : "Nothing is waiting right now.")
+    + (d.reviews.length ? ` Due for review: ${d.reviews.map(esc).join("; ")}.` : "");
 
   const max = Math.max(1, ...d.days.map((x) => x.problems));
   $("#chart").innerHTML = d.days.map((x) => {
     const h = x.problems ? Math.max(4, 100 * x.problems / max) : 0;
-    const date = new Date(x.day + "T12:00:00");
-    const label = date.toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" });
+    const label = new Date(x.day + "T12:00:00").toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" });
     return `<div class="col" tabindex="0" aria-label="${label}: ${x.problems} problems, ${x.correct} correct">
       <i style="height:${h}%"></i><span class="tip">${label}: ${x.problems} problem${x.problems === 1 ? "" : "s"}, ${x.correct} correct</span></div>`;
   }).join("");
-  $("#axis").innerHTML = d.days.map((x, i) => `<span>${i % 2 === 1 ? "" : new Date(x.day + "T12:00:00").getDate()}</span>`).join("");
+  $("#axis").innerHTML = d.days.map((x, i) => `<span>${i % 2 ? "" : new Date(x.day + "T12:00:00").getDate()}</span>`).join("");
   $("#daytable").innerHTML = d.days.map((x) => `<tr><td>${x.day}</td><td class="n">${x.pages}</td><td class="n">${x.problems}</td><td class="n">${x.correct}</td></tr>`).join("");
 
   $("#mis").innerHTML = d.misconceptions.length ? d.misconceptions.map((m) =>
-    `<div class="mis"><b>${m.count}×</b> ${esc(m.description)} <span class="muted">(underlying skill: ${esc(m.root)})</span></div>`).join("")
-    : `<p class="muted">None yet. Mistakes found in your photographed work show up here.</p>`;
+    `<div class="mis"><b>${m.count}×</b>${esc(m.description)} <span class="caption">(the skill underneath: ${esc(m.root)})</span></div>`).join("")
+    : `<p class="muted">None yet. When checked work shows the same kind of mistake more than once, it is listed here with the skill underneath it.</p>`;
 
-  const word = { mastered: "mastered", practicing: "practicing", assessed: "assessed", "not started": "not started" };
-  $("#groups").innerHTML = d.groups.map((g) => `<details class="group" ${g.name.startsWith("Calculus") ? "" : "open"}>
-    <summary>${esc(g.name)} · ${g.mastered}/${g.skills.length} mastered</summary>
-    ${g.skills.map((s) => `<div class="skill"><span>${esc(s.name)}</span><span class="state">${word[s.state]}</span><span class="p">${Math.round(s.p * 100)}%</span>
-      <div class="bar"><i style="width:${(s.p * 100).toFixed(1)}%"></i></div></div>`).join("")}
+  const words = { mastered: "learned", practicing: "practicing", assessed: "assessed", "not started": "not started" };
+  $("#groups").innerHTML = d.groups.map((g, i) => `<details class="ch" ${g.mastered || i === 0 ? "open" : ""}>
+    <summary>${esc(g.name)} <span class="caption">· ${g.mastered} of ${g.skills.length} learned</span></summary>
+    <div class="chapter-skills">${g.skills.map((s) => `<div class="sk"><span>${esc(s.name)}</span><span class="st">${words[s.state]}</span><span class="p">${s.state === "not started" ? "—" : Math.round(s.p * 100) + "%"}</span>
+      <div class="meter"><i style="width:${s.state === "not started" ? 0 : (s.p * 100).toFixed(1)}%"></i></div></div>`).join("")}</div>
   </details>`).join("");
-}).catch((e) => { $("#tiles").innerHTML = `<p class="muted">Could not load progress (${esc(e.message)}).</p>`; });
+  $("#colophon").innerHTML = `Mastery percentages are the model’s estimate that the skill is learned, updated once for every checked problem. · <a href="/privacy">Privacy</a>`;
+}).catch((e) => { $("#figures").innerHTML = `<p class="err">${esc(e.message)}</p>`; });
 </script>
 </body>
 </html>

@@ -15,6 +15,45 @@ FONTS = {  # Fira Sans (SIL OFL) for headings; body and math use fonts bundled w
 }
 SPOT = (0x00, 0x6B, 0x7F)  # must match `spot` in typst/textbook.typ
 
+# The web pages' book faces (SIL OFL): EB Garamond for titles, Source Serif 4 for reading.
+GF = "https://raw.githubusercontent.com/google/fonts/main/ofl"
+WEB_FONTS = {
+    "EBGaramond.ttf": f"{GF}/ebgaramond/EBGaramond%5Bwght%5D.ttf",
+    "EBGaramond-Italic.ttf": f"{GF}/ebgaramond/EBGaramond-Italic%5Bwght%5D.ttf",
+    "SourceSerif4.ttf": f"{GF}/sourceserif4/SourceSerif4%5Bopsz,wght%5D.ttf",
+    "SourceSerif4-Italic.ttf": f"{GF}/sourceserif4/SourceSerif4-Italic%5Bopsz,wght%5D.ttf",
+}
+KATEX = "https://registry.npmjs.org/katex/-/katex-0.16.11.tgz"
+VENDOR = paths.CACHE / "vendor"
+
+
+def ensure_web_assets() -> Path:
+    """Fonts and KaTeX served from this app (no third-party requests from a learner's browser)."""
+    import io
+    import tarfile
+
+    paths.FONT_DIR.mkdir(parents=True, exist_ok=True)
+    for name, url in WEB_FONTS.items():
+        dest = paths.FONT_DIR / name
+        if not dest.exists():
+            with urllib.request.urlopen(url, timeout=120) as r:
+                dest.write_bytes(r.read())
+    kdir = VENDOR / "katex"
+    if not (kdir / "katex.min.js").exists():
+        with urllib.request.urlopen(KATEX, timeout=120) as r:
+            data = r.read()
+        kdir.mkdir(parents=True, exist_ok=True)
+        with tarfile.open(fileobj=io.BytesIO(data), mode="r:gz") as tf:
+            for m in tf.getmembers():
+                if m.isfile() and m.name.startswith("package/dist/") and (
+                        m.name.endswith((".min.js", ".min.css", ".woff2")) and "/contrib/" not in m.name
+                        or m.name.endswith("contrib/auto-render.min.js")):
+                    rel = m.name[len("package/dist/"):]
+                    out = kdir / rel
+                    out.parent.mkdir(parents=True, exist_ok=True)
+                    out.write_bytes(tf.extractfile(m).read())
+    return VENDOR
+
 
 def ensure_fonts() -> Path:
     paths.FONT_DIR.mkdir(parents=True, exist_ok=True)

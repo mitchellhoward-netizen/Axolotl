@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Marginalia</title>
+<link rel="stylesheet" href="/static/book.css">
+<link rel="stylesheet" href="/vendor/katex/katex.min.css">
+<script defer src="/vendor/katex/katex.min.js"></script>
+<script defer src="/vendor/katex/contrib/auto-render.min.js"></script>
+<style>
+.next .page-turn { font-family: var(--display); font-size: 30px; line-height: 1.15; margin: 6px 0 8px; }
+.packet-line { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: baseline; padding: 12px 0; border-top: 1px dotted var(--rule); }
+.packet-line .id { font-family: var(--display); font-size: 24px; color: var(--spot); min-width: 2.2em; }
+.packet-line .what { flex: 1; min-width: 12em; }
+.chapter summary { cursor: pointer; list-style: none; display: flex; gap: 10px; align-items: baseline; padding: 8px 0; border-bottom: 1px dotted var(--rule); }
+.chapter summary::-webkit-details-marker { display: none; }
+.chapter summary .t { flex: 1; font-family: var(--display); font-size: 19px; }
+.chapter summary .c { font-size: 14px; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.skill { padding: 7px 0 7px 12px; border-bottom: 1px dotted var(--rule-2); font-size: 15px; }
+.skill .top { display: flex; gap: 8px; align-items: baseline; }
+.skill .top span:first-child { flex: 1; }
+.skill.done .top span:first-child::after { content: " ✓"; color: var(--spot); }
+.skill .meter { margin-top: 5px; }
+.ask { margin-top: 10px; }
+.ask .row { margin-top: 8px; }
+.ask select { width: auto; }
+.statement { font-size: 16px; color: var(--ink-2); margin: 6px 0 0; }
+.changes { font-size: 14px; color: var(--ink-3); margin-top: 8px; }
+.howto { font-size: 15px; color: var(--ink-2); margin: 6px 0 0; padding-left: 1.1em; }
+</style>
+</head>
+<body>
+<header class="masthead">
+  <a class="brand" href="/home"><span class="orn">❦</span>Marginalia</a>
+  <nav><a href="/home">Learners</a><a id="reportLink" href="#">Report</a><button class="linkish" onclick="toggleTheme()">Light / dark</button><button class="linkish" onclick="signOut()">Sign out</button></nav>
+  <div class="rule"></div>
+</header>
+<main>
+  <div class="kicker" id="course">&nbsp;</div>
+  <h1 id="title">&nbsp;</h1>
+  <hr class="title-rule">
+
+  <div class="grid2">
+    <div>
+      <section class="leaf next" id="next"><p class="muted">Turning to the right page…</p></section>
+
+      <section class="leaf" id="sendLeaf">
+        <div class="section-label"><span class="num">✎</span><h3>Send in your work</h3></div>
+        <ul class="howto">
+          <li>Write the packet code (like <b>L3</b>) at the top of each page.</li>
+          <li>Number each problem. One step per line.</li>
+          <li>Cross out mistakes with a single line; don’t erase.</li>
+          <li>Box your final answer.</li>
+        </ul>
+        <form id="upload" class="dropzone">
+          <input id="photo" type="file" accept="image/*" capture="environment" multiple aria-label="Photos of your work">
+          <div class="row" style="justify-content:center"><button class="btn primary" id="uploadBtn" type="submit">Check my work</button></div>
+        </form>
+        <div class="ledger hidden" id="photoLedger"></div>
+        <p id="photoMsg" class="small" role="status"></p>
+      </section>
+
+      <section class="leaf">
+        <div class="section-label"><span class="num">❧</span><h3>In the margins</h3></div>
+        <div id="reports"><p class="muted">Feedback on your pages appears here.</p></div>
+      </section>
+    </div>
+
+    <div>
+      <section class="leaf">
+        <div class="section-label"><span class="num">§</span><h3>Contents</h3></div>
+        <div id="packets"><p class="muted small">No packets yet.</p></div>
+      </section>
+      <section class="leaf">
+        <div class="section-label"><span class="num">¶</span><h3>What is learned</h3></div>
+        <p class="small muted" id="learnedSummary"></p>
+        <div id="skills"></div>
+      </section>
+    </div>
+  </div>
+</main>
+<footer class="colophon" id="colophon"></footer>
+<script src="/static/book.js"></script>
+<script>
+const LID = location.pathname.split("/")[2];
+const KIND = { diagnostic: "Diagnostic", lesson: "Lesson", refresh: "Refresh" };
+let state = null;
+$("#reportLink").href = `/learn/${LID}/progress`;
+
+function renderHeader() {
+  const name = state.learner.name;
+  document.title = `${name} · ${state.course.title} · Marginalia`;
+  $("#course").textContent = state.course.title + (state.course.subtitle ? ` · ${state.course.subtitle}` : "");
+  $("#title").textContent = `${name}’s book`;
+  $("#colophon").innerHTML = state.course.commercial
+    ? `Lessons adapted from <i>Elementary Algebra 2e</i> by Lynn Marecek, MaryAnne Anthony-Smith and Andrea Honeycutt Mathis, OpenStax, CC BY 4.0. Access for free at openstax.org. · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a>`
+    : `Lessons adapted from <i>Calculus Volume 1</i> by Gilbert Strang and Edwin Herman, OpenStax, CC BY-NC-SA 4.0, for personal study. · <a href="/privacy">Privacy</a>`;
+}
+
+function renderNext() {
+  const d = state.diagnostic;
+  const opens = state.packets.filter((p) => p.status === "open").reverse();
+  let h = `<div class="kicker">The next page</div>`;
+  if (opens.length) {
+    const o = opens[0];
+    h += `<div class="page-turn">Work through ${KIND[o.kind] || "packet"} ${esc(o.id)} on paper.</div>
+      <p class="muted">${o.focus.length ? `About: ${o.focus.map(esc).join("; ")}. ` : ""}Print it or work from the screen, then photograph your pages below.
+      ${o.graded ? `${o.graded} of ${o.problems} problems are checked so far.` : ""}</p>
+      <div class="row"><a class="btn primary" href="${o.pdf}" target="_blank" rel="noopener">Open ${esc(o.id)}</a>
+      <button class="btn quiet" data-aside="${esc(o.id)}">Set it aside</button></div>`;
+    if (opens.length > 1) h += `<p class="small muted">Also open: ${opens.slice(1).map((x) => `<a href="${x.pdf}" target="_blank">${esc(x.id)}</a>`).join(", ")}.</p>`;
+  } else if (!d.finished) {
+    const first = d.asked === 0;
+    h += `<div class="page-turn">${first ? "Begin with a short diagnostic." : "The next diagnostic round."}</div>
+      <p class="muted">${first ? "Ten questions, on paper. They are chosen to find what is already known, so skip anything you haven’t seen; a skip is information too."
+        : `${d.answered} questions answered so far. Each round is chosen to settle what is still uncertain.`}</p>
+      <div class="row"><button class="btn primary" data-act="diagnostic">${first ? "Make the first round" : "Make the next round"}</button></div>`;
+  } else {
+    h += `<div class="page-turn">The next lesson is ready to be set.</div>
+      <p class="muted">${state.frontier.length ? `Next up: ${state.frontier.map(esc).join("; ")}.` : ""} If a basic skill is shaky, a short refresh comes first.</p>
+      <div class="row"><button class="btn primary" data-act="lesson">Set the next lesson</button></div>`;
+  }
+  const extra = [];
+  if (!opens.length && !d.finished && d.answered >= 10) extra.push(`<button class="btn quiet" data-act="lesson">Skip ahead to a lesson</button>`);
+  if (opens.length && !d.finished && !d.open_round) extra.push(`<button class="btn quiet" data-act="diagnostic">Next diagnostic round</button>`);
+  if (extra.length) h += `<div class="row">${extra.join("")}</div>`;
+  h += `<div class="ledger hidden" id="jobLedger"></div><p id="actMsg" class="small" role="status"></p>`;
+  if (!state.ready.photos) h += `<p class="small err">Photo checking is not set up on this server yet.</p>`;
+  $("#next").innerHTML = h;
+  $$("#next [data-act]").forEach((b) => b.onclick = () => make(b.dataset.act, b));
+  $$("#next [data-aside]").forEach((b) => b.onclick = async () => {
+    if (!confirm(`Set ${b.dataset.aside} aside? Problems already checked stay checked.`)) return;
+    try { await api(`/api/l/${LID}/packets/${b.dataset.aside}/set-aside`, { method: "POST" }); await load(); }
+    catch (e) { $("#actMsg").innerHTML = `<span class="err">${esc(e.message)}</span>`; }
+  });
+}
+
+async function make(kind, btn) {
+  $$("#next button").forEach((b) => b.disabled = true);
+  $("#actMsg").textContent = "";
+  try {
+    const { job } = await api(`/api/l/${LID}/${kind}/next`, { method: "POST" });
+    const r = await runJob(job, $("#jobLedger"));
+    if (r.finished) { $("#actMsg").textContent = "The diagnostic is complete."; }
+    else { $("#actMsg").innerHTML = `<span class="ok">${KIND[r.kind] || "Packet"} ${esc(r.packet)} is ready.</span> <a href="${r.pdf}" target="_blank" rel="noopener">Open it</a>`; }
+    await load(true);
+  } catch (e) {
+    $("#actMsg").innerHTML = `<span class="err">${esc(e.message)}</span>`;
+    $$("#next button").forEach((b) => b.disabled = false);
+  }
+}
+
+function renderPackets() {
+  if (!state.packets.length) return;
+  $("#packets").innerHTML = state.packets.map((p) => `<div class="packet-line">
+    <span class="id">${esc(p.id)}</span>
+    <span class="what"><span class="sc">${KIND[p.kind] || p.kind}</span>${p.focus.length ? ` · ${p.focus.map(esc).join("; ")}` : ""}<br>
+      <span class="caption">${p.status === "set_aside" ? "set aside" : `${p.graded} of ${p.problems} checked`} · ${fmtDate(p.created)}</span></span>
+    <span class="small">${p.pdf ? `<a href="${p.pdf}" target="_blank" rel="noopener">pages</a>` : ""}${p.key ? ` · <a href="${p.key}" target="_blank" rel="noopener">key</a>` : ""}</span>
+  </div>`).join("");
+}
+
+function renderSkills() {
+  const learned = state.skills.filter((s) => s.mastered).length;
+  $("#learnedSummary").textContent = `${learned} of ${state.skills.length} skills learned.` +
+    (state.reviews.length ? ` Due for review: ${state.reviews.join("; ")}.` : "");
+  const groups = {};
+  for (const s of state.skills) (groups[s.group] ||= []).push(s);
+  $("#skills").innerHTML = Object.entries(groups).map(([g, list], i) => {
+    const done = list.filter((s) => s.mastered).length;
+    const open = i === 0 || (done > 0 && done < list.length);
+    return `<details class="chapter" ${open ? "open" : ""}><summary><span class="t">${esc(g)}</span><span class="c">${done}/${list.length}</span></summary>
+      ${list.map((s) => `<div class="skill ${s.mastered ? "done" : ""}"><div class="top"><span>${esc(s.name)}</span>
+        <span class="caption num-tab">${s.seen ? Math.round(s.p * 100) + "%" : "—"}</span></div>
+        <div class="meter"><i style="width:${s.seen ? (s.p * 100).toFixed(1) : 0}%"></i><span class="thr" style="left:${state.threshold * 100}%"></span></div></div>`).join("")}
+    </details>`;
+  }).join("");
+}
+
+function renderReport(rep) {
+  if (rep.pending) return `<p class="muted small">${esc(rep.photo)}: ${esc(rep.message)}</p>`;
+  if (rep.error) return `<p class="err small">${esc(rep.photo)}: ${esc(rep.error === "no packet code on the page and no open packet" ? "No packet code was found on that page and no packet is open. Write the code (like L3) at the top and try again." : rep.error)}</p>`;
+  let h = `<div class="caption" style="margin-top:6px">Packet ${esc(rep.packet)} · ${fmtDate(rep.at)}</div>`;
+  for (const p of rep.problems) {
+    if (p.status !== "graded") { h += `<div class="problem"><div class="head"><span class="n">${p.number}</span><span class="caption">${esc(p.status)}</span></div></div>`; continue; }
+    const v = p.skipped ? ["skip", "Skipped"] : p.correct ? ["yes", "Correct"] : ["no", "Not yet"];
+    h += `<div class="problem"><div class="head"><span class="n">${p.number}</span><span class="verdict ${v[0]}">${v[1]}</span>
+      ${p.attempts > 1 ? `<span class="caption">after a fresh start</span>` : ""}</div>`;
+    if (p.prompt) h += `<p class="statement">${typstToTex(p.prompt)}</p>`;
+    if (p.lines.length) {
+      h += `<ol class="work">` + p.lines.map((l, i) => `<li class="${l.crossed_out ? "x" : ""} ${l.status === "invalid" ? "bad" : ""}">
+        <span class="ln">${i + 1}</span><span><span class="tx ${l.boxed ? "boxed" : ""}">${esc(l.text)}</span>
+        ${l.status === "invalid" ? `<br><span class="why">${esc(l.note && l.note !== "solution set changed" ? l.note : "this line doesn’t follow from the one before")}</span>` : ""}</span></li>`).join("") + `</ol>`;
+    }
+    if (!p.correct && !p.skipped) h += `<div class="small muted">Your answer: ${esc(p.final_answer ?? "none found")}${p.final_note ? ` · ${esc(p.final_note.replace("the answer is", "the book’s answer is"))}` : ""}
+      ${p.packet_kind === "diagnostic" ? ` <button class="linkish" data-recheck="${esc(p.problem_id)}">recheck</button>` : ""}</div>`;
+    if (p.misconception_text) h += `<div class="diagnosis"><b>What the work shows</b> ${esc(p.misconception_text)}</div>`;
+    if (p.problem_id) {
+      const opts = p.lines.map((l, i) => `<option value="${i + 1}" ${l.status === "invalid" ? "selected" : ""}>line ${i + 1}</option>`).join("");
+      h += `<div class="ask"><button class="linkish" data-ask="${esc(p.problem_id)}">Ask about this problem</button>
+        <div class="hidden" id="ask-${esc(p.problem_id)}">
+          <textarea placeholder="What would you like to know? For example: why is line 2 wrong?" maxlength="1000"></textarea>
+          <div class="row"><select aria-label="Which line"><option value="">the whole problem</option>${opts}</select>
+          <button class="btn" data-send="${esc(p.problem_id)}">Ask</button></div>
+          <div class="answers"></div></div></div>`;
+    }
+    if (p.changes && p.changes.length) h += `<div class="changes">${p.changes.map((c) => `${esc(c.name)}: ${Math.round(c.before * 100)}% → ${Math.round(c.after * 100)}%`).join(" · ")}</div>`;
+    h += `</div>`;
+  }
+  return h;
+}
+
+function noteHtml(a) {
+  return `<div class="note">${a.question ? `<span class="q">You asked${a.line ? ` about line ${a.line}` : ""}:</span> <span style="font-style:normal">${esc(a.question)}</span><br>` : ""}
+    ${esc(a.reply).replace(/\$([^$]+)\$/g, (m) => m)}${a.canonical ? `<div class="canon">${esc(a.canonical)}</div>` : ""}</div>`;
+}
+
+document.addEventListener("click", async (ev) => {
+  const open = ev.target.closest("[data-ask]");
+  if (open) {
+    const box = document.getElementById(`ask-${open.dataset.ask}`);
+    box.classList.toggle("hidden");
+    if (!box.classList.contains("hidden") && !box.dataset.loaded) {
+      box.dataset.loaded = "1";
+      const past = await api(`/api/l/${LID}/questions/${open.dataset.ask}`).catch(() => []);
+      box.querySelector(".answers").innerHTML = past.map(noteHtml).join("");
+      mathify(box);
+    }
+    return;
+  }
+  const rc = ev.target.closest("[data-recheck]");
+  if (rc) {
+    rc.disabled = true;
+    try {
+      const r = await api(`/api/l/${LID}/problems/${rc.dataset.recheck}/recheck`, { method: "POST" });
+      rc.outerHTML = `<span class="caption">${r.changed ? (r.correct ? "Rechecked: now marked correct." : "Rechecked and changed.") : "Rechecked: no change."}</span>`;
+      if (r.changed) await load(true);
+    } catch (e) { rc.outerHTML = `<span class="err">${esc(e.message)}</span>`; }
+    return;
+  }
+  const send = ev.target.closest("[data-send]");
+  if (!send) return;
+  const box = document.getElementById(`ask-${send.dataset.send}`);
+  const q = box.querySelector("textarea").value.trim();
+  if (!q) return;
+  const line = box.querySelector("select").value || null;
+  send.disabled = true;
+  const slot = document.createElement("div");
+  slot.className = "note muted"; slot.textContent = "Writing a note and checking every equation in it…";
+  box.querySelector(".answers").appendChild(slot);
+  try {
+    const r = await api(`/api/l/${LID}/ask`, { method: "POST", json: { problem_id: send.dataset.send, question: q, line } });
+    slot.outerHTML = noteHtml({ ...r, question: q, line });
+    box.querySelector("textarea").value = "";
+    mathify(box);
+  } catch (e) { slot.innerHTML = `<span class="err">${esc(e.message)}</span>`; }
+  send.disabled = false;
+});
+
+async function loadReports() {
+  const reps = await api(`/api/l/${LID}/reports`);
+  if (reps.length) { $("#reports").innerHTML = reps.slice(0, 6).map(renderReport).join(""); mathify($("#reports")); }
+}
+
+async function load(withReports) {
+  state = await api(`/api/l/${LID}/state`);
+  renderHeader(); renderNext(); renderPackets(); renderSkills();
+  if (withReports) await loadReports();
+}
+
+$("#upload").onsubmit = async (ev) => {
+  ev.preventDefault();
+  const files = [...$("#photo").files];
+  if (!files.length) { $("#photoMsg").textContent = "Choose a photo first."; return; }
+  $("#uploadBtn").disabled = true; $("#photoMsg").textContent = "";
+  let done = 0;
+  for (const f of files) {
+    const fd = new FormData(); fd.append("photo", f);
+    try {
+      const { job } = await api(`/api/l/${LID}/photos`, { method: "POST", body: fd });
+      const rep = await runJob(job, $("#photoLedger"));
+      $("#reports").innerHTML = renderReport(rep) + ($("#reports").querySelector(".problem, .caption") ? $("#reports").innerHTML : "");
+      mathify($("#reports"));
+      done++;
+    } catch (e) { $("#photoMsg").innerHTML = `<span class="err">${esc(f.name)}: ${esc(e.message)}</span>`; }
+  }
+  if (done) $("#photoMsg").innerHTML = `<span class="ok">${done} page${done > 1 ? "s" : ""} checked. The feedback is below.</span>`;
+  $("#uploadBtn").disabled = false; $("#photo").value = "";
+  await load(false);
+};
+const dz = $("#upload");
+dz.ondragover = (e) => { e.preventDefault(); dz.classList.add("drag"); };
+dz.ondragleave = () => dz.classList.remove("drag");
+dz.ondrop = (e) => { e.preventDefault(); dz.classList.remove("drag"); $("#photo").files = e.dataTransfer.files; };
+
+window.addEventListener("load", () => {});
+load(true).catch((e) => { $("#next").innerHTML = `<p class="err">${esc(e.message)}</p>`; });
+</script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Marginalia · Sign in</title>
+<link rel="stylesheet" href="/static/book.css">
+</head>
+<body>
+<header class="masthead">
+  <a class="brand" href="/"><span class="orn">❦</span>Marginalia</a>
+  <nav><a href="/">The book</a></nav>
+  <div class="rule"></div>
+</header>
+<main class="narrow">
+  <section class="leaf">
+    <div class="kicker" id="kicker">Welcome back</div>
+    <h2 id="title">Sign in</h2>
+    <hr class="title-rule">
+    <form id="form" novalidate>
+      <div id="signupOnly" class="hidden">
+        <label class="field"><span>Your name</span><input type="text" id="name" autocomplete="name" maxlength="80"></label>
+      </div>
+      <label class="field"><span>Email</span><input type="email" id="email" autocomplete="email" required></label>
+      <label class="field"><span>Password</span><input type="password" id="password" autocomplete="current-password" required minlength="10"></label>
+      <div id="signupOnly2" class="hidden">
+        <label class="field"><span>Access code</span><input type="text" id="code" autocomplete="off" spellcheck="false" style="text-transform:uppercase"></label>
+        <p class="caption">Use at least 10 characters for the password. By creating an account you agree to the <a href="/terms">terms</a>
+          and confirm you have read the <a href="/privacy">privacy notice</a>.</p>
+      </div>
+      <div class="row"><button class="btn primary" id="submit" type="submit">Sign in</button>
+        <a class="linkish" id="switch" href="/signup">Create an account instead</a></div>
+      <p id="msg" class="err" role="alert"></p>
+    </form>
+  </section>
+</main>
+<script src="/static/book.js"></script>
+<script>
+const signup = location.pathname === "/signup";
+if (signup) {
+  $("#kicker").textContent = "A new book";
+  $("#title").textContent = "Create an account";
+  $("#signupOnly").classList.remove("hidden");
+  $("#signupOnly2").classList.remove("hidden");
+  $("#submit").textContent = "Create the account";
+  $("#switch").textContent = "I already have an account";
+  $("#switch").href = "/signin";
+  $("#password").autocomplete = "new-password";
+  document.title = "Marginalia · Create an account";
+}
+$("#form").onsubmit = async (e) => {
+  e.preventDefault();
+  $("#msg").textContent = "";
+  $("#submit").disabled = true;
+  try {
+    const body = { email: $("#email").value, password: $("#password").value };
+    if (signup) Object.assign(body, { name: $("#name").value, code: $("#code").value });
+    await api(signup ? "/api/auth/signup" : "/api/auth/signin", { method: "POST", json: body });
+    location.href = "/home";
+  } catch (err) {
+    $("#msg").textContent = err.message;
+    $("#submit").disabled = false;
+  }
+};
+</script>
+</body>
+</html>

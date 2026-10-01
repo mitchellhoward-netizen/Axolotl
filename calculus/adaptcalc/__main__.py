@@ -10,6 +10,8 @@
   watch [--once]          watch ./inbox for photos
   grade PACKET "1:c 2:x"  grade without a photo (c = correct, x = wrong, s = skipped)
   serve [--host --port]   the browser app (http://127.0.0.1:8000; HOST/PORT env also work)
+  codes [--add CODE --uses N --note TEXT]   pilot access codes for sign-up
+  owner EMAIL             create the owner account (password from ADAPTCALC_OWNER_PASSWORD or a prompt)
   warm                    download the book, figures, fonts and Typst packages (for images)
 """
 from __future__ import annotations
@@ -139,35 +141,68 @@ def cmd_warm(a):
     assets.ensure_fonts()
     for img in sorted(paths.MEDIA_DIR.glob("*.jpg")):
         assets.duotone(img.name)
-    # figures inside the subsections that refresh packets print
-    n = 0
-    for s in extract.skills().values():
-        for part in s.get("lesson") or []:
-            mod = extract.module(part["book"], part["section"])
-            for sub in part["subsections"]:
-                sec = extract.find_subsection(mod, sub["title"])
-                for b in cnxml.walk([sec]) if sec else []:
-                    if b["t"] == "figure":
-                        for name in b["images"]:
-                            assets.duotone(name)
-                            n += 1
-    print(f"warm: {n} refresh figures")
+    # figures (and the small images inside worked-step tables) in every lesson of every course
+    def images_in(node):
+        if isinstance(node, dict):
+            if node.get("t") == "figure":
+                yield from node.get("images", [])
+            if node.get("k") == "img":
+                yield node["src"]
+            for v in node.values():
+                yield from images_in(v)
+        elif isinstance(node, list):
+            for v in node:
+                yield from images_in(v)
+
+    n, seen = 0, set()
+    for course in sorted(p.name for p in paths.COURSES_DIR.iterdir() if (p / "skills.json").exists()):
+        with paths.use_course(course):
+            for s in extract.skills().values():
+                for part in s.get("lesson") or []:
+                    mod = extract.module(part["book"], part["section"])
+                    for sub in part["subsections"]:
+                        sec = extract.find_subsection(mod, sub["title"] or extract.OPENING)
+                        for name in images_in(sec) if sec else []:
+                            if name not in seen:
+                                seen.add(name)
+                                assets.duotone(name)
+                                n += 1
+    print(f"warm: {n} lesson figures")
     # first compile downloads the cetz Typst package into the image
     render.compile_typst(render.doc_head("warm", "warm", "W") + "#cetz.canvas({ cetz.draw.line((0, 0), (1, 1)) })\n",
                          paths.BUILD / "warm.pdf")
-    print("warm: source, figures, fonts and Typst packages cached")
+    assets.ensure_web_assets()
+    print("warm: source, figures, fonts, KaTeX and Typst packages cached")
 
 
 def cmd_serve(a):
-    from . import assets, web
+    from . import web
 
-    if a.host not in ("127.0.0.1", "localhost") and not os.environ.get("ADAPTCALC_PASSWORD") \
-            and not os.environ.get("ADAPTCALC_ALLOW_OPEN"):
-        sys.exit("Refusing to serve on a public address without ADAPTCALC_PASSWORD "
-                 "(set it, or ADAPTCALC_ALLOW_OPEN=1 to override).")
-    assets.ensure_fonts()
     print(f"open http://{a.host}:{a.port}")
     web.serve(a.host, a.port)
+
+
+def cmd_codes(a):
+    """Pilot access codes: list them, or add one (python -m adaptcalc codes --add CODE --uses 10)."""
+    from . import accounts
+
+    acc = accounts.Accounts()
+    if a.add is not None:
+        code = acc.add_code(a.add, a.uses, a.note or "")
+        print(f"added {code} ({a.uses} uses)")
+    for c in acc.codes():
+        print(f"{c['code']:<16} {c['uses_left']:>4} uses left  {c['note'] or ''}")
+
+
+def cmd_owner(a):
+    """Create the owner account (may use personal-study courses)."""
+    import getpass
+
+    from . import accounts
+
+    pw = os.environ.get("ADAPTCALC_OWNER_PASSWORD") or getpass.getpass("password: ")
+    fid = accounts.Accounts().create_family(a.email, pw, name="Owner", role="owner")
+    print(f"owner account {a.email} created ({fid})")
 
 
 def main(argv=None):
@@ -200,6 +235,14 @@ def main(argv=None):
     rc = sub.add_parser("recheck")
     rc.add_argument("problems", nargs="+")
     rc.set_defaults(fn=cmd_recheck)
+    cd = sub.add_parser("codes")
+    cd.add_argument("--add", nargs="?", const="", default=None, help="add a code (blank: random)")
+    cd.add_argument("--uses", type=int, default=10)
+    cd.add_argument("--note")
+    cd.set_defaults(fn=cmd_codes)
+    ow = sub.add_parser("owner")
+    ow.add_argument("email")
+    ow.set_defaults(fn=cmd_owner)
     sv = sub.add_parser("serve")
     sv.add_argument("--host", default=os.environ.get("HOST", "127.0.0.1"))
     sv.add_argument("--port", type=int, default=int(os.environ.get("PORT", 8000)))

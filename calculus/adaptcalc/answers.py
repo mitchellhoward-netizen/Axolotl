@@ -234,6 +234,17 @@ def _grade(key: dict, student: str | None) -> tuple[bool, str]:
     if student is None or not str(student).strip():
         return False, "no final answer"
     student = str(student).strip()
+    m = re.fullmatch(r"Eq\((.+)\)", student)
+    if m:  # a transcribed equation line: read it as lhs = rhs
+        try:
+            e = sp.sympify(student, locals={"Eq": sp.Eq})
+            if isinstance(e, sp.Equality):
+                student = f"{sp.sstr(e.lhs)} = {sp.sstr(e.rhs)}"
+        except Exception:  # noqa: BLE001
+            pass
+    m = re.fullmatch(r"Tuple\((.+)\)", student)
+    if m:
+        student = f"({m.group(1)})"
     if key["kind"] not in ("choice", "point", "points", "ineq", "equation", "set"):
         student = re.sub(r"^\s*(lim.*?=|[a-zA-Zδε]+\s*=)\s*", "", student)
     kind = key["kind"]

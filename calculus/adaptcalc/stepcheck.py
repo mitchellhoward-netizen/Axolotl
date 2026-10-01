@@ -70,6 +70,14 @@ def _is_label(e, idx: int, n: int, raw: str = "") -> bool:
     return idx == 0 and n > 1 and isinstance(e, sp.Symbol) and e not in PROBLEM_VARS
 
 
+def _ineq_set(s: str):
+    """Solution set (over the reals) of an inequality line such as '3*x - 2 < 7' or '-2 <= x < 5'."""
+    try:
+        return answers.parse_solution_set(s)
+    except Exception:  # noqa: BLE001
+        return None
+
+
 def _limit_parts(e):
     if isinstance(e, sp.Limit):
         f, var, pt, d = e.args
@@ -160,6 +168,7 @@ def check(tproblem: dict, key: dict) -> dict:
     out_lines = []
     prev_last = None      # last checkable part of the previous chain
     prev_eq = None        # previous equation
+    prev_ineq = None      # solution set of the previous inequality
     ctx_limit = None
     first_invalid = None
     for i, ln in enumerate(lines, 1):
@@ -171,6 +180,21 @@ def check(tproblem: dict, key: dict) -> dict:
             out_lines.append({"line": i, "status": "text"})
             continue
         steps = []
+        if re.search(r"(?<![-=])[<>]", s) and "->" not in s:
+            # an inequality step: it must keep the solution set of the previous inequality
+            cur = _ineq_set(s)
+            if prev_ineq is not None and cur is not None:
+                steps.append(("valid", "") if cur == prev_ineq else ("invalid", "solution set changed"))
+            elif prev_ineq is not None:
+                steps.append(("unchecked", "inequality step not checkable"))
+            prev_ineq = cur
+            prev_eq, prev_last = None, None
+            worst = "start" if not steps else steps[0][0]
+            out_lines.append({"line": i, "status": worst, "steps": len(steps), "note": "; ".join(n for _, n in steps if n)})
+            if worst == "invalid" and first_invalid is None:
+                first_invalid = i
+            continue
+        prev_ineq = None
         if s.startswith("Eq("):
             e = _parse(s)
             if prev_eq is not None and e is not UNPARSEABLE:

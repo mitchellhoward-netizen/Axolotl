@@ -18,7 +18,7 @@ from pathlib import Path
 
 MODEL = "claude-opus-5-5"
 
-INSTRUCTIONS = """You are transcribing a photo of a student's handwritten calculus work.
+INSTRUCTIONS = """You are transcribing a photo of a student's handwritten math work (arithmetic, algebra or calculus).
 
 How the page is written:
 - Each problem starts with its number (e.g. "3." or "#3" or a circled 3). A packet code such as "D1" may be written at the top of the page.
@@ -28,14 +28,17 @@ How the page is written:
 - If the student wrote "skip" (or left the problem blank after the number), set skipped=true.
 
 For each line give:
-- text: exactly what is written, in plain linear notation (use lim_(x->2), sqrt(), ^, /, |x|, ∞, ε, δ). Do not fix mistakes.
+- text: exactly what is written, in plain linear notation (use lim_(x->2), sqrt(), ^, /, |x|, ∞, ε, δ, ±, ≤, ≥). Do not fix mistakes.
 - sympy: the mathematics of the line as SymPy syntax, or "" for words-only lines.
   * A chain of equal quantities is written with " = " between the parts, exactly as the student chained them:
     "f(2) = 4 - 3 = 1", "m = (6 - 1)/(3 - 2)", "Limit((x**2 - 4)/(x - 2), x, 2) = Limit(x + 2, x, 2) = 4".
     If the line starts with "=", leave the leading "=" out of sympy and set continues=true.
   * An equation to be solved (not a chain of equal quantities) is written Eq(lhs, rhs), e.g. Eq(x**2 + 11*x + 30, 0).
   * Write limits as Limit(expr, x, a) for two-sided, Limit(expr, x, a, '-') or Limit(expr, x, a, '+') for one-sided. Use oo for infinity.
-  * Inequalities: use <, <=, >, >= directly.
+  * Inequalities: use <, <=, >, >= directly, e.g. "3*x - 2 < 7" or "-2 <= x" (one inequality per line).
+  * An ordered pair or a system's solution is written Tuple(3, -2). Interval notation is written as the student wrote it in text, with sympy "".
+  * A line with a plus-or-minus sign (±): copy it into text with ±, and leave sympy "".
+  * Word answers ("no solution", "identity", "contradiction", "yes") go in text with sympy "".
   * Use * for multiplication, ** for powers, sqrt(), Abs(), sin(), cos(), pi, E, epsilon, delta.
   * Transcribe what the student wrote, including errors. Never correct the mathematics.
 - continues: true when the line begins with "=" and continues the previous line's chain.

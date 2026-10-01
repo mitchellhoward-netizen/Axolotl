@@ -23,6 +23,13 @@ def key_plain(key: dict) -> str:
         return str(sp.sympify(v))
     if key["kind"] == "set":
         return ", ".join(v)
+    if key["kind"] == "point":
+        return f"({v[0]}, {v[1]})"
+    if key["kind"] == "equation":
+        return key.get("display") or str(v)
+    if key["kind"] == "ineq":
+        iv = sp.sympify(v)
+        return str(iv).replace("Interval.open", "").replace("Interval.Lopen", "").replace("Interval.Ropen", "").replace("Interval", "")
     return str(v)
 
 
@@ -53,11 +60,15 @@ def resolve_packet(db: LearnerDB, code: str | None) -> str | None:
     return op["id"] if op else None
 
 
-def process_photo(db: LearnerDB, photo: Path, transcriber=None, jev_client=None, move: bool = True) -> dict:
+def process_photo(db: LearnerDB, photo: Path, transcriber=None, jev_client=None, move: bool = True,
+                  progress=None) -> dict:
+    """`progress(stage)` (optional) is told what is happening, for a page that shows it."""
+    say = progress or (lambda stage: None)
     photo = Path(photo)
     transcriber = transcriber or transcribe.default_transcriber()
     op = db.open_packet()
     context = transcribe.packet_context(db.problems(op["id"])) if op else ""
+    say("Reading the page")
     doc = transcriber.transcribe(photo, context)
     pid = resolve_packet(db, doc.get("packet_code"))
     report = {"photo": photo.name, "transcriber": transcriber.backend, "packet": pid,
@@ -66,7 +77,9 @@ def process_photo(db: LearnerDB, photo: Path, transcriber=None, jev_client=None,
         report["error"] = "no packet code on the page and no open packet"
         return report
     library_all = extract.misconceptions()
-    for tp in doc["problems"]:
+    total = len(doc["problems"])
+    for k, tp in enumerate(doc["problems"], 1):
+        say(f"Checking problem {tp['number']} ({k} of {total})")
         prid = f"{pid}-{tp['number']:02d}"
         prob = db.problem(prid)
         entry = {"number": tp["number"], "problem_id": prid}
