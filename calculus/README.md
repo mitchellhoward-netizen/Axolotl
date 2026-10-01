@@ -83,6 +83,25 @@ project's keys, never copies), `ADAPTCALC_ACCESS_CODES`, `ADAPTCALC_OWNER_EMAIL`
 * **Mastery before moving on**: one new skill per lesson; a skill counts as learned after three checked problems or diagnostic placement.
 * **Guardrailed AI**: margin notes are checked with SymPy, the notation registry and Jev (no answer give-aways unless asked, no ideas the book hasn't taught); otherwise the book's worked example is shown.
 
+## What a family does (`adaptcalc/flow.py`)
+
+Print, and scan. Nothing else is asked of anyone:
+
+1. Sign up with the child's first name and grade (`flow.GRADES` maps the grade to a course and
+   starting point). The first pages are written at once and emailed with the PDF attached.
+2. The child works right on the printed pages. The first page carries a QR code for grown-ups:
+   it opens `/s/<learner>/<pages>/<signature>` on any phone, without signing in (an HMAC-signed
+   link that can only send in photos of those pages and see how they went).
+3. Each photo is read and checked; only the problems printed on that sheet count
+   (`pipeline.problem_positions`). The reader also says where each problem sits in the photo.
+4. The child's book (`/learn/<id>`) gets the page back: the photo, marked beside each problem in
+   a teacher's hand, with the notes facing it.
+5. When every problem in the set is checked, the next pages are made by themselves (more
+   getting-to-know-you pages until the diagnostic settles, then lessons) and emailed.
+
+The learner page is the child's own book, opening at today's page, with one note above it
+saying the single thing to do now; the course textbook is behind it in a second tab.
+
 ## The bound book (`adaptcalc/volume.py`, `typst/volume.typ`)
 
 Each course is also one whole textbook: cover, contents, chapters that follow the source book's
