@@ -162,6 +162,11 @@ class Parser:
             return [{"k": "ref", "s": "the text"}]
         if tag in ("label", "title"):
             return []
+        if tag == "media":
+            img = el.find(C + "image")
+            if img is not None and img.get("src"):
+                return [{"k": "img", "src": Path(img.get("src")).name, "alt": el.get("alt", "")}]
+            return []
         # Fallback: keep text of unknown inline wrappers (foreign, quote, code...)
         return self.inlines(el)
 
@@ -193,6 +198,27 @@ class Parser:
         eid = el.get("id")
         if tag == "para":
             title = el.find(C + "title")
+            if any(local(ch.tag) in ("table", "list") for ch in el):
+                # a table or list nested in a paragraph (worked-solution step tables): lift it out
+                out, pending = [], ([{"k": "text", "s": el.text}] if el.text else [])
+
+                def flush():
+                    if pending and any(i.get("s", "x").strip() for i in pending):
+                        out.append({"t": "para", "id": eid if not out else None, "inl": _merge_text(list(pending))})
+                    pending.clear()
+
+                for ch in el:
+                    if local(ch.tag) in ("table", "list"):
+                        flush()
+                        out.extend(self.block(ch) or [])
+                    else:
+                        pending.extend(self.inline(ch))
+                    if ch.tail:
+                        pending.append({"k": "text", "s": ch.tail})
+                flush()
+                if title is not None and out and out[0]["t"] == "para":
+                    out[0]["title"] = self.inlines(title)
+                return out
             b = {"t": "para", "id": eid, "inl": self.inlines(el)}
             if title is not None:
                 b["title"] = self.inlines(title)

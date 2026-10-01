@@ -42,6 +42,7 @@ class Problem:
     figure: dict | None = None
     options: list[tuple[str, str]] | None = None  # multiple choice (label, typst)
     verification: str = ""
+    solution: list[str] | None = None  # worked solution, one Typst math line per step (for the key and fading)
 
     def to_json(self) -> dict:
         return asdict(self)
@@ -105,7 +106,7 @@ def generate(template_id: str, seed: int, max_tries: int = 40) -> Problem:
                        key=out["key"], key_display=out["display"], requires=tpl.requires,
                        substeps=out.get("substeps", tpl.substeps), strategies=tpl.strategies,
                        work_lines=out.get("work_lines", tpl.work_lines), figure=out.get("figure"),
-                       options=out.get("options"), verification=out["verified"])
+                       options=out.get("options"), verification=out["verified"], solution=out.get("solution"))
     raise RuntimeError(f"{template_id}: could not produce a verified problem ({last})")
 
 

@@ -35,6 +35,7 @@ def norm_ws(s: str) -> str:
 class Ctx:
     select: callable = lambda b: True           # which boxes/examples/checkpoints to print
     before: dict = field(default_factory=dict)  # block id -> list of typst snippets to insert before it
+    after: dict = field(default_factory=dict)   # block id -> list of typst snippets to insert after it
     runs: list = field(default_factory=list)    # canonical text runs printed (for the audit)
     omitted: list = field(default_factory=list)
     printed_ids: list = field(default_factory=list)
@@ -71,7 +72,22 @@ def inl(items: list[dict], ctx: Ctx, record: bool = True) -> str:
             out.append(f'#"{esc(i["s"])}"')
         elif k == "br":
             out.append("#linebreak()")
+        elif k == "img":
+            out.append(inline_image(i["src"]) if ctx.images else f'#"{esc(i.get("alt", ""))}"')
     return "".join(out)
+
+
+def inline_image(name: str) -> str:
+    """A small image that stands in for text inside a worked step (e.g. a highlighted substitution),
+    sized to the text around it."""
+    from PIL import Image
+
+    p = assets.duotone(name)
+    rel = "/" + str(p.relative_to(paths.ROOT))
+    w, h = Image.open(p).size
+    lines = max(1.0, min(5.0, h / 46))
+    return f'#box(baseline: 22%, image("{rel}", height: {0.95 * lines:.2f}em))'
+
 
 
 # ---------------------------------------------------------------------------
@@ -92,6 +108,13 @@ def blocks(bs: list[dict], ctx: Ctx, in_solution: bool = False) -> str:
 
 
 def block(b: dict, ctx: Ctx, in_solution: bool = False) -> str:
+    out = _block(b, ctx, in_solution)
+    if b.get("id") in ctx.after and out:
+        out = (out if out.endswith("\n") else out + "\n") + "\n".join(ctx.after[b["id"]]) + "\n"
+    return out
+
+
+def _block(b: dict, ctx: Ctx, in_solution: bool = False) -> str:
     t = b["t"]
     pre = ""
     if b.get("id") in ctx.before:
@@ -126,6 +149,8 @@ def block(b: dict, ctx: Ctx, in_solution: bool = False) -> str:
             ctx.omitted.append(b.get("label") or cnxml.plain(b["title"]) or b["kind"])
             return pre
         kind = b["kind"]
+        if kind == "checkpoint":
+            ctx.current_label = b.get("label") or "Try It"
         body = blocks(b["blocks"], ctx, in_solution)
         title = inl(b["title"], ctx)
         if kind == "definition":
@@ -154,7 +179,9 @@ def block(b: dict, ctx: Ctx, in_solution: bool = False) -> str:
         if b["solution"]:
             # the book prints checkpoint answers at the back; they go to the packet's key
             sctx = Ctx()
-            ctx.solutions.append(blocks(b["solution"], sctx))
+            label = getattr(ctx, "current_label", None)
+            head = f'#text(font: sans, size: 8.5pt, weight: "bold", fill: spot)[{esc(label)}] #h(0.4em) ' if label else ""
+            ctx.solutions.append(head + blocks(b["solution"], sctx))
         return pre + prob
     if t == "section":
         cls = b.get("class", "")
@@ -239,7 +266,8 @@ def graph_markup(fig: dict) -> str:
 
 def display_inline(markup: str) -> str:
     """Problem statements use display-style math inline, as printed exercise sets do."""
-    return re.sub(r"\$\s*(.+?)\s*\$", lambda m: f"$display(#${m.group(1)}$)$", markup)
+    # an escaped \$ (money) is text, not a math delimiter
+    return re.sub(r"(?<!\\)\$\s*(.+?)\s*(?<!\\)\$", lambda m: f"$display(#${m.group(1)}$)$", markup)
 
 
 def problem_markup(num: int, p: dict) -> str:
@@ -254,7 +282,15 @@ def problem_markup(num: int, p: dict) -> str:
                + ", ".join(f"text(size: 9pt, {c})" for c in cells) + "))")
     elif f and f["type"] == "graph":
         fig = "align(center)[" + graph_markup(f) + "]"
-    return f"#problem({num}, [{body}], space: {p.get('work_lines', 6)}, figure: {fig})\n"
+    extra = ""
+    if p.get("review"):
+        extra += ', tag: "review"'
+    space = p.get("work_lines", 6)
+    if p.get("faded") and p.get("solution"):
+        given = p["solution"][:p["faded"]]
+        extra += ", given: (" + ", ".join(f"[${g}$]" for g in given) + ",)"
+        space = max(3, space - len(given))
+    return f"#problem({num}, [{body}], space: {space}, figure: {fig}{extra})\n"
 
 
 # ---------------------------------------------------------------------------
@@ -298,13 +334,26 @@ def verbatim_audit(pdf: Path, runs: list[str]) -> dict:
 
 
 def attribution() -> str:
+    """The credit line for the active course's books."""
+    from . import extract
     from .source import attribution_line
 
+    books = [b["id"] for b in extract.course_source().get("books", [])]
+    if books:
+        return " ".join(attribution_line(b) for b in books)
     return attribution_line("calc1") + " Personal study only (non-commercial license)."
+
+
+def course_kicker() -> str | None:
+    from . import extract
+
+    src = extract.course_source()
+    return src.get("title") if src.get("books") else None
 
 
 def doc_head(title: str, running: str, code: str, attribution_text: str | None = None,
              kicker: str | None = None) -> str:
+    kicker = kicker or course_kicker()
     k = f', kicker: [#smallcaps[#"{esc(kicker)}"]]' if kicker else ""
     return (TEMPLATE_IMPORT +
             f'#show: book.with(title: "{esc(title)}", running: [{esc(running)}], code: "{code}", '

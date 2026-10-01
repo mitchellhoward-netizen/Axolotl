@@ -86,6 +86,48 @@ def signed(c) -> str:
     return f"+ {c}" if c >= 0 else f"- {-c}"
 
 
+def sol_eqs(*eqs, var=x) -> list[str]:
+    """Worked solution lines for an equation: every line must have the same solution set as the
+    first (SymPy), so a faded solution never shows a false step."""
+    want = sp.solveset(eqs[0].lhs - eqs[0].rhs, var, sp.S.Reals)
+    out = []
+    for e in eqs:
+        got = sp.solveset(e.lhs - e.rhs, var, sp.S.Reals)
+        check(got == want, f"step {e} changes the solutions")
+        out.append(eqt(e.lhs, e.rhs))
+    return out
+
+
+def dedupe(lines: list[str]) -> list[str]:
+    """Drop a step that repeats the line before it (e.g. when a coefficient is 1)."""
+    out = []
+    for ln in lines:
+        if not out or out[-1].replace("= ", "", 1) != ln.replace("= ", "", 1):
+            out.append(ln)
+    return out
+
+
+def signed_terms(e) -> str:
+    """'+ 5 x^(2) - 7 x - 6': the terms of e, each with its sign written out."""
+    out = []
+    for term in sp.Add.make_args(sp.expand(e)):
+        neg = term.could_extract_minus_sign()
+        out.append(f"{'-' if neg else '+'} {T(-term if neg else term)}")
+    return " ".join(out)
+
+
+def UE(*args):
+    """Unevaluated product/sum for showing a step as written."""
+    return args
+
+
+def interval_t(iv) -> str:
+    """Interval notation in Typst: (3, infinity), [-2, 5)."""
+    lo = "-infinity" if iv.start == -sp.oo else T(iv.start)
+    hi = "infinity" if iv.end == sp.oo else T(iv.end)
+    return f"{'(' if iv.left_open else '['}{lo}, {hi}{')' if iv.right_open else ']'}"
+
+
 def interval_key(sol_set):
     return {"kind": "ineq", "value": sp.srepr(sol_set), "var": "x"}
 
@@ -422,8 +464,11 @@ def _(rng):
         lhs, rhs = sp.Rational(p_, q_) * x, sp.Rational(p_, q_) * sol
         tp = f"frac({p_}, {q_}) x = {T(rhs)}"
     check(_solve_one(sp.Eq(lhs, rhs)) == sol, "solve")
+    coef = lhs / x
+    steps = sol_eqs(sp.Eq(lhs, rhs, evaluate=False), sp.Eq(x, rhs / coef, evaluate=False))
+    steps = [tp, f"frac({T(lhs)}, {T(coef)}) = frac({T(rhs)}, {T(coef)})" if form == "coef" else f"{T(1 / coef)} dot {T(lhs)} = {T(1 / coef)} dot {T(rhs)}", steps[1]]
     return {"prompt": f"Solve: ${tp}$.", "plain": f"Solve: {P(lhs)} = {P(rhs)}.", "key": V(sol),
-            "display": f"x = {sol}", "verified": f"sympy: solve = {sol}"}
+            "display": f"x = {sol}", "verified": f"sympy: solve = {sol}", "solution": steps}
 
 
 @template("lin_both_sides.solve", "lin_both_sides", requires=["lin_one_step", "f_like_terms"], guess=0.02, work_lines=5,
@@ -454,8 +499,13 @@ def _(rng):
     rhs = c_ * x + k2 + rhs_const
     tp = f"{a_} (x {signed(k1)}) = {T(c_ * x + k2 + rhs_const)}"
     check(_solve_one(sp.Eq(lhs, rhs)) == sol, "solve")
+    rhs_c = sp.expand(rhs - c_ * x)  # the constant on the right
+    lines = [tp, f"{T(sp.expand(lhs))} = {T(rhs)}", f"{T(a_ * x)} {signed_terms(-c_ * x)} = {T(rhs_c)} {signed_terms(-a_ * k1)}",
+             f"{T((a_ - c_) * x)} = {T(rhs_c - a_ * k1)}", f"x = {sol}"]
+    check(sp.solve(sp.Eq((a_ - c_) * x, rhs_c - a_ * k1), x) == [sol], "steps")
+    lines = dedupe(lines)
     return {"prompt": f"Solve: ${tp}$.", "plain": f"Solve: {a_}(x {signed(k1)}) = {P(c_ * x + k2 + rhs_const)}.",
-            "key": V(sol), "display": f"x = {sol}", "verified": f"sympy: solve = {sol}"}
+            "key": V(sol), "display": f"x = {sol}", "verified": f"sympy: solve = {sol}", "solution": lines}
 
 
 @template("lin_general.classify", "lin_general", requires=["lin_both_sides", "f_distributive"], guess=0.34, work_lines=4,
@@ -475,13 +525,13 @@ def _(rng):
     truth = "identity" if diff == 0 else ("contradiction" if not diff.free_symbols else "conditional")
     check(truth == kind, "classification")
     ans = {"identity": "identity", "contradiction": "contradiction", "conditional": "conditional"}[kind]
-    return {"prompt": f"Classify the equation as a conditional equation, an identity, or a contradiction, and give the solution: "
+    return {"prompt": f"Classify the equation as a conditional equation, an identity, or a contradiction: "
                       f"${a_} (x {signed(k)}) = {T(rhs)}$.",
             "plain": f"Classify {a_}(x {signed(k)}) = {P(rhs)} as conditional, identity or contradiction.",
             "key": {"kind": "choice", "value": ans, "aliases": {
-                "identity": ["all real numbers", "infinitely many", "identity all real numbers"],
-                "contradiction": ["no solution", "none", "contradiction no solution"],
-                "conditional": ["conditional equation"]}[ans]},
+                "identity": ["all real numbers", "infinitely many", "identity all real numbers", "an identity"],
+                "contradiction": ["no solution", "contradiction no solution", "a contradiction"],
+                "conditional": ["conditional equation", "a conditional equation"]}[ans]},
             "display": f"\"{ans}\"", "verified": f"sympy: expand(lhs - rhs) = {diff}"}
 
 
@@ -497,7 +547,11 @@ def _(rng):
     check(rhs.is_Integer, "integer right side")
     eq = sp.Eq(x / p_ + x / q_ - k, rhs)
     check(_solve_one(eq) == sol, "solve")
-    return {"prompt": f"Solve: $frac(1, {p_}) x + frac(1, {q_}) x - {k} = {rhs}$.",
+    cleared = sp.Eq(sp.expand(L * (x / p_ + x / q_ - k)), L * rhs, evaluate=False)
+    lines = sol_eqs(eq, cleared, sp.Eq(sp.expand(L * (x / p_ + x / q_)), L * rhs + L * k, evaluate=False), sp.Eq(x, sol, evaluate=False))
+    lines[0] = f"frac(1, {p_}) x + frac(1, {q_}) x - {k} = {rhs}"
+    lines.insert(1, f"{L} (frac(1, {p_}) x + frac(1, {q_}) x - {k}) = {L} ({rhs})")
+    return {"solution": lines, "prompt": f"Solve: $frac(1, {p_}) x + frac(1, {q_}) x - {k} = {rhs}$.",
             "plain": f"Solve: (1/{p_})x + (1/{q_})x - {k} = {rhs}.", "key": V(sol), "display": f"x = {sol}",
             "verified": f"sympy: solve = {sol}"}
 
@@ -537,7 +591,11 @@ def _(rng):
         eq, var, words = sp.Eq(d, r * t), t, "$d = r t$ for $t$"
     sol = sp.solve(eq, var)
     check(len(sol) == 1, "unique")
-    return {"prompt": f"Solve the formula {words}.", "plain": f"Solve the formula {words.replace('$', '')}.",
+    coef = sp.diff(eq.rhs - eq.lhs, var)  # the formula is linear in the variable
+    lines = [f"{T(eq.lhs)} = {T(eq.rhs)}", f"{T(coef * var)} = {T(sp.expand(coef * var - (eq.rhs - eq.lhs)))}",
+             f"{T(var)} = {T(sol[0])}"]
+    check(sp.simplify(sp.expand(coef * var - (eq.rhs - eq.lhs)) / coef - sol[0]) == 0, "steps")
+    return {"solution": lines, "prompt": f"Solve the formula {words}.", "plain": f"Solve the formula {words.replace('$', '')}.",
             "key": E(sol[0]), "display": f"{T(var)} = {T(sol[0])}", "verified": f"sympy: solve for {var} = {sol[0]}"}
 
 
@@ -554,9 +612,14 @@ def _(rng):
     sol = sp.solveset(ineq, x, sp.S.Reals)
     check(isinstance(sol, sp.Interval), "interval")
     tops = {"<": "<", "<=": "<=", ">": ">", ">=": ">="}[op]
-    return {"prompt": f"Solve the inequality and write the solution in interval notation: ${T(c * x + k)} {tops} {c * bnd + k}$.",
+    flip = {"<": ">", "<=": ">=", ">": "<", ">=": "<="}
+    op2 = flip[op] if c < 0 else op
+    lines = [f"{T(c * x + k)} {tops} {c * bnd + k}", f"{T(c * x)} {tops} {c * bnd}",
+             f"x {op2} {bnd}" + (" quad \"(divide by a negative: the inequality reverses)\"" if c < 0 else "")]
+    check(sp.solveset({"<": sp.Lt, "<=": sp.Le, ">": sp.Gt, ">=": sp.Ge}[op2](x, bnd), x, sp.S.Reals) == sol, "steps")
+    return {"solution": lines, "prompt": f"Solve the inequality and write the solution in interval notation: ${T(c * x + k)} {tops} {c * bnd + k}$.",
             "plain": f"Solve {P(c * x + k)} {op} {c * bnd + k}; interval notation.",
-            "key": interval_key(sol), "display": T(sol).replace("Interval", ""), "verified": f"sympy: solveset = {sol}"}
+            "key": interval_key(sol), "display": interval_t(sol), "verified": f"sympy: solveset = {sol}"}
 
 
 # ============================================================ Chapter 3: applications
@@ -576,7 +639,9 @@ def _(rng):
         words = f"The sum of three consecutive integers is {total}. Find the smallest of the three integers."
     step = 2 if kind == "odd" else 1
     check(_solve_one(sp.Eq(3 * n + 3 * step, total), n) == first, "solve")
-    return {"prompt": words, "plain": words, "key": V(first), "display": T(first), "verified": f"sympy: 3n + {3 * step} = {total} -> {first}"}
+    lines = [f"\"Let\" n = \"the smallest integer\"", f"n + (n + {step}) + (n + {2 * step}) = {total}",
+             f"3 n + {3 * step} = {total}", f"3 n = {total - 3 * step}", f"n = {first}"]
+    return {"solution": lines, "prompt": words, "plain": words, "key": V(first), "display": T(first), "verified": f"sympy: 3n + {3 * step} = {total} -> {first}"}
 
 
 @template("app_number.translate", "app_number", requires=["lin_general", "f_translate"], guess=0.02, work_lines=5,
@@ -600,13 +665,17 @@ def _(rng):
     part = sp.Rational(pct, 100) * base
     check(part.q == 1, "whole part")
     form = rng.choice(["find_base", "find_pct", "find_part"])
+    dec = f"{float(sp.Rational(pct, 100)):g}"
     if form == "find_base":
         q, ans, disp = f"{part} is {pct}% of what number?", base, T(base)
+        lines = [f"{part} = {dec} n", f"n = frac({part}, {dec}) = {base}"]
     elif form == "find_pct":
         q, ans, disp = f"What percent of {base} is {part}?", pct, f"{pct} %"
+        lines = [f"p dot {base} = {part}", f"p = frac({part}, {base}) = {dec} = {pct} %"]
     else:
         q, ans, disp = f"What is {pct}% of {base}?", part, T(part)
-    return {"prompt": q.replace("%", "\\%"), "plain": q, "key": V(ans), "display": disp,
+        lines = [f"n = {dec} dot {base}", f"n = {part}"]
+    return {"solution": lines, "prompt": q.replace("%", "\\%"), "plain": q, "key": V(ans), "display": disp,
             "verified": f"sympy: {pct}/100 * {base} = {part}"}
 
 
@@ -620,8 +689,10 @@ def _(rng):
     new = orig + sp.Rational(pct, 100) * orig * (1 if up else -1)
     check(new.q == 1, "whole")
     word = "increased" if up else "decreased"
+    chg = abs(new - orig)
+    change_lines = [f"\"change\" = {T(chg)}", f"frac({T(chg)}, {orig}) = {float(chg / orig):g} = {pct} %"]
     q = f"The price of a ticket {word} from {money(orig)} to {money(new)}. Find the percent {'increase' if up else 'decrease'}."
-    return {"prompt": q, "plain": q.replace("\\", ""), "key": V(pct), "display": f"{pct} %",
+    return {"solution": change_lines, "prompt": q, "plain": q.replace("\\", ""), "key": V(pct), "display": f"{pct} %",
             "verified": f"sympy: |{new} - {orig}|/{orig} = {pct}/100"}
 
 
@@ -634,11 +705,13 @@ def _(rng):
     yrs = rng.randint(2, 6)
     I = sp.Rational(Pp * rate * yrs, 100)
     form = rng.choice(["interest", "rate"])
+    rl = [f"I = P r t", f"I = {Pp} ({float(sp.Rational(rate, 100)):g}) ({yrs})", f"I = {T(I)}"] if form == "interest" else \
+        [f"I = P r t", f"{T(I)} = {Pp} dot r dot {yrs}", f"r = frac({T(I)}, {Pp * yrs}) = {float(sp.Rational(rate, 100)):g} = {rate} %"]
     if form == "interest":
         q, ans, disp = f"Find the simple interest earned on {money(Pp)} invested at {rate}% for {yrs} years.", I, money(I)
     else:
         q, ans, disp = f"An investment of {money(Pp)} earned {money(I)} in simple interest over {yrs} years. What was the annual interest rate, as a percent?", rate, f"{rate} %"
-    return {"prompt": q.replace("%", "\\%"), "plain": q.replace("\\", ""), "key": V(ans), "display": disp,
+    return {"solution": rl, "prompt": q.replace("%", "\\%"), "plain": q.replace("\\", ""), "key": V(ans), "display": disp,
             "verified": f"sympy: I = {Pp}*{rate}/100*{yrs} = {I}"}
 
 
@@ -665,7 +738,11 @@ def _(rng):
     q = (f"A jar holds only dimes and quarters. There are {extra} more quarters than dimes, and the coins are worth "
          f"{money(total)} in all. How many dimes are in the jar?")
     check(_solve_one(sp.Eq(sp.Rational(1, 10) * n + sp.Rational(1, 4) * (n + extra), total), n) == dimes, "solve")
-    return {"prompt": q, "plain": q.replace("\\", ""), "key": V(dimes), "display": T(dimes),
+    lines = [f"\"Let\" n = \"the number of dimes\", quad n + {extra} = \"the number of quarters\"",
+             f"0.10 n + 0.25 (n + {extra}) = {float(total):.2f}", f"0.35 n + {0.25 * extra:.2f} = {float(total):.2f}",
+             f"0.35 n = {float(total - sp.Rational(extra, 4)):.2f}", f"n = {dimes}"]
+    check(sp.Rational(35, 100) * dimes == total - sp.Rational(extra, 4), "steps")
+    return {"solution": lines, "prompt": q, "plain": q.replace("\\", ""), "key": V(dimes), "display": T(dimes),
             "verified": f"sympy: 0.10n + 0.25(n + {extra}) = {total} -> {dimes}"}
 
 
@@ -697,7 +774,11 @@ def _(rng):
     else:
         q, ans = f"A right triangle has hypotenuse {c_} and one leg of length {a_}. Find the length of the other leg.", b_
     check(a_ ** 2 + b_ ** 2 == c_ ** 2, "pythagorean")
-    return {"prompt": q, "plain": q, "key": V(ans), "display": T(ans), "verified": f"{a_}^2 + {b_}^2 = {c_}^2"}
+    if form == "hyp":
+        lines = [f"a^2 + b^2 = c^2", f"{a_}^2 + {b_}^2 = c^2", f"{a_ ** 2 + b_ ** 2} = c^2", f"c = sqrt({c_ ** 2}) = {c_}"]
+    else:
+        lines = [f"a^2 + b^2 = c^2", f"{a_}^2 + b^2 = {c_}^2", f"b^2 = {c_ ** 2} - {a_ ** 2} = {b_ ** 2}", f"b = sqrt({b_ ** 2}) = {b_}"]
+    return {"solution": lines, "prompt": q, "plain": q, "key": V(ans), "display": T(ans), "verified": f"{a_}^2 + {b_}^2 = {c_}^2"}
 
 
 @template("app_geometry.rectangle", "app_geometry", requires=["app_number"], guess=0.02, work_lines=5,
@@ -726,7 +807,8 @@ def _(rng):
     q = (f"Two cars leave the same town at the same time, driving in opposite directions. One travels {r1} mph and the "
          f"other {r2} mph. After how many hours will they be {dist} miles apart?")
     check(_solve_one(sp.Eq(r1 * t + r2 * t, dist), t) == tt, "solve")
-    return {"prompt": q, "plain": q, "key": V(tt), "display": f"{T(tt)} \"hours\"", "verified": f"sympy: ({r1}+{r2})t = {dist} -> {tt}"}
+    lines = [f"{r1} t + {r2} t = {dist}", f"{r1 + r2} t = {dist}", f"t = {T(tt)}"]
+    return {"solution": lines, "prompt": q, "plain": q, "key": V(tt), "display": f"{T(tt)} \"hours\"", "verified": f"sympy: ({r1}+{r2})t = {dist} -> {tt}"}
 
 
 @template("app_ineq.budget", "app_ineq", requires=["lin_ineq", "app_number"], guess=0.02, work_lines=5,
@@ -740,7 +822,9 @@ def _(rng):
     q = (f"A gym charges a {money(fee)} sign-up fee and {money(per)} per class. Maria can spend at most {money(budget)}. "
          f"What is the greatest number of classes she can take?")
     check(fee + per * most <= budget < fee + per * (most + 1), "bound")
-    return {"prompt": q, "plain": q.replace("\\", ""), "key": V(most), "display": T(most),
+    lines = [f"{fee} + {per} n <= {budget}", f"{per} n <= {budget - fee}", f"n <= {T(sp.Rational(budget - fee, per))}",
+             f"n = {most} quad \"(the greatest whole number)\""]
+    return {"solution": lines, "prompt": q, "plain": q.replace("\\", ""), "key": V(most), "display": T(most),
             "verified": f"{fee} + {per}n <= {budget} -> n <= {sp.Rational(budget - fee, per)} -> {most}"}
 
 
@@ -756,7 +840,9 @@ def _(rng):
     c_ = a_ * xv + b_ * yv
     q = f"Find the value of $y$ that makes $({xv}, y)$ a solution of ${T(a_ * x + b_ * y)} = {c_}$."
     check(_solve_one(sp.Eq(a_ * xv + b_ * y, c_), y) == yv, "solve")
-    return {"prompt": q, "plain": q.replace("$", ""), "key": V(yv), "display": f"y = {yv}", "verified": f"sympy: y = {yv}"}
+    lines = [f"{a_} ({xv}) + {T(b_ * y)} = {c_}", f"{a_ * xv} + {T(b_ * y)} = {c_}", f"{T(b_ * y)} = {c_ - a_ * xv}", f"y = {yv}"]
+    check(b_ * yv == c_ - a_ * xv, "steps")
+    return {"solution": lines, "prompt": q, "plain": q.replace("$", ""), "key": V(yv), "display": f"y = {yv}", "verified": f"sympy: y = {yv}"}
 
 
 @template("gr_points.verify", "gr_points", requires=["f_int_eval"], guess=0.5, work_lines=3,
@@ -785,7 +871,8 @@ def _(rng):
     xv = mv.q * rng.randint(-3, 3)
     yv = mv * xv + bv
     q = f"The line $y = {lin(mv, bv)}$ passes through the point $({xv}, y)$. Find $y$."
-    return {"prompt": q, "plain": f"The line y = {lin_p(mv, bv)} passes through ({xv}, y). Find y.", "key": V(yv),
+    lines = [f"y = {lin(mv, bv).replace('x', f'({xv})')}", f"y = {T(mv * xv)} {signed(bv)}", f"y = {yv}"]
+    return {"solution": lines, "prompt": q, "plain": f"The line y = {lin_p(mv, bv)} passes through ({xv}, y). Find y.", "key": V(yv),
             "display": f"y = {yv}", "verified": f"sympy: {mv}*{xv} + {bv} = {yv}"}
 
 
@@ -817,7 +904,11 @@ def _(rng):
     ans = (xi, 0) if which == "x" else (0, yi)
     check(A_ * ans[0] + B_ * ans[1] == C_, "intercept on line")
     q = f"Find the {which}-intercept of the line ${T(A_ * x + B_ * y)} = {C_}$. Write it as an ordered pair."
-    return {"prompt": q, "plain": q.replace("$", ""), "key": {"kind": "point", "value": [str(ans[0]), str(ans[1])]},
+    if which == "x":
+        lines = [f"\"Let\" y = 0", f"{T(A_ * x)} + {B_} (0) = {C_}", f"x = {xi}"]
+    else:
+        lines = [f"\"Let\" x = 0", f"{A_} (0) + {T(B_ * y)} = {C_}", f"y = {yi}"]
+    return {"solution": lines, "prompt": q, "plain": q.replace("$", ""), "key": {"kind": "point", "value": [str(ans[0]), str(ans[1])]},
             "display": f"({ans[0]}, {ans[1]})", "verified": f"sympy: {A_}*{ans[0]} + {B_}*{ans[1]} = {C_}"}
 
 
@@ -861,7 +952,9 @@ def _(rng):
     sol_y = sp.solve(sp.Eq(A_ * x + B_ * y, C_), y)[0]
     mv = sp.Poly(sol_y, x).coeff_monomial(x)
     check(mv == sp.Rational(-A_, B_), "slope")
-    return {"prompt": f"Find the slope of the line ${T(A_ * x + B_ * y)} = {C_}$.",
+    bv = sol_y.subs(x, 0)
+    lines = [f"{T(A_ * x + B_ * y)} = {C_}", f"{T(B_ * y)} = {T(-A_ * x + C_)}", f"y = {lin(mv, bv)}", f"m = {T(mv)}"]
+    return {"solution": lines, "prompt": f"Find the slope of the line ${T(A_ * x + B_ * y)} = {C_}$.",
             "plain": f"Find the slope of the line {P(A_ * x + B_ * y)} = {C_}.", "key": V(mv), "display": T(mv),
             "verified": f"sympy: y = {sol_y}"}
 
@@ -923,7 +1016,9 @@ def _(rng):
     op = rng.choice(["<", "<=", ">", ">="])
     val = {"<": py < mv * px + bv, "<=": py <= mv * px + bv, ">": py > mv * px + bv, ">=": py >= mv * px + bv}[op]
     ans = "yes" if val else "no"
-    return {"prompt": f"Is $({px}, {py})$ a solution of $y {op} {lin(mv, bv)}$? Show the check.",
+    lines = [f"{py} {op} {lin(mv, bv).replace('x', f'({px})')}", f"{py} {op} {mv * px + bv}",
+             f"\"{'true, so it is a solution' if val else 'false, so it is not a solution'}\""]
+    return {"solution": lines, "prompt": f"Is $({px}, {py})$ a solution of $y {op} {lin(mv, bv)}$? Show the check.",
             "plain": f"Is ({px}, {py}) a solution of y {op} {lin_p(mv, bv)}?",
             "key": {"kind": "choice", "value": ans, "aliases": []}, "display": f"\"{ans}\"",
             "verified": f"{py} {op} {mv * px + bv} is {val}"}
@@ -969,7 +1064,11 @@ def _(rng):
     sol = sp.linsolve([e1[0] * x + e1[1] * y - e1[2], e2[0] * x + e2[1] * y - e2[2]], x, y)
     truth = "none" if sol == sp.EmptySet else ("one" if M.det() != 0 else "infinitely many")
     check(truth == kind, "count")
-    return {"prompt": f"Without solving, decide how many solutions the system has: one, none, or infinitely many. ${_sys_t(e1, e2)}$",
+    m2_, b2_ = sp.Rational(-e2[0], e2[1]), sp.Rational(e2[2], e2[1])
+    count_lines = [f"y = {lin(m1, b1)}", f"y = {lin(m2_, b2_)}",
+                   "\"" + {"one": "different slopes: one solution", "none": "same slope, different intercepts: no solution",
+                            "infinitely many": "same line: infinitely many solutions"}[kind] + "\""]
+    return {"solution": count_lines, "prompt": f"Without solving, decide how many solutions the system has: one, none, or infinitely many. ${_sys_t(e1, e2)}$",
             "plain": f"How many solutions: {_sys_p(e1, e2)}?",
             "key": {"kind": "choice", "value": kind, "aliases": {"one": ["1", "one solution", "exactly one"],
                                                                   "none": ["no solution", "0", "zero", "no solutions"],
@@ -989,7 +1088,10 @@ def _(rng):
     c2 = a2 * xs + b2 * ys
     sol = sp.linsolve([y - (mv * x + bv), a2 * x + b2 * y - c2], x, y)
     check(sol == sp.FiniteSet((xs, ys)), "solve")
-    return {"prompt": f"Solve the system by substitution: $cases(y = {lin(mv, bv)}, {T(a2 * x + b2 * y)} = {c2})$",
+    sub = sp.expand(a2 * x + b2 * (mv * x + bv))
+    lines = [f"{T(a2 * x)} + {b2} ({lin(mv, bv)}) = {c2}", f"{T(sub)} = {c2}", f"x = {xs}", f"y = {lin(mv, bv).replace('x', f'({xs})')} = {ys}"]
+    check(_solve_one(sp.Eq(sub, c2)) == xs, "steps")
+    return {"solution": lines, "prompt": f"Solve the system by substitution: $cases(y = {lin(mv, bv)}, {T(a2 * x + b2 * y)} = {c2})$",
             "plain": f"Solve by substitution: y = {lin_p(mv, bv)} and {P(a2 * x + b2 * y)} = {c2}.",
             "key": {"kind": "point", "value": [str(xs), str(ys)]}, "display": f"({xs}, {ys})", "verified": f"sympy: linsolve = {sol}"}
 
@@ -1001,7 +1103,14 @@ def _(rng):
     xs, ys, e1, e2 = _system(rng)
     sol = sp.linsolve([e1[0] * x + e1[1] * y - e1[2], e2[0] * x + e2[1] * y - e2[2]], x, y)
     check(sol == sp.FiniteSet((xs, ys)), "solve")
-    return {"prompt": f"Solve the system by elimination: ${_sys_t(e1, e2)}$",
+    L_ = sp.ilcm(abs(e1[1]), abs(e2[1]))
+    k1, k2 = L_ // e1[1], -(L_ // e2[1])
+    A_ = k1 * e1[0] + k2 * e2[0]
+    C_ = k1 * e1[2] + k2 * e2[2]
+    check(A_ != 0 and sp.Rational(C_, A_) == xs, "elimination")
+    lines = [f"{k1} ({T(e1[0] * x + e1[1] * y)}) = {k1} ({e1[2]})", f"{k2} ({T(e2[0] * x + e2[1] * y)}) = {k2} ({e2[2]})",
+             f"\"add:\" quad {T(A_ * x)} = {C_}", f"x = {xs}, quad y = {ys}"]
+    return {"solution": lines, "prompt": f"Solve the system by elimination: ${_sys_t(e1, e2)}$",
             "plain": f"Solve by elimination: {_sys_p(e1, e2)}.",
             "key": {"kind": "point", "value": [str(xs), str(ys)]}, "display": f"({xs}, {ys})", "verified": f"sympy: linsolve = {sol}"}
 
@@ -1016,14 +1125,16 @@ def _(rng):
         q = f"The sum of two numbers is {big + small} and their difference is {big - small}. Find the larger number."
         sol = sp.linsolve([u + v - (big + small), u - v - (big - small)], u, v)
         check(sol == sp.FiniteSet((big, small)), "solve")
-        return {"prompt": q, "plain": q, "key": V(big), "display": T(big), "verified": f"sympy: {sol}"}
+        return {"solution": [f"u + v = {big + small}", f"u - v = {big - small}", f"2 u = {2 * big}", f"u = {big}"], "prompt": q, "plain": q, "key": V(big), "display": T(big), "verified": f"sympy: {sol}"}
     pa, pc = rng.choice([(8, 5), (12, 7), (9, 4)])
     na, nc = rng.randint(10, 60), rng.randint(10, 60)
     q = (f"A museum sold {na + nc} tickets for {money(pa * na + pc * nc)}. Adult tickets cost {money(pa)} and "
          f"student tickets cost {money(pc)}. How many student tickets were sold?")
     sol = sp.linsolve([u + v - (na + nc), pa * u + pc * v - (pa * na + pc * nc)], u, v)
     check(sol == sp.FiniteSet((na, nc)), "solve")
-    return {"prompt": q, "plain": q.replace("\\", ""), "key": V(nc), "display": T(nc), "verified": f"sympy: {sol}"}
+    lines = [f"a + s = {na + nc}", f"{pa} a + {pc} s = {pa * na + pc * nc}", f"{pa} ({na + nc} - s) + {pc} s = {pa * na + pc * nc}",
+             f"{pc - pa} s = {pa * na + pc * nc - pa * (na + nc)}", f"s = {nc}"]
+    return {"solution": lines, "prompt": q, "plain": q.replace("\\", ""), "key": V(nc), "display": T(nc), "verified": f"sympy: {sol}"}
 
 
 @template("sys_ineq.check", "sys_ineq", requires=["sys_graph", "gr_ineq2"], guess=0.5, work_lines=4,
@@ -1034,7 +1145,10 @@ def _(rng):
     px, py = rng.randint(-3, 3), rng.randint(-5, 5)
     ok = (py > m1 * px + b1) and (py <= m2 * px + b2)
     ans = "yes" if ok else "no"
-    return {"prompt": f"Is $({px}, {py})$ a solution of the system $cases(y > {lin(m1, b1)}, y <= {lin(m2, b2)})$? Show both checks.",
+    sys_lines = [f"{py} > {m1 * px + b1} quad \"{'true' if py > m1 * px + b1 else 'false'}\"",
+                 f"{py} <= {m2 * px + b2} quad \"{'true' if py <= m2 * px + b2 else 'false'}\"",
+                 f"\"{'both true: a solution' if ok else 'not both true: not a solution'}\""]
+    return {"solution": sys_lines, "prompt": f"Is $({px}, {py})$ a solution of the system $cases(y > {lin(m1, b1)}, y <= {lin(m2, b2)})$? Show both checks.",
             "plain": f"Is ({px}, {py}) a solution of y > {lin_p(m1, b1)} and y <= {lin_p(m2, b2)}?",
             "key": {"kind": "choice", "value": ans, "aliases": []}, "display": f"\"{ans}\"",
             "verified": f"{py} > {m1 * px + b1}: {py > m1 * px + b1}; {py} <= {m2 * px + b2}: {py <= m2 * px + b2}"}
@@ -1050,7 +1164,8 @@ def _(rng):
     p2 = nz(rng, -6, 6) * x**2 + nz(rng, -9, 9) * x + nz(rng, -9, 9)
     res = sp.expand(p1 - p2)
     check(sp.degree(res, x) == 2, "degree two")
-    return {"prompt": f"Subtract: $({T(p1)}) - ({T(p2)})$.", "plain": f"Subtract: ({P(p1)}) - ({P(p2)}).",
+    lines = [f"({T(p1)}) - ({T(p2)})", f"= {T(p1)} {signed_terms(-p2)}", f"= {T(res)}"]
+    return {"solution": lines, "prompt": f"Subtract: $({T(p1)}) - ({T(p2)})$.", "plain": f"Subtract: ({P(p1)}) - ({P(p2)}).",
             "key": E(res, "polynomial"), "display": T(res), "verified": f"sympy: expand = {res}"}
 
 
@@ -1073,8 +1188,9 @@ def _(rng):
     k, s_ = rng.randint(2, 5), rng.randint(1, 4)
     e = (c_ * x**p_) ** q_ * (k * x**s_)
     res = sp.expand(e)
+    mid = f"{c_ ** q_} x^({p_ * q_}) dot {k} x^({s_})"
     tp = f"({c_} x^{p_})^{q_} dot {k} x^{s_}" if s_ > 1 else f"({c_} x^{p_})^{q_} dot {k} x"
-    return {"prompt": f"Simplify: ${tp}$.", "plain": f"Simplify: ({c_}x^{p_})^{q_} * {k}x^{s_}.", "key": E(res),
+    return {"solution": [tp, f"= {mid}", f"= {T(res)}"], "prompt": f"Simplify: ${tp}$.", "plain": f"Simplify: ({c_}x^{p_})^{q_} * {k}x^{s_}.", "key": E(res),
             "display": T(res), "verified": f"sympy: = {res}"}
 
 
@@ -1110,10 +1226,12 @@ def _(rng):
     if form == "square":
         res = sp.expand((a1 * x + b1) ** 2)
         tp, pl = f"({T(a1 * x + b1)})^2", f"({P(a1 * x + b1)})^2"
+        steps = [tp, f"= ({T(a1 * x)})^2 + 2 ({T(a1 * x)}) ({b1}) + ({b1})^2", f"= {T(res)}"]
     else:
         res = sp.expand((a1 * x + abs(b1)) * (a1 * x - abs(b1)))
         tp, pl = f"({T(a1 * x + abs(b1))}) ({T(a1 * x - abs(b1))})", f"({P(a1 * x + abs(b1))})({P(a1 * x - abs(b1))})"
-    return {"prompt": f"Multiply using a special products pattern: ${tp}$.", "plain": f"Multiply: {pl}.",
+        steps = [tp, f"= ({T(a1 * x)})^2 - {abs(b1)}^2", f"= {T(res)}"]
+    return {"solution": steps, "prompt": f"Multiply using a special products pattern: ${tp}$.", "plain": f"Multiply: {pl}.",
             "key": E(res, "expanded"), "display": T(res), "verified": f"sympy: expand = {res}"}
 
 
@@ -1129,7 +1247,8 @@ def _(rng):
     den = c2 * x**q_ * y**t_
     res = sp.simplify(num / den)
     check(s_ != t_, "the y powers differ")
-    return {"prompt": f"Simplify: $frac({T(num)}, {T(den)})$.", "plain": f"Simplify: ({P(num)})/({P(den)}).",
+    lines = [f"frac({T(num)}, {T(den)})", f"= frac({c1}, {c2}) dot x^({p_} - {q_}) dot y^({s_} - {t_})", f"= {T(res)}"]
+    return {"solution": lines, "prompt": f"Simplify: $frac({T(num)}, {T(den)})$.", "plain": f"Simplify: ({P(num)})/({P(den)}).",
             "key": E(res, "positive_exponents"), "display": T(res), "verified": f"sympy: = {res}"}
 
 
@@ -1157,7 +1276,9 @@ def _(rng):
     num = sp.expand(res * k * x**q_)
     out = sp.expand(num / (k * x**q_))
     check(out == res, "division")
-    return {"prompt": f"Divide: $frac({T(num)}, {T(k * x**q_)})$.", "plain": f"Divide: ({P(num)})/({P(k * x**q_)}).",
+    terms = sp.Add.make_args(num)
+    lines = [" + ".join(f"frac({T(tm)}, {T(k * x**q_)})" for tm in terms).replace("+ -", "- "), f"= {T(res)}"]
+    return {"solution": lines, "prompt": f"Divide: $frac({T(num)}, {T(k * x**q_)})$.", "plain": f"Divide: ({P(num)})/({P(k * x**q_)}).",
             "key": E(res, "polynomial"), "display": T(res), "verified": f"sympy: expand = {res}"}
 
 
@@ -1189,7 +1310,11 @@ def _(rng):
         tp = f"frac({c_} x^(-{p_}), x^({q_ - p_}))"
     res = sp.powsimp(e)
     check(res.free_symbols and sp.degree(sp.fraction(sp.together(res))[1], x) > 0, "negative exponent result")
-    return {"prompt": f"Simplify, and write with positive exponents only: ${tp}$.", "plain": f"Simplify with positive exponents: {tp}.",
+    if form == "product":
+        neg_lines = [tp, f"= x^(-{p_} + ({p_ - q_}))", f"= x^({-q_})", f"= {T(res)}"]
+    else:
+        neg_lines = [tp, f"= {c_} x^(-{p_} - ({q_ - p_}))", f"= {c_} x^({-q_})", f"= {T(res)}"]
+    return {"solution": neg_lines, "prompt": f"Simplify, and write with positive exponents only: ${tp}$.", "plain": f"Simplify with positive exponents: {tp}.",
             "key": E(res, "positive_exponents"), "display": T(res), "verified": f"sympy: powsimp = {res}"}
 
 
@@ -1201,7 +1326,9 @@ def _(rng):
     ex = rng.choice([-5, -4, -3, 3, 4, 5, 6, 7])
     val = coef * sp.Integer(10) ** ex
     dec = f"{float(val):.10f}".rstrip("0").rstrip(".") if ex < 0 else f"{int(val):,}".replace(",", "{,}")
-    return {"prompt": f"Write in scientific notation: ${dec}$.", "plain": f"Write in scientific notation: {dec.replace('{,}', ',')}.",
+    sci_lines = [f"\"move the decimal point {abs(ex)} places {'left' if ex > 0 else 'right'}\"",
+                 f"{dec} = {float(coef):g} times 10^({ex})"]
+    return {"solution": sci_lines, "prompt": f"Write in scientific notation: ${dec}$.", "plain": f"Write in scientific notation: {dec.replace('{,}', ',')}.",
             "key": V(val, "scientific"), "display": f"{float(coef):g} times 10^({ex})", "verified": f"sympy: {coef} * 10^{ex} = {val}"}
 
 
@@ -1236,7 +1363,8 @@ def _(rng):
     e = sp.expand(g * x**p_ * inner)
     fac = sp.factor(e)
     check(sp.expand(fac - e) == 0, "factor")
-    return {"prompt": f"Factor the greatest common factor: ${T(e)}$.", "plain": f"Factor the GCF: {P(e)}.",
+    gcf_lines = [f"\"GCF\" = {g} {T(x**p_)}", f"{T(e)} = {g} {T(x**p_)} ({T(inner)})"]
+    return {"solution": gcf_lines, "prompt": f"Factor the greatest common factor: ${T(e)}$.", "plain": f"Factor the GCF: {P(e)}.",
             "key": E(g * x**p_ * inner, "factored_completely"), "display": f"{g} {T(x**p_)} ({T(inner)})",
             "verified": f"sympy: factor = {fac}"}
 
@@ -1277,7 +1405,12 @@ def _(rng):
     p_ = sp.expand((a1 * x + b1) * (a2 * x + b2))
     fac = sp.factor(p_)
     check(sp.Poly(p_, x).LC() > 1 and sp.expand(fac - p_) == 0, "leading coefficient > 1")
-    return {"prompt": f"Factor completely: ${T(p_)}$.", "plain": f"Factor completely: {P(p_)}.", "key": E(fac, "factored_completely"),
+    A_, B_, C_ = sp.Poly(p_, x).all_coeffs()
+    m1, m2 = a1 * b2, a2 * b1
+    lines = [f"a c = {A_} dot {C_} = {A_ * C_}, quad {m1} dot {m2} = {m1 * m2}, quad {m1} + {m2} = {B_}",
+             f"{T(A_ * x**2)} {signed(m1)} x {signed(m2)} x {signed(C_)}", T(fac)]
+    check(m1 * m2 == A_ * C_ and m1 + m2 == B_, "ac split")
+    return {"solution": lines, "prompt": f"Factor completely: ${T(p_)}$.", "plain": f"Factor completely: {P(p_)}.", "key": E(fac, "factored_completely"),
             "display": T(fac), "verified": f"sympy: factor = {fac}"}
 
 
@@ -1296,7 +1429,10 @@ def _(rng):
         p_ = x**3 + rng.choice([1, -1]) * b1**3
     fac = sp.factor(p_)
     check(sp.expand(fac - p_) == 0 and fac != p_, "factors")
-    return {"prompt": f"Factor completely: ${T(p_)}$.", "plain": f"Factor completely: {P(p_)}.", "key": E(fac, "factored_completely"),
+    pat = {"diff_squares": "a^2 - b^2 = (a - b)(a + b)", "perfect_square": "a^2 plus.minus 2 a b + b^2 = (a plus.minus b)^2",
+           "cubes": "a^3 plus.minus b^3 = (a plus.minus b)(a^2 minus.plus a b + b^2)"}[form]
+    sp_lines = [f"{pat}", f"{T(p_)} = {T(fac)}"]
+    return {"solution": sp_lines, "prompt": f"Factor completely: ${T(p_)}$.", "plain": f"Factor completely: {P(p_)}.", "key": E(fac, "factored_completely"),
             "display": T(fac), "verified": f"sympy: factor = {fac}"}
 
 
@@ -1315,7 +1451,8 @@ def _(rng):
     p_ = sp.expand(g * x * inner)
     fac = sp.factor(p_)
     check(sp.expand(fac - p_) == 0 and len([f_ for f_ in sp.Mul.make_args(fac) if f_.free_symbols]) == 3, "three factors")
-    return {"prompt": f"Factor completely: ${T(p_)}$.", "plain": f"Factor completely: {P(p_)}.", "key": E(fac, "factored_completely"),
+    gen_lines = [f"{T(p_)} = {g} x ({T(sp.expand(inner))})", f"= {T(fac)}"]
+    return {"solution": gen_lines, "prompt": f"Factor completely: ${T(p_)}$.", "plain": f"Factor completely: {P(p_)}.", "key": E(fac, "factored_completely"),
             "display": T(fac), "verified": f"sympy: factor = {fac}"}
 
 
@@ -1328,7 +1465,9 @@ def _(rng):
     lhs = sp.expand((x - r1) * (x - r2)) + k
     sols = sp.solve(sp.Eq(lhs, k), x)
     check(set(sols) == {r1, r2}, "roots")
-    return {"prompt": f"Solve: ${T(lhs)} = {k}$.", "plain": f"Solve: {P(lhs)} = {k}.",
+    std = sp.expand((x - r1) * (x - r2))
+    lines = [f"{T(lhs)} = {k}", f"{T(std)} = 0", f"({T(x - r1)}) ({T(x - r2)}) = 0", f"x = {r1} quad \"or\" quad x = {r2}"]
+    return {"solution": lines, "prompt": f"Solve: ${T(lhs)} = {k}$.", "plain": f"Solve: {P(lhs)} = {k}.",
             "key": {"kind": "set", "value": [str(r1), str(r2)]}, "display": f"x = {r1}, x = {r2}", "verified": f"sympy: solve = {sols}"}
 
 
@@ -1343,7 +1482,8 @@ def _(rng):
     den = sp.expand((x - r1) * (x - r3))
     res = sp.cancel(num / den)
     check(sp.simplify(res - (x - r2) / (x - r3)) == 0, "cancel")
-    return {"prompt": f"Simplify: $frac({T(num)}, {T(den)})$.", "plain": f"Simplify: ({P(num)})/({P(den)}).",
+    lines = [f"frac({T(num)}, {T(den)})", f"= frac(({T(x - r1)}) ({T(x - r2)}), ({T(x - r1)}) ({T(x - r3)}))", f"= frac({T(x - r2)}, {T(x - r3)})"]
+    return {"solution": lines, "prompt": f"Simplify: $frac({T(num)}, {T(den)})$.", "plain": f"Simplify: ({P(num)})/({P(den)}).",
             "key": E((x - r2) / (x - r3)), "display": f"frac({T(x - r2)}, {T(x - r3)})", "verified": f"sympy: cancel = {res}"}
 
 
@@ -1371,7 +1511,8 @@ def _(rng):
     B_ = (x - r1) / (k * k * x**2)
     res = sp.simplify(A_ / B_)
     check(sp.simplify(res - k * x * (x - r2)) == 0, "result")
-    return {"prompt": f"Divide and simplify: $frac({T(sp.expand((x - r1) * (x - r2)))}, {k} x) div frac({T(x - r1)}, {k * k} x^2)$.",
+    md_lines = [f"frac(({T(x - r1)}) ({T(x - r2)}), {k} x) dot frac({k * k} x^2, {T(x - r1)})", f"= {k} x ({T(x - r2)})"]
+    return {"solution": md_lines, "prompt": f"Divide and simplify: $frac({T(sp.expand((x - r1) * (x - r2)))}, {k} x) div frac({T(x - r1)}, {k * k} x^2)$.",
             "plain": f"Divide: ({P(sp.expand((x - r1) * (x - r2)))})/({k}x) / (({P(x - r1)})/({k * k}x^2)).",
             "key": E(k * x * (x - r2)), "display": T(sp.factor(res)), "verified": f"sympy: simplify = {res}"}
 
@@ -1386,7 +1527,9 @@ def _(rng):
     n2 = rr * x + q_ * rr
     res = sp.cancel((n1 - n2) / (x - rr))
     check(sp.simplify(res - (x + q_)) == 0, "result")
-    return {"prompt": f"Subtract and simplify: $frac({T(n1)}, x {signed(-rr)}) - frac({T(n2)}, x {signed(-rr)})$.",
+    ac_lines = [f"frac({T(n1)} - ({T(n2)}), x {signed(-rr)})", f"= frac({T(sp.expand(n1 - n2))}, x {signed(-rr)})",
+                f"= frac(({T(x - rr)}) ({T(x + q_)}), x {signed(-rr)})", f"= {T(x + q_)}"]
+    return {"solution": ac_lines, "prompt": f"Subtract and simplify: $frac({T(n1)}, x {signed(-rr)}) - frac({T(n2)}, x {signed(-rr)})$.",
             "plain": f"Subtract: ({P(n1)})/(x {signed(-rr)}) - ({P(n2)})/(x {signed(-rr)}).",
             "key": E(x + q_), "display": T(x + q_), "verified": f"sympy: cancel = {res}"}
 
@@ -1401,7 +1544,10 @@ def _(rng):
     res = sp.together(e)
     num, den = sp.fraction(sp.factor(res))
     check(sp.simplify(res - e) == 0, "sum")
-    return {"prompt": f"Add and simplify: $frac({c1}, {T(x - p_)}) + frac({c2}, {T(x - q_)})$.",
+    lines = [f"frac({c1}, {T(x - p_)}) + frac({c2}, {T(x - q_)})",
+             f"= frac({c1} ({T(x - q_)}), ({T(x - p_)}) ({T(x - q_)})) + frac({c2} ({T(x - p_)}), ({T(x - p_)}) ({T(x - q_)}))",
+             f"= frac({T(sp.expand(num))}, {T(den)})"]
+    return {"solution": lines, "prompt": f"Add and simplify: $frac({c1}, {T(x - p_)}) + frac({c2}, {T(x - q_)})$.",
             "plain": f"Add: {c1}/({P(x - p_)}) + {c2}/({P(x - q_)}).",
             "key": E(res), "display": f"frac({T(sp.expand(num))}, {T(den)})", "verified": f"sympy: together = {res}"}
 
@@ -1415,7 +1561,9 @@ def _(rng):
     den = 1 - sp.Integer(k * k) / x**2
     res = sp.cancel(num / den)
     check(sp.simplify(res - x / (x - k)) == 0, "result")
-    return {"prompt": f"Simplify: $frac(1 + frac({k}, x), 1 - frac({k * k}, x^2))$.", "plain": f"Simplify: (1 + {k}/x)/(1 - {k * k}/x^2).",
+    cx_lines = [f"frac(x^2 (1 + frac({k}, x)), x^2 (1 - frac({k * k}, x^2)))", f"= frac(x^2 + {k} x, x^2 - {k * k})",
+                f"= frac(x (x + {k}), (x - {k}) (x + {k}))", f"= frac(x, x - {k})"]
+    return {"solution": cx_lines, "prompt": f"Simplify: $frac(1 + frac({k}, x), 1 - frac({k * k}, x^2))$.", "plain": f"Simplify: (1 + {k}/x)/(1 - {k * k}/x^2).",
             "key": E(x / (x - k)), "display": f"frac(x, x - {k})", "verified": f"sympy: cancel = {res}"}
 
 
@@ -1430,7 +1578,9 @@ def _(rng):
     eq = sp.Eq(sp.Integer(k) / x + 1, c_)
     sols = sp.solve(eq, x)
     check(sols == [sol], "solve")
-    return {"prompt": f"Solve: $frac({k}, x) + 1 = {T(c_)}$.", "plain": f"Solve: {k}/x + 1 = {c_}.", "key": V(sol),
+    lines = [f"frac({k}, x) + 1 = {T(c_)} quad (x != 0)", f"{k} + x = {T(c_)} x", f"{k} = {T(c_ - 1)} x", f"x = {sol}"]
+    check(sp.solve(sp.Eq(k, (c_ - 1) * x), x) == [sol], "steps")
+    return {"solution": lines, "prompt": f"Solve: $frac({k}, x) + 1 = {T(c_)}$.", "plain": f"Solve: {k}/x + 1 = {c_}.", "key": V(sol),
             "display": f"x = {sol}", "verified": f"sympy: solve = {sols}"}
 
 
@@ -1444,7 +1594,7 @@ def _(rng):
     if form == "plain":
         sol = _solve_one(sp.Eq(x / (a_ * kk), sp.Rational(b_, a_)))
         check(sol == b_ * kk, "proportion")
-        return {"prompt": f"Solve the proportion: $frac(x, {a_ * kk}) = frac({b_}, {a_})$.",
+        return {"solution": [f"{a_} x = {b_} dot {a_ * kk}", f"{a_} x = {a_ * b_ * kk}", f"x = {sol}"], "prompt": f"Solve the proportion: $frac(x, {a_ * kk}) = frac({b_}, {a_})$.",
                 "plain": f"Solve: x/{a_ * kk} = {b_}/{a_}.", "key": V(sol), "display": f"x = {sol}", "verified": f"sympy: solve = {sol}"}
     h_ = a_ * kk
     s_ = b_
@@ -1453,7 +1603,7 @@ def _(rng):
          f"How tall is the tree?")
     sol = sp.solve(sp.Eq(x / tree_shadow, sp.Rational(a_, s_)), x)[0]
     check(sol == h_, "similar triangles")
-    return {"prompt": q, "plain": q, "key": V(sol), "display": f"{sol} \"feet\"", "verified": f"sympy: x/{tree_shadow} = {a_}/{s_} -> {sol}"}
+    return {"solution": [f"frac(x, {tree_shadow}) = frac({a_}, {s_})", f"{s_} x = {a_ * tree_shadow}", f"x = {sol}"], "prompt": q, "plain": q, "key": V(sol), "display": f"{sol} \"feet\"", "verified": f"sympy: x/{tree_shadow} = {a_}/{s_} -> {sol}"}
 
 
 @template("rat_work.together", "rat_work", requires=["rat_equations", "app_motion"], guess=0.02, work_lines=5,
@@ -1462,10 +1612,12 @@ def _(rng):
 def _(rng):
     t1, t2 = rng.choice([(2, 3), (3, 6), (4, 12), (6, 3), (10, 15), (4, 6), (12, 6), (2, 6)])
     tt = sp.Rational(t1 * t2, t1 + t2)
+    work_lines = [f"frac(1, {t1}) + frac(1, {t2}) = frac(1, t)", f"\"multiply by\" {sp.ilcm(t1, t2)} t: quad {sp.ilcm(t1, t2) // t1} t + {sp.ilcm(t1, t2) // t2} t = {sp.ilcm(t1, t2)}",
+                  f"t = {T(tt)}"]
     q = (f"One pump can empty a pool in {t1} hours; a second pump can empty it in {t2} hours. "
          f"How many hours will it take the two pumps working together?")
     check(sp.solve(sp.Eq(sp.Rational(1, t1) + sp.Rational(1, t2), 1 / t), t) == [tt], "solve")
-    return {"prompt": q, "plain": q, "key": V(tt), "display": f"{T(tt)} \"hours\"", "verified": f"sympy: 1/{t1} + 1/{t2} = 1/t -> {tt}"}
+    return {"solution": work_lines, "prompt": q, "plain": q, "key": V(tt), "display": f"{T(tt)} \"hours\"", "verified": f"sympy: 1/{t1} + 1/{t2} = 1/t -> {tt}"}
 
 
 @template("variation.solve", "variation", requires=["rat_proportion"], guess=0.02, work_lines=4,
@@ -1482,7 +1634,11 @@ def _(rng):
     q = (f"$y$ varies {'directly' if kind == 'direct' else 'inversely'} with $x$. When $x = {x1}$, $y = {T(y1)}$. "
          f"Find $y$ when $x = {x2}$.")
     check((y2 / x2 == y1 / x1) if kind == "direct" else (y2 * x2 == y1 * x1), "variation")
-    return {"prompt": q, "plain": q.replace("$", ""), "key": V(y2), "display": f"y = {T(y2)}", "verified": f"{kind}: y = {y2}"}
+    if kind == "direct":
+        lines = [f"y = k x", f"{T(y1)} = k ({x1}) quad arrow.r quad k = {T(y1 / x1)}", f"y = {T(y1 / x1)} ({x2}) = {T(y2)}"]
+    else:
+        lines = [f"y = frac(k, x)", f"{T(y1)} = frac(k, {x1}) quad arrow.r quad k = {T(y1 * x1)}", f"y = frac({T(y1 * x1)}, {x2}) = {T(y2)}"]
+    return {"solution": lines, "prompt": q, "plain": q.replace("$", ""), "key": V(y2), "display": f"y = {T(y2)}", "verified": f"{kind}: y = {y2}"}
 
 
 # ============================================================ Chapter 9: roots and radicals
@@ -1497,7 +1653,8 @@ def _(rng):
     res = sp.sqrt(c_ * xx**p_ * yy**q_)
     out = sp.sqrt(c_) * x ** (p_ // 2) * y ** (q_ // 2)
     check(sp.simplify(res - out.subs({x: xx, y: yy})) == 0, "sqrt")
-    return {"prompt": f"Simplify (assume $x, y >= 0$): $sqrt({c_} x^({p_}) y^({q_}))$.", "plain": f"Simplify: sqrt({c_}x^{p_}y^{q_}).",
+    rs_lines = [f"sqrt({c_}) dot sqrt(x^({p_})) dot sqrt(y^({q_}))", f"= {T(sp.sqrt(c_))} x^({p_ // 2}) y^({q_ // 2})"]
+    return {"solution": rs_lines, "prompt": f"Simplify (assume $x, y >= 0$): $sqrt({c_} x^({p_}) y^({q_}))$.", "plain": f"Simplify: sqrt({c_}x^{p_}y^{q_}).",
             "key": E(out), "display": T(out), "verified": f"sympy: = {out}"}
 
 
@@ -1525,7 +1682,9 @@ def _(rng):
     tp = f"{c1} sqrt({s1 * free}) {'+' if c2 > 0 else '-'} {abs(c2)} sqrt({s2 * free})"
     val = c1 * sp.sqrt(s1 * free) + c2 * sp.sqrt(s2 * free)
     check(val != 0, "nonzero")
-    return {"prompt": f"Simplify: ${tp}$.", "plain": f"Simplify: {c1}sqrt({s1 * free}) {'+' if c2 > 0 else '-'} {abs(c2)}sqrt({s2 * free}).",
+    r1_, r2_ = sp.sqrt(s1), sp.sqrt(s2)
+    lines = [tp, f"= {c1} dot {r1_} sqrt({free}) {'+' if c2 > 0 else '-'} {abs(c2)} dot {r2_} sqrt({free})", f"= {T(val)}"]
+    return {"solution": lines, "prompt": f"Simplify: ${tp}$.", "plain": f"Simplify: {c1}sqrt({s1 * free}) {'+' if c2 > 0 else '-'} {abs(c2)}sqrt({s2 * free}).",
             "key": V(val, "simplified_radical"), "display": T(val), "verified": f"sympy: = {val}"}
 
 
@@ -1537,7 +1696,9 @@ def _(rng):
     a1, b1, c1 = nz(rng, 1, 5), nz(rng, -6, 6), nz(rng, -6, 6)
     e = (a1 + b1 * sp.sqrt(free)) * (2 + c1 * sp.sqrt(free))
     val = sp.expand(e)
-    return {"prompt": f"Multiply and simplify: $({a1} {'+' if b1 > 0 else '-'} {abs(b1)} sqrt({free})) (2 {'+' if c1 > 0 else '-'} {abs(c1)} sqrt({free}))$.",
+    lines = [f"= {2 * a1} {signed(a1 * c1)} sqrt({free}) {signed(2 * b1)} sqrt({free}) {signed(b1 * c1)} dot {free}", f"= {T(val)}"]
+    check(sp.expand(2 * a1 + a1 * c1 * sp.sqrt(free) + 2 * b1 * sp.sqrt(free) + b1 * c1 * free - val) == 0, "steps")
+    return {"solution": lines, "prompt": f"Multiply and simplify: $({a1} {'+' if b1 > 0 else '-'} {abs(b1)} sqrt({free})) (2 {'+' if c1 > 0 else '-'} {abs(c1)} sqrt({free}))$.",
             "plain": f"Multiply: ({a1} {'+' if b1 > 0 else '-'} {abs(b1)}sqrt({free}))(2 {'+' if c1 > 0 else '-'} {abs(c1)}sqrt({free})).",
             "key": V(val, "simplified_radical"), "display": T(val), "verified": f"sympy: expand = {val}"}
 
@@ -1560,7 +1721,11 @@ def _(rng):
         tp = f"frac({c_}, {a1} + sqrt({free}))"
     val = sp.radsimp(e)
     check(sp.simplify(val - e) == 0, "equal")
-    return {"prompt": f"Simplify by rationalizing the denominator: ${tp}$.", "plain": f"Rationalize: {tp.replace('frac(', '(').replace(', ', ')/(')}.",
+    if form == "one":
+        lines = [f"{tp} dot frac(sqrt({free}), sqrt({free}))", f"= frac({k} sqrt({free}), {free})", f"= {T(val)}"]
+    else:
+        lines = [f"{tp} dot frac({a1} - sqrt({free}), {a1} - sqrt({free}))", f"= frac({c_} ({a1} - sqrt({free})), {a1 * a1 - free})", f"= {T(val)}"]
+    return {"solution": lines, "prompt": f"Simplify by rationalizing the denominator: ${tp}$.", "plain": f"Rationalize: {tp.replace('frac(', '(').replace(', ', ')/(')}.",
             "key": V(val, "simplified_radical"), "display": T(val), "verified": f"sympy: radsimp = {val}"}
 
 
@@ -1577,7 +1742,9 @@ def _(rng):
     eq = sp.Eq(sp.sqrt(2 * x + k) + c_, rhs)
     sols = [s_ for s_ in sp.solve(eq, x)]
     check(sols == [sol], "solve")
-    return {"prompt": f"Solve: $sqrt(2 x + {k}) + {c_} = {rhs}$.", "plain": f"Solve: sqrt(2x + {k}) + {c_} = {rhs}.",
+    rv = rhs - c_
+    lines = [f"sqrt(2 x + {k}) = {T(rv)}", f"2 x + {k} = {T(rv ** 2)}", f"2 x = {T(rv ** 2 - k)}", f"x = {sol} quad \"(check: \" sqrt({2 * sol + k}) + {c_} = {T(rhs)} \")\""]
+    return {"solution": lines, "prompt": f"Solve: $sqrt(2 x + {k}) + {c_} = {rhs}$.", "plain": f"Solve: sqrt(2x + {k}) + {c_} = {rhs}.",
             "key": V(sol), "display": f"x = {sol}", "verified": f"sympy: solve = {sols}"}
 
 
@@ -1599,7 +1766,13 @@ def _(rng):
         N, tp, val = base**4, f"root(4, {base**4})", base
     real = sp.real_root(N, 3) if form != "fourth" else sp.root(N, 4)
     check(sp.simplify(real - val) == 0, "root")
-    return {"prompt": f"Simplify: ${tp}$.", "plain": f"Simplify: {tp}.", "key": V(val), "display": T(val), "verified": f"sympy: = {val}"}
+    if form == "cube":
+        hr_lines = [f"root(3, {N}) = root(3, {base ** 3} dot {free})", f"= root(3, {base ** 3}) dot root(3, {free})", f"= {T(val)}"]
+    elif form == "cube_neg":
+        hr_lines = [f"({-base})^3 = {N}", f"root(3, {N}) = {val}"]
+    else:
+        hr_lines = [f"{base}^4 = {N}", f"root(4, {N}) = {val}"]
+    return {"solution": hr_lines, "prompt": f"Simplify: ${tp}$.", "plain": f"Simplify: {tp}.", "key": V(val), "display": T(val), "verified": f"sympy: = {val}"}
 
 
 @template("rat_exponents.evaluate", "rat_exponents", requires=["rad_higher", "exp_negative"], guess=0.02, work_lines=3,
@@ -1612,7 +1785,11 @@ def _(rng):
     ex = sp.Rational(sgn * pw, rt)
     val = sp.Integer(base) ** ex
     check(val.is_Rational, "exact")
-    return {"prompt": f"Simplify: ${base}^({T(ex)})$.", "plain": f"Simplify: {base}^({ex}).", "key": V(val), "display": T(val),
+    rootv = sp.Integer(base) ** sp.Rational(1, rt)
+    check(rootv.is_Integer, "exact root")
+    re_lines = [f"{base}^({T(ex)}) = " + (f"frac(1, {base}^({T(-ex)}))" if sgn < 0 else f"(root({rt}, {base}))^({pw})"),
+                f"= " + (f"frac(1, ({rootv})^({pw}))" if sgn < 0 else f"({rootv})^({pw})"), f"= {T(val)}"]
+    return {"solution": re_lines, "prompt": f"Simplify: ${base}^({T(ex)})$.", "plain": f"Simplify: {base}^({ex}).", "key": V(val), "display": T(val),
             "verified": f"sympy: {base}**({ex}) = {val}"}
 
 
@@ -1628,8 +1805,9 @@ def _(rng):
     sols = sp.solve(sp.Eq(c_ * (x - hh) ** 2, c_ * kk), x)
     want = {hh + sp.sqrt(kk), hh - sp.sqrt(kk)}
     check(set(sols) == want, "solve")
+    lines = [f"(x {signed(-hh)})^2 = {kk}", f"x {signed(-hh)} = plus.minus sqrt({kk})", f"x = {hh} plus.minus {T(sp.sqrt(kk))}"]
     tp = f"{c_ if c_ > 1 else ''} (x {signed(-hh)})^2 = {c_ * kk}"
-    return {"prompt": f"Solve using the Square Root Property: ${tp}$.", "plain": f"Solve: {c_}(x {signed(-hh)})^2 = {c_ * kk}.",
+    return {"solution": lines, "prompt": f"Solve using the Square Root Property: ${tp}$.", "plain": f"Solve: {c_}(x {signed(-hh)})^2 = {c_ * kk}.",
             "key": {"kind": "set", "value": [str(s_) for s_ in sols]}, "display": ", ".join(T(s_) for s_ in sols),
             "verified": f"sympy: solve = {sols}"}
 
@@ -1644,7 +1822,10 @@ def _(rng):
     cc = hh * hh - kk
     sols = sp.solve(x**2 + bb * x + cc, x)
     check(set(sols) == {hh + sp.sqrt(kk), hh - sp.sqrt(kk)}, "solve")
-    return {"prompt": f"Solve by completing the square: ${T(x**2 + bb * x)} = {-cc}$.", "plain": f"Complete the square: {P(x**2 + bb * x)} = {-cc}.",
+    lines = [f"{T(x**2 + bb * x)} + ({T(sp.Rational(bb, 2))})^2 = {-cc} + ({T(sp.Rational(bb, 2))})^2",
+             f"(x {signed(-hh)})^2 = {kk}", f"x {signed(-hh)} = plus.minus sqrt({kk})", f"x = {hh} plus.minus {T(sp.sqrt(kk))}"]
+    check(-cc + hh * hh == kk, "steps")
+    return {"solution": lines, "prompt": f"Solve by completing the square: ${T(x**2 + bb * x)} = {-cc}$.", "plain": f"Complete the square: {P(x**2 + bb * x)} = {-cc}.",
             "key": {"kind": "set", "value": [str(s_) for s_ in sols]}, "display": ", ".join(T(s_) for s_ in sols),
             "verified": f"sympy: solve = {sols}"}
 
@@ -1660,7 +1841,9 @@ def _(rng):
             break
     sols = sp.solve(a_ * x**2 + b_ * x + c_, x)
     check(len(sols) == 2, "two roots")
-    return {"prompt": f"Solve using the quadratic formula: ${T(a_ * x**2 + b_ * x + c_)} = 0$.",
+    lines = [f"a = {a_}, quad b = {b_}, quad c = {c_}", f"x = frac(-({b_}) plus.minus sqrt(({b_})^2 - 4 ({a_}) ({c_})), 2 ({a_}))",
+             f"x = frac({-b_} plus.minus sqrt({disc}), {2 * a_})", "x = " + ", quad ".join(T(sp.radsimp(s_)) for s_ in sols)]
+    return {"solution": lines, "prompt": f"Solve using the quadratic formula: ${T(a_ * x**2 + b_ * x + c_)} = 0$.",
             "plain": f"Solve with the quadratic formula: {P(a_ * x**2 + b_ * x + c_)} = 0.",
             "key": {"kind": "set", "value": [str(sp.radsimp(s_)) for s_ in sols]}, "display": ", ".join(T(s_) for s_ in sols),
             "verified": f"sympy: solve = {sols}; discriminant {disc}"}
@@ -1692,7 +1875,11 @@ def _(rng):
     q = f"The length of a rectangular garden is {d_} feet more than its width. The area is {area} square feet. Find the width."
     sols = [s_ for s_ in sp.solve(sp.Eq(w * (w + d_), area), w) if s_ > 0]
     check(sols == [W_], "solve")
-    return {"prompt": q, "plain": q, "key": V(W_), "display": f"{W_} \"feet\"", "verified": f"sympy: positive root = {W_}"}
+    other = -(W_ + d_)
+    lines = [f"w (w + {d_}) = {area}", f"w^2 + {d_} w - {area} = 0", f"(w - {W_}) (w + {W_ + d_}) = 0",
+             f"w = {W_} quad (w = {other} \" is not a length\")"]
+    check(sp.expand((w - W_) * (w + W_ + d_)) == sp.expand(w**2 + d_ * w - area), "steps")
+    return {"solution": lines, "prompt": q, "plain": q, "key": V(W_), "display": f"{W_} \"feet\"", "verified": f"sympy: positive root = {W_}"}
 
 
 @template("quad_graph.vertex", "quad_graph", requires=["quad_formula", "gr_intercepts"], guess=0.02, work_lines=4,
@@ -1705,7 +1892,8 @@ def _(rng):
     cf = sp.Poly(poly, x).all_coeffs()
     xv = -cf[1] / (2 * cf[0])
     check(xv == hh and poly.subs(x, xv) == kk, "vertex")
-    return {"prompt": f"Find the vertex of the parabola $y = {T(poly)}$.", "plain": f"Find the vertex of y = {P(poly)}.",
+    lines = [f"x = -frac(b, 2 a) = -frac({cf[1]}, 2 ({cf[0]})) = {hh}", f"y = {T(poly).replace('x', f'({hh})')} = {kk}"]
+    return {"solution": lines, "prompt": f"Find the vertex of the parabola $y = {T(poly)}$.", "plain": f"Find the vertex of y = {P(poly)}.",
             "key": {"kind": "point", "value": [str(hh), str(kk)]}, "display": f"({hh}, {kk})", "verified": f"sympy: vertex ({hh}, {kk})"}
 
 
@@ -1719,6 +1907,7 @@ def _(rng):
     tv = sp.Rational(v0, 32)
     hmax = height.subs(t, tv)
     check(sp.diff(height, t).subs(t, tv) == 0, "vertex")
+    sol_lines = [f"t = -frac(b, 2 a) = -frac({v0}, 2 (-16)) = {T(tv)}", f"h = -16 ({T(tv)})^2 + {v0} ({T(tv)}) + {h0} = {T(hmax)}"]
     q = (f"A ball is thrown upward; its height in feet after $t$ seconds is $h = {T(height)}$. What is the maximum height of the ball?")
-    return {"prompt": q, "plain": f"Height h = {P(height)}. Maximum height?", "key": V(hmax), "display": f"{T(hmax)} \"feet\"",
+    return {"solution": sol_lines, "prompt": q, "plain": f"Height h = {P(height)}. Maximum height?", "key": V(hmax), "display": f"{T(hmax)} \"feet\"",
             "verified": f"sympy: t = {tv}, h = {hmax}"}

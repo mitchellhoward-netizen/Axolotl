@@ -151,11 +151,45 @@
   #h(1fr)
 ]
 
-#let problem(num, body, space: 6, figure: none) = block(width: 100%, breakable: false, below: 0.4em)[
+#let problem(num, body, space: 6, figure: none, tag: none, given: none) = block(width: 100%, breakable: false, below: 0.4em)[
   #grid(columns: (1.7em, 1fr), column-gutter: 4pt,
     text(font: sans, weight: "bold", fill: spot, str(num) + "."),
-    [#body #if figure != none { v(2pt); figure }])
+    [#if tag != none [#box(stroke: 0.6pt + spot, inset: (x: 3pt, y: 1.5pt), radius: 1pt,
+        text(font: sans, size: 7pt, weight: "bold", fill: spot, tracking: 0.08em, upper(tag))) #h(4pt)]
+     #body #if figure != none { v(2pt); figure }
+     #if given != none {
+       v(3pt)
+       block(width: 100%, fill: tint2, inset: (x: 9pt, y: 7pt), stroke: (left: 2pt + spot))[
+         #text(font: sans, size: 8pt, weight: "bold", fill: spot, tracking: 0.06em)[THE FIRST STEPS ARE DONE. FINISH THE SOLUTION.]
+         #v(-2pt)
+         #for line in given { block(above: 0.5em, below: 0.5em, line) }
+       ]
+     }])
   #v(space * 1.35em)
+]
+
+// A worked solution in the answer key: the problem number, then one line per step.
+#let worked(num, lines) = block(width: 100%, breakable: false, below: 0.8em)[
+  #grid(columns: (1.7em, 1fr), column-gutter: 4pt,
+    text(font: sans, weight: "bold", fill: spot, str(num) + "."),
+    stack(spacing: 0.55em, ..lines))
+]
+
+// A fixed self-explanation prompt after a worked example (not generated text).
+#let pause(body) = block(width: 100%, inset: (left: 10pt, y: 5pt), below: 1em,
+  stroke: (left: 2pt + spot))[
+  #text(font: sans, size: 8pt, weight: "bold", fill: spot, tracking: 0.08em)[PAUSE AND EXPLAIN] #h(4pt)
+  #set text(size: 10pt, style: "italic")
+  #body
+]
+
+// Ungraded writing prompt at the end of a lesson.
+#let explain(body) = block(width: 100%, above: 1.2em, below: 0.6em, stroke: 0.6pt + spot, inset: 10pt, radius: 2pt)[
+  #text(font: sans, size: 8.5pt, weight: "bold", fill: spot, tracking: 0.08em)[IN YOUR OWN WORDS]
+  #v(-3pt)
+  #set text(size: 10pt)
+  #body
+  #v(5.5em)
 ]
 
 #let instructions(body) = block(width: 100%, stroke: 1pt + spot, inset: 10pt, radius: 2pt, below: 1.2em)[

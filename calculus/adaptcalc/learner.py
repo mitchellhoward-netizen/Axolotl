@@ -30,7 +30,8 @@ CREATE TABLE IF NOT EXISTS skills (
   stability_days REAL NOT NULL DEFAULT 1.0,
   last_practiced TEXT,
   next_review TEXT,
-  source TEXT NOT NULL DEFAULT 'prior'
+  source TEXT NOT NULL DEFAULT 'prior',
+  placed INTEGER NOT NULL DEFAULT 0
 );
 CREATE TABLE IF NOT EXISTS packets (
   id TEXT PRIMARY KEY,
@@ -105,6 +106,10 @@ class LearnerDB:
         self.conn = sqlite3.connect(self.path)
         self.conn.row_factory = sqlite3.Row
         self.conn.executescript(SCHEMA)
+        cols = {r["name"] for r in self.conn.execute("PRAGMA table_info(skills)")}
+        if "placed" not in cols:  # databases from before the minimum-practice rule
+            self.conn.execute("ALTER TABLE skills ADD COLUMN placed INTEGER NOT NULL DEFAULT 0")
+            self.conn.commit()
         self._seed_skills()
 
     @contextmanager
@@ -231,6 +236,7 @@ class LearnerDB:
         post = diagnostic.posterior_marginals(self)
         self.set_mastery(post, f"recheck {prid}: correct {before['correct']} -> {check['final_correct']}", prid,
                          source="diagnostic")
+        self.mark_placed(post)
         return {"changed": True, "before": before, "correct": bool(check["final_correct"]), "credit": credit,
                 "note": check["final_note"]}
 
@@ -285,6 +291,7 @@ class LearnerDB:
             post = diagnostic.posterior_marginals(self)
             before = self.mastery()
             self.set_mastery(post, "diagnostic posterior", prid, source="diagnostic")
+            self.mark_placed(post)
             changes = {k: (before[k], post[k]) for k in post if abs(before[k] - post[k]) > 1e-4}
         else:
             changes = self._bkt_update(problem, outcome)
@@ -343,22 +350,36 @@ class LearnerDB:
             c.execute("UPDATE skills SET stability_days=?, n_obs=n_obs+1, last_practiced=?, next_review=? WHERE id=?",
                       (stab, t.isoformat(timespec="seconds"), (t + dt.timedelta(days=stab)).isoformat(timespec="seconds"), skill))
 
+    def mark_placed(self, post: dict[str, float]) -> None:
+        """Skills the diagnostic places as mastered need no minimum practice to count as mastered."""
+        thr = config()["learner"]["mastery_threshold"]
+        with self.tx() as c:
+            for sid, p in post.items():
+                c.execute("UPDATE skills SET placed=? WHERE id=?", (int(p >= thr), sid))
+
+    def mastered_set(self) -> set[str]:
+        """Mastered: probability at the threshold, and either placed there by the diagnostic or
+        practiced at least `min_practice_for_mastery` times (one right answer is not mastery)."""
+        cfg = config()["learner"]
+        thr, need = cfg["mastery_threshold"], cfg.get("min_practice_for_mastery", 1)
+        return {r["id"] for r in self.skill_rows()
+                if r["p_mastery"] >= thr and (r["placed"] or r["n_obs"] == 0 or r["n_obs"] >= need)}
+
     def due_reviews(self, at: dt.datetime | None = None) -> list[str]:
         at = at or dt.datetime.now(dt.timezone.utc)
-        thr = config()["learner"]["mastery_threshold"]
+        done = self.mastered_set()
         out = []
         for r in self.skill_rows():
-            if r["next_review"] and r["p_mastery"] >= thr and dt.datetime.fromisoformat(r["next_review"]) <= at:
+            if r["next_review"] and r["id"] in done and dt.datetime.fromisoformat(r["next_review"]) <= at:
                 out.append(r["id"])
         return out
 
     def frontier(self) -> list[str]:
         """Unmastered skills whose prerequisites are all mastered, in graph order."""
-        thr = config()["learner"]["mastery_threshold"]
-        m = self.mastery()
+        done = self.mastered_set()
         sk = extract.skills()
         return [s for s in extract.skill_order()
-                if m[s] < thr and all(m[p] >= thr for p in sk[s]["prerequisites"])]
+                if s not in done and all(p in done for p in sk[s]["prerequisites"])]
 
 
 class AlreadyGraded(Exception):

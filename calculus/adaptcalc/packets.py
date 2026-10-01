@@ -18,7 +18,8 @@ def render_diagnostic(db: LearnerDB, pid: str) -> dict:
     rnd = pk["round"]
     n = len(probs)
     src = [render.doc_head(f"Diagnostic {pid}", f"Diagnostic, round {rnd}", pid)]
-    src.append(f'#cover("Diagnostic · Round {rnd}", "Where you stand in Chapter 2", '
+    where = extract.course_source().get("title") if is_book_course() else "Chapter 2"
+    src.append(f'#cover("Diagnostic · Round {rnd}", "Where you stand in {render.esc(where)}", '
                f'"{n} questions, chosen to split what is still uncertain about your skills", "{pid}")\n')
     src.append("#instructions[#list("
                "[Write the code #strong[" + pid + "] at the top of every page you photograph.], "
@@ -43,13 +44,20 @@ def render_key(db: LearnerDB, pid: str, diagnostic: bool = False, extra: list[st
         d = p["data"]
         gain = f"{p['info_gain']:.2f}" if p["info_gain"] is not None else "–"
         rows.append(f"[{p['number']}], [${d['key_display']}$], [#text(size: 8pt)[{render.esc(sk[d['skill']]['name'])}]], "
-                    f"[{gain}], [#text(size: 7pt)[#\"{render.esc(d['verification'])}\"]]")
+                    + (f"[{gain}], " if diagnostic else "") + f"[#text(size: 7pt)[#\"{render.esc(d['verification'])}\"]]")
     src = [render.doc_head(f"{pid} key", "Answer key", pid),
            f'#cover("Answer key", "Packet {pid}", "Answers verified with SymPy", "{pid}")\n',
            "#set par(justify: false)\n",
-           "#table(columns: (auto, auto, 1fr, auto, 1.3fr), inset: 5pt, "
-           "table.header([*\\#*], [*Answer*], [*Skill*], [*Info (bits)*], [*SymPy verification*]), "
+           ("#table(columns: (auto, auto, 1fr, auto, 1.3fr), inset: 5pt, "
+            "table.header([*\\#*], [*Answer*], [*Skill*], [*Info (bits)*], [*SymPy verification*]), " if diagnostic else
+            "#table(columns: (auto, auto, 1fr, 1.3fr), inset: 5pt, "
+            "table.header([*\\#*], [*Answer*], [*Skill*], [*SymPy verification*]), ")
            + ", ".join(rows) + ")\n"]
+    worked = [(p["number"], p["data"]["solution"]) for p in probs if p["data"].get("solution")]
+    if worked and not diagnostic:
+        src.append("#subsection[Worked solutions]\n")
+        for num, lines in worked:
+            src.append(f"#worked({num}, (" + ", ".join(f"[${ln}$]" for ln in lines) + ",))\n")
     if extra:
         src.append("#subsection[Checkpoint answers]\n" + "\n#line(length: 100%, stroke: 0.3pt + tint1)\n".join(extra))
     out = paths.OUT / f"{pid}-key.pdf"
@@ -343,17 +351,120 @@ def recent_misconceptions(db: LearnerDB) -> dict[str, str]:
     return out
 
 
-def build_refresh(db: LearnerDB, focus: list[str], log=None, jev_client=None, use_jev: bool = True) -> dict:
-    """Refresh-then-test: the book's own subsections for each skill (verbatim), then practice.
+def is_book_course() -> bool:
+    return bool(extract.course_source().get("books"))
 
-    Only the subsections that teach the skill are printed, not whole sections; all their
-    worked examples, How To boxes and Try Its are kept (Try It answers go to the key).
-    """
+
+def choose_focus_book(db: LearnerDB) -> tuple[list[str], str]:
+    """The next skills to teach in a book course: the deepest unmastered skills on the frontier.
+
+    Rusty foundations are refreshed two at a time; a new course skill is taught on its own,
+    so each lesson carries one new idea."""
     cfg = config()["lesson"]
     sk = extract.skills()
-    n = len([p for p in db.packets() if p["kind"] == "refresh"]) + 1
-    pid = f"R{n}"
-    problems = _practice_problems(focus, cfg["problems_per_skill"], 5000 * n)
+    front = db.frontier()
+    found = [s for s in front if sk[s]["kind"] == "foundation"]
+    if found:
+        return found[:cfg["target_skills_per_packet"]], "refresh"
+    return front[:cfg.get("new_skills_per_packet", 1)], "lesson"
+
+
+def choose_review(db: LearnerDB, exclude: set[str], k: int, seed: int) -> list[str]:
+    """Mixed review: skills due for review first, then other mastered skills, spread over the course."""
+    import random
+
+    if k <= 0:
+        return []
+    due = [s for s in db.due_reviews() if s not in exclude]
+    done = sorted(s for s in db.mastered_set() if s not in exclude and s not in due and templates.for_skill(s))
+    rng = random.Random(seed)
+    rng.shuffle(done)
+    return (due + done)[:k]
+
+
+def distinct_problems(template_ids: list[str], seed0: int) -> list[dict]:
+    """One problem per template id, regenerating with another seed when a problem would look
+    like one already in the list (same opening up to its first number or relation)."""
+    out, seen = [], set()
+    for j, tid in enumerate(template_ids):
+        for attempt in range(12):
+            p = templates.generate(tid, seed0 + 37 * j + 1009 * attempt + 1).to_json()
+            shape = re.split(r"[=<>]", p["plain"])[0][:40]
+            if shape not in seen:
+                break
+        seen.add(shape)
+        out.append(p)
+    return out
+
+
+def interleave(groups: dict[str, list[dict]]) -> list[dict]:
+    """Round-robin across skills, so no two problems of the same kind sit together when it can be avoided."""
+    order, queues = [], {k: list(v) for k, v in groups.items() if v}
+    while queues:
+        for k in list(queues):
+            order.append(queues[k].pop(0))
+            if not queues[k]:
+                del queues[k]
+    return order
+
+
+# fixed prompts (not generated): self-explanation after the first worked example of each new skill
+PAUSES = [
+    "Pause before going on. In one sentence, write down why the first step of {label} is allowed.",
+    "Pause before going on. Cover the solution of {label} and redo it yourself; then say in a sentence what decided each step.",
+    "Pause before going on. In {label}, which step would be easiest to get wrong, and why does the book do it that way?",
+]
+
+
+def build_refresh(db: LearnerDB, focus: list[str], log=None, jev_client=None, use_jev: bool = True,
+                  kind: str = "refresh") -> dict:
+    """A packet taught from the book's own subsections (verbatim), then practice.
+
+    kind "refresh": re-learning a foundation you once knew. kind "lesson": a new skill of a book
+    course. Built on the strongest-evidence practices:
+      - the book's worked examples first, each new skill's first example followed by a fixed
+        self-explanation prompt;
+      - a new skill's first practice problem is faded (the first steps of a worked solution are
+        given; the learner finishes it);
+      - a share of the practice is mixed review of earlier skills, and all practice is interleaved;
+      - review problems are verified templates of skills taught earlier.
+    Only the subsections that teach the skills are printed; all their worked examples, How To
+    boxes and Try Its are kept (Try It answers go to the key).
+    """
+    import math
+
+    cfg = config()["lesson"]
+    sk = extract.skills()
+    prefix = "R" if kind == "refresh" else "L"
+    n = len([p for p in db.packets() if p["kind"] == kind]) + 1
+    pid = f"{prefix}{n}"
+    seed0 = (5000 if kind == "refresh" else 7000) * n
+    per = cfg["problems_per_skill"] if kind == "refresh" else cfg.get("new_skill_problems", 4)
+    focus_problems: dict[str, list[dict]] = {}
+    for s in focus:
+        tpls = templates.for_skill(s)
+        probs = distinct_problems([tpls[j % len(tpls)].id for j in range(per)], seed0 + 100 * len(focus_problems))
+        if kind == "lesson":
+            # fade the first problem that has a worked solution
+            for p in probs:
+                if p.get("solution") and len(p["solution"]) >= 2:
+                    p["faded"] = math.ceil(len(p["solution"]) / 2)
+                    probs.remove(p)
+                    probs.insert(0, p)
+                    break
+        focus_problems[s] = probs
+    n_focus = sum(len(v) for v in focus_problems.values())
+    share = cfg.get("review_share", 0.0)
+    n_review = min(cfg.get("max_review", 4), round(share / (1 - share) * n_focus)) if share else 0
+    review = choose_review(db, set(focus), n_review, seed0)
+    review_problems = {s: [templates.generate(templates.for_skill(s)[0].id, seed0 + 500 + i).to_json()]
+                       for i, s in enumerate(review)}
+    for ps in review_problems.values():
+        for p in ps:
+            p["review"] = True
+    # faded problems first (right after the examples they follow), then everything interleaved
+    faded = [ps.pop(0) for ps in focus_problems.values() if ps and ps[0].get("faded")]
+    problems = faded + interleave({**focus_problems, **review_problems})
     number_of: dict[str, list[int]] = {}
     for i, p in enumerate(problems, 1):
         number_of.setdefault(p["skill"], []).append(i)
@@ -363,23 +474,28 @@ def build_refresh(db: LearnerDB, focus: list[str], log=None, jev_client=None, us
     for s in focus:
         for part in sk[s]["lesson"]:
             mod = extract.module(part["book"], part["section"])
-            secs = [extract.find_subsection(mod, sub["title"]) for sub in part["subsections"]]
+            secs = [extract.find_subsection(mod, sub["title"] or extract.OPENING) for sub in part["subsections"]]
             secs = [x for x in secs if x and x["id"] not in seen]
             seen |= {x["id"] for x in secs}
             if secs:
                 parts.append({"skill": s, "book": part["book"], "mod": mod, "sections": secs})
     books = list(dict.fromkeys(p["book"] for p in parts))
-    source_title = " and ".join(f"OpenStax {source.BOOKS[b].title}" for b in books)
+    source_title = " and ".join(source.BOOKS[b].title for b in books)
     excerpt_blocks = [x for p in parts for x in p["sections"]]
     allowed = notation.BASELINE_FOUNDATION | notation.features_in_blocks(excerpt_blocks)
 
     # generated snippets ----------------------------------------------------------
     first_obj = next((o for s in focus for o in sk[s]["learning_objectives"]), "")
     fb = {"kind": "objective", "text": first_obj}
-    snippets: list[textgen.Snippet] = [textgen.refresh_roadmap([sk[s]["name"] for s in focus], source_title, fb)]
+    if kind == "refresh":
+        road = textgen.refresh_roadmap([sk[s]["name"] for s in focus], source_title, fb)
+    else:
+        road = textgen.lesson_roadmap([sk[s]["name"] for s in focus], source_title, bool(review), fb)
+    snippets: list[textgen.Snippet] = [road]
     recent = recent_misconceptions(db)
     mis_by_id = {m["id"]: m for lst in extract.misconceptions().values() for m in lst}
-    for s in focus:
+    pauses = {}
+    for j, s in enumerate(focus):
         ex = next((a for a in sk[s]["anchors"] if a["type"] == "example" and a["id"] in
                    {b["id"] for p in parts if p["skill"] == s for sec in p["sections"] for b in cnxml.walk([sec])}), None)
         if ex and s in number_of:
@@ -391,15 +507,23 @@ def build_refresh(db: LearnerDB, focus: list[str], log=None, jev_client=None, us
                 w = textgen.watch(ex["label"], mis_by_id[recent[s]]["description"], 0, sfb)
                 w.slot = f"before:{ex['id']}"
                 snippets.append(w)
+            if kind == "lesson" and ex.get("label"):
+                pauses[ex["id"]] = PAUSES[(n + j) % len(PAUSES)].format(label=ex["label"])
+    try_its = {s: [a for a in sk[s]["anchors"] if a["type"] == "checkpoint"] for s in sk}
+    used_try = {s: 0 for s in sk}
     for i, p in enumerate(problems, 1):
-        try_it = next((a for a in sk[p["skill"]]["anchors"] if a["type"] == "checkpoint"), None)
-        snippets.append(textgen.Snippet(f"problem:{i}", "problem", p["prompt"], p["plain"], 0,
-                                        {"kind": "canonical_block", "id": try_it["id"] if try_it else None,
-                                         "book": try_it.get("book") if try_it else None,
-                                         "text": (sk[p["skill"]]["learning_objectives"] or [""])[0]},
-                                        problem=p))
+        lst = try_its[p["skill"]]
+        try_it = lst[used_try[p["skill"]] % len(lst)] if lst else None  # each fallback a different Try It
+        used_try[p["skill"]] += 1
+        sn = textgen.Snippet(f"problem:{i}", "problem", p["prompt"], p["plain"], 0,
+                             {"kind": "canonical_block", "id": try_it["id"] if try_it else None,
+                              "book": try_it.get("book") if try_it else None,
+                              "text": (sk[p["skill"]]["learning_objectives"] or [""])[0]},
+                             problem=p)
+        sn.review = bool(p.get("review"))
+        snippets.append(sn)
     for sn in snippets:
-        sn.allowed = allowed
+        sn.allowed = allowed if not getattr(sn, "review", False) else None
     canonical = []
     for p in parts:
         canonical.append("Learning objectives: " + "; ".join(p["mod"].objectives))
@@ -424,11 +548,14 @@ def build_refresh(db: LearnerDB, focus: list[str], log=None, jev_client=None, us
             m = use(sn)
             if m:
                 ctx.before.setdefault(sn.slot.split(":", 1)[1], []).append(m)
+    for eid, text in pauses.items():
+        ctx.after.setdefault(eid, []).append(f'#pause[#"{render.esc(text)}"]')
     names = [sk[s]["name"] for s in focus]
     attribution = " · ".join(render.book_attribution(b) for b in books)
     kicker = " · ".join(source.BOOKS[b].title for b in books)
-    src = [render.doc_head(f"Refresh {pid}", "Refresh", pid, attribution, kicker=kicker)]
-    src.append(f'#cover("Refresh · {pid}", "{render.esc("; ".join(names))}", '
+    title = "Refresh" if kind == "refresh" else "Lesson"
+    src = [render.doc_head(f"{title} {pid}", title, pid, attribution, kicker=kicker)]
+    src.append(f'#cover("{title} · {pid}", "{render.esc("; ".join(names))}", '
                f'"From {render.esc(source_title)}", "{pid}")\n')
     roadmap = use(snippets[0])
     if roadmap:
@@ -445,13 +572,18 @@ def build_refresh(db: LearnerDB, focus: list[str], log=None, jev_client=None, us
     src.append('#practice-head("Practice")\n')
     src.append("#instructions[#list([Write the code #strong[" + pid + "] at the top of every page.], "
                "[Number each problem. One step per line.], [Cross mistakes out; do not erase.], [Box your final answer.])]\n")
+    if review_problems:
+        src.append('#transition[#"Problems marked review come from earlier skills. They are mixed in on purpose: '
+                   'deciding which method a problem needs is part of the skill."]\n')
     practice, used_fallbacks = [], set()
     for i, p in enumerate(problems, 1):
-        sn = next(s for s in snippets if s.slot == f"problem:{i}")
+        sn = next(s_ for s_ in snippets if s_.slot == f"problem:{i}")
         if use(sn) is not None:
             src.append(render.problem_markup(len(practice) + 1, p))
             practice.append(p)
             continue
+        if p.get("review"):
+            continue  # a review problem that failed its checks is simply left out
         bid, bbook = sn.fallback.get("id"), sn.fallback.get("book")
         if bid and bid not in used_fallbacks and bbook:
             cp = next((b for m in extract.load_book(bbook) for b in cnxml.walk(m.blocks) if b.get("id") == bid
@@ -464,7 +596,11 @@ def build_refresh(db: LearnerDB, focus: list[str], log=None, jev_client=None, us
                 src.append(f"#problem({len(practice) + 1}, [#text(font: sans, size: 8pt, fill: spot)[{cp.get('label') or 'Try It'} "
                            f"(from the text)] {body}], space: 6)\n")
                 practice.append(canonical_problem(cp, p))
-    db.add_packet(pid, "refresh", None, {"focus": focus, "sources": [
+    if kind == "lesson":
+        src.append("#explain[In two or three sentences, explain to someone who missed this lesson how you decide "
+                   "what to do first in a problem like the ones above. Writing it down is part of the practice; "
+                   "it is not graded.]\n")
+    db.add_packet(pid, kind, None, {"focus": focus, "review": review, "sources": [
         {"book": p["book"], "section": p["mod"].number, "subsections": [cnxml.plain(x["title"]) for x in p["sections"]]}
         for p in parts], "gate": decisions})
     for i, p in enumerate(practice, 1):
@@ -476,11 +612,17 @@ def build_refresh(db: LearnerDB, focus: list[str], log=None, jev_client=None, us
     key = render_key(db, pid, extra=ctx.solutions)
     db.set_packet_pdf(pid, str(out))
     render.write_json(paths.OUT / f"{pid}.gate.json", {"packet": pid, "decisions": decisions, "verbatim_audit": audit})
-    return {"pid": pid, "pdf": out, "key": key, "audit": audit, "decisions": decisions, "focus": focus, "kind": "refresh"}
+    return {"pid": pid, "pdf": out, "key": key, "audit": audit, "decisions": decisions, "focus": focus, "kind": kind,
+            "review": review}
 
 
 def next_lesson(db: LearnerDB, log=None, jev_client=None, use_jev: bool = True) -> dict:
-    """Refresh the deepest rusty foundation first; once foundations hold, teach the chapter."""
+    """Refresh the deepest rusty foundation first; once foundations hold, teach the course."""
+    if is_book_course():
+        focus, kind = choose_focus_book(db)
+        if not focus:
+            raise RuntimeError("Every skill in this course is mastered.")
+        return build_refresh(db, focus, log=log, jev_client=jev_client, use_jev=use_jev, kind=kind)
     refresh = choose_refresh(db)
     if refresh:
         return build_refresh(db, refresh, log=log, jev_client=jev_client, use_jev=use_jev)

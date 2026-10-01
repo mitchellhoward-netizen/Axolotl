@@ -96,17 +96,25 @@ def jev_check(snips: list[Snippet], canonical: list[str], log=None, client=None)
 
 
 def gate(snips: list[Snippet], canonical: list[str], log=None, client=None, use_jev: bool = True) -> list[Snippet]:
-    """Run the three checks. Without Jev (use_jev=False) nothing generated is accepted."""
+    """Run the three checks. Without Jev (use_jev=False) nothing generated is accepted.
+
+    A review problem (a template of a skill taught in an earlier packet) is SymPy-checked again,
+    but its notation and new-idea checks are the ones its own lesson passed: judged against this
+    packet's pages it would always look new, because it is meant to come from earlier ones."""
     for s in snips:
         ok, why = sympy_check(s)
         s.checks["sympy"], s.checks["sympy_note"] = ok, why
+        if getattr(s, "review", False):
+            s.checks["notation"], s.checks["notation_note"] = True, "review of a skill taught earlier"
+            s.checks["jev"], s.checks["jev_note"] = ok, "review of a skill taught earlier (gated with its own lesson)"
+            continue
         ok, why = notation_check(s)
         s.checks["notation"], s.checks["notation_note"] = ok, why
         s.checks["jev"] = False
         if not use_jev:
             s.checks["jev_note"] = "Jev check not run; falling back to canonical text"
     if use_jev:
-        jev_check(snips, canonical, log=log, client=client)
+        jev_check([s for s in snips if not getattr(s, "review", False)], canonical, log=log, client=client)
     return snips
 
 
@@ -132,6 +140,14 @@ def refresh_roadmap(skill_names: list[str], source_title: str, fallback: dict) -
     names = "; ".join(n[0].lower() + n[1:] for n in skill_names)
     text = (f"This is a refresh of something you have probably seen before: {names}. The pages below are from "
             f"{source_title}. Read the worked examples, then try the practice problems without looking back at them.")
+    return Snippet("roadmap", "transition", text, text, 0, fallback)
+
+
+def lesson_roadmap(skill_names: list[str], source_title: str, has_review: bool, fallback: dict) -> Snippet:
+    names = "; ".join(n[0].lower() + n[1:] for n in skill_names)
+    text = (f"This lesson is about one thing: {names}. The pages below are from {source_title}, word for word. "
+            f"Read each worked example slowly, then do the practice without looking back."
+            + (" A few practice problems review earlier skills; they are mixed in on purpose." if has_review else ""))
     return Snippet("roadmap", "transition", text, text, 0, fallback)
 
 
