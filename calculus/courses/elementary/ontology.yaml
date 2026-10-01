@@ -1,0 +1,266 @@
+# Elementary (K-5): Marginalia Elementary Mathematics, written for this book (books/mk5).
+#
+# One skill per lesson section. `grade` places a skill in the year it is usually taught; a
+# starting point (config.yaml) sets the diagnostic's prior by grade. The order follows the
+# grades; prerequisites are the ideas a lesson leans on, not everything taught before it.
+
+course:
+  id: elementary
+  title: "Elementary Mathematics"
+  subtitle: "Kindergarten to grade 5: counting to fractions, decimals and volume"
+  books: [mk5]
+
+skills:
+  # ------------------------------------------------------------------ Kindergarten
+  - {id: k_count, name: Count objects to 20, kind: core, grade: K, prerequisites: [], lesson: [{book: mk5, section: "K.1"}]}
+  - {id: k_numerals, name: Read and write numbers to 20, kind: core, grade: K, prerequisites: [k_count], lesson: [{book: mk5, section: "K.2"}]}
+  - {id: k_compare, name: "More, fewer, the same", kind: core, grade: K, prerequisites: [k_count], lesson: [{book: mk5, section: "K.3"}]}
+  - {id: k_addsub, name: Add and take away within 10, kind: core, grade: K, prerequisites: [k_count], lesson: [{book: mk5, section: "K.4"}]}
+  - {id: k_make10, name: Make 10, kind: core, grade: K, prerequisites: [k_addsub], lesson: [{book: mk5, section: "K.5"}]}
+  - {id: k_teens, name: "Teen numbers: ten and some more", kind: core, grade: K, prerequisites: [k_numerals, k_make10], lesson: [{book: mk5, section: "K.6"}]}
+  - {id: k_count100, name: Count to 100 by ones and tens, kind: core, grade: K, prerequisites: [k_teens], lesson: [{book: mk5, section: "K.7"}]}
+  - {id: k_shapes, name: Name and describe shapes, kind: core, grade: K, prerequisites: [], lesson: [{book: mk5, section: "K.8"}]}
+
+  # ------------------------------------------------------------------ Grade 1
+  - {id: g1_add20, name: Add within 20, kind: core, grade: 1, prerequisites: [k_make10, k_teens], lesson: [{book: mk5, section: "1.1"}]}
+  - {id: g1_sub20, name: Subtract within 20, kind: core, grade: 1, prerequisites: [g1_add20], lesson: [{book: mk5, section: "1.2"}]}
+  - {id: g1_unknown, name: The equal sign and the missing number, kind: core, grade: 1, prerequisites: [g1_sub20], lesson: [{book: mk5, section: "1.3"}]}
+  - {id: g1_word, name: Story problems within 20, kind: core, grade: 1, prerequisites: [g1_sub20], lesson: [{book: mk5, section: "1.4"}]}
+  - {id: g1_tens, name: Tens and ones, kind: core, grade: 1, prerequisites: [k_count100], lesson: [{book: mk5, section: "1.5"}]}
+  - {id: g1_compare, name: "Compare two-digit numbers (<, >, =)", kind: core, grade: 1, prerequisites: [g1_tens, k_compare], lesson: [{book: mk5, section: "1.6"}]}
+  - {id: g1_add100, name: Add tens and ones within 100, kind: core, grade: 1, prerequisites: [g1_tens, g1_add20], lesson: [{book: mk5, section: "1.7"}]}
+  - {id: g1_length, name: Measure and order lengths, kind: core, grade: 1, prerequisites: [k_count], lesson: [{book: mk5, section: "1.8"}]}
+  - {id: g1_time, name: Time to the hour and half hour, kind: core, grade: 1, prerequisites: [k_numerals], lesson: [{book: mk5, section: "1.9"}]}
+
+  # ------------------------------------------------------------------ Grade 2
+  - {id: g2_addsub100, name: Add and subtract within 100, kind: core, grade: 2, prerequisites: [g1_add100, g1_sub20], lesson: [{book: mk5, section: "2.1"}]}
+  - {id: g2_hundreds, name: "Hundreds, tens and ones", kind: core, grade: 2, prerequisites: [g1_compare], lesson: [{book: mk5, section: "2.2"}]}
+  - {id: g2_addsub1000, name: Add and subtract within 1000, kind: core, grade: 2, prerequisites: [g2_addsub100, g2_hundreds], lesson: [{book: mk5, section: "2.3"}]}
+  - {id: g2_word, name: One- and two-step story problems, kind: core, grade: 2, prerequisites: [g2_addsub100, g1_word], lesson: [{book: mk5, section: "2.4"}]}
+  - {id: g2_evenodd, name: Even and odd numbers; arrays, kind: core, grade: 2, prerequisites: [g1_add20], lesson: [{book: mk5, section: "2.5"}]}
+  - {id: g2_measure, name: Measure in inches and centimeters, kind: core, grade: 2, prerequisites: [g1_length], lesson: [{book: mk5, section: "2.6"}]}
+  - {id: g2_time, name: Time to five minutes, kind: core, grade: 2, prerequisites: [g1_time], lesson: [{book: mk5, section: "2.7"}]}
+  - {id: g2_money, name: Count coins and dollars, kind: core, grade: 2, prerequisites: [g2_addsub100], lesson: [{book: mk5, section: "2.8"}]}
+  - {id: g2_graphs, name: Picture graphs and bar graphs, kind: core, grade: 2, prerequisites: [g1_sub20], lesson: [{book: mk5, section: "2.9"}]}
+  - {id: g2_parts, name: "Halves, thirds and fourths of shapes", kind: core, grade: 2, prerequisites: [k_shapes], lesson: [{book: mk5, section: "2.10"}]}
+
+  # ------------------------------------------------------------------ Grade 3
+  - {id: g3_mult, name: Multiplication as equal groups, kind: core, grade: 3, prerequisites: [g2_evenodd], lesson: [{book: mk5, section: "3.1"}]}
+  - {id: g3_div, name: Division as sharing and grouping, kind: core, grade: 3, prerequisites: [g3_mult], lesson: [{book: mk5, section: "3.2"}]}
+  - {id: g3_facts, name: Multiplication and division facts to 100, kind: core, grade: 3, prerequisites: [g3_div], lesson: [{book: mk5, section: "3.3"}]}
+  - {id: g3_props, name: Properties of multiplication, kind: core, grade: 3, prerequisites: [g3_facts], lesson: [{book: mk5, section: "3.4"}]}
+  - {id: g3_word, name: Two-step story problems, kind: core, grade: 3, prerequisites: [g3_facts, g2_word], lesson: [{book: mk5, section: "3.5"}]}
+  - {id: g3_round, name: Round to the nearest ten or hundred, kind: core, grade: 3, prerequisites: [g2_hundreds], lesson: [{book: mk5, section: "3.6"}]}
+  - {id: g3_mult10, name: Multiply by multiples of 10, kind: core, grade: 3, prerequisites: [g3_facts], lesson: [{book: mk5, section: "3.7"}]}
+  - {id: g3_fractions, name: Unit fractions and fractions of a whole, kind: core, grade: 3, prerequisites: [g2_parts], lesson: [{book: mk5, section: "3.8"}]}
+  - {id: g3_frac_line, name: Fractions on a number line; compare fractions, kind: core, grade: 3, prerequisites: [g3_fractions], lesson: [{book: mk5, section: "3.9"}]}
+  - {id: g3_area, name: Area and perimeter, kind: core, grade: 3, prerequisites: [g3_facts], lesson: [{book: mk5, section: "3.10"}]}
+  - {id: g3_time, name: Elapsed time, kind: core, grade: 3, prerequisites: [g2_time], lesson: [{book: mk5, section: "3.11"}]}
+
+  # ------------------------------------------------------------------ Grade 4
+  - {id: g4_place, name: Place value to a million; round and compare, kind: core, grade: 4, prerequisites: [g3_round], lesson: [{book: mk5, section: "4.1"}]}
+  - {id: g4_addsub, name: Add and subtract large numbers, kind: core, grade: 4, prerequisites: [g4_place, g2_addsub1000], lesson: [{book: mk5, section: "4.2"}]}
+  - {id: g4_mult, name: Multiply larger numbers, kind: core, grade: 4, prerequisites: [g3_mult10, g3_props], lesson: [{book: mk5, section: "4.3"}]}
+  - {id: g4_div, name: Divide with remainders, kind: core, grade: 4, prerequisites: [g4_mult], lesson: [{book: mk5, section: "4.4"}]}
+  - {id: g4_factors, name: "Factors, multiples, primes", kind: core, grade: 4, prerequisites: [g3_facts], lesson: [{book: mk5, section: "4.5"}]}
+  - {id: g4_equiv, name: Equivalent fractions; compare fractions, kind: core, grade: 4, prerequisites: [g3_frac_line], lesson: [{book: mk5, section: "4.6"}]}
+  - {id: g4_frac_add, name: Add and subtract like fractions and mixed numbers, kind: core, grade: 4, prerequisites: [g4_equiv], lesson: [{book: mk5, section: "4.7"}]}
+  - {id: g4_frac_whole, name: Multiply a fraction by a whole number, kind: core, grade: 4, prerequisites: [g4_frac_add, g3_mult], lesson: [{book: mk5, section: "4.8"}]}
+  - {id: g4_decimals, name: Tenths and hundredths, kind: core, grade: 4, prerequisites: [g4_equiv], lesson: [{book: mk5, section: "4.9"}]}
+  - {id: g4_measure, name: Convert units; area and perimeter formulas, kind: core, grade: 4, prerequisites: [g3_area, g4_mult], lesson: [{book: mk5, section: "4.10"}]}
+  - {id: g4_angles, name: Angles, kind: core, grade: 4, prerequisites: [g2_addsub100], lesson: [{book: mk5, section: "4.11"}]}
+
+  # ------------------------------------------------------------------ Grade 5
+  - {id: g5_expr, name: Numerical expressions with parentheses, kind: core, grade: 5, prerequisites: [g3_props], lesson: [{book: mk5, section: "5.1"}]}
+  - {id: g5_place, name: "Decimals to thousandths; powers of ten", kind: core, grade: 5, prerequisites: [g4_decimals], lesson: [{book: mk5, section: "5.2"}]}
+  - {id: g5_mult, name: Multiply multi-digit numbers, kind: core, grade: 5, prerequisites: [g4_mult], lesson: [{book: mk5, section: "5.3"}]}
+  - {id: g5_div, name: Divide by two-digit numbers, kind: core, grade: 5, prerequisites: [g4_div, g5_mult], lesson: [{book: mk5, section: "5.4"}]}
+  - {id: g5_dec_ops, name: Compute with decimals, kind: core, grade: 5, prerequisites: [g5_place, g4_addsub], lesson: [{book: mk5, section: "5.5"}]}
+  - {id: g5_frac_addsub, name: Add and subtract unlike fractions, kind: core, grade: 5, prerequisites: [g4_frac_add, g4_factors], lesson: [{book: mk5, section: "5.6"}]}
+  - {id: g5_frac_mul, name: Multiply fractions, kind: core, grade: 5, prerequisites: [g4_frac_whole], lesson: [{book: mk5, section: "5.7"}]}
+  - {id: g5_frac_div, name: Divide with unit fractions, kind: core, grade: 5, prerequisites: [g5_frac_mul], lesson: [{book: mk5, section: "5.8"}]}
+  - {id: g5_volume, name: Volume of rectangular prisms, kind: core, grade: 5, prerequisites: [g4_measure], lesson: [{book: mk5, section: "5.9"}]}
+  - {id: g5_coord, name: The coordinate plane, kind: core, grade: 5, prerequisites: [g5_expr], lesson: [{book: mk5, section: "5.10"}]}
+  - {id: g5_convert, name: Convert measurements, kind: core, grade: 5, prerequisites: [g5_dec_ops, g4_measure], lesson: [{book: mk5, section: "5.11"}]}
+
+misconceptions:
+  k_count:
+    - {id: double_count, root: k_count, desc: "Counts some objects twice or skips some (no one-to-one matching)."}
+    - {id: last_not_total, root: k_count, desc: "Counts correctly but does not know the last number said is how many."}
+  k_numerals:
+    - {id: reversed_digits, root: k_numerals, desc: "Writes teen numbers in the order heard: 'seventeen' as 71."}
+    - {id: mirror_digit, root: k_numerals, desc: "Writes a digit backward (a mirrored 3 or 7)."}
+  k_compare:
+    - {id: bigger_spread, root: k_compare, desc: "Judges 'more' by how much space a group takes, not by counting."}
+    - {id: fewer_means_more, root: k_compare, desc: "Picks the larger group when asked which has fewer."}
+  k_addsub:
+    - {id: count_all_off_by_one, root: k_count, desc: "Counts on from the first number by starting at that number (3 + 2: 'three, four')."}
+    - {id: add_for_take, root: k_addsub, desc: "Adds when the story takes away."}
+  k_make10:
+    - {id: partner_wrong, root: k_make10, desc: "Gives a partner that makes 9 or 11 instead of 10."}
+    - {id: counts_filled, root: k_make10, desc: "Answers with the filled spaces of the ten frame instead of the empty ones."}
+  k_teens:
+    - {id: teen_as_digits, root: k_teens, desc: "Reads 14 as 1 and 4 rather than ten and 4."}
+    - {id: teen_reversal, root: k_numerals, desc: "Writes 'ten and six' as 61."}
+  k_count100:
+    - {id: decade_skip, root: k_count100, desc: "After 29 says 'twenty-ten' or skips to the wrong ten."}
+    - {id: tens_as_ones, root: k_count100, desc: "Counting by tens, says 10, 11, 12."}
+  k_shapes:
+    - {id: orientation, root: k_shapes, desc: "Thinks a square turned on its corner is no longer a square."}
+    - {id: rectangle_square, root: k_shapes, desc: "Calls every four-sided shape a square."}
+  g1_add20:
+    - {id: counts_start_twice, root: k_addsub, desc: "Counting on, counts the first addend again: 8 + 3 = 10."}
+    - {id: make_ten_split_wrong, root: k_make10, desc: "Splits the second number wrongly when making a ten."}
+  g1_sub20:
+    - {id: subtract_reversed, root: g1_sub20, desc: "Subtracts the smaller digit from the larger in each place: 14 - 6 = 12."}
+    - {id: sub_off_by_one, root: g1_sub20, desc: "Counting back, includes the starting number: 12 - 3 = 10."}
+  g1_unknown:
+    - {id: equals_means_answer, root: g1_unknown, desc: "Reads = as 'the answer is': for 8 + __ = 12 writes 20."}
+    - {id: copies_number, root: g1_unknown, desc: "Writes one of the given numbers in the box."}
+  g1_word:
+    - {id: keyword_more, root: g1_word, desc: "Adds whenever the story says 'more', even in a 'how many more' comparison."}
+    - {id: uses_all_numbers, root: g1_word, desc: "Combines every number in the story regardless of the question."}
+  g1_tens:
+    - {id: digit_face_value, root: g1_tens, desc: "Says the 4 in 47 is worth 4, not 40."}
+    - {id: ones_as_tens, root: g1_tens, desc: "Writes 3 tens 5 ones as 8 or as 305."}
+  g1_compare:
+    - {id: sign_backward, root: g1_compare, desc: "Reverses < and >."}
+    - {id: compares_ones_first, root: g1_compare, desc: "Compares the ones digits first: 29 > 31 because 9 > 1."}
+  g1_add100:
+    - {id: adds_tens_to_ones, root: g1_tens, desc: "Adds a ten to the ones place: 34 + 20 = 36."}
+    - {id: no_regroup, root: g1_add100, desc: "Writes 15 ones without making a new ten: 38 + 7 = 315."}
+  g1_length:
+    - {id: gaps_overlaps, root: g1_length, desc: "Leaves gaps or overlaps between units when measuring."}
+    - {id: start_not_aligned, root: g1_length, desc: "Compares lengths without lining up the ends."}
+  g1_time:
+    - {id: hands_swapped, root: g1_time, desc: "Reads the minute hand as the hour."}
+    - {id: half_past_next, root: g1_time, desc: "At half past, reads the hour the hand is approaching: 3:30 read as 4:30."}
+  g2_addsub100:
+    - {id: no_carry, root: g2_addsub100, desc: "Forgets the regrouped ten when adding."}
+    - {id: smaller_from_larger, root: g2_addsub100, desc: "In each column subtracts the smaller digit from the larger instead of regrouping."}
+  g2_hundreds:
+    - {id: zero_placeholder, root: g2_hundreds, desc: "Leaves out a zero: four hundred six written as 46."}
+    - {id: expanded_wrong, root: g2_hundreds, desc: "Writes 352 as 3 + 5 + 2."}
+  g2_addsub1000:
+    - {id: borrow_across_zero, root: g2_addsub1000, desc: "Cannot regroup across a zero (as in 403 - 158)."}
+    - {id: misaligned, root: g2_hundreds, desc: "Lines numbers up on the left instead of by place value."}
+  g2_word:
+    - {id: one_step_only, root: g2_word, desc: "Stops after the first step of a two-step problem."}
+    - {id: wrong_operation, root: g1_word, desc: "Adds where the situation calls for subtracting (or the reverse)."}
+  g2_evenodd:
+    - {id: even_by_last_digit_wrong, root: g2_evenodd, desc: "Decides even or odd by the first digit."}
+    - {id: array_add_sides, root: g2_evenodd, desc: "Adds rows and columns instead of counting the array: 3 rows of 4 is 7."}
+  g2_measure:
+    - {id: ruler_from_one, root: g2_measure, desc: "Starts measuring at the 1 mark instead of 0."}
+    - {id: unit_size, root: g2_measure, desc: "Thinks more units means a longer object even with a smaller unit."}
+  g2_time:
+    - {id: minutes_by_ones, root: g2_time, desc: "Reads the number the minute hand points to as the minutes (at 4 reads 4 minutes)."}
+    - {id: hour_hand_rounding, root: g1_time, desc: "Reads the hour the hand is nearest, not the one it last passed."}
+  g2_money:
+    - {id: coins_by_count, root: g2_money, desc: "Counts coins as 1 each, ignoring their values."}
+    - {id: nickel_dime, root: g2_money, desc: "Confuses the nickel (5 cents) with the dime (10 cents)."}
+  g2_graphs:
+    - {id: reads_key_wrong, root: g2_graphs, desc: "Counts pictures without using the key's value for each picture."}
+    - {id: how_many_more_add, root: g1_word, desc: "Adds the two amounts when asked how many more."}
+  g2_parts:
+    - {id: unequal_parts, root: g2_parts, desc: "Calls two unequal pieces halves."}
+    - {id: more_parts_bigger, root: g2_parts, desc: "Thinks a fourth is bigger than a half because 4 is bigger than 2."}
+  g3_mult:
+    - {id: mult_as_add, root: g3_mult, desc: "Adds the two numbers instead of multiplying: 4 groups of 3 is 7."}
+    - {id: groups_vs_size, root: g3_mult, desc: "Confuses the number of groups with the size of each group in a story."}
+  g3_div:
+    - {id: div_order, root: g3_div, desc: "Divides the smaller number by the larger: 3 ÷ 12."}
+    - {id: share_vs_group, root: g3_div, desc: "Answers with the number of groups when the question asks how many in each."}
+  g3_facts:
+    - {id: fact_neighbor, root: g3_facts, desc: "Gives a neighboring fact: 7 × 8 = 54 or 63."}
+    - {id: div_fact_from_add, root: g3_div, desc: "Uses subtraction facts for division: 24 ÷ 6 = 18."}
+  g3_props:
+    - {id: distribute_one_term, root: g3_props, desc: "Multiplies only the first part: 4 × (5 + 2) = 20 + 2."}
+    - {id: order_matters, root: g3_props, desc: "Thinks 6 × 4 and 4 × 6 are different amounts."}
+  g3_word:
+    - {id: one_step_only3, root: g3_word, desc: "Answers after the first step of a two-step problem."}
+    - {id: wrong_op3, root: g3_word, desc: "Picks an operation from a key word rather than the situation."}
+  g3_round:
+    - {id: round_down_always, root: g3_round, desc: "Drops the digits instead of rounding: 67 to 60."}
+    - {id: round_wrong_digit, root: g3_round, desc: "Looks at the wrong digit to decide (rounding 248 to the nearest hundred by the 8)."}
+  g3_mult10:
+    - {id: zeros_dropped, root: g3_mult10, desc: "Drops the zero: 4 × 30 = 12."}
+    - {id: zeros_added_twice, root: g3_mult10, desc: "Adds an extra zero: 6 × 50 = 3000."}
+  g3_fractions:
+    - {id: denominator_is_shaded, root: g3_fractions, desc: "Writes the shaded parts over the unshaded parts: 3 of 4 shaded as 3/1."}
+    - {id: unequal_whole, root: g2_parts, desc: "Names a fraction of a shape cut into unequal parts."}
+  g3_frac_line:
+    - {id: count_ticks, root: g3_frac_line, desc: "Counts tick marks instead of spaces between them."}
+    - {id: bigger_denominator_bigger, root: g3_frac_line, desc: "Thinks 1/8 > 1/4 because 8 > 4."}
+  g3_area:
+    - {id: area_perimeter_swap, root: g3_area, desc: "Adds the sides when asked for area, or multiplies for perimeter."}
+    - {id: perimeter_two_sides, root: g3_area, desc: "Adds only the two labeled sides for the perimeter of a rectangle."}
+  g3_time:
+    - {id: elapsed_as_subtract_digits, root: g3_time, desc: "Subtracts times like whole numbers: 2:10 - 1:50 = 60 minutes as '0:60' or 1:40."}
+    - {id: crosses_hour, root: g3_time, desc: "Loses the hour when the minutes pass 60."}
+  g4_place:
+    - {id: round_wrong_place, root: g4_place, desc: "Rounds to the wrong place (thousands for ten thousands)."}
+    - {id: compare_by_first_digit, root: g4_place, desc: "Compares numbers of different lengths by their first digits."}
+  g4_addsub:
+    - {id: regroup_lost, root: g4_addsub, desc: "Forgets a regrouping in a long addition or subtraction."}
+    - {id: zeros_in_minuend, root: g2_addsub1000, desc: "Mishandles regrouping across zeros (5000 - 1234)."}
+  g4_mult:
+    - {id: no_placeholder, root: g4_mult, desc: "Forgets the zero (shift) when multiplying by the tens digit."}
+    - {id: partial_products_missing, root: g3_props, desc: "Multiplies tens by tens and ones by ones only: 23 × 14 = 2 × 1 tens + 3 × 4."}
+  g4_div:
+    - {id: remainder_too_large, root: g4_div, desc: "Leaves a remainder as large as or larger than the divisor."}
+    - {id: zero_in_quotient, root: g4_div, desc: "Drops a zero in the quotient when a step doesn't go."}
+  g4_factors:
+    - {id: one_prime, root: g4_factors, desc: "Calls 1 a prime number."}
+    - {id: missing_factor_pairs, root: g4_factors, desc: "Stops listing factors too early and misses pairs."}
+  g4_equiv:
+    - {id: add_same_number, root: g4_equiv, desc: "Adds the same number to top and bottom: 2/3 = 4/5."}
+    - {id: compare_numerators_only, root: g4_equiv, desc: "Compares fractions by numerators alone across different denominators."}
+  g4_frac_add:
+    - {id: add_denominators, root: g4_frac_add, desc: "Adds denominators too: 2/5 + 1/5 = 3/10."}
+    - {id: mixed_borrow, root: g4_frac_add, desc: "Subtracting mixed numbers, borrows 10 instead of one whole."}
+  g4_frac_whole:
+    - {id: mult_both, root: g4_frac_whole, desc: "Multiplies the denominator by the whole number too: 3 × 2/5 = 6/15."}
+    - {id: add_whole, root: g4_frac_add, desc: "Adds the whole number to the numerator."}
+  g4_decimals:
+    - {id: longer_is_larger, root: g4_decimals, desc: "Thinks 0.25 > 0.3 because 25 > 3."}
+    - {id: tenths_hundredths, root: g4_decimals, desc: "Writes 7 hundredths as 0.7."}
+  g4_measure:
+    - {id: convert_wrong_way, root: g4_measure, desc: "Divides when converting to a smaller unit (3 feet = 1/4 inch)."}
+    - {id: area_perimeter_formula, root: g3_area, desc: "Uses the area formula for perimeter."}
+  g4_angles:
+    - {id: reads_wrong_scale, root: g4_angles, desc: "Reads the other scale of the protractor (120 for 60)."}
+    - {id: angle_add_wrong, root: g4_angles, desc: "Adds the angles when one is missing from a whole."}
+  g5_expr:
+    - {id: left_to_right5, root: g5_expr, desc: "Works left to right, ignoring the parentheses or multiplying last."}
+    - {id: parentheses_ignored, root: g3_props, desc: "Removes parentheses without distributing."}
+  g5_place:
+    - {id: decimal_length, root: g5_place, desc: "Thinks a decimal with more digits is larger: 0.125 > 0.3."}
+    - {id: power_of_ten_shift, root: g5_place, desc: "Moves the decimal point the wrong way when multiplying by 10, 100 or 1000."}
+  g5_mult:
+    - {id: placeholder5, root: g4_mult, desc: "Forgets the placeholder zeros in the second and third rows."}
+    - {id: carry_lost5, root: g5_mult, desc: "Loses a carried digit in a partial product."}
+  g5_div:
+    - {id: estimate_quotient_digit, root: g5_div, desc: "Picks a quotient digit too large, so the product exceeds the dividend part."}
+    - {id: zero_digit5, root: g4_div, desc: "Leaves out a zero in the quotient."}
+  g5_dec_ops:
+    - {id: align_right, root: g5_dec_ops, desc: "Lines up decimals on the right instead of at the point."}
+    - {id: point_count, root: g5_dec_ops, desc: "Places the decimal point wrongly in a product."}
+  g5_frac_addsub:
+    - {id: add_across, root: g5_frac_addsub, desc: "Adds numerators and denominators: 1/2 + 1/3 = 2/5."}
+    - {id: common_denominator_numerator, root: g4_equiv, desc: "Changes the denominator without changing the numerator."}
+  g5_frac_mul:
+    - {id: cross_add, root: g5_frac_mul, desc: "Finds a common denominator and multiplies only the numerators."}
+    - {id: product_bigger, root: g5_frac_mul, desc: "Expects a product of fractions less than 1 to be bigger than both."}
+  g5_frac_div:
+    - {id: divide_wrong_way, root: g5_frac_div, desc: "Computes 1/3 ÷ 4 as 4 ÷ 1/3."}
+    - {id: halving_vs_dividing_by_half, root: g5_frac_div, desc: "Treats dividing by 1/2 as dividing by 2."}
+  g5_volume:
+    - {id: volume_add, root: g5_volume, desc: "Adds the three dimensions instead of multiplying."}
+    - {id: surface_count, root: g5_volume, desc: "Counts only the visible cubes on the outside."}
+  g5_coord:
+    - {id: xy_swapped, root: g5_coord, desc: "Moves up first, then across: plots (3, 5) at (5, 3)."}
+    - {id: starts_at_one, root: g5_coord, desc: "Counts from 1 instead of from 0 along an axis."}
+  g5_convert:
+    - {id: convert_direction5, root: g5_convert, desc: "Multiplies when converting to a larger unit."}
+    - {id: metric_power_wrong, root: g5_place, desc: "Uses the wrong power of ten (1 m = 10 cm)."}

@@ -44,6 +44,9 @@ class Book:
     license_url: str = ""
     commercial: bool = True  # may appear in what we sell (False: personal study only)
     authors: str = ""
+    # a book written for Marginalia (YAML under this directory, relative to the project root):
+    # nothing is fetched and no outside license applies
+    authored: str = ""
 
 
 BOOKS: dict[str, Book] = {
@@ -65,6 +68,8 @@ BOOKS: dict[str, Book] = {
                  ref="c1bbed4b86ff5c80686d339a6ca5e4e48fae2483",
                  license_url="https://creativecommons.org/licenses/by/4.0/",
                  authors="Lynn Marecek, MaryAnne Anthony-Smith and Andrea Honeycutt Mathis"),
+    "mk5": Book("mk5", "Marginalia Elementary Mathematics", "", "", "", tuple(range(0, 6)), "chapter", "Try It",
+                "Original work", authored="books/mk5", authors="Marginalia"),
 }
 
 # Chapter 2 of Calculus Volume 1 is the course; kept for the modules that predate multiple books.
@@ -84,12 +89,16 @@ class Module:
 
 
 def book_url(book: str) -> str:
+    if BOOKS[book].authored:
+        return ""
     return f"https://openstax.org/books/{BOOKS[book].slug}"
 
 
 def attribution_line(book: str) -> str:
     """The credit CC licenses require: title, authors, licensor, license, link, and that it was changed."""
     b = BOOKS[book]
+    if b.authored:
+        return f"{b.title}. Written for Marginalia; all rights reserved."
     return (f"Adapted from {b.title} by {b.authors}, OpenStax, {b.license} "
             f"({b.license_url.replace('http://', 'https://')}). Access for free at {book_url(book)}. "
             f"Excerpted, reordered and interleaved with generated practice.")
@@ -128,6 +137,8 @@ def _cached(url: str, dest: Path, refresh: bool = False) -> Path:
 
 def raw(book: str) -> str:
     b = BOOKS[book]
+    if b.authored:
+        return ""
     return f"https://raw.githubusercontent.com/openstax/{b.repo}/{b.ref}"
 
 

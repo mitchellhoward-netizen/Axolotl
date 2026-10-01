@@ -1,8 +1,10 @@
 {
   "source": {
+    "course": "calc_limits",
+    "title": "Calculus: Limits",
+    "subtitle": "Calculus Volume 1, Chapter 2",
     "book": "Calculus Volume 1 (OpenStax)",
     "chapter": 2,
-    "title": "Limits",
     "url": "https://openstax.org/books/calculus-volume-1/pages/2-introduction",
     "repository": "https://raw.githubusercontent.com/openstax/osbooks-calculus-bundle/main",
     "modules": [
@@ -37,7 +39,8 @@
         "title": "The Precise Definition of a Limit"
       }
     ],
-    "license": "CC BY-NC-SA 4.0"
+    "license": "CC BY-NC-SA 4.0",
+    "commercial": false
   },
   "misconceptions": {
     "pre_order_ops": [

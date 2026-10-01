@@ -1,0 +1,223 @@
+chapter: 0
+title: Kindergarten
+modules:
+  - number: "K.1"
+    title: Counting Objects
+    objectives: [Count up to 20 objects, Tell how many after counting]
+    opening:
+      - grownup: "Read this lesson aloud. Let your child touch each picture as they count. Saying one number for each thing touched is the whole skill; go slowly and let them do the touching."
+    sections:
+      - title: One Number for Each Thing
+        blocks:
+          - "When we count, we say one number for each thing. We touch a thing and say a number. Then we touch the next thing and say the next number."
+          - "The last number we say tells **how many** there are."
+          - draw: "counters(4) | four dots in a row"
+          - example:
+              title: Count the dots
+              problem: "How many dots? {{counters(5) | five dots}}"
+              solution:
+                - {step: "Touch the first dot. Say one.", work: "1"}
+                - {step: "Touch each next dot. Say the next number.", work: "2, 3, 4, 5"}
+                - {step: "The last number is how many.", work: "There are 5 dots."}
+          - try: {q: "How many dots? {{counters(3) | three dots}}", a: "3"}
+          - try: {q: "How many dots? {{counters(6) | six dots in two rows}}", a: "6"}
+      - title: Counting Larger Groups
+        blocks:
+          - "With many things, it helps to count them in order: along the top row, then along the next row. Then nothing is counted twice and nothing is missed."
+          - example:
+              title: Count in rows
+              problem: "How many stars? {{counters(12, shape: \"star\") | twelve stars in rows of five}}"
+              solution:
+                - {step: "Count the top row.", work: "1, 2, 3, 4, 5"}
+                - {step: "Keep counting on the next row.", work: "6, 7, 8, 9, 10"}
+                - {step: "Keep counting on the last row.", work: "11, 12"}
+                - {step: "The last number is how many.", work: "There are 12 stars."}
+          - try: {q: "How many squares? {{counters(9, shape: \"square\") | nine squares in rows of five}}", a: "9"}
+          - try: {q: "How many dots? {{counters(15) | fifteen dots in rows of five}}", a: "15"}
+
+  - number: "K.2"
+    title: Reading and Writing Numbers to 20
+    objectives: [Read the numbers 0 to 20, Write the number that tells how many]
+    opening:
+      - grownup: "Have your child say each number aloud as they write it. For the teen numbers, the order is tricky: we say seventeen, which sounds like seven first, but we write the 1 first. Point at the 1 and say ten."
+    sections:
+      - title: Numbers Tell How Many
+        blocks:
+          - "A number is a way to write how many. When there are no things at all, we write **zero**: 0."
+          - table:
+              header: [Picture, Number, Word]
+              rows:
+                - ["{{counters(1) | one dot}}", "1", one]
+                - ["{{counters(2) | two dots}}", "2", two]
+                - ["{{counters(3) | three dots}}", "3", three]
+                - ["{{counters(4) | four dots}}", "4", four]
+                - ["{{counters(5) | five dots}}", "5", five]
+          - example:
+              title: Write how many
+              problem: "Write the number. {{counters(7) | seven dots}}"
+              solution:
+                - {step: "Count the dots.", work: "1, 2, 3, 4, 5, 6, 7"}
+                - {step: "Write the last number.", work: "7"}
+          - try: {q: "Write the number. {{counters(8) | eight dots}}", a: "8"}
+      - title: Numbers After Ten
+        blocks:
+          - "After 10 come 11, 12, 13, 14, 15, 16, 17, 18, 19 and 20. Each of these is written with a 1 first, and the 1 stands for a whole ten. In 16 the 1 means ten and the 6 means six more."
+          - example:
+              title: Write a teen number
+              problem: "Write the number for ten and four more. {{tenframe(14) | a full ten frame and four more dots}}"
+              solution:
+                - {step: "A full ten frame is ten.", work: "10"}
+                - {step: "Four more dots.", work: "4"}
+                - {step: "Ten and four is fourteen. Write the 1 for the ten, then the 4.", work: "14"}
+          - try: {q: "Write the number for ten and seven more.", a: "17"}
+          - try: {q: "Write the number. {{tenframe(12) | a full ten frame and two more dots}}", a: "12"}
+
+  - number: "K.3"
+    title: More, Fewer, the Same
+    objectives: [Tell which group has more or fewer, Compare two numbers to 10]
+    opening:
+      - grownup: "Children often think a group that is spread out has more. Matching one to one, or counting both groups, settles it. Ask: how do you know?"
+    sections:
+      - title: Matching and Counting
+        blocks:
+          - "To find which group has **more**, match the things in the two groups one to one. The group with things left over has more. The other group has **fewer**. If nothing is left over, the groups are **the same**."
+          - example:
+              title: Which has more?
+              problem: "Which group has more, the filled dots or the open dots? {{groups(5, 3) | five filled dots and three open dots}}"
+              solution:
+                - {step: "Count the filled dots.", work: "5"}
+                - {step: "Count the open dots.", work: "3"}
+                - {step: "Five comes after three when we count, so five is more.", work: "The filled dots have more."}
+          - try: {q: "Which group has fewer, the filled dots or the open dots? {{groups(4, 6) | four filled dots and six open dots}}", a: "the filled dots (4 is fewer than 6)"}
+      - title: Comparing Numbers
+        blocks:
+          - "We can compare numbers without pictures. When we count, the number that comes later is greater. 8 comes after 6, so 8 is more than 6."
+          - example:
+              title: Which number is greater?
+              problem: "Which is greater, 7 or 9?"
+              solution:
+                - {step: "Count: 1, 2, 3, 4, 5, 6, 7, 8, 9.", work: "9 comes after 7."}
+                - {step: "The later number is greater.", work: "9 is greater."}
+          - try: {q: "Which is greater, 4 or 2?", a: "4"}
+          - try: {q: "Which is less, 10 or 6?", a: "6"}
+
+  - number: "K.4"
+    title: Adding and Taking Away
+    objectives: [Add within 10 by putting groups together, Subtract within 10 by taking away]
+    opening:
+      - grownup: "Use real things: buttons, beans, crackers. Act out each story, then write it with numbers. The plus sign means put together; the minus sign means take away."
+    sections:
+      - title: Putting Together
+        blocks:
+          - "When we put two groups together and count them all, we **add**. We write it with a plus sign: $3 + 2 = 5$. We say: three plus two equals five."
+          - draw: "groups(3, 2) | three filled dots and two open dots"
+          - example:
+              title: Add two groups
+              problem: "There are 4 red apples and 3 green apples. How many apples in all?"
+              solution:
+                - {step: "Draw 4 dots and 3 more dots.", work: "{{groups(4, 3) | four filled dots and three open dots}}"}
+                - {step: "Count them all.", work: "1, 2, 3, 4, 5, 6, 7"}
+                - {step: "Write it.", work: "$4 + 3 = 7$"}
+          - try: {q: "Add: $2 + 3$", a: "5"}
+          - try: {q: "There are 5 ducks. 4 more come. How many ducks now?", a: "9"}
+      - title: Taking Away
+        blocks:
+          - "When some things go away, we **subtract** to find how many are left. We write it with a minus sign: $5 - 2 = 3$. We say: five minus two equals three."
+          - example:
+              title: Take away
+              problem: "There are 6 birds on a fence. 2 fly away. How many are left?"
+              solution:
+                - {step: "Start with 6.", work: "{{counters(6) | six dots}}"}
+                - {step: "Cross out 2.", work: "6 take away 2"}
+                - {step: "Count the ones left.", work: "$6 - 2 = 4$"}
+          - try: {q: "Subtract: $7 - 3$", a: "4"}
+          - try: {q: "You have 8 grapes and eat 5. How many are left?", a: "3"}
+
+  - number: "K.5"
+    title: Making Ten
+    objectives: [Find the number that makes 10 with a given number]
+    opening:
+      - grownup: "Ten is the most important number in early math. Use the ten frame: the empty boxes are the number needed to make ten. Practice the pairs until they come quickly: 1 and 9, 2 and 8, 3 and 7, 4 and 6, 5 and 5."
+    sections:
+      - title: The Ten Frame
+        blocks:
+          - "A **ten frame** has 10 boxes. When every box has a dot, there are 10."
+          - draw: "tenframe(10) | a full ten frame"
+          - "If some boxes are empty, the empty boxes tell how many more we need to make 10."
+          - example:
+              title: How many more to make 10?
+              problem: "How many more dots make 10? {{tenframe(7) | a ten frame with seven dots}}"
+              solution:
+                - {step: "Count the dots.", work: "7"}
+                - {step: "Count the empty boxes.", work: "3"}
+                - {step: "7 and 3 make 10.", work: "$7 + 3 = 10$"}
+          - try: {q: "How many more dots make 10? {{tenframe(6) | a ten frame with six dots}}", a: "4"}
+          - try: {q: "$8 + square = 10$. What number goes in the box?", a: "2"}
+
+  - number: "K.6"
+    title: Teen Numbers
+    objectives: [Show a teen number as ten and some more]
+    opening:
+      - grownup: "Every teen number is ten and some more. Saying it both ways, fifteen and ten and five, builds the idea of place value that comes in first grade."
+    sections:
+      - title: Ten and Some More
+        blocks:
+          - "The numbers 11 to 19 are each one full ten and some more ones. Fifteen is ten and five more: $10 + 5 = 15$."
+          - draw: "tenframe(15) | a full ten frame and five more dots"
+          - example:
+              title: Ten and how many more?
+              problem: "18 is ten and how many more?"
+              solution:
+                - {step: "Fill one ten frame. That is 10.", work: "{{tenframe(18) | a full ten frame and eight more dots}}"}
+                - {step: "Count the extra dots.", work: "8"}
+                - {step: "Write it.", work: "$18 = 10 + 8$"}
+          - try: {q: "13 is ten and how many more?", a: "3"}
+          - try: {q: "What number is $10 + 9$?", a: "19"}
+
+  - number: "K.7"
+    title: Counting to 100
+    objectives: [Count to 100 by ones, Count to 100 by tens]
+    opening:
+      - grownup: "Counting to 100 is a song with a pattern. The ones go 1 to 9 again and again; only the tens change. Count by tens together while pointing at a hundred chart or bundles of ten."
+    sections:
+      - title: Counting by Tens
+        blocks:
+          - "Counting by tens is fast: 10, 20, 30, 40, 50, 60, 70, 80, 90, 100. Each number is one more ten."
+          - draw: "numline(0, 100, every: 2, step: 5) | a number line from 0 to 100 marked by tens"
+          - example:
+              title: Count on by tens
+              problem: "Count by tens: 30, 40, 50, ___. What comes next?"
+              solution:
+                - {step: "Each step adds one ten.", work: "50 and one more ten"}
+                - {step: "The next ten after fifty is sixty.", work: "60"}
+          - try: {q: "Count by tens: 60, 70, ___. What comes next?", a: "80"}
+      - title: Counting by Ones
+        blocks:
+          - "Counting by ones, the last digit goes 0, 1, 2, 3, 4, 5, 6, 7, 8, 9. After 9 comes the next ten: after 39 comes 40."
+          - example:
+              title: What comes next?
+              problem: "What number comes after 49?"
+              solution:
+                - {step: "The ones digit is 9, the last one.", work: "49"}
+                - {step: "Go to the next ten.", work: "50"}
+          - try: {q: "What number comes after 69?", a: "70"}
+          - try: {q: "What number comes after 84?", a: "85"}
+
+  - number: "K.8"
+    title: Shapes
+    objectives: [Name circles, triangles, squares, rectangles and hexagons, Count sides and corners]
+    opening:
+      - grownup: "Look for shapes around the house: plates, windows, doors, stop signs. A shape keeps its name when it is turned; a square on its corner is still a square."
+    sections:
+      - title: Naming Shapes
+        blocks:
+          - draw: "shapes(\"circle\", \"triangle\", \"square\", \"rectangle\", \"hexagon\") | a circle, a triangle, a square, a rectangle and a hexagon"
+          - "A **circle** is round and has no corners. A **triangle** has 3 straight sides and 3 corners. A **square** has 4 sides, all the same length. A **rectangle** has 4 sides and 4 square corners. A **hexagon** has 6 sides."
+          - example:
+              title: Name the shape
+              problem: "Name this shape. {{shape(\"triangle\") | a triangle}}"
+              solution:
+                - {step: "Count the straight sides.", work: "3"}
+                - {step: "A shape with 3 sides is a triangle.", work: "triangle"}
+          - try: {q: "How many sides does a hexagon have?", a: "6"}
+          - try: {q: "Name this shape. {{shape(\"circle\") | a circle}}", a: "circle"}

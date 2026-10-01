@@ -1,0 +1,318 @@
+chapter: 4
+title: Grade 4
+modules:
+  - number: "4.1"
+    title: Place Value to a Million
+    objectives: [Read and write numbers to a million, Round and compare multi-digit numbers]
+    sections:
+      - title: Periods and Places
+        blocks:
+          - "Each place is worth ten times the place to its right. We group the digits in threes, called **periods**, separated by commas: ones, thousands, millions."
+          - table:
+              header: [hundred thousands, ten thousands, thousands, hundreds, tens, ones]
+              rows:
+                - ["4", "0", "7", "2", "5", "3"]
+          - "The number in the chart is 407,253: four hundred seven thousand, two hundred fifty-three. The 7 is worth 7,000."
+          - example:
+              title: Value of a digit
+              problem: "What is the value of the 6 in 362,915?"
+              solution:
+                - {step: "Find the place of the 6.", work: "ten thousands"}
+                - {step: "Its value is 6 ten thousands.", work: "60,000"}
+          - try: {q: "What is the value of the 4 in 84,301?", a: "4,000"}
+      - title: Rounding and Comparing
+        blocks:
+          - "To round, find the place you are rounding to and look at the digit to its right: 5 or more rounds up. To compare, line up the places and compare from the left."
+          - example:
+              title: Round to the nearest thousand
+              problem: "Round 46,728 to the nearest thousand."
+              solution:
+                - {step: "The thousands digit is 6.", work: "46,000 or 47,000"}
+                - {step: "The digit to its right is 7, which is 5 or more.", work: "round up"}
+                - {step: "Answer.", work: "47,000"}
+          - try: {q: "Round 238,410 to the nearest ten thousand.", a: "240,000"}
+          - try: {q: "Compare 70,419 and 70,491. Write $<$, $>$ or $=$.", a: "$70{,}419 < 70{,}491$"}
+
+  - number: "4.2"
+    title: Adding and Subtracting Large Numbers
+    objectives: [Add and subtract multi-digit whole numbers with the standard algorithm]
+    sections:
+      - title: The Standard Algorithm
+        blocks:
+          - "Write the numbers in columns by place value. Start at the ones. When a column adds to 10 or more, carry to the next place. When subtracting, regroup from the next place when a digit is too small."
+          - example:
+              title: Add
+              problem: "Add: $5{,}847 + 2{,}695$"
+              solution:
+                - {step: "Ones: $7 + 5 = 12$. Write 2, carry 1.", work: "2"}
+                - {step: "Tens: $4 + 9 + 1 = 14$. Write 4, carry 1.", work: "4"}
+                - {step: "Hundreds: $8 + 6 + 1 = 15$. Write 5, carry 1.", work: "5"}
+                - {step: "Thousands: $5 + 2 + 1 = 8$.", work: "8"}
+                - {step: "Sum.", work: "8,542"}
+          - example:
+              title: Subtract across zeros
+              problem: "Subtract: $6{,}000 - 2{,}358$"
+              solution:
+                - {step: "Regroup: 6,000 is 5 thousands, 9 hundreds, 9 tens and 10 ones.", work: "5 | 9 | 9 | 10"}
+                - {step: "Subtract each place.", work: "$10 - 8 = 2$, $9 - 5 = 4$, $9 - 3 = 6$, $5 - 2 = 3$"}
+                - {step: "Difference.", work: "3,642"}
+          - try: {q: "Add: $38{,}256 + 14{,}978$", a: "53,234"}
+          - try: {q: "Subtract: $9{,}004 - 3{,}567$", a: "5,437"}
+
+  - number: "4.3"
+    title: Multiplying Larger Numbers
+    objectives: [Multiply up to four digits by one digit, Multiply two two-digit numbers]
+    sections:
+      - title: Partial Products
+        blocks:
+          - "To multiply a larger number, break it into places, multiply each place, and add the **partial products**. $4 times 326 = 4 times 300 + 4 times 20 + 4 times 6 = 1{,}200 + 80 + 24 = 1{,}304$."
+          - example:
+              title: Multiply by one digit
+              problem: "Multiply: $7 times 248$"
+              solution:
+                - {step: "Multiply each place.", work: "$7 times 200 = 1{,}400$; $7 times 40 = 280$; $7 times 8 = 56$"}
+                - {step: "Add the partial products.", work: "$1{,}400 + 280 + 56 = 1{,}736$"}
+          - try: {q: "Multiply: $6 times 1{,}205$", a: "7,230"}
+      - title: Two Two-Digit Numbers
+        blocks:
+          - "To multiply two two-digit numbers, multiply by the ones digit, then by the tens digit, and add. The tens row is ten times as big, so it ends in a zero."
+          - draw: "labeledrect(23, 14) | a rectangle 23 by 14 split for partial products"
+          - example:
+              title: Multiply two-digit numbers
+              problem: "Multiply: $23 times 14$"
+              solution:
+                - {step: "Multiply by the 4 ones.", work: "$23 times 4 = 92$"}
+                - {step: "Multiply by the 1 ten.", work: "$23 times 10 = 230$"}
+                - {step: "Add.", work: "$92 + 230 = 322$"}
+          - try: {q: "Multiply: $36 times 25$", a: "900"}
+          - try: {q: "Multiply: $47 times 13$", a: "611"}
+
+  - number: "4.4"
+    title: Dividing with Remainders
+    objectives: [Divide up to four digits by one digit, Interpret a remainder]
+    sections:
+      - title: Long Division
+        blocks:
+          - "Divide one place at a time, from the left. At each step: divide, multiply, subtract, bring down the next digit. What is left at the end is the **remainder**; it must be less than the divisor."
+          - howto:
+              title: Divide by a one-digit number.
+              steps: ["Divide the first digit (or first two digits) by the divisor; write the quotient digit above.", "Multiply that digit by the divisor and subtract.", "Bring down the next digit and repeat.", "Write what is left as the remainder, R."]
+          - example:
+              title: Divide with a remainder
+              problem: "Divide: $746 div 5$"
+              solution:
+                - {step: "7 hundreds divided by 5 is 1, with 2 left.", work: "1"}
+                - {step: "Bring down 4: 24 tens divided by 5 is 4, with 4 left.", work: "14"}
+                - {step: "Bring down 6: 46 ones divided by 5 is 9, with 1 left.", work: "149"}
+                - {step: "Answer and check: $5 times 149 + 1 = 746$.", work: "149 R 1"}
+          - try: {q: "Divide: $635 div 4$", a: "158 R 3"}
+          - try: {q: "Divide: $1{,}242 div 6$", a: "207"}
+      - title: What the Remainder Means
+        blocks:
+          - "In a story, decide what the remainder means. Sometimes it is extra, sometimes it needs one more group."
+          - example:
+              title: Round up
+              problem: "130 students go on a trip. Each van holds 8 students. How many vans are needed?"
+              solution:
+                - {step: "Divide.", work: "$130 div 8 = 16$ R 2"}
+                - {step: "16 vans hold 128. The 2 students left need a van too.", work: "17 vans"}
+          - try: {q: "A baker has 50 muffins and boxes of 6. How many boxes can be filled?", a: "8"}
+
+  - number: "4.5"
+    title: Factors, Multiples and Primes
+    objectives: [Find all factor pairs of a number, Tell whether a number is prime or composite]
+    sections:
+      - title: Factors and Multiples
+        blocks:
+          - "A **factor** of a number divides it with no remainder. 4 is a factor of 12 because $3 times 4 = 12$. 12 is a **multiple** of 4. To find all factors, test 1, 2, 3, ... in pairs until the pairs meet."
+          - example:
+              title: All the factors
+              problem: "List all the factors of 24."
+              solution:
+                - {step: "Find the factor pairs.", work: "$1 times 24$, $2 times 12$, $3 times 8$, $4 times 6$"}
+                - {step: "5 is not a factor, and the next pair would be 6 and 4 again. Stop.", work: "done"}
+                - {step: "List them in order.", work: "1, 2, 3, 4, 6, 8, 12, 24"}
+          - try: {q: "List all the factors of 18.", a: "1, 2, 3, 6, 9, 18"}
+      - title: Prime and Composite
+        blocks:
+          - "A **prime** number has exactly two factors, 1 and itself: 2, 3, 5, 7, 11, 13, ... A **composite** number has more than two factors. The number 1 is neither prime nor composite."
+          - example:
+              title: Prime or composite?
+              problem: "Is 51 prime or composite?"
+              solution:
+                - {step: "Test small factors. 51 is odd, so not 2. Digits add to 6, so 3 divides it.", work: "$3 times 17 = 51$"}
+                - {step: "51 has a factor other than 1 and itself.", work: "composite"}
+          - try: {q: "Is 29 prime or composite?", a: "prime"}
+          - try: {q: "Is 57 prime or composite?", a: "composite"}
+
+  - number: "4.6"
+    title: Equivalent Fractions
+    objectives: [Find equivalent fractions, Compare fractions with different denominators]
+    sections:
+      - title: Same Amount, Different Names
+        blocks:
+          - "Fractions that name the same amount are **equivalent**. Cut each part of $1/2$ in two and you get $2/4$. Multiplying the numerator and denominator by the same number gives an equivalent fraction."
+          - draw: "fracbar(1, 2) | a bar with one half shaded"
+          - draw: "fracbar(2, 4) | a bar the same size with two fourths shaded"
+          - eq: "2/3 = (2 times 4)/(3 times 4) = 8/12"
+          - example:
+              title: Find an equivalent fraction
+              problem: "Fill in the missing number: $3/5 = square/20$"
+              solution:
+                - {step: "What times 5 is 20?", work: "4"}
+                - {step: "Multiply the numerator by the same number.", work: "$3 times 4 = 12$"}
+                - {step: "Answer.", work: "$3/5 = 12/20$"}
+          - try: {q: "Fill in the missing number: $2/7 = square/21$", a: "6"}
+      - title: Comparing Fractions
+        blocks:
+          - "To compare fractions with different denominators, rewrite them with a common denominator, or compare each to a benchmark like $1/2$."
+          - example:
+              title: Common denominator
+              problem: "Compare $3/4$ and $5/8$."
+              solution:
+                - {step: "Rewrite fourths as eighths.", work: "$3/4 = 6/8$"}
+                - {step: "Compare eighths.", work: "$6/8 > 5/8$"}
+                - {step: "Answer.", work: "$3/4 > 5/8$"}
+          - try: {q: "Compare $2/3$ and $3/5$. Write $<$, $>$ or $=$.", a: "$2/3 > 3/5$"}
+
+  - number: "4.7"
+    title: Adding and Subtracting Like Fractions
+    objectives: [Add and subtract fractions with the same denominator, Add and subtract mixed numbers]
+    sections:
+      - title: Like Denominators
+        blocks:
+          - "When fractions have the same denominator, the parts are the same size. Add or subtract the numerators; the denominator stays the same. $2/5 + 1/5 = 3/5$, because two fifths and one fifth are three fifths."
+          - example:
+              title: Add like fractions
+              problem: "Add: $3/8 + 4/8$"
+              solution:
+                - {step: "Same denominator: add the numerators.", work: "$3 + 4 = 7$"}
+                - {step: "Keep the denominator.", work: "$7/8$"}
+          - try: {q: "Subtract: $9/10 - 3/10$", a: "$6/10$"}
+      - title: Mixed Numbers
+        blocks:
+          - "A **mixed number** like $2 3/4$ is a whole number and a fraction. To add mixed numbers, add the wholes and add the fractions. If the fractions make more than a whole, make a new whole."
+          - example:
+              title: Add mixed numbers
+              problem: "Add: $2 3/4 + 1 2/4$"
+              solution:
+                - {step: "Add the wholes.", work: "$2 + 1 = 3$"}
+                - {step: "Add the fractions.", work: "$3/4 + 2/4 = 5/4$"}
+                - {step: "$5/4$ is one whole and $1/4$.", work: "$3 + 1 1/4 = 4 1/4$"}
+          - example:
+              title: Subtract with regrouping
+              problem: "Subtract: $5 1/6 - 2 5/6$"
+              solution:
+                - {step: "$1/6$ is not enough to take $5/6$. Trade one whole for $6/6$.", work: "$5 1/6 = 4 7/6$"}
+                - {step: "Subtract the fractions.", work: "$7/6 - 5/6 = 2/6$"}
+                - {step: "Subtract the wholes.", work: "$4 - 2 = 2$, so $2 2/6$"}
+          - try: {q: "Add: $1 2/5 + 3 4/5$", a: "$5 1/5$"}
+
+  - number: "4.8"
+    title: Multiplying a Fraction by a Whole Number
+    objectives: [Multiply a fraction by a whole number]
+    sections:
+      - title: Groups of a Fraction
+        blocks:
+          - "$3 times 2/5$ means 3 groups of $2/5$: $2/5 + 2/5 + 2/5 = 6/5$. Multiply the whole number by the numerator. The denominator does not change, because the size of the parts does not change."
+          - example:
+              title: Multiply
+              problem: "Multiply: $4 times 3/8$"
+              solution:
+                - {step: "4 groups of 3 eighths.", work: "$4 times 3 = 12$ eighths"}
+                - {step: "Write it.", work: "$12/8$"}
+                - {step: "As a mixed number.", work: "$1 4/8$"}
+          - try: {q: "Multiply: $5 times 2/3$", a: "$10/3$"}
+          - try: {q: "A recipe uses $3/4$ cup of flour. How much flour for 6 batches?", a: "$18/4$ cups ($4 1/2$ cups)"}
+
+  - number: "4.9"
+    title: Tenths and Hundredths
+    objectives: [Write tenths and hundredths as decimals, Compare decimals to hundredths]
+    sections:
+      - title: Decimal Notation
+        blocks:
+          - "A **decimal** is another way to write a fraction with denominator 10 or 100. $3/10 = 0.3$, three tenths. $47/100 = 0.47$, forty-seven hundredths. The **decimal point** separates the whole number from the parts."
+          - table:
+              header: [Fraction, Decimal, Words]
+              rows:
+                - ["$7/10$", "0.7", seven tenths]
+                - ["$7/100$", "0.07", seven hundredths]
+                - ["$2 35/100$", "2.35", two and thirty-five hundredths]
+          - example:
+              title: Write as a decimal
+              problem: "Write $9/100$ as a decimal."
+              solution:
+                - {step: "Hundredths fill two places after the point.", work: "0.__ __"}
+                - {step: "Nine hundredths: 0 tenths, 9 hundredths.", work: "0.09"}
+          - try: {q: "Write $63/100$ as a decimal.", a: "0.63"}
+      - title: Comparing Decimals
+        blocks:
+          - "To compare decimals, line up the decimal points and compare place by place from the left. It can help to write both in hundredths: $0.3 = 0.30$."
+          - example:
+              title: Compare
+              problem: "Compare 0.3 and 0.25."
+              solution:
+                - {step: "Write both in hundredths.", work: "0.30 and 0.25"}
+                - {step: "30 hundredths is more than 25 hundredths.", work: "$0.3 > 0.25$"}
+          - try: {q: "Compare 0.6 and 0.58. Write $<$, $>$ or $=$.", a: "$0.6 > 0.58$"}
+
+  - number: "4.10"
+    title: Converting Units; Area and Perimeter Formulas
+    objectives: [Convert larger units to smaller units, Use formulas for the area and perimeter of rectangles]
+    sections:
+      - title: Converting Units
+        blocks:
+          - table:
+              header: [Larger unit, Smaller units]
+              rows:
+                - [1 foot, 12 inches]
+                - [1 yard, 3 feet]
+                - [1 hour, 60 minutes]
+                - [1 meter, 100 centimeters]
+                - [1 kilogram, "1,000 grams"]
+          - "To change a larger unit to a smaller one, multiply: there are more of the small units."
+          - example:
+              title: Feet to inches
+              problem: "How many inches are in 5 feet?"
+              solution:
+                - {step: "Each foot is 12 inches.", work: "$5 times 12$"}
+                - {step: "Multiply.", work: "60 inches"}
+          - try: {q: "How many minutes are in 4 hours?", a: "240 minutes"}
+      - title: Formulas
+        blocks:
+          - "For a rectangle with length $l$ and width $w$: area $A = l times w$, perimeter $P = 2 times l + 2 times w$."
+          - example:
+              title: Use the formulas
+              problem: "A rectangle is 12 m long and 7 m wide. Find its area and perimeter."
+              solution:
+                - {step: "Area.", work: "$12 times 7 = 84$ square meters"}
+                - {step: "Perimeter.", work: "$2 times 12 + 2 times 7 = 38$ meters"}
+          - try: {q: "A rectangle has area 48 square feet and length 8 feet. What is its width?", a: "6 feet"}
+
+  - number: "4.11"
+    title: Angles
+    objectives: [Measure angles in degrees, Find an unknown angle by adding or subtracting]
+    sections:
+      - title: Degrees
+        blocks:
+          - "An **angle** is made by two rays from one point. We measure angles in **degrees**. A full turn is 360°. A square corner, a **right angle**, is 90°. A straight line makes 180°."
+          - draw: "angledeg(60, label: [60°]) | an angle of 60 degrees"
+          - "An angle less than 90° is **acute**. An angle between 90° and 180° is **obtuse**."
+          - example:
+              title: Acute or obtuse?
+              problem: "Is a 125° angle acute, right or obtuse?"
+              solution:
+                - {step: "Compare with 90°.", work: "125 > 90"}
+                - {step: "Less than 180°, more than 90°.", work: "obtuse"}
+          - try: {q: "Is a 35° angle acute, right or obtuse?", a: "acute"}
+      - title: Unknown Angles
+        blocks:
+          - "When angles sit side by side, their measures add. If together they make a right angle, they add to 90°; on a straight line, to 180°."
+          - example:
+              title: Find the missing angle
+              problem: "Two angles together make a right angle. One is 35°. What is the other? {{angles2(35, 55, la: [35°], lb: [?]) | a right angle split into 35 degrees and an unknown angle}}"
+              solution:
+                - {step: "They add to 90°.", work: "$35 + square = 90$"}
+                - {step: "Subtract.", work: "$90 - 35 = 55$"}
+                - {step: "Answer.", work: "55°"}
+          - try: {q: "Two angles on a straight line add to 180°. One is 110°. What is the other?", a: "70°"}

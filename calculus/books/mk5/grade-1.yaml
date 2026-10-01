@@ -1,0 +1,263 @@
+chapter: 1
+title: Grade 1
+modules:
+  - number: "1.1"
+    title: Adding Within 20
+    objectives: [Add within 20 by counting on, Add within 20 using doubles and making a ten]
+    opening:
+      - grownup: "Counting on from the larger number is the first strategy; making a ten is the one that matters most later. When your child counts on, they should start with the next number: for 8 + 3, say nine, ten, eleven, not eight, nine, ten."
+    sections:
+      - title: Counting On
+        blocks:
+          - "To add, we do not have to count everything from 1. Start at the larger number and **count on** the smaller one."
+          - draw: "numline(0, 20, jumps: ((8, 9), (9, 10), (10, 11)), marks: (11,)) | a number line with three hops from 8 to 11"
+          - example:
+              title: Count on
+              problem: "Add: $8 + 3$"
+              solution:
+                - {step: "Start at the larger number.", work: "8"}
+                - {step: "Count on three more.", work: "9, 10, 11"}
+                - {step: "The last number is the sum.", work: "$8 + 3 = 11$"}
+          - try: {q: "Add: $9 + 4$", a: "13"}
+          - try: {q: "Add: $2 + 15$", a: "17"}
+      - title: Doubles and Making a Ten
+        blocks:
+          - "A **double** adds a number to itself: $6 + 6 = 12$. Knowing the doubles helps with near doubles: $6 + 7$ is one more than $6 + 6$, so it is 13."
+          - "To **make a ten**, break apart the smaller number so that one part fills the ten frame."
+          - draw: "tenframe(9, open: 1) | a ten frame with nine dots and one open space"
+          - example:
+              title: Make a ten
+              problem: "Add: $9 + 5$"
+              solution:
+                - {step: "9 needs 1 more to make 10. Break 5 into 1 and 4.", work: "$5 = 1 + 4$"}
+                - {step: "Add the 1 to the 9.", work: "$9 + 1 = 10$"}
+                - {step: "Add the 4 that is left.", work: "$10 + 4 = 14$"}
+          - try: {q: "Add: $8 + 6$", a: "14"}
+          - try: {q: "Add: $7 + 7$", a: "14"}
+
+  - number: "1.2"
+    title: Subtracting Within 20
+    objectives: [Subtract within 20 by counting back, Subtract by thinking of addition]
+    opening:
+      - grownup: "Subtraction is easiest when it is thought of as a missing addend. For 13 - 5, ask: 5 and what make 13? That turns every addition fact your child knows into a subtraction fact."
+    sections:
+      - title: Counting Back
+        blocks:
+          - "To subtract a small number, start at the larger number and **count back**. Say one number for each one taken away."
+          - example:
+              title: Count back
+              problem: "Subtract: $12 - 3$"
+              solution:
+                - {step: "Start at 12.", work: "12"}
+                - {step: "Count back three.", work: "11, 10, 9"}
+                - {step: "The last number is the difference.", work: "$12 - 3 = 9$"}
+          - try: {q: "Subtract: $15 - 2$", a: "13"}
+      - title: Think Addition
+        blocks:
+          - "Every subtraction has an addition partner. Because $5 + 8 = 13$, we know $13 - 5 = 8$. To subtract, ask: what do I add to the smaller number to get the larger?"
+          - example:
+              title: Subtract by thinking addition
+              problem: "Subtract: $14 - 6$"
+              solution:
+                - {step: "Ask: 6 and what make 14?", work: "$6 + square = 14$"}
+                - {step: "6 and 4 make 10; 10 and 4 more make 14. That is 8 in all.", work: "$6 + 8 = 14$"}
+                - {step: "So the difference is 8.", work: "$14 - 6 = 8$"}
+          - try: {q: "Subtract: $13 - 5$", a: "8"}
+          - try: {q: "Subtract: $17 - 9$", a: "8"}
+
+  - number: "1.3"
+    title: The Equal Sign
+    objectives: [Understand the equal sign as 'the same as', Find a missing number in an equation]
+    opening:
+      - grownup: "Many children think = means 'write the answer next'. Read it as 'is the same as'. Then 8 + 2 = 6 + 4 makes sense: both sides are ten."
+    sections:
+      - title: The Same As
+        blocks:
+          - "The equal sign $=$ means **is the same as**. The amount on one side is the same as the amount on the other side. $5 + 3 = 8$ says that five plus three is the same as eight. So does $8 = 5 + 3$."
+          - example:
+              title: True or false?
+              problem: "Is $7 + 2 = 4 + 5$ true or false?"
+              solution:
+                - {step: "Find the left side.", work: "$7 + 2 = 9$"}
+                - {step: "Find the right side.", work: "$4 + 5 = 9$"}
+                - {step: "Both sides are 9.", work: "true"}
+          - try: {q: "Is $6 + 6 = 10 + 3$ true or false?", a: "false"}
+      - title: The Missing Number
+        blocks:
+          - "Sometimes a number is missing. A box stands for it. Find the number that makes both sides the same."
+          - example:
+              title: Find the missing number
+              problem: "$8 + square = 15$"
+              solution:
+                - {step: "Ask: 8 and what make 15?", work: "8 and 2 make 10; 10 and 5 make 15."}
+                - {step: "Add the parts we used.", work: "$2 + 5 = 7$"}
+                - {step: "Check.", work: "$8 + 7 = 15$"}
+          - try: {q: "$square + 6 = 11$", a: "5"}
+          - try: {q: "$16 - square = 9$", a: "7"}
+
+  - number: "1.4"
+    title: Story Problems
+    objectives: [Solve adding and subtracting story problems within 20]
+    opening:
+      - grownup: "Do not teach key words; teach your child to picture the story. Ask them to retell it, draw it, and then decide: are we putting together, taking away, or comparing?"
+    sections:
+      - title: Picture the Story
+        blocks:
+          - "To solve a story problem, picture what happens. Is something put together? Is something taken away? Are two amounts being compared? Then write a number sentence."
+          - example:
+              title: How many more?
+              problem: "Maya has 12 stickers. Leo has 7 stickers. How many more stickers does Maya have than Leo?"
+              solution:
+                - {step: "We are comparing two amounts.", work: "{{lengths((\"Maya\", 12), (\"Leo\", 7)) | bars of 12 and 7}}"}
+                - {step: "Find the difference.", work: "$12 - 7 = 5$"}
+                - {step: "Answer the question.", work: "Maya has 5 more stickers."}
+          - example:
+              title: Some are added
+              problem: "There were 9 children on the bus. At the next stop some more got on. Now there are 15. How many got on?"
+              solution:
+                - {step: "We know the start and the end.", work: "$9 + square = 15$"}
+                - {step: "9 and 1 make 10; 10 and 5 make 15.", work: "$1 + 5 = 6$"}
+                - {step: "Answer the question.", work: "6 children got on."}
+          - try: {q: "Sam had 14 marbles. He gave 6 to a friend. How many does he have now?", a: "8"}
+          - try: {q: "There are 5 red cars and 8 blue cars. How many cars are there?", a: "13"}
+
+  - number: "1.5"
+    title: Tens and Ones
+    objectives: [Show a two-digit number as tens and ones]
+    opening:
+      - grownup: "Bundle straws, sticks or pasta in tens with a rubber band. The number 34 is 3 bundles and 4 loose ones. This is the most important idea in first grade."
+    sections:
+      - title: Bundles of Ten
+        blocks:
+          - "We group things in tens to count them quickly. In a two-digit number, the left digit tells how many **tens** and the right digit tells how many **ones**."
+          - draw: "baseten(0, 3, 4) | three rods of ten and four single cubes"
+          - "This picture shows 3 tens and 4 ones. That is $30 + 4 = 34$."
+          - example:
+              title: Name the number
+              problem: "What number is 5 tens and 2 ones?"
+              solution:
+                - {step: "5 tens is 50.", work: "50"}
+                - {step: "2 ones is 2.", work: "2"}
+                - {step: "Put them together.", work: "$50 + 2 = 52$"}
+          - example:
+              title: How many tens?
+              problem: "How many tens are in 67?"
+              solution:
+                - {step: "The left digit is the tens digit.", work: "6"}
+                - {step: "67 is 6 tens and 7 ones.", work: "6 tens"}
+          - try: {q: "What number is 4 tens and 9 ones?", a: "49"}
+          - try: {q: "How many ones are in 83?", a: "3"}
+          - try: {q: "What number is shown? {{baseten(0, 2, 6) | two rods of ten and six single cubes}}", a: "26"}
+
+  - number: "1.6"
+    title: Comparing Two-Digit Numbers
+    objectives: ["Compare two-digit numbers using <, > and ="]
+    opening:
+      - grownup: "Compare the tens first; only look at the ones when the tens are the same. The signs < and > open toward the larger number."
+    sections:
+      - title: Tens First
+        blocks:
+          - "To compare two numbers, look at the tens first. The number with more tens is greater. If the tens are the same, the number with more ones is greater."
+          - "We write $>$ for **is greater than**, $<$ for **is less than** and $=$ for **is equal to**. The wide, open side of the sign faces the greater number: $52 > 38$ and $38 < 52$."
+          - example:
+              title: Compare
+              problem: "Compare 47 and 74. Write $<$, $>$ or $=$."
+              solution:
+                - {step: "Compare the tens.", work: "4 tens and 7 tens"}
+                - {step: "7 tens is more, so 74 is greater.", work: "$47 < 74$"}
+          - example:
+              title: Same tens
+              problem: "Compare 63 and 68."
+              solution:
+                - {step: "The tens are the same: 6 tens.", work: "6 tens and 6 tens"}
+                - {step: "Compare the ones: 3 and 8.", work: "$63 < 68$"}
+          - try: {q: "Compare 29 and 31. Write $<$, $>$ or $=$.", a: "$29 < 31$"}
+          - try: {q: "Compare 85 and 58. Write $<$, $>$ or $=$.", a: "$85 > 58$"}
+
+  - number: "1.7"
+    title: Adding Within 100
+    objectives: [Add a two-digit number and a one-digit number, Add multiples of ten]
+    opening:
+      - grownup: "Tens go with tens and ones go with ones. When there are 10 or more ones, they make a new ten."
+    sections:
+      - title: Tens with Tens, Ones with Ones
+        blocks:
+          - "To add tens, add the tens digits: $30 + 40$ is 3 tens and 4 tens, which is 7 tens, or 70."
+          - "To add a one-digit number, add it to the ones. If the ones make 10 or more, make a new ten."
+          - example:
+              title: Add tens
+              problem: "Add: $34 + 20$"
+              solution:
+                - {step: "20 is 2 tens. Add them to the 3 tens.", work: "5 tens"}
+                - {step: "The ones stay the same.", work: "4 ones"}
+                - {step: "5 tens and 4 ones.", work: "$34 + 20 = 54$"}
+          - example:
+              title: Make a new ten
+              problem: "Add: $38 + 7$"
+              solution:
+                - {step: "Add the ones.", work: "$8 + 7 = 15$"}
+                - {step: "15 ones is 1 ten and 5 ones. The new ten joins the 3 tens.", work: "4 tens"}
+                - {step: "4 tens and 5 ones.", work: "$38 + 7 = 45$"}
+          - try: {q: "Add: $52 + 30$", a: "82"}
+          - try: {q: "Add: $46 + 8$", a: "54"}
+          - try: {q: "Add: $27 + 40$", a: "67"}
+
+  - number: "1.8"
+    title: Measuring Length
+    objectives: [Order objects by length, Measure length with same-size units]
+    opening:
+      - grownup: "Measure with paper clips or blocks laid end to end, with no gaps and no overlaps, starting exactly at the end of the object."
+    sections:
+      - title: Longer and Shorter
+        blocks:
+          - "To compare lengths, line up the ends. The one that sticks out farther is **longer**."
+          - draw: "lengths((\"Pencil\", 7), (\"Crayon\", 4), (\"Marker\", 5)) | a pencil 7 units long, a crayon 4 units, a marker 5 units"
+          - example:
+              title: Order by length
+              problem: "Which is the longest: the pencil, the crayon or the marker in the picture above?"
+              solution:
+                - {step: "The ends are lined up on the left.", work: "Look at the right ends."}
+                - {step: "The pencil goes farthest.", work: "The pencil is the longest."}
+          - try: {q: "Which is the shortest: the pencil, the crayon or the marker?", a: "the crayon"}
+      - title: Units
+        blocks:
+          - "To tell how long something is, lay same-size units end to end with no gaps and no overlaps. Count the units. The number of units is the **length**."
+          - example:
+              title: Measure with cubes
+              problem: "A ribbon is as long as 9 cubes laid end to end. A string is as long as 6 cubes. How much longer is the ribbon?"
+              solution:
+                - {step: "Compare the lengths.", work: "9 cubes and 6 cubes"}
+                - {step: "Subtract.", work: "$9 - 6 = 3$"}
+                - {step: "Answer.", work: "The ribbon is 3 cubes longer."}
+          - try: {q: "A shoe is 8 paper clips long. A book is 11 paper clips long. How much longer is the book?", a: "3 paper clips"}
+
+  - number: "1.9"
+    title: Telling Time
+    objectives: [Tell time to the hour and half hour]
+    opening:
+      - grownup: "Start with the short hand alone: it tells the hour. Then add the long hand: straight up is o'clock, straight down is half past."
+    sections:
+      - title: To the Hour
+        blocks:
+          - "A clock has two hands. The short hand is the **hour hand**. The long hand is the **minute hand**. When the minute hand points straight up at 12, it is exactly the hour: we say o'clock."
+          - draw: "clock(3, 0) | a clock showing 3 o'clock"
+          - "This clock shows 3 o'clock. We write it as 3:00."
+          - example:
+              title: Read the clock
+              problem: "What time is it? {{clock(8, 0) | a clock showing 8 o'clock}}"
+              solution:
+                - {step: "The minute hand points to 12.", work: "o'clock"}
+                - {step: "The hour hand points to 8.", work: "8:00"}
+          - try: {q: "What time is it? {{clock(11, 0) | a clock showing 11 o'clock}}", a: "11:00"}
+      - title: To the Half Hour
+        blocks:
+          - "When the minute hand points straight down at 6, half an hour has passed. It is **half past** the hour, and we write :30. The hour hand is halfway between two numbers; the hour is the number it has just passed."
+          - example:
+              title: Half past
+              problem: "What time is it? {{clock(4, 30) | a clock showing 4:30}}"
+              solution:
+                - {step: "The minute hand points to 6.", work: "half past, :30"}
+                - {step: "The hour hand is between 4 and 5. It has passed 4.", work: "4"}
+                - {step: "Write the time.", work: "4:30"}
+          - try: {q: "What time is it? {{clock(9, 30) | a clock showing 9:30}}", a: "9:30"}
+          - try: {q: "What time is it? {{clock(12, 30) | a clock showing 12:30}}", a: "12:30"}

@@ -1,0 +1,278 @@
+chapter: 3
+title: Grade 3
+modules:
+  - number: "3.1"
+    title: Multiplication as Equal Groups
+    objectives: [Understand multiplication as equal groups, Write a multiplication sentence for an array]
+    sections:
+      - title: Equal Groups
+        blocks:
+          - "When we have **equal groups**, we can multiply to find the total. $4 times 3$ means 4 groups of 3. The numbers we multiply are **factors**; the answer is the **product**."
+          - draw: "counters(12, per: 3) | four rows of three dots"
+          - "Four groups of three is $3 + 3 + 3 + 3 = 12$, so $4 times 3 = 12$."
+          - example:
+              title: Groups to multiplication
+              problem: "There are 5 bags with 6 apples in each bag. Write a multiplication sentence and find how many apples there are."
+              solution:
+                - {step: "There are 5 equal groups of 6.", work: "$5 times 6$"}
+                - {step: "Add 6 five times, or count by sixes.", work: "6, 12, 18, 24, 30"}
+                - {step: "Write the sentence.", work: "$5 times 6 = 30$ apples"}
+          - try: {q: "There are 3 vases with 7 flowers in each. How many flowers are there?", a: "21"}
+      - title: Arrays
+        blocks:
+          - "An array shows equal groups as rows. 3 rows of 5 is $3 times 5$."
+          - example:
+              title: Multiply an array
+              problem: "Write a multiplication sentence for the array. {{arr(4, 6) | an array of 4 rows of 6 dots}}"
+              solution:
+                - {step: "Count the rows and the number in each row.", work: "4 rows of 6"}
+                - {step: "Multiply.", work: "$4 times 6 = 24$"}
+          - try: {q: "How many squares are in 2 rows of 9?", a: "18"}
+
+  - number: "3.2"
+    title: Division as Sharing and Grouping
+    objectives: [Understand division as sharing equally and as making equal groups, Relate division to multiplication]
+    sections:
+      - title: Sharing Equally
+        blocks:
+          - "To **divide** is to split a total into equal groups. $12 div 3$ asks: if 12 things are shared equally among 3 groups, how many are in each group? The answer is the **quotient**."
+          - example:
+              title: Share equally
+              problem: "15 crackers are shared equally by 3 children. How many crackers does each child get?"
+              solution:
+                - {step: "Share one at a time into 3 groups until all 15 are used.", work: "{{counters(15, per: 5) | three rows of five dots}}"}
+                - {step: "Each group has 5.", work: "$15 div 3 = 5$"}
+          - try: {q: "24 stickers are shared equally among 4 friends. How many does each friend get?", a: "6"}
+      - title: Making Groups
+        blocks:
+          - "Division also asks how many groups can be made. $20 div 5$ can mean: how many groups of 5 are in 20?"
+          - "Division and multiplication undo each other. Because $4 times 5 = 20$, we know $20 div 5 = 4$ and $20 div 4 = 5$."
+          - example:
+              title: How many groups?
+              problem: "There are 18 eggs. A carton holds 6. How many cartons are needed?"
+              solution:
+                - {step: "We want groups of 6 in 18.", work: "$18 div 6$"}
+                - {step: "Think: 6 times what is 18?", work: "$6 times 3 = 18$"}
+                - {step: "Answer.", work: "3 cartons"}
+          - try: {q: "Divide: $28 div 7$", a: "4"}
+          - try: {q: "35 chairs are set in rows of 5. How many rows?", a: "7"}
+
+  - number: "3.3"
+    title: Multiplication and Division Facts
+    objectives: [Know the multiplication facts to 10 times 10, Use a known fact to find an unknown one]
+    sections:
+      - title: Using What You Know
+        blocks:
+          - "The facts of the 2s, 5s and 10s are the easiest. Use them to build others. $6 times 8$ is double $3 times 8$: $24 + 24 = 48$. $9 times 7$ is ten sevens take away one seven: $70 - 7 = 63$."
+          - table:
+              header: [Strategy, Example]
+              rows:
+                - ["Double a fact you know", "$4 times 7 = 2 times 7 + 2 times 7 = 14 + 14 = 28$"]
+                - ["Use the 10s", "$9 times 6 = 10 times 6 - 6 = 54$"]
+                - ["Split a factor", "$7 times 8 = 5 times 8 + 2 times 8 = 40 + 16 = 56$"]
+          - example:
+              title: Build a fact
+              problem: "Multiply: $7 times 6$"
+              solution:
+                - {step: "Split 7 into 5 and 2.", work: "$5 times 6 + 2 times 6$"}
+                - {step: "Use the easy facts.", work: "$30 + 12$"}
+                - {step: "Add.", work: "$7 times 6 = 42$"}
+          - example:
+              title: Divide with a fact
+              problem: "Divide: $56 div 8$"
+              solution:
+                - {step: "Ask: 8 times what is 56?", work: "$8 times square = 56$"}
+                - {step: "$8 times 7 = 56$.", work: "$56 div 8 = 7$"}
+          - try: {q: "Multiply: $8 times 9$", a: "72"}
+          - try: {q: "Divide: $63 div 9$", a: "7"}
+          - try: {q: "Multiply: $6 times 6$", a: "36"}
+
+  - number: "3.4"
+    title: Properties of Multiplication
+    objectives: [Use the commutative, associative and distributive properties]
+    sections:
+      - title: Order and Grouping
+        blocks:
+          - "The order of the factors does not change the product: $3 times 8 = 8 times 3$. Turn the array on its side and it has the same number of dots. This is the **commutative property**."
+          - "When multiplying three numbers, we can group them either way: $(2 times 5) times 7 = 2 times (5 times 7)$. Group the pair that is easy first. This is the **associative property**."
+          - example:
+              title: Group to make it easy
+              problem: "Multiply: $4 times 7 times 5$"
+              solution:
+                - {step: "Change the order; 4 and 5 make an easy product.", work: "$4 times 5 times 7$"}
+                - {step: "Multiply the easy pair.", work: "$20 times 7$"}
+                - {step: "Finish.", work: "140"}
+          - try: {q: "Multiply: $2 times 9 times 5$", a: "90"}
+      - title: Breaking Apart
+        blocks:
+          - "We can break a factor into two parts, multiply each part, and add: $6 times 13 = 6 times 10 + 6 times 3$. This is the **distributive property**. Both parts must be multiplied."
+          - draw: "areagrid(13, 6, s: 0.32cm) | a 6 by 13 grid of squares"
+          - example:
+              title: Break apart a factor
+              problem: "Multiply: $6 times 13$"
+              solution:
+                - {step: "Break 13 into 10 and 3.", work: "$6 times 10 + 6 times 3$"}
+                - {step: "Multiply each part.", work: "$60 + 18$"}
+                - {step: "Add.", work: "78"}
+          - try: {q: "Fill in the missing number: $4 times (5 + 2) = 4 times 5 + 4 times square$", a: "2"}
+          - try: {q: "Multiply: $3 times 14$", a: "42"}
+
+  - number: "3.5"
+    title: Two-Step Story Problems
+    objectives: [Solve two-step problems using the four operations]
+    sections:
+      - title: Plan the Steps
+        blocks:
+          - "Read the whole problem. Decide what you must find first, and what you can do with it. Write a number sentence for each step. Check that the answer makes sense."
+          - example:
+              title: Multiply, then subtract
+              problem: "A teacher buys 6 packs of pencils with 8 pencils in each pack. She gives out 29 pencils. How many pencils are left?"
+              solution:
+                - {step: "Step 1: how many pencils in all?", work: "$6 times 8 = 48$"}
+                - {step: "Step 2: how many are left?", work: "$48 - 29 = 19$"}
+                - {step: "Check: 19 is less than 48, as it should be.", work: "19 pencils"}
+          - example:
+              title: Add, then divide
+              problem: "Ana has 17 marbles and Ben has 23. They put them together and share them equally among 5 jars. How many marbles go in each jar?"
+              solution:
+                - {step: "Step 1: marbles in all.", work: "$17 + 23 = 40$"}
+                - {step: "Step 2: share among 5 jars.", work: "$40 div 5 = 8$"}
+                - {step: "Answer.", work: "8 marbles in each jar"}
+          - try: {q: "Tickets cost \\$7 each. A family buys 4 tickets and pays with \\$50. How much change do they get?", a: "\\$22"}
+          - try: {q: "There are 3 shelves with 9 books each. 5 more books are added. How many books are there?", a: "32"}
+
+  - number: "3.6"
+    title: Rounding
+    objectives: [Round whole numbers to the nearest ten or hundred]
+    sections:
+      - title: The Nearest Ten or Hundred
+        blocks:
+          - "To **round** a number is to find the nearest ten or hundred. On a number line, 67 is between 60 and 70 and closer to 70, so 67 rounds to 70."
+          - draw: "numline(60, 70, marks: (67,)) | a number line from 60 to 70 with 67 marked"
+          - "Look at the digit just to the right of the place you are rounding to. If it is 5 or more, round up. If it is less than 5, round down. A number exactly halfway, like 65, rounds up."
+          - example:
+              title: Round to the nearest hundred
+              problem: "Round 348 to the nearest hundred."
+              solution:
+                - {step: "348 is between 300 and 400.", work: "300 and 400"}
+                - {step: "Look at the tens digit.", work: "4"}
+                - {step: "4 is less than 5, so round down.", work: "300"}
+          - try: {q: "Round 85 to the nearest ten.", a: "90"}
+          - try: {q: "Round 651 to the nearest hundred.", a: "700"}
+          - try: {q: "Round 403 to the nearest ten.", a: "400"}
+
+  - number: "3.7"
+    title: Multiplying by Multiples of 10
+    objectives: [Multiply one-digit numbers by multiples of 10]
+    sections:
+      - title: Counting Tens
+        blocks:
+          - "$4 times 30$ means 4 groups of 3 tens. That is 12 tens, which is 120. Multiply the digits, then remember that the answer counts tens."
+          - example:
+              title: Multiply by a multiple of ten
+              problem: "Multiply: $6 times 50$"
+              solution:
+                - {step: "50 is 5 tens.", work: "$6 times 5$ tens"}
+                - {step: "Multiply.", work: "30 tens"}
+                - {step: "30 tens is 300.", work: "$6 times 50 = 300$"}
+          - try: {q: "Multiply: $7 times 40$", a: "280"}
+          - try: {q: "Multiply: $9 times 20$", a: "180"}
+
+  - number: "3.8"
+    title: Fractions of a Whole
+    objectives: [Understand a unit fraction as one equal part of a whole, Name the fraction of a whole that is shaded]
+    sections:
+      - title: Unit Fractions
+        blocks:
+          - "When a whole is cut into equal parts, each part is a **unit fraction** of the whole. If the whole is cut into 4 equal parts, each part is one fourth, written $1/4$."
+          - draw: "fracbar(1, 4) | a bar cut into 4 equal parts with one shaded"
+          - "The bottom number, the **denominator**, tells how many equal parts the whole is cut into. The top number, the **numerator**, tells how many of those parts we mean."
+          - example:
+              title: Name a fraction
+              problem: "What fraction of the bar is shaded? {{fracbar(3, 5) | a bar cut into 5 equal parts with 3 shaded}}"
+              solution:
+                - {step: "Count the equal parts in the whole.", work: "5, the denominator"}
+                - {step: "Count the shaded parts.", work: "3, the numerator"}
+                - {step: "Write the fraction.", work: "$3/5$"}
+          - try: {q: "What fraction of the bar is shaded? {{fracbar(2, 3) | a bar cut into 3 equal parts with 2 shaded}}", a: "$2/3$"}
+          - try: {q: "A pizza is cut into 8 equal slices. You eat 3. What fraction of the pizza did you eat?", a: "$3/8$"}
+
+  - number: "3.9"
+    title: Fractions on a Number Line; Comparing Fractions
+    objectives: [Place fractions on a number line, Compare fractions with the same numerator or the same denominator]
+    sections:
+      - title: The Number Line
+        blocks:
+          - "To show fourths on a number line, cut the space from 0 to 1 into 4 equal lengths. Each length is $1/4$. The marks are $1/4$, $2/4$, $3/4$, and $4/4$, which is 1."
+          - draw: "numline(0, 1, den: 4, marks: (0.75,), width: 8) | a number line from 0 to 1 in fourths with 3/4 marked"
+          - example:
+              title: Find the point
+              problem: "What fraction is marked? {{numline(0, 1, den: 6, marks: (0.6667,), width: 8, labels: false) | a number line from 0 to 1 cut into 6 equal lengths with a point at the fourth mark}}"
+              solution:
+                - {step: "Count the equal lengths from 0 to 1.", work: "6, so sixths"}
+                - {step: "Count lengths from 0 to the point.", work: "4"}
+                - {step: "Write the fraction.", work: "$4/6$"}
+          - try: {q: "On a number line from 0 to 1 cut into thirds, what fraction is the second mark after 0?", a: "$2/3$"}
+      - title: Comparing Fractions
+        blocks:
+          - "With the same denominator, the parts are the same size; more parts is more. $3/8 < 5/8$."
+          - "With the same numerator, compare the size of the parts. Cutting a whole into more parts makes each part smaller, so $1/6 < 1/3$."
+          - example:
+              title: Same numerator
+              problem: "Compare $2/5$ and $2/3$."
+              solution:
+                - {step: "Same numerator: 2 parts of each.", work: "fifths and thirds"}
+                - {step: "A fifth is smaller than a third.", work: "$2/5 < 2/3$"}
+          - try: {q: "Compare $4/6$ and $5/6$. Write $<$, $>$ or $=$.", a: "$4/6 < 5/6$"}
+          - try: {q: "Compare $1/2$ and $1/8$. Write $<$, $>$ or $=$.", a: "$1/2 > 1/8$"}
+
+  - number: "3.10"
+    title: Area and Perimeter
+    objectives: [Find area by counting square units and by multiplying, Find perimeter by adding side lengths]
+    sections:
+      - title: Area
+        blocks:
+          - "**Area** is the amount of space inside a flat shape. We measure it in **square units**. A rectangle 5 units long and 3 units wide has 3 rows of 5 squares: $3 times 5 = 15$ square units."
+          - draw: "areagrid(5, 3) | a rectangle of 3 rows of 5 squares"
+          - example:
+              title: Area of a rectangle
+              problem: "A rug is 6 feet long and 4 feet wide. What is its area?"
+              solution:
+                - {step: "Multiply length by width.", work: "$6 times 4 = 24$"}
+                - {step: "Area is in square units.", work: "24 square feet"}
+          - try: {q: "A rectangle is 7 cm long and 3 cm wide. What is its area?", a: "21 square cm"}
+      - title: Perimeter
+        blocks:
+          - "**Perimeter** is the distance around a shape. Add the lengths of all the sides. A rectangle has two pairs of equal sides."
+          - example:
+              title: Perimeter of a rectangle
+              problem: "Find the perimeter. {{labeledrect(8, 5, unit: \"m\") | a rectangle 8 m long and 5 m wide}}"
+              solution:
+                - {step: "The four sides are 8, 5, 8 and 5.", work: "$8 + 5 + 8 + 5$"}
+                - {step: "Add.", work: "26 m"}
+          - try: {q: "A square has sides of 9 inches. What is its perimeter?", a: "36 inches"}
+          - try: {q: "A garden is 10 feet long and 6 feet wide. What is its perimeter?", a: "32 feet"}
+
+  - number: "3.11"
+    title: Elapsed Time
+    objectives: [Find how much time passes between two times, Find an end time]
+    sections:
+      - title: How Much Time Passes
+        blocks:
+          - "**Elapsed time** is how much time passes from a start to an end. Count on from the start: first to the next hour, then to the end. There are 60 minutes in an hour."
+          - example:
+              title: Count on to the hour
+              problem: "A movie starts at 2:40 and ends at 4:15. How long is the movie?"
+              solution:
+                - {step: "From 2:40 to 3:00.", work: "20 minutes"}
+                - {step: "From 3:00 to 4:00.", work: "1 hour"}
+                - {step: "From 4:00 to 4:15.", work: "15 minutes"}
+                - {step: "Add the parts.", work: "1 hour 35 minutes, or 95 minutes"}
+          - example:
+              title: Find the end time
+              problem: "Soccer practice starts at 3:45 and lasts 50 minutes. When does it end?"
+              solution:
+                - {step: "From 3:45 to 4:00 is 15 minutes.", work: "50 - 15 = 35 minutes left"}
+                - {step: "Count 35 more minutes from 4:00.", work: "4:35"}
+          - try: {q: "School lunch starts at 11:50 and ends at 12:25. How many minutes is lunch?", a: "35 minutes"}
+          - try: {q: "A bus leaves at 8:20 and the trip takes 45 minutes. When does it arrive?", a: "9:05"}

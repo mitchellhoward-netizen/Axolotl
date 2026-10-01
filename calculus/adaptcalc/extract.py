@@ -34,6 +34,10 @@ def load_chapter() -> tuple[cnxml.ModuleIR, ...]:
 
 @lru_cache(maxsize=None)
 def load_book(book: str) -> tuple[cnxml.ModuleIR, ...]:
+    if source.BOOKS[book].authored:
+        from . import authored
+
+        return tuple(authored.load(book))
     return tuple(cnxml.parse_modules(source.fetch_book(book)))
 
 
@@ -155,7 +159,12 @@ def resolve_lesson(sk: dict) -> tuple[list[dict], list[str], list[dict]]:
     for part in sk["lesson"]:
         mod = module(part["book"], part["section"])
         subs = []
-        for title in part["subsections"]:
+        titles = part.get("subsections", "all")
+        if titles == "all":  # every subsection of the section, its opening included
+            titles = ([OPENING] if find_subsection(mod, OPENING) else []) + \
+                [cnxml.plain(b["title"]) for b in mod.blocks if b["t"] == "section"]
+            part["subsections"] = titles
+        for title in titles:
             sec = find_subsection(mod, title)
             if sec is None:
                 raise ValueError(f"{sk['id']}: subsection {title!r} not found in {part['book']} {part['section']}")
@@ -166,7 +175,7 @@ def resolve_lesson(sk: dict) -> tuple[list[dict], list[str], list[dict]]:
                     anchors.append({"book": part["book"], "module": mod.module_id, "section": part["section"],
                                     "id": b["id"], "type": kind, "label": b.get("label"),
                                     "title": cnxml.plain(b.get("title")).strip()})
-        for rx in part.get("objectives", []):
+        for rx in part.get("objectives", [".*"] if source.BOOKS[part["book"]].authored else []):
             hits = [o for o in mod.objectives if re.search(rx, o, re.I)]
             if not hits:
                 raise ValueError(f"{sk['id']}: objective /{rx}/ not found in {part['book']} {part['section']}")
@@ -251,6 +260,7 @@ def resolve_skill(sk: dict, chapter, all_items, all_boxes) -> dict:
         "id": sk["id"],
         "name": sk["name"],
         "kind": sk["kind"],
+        "grade": str(sk["grade"]) if sk.get("grade") is not None else None,
         "section": sec,
         "book": "calc1" if sk["kind"] == "chapter" else (lesson[0]["book"] if lesson else None),
         "origin": sk.get("origin") or f"Section {sec}",

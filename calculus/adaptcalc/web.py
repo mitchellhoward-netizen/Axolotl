@@ -57,7 +57,8 @@ def courses_for(family: dict) -> list[dict]:
     """Families see the courses whose text may be used in a paid product; the owner also sees
     personal-study courses (Calculus Volume 1 is non-commercial)."""
     out = []
-    for d in sorted(paths.COURSES_DIR.iterdir()):
+    order = {"elementary": 0, "prealgebra": 1, "algebra1": 2}  # by grade; anything else after
+    for d in sorted(paths.COURSES_DIR.iterdir(), key=lambda d: (order.get(d.name, 9), d.name)):
         if (d / "skills.json").exists():
             info = course_info(d.name)
             if info["commercial"] or family.get("role") == "owner":

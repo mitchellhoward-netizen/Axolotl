@@ -395,6 +395,8 @@ def _lowest_terms(s: str) -> bool:
 
 def norm_choice(s: str) -> str:
     s = s.strip().lower()
+    # comparison signs are answers in their own right (3 < 5): keep them as words
+    s = s.replace("<", " lt ").replace(">", " gt ").replace("=", " eq ")
     s = re.sub(r"^\(?([a-e])[).]?\s*$", r"\1", s)
     return re.sub(r"[^a-z0-9]", "", s)
 

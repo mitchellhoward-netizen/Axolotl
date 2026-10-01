@@ -458,7 +458,7 @@ def build_refresh(db: LearnerDB, focus: list[str], log=None, jev_client=None, us
         if kind == "lesson":
             # fade the first problem that has a worked solution
             for p in probs:
-                if p.get("solution") and len(p["solution"]) >= 2:
+                if p.get("solution") and len(p["solution"]) >= 3:  # a one- or two-step answer has nothing to fade
                     p["faded"] = math.ceil(len(p["solution"]) / 2)
                     probs.remove(p)
                     probs.insert(0, p)

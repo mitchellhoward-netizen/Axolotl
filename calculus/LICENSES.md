@@ -7,6 +7,7 @@ that allows the use we make of it, recorded here with the exact version used.
 
 | Book | Authors | License | Exact source used | Sellable? |
 |---|---|---|---|---|
+| Elementary Algebra 2e | Lynn Marecek, MaryAnne Anthony-Smith, Andrea Honeycutt Mathis (OpenStax) | CC BY 4.0 | [openstax/osbooks-prealgebra-bundle @ c1bbed4](https://github.com/openstax/osbooks-prealgebra-bundle/tree/c1bbed4b86ff5c80686d339a6ca5e4e48fae2483) | yes |
 | Prealgebra 2e | Lynn Marecek, MaryAnne Anthony-Smith, Andrea Honeycutt Mathis (OpenStax) | CC BY 4.0 | [openstax/osbooks-prealgebra-bundle @ c1bbed4](https://github.com/openstax/osbooks-prealgebra-bundle/tree/c1bbed4b86ff5c80686d339a6ca5e4e48fae2483) | yes |
 | Algebra and Trigonometry 2e | Jay Abramson (OpenStax) | CC BY 4.0 | [openstax/osbooks-college-algebra-bundle @ d1bd19c](https://github.com/openstax/osbooks-college-algebra-bundle/tree/d1bd19c69107ba7f45775670809ae161d63db864) | yes |
 | Calculus Volume 1 | Gilbert Strang, Edwin Herman (OpenStax) | CC BY-NC-SA 4.0 | openstax/osbooks-calculus-bundle @ main | **no**: personal study only |
@@ -34,13 +35,22 @@ book, and a statement that the text was excerpted and adapted. The OpenStax and
 Rice University names and logos are trademarks outside the license: they appear
 only in that attribution, never as branding.
 
-## 2. Generated material (ours)
+## 2. The elementary book (ours)
+
+*Marginalia Elementary Mathematics* (`books/mk5/`, kindergarten to grade 5, 60
+sections) is written for this project: text, worked examples, Try Its and the
+figures drawn by `typst/figures.typ`. No outside text is used. Grade-level topics
+follow the usual US sequence (the standards themselves are facts about what is
+taught when, not copied text). It is printed with the line "Written for
+Marginalia; all rights reserved."
+
+## 3. Generated material (ours)
 
 Problem templates, the skill graph and prerequisite structure, the misconception
 library, transition sentences, tutor replies and all software in this directory
 are original to this project.
 
-## 3. Candidate sources for the K–12 expansion (checked, not yet used)
+## 4. Candidate sources for later expansion (checked, not yet used)
 
 | Source | License | Use |
 |---|---|---|

@@ -1,0 +1,284 @@
+chapter: 2
+title: Grade 2
+modules:
+  - number: "2.1"
+    title: Adding and Subtracting Within 100
+    objectives: [Add two-digit numbers with regrouping, Subtract two-digit numbers with regrouping]
+    opening:
+      - grownup: "Write the numbers one above the other so the tens line up with tens and the ones with ones. Say what each small 1 means: it is a ten, carried to the tens."
+    sections:
+      - title: Adding with Regrouping
+        blocks:
+          - "To add two-digit numbers, add the ones first. If there are 10 or more ones, trade 10 ones for 1 ten and write the ten above the tens. Then add the tens."
+          - howto:
+              title: Add two-digit numbers.
+              steps: ["Write the numbers so tens are under tens and ones are under ones.", "Add the ones. If the sum is 10 or more, write the ones digit and carry 1 ten.", "Add the tens, with any ten carried."]
+          - example:
+              title: Add with regrouping
+              problem: "Add: $47 + 38$"
+              solution:
+                - {step: "Add the ones.", work: "$7 + 8 = 15$"}
+                - {step: "15 ones is 1 ten and 5 ones. Write 5; carry 1 ten.", work: "ones digit 5"}
+                - {step: "Add the tens: 4 tens + 3 tens + the 1 carried.", work: "8 tens"}
+                - {step: "Write the sum.", work: "$47 + 38 = 85$"}
+          - try: {q: "Add: $26 + 59$", a: "85"}
+          - try: {q: "Add: $63 + 28$", a: "91"}
+      - title: Subtracting with Regrouping
+        blocks:
+          - "To subtract, start with the ones. If there are not enough ones to take away, trade 1 ten for 10 ones. Then subtract the ones and the tens."
+          - example:
+              title: Subtract with regrouping
+              problem: "Subtract: $62 - 27$"
+              solution:
+                - {step: "2 ones is not enough to take away 7. Trade 1 ten for 10 ones.", work: "5 tens and 12 ones"}
+                - {step: "Subtract the ones.", work: "$12 - 7 = 5$"}
+                - {step: "Subtract the tens.", work: "$5 - 2 = 3$ tens"}
+                - {step: "Write the difference.", work: "$62 - 27 = 35$"}
+          - try: {q: "Subtract: $81 - 46$", a: "35"}
+          - try: {q: "Subtract: $70 - 23$", a: "47"}
+
+  - number: "2.2"
+    title: Hundreds, Tens and Ones
+    objectives: [Read and write three-digit numbers, Write numbers in expanded form, Compare three-digit numbers]
+    opening:
+      - grownup: "Ten tens make a hundred, just as ten ones make a ten. A zero holds a place: in 406 there are no tens, and the 0 says so."
+    sections:
+      - title: Place Value to 1000
+        blocks:
+          - "Ten tens make one **hundred**. In a three-digit number, the digits tell how many hundreds, tens and ones."
+          - draw: "baseten(2, 4, 3) | two flats of a hundred, four rods of ten, three cubes"
+          - "The picture shows 2 hundreds, 4 tens and 3 ones: 243. In **expanded form** we write $243 = 200 + 40 + 3$."
+          - example:
+              title: Expanded form
+              problem: "Write 706 in expanded form."
+              solution:
+                - {step: "7 hundreds.", work: "700"}
+                - {step: "0 tens.", work: "0"}
+                - {step: "6 ones.", work: "6"}
+                - {step: "Expanded form.", work: "$706 = 700 + 6$"}
+          - try: {q: "What number is $500 + 30 + 9$?", a: "539"}
+          - try: {q: "What is the value of the 8 in 482?", a: "80"}
+      - title: Comparing Three-Digit Numbers
+        blocks:
+          - "Compare hundreds first, then tens, then ones."
+          - example:
+              title: Compare
+              problem: "Compare 418 and 481."
+              solution:
+                - {step: "The hundreds are the same: 4 and 4.", work: "same"}
+                - {step: "Compare the tens: 1 ten and 8 tens.", work: "8 tens is more"}
+                - {step: "Write the comparison.", work: "$418 < 481$"}
+          - try: {q: "Compare 652 and 625. Write $<$, $>$ or $=$.", a: "$652 > 625$"}
+
+  - number: "2.3"
+    title: Adding and Subtracting Within 1000
+    objectives: [Add and subtract three-digit numbers]
+    opening:
+      - grownup: "The same steps as two-digit numbers, with one more place. Regrouping across a zero (like 403 - 158) is the hardest case; take it slowly."
+    sections:
+      - title: Three-Digit Numbers
+        blocks:
+          - "Line up hundreds, tens and ones. Work from the ones to the hundreds, regrouping when needed: 10 ones make a ten, and 10 tens make a hundred."
+          - example:
+              title: Add three-digit numbers
+              problem: "Add: $368 + 257$"
+              solution:
+                - {step: "Ones: $8 + 7 = 15$. Write 5, carry 1 ten.", work: "5"}
+                - {step: "Tens: $6 + 5 + 1 = 12$. Write 2, carry 1 hundred.", work: "2"}
+                - {step: "Hundreds: $3 + 2 + 1 = 6$.", work: "6"}
+                - {step: "Write the sum.", work: "$368 + 257 = 625$"}
+          - example:
+              title: Subtract across a zero
+              problem: "Subtract: $403 - 158$"
+              solution:
+                - {step: "3 ones is not enough. There are no tens to trade, so trade 1 hundred for 10 tens.", work: "3 hundreds, 10 tens, 3 ones"}
+                - {step: "Now trade 1 ten for 10 ones.", work: "3 hundreds, 9 tens, 13 ones"}
+                - {step: "Subtract each place: $13 - 8$, $9 - 5$, $3 - 1$.", work: "5, 4, 2"}
+                - {step: "Write the difference.", work: "$403 - 158 = 245$"}
+          - try: {q: "Add: $476 + 385$", a: "861"}
+          - try: {q: "Subtract: $600 - 234$", a: "366"}
+          - try: {q: "Subtract: $725 - 318$", a: "407"}
+
+  - number: "2.4"
+    title: One- and Two-Step Story Problems
+    objectives: [Solve story problems within 100, including two-step problems]
+    opening:
+      - grownup: "In a two-step problem, the answer to the first step is used in the second. Ask your child what they know after the first step, before going on."
+    sections:
+      - title: Two Steps
+        blocks:
+          - "Some stories need two steps. Find what you can from the first part, then use it to answer the question."
+          - example:
+              title: A two-step story
+              problem: "A library had 45 books on a cart. Ms. Lee put away 18 of them. Then 26 more books were returned to the cart. How many books are on the cart now?"
+              solution:
+                - {step: "First step: books left after putting some away.", work: "$45 - 18 = 27$"}
+                - {step: "Second step: more books came back.", work: "$27 + 26 = 53$"}
+                - {step: "Answer.", work: "53 books are on the cart."}
+          - example:
+              title: Find the start
+              problem: "Ben had some cards. He got 24 more cards and now has 61. How many did he have at first?"
+              solution:
+                - {step: "The start is missing.", work: "$square + 24 = 61$"}
+                - {step: "Subtract to find it.", work: "$61 - 24 = 37$"}
+                - {step: "Answer.", work: "Ben had 37 cards at first."}
+          - try: {q: "There are 32 red balloons and 19 blue balloons. 15 balloons pop. How many are left?", a: "36"}
+          - try: {q: "A rope is 80 inches long. Mia cuts off 35 inches. How long is the rope now?", a: "45 inches"}
+
+  - number: "2.5"
+    title: Even and Odd Numbers; Arrays
+    objectives: [Tell whether a number is even or odd, Find the total in an array by repeated addition]
+    opening:
+      - grownup: "Pairs make the idea of even: if every object has a partner, the number is even. Arrays are rows and columns, the bridge to multiplication next year."
+    sections:
+      - title: Even and Odd
+        blocks:
+          - "A number is **even** if that many things can be put in pairs with none left over. A number is **odd** if one is left over. Even numbers end in 0, 2, 4, 6 or 8. Odd numbers end in 1, 3, 5, 7 or 9."
+          - draw: "counters(7, per: 2) | seven dots in pairs with one left over"
+          - example:
+              title: Even or odd?
+              problem: "Is 14 even or odd?"
+              solution:
+                - {step: "14 can be made of two equal groups.", work: "$7 + 7 = 14$"}
+                - {step: "It ends in 4.", work: "14 is even."}
+          - try: {q: "Is 9 even or odd?", a: "odd"}
+          - try: {q: "Is 20 even or odd?", a: "even"}
+      - title: Arrays
+        blocks:
+          - "An **array** is a set of things in equal rows. To find how many, add the rows: 3 rows of 4 is $4 + 4 + 4 = 12$."
+          - draw: "arr(3, 4) | an array of 3 rows of 4 dots"
+          - example:
+              title: Count an array
+              problem: "How many dots? {{arr(2, 5) | an array of 2 rows of 5 dots}}"
+              solution:
+                - {step: "There are 2 rows of 5.", work: "$5 + 5$"}
+                - {step: "Add.", work: "10"}
+          - try: {q: "How many dots in 4 rows of 3?", a: "12"}
+
+  - number: "2.6"
+    title: Measuring in Inches and Centimeters
+    objectives: [Measure length with a ruler, Find how much longer one length is than another]
+    opening:
+      - grownup: "Line the end of the object up with the 0 on the ruler, not with the edge of the ruler or the 1."
+    sections:
+      - title: Using a Ruler
+        blocks:
+          - "A ruler has same-size units marked on it. We use **inches** (in) and **centimeters** (cm). Put the end of the object at 0. The number at the other end is the length."
+          - draw: "ruler(4) | a bar 4 inches long above a ruler"
+          - example:
+              title: Read a ruler
+              problem: "How long is the bar? {{ruler(3) | a bar 3 inches long above a ruler}}"
+              solution:
+                - {step: "The bar starts at 0.", work: "0"}
+                - {step: "It ends at 3.", work: "3 inches"}
+          - try: {q: "How long is the bar? {{ruler(5) | a bar 5 inches long above a ruler}}", a: "5 inches"}
+      - title: Comparing Lengths
+        blocks:
+          - "To find how much longer one thing is, subtract the lengths. Use the same unit for both."
+          - example:
+              title: How much longer?
+              problem: "A pencil is 17 cm long. A crayon is 9 cm long. How much longer is the pencil?"
+              solution:
+                - {step: "Subtract.", work: "$17 - 9 = 8$"}
+                - {step: "Answer with the unit.", work: "8 cm longer"}
+          - try: {q: "A table is 62 inches long. A desk is 38 inches long. How much longer is the table?", a: "24 inches"}
+
+  - number: "2.7"
+    title: Time to Five Minutes
+    objectives: [Tell time to the nearest five minutes]
+    opening:
+      - grownup: "Count by fives around the clock with your finger: 5, 10, 15, ... The minute hand's number times five is the minutes."
+    sections:
+      - title: Counting by Fives
+        blocks:
+          - "There are 60 minutes in an hour. As the minute hand moves from one number to the next, 5 minutes pass. To read the minutes, count by fives from the 12."
+          - draw: "clock(2, 20) | a clock showing 2:20"
+          - "The minute hand points at 4. Counting by fives, 5, 10, 15, 20: it is 20 minutes past. The hour hand has passed 2. The time is 2:20."
+          - example:
+              title: Read the time
+              problem: "What time is it? {{clock(7, 45) | a clock showing 7:45}}"
+              solution:
+                - {step: "The minute hand points at 9. Count by fives to 9.", work: "45 minutes"}
+                - {step: "The hour hand has passed 7 and is near 8.", work: "7"}
+                - {step: "Write the time.", work: "7:45"}
+          - try: {q: "What time is it? {{clock(10, 15) | a clock showing 10:15}}", a: "10:15"}
+          - try: {q: "What time is it? {{clock(5, 50) | a clock showing 5:50}}", a: "5:50"}
+
+  - number: "2.8"
+    title: Money
+    objectives: [Find the value of a set of coins, Solve money problems in cents and dollars]
+    opening:
+      - grownup: "Lay real coins in order, largest value first, and count on: 25, 35, 40, 41."
+    sections:
+      - title: Counting Coins
+        blocks:
+          - table:
+              header: [Coin, Name, Value]
+              rows:
+                - ["{{coins(\"p\") | a penny}}", penny, 1 cent]
+                - ["{{coins(\"n\") | a nickel}}", nickel, 5 cents]
+                - ["{{coins(\"d\") | a dime}}", dime, 10 cents]
+                - ["{{coins(\"q\") | a quarter}}", quarter, 25 cents]
+          - "To count coins, start with the coin worth the most and count on. 100 cents is one dollar: \\$1.00."
+          - example:
+              title: Count coins
+              problem: "How many cents? {{coins(\"qddnpp\") | a quarter, two dimes, a nickel and two pennies}}"
+              solution:
+                - {step: "Start with the quarter.", work: "25"}
+                - {step: "Count on the dimes by tens.", work: "35, 45"}
+                - {step: "Count on the nickel by five.", work: "50"}
+                - {step: "Count on the pennies by ones.", work: "51, 52"}
+                - {step: "Answer.", work: "52 cents"}
+          - try: {q: "How many cents? {{coins(\"qqn\") | two quarters and a nickel}}", a: "55 cents"}
+          - try: {q: "How many cents are 3 dimes and 4 pennies?", a: "34 cents"}
+          - try: {q: "A pencil costs 45 cents. You pay with 3 quarters. How much change do you get?", a: "30 cents"}
+
+  - number: "2.9"
+    title: Picture Graphs and Bar Graphs
+    objectives: [Read picture graphs and bar graphs, Answer how many more and how many in all]
+    opening:
+      - grownup: "Always read the key and the scale before counting. Ask questions that need two steps: how many more cats than dogs?"
+    sections:
+      - title: Picture Graphs
+        blocks:
+          - "A **picture graph** uses pictures to show amounts. The key tells what each picture stands for."
+          - draw: "picgraph((\"Apples\", \"Pears\", \"Plums\"), (4, 2, 5), key: 1) | a picture graph: apples 4, pears 2, plums 5"
+          - example:
+              title: Read a picture graph
+              problem: "Using the graph above, how many more plums than pears are there?"
+              solution:
+                - {step: "Count the plums.", work: "5"}
+                - {step: "Count the pears.", work: "2"}
+                - {step: "Subtract.", work: "$5 - 2 = 3$"}
+          - try: {q: "Using the same graph, how many pieces of fruit are there in all?", a: "11"}
+      - title: Bar Graphs
+        blocks:
+          - "A **bar graph** shows amounts with bars. Read the number at the top of each bar on the scale at the side."
+          - draw: "bars((\"Red\", \"Blue\", \"Green\"), (6, 9, 4), title: \"Votes\") | a bar graph of votes: red 6, blue 9, green 4"
+          - example:
+              title: Read a bar graph
+              problem: "Which color got the most votes, and how many?"
+              solution:
+                - {step: "Find the tallest bar.", work: "Blue"}
+                - {step: "Read its top on the scale.", work: "9 votes"}
+          - try: {q: "How many more votes did red get than green?", a: "2"}
+
+  - number: "2.10"
+    title: Halves, Thirds and Fourths
+    objectives: [Split shapes into equal parts, Name halves, thirds and fourths]
+    opening:
+      - grownup: "Equal parts are the whole idea. Fold paper, cut sandwiches. Two pieces of different sizes are not halves."
+    sections:
+      - title: Equal Shares
+        blocks:
+          - "When a whole is cut into **equal parts**, each part has a name. Two equal parts are **halves**. Three equal parts are **thirds**. Four equal parts are **fourths**, also called quarters."
+          - draw: "fracshape(1, 2) | a circle cut into 2 equal parts with one shaded"
+          - "The more equal parts a whole is cut into, the smaller each part is. A fourth of a sandwich is smaller than a half."
+          - example:
+              title: Name the parts
+              problem: "The circle is cut into equal parts. What is each part called? {{fracshape(1, 4) | a circle cut into 4 equal parts with one shaded}}"
+              solution:
+                - {step: "Count the equal parts.", work: "4"}
+                - {step: "Four equal parts are fourths.", work: "one fourth"}
+          - try: {q: "A rectangle is cut into 3 equal parts. What is each part called?", a: "a third"}
+          - try: {q: "Which is bigger, a half or a fourth of the same pizza?", a: "a half"}

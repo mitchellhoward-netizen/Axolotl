@@ -1,0 +1,269 @@
+chapter: 5
+title: Grade 5
+modules:
+  - number: "5.1"
+    title: Numerical Expressions
+    objectives: [Evaluate expressions with parentheses, Write an expression for a description]
+    sections:
+      - title: Order of Operations
+        blocks:
+          - "An **expression** is a group of numbers and operations, like $3 + 4 times 2$. So that everyone gets the same value, we agree on an order: first work inside **parentheses**; then multiply and divide from left to right; then add and subtract from left to right."
+          - example:
+              title: Evaluate
+              problem: "Evaluate: $3 + 4 times 2$"
+              solution:
+                - {step: "Multiply first.", work: "$4 times 2 = 8$"}
+                - {step: "Then add.", work: "$3 + 8 = 11$"}
+          - example:
+              title: Parentheses first
+              problem: "Evaluate: $(3 + 4) times 2$"
+              solution:
+                - {step: "Work inside the parentheses.", work: "$3 + 4 = 7$"}
+                - {step: "Then multiply.", work: "$7 times 2 = 14$"}
+          - try: {q: "Evaluate: $20 - 12 div 4$", a: "17"}
+          - try: {q: "Evaluate: $(20 - 12) div 4$", a: "2"}
+      - title: Writing Expressions
+        blocks:
+          - "Words can describe an expression. Add 8 and 7, then multiply by 2 is $2 times (8 + 7)$. The parentheses show what happens first."
+          - example:
+              title: Write and evaluate
+              problem: "Write an expression for: subtract 5 from 30, then divide by 5. Evaluate it."
+              solution:
+                - {step: "The subtraction happens first, so it goes in parentheses.", work: "$(30 - 5) div 5$"}
+                - {step: "Evaluate.", work: "$25 div 5 = 5$"}
+          - try: {q: "Evaluate: $3 times (10 - 4) + 2$", a: "20"}
+
+  - number: "5.2"
+    title: Decimals to Thousandths; Powers of Ten
+    objectives: [Read and compare decimals to thousandths, Multiply and divide by powers of 10, Round decimals]
+    sections:
+      - title: Thousandths
+        blocks:
+          - "Each place is one tenth of the place to its left. After tenths and hundredths come **thousandths**: $0.007 = 7/1000$."
+          - table:
+              header: [ones, ".", tenths, hundredths, thousandths]
+              rows:
+                - ["3", ".", "4", "0", "6"]
+          - "The number is 3.406: three and four hundred six thousandths. To compare decimals, line up the points and compare from the left."
+          - example:
+              title: Compare
+              problem: "Compare 0.4 and 0.395."
+              solution:
+                - {step: "Write both to thousandths.", work: "0.400 and 0.395"}
+                - {step: "Compare.", work: "$0.4 > 0.395$"}
+          - try: {q: "Compare 2.06 and 2.059. Write $<$, $>$ or $=$.", a: "$2.06 > 2.059$"}
+          - try: {q: "Round 7.846 to the nearest hundredth.", a: "7.85"}
+      - title: Powers of Ten
+        blocks:
+          - "Multiplying by 10 moves every digit one place to the left; by 100, two places; by 1,000, three places. Dividing moves the digits to the right. So $3.75 times 100 = 375$ and $42 div 1000 = 0.042$."
+          - example:
+              title: Multiply by a power of ten
+              problem: "Multiply: $0.68 times 1000$"
+              solution:
+                - {step: "1,000 has three zeros: move the digits three places left.", work: "0.68 → 680"}
+                - {step: "Answer.", work: "680"}
+          - try: {q: "Divide: $5.3 div 100$", a: "0.053"}
+
+  - number: "5.3"
+    title: Multiplying Multi-Digit Numbers
+    objectives: [Multiply multi-digit whole numbers with the standard algorithm]
+    sections:
+      - title: The Standard Algorithm
+        blocks:
+          - "Multiply the top number by each digit of the bottom number, one row for each digit. Each row moves one place to the left, so write a zero to hold the place. Add the rows."
+          - example:
+              title: Three digits by two digits
+              problem: "Multiply: $346 times 27$"
+              solution:
+                - {step: "Multiply by the 7 ones.", work: "$346 times 7 = 2{,}422$"}
+                - {step: "Multiply by the 2 tens: write a 0, then $346 times 2$.", work: "$6{,}920$"}
+                - {step: "Add the rows.", work: "$2{,}422 + 6{,}920 = 9{,}342$"}
+          - try: {q: "Multiply: $508 times 34$", a: "17,272"}
+          - try: {q: "Multiply: $1{,}264 times 15$", a: "18,960"}
+
+  - number: "5.4"
+    title: Dividing by Two-Digit Numbers
+    objectives: [Divide by a two-digit divisor, Estimate each quotient digit]
+    sections:
+      - title: Estimate, Then Divide
+        blocks:
+          - "Dividing by a two-digit number uses the same steps: divide, multiply, subtract, bring down. To guess each quotient digit, round the divisor: to divide by 23, think about 20."
+          - example:
+              title: Two-digit divisor
+              problem: "Divide: $864 div 24$"
+              solution:
+                - {step: "24 goes into 86. Think $80 div 20 = 4$; but $4 times 24 = 96$, too big. Try 3.", work: "$3 times 24 = 72$; $86 - 72 = 14$"}
+                - {step: "Bring down 4: 144. Think $140 div 20 = 7$; $7 times 24 = 168$, too big. Try 6.", work: "$6 times 24 = 144$; remainder 0"}
+                - {step: "Answer and check: $36 times 24 = 864$.", work: "36"}
+          - try: {q: "Divide: $672 div 32$", a: "21"}
+          - try: {q: "Divide: $925 div 18$", a: "51 R 7"}
+
+  - number: "5.5"
+    title: Computing with Decimals
+    objectives: [Add and subtract decimals, Multiply and divide decimals to hundredths]
+    sections:
+      - title: Adding and Subtracting
+        blocks:
+          - "Line up the decimal points, so tenths are under tenths and hundredths under hundredths. Write zeros to fill empty places. Then add or subtract as with whole numbers and bring the point straight down."
+          - example:
+              title: Subtract decimals
+              problem: "Subtract: $12.4 - 3.75$"
+              solution:
+                - {step: "Line up the points; write 12.4 as 12.40.", work: "$12.40 - 3.75$"}
+                - {step: "Subtract, regrouping.", work: "8.65"}
+          - try: {q: "Add: $6.25 + 3.8$", a: "10.05"}
+      - title: Multiplying and Dividing
+        blocks:
+          - "To multiply decimals, multiply as if they were whole numbers. Then count the decimal places in both factors; the product has that many. $0.3 times 0.2 = 0.06$: 1 place and 1 place make 2 places."
+          - "To divide by a whole number, divide as usual and put the point in the quotient straight above the point in the dividend."
+          - example:
+              title: Multiply decimals
+              problem: "Multiply: $2.4 times 1.5$"
+              solution:
+                - {step: "Multiply as whole numbers.", work: "$24 times 15 = 360$"}
+                - {step: "Count decimal places: one and one.", work: "2 places"}
+                - {step: "Place the point.", work: "3.60, which is 3.6"}
+          - example:
+              title: Divide a decimal by a whole number
+              problem: "Divide: $7.38 div 3$"
+              solution:
+                - {step: "Divide as with whole numbers: $738 div 3 = 246$.", work: "246"}
+                - {step: "Put the point above the point in 7.38.", work: "2.46"}
+          - try: {q: "Multiply: $0.6 times 0.7$", a: "0.42"}
+          - try: {q: "Divide: $9.6 div 4$", a: "2.4"}
+
+  - number: "5.6"
+    title: Adding and Subtracting Unlike Fractions
+    objectives: [Add and subtract fractions with different denominators]
+    sections:
+      - title: A Common Denominator
+        blocks:
+          - "Fractions with different denominators have parts of different sizes, so they cannot be added as they are. Rewrite them as equivalent fractions with a **common denominator**, then add or subtract the numerators."
+          - howto:
+              title: Add or subtract unlike fractions.
+              steps: ["Find a common denominator: a multiple of both denominators.", "Rewrite each fraction with that denominator.", "Add or subtract the numerators.", "Simplify if you can."]
+          - example:
+              title: Add unlike fractions
+              problem: "Add: $1/2 + 1/3$"
+              solution:
+                - {step: "A common denominator of 2 and 3 is 6.", work: "6"}
+                - {step: "Rewrite.", work: "$1/2 = 3/6$, $1/3 = 2/6$"}
+                - {step: "Add.", work: "$3/6 + 2/6 = 5/6$"}
+          - example:
+              title: Subtract unlike fractions
+              problem: "Subtract: $3/4 - 1/6$"
+              solution:
+                - {step: "A common denominator of 4 and 6 is 12.", work: "12"}
+                - {step: "Rewrite.", work: "$9/12 - 2/12$"}
+                - {step: "Subtract.", work: "$7/12$"}
+          - try: {q: "Add: $2/5 + 1/4$", a: "$13/20$"}
+          - try: {q: "Subtract: $5/6 - 1/2$", a: "$1/3$"}
+
+  - number: "5.7"
+    title: Multiplying Fractions
+    objectives: [Multiply a fraction by a fraction, Understand a product as part of a part]
+    sections:
+      - title: A Part of a Part
+        blocks:
+          - "$1/2 times 1/3$ means one half of one third. Cut a third in half and you get a sixth: $1/2 times 1/3 = 1/6$. To multiply fractions, multiply the numerators and multiply the denominators."
+          - eq: "a/b times c/d = (a times c)/(b times d)"
+          - "When you multiply by a fraction less than 1, the product is smaller than the number you started with."
+          - example:
+              title: Multiply fractions
+              problem: "Multiply: $2/3 times 3/5$"
+              solution:
+                - {step: "Multiply the numerators.", work: "$2 times 3 = 6$"}
+                - {step: "Multiply the denominators.", work: "$3 times 5 = 15$"}
+                - {step: "Simplify.", work: "$6/15 = 2/5$"}
+          - try: {q: "Multiply: $3/4 times 1/2$", a: "$3/8$"}
+          - try: {q: "Multiply: $2/5 times 5/8$", a: "$1/4$"}
+
+  - number: "5.8"
+    title: Dividing with Unit Fractions
+    objectives: [Divide a unit fraction by a whole number, Divide a whole number by a unit fraction]
+    sections:
+      - title: Two Kinds of Problems
+        blocks:
+          - "$1/3 div 4$ means share one third among 4. Each share is one fourth of a third: $1/3 div 4 = 1/12$."
+          - "$4 div 1/3$ asks how many thirds are in 4 wholes. Each whole has 3 thirds, so 4 wholes have $4 times 3 = 12$ thirds: $4 div 1/3 = 12$."
+          - draw: "fracbar(1, 3) | a bar cut into thirds with one third shaded"
+          - example:
+              title: Share a fraction
+              problem: "Divide: $1/2 div 3$"
+              solution:
+                - {step: "Share one half into 3 equal parts.", work: "each part is a third of a half"}
+                - {step: "A third of a half is a sixth.", work: "$1/2 div 3 = 1/6$"}
+          - example:
+              title: How many in a whole number?
+              problem: "Divide: $5 div 1/4$"
+              solution:
+                - {step: "Each whole has 4 fourths.", work: "4"}
+                - {step: "5 wholes have $5 times 4$ fourths.", work: "$5 div 1/4 = 20$"}
+          - try: {q: "Divide: $1/5 div 2$", a: "$1/10$"}
+          - try: {q: "Divide: $3 div 1/6$", a: "18"}
+
+  - number: "5.9"
+    title: Volume
+    objectives: [Find volume by counting unit cubes, Use the formula for the volume of a rectangular prism]
+    sections:
+      - title: Cubic Units
+        blocks:
+          - "**Volume** is the space inside a solid. We measure it in **cubic units**: how many unit cubes fill it. A box 4 cubes long, 3 cubes wide and 2 cubes high has 2 layers of $4 times 3 = 12$ cubes, so 24 cubic units."
+          - draw: "prism(4, 3, 2) | a box of unit cubes 4 long, 3 wide and 2 high"
+          - eq: "V = l times w times h"
+          - example:
+              title: Volume of a box
+              problem: "A box is 6 cm long, 5 cm wide and 4 cm high. What is its volume?"
+              solution:
+                - {step: "Multiply length, width and height.", work: "$6 times 5 times 4$"}
+                - {step: "Multiply.", work: "120"}
+                - {step: "Use cubic units.", work: "120 cubic centimeters"}
+          - try: {q: "A box is 3 ft by 3 ft by 7 ft. What is its volume?", a: "63 cubic feet"}
+          - try: {q: "How many unit cubes fill a box 5 long, 2 wide and 3 high?", a: "30"}
+
+  - number: "5.10"
+    title: The Coordinate Plane
+    objectives: [Name and plot points in the first quadrant]
+    sections:
+      - title: Ordered Pairs
+        blocks:
+          - "A **coordinate plane** has two number lines that cross at 0, the **origin**. A point is named by an **ordered pair** $(x, y)$: first go across $x$ units, then up $y$ units."
+          - draw: "plane(n: 7, pts: ((2, 5, \"A\"), (6, 1, \"B\"), (4, 4, \"C\"))) | a coordinate grid with A at (2, 5), B at (6, 1) and C at (4, 4)"
+          - example:
+              title: Name a point
+              problem: "What ordered pair names point B on the grid above?"
+              solution:
+                - {step: "Go across from 0 to B.", work: "6"}
+                - {step: "Go up to B.", work: "1"}
+                - {step: "Across first, then up.", work: "$(6, 1)$"}
+          - try: {q: "What ordered pair names point A?", a: "$(2, 5)$"}
+          - try: {q: "What ordered pair names point C?", a: "$(4, 4)$"}
+
+  - number: "5.11"
+    title: Converting Measurements
+    objectives: [Convert between units within one system, including with decimals]
+    sections:
+      - title: Bigger and Smaller Units
+        blocks:
+          - "To change to a smaller unit, multiply: you need more of them. To change to a larger unit, divide: you need fewer."
+          - table:
+              header: [Metric, Customary]
+              rows:
+                - ["1 kilometer = 1,000 meters", "1 mile = 5,280 feet"]
+                - ["1 meter = 100 centimeters", "1 yard = 3 feet"]
+                - ["1 kilogram = 1,000 grams", "1 pound = 16 ounces"]
+                - ["1 liter = 1,000 milliliters", "1 gallon = 4 quarts"]
+          - example:
+              title: To a smaller unit
+              problem: "How many centimeters are in 3.5 meters?"
+              solution:
+                - {step: "Centimeters are smaller: multiply.", work: "$3.5 times 100$"}
+                - {step: "Move the digits two places left.", work: "350 centimeters"}
+          - example:
+              title: To a larger unit
+              problem: "How many pounds is 56 ounces?"
+              solution:
+                - {step: "Pounds are larger: divide.", work: "$56 div 16$"}
+                - {step: "Divide.", work: "3.5 pounds"}
+          - try: {q: "How many grams are in 2.4 kilograms?", a: "2,400 grams"}
+          - try: {q: "How many feet are in 7 yards?", a: "21 feet"}

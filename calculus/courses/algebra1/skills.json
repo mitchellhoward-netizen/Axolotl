@@ -97,6 +97,7 @@
       "id": "f_primes_lcm",
       "name": "Prime factorization and least common multiple",
       "kind": "foundation",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 1.1",
@@ -330,7 +331,10 @@
         "rad_simplify"
       ],
       "depth": 0,
-      "templates": [],
+      "templates": [
+        "f_primes_lcm.lcm",
+        "f_primes_lcm.factor"
+      ],
       "misconceptions": [
         "f_primes_lcm.lcm_is_product",
         "f_primes_lcm.lcm_gcf_confused"
@@ -340,6 +344,7 @@
       "id": "f_order_ops",
       "name": "Order of operations and evaluating expressions",
       "kind": "foundation",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 1.2",
@@ -569,7 +574,10 @@
         "f_int_add"
       ],
       "depth": 0,
-      "templates": [],
+      "templates": [
+        "f_order_ops.simplify",
+        "f_order_ops.evaluate"
+      ],
       "misconceptions": [
         "f_order_ops.left_to_right",
         "f_order_ops.negative_square",
@@ -580,6 +588,7 @@
       "id": "f_like_terms",
       "name": "Identify and combine like terms",
       "kind": "foundation",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 1.2",
@@ -762,7 +771,9 @@
         "rad_addsub"
       ],
       "depth": 1,
-      "templates": [],
+      "templates": [
+        "f_like_terms.combine"
+      ],
       "misconceptions": [
         "f_like_terms.combine_unlike",
         "f_like_terms.drop_coefficient_one"
@@ -772,6 +783,7 @@
       "id": "f_translate",
       "name": "Translate English phrases to algebraic expressions",
       "kind": "foundation",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 1.2",
@@ -942,7 +954,9 @@
         "app_number"
       ],
       "depth": 1,
-      "templates": [],
+      "templates": [
+        "f_translate.phrase"
+      ],
       "misconceptions": [
         "f_translate.reverse_subtraction",
         "f_translate.product_sum_swap"
@@ -952,6 +966,7 @@
       "id": "f_int_add",
       "name": "Add and subtract integers; absolute value",
       "kind": "foundation",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 1.3",
@@ -1403,7 +1418,10 @@
         "lin_one_step"
       ],
       "depth": 1,
-      "templates": [],
+      "templates": [
+        "f_int_add.add_sub",
+        "f_int_add.abs"
+      ],
       "misconceptions": [
         "f_int_add.sign_of_larger",
         "f_int_add.subtract_negative",
@@ -1414,6 +1432,7 @@
       "id": "f_int_mul",
       "name": "Multiply and divide integers; simplify expressions with integers",
       "kind": "foundation",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 1.4",
@@ -1708,7 +1727,9 @@
         "exp_product"
       ],
       "depth": 2,
-      "templates": [],
+      "templates": [
+        "f_int_mul.simplify"
+      ],
       "misconceptions": [
         "f_int_mul.neg_times_neg",
         "f_int_mul.sign_rule_on_sums"
@@ -1718,6 +1739,7 @@
       "id": "f_int_eval",
       "name": "Evaluate variable expressions with integers",
       "kind": "foundation",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 1.4",
@@ -1862,7 +1884,9 @@
         "poly_addsub"
       ],
       "depth": 3,
-      "templates": [],
+      "templates": [
+        "f_int_eval.negative"
+      ],
       "misconceptions": [
         "f_int_eval.substitute_no_parens",
         "f_int_eval.eval_order_ops"
@@ -1872,6 +1896,7 @@
       "id": "f_frac_mul",
       "name": "Simplify, multiply and divide fractions",
       "kind": "foundation",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 1.5",
@@ -2228,7 +2253,10 @@
         "rat_simplify"
       ],
       "depth": 3,
-      "templates": [],
+      "templates": [
+        "f_frac_mul.multiply_divide",
+        "f_frac_mul.simplify"
+      ],
       "misconceptions": [
         "f_frac_mul.cross_cancel_across_plus",
         "f_frac_mul.invert_wrong_fraction",
@@ -2239,6 +2267,7 @@
       "id": "f_frac_add",
       "name": "Add and subtract fractions",
       "kind": "foundation",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 1.6",
@@ -2524,7 +2553,9 @@
         "rat_add_unlike"
       ],
       "depth": 4,
-      "templates": [],
+      "templates": [
+        "f_frac_add.unlike"
+      ],
       "misconceptions": [
         "f_frac_add.add_across",
         "f_frac_add.scale_one_part",
@@ -2535,6 +2566,7 @@
       "id": "f_frac_bar",
       "name": "Simplify expressions with a fraction bar and complex fractions",
       "kind": "foundation",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 1.5, Elementary Algebra 2e 1.6",
@@ -2717,7 +2749,10 @@
       },
       "dependents": [],
       "depth": 5,
-      "templates": [],
+      "templates": [
+        "f_frac_bar.complex",
+        "f_frac_bar.bar"
+      ],
       "misconceptions": [
         "f_frac_bar.fraction_bar_grouping",
         "f_frac_bar.complex_fraction_invert"
@@ -2727,6 +2762,7 @@
       "id": "f_decimals",
       "name": "Add, subtract, multiply and divide decimals",
       "kind": "foundation",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 1.7",
@@ -2968,7 +3004,9 @@
         "sci_notation"
       ],
       "depth": 3,
-      "templates": [],
+      "templates": [
+        "f_decimals.operate"
+      ],
       "misconceptions": [
         "f_decimals.decimal_alignment",
         "f_decimals.decimal_places_product"
@@ -2978,6 +3016,7 @@
       "id": "f_percent",
       "name": "Convert between decimals, fractions and percents",
       "kind": "foundation",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 1.7",
@@ -3212,7 +3251,9 @@
         "app_percent"
       ],
       "depth": 4,
-      "templates": [],
+      "templates": [
+        "f_percent.convert"
+      ],
       "misconceptions": [
         "f_percent.percent_move_wrong_way",
         "f_percent.percent_over_ten"
@@ -3222,6 +3263,7 @@
       "id": "f_sqrt",
       "name": "Square roots of perfect squares; kinds of real numbers",
       "kind": "foundation",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 1.8",
@@ -3524,7 +3566,9 @@
         "rad_sqrt"
       ],
       "depth": 3,
-      "templates": [],
+      "templates": [
+        "f_sqrt.perfect"
+      ],
       "misconceptions": [
         "f_sqrt.sqrt_halves",
         "f_sqrt.sqrt_negative_real"
@@ -3534,6 +3578,7 @@
       "id": "f_distributive",
       "name": "The distributive property",
       "kind": "foundation",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 1.9",
@@ -3796,7 +3841,9 @@
         "poly_mult"
       ],
       "depth": 3,
-      "templates": [],
+      "templates": [
+        "f_distributive.simplify"
+      ],
       "misconceptions": [
         "f_distributive.partial_distribution",
         "f_distributive.negative_distribution"
@@ -3806,6 +3853,7 @@
       "id": "lin_one_step",
       "name": "Solve one-step equations (properties of equality)",
       "kind": "core",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 2.1, Elementary Algebra 2e 2.2",
@@ -4189,7 +4237,10 @@
         "quad_sqrt_prop"
       ],
       "depth": 3,
-      "templates": [],
+      "templates": [
+        "lin_one_step.add",
+        "lin_one_step.multiply"
+      ],
       "misconceptions": [
         "lin_one_step.wrong_inverse_operation",
         "lin_one_step.divide_sign_error",
@@ -4200,6 +4251,7 @@
       "id": "lin_both_sides",
       "name": "Solve equations with variables and constants on both sides",
       "kind": "core",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 2.3",
@@ -4523,7 +4575,9 @@
         "lin_general"
       ],
       "depth": 4,
-      "templates": [],
+      "templates": [
+        "lin_both_sides.solve"
+      ],
       "misconceptions": [
         "lin_both_sides.move_term_keep_sign",
         "lin_both_sides.combine_across_equals"
@@ -4533,6 +4587,7 @@
       "id": "lin_general",
       "name": "Solve linear equations with a general strategy; classify equations",
       "kind": "core",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 2.4",
@@ -4911,7 +4966,10 @@
         "sys_substitution"
       ],
       "depth": 5,
-      "templates": [],
+      "templates": [
+        "lin_general.parens",
+        "lin_general.classify"
+      ],
       "misconceptions": [
         "lin_general.distribute_error_eq",
         "lin_general.classify_wrong"
@@ -4921,6 +4979,7 @@
       "id": "lin_fractions",
       "name": "Solve equations with fraction or decimal coefficients",
       "kind": "core",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 2.5",
@@ -5242,7 +5301,10 @@
         "rat_proportion"
       ],
       "depth": 6,
-      "templates": [],
+      "templates": [
+        "lin_fractions.clear",
+        "lin_fractions.decimal"
+      ],
       "misconceptions": [
         "lin_fractions.clear_one_term",
         "lin_fractions.lcd_equation_wrong"
@@ -5252,6 +5314,7 @@
       "id": "lin_formula",
       "name": "Solve a formula for a specific variable",
       "kind": "core",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 2.6",
@@ -5527,7 +5590,9 @@
         "gr_slope_int"
       ],
       "depth": 6,
-      "templates": [],
+      "templates": [
+        "lin_formula.solve_for"
+      ],
       "misconceptions": [
         "lin_formula.isolate_wrong_variable",
         "lin_formula.divide_one_term"
@@ -5537,6 +5602,7 @@
       "id": "lin_ineq",
       "name": "Solve linear inequalities",
       "kind": "core",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 2.7",
@@ -5938,7 +6004,9 @@
         "gr_ineq2"
       ],
       "depth": 6,
-      "templates": [],
+      "templates": [
+        "lin_ineq.solve"
+      ],
       "misconceptions": [
         "lin_ineq.no_flip_negative",
         "lin_ineq.flip_when_negative_constant"
@@ -5948,6 +6016,7 @@
       "id": "app_number",
       "name": "Word problems - translate, solve and check (number problems)",
       "kind": "core",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 3.1",
@@ -6298,7 +6367,10 @@
         "app_ineq"
       ],
       "depth": 6,
-      "templates": [],
+      "templates": [
+        "app_number.consecutive",
+        "app_number.translate"
+      ],
       "misconceptions": [
         "app_number.translate_wrong_equation",
         "app_number.answer_wrong_quantity"
@@ -6308,6 +6380,7 @@
       "id": "app_percent",
       "name": "Percent equations, percent increase and decrease",
       "kind": "core",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 3.2",
@@ -6596,7 +6669,10 @@
         "app_interest"
       ],
       "depth": 5,
-      "templates": [],
+      "templates": [
+        "app_percent.equation",
+        "app_percent.change"
+      ],
       "misconceptions": [
         "app_percent.percent_base_wrong",
         "app_percent.percent_not_decimal"
@@ -6606,6 +6682,7 @@
       "id": "app_interest",
       "name": "Simple interest, discount and mark-up",
       "kind": "core",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 3.2",
@@ -6833,7 +6910,10 @@
       },
       "dependents": [],
       "depth": 6,
-      "templates": [],
+      "templates": [
+        "app_interest.simple",
+        "app_interest.discount"
+      ],
       "misconceptions": [
         "app_interest.interest_rate_percent",
         "app_interest.discount_as_price"
@@ -6843,6 +6923,7 @@
       "id": "app_mixture",
       "name": "Coin, ticket and mixture problems",
       "kind": "core",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 3.3",
@@ -7122,7 +7203,10 @@
         "sys_apps"
       ],
       "depth": 7,
-      "templates": [],
+      "templates": [
+        "app_mixture.coins",
+        "app_mixture.tickets"
+      ],
       "misconceptions": [
         "app_mixture.count_vs_value",
         "app_mixture.cents_dollars"
@@ -7132,6 +7216,7 @@
       "id": "app_geometry",
       "name": "Triangles, rectangles and the Pythagorean Theorem",
       "kind": "core",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 3.4",
@@ -7601,7 +7686,10 @@
         "quad_apps"
       ],
       "depth": 7,
-      "templates": [],
+      "templates": [
+        "app_geometry.pythagorean",
+        "app_geometry.rectangle"
+      ],
       "misconceptions": [
         "app_geometry.pythag_add_legs",
         "app_geometry.perimeter_area_confused"
@@ -7611,6 +7699,7 @@
       "id": "app_motion",
       "name": "Uniform motion problems",
       "kind": "core",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 3.5",
@@ -7800,7 +7889,9 @@
         "rat_work"
       ],
       "depth": 7,
-      "templates": [],
+      "templates": [
+        "app_motion.opposite"
+      ],
       "misconceptions": [
         "app_motion.rate_time_swapped",
         "app_motion.add_rates_wrong"
@@ -7810,6 +7901,7 @@
       "id": "app_ineq",
       "name": "Applications with linear inequalities",
       "kind": "core",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 3.6",
@@ -8006,7 +8098,9 @@
       },
       "dependents": [],
       "depth": 7,
-      "templates": [],
+      "templates": [
+        "app_ineq.budget"
+      ],
       "misconceptions": [
         "app_ineq.ineq_direction_words",
         "app_ineq.round_wrong_way"
@@ -8016,6 +8110,7 @@
       "id": "gr_points",
       "name": "Ordered pairs, solutions of equations in two variables, tables of solutions",
       "kind": "core",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 4.1",
@@ -8373,7 +8468,10 @@
         "gr_slope"
       ],
       "depth": 4,
-      "templates": [],
+      "templates": [
+        "gr_points.table",
+        "gr_points.verify"
+      ],
       "misconceptions": [
         "gr_points.coordinates_swapped",
         "gr_points.substitute_wrong_variable"
@@ -8383,6 +8481,7 @@
       "id": "gr_lines",
       "name": "Graph lines by plotting points; horizontal and vertical lines",
       "kind": "core",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 4.2",
@@ -8706,7 +8805,10 @@
         "gr_intercepts"
       ],
       "depth": 5,
-      "templates": [],
+      "templates": [
+        "gr_lines.point_on_line",
+        "gr_lines.vertical_horizontal"
+      ],
       "misconceptions": [
         "gr_lines.vertical_horizontal_confused",
         "gr_lines.plot_error"
@@ -8716,6 +8818,7 @@
       "id": "gr_intercepts",
       "name": "Find and use x- and y-intercepts",
       "kind": "core",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 4.3",
@@ -8958,7 +9061,9 @@
         "quad_graph"
       ],
       "depth": 6,
-      "templates": [],
+      "templates": [
+        "gr_intercepts.find"
+      ],
       "misconceptions": [
         "gr_intercepts.intercept_wrong_zero",
         "gr_intercepts.intercept_as_number"
@@ -8968,6 +9073,7 @@
       "id": "gr_slope",
       "name": "Slope of a line (rise over run, the slope formula)",
       "kind": "core",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 4.4",
@@ -9221,7 +9327,10 @@
         "gr_slope_int"
       ],
       "depth": 5,
-      "templates": [],
+      "templates": [
+        "gr_slope.two_points",
+        "gr_slope.horizontal_vertical"
+      ],
       "misconceptions": [
         "gr_slope.run_over_rise",
         "gr_slope.slope_order_mixed",
@@ -9232,6 +9341,7 @@
       "id": "gr_slope_int",
       "name": "Slope-intercept form; parallel and perpendicular lines",
       "kind": "core",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 4.5",
@@ -9662,7 +9772,10 @@
         "sys_graph"
       ],
       "depth": 7,
-      "templates": [],
+      "templates": [
+        "gr_slope_int.identify",
+        "gr_slope_int.perpendicular"
+      ],
       "misconceptions": [
         "gr_slope_int.slope_not_solved_for_y",
         "gr_slope_int.perpendicular_negative_only"
@@ -9672,6 +9785,7 @@
       "id": "gr_line_eq",
       "name": "Find the equation of a line",
       "kind": "core",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 4.6",
@@ -10092,7 +10206,10 @@
       },
       "dependents": [],
       "depth": 8,
-      "templates": [],
+      "templates": [
+        "gr_line_eq.point_slope",
+        "gr_line_eq.two_points"
+      ],
       "misconceptions": [
         "gr_line_eq.point_slope_sign",
         "gr_line_eq.intercept_from_point"
@@ -10102,6 +10219,7 @@
       "id": "gr_ineq2",
       "name": "Linear inequalities in two variables",
       "kind": "core",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 4.7",
@@ -10372,7 +10490,9 @@
         "sys_ineq"
       ],
       "depth": 8,
-      "templates": [],
+      "templates": [
+        "gr_ineq2.test_point"
+      ],
       "misconceptions": [
         "gr_ineq2.test_point_misread",
         "gr_ineq2.boundary_included_wrong"
@@ -10382,6 +10502,7 @@
       "id": "sys_graph",
       "name": "Systems of equations - solutions and number of solutions",
       "kind": "core",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 5.1",
@@ -10780,7 +10901,9 @@
         "sys_ineq"
       ],
       "depth": 8,
-      "templates": [],
+      "templates": [
+        "sys_graph.count"
+      ],
       "misconceptions": [
         "sys_graph.one_equation_only",
         "sys_graph.parallel_means_one"
@@ -10790,6 +10913,7 @@
       "id": "sys_substitution",
       "name": "Solve systems by substitution",
       "kind": "core",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 5.2",
@@ -11052,7 +11176,9 @@
         "sys_elimination"
       ],
       "depth": 9,
-      "templates": [],
+      "templates": [
+        "sys_substitution.solve"
+      ],
       "misconceptions": [
         "sys_substitution.substitute_same_equation",
         "sys_substitution.forget_second_value"
@@ -11062,6 +11188,7 @@
       "id": "sys_elimination",
       "name": "Solve systems by elimination",
       "kind": "core",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 5.3",
@@ -11328,7 +11455,9 @@
         "sys_apps"
       ],
       "depth": 10,
-      "templates": [],
+      "templates": [
+        "sys_elimination.solve"
+      ],
       "misconceptions": [
         "sys_elimination.multiply_one_side",
         "sys_elimination.add_when_subtract"
@@ -11338,6 +11467,7 @@
       "id": "sys_apps",
       "name": "Applications of systems (direct translation, geometry, mixture, interest)",
       "kind": "core",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 5.4, Elementary Algebra 2e 5.5",
@@ -11607,7 +11737,9 @@
       },
       "dependents": [],
       "depth": 11,
-      "templates": [],
+      "templates": [
+        "sys_apps.two_numbers"
+      ],
       "misconceptions": [
         "sys_apps.one_equation_for_two",
         "sys_apps.value_equation_wrong"
@@ -11617,6 +11749,7 @@
       "id": "sys_ineq",
       "name": "Systems of linear inequalities",
       "kind": "core",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 5.6",
@@ -11845,7 +11978,9 @@
       },
       "dependents": [],
       "depth": 9,
-      "templates": [],
+      "templates": [
+        "sys_ineq.check"
+      ],
       "misconceptions": [
         "sys_ineq.sys_ineq_one_only"
       ]
@@ -11854,6 +11989,7 @@
       "id": "poly_addsub",
       "name": "Polynomials - degree, add, subtract and evaluate",
       "kind": "core",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 6.1",
@@ -12292,7 +12428,10 @@
         "rat_add_common"
       ],
       "depth": 4,
-      "templates": [],
+      "templates": [
+        "poly_addsub.subtract",
+        "poly_addsub.evaluate"
+      ],
       "misconceptions": [
         "poly_addsub.subtract_first_term_only",
         "poly_addsub.add_exponents_when_adding"
@@ -12302,6 +12441,7 @@
       "id": "exp_product",
       "name": "Product, power and product-to-a-power properties; multiply monomials",
       "kind": "core",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 6.2",
@@ -12597,7 +12737,9 @@
         "rad_sqrt"
       ],
       "depth": 3,
-      "templates": [],
+      "templates": [
+        "exp_product.simplify"
+      ],
       "misconceptions": [
         "exp_product.multiply_exponents",
         "exp_product.add_power_exponents",
@@ -12608,6 +12750,7 @@
       "id": "poly_mult",
       "name": "Multiply polynomials",
       "kind": "core",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 6.3",
@@ -13054,7 +13197,10 @@
         "rad_mult"
       ],
       "depth": 5,
-      "templates": [],
+      "templates": [
+        "poly_mult.binomials",
+        "poly_mult.trinomial"
+      ],
       "misconceptions": [
         "poly_mult.foil_missing_terms",
         "poly_mult.distribute_monomial_partial"
@@ -13064,6 +13210,7 @@
       "id": "poly_special",
       "name": "Special products (binomial squares, conjugates)",
       "kind": "core",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 6.4",
@@ -13430,7 +13577,9 @@
         "quad_complete"
       ],
       "depth": 6,
-      "templates": [],
+      "templates": [
+        "poly_special.square"
+      ],
       "misconceptions": [
         "poly_special.square_distributes",
         "poly_special.conjugate_middle_term"
@@ -13440,6 +13589,7 @@
       "id": "exp_quotient",
       "name": "Quotient property, zero exponent, divide monomials",
       "kind": "core",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 6.5",
@@ -13793,7 +13943,10 @@
         "exp_negative"
       ],
       "depth": 4,
-      "templates": [],
+      "templates": [
+        "exp_quotient.divide",
+        "exp_quotient.zero"
+      ],
       "misconceptions": [
         "exp_quotient.divide_exponents",
         "exp_quotient.zero_exponent_zero"
@@ -13803,6 +13956,7 @@
       "id": "poly_divide",
       "name": "Divide polynomials (by a monomial, by a binomial)",
       "kind": "core",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 6.6",
@@ -14184,7 +14338,10 @@
       },
       "dependents": [],
       "depth": 6,
-      "templates": [],
+      "templates": [
+        "poly_divide.monomial",
+        "poly_divide.binomial"
+      ],
       "misconceptions": [
         "poly_divide.divide_first_term_only",
         "poly_divide.long_division_subtract"
@@ -14194,6 +14351,7 @@
       "id": "exp_negative",
       "name": "Negative and integer exponents",
       "kind": "core",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 6.7",
@@ -14613,7 +14771,9 @@
         "rat_exponents"
       ],
       "depth": 5,
-      "templates": [],
+      "templates": [
+        "exp_negative.simplify"
+      ],
       "misconceptions": [
         "exp_negative.negative_exponent_sign",
         "exp_negative.negative_exponent_coefficient"
@@ -14623,6 +14783,7 @@
       "id": "sci_notation",
       "name": "Scientific notation",
       "kind": "core",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 6.7",
@@ -14856,7 +15017,10 @@
       },
       "dependents": [],
       "depth": 6,
-      "templates": [],
+      "templates": [
+        "sci_notation.convert",
+        "sci_notation.multiply"
+      ],
       "misconceptions": [
         "sci_notation.sci_exponent_direction",
         "sci_notation.sci_coefficient_range"
@@ -14866,6 +15030,7 @@
       "id": "fac_gcf",
       "name": "Greatest common factor and factoring by grouping",
       "kind": "core",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 7.1",
@@ -15397,7 +15562,10 @@
         "fac_trinomial"
       ],
       "depth": 6,
-      "templates": [],
+      "templates": [
+        "fac_gcf.factor",
+        "fac_gcf.grouping"
+      ],
       "misconceptions": [
         "fac_gcf.gcf_incomplete",
         "fac_gcf.gcf_lose_term"
@@ -15407,6 +15575,7 @@
       "id": "fac_trinomial",
       "name": "Factor trinomials x^2 + bx + c",
       "kind": "core",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 7.2",
@@ -15885,7 +16054,9 @@
         "rat_simplify"
       ],
       "depth": 7,
-      "templates": [],
+      "templates": [
+        "fac_trinomial.monic"
+      ],
       "misconceptions": [
         "fac_trinomial.factor_sign_error",
         "fac_trinomial.product_sum_swapped"
@@ -15895,6 +16066,7 @@
       "id": "fac_trinomial_a",
       "name": "Factor trinomials ax^2 + bx + c",
       "kind": "core",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 7.3",
@@ -16292,7 +16464,9 @@
         "fac_general"
       ],
       "depth": 8,
-      "templates": [],
+      "templates": [
+        "fac_trinomial_a.ac"
+      ],
       "misconceptions": [
         "fac_trinomial_a.ignore_leading",
         "fac_trinomial_a.gcf_first_skipped"
@@ -16302,6 +16476,7 @@
       "id": "fac_special",
       "name": "Factor special products (perfect squares, difference of squares, cubes)",
       "kind": "core",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 7.4",
@@ -16879,7 +17054,9 @@
         "fac_general"
       ],
       "depth": 8,
-      "templates": [],
+      "templates": [
+        "fac_special.patterns"
+      ],
       "misconceptions": [
         "fac_special.sum_of_squares_factors",
         "fac_special.cubes_pattern_wrong",
@@ -16890,6 +17067,7 @@
       "id": "fac_general",
       "name": "Factor completely with a general strategy",
       "kind": "core",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 7.5",
@@ -17203,7 +17381,9 @@
       },
       "dependents": [],
       "depth": 9,
-      "templates": [],
+      "templates": [
+        "fac_general.completely"
+      ],
       "misconceptions": [
         "fac_general.not_completely"
       ]
@@ -17212,6 +17392,7 @@
       "id": "quad_factor",
       "name": "Solve quadratic equations by factoring (zero product property)",
       "kind": "core",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 7.6",
@@ -17569,7 +17750,9 @@
         "rad_equations"
       ],
       "depth": 8,
-      "templates": [],
+      "templates": [
+        "quad_factor.solve"
+      ],
       "misconceptions": [
         "quad_factor.zero_product_not_zero",
         "quad_factor.divide_by_variable",
@@ -17580,6 +17763,7 @@
       "id": "rat_simplify",
       "name": "Simplify rational expressions (and where they are undefined)",
       "kind": "core",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 8.1",
@@ -18023,7 +18207,10 @@
         "rat_add_common"
       ],
       "depth": 8,
-      "templates": [],
+      "templates": [
+        "rat_simplify.cancel",
+        "rat_simplify.undefined"
+      ],
       "misconceptions": [
         "rat_simplify.cancel_terms",
         "rat_simplify.opposite_factors_one"
@@ -18033,6 +18220,7 @@
       "id": "rat_muldiv",
       "name": "Multiply and divide rational expressions",
       "kind": "core",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 8.2",
@@ -18460,7 +18648,9 @@
         "rat_complex"
       ],
       "depth": 9,
-      "templates": [],
+      "templates": [
+        "rat_muldiv.divide"
+      ],
       "misconceptions": [
         "rat_muldiv.invert_first",
         "rat_muldiv.cancel_before_factor"
@@ -18470,6 +18660,7 @@
       "id": "rat_add_common",
       "name": "Add and subtract rational expressions with a common denominator",
       "kind": "core",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 8.3",
@@ -18691,7 +18882,9 @@
         "rat_add_unlike"
       ],
       "depth": 9,
-      "templates": [],
+      "templates": [
+        "rat_add_common.subtract"
+      ],
       "misconceptions": [
         "rat_add_common.subtract_numerator_sign",
         "rat_add_common.add_denominators"
@@ -18701,6 +18894,7 @@
       "id": "rat_add_unlike",
       "name": "Add and subtract rational expressions with unlike denominators",
       "kind": "core",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 8.4",
@@ -19081,7 +19275,9 @@
         "rat_equations"
       ],
       "depth": 10,
-      "templates": [],
+      "templates": [
+        "rat_add_unlike.add"
+      ],
       "misconceptions": [
         "rat_add_unlike.lcd_product_missing",
         "rat_add_unlike.scale_denominator_only"
@@ -19091,6 +19287,7 @@
       "id": "rat_complex",
       "name": "Simplify complex rational expressions",
       "kind": "core",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 8.5",
@@ -19391,7 +19588,9 @@
       },
       "dependents": [],
       "depth": 11,
-      "templates": [],
+      "templates": [
+        "rat_complex.simplify"
+      ],
       "misconceptions": [
         "rat_complex.complex_invert_wrong"
       ]
@@ -19400,6 +19599,7 @@
       "id": "rat_equations",
       "name": "Solve rational equations",
       "kind": "core",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 8.6",
@@ -19697,7 +19897,9 @@
         "rat_work"
       ],
       "depth": 11,
-      "templates": [],
+      "templates": [
+        "rat_equations.solve"
+      ],
       "misconceptions": [
         "rat_equations.extraneous_kept",
         "rat_equations.lcd_one_side"
@@ -19707,6 +19909,7 @@
       "id": "rat_proportion",
       "name": "Proportions and similar figures",
       "kind": "core",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 8.7",
@@ -20053,7 +20256,9 @@
         "variation"
       ],
       "depth": 7,
-      "templates": [],
+      "templates": [
+        "rat_proportion.solve"
+      ],
       "misconceptions": [
         "rat_proportion.cross_multiply_wrong",
         "rat_proportion.similar_mismatched_sides"
@@ -20063,6 +20268,7 @@
       "id": "rat_work",
       "name": "Uniform motion and work applications with rational equations",
       "kind": "core",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 8.8",
@@ -20237,7 +20443,9 @@
       },
       "dependents": [],
       "depth": 12,
-      "templates": [],
+      "templates": [
+        "rat_work.together"
+      ],
       "misconceptions": [
         "rat_work.add_times"
       ]
@@ -20246,6 +20454,7 @@
       "id": "variation",
       "name": "Direct and inverse variation",
       "kind": "core",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 8.9",
@@ -20509,7 +20718,9 @@
       },
       "dependents": [],
       "depth": 8,
-      "templates": [],
+      "templates": [
+        "variation.solve"
+      ],
       "misconceptions": [
         "variation.direct_inverse_swapped"
       ]
@@ -20518,6 +20729,7 @@
       "id": "rad_sqrt",
       "name": "Square roots - estimate, approximate, variable expressions",
       "kind": "core",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 9.1",
@@ -20861,7 +21073,9 @@
         "rad_equations"
       ],
       "depth": 4,
-      "templates": [],
+      "templates": [
+        "rad_sqrt.variables"
+      ],
       "misconceptions": [
         "rad_sqrt.sqrt_of_sum",
         "rad_sqrt.sqrt_even_power_abs"
@@ -20871,6 +21085,7 @@
       "id": "rad_simplify",
       "name": "Simplify square roots (product and quotient properties)",
       "kind": "core",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 9.2",
@@ -21411,7 +21626,9 @@
         "quad_formula"
       ],
       "depth": 5,
-      "templates": [],
+      "templates": [
+        "rad_simplify.product"
+      ],
       "misconceptions": [
         "rad_simplify.not_largest_square",
         "rad_simplify.factor_left_outside"
@@ -21421,6 +21638,7 @@
       "id": "rad_addsub",
       "name": "Add and subtract square roots",
       "kind": "core",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 9.3",
@@ -21865,7 +22083,9 @@
       },
       "dependents": [],
       "depth": 6,
-      "templates": [],
+      "templates": [
+        "rad_addsub.combine"
+      ],
       "misconceptions": [
         "rad_addsub.add_radicands",
         "rad_addsub.unlike_radicals_combined"
@@ -21875,6 +22095,7 @@
       "id": "rad_mult",
       "name": "Multiply square roots",
       "kind": "core",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 9.4",
@@ -22375,7 +22596,9 @@
         "rad_divide"
       ],
       "depth": 6,
-      "templates": [],
+      "templates": [
+        "rad_mult.binomial"
+      ],
       "misconceptions": [
         "rad_mult.product_under_one_root_wrong",
         "rad_mult.square_of_sqrt"
@@ -22385,6 +22608,7 @@
       "id": "rad_divide",
       "name": "Divide square roots and rationalize denominators",
       "kind": "core",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 9.5",
@@ -22834,7 +23058,9 @@
       },
       "dependents": [],
       "depth": 7,
-      "templates": [],
+      "templates": [
+        "rad_divide.rationalize"
+      ],
       "misconceptions": [
         "rad_divide.rationalize_numerator_only",
         "rad_divide.conjugate_wrong_sign"
@@ -22844,6 +23070,7 @@
       "id": "rad_equations",
       "name": "Solve equations with square roots",
       "kind": "core",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 9.6",
@@ -23067,7 +23294,9 @@
       },
       "dependents": [],
       "depth": 9,
-      "templates": [],
+      "templates": [
+        "rad_equations.solve"
+      ],
       "misconceptions": [
         "rad_equations.square_terms_separately",
         "rad_equations.no_check_extraneous"
@@ -23077,6 +23306,7 @@
       "id": "rad_higher",
       "name": "Higher roots",
       "kind": "core",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 9.7",
@@ -23501,7 +23731,9 @@
         "rat_exponents"
       ],
       "depth": 6,
-      "templates": [],
+      "templates": [
+        "rad_higher.simplify"
+      ],
       "misconceptions": [
         "rad_higher.higher_root_as_sqrt",
         "rad_higher.odd_root_negative"
@@ -23511,6 +23743,7 @@
       "id": "rat_exponents",
       "name": "Rational exponents",
       "kind": "core",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 9.8",
@@ -23994,7 +24227,9 @@
       },
       "dependents": [],
       "depth": 7,
-      "templates": [],
+      "templates": [
+        "rat_exponents.evaluate"
+      ],
       "misconceptions": [
         "rat_exponents.fractional_as_division",
         "rat_exponents.numerator_denominator_swapped"
@@ -24004,6 +24239,7 @@
       "id": "quad_sqrt_prop",
       "name": "Solve quadratic equations with the Square Root Property",
       "kind": "core",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 10.1",
@@ -24415,7 +24651,9 @@
         "quad_formula"
       ],
       "depth": 6,
-      "templates": [],
+      "templates": [
+        "quad_sqrt_prop.solve"
+      ],
       "misconceptions": [
         "quad_sqrt_prop.forget_negative_root",
         "quad_sqrt_prop.sqrt_before_isolate"
@@ -24425,6 +24663,7 @@
       "id": "quad_complete",
       "name": "Complete the square",
       "kind": "core",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 10.2",
@@ -24789,7 +25028,9 @@
       },
       "dependents": [],
       "depth": 7,
-      "templates": [],
+      "templates": [
+        "quad_complete.term"
+      ],
       "misconceptions": [
         "quad_complete.complete_not_halved",
         "quad_complete.complete_one_side"
@@ -24799,6 +25040,7 @@
       "id": "quad_formula",
       "name": "The quadratic formula and the discriminant",
       "kind": "core",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 10.3",
@@ -25161,7 +25403,10 @@
         "quad_graph"
       ],
       "depth": 7,
-      "templates": [],
+      "templates": [
+        "quad_formula.solve",
+        "quad_formula.discriminant"
+      ],
       "misconceptions": [
         "quad_formula.formula_minus_b",
         "quad_formula.discriminant_sign"
@@ -25171,6 +25416,7 @@
       "id": "quad_apps",
       "name": "Applications modeled by quadratic equations",
       "kind": "core",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 10.4",
@@ -25376,7 +25622,9 @@
       },
       "dependents": [],
       "depth": 8,
-      "templates": [],
+      "templates": [
+        "quad_apps.area"
+      ],
       "misconceptions": [
         "quad_apps.keep_negative_length"
       ]
@@ -25385,6 +25633,7 @@
       "id": "quad_graph",
       "name": "Parabolas - axis of symmetry, vertex, intercepts, maximum and minimum",
       "kind": "core",
+      "grade": null,
       "section": null,
       "book": "ea2e",
       "origin": "Elementary Algebra 2e 10.5",
@@ -25618,7 +25867,10 @@
       },
       "dependents": [],
       "depth": 8,
-      "templates": [],
+      "templates": [
+        "quad_graph.vertex",
+        "quad_graph.maxmin"
+      ],
       "misconceptions": [
         "quad_graph.vertex_sign",
         "quad_graph.vertex_y_not_computed"

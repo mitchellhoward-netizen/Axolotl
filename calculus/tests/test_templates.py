@@ -3,7 +3,7 @@ import sympy as sp
 
 from adaptcalc import extract, paths, templates
 
-COURSES = ["calc_limits", "algebra1", "prealgebra"]
+COURSES = ["calc_limits", "algebra1", "prealgebra", "elementary"]
 
 
 @pytest.mark.parametrize("course", COURSES)

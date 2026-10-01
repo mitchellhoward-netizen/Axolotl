@@ -61,8 +61,23 @@ starting_points:
     grade7: {label: "In 7th grade, getting ready for algebra", prior: {foundation: 0.90, core: 0.50}}
     rusty: {label: "Shaky with whole-number arithmetic", prior: {foundation: 0.45, core: 0.05}}
     unsure: {label: "Not sure", prior: {}}
+  elementary:
+    gK: {label: "Starting kindergarten", prior: {grade_K: 0.15, grade_1: 0.04, grade_2: 0.02, grade_3: 0.02, grade_4: 0.02, grade_5: 0.02}}
+    g1: {label: "Starting 1st grade", prior: {grade_K: 0.80, grade_1: 0.15, grade_2: 0.04, grade_3: 0.02, grade_4: 0.02, grade_5: 0.02}}
+    g2: {label: "Starting 2nd grade", prior: {grade_K: 0.92, grade_1: 0.75, grade_2: 0.15, grade_3: 0.04, grade_4: 0.02, grade_5: 0.02}}
+    g3: {label: "Starting 3rd grade", prior: {grade_K: 0.95, grade_1: 0.88, grade_2: 0.70, grade_3: 0.15, grade_4: 0.04, grade_5: 0.02}}
+    g4: {label: "Starting 4th grade", prior: {grade_K: 0.96, grade_1: 0.92, grade_2: 0.85, grade_3: 0.65, grade_4: 0.15, grade_5: 0.04}}
+    g5: {label: "Starting 5th grade", prior: {grade_K: 0.97, grade_1: 0.94, grade_2: 0.90, grade_3: 0.80, grade_4: 0.60, grade_5: 0.15}}
+    unsure: {label: "Not sure", prior: {}}
   calc_limits:
     unsure: {label: "Not sure", prior: {}}
+
+# Settings that differ by course (merged over the sections above).
+course_overrides:
+  elementary:
+    # young children: a short diagnostic in small rounds, each read aloud by a grown-up
+    diagnostic: {min_questions: 12, max_questions: 24, round_sizes: [6, 6, 6, 6]}
+    lesson: {new_skill_problems: 4, review_share: 0.3, max_review: 3}
 
 # Per-learner daily limits (they bound the cost of the AI checks for one account).
 limits:

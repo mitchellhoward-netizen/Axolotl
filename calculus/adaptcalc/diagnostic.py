@@ -67,7 +67,8 @@ def prior_particles(n: int | None = None, seed: int | None = None) -> tuple[np.n
     for j, s in enumerate(order):
         pre = [idx[p] for p in sk[s]["prerequisites"]]
         ok = S[:, pre].all(axis=1) if pre else np.ones(n, dtype=bool)
-        p = np.where(ok, pr[sk[s]["kind"]], pr["prerequisites_missing"])
+        base = pr.get(f"grade_{sk[s].get('grade')}", pr[sk[s]["kind"]]) if sk[s].get("grade") is not None else pr[sk[s]["kind"]]
+        p = np.where(ok, base, pr["prerequisites_missing"])
         S[:, j] = rng.random(n) < p
     uniq, counts = np.unique(S, axis=0, return_counts=True)
     return uniq, counts / counts.sum()

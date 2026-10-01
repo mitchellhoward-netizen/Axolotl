@@ -20,7 +20,8 @@ import typst
 
 from . import assets, cnxml, paths, source
 
-TEMPLATE_IMPORT = '#import "/typst/textbook.typ": *\n#import "@preview/cetz:0.3.4"\n'
+TEMPLATE_IMPORT = ('#import "/typst/textbook.typ": *\n#import "/typst/figures.typ": *\n'
+                   '#import "@preview/cetz:0.3.4"\n')
 
 
 def esc(s: str) -> str:
@@ -74,6 +75,8 @@ def inl(items: list[dict], ctx: Ctx, record: bool = True) -> str:
             out.append("#linebreak()")
         elif k == "img":
             out.append(inline_image(i["src"]) if ctx.images else f'#"{esc(i.get("alt", ""))}"')
+        elif k == "draw":
+            out.append(f"#{i['typ']}")
     return "".join(out)
 
 
@@ -147,6 +150,8 @@ def _block(b: dict, ctx: Ctx, in_solution: bool = False) -> str:
         return pre + f"#fig(({imgs + ',' if imgs else ''}), {label}, {cap})\n"
     if t == "table":
         return pre + table_markup(b, ctx)
+    if t == "draw":
+        return pre + f"#align(center, block(above: 0.7em, below: 0.9em, {b['typ']}))\n"
     if t == "box":
         if not ctx.select(b):
             ctx.omitted.append(b.get("label") or cnxml.plain(b["title"]) or b["kind"])
@@ -273,8 +278,32 @@ def display_inline(markup: str) -> str:
     return re.sub(r"(?<!\\)\$\s*(.+?)\s*(?<!\\)\$", lambda m: f"$display(#${m.group(1)}$)$", markup)
 
 
+FIGURES = ("counters", "groups", "tenframe", "baseten", "clock", "numline", "fracbar", "fracshape", "arr",
+           "areagrid", "labeledrect", "shape", "shapes", "coins", "bars", "picgraph", "plane", "prism", "angledeg",
+           "angles2", "ruler", "lengths", "tape")
+
+
+def split_figure(prompt: str) -> tuple[str, str | None]:
+    """A drawn figure at the end of a prompt ('How many dots? #counters(7)') goes under the question,
+    not beside it: returns the question and the figure call."""
+    m = re.search(r"\s#(" + "|".join(FIGURES) + r")\(", prompt)
+    if not m:
+        return prompt, None
+    start = m.start() + 1
+    depth, end = 0, None
+    for i in range(m.end() - 1, len(prompt)):
+        depth += {"(": 1, ")": -1}.get(prompt[i], 0)
+        if depth == 0:
+            end = i + 1
+            break
+    if end is None or prompt[end:].strip():
+        return prompt, None  # not at the end: leave it inline
+    return prompt[:start].rstrip(), prompt[start + 1:end]
+
+
 def problem_markup(num: int, p: dict) -> str:
-    body = display_inline(p["prompt"])
+    prompt, drawn = split_figure(p["prompt"])
+    body = display_inline(prompt)
     if p.get("options"):
         body += "\n" + " #h(1.2em) ".join(f"({lab}) ${tp}$" for lab, tp in p["options"])
     fig = "none"
@@ -285,6 +314,10 @@ def problem_markup(num: int, p: dict) -> str:
                + ", ".join(f"text(size: 9pt, {c})" for c in cells) + "))")
     elif f and f["type"] == "graph":
         fig = "align(center)[" + graph_markup(f) + "]"
+    elif f and f["type"] == "draw":
+        fig = f"align(center, {f['typ']})"
+    if drawn and fig == "none":
+        fig = f"align(center, {drawn})"
     extra = ""
     if p.get("review"):
         extra += ', tag: "review"'

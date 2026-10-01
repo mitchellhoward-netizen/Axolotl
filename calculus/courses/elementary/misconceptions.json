@@ -1,0 +1,860 @@
+{
+  "source": {
+    "course": "elementary",
+    "title": "Elementary Mathematics",
+    "subtitle": "Kindergarten to grade 5: counting to fractions, decimals and volume",
+    "books": [
+      {
+        "id": "mk5",
+        "title": "Marginalia Elementary Mathematics",
+        "url": "",
+        "repository": "",
+        "license": "Original work",
+        "commercial": true
+      }
+    ],
+    "commercial": true
+  },
+  "misconceptions": {
+    "k_count": [
+      {
+        "id": "k_count.double_count",
+        "skill": "k_count",
+        "root_skill": "k_count",
+        "description": "Counts some objects twice or skips some (no one-to-one matching)."
+      },
+      {
+        "id": "k_count.last_not_total",
+        "skill": "k_count",
+        "root_skill": "k_count",
+        "description": "Counts correctly but does not know the last number said is how many."
+      }
+    ],
+    "k_numerals": [
+      {
+        "id": "k_numerals.reversed_digits",
+        "skill": "k_numerals",
+        "root_skill": "k_numerals",
+        "description": "Writes teen numbers in the order heard: 'seventeen' as 71."
+      },
+      {
+        "id": "k_numerals.mirror_digit",
+        "skill": "k_numerals",
+        "root_skill": "k_numerals",
+        "description": "Writes a digit backward (a mirrored 3 or 7)."
+      }
+    ],
+    "k_compare": [
+      {
+        "id": "k_compare.bigger_spread",
+        "skill": "k_compare",
+        "root_skill": "k_compare",
+        "description": "Judges 'more' by how much space a group takes, not by counting."
+      },
+      {
+        "id": "k_compare.fewer_means_more",
+        "skill": "k_compare",
+        "root_skill": "k_compare",
+        "description": "Picks the larger group when asked which has fewer."
+      }
+    ],
+    "k_addsub": [
+      {
+        "id": "k_addsub.count_all_off_by_one",
+        "skill": "k_addsub",
+        "root_skill": "k_count",
+        "description": "Counts on from the first number by starting at that number (3 + 2: 'three, four')."
+      },
+      {
+        "id": "k_addsub.add_for_take",
+        "skill": "k_addsub",
+        "root_skill": "k_addsub",
+        "description": "Adds when the story takes away."
+      }
+    ],
+    "k_make10": [
+      {
+        "id": "k_make10.partner_wrong",
+        "skill": "k_make10",
+        "root_skill": "k_make10",
+        "description": "Gives a partner that makes 9 or 11 instead of 10."
+      },
+      {
+        "id": "k_make10.counts_filled",
+        "skill": "k_make10",
+        "root_skill": "k_make10",
+        "description": "Answers with the filled spaces of the ten frame instead of the empty ones."
+      }
+    ],
+    "k_teens": [
+      {
+        "id": "k_teens.teen_as_digits",
+        "skill": "k_teens",
+        "root_skill": "k_teens",
+        "description": "Reads 14 as 1 and 4 rather than ten and 4."
+      },
+      {
+        "id": "k_teens.teen_reversal",
+        "skill": "k_teens",
+        "root_skill": "k_numerals",
+        "description": "Writes 'ten and six' as 61."
+      }
+    ],
+    "k_count100": [
+      {
+        "id": "k_count100.decade_skip",
+        "skill": "k_count100",
+        "root_skill": "k_count100",
+        "description": "After 29 says 'twenty-ten' or skips to the wrong ten."
+      },
+      {
+        "id": "k_count100.tens_as_ones",
+        "skill": "k_count100",
+        "root_skill": "k_count100",
+        "description": "Counting by tens, says 10, 11, 12."
+      }
+    ],
+    "k_shapes": [
+      {
+        "id": "k_shapes.orientation",
+        "skill": "k_shapes",
+        "root_skill": "k_shapes",
+        "description": "Thinks a square turned on its corner is no longer a square."
+      },
+      {
+        "id": "k_shapes.rectangle_square",
+        "skill": "k_shapes",
+        "root_skill": "k_shapes",
+        "description": "Calls every four-sided shape a square."
+      }
+    ],
+    "g1_add20": [
+      {
+        "id": "g1_add20.counts_start_twice",
+        "skill": "g1_add20",
+        "root_skill": "k_addsub",
+        "description": "Counting on, counts the first addend again: 8 + 3 = 10."
+      },
+      {
+        "id": "g1_add20.make_ten_split_wrong",
+        "skill": "g1_add20",
+        "root_skill": "k_make10",
+        "description": "Splits the second number wrongly when making a ten."
+      }
+    ],
+    "g1_sub20": [
+      {
+        "id": "g1_sub20.subtract_reversed",
+        "skill": "g1_sub20",
+        "root_skill": "g1_sub20",
+        "description": "Subtracts the smaller digit from the larger in each place: 14 - 6 = 12."
+      },
+      {
+        "id": "g1_sub20.sub_off_by_one",
+        "skill": "g1_sub20",
+        "root_skill": "g1_sub20",
+        "description": "Counting back, includes the starting number: 12 - 3 = 10."
+      }
+    ],
+    "g1_unknown": [
+      {
+        "id": "g1_unknown.equals_means_answer",
+        "skill": "g1_unknown",
+        "root_skill": "g1_unknown",
+        "description": "Reads = as 'the answer is': for 8 + __ = 12 writes 20."
+      },
+      {
+        "id": "g1_unknown.copies_number",
+        "skill": "g1_unknown",
+        "root_skill": "g1_unknown",
+        "description": "Writes one of the given numbers in the box."
+      }
+    ],
+    "g1_word": [
+      {
+        "id": "g1_word.keyword_more",
+        "skill": "g1_word",
+        "root_skill": "g1_word",
+        "description": "Adds whenever the story says 'more', even in a 'how many more' comparison."
+      },
+      {
+        "id": "g1_word.uses_all_numbers",
+        "skill": "g1_word",
+        "root_skill": "g1_word",
+        "description": "Combines every number in the story regardless of the question."
+      }
+    ],
+    "g1_tens": [
+      {
+        "id": "g1_tens.digit_face_value",
+        "skill": "g1_tens",
+        "root_skill": "g1_tens",
+        "description": "Says the 4 in 47 is worth 4, not 40."
+      },
+      {
+        "id": "g1_tens.ones_as_tens",
+        "skill": "g1_tens",
+        "root_skill": "g1_tens",
+        "description": "Writes 3 tens 5 ones as 8 or as 305."
+      }
+    ],
+    "g1_compare": [
+      {
+        "id": "g1_compare.sign_backward",
+        "skill": "g1_compare",
+        "root_skill": "g1_compare",
+        "description": "Reverses < and >."
+      },
+      {
+        "id": "g1_compare.compares_ones_first",
+        "skill": "g1_compare",
+        "root_skill": "g1_compare",
+        "description": "Compares the ones digits first: 29 > 31 because 9 > 1."
+      }
+    ],
+    "g1_add100": [
+      {
+        "id": "g1_add100.adds_tens_to_ones",
+        "skill": "g1_add100",
+        "root_skill": "g1_tens",
+        "description": "Adds a ten to the ones place: 34 + 20 = 36."
+      },
+      {
+        "id": "g1_add100.no_regroup",
+        "skill": "g1_add100",
+        "root_skill": "g1_add100",
+        "description": "Writes 15 ones without making a new ten: 38 + 7 = 315."
+      }
+    ],
+    "g1_length": [
+      {
+        "id": "g1_length.gaps_overlaps",
+        "skill": "g1_length",
+        "root_skill": "g1_length",
+        "description": "Leaves gaps or overlaps between units when measuring."
+      },
+      {
+        "id": "g1_length.start_not_aligned",
+        "skill": "g1_length",
+        "root_skill": "g1_length",
+        "description": "Compares lengths without lining up the ends."
+      }
+    ],
+    "g1_time": [
+      {
+        "id": "g1_time.hands_swapped",
+        "skill": "g1_time",
+        "root_skill": "g1_time",
+        "description": "Reads the minute hand as the hour."
+      },
+      {
+        "id": "g1_time.half_past_next",
+        "skill": "g1_time",
+        "root_skill": "g1_time",
+        "description": "At half past, reads the hour the hand is approaching: 3:30 read as 4:30."
+      }
+    ],
+    "g2_addsub100": [
+      {
+        "id": "g2_addsub100.no_carry",
+        "skill": "g2_addsub100",
+        "root_skill": "g2_addsub100",
+        "description": "Forgets the regrouped ten when adding."
+      },
+      {
+        "id": "g2_addsub100.smaller_from_larger",
+        "skill": "g2_addsub100",
+        "root_skill": "g2_addsub100",
+        "description": "In each column subtracts the smaller digit from the larger instead of regrouping."
+      }
+    ],
+    "g2_hundreds": [
+      {
+        "id": "g2_hundreds.zero_placeholder",
+        "skill": "g2_hundreds",
+        "root_skill": "g2_hundreds",
+        "description": "Leaves out a zero: four hundred six written as 46."
+      },
+      {
+        "id": "g2_hundreds.expanded_wrong",
+        "skill": "g2_hundreds",
+        "root_skill": "g2_hundreds",
+        "description": "Writes 352 as 3 + 5 + 2."
+      }
+    ],
+    "g2_addsub1000": [
+      {
+        "id": "g2_addsub1000.borrow_across_zero",
+        "skill": "g2_addsub1000",
+        "root_skill": "g2_addsub1000",
+        "description": "Cannot regroup across a zero (as in 403 - 158)."
+      },
+      {
+        "id": "g2_addsub1000.misaligned",
+        "skill": "g2_addsub1000",
+        "root_skill": "g2_hundreds",
+        "description": "Lines numbers up on the left instead of by place value."
+      }
+    ],
+    "g2_word": [
+      {
+        "id": "g2_word.one_step_only",
+        "skill": "g2_word",
+        "root_skill": "g2_word",
+        "description": "Stops after the first step of a two-step problem."
+      },
+      {
+        "id": "g2_word.wrong_operation",
+        "skill": "g2_word",
+        "root_skill": "g1_word",
+        "description": "Adds where the situation calls for subtracting (or the reverse)."
+      }
+    ],
+    "g2_evenodd": [
+      {
+        "id": "g2_evenodd.even_by_last_digit_wrong",
+        "skill": "g2_evenodd",
+        "root_skill": "g2_evenodd",
+        "description": "Decides even or odd by the first digit."
+      },
+      {
+        "id": "g2_evenodd.array_add_sides",
+        "skill": "g2_evenodd",
+        "root_skill": "g2_evenodd",
+        "description": "Adds rows and columns instead of counting the array: 3 rows of 4 is 7."
+      }
+    ],
+    "g2_measure": [
+      {
+        "id": "g2_measure.ruler_from_one",
+        "skill": "g2_measure",
+        "root_skill": "g2_measure",
+        "description": "Starts measuring at the 1 mark instead of 0."
+      },
+      {
+        "id": "g2_measure.unit_size",
+        "skill": "g2_measure",
+        "root_skill": "g2_measure",
+        "description": "Thinks more units means a longer object even with a smaller unit."
+      }
+    ],
+    "g2_time": [
+      {
+        "id": "g2_time.minutes_by_ones",
+        "skill": "g2_time",
+        "root_skill": "g2_time",
+        "description": "Reads the number the minute hand points to as the minutes (at 4 reads 4 minutes)."
+      },
+      {
+        "id": "g2_time.hour_hand_rounding",
+        "skill": "g2_time",
+        "root_skill": "g1_time",
+        "description": "Reads the hour the hand is nearest, not the one it last passed."
+      }
+    ],
+    "g2_money": [
+      {
+        "id": "g2_money.coins_by_count",
+        "skill": "g2_money",
+        "root_skill": "g2_money",
+        "description": "Counts coins as 1 each, ignoring their values."
+      },
+      {
+        "id": "g2_money.nickel_dime",
+        "skill": "g2_money",
+        "root_skill": "g2_money",
+        "description": "Confuses the nickel (5 cents) with the dime (10 cents)."
+      }
+    ],
+    "g2_graphs": [
+      {
+        "id": "g2_graphs.reads_key_wrong",
+        "skill": "g2_graphs",
+        "root_skill": "g2_graphs",
+        "description": "Counts pictures without using the key's value for each picture."
+      },
+      {
+        "id": "g2_graphs.how_many_more_add",
+        "skill": "g2_graphs",
+        "root_skill": "g1_word",
+        "description": "Adds the two amounts when asked how many more."
+      }
+    ],
+    "g2_parts": [
+      {
+        "id": "g2_parts.unequal_parts",
+        "skill": "g2_parts",
+        "root_skill": "g2_parts",
+        "description": "Calls two unequal pieces halves."
+      },
+      {
+        "id": "g2_parts.more_parts_bigger",
+        "skill": "g2_parts",
+        "root_skill": "g2_parts",
+        "description": "Thinks a fourth is bigger than a half because 4 is bigger than 2."
+      }
+    ],
+    "g3_mult": [
+      {
+        "id": "g3_mult.mult_as_add",
+        "skill": "g3_mult",
+        "root_skill": "g3_mult",
+        "description": "Adds the two numbers instead of multiplying: 4 groups of 3 is 7."
+      },
+      {
+        "id": "g3_mult.groups_vs_size",
+        "skill": "g3_mult",
+        "root_skill": "g3_mult",
+        "description": "Confuses the number of groups with the size of each group in a story."
+      }
+    ],
+    "g3_div": [
+      {
+        "id": "g3_div.div_order",
+        "skill": "g3_div",
+        "root_skill": "g3_div",
+        "description": "Divides the smaller number by the larger: 3 ÷ 12."
+      },
+      {
+        "id": "g3_div.share_vs_group",
+        "skill": "g3_div",
+        "root_skill": "g3_div",
+        "description": "Answers with the number of groups when the question asks how many in each."
+      }
+    ],
+    "g3_facts": [
+      {
+        "id": "g3_facts.fact_neighbor",
+        "skill": "g3_facts",
+        "root_skill": "g3_facts",
+        "description": "Gives a neighboring fact: 7 × 8 = 54 or 63."
+      },
+      {
+        "id": "g3_facts.div_fact_from_add",
+        "skill": "g3_facts",
+        "root_skill": "g3_div",
+        "description": "Uses subtraction facts for division: 24 ÷ 6 = 18."
+      }
+    ],
+    "g3_props": [
+      {
+        "id": "g3_props.distribute_one_term",
+        "skill": "g3_props",
+        "root_skill": "g3_props",
+        "description": "Multiplies only the first part: 4 × (5 + 2) = 20 + 2."
+      },
+      {
+        "id": "g3_props.order_matters",
+        "skill": "g3_props",
+        "root_skill": "g3_props",
+        "description": "Thinks 6 × 4 and 4 × 6 are different amounts."
+      }
+    ],
+    "g3_word": [
+      {
+        "id": "g3_word.one_step_only3",
+        "skill": "g3_word",
+        "root_skill": "g3_word",
+        "description": "Answers after the first step of a two-step problem."
+      },
+      {
+        "id": "g3_word.wrong_op3",
+        "skill": "g3_word",
+        "root_skill": "g3_word",
+        "description": "Picks an operation from a key word rather than the situation."
+      }
+    ],
+    "g3_round": [
+      {
+        "id": "g3_round.round_down_always",
+        "skill": "g3_round",
+        "root_skill": "g3_round",
+        "description": "Drops the digits instead of rounding: 67 to 60."
+      },
+      {
+        "id": "g3_round.round_wrong_digit",
+        "skill": "g3_round",
+        "root_skill": "g3_round",
+        "description": "Looks at the wrong digit to decide (rounding 248 to the nearest hundred by the 8)."
+      }
+    ],
+    "g3_mult10": [
+      {
+        "id": "g3_mult10.zeros_dropped",
+        "skill": "g3_mult10",
+        "root_skill": "g3_mult10",
+        "description": "Drops the zero: 4 × 30 = 12."
+      },
+      {
+        "id": "g3_mult10.zeros_added_twice",
+        "skill": "g3_mult10",
+        "root_skill": "g3_mult10",
+        "description": "Adds an extra zero: 6 × 50 = 3000."
+      }
+    ],
+    "g3_fractions": [
+      {
+        "id": "g3_fractions.denominator_is_shaded",
+        "skill": "g3_fractions",
+        "root_skill": "g3_fractions",
+        "description": "Writes the shaded parts over the unshaded parts: 3 of 4 shaded as 3/1."
+      },
+      {
+        "id": "g3_fractions.unequal_whole",
+        "skill": "g3_fractions",
+        "root_skill": "g2_parts",
+        "description": "Names a fraction of a shape cut into unequal parts."
+      }
+    ],
+    "g3_frac_line": [
+      {
+        "id": "g3_frac_line.count_ticks",
+        "skill": "g3_frac_line",
+        "root_skill": "g3_frac_line",
+        "description": "Counts tick marks instead of spaces between them."
+      },
+      {
+        "id": "g3_frac_line.bigger_denominator_bigger",
+        "skill": "g3_frac_line",
+        "root_skill": "g3_frac_line",
+        "description": "Thinks 1/8 > 1/4 because 8 > 4."
+      }
+    ],
+    "g3_area": [
+      {
+        "id": "g3_area.area_perimeter_swap",
+        "skill": "g3_area",
+        "root_skill": "g3_area",
+        "description": "Adds the sides when asked for area, or multiplies for perimeter."
+      },
+      {
+        "id": "g3_area.perimeter_two_sides",
+        "skill": "g3_area",
+        "root_skill": "g3_area",
+        "description": "Adds only the two labeled sides for the perimeter of a rectangle."
+      }
+    ],
+    "g3_time": [
+      {
+        "id": "g3_time.elapsed_as_subtract_digits",
+        "skill": "g3_time",
+        "root_skill": "g3_time",
+        "description": "Subtracts times like whole numbers: 2:10 - 1:50 = 60 minutes as '0:60' or 1:40."
+      },
+      {
+        "id": "g3_time.crosses_hour",
+        "skill": "g3_time",
+        "root_skill": "g3_time",
+        "description": "Loses the hour when the minutes pass 60."
+      }
+    ],
+    "g4_place": [
+      {
+        "id": "g4_place.round_wrong_place",
+        "skill": "g4_place",
+        "root_skill": "g4_place",
+        "description": "Rounds to the wrong place (thousands for ten thousands)."
+      },
+      {
+        "id": "g4_place.compare_by_first_digit",
+        "skill": "g4_place",
+        "root_skill": "g4_place",
+        "description": "Compares numbers of different lengths by their first digits."
+      }
+    ],
+    "g4_addsub": [
+      {
+        "id": "g4_addsub.regroup_lost",
+        "skill": "g4_addsub",
+        "root_skill": "g4_addsub",
+        "description": "Forgets a regrouping in a long addition or subtraction."
+      },
+      {
+        "id": "g4_addsub.zeros_in_minuend",
+        "skill": "g4_addsub",
+        "root_skill": "g2_addsub1000",
+        "description": "Mishandles regrouping across zeros (5000 - 1234)."
+      }
+    ],
+    "g4_mult": [
+      {
+        "id": "g4_mult.no_placeholder",
+        "skill": "g4_mult",
+        "root_skill": "g4_mult",
+        "description": "Forgets the zero (shift) when multiplying by the tens digit."
+      },
+      {
+        "id": "g4_mult.partial_products_missing",
+        "skill": "g4_mult",
+        "root_skill": "g3_props",
+        "description": "Multiplies tens by tens and ones by ones only: 23 × 14 = 2 × 1 tens + 3 × 4."
+      }
+    ],
+    "g4_div": [
+      {
+        "id": "g4_div.remainder_too_large",
+        "skill": "g4_div",
+        "root_skill": "g4_div",
+        "description": "Leaves a remainder as large as or larger than the divisor."
+      },
+      {
+        "id": "g4_div.zero_in_quotient",
+        "skill": "g4_div",
+        "root_skill": "g4_div",
+        "description": "Drops a zero in the quotient when a step doesn't go."
+      }
+    ],
+    "g4_factors": [
+      {
+        "id": "g4_factors.one_prime",
+        "skill": "g4_factors",
+        "root_skill": "g4_factors",
+        "description": "Calls 1 a prime number."
+      },
+      {
+        "id": "g4_factors.missing_factor_pairs",
+        "skill": "g4_factors",
+        "root_skill": "g4_factors",
+        "description": "Stops listing factors too early and misses pairs."
+      }
+    ],
+    "g4_equiv": [
+      {
+        "id": "g4_equiv.add_same_number",
+        "skill": "g4_equiv",
+        "root_skill": "g4_equiv",
+        "description": "Adds the same number to top and bottom: 2/3 = 4/5."
+      },
+      {
+        "id": "g4_equiv.compare_numerators_only",
+        "skill": "g4_equiv",
+        "root_skill": "g4_equiv",
+        "description": "Compares fractions by numerators alone across different denominators."
+      }
+    ],
+    "g4_frac_add": [
+      {
+        "id": "g4_frac_add.add_denominators",
+        "skill": "g4_frac_add",
+        "root_skill": "g4_frac_add",
+        "description": "Adds denominators too: 2/5 + 1/5 = 3/10."
+      },
+      {
+        "id": "g4_frac_add.mixed_borrow",
+        "skill": "g4_frac_add",
+        "root_skill": "g4_frac_add",
+        "description": "Subtracting mixed numbers, borrows 10 instead of one whole."
+      }
+    ],
+    "g4_frac_whole": [
+      {
+        "id": "g4_frac_whole.mult_both",
+        "skill": "g4_frac_whole",
+        "root_skill": "g4_frac_whole",
+        "description": "Multiplies the denominator by the whole number too: 3 × 2/5 = 6/15."
+      },
+      {
+        "id": "g4_frac_whole.add_whole",
+        "skill": "g4_frac_whole",
+        "root_skill": "g4_frac_add",
+        "description": "Adds the whole number to the numerator."
+      }
+    ],
+    "g4_decimals": [
+      {
+        "id": "g4_decimals.longer_is_larger",
+        "skill": "g4_decimals",
+        "root_skill": "g4_decimals",
+        "description": "Thinks 0.25 > 0.3 because 25 > 3."
+      },
+      {
+        "id": "g4_decimals.tenths_hundredths",
+        "skill": "g4_decimals",
+        "root_skill": "g4_decimals",
+        "description": "Writes 7 hundredths as 0.7."
+      }
+    ],
+    "g4_measure": [
+      {
+        "id": "g4_measure.convert_wrong_way",
+        "skill": "g4_measure",
+        "root_skill": "g4_measure",
+        "description": "Divides when converting to a smaller unit (3 feet = 1/4 inch)."
+      },
+      {
+        "id": "g4_measure.area_perimeter_formula",
+        "skill": "g4_measure",
+        "root_skill": "g3_area",
+        "description": "Uses the area formula for perimeter."
+      }
+    ],
+    "g4_angles": [
+      {
+        "id": "g4_angles.reads_wrong_scale",
+        "skill": "g4_angles",
+        "root_skill": "g4_angles",
+        "description": "Reads the other scale of the protractor (120 for 60)."
+      },
+      {
+        "id": "g4_angles.angle_add_wrong",
+        "skill": "g4_angles",
+        "root_skill": "g4_angles",
+        "description": "Adds the angles when one is missing from a whole."
+      }
+    ],
+    "g5_expr": [
+      {
+        "id": "g5_expr.left_to_right5",
+        "skill": "g5_expr",
+        "root_skill": "g5_expr",
+        "description": "Works left to right, ignoring the parentheses or multiplying last."
+      },
+      {
+        "id": "g5_expr.parentheses_ignored",
+        "skill": "g5_expr",
+        "root_skill": "g3_props",
+        "description": "Removes parentheses without distributing."
+      }
+    ],
+    "g5_place": [
+      {
+        "id": "g5_place.decimal_length",
+        "skill": "g5_place",
+        "root_skill": "g5_place",
+        "description": "Thinks a decimal with more digits is larger: 0.125 > 0.3."
+      },
+      {
+        "id": "g5_place.power_of_ten_shift",
+        "skill": "g5_place",
+        "root_skill": "g5_place",
+        "description": "Moves the decimal point the wrong way when multiplying by 10, 100 or 1000."
+      }
+    ],
+    "g5_mult": [
+      {
+        "id": "g5_mult.placeholder5",
+        "skill": "g5_mult",
+        "root_skill": "g4_mult",
+        "description": "Forgets the placeholder zeros in the second and third rows."
+      },
+      {
+        "id": "g5_mult.carry_lost5",
+        "skill": "g5_mult",
+        "root_skill": "g5_mult",
+        "description": "Loses a carried digit in a partial product."
+      }
+    ],
+    "g5_div": [
+      {
+        "id": "g5_div.estimate_quotient_digit",
+        "skill": "g5_div",
+        "root_skill": "g5_div",
+        "description": "Picks a quotient digit too large, so the product exceeds the dividend part."
+      },
+      {
+        "id": "g5_div.zero_digit5",
+        "skill": "g5_div",
+        "root_skill": "g4_div",
+        "description": "Leaves out a zero in the quotient."
+      }
+    ],
+    "g5_dec_ops": [
+      {
+        "id": "g5_dec_ops.align_right",
+        "skill": "g5_dec_ops",
+        "root_skill": "g5_dec_ops",
+        "description": "Lines up decimals on the right instead of at the point."
+      },
+      {
+        "id": "g5_dec_ops.point_count",
+        "skill": "g5_dec_ops",
+        "root_skill": "g5_dec_ops",
+        "description": "Places the decimal point wrongly in a product."
+      }
+    ],
+    "g5_frac_addsub": [
+      {
+        "id": "g5_frac_addsub.add_across",
+        "skill": "g5_frac_addsub",
+        "root_skill": "g5_frac_addsub",
+        "description": "Adds numerators and denominators: 1/2 + 1/3 = 2/5."
+      },
+      {
+        "id": "g5_frac_addsub.common_denominator_numerator",
+        "skill": "g5_frac_addsub",
+        "root_skill": "g4_equiv",
+        "description": "Changes the denominator without changing the numerator."
+      }
+    ],
+    "g5_frac_mul": [
+      {
+        "id": "g5_frac_mul.cross_add",
+        "skill": "g5_frac_mul",
+        "root_skill": "g5_frac_mul",
+        "description": "Finds a common denominator and multiplies only the numerators."
+      },
+      {
+        "id": "g5_frac_mul.product_bigger",
+        "skill": "g5_frac_mul",
+        "root_skill": "g5_frac_mul",
+        "description": "Expects a product of fractions less than 1 to be bigger than both."
+      }
+    ],
+    "g5_frac_div": [
+      {
+        "id": "g5_frac_div.divide_wrong_way",
+        "skill": "g5_frac_div",
+        "root_skill": "g5_frac_div",
+        "description": "Computes 1/3 ÷ 4 as 4 ÷ 1/3."
+      },
+      {
+        "id": "g5_frac_div.halving_vs_dividing_by_half",
+        "skill": "g5_frac_div",
+        "root_skill": "g5_frac_div",
+        "description": "Treats dividing by 1/2 as dividing by 2."
+      }
+    ],
+    "g5_volume": [
+      {
+        "id": "g5_volume.volume_add",
+        "skill": "g5_volume",
+        "root_skill": "g5_volume",
+        "description": "Adds the three dimensions instead of multiplying."
+      },
+      {
+        "id": "g5_volume.surface_count",
+        "skill": "g5_volume",
+        "root_skill": "g5_volume",
+        "description": "Counts only the visible cubes on the outside."
+      }
+    ],
+    "g5_coord": [
+      {
+        "id": "g5_coord.xy_swapped",
+        "skill": "g5_coord",
+        "root_skill": "g5_coord",
+        "description": "Moves up first, then across: plots (3, 5) at (5, 3)."
+      },
+      {
+        "id": "g5_coord.starts_at_one",
+        "skill": "g5_coord",
+        "root_skill": "g5_coord",
+        "description": "Counts from 1 instead of from 0 along an axis."
+      }
+    ],
+    "g5_convert": [
+      {
+        "id": "g5_convert.convert_direction5",
+        "skill": "g5_convert",
+        "root_skill": "g5_convert",
+        "description": "Multiplies when converting to a larger unit."
+      },
+      {
+        "id": "g5_convert.metric_power_wrong",
+        "skill": "g5_convert",
+        "root_skill": "g5_place",
+        "description": "Uses the wrong power of ten (1 m = 10 cm)."
+      }
+    ]
+  }
+}

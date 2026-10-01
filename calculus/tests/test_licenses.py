@@ -6,7 +6,7 @@ SELLABLE = {"https://creativecommons.org/licenses/by/4.0/", "https://creativecom
 
 def test_sellable_books_are_cc_by_and_pinned_to_an_exact_commit():
     for b in source.BOOKS.values():
-        if b.commercial:
+        if b.commercial and not b.authored:
             assert b.license_url in SELLABLE, b.id
             assert len(b.ref) == 40 and b.ref != "main", b.id
         assert b.authors, b.id
@@ -17,7 +17,9 @@ def test_calculus_volume_1_is_not_sellable():
 
 
 def test_fetched_collections_declare_the_license_we_rely_on():
-    for book in source.BOOKS:
+    for book, b in source.BOOKS.items():
+        if b.authored:
+            continue  # written for Marginalia: nothing is fetched
         source.chapter_modules(book)  # raises LicenseMismatch if the cached source says otherwise
 
 
@@ -25,3 +27,10 @@ def test_attribution_names_authors_license_and_changes():
     line = source.attribution_line("pa2e")
     assert "Marecek" in line and "CC BY 4.0" in line and "creativecommons.org/licenses/by/4.0" in line
     assert "openstax.org/books/prealgebra-2e" in line and "adapted" in line.lower()
+
+
+def test_the_authored_book_is_ours_and_loads_from_the_repo():
+    b = source.BOOKS["mk5"]
+    assert b.authored and b.commercial and not b.repo and not b.license_url
+    assert (source.paths.ROOT / b.authored / "grade-K.yaml").exists()
+    assert "Written for Marginalia" in source.attribution_line("mk5")

@@ -1114,3 +1114,4 @@ def verify_all(seeds=range(5), only: set[str] | None = None) -> list[str]:
 # Algebra 1 (course algebra1) registers its templates in the same registry.
 from . import templates_algebra  # noqa: E402,F401
 from . import templates_prealgebra  # noqa: E402,F401
+from . import templates_elementary  # noqa: E402,F401

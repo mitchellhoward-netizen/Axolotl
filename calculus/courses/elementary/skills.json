@@ -1,0 +1,5880 @@
+{
+  "source": {
+    "course": "elementary",
+    "title": "Elementary Mathematics",
+    "subtitle": "Kindergarten to grade 5: counting to fractions, decimals and volume",
+    "books": [
+      {
+        "id": "mk5",
+        "title": "Marginalia Elementary Mathematics",
+        "url": "",
+        "repository": "",
+        "license": "Original work",
+        "commercial": true
+      }
+    ],
+    "commercial": true
+  },
+  "topological_order": [
+    "k_count",
+    "k_numerals",
+    "k_compare",
+    "k_addsub",
+    "k_make10",
+    "k_teens",
+    "k_count100",
+    "k_shapes",
+    "g1_add20",
+    "g1_sub20",
+    "g1_unknown",
+    "g1_word",
+    "g1_tens",
+    "g1_compare",
+    "g1_add100",
+    "g1_length",
+    "g1_time",
+    "g2_addsub100",
+    "g2_hundreds",
+    "g2_addsub1000",
+    "g2_word",
+    "g2_evenodd",
+    "g2_measure",
+    "g2_time",
+    "g2_money",
+    "g2_graphs",
+    "g2_parts",
+    "g3_mult",
+    "g3_div",
+    "g3_facts",
+    "g3_props",
+    "g3_word",
+    "g3_round",
+    "g3_mult10",
+    "g3_fractions",
+    "g3_frac_line",
+    "g3_area",
+    "g3_time",
+    "g4_place",
+    "g4_addsub",
+    "g4_mult",
+    "g4_div",
+    "g4_factors",
+    "g4_equiv",
+    "g4_frac_add",
+    "g4_frac_whole",
+    "g4_decimals",
+    "g4_measure",
+    "g4_angles",
+    "g5_expr",
+    "g5_place",
+    "g5_mult",
+    "g5_div",
+    "g5_dec_ops",
+    "g5_frac_addsub",
+    "g5_frac_mul",
+    "g5_frac_div",
+    "g5_volume",
+    "g5_coord",
+    "g5_convert"
+  ],
+  "skills": [
+    {
+      "id": "k_count",
+      "name": "Count objects to 20",
+      "kind": "core",
+      "grade": "K",
+      "section": null,
+      "book": "mk5",
+      "origin": "Marginalia Elementary Mathematics K.1",
+      "lesson": [
+        {
+          "book": "mk5",
+          "section": "K.1",
+          "module": "mk5-K.1",
+          "title": "Counting Objects",
+          "url": "",
+          "subsections": [
+            {
+              "id": "mk5-K.1-opening",
+              "title": ""
+            },
+            {
+              "id": "mk5-K.1-sec3",
+              "title": "One Number for Each Thing"
+            },
+            {
+              "id": "mk5-K.1-sec18",
+              "title": "Counting Larger Groups"
+            }
+          ]
+        }
+      ],
+      "prerequisites": [],
+      "learning_objectives": [
+        "Count up to 20 objects",
+        "Tell how many after counting"
+      ],
+      "anchors": [
+        {
+          "book": "mk5",
+          "module": "mk5-K.1",
+          "section": "K.1",
+          "id": "mk5-K.1-grownup1",
+          "type": "box",
+          "label": null,
+          "title": "For the grown-up"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-K.1",
+          "section": "K.1",
+          "id": "mk5-K.1-ex7",
+          "type": "example",
+          "label": "Example K.1",
+          "title": "Count the dots"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-K.1",
+          "section": "K.1",
+          "id": "mk5-K.1-try13",
+          "type": "checkpoint",
+          "label": "Try It K.1",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-K.1",
+          "section": "K.1",
+          "id": "mk5-K.1-try17",
+          "type": "checkpoint",
+          "label": "Try It K.2",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-K.1",
+          "section": "K.1",
+          "id": "mk5-K.1-ex20",
+          "type": "example",
+          "label": "Example K.2",
+          "title": "Count in rows"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-K.1",
+          "section": "K.1",
+          "id": "mk5-K.1-try26",
+          "type": "checkpoint",
+          "label": "Try It K.3",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-K.1",
+          "section": "K.1",
+          "id": "mk5-K.1-try30",
+          "type": "checkpoint",
+          "label": "Try It K.4",
+          "title": ""
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [
+        "k_numerals",
+        "k_compare",
+        "k_addsub",
+        "g1_length"
+      ],
+      "depth": 0,
+      "templates": [
+        "k_count.dots"
+      ],
+      "misconceptions": [
+        "k_count.double_count",
+        "k_count.last_not_total"
+      ]
+    },
+    {
+      "id": "k_numerals",
+      "name": "Read and write numbers to 20",
+      "kind": "core",
+      "grade": "K",
+      "section": null,
+      "book": "mk5",
+      "origin": "Marginalia Elementary Mathematics K.2",
+      "lesson": [
+        {
+          "book": "mk5",
+          "section": "K.2",
+          "module": "mk5-K.2",
+          "title": "Reading and Writing Numbers to 20",
+          "url": "",
+          "subsections": [
+            {
+              "id": "mk5-K.2-opening",
+              "title": ""
+            },
+            {
+              "id": "mk5-K.2-sec3",
+              "title": "Numbers Tell How Many"
+            },
+            {
+              "id": "mk5-K.2-sec13",
+              "title": "Numbers After Ten"
+            }
+          ]
+        }
+      ],
+      "prerequisites": [
+        "k_count"
+      ],
+      "learning_objectives": [
+        "Read the numbers 0 to 20",
+        "Write the number that tells how many"
+      ],
+      "anchors": [
+        {
+          "book": "mk5",
+          "module": "mk5-K.2",
+          "section": "K.2",
+          "id": "mk5-K.2-grownup1",
+          "type": "box",
+          "label": null,
+          "title": "For the grown-up"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-K.2",
+          "section": "K.2",
+          "id": "mk5-K.2-ex6",
+          "type": "example",
+          "label": "Example K.3",
+          "title": "Write how many"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-K.2",
+          "section": "K.2",
+          "id": "mk5-K.2-try12",
+          "type": "checkpoint",
+          "label": "Try It K.5",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-K.2",
+          "section": "K.2",
+          "id": "mk5-K.2-ex15",
+          "type": "example",
+          "label": "Example K.4",
+          "title": "Write a teen number"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-K.2",
+          "section": "K.2",
+          "id": "mk5-K.2-try21",
+          "type": "checkpoint",
+          "label": "Try It K.6",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-K.2",
+          "section": "K.2",
+          "id": "mk5-K.2-try25",
+          "type": "checkpoint",
+          "label": "Try It K.7",
+          "title": ""
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [
+        "k_teens",
+        "g1_time"
+      ],
+      "depth": 1,
+      "templates": [
+        "k_numerals.teen"
+      ],
+      "misconceptions": [
+        "k_numerals.reversed_digits",
+        "k_numerals.mirror_digit"
+      ]
+    },
+    {
+      "id": "k_compare",
+      "name": "More, fewer, the same",
+      "kind": "core",
+      "grade": "K",
+      "section": null,
+      "book": "mk5",
+      "origin": "Marginalia Elementary Mathematics K.3",
+      "lesson": [
+        {
+          "book": "mk5",
+          "section": "K.3",
+          "module": "mk5-K.3",
+          "title": "More, Fewer, the Same",
+          "url": "",
+          "subsections": [
+            {
+              "id": "mk5-K.3-opening",
+              "title": ""
+            },
+            {
+              "id": "mk5-K.3-sec3",
+              "title": "Matching and Counting"
+            },
+            {
+              "id": "mk5-K.3-sec12",
+              "title": "Comparing Numbers"
+            }
+          ]
+        }
+      ],
+      "prerequisites": [
+        "k_count"
+      ],
+      "learning_objectives": [
+        "Tell which group has more or fewer",
+        "Compare two numbers to 10"
+      ],
+      "anchors": [
+        {
+          "book": "mk5",
+          "module": "mk5-K.3",
+          "section": "K.3",
+          "id": "mk5-K.3-grownup1",
+          "type": "box",
+          "label": null,
+          "title": "For the grown-up"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-K.3",
+          "section": "K.3",
+          "id": "mk5-K.3-ex5",
+          "type": "example",
+          "label": "Example K.5",
+          "title": "Which has more?"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-K.3",
+          "section": "K.3",
+          "id": "mk5-K.3-try11",
+          "type": "checkpoint",
+          "label": "Try It K.8",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-K.3",
+          "section": "K.3",
+          "id": "mk5-K.3-ex14",
+          "type": "example",
+          "label": "Example K.6",
+          "title": "Which number is greater?"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-K.3",
+          "section": "K.3",
+          "id": "mk5-K.3-try20",
+          "type": "checkpoint",
+          "label": "Try It K.9",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-K.3",
+          "section": "K.3",
+          "id": "mk5-K.3-try24",
+          "type": "checkpoint",
+          "label": "Try It K.10",
+          "title": ""
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [
+        "g1_compare"
+      ],
+      "depth": 1,
+      "templates": [
+        "k_compare.greater"
+      ],
+      "misconceptions": [
+        "k_compare.bigger_spread",
+        "k_compare.fewer_means_more"
+      ]
+    },
+    {
+      "id": "k_addsub",
+      "name": "Add and take away within 10",
+      "kind": "core",
+      "grade": "K",
+      "section": null,
+      "book": "mk5",
+      "origin": "Marginalia Elementary Mathematics K.4",
+      "lesson": [
+        {
+          "book": "mk5",
+          "section": "K.4",
+          "module": "mk5-K.4",
+          "title": "Adding and Taking Away",
+          "url": "",
+          "subsections": [
+            {
+              "id": "mk5-K.4-opening",
+              "title": ""
+            },
+            {
+              "id": "mk5-K.4-sec3",
+              "title": "Putting Together"
+            },
+            {
+              "id": "mk5-K.4-sec17",
+              "title": "Taking Away"
+            }
+          ]
+        }
+      ],
+      "prerequisites": [
+        "k_count"
+      ],
+      "learning_objectives": [
+        "Add within 10 by putting groups together",
+        "Subtract within 10 by taking away"
+      ],
+      "anchors": [
+        {
+          "book": "mk5",
+          "module": "mk5-K.4",
+          "section": "K.4",
+          "id": "mk5-K.4-grownup1",
+          "type": "box",
+          "label": null,
+          "title": "For the grown-up"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-K.4",
+          "section": "K.4",
+          "id": "mk5-K.4-ex6",
+          "type": "example",
+          "label": "Example K.7",
+          "title": "Add two groups"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-K.4",
+          "section": "K.4",
+          "id": "mk5-K.4-try12",
+          "type": "checkpoint",
+          "label": "Try It K.11",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-K.4",
+          "section": "K.4",
+          "id": "mk5-K.4-try16",
+          "type": "checkpoint",
+          "label": "Try It K.12",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-K.4",
+          "section": "K.4",
+          "id": "mk5-K.4-ex19",
+          "type": "example",
+          "label": "Example K.8",
+          "title": "Take away"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-K.4",
+          "section": "K.4",
+          "id": "mk5-K.4-try25",
+          "type": "checkpoint",
+          "label": "Try It K.13",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-K.4",
+          "section": "K.4",
+          "id": "mk5-K.4-try29",
+          "type": "checkpoint",
+          "label": "Try It K.14",
+          "title": ""
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [
+        "k_make10"
+      ],
+      "depth": 1,
+      "templates": [
+        "k_addsub.within10"
+      ],
+      "misconceptions": [
+        "k_addsub.count_all_off_by_one",
+        "k_addsub.add_for_take"
+      ]
+    },
+    {
+      "id": "k_make10",
+      "name": "Make 10",
+      "kind": "core",
+      "grade": "K",
+      "section": null,
+      "book": "mk5",
+      "origin": "Marginalia Elementary Mathematics K.5",
+      "lesson": [
+        {
+          "book": "mk5",
+          "section": "K.5",
+          "module": "mk5-K.5",
+          "title": "Making Ten",
+          "url": "",
+          "subsections": [
+            {
+              "id": "mk5-K.5-opening",
+              "title": ""
+            },
+            {
+              "id": "mk5-K.5-sec3",
+              "title": "The Ten Frame"
+            }
+          ]
+        }
+      ],
+      "prerequisites": [
+        "k_addsub"
+      ],
+      "learning_objectives": [
+        "Find the number that makes 10 with a given number"
+      ],
+      "anchors": [
+        {
+          "book": "mk5",
+          "module": "mk5-K.5",
+          "section": "K.5",
+          "id": "mk5-K.5-grownup1",
+          "type": "box",
+          "label": null,
+          "title": "For the grown-up"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-K.5",
+          "section": "K.5",
+          "id": "mk5-K.5-ex7",
+          "type": "example",
+          "label": "Example K.9",
+          "title": "How many more to make 10?"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-K.5",
+          "section": "K.5",
+          "id": "mk5-K.5-try13",
+          "type": "checkpoint",
+          "label": "Try It K.15",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-K.5",
+          "section": "K.5",
+          "id": "mk5-K.5-try17",
+          "type": "checkpoint",
+          "label": "Try It K.16",
+          "title": ""
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [
+        "k_teens",
+        "g1_add20"
+      ],
+      "depth": 2,
+      "templates": [
+        "k_make10.partner"
+      ],
+      "misconceptions": [
+        "k_make10.partner_wrong",
+        "k_make10.counts_filled"
+      ]
+    },
+    {
+      "id": "k_teens",
+      "name": "Teen numbers: ten and some more",
+      "kind": "core",
+      "grade": "K",
+      "section": null,
+      "book": "mk5",
+      "origin": "Marginalia Elementary Mathematics K.6",
+      "lesson": [
+        {
+          "book": "mk5",
+          "section": "K.6",
+          "module": "mk5-K.6",
+          "title": "Teen Numbers",
+          "url": "",
+          "subsections": [
+            {
+              "id": "mk5-K.6-opening",
+              "title": ""
+            },
+            {
+              "id": "mk5-K.6-sec3",
+              "title": "Ten and Some More"
+            }
+          ]
+        }
+      ],
+      "prerequisites": [
+        "k_numerals",
+        "k_make10"
+      ],
+      "learning_objectives": [
+        "Show a teen number as ten and some more"
+      ],
+      "anchors": [
+        {
+          "book": "mk5",
+          "module": "mk5-K.6",
+          "section": "K.6",
+          "id": "mk5-K.6-grownup1",
+          "type": "box",
+          "label": null,
+          "title": "For the grown-up"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-K.6",
+          "section": "K.6",
+          "id": "mk5-K.6-ex6",
+          "type": "example",
+          "label": "Example K.10",
+          "title": "Ten and how many more?"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-K.6",
+          "section": "K.6",
+          "id": "mk5-K.6-try12",
+          "type": "checkpoint",
+          "label": "Try It K.17",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-K.6",
+          "section": "K.6",
+          "id": "mk5-K.6-try16",
+          "type": "checkpoint",
+          "label": "Try It K.18",
+          "title": ""
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [
+        "k_count100",
+        "g1_add20"
+      ],
+      "depth": 3,
+      "templates": [
+        "k_teens.decompose"
+      ],
+      "misconceptions": [
+        "k_teens.teen_as_digits",
+        "k_teens.teen_reversal"
+      ]
+    },
+    {
+      "id": "k_count100",
+      "name": "Count to 100 by ones and tens",
+      "kind": "core",
+      "grade": "K",
+      "section": null,
+      "book": "mk5",
+      "origin": "Marginalia Elementary Mathematics K.7",
+      "lesson": [
+        {
+          "book": "mk5",
+          "section": "K.7",
+          "module": "mk5-K.7",
+          "title": "Counting to 100",
+          "url": "",
+          "subsections": [
+            {
+              "id": "mk5-K.7-opening",
+              "title": ""
+            },
+            {
+              "id": "mk5-K.7-sec3",
+              "title": "Counting by Tens"
+            },
+            {
+              "id": "mk5-K.7-sec13",
+              "title": "Counting by Ones"
+            }
+          ]
+        }
+      ],
+      "prerequisites": [
+        "k_teens"
+      ],
+      "learning_objectives": [
+        "Count to 100 by ones",
+        "Count to 100 by tens"
+      ],
+      "anchors": [
+        {
+          "book": "mk5",
+          "module": "mk5-K.7",
+          "section": "K.7",
+          "id": "mk5-K.7-grownup1",
+          "type": "box",
+          "label": null,
+          "title": "For the grown-up"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-K.7",
+          "section": "K.7",
+          "id": "mk5-K.7-ex6",
+          "type": "example",
+          "label": "Example K.11",
+          "title": "Count on by tens"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-K.7",
+          "section": "K.7",
+          "id": "mk5-K.7-try12",
+          "type": "checkpoint",
+          "label": "Try It K.19",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-K.7",
+          "section": "K.7",
+          "id": "mk5-K.7-ex15",
+          "type": "example",
+          "label": "Example K.12",
+          "title": "What comes next?"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-K.7",
+          "section": "K.7",
+          "id": "mk5-K.7-try21",
+          "type": "checkpoint",
+          "label": "Try It K.20",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-K.7",
+          "section": "K.7",
+          "id": "mk5-K.7-try25",
+          "type": "checkpoint",
+          "label": "Try It K.21",
+          "title": ""
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [
+        "g1_tens"
+      ],
+      "depth": 4,
+      "templates": [
+        "k_count100.next"
+      ],
+      "misconceptions": [
+        "k_count100.decade_skip",
+        "k_count100.tens_as_ones"
+      ]
+    },
+    {
+      "id": "k_shapes",
+      "name": "Name and describe shapes",
+      "kind": "core",
+      "grade": "K",
+      "section": null,
+      "book": "mk5",
+      "origin": "Marginalia Elementary Mathematics K.8",
+      "lesson": [
+        {
+          "book": "mk5",
+          "section": "K.8",
+          "module": "mk5-K.8",
+          "title": "Shapes",
+          "url": "",
+          "subsections": [
+            {
+              "id": "mk5-K.8-opening",
+              "title": ""
+            },
+            {
+              "id": "mk5-K.8-sec3",
+              "title": "Naming Shapes"
+            }
+          ]
+        }
+      ],
+      "prerequisites": [],
+      "learning_objectives": [
+        "Name circles",
+        "triangles",
+        "squares",
+        "rectangles and hexagons",
+        "Count sides and corners"
+      ],
+      "anchors": [
+        {
+          "book": "mk5",
+          "module": "mk5-K.8",
+          "section": "K.8",
+          "id": "mk5-K.8-grownup1",
+          "type": "box",
+          "label": null,
+          "title": "For the grown-up"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-K.8",
+          "section": "K.8",
+          "id": "mk5-K.8-ex6",
+          "type": "example",
+          "label": "Example K.13",
+          "title": "Name the shape"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-K.8",
+          "section": "K.8",
+          "id": "mk5-K.8-try12",
+          "type": "checkpoint",
+          "label": "Try It K.22",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-K.8",
+          "section": "K.8",
+          "id": "mk5-K.8-try16",
+          "type": "checkpoint",
+          "label": "Try It K.23",
+          "title": ""
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [
+        "g2_parts"
+      ],
+      "depth": 0,
+      "templates": [
+        "k_shapes.name"
+      ],
+      "misconceptions": [
+        "k_shapes.orientation",
+        "k_shapes.rectangle_square"
+      ]
+    },
+    {
+      "id": "g1_add20",
+      "name": "Add within 20",
+      "kind": "core",
+      "grade": "1",
+      "section": null,
+      "book": "mk5",
+      "origin": "Marginalia Elementary Mathematics 1.1",
+      "lesson": [
+        {
+          "book": "mk5",
+          "section": "1.1",
+          "module": "mk5-1.1",
+          "title": "Adding Within 20",
+          "url": "",
+          "subsections": [
+            {
+              "id": "mk5-1.1-opening",
+              "title": ""
+            },
+            {
+              "id": "mk5-1.1-sec3",
+              "title": "Counting On"
+            },
+            {
+              "id": "mk5-1.1-sec17",
+              "title": "Doubles and Making a Ten"
+            }
+          ]
+        }
+      ],
+      "prerequisites": [
+        "k_make10",
+        "k_teens"
+      ],
+      "learning_objectives": [
+        "Add within 20 by counting on",
+        "Add within 20 using doubles and making a ten"
+      ],
+      "anchors": [
+        {
+          "book": "mk5",
+          "module": "mk5-1.1",
+          "section": "1.1",
+          "id": "mk5-1.1-grownup1",
+          "type": "box",
+          "label": null,
+          "title": "For the grown-up"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-1.1",
+          "section": "1.1",
+          "id": "mk5-1.1-ex6",
+          "type": "example",
+          "label": "Example 1.1",
+          "title": "Count on"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-1.1",
+          "section": "1.1",
+          "id": "mk5-1.1-try12",
+          "type": "checkpoint",
+          "label": "Try It 1.1",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-1.1",
+          "section": "1.1",
+          "id": "mk5-1.1-try16",
+          "type": "checkpoint",
+          "label": "Try It 1.2",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-1.1",
+          "section": "1.1",
+          "id": "mk5-1.1-ex21",
+          "type": "example",
+          "label": "Example 1.2",
+          "title": "Make a ten"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-1.1",
+          "section": "1.1",
+          "id": "mk5-1.1-try27",
+          "type": "checkpoint",
+          "label": "Try It 1.3",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-1.1",
+          "section": "1.1",
+          "id": "mk5-1.1-try31",
+          "type": "checkpoint",
+          "label": "Try It 1.4",
+          "title": ""
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [
+        "g1_sub20",
+        "g1_add100",
+        "g2_evenodd"
+      ],
+      "depth": 4,
+      "templates": [
+        "g1_add20.add"
+      ],
+      "misconceptions": [
+        "g1_add20.counts_start_twice",
+        "g1_add20.make_ten_split_wrong"
+      ]
+    },
+    {
+      "id": "g1_sub20",
+      "name": "Subtract within 20",
+      "kind": "core",
+      "grade": "1",
+      "section": null,
+      "book": "mk5",
+      "origin": "Marginalia Elementary Mathematics 1.2",
+      "lesson": [
+        {
+          "book": "mk5",
+          "section": "1.2",
+          "module": "mk5-1.2",
+          "title": "Subtracting Within 20",
+          "url": "",
+          "subsections": [
+            {
+              "id": "mk5-1.2-opening",
+              "title": ""
+            },
+            {
+              "id": "mk5-1.2-sec3",
+              "title": "Counting Back"
+            },
+            {
+              "id": "mk5-1.2-sec12",
+              "title": "Think Addition"
+            }
+          ]
+        }
+      ],
+      "prerequisites": [
+        "g1_add20"
+      ],
+      "learning_objectives": [
+        "Subtract within 20 by counting back",
+        "Subtract by thinking of addition"
+      ],
+      "anchors": [
+        {
+          "book": "mk5",
+          "module": "mk5-1.2",
+          "section": "1.2",
+          "id": "mk5-1.2-grownup1",
+          "type": "box",
+          "label": null,
+          "title": "For the grown-up"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-1.2",
+          "section": "1.2",
+          "id": "mk5-1.2-ex5",
+          "type": "example",
+          "label": "Example 1.3",
+          "title": "Count back"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-1.2",
+          "section": "1.2",
+          "id": "mk5-1.2-try11",
+          "type": "checkpoint",
+          "label": "Try It 1.5",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-1.2",
+          "section": "1.2",
+          "id": "mk5-1.2-ex14",
+          "type": "example",
+          "label": "Example 1.4",
+          "title": "Subtract by thinking addition"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-1.2",
+          "section": "1.2",
+          "id": "mk5-1.2-try20",
+          "type": "checkpoint",
+          "label": "Try It 1.6",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-1.2",
+          "section": "1.2",
+          "id": "mk5-1.2-try24",
+          "type": "checkpoint",
+          "label": "Try It 1.7",
+          "title": ""
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [
+        "g1_unknown",
+        "g1_word",
+        "g2_addsub100",
+        "g2_graphs"
+      ],
+      "depth": 5,
+      "templates": [
+        "g1_sub20.sub"
+      ],
+      "misconceptions": [
+        "g1_sub20.subtract_reversed",
+        "g1_sub20.sub_off_by_one"
+      ]
+    },
+    {
+      "id": "g1_unknown",
+      "name": "The equal sign and the missing number",
+      "kind": "core",
+      "grade": "1",
+      "section": null,
+      "book": "mk5",
+      "origin": "Marginalia Elementary Mathematics 1.3",
+      "lesson": [
+        {
+          "book": "mk5",
+          "section": "1.3",
+          "module": "mk5-1.3",
+          "title": "The Equal Sign",
+          "url": "",
+          "subsections": [
+            {
+              "id": "mk5-1.3-opening",
+              "title": ""
+            },
+            {
+              "id": "mk5-1.3-sec3",
+              "title": "The Same As"
+            },
+            {
+              "id": "mk5-1.3-sec12",
+              "title": "The Missing Number"
+            }
+          ]
+        }
+      ],
+      "prerequisites": [
+        "g1_sub20"
+      ],
+      "learning_objectives": [
+        "Understand the equal sign as 'the same as'",
+        "Find a missing number in an equation"
+      ],
+      "anchors": [
+        {
+          "book": "mk5",
+          "module": "mk5-1.3",
+          "section": "1.3",
+          "id": "mk5-1.3-grownup1",
+          "type": "box",
+          "label": null,
+          "title": "For the grown-up"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-1.3",
+          "section": "1.3",
+          "id": "mk5-1.3-ex5",
+          "type": "example",
+          "label": "Example 1.5",
+          "title": "True or false?"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-1.3",
+          "section": "1.3",
+          "id": "mk5-1.3-try11",
+          "type": "checkpoint",
+          "label": "Try It 1.8",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-1.3",
+          "section": "1.3",
+          "id": "mk5-1.3-ex14",
+          "type": "example",
+          "label": "Example 1.6",
+          "title": "Find the missing number"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-1.3",
+          "section": "1.3",
+          "id": "mk5-1.3-try20",
+          "type": "checkpoint",
+          "label": "Try It 1.9",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-1.3",
+          "section": "1.3",
+          "id": "mk5-1.3-try24",
+          "type": "checkpoint",
+          "label": "Try It 1.10",
+          "title": ""
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [],
+      "depth": 6,
+      "templates": [
+        "g1_unknown.missing"
+      ],
+      "misconceptions": [
+        "g1_unknown.equals_means_answer",
+        "g1_unknown.copies_number"
+      ]
+    },
+    {
+      "id": "g1_word",
+      "name": "Story problems within 20",
+      "kind": "core",
+      "grade": "1",
+      "section": null,
+      "book": "mk5",
+      "origin": "Marginalia Elementary Mathematics 1.4",
+      "lesson": [
+        {
+          "book": "mk5",
+          "section": "1.4",
+          "module": "mk5-1.4",
+          "title": "Story Problems",
+          "url": "",
+          "subsections": [
+            {
+              "id": "mk5-1.4-opening",
+              "title": ""
+            },
+            {
+              "id": "mk5-1.4-sec3",
+              "title": "Picture the Story"
+            }
+          ]
+        }
+      ],
+      "prerequisites": [
+        "g1_sub20"
+      ],
+      "learning_objectives": [
+        "Solve adding and subtracting story problems within 20"
+      ],
+      "anchors": [
+        {
+          "book": "mk5",
+          "module": "mk5-1.4",
+          "section": "1.4",
+          "id": "mk5-1.4-grownup1",
+          "type": "box",
+          "label": null,
+          "title": "For the grown-up"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-1.4",
+          "section": "1.4",
+          "id": "mk5-1.4-ex5",
+          "type": "example",
+          "label": "Example 1.7",
+          "title": "How many more?"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-1.4",
+          "section": "1.4",
+          "id": "mk5-1.4-ex8",
+          "type": "example",
+          "label": "Example 1.8",
+          "title": "Some are added"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-1.4",
+          "section": "1.4",
+          "id": "mk5-1.4-try14",
+          "type": "checkpoint",
+          "label": "Try It 1.11",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-1.4",
+          "section": "1.4",
+          "id": "mk5-1.4-try18",
+          "type": "checkpoint",
+          "label": "Try It 1.12",
+          "title": ""
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [
+        "g2_word"
+      ],
+      "depth": 6,
+      "templates": [
+        "g1_word.story"
+      ],
+      "misconceptions": [
+        "g1_word.keyword_more",
+        "g1_word.uses_all_numbers"
+      ]
+    },
+    {
+      "id": "g1_tens",
+      "name": "Tens and ones",
+      "kind": "core",
+      "grade": "1",
+      "section": null,
+      "book": "mk5",
+      "origin": "Marginalia Elementary Mathematics 1.5",
+      "lesson": [
+        {
+          "book": "mk5",
+          "section": "1.5",
+          "module": "mk5-1.5",
+          "title": "Tens and Ones",
+          "url": "",
+          "subsections": [
+            {
+              "id": "mk5-1.5-opening",
+              "title": ""
+            },
+            {
+              "id": "mk5-1.5-sec3",
+              "title": "Bundles of Ten"
+            }
+          ]
+        }
+      ],
+      "prerequisites": [
+        "k_count100"
+      ],
+      "learning_objectives": [
+        "Show a two-digit number as tens and ones"
+      ],
+      "anchors": [
+        {
+          "book": "mk5",
+          "module": "mk5-1.5",
+          "section": "1.5",
+          "id": "mk5-1.5-grownup1",
+          "type": "box",
+          "label": null,
+          "title": "For the grown-up"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-1.5",
+          "section": "1.5",
+          "id": "mk5-1.5-ex7",
+          "type": "example",
+          "label": "Example 1.9",
+          "title": "Name the number"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-1.5",
+          "section": "1.5",
+          "id": "mk5-1.5-ex10",
+          "type": "example",
+          "label": "Example 1.10",
+          "title": "How many tens?"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-1.5",
+          "section": "1.5",
+          "id": "mk5-1.5-try16",
+          "type": "checkpoint",
+          "label": "Try It 1.13",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-1.5",
+          "section": "1.5",
+          "id": "mk5-1.5-try20",
+          "type": "checkpoint",
+          "label": "Try It 1.14",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-1.5",
+          "section": "1.5",
+          "id": "mk5-1.5-try24",
+          "type": "checkpoint",
+          "label": "Try It 1.15",
+          "title": ""
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [
+        "g1_compare",
+        "g1_add100"
+      ],
+      "depth": 5,
+      "templates": [
+        "g1_tens.compose"
+      ],
+      "misconceptions": [
+        "g1_tens.digit_face_value",
+        "g1_tens.ones_as_tens"
+      ]
+    },
+    {
+      "id": "g1_compare",
+      "name": "Compare two-digit numbers (<, >, =)",
+      "kind": "core",
+      "grade": "1",
+      "section": null,
+      "book": "mk5",
+      "origin": "Marginalia Elementary Mathematics 1.6",
+      "lesson": [
+        {
+          "book": "mk5",
+          "section": "1.6",
+          "module": "mk5-1.6",
+          "title": "Comparing Two-Digit Numbers",
+          "url": "",
+          "subsections": [
+            {
+              "id": "mk5-1.6-opening",
+              "title": ""
+            },
+            {
+              "id": "mk5-1.6-sec3",
+              "title": "Tens First"
+            }
+          ]
+        }
+      ],
+      "prerequisites": [
+        "g1_tens",
+        "k_compare"
+      ],
+      "learning_objectives": [
+        "Compare two-digit numbers using <, > and ="
+      ],
+      "anchors": [
+        {
+          "book": "mk5",
+          "module": "mk5-1.6",
+          "section": "1.6",
+          "id": "mk5-1.6-grownup1",
+          "type": "box",
+          "label": null,
+          "title": "For the grown-up"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-1.6",
+          "section": "1.6",
+          "id": "mk5-1.6-ex6",
+          "type": "example",
+          "label": "Example 1.11",
+          "title": "Compare"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-1.6",
+          "section": "1.6",
+          "id": "mk5-1.6-ex9",
+          "type": "example",
+          "label": "Example 1.12",
+          "title": "Same tens"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-1.6",
+          "section": "1.6",
+          "id": "mk5-1.6-try15",
+          "type": "checkpoint",
+          "label": "Try It 1.16",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-1.6",
+          "section": "1.6",
+          "id": "mk5-1.6-try19",
+          "type": "checkpoint",
+          "label": "Try It 1.17",
+          "title": ""
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [
+        "g2_hundreds"
+      ],
+      "depth": 6,
+      "templates": [
+        "g1_compare.sign"
+      ],
+      "misconceptions": [
+        "g1_compare.sign_backward",
+        "g1_compare.compares_ones_first"
+      ]
+    },
+    {
+      "id": "g1_add100",
+      "name": "Add tens and ones within 100",
+      "kind": "core",
+      "grade": "1",
+      "section": null,
+      "book": "mk5",
+      "origin": "Marginalia Elementary Mathematics 1.7",
+      "lesson": [
+        {
+          "book": "mk5",
+          "section": "1.7",
+          "module": "mk5-1.7",
+          "title": "Adding Within 100",
+          "url": "",
+          "subsections": [
+            {
+              "id": "mk5-1.7-opening",
+              "title": ""
+            },
+            {
+              "id": "mk5-1.7-sec3",
+              "title": "Tens with Tens, Ones with Ones"
+            }
+          ]
+        }
+      ],
+      "prerequisites": [
+        "g1_tens",
+        "g1_add20"
+      ],
+      "learning_objectives": [
+        "Add a two-digit number and a one-digit number",
+        "Add multiples of ten"
+      ],
+      "anchors": [
+        {
+          "book": "mk5",
+          "module": "mk5-1.7",
+          "section": "1.7",
+          "id": "mk5-1.7-grownup1",
+          "type": "box",
+          "label": null,
+          "title": "For the grown-up"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-1.7",
+          "section": "1.7",
+          "id": "mk5-1.7-ex6",
+          "type": "example",
+          "label": "Example 1.13",
+          "title": "Add tens"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-1.7",
+          "section": "1.7",
+          "id": "mk5-1.7-ex9",
+          "type": "example",
+          "label": "Example 1.14",
+          "title": "Make a new ten"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-1.7",
+          "section": "1.7",
+          "id": "mk5-1.7-try15",
+          "type": "checkpoint",
+          "label": "Try It 1.18",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-1.7",
+          "section": "1.7",
+          "id": "mk5-1.7-try19",
+          "type": "checkpoint",
+          "label": "Try It 1.19",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-1.7",
+          "section": "1.7",
+          "id": "mk5-1.7-try23",
+          "type": "checkpoint",
+          "label": "Try It 1.20",
+          "title": ""
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [
+        "g2_addsub100"
+      ],
+      "depth": 6,
+      "templates": [
+        "g1_add100.add"
+      ],
+      "misconceptions": [
+        "g1_add100.adds_tens_to_ones",
+        "g1_add100.no_regroup"
+      ]
+    },
+    {
+      "id": "g1_length",
+      "name": "Measure and order lengths",
+      "kind": "core",
+      "grade": "1",
+      "section": null,
+      "book": "mk5",
+      "origin": "Marginalia Elementary Mathematics 1.8",
+      "lesson": [
+        {
+          "book": "mk5",
+          "section": "1.8",
+          "module": "mk5-1.8",
+          "title": "Measuring Length",
+          "url": "",
+          "subsections": [
+            {
+              "id": "mk5-1.8-opening",
+              "title": ""
+            },
+            {
+              "id": "mk5-1.8-sec3",
+              "title": "Longer and Shorter"
+            },
+            {
+              "id": "mk5-1.8-sec13",
+              "title": "Units"
+            }
+          ]
+        }
+      ],
+      "prerequisites": [
+        "k_count"
+      ],
+      "learning_objectives": [
+        "Order objects by length",
+        "Measure length with same-size units"
+      ],
+      "anchors": [
+        {
+          "book": "mk5",
+          "module": "mk5-1.8",
+          "section": "1.8",
+          "id": "mk5-1.8-grownup1",
+          "type": "box",
+          "label": null,
+          "title": "For the grown-up"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-1.8",
+          "section": "1.8",
+          "id": "mk5-1.8-ex6",
+          "type": "example",
+          "label": "Example 1.15",
+          "title": "Order by length"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-1.8",
+          "section": "1.8",
+          "id": "mk5-1.8-try12",
+          "type": "checkpoint",
+          "label": "Try It 1.21",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-1.8",
+          "section": "1.8",
+          "id": "mk5-1.8-ex15",
+          "type": "example",
+          "label": "Example 1.16",
+          "title": "Measure with cubes"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-1.8",
+          "section": "1.8",
+          "id": "mk5-1.8-try21",
+          "type": "checkpoint",
+          "label": "Try It 1.22",
+          "title": ""
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [
+        "g2_measure"
+      ],
+      "depth": 1,
+      "templates": [
+        "g1_length.compare"
+      ],
+      "misconceptions": [
+        "g1_length.gaps_overlaps",
+        "g1_length.start_not_aligned"
+      ]
+    },
+    {
+      "id": "g1_time",
+      "name": "Time to the hour and half hour",
+      "kind": "core",
+      "grade": "1",
+      "section": null,
+      "book": "mk5",
+      "origin": "Marginalia Elementary Mathematics 1.9",
+      "lesson": [
+        {
+          "book": "mk5",
+          "section": "1.9",
+          "module": "mk5-1.9",
+          "title": "Telling Time",
+          "url": "",
+          "subsections": [
+            {
+              "id": "mk5-1.9-opening",
+              "title": ""
+            },
+            {
+              "id": "mk5-1.9-sec3",
+              "title": "To the Hour"
+            },
+            {
+              "id": "mk5-1.9-sec14",
+              "title": "To the Half Hour"
+            }
+          ]
+        }
+      ],
+      "prerequisites": [
+        "k_numerals"
+      ],
+      "learning_objectives": [
+        "Tell time to the hour and half hour"
+      ],
+      "anchors": [
+        {
+          "book": "mk5",
+          "module": "mk5-1.9",
+          "section": "1.9",
+          "id": "mk5-1.9-grownup1",
+          "type": "box",
+          "label": null,
+          "title": "For the grown-up"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-1.9",
+          "section": "1.9",
+          "id": "mk5-1.9-ex7",
+          "type": "example",
+          "label": "Example 1.17",
+          "title": "Read the clock"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-1.9",
+          "section": "1.9",
+          "id": "mk5-1.9-try13",
+          "type": "checkpoint",
+          "label": "Try It 1.23",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-1.9",
+          "section": "1.9",
+          "id": "mk5-1.9-ex16",
+          "type": "example",
+          "label": "Example 1.18",
+          "title": "Half past"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-1.9",
+          "section": "1.9",
+          "id": "mk5-1.9-try22",
+          "type": "checkpoint",
+          "label": "Try It 1.24",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-1.9",
+          "section": "1.9",
+          "id": "mk5-1.9-try26",
+          "type": "checkpoint",
+          "label": "Try It 1.25",
+          "title": ""
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [
+        "g2_time"
+      ],
+      "depth": 2,
+      "templates": [
+        "g1_time.read"
+      ],
+      "misconceptions": [
+        "g1_time.hands_swapped",
+        "g1_time.half_past_next"
+      ]
+    },
+    {
+      "id": "g2_addsub100",
+      "name": "Add and subtract within 100",
+      "kind": "core",
+      "grade": "2",
+      "section": null,
+      "book": "mk5",
+      "origin": "Marginalia Elementary Mathematics 2.1",
+      "lesson": [
+        {
+          "book": "mk5",
+          "section": "2.1",
+          "module": "mk5-2.1",
+          "title": "Adding and Subtracting Within 100",
+          "url": "",
+          "subsections": [
+            {
+              "id": "mk5-2.1-opening",
+              "title": ""
+            },
+            {
+              "id": "mk5-2.1-sec3",
+              "title": "Adding with Regrouping"
+            },
+            {
+              "id": "mk5-2.1-sec20",
+              "title": "Subtracting with Regrouping"
+            }
+          ]
+        }
+      ],
+      "prerequisites": [
+        "g1_add100",
+        "g1_sub20"
+      ],
+      "learning_objectives": [
+        "Add two-digit numbers with regrouping",
+        "Subtract two-digit numbers with regrouping"
+      ],
+      "anchors": [
+        {
+          "book": "mk5",
+          "module": "mk5-2.1",
+          "section": "2.1",
+          "id": "mk5-2.1-grownup1",
+          "type": "box",
+          "label": null,
+          "title": "For the grown-up"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-2.1",
+          "section": "2.1",
+          "id": "mk5-2.1-howto8",
+          "type": "box",
+          "label": null,
+          "title": "Add two-digit numbers."
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-2.1",
+          "section": "2.1",
+          "id": "mk5-2.1-ex9",
+          "type": "example",
+          "label": "Example 2.1",
+          "title": "Add with regrouping"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-2.1",
+          "section": "2.1",
+          "id": "mk5-2.1-try15",
+          "type": "checkpoint",
+          "label": "Try It 2.1",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-2.1",
+          "section": "2.1",
+          "id": "mk5-2.1-try19",
+          "type": "checkpoint",
+          "label": "Try It 2.2",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-2.1",
+          "section": "2.1",
+          "id": "mk5-2.1-ex22",
+          "type": "example",
+          "label": "Example 2.2",
+          "title": "Subtract with regrouping"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-2.1",
+          "section": "2.1",
+          "id": "mk5-2.1-try28",
+          "type": "checkpoint",
+          "label": "Try It 2.3",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-2.1",
+          "section": "2.1",
+          "id": "mk5-2.1-try32",
+          "type": "checkpoint",
+          "label": "Try It 2.4",
+          "title": ""
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [
+        "g2_addsub1000",
+        "g2_word",
+        "g2_money",
+        "g4_angles"
+      ],
+      "depth": 7,
+      "templates": [
+        "g2_addsub100.regroup"
+      ],
+      "misconceptions": [
+        "g2_addsub100.no_carry",
+        "g2_addsub100.smaller_from_larger"
+      ]
+    },
+    {
+      "id": "g2_hundreds",
+      "name": "Hundreds, tens and ones",
+      "kind": "core",
+      "grade": "2",
+      "section": null,
+      "book": "mk5",
+      "origin": "Marginalia Elementary Mathematics 2.2",
+      "lesson": [
+        {
+          "book": "mk5",
+          "section": "2.2",
+          "module": "mk5-2.2",
+          "title": "Hundreds, Tens and Ones",
+          "url": "",
+          "subsections": [
+            {
+              "id": "mk5-2.2-opening",
+              "title": ""
+            },
+            {
+              "id": "mk5-2.2-sec3",
+              "title": "Place Value to 1000"
+            },
+            {
+              "id": "mk5-2.2-sec18",
+              "title": "Comparing Three-Digit Numbers"
+            }
+          ]
+        }
+      ],
+      "prerequisites": [
+        "g1_compare"
+      ],
+      "learning_objectives": [
+        "Read and write three-digit numbers",
+        "Write numbers in expanded form",
+        "Compare three-digit numbers"
+      ],
+      "anchors": [
+        {
+          "book": "mk5",
+          "module": "mk5-2.2",
+          "section": "2.2",
+          "id": "mk5-2.2-grownup1",
+          "type": "box",
+          "label": null,
+          "title": "For the grown-up"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-2.2",
+          "section": "2.2",
+          "id": "mk5-2.2-ex7",
+          "type": "example",
+          "label": "Example 2.3",
+          "title": "Expanded form"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-2.2",
+          "section": "2.2",
+          "id": "mk5-2.2-try13",
+          "type": "checkpoint",
+          "label": "Try It 2.5",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-2.2",
+          "section": "2.2",
+          "id": "mk5-2.2-try17",
+          "type": "checkpoint",
+          "label": "Try It 2.6",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-2.2",
+          "section": "2.2",
+          "id": "mk5-2.2-ex20",
+          "type": "example",
+          "label": "Example 2.4",
+          "title": "Compare"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-2.2",
+          "section": "2.2",
+          "id": "mk5-2.2-try26",
+          "type": "checkpoint",
+          "label": "Try It 2.7",
+          "title": ""
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [
+        "g2_addsub1000",
+        "g3_round"
+      ],
+      "depth": 7,
+      "templates": [
+        "g2_hundreds.place"
+      ],
+      "misconceptions": [
+        "g2_hundreds.zero_placeholder",
+        "g2_hundreds.expanded_wrong"
+      ]
+    },
+    {
+      "id": "g2_addsub1000",
+      "name": "Add and subtract within 1000",
+      "kind": "core",
+      "grade": "2",
+      "section": null,
+      "book": "mk5",
+      "origin": "Marginalia Elementary Mathematics 2.3",
+      "lesson": [
+        {
+          "book": "mk5",
+          "section": "2.3",
+          "module": "mk5-2.3",
+          "title": "Adding and Subtracting Within 1000",
+          "url": "",
+          "subsections": [
+            {
+              "id": "mk5-2.3-opening",
+              "title": ""
+            },
+            {
+              "id": "mk5-2.3-sec3",
+              "title": "Three-Digit Numbers"
+            }
+          ]
+        }
+      ],
+      "prerequisites": [
+        "g2_addsub100",
+        "g2_hundreds"
+      ],
+      "learning_objectives": [
+        "Add and subtract three-digit numbers"
+      ],
+      "anchors": [
+        {
+          "book": "mk5",
+          "module": "mk5-2.3",
+          "section": "2.3",
+          "id": "mk5-2.3-grownup1",
+          "type": "box",
+          "label": null,
+          "title": "For the grown-up"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-2.3",
+          "section": "2.3",
+          "id": "mk5-2.3-ex5",
+          "type": "example",
+          "label": "Example 2.5",
+          "title": "Add three-digit numbers"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-2.3",
+          "section": "2.3",
+          "id": "mk5-2.3-ex8",
+          "type": "example",
+          "label": "Example 2.6",
+          "title": "Subtract across a zero"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-2.3",
+          "section": "2.3",
+          "id": "mk5-2.3-try14",
+          "type": "checkpoint",
+          "label": "Try It 2.8",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-2.3",
+          "section": "2.3",
+          "id": "mk5-2.3-try18",
+          "type": "checkpoint",
+          "label": "Try It 2.9",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-2.3",
+          "section": "2.3",
+          "id": "mk5-2.3-try22",
+          "type": "checkpoint",
+          "label": "Try It 2.10",
+          "title": ""
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [
+        "g4_addsub"
+      ],
+      "depth": 8,
+      "templates": [
+        "g2_addsub1000.three_digit"
+      ],
+      "misconceptions": [
+        "g2_addsub1000.borrow_across_zero",
+        "g2_addsub1000.misaligned"
+      ]
+    },
+    {
+      "id": "g2_word",
+      "name": "One- and two-step story problems",
+      "kind": "core",
+      "grade": "2",
+      "section": null,
+      "book": "mk5",
+      "origin": "Marginalia Elementary Mathematics 2.4",
+      "lesson": [
+        {
+          "book": "mk5",
+          "section": "2.4",
+          "module": "mk5-2.4",
+          "title": "One- and Two-Step Story Problems",
+          "url": "",
+          "subsections": [
+            {
+              "id": "mk5-2.4-opening",
+              "title": ""
+            },
+            {
+              "id": "mk5-2.4-sec3",
+              "title": "Two Steps"
+            }
+          ]
+        }
+      ],
+      "prerequisites": [
+        "g2_addsub100",
+        "g1_word"
+      ],
+      "learning_objectives": [
+        "Solve story problems within 100",
+        "including two-step problems"
+      ],
+      "anchors": [
+        {
+          "book": "mk5",
+          "module": "mk5-2.4",
+          "section": "2.4",
+          "id": "mk5-2.4-grownup1",
+          "type": "box",
+          "label": null,
+          "title": "For the grown-up"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-2.4",
+          "section": "2.4",
+          "id": "mk5-2.4-ex5",
+          "type": "example",
+          "label": "Example 2.7",
+          "title": "A two-step story"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-2.4",
+          "section": "2.4",
+          "id": "mk5-2.4-ex8",
+          "type": "example",
+          "label": "Example 2.8",
+          "title": "Find the start"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-2.4",
+          "section": "2.4",
+          "id": "mk5-2.4-try14",
+          "type": "checkpoint",
+          "label": "Try It 2.11",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-2.4",
+          "section": "2.4",
+          "id": "mk5-2.4-try18",
+          "type": "checkpoint",
+          "label": "Try It 2.12",
+          "title": ""
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [
+        "g3_word"
+      ],
+      "depth": 8,
+      "templates": [
+        "g2_word.two_step"
+      ],
+      "misconceptions": [
+        "g2_word.one_step_only",
+        "g2_word.wrong_operation"
+      ]
+    },
+    {
+      "id": "g2_evenodd",
+      "name": "Even and odd numbers; arrays",
+      "kind": "core",
+      "grade": "2",
+      "section": null,
+      "book": "mk5",
+      "origin": "Marginalia Elementary Mathematics 2.5",
+      "lesson": [
+        {
+          "book": "mk5",
+          "section": "2.5",
+          "module": "mk5-2.5",
+          "title": "Even and Odd Numbers; Arrays",
+          "url": "",
+          "subsections": [
+            {
+              "id": "mk5-2.5-opening",
+              "title": ""
+            },
+            {
+              "id": "mk5-2.5-sec3",
+              "title": "Even and Odd"
+            },
+            {
+              "id": "mk5-2.5-sec17",
+              "title": "Arrays"
+            }
+          ]
+        }
+      ],
+      "prerequisites": [
+        "g1_add20"
+      ],
+      "learning_objectives": [
+        "Tell whether a number is even or odd",
+        "Find the total in an array by repeated addition"
+      ],
+      "anchors": [
+        {
+          "book": "mk5",
+          "module": "mk5-2.5",
+          "section": "2.5",
+          "id": "mk5-2.5-grownup1",
+          "type": "box",
+          "label": null,
+          "title": "For the grown-up"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-2.5",
+          "section": "2.5",
+          "id": "mk5-2.5-ex6",
+          "type": "example",
+          "label": "Example 2.9",
+          "title": "Even or odd?"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-2.5",
+          "section": "2.5",
+          "id": "mk5-2.5-try12",
+          "type": "checkpoint",
+          "label": "Try It 2.13",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-2.5",
+          "section": "2.5",
+          "id": "mk5-2.5-try16",
+          "type": "checkpoint",
+          "label": "Try It 2.14",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-2.5",
+          "section": "2.5",
+          "id": "mk5-2.5-ex20",
+          "type": "example",
+          "label": "Example 2.10",
+          "title": "Count an array"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-2.5",
+          "section": "2.5",
+          "id": "mk5-2.5-try26",
+          "type": "checkpoint",
+          "label": "Try It 2.15",
+          "title": ""
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [
+        "g3_mult"
+      ],
+      "depth": 5,
+      "templates": [
+        "g2_evenodd.classify"
+      ],
+      "misconceptions": [
+        "g2_evenodd.even_by_last_digit_wrong",
+        "g2_evenodd.array_add_sides"
+      ]
+    },
+    {
+      "id": "g2_measure",
+      "name": "Measure in inches and centimeters",
+      "kind": "core",
+      "grade": "2",
+      "section": null,
+      "book": "mk5",
+      "origin": "Marginalia Elementary Mathematics 2.6",
+      "lesson": [
+        {
+          "book": "mk5",
+          "section": "2.6",
+          "module": "mk5-2.6",
+          "title": "Measuring in Inches and Centimeters",
+          "url": "",
+          "subsections": [
+            {
+              "id": "mk5-2.6-opening",
+              "title": ""
+            },
+            {
+              "id": "mk5-2.6-sec3",
+              "title": "Using a Ruler"
+            },
+            {
+              "id": "mk5-2.6-sec13",
+              "title": "Comparing Lengths"
+            }
+          ]
+        }
+      ],
+      "prerequisites": [
+        "g1_length"
+      ],
+      "learning_objectives": [
+        "Measure length with a ruler",
+        "Find how much longer one length is than another"
+      ],
+      "anchors": [
+        {
+          "book": "mk5",
+          "module": "mk5-2.6",
+          "section": "2.6",
+          "id": "mk5-2.6-grownup1",
+          "type": "box",
+          "label": null,
+          "title": "For the grown-up"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-2.6",
+          "section": "2.6",
+          "id": "mk5-2.6-ex6",
+          "type": "example",
+          "label": "Example 2.11",
+          "title": "Read a ruler"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-2.6",
+          "section": "2.6",
+          "id": "mk5-2.6-try12",
+          "type": "checkpoint",
+          "label": "Try It 2.16",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-2.6",
+          "section": "2.6",
+          "id": "mk5-2.6-ex15",
+          "type": "example",
+          "label": "Example 2.12",
+          "title": "How much longer?"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-2.6",
+          "section": "2.6",
+          "id": "mk5-2.6-try21",
+          "type": "checkpoint",
+          "label": "Try It 2.17",
+          "title": ""
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [],
+      "depth": 2,
+      "templates": [
+        "g2_measure.ruler"
+      ],
+      "misconceptions": [
+        "g2_measure.ruler_from_one",
+        "g2_measure.unit_size"
+      ]
+    },
+    {
+      "id": "g2_time",
+      "name": "Time to five minutes",
+      "kind": "core",
+      "grade": "2",
+      "section": null,
+      "book": "mk5",
+      "origin": "Marginalia Elementary Mathematics 2.7",
+      "lesson": [
+        {
+          "book": "mk5",
+          "section": "2.7",
+          "module": "mk5-2.7",
+          "title": "Time to Five Minutes",
+          "url": "",
+          "subsections": [
+            {
+              "id": "mk5-2.7-opening",
+              "title": ""
+            },
+            {
+              "id": "mk5-2.7-sec3",
+              "title": "Counting by Fives"
+            }
+          ]
+        }
+      ],
+      "prerequisites": [
+        "g1_time"
+      ],
+      "learning_objectives": [
+        "Tell time to the nearest five minutes"
+      ],
+      "anchors": [
+        {
+          "book": "mk5",
+          "module": "mk5-2.7",
+          "section": "2.7",
+          "id": "mk5-2.7-grownup1",
+          "type": "box",
+          "label": null,
+          "title": "For the grown-up"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-2.7",
+          "section": "2.7",
+          "id": "mk5-2.7-ex7",
+          "type": "example",
+          "label": "Example 2.13",
+          "title": "Read the time"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-2.7",
+          "section": "2.7",
+          "id": "mk5-2.7-try13",
+          "type": "checkpoint",
+          "label": "Try It 2.18",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-2.7",
+          "section": "2.7",
+          "id": "mk5-2.7-try17",
+          "type": "checkpoint",
+          "label": "Try It 2.19",
+          "title": ""
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [
+        "g3_time"
+      ],
+      "depth": 3,
+      "templates": [
+        "g2_time.five_min"
+      ],
+      "misconceptions": [
+        "g2_time.minutes_by_ones",
+        "g2_time.hour_hand_rounding"
+      ]
+    },
+    {
+      "id": "g2_money",
+      "name": "Count coins and dollars",
+      "kind": "core",
+      "grade": "2",
+      "section": null,
+      "book": "mk5",
+      "origin": "Marginalia Elementary Mathematics 2.8",
+      "lesson": [
+        {
+          "book": "mk5",
+          "section": "2.8",
+          "module": "mk5-2.8",
+          "title": "Money",
+          "url": "",
+          "subsections": [
+            {
+              "id": "mk5-2.8-opening",
+              "title": ""
+            },
+            {
+              "id": "mk5-2.8-sec3",
+              "title": "Counting Coins"
+            }
+          ]
+        }
+      ],
+      "prerequisites": [
+        "g2_addsub100"
+      ],
+      "learning_objectives": [
+        "Find the value of a set of coins",
+        "Solve money problems in cents and dollars"
+      ],
+      "anchors": [
+        {
+          "book": "mk5",
+          "module": "mk5-2.8",
+          "section": "2.8",
+          "id": "mk5-2.8-grownup1",
+          "type": "box",
+          "label": null,
+          "title": "For the grown-up"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-2.8",
+          "section": "2.8",
+          "id": "mk5-2.8-ex6",
+          "type": "example",
+          "label": "Example 2.14",
+          "title": "Count coins"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-2.8",
+          "section": "2.8",
+          "id": "mk5-2.8-try12",
+          "type": "checkpoint",
+          "label": "Try It 2.20",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-2.8",
+          "section": "2.8",
+          "id": "mk5-2.8-try16",
+          "type": "checkpoint",
+          "label": "Try It 2.21",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-2.8",
+          "section": "2.8",
+          "id": "mk5-2.8-try20",
+          "type": "checkpoint",
+          "label": "Try It 2.22",
+          "title": ""
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [],
+      "depth": 8,
+      "templates": [
+        "g2_money.coins"
+      ],
+      "misconceptions": [
+        "g2_money.coins_by_count",
+        "g2_money.nickel_dime"
+      ]
+    },
+    {
+      "id": "g2_graphs",
+      "name": "Picture graphs and bar graphs",
+      "kind": "core",
+      "grade": "2",
+      "section": null,
+      "book": "mk5",
+      "origin": "Marginalia Elementary Mathematics 2.9",
+      "lesson": [
+        {
+          "book": "mk5",
+          "section": "2.9",
+          "module": "mk5-2.9",
+          "title": "Picture Graphs and Bar Graphs",
+          "url": "",
+          "subsections": [
+            {
+              "id": "mk5-2.9-opening",
+              "title": ""
+            },
+            {
+              "id": "mk5-2.9-sec3",
+              "title": "Picture Graphs"
+            },
+            {
+              "id": "mk5-2.9-sec13",
+              "title": "Bar Graphs"
+            }
+          ]
+        }
+      ],
+      "prerequisites": [
+        "g1_sub20"
+      ],
+      "learning_objectives": [
+        "Read picture graphs and bar graphs",
+        "Answer how many more and how many in all"
+      ],
+      "anchors": [
+        {
+          "book": "mk5",
+          "module": "mk5-2.9",
+          "section": "2.9",
+          "id": "mk5-2.9-grownup1",
+          "type": "box",
+          "label": null,
+          "title": "For the grown-up"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-2.9",
+          "section": "2.9",
+          "id": "mk5-2.9-ex6",
+          "type": "example",
+          "label": "Example 2.15",
+          "title": "Read a picture graph"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-2.9",
+          "section": "2.9",
+          "id": "mk5-2.9-try12",
+          "type": "checkpoint",
+          "label": "Try It 2.23",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-2.9",
+          "section": "2.9",
+          "id": "mk5-2.9-ex16",
+          "type": "example",
+          "label": "Example 2.16",
+          "title": "Read a bar graph"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-2.9",
+          "section": "2.9",
+          "id": "mk5-2.9-try22",
+          "type": "checkpoint",
+          "label": "Try It 2.24",
+          "title": ""
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [],
+      "depth": 6,
+      "templates": [
+        "g2_graphs.bar"
+      ],
+      "misconceptions": [
+        "g2_graphs.reads_key_wrong",
+        "g2_graphs.how_many_more_add"
+      ]
+    },
+    {
+      "id": "g2_parts",
+      "name": "Halves, thirds and fourths of shapes",
+      "kind": "core",
+      "grade": "2",
+      "section": null,
+      "book": "mk5",
+      "origin": "Marginalia Elementary Mathematics 2.10",
+      "lesson": [
+        {
+          "book": "mk5",
+          "section": "2.10",
+          "module": "mk5-2.10",
+          "title": "Halves, Thirds and Fourths",
+          "url": "",
+          "subsections": [
+            {
+              "id": "mk5-2.10-opening",
+              "title": ""
+            },
+            {
+              "id": "mk5-2.10-sec3",
+              "title": "Equal Shares"
+            }
+          ]
+        }
+      ],
+      "prerequisites": [
+        "k_shapes"
+      ],
+      "learning_objectives": [
+        "Split shapes into equal parts",
+        "Name halves",
+        "thirds and fourths"
+      ],
+      "anchors": [
+        {
+          "book": "mk5",
+          "module": "mk5-2.10",
+          "section": "2.10",
+          "id": "mk5-2.10-grownup1",
+          "type": "box",
+          "label": null,
+          "title": "For the grown-up"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-2.10",
+          "section": "2.10",
+          "id": "mk5-2.10-ex7",
+          "type": "example",
+          "label": "Example 2.17",
+          "title": "Name the parts"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-2.10",
+          "section": "2.10",
+          "id": "mk5-2.10-try13",
+          "type": "checkpoint",
+          "label": "Try It 2.25",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-2.10",
+          "section": "2.10",
+          "id": "mk5-2.10-try17",
+          "type": "checkpoint",
+          "label": "Try It 2.26",
+          "title": ""
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [
+        "g3_fractions"
+      ],
+      "depth": 1,
+      "templates": [
+        "g2_parts.name"
+      ],
+      "misconceptions": [
+        "g2_parts.unequal_parts",
+        "g2_parts.more_parts_bigger"
+      ]
+    },
+    {
+      "id": "g3_mult",
+      "name": "Multiplication as equal groups",
+      "kind": "core",
+      "grade": "3",
+      "section": null,
+      "book": "mk5",
+      "origin": "Marginalia Elementary Mathematics 3.1",
+      "lesson": [
+        {
+          "book": "mk5",
+          "section": "3.1",
+          "module": "mk5-3.1",
+          "title": "Multiplication as Equal Groups",
+          "url": "",
+          "subsections": [
+            {
+              "id": "mk5-3.1-sec1",
+              "title": "Equal Groups"
+            },
+            {
+              "id": "mk5-3.1-sec12",
+              "title": "Arrays"
+            }
+          ]
+        }
+      ],
+      "prerequisites": [
+        "g2_evenodd"
+      ],
+      "learning_objectives": [
+        "Understand multiplication as equal groups",
+        "Write a multiplication sentence for an array"
+      ],
+      "anchors": [
+        {
+          "book": "mk5",
+          "module": "mk5-3.1",
+          "section": "3.1",
+          "id": "mk5-3.1-ex5",
+          "type": "example",
+          "label": "Example 3.1",
+          "title": "Groups to multiplication"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-3.1",
+          "section": "3.1",
+          "id": "mk5-3.1-try11",
+          "type": "checkpoint",
+          "label": "Try It 3.1",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-3.1",
+          "section": "3.1",
+          "id": "mk5-3.1-ex14",
+          "type": "example",
+          "label": "Example 3.2",
+          "title": "Multiply an array"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-3.1",
+          "section": "3.1",
+          "id": "mk5-3.1-try20",
+          "type": "checkpoint",
+          "label": "Try It 3.2",
+          "title": ""
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [
+        "g3_div",
+        "g4_frac_whole"
+      ],
+      "depth": 6,
+      "templates": [
+        "g3_mult.groups"
+      ],
+      "misconceptions": [
+        "g3_mult.mult_as_add",
+        "g3_mult.groups_vs_size"
+      ]
+    },
+    {
+      "id": "g3_div",
+      "name": "Division as sharing and grouping",
+      "kind": "core",
+      "grade": "3",
+      "section": null,
+      "book": "mk5",
+      "origin": "Marginalia Elementary Mathematics 3.2",
+      "lesson": [
+        {
+          "book": "mk5",
+          "section": "3.2",
+          "module": "mk5-3.2",
+          "title": "Division as Sharing and Grouping",
+          "url": "",
+          "subsections": [
+            {
+              "id": "mk5-3.2-sec1",
+              "title": "Sharing Equally"
+            },
+            {
+              "id": "mk5-3.2-sec10",
+              "title": "Making Groups"
+            }
+          ]
+        }
+      ],
+      "prerequisites": [
+        "g3_mult"
+      ],
+      "learning_objectives": [
+        "Understand division as sharing equally and as making equal groups",
+        "Relate division to multiplication"
+      ],
+      "anchors": [
+        {
+          "book": "mk5",
+          "module": "mk5-3.2",
+          "section": "3.2",
+          "id": "mk5-3.2-ex3",
+          "type": "example",
+          "label": "Example 3.3",
+          "title": "Share equally"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-3.2",
+          "section": "3.2",
+          "id": "mk5-3.2-try9",
+          "type": "checkpoint",
+          "label": "Try It 3.3",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-3.2",
+          "section": "3.2",
+          "id": "mk5-3.2-ex13",
+          "type": "example",
+          "label": "Example 3.4",
+          "title": "How many groups?"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-3.2",
+          "section": "3.2",
+          "id": "mk5-3.2-try19",
+          "type": "checkpoint",
+          "label": "Try It 3.4",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-3.2",
+          "section": "3.2",
+          "id": "mk5-3.2-try23",
+          "type": "checkpoint",
+          "label": "Try It 3.5",
+          "title": ""
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [
+        "g3_facts"
+      ],
+      "depth": 7,
+      "templates": [
+        "g3_div.share"
+      ],
+      "misconceptions": [
+        "g3_div.div_order",
+        "g3_div.share_vs_group"
+      ]
+    },
+    {
+      "id": "g3_facts",
+      "name": "Multiplication and division facts to 100",
+      "kind": "core",
+      "grade": "3",
+      "section": null,
+      "book": "mk5",
+      "origin": "Marginalia Elementary Mathematics 3.3",
+      "lesson": [
+        {
+          "book": "mk5",
+          "section": "3.3",
+          "module": "mk5-3.3",
+          "title": "Multiplication and Division Facts",
+          "url": "",
+          "subsections": [
+            {
+              "id": "mk5-3.3-sec1",
+              "title": "Using What You Know"
+            }
+          ]
+        }
+      ],
+      "prerequisites": [
+        "g3_div"
+      ],
+      "learning_objectives": [
+        "Know the multiplication facts to 10 times 10",
+        "Use a known fact to find an unknown one"
+      ],
+      "anchors": [
+        {
+          "book": "mk5",
+          "module": "mk5-3.3",
+          "section": "3.3",
+          "id": "mk5-3.3-ex4",
+          "type": "example",
+          "label": "Example 3.5",
+          "title": "Build a fact"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-3.3",
+          "section": "3.3",
+          "id": "mk5-3.3-ex7",
+          "type": "example",
+          "label": "Example 3.6",
+          "title": "Divide with a fact"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-3.3",
+          "section": "3.3",
+          "id": "mk5-3.3-try13",
+          "type": "checkpoint",
+          "label": "Try It 3.6",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-3.3",
+          "section": "3.3",
+          "id": "mk5-3.3-try17",
+          "type": "checkpoint",
+          "label": "Try It 3.7",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-3.3",
+          "section": "3.3",
+          "id": "mk5-3.3-try21",
+          "type": "checkpoint",
+          "label": "Try It 3.8",
+          "title": ""
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [
+        "g3_props",
+        "g3_word",
+        "g3_mult10",
+        "g3_area",
+        "g4_factors"
+      ],
+      "depth": 8,
+      "templates": [
+        "g3_facts.fact"
+      ],
+      "misconceptions": [
+        "g3_facts.fact_neighbor",
+        "g3_facts.div_fact_from_add"
+      ]
+    },
+    {
+      "id": "g3_props",
+      "name": "Properties of multiplication",
+      "kind": "core",
+      "grade": "3",
+      "section": null,
+      "book": "mk5",
+      "origin": "Marginalia Elementary Mathematics 3.4",
+      "lesson": [
+        {
+          "book": "mk5",
+          "section": "3.4",
+          "module": "mk5-3.4",
+          "title": "Properties of Multiplication",
+          "url": "",
+          "subsections": [
+            {
+              "id": "mk5-3.4-sec1",
+              "title": "Order and Grouping"
+            },
+            {
+              "id": "mk5-3.4-sec11",
+              "title": "Breaking Apart"
+            }
+          ]
+        }
+      ],
+      "prerequisites": [
+        "g3_facts"
+      ],
+      "learning_objectives": [
+        "Use the commutative",
+        "associative and distributive properties"
+      ],
+      "anchors": [
+        {
+          "book": "mk5",
+          "module": "mk5-3.4",
+          "section": "3.4",
+          "id": "mk5-3.4-ex4",
+          "type": "example",
+          "label": "Example 3.7",
+          "title": "Group to make it easy"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-3.4",
+          "section": "3.4",
+          "id": "mk5-3.4-try10",
+          "type": "checkpoint",
+          "label": "Try It 3.9",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-3.4",
+          "section": "3.4",
+          "id": "mk5-3.4-ex14",
+          "type": "example",
+          "label": "Example 3.8",
+          "title": "Break apart a factor"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-3.4",
+          "section": "3.4",
+          "id": "mk5-3.4-try20",
+          "type": "checkpoint",
+          "label": "Try It 3.10",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-3.4",
+          "section": "3.4",
+          "id": "mk5-3.4-try24",
+          "type": "checkpoint",
+          "label": "Try It 3.11",
+          "title": ""
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [
+        "g4_mult",
+        "g5_expr"
+      ],
+      "depth": 9,
+      "templates": [
+        "g3_props.distribute"
+      ],
+      "misconceptions": [
+        "g3_props.distribute_one_term",
+        "g3_props.order_matters"
+      ]
+    },
+    {
+      "id": "g3_word",
+      "name": "Two-step story problems",
+      "kind": "core",
+      "grade": "3",
+      "section": null,
+      "book": "mk5",
+      "origin": "Marginalia Elementary Mathematics 3.5",
+      "lesson": [
+        {
+          "book": "mk5",
+          "section": "3.5",
+          "module": "mk5-3.5",
+          "title": "Two-Step Story Problems",
+          "url": "",
+          "subsections": [
+            {
+              "id": "mk5-3.5-sec1",
+              "title": "Plan the Steps"
+            }
+          ]
+        }
+      ],
+      "prerequisites": [
+        "g3_facts",
+        "g2_word"
+      ],
+      "learning_objectives": [
+        "Solve two-step problems using the four operations"
+      ],
+      "anchors": [
+        {
+          "book": "mk5",
+          "module": "mk5-3.5",
+          "section": "3.5",
+          "id": "mk5-3.5-ex3",
+          "type": "example",
+          "label": "Example 3.9",
+          "title": "Multiply, then subtract"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-3.5",
+          "section": "3.5",
+          "id": "mk5-3.5-ex6",
+          "type": "example",
+          "label": "Example 3.10",
+          "title": "Add, then divide"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-3.5",
+          "section": "3.5",
+          "id": "mk5-3.5-try12",
+          "type": "checkpoint",
+          "label": "Try It 3.12",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-3.5",
+          "section": "3.5",
+          "id": "mk5-3.5-try16",
+          "type": "checkpoint",
+          "label": "Try It 3.13",
+          "title": ""
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [],
+      "depth": 9,
+      "templates": [
+        "g3_word.two_step"
+      ],
+      "misconceptions": [
+        "g3_word.one_step_only3",
+        "g3_word.wrong_op3"
+      ]
+    },
+    {
+      "id": "g3_round",
+      "name": "Round to the nearest ten or hundred",
+      "kind": "core",
+      "grade": "3",
+      "section": null,
+      "book": "mk5",
+      "origin": "Marginalia Elementary Mathematics 3.6",
+      "lesson": [
+        {
+          "book": "mk5",
+          "section": "3.6",
+          "module": "mk5-3.6",
+          "title": "Rounding",
+          "url": "",
+          "subsections": [
+            {
+              "id": "mk5-3.6-sec1",
+              "title": "The Nearest Ten or Hundred"
+            }
+          ]
+        }
+      ],
+      "prerequisites": [
+        "g2_hundreds"
+      ],
+      "learning_objectives": [
+        "Round whole numbers to the nearest ten or hundred"
+      ],
+      "anchors": [
+        {
+          "book": "mk5",
+          "module": "mk5-3.6",
+          "section": "3.6",
+          "id": "mk5-3.6-ex5",
+          "type": "example",
+          "label": "Example 3.11",
+          "title": "Round to the nearest hundred"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-3.6",
+          "section": "3.6",
+          "id": "mk5-3.6-try11",
+          "type": "checkpoint",
+          "label": "Try It 3.14",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-3.6",
+          "section": "3.6",
+          "id": "mk5-3.6-try15",
+          "type": "checkpoint",
+          "label": "Try It 3.15",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-3.6",
+          "section": "3.6",
+          "id": "mk5-3.6-try19",
+          "type": "checkpoint",
+          "label": "Try It 3.16",
+          "title": ""
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [
+        "g4_place"
+      ],
+      "depth": 8,
+      "templates": [
+        "g3_round.round"
+      ],
+      "misconceptions": [
+        "g3_round.round_down_always",
+        "g3_round.round_wrong_digit"
+      ]
+    },
+    {
+      "id": "g3_mult10",
+      "name": "Multiply by multiples of 10",
+      "kind": "core",
+      "grade": "3",
+      "section": null,
+      "book": "mk5",
+      "origin": "Marginalia Elementary Mathematics 3.7",
+      "lesson": [
+        {
+          "book": "mk5",
+          "section": "3.7",
+          "module": "mk5-3.7",
+          "title": "Multiplying by Multiples of 10",
+          "url": "",
+          "subsections": [
+            {
+              "id": "mk5-3.7-sec1",
+              "title": "Counting Tens"
+            }
+          ]
+        }
+      ],
+      "prerequisites": [
+        "g3_facts"
+      ],
+      "learning_objectives": [
+        "Multiply one-digit numbers by multiples of 10"
+      ],
+      "anchors": [
+        {
+          "book": "mk5",
+          "module": "mk5-3.7",
+          "section": "3.7",
+          "id": "mk5-3.7-ex3",
+          "type": "example",
+          "label": "Example 3.12",
+          "title": "Multiply by a multiple of ten"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-3.7",
+          "section": "3.7",
+          "id": "mk5-3.7-try9",
+          "type": "checkpoint",
+          "label": "Try It 3.17",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-3.7",
+          "section": "3.7",
+          "id": "mk5-3.7-try13",
+          "type": "checkpoint",
+          "label": "Try It 3.18",
+          "title": ""
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [
+        "g4_mult"
+      ],
+      "depth": 9,
+      "templates": [
+        "g3_mult10.mult"
+      ],
+      "misconceptions": [
+        "g3_mult10.zeros_dropped",
+        "g3_mult10.zeros_added_twice"
+      ]
+    },
+    {
+      "id": "g3_fractions",
+      "name": "Unit fractions and fractions of a whole",
+      "kind": "core",
+      "grade": "3",
+      "section": null,
+      "book": "mk5",
+      "origin": "Marginalia Elementary Mathematics 3.8",
+      "lesson": [
+        {
+          "book": "mk5",
+          "section": "3.8",
+          "module": "mk5-3.8",
+          "title": "Fractions of a Whole",
+          "url": "",
+          "subsections": [
+            {
+              "id": "mk5-3.8-sec1",
+              "title": "Unit Fractions"
+            }
+          ]
+        }
+      ],
+      "prerequisites": [
+        "g2_parts"
+      ],
+      "learning_objectives": [
+        "Understand a unit fraction as one equal part of a whole",
+        "Name the fraction of a whole that is shaded"
+      ],
+      "anchors": [
+        {
+          "book": "mk5",
+          "module": "mk5-3.8",
+          "section": "3.8",
+          "id": "mk5-3.8-ex5",
+          "type": "example",
+          "label": "Example 3.13",
+          "title": "Name a fraction"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-3.8",
+          "section": "3.8",
+          "id": "mk5-3.8-try11",
+          "type": "checkpoint",
+          "label": "Try It 3.19",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-3.8",
+          "section": "3.8",
+          "id": "mk5-3.8-try15",
+          "type": "checkpoint",
+          "label": "Try It 3.20",
+          "title": ""
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [
+        "g3_frac_line"
+      ],
+      "depth": 2,
+      "templates": [
+        "g3_fractions.shaded"
+      ],
+      "misconceptions": [
+        "g3_fractions.denominator_is_shaded",
+        "g3_fractions.unequal_whole"
+      ]
+    },
+    {
+      "id": "g3_frac_line",
+      "name": "Fractions on a number line; compare fractions",
+      "kind": "core",
+      "grade": "3",
+      "section": null,
+      "book": "mk5",
+      "origin": "Marginalia Elementary Mathematics 3.9",
+      "lesson": [
+        {
+          "book": "mk5",
+          "section": "3.9",
+          "module": "mk5-3.9",
+          "title": "Fractions on a Number Line; Comparing Fractions",
+          "url": "",
+          "subsections": [
+            {
+              "id": "mk5-3.9-sec1",
+              "title": "The Number Line"
+            },
+            {
+              "id": "mk5-3.9-sec11",
+              "title": "Comparing Fractions"
+            }
+          ]
+        }
+      ],
+      "prerequisites": [
+        "g3_fractions"
+      ],
+      "learning_objectives": [
+        "Place fractions on a number line",
+        "Compare fractions with the same numerator or the same denominator"
+      ],
+      "anchors": [
+        {
+          "book": "mk5",
+          "module": "mk5-3.9",
+          "section": "3.9",
+          "id": "mk5-3.9-ex4",
+          "type": "example",
+          "label": "Example 3.14",
+          "title": "Find the point"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-3.9",
+          "section": "3.9",
+          "id": "mk5-3.9-try10",
+          "type": "checkpoint",
+          "label": "Try It 3.21",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-3.9",
+          "section": "3.9",
+          "id": "mk5-3.9-ex14",
+          "type": "example",
+          "label": "Example 3.15",
+          "title": "Same numerator"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-3.9",
+          "section": "3.9",
+          "id": "mk5-3.9-try20",
+          "type": "checkpoint",
+          "label": "Try It 3.22",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-3.9",
+          "section": "3.9",
+          "id": "mk5-3.9-try24",
+          "type": "checkpoint",
+          "label": "Try It 3.23",
+          "title": ""
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [
+        "g4_equiv"
+      ],
+      "depth": 3,
+      "templates": [
+        "g3_frac_line.compare"
+      ],
+      "misconceptions": [
+        "g3_frac_line.count_ticks",
+        "g3_frac_line.bigger_denominator_bigger"
+      ]
+    },
+    {
+      "id": "g3_area",
+      "name": "Area and perimeter",
+      "kind": "core",
+      "grade": "3",
+      "section": null,
+      "book": "mk5",
+      "origin": "Marginalia Elementary Mathematics 3.10",
+      "lesson": [
+        {
+          "book": "mk5",
+          "section": "3.10",
+          "module": "mk5-3.10",
+          "title": "Area and Perimeter",
+          "url": "",
+          "subsections": [
+            {
+              "id": "mk5-3.10-sec1",
+              "title": "Area"
+            },
+            {
+              "id": "mk5-3.10-sec11",
+              "title": "Perimeter"
+            }
+          ]
+        }
+      ],
+      "prerequisites": [
+        "g3_facts"
+      ],
+      "learning_objectives": [
+        "Find area by counting square units and by multiplying",
+        "Find perimeter by adding side lengths"
+      ],
+      "anchors": [
+        {
+          "book": "mk5",
+          "module": "mk5-3.10",
+          "section": "3.10",
+          "id": "mk5-3.10-ex4",
+          "type": "example",
+          "label": "Example 3.16",
+          "title": "Area of a rectangle"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-3.10",
+          "section": "3.10",
+          "id": "mk5-3.10-try10",
+          "type": "checkpoint",
+          "label": "Try It 3.24",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-3.10",
+          "section": "3.10",
+          "id": "mk5-3.10-ex13",
+          "type": "example",
+          "label": "Example 3.17",
+          "title": "Perimeter of a rectangle"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-3.10",
+          "section": "3.10",
+          "id": "mk5-3.10-try19",
+          "type": "checkpoint",
+          "label": "Try It 3.25",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-3.10",
+          "section": "3.10",
+          "id": "mk5-3.10-try23",
+          "type": "checkpoint",
+          "label": "Try It 3.26",
+          "title": ""
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [
+        "g4_measure"
+      ],
+      "depth": 9,
+      "templates": [
+        "g3_area.rect"
+      ],
+      "misconceptions": [
+        "g3_area.area_perimeter_swap",
+        "g3_area.perimeter_two_sides"
+      ]
+    },
+    {
+      "id": "g3_time",
+      "name": "Elapsed time",
+      "kind": "core",
+      "grade": "3",
+      "section": null,
+      "book": "mk5",
+      "origin": "Marginalia Elementary Mathematics 3.11",
+      "lesson": [
+        {
+          "book": "mk5",
+          "section": "3.11",
+          "module": "mk5-3.11",
+          "title": "Elapsed Time",
+          "url": "",
+          "subsections": [
+            {
+              "id": "mk5-3.11-sec1",
+              "title": "How Much Time Passes"
+            }
+          ]
+        }
+      ],
+      "prerequisites": [
+        "g2_time"
+      ],
+      "learning_objectives": [
+        "Find how much time passes between two times",
+        "Find an end time"
+      ],
+      "anchors": [
+        {
+          "book": "mk5",
+          "module": "mk5-3.11",
+          "section": "3.11",
+          "id": "mk5-3.11-ex3",
+          "type": "example",
+          "label": "Example 3.18",
+          "title": "Count on to the hour"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-3.11",
+          "section": "3.11",
+          "id": "mk5-3.11-ex6",
+          "type": "example",
+          "label": "Example 3.19",
+          "title": "Find the end time"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-3.11",
+          "section": "3.11",
+          "id": "mk5-3.11-try12",
+          "type": "checkpoint",
+          "label": "Try It 3.27",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-3.11",
+          "section": "3.11",
+          "id": "mk5-3.11-try16",
+          "type": "checkpoint",
+          "label": "Try It 3.28",
+          "title": ""
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [],
+      "depth": 4,
+      "templates": [
+        "g3_time.elapsed"
+      ],
+      "misconceptions": [
+        "g3_time.elapsed_as_subtract_digits",
+        "g3_time.crosses_hour"
+      ]
+    },
+    {
+      "id": "g4_place",
+      "name": "Place value to a million; round and compare",
+      "kind": "core",
+      "grade": "4",
+      "section": null,
+      "book": "mk5",
+      "origin": "Marginalia Elementary Mathematics 4.1",
+      "lesson": [
+        {
+          "book": "mk5",
+          "section": "4.1",
+          "module": "mk5-4.1",
+          "title": "Place Value to a Million",
+          "url": "",
+          "subsections": [
+            {
+              "id": "mk5-4.1-sec1",
+              "title": "Periods and Places"
+            },
+            {
+              "id": "mk5-4.1-sec12",
+              "title": "Rounding and Comparing"
+            }
+          ]
+        }
+      ],
+      "prerequisites": [
+        "g3_round"
+      ],
+      "learning_objectives": [
+        "Read and write numbers to a million",
+        "Round and compare multi-digit numbers"
+      ],
+      "anchors": [
+        {
+          "book": "mk5",
+          "module": "mk5-4.1",
+          "section": "4.1",
+          "id": "mk5-4.1-ex5",
+          "type": "example",
+          "label": "Example 4.1",
+          "title": "Value of a digit"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-4.1",
+          "section": "4.1",
+          "id": "mk5-4.1-try11",
+          "type": "checkpoint",
+          "label": "Try It 4.1",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-4.1",
+          "section": "4.1",
+          "id": "mk5-4.1-ex14",
+          "type": "example",
+          "label": "Example 4.2",
+          "title": "Round to the nearest thousand"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-4.1",
+          "section": "4.1",
+          "id": "mk5-4.1-try20",
+          "type": "checkpoint",
+          "label": "Try It 4.2",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-4.1",
+          "section": "4.1",
+          "id": "mk5-4.1-try24",
+          "type": "checkpoint",
+          "label": "Try It 4.3",
+          "title": ""
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [
+        "g4_addsub"
+      ],
+      "depth": 9,
+      "templates": [
+        "g4_place.round"
+      ],
+      "misconceptions": [
+        "g4_place.round_wrong_place",
+        "g4_place.compare_by_first_digit"
+      ]
+    },
+    {
+      "id": "g4_addsub",
+      "name": "Add and subtract large numbers",
+      "kind": "core",
+      "grade": "4",
+      "section": null,
+      "book": "mk5",
+      "origin": "Marginalia Elementary Mathematics 4.2",
+      "lesson": [
+        {
+          "book": "mk5",
+          "section": "4.2",
+          "module": "mk5-4.2",
+          "title": "Adding and Subtracting Large Numbers",
+          "url": "",
+          "subsections": [
+            {
+              "id": "mk5-4.2-sec1",
+              "title": "The Standard Algorithm"
+            }
+          ]
+        }
+      ],
+      "prerequisites": [
+        "g4_place",
+        "g2_addsub1000"
+      ],
+      "learning_objectives": [
+        "Add and subtract multi-digit whole numbers with the standard algorithm"
+      ],
+      "anchors": [
+        {
+          "book": "mk5",
+          "module": "mk5-4.2",
+          "section": "4.2",
+          "id": "mk5-4.2-ex3",
+          "type": "example",
+          "label": "Example 4.3",
+          "title": "Add"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-4.2",
+          "section": "4.2",
+          "id": "mk5-4.2-ex6",
+          "type": "example",
+          "label": "Example 4.4",
+          "title": "Subtract across zeros"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-4.2",
+          "section": "4.2",
+          "id": "mk5-4.2-try12",
+          "type": "checkpoint",
+          "label": "Try It 4.4",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-4.2",
+          "section": "4.2",
+          "id": "mk5-4.2-try16",
+          "type": "checkpoint",
+          "label": "Try It 4.5",
+          "title": ""
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [
+        "g5_dec_ops"
+      ],
+      "depth": 10,
+      "templates": [
+        "g4_addsub.algorithm"
+      ],
+      "misconceptions": [
+        "g4_addsub.regroup_lost",
+        "g4_addsub.zeros_in_minuend"
+      ]
+    },
+    {
+      "id": "g4_mult",
+      "name": "Multiply larger numbers",
+      "kind": "core",
+      "grade": "4",
+      "section": null,
+      "book": "mk5",
+      "origin": "Marginalia Elementary Mathematics 4.3",
+      "lesson": [
+        {
+          "book": "mk5",
+          "section": "4.3",
+          "module": "mk5-4.3",
+          "title": "Multiplying Larger Numbers",
+          "url": "",
+          "subsections": [
+            {
+              "id": "mk5-4.3-sec1",
+              "title": "Partial Products"
+            },
+            {
+              "id": "mk5-4.3-sec10",
+              "title": "Two Two-Digit Numbers"
+            }
+          ]
+        }
+      ],
+      "prerequisites": [
+        "g3_mult10",
+        "g3_props"
+      ],
+      "learning_objectives": [
+        "Multiply up to four digits by one digit",
+        "Multiply two two-digit numbers"
+      ],
+      "anchors": [
+        {
+          "book": "mk5",
+          "module": "mk5-4.3",
+          "section": "4.3",
+          "id": "mk5-4.3-ex3",
+          "type": "example",
+          "label": "Example 4.5",
+          "title": "Multiply by one digit"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-4.3",
+          "section": "4.3",
+          "id": "mk5-4.3-try9",
+          "type": "checkpoint",
+          "label": "Try It 4.6",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-4.3",
+          "section": "4.3",
+          "id": "mk5-4.3-ex13",
+          "type": "example",
+          "label": "Example 4.6",
+          "title": "Multiply two-digit numbers"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-4.3",
+          "section": "4.3",
+          "id": "mk5-4.3-try19",
+          "type": "checkpoint",
+          "label": "Try It 4.7",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-4.3",
+          "section": "4.3",
+          "id": "mk5-4.3-try23",
+          "type": "checkpoint",
+          "label": "Try It 4.8",
+          "title": ""
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [
+        "g4_div",
+        "g4_measure",
+        "g5_mult"
+      ],
+      "depth": 10,
+      "templates": [
+        "g4_mult.partial"
+      ],
+      "misconceptions": [
+        "g4_mult.no_placeholder",
+        "g4_mult.partial_products_missing"
+      ]
+    },
+    {
+      "id": "g4_div",
+      "name": "Divide with remainders",
+      "kind": "core",
+      "grade": "4",
+      "section": null,
+      "book": "mk5",
+      "origin": "Marginalia Elementary Mathematics 4.4",
+      "lesson": [
+        {
+          "book": "mk5",
+          "section": "4.4",
+          "module": "mk5-4.4",
+          "title": "Dividing with Remainders",
+          "url": "",
+          "subsections": [
+            {
+              "id": "mk5-4.4-sec1",
+              "title": "Long Division"
+            },
+            {
+              "id": "mk5-4.4-sec19",
+              "title": "What the Remainder Means"
+            }
+          ]
+        }
+      ],
+      "prerequisites": [
+        "g4_mult"
+      ],
+      "learning_objectives": [
+        "Divide up to four digits by one digit",
+        "Interpret a remainder"
+      ],
+      "anchors": [
+        {
+          "book": "mk5",
+          "module": "mk5-4.4",
+          "section": "4.4",
+          "id": "mk5-4.4-howto7",
+          "type": "box",
+          "label": null,
+          "title": "Divide by a one-digit number."
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-4.4",
+          "section": "4.4",
+          "id": "mk5-4.4-ex8",
+          "type": "example",
+          "label": "Example 4.7",
+          "title": "Divide with a remainder"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-4.4",
+          "section": "4.4",
+          "id": "mk5-4.4-try14",
+          "type": "checkpoint",
+          "label": "Try It 4.9",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-4.4",
+          "section": "4.4",
+          "id": "mk5-4.4-try18",
+          "type": "checkpoint",
+          "label": "Try It 4.10",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-4.4",
+          "section": "4.4",
+          "id": "mk5-4.4-ex21",
+          "type": "example",
+          "label": "Example 4.8",
+          "title": "Round up"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-4.4",
+          "section": "4.4",
+          "id": "mk5-4.4-try27",
+          "type": "checkpoint",
+          "label": "Try It 4.11",
+          "title": ""
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [
+        "g5_div"
+      ],
+      "depth": 11,
+      "templates": [
+        "g4_div.remainder"
+      ],
+      "misconceptions": [
+        "g4_div.remainder_too_large",
+        "g4_div.zero_in_quotient"
+      ]
+    },
+    {
+      "id": "g4_factors",
+      "name": "Factors, multiples, primes",
+      "kind": "core",
+      "grade": "4",
+      "section": null,
+      "book": "mk5",
+      "origin": "Marginalia Elementary Mathematics 4.5",
+      "lesson": [
+        {
+          "book": "mk5",
+          "section": "4.5",
+          "module": "mk5-4.5",
+          "title": "Factors, Multiples and Primes",
+          "url": "",
+          "subsections": [
+            {
+              "id": "mk5-4.5-sec1",
+              "title": "Factors and Multiples"
+            },
+            {
+              "id": "mk5-4.5-sec10",
+              "title": "Prime and Composite"
+            }
+          ]
+        }
+      ],
+      "prerequisites": [
+        "g3_facts"
+      ],
+      "learning_objectives": [
+        "Find all factor pairs of a number",
+        "Tell whether a number is prime or composite"
+      ],
+      "anchors": [
+        {
+          "book": "mk5",
+          "module": "mk5-4.5",
+          "section": "4.5",
+          "id": "mk5-4.5-ex3",
+          "type": "example",
+          "label": "Example 4.9",
+          "title": "All the factors"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-4.5",
+          "section": "4.5",
+          "id": "mk5-4.5-try9",
+          "type": "checkpoint",
+          "label": "Try It 4.12",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-4.5",
+          "section": "4.5",
+          "id": "mk5-4.5-ex12",
+          "type": "example",
+          "label": "Example 4.10",
+          "title": "Prime or composite?"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-4.5",
+          "section": "4.5",
+          "id": "mk5-4.5-try18",
+          "type": "checkpoint",
+          "label": "Try It 4.13",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-4.5",
+          "section": "4.5",
+          "id": "mk5-4.5-try22",
+          "type": "checkpoint",
+          "label": "Try It 4.14",
+          "title": ""
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [
+        "g5_frac_addsub"
+      ],
+      "depth": 9,
+      "templates": [
+        "g4_factors.list"
+      ],
+      "misconceptions": [
+        "g4_factors.one_prime",
+        "g4_factors.missing_factor_pairs"
+      ]
+    },
+    {
+      "id": "g4_equiv",
+      "name": "Equivalent fractions; compare fractions",
+      "kind": "core",
+      "grade": "4",
+      "section": null,
+      "book": "mk5",
+      "origin": "Marginalia Elementary Mathematics 4.6",
+      "lesson": [
+        {
+          "book": "mk5",
+          "section": "4.6",
+          "module": "mk5-4.6",
+          "title": "Equivalent Fractions",
+          "url": "",
+          "subsections": [
+            {
+              "id": "mk5-4.6-sec1",
+              "title": "Same Amount, Different Names"
+            },
+            {
+              "id": "mk5-4.6-sec13",
+              "title": "Comparing Fractions"
+            }
+          ]
+        }
+      ],
+      "prerequisites": [
+        "g3_frac_line"
+      ],
+      "learning_objectives": [
+        "Find equivalent fractions",
+        "Compare fractions with different denominators"
+      ],
+      "anchors": [
+        {
+          "book": "mk5",
+          "module": "mk5-4.6",
+          "section": "4.6",
+          "id": "mk5-4.6-ex6",
+          "type": "example",
+          "label": "Example 4.11",
+          "title": "Find an equivalent fraction"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-4.6",
+          "section": "4.6",
+          "id": "mk5-4.6-try12",
+          "type": "checkpoint",
+          "label": "Try It 4.15",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-4.6",
+          "section": "4.6",
+          "id": "mk5-4.6-ex15",
+          "type": "example",
+          "label": "Example 4.12",
+          "title": "Common denominator"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-4.6",
+          "section": "4.6",
+          "id": "mk5-4.6-try21",
+          "type": "checkpoint",
+          "label": "Try It 4.16",
+          "title": ""
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [
+        "g4_frac_add",
+        "g4_decimals"
+      ],
+      "depth": 4,
+      "templates": [
+        "g4_equiv.missing"
+      ],
+      "misconceptions": [
+        "g4_equiv.add_same_number",
+        "g4_equiv.compare_numerators_only"
+      ]
+    },
+    {
+      "id": "g4_frac_add",
+      "name": "Add and subtract like fractions and mixed numbers",
+      "kind": "core",
+      "grade": "4",
+      "section": null,
+      "book": "mk5",
+      "origin": "Marginalia Elementary Mathematics 4.7",
+      "lesson": [
+        {
+          "book": "mk5",
+          "section": "4.7",
+          "module": "mk5-4.7",
+          "title": "Adding and Subtracting Like Fractions",
+          "url": "",
+          "subsections": [
+            {
+              "id": "mk5-4.7-sec1",
+              "title": "Like Denominators"
+            },
+            {
+              "id": "mk5-4.7-sec10",
+              "title": "Mixed Numbers"
+            }
+          ]
+        }
+      ],
+      "prerequisites": [
+        "g4_equiv"
+      ],
+      "learning_objectives": [
+        "Add and subtract fractions with the same denominator",
+        "Add and subtract mixed numbers"
+      ],
+      "anchors": [
+        {
+          "book": "mk5",
+          "module": "mk5-4.7",
+          "section": "4.7",
+          "id": "mk5-4.7-ex3",
+          "type": "example",
+          "label": "Example 4.13",
+          "title": "Add like fractions"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-4.7",
+          "section": "4.7",
+          "id": "mk5-4.7-try9",
+          "type": "checkpoint",
+          "label": "Try It 4.17",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-4.7",
+          "section": "4.7",
+          "id": "mk5-4.7-ex12",
+          "type": "example",
+          "label": "Example 4.14",
+          "title": "Add mixed numbers"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-4.7",
+          "section": "4.7",
+          "id": "mk5-4.7-ex15",
+          "type": "example",
+          "label": "Example 4.15",
+          "title": "Subtract with regrouping"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-4.7",
+          "section": "4.7",
+          "id": "mk5-4.7-try21",
+          "type": "checkpoint",
+          "label": "Try It 4.18",
+          "title": ""
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [
+        "g4_frac_whole",
+        "g5_frac_addsub"
+      ],
+      "depth": 5,
+      "templates": [
+        "g4_frac_add.like"
+      ],
+      "misconceptions": [
+        "g4_frac_add.add_denominators",
+        "g4_frac_add.mixed_borrow"
+      ]
+    },
+    {
+      "id": "g4_frac_whole",
+      "name": "Multiply a fraction by a whole number",
+      "kind": "core",
+      "grade": "4",
+      "section": null,
+      "book": "mk5",
+      "origin": "Marginalia Elementary Mathematics 4.8",
+      "lesson": [
+        {
+          "book": "mk5",
+          "section": "4.8",
+          "module": "mk5-4.8",
+          "title": "Multiplying a Fraction by a Whole Number",
+          "url": "",
+          "subsections": [
+            {
+              "id": "mk5-4.8-sec1",
+              "title": "Groups of a Fraction"
+            }
+          ]
+        }
+      ],
+      "prerequisites": [
+        "g4_frac_add",
+        "g3_mult"
+      ],
+      "learning_objectives": [
+        "Multiply a fraction by a whole number"
+      ],
+      "anchors": [
+        {
+          "book": "mk5",
+          "module": "mk5-4.8",
+          "section": "4.8",
+          "id": "mk5-4.8-ex3",
+          "type": "example",
+          "label": "Example 4.16",
+          "title": "Multiply"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-4.8",
+          "section": "4.8",
+          "id": "mk5-4.8-try9",
+          "type": "checkpoint",
+          "label": "Try It 4.19",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-4.8",
+          "section": "4.8",
+          "id": "mk5-4.8-try13",
+          "type": "checkpoint",
+          "label": "Try It 4.20",
+          "title": ""
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [
+        "g5_frac_mul"
+      ],
+      "depth": 7,
+      "templates": [
+        "g4_frac_whole.mult"
+      ],
+      "misconceptions": [
+        "g4_frac_whole.mult_both",
+        "g4_frac_whole.add_whole"
+      ]
+    },
+    {
+      "id": "g4_decimals",
+      "name": "Tenths and hundredths",
+      "kind": "core",
+      "grade": "4",
+      "section": null,
+      "book": "mk5",
+      "origin": "Marginalia Elementary Mathematics 4.9",
+      "lesson": [
+        {
+          "book": "mk5",
+          "section": "4.9",
+          "module": "mk5-4.9",
+          "title": "Tenths and Hundredths",
+          "url": "",
+          "subsections": [
+            {
+              "id": "mk5-4.9-sec1",
+              "title": "Decimal Notation"
+            },
+            {
+              "id": "mk5-4.9-sec11",
+              "title": "Comparing Decimals"
+            }
+          ]
+        }
+      ],
+      "prerequisites": [
+        "g4_equiv"
+      ],
+      "learning_objectives": [
+        "Write tenths and hundredths as decimals",
+        "Compare decimals to hundredths"
+      ],
+      "anchors": [
+        {
+          "book": "mk5",
+          "module": "mk5-4.9",
+          "section": "4.9",
+          "id": "mk5-4.9-ex4",
+          "type": "example",
+          "label": "Example 4.17",
+          "title": "Write as a decimal"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-4.9",
+          "section": "4.9",
+          "id": "mk5-4.9-try10",
+          "type": "checkpoint",
+          "label": "Try It 4.21",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-4.9",
+          "section": "4.9",
+          "id": "mk5-4.9-ex13",
+          "type": "example",
+          "label": "Example 4.18",
+          "title": "Compare"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-4.9",
+          "section": "4.9",
+          "id": "mk5-4.9-try19",
+          "type": "checkpoint",
+          "label": "Try It 4.22",
+          "title": ""
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [
+        "g5_place"
+      ],
+      "depth": 5,
+      "templates": [
+        "g4_decimals.convert"
+      ],
+      "misconceptions": [
+        "g4_decimals.longer_is_larger",
+        "g4_decimals.tenths_hundredths"
+      ]
+    },
+    {
+      "id": "g4_measure",
+      "name": "Convert units; area and perimeter formulas",
+      "kind": "core",
+      "grade": "4",
+      "section": null,
+      "book": "mk5",
+      "origin": "Marginalia Elementary Mathematics 4.10",
+      "lesson": [
+        {
+          "book": "mk5",
+          "section": "4.10",
+          "module": "mk5-4.10",
+          "title": "Converting Units; Area and Perimeter Formulas",
+          "url": "",
+          "subsections": [
+            {
+              "id": "mk5-4.10-sec1",
+              "title": "Converting Units"
+            },
+            {
+              "id": "mk5-4.10-sec11",
+              "title": "Formulas"
+            }
+          ]
+        }
+      ],
+      "prerequisites": [
+        "g3_area",
+        "g4_mult"
+      ],
+      "learning_objectives": [
+        "Convert larger units to smaller units",
+        "Use formulas for the area and perimeter of rectangles"
+      ],
+      "anchors": [
+        {
+          "book": "mk5",
+          "module": "mk5-4.10",
+          "section": "4.10",
+          "id": "mk5-4.10-ex4",
+          "type": "example",
+          "label": "Example 4.19",
+          "title": "Feet to inches"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-4.10",
+          "section": "4.10",
+          "id": "mk5-4.10-try10",
+          "type": "checkpoint",
+          "label": "Try It 4.23",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-4.10",
+          "section": "4.10",
+          "id": "mk5-4.10-ex13",
+          "type": "example",
+          "label": "Example 4.20",
+          "title": "Use the formulas"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-4.10",
+          "section": "4.10",
+          "id": "mk5-4.10-try19",
+          "type": "checkpoint",
+          "label": "Try It 4.24",
+          "title": ""
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [
+        "g5_volume",
+        "g5_convert"
+      ],
+      "depth": 11,
+      "templates": [
+        "g4_measure.convert"
+      ],
+      "misconceptions": [
+        "g4_measure.convert_wrong_way",
+        "g4_measure.area_perimeter_formula"
+      ]
+    },
+    {
+      "id": "g4_angles",
+      "name": "Angles",
+      "kind": "core",
+      "grade": "4",
+      "section": null,
+      "book": "mk5",
+      "origin": "Marginalia Elementary Mathematics 4.11",
+      "lesson": [
+        {
+          "book": "mk5",
+          "section": "4.11",
+          "module": "mk5-4.11",
+          "title": "Angles",
+          "url": "",
+          "subsections": [
+            {
+              "id": "mk5-4.11-sec1",
+              "title": "Degrees"
+            },
+            {
+              "id": "mk5-4.11-sec12",
+              "title": "Unknown Angles"
+            }
+          ]
+        }
+      ],
+      "prerequisites": [
+        "g2_addsub100"
+      ],
+      "learning_objectives": [
+        "Measure angles in degrees",
+        "Find an unknown angle by adding or subtracting"
+      ],
+      "anchors": [
+        {
+          "book": "mk5",
+          "module": "mk5-4.11",
+          "section": "4.11",
+          "id": "mk5-4.11-ex5",
+          "type": "example",
+          "label": "Example 4.21",
+          "title": "Acute or obtuse?"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-4.11",
+          "section": "4.11",
+          "id": "mk5-4.11-try11",
+          "type": "checkpoint",
+          "label": "Try It 4.25",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-4.11",
+          "section": "4.11",
+          "id": "mk5-4.11-ex14",
+          "type": "example",
+          "label": "Example 4.22",
+          "title": "Find the missing angle"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-4.11",
+          "section": "4.11",
+          "id": "mk5-4.11-try20",
+          "type": "checkpoint",
+          "label": "Try It 4.26",
+          "title": ""
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [],
+      "depth": 8,
+      "templates": [
+        "g4_angles.unknown"
+      ],
+      "misconceptions": [
+        "g4_angles.reads_wrong_scale",
+        "g4_angles.angle_add_wrong"
+      ]
+    },
+    {
+      "id": "g5_expr",
+      "name": "Numerical expressions with parentheses",
+      "kind": "core",
+      "grade": "5",
+      "section": null,
+      "book": "mk5",
+      "origin": "Marginalia Elementary Mathematics 5.1",
+      "lesson": [
+        {
+          "book": "mk5",
+          "section": "5.1",
+          "module": "mk5-5.1",
+          "title": "Numerical Expressions",
+          "url": "",
+          "subsections": [
+            {
+              "id": "mk5-5.1-sec1",
+              "title": "Order of Operations"
+            },
+            {
+              "id": "mk5-5.1-sec17",
+              "title": "Writing Expressions"
+            }
+          ]
+        }
+      ],
+      "prerequisites": [
+        "g3_props"
+      ],
+      "learning_objectives": [
+        "Evaluate expressions with parentheses",
+        "Write an expression for a description"
+      ],
+      "anchors": [
+        {
+          "book": "mk5",
+          "module": "mk5-5.1",
+          "section": "5.1",
+          "id": "mk5-5.1-ex3",
+          "type": "example",
+          "label": "Example 5.1",
+          "title": "Evaluate"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-5.1",
+          "section": "5.1",
+          "id": "mk5-5.1-ex6",
+          "type": "example",
+          "label": "Example 5.2",
+          "title": "Parentheses first"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-5.1",
+          "section": "5.1",
+          "id": "mk5-5.1-try12",
+          "type": "checkpoint",
+          "label": "Try It 5.1",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-5.1",
+          "section": "5.1",
+          "id": "mk5-5.1-try16",
+          "type": "checkpoint",
+          "label": "Try It 5.2",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-5.1",
+          "section": "5.1",
+          "id": "mk5-5.1-ex19",
+          "type": "example",
+          "label": "Example 5.3",
+          "title": "Write and evaluate"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-5.1",
+          "section": "5.1",
+          "id": "mk5-5.1-try25",
+          "type": "checkpoint",
+          "label": "Try It 5.3",
+          "title": ""
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [
+        "g5_coord"
+      ],
+      "depth": 10,
+      "templates": [
+        "g5_expr.evaluate"
+      ],
+      "misconceptions": [
+        "g5_expr.left_to_right5",
+        "g5_expr.parentheses_ignored"
+      ]
+    },
+    {
+      "id": "g5_place",
+      "name": "Decimals to thousandths; powers of ten",
+      "kind": "core",
+      "grade": "5",
+      "section": null,
+      "book": "mk5",
+      "origin": "Marginalia Elementary Mathematics 5.2",
+      "lesson": [
+        {
+          "book": "mk5",
+          "section": "5.2",
+          "module": "mk5-5.2",
+          "title": "Decimals to Thousandths; Powers of Ten",
+          "url": "",
+          "subsections": [
+            {
+              "id": "mk5-5.2-sec1",
+              "title": "Thousandths"
+            },
+            {
+              "id": "mk5-5.2-sec16",
+              "title": "Powers of Ten"
+            }
+          ]
+        }
+      ],
+      "prerequisites": [
+        "g4_decimals"
+      ],
+      "learning_objectives": [
+        "Read and compare decimals to thousandths",
+        "Multiply and divide by powers of 10",
+        "Round decimals"
+      ],
+      "anchors": [
+        {
+          "book": "mk5",
+          "module": "mk5-5.2",
+          "section": "5.2",
+          "id": "mk5-5.2-ex5",
+          "type": "example",
+          "label": "Example 5.4",
+          "title": "Compare"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-5.2",
+          "section": "5.2",
+          "id": "mk5-5.2-try11",
+          "type": "checkpoint",
+          "label": "Try It 5.4",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-5.2",
+          "section": "5.2",
+          "id": "mk5-5.2-try15",
+          "type": "checkpoint",
+          "label": "Try It 5.5",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-5.2",
+          "section": "5.2",
+          "id": "mk5-5.2-ex18",
+          "type": "example",
+          "label": "Example 5.5",
+          "title": "Multiply by a power of ten"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-5.2",
+          "section": "5.2",
+          "id": "mk5-5.2-try24",
+          "type": "checkpoint",
+          "label": "Try It 5.6",
+          "title": ""
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [
+        "g5_dec_ops"
+      ],
+      "depth": 6,
+      "templates": [
+        "g5_place.decimals"
+      ],
+      "misconceptions": [
+        "g5_place.decimal_length",
+        "g5_place.power_of_ten_shift"
+      ]
+    },
+    {
+      "id": "g5_mult",
+      "name": "Multiply multi-digit numbers",
+      "kind": "core",
+      "grade": "5",
+      "section": null,
+      "book": "mk5",
+      "origin": "Marginalia Elementary Mathematics 5.3",
+      "lesson": [
+        {
+          "book": "mk5",
+          "section": "5.3",
+          "module": "mk5-5.3",
+          "title": "Multiplying Multi-Digit Numbers",
+          "url": "",
+          "subsections": [
+            {
+              "id": "mk5-5.3-sec1",
+              "title": "The Standard Algorithm"
+            }
+          ]
+        }
+      ],
+      "prerequisites": [
+        "g4_mult"
+      ],
+      "learning_objectives": [
+        "Multiply multi-digit whole numbers with the standard algorithm"
+      ],
+      "anchors": [
+        {
+          "book": "mk5",
+          "module": "mk5-5.3",
+          "section": "5.3",
+          "id": "mk5-5.3-ex3",
+          "type": "example",
+          "label": "Example 5.6",
+          "title": "Three digits by two digits"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-5.3",
+          "section": "5.3",
+          "id": "mk5-5.3-try9",
+          "type": "checkpoint",
+          "label": "Try It 5.7",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-5.3",
+          "section": "5.3",
+          "id": "mk5-5.3-try13",
+          "type": "checkpoint",
+          "label": "Try It 5.8",
+          "title": ""
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [
+        "g5_div"
+      ],
+      "depth": 11,
+      "templates": [
+        "g5_mult.algorithm"
+      ],
+      "misconceptions": [
+        "g5_mult.placeholder5",
+        "g5_mult.carry_lost5"
+      ]
+    },
+    {
+      "id": "g5_div",
+      "name": "Divide by two-digit numbers",
+      "kind": "core",
+      "grade": "5",
+      "section": null,
+      "book": "mk5",
+      "origin": "Marginalia Elementary Mathematics 5.4",
+      "lesson": [
+        {
+          "book": "mk5",
+          "section": "5.4",
+          "module": "mk5-5.4",
+          "title": "Dividing by Two-Digit Numbers",
+          "url": "",
+          "subsections": [
+            {
+              "id": "mk5-5.4-sec1",
+              "title": "Estimate, Then Divide"
+            }
+          ]
+        }
+      ],
+      "prerequisites": [
+        "g4_div",
+        "g5_mult"
+      ],
+      "learning_objectives": [
+        "Divide by a two-digit divisor",
+        "Estimate each quotient digit"
+      ],
+      "anchors": [
+        {
+          "book": "mk5",
+          "module": "mk5-5.4",
+          "section": "5.4",
+          "id": "mk5-5.4-ex3",
+          "type": "example",
+          "label": "Example 5.7",
+          "title": "Two-digit divisor"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-5.4",
+          "section": "5.4",
+          "id": "mk5-5.4-try9",
+          "type": "checkpoint",
+          "label": "Try It 5.9",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-5.4",
+          "section": "5.4",
+          "id": "mk5-5.4-try13",
+          "type": "checkpoint",
+          "label": "Try It 5.10",
+          "title": ""
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [],
+      "depth": 12,
+      "templates": [
+        "g5_div.two_digit"
+      ],
+      "misconceptions": [
+        "g5_div.estimate_quotient_digit",
+        "g5_div.zero_digit5"
+      ]
+    },
+    {
+      "id": "g5_dec_ops",
+      "name": "Compute with decimals",
+      "kind": "core",
+      "grade": "5",
+      "section": null,
+      "book": "mk5",
+      "origin": "Marginalia Elementary Mathematics 5.5",
+      "lesson": [
+        {
+          "book": "mk5",
+          "section": "5.5",
+          "module": "mk5-5.5",
+          "title": "Computing with Decimals",
+          "url": "",
+          "subsections": [
+            {
+              "id": "mk5-5.5-sec1",
+              "title": "Adding and Subtracting"
+            },
+            {
+              "id": "mk5-5.5-sec10",
+              "title": "Multiplying and Dividing"
+            }
+          ]
+        }
+      ],
+      "prerequisites": [
+        "g5_place",
+        "g4_addsub"
+      ],
+      "learning_objectives": [
+        "Add and subtract decimals",
+        "Multiply and divide decimals to hundredths"
+      ],
+      "anchors": [
+        {
+          "book": "mk5",
+          "module": "mk5-5.5",
+          "section": "5.5",
+          "id": "mk5-5.5-ex3",
+          "type": "example",
+          "label": "Example 5.8",
+          "title": "Subtract decimals"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-5.5",
+          "section": "5.5",
+          "id": "mk5-5.5-try9",
+          "type": "checkpoint",
+          "label": "Try It 5.11",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-5.5",
+          "section": "5.5",
+          "id": "mk5-5.5-ex13",
+          "type": "example",
+          "label": "Example 5.9",
+          "title": "Multiply decimals"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-5.5",
+          "section": "5.5",
+          "id": "mk5-5.5-ex16",
+          "type": "example",
+          "label": "Example 5.10",
+          "title": "Divide a decimal by a whole number"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-5.5",
+          "section": "5.5",
+          "id": "mk5-5.5-try22",
+          "type": "checkpoint",
+          "label": "Try It 5.12",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-5.5",
+          "section": "5.5",
+          "id": "mk5-5.5-try26",
+          "type": "checkpoint",
+          "label": "Try It 5.13",
+          "title": ""
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [
+        "g5_convert"
+      ],
+      "depth": 11,
+      "templates": [
+        "g5_dec_ops.compute"
+      ],
+      "misconceptions": [
+        "g5_dec_ops.align_right",
+        "g5_dec_ops.point_count"
+      ]
+    },
+    {
+      "id": "g5_frac_addsub",
+      "name": "Add and subtract unlike fractions",
+      "kind": "core",
+      "grade": "5",
+      "section": null,
+      "book": "mk5",
+      "origin": "Marginalia Elementary Mathematics 5.6",
+      "lesson": [
+        {
+          "book": "mk5",
+          "section": "5.6",
+          "module": "mk5-5.6",
+          "title": "Adding and Subtracting Unlike Fractions",
+          "url": "",
+          "subsections": [
+            {
+              "id": "mk5-5.6-sec1",
+              "title": "A Common Denominator"
+            }
+          ]
+        }
+      ],
+      "prerequisites": [
+        "g4_frac_add",
+        "g4_factors"
+      ],
+      "learning_objectives": [
+        "Add and subtract fractions with different denominators"
+      ],
+      "anchors": [
+        {
+          "book": "mk5",
+          "module": "mk5-5.6",
+          "section": "5.6",
+          "id": "mk5-5.6-howto7",
+          "type": "box",
+          "label": null,
+          "title": "Add or subtract unlike fractions."
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-5.6",
+          "section": "5.6",
+          "id": "mk5-5.6-ex8",
+          "type": "example",
+          "label": "Example 5.11",
+          "title": "Add unlike fractions"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-5.6",
+          "section": "5.6",
+          "id": "mk5-5.6-ex11",
+          "type": "example",
+          "label": "Example 5.12",
+          "title": "Subtract unlike fractions"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-5.6",
+          "section": "5.6",
+          "id": "mk5-5.6-try17",
+          "type": "checkpoint",
+          "label": "Try It 5.14",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-5.6",
+          "section": "5.6",
+          "id": "mk5-5.6-try21",
+          "type": "checkpoint",
+          "label": "Try It 5.15",
+          "title": ""
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [],
+      "depth": 10,
+      "templates": [
+        "g5_frac_addsub.unlike"
+      ],
+      "misconceptions": [
+        "g5_frac_addsub.add_across",
+        "g5_frac_addsub.common_denominator_numerator"
+      ]
+    },
+    {
+      "id": "g5_frac_mul",
+      "name": "Multiply fractions",
+      "kind": "core",
+      "grade": "5",
+      "section": null,
+      "book": "mk5",
+      "origin": "Marginalia Elementary Mathematics 5.7",
+      "lesson": [
+        {
+          "book": "mk5",
+          "section": "5.7",
+          "module": "mk5-5.7",
+          "title": "Multiplying Fractions",
+          "url": "",
+          "subsections": [
+            {
+              "id": "mk5-5.7-sec1",
+              "title": "A Part of a Part"
+            }
+          ]
+        }
+      ],
+      "prerequisites": [
+        "g4_frac_whole"
+      ],
+      "learning_objectives": [
+        "Multiply a fraction by a fraction",
+        "Understand a product as part of a part"
+      ],
+      "anchors": [
+        {
+          "book": "mk5",
+          "module": "mk5-5.7",
+          "section": "5.7",
+          "id": "mk5-5.7-ex5",
+          "type": "example",
+          "label": "Example 5.13",
+          "title": "Multiply fractions"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-5.7",
+          "section": "5.7",
+          "id": "mk5-5.7-try11",
+          "type": "checkpoint",
+          "label": "Try It 5.16",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-5.7",
+          "section": "5.7",
+          "id": "mk5-5.7-try15",
+          "type": "checkpoint",
+          "label": "Try It 5.17",
+          "title": ""
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [
+        "g5_frac_div"
+      ],
+      "depth": 8,
+      "templates": [
+        "g5_frac_mul.mult"
+      ],
+      "misconceptions": [
+        "g5_frac_mul.cross_add",
+        "g5_frac_mul.product_bigger"
+      ]
+    },
+    {
+      "id": "g5_frac_div",
+      "name": "Divide with unit fractions",
+      "kind": "core",
+      "grade": "5",
+      "section": null,
+      "book": "mk5",
+      "origin": "Marginalia Elementary Mathematics 5.8",
+      "lesson": [
+        {
+          "book": "mk5",
+          "section": "5.8",
+          "module": "mk5-5.8",
+          "title": "Dividing with Unit Fractions",
+          "url": "",
+          "subsections": [
+            {
+              "id": "mk5-5.8-sec1",
+              "title": "Two Kinds of Problems"
+            }
+          ]
+        }
+      ],
+      "prerequisites": [
+        "g5_frac_mul"
+      ],
+      "learning_objectives": [
+        "Divide a unit fraction by a whole number",
+        "Divide a whole number by a unit fraction"
+      ],
+      "anchors": [
+        {
+          "book": "mk5",
+          "module": "mk5-5.8",
+          "section": "5.8",
+          "id": "mk5-5.8-ex5",
+          "type": "example",
+          "label": "Example 5.14",
+          "title": "Share a fraction"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-5.8",
+          "section": "5.8",
+          "id": "mk5-5.8-ex8",
+          "type": "example",
+          "label": "Example 5.15",
+          "title": "How many in a whole number?"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-5.8",
+          "section": "5.8",
+          "id": "mk5-5.8-try14",
+          "type": "checkpoint",
+          "label": "Try It 5.18",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-5.8",
+          "section": "5.8",
+          "id": "mk5-5.8-try18",
+          "type": "checkpoint",
+          "label": "Try It 5.19",
+          "title": ""
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [],
+      "depth": 9,
+      "templates": [
+        "g5_frac_div.unit"
+      ],
+      "misconceptions": [
+        "g5_frac_div.divide_wrong_way",
+        "g5_frac_div.halving_vs_dividing_by_half"
+      ]
+    },
+    {
+      "id": "g5_volume",
+      "name": "Volume of rectangular prisms",
+      "kind": "core",
+      "grade": "5",
+      "section": null,
+      "book": "mk5",
+      "origin": "Marginalia Elementary Mathematics 5.9",
+      "lesson": [
+        {
+          "book": "mk5",
+          "section": "5.9",
+          "module": "mk5-5.9",
+          "title": "Volume",
+          "url": "",
+          "subsections": [
+            {
+              "id": "mk5-5.9-sec1",
+              "title": "Cubic Units"
+            }
+          ]
+        }
+      ],
+      "prerequisites": [
+        "g4_measure"
+      ],
+      "learning_objectives": [
+        "Find volume by counting unit cubes",
+        "Use the formula for the volume of a rectangular prism"
+      ],
+      "anchors": [
+        {
+          "book": "mk5",
+          "module": "mk5-5.9",
+          "section": "5.9",
+          "id": "mk5-5.9-ex5",
+          "type": "example",
+          "label": "Example 5.16",
+          "title": "Volume of a box"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-5.9",
+          "section": "5.9",
+          "id": "mk5-5.9-try11",
+          "type": "checkpoint",
+          "label": "Try It 5.20",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-5.9",
+          "section": "5.9",
+          "id": "mk5-5.9-try15",
+          "type": "checkpoint",
+          "label": "Try It 5.21",
+          "title": ""
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [],
+      "depth": 12,
+      "templates": [
+        "g5_volume.prism"
+      ],
+      "misconceptions": [
+        "g5_volume.volume_add",
+        "g5_volume.surface_count"
+      ]
+    },
+    {
+      "id": "g5_coord",
+      "name": "The coordinate plane",
+      "kind": "core",
+      "grade": "5",
+      "section": null,
+      "book": "mk5",
+      "origin": "Marginalia Elementary Mathematics 5.10",
+      "lesson": [
+        {
+          "book": "mk5",
+          "section": "5.10",
+          "module": "mk5-5.10",
+          "title": "The Coordinate Plane",
+          "url": "",
+          "subsections": [
+            {
+              "id": "mk5-5.10-sec1",
+              "title": "Ordered Pairs"
+            }
+          ]
+        }
+      ],
+      "prerequisites": [
+        "g5_expr"
+      ],
+      "learning_objectives": [
+        "Name and plot points in the first quadrant"
+      ],
+      "anchors": [
+        {
+          "book": "mk5",
+          "module": "mk5-5.10",
+          "section": "5.10",
+          "id": "mk5-5.10-ex4",
+          "type": "example",
+          "label": "Example 5.17",
+          "title": "Name a point"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-5.10",
+          "section": "5.10",
+          "id": "mk5-5.10-try10",
+          "type": "checkpoint",
+          "label": "Try It 5.22",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-5.10",
+          "section": "5.10",
+          "id": "mk5-5.10-try14",
+          "type": "checkpoint",
+          "label": "Try It 5.23",
+          "title": ""
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [],
+      "depth": 11,
+      "templates": [
+        "g5_coord.name"
+      ],
+      "misconceptions": [
+        "g5_coord.xy_swapped",
+        "g5_coord.starts_at_one"
+      ]
+    },
+    {
+      "id": "g5_convert",
+      "name": "Convert measurements",
+      "kind": "core",
+      "grade": "5",
+      "section": null,
+      "book": "mk5",
+      "origin": "Marginalia Elementary Mathematics 5.11",
+      "lesson": [
+        {
+          "book": "mk5",
+          "section": "5.11",
+          "module": "mk5-5.11",
+          "title": "Converting Measurements",
+          "url": "",
+          "subsections": [
+            {
+              "id": "mk5-5.11-sec1",
+              "title": "Bigger and Smaller Units"
+            }
+          ]
+        }
+      ],
+      "prerequisites": [
+        "g5_dec_ops",
+        "g4_measure"
+      ],
+      "learning_objectives": [
+        "Convert between units within one system",
+        "including with decimals"
+      ],
+      "anchors": [
+        {
+          "book": "mk5",
+          "module": "mk5-5.11",
+          "section": "5.11",
+          "id": "mk5-5.11-ex4",
+          "type": "example",
+          "label": "Example 5.18",
+          "title": "To a smaller unit"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-5.11",
+          "section": "5.11",
+          "id": "mk5-5.11-ex7",
+          "type": "example",
+          "label": "Example 5.19",
+          "title": "To a larger unit"
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-5.11",
+          "section": "5.11",
+          "id": "mk5-5.11-try13",
+          "type": "checkpoint",
+          "label": "Try It 5.24",
+          "title": ""
+        },
+        {
+          "book": "mk5",
+          "module": "mk5-5.11",
+          "section": "5.11",
+          "id": "mk5-5.11-try17",
+          "type": "checkpoint",
+          "label": "Try It 5.25",
+          "title": ""
+        }
+      ],
+      "glossary": [],
+      "exercised_in": {
+        "count": 0,
+        "ids": []
+      },
+      "dependents": [],
+      "depth": 12,
+      "templates": [
+        "g5_convert.units"
+      ],
+      "misconceptions": [
+        "g5_convert.convert_direction5",
+        "g5_convert.metric_power_wrong"
+      ]
+    }
+  ]
+}

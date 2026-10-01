@@ -378,6 +378,8 @@ def plain(inl: list[dict] | None, math: bool = True) -> str:
             parts.append(i["s"])
         elif k == "br":
             parts.append("\n")
+        elif k == "draw":
+            parts.append(f"[{i['alt']}]")
     return re.sub(r"[ \t]+", " ", "".join(parts))
 
 
@@ -392,6 +394,8 @@ def block_plain(b: dict, math: bool = True) -> str:
         return "\n".join(block_plain(x, math) for item in b["items"] for x in item)
     if t == "figure":
         return plain(b["caption"], math)
+    if t == "draw":
+        return f"[{b['alt']}]"
     if t == "table":
         return "\n".join(" | ".join(plain(c["inl"], math) for c in r) for r in b["rows"])
     if t == "box":

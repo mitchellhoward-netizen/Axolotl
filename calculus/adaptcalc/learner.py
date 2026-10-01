@@ -96,7 +96,12 @@ def now() -> str:
 
 
 def config() -> dict:
-    return yaml.safe_load(paths.CONFIG_YAML.read_text(encoding="utf-8"))
+    """config.yaml, with the active course's `course_overrides` merged in."""
+    cfg = yaml.safe_load(paths.CONFIG_YAML.read_text(encoding="utf-8"))
+    over = (cfg.get("course_overrides") or {}).get(paths.course()) or {}
+    for sec, vals in over.items():
+        cfg[sec] = {**cfg.get(sec, {}), **vals} if isinstance(vals, dict) else vals
+    return cfg
 
 
 class LearnerDB:

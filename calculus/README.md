@@ -2,10 +2,12 @@
 
 A math textbook for families. A child works on paper; a parent photographs the page; every
 step is checked, the book finds what is missing underneath, and the next packet is set for
-them in the textbook's own words. Two courses live in `courses/`:
+them in the textbook's own words. Four courses live in `courses/`:
 
 | Course | Source (exact version in `LICENSES.md`) | Skills | Offered to |
 | --- | --- | --- | --- |
+| `elementary` Elementary Mathematics, K–5 | *Marginalia Elementary Mathematics* (`books/mk5/`), **written for this project** | 60 | every family |
+| `prealgebra` Pre-Algebra, grades 6–8 | *Prealgebra 2e*, OpenStax, **CC BY 4.0** (pinned) | 58 | every family |
 | `algebra1` Algebra 1 | *Elementary Algebra 2e*, OpenStax, **CC BY 4.0** (pinned to the last CC BY release) | 75 | every family |
 | `calc_limits` Calculus: Limits | *Calculus Volume 1*, Ch. 2, OpenStax, CC BY-NC-SA 4.0 | 45 | the owner only (personal study) |
 
@@ -80,6 +82,23 @@ project's keys, never copies), `ADAPTCALC_ACCESS_CODES`, `ADAPTCALC_OWNER_EMAIL`
 * **Interleaved, spaced review**: about a third of practice is review of earlier skills (due ones first), mixed in.
 * **Mastery before moving on**: one new skill per lesson; a skill counts as learned after three checked problems or diagnostic placement.
 * **Guardrailed AI**: margin notes are checked with SymPy, the notation registry and Jev (no answer give-aways unless asked, no ideas the book hasn't taught); otherwise the book's worked example is shown.
+
+## The elementary book (`books/mk5/`)
+
+There is no CC BY textbook for kindergarten to grade 5 in a form we can typeset, so the
+elementary course has its own: one YAML file per grade, one section per skill, loaded by
+`adaptcalc/authored.py` into the same block structure the OpenStax parser produces. Lessons,
+the verbatim audit, Try It answers in the key and the Jev gate therefore work unchanged.
+
+* Write a section as `opening` + `sections`, with `p`, `draw`, `example` (with `step`/`work`
+  rows), `try`, `howto`, `def`, `table` and `grownup` blocks (the format is documented at the top
+  of `authored.py`). Inline `$...$` is Typst math; `{{tenframe(7) | words}}` draws a figure.
+* Figures (ten frames, base-ten blocks, clocks, number lines, fraction bars, arrays, coins,
+  graphs, the coordinate plane, prisms, angles, rulers) are Typst functions in `typst/figures.typ`.
+* K–2 sections open with a note "For the grown-up", since a parent reads them aloud.
+* `grade:` on each skill drives the starting points (`config.yaml`); the elementary diagnostic
+  is shorter, in rounds of six (`course_overrides`).
+* `tests/test_typeset.py` compiles the whole book and checks every word reaches the PDF.
 
 ## How each part works
 
