@@ -21,6 +21,7 @@ from __future__ import annotations
 
 import collections
 import datetime as dt
+import functools
 import json
 import os
 import re
@@ -33,7 +34,7 @@ from pathlib import Path
 from fastapi import FastAPI, File, HTTPException, Request, UploadFile
 from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, RedirectResponse, Response
 
-from . import accounts, billing, diagnostic, extract, mailer, packets, paths, pipeline, transcribe
+from . import accounts, billing, diagnostic, extract, mailer, packets, paths, pipeline, source, transcribe
 from .learner import LearnerDB, config
 
 STATIC = Path(__file__).resolve().parent / "static"
@@ -48,8 +49,10 @@ def course_info(course_id: str) -> dict:
     with paths.use_course(course_id):
         src = extract.course_source()
         n = len(extract.skills())
+    books = [b["id"] for b in src.get("books", [])] or ["calc1"]
     return {"id": course_id, "title": src.get("title", course_id), "subtitle": src.get("subtitle", ""),
             "commercial": bool(src.get("commercial")), "skills": n,
+            "credit": " ".join(source.attribution_line(b) for b in books),
             "starts": [{"id": k, "label": v["label"]} for k, v in config().get("starting_points", {}).get(course_id, {}).items()]}
 
 
@@ -558,10 +561,16 @@ def state(lid: str, request: Request):
             "ready": {"photos": transcriber_ready(), "jev": bool(os.environ.get("TYPESAFE_API_KEY"))}}
 
 
-def chapter_titles(book: str) -> dict[int, str]:
+@functools.lru_cache(maxsize=None)
+def chapter_titles(book: str) -> dict[str, str]:
+    """Chapter label ('3', or 'K' in the elementary book) -> its title."""
     from . import source
 
-    return {ch: title for ch, _, _, title in source.chapter_modules(book)}
+    if source.BOOKS[book].authored:
+        from . import authored
+
+        return authored.chapter_titles(book)
+    return {str(ch): title for ch, _, _, title in source.chapter_modules(book)}
 
 
 def skill_groups() -> dict[str, str]:
@@ -572,8 +581,11 @@ def skill_groups() -> dict[str, str]:
         if extract.course_source().get("books"):
             sec = (k.get("lesson") or [{}])[0].get("section", "")
             ch = sec.split(".")[0]
-            title = chapter_titles(k["book"]).get(int(ch), "") if ch.isdigit() else ""
-            out[s] = f"Chapter {ch}" + (f": {title}" if title else "")
+            title = chapter_titles(k["book"]).get(ch, "")
+            if source.BOOKS[k["book"]].authored:
+                out[s] = title or f"Chapter {ch}"  # the elementary book's chapters are grades
+            else:
+                out[s] = f"Chapter {ch}" + (f": {title}" if title else "")
         else:
             out[s] = ("Prealgebra and algebra basics" if s.startswith("pre_") else
                       "Algebra and trigonometry for calculus" if k["kind"] == "foundation" else f"Calculus {k['section']}")

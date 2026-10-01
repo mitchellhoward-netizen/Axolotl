@@ -93,9 +93,9 @@ function renderHeader() {
   document.title = `${name} · ${state.course.title} · Marginalia`;
   $("#course").textContent = state.course.title + (state.course.subtitle ? ` · ${state.course.subtitle}` : "");
   $("#title").textContent = `${name}’s book`;
-  $("#colophon").innerHTML = state.course.commercial
-    ? `Lessons adapted from <i>Elementary Algebra 2e</i> by Lynn Marecek, MaryAnne Anthony-Smith and Andrea Honeycutt Mathis, OpenStax, CC BY 4.0. Access for free at openstax.org. · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a>`
-    : `Lessons adapted from <i>Calculus Volume 1</i> by Gilbert Strang and Edwin Herman, OpenStax, CC BY-NC-SA 4.0, for personal study. · <a href="/privacy">Privacy</a>`;
+  // the attribution each course's books require, from the server (source.attribution_line)
+  $("#colophon").innerHTML = esc(state.course.credit || "") + (state.course.commercial ? "" : " For personal study.")
+    + ` · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a>`;
 }
 
 function renderNext() {

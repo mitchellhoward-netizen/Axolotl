@@ -136,3 +136,30 @@ def test_phone_photos_are_converted_for_claude(tmp_path):
     out = Image.open(io.BytesIO(data))
     assert media == "image/jpeg" and out.format == "JPEG"
     assert max(out.size) <= transcribe.MAX_SIDE and len(data) <= transcribe.MAX_BYTES
+
+
+def test_every_course_works_for_a_learner(client):
+    """Each family course: state, a first diagnostic round, the PDF, and the progress page grouped
+    by the book's chapters (grades, in the elementary book)."""
+    signup(client)
+    ids = [c["id"] for c in client.get("/api/me").json()["courses"]]
+    assert ids == ["elementary", "prealgebra", "algebra1"]
+    for course in ids:
+        lid = client.post("/api/learners", headers=H, json={"name": course[:8], "course": course}).json()["id"]
+        assert client.get(f"/api/l/{lid}/state").status_code == 200
+        j = wait(client, client.post(f"/api/l/{lid}/diagnostic/next", headers=H).json()["job"])
+        assert j["status"] == "done", (course, j)
+        assert client.get(j["result"]["pdf"]).content[:4] == b"%PDF"
+        assert client.get(f"/api/l/{lid}/state").status_code == 200, course
+        p = client.get(f"/api/l/{lid}/progress").json()
+        assert p["groups"], course
+        if course == "elementary":
+            assert p["groups"][0]["name"] == "Kindergarten"
+
+
+def test_each_course_carries_its_own_attribution(client):
+    signup(client)
+    credit = {c["id"]: c["credit"] for c in client.get("/api/me").json()["courses"]}
+    assert "Prealgebra 2e" in credit["prealgebra"] and "CC BY 4.0" in credit["prealgebra"]
+    assert "Elementary Algebra 2e" in credit["algebra1"]
+    assert "Written for Marginalia" in credit["elementary"] and "OpenStax" not in credit["elementary"]

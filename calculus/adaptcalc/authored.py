@@ -200,5 +200,14 @@ def load(book: str) -> list[ModuleIR]:
     return mods
 
 
+def chapter_titles(book: str) -> dict[str, str]:
+    """'K' -> 'Kindergarten', '3' -> 'Grade 3': the label a section number starts with, and its title."""
+    out = {}
+    for f in files(book):
+        doc = yaml.safe_load(f.read_text(encoding="utf-8"))
+        out[chapter_label(int(doc["chapter"]))] = doc["title"]
+    return out
+
+
 def files(book: str) -> list[Path]:
     return sorted((paths.ROOT / BOOKS[book].authored).glob("grade-*.yaml"))
