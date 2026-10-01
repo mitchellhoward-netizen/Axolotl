@@ -968,10 +968,25 @@ def mybook(lid: str, request: Request):
         for i in range(1, n + 1):
             leaves.append({"t": "img", "src": f"/l/{lid}/packets/{p['id']}/page/{i}.webp", "packet": p["id"],
                            "kind": p["kind"], "n": i})
+        where = pipeline.problem_positions(p["pdf"]) if reps.get(p["id"]) else {}
         for rep in reps.get(p["id"], []):
             pub = public_report(rep)
             if rep.get("photo"):
                 pub["photo_url"] = f"/l/{lid}/photos/{rep['photo']}"
+            graded = [x for x in pub["problems"] if x.get("status") == "graded"]
+            if not graded:
+                continue  # a photo with nothing new on it leaves no page in the book
+            sheets = collections.Counter(where[x["number"]]["page"] for x in graded if x["number"] in where)
+            if sheets:
+                # the sheet as printed, marked in the margin beside each problem, then the notes facing it
+                sheet = sheets.most_common(1)[0][0]
+                marks = [{"n": x["number"], "y": where[x["number"]]["y"],
+                          "v": "skip" if x.get("skipped") else ("yes" if x.get("correct") else "no")}
+                         for x in graded if where.get(x["number"], {}).get("page") == sheet]
+                if (len(leaves) + 1) % 2:  # the marked sheet on a left-hand page, its notes facing it
+                    leaves.append({"t": "blank"})
+                leaves.append({"t": "marked", "packet": p["id"], "src": f"/l/{lid}/packets/{p['id']}/page/{sheet}.webp",
+                               "marks": marks})
             leaves.append({"t": "returned", "packet": p["id"], "report": pub})
         if p["status"] == "open" and n:
             today = first

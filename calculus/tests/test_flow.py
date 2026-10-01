@@ -128,3 +128,54 @@ def _jpeg():
     buf = io.BytesIO()
     Image.new("RGB", (60, 80), "white").save(buf, "JPEG")
     return buf.getvalue()
+
+
+def test_a_problem_on_another_sheet_is_not_marked_skipped(client, monkeypatch):
+    """Found live: a photo of sheet 1 must not record the problems printed on sheet 2 as skipped
+    (that closed the set before sheet 2 was sent, and its work was thrown away)."""
+    r = client.post("/api/auth/signup", headers=H, json={"email": "q@example.com", "password": "correct horse 1",
+                                                         "name": "Q", "code": "PILOT-1", "child": "Ivy", "grade": "3"})
+    lid = r.json()["learner"]
+    b = wait_idle(client, lid)
+    pid = b["now"]["open"]["packet"]
+    with paths.use_learner(accounts.learner_dir(lid), "elementary"):
+        from adaptcalc.learner import LearnerDB
+        n = len(LearnerDB().problems(pid))
+    last = n
+
+    class Sheet1(RightAnswers):
+        def transcribe(self, photo, context=""):
+            doc = super().transcribe(photo, context)
+            for p in doc["problems"]:
+                if p["number"] == last:  # not in this photo: the reader (wrongly) calls it skipped
+                    p.update({"skipped": True, "lines": [], "final_answer": None})
+            return doc
+
+    monkeypatch.setattr(pipeline, "problem_pages", lambda pdf: {k: (2 if k == last else 1) for k in range(1, n + 1)})
+    monkeypatch.setattr(transcribe, "default_transcriber", lambda *a, **k: Sheet1(pid))
+    monkeypatch.setattr(evidence, "gather", lambda public, tp, check, library, log=None, client=None: {"decision": {
+        "misconception": None, "misconception_root": None, "attempts": 1, "crossed_out_runs": 0, "substeps": {},
+        "substeps_written_fraction": 1.0, "strategy": next(iter(public["strategies"]))}})
+    job = client.post(f"/api/l/{lid}/photos?packet={pid}", headers=H, files={"photo": ("s1.jpg", _jpeg(), "image/jpeg")}).json()["job"]
+    for _ in range(300):
+        j = client.get(f"/api/jobs/{job}").json()
+        if j["status"] in ("done", "error"):
+            break
+        time.sleep(0.2)
+    assert j["status"] == "done", j["error"]
+    assert not j["result"]["done"] and j["result"]["summary"]["checked"] == n - 1
+    assert client.get(f"/api/l/{lid}/mybook").json()["now"]["open"]["packet"] == pid  # still open for sheet 2
+
+
+def test_problem_pages_reads_the_printed_sheets(tmp_path):
+    """The real mapping, from a real set of pages: problems after the work box, by sheet."""
+    from adaptcalc import diagnostic, packets
+    from adaptcalc.learner import LearnerDB
+
+    with paths.use_learner(tmp_path / "kid", "elementary"):
+        db = LearnerDB()
+        pid = diagnostic.create_round(db)
+        r = packets.render_diagnostic(db, pid)
+        where = pipeline.problem_pages(str(r["pdf"]))
+        assert sorted(where) == [p["number"] for p in db.problems(pid)]
+        assert set(where.values()) <= {1, 2, 3}

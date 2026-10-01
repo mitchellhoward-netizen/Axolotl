@@ -9,6 +9,7 @@
 <script defer src="/vendor/katex/katex.min.js"></script>
 <script defer src="/vendor/katex/contrib/auto-render.min.js"></script>
 <style>
+@font-face { font-family: "Caveat"; src: url(/fonts/Caveat.ttf) format("truetype"); font-weight: 400 700; font-display: swap; }
 .shell { max-width: 1240px; margin: 0 auto; padding: 18px 20px 0; }
 
 /* the one thing to do now: a slip of paper tucked in the book */
@@ -73,7 +74,7 @@
 .returned h3 { font-family: var(--display); font-size: 1.7em; margin: 2px 0 8px; color: #27231d; }
 .returned .score { font-size: 1.05em; margin-bottom: 10px; }
 .returned .score b { color: #0d5e6b; }
-.returned .layout { display: grid; grid-template-columns: 1fr; gap: 12px; }
+.returned .layout { display: block; }
 .returned .photo img { width: 100%; border: 1px solid #d9cdb5; box-shadow: 0 1px 3px #0002; display: block; cursor: zoom-in; }
 .returned .notes { border-left: 2px solid #0d5e6b; padding-left: 12px; }
 .m-note { padding: 6px 0 8px; border-bottom: 1px dotted #d9cdb5; }
@@ -85,6 +86,20 @@
 .m-note .shows { margin-top: 3px; color: #5d5547; }
 .m-note .tx { font-family: var(--text); background: #f3ecdd; padding: 0 4px; font-style: normal; color: #27231d; }
 .m-note .ask { font-size: .9em; }
+.m-note.hand { font-family: "Caveat", cursive; font-size: 1.35em; color: #0d6b5e; border-bottom: 0; }
+.returned .photo { float: right; width: 34%; margin: 0 0 8px 12px; }
+.returned .photo .cap { font-size: .75em; color: #8a7f6c; text-align: center; margin-top: 2px; }
+/* a sheet as printed, marked in the margin like a teacher's pen */
+.mark { position: absolute; right: 3.5%; transform: translateY(-18%); font-family: "Caveat", cursive; font-weight: 700;
+  line-height: 1; z-index: 2; pointer-events: none; display: flex; align-items: center; gap: .25em; }
+.mark.yes { color: #0d6b5e; font-size: clamp(22px, 3.3vw, 46px); }
+.mark.no { color: #b13a26; font-size: clamp(15px, 2vw, 26px); }
+.mark.no .ring { display: inline-flex; width: 1.6em; height: 1.6em; border: 2.5px solid #b13a26; border-radius: 50%;
+  align-items: center; justify-content: center; font-size: 1.1em; }
+.mark.skip { color: #8a7f6c; font-size: clamp(15px, 1.8vw, 24px); }
+.single .mark.yes { font-size: clamp(28px, 5vw, 54px); }
+.tally { position: absolute; right: 5%; bottom: 4.5%; z-index: 2; font-family: "Caveat", cursive; font-weight: 700;
+  color: #0d6b5e; font-size: clamp(20px, 2.6vw, 38px); transform: rotate(-4deg); border-bottom: 2px solid #0d6b5e; padding: 0 .2em; }
 .making { display: flex; flex-direction: column; justify-content: center; text-align: center; color: #5d5547; }
 .making .big { font-family: var(--display); font-size: 1.9em; color: #27231d; margin-bottom: 8px; }
 .making .quill { font-size: 2.6em; color: #0d5e6b; animation: write 2.4s ease-in-out infinite; display: inline-block; }
@@ -225,7 +240,10 @@ async function act_(url) {
 }
 function startPolling() { if (!poll) poll = setInterval(() => loadMine(false).catch(() => {}), 3000); }
 function stopPolling() { if (poll) { clearInterval(poll); poll = null; } }
-function lastReturned() { for (let i = mine.leaves.length - 1; i >= 0; i--) if (mine.leaves[i].t === "returned") return i + 1; return null; }
+function lastReturned() {  // the first leaf of the latest marked work
+  for (let i = mine.leaves.length - 1; i >= 0; i--) if (mine.leaves[i].t === "returned") return mine.leaves[i - 1] && mine.leaves[i - 1].t === "marked" ? i : i + 1;
+  return null;
+}
 
 // photos from this computer (the phone uses the code on the page)
 $("#photoInput").onchange = async () => {
@@ -250,14 +268,13 @@ $("#photoInput").onchange = async () => {
 
 // ---------------------------------------------------------------- pages
 function noteHtml(p) {
-  if (p.status !== "graded") return `<div class="m-note"><div class="h"><span class="n">${p.number}</span><span class="v skip">${esc(p.status || "")}</span></div></div>`;
-  const v = p.skipped ? ["skip", "skipped"] : p.correct ? ["yes", "right"] : ["no", "not yet"];
-  let h = `<div class="m-note"><div class="h"><span class="n">${p.number}</span><span class="v ${v[0]}">${v[1]}</span></div>`;
+  // a margin note for one problem that needs another look: where it went wrong, never the answer itself
+  let h = `<div class="m-note"><div class="h"><span class="n">${p.number}</span><span class="v ${p.skipped ? "skip" : "no"}">${p.skipped ? "skipped" : "look again"}</span></div>`;
   const bad = (p.lines || []).findIndex((l) => l.status === "invalid");
   if (bad >= 0) h += `<div class="line">Line ${bad + 1}, <span class="tx">${esc(p.lines[bad].text)}</span>: ${esc(p.lines[bad].note && p.lines[bad].note !== "solution set changed" ? p.lines[bad].note : "this doesn’t follow from the line before")}</div>`;
-  else if (!p.correct && !p.skipped && p.final_note) h += `<div class="line">${esc(p.final_note.replace("the answer is", "the book’s answer is").replace(/\*\*/g, "^").replace(/\*/g, "·"))}</div>`;
-  if (p.misconception_text) h += `<div class="shows">${esc(p.misconception_text)}</div>`;
-  if (p.problem_id && !p.skipped) h += `<button class="linkish ask" data-ask="${esc(p.problem_id)}" data-n="${p.number}">ask about this</button>`;
+  else if (!p.skipped && p.final_answer) h += `<div class="line">The answer written, <span class="tx">${esc(p.final_answer)}</span>, isn’t right yet.</div>`;
+  if (p.misconception_text) h += `<div class="shows">What the work shows: ${esc(p.misconception_text)}</div>`;
+  if (p.problem_id && !p.skipped) h += `<button class="linkish ask" data-ask="${esc(p.problem_id)}" data-n="${p.number}">ask the book about this</button>`;
   return h + `</div>`;
 }
 function leafHtml(i) {
@@ -275,14 +292,24 @@ function leafHtml(i) {
     <div class="sub">${esc(mine.course.title)}</div><div class="orn">❦</div></div>`;
   if (L.t === "making") return `<div class="hp making"><div><span class="quill">✒</span></div><div class="big">The next pages are being written.</div>
     <div>${esc(L.stage || "")}</div></div>${today}`;
+  if (L.t === "blank") return `<div class="hp" style="display:flex;align-items:center;justify-content:center;color:#cbbf9f;font-size:1.6em">❦</div>`;
+  if (L.t === "marked") {
+    const yes = L.marks.filter((m) => m.v === "yes").length;
+    return `<img src="${L.src}" alt="${esc(NAME())}’s page, marked" draggable="false">` + L.marks.map((m) =>
+      `<span class="mark ${m.v}" style="top:${(m.y * 100).toFixed(2)}%">${m.v === "yes" ? "✓" : m.v === "no" ? `<span class="ring">${m.n}</span>look again` : "skipped"}</span>`).join("")
+      + `<span class="tally">${yes} / ${L.marks.length}</span>${today}`;
+  }
   if (L.t === "returned") {
-    const r = L.report, probs = r.problems || [];
-    const g = probs.filter((p) => p.status === "graded"), right = g.filter((p) => p.correct).length;
-    return `<div class="hp returned"><div class="kick">${esc(NAME())}’s work, checked · pages ${esc(r.packet)}</div>
-      <h3>${g.length ? `${right} of ${g.length} right` : "This page"}</h3>
-      ${r.error ? `<p class="err">${esc(r.error)}</p>` : ""}
-      <div class="layout">${r.photo_url ? `<div class="photo"><img src="${r.photo_url}" alt="The page as photographed" data-zoom="${r.photo_url}"></div>` : ""}
-      <div class="notes">${probs.map(noteHtml).join("")}</div></div></div>${today}`;
+    const r = L.report, g = (r.problems || []).filter((p) => p.status === "graded");
+    const right = g.filter((p) => p.correct), again = g.filter((p) => !p.correct);
+    const praise = !again.length ? "Every one right." : right.length >= again.length ? "Good work." : "A few to look at again.";
+    return `<div class="hp returned"><div class="kick">The notes · ${esc(NAME())}’s pages ${esc(r.packet)}</div>
+      <h3>${right.length} of ${g.length} right. ${praise}</h3>
+      ${r.photo_url ? `<div class="photo"><img src="${r.photo_url}" alt="The page as photographed" data-zoom="${r.photo_url}"><div class="cap">the page as sent</div></div>` : ""}
+      ${right.length ? `<div class="m-note hand">✓ ${right.map((p) => p.number).join(", ")}: right${right.length > 1 ? ", all of them" : ""}.</div>` : ""}
+      ${again.map(noteHtml).join("")}
+      ${again.length ? `<p class="small" style="color:#5d5547;margin-top:10px">The next pages bring these ideas back, in a different way.</p>` : ""}
+    </div>${today}`;
   }
   return null;
 }
@@ -357,7 +384,7 @@ function renderContents() {
         const kind = { diagnostic: "Getting to know you", lesson: "Lesson", refresh: "Refresher" }[L.kind] || "Pages";
         h += `<button class="sec ${i === mine.today ? "here" : ""}" data-go="${i + 1}"><span class="m">${i === mine.today ? "❧" : ""}</span><span class="n">${esc(L.packet)}</span><span>${kind}</span><span class="p">${i + 1}</span></button>`;
       }
-      if (L.t === "returned") h += `<button class="sec" data-go="${i + 1}"><span class="m">✓</span><span class="n"></span><span>Checked work</span><span class="p">${i + 1}</span></button>`;
+      if (L.t === "marked") h += `<button class="sec" data-go="${i + 1}"><span class="m">✓</span><span class="n"></span><span>Marked and returned</span><span class="p">${i + 1}</span></button>`;
     });
   } else if (text) {
     const MARK = { learned: "✓", here: "❧", begun: "◐", ahead: "" };

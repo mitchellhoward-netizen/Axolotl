@@ -22,6 +22,7 @@ WEB_FONTS = {
     "EBGaramond-Italic.ttf": f"{GF}/ebgaramond/EBGaramond-Italic%5Bwght%5D.ttf",
     "SourceSerif4.ttf": f"{GF}/sourceserif4/SourceSerif4%5Bopsz,wght%5D.ttf",
     "SourceSerif4-Italic.ttf": f"{GF}/sourceserif4/SourceSerif4-Italic%5Bopsz,wght%5D.ttf",
+    "Caveat.ttf": f"{GF}/caveat/Caveat%5Bwght%5D.ttf",  # the margin notes: a teacher's hand
 }
 KATEX = "https://registry.npmjs.org/katex/-/katex-0.16.11.tgz"
 VENDOR = paths.CACHE / "vendor"

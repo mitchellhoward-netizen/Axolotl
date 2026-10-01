@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import re
 import shutil
 import time
 from pathlib import Path
@@ -60,6 +61,36 @@ def resolve_packet(db: LearnerDB, code: str | None) -> str | None:
     return op["id"] if op else None
 
 
+def problem_positions(pdf: str | None) -> dict[int, dict]:
+    """Problem number -> where it is printed: {"page", "x", "y"} (x, y as fractions of the page), read
+    from the packet's PDF (the bold numbers in the left margin, after the "how to write your work"
+    box: lesson text before it can have numbered lists). Empty when the PDF is missing."""
+    if not pdf or not Path(pdf).exists():
+        return {}
+    import pymupdf
+
+    out: dict[int, dict] = {}
+    started = False
+    with pymupdf.open(pdf) as doc:
+        for i, page in enumerate(doc, 1):
+            W, Hh = page.rect.width, page.rect.height
+            words = page.get_text("words", sort=True)
+            for k, w in enumerate(words):
+                x0, y0, txt = w[0], w[1], w[4]
+                if not started:
+                    started = txt == "HOW" and " ".join(x[4] for x in words[k:k + 5]) == "HOW TO WRITE YOUR WORK"
+                    continue
+                m = re.fullmatch(r"(\d{1,2})\.", txt)
+                if m and x0 < 130 and int(m.group(1)) not in out:
+                    out[int(m.group(1))] = {"page": i, "x": round(x0 / W, 4), "y": round(y0 / Hh, 4)}
+    return out
+
+
+def problem_pages(pdf: str | None) -> dict[int, int]:
+    """Problem number -> the printed page (sheet) it is on."""
+    return {n: v["page"] for n, v in problem_positions(pdf).items()}
+
+
 def process_photo(db: LearnerDB, photo: Path, transcriber=None, jev_client=None, move: bool = True,
                   progress=None, packet: str | None = None) -> dict:
     """`progress(stage)` (optional) is told what is happening, for a page that shows it.
@@ -78,6 +109,17 @@ def process_photo(db: LearnerDB, photo: Path, transcriber=None, jev_client=None,
         report["error"] = "no packet code on the page and no open packet"
         return report
     library_all = extract.misconceptions()
+    # a set of pages runs over several sheets: only the problems printed on the sheet in this photo count
+    # (a problem from another sheet must never be recorded as skipped because it isn't in the picture)
+    where = problem_pages((db.packet(pid) or {"pdf": None})["pdf"])
+    if where:
+        seen = {where.get(tp["number"]) for tp in doc["problems"]
+                if not tp.get("skipped") or any(ln.get("text", "").strip() for ln in tp.get("lines", []))}
+        seen.discard(None)
+        if seen:
+            elsewhere = [tp for tp in doc["problems"] if where.get(tp["number"]) not in seen]
+            doc["problems"] = [tp for tp in doc["problems"] if where.get(tp["number"]) in seen]
+            report["not_on_this_page"] = [tp["number"] for tp in elsewhere]
     total = len(doc["problems"])
     for k, tp in enumerate(doc["problems"], 1):
         say(f"Checking problem {tp['number']} ({k} of {total})")

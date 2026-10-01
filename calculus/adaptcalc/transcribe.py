@@ -26,6 +26,9 @@ How the page is written:
 - Mistakes are crossed out, not erased. A line (or part of a line) with a line or scribble through it is crossed_out=true. Still transcribe what it says if you can read it.
 - The final answer is boxed. Mark that line boxed=true and copy the boxed value into final_answer.
 - If the student wrote "skip" (or left the problem blank after the number), set skipped=true.
+- The work is usually written right on printed pages. List ONLY the problems whose number can be seen in this photo.
+  A set of pages has other problems on other pages: never list a problem that is not on this page, and never mark
+  one skipped because it is missing from this photo.
 
 For each line give:
 - text: exactly what is written, in plain linear notation (use lim_(x->2), sqrt(), ^, /, |x|, ∞, ε, δ, ±, ≤, ≥). Do not fix mistakes.
