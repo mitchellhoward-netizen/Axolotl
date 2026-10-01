@@ -85,7 +85,10 @@ def inline_image(name: str) -> str:
     p = assets.duotone(name)
     rel = "/" + str(p.relative_to(paths.ROOT))
     w, h = Image.open(p).size
-    lines = max(1.0, min(5.0, h / 46))
+    # one-line art (a highlighted substitution) matches the text; stacked work (column arithmetic,
+    # fractions over fractions) is drawn small in the source and needs room to stay legible
+    lines = h / 46 if h <= 60 else h / 22
+    lines = max(1.0, min(8.0, lines))
     return f'#box(baseline: 22%, image("{rel}", height: {0.95 * lines:.2f}em))'
 
 

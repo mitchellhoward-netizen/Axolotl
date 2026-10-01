@@ -261,6 +261,8 @@ def resolve_skill(sk: dict, chapter, all_items, all_boxes) -> dict:
         "glossary": glossary,
         "exercised_in": {"count": len(problems), "ids": problems[:25]},
     }
+    if sk.get("templates"):
+        out["only_templates"] = list(sk["templates"])
     if sk["kind"] == "foundation" and not problems and chapter:
         raise ValueError(f"{sk['id']}: foundation skill not detected anywhere in the chapter")
     if not chapter:  # a book course: every skill is taught from its lesson
@@ -344,7 +346,8 @@ def build(write: bool = True) -> tuple[dict, dict]:
     for s in skills:
         s["dependents"] = dependents.get(s["id"], [])
         s["depth"] = depth[s["id"]]
-        s["templates"] = [t.id for t in templates.for_skill(s["id"])]
+        s["templates"] = [t.id for t in templates.REGISTRY.values() if t.skill == s["id"]
+                          and (not s.get("only_templates") or t.id in s["only_templates"])]
     misconceptions = resolve_misconceptions(onto, chapter, set(by_id), all_items)
     for s in skills:
         s["misconceptions"] = [m["id"] for m in misconceptions[s["id"]]]

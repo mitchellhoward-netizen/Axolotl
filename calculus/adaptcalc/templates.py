@@ -81,15 +81,25 @@ def check(cond: bool, msg: str) -> None:
 
 
 def for_skill(skill: str) -> list[Template]:
-    return [t for t in REGISTRY.values() if t.skill == skill]
+    """The skill's templates; a course may restrict them to what its book teaches (ontology `templates:`)."""
+    mine = [t for t in REGISTRY.values() if t.skill == skill]
+    try:
+        from . import extract
+
+        only = extract.skills().get(skill, {}).get("only_templates")
+    except Exception:  # noqa: BLE001 - outside a course
+        only = None
+    return [t for t in mine if t.id in only] if only else mine
 
 
 def for_course() -> dict[str, Template]:
     """The templates of the active course: their skill and every skill they require are in it."""
     from . import extract
 
-    have = set(extract.skills())
-    return {tid: t for tid, t in REGISTRY.items() if t.skill in have and all(r in have for r in t.requires)}
+    sk = extract.skills()
+    have = set(sk)
+    return {tid: t for tid, t in REGISTRY.items() if t.skill in have and all(r in have for r in t.requires)
+            and (not sk[t.skill].get("only_templates") or tid in sk[t.skill]["only_templates"])}
 
 
 def generate(template_id: str, seed: int, max_tries: int = 40) -> Problem:
@@ -1026,7 +1036,7 @@ def _balanced(t: str, i: int) -> int:
 def typ_to_plain(t: str) -> str:
     """A key's Typst display as a learner would write it (frac(a, b) -> (a)/(b), dot -> *, ...)."""
     t = re.sub(r'"[^"]*"', "", t)
-    t = t.replace("\\$", "$").replace("\\,", ",")
+    t = t.replace("\\$", "$").replace("\\,", ",").replace("{,}", "")
     t = t.replace("lr(|", "Abs(").replace("|)", ")")
     for name, fmt in (("frac(", "(({a})/({b}))"), ("root(", "(({b})**(1/({a})))")):
         while name in t:
@@ -1103,3 +1113,4 @@ def verify_all(seeds=range(5), only: set[str] | None = None) -> list[str]:
 
 # Algebra 1 (course algebra1) registers its templates in the same registry.
 from . import templates_algebra  # noqa: E402,F401
+from . import templates_prealgebra  # noqa: E402,F401

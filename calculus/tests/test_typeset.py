@@ -4,7 +4,7 @@ import pytest
 from adaptcalc import extract, paths, render, templates
 
 
-@pytest.mark.parametrize("course", ["algebra1", "calc_limits"])
+@pytest.mark.parametrize("course", ["algebra1", "calc_limits", "prealgebra"])
 def test_every_template_typesets(course, tmp_path):
     with paths.use_course(course):
         src = [render.doc_head("typeset check", "check", "T")]

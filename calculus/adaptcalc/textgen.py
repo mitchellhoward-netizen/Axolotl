@@ -53,6 +53,9 @@ def sympy_check(s: Snippet) -> tuple[bool, str]:
         if k["kind"] in ("limit", "value", "expr", "delta"):
             v = k["value"]
             sample = "DNE" if v == "DNE" else str(sp.sympify(v))
+            if k.get("form") and p.get("key_display"):
+                from .templates import typ_to_plain
+                sample = typ_to_plain(p["key_display"])  # a required form: the key as the learner writes it
             ok, why = answers.grade(k, sample)
             return ok, why
         return True, p["verification"]

@@ -32,11 +32,28 @@ import contextvars
 _SYMBOL_OVERRIDES: contextvars.ContextVar[frozenset] = contextvars.ContextVar("symbol_overrides", default=frozenset())
 
 
+MIXED = r"(-?)\s*(\d+)\s+(\d+)\s*/\s*(\d+)"
+
+
+def mixed_text(s: str) -> str:
+    """'7 (7/9)', '7 ((7)/(9))' and '7 and 7/9' all read as the mixed number '7 7/9'; anything else is unchanged."""
+    t = re.sub(r"\s+and\s+", " ", s.strip())
+    u = t
+    for _ in range(3):
+        u = re.sub(r"\(\s*(\d+)\s*\)", r"\1", u)
+        u = re.sub(r"\(\s*(\d+\s*/\s*\d+)\s*\)", r"\1", u)
+    return u if re.fullmatch(MIXED, u) else s.strip()
+
+
 def parse(s: str):
     """Parse a student/transcribed expression. Raises ValueError on failure."""
     if s is None:
         raise ValueError("empty")
-    t = s.strip()
+    t = mixed_text(s)
+    m = re.fullmatch(MIXED, t)
+    if m:  # a mixed number: 3 2/5
+        sign = -1 if m.group(1) else 1
+        return sign * (sp.Integer(m.group(2)) + sp.Rational(int(m.group(3)), int(m.group(4))))
     t = re.sub(r"√\s*(\d+|[a-zA-Z])", r"sqrt(\1)", t)
     t = re.sub(r"([\w)])\s*√", r"\1*√", t)
     for a, b in UNICODE.items():
@@ -266,6 +283,8 @@ def _grade(key: dict, student: str | None) -> tuple[bool, str]:
                 return False, "equal, but the radical is not fully simplified"
             if ok and form == "lowest_terms" and not _lowest_terms(student):
                 return False, "equal, but the fraction is not in lowest terms"
+            if ok and form == "mixed_number" and not re.fullmatch(MIXED, mixed_text(student)):
+                return False, "equal, but not written as a mixed number"
             if ok and form == "prime_factorization" and not _prime_product(student):
                 return False, "equal, but not written as a product of primes"
             return ok, f"the answer is {show(key)}"

@@ -56,7 +56,7 @@ BOOKS: dict[str, Book] = {
                  ref="d1bd19c69107ba7f45775670809ae161d63db864",
                  license_url="https://creativecommons.org/licenses/by/4.0/", authors="Jay Abramson"),
     "pa2e": Book("pa2e", "Prealgebra 2e", "osbooks-prealgebra-bundle", "prealgebra-2e", "prealgebra-2e",
-                 (2, 4), "chapter", "Try It", "CC BY 4.0",
+                 tuple(range(1, 12)), "chapter", "Try It", "CC BY 4.0",
                  ref="c1bbed4b86ff5c80686d339a6ca5e4e48fae2483",
                  license_url="https://creativecommons.org/licenses/by/4.0/",
                  authors="Lynn Marecek, MaryAnne Anthony-Smith and Andrea Honeycutt Mathis"),

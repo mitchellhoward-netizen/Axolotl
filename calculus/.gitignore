@@ -6,3 +6,4 @@ out/
 inbox/
 __pycache__/
 *.pyc
+outbox/

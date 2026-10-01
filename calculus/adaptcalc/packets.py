@@ -163,8 +163,19 @@ def canonical_passages(mod, select, anchor_ids, limit: int = 24000) -> list[str]
     return kept
 
 
+def section_of(focus: list[str]) -> str:
+    """The book section that teaches the first focus skill that has one."""
+    sk = extract.skills()
+    for s in focus:
+        if sk[s].get("section"):
+            return sk[s]["section"]
+    raise ValueError(f"none of {focus} is taught in a section; give --section")
+
+
 def build_lesson(db: LearnerDB, focus: list[str] | None = None, section: str | None = None,
                  log=None, jev_client=None, use_jev: bool = True) -> dict:
+    if is_book_course() and focus is not None and section is None:
+        return build_refresh(db, focus, log=log, jev_client=jev_client, use_jev=use_jev, kind="lesson")
     cfg = config()["lesson"]
     if focus is None:
         auto_section, focus = choose_focus(db)
@@ -525,9 +536,12 @@ def build_refresh(db: LearnerDB, focus: list[str], log=None, jev_client=None, us
     for sn in snippets:
         sn.allowed = allowed if not getattr(sn, "review", False) else None
     canonical = []
+    # whole subsections where possible (the later examples, remainders and harder cases, are what
+    # practice draws on); a long lesson shares one budget evenly across its subsections
+    cap = max(4000, min(12000, 40000 // max(1, len(excerpt_blocks))))
     for p in parts:
         canonical.append("Learning objectives: " + "; ".join(p["mod"].objectives))
-        canonical += [" ".join(cnxml.block_plain(x).split())[:4000] for x in p["sections"]]
+        canonical += [" ".join(cnxml.block_plain(x).split())[:cap] for x in p["sections"]]
     textgen.gate(snippets, canonical, log=log, client=jev_client, use_jev=use_jev)
 
     # assemble ------------------------------------------------------------------

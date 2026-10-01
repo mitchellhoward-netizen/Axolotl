@@ -12,6 +12,7 @@ H = {"X-Requested-With": "book"}
 def client(tmp_path, monkeypatch):
     monkeypatch.setattr(paths, "LEARNERS", tmp_path / "learners")
     monkeypatch.setattr(paths, "ACCOUNTS_DB", tmp_path / "accounts.db")
+    monkeypatch.setattr(paths, "DATA", tmp_path)
     monkeypatch.setenv("ADAPTCALC_ACCESS_CODES", "PILOT-1")
     web._RATE.clear()  # sign-up is rate limited per address; every test starts fresh
     return TestClient(web.app)

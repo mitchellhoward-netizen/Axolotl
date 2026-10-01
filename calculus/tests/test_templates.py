@@ -3,7 +3,7 @@ import sympy as sp
 
 from adaptcalc import extract, paths, templates
 
-COURSES = ["calc_limits", "algebra1"]
+COURSES = ["calc_limits", "algebra1", "prealgebra"]
 
 
 @pytest.mark.parametrize("course", COURSES)
@@ -34,3 +34,31 @@ def test_limit_keys_match_sympy_limits():
         p = templates.generate("conjugate_limit.sqrt", s)
         assert "limit" in p.verification
         assert sp.sympify(p.key["value"]).is_Rational
+
+
+@pytest.mark.parametrize("course", COURSES)
+def test_every_key_passes_the_generation_gate_self_check(course):
+    """The packet gate re-grades each key; a required form (mixed number, scientific notation,
+    prime factorization) must be graded as the learner writes it, or the problem is silently dropped."""
+    from types import SimpleNamespace
+
+    from adaptcalc import textgen
+
+    with paths.use_course(course):
+        bad = []
+        for tid in templates.for_course():
+            for seed in range(6):
+                p = templates.generate(tid, seed).to_json()
+                ok, why = textgen.sympy_check(SimpleNamespace(kind="problem", problem=p))
+                if not ok:
+                    bad.append(f"{tid} seed {seed}: {why}")
+        assert bad == []
+
+
+def test_mixed_numbers_read_with_or_without_parentheses():
+    from adaptcalc import answers
+
+    key = {"kind": "value", "value": "Rational(70, 9)", "form": "mixed_number"}
+    for s in ("7 7/9", "7 (7/9)", "7 ((7)/(9))", "7 and 7/9"):
+        assert answers.grade(key, s)[0], s
+    assert not answers.grade(key, "70/9")[0]

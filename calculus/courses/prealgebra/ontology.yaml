@@ -1,0 +1,538 @@
+# Pre-Algebra (grades 6-8): the skill graph of Prealgebra 2e (OpenStax, CC BY 4.0, pinned; see LICENSES.md).
+#
+# Skill ids shared with Algebra 1 (f_order_ops, f_frac_mul, lin_general, ...) mean the same skill,
+# so their verified templates are shared; `templates:` limits a skill to what this book teaches.
+# kind: foundation = Chapter 1 (whole numbers, usually review); core = the course.
+
+course:
+  id: prealgebra
+  title: "Pre-Algebra"
+  subtitle: "Grades 6 to 8: whole numbers to the first ideas of algebra"
+  books: [pa2e]
+
+skills:
+  # ------------------------------------------------------------------ Chapter 1: Whole Numbers
+  - id: w_place_value
+    name: Place value and rounding whole numbers
+    kind: foundation
+    prerequisites: []
+    lesson:
+      - {book: pa2e, section: "1.1", subsections: ["Identify the Place Value of a Digit", "Use Place Value to Name Whole Numbers", "Round Whole Numbers"], objectives: ["place value of a digit", "Round whole numbers"]}
+  - id: w_add_sub
+    name: Add and subtract whole numbers
+    kind: foundation
+    prerequisites: [w_place_value]
+    lesson:
+      - {book: pa2e, section: "1.2", subsections: ["Add Whole Numbers Without Models", "Add Whole Numbers in Applications"], objectives: ["Add whole numbers without models"]}
+      - {book: pa2e, section: "1.3", subsections: ["Subtract Whole Numbers", "Subtract Whole Numbers in Applications"], objectives: ["Subtract whole numbers$"]}
+  - id: w_mult
+    name: Multiply whole numbers
+    kind: foundation
+    prerequisites: [w_add_sub]
+    lesson:
+      - {book: pa2e, section: "1.4", subsections: ["Multiply Whole Numbers", "Multiply Whole Numbers in Applications"], objectives: ["Multiply whole numbers$"]}
+  - id: w_div
+    name: Divide whole numbers (long division)
+    kind: foundation
+    prerequisites: [w_mult]
+    lesson:
+      - {book: pa2e, section: "1.5", subsections: ["Divide Whole Numbers", "Divide Whole Numbers in Applications"], objectives: ["Divide whole numbers$"]}
+
+  # ------------------------------------------------------------------ Chapter 2: The Language of Algebra
+  - id: f_order_ops
+    name: Exponents and the order of operations
+    kind: core
+    prerequisites: [w_mult, w_div]
+    templates: [f_order_ops.simplify]
+    lesson:
+      - {book: pa2e, section: "2.1", subsections: ["Simplify Expressions with Exponents", "Simplify Expressions Using the Order of Operations"], objectives: ["exponents", "order of operations"]}
+  - id: pa_evaluate
+    name: Evaluate algebraic expressions
+    kind: core
+    prerequisites: [f_order_ops]
+    lesson:
+      - {book: pa2e, section: "2.2", subsections: ["Evaluate Algebraic Expressions"], objectives: ["Evaluate algebraic expressions"]}
+  - id: f_like_terms
+    name: Terms, coefficients and combining like terms
+    kind: core
+    prerequisites: [pa_evaluate]
+    lesson:
+      - {book: pa2e, section: "2.2", subsections: ["Identify Terms, Coefficients, and Like Terms", "Simplify Expressions by Combining Like Terms"], objectives: ["like terms"]}
+  - id: f_translate
+    name: Translate words to algebraic expressions
+    kind: core
+    prerequisites: [f_order_ops]
+    lesson:
+      - {book: pa2e, section: "2.2", subsections: ["Translate Words to Algebraic Expressions"], objectives: ["Translate word phrases"]}
+  - id: pa_factors
+    name: Multiples, divisibility, factors, primes and composites
+    kind: core
+    prerequisites: [w_div]
+    lesson:
+      - {book: pa2e, section: "2.4", subsections: ["Identify Multiples of Numbers", "Use Common Divisibility Tests", "Find All the Factors of a Number", "Identify Prime and Composite Numbers"], objectives: ["multiples", "divisibility", "factors", "prime and composite"]}
+  - id: f_primes_lcm
+    name: Prime factorization and least common multiple
+    kind: core
+    prerequisites: [pa_factors]
+    lesson:
+      - {book: pa2e, section: "2.5", subsections: ["Find the Prime Factorization of a Composite Number", "Find the Least Common Multiple (LCM) of Two Numbers"], objectives: ["prime factorization", "least common multiple"]}
+
+  # ------------------------------------------------------------------ Chapter 3: Integers
+  - id: pa_int_intro
+    name: Negative numbers, opposites, order and absolute value
+    kind: core
+    prerequisites: [w_add_sub]
+    lesson:
+      - {book: pa2e, section: "3.1", subsections: ["Locate Positive and Negative Numbers on the Number Line", "Order Positive and Negative Numbers", "Find Opposites", "Simplify Expressions with Absolute Value"], objectives: ["number line", "Order positive", "opposites", "absolute value"]}
+  - id: f_int_add
+    name: Add and subtract integers
+    kind: core
+    prerequisites: [pa_int_intro]
+    templates: [f_int_add.add_sub]
+    lesson:
+      - {book: pa2e, section: "3.2", subsections: ["Model Addition of Integers", "Simplify Expressions with Integers"], objectives: ["Model addition of integers"]}
+      - {book: pa2e, section: "3.3", subsections: ["Model Subtraction of Integers", "Simplify Expressions with Integers"], objectives: ["Model subtraction of integers"]}
+  - id: f_int_mul
+    name: Multiply and divide integers
+    kind: core
+    prerequisites: [f_int_add]
+    lesson:
+      - {book: pa2e, section: "3.4", subsections: ["Multiply Integers", "Divide Integers", "Simplify Expressions with Integers"], objectives: ["Multiply integers", "Divide integers"]}
+  - id: f_int_eval
+    name: Evaluate variable expressions with integers
+    kind: core
+    prerequisites: [f_int_mul, pa_evaluate]
+    lesson:
+      - {book: pa2e, section: "3.4", subsections: ["Evaluate Variable Expressions with Integers"], objectives: ["Evaluate variable expressions with integers"]}
+  - id: lin_one_step
+    name: Solve one-step equations (properties of equality)
+    kind: core
+    prerequisites: [f_int_add, f_int_mul]
+    templates: [lin_one_step.add]
+    lesson:
+      - {book: pa2e, section: "2.3", subsections: ["Determine Whether a Number is a Solution of an Equation", "Solve Equations Using the Subtraction Property of Equality", "Solve Equations Using the Addition Property of Equality"], objectives: ["Determine whether a number is a solution", "Subtraction Property of Equality"]}
+      - {book: pa2e, section: "3.5", subsections: ["Solve Equations Using the Division Property of Equality"], objectives: ["Division Property of Equality"]}
+
+  # ------------------------------------------------------------------ Chapter 4: Fractions
+  - id: pa_frac_meaning
+    name: Fractions, mixed numbers and equivalent fractions
+    kind: core
+    prerequisites: [w_div]
+    lesson:
+      - {book: pa2e, section: "4.1", subsections: ["Understand the Meaning of Fractions", "Convert between Improper Fractions and Mixed Numbers", "Find Equivalent Fractions", "Order Fractions and Mixed Numbers"], objectives: ["meaning of fractions", "Convert between improper fractions", "Find equivalent fractions"]}
+  - id: f_frac_mul
+    name: Simplify, multiply and divide fractions
+    kind: core
+    prerequisites: [pa_frac_meaning, f_primes_lcm, f_int_mul]
+    lesson:
+      - {book: pa2e, section: "4.2", subsections: ["Simplify Fractions", "Multiply Fractions", "Find Reciprocals", "Divide Fractions"], objectives: ["Simplify fractions", "Multiply fractions", "Divide fractions"]}
+  - id: pa_mixed_muldiv
+    name: Multiply and divide mixed numbers
+    kind: core
+    prerequisites: [f_frac_mul]
+    lesson:
+      - {book: pa2e, section: "4.3", subsections: ["Multiply and Divide Mixed Numbers"], objectives: ["Multiply and divide mixed numbers"]}
+  - id: pa_frac_add_common
+    name: Add and subtract fractions with a common denominator
+    kind: core
+    prerequisites: [pa_frac_meaning, f_int_add]
+    lesson:
+      - {book: pa2e, section: "4.4", subsections: ["Add Fractions with a Common Denominator", "Subtract Fractions with a Common Denominator"], objectives: ["Add fractions with a common denominator", "Subtract fractions with a common denominator"]}
+  - id: f_frac_add
+    name: Add and subtract fractions with different denominators
+    kind: core
+    prerequisites: [pa_frac_add_common, f_primes_lcm, f_frac_mul]
+    lesson:
+      - {book: pa2e, section: "4.5", subsections: ["Find the Least Common Denominator", "Convert Fractions to Equivalent Fractions with the LCD", "Add and Subtract Fractions with Different Denominators"], objectives: ["least common denominator", "different denominators"]}
+  - id: f_frac_bar
+    name: Complex fractions and expressions with a fraction bar
+    kind: core
+    prerequisites: [f_frac_add]
+    lesson:
+      - {book: pa2e, section: "4.3", subsections: ["Simplify Complex Fractions", "Simplify Expressions with a Fraction Bar"], objectives: ["complex fractions", "fraction bar"]}
+  - id: pa_mixed_addsub
+    name: Add and subtract mixed numbers
+    kind: core
+    prerequisites: [f_frac_add, pa_frac_meaning]
+    lesson:
+      - {book: pa2e, section: "4.6", subsections: ["Add Mixed Numbers", "Subtract Mixed Numbers with a Common Denominator", "Add and Subtract Mixed Numbers with Different Denominators"], objectives: ["Add mixed numbers with a common", "different denominators"]}
+  - id: pa_eq_frac
+    name: Solve equations with fractions
+    kind: core
+    prerequisites: [lin_one_step, f_frac_add]
+    lesson:
+      - {book: pa2e, section: "4.7", subsections: ["Solve Equations with Fractions using the Addition, Subtraction, and Division Properties of Equality", "Solve Equations with Fractions Using the Multiplication Property of Equality"], objectives: ["Addition, Subtraction, and Division Properties", "Multiplication Property of Equality"]}
+
+  # ------------------------------------------------------------------ Chapter 5: Decimals
+  - id: pa_decimals
+    name: Name, write, order and round decimals
+    kind: core
+    prerequisites: [w_place_value, pa_frac_meaning]
+    lesson:
+      - {book: pa2e, section: "5.1", subsections: ["Name Decimals", "Convert Decimals to Fractions or Mixed Numbers", "Order Decimals", "Round Decimals"], objectives: ["Name decimals", "Round decimals"]}
+  - id: f_decimals
+    name: Add, subtract, multiply and divide decimals
+    kind: core
+    prerequisites: [pa_decimals, w_div]
+    lesson:
+      - {book: pa2e, section: "5.2", subsections: ["Add and Subtract Decimals", "Multiply Decimals", "Divide Decimals", "Use Decimals in Money Applications"], objectives: ["Add and subtract decimals", "Multiply decimals", "Divide decimals"]}
+  - id: pa_dec_frac
+    name: Convert fractions to decimals; order decimals and fractions
+    kind: core
+    prerequisites: [f_decimals, f_frac_mul]
+    lesson:
+      - {book: pa2e, section: "5.3", subsections: ["Convert Fractions to Decimals", "Order Decimals and Fractions"], objectives: ["Convert fractions to decimals", "Order decimals and fractions"]}
+  - id: pa_eq_dec
+    name: Solve equations with decimals
+    kind: core
+    prerequisites: [lin_one_step, f_decimals]
+    lesson:
+      - {book: pa2e, section: "5.4", subsections: ["Solve Equations with Decimals", "Translate to an Equation and Solve"], objectives: ["Solve equations with decimals"]}
+  - id: pa_stats
+    name: Mean, median, mode and probability
+    kind: core
+    prerequisites: [f_decimals]
+    lesson:
+      - {book: pa2e, section: "5.5", subsections: ["Calculate the Mean of a Set of Numbers", "Find the Median of a Set of Numbers", "Identify the Mode of a Set of Numbers", "Use the Basic Definition of Probability"], objectives: ["mean", "median", "mode", "probability"]}
+  - id: pa_ratio_rate
+    name: Ratios, rates, unit rates and unit price
+    kind: core
+    prerequisites: [f_frac_mul, f_decimals]
+    lesson:
+      - {book: pa2e, section: "5.6", subsections: ["Write a Ratio as a Fraction", "Write a Rate as a Fraction", "Find Unit Rates", "Find Unit Price"], objectives: ["ratio", "unit rates", "unit price"]}
+  - id: f_sqrt
+    name: Square roots
+    kind: core
+    prerequisites: [f_order_ops, f_int_mul]
+    lesson:
+      - {book: pa2e, section: "5.7", subsections: ["Simplify Expressions with Square Roots", "Estimate Square Roots"], objectives: ["Simplify expressions with square roots", "Estimate square roots"]}
+
+  # ------------------------------------------------------------------ Chapter 6: Percents
+  - id: f_percent
+    name: Percents, fractions and decimals
+    kind: core
+    prerequisites: [pa_dec_frac]
+    lesson:
+      - {book: pa2e, section: "6.1", subsections: ["Use the Definition of Percent", "Convert Percents to Fractions and Decimals", "Convert Decimals and Fractions to Percents"], objectives: ["definition of percent", "Convert percents"]}
+  - id: app_percent
+    name: Percent equations, percent increase and decrease
+    kind: core
+    prerequisites: [f_percent, lin_one_step]
+    lesson:
+      - {book: pa2e, section: "6.2", subsections: ["Translate and Solve Basic Percent Equations", "Solve Applications of Percent", "Find Percent Increase and Percent Decrease"], objectives: ["basic percent equations", "percent increase"]}
+  - id: app_interest
+    name: Sales tax, commission, discount, mark-up and simple interest
+    kind: core
+    prerequisites: [app_percent]
+    lesson:
+      - {book: pa2e, section: "6.3", subsections: ["Solve Sales Tax Applications", "Solve Discount Applications"], objectives: ["sales tax", "discount"]}
+      - {book: pa2e, section: "6.4", subsections: ["Use the Simple Interest Formula"], objectives: ["simple interest formula"]}
+  - id: rat_proportion
+    name: Proportions and their applications
+    kind: core
+    prerequisites: [lin_fractions, pa_ratio_rate]
+    lesson:
+      - {book: pa2e, section: "6.5", subsections: ["Use the Definition of Proportion", "Solve Proportions", "Solve Applications Using Proportions"], objectives: ["definition of proportion", "Solve proportions"]}
+
+  # ------------------------------------------------------------------ Chapter 7: The Properties of Real Numbers
+  - id: pa_real_numbers
+    name: Rational and irrational numbers
+    kind: core
+    prerequisites: [f_sqrt, pa_dec_frac]
+    lesson:
+      - {book: pa2e, section: "7.1", subsections: ["Identify Rational Numbers and Irrational Numbers", "Classify Real Numbers"], objectives: ["rational numbers and irrational", "Classify"]}
+  - id: pa_properties
+    name: Commutative, associative, identity, inverse and zero properties
+    kind: core
+    prerequisites: [f_frac_mul, f_int_add]
+    lesson:
+      - {book: pa2e, section: "7.2", subsections: ["Use the Commutative and Associative Properties", "Evaluate Expressions using the Commutative and Associative Properties"], objectives: ["commutative and associative"]}
+      - {book: pa2e, section: "7.4", subsections: ["Use the Inverse Properties of Addition and Multiplication", "Use the Properties of Zero"], objectives: ["inverse properties", "properties of zero"]}
+  - id: f_distributive
+    name: The distributive property
+    kind: core
+    prerequisites: [f_like_terms, f_int_mul]
+    lesson:
+      - {book: pa2e, section: "7.3", subsections: ["Simplify Expressions Using the Distributive Property", "Evaluate Expressions Using the Distributive Property"], objectives: ["distributive property"]}
+  - id: pa_measurement
+    name: Units of measurement (U.S., metric, temperature)
+    kind: core
+    prerequisites: [f_decimals, f_frac_mul]
+    lesson:
+      - {book: pa2e, section: "7.5", subsections: ["Make Unit Conversions in the U.S. System", "Make Unit Conversions in the Metric System", "Convert Between Fahrenheit and Celsius Temperatures"], objectives: ["U.S. system", "metric system", "Fahrenheit"]}
+
+  # ------------------------------------------------------------------ Chapter 8: Solving Linear Equations
+  - id: lin_both_sides
+    name: Solve equations with variables and constants on both sides
+    kind: core
+    prerequisites: [lin_one_step, f_like_terms]
+    lesson:
+      - {book: pa2e, section: "8.3", subsections: ["Solve an Equation with Constants on Both Sides", "Solve an Equation with Variables on Both Sides", "Solve Equations with Variables and Constants on Both Sides"], objectives: ["variables and constants on both sides"]}
+  - id: lin_general
+    name: Solve linear equations with a general strategy
+    kind: core
+    prerequisites: [lin_both_sides, f_distributive]
+    templates: [lin_general.parens]
+    lesson:
+      - {book: pa2e, section: "8.1", subsections: ["Solve Equations That Need to Be Simplified"], objectives: ["need to be simplified"]}
+      - {book: pa2e, section: "8.3", subsections: ["Solve Equations Using a General Strategy"], objectives: ["general strategy"]}
+  - id: lin_fractions
+    name: Solve equations with fraction or decimal coefficients
+    kind: core
+    prerequisites: [lin_general, f_frac_add, f_decimals]
+    lesson:
+      - {book: pa2e, section: "8.4", subsections: ["Solve Equations with Fraction Coefficients", "Solve Equations with Decimal Coefficients"], objectives: ["fraction coefficients", "decimal coefficients"]}
+
+  # ------------------------------------------------------------------ Chapter 9: Math Models and Geometry
+  - id: app_number
+    name: Word problems - translate, solve and check
+    kind: core
+    prerequisites: [lin_general, f_translate]
+    lesson:
+      - {book: pa2e, section: "9.1", subsections: ["Use a Problem-solving Strategy for Word Problems", "Solve Number Problems"], objectives: ["problem solving strategy", "number problems"]}
+  - id: app_mixture
+    name: Coin, ticket and stamp problems
+    kind: core
+    prerequisites: [app_number, f_decimals]
+    lesson:
+      - {book: pa2e, section: "9.2", subsections: ["Solve Coin Word Problems", "Solve Ticket and Stamp Word Problems"], objectives: ["coin word problems", "ticket and stamp"]}
+  - id: app_geometry
+    name: Triangles, rectangles and the Pythagorean Theorem
+    kind: core
+    prerequisites: [app_number, f_sqrt]
+    lesson:
+      - {book: pa2e, section: "9.3", subsections: ["Use the Properties of Triangles", "Use the Pythagorean Theorem"], objectives: ["properties of triangles", "Pythagorean"]}
+      - {book: pa2e, section: "9.4", subsections: ["Use the Properties of Rectangles"], objectives: ["properties of rectangles"]}
+  - id: pa_area
+    name: Area of triangles, trapezoids, circles and composite figures
+    kind: core
+    prerequisites: [f_decimals, f_frac_mul, f_order_ops]
+    lesson:
+      - {book: pa2e, section: "9.4", subsections: ["Understand Linear, Square, and Cubic Measure", "Use the Properties of Triangles", "Use the Properties of Trapezoids"], objectives: ["Linear, square, and cubic measure", "properties of trapezoids"]}
+      - {book: pa2e, section: "9.5", subsections: ["Use the Properties of Circles", "Find the Area of Irregular Figures"], objectives: ["properties of circles", "irregular figures"]}
+  - id: pa_volume
+    name: Volume and surface area
+    kind: core
+    prerequisites: [pa_area]
+    lesson:
+      - {book: pa2e, section: "9.6", subsections: ["Find Volume and Surface Area of Rectangular Solids", "Find the Volume and Surface Area of a Cylinder", "Find the Volume of Cones"], objectives: ["rectangular solids", "cylinders", "cones"]}
+  - id: lin_formula
+    name: Distance, rate and time; solve a formula for a variable
+    kind: core
+    prerequisites: [lin_general]
+    lesson:
+      - {book: pa2e, section: "9.7", subsections: ["Use the Distance, Rate, and Time Formula", "Solve a Formula for a Specific Variable"], objectives: ["distance, rate, and time", "specific variable"]}
+
+  # ------------------------------------------------------------------ Chapter 10: Polynomials
+  - id: poly_addsub
+    name: Polynomials - add, subtract and evaluate
+    kind: core
+    prerequisites: [f_like_terms, f_int_eval]
+    lesson:
+      - {book: pa2e, section: "10.1", subsections: ["Determine the Degree of Polynomials", "Add and Subtract Polynomials", "Evaluate a Polynomial for a Given Value"], objectives: ["degree of polynomials", "Add and subtract polynomials"]}
+  - id: exp_product
+    name: Product and power properties of exponents
+    kind: core
+    prerequisites: [f_order_ops, f_int_mul]
+    lesson:
+      - {book: pa2e, section: "10.2", subsections: ["Simplify Expressions Using the Product Property of Exponents", "Simplify Expressions Using the Power Property of Exponents", "Simplify Expressions Using the Product to a Power Property", "Multiply Monomials"], objectives: ["Product Property", "Power Property"]}
+  - id: poly_mult
+    name: Multiply polynomials
+    kind: core
+    prerequisites: [exp_product, f_distributive, poly_addsub]
+    lesson:
+      - {book: pa2e, section: "10.3", subsections: ["Multiply a Polynomial by a Monomial", "Multiply a Binomial by a Binomial", "Multiply a Trinomial by a Binomial"], objectives: ["polynomial by a monomial", "binomial by a binomial"]}
+  - id: exp_quotient
+    name: Quotient property and zero exponents
+    kind: core
+    prerequisites: [exp_product, f_frac_mul]
+    lesson:
+      - {book: pa2e, section: "10.4", subsections: ["Simplify Expressions Using the Quotient Property of Exponents", "Simplify Expressions with Zero Exponents", "Divide Monomials"], objectives: ["Quotient Property", "zero exponents"]}
+  - id: exp_negative
+    name: Negative and integer exponents
+    kind: core
+    prerequisites: [exp_quotient]
+    lesson:
+      - {book: pa2e, section: "10.5", subsections: ["Use the Definition of a Negative Exponent", "Simplify Expressions with Integer Exponents"], objectives: ["negative exponent", "integer exponents"]}
+  - id: sci_notation
+    name: Scientific notation
+    kind: core
+    prerequisites: [exp_negative, f_decimals]
+    lesson:
+      - {book: pa2e, section: "10.5", subsections: ["Convert from Decimal Notation to Scientific Notation", "Convert Scientific Notation to Decimal Form", "Multiply and Divide Using Scientific Notation"], objectives: ["to scientific notation", "Multiply and divide using scientific"]}
+  - id: fac_gcf
+    name: Greatest common factor; factor it out of a polynomial
+    kind: core
+    prerequisites: [poly_mult, f_primes_lcm]
+    templates: [fac_gcf.factor]
+    lesson:
+      - {book: pa2e, section: "10.6", subsections: ["Find the Greatest Common Factor of Two or More Expressions", "Factor the Greatest Common Factor from a Polynomial"], objectives: ["greatest common factor"]}
+
+  # ------------------------------------------------------------------ Chapter 11: Graphs
+  - id: gr_points
+    name: The coordinate plane; solutions of equations in two variables
+    kind: core
+    prerequisites: [f_int_eval, lin_one_step]
+    lesson:
+      - {book: pa2e, section: "11.1", subsections: ["Plot Points on a Rectangular Coordinate System", "Verify Solutions to an Equation in Two Variables", "Complete a Table of Solutions to a Linear Equation"], objectives: ["Plot points", "Verify solutions"]}
+  - id: gr_lines
+    name: Graph lines; horizontal and vertical lines
+    kind: core
+    prerequisites: [gr_points]
+    lesson:
+      - {book: pa2e, section: "11.2", subsections: ["Graph a Linear Equation by Plotting Points", "Graph Vertical and Horizontal Lines"], objectives: ["plotting points", "vertical and horizontal"]}
+  - id: gr_intercepts
+    name: Intercepts of a line
+    kind: core
+    prerequisites: [gr_lines]
+    lesson:
+      - {book: pa2e, section: "11.3", subsections: ["Find the Intercepts from an Equation of a Line", "Graph a Line Using the Intercepts"], objectives: ["intercepts from an equation"]}
+  - id: gr_slope
+    name: Slope of a line
+    kind: core
+    prerequisites: [gr_points, f_frac_mul]
+    lesson:
+      - {book: pa2e, section: "11.4", subsections: ["Find the Slope of a Line from its Graph", "Find the Slope of Horizontal and Vertical Lines", "Use the Slope Formula to find the Slope of a Line between Two Points"], objectives: ["slope of a line from its graph", "slope formula"]}
+
+misconceptions:
+  w_place_value:
+    - {id: round_wrong_digit, root: w_place_value, desc: "Rounds to the wrong place, or looks at the wrong digit to decide whether to round up."}
+    - {id: place_name_shift, root: w_place_value, desc: "Names a digit's place one position off (calls the thousands digit the hundreds)."}
+  w_add_sub:
+    - {id: no_carry, root: w_add_sub, desc: "Forgets to carry (regroup) when a column adds to ten or more."}
+    - {id: subtract_smaller_from_larger, root: w_add_sub, desc: "In each column subtracts the smaller digit from the larger instead of borrowing."}
+  w_mult:
+    - {id: place_holder_zero, root: w_mult, desc: "Forgets the placeholder zero for the tens row in multi-digit multiplication."}
+    - {id: fact_error, root: w_mult, desc: "Makes a multiplication-fact error inside the algorithm."}
+  w_div:
+    - {id: quotient_zero_dropped, root: w_div, desc: "Drops a zero in the quotient when a step of long division doesn't go."}
+    - {id: remainder_too_big, root: w_div, desc: "Leaves a remainder at least as large as the divisor."}
+  f_order_ops:
+    - {id: left_to_right, root: f_order_ops, desc: "Works strictly left to right, adding or subtracting before multiplying or dividing."}
+    - {id: exponent_times_base, root: f_order_ops, desc: "Multiplies the base by the exponent: 3^2 = 6."}
+  pa_evaluate:
+    - {id: substitute_concatenate, root: pa_evaluate, desc: "Writes the substituted digits side by side: 3x with x = 4 becomes 34."}
+    - {id: eval_order, root: f_order_ops, desc: "Evaluates the substituted expression in the wrong order of operations."}
+  f_like_terms:
+    - {id: combine_unlike, root: f_like_terms, desc: "Combines unlike terms, e.g. 3x + 2 = 5x."}
+    - {id: drop_coefficient_one, root: f_like_terms, desc: "Treats x as having coefficient 0, e.g. 4x + x = 4x."}
+  f_translate:
+    - {id: reverse_subtraction, root: f_translate, desc: "Reverses the order for 'less than': '5 less than x' written as 5 - x."}
+    - {id: product_sum_swap, root: f_translate, desc: "Confuses sum and product words."}
+  pa_factors:
+    - {id: one_is_prime, root: pa_factors, desc: "Calls 1 a prime number, or calls a prime number composite."}
+    - {id: missing_factor_pair, root: pa_factors, desc: "Lists factors but misses a pair (stops checking too early)."}
+  f_primes_lcm:
+    - {id: lcm_is_product, root: f_primes_lcm, desc: "Uses the product of the numbers as the least common multiple even when a smaller common multiple exists."}
+    - {id: lcm_gcf_confused, root: f_primes_lcm, desc: "Confuses the least common multiple with the greatest common factor."}
+  pa_int_intro:
+    - {id: negative_order, root: pa_int_intro, desc: "Orders negative numbers by their size without the sign: says -8 > -3."}
+    - {id: abs_as_opposite, root: pa_int_intro, desc: "Treats absolute value as 'change the sign': |-4| = -4."}
+  f_int_add:
+    - {id: sign_of_larger, root: f_int_add, desc: "Adding integers with different signs, keeps the sign of the first number instead of the one with the larger absolute value."}
+    - {id: subtract_negative, root: f_int_add, desc: "Subtracting a negative as if it were subtracting a positive: 5 - (-3) = 2."}
+  f_int_mul:
+    - {id: neg_times_neg, root: f_int_mul, desc: "Gives a negative product (or quotient) for two negative numbers."}
+    - {id: sign_rule_on_sums, root: f_int_add, desc: "Applies the multiplication sign rule to addition: -3 + -5 = 8."}
+  f_int_eval:
+    - {id: substitute_no_parens, root: f_int_eval, desc: "Substitutes a negative number without parentheses, so x^2 at x = -3 becomes -3^2 = -9."}
+  lin_one_step:
+    - {id: wrong_inverse_operation, root: lin_one_step, desc: "Undoes an operation with the same operation (adds to undo addition)."}
+    - {id: one_side_only, root: lin_one_step, desc: "Applies an operation to only one side of the equation."}
+  pa_frac_meaning:
+    - {id: mixed_conversion, root: pa_frac_meaning, desc: "Converts between mixed numbers and improper fractions incorrectly (adds instead of multiplies the whole number by the denominator)."}
+    - {id: equivalent_add, root: pa_frac_meaning, desc: "Makes equivalent fractions by adding the same number to top and bottom."}
+  f_frac_mul:
+    - {id: invert_wrong_fraction, root: f_frac_mul, desc: "When dividing fractions, inverts the first fraction instead of the second."}
+    - {id: not_simplified, root: f_primes_lcm, desc: "Leaves a common factor in the numerator and denominator."}
+  pa_mixed_muldiv:
+    - {id: mixed_multiply_parts, root: pa_mixed_muldiv, desc: "Multiplies whole parts and fraction parts separately instead of converting to improper fractions."}
+  pa_frac_add_common:
+    - {id: add_denominators, root: pa_frac_add_common, desc: "Adds the denominators as well as the numerators: 2/7 + 3/7 = 5/14."}
+  f_frac_add:
+    - {id: add_across, root: f_frac_add, desc: "Adds numerators and denominators: 1/2 + 1/3 = 2/5."}
+    - {id: scale_one_part, root: f_frac_add, desc: "Changes a denominator to the common denominator without scaling the numerator."}
+  f_frac_bar:
+    - {id: fraction_bar_grouping, root: f_frac_bar, desc: "Ignores that a fraction bar groups the whole numerator and the whole denominator."}
+  pa_mixed_addsub:
+    - {id: borrow_ten, root: pa_mixed_addsub, desc: "When borrowing from the whole number, adds ten to the numerator instead of one whole (the denominator)."}
+  pa_eq_frac:
+    - {id: multiply_not_reciprocal, root: pa_eq_frac, desc: "Multiplies by the fraction instead of its reciprocal to isolate the variable."}
+  pa_decimals:
+    - {id: longer_is_larger, root: pa_decimals, desc: "Thinks a decimal with more digits is larger: 0.125 > 0.5."}
+    - {id: round_decimal_place, root: pa_decimals, desc: "Rounds to the wrong decimal place."}
+  f_decimals:
+    - {id: decimal_alignment, root: f_decimals, desc: "Lines up digits from the right instead of lining up decimal points when adding or subtracting."}
+    - {id: decimal_places_product, root: f_decimals, desc: "Places the decimal point in a product by lining up rather than counting decimal places."}
+  pa_dec_frac:
+    - {id: digits_as_decimal, root: pa_dec_frac, desc: "Writes a fraction as a decimal by placing its digits after the point: 3/4 = 0.34."}
+  pa_eq_dec:
+    - {id: decimal_operation_error, root: f_decimals, desc: "Makes a decimal arithmetic error while solving."}
+  pa_stats:
+    - {id: median_unsorted, root: pa_stats, desc: "Takes the middle value without sorting the numbers first."}
+    - {id: mean_divide_wrong, root: pa_stats, desc: "Divides the sum by the wrong count."}
+  pa_ratio_rate:
+    - {id: ratio_reversed, root: pa_ratio_rate, desc: "Writes the ratio in the reverse order."}
+    - {id: unit_rate_inverted, root: pa_ratio_rate, desc: "Divides the wrong way for a unit rate (hours per mile instead of miles per hour)."}
+  f_sqrt:
+    - {id: sqrt_halves, root: f_sqrt, desc: "Halves the number instead of taking the square root: sqrt(16) = 8."}
+  f_percent:
+    - {id: percent_move_wrong_way, root: f_percent, desc: "Moves the decimal point the wrong way converting between percent and decimal."}
+  app_percent:
+    - {id: percent_base_wrong, root: app_percent, desc: "Takes the percent of the wrong quantity."}
+  app_interest:
+    - {id: interest_rate_percent, root: f_percent, desc: "Uses the rate as a whole number in I = Prt."}
+    - {id: discount_as_price, root: app_interest, desc: "Reports the discount amount as the final price, or the reverse."}
+  rat_proportion:
+    - {id: cross_multiply_wrong, root: rat_proportion, desc: "Multiplies the wrong pairs when cross-multiplying."}
+  pa_real_numbers:
+    - {id: sqrt_always_irrational, root: pa_real_numbers, desc: "Calls every square root irrational, including square roots of perfect squares."}
+  pa_properties:
+    - {id: subtraction_commutes, root: pa_properties, desc: "Uses the commutative property for subtraction or division."}
+  f_distributive:
+    - {id: partial_distribution, root: f_distributive, desc: "Distributes to only the first term: 2(x + 3) = 2x + 3."}
+    - {id: negative_distribution, root: f_distributive, desc: "Does not distribute a minus sign to every term."}
+  pa_measurement:
+    - {id: convert_wrong_direction, root: pa_measurement, desc: "Multiplies when it should divide when converting units (or the reverse)."}
+  lin_both_sides:
+    - {id: move_term_keep_sign, root: lin_both_sides, desc: "Moves a term to the other side without changing its sign."}
+  lin_general:
+    - {id: distribute_error_eq, root: f_distributive, desc: "Distributes incorrectly while clearing parentheses in an equation."}
+  lin_fractions:
+    - {id: clear_one_term, root: lin_fractions, desc: "Multiplies only some terms by the LCD when clearing fractions."}
+  app_number:
+    - {id: translate_wrong_equation, root: f_translate, desc: "Writes an equation that doesn't match the words."}
+  app_mixture:
+    - {id: count_vs_value, root: app_mixture, desc: "Mixes up the number of items with their total value."}
+  app_geometry:
+    - {id: pythag_add_legs, root: app_geometry, desc: "Adds the legs instead of using a^2 + b^2 = c^2."}
+    - {id: perimeter_area_confused, root: app_geometry, desc: "Uses the area formula for a perimeter problem or the reverse."}
+  pa_area:
+    - {id: triangle_no_half, root: pa_area, desc: "Forgets the one-half in the area of a triangle (or a trapezoid)."}
+    - {id: radius_diameter, root: pa_area, desc: "Uses the diameter where the radius belongs (or the reverse)."}
+  pa_volume:
+    - {id: volume_surface_confused, root: pa_volume, desc: "Computes surface area when volume is asked, or the reverse."}
+  lin_formula:
+    - {id: isolate_wrong_variable, root: lin_formula, desc: "Solves for a different variable than the one asked for."}
+  poly_addsub:
+    - {id: subtract_first_term_only, root: f_distributive, desc: "Subtracting polynomials, changes the sign of only the first term."}
+  exp_product:
+    - {id: multiply_exponents, root: exp_product, desc: "Multiplies exponents when multiplying powers of the same base."}
+  poly_mult:
+    - {id: foil_missing_terms, root: poly_mult, desc: "Multiplies only first and last terms."}
+  exp_quotient:
+    - {id: zero_exponent_zero, root: exp_quotient, desc: "Evaluates a zero exponent as 0 instead of 1."}
+  exp_negative:
+    - {id: negative_exponent_sign, root: exp_negative, desc: "Treats a negative exponent as a negative number."}
+  sci_notation:
+    - {id: sci_exponent_direction, root: sci_notation, desc: "Uses the wrong sign for the power of ten."}
+  fac_gcf:
+    - {id: gcf_incomplete, root: fac_gcf, desc: "Factors out a common factor that is not the greatest common factor."}
+  gr_points:
+    - {id: coordinates_swapped, root: gr_points, desc: "Swaps the x- and y-coordinates of an ordered pair."}
+  gr_lines:
+    - {id: vertical_horizontal_confused, root: gr_lines, desc: "Graphs x = a as a horizontal line or y = b as a vertical line."}
+  gr_intercepts:
+    - {id: intercept_wrong_zero, root: gr_intercepts, desc: "Sets the wrong variable to zero to find an intercept."}
+  gr_slope:
+    - {id: run_over_rise, root: gr_slope, desc: "Computes run over rise."}

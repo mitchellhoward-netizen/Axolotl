@@ -1,0 +1,634 @@
+{
+  "source": {
+    "course": "prealgebra",
+    "title": "Pre-Algebra",
+    "subtitle": "Grades 6 to 8: whole numbers to the first ideas of algebra",
+    "books": [
+      {
+        "id": "pa2e",
+        "title": "Prealgebra 2e",
+        "url": "https://openstax.org/books/prealgebra-2e",
+        "repository": "https://raw.githubusercontent.com/openstax/osbooks-prealgebra-bundle/c1bbed4b86ff5c80686d339a6ca5e4e48fae2483",
+        "license": "CC BY 4.0",
+        "commercial": true
+      }
+    ],
+    "commercial": true
+  },
+  "misconceptions": {
+    "w_place_value": [
+      {
+        "id": "w_place_value.round_wrong_digit",
+        "skill": "w_place_value",
+        "root_skill": "w_place_value",
+        "description": "Rounds to the wrong place, or looks at the wrong digit to decide whether to round up."
+      },
+      {
+        "id": "w_place_value.place_name_shift",
+        "skill": "w_place_value",
+        "root_skill": "w_place_value",
+        "description": "Names a digit's place one position off (calls the thousands digit the hundreds)."
+      }
+    ],
+    "w_add_sub": [
+      {
+        "id": "w_add_sub.no_carry",
+        "skill": "w_add_sub",
+        "root_skill": "w_add_sub",
+        "description": "Forgets to carry (regroup) when a column adds to ten or more."
+      },
+      {
+        "id": "w_add_sub.subtract_smaller_from_larger",
+        "skill": "w_add_sub",
+        "root_skill": "w_add_sub",
+        "description": "In each column subtracts the smaller digit from the larger instead of borrowing."
+      }
+    ],
+    "w_mult": [
+      {
+        "id": "w_mult.place_holder_zero",
+        "skill": "w_mult",
+        "root_skill": "w_mult",
+        "description": "Forgets the placeholder zero for the tens row in multi-digit multiplication."
+      },
+      {
+        "id": "w_mult.fact_error",
+        "skill": "w_mult",
+        "root_skill": "w_mult",
+        "description": "Makes a multiplication-fact error inside the algorithm."
+      }
+    ],
+    "w_div": [
+      {
+        "id": "w_div.quotient_zero_dropped",
+        "skill": "w_div",
+        "root_skill": "w_div",
+        "description": "Drops a zero in the quotient when a step of long division doesn't go."
+      },
+      {
+        "id": "w_div.remainder_too_big",
+        "skill": "w_div",
+        "root_skill": "w_div",
+        "description": "Leaves a remainder at least as large as the divisor."
+      }
+    ],
+    "f_order_ops": [
+      {
+        "id": "f_order_ops.left_to_right",
+        "skill": "f_order_ops",
+        "root_skill": "f_order_ops",
+        "description": "Works strictly left to right, adding or subtracting before multiplying or dividing."
+      },
+      {
+        "id": "f_order_ops.exponent_times_base",
+        "skill": "f_order_ops",
+        "root_skill": "f_order_ops",
+        "description": "Multiplies the base by the exponent: 3^2 = 6."
+      }
+    ],
+    "pa_evaluate": [
+      {
+        "id": "pa_evaluate.substitute_concatenate",
+        "skill": "pa_evaluate",
+        "root_skill": "pa_evaluate",
+        "description": "Writes the substituted digits side by side: 3x with x = 4 becomes 34."
+      },
+      {
+        "id": "pa_evaluate.eval_order",
+        "skill": "pa_evaluate",
+        "root_skill": "f_order_ops",
+        "description": "Evaluates the substituted expression in the wrong order of operations."
+      }
+    ],
+    "f_like_terms": [
+      {
+        "id": "f_like_terms.combine_unlike",
+        "skill": "f_like_terms",
+        "root_skill": "f_like_terms",
+        "description": "Combines unlike terms, e.g. 3x + 2 = 5x."
+      },
+      {
+        "id": "f_like_terms.drop_coefficient_one",
+        "skill": "f_like_terms",
+        "root_skill": "f_like_terms",
+        "description": "Treats x as having coefficient 0, e.g. 4x + x = 4x."
+      }
+    ],
+    "f_translate": [
+      {
+        "id": "f_translate.reverse_subtraction",
+        "skill": "f_translate",
+        "root_skill": "f_translate",
+        "description": "Reverses the order for 'less than': '5 less than x' written as 5 - x."
+      },
+      {
+        "id": "f_translate.product_sum_swap",
+        "skill": "f_translate",
+        "root_skill": "f_translate",
+        "description": "Confuses sum and product words."
+      }
+    ],
+    "pa_factors": [
+      {
+        "id": "pa_factors.one_is_prime",
+        "skill": "pa_factors",
+        "root_skill": "pa_factors",
+        "description": "Calls 1 a prime number, or calls a prime number composite."
+      },
+      {
+        "id": "pa_factors.missing_factor_pair",
+        "skill": "pa_factors",
+        "root_skill": "pa_factors",
+        "description": "Lists factors but misses a pair (stops checking too early)."
+      }
+    ],
+    "f_primes_lcm": [
+      {
+        "id": "f_primes_lcm.lcm_is_product",
+        "skill": "f_primes_lcm",
+        "root_skill": "f_primes_lcm",
+        "description": "Uses the product of the numbers as the least common multiple even when a smaller common multiple exists."
+      },
+      {
+        "id": "f_primes_lcm.lcm_gcf_confused",
+        "skill": "f_primes_lcm",
+        "root_skill": "f_primes_lcm",
+        "description": "Confuses the least common multiple with the greatest common factor."
+      }
+    ],
+    "pa_int_intro": [
+      {
+        "id": "pa_int_intro.negative_order",
+        "skill": "pa_int_intro",
+        "root_skill": "pa_int_intro",
+        "description": "Orders negative numbers by their size without the sign: says -8 > -3."
+      },
+      {
+        "id": "pa_int_intro.abs_as_opposite",
+        "skill": "pa_int_intro",
+        "root_skill": "pa_int_intro",
+        "description": "Treats absolute value as 'change the sign': |-4| = -4."
+      }
+    ],
+    "f_int_add": [
+      {
+        "id": "f_int_add.sign_of_larger",
+        "skill": "f_int_add",
+        "root_skill": "f_int_add",
+        "description": "Adding integers with different signs, keeps the sign of the first number instead of the one with the larger absolute value."
+      },
+      {
+        "id": "f_int_add.subtract_negative",
+        "skill": "f_int_add",
+        "root_skill": "f_int_add",
+        "description": "Subtracting a negative as if it were subtracting a positive: 5 - (-3) = 2."
+      }
+    ],
+    "f_int_mul": [
+      {
+        "id": "f_int_mul.neg_times_neg",
+        "skill": "f_int_mul",
+        "root_skill": "f_int_mul",
+        "description": "Gives a negative product (or quotient) for two negative numbers."
+      },
+      {
+        "id": "f_int_mul.sign_rule_on_sums",
+        "skill": "f_int_mul",
+        "root_skill": "f_int_add",
+        "description": "Applies the multiplication sign rule to addition: -3 + -5 = 8."
+      }
+    ],
+    "f_int_eval": [
+      {
+        "id": "f_int_eval.substitute_no_parens",
+        "skill": "f_int_eval",
+        "root_skill": "f_int_eval",
+        "description": "Substitutes a negative number without parentheses, so x^2 at x = -3 becomes -3^2 = -9."
+      }
+    ],
+    "lin_one_step": [
+      {
+        "id": "lin_one_step.wrong_inverse_operation",
+        "skill": "lin_one_step",
+        "root_skill": "lin_one_step",
+        "description": "Undoes an operation with the same operation (adds to undo addition)."
+      },
+      {
+        "id": "lin_one_step.one_side_only",
+        "skill": "lin_one_step",
+        "root_skill": "lin_one_step",
+        "description": "Applies an operation to only one side of the equation."
+      }
+    ],
+    "pa_frac_meaning": [
+      {
+        "id": "pa_frac_meaning.mixed_conversion",
+        "skill": "pa_frac_meaning",
+        "root_skill": "pa_frac_meaning",
+        "description": "Converts between mixed numbers and improper fractions incorrectly (adds instead of multiplies the whole number by the denominator)."
+      },
+      {
+        "id": "pa_frac_meaning.equivalent_add",
+        "skill": "pa_frac_meaning",
+        "root_skill": "pa_frac_meaning",
+        "description": "Makes equivalent fractions by adding the same number to top and bottom."
+      }
+    ],
+    "f_frac_mul": [
+      {
+        "id": "f_frac_mul.invert_wrong_fraction",
+        "skill": "f_frac_mul",
+        "root_skill": "f_frac_mul",
+        "description": "When dividing fractions, inverts the first fraction instead of the second."
+      },
+      {
+        "id": "f_frac_mul.not_simplified",
+        "skill": "f_frac_mul",
+        "root_skill": "f_primes_lcm",
+        "description": "Leaves a common factor in the numerator and denominator."
+      }
+    ],
+    "pa_mixed_muldiv": [
+      {
+        "id": "pa_mixed_muldiv.mixed_multiply_parts",
+        "skill": "pa_mixed_muldiv",
+        "root_skill": "pa_mixed_muldiv",
+        "description": "Multiplies whole parts and fraction parts separately instead of converting to improper fractions."
+      }
+    ],
+    "pa_frac_add_common": [
+      {
+        "id": "pa_frac_add_common.add_denominators",
+        "skill": "pa_frac_add_common",
+        "root_skill": "pa_frac_add_common",
+        "description": "Adds the denominators as well as the numerators: 2/7 + 3/7 = 5/14."
+      }
+    ],
+    "f_frac_add": [
+      {
+        "id": "f_frac_add.add_across",
+        "skill": "f_frac_add",
+        "root_skill": "f_frac_add",
+        "description": "Adds numerators and denominators: 1/2 + 1/3 = 2/5."
+      },
+      {
+        "id": "f_frac_add.scale_one_part",
+        "skill": "f_frac_add",
+        "root_skill": "f_frac_add",
+        "description": "Changes a denominator to the common denominator without scaling the numerator."
+      }
+    ],
+    "f_frac_bar": [
+      {
+        "id": "f_frac_bar.fraction_bar_grouping",
+        "skill": "f_frac_bar",
+        "root_skill": "f_frac_bar",
+        "description": "Ignores that a fraction bar groups the whole numerator and the whole denominator."
+      }
+    ],
+    "pa_mixed_addsub": [
+      {
+        "id": "pa_mixed_addsub.borrow_ten",
+        "skill": "pa_mixed_addsub",
+        "root_skill": "pa_mixed_addsub",
+        "description": "When borrowing from the whole number, adds ten to the numerator instead of one whole (the denominator)."
+      }
+    ],
+    "pa_eq_frac": [
+      {
+        "id": "pa_eq_frac.multiply_not_reciprocal",
+        "skill": "pa_eq_frac",
+        "root_skill": "pa_eq_frac",
+        "description": "Multiplies by the fraction instead of its reciprocal to isolate the variable."
+      }
+    ],
+    "pa_decimals": [
+      {
+        "id": "pa_decimals.longer_is_larger",
+        "skill": "pa_decimals",
+        "root_skill": "pa_decimals",
+        "description": "Thinks a decimal with more digits is larger: 0.125 > 0.5."
+      },
+      {
+        "id": "pa_decimals.round_decimal_place",
+        "skill": "pa_decimals",
+        "root_skill": "pa_decimals",
+        "description": "Rounds to the wrong decimal place."
+      }
+    ],
+    "f_decimals": [
+      {
+        "id": "f_decimals.decimal_alignment",
+        "skill": "f_decimals",
+        "root_skill": "f_decimals",
+        "description": "Lines up digits from the right instead of lining up decimal points when adding or subtracting."
+      },
+      {
+        "id": "f_decimals.decimal_places_product",
+        "skill": "f_decimals",
+        "root_skill": "f_decimals",
+        "description": "Places the decimal point in a product by lining up rather than counting decimal places."
+      }
+    ],
+    "pa_dec_frac": [
+      {
+        "id": "pa_dec_frac.digits_as_decimal",
+        "skill": "pa_dec_frac",
+        "root_skill": "pa_dec_frac",
+        "description": "Writes a fraction as a decimal by placing its digits after the point: 3/4 = 0.34."
+      }
+    ],
+    "pa_eq_dec": [
+      {
+        "id": "pa_eq_dec.decimal_operation_error",
+        "skill": "pa_eq_dec",
+        "root_skill": "f_decimals",
+        "description": "Makes a decimal arithmetic error while solving."
+      }
+    ],
+    "pa_stats": [
+      {
+        "id": "pa_stats.median_unsorted",
+        "skill": "pa_stats",
+        "root_skill": "pa_stats",
+        "description": "Takes the middle value without sorting the numbers first."
+      },
+      {
+        "id": "pa_stats.mean_divide_wrong",
+        "skill": "pa_stats",
+        "root_skill": "pa_stats",
+        "description": "Divides the sum by the wrong count."
+      }
+    ],
+    "pa_ratio_rate": [
+      {
+        "id": "pa_ratio_rate.ratio_reversed",
+        "skill": "pa_ratio_rate",
+        "root_skill": "pa_ratio_rate",
+        "description": "Writes the ratio in the reverse order."
+      },
+      {
+        "id": "pa_ratio_rate.unit_rate_inverted",
+        "skill": "pa_ratio_rate",
+        "root_skill": "pa_ratio_rate",
+        "description": "Divides the wrong way for a unit rate (hours per mile instead of miles per hour)."
+      }
+    ],
+    "f_sqrt": [
+      {
+        "id": "f_sqrt.sqrt_halves",
+        "skill": "f_sqrt",
+        "root_skill": "f_sqrt",
+        "description": "Halves the number instead of taking the square root: sqrt(16) = 8."
+      }
+    ],
+    "f_percent": [
+      {
+        "id": "f_percent.percent_move_wrong_way",
+        "skill": "f_percent",
+        "root_skill": "f_percent",
+        "description": "Moves the decimal point the wrong way converting between percent and decimal."
+      }
+    ],
+    "app_percent": [
+      {
+        "id": "app_percent.percent_base_wrong",
+        "skill": "app_percent",
+        "root_skill": "app_percent",
+        "description": "Takes the percent of the wrong quantity."
+      }
+    ],
+    "app_interest": [
+      {
+        "id": "app_interest.interest_rate_percent",
+        "skill": "app_interest",
+        "root_skill": "f_percent",
+        "description": "Uses the rate as a whole number in I = Prt."
+      },
+      {
+        "id": "app_interest.discount_as_price",
+        "skill": "app_interest",
+        "root_skill": "app_interest",
+        "description": "Reports the discount amount as the final price, or the reverse."
+      }
+    ],
+    "rat_proportion": [
+      {
+        "id": "rat_proportion.cross_multiply_wrong",
+        "skill": "rat_proportion",
+        "root_skill": "rat_proportion",
+        "description": "Multiplies the wrong pairs when cross-multiplying."
+      }
+    ],
+    "pa_real_numbers": [
+      {
+        "id": "pa_real_numbers.sqrt_always_irrational",
+        "skill": "pa_real_numbers",
+        "root_skill": "pa_real_numbers",
+        "description": "Calls every square root irrational, including square roots of perfect squares."
+      }
+    ],
+    "pa_properties": [
+      {
+        "id": "pa_properties.subtraction_commutes",
+        "skill": "pa_properties",
+        "root_skill": "pa_properties",
+        "description": "Uses the commutative property for subtraction or division."
+      }
+    ],
+    "f_distributive": [
+      {
+        "id": "f_distributive.partial_distribution",
+        "skill": "f_distributive",
+        "root_skill": "f_distributive",
+        "description": "Distributes to only the first term: 2(x + 3) = 2x + 3."
+      },
+      {
+        "id": "f_distributive.negative_distribution",
+        "skill": "f_distributive",
+        "root_skill": "f_distributive",
+        "description": "Does not distribute a minus sign to every term."
+      }
+    ],
+    "pa_measurement": [
+      {
+        "id": "pa_measurement.convert_wrong_direction",
+        "skill": "pa_measurement",
+        "root_skill": "pa_measurement",
+        "description": "Multiplies when it should divide when converting units (or the reverse)."
+      }
+    ],
+    "lin_both_sides": [
+      {
+        "id": "lin_both_sides.move_term_keep_sign",
+        "skill": "lin_both_sides",
+        "root_skill": "lin_both_sides",
+        "description": "Moves a term to the other side without changing its sign."
+      }
+    ],
+    "lin_general": [
+      {
+        "id": "lin_general.distribute_error_eq",
+        "skill": "lin_general",
+        "root_skill": "f_distributive",
+        "description": "Distributes incorrectly while clearing parentheses in an equation."
+      }
+    ],
+    "lin_fractions": [
+      {
+        "id": "lin_fractions.clear_one_term",
+        "skill": "lin_fractions",
+        "root_skill": "lin_fractions",
+        "description": "Multiplies only some terms by the LCD when clearing fractions."
+      }
+    ],
+    "app_number": [
+      {
+        "id": "app_number.translate_wrong_equation",
+        "skill": "app_number",
+        "root_skill": "f_translate",
+        "description": "Writes an equation that doesn't match the words."
+      }
+    ],
+    "app_mixture": [
+      {
+        "id": "app_mixture.count_vs_value",
+        "skill": "app_mixture",
+        "root_skill": "app_mixture",
+        "description": "Mixes up the number of items with their total value."
+      }
+    ],
+    "app_geometry": [
+      {
+        "id": "app_geometry.pythag_add_legs",
+        "skill": "app_geometry",
+        "root_skill": "app_geometry",
+        "description": "Adds the legs instead of using a^2 + b^2 = c^2."
+      },
+      {
+        "id": "app_geometry.perimeter_area_confused",
+        "skill": "app_geometry",
+        "root_skill": "app_geometry",
+        "description": "Uses the area formula for a perimeter problem or the reverse."
+      }
+    ],
+    "pa_area": [
+      {
+        "id": "pa_area.triangle_no_half",
+        "skill": "pa_area",
+        "root_skill": "pa_area",
+        "description": "Forgets the one-half in the area of a triangle (or a trapezoid)."
+      },
+      {
+        "id": "pa_area.radius_diameter",
+        "skill": "pa_area",
+        "root_skill": "pa_area",
+        "description": "Uses the diameter where the radius belongs (or the reverse)."
+      }
+    ],
+    "pa_volume": [
+      {
+        "id": "pa_volume.volume_surface_confused",
+        "skill": "pa_volume",
+        "root_skill": "pa_volume",
+        "description": "Computes surface area when volume is asked, or the reverse."
+      }
+    ],
+    "lin_formula": [
+      {
+        "id": "lin_formula.isolate_wrong_variable",
+        "skill": "lin_formula",
+        "root_skill": "lin_formula",
+        "description": "Solves for a different variable than the one asked for."
+      }
+    ],
+    "poly_addsub": [
+      {
+        "id": "poly_addsub.subtract_first_term_only",
+        "skill": "poly_addsub",
+        "root_skill": "f_distributive",
+        "description": "Subtracting polynomials, changes the sign of only the first term."
+      }
+    ],
+    "exp_product": [
+      {
+        "id": "exp_product.multiply_exponents",
+        "skill": "exp_product",
+        "root_skill": "exp_product",
+        "description": "Multiplies exponents when multiplying powers of the same base."
+      }
+    ],
+    "poly_mult": [
+      {
+        "id": "poly_mult.foil_missing_terms",
+        "skill": "poly_mult",
+        "root_skill": "poly_mult",
+        "description": "Multiplies only first and last terms."
+      }
+    ],
+    "exp_quotient": [
+      {
+        "id": "exp_quotient.zero_exponent_zero",
+        "skill": "exp_quotient",
+        "root_skill": "exp_quotient",
+        "description": "Evaluates a zero exponent as 0 instead of 1."
+      }
+    ],
+    "exp_negative": [
+      {
+        "id": "exp_negative.negative_exponent_sign",
+        "skill": "exp_negative",
+        "root_skill": "exp_negative",
+        "description": "Treats a negative exponent as a negative number."
+      }
+    ],
+    "sci_notation": [
+      {
+        "id": "sci_notation.sci_exponent_direction",
+        "skill": "sci_notation",
+        "root_skill": "sci_notation",
+        "description": "Uses the wrong sign for the power of ten."
+      }
+    ],
+    "fac_gcf": [
+      {
+        "id": "fac_gcf.gcf_incomplete",
+        "skill": "fac_gcf",
+        "root_skill": "fac_gcf",
+        "description": "Factors out a common factor that is not the greatest common factor."
+      }
+    ],
+    "gr_points": [
+      {
+        "id": "gr_points.coordinates_swapped",
+        "skill": "gr_points",
+        "root_skill": "gr_points",
+        "description": "Swaps the x- and y-coordinates of an ordered pair."
+      }
+    ],
+    "gr_lines": [
+      {
+        "id": "gr_lines.vertical_horizontal_confused",
+        "skill": "gr_lines",
+        "root_skill": "gr_lines",
+        "description": "Graphs x = a as a horizontal line or y = b as a vertical line."
+      }
+    ],
+    "gr_intercepts": [
+      {
+        "id": "gr_intercepts.intercept_wrong_zero",
+        "skill": "gr_intercepts",
+        "root_skill": "gr_intercepts",
+        "description": "Sets the wrong variable to zero to find an intercept."
+      }
+    ],
+    "gr_slope": [
+      {
+        "id": "gr_slope.run_over_rise",
+        "skill": "gr_slope",
+        "root_skill": "gr_slope",
+        "description": "Computes run over rise."
+      }
+    ]
+  }
+}
