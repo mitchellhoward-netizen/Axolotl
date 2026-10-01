@@ -83,6 +83,23 @@ project's keys, never copies), `ADAPTCALC_ACCESS_CODES`, `ADAPTCALC_OWNER_EMAIL`
 * **Mastery before moving on**: one new skill per lesson; a skill counts as learned after three checked problems or diagnostic placement.
 * **Guardrailed AI**: margin notes are checked with SymPy, the notation registry and Jev (no answer give-aways unless asked, no ideas the book hasn't taught); otherwise the book's worked example is shown.
 
+## The bound book (`adaptcalc/volume.py`, `typst/volume.typ`)
+
+Each course is also one whole textbook: cover, contents, chapters that follow the source book's
+own chapters and section numbers, each section's lessons (verbatim), Exercises (verified
+templates) and, at the back, the answers to every Try It and exercise. It is typeset with the
+same styles as the packets, checked with the verbatim audit, and cut into page images.
+
+* On the learner's page it opens as a book: two facing pages (or one larger page), turned with
+  the arrows, the keyboard, a click on a page or a swipe. The contents drawer marks what is
+  learned and the child's place; a ribbon hangs at the section their open lesson is about.
+  "Print the book" gives the whole PDF.
+* Printings live on the data volume (`$ADAPTCALC_DATA/volumes/<course>`), keyed by a hash of
+  everything that shapes them, so a redeploy that changes no content reuses them. The server
+  binds missing ones in the background at startup (`ADAPTCALC_BIND_BOOKS=0` turns that off);
+  readers see "being bound" meanwhile. Elementary takes about 40 seconds, Algebra 1 about 2½ minutes
+  (700 pages).
+
 ## The elementary book (`books/mk5/`)
 
 There is no CC BY textbook for kindergarten to grade 5 in a form we can typeset, so the

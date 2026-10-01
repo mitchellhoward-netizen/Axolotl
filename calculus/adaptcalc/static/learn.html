@@ -28,6 +28,69 @@
 .statement { font-size: 16px; color: var(--ink-2); margin: 6px 0 0; }
 .changes { font-size: 14px; color: var(--ink-3); margin-top: 8px; }
 .howto { font-size: 15px; color: var(--ink-2); margin: 6px 0 0; padding-left: 1.1em; }
+
+/* ---------- the book on the desk ---------- */
+.reader-shell { max-width: 1240px; margin: 0 auto; padding: 22px 20px 0; }
+.reader-shell h1 { margin-bottom: 4px; }
+.reader { margin-top: 10px; }
+.reader-bar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 8px 0 12px; }
+.reader-bar .grow { flex: 1; }
+.tab { font-variant-caps: all-small-caps; letter-spacing: .09em; font-size: 17px; color: var(--ink-2); background: none;
+  border: 1px solid var(--rule); border-radius: 3px; padding: 3px 12px 5px; cursor: pointer; font-family: var(--text); text-decoration: none; }
+.tab:hover, .tab[aria-expanded="true"] { color: var(--spot); border-color: var(--spot); }
+.tab.place { color: var(--spot-ink); background: var(--spot); border-color: var(--spot); }
+.turn { font-family: var(--display); font-size: 34px; line-height: 1; width: 44px; height: 44px; border-radius: 50%;
+  border: 1px solid var(--rule); background: var(--leaf); color: var(--ink); cursor: pointer; padding: 0 0 4px; }
+.turn:hover:not(:disabled) { border-color: var(--spot); color: var(--spot); }
+.turn:disabled { opacity: .35; cursor: default; }
+.folio { font-variant-caps: all-small-caps; letter-spacing: .08em; color: var(--ink-2); min-width: 11em; text-align: center; font-variant-numeric: lining-nums tabular-nums; }
+.desk { position: relative; padding: 18px 0 26px; }
+.spread { position: relative; display: grid; grid-template-columns: 1fr 1fr; margin: 0 auto; max-width: 1180px; perspective: 2600px; }
+.spread.single { grid-template-columns: 1fr; max-width: 900px; }
+@media (max-width: 820px) { #viewBtn { display: none; } }
+.pg { position: relative; aspect-ratio: 8.5 / 11; background: #fffdf8; box-shadow: 0 1px 2px #3a2c1426, 0 14px 30px -12px #3a2c1440; }
+.pg.empty { background: transparent; box-shadow: none; }
+.pg img { display: block; width: 100%; height: 100%; object-fit: contain; user-select: none; -webkit-user-drag: none; }
+.spread:not(.single) .pg.left:not(.empty)::after, .spread:not(.single) .pg.right:not(.empty)::after {
+  content: ""; position: absolute; top: 0; bottom: 0; width: 46px; pointer-events: none; }
+.spread:not(.single) .pg.left::after { right: 0; background: linear-gradient(to left, #0000002e, #0000 90%); }
+.spread:not(.single) .pg.right::after { left: 0; background: linear-gradient(to right, #00000026, #0000 90%); }
+.pg .ribbon { position: absolute; top: -6px; width: 20px; height: 104%; pointer-events: none; z-index: 3;
+  background: linear-gradient(90deg, #7c1f17, #a5352a 45%, #7c1f17); clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 97.5%, 0 100%);
+  box-shadow: 0 2px 4px #0003; opacity: .92; }
+.pg.left .ribbon { right: 10px; } .pg.right .ribbon, .spread.single .pg .ribbon { left: 10px; }
+.pg.left .ribbon-tag { right: 38px; } .pg.right .ribbon-tag, .spread.single .pg .ribbon-tag { left: 38px; }
+.pg .ribbon-tag { position: absolute; top: 10px; z-index: 3; font-family: var(--text); font-size: 13px;
+  font-style: italic; color: #7c1f17; background: #fffdf8e6; padding: 1px 8px; border-radius: 2px; }
+.pg.clickable { cursor: pointer; }
+/* the leaf that turns */
+.leaf-turn { position: absolute; top: 0; height: 100%; width: 50%; transform-style: preserve-3d; z-index: 5;
+  transition: transform .62s cubic-bezier(.33,.0,.2,1); }
+.leaf-turn.fwd { left: 50%; transform-origin: left center; }
+.leaf-turn.back { left: 0; transform-origin: right center; }
+.leaf-turn .face { position: absolute; inset: 0; backface-visibility: hidden; background: #fffdf8; overflow: hidden;
+  box-shadow: 0 1px 2px #3a2c1426; }
+.leaf-turn .face img { width: 100%; height: 100%; display: block; }
+.leaf-turn .face.backside { transform: rotateY(180deg); }
+.leaf-turn .face::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, #0000, #0000 60%, #00000012); }
+@media (prefers-reduced-motion: reduce) { .leaf-turn { transition: none; } }
+.reader-msg { text-align: center; min-height: 1.4em; margin: 0; }
+/* contents drawer */
+.toc { position: absolute; top: 10px; left: 0; z-index: 8; width: min(440px, 100%); max-height: calc(100% - 20px); overflow: auto;
+  background: var(--leaf); border: 1px solid var(--rule); box-shadow: var(--shadow), 0 18px 40px -10px #3a2c1450; padding: 18px 20px; }
+.toc h4 { font-family: var(--display); font-size: 25px; margin: 0 0 4px; font-weight: 600; }
+.toc .key { font-size: 13px; color: var(--ink-3); margin: 0 0 10px; }
+.toc .ch { font-variant-caps: all-small-caps; letter-spacing: .08em; color: var(--spot); margin: 14px 0 2px; font-size: 16px; display: flex; }
+.toc .ch span:first-child { flex: 1; }
+.toc button.sec { display: grid; grid-template-columns: 1.4em 3.2em 1fr auto; gap: 4px; width: 100%; text-align: left; background: none;
+  border: 0; border-bottom: 1px dotted var(--rule-2); padding: 5px 0; font: inherit; font-size: 15.5px; color: var(--ink); cursor: pointer; }
+.toc button.sec:hover { color: var(--spot); }
+.toc .sec .m { color: var(--spot); }
+.toc .sec.here { font-weight: 600; }
+.toc .sec.here .m { color: #a5352a; }
+.toc .sec .n { color: var(--ink-3); font-variant-numeric: tabular-nums; }
+.toc .sec .p { color: var(--ink-3); font-variant-numeric: tabular-nums; }
+.toc .sec.ahead { color: var(--ink-2); }
 </style>
 </head>
 <body>
@@ -36,11 +99,29 @@
   <nav><a href="/home">Learners</a><a id="reportLink" href="#">Report</a><button class="linkish" onclick="toggleTheme()">Light / dark</button><button class="linkish" onclick="signOut()">Sign out</button></nav>
   <div class="rule"></div>
 </header>
-<main>
+<div class="reader-shell">
   <div class="kicker" id="course">&nbsp;</div>
   <h1 id="title">&nbsp;</h1>
-  <hr class="title-rule">
-
+  <section class="reader" id="reader" aria-label="The book">
+    <div class="reader-bar">
+      <button class="tab" id="tocBtn" aria-expanded="false" aria-controls="toc">Contents</button>
+      <button class="tab hidden" id="placeBtn">Your place</button>
+      <span class="grow"></span>
+      <button class="turn" id="prevBtn" aria-label="Turn back a page">&#8249;</button>
+      <span class="folio" id="folio" aria-live="polite"></span>
+      <button class="turn" id="nextBtn" aria-label="Turn the page">&#8250;</button>
+      <span class="grow"></span>
+      <button class="tab" id="viewBtn" title="Show one larger page or two facing pages">One page</button>
+      <a class="tab" id="bookPdf" target="_blank" rel="noopener">Print the book</a>
+    </div>
+    <div class="desk">
+      <div class="spread" id="spread"><div class="pg left" id="pgL"></div><div class="pg right" id="pgR"></div></div>
+      <nav class="toc hidden" id="toc" aria-label="Contents"></nav>
+    </div>
+    <p class="reader-msg" id="readerMsg"><span class="muted">Opening the book…</span></p>
+  </section>
+</div>
+<main>
   <div class="grid2">
     <div>
       <section class="leaf next" id="next"><p class="muted">Turning to the right page…</p></section>
@@ -69,8 +150,9 @@
 
     <div>
       <section class="leaf">
-        <div class="section-label"><span class="num">§</span><h3>Contents</h3></div>
-        <div id="packets"><p class="muted small">No packets yet.</p></div>
+        <div class="section-label"><span class="num">§</span><h3>Your worksheets</h3></div>
+        <p class="small muted" style="margin-top:0">Practice made for this learner, to go with the book.</p>
+        <div id="packets"><p class="muted small">No worksheets yet.</p></div>
       </section>
       <section class="leaf">
         <div class="section-label"><span class="num">¶</span><h3>What is learned</h3></div>
@@ -258,6 +340,148 @@ document.addEventListener("click", async (ev) => {
   send.disabled = false;
 });
 
+
+// ---------------------------------------------------------------- the book
+let bk = null, cur = 1, turning = false;
+let onePage = false;
+try { onePage = localStorage.getItem("book:view") === "one"; } catch (e) { /* private window */ }
+const single = () => onePage || window.matchMedia("(max-width: 820px)").matches;
+const pageSrc = (n) => bk.page_url.replace("{n}", n);
+function spreadOf(p) { if (single()) return [p]; return p % 2 === 0 ? [p, p + 1] : [p - 1, p]; }  // the cover stands alone on the right
+function pageHtml(n) {
+  if (!n || n < 1 || n > bk.pages) return "";
+  let h = `<img src="${pageSrc(n)}" alt="Page ${n} of the book" loading="eager" draggable="false">`;
+  if (bk.bookmark && n === bk.bookmark) h += `<span class="ribbon" aria-hidden="true"></span><span class="ribbon-tag">${esc(state ? state.learner.name : "")}’s place</span>`;
+  return h;
+}
+function sectionAt(n) {
+  let s = null;
+  for (const x of bk.sections) if (x.page && x.page <= n) s = x;
+  return s && (!bk.answers_page || n < bk.answers_page) ? s : null;
+}
+function drawSpread() {
+  const sp = spreadOf(cur);
+  $("#spread").classList.toggle("single", single());
+  const [l, r] = single() ? [null, sp[0]] : sp;
+  $("#pgL").classList.toggle("hidden", single());
+  $("#pgL").className = `pg left ${!l || l < 1 ? "empty" : "clickable"}${single() ? " hidden" : ""}`;
+  $("#pgR").className = `pg right ${!r || r > bk.pages ? "empty" : "clickable"}`;
+  $("#pgL").innerHTML = single() ? "" : pageHtml(l);
+  $("#pgR").innerHTML = pageHtml(r);
+  const shown = sp.filter((n) => n >= 1 && n <= bk.pages);
+  const sec = sectionAt(shown[shown.length - 1]);
+  $("#folio").textContent = (shown.length > 1 ? `pages ${shown[0]}–${shown[1]}` : `page ${shown[0]}`) + ` of ${bk.pages}`
+    + (sec ? ` · ${sec.number}` : "");
+  $("#prevBtn").disabled = Math.min(...shown) <= 1;
+  $("#nextBtn").disabled = Math.max(...shown) >= bk.pages;
+  // the pages either side, so the next turn is instant
+  for (const n of [Math.min(...shown) - 2, Math.min(...shown) - 1, Math.max(...shown) + 1, Math.max(...shown) + 2])
+    if (n >= 1 && n <= bk.pages) { const im = new Image(); im.src = pageSrc(n); }
+  try { localStorage.setItem(`book:${LID}`, String(cur)); } catch (e) { /* private window */ }
+}
+function goTo(n) {
+  if (!bk) return;
+  n = Math.max(1, Math.min(bk.pages, n));
+  const before = spreadOf(cur).join(), after = spreadOf(n).join();
+  if (before === after) { cur = n; drawSpread(); return; }
+  const fwd = n > cur;
+  const adjacent = single() ? Math.abs(n - cur) === 1 : Math.abs(Math.min(...spreadOf(n)) - Math.min(...spreadOf(cur))) === 2;
+  if (single() || !adjacent || turning || window.matchMedia("(prefers-reduced-motion: reduce)").matches) { cur = n; drawSpread(); return; }
+  // a real page turn: the leaf carries this side's page on its front and the next spread's facing page on its back
+  turning = true;
+  const [l0, r0] = spreadOf(cur), [l1, r1] = spreadOf(n);
+  const leaf = document.createElement("div");
+  leaf.className = `leaf-turn ${fwd ? "fwd" : "back"}`;
+  const front = fwd ? r0 : l0, back = fwd ? l1 : r1;
+  leaf.innerHTML = `<div class="face">${pageHtml(front)}</div><div class="face backside">${pageHtml(back)}</div>`;
+  $("#spread").appendChild(leaf);
+  // under the turning leaf, the page that will be revealed
+  if (fwd) { $("#pgR").innerHTML = pageHtml(r1); $("#pgR").className = `pg right ${r1 > bk.pages ? "empty" : "clickable"}`; }
+  else { $("#pgL").innerHTML = pageHtml(l1); $("#pgL").className = `pg left ${l1 < 1 ? "empty" : "clickable"}`; }
+  requestAnimationFrame(() => requestAnimationFrame(() => { leaf.style.transform = `rotateY(${fwd ? -180 : 180}deg)`; }));
+  const done = () => { leaf.remove(); cur = n; turning = false; drawSpread(); };
+  leaf.addEventListener("transitionend", done, { once: true });
+  setTimeout(() => { if (turning) done(); }, 900);
+}
+const step = (dir) => goTo(single() ? cur + dir : (dir > 0 ? Math.max(...spreadOf(cur)) + 1 : Math.min(...spreadOf(cur)) - 1));
+function renderToc() {
+  const MARK = { learned: "✓", here: "❧", begun: "◐", ahead: "" };
+  let h = `<h4>Contents</h4><p class="key">✓ learned · ◐ begun · ❧ ${esc(state.learner.name)}’s place</p>`;
+  for (const ch of bk.chapters) {
+    const secs = bk.sections.filter((s) => s.chapter === ch.title);
+    const learned = secs.filter((s) => s.mark === "learned").length;
+    h += `<div class="ch"><span>${esc(ch.supplement ? `${ch.supplement} · ${ch.title}` : ch.title)}</span><span>${learned}/${secs.length}</span></div>`;
+    h += secs.map((s) => `<button class="sec ${s.mark}" data-page="${s.page}"><span class="m">${MARK[s.mark]}</span><span class="n">${esc(s.number)}</span><span>${esc(s.title)}</span><span class="p">${s.page ?? ""}</span></button>`).join("");
+  }
+  if (bk.answers_page) h += `<div class="ch"><span>Answers</span></div><button class="sec" data-page="${bk.answers_page}"><span></span><span></span><span>Answers to the Try Its and exercises</span><span class="p">${bk.answers_page}</span></button>`;
+  $("#toc").innerHTML = h;
+}
+function toggleToc(open) {
+  const t = $("#toc");
+  const show = open ?? t.classList.contains("hidden");
+  t.classList.toggle("hidden", !show);
+  $("#tocBtn").setAttribute("aria-expanded", String(show));
+}
+async function loadBook() {
+  const r = await api(`/api/l/${LID}/book`);
+  if (!r.ready) {
+    $("#readerMsg").innerHTML = r.error ? `<span class="err">The book could not be bound: ${esc(r.error)}</span>`
+      : `<span class="muted">The book is being bound. This takes a minute the first time.</span>`;
+    if (!r.error) setTimeout(loadBook, 6000);
+    return;
+  }
+  const first = !bk;
+  bk = r;
+  $("#readerMsg").textContent = "";
+  $("#bookPdf").href = bk.pdf;
+  renderToc();
+  if (bk.bookmark) { $("#placeBtn").classList.remove("hidden"); $("#placeBtn").classList.add("place"); $("#placeBtn").textContent = `${state.learner.name}’s place · p. ${bk.bookmark}`; }
+  if (first) {
+    let saved = null;
+    try { saved = parseInt(localStorage.getItem(`book:${LID}`), 10); } catch (e) { /* private window */ }
+    const contents = (bk.chapters[0] && bk.chapters[0].page) ? Math.max(1, bk.chapters[0].page - 2) : 1;
+    cur = saved && saved >= 1 && saved <= bk.pages ? saved : (bk.bookmark || contents);
+  }
+  drawSpread();
+  const here = bk.sections.find((x) => x.mark === "here");
+  const lessonOpen = state.packets.some((p) => p.status === "open" && p.kind !== "diagnostic");
+  if (here && lessonOpen && !$("#readFirst")) {  // the worksheet goes with a section of the book: read it there first
+    const p = document.createElement("p");
+    p.id = "readFirst"; p.className = "small";
+    p.innerHTML = `Read <b>Section ${esc(here.number)}, ${esc(here.title)}</b> in the book first. <button class="linkish" id="readFirstBtn">Turn to page ${here.page}</button>`;
+    $("#next .kicker").after(p);
+    $("#readFirstBtn").onclick = () => { goTo(here.page); $("#reader").scrollIntoView({ behavior: "smooth" }); };
+  }
+}
+$("#prevBtn").onclick = () => step(-1);
+$("#nextBtn").onclick = () => step(1);
+$("#tocBtn").onclick = () => toggleToc();
+function setView() { $("#viewBtn").textContent = onePage ? "Two pages" : "One page"; if (bk) drawSpread(); }
+$("#viewBtn").onclick = () => { onePage = !onePage; try { localStorage.setItem("book:view", onePage ? "one" : "two"); } catch (e) { /* private */ } setView(); };
+setView();
+$("#placeBtn").onclick = () => { toggleToc(false); goTo(bk.bookmark); };
+$("#toc").addEventListener("click", (e) => { const b = e.target.closest("[data-page]"); if (b && b.dataset.page !== "null") { toggleToc(false); goTo(parseInt(b.dataset.page, 10)); } });
+$("#spread").addEventListener("click", (e) => {  // click the right page to turn forward, the left to turn back
+  if (!bk || turning) return;
+  const pg = e.target.closest(".pg");
+  if (!pg || pg.classList.contains("empty")) return;
+  step(pg.classList.contains("left") ? -1 : 1);
+});
+document.addEventListener("keydown", (e) => {
+  if (!bk || /INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)) return;
+  if (e.key === "ArrowRight") step(1);
+  else if (e.key === "ArrowLeft") step(-1);
+  else if (e.key === "Escape") toggleToc(false);
+});
+let touchX = null;
+$("#spread").addEventListener("touchstart", (e) => { touchX = e.touches[0].clientX; }, { passive: true });
+$("#spread").addEventListener("touchend", (e) => {
+  if (touchX === null) return;
+  const dx = e.changedTouches[0].clientX - touchX; touchX = null;
+  if (Math.abs(dx) > 50) step(dx < 0 ? 1 : -1);
+});
+window.addEventListener("resize", () => { if (bk) drawSpread(); });
+
 async function loadReports() {
   const reps = await api(`/api/l/${LID}/reports`);
   if (reps.length) { $("#reports").innerHTML = reps.slice(0, 6).map(renderReport).join(""); mathify($("#reports")); }
@@ -266,6 +490,7 @@ async function loadReports() {
 async function load(withReports) {
   state = await api(`/api/l/${LID}/state`);
   renderHeader(); renderNext(); renderPackets(); renderSkills();
+  loadBook().catch((e) => { $("#readerMsg").innerHTML = `<span class="err">${esc(e.message)}</span>`; });
   if (withReports) await loadReports();
 }
 

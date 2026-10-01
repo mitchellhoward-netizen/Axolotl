@@ -367,8 +367,11 @@ class LearnerDB:
         practiced at least `min_practice_for_mastery` times (one right answer is not mastery)."""
         cfg = config()["learner"]
         thr, need = cfg["mastery_threshold"], cfg.get("min_practice_for_mastery", 1)
+        # an untouched skill counts only once the diagnostic has spoken: a parent's starting point
+        # (the prior) is a guess about where to begin, not evidence that anything is learned
         return {r["id"] for r in self.skill_rows()
-                if r["p_mastery"] >= thr and (r["placed"] or r["n_obs"] == 0 or r["n_obs"] >= need)}
+                if r["p_mastery"] >= thr and (r["placed"] or (r["n_obs"] == 0 and r["source"] != "prior")
+                                              or r["n_obs"] >= need)}
 
     def due_reviews(self, at: dt.datetime | None = None) -> list[str]:
         at = at or dt.datetime.now(dt.timezone.utc)

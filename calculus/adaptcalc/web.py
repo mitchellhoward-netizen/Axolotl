@@ -34,7 +34,7 @@ from pathlib import Path
 from fastapi import FastAPI, File, HTTPException, Request, UploadFile
 from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, RedirectResponse, Response
 
-from . import accounts, billing, diagnostic, extract, mailer, packets, paths, pipeline, source, transcribe
+from . import accounts, billing, diagnostic, extract, mailer, packets, paths, pipeline, source, transcribe, volume
 from .learner import LearnerDB, config
 
 STATIC = Path(__file__).resolve().parent / "static"
@@ -653,6 +653,75 @@ def packet_pdf(lid: str, name: str, request: Request):
     return FileResponse(p, media_type="application/pdf", filename=p.name, content_disposition_type="inline")
 
 
+# ---------------------------------------------------------------------------
+# the bound book (volume.py): the whole course as a textbook to read and turn the pages of
+
+@app.get("/api/l/{lid}/book")
+def book(lid: str, request: Request):
+    """The course's book and this learner's place in it: which sections are learned, which is
+    being worked on (the bookmark), which are ahead."""
+    _, _, lr = require_learner(request, lid)
+    course = lr["course"]
+    idx = volume.index(course)
+    if not idx:
+        volume.ensure_async(course)
+        return {"ready": False, **volume.status(course)}
+    d = db()
+    done = d.mastered_set()
+    front = d.frontier()
+    open_focus = []
+    for p in d.packets():
+        if p["status"] == "open" and p["kind"] != "diagnostic":
+            open_focus += json.loads(p["meta"] or "{}").get("focus", [])
+    # a place in the book comes from evidence: an open lesson, or the frontier once work has been checked
+    here_skills = open_focus or (front[:1] if d.attempts() else [])
+    sections = []
+    bookmark = None
+    for sec in idx["sections"]:
+        sks = sec["skills"]
+        if sks and all(s in done for s in sks):
+            mark = "learned"
+        elif any(s in here_skills for s in sks):
+            mark = "here"
+        elif any(s in done for s in sks):
+            mark = "begun"
+        else:
+            mark = "ahead"
+        if mark == "here" and bookmark is None:
+            bookmark = sec["page"]
+        sections.append({**sec, "mark": mark,
+                         "learned": sum(1 for s in sks if s in done), "of": len(sks)})
+    v = idx["hash"]
+    return {"ready": True, "pages": idx["pages"], "size": idx["size"], "chapters": idx["chapters"],
+            "sections": sections, "answers_page": idx["answers_page"], "bookmark": bookmark,
+            "page_url": f"/l/{lid}/book/page/{{n}}.webp?v={v}", "pdf": f"/l/{lid}/book.pdf?v={v}",
+            "title": extract.course_source().get("title", course)}
+
+
+def _volume_file(lr: dict, rel: str) -> Path:
+    if not volume.index(lr["course"]):
+        raise HTTPException(404, "The book is still being bound.")
+    p = volume.volume_dir(lr["course"]) / rel
+    if not p.exists():
+        raise HTTPException(404)
+    return p
+
+
+@app.get("/l/{lid}/book/page/{n}.webp")
+def book_page(lid: str, n: int, request: Request):
+    _, _, lr = require_learner(request, lid)
+    p = _volume_file(lr, f"pages/{n}.webp")
+    return FileResponse(p, media_type="image/webp", headers={"Cache-Control": "private, max-age=31536000, immutable"})
+
+
+@app.get("/l/{lid}/book.pdf")
+def book_pdf(lid: str, request: Request):
+    _, _, lr = require_learner(request, lid)
+    p = _volume_file(lr, "book.pdf")
+    title = re.sub(r"[^A-Za-z0-9]+", "-", extract.course_source().get("title", "book")).strip("-")
+    return FileResponse(p, media_type="application/pdf", filename=f"{title}.pdf", content_disposition_type="inline")
+
+
 def _save_upload(f: UploadFile) -> Path:
     paths.INBOX.mkdir(parents=True, exist_ok=True)
     stem = re.sub(r"[^A-Za-z0-9_-]", "_", Path(f.filename or "photo").stem)[:60] or "photo"
@@ -911,6 +980,8 @@ def startup() -> None:
 
     paths.ensure_dirs()
     paths.LEARNERS.mkdir(parents=True, exist_ok=True)
+    if os.environ.get("ADAPTCALC_BIND_BOOKS", "1") == "1":
+        volume.bind_all_async()  # in the background; readers see "being bound" until each is ready
     a = acc()
     fid = accounts.adopt_legacy(a)
     if fid:

@@ -186,7 +186,9 @@ class Converter:
         return f"frac({num}, {den})"
 
     def t_msqrt(self, el):
-        return f"sqrt({self.t_mrow(el)})"
+        inner = self.t_mrow(el)
+        # the book shows the bare radical sign when it introduces it
+        return f"sqrt({inner})" if inner.strip() else "sqrt(#h(0.5em))"
 
     def t_mroot(self, el):
         kids = list(el)

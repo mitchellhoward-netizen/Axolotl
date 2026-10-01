@@ -163,3 +163,38 @@ def test_each_course_carries_its_own_attribution(client):
     assert "Prealgebra 2e" in credit["prealgebra"] and "CC BY 4.0" in credit["prealgebra"]
     assert "Elementary Algebra 2e" in credit["algebra1"]
     assert "Written for Marginalia" in credit["elementary"] and "OpenStax" not in credit["elementary"]
+
+
+def test_the_book_is_bound_and_served_with_the_learners_place(client, tmp_path):
+    """The elementary course as a textbook: bound once (audited, cut into pages), served page by page
+    to the family's learner, with the place marked only once there is evidence."""
+    from adaptcalc import volume
+
+    with paths.use_course("elementary"):
+        idx = volume.build("elementary", log=lambda *_: None)
+    assert idx["audit"]["ok"] and idx["pages"] > 60 and idx["answers_page"]
+    assert all(s["page"] for s in idx["sections"]) and len(idx["sections"]) == 60
+    signup(client)
+    lid = client.post("/api/learners", headers=H, json={"name": "Kit", "course": "elementary", "start": "g3"}).json()["id"]
+    b = client.get(f"/api/l/{lid}/book").json()
+    assert b["ready"] and b["pages"] == idx["pages"] and b["bookmark"] is None  # no work yet: no place, nothing learned
+    assert not any(s["mark"] in ("learned", "here") for s in b["sections"])
+    assert client.get(b["page_url"].replace("{n}", "1")).headers["content-type"] == "image/webp"
+    assert client.get(b["pdf"]).content[:4] == b"%PDF"
+    other = TestClient(web.app)
+    signup(other, email="other@example.com")
+    assert other.get(b["page_url"].replace("{n}", "1")).status_code == 404
+    # a lesson opened on a skill puts the ribbon at its section
+    with paths.use_learner(accounts.learner_dir(lid), "elementary"):
+        from adaptcalc.learner import LearnerDB
+        LearnerDB().add_packet("L1", "lesson", None, {"focus": ["g3_div"]})
+    b = client.get(f"/api/l/{lid}/book").json()
+    here = [s for s in b["sections"] if s["mark"] == "here"]
+    assert [s["number"] for s in here] == ["3.2"] and b["bookmark"] == here[0]["page"]
+
+
+def test_a_starting_point_is_not_learning(client):
+    signup(client)
+    lid = client.post("/api/learners", headers=H, json={"name": "Ana", "course": "elementary", "start": "g5"}).json()["id"]
+    s = client.get(f"/api/l/{lid}/state").json()
+    assert not any(x["mastered"] for x in s["skills"])
