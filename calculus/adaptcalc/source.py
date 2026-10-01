@@ -181,8 +181,8 @@ def fetch_media(name: str, book: str | None = None) -> Path:
     import urllib.parse
 
     # the book's own repository first, then the CC BY books, the non-commercial one last
-    rest = sorted((b for b in BOOKS if b != book), key=lambda b: not BOOKS[b].commercial)
-    order = ([book] if book else []) + rest
+    rest = sorted((b for b in BOOKS if b != book and not BOOKS[b].authored), key=lambda b: not BOOKS[b].commercial)
+    order = ([book] if book and not BOOKS[book].authored else []) + rest
     for b in order:
         try:
             return _cached(f"{raw(b)}/media/{urllib.parse.quote(name)}", dest)
@@ -198,6 +198,8 @@ def fetch_book(book: str, refresh: bool = False, with_media: bool | None = None)
     Figures are fetched on first use (fetch_media) except for the calculus chapter, which is
     small enough to prefetch.
     """
+    if BOOKS[book].authored:
+        return []  # written here: nothing to fetch
     if with_media is None:
         with_media = book == "calc1"
     paths.ensure_dirs()
