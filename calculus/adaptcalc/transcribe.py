@@ -47,6 +47,9 @@ For each line give:
 - continues: true when the line begins with "=" and continues the previous line's chain.
 - crossed_out, boxed: booleans as described. For a boxed line, final_answer is the value in the box without a leading "=".
 
+- position: where the problem's number is in the photo, as fractions of the image (x from the left edge, y from the
+  top edge, each between 0 and 1). It is used to put a mark beside the problem, like a teacher's pen.
+
 If a line is illegible, set text to "[illegible]" and sympy to "". Report anything unusual in notes."""
 
 SCHEMA = {
@@ -76,8 +79,14 @@ SCHEMA = {
                         },
                     },
                     "final_answer": {"type": ["string", "null"]},
+                    "position": {
+                        "type": "object",
+                        "properties": {"x": {"type": "number"}, "y": {"type": "number"}},
+                        "required": ["x", "y"],
+                        "additionalProperties": False,
+                    },
                 },
-                "required": ["number", "skipped", "lines", "final_answer"],
+                "required": ["number", "skipped", "lines", "final_answer", "position"],
                 "additionalProperties": False,
             },
         },
@@ -102,6 +111,9 @@ def validate(doc: dict) -> dict:
             ln.setdefault("continues", False)
         p.setdefault("skipped", False)
         p.setdefault("final_answer", None)
+        pos = p.get("position")
+        if not (isinstance(pos, dict) and all(isinstance(pos.get(k), (int, float)) and 0 <= pos[k] <= 1 for k in ("x", "y"))):
+            p.pop("position", None)  # optional: without it the book marks the clean printed page instead
     doc.setdefault("packet_code", None)
     doc.setdefault("notes", "")
     return doc

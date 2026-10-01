@@ -97,8 +97,11 @@
 .mark.no .ring { display: inline-flex; width: 1.6em; height: 1.6em; border: 2.5px solid #b13a26; border-radius: 50%;
   align-items: center; justify-content: center; font-size: 1.1em; }
 .mark.skip { color: #8a7f6c; font-size: clamp(15px, 1.8vw, 24px); }
+.photo-sheet { position: absolute; background: #f6f2e8; }
+.photo-sheet > img { width: 100%; height: 100%; display: block; object-fit: fill; }
+.photo-sheet .mark.no { flex-direction: row-reverse; }
 .single .mark.yes { font-size: clamp(28px, 5vw, 54px); }
-.tally { position: absolute; right: 5%; bottom: 4.5%; z-index: 2; font-family: "Caveat", cursive; font-weight: 700;
+.tally { position: absolute; right: 6%; top: 2.2%; z-index: 2; font-family: "Caveat", cursive; font-weight: 700;
   color: #0d6b5e; font-size: clamp(20px, 2.6vw, 38px); transform: rotate(-4deg); border-bottom: 2px solid #0d6b5e; padding: 0 .2em; }
 .making { display: flex; flex-direction: column; justify-content: center; text-align: center; color: #5d5547; }
 .making .big { font-family: var(--display); font-size: 1.9em; color: #27231d; margin-bottom: 8px; }
@@ -295,8 +298,16 @@ function leafHtml(i) {
   if (L.t === "blank") return `<div class="hp" style="display:flex;align-items:center;justify-content:center;color:#cbbf9f;font-size:1.6em">❦</div>`;
   if (L.t === "marked") {
     const yes = L.marks.filter((m) => m.v === "yes").length;
-    return `<img src="${L.src}" alt="${esc(NAME())}’s page, marked" draggable="false">` + L.marks.map((m) =>
-      `<span class="mark ${m.v}" style="top:${(m.y * 100).toFixed(2)}%">${m.v === "yes" ? "✓" : m.v === "no" ? `<span class="ring">${m.n}</span>look again` : "skipped"}</span>`).join("")
+    const markHtml = (m, style, short) => `<span class="mark ${m.v}" style="${style}">${m.v === "yes" ? "✓" : m.v === "no" ? `<span class="ring">${m.n}</span>${short ? "" : "look again"}` : (short ? "–" : "skipped")}</span>`;
+    if (L.photo) {
+      // the child's own page as photographed, marked beside each problem in the teacher's hand
+      const PA = 8.5 / 11, w = L.aspect >= PA ? 100 : 100 * L.aspect / PA, h = L.aspect >= PA ? 100 * PA / L.aspect : 100;
+      return `<div class="photo-sheet" style="width:${w.toFixed(2)}%;height:${h.toFixed(2)}%;left:${((100 - w) / 2).toFixed(2)}%;top:${((100 - h) / 2).toFixed(2)}%"><img src="${L.src}" alt="${esc(NAME())}’s page, marked" draggable="false">`
+        + L.marks.map((m) => markHtml(m, `top:${(m.y * 100).toFixed(2)}%;left:${(Math.max(0.01, m.x - 0.075) * 100).toFixed(2)}%;right:auto`, true)).join("")
+        + `<span class="tally">${yes} / ${L.marks.length}</span></div>${today}`;
+    }
+    return `<img src="${L.src}" alt="${esc(NAME())}’s page, marked" draggable="false">`
+      + L.marks.map((m) => markHtml(m, `top:${(m.y * 100).toFixed(2)}%`)).join("")
       + `<span class="tally">${yes} / ${L.marks.length}</span>${today}`;
   }
   if (L.t === "returned") {

@@ -977,7 +977,18 @@ def mybook(lid: str, request: Request):
             if not graded:
                 continue  # a photo with nothing new on it leaves no page in the book
             sheets = collections.Counter(where[x["number"]]["page"] for x in graded if x["number"] in where)
-            if sheets:
+            seen_at = {tp["number"]: tp.get("position") for tp in (rep.get("transcript") or {}).get("problems", [])}
+            photo_dims = _photo_dims(rep.get("photo")) if rep.get("photo") else None
+            if photo_dims and graded and all(seen_at.get(x["number"]) for x in graded):
+                # the child's own page, marked where each problem is in the photo
+                if (len(leaves) + 1) % 2:
+                    leaves.append({"t": "blank"})
+                leaves.append({"t": "marked", "packet": p["id"], "src": pub["photo_url"], "photo": True,
+                               "aspect": photo_dims[0] / photo_dims[1],
+                               "marks": [{"n": x["number"], "x": seen_at[x["number"]]["x"], "y": seen_at[x["number"]]["y"],
+                                          "v": "skip" if x.get("skipped") else ("yes" if x.get("correct") else "no")}
+                                         for x in graded]})
+            elif sheets:
                 # the sheet as printed, marked in the margin beside each problem, then the notes facing it
                 sheet = sheets.most_common(1)[0][0]
                 marks = [{"n": x["number"], "y": where[x["number"]]["y"],
@@ -998,6 +1009,25 @@ def mybook(lid: str, request: Request):
     if today is None:
         today = len(leaves) - 1
     return {"name": lr["name"], "course": course_info(lr["course"]), "leaves": leaves, "today": today, "now": now}
+
+
+def _photo_dims(name: str) -> tuple[int, int] | None:
+    """Width and height of a work photo as the book shows it (upright), from its cached JPEG."""
+    cache = paths.OUT / "photos" / (Path(name).stem + ".jpg")
+    if not cache.exists():
+        src = next((d_ / name for d_ in (paths.PROCESSED, paths.INBOX) if (d_ / name).exists()), None)
+        if src is None:
+            return None
+        try:
+            _, raw = transcribe.prepare_image(src)
+        except transcribe.UnreadableImage:
+            return None
+        cache.parent.mkdir(parents=True, exist_ok=True)
+        cache.write_bytes(raw)
+    from PIL import Image
+
+    with Image.open(cache) as im:
+        return im.size
 
 
 @app.get("/l/{lid}/packets/{pid}/page/{n}.webp")
