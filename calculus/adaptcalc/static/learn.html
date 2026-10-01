@@ -193,10 +193,10 @@ function renderReport(rep) {
         <span class="ln">${i + 1}</span><span><span class="tx ${l.boxed ? "boxed" : ""}">${esc(l.text)}</span>
         ${l.status === "invalid" ? `<br><span class="why">${esc(l.note && l.note !== "solution set changed" ? l.note : "this line doesn’t follow from the one before")}</span>` : ""}</span></li>`).join("") + `</ol>`;
     }
-    if (!p.correct && !p.skipped) h += `<div class="small muted">Your answer: ${esc(p.final_answer ?? "none found")}${p.final_note ? ` · ${esc(p.final_note.replace("the answer is", "the book’s answer is"))}` : ""}
+    if (!p.correct && !p.skipped) h += `<div class="small muted">Your answer: ${esc(p.final_answer ?? "none found")}${p.final_note ? ` · ${esc(p.final_note.replace("the answer is", "the book’s answer is").replace("not equal to", "the book’s answer is").replace(/(\d)\*([a-z(])/g, "$1$2").replace(/\*\*/g, "^").replace(/\*/g, "·"))}` : ""}
       ${p.packet_kind === "diagnostic" ? ` <button class="linkish" data-recheck="${esc(p.problem_id)}">recheck</button>` : ""}</div>`;
     if (p.misconception_text) h += `<div class="diagnosis"><b>What the work shows</b> ${esc(p.misconception_text)}</div>`;
-    if (p.problem_id) {
+    if (p.problem_id && !p.skipped) {
       const opts = p.lines.map((l, i) => `<option value="${i + 1}" ${l.status === "invalid" ? "selected" : ""}>line ${i + 1}</option>`).join("");
       h += `<div class="ask"><button class="linkish" data-ask="${esc(p.problem_id)}">Ask about this problem</button>
         <div class="hidden" id="ask-${esc(p.problem_id)}">
@@ -205,7 +205,7 @@ function renderReport(rep) {
           <button class="btn" data-send="${esc(p.problem_id)}">Ask</button></div>
           <div class="answers"></div></div></div>`;
     }
-    if (p.changes && p.changes.length) h += `<div class="changes">${p.changes.map((c) => `${esc(c.name)}: ${Math.round(c.before * 100)}% → ${Math.round(c.after * 100)}%`).join(" · ")}</div>`;
+    if (p.changes && p.changes.length && !p.skipped) h += `<div class="changes">${p.changes.slice(0, 2).map((c) => `${esc(c.name)} ${c.after > c.before ? "up" : "down"} to ${Math.round(c.after * 100)}%`).join(" · ")}</div>`;
     h += `</div>`;
   }
   return h;
@@ -294,8 +294,9 @@ dz.ondragover = (e) => { e.preventDefault(); dz.classList.add("drag"); };
 dz.ondragleave = () => dz.classList.remove("drag");
 dz.ondrop = (e) => { e.preventDefault(); dz.classList.remove("drag"); $("#photo").files = e.dataTransfer.files; };
 
-window.addEventListener("load", () => {});
-load(true).catch((e) => { $("#next").innerHTML = `<p class="err">${esc(e.message)}</p>`; });
+// deferred scripts (KaTeX) have run by DOMContentLoaded, so math renders on the first draw
+document.addEventListener("DOMContentLoaded", () =>
+  load(true).catch((e) => { $("#next").innerHTML = `<p class="err">${esc(e.message)}</p>`; }));
 </script>
 </body>
 </html>
