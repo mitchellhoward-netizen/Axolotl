@@ -28,7 +28,9 @@ async function api(path, opts = {}) {
 }
 
 // A background job, shown as a ledger of what it is doing. Resolves with the job's result.
-async function runJob(jobId, ledgerEl) {
+async function runJob(jobId, ledgerEl, url) {
+  // ledgerEl may be null: then the job is followed quietly (the page shows its own status)
+  ledgerEl = ledgerEl || document.createElement("div");
   const lines = [];
   let last = null;
   const t0 = Date.now();
@@ -38,7 +40,7 @@ async function runJob(jobId, ledgerEl) {
   };
   ledgerEl.classList.remove("hidden");
   for (;;) {
-    const j = await api(`/api/jobs/${jobId}`);
+    const j = await api(url || `/api/jobs/${jobId}`);
     if (j.stage !== last) { last = j.stage; lines.push({ stage: j.stage, t: Math.round((Date.now() - t0) / 1000) }); draw(false); }
     if (j.status === "done") { draw(true); return j.result; }
     if (j.status === "error") { draw(true); throw new Error(j.error || "That didn't work."); }

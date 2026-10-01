@@ -34,7 +34,7 @@ from pathlib import Path
 from fastapi import FastAPI, File, HTTPException, Request, UploadFile
 from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, RedirectResponse, Response
 
-from . import accounts, billing, diagnostic, extract, mailer, packets, paths, pipeline, source, transcribe, volume
+from . import accounts, billing, diagnostic, extract, flow, mailer, packets, paths, pipeline, source, transcribe, volume
 from .learner import LearnerDB, config
 
 STATIC = Path(__file__).resolve().parent / "static"
@@ -195,6 +195,26 @@ def start_job(fid: str, lid: str, course: str, kind: str, fn) -> str:
     return jid
 
 
+def kick(a: accounts.Accounts, fam: dict, lr: dict, base: str) -> str | None:
+    """Make the learner's next pages in the background, if none are open (no-op otherwise)."""
+    lid = lr["id"]
+    if flow.activity(lid) and flow.activity(lid)["kind"] == "making":
+        return None
+    flow.set_activity(lid, "making", "Getting ready")
+
+    def work(progress):
+        def say(stage):
+            progress(stage)
+            flow.set_activity(lid, "making", stage)
+        a2 = acc()  # this runs on a worker thread: its own database connection
+        try:
+            return flow.advance(a2, a2.family(fam["id"]) or fam, lr, base, say) or {}
+        finally:
+            flow.set_activity(lid, None)
+
+    return start_job(fam["id"], lid, lr["course"], "making", work)
+
+
 @app.get("/api/jobs/{jid}")
 def job_status(jid: str, request: Request):
     _, fam = require_family(request)
@@ -308,8 +328,15 @@ async def signup(request: Request):
     except accounts.AuthError as e:
         raise HTTPException(400, str(e)) from e
     fam = a.family(fid)
-    in_background(mailer.welcome, fam["email"], fam["name"], base_url(request))
-    resp = JSONResponse({"ok": True})
+    child, grade = " ".join(str(b.get("child", "")).split()), str(b.get("grade", ""))
+    lid = None
+    if child and grade in flow.GRADE:  # the one-step sign-up: the child's first pages start right away
+        course, start = flow.GRADE[grade]
+        lid = a.add_learner(fid, child, course, start)
+        kick(a, fam, a.learner(fid, lid), base_url(request))
+    else:
+        in_background(mailer.welcome, fam["email"], fam["name"], base_url(request))
+    resp = JSONResponse({"ok": True, "learner": lid})
     set_session(resp, a.new_session(fid), request)
     return resp
 
@@ -438,17 +465,21 @@ async def stripe_webhook(request: Request):
 async def add_learner(request: Request):
     a, fam = require_family(request)
     b = await request.json()
-    course = str(b.get("course", ""))
     allowed = {c["id"]: c for c in courses_for(fam)}
+    if str(b.get("grade", "")) in flow.GRADE:  # the usual way: the grade the child is in
+        course, start = flow.GRADE[str(b["grade"])]
+    else:
+        course, start = str(b.get("course", "")), str(b.get("start", "unsure"))
     if course not in allowed:
-        raise HTTPException(400, "Choose a course.")
-    start = str(b.get("start", "unsure"))
+        raise HTTPException(400, "Choose the grade your child is in.")
     if start not in {s["id"] for s in allowed[course]["starts"]}:
         start = "unsure"
     try:
         lid = a.add_learner(fam["id"], str(b.get("name", "")), course, start)
     except accounts.AuthError as e:
         raise HTTPException(400, str(e)) from e
+    if b.get("make", True):
+        kick(a, fam, a.learner(fam["id"], lid), base_url(request))
     return {"id": lid}
 
 
@@ -739,6 +770,37 @@ def _save_upload(f: UploadFile) -> Path:
     return dest
 
 
+def photo_job(a: accounts.Accounts, fam: dict, lr: dict, dest: Path, base: str, packet: str | None = None) -> str:
+    lid = lr["id"]
+    flow.set_activity(lid, "checking", "Reading the page")
+
+    def work(progress):
+        def say(stage):
+            progress(stage)
+            flow.set_activity(lid, "checking", stage)
+        d = db()
+        try:
+            rep = pipeline.process_photo(d, dest, progress=say, packet=packet)
+        except transcribe.UnreadableImage as e:
+            raise HTTPException(415, f"{e}. Try exporting the photo as JPEG.") from e
+        except transcribe.PendingTranscription:
+            return {"pending": True, "photo": dest.name,
+                    "message": "Saved. Photo reading is not set up on this server, so this page waits for a transcript."}
+        finally:
+            flow.set_activity(lid, None)
+        say("Writing up the feedback")
+        out = public_report(rep)
+        pid = rep.get("packet")
+        if pid:
+            out["summary"] = flow.summary_of(d, pid)
+            out["done"] = flow.packet_done(d, pid)
+            if out["done"]:  # the whole set is checked: the next pages start being made now
+                kick(acc(), fam, lr, base)
+        return out
+
+    return start_job(fam["id"], lid, lr["course"], "photo", work)
+
+
 @app.post("/api/l/{lid}/photos")
 def upload_photo(lid: str, request: Request, photo: UploadFile = File(...)):
     a, fam, lr = require_learner(request, lid)
@@ -746,21 +808,75 @@ def upload_photo(lid: str, request: Request, photo: UploadFile = File(...)):
         raise HTTPException(503, "Photo checking is not set up on this server yet.")
     require_access(a, fam)
     _limit(a, lid, "photos")
-    dest = _save_upload(photo)
+    return {"job": photo_job(a, fam, lr, _save_upload(photo), base_url(request), request.query_params.get("packet"))}
 
-    def work(progress):
-        d = db()
-        try:
-            rep = pipeline.process_photo(d, dest, progress=progress)
-        except transcribe.UnreadableImage as e:
-            raise HTTPException(415, f"{e}. Try exporting the photo as JPEG.") from e
-        except transcribe.PendingTranscription:
-            return {"pending": True, "photo": dest.name,
-                    "message": "Saved. Photo reading is not set up on this server, so this page waits for a transcript."}
-        progress("Writing up the feedback")
-        return public_report(rep)
 
-    return {"job": start_job(fam["id"], lid, lr["course"], "photo", work)}
+@app.post("/api/l/{lid}/done")
+def pages_done(lid: str, request: Request):
+    """'That's all for these pages': what wasn't sent in stays unchecked, and the next pages are made."""
+    a, fam, lr = require_learner(request, lid)
+    d = db()
+    with d.tx() as c:
+        c.execute("UPDATE packets SET status='set_aside' WHERE status='open'")
+    return {"job": kick(a, fam, lr, base_url(request))}
+
+
+@app.post("/api/l/{lid}/make")
+def make_pages(lid: str, request: Request):
+    a, fam, lr = require_learner(request, lid)
+    require_access(a, fam)
+    return {"job": kick(a, fam, lr, base_url(request))}
+
+
+# ---------------------------------------------------------------------------
+# scan links: a phone pointed at the code on the first page, no sign-in
+
+def scan_scope(lid: str, pid: str, sig: str) -> tuple[accounts.Accounts, dict, dict]:
+    a = acc()
+    lr = a.learner_by_id(lid) if re.fullmatch(r"[a-f0-9]{16}", lid or "") else None
+    if not lr or not re.fullmatch(r"[DLR]\d+", pid or "") or not flow.verify(a, lid, pid, sig):
+        raise HTTPException(404, "This code doesn’t open anything. Scan the code on the first page again.")
+    paths.set_scope(accounts.learner_dir(lid), lr["course"])
+    return a, a.family(lr["family_id"]), lr
+
+
+@app.get("/s/{lid}/{pid}/{sig}", response_class=HTMLResponse)
+def scan_page(lid: str, pid: str, sig: str):
+    scan_scope(lid, pid, sig)
+    return page("scan.html")
+
+
+@app.get("/api/s/{lid}/{pid}/{sig}")
+def scan_state(lid: str, pid: str, sig: str):
+    a, fam, lr = scan_scope(lid, pid, sig)
+    d = db()
+    pk = d.packet(pid)
+    if not pk:
+        raise HTTPException(404, "These pages were removed.")
+    act = flow.activity(lid)
+    return {"name": lr["name"], "packet": pid, "kind": pk["kind"], "status": pk["status"],
+            "summary": flow.summary_of(d, pid), "activity": act,
+            "open": [p["id"] for p in d.packets() if p["status"] == "open"]}
+
+
+@app.post("/api/s/{lid}/{pid}/{sig}/photos")
+def scan_photo(lid: str, pid: str, sig: str, request: Request, photo: UploadFile = File(...)):
+    a, fam, lr = scan_scope(lid, pid, sig)
+    rate_limit(f"scan:{lid}", 30, 3600)
+    if not os.environ.get("TYPESAFE_API_KEY"):
+        raise HTTPException(503, "Photo checking is not set up on this server yet.")
+    require_access(a, fam)
+    _limit(a, lid, "photos")
+    return {"job": photo_job(a, fam, lr, _save_upload(photo), base_url(request), pid)}
+
+
+@app.get("/api/s/{lid}/{pid}/{sig}/jobs/{jid}")
+def scan_job(lid: str, pid: str, sig: str, jid: str):
+    scan_scope(lid, pid, sig)
+    j = _JOBS.get(jid)
+    if not j or j["learner"] != lid:
+        raise HTTPException(404, "No such job.")
+    return {k: j[k] for k in ("id", "kind", "status", "stage", "result", "error")}
 
 
 def public_report(rep: dict) -> dict:
@@ -792,6 +908,120 @@ def public_report(rep: dict) -> dict:
             })
         out["problems"].append(e)
     return out
+
+
+# ---------------------------------------------------------------------------
+# her book: the pages made for this child, in order, each followed by her checked work
+
+def _reports_by_packet() -> dict[str, list[dict]]:
+    out: dict[str, list[dict]] = collections.defaultdict(list)
+    if paths.OUT.exists():
+        for f in sorted(paths.OUT.glob("report-*.json"), key=lambda p: p.stat().st_mtime):
+            rep = json.loads(f.read_text(encoding="utf-8"))
+            if rep.get("packet"):
+                out[rep["packet"]].append(rep)
+    return out
+
+
+def _page_count(pdf: str | None) -> int:
+    if not pdf or not Path(pdf).exists():
+        return 0
+    import pymupdf
+
+    with pymupdf.open(pdf) as doc:
+        return doc.page_count
+
+
+def now_state(a: accounts.Accounts, fam: dict, lr: dict, d: LearnerDB) -> dict:
+    """The one thing a grown-up might do right now, and what just happened."""
+    lid = lr["id"]
+    act = flow.activity(lid)
+    opens = [p for p in d.packets() if p["status"] == "open"]
+    if opens and not opens[-1]["pdf"]:  # created, still being set: not ready to print yet
+        act = act or {"kind": "making", "stage": "Setting the pages", "at": time.time()}
+        opens = opens[:-1]
+    last_done = next((p for p in reversed(d.packets()) if p["status"] != "open"
+                      and flow.summary_of(d, p["id"])["checked"]), None)
+    out = {"activity": act, "access": a.has_access(fam), "photos_ready": transcriber_ready()}
+    if opens:
+        o = opens[-1]
+        out["open"] = {"packet": o["id"], "kind": o["kind"], "pdf": f"/l/{lid}/packets/{o['id']}.pdf",
+                       "key": f"/l/{lid}/packets/{o['id']}-key.pdf", "summary": flow.summary_of(d, o["id"]),
+                       "scan": flow.scan_url(a, base_url(), lid, o["id"]), "about": flow.describe(o["kind"])}
+    if last_done:
+        out["last"] = flow.summary_of(d, last_done["id"]) | {"kind": last_done["kind"]}
+    return out
+
+
+@app.get("/api/l/{lid}/mybook")
+def mybook(lid: str, request: Request):
+    """Her book's leaves: a cover, then for each set of pages its printed pages and, after them, her
+    work as it came back with notes in the margins. 'today' is the leaf the book opens at."""
+    a, fam, lr = require_learner(request, lid)
+    d = db()
+    reps = _reports_by_packet()
+    leaves = [{"t": "cover"}]
+    today = None
+    for p in d.packets():
+        n = _page_count(p["pdf"])
+        first = len(leaves)
+        for i in range(1, n + 1):
+            leaves.append({"t": "img", "src": f"/l/{lid}/packets/{p['id']}/page/{i}.webp", "packet": p["id"],
+                           "kind": p["kind"], "n": i})
+        for rep in reps.get(p["id"], []):
+            pub = public_report(rep)
+            if rep.get("photo"):
+                pub["photo_url"] = f"/l/{lid}/photos/{rep['photo']}"
+            leaves.append({"t": "returned", "packet": p["id"], "report": pub})
+        if p["status"] == "open" and n:
+            today = first
+    now = now_state(a, fam, lr, d)  # once, so the book and the note above it agree
+    making = now["activity"]
+    if making and making["kind"] == "making":
+        leaves.append({"t": "making", "stage": making["stage"]})
+        today = len(leaves) - 1
+    if today is None:
+        today = len(leaves) - 1
+    return {"name": lr["name"], "course": course_info(lr["course"]), "leaves": leaves, "today": today, "now": now}
+
+
+@app.get("/l/{lid}/packets/{pid}/page/{n}.webp")
+def packet_page(lid: str, pid: str, n: int, request: Request):
+    require_learner(request, lid)
+    if not re.fullmatch(r"[DLR]\d+", pid):
+        raise HTTPException(404)
+    pdf = paths.OUT / f"{pid}.pdf"
+    if not pdf.exists():
+        raise HTTPException(404)
+    cache = paths.OUT / "pages" / f"{pid}-{n}.webp"
+    if not cache.exists() or cache.stat().st_mtime < pdf.stat().st_mtime:
+        import pymupdf
+        from PIL import Image
+
+        with pymupdf.open(pdf) as doc:
+            if not 1 <= n <= doc.page_count:
+                raise HTTPException(404)
+            pix = doc[n - 1].get_pixmap(dpi=150)
+        cache.parent.mkdir(parents=True, exist_ok=True)
+        Image.frombytes("RGB", (pix.width, pix.height), pix.samples).save(cache, "WEBP", quality=84)
+    return FileResponse(cache, media_type="image/webp", headers={"Cache-Control": "private, max-age=300"})
+
+
+@app.get("/l/{lid}/photos/{name}")
+def work_photo(lid: str, name: str, request: Request):
+    """A photo of her work, as sent in (turned upright, any phone format), for her returned pages."""
+    require_learner(request, lid)
+    if "/" in name or name.startswith("."):
+        raise HTTPException(404)
+    src = next((d_ / name for d_ in (paths.PROCESSED, paths.INBOX) if (d_ / name).exists()), None)
+    if src is None:
+        raise HTTPException(404)
+    cache = paths.OUT / "photos" / (Path(name).stem + ".jpg")
+    if not cache.exists():
+        _, raw = transcribe.prepare_image(src)
+        cache.parent.mkdir(parents=True, exist_ok=True)
+        cache.write_bytes(raw)
+    return FileResponse(cache, media_type="image/jpeg", headers={"Cache-Control": "private, max-age=86400"})
 
 
 @app.get("/api/l/{lid}/reports")

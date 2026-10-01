@@ -9,469 +9,421 @@
 <script defer src="/vendor/katex/katex.min.js"></script>
 <script defer src="/vendor/katex/contrib/auto-render.min.js"></script>
 <style>
-.next .page-turn { font-family: var(--display); font-size: 30px; line-height: 1.15; margin: 6px 0 8px; }
-.packet-line { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: baseline; padding: 12px 0; border-top: 1px dotted var(--rule); }
-.packet-line .id { font-family: var(--display); font-size: 24px; color: var(--spot); min-width: 2.2em; }
-.packet-line .what { flex: 1; min-width: 12em; }
-.chapter summary { cursor: pointer; list-style: none; display: flex; gap: 10px; align-items: baseline; padding: 8px 0; border-bottom: 1px dotted var(--rule); }
-.chapter summary::-webkit-details-marker { display: none; }
-.chapter summary .t { flex: 1; font-family: var(--display); font-size: 19px; }
-.chapter summary .c { font-size: 14px; color: var(--ink-2); font-variant-numeric: tabular-nums; }
-.skill { padding: 7px 0 7px 12px; border-bottom: 1px dotted var(--rule-2); font-size: 15px; }
-.skill .top { display: flex; gap: 8px; align-items: baseline; }
-.skill .top span:first-child { flex: 1; }
-.skill.done .top span:first-child::after { content: " ✓"; color: var(--spot); }
-.skill .meter { margin-top: 5px; }
-.ask { margin-top: 10px; }
-.ask .row { margin-top: 8px; }
-.ask select { width: auto; }
-.statement { font-size: 16px; color: var(--ink-2); margin: 6px 0 0; }
-.changes { font-size: 14px; color: var(--ink-3); margin-top: 8px; }
-.howto { font-size: 15px; color: var(--ink-2); margin: 6px 0 0; padding-left: 1.1em; }
+.shell { max-width: 1240px; margin: 0 auto; padding: 18px 20px 0; }
 
-/* ---------- the book on the desk ---------- */
-.reader-shell { max-width: 1240px; margin: 0 auto; padding: 22px 20px 0; }
-.reader-shell h1 { margin-bottom: 4px; }
-.reader { margin-top: 10px; }
-.reader-bar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 8px 0 12px; }
-.reader-bar .grow { flex: 1; }
+/* the one thing to do now: a slip of paper tucked in the book */
+.now { display: grid; grid-template-columns: 1fr auto; gap: 14px 28px; align-items: center; background: var(--leaf);
+  border: 1px solid var(--rule); border-left: 4px solid var(--spot); padding: 20px 26px; box-shadow: var(--shadow); }
+.now .say { font-family: var(--display); font-size: clamp(25px, 3.2vw, 34px); line-height: 1.15; }
+.now .sub { color: var(--ink-2); margin-top: 6px; max-width: 46em; }
+.now .acts { display: flex; flex-direction: column; gap: 8px; align-items: stretch; min-width: 220px; }
+.now .acts .btn { justify-content: center; font-size: 18px; padding: 14px 22px 15px; }
+.now .more { grid-column: 1 / -1; display: flex; gap: 6px 18px; flex-wrap: wrap; font-size: 15px; color: var(--ink-3); border-top: 1px dotted var(--rule); padding-top: 10px; }
+.now .more .linkish { font-size: 15.5px; }
+.now .result { grid-column: 1 / -1; font-size: 16px; color: var(--ink-2); }
+.now .result b { color: var(--spot); font-weight: 600; }
+.now.busy { border-left-color: var(--ochre); }
+.now .stage { color: var(--ink-3); font-style: italic; }
+@media (max-width: 760px) { .now { grid-template-columns: 1fr; padding: 18px; } .now .acts { min-width: 0; } }
+
+/* the book */
+.bookbar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 22px 0 10px; }
+.bookbar .grow { flex: 1; }
+.which { display: flex; gap: 0; border: 1px solid var(--rule); border-radius: 3px; overflow: hidden; }
+.which button { font: inherit; font-family: var(--display); font-size: 19px; padding: 4px 16px 6px; background: none; border: 0; color: var(--ink-2); cursor: pointer; }
+.which button[aria-pressed="true"] { background: var(--spot); color: var(--spot-ink); }
 .tab { font-variant-caps: all-small-caps; letter-spacing: .09em; font-size: 17px; color: var(--ink-2); background: none;
   border: 1px solid var(--rule); border-radius: 3px; padding: 3px 12px 5px; cursor: pointer; font-family: var(--text); text-decoration: none; }
 .tab:hover, .tab[aria-expanded="true"] { color: var(--spot); border-color: var(--spot); }
-.tab.place { color: var(--spot-ink); background: var(--spot); border-color: var(--spot); }
 .turn { font-family: var(--display); font-size: 34px; line-height: 1; width: 44px; height: 44px; border-radius: 50%;
   border: 1px solid var(--rule); background: var(--leaf); color: var(--ink); cursor: pointer; padding: 0 0 4px; }
 .turn:hover:not(:disabled) { border-color: var(--spot); color: var(--spot); }
 .turn:disabled { opacity: .35; cursor: default; }
-.folio { font-variant-caps: all-small-caps; letter-spacing: .08em; color: var(--ink-2); min-width: 11em; text-align: center; font-variant-numeric: lining-nums tabular-nums; }
-.desk { position: relative; padding: 18px 0 26px; }
+.folio { font-variant-caps: all-small-caps; letter-spacing: .08em; color: var(--ink-2); min-width: 10em; text-align: center; font-variant-numeric: lining-nums tabular-nums; }
+.desk { position: relative; padding: 8px 0 30px; }
 .spread { position: relative; display: grid; grid-template-columns: 1fr 1fr; margin: 0 auto; max-width: 1180px; perspective: 2600px; }
-.spread.single { grid-template-columns: 1fr; max-width: 900px; }
-@media (max-width: 820px) { #viewBtn { display: none; } }
-.pg { position: relative; aspect-ratio: 8.5 / 11; background: #fffdf8; box-shadow: 0 1px 2px #3a2c1426, 0 14px 30px -12px #3a2c1440; }
+.spread.single { grid-template-columns: 1fr; max-width: 860px; }
+.pg { position: relative; aspect-ratio: 8.5 / 11; background: #fffdf8; color: #27231d; box-shadow: 0 1px 2px #3a2c1426, 0 14px 30px -12px #3a2c1440; overflow: hidden; }
 .pg.empty { background: transparent; box-shadow: none; }
-.pg img { display: block; width: 100%; height: 100%; object-fit: contain; user-select: none; -webkit-user-drag: none; }
+.pg > img { display: block; width: 100%; height: 100%; object-fit: contain; user-select: none; -webkit-user-drag: none; }
 .spread:not(.single) .pg.left:not(.empty)::after, .spread:not(.single) .pg.right:not(.empty)::after {
-  content: ""; position: absolute; top: 0; bottom: 0; width: 46px; pointer-events: none; }
+  content: ""; position: absolute; top: 0; bottom: 0; width: 46px; pointer-events: none; z-index: 2; }
 .spread:not(.single) .pg.left::after { right: 0; background: linear-gradient(to left, #0000002e, #0000 90%); }
 .spread:not(.single) .pg.right::after { left: 0; background: linear-gradient(to right, #00000026, #0000 90%); }
-.pg .ribbon { position: absolute; top: -6px; width: 20px; height: 104%; pointer-events: none; z-index: 3;
-  background: linear-gradient(90deg, #7c1f17, #a5352a 45%, #7c1f17); clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 97.5%, 0 100%);
-  box-shadow: 0 2px 4px #0003; opacity: .92; }
-.pg.left .ribbon { right: 10px; } .pg.right .ribbon, .spread.single .pg .ribbon { left: 10px; }
-.pg.left .ribbon-tag { right: 38px; } .pg.right .ribbon-tag, .spread.single .pg .ribbon-tag { left: 38px; }
-.pg .ribbon-tag { position: absolute; top: 10px; z-index: 3; font-family: var(--text); font-size: 13px;
-  font-style: italic; color: #7c1f17; background: #fffdf8e6; padding: 1px 8px; border-radius: 2px; }
-.pg.clickable { cursor: pointer; }
-/* the leaf that turns */
-.leaf-turn { position: absolute; top: 0; height: 100%; width: 50%; transform-style: preserve-3d; z-index: 5;
-  transition: transform .62s cubic-bezier(.33,.0,.2,1); }
+.leaf-turn { position: absolute; top: 0; height: 100%; width: 50%; transform-style: preserve-3d; z-index: 5; transition: transform .62s cubic-bezier(.33,.0,.2,1); }
 .leaf-turn.fwd { left: 50%; transform-origin: left center; }
 .leaf-turn.back { left: 0; transform-origin: right center; }
-.leaf-turn .face { position: absolute; inset: 0; backface-visibility: hidden; background: #fffdf8; overflow: hidden;
-  box-shadow: 0 1px 2px #3a2c1426; }
-.leaf-turn .face img { width: 100%; height: 100%; display: block; }
+.leaf-turn .face { position: absolute; inset: 0; backface-visibility: hidden; background: #fffdf8; overflow: hidden; box-shadow: 0 1px 2px #3a2c1426; }
+.leaf-turn .face > img { width: 100%; height: 100%; display: block; object-fit: contain; }
 .leaf-turn .face.backside { transform: rotateY(180deg); }
-.leaf-turn .face::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, #0000, #0000 60%, #00000012); }
 @media (prefers-reduced-motion: reduce) { .leaf-turn { transition: none; } }
-.reader-msg { text-align: center; min-height: 1.4em; margin: 0; }
+.ribbon { position: absolute; top: -6px; width: 20px; height: 104%; pointer-events: none; z-index: 3;
+  background: linear-gradient(90deg, #7c1f17, #a5352a 45%, #7c1f17); clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 97.5%, 0 100%); opacity: .92; }
+.pg.left .ribbon { right: 10px; } .pg.right .ribbon, .single .ribbon { left: 10px; }
+
+/* pages written in HTML: the cover, returned work, pages being written */
+.hp { position: absolute; inset: 0; padding: 7% 8%; overflow: auto; font-family: var(--text); font-size: clamp(12px, 1.25vw, 16px); line-height: 1.45; }
+.single .hp { font-size: clamp(14px, 1.9vw, 17px); }
+.hp .kick { font-variant-caps: all-small-caps; letter-spacing: .14em; color: #0d5e6b; font-weight: 600; }
+.cover { background: #0d5e6b; color: #fbf7ee; display: flex; flex-direction: column; }
+.cover .kick { color: #cfe3e2; }
+.cover h2 { font-family: var(--display); color: #fbf7ee; font-size: clamp(30px, 4.4vw, 56px); margin: 30% 0 6px; line-height: 1.02; }
+.cover .sub { color: #cfe3e2; font-size: 1.15em; }
+.cover .orn { margin-top: auto; text-align: center; color: #cfe3e2; font-size: 2.2em; font-family: var(--display); }
+.returned h3 { font-family: var(--display); font-size: 1.7em; margin: 2px 0 8px; color: #27231d; }
+.returned .score { font-size: 1.05em; margin-bottom: 10px; }
+.returned .score b { color: #0d5e6b; }
+.returned .layout { display: grid; grid-template-columns: 1fr; gap: 12px; }
+.returned .photo img { width: 100%; border: 1px solid #d9cdb5; box-shadow: 0 1px 3px #0002; display: block; cursor: zoom-in; }
+.returned .notes { border-left: 2px solid #0d5e6b; padding-left: 12px; }
+.m-note { padding: 6px 0 8px; border-bottom: 1px dotted #d9cdb5; }
+.m-note .h { display: flex; gap: 8px; align-items: baseline; }
+.m-note .n { font-family: var(--display); color: #0d5e6b; font-size: 1.3em; min-width: 1.2em; }
+.m-note .v { font-variant-caps: all-small-caps; letter-spacing: .1em; font-weight: 700; }
+.m-note .v.yes { color: #0d5e6b; } .m-note .v.no { color: #9a3b28; } .m-note .v.skip { color: #8a7f6c; }
+.m-note .line { font-style: italic; color: #9a3b28; margin-top: 2px; }
+.m-note .shows { margin-top: 3px; color: #5d5547; }
+.m-note .tx { font-family: var(--text); background: #f3ecdd; padding: 0 4px; font-style: normal; color: #27231d; }
+.m-note .ask { font-size: .9em; }
+.making { display: flex; flex-direction: column; justify-content: center; text-align: center; color: #5d5547; }
+.making .big { font-family: var(--display); font-size: 1.9em; color: #27231d; margin-bottom: 8px; }
+.making .quill { font-size: 2.6em; color: #0d5e6b; animation: write 2.4s ease-in-out infinite; display: inline-block; }
+@keyframes write { 0%, 100% { transform: translate(0, 0) rotate(-8deg); } 50% { transform: translate(14px, 3px) rotate(4deg); } }
+@media (prefers-reduced-motion: reduce) { .making .quill { animation: none; } }
+
 /* contents drawer */
-.toc { position: absolute; top: 10px; left: 0; z-index: 8; width: min(440px, 100%); max-height: calc(100% - 20px); overflow: auto;
+.contents { position: absolute; top: 4px; left: 0; z-index: 8; width: min(440px, 100%); max-height: calc(100% - 20px); overflow: auto;
   background: var(--leaf); border: 1px solid var(--rule); box-shadow: var(--shadow), 0 18px 40px -10px #3a2c1450; padding: 18px 20px; }
-.toc h4 { font-family: var(--display); font-size: 25px; margin: 0 0 4px; font-weight: 600; }
-.toc .key { font-size: 13px; color: var(--ink-3); margin: 0 0 10px; }
-.toc .ch { font-variant-caps: all-small-caps; letter-spacing: .08em; color: var(--spot); margin: 14px 0 2px; font-size: 16px; display: flex; }
-.toc .ch span:first-child { flex: 1; }
-.toc button.sec { display: grid; grid-template-columns: 1.4em 3.2em 1fr auto; gap: 4px; width: 100%; text-align: left; background: none;
+.contents h4 { font-family: var(--display); font-size: 25px; margin: 0 0 4px; font-weight: 600; }
+.contents .key { font-size: 13px; color: var(--ink-3); margin: 0 0 10px; }
+.contents .ch { font-variant-caps: all-small-caps; letter-spacing: .08em; color: var(--spot); margin: 14px 0 2px; font-size: 16px; display: flex; }
+.contents .ch span:first-child { flex: 1; }
+.contents button.sec { display: grid; grid-template-columns: 1.4em 3.2em 1fr auto; gap: 4px; width: 100%; text-align: left; background: none;
   border: 0; border-bottom: 1px dotted var(--rule-2); padding: 5px 0; font: inherit; font-size: 15.5px; color: var(--ink); cursor: pointer; }
-.toc button.sec:hover { color: var(--spot); }
-.toc .sec .m { color: var(--spot); }
-.toc .sec.here { font-weight: 600; }
-.toc .sec.here .m { color: #a5352a; }
-.toc .sec .n { color: var(--ink-3); font-variant-numeric: tabular-nums; }
-.toc .sec .p { color: var(--ink-3); font-variant-numeric: tabular-nums; }
-.toc .sec.ahead { color: var(--ink-2); }
+.contents button.sec:hover { color: var(--spot); }
+.contents .sec .m { color: var(--spot); }
+.contents .sec.here { font-weight: 600; }
+.contents .sec.here .m { color: #a5352a; }
+.contents .sec .n, .contents .sec .p { color: var(--ink-3); font-variant-numeric: tabular-nums; }
+
+@media (max-width: 820px) {
+  #viewBtn, .bookbar .grow { display: none; }
+  .bookbar { gap: 8px; }
+  .which button { font-size: 17px; padding: 4px 12px 6px; }
+  .folio { min-width: 0; flex: 1; }
+  .now .more { flex-direction: column; }
+}
+dialog { border: 1px solid var(--rule); background: var(--leaf); color: var(--ink); max-width: 560px; width: calc(100% - 32px); padding: 22px 24px; box-shadow: 0 20px 50px #0004; }
+dialog::backdrop { background: #1a140a66; }
+.zoom img { max-width: 100%; max-height: 82vh; display: block; margin: 0 auto; }
+dialog.zoom { max-width: 1100px; padding: 10px; }
+.after { max-width: 1180px; margin: 0 auto; padding: 0 0 30px; display: flex; gap: 8px 22px; flex-wrap: wrap; color: var(--ink-3); font-size: 15px; }
 </style>
 </head>
 <body>
 <header class="masthead">
   <a class="brand" href="/home"><span class="orn">❦</span>Marginalia</a>
-  <nav><a href="/home">Learners</a><a id="reportLink" href="#">Report</a><button class="linkish" onclick="toggleTheme()">Light / dark</button><button class="linkish" onclick="signOut()">Sign out</button></nav>
+  <nav><span id="kids"></span><a id="reportLink" href="#">How it’s going</a><a href="/home#account">Account</a><button class="linkish" onclick="toggleTheme()">Light / dark</button><button class="linkish" onclick="signOut()">Sign out</button></nav>
   <div class="rule"></div>
 </header>
-<div class="reader-shell">
-  <div class="kicker" id="course">&nbsp;</div>
-  <h1 id="title">&nbsp;</h1>
-  <section class="reader" id="reader" aria-label="The book">
-    <div class="reader-bar">
-      <button class="tab" id="tocBtn" aria-expanded="false" aria-controls="toc">Contents</button>
-      <button class="tab hidden" id="placeBtn">Your place</button>
-      <span class="grow"></span>
-      <button class="turn" id="prevBtn" aria-label="Turn back a page">&#8249;</button>
-      <span class="folio" id="folio" aria-live="polite"></span>
-      <button class="turn" id="nextBtn" aria-label="Turn the page">&#8250;</button>
-      <span class="grow"></span>
-      <button class="tab" id="viewBtn" title="Show one larger page or two facing pages">One page</button>
-      <a class="tab" id="bookPdf" target="_blank" rel="noopener">Print the book</a>
-    </div>
-    <div class="desk">
-      <div class="spread" id="spread"><div class="pg left" id="pgL"></div><div class="pg right" id="pgR"></div></div>
-      <nav class="toc hidden" id="toc" aria-label="Contents"></nav>
-    </div>
-    <p class="reader-msg" id="readerMsg"><span class="muted">Opening the book…</span></p>
-  </section>
-</div>
-<main>
-  <div class="grid2">
-    <div>
-      <section class="leaf next" id="next"><p class="muted">Turning to the right page…</p></section>
+<div class="shell">
+  <section class="now" id="now" aria-live="polite"><div><div class="say">Opening the book…</div></div></section>
 
-      <section class="leaf" id="sendLeaf">
-        <div class="section-label"><span class="num">✎</span><h3>Send in your work</h3></div>
-        <ul class="howto">
-          <li>Write the packet code (like <b>L3</b>) at the top of each page.</li>
-          <li>Number each problem. One step per line.</li>
-          <li>Cross out mistakes with a single line; don’t erase.</li>
-          <li>Box your final answer.</li>
-        </ul>
-        <form id="upload" class="dropzone">
-          <input id="photo" type="file" accept="image/*" capture="environment" multiple aria-label="Photos of your work">
-          <div class="row" style="justify-content:center"><button class="btn primary" id="uploadBtn" type="submit">Check my work</button></div>
-        </form>
-        <div class="ledger hidden" id="photoLedger"></div>
-        <p id="photoMsg" class="small" role="status"></p>
-      </section>
-
-      <section class="leaf">
-        <div class="section-label"><span class="num">❧</span><h3>In the margins</h3></div>
-        <div id="reports"><p class="muted">Feedback on your pages appears here.</p></div>
-      </section>
+  <div class="bookbar">
+    <div class="which" role="group" aria-label="Which book">
+      <button id="mineBtn" aria-pressed="true">The book</button><button id="textBtn" aria-pressed="false">The textbook</button>
     </div>
-
-    <div>
-      <section class="leaf">
-        <div class="section-label"><span class="num">§</span><h3>Your worksheets</h3></div>
-        <p class="small muted" style="margin-top:0">Practice made for this learner, to go with the book.</p>
-        <div id="packets"><p class="muted small">No worksheets yet.</p></div>
-      </section>
-      <section class="leaf">
-        <div class="section-label"><span class="num">¶</span><h3>What is learned</h3></div>
-        <p class="small muted" id="learnedSummary"></p>
-        <div id="skills"></div>
-      </section>
-    </div>
+    <button class="tab" id="tocBtn" aria-expanded="false" aria-controls="contents">Contents</button>
+    <span class="grow"></span>
+    <button class="turn" id="prevBtn" aria-label="Turn back a page">&#8249;</button>
+    <span class="folio" id="folio"></span>
+    <button class="turn" id="nextBtn" aria-label="Turn the page">&#8250;</button>
+    <span class="grow"></span>
+    <button class="tab" id="todayBtn">Today’s page</button>
+    <button class="tab" id="viewBtn">One page</button>
   </div>
-</main>
+  <div class="desk">
+    <div class="spread" id="spread"><div class="pg left" id="pgL"></div><div class="pg right" id="pgR"></div></div>
+    <nav class="contents hidden" id="contents" aria-label="Contents"></nav>
+  </div>
+  <div class="after" id="after"></div>
+</div>
+<input type="file" id="photoInput" accept="image/*" multiple class="hidden" aria-label="Photos of the pages">
+<dialog id="askDlg">
+  <form method="dialog" id="askForm">
+    <div class="kicker" id="askWhat">Ask about this</div>
+    <div id="askPast"></div>
+    <textarea id="askText" placeholder="What would you like to know? For example: why is this line wrong?" maxlength="1000"></textarea>
+    <div class="row"><button class="btn primary" id="askSend" value="send">Ask</button><button class="btn quiet" value="close">Close</button></div>
+    <p class="small muted">The answer is written like a note in the margin, from this book’s own lessons. Every line of math in it is checked first.</p>
+  </form>
+</dialog>
+<dialog id="zoomDlg" class="zoom"><form method="dialog"><img id="zoomImg" alt="The photographed page, larger"><div class="row" style="justify-content:center"><button class="btn quiet">Close</button></div></form></dialog>
 <footer class="colophon" id="colophon"></footer>
 <script src="/static/book.js"></script>
 <script>
 const LID = location.pathname.split("/")[2];
-const KIND = { diagnostic: "Diagnostic", lesson: "Lesson", refresh: "Refresh" };
-let state = null;
-$("#reportLink").href = `/learn/${LID}/progress`;
-
-function renderHeader() {
-  const name = state.learner.name;
-  document.title = `${name} · ${state.course.title} · Marginalia`;
-  $("#course").textContent = state.course.title + (state.course.subtitle ? ` · ${state.course.subtitle}` : "");
-  $("#title").textContent = `${name}’s book`;
-  // the attribution each course's books require, from the server (source.attribution_line)
-  $("#colophon").innerHTML = esc(state.course.credit || "") + (state.course.commercial ? "" : " For personal study.")
-    + ` · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a>`;
-}
-
-function renderNext() {
-  const d = state.diagnostic;
-  const opens = state.packets.filter((p) => p.status === "open").reverse();
-  let h = `<div class="kicker">The next page</div>`;
-  if (opens.length) {
-    const o = opens[0];
-    h += `<div class="page-turn">Work through ${KIND[o.kind] || "packet"} ${esc(o.id)} on paper.</div>
-      <p class="muted">${o.focus.length ? `About: ${o.focus.map(esc).join("; ")}. ` : ""}Print it or work from the screen, then photograph your pages below.
-      ${o.graded ? `${o.graded} of ${o.problems} problems are checked so far.` : ""}</p>
-      <div class="row"><a class="btn primary" href="${o.pdf}" target="_blank" rel="noopener">Open ${esc(o.id)}</a>
-      <button class="btn quiet" data-aside="${esc(o.id)}">Set it aside</button></div>`;
-    if (opens.length > 1) h += `<p class="small muted">Also open: ${opens.slice(1).map((x) => `<a href="${x.pdf}" target="_blank">${esc(x.id)}</a>`).join(", ")}.</p>`;
-  } else if (!d.finished) {
-    const first = d.asked === 0;
-    h += `<div class="page-turn">${first ? "Begin with a short diagnostic." : "The next diagnostic round."}</div>
-      <p class="muted">${first ? "Ten questions, on paper. They are chosen to find what is already known, so skip anything you haven’t seen; a skip is information too."
-        : `${d.answered} questions answered so far. Each round is chosen to settle what is still uncertain.`}</p>
-      <div class="row"><button class="btn primary" data-act="diagnostic">${first ? "Make the first round" : "Make the next round"}</button></div>`;
-  } else {
-    h += `<div class="page-turn">The next lesson is ready to be set.</div>
-      <p class="muted">${state.frontier.length ? `Next up: ${state.frontier.map(esc).join("; ")}.` : ""} If a basic skill is shaky, a short refresh comes first.</p>
-      <div class="row"><button class="btn primary" data-act="lesson">Set the next lesson</button></div>`;
-  }
-  const extra = [];
-  if (!opens.length && !d.finished && d.answered >= 10) extra.push(`<button class="btn quiet" data-act="lesson">Skip ahead to a lesson</button>`);
-  if (opens.length && !d.finished && !d.open_round) extra.push(`<button class="btn quiet" data-act="diagnostic">Next diagnostic round</button>`);
-  if (extra.length) h += `<div class="row">${extra.join("")}</div>`;
-  h += `<div class="ledger hidden" id="jobLedger"></div><p id="actMsg" class="small" role="status"></p>`;
-  if (!state.ready.photos) h += `<p class="small err">Photo checking is not set up on this server yet.</p>`;
-  $("#next").innerHTML = h;
-  $$("#next [data-act]").forEach((b) => b.onclick = () => make(b.dataset.act, b));
-  $$("#next [data-aside]").forEach((b) => b.onclick = async () => {
-    if (!confirm(`Set ${b.dataset.aside} aside? Problems already checked stay checked.`)) return;
-    try { await api(`/api/l/${LID}/packets/${b.dataset.aside}/set-aside`, { method: "POST" }); await load(); }
-    catch (e) { $("#actMsg").innerHTML = `<span class="err">${esc(e.message)}</span>`; }
-  });
-}
-
-async function make(kind, btn) {
-  $$("#next button").forEach((b) => b.disabled = true);
-  $("#actMsg").textContent = "";
-  try {
-    const { job } = await api(`/api/l/${LID}/${kind}/next`, { method: "POST" });
-    const r = await runJob(job, $("#jobLedger"));
-    if (r.finished) { $("#actMsg").textContent = "The diagnostic is complete."; }
-    else { $("#actMsg").innerHTML = `<span class="ok">${KIND[r.kind] || "Packet"} ${esc(r.packet)} is ready.</span> <a href="${r.pdf}" target="_blank" rel="noopener">Open it</a>`; }
-    await load(true);
-  } catch (e) {
-    $("#actMsg").innerHTML = `<span class="err">${esc(e.message)}</span>`;
-    $$("#next button").forEach((b) => b.disabled = false);
-  }
-}
-
-function renderPackets() {
-  if (!state.packets.length) return;
-  $("#packets").innerHTML = state.packets.map((p) => `<div class="packet-line">
-    <span class="id">${esc(p.id)}</span>
-    <span class="what"><span class="sc">${KIND[p.kind] || p.kind}</span>${p.focus.length ? ` · ${p.focus.map(esc).join("; ")}` : ""}<br>
-      <span class="caption">${p.status === "set_aside" ? "set aside" : `${p.graded} of ${p.problems} checked`} · ${fmtDate(p.created)}</span></span>
-    <span class="small">${p.pdf ? `<a href="${p.pdf}" target="_blank" rel="noopener">pages</a>` : ""}${p.key ? ` · <a href="${p.key}" target="_blank" rel="noopener">key</a>` : ""}</span>
-  </div>`).join("");
-}
-
-function renderSkills() {
-  const learned = state.skills.filter((s) => s.mastered).length;
-  $("#learnedSummary").textContent = `${learned} of ${state.skills.length} skills learned.` +
-    (state.reviews.length ? ` Due for review: ${state.reviews.join("; ")}.` : "");
-  const groups = {};
-  for (const s of state.skills) (groups[s.group] ||= []).push(s);
-  $("#skills").innerHTML = Object.entries(groups).map(([g, list], i) => {
-    const done = list.filter((s) => s.mastered).length;
-    const open = i === 0 || (done > 0 && done < list.length);
-    return `<details class="chapter" ${open ? "open" : ""}><summary><span class="t">${esc(g)}</span><span class="c">${done}/${list.length}</span></summary>
-      ${list.map((s) => `<div class="skill ${s.mastered ? "done" : ""}"><div class="top"><span>${esc(s.name)}</span>
-        <span class="caption num-tab">${s.seen ? Math.round(s.p * 100) + "%" : "—"}</span></div>
-        <div class="meter"><i style="width:${s.seen ? (s.p * 100).toFixed(1) : 0}%"></i><span class="thr" style="left:${state.threshold * 100}%"></span></div></div>`).join("")}
-    </details>`;
-  }).join("");
-}
-
-function renderReport(rep) {
-  if (rep.pending) return `<p class="muted small">${esc(rep.photo)}: ${esc(rep.message)}</p>`;
-  if (rep.error) return `<p class="err small">${esc(rep.photo)}: ${esc(rep.error === "no packet code on the page and no open packet" ? "No packet code was found on that page and no packet is open. Write the code (like L3) at the top and try again." : rep.error)}</p>`;
-  let h = `<div class="caption" style="margin-top:6px">Packet ${esc(rep.packet)} · ${fmtDate(rep.at)}</div>`;
-  for (const p of rep.problems) {
-    if (p.status !== "graded") { h += `<div class="problem"><div class="head"><span class="n">${p.number}</span><span class="caption">${esc(p.status)}</span></div></div>`; continue; }
-    const v = p.skipped ? ["skip", "Skipped"] : p.correct ? ["yes", "Correct"] : ["no", "Not yet"];
-    h += `<div class="problem"><div class="head"><span class="n">${p.number}</span><span class="verdict ${v[0]}">${v[1]}</span>
-      ${p.attempts > 1 ? `<span class="caption">after a fresh start</span>` : ""}</div>`;
-    if (p.prompt) h += `<p class="statement">${typstToTex(p.prompt)}</p>`;
-    if (p.lines.length) {
-      h += `<ol class="work">` + p.lines.map((l, i) => `<li class="${l.crossed_out ? "x" : ""} ${l.status === "invalid" ? "bad" : ""}">
-        <span class="ln">${i + 1}</span><span><span class="tx ${l.boxed ? "boxed" : ""}">${esc(l.text)}</span>
-        ${l.status === "invalid" ? `<br><span class="why">${esc(l.note && l.note !== "solution set changed" ? l.note : "this line doesn’t follow from the one before")}</span>` : ""}</span></li>`).join("") + `</ol>`;
-    }
-    if (!p.correct && !p.skipped) h += `<div class="small muted">Your answer: ${esc(p.final_answer ?? "none found")}${p.final_note ? ` · ${esc(p.final_note.replace("the answer is", "the book’s answer is").replace("not equal to", "the book’s answer is").replace(/(\d)\*([a-z(])/g, "$1$2").replace(/\*\*/g, "^").replace(/\*/g, "·"))}` : ""}
-      ${p.packet_kind === "diagnostic" ? ` <button class="linkish" data-recheck="${esc(p.problem_id)}">recheck</button>` : ""}</div>`;
-    if (p.misconception_text) h += `<div class="diagnosis"><b>What the work shows</b> ${esc(p.misconception_text)}</div>`;
-    if (p.problem_id && !p.skipped) {
-      const opts = p.lines.map((l, i) => `<option value="${i + 1}" ${l.status === "invalid" ? "selected" : ""}>line ${i + 1}</option>`).join("");
-      h += `<div class="ask"><button class="linkish" data-ask="${esc(p.problem_id)}">Ask about this problem</button>
-        <div class="hidden" id="ask-${esc(p.problem_id)}">
-          <textarea placeholder="What would you like to know? For example: why is line 2 wrong?" maxlength="1000"></textarea>
-          <div class="row"><select aria-label="Which line"><option value="">the whole problem</option>${opts}</select>
-          <button class="btn" data-send="${esc(p.problem_id)}">Ask</button></div>
-          <div class="answers"></div></div></div>`;
-    }
-    if (p.changes && p.changes.length && !p.skipped) h += `<div class="changes">${p.changes.slice(0, 2).map((c) => `${esc(c.name)} ${c.after > c.before ? "up" : "down"} to ${Math.round(c.after * 100)}%`).join(" · ")}</div>`;
-    h += `</div>`;
-  }
-  return h;
-}
-
-function noteHtml(a) {
-  return `<div class="note">${a.question ? `<span class="q">You asked${a.line ? ` about line ${a.line}` : ""}:</span> <span style="font-style:normal">${esc(a.question)}</span><br>` : ""}
-    ${esc(a.reply).replace(/\*\*([^*]+)\*\*/g, "<b>$1</b>").replace(/(^|[^*])\*([^*\s][^*]*)\*/g, "$1<i>$2</i>")}${a.canonical ? `<div class="canon">${esc(a.canonical)}</div>` : ""}</div>`;
-}
-
-document.addEventListener("click", async (ev) => {
-  const open = ev.target.closest("[data-ask]");
-  if (open) {
-    const box = document.getElementById(`ask-${open.dataset.ask}`);
-    box.classList.toggle("hidden");
-    if (!box.classList.contains("hidden") && !box.dataset.loaded) {
-      box.dataset.loaded = "1";
-      const past = await api(`/api/l/${LID}/questions/${open.dataset.ask}`).catch(() => []);
-      box.querySelector(".answers").innerHTML = past.map(noteHtml).join("");
-      mathify(box);
-    }
-    return;
-  }
-  const rc = ev.target.closest("[data-recheck]");
-  if (rc) {
-    rc.disabled = true;
-    try {
-      const r = await api(`/api/l/${LID}/problems/${rc.dataset.recheck}/recheck`, { method: "POST" });
-      rc.outerHTML = `<span class="caption">${r.changed ? (r.correct ? "Rechecked: now marked correct." : "Rechecked and changed.") : "Rechecked: no change."}</span>`;
-      if (r.changed) await load(true);
-    } catch (e) { rc.outerHTML = `<span class="err">${esc(e.message)}</span>`; }
-    return;
-  }
-  const send = ev.target.closest("[data-send]");
-  if (!send) return;
-  const box = document.getElementById(`ask-${send.dataset.send}`);
-  const q = box.querySelector("textarea").value.trim();
-  if (!q) return;
-  const line = box.querySelector("select").value || null;
-  send.disabled = true;
-  const slot = document.createElement("div");
-  slot.className = "note muted"; slot.textContent = "Writing a note and checking every equation in it…";
-  box.querySelector(".answers").appendChild(slot);
-  try {
-    const r = await api(`/api/l/${LID}/ask`, { method: "POST", json: { problem_id: send.dataset.send, question: q, line } });
-    slot.outerHTML = noteHtml({ ...r, question: q, line });
-    box.querySelector("textarea").value = "";
-    mathify(box);
-  } catch (e) { slot.innerHTML = `<span class="err">${esc(e.message)}</span>`; }
-  send.disabled = false;
-});
-
-
-// ---------------------------------------------------------------- the book
-let bk = null, cur = 1, turning = false;
+let mine = null;   // the child's book: { name, leaves, today, now, course }
+let text = null;   // the textbook (volume) index
+let mode = "mine";
+const pos = { mine: 1, text: 1 };
+let turning = false, poll = null;
 let onePage = false;
 try { onePage = localStorage.getItem("book:view") === "one"; } catch (e) { /* private window */ }
+$("#reportLink").href = `/learn/${LID}/progress`;
+const NAME = () => (mine ? mine.name : "");
+
+// ---------------------------------------------------------------- the one thing to do now
+function renderNow() {
+  const n = mine.now, who = esc(NAME()), act = n.activity;
+  let say = "", sub = "", acts = "", more = [], busy = false;
+  if (act && act.kind === "making") {
+    busy = true;
+    say = mine.leaves.some((l) => l.t === "img") ? `Writing ${who}’s next pages…` : `Writing ${who}’s first pages…`;
+    sub = `<span class="stage">${esc(act.stage || "")}</span> It takes about a minute. They’ll open in ${who}’s book and arrive in your email.`;
+  } else if (act && act.kind === "checking") {
+    busy = true;
+    say = `Reading ${who}’s pages…`;
+    sub = `<span class="stage">${esc(act.stage || "")}</span> Every line is checked; the notes appear in ${who}’s book.`;
+  } else if (!n.access) {
+    say = `Keep ${who}’s book going.`;
+    sub = "Start the subscription to make new pages and check work. Everything already made stays here.";
+    acts = `<button class="btn primary" id="subBtn">Start the free trial</button>`;
+  } else if (n.open) {
+    const o = n.open, s = o.summary;
+    say = s.checked ? `${s.checked} of ${s.problems} checked. Send the rest the same way.` : `${who}’s pages are ready.`;
+    sub = `Print them and let ${who} work right on the pages. When ${who} is done, point your phone’s camera at the code on the first page.`;
+    acts = `<a class="btn primary" href="${o.pdf}" target="_blank" rel="noopener">Print the pages</a>
+      <button class="btn" id="addPhotos">Add photos from here</button>`;
+    more.push(`<span>${esc(o.about.charAt(0).toUpperCase() + o.about.slice(1))}</span>`,
+      `<a class="linkish" href="${o.key}" target="_blank" rel="noopener">answer key</a>`,
+      `<button class="linkish" id="doneBtn">${who} is finished with these</button>`);
+  } else {
+    say = `Ready for more?`;
+    sub = `${who}’s next pages are made from everything checked so far.`;
+    acts = `<button class="btn primary" id="makeBtn">Make ${who}’s next pages</button>`;
+  }
+  let result = "";
+  if (n.last && !busy) {
+    const l = n.last;
+    result = `<div class="result">Last pages: <b>${l.right} of ${l.checked} right</b>${l.skipped ? `, ${l.skipped} skipped` : ""}. The notes are in ${who}’s book, after those pages. <button class="linkish" id="seeNotes">See them</button></div>`;
+  }
+  $("#now").className = `now${busy ? " busy" : ""}`;
+  $("#now").innerHTML = `<div><div class="say">${say}</div><div class="sub">${sub}</div></div>
+    ${acts ? `<div class="acts">${acts}</div>` : ""}${result}${more.length ? `<div class="more">${more.join("")}</div>` : ""}
+    <p class="small" id="nowMsg" role="status" style="grid-column:1/-1;margin:0"></p>`;
+  if ($("#addPhotos")) $("#addPhotos").onclick = () => $("#photoInput").click();
+  if ($("#makeBtn")) $("#makeBtn").onclick = () => act_(`/api/l/${LID}/make`);
+  if ($("#doneBtn")) $("#doneBtn").onclick = () => { if (confirm(`Make ${NAME()}’s next pages now? Anything not sent in stays unchecked.`)) act_(`/api/l/${LID}/done`); };
+  if ($("#subBtn")) $("#subBtn").onclick = async () => { try { location.href = (await api("/api/billing/checkout", { method: "POST" })).url; } catch (e) { msg(e.message, true); } };
+  if ($("#seeNotes")) $("#seeNotes").onclick = () => { setMode("mine"); const i = lastReturned(); if (i) goTo(i); };
+  if (busy || mine.leaves.some((l) => l.t === "making")) startPolling(); else stopPolling();
+}
+function msg(t, bad) { const m = $("#nowMsg"); if (m) { m.className = `small ${bad ? "err" : "ok"}`; m.textContent = t; } }
+async function act_(url) {
+  try { await api(url, { method: "POST" }); await loadMine(true); } catch (e) { msg(e.message, true); }
+}
+function startPolling() { if (!poll) poll = setInterval(() => loadMine(false).catch(() => {}), 3000); }
+function stopPolling() { if (poll) { clearInterval(poll); poll = null; } }
+function lastReturned() { for (let i = mine.leaves.length - 1; i >= 0; i--) if (mine.leaves[i].t === "returned") return i + 1; return null; }
+
+// photos from this computer (the phone uses the code on the page)
+$("#photoInput").onchange = async () => {
+  const files = [...$("#photoInput").files];
+  if (!files.length || !mine.now.open) return;
+  const pid = mine.now.open.packet;
+  let done = 0;
+  for (const f of files) {
+    msg(`Sending ${f.name}…`);
+    const fd = new FormData(); fd.append("photo", f);
+    try {
+      const { job } = await api(`/api/l/${LID}/photos?packet=${pid}`, { method: "POST", body: fd });
+      await loadMine(false);
+      await runJob(job, null);
+      done++;
+    } catch (e) { msg(`${f.name}: ${e.message}`, true); }
+  }
+  $("#photoInput").value = "";
+  await loadMine(true);
+  if (done) { const i = lastReturned(); if (i) { setMode("mine"); goTo(i); } }
+};
+
+// ---------------------------------------------------------------- pages
+function noteHtml(p) {
+  if (p.status !== "graded") return `<div class="m-note"><div class="h"><span class="n">${p.number}</span><span class="v skip">${esc(p.status || "")}</span></div></div>`;
+  const v = p.skipped ? ["skip", "skipped"] : p.correct ? ["yes", "right"] : ["no", "not yet"];
+  let h = `<div class="m-note"><div class="h"><span class="n">${p.number}</span><span class="v ${v[0]}">${v[1]}</span></div>`;
+  const bad = (p.lines || []).findIndex((l) => l.status === "invalid");
+  if (bad >= 0) h += `<div class="line">Line ${bad + 1}, <span class="tx">${esc(p.lines[bad].text)}</span>: ${esc(p.lines[bad].note && p.lines[bad].note !== "solution set changed" ? p.lines[bad].note : "this doesn’t follow from the line before")}</div>`;
+  else if (!p.correct && !p.skipped && p.final_note) h += `<div class="line">${esc(p.final_note.replace("the answer is", "the book’s answer is").replace(/\*\*/g, "^").replace(/\*/g, "·"))}</div>`;
+  if (p.misconception_text) h += `<div class="shows">${esc(p.misconception_text)}</div>`;
+  if (p.problem_id && !p.skipped) h += `<button class="linkish ask" data-ask="${esc(p.problem_id)}" data-n="${p.number}">ask about this</button>`;
+  return h + `</div>`;
+}
+function leafHtml(i) {
+  // i is 1-based; 0 or past the end is an empty side
+  if (mode === "text") {
+    if (!text || i < 1 || i > text.pages) return null;
+    return `<img src="${text.page_url.replace("{n}", i)}" alt="Page ${i} of the textbook" draggable="false">` +
+      (text.bookmark && i === text.bookmark ? `<span class="ribbon"></span>` : "");
+  }
+  const L = mine.leaves[i - 1];
+  if (!L) return null;
+  const today = i === mine.today + 1 ? `<span class="ribbon" aria-hidden="true"></span>` : "";
+  if (L.t === "img") return `<img src="${L.src}" alt="${esc(NAME())}’s pages ${esc(L.packet)}, page ${L.n}" draggable="false">${today}`;
+  if (L.t === "cover") return `<div class="hp cover"><div class="kick">Marginalia</div><h2>${esc(NAME())}’s Book</h2>
+    <div class="sub">${esc(mine.course.title)}</div><div class="orn">❦</div></div>`;
+  if (L.t === "making") return `<div class="hp making"><div><span class="quill">✒</span></div><div class="big">The next pages are being written.</div>
+    <div>${esc(L.stage || "")}</div></div>${today}`;
+  if (L.t === "returned") {
+    const r = L.report, probs = r.problems || [];
+    const g = probs.filter((p) => p.status === "graded"), right = g.filter((p) => p.correct).length;
+    return `<div class="hp returned"><div class="kick">${esc(NAME())}’s work, checked · pages ${esc(r.packet)}</div>
+      <h3>${g.length ? `${right} of ${g.length} right` : "This page"}</h3>
+      ${r.error ? `<p class="err">${esc(r.error)}</p>` : ""}
+      <div class="layout">${r.photo_url ? `<div class="photo"><img src="${r.photo_url}" alt="The page as photographed" data-zoom="${r.photo_url}"></div>` : ""}
+      <div class="notes">${probs.map(noteHtml).join("")}</div></div></div>${today}`;
+  }
+  return null;
+}
+function count() { return mode === "text" ? (text ? text.pages : 0) : (mine ? mine.leaves.length : 0); }
 const single = () => onePage || window.matchMedia("(max-width: 820px)").matches;
-const pageSrc = (n) => bk.page_url.replace("{n}", n);
-function spreadOf(p) { if (single()) return [p]; return p % 2 === 0 ? [p, p + 1] : [p - 1, p]; }  // the cover stands alone on the right
-function pageHtml(n) {
-  if (!n || n < 1 || n > bk.pages) return "";
-  let h = `<img src="${pageSrc(n)}" alt="Page ${n} of the book" loading="eager" draggable="false">`;
-  if (bk.bookmark && n === bk.bookmark) h += `<span class="ribbon" aria-hidden="true"></span><span class="ribbon-tag">${esc(state ? state.learner.name : "")}’s place</span>`;
-  return h;
+function spreadOf(p) { if (single()) return [p]; return p % 2 === 0 ? [p, p + 1] : [p - 1, p]; }
+function fill(el, i, side) {
+  const h = i >= 1 && i <= count() ? leafHtml(i) : null;
+  el.className = `pg ${side} ${h == null ? "empty" : ""}`;
+  el.innerHTML = h || "";
+}
+function draw() {
+  const cur = pos[mode];
+  $("#spread").classList.toggle("single", single());
+  const sp = spreadOf(cur);
+  if (single()) { $("#pgL").className = "pg left hidden"; $("#pgL").innerHTML = ""; fill($("#pgR"), sp[0], "right"); }
+  else { fill($("#pgL"), sp[0], "left"); fill($("#pgR"), sp[1], "right"); }
+  const shown = sp.filter((n) => n >= 1 && n <= count());
+  const what = mode === "text" ? (sectionAt(shown[shown.length - 1]) || "") : "";
+  $("#folio").textContent = `${shown.length > 1 ? `pages ${shown[0]}–${shown[1]}` : `page ${shown[0] || 1}`} of ${count()}${what ? ` · ${what}` : ""}`;
+  $("#prevBtn").disabled = Math.min(...shown) <= 1;
+  $("#nextBtn").disabled = Math.max(...shown) >= count();
+  $("#todayBtn").textContent = mode === "text" ? (text && text.bookmark ? "Where the lesson is" : "Contents") : "Today’s page";
+  mathify($("#spread"));
+  if (mode === "text") for (const n of [Math.min(...shown) - 1, Math.max(...shown) + 1, Math.max(...shown) + 2])
+    if (n >= 1 && n <= count()) { const im = new Image(); im.src = text.page_url.replace("{n}", n); }
 }
 function sectionAt(n) {
   let s = null;
-  for (const x of bk.sections) if (x.page && x.page <= n) s = x;
-  return s && (!bk.answers_page || n < bk.answers_page) ? s : null;
-}
-function drawSpread() {
-  const sp = spreadOf(cur);
-  $("#spread").classList.toggle("single", single());
-  const [l, r] = single() ? [null, sp[0]] : sp;
-  $("#pgL").classList.toggle("hidden", single());
-  $("#pgL").className = `pg left ${!l || l < 1 ? "empty" : "clickable"}${single() ? " hidden" : ""}`;
-  $("#pgR").className = `pg right ${!r || r > bk.pages ? "empty" : "clickable"}`;
-  $("#pgL").innerHTML = single() ? "" : pageHtml(l);
-  $("#pgR").innerHTML = pageHtml(r);
-  const shown = sp.filter((n) => n >= 1 && n <= bk.pages);
-  const sec = sectionAt(shown[shown.length - 1]);
-  $("#folio").textContent = (shown.length > 1 ? `pages ${shown[0]}–${shown[1]}` : `page ${shown[0]}`) + ` of ${bk.pages}`
-    + (sec ? ` · ${sec.number}` : "");
-  $("#prevBtn").disabled = Math.min(...shown) <= 1;
-  $("#nextBtn").disabled = Math.max(...shown) >= bk.pages;
-  // the pages either side, so the next turn is instant
-  for (const n of [Math.min(...shown) - 2, Math.min(...shown) - 1, Math.max(...shown) + 1, Math.max(...shown) + 2])
-    if (n >= 1 && n <= bk.pages) { const im = new Image(); im.src = pageSrc(n); }
-  try { localStorage.setItem(`book:${LID}`, String(cur)); } catch (e) { /* private window */ }
+  for (const x of text.sections) if (x.page && x.page <= n) s = x;
+  return s && (!text.answers_page || n < text.answers_page) ? s.number : null;
 }
 function goTo(n) {
-  if (!bk) return;
-  n = Math.max(1, Math.min(bk.pages, n));
-  const before = spreadOf(cur).join(), after = spreadOf(n).join();
-  if (before === after) { cur = n; drawSpread(); return; }
+  n = Math.max(1, Math.min(count(), n));
+  const cur = pos[mode];
+  if (spreadOf(cur).join() === spreadOf(n).join()) { pos[mode] = n; draw(); return; }
   const fwd = n > cur;
-  const adjacent = single() ? Math.abs(n - cur) === 1 : Math.abs(Math.min(...spreadOf(n)) - Math.min(...spreadOf(cur))) === 2;
-  if (single() || !adjacent || turning || window.matchMedia("(prefers-reduced-motion: reduce)").matches) { cur = n; drawSpread(); return; }
-  // a real page turn: the leaf carries this side's page on its front and the next spread's facing page on its back
+  const adjacent = !single() && Math.abs(Math.min(...spreadOf(n)) - Math.min(...spreadOf(cur))) === 2;
+  if (!adjacent || turning || window.matchMedia("(prefers-reduced-motion: reduce)").matches) { pos[mode] = n; draw(); return; }
   turning = true;
   const [l0, r0] = spreadOf(cur), [l1, r1] = spreadOf(n);
   const leaf = document.createElement("div");
   leaf.className = `leaf-turn ${fwd ? "fwd" : "back"}`;
-  const front = fwd ? r0 : l0, back = fwd ? l1 : r1;
-  leaf.innerHTML = `<div class="face">${pageHtml(front)}</div><div class="face backside">${pageHtml(back)}</div>`;
+  leaf.innerHTML = `<div class="face">${leafHtml(fwd ? r0 : l0) || ""}</div><div class="face backside">${leafHtml(fwd ? l1 : r1) || ""}</div>`;
   $("#spread").appendChild(leaf);
-  // under the turning leaf, the page that will be revealed
-  if (fwd) { $("#pgR").innerHTML = pageHtml(r1); $("#pgR").className = `pg right ${r1 > bk.pages ? "empty" : "clickable"}`; }
-  else { $("#pgL").innerHTML = pageHtml(l1); $("#pgL").className = `pg left ${l1 < 1 ? "empty" : "clickable"}`; }
+  if (fwd) fill($("#pgR"), r1, "right"); else fill($("#pgL"), l1, "left");
   requestAnimationFrame(() => requestAnimationFrame(() => { leaf.style.transform = `rotateY(${fwd ? -180 : 180}deg)`; }));
-  const done = () => { leaf.remove(); cur = n; turning = false; drawSpread(); };
+  const done = () => { leaf.remove(); pos[mode] = n; turning = false; draw(); };
   leaf.addEventListener("transitionend", done, { once: true });
   setTimeout(() => { if (turning) done(); }, 900);
 }
-const step = (dir) => goTo(single() ? cur + dir : (dir > 0 ? Math.max(...spreadOf(cur)) + 1 : Math.min(...spreadOf(cur)) - 1));
-function renderToc() {
-  const MARK = { learned: "✓", here: "❧", begun: "◐", ahead: "" };
-  let h = `<h4>Contents</h4><p class="key">✓ learned · ◐ begun · ❧ ${esc(state.learner.name)}’s place</p>`;
-  for (const ch of bk.chapters) {
-    const secs = bk.sections.filter((s) => s.chapter === ch.title);
-    const learned = secs.filter((s) => s.mark === "learned").length;
-    h += `<div class="ch"><span>${esc(ch.supplement ? `${ch.supplement} · ${ch.title}` : ch.title)}</span><span>${learned}/${secs.length}</span></div>`;
-    h += secs.map((s) => `<button class="sec ${s.mark}" data-page="${s.page}"><span class="m">${MARK[s.mark]}</span><span class="n">${esc(s.number)}</span><span>${esc(s.title)}</span><span class="p">${s.page ?? ""}</span></button>`).join("");
-  }
-  if (bk.answers_page) h += `<div class="ch"><span>Answers</span></div><button class="sec" data-page="${bk.answers_page}"><span></span><span></span><span>Answers to the Try Its and exercises</span><span class="p">${bk.answers_page}</span></button>`;
-  $("#toc").innerHTML = h;
+const step = (d) => goTo(single() ? pos[mode] + d : (d > 0 ? Math.max(...spreadOf(pos[mode])) + 1 : Math.min(...spreadOf(pos[mode])) - 1));
+
+function setMode(m) {
+  if (m === "text" && !text) { loadText(); }
+  mode = m;
+  $("#mineBtn").setAttribute("aria-pressed", String(m === "mine"));
+  $("#textBtn").setAttribute("aria-pressed", String(m === "text"));
+  toggleContents(false);
+  if (m === "mine" || text) draw();
 }
-function toggleToc(open) {
-  const t = $("#toc");
-  const show = open ?? t.classList.contains("hidden");
-  t.classList.toggle("hidden", !show);
+
+// ---------------------------------------------------------------- contents
+function renderContents() {
+  let h = "";
+  if (mode === "mine") {
+    h = `<h4>${esc(NAME())}’s book</h4><p class="key">Every set of pages, and the work that came back.</p>`;
+    let lastPk = null;
+    mine.leaves.forEach((L, i) => {
+      if (L.t === "img" && L.packet !== lastPk) {
+        lastPk = L.packet;
+        const kind = { diagnostic: "Getting to know you", lesson: "Lesson", refresh: "Refresher" }[L.kind] || "Pages";
+        h += `<button class="sec ${i === mine.today ? "here" : ""}" data-go="${i + 1}"><span class="m">${i === mine.today ? "❧" : ""}</span><span class="n">${esc(L.packet)}</span><span>${kind}</span><span class="p">${i + 1}</span></button>`;
+      }
+      if (L.t === "returned") h += `<button class="sec" data-go="${i + 1}"><span class="m">✓</span><span class="n"></span><span>Checked work</span><span class="p">${i + 1}</span></button>`;
+    });
+  } else if (text) {
+    const MARK = { learned: "✓", here: "❧", begun: "◐", ahead: "" };
+    h = `<h4>Contents</h4><p class="key">✓ learned · ◐ begun · ❧ where ${esc(NAME())}’s lesson is</p>`;
+    for (const ch of text.chapters) {
+      const secs = text.sections.filter((s) => s.chapter === ch.title);
+      h += `<div class="ch"><span>${esc(ch.supplement ? `${ch.supplement} · ${ch.title}` : ch.title)}</span><span>${secs.filter((s) => s.mark === "learned").length}/${secs.length}</span></div>`;
+      h += secs.map((s) => `<button class="sec ${s.mark}" data-go="${s.page}"><span class="m">${MARK[s.mark]}</span><span class="n">${esc(s.number)}</span><span>${esc(s.title)}</span><span class="p">${s.page ?? ""}</span></button>`).join("");
+    }
+    if (text.answers_page) h += `<div class="ch"><span>Answers</span></div><button class="sec" data-go="${text.answers_page}"><span></span><span></span><span>Answers to the Try Its and exercises</span><span class="p">${text.answers_page}</span></button>`;
+  }
+  $("#contents").innerHTML = h;
+}
+function toggleContents(open) {
+  const show = open ?? $("#contents").classList.contains("hidden");
+  if (show) renderContents();
+  $("#contents").classList.toggle("hidden", !show);
   $("#tocBtn").setAttribute("aria-expanded", String(show));
 }
-async function loadBook() {
-  const r = await api(`/api/l/${LID}/book`);
-  if (!r.ready) {
-    $("#readerMsg").innerHTML = r.error ? `<span class="err">The book could not be bound: ${esc(r.error)}</span>`
-      : `<span class="muted">The book is being bound. This takes a minute the first time.</span>`;
-    if (!r.error) setTimeout(loadBook, 6000);
-    return;
-  }
-  const first = !bk;
-  bk = r;
-  $("#readerMsg").textContent = "";
-  $("#bookPdf").href = bk.pdf;
-  renderToc();
-  if (bk.bookmark) { $("#placeBtn").classList.remove("hidden"); $("#placeBtn").classList.add("place"); $("#placeBtn").textContent = `${state.learner.name}’s place · p. ${bk.bookmark}`; }
-  if (first) {
-    let saved = null;
-    try { saved = parseInt(localStorage.getItem(`book:${LID}`), 10); } catch (e) { /* private window */ }
-    const contents = (bk.chapters[0] && bk.chapters[0].page) ? Math.max(1, bk.chapters[0].page - 2) : 1;
-    cur = saved && saved >= 1 && saved <= bk.pages ? saved : (bk.bookmark || contents);
-  }
-  drawSpread();
-  const here = bk.sections.find((x) => x.mark === "here");
-  const lessonOpen = state.packets.some((p) => p.status === "open" && p.kind !== "diagnostic");
-  if (here && lessonOpen && !$("#readFirst")) {  // the worksheet goes with a section of the book: read it there first
-    const p = document.createElement("p");
-    p.id = "readFirst"; p.className = "small";
-    p.innerHTML = `Read <b>Section ${esc(here.number)}, ${esc(here.title)}</b> in the book first. <button class="linkish" id="readFirstBtn">Turn to page ${here.page}</button>`;
-    $("#next .kicker").after(p);
-    $("#readFirstBtn").onclick = () => { goTo(here.page); $("#reader").scrollIntoView({ behavior: "smooth" }); };
-  }
+
+// ---------------------------------------------------------------- loading
+async function loadMine(jumpToToday) {
+  const prevToday = mine ? mine.today : null, prevCount = mine ? mine.leaves.length : 0;
+  mine = await api(`/api/l/${LID}/mybook`);
+  document.title = `${NAME()}’s book · Marginalia`;
+  $("#mineBtn").textContent = `${NAME()}’s book`;
+  $("#colophon").innerHTML = esc(mine.course.credit || "") + ` · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a>`;
+  renderNow();
+  const moved = prevToday !== mine.today || prevCount !== mine.leaves.length;
+  if (jumpToToday || (moved && mode === "mine")) pos.mine = mine.today + 1;
+  if (mode === "mine" && (moved || jumpToToday) && !turning) draw();
 }
+async function loadText() {
+  const r = await api(`/api/l/${LID}/book`);
+  if (!r.ready) { $("#folio").textContent = "The textbook is being bound…"; setTimeout(() => { if (mode === "text") loadText(); }, 6000); return; }
+  text = r;
+  pos.text = text.bookmark || Math.max(1, (text.chapters[0] && text.chapters[0].page ? text.chapters[0].page - 2 : 1));
+  if (mode === "text") draw();
+}
+async function loadKids() {
+  const me = await api("/api/me");
+  if (me.learners.length > 1) $("#kids").innerHTML = me.learners.filter((l) => l.id !== LID).map((l) => `<a href="/learn/${l.id}">${esc(l.name)}’s book</a>`).join("");
+}
+
 $("#prevBtn").onclick = () => step(-1);
 $("#nextBtn").onclick = () => step(1);
-$("#tocBtn").onclick = () => toggleToc();
-function setView() { $("#viewBtn").textContent = onePage ? "Two pages" : "One page"; if (bk) drawSpread(); }
+$("#mineBtn").onclick = () => setMode("mine");
+$("#textBtn").onclick = () => setMode("text");
+$("#tocBtn").onclick = () => toggleContents();
+$("#todayBtn").onclick = () => { toggleContents(false); if (mode === "mine") goTo(mine.today + 1); else if (text) goTo(text.bookmark || 3); };
+function setView() { $("#viewBtn").textContent = onePage ? "Two pages" : "One page"; if (mine) draw(); }
 $("#viewBtn").onclick = () => { onePage = !onePage; try { localStorage.setItem("book:view", onePage ? "one" : "two"); } catch (e) { /* private */ } setView(); };
-setView();
-$("#placeBtn").onclick = () => { toggleToc(false); goTo(bk.bookmark); };
-$("#toc").addEventListener("click", (e) => { const b = e.target.closest("[data-page]"); if (b && b.dataset.page !== "null") { toggleToc(false); goTo(parseInt(b.dataset.page, 10)); } });
-$("#spread").addEventListener("click", (e) => {  // click the right page to turn forward, the left to turn back
-  if (!bk || turning) return;
+$("#contents").addEventListener("click", (e) => { const b = e.target.closest("[data-go]"); if (b && b.dataset.go !== "null") { toggleContents(false); goTo(parseInt(b.dataset.go, 10)); } });
+$("#spread").addEventListener("click", (e) => {
+  const z = e.target.closest("[data-zoom]");
+  if (z) { $("#zoomImg").src = z.dataset.zoom; $("#zoomDlg").showModal(); return; }
+  const a = e.target.closest("[data-ask]");
+  if (a) { openAsk(a.dataset.ask, a.dataset.n); return; }
+  if (e.target.closest("a, button, .hp")) return;  // HTML pages are read, not clicked through
   const pg = e.target.closest(".pg");
-  if (!pg || pg.classList.contains("empty")) return;
+  if (!pg || pg.classList.contains("empty") || turning) return;
   step(pg.classList.contains("left") ? -1 : 1);
 });
 document.addEventListener("keydown", (e) => {
-  if (!bk || /INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)) return;
-  if (e.key === "ArrowRight") step(1);
-  else if (e.key === "ArrowLeft") step(-1);
-  else if (e.key === "Escape") toggleToc(false);
+  if (/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName) || document.querySelector("dialog[open]")) return;
+  if (e.key === "ArrowRight") step(1); else if (e.key === "ArrowLeft") step(-1); else if (e.key === "Escape") toggleContents(false);
 });
 let touchX = null;
 $("#spread").addEventListener("touchstart", (e) => { touchX = e.touches[0].clientX; }, { passive: true });
@@ -480,48 +432,47 @@ $("#spread").addEventListener("touchend", (e) => {
   const dx = e.changedTouches[0].clientX - touchX; touchX = null;
   if (Math.abs(dx) > 50) step(dx < 0 ? 1 : -1);
 });
-window.addEventListener("resize", () => { if (bk) drawSpread(); });
+window.addEventListener("resize", () => { if (mine) draw(); });
 
-async function loadReports() {
-  const reps = await api(`/api/l/${LID}/reports`);
-  if (reps.length) { $("#reports").innerHTML = reps.slice(0, 6).map(renderReport).join(""); mathify($("#reports")); }
+// ---------------------------------------------------------------- ask about this (a note in the margin)
+let askId = null;
+async function openAsk(prid, n) {
+  askId = prid;
+  $("#askWhat").textContent = `Ask about problem ${n}`;
+  $("#askText").value = "";
+  $("#askPast").innerHTML = "";
+  $("#askDlg").showModal();
+  const past = await api(`/api/l/${LID}/questions/${prid}`).catch(() => []);
+  $("#askPast").innerHTML = past.map(askNote).join("");
+  mathify($("#askPast"));
 }
-
-async function load(withReports) {
-  state = await api(`/api/l/${LID}/state`);
-  renderHeader(); renderNext(); renderPackets(); renderSkills();
-  loadBook().catch((e) => { $("#readerMsg").innerHTML = `<span class="err">${esc(e.message)}</span>`; });
-  if (withReports) await loadReports();
+function askNote(a) {
+  return `<div class="note">${a.question ? `<span class="q">You asked:</span> <span style="font-style:normal">${esc(a.question)}</span><br>` : ""}
+    ${esc(a.reply).replace(/\*\*([^*]+)\*\*/g, "<b>$1</b>")}${a.canonical ? `<div class="canon">${esc(a.canonical)}</div>` : ""}</div>`;
 }
+$("#askForm").addEventListener("submit", async (e) => {
+  if (e.submitter && e.submitter.value === "close") return;
+  e.preventDefault();
+  const q = $("#askText").value.trim();
+  if (!q) return;
+  $("#askSend").disabled = true;
+  const slot = document.createElement("div");
+  slot.className = "note muted"; slot.textContent = "Writing a note and checking every equation in it…";
+  $("#askPast").appendChild(slot);
+  try {
+    const r = await api(`/api/l/${LID}/ask`, { method: "POST", json: { problem_id: askId, question: q, line: null } });
+    slot.outerHTML = askNote({ ...r, question: q });
+    $("#askText").value = "";
+    mathify($("#askPast"));
+  } catch (err) { slot.innerHTML = `<span class="err">${esc(err.message)}</span>`; }
+  $("#askSend").disabled = false;
+});
 
-$("#upload").onsubmit = async (ev) => {
-  ev.preventDefault();
-  const files = [...$("#photo").files];
-  if (!files.length) { $("#photoMsg").textContent = "Choose a photo first."; return; }
-  $("#uploadBtn").disabled = true; $("#photoMsg").textContent = "";
-  let done = 0;
-  for (const f of files) {
-    const fd = new FormData(); fd.append("photo", f);
-    try {
-      const { job } = await api(`/api/l/${LID}/photos`, { method: "POST", body: fd });
-      const rep = await runJob(job, $("#photoLedger"));
-      $("#reports").innerHTML = renderReport(rep) + ($("#reports").querySelector(".problem, .caption") ? $("#reports").innerHTML : "");
-      mathify($("#reports"));
-      done++;
-    } catch (e) { $("#photoMsg").innerHTML = `<span class="err">${esc(f.name)}: ${esc(e.message)}</span>`; }
-  }
-  if (done) $("#photoMsg").innerHTML = `<span class="ok">${done} page${done > 1 ? "s" : ""} checked. The feedback is below.</span>`;
-  $("#uploadBtn").disabled = false; $("#photo").value = "";
-  await load(false);
-};
-const dz = $("#upload");
-dz.ondragover = (e) => { e.preventDefault(); dz.classList.add("drag"); };
-dz.ondragleave = () => dz.classList.remove("drag");
-dz.ondrop = (e) => { e.preventDefault(); dz.classList.remove("drag"); $("#photo").files = e.dataTransfer.files; };
-
-// deferred scripts (KaTeX) have run by DOMContentLoaded, so math renders on the first draw
-document.addEventListener("DOMContentLoaded", () =>
-  load(true).catch((e) => { $("#next").innerHTML = `<p class="err">${esc(e.message)}</p>`; }));
+document.addEventListener("DOMContentLoaded", () => {
+  setView();
+  loadMine(true).catch((e) => { $("#now").innerHTML = `<p class="err">${esc(e.message)}</p>`; });
+  loadKids().catch(() => {});
+});
 </script>
 </body>
 </html>

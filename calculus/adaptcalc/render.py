@@ -20,6 +20,45 @@ import typst
 
 from . import assets, cnxml, paths, source
 
+# Set by the web app while it makes a learner's pages: pid -> the link a grown-up's phone opens to
+# send in those pages (printed as a QR code on the cover). None (the command line): print the code.
+import contextvars
+
+SCAN_LINK: contextvars.ContextVar = contextvars.ContextVar("scan_link", default=None)
+
+
+def learner_name() -> str:
+    """The child's first name, from the learner's profile (empty when there is none)."""
+    try:
+        return json.loads((paths.learner_dir() / "profile.json").read_text(encoding="utf-8")).get("name", "")
+    except (OSError, ValueError):
+        return ""
+
+
+def qr_file(url: str) -> str:
+    """A QR code for url as an SVG under the build directory; returns its Typst path."""
+    import hashlib
+
+    import segno
+
+    paths.BUILD.mkdir(parents=True, exist_ok=True)
+    f = paths.BUILD / f"qr-{hashlib.sha256(url.encode()).hexdigest()[:16]}.svg"
+    if not f.exists():
+        segno.make(url, error="m").save(str(f), kind="svg", scale=4, border=0, dark="#006B7F")
+    return "/" + str(f.relative_to(paths.ROOT))
+
+
+def cover_markup(kicker: str, title: str, subtitle: str, pid: str) -> str:
+    """The first-page heading of a set of pages, with the scan code when there is a scan link."""
+    link = SCAN_LINK.get()
+    base = f'#cover("{esc(kicker)}", "{esc(title)}", "{esc(subtitle)}", "{pid}"'
+    if not link:
+        return base + ")\n"
+    who = learner_name() or "your child"
+    note = f"When {who} is done, point your phone’s camera here to check the work."
+    return base + f', qr: "{qr_file(link(pid))}", scan-note: [#"{esc(note)}"])\n'
+
+
 TEMPLATE_IMPORT = ('#import "/typst/textbook.typ": *\n#import "/typst/figures.typ": *\n'
                    '#import "@preview/cetz:0.3.4"\n')
 
@@ -321,7 +360,7 @@ def problem_markup(num: int, p: dict) -> str:
     extra = ""
     if p.get("review"):
         extra += ', tag: "review"'
-    space = p.get("work_lines", 6)
+    space = max(p.get("work_lines", 6), 3.5) if p.get("work_lines", 6) >= 1 else p["work_lines"]  # room to write by hand (book exercises set less)
     if p.get("faded") and p.get("solution"):
         given = p["solution"][:p["faded"]]
         extra += ", given: (" + ", ".join(f"[${g}$]" for g in given) + ",)"

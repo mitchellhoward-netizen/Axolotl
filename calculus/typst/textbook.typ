@@ -199,16 +199,26 @@
   #body
 ]
 
-#let cover(kicker, title, subtitle, code) = block(width: 100%, below: 1.4em)[
+#let cover(kicker, title, subtitle, code, qr: none, scan-note: none) = block(width: 100%, below: 1.4em)[
   #set par(justify: false)
-  #grid(columns: (1fr, auto), align: horizon,
+  #grid(columns: (1fr, auto), align: horizon, column-gutter: 14pt,
     [#text(font: sans, size: 9pt, weight: "bold", fill: spot, tracking: 0.12em, upper(kicker))
      #v(-6pt)
      #text(font: sans, size: 22pt, weight: "bold", title)
      #v(-8pt)
      #text(font: sans, size: 11pt, fill: luma(60), subtitle)],
-    box(stroke: 2pt + spot, inset: 8pt, radius: 3pt,
-      align(center)[#text(font: sans, size: 7.5pt, fill: spot, weight: "bold")[WRITE THIS CODE ON YOUR PAGE] \
-      #text(font: sans, size: 26pt, weight: "bold", fill: spot, code)]))
+    if qr != none {
+      // grown-ups scan this with a phone camera when the pages are done: no codes, no typing
+      box(stroke: 1.2pt + spot, inset: 6pt, radius: 3pt, grid(columns: (auto, 1.25in), column-gutter: 7pt, align: horizon,
+        image(qr, width: 0.82in),
+        [#set par(leading: 0.45em)
+         #text(font: sans, size: 7.5pt, weight: "bold", fill: spot)[GROWN-UPS] \
+         #text(font: sans, size: 7.5pt, scan-note) \
+         #text(font: sans, size: 6.5pt, fill: luma(110))[Pages #code]]))
+    } else {
+      box(stroke: 2pt + spot, inset: 8pt, radius: 3pt,
+        align(center)[#text(font: sans, size: 7.5pt, fill: spot, weight: "bold")[WRITE THIS CODE ON YOUR PAGE] \
+        #text(font: sans, size: 26pt, weight: "bold", fill: spot, code)])
+    })
   #line(length: 100%, stroke: 2pt + spot)
 ]

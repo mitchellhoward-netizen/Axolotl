@@ -61,16 +61,17 @@ def resolve_packet(db: LearnerDB, code: str | None) -> str | None:
 
 
 def process_photo(db: LearnerDB, photo: Path, transcriber=None, jev_client=None, move: bool = True,
-                  progress=None) -> dict:
-    """`progress(stage)` (optional) is told what is happening, for a page that shows it."""
+                  progress=None, packet: str | None = None) -> dict:
+    """`progress(stage)` (optional) is told what is happening, for a page that shows it.
+    `packet`: the pages this photo belongs to, when the sender already knows (a scan link)."""
     say = progress or (lambda stage: None)
     photo = Path(photo)
     transcriber = transcriber or transcribe.default_transcriber()
-    op = db.open_packet()
+    op = db.packet(packet) if packet else db.open_packet()
     context = transcribe.packet_context(db.problems(op["id"])) if op else ""
     say("Reading the page")
     doc = transcriber.transcribe(photo, context)
-    pid = resolve_packet(db, doc.get("packet_code"))
+    pid = packet if packet and db.packet(packet) else resolve_packet(db, doc.get("packet_code"))
     report = {"photo": photo.name, "transcriber": transcriber.backend, "packet": pid,
               "transcript": doc, "problems": [], "at": now()}
     if pid is None:

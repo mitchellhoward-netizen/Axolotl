@@ -64,7 +64,7 @@ def test_learner_book_diagnostic_and_isolation(client, tmp_path):
     ids = [c["id"] for c in me["courses"]]
     assert "algebra1" in ids and "calc_limits" not in ids  # personal-study course is not offered to families
     assert client.post("/api/learners", headers=H, json={"name": "Maya", "course": "calc_limits"}).status_code == 400
-    lid = client.post("/api/learners", headers=H, json={"name": "Maya", "course": "algebra1", "start": "arithmetic"}).json()["id"]
+    lid = client.post("/api/learners", headers=H, json={"name": "Maya", "course": "algebra1", "start": "arithmetic", "make": False}).json()["id"]
     s = client.get(f"/api/l/{lid}/state").json()
     assert s["course"]["id"] == "algebra1" and s["diagnostic"]["asked"] == 0 and len(s["skills"]) == 75
     job = client.post(f"/api/l/{lid}/diagnostic/next", headers=H).json()["job"]
@@ -145,7 +145,7 @@ def test_every_course_works_for_a_learner(client):
     ids = [c["id"] for c in client.get("/api/me").json()["courses"]]
     assert ids == ["elementary", "prealgebra", "algebra1"]
     for course in ids:
-        lid = client.post("/api/learners", headers=H, json={"name": course[:8], "course": course}).json()["id"]
+        lid = client.post("/api/learners", headers=H, json={"name": course[:8], "course": course, "make": False}).json()["id"]
         assert client.get(f"/api/l/{lid}/state").status_code == 200
         j = wait(client, client.post(f"/api/l/{lid}/diagnostic/next", headers=H).json()["job"])
         assert j["status"] == "done", (course, j)

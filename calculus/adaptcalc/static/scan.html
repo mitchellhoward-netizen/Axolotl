@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Marginalia</title>
+<link rel="stylesheet" href="/static/book.css">
+<style>
+body { min-height: 100vh; }
+.wrap { max-width: 520px; margin: 0 auto; padding: 22px 18px 60px; }
+.brand { font-family: var(--display); font-size: 22px; color: var(--ink); text-decoration: none; }
+.brand .orn { color: var(--spot); margin-right: 6px; }
+h1 { font-size: 40px; margin: 26px 0 6px; }
+.lede { font-size: 19px; margin: 0 0 20px; }
+.cam { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; width: 100%;
+  min-height: 150px; border: 2px solid var(--spot); background: var(--spot); color: var(--spot-ink); border-radius: 6px;
+  font-family: var(--display); font-size: 28px; cursor: pointer; text-align: center; padding: 18px; }
+.cam small { font-family: var(--text); font-size: 15px; opacity: .85; }
+.cam.again { min-height: 0; background: transparent; color: var(--spot); font-size: 22px; padding: 14px; }
+.cam input { display: none; }
+.card { background: var(--leaf); border: 1px solid var(--rule); padding: 16px 18px; margin-top: 16px; box-shadow: var(--shadow); }
+.big { font-family: var(--display); font-size: 30px; line-height: 1.1; }
+.marks { list-style: none; padding: 0; margin: 10px 0 0; }
+.marks li { display: flex; gap: 10px; padding: 6px 0; border-bottom: 1px dotted var(--rule); align-items: baseline; }
+.marks .n { font-family: var(--display); color: var(--spot); font-size: 20px; min-width: 1.4em; }
+.marks .v { font-variant-caps: all-small-caps; letter-spacing: .1em; font-weight: 700; min-width: 4.5em; }
+.marks .v.yes { color: var(--spot); } .marks .v.no { color: var(--brick); } .marks .v.skip { color: var(--ink-3); }
+.marks .why { color: var(--ink-2); font-size: 15px; }
+.stage { color: var(--ink-2); font-style: italic; }
+.tips { font-size: 15px; color: var(--ink-2); margin-top: 14px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="brand" href="/home"><span class="orn">❦</span>Marginalia</a>
+  <h1 id="title">&nbsp;</h1>
+  <p class="lede" id="lede">&nbsp;</p>
+  <label class="cam" id="cam"><span id="camText">Take a photo of each page</span><small id="camSmall">Flat on a table, in good light. One page per photo.</small>
+    <input type="file" id="photo" accept="image/*" capture="environment" multiple></label>
+  <div id="out"></div>
+  <p class="tips" id="tips">Every line is read and checked. The notes go into the book, next to these pages.</p>
+</div>
+<script src="/static/book.js"></script>
+<script>
+const [, , LID, PID, SIG] = location.pathname.split("/");
+const BASE = `/api/s/${LID}/${PID}/${SIG}`;
+let info = null;
+function marksHtml(problems) {
+  return `<ul class="marks">` + problems.filter((p) => p.status === "graded").map((p) => {
+    const v = p.skipped ? ["skip", "skipped"] : p.correct ? ["yes", "right"] : ["no", "not yet"];
+    const bad = (p.lines || []).find((l) => l.status === "invalid");
+    const why = !p.correct && !p.skipped ? (bad ? `a line went wrong: ${esc(bad.text)}` : esc(p.misconception_text || "")) : "";
+    return `<li><span class="n">${p.number}</span><span class="v ${v[0]}">${v[1]}</span><span class="why">${why}</span></li>`;
+  }).join("") + `</ul>`;
+}
+function head() {
+  const n = esc(info.name), s = info.summary;
+  $("#title").textContent = `${info.name}’s pages`;
+  if (info.status !== "open") {
+    $("#lede").innerHTML = `These pages are already checked: <b>${s.right} of ${s.checked} right</b>. ${info.open.length ? `${n}’s next pages are ready in the book.` : ""}`;
+    $("#cam").classList.add("hidden");
+    $("#out").innerHTML = `<div class="card"><a class="btn primary" href="/learn/${LID}">Open ${n}’s book</a></div>`;
+    return;
+  }
+  $("#lede").innerHTML = s.checked ? `${s.checked} of ${s.problems} problems checked so far. Send any pages not yet photographed.`
+    : `When ${n} is done, photograph each page. Every step gets checked in about a minute.`;
+}
+async function send(files) {
+  $("#cam").classList.add("again");
+  $("#camText").textContent = "Take another photo";
+  $("#camSmall").textContent = "";
+  for (const f of files) {
+    const box = document.createElement("div");
+    box.className = "card";
+    box.innerHTML = `<div class="stage">Sending the photo…</div>`;
+    $("#out").prepend(box);
+    try {
+      const fd = new FormData(); fd.append("photo", f);
+      const { job } = await api(`${BASE}/photos`, { method: "POST", body: fd });
+      const ledger = document.createElement("div");
+      box.innerHTML = ""; box.appendChild(ledger);
+      const r = await runJob(job, ledger, `${BASE}/jobs/${job}`);
+      if (r.pending) { box.innerHTML = `<p>${esc(r.message)}</p>`; continue; }
+      if (r.error) { box.innerHTML = `<p class="err">${esc(r.error)}</p>`; continue; }
+      const g = (r.problems || []).filter((p) => p.status === "graded");
+      const right = g.filter((p) => p.correct).length;
+      box.innerHTML = `<div class="big">${g.length ? `${right} of ${g.length} right on this page` : "Nothing new to check on this page"}</div>${marksHtml(r.problems || [])}`;
+      if (r.done) {
+        const done = document.createElement("div");
+        done.className = "card";
+        done.innerHTML = `<div class="big">That’s every page.</div><p>${esc(info.name)}’s next pages are being written from this work. They’ll be in the book and in your email in a minute or two.</p>
+          <a class="btn primary" href="/learn/${LID}">Open ${esc(info.name)}’s book</a>`;
+        $("#out").prepend(done);
+        $("#cam").classList.add("hidden");
+      }
+    } catch (e) { box.innerHTML = `<p class="err">${esc(e.message)}</p>`; }
+  }
+}
+$("#photo").onchange = () => { const files = [...$("#photo").files]; $("#photo").value = ""; if (files.length) send(files); };
+api(BASE).then((r) => { info = r; head(); }).catch((e) => {
+  $("#title").textContent = "This code doesn’t open anything";
+  $("#lede").textContent = e.message; $("#cam").classList.add("hidden"); $("#tips").classList.add("hidden");
+});
+</script>
+</body>
+</html>

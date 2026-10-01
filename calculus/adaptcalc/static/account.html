@@ -24,6 +24,14 @@
       <label class="field"><span>Email</span><input type="email" id="email" autocomplete="email" required></label>
       <label class="field"><span>Password</span><input type="password" id="password" autocomplete="current-password" required minlength="10"></label>
       <div id="signupOnly2" class="hidden">
+        <label class="field"><span>Your child’s first name</span><input type="text" id="child" maxlength="40" autocomplete="off"></label>
+        <label class="field"><span>The grade they’re in</span><select id="grade">
+          <option value="">Choose…</option><option value="K">Kindergarten</option><option value="1">1st grade</option>
+          <option value="2">2nd grade</option><option value="3">3rd grade</option><option value="4">4th grade</option>
+          <option value="5">5th grade</option><option value="6">6th grade</option><option value="7">7th grade</option>
+          <option value="8">8th grade</option><option value="9">9th grade or Algebra 1</option></select></label>
+        <p class="caption">That’s all we need. The first pages start being written the moment you finish, and a short set of
+          questions finds exactly where your child is. More children can be added later.</p>
         <label class="field"><span>Access code</span><input type="text" id="code" autocomplete="off" spellcheck="false" style="text-transform:uppercase"></label>
         <p class="caption">Use at least 10 characters for the password. By creating an account you agree to the <a href="/terms">terms</a>
           and confirm you have read the <a href="/privacy">privacy notice</a>.</p>
@@ -40,10 +48,10 @@
 const signup = location.pathname === "/signup";
 if (signup) {
   $("#kicker").textContent = "A new book";
-  $("#title").textContent = "Create an account";
+  $("#title").textContent = "Start a book";
   $("#signupOnly").classList.remove("hidden");
   $("#signupOnly2").classList.remove("hidden");
-  $("#submit").textContent = "Create the account";
+  $("#submit").textContent = "Start the book";
   $("#switch").textContent = "I already have an account";
   $("#switch").href = "/signin";
   $("#forgot").classList.add("hidden");
@@ -56,9 +64,12 @@ $("#form").onsubmit = async (e) => {
   $("#submit").disabled = true;
   try {
     const body = { email: $("#email").value, password: $("#password").value };
-    if (signup) Object.assign(body, { name: $("#name").value, code: $("#code").value });
-    await api(signup ? "/api/auth/signup" : "/api/auth/signin", { method: "POST", json: body });
-    location.href = "/home";
+    if (signup) {
+      if (!$("#child").value.trim() || !$("#grade").value) throw new Error("Add your child’s first name and grade.");
+      Object.assign(body, { name: $("#name").value, code: $("#code").value, child: $("#child").value, grade: $("#grade").value });
+    }
+    const r = await api(signup ? "/api/auth/signup" : "/api/auth/signin", { method: "POST", json: body });
+    location.href = r.learner ? `/learn/${r.learner}` : "/home";
   } catch (err) {
     $("#msg").textContent = err.message;
     $("#submit").disabled = false;

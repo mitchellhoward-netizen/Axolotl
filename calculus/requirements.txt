@@ -11,3 +11,4 @@ fastapi>=0.110
 uvicorn>=0.29
 python-multipart>=0.0.9
 pillow-heif>=0.16
+segno>=1.6

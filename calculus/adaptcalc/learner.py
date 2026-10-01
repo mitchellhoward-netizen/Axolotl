@@ -108,7 +108,7 @@ class LearnerDB:
     def __init__(self, path: Path | None = None):
         self.path = Path(path or paths.DB_PATH)
         self.path.parent.mkdir(parents=True, exist_ok=True)
-        self.conn = sqlite3.connect(self.path)
+        self.conn = sqlite3.connect(self.path, timeout=30)
         self.conn.row_factory = sqlite3.Row
         self.conn.executescript(SCHEMA)
         cols = {r["name"] for r in self.conn.execute("PRAGMA table_info(skills)")}
@@ -138,7 +138,7 @@ class LearnerDB:
         prior = diagnostic.marginals(*diagnostic.prior_particles())
         with self.tx() as c:
             for sid in missing:
-                c.execute("INSERT INTO skills (id, p_mastery) VALUES (?, ?)", (sid, prior[sid]))
+                c.execute("INSERT OR IGNORE INTO skills (id, p_mastery) VALUES (?, ?)", (sid, prior[sid]))
 
     # ---------------- skills ----------------
     def mastery(self) -> dict[str, float]:

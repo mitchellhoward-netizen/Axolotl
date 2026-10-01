@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Marginalia · Your learners</title>
+<title>Marginalia · Your books</title>
 <link rel="stylesheet" href="/static/book.css">
 <style>
 .learner { display: grid; grid-template-columns: 1fr auto; gap: 6px 18px; padding: 18px 0; border-bottom: 1px dotted var(--rule); align-items: baseline; }
@@ -19,12 +19,12 @@ details.more summary { cursor: pointer; font-variant-caps: all-small-caps; lette
 <body>
 <header class="masthead">
   <a class="brand" href="/home"><span class="orn">❦</span>Marginalia</a>
-  <nav><a href="/">The book</a><button class="linkish" onclick="toggleTheme()">Light / dark</button><button class="linkish" onclick="signOut()">Sign out</button></nav>
+  <nav><button class="linkish" onclick="toggleTheme()">Light / dark</button><button class="linkish" onclick="signOut()">Sign out</button></nav>
   <div class="rule"></div>
 </header>
 <main>
   <div class="kicker" id="greeting">Your family’s books</div>
-  <h1>Learners</h1>
+  <h1>The books</h1>
   <hr class="title-rule">
 
   <div class="grid2">
@@ -35,13 +35,15 @@ details.more summary { cursor: pointer; font-variant-caps: all-small-caps; lette
     </div>
     <div>
       <section class="leaf" id="addLeaf">
-        <div class="section-label"><span class="num">+</span><h3>Add a learner</h3></div>
+        <div class="section-label"><span class="num">+</span><h3>Add a child</h3></div>
         <form id="add">
           <label class="field"><span>First name</span><input type="text" id="lname" maxlength="40" required autocomplete="off"></label>
-          <label class="field"><span>Course</span><select id="lcourse"></select></label>
-          <label class="field"><span>Where they are starting</span><select id="lstart"></select></label>
-          <p class="caption">The starting point only shapes the first diagnostic questions. The diagnostic finds the rest.</p>
-          <div class="row"><button class="btn primary" type="submit">Add</button></div>
+          <label class="field"><span>The grade they’re in</span><select id="lgrade" required>
+            <option value="">Choose…</option><option value="K">Kindergarten</option><option value="1">1st grade</option>
+            <option value="2">2nd grade</option><option value="3">3rd grade</option><option value="4">4th grade</option>
+            <option value="5">5th grade</option><option value="6">6th grade</option><option value="7">7th grade</option>
+            <option value="8">8th grade</option><option value="9">9th grade or Algebra 1</option></select></label>
+          <div class="row"><button class="btn primary" type="submit">Start their book</button></div>
           <p id="addMsg" class="err" role="alert"></p>
         </form>
       </section>
@@ -49,7 +51,7 @@ details.more summary { cursor: pointer; font-variant-caps: all-small-caps; lette
         <div class="section-label"><span class="num">¤</span><h3>Subscription</h3></div>
         <div id="bill"></div>
       </section>
-      <section class="leaf">
+      <section class="leaf" id="account">
         <div class="section-label"><span class="num">§</span><h3>Account</h3></div>
         <p class="small muted" id="who"></p>
         <label class="small" style="display:flex;gap:8px;align-items:baseline;margin-top:6px"><input type="checkbox" id="weekly">
@@ -80,10 +82,6 @@ details.more summary { cursor: pointer; font-variant-caps: all-small-caps; lette
 <script src="/static/book.js"></script>
 <script>
 let me = null;
-function startsFor(courseId) {
-  const c = me.courses.find((x) => x.id === courseId);
-  $("#lstart").innerHTML = (c ? c.starts : []).map((s) => `<option value="${esc(s.id)}">${esc(s.label)}</option>`).join("");
-}
 function renderBilling() {
   const b = me.billing;
   if (!b.enabled) return;
@@ -113,33 +111,35 @@ function render() {
   $("#weekly").checked = me.family.weekly;
   renderBilling();
   if (me.family.name) $("#greeting").textContent = `${me.family.name}’s books`;
-  $("#lcourse").innerHTML = me.courses.map((c) => `<option value="${esc(c.id)}">${esc(c.title)}${c.commercial ? "" : " (personal study)"}</option>`).join("");
-  startsFor($("#lcourse").value);
   if (!me.learners.length) {
-    $("#learners").innerHTML = `<p class="lede" style="margin:0">No learners yet.</p>
-      <p class="muted">Add a learner to begin. Each child gets their own book: their own diagnostic, lessons and progress.</p>`;
+    $("#learners").innerHTML = `<p class="lede" style="margin:0">No books yet.</p>
+      <p class="muted">Add a child: their first name and grade is all it takes. The first pages start being written straight away.</p>`;
     return;
   }
   $("#learners").innerHTML = me.learners.map((l) => {
-    const pct = l.total ? (100 * l.mastered / l.total) : 0;
-    const status = l.open.length ? `Working on ${l.open.map(esc).join(", ")}` : (l.problems ? "Ready for the next packet" : "Ready to begin the diagnostic");
+    const status = l.open.length ? "Pages ready to print" : (l.problems ? "Next pages on the way" : "First pages being written");
     return `<div class="learner">
-      <h3><a href="/learn/${l.id}">${esc(l.name)}</a></h3>
-      <div class="acts"><a class="btn primary" href="/learn/${l.id}">Open the book</a><a class="linkish" href="/learn/${l.id}/progress">Report</a></div>
-      <div class="meta">${esc(l.course.title)} · ${l.mastered} of ${l.total} skills learned · ${l.problems} problems checked${l.last ? ` · last work ${fmtDate(l.last)}` : ""}</div>
-      <div class="meter"><i style="width:${pct.toFixed(1)}%"></i></div>
-      <div class="meta">${status}${l.next.length ? ` · next: ${l.next.map(esc).join("; ")}` : ""}
+      <h3><a href="/learn/${l.id}">${esc(l.name)}’s book</a></h3>
+      <div class="acts"><a class="btn primary" href="/learn/${l.id}">Open</a></div>
+      <div class="meta">${esc(l.course.title)} · ${status}${l.problems ? ` · ${l.correct} of ${l.problems} problems right so far` : ""}${l.last ? ` · last work ${fmtDate(l.last)}` : ""}
+        · <a class="linkish" style="font-size:15px" href="/learn/${l.id}/progress">how it’s going</a>
         · <button class="linkish" style="font-size:15px" data-remove="${l.id}" data-name="${esc(l.name)}">remove</button></div>
     </div>`;
   }).join("");
 }
-async function load() { me = await api("/api/me"); render(); }
-$("#lcourse").onchange = () => startsFor($("#lcourse").value);
+async function load() {
+  me = await api("/api/me");
+  // one child and nothing else asked for: their book is the home page
+  if (me.learners.length === 1 && !location.hash && !new URLSearchParams(location.search).has("billing")) { location.replace(`/learn/${me.learners[0].id}`); return; }
+  render();
+  if (location.hash) { const el = document.querySelector(location.hash); if (el) el.scrollIntoView(); }
+}
 $("#weekly").onchange = () => api("/api/account/weekly", { method: "POST", json: { on: $("#weekly").checked } }).catch((e) => alert(e.message));
 $("#add").onsubmit = async (e) => {
   e.preventDefault(); $("#addMsg").textContent = "";
   try {
-    const r = await api("/api/learners", { method: "POST", json: { name: $("#lname").value, course: $("#lcourse").value, start: $("#lstart").value } });
+    if (!$("#lgrade").value) throw new Error("Choose the grade they’re in.");
+    const r = await api("/api/learners", { method: "POST", json: { name: $("#lname").value, grade: $("#lgrade").value } });
     location.href = `/learn/${r.id}`;
   } catch (err) { $("#addMsg").textContent = err.message; }
 };

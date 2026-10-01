@@ -17,16 +17,18 @@ def render_diagnostic(db: LearnerDB, pid: str) -> dict:
     probs = db.problems(pid)
     rnd = pk["round"]
     n = len(probs)
-    src = [render.doc_head(f"Diagnostic {pid}", f"Diagnostic, round {rnd}", pid)]
-    where = extract.course_source().get("title") if is_book_course() else "Chapter 2"
-    src.append(f'#cover("Diagnostic · Round {rnd}", "Where you stand in {render.esc(where)}", '
-               f'"{n} questions, chosen to split what is still uncertain about your skills", "{pid}")\n')
+    who = render.learner_name()
+    src = [render.doc_head(f"Pages {pid}", "Getting to know you", pid)]
+    src.append(render.cover_markup(f"Getting to know you · {'first' if rnd == 1 else 'more'} pages",
+                                   f"{who}’s first pages" if who and rnd == 1 else (f"More of {who}’s pages" if who else "Getting to know you"),
+                                   f"{n} questions. Try each one; if you haven’t learned it yet, write skip. That helps too.", pid))
+    scan = render.SCAN_LINK.get() is not None
     src.append("#instructions[#list("
-               "[Write the code #strong[" + pid + "] at the top of every page you photograph.], "
-               "[Start each problem with its number. One step per line.], "
+               + ("" if scan else "[Write the code #strong[" + pid + "] at the top of every page you photograph.], ")
+               + "[Work right on these pages. One step per line.], "
                "[Cross mistakes out with a single line; do not erase.], "
                "[Box your final answer.], "
-               "[If you have not seen a topic yet, write the number and #emph[skip]. Skipping is information too.])]\n")
+               "[If you have not seen a topic yet, write #emph[skip]. Skipping is information too.])]\n")
     for p in probs:
         src.append(render.problem_markup(p["number"], p["data"]))
     out = paths.OUT / f"{pid}.pdf"
@@ -292,8 +294,9 @@ def build_lesson(db: LearnerDB, focus: list[str] | None = None, section: str | N
         src.append(roadmap)
     src.append(render.blocks(mod.blocks, ctx))
     src.append('#practice-head("Practice")\n')
-    src.append("#instructions[#list([Write the code #strong[" + pid + "] at the top of every page.], "
-               "[Number each problem. One step per line.], [Cross mistakes out; do not erase.], [Box your final answer.])]\n")
+    code_line = "" if render.SCAN_LINK.get() else "[Write the code #strong[" + pid + "] at the top of every page.], "
+    src.append("#instructions[#list(" + code_line + "[Work right on these pages. One step per line.], "
+               "[Cross mistakes out; do not erase.], [Box your final answer.])]\n")
     for sn in snippets:
         if sn.slot == "practice":
             m = use(sn)
@@ -569,8 +572,9 @@ def build_refresh(db: LearnerDB, focus: list[str], log=None, jev_client=None, us
     kicker = " · ".join(source.BOOKS[b].title for b in books)
     title = "Refresh" if kind == "refresh" else "Lesson"
     src = [render.doc_head(f"{title} {pid}", title, pid, attribution, kicker=kicker)]
-    src.append(f'#cover("{title} · {pid}", "{render.esc("; ".join(names))}", '
-               f'"From {render.esc(source_title)}", "{pid}")\n')
+    who = render.learner_name()
+    src.append(render.cover_markup(f"{who}’s pages · {title.lower()}" if who else f"{title} · {pid}",
+                                   "; ".join(names), f"From {source_title}", pid))
     roadmap = use(snippets[0])
     if roadmap:
         src.append(roadmap)
@@ -584,8 +588,9 @@ def build_refresh(db: LearnerDB, focus: list[str], log=None, jev_client=None, us
         for sec in p["sections"]:
             src.append(render.block(sec, ctx))
     src.append('#practice-head("Practice")\n')
-    src.append("#instructions[#list([Write the code #strong[" + pid + "] at the top of every page.], "
-               "[Number each problem. One step per line.], [Cross mistakes out; do not erase.], [Box your final answer.])]\n")
+    code_line = "" if render.SCAN_LINK.get() else "[Write the code #strong[" + pid + "] at the top of every page.], "
+    src.append("#instructions[#list(" + code_line + "[Work right on these pages. One step per line.], "
+               "[Cross mistakes out; do not erase.], [Box your final answer.])]\n")
     if review_problems:
         src.append('#transition[#"Problems marked review come from earlier skills. They are mixed in on purpose: '
                    'deciding which method a problem needs is part of the skill."]\n')

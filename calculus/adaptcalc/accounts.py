@@ -286,6 +286,11 @@ class Accounts:
         return [dict(r) for r in self.conn.execute(
             "SELECT * FROM learners WHERE family_id=? ORDER BY created", (fid,))]
 
+    def learner_by_id(self, lid: str) -> dict | None:
+        """A learner without knowing the family (scan links carry only the learner id, signed)."""
+        r = self.conn.execute("SELECT * FROM learners WHERE id=?", (lid,)).fetchone()
+        return dict(r) if r else None
+
     def learner(self, fid: str, lid: str) -> dict | None:
         r = self.conn.execute("SELECT * FROM learners WHERE id=? AND family_id=?", (lid, fid)).fetchone()
         return dict(r) if r else None

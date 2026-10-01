@@ -34,15 +34,25 @@ def outbox():
     return paths.DATA / "outbox"
 
 
-def send(to: str, subject: str, text: str, html: str | None = None) -> dict:
-    """Send one email. Returns {"sent": bool, "id": ...}; never raises for delivery problems."""
+def send(to: str, subject: str, text: str, html: str | None = None, attachments: list[dict] | None = None) -> dict:
+    """Send one email. Returns {"sent": bool, "id": ...}; never raises for delivery problems.
+    attachments: [{"filename", "path"}] (files are read and base64-encoded for Resend)."""
+    import base64
+    from pathlib import Path
+
     msg = {"from": sender(), "to": [to], "subject": subject, "text": text}
     if html:
         msg["html"] = html
+    if attachments:
+        msg["attachments"] = [{"filename": x["filename"], "content": base64.b64encode(Path(x["path"]).read_bytes()).decode()}
+                              for x in attachments if Path(x["path"]).exists()]
     if not configured():
         outbox().mkdir(parents=True, exist_ok=True)
         f = outbox() / f"{int(time.time() * 1000)}-{re.sub(r'[^a-z0-9]', '_', to.lower())[:40]}.json"
-        f.write_text(json.dumps(msg, indent=1), encoding="utf-8")
+        kept = {k: v for k, v in msg.items() if k != "attachments"}
+        if msg.get("attachments"):
+            kept["attachments"] = [{"filename": x["filename"], "bytes": len(x["content"]) * 3 // 4} for x in msg["attachments"]]
+        f.write_text(json.dumps(kept, indent=1), encoding="utf-8")
         return {"sent": False, "outbox": str(f)}
     req = urllib.request.Request("https://api.resend.com/emails", data=json.dumps(msg).encode(), method="POST",
                                  headers={"Authorization": f"Bearer {os.environ['RESEND_API_KEY']}",
@@ -75,8 +85,9 @@ def _html(title: str, paras: list[str], button: tuple[str, str] | None = None, f
 
 def welcome(to: str, name: str, base: str) -> dict:
     hi = f"Hello {name}," if name else "Hello,"
-    text = (f"{hi}\n\nYour Marginalia account is ready. Add a learner, print the first diagnostic round, and send in a photo of the "
-            f"work when it's done. Every step gets checked, and the next pages are set from what the work shows.\n\n"
+    text = (f"{hi}\n\nYour Marginalia account is ready. Add a child (a first name and grade is all it takes) and "
+            f"their first pages start being written straight away. Print them, and when your child is done, point your "
+            f"phone's camera at the code on the first page. Every step gets checked, and the next pages arrive by email.\n\n"
             f"Open your books: {base}/home\n\nIf you didn't create this account, reply to this email and we'll remove it.")
     html = _html("Your books are ready", [hi, "Your Marginalia account is ready. Add a learner, print the first diagnostic round, "
                  "and send in a photo of the work when it’s done. Every step gets checked, and the next pages are set from what the work shows."],
