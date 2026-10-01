@@ -139,8 +139,6 @@ def cmd_warm(a):
         source.fetch_book(book)
         extract.load_book(book)
     assets.ensure_fonts()
-    for img in sorted(paths.MEDIA_DIR.glob("*.jpg")):
-        assets.duotone(img.name)
     # figures (and the small images inside worked-step tables) in every lesson of every course
     def images_in(node):
         if isinstance(node, dict):
@@ -154,7 +152,7 @@ def cmd_warm(a):
             for v in node:
                 yield from images_in(v)
 
-    n, seen = 0, set()
+    seen: set[str] = set()
     for course in sorted(p.name for p in paths.COURSES_DIR.iterdir() if (p / "skills.json").exists()):
         with paths.use_course(course):
             for s in extract.skills().values():
@@ -162,11 +160,14 @@ def cmd_warm(a):
                     mod = extract.module(part["book"], part["section"])
                     for sub in part["subsections"]:
                         sec = extract.find_subsection(mod, sub["title"] or extract.OPENING)
-                        for name in images_in(sec) if sec else []:
-                            if name not in seen:
-                                seen.add(name)
-                                assets.duotone(name)
-                                n += 1
+                        seen |= set(images_in(sec)) if sec else set()
+    for m in extract.load_chapter():  # the calculus chapter prints whole sections
+        seen |= set(images_in(m.blocks))
+    from concurrent.futures import ThreadPoolExecutor
+
+    with ThreadPoolExecutor(max_workers=16) as ex:  # fetch + two-color conversion, in parallel
+        list(ex.map(assets.duotone, sorted(seen)))
+    n = len(seen)
     print(f"warm: {n} lesson figures")
     # first compile downloads the cetz Typst package into the image
     render.compile_typst(render.doc_head("warm", "warm", "W") + "#cetz.canvas({ cetz.draw.line((0, 0), (1, 1)) })\n",

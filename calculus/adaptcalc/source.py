@@ -167,11 +167,14 @@ def fetch_media(name: str, book: str | None = None) -> Path:
     if dest.exists():
         return dest
     import urllib.error
+    import urllib.parse
 
-    order = ([book] if book else []) + [b for b in BOOKS if b != book]
+    # the book's own repository first, then the CC BY books, the non-commercial one last
+    rest = sorted((b for b in BOOKS if b != book), key=lambda b: not BOOKS[b].commercial)
+    order = ([book] if book else []) + rest
     for b in order:
         try:
-            return _cached(f"{raw(b)}/media/{name}", dest)
+            return _cached(f"{raw(b)}/media/{urllib.parse.quote(name)}", dest)
         except urllib.error.HTTPError as e:
             if e.code != 404:
                 raise
