@@ -1,6 +1,7 @@
 """Command line: python -m adaptcalc <command>
 
-  extract                 fetch Chapter 2, write skills.json + misconceptions.json
+  --course ID             act on courses/ID (algebra1, calc_limits); default calc_limits
+  extract                 fetch the course's books, write its skills.json + misconceptions.json
   verify-templates        generate every template at many seeds; SymPy-check each key
   diagnostic              create + render the next diagnostic round (or report it is finished)
   status                  mastery per skill, diagnostic entropy, frontier, due reviews
@@ -29,8 +30,9 @@ def cmd_extract(a):
 
 
 def cmd_verify(a):
-    bad = templates.verify_all(range(a.seeds))
-    print(f"{len(templates.REGISTRY)} templates x {a.seeds} seeds: " + ("all keys verified" if not bad else f"{len(bad)} failures"))
+    mine = templates.for_course()
+    bad = templates.verify_all(range(a.seeds), set(extract.skills()))
+    print(f"{paths.course()}: {len(mine)} templates x {a.seeds} seeds: " + ("all keys verified" if not bad else f"{len(bad)} failures"))
     for b in bad:
         print("  " + b)
     return 1 if bad else 0
@@ -170,6 +172,7 @@ def cmd_serve(a):
 
 def main(argv=None):
     ap = argparse.ArgumentParser(prog="adaptcalc", description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument("--course", default=None, help="course id (courses/<id>); default $ADAPTCALC_COURSE or calc_limits")
     sub = ap.add_subparsers(dest="cmd", required=True)
     sub.add_parser("extract").set_defaults(fn=cmd_extract)
     v = sub.add_parser("verify-templates")
@@ -202,6 +205,9 @@ def main(argv=None):
     sv.add_argument("--port", type=int, default=int(os.environ.get("PORT", 8000)))
     sv.set_defaults(fn=cmd_serve)
     a = ap.parse_args(argv)
+    if a.course:
+        with paths.use_course(a.course):
+            return a.fn(a) or 0
     return a.fn(a) or 0
 
 

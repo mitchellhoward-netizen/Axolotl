@@ -150,7 +150,7 @@ def next_round(db: LearnerDB) -> dict | None:
     slip = _cfg()["learner"]["slip"]
     used = used_templates(db)
     cands = []
-    for tid, tpl in templates.REGISTRY.items():
+    for tid, tpl in templates.for_course().items():
         if tid in used:
             continue
         cands.append({"template": tid, "requires": tpl.requires, "guess": tpl.guess})

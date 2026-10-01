@@ -12,6 +12,7 @@ version used as state for Jev and in the transcription prompt.
 from __future__ import annotations
 
 import random
+import re
 from dataclasses import asdict, dataclass, field
 from typing import Callable
 
@@ -80,6 +81,14 @@ def check(cond: bool, msg: str) -> None:
 
 def for_skill(skill: str) -> list[Template]:
     return [t for t in REGISTRY.values() if t.skill == skill]
+
+
+def for_course() -> dict[str, Template]:
+    """The templates of the active course: their skill and every skill they require are in it."""
+    from . import extract
+
+    have = set(extract.skills())
+    return {tid: t for tid, t in REGISTRY.items() if t.skill in have and all(r in have for r in t.requires)}
 
 
 def generate(template_id: str, seed: int, max_tries: int = 40) -> Problem:
@@ -1003,26 +1012,93 @@ def _(rng):
             "verified": f"sympy: sup|x^2-{L}| on |x-{a}|<=d is 2*{a}*d + d^2; min(1, eps/{2*a+1}) satisfies it"}
 
 
-def verify_all(seeds=range(5)) -> list[str]:
-    """Generate every template at several seeds and re-grade each key against itself."""
+def _balanced(t: str, i: int) -> int:
+    """Index of the parenthesis closing the one at t[i]."""
+    depth = 0
+    for j in range(i, len(t)):
+        depth += {"(": 1, ")": -1}.get(t[j], 0)
+        if depth == 0:
+            return j
+    raise ValueError("unbalanced")
+
+
+def typ_to_plain(t: str) -> str:
+    """A key's Typst display as a learner would write it (frac(a, b) -> (a)/(b), dot -> *, ...)."""
+    t = re.sub(r'"[^"]*"', "", t)
+    t = t.replace("\\$", "$").replace("\\,", ",")
+    t = t.replace("lr(|", "Abs(").replace("|)", ")")
+    for name, fmt in (("frac(", "(({a})/({b}))"), ("root(", "(({b})**(1/({a})))")):
+        while name in t:
+            i = t.index(name)
+            j = _balanced(t, i + len(name) - 1)
+            inner = t[i + len(name):j]
+            depth, cut = 0, None
+            for k, ch in enumerate(inner):
+                depth += {"(": 1, ")": -1}.get(ch, 0)
+                if ch == "," and depth == 0:
+                    cut = k
+                    break
+            a_, b_ = inner[:cut].strip(), inner[cut + 1:].strip()
+            t = t[:i] + fmt.format(a=a_, b=b_) + t[j + 1:]
+    t = re.sub(r"\bdot\b", "*", t)
+    t = re.sub(r"\btimes\b", "*", t)
+    t = re.sub(r"\bplus\.minus\b", "±", t)
+    return " ".join(t.split())
+
+
+def _student_forms(p: "Problem") -> list[str]:
+    """Ways a correct learner might write this key's answer (all must grade as correct)."""
+    k = p.key
+    kind = k["kind"]
+    if kind == "choice":
+        return [k["value"]]
+    if kind == "set":
+        return [", ".join(k["value"]), " or ".join(f"x = {v}" for v in k["value"])]
+    if kind == "point":
+        return [f"({k['value'][0]}, {k['value'][1]})"]
+    if kind == "equation":
+        return [k["display"]]
+    if kind == "ineq":
+        iv = sp.sympify(k["value"])
+        lo = "" if iv.start == -sp.oo else f"{P(iv.start)} {'<' if iv.left_open else '<='} "
+        hi = "" if iv.end == sp.oo else f" {'<' if iv.right_open else '<='} {P(iv.end)}"
+        ivs = f"{'(' if iv.left_open else '['}{P(iv.start)}, {P(iv.end)}{')' if iv.right_open else ']'}"
+        return [f"{lo}x{hi}", ivs]
+    if kind == "interval":
+        iv = sp.sympify(k["value"])
+        ivs = iv.args if isinstance(iv, sp.Union) else (iv,)
+        return [" U ".join(f"{'(' if i.left_open else '['}{P(i.start)}, {P(i.end)}{')' if i.right_open else ']'}" for i in ivs)]
+    v = k["value"]
+    if v == "DNE":
+        return ["DNE"]
+    out = [typ_to_plain(p.key_display)]
+    if not k.get("form"):
+        out.append(P(sp.sympify(v)))
+    return out
+
+
+def verify_all(seeds=range(5), only: set[str] | None = None) -> list[str]:
+    """Generate every template at several seeds and grade each key, written the ways a learner
+    would write it, as correct."""
     report = []
-    for tid in REGISTRY:
+    for tid, tpl in REGISTRY.items():
+        if only is not None and tpl.skill not in only:
+            continue
         for s in seeds:
-            p = generate(tid, s)
-            if p.key["kind"] in ("limit", "value", "expr"):
-                v = p.key["value"]
-                ok, why = answers.grade(p.key, "DNE" if v == "DNE" else P(sp.sympify(v)))
-            elif p.key["kind"] == "choice":
-                ok, why = answers.grade(p.key, p.key["value"])
-            elif p.key["kind"] == "set":
-                ok, why = answers.grade(p.key, ", ".join(p.key["value"]))
-            elif p.key["kind"] == "interval":
-                iv = sp.sympify(p.key["value"])
-                ivs = iv.args if isinstance(iv, sp.Union) else (iv,)
-                s_ = " U ".join(f"{'(' if i.left_open else '['}{P(i.start)}, {P(i.end)}{')' if i.right_open else ']'}" for i in ivs)
-                ok, why = answers.grade(p.key, s_)
-            elif p.key["kind"] == "delta":
-                ok, why = answers.grade(p.key, P(sp.sympify(p.key["value"])))
-            if not ok:
-                report.append(f"{tid} seed {s}: key does not grade as correct ({why})")
+            try:
+                p = generate(tid, s)
+            except Exception as e:  # noqa: BLE001
+                report.append(f"{tid} seed {s}: generation failed ({e})")
+                continue
+            for written in _student_forms(p):
+                try:
+                    ok, why = answers.grade(p.key, written)
+                except Exception as e:  # noqa: BLE001
+                    ok, why = False, f"error {e}"
+                if not ok:
+                    report.append(f"{tid} seed {s}: {written!r} does not grade as correct ({why})")
     return report
+
+
+# Algebra 1 (course algebra1) registers its templates in the same registry.
+from . import templates_algebra  # noqa: E402,F401

@@ -44,8 +44,24 @@ def module(book: str, number: str) -> cnxml.ModuleIR:
     raise KeyError(f"{book} section {number} not loaded")
 
 
+OPENING = "(opening)"
+
+
 def find_subsection(mod: cnxml.ModuleIR, title: str) -> dict | None:
-    """A <section> block anywhere in the module whose title matches (ignoring case and punctuation)."""
+    """A <section> block anywhere in the module whose title matches (ignoring case and punctuation).
+
+    "(opening)" is the section's untitled opening: the blocks before its first subsection
+    (without the "Be Prepared" asides), as one synthetic section.
+    """
+    if title == OPENING:
+        blocks = []
+        for b in mod.blocks:
+            if b["t"] == "section":
+                break
+            if b["t"] == "box" and b.get("kind") in ("aside", "media"):
+                continue
+            blocks.append(b)
+        return {"t": "section", "id": f"{mod.module_id}-opening", "title": [], "blocks": blocks} if blocks else None
     for b in cnxml.walk(mod.blocks):
         if b["t"] == "section" and norm(cnxml.plain(b["title"])) == norm(title):
             return b
@@ -245,8 +261,11 @@ def resolve_skill(sk: dict, chapter, all_items, all_boxes) -> dict:
         "glossary": glossary,
         "exercised_in": {"count": len(problems), "ids": problems[:25]},
     }
-    if sk["kind"] == "foundation" and not problems:
+    if sk["kind"] == "foundation" and not problems and chapter:
         raise ValueError(f"{sk['id']}: foundation skill not detected anywhere in the chapter")
+    if not chapter:  # a book course: every skill is taught from its lesson
+        out["book"] = lesson[0]["book"]
+        out["origin"] = sk.get("origin") or ", ".join(f"{source.BOOKS[p['book']].title} {p['section']}" for p in lesson)
     if sk["kind"] == "chapter" and not anchors and not problems:
         raise ValueError(f"{sk['id']}: chapter skill has no anchors")
     return out
@@ -304,10 +323,11 @@ def resolve_misconceptions(onto: dict, chapter, skill_ids: set[str], all_items) 
 
 
 def build(write: bool = True) -> tuple[dict, dict]:
-    chapter = load_chapter()
     onto = load_ontology()
-    all_items = items(chapter)
-    all_boxes = boxes(chapter)
+    meta = onto.get("course")
+    chapter = () if meta else load_chapter()
+    all_items = items(chapter) if chapter else []
+    all_boxes = boxes(chapter) if chapter else []
     skills = [resolve_skill(sk, chapter, all_items, all_boxes) for sk in onto["skills"]]
     order = topo_order(skills)
     by_id = {s["id"]: s for s in skills}
@@ -329,11 +349,21 @@ def build(write: bool = True) -> tuple[dict, dict]:
     for s in skills:
         s["misconceptions"] = [m["id"] for m in misconceptions[s["id"]]]
 
+    if meta:
+        books = meta["books"]
+        src = {"course": meta["id"], "title": meta["title"], "subtitle": meta.get("subtitle", ""),
+               "books": [{"id": b, "title": source.BOOKS[b].title, "url": source.book_url(b),
+                          "repository": source.raw(b), "license": source.BOOKS[b].license,
+                          "commercial": source.BOOKS[b].commercial} for b in books],
+               "commercial": all(source.BOOKS[b].commercial for b in books)}
+    else:
+        src = {"course": "calc_limits", "title": "Calculus: Limits", "subtitle": "Calculus Volume 1, Chapter 2",
+               "book": "Calculus Volume 1 (OpenStax)", "chapter": 2,
+               "url": source.BOOK_URL, "repository": source.RAW,
+               "modules": [{"id": m.module_id, "section": m.number, "title": m.title} for m in chapter],
+               "license": "CC BY-NC-SA 4.0", "commercial": False}
     skills_doc = {
-        "source": {"book": "Calculus Volume 1 (OpenStax)", "chapter": 2, "title": "Limits",
-                   "url": source.BOOK_URL, "repository": source.RAW,
-                   "modules": [{"id": m.module_id, "section": m.number, "title": m.title} for m in chapter],
-                   "license": "CC BY-NC-SA 4.0"},
+        "source": src,
         "topological_order": order,
         "skills": [by_id[i] for i in order],
     }
@@ -347,17 +377,33 @@ def build(write: bool = True) -> tuple[dict, dict]:
 # ---------------------------------------------------------------------------
 # Readers used by the rest of the system.
 
-@lru_cache(maxsize=1)
+_READ: dict[tuple, object] = {}
+
+
+def _read(path, key: str):
+    """JSON for the active course, re-read when the file changes (several courses share a process)."""
+    st = path.stat()
+    k = (str(path), st.st_mtime_ns, key)
+    if k not in _READ:
+        doc = json.loads(path.read_text(encoding="utf-8"))
+        _READ[k] = {"skills": lambda: {s["id"]: s for s in doc["skills"]},
+                    "order": lambda: doc["topological_order"],
+                    "mis": lambda: doc["misconceptions"],
+                    "source": lambda: doc.get("source", {})}[key]()
+    return _READ[k]
+
+
 def skills() -> dict[str, dict]:
-    doc = json.loads(paths.SKILLS_JSON.read_text(encoding="utf-8"))
-    return {s["id"]: s for s in doc["skills"]}
+    return _read(paths.SKILLS_JSON, "skills")
 
 
-@lru_cache(maxsize=1)
 def skill_order() -> list[str]:
-    return json.loads(paths.SKILLS_JSON.read_text(encoding="utf-8"))["topological_order"]
+    return _read(paths.SKILLS_JSON, "order")
 
 
-@lru_cache(maxsize=1)
+def course_source() -> dict:
+    return _read(paths.SKILLS_JSON, "source")
+
+
 def misconceptions() -> dict[str, list[dict]]:
-    return json.loads(paths.MISCONCEPTIONS_JSON.read_text(encoding="utf-8"))["misconceptions"]
+    return _read(paths.MISCONCEPTIONS_JSON, "mis")

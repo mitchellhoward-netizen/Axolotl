@@ -1,0 +1,725 @@
+# Algebra 1: the skill graph of Elementary Algebra 2e (OpenStax, CC BY 4.0, pinned; see LICENSES.md).
+#
+# Every skill is taught from the book's own subsections (printed verbatim), named here
+# by title and resolved against the source by `python -m adaptcalc extract --course algebra1`:
+# a title that doesn't resolve, a lesson without a worked example, an unknown
+# prerequisite or a cycle stops the build.
+#
+# kind: foundation  Chapter 1, the arithmetic and language algebra stands on. Usually
+#                   relearned rather than learned new, so it comes back faster.
+#       core        Chapters 2-10, the course.
+#
+# "(opening)" names a section's untitled opening (before its first subsection).
+
+course:
+  id: algebra1
+  title: "Algebra 1"
+  subtitle: "From the arithmetic it stands on to quadratic equations"
+  books: [ea2e]
+
+skills:
+  # ------------------------------------------------------------------ Chapter 1
+  - id: f_primes_lcm
+    name: Prime factorization and least common multiple
+    kind: foundation
+    prerequisites: []
+    lesson:
+      - {book: ea2e, section: "1.1", subsections: ["Find Prime Factorizations and Least Common Multiples"], objectives: ["prime factorizations"]}
+  - id: f_order_ops
+    name: Order of operations and evaluating expressions
+    kind: foundation
+    prerequisites: []
+    lesson:
+      - {book: ea2e, section: "1.2", subsections: ["Simplify Expressions Using the Order of Operations", "Evaluate an Expression"], objectives: ["order of operations", "Evaluate an expression"]}
+  - id: f_like_terms
+    name: Identify and combine like terms
+    kind: foundation
+    prerequisites: [f_order_ops]
+    lesson:
+      - {book: ea2e, section: "1.2", subsections: ["Identify and Combine Like Terms"], objectives: ["like terms"]}
+  - id: f_translate
+    name: Translate English phrases to algebraic expressions
+    kind: foundation
+    prerequisites: [f_order_ops]
+    lesson:
+      - {book: ea2e, section: "1.2", subsections: ["Translate an English Phrase to an Algebraic Expression"], objectives: ["Translate an English phrase"]}
+  - id: f_int_add
+    name: Add and subtract integers; absolute value
+    kind: foundation
+    prerequisites: [f_order_ops]
+    lesson:
+      - {book: ea2e, section: "1.3", subsections: ["Simplify: Expressions with Absolute Value", "Add Integers", "Subtract Integers"], objectives: ["absolute value", "Add integers", "Subtract integers"]}
+  - id: f_int_mul
+    name: Multiply and divide integers; simplify expressions with integers
+    kind: foundation
+    prerequisites: [f_int_add]
+    lesson:
+      - {book: ea2e, section: "1.4", subsections: ["Multiply Integers", "Divide Integers", "Simplify Expressions with Integers"], objectives: ["Multiply integers", "Divide integers", "Simplify expressions with integers"]}
+  - id: f_int_eval
+    name: Evaluate variable expressions with integers
+    kind: foundation
+    prerequisites: [f_int_mul]
+    lesson:
+      - {book: ea2e, section: "1.4", subsections: ["Evaluate Variable Expressions with Integers"], objectives: ["Evaluate variable expressions with integers"]}
+  - id: f_frac_mul
+    name: Simplify, multiply and divide fractions
+    kind: foundation
+    prerequisites: [f_primes_lcm, f_int_mul]
+    lesson:
+      - {book: ea2e, section: "1.5", subsections: ["Simplify Fractions", "Multiply Fractions", "Divide Fractions"], objectives: ["Simplify fractions", "Multiply fractions", "Divide fractions"]}
+  - id: f_frac_add
+    name: Add and subtract fractions
+    kind: foundation
+    prerequisites: [f_frac_mul]
+    lesson:
+      - {book: ea2e, section: "1.6", subsections: ["Add or Subtract Fractions with a Common Denominator", "Add or Subtract Fractions with Different Denominators"], objectives: ["common denominator", "different denominators"]}
+  - id: f_frac_bar
+    name: Simplify expressions with a fraction bar and complex fractions
+    kind: foundation
+    prerequisites: [f_frac_add]
+    lesson:
+      - {book: ea2e, section: "1.5", subsections: ["Simplify Expressions with a Fraction Bar"], objectives: ["fraction bar"]}
+      - {book: ea2e, section: "1.6", subsections: ["Use the Order of Operations to Simplify Complex Fractions"], objectives: ["complex fractions"]}
+  - id: f_decimals
+    name: Add, subtract, multiply and divide decimals
+    kind: foundation
+    prerequisites: [f_int_mul]
+    lesson:
+      - {book: ea2e, section: "1.7", subsections: ["Add and Subtract Decimals", "Multiply and Divide Decimals"], objectives: ["Add and subtract decimals", "Multiply and divide decimals"]}
+  - id: f_percent
+    name: Convert between decimals, fractions and percents
+    kind: foundation
+    prerequisites: [f_decimals, f_frac_mul]
+    lesson:
+      - {book: ea2e, section: "1.7", subsections: ["Convert Decimals, Fractions, and Percents"], objectives: ["Convert decimals, fractions, and percents"]}
+  - id: f_sqrt
+    name: Square roots of perfect squares; kinds of real numbers
+    kind: foundation
+    prerequisites: [f_int_mul]
+    lesson:
+      - {book: ea2e, section: "1.8", subsections: ["Simplify Expressions with Square Roots", "Identify Integers, Rational Numbers, Irrational Numbers, and Real Numbers"], objectives: ["square roots", "irrational numbers"]}
+  - id: f_distributive
+    name: The distributive property
+    kind: foundation
+    prerequisites: [f_int_mul, f_like_terms]
+    lesson:
+      - {book: ea2e, section: "1.9", subsections: ["Simplify Expressions Using the Distributive Property"], objectives: ["distributive property"]}
+
+  # ------------------------------------------------------------------ Chapter 2
+  - id: lin_one_step
+    name: Solve one-step equations (properties of equality)
+    kind: core
+    prerequisites: [f_int_add, f_int_mul]
+    lesson:
+      - {book: ea2e, section: "2.1", subsections: ["Verify a Solution of an Equation", "Solve Equations Using the Subtraction and Addition Properties of Equality"], objectives: ["Verify a solution", "Subtraction and Addition Properties of Equality"]}
+      - {book: ea2e, section: "2.2", subsections: ["Solve Equations Using the Division and Multiplication Properties of Equality"], objectives: ["Division and Multiplication Properties of Equality"]}
+  - id: lin_both_sides
+    name: Solve equations with variables and constants on both sides
+    kind: core
+    prerequisites: [lin_one_step, f_like_terms]
+    lesson:
+      - {book: ea2e, section: "2.3", subsections: ["Solve Equations with Constants on Both Sides", "Solve Equations with Variables on Both Sides", "Solve Equations with Variables and Constants on Both Sides"], objectives: ["variables and constants on both sides"]}
+  - id: lin_general
+    name: Solve linear equations with a general strategy; classify equations
+    kind: core
+    prerequisites: [lin_both_sides, f_distributive]
+    lesson:
+      - {book: ea2e, section: "2.4", subsections: ["Solve Equations Using the General Strategy", "Classify Equations"], objectives: ["general strategy", "Classify equations"]}
+  - id: lin_fractions
+    name: Solve equations with fraction or decimal coefficients
+    kind: core
+    prerequisites: [lin_general, f_frac_add, f_decimals]
+    lesson:
+      - {book: ea2e, section: "2.5", subsections: ["Solve Equations with Fraction Coefficients", "Solve Equations with Decimal Coefficients"], objectives: ["fraction coefficients", "decimal coefficients"]}
+  - id: lin_formula
+    name: Solve a formula for a specific variable
+    kind: core
+    prerequisites: [lin_general]
+    lesson:
+      - {book: ea2e, section: "2.6", subsections: ["Use the Distance, Rate, and Time Formula", "Solve a Formula for a Specific Variable"], objectives: ["Distance, Rate, and Time", "specific variable"]}
+  - id: lin_ineq
+    name: Solve linear inequalities
+    kind: core
+    prerequisites: [lin_general]
+    lesson:
+      - {book: ea2e, section: "2.7", subsections: ["Graph Inequalities on the Number Line", "Solve Inequalities using the Subtraction and Addition Properties of Inequality", "Solve Inequalities using the Division and Multiplication Properties of Inequality", "Solve Inequalities That Require Simplification"], objectives: ["Graph inequalities", "Division and Multiplication Properties of inequality", "require simplification"]}
+
+  # ------------------------------------------------------------------ Chapter 3
+  - id: app_number
+    name: Word problems - translate, solve and check (number problems)
+    kind: core
+    prerequisites: [lin_general, f_translate]
+    lesson:
+      - {book: ea2e, section: "3.1", subsections: ["Use a Problem-Solving Strategy for Word Problems", "Solve Number Problems"], objectives: ["problem-solving strategy", "number problems"]}
+  - id: app_percent
+    name: Percent equations, percent increase and decrease
+    kind: core
+    prerequisites: [lin_one_step, f_percent]
+    lesson:
+      - {book: ea2e, section: "3.2", subsections: ["Translate and Solve Basic Percent Equations", "Solve Applications of Percent", "Find Percent Increase and Percent Decrease"], objectives: ["basic percent equations", "percent increase"]}
+  - id: app_interest
+    name: Simple interest, discount and mark-up
+    kind: core
+    prerequisites: [app_percent]
+    lesson:
+      - {book: ea2e, section: "3.2", subsections: ["Solve Simple Interest Applications", "Solve Applications with Discount or Mark-up"], objectives: ["simple interest", "discount or mark-up"]}
+  - id: app_mixture
+    name: Coin, ticket and mixture problems
+    kind: core
+    prerequisites: [app_number, f_decimals]
+    lesson:
+      - {book: ea2e, section: "3.3", subsections: ["Solve Coin Word Problems", "Solve Ticket and Stamp Word Problems", "Solve Mixture Word Problems"], objectives: ["coin word problems", "mixture word problems"]}
+  - id: app_geometry
+    name: Triangles, rectangles and the Pythagorean Theorem
+    kind: core
+    prerequisites: [app_number, f_sqrt]
+    lesson:
+      - {book: ea2e, section: "3.4", subsections: ["Solve Applications Using Properties of Triangles", "Use the Pythagorean Theorem", "Solve Applications Using Rectangle Properties"], objectives: ["properties of triangles", "Pythagorean Theorem", "rectangle properties"]}
+  - id: app_motion
+    name: Uniform motion problems
+    kind: core
+    prerequisites: [app_number, lin_formula]
+    lesson:
+      - {book: ea2e, section: "3.5", subsections: ["Solve Uniform Motion Applications"], objectives: ["uniform motion"]}
+  - id: app_ineq
+    name: Applications with linear inequalities
+    kind: core
+    prerequisites: [lin_ineq, app_number]
+    lesson:
+      - {book: ea2e, section: "3.6", subsections: ["Solve Applications with Linear Inequalities"], objectives: ["linear inequalities"]}
+
+  # ------------------------------------------------------------------ Chapter 4
+  - id: gr_points
+    name: Ordered pairs, solutions of equations in two variables, tables of solutions
+    kind: core
+    prerequisites: [f_int_eval, lin_one_step]
+    lesson:
+      - {book: ea2e, section: "4.1", subsections: ["Plot Points on a Rectangular Coordinate System", "Verify Solutions to an Equation in Two Variables", "Complete a Table of Solutions to a Linear Equation in Two Variables", "Find Solutions to a Linear Equation"], objectives: ["Plot points", "Verify solutions", "table of solutions"]}
+  - id: gr_lines
+    name: Graph lines by plotting points; horizontal and vertical lines
+    kind: core
+    prerequisites: [gr_points]
+    lesson:
+      - {book: ea2e, section: "4.2", subsections: ["Recognize the Relationship Between the Solutions of an Equation and its Graph", "Graph a Linear Equation by Plotting Points", "Graph Vertical and Horizontal Lines"], objectives: ["plotting points", "vertical and horizontal lines"]}
+  - id: gr_intercepts
+    name: Find and use x- and y-intercepts
+    kind: core
+    prerequisites: [gr_lines]
+    lesson:
+      - {book: ea2e, section: "4.3", subsections: ["Identify the x- and y- Intercepts on a Graph", "Find the x- and y- Intercepts from an Equation of a Line", "Graph a Line Using the Intercepts"], objectives: ["intercepts from an equation", "using the intercepts"]}
+  - id: gr_slope
+    name: Slope of a line (rise over run, the slope formula)
+    kind: core
+    prerequisites: [gr_points, f_frac_mul]
+    lesson:
+      - {book: ea2e, section: "4.4", subsections: ["Use m=(rise)/(run) to Find the Slope of a Line from its Graph", "Find the Slope of Horizontal and Vertical Lines", "Use the Slope Formula to find the Slope of a Line Between Two Points"], objectives: ["slope of a line from its graph", "horizontal and vertical lines", "slope formula"]}
+  - id: gr_slope_int
+    name: Slope-intercept form; parallel and perpendicular lines
+    kind: core
+    prerequisites: [gr_slope, lin_formula]
+    lesson:
+      - {book: ea2e, section: "4.5", subsections: ["Identify the Slope and y-Intercept From an Equation of a Line", "Graph a Line Using its Slope and Intercept", "Use Slopes to Identify Parallel Lines", "Use Slopes to Identify Perpendicular Lines"], objectives: ["Identify the slope and y-intercept", "parallel lines", "perpendicular lines"]}
+  - id: gr_line_eq
+    name: Find the equation of a line
+    kind: core
+    prerequisites: [gr_slope_int]
+    lesson:
+      - {book: ea2e, section: "4.6", subsections: ["Find an Equation of the Line Given the Slope and y-Intercept", "Find an Equation of the Line Given the Slope and a Point", "Find an Equation of the Line Given Two Points", "Find an Equation of a Line Parallel to a Given Line", "Find an Equation of a Line Perpendicular to a Given Line"], objectives: ["slope and y-intercept", "slope and a point", "two points"]}
+  - id: gr_ineq2
+    name: Linear inequalities in two variables
+    kind: core
+    prerequisites: [gr_slope_int, lin_ineq]
+    lesson:
+      - {book: ea2e, section: "4.7", subsections: ["Verify Solutions to an Inequality in Two Variables", "Recognize the Relation Between the Solutions of an Inequality and its Graph", "Graph Linear Inequalities"], objectives: ["Verify solutions to an inequality", "Graph linear inequalities"]}
+
+  # ------------------------------------------------------------------ Chapter 5
+  - id: sys_graph
+    name: Systems of equations - solutions and number of solutions
+    kind: core
+    prerequisites: [gr_slope_int]
+    lesson:
+      - {book: ea2e, section: "5.1", subsections: ["Determine Whether an Ordered Pair is a Solution of a System of Equations", "Solve a System of Linear Equations by Graphing", "Determine the Number of Solutions of a Linear System"], objectives: ["ordered pair is a solution", "by graphing", "number of solutions"]}
+  - id: sys_substitution
+    name: Solve systems by substitution
+    kind: core
+    prerequisites: [sys_graph, lin_general]
+    lesson:
+      - {book: ea2e, section: "5.2", subsections: ["Solve a System of Equations by Substitution"], objectives: ["by substitution"]}
+  - id: sys_elimination
+    name: Solve systems by elimination
+    kind: core
+    prerequisites: [sys_substitution]
+    lesson:
+      - {book: ea2e, section: "5.3", subsections: ["Solve a System of Equations by Elimination", "Choose the Most Convenient Method to Solve a System of Linear Equations"], objectives: ["by elimination", "most convenient method"]}
+  - id: sys_apps
+    name: Applications of systems (direct translation, geometry, mixture, interest)
+    kind: core
+    prerequisites: [sys_elimination, app_mixture]
+    lesson:
+      - {book: ea2e, section: "5.4", subsections: ["Translate to a System of Equations", "Solve Direct Translation Applications"], objectives: ["Translate to a system", "direct translation"]}
+      - {book: ea2e, section: "5.5", subsections: ["Solve Mixture Applications"], objectives: ["mixture applications"]}
+  - id: sys_ineq
+    name: Systems of linear inequalities
+    kind: core
+    prerequisites: [sys_graph, gr_ineq2]
+    lesson:
+      - {book: ea2e, section: "5.6", subsections: ["Determine Whether an Ordered Pair is a Solution of a System of Linear Inequalities", "Solve a System of Linear Inequalities by Graphing"], objectives: ["solution of a system of linear inequalities", "by graphing"]}
+
+  # ------------------------------------------------------------------ Chapter 6
+  - id: poly_addsub
+    name: Polynomials - degree, add, subtract and evaluate
+    kind: core
+    prerequisites: [f_like_terms, f_int_eval]
+    lesson:
+      - {book: ea2e, section: "6.1", subsections: ["Determine the Degree of Polynomials", "Add and Subtract Monomials", "Add and Subtract Polynomials", "Evaluate a Polynomial for a Given Value"], objectives: ["degree of polynomials", "Add and subtract polynomials", "Evaluate a polynomial"]}
+  - id: exp_product
+    name: Product, power and product-to-a-power properties; multiply monomials
+    kind: core
+    prerequisites: [f_int_mul]
+    lesson:
+      - {book: ea2e, section: "6.2", subsections: ["Simplify Expressions Using the Product Property for Exponents", "Simplify Expressions Using the Power Property for Exponents", "Simplify Expressions Using the Product to a Power Property", "Multiply Monomials"], objectives: ["Product Property", "Power Property", "Multiply monomials"]}
+  - id: poly_mult
+    name: Multiply polynomials
+    kind: core
+    prerequisites: [exp_product, f_distributive, poly_addsub]
+    lesson:
+      - {book: ea2e, section: "6.3", subsections: ["Multiply a Polynomial by a Monomial", "Multiply a Binomial by a Binomial Using the FOIL Method", "Multiply a Trinomial by a Binomial"], objectives: ["polynomial by a monomial", "binomial by a binomial", "trinomial by a binomial"]}
+  - id: poly_special
+    name: Special products (binomial squares, conjugates)
+    kind: core
+    prerequisites: [poly_mult]
+    lesson:
+      - {book: ea2e, section: "6.4", subsections: ["Square a Binomial Using the Binomial Squares Pattern", "Multiply Conjugates Using the Product of Conjugates Pattern"], objectives: ["Binomial Squares Pattern", "Product of Conjugates"]}
+  - id: exp_quotient
+    name: Quotient property, zero exponent, divide monomials
+    kind: core
+    prerequisites: [exp_product, f_frac_mul]
+    lesson:
+      - {book: ea2e, section: "6.5", subsections: ["Simplify Expressions Using the Quotient Property for Exponents", "Simplify Expressions with an Exponent of Zero", "Divide Monomials"], objectives: ["Quotient Property", "zero exponents", "Divide monomials"]}
+  - id: poly_divide
+    name: Divide polynomials (by a monomial, by a binomial)
+    kind: core
+    prerequisites: [exp_quotient, poly_mult]
+    lesson:
+      - {book: ea2e, section: "6.6", subsections: ["Divide a Polynomial by a Monomial", "Divide a Polynomial by a Binomial"], objectives: ["polynomial by a monomial", "polynomial by a binomial"]}
+  - id: exp_negative
+    name: Negative and integer exponents
+    kind: core
+    prerequisites: [exp_quotient]
+    lesson:
+      - {book: ea2e, section: "6.7", subsections: ["Use the Definition of a Negative Exponent", "Simplify Expressions with Integer Exponents"], objectives: ["negative exponent", "integer exponents"]}
+  - id: sci_notation
+    name: Scientific notation
+    kind: core
+    prerequisites: [exp_negative, f_decimals]
+    lesson:
+      - {book: ea2e, section: "6.7", subsections: ["Convert from Decimal Notation to Scientific Notation", "Convert Scientific Notation to Decimal Form", "Multiply and Divide Using Scientific Notation"], objectives: ["to scientific notation", "to decimal form", "using scientific notation"]}
+
+  # ------------------------------------------------------------------ Chapter 7
+  - id: fac_gcf
+    name: Greatest common factor and factoring by grouping
+    kind: core
+    prerequisites: [poly_mult, f_primes_lcm]
+    lesson:
+      - {book: ea2e, section: "7.1", subsections: ["Find the Greatest Common Factor of Two or More Expressions", "Factor the Greatest Common Factor from a Polynomial", "Factor by Grouping"], objectives: ["greatest common factor of two", "Factor by grouping"]}
+  - id: fac_trinomial
+    name: Factor trinomials x^2 + bx + c
+    kind: core
+    prerequisites: [fac_gcf]
+    lesson:
+      - {book: ea2e, section: "7.2", subsections: ["Factor Trinomials of the Form x2 + bx + c", "Factor Trinomials of the Form x2 + bx + c with b Negative, c Positive", "Factor Trinomials of the Form x^(2)+bx+c with c Negative"], objectives: ["x2\\+bx\\+c"]}
+  - id: fac_trinomial_a
+    name: Factor trinomials ax^2 + bx + c
+    kind: core
+    prerequisites: [fac_trinomial]
+    lesson:
+      - {book: ea2e, section: "7.3", subsections: ["Factor Trinomials of the form ax2 + bx + c with a GCF", "Factor Trinomials using Trial and Error", "Factor Trinomials using the “ac” Method"], objectives: ["with a GCF", "trial and error", "ac"]}
+  - id: fac_special
+    name: Factor special products (perfect squares, difference of squares, cubes)
+    kind: core
+    prerequisites: [fac_trinomial, poly_special]
+    lesson:
+      - {book: ea2e, section: "7.4", subsections: ["Factor Perfect Square Trinomials", "Factor Differences of Squares", "Factor Sums and Differences of Cubes"], objectives: ["perfect square trinomials", "differences of squares", "sums and differences of cubes"]}
+  - id: fac_general
+    name: Factor completely with a general strategy
+    kind: core
+    prerequisites: [fac_trinomial_a, fac_special]
+    lesson:
+      - {book: ea2e, section: "7.5", subsections: ["Recognize and Use the Appropriate Method to Factor a Polynomial Completely"], objectives: ["appropriate method"]}
+  - id: quad_factor
+    name: Solve quadratic equations by factoring (zero product property)
+    kind: core
+    prerequisites: [fac_trinomial, lin_one_step]
+    lesson:
+      - {book: ea2e, section: "7.6", subsections: ["Solve Quadratic Equations Using the Zero Product Property", "Solve Quadratic Equations by Factoring"], objectives: ["Zero Product Property", "factoring"]}
+
+  # ------------------------------------------------------------------ Chapter 8
+  - id: rat_simplify
+    name: Simplify rational expressions (and where they are undefined)
+    kind: core
+    prerequisites: [fac_trinomial, f_frac_mul]
+    lesson:
+      - {book: ea2e, section: "8.1", subsections: ["Determine the Values for Which a Rational Expression is Undefined", "Simplify Rational Expressions", "Simplify Rational Expressions with Opposite Factors"], objectives: ["undefined", "Simplify rational expressions", "opposite factors"]}
+  - id: rat_muldiv
+    name: Multiply and divide rational expressions
+    kind: core
+    prerequisites: [rat_simplify]
+    lesson:
+      - {book: ea2e, section: "8.2", subsections: ["Multiply Rational Expressions", "Divide Rational Expressions"], objectives: ["Multiply rational expressions", "Divide rational expressions"]}
+  - id: rat_add_common
+    name: Add and subtract rational expressions with a common denominator
+    kind: core
+    prerequisites: [rat_simplify, poly_addsub]
+    lesson:
+      - {book: ea2e, section: "8.3", subsections: ["Add Rational Expressions with a Common Denominator", "Subtract Rational Expressions with a Common Denominator"], objectives: ["Add rational expressions with a common", "Subtract rational expressions with a common"]}
+  - id: rat_add_unlike
+    name: Add and subtract rational expressions with unlike denominators
+    kind: core
+    prerequisites: [rat_add_common, f_frac_add]
+    lesson:
+      - {book: ea2e, section: "8.4", subsections: ["Find the Least Common Denominator of Rational Expressions", "Add Rational Expressions with Different Denominators", "Subtract Rational Expressions with Different Denominators"], objectives: ["least common denominator", "Add rational expressions with different", "Subtract rational expressions with different"]}
+  - id: rat_complex
+    name: Simplify complex rational expressions
+    kind: core
+    prerequisites: [rat_add_unlike, rat_muldiv]
+    lesson:
+      - {book: ea2e, section: "8.5", subsections: ["Simplify a Complex Rational Expression by Writing it as Division", "Simplify a Complex Rational Expression by Using the LCD"], objectives: ["writing it as division", "using the LCD"]}
+  - id: rat_equations
+    name: Solve rational equations
+    kind: core
+    prerequisites: [rat_add_unlike, quad_factor]
+    lesson:
+      - {book: ea2e, section: "8.6", subsections: ["Solve Rational Equations"], objectives: ["Solve rational equations"]}
+  - id: rat_proportion
+    name: Proportions and similar figures
+    kind: core
+    prerequisites: [lin_fractions]
+    lesson:
+      - {book: ea2e, section: "8.7", subsections: ["Solve Proportions", "Solve Similar Figure Applications"], objectives: ["Solve proportions", "similar figure"]}
+  - id: rat_work
+    name: Uniform motion and work applications with rational equations
+    kind: core
+    prerequisites: [rat_equations, app_motion]
+    lesson:
+      - {book: ea2e, section: "8.8", subsections: ["Solve Uniform Motion Applications", "Solve Work Applications"], objectives: ["uniform motion", "work applications"]}
+  - id: variation
+    name: Direct and inverse variation
+    kind: core
+    prerequisites: [rat_proportion]
+    lesson:
+      - {book: ea2e, section: "8.9", subsections: ["Solve Direct Variation Problems", "Solve Inverse Variation Problems"], objectives: ["direct variation", "inverse variation"]}
+
+  # ------------------------------------------------------------------ Chapter 9
+  - id: rad_sqrt
+    name: Square roots - estimate, approximate, variable expressions
+    kind: core
+    prerequisites: [f_sqrt, exp_product]
+    lesson:
+      - {book: ea2e, section: "9.1", subsections: ["Simplify Expressions with Square Roots", "Estimate Square Roots", "Simplify Variable Expressions with Square Roots"], objectives: ["Estimate square roots", "variable expressions with square roots"]}
+  - id: rad_simplify
+    name: Simplify square roots (product and quotient properties)
+    kind: core
+    prerequisites: [rad_sqrt, f_primes_lcm]
+    lesson:
+      - {book: ea2e, section: "9.2", subsections: ["Use the Product Property to Simplify Square Roots", "Use the Quotient Property to Simplify Square Roots"], objectives: ["Product Property", "Quotient Property"]}
+  - id: rad_addsub
+    name: Add and subtract square roots
+    kind: core
+    prerequisites: [rad_simplify, f_like_terms]
+    lesson:
+      - {book: ea2e, section: "9.3", subsections: ["Add and Subtract Like Square Roots", "Add and Subtract Square Roots that Need Simplification"], objectives: ["like square roots", "need simplification"]}
+  - id: rad_mult
+    name: Multiply square roots
+    kind: core
+    prerequisites: [rad_simplify, poly_mult]
+    lesson:
+      - {book: ea2e, section: "9.4", subsections: ["Multiply Square Roots", "Use Polynomial Multiplication to Multiply Square Roots"], objectives: ["Multiply square roots", "polynomial multiplication"]}
+  - id: rad_divide
+    name: Divide square roots and rationalize denominators
+    kind: core
+    prerequisites: [rad_mult, poly_special]
+    lesson:
+      - {book: ea2e, section: "9.5", subsections: ["Divide Square Roots", "Rationalize a One Term Denominator", "Rationalize a Two-Term Denominator"], objectives: ["Divide square roots", "one-term denominator", "two-term denominator"]}
+  - id: rad_equations
+    name: Solve equations with square roots
+    kind: core
+    prerequisites: [rad_sqrt, quad_factor]
+    lesson:
+      - {book: ea2e, section: "9.6", subsections: ["Solve Radical Equations"], objectives: ["radical equations"]}
+  - id: rad_higher
+    name: Higher roots
+    kind: core
+    prerequisites: [rad_simplify]
+    lesson:
+      - {book: ea2e, section: "9.7", subsections: ["Simplify Expressions with Higher Roots", "Use the Product Property to Simplify Expressions with Higher Roots", "Add and Subtract Higher Roots"], objectives: ["higher roots"]}
+  - id: rat_exponents
+    name: Rational exponents
+    kind: core
+    prerequisites: [rad_higher, exp_negative]
+    lesson:
+      - {book: ea2e, section: "9.8", subsections: ["Simplify Expressions with a^((1)/(n))", "Simplify Expressions with a^((m)/(n))", "Use the Laws of Exponents to Simplify Expressions with Rational Exponents"], objectives: ["Laws of Exponents"]}
+
+  # ------------------------------------------------------------------ Chapter 10
+  - id: quad_sqrt_prop
+    name: Solve quadratic equations with the Square Root Property
+    kind: core
+    prerequisites: [rad_simplify, lin_one_step]
+    lesson:
+      - {book: ea2e, section: "10.1", subsections: ["Solve Quadratic Equations of the Form ax2 = k Using the Square Root Property", "Solve Quadratic Equations of the Form a(x − h)2 = k Using the Square Root Property"], objectives: ["Square Root Property"]}
+  - id: quad_complete
+    name: Complete the square
+    kind: core
+    prerequisites: [quad_sqrt_prop, poly_special]
+    lesson:
+      - {book: ea2e, section: "10.2", subsections: ["Complete The Square of a Binomial Expression", "Solve Quadratic Equations of the Form x2 + bx + c = 0 by completing the square"], objectives: ["Complete the square", "x2\\+bx\\+c=0"]}
+  - id: quad_formula
+    name: The quadratic formula and the discriminant
+    kind: core
+    prerequisites: [quad_sqrt_prop, rad_simplify]
+    lesson:
+      - {book: ea2e, section: "10.3", subsections: ["(opening)", "Use the Discriminant to Predict the Number of Solutions of a Quadratic Equation", "Identify the Most Appropriate Method to Use to Solve a Quadratic Equation"], objectives: ["quadratic formula", "discriminant", "most appropriate method"]}
+  - id: quad_apps
+    name: Applications modeled by quadratic equations
+    kind: core
+    prerequisites: [quad_formula, app_geometry]
+    lesson:
+      - {book: ea2e, section: "10.4", subsections: ["Solve Applications of the Quadratic Formula"], objectives: ["applications"]}
+  - id: quad_graph
+    name: Parabolas - axis of symmetry, vertex, intercepts, maximum and minimum
+    kind: core
+    prerequisites: [quad_formula, gr_intercepts]
+    lesson:
+      - {book: ea2e, section: "10.5", subsections: ["Find the Axis of Symmetry and Vertex of a Parabola", "Find the Intercepts of a Parabola", "Solve Maximum and Minimum Applications"], objectives: ["axis of symmetry", "intercepts of a parabola", "maximum and minimum"]}
+
+# ------------------------------------------------------------------------------
+# Misconceptions: what the work shows when a skill (or a skill beneath it) is shaky.
+# root: the skill whose weakness the misconception is evidence against.
+misconceptions:
+  f_primes_lcm:
+    - {id: lcm_is_product, root: f_primes_lcm, desc: "Uses the product of the numbers as the least common multiple even when a smaller common multiple exists."}
+    - {id: lcm_gcf_confused, root: f_primes_lcm, desc: "Confuses the least common multiple with the greatest common factor."}
+  f_order_ops:
+    - {id: left_to_right, root: f_order_ops, desc: "Works strictly left to right, adding or subtracting before multiplying or dividing."}
+    - {id: negative_square, root: f_order_ops, desc: "Squares the negative sign: treats -3^2 as 9."}
+    - {id: exponent_times_base, root: f_order_ops, desc: "Multiplies the base by the exponent: 3^2 = 6."}
+  f_like_terms:
+    - {id: combine_unlike, root: f_like_terms, desc: "Combines unlike terms, e.g. 3x + 2 = 5x or 2x + 3x^2 = 5x^3."}
+    - {id: drop_coefficient_one, root: f_like_terms, desc: "Treats x as having coefficient 0, e.g. 4x + x = 4x."}
+  f_translate:
+    - {id: reverse_subtraction, root: f_translate, desc: "Reverses the order for 'less than' or 'subtracted from': '5 less than x' written as 5 - x."}
+    - {id: product_sum_swap, root: f_translate, desc: "Confuses sum and product words, e.g. 'the product of 3 and x' written as 3 + x."}
+  f_int_add:
+    - {id: sign_of_larger, root: f_int_add, desc: "Adding integers with different signs, keeps the sign of the first number instead of the one with the larger absolute value."}
+    - {id: subtract_negative, root: f_int_add, desc: "Subtracting a negative as if it were subtracting a positive: 5 - (-3) = 2."}
+    - {id: abs_as_opposite, root: f_int_add, desc: "Treats absolute value as 'change the sign': |-4| = -4 or |3| = -3."}
+  f_int_mul:
+    - {id: neg_times_neg, root: f_int_mul, desc: "Gives a negative product (or quotient) for two negative numbers."}
+    - {id: sign_rule_on_sums, root: f_int_add, desc: "Applies the multiplication sign rule to addition: -3 + -5 = 8."}
+  f_int_eval:
+    - {id: substitute_no_parens, root: f_int_eval, desc: "Substitutes a negative number without parentheses, so x^2 at x = -3 becomes -3^2 = -9."}
+    - {id: eval_order_ops, root: f_order_ops, desc: "Evaluates the substituted expression in the wrong order of operations."}
+  f_frac_mul:
+    - {id: cross_cancel_across_plus, root: f_frac_mul, desc: "Cancels across a sum or difference instead of across factors."}
+    - {id: invert_wrong_fraction, root: f_frac_mul, desc: "When dividing fractions, inverts the first fraction instead of the second."}
+    - {id: not_simplified, root: f_primes_lcm, desc: "Leaves a common factor in the numerator and denominator."}
+  f_frac_add:
+    - {id: add_across, root: f_frac_add, desc: "Adds numerators and denominators: 1/2 + 1/3 = 2/5."}
+    - {id: scale_one_part, root: f_frac_add, desc: "Changes a denominator to the common denominator without scaling the numerator."}
+    - {id: lcd_wrong, root: f_primes_lcm, desc: "Uses a common denominator that is not a multiple of both denominators."}
+  f_frac_bar:
+    - {id: fraction_bar_grouping, root: f_frac_bar, desc: "Ignores that a fraction bar groups the whole numerator and the whole denominator."}
+    - {id: complex_fraction_invert, root: f_frac_mul, desc: "Simplifies a complex fraction by dividing the wrong way (inverts the numerator instead of the denominator)."}
+  f_decimals:
+    - {id: decimal_alignment, root: f_decimals, desc: "Lines up digits from the right instead of lining up decimal points when adding or subtracting."}
+    - {id: decimal_places_product, root: f_decimals, desc: "Places the decimal point in a product by lining up rather than counting decimal places."}
+  f_percent:
+    - {id: percent_move_wrong_way, root: f_percent, desc: "Moves the decimal point the wrong way converting between percent and decimal: 0.3 = 3%."}
+    - {id: percent_over_ten, root: f_percent, desc: "Writes a percent as a fraction over 10 instead of over 100."}
+  f_sqrt:
+    - {id: sqrt_halves, root: f_sqrt, desc: "Halves the number instead of taking the square root: sqrt(16) = 8."}
+    - {id: sqrt_negative_real, root: f_sqrt, desc: "Treats the square root of a negative number as a real number."}
+  f_distributive:
+    - {id: partial_distribution, root: f_distributive, desc: "Distributes to only the first term: 2(x + 3) = 2x + 3."}
+    - {id: negative_distribution, root: f_distributive, desc: "Does not distribute a minus sign to every term: -(x - 4) = -x - 4."}
+  lin_one_step:
+    - {id: wrong_inverse_operation, root: lin_one_step, desc: "Undoes an operation with the same operation (adds to undo addition, multiplies to undo multiplication)."}
+    - {id: divide_sign_error, root: f_int_mul, desc: "Loses the sign when dividing both sides by a negative coefficient."}
+    - {id: one_side_only, root: lin_one_step, desc: "Applies an operation to only one side of the equation."}
+  lin_both_sides:
+    - {id: move_term_keep_sign, root: lin_both_sides, desc: "Moves a term to the other side without changing its sign."}
+    - {id: combine_across_equals, root: f_like_terms, desc: "Combines terms that are on opposite sides of the equals sign as if they were on the same side."}
+  lin_general:
+    - {id: distribute_error_eq, root: f_distributive, desc: "Distributes incorrectly while clearing parentheses in an equation."}
+    - {id: classify_wrong, root: lin_general, desc: "Reads 0 = 0 as 'the solution is 0', or a false statement like 0 = 5 as 'x = 5'."}
+  lin_fractions:
+    - {id: clear_one_term, root: lin_fractions, desc: "Multiplies only some terms by the LCD when clearing fractions."}
+    - {id: lcd_equation_wrong, root: f_primes_lcm, desc: "Multiplies by a number that does not clear every denominator."}
+  lin_formula:
+    - {id: isolate_wrong_variable, root: lin_formula, desc: "Solves for a different variable than the one asked for, or leaves the variable on both sides."}
+    - {id: divide_one_term, root: lin_formula, desc: "Divides only one term by the coefficient: (y - b)/m written as y - b/m."}
+  lin_ineq:
+    - {id: no_flip_negative, root: lin_ineq, desc: "Does not reverse the inequality sign when multiplying or dividing by a negative number."}
+    - {id: flip_when_negative_constant, root: lin_ineq, desc: "Reverses the inequality sign when a negative number is added or subtracted, or when the answer is negative."}
+  app_number:
+    - {id: translate_wrong_equation, root: f_translate, desc: "Writes an equation that doesn't match the words (a relationship reversed or a quantity left out)."}
+    - {id: answer_wrong_quantity, root: app_number, desc: "Solves correctly but reports a different quantity than the one asked for."}
+  app_percent:
+    - {id: percent_base_wrong, root: app_percent, desc: "Takes the percent of the wrong quantity (the new amount instead of the original)."}
+    - {id: percent_not_decimal, root: f_percent, desc: "Uses the percent as a whole number in the equation (30 instead of 0.30)."}
+  app_interest:
+    - {id: interest_rate_percent, root: f_percent, desc: "Uses the interest rate as a whole number in I = Prt."}
+    - {id: discount_as_price, root: app_interest, desc: "Reports the discount (or mark-up) amount as the final price, or the reverse."}
+  app_mixture:
+    - {id: count_vs_value, root: app_mixture, desc: "Mixes up the number of items with their total value (adds values and counts together)."}
+    - {id: cents_dollars, root: f_decimals, desc: "Mixes cents and dollars in the same equation."}
+  app_geometry:
+    - {id: pythag_add_legs, root: app_geometry, desc: "Adds the legs instead of squaring: c = a + b; or uses a^2 + b^2 with the hypotenuse as a leg."}
+    - {id: perimeter_area_confused, root: app_geometry, desc: "Uses the area formula for a perimeter problem or the reverse."}
+  app_motion:
+    - {id: rate_time_swapped, root: lin_formula, desc: "Uses d = r/t or t = d*r instead of d = rt."}
+    - {id: add_rates_wrong, root: app_motion, desc: "Adds distances or rates in a situation where they should be set equal (or the reverse)."}
+  app_ineq:
+    - {id: ineq_direction_words, root: app_ineq, desc: "Uses the wrong inequality direction for 'at least' or 'at most'."}
+    - {id: round_wrong_way, root: app_ineq, desc: "Rounds a boundary the wrong way for a whole-number answer (rounds down when at least is needed)."}
+  gr_points:
+    - {id: coordinates_swapped, root: gr_points, desc: "Swaps the x- and y-coordinates of an ordered pair."}
+    - {id: substitute_wrong_variable, root: gr_points, desc: "Substitutes the x-value for y (or the reverse) when checking a solution."}
+  gr_lines:
+    - {id: vertical_horizontal_confused, root: gr_lines, desc: "Graphs x = a as a horizontal line or y = b as a vertical line."}
+    - {id: plot_error, root: gr_points, desc: "Computes a point on the line incorrectly while building a table."}
+  gr_intercepts:
+    - {id: intercept_wrong_zero, root: gr_intercepts, desc: "Sets the wrong variable to zero: sets x = 0 to find the x-intercept."}
+    - {id: intercept_as_number, root: gr_intercepts, desc: "Writes an intercept as the wrong ordered pair, e.g. the x-intercept 3 as (0, 3)."}
+  gr_slope:
+    - {id: run_over_rise, root: gr_slope, desc: "Computes run over rise (change in x over change in y)."}
+    - {id: slope_order_mixed, root: gr_slope, desc: "Subtracts the coordinates in different orders in the numerator and denominator."}
+    - {id: vertical_slope_zero, root: gr_slope, desc: "Says a vertical line has slope 0 (or a horizontal line has undefined slope)."}
+  gr_slope_int:
+    - {id: slope_not_solved_for_y, root: lin_formula, desc: "Reads the slope from an equation not solved for y (e.g. 2x + 3y = 6 has slope 2)."}
+    - {id: perpendicular_negative_only, root: gr_slope_int, desc: "Uses only the negative (or only the reciprocal) for a perpendicular slope."}
+  gr_line_eq:
+    - {id: point_slope_sign, root: gr_line_eq, desc: "Sign error in point-slope form: y - y1 = m(x - x1) written with + x1 or + y1."}
+    - {id: intercept_from_point, root: gr_line_eq, desc: "Uses a point's y-coordinate as the y-intercept when the point is not on the y-axis."}
+  gr_ineq2:
+    - {id: test_point_misread, root: gr_ineq2, desc: "Decides which side is shaded (or whether a point is a solution) by the sign of the inequality alone rather than testing a point."}
+    - {id: boundary_included_wrong, root: gr_ineq2, desc: "Treats a strict inequality as including the boundary line (or the reverse)."}
+  sys_graph:
+    - {id: one_equation_only, root: sys_graph, desc: "Checks an ordered pair in only one equation of the system."}
+    - {id: parallel_means_one, root: gr_slope_int, desc: "Thinks lines with the same slope and different intercepts intersect once, or that identical lines have no solution."}
+  sys_substitution:
+    - {id: substitute_same_equation, root: sys_substitution, desc: "Substitutes an expression back into the equation it came from, getting 0 = 0."}
+    - {id: forget_second_value, root: sys_substitution, desc: "Finds one variable and stops, without finding the other."}
+  sys_elimination:
+    - {id: multiply_one_side, root: sys_elimination, desc: "Multiplies only one side (or only some terms) of an equation before adding."}
+    - {id: add_when_subtract, root: f_int_add, desc: "Adds the equations when the coefficients have the same sign, so nothing cancels, or makes a sign error combining them."}
+  sys_apps:
+    - {id: one_equation_for_two, root: sys_apps, desc: "Writes only one equation for a problem with two unknowns."}
+    - {id: value_equation_wrong, root: app_mixture, desc: "Writes the value equation with counts instead of values (or values instead of counts)."}
+  sys_ineq:
+    - {id: sys_ineq_one_only, root: sys_ineq, desc: "Checks a point in only one of the inequalities."}
+  poly_addsub:
+    - {id: subtract_first_term_only, root: f_distributive, desc: "Subtracting polynomials, changes the sign of only the first term of the second polynomial."}
+    - {id: add_exponents_when_adding, root: f_like_terms, desc: "Adds exponents when adding like terms: x^2 + x^2 = x^4."}
+  exp_product:
+    - {id: multiply_exponents, root: exp_product, desc: "Multiplies exponents when multiplying powers of the same base: x^2 * x^3 = x^6."}
+    - {id: add_power_exponents, root: exp_product, desc: "Adds exponents for a power of a power: (x^2)^3 = x^5."}
+    - {id: coefficient_not_powered, root: exp_product, desc: "Raises only the variable, not the coefficient, to a power: (3x)^2 = 3x^2."}
+  poly_mult:
+    - {id: foil_missing_terms, root: poly_mult, desc: "Multiplies only first and last terms: (x + 3)(x + 2) = x^2 + 6."}
+    - {id: distribute_monomial_partial, root: f_distributive, desc: "Multiplies the monomial by only some terms of the polynomial."}
+  poly_special:
+    - {id: square_distributes, root: poly_special, desc: "Squares each term of a binomial: (x + 3)^2 = x^2 + 9."}
+    - {id: conjugate_middle_term, root: poly_special, desc: "Keeps a middle term when multiplying conjugates: (x + 3)(x - 3) = x^2 + 6x - 9."}
+  exp_quotient:
+    - {id: divide_exponents, root: exp_quotient, desc: "Divides exponents when dividing powers: x^6 / x^2 = x^3."}
+    - {id: zero_exponent_zero, root: exp_quotient, desc: "Evaluates a zero exponent as 0 instead of 1."}
+  poly_divide:
+    - {id: divide_first_term_only, root: poly_divide, desc: "Divides only the first term of the numerator by the monomial."}
+    - {id: long_division_subtract, root: poly_divide, desc: "In long division, adds instead of subtracting (or subtracts only the first term)."}
+  exp_negative:
+    - {id: negative_exponent_sign, root: exp_negative, desc: "Treats a negative exponent as a negative number: x^(-2) = -x^2."}
+    - {id: negative_exponent_coefficient, root: exp_negative, desc: "Moves the coefficient along with the variable: 3x^(-2) = 1/(3x^2)."}
+  sci_notation:
+    - {id: sci_exponent_direction, root: sci_notation, desc: "Uses the wrong sign for the power of ten (large number with a negative exponent, or the reverse)."}
+    - {id: sci_coefficient_range, root: sci_notation, desc: "Leaves the coefficient outside 1 to 10, e.g. 32 x 10^3."}
+  fac_gcf:
+    - {id: gcf_incomplete, root: fac_gcf, desc: "Factors out a common factor that is not the greatest common factor."}
+    - {id: gcf_lose_term, root: fac_gcf, desc: "Loses a term (writes nothing instead of 1) after factoring out the GCF: 3x + 3 = 3(x)."}
+  fac_trinomial:
+    - {id: factor_sign_error, root: fac_trinomial, desc: "Sign error in a factor, e.g. x^2 - x - 6 = (x + 3)(x - 2)."}
+    - {id: product_sum_swapped, root: fac_trinomial, desc: "Looks for numbers whose sum is c and product is b instead of the reverse."}
+  fac_trinomial_a:
+    - {id: ignore_leading, root: fac_trinomial_a, desc: "Factors ax^2 + bx + c as if a were 1."}
+    - {id: gcf_first_skipped, root: fac_gcf, desc: "Does not factor out the GCF first, leaving the factorization incomplete."}
+  fac_special:
+    - {id: sum_of_squares_factors, root: fac_special, desc: "Factors a sum of squares as if it were a difference: x^2 + 9 = (x - 3)(x + 3)."}
+    - {id: cubes_pattern_wrong, root: fac_special, desc: "Misremembers the sum/difference of cubes pattern."}
+    - {id: perfect_square_middle, root: poly_special, desc: "Factors a perfect square trinomial ignoring the middle term: x^2 + 6x + 9 = (x + 3)(x - 3)."}
+  fac_general:
+    - {id: not_completely, root: fac_general, desc: "Stops before factoring completely (a factor that still factors is left)."}
+  quad_factor:
+    - {id: zero_product_not_zero, root: quad_factor, desc: "Applies the zero product property when the product equals a nonzero number: (x - 2)(x + 1) = 6 so x = 2 or x = -1."}
+    - {id: divide_by_variable, root: quad_factor, desc: "Divides both sides by x, losing the solution x = 0."}
+    - {id: root_sign_error, root: quad_factor, desc: "Gives the root of x + 3 = 0 as x = 3."}
+  rat_simplify:
+    - {id: cancel_terms, root: rat_simplify, desc: "Cancels terms rather than factors: (x + 3)/x = 3."}
+    - {id: opposite_factors_one, root: rat_simplify, desc: "Cancels opposite factors (a - b)/(b - a) to 1 instead of -1."}
+  rat_muldiv:
+    - {id: invert_first, root: f_frac_mul, desc: "Inverts the first rational expression instead of the second when dividing."}
+    - {id: cancel_before_factor, root: rat_simplify, desc: "Cancels before factoring numerators and denominators."}
+  rat_add_common:
+    - {id: subtract_numerator_sign, root: f_distributive, desc: "Subtracting a numerator with more than one term, changes the sign of only its first term."}
+    - {id: add_denominators, root: f_frac_add, desc: "Adds the denominators as well as the numerators."}
+  rat_add_unlike:
+    - {id: lcd_product_missing, root: rat_add_unlike, desc: "Uses a denominator that is not a common multiple of both denominators."}
+    - {id: scale_denominator_only, root: f_frac_add, desc: "Rewrites a denominator over the LCD without multiplying its numerator by the same factor."}
+  rat_complex:
+    - {id: complex_invert_wrong, root: rat_complex, desc: "Multiplies by the reciprocal of the numerator instead of the denominator."}
+  rat_equations:
+    - {id: extraneous_kept, root: rat_equations, desc: "Keeps a solution that makes a denominator zero."}
+    - {id: lcd_one_side, root: lin_fractions, desc: "Multiplies only one side (or only some terms) by the LCD."}
+  rat_proportion:
+    - {id: cross_multiply_wrong, root: rat_proportion, desc: "Multiplies the wrong pairs (numerator by numerator) when cross-multiplying."}
+    - {id: similar_mismatched_sides, root: rat_proportion, desc: "Sets up the proportion with non-corresponding sides."}
+  rat_work:
+    - {id: add_times, root: rat_work, desc: "Adds the times (or averages them) instead of adding the rates 1/a + 1/b = 1/t."}
+  variation:
+    - {id: direct_inverse_swapped, root: variation, desc: "Uses y = kx for an inverse variation or y = k/x for a direct one."}
+  rad_sqrt:
+    - {id: sqrt_of_sum, root: rad_sqrt, desc: "Takes the square root of a sum term by term: sqrt(9 + 16) = 3 + 4."}
+    - {id: sqrt_even_power_abs, root: rad_sqrt, desc: "Halves an odd exponent under a square root, e.g. sqrt(x^5) = x^2.5 left unsimplified, or sqrt(x^6) = x^4."}
+  rad_simplify:
+    - {id: not_largest_square, root: rad_simplify, desc: "Removes a square factor that is not the largest, leaving a square factor under the root."}
+    - {id: factor_left_outside, root: rad_simplify, desc: "Moves a factor outside the root without taking its square root: sqrt(12) = 4 sqrt(3)."}
+  rad_addsub:
+    - {id: add_radicands, root: rad_addsub, desc: "Adds radicands: sqrt(2) + sqrt(3) = sqrt(5)."}
+    - {id: unlike_radicals_combined, root: rad_simplify, desc: "Combines radicals that are only alike after simplifying, without simplifying first (or combines unlike ones)."}
+  rad_mult:
+    - {id: product_under_one_root_wrong, root: rad_mult, desc: "Multiplies coefficients into the radicand: 2 sqrt(3) * sqrt(5) = sqrt(30)."}
+    - {id: square_of_sqrt, root: rad_mult, desc: "Leaves sqrt(a) * sqrt(a) as sqrt(a^2) or writes it as a^2."}
+  rad_divide:
+    - {id: rationalize_numerator_only, root: rad_divide, desc: "Multiplies only the denominator (or only the numerator) by the radical or conjugate."}
+    - {id: conjugate_wrong_sign, root: poly_special, desc: "Multiplies by the same binomial instead of its conjugate."}
+  rad_equations:
+    - {id: square_terms_separately, root: rad_equations, desc: "Squares each term of a side separately: (sqrt(x) + 2)^2 = x + 4."}
+    - {id: no_check_extraneous, root: rad_equations, desc: "Does not check solutions, keeping an extraneous one."}
+  rad_higher:
+    - {id: higher_root_as_sqrt, root: rad_higher, desc: "Treats a cube or fourth root like a square root when simplifying."}
+    - {id: odd_root_negative, root: rad_higher, desc: "Says the cube root of a negative number is not a real number."}
+  rat_exponents:
+    - {id: fractional_as_division, root: rat_exponents, desc: "Reads a^(1/n) as a/n, or a^(m/n) as (a/n)^m."}
+    - {id: numerator_denominator_swapped, root: rat_exponents, desc: "Swaps the power and the root: a^(2/3) as the square root of a cubed."}
+  quad_sqrt_prop:
+    - {id: forget_negative_root, root: quad_sqrt_prop, desc: "Takes only the positive square root, losing the negative solution."}
+    - {id: sqrt_before_isolate, root: quad_sqrt_prop, desc: "Takes the square root before isolating the squared term."}
+  quad_complete:
+    - {id: complete_not_halved, root: quad_complete, desc: "Adds b^2 instead of (b/2)^2 to complete the square."}
+    - {id: complete_one_side, root: quad_complete, desc: "Adds the completing term to only one side of the equation."}
+  quad_formula:
+    - {id: formula_minus_b, root: quad_formula, desc: "Uses b instead of -b, or divides only the square root by 2a."}
+    - {id: discriminant_sign, root: f_int_mul, desc: "Makes a sign error in b^2 - 4ac (e.g. treats (-b)^2 as negative or -4ac with negative c)."}
+  quad_apps:
+    - {id: keep_negative_length, root: quad_apps, desc: "Keeps a negative (impossible) solution for a length or time."}
+  quad_graph:
+    - {id: vertex_sign, root: quad_graph, desc: "Uses x = b/(2a) instead of x = -b/(2a) for the axis of symmetry."}
+    - {id: vertex_y_not_computed, root: quad_graph, desc: "Gives the axis of symmetry as the vertex, without computing the y-coordinate."}

@@ -1,14 +1,26 @@
+import pytest
 import sympy as sp
 
-from adaptcalc import answers, extract, templates
+from adaptcalc import extract, paths, templates
+
+COURSES = ["calc_limits", "algebra1"]
 
 
-def test_every_skill_has_a_template():
-    assert {t.skill for t in templates.REGISTRY.values()} == set(extract.skills())
+@pytest.mark.parametrize("course", COURSES)
+def test_every_skill_has_a_template_and_every_template_fits_its_course(course):
+    with paths.use_course(course):
+        skills = set(extract.skills())
+        mine = templates.for_course()
+        assert {t.skill for t in mine.values()} == skills
+        for t in templates.REGISTRY.values():
+            if t.skill in skills:
+                assert set(t.requires) <= skills, t.id
 
 
-def test_every_key_is_verified_and_grades_as_correct():
-    assert templates.verify_all(range(12)) == []
+@pytest.mark.parametrize("course", COURSES)
+def test_every_key_is_verified_and_grades_as_correct(course):
+    with paths.use_course(course):
+        assert templates.verify_all(range(12), set(extract.skills())) == []
 
 
 def test_generation_is_deterministic():

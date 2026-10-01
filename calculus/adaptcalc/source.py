@@ -60,6 +60,11 @@ BOOKS: dict[str, Book] = {
                  ref="c1bbed4b86ff5c80686d339a6ca5e4e48fae2483",
                  license_url="https://creativecommons.org/licenses/by/4.0/",
                  authors="Lynn Marecek, MaryAnne Anthony-Smith and Andrea Honeycutt Mathis"),
+    "ea2e": Book("ea2e", "Elementary Algebra 2e", "osbooks-prealgebra-bundle", "elementary-algebra-2e",
+                 "elementary-algebra-2e", tuple(range(1, 11)), "chapter", "Try It", "CC BY 4.0",
+                 ref="c1bbed4b86ff5c80686d339a6ca5e4e48fae2483",
+                 license_url="https://creativecommons.org/licenses/by/4.0/",
+                 authors="Lynn Marecek, MaryAnne Anthony-Smith and Andrea Honeycutt Mathis"),
 }
 
 # Chapter 2 of Calculus Volume 1 is the course; kept for the modules that predate multiple books.

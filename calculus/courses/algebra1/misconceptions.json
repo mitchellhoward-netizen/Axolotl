@@ -1,0 +1,1088 @@
+{
+  "source": {
+    "course": "algebra1",
+    "title": "Algebra 1",
+    "subtitle": "From the arithmetic it stands on to quadratic equations",
+    "books": [
+      {
+        "id": "ea2e",
+        "title": "Elementary Algebra 2e",
+        "url": "https://openstax.org/books/elementary-algebra-2e",
+        "repository": "https://raw.githubusercontent.com/openstax/osbooks-prealgebra-bundle/c1bbed4b86ff5c80686d339a6ca5e4e48fae2483",
+        "license": "CC BY 4.0",
+        "commercial": true
+      }
+    ],
+    "commercial": true
+  },
+  "misconceptions": {
+    "f_primes_lcm": [
+      {
+        "id": "f_primes_lcm.lcm_is_product",
+        "skill": "f_primes_lcm",
+        "root_skill": "f_primes_lcm",
+        "description": "Uses the product of the numbers as the least common multiple even when a smaller common multiple exists."
+      },
+      {
+        "id": "f_primes_lcm.lcm_gcf_confused",
+        "skill": "f_primes_lcm",
+        "root_skill": "f_primes_lcm",
+        "description": "Confuses the least common multiple with the greatest common factor."
+      }
+    ],
+    "f_order_ops": [
+      {
+        "id": "f_order_ops.left_to_right",
+        "skill": "f_order_ops",
+        "root_skill": "f_order_ops",
+        "description": "Works strictly left to right, adding or subtracting before multiplying or dividing."
+      },
+      {
+        "id": "f_order_ops.negative_square",
+        "skill": "f_order_ops",
+        "root_skill": "f_order_ops",
+        "description": "Squares the negative sign: treats -3^2 as 9."
+      },
+      {
+        "id": "f_order_ops.exponent_times_base",
+        "skill": "f_order_ops",
+        "root_skill": "f_order_ops",
+        "description": "Multiplies the base by the exponent: 3^2 = 6."
+      }
+    ],
+    "f_like_terms": [
+      {
+        "id": "f_like_terms.combine_unlike",
+        "skill": "f_like_terms",
+        "root_skill": "f_like_terms",
+        "description": "Combines unlike terms, e.g. 3x + 2 = 5x or 2x + 3x^2 = 5x^3."
+      },
+      {
+        "id": "f_like_terms.drop_coefficient_one",
+        "skill": "f_like_terms",
+        "root_skill": "f_like_terms",
+        "description": "Treats x as having coefficient 0, e.g. 4x + x = 4x."
+      }
+    ],
+    "f_translate": [
+      {
+        "id": "f_translate.reverse_subtraction",
+        "skill": "f_translate",
+        "root_skill": "f_translate",
+        "description": "Reverses the order for 'less than' or 'subtracted from': '5 less than x' written as 5 - x."
+      },
+      {
+        "id": "f_translate.product_sum_swap",
+        "skill": "f_translate",
+        "root_skill": "f_translate",
+        "description": "Confuses sum and product words, e.g. 'the product of 3 and x' written as 3 + x."
+      }
+    ],
+    "f_int_add": [
+      {
+        "id": "f_int_add.sign_of_larger",
+        "skill": "f_int_add",
+        "root_skill": "f_int_add",
+        "description": "Adding integers with different signs, keeps the sign of the first number instead of the one with the larger absolute value."
+      },
+      {
+        "id": "f_int_add.subtract_negative",
+        "skill": "f_int_add",
+        "root_skill": "f_int_add",
+        "description": "Subtracting a negative as if it were subtracting a positive: 5 - (-3) = 2."
+      },
+      {
+        "id": "f_int_add.abs_as_opposite",
+        "skill": "f_int_add",
+        "root_skill": "f_int_add",
+        "description": "Treats absolute value as 'change the sign': |-4| = -4 or |3| = -3."
+      }
+    ],
+    "f_int_mul": [
+      {
+        "id": "f_int_mul.neg_times_neg",
+        "skill": "f_int_mul",
+        "root_skill": "f_int_mul",
+        "description": "Gives a negative product (or quotient) for two negative numbers."
+      },
+      {
+        "id": "f_int_mul.sign_rule_on_sums",
+        "skill": "f_int_mul",
+        "root_skill": "f_int_add",
+        "description": "Applies the multiplication sign rule to addition: -3 + -5 = 8."
+      }
+    ],
+    "f_int_eval": [
+      {
+        "id": "f_int_eval.substitute_no_parens",
+        "skill": "f_int_eval",
+        "root_skill": "f_int_eval",
+        "description": "Substitutes a negative number without parentheses, so x^2 at x = -3 becomes -3^2 = -9."
+      },
+      {
+        "id": "f_int_eval.eval_order_ops",
+        "skill": "f_int_eval",
+        "root_skill": "f_order_ops",
+        "description": "Evaluates the substituted expression in the wrong order of operations."
+      }
+    ],
+    "f_frac_mul": [
+      {
+        "id": "f_frac_mul.cross_cancel_across_plus",
+        "skill": "f_frac_mul",
+        "root_skill": "f_frac_mul",
+        "description": "Cancels across a sum or difference instead of across factors."
+      },
+      {
+        "id": "f_frac_mul.invert_wrong_fraction",
+        "skill": "f_frac_mul",
+        "root_skill": "f_frac_mul",
+        "description": "When dividing fractions, inverts the first fraction instead of the second."
+      },
+      {
+        "id": "f_frac_mul.not_simplified",
+        "skill": "f_frac_mul",
+        "root_skill": "f_primes_lcm",
+        "description": "Leaves a common factor in the numerator and denominator."
+      }
+    ],
+    "f_frac_add": [
+      {
+        "id": "f_frac_add.add_across",
+        "skill": "f_frac_add",
+        "root_skill": "f_frac_add",
+        "description": "Adds numerators and denominators: 1/2 + 1/3 = 2/5."
+      },
+      {
+        "id": "f_frac_add.scale_one_part",
+        "skill": "f_frac_add",
+        "root_skill": "f_frac_add",
+        "description": "Changes a denominator to the common denominator without scaling the numerator."
+      },
+      {
+        "id": "f_frac_add.lcd_wrong",
+        "skill": "f_frac_add",
+        "root_skill": "f_primes_lcm",
+        "description": "Uses a common denominator that is not a multiple of both denominators."
+      }
+    ],
+    "f_frac_bar": [
+      {
+        "id": "f_frac_bar.fraction_bar_grouping",
+        "skill": "f_frac_bar",
+        "root_skill": "f_frac_bar",
+        "description": "Ignores that a fraction bar groups the whole numerator and the whole denominator."
+      },
+      {
+        "id": "f_frac_bar.complex_fraction_invert",
+        "skill": "f_frac_bar",
+        "root_skill": "f_frac_mul",
+        "description": "Simplifies a complex fraction by dividing the wrong way (inverts the numerator instead of the denominator)."
+      }
+    ],
+    "f_decimals": [
+      {
+        "id": "f_decimals.decimal_alignment",
+        "skill": "f_decimals",
+        "root_skill": "f_decimals",
+        "description": "Lines up digits from the right instead of lining up decimal points when adding or subtracting."
+      },
+      {
+        "id": "f_decimals.decimal_places_product",
+        "skill": "f_decimals",
+        "root_skill": "f_decimals",
+        "description": "Places the decimal point in a product by lining up rather than counting decimal places."
+      }
+    ],
+    "f_percent": [
+      {
+        "id": "f_percent.percent_move_wrong_way",
+        "skill": "f_percent",
+        "root_skill": "f_percent",
+        "description": "Moves the decimal point the wrong way converting between percent and decimal: 0.3 = 3%."
+      },
+      {
+        "id": "f_percent.percent_over_ten",
+        "skill": "f_percent",
+        "root_skill": "f_percent",
+        "description": "Writes a percent as a fraction over 10 instead of over 100."
+      }
+    ],
+    "f_sqrt": [
+      {
+        "id": "f_sqrt.sqrt_halves",
+        "skill": "f_sqrt",
+        "root_skill": "f_sqrt",
+        "description": "Halves the number instead of taking the square root: sqrt(16) = 8."
+      },
+      {
+        "id": "f_sqrt.sqrt_negative_real",
+        "skill": "f_sqrt",
+        "root_skill": "f_sqrt",
+        "description": "Treats the square root of a negative number as a real number."
+      }
+    ],
+    "f_distributive": [
+      {
+        "id": "f_distributive.partial_distribution",
+        "skill": "f_distributive",
+        "root_skill": "f_distributive",
+        "description": "Distributes to only the first term: 2(x + 3) = 2x + 3."
+      },
+      {
+        "id": "f_distributive.negative_distribution",
+        "skill": "f_distributive",
+        "root_skill": "f_distributive",
+        "description": "Does not distribute a minus sign to every term: -(x - 4) = -x - 4."
+      }
+    ],
+    "lin_one_step": [
+      {
+        "id": "lin_one_step.wrong_inverse_operation",
+        "skill": "lin_one_step",
+        "root_skill": "lin_one_step",
+        "description": "Undoes an operation with the same operation (adds to undo addition, multiplies to undo multiplication)."
+      },
+      {
+        "id": "lin_one_step.divide_sign_error",
+        "skill": "lin_one_step",
+        "root_skill": "f_int_mul",
+        "description": "Loses the sign when dividing both sides by a negative coefficient."
+      },
+      {
+        "id": "lin_one_step.one_side_only",
+        "skill": "lin_one_step",
+        "root_skill": "lin_one_step",
+        "description": "Applies an operation to only one side of the equation."
+      }
+    ],
+    "lin_both_sides": [
+      {
+        "id": "lin_both_sides.move_term_keep_sign",
+        "skill": "lin_both_sides",
+        "root_skill": "lin_both_sides",
+        "description": "Moves a term to the other side without changing its sign."
+      },
+      {
+        "id": "lin_both_sides.combine_across_equals",
+        "skill": "lin_both_sides",
+        "root_skill": "f_like_terms",
+        "description": "Combines terms that are on opposite sides of the equals sign as if they were on the same side."
+      }
+    ],
+    "lin_general": [
+      {
+        "id": "lin_general.distribute_error_eq",
+        "skill": "lin_general",
+        "root_skill": "f_distributive",
+        "description": "Distributes incorrectly while clearing parentheses in an equation."
+      },
+      {
+        "id": "lin_general.classify_wrong",
+        "skill": "lin_general",
+        "root_skill": "lin_general",
+        "description": "Reads 0 = 0 as 'the solution is 0', or a false statement like 0 = 5 as 'x = 5'."
+      }
+    ],
+    "lin_fractions": [
+      {
+        "id": "lin_fractions.clear_one_term",
+        "skill": "lin_fractions",
+        "root_skill": "lin_fractions",
+        "description": "Multiplies only some terms by the LCD when clearing fractions."
+      },
+      {
+        "id": "lin_fractions.lcd_equation_wrong",
+        "skill": "lin_fractions",
+        "root_skill": "f_primes_lcm",
+        "description": "Multiplies by a number that does not clear every denominator."
+      }
+    ],
+    "lin_formula": [
+      {
+        "id": "lin_formula.isolate_wrong_variable",
+        "skill": "lin_formula",
+        "root_skill": "lin_formula",
+        "description": "Solves for a different variable than the one asked for, or leaves the variable on both sides."
+      },
+      {
+        "id": "lin_formula.divide_one_term",
+        "skill": "lin_formula",
+        "root_skill": "lin_formula",
+        "description": "Divides only one term by the coefficient: (y - b)/m written as y - b/m."
+      }
+    ],
+    "lin_ineq": [
+      {
+        "id": "lin_ineq.no_flip_negative",
+        "skill": "lin_ineq",
+        "root_skill": "lin_ineq",
+        "description": "Does not reverse the inequality sign when multiplying or dividing by a negative number."
+      },
+      {
+        "id": "lin_ineq.flip_when_negative_constant",
+        "skill": "lin_ineq",
+        "root_skill": "lin_ineq",
+        "description": "Reverses the inequality sign when a negative number is added or subtracted, or when the answer is negative."
+      }
+    ],
+    "app_number": [
+      {
+        "id": "app_number.translate_wrong_equation",
+        "skill": "app_number",
+        "root_skill": "f_translate",
+        "description": "Writes an equation that doesn't match the words (a relationship reversed or a quantity left out)."
+      },
+      {
+        "id": "app_number.answer_wrong_quantity",
+        "skill": "app_number",
+        "root_skill": "app_number",
+        "description": "Solves correctly but reports a different quantity than the one asked for."
+      }
+    ],
+    "app_percent": [
+      {
+        "id": "app_percent.percent_base_wrong",
+        "skill": "app_percent",
+        "root_skill": "app_percent",
+        "description": "Takes the percent of the wrong quantity (the new amount instead of the original)."
+      },
+      {
+        "id": "app_percent.percent_not_decimal",
+        "skill": "app_percent",
+        "root_skill": "f_percent",
+        "description": "Uses the percent as a whole number in the equation (30 instead of 0.30)."
+      }
+    ],
+    "app_interest": [
+      {
+        "id": "app_interest.interest_rate_percent",
+        "skill": "app_interest",
+        "root_skill": "f_percent",
+        "description": "Uses the interest rate as a whole number in I = Prt."
+      },
+      {
+        "id": "app_interest.discount_as_price",
+        "skill": "app_interest",
+        "root_skill": "app_interest",
+        "description": "Reports the discount (or mark-up) amount as the final price, or the reverse."
+      }
+    ],
+    "app_mixture": [
+      {
+        "id": "app_mixture.count_vs_value",
+        "skill": "app_mixture",
+        "root_skill": "app_mixture",
+        "description": "Mixes up the number of items with their total value (adds values and counts together)."
+      },
+      {
+        "id": "app_mixture.cents_dollars",
+        "skill": "app_mixture",
+        "root_skill": "f_decimals",
+        "description": "Mixes cents and dollars in the same equation."
+      }
+    ],
+    "app_geometry": [
+      {
+        "id": "app_geometry.pythag_add_legs",
+        "skill": "app_geometry",
+        "root_skill": "app_geometry",
+        "description": "Adds the legs instead of squaring: c = a + b; or uses a^2 + b^2 with the hypotenuse as a leg."
+      },
+      {
+        "id": "app_geometry.perimeter_area_confused",
+        "skill": "app_geometry",
+        "root_skill": "app_geometry",
+        "description": "Uses the area formula for a perimeter problem or the reverse."
+      }
+    ],
+    "app_motion": [
+      {
+        "id": "app_motion.rate_time_swapped",
+        "skill": "app_motion",
+        "root_skill": "lin_formula",
+        "description": "Uses d = r/t or t = d*r instead of d = rt."
+      },
+      {
+        "id": "app_motion.add_rates_wrong",
+        "skill": "app_motion",
+        "root_skill": "app_motion",
+        "description": "Adds distances or rates in a situation where they should be set equal (or the reverse)."
+      }
+    ],
+    "app_ineq": [
+      {
+        "id": "app_ineq.ineq_direction_words",
+        "skill": "app_ineq",
+        "root_skill": "app_ineq",
+        "description": "Uses the wrong inequality direction for 'at least' or 'at most'."
+      },
+      {
+        "id": "app_ineq.round_wrong_way",
+        "skill": "app_ineq",
+        "root_skill": "app_ineq",
+        "description": "Rounds a boundary the wrong way for a whole-number answer (rounds down when at least is needed)."
+      }
+    ],
+    "gr_points": [
+      {
+        "id": "gr_points.coordinates_swapped",
+        "skill": "gr_points",
+        "root_skill": "gr_points",
+        "description": "Swaps the x- and y-coordinates of an ordered pair."
+      },
+      {
+        "id": "gr_points.substitute_wrong_variable",
+        "skill": "gr_points",
+        "root_skill": "gr_points",
+        "description": "Substitutes the x-value for y (or the reverse) when checking a solution."
+      }
+    ],
+    "gr_lines": [
+      {
+        "id": "gr_lines.vertical_horizontal_confused",
+        "skill": "gr_lines",
+        "root_skill": "gr_lines",
+        "description": "Graphs x = a as a horizontal line or y = b as a vertical line."
+      },
+      {
+        "id": "gr_lines.plot_error",
+        "skill": "gr_lines",
+        "root_skill": "gr_points",
+        "description": "Computes a point on the line incorrectly while building a table."
+      }
+    ],
+    "gr_intercepts": [
+      {
+        "id": "gr_intercepts.intercept_wrong_zero",
+        "skill": "gr_intercepts",
+        "root_skill": "gr_intercepts",
+        "description": "Sets the wrong variable to zero: sets x = 0 to find the x-intercept."
+      },
+      {
+        "id": "gr_intercepts.intercept_as_number",
+        "skill": "gr_intercepts",
+        "root_skill": "gr_intercepts",
+        "description": "Writes an intercept as the wrong ordered pair, e.g. the x-intercept 3 as (0, 3)."
+      }
+    ],
+    "gr_slope": [
+      {
+        "id": "gr_slope.run_over_rise",
+        "skill": "gr_slope",
+        "root_skill": "gr_slope",
+        "description": "Computes run over rise (change in x over change in y)."
+      },
+      {
+        "id": "gr_slope.slope_order_mixed",
+        "skill": "gr_slope",
+        "root_skill": "gr_slope",
+        "description": "Subtracts the coordinates in different orders in the numerator and denominator."
+      },
+      {
+        "id": "gr_slope.vertical_slope_zero",
+        "skill": "gr_slope",
+        "root_skill": "gr_slope",
+        "description": "Says a vertical line has slope 0 (or a horizontal line has undefined slope)."
+      }
+    ],
+    "gr_slope_int": [
+      {
+        "id": "gr_slope_int.slope_not_solved_for_y",
+        "skill": "gr_slope_int",
+        "root_skill": "lin_formula",
+        "description": "Reads the slope from an equation not solved for y (e.g. 2x + 3y = 6 has slope 2)."
+      },
+      {
+        "id": "gr_slope_int.perpendicular_negative_only",
+        "skill": "gr_slope_int",
+        "root_skill": "gr_slope_int",
+        "description": "Uses only the negative (or only the reciprocal) for a perpendicular slope."
+      }
+    ],
+    "gr_line_eq": [
+      {
+        "id": "gr_line_eq.point_slope_sign",
+        "skill": "gr_line_eq",
+        "root_skill": "gr_line_eq",
+        "description": "Sign error in point-slope form: y - y1 = m(x - x1) written with + x1 or + y1."
+      },
+      {
+        "id": "gr_line_eq.intercept_from_point",
+        "skill": "gr_line_eq",
+        "root_skill": "gr_line_eq",
+        "description": "Uses a point's y-coordinate as the y-intercept when the point is not on the y-axis."
+      }
+    ],
+    "gr_ineq2": [
+      {
+        "id": "gr_ineq2.test_point_misread",
+        "skill": "gr_ineq2",
+        "root_skill": "gr_ineq2",
+        "description": "Decides which side is shaded (or whether a point is a solution) by the sign of the inequality alone rather than testing a point."
+      },
+      {
+        "id": "gr_ineq2.boundary_included_wrong",
+        "skill": "gr_ineq2",
+        "root_skill": "gr_ineq2",
+        "description": "Treats a strict inequality as including the boundary line (or the reverse)."
+      }
+    ],
+    "sys_graph": [
+      {
+        "id": "sys_graph.one_equation_only",
+        "skill": "sys_graph",
+        "root_skill": "sys_graph",
+        "description": "Checks an ordered pair in only one equation of the system."
+      },
+      {
+        "id": "sys_graph.parallel_means_one",
+        "skill": "sys_graph",
+        "root_skill": "gr_slope_int",
+        "description": "Thinks lines with the same slope and different intercepts intersect once, or that identical lines have no solution."
+      }
+    ],
+    "sys_substitution": [
+      {
+        "id": "sys_substitution.substitute_same_equation",
+        "skill": "sys_substitution",
+        "root_skill": "sys_substitution",
+        "description": "Substitutes an expression back into the equation it came from, getting 0 = 0."
+      },
+      {
+        "id": "sys_substitution.forget_second_value",
+        "skill": "sys_substitution",
+        "root_skill": "sys_substitution",
+        "description": "Finds one variable and stops, without finding the other."
+      }
+    ],
+    "sys_elimination": [
+      {
+        "id": "sys_elimination.multiply_one_side",
+        "skill": "sys_elimination",
+        "root_skill": "sys_elimination",
+        "description": "Multiplies only one side (or only some terms) of an equation before adding."
+      },
+      {
+        "id": "sys_elimination.add_when_subtract",
+        "skill": "sys_elimination",
+        "root_skill": "f_int_add",
+        "description": "Adds the equations when the coefficients have the same sign, so nothing cancels, or makes a sign error combining them."
+      }
+    ],
+    "sys_apps": [
+      {
+        "id": "sys_apps.one_equation_for_two",
+        "skill": "sys_apps",
+        "root_skill": "sys_apps",
+        "description": "Writes only one equation for a problem with two unknowns."
+      },
+      {
+        "id": "sys_apps.value_equation_wrong",
+        "skill": "sys_apps",
+        "root_skill": "app_mixture",
+        "description": "Writes the value equation with counts instead of values (or values instead of counts)."
+      }
+    ],
+    "sys_ineq": [
+      {
+        "id": "sys_ineq.sys_ineq_one_only",
+        "skill": "sys_ineq",
+        "root_skill": "sys_ineq",
+        "description": "Checks a point in only one of the inequalities."
+      }
+    ],
+    "poly_addsub": [
+      {
+        "id": "poly_addsub.subtract_first_term_only",
+        "skill": "poly_addsub",
+        "root_skill": "f_distributive",
+        "description": "Subtracting polynomials, changes the sign of only the first term of the second polynomial."
+      },
+      {
+        "id": "poly_addsub.add_exponents_when_adding",
+        "skill": "poly_addsub",
+        "root_skill": "f_like_terms",
+        "description": "Adds exponents when adding like terms: x^2 + x^2 = x^4."
+      }
+    ],
+    "exp_product": [
+      {
+        "id": "exp_product.multiply_exponents",
+        "skill": "exp_product",
+        "root_skill": "exp_product",
+        "description": "Multiplies exponents when multiplying powers of the same base: x^2 * x^3 = x^6."
+      },
+      {
+        "id": "exp_product.add_power_exponents",
+        "skill": "exp_product",
+        "root_skill": "exp_product",
+        "description": "Adds exponents for a power of a power: (x^2)^3 = x^5."
+      },
+      {
+        "id": "exp_product.coefficient_not_powered",
+        "skill": "exp_product",
+        "root_skill": "exp_product",
+        "description": "Raises only the variable, not the coefficient, to a power: (3x)^2 = 3x^2."
+      }
+    ],
+    "poly_mult": [
+      {
+        "id": "poly_mult.foil_missing_terms",
+        "skill": "poly_mult",
+        "root_skill": "poly_mult",
+        "description": "Multiplies only first and last terms: (x + 3)(x + 2) = x^2 + 6."
+      },
+      {
+        "id": "poly_mult.distribute_monomial_partial",
+        "skill": "poly_mult",
+        "root_skill": "f_distributive",
+        "description": "Multiplies the monomial by only some terms of the polynomial."
+      }
+    ],
+    "poly_special": [
+      {
+        "id": "poly_special.square_distributes",
+        "skill": "poly_special",
+        "root_skill": "poly_special",
+        "description": "Squares each term of a binomial: (x + 3)^2 = x^2 + 9."
+      },
+      {
+        "id": "poly_special.conjugate_middle_term",
+        "skill": "poly_special",
+        "root_skill": "poly_special",
+        "description": "Keeps a middle term when multiplying conjugates: (x + 3)(x - 3) = x^2 + 6x - 9."
+      }
+    ],
+    "exp_quotient": [
+      {
+        "id": "exp_quotient.divide_exponents",
+        "skill": "exp_quotient",
+        "root_skill": "exp_quotient",
+        "description": "Divides exponents when dividing powers: x^6 / x^2 = x^3."
+      },
+      {
+        "id": "exp_quotient.zero_exponent_zero",
+        "skill": "exp_quotient",
+        "root_skill": "exp_quotient",
+        "description": "Evaluates a zero exponent as 0 instead of 1."
+      }
+    ],
+    "poly_divide": [
+      {
+        "id": "poly_divide.divide_first_term_only",
+        "skill": "poly_divide",
+        "root_skill": "poly_divide",
+        "description": "Divides only the first term of the numerator by the monomial."
+      },
+      {
+        "id": "poly_divide.long_division_subtract",
+        "skill": "poly_divide",
+        "root_skill": "poly_divide",
+        "description": "In long division, adds instead of subtracting (or subtracts only the first term)."
+      }
+    ],
+    "exp_negative": [
+      {
+        "id": "exp_negative.negative_exponent_sign",
+        "skill": "exp_negative",
+        "root_skill": "exp_negative",
+        "description": "Treats a negative exponent as a negative number: x^(-2) = -x^2."
+      },
+      {
+        "id": "exp_negative.negative_exponent_coefficient",
+        "skill": "exp_negative",
+        "root_skill": "exp_negative",
+        "description": "Moves the coefficient along with the variable: 3x^(-2) = 1/(3x^2)."
+      }
+    ],
+    "sci_notation": [
+      {
+        "id": "sci_notation.sci_exponent_direction",
+        "skill": "sci_notation",
+        "root_skill": "sci_notation",
+        "description": "Uses the wrong sign for the power of ten (large number with a negative exponent, or the reverse)."
+      },
+      {
+        "id": "sci_notation.sci_coefficient_range",
+        "skill": "sci_notation",
+        "root_skill": "sci_notation",
+        "description": "Leaves the coefficient outside 1 to 10, e.g. 32 x 10^3."
+      }
+    ],
+    "fac_gcf": [
+      {
+        "id": "fac_gcf.gcf_incomplete",
+        "skill": "fac_gcf",
+        "root_skill": "fac_gcf",
+        "description": "Factors out a common factor that is not the greatest common factor."
+      },
+      {
+        "id": "fac_gcf.gcf_lose_term",
+        "skill": "fac_gcf",
+        "root_skill": "fac_gcf",
+        "description": "Loses a term (writes nothing instead of 1) after factoring out the GCF: 3x + 3 = 3(x)."
+      }
+    ],
+    "fac_trinomial": [
+      {
+        "id": "fac_trinomial.factor_sign_error",
+        "skill": "fac_trinomial",
+        "root_skill": "fac_trinomial",
+        "description": "Sign error in a factor, e.g. x^2 - x - 6 = (x + 3)(x - 2)."
+      },
+      {
+        "id": "fac_trinomial.product_sum_swapped",
+        "skill": "fac_trinomial",
+        "root_skill": "fac_trinomial",
+        "description": "Looks for numbers whose sum is c and product is b instead of the reverse."
+      }
+    ],
+    "fac_trinomial_a": [
+      {
+        "id": "fac_trinomial_a.ignore_leading",
+        "skill": "fac_trinomial_a",
+        "root_skill": "fac_trinomial_a",
+        "description": "Factors ax^2 + bx + c as if a were 1."
+      },
+      {
+        "id": "fac_trinomial_a.gcf_first_skipped",
+        "skill": "fac_trinomial_a",
+        "root_skill": "fac_gcf",
+        "description": "Does not factor out the GCF first, leaving the factorization incomplete."
+      }
+    ],
+    "fac_special": [
+      {
+        "id": "fac_special.sum_of_squares_factors",
+        "skill": "fac_special",
+        "root_skill": "fac_special",
+        "description": "Factors a sum of squares as if it were a difference: x^2 + 9 = (x - 3)(x + 3)."
+      },
+      {
+        "id": "fac_special.cubes_pattern_wrong",
+        "skill": "fac_special",
+        "root_skill": "fac_special",
+        "description": "Misremembers the sum/difference of cubes pattern."
+      },
+      {
+        "id": "fac_special.perfect_square_middle",
+        "skill": "fac_special",
+        "root_skill": "poly_special",
+        "description": "Factors a perfect square trinomial ignoring the middle term: x^2 + 6x + 9 = (x + 3)(x - 3)."
+      }
+    ],
+    "fac_general": [
+      {
+        "id": "fac_general.not_completely",
+        "skill": "fac_general",
+        "root_skill": "fac_general",
+        "description": "Stops before factoring completely (a factor that still factors is left)."
+      }
+    ],
+    "quad_factor": [
+      {
+        "id": "quad_factor.zero_product_not_zero",
+        "skill": "quad_factor",
+        "root_skill": "quad_factor",
+        "description": "Applies the zero product property when the product equals a nonzero number: (x - 2)(x + 1) = 6 so x = 2 or x = -1."
+      },
+      {
+        "id": "quad_factor.divide_by_variable",
+        "skill": "quad_factor",
+        "root_skill": "quad_factor",
+        "description": "Divides both sides by x, losing the solution x = 0."
+      },
+      {
+        "id": "quad_factor.root_sign_error",
+        "skill": "quad_factor",
+        "root_skill": "quad_factor",
+        "description": "Gives the root of x + 3 = 0 as x = 3."
+      }
+    ],
+    "rat_simplify": [
+      {
+        "id": "rat_simplify.cancel_terms",
+        "skill": "rat_simplify",
+        "root_skill": "rat_simplify",
+        "description": "Cancels terms rather than factors: (x + 3)/x = 3."
+      },
+      {
+        "id": "rat_simplify.opposite_factors_one",
+        "skill": "rat_simplify",
+        "root_skill": "rat_simplify",
+        "description": "Cancels opposite factors (a - b)/(b - a) to 1 instead of -1."
+      }
+    ],
+    "rat_muldiv": [
+      {
+        "id": "rat_muldiv.invert_first",
+        "skill": "rat_muldiv",
+        "root_skill": "f_frac_mul",
+        "description": "Inverts the first rational expression instead of the second when dividing."
+      },
+      {
+        "id": "rat_muldiv.cancel_before_factor",
+        "skill": "rat_muldiv",
+        "root_skill": "rat_simplify",
+        "description": "Cancels before factoring numerators and denominators."
+      }
+    ],
+    "rat_add_common": [
+      {
+        "id": "rat_add_common.subtract_numerator_sign",
+        "skill": "rat_add_common",
+        "root_skill": "f_distributive",
+        "description": "Subtracting a numerator with more than one term, changes the sign of only its first term."
+      },
+      {
+        "id": "rat_add_common.add_denominators",
+        "skill": "rat_add_common",
+        "root_skill": "f_frac_add",
+        "description": "Adds the denominators as well as the numerators."
+      }
+    ],
+    "rat_add_unlike": [
+      {
+        "id": "rat_add_unlike.lcd_product_missing",
+        "skill": "rat_add_unlike",
+        "root_skill": "rat_add_unlike",
+        "description": "Uses a denominator that is not a common multiple of both denominators."
+      },
+      {
+        "id": "rat_add_unlike.scale_denominator_only",
+        "skill": "rat_add_unlike",
+        "root_skill": "f_frac_add",
+        "description": "Rewrites a denominator over the LCD without multiplying its numerator by the same factor."
+      }
+    ],
+    "rat_complex": [
+      {
+        "id": "rat_complex.complex_invert_wrong",
+        "skill": "rat_complex",
+        "root_skill": "rat_complex",
+        "description": "Multiplies by the reciprocal of the numerator instead of the denominator."
+      }
+    ],
+    "rat_equations": [
+      {
+        "id": "rat_equations.extraneous_kept",
+        "skill": "rat_equations",
+        "root_skill": "rat_equations",
+        "description": "Keeps a solution that makes a denominator zero."
+      },
+      {
+        "id": "rat_equations.lcd_one_side",
+        "skill": "rat_equations",
+        "root_skill": "lin_fractions",
+        "description": "Multiplies only one side (or only some terms) by the LCD."
+      }
+    ],
+    "rat_proportion": [
+      {
+        "id": "rat_proportion.cross_multiply_wrong",
+        "skill": "rat_proportion",
+        "root_skill": "rat_proportion",
+        "description": "Multiplies the wrong pairs (numerator by numerator) when cross-multiplying."
+      },
+      {
+        "id": "rat_proportion.similar_mismatched_sides",
+        "skill": "rat_proportion",
+        "root_skill": "rat_proportion",
+        "description": "Sets up the proportion with non-corresponding sides."
+      }
+    ],
+    "rat_work": [
+      {
+        "id": "rat_work.add_times",
+        "skill": "rat_work",
+        "root_skill": "rat_work",
+        "description": "Adds the times (or averages them) instead of adding the rates 1/a + 1/b = 1/t."
+      }
+    ],
+    "variation": [
+      {
+        "id": "variation.direct_inverse_swapped",
+        "skill": "variation",
+        "root_skill": "variation",
+        "description": "Uses y = kx for an inverse variation or y = k/x for a direct one."
+      }
+    ],
+    "rad_sqrt": [
+      {
+        "id": "rad_sqrt.sqrt_of_sum",
+        "skill": "rad_sqrt",
+        "root_skill": "rad_sqrt",
+        "description": "Takes the square root of a sum term by term: sqrt(9 + 16) = 3 + 4."
+      },
+      {
+        "id": "rad_sqrt.sqrt_even_power_abs",
+        "skill": "rad_sqrt",
+        "root_skill": "rad_sqrt",
+        "description": "Halves an odd exponent under a square root, e.g. sqrt(x^5) = x^2.5 left unsimplified, or sqrt(x^6) = x^4."
+      }
+    ],
+    "rad_simplify": [
+      {
+        "id": "rad_simplify.not_largest_square",
+        "skill": "rad_simplify",
+        "root_skill": "rad_simplify",
+        "description": "Removes a square factor that is not the largest, leaving a square factor under the root."
+      },
+      {
+        "id": "rad_simplify.factor_left_outside",
+        "skill": "rad_simplify",
+        "root_skill": "rad_simplify",
+        "description": "Moves a factor outside the root without taking its square root: sqrt(12) = 4 sqrt(3)."
+      }
+    ],
+    "rad_addsub": [
+      {
+        "id": "rad_addsub.add_radicands",
+        "skill": "rad_addsub",
+        "root_skill": "rad_addsub",
+        "description": "Adds radicands: sqrt(2) + sqrt(3) = sqrt(5)."
+      },
+      {
+        "id": "rad_addsub.unlike_radicals_combined",
+        "skill": "rad_addsub",
+        "root_skill": "rad_simplify",
+        "description": "Combines radicals that are only alike after simplifying, without simplifying first (or combines unlike ones)."
+      }
+    ],
+    "rad_mult": [
+      {
+        "id": "rad_mult.product_under_one_root_wrong",
+        "skill": "rad_mult",
+        "root_skill": "rad_mult",
+        "description": "Multiplies coefficients into the radicand: 2 sqrt(3) * sqrt(5) = sqrt(30)."
+      },
+      {
+        "id": "rad_mult.square_of_sqrt",
+        "skill": "rad_mult",
+        "root_skill": "rad_mult",
+        "description": "Leaves sqrt(a) * sqrt(a) as sqrt(a^2) or writes it as a^2."
+      }
+    ],
+    "rad_divide": [
+      {
+        "id": "rad_divide.rationalize_numerator_only",
+        "skill": "rad_divide",
+        "root_skill": "rad_divide",
+        "description": "Multiplies only the denominator (or only the numerator) by the radical or conjugate."
+      },
+      {
+        "id": "rad_divide.conjugate_wrong_sign",
+        "skill": "rad_divide",
+        "root_skill": "poly_special",
+        "description": "Multiplies by the same binomial instead of its conjugate."
+      }
+    ],
+    "rad_equations": [
+      {
+        "id": "rad_equations.square_terms_separately",
+        "skill": "rad_equations",
+        "root_skill": "rad_equations",
+        "description": "Squares each term of a side separately: (sqrt(x) + 2)^2 = x + 4."
+      },
+      {
+        "id": "rad_equations.no_check_extraneous",
+        "skill": "rad_equations",
+        "root_skill": "rad_equations",
+        "description": "Does not check solutions, keeping an extraneous one."
+      }
+    ],
+    "rad_higher": [
+      {
+        "id": "rad_higher.higher_root_as_sqrt",
+        "skill": "rad_higher",
+        "root_skill": "rad_higher",
+        "description": "Treats a cube or fourth root like a square root when simplifying."
+      },
+      {
+        "id": "rad_higher.odd_root_negative",
+        "skill": "rad_higher",
+        "root_skill": "rad_higher",
+        "description": "Says the cube root of a negative number is not a real number."
+      }
+    ],
+    "rat_exponents": [
+      {
+        "id": "rat_exponents.fractional_as_division",
+        "skill": "rat_exponents",
+        "root_skill": "rat_exponents",
+        "description": "Reads a^(1/n) as a/n, or a^(m/n) as (a/n)^m."
+      },
+      {
+        "id": "rat_exponents.numerator_denominator_swapped",
+        "skill": "rat_exponents",
+        "root_skill": "rat_exponents",
+        "description": "Swaps the power and the root: a^(2/3) as the square root of a cubed."
+      }
+    ],
+    "quad_sqrt_prop": [
+      {
+        "id": "quad_sqrt_prop.forget_negative_root",
+        "skill": "quad_sqrt_prop",
+        "root_skill": "quad_sqrt_prop",
+        "description": "Takes only the positive square root, losing the negative solution."
+      },
+      {
+        "id": "quad_sqrt_prop.sqrt_before_isolate",
+        "skill": "quad_sqrt_prop",
+        "root_skill": "quad_sqrt_prop",
+        "description": "Takes the square root before isolating the squared term."
+      }
+    ],
+    "quad_complete": [
+      {
+        "id": "quad_complete.complete_not_halved",
+        "skill": "quad_complete",
+        "root_skill": "quad_complete",
+        "description": "Adds b^2 instead of (b/2)^2 to complete the square."
+      },
+      {
+        "id": "quad_complete.complete_one_side",
+        "skill": "quad_complete",
+        "root_skill": "quad_complete",
+        "description": "Adds the completing term to only one side of the equation."
+      }
+    ],
+    "quad_formula": [
+      {
+        "id": "quad_formula.formula_minus_b",
+        "skill": "quad_formula",
+        "root_skill": "quad_formula",
+        "description": "Uses b instead of -b, or divides only the square root by 2a."
+      },
+      {
+        "id": "quad_formula.discriminant_sign",
+        "skill": "quad_formula",
+        "root_skill": "f_int_mul",
+        "description": "Makes a sign error in b^2 - 4ac (e.g. treats (-b)^2 as negative or -4ac with negative c)."
+      }
+    ],
+    "quad_apps": [
+      {
+        "id": "quad_apps.keep_negative_length",
+        "skill": "quad_apps",
+        "root_skill": "quad_apps",
+        "description": "Keeps a negative (impossible) solution for a length or time."
+      }
+    ],
+    "quad_graph": [
+      {
+        "id": "quad_graph.vertex_sign",
+        "skill": "quad_graph",
+        "root_skill": "quad_graph",
+        "description": "Uses x = b/(2a) instead of x = -b/(2a) for the axis of symmetry."
+      },
+      {
+        "id": "quad_graph.vertex_y_not_computed",
+        "skill": "quad_graph",
+        "root_skill": "quad_graph",
+        "description": "Gives the axis of symmetry as the vertex, without computing the y-coordinate."
+      }
+    ]
+  }
+}
