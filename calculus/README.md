@@ -1,84 +1,85 @@
-# Adaptive math textbook (OpenStax: prealgebra and algebra up to Calculus Vol. 1, Chapter 2)
+# Marginalia: a textbook that reads your work
 
-A personal textbook that adapts to you. The canonical text is OpenStax
-*Calculus Volume 1*, Chapter 2 (Limits), printed verbatim. What changes from
-packet to packet is only which boxes are selected, the practice problems, and
-short transitions. You work on paper, photograph the page, and the system
-grades each step, asks typed questions about your work, and updates a model
-of what you know.
+A math textbook for families. A child works on paper; a parent photographs the page; every
+step is checked, the book finds what is missing underneath, and the next packet is set for
+them in the textbook's own words. Two courses live in `courses/`:
+
+| Course | Source (exact version in `LICENSES.md`) | Skills | Offered to |
+| --- | --- | --- | --- |
+| `algebra1` Algebra 1 | *Elementary Algebra 2e*, OpenStax, **CC BY 4.0** (pinned to the last CC BY release) | 75 | every family |
+| `calc_limits` Calculus: Limits | *Calculus Volume 1*, Ch. 2, OpenStax, CC BY-NC-SA 4.0 | 45 | the owner only (personal study) |
 
 ```
-OpenStax CNXML ──► skills.json + misconceptions.json ──► templates (SymPy-verified)
-                                                              │
-         learner.db (SQLite) ◄── once per problem ──┐         ▼
-              │                                     │   diagnostic rounds / lesson packets
-              ▼                                     │         │  Typst ─► two-color PDF
-   next round chosen by information gain            │         ▼
-                                                    │     you, on paper
-  ./inbox photo ─► Claude vision ─► SymPy step check ─► Jev typed evidence (no learner data)
+OpenStax CNXML (pinned commit, license verified) ──► courses/<id>/skills.json + misconceptions.json
+                                                        │        templates (SymPy-verified, worked solutions)
+   learner.db per child ◄── one update per problem ─┐   ▼
+        │                                           │  diagnostic rounds (information gain) / lessons / refreshes
+        ▼                                           │   │  Typst ─► two-color PDF, the book's text verbatim
+  next packet: refresh shaky foundations, else      │   ▼
+  one new skill; mixed review; faded first problem  │  paper
+                                                    │
+  photo ─► Claude vision ─► SymPy step check ─► Jev typed evidence (never sees the learner model)
 ```
 
-## Setup
+## Run it
 
 ```sh
 cd calculus
 pip install -r requirements.txt
 export TYPESAFE_API_KEY=...        # Jev (TypeSafe)
-export ANTHROPIC_API_KEY=...       # Claude vision transcription (or `ant auth login`)
-python -m adaptcalc extract        # fetch Chapter 2, write skills.json + misconceptions.json
-python -m pytest -q tests          # 46 tests
+export ANTHROPIC_API_KEY=...       # Claude: reading photos, margin notes
+export ADAPTCALC_ACCESS_CODES=PILOT-1234   # sign-up codes (comma-separated)
+python -m adaptcalc warm           # books, figures, fonts, KaTeX into .cache/ (about 2 minutes)
+python -m adaptcalc serve          # http://127.0.0.1:8000
+python -m pytest -q tests          # 57 tests
 ```
 
-Fonts (Fira Sans, SIL OFL), the OpenStax source and its figures are downloaded
-on first use into the gitignored `.cache/`. Learner state lives in
-`state/learner.db`; packets are written to `out/`.
+Pages: `/` front matter · `/signup`, `/signin` · `/home` a family's learners (add a child with a
+course and a starting point; download or delete data) · `/learn/<id>` a child's book (next page,
+send in work, feedback with margin notes, contents, what is learned) · `/learn/<id>/progress` a
+printable report · `/privacy`, `/terms`.
 
-## In the browser
+Building a packet and checking a photo run as background jobs; the page shows what each job is
+doing. Everything a learner sees is scoped to the signed-in family (tests cover isolation).
 
-```sh
-python -m adaptcalc serve              # http://127.0.0.1:8000
-python -m adaptcalc serve --host 0.0.0.0   # reachable from your phone on the same Wi-Fi
-```
+## Operating the pilot
 
-One page with four parts:
-
-* **Next step**: open the current packet, or make the next diagnostic round or lesson.
-* **Photograph your work**: on a phone this opens the camera; drag-and-drop on a computer.
-* **Feedback**: your transcribed lines, the step SymPy rejected, the misconception, and how the model changed.
-* **What you know**: mastery per skill, grouped by section.
-
-Set `ADAPTCALC_PASSWORD` to require a password (HTTP basic auth, any user name) before exposing it beyond your machine. With `ANTHROPIC_API_KEY` set, photos are read by Claude vision. Without it, an upload waits in `inbox/` for a manual `*.transcript.json`, and the header shows which mode is active.
+| Task | How |
+| --- | --- |
+| Give a family access | Share a code from `ADAPTCALC_ACCESS_CODES` (Railway variable), or add counted codes: `python -m adaptcalc codes --add NAME --uses 10` |
+| Owner account | `ADAPTCALC_OWNER_EMAIL` + `ADAPTCALC_OWNER_PASSWORD` (or the old `ADAPTCALC_PASSWORD`). On first start the single-learner data is moved into it as the learner "Me". Or: `python -m adaptcalc owner EMAIL` |
+| Daily limits per child | `config.yaml` → `limits` (photos, questions, packets) |
+| Starting points | `config.yaml` → `starting_points` (shift the diagnostic's prior) |
+| Rebuild a course's skill graph | `python -m adaptcalc --course algebra1 extract` |
+| Check every template | `python -m adaptcalc --course algebra1 verify-templates --seeds 40` |
 
 ## Deploy on Railway
 
-The app ships as its own Railway service (the repo's root `railway.json` is the Axolotl agent's).
-In the Railway project:
-
-1. **New → GitHub Repo →** this repository (branch with `calculus/`).
-2. Service **Settings**: set **Root Directory** to `/calculus` and **Config-as-code file** to `/calculus/railway.json`.
-3. **Variables**: set `ADAPTCALC_PASSWORD` and `TYPESAFE_API_KEY`, and set `ANTHROPIC_API_KEY`.
-   If the key already lives in the project, reference it rather than copying it:
-   `${{shared.ANTHROPIC_API_KEY}}` for a shared variable, or `${{<other-service>.ANTHROPIC_API_KEY}}`.
-4. **Volume**: attach one to the service, mounted at `/data` (the image sets `ADAPTCALC_DATA=/data`).
-   This is where your progress, packets and photos live.
-5. **Networking → Generate Domain**, then open it and sign in with any user name and the password.
-
-The image downloads the book, figures, fonts and Typst packages at build time (`python -m adaptcalc warm`).
-It will not serve on a public address without `ADAPTCALC_PASSWORD`.
+Service `calculus` in the project, root directory `/calculus`, config `calculus/railway.json`, a
+volume at `/data`. Variables: `TYPESAFE_API_KEY` and `ANTHROPIC_API_KEY` (references to the
+project's keys, never copies), `ADAPTCALC_ACCESS_CODES`, `ADAPTCALC_OWNER_EMAIL`, and
+`ADAPTCALC_PASSWORD` (the owner's password). Deploy with `railway up --service calculus` from
+`calculus/`. The image runs `warm` at build time.
 
 ## Commands
 
 | Command | What it does |
 | --- | --- |
-| `python -m adaptcalc extract` | Fetch Chapter 2 from OpenStax's source repo, resolve the skill graph and misconception library, write the JSON files |
-| `python -m adaptcalc verify-templates` | Generate every template at many seeds; SymPy recomputes each answer, and each key must grade itself as correct |
-| `python -m adaptcalc diagnostic` | Choose and print the next diagnostic round (or report that the diagnostic is finished) |
-| `python -m adaptcalc watch` | Watch `./inbox` for photos of your work and process them |
-| `python -m adaptcalc process PHOTO` | Process one photo |
-| `python -m adaptcalc lesson` | Build the next lesson packet for your frontier skills |
-| `python -m adaptcalc status` | Mastery per skill, remaining diagnostic uncertainty, frontier, reviews due |
-| `python -m adaptcalc grade D1 "1:c 2:x 3:s"` | Grade without a photo (correct / wrong / skipped) |
-| `python -m adaptcalc serve` | The browser app |
+| `python -m adaptcalc [--course ID] extract` | Resolve a course's skill graph and misconception library against the pinned source |
+| `python -m adaptcalc [--course ID] verify-templates` | Generate every template at many seeds; each key, written as a learner would, must grade as correct |
+| `python -m adaptcalc diagnostic` / `lesson` / `status` / `process PHOTO` / `watch` / `grade` | The single-learner command line (state under `ADAPTCALC_DATA`) |
+| `python -m adaptcalc codes` / `owner EMAIL` | Pilot access codes; the owner account |
+| `python -m adaptcalc serve` | The web app |
+
+## What the lessons are built on
+
+* **Start from what the student knows**: a diagnostic over the skill graph, chosen by information gain, shaped by the parent's starting point.
+* **Step-level feedback**: every written line is checked (equations by solution set, inequalities by solution set, expressions by equivalence).
+* **Worked examples, then faded practice**: the book's examples verbatim; a new skill's first problem has its first steps given (from a SymPy-checked worked solution) and the learner finishes it.
+* **Self-explanation**: a fixed "pause and explain" prompt after the first worked example, and an ungraded "in your own words" prompt.
+* **Interleaved, spaced review**: about a third of practice is review of earlier skills (due ones first), mixed in.
+* **Mastery before moving on**: one new skill per lesson; a skill counts as learned after three checked problems or diagnostic placement.
+* **Guardrailed AI**: margin notes are checked with SymPy, the notation registry and Jev (no answer give-aways unless asked, no ideas the book hasn't taught); otherwise the book's worked example is shown.
 
 ## How each part works
 
