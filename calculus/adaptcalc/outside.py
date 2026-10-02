@@ -265,7 +265,14 @@ def check_page(db: LearnerDB, photo: Path, client=None, progress=None) -> dict:
             entry["why"] = "We could not be certain of the answer, so this one is not marked or counted."
             report["problems"].append(entry)
             continue
-        check = stepcheck.check(tp, k["key"])
+        try:
+            check = stepcheck.check(tp, k["key"])
+        except Exception as e:  # noqa: BLE001 - one problem the checker can't handle must not stop the page
+            print(f"check failed for {p['label']}: {type(e).__name__}: {e}")
+            entry["status"] = "not checked"
+            entry["why"] = "This one couldn’t be checked automatically, so it isn’t marked or counted."
+            report["problems"].append(entry)
+            continue
         entry.update({"correct": check["final_correct"], "stepcheck": check, "how": k["how"], "skill": k["skill"]})
         credit = 0.0 if check["skipped"] or not check["final_correct"] else 1.0
         dec = {"misconception": None, "misconception_root": None, "attempts": 1, "crossed_out_runs": 0,

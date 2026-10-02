@@ -135,7 +135,15 @@ def process_photo(db: LearnerDB, photo: Path, transcriber=None, jev_client=None,
             report["problems"].append(entry)
             continue
         data = prob["data"]
-        check = stepcheck.check(tp, data["key"])
+        try:
+            check = stepcheck.check(tp, data["key"])
+        except Exception as e:  # noqa: BLE001 - one problem the checker can't handle must not stop the page
+            entry["status"] = "not checked"
+            entry["why"] = "This one couldn’t be checked automatically, so it isn’t marked or counted."
+            entry["error"] = f"{type(e).__name__}: {str(e)[:200]}"
+            print(f"check failed for {prid}: {entry['error']}")
+            report["problems"].append(entry)
+            continue
         library = library_all[data["skill"]]
         public = {"statement": data["plain"], "key_display": key_plain(data["key"]),
                   "strategies": data["strategies"], "substeps": data["substeps"]}

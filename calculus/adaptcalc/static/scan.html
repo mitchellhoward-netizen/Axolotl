@@ -47,7 +47,8 @@ const [, , LID, PID, SIG] = location.pathname.split("/");
 const BASE = `/api/s/${LID}/${PID}/${SIG}`;
 let info = null;
 function marksHtml(problems) {
-  return `<ul class="marks">` + problems.filter((p) => p.status === "graded").map((p) => {
+  return `<ul class="marks">` + problems.filter((p) => p.status === "graded" || p.status === "not checked").map((p) => {
+    if (p.status === "not checked") return `<li><span class="n">${esc(p.label || String(p.number))}</span><span class="v skip">not marked</span><span class="why">${esc(p.why || "")}</span></li>`;
     const v = p.skipped ? ["skip", "skipped"] : p.correct ? ["yes", "right"] : ["no", "not yet"];
     const bad = (p.lines || []).find((l) => l.status === "invalid");
     const why = !p.correct && !p.skipped ? (bad ? `a line went wrong: ${esc(bad.text)}` : esc(p.misconception_text || "")) : "";

@@ -407,9 +407,12 @@ def _is_factored(e, any_degree: bool = False) -> bool:
         return False
     factors = [f for f in sp.Mul.make_args(e) if f.free_symbols]
     count = sum(int(f.exp) if isinstance(f, sp.Pow) and f.exp.is_Integer else 1 for f in factors)
+    bases = [f.base if isinstance(f, sp.Pow) else f for f in factors]
+    if not all(b.is_polynomial(*b.free_symbols) for b in bases):
+        return False  # a factor like (1 + 1/x) is not a factor of a polynomial
     if any_degree:
         return count >= 2 or (count == 1 and any(not f.free_symbols and f != 1 for f in sp.Mul.make_args(e)))
-    return count >= 2 and all(sp.degree(f.base if isinstance(f, sp.Pow) else f, X) <= 2 for f in factors)
+    return count >= 2 and all(sp.degree(b, X) <= 2 for b in bases)
 
 
 def _factored_completely(e) -> bool:
@@ -420,6 +423,8 @@ def _factored_completely(e) -> bool:
         base = sp.expand(base)
         if not base.free_symbols:
             continue
+        if not base.is_polynomial(*base.free_symbols):
+            return False
         poly = sp.Poly(base, *sorted(base.free_symbols, key=str))
         if not poly.is_irreducible:
             return False
