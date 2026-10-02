@@ -96,3 +96,50 @@ function fmtDate(iso) {
   const d = new Date(iso);
   return d.toLocaleDateString(undefined, { month: "long", day: "numeric" });
 }
+
+// ---------------------------------------------------------------- a spoken check-in
+// The child explains one problem out loud; the phone's own speech recognition turns it into words.
+// No audio is sent anywhere by this page: only the words, which the grown-up can correct first.
+function talkBox(el, want, name, send) {
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  el.innerHTML = `<div class="talk">
+    <div class="kick">One more thing · about 15 seconds</div>
+    <p class="talk-how">${esc(want.how)}</p>
+    ${SR ? `<button class="btn primary" type="button" data-rec>Listen</button>` : ""}
+    <label class="field"><span>${SR ? "What was said (fix anything misheard)" : `What ${esc(name)} said, in a sentence or two`}</span>
+      <textarea data-said rows="3"></textarea></label>
+    <div class="row"><button class="btn" type="button" data-send>Send</button><button class="linkish" type="button" data-skip>Not now</button></div>
+    <p class="caption">${SR ? "Your phone turns the words into text; no recording is kept or sent." : ""} This is never graded. It helps the next pages fit.</p>
+    <p class="small" data-msg role="status"></p></div>`;
+  const said = el.querySelector("[data-said]"), m = el.querySelector("[data-msg]");
+  let rec = null, base = "";
+  const stop = () => { if (rec) { rec.stop(); rec = null; } const b = el.querySelector("[data-rec]"); if (b) b.textContent = "Listen again"; };
+  const recBtn = el.querySelector("[data-rec]");
+  if (recBtn) recBtn.onclick = () => {
+    if (rec) return stop();
+    rec = new SR();
+    rec.lang = navigator.language || "en-US"; rec.interimResults = true; rec.continuous = true;
+    base = said.value ? said.value + " " : "";
+    rec.onresult = (e) => { let t = ""; for (const r of e.results) t += r[0].transcript; said.value = base + t; };
+    rec.onerror = (e) => { m.textContent = e.error === "not-allowed" ? "The microphone is off for this page; type what was said instead." : ""; stop(); };
+    rec.onend = () => { rec = null; if (recBtn) recBtn.textContent = "Listen again"; };
+    rec.start();
+    recBtn.textContent = "Done listening";
+    setTimeout(stop, 30000);
+  };
+  el.querySelector("[data-skip]").onclick = () => { stop(); el.innerHTML = ""; };
+  el.querySelector("[data-send]").onclick = async () => {
+    stop();
+    m.textContent = "Listening to what was said…";
+    try {
+      const r = await send(said.value);
+      el.innerHTML = spokeHtml(r, name);
+    } catch (e) { m.textContent = e.message; m.className = "small err"; }
+  };
+}
+
+function spokeHtml(c, name) {
+  if (!c) return "";
+  return `<div class="talk said"><div class="kick">${esc(name)} explained number ${c.number}</div>
+    ${c.quote ? `<p class="quote">“${esc(c.quote)}”</p>` : ""}<p>${esc(c.note)}</p></div>`;
+}

@@ -199,6 +199,21 @@
   #body
 ]
 
+// The next part of the child's own story, under the heading of a set of pages (no math in it).
+#let story(head, title, body, aloud: false) = block(width: 100%, below: 1.3em, inset: (x: 14pt, y: 11pt),
+  fill: rgb("#f7f2e6"), stroke: (top: 0.8pt + spot, bottom: 0.8pt + spot))[
+  #set par(justify: false, leading: 0.68em)
+  #text(font: sans, size: 7.5pt, weight: "bold", fill: spot, tracking: 0.12em, upper(head))
+  #if aloud [#h(1fr) #text(font: sans, size: 7.5pt, fill: luma(90), tracking: 0.08em)[READ IT TOGETHER]]
+  #v(-5pt)
+  #text(size: 14pt, style: "italic", weight: "bold", title)
+  #v(-3pt)
+  #set text(size: if aloud { 12.5pt } else { 11pt })
+  #body
+  #v(-2pt)
+  #align(right, text(font: sans, size: 7.5pt, style: "italic", fill: luma(90))[The story goes on in the next pages, once these are done.])
+]
+
 #let cover(kicker, title, subtitle, code, qr: none, scan-note: none) = block(width: 100%, below: 1.4em)[
   #set par(justify: false)
   #grid(columns: (1fr, auto), align: horizon, column-gutter: 14pt,

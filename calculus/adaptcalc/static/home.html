@@ -43,6 +43,10 @@ details.more summary { cursor: pointer; font-variant-caps: all-small-caps; lette
             <option value="2">2nd grade</option><option value="3">3rd grade</option><option value="4">4th grade</option>
             <option value="5">5th grade</option><option value="6">6th grade</option><option value="7">7th grade</option>
             <option value="8">8th grade</option><option value="9">9th grade or Algebra 1</option></select></label>
+          <label class="field"><span>What do they love? <span class="muted">(optional, for their story)</span></span><input type="text" id="lloves"
+            maxlength="200" autocomplete="off" placeholder="dinosaurs, our dog Biscuit, the ocean…"></label>
+        <label class="field"><span>Already using a math book? <span class="muted">(optional)</span></span><input type="text" id="lbook" maxlength="80"
+          autocomplete="off" placeholder="e.g. Saxon Math 5/4, Singapore 3A"></label>
           <div class="row"><button class="btn primary" type="submit">Start their book</button></div>
           <p id="addMsg" class="err" role="alert"></p>
         </form>
@@ -139,7 +143,7 @@ $("#add").onsubmit = async (e) => {
   e.preventDefault(); $("#addMsg").textContent = "";
   try {
     if (!$("#lgrade").value) throw new Error("Choose the grade they’re in.");
-    const r = await api("/api/learners", { method: "POST", json: { name: $("#lname").value, grade: $("#lgrade").value } });
+    const r = await api("/api/learners", { method: "POST", json: { name: $("#lname").value, grade: $("#lgrade").value, loves: $("#lloves").value, book: $("#lbook").value } });
     location.href = `/learn/${r.id}`;
   } catch (err) { $("#addMsg").textContent = err.message; }
 };

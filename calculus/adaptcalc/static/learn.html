@@ -184,6 +184,7 @@ dialog.zoom { max-width: 1100px; padding: 10px; }
   <div class="after" id="after"></div>
 </div>
 <input type="file" id="photoInput" accept="image/*" multiple class="hidden" aria-label="Photos of the pages">
+<input type="file" id="outsideInput" accept="image/*" multiple class="hidden" aria-label="Photos of pages from your own book">
 <dialog id="askDlg">
   <form method="dialog" id="askForm">
     <div class="kicker" id="askWhat">Ask about this</div>
@@ -233,15 +234,23 @@ function renderNow() {
     more.push(`<span>${esc(o.about.charAt(0).toUpperCase() + o.about.slice(1))}</span>`,
       `<a class="linkish" href="${o.key}" target="_blank" rel="noopener">answer key</a>`,
       `<button class="linkish" id="doneBtn">${who} is finished with these</button>`);
+  } else if (n.book && n.book.main === "own") {
+    const bk = n.book.title ? `<i>${esc(n.book.title)}</i>` : `${who}’s own book`;
+    say = `Send in ${who}’s work from ${bk}.`;
+    sub = `Photograph any page ${who} has worked on. Every answer is checked, marked in ${who}’s book and counted in the records. When something looks shaky, a short refresher comes from us.`;
+    acts = `<button class="btn primary" id="outsideBtn">Check a page</button>`;
   } else {
     say = `Ready for more?`;
     sub = `${who}’s next pages are made from everything checked so far.`;
     acts = `<button class="btn primary" id="makeBtn">Make ${who}’s next pages</button>`;
   }
+  if (!busy && n.access && !(n.book && n.book.main === "own" && !n.open))
+    more.push(`<button class="linkish" id="outsideBtn2">check a page from ${n.book && n.book.title ? esc(n.book.title) : "another book"}</button>`);
   let result = "";
   if (n.last && !busy) {
     const l = n.last;
-    result = `<div class="result">Last pages: <b>${l.right} of ${l.checked} right</b>${l.skipped ? `, ${l.skipped} skipped` : ""}. The notes are in ${who}’s book, after those pages. <button class="linkish" id="seeNotes">See them</button></div>`;
+    result = `<div class="result">Last pages: <b>${l.right} of ${l.checked} right</b>${l.skipped ? `, ${l.skipped} skipped` : ""}. The notes are in ${who}’s book, after those pages. <button class="linkish" id="seeNotes">See them</button>
+      ${n.checkin ? `<br><button class="linkish" id="talkBtn">Ask ${who} to explain number ${n.checkin.number} out loud (15 seconds)</button>` : ""}<div id="nowTalk"></div></div>`;
   }
   let guide = "";
   if (n.open && n.open.note && !busy && n.access) {
@@ -251,10 +260,53 @@ function renderNow() {
       ${g.watch.length ? `<p><b>What to watch for.</b></p><ul>${g.watch.map((w) => `<li>${w.seen ? `<span class="seen">${esc(NAME())} did this last time:</span> ` : ""}${esc(w.text)}</li>`).join("")}</ul>` : ""}
       <p class="caption">The answer key is there if you want to check as you go; the book checks every line anyway.</p></details>`;
   }
+  let tale = "";
+  if (n.story && !busy && n.access) {
+    const st = n.story, part = n.open && n.open.story;
+    const line = !st.on ? `Stories are off for ${who}.`
+      : part ? `These pages open with part ${part.n} of <i>${esc(st.title || "")}</i>: “${esc(part.title)}.”`
+      : st.title ? `${who}’s story, <i>${esc(st.title)}</i>, goes on with the next pages.` : `${who}’s next pages will open with a story ${who} is in.`;
+    tale = `<details class="guide" id="tale"><summary>The story <span class="caption">· ${st.on ? "on" : "off"}</span></summary>
+      <p>${line} There are no numbers in the story; it gives ${who} a reason to do the pages, and the math stays on the page.</p>
+      <form id="taleForm"><label class="field"><span>What ${who} loves</span><input type="text" id="taleLoves" maxlength="200" value="${esc(st.loves || "")}"
+        placeholder="dinosaurs, our dog Biscuit, the ocean…"></label>
+      <div class="row"><button class="btn" type="submit">Save</button><button class="linkish" type="button" id="taleToggle">${st.on ? "Turn stories off" : "Turn stories on"}</button></div>
+      <p class="caption">Changes shape the parts still to come.</p></form></details>`;
+  }
+  let books = "";
+  if (n.book && !busy && n.access) {
+    const own = n.book.main === "own";
+    books = `<details class="guide" id="bookSet"><summary>${who}’s book <span class="caption">· ${own ? esc(n.book.title || "their own") : "ours"}</span></summary>
+      <p>${own ? `${who} works from ${n.book.title ? `<i>${esc(n.book.title)}</i>` : "a book you already have"}. Send photos of the pages ${who} does; we check them, keep the records, and send a short refresher only when the work shows something shaky.`
+        : `We send ${who}’s pages. If ${who} already works from another book, choose it here: we’ll check pages from it instead of sending lessons, and fill only the gaps.`}</p>
+      <form id="bookForm"><label class="field"><span>The book ${who} already uses (leave empty for ours)</span><input type="text" id="bookTitle" maxlength="80"
+        value="${esc(n.book.title || "")}" placeholder="e.g. Saxon Math 5/4, Singapore 3A, Beast Academy"></label>
+      <div class="row"><button class="btn" type="submit">Save</button></div></form></details>`;
+  }
   $("#now").className = `now${busy ? " busy" : ""}`;
   $("#now").innerHTML = `<div><div class="say">${say}</div><div class="sub">${sub}</div></div>
-    ${acts ? `<div class="acts">${acts}</div>` : ""}${result}${guide}${more.length ? `<div class="more">${more.join("")}</div>` : ""}
+    ${acts ? `<div class="acts">${acts}</div>` : ""}${result}${guide}${tale}${books}${more.length ? `<div class="more">${more.join("")}</div>` : ""}
     <p class="small" id="nowMsg" role="status" style="grid-column:1/-1;margin:0"></p>`;
+  if ($("#taleForm")) {
+    const save = async (body) => { try { mine.now.story = await api(`/api/l/${LID}/story`, { method: "POST", json: body }); renderNow(); $("#tale").open = true; msg("Saved."); } catch (e) { msg(e.message, true); } };
+    $("#taleForm").onsubmit = (e) => { e.preventDefault(); save({ loves: $("#taleLoves").value }); };
+    $("#taleToggle").onclick = () => save({ on: !mine.now.story.on });
+  }
+  if ($("#talkBtn")) $("#talkBtn").onclick = () => {
+    $("#talkBtn").remove();
+    talkBox($("#nowTalk"), n.checkin, NAME(), async (said) => {
+      const r = await api(`/api/l/${LID}/checkin`, { method: "POST", json: { packet: n.checkin.packet, said } });
+      n.checkin = null;  // asked and answered; the book shows it with the notes on those pages
+      return r;
+    });
+  };
+  for (const id of ["#outsideBtn", "#outsideBtn2"]) if ($(id)) $(id).onclick = () => $("#outsideInput").click();
+  if ($("#bookForm")) $("#bookForm").onsubmit = async (e) => {
+    e.preventDefault();
+    const t = $("#bookTitle").value.trim();
+    try { mine.now.book = await api(`/api/l/${LID}/book`, { method: "POST", json: { main: t ? "own" : "ours", book: t } }); renderNow(); msg("Saved."); }
+    catch (err) { msg(err.message, true); }
+  };
   if ($("#addPhotos")) $("#addPhotos").onclick = () => $("#photoInput").click();
   if ($("#makeBtn")) $("#makeBtn").onclick = () => act_(`/api/l/${LID}/make`);
   if ($("#doneBtn")) $("#doneBtn").onclick = () => { if (confirm(`Make ${NAME()}’s next pages now? Anything not sent in stays unchecked.`)) act_(`/api/l/${LID}/done`); };
@@ -294,6 +346,25 @@ $("#photoInput").onchange = async () => {
   if (done) { const i = lastReturned(); if (i) { setMode("mine"); goTo(i); } }
 };
 
+// pages from the family's own book: checked the same way, no set of pages needed
+$("#outsideInput").onchange = async () => {
+  const files = [...$("#outsideInput").files];
+  let done = 0;
+  for (const f of files) {
+    msg(`Sending ${f.name}…`);
+    const fd = new FormData(); fd.append("photo", f);
+    try {
+      const { job } = await api(`/api/l/${LID}/outside`, { method: "POST", body: fd });
+      await loadMine(false);
+      await runJob(job, null);
+      done++;
+    } catch (e) { msg(`${f.name}: ${e.message}`, true); }
+  }
+  $("#outsideInput").value = "";
+  await loadMine(true);
+  if (done) { const i = lastReturned(); if (i) { setMode("mine"); goTo(i); } }
+};
+
 // ---------------------------------------------------------------- pages
 function noteHtml(p) {
   // a margin note for one problem that needs another look: where it went wrong, never the answer itself
@@ -302,7 +373,8 @@ function noteHtml(p) {
   if (bad >= 0) h += `<div class="line">Line ${bad + 1}, <span class="tx">${esc(p.lines[bad].text)}</span>: ${esc(p.lines[bad].note && p.lines[bad].note !== "solution set changed" ? p.lines[bad].note : "this doesn’t follow from the line before")}</div>`;
   else if (!p.skipped && p.final_answer) h += `<div class="line">The answer written, <span class="tx">${esc(p.final_answer)}</span>, isn’t right yet.</div>`;
   if (p.misconception_text) h += `<div class="shows">What the work shows: ${esc(p.misconception_text)}</div>`;
-  if (p.problem_id && !p.skipped) h += `<button class="linkish ask" data-ask="${esc(p.problem_id)}" data-n="${p.number}">ask the book about this</button>`;
+  if (!p.counted && p.outside) h += `<div class="shows">On a topic this course doesn’t cover yet: marked, not counted.</div>`;
+  if (p.problem_id && !p.skipped && !p.outside) h += `<button class="linkish ask" data-ask="${esc(p.problem_id)}" data-n="${p.number}">ask the book about this</button>`;
   return h + `</div>`;
 }
 function leafHtml(i) {
@@ -354,12 +426,17 @@ function leafHtml(i) {
     const r = L.report, g = (r.problems || []).filter((p) => p.status === "graded");
     const right = g.filter((p) => p.correct), again = g.filter((p) => !p.correct);
     const praise = !again.length ? "Every one right." : right.length >= again.length ? "Good work." : "A few to look at again.";
-    return `<div class="hp returned"><div class="kick">The notes · ${esc(NAME())}’s pages ${esc(r.packet)}</div>
+    const unsure = (r.problems || []).filter((p) => p.status === "not checked");
+    const from = r.outside ? `from ${r.book ? esc(r.book) : `${esc(NAME())}’s own book`}` : `${esc(NAME())}’s pages ${esc(r.packet)}`;
+    const left = unsure.length ? `<p class="small" style="color:#5d5547">Not marked: ${unsure.map((p) => esc(p.label || String(p.number))).join(", ")}. We couldn’t be certain of ${unsure.length > 1 ? "those answers" : "that answer"}, so ${unsure.length > 1 ? "they aren’t" : "it isn’t"} counted.</p>` : "";
+    return `<div class="hp returned"><div class="kick">The notes · ${from}</div>
       <h3>${right.length} of ${g.length} right. ${praise}</h3>
       ${r.photo_url ? `<div class="photo"><img src="${r.photo_url}" alt="The page as photographed" data-zoom="${r.photo_url}"><div class="cap">the page as sent</div></div>` : ""}
       ${right.length ? `<div class="m-note hand">✓ ${right.map((p) => p.number).join(", ")}: right${right.length > 1 ? ", all of them" : ""}.</div>` : ""}
       ${again.map(noteHtml).join("")}
-      ${again.length ? `<p class="small" style="color:#5d5547;margin-top:10px">The next pages bring these ideas back, in a different way.</p>` : ""}
+      ${again.length ? `<p class="small" style="color:#5d5547;margin-top:10px">${r.outside && mine.now.book && mine.now.book.main === "own" ? "If these are still shaky, a short refresher on them comes next." : "The next pages bring these ideas back, in a different way."}</p>` : ""}
+      ${left}
+      ${L.spoke ? spokeHtml(L.spoke, NAME()) : ""}
     </div>${today}`;
   }
   return null;

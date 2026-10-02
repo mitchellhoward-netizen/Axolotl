@@ -34,7 +34,7 @@ from pathlib import Path
 from fastapi import FastAPI, File, HTTPException, Request, UploadFile
 from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, RedirectResponse, Response
 
-from . import accounts, billing, diagnostic, extract, flow, mailer, packets, paths, pipeline, records, source, transcribe, volume
+from . import accounts, billing, checkin, diagnostic, extract, flow, mailer, outside, packets, paths, pipeline, records, source, story, transcribe, volume
 from .learner import LearnerDB, config
 
 STATIC = Path(__file__).resolve().parent / "static"
@@ -333,6 +333,7 @@ async def signup(request: Request):
     if child and grade in flow.GRADE:  # the one-step sign-up: the child's first pages start right away
         course, start = flow.GRADE[grade]
         lid = a.add_learner(fid, child, course, start)
+        set_loves(lid, course, b.get("loves"), b.get("book"))
         kick(a, fam, a.learner(fid, lid), base_url(request))
     else:
         in_background(mailer.welcome, fam["email"], fam["name"], base_url(request))
@@ -478,9 +479,22 @@ async def add_learner(request: Request):
         lid = a.add_learner(fam["id"], str(b.get("name", "")), course, start)
     except accounts.AuthError as e:
         raise HTTPException(400, str(e)) from e
+    set_loves(lid, course, b.get("loves"), b.get("book"))
     if b.get("make", True):
         kick(a, fam, a.learner(fam["id"], lid), base_url(request))
     return {"id": lid}
+
+
+def set_loves(lid: str, course: str, loves, book=None) -> None:
+    """What the child loves (for the story) and the book they already use, if any, from the sign-up."""
+    changes = {}
+    if loves and story.clean_loves(loves):
+        changes["loves"] = story.clean_loves(loves)
+    if book and " ".join(str(book).split()):
+        changes |= {"main": "own", "book": " ".join(str(book).split())[:80]}
+    if changes:
+        with paths.use_learner(accounts.learner_dir(lid), course):
+            story.save_profile(**changes)
 
 
 @app.delete("/api/learners/{lid}")
@@ -783,6 +797,56 @@ def upload_photo(lid: str, request: Request, photo: UploadFile = File(...)):
     return {"job": photo_job(a, fam, lr, _save_upload(photo), base_url(request), request.query_params.get("packet"))}
 
 
+@app.post("/api/l/{lid}/outside")
+def upload_outside(lid: str, request: Request, photo: UploadFile = File(...)):
+    """A page from the family's own book, with the child's work on it: checked and counted."""
+    a, fam, lr = require_learner(request, lid)
+    if not os.environ.get("ANTHROPIC_API_KEY"):
+        raise HTTPException(503, "Photo checking is not set up on this server yet.")
+    require_access(a, fam)
+    _limit(a, lid, "photos")
+    dest = _save_upload(photo)
+    base = base_url(request)
+    flow.set_activity(lid, "checking", "Reading the page")
+
+    def work(progress):
+        def say(stage):
+            progress(stage)
+            flow.set_activity(lid, "checking", stage)
+        d = db()
+        try:
+            rep = outside.check_page(d, dest, progress=say)
+        except transcribe.UnreadableImage as e:
+            raise HTTPException(415, f"{e}. Try exporting the photo as JPEG.") from e
+        finally:
+            flow.set_activity(lid, None)
+        out = public_report(rep)
+        if outside.own_book() and not any(p["status"] == "open" for p in d.packets()):
+            kick(acc(), fam, lr, base)  # a refresher only if the page showed something shaky
+        return out
+
+    return {"job": start_job(fam["id"], lid, lr["course"], "photo", work)}
+
+
+@app.post("/api/l/{lid}/book")
+async def which_book(lid: str, request: Request):
+    """Which book the child mainly works from: ours (we send the pages), or the family's own
+    (we check pages from it and only send short refreshers on what it shows is shaky)."""
+    require_learner(request, lid)
+    b = await request.json()
+    changes = {}
+    if b.get("main") in ("ours", "own"):
+        changes["main"] = b["main"]
+    if "book" in b:
+        changes["book"] = " ".join(str(b["book"] or "").split())[:80]
+    return book_state(story.save_profile(**changes))
+
+
+def book_state(prof: dict | None = None) -> dict:
+    prof = prof or story.profile()
+    return {"main": prof.get("main", "ours"), "title": prof.get("book", "")}
+
+
 @app.post("/api/l/{lid}/done")
 def pages_done(lid: str, request: Request):
     """'That's all for these pages': what wasn't sent in stays unchecked, and the next pages are made."""
@@ -828,7 +892,44 @@ def scan_state(lid: str, pid: str, sig: str):
     act = flow.activity(lid)
     return {"name": lr["name"], "packet": pid, "kind": pk["kind"], "status": pk["status"],
             "summary": flow.summary_of(d, pid), "activity": act,
-            "open": [p["id"] for p in d.packets() if p["status"] == "open"]}
+            "open": [p["id"] for p in d.packets() if p["status"] == "open"],
+            "checkin": checkin.pending(d, pid, lr["name"]), "checked_in": checkin.public(checkin.for_packet(pid))}
+
+
+@app.post("/api/s/{lid}/{pid}/{sig}/checkin")
+async def scan_checkin(lid: str, pid: str, sig: str, request: Request):
+    """What the child said about one problem, in words (the phone turned speech into text)."""
+    a, fam, lr = scan_scope(lid, pid, sig)
+    rate_limit(f"checkin:{lid}", 20, 3600)
+    return await _checkin(request, lr, pid)
+
+
+@app.post("/api/l/{lid}/checkin")
+async def book_checkin(lid: str, request: Request):
+    a, fam, lr = require_learner(request, lid)
+    rate_limit(f"checkin:{lid}", 20, 3600)
+    b = await request.json()
+    pid = str(b.get("packet", ""))
+    if not re.fullmatch(r"[LR]\d+", pid):
+        raise HTTPException(400, "Which pages?")
+    return await _checkin(request, lr, pid, b)
+
+
+async def _checkin(request: Request, lr: dict, pid: str, b: dict | None = None) -> dict:
+    b = b if b is not None else await request.json()
+    if not os.environ.get("ANTHROPIC_API_KEY"):
+        raise HTTPException(503, "Check-ins are not set up on this server yet.")
+    d = db()
+    want = checkin.pending(d, pid, lr["name"])
+    if not want:
+        done = checkin.for_packet(pid)
+        if done:
+            return checkin.public(done)
+        raise HTTPException(400, "There’s nothing to talk about on these pages yet.")
+    try:
+        return checkin.public(checkin.record(d, pid, want["number"], str(b.get("said", "")), lr["name"]))
+    except ValueError as e:
+        raise HTTPException(400, str(e)) from e
 
 
 @app.post("/api/s/{lid}/{pid}/{sig}/photos")
@@ -856,10 +957,12 @@ def public_report(rep: dict) -> dict:
     mis = {m["id"]: m["description"] for lst in extract.misconceptions().values() for m in lst}
     sk = extract.skills()
     out = {"photo": rep.get("photo"), "packet": rep.get("packet"), "at": rep.get("at"), "error": rep.get("error"),
-           "problems": []}
+           "outside": bool(rep.get("outside")), "book": rep.get("book") or "", "problems": []}
     lines_by_num = {p["number"]: p.get("lines", []) for p in (rep.get("transcript") or {}).get("problems", [])}
     for p in rep.get("problems", []):
-        e = {"number": p["number"], "status": p.get("status"), "problem_id": p.get("problem_id")}
+        e = {"number": p["number"], "status": p.get("status"), "problem_id": p.get("problem_id"), "label": p.get("label")}
+        if p.get("why"):
+            e["why"] = p["why"]
         if p.get("status") == "graded":
             dec, c = p["decision"], p["stepcheck"]
             status_by_line = {x["line"]: x for x in c["lines"]}
@@ -867,7 +970,8 @@ def public_report(rep: dict) -> dict:
             e.update({
                 "correct": p["correct"], "credit": p["credit"], "skipped": c["skipped"],
                 "packet_kind": (d_pk.packet(rep.get("packet")) or {"kind": None})["kind"] if rep.get("packet") else None,
-                "prompt": prob["data"]["prompt"] if prob else None,
+                "prompt": prob["data"]["prompt"] if prob else p.get("statement"),
+                "outside": bool(rep.get("outside")), "counted": p.get("counted", True),
                 "final_answer": c["final_answer"], "final_note": c["final_note"],
                 "lines": [{"text": ln.get("text", ""), "crossed_out": ln.get("crossed_out"), "boxed": ln.get("boxed"),
                            "status": status_by_line.get(i, {}).get("status"), "note": status_by_line.get(i, {}).get("note", "")}
@@ -920,10 +1024,27 @@ def now_state(a: accounts.Accounts, fam: dict, lr: dict, d: LearnerDB) -> dict:
         out["open"] = {"packet": o["id"], "kind": o["kind"], "pdf": f"/l/{lid}/packets/{o['id']}.pdf",
                        "key": f"/l/{lid}/packets/{o['id']}-key.pdf", "summary": flow.summary_of(d, o["id"]),
                        "scan": flow.scan_url(a, base_url(), lid, o["id"]), "about": flow.describe(o["kind"]),
-                       "note": flow.teaching_note(d, o["id"], lr["name"])}
+                       "note": flow.teaching_note(d, o["id"], lr["name"]), "story": story.part_for(o["id"])}
     if last_done:
-        out["last"] = flow.summary_of(d, last_done["id"]) | {"kind": last_done["kind"]}
+        out["last"] = flow.summary_of(d, last_done["id"]) | {"kind": last_done["kind"], "packet": last_done["id"]}
+        out["checkin"] = checkin.pending(d, last_done["id"], lr["name"])
+    out["story"] = story.summary()
+    out["book"] = book_state()
     return out
+
+
+@app.post("/api/l/{lid}/story")
+async def story_settings(lid: str, request: Request):
+    """The story through the book: on or off, and what the child loves (it shapes the parts to come)."""
+    require_learner(request, lid)
+    b = await request.json()
+    changes = {}
+    if "on" in b:
+        changes["story"] = bool(b["on"])
+    if "loves" in b:
+        changes["loves"] = story.clean_loves(b["loves"])
+    story.save_profile(**changes)
+    return story.summary()
 
 
 @app.get("/api/l/{lid}/mybook")
@@ -937,7 +1058,7 @@ def mybook(lid: str, request: Request):
     today = None
     place = flow.placement()
     for p in d.packets():
-        if place and p["kind"] in ("lesson", "refresh") and not any(x["t"] == "placement" for x in leaves):
+        if place and p["kind"] in ("lesson", "refresh", "outside") and not any(x["t"] == "placement" for x in leaves):
             leaves.append({"t": "placement", "at": place["date"], **place})  # before the first lesson
         n = _page_count(p["pdf"])
         first = len(leaves)
@@ -975,6 +1096,11 @@ def mybook(lid: str, request: Request):
                 leaves.append({"t": "marked", "packet": p["id"], "src": f"/l/{lid}/packets/{p['id']}/page/{sheet}.webp",
                                "marks": marks})
             leaves.append({"t": "returned", "packet": p["id"], "report": pub, "at": rep.get("at") or ""})
+        spoke = checkin.public(checkin.for_packet(p["id"]))
+        if spoke:  # what the child said about these pages goes with the last notes on them
+            ret = next((x for x in reversed(leaves) if x["t"] == "returned" and x["packet"] == p["id"]), None)
+            if ret:
+                ret["spoke"] = spoke
         if p["status"] == "open" and n:
             today = first
     # a chapter finished: a page of its own, in the book where it happened, with a certificate to print

@@ -103,8 +103,18 @@ def next_pages(db: LearnerDB, progress=lambda s: None, use_jev: bool = True) -> 
             progress("Setting the pages")
             packets.render_diagnostic(db, pid)
             return {"packet": pid, "kind": "diagnostic"}
-    if not any(p["kind"] in ("lesson", "refresh") for p in db.packets()):
+    if not any(p["kind"] in ("lesson", "refresh") for p in db.packets()) and not placement():
         save_placement(db)  # the getting-to-know-you pages are done: where the child starts
+    from . import outside
+
+    if outside.own_book():
+        # the family's own book teaches; our pages only fill what its pages show is shaky
+        focus = outside.gaps(db)
+        if not focus:
+            return None
+        progress("Writing a short refresher on what the last pages showed")
+        r = packets.build_refresh(db, focus, log=db.log_jev, use_jev=use_jev, kind="refresh")
+        return {"packet": r["pid"], "kind": "refresh"}
     progress("Choosing what to teach next, and checking every line written for it")
     r = packets.next_lesson(db, log=db.log_jev, use_jev=use_jev)
     return {"packet": r["pid"], "kind": r["kind"]}
@@ -278,12 +288,17 @@ def advance(a: accounts.Accounts, fam: dict, lr: dict, base: str, progress=lambd
         a.use(lid, "packets", int(config().get("limits", {}).get("packets_per_day", 1000)))
     except accounts.AuthError:
         return {"skipped": "daily limit"}
+    from . import story
+
     token = render.SCAN_LINK.set(lambda pid: scan_url(a, base, lid, pid))
+    told = render.STORY.set(lambda pid, kind, about: (progress("Writing the next part of the story"),
+                                                      story.for_pages(pid, kind, about))[1])
     try:
         import os
 
         made = next_pages(db, progress, use_jev=bool(os.environ.get("TYPESAFE_API_KEY")))
     finally:
+        render.STORY.reset(told)
         render.SCAN_LINK.reset(token)
     if made and email and fam.get("email"):
         pk = db.packet(made["packet"])

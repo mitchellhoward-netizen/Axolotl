@@ -183,3 +183,10 @@ footer.colophon a { color: var(--ink-2); }
 .katex { font-size: 1.04em; }
 .hidden { display: none !important; }
 @media print { .masthead nav, .noprint { display: none !important; } body { background: #fff; } .leaf { box-shadow: none; border-color: #ccc; } }
+
+/* a spoken check-in */
+.talk { border: 1px solid var(--spot); background: var(--leaf); padding: 14px 16px; margin-top: 14px; border-radius: 3px; }
+.talk .kick { font-variant-caps: all-small-caps; letter-spacing: .1em; font-weight: 700; color: var(--spot); }
+.talk .talk-how { font-size: 17px; margin: 6px 0 10px; }
+.talk textarea { width: 100%; min-height: 70px; margin-top: 4px; }
+.talk.said .quote { font-family: "Caveat", var(--display); font-size: 24px; color: var(--spot); margin: 6px 0; }

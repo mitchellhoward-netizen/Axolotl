@@ -118,6 +118,25 @@ What comes along without being asked for:
   chapter, the pace and when the current chapter should be done, and samples of marked work.
   The daily log downloads as CSV, and the whole record prints as a portfolio PDF with a line to
   sign. The weekly email carries the same numbers and a link to it.
+- **A story the child is in** (`adaptcalc/story.py`): each set of pages opens with the next part
+  of a serialized story built from what the child loves (asked at sign-up, changeable in the
+  book). It frames the math and never carries it: a part with any numeral, number word or
+  operation is rejected and rewritten, so the problems stay the verified ones. Length and sentence
+  length follow the grade; the youngest are read to. On by default for K-7, off for Algebra 1.
+- **Work from the family's own book** (`adaptcalc/outside.py`): photograph any page the child
+  did in another curriculum. The page is read, each problem is solved from its statement alone
+  (never seeing the child's answer), and an answer is used only when SymPy computes the same
+  value or two independent solves agree; anything uncertain is left unmarked and uncounted. The
+  child's answers are step-checked and graded with the same checker as our pages, mapped to the
+  course's skills, and counted in the model and the records. When that book is the main book,
+  our pages become short refreshers on what its pages show is shaky. Nothing from the family's
+  book is copied into our pages.
+- **Spoken check-ins** (`adaptcalc/checkin.py`): after a set of lesson pages is checked, the
+  child explains one problem out loud (the one the model is least sure about). The phone's own
+  speech recognition turns it into words; no audio reaches the server. What was said is judged
+  as light evidence: understanding nudges a skill up but never carries it over the mastery line
+  alone, a misunderstanding brings a skill back for review but never takes a mastered skill
+  away, a sound explanation of a wrong answer reads as a slip, and "I don't know" changes nothing.
 
 ## The bound book (`adaptcalc/volume.py`, `typst/volume.typ`)
 

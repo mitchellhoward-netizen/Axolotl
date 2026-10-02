@@ -60,7 +60,8 @@ function head() {
   if (info.status !== "open") {
     $("#lede").innerHTML = `These pages are already checked: <b>${s.right} of ${s.checked} right</b>. ${info.open.length ? `${n}’s next pages are ready in the book.` : ""}`;
     $("#cam").classList.add("hidden");
-    $("#out").innerHTML = `<div class="card"><a class="btn primary" href="/learn/${LID}">Open ${n}’s book</a></div>`;
+    $("#out").innerHTML = `<div class="card"><a class="btn primary" href="/learn/${LID}">Open ${n}’s book</a><div id="talk"></div></div>`;
+    talkHere();
     return;
   }
   $("#lede").innerHTML = s.checked ? `${s.checked} of ${s.problems} problems checked so far. Send any pages not yet photographed.`
@@ -93,9 +94,18 @@ async function send(files) {
           <a class="btn primary" href="/learn/${LID}">Open ${esc(info.name)}’s book</a>`;
         $("#out").prepend(done);
         $("#cam").classList.add("hidden");
+        const t = document.createElement("div"); t.id = "talk"; done.appendChild(t);
+        info = await api(BASE);
+        talkHere();
       }
     } catch (e) { box.innerHTML = `<p class="err">${esc(e.message)}</p>`; }
   }
+}
+function talkHere() {
+  const el = $("#talk");
+  if (!el) return;
+  if (info.checked_in) { el.innerHTML = spokeHtml(info.checked_in, info.name); return; }
+  if (info.checkin) talkBox(el, info.checkin, info.name, (said) => api(`${BASE}/checkin`, { method: "POST", json: { said } }));
 }
 $("#photo").onchange = () => { const files = [...$("#photo").files]; $("#photo").value = ""; if (files.length) send(files); };
 api(BASE).then((r) => { info = r; head(); }).catch((e) => {

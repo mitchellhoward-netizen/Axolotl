@@ -25,6 +25,8 @@ from . import assets, cnxml, paths, source
 import contextvars
 
 SCAN_LINK: contextvars.ContextVar = contextvars.ContextVar("scan_link", default=None)
+# when set (the family flow): (pid, kind, what the pages practise) -> the story part printed under the heading
+STORY: contextvars.ContextVar = contextvars.ContextVar("story", default=None)
 
 
 def learner_name() -> str:
@@ -48,15 +50,19 @@ def qr_file(url: str) -> str:
     return "/" + str(f.relative_to(paths.ROOT))
 
 
-def cover_markup(kicker: str, title: str, subtitle: str, pid: str) -> str:
-    """The first-page heading of a set of pages, with the scan code when there is a scan link."""
+def cover_markup(kicker: str, title: str, subtitle: str, pid: str, kind: str = "lesson",
+                 about: list[str] | None = None) -> str:
+    """The first-page heading of a set of pages, with the scan code when there is a scan link,
+    and the next part of the child's story when there is one."""
     link = SCAN_LINK.get()
+    tell = STORY.get()
+    part = tell(pid, kind, about or []) if tell else ""
     base = f'#cover("{esc(kicker)}", "{esc(title)}", "{esc(subtitle)}", "{pid}"'
     if not link:
-        return base + ")\n"
+        return base + ")\n" + part
     who = learner_name() or "your child"
     note = f"When {who} is done, point your phone’s camera here to check the work."
-    return base + f', qr: "{qr_file(link(pid))}", scan-note: [#"{esc(note)}"])\n'
+    return base + f', qr: "{qr_file(link(pid))}", scan-note: [#"{esc(note)}"])\n' + part
 
 
 TEMPLATE_IMPORT = ('#import "/typst/textbook.typ": *\n#import "/typst/figures.typ": *\n'

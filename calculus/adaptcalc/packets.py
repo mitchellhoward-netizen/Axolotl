@@ -21,7 +21,8 @@ def render_diagnostic(db: LearnerDB, pid: str) -> dict:
     src = [render.doc_head(f"Pages {pid}", "Getting to know you", pid)]
     src.append(render.cover_markup(f"Getting to know you · {'first' if rnd == 1 else 'more'} pages",
                                    f"{who}’s first pages" if who and rnd == 1 else (f"More of {who}’s pages" if who else "Getting to know you"),
-                                   f"{n} questions. Try each one; if you haven’t learned it yet, write skip. That helps too.", pid))
+                                   f"{n} questions. Try each one; if you haven’t learned it yet, write skip. That helps too.", pid,
+                                   kind="diagnostic"))
     scan = render.SCAN_LINK.get() is not None
     src.append("#instructions[#list("
                + ("" if scan else "[Write the code #strong[" + pid + "] at the top of every page you photograph.], ")
@@ -574,7 +575,7 @@ def build_refresh(db: LearnerDB, focus: list[str], log=None, jev_client=None, us
     src = [render.doc_head(f"{title} {pid}", title, pid, attribution, kicker=kicker)]
     who = render.learner_name()
     src.append(render.cover_markup(f"{who}’s pages · {title.lower()}" if who else f"{title} · {pid}",
-                                   "; ".join(names), f"From {source_title}", pid))
+                                   "; ".join(names), f"From {source_title}", pid, kind=kind, about=names))
     roadmap = use(snippets[0])
     if roadmap:
         src.append(roadmap)
