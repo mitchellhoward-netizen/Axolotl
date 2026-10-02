@@ -50,6 +50,8 @@ def parse(s: str):
     if s is None:
         raise ValueError("empty")
     t = mixed_text(s)
+    if re.fullmatch(r"\s*[-−]?\d{1,3}(,\d{3})+(\.\d+)?\s*", t):  # 7,831: a thousands separator, not a list
+        t = t.replace(",", "")
     m = re.fullmatch(MIXED, t)
     if m:  # a mixed number: 3 2/5
         sign = -1 if m.group(1) else 1
@@ -285,6 +287,9 @@ def _grade(key: dict, student: str | None) -> tuple[bool, str]:
                 return False, "equal, but the fraction is not in lowest terms"
             if ok and form == "mixed_number" and not re.fullmatch(MIXED, mixed_text(student)):
                 return False, "equal, but not written as a mixed number"
+            if ok and form == "computed" and not re.fullmatch(
+                    r"\s*[-−]?(\d[\d,]*(\.\d+)?|\d+\s*/\s*\d+|\d+\s+\d+\s*/\s*\d+|\.\d+)\s*", re.sub(r"^\s*[a-zA-Z]\s*=\s*", "", student)):
+                return False, "equal, but not worked out to a single number"
             if ok and form == "prime_factorization" and not _prime_product(student):
                 return False, "equal, but not written as a product of primes"
             return ok, f"the answer is {show(key)}"
@@ -345,6 +350,8 @@ def _grade(key: dict, student: str | None) -> tuple[bool, str]:
             if form == "single_power" and not (stu == X or (isinstance(stu, sp.Pow) and stu.base == X)
                                                 or (isinstance(stu, sp.Pow) and stu.base == X ** -1)):
                 return False, "equivalent but not written as a single power of x"
+            if form == "simplest" and sp.count_ops(student_raw_expr(student)) > key.get("ops", 0) + 1:
+                return False, "equivalent, but not simplified as far as it goes"
             if form == "expanded" and sp.expand(stu) != stu:
                 return False, "equivalent but not multiplied out"
             if form == "simplified_radical" and not _radical_simplified(student_raw_expr(student)):

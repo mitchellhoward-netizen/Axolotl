@@ -101,7 +101,8 @@ def attribution_line(book: str) -> str:
         return f"{b.title}. Written for Marginalia; all rights reserved."
     return (f"Adapted from {b.title} by {b.authors}, OpenStax, {b.license} "
             f"({b.license_url.replace('http://', 'https://')}). Access for free at {book_url(book)}. "
-            f"Excerpted, reordered and interleaved with generated practice.")
+            f"Excerpted and reordered for each learner; practice is the book's own exercises, with generated "
+            f"problems only where the book's answers can't be checked.")
 
 
 ATTRIBUTION = " ".join(attribution_line(b) for b in ("calc1", "at2e", "pa2e"))

@@ -30,14 +30,12 @@
           <option value="2">2nd grade</option><option value="3">3rd grade</option><option value="4">4th grade</option>
           <option value="5">5th grade</option><option value="6">6th grade</option><option value="7">7th grade</option>
           <option value="8">8th grade</option><option value="9">9th grade or Algebra 1</option></select></label>
-        <label class="field"><span>What do they love? <span class="muted">(optional)</span></span><input type="text" id="loves" maxlength="200"
-          autocomplete="off" placeholder="dinosaurs, our dog Biscuit, the ocean…"></label>
+        
         <label class="field"><span>Already using a math book? <span class="muted">(optional)</span></span><input type="text" id="book" maxlength="80"
           autocomplete="off" placeholder="e.g. Saxon Math 5/4, Singapore 3A"></label>
         <p class="caption">Keep the book you have: photograph the pages your child does in it, and every answer is checked and kept in the records. We send only short refreshers when something is shaky.</p>
-        <p class="caption">Their pages open with the next part of a story they’re in, built from what they love. There are no numbers in the story; the math stays on the page.</p>
-        <p class="caption">That’s all we need. The first pages start being written the moment you finish, and a short set of
-          questions finds exactly where your child is. More children can be added later.</p>
+        
+        <p class="caption">That’s all we need. A few questions find where your child is in the book; then the lessons start.</p>
         <label class="field"><span>Access code</span><input type="text" id="code" autocomplete="off" spellcheck="false" style="text-transform:uppercase"></label>
         <p class="caption">Use at least 10 characters for the password. By creating an account you agree to the <a href="/terms">terms</a>
           and confirm you have read the <a href="/privacy">privacy notice</a>.</p>
@@ -72,7 +70,7 @@ $("#form").onsubmit = async (e) => {
     const body = { email: $("#email").value, password: $("#password").value };
     if (signup) {
       if (!$("#child").value.trim() || !$("#grade").value) throw new Error("Add your child’s first name and grade.");
-      Object.assign(body, { name: $("#name").value, code: $("#code").value, child: $("#child").value, grade: $("#grade").value, loves: $("#loves").value, book: $("#book").value });
+      Object.assign(body, { name: $("#name").value, code: $("#code").value, child: $("#child").value, grade: $("#grade").value, book: $("#book").value });
     }
     const r = await api(signup ? "/api/auth/signup" : "/api/auth/signin", { method: "POST", json: body });
     location.href = r.learner ? `/learn/${r.learner}` : "/home";

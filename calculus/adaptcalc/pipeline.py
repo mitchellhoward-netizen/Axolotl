@@ -44,8 +44,8 @@ def credit_from(check: dict, decision: dict, strategies: dict) -> float:
     if decision["attempts"] > 1:
         c *= pol["restart_credit"]
     c *= pol["substeps_floor"] + (1 - pol["substeps_floor"]) * decision["substeps_written_fraction"]
-    target = next(iter(strategies))
-    if decision["strategy"] not in (target, "unsure"):
+    target = next(iter(strategies), None)
+    if target and decision["strategy"] not in (target, "unsure"):
         c *= pol["off_strategy_credit"]
     if not check["all_steps_valid"]:
         c *= pol["invalid_step_credit"]

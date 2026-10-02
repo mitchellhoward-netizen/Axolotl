@@ -92,11 +92,13 @@ def test_no_story_when_it_fails_or_is_off(client, monkeypatch):
         assert story.for_pages("D9", "diagnostic", []) == ""
 
 
-def test_stories_are_on_by_default_for_younger_children_only(client):
-    kid(client)
-    with paths.use_learner(paths.LEARNERS / "x", "algebra1"):
+def test_stories_are_off_unless_the_family_chooses_them(client):
+    kid(client)  # gave what the child loves: stories on
+    with paths.use_learner(paths.LEARNERS / "x", "elementary"):
         (paths.LEARNERS / "x").mkdir(parents=True, exist_ok=True)
-        story.save_profile(name="Sam", course="algebra1", start="partway")
-        assert not story.enabled() and story.level()["voice"].startswith("for a teenager")
+        story.save_profile(name="Sam", course="elementary", start="g3")
+        assert not story.enabled()  # the textbook is the content; a story is a choice
         story.save_profile(story=True)
         assert story.enabled()
+        story.save_profile(course="algebra1", start="partway")
+        assert story.level()["voice"].startswith("for a teenager")

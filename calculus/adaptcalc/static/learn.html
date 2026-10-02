@@ -30,6 +30,10 @@
 .now .guide ul { margin: 4px 0 8px; padding-left: 1.2em; }
 .now .guide .seen { color: var(--brick); font-style: italic; }
 .now .stage { color: var(--ink-3); font-style: italic; }
+.now .where { margin: 10px 0 0; font-size: 16px; color: var(--ink-2); max-width: 46em; }
+.now .where b { color: var(--ink); font-weight: 600; }
+.contents .sec.known { color: var(--ink-3); }
+.contents .sec.next .m { color: var(--spot); }
 .now .steps { margin: 14px 0 0; padding-left: 1.4em; font-size: 18px; line-height: 1.5; max-width: 44em; }
 .now .steps li { margin: 4px 0; padding-left: 4px; }
 .now .steps li::marker { font-family: var(--display); color: var(--spot); font-weight: 600; }
@@ -164,7 +168,7 @@ dialog.zoom { max-width: 1100px; padding: 10px; }
 <body>
 <header class="masthead">
   <a class="brand" href="/home"><span class="orn">❦</span>Marginalia</a>
-  <nav><span id="kids"></span><a id="reportLink" href="#">Records</a><a href="/home#account">Account</a><button class="linkish" onclick="toggleTheme()">Light / dark</button><button class="linkish" onclick="signOut()">Sign out</button></nav>
+  <nav><span id="kids"></span><a id="reportLink" href="#">Records</a><a href="/home#account">Account</a><button class="linkish wide-only" onclick="toggleTheme()">Light / dark</button><button class="linkish" onclick="signOut()">Sign out</button></nav>
   <div class="rule"></div>
 </header>
 <div class="shell">
@@ -227,11 +231,11 @@ function renderNow() {
   if (act && act.kind === "making") {
     busy = true;
     say = mine.leaves.some((l) => l.t === "img") ? `Writing ${whose} next pages…` : `Writing ${whose} first pages…`;
-    sub = `<span class="stage">${esc(act.stage || "")}</span> About a minute. They’ll appear here and arrive by email.`;
+    sub = `<span class="stage">${esc(act.stage || "Getting ready")}.</span> About a minute. They’ll appear here and arrive by email.`;
   } else if (act && act.kind === "checking") {
     busy = true;
     say = `Checking ${whose} work…`;
-    sub = `<span class="stage">${esc(act.stage || "")}</span> Every line is checked. The marks appear in the book below.`;
+    sub = `<span class="stage">${esc(act.stage || "Reading the page")}.</span> Every line is checked. The marks appear in the book below.`;
   } else if (!n.access) {
     say = `Keep ${whose} book going.`;
     sub = "Start the subscription to make new pages and check work. Everything already made stays here.";
@@ -247,13 +251,22 @@ function renderNow() {
       say = o.first_round ? `First, a few questions to find where to start.` : `A few more questions to find where to start.`;
       sub = `This isn’t a test. Answer what ${who} can and write “skip” for anything not learned yet: skipping is useful too. Lessons start as soon as these are in.`;
     } else {
-      say = title ? `${Whose} next lesson: ${title}.` : `${Whose} next lesson is ready.`;
+      const R0 = mine.route, sec = R0 && R0.here && (R0.here.status === "now") ? R0.here : null;
+      say = sec ? `${Whose} next lesson: Section ${esc(sec.section)}, ${esc(sec.title)}.` : `${Whose} next lesson is ready.`;
       sub = `About ${o.note ? o.note.minutes : 20} minutes, on paper.`;
     }
     steps = [`<b>Print</b> the pages.`];
+    const exs = o.exercises || [];
+    const bySec = {};
+    for (const e of exs) (bySec[e.section] = bySec[e.section] || []).push(e.number);
+    const secs = Object.keys(bySec), mainSec = secs.sort((a, b) => bySec[b].length - bySec[a].length)[0];
+    const list = (a) => a.sort((x, y) => x - y).join(", ");
+    const others = secs.filter((x) => x !== mainSec);
+    const exText = exs.length ? `: the book’s Exercises ${list(bySec[mainSec])} from Section ${esc(mainSec)}`
+      + (others.length ? `, and review Exercises ${others.map((x) => `${list(bySec[x])} (${esc(x)})`).join(", ")}` : "") : "";
     if (!diag && plan.work_from > 1) {
-      steps.push(`<b>Read ${range(1, plan.work_from - 1)}.</b> That’s the lesson: what the idea is and worked examples, step by step.`);
-      steps.push(`<b>Do the practice on ${range(plan.work_from, plan.pages)}</b>, right on the paper. Write each step; box each answer.`);
+      steps.push(`<b>Read ${range(1, plan.work_from - 1)}.</b> That’s the textbook’s own lesson: the idea, worked examples and Try Its.`);
+      steps.push(`<b>Do the practice on ${range(plan.work_from, plan.pages)}</b>${exText}. Work right on the paper; write each step and box each answer.`);
     } else {
       steps.push(`<b>${diag ? "Answer the questions" : "Do the problems"}</b> on the paper. Write each step; box each answer${diag ? "; write “skip” when it’s new" : ""}.`);
     }
@@ -309,8 +322,17 @@ function renderNow() {
     more = `<details class="guide" id="moreBox"><summary>More</summary>
       ${extras.length ? `<div class="more">${extras.join("")}</div>` : ""}${parts.join("")}</details>`;
   }
+  let where = "";
+  const R = mine.route;
+  if (R && R.here && !busy && n.access && !(n.open && n.open.kind === "diagnostic")) {
+    const c = R.counts, book = R.books[R.here.book] || "the book";
+    const left = c.now + c.next + c.later;
+    where = `<p class="where">${R.here.status === "now" ? `In <i>${esc(book)}</i>.` : `In <i>${esc(book)}</i>, next: <b>Section ${esc(R.here.section)}, ${esc(R.here.title)}</b>.`}
+      ${c.known ? `${c.known} section${c.known > 1 ? "s" : ""} already known and skipped · ` : ""}${c.done ? `${c.done} learned here · ` : ""}${left} to go.
+      <button class="linkish" id="routeBtn">See the whole route</button></p>`;
+  }
   $("#now").className = `now${busy ? " busy" : ""}`;
-  $("#now").innerHTML = `<div><div class="say">${say}</div><div class="sub">${sub}</div>
+  $("#now").innerHTML = `<div><div class="say">${say}</div><div class="sub">${sub}</div>${where}
       ${steps.length ? `<ol class="steps">${steps.map((x) => `<li>${x}</li>`).join("")}</ol>` : ""}</div>
     ${acts ? `<div class="acts">${acts}</div>` : ""}${result}${more}
     <p class="small" id="nowMsg" role="status" style="grid-column:1/-1;margin:0"></p>`;
@@ -334,6 +356,7 @@ function renderNow() {
     try { mine.now.book = await api(`/api/l/${LID}/book`, { method: "POST", json: { main: t ? "own" : "ours", book: t } }); renderNow(); msg("Saved."); }
     catch (err) { msg(err.message, true); }
   };
+  if ($("#routeBtn")) $("#routeBtn").onclick = () => { setMode("text"); const go = () => (text ? toggleContents(true) : setTimeout(go, 400)); go(); };
   if ($("#addPhotos")) $("#addPhotos").onclick = () => $("#photoInput").click();
   if ($("#makeBtn")) $("#makeBtn").onclick = () => act_(`/api/l/${LID}/make`);
   if ($("#startBtn")) $("#startBtn").onclick = () => { if (confirm("Stop the placement questions and start with the first lesson? Anything already answered still counts.")) act_(`/api/l/${LID}/start-lessons`); };
@@ -485,7 +508,9 @@ function draw() {
   else { fill($("#pgL"), sp[0], "left"); fill($("#pgR"), sp[1], "right"); }
   const shown = sp.filter((n) => n >= 1 && n <= count());
   const what = mode === "text" ? (sectionAt(shown[shown.length - 1]) || "") : "";
-  $("#folio").textContent = `${shown.length > 1 ? `pages ${shown[0]}–${shown[1]}` : `page ${shown[0] || 1}`} of ${count()}${what ? ` · ${what}` : ""}`;
+  $("#folio").textContent = single() && window.matchMedia("(max-width: 640px)").matches
+    ? `${shown[0] || 1} / ${count()}`
+    : `${shown.length > 1 ? `pages ${shown[0]}–${shown[1]}` : `page ${shown[0] || 1}`} of ${count()}${what ? ` · ${what}` : ""}`;
   $("#prevBtn").disabled = Math.min(...shown) <= 1;
   $("#nextBtn").disabled = Math.max(...shown) >= count();
   $("#todayBtn").textContent = mode === "text" ? (text && text.bookmark ? "Where the lesson is" : "Contents") : "Today’s page";
@@ -545,11 +570,11 @@ function renderContents() {
       if (L.t === "milestone") h += `<button class="sec here" data-go="${i + 1}"><span class="m">✦</span><span class="n"></span><span>${esc(L.chapter)} complete</span><span class="p">${i + 1}</span></button>`;
     });
   } else if (text) {
-    const MARK = { learned: "✓", here: "❧", begun: "◐", ahead: "" };
-    h = `<h4>Contents</h4><p class="key">✓ learned · ◐ begun · ❧ where ${esc(NAME())}’s lesson is</p>`;
+    const MARK = { known: "–", learned: "✓", here: "❧", next: "→", begun: "◐", ahead: "" };
+    h = `<h4>${esc(NAME())}’s route through the book</h4><p class="key">– already known, skipped · ✓ learned here · ❧ now · → next · ◐ begun</p>`;
     for (const ch of text.chapters) {
       const secs = text.sections.filter((s) => s.chapter === ch.title);
-      h += `<div class="ch"><span>${esc(ch.supplement ? `${ch.supplement} · ${ch.title}` : ch.title)}</span><span>${secs.filter((s) => s.mark === "learned").length}/${secs.length}</span></div>`;
+      h += `<div class="ch"><span>${esc(ch.supplement ? `${ch.supplement} · ${ch.title}` : ch.title)}</span><span>${secs.filter((s) => s.mark === "learned" || s.mark === "known").length}/${secs.length}</span></div>`;
       h += secs.map((s) => `<button class="sec ${s.mark}" data-go="${s.page}"><span class="m">${MARK[s.mark]}</span><span class="n">${esc(s.number)}</span><span>${esc(s.title)}</span><span class="p">${s.page ?? ""}</span></button>`).join("");
     }
     if (text.answers_page) h += `<div class="ch"><span>Answers</span></div><button class="sec" data-go="${text.answers_page}"><span></span><span></span><span>Answers to the Try Its and exercises</span><span class="p">${text.answers_page}</span></button>`;
@@ -558,7 +583,11 @@ function renderContents() {
 }
 function toggleContents(open) {
   const show = open ?? $("#contents").classList.contains("hidden");
-  if (show) renderContents();
+  if (show) {
+    renderContents();
+    const here = $("#contents .sec.here") || $("#contents .sec.next");
+    if (here) setTimeout(() => here.scrollIntoView({ block: "center" }), 0);
+  }
   $("#contents").classList.toggle("hidden", !show);
   $("#tocBtn").setAttribute("aria-expanded", String(show));
 }
@@ -567,6 +596,7 @@ function toggleContents(open) {
 async function loadMine(jumpToToday) {
   const prevToday = mine ? mine.today : null, prevCount = mine ? mine.leaves.length : 0;
   mine = await api(`/api/l/${LID}/mybook`);
+  try { mine.route = await api(`/api/l/${LID}/route`); } catch (e) { mine.route = null; }
   document.title = `${NAME()}’s book · Marginalia`;
   $("#mineBtn").textContent = `${NAME()}’s book`;
   $("#colophon").innerHTML = esc(mine.course.credit || "") + ` · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a>`;

@@ -38,7 +38,7 @@ def test_sign_up_is_rate_limited(client):
 
 
 def test_pages_and_sign_in_required(client):
-    assert "The textbook that reads your work" in client.get("/").text
+    assert "A real math textbook, with a route through it" in client.get("/").text
     assert "Privacy notice" in client.get("/privacy").text
     r = client.get("/home", follow_redirects=False)
     assert r.status_code == 303 and r.headers["location"] == "/signin"

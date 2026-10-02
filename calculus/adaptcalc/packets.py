@@ -455,8 +455,16 @@ def build_refresh(db: LearnerDB, focus: list[str], log=None, jev_client=None, us
     pid = f"{prefix}{n}"
     seed0 = (5000 if kind == "refresh" else 7000) * n
     per = cfg["problems_per_skill"] if kind == "refresh" else cfg.get("new_skill_problems", 4)
+    from . import route
+
     focus_problems: dict[str, list[dict]] = {}
+    taken: set[str] = set()
     for s in focus:
+        book = route.choose(db, s, per, taken)  # the textbook's own exercises first
+        if len(book) >= min(per, 2):
+            taken |= {ex["id"] for ex in book}
+            focus_problems[s] = [route.problem(ex, s) for ex in book]
+            continue
         tpls = templates.for_skill(s)
         probs = distinct_problems([tpls[j % len(tpls)].id for j in range(per)], seed0 + 100 * len(focus_problems))
         if kind == "lesson":
@@ -472,8 +480,14 @@ def build_refresh(db: LearnerDB, focus: list[str], log=None, jev_client=None, us
     share = cfg.get("review_share", 0.0)
     n_review = min(cfg.get("max_review", 4), round(share / (1 - share) * n_focus)) if share else 0
     review = choose_review(db, set(focus), n_review, seed0)
-    review_problems = {s: [templates.generate(templates.for_skill(s)[0].id, seed0 + 500 + i).to_json()]
-                       for i, s in enumerate(review)}
+    review_problems = {}
+    for i, s in enumerate(review):
+        book = route.choose(db, s, 1, taken)
+        if book:
+            taken.add(book[0]["id"])
+            review_problems[s] = [route.problem(book[0], s)]
+        elif templates.for_skill(s):
+            review_problems[s] = [templates.generate(templates.for_skill(s)[0].id, seed0 + 500 + i).to_json()]
     for ps in review_problems.values():
         for p in ps:
             p["review"] = True
@@ -527,6 +541,8 @@ def build_refresh(db: LearnerDB, focus: list[str], log=None, jev_client=None, us
     try_its = {s: [a for a in sk[s]["anchors"] if a["type"] == "checkpoint"] for s in sk}
     used_try = {s: 0 for s in sk}
     for i, p in enumerate(problems, 1):
+        if p.get("book_ref"):
+            continue  # the book's own exercise: nothing generated to check
         lst = try_its[p["skill"]]
         try_it = lst[used_try[p["skill"]] % len(lst)] if lst else None  # each fallback a different Try It
         used_try[p["skill"]] += 1
@@ -597,6 +613,11 @@ def build_refresh(db: LearnerDB, focus: list[str], log=None, jev_client=None, us
                    'deciding which method a problem needs is part of the skill."]\n')
     practice, used_fallbacks = [], set()
     for i, p in enumerate(problems, 1):
+        if p.get("book_ref"):
+            src.append(render.problem_markup(len(practice) + 1, p))
+            ctx.runs.extend(p.pop("runs", []))
+            practice.append(p)
+            continue
         sn = next(s_ for s_ in snippets if s_.slot == f"problem:{i}")
         if use(sn) is not None:
             src.append(render.problem_markup(len(practice) + 1, p))

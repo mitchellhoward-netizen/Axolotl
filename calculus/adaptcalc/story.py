@@ -31,7 +31,7 @@ LEVELS = {
 }
 LEVEL_OF = {"gK": "young", "g1": "young", "g2": "early", "g3": "early", "g4": "middle", "g5": "middle",
             "grade6": "middle", "grade7": "middle", "arithmetic": "teen", "partway": "teen"}
-ON_BY_DEFAULT = {"elementary", "prealgebra"}
+ON_BY_DEFAULT: set[str] = set()  # the textbook is the content: a story is the family’s choice
 
 # nothing that could carry math: numerals, number words, operations
 NUMBERISH = re.compile(

@@ -364,7 +364,10 @@ def problem_markup(num: int, p: dict) -> str:
     if drawn and fig == "none":
         fig = f"align(center, {drawn})"
     extra = ""
-    if p.get("review"):
+    ref = p.get("book_ref")
+    if ref:  # the textbook's own exercise, by the book's own number
+        extra += f', tag: "Exercise {ref["number"]} · {ref["section"]}' + (' · review"' if p.get("review") else '"')
+    elif p.get("review"):
         extra += ', tag: "review"'
     space = max(p.get("work_lines", 6), 3.5) if p.get("work_lines", 6) >= 1 else p["work_lines"]  # room to write by hand (book exercises set less)
     if p.get("faded") and p.get("solution"):

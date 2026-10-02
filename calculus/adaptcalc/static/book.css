@@ -61,6 +61,7 @@ a { color: var(--spot); text-underline-offset: 3px; text-decoration-thickness: 1
 @media (max-width: 640px) {
   .masthead { padding-top: 16px; }
   .masthead nav { margin-left: 0; gap: 4px 14px; }
+  .masthead nav .wide-only { display: none; }
   .masthead nav a, .masthead nav .linkish { font-size: 15px; letter-spacing: .05em; }
   .kicker { letter-spacing: .08em; }
 }

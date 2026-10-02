@@ -34,7 +34,7 @@ from pathlib import Path
 from fastapi import FastAPI, File, HTTPException, Request, UploadFile
 from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, RedirectResponse, Response
 
-from . import accounts, billing, checkin, diagnostic, extract, flow, mailer, outside, packets, paths, pipeline, records, source, story, transcribe, volume
+from . import accounts, billing, checkin, diagnostic, extract, flow, mailer, outside, packets, paths, pipeline, records, route, source, story, transcribe, volume
 from .learner import LearnerDB, config
 
 STATIC = Path(__file__).resolve().parent / "static"
@@ -489,7 +489,7 @@ def set_loves(lid: str, course: str, loves, book=None) -> None:
     """What the child loves (for the story) and the book they already use, if any, from the sign-up."""
     changes = {}
     if loves and story.clean_loves(loves):
-        changes["loves"] = story.clean_loves(loves)
+        changes |= {"loves": story.clean_loves(loves), "story": True}  # asked for: stories on
     if book and " ".join(str(book).split()):
         changes |= {"main": "own", "book": " ".join(str(book).split())[:80]}
     if changes:
@@ -685,6 +685,7 @@ def book(lid: str, request: Request):
         return {"ready": False, **volume.status(course)}
     d = db()
     done = d.mastered_set()
+    placed = {r["id"] for r in d.skill_rows() if r["placed"]}
     front = d.frontier()
     open_focus = []
     for p in d.packets():
@@ -697,11 +698,13 @@ def book(lid: str, request: Request):
     for sec in idx["sections"]:
         sks = sec["skills"]
         if sks and all(s in done for s in sks):
-            mark = "learned"
+            mark = "known" if all(s in placed for s in sks) else "learned"
         elif any(s in here_skills for s in sks):
             mark = "here"
         elif any(s in done for s in sks):
             mark = "begun"
+        elif any(s in front for s in sks):
+            mark = "next"
         else:
             mark = "ahead"
         if mark == "here" and bookmark is None:
@@ -855,6 +858,15 @@ def pages_done(lid: str, request: Request):
     with d.tx() as c:
         c.execute("UPDATE packets SET status='set_aside' WHERE status='open'")
     return {"job": kick(a, fam, lr, base_url(request))}
+
+
+@app.get("/api/l/{lid}/route")
+def learner_route(lid: str, request: Request):
+    """The book's contents, marked for this learner: known, done, now, next, later."""
+    require_learner(request, lid)
+    if not route.books():
+        return {"books": {}, "chapters": [], "sections": [], "counts": {}, "here": None}
+    return route.overview(db())
 
 
 @app.post("/api/l/{lid}/start-lessons")
@@ -1051,6 +1063,7 @@ def now_state(a: accounts.Accounts, fam: dict, lr: dict, d: LearnerDB) -> dict:
                        "key": f"/l/{lid}/packets/{o['id']}-key.pdf", "summary": flow.summary_of(d, o["id"]),
                        "scan": flow.scan_url(a, base_url(), lid, o["id"]), "about": flow.describe(o["kind"]),
                        "note": flow.teaching_note(d, o["id"], lr["name"]), "story": story.part_for(o["id"]),
+                       "exercises": [p["data"]["book_ref"] for p in d.problems(o["id"]) if p["data"].get("book_ref")],
                        "plan": page_plan(o["pdf"]), "first_round": o["kind"] == "diagnostic"
                        and len(d.packets("diagnostic")) == 1}
     if last_done:

@@ -308,7 +308,8 @@ class LearnerDB:
         pol = config()["evidence_policy"]
         data = problem["data"]
         from .templates import REGISTRY
-        guess = REGISTRY[data["template"]].guess
+        tpl = REGISTRY.get(data.get("template"))
+        guess = tpl.guess if tpl else 0.03  # the book's own exercise: the usual chance of a lucky guess
         req = list(data["requires"])
         root = outcome.get("misconception_root")
         involved = req + ([root] if root and root not in req else [])
