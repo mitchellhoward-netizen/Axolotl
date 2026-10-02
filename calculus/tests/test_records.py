@@ -81,6 +81,9 @@ def test_known_at_the_start_is_not_counted_as_learned(client):
         r = records.build(db, "Ivy", records.skill_groups())
         assert r["totals"]["known"] == 2 and r["totals"]["learned"] == 0
         assert not flow.milestones(db)
+    # a record with no checked work yet still prints
+    pdf = client.get(f"/l/{lid}/records.pdf")
+    assert pdf.status_code == 200 and pdf.content[:4] == b"%PDF"
 
 
 def test_the_note_for_the_grown_up_comes_from_the_book_and_the_childs_own_mistakes(client):

@@ -308,9 +308,9 @@ def portfolio_pdf(r: dict, out: Path) -> Path:
     # the log
     src.append('#subsection[Daily log]\n#set text(size: 9pt)\n#table(columns: (auto, auto, auto, 1fr), inset: 4pt, stroke: none, '
                'table.header([*Date*], [*Minutes*], [*Problems*], [*Worked on*]), table.hline(stroke: 0.5pt + spot), '
-               + ", ".join(f'[#"{d["date"]}"], [#"{d["minutes"]}"], [#"{d["right"]} of {d["problems"]} right"], [#"{esc(d["what"])}"]'
-                           for d in r["log"])
-               + f', table.hline(stroke: 0.5pt + spot), [*Total*], [*#"{t["minutes"]}"*], [*#"{t["right"]} of {t["problems"]}"*], '
+               + "".join(f'[#"{d["date"]}"], [#"{d["minutes"]}"], [#"{d["right"]} of {d["problems"]} right"], [#"{esc(d["what"])}"], '
+                         for d in r["log"])
+               + f'table.hline(stroke: 0.5pt + spot), [*Total*], [*#"{t["minutes"]}"*], [*#"{t["right"]} of {t["problems"]}"*], '
                  f'[#"{t["days"]} day{"s" if t["days"] != 1 else ""}"])\n#set text(size: 10.5pt)\n')
     # work samples: the child's own pages, as marked
     if r["samples"]:
