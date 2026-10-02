@@ -30,6 +30,12 @@
 .now .guide ul { margin: 4px 0 8px; padding-left: 1.2em; }
 .now .guide .seen { color: var(--brick); font-style: italic; }
 .now .stage { color: var(--ink-3); font-style: italic; }
+.now .steps { margin: 14px 0 0; padding-left: 1.4em; font-size: 18px; line-height: 1.5; max-width: 44em; }
+.now .steps li { margin: 4px 0; padding-left: 4px; }
+.now .steps li::marker { font-family: var(--display); color: var(--spot); font-weight: 600; }
+.now .acts .linkish { font-size: 15px; text-align: center; margin-top: 4px; }
+.now .guide h4 { font-family: var(--display); font-weight: 500; font-size: 19px; margin: 16px 0 2px; color: var(--ink); }
+.now #moreBox .more { border-top: 0; padding-top: 6px; }
 @media (max-width: 760px) { .now { grid-template-columns: 1fr; padding: 18px; } .now .acts { min-width: 0; } }
 
 /* the book */
@@ -211,90 +217,111 @@ const NAME = () => (mine ? mine.name : "");
 
 // ---------------------------------------------------------------- the one thing to do now
 function renderNow() {
-  const n = mine.now, who = esc(NAME()), act = n.activity;
-  let say = "", sub = "", acts = "", more = [], busy = false;
+  const n = mine.now, act = n.activity;
+  // the learner may be the grown-up reading this ("Me"): then it speaks to you
+  const SELF = /^(me|myself|i|self)$/i.test(NAME().trim());
+  const who = SELF ? "you" : esc(NAME()), Who = SELF ? "You" : esc(NAME());
+  const whose = SELF ? "your" : `${esc(NAME())}’s`, Whose = SELF ? "Your" : `${esc(NAME())}’s`;
+  const range = (a, b) => (a === b ? `page ${a}` : `pages ${a}–${b}`);
+  let say = "", sub = "", steps = [], acts = "", busy = false, extras = [];
   if (act && act.kind === "making") {
     busy = true;
-    say = mine.leaves.some((l) => l.t === "img") ? `Writing ${who}’s next pages…` : `Writing ${who}’s first pages…`;
-    sub = `<span class="stage">${esc(act.stage || "")}</span> It takes about a minute. They’ll open in ${who}’s book and arrive in your email.`;
+    say = mine.leaves.some((l) => l.t === "img") ? `Writing ${whose} next pages…` : `Writing ${whose} first pages…`;
+    sub = `<span class="stage">${esc(act.stage || "")}</span> About a minute. They’ll appear here and arrive by email.`;
   } else if (act && act.kind === "checking") {
     busy = true;
-    say = `Reading ${who}’s pages…`;
-    sub = `<span class="stage">${esc(act.stage || "")}</span> Every line is checked; the notes appear in ${who}’s book.`;
+    say = `Checking ${whose} work…`;
+    sub = `<span class="stage">${esc(act.stage || "")}</span> Every line is checked. The marks appear in the book below.`;
   } else if (!n.access) {
-    say = `Keep ${who}’s book going.`;
+    say = `Keep ${whose} book going.`;
     sub = "Start the subscription to make new pages and check work. Everything already made stays here.";
     acts = `<button class="btn primary" id="subBtn">Start the free trial</button>`;
   } else if (n.open) {
-    const o = n.open, s = o.summary;
-    say = s.checked ? `${s.checked} of ${s.problems} checked. Send the rest the same way.` : `${who}’s pages are ready.`;
-    sub = `Print them and let ${who} work right on the pages. When ${who} is done, point your phone’s camera at the code on the first page.`;
+    const o = n.open, s = o.summary, plan = o.plan || { pages: 1, work_from: 1 };
+    const diag = o.kind === "diagnostic";
+    const title = o.note && o.note.title ? esc(o.note.title) : "";
+    if (s.checked) {
+      say = `${s.checked} of ${s.problems} checked so far.`;
+      sub = `Send photos of the rest the same way, or press “finished” below if that’s all.`;
+    } else if (diag) {
+      say = o.first_round ? `First, a few questions to find where to start.` : `A few more questions to find where to start.`;
+      sub = `This isn’t a test. Answer what ${who} can and write “skip” for anything not learned yet: skipping is useful too. Lessons start as soon as these are in.`;
+    } else {
+      say = title ? `${Whose} next lesson: ${title}.` : `${Whose} next lesson is ready.`;
+      sub = `About ${o.note ? o.note.minutes : 20} minutes, on paper.`;
+    }
+    steps = [`<b>Print</b> the pages.`];
+    if (!diag && plan.work_from > 1) {
+      steps.push(`<b>Read ${range(1, plan.work_from - 1)}.</b> That’s the lesson: what the idea is and worked examples, step by step.`);
+      steps.push(`<b>Do the practice on ${range(plan.work_from, plan.pages)}</b>, right on the paper. Write each step; box each answer.`);
+    } else {
+      steps.push(`<b>${diag ? "Answer the questions" : "Do the problems"}</b> on the paper. Write each step; box each answer${diag ? "; write “skip” when it’s new" : ""}.`);
+    }
+    steps.push(`<b>Photograph the pages</b> you wrote on: scan the code on the first page with a phone, or use “Add photos” here.`);
+    steps.push(`The work comes back <b>marked in the book below</b>, with a note on anything to look at again. The next ${diag ? "pages" : "lesson"} ${diag ? "are" : "is"} made from it.`);
     acts = `<a class="btn primary" href="${o.pdf}" target="_blank" rel="noopener">Print the pages</a>
-      <button class="btn" id="addPhotos">Add photos from here</button>`;
-    more.push(`<span>${esc(o.about.charAt(0).toUpperCase() + o.about.slice(1))}</span>`,
-      `<a class="linkish" href="${o.key}" target="_blank" rel="noopener">answer key</a>`,
-      `<button class="linkish" id="doneBtn">${who} is finished with these</button>`);
+      <button class="btn" id="addPhotos">Add photos</button>`;
+    if (diag) acts += `<button class="linkish" id="startBtn">Skip the questions: start the first lesson</button>`;
+    extras.push(`<a class="linkish" href="${o.key}" target="_blank" rel="noopener">Answer key</a>`,
+      `<button class="linkish" id="doneBtn">${SELF ? "I’m" : `${who} is`} finished with these: make the next pages</button>`);
   } else if (n.book && n.book.main === "own") {
-    const bk = n.book.title ? `<i>${esc(n.book.title)}</i>` : `${who}’s own book`;
-    say = `Send in ${who}’s work from ${bk}.`;
-    sub = `Photograph any page ${who} has worked on. Every answer is checked, marked in ${who}’s book and counted in the records. When something looks shaky, a short refresher comes from us.`;
+    const bk = n.book.title ? `<i>${esc(n.book.title)}</i>` : `${whose} own book`;
+    say = `Send in ${whose} work from ${bk}.`;
+    sub = `Photograph any page worked on. Every answer is checked, marked in the book below and counted in the records. When something looks shaky, a short refresher comes from us.`;
     acts = `<button class="btn primary" id="outsideBtn">Check a page</button>`;
   } else {
-    say = `Ready for more?`;
-    sub = `${who}’s next pages are made from everything checked so far.`;
-    acts = `<button class="btn primary" id="makeBtn">Make ${who}’s next pages</button>`;
+    say = `Ready for the next lesson?`;
+    sub = `It’s made from everything checked so far.`;
+    acts = `<button class="btn primary" id="makeBtn">Make the next lesson</button>`;
   }
   if (!busy && n.access && !(n.book && n.book.main === "own" && !n.open))
-    more.push(`<button class="linkish" id="outsideBtn2">check a page from ${n.book && n.book.title ? esc(n.book.title) : "another book"}</button>`);
+    extras.push(`<button class="linkish" id="outsideBtn2">Check a page from ${n.book && n.book.title ? esc(n.book.title) : "another book"}</button>`);
   let result = "";
   if (n.last && !busy) {
     const l = n.last;
-    result = `<div class="result">Last pages: <b>${l.right} of ${l.checked} right</b>${l.skipped ? `, ${l.skipped} skipped` : ""}. The notes are in ${who}’s book, after those pages. <button class="linkish" id="seeNotes">See them</button>
-      ${n.checkin ? `<br><button class="linkish" id="talkBtn">Ask ${who} to explain number ${n.checkin.number} out loud (15 seconds)</button>` : ""}<div id="nowTalk"></div></div>`;
+    result = `<div class="result">Last pages: <b>${l.right} of ${l.checked} right</b>${l.skipped ? `, ${l.skipped} skipped` : ""}. <button class="linkish" id="seeNotes">See the marked pages</button>
+      ${n.checkin ? `<br><button class="linkish" id="talkBtn">${SELF ? `Explain number ${n.checkin.number} out loud (15 seconds)` : `Ask ${who} to explain number ${n.checkin.number} out loud (15 seconds)`}</button>` : ""}<div id="nowTalk"></div></div>`;
   }
-  let guide = "";
-  if (n.open && n.open.note && !busy && n.access) {
-    const g = n.open.note;
-    guide = `<details class="guide"><summary>About these pages <span class="caption">· about ${g.minutes} minutes</span></summary>
-      <p>${esc(g.about)}</p><p><b>How to start.</b> ${esc(g.how)}</p>
-      ${g.watch.length ? `<p><b>What to watch for.</b></p><ul>${g.watch.map((w) => `<li>${w.seen ? `<span class="seen">${esc(NAME())} did this last time:</span> ` : ""}${esc(w.text)}</li>`).join("")}</ul>` : ""}
-      <p class="caption">The answer key is there if you want to check as you go; the book checks every line anyway.</p></details>`;
-  }
-  let tale = "";
-  if (n.story && !busy && n.access) {
-    const st = n.story, part = n.open && n.open.story;
-    const line = !st.on ? `Stories are off for ${who}.`
-      : part ? `These pages open with part ${part.n} of <i>${esc(st.title || "")}</i>: “${esc(part.title)}.”`
-      : st.title ? `${who}’s story, <i>${esc(st.title)}</i>, goes on with the next pages.` : `${who}’s next pages will open with a story ${who} is in.`;
-    tale = `<details class="guide" id="tale"><summary>The story <span class="caption">· ${st.on ? "on" : "off"}</span></summary>
-      <p>${line} There are no numbers in the story; it gives ${who} a reason to do the pages, and the math stays on the page.</p>
-      <form id="taleForm"><label class="field"><span>What ${who} loves</span><input type="text" id="taleLoves" maxlength="200" value="${esc(st.loves || "")}"
-        placeholder="dinosaurs, our dog Biscuit, the ocean…"></label>
-      <div class="row"><button class="btn" type="submit">Save</button><button class="linkish" type="button" id="taleToggle">${st.on ? "Turn stories off" : "Turn stories on"}</button></div>
-      <p class="caption">Changes shape the parts still to come.</p></form></details>`;
-  }
-  let books = "";
-  if (n.book && !busy && n.access) {
-    const own = n.book.main === "own";
-    books = `<details class="guide" id="bookSet"><summary>${who}’s book <span class="caption">· ${own ? esc(n.book.title || "their own") : "ours"}</span></summary>
-      <p>${own ? `${who} works from ${n.book.title ? `<i>${esc(n.book.title)}</i>` : "a book you already have"}. Send photos of the pages ${who} does; we check them, keep the records, and send a short refresher only when the work shows something shaky.`
-        : `We send ${who}’s pages. If ${who} already works from another book, choose it here: we’ll check pages from it instead of sending lessons, and fill only the gaps.`}</p>
-      <form id="bookForm"><label class="field"><span>The book ${who} already uses (leave empty for ours)</span><input type="text" id="bookTitle" maxlength="80"
-        value="${esc(n.book.title || "")}" placeholder="e.g. Saxon Math 5/4, Singapore 3A, Beast Academy"></label>
-      <div class="row"><button class="btn" type="submit">Save</button></div></form></details>`;
+  // everything else lives in one place, closed
+  let more = "";
+  if (!busy && n.access) {
+    const parts = [];
+    if (n.open && n.open.note) {
+      const g = n.open.note;
+      parts.push(`<h4>About these pages</h4><p>${esc(g.about)}</p><p><b>How to start.</b> ${esc(g.how)}</p>
+        ${g.watch.length ? `<p><b>What to watch for.</b></p><ul>${g.watch.map((w) => `<li>${w.seen ? `<span class="seen">${SELF ? "You" : esc(NAME())} did this last time:</span> ` : ""}${esc(w.text)}</li>`).join("")}</ul>` : ""}`);
+    }
+    if (n.story) {
+      const st = n.story, part = n.open && n.open.story;
+      parts.push(`<h4>The story <span class="caption">· ${st.on ? "on" : "off"}</span></h4>
+        <p>${!st.on ? "Stories are off." : part ? `These pages open with part ${part.n} of <i>${esc(st.title || "")}</i>.` : "The next pages open with a story."} It has no numbers in it; the math stays on the page.</p>
+        <form id="taleForm"><label class="field"><span>What ${who} love${SELF ? "" : "s"}</span><input type="text" id="taleLoves" maxlength="200" value="${esc(st.loves || "")}"
+          placeholder="dinosaurs, our dog Biscuit, the ocean…"></label>
+        <div class="row"><button class="btn" type="submit">Save</button><button class="linkish" type="button" id="taleToggle">${st.on ? "Turn stories off" : "Turn stories on"}</button></div></form>`);
+    }
+    if (n.book) {
+      parts.push(`<h4>Already using another math book?</h4>
+        <p>Name it, and instead of sending lessons we’ll check photos of the pages done in it, keep the records, and send short refreshers only when something is shaky.</p>
+        <form id="bookForm"><label class="field"><span>The book (leave empty to use ours)</span><input type="text" id="bookTitle" maxlength="80"
+          value="${esc(n.book.title || "")}" placeholder="e.g. Saxon Math 5/4, Singapore 3A"></label>
+        <div class="row"><button class="btn" type="submit">Save</button></div></form>`);
+    }
+    more = `<details class="guide" id="moreBox"><summary>More</summary>
+      ${extras.length ? `<div class="more">${extras.join("")}</div>` : ""}${parts.join("")}</details>`;
   }
   $("#now").className = `now${busy ? " busy" : ""}`;
-  $("#now").innerHTML = `<div><div class="say">${say}</div><div class="sub">${sub}</div></div>
-    ${acts ? `<div class="acts">${acts}</div>` : ""}${result}${guide}${tale}${books}${more.length ? `<div class="more">${more.join("")}</div>` : ""}
+  $("#now").innerHTML = `<div><div class="say">${say}</div><div class="sub">${sub}</div>
+      ${steps.length ? `<ol class="steps">${steps.map((x) => `<li>${x}</li>`).join("")}</ol>` : ""}</div>
+    ${acts ? `<div class="acts">${acts}</div>` : ""}${result}${more}
     <p class="small" id="nowMsg" role="status" style="grid-column:1/-1;margin:0"></p>`;
   if ($("#taleForm")) {
-    const save = async (body) => { try { mine.now.story = await api(`/api/l/${LID}/story`, { method: "POST", json: body }); renderNow(); $("#tale").open = true; msg("Saved."); } catch (e) { msg(e.message, true); } };
+    const save = async (body) => { try { mine.now.story = await api(`/api/l/${LID}/story`, { method: "POST", json: body }); renderNow(); $("#moreBox").open = true; msg("Saved."); } catch (e) { msg(e.message, true); } };
     $("#taleForm").onsubmit = (e) => { e.preventDefault(); save({ loves: $("#taleLoves").value }); };
     $("#taleToggle").onclick = () => save({ on: !mine.now.story.on });
   }
   if ($("#talkBtn")) $("#talkBtn").onclick = () => {
     $("#talkBtn").remove();
-    talkBox($("#nowTalk"), n.checkin, NAME(), async (said) => {
+    talkBox($("#nowTalk"), n.checkin, SELF ? "you" : NAME(), async (said) => {
       const r = await api(`/api/l/${LID}/checkin`, { method: "POST", json: { packet: n.checkin.packet, said } });
       n.checkin = null;  // asked and answered; the book shows it with the notes on those pages
       return r;
@@ -309,7 +336,8 @@ function renderNow() {
   };
   if ($("#addPhotos")) $("#addPhotos").onclick = () => $("#photoInput").click();
   if ($("#makeBtn")) $("#makeBtn").onclick = () => act_(`/api/l/${LID}/make`);
-  if ($("#doneBtn")) $("#doneBtn").onclick = () => { if (confirm(`Make ${NAME()}’s next pages now? Anything not sent in stays unchecked.`)) act_(`/api/l/${LID}/done`); };
+  if ($("#startBtn")) $("#startBtn").onclick = () => { if (confirm("Stop the placement questions and start with the first lesson? Anything already answered still counts.")) act_(`/api/l/${LID}/start-lessons`); };
+  if ($("#doneBtn")) $("#doneBtn").onclick = () => { if (confirm("Make the next pages now? Anything not sent in stays unchecked.")) act_(`/api/l/${LID}/done`); };
   if ($("#subBtn")) $("#subBtn").onclick = async () => { try { location.href = (await api("/api/billing/checkout", { method: "POST" })).url; } catch (e) { msg(e.message, true); } };
   if ($("#seeNotes")) $("#seeNotes").onclick = () => { setMode("mine"); const i = lastReturned(); if (i) goTo(i); };
   if (busy || mine.leaves.some((l) => l.t === "making")) startPolling(); else stopPolling();

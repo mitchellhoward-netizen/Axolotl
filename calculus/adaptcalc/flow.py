@@ -94,7 +94,7 @@ def next_pages(db: LearnerDB, progress=lambda s: None, use_jev: bool = True) -> 
         return None
     summ = diagnostic.summary(db)
     cfg = diagnostic._cfg()["diagnostic"]
-    if summ["asked"] < cfg["max_questions"]:
+    if summ["asked"] < cfg["max_questions"] and not placement_settled(db):
         progress("Choosing the questions that tell the most")
         try:
             pid = diagnostic.create_round(db)
@@ -119,6 +119,33 @@ def next_pages(db: LearnerDB, progress=lambda s: None, use_jev: bool = True) -> 
     progress("Choosing what to teach next, and checking every line written for it")
     r = packets.next_lesson(db, log=db.log_jev, use_jev=use_jev)
     return {"packet": r["pid"], "kind": r["kind"]}
+
+
+def placement_settled(db: LearnerDB) -> bool:
+    """Enough getting-to-know-you: start teaching. True when the grown-up chose to start lessons,
+    or when the last set came back mostly skipped or wrong (the material is new, and more questions
+    about it would only be more pages of not knowing), or after two sets for any course."""
+    from . import story
+
+    if story.profile().get("placement_done"):
+        return True
+    rounds = [r for r in db.packets("diagnostic") if r["status"] != "open"]
+    if len(rounds) >= 2:
+        return True
+    if not rounds:
+        return False
+    last = [db.attempt(p["id"]) for p in db.problems(rounds[-1]["id"])]
+    seen = [a for a in last if a]
+    return len(seen) >= 5 and sum(1 for a in seen if not a["correct"]) / len(seen) >= 0.6
+
+
+def start_lessons(db: LearnerDB) -> None:
+    """'Start teaching now': open getting-to-know-you pages are set aside and placement ends."""
+    from . import story
+
+    with db.tx() as c:
+        c.execute("UPDATE packets SET status='set_aside' WHERE status='open' AND kind='diagnostic'")
+    story.save_profile(placement_done=True)
 
 
 def placement_path():

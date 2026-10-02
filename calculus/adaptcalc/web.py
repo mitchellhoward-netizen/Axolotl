@@ -857,6 +857,15 @@ def pages_done(lid: str, request: Request):
     return {"job": kick(a, fam, lr, base_url(request))}
 
 
+@app.post("/api/l/{lid}/start-lessons")
+def start_lessons(lid: str, request: Request):
+    """Stop the getting-to-know-you pages and make the first lesson now."""
+    a, fam, lr = require_learner(request, lid)
+    require_access(a, fam)
+    flow.start_lessons(db())
+    return {"job": kick(a, fam, lr, base_url(request))}
+
+
 @app.post("/api/l/{lid}/make")
 def make_pages(lid: str, request: Request):
     a, fam, lr = require_learner(request, lid)
@@ -999,6 +1008,18 @@ def _reports_by_packet() -> dict[str, list[dict]]:
     return out
 
 
+def page_plan(pdf: str | None) -> dict | None:
+    """Which pages teach and which are for working: practice starts on the page with the
+    'How to write your work' box (the first page, for getting-to-know-you pages)."""
+    if not pdf or not Path(pdf).exists():
+        return None
+    import pymupdf
+
+    with pymupdf.open(pdf) as doc:
+        start = next((i + 1 for i, pg in enumerate(doc) if pg.search_for("HOW TO WRITE YOUR WORK")), 1)
+        return {"pages": doc.page_count, "work_from": start}
+
+
 def _page_count(pdf: str | None) -> int:
     if not pdf or not Path(pdf).exists():
         return 0
@@ -1029,7 +1050,9 @@ def now_state(a: accounts.Accounts, fam: dict, lr: dict, d: LearnerDB) -> dict:
         out["open"] = {"packet": o["id"], "kind": o["kind"], "pdf": f"/l/{lid}/packets/{o['id']}.pdf",
                        "key": f"/l/{lid}/packets/{o['id']}-key.pdf", "summary": flow.summary_of(d, o["id"]),
                        "scan": flow.scan_url(a, base_url(), lid, o["id"]), "about": flow.describe(o["kind"]),
-                       "note": flow.teaching_note(d, o["id"], lr["name"]), "story": story.part_for(o["id"])}
+                       "note": flow.teaching_note(d, o["id"], lr["name"]), "story": story.part_for(o["id"]),
+                       "plan": page_plan(o["pdf"]), "first_round": o["kind"] == "diagnostic"
+                       and len(d.packets("diagnostic")) == 1}
     if last_done:
         out["last"] = flow.summary_of(d, last_done["id"]) | {"kind": last_done["kind"], "packet": last_done["id"]}
         out["checkin"] = checkin.pending(d, last_done["id"], lr["name"])
