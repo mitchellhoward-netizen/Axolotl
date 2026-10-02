@@ -186,12 +186,18 @@ def write_part(pid: str, kind: str, about: list[str], client=None) -> dict | Non
     return part
 
 
+def typeset(text: str) -> str:
+    """Book quotation marks and apostrophes."""
+    text = re.sub(r'"([^"]*)"', "\u201c\\1\u201d", text)
+    return text.replace("'", "\u2019")
+
+
 def markup(part: dict) -> str:
     from .render import esc
 
     st = state()
     head = f"{st['title']} · Part {part['n']}" if st.get("title") else f"Part {part['n']}"
-    body = "\n\n".join(f'#"{esc(p)}"' for p in part["paragraphs"])
+    body = "\n\n".join(f'#"{esc(typeset(p))}"' for p in part["paragraphs"])
     return (f'#story("{esc(head)}", "{esc(part["title"])}", aloud: {"true" if level()["aloud"] else "false"})'
             f"[{body}]\n")
 
