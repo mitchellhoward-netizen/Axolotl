@@ -142,10 +142,19 @@ def placement_settled(db: LearnerDB) -> bool:
 def start_lessons(db: LearnerDB) -> None:
     """'Start teaching now': open getting-to-know-you pages are set aside and placement ends."""
     from . import story
+    from .learner import config
 
     with db.tx() as c:
         c.execute("UPDATE packets SET status='set_aside' WHERE status='open' AND kind='diagnostic'")
     story.save_profile(placement_done=True)
+    if not diagnostic.summary(db)["answered"]:
+        # nothing answered: start where the grade the grown-up chose says, taking as known what that
+        # grade makes more likely than not (not the very beginning of the book)
+        thr = config()["learner"]["mastery_threshold"]
+        known = {s: max(p, thr) for s, p in db.mastery().items() if p >= 0.5}
+        if known:
+            db.set_mastery(known, "diagnostic: starting point from the grade chosen", None, source="diagnostic")
+            db.mark_placed(known)
 
 
 def placement_path():

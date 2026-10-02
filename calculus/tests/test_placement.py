@@ -73,3 +73,14 @@ def test_start_the_first_lesson_now(client, monkeypatch):
         assert lesson["kind"] in ("lesson", "refresh")
     plan = client.get(f"/api/l/{lid}/mybook").json()["now"]["open"]["plan"]
     assert 1 < plan["work_from"] <= plan["pages"]  # read first, then the practice pages
+
+
+def test_skipping_the_questions_starts_at_the_grade_not_the_first_page(client, monkeypatch):
+    lid = kid(client, grade="7")
+    monkeypatch.setattr(web, "kick", lambda *a, **k: "job")
+    client.post(f"/api/l/{lid}/start-lessons", headers=H)
+    from adaptcalc import extract
+    with paths.use_learner(accounts.learner_dir(lid), "prealgebra"):
+        db = LearnerDB()
+        first = extract.skill_order()[0]
+        assert first in db.mastered_set() and db.frontier()[0] != first
