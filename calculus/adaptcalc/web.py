@@ -34,7 +34,7 @@ from pathlib import Path
 from fastapi import FastAPI, File, HTTPException, Request, UploadFile
 from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, RedirectResponse, Response
 
-from . import accounts, billing, diagnostic, extract, flow, mailer, packets, paths, pipeline, source, transcribe, volume
+from . import accounts, billing, diagnostic, extract, flow, mailer, packets, paths, pipeline, records, source, transcribe, volume
 from .learner import LearnerDB, config
 
 STATIC = Path(__file__).resolve().parent / "static"
@@ -592,35 +592,7 @@ def state(lid: str, request: Request):
             "ready": {"photos": transcriber_ready(), "jev": bool(os.environ.get("TYPESAFE_API_KEY"))}}
 
 
-@functools.lru_cache(maxsize=None)
-def chapter_titles(book: str) -> dict[str, str]:
-    """Chapter label ('3', or 'K' in the elementary book) -> its title."""
-    from . import source
-
-    if source.BOOKS[book].authored:
-        from . import authored
-
-        return authored.chapter_titles(book)
-    return {str(ch): title for ch, _, _, title in source.chapter_modules(book)}
-
-
-def skill_groups() -> dict[str, str]:
-    """A readable group (chapter) for each skill of the active course."""
-    sk = extract.skills()
-    out = {}
-    for s, k in sk.items():
-        if extract.course_source().get("books"):
-            sec = (k.get("lesson") or [{}])[0].get("section", "")
-            ch = sec.split(".")[0]
-            title = chapter_titles(k["book"]).get(ch, "")
-            if source.BOOKS[k["book"]].authored:
-                out[s] = title or f"Chapter {ch}"  # the elementary book's chapters are grades
-            else:
-                out[s] = f"Chapter {ch}" + (f": {title}" if title else "")
-        else:
-            out[s] = ("Prealgebra and algebra basics" if s.startswith("pre_") else
-                      "Algebra and trigonometry for calculus" if k["kind"] == "foundation" else f"Calculus {k['section']}")
-    return out
+skill_groups = records.skill_groups  # chapters (grades in the elementary book) per skill
 
 
 def _limit(a: accounts.Accounts, lid: str, kind: str) -> None:
@@ -947,7 +919,8 @@ def now_state(a: accounts.Accounts, fam: dict, lr: dict, d: LearnerDB) -> dict:
         o = opens[-1]
         out["open"] = {"packet": o["id"], "kind": o["kind"], "pdf": f"/l/{lid}/packets/{o['id']}.pdf",
                        "key": f"/l/{lid}/packets/{o['id']}-key.pdf", "summary": flow.summary_of(d, o["id"]),
-                       "scan": flow.scan_url(a, base_url(), lid, o["id"]), "about": flow.describe(o["kind"])}
+                       "scan": flow.scan_url(a, base_url(), lid, o["id"]), "about": flow.describe(o["kind"]),
+                       "note": flow.teaching_note(d, o["id"], lr["name"])}
     if last_done:
         out["last"] = flow.summary_of(d, last_done["id"]) | {"kind": last_done["kind"]}
     return out
@@ -962,12 +935,15 @@ def mybook(lid: str, request: Request):
     reps = _reports_by_packet()
     leaves = [{"t": "cover"}]
     today = None
+    place = flow.placement()
     for p in d.packets():
+        if place and p["kind"] in ("lesson", "refresh") and not any(x["t"] == "placement" for x in leaves):
+            leaves.append({"t": "placement", "at": place["date"], **place})  # before the first lesson
         n = _page_count(p["pdf"])
         first = len(leaves)
         for i in range(1, n + 1):
             leaves.append({"t": "img", "src": f"/l/{lid}/packets/{p['id']}/page/{i}.webp", "packet": p["id"],
-                           "kind": p["kind"], "n": i})
+                           "kind": p["kind"], "n": i, "at": p["created"]})
         where = pipeline.problem_positions(p["pdf"]) if reps.get(p["id"]) else {}
         for rep in reps.get(p["id"], []):
             pub = public_report(rep)
@@ -998,9 +974,17 @@ def mybook(lid: str, request: Request):
                     leaves.append({"t": "blank"})
                 leaves.append({"t": "marked", "packet": p["id"], "src": f"/l/{lid}/packets/{p['id']}/page/{sheet}.webp",
                                "marks": marks})
-            leaves.append({"t": "returned", "packet": p["id"], "report": pub})
+            leaves.append({"t": "returned", "packet": p["id"], "report": pub, "at": rep.get("at") or ""})
         if p["status"] == "open" and n:
             today = first
+    # a chapter finished: a page of its own, in the book where it happened, with a certificate to print
+    for m in flow.milestones(d):
+        after = max((i for i, x in enumerate(leaves) if (x.get("at") or "")[:10] and (x.get("at") or "")[:10] <= m["date"]
+                     and x["t"] in ("returned", "marked", "img")), default=len(leaves) - 1)
+        leaves.insert(after + 1, {"t": "milestone", "at": m["date"], **m,
+                                  "certificate": f"/l/{lid}/certificate/{m['index']}.pdf"})
+        if today is not None and today > after:
+            today += 1
     now = now_state(a, fam, lr, d)  # once, so the book and the note above it agree
     making = now["activity"]
     if making and making["kind"] == "making":
@@ -1028,6 +1012,34 @@ def _photo_dims(name: str) -> tuple[int, int] | None:
 
     with Image.open(cache) as im:
         return im.size
+
+
+@app.get("/l/{lid}/certificate/{i}.pdf")
+def certificate(lid: str, i: int, request: Request):
+    """A chapter finished: a certificate to print, with the child's name and the skills learned."""
+    _, _, lr = require_learner(request, lid)
+    ms = flow.milestones(db())
+    if not 0 <= i < len(ms):
+        raise HTTPException(404)
+    m = ms[i]
+    day = dt.date.fromisoformat(m["date"])
+    esc = packets.render.esc
+    src = (packets.render.TEMPLATE_IMPORT +
+           '#set page(paper: "us-letter", flipped: true, margin: 0.6in)\n#set text(font: ("Libertinus Serif",))\n'
+           '#rect(width: 100%, height: 100%, stroke: 2.5pt + spot, inset: 0.35in, radius: 4pt)[#rect(width: 100%, height: 100%, '
+           'stroke: 0.6pt + spot, inset: 0.4in)[#align(center)[\n'
+           '#text(font: sans, size: 11pt, weight: "bold", fill: spot, tracking: 0.3em)[MARGINALIA] \\ #v(0.25in)\n'
+           '#text(size: 16pt, style: "italic")[This is to say that] \\ #v(0.1in)\n'
+           f'#text(size: 44pt, weight: "bold")[#"{esc(lr["name"])}"] \\ #v(0.05in)\n'
+           '#text(size: 16pt, style: "italic")[has learned everything in] \\ #v(0.08in)\n'
+           f'#text(font: sans, size: 28pt, weight: "bold", fill: spot)[#"{esc(m["chapter"])}"] \\ #v(0.18in)\n'
+           f'#block(width: 80%)[#set text(size: 10.5pt, fill: luma(60)); #set par(justify: false); #"{esc("; ".join(m["skills"]))}"]\n'
+           f'#v(1fr)\n#text(size: 13pt)[#"{day.strftime("%B")} {day.day}, {day.year}"] #h(1fr) #box(rotate(45deg, rect(width: 9pt, height: 9pt, fill: spot, stroke: none)))\n'
+           ']]]\n')
+    out = paths.OUT / f"certificate-{i}.pdf"
+    packets.render.compile_typst(src, out)
+    return FileResponse(out, media_type="application/pdf", filename=f"{lr['name']}-{m['chapter']}.pdf".replace(" ", "-"),
+                        content_disposition_type="inline")
 
 
 @app.get("/l/{lid}/packets/{pid}/page/{n}.webp")
@@ -1198,6 +1210,44 @@ def progress(lid: str, request: Request):
 
 
 # ---------------------------------------------------------------------------
+# homeschool records (records.py): kept from the checked work, nothing logged by hand
+
+@app.get("/learn/{lid}/records", response_class=HTMLResponse)
+def records_page(lid: str, request: Request):
+    if not signed_in(request):
+        return RedirectResponse("/signin", status_code=303)
+    return page("records.html")
+
+
+@app.get("/api/l/{lid}/records")
+def records_api(lid: str, request: Request):
+    _, _, lr = require_learner(request, lid)
+    r = records.build(db(), lr["name"], skill_groups())
+    for s_ in r["samples"]:
+        s_["photo_url"] = f"/l/{lid}/photos/{s_['photo']}"
+    return r
+
+
+@app.get("/l/{lid}/records.csv")
+def records_csv(lid: str, request: Request):
+    _, _, lr = require_learner(request, lid)
+    r = records.build(db(), lr["name"], skill_groups())
+    fname = re.sub(r"[^A-Za-z0-9]+", "-", f"{lr['name']} mathematics log {r['year']}").strip("-") + ".csv"
+    return Response(records.csv_log(r), media_type="text/csv",
+                    headers={"Content-Disposition": f'attachment; filename="{fname}"'})
+
+
+@app.get("/l/{lid}/records.pdf")
+def records_pdf(lid: str, request: Request):
+    _, _, lr = require_learner(request, lid)
+    r = records.build(db(), lr["name"], skill_groups())
+    out = paths.OUT / "records.pdf"
+    records.portfolio_pdf(r, out)
+    fname = re.sub(r"[^A-Za-z0-9]+", "-", f"{lr['name']} mathematics record {r['year']}").strip("-") + ".pdf"
+    return FileResponse(out, media_type="application/pdf", filename=fname, content_disposition_type="inline")
+
+
+# ---------------------------------------------------------------------------
 # weekly notes to parents
 
 def week_summary(a: accounts.Accounts, fam: dict) -> list[dict]:
@@ -1213,9 +1263,15 @@ def week_summary(a: accounts.Accounts, fam: dict) -> list[dict]:
             by_id = {m["id"]: m for lst in extract.misconceptions().values() for m in lst}
             rep = next((by_id[m]["description"] for m, c in mis.most_common() if m in by_id and c > 1), None)
             front = d.frontier()
+            groups = records.skill_groups()
+            learned = records.learned_dates(d)
+            new_skills = [sk[s_]["name"] for s_, v in learned.items() if v["how"] == "learned" and v["date"] >= cutoff[:10]]
+            days = len({x["graded_at"][:10] for x in week})
             out.append({"name": lr["name"], "course": course_info(lr["course"])["title"],
                         "problems_week": len(week), "correct_week": sum(int(x["correct"]) for x in week),
-                        "mastered": len(d.mastered_set()), "total": len(sk),
+                        "mastered": len(d.mastered_set()), "total": len(sk), "days_week": days,
+                        "new_skills": new_skills, "pace": records.pace(d, groups, learned).get("message"),
+                        "records": f"{base_url()}/learn/{lr['id']}/records",
                         "next": sk[front[0]]["name"] if front else None, "mistake": rep})
     return out
 

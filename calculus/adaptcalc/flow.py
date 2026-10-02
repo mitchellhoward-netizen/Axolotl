@@ -103,9 +103,58 @@ def next_pages(db: LearnerDB, progress=lambda s: None, use_jev: bool = True) -> 
             progress("Setting the pages")
             packets.render_diagnostic(db, pid)
             return {"packet": pid, "kind": "diagnostic"}
+    if not any(p["kind"] in ("lesson", "refresh") for p in db.packets()):
+        save_placement(db)  # the getting-to-know-you pages are done: where the child starts
     progress("Choosing what to teach next, and checking every line written for it")
     r = packets.next_lesson(db, log=db.log_jev, use_jev=use_jev)
     return {"packet": r["pid"], "kind": r["kind"]}
+
+
+def placement_path():
+    return paths.learner_dir() / "placement.json"
+
+
+def save_placement(db: LearnerDB) -> dict:
+    """A snapshot, when the getting-to-know-you pages are done, of where the child is starting:
+    each chapter (grade) with how much of it is already known, and the first thing to learn."""
+    from . import extract, records
+
+    sk = extract.skills()
+    groups = records.skill_groups()
+    chapters = records.chapter_progress(db, groups)
+    front = db.frontier()
+    start = None
+    if front:
+        part = (sk[front[0]].get("lesson") or [{}])[0]
+        start = {"skill": sk[front[0]]["name"], "chapter": groups[front[0]],
+                 "section": f"{part.get('section', '')} {part.get('title', '')}".strip()}
+    snap = {"date": time.strftime("%Y-%m-%d"), "start": start,
+            "chapters": [{"name": c["name"], "known": c["learned"], "total": c["total"]} for c in chapters],
+            "answered": diagnostic.summary(db)["answered"]}
+    placement_path().write_text(json.dumps(snap), encoding="utf-8")
+    return snap
+
+
+def placement() -> dict | None:
+    f = placement_path()
+    return json.loads(f.read_text(encoding="utf-8")) if f.exists() else None
+
+
+def milestones(db: LearnerDB) -> list[dict]:
+    """Chapters (grades) completed through the lessons, with the day each was finished."""
+    from . import extract, records
+
+    groups = records.skill_groups()
+    learned = records.learned_dates(db)
+    sk = extract.skills()
+    out = []
+    for c in records.chapter_progress(db, groups):
+        ids = [x["id"] for x in c["skills"]]
+        if not ids or not all(i in learned for i in ids) or not any(learned[i]["how"] == "learned" for i in ids):
+            continue
+        out.append({"chapter": c["name"], "date": max(learned[i]["date"] for i in ids),
+                    "skills": [sk[i]["name"] for i in ids], "index": len(out)})
+    return sorted(out, key=lambda m: m["date"])
 
 
 def profile_name() -> str:
@@ -116,17 +165,94 @@ def describe(kind: str) -> str:
     return {"diagnostic": "getting-to-know-you pages", "lesson": "a new lesson", "refresh": "a short refresher"}.get(kind, "pages")
 
 
-def pages_email(to: str, child: str, made: dict, pdf, book_url: str, scan: str, first: bool) -> dict:
+def _grownup_note(skill: dict) -> str | None:
+    """The 'For the grown-up' note the book itself has for this skill's section (the elementary book)."""
+    from . import cnxml, extract
+
+    for part in skill.get("lesson") or []:
+        try:
+            mod = extract.module(part["book"], part["section"])
+        except KeyError:
+            continue
+        for b in cnxml.walk(mod.blocks):
+            if b["t"] == "box" and cnxml.plain(b.get("title")).strip() == "For the grown-up":
+                return " ".join(cnxml.block_plain(x) for x in b["blocks"]).strip()
+    return None
+
+
+def teaching_note(db: LearnerDB, pid: str, child: str) -> dict:
+    """A short note for the grown-up with each set of pages: what it is about, how to start, what to
+    watch for (this child's own recent mistakes first), and how long it takes. Built from the book
+    and the misconception library; nothing generated."""
+    from . import extract, records
+    from .packets import recent_misconceptions
+
+    pk = db.packet(pid)
+    sk = extract.skills()
+    probs = db.problems(pid)
+    minutes = sum(records.minutes_per_problem(sk.get(p["skill"], {})) for p in probs)
+    meta = json.loads(pk["meta"] or "{}")
+    if pk["kind"] == "diagnostic":
+        young = any(sk.get(p["skill"], {}).get("grade") in ("K", "1", "2") for p in probs)
+        return {"title": "About these pages",
+                "about": f"These pages find where {child} is, so the next ones start in the right place.",
+                "how": (f"Read each question aloud if {child} wants. " if young else "")
+                       + f"Please don’t teach or hint: if {child} hasn’t learned something yet, writing “skip” tells the book as much as an answer.",
+                "watch": [], "minutes": int(round(minutes / 5) * 5) or 5}
+    focus = [s for s in meta.get("focus", []) if s in sk]
+    minutes += records.READ_MINUTES
+    names = [sk[s]["name"] for s in focus]
+    sections = []
+    for s in focus:
+        for part in sk[s].get("lesson") or []:
+            t = f"{part['section']} {part.get('title', '')}".strip()
+            if t not in sections:
+                sections.append(t)
+    note = next((n for n in (_grownup_note(sk[s]) for s in focus) if n), None)
+    obj = next((o for s in focus for o in sk[s].get("learning_objectives", [])), None)
+    how = note or (f"Read the first pages with {child}: the explanation and worked examples come straight from the book "
+                   f"(Section {', '.join(sections)}). Ask {child} to explain one example back to you before starting the practice.")
+    lib = {m["id"]: m for lst in extract.misconceptions().values() for m in lst}
+    mine = recent_misconceptions(db)
+    watch = []
+    for s in focus:
+        m = mine.get(s)
+        if m in lib:
+            watch.append({"text": lib[m]["description"], "seen": True})
+    for s in focus:
+        for m in extract.misconceptions().get(s, [])[:2]:
+            if len(watch) < 3 and not any(w["text"] == m["description"] for w in watch):
+                watch.append({"text": m["description"], "seen": False})
+    if pk["kind"] == "refresh":
+        about = f"A short refresher on {', '.join(names)}: something {child} has met before but was shaky on."
+    else:
+        about = f"A new lesson: {', '.join(names)}." + (f" By the end, {child} should be able to {obj[0].lower() + obj[1:]}." if obj else "")
+    return {"title": "About these pages", "about": about, "how": how, "watch": watch, "sections": sections,
+            "minutes": int(round(minutes / 5) * 5) or 5}
+
+
+def note_text(n: dict, child: str) -> list[str]:
+    """The teaching note as paragraphs (for email)."""
+    out = [n["about"], n["how"]]
+    if n.get("watch"):
+        out.append("What to watch for: " + " ".join(
+            (f"{child} did this last time: " if w["seen"] else "") + w["text"] for w in n["watch"]))
+    out.append(f"About {n['minutes']} minutes.")
+    return out
+
+
+def pages_email(to: str, child: str, made: dict, pdf, book_url: str, scan: str, first: bool, note: dict | None = None) -> dict:
     from . import mailer
 
     what = describe(made["kind"])
     subject = f"{child}’s first pages are ready" if first else f"{child}’s next pages are ready"
+    guide = note_text(note, child) if note else []
     text = (f"{subject}: {what}, attached as a PDF.\n\n"
-            f"Print them and let {child} work right on the pages. When {child} is done, point your phone’s camera "
+            + ("".join(p + "\n\n" for p in guide))
+            + f"Print them and let {child} work right on the pages. When {child} is done, point your phone’s camera "
             f"at the code on the first page and take a photo of each page. Every step is checked, and the next "
             f"pages are made from what the work shows.\n\n{child}’s book: {book_url}\n")
-    html = mailer._html(subject, [
-        f"{what.capitalize()}, attached as a PDF.",
+    html = mailer._html(subject, [f"{what.capitalize()}, attached as a PDF."] + guide + [
         f"Print them and let {child} work right on the pages. When {child} is done, point your phone’s camera at the code "
         f"on the first page and take a photo of each page.",
         "Every step is checked, and the next pages are made from what the work shows."],
@@ -163,7 +289,7 @@ def advance(a: accounts.Accounts, fam: dict, lr: dict, base: str, progress=lambd
         pk = db.packet(made["packet"])
         try:
             pages_email(fam["email"], lr["name"], made, pk["pdf"], f"{base}/learn/{lid}",
-                        scan_url(a, base, lid, made["packet"]), first)
+                        scan_url(a, base, lid, made["packet"]), first, teaching_note(db, made["packet"], lr["name"]))
         except Exception as e:  # noqa: BLE001 - the pages are made; a mail problem must not undo that
             print(f"pages email failed: {e}")
     return made

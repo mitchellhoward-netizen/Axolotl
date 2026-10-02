@@ -81,7 +81,7 @@ def test_weekly_note_only_in_weeks_with_work(client, tmp_path):
         d.record_attempt(d.problem(prid) | {"id": prid}, {"correct": True, "credit": 1.0})
     assert web.send_weekly(a) == 1
     note = [m for m in outbox(tmp_path) if "This week" in m["subject"]][0]
-    assert "Maya" in note["text"] and "1 problems checked this week, 1 correct" in note["text"]
+    assert "Maya" in note["text"] and "1 problems checked, 1 correct" in note["text"] and "/records" in note["text"]
     assert web.send_weekly(a) == 0  # not again within the week
     client.post("/api/account/weekly", headers=H, json={"on": False})
     assert web.send_weekly(a, force=True) == 0

@@ -102,6 +102,23 @@ Print, and scan. Nothing else is asked of anyone:
 The learner page is the child's own book, opening at today's page, with one note above it
 saying the single thing to do now; the course textbook is behind it in a second tab.
 
+What comes along without being asked for:
+
+- **A note for the grown-up** with every set of pages (`flow.teaching_note`): what the pages are
+  about, about how long they take, the book's own "For the grown-up" advice, and what to watch
+  for. A mistake the child actually made before is listed first ("Maya did this last time").
+- **Where the child is starting** (`flow.save_placement`): when the first lesson is made, a page
+  in the book records what the getting-to-know-you pages found and where lessons begin.
+- **Chapters finished** (`flow.milestones`): a page in the book the day every skill in a chapter
+  has been learned through the lessons, with a printable certificate
+  (`/l/<id>/certificate/<n>.pdf`). Skills already known at the start never earn one.
+- **Homeschool records that keep themselves** (`adaptcalc/records.py`, `/learn/<id>/records`):
+  days of mathematics, estimated time (per problem by grade plus reading time), problems and
+  accuracy, skills learned with dates (kept apart from skills known at the start), progress by
+  chapter, the pace and when the current chapter should be done, and samples of marked work.
+  The daily log downloads as CSV, and the whole record prints as a portfolio PDF with a line to
+  sign. The weekly email carries the same numbers and a link to it.
+
 ## The bound book (`adaptcalc/volume.py`, `typst/volume.typ`)
 
 Each course is also one whole textbook: cover, contents, chapters that follow the source book's

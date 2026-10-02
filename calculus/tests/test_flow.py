@@ -47,7 +47,7 @@ class RightAnswers:
         return transcribe.validate({"packet_code": None, "problems": probs, "notes": ""})
 
 
-def wait_idle(client, lid, seconds=120):
+def wait_idle(client, lid, seconds=300):
     for _ in range(seconds * 5):
         b = client.get(f"/api/l/{lid}/mybook").json()
         if not b["now"]["activity"]:

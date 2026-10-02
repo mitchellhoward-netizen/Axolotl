@@ -117,12 +117,18 @@ def receipt_note(to: str, status: str, base: str) -> dict:
 def weekly(to: str, family_name: str, learners: list[dict], base: str) -> dict:
     lines, paras = [], []
     for lr in learners:
-        s = (f"{lr['name']} ({lr['course']}): {lr['problems_week']} problems checked this week, "
-             f"{lr['correct_week']} correct; {lr['mastered']} of {lr['total']} skills learned.")
+        s = (f"{lr['name']} ({lr['course']}): mathematics on {lr.get('days_week', 0)} day{'s' if lr.get('days_week') != 1 else ''} "
+             f"this week, {lr['problems_week']} problems checked, {lr['correct_week']} correct.")
+        if lr.get("new_skills"):
+            s += f" Newly learned: {'; '.join(lr['new_skills'])}."
         if lr.get("next"):
             s += f" Next up: {lr['next']}."
         if lr.get("mistake"):
             s += f" A mistake that came up more than once: {lr['mistake']}"
+        if lr.get("pace"):
+            s += f" {lr['pace']}"
+        if lr.get("records"):
+            s += f" The records (log, portfolio, work samples) keep themselves: {lr['records']}"
         lines.append(s)
         paras.append(s)
     text = "This week in your books:\n\n" + "\n\n".join(lines) + f"\n\nFull reports: {base}/home\n\nTo stop these weekly notes, turn them off on the Learners page."

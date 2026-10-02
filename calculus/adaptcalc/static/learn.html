@@ -24,6 +24,11 @@
 .now .result { grid-column: 1 / -1; font-size: 16px; color: var(--ink-2); }
 .now .result b { color: var(--spot); font-weight: 600; }
 .now.busy { border-left-color: var(--ochre); }
+.now .guide { grid-column: 1 / -1; border-top: 1px dotted var(--rule); padding-top: 10px; font-size: 16.5px; }
+.now .guide summary { cursor: pointer; font-family: var(--display); font-size: 21px; color: var(--spot); }
+.now .guide p { margin: 8px 0; max-width: 52em; }
+.now .guide ul { margin: 4px 0 8px; padding-left: 1.2em; }
+.now .guide .seen { color: var(--brick); font-style: italic; }
 .now .stage { color: var(--ink-3); font-style: italic; }
 @media (max-width: 760px) { .now { grid-template-columns: 1fr; padding: 18px; } .now .acts { min-width: 0; } }
 
@@ -103,6 +108,18 @@
 .single .mark.yes { font-size: clamp(28px, 5vw, 54px); }
 .tally { position: absolute; right: 6%; top: 2.2%; z-index: 2; font-family: "Caveat", cursive; font-weight: 700;
   color: #0d6b5e; font-size: clamp(20px, 2.6vw, 38px); transform: rotate(-4deg); border-bottom: 2px solid #0d6b5e; padding: 0 .2em; }
+.place h3 { font-family: var(--display); font-size: 1.6em; margin: 4px 0 8px; color: #27231d; }
+.place p { margin: 6px 0 12px; color: #5d5547; }
+.pl-row { display: grid; grid-template-columns: 1fr auto; gap: 2px 10px; padding: 5px 0; border-bottom: 1px dotted #d9cdb5; font-size: .95em; }
+.pl-n { color: #8a7f6c; font-size: .9em; }
+.pl-bar { grid-column: 1 / -1; height: 5px; background: #e9e0cd; position: relative; }
+.pl-bar i { position: absolute; inset: 0 auto 0 0; background: #0d5e6b; }
+.pl-foot { font-size: .9em; font-style: italic; }
+.milestone { display: flex; flex-direction: column; justify-content: center; text-align: center; background:
+  radial-gradient(circle at 50% 40%, #fffdf8, #f6f0e2); }
+.milestone .ms-orn { font-size: 2.6em; color: #0d5e6b; margin: 6px 0; }
+.milestone h3 { font-family: var(--display); font-size: 2em; color: #27231d; margin: 0 0 12px; line-height: 1.15; }
+.milestone .ms-list { color: #5d5547; font-size: .92em; max-width: 30em; margin: 0 auto 18px; }
 .making { display: flex; flex-direction: column; justify-content: center; text-align: center; color: #5d5547; }
 .making .big { font-family: var(--display); font-size: 1.9em; color: #27231d; margin-bottom: 8px; }
 .making .quill { font-size: 2.6em; color: #0d5e6b; animation: write 2.4s ease-in-out infinite; display: inline-block; }
@@ -141,7 +158,7 @@ dialog.zoom { max-width: 1100px; padding: 10px; }
 <body>
 <header class="masthead">
   <a class="brand" href="/home"><span class="orn">❦</span>Marginalia</a>
-  <nav><span id="kids"></span><a id="reportLink" href="#">How it’s going</a><a href="/home#account">Account</a><button class="linkish" onclick="toggleTheme()">Light / dark</button><button class="linkish" onclick="signOut()">Sign out</button></nav>
+  <nav><span id="kids"></span><a id="reportLink" href="#">Records</a><a href="/home#account">Account</a><button class="linkish" onclick="toggleTheme()">Light / dark</button><button class="linkish" onclick="signOut()">Sign out</button></nav>
   <div class="rule"></div>
 </header>
 <div class="shell">
@@ -188,7 +205,7 @@ const pos = { mine: 1, text: 1 };
 let turning = false, poll = null;
 let onePage = false;
 try { onePage = localStorage.getItem("book:view") === "one"; } catch (e) { /* private window */ }
-$("#reportLink").href = `/learn/${LID}/progress`;
+$("#reportLink").href = `/learn/${LID}/records`;
 const NAME = () => (mine ? mine.name : "");
 
 // ---------------------------------------------------------------- the one thing to do now
@@ -226,9 +243,17 @@ function renderNow() {
     const l = n.last;
     result = `<div class="result">Last pages: <b>${l.right} of ${l.checked} right</b>${l.skipped ? `, ${l.skipped} skipped` : ""}. The notes are in ${who}’s book, after those pages. <button class="linkish" id="seeNotes">See them</button></div>`;
   }
+  let guide = "";
+  if (n.open && n.open.note && !busy && n.access) {
+    const g = n.open.note;
+    guide = `<details class="guide"><summary>About these pages <span class="caption">· about ${g.minutes} minutes</span></summary>
+      <p>${esc(g.about)}</p><p><b>How to start.</b> ${esc(g.how)}</p>
+      ${g.watch.length ? `<p><b>What to watch for.</b></p><ul>${g.watch.map((w) => `<li>${w.seen ? `<span class="seen">${esc(NAME())} did this last time:</span> ` : ""}${esc(w.text)}</li>`).join("")}</ul>` : ""}
+      <p class="caption">The answer key is there if you want to check as you go; the book checks every line anyway.</p></details>`;
+  }
   $("#now").className = `now${busy ? " busy" : ""}`;
   $("#now").innerHTML = `<div><div class="say">${say}</div><div class="sub">${sub}</div></div>
-    ${acts ? `<div class="acts">${acts}</div>` : ""}${result}${more.length ? `<div class="more">${more.join("")}</div>` : ""}
+    ${acts ? `<div class="acts">${acts}</div>` : ""}${result}${guide}${more.length ? `<div class="more">${more.join("")}</div>` : ""}
     <p class="small" id="nowMsg" role="status" style="grid-column:1/-1;margin:0"></p>`;
   if ($("#addPhotos")) $("#addPhotos").onclick = () => $("#photoInput").click();
   if ($("#makeBtn")) $("#makeBtn").onclick = () => act_(`/api/l/${LID}/make`);
@@ -295,6 +320,21 @@ function leafHtml(i) {
     <div class="sub">${esc(mine.course.title)}</div><div class="orn">❦</div></div>`;
   if (L.t === "making") return `<div class="hp making"><div><span class="quill">✒</span></div><div class="big">The next pages are being written.</div>
     <div>${esc(L.stage || "")}</div></div>${today}`;
+  if (L.t === "placement") {
+    const st = L.start;
+    return `<div class="hp place"><div class="kick">Where ${esc(NAME())} is starting · ${fmtDate(L.date)}</div>
+      <h3>${st ? `${esc(NAME())} starts with ${esc(st.skill)}.` : "Everything here is already known."}</h3>
+      <p>${L.answered ? `${L.answered} questions on the first pages showed what ${esc(NAME())} already knows. ` : ""}Lessons begin where they’re needed${st ? `, in ${esc(st.chapter)}, Section ${esc(st.section)}` : ""}.</p>
+      ${L.chapters.map((c) => `<div class="pl-row"><span>${esc(c.name)}</span><span class="pl-n">${c.known === c.total ? "known" : c.known ? `${c.known} of ${c.total} known` : "to learn"}</span>
+        <span class="pl-bar"><i style="width:${(100 * c.known / c.total).toFixed(1)}%"></i></span></div>`).join("")}
+      <p class="pl-foot">Anything shaky comes back in short refreshers, so nothing underneath is left behind.</p></div>${today}`;
+  }
+  if (L.t === "milestone") {
+    return `<div class="hp milestone"><div class="kick">${fmtDate(L.date)}</div><div class="ms-orn">✦</div>
+      <h3>${esc(NAME())} has learned everything in ${esc(L.chapter)}.</h3>
+      <p class="ms-list">${L.skills.map(esc).join(" · ")}</p>
+      <p><a class="btn" href="${L.certificate}" target="_blank" rel="noopener">Print the certificate</a></p></div>${today}`;
+  }
   if (L.t === "blank") return `<div class="hp" style="display:flex;align-items:center;justify-content:center;color:#cbbf9f;font-size:1.6em">❦</div>`;
   if (L.t === "marked") {
     const yes = L.marks.filter((m) => m.v === "yes").length;
@@ -396,6 +436,8 @@ function renderContents() {
         h += `<button class="sec ${i === mine.today ? "here" : ""}" data-go="${i + 1}"><span class="m">${i === mine.today ? "❧" : ""}</span><span class="n">${esc(L.packet)}</span><span>${kind}</span><span class="p">${i + 1}</span></button>`;
       }
       if (L.t === "marked") h += `<button class="sec" data-go="${i + 1}"><span class="m">✓</span><span class="n"></span><span>Marked and returned</span><span class="p">${i + 1}</span></button>`;
+      if (L.t === "placement") h += `<button class="sec" data-go="${i + 1}"><span class="m">❧</span><span class="n"></span><span>Where ${esc(NAME())} is starting</span><span class="p">${i + 1}</span></button>`;
+      if (L.t === "milestone") h += `<button class="sec here" data-go="${i + 1}"><span class="m">✦</span><span class="n"></span><span>${esc(L.chapter)} complete</span><span class="p">${i + 1}</span></button>`;
     });
   } else if (text) {
     const MARK = { learned: "✓", here: "❧", begun: "◐", ahead: "" };

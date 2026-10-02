@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Records · Marginalia</title>
+<link rel="stylesheet" href="/static/book.css">
+<style>
+@font-face { font-family: "Caveat"; src: url(/fonts/Caveat.ttf) format("truetype"); font-weight: 400 700; font-display: swap; }
+.summary { font-size: 21px; line-height: 1.55; margin: 6px 0 4px; }
+.pace { color: var(--ink-2); margin: 0 0 16px; }
+.stats { display: grid; grid-template-columns: repeat(5, 1fr); border: 1px solid var(--rule); background: var(--leaf); margin: 18px 0; }
+.stats div { padding: 12px 10px; text-align: center; border-left: 1px solid var(--rule); }
+.stats div:first-child { border-left: 0; }
+.stats b { display: block; font-family: var(--display); font-size: 30px; font-weight: 500; color: var(--spot); line-height: 1.1; }
+.stats span { font-variant-caps: all-small-caps; letter-spacing: .08em; font-size: 14px; color: var(--ink-2); }
+@media (max-width: 700px) { .stats { grid-template-columns: repeat(2, 1fr); } .stats div { border-left: 0; border-top: 1px solid var(--rule); } }
+.downloads { display: flex; gap: 10px; flex-wrap: wrap; margin: 6px 0 4px; }
+.chap { display: grid; grid-template-columns: 1fr auto; gap: 2px 12px; padding: 7px 0; border-bottom: 1px dotted var(--rule); }
+.chap .meter { grid-column: 1 / -1; }
+.chap .done::after { content: " ✓"; color: var(--spot); }
+table.log { width: 100%; border-collapse: collapse; font-size: 15.5px; }
+table.log th { text-align: left; font-variant-caps: all-small-caps; letter-spacing: .08em; color: var(--ink-2); font-weight: 600; border-bottom: 1px solid var(--spot); padding: 6px 8px 4px 0; }
+table.log td { padding: 7px 8px 7px 0; border-bottom: 1px dotted var(--rule); vertical-align: top; font-variant-numeric: tabular-nums; }
+table.log tfoot td { font-weight: 600; border-top: 1px solid var(--spot); border-bottom: 0; }
+.skills { columns: 2 260px; column-gap: 28px; font-size: 16px; }
+.skills div { break-inside: avoid; padding: 3px 0; }
+.skills .d { color: var(--ink-3); font-size: 14px; font-variant-numeric: tabular-nums; margin-right: 8px; }
+.samples { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 16px; }
+.sample { position: relative; }
+.sample .sheet { position: relative; border: 1px solid var(--rule); background: #fff; }
+.sample img { width: 100%; display: block; }
+.sample .mk { position: absolute; font-family: "Caveat", cursive; font-weight: 700; transform: translateY(-20%); line-height: 1; }
+.sample .mk.yes { color: #0d6b5e; font-size: 22px; }
+.sample .mk.no { color: #b13a26; font-size: 13px; border: 2px solid #b13a26; border-radius: 50%; width: 1.5em; height: 1.5em; display: flex; align-items: center; justify-content: center; }
+.sample .cap { font-size: 14px; color: var(--ink-2); margin-top: 4px; }
+.why { font-size: 15px; color: var(--ink-3); }
+</style>
+</head>
+<body>
+<header class="masthead">
+  <a class="brand" href="/home"><span class="orn">❦</span>Marginalia</a>
+  <nav><a id="bookLink" href="#">The book</a><a href="/home#account">Account</a><button class="linkish" onclick="toggleTheme()">Light / dark</button><button class="linkish" onclick="signOut()">Sign out</button></nav>
+  <div class="rule"></div>
+</header>
+<main>
+  <div class="kicker" id="kicker">Records</div>
+  <h1 id="title">&nbsp;</h1>
+  <hr class="title-rule">
+  <p class="summary" id="summary">Gathering the record…</p>
+  <p class="pace" id="pace"></p>
+  <div class="downloads">
+    <a class="btn primary" id="pdf" target="_blank" rel="noopener">Print the portfolio</a>
+    <a class="btn" id="csv">Download the log</a>
+    <a class="btn quiet" id="detail">Every skill, in detail</a>
+  </div>
+  <p class="why">Kept from the checked work: nothing to log by hand. Time is estimated from the problems worked and the lessons read.
+    The portfolio has the summary, progress, skills with dates, the daily log and samples of marked work, with a line to sign.</p>
+  <div class="stats" id="stats"></div>
+
+  <div class="grid2">
+    <div>
+      <section class="leaf">
+        <div class="section-label"><span class="num">§</span><h3>Daily log</h3></div>
+        <div id="log"></div>
+      </section>
+      <section class="leaf">
+        <div class="section-label"><span class="num">✎</span><h3>Samples of work</h3></div>
+        <div class="samples" id="samples"></div>
+      </section>
+    </div>
+    <div>
+      <section class="leaf">
+        <div class="section-label"><span class="num">¶</span><h3>Through the course</h3></div>
+        <div id="chapters"></div>
+      </section>
+      <section class="leaf">
+        <div class="section-label"><span class="num">✓</span><h3>Skills learned here</h3></div>
+        <div class="skills" id="learned"></div>
+        <div id="known"></div>
+      </section>
+    </div>
+  </div>
+</main>
+<footer class="colophon">Records are prepared from checked work. <a href="/privacy">Privacy</a></footer>
+<script src="/static/book.js"></script>
+<script>
+const LID = location.pathname.split("/")[2];
+const dur = (m) => m < 60 ? `${m} min` : `${(Math.round(m / 30) / 2).toString()} h`;
+api(`/api/l/${LID}/records`).then((r) => {
+  document.title = `${r.name}’s records · Marginalia`;
+  $("#kicker").textContent = `Homeschool record · ${r.year}`;
+  $("#title").textContent = `${r.name}’s mathematics`;
+  $("#summary").textContent = r.summary;
+  $("#pace").textContent = r.pace.message || "";
+  $("#bookLink").href = `/learn/${LID}`; $("#bookLink").textContent = `${r.name}’s book`;
+  $("#pdf").href = `/l/${LID}/records.pdf`;
+  $("#csv").href = `/l/${LID}/records.csv`;
+  $("#detail").href = `/learn/${LID}/progress`;
+  const t = r.totals;
+  $("#stats").innerHTML = [[t.days, t.days === 1 ? "day of mathematics" : "days of mathematics"], [dur(t.minutes), "time, estimated"], [t.problems, "problems worked"],
+    [t.accuracy == null ? "–" : `${t.accuracy}%`, "correct"], [t.learned, "skills learned here"]]
+    .map(([v, k]) => `<div><b>${esc(String(v))}</b><span>${k}</span></div>`).join("");
+  $("#log").innerHTML = r.log.length ? `<table class="log"><thead><tr><th>Date</th><th>Time</th><th>Problems</th><th>Worked on</th></tr></thead><tbody>`
+    + r.log.slice().reverse().map((d) => `<tr><td>${fmtDate(d.date)}</td><td>${dur(d.minutes)}</td><td>${d.right} of ${d.problems}</td><td>${esc(d.what)}</td></tr>`).join("")
+    + `</tbody><tfoot><tr><td>${t.days} day${t.days === 1 ? "" : "s"}</td><td>${dur(t.minutes)}</td><td>${t.right} of ${t.problems}</td><td></td></tr></tfoot></table>`
+    : `<p class="muted">The log starts with the first checked page.</p>`;
+  $("#chapters").innerHTML = r.chapters.map((c) => `<div class="chap"><span class="${c.learned === c.total ? "done" : ""}">${esc(c.name)}</span>
+    <span class="caption num-tab">${c.learned} of ${c.total}</span><div class="meter"><i style="width:${(100 * c.learned / c.total).toFixed(1)}%"></i></div></div>`).join("");
+  $("#learned").innerHTML = r.learned.length ? r.learned.map((x) => `<div><span class="d">${esc(x.date)}</span>${esc(x.name)}</div>`).join("")
+    : `<p class="muted">Skills learned through the lessons are listed here, with the day each one was learned.</p>`;
+  if (r.known.length) $("#known").innerHTML = `<details style="margin-top:12px"><summary class="small">Already known at the start: ${r.known.length} skills</summary>
+    <p class="small muted">${r.known.map((x) => esc(x.name)).join("; ")}.</p></details>`;
+  $("#samples").innerHTML = r.samples.length ? r.samples.map((s) => `<div class="sample"><a href="${s.photo_url}" target="_blank" rel="noopener"><div class="sheet"><img src="${s.photo_url}" alt="A page of work as photographed">
+    ${s.marks.filter((m) => m.x != null).map((m) => `<span class="mk ${m.v}" style="left:${(Math.max(0, m.x - 0.08) * 100).toFixed(1)}%;top:${(m.y * 100).toFixed(1)}%">${m.v === "yes" ? "✓" : m.v === "no" ? m.n : "–"}</span>`).join("")}</div></a>
+    <div class="cap">${fmtDate(s.at)} · ${s.right} of ${s.of} right</div></div>`).join("")
+    : `<p class="muted">Pages appear here once they are checked.</p>`;
+}).catch((e) => { $("#summary").innerHTML = `<span class="err">${esc(e.message)}</span>`; });
+</script>
+</body>
+</html>

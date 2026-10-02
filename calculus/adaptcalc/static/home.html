@@ -122,7 +122,7 @@ function render() {
       <h3><a href="/learn/${l.id}">${esc(l.name)}’s book</a></h3>
       <div class="acts"><a class="btn primary" href="/learn/${l.id}">Open</a></div>
       <div class="meta">${esc(l.course.title)} · ${status}${l.problems ? ` · ${l.correct} of ${l.problems} problems right so far` : ""}${l.last ? ` · last work ${fmtDate(l.last)}` : ""}
-        · <a class="linkish" style="font-size:15px" href="/learn/${l.id}/progress">how it’s going</a>
+        · <a class="linkish" style="font-size:15px" href="/learn/${l.id}/records">records</a>
         · <button class="linkish" style="font-size:15px" data-remove="${l.id}" data-name="${esc(l.name)}">remove</button></div>
     </div>`;
   }).join("");
