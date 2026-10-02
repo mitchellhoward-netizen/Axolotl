@@ -102,6 +102,17 @@ Print, and scan. Nothing else is asked of anyone:
 The learner page is the child's own book, opening at today's page, with one note above it
 saying the single thing to do now; the course textbook is behind it in a second tab.
 
+**A route through the textbook** (`adaptcalc/route.py`). The textbook is the content; what is made
+for each learner is the route through it. Lessons print the book's own sections, and practice is the
+book's own end-of-section exercises, by the book's own numbers ("Exercise 211 · 3.4"), chosen for the
+learner and never repeated. The numbering is checked against the book's answer key (answers fall on
+the odd numbers: 4,917 of 4,920 in Elementary Algebra 2e). An exercise is used for checked practice
+only when the book's answer becomes a safe key: the form the instruction asks for is enforced,
+copying the question never counts, SymPy must agree where it can solve the problem, and answers
+with units, translations or flattened exponents stay in the book. Generated problems are used only
+for a skill with nothing checkable in the book. The textbook's contents show the route: sections
+known and skipped, learned, now, next.
+
 What comes along without being asked for:
 
 - **A note for the grown-up** with every set of pages (`flow.teaching_note`): what the pages are

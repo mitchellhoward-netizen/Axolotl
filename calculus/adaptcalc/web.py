@@ -1100,6 +1100,7 @@ def mybook(lid: str, request: Request):
                 flow.ensure_scan_code(a, d, base_url(), lid, p["id"])
             except Exception as e:  # noqa: BLE001
                 print(f"scan code not added to {p['id']}: {e}")
+    now = now_state(a, fam, lr, d)  # first, so the book below never lags the note above it
     reps = _reports_by_packet()
     leaves = [{"t": "cover"}]
     today = None
@@ -1158,7 +1159,6 @@ def mybook(lid: str, request: Request):
                                   "certificate": f"/l/{lid}/certificate/{m['index']}.pdf"})
         if today is not None and today > after:
             today += 1
-    now = now_state(a, fam, lr, d)  # once, so the book and the note above it agree
     making = now["activity"]
     if making and making["kind"] == "making":
         leaves.append({"t": "making", "stage": making["stage"]})
