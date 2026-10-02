@@ -17,6 +17,7 @@ from __future__ import annotations
 import hashlib
 import hmac
 import json
+import os
 import secrets
 import threading
 import time
@@ -308,6 +309,60 @@ def advance(a: accounts.Accounts, fam: dict, lr: dict, base: str, progress=lambd
         except Exception as e:  # noqa: BLE001 - the pages are made; a mail problem must not undo that
             print(f"pages email failed: {e}")
     return made
+
+
+OLD_CODE_BOX = "WRITE THIS CODE ON YOUR PAGE"
+
+
+def ensure_scan_code(a: accounts.Accounts, db: LearnerDB, base: str, lid: str, pid: str) -> bool:
+    """Pages made before the scan code existed get one, so every open set can be sent in from a
+    phone. Getting-to-know-you pages are set again from their stored questions (same questions, the
+    current design); other pages get the code stamped where the old 'write this code' box was, so
+    their problems stay exactly as printed. Returns True when the pages changed."""
+    import pymupdf
+
+    pk = db.packet(pid)
+    if not pk or not pk["pdf"] or not os.path.exists(pk["pdf"]):
+        return False
+    with pymupdf.open(pk["pdf"]) as doc:
+        hits = doc[0].search_for(OLD_CODE_BOX)
+    if not hits:
+        return False
+    link = lambda p: scan_url(a, base, lid, p)  # noqa: E731
+    if pk["kind"] == "diagnostic":
+        from . import packets
+
+        token = render.SCAN_LINK.set(link)
+        try:
+            packets.render_diagnostic(db, pid)
+        finally:
+            render.SCAN_LINK.reset(token)
+        return True
+    import segno
+
+    r = hits[0]
+    box = pymupdf.Rect(r.x0 - 9, r.y0 - 9, r.x1 + 9, r.y1 + 40)
+    qr = segno.make(link(pid), error="m")
+    import io
+
+    png = io.BytesIO()
+    qr.save(png, kind="png", scale=8, border=0, dark="#006B7F")
+    who = render.learner_name() or "your child"
+    tmp = pk["pdf"] + ".tmp"
+    with pymupdf.open(pk["pdf"]) as doc:
+        page = doc[0]
+        page.add_redact_annot(box, fill=(1, 1, 1))
+        page.apply_redactions(images=pymupdf.PDF_REDACT_IMAGE_NONE)
+        teal = (0, 0x6B / 255, 0x7F / 255)
+        page.draw_rect(box, color=teal, width=1.2)
+        side = box.height - 8
+        page.insert_image(pymupdf.Rect(box.x0 + 4, box.y0 + 4, box.x0 + 4 + side, box.y0 + 4 + side), stream=png.getvalue())
+        page.insert_textbox(pymupdf.Rect(box.x0 + side + 9, box.y0 + 5, box.x1 - 3, box.y1 - 3),
+                            f"GROWN-UPS\nWhen {who} is done, point your phone's camera here.",
+                            fontsize=6.6, fontname="helv", color=teal)
+        doc.save(tmp)
+    os.replace(tmp, pk["pdf"])
+    return True
 
 
 def packet_done(db: LearnerDB, pid: str) -> bool:

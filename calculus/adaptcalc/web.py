@@ -1021,6 +1021,11 @@ def now_state(a: accounts.Accounts, fam: dict, lr: dict, d: LearnerDB) -> dict:
     out = {"activity": act, "access": a.has_access(fam), "photos_ready": transcriber_ready()}
     if opens:
         o = opens[-1]
+        try:
+            if flow.ensure_scan_code(a, d, base_url(), lid, o["id"]):
+                o = d.packet(o["id"])
+        except Exception as e:  # noqa: BLE001 - old pages still print without it
+            print(f"scan code not added to {o['id']}: {e}")
         out["open"] = {"packet": o["id"], "kind": o["kind"], "pdf": f"/l/{lid}/packets/{o['id']}.pdf",
                        "key": f"/l/{lid}/packets/{o['id']}-key.pdf", "summary": flow.summary_of(d, o["id"]),
                        "scan": flow.scan_url(a, base_url(), lid, o["id"]), "about": flow.describe(o["kind"]),
@@ -1053,6 +1058,12 @@ def mybook(lid: str, request: Request):
     work as it came back with notes in the margins. 'today' is the leaf the book opens at."""
     a, fam, lr = require_learner(request, lid)
     d = db()
+    for p in d.packets():  # pages made before the scan code: add it before they are shown or printed
+        if p["status"] == "open":
+            try:
+                flow.ensure_scan_code(a, d, base_url(), lid, p["id"])
+            except Exception as e:  # noqa: BLE001
+                print(f"scan code not added to {p['id']}: {e}")
     reps = _reports_by_packet()
     leaves = [{"t": "cover"}]
     today = None
