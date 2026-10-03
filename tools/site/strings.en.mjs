@@ -48,6 +48,7 @@ export default {
     how: 'How it works',
     help: 'Help available',
     employers: 'For employers',
+    funds: 'For benefit funds',
     join: 'Join the pilot',
     langSwitch: 'Español',
     langSwitchHref: '/es',
@@ -918,6 +919,106 @@ export default {
       note: "We'll use these details to reply. Please don't include employee records or health information.",
       success: "Your message is saved. We'll reply to the email you gave us.",
       error: "We couldn't save your message. Please try again.",
+      generic: 'Please fill in every field.',
+    },
+  },
+
+  // ── /funds ──────────────────────────────────────────────────────────────────
+  //
+  // For union (Taft-Hartley) benefit funds. The worked example is the Medicare
+  // Savings Program: a fund that reimburses part of its retirees' Part B premium
+  // is paying a bill the state would pay for many of them. Figures checked
+  // October 2026: Part B standard premium $202.90 a month (CMS, 2026); New York
+  // QI-1 limit $2,474 a month gross for one person, no asset test (NY DOH 2026);
+  // any Medicare Savings Program level qualifies a person for Extra Help.
+  funds: {
+    meta: {
+      title: 'Axolotl for benefit funds',
+      description:
+        'Axolotl is a confidential text line that enrolls your members in the public programs they already qualify for, starting with Medicare Savings Programs for retirees, so the fund stops paying premiums the state would cover. Paid per approved enrollment.',
+      shareAlt: 'A manila folder of family tasks with a Confirmed stamp on the first row.',
+    },
+    hero: {
+      eyebrow: 'For union benefit funds',
+      h1Plain: 'Some of the premiums your fund pays,',
+      h1Em: 'the state would pay instead.',
+      sub: 'Many retirees on your Part B reimbursement qualify for a Medicare Savings Program, which pays the whole premium. Few apply. Axolotl is a confidential text line that checks, fills the application and files it with the member’s yes. You pay only when one is approved.',
+      primary: 'Request a fund pilot',
+      secondary: 'See one retiree’s math',
+    },
+    example: {
+      h2Plain: 'One retiree,',
+      h2Em: 'one letter, six texts.',
+      lead: 'A worked example in New York, where a Medicare Savings Program covers a single person with up to $2,474 a month in income, and savings don’t count. The fund mails one letter with the number. The rest happens by text.',
+      threadLabel: 'A retired home health aide, 68',
+      thread: [
+        { from: 'member', text: 'Got the letter from the fund about Part B. Is this real?' },
+        { from: 'axolotl', text: 'It’s real. New York pays the whole Part B premium for people under $2,474 a month, and savings don’t count. What comes in each month, Social Security and pension together?' },
+        { from: 'member', text: '1,640 social security, 410 pension' },
+        { from: 'axolotl', text: 'That’s $2,050, so you qualify. The state would pay your $202.90 a month, and you’d get Extra Help with prescriptions too. I’ve filled the application from what you told me. Reply YES and I’ll file it. Nothing goes without your yes.' },
+        { from: 'member', text: 'YES' },
+        { from: 'axolotl', text: 'Filed. The office has up to 45 days. I’ll text you when it’s approved, and the premium stops coming out of your Social Security.' },
+      ],
+      brief: {
+        eyebrow: 'What one approval is worth',
+        example: '2026 figures',
+        rows: [
+          { v: '$202.90', l: 'Part B premium, every month', note: 'The 2026 standard premium. The state pays it once she’s approved.' },
+          { v: '$1,217', l: 'A year the fund stops paying', note: 'For a fund that reimburses half the premium.' },
+          { v: '$1,217', l: 'A year back in her check', note: 'Her half, plus Extra Help on prescriptions.' },
+          { v: '$300', l: 'Our fee, once', note: 'Paid on approval. Nothing for a denial.' },
+        ],
+        foot: 'The fund pays for itself in about three months, then saves every year she stays enrolled.',
+      },
+    },
+    programs: {
+      h2Plain: 'The same line,',
+      h2Em: 'for everything members leave on the table.',
+      lead: 'Retiree premiums are where the fund’s money is clearest, so a pilot starts there. Members text the same number for the rest.',
+      head: ['What members are owed', 'What it does for the fund'],
+      rows: [
+        ['Medicare Savings Programs', 'Part B premiums the state pays instead of the fund.'],
+        ['Extra Help with prescriptions', 'Lower drug costs for retirees, automatic with any Medicare Savings Program.'],
+        ['Turning 65', 'Medicare signed up on time, with no lifelong late penalty, and the move off the active plan done right.'],
+        ['Dependents and life events', 'A new baby, a marriage or a divorce, with the paperwork complete the first time.'],
+        ['State leave and child care programs', 'Paid family leave and child care help members already pay into, filed for them.'],
+      ],
+    },
+    never: {
+      h2: 'What we never do',
+      items: [
+        { title: 'Act without a yes', body: 'Nothing is filed, sent or signed until the member replies YES to exactly what will happen.' },
+        { title: 'Show the fund a case', body: 'The fund sees totals. It learns a member’s name only when that member agrees, and only to stop a reimbursement the state now pays.' },
+        { title: 'Sell or share member data', body: 'Not to employers, not to insurers, not to anyone.' },
+        { title: 'Replace your member services', body: 'When a question is about the fund’s own plan, we send it to your staff with the context, not a guess.' },
+      ],
+    },
+    pilot: {
+      h2: 'A pilot that pays for itself',
+      lead: 'Pick one group: the retirees on your Part B reimbursement. You send one mailing with the number. We screen, file and follow each case to approval.',
+      measuresLabel: 'What we report every month',
+      measures: [
+        'Retirees who texted, and how many qualify',
+        'Applications filed, approved and pending',
+        'Premium dollars a year moved off the fund',
+        'Days from first text to approval',
+      ],
+      price: '$300 per approved enrollment. Nothing for screening, nothing for denials.',
+      guardrail: 'If nobody is approved, the pilot costs the fund nothing.',
+    },
+    form: {
+      h2: 'Request a fund pilot',
+      lead: 'Tell us about your fund. We’ll reply within two business days.',
+      nameLabel: 'Your name',
+      roleLabel: 'Your role',
+      fundLabel: 'Fund',
+      emailLabel: 'Work email',
+      messageLabel: 'Roughly how many retirees, and in which states?',
+      messageHint: '(optional)',
+      submit: 'Send',
+      note: "We'll use these details to reply. Please don't include member records or health information.",
+      success: "Your request is saved. We'll reply to the email you gave us.",
+      error: "We couldn't save your request. Please try again.",
       generic: 'Please fill in every field.',
     },
   },
