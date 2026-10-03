@@ -184,16 +184,16 @@ export default {
   },
 
   steps: {
-    h2Plain: 'Sus archivos encuentran el momento.',
-    h2Em: 'El miembro dice que sí.',
-    lead: 'El fondo ya sabe quién cumple 65, quién solicitó una pensión por discapacidad, a quién le reembolsa la Parte B y más o menos cuánto paga la pensión de cada jubilado. Eso basta para saber a quién escribir, y cuándo.',
+    h2Plain: 'Cada miembro, revisado cada día.',
+    h2Em: 'Nada avanza sin un sí.',
+    lead: 'Axolotl lleva un registro vivo de dónde está cada miembro: en observación, probablemente elegible, contactado, de acuerdo, solicitud presentada, aprobado, por renovar. Cada día lee lo que cambió en sus archivos y en las reglas, y solo hace avanzar a un miembro cuando está seguro. Cuando no lo está, decide una persona.',
     items: [
-      { tag: 'Encontrar', text: 'Sus archivos de elegibilidad, reclamos y pensiones marcan el momento: un jubilado por debajo del límite del estado, un reembolso de la Parte B sin un miembro vivo que la pague, una solicitud de pensión por discapacidad, un miembro a nueve meses de cumplir 65.' },
-      { tag: 'Contactar', text: 'El fondo envía una carta o un mensaje con el número. Los miembros responden desde su propio teléfono, en inglés o en español.' },
-      { tag: 'Llenar', text: 'Axolotl hace unas pocas preguntas y llena la solicitud con lo que dice el miembro y lo que el fondo ya tiene.' },
+      { tag: 'Observar', text: 'Cada día: reclamos nuevos, cambios en la pensión, correo devuelto, un fallecimiento, una solicitud de pensión por discapacidad, un miembro a nueve meses de cumplir 65. Y cada cambio de regla: la prima de la Parte B, el aumento por costo de vida, los nuevos límites de ingreso del estado cada año.' },
+      { tag: 'Decidir', text: 'El cálculo de elegibilidad es código simple, que se puede rastrear hasta la regla y la cifra. Un modelo de decisiones calibrado lee lo que cambió y dice qué tan seguro está. Por debajo del umbral, revisa una persona de nuestro equipo.' },
+      { tag: 'Contactar', text: 'El fondo envía una carta con el número. Los miembros responden desde su propio teléfono, en inglés o en español, y Axolotl llena la solicitud con lo que dicen y lo que el fondo ya tiene.' },
       { tag: 'Sí', text: 'No se presenta nada hasta que el miembro responde SÍ a exactamente lo que va a pasar.' },
-      { tag: 'Seguir', text: 'Seguimos cada caso hasta la aprobación. Una guía de cuidado, una persona real, se encarga de los difíciles.' },
-      { tag: 'Contar', text: 'Usted recibe un reporte mensual: aprobaciones, y los dólares al año que pasaron a quien debe pagar.' },
+      { tag: 'Confirmar', text: 'Seguimos cada caso hasta la decisión por escrito del estado o del Seguro Social, y lo renovamos cada año que haga falta.' },
+      { tag: 'Conciliar', text: 'Con el permiso del miembro, usted recibe la lista de reembolsos que debe suspender, y un reporte mensual: aprobaciones, y los dólares al año que pasaron a quien debe pagar.' },
     ],
   },
 
@@ -201,8 +201,9 @@ export default {
     h2Plain: 'Por qué esto no se hace',
     h2Em: 'ya.',
     items: [
-      { h: 'Cada pieza se vende por separado', p: 'Las empresas de discapacidad y de Medicare manejan un programa cada una, por teléfono y en papel. Las auditorías de dependientes llegan desde la oficina del fondo, años tarde. Nadie lo cubre todo para un fondo, desde una sola línea de texto.' },
+      { h: 'Otros trabajan un caso a la vez', p: 'Las empresas de discapacidad y de Medicare manejan un programa cada una, por teléfono y en papel, cuando alguien les manda un caso. Axolotl revisa a cada miembro, para cada fuga, todos los días. Las reglas cambian cada enero, así que el trabajo nunca termina.' },
       { h: 'Funciona desde el lado del miembro', p: 'El miembro recibe el cheque, la cobertura, la prima más baja. Por eso responde, y por eso el sindicato puede respaldar la carta.' },
+      { h: 'Cada decisión queda registrada', p: 'Cada paso de un miembro queda registrado con lo que cambió, lo que concluyó el sistema y qué tan seguro estaba. Su abogado puede revisar cualquiera.' },
       { h: 'Usted paga por aprobaciones', p: 'Sin cuota por miembro. Nada por verificar, nada por negaciones.' },
     ],
   },
