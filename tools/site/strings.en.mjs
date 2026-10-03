@@ -47,7 +47,7 @@ export default {
     money: 'Where the money goes',
     how: 'How it works',
     members: 'For members',
-    join: 'Request a pilot',
+    join: 'Get a free scan',
     joinMembers: 'Get a text',
     langSwitch: 'Español',
   },
@@ -62,7 +62,7 @@ export default {
     // The social card (share.html) draws the headline as one line of plain text.
     h1: 'Your fund pays bills Medicare and the state should pay.',
     sub: 'Axolotl finds the members whose costs belong to Medicare, Social Security or the state, and gets them enrolled from their side, by text, with their yes. Members get disability checks, lower premiums and cheaper prescriptions. The fund stops paying first. You pay only for approvals.',
-    primary: 'Request a fund pilot',
+    primary: 'Get a free scan',
     secondary: 'See where the money goes',
     trust: 'For union health and welfare funds. Paid per approval.',
     // The hero phone: a retiree on the fund's Part B reimbursement who qualifies
@@ -242,6 +242,29 @@ export default {
     ],
   },
 
+  // The free wrong-payer scan (docs/FUNDS-LEAK-SCAN.md): the way into a fund.
+  scan: {
+    h2Plain: 'Start with a free scan',
+    h2Em: 'of your own data.',
+    lead: 'In 30 days we show you, in dollars, where your fund pays when Medicare, Social Security, the state or another insurer should, and how many members are behind each number.',
+    cards: [
+      { title: 'What you get', body: 'A report of dollars a year paid by the wrong payer, by leak: dialysis past month 30, disability without Medicare, retirees and COBRA members without Medicare, Part B paid twice or after death, other coverage. Biggest first. No names leave the fund unless you ask.' },
+      { title: 'What you give', body: 'Your eligibility, claims summary and Part B reimbursement files, under a HIPAA business associate agreement, and one contact at the fund office.' },
+      { title: 'What it costs', body: 'Nothing. If you want the cases fixed, we reach each member by text with your letter, and you pay only per approval.' },
+    ],
+    dataLabel: 'What we ask for',
+    data: [
+      'Eligibility: date of birth, relationship, coverage type and dates',
+      'The Medicare status you already have on file',
+      'A claims summary: diagnosis and procedure codes, amounts paid, Medicare crossover',
+      'Your Part B reimbursement file, if you reimburse',
+      'If you have them: pension amounts and disability pension applications',
+    ],
+    neverLabel: 'What we never need',
+    never: ['Full medical records', 'Social Security numbers', 'Bank details'],
+    estimate: 'Our estimate for a fund with 30,000 members: roughly $2–6 million a year, 1–2% of spend. The scan replaces it with your number.',
+  },
+
   pilot: {
     h2: 'Start with one group',
     lead: 'Pick the retirees on your Part B reimbursement, or the members applying for a disability pension. You send one mailing. We screen, file and follow each case to approval.',
@@ -262,8 +285,8 @@ export default {
   },
 
   form: {
-    h2: 'Request a fund pilot',
-    lead: 'Tell us about your fund. We’ll reply within two business days.',
+    h2: 'Request a free scan',
+    lead: 'Tell us about your fund. We’ll reply within two business days with the agreement and the data list.',
     nameLabel: 'Your name',
     roleLabel: 'Your role',
     fundLabel: 'Fund',

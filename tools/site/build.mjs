@@ -283,7 +283,7 @@ function homeSections(s) {
 
   const df = at(s, 'different');
   const different = `
-    <section class="section t-golden" aria-labelledby="different-title">
+    <section class="section t-day" aria-labelledby="different-title">
       <div class="wrap">
         <h2 id="different-title">${payoff(df.h2Plain, df.h2Em)}</h2>
         ${cardGrid(df.items.map((i) => ({ title: i.h, body: i.p })))}
@@ -295,6 +295,28 @@ function homeSections(s) {
       <div class="wrap">
         <h2 id="never-title">${esc(at(s, 'never.h2'))}</h2>
         ${cardGrid(at(s, 'never.items'))}
+      </div>
+    </section>`;
+
+  const sc = at(s, 'scan');
+  const scan = `
+    <section class="section t-golden" id="scan" aria-labelledby="scan-title">
+      <div class="wrap">
+        <h2 id="scan-title">${payoff(sc.h2Plain, sc.h2Em)}</h2>
+        <p class="lead">${esc(sc.lead)}</p>
+        <div class="scan-cards">${cardGrid(sc.cards)}</div>
+        <div class="scan-lists">
+          <div>
+            <h3>${esc(sc.dataLabel)}</h3>
+            <ul class="plain-list">${sc.data.map((i) => `<li>${esc(i)}</li>`).join('')}</ul>
+          </div>
+          <div>
+            <h3>${esc(sc.neverLabel)}</h3>
+            <ul class="plain-list">${sc.never.map((i) => `<li>${esc(i)}</li>`).join('')}</ul>
+          </div>
+        </div>
+        <p class="scan-estimate"><span class="highlight">${esc(sc.estimate)}</span></p>
+        <a class="button primary" href="#school-contact">${esc(at(s, 'hero.primary'))}</a>
       </div>
     </section>`;
 
@@ -372,7 +394,7 @@ function homeSections(s) {
       </div>
     </section>`;
 
-  return [hero, money, example, disability, steps, different, never, pilot, form, membersBand].join('');
+  return [hero, money, scan, example, disability, steps, different, never, pilot, form, membersBand].join('');
 }
 
 // ── /members ──────────────────────────────────────────────────────────────────
@@ -725,8 +747,8 @@ function document(s, { title, description, canonical, alts, body, prefix, langHr
       href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/site.css?v=16" />
-    <script src="/site.js?v=16" defer></script>
+    <link rel="stylesheet" href="/site.css?v=17" />
+    <script src="/site.js?v=17" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main">${esc(at(s, 'a11y.skip'))}</a>
