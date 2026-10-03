@@ -119,8 +119,9 @@ way, instead of after it.
   - Each approval triggers a billing event, a line on the fund's monthly
     report (totals only), and a "stop reimbursing this member" file for the
     fund, with the member's authorization.
-- [ ] **Care guide console v1.** A simple internal admin tool: queue, case
-  view, documents, notes, audit trail.
+- [ ] **Member advocate console v1.** The founders use it during the pilot.
+  A simple internal admin tool: queue, case view, documents, notes, audit
+  trail, and minutes logged per case.
 - [ ] **SOC 2 Type I report** in hand, and a third-party penetration test done
   and fixed. *Pen test about $10–25K, estimated.*
 - [ ] **Incident response plan**, tested once.
@@ -170,11 +171,18 @@ way, instead of after it.
 ## What it costs and who does it (estimates)
 
 - **Phases 1–3 (about 12 weeks):**
-  - People: the two founders, plus one part-time care guide from week 8.
+  - People: the two founders. **The founders are the human in the loop through
+    the pilot.** At about 10–20 human minutes per approval, 300–500 approvals
+    is about 50–170 hours over several months.
   - Cash: about $60–130K across legal, insurance, compliance platform,
     Type I audit and pen test. That fits in a YC or PearX check.
-- **Phase 4:** add a full-time care guide and a contract security or
-  compliance advisor as client count grows.
+- **Hiring a member advocate is triggered by volume, not by a date:**
+  - part-time at a steady 40–50+ cases a week
+  - full-time at about 100+ a week, or when a second client goes live
+- **Track human minutes per approval** as a core metric. Every handled case
+  should feed back as a rule fix, a better script or a Jev threshold, so the
+  number falls.
+- Add a contract security or compliance advisor as client count grows.
 
 ## The critical path
 
