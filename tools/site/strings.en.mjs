@@ -210,16 +210,16 @@ export default {
   },
 
   steps: {
-    h2Plain: 'Your files find the moment.',
-    h2Em: 'The member says yes.',
-    lead: 'The fund already knows who is turning 65, who filed for a disability pension, whose Part B it reimburses and roughly what each retiree’s pension pays. That is enough to know who to reach, and when.',
+    h2Plain: 'Every member, watched every day.',
+    h2Em: 'Nothing moves without a yes.',
+    lead: 'Axolotl keeps a live record of where each member stands: watching, likely eligible, contacted, agreed, filed, approved, up for renewal. Every day it reads what changed in your files and in the rules, and moves a member forward only when it’s sure. When it isn’t, a person decides.',
     items: [
-      { tag: 'Find', text: 'Your eligibility, claims and pension files flag the moment: a retiree under the state income limit, a Part B reimbursement with no living or paying member behind it, a disability pension application, a member nine months from 65.' },
-      { tag: 'Reach', text: 'The fund sends one letter or text with the number. Members text back from their own phone, in English or Spanish.' },
-      { tag: 'Fill', text: 'Axolotl screens in a few questions and fills the application from what the member tells it and what the fund already has.' },
+      { tag: 'Watch', text: 'Every day: new claims, pension changes, returned mail, a death, a disability pension application, a member nine months from 65. And every rule change: the Part B premium, the cost-of-living raise, the state’s new income limits each year.' },
+      { tag: 'Decide', text: 'The eligibility math is plain code, traceable to the rule and the number. A calibrated decision model reads what changed and says how sure it is. Below the bar, a person on our team looks.' },
+      { tag: 'Reach', text: 'The fund sends one letter with the number. Members text back from their own phone, in English or Spanish, and Axolotl fills the application from what they say and what the fund already has.' },
       { tag: 'Yes', text: 'Nothing is filed until the member replies YES to exactly what will happen.' },
-      { tag: 'Follow', text: 'We track every case to approval. A care guide, a real person, takes the hard ones.' },
-      { tag: 'Count', text: 'You get a monthly ledger: approvals, and the dollars a year that moved to the right payer.' },
+      { tag: 'Confirm', text: 'We track every case to the state’s or Social Security’s written decision, and renew it every year it needs renewing.' },
+      { tag: 'Reconcile', text: 'With the member’s okay, you get the list of reimbursements to stop, and a monthly ledger: approvals, and the dollars a year that moved to the right payer.' },
     ],
   },
 
@@ -227,8 +227,9 @@ export default {
     h2Plain: 'Why this isn’t done',
     h2Em: 'already.',
     items: [
-      { h: 'Each piece is sold separately', p: 'Disability and Medicare firms each handle one program, by phone and paper. Dependent audits come from the fund office, years late. No one covers all of it for a fund, from one text line.' },
+      { h: 'Others work one case at a time', p: 'Disability and Medicare firms each handle one program, by phone and paper, when someone sends them a case. Axolotl watches every member for every leak at once, every day. The rules reset each January, so the work never ends.' },
       { h: 'It works from the member’s side', p: 'The member gets the check, the coverage, the lower premium. That is why they answer, and why the union can stand behind the letter.' },
+      { h: 'Every decision is on the record', p: 'Each step a member takes is logged with what changed, what the system concluded and how sure it was. Your counsel can review any of it.' },
       { h: 'You pay for approvals', p: 'No per-member fee. Nothing for screening, nothing for denials.' },
     ],
   },
