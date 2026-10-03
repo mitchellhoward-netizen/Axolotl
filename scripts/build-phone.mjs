@@ -57,23 +57,12 @@ const DEVICE = {
 
 /**
  * Two screens, both rendered per language:
- *   yes  — the consent loop in "How your yes works"
- *   week — the hero: the same five rows the paper folder held, as the card the
- *          parent actually receives, so the hero can be a device too.
+ *   yes  — a member's disability award, filed on their YES (how.phone)
+ *   week — the hero: a retiree's Part B premium moved to the state (hero.phone)
  */
 const SCREENS = [
   { key: 'yes', screen: 'yes', file: (lang) => `phone-${lang}.webp` },
   { key: 'week', screen: 'week', file: (lang) => `hero-phone-${lang}.webp` },
-  { key: 'circles', screen: 'circles', file: (lang) => `circles-${lang}.webp` },
-  // The four cards of the week section, one phone each. They sit in a row at a
-  // third of the hero's width, so they render and ship smaller.
-  ...[0, 1, 2, 3].map((i) => ({
-    key: `weekcol${i}`,
-    screen: 'weekcol',
-    i,
-    displayWidth: 328,
-    file: (lang) => `week-${i + 1}-${lang}.webp`,
-  })),
 ];
 
 /** Screen-space rects -> percentages of the shipped image, so the page can put
@@ -319,11 +308,7 @@ const stringsHash = async () => {
     h.update(
       JSON.stringify({
         phone: mod.how.phone,
-        band: mod.how.channel,
         hero: mod.hero.phone,
-        folder: mod.hero.folder,
-        week: mod.week,
-        circles: mod.circles.chat,
         statuses: mod.statuses,
       }),
     );
