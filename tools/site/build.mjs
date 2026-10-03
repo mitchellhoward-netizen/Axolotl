@@ -1,9 +1,9 @@
 /**
  * Renders the static site from the per-language strings files.
  *
- *     npm run build:site      # write public/index.html, public/es/index.html,
- *                             # public/employers.html, public/es/employers.html,
- *                             # public/funds.html, public/es/funds.html
+ *     npm run build:site      # write public/index.html, public/es.html,
+ *                             # public/members.html, public/es/members.html,
+ *                             # public/employers.html, public/es/employers.html
  *     npm run check:site      # fail if the committed HTML is not what the
  *                             # strings would produce (drift check, used by CI)
  *
@@ -46,18 +46,19 @@ const fill = (template, vars) =>
 
 // ── shared pieces ────────────────────────────────────────────────────────────
 
-/** The header. `prefix` is '' on the home page and '/' on /employers, so the
- *  section links keep working from a page that does not have those sections. */
-function header(s, { prefix, cta, langHref }) {
-  // Section links point at this language's home page, so /es/employers does not
+/** The header. `prefix` is '' on the home page and '/' elsewhere, so the
+ *  section links keep working from a page that does not have those sections.
+ *  `ctaLabel` names the header button: a pilot on the fund pages, a text on
+ *  /members. */
+function header(s, { prefix, cta, ctaLabel, langHref }) {
+  // Section links point at this language's home page, so /es/members does not
   // send a Spanish reader to the English page.
   const home = s.lang === 'es' ? '/es' : '/';
   const base = prefix ? home : '';
   const nav = [
-    [at(s, 'nav.how'), `${base}#inbox`],
-    [at(s, 'nav.help'), `${base}#qualify`],
-    [at(s, 'nav.employers'), s.lang === 'es' ? '/es/employers' : '/employers'],
-    [at(s, 'nav.funds'), s.lang === 'es' ? '/es/funds' : '/funds'],
+    [at(s, 'nav.money'), `${base}#money`],
+    [at(s, 'nav.how'), `${base}#how`],
+    [at(s, 'nav.members'), s.lang === 'es' ? '/es/members' : '/members'],
   ]
     .map(([label, href]) => `<li><a href="${href}">${esc(label)}</a></li>`)
     .join('');
@@ -69,7 +70,7 @@ function header(s, { prefix, cta, langHref }) {
         <span>Axolotl</span>
       </a>
       <div class="header-actions">
-        <a class="button primary header-cta" href="${cta}">${esc(at(s, 'nav.join'))}</a>
+        <a class="button primary header-cta" href="${cta}">${esc(ctaLabel)}</a>
         <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="${esc(at(s, 'a11y.menu'))}">
           <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 6h18M3 12h18M3 18h18" /></svg>
         </button>
@@ -109,18 +110,9 @@ function footer(s, { langHref }) {
   </footer>`;
 }
 
-// ── the homepage: one school day ─────────────────────────────────────────────
-//
-// Each section is a moment in a parent's day (7:15 AM to 9:40 PM) and carries
-// its time. The light is done in CSS: every section has a `t-*` class that sets
-// its own background, and neighbouring sections start where the last one ended,
-// so the page reads as one day getting later rather than a stack of panels.
+// ── shared page pieces ───────────────────────────────────────────────────────
 
-/** The small time stamp that opens every section: "7:15 AM · A school day". */
-const timeChip = (d) =>
-  `<p class="time-chip"><span class="time-chip-time">${esc(d.time)}</span><span class="time-chip-label">${esc(d.label)}</span></p>`;
-
-/** A heading whose last words are the italic payoff: "Help your kid <em>already qualifies for.</em>" */
+/** A heading whose last words are the italic payoff: "Your fund pays bills <em>Medicare should pay.</em>" */
 const payoff = (plain, em) => `${esc(plain)} <em>${esc(em)}</em>`;
 
 /** A device render from scripts/build-phone.mjs. `alt` '' marks a decorative copy. */
@@ -128,24 +120,34 @@ function device(name, size, alt, extra = '') {
   return `<img class="device" src="${shot(name)}" width="${size.width}" height="${size.height}" alt="${esc(alt)}" decoding="async" ${extra}/>`;
 }
 
-/** The alt text for one of the week screens: the conversation, then its status. */
-function weekAlt(s, i) {
-  const c = at(s, 'week.cols')[i];
-  const said = c.turns
-    .filter((t) => t.in || t.out)
-    .map((t) => `${t.out ? at(s, 'week.you') : 'Axolotl'}: ${t.out ?? t.in}`)
-    .join(' ');
-  return `${at(s, 'week.shotAlt')} ${c.h3}. ${said} ${s.statuses[c.status]}`;
+/** A card of big numbers with a label and a source note each. `money` sizes the
+ *  value column for dollar amounts rather than single digits. */
+function briefCard(b, id) {
+  const rows = b.rows
+    .map(
+      (r) => `<li><span class="brief-v">${esc(r.v)}</span><span class="brief-l">${esc(r.l)}<span class="brief-note">${esc(r.note)}</span></span></li>`,
+    )
+    .join('');
+  return `<article class="brief-card" aria-labelledby="${id}">
+            <p class="door-label"><span id="${id}">${esc(b.eyebrow)}</span><span>${esc(b.example)}</span></p>
+            <ul class="brief-rows brief-rows-money">${rows}</ul>
+            ${b.foot ? `<p class="brief-foot">${esc(b.foot)}</p>` : ''}
+          </article>`;
 }
 
-/** A phone-number signup. The hero and the night section each carry one, so a
- *  parent never has to scroll the whole day to join; `id` keeps them apart. */
+/** Cards with a title and a line each, in the never grid. */
+const cardGrid = (items) =>
+  `<div class="never-grid">
+          ${items.map((i) => `<article><h3>${esc(i.title)}</h3><p>${esc(i.body)}</p></article>`).join('\n          ')}
+        </div>`;
+
+/** A phone-number signup ("we'll text you"). `id` keeps two copies apart. */
 function joinForm(s, id) {
   return `
           <form id="${id}-form" class="pill-form" novalidate data-error="${esc(at(s, 'join.generic'))}" data-error-phone="${esc(at(s, 'join.error'))}">
             <label class="sr-only" for="${id}-phone">${esc(at(s, 'join.phoneLabel'))}</label>
             <div class="pill-field">
-              <input id="${id}-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="30" required placeholder="${esc(at(s, 'day.phonePlaceholder'))}" aria-describedby="${id}-error" />
+              <input id="${id}-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="30" required placeholder="${esc(at(s, 'join.placeholder'))}" aria-describedby="${id}-error" />
               <button class="button primary" type="submit">${esc(at(s, 'join.submit'))}</button>
             </div>
             <p class="form-note">${esc(at(s, 'join.note'))}</p>
@@ -156,166 +158,6 @@ function joinForm(s, id) {
           </div>`;
 }
 
-/** Blurred school paper drifting behind the phones: the mess Axolotl sorts out.
- *  Pure decoration, so it carries no words a screen reader would trip over. */
-const clutter = `
-        <div class="clutter" aria-hidden="true">
-          <span class="paper paper-slip"><i></i><i></i><i></i><b></b></span>
-          <span class="paper paper-menu"><i></i><i></i><i></i><i></i></span>
-          <span class="paper paper-note"></span>
-          <span class="paper paper-card"><i></i><i></i></span>
-        </div>`;
-
-function hero(s) {
-  const d = at(s, 'day.morning');
-  const agents = at(s, 'day.agents');
-  if (agents.items.length !== 11) throw new Error(`day.agents.items must have 11 lines (the animation in site.css is timed for 11), ${s.lang} has ${agents.items.length}`);
-  const lines = agents.items.map((line) => `<span>${esc(line)}</span>`).join('');
-  const size = art[s.lang];
-  return `
-    <section class="hero t-morning" id="top" aria-labelledby="hero-title">
-      <div class="sun" aria-hidden="true"></div>${clutter}
-      <div class="wrap hero-copy">
-        ${timeChip(d)}
-        <div class="agents" aria-hidden="true">
-          <div class="agents-track">${lines}<span class="agents-parents">${esc(agents.parentsLead)} <s>${esc(agents.parentsTail)}</s></span><span>${esc(agents.items[0])}</span></div>
-        </div>
-        <h1 id="hero-title">${payoff(d.h1Plain, d.h1Em)}</h1>
-        <p class="lead">${esc(at(s, 'hero.sub'))}</p>
-${joinForm(s, 'hero-join')}
-        <p class="trust-line">${esc(at(s, 'hero.trust'))}</p>
-      </div>
-      <div class="hero-stage">
-        ${device(`week-1-${s.lang}.webp`, size.weekcol0, '', 'loading="lazy" ')}
-        ${device(`circles-${s.lang}.webp`, size.circles, '', 'loading="lazy" ')}
-        <img class="peek" src="/ollie/ollie-think.webp" alt="" width="900" height="900" decoding="async" />
-        ${device(`hero-phone-${s.lang}.webp`, size.week, at(s, 'hero.phone.alt'), 'fetchpriority="high" ')}
-      </div>
-    </section>`;
-}
-
-function inbox(s) {
-  const d = at(s, 'day.inbox');
-  const steps = d.steps
-    .map((st, i) => `<li><span class="step-tag">${String(i + 1).padStart(2, '0')} · ${esc(st.tag)}</span>${esc(st.body)}</li>`)
-    .join('\n            ');
-  const emails = d.emails
-    .map((e, i) => `<li${i === d.highlight ? ' class="is-flagged"' : ''}>${esc(e)}</li>`)
-    .join('');
-  return `
-    <section class="section t-day" id="inbox" aria-labelledby="inbox-title">
-      <div class="wrap split">
-        <div class="split-copy">
-          ${timeChip(d)}
-          <h2 id="inbox-title">${payoff(d.h2Plain, d.h2Em)}</h2>
-          <p class="lead">${esc(d.lead)}</p>
-          <ol class="step-grid">
-            ${steps}
-          </ol>
-        </div>
-        <figure class="inbox-stage">
-          <div class="inbox-card" aria-hidden="true">
-            <p class="inbox-label">${esc(d.inboxLabel)}</p>
-            <ul>${emails}</ul>
-          </div>
-          ${device(`phone-${s.lang}.webp`, art[s.lang].yes, at(s, 'how.phone.alt'), 'loading="lazy" ')}
-          <figcaption class="caption">${esc(at(s, 'how.phone.caption'))}</figcaption>
-        </figure>
-      </div>
-    </section>`;
-}
-
-/** The week, as four device renders. A row on a wide screen; on a phone the row
- *  scrolls sideways with arrows, which ship hidden until the script wires them. */
-function midday(s) {
-  const d = at(s, 'day.midday');
-  const slides = at(s, 'week.cols')
-    .map(
-      (c, i) => `<li class="week-card">
-            ${device(`week-${i + 1}-${s.lang}.webp`, art[s.lang][`weekcol${i}`], weekAlt(s, i), 'loading="lazy" ')}
-            <p class="week-time">${esc(c.time)}</p>
-            <h3>${esc(c.h3)}</h3>
-          </li>`,
-    )
-    .join('\n          ');
-  return `
-    <section class="section t-noon" id="week" aria-labelledby="week-title">
-      <div class="wrap center-head">
-        ${timeChip(d)}
-        <h2 id="week-title">${esc(at(s, 'week.h2'))}</h2>
-        <p class="lead">${esc(at(s, 'week.lead'))}</p>
-      </div>
-      <div class="wrap">
-        <div class="carousel" data-carousel>
-          <button class="carousel-arrow carousel-prev" type="button" aria-label="${esc(at(s, 'week.prev'))}" hidden>
-            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14.5 5 8 12l6.5 7" /></svg>
-          </button>
-          <ul class="carousel-track" tabindex="0" aria-label="${esc(at(s, 'week.trackLabel'))}">
-          ${slides}
-          </ul>
-          <button class="carousel-arrow carousel-next" type="button" aria-label="${esc(at(s, 'week.next'))}" hidden>
-            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9.5 5 16 12l-6.5 7" /></svg>
-          </button>
-        </div>
-        <p class="caption center">${esc(at(s, 'exampleCaption'))}</p>
-      </div>
-    </section>`;
-}
-
-/** One ask, start to finish: the school's email, Axolotl's reading of it, the
- *  letter, the follow-up, the answer. The law is named only inside the letter,
- *  which is where a parent would actually meet it. */
-function qualify(s) {
-  const d = at(s, 'day.qualify');
-  const body = (st) => {
-    if (st.kind === 'email')
-      return `<div class="tl-card tl-email"><span class="tl-meta">${esc(st.from)}</span><strong>${esc(st.subject)}</strong><span>${esc(st.before)}<mark>${esc(st.mark)}</mark>${esc(st.after)}</span></div>`;
-    if (st.kind === 'letter')
-      return `<div class="tl-card tl-letter"><span class="tl-meta">${esc(st.to)}</span><span class="tl-letter-text">${esc(st.before)}<mark>${esc(st.mark)}</mark>${esc(st.after)}</span><span class="tl-sent">${esc(st.sent)}</span></div>`;
-    if (st.kind === 'reply')
-      return `<div class="tl-card tl-reply"><span class="tl-meta">${esc(st.from)}</span><span>${esc(st.text)}</span></div><p class="tl-track"><span class="tl-bar" aria-hidden="true"><span></span></span>${esc(st.track)}</p>`;
-    return `<p class="bubble in">${esc(st.in)}</p>${st.out ? `<p class="bubble out">${esc(st.out)}</p>` : ''}`;
-  };
-  const steps = d.steps
-    .map(
-      (st) => `<li class="tl-step${st.pending ? ' is-pending' : ''}${st.done ? ' is-done' : ''}">
-              <p class="tl-when">${esc(st.when)}</p>
-              <h3>${esc(st.title)}</h3>
-              ${body(st)}
-            </li>`,
-    )
-    .join('\n            ');
-  const also = d.also.map((a) => `<li>${esc(a)}</li>`).join('');
-  return `
-    <section class="section t-afternoon" id="qualify" aria-labelledby="qualify-title">
-      <div class="wrap">
-        <div class="head-split">
-          <div>
-            ${timeChip(d)}
-            <h2 id="qualify-title">${payoff(d.h2Plain, d.h2Em)}</h2>
-          </div>
-          <p class="lead">${esc(d.lead)}</p>
-        </div>
-        <div class="glass timeline">
-          <div class="timeline-head">
-            <h3>${esc(d.timelineTitle)}</h3>
-            <p class="caption">${esc(at(s, 'exampleCaption'))}</p>
-          </div>
-          <ol class="tl">
-            ${steps}
-          </ol>
-        </div>
-        <div class="also">
-          <p class="also-label">${esc(d.alsoLabel)}</p>
-          <ul class="chips">${also}</ul>
-        </div>
-        <p class="line-note">${esc(d.note)}</p>
-      </div>
-    </section>`;
-}
-
-/** One path, shown the way a school would see it: what the family does, what the
- * office does, what the path has recorded, and who made it official. */
 function pathCard(c) {
   const stats = c.stats
     .map((st) => `<div><span class="path-stat-v">${esc(st.v)}</span><span class="path-stat-l">${esc(st.l)}</span></div>`)
@@ -337,187 +179,244 @@ function pathCard(c) {
           </article>`;
 }
 
-function schoolNet(s) {
-  const d = at(s, 'day.school');
-  const c = d.card;
-  const steps = d.steps
-    .map((st) => `<li><span class="path-step-tag">${esc(st.tag)}</span>${esc(st.text)}</li>`)
-    .join('');
-  const more = d.more
-    .map((m) => `<li>${esc(m.name)} <span class="${m.official ? 'path-official' : 'path-status'}">${esc(m.status)}</span></li>`)
-    .join('');
-  return `
-    <section class="section t-golden" id="school" aria-labelledby="school-title">
-      <div class="wrap split path-split">
-        <div class="split-copy">
-          ${timeChip(d)}
-          <h2 id="school-title">${payoff(d.h2Plain, d.h2Em)}</h2>
-          <p class="lead">${esc(d.lead)}</p>
-          <ol class="path-steps">${steps}</ol>
-          <a class="text-link" href="${s.lang === 'es' ? '/es/employers' : '/employers'}">${esc(d.link)}</a>
-        </div>
-        <div class="path-side">
-          ${pathCard(c)}
-          <div class="path-more">
-            <p class="path-label">${esc(d.moreLabel)}</p>
-            <ul>${more}</ul>
-            <p class="path-note">${esc(d.note)}</p>
-          </div>
-        </div>
-      </div>
-    </section>`;
-}
+// ── the homepage: for union benefit funds ────────────────────────────────────
+//
+// One idea (docs/FUNDS-MONEY-MAP.md): the fund pays bills that Medicare, Social
+// Security or the state should pay, and the member loses money in the same
+// cases. Two phones carry it: a retiree's Part B premium in the hero, and a
+// disability award further down.
 
-function dinner(s) {
-  const d = at(s, 'day.dinner');
+function homeSections(s) {
   const size = art[s.lang];
-  const week = d.week
-    .map((w) => `<li${w.set ? ' class="is-set"' : ''}><span>${esc(w.day)}</span>${esc(w.who)}</li>`)
-    .join('');
-  const rules = d.rules.map((r) => `<li><strong>${esc(r.h)}</strong> ${esc(r.p)}</li>`).join('');
-  return `
-    <section class="section t-dusk" id="dinner" aria-labelledby="dinner-title">
-      <div class="wrap split circle-split">
-        <div class="circle-phone">
-          ${device(`circles-${s.lang}.webp`, size.circles, at(s, 'circles.chat.alt'), 'loading="lazy" ')}
-        </div>
+  const h = at(s, 'hero');
+  const hero = `
+    <section class="hero hero-schools hero-fund" id="top" aria-labelledby="hero-title">
+      <div class="wrap split hero-fund-split">
         <div class="split-copy">
-          ${timeChip(d)}
-          <h2 id="dinner-title">${payoff(d.h2Plain, d.h2Em)}</h2>
-          <p class="lead">${esc(d.lead)}</p>
-          <p class="circle-week-label">${esc(d.weekLabel)}</p>
-          <ol class="circle-week">${week}</ol>
-          <ul class="circle-rules">${rules}</ul>
-          <p class="circle-soon"><span class="soon-tag">${esc(d.soon)}</span><a class="text-link" href="#join">${esc(d.circles)}</a></p>
+          <p class="schools-eyebrow">${esc(h.eyebrow)}</p>
+          <h1 id="hero-title">${payoff(h.h1Plain, h.h1Em)}</h1>
+          <p class="lead">${esc(h.sub)}</p>
+          <div class="hero-actions">
+            <a class="button primary" href="#school-contact">${esc(h.primary)}</a>
+            <a class="text-link" href="#money">${esc(h.secondary)}</a>
+          </div>
+          <p class="trust-line">${esc(h.trust)}</p>
+        </div>
+        <div class="fund-phone">
+          ${device(`hero-phone-${s.lang}.webp`, size.week, h.phone.alt, 'fetchpriority="high" ')}
         </div>
       </div>
     </section>`;
-}
 
-/** Hidden until at least two permissioned quotes exist. Never a placeholder. */
-function voices(s) {
-  const quotes = at(s, 'voices.quotes');
-  if (quotes.length < 2) return '';
-  const cards = quotes
-    .map(
-      (q) => `<figure class="glass quote">
-          <blockquote><p>${esc(q.text)}</p></blockquote>
-          <figcaption>${esc(q.name)}, ${esc(q.grade)}, ${esc(q.city)}</figcaption>
-        </figure>`,
-    )
-    .join('\n        ');
-  return `
-      <div class="wrap" id="voices">
-        <h2>${esc(at(s, 'voices.h2'))}</h2>
-        <div class="quote-grid">
-        ${cards}
+  const m = at(s, 'money');
+  const money = `
+    <section class="section t-day" id="money" aria-labelledby="money-title">
+      <div class="wrap">
+        <div class="split money-split">
+          <div class="split-copy">
+            <h2 id="money-title">${payoff(m.h2Plain, m.h2Em)}</h2>
+            <p class="lead">${esc(m.lead)}</p>
+          </div>
+          ${briefCard(m.stats, 'stats-title')}
         </div>
-      </div>`;
-}
+        <table class="year-table money-table">
+          <caption class="sr-only">${esc(m.h2Plain)} ${esc(m.h2Em)}</caption>
+          <thead>
+            <tr>${m.head.map((c) => `<th scope="col">${esc(c)}</th>`).join('')}</tr>
+          </thead>
+          <tbody>
+          ${m.rows
+            .map(
+              (r) => `<tr>
+            <td data-label="${esc(m.head[0])}">${esc(r.when)}</td>
+            <td data-label="${esc(m.head[1])}">${esc(r.now)}</td>
+            <td data-label="${esc(m.head[2])}">${esc(r.should)}</td>
+            <td data-label="${esc(m.head[3])}">${esc(r.member)}</td>
+          </tr>`,
+            )
+            .join('\n          ')}
+          </tbody>
+        </table>
+        <p class="network-note">${esc(m.note)}</p>
+      </div>
+    </section>`;
 
-/** Night: the day's summary, the promises, and the way in. The footer lives in
- *  here too, so the page ends in the dark instead of on a separate band. */
-function night(s) {
-  const d = at(s, 'day.night');
-  const tick = `<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12l5 5 9-10" /></svg>`;
-  const summary = d.summary
-    .map(
-      (item) => `<li class="${item.done ? 'is-done' : 'is-waiting'}">
-              <span class="sum-mark">${item.done ? tick : ''}</span>
-              <span class="sum-text"><strong>${esc(item.title)}</strong><span>${esc(item.detail)}</span></span>
-              <span class="sr-only">${esc(item.done ? d.doneWord : d.waitingWord)}</span>
-            </li>`,
-    )
-    .join('\n            ');
-  const promises = d.promises
-    .map((p) => `<article class="glass promise"><h3>${esc(p.title)}</h3><p>${esc(p.body)}</p></article>`)
-    .join('\n          ');
-  const links = d.links.map((l) => `<a class="text-link" href="${l.href}">${esc(l.label)}</a>`).join('\n          ');
-  return `
-    <section class="section t-night" id="night" aria-labelledby="night-title">
-      <div class="stars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  const e = at(s, 'example');
+  const example = `
+    <section class="section t-noon" id="example" aria-labelledby="example-title">
       <div class="wrap split">
         <div class="split-copy">
-          ${timeChip(d)}
-          <h2 id="night-title">${payoff(d.h2Plain, d.h2Em)}</h2>
+          <h2 id="example-title">${payoff(e.h2Plain, e.h2Em)}</h2>
+          <p class="lead">${esc(e.lead)}</p>
+        </div>
+        ${briefCard(e.brief, 'example-brief-title')}
+      </div>
+    </section>`;
+
+  const d = at(s, 'disability');
+  const disability = `
+    <section class="section t-afternoon" id="disability" aria-labelledby="disability-title">
+      <div class="wrap split">
+        <figure class="fund-phone">
+          ${device(`phone-${s.lang}.webp`, size.yes, at(s, 'how.phone.alt'), 'loading="lazy" ')}
+          <figcaption class="caption">${esc(at(s, 'how.phone.caption'))}</figcaption>
+        </figure>
+        <div class="split-copy">
+          <h2 id="disability-title">${payoff(d.h2Plain, d.h2Em)}</h2>
           <p class="lead">${esc(d.lead)}</p>
-        </div>
-        <div>
-          <p class="sum-label">${esc(d.summaryLabel)}</p>
-          <ul class="summary">
-            ${summary}
-          </ul>
-          <p class="caption">${esc(at(s, 'exampleCaption'))}</p>
+          ${briefCard(d.brief, 'disability-brief-title')}
         </div>
       </div>
-      <div class="wrap promises">
-          ${promises}
-      </div>
-      <div class="wrap promise-links">
-          ${links}
-      </div>
-${voices(s)}
-      <div class="wrap join" id="join" aria-labelledby="join-title">
-        <img class="sleeper" src="/ollie/ollie-sleep.webp" alt="" width="900" height="900" loading="lazy" decoding="async" />
-        <h2 id="join-title">${payoff(d.closePlain, d.closeEm)}</h2>
-        <p class="lead">${esc(at(s, 'join.lead'))}</p>
-${joinForm(s, 'join')}
-        <p class="join-alt"><a class="text-link" href="#contact">${esc(at(s, 'join.questionLink'))}</a></p>
+    </section>`;
+
+  const st = at(s, 'steps');
+  const steps = `
+    <section class="section t-night-deep" id="how" aria-labelledby="how-title">
+      <div class="wrap">
+        <h2 id="how-title">${payoff(st.h2Plain, st.h2Em)}</h2>
+        <p class="lead">${esc(st.lead)}</p>
+        <ol class="fly-steps">
+          ${st.items.map((i) => `<li><strong>${esc(i.tag)}</strong><span>${esc(i.text)}</span></li>`).join('\n          ')}
+        </ol>
       </div>
     </section>`;
-}
 
-function employersBand(s) {
-  return `
-    <section class="section t-night-deep section-band" aria-labelledby="schools-band-title">
-      <div class="wrap band">
-        <h2 id="schools-band-title">${esc(at(s, 'employersBand.h2'))}</h2>
-        <p class="lead">${esc(at(s, 'employersBand.body'))}</p>
-        <a class="text-link" href="${s.lang === 'es' ? '/es/employers' : '/employers'}">${esc(at(s, 'employersBand.link'))}</a>
+  const df = at(s, 'different');
+  const different = `
+    <section class="section t-golden" aria-labelledby="different-title">
+      <div class="wrap">
+        <h2 id="different-title">${payoff(df.h2Plain, df.h2Em)}</h2>
+        ${cardGrid(df.items.map((i) => ({ title: i.h, body: i.p })))}
       </div>
     </section>`;
-}
 
-function contact(s) {
-  const blocks = at(s, 'websitePrivacy.blocks')
-    .map((b) => `<h3>${esc(b.h3)}</h3>\n            <p>${esc(b.body)}</p>`)
-    .join('\n            ');
-  return `
-    <section class="section t-night-deep" id="contact" aria-labelledby="contact-title">
+  const never = `
+    <section class="section" aria-labelledby="never-title">
+      <div class="wrap">
+        <h2 id="never-title">${esc(at(s, 'never.h2'))}</h2>
+        ${cardGrid(at(s, 'never.items'))}
+      </div>
+    </section>`;
+
+  const p = at(s, 'pilot');
+  const pilot = `
+    <section class="section section-sheet" aria-labelledby="pilot-title">
+      <div class="wrap">
+        <h2 id="pilot-title">${esc(p.h2)}</h2>
+        <p class="lead">${esc(p.lead)}</p>
+        <table class="year-table connect-table">
+          <caption class="sr-only">${esc(p.h2)}</caption>
+          <thead>
+            <tr><th scope="col">${esc(p.feesHead[0])}</th><th scope="col">${esc(p.feesHead[1])}</th></tr>
+          </thead>
+          <tbody>
+          ${p.fees
+            .map(([k, v]) => `<tr><td data-label="${esc(p.feesHead[0])}">${esc(k)}</td><td data-label="${esc(p.feesHead[1])}">${esc(v)}</td></tr>`)
+            .join('\n          ')}
+          </tbody>
+        </table>
+        <h3>${esc(p.measuresLabel)}</h3>
+        <ul class="plain-list wide">
+          ${p.measures.map((i) => `<li>${esc(i)}</li>`).join('\n          ')}
+        </ul>
+        <p><span class="highlight">${esc(p.guardrail)}</span></p>
+      </div>
+    </section>`;
+
+  const fm = at(s, 'form');
+  const form = `
+    <section class="section" id="school-contact" aria-labelledby="school-contact-title">
       <div class="wrap contact-grid">
         <div>
-          <h2 id="contact-title">${esc(at(s, 'contact.h2'))}</h2>
-          <p class="lead">${esc(at(s, 'contact.lead'))}</p>
-          <form id="inquiry-form" novalidate data-error="${esc(at(s, 'contact.error'))}">
+          <h2 id="school-contact-title">${esc(fm.h2)}</h2>
+          <p class="lead">${esc(fm.lead)}</p>
+          <form id="school-form" novalidate data-source="funds" data-error="${esc(fm.generic)}">
             <div class="field">
-              <label for="inquiry-email">${esc(at(s, 'contact.emailLabel'))}</label>
-              <input id="inquiry-email" name="email" type="email" autocomplete="email" maxlength="254" required aria-describedby="inquiry-error" />
+              <label for="school-name">${esc(fm.nameLabel)}</label>
+              <input id="school-name" name="name" type="text" autocomplete="name" maxlength="120" required aria-describedby="school-error" />
             </div>
             <div class="field">
-              <label for="inquiry-message">${esc(at(s, 'contact.messageLabel'))} <span class="hint">${esc(at(s, 'contact.messageHint'))}</span></label>
-              <textarea id="inquiry-message" name="message" maxlength="2000" rows="4" aria-describedby="inquiry-error"></textarea>
+              <label for="school-role">${esc(fm.roleLabel)}</label>
+              <input id="school-role" name="role" type="text" autocomplete="organization-title" maxlength="120" required aria-describedby="school-error" />
             </div>
-            <button class="button primary" type="submit">${esc(at(s, 'contact.submit'))}</button>
-            <p class="form-note">${esc(at(s, 'contact.note'))} <a href="#website-privacy" data-privacy>${esc(at(s, 'contact.privacyLink'))}</a></p>
-            <p class="form-error" id="inquiry-error" role="alert" hidden>${esc(at(s, 'contact.error'))}</p>
+            <div class="field">
+              <label for="school-district">${esc(fm.fundLabel)}</label>
+              <input id="school-district" name="school" type="text" autocomplete="organization" maxlength="160" required aria-describedby="school-error" />
+            </div>
+            <div class="field">
+              <label for="school-email">${esc(fm.emailLabel)}</label>
+              <input id="school-email" name="email" type="email" autocomplete="email" maxlength="254" required aria-describedby="school-error" />
+            </div>
+            <div class="field">
+              <label for="school-message">${esc(fm.messageLabel)} <span class="hint">${esc(fm.messageHint)}</span></label>
+              <textarea id="school-message" name="message" maxlength="1980" rows="4" aria-describedby="school-error"></textarea>
+            </div>
+            <button class="button primary" type="submit">${esc(fm.submit)}</button>
+            <p class="form-note">${esc(fm.note)}</p>
+            <p class="form-error" id="school-error" role="alert" hidden>${esc(fm.error)}</p>
           </form>
-          <div class="form-success" id="inquiry-sent" role="status" tabindex="-1" hidden>
-            <p>${esc(at(s, 'contact.success'))}</p>
+          <div class="form-success" id="school-sent" role="status" tabindex="-1" hidden>
+            <p>${esc(fm.success)}</p>
           </div>
         </div>
-        <details id="website-privacy" class="inline-panel">
-          <summary>${esc(at(s, 'websitePrivacy.summary'))}</summary>
-          <div class="panel-body">
-            <h3 class="panel-title">${esc(at(s, 'websitePrivacy.h2'))}</h3>
-            ${blocks}
-            <a class="text-link" href="/privacy">${esc(at(s, 'websitePrivacy.link'))}</a>
-          </div>
-        </details>
       </div>
     </section>`;
+
+  const mb = at(s, 'membersBand');
+  const membersBand = `
+    <section class="section t-night-deep section-band" aria-labelledby="members-band-title">
+      <div class="wrap band">
+        <h2 id="members-band-title">${esc(mb.h2)}</h2>
+        <p class="lead">${esc(mb.body)}</p>
+        <a class="text-link" href="${s.lang === 'es' ? '/es/members' : '/members'}">${esc(mb.link)}</a>
+      </div>
+    </section>`;
+
+  return [hero, money, example, disability, steps, different, never, pilot, form, membersBand].join('');
 }
 
-const homeSections = (s) => [hero(s), inbox(s), midday(s), qualify(s), schoolNet(s), dinner(s), night(s), employersBand(s), contact(s)].join('');
+// ── /members ──────────────────────────────────────────────────────────────────
+//
+// For the member holding the fund's letter, checking that we are real.
+
+function membersPageSections(s) {
+  const m = at(s, 'members');
+  const hero = `
+    <section class="hero hero-schools" aria-labelledby="members-hero-title">
+      <div class="wrap">
+        <p class="schools-eyebrow">${esc(m.hero.eyebrow)}</p>
+        <h1 id="members-hero-title">${payoff(m.hero.h1Plain, m.hero.h1Em)}</h1>
+        <p class="lead">${esc(m.hero.sub)}</p>
+        <div class="hero-actions">
+          <a class="button primary" href="#join">${esc(m.hero.primary)}</a>
+        </div>
+      </div>
+    </section>`;
+  const help = `
+    <section class="section t-day" aria-labelledby="help-title">
+      <div class="wrap">
+        <h2 id="help-title">${esc(m.help.h2)}</h2>
+        ${cardGrid(m.help.items)}
+      </div>
+    </section>`;
+  const rules = `
+    <section class="section" aria-labelledby="rules-title">
+      <div class="wrap">
+        <h2 id="rules-title">${esc(m.rules.h2)}</h2>
+        ${cardGrid(m.rules.items)}
+      </div>
+    </section>`;
+  const join = `
+    <section class="section section-sheet" id="join" aria-labelledby="join-title">
+      <div class="wrap">
+        <h2 id="join-title">${esc(m.join.h2)}</h2>
+        <p class="lead">${esc(m.join.lead)}</p>
+${joinForm(s, 'join')}
+      </div>
+    </section>`;
+  return [hero, help, rules, join].join('');
+}
+
 
 // ── /employers ────────────────────────────────────────────────────────────────
 
@@ -789,144 +688,9 @@ function employersPageSections(s) {
   return [heroBlock, office, door, attendance, flywheel, paths, staff, connect, never, equity, pilot, form].join('');
 }
 
-// ── /funds ────────────────────────────────────────────────────────────────────
-//
-// For union benefit funds. It reuses the /employers building blocks: a text
-// thread beside a brief card, a two-column table, the never grid and the pilot
-// sheet. The form keeps the employer form's ids so site.js handles it, and
-// marks itself with data-source so a fund request can be told apart.
-
-function fundsPageSections(s) {
-  const f = at(s, 'funds');
-  const heroBlock = `
-    <section class="hero hero-schools" aria-labelledby="funds-hero-title">
-      <div class="wrap">
-        <p class="schools-eyebrow">${esc(f.hero.eyebrow)}</p>
-        <h1 id="funds-hero-title">${payoff(f.hero.h1Plain, f.hero.h1Em)}</h1>
-        <p class="lead">${esc(f.hero.sub)}</p>
-        <div class="hero-actions">
-          <a class="button primary" href="#school-contact">${esc(f.hero.primary)}</a>
-          <a class="text-link" href="#example">${esc(f.hero.secondary)}</a>
-        </div>
-      </div>
-    </section>`;
-
-  const e = f.example;
-  const brief = e.brief.rows
-    .map(
-      (r) => `<li><span class="brief-v">${esc(r.v)}</span><span class="brief-l">${esc(r.l)}<span class="brief-note">${esc(r.note)}</span></span></li>`,
-    )
-    .join('');
-  const example = `
-    <section class="section t-noon" id="example" aria-labelledby="example-title">
-      <div class="wrap">
-        <h2 id="example-title">${payoff(e.h2Plain, e.h2Em)}</h2>
-        <p class="lead">${esc(e.lead)}</p>
-        <div class="staff-pair">
-          <figure class="staff-thread">
-            <figcaption>${esc(e.threadLabel)}</figcaption>
-            <ol>${e.thread
-              .map((m) => `<li class="staff-msg staff-msg-${m.from === 'member' ? 'out' : 'in'}">${esc(m.text)}</li>`)
-              .join('')}</ol>
-          </figure>
-          <article class="brief-card" aria-labelledby="brief-title">
-            <p class="door-label"><span id="brief-title">${esc(e.brief.eyebrow)}</span><span>${esc(e.brief.example)}</span></p>
-            <ul class="brief-rows brief-rows-money">${brief}</ul>
-            <p class="brief-foot">${esc(e.brief.foot)}</p>
-          </article>
-        </div>
-      </div>
-    </section>`;
-
-  const p = f.programs;
-  const programs = `
-    <section class="section t-day" id="programs" aria-labelledby="programs-title">
-      <div class="wrap">
-        <h2 id="programs-title">${payoff(p.h2Plain, p.h2Em)}</h2>
-        <p class="lead">${esc(p.lead)}</p>
-        <table class="year-table connect-table">
-          <caption class="sr-only">${esc(p.h2Plain)} ${esc(p.h2Em)}</caption>
-          <thead>
-            <tr><th scope="col">${esc(p.head[0])}</th><th scope="col">${esc(p.head[1])}</th></tr>
-          </thead>
-          <tbody>
-          ${p.rows
-            .map(([k, v]) => `<tr><td data-label="${esc(p.head[0])}">${esc(k)}</td><td data-label="${esc(p.head[1])}">${esc(v)}</td></tr>`)
-            .join('\n          ')}
-          </tbody>
-        </table>
-      </div>
-    </section>`;
-
-  const never = `
-    <section class="section" aria-labelledby="never-title">
-      <div class="wrap">
-        <h2 id="never-title">${esc(f.never.h2)}</h2>
-        <div class="never-grid">
-          ${f.never.items.map((i) => `<article><h3>${esc(i.title)}</h3><p>${esc(i.body)}</p></article>`).join('\n          ')}
-        </div>
-      </div>
-    </section>`;
-
-  const pilot = `
-    <section class="section section-sheet" aria-labelledby="pilot-title">
-      <div class="wrap">
-        <h2 id="pilot-title">${esc(f.pilot.h2)}</h2>
-        <p class="lead">${esc(f.pilot.lead)}</p>
-        <h3>${esc(f.pilot.measuresLabel)}</h3>
-        <ul class="plain-list wide">
-          ${f.pilot.measures.map((i) => `<li>${esc(i)}</li>`).join('\n          ')}
-        </ul>
-        <p>${esc(f.pilot.price)}</p>
-        <p><span class="highlight">${esc(f.pilot.guardrail)}</span></p>
-      </div>
-    </section>`;
-
-  const fm = f.form;
-  const form = `
-    <section class="section" id="school-contact" aria-labelledby="school-contact-title">
-      <div class="wrap contact-grid">
-        <div>
-          <h2 id="school-contact-title">${esc(fm.h2)}</h2>
-          <p class="lead">${esc(fm.lead)}</p>
-          <form id="school-form" novalidate data-source="funds" data-error="${esc(fm.generic)}">
-            <div class="field">
-              <label for="school-name">${esc(fm.nameLabel)}</label>
-              <input id="school-name" name="name" type="text" autocomplete="name" maxlength="120" required aria-describedby="school-error" />
-            </div>
-            <div class="field">
-              <label for="school-role">${esc(fm.roleLabel)}</label>
-              <input id="school-role" name="role" type="text" autocomplete="organization-title" maxlength="120" required aria-describedby="school-error" />
-            </div>
-            <div class="field">
-              <label for="school-district">${esc(fm.fundLabel)}</label>
-              <input id="school-district" name="school" type="text" autocomplete="organization" maxlength="160" required aria-describedby="school-error" />
-            </div>
-            <div class="field">
-              <label for="school-email">${esc(fm.emailLabel)}</label>
-              <input id="school-email" name="email" type="email" autocomplete="email" maxlength="254" required aria-describedby="school-error" />
-            </div>
-            <div class="field">
-              <label for="school-message">${esc(fm.messageLabel)} <span class="hint">${esc(fm.messageHint)}</span></label>
-              <textarea id="school-message" name="message" maxlength="1980" rows="4" aria-describedby="school-error"></textarea>
-            </div>
-            <button class="button primary" type="submit">${esc(fm.submit)}</button>
-            <p class="form-note">${esc(fm.note)}</p>
-            <p class="form-error" id="school-error" role="alert" hidden>${esc(fm.error)}</p>
-          </form>
-          <div class="form-success" id="school-sent" role="status" tabindex="-1" hidden>
-            <p>${esc(fm.success)}</p>
-          </div>
-        </div>
-      </div>
-    </section>`;
-
-  return [heroBlock, example, programs, never, pilot, form].join('');
-}
-
 // ── document shell ───────────────────────────────────────────────────────────
 
-function document(s, { title, description, canonical, alts, body, prefix, langHref, cta, shareAlt, share }) {
+function document(s, { title, description, canonical, alts, body, prefix, langHref, cta, ctaLabel = at(s, 'nav.join'), shareAlt, share }) {
   const alt = alts
     .map(([hreflang, href]) => `<link rel="alternate" hreflang="${hreflang}" href="${SITE}${href}" />`)
     .join('\n    ');
@@ -961,17 +725,17 @@ function document(s, { title, description, canonical, alts, body, prefix, langHr
       href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/site.css?v=15" />
-    <script src="/site.js?v=15" defer></script>
+    <link rel="stylesheet" href="/site.css?v=16" />
+    <script src="/site.js?v=16" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main">${esc(at(s, 'a11y.skip'))}</a>
-${header(s, { prefix, cta, langHref })}
+${header(s, { prefix, cta, ctaLabel, langHref })}
     <main id="main">
 ${body}
     </main>
 ${footer(s, { prefix, langHref })}
-${cta === '#join' ? `    <a class="sticky-join" id="sticky-join" href="#join" hidden>${esc(at(s, 'nav.join'))}</a>
+${cta === '#join' ? `    <a class="sticky-join" id="sticky-join" href="#join" hidden>${esc(ctaLabel)}</a>
 ` : ''}  </body>
 </html>
 `;
@@ -1014,7 +778,7 @@ async function render() {
         body: homeSections(s),
         prefix: '',
         langHref: dir ? '/' : '/es',
-        cta: '#join',
+        cta: '#school-contact',
         shareAlt: at(s, 'meta.shareAlt'),
         share,
       }),
@@ -1035,17 +799,18 @@ async function render() {
       }),
     });
     pages.push({
-      file: dir ? `${dir}/funds.html` : 'funds.html',
+      file: dir ? `${dir}/members.html` : 'members.html',
       html: document(s, {
-        title: at(s, 'funds.meta.title'),
-        description: at(s, 'funds.meta.description'),
-        canonical: dir ? '/es/funds' : '/funds',
-        alts: [['en', '/funds'], ['es', '/es/funds']],
-        body: fundsPageSections(s),
+        title: at(s, 'members.meta.title'),
+        description: at(s, 'members.meta.description'),
+        canonical: dir ? '/es/members' : '/members',
+        alts: [['en', '/members'], ['es', '/es/members']],
+        body: membersPageSections(s),
         prefix: '/',
-        langHref: dir ? '/funds' : '/es/funds',
-        cta: '#school-contact',
-        shareAlt: at(s, 'funds.meta.shareAlt'),
+        langHref: dir ? '/members' : '/es/members',
+        cta: '#join',
+        ctaLabel: at(s, 'nav.joinMembers'),
+        shareAlt: at(s, 'members.meta.shareAlt'),
         share,
       }),
     });

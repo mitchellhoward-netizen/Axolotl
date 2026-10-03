@@ -1,24 +1,25 @@
 /**
  * Every word on the English site, in one place.
  *
- * The build (tools/site/build.mjs) renders this into public/index.html and
- * public/employers.html. strings.es.mjs is the same shape, so the two languages
- * cannot drift apart structurally: if a key is missing, the build fails.
+ * The build (tools/site/build.mjs) renders this into public/index.html,
+ * public/members.html and public/employers.html. strings.es.mjs is the same
+ * shape, so the two languages cannot drift apart structurally: if a key is
+ * missing, the build fails.
  *
- * The thesis the site carries (docs/PRODUCT-THESIS.md): working families are
- * owed a great deal, from their employer and from public programs, and get a
- * fraction of it. The gap is complexity, fear and time, not stinginess. Axolotl
- * is one confidential number that closes it, with a real person when it's hard.
- * Caregiving, a parent and the kids, is where the gap costs a shift.
+ * The thesis the site carries (docs/FUNDS-MONEY-MAP.md): a union benefit fund
+ * pays bills that Medicare, Social Security or the state should pay, and in
+ * almost every one of those cases the member is losing money too. Axolotl gets
+ * the right payer to pay, from the member's side, by text, with their yes.
+ * The fund pays per approval.
  *
  * Rules this file has to keep (from the design brief):
  *   - Never invent stats, quotes, features or legal claims. A sourced number
  *     names its source on the page; everything else is marked as an example.
  *   - Nothing here claims "any phone": the service runs over iMessage today.
- *   - Axolotl texts the family's own people (a brother, a coworker) only on the
- *     worker's YES, after showing the exact text: every bubble that sends to
- *     someone shows the offer, the words, the yes, then the result.
- *   - The employer never sees a family's case. Say so wherever an employer appears.
+ *   - Nothing is filed without the member's YES, after showing exactly what
+ *     will be sent: every thread shows the offer, the yes, then the result.
+ *   - The fund (or employer) never sees a member's case. Say so wherever a
+ *     buyer appears.
  *   - Plain words, sentence case, second person, short sentences.
  */
 
@@ -27,11 +28,11 @@ export default {
   locale: 'en_US',
 
   meta: {
-    title: 'Axolotl: every working family deserves an agent.',
+    title: 'Axolotl: the right payer, for union benefit funds',
     description:
-      'Axolotl is one confidential number working families text for everything they are owed: a parent’s care, Medi-Cal and benefits, leave, the kids’ school. It does the work, a real person steps in when it’s hard, and nothing goes out without your yes.',
+      'Axolotl finds the members whose costs belong to Medicare, Social Security or the state, and enrolls them from their side, by text, with their yes. Members get disability checks, lower premiums and cheaper prescriptions. The fund stops paying first. Paid per approval.',
     shareAlt:
-      'A manila folder labeled "The Reyes family" holding tasks for a parent’s care, benefits and work, each marked Confirmed, Waiting for your yes, or Requested.',
+      'A fund’s monthly ledger from Axolotl: Part B premiums moved to the state, disability awards filed, members turning 65 enrolled on time.',
   },
 
   a11y: {
@@ -40,595 +41,303 @@ export default {
     menu: 'Menu',
     mainNav: 'Main navigation',
     footerNav: 'Footer',
-    mascot: 'A smiling pink axolotl with frilly gills.',
-    statusWord: 'Status',
   },
 
   nav: {
+    money: 'Where the money goes',
     how: 'How it works',
-    help: 'Help available',
-    employers: 'For employers',
-    funds: 'For benefit funds',
-    join: 'Join the pilot',
+    members: 'For members',
+    join: 'Request a pilot',
+    joinMembers: 'Get a text',
     langSwitch: 'Español',
-    langSwitchHref: '/es',
   },
 
-  exampleCaption:
-    'Example conversation. Fictional family and employer.',
-
-  // ── The homepage, as one working day ────────────────────────────────────────
-  // Each section is a moment in a working parent's day, and the page's light
-  // moves with it: dawn, daylight, golden hour, dusk, night. Times are copy.
-  day: {
-    // Short enough to fit inside the signup field on a small phone.
-    phonePlaceholder: 'Your phone number',
-    agents: {
-      // The line above the headline rolls through people who have someone in
-      // their corner, then lands on working families. Decorative: screen readers
-      // get the headline alone, and reduced motion shows only the last line.
-      label: 'Who has an agent',
-      items: [
-        'Movie stars have agents.',
-        'Athletes have agents.',
-        'Authors have agents.',
-        'Jazz cats have agents.',
-        'Comedians have agents.',
-        'Pro surfers have agents.',
-        'Influencers have agents.',
-        'Pro gamers have agents.',
-        'Matadors have agents.',
-        'Hand models have agents.',
-        'Clowns have agents.',
-      ],
-      parentsLead: 'Working families have',
-      parentsTail: 'a pile of letters and hold music.',
-    },
-    morning: {
-      time: '5:40 AM',
-      label: 'Before a 7 AM shift',
-      h1Plain: 'Every working family deserves',
-      h1Em: 'an agent.',
-    },
-    inbox: {
-      time: '8:30 AM',
-      label: 'On her break',
-      h2Plain: 'Eight letters this month.',
-      h2Em: 'One that matters.',
-      lead: 'The county, the insurance company, HR, the school. Axolotl reads it all, finds the one with a deadline, fills in the form, and waits for your yes. Done means they confirmed it.',
-      steps: [
-        { tag: 'Reads', body: 'A photo of a letter, a forwarded email, a form from HR' },
-        { tag: 'Finds', body: 'The one thing with a date attached' },
-        { tag: 'Asks', body: 'You see what it will send. Your yes sends it' },
-        { tag: 'Confirms', body: 'Only their confirmation counts as done' },
-      ],
-      inboxLabel: 'This month · 8 letters and emails',
-      emails: [
-        'Insurance: explanation of benefits',
-        'HR: open enrollment reminder',
-        'County: Mom’s Medi-Cal renewal, due Oct 15',
-        'School: picture day, Oct 3',
-        'Pharmacy: refill ready',
-        'Bank statement',
-        'Library books due',
-      ],
-      // Which email above is the one that needs the family.
-      highlight: 2,
-    },
-    midday: {
-      time: '11:48 AM',
-      label: 'Midday',
-    },
-    qualify: {
-      time: '3:05 PM',
-      label: 'After the shift',
-      h2Plain: 'Help your family',
-      h2Em: 'already qualifies for.',
-      lead: 'Paid caregiving, Medicare savings, food help, paid leave. The help exists, but you have to know to ask, ask the right office, and keep asking. Axolotl notices when your family might qualify, then does all three.',
-      timelineTitle: 'One ask, start to finish',
-      steps: [
-        {
-          when: 'Oct 2 · 2:14 PM',
-          title: 'The doctor’s visit',
-          kind: 'email',
-          from: 'Dr. Lee’s office · Valley Clinic',
-          subject: 'Visit summary for Carmen Reyes',
-          before: 'Mrs. Reyes now ',
-          mark: 'needs daily help with bathing and medications',
-          after: '. We recommend support at home.',
-        },
-        {
-          when: '3:05 PM',
-          title: 'Axolotl spots what it means',
-          kind: 'text',
-          in: 'Your mom has Medi-Cal and now needs daily help. She may qualify for IHSS, and you could be paid as her caregiver. Want me to start the application?',
-          out: 'Yes, please',
-        },
-        {
-          when: '9:40 PM',
-          title: 'It fills in the application',
-          kind: 'letter',
-          to: 'To the county IHSS office',
-          before: 'I am applying for In-Home Supportive Services for my mother, Carmen Reyes, who has Medi-Cal and ',
-          mark: 'needs help with daily care',
-          after: '. I would like to be her provider.',
-          sent: 'Sent on your yes',
-        },
-        {
-          when: 'Oct 10 · Day 8',
-          title: 'No answer, so it follows up',
-          kind: 'text',
-          in: 'No word from the county yet. I called, and they have it. A social worker will call to set up a home visit.',
-          pending: true,
-        },
-        {
-          when: 'Oct 16 · Day 14',
-          title: 'The county answers',
-          kind: 'reply',
-          from: 'County IHSS office',
-          text: 'Received. A home visit for Carmen Reyes is scheduled for October 23.',
-          track: 'Next: the doctor’s form. Dr. Lee’s office has it.',
-          done: true,
-        },
-      ],
-      alsoLabel: 'It can ask for these too:',
-      also: [
-        'Medicare savings for a parent',
-        'Food help (CalFresh)',
-        'Paid family leave',
-        'Help paying for child care',
-        'An interpreter at appointments',
-      ],
-      note: 'Axolotl isn’t a lawyer. It asks for what your family already qualifies for.',
-    },
-    school: {
-      time: '3:40 PM',
-      label: 'On the way home',
-      h2Plain: 'Every family makes the county easier',
-      h2Em: 'for the next one.',
-      lead: 'Every time Axolotl gets something done, it learns what worked: which office, which form, how long it took. A care guide checks it, and the next family just says yes. Nobody’s personal details go into it.',
-      steps: [
-        { tag: 'One family', text: 'Axolotl finds a way through that works.' },
-        { tag: 'Many families', text: 'It keeps working, so it becomes proven.' },
-        { tag: 'A care guide', text: 'Checks it and makes it the standard way.' },
-      ],
-      link: 'Run a team of hourly workers? See what your people get',
-      // An illustrative path in a fictional county. The numbers show what a path
-      // records; they are not measured results, and the eyebrow says "Example".
-      card: {
-        eyebrow: 'Example · Valley County',
-        version: 'Path v2',
-        title: 'Renew a parent’s Medi-Cal',
-        doLabel: 'What you do',
-        doText: 'Send a photo of the renewal letter. Say yes to the form.',
-        happensLabel: 'What happens',
-        happensText: 'The form goes in complete, and the county confirms it.',
-        stats: [
-          { v: '31', l: 'families used it' },
-          { v: '31', l: 'confirmed' },
-          { v: '6 days', l: 'typical wait' },
-        ],
-        neverLabel: 'Never shared',
-        neverText: 'Why you asked. Health details. Anything the county doesn’t require.',
-        stamp: { top: 'Verified', name: ['Care guide', 'Ana R.'], date: 'Oct 2' },
-        stampAlt: 'Verified by care guide Ana R. on October 2',
-      },
-      moreLabel: 'More paths in Valley County',
-      more: [
-        { name: 'Medicare savings for a parent', status: 'verified', official: true },
-        { name: 'CalFresh renewal', status: 'verified', official: true },
-        { name: 'Apply for IHSS', status: 'proven' },
-        { name: 'Paid family leave claim', status: 'proven' },
-        { name: 'Adult day program', status: 'new' },
-      ],
-      note: 'Paths are rolling out with our first pilot families.',
-    },
-    dinner: {
-      time: '6:30 PM',
-      label: 'Dinner',
-      h2Plain: 'Who’s got Mom',
-      h2Em: 'this week.',
-      lead: 'Your circle is the people who already help: your brother, your sister, a neighbor, the sitter. Tell Axolotl what you need. It asks them, sorts out who’s doing what, and reminds everyone.',
-      weekLabel: 'This week',
-      week: [
-        { day: 'Mon', who: 'You' },
-        { day: 'Tue 10:00', who: 'Luis', set: true },
-        { day: 'Wed', who: 'The aide' },
-        { day: 'Thu', who: 'Marisol', set: true },
-        { day: 'Fri', who: 'You' },
-      ],
-      rules: [
-        { h: 'Everyone says yes.', p: 'Nobody is added without agreeing. Anyone can leave, anytime.' },
-        { h: 'The plan, not the reason.', p: 'Your circle sees who’s with Mom when. Never the medical details.' },
-        { h: 'Any language.', p: 'Luis writes in Spanish, Marisol reads it in English.' },
-      ],
-      soon: 'Coming soon · Circles',
-      circles: 'Join the pilot and you’ll be first to start one.',
-    },
-    night: {
-      time: '9:40 PM',
-      label: 'Kids are asleep',
-      h2Plain: 'Everything’s',
-      h2Em: 'handled.',
-      lead: 'Instead of a kitchen table covered in letters, one summary: what went out, what was confirmed, and what is still waiting.',
-      summaryLabel: 'Today, in one summary',
-      summary: [
-        { title: 'Mom’s aide', detail: 'Covered by your backup care · arrived 7:30', done: true },
-        { title: 'Today’s shift', detail: 'Dana took 7 to 11 · manager approved', done: true },
-        { title: 'Mom’s Medi-Cal renewal', detail: 'County confirmed · R-4471', done: true },
-        { title: 'Paid caregiving (IHSS)', detail: 'Requested · waiting on the county', done: false },
-      ],
-      doneWord: 'Done',
-      waitingWord: 'Waiting on them',
-      promises: [
-        { title: 'Your yes sends it.', body: 'Every email, form and request waits for an explicit yes. A suggestion is not permission.' },
-        { title: 'Your employer never sees your case.', body: 'If your job pays for Axolotl, they see totals only. Never who asked, or what about.' },
-        { title: 'A real person when it’s hard.', body: 'For a crisis or a big decision, a care guide steps in. Your information is never sold.' },
-      ],
-      links: [
-        { label: 'Read every limit, in plain words', href: '/security' },
-        { label: 'How we handle information', href: '/privacy' },
-      ],
-      closePlain: 'Tomorrow’s',
-      closeEm: 'already handled.',
-    },
-  },
-
+  // The homepage is for union health and welfare funds (docs/FUNDS-MONEY-MAP.md).
+  // One idea: get the right payer to pay, from the member's side. Every figure
+  // below is in the money map with its source; examples are marked as examples.
   hero: {
-    h1: 'Every working family deserves an agent.',
-    sub: 'Your family is owed a lot, from your job and from public programs, and most of it never reaches you. Axolotl is one confidential number you text. It handles a parent’s care, the benefits, the leave forms and the kids’ school, and a real person steps in when it’s hard. Nothing goes out without your yes.',
-    primary: 'Join the pilot',
-    secondary: 'See how it works',
-    trust:
-      'Free for families in the pilot, in English or Spanish.',
-    // The hero visual is the thread a working parent actually gets before a
-    // shift: the aide cancels, care is covered, the renewal goes in, and the
-    // help she didn't know about. Plain text only, the way the product sends it.
+    eyebrow: 'For union benefit funds',
+    h1Plain: 'Your fund pays bills',
+    h1Em: 'Medicare and the state should pay.',
+    // The social card (share.html) draws the headline as one line of plain text.
+    h1: 'Your fund pays bills Medicare and the state should pay.',
+    sub: 'Axolotl finds the members whose costs belong to Medicare, Social Security or the state, and gets them enrolled from their side, by text, with their yes. Members get disability checks, lower premiums and cheaper prescriptions. The fund stops paying first. You pay only for approvals.',
+    primary: 'Request a fund pilot',
+    secondary: 'See where the money goes',
+    trust: 'For union health and welfare funds. Paid per approval.',
+    // The hero phone: a retiree on the fund's Part B reimbursement who qualifies
+    // for New York's Medicare Savings Program (2026 limit $2,474 a month, no
+    // asset test). Plain text only, the way the product sends it.
     phone: {
       meta: 'Today',
-      metaTime: '5:40 AM',
+      metaTime: '10:12 AM',
       thread: [
-        { out: 'Mom’s aide just cancelled and I start at 7. Help.' },
-        { in: 'Your backup care at work covers an aide today, at 6:45. Book it?' },
-        { out: 'Yes.' },
-        { in: 'Booked. Ana from Sunrise Home Care arrives at 6:45.' },
-        { in: 'Mom’s Medi-Cal renewal is due Friday. It’s filled in and needs your yes.' },
-        { out: 'Send it.' },
-        { in: 'Sent. The county confirmed they have it.' },
-        { in: 'You may be able to get paid for caring for your mom, through IHSS. Want me to check?' },
-        { out: 'Wait, really? Yes.' },
+        { out: 'Got the letter from the fund about Part B. Is this real?' },
+        { in: 'It’s real. New York pays the whole Part B premium if you get under $2,474 a month, and savings don’t count. What comes in each month?' },
+        { out: '1,640 social security, 410 pension' },
+        { in: 'That’s $2,050, so you qualify. The state would pay your $202.90 a month, and you’d get Extra Help with prescriptions too.' },
+        { in: 'I filled in the application from what you told me. Reply YES and I’ll file it. Nothing goes without your yes.' },
+        { out: 'YES' },
+        { in: 'Filed. I’ll text you when it’s approved. Then the premium stops coming out of your Social Security.' },
       ],
-      alt: 'Text thread on a phone, before a 7 AM shift. The worker says her mom’s aide just cancelled. Axolotl says the backup care at her job covers an aide today and, on her yes, books one for 6:45. It has filled in her mom’s Medi-Cal renewal and sends it on her yes; the county confirms. Then it tells her she may be able to get paid for the care she gives her mom through IHSS, and she says yes.',
+      alt: 'Text thread on a phone. A retiree asks if the fund’s letter about Part B is real. Axolotl says New York pays the whole Part B premium under $2,474 a month and asks her income. She has $2,050, so she qualifies: the state would pay her $202.90 a month and she would get Extra Help with prescriptions. Axolotl has filled in the application and asks for her yes; she replies YES and it is filed.',
     },
-    // The phone no longer draws the folder, but the social card (share.html)
-    // still does, so its rows live here.
+    // The social card's ledger. An example, not a client.
     folder: {
-      label: 'The Reyes family',
-      tab: 'Reyes',
-      listLabel: 'What is in this folder',
-      annotation: 'just needs your yes',
+      label: 'Monthly ledger · Example fund',
       rows: [
-        {
-          label: 'Mom’s aide today',
-          detail: 'Covered by backup care. Ana arrives at 6:45.',
-          status: 'confirmed',
-        },
-        {
-          label: 'Mom’s Medi-Cal renewal',
-          detail: 'Filled in from last year. Ready to send.',
-          status: 'waiting',
-          annotated: true,
-        },
-        {
-          label: 'Paid caregiving (IHSS)',
-          detail: 'Application started with the county.',
-          status: 'requested',
-        },
-        {
-          label: 'Thursday shift',
-          detail: 'Dana said yes to the swap. Your manager approved.',
-          status: 'confirmed',
-        },
-        {
-          label: 'Mom’s week',
-          detail: 'Luis has Tuesday. Marisol has Thursday.',
-          status: 'soon',
-          tag: 'Circles',
-        },
+        { label: 'Part B premiums, 41 retirees', detail: 'Approved for a Medicare Savings Program. $49,900 a year off the fund.', status: 'confirmed' },
+        { label: 'Disability awards, 3 members', detail: 'Filed with Social Security.', status: 'requested' },
+        { label: 'Turning 65, 12 members', detail: 'Part B starts on time.', status: 'confirmed' },
+        { label: 'New cases, 8 members', detail: 'Applications filled in.', status: 'waiting' },
       ],
     },
   },
 
   statuses: {
-    confirmed: 'Confirmed',
-    waiting: 'Waiting for your yes',
-    requested: 'Requested, waiting on the county',
+    confirmed: 'Approved',
+    waiting: 'Waiting for a yes',
+    requested: 'Filed, waiting on the agency',
     reminder: 'Reminder set',
     soon: 'Coming soon',
   },
 
-  week: {
-    h2: 'It keeps the week running.',
-    lead: 'The aide who cancels, the shift you can’t miss, and the forms that assume someone is free at 2 PM.',
-    stepsLabel: 'What it did',
-    shotAlt: 'A text conversation with Axolotl:',
-    you: 'You',
-    prev: 'Previous',
-    next: 'Next',
-    trackLabel: 'The week, one screen at a time',
-    preview: { domain: 'benefits.valleymed.org', title: 'Your benefits guide' },
-    meta: 'Today',
-    cols: [
+  money: {
+    h2Plain: 'The fund pays first',
+    h2Em: 'more often than it should.',
+    lead: 'Some of a fund’s biggest bills belong to Medicare, Social Security or the state once a member is enrolled in the right program. Most members never are. The forms are hard, the rules change at 65 and at month 24 and at month 30, and nobody walks them through.',
+    stats: {
+      eyebrow: 'Union health funds',
+      example: 'National',
+      rows: [
+        { v: '1,400+', l: 'Multiemployer health funds', note: 'Covering more than 5 million participants, before families. IFEBP.' },
+        { v: '$13,121', l: 'Median spend per participant, per year', note: 'IFEBP, 2022.' },
+        { v: '74%', l: 'Of funds cover retirees', note: 'Where Medicare is meant to pay first.' },
+        { v: '4 in 10', l: 'Eligible people missing a Medicare Savings Program', note: 'MACPAC and NCOA, 2021–23.' },
+      ],
+    },
+    head: ['When', 'Who pays now', 'Who should pay', 'What the member gets'],
+    rows: [
       {
-        h3: 'When care falls through',
-        time: '5:40 AM',
-        steps: [
-          'The aide cancelled.',
-          'Found care your job covers.',
-          'Asked Dana to swap, on your yes.',
-        ],
-        turns: [
-          { out: 'Mom’s aide cancelled. I start at 7.' },
-          { in: 'Your backup care covers an aide today. The earliest is 7:30.' },
-          { out: 'That’s too late.' },
-          { in: 'Dana could take 7 to 11 if you take her Saturday. Want me to ask her?' },
-          { out: 'Yes' },
-          { in: 'Here’s what I’ll send: “Can you swap my 7 to 11 today for your Saturday?”' },
-          { out: 'Send' },
-          { in: 'Dana said yes. I sent the swap to your manager.' },
-          { in: 'Approved. The aide is booked for 7:30.' },
-          { out: 'You saved my morning.' },
-        ],
-        status: 'confirmed',
+        when: 'Dialysis, after month 30',
+        now: 'The fund, at commercial rates: about $238,000 in the first year of dialysis',
+        should: 'Medicare first, once the member is enrolled',
+        member: 'Lower out-of-pocket costs, with the fund behind Medicare',
       },
       {
-        h3: 'The benefits you already have',
-        time: '11:48 AM',
-        steps: [
-          'Read your benefits guide.',
-          'Found free counseling at work.',
-          'Booked it on your yes.',
-        ],
-        turns: [
-          { out: 'Mom’s getting worse and I can’t sleep.' },
-          { in: 'I’m sorry. That’s a lot to carry.' },
-          { in: 'Your job includes free counseling. It’s confidential. Work never sees who uses it.' },
-          { out: 'I didn’t know that.' },
-          { in: 'There’s a Spanish-speaking counselor Tuesday at 6 PM, by phone. Want it?' },
-          { out: 'Yes' },
-          { in: 'Booked. I’ll remind you Tuesday at 5.' },
-          { in: 'Your mom may also qualify for an adult day program through Medi-Cal. Want me to check?' },
-          { out: 'Please.' },
-          { in: 'On it. I’ll send you what I find tonight.' },
-        ],
-        status: 'confirmed',
+        when: 'A member who can’t work because of a disability',
+        now: 'The fund, for everything',
+        should: 'Medicare first, 24 months into a Social Security disability award',
+        member: 'A disability check, about $1,483 a month on average, and a disability pension that can start',
       },
       {
-        h3: 'The kids',
-        time: '4:05 PM',
-        steps: [
-          'Picture day is Thursday.',
-          'Field trip form is due Friday.',
-          'Drafted Leo’s absence note.',
-        ],
-        turns: [
-          { in: 'Three things this week: picture day Thursday, the field trip form due Friday, and Leo needs an absence note.' },
-          { out: 'He has a dentist appointment Monday morning.' },
-          { in: 'Then I’ll write the absence note for Monday and fill in the form.' },
-          { out: 'Do you need anything from me?' },
-          { in: 'Just a yes. Everything else I have.' },
-          { in: 'Ready to send: the absence note and Maya’s field trip form.' },
-          { out: 'Yes' },
-          { in: 'Both sent. The school confirmed they have them.' },
-          { out: 'What about picture day?' },
-          { in: 'Nothing to do. I’ll remind you Thursday morning.' },
-        ],
-        status: 'confirmed',
+        when: 'A retiree under the state income limit',
+        now: 'The fund, reimbursing the Part B premium',
+        should: 'The state, through a Medicare Savings Program',
+        member: '$202.90 a month back, and Extra Help with prescriptions',
       },
       {
-        h3: 'Who’s got Mom',
-        time: '6:30 PM',
-        steps: [
-          'Tuesday doctor visit: Luis.',
-          'Thursday: the aide.',
-          'Sunday: your sister, if she can.',
-        ],
-        turns: [
-          { in: 'Here’s who’s with your mom this week.' },
-          { in: 'Tuesday doctor visit: Luis. Thursday: the aide. Saturday: you.' },
-          { out: 'Can you check Luis is still good for Tuesday?' },
-          { in: 'Want me to text Luis: “Still good to take Mom to Dr. Lee Tuesday at 10?”' },
-          { out: 'Yes' },
-          { in: 'Sent. Luis says yes, 10 o’clock.' },
-          { out: 'What about Sunday? I might pick up a shift.' },
-          { in: 'Nobody’s with her Sunday yet. Marisol is next. Want me to ask her?' },
-          { out: 'Yes.' },
-          { in: 'Asked. I’ll tell you what she says.' },
-        ],
-        status: 'confirmed',
+        when: 'A retiree who qualifies for Extra Help',
+        now: 'The fund’s retiree drug plan',
+        should: 'Medicare subsidizes the plan for that member',
+        member: 'Lower drug costs',
+      },
+      {
+        when: 'Turning 65',
+        now: 'Gaps, and a lifelong penalty when Part B starts late',
+        should: 'Medicare, from the first day',
+        member: 'Coverage with no gap and no penalty',
       },
     ],
+    note: 'Dialysis: first-year spending, commercial plans $238,126 against Medicare $80,509 (JAMA Network Open, 2012–19 data). Disability check: SSA average, 2024. Premium: 2026 standard Part B.',
   },
 
+  example: {
+    h2Plain: 'One retiree,',
+    h2Em: 'one letter, seven texts.',
+    lead: 'The phone at the top of this page, in New York, where a Medicare Savings Program covers one person with up to $2,474 a month in income, and savings don’t count. The fund mails one letter with the number. The rest happens by text.',
+    brief: {
+      eyebrow: 'What one approval is worth',
+      example: '2026 figures',
+      rows: [
+        { v: '$202.90', l: 'Part B premium, every month', note: 'The 2026 standard premium. The state pays it once she’s approved.' },
+        { v: '$1,217', l: 'A year the fund stops paying', note: 'For a fund that reimburses half the premium.' },
+        { v: '$1,217', l: 'A year back in her check', note: 'Her half, plus Extra Help on prescriptions.' },
+        { v: '$300', l: 'Our fee, once', note: 'Paid on approval. Nothing for a denial.' },
+      ],
+      foot: 'The fund makes the fee back in about three months, then saves every year she stays enrolled.',
+    },
+  },
+
+  // The second phone: a member applying for a disability pension. Many
+  // multiemployer pension plans require a Social Security disability award
+  // first, so the member has to file anyway, and most file alone.
   how: {
-    h2: 'Nothing goes out until you say yes.',
-    lead: 'A letter from HR, one deadline that matters, and two forms that have to go out.',
-    steps: [
-      {
-        title: 'It spots the deadline.',
-        body: 'Most letters are just information. One needs you, with the date attached.',
-      },
-      {
-        title: 'It does the work.',
-        body: 'It fills in the forms and gets the doctor’s part started.',
-      },
-      {
-        title: 'It waits for your yes.',
-        body: 'You see exactly what it will send. Your yes is what sends it.',
-      },
-      {
-        title: 'Done means confirmed.',
-        body: 'It only calls something finished when they confirm it.',
-      },
-    ],
-    stepsLabel: 'How it works, in order',
     phone: {
       contact: 'Axolotl',
       meta: 'Today',
-      metaTime: '4:02 PM',
-      who: 'Axolotl: ',
-      whoParent: 'You: ',
+      metaTime: '2:30 PM',
       thread: [
-        {
-          kind: 'in',
-          text: 'HR needs your leave form and a doctor’s note by Oct 15 for your mom’s surgery.',
-        },
-        { kind: 'in', text: 'California paid family leave can also cover part of your pay.' },
-        { kind: 'out', text: 'I have no idea how to do that. Can you?' },
-        {
-          kind: 'in',
-          text: 'Yes. I filled in the leave form and sent the doctor’s part to Dr. Lee.',
-        },
-        { kind: 'in', text: 'HR tells your manager the dates, so you don’t have to.' },
-        {
-          kind: 'in',
-          text: 'Ready to send: Rosa Reyes, leave Oct 20 to Nov 3, to care for her mother. I’ll start your paid leave claim too.',
-        },
-        { kind: 'out', text: 'Yes' },
-        {
-          kind: 'in',
-          text: 'Sent. HR confirmed they have it. Reference L-2210.',
-        },
+        { kind: 'in', text: 'Your fund got your disability pension application. To pay it, they need a Social Security disability award.' },
+        { kind: 'out', text: 'I never applied for that. I wouldn’t know where to start.' },
+        { kind: 'in', text: 'I can do it with you. I just need your doctors and your last day of work.' },
+        { kind: 'out', text: 'Dr. Okafor did my back surgery. Last day was March 14.' },
+        { kind: 'in', text: 'Ready to file: Social Security disability, last day worked March 14, Dr. Okafor for your records. Reply YES to file.' },
+        { kind: 'out', text: 'YES' },
+        { kind: 'in', text: 'Filed. Confirmation 4417. Decisions take about six months. I’ll text you every step and send the award to your fund.' },
       ],
-      caption: 'Example conversation. Fictional family and employer.',
-      alt: 'Text conversation on a phone: Axolotl says HR needs the worker’s leave form and a doctor’s note by October 15 for her mom’s surgery, and that California paid family leave can cover part of her pay. Axolotl fills in the leave form, sends the doctor’s part to the doctor, and shows the ready-to-send details, offering to start the paid leave claim too. She replies Yes, and Axolotl confirms HR has it, reference L-2210.',
-    },
-    channel: {
-      line: 'Text one number. No app, no portal. English or Spanish.',
-      label: 'Things families send',
-      items: [
-        { kind: 'text', text: 'Fwd: Your benefits enrollment' },
-        { kind: 'photo', text: 'Photo of a letter' },
-        { kind: 'text', text: 'Can my mom get help at home?' },
-        { kind: 'text', text: 'Leo is out sick today.' },
-      ],
+      caption: 'Example conversation. Fictional member and fund.',
+      alt: 'Text conversation on a phone. Axolotl tells a member that his fund needs a Social Security disability award to pay his disability pension. He has never applied. Axolotl asks for his doctors and last day of work, which he gives: Dr. Okafor, March 14. Axolotl shows the ready-to-file application and asks for his yes; he replies YES, and it is filed with confirmation 4417.',
     },
   },
 
-  circles: {
-    h2: 'Coordinate with the people who already help.',
-    soon: 'Coming soon',
-    lead: 'Your circle is the people who already help: your brother, your sister, a neighbor, the sitter. Soon, Axolotl brings them into one plan for your mom and the kids. It asks in your words, works out who is doing what, and only commits once everyone says yes.',
-    chat: {
-      alt: 'Example group chat in the Messages app, showing a circle. The worker says her mom has a doctor visit Tuesday at 10 and she is working. Axolotl asks Luis and Marisol. Luis answers in Spanish that he can take her if someone covers his Thursday, and Axolotl translates. Marisol takes Thursday. Axolotl confirms the plan and says it will remind them that morning.',
-      group: 'You, Luis, Marisol',
-      meta: 'Today',
-      metaTime: '6:31 PM',
-      messages: [
-        { from: 'You', out: true, text: 'Mom has a doctor visit Tuesday at 10 and I’m working. Can anyone take her?' },
-        { from: 'Axolotl', text: 'Luis, Marisol: is either of you free Tuesday at 10?' },
-        { from: 'Luis', text: 'Yo la llevo, si alguien me cubre el jueves.' },
-        { from: 'Axolotl', text: 'Luis can take her if someone covers his Thursday.' },
-        { from: 'Marisol', text: 'I’ve got Thursday.' },
-        { from: 'Axolotl', text: 'Set: Luis has Tuesday at 10, Marisol has Thursday. I’ll remind you both that morning.' },
-        { from: 'You', out: true, text: 'You’re both the best. I owe you dinner this weekend.' },
+  disability: {
+    h2Plain: 'A disability pension,',
+    h2Em: 'and the award it was waiting on.',
+    lead: 'Only about 36% of first applications for Social Security disability are approved, and a decision takes six months or more. Members file alone, on paper, while they’re hurt. We file with them, from the first text.',
+    brief: {
+      eyebrow: 'What one award is worth',
+      example: 'Example',
+      rows: [
+        { v: '$1,483', l: 'A month to him', note: 'The average Social Security disability check, 2024.' },
+        { v: '24 mo.', l: 'Until Medicare pays first', note: 'After that the fund pays second on his claims.' },
+        { v: '1 award', l: 'Starts his disability pension', note: 'Many pension funds require it first.' },
+        { v: 'Once', l: 'Our fee, paid on the award', note: 'Nothing if it’s denied. Never out of his back pay.' },
       ],
+      foot: 'A disabled member’s claims run well above the median. Moving the fund to second payer is worth the most of anything here.',
     },
-    listLabel: 'How circles work',
-    list: [
-      'You never need a circle to get the full help.',
-      'A circle sees only the plan, never the medical or money details.',
-      'Nothing is agreed until everyone says yes.',
-      'It is not only rides: doctor visits, sick days, the school run and covering a shift.',
-      'Everyone reads and writes in their own language.',
-      'If a program owes your family help, Axolotl asks the program first.',
-      'Axolotl coordinates. It does not drive anyone; the family decides.',
+  },
+
+  steps: {
+    h2Plain: 'Your files find the moment.',
+    h2Em: 'The member says yes.',
+    lead: 'The fund already knows who is turning 65, who filed for a disability pension, who started dialysis and roughly what each retiree’s pension pays. That is enough to know who to reach, and when.',
+    items: [
+      { tag: 'Find', text: 'Your eligibility, claims and pension files flag the moment: a first dialysis claim, a disability pension application, a retiree under the state income limit, a member nine months from 65.' },
+      { tag: 'Reach', text: 'The fund sends one letter or text with the number. Members text back from their own phone, in English or Spanish.' },
+      { tag: 'Fill', text: 'Axolotl screens in a few questions and fills the application from what the member tells it and what the fund already has.' },
+      { tag: 'Yes', text: 'Nothing is filed until the member replies YES to exactly what will happen.' },
+      { tag: 'Follow', text: 'We track every case to approval. A care guide, a real person, takes the hard ones.' },
+      { tag: 'Count', text: 'You get a monthly ledger: approvals, and the dollars a year that moved to the right payer.' },
     ],
-    form: {
-      legend: 'Start a circle',
-      phoneLabel: 'Your phone number',
-      familiesLabel: 'How many people help?',
-      familiesOptions: ['2 to 3', '4 to 6', '7 or more'],
-      schoolLabel: 'City',
-      schoolHint: '(optional)',
-      submit: 'Start a circle',
-      note: "We'll text you when circles open.",
-      success: "You're on the list. We'll text you when circles open.",
-      errors: {
-        phone: 'Enter a 10-digit US phone number.',
-        families: 'Choose how many people help.',
-        generic: "We couldn't save your signup. Please try again.",
-      },
-    },
   },
 
-  // Rendered only when at least two permissioned quotes exist. Empty today:
-  // the brief forbids shipping bracketed placeholders, so the section is absent.
-  voices: {
-    h2: 'From families in the pilot.',
-    quotes: [],
+  different: {
+    h2Plain: 'Why this isn’t done',
+    h2Em: 'already.',
+    items: [
+      { h: 'Each piece is sold to someone else', p: 'Disability filing is sold to insurers. Medicare enrollment help is bought by states, by RFP. Dependent audits come from the fund office, years late. No one does all of it for a fund, from one number.' },
+      { h: 'It works from the member’s side', p: 'The member gets the check, the coverage, the lower premium. That is why they answer, and why the union can stand behind the letter.' },
+      { h: 'You pay for approvals', p: 'No per-member fee. Nothing for screening, nothing for denials.' },
+    ],
+  },
+
+  never: {
+    h2: 'What we never do',
+    items: [
+      { title: 'Act without a yes', body: 'Nothing is filed, sent or signed until the member replies YES to exactly what will happen.' },
+      { title: 'Show the fund a case', body: 'The fund sees totals. It learns a member’s name only when that member agrees, and only what it needs, like a reimbursement to stop.' },
+      { title: 'Steer anyone early', body: 'For the 30 months when the law says the fund pays first for kidney failure, we don’t push anyone toward Medicare. We make sure Part B starts on time after.' },
+      { title: 'Charge members', body: 'Members never pay us, and we never take a cut of their back pay. We sign a HIPAA business associate agreement before we see a single file.' },
+    ],
+  },
+
+  pilot: {
+    h2: 'Start with one group',
+    lead: 'Pick the retirees on your Part B reimbursement, or the members applying for a disability pension. You send one mailing. We screen, file and follow each case to approval.',
+    feesHead: ['Approval', 'Our fee'],
+    fees: [
+      ['Medicare Savings Program', '$300, once'],
+      ['Social Security disability award', 'A flat fee per award, set with you'],
+      ['Medicare start after dialysis month 30', 'A flat fee per member, set with you'],
+    ],
+    measuresLabel: 'What we report every month',
+    measures: [
+      'Members who texted, and how many qualify',
+      'Applications filed, approved and pending',
+      'Dollars a year moved off the fund, by program',
+      'Days from first text to approval',
+    ],
+    guardrail: 'If nobody is approved, the pilot costs the fund nothing.',
+  },
+
+  form: {
+    h2: 'Request a fund pilot',
+    lead: 'Tell us about your fund. We’ll reply within two business days.',
+    nameLabel: 'Your name',
+    roleLabel: 'Your role',
+    fundLabel: 'Fund',
+    emailLabel: 'Work email',
+    messageLabel: 'Roughly how many members and retirees, and in which states?',
+    messageHint: '(optional)',
+    submit: 'Send',
+    note: "We'll use these details to reply. Please don't include member records or health information.",
+    success: "Your request is saved. We'll reply to the email you gave us.",
+    error: "We couldn't save your request. Please try again.",
+    generic: 'Please fill in every field.',
+  },
+
+  membersBand: {
+    h2: 'Got a letter from your fund?',
+    body: 'If your fund sent you our number, here’s what we do, and what we never do.',
+    link: 'For members',
+  },
+
+  // ── /members ────────────────────────────────────────────────────────────────
+  // For the member holding the fund's letter. Plain words; they are checking
+  // that we are real before they text.
+  members: {
+    meta: {
+      title: 'Axolotl for members',
+      description: 'Your benefit fund works with Axolotl to help members get what they’re owed from Medicare, Social Security and the state. You text, we fill the forms, and nothing is sent without your yes. Free to you.',
+      shareAlt: 'A fund’s monthly ledger from Axolotl.',
+    },
+    hero: {
+      eyebrow: 'For union members and retirees',
+      h1Plain: 'Your fund sent you here.',
+      h1Em: 'Here’s who we are.',
+      sub: 'Axolotl works with your benefit fund to help members get what they’re owed from Medicare, Social Security and the state: lower premiums, disability checks, help with prescriptions. You text. We fill in the forms. Nothing is sent without your yes. It’s free to you.',
+      primary: 'Get a text from us',
+    },
+    help: {
+      h2: 'What we can help with',
+      items: [
+        { title: 'Your Medicare premium', body: 'If your income is under your state’s limit, the state may pay your Part B premium: $202.90 a month in 2026.' },
+        { title: 'Prescriptions', body: 'Extra Help lowers what you pay for medicines. Anyone in a Medicare Savings Program gets it automatically.' },
+        { title: 'Disability', body: 'If you can’t work, we help you apply for Social Security disability and send the award to your fund.' },
+        { title: 'Turning 65', body: 'We help you sign up for Medicare on time, so there’s no gap and no late penalty.' },
+      ],
+    },
+    rules: {
+      h2: 'How we work',
+      items: [
+        { title: 'Nothing goes out without your yes', body: 'We show you exactly what will be sent. You reply YES, or it doesn’t go.' },
+        { title: 'Your fund doesn’t see your case', body: 'Your fund sees totals. It learns your name only if you agree, and only what it needs.' },
+        { title: 'Free to you', body: 'Your fund pays us. You never pay, and we never take a cut of back pay.' },
+        { title: 'A real person when it’s hard', body: 'When a case gets complicated, a care guide takes over.' },
+      ],
+    },
+    join: {
+      h2: 'Get a text from us',
+      lead: 'Leave your number and we’ll text you. In English or Spanish.',
+    },
   },
 
   join: {
-    h2: 'Join the pilot.',
-    lead: "We're onboarding a small group of working families. Add your number and we'll text you about access. Free for families, in English or Spanish.",
     phoneLabel: 'Your phone number',
-    submit: 'Join the pilot',
-    note: 'By joining, you agree to receive texts about access.',
-    circleLink: 'Start a circle instead',
-    questionLink: 'Have a question first?',
-    success: "You're on the list. We'll text you at {phone}.",
+    placeholder: 'Your phone number',
+    submit: 'Text me',
+    note: 'By sending, you agree to receive texts from Axolotl.',
+    success: "Thanks. We'll text you at {phone}.",
     error: 'Enter a 10-digit US phone number.',
-    generic: "We couldn't save your signup. Please try again.",
-  },
-
-  employersBand: {
-    h2: 'For employers.',
-    body: 'Your people are owed benefits they don’t use, and family care costs you shifts and quits. Give every worker one confidential number. Axolotl gets them what they’re owed and handles the family crisis before it costs a shift. You see totals, never cases.',
-    link: 'How Axolotl works with employers',
-  },
-
-  contact: {
-    h2: 'Questions.',
-    lead: 'Ask about the pilot, or ask a question about how it works. We save your message and reply by email.',
-    emailLabel: 'Email',
-    messageLabel: 'What would you like to ask?',
-    messageHint: '(optional)',
-    submit: 'Send',
-    note: "We'll use these details to reply. Please don't include health information, benefit IDs or passwords.",
-    privacyLink: 'How we handle website data',
-    success: "Your message is saved. We'll reply to the email you gave us.",
-    error: "We couldn't save your message. Please try again.",
-  },
-
-  websitePrivacy: {
-    summary: 'Website privacy',
-    h2: 'What you share here.',
-    blocks: [
-      {
-        h3: 'What you send us',
-        body: 'We collect the email address and message you submit so we can reply. Inquiries are stored in our database. Please do not send health information, benefit IDs or passwords.',
-      },
-      {
-        h3: 'The pilot list and employer requests',
-        body: 'A family signup gives us your phone number. An employer pilot request gives us your name, role, organization and email. All of it is stored in our database. A text provider may process your phone number to send a confirmation text.',
-      },
-      {
-        h3: 'This website is not the service',
-        body: "These forms do not connect to your employer, your benefits or any government account. The site loads fonts from Google Fonts, so your browser makes requests to Google and to our hosting provider when you visit. How the service itself handles your family's information is in the privacy policy.",
-      },
-      {
-        h3: 'Questions about your information?',
-        body: 'Use the form above for privacy questions or a request about information you submitted.',
-      },
-    ],
-    link: 'Read the service privacy policy',
+    generic: "We couldn't save your number. Please try again.",
   },
 
   footer: {
-    tagline: 'The agent for working families',
+    tagline: 'The right payer, for union funds and their members',
     links: [
-      { label: 'Contact', href: '#contact' },
+      { label: 'For members', href: '/members' },
+      { label: 'For employers', href: '/employers' },
       { label: 'Privacy', href: '/privacy' },
       { label: 'Security and trust', href: '/security' },
     ],
@@ -923,103 +632,4 @@ export default {
     },
   },
 
-  // ── /funds ──────────────────────────────────────────────────────────────────
-  //
-  // For union (Taft-Hartley) benefit funds. The worked example is the Medicare
-  // Savings Program: a fund that reimburses part of its retirees' Part B premium
-  // is paying a bill the state would pay for many of them. Figures checked
-  // October 2026: Part B standard premium $202.90 a month (CMS, 2026); New York
-  // QI-1 limit $2,474 a month gross for one person, no asset test (NY DOH 2026);
-  // any Medicare Savings Program level qualifies a person for Extra Help.
-  funds: {
-    meta: {
-      title: 'Axolotl for benefit funds',
-      description:
-        'Axolotl is a confidential text line that enrolls your members in the public programs they already qualify for, starting with Medicare Savings Programs for retirees, so the fund stops paying premiums the state would cover. Paid per approved enrollment.',
-      shareAlt: 'A manila folder of family tasks with a Confirmed stamp on the first row.',
-    },
-    hero: {
-      eyebrow: 'For union benefit funds',
-      h1Plain: 'Some of the premiums your fund pays,',
-      h1Em: 'the state would pay instead.',
-      sub: 'Many retirees on your Part B reimbursement qualify for a Medicare Savings Program, which pays the whole premium. Few apply. Axolotl is a confidential text line that checks, fills the application and files it with the member’s yes. You pay only when one is approved.',
-      primary: 'Request a fund pilot',
-      secondary: 'See one retiree’s math',
-    },
-    example: {
-      h2Plain: 'One retiree,',
-      h2Em: 'one letter, six texts.',
-      lead: 'A worked example in New York, where a Medicare Savings Program covers a single person with up to $2,474 a month in income, and savings don’t count. The fund mails one letter with the number. The rest happens by text.',
-      threadLabel: 'A retired home health aide, 68',
-      thread: [
-        { from: 'member', text: 'Got the letter from the fund about Part B. Is this real?' },
-        { from: 'axolotl', text: 'It’s real. New York pays the whole Part B premium for people under $2,474 a month, and savings don’t count. What comes in each month, Social Security and pension together?' },
-        { from: 'member', text: '1,640 social security, 410 pension' },
-        { from: 'axolotl', text: 'That’s $2,050, so you qualify. The state would pay your $202.90 a month, and you’d get Extra Help with prescriptions too. I’ve filled the application from what you told me. Reply YES and I’ll file it. Nothing goes without your yes.' },
-        { from: 'member', text: 'YES' },
-        { from: 'axolotl', text: 'Filed. The office has up to 45 days. I’ll text you when it’s approved, and the premium stops coming out of your Social Security.' },
-      ],
-      brief: {
-        eyebrow: 'What one approval is worth',
-        example: '2026 figures',
-        rows: [
-          { v: '$202.90', l: 'Part B premium, every month', note: 'The 2026 standard premium. The state pays it once she’s approved.' },
-          { v: '$1,217', l: 'A year the fund stops paying', note: 'For a fund that reimburses half the premium.' },
-          { v: '$1,217', l: 'A year back in her check', note: 'Her half, plus Extra Help on prescriptions.' },
-          { v: '$300', l: 'Our fee, once', note: 'Paid on approval. Nothing for a denial.' },
-        ],
-        foot: 'The fund pays for itself in about three months, then saves every year she stays enrolled.',
-      },
-    },
-    programs: {
-      h2Plain: 'The same line,',
-      h2Em: 'for everything members leave on the table.',
-      lead: 'Retiree premiums are where the fund’s money is clearest, so a pilot starts there. Members text the same number for the rest.',
-      head: ['What members are owed', 'What it does for the fund'],
-      rows: [
-        ['Medicare Savings Programs', 'Part B premiums the state pays instead of the fund.'],
-        ['Extra Help with prescriptions', 'Lower drug costs for retirees, automatic with any Medicare Savings Program.'],
-        ['Turning 65', 'Medicare signed up on time, with no lifelong late penalty, and the move off the active plan done right.'],
-        ['Dependents and life events', 'A new baby, a marriage or a divorce, with the paperwork complete the first time.'],
-        ['State leave and child care programs', 'Paid family leave and child care help members already pay into, filed for them.'],
-      ],
-    },
-    never: {
-      h2: 'What we never do',
-      items: [
-        { title: 'Act without a yes', body: 'Nothing is filed, sent or signed until the member replies YES to exactly what will happen.' },
-        { title: 'Show the fund a case', body: 'The fund sees totals. It learns a member’s name only when that member agrees, and only to stop a reimbursement the state now pays.' },
-        { title: 'Sell or share member data', body: 'Not to employers, not to insurers, not to anyone.' },
-        { title: 'Replace your member services', body: 'When a question is about the fund’s own plan, we send it to your staff with the context, not a guess.' },
-      ],
-    },
-    pilot: {
-      h2: 'A pilot that pays for itself',
-      lead: 'Pick one group: the retirees on your Part B reimbursement. You send one mailing with the number. We screen, file and follow each case to approval.',
-      measuresLabel: 'What we report every month',
-      measures: [
-        'Retirees who texted, and how many qualify',
-        'Applications filed, approved and pending',
-        'Premium dollars a year moved off the fund',
-        'Days from first text to approval',
-      ],
-      price: '$300 per approved enrollment. Nothing for screening, nothing for denials.',
-      guardrail: 'If nobody is approved, the pilot costs the fund nothing.',
-    },
-    form: {
-      h2: 'Request a fund pilot',
-      lead: 'Tell us about your fund. We’ll reply within two business days.',
-      nameLabel: 'Your name',
-      roleLabel: 'Your role',
-      fundLabel: 'Fund',
-      emailLabel: 'Work email',
-      messageLabel: 'Roughly how many retirees, and in which states?',
-      messageHint: '(optional)',
-      submit: 'Send',
-      note: "We'll use these details to reply. Please don't include member records or health information.",
-      success: "Your request is saved. We'll reply to the email you gave us.",
-      error: "We couldn't save your request. Please try again.",
-      generic: 'Please fill in every field.',
-    },
-  },
 };

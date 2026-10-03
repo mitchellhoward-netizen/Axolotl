@@ -1,6 +1,6 @@
 {
   "device": "iPhone 17 Pro",
-  "copyHash": "e3cd0dd79be8651c",
+  "copyHash": "e5a7f0a867ab0442",
   "art": {
     "en": {
       "yes": {
@@ -10,26 +10,6 @@
       "week": {
         "width": 328,
         "height": 670
-      },
-      "circles": {
-        "width": 328,
-        "height": 670
-      },
-      "weekcol0": {
-        "width": 336,
-        "height": 687
-      },
-      "weekcol1": {
-        "width": 336,
-        "height": 687
-      },
-      "weekcol2": {
-        "width": 336,
-        "height": 687
-      },
-      "weekcol3": {
-        "width": 336,
-        "height": 687
       }
     },
     "es": {
@@ -40,26 +20,6 @@
       "week": {
         "width": 328,
         "height": 670
-      },
-      "circles": {
-        "width": 328,
-        "height": 670
-      },
-      "weekcol0": {
-        "width": 336,
-        "height": 687
-      },
-      "weekcol1": {
-        "width": 336,
-        "height": 687
-      },
-      "weekcol2": {
-        "width": 336,
-        "height": 687
-      },
-      "weekcol3": {
-        "width": 336,
-        "height": 687
       }
     }
   }

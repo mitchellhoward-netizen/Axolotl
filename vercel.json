@@ -10,6 +10,16 @@
       "source": "/es/schools",
       "destination": "/es/employers",
       "permanent": true
+    },
+    {
+      "source": "/funds",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/es/funds",
+      "destination": "/es",
+      "permanent": false
     }
   ],
   "rewrites": [

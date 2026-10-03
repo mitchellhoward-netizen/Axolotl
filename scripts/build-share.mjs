@@ -87,7 +87,10 @@ for (const lang of ['en', 'es']) {
     '--hide-scrollbars',
     '--no-sandbox',
     '--force-device-scale-factor=1',
-    `--window-size=${WIDTH},${HEIGHT}`,
+    // Headless Chromium's viewport comes out shorter than the window it is
+    // asked for, which left a blank strip along the bottom of the card. Render
+    // taller and crop to the card's exact size.
+    `--window-size=${WIDTH},${HEIGHT + 200}`,
     `--screenshot=${out}`,
     `--virtual-time-budget=8000`,
     `http://localhost:${PORT}/tools/site/share.html?lang=${lang}`,
@@ -95,6 +98,11 @@ for (const lang of ['en', 'es']) {
   await new Promise((resolve, reject) => {
     const child = spawn(chrome, args, { stdio: 'inherit' });
     child.on('exit', (code) => (code === 0 ? resolve() : reject(new Error(`chrome exited ${code}`))));
+  });
+  await new Promise((resolve, reject) => {
+    const crop = `from PIL import Image\nim = Image.open(${JSON.stringify(out)})\nim.crop((0, 0, ${WIDTH}, ${HEIGHT})).save(${JSON.stringify(out)})`;
+    const child = spawn('python3', ['-c', crop], { stdio: 'inherit' });
+    child.on('exit', (code) => (code === 0 ? resolve() : reject(new Error(`crop exited ${code}`))));
   });
   const size = (await readFile(out)).length;
   console.log(`wrote public/${path.basename(out)} (${WIDTH}x${HEIGHT}, ${Math.round(size / 1024)}KB)`);

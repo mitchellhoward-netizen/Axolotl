@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Axolotl: every working family deserves an agent.</title>
-    <meta name="description" content="Axolotl is one confidential number working families text for everything they are owed: a parent’s care, Medi-Cal and benefits, leave, the kids’ school. It does the work, a real person steps in when it’s hard, and nothing goes out without your yes." />
+    <title>Axolotl: the right payer, for union benefit funds</title>
+    <meta name="description" content="Axolotl finds the members whose costs belong to Medicare, Social Security or the state, and enrolls them from their side, by text, with their yes. Members get disability checks, lower premiums and cheaper prescriptions. The fund stops paying first. Paid per approval." />
     <meta name="theme-color" content="#FAD6B6" />
     <link rel="canonical" href="https://www.get-axolotl.com/" />
     <link rel="alternate" hreflang="en" href="https://www.get-axolotl.com/" />
@@ -15,10 +15,10 @@
     <meta property="og:url" content="https://www.get-axolotl.com/" />
     <meta property="og:locale" content="en_US" />
     <meta property="og:locale:alternate" content="es_US" />
-    <meta property="og:title" content="Axolotl: every working family deserves an agent." />
-    <meta property="og:description" content="Axolotl is one confidential number working families text for everything they are owed: a parent’s care, Medi-Cal and benefits, leave, the kids’ school. It does the work, a real person steps in when it’s hard, and nothing goes out without your yes." />
+    <meta property="og:title" content="Axolotl: the right payer, for union benefit funds" />
+    <meta property="og:description" content="Axolotl finds the members whose costs belong to Medicare, Social Security or the state, and enrolls them from their side, by text, with their yes. Members get disability checks, lower premiums and cheaper prescriptions. The fund stops paying first. Paid per approval." />
     <meta property="og:image" content="https://www.get-axolotl.com/share.png" />
-    <meta property="og:image:alt" content="A manila folder labeled &quot;The Reyes family&quot; holding tasks for a parent’s care, benefits and work, each marked Confirmed, Waiting for your yes, or Requested." />
+    <meta property="og:image:alt" content="A fund’s monthly ledger from Axolotl: Part B premiums moved to the state, disability awards filed, members turning 65 enrolled on time." />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
@@ -31,8 +31,8 @@
       href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/site.css?v=15" />
-    <script src="/site.js?v=15" defer></script>
+    <link rel="stylesheet" href="/site.css?v=16" />
+    <script src="/site.js?v=16" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -44,7 +44,7 @@
         <span>Axolotl</span>
       </a>
       <div class="header-actions">
-        <a class="button primary header-cta" href="#join">Join the pilot</a>
+        <a class="button primary header-cta" href="#school-contact">Request a pilot</a>
         <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Menu">
           <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 6h18M3 12h18M3 18h18" /></svg>
         </button>
@@ -52,320 +52,215 @@
     </div>
     <nav class="site-nav" id="site-nav" aria-label="Main navigation">
       <div class="wrap">
-        <ul><li><a href="#inbox">How it works</a></li><li><a href="#qualify">Help available</a></li><li><a href="/employers">For employers</a></li><li><a href="/funds">For benefit funds</a></li></ul>
+        <ul><li><a href="#money">Where the money goes</a></li><li><a href="#how">How it works</a></li><li><a href="/members">For members</a></li></ul>
         <a class="nav-lang" href="/es" hreflang="es" lang="es">Español</a>
       </div>
     </nav>
   </header>
     <main id="main">
 
-    <section class="hero t-morning" id="top" aria-labelledby="hero-title">
-      <div class="sun" aria-hidden="true"></div>
-        <div class="clutter" aria-hidden="true">
-          <span class="paper paper-slip"><i></i><i></i><i></i><b></b></span>
-          <span class="paper paper-menu"><i></i><i></i><i></i><i></i></span>
-          <span class="paper paper-note"></span>
-          <span class="paper paper-card"><i></i><i></i></span>
-        </div>
-      <div class="wrap hero-copy">
-        <p class="time-chip"><span class="time-chip-time">5:40 AM</span><span class="time-chip-label">Before a 7 AM shift</span></p>
-        <div class="agents" aria-hidden="true">
-          <div class="agents-track"><span>Movie stars have agents.</span><span>Athletes have agents.</span><span>Authors have agents.</span><span>Jazz cats have agents.</span><span>Comedians have agents.</span><span>Pro surfers have agents.</span><span>Influencers have agents.</span><span>Pro gamers have agents.</span><span>Matadors have agents.</span><span>Hand models have agents.</span><span>Clowns have agents.</span><span class="agents-parents">Working families have <s>a pile of letters and hold music.</s></span><span>Movie stars have agents.</span></div>
-        </div>
-        <h1 id="hero-title">Every working family deserves <em>an agent.</em></h1>
-        <p class="lead">Your family is owed a lot, from your job and from public programs, and most of it never reaches you. Axolotl is one confidential number you text. It handles a parent’s care, the benefits, the leave forms and the kids’ school, and a real person steps in when it’s hard. Nothing goes out without your yes.</p>
-
-          <form id="hero-join-form" class="pill-form" novalidate data-error="We couldn&#39;t save your signup. Please try again." data-error-phone="Enter a 10-digit US phone number.">
-            <label class="sr-only" for="hero-join-phone">Your phone number</label>
-            <div class="pill-field">
-              <input id="hero-join-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="30" required placeholder="Your phone number" aria-describedby="hero-join-error" />
-              <button class="button primary" type="submit">Join the pilot</button>
-            </div>
-            <p class="form-note">By joining, you agree to receive texts about access.</p>
-            <p class="form-error" id="hero-join-error" role="alert" hidden></p>
-          </form>
-          <div class="form-success" id="hero-join-sent" role="status" tabindex="-1" hidden>
-            <p id="hero-join-sent-text" data-template="You&#39;re on the list. We&#39;ll text you at {phone}."></p>
-          </div>
-        <p class="trust-line">Free for families in the pilot, in English or Spanish.</p>
-      </div>
-      <div class="hero-stage">
-        <img class="device" src="/week-1-en.webp?v=e3cd0dd79be8651c" width="336" height="687" alt="" decoding="async" loading="lazy" />
-        <img class="device" src="/circles-en.webp?v=e3cd0dd79be8651c" width="328" height="670" alt="" decoding="async" loading="lazy" />
-        <img class="peek" src="/ollie/ollie-think.webp" alt="" width="900" height="900" decoding="async" />
-        <img class="device" src="/hero-phone-en.webp?v=e3cd0dd79be8651c" width="328" height="670" alt="Text thread on a phone, before a 7 AM shift. The worker says her mom’s aide just cancelled. Axolotl says the backup care at her job covers an aide today and, on her yes, books one for 6:45. It has filled in her mom’s Medi-Cal renewal and sends it on her yes; the county confirms. Then it tells her she may be able to get paid for the care she gives her mom through IHSS, and she says yes." decoding="async" fetchpriority="high" />
-      </div>
-    </section>
-    <section class="section t-day" id="inbox" aria-labelledby="inbox-title">
-      <div class="wrap split">
+    <section class="hero hero-schools hero-fund" id="top" aria-labelledby="hero-title">
+      <div class="wrap split hero-fund-split">
         <div class="split-copy">
-          <p class="time-chip"><span class="time-chip-time">8:30 AM</span><span class="time-chip-label">On her break</span></p>
-          <h2 id="inbox-title">Eight letters this month. <em>One that matters.</em></h2>
-          <p class="lead">The county, the insurance company, HR, the school. Axolotl reads it all, finds the one with a deadline, fills in the form, and waits for your yes. Done means they confirmed it.</p>
-          <ol class="step-grid">
-            <li><span class="step-tag">01 · Reads</span>A photo of a letter, a forwarded email, a form from HR</li>
-            <li><span class="step-tag">02 · Finds</span>The one thing with a date attached</li>
-            <li><span class="step-tag">03 · Asks</span>You see what it will send. Your yes sends it</li>
-            <li><span class="step-tag">04 · Confirms</span>Only their confirmation counts as done</li>
-          </ol>
-        </div>
-        <figure class="inbox-stage">
-          <div class="inbox-card" aria-hidden="true">
-            <p class="inbox-label">This month · 8 letters and emails</p>
-            <ul><li>Insurance: explanation of benefits</li><li>HR: open enrollment reminder</li><li class="is-flagged">County: Mom’s Medi-Cal renewal, due Oct 15</li><li>School: picture day, Oct 3</li><li>Pharmacy: refill ready</li><li>Bank statement</li><li>Library books due</li></ul>
+          <p class="schools-eyebrow">For union benefit funds</p>
+          <h1 id="hero-title">Your fund pays bills <em>Medicare and the state should pay.</em></h1>
+          <p class="lead">Axolotl finds the members whose costs belong to Medicare, Social Security or the state, and gets them enrolled from their side, by text, with their yes. Members get disability checks, lower premiums and cheaper prescriptions. The fund stops paying first. You pay only for approvals.</p>
+          <div class="hero-actions">
+            <a class="button primary" href="#school-contact">Request a fund pilot</a>
+            <a class="text-link" href="#money">See where the money goes</a>
           </div>
-          <img class="device" src="/phone-en.webp?v=e3cd0dd79be8651c" width="328" height="670" alt="Text conversation on a phone: Axolotl says HR needs the worker’s leave form and a doctor’s note by October 15 for her mom’s surgery, and that California paid family leave can cover part of her pay. Axolotl fills in the leave form, sends the doctor’s part to the doctor, and shows the ready-to-send details, offering to start the paid leave claim too. She replies Yes, and Axolotl confirms HR has it, reference L-2210." decoding="async" loading="lazy" />
-          <figcaption class="caption">Example conversation. Fictional family and employer.</figcaption>
-        </figure>
+          <p class="trust-line">For union health and welfare funds. Paid per approval.</p>
+        </div>
+        <div class="fund-phone">
+          <img class="device" src="/hero-phone-en.webp?v=e5a7f0a867ab0442" width="328" height="670" alt="Text thread on a phone. A retiree asks if the fund’s letter about Part B is real. Axolotl says New York pays the whole Part B premium under $2,474 a month and asks her income. She has $2,050, so she qualifies: the state would pay her $202.90 a month and she would get Extra Help with prescriptions. Axolotl has filled in the application and asks for her yes; she replies YES and it is filed." decoding="async" fetchpriority="high" />
+        </div>
       </div>
     </section>
-    <section class="section t-noon" id="week" aria-labelledby="week-title">
-      <div class="wrap center-head">
-        <p class="time-chip"><span class="time-chip-time">11:48 AM</span><span class="time-chip-label">Midday</span></p>
-        <h2 id="week-title">It keeps the week running.</h2>
-        <p class="lead">The aide who cancels, the shift you can’t miss, and the forms that assume someone is free at 2 PM.</p>
-      </div>
+    <section class="section t-day" id="money" aria-labelledby="money-title">
       <div class="wrap">
-        <div class="carousel" data-carousel>
-          <button class="carousel-arrow carousel-prev" type="button" aria-label="Previous" hidden>
-            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14.5 5 8 12l6.5 7" /></svg>
-          </button>
-          <ul class="carousel-track" tabindex="0" aria-label="The week, one screen at a time">
-          <li class="week-card">
-            <img class="device" src="/week-1-en.webp?v=e3cd0dd79be8651c" width="336" height="687" alt="A text conversation with Axolotl: When care falls through. You: Mom’s aide cancelled. I start at 7. Axolotl: Your backup care covers an aide today. The earliest is 7:30. You: That’s too late. Axolotl: Dana could take 7 to 11 if you take her Saturday. Want me to ask her? You: Yes Axolotl: Here’s what I’ll send: “Can you swap my 7 to 11 today for your Saturday?” You: Send Axolotl: Dana said yes. I sent the swap to your manager. Axolotl: Approved. The aide is booked for 7:30. You: You saved my morning. Confirmed" decoding="async" loading="lazy" />
-            <p class="week-time">5:40 AM</p>
-            <h3>When care falls through</h3>
-          </li>
-          <li class="week-card">
-            <img class="device" src="/week-2-en.webp?v=e3cd0dd79be8651c" width="336" height="687" alt="A text conversation with Axolotl: The benefits you already have. You: Mom’s getting worse and I can’t sleep. Axolotl: I’m sorry. That’s a lot to carry. Axolotl: Your job includes free counseling. It’s confidential. Work never sees who uses it. You: I didn’t know that. Axolotl: There’s a Spanish-speaking counselor Tuesday at 6 PM, by phone. Want it? You: Yes Axolotl: Booked. I’ll remind you Tuesday at 5. Axolotl: Your mom may also qualify for an adult day program through Medi-Cal. Want me to check? You: Please. Axolotl: On it. I’ll send you what I find tonight. Confirmed" decoding="async" loading="lazy" />
-            <p class="week-time">11:48 AM</p>
-            <h3>The benefits you already have</h3>
-          </li>
-          <li class="week-card">
-            <img class="device" src="/week-3-en.webp?v=e3cd0dd79be8651c" width="336" height="687" alt="A text conversation with Axolotl: The kids. Axolotl: Three things this week: picture day Thursday, the field trip form due Friday, and Leo needs an absence note. You: He has a dentist appointment Monday morning. Axolotl: Then I’ll write the absence note for Monday and fill in the form. You: Do you need anything from me? Axolotl: Just a yes. Everything else I have. Axolotl: Ready to send: the absence note and Maya’s field trip form. You: Yes Axolotl: Both sent. The school confirmed they have them. You: What about picture day? Axolotl: Nothing to do. I’ll remind you Thursday morning. Confirmed" decoding="async" loading="lazy" />
-            <p class="week-time">4:05 PM</p>
-            <h3>The kids</h3>
-          </li>
-          <li class="week-card">
-            <img class="device" src="/week-4-en.webp?v=e3cd0dd79be8651c" width="336" height="687" alt="A text conversation with Axolotl: Who’s got Mom. Axolotl: Here’s who’s with your mom this week. Axolotl: Tuesday doctor visit: Luis. Thursday: the aide. Saturday: you. You: Can you check Luis is still good for Tuesday? Axolotl: Want me to text Luis: “Still good to take Mom to Dr. Lee Tuesday at 10?” You: Yes Axolotl: Sent. Luis says yes, 10 o’clock. You: What about Sunday? I might pick up a shift. Axolotl: Nobody’s with her Sunday yet. Marisol is next. Want me to ask her? You: Yes. Axolotl: Asked. I’ll tell you what she says. Confirmed" decoding="async" loading="lazy" />
-            <p class="week-time">6:30 PM</p>
-            <h3>Who’s got Mom</h3>
-          </li>
-          </ul>
-          <button class="carousel-arrow carousel-next" type="button" aria-label="Next" hidden>
-            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9.5 5 16 12l-6.5 7" /></svg>
-          </button>
-        </div>
-        <p class="caption center">Example conversation. Fictional family and employer.</p>
-      </div>
-    </section>
-    <section class="section t-afternoon" id="qualify" aria-labelledby="qualify-title">
-      <div class="wrap">
-        <div class="head-split">
-          <div>
-            <p class="time-chip"><span class="time-chip-time">3:05 PM</span><span class="time-chip-label">After the shift</span></p>
-            <h2 id="qualify-title">Help your family <em>already qualifies for.</em></h2>
+        <div class="split money-split">
+          <div class="split-copy">
+            <h2 id="money-title">The fund pays first <em>more often than it should.</em></h2>
+            <p class="lead">Some of a fund’s biggest bills belong to Medicare, Social Security or the state once a member is enrolled in the right program. Most members never are. The forms are hard, the rules change at 65 and at month 24 and at month 30, and nobody walks them through.</p>
           </div>
-          <p class="lead">Paid caregiving, Medicare savings, food help, paid leave. The help exists, but you have to know to ask, ask the right office, and keep asking. Axolotl notices when your family might qualify, then does all three.</p>
-        </div>
-        <div class="glass timeline">
-          <div class="timeline-head">
-            <h3>One ask, start to finish</h3>
-            <p class="caption">Example conversation. Fictional family and employer.</p>
-          </div>
-          <ol class="tl">
-            <li class="tl-step">
-              <p class="tl-when">Oct 2 · 2:14 PM</p>
-              <h3>The doctor’s visit</h3>
-              <div class="tl-card tl-email"><span class="tl-meta">Dr. Lee’s office · Valley Clinic</span><strong>Visit summary for Carmen Reyes</strong><span>Mrs. Reyes now <mark>needs daily help with bathing and medications</mark>. We recommend support at home.</span></div>
-            </li>
-            <li class="tl-step">
-              <p class="tl-when">3:05 PM</p>
-              <h3>Axolotl spots what it means</h3>
-              <p class="bubble in">Your mom has Medi-Cal and now needs daily help. She may qualify for IHSS, and you could be paid as her caregiver. Want me to start the application?</p><p class="bubble out">Yes, please</p>
-            </li>
-            <li class="tl-step">
-              <p class="tl-when">9:40 PM</p>
-              <h3>It fills in the application</h3>
-              <div class="tl-card tl-letter"><span class="tl-meta">To the county IHSS office</span><span class="tl-letter-text">I am applying for In-Home Supportive Services for my mother, Carmen Reyes, who has Medi-Cal and <mark>needs help with daily care</mark>. I would like to be her provider.</span><span class="tl-sent">Sent on your yes</span></div>
-            </li>
-            <li class="tl-step is-pending">
-              <p class="tl-when">Oct 10 · Day 8</p>
-              <h3>No answer, so it follows up</h3>
-              <p class="bubble in">No word from the county yet. I called, and they have it. A social worker will call to set up a home visit.</p>
-            </li>
-            <li class="tl-step is-done">
-              <p class="tl-when">Oct 16 · Day 14</p>
-              <h3>The county answers</h3>
-              <div class="tl-card tl-reply"><span class="tl-meta">County IHSS office</span><span>Received. A home visit for Carmen Reyes is scheduled for October 23.</span></div><p class="tl-track"><span class="tl-bar" aria-hidden="true"><span></span></span>Next: the doctor’s form. Dr. Lee’s office has it.</p>
-            </li>
-          </ol>
-        </div>
-        <div class="also">
-          <p class="also-label">It can ask for these too:</p>
-          <ul class="chips"><li>Medicare savings for a parent</li><li>Food help (CalFresh)</li><li>Paid family leave</li><li>Help paying for child care</li><li>An interpreter at appointments</li></ul>
-        </div>
-        <p class="line-note">Axolotl isn’t a lawyer. It asks for what your family already qualifies for.</p>
-      </div>
-    </section>
-    <section class="section t-golden" id="school" aria-labelledby="school-title">
-      <div class="wrap split path-split">
-        <div class="split-copy">
-          <p class="time-chip"><span class="time-chip-time">3:40 PM</span><span class="time-chip-label">On the way home</span></p>
-          <h2 id="school-title">Every family makes the county easier <em>for the next one.</em></h2>
-          <p class="lead">Every time Axolotl gets something done, it learns what worked: which office, which form, how long it took. A care guide checks it, and the next family just says yes. Nobody’s personal details go into it.</p>
-          <ol class="path-steps"><li><span class="path-step-tag">One family</span>Axolotl finds a way through that works.</li><li><span class="path-step-tag">Many families</span>It keeps working, so it becomes proven.</li><li><span class="path-step-tag">A care guide</span>Checks it and makes it the standard way.</li></ol>
-          <a class="text-link" href="/employers">Run a team of hourly workers? See what your people get</a>
-        </div>
-        <div class="path-side">
-          <article class="path-card" aria-labelledby="path-title">
-            <p class="path-eyebrow"><span>Example · Valley County</span><span>Path v2</span></p>
-            <h3 id="path-title">Renew a parent’s Medi-Cal</h3>
-            <div class="path-two">
-              <div><p class="path-label">What you do</p><p>Send a photo of the renewal letter. Say yes to the form.</p></div>
-              <div><p class="path-label">What happens</p><p>The form goes in complete, and the county confirms it.</p></div>
-            </div>
-            <div class="path-stats"><div><span class="path-stat-v">31</span><span class="path-stat-l">families used it</span></div><div><span class="path-stat-v">31</span><span class="path-stat-l">confirmed</span></div><div><span class="path-stat-v">6 days</span><span class="path-stat-l">typical wait</span></div></div>
-            <p class="path-never"><strong>Never shared</strong> Why you asked. Health details. Anything the county doesn’t require.</p>
-            <div class="path-stamp" role="img" aria-label="Verified by care guide Ana R. on October 2">
-              <span class="path-stamp-top" aria-hidden="true">Verified</span>
-              <span class="path-stamp-name" aria-hidden="true">Care guide<br />Ana R.</span>
-              <span class="path-stamp-date" aria-hidden="true">Oct 2</span>
-            </div>
+          <article class="brief-card" aria-labelledby="stats-title">
+            <p class="door-label"><span id="stats-title">Union health funds</span><span>National</span></p>
+            <ul class="brief-rows brief-rows-money"><li><span class="brief-v">1,400+</span><span class="brief-l">Multiemployer health funds<span class="brief-note">Covering more than 5 million participants, before families. IFEBP.</span></span></li><li><span class="brief-v">$13,121</span><span class="brief-l">Median spend per participant, per year<span class="brief-note">IFEBP, 2022.</span></span></li><li><span class="brief-v">74%</span><span class="brief-l">Of funds cover retirees<span class="brief-note">Where Medicare is meant to pay first.</span></span></li><li><span class="brief-v">4 in 10</span><span class="brief-l">Eligible people missing a Medicare Savings Program<span class="brief-note">MACPAC and NCOA, 2021–23.</span></span></li></ul>
+            
           </article>
-          <div class="path-more">
-            <p class="path-label">More paths in Valley County</p>
-            <ul><li>Medicare savings for a parent <span class="path-official">verified</span></li><li>CalFresh renewal <span class="path-official">verified</span></li><li>Apply for IHSS <span class="path-status">proven</span></li><li>Paid family leave claim <span class="path-status">proven</span></li><li>Adult day program <span class="path-status">new</span></li></ul>
-            <p class="path-note">Paths are rolling out with our first pilot families.</p>
-          </div>
         </div>
+        <table class="year-table money-table">
+          <caption class="sr-only">The fund pays first more often than it should.</caption>
+          <thead>
+            <tr><th scope="col">When</th><th scope="col">Who pays now</th><th scope="col">Who should pay</th><th scope="col">What the member gets</th></tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td data-label="When">Dialysis, after month 30</td>
+            <td data-label="Who pays now">The fund, at commercial rates: about $238,000 in the first year of dialysis</td>
+            <td data-label="Who should pay">Medicare first, once the member is enrolled</td>
+            <td data-label="What the member gets">Lower out-of-pocket costs, with the fund behind Medicare</td>
+          </tr>
+          <tr>
+            <td data-label="When">A member who can’t work because of a disability</td>
+            <td data-label="Who pays now">The fund, for everything</td>
+            <td data-label="Who should pay">Medicare first, 24 months into a Social Security disability award</td>
+            <td data-label="What the member gets">A disability check, about $1,483 a month on average, and a disability pension that can start</td>
+          </tr>
+          <tr>
+            <td data-label="When">A retiree under the state income limit</td>
+            <td data-label="Who pays now">The fund, reimbursing the Part B premium</td>
+            <td data-label="Who should pay">The state, through a Medicare Savings Program</td>
+            <td data-label="What the member gets">$202.90 a month back, and Extra Help with prescriptions</td>
+          </tr>
+          <tr>
+            <td data-label="When">A retiree who qualifies for Extra Help</td>
+            <td data-label="Who pays now">The fund’s retiree drug plan</td>
+            <td data-label="Who should pay">Medicare subsidizes the plan for that member</td>
+            <td data-label="What the member gets">Lower drug costs</td>
+          </tr>
+          <tr>
+            <td data-label="When">Turning 65</td>
+            <td data-label="Who pays now">Gaps, and a lifelong penalty when Part B starts late</td>
+            <td data-label="Who should pay">Medicare, from the first day</td>
+            <td data-label="What the member gets">Coverage with no gap and no penalty</td>
+          </tr>
+          </tbody>
+        </table>
+        <p class="network-note">Dialysis: first-year spending, commercial plans $238,126 against Medicare $80,509 (JAMA Network Open, 2012–19 data). Disability check: SSA average, 2024. Premium: 2026 standard Part B.</p>
       </div>
     </section>
-    <section class="section t-dusk" id="dinner" aria-labelledby="dinner-title">
-      <div class="wrap split circle-split">
-        <div class="circle-phone">
-          <img class="device" src="/circles-en.webp?v=e3cd0dd79be8651c" width="328" height="670" alt="Example group chat in the Messages app, showing a circle. The worker says her mom has a doctor visit Tuesday at 10 and she is working. Axolotl asks Luis and Marisol. Luis answers in Spanish that he can take her if someone covers his Thursday, and Axolotl translates. Marisol takes Thursday. Axolotl confirms the plan and says it will remind them that morning." decoding="async" loading="lazy" />
-        </div>
-        <div class="split-copy">
-          <p class="time-chip"><span class="time-chip-time">6:30 PM</span><span class="time-chip-label">Dinner</span></p>
-          <h2 id="dinner-title">Who’s got Mom <em>this week.</em></h2>
-          <p class="lead">Your circle is the people who already help: your brother, your sister, a neighbor, the sitter. Tell Axolotl what you need. It asks them, sorts out who’s doing what, and reminds everyone.</p>
-          <p class="circle-week-label">This week</p>
-          <ol class="circle-week"><li><span>Mon</span>You</li><li class="is-set"><span>Tue 10:00</span>Luis</li><li><span>Wed</span>The aide</li><li class="is-set"><span>Thu</span>Marisol</li><li><span>Fri</span>You</li></ol>
-          <ul class="circle-rules"><li><strong>Everyone says yes.</strong> Nobody is added without agreeing. Anyone can leave, anytime.</li><li><strong>The plan, not the reason.</strong> Your circle sees who’s with Mom when. Never the medical details.</li><li><strong>Any language.</strong> Luis writes in Spanish, Marisol reads it in English.</li></ul>
-          <p class="circle-soon"><span class="soon-tag">Coming soon · Circles</span><a class="text-link" href="#join">Join the pilot and you’ll be first to start one.</a></p>
-        </div>
-      </div>
-    </section>
-    <section class="section t-night" id="night" aria-labelledby="night-title">
-      <div class="stars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <section class="section t-noon" id="example" aria-labelledby="example-title">
       <div class="wrap split">
         <div class="split-copy">
-          <p class="time-chip"><span class="time-chip-time">9:40 PM</span><span class="time-chip-label">Kids are asleep</span></p>
-          <h2 id="night-title">Everything’s <em>handled.</em></h2>
-          <p class="lead">Instead of a kitchen table covered in letters, one summary: what went out, what was confirmed, and what is still waiting.</p>
+          <h2 id="example-title">One retiree, <em>one letter, seven texts.</em></h2>
+          <p class="lead">The phone at the top of this page, in New York, where a Medicare Savings Program covers one person with up to $2,474 a month in income, and savings don’t count. The fund mails one letter with the number. The rest happens by text.</p>
         </div>
-        <div>
-          <p class="sum-label">Today, in one summary</p>
-          <ul class="summary">
-            <li class="is-done">
-              <span class="sum-mark"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12l5 5 9-10" /></svg></span>
-              <span class="sum-text"><strong>Mom’s aide</strong><span>Covered by your backup care · arrived 7:30</span></span>
-              <span class="sr-only">Done</span>
-            </li>
-            <li class="is-done">
-              <span class="sum-mark"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12l5 5 9-10" /></svg></span>
-              <span class="sum-text"><strong>Today’s shift</strong><span>Dana took 7 to 11 · manager approved</span></span>
-              <span class="sr-only">Done</span>
-            </li>
-            <li class="is-done">
-              <span class="sum-mark"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12l5 5 9-10" /></svg></span>
-              <span class="sum-text"><strong>Mom’s Medi-Cal renewal</strong><span>County confirmed · R-4471</span></span>
-              <span class="sr-only">Done</span>
-            </li>
-            <li class="is-waiting">
-              <span class="sum-mark"></span>
-              <span class="sum-text"><strong>Paid caregiving (IHSS)</strong><span>Requested · waiting on the county</span></span>
-              <span class="sr-only">Waiting on them</span>
-            </li>
-          </ul>
-          <p class="caption">Example conversation. Fictional family and employer.</p>
-        </div>
-      </div>
-      <div class="wrap promises">
-          <article class="glass promise"><h3>Your yes sends it.</h3><p>Every email, form and request waits for an explicit yes. A suggestion is not permission.</p></article>
-          <article class="glass promise"><h3>Your employer never sees your case.</h3><p>If your job pays for Axolotl, they see totals only. Never who asked, or what about.</p></article>
-          <article class="glass promise"><h3>A real person when it’s hard.</h3><p>For a crisis or a big decision, a care guide steps in. Your information is never sold.</p></article>
-      </div>
-      <div class="wrap promise-links">
-          <a class="text-link" href="/security">Read every limit, in plain words</a>
-          <a class="text-link" href="/privacy">How we handle information</a>
-      </div>
-
-      <div class="wrap join" id="join" aria-labelledby="join-title">
-        <img class="sleeper" src="/ollie/ollie-sleep.webp" alt="" width="900" height="900" loading="lazy" decoding="async" />
-        <h2 id="join-title">Tomorrow’s <em>already handled.</em></h2>
-        <p class="lead">We&#39;re onboarding a small group of working families. Add your number and we&#39;ll text you about access. Free for families, in English or Spanish.</p>
-
-          <form id="join-form" class="pill-form" novalidate data-error="We couldn&#39;t save your signup. Please try again." data-error-phone="Enter a 10-digit US phone number.">
-            <label class="sr-only" for="join-phone">Your phone number</label>
-            <div class="pill-field">
-              <input id="join-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="30" required placeholder="Your phone number" aria-describedby="join-error" />
-              <button class="button primary" type="submit">Join the pilot</button>
-            </div>
-            <p class="form-note">By joining, you agree to receive texts about access.</p>
-            <p class="form-error" id="join-error" role="alert" hidden></p>
-          </form>
-          <div class="form-success" id="join-sent" role="status" tabindex="-1" hidden>
-            <p id="join-sent-text" data-template="You&#39;re on the list. We&#39;ll text you at {phone}."></p>
-          </div>
-        <p class="join-alt"><a class="text-link" href="#contact">Have a question first?</a></p>
+        <article class="brief-card" aria-labelledby="example-brief-title">
+            <p class="door-label"><span id="example-brief-title">What one approval is worth</span><span>2026 figures</span></p>
+            <ul class="brief-rows brief-rows-money"><li><span class="brief-v">$202.90</span><span class="brief-l">Part B premium, every month<span class="brief-note">The 2026 standard premium. The state pays it once she’s approved.</span></span></li><li><span class="brief-v">$1,217</span><span class="brief-l">A year the fund stops paying<span class="brief-note">For a fund that reimburses half the premium.</span></span></li><li><span class="brief-v">$1,217</span><span class="brief-l">A year back in her check<span class="brief-note">Her half, plus Extra Help on prescriptions.</span></span></li><li><span class="brief-v">$300</span><span class="brief-l">Our fee, once<span class="brief-note">Paid on approval. Nothing for a denial.</span></span></li></ul>
+            <p class="brief-foot">The fund makes the fee back in about three months, then saves every year she stays enrolled.</p>
+          </article>
       </div>
     </section>
-    <section class="section t-night-deep section-band" aria-labelledby="schools-band-title">
-      <div class="wrap band">
-        <h2 id="schools-band-title">For employers.</h2>
-        <p class="lead">Your people are owed benefits they don’t use, and family care costs you shifts and quits. Give every worker one confidential number. Axolotl gets them what they’re owed and handles the family crisis before it costs a shift. You see totals, never cases.</p>
-        <a class="text-link" href="/employers">How Axolotl works with employers</a>
+    <section class="section t-afternoon" id="disability" aria-labelledby="disability-title">
+      <div class="wrap split">
+        <figure class="fund-phone">
+          <img class="device" src="/phone-en.webp?v=e5a7f0a867ab0442" width="328" height="670" alt="Text conversation on a phone. Axolotl tells a member that his fund needs a Social Security disability award to pay his disability pension. He has never applied. Axolotl asks for his doctors and last day of work, which he gives: Dr. Okafor, March 14. Axolotl shows the ready-to-file application and asks for his yes; he replies YES, and it is filed with confirmation 4417." decoding="async" loading="lazy" />
+          <figcaption class="caption">Example conversation. Fictional member and fund.</figcaption>
+        </figure>
+        <div class="split-copy">
+          <h2 id="disability-title">A disability pension, <em>and the award it was waiting on.</em></h2>
+          <p class="lead">Only about 36% of first applications for Social Security disability are approved, and a decision takes six months or more. Members file alone, on paper, while they’re hurt. We file with them, from the first text.</p>
+          <article class="brief-card" aria-labelledby="disability-brief-title">
+            <p class="door-label"><span id="disability-brief-title">What one award is worth</span><span>Example</span></p>
+            <ul class="brief-rows brief-rows-money"><li><span class="brief-v">$1,483</span><span class="brief-l">A month to him<span class="brief-note">The average Social Security disability check, 2024.</span></span></li><li><span class="brief-v">24 mo.</span><span class="brief-l">Until Medicare pays first<span class="brief-note">After that the fund pays second on his claims.</span></span></li><li><span class="brief-v">1 award</span><span class="brief-l">Starts his disability pension<span class="brief-note">Many pension funds require it first.</span></span></li><li><span class="brief-v">Once</span><span class="brief-l">Our fee, paid on the award<span class="brief-note">Nothing if it’s denied. Never out of his back pay.</span></span></li></ul>
+            <p class="brief-foot">A disabled member’s claims run well above the median. Moving the fund to second payer is worth the most of anything here.</p>
+          </article>
+        </div>
       </div>
     </section>
-    <section class="section t-night-deep" id="contact" aria-labelledby="contact-title">
+    <section class="section t-night-deep" id="how" aria-labelledby="how-title">
+      <div class="wrap">
+        <h2 id="how-title">Your files find the moment. <em>The member says yes.</em></h2>
+        <p class="lead">The fund already knows who is turning 65, who filed for a disability pension, who started dialysis and roughly what each retiree’s pension pays. That is enough to know who to reach, and when.</p>
+        <ol class="fly-steps">
+          <li><strong>Find</strong><span>Your eligibility, claims and pension files flag the moment: a first dialysis claim, a disability pension application, a retiree under the state income limit, a member nine months from 65.</span></li>
+          <li><strong>Reach</strong><span>The fund sends one letter or text with the number. Members text back from their own phone, in English or Spanish.</span></li>
+          <li><strong>Fill</strong><span>Axolotl screens in a few questions and fills the application from what the member tells it and what the fund already has.</span></li>
+          <li><strong>Yes</strong><span>Nothing is filed until the member replies YES to exactly what will happen.</span></li>
+          <li><strong>Follow</strong><span>We track every case to approval. A care guide, a real person, takes the hard ones.</span></li>
+          <li><strong>Count</strong><span>You get a monthly ledger: approvals, and the dollars a year that moved to the right payer.</span></li>
+        </ol>
+      </div>
+    </section>
+    <section class="section t-golden" aria-labelledby="different-title">
+      <div class="wrap">
+        <h2 id="different-title">Why this isn’t done <em>already.</em></h2>
+        <div class="never-grid">
+          <article><h3>Each piece is sold to someone else</h3><p>Disability filing is sold to insurers. Medicare enrollment help is bought by states, by RFP. Dependent audits come from the fund office, years late. No one does all of it for a fund, from one number.</p></article>
+          <article><h3>It works from the member’s side</h3><p>The member gets the check, the coverage, the lower premium. That is why they answer, and why the union can stand behind the letter.</p></article>
+          <article><h3>You pay for approvals</h3><p>No per-member fee. Nothing for screening, nothing for denials.</p></article>
+        </div>
+      </div>
+    </section>
+    <section class="section" aria-labelledby="never-title">
+      <div class="wrap">
+        <h2 id="never-title">What we never do</h2>
+        <div class="never-grid">
+          <article><h3>Act without a yes</h3><p>Nothing is filed, sent or signed until the member replies YES to exactly what will happen.</p></article>
+          <article><h3>Show the fund a case</h3><p>The fund sees totals. It learns a member’s name only when that member agrees, and only what it needs, like a reimbursement to stop.</p></article>
+          <article><h3>Steer anyone early</h3><p>For the 30 months when the law says the fund pays first for kidney failure, we don’t push anyone toward Medicare. We make sure Part B starts on time after.</p></article>
+          <article><h3>Charge members</h3><p>Members never pay us, and we never take a cut of their back pay. We sign a HIPAA business associate agreement before we see a single file.</p></article>
+        </div>
+      </div>
+    </section>
+    <section class="section section-sheet" aria-labelledby="pilot-title">
+      <div class="wrap">
+        <h2 id="pilot-title">Start with one group</h2>
+        <p class="lead">Pick the retirees on your Part B reimbursement, or the members applying for a disability pension. You send one mailing. We screen, file and follow each case to approval.</p>
+        <table class="year-table connect-table">
+          <caption class="sr-only">Start with one group</caption>
+          <thead>
+            <tr><th scope="col">Approval</th><th scope="col">Our fee</th></tr>
+          </thead>
+          <tbody>
+          <tr><td data-label="Approval">Medicare Savings Program</td><td data-label="Our fee">$300, once</td></tr>
+          <tr><td data-label="Approval">Social Security disability award</td><td data-label="Our fee">A flat fee per award, set with you</td></tr>
+          <tr><td data-label="Approval">Medicare start after dialysis month 30</td><td data-label="Our fee">A flat fee per member, set with you</td></tr>
+          </tbody>
+        </table>
+        <h3>What we report every month</h3>
+        <ul class="plain-list wide">
+          <li>Members who texted, and how many qualify</li>
+          <li>Applications filed, approved and pending</li>
+          <li>Dollars a year moved off the fund, by program</li>
+          <li>Days from first text to approval</li>
+        </ul>
+        <p><span class="highlight">If nobody is approved, the pilot costs the fund nothing.</span></p>
+      </div>
+    </section>
+    <section class="section" id="school-contact" aria-labelledby="school-contact-title">
       <div class="wrap contact-grid">
         <div>
-          <h2 id="contact-title">Questions.</h2>
-          <p class="lead">Ask about the pilot, or ask a question about how it works. We save your message and reply by email.</p>
-          <form id="inquiry-form" novalidate data-error="We couldn&#39;t save your message. Please try again.">
+          <h2 id="school-contact-title">Request a fund pilot</h2>
+          <p class="lead">Tell us about your fund. We’ll reply within two business days.</p>
+          <form id="school-form" novalidate data-source="funds" data-error="Please fill in every field.">
             <div class="field">
-              <label for="inquiry-email">Email</label>
-              <input id="inquiry-email" name="email" type="email" autocomplete="email" maxlength="254" required aria-describedby="inquiry-error" />
+              <label for="school-name">Your name</label>
+              <input id="school-name" name="name" type="text" autocomplete="name" maxlength="120" required aria-describedby="school-error" />
             </div>
             <div class="field">
-              <label for="inquiry-message">What would you like to ask? <span class="hint">(optional)</span></label>
-              <textarea id="inquiry-message" name="message" maxlength="2000" rows="4" aria-describedby="inquiry-error"></textarea>
+              <label for="school-role">Your role</label>
+              <input id="school-role" name="role" type="text" autocomplete="organization-title" maxlength="120" required aria-describedby="school-error" />
+            </div>
+            <div class="field">
+              <label for="school-district">Fund</label>
+              <input id="school-district" name="school" type="text" autocomplete="organization" maxlength="160" required aria-describedby="school-error" />
+            </div>
+            <div class="field">
+              <label for="school-email">Work email</label>
+              <input id="school-email" name="email" type="email" autocomplete="email" maxlength="254" required aria-describedby="school-error" />
+            </div>
+            <div class="field">
+              <label for="school-message">Roughly how many members and retirees, and in which states? <span class="hint">(optional)</span></label>
+              <textarea id="school-message" name="message" maxlength="1980" rows="4" aria-describedby="school-error"></textarea>
             </div>
             <button class="button primary" type="submit">Send</button>
-            <p class="form-note">We&#39;ll use these details to reply. Please don&#39;t include health information, benefit IDs or passwords. <a href="#website-privacy" data-privacy>How we handle website data</a></p>
-            <p class="form-error" id="inquiry-error" role="alert" hidden>We couldn&#39;t save your message. Please try again.</p>
+            <p class="form-note">We&#39;ll use these details to reply. Please don&#39;t include member records or health information.</p>
+            <p class="form-error" id="school-error" role="alert" hidden>We couldn&#39;t save your request. Please try again.</p>
           </form>
-          <div class="form-success" id="inquiry-sent" role="status" tabindex="-1" hidden>
-            <p>Your message is saved. We&#39;ll reply to the email you gave us.</p>
+          <div class="form-success" id="school-sent" role="status" tabindex="-1" hidden>
+            <p>Your request is saved. We&#39;ll reply to the email you gave us.</p>
           </div>
         </div>
-        <details id="website-privacy" class="inline-panel">
-          <summary>Website privacy</summary>
-          <div class="panel-body">
-            <h3 class="panel-title">What you share here.</h3>
-            <h3>What you send us</h3>
-            <p>We collect the email address and message you submit so we can reply. Inquiries are stored in our database. Please do not send health information, benefit IDs or passwords.</p>
-            <h3>The pilot list and employer requests</h3>
-            <p>A family signup gives us your phone number. An employer pilot request gives us your name, role, organization and email. All of it is stored in our database. A text provider may process your phone number to send a confirmation text.</p>
-            <h3>This website is not the service</h3>
-            <p>These forms do not connect to your employer, your benefits or any government account. The site loads fonts from Google Fonts, so your browser makes requests to Google and to our hosting provider when you visit. How the service itself handles your family&#39;s information is in the privacy policy.</p>
-            <h3>Questions about your information?</h3>
-            <p>Use the form above for privacy questions or a request about information you submitted.</p>
-            <a class="text-link" href="/privacy">Read the service privacy policy</a>
-          </div>
-        </details>
+      </div>
+    </section>
+    <section class="section t-night-deep section-band" aria-labelledby="members-band-title">
+      <div class="wrap band">
+        <h2 id="members-band-title">Got a letter from your fund?</h2>
+        <p class="lead">If your fund sent you our number, here’s what we do, and what we never do.</p>
+        <a class="text-link" href="/members">For members</a>
       </div>
     </section>
     </main>
@@ -377,16 +272,15 @@
           <img src="/ollie/ollie.webp" alt="" width="44" height="44" />
           <span>Axolotl</span>
         </a>
-        <p>The agent for working families</p>
+        <p>The right payer, for union funds and their members</p>
       </div>
       <nav aria-label="Footer">
         <ul>
-          <li><a href="#contact">Contact</a></li><li><a href="/privacy">Privacy</a></li><li><a href="/security">Security and trust</a></li>
+          <li><a href="/members">For members</a></li><li><a href="/employers">For employers</a></li><li><a href="/privacy">Privacy</a></li><li><a href="/security">Security and trust</a></li>
           <li><a href="/es" hreflang="es" lang="es">Español</a></li>
         </ul>
       </nav>
     </div>
   </footer>
-    <a class="sticky-join" id="sticky-join" href="#join" hidden>Join the pilot</a>
   </body>
 </html>
