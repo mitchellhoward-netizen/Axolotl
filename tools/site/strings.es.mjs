@@ -201,7 +201,7 @@ export default {
     h2Plain: 'Por qué esto no se hace',
     h2Em: 'ya.',
     items: [
-      { h: 'Cada pieza se le vende a otro', p: 'La solicitud de discapacidad se les vende a las aseguradoras. La ayuda para inscribirse en Medicare la compran los estados, por licitación. Las auditorías de dependientes llegan desde la oficina del fondo, años tarde. Nadie lo hace todo para un fondo, desde un solo número.' },
+      { h: 'Cada pieza se vende por separado', p: 'Las empresas de discapacidad y de Medicare manejan un programa cada una, por teléfono y en papel. Las auditorías de dependientes llegan desde la oficina del fondo, años tarde. Nadie lo cubre todo para un fondo, desde una sola línea de texto.' },
       { h: 'Funciona desde el lado del miembro', p: 'El miembro recibe el cheque, la cobertura, la prima más baja. Por eso responde, y por eso el sindicato puede respaldar la carta.' },
       { h: 'Usted paga por aprobaciones', p: 'Sin cuota por miembro. Nada por verificar, nada por negaciones.' },
     ],

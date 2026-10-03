@@ -226,7 +226,7 @@ export default {
     h2Plain: 'Why this isn’t done',
     h2Em: 'already.',
     items: [
-      { h: 'Each piece is sold to someone else', p: 'Disability filing is sold to insurers. Medicare enrollment help is bought by states, by RFP. Dependent audits come from the fund office, years late. No one does all of it for a fund, from one number.' },
+      { h: 'Each piece is sold separately', p: 'Disability and Medicare firms each handle one program, by phone and paper. Dependent audits come from the fund office, years late. No one covers all of it for a fund, from one text line.' },
       { h: 'It works from the member’s side', p: 'The member gets the check, the coverage, the lower premium. That is why they answer, and why the union can stand behind the letter.' },
       { h: 'You pay for approvals', p: 'No per-member fee. Nothing for screening, nothing for denials.' },
     ],
