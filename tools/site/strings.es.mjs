@@ -16,7 +16,7 @@ export default {
   meta: {
     title: 'Axolotl: que pague quien debe pagar, para fondos de beneficios sindicales',
     description:
-      'Axolotl encuentra a los miembros cuyos gastos le corresponden a Medicare, al Seguro Social o al estado, y los inscribe desde su lado, por texto, con su sí. Los miembros reciben cheques por discapacidad, primas más bajas y medicinas más baratas. El fondo deja de pagar primero. Se paga por aprobación.',
+      'Axolotl encuentra a los miembros a quienes Medicare, el Seguro Social o el estado les deben ayuda, y los inscribe desde su lado, por texto, con su sí. Los miembros reciben primas más bajas, medicinas más baratas y ayuda con sus reclamos por discapacidad. El fondo deja de ser el primero en pagar. Se paga por aprobación.',
     shareAlt:
       'El reporte mensual de Axolotl para un fondo: primas de la Parte B que ahora paga el estado, solicitudes por discapacidad presentadas, miembros que cumplen 65 inscritos a tiempo.',
   },
@@ -41,9 +41,9 @@ export default {
   hero: {
     eyebrow: 'Para fondos de beneficios sindicales',
     h1Plain: 'Su fondo paga cuentas',
-    h1Em: 'que deberían pagar Medicare y el estado.',
-    h1: 'Su fondo paga cuentas que deberían pagar Medicare y el estado.',
-    sub: 'Axolotl encuentra a los miembros cuyos gastos le corresponden a Medicare, al Seguro Social o al estado, y los inscribe desde su lado, por texto, con su sí. Los miembros reciben cheques por discapacidad, primas más bajas y medicinas más baratas. El fondo deja de pagar primero. Usted paga solo por aprobaciones.',
+    h1Em: 'que cubrirían Medicare y el estado.',
+    h1: 'Su fondo paga cuentas que cubrirían Medicare y el estado.',
+    sub: 'Axolotl encuentra a los miembros a quienes Medicare, el Seguro Social o el estado les deben ayuda, y los inscribe desde su lado, por texto, con su sí. Los miembros reciben primas más bajas, medicinas más baratas y ayuda con sus reclamos por discapacidad. El fondo deja de ser el primero en pagar. Usted paga solo por aprobaciones.',
     primary: 'Pedir una revisión gratis',
     secondary: 'Ver a dónde va el dinero',
     trust: 'Para fondos de salud y bienestar sindicales. Se paga por aprobación.',
@@ -52,14 +52,14 @@ export default {
       metaTime: '10:12 AM',
       thread: [
         { out: 'Me llegó la carta del fondo sobre la Parte B. ¿Es real?' },
-        { in: 'Es real. Nueva York paga toda la prima de la Parte B si recibe menos de $2,474 al mes, y los ahorros no cuentan. ¿Cuánto recibe al mes?' },
-        { out: '1,640 del seguro social, 410 de pensión' },
-        { in: 'Son $2,050, así que califica. El estado pagaría sus $202.90 al mes, y también tendría Ayuda Adicional con sus recetas.' },
-        { in: 'Ya llené la solicitud con lo que me dijo. Responda SÍ y la presento. Nada se envía sin su sí.' },
+        { in: 'Es real. Nueva York paga toda la Parte B si recibe menos de $2,494 al mes, y los ahorros no cuentan. ¿Solo usted o con cónyuge? ¿Cuánto recibe antes del descuento de Medicare?' },
+        { out: 'Solo yo. 1,640 del seguro social, 410 de pensión' },
+        { in: 'Son $2,050, así que califica. El estado pagaría los $202.90 completos. La mitad del fondo se acaba, así que le quedan unos $101 más al mes, y Ayuda Adicional con sus recetas.' },
+        { in: 'Ya llené la solicitud. Responda SÍ y la envío. También me encargo de renovarla cada año.' },
         { out: 'SÍ' },
-        { in: 'Presentada. Le escribo cuando la aprueben. Entonces la prima deja de salir de su Seguro Social.' },
+        { in: 'Enviada. Le escribo en cuanto el estado la confirme.' },
       ],
-      alt: 'Conversación de texto en un teléfono. Una jubilada pregunta si la carta del fondo sobre la Parte B es real. Axolotl le dice que Nueva York paga toda la prima de la Parte B con ingresos de menos de $2,474 al mes y le pregunta sus ingresos. Recibe $2,050, así que califica: el estado pagaría sus $202.90 al mes y tendría Ayuda Adicional con sus recetas. Axolotl ya llenó la solicitud y le pide su sí; ella responde SÍ y queda presentada.',
+      alt: 'Conversación de texto en un teléfono. Una jubilada pregunta si la carta del fondo sobre la Parte B es real. Axolotl le dice que Nueva York paga toda la prima de la Parte B con ingresos de menos de $2,494 al mes y le pregunta si es solo ella y cuánto recibe antes del descuento de Medicare. Recibe $2,050 sola, así que califica: el estado pagaría los $202.90 completos, la mitad del fondo se acaba y le quedan unos $101 más al mes, más Ayuda Adicional con sus recetas. Axolotl ya llenó la solicitud y se encargará de la renovación anual; ella responde SÍ, se envía, y Axolotl le escribirá cuando el estado la confirme.',
     },
     folder: {
       label: 'Reporte mensual · Fondo de ejemplo',
@@ -100,7 +100,7 @@ export default {
         when: 'Un jubilado por debajo del límite de ingresos del estado',
         now: 'El fondo, que reembolsa la prima de la Parte B',
         should: 'El estado, con un Programa de Ahorros de Medicare',
-        member: '$202.90 al mes de vuelta, y Ayuda Adicional con las recetas',
+        member: 'Su parte de la prima de vuelta, y Ayuda Adicional con las recetas',
       },
       {
         when: 'Una prima de la Parte B que ya paga otro, o después de una muerte',
@@ -133,7 +133,7 @@ export default {
   example: {
     h2Plain: 'Una jubilada,',
     h2Em: 'una carta, siete mensajes.',
-    lead: 'El teléfono de arriba, en Nueva York, donde un Programa de Ahorros de Medicare cubre a una persona sola con ingresos de hasta $2,474 al mes, y los ahorros no cuentan. El fondo envía una carta con el número. Lo demás pasa por texto.',
+    lead: 'El teléfono de arriba, en Nueva York, donde un Programa de Ahorros de Medicare cubre a una persona sola con ingresos de hasta unos $2,494 al mes antes de descuentos, y los ahorros no cuentan. El fondo envía una carta con el número. Lo demás pasa por texto.',
     brief: {
       eyebrow: 'Lo que vale una aprobación',
       example: 'Cifras de 2026',
@@ -265,7 +265,7 @@ export default {
     roleLabel: 'Su cargo',
     fundLabel: 'Fondo',
     emailLabel: 'Correo del trabajo',
-    messageLabel: '¿Cuántos miembros y jubilados, más o menos, y en qué estados?',
+    messageLabel: '¿Cuántos participantes y jubilados con Medicare, en qué estados, y el fondo se administra solo o con un administrador externo (TPA)?',
     messageHint: '(opcional)',
     submit: 'Enviar',
     note: 'Usaremos estos datos para responderle. Por favor no incluya expedientes de miembros ni información de salud.',
@@ -290,13 +290,13 @@ export default {
       eyebrow: 'Para miembros y jubilados sindicales',
       h1Plain: 'Su fondo lo envió aquí.',
       h1Em: 'Esto es lo que somos.',
-      sub: 'Axolotl trabaja con su fondo de beneficios para ayudar a los miembros a recibir lo que les corresponde de Medicare, del Seguro Social y del estado: primas más bajas, cheques por discapacidad, ayuda con las recetas. Usted escribe. Nosotros llenamos los formularios. Nada se envía sin su sí. Es gratis para usted.',
+      sub: 'Axolotl trabaja con su fondo de beneficios para ayudar a los miembros a recibir lo que les corresponde de Medicare, del Seguro Social y del estado: primas más bajas, ayuda con las recetas, ayuda con reclamos por discapacidad. Usted escribe. Nosotros llenamos los formularios. Nada se envía sin su sí. Es gratis para usted.',
       primary: 'Recibir un mensaje',
     },
     help: {
       h2: 'Con qué le podemos ayudar',
       items: [
-        { title: 'Su prima de Medicare', body: 'Si sus ingresos están por debajo del límite de su estado, el estado puede pagar su prima de la Parte B: $202.90 al mes en 2026.' },
+        { title: 'Su prima de Medicare', body: 'Si sus ingresos están por debajo del límite de su estado, el estado puede pagar su prima de la Parte B: $202.90 al mes en 2026. Si hoy su fondo le devuelve una parte, eso se acaba, y usted igual sale ganando.' },
         { title: 'Recetas', body: 'La Ayuda Adicional baja lo que paga por sus medicinas. Quien está en un Programa de Ahorros de Medicare la recibe automáticamente.' },
         { title: 'Discapacidad', body: 'Si no puede trabajar, le ayudamos a solicitar la discapacidad del Seguro Social y le enviamos la aprobación a su fondo.' },
         { title: 'Al cumplir 65', body: 'Le ayudamos a inscribirse en Medicare a tiempo, sin huecos y sin multa.' },

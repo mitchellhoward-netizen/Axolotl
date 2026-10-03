@@ -30,7 +30,7 @@ export default {
   meta: {
     title: 'Axolotl: the right payer, for union benefit funds',
     description:
-      'Axolotl finds the members whose costs belong to Medicare, Social Security or the state, and enrolls them from their side, by text, with their yes. Members get disability checks, lower premiums and cheaper prescriptions. The fund stops paying first. Paid per approval.',
+      'Axolotl finds the members who are owed help from Medicare, Social Security or the state, and enrolls them from their side, by text, with their yes. Members get lower premiums, cheaper prescriptions and help with disability claims. The fund stops being the first payer. Paid per approval.',
     shareAlt:
       'A fund’s monthly ledger from Axolotl: Part B premiums moved to the state, disability awards filed, members turning 65 enrolled on time.',
   },
@@ -58,29 +58,30 @@ export default {
   hero: {
     eyebrow: 'For union benefit funds',
     h1Plain: 'Your fund pays bills',
-    h1Em: 'Medicare and the state should pay.',
+    h1Em: 'Medicare and the state would cover.',
     // The social card (share.html) draws the headline as one line of plain text.
-    h1: 'Your fund pays bills Medicare and the state should pay.',
-    sub: 'Axolotl finds the members whose costs belong to Medicare, Social Security or the state, and gets them enrolled from their side, by text, with their yes. Members get disability checks, lower premiums and cheaper prescriptions. The fund stops paying first. You pay only for approvals.',
+    h1: 'Your fund pays bills Medicare and the state would cover.',
+    sub: 'Axolotl finds the members who are owed help from Medicare, Social Security or the state, and gets them enrolled from their side, by text, with their yes. Members get lower premiums, cheaper prescriptions and help with disability claims. The fund stops being the first payer. You pay only for approvals.',
     primary: 'Get a free scan',
     secondary: 'See where the money goes',
     trust: 'For union health and welfare funds. Paid per approval.',
     // The hero phone: a retiree on the fund's Part B reimbursement who qualifies
-    // for New York's Medicare Savings Program (2026 limit $2,474 a month, no
+    // for New York's Medicare Savings Program, as QI (2026 limit $2,474 a month
+    // countable, about $2,494 gross after the $20 disregard; couple $3,355; no
     // asset test). Plain text only, the way the product sends it.
     phone: {
       meta: 'Today',
       metaTime: '10:12 AM',
       thread: [
         { out: 'Got the letter from the fund about Part B. Is this real?' },
-        { in: 'It’s real. New York pays the whole Part B premium if you get under $2,474 a month, and savings don’t count. What comes in each month?' },
-        { out: '1,640 social security, 410 pension' },
-        { in: 'That’s $2,050, so you qualify. The state would pay your $202.90 a month, and you’d get Extra Help with prescriptions too.' },
-        { in: 'I filled in the application from what you told me. Reply YES and I’ll file it. Nothing goes without your yes.' },
+        { in: 'It’s real. New York pays the whole Part B premium if you get under $2,494 a month, and savings don’t count. Just you, or a spouse too? And what comes in, before Medicare is taken out?' },
+        { out: 'Just me. 1,640 social security, 410 pension' },
+        { in: 'That’s $2,050, so you qualify. The state would pay all $202.90. The fund’s half stops, so you keep about $101 more a month, plus Extra Help with prescriptions.' },
+        { in: 'I filled in the application. Reply YES and I’ll send it. I’ll handle the renewal every year too.' },
         { out: 'YES' },
-        { in: 'Filed. I’ll text you when it’s approved. Then the premium stops coming out of your Social Security.' },
+        { in: 'Sent. I’ll text you as soon as the state confirms it.' },
       ],
-      alt: 'Text thread on a phone. A retiree asks if the fund’s letter about Part B is real. Axolotl says New York pays the whole Part B premium under $2,474 a month and asks her income. She has $2,050, so she qualifies: the state would pay her $202.90 a month and she would get Extra Help with prescriptions. Axolotl has filled in the application and asks for her yes; she replies YES and it is filed.',
+      alt: 'Text thread on a phone. A retiree asks if the fund’s letter about Part B is real. Axolotl says New York pays the whole Part B premium under $2,494 a month and asks whether it is just her and what comes in before Medicare is taken out. She has $2,050 alone, so she qualifies: the state would pay all $202.90, the fund’s half stops, and she keeps about $101 more a month plus Extra Help with prescriptions. Axolotl has filled in the application and will handle the yearly renewal; she replies YES, it is sent, and Axolotl will text when the state confirms.',
     },
     // The social card's ledger. An example, not a client.
     folder: {
@@ -122,7 +123,7 @@ export default {
         when: 'A retiree under the state income limit',
         now: 'The fund, reimbursing the Part B premium',
         should: 'The state, through a Medicare Savings Program',
-        member: '$202.90 a month back, and Extra Help with prescriptions',
+        member: 'Their share of the premium back, and Extra Help with prescriptions',
       },
       {
         when: 'A Part B premium someone else already pays, or after a death',
@@ -155,7 +156,7 @@ export default {
   example: {
     h2Plain: 'One retiree,',
     h2Em: 'one letter, seven texts.',
-    lead: 'The phone at the top of this page, in New York, where a Medicare Savings Program covers one person with up to $2,474 a month in income, and savings don’t count. The fund mails one letter with the number. The rest happens by text.',
+    lead: 'The phone at the top of this page, in New York, where a Medicare Savings Program covers one person with up to about $2,494 a month before deductions, and savings don’t count. The fund mails one letter with the number. The rest happens by text.',
     brief: {
       eyebrow: 'What one approval is worth',
       example: '2026 figures',
@@ -291,7 +292,7 @@ export default {
     roleLabel: 'Your role',
     fundLabel: 'Fund',
     emailLabel: 'Work email',
-    messageLabel: 'Roughly how many members and retirees, and in which states?',
+    messageLabel: 'How many participants and Medicare retirees, in which states, and is the fund self-administered or with a TPA?',
     messageHint: '(optional)',
     submit: 'Send',
     note: "We'll use these details to reply. Please don't include member records or health information.",
@@ -319,13 +320,13 @@ export default {
       eyebrow: 'For union members and retirees',
       h1Plain: 'Your fund sent you here.',
       h1Em: 'Here’s who we are.',
-      sub: 'Axolotl works with your benefit fund to help members get what they’re owed from Medicare, Social Security and the state: lower premiums, disability checks, help with prescriptions. You text. We fill in the forms. Nothing is sent without your yes. It’s free to you.',
+      sub: 'Axolotl works with your benefit fund to help members get what they’re owed from Medicare, Social Security and the state: lower premiums, help with prescriptions, help with disability claims. You text. We fill in the forms. Nothing is sent without your yes. It’s free to you.',
       primary: 'Get a text from us',
     },
     help: {
       h2: 'What we can help with',
       items: [
-        { title: 'Your Medicare premium', body: 'If your income is under your state’s limit, the state may pay your Part B premium: $202.90 a month in 2026.' },
+        { title: 'Your Medicare premium', body: 'If your income is under your state’s limit, the state may pay your Part B premium: $202.90 a month in 2026. If your fund pays back part of it today, that stops, and you still come out ahead.' },
         { title: 'Prescriptions', body: 'Extra Help lowers what you pay for medicines. Anyone in a Medicare Savings Program gets it automatically.' },
         { title: 'Disability', body: 'If you can’t work, we help you apply for Social Security disability and send the award to your fund.' },
         { title: 'Turning 65', body: 'We help you sign up for Medicare on time, so there’s no gap and no late penalty.' },
