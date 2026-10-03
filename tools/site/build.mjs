@@ -2,7 +2,8 @@
  * Renders the static site from the per-language strings files.
  *
  *     npm run build:site      # write public/index.html, public/es/index.html,
- *                             # public/employers.html, public/es/employers.html
+ *                             # public/employers.html, public/es/employers.html,
+ *                             # public/funds.html, public/es/funds.html
  *     npm run check:site      # fail if the committed HTML is not what the
  *                             # strings would produce (drift check, used by CI)
  *
@@ -56,6 +57,7 @@ function header(s, { prefix, cta, langHref }) {
     [at(s, 'nav.how'), `${base}#inbox`],
     [at(s, 'nav.help'), `${base}#qualify`],
     [at(s, 'nav.employers'), s.lang === 'es' ? '/es/employers' : '/employers'],
+    [at(s, 'nav.funds'), s.lang === 'es' ? '/es/funds' : '/funds'],
   ]
     .map(([label, href]) => `<li><a href="${href}">${esc(label)}</a></li>`)
     .join('');
@@ -787,6 +789,141 @@ function employersPageSections(s) {
   return [heroBlock, office, door, attendance, flywheel, paths, staff, connect, never, equity, pilot, form].join('');
 }
 
+// ── /funds ────────────────────────────────────────────────────────────────────
+//
+// For union benefit funds. It reuses the /employers building blocks: a text
+// thread beside a brief card, a two-column table, the never grid and the pilot
+// sheet. The form keeps the employer form's ids so site.js handles it, and
+// marks itself with data-source so a fund request can be told apart.
+
+function fundsPageSections(s) {
+  const f = at(s, 'funds');
+  const heroBlock = `
+    <section class="hero hero-schools" aria-labelledby="funds-hero-title">
+      <div class="wrap">
+        <p class="schools-eyebrow">${esc(f.hero.eyebrow)}</p>
+        <h1 id="funds-hero-title">${payoff(f.hero.h1Plain, f.hero.h1Em)}</h1>
+        <p class="lead">${esc(f.hero.sub)}</p>
+        <div class="hero-actions">
+          <a class="button primary" href="#school-contact">${esc(f.hero.primary)}</a>
+          <a class="text-link" href="#example">${esc(f.hero.secondary)}</a>
+        </div>
+      </div>
+    </section>`;
+
+  const e = f.example;
+  const brief = e.brief.rows
+    .map(
+      (r) => `<li><span class="brief-v">${esc(r.v)}</span><span class="brief-l">${esc(r.l)}<span class="brief-note">${esc(r.note)}</span></span></li>`,
+    )
+    .join('');
+  const example = `
+    <section class="section t-noon" id="example" aria-labelledby="example-title">
+      <div class="wrap">
+        <h2 id="example-title">${payoff(e.h2Plain, e.h2Em)}</h2>
+        <p class="lead">${esc(e.lead)}</p>
+        <div class="staff-pair">
+          <figure class="staff-thread">
+            <figcaption>${esc(e.threadLabel)}</figcaption>
+            <ol>${e.thread
+              .map((m) => `<li class="staff-msg staff-msg-${m.from === 'member' ? 'out' : 'in'}">${esc(m.text)}</li>`)
+              .join('')}</ol>
+          </figure>
+          <article class="brief-card" aria-labelledby="brief-title">
+            <p class="door-label"><span id="brief-title">${esc(e.brief.eyebrow)}</span><span>${esc(e.brief.example)}</span></p>
+            <ul class="brief-rows brief-rows-money">${brief}</ul>
+            <p class="brief-foot">${esc(e.brief.foot)}</p>
+          </article>
+        </div>
+      </div>
+    </section>`;
+
+  const p = f.programs;
+  const programs = `
+    <section class="section t-day" id="programs" aria-labelledby="programs-title">
+      <div class="wrap">
+        <h2 id="programs-title">${payoff(p.h2Plain, p.h2Em)}</h2>
+        <p class="lead">${esc(p.lead)}</p>
+        <table class="year-table connect-table">
+          <caption class="sr-only">${esc(p.h2Plain)} ${esc(p.h2Em)}</caption>
+          <thead>
+            <tr><th scope="col">${esc(p.head[0])}</th><th scope="col">${esc(p.head[1])}</th></tr>
+          </thead>
+          <tbody>
+          ${p.rows
+            .map(([k, v]) => `<tr><td data-label="${esc(p.head[0])}">${esc(k)}</td><td data-label="${esc(p.head[1])}">${esc(v)}</td></tr>`)
+            .join('\n          ')}
+          </tbody>
+        </table>
+      </div>
+    </section>`;
+
+  const never = `
+    <section class="section" aria-labelledby="never-title">
+      <div class="wrap">
+        <h2 id="never-title">${esc(f.never.h2)}</h2>
+        <div class="never-grid">
+          ${f.never.items.map((i) => `<article><h3>${esc(i.title)}</h3><p>${esc(i.body)}</p></article>`).join('\n          ')}
+        </div>
+      </div>
+    </section>`;
+
+  const pilot = `
+    <section class="section section-sheet" aria-labelledby="pilot-title">
+      <div class="wrap">
+        <h2 id="pilot-title">${esc(f.pilot.h2)}</h2>
+        <p class="lead">${esc(f.pilot.lead)}</p>
+        <h3>${esc(f.pilot.measuresLabel)}</h3>
+        <ul class="plain-list wide">
+          ${f.pilot.measures.map((i) => `<li>${esc(i)}</li>`).join('\n          ')}
+        </ul>
+        <p>${esc(f.pilot.price)}</p>
+        <p><span class="highlight">${esc(f.pilot.guardrail)}</span></p>
+      </div>
+    </section>`;
+
+  const fm = f.form;
+  const form = `
+    <section class="section" id="school-contact" aria-labelledby="school-contact-title">
+      <div class="wrap contact-grid">
+        <div>
+          <h2 id="school-contact-title">${esc(fm.h2)}</h2>
+          <p class="lead">${esc(fm.lead)}</p>
+          <form id="school-form" novalidate data-source="funds" data-error="${esc(fm.generic)}">
+            <div class="field">
+              <label for="school-name">${esc(fm.nameLabel)}</label>
+              <input id="school-name" name="name" type="text" autocomplete="name" maxlength="120" required aria-describedby="school-error" />
+            </div>
+            <div class="field">
+              <label for="school-role">${esc(fm.roleLabel)}</label>
+              <input id="school-role" name="role" type="text" autocomplete="organization-title" maxlength="120" required aria-describedby="school-error" />
+            </div>
+            <div class="field">
+              <label for="school-district">${esc(fm.fundLabel)}</label>
+              <input id="school-district" name="school" type="text" autocomplete="organization" maxlength="160" required aria-describedby="school-error" />
+            </div>
+            <div class="field">
+              <label for="school-email">${esc(fm.emailLabel)}</label>
+              <input id="school-email" name="email" type="email" autocomplete="email" maxlength="254" required aria-describedby="school-error" />
+            </div>
+            <div class="field">
+              <label for="school-message">${esc(fm.messageLabel)} <span class="hint">${esc(fm.messageHint)}</span></label>
+              <textarea id="school-message" name="message" maxlength="1980" rows="4" aria-describedby="school-error"></textarea>
+            </div>
+            <button class="button primary" type="submit">${esc(fm.submit)}</button>
+            <p class="form-note">${esc(fm.note)}</p>
+            <p class="form-error" id="school-error" role="alert" hidden>${esc(fm.error)}</p>
+          </form>
+          <div class="form-success" id="school-sent" role="status" tabindex="-1" hidden>
+            <p>${esc(fm.success)}</p>
+          </div>
+        </div>
+      </div>
+    </section>`;
+
+  return [heroBlock, example, programs, never, pilot, form].join('');
+}
+
 // ── document shell ───────────────────────────────────────────────────────────
 
 function document(s, { title, description, canonical, alts, body, prefix, langHref, cta, shareAlt, share }) {
@@ -824,8 +961,8 @@ function document(s, { title, description, canonical, alts, body, prefix, langHr
       href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/site.css?v=14" />
-    <script src="/site.js?v=14" defer></script>
+    <link rel="stylesheet" href="/site.css?v=15" />
+    <script src="/site.js?v=15" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main">${esc(at(s, 'a11y.skip'))}</a>
@@ -894,6 +1031,21 @@ async function render() {
         langHref: dir ? '/employers' : '/es/employers',
         cta: '#school-contact',
         shareAlt: at(s, 'employers.meta.shareAlt'),
+        share,
+      }),
+    });
+    pages.push({
+      file: dir ? `${dir}/funds.html` : 'funds.html',
+      html: document(s, {
+        title: at(s, 'funds.meta.title'),
+        description: at(s, 'funds.meta.description'),
+        canonical: dir ? '/es/funds' : '/funds',
+        alts: [['en', '/funds'], ['es', '/es/funds']],
+        body: fundsPageSections(s),
+        prefix: '/',
+        langHref: dir ? '/funds' : '/es/funds',
+        cta: '#school-contact',
+        shareAlt: at(s, 'funds.meta.shareAlt'),
         share,
       }),
     });

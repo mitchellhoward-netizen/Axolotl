@@ -2541,6 +2541,14 @@ p {
   font-variant-numeric: tabular-nums;
 }
 
+.brief-rows-money li {
+  grid-template-columns: 7.2rem minmax(0, 1fr);
+}
+
+.brief-rows-money .brief-v {
+  font-size: 30px;
+}
+
 .brief-l {
   display: flex;
   flex-direction: column;

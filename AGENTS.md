@@ -28,13 +28,13 @@ executing a consequential action without an explicit parent `YES`.
 
 ### The website is generated — do not hand-edit the HTML
 
-`public/index.html`, `public/employers.html`, `public/es.html` and
-`public/es/employers.html` are **built**, not written. All copy lives in
+`public/index.html`, `public/employers.html`, `public/funds.html`, `public/es.html`,
+`public/es/employers.html` and `public/es/funds.html` are **built**, not written. All copy lives in
 `tools/site/strings.en.mjs` and `tools/site/strings.es.mjs`; the structure lives
 in `tools/site/build.mjs`. Edit the strings, then run:
 
 ```sh
-npm run build:site     # regenerate the four pages
+npm run build:site     # regenerate the six pages
 npm run check:site     # fail if the committed HTML is not what the strings say
 npm run check          # secrets, phone-mockup fit, site drift, typecheck
 ```
@@ -67,7 +67,7 @@ Social cards are generated too: `node scripts/build-share.mjs` renders
 `public/share.png` and `public/share-es.png` from `tools/site/share.html`, which
 reads the same strings. Re-run it after changing the hero copy.
 
-Website signups (family pilot, parent circle, employer pilot request, still posted as `kind: "school"`) go through one
+Website signups (family pilot, parent circle, and the employer and fund pilot requests, both still posted as `kind: "school"`; a fund request's message starts with `[funds]`) go through one
 endpoint, `/api/waitlist`, with a `kind` field. Validation and storage are shared
 between the Vercel function (`api/waitlist.ts`) and the long-lived host
 (`src/integrations/web.ts`) via `src/integrations/waitlist.ts`. The table needs
