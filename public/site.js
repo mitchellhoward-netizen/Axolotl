@@ -213,7 +213,10 @@
     }),
   });
 
-  // ── School pilot request ──────────────────────────────────────────────────
+  // ── Employer pilot request ──────────────────────────────────────────────────
+  // The employer pilot form (/employers) still posts kind "school", with the
+  // organization in the `school` column, so it saves against the live table
+  // without a migration. Give it its own kind once db/signups.sql allows one.
   wireForm({
     form: field("school-form"),
     error: field("school-error"),

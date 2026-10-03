@@ -195,3 +195,23 @@ Per instruction, every figure above with where it came from, so nothing is asser
 | 93% of mothers do school admin alone; 2–4 hrs/week; 94% forgotten an event | **Kiki, a competitor** — vendor marketing | Treat as a claim, never as a measurement |
 | Single-digit-to-~10% utilisation of family benefits | Research pass | **Source not recorded in this repo — verify before external use** |
 | M6: no data source for what a child is actually receiving | `docs/CAPABILITY-TRUTH-TABLE.md` | Verified in our own code |
+
+---
+
+## October 2026: the thesis, widened to working families
+
+The entitlement gap above was written about school. It holds for the whole family. Working
+families, mostly hourly, are owed a great deal from their employer (the EAP, backup care, leave)
+and from public programs (Medi-Cal, IHSS, CalFresh, paid family leave), and get a fraction of it.
+The gap is complexity, fear and time, not stinginess. It costs most when family care breaks: an
+aide cancels before a 7 AM shift, a parent's renewal is due, a parent now needs daily help.
+
+- **The product:** one confidential number. The agent does the work and waits for a yes. A small
+  team of care guides handles what it can't. Every case a guide solves becomes a path the agent
+  follows next time.
+- **Who pays:** the employer, priced like an EAP, starting with large hourly workforces (health
+  systems first). The employer sees totals, never a family's case.
+- **School** stays in the product as one of the institutions, not the whole story.
+
+The site (`tools/site/strings.*.mjs`) was rewritten to carry this: the homepage is a working
+parent's day, and `/employers` replaces `/schools`.
