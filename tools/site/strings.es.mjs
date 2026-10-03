@@ -83,7 +83,7 @@ export default {
   money: {
     h2Plain: 'El fondo paga primero',
     h2Em: 'más seguido de lo que debería.',
-    lead: 'Algunas de las cuentas más grandes de un fondo le corresponden a Medicare, al Seguro Social o al estado una vez que el miembro está inscrito en el programa correcto. La mayoría nunca lo está. Los formularios son difíciles, las reglas cambian a los 65, al mes 24 y al mes 30, y nadie los acompaña.',
+    lead: 'Algunas de las cuentas más grandes de un fondo le corresponden a Medicare, al Seguro Social o al estado una vez que el miembro está inscrito en el programa correcto. La mayoría nunca lo está. Los formularios son difíciles, las reglas cambian a los 65 y al mes 24, y nadie los acompaña.',
     stats: {
       eyebrow: 'Fondos de salud sindicales',
       example: 'Nacional',
@@ -97,22 +97,22 @@ export default {
     head: ['Cuándo', 'Quién paga hoy', 'Quién debería pagar', 'Lo que recibe el miembro'],
     rows: [
       {
-        when: 'Diálisis, después del mes 30',
-        now: 'El fondo, a tarifas comerciales: unos $238,000 en el primer año de diálisis',
-        should: 'Medicare primero, una vez inscrito el miembro',
-        member: 'Menos gastos de su bolsillo, con el fondo detrás de Medicare',
-      },
-      {
-        when: 'Un miembro que no puede trabajar por una discapacidad',
-        now: 'El fondo, todo',
-        should: 'Medicare primero, 24 meses después de una aprobación del Seguro Social por discapacidad',
-        member: 'Un cheque por discapacidad, unos $1,483 al mes en promedio, y una pensión por discapacidad que puede empezar',
-      },
-      {
         when: 'Un jubilado por debajo del límite de ingresos del estado',
         now: 'El fondo, que reembolsa la prima de la Parte B',
         should: 'El estado, con un Programa de Ahorros de Medicare',
         member: '$202.90 al mes de vuelta, y Ayuda Adicional con las recetas',
+      },
+      {
+        when: 'Una prima de la Parte B que ya paga otro, o después de una muerte',
+        now: 'El fondo, que la reembolsa de todos modos',
+        should: 'Nadie. Ya está pagada, o nadie la debe',
+        member: 'Nada cambia para el miembro',
+      },
+      {
+        when: 'Un miembro con discapacidad que conserva la cobertura del fondo',
+        now: 'El fondo, todo',
+        should: 'Medicare primero, 24 meses después de una aprobación del Seguro Social por discapacidad',
+        member: 'Un cheque por discapacidad, unos $1,483 al mes en promedio, y sin huecos en la cobertura',
       },
       {
         when: 'Un jubilado que califica para Ayuda Adicional',
@@ -121,13 +121,13 @@ export default {
         member: 'Medicinas más baratas',
       },
       {
-        when: 'Al cumplir 65',
-        now: 'Huecos en la cobertura, y una multa de por vida si la Parte B empieza tarde',
-        should: 'Medicare, desde el primer día',
-        member: 'Cobertura sin huecos y sin multa',
+        when: 'Un cónyuge con cobertura de su propio trabajo',
+        now: 'El fondo, primero',
+        should: 'El plan del cónyuge, primero',
+        member: 'La misma atención, con los dos planes detrás',
       },
     ],
-    note: 'Diálisis: gasto del primer año, planes comerciales $238,126 frente a Medicare $80,509 (JAMA Network Open, datos de 2012–19). Cheque por discapacidad: promedio del Seguro Social, 2024. Prima: Parte B estándar de 2026.',
+    note: 'Cheque por discapacidad: promedio del Seguro Social, 2024. Prima: Parte B estándar de 2026. El ahorro por discapacidad es mayor donde los jubilados por discapacidad conservan la cobertura del fondo por años. La diálisis después del mes 30 y cumplir 65 son distintos: los planes ya dejan de pagar primero, así que el hueco lo sufre el miembro. También nos encargamos de eso, como protección del miembro, no como ahorro del fondo.',
   },
 
   example: {
@@ -179,16 +179,16 @@ export default {
         { v: '1', l: 'Aprobación que inicia su pensión', note: 'Muchos fondos de pensiones la piden primero.' },
         { v: 'Una vez', l: 'Nuestra tarifa, al aprobarse', note: 'Nada si la niegan. Nunca de su pago atrasado.' },
       ],
-      foot: 'Los gastos médicos de un miembro con discapacidad están muy por encima de la media. Que el fondo pase a pagar en segundo lugar es lo que más vale de todo esto.',
+      foot: 'Vale más donde los jubilados por discapacidad conservan la cobertura del fondo por años. Donde la cobertura termina en el mes 30, la aprobación evita que él quede sin cobertura.',
     },
   },
 
   steps: {
     h2Plain: 'Sus archivos encuentran el momento.',
     h2Em: 'El miembro dice que sí.',
-    lead: 'El fondo ya sabe quién cumple 65, quién solicitó una pensión por discapacidad, quién empezó diálisis y más o menos cuánto paga la pensión de cada jubilado. Eso basta para saber a quién escribir, y cuándo.',
+    lead: 'El fondo ya sabe quién cumple 65, quién solicitó una pensión por discapacidad, a quién le reembolsa la Parte B y más o menos cuánto paga la pensión de cada jubilado. Eso basta para saber a quién escribir, y cuándo.',
     items: [
-      { tag: 'Encontrar', text: 'Sus archivos de elegibilidad, reclamos y pensiones marcan el momento: un primer reclamo de diálisis, una solicitud de pensión por discapacidad, un jubilado por debajo del límite del estado, un miembro a nueve meses de cumplir 65.' },
+      { tag: 'Encontrar', text: 'Sus archivos de elegibilidad, reclamos y pensiones marcan el momento: un jubilado por debajo del límite del estado, un reembolso de la Parte B sin un miembro vivo que la pague, una solicitud de pensión por discapacidad, un miembro a nueve meses de cumplir 65.' },
       { tag: 'Contactar', text: 'El fondo envía una carta o un mensaje con el número. Los miembros responden desde su propio teléfono, en inglés o en español.' },
       { tag: 'Llenar', text: 'Axolotl hace unas pocas preguntas y llena la solicitud con lo que dice el miembro y lo que el fondo ya tiene.' },
       { tag: 'Sí', text: 'No se presenta nada hasta que el miembro responde SÍ a exactamente lo que va a pasar.' },
@@ -222,7 +222,7 @@ export default {
     h2Em: 'de sus propios datos.',
     lead: 'En 30 días le mostramos, en dólares, dónde su fondo paga cuando deberían pagar Medicare, el Seguro Social, el estado u otra aseguradora, y cuántos miembros hay detrás de cada cifra.',
     cards: [
-      { title: 'Lo que recibe', body: 'Un reporte de los dólares al año que paga el pagador equivocado, por fuga: diálisis después del mes 30, discapacidad sin Medicare, jubilados y miembros de COBRA sin Medicare, Parte B pagada dos veces o después de una muerte, otra cobertura. Lo más grande primero. Ningún nombre sale del fondo a menos que usted lo pida.' },
+      { title: 'Lo que recibe', body: 'Un reporte de los dólares al año que paga el pagador equivocado, por fuga: Parte B reembolsada a jubilados que debería cubrir el estado, Parte B pagada dos veces o después de una muerte, miembros con discapacidad que aún esperan el Seguro Social y Medicare, otra cobertura. Lo más grande primero. Ningún nombre sale del fondo a menos que usted lo pida.' },
       { title: 'Lo que nos da', body: 'Sus archivos de elegibilidad, el resumen de reclamos y el archivo de reembolsos de la Parte B, bajo un acuerdo de socio comercial de HIPAA, y un contacto en la oficina del fondo.' },
       { title: 'Lo que cuesta', body: 'Nada. Si quiere que se arreglen los casos, contactamos a cada miembro por texto con su carta, y usted paga solo por aprobación.' },
     ],
@@ -236,7 +236,7 @@ export default {
     ],
     neverLabel: 'Lo que nunca necesitamos',
     never: ['Expedientes médicos completos', 'Números de Seguro Social', 'Datos bancarios'],
-    estimate: 'Nuestro cálculo para un fondo de 30,000 miembros: entre $2 y $6 millones al año, el 1–2% del gasto. La revisión lo reemplaza con su cifra.',
+    estimate: 'Nuestro cálculo para un fondo con 50,000 jubilados, reembolso del 50% de la Parte B y pensiones modestas: entre $9 y $14 millones al año en primas que debería pagar el estado. La revisión lo reemplaza con su cifra.',
   },
 
   pilot: {
@@ -246,7 +246,7 @@ export default {
     fees: [
       ['Programa de Ahorros de Medicare', '$300, una vez'],
       ['Aprobación de discapacidad del Seguro Social', 'Una tarifa fija por aprobación, acordada con usted'],
-      ['Medicare después del mes 30 de diálisis', 'Una tarifa fija por miembro, acordada con usted'],
+      ['Parte B pagada dos veces o después de una muerte', 'Una parte de lo recuperado, acordada con usted'],
     ],
     measuresLabel: 'Lo que reportamos cada mes',
     measures: [

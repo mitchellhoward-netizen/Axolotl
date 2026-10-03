@@ -105,7 +105,7 @@ export default {
   money: {
     h2Plain: 'The fund pays first',
     h2Em: 'more often than it should.',
-    lead: 'Some of a fund’s biggest bills belong to Medicare, Social Security or the state once a member is enrolled in the right program. Most members never are. The forms are hard, the rules change at 65 and at month 24 and at month 30, and nobody walks them through.',
+    lead: 'Some of a fund’s biggest bills belong to Medicare, Social Security or the state once a member is enrolled in the right program. Most members never are. The forms are hard, the rules change at 65 and at month 24, and nobody walks them through.',
     stats: {
       eyebrow: 'Union health funds',
       example: 'National',
@@ -119,22 +119,22 @@ export default {
     head: ['When', 'Who pays now', 'Who should pay', 'What the member gets'],
     rows: [
       {
-        when: 'Dialysis, after month 30',
-        now: 'The fund, at commercial rates: about $238,000 in the first year of dialysis',
-        should: 'Medicare first, once the member is enrolled',
-        member: 'Lower out-of-pocket costs, with the fund behind Medicare',
-      },
-      {
-        when: 'A member who can’t work because of a disability',
-        now: 'The fund, for everything',
-        should: 'Medicare first, 24 months into a Social Security disability award',
-        member: 'A disability check, about $1,483 a month on average, and a disability pension that can start',
-      },
-      {
         when: 'A retiree under the state income limit',
         now: 'The fund, reimbursing the Part B premium',
         should: 'The state, through a Medicare Savings Program',
         member: '$202.90 a month back, and Extra Help with prescriptions',
+      },
+      {
+        when: 'A Part B premium someone else already pays, or after a death',
+        now: 'The fund, reimbursing it anyway',
+        should: 'Nobody. It’s already paid, or no one is owed it',
+        member: 'Nothing changes for the member',
+      },
+      {
+        when: 'A disabled member who keeps fund coverage',
+        now: 'The fund, for everything',
+        should: 'Medicare first, 24 months into a Social Security disability award',
+        member: 'A disability check, about $1,483 a month on average, and no coverage gap',
       },
       {
         when: 'A retiree who qualifies for Extra Help',
@@ -143,13 +143,13 @@ export default {
         member: 'Lower drug costs',
       },
       {
-        when: 'Turning 65',
-        now: 'Gaps, and a lifelong penalty when Part B starts late',
-        should: 'Medicare, from the first day',
-        member: 'Coverage with no gap and no penalty',
+        when: 'A spouse with their own job coverage',
+        now: 'The fund, first',
+        should: 'The spouse’s own plan, first',
+        member: 'The same care, with both plans behind it',
       },
     ],
-    note: 'Dialysis: first-year spending, commercial plans $238,126 against Medicare $80,509 (JAMA Network Open, 2012–19 data). Disability check: SSA average, 2024. Premium: 2026 standard Part B.',
+    note: 'Disability check: SSA average, 2024. Premium: 2026 standard Part B. Disability savings are largest where disability retirees keep fund coverage for years. Dialysis after month 30 and turning 65 are different: plans already stop paying first, so the gap lands on the member. We handle those too, as member protection, not fund savings.',
   },
 
   example: {
@@ -204,16 +204,16 @@ export default {
         { v: '1 award', l: 'Starts his disability pension', note: 'Many pension funds require it first.' },
         { v: 'Once', l: 'Our fee, paid on the award', note: 'Nothing if it’s denied. Never out of his back pay.' },
       ],
-      foot: 'A disabled member’s claims run well above the median. Moving the fund to second payer is worth the most of anything here.',
+      foot: 'Worth the most where disability retirees keep fund coverage for years. Where coverage ends at month 30, the award keeps him from a gap.',
     },
   },
 
   steps: {
     h2Plain: 'Your files find the moment.',
     h2Em: 'The member says yes.',
-    lead: 'The fund already knows who is turning 65, who filed for a disability pension, who started dialysis and roughly what each retiree’s pension pays. That is enough to know who to reach, and when.',
+    lead: 'The fund already knows who is turning 65, who filed for a disability pension, whose Part B it reimburses and roughly what each retiree’s pension pays. That is enough to know who to reach, and when.',
     items: [
-      { tag: 'Find', text: 'Your eligibility, claims and pension files flag the moment: a first dialysis claim, a disability pension application, a retiree under the state income limit, a member nine months from 65.' },
+      { tag: 'Find', text: 'Your eligibility, claims and pension files flag the moment: a retiree under the state income limit, a Part B reimbursement with no living or paying member behind it, a disability pension application, a member nine months from 65.' },
       { tag: 'Reach', text: 'The fund sends one letter or text with the number. Members text back from their own phone, in English or Spanish.' },
       { tag: 'Fill', text: 'Axolotl screens in a few questions and fills the application from what the member tells it and what the fund already has.' },
       { tag: 'Yes', text: 'Nothing is filed until the member replies YES to exactly what will happen.' },
@@ -248,7 +248,7 @@ export default {
     h2Em: 'of your own data.',
     lead: 'In 30 days we show you, in dollars, where your fund pays when Medicare, Social Security, the state or another insurer should, and how many members are behind each number.',
     cards: [
-      { title: 'What you get', body: 'A report of dollars a year paid by the wrong payer, by leak: dialysis past month 30, disability without Medicare, retirees and COBRA members without Medicare, Part B paid twice or after death, other coverage. Biggest first. No names leave the fund unless you ask.' },
+      { title: 'What you get', body: 'A report of dollars a year paid by the wrong payer, by leak: Part B reimbursed for retirees the state should cover, Part B paid twice or after a death, disabled members still waiting on Social Security and Medicare, other coverage. Biggest first. No names leave the fund unless you ask.' },
       { title: 'What you give', body: 'Your eligibility, claims summary and Part B reimbursement files, under a HIPAA business associate agreement, and one contact at the fund office.' },
       { title: 'What it costs', body: 'Nothing. If you want the cases fixed, we reach each member by text with your letter, and you pay only per approval.' },
     ],
@@ -262,7 +262,7 @@ export default {
     ],
     neverLabel: 'What we never need',
     never: ['Full medical records', 'Social Security numbers', 'Bank details'],
-    estimate: 'Our estimate for a fund with 30,000 members: roughly $2–6 million a year, 1–2% of spend. The scan replaces it with your number.',
+    estimate: 'Our estimate for a fund with 50,000 retirees on a 50% Part B reimbursement and modest pensions: roughly $9–14 million a year in premiums the state should pay. The scan replaces it with your number.',
   },
 
   pilot: {
@@ -272,7 +272,7 @@ export default {
     fees: [
       ['Medicare Savings Program', '$300, once'],
       ['Social Security disability award', 'A flat fee per award, set with you'],
-      ['Medicare start after dialysis month 30', 'A flat fee per member, set with you'],
+      ['Part B paid twice or after a death', 'A share of what’s recovered, set with you'],
     ],
     measuresLabel: 'What we report every month',
     measures: [
