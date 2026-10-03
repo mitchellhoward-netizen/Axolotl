@@ -110,9 +110,9 @@ export default {
       eyebrow: 'Union health funds',
       example: 'National',
       rows: [
-        { v: '1,400+', l: 'Multiemployer health funds', note: 'Covering more than 5 million participants, before families. IFEBP.' },
+        { v: '1,478', l: 'Multiemployer health funds', note: 'Covering 5.3 million participants, before families. IFEBP.' },
         { v: '$13,121', l: 'Median spend per participant, per year', note: 'IFEBP, 2022.' },
-        { v: '74%', l: 'Of funds cover retirees', note: 'Where Medicare is meant to pay first.' },
+        { v: '44%', l: 'Of funds cover retirees after 65', note: 'Where Medicare is meant to pay first. IFEBP, 2026.' },
         { v: '4 in 10', l: 'Eligible people missing a Medicare Savings Program', note: 'MACPAC and NCOA, 2021–23.' },
       ],
     },
@@ -262,7 +262,7 @@ export default {
     ],
     neverLabel: 'What we never need',
     never: ['Full medical records', 'Social Security numbers', 'Bank details'],
-    estimate: 'Our estimate for a fund with 50,000 retirees on a 50% Part B reimbursement and modest pensions: roughly $9–14 million a year in premiums the state should pay. The scan replaces it with your number.',
+    estimate: 'Our estimate for a fund with 50,000 retirees on a 50% Part B reimbursement and modest pensions: roughly $3–9 million a year in premiums the state should pay. The scan replaces it with your number.',
   },
 
   pilot: {

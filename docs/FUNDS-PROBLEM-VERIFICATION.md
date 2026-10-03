@@ -90,7 +90,9 @@ than the homepage says.
 - Assume a third to a half of NBF retirees qualify, and about 40% of those
   aren't enrolled (national take-up is 56–64%,
   [MACPAC](https://macpac.gov/publication/medicare-savings-programs-new-estimates-continue-to-show-many-eligible-individuals-not-enrolled)).
-- That's about 7,500–11,000 retirees × $1,217 = **about $9–14M a year to
+- *(Superseded: see "Independent check" below. Expected capture is about
+  $3M a year at base, $0.6–9.7M in range. This $9–14M was closer to the
+  ceiling.)* That's about 7,500–11,000 retirees × $1,217 = **about $9–14M a year to
   the NBF**, and the same back to retirees.
 - That's 1.5–2× my earlier "$6.8M" guess.
 
@@ -228,9 +230,9 @@ for disabled members once Medicare would pay first.
 
 ## 7–11. Other insurers and eligibility: **real, mostly claims-side**
 
-- **Other coverage:** CAQH finds other coverage for 5.5% of commercial group
-  members (3–8.5%). Poor coordination costs more than $800M a year
-  nationally.
+- **Other coverage:** CAQH finds other coverage for 5.4% of commercial group
+  members (5.5% is its Medicaid figure). The $800M a year is *administrative*
+  cost, mostly borne by providers (Booz, 2010), not wrongly paid claims.
   ([CAQH](https://www.caqh.org/sites/default/files/solutions/cob-smart/cob-smart-one-pager.pdf))
   CAQH, plan vendors and TPAs already work it. Our part is asking the
   member at enrollment and at life events.
@@ -289,3 +291,79 @@ for disabled members once Medicare would pay first.
 - The disability coverage extension rules
 - Annual Part B reimbursement spend and headcount
 - Pension amounts by band
+
+---
+
+## Independent check (outside research agent, October 2026)
+
+An outside research agent re-checked sections F and G of
+`RESEARCH-BRIEF-FUNDS.md` and rebuilt two estimates. **Sections A–E have not
+been independently checked yet.**
+
+**Changes we accepted**
+
+- **NBF Part B → Medicare Savings Program**
+  - New estimate: **$0.64M / $3.2M / $9.7M a year** (low / base / high).
+  - The base assumes:
+    - 50,000 reimbursed retirees and spouses
+    - 25% income-eligible
+    - 60% of those not yet enrolled
+    - 35% actually enrolled by us
+  - The ceiling, if every unenrolled eligible person enrolled, is about
+    $9.1M.
+  - My $9–14M was effectively that ceiling, not expected capture.
+  - The homepage now says "$3–9 million."
+  - Newer anchor: 1199 paid $842.4M to 74,502 retirees in 2017, about $942 a
+    month. That's consistent with the 2020 figures.
+  - New York's QI limit is cited as $2,494 a month single and $3,375 for a
+    couple. The $20 disregard likely explains the gap from $2,474. Confirm.
+- **Double payment at the NBF is probably rare.** Reimbursement claims
+  require the SSA award letter every year, which would show a state buy-in.
+  Double payment stays a *public-plan* proof point (Nassau: 99 dependents also
+  had another employer's retiree coverage, a problem running two decades).
+  It's not an NBF pitch.
+- **Retiree coverage:**
+  - 74% of multiemployer plans cover retirees of any age, but only **44%
+    cover retirees after 65** (2026 survey).
+  - 55% of service-industry plans cover retirees at all.
+  - 1,478 plans cover 5.31M participants (IFEBP toolkit).
+  - The homepage stat is now "44% of funds cover retirees after 65."
+- **Disability savings per disabled member** (derived):
+
+  | Plan design | Low | Base | High |
+  |---|---|---|---|
+  | Keeps disability retirees on coverage, each year after Medicare starts | about $9.4K | about $22.1K | about $36.7K |
+  | Caps coverage at 30 months, one-time | $0 | about $1.9K | about $5.8K |
+
+  The base uses Allsup's unaudited claim of a 71% cost reduction. Speeding up
+  an SSDI award doesn't move Medicare's start date, which is always 24 months
+  after SSDI entitlement.
+- **Other coverage:** 5.4% of commercial group members, not 5.5%. The $800M
+  is administrative cost, not a leak size.
+- **Work injuries:** the $43 a month (NIOSH) applies only to nonunion hourly
+  men aged 18–34. The largest subgroup increase was $66. No union-fund study
+  exists, only vendors (Intellivo sells subrogation to Taft-Hartley plans).
+- **Dependents:**
+  - Use 2.6–5% for union or public plans (CalPERS realized 2.6%).
+  - CalPERS's $122M is cumulative over 2013–2015 and includes modeled
+    claims avoidance. It is not annual.
+  - Mercer now says 3–10%.
+
+**Competition confirmed**
+
+- Allsup sells disability-to-Medicare coordination to group plans.
+- Via Benefits gives Medicare counseling to SAG-AFTRA Health Plan members.
+- No vendor was found selling MSP or Extra Help enrollment to Taft-Hartley or
+  public retiree plans.
+- Benefits Data Trust closed August 24, 2024 (273 jobs) with no national
+  successor. In its last year, it filed 23,000 Pennsylvania Extra Help
+  applications.
+
+**New leaks it flagged**
+
+- ESRD coordination at the NBF: the fund already has an ESRD Part B form.
+- Payments after death: NYC's 2011 audit told the city's Office of Labor
+  Relations to check dates of death before reimbursing.
+- Accident liability: a vendor claims 5–6% of paid claims. Unverified.
+- Group Part D low-income subsidy capture: depends on the drug plan contract.
+  Unverified.
