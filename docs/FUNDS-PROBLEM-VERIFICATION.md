@@ -367,3 +367,46 @@ been independently checked yet.**
 - Accident liability: a vendor claims 5–6% of paid claims. Unverified.
 - Group Part D low-income subsidy capture: depends on the drug plan contract.
   Unverified.
+
+## Review fixes (October 2026)
+
+**New York Medicare Savings Program limits for 2026** (verified,
+[NLS](https://nls.org/app/uploads/2025/05/Medicare-Savings-Programs-2026-FINAL-3-9-26.pdf))
+
+| Program | One person | Couple |
+|---|---|---|
+| QMB | up to $1,836 | up to $2,489 |
+| QI-1 | $1,836–2,474 | $2,489–3,355 |
+
+- These limits are countable income, after the $20 disregard. So a member
+  compares about **$2,494** (single) or **about $3,375** (couple) against
+  their gross checks.
+- Income counts *before* Part B is taken out of Social Security.
+- QI pays Part B only, renews every year, and is first-come, first-served.
+- The homepage phone now:
+  - uses $2,494
+  - asks whether it's just the member or a spouse too
+  - asks for income before Medicare is taken out
+  - says the fund's half stops, so the member keeps about $101 a month more,
+    plus Extra Help
+  - promises the yearly renewal
+  - ends with "Sent … when the state confirms", not "Filed"
+
+**SSDI help** (verified)
+- Helping someone fill out an application doesn't require being an appointed
+  representative.
+  ([AARP](https://www.aarp.org/retirement/social-security/questions-answers/help-applying-for-disability-benefits.html))
+- A third party can pay a representative without SSA authorizing the fee, if
+  all of these hold:
+  - the claimant owes nothing
+  - a third-party entity pays
+  - the representative waives fees from the claimant on SSA-1696-U4
+  - ([POMS GN 03920.010](https://secure.ssa.gov/POMS.nsf/lnx/0203920010))
+- A fund paying per award can fit this. Confirm it with counsel before
+  selling disability.
+- The hero now says "help with disability claims," not "disability checks."
+
+**Framing for 1199**
+- The headline now says "would cover," not "should pay."
+- The sub leads with "members who are owed help."
+- Both work for a union that defends Medicaid funding in public.
