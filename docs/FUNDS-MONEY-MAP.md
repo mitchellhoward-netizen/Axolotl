@@ -1,5 +1,14 @@
 # Benefit funds: where the money is
 
+> **Corrected October 2026 — read `FUNDS-PROBLEM-VERIFICATION.md` first.**
+> - Dialysis after month 30 and retirees without Part B are member costs, not
+>   fund costs: plans already stop paying first.
+> - The $76,540 figure is withdrawn. It's a vendor estimate for workers
+>   moving to Medicare at 65+, not for SSDI.
+> - Disability savings depend on how long the plan keeps disability retirees
+>   on coverage.
+> - Part B reimbursement at low-pension funds is verified and larger.
+
 October 2026. Research for the benefit-fund buyer (see `/funds` on the site).
 Each figure carries its source. Lines marked *inferred* are my arithmetic or
 judgment, not a published number.

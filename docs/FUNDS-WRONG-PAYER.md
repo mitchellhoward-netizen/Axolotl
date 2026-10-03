@@ -1,5 +1,14 @@
 # Where a union fund pays when someone else should
 
+> **Corrected October 2026 — read `FUNDS-PROBLEM-VERIFICATION.md` first.**
+> - Dialysis after month 30 and retirees without Part B are member costs, not
+>   fund costs: plans already stop paying first.
+> - The $76,540 figure is withdrawn. It's a vendor estimate for workers
+>   moving to Medicare at 65+, not for SSDI.
+> - Disability savings depend on how long the plan keeps disability retirees
+>   on coverage.
+> - Part B reimbursement at low-pension funds is verified and larger.
+
 October 2026. A companion to `FUNDS-MONEY-MAP.md`: every case I could find
 where a union health and welfare fund pays a bill, or a benefit, that another
 payer owes first.

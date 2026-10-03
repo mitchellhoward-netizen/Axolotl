@@ -81,7 +81,7 @@
         <div class="split money-split">
           <div class="split-copy">
             <h2 id="money-title">The fund pays first <em>more often than it should.</em></h2>
-            <p class="lead">Some of a fund’s biggest bills belong to Medicare, Social Security or the state once a member is enrolled in the right program. Most members never are. The forms are hard, the rules change at 65 and at month 24 and at month 30, and nobody walks them through.</p>
+            <p class="lead">Some of a fund’s biggest bills belong to Medicare, Social Security or the state once a member is enrolled in the right program. Most members never are. The forms are hard, the rules change at 65 and at month 24, and nobody walks them through.</p>
           </div>
           <article class="brief-card" aria-labelledby="stats-title">
             <p class="door-label"><span id="stats-title">Union health funds</span><span>National</span></p>
@@ -96,22 +96,22 @@
           </thead>
           <tbody>
           <tr>
-            <td data-label="When">Dialysis, after month 30</td>
-            <td data-label="Who pays now">The fund, at commercial rates: about $238,000 in the first year of dialysis</td>
-            <td data-label="Who should pay">Medicare first, once the member is enrolled</td>
-            <td data-label="What the member gets">Lower out-of-pocket costs, with the fund behind Medicare</td>
-          </tr>
-          <tr>
-            <td data-label="When">A member who can’t work because of a disability</td>
-            <td data-label="Who pays now">The fund, for everything</td>
-            <td data-label="Who should pay">Medicare first, 24 months into a Social Security disability award</td>
-            <td data-label="What the member gets">A disability check, about $1,483 a month on average, and a disability pension that can start</td>
-          </tr>
-          <tr>
             <td data-label="When">A retiree under the state income limit</td>
             <td data-label="Who pays now">The fund, reimbursing the Part B premium</td>
             <td data-label="Who should pay">The state, through a Medicare Savings Program</td>
             <td data-label="What the member gets">$202.90 a month back, and Extra Help with prescriptions</td>
+          </tr>
+          <tr>
+            <td data-label="When">A Part B premium someone else already pays, or after a death</td>
+            <td data-label="Who pays now">The fund, reimbursing it anyway</td>
+            <td data-label="Who should pay">Nobody. It’s already paid, or no one is owed it</td>
+            <td data-label="What the member gets">Nothing changes for the member</td>
+          </tr>
+          <tr>
+            <td data-label="When">A disabled member who keeps fund coverage</td>
+            <td data-label="Who pays now">The fund, for everything</td>
+            <td data-label="Who should pay">Medicare first, 24 months into a Social Security disability award</td>
+            <td data-label="What the member gets">A disability check, about $1,483 a month on average, and no coverage gap</td>
           </tr>
           <tr>
             <td data-label="When">A retiree who qualifies for Extra Help</td>
@@ -120,14 +120,14 @@
             <td data-label="What the member gets">Lower drug costs</td>
           </tr>
           <tr>
-            <td data-label="When">Turning 65</td>
-            <td data-label="Who pays now">Gaps, and a lifelong penalty when Part B starts late</td>
-            <td data-label="Who should pay">Medicare, from the first day</td>
-            <td data-label="What the member gets">Coverage with no gap and no penalty</td>
+            <td data-label="When">A spouse with their own job coverage</td>
+            <td data-label="Who pays now">The fund, first</td>
+            <td data-label="Who should pay">The spouse’s own plan, first</td>
+            <td data-label="What the member gets">The same care, with both plans behind it</td>
           </tr>
           </tbody>
         </table>
-        <p class="network-note">Dialysis: first-year spending, commercial plans $238,126 against Medicare $80,509 (JAMA Network Open, 2012–19 data). Disability check: SSA average, 2024. Premium: 2026 standard Part B.</p>
+        <p class="network-note">Disability check: SSA average, 2024. Premium: 2026 standard Part B. Disability savings are largest where disability retirees keep fund coverage for years. Dialysis after month 30 and turning 65 are different: plans already stop paying first, so the gap lands on the member. We handle those too, as member protection, not fund savings.</p>
       </div>
     </section>
     <section class="section t-golden" id="scan" aria-labelledby="scan-title">
@@ -135,7 +135,7 @@
         <h2 id="scan-title">Start with a free scan <em>of your own data.</em></h2>
         <p class="lead">In 30 days we show you, in dollars, where your fund pays when Medicare, Social Security, the state or another insurer should, and how many members are behind each number.</p>
         <div class="scan-cards"><div class="never-grid">
-          <article><h3>What you get</h3><p>A report of dollars a year paid by the wrong payer, by leak: dialysis past month 30, disability without Medicare, retirees and COBRA members without Medicare, Part B paid twice or after death, other coverage. Biggest first. No names leave the fund unless you ask.</p></article>
+          <article><h3>What you get</h3><p>A report of dollars a year paid by the wrong payer, by leak: Part B reimbursed for retirees the state should cover, Part B paid twice or after a death, disabled members still waiting on Social Security and Medicare, other coverage. Biggest first. No names leave the fund unless you ask.</p></article>
           <article><h3>What you give</h3><p>Your eligibility, claims summary and Part B reimbursement files, under a HIPAA business associate agreement, and one contact at the fund office.</p></article>
           <article><h3>What it costs</h3><p>Nothing. If you want the cases fixed, we reach each member by text with your letter, and you pay only per approval.</p></article>
         </div></div>
@@ -149,7 +149,7 @@
             <ul class="plain-list"><li>Full medical records</li><li>Social Security numbers</li><li>Bank details</li></ul>
           </div>
         </div>
-        <p class="scan-estimate"><span class="highlight">Our estimate for a fund with 30,000 members: roughly $2–6 million a year, 1–2% of spend. The scan replaces it with your number.</span></p>
+        <p class="scan-estimate"><span class="highlight">Our estimate for a fund with 50,000 retirees on a 50% Part B reimbursement and modest pensions: roughly $9–14 million a year in premiums the state should pay. The scan replaces it with your number.</span></p>
         <a class="button primary" href="#school-contact">Get a free scan</a>
       </div>
     </section>
@@ -178,7 +178,7 @@
           <article class="brief-card" aria-labelledby="disability-brief-title">
             <p class="door-label"><span id="disability-brief-title">What one award is worth</span><span>Example</span></p>
             <ul class="brief-rows brief-rows-money"><li><span class="brief-v">$1,483</span><span class="brief-l">A month to him<span class="brief-note">The average Social Security disability check, 2024.</span></span></li><li><span class="brief-v">24 mo.</span><span class="brief-l">Until Medicare pays first<span class="brief-note">After that the fund pays second on his claims.</span></span></li><li><span class="brief-v">1 award</span><span class="brief-l">Starts his disability pension<span class="brief-note">Many pension funds require it first.</span></span></li><li><span class="brief-v">Once</span><span class="brief-l">Our fee, paid on the award<span class="brief-note">Nothing if it’s denied. Never out of his back pay.</span></span></li></ul>
-            <p class="brief-foot">A disabled member’s claims run well above the median. Moving the fund to second payer is worth the most of anything here.</p>
+            <p class="brief-foot">Worth the most where disability retirees keep fund coverage for years. Where coverage ends at month 30, the award keeps him from a gap.</p>
           </article>
         </div>
       </div>
@@ -186,9 +186,9 @@
     <section class="section t-night-deep" id="how" aria-labelledby="how-title">
       <div class="wrap">
         <h2 id="how-title">Your files find the moment. <em>The member says yes.</em></h2>
-        <p class="lead">The fund already knows who is turning 65, who filed for a disability pension, who started dialysis and roughly what each retiree’s pension pays. That is enough to know who to reach, and when.</p>
+        <p class="lead">The fund already knows who is turning 65, who filed for a disability pension, whose Part B it reimburses and roughly what each retiree’s pension pays. That is enough to know who to reach, and when.</p>
         <ol class="fly-steps">
-          <li><strong>Find</strong><span>Your eligibility, claims and pension files flag the moment: a first dialysis claim, a disability pension application, a retiree under the state income limit, a member nine months from 65.</span></li>
+          <li><strong>Find</strong><span>Your eligibility, claims and pension files flag the moment: a retiree under the state income limit, a Part B reimbursement with no living or paying member behind it, a disability pension application, a member nine months from 65.</span></li>
           <li><strong>Reach</strong><span>The fund sends one letter or text with the number. Members text back from their own phone, in English or Spanish.</span></li>
           <li><strong>Fill</strong><span>Axolotl screens in a few questions and fills the application from what the member tells it and what the fund already has.</span></li>
           <li><strong>Yes</strong><span>Nothing is filed until the member replies YES to exactly what will happen.</span></li>
@@ -230,7 +230,7 @@
           <tbody>
           <tr><td data-label="Approval">Medicare Savings Program</td><td data-label="Our fee">$300, once</td></tr>
           <tr><td data-label="Approval">Social Security disability award</td><td data-label="Our fee">A flat fee per award, set with you</td></tr>
-          <tr><td data-label="Approval">Medicare start after dialysis month 30</td><td data-label="Our fee">A flat fee per member, set with you</td></tr>
+          <tr><td data-label="Approval">Part B paid twice or after a death</td><td data-label="Our fee">A share of what’s recovered, set with you</td></tr>
           </tbody>
         </table>
         <h3>What we report every month</h3>
