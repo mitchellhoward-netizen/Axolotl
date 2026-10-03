@@ -33,7 +33,7 @@ export default {
     money: 'A dónde va el dinero',
     how: 'Cómo funciona',
     members: 'Para miembros',
-    join: 'Solicitar un piloto',
+    join: 'Revisión gratis',
     joinMembers: 'Recibir un mensaje',
     langSwitch: 'English',
   },
@@ -44,7 +44,7 @@ export default {
     h1Em: 'que deberían pagar Medicare y el estado.',
     h1: 'Su fondo paga cuentas que deberían pagar Medicare y el estado.',
     sub: 'Axolotl encuentra a los miembros cuyos gastos le corresponden a Medicare, al Seguro Social o al estado, y los inscribe desde su lado, por texto, con su sí. Los miembros reciben cheques por discapacidad, primas más bajas y medicinas más baratas. El fondo deja de pagar primero. Usted paga solo por aprobaciones.',
-    primary: 'Solicitar un piloto para su fondo',
+    primary: 'Pedir una revisión gratis',
     secondary: 'Ver a dónde va el dinero',
     trust: 'Para fondos de salud y bienestar sindicales. Se paga por aprobación.',
     phone: {
@@ -217,6 +217,28 @@ export default {
     ],
   },
 
+  scan: {
+    h2Plain: 'Empiece con una revisión gratis',
+    h2Em: 'de sus propios datos.',
+    lead: 'En 30 días le mostramos, en dólares, dónde su fondo paga cuando deberían pagar Medicare, el Seguro Social, el estado u otra aseguradora, y cuántos miembros hay detrás de cada cifra.',
+    cards: [
+      { title: 'Lo que recibe', body: 'Un reporte de los dólares al año que paga el pagador equivocado, por fuga: diálisis después del mes 30, discapacidad sin Medicare, jubilados y miembros de COBRA sin Medicare, Parte B pagada dos veces o después de una muerte, otra cobertura. Lo más grande primero. Ningún nombre sale del fondo a menos que usted lo pida.' },
+      { title: 'Lo que nos da', body: 'Sus archivos de elegibilidad, el resumen de reclamos y el archivo de reembolsos de la Parte B, bajo un acuerdo de socio comercial de HIPAA, y un contacto en la oficina del fondo.' },
+      { title: 'Lo que cuesta', body: 'Nada. Si quiere que se arreglen los casos, contactamos a cada miembro por texto con su carta, y usted paga solo por aprobación.' },
+    ],
+    dataLabel: 'Lo que pedimos',
+    data: [
+      'Elegibilidad: fecha de nacimiento, parentesco, tipo de cobertura y fechas',
+      'El estado de Medicare que ya tiene en sus archivos',
+      'Un resumen de reclamos: códigos de diagnóstico y de procedimiento, montos pagados, cruce con Medicare',
+      'Su archivo de reembolsos de la Parte B, si los da',
+      'Si los tiene: montos de pensión y solicitudes de pensión por discapacidad',
+    ],
+    neverLabel: 'Lo que nunca necesitamos',
+    never: ['Expedientes médicos completos', 'Números de Seguro Social', 'Datos bancarios'],
+    estimate: 'Nuestro cálculo para un fondo de 30,000 miembros: entre $2 y $6 millones al año, el 1–2% del gasto. La revisión lo reemplaza con su cifra.',
+  },
+
   pilot: {
     h2: 'Empiece con un grupo',
     lead: 'Elija a los jubilados con el reembolso de la Parte B, o a los miembros que solicitan una pensión por discapacidad. Usted envía una carta. Nosotros verificamos, presentamos y seguimos cada caso hasta la aprobación.',
@@ -237,8 +259,8 @@ export default {
   },
 
   form: {
-    h2: 'Solicitar un piloto para su fondo',
-    lead: 'Cuéntenos sobre su fondo. Le respondemos en dos días hábiles.',
+    h2: 'Pedir una revisión gratis',
+    lead: 'Cuéntenos sobre su fondo. Le respondemos en dos días hábiles con el acuerdo y la lista de datos.',
     nameLabel: 'Su nombre',
     roleLabel: 'Su cargo',
     fundLabel: 'Fondo',

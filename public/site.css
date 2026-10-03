@@ -2346,6 +2346,42 @@ p {
   font-weight: 600;
 }
 
+.scan-cards {
+  margin-top: 36px;
+}
+
+.scan-cards .never-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+@media (max-width: 899px) {
+  .scan-cards .never-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.scan-lists {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: 40px;
+  margin-top: 40px;
+}
+
+.scan-lists h3 {
+  margin-bottom: 12px;
+}
+
+.scan-estimate {
+  margin: 32px 0 26px;
+}
+
+@media (max-width: 799px) {
+  .scan-lists {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+  }
+}
+
 #disability .brief-card {
   margin-top: 28px;
 }
