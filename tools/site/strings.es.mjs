@@ -88,9 +88,9 @@ export default {
       eyebrow: 'Fondos de salud sindicales',
       example: 'Nacional',
       rows: [
-        { v: '1,400+', l: 'Fondos de salud de varios empleadores', note: 'Cubren a más de 5 millones de participantes, sin contar familias. IFEBP.' },
+        { v: '1,478', l: 'Fondos de salud de varios empleadores', note: 'Cubren a 5.3 millones de participantes, sin contar familias. IFEBP.' },
         { v: '$13,121', l: 'Gasto medio por participante al año', note: 'IFEBP, 2022.' },
-        { v: '74%', l: 'De los fondos cubren a jubilados', note: 'Donde Medicare debería pagar primero.' },
+        { v: '44%', l: 'De los fondos cubren a jubilados después de los 65', note: 'Donde Medicare debería pagar primero. IFEBP, 2026.' },
         { v: '4 de 10', l: 'Personas elegibles sin un Programa de Ahorros de Medicare', note: 'MACPAC y NCOA, 2021–23.' },
       ],
     },
@@ -236,7 +236,7 @@ export default {
     ],
     neverLabel: 'Lo que nunca necesitamos',
     never: ['Expedientes médicos completos', 'Números de Seguro Social', 'Datos bancarios'],
-    estimate: 'Nuestro cálculo para un fondo con 50,000 jubilados, reembolso del 50% de la Parte B y pensiones modestas: entre $9 y $14 millones al año en primas que debería pagar el estado. La revisión lo reemplaza con su cifra.',
+    estimate: 'Nuestro cálculo para un fondo con 50,000 jubilados, reembolso del 50% de la Parte B y pensiones modestas: entre $3 y $9 millones al año en primas que debería pagar el estado. La revisión lo reemplaza con su cifra.',
   },
 
   pilot: {

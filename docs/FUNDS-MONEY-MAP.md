@@ -34,7 +34,9 @@ books.
   5 million participants, before dependents.
   ([IFEBP, 15-year landscape](https://www.ifebp.org/cebs/detail-pages/resource/the-multiemployer-health-plan-landscape-a-15-year-look-2008-2022))
 - The median plan spends $13,121 per participant per year (2022).
-- 74% of these plans cover retirees.
+- 74% of these plans cover retirees of any age, but only 44% cover retirees
+  after 65 (IFEBP 2026 survey). Service-industry plans: 55% cover retirees at
+  all.
 - 5 million participants × $13,121 is about **$65B a year** of fund health
   spending. *(inferred)*
 - Counting pension plans too, multiemployer plans cover about 26 million
