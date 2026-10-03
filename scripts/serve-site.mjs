@@ -6,7 +6,7 @@
  *
  * This exists only because `python3 -m http.server` cannot resolve the clean
  * URLs the live site uses. Production is Vercel with `cleanUrls: true`, so
- * /es serves public/es/index.html and /schools serves public/schools.html;
+ * /es serves public/es/index.html and /employers serves public/employers.html;
  * without this, the portal preview would 404 on every link in the header and
  * the Spanish page could not be reviewed at all.
  *
@@ -55,7 +55,7 @@ async function resolve(urlPath) {
   if (target !== ROOT && !target.startsWith(ROOT + path.sep)) return null;
   const candidates = [
     target,
-    `${target}.html`, // cleanUrls: /schools -> schools.html
+    `${target}.html`, // cleanUrls: /employers -> employers.html
     path.join(target, 'index.html'), // /es -> es/index.html
   ];
   for (const candidate of candidates) if (await isFile(candidate)) return candidate;

@@ -2,7 +2,7 @@
  * Renders the static site from the per-language strings files.
  *
  *     npm run build:site      # write public/index.html, public/es/index.html,
- *                             # public/schools.html, public/es/schools.html
+ *                             # public/employers.html, public/es/employers.html
  *     npm run check:site      # fail if the committed HTML is not what the
  *                             # strings would produce (drift check, used by CI)
  *
@@ -45,17 +45,17 @@ const fill = (template, vars) =>
 
 // ── shared pieces ────────────────────────────────────────────────────────────
 
-/** The header. `prefix` is '' on the home page and '/' on /schools, so the
+/** The header. `prefix` is '' on the home page and '/' on /employers, so the
  *  section links keep working from a page that does not have those sections. */
 function header(s, { prefix, cta, langHref }) {
-  // Section links point at this language's home page, so /es/schools does not
+  // Section links point at this language's home page, so /es/employers does not
   // send a Spanish reader to the English page.
   const home = s.lang === 'es' ? '/es' : '/';
   const base = prefix ? home : '';
   const nav = [
     [at(s, 'nav.how'), `${base}#inbox`],
     [at(s, 'nav.help'), `${base}#qualify`],
-    [at(s, 'nav.schools'), s.lang === 'es' ? '/es/schools' : '/schools'],
+    [at(s, 'nav.employers'), s.lang === 'es' ? '/es/employers' : '/employers'],
   ]
     .map(([label, href]) => `<li><a href="${href}">${esc(label)}</a></li>`)
     .join('');
@@ -352,7 +352,7 @@ function schoolNet(s) {
           <h2 id="school-title">${payoff(d.h2Plain, d.h2Em)}</h2>
           <p class="lead">${esc(d.lead)}</p>
           <ol class="path-steps">${steps}</ol>
-          <a class="text-link" href="${s.lang === 'es' ? '/es/schools' : '/schools'}">${esc(d.link)}</a>
+          <a class="text-link" href="${s.lang === 'es' ? '/es/employers' : '/employers'}">${esc(d.link)}</a>
         </div>
         <div class="path-side">
           ${pathCard(c)}
@@ -465,13 +465,13 @@ ${joinForm(s, 'join')}
     </section>`;
 }
 
-function schoolsBand(s) {
+function employersBand(s) {
   return `
     <section class="section t-night-deep section-band" aria-labelledby="schools-band-title">
       <div class="wrap band">
-        <h2 id="schools-band-title">${esc(at(s, 'schoolsBand.h2'))}</h2>
-        <p class="lead">${esc(at(s, 'schoolsBand.body'))}</p>
-        <a class="text-link" href="${s.lang === 'es' ? '/es/schools' : '/schools'}">${esc(at(s, 'schoolsBand.link'))}</a>
+        <h2 id="schools-band-title">${esc(at(s, 'employersBand.h2'))}</h2>
+        <p class="lead">${esc(at(s, 'employersBand.body'))}</p>
+        <a class="text-link" href="${s.lang === 'es' ? '/es/employers' : '/employers'}">${esc(at(s, 'employersBand.link'))}</a>
       </div>
     </section>`;
 }
@@ -515,27 +515,27 @@ function contact(s) {
     </section>`;
 }
 
-const homeSections = (s) => [hero(s), inbox(s), midday(s), qualify(s), schoolNet(s), dinner(s), night(s), schoolsBand(s), contact(s)].join('');
+const homeSections = (s) => [hero(s), inbox(s), midday(s), qualify(s), schoolNet(s), dinner(s), night(s), employersBand(s), contact(s)].join('');
 
-// ── /schools ─────────────────────────────────────────────────────────────────
+// ── /employers ────────────────────────────────────────────────────────────────
 
-function schoolsPageSections(s) {
+function employersPageSections(s) {
   const heroBlock = `
     <section class="hero hero-schools" aria-labelledby="schools-hero-title">
       <div class="wrap">
-        <p class="schools-eyebrow">${esc(at(s, 'schools.hero.eyebrow'))}</p>
-        <h1 id="schools-hero-title">${payoff(at(s, 'schools.hero.h1Plain'), at(s, 'schools.hero.h1Em'))}</h1>
-        <p class="lead">${esc(at(s, 'schools.hero.sub'))}</p>
+        <p class="schools-eyebrow">${esc(at(s, 'employers.hero.eyebrow'))}</p>
+        <h1 id="schools-hero-title">${payoff(at(s, 'employers.hero.h1Plain'), at(s, 'employers.hero.h1Em'))}</h1>
+        <p class="lead">${esc(at(s, 'employers.hero.sub'))}</p>
         <div class="hero-actions">
-          <a class="button primary" href="#school-contact">${esc(at(s, 'schools.hero.primary'))}</a>
-          <a class="text-link" href="#office">${esc(at(s, 'schools.hero.secondary'))}</a>
+          <a class="button primary" href="#school-contact">${esc(at(s, 'employers.hero.primary'))}</a>
+          <a class="text-link" href="#office">${esc(at(s, 'employers.hero.secondary'))}</a>
         </div>
       </div>
     </section>`;
 
   // The office's week: the same back-and-forth parents are stuck in, from the
   // school's side. This is the table a principal reads first.
-  const o = at(s, 'schools.office');
+  const o = at(s, 'employers.office');
   const officeRows = o.rows
     .map(
       (r) => `<tr>
@@ -564,7 +564,7 @@ function schoolsPageSections(s) {
 
   // The same need twice: the letter an AI writes with no front door, and the
   // request Axolotl sends.
-  const d = at(s, 'schools.door');
+  const d = at(s, 'employers.door');
   const foot = (items) => items.map((i) => `<li>${esc(i)}</li>`).join('');
   const doorRows = d.after.rows
     .map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`)
@@ -605,7 +605,7 @@ function schoolsPageSections(s) {
               .join('')}</ol>
           </figure>`;
 
-  const a = at(s, 'schools.attendance');
+  const a = at(s, 'employers.attendance');
   const attendance = `
     <section class="section t-afternoon" id="attendance" aria-labelledby="attendance-title">
       <div class="wrap">
@@ -623,7 +623,7 @@ function schoolsPageSections(s) {
 
   // The flywheel: six steps that end where they began, plus one worked example
   // of what an official path does to the back-and-forth.
-  const f = at(s, 'schools.flywheel');
+  const f = at(s, 'employers.flywheel');
   const dots = (n) => `<span class="fly-dots" aria-hidden="true">${'<i></i>'.repeat(n)}</span>`;
   const flywheel = `
     <section class="section t-night-deep" id="flywheel" aria-labelledby="flywheel-title">
@@ -642,7 +642,7 @@ function schoolsPageSections(s) {
       </div>
     </section>`;
 
-  const p = at(s, 'schools.paths');
+  const p = at(s, 'employers.paths');
   const paths = `
     <section class="section t-golden" id="paths" aria-labelledby="paths-title">
       <div class="wrap split path-split">
@@ -659,7 +659,7 @@ function schoolsPageSections(s) {
       </div>
     </section>`;
 
-  const st = at(s, 'schools.staff');
+  const st = at(s, 'employers.staff');
   const brief = st.brief.rows
     .map(
       (r) => `<li><span class="brief-v">${esc(r.v)}</span><span class="brief-l">${esc(r.l)}<span class="brief-note">${esc(r.note)}</span></span></li>`,
@@ -681,7 +681,7 @@ function schoolsPageSections(s) {
       </div>
     </section>`;
 
-  const c = at(s, 'schools.connect');
+  const c = at(s, 'employers.connect');
   const connect = `
     <section class="section t-day" id="connect" aria-labelledby="connect-title">
       <div class="wrap">
@@ -709,9 +709,9 @@ function schoolsPageSections(s) {
   const never = `
     <section class="section" aria-labelledby="never-title">
       <div class="wrap">
-        <h2 id="never-title">${esc(at(s, 'schools.never.h2'))}</h2>
+        <h2 id="never-title">${esc(at(s, 'employers.never.h2'))}</h2>
         <div class="never-grid">
-          ${at(s, 'schools.never.items')
+          ${at(s, 'employers.never.items')
             .map((i) => `<article><h3>${esc(i.title)}</h3><p>${esc(i.body)}</p></article>`)
             .join('\n          ')}
         </div>
@@ -721,10 +721,10 @@ function schoolsPageSections(s) {
   const equity = `
     <section class="section" aria-labelledby="equity-title">
       <div class="wrap">
-        <h2 id="equity-title">${esc(at(s, 'schools.equity.h2'))}</h2>
-        <p class="lead">${esc(at(s, 'schools.equity.lead'))}</p>
+        <h2 id="equity-title">${esc(at(s, 'employers.equity.h2'))}</h2>
+        <p class="lead">${esc(at(s, 'employers.equity.lead'))}</p>
         <ul class="plain-list wide">
-          ${at(s, 'schools.equity.items').map((i) => `<li>${esc(i)}</li>`).join('\n          ')}
+          ${at(s, 'employers.equity.items').map((i) => `<li>${esc(i)}</li>`).join('\n          ')}
         </ul>
       </div>
     </section>`;
@@ -732,17 +732,17 @@ function schoolsPageSections(s) {
   const pilot = `
     <section class="section section-sheet" aria-labelledby="pilot-title">
       <div class="wrap">
-        <h2 id="pilot-title">${esc(at(s, 'schools.pilot.h2'))}</h2>
-        <p class="lead">${esc(at(s, 'schools.pilot.lead'))}</p>
-        <h3>${esc(at(s, 'schools.pilot.baselineTitle'))}</h3>
-        <p>${esc(at(s, 'schools.pilot.baseline'))}</p>
-        <h3>${esc(at(s, 'schools.pilot.measuresLabel'))}</h3>
+        <h2 id="pilot-title">${esc(at(s, 'employers.pilot.h2'))}</h2>
+        <p class="lead">${esc(at(s, 'employers.pilot.lead'))}</p>
+        <h3>${esc(at(s, 'employers.pilot.baselineTitle'))}</h3>
+        <p>${esc(at(s, 'employers.pilot.baseline'))}</p>
+        <h3>${esc(at(s, 'employers.pilot.measuresLabel'))}</h3>
         <ul class="plain-list wide">
-          ${at(s, 'schools.pilot.measures').map((i) => `<li>${esc(i)}</li>`).join('\n          ')}
+          ${at(s, 'employers.pilot.measures').map((i) => `<li>${esc(i)}</li>`).join('\n          ')}
         </ul>
-        <p>${esc(at(s, 'schools.pilot.consent'))}</p>
-        <p>${esc(at(s, 'schools.pilot.integration'))}</p>
-        <p><span class="highlight">${esc(at(s, 'schools.pilot.guardrail'))}</span></p>
+        <p>${esc(at(s, 'employers.pilot.consent'))}</p>
+        <p>${esc(at(s, 'employers.pilot.integration'))}</p>
+        <p><span class="highlight">${esc(at(s, 'employers.pilot.guardrail'))}</span></p>
       </div>
     </section>`;
 
@@ -750,35 +750,35 @@ function schoolsPageSections(s) {
     <section class="section" id="school-contact" aria-labelledby="school-contact-title">
       <div class="wrap contact-grid">
         <div>
-          <h2 id="school-contact-title">${esc(at(s, 'schools.form.h2'))}</h2>
-          <p class="lead">${esc(at(s, 'schools.form.lead'))}</p>
-          <form id="school-form" novalidate data-error="${esc(at(s, 'schools.form.generic'))}">
+          <h2 id="school-contact-title">${esc(at(s, 'employers.form.h2'))}</h2>
+          <p class="lead">${esc(at(s, 'employers.form.lead'))}</p>
+          <form id="school-form" novalidate data-error="${esc(at(s, 'employers.form.generic'))}">
             <div class="field">
-              <label for="school-name">${esc(at(s, 'schools.form.nameLabel'))}</label>
+              <label for="school-name">${esc(at(s, 'employers.form.nameLabel'))}</label>
               <input id="school-name" name="name" type="text" autocomplete="name" maxlength="120" required aria-describedby="school-error" />
             </div>
             <div class="field">
-              <label for="school-role">${esc(at(s, 'schools.form.roleLabel'))}</label>
+              <label for="school-role">${esc(at(s, 'employers.form.roleLabel'))}</label>
               <input id="school-role" name="role" type="text" autocomplete="organization-title" maxlength="120" required aria-describedby="school-error" />
             </div>
             <div class="field">
-              <label for="school-district">${esc(at(s, 'schools.form.schoolLabel'))}</label>
+              <label for="school-district">${esc(at(s, 'employers.form.schoolLabel'))}</label>
               <input id="school-district" name="school" type="text" autocomplete="organization" maxlength="160" required aria-describedby="school-error" />
             </div>
             <div class="field">
-              <label for="school-email">${esc(at(s, 'schools.form.emailLabel'))}</label>
+              <label for="school-email">${esc(at(s, 'employers.form.emailLabel'))}</label>
               <input id="school-email" name="email" type="email" autocomplete="email" maxlength="254" required aria-describedby="school-error" />
             </div>
             <div class="field">
-              <label for="school-message">${esc(at(s, 'schools.form.messageLabel'))} <span class="hint">${esc(at(s, 'schools.form.messageHint'))}</span></label>
+              <label for="school-message">${esc(at(s, 'employers.form.messageLabel'))} <span class="hint">${esc(at(s, 'employers.form.messageHint'))}</span></label>
               <textarea id="school-message" name="message" maxlength="2000" rows="4" aria-describedby="school-error"></textarea>
             </div>
-            <button class="button primary" type="submit">${esc(at(s, 'schools.form.submit'))}</button>
-            <p class="form-note">${esc(at(s, 'schools.form.note'))}</p>
-            <p class="form-error" id="school-error" role="alert" hidden>${esc(at(s, 'schools.form.error'))}</p>
+            <button class="button primary" type="submit">${esc(at(s, 'employers.form.submit'))}</button>
+            <p class="form-note">${esc(at(s, 'employers.form.note'))}</p>
+            <p class="form-error" id="school-error" role="alert" hidden>${esc(at(s, 'employers.form.error'))}</p>
           </form>
           <div class="form-success" id="school-sent" role="status" tabindex="-1" hidden>
-            <p>${esc(at(s, 'schools.form.success'))}</p>
+            <p>${esc(at(s, 'employers.form.success'))}</p>
           </div>
         </div>
       </div>
@@ -883,17 +883,17 @@ async function render() {
       }),
     });
     pages.push({
-      file: dir ? `${dir}/schools.html` : 'schools.html',
+      file: dir ? `${dir}/employers.html` : 'employers.html',
       html: document(s, {
-        title: at(s, 'schools.meta.title'),
-        description: at(s, 'schools.meta.description'),
-        canonical: dir ? '/es/schools' : '/schools',
-        alts: [['en', '/schools'], ['es', '/es/schools']],
-        body: schoolsPageSections(s),
+        title: at(s, 'employers.meta.title'),
+        description: at(s, 'employers.meta.description'),
+        canonical: dir ? '/es/employers' : '/employers',
+        alts: [['en', '/employers'], ['es', '/es/employers']],
+        body: employersPageSections(s),
         prefix: '/',
-        langHref: dir ? '/schools' : '/es/schools',
+        langHref: dir ? '/employers' : '/es/employers',
         cta: '#school-contact',
-        shareAlt: at(s, 'schools.meta.shareAlt'),
+        shareAlt: at(s, 'employers.meta.shareAlt'),
         share,
       }),
     });
