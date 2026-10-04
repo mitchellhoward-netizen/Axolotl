@@ -28,27 +28,27 @@ executing a consequential action without an explicit parent `YES`.
 
 ### The website is generated — do not hand-edit the HTML
 
-`public/index.html` (for union benefit funds), `public/members.html` (for the
-members a fund sends to us), `public/employers.html` and their Spanish copies
-under `public/es*` are **built**, not written. All copy lives in
+`public/index.html` (for funds that reimburse Medicare Part B premiums),
+`public/members.html` (for the retirees a fund sends to us) and their Spanish
+copies under `public/es*` are **built**, not written. All copy lives in
 `tools/site/strings.en.mjs` and `tools/site/strings.es.mjs`; the structure lives
 in `tools/site/build.mjs`. Edit the strings, then run:
 
 ```sh
-npm run build:site     # regenerate the six pages
+npm run build:site     # regenerate the four pages
 npm run check:site     # fail if the committed HTML is not what the strings say
 npm run check          # secrets, phone-mockup fit, site drift, typecheck
 ```
 
 The build writes plain static HTML, so nothing changes about how the site is
 served: Vercel serves `public/` as-is, with `cleanUrls`, so `/es` is
-`public/es.html` and `/members` is `public/members.html` (`/schools` redirects to `/employers`, `/funds` to `/`). The orb's preview
+`public/es.html` and `/members` is `public/members.html` (`/employers`, `/schools` and `/funds` redirect to `/`). The orb's preview
 server (`node scripts/serve-site.mjs`, declared in `.amp/services.yaml`)
 reproduces those clean URLs; it serves files only, so forms on the preview show
 their error state rather than pretending to store a signup.
 
-The two phones on the homepage (a retiree's Part B premium, a member's
-disability award) are **rendered device images**, not
+The two phones on the homepage (a retiree's yes on her Part B premium, then
+her approval and yearly renewal) are **rendered device images**, not
 markup: `scripts/build-phone.mjs` draws the staged conversation at the iPhone's
 own logical size in SF Pro, screenshots it at 3x, and composites it into Apple's
 official bezel (downloaded on demand into the gitignored `.cache/`; the raw bezel
@@ -69,7 +69,7 @@ Social cards are generated too: `node scripts/build-share.mjs` renders
 `public/share.png` and `public/share-es.png` from `tools/site/share.html`, which
 reads the same strings. Re-run it after changing the hero copy.
 
-Website signups (a member's phone number from /members, and the fund and employer pilot requests, both still posted as `kind: "school"`; a fund request's message starts with `[funds]`) go through one
+Website signups (a member's phone number from /members, and the fund scan request, still posted as `kind: "school"` with a message that starts with `[funds]`) go through one
 endpoint, `/api/waitlist`, with a `kind` field. Validation and storage are shared
 between the Vercel function (`api/waitlist.ts`) and the long-lived host
 (`src/integrations/web.ts`) via `src/integrations/waitlist.ts`. The table needs

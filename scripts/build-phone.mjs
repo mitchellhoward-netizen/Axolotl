@@ -57,7 +57,7 @@ const DEVICE = {
 
 /**
  * Two screens, both rendered per language:
- *   yes  — a member's disability award, filed on their YES (how.phone)
+ *   yes  — the approval and the yearly renewal, after the retiree's YES (how.phone)
  *   week — the hero: a retiree's Part B premium moved to the state (hero.phone)
  */
 const SCREENS = [
