@@ -3,13 +3,23 @@
   "redirects": [
     {
       "source": "/schools",
-      "destination": "/employers",
-      "permanent": true
+      "destination": "/",
+      "permanent": false
     },
     {
       "source": "/es/schools",
-      "destination": "/es/employers",
-      "permanent": true
+      "destination": "/es",
+      "permanent": false
+    },
+    {
+      "source": "/employers",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/es/employers",
+      "destination": "/es",
+      "permanent": false
     },
     {
       "source": "/funds",

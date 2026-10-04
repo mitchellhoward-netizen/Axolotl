@@ -213,12 +213,11 @@
     }),
   });
 
-  // ── Employer pilot request ──────────────────────────────────────────────────
-  // The employer pilot form (/employers) still posts kind "school", with the
-  // organization in the `school` column, so it saves against the live table
-  // without a migration. Give it its own kind once db/signups.sql allows one.
-  // The fund pilot form (the homepage) is the same form with data-source="funds"; its
-  // message is prefixed "[funds]" so a fund request can be told apart.
+  // ── Fund scan request ───────────────────────────────────────────────────────
+  // The fund form on the homepage posts kind "school", with the fund in the
+  // `school` column, so it saves against the live table without a migration.
+  // Its message is prefixed "[funds]" (data-source="funds") so a fund request
+  // can be told apart. Give it its own kind once db/signups.sql allows one.
   wireForm({
     form: field("school-form"),
     error: field("school-error"),
