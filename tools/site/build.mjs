@@ -181,10 +181,9 @@ function pathCard(c) {
 
 // ── the homepage: for union benefit funds ────────────────────────────────────
 //
-// One idea (docs/FUNDS-MONEY-MAP.md): the fund pays bills that Medicare, Social
-// Security or the state should pay, and the member loses money in the same
-// cases. Two phones carry it: a retiree's Part B premium in the hero, and a
-// disability award further down.
+// One product: Part B premiums a fund reimburses that New York's Medicare
+// Savings Program would pay. Two phones carry it: the retiree's yes in the
+// hero, and the approval and yearly renewal further down.
 
 function homeSections(s) {
   const size = art[s.lang];
@@ -253,18 +252,18 @@ function homeSections(s) {
       </div>
     </section>`;
 
-  const d = at(s, 'disability');
-  const disability = `
-    <section class="section t-afternoon" id="disability" aria-labelledby="disability-title">
+  const d = at(s, 'after');
+  const after = `
+    <section class="section t-afternoon" id="after" aria-labelledby="after-title">
       <div class="wrap split">
         <figure class="fund-phone">
           ${device(`phone-${s.lang}.webp`, size.yes, at(s, 'how.phone.alt'), 'loading="lazy" ')}
           <figcaption class="caption">${esc(at(s, 'how.phone.caption'))}</figcaption>
         </figure>
         <div class="split-copy">
-          <h2 id="disability-title">${payoff(d.h2Plain, d.h2Em)}</h2>
+          <h2 id="after-title">${payoff(d.h2Plain, d.h2Em)}</h2>
           <p class="lead">${esc(d.lead)}</p>
-          ${briefCard(d.brief, 'disability-brief-title')}
+          ${briefCard(d.brief, 'after-brief-title')}
         </div>
       </div>
     </section>`;
@@ -394,7 +393,7 @@ function homeSections(s) {
       </div>
     </section>`;
 
-  return [hero, money, scan, example, disability, steps, different, never, pilot, form, membersBand].join('');
+  return [hero, money, scan, example, after, steps, different, never, pilot, form, membersBand].join('');
 }
 
 // ── /members ──────────────────────────────────────────────────────────────────
