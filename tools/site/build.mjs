@@ -65,8 +65,8 @@ function header(s, { prefix, cta, ctaLabel, langHref }) {
   <header class="site-header">
     <div class="wrap header-bar">
       <a class="brand" href="${home}" aria-label="${esc(at(s, 'a11y.home'))}">
-        <img src="/ollie/ollie.webp" alt="" width="44" height="44" />
-        <span>Axolotl</span>
+        <img src="/mark.svg" alt="" width="44" height="44" />
+        <span>Mycelium</span>
       </a>
       <div class="header-actions">
         <a class="button primary header-cta" href="${cta}">${esc(ctaLabel)}</a>
@@ -94,8 +94,8 @@ function footer(s, { langHref }) {
     <div class="wrap footer-grid">
       <div>
         <a class="brand brand-footer" href="${home}">
-          <img src="/ollie/ollie.webp" alt="" width="44" height="44" />
-          <span>Axolotl</span>
+          <img src="/mark.svg" alt="" width="44" height="44" />
+          <span>Mycelium</span>
         </a>
         <p>${esc(at(s, 'footer.tagline'))}</p>
       </div>
@@ -455,7 +455,7 @@ function document(s, { title, description, canonical, alts, body, prefix, langHr
     <link rel="canonical" href="${SITE}${canonical}" />
     ${alt}
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Axolotl" />
+    <meta property="og:site_name" content="Mycelium" />
     <meta property="og:url" content="${SITE}${canonical}" />
     <meta property="og:locale" content="${s.locale}" />
     <meta property="og:locale:alternate" content="${s.lang === 'en' ? 'es_US' : 'en_US'}" />

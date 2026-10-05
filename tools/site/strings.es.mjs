@@ -14,16 +14,16 @@ export default {
   locale: 'es_US',
 
   meta: {
-    title: 'Axolotl: primas de la Parte B que pagaría el estado',
+    title: 'Mycelium: primas de la Parte B que pagaría el estado',
     description:
-      'Muchos jubilados con reembolso de la Parte B califican para el Programa de Ahorros de Medicare de Nueva York, que paga la prima completa. La mayoría nunca lo solicita. Axolotl los encuentra en los archivos del fondo, los inscribe por texto con su sí y lo renueva cada año. Los jubilados reciben más cada mes. El fondo deja de pagar. Se paga con los ahorros.',
+      'Muchos jubilados con reembolso de la Parte B califican para el Programa de Ahorros de Medicare de Nueva York, que paga la prima completa. La mayoría nunca lo solicita. Mycelium los encuentra en los archivos del fondo, los inscribe por texto con su sí y lo renueva cada año. Los jubilados reciben más cada mes. El fondo deja de pagar. Se paga con los ahorros.',
     shareAlt:
-      'El reporte mensual de Axolotl para un fondo: jubilados aprobados para un Programa de Ahorros de Medicare, renovaciones enviadas, solicitudes esperando al estado.',
+      'El reporte mensual de Mycelium para un fondo: jubilados aprobados para un Programa de Ahorros de Medicare, renovaciones enviadas, solicitudes esperando al estado.',
   },
 
   a11y: {
     skip: 'Saltar al contenido',
-    home: 'Inicio de Axolotl',
+    home: 'Inicio de Mycelium',
     menu: 'Menú',
     mainNav: 'Navegación principal',
     footerNav: 'Pie de página',
@@ -43,7 +43,7 @@ export default {
     h1Plain: 'Su fondo reembolsa primas de la Parte B',
     h1Em: 'que pagaría el estado.',
     h1: 'Su fondo reembolsa primas de la Parte B que pagaría el estado.',
-    sub: 'Muchos jubilados con su reembolso de la Parte B califican para el Programa de Ahorros de Medicare de Nueva York, que paga la prima completa. La mayoría nunca lo solicita. Axolotl los encuentra en sus archivos, los inscribe por texto con su sí y lo renueva cada año. Ellos reciben unos $100 más al mes. Su fondo deja de pagar. Usted paga una parte de lo que ahorra.',
+    sub: 'Muchos jubilados con su reembolso de la Parte B califican para el Programa de Ahorros de Medicare de Nueva York, que paga la prima completa. La mayoría nunca lo solicita. Mycelium los encuentra en sus archivos, los inscribe por texto con su sí y lo renueva cada año. Ellos reciben unos $100 más al mes. Su fondo deja de pagar. Usted paga una parte de lo que ahorra.',
     primary: 'Pedir una revisión gratis',
     secondary: 'Ver las cifras',
     trust: 'Para fondos sindicales y planes públicos de jubilados que reembolsan la Parte B. Nada si nadie es aprobado.',
@@ -59,7 +59,7 @@ export default {
         { out: 'SÍ' },
         { in: 'Enviada. Le escribo en cuanto el estado la confirme.' },
       ],
-      alt: 'Conversación de texto en un teléfono. Una jubilada pregunta si la carta del fondo sobre la Parte B es real. Axolotl le dice que Nueva York paga toda la prima de la Parte B con ingresos de menos de $2,494 al mes y le pregunta si es solo ella y cuánto recibe antes del descuento de Medicare. Recibe $2,050 sola, así que califica: el estado pagaría los $202.90 completos, la mitad del fondo se acaba y le quedan unos $101 más al mes, más Ayuda Adicional con sus recetas. Axolotl ya llenó la solicitud y se encargará de la renovación anual; ella responde SÍ, se envía, y Axolotl le escribirá cuando el estado la confirme.',
+      alt: 'Conversación de texto en un teléfono. Una jubilada pregunta si la carta del fondo sobre la Parte B es real. Mycelium le dice que Nueva York paga toda la prima de la Parte B con ingresos de menos de $2,494 al mes y le pregunta si es solo ella y cuánto recibe antes del descuento de Medicare. Recibe $2,050 sola, así que califica: el estado pagaría los $202.90 completos, la mitad del fondo se acaba y le quedan unos $101 más al mes, más Ayuda Adicional con sus recetas. Mycelium ya llenó la solicitud y se encargará de la renovación anual; ella responde SÍ, se envía, y Mycelium le escribirá cuando el estado la confirme.',
     },
     folder: {
       label: 'Reporte mensual · Fondo de ejemplo',
@@ -143,7 +143,7 @@ export default {
 
   how: {
     phone: {
-      contact: 'Axolotl',
+      contact: 'Mycelium',
       meta: 'Seis semanas después',
       metaTime: '11:04 AM',
       thread: [
@@ -157,7 +157,7 @@ export default {
         { kind: 'in', text: 'Trato hecho. Si cambian sus ingresos o su dirección, escríbame aquí.' },
       ],
       caption: 'Conversación de ejemplo. Miembro y fondo ficticios.',
-      alt: 'Conversación de texto en un teléfono, seis semanas después de solicitar. Axolotl le dice a una jubilada que Nueva York la aprobó y que el Seguro Social deja de descontarle $202.90 desde mayo. Ella pregunta si su cheque sube; sí, y la mitad del fondo se acaba el mismo mes, así que le quedan unos $101 más al mes, y recibe Ayuda Adicional con sus recetas. Axolotl le dice que se renueva cada año y que le escribirá en el otoño; ella acepta, y Axolotl le pide que escriba si cambian sus ingresos o su dirección.',
+      alt: 'Conversación de texto en un teléfono, seis semanas después de solicitar. Mycelium le dice a una jubilada que Nueva York la aprobó y que el Seguro Social deja de descontarle $202.90 desde mayo. Ella pregunta si su cheque sube; sí, y la mitad del fondo se acaba el mismo mes, así que le quedan unos $101 más al mes, y recibe Ayuda Adicional con sus recetas. Mycelium le dice que se renueva cada año y que le escribirá en el otoño; ella acepta, y Mycelium le pide que escriba si cambian sus ingresos o su dirección.',
     },
   },
 
@@ -181,7 +181,7 @@ export default {
   steps: {
     h2Plain: 'Cada jubilado, revisado cada mes.',
     h2Em: 'Nada avanza sin un sí.',
-    lead: 'Axolotl lleva un registro vivo de dónde está cada jubilado de su reembolso: en observación, probablemente elegible, contactado, de acuerdo, solicitud presentada, aprobado, por renovar. Lee lo que cambió en sus archivos y en las reglas, y solo hace avanzar a un jubilado cuando está seguro. Cuando no lo está, decide una persona.',
+    lead: 'Mycelium lleva un registro vivo de dónde está cada jubilado de su reembolso: en observación, probablemente elegible, contactado, de acuerdo, solicitud presentada, aprobado, por renovar. Lee lo que cambió en sus archivos y en las reglas, y solo hace avanzar a un jubilado cuando está seguro. Cuando no lo está, decide una persona.',
     items: [
       { tag: 'Observar', text: 'Cada mes: sus archivos de elegibilidad y de reembolso de la Parte B. Cada año: la nueva prima, el aumento por costo de vida y los nuevos límites de Nueva York, que hacen elegibles a más jubilados cada enero.' },
       { tag: 'Decidir', text: 'El cálculo de elegibilidad es código simple, que se puede rastrear hasta la regla y la cifra. Un modelo de decisiones calibrado lee lo que cambió y dice qué tan seguro está. Por debajo del umbral, revisa una persona de nuestro equipo.' },
@@ -277,15 +277,15 @@ export default {
 
   members: {
     meta: {
-      title: 'Axolotl para miembros',
-      description: 'Su fondo de beneficios trabaja con Axolotl para ayudar a los jubilados a que Nueva York pague su prima de la Parte B de Medicare. Usted escribe, nosotros llenamos los formularios, y nada se envía sin su sí. Gratis para usted.',
-      shareAlt: 'El reporte mensual de Axolotl para un fondo.',
+      title: 'Mycelium para miembros',
+      description: 'Su fondo de beneficios trabaja con Mycelium para ayudar a los jubilados a que Nueva York pague su prima de la Parte B de Medicare. Usted escribe, nosotros llenamos los formularios, y nada se envía sin su sí. Gratis para usted.',
+      shareAlt: 'El reporte mensual de Mycelium para un fondo.',
     },
     hero: {
       eyebrow: 'Para jubilados sindicales',
       h1Plain: 'Su fondo lo envió aquí.',
       h1Em: 'Esto es lo que somos.',
-      sub: 'Axolotl trabaja con su fondo de beneficios para ayudar a los jubilados a que el estado de Nueva York pague su prima de la Parte B de Medicare, $202.90 al mes en 2026. Usted escribe. Nosotros llenamos los formularios. Nada se envía sin su sí. Es gratis para usted.',
+      sub: 'Mycelium trabaja con su fondo de beneficios para ayudar a los jubilados a que el estado de Nueva York pague su prima de la Parte B de Medicare, $202.90 al mes en 2026. Usted escribe. Nosotros llenamos los formularios. Nada se envía sin su sí. Es gratis para usted.',
       primary: 'Recibir un mensaje',
     },
     help: {
@@ -316,7 +316,7 @@ export default {
     phoneLabel: 'Su número de teléfono',
     placeholder: 'Su número de teléfono',
     submit: 'Escríbanme',
-    note: 'Al enviar, acepta recibir mensajes de texto de Axolotl.',
+    note: 'Al enviar, acepta recibir mensajes de texto de Mycelium.',
     success: 'Gracias. Le escribiremos al {phone}.',
     error: 'Escriba un número de EE. UU. de 10 dígitos.',
     generic: 'No pudimos guardar su número. Por favor intente de nuevo.',
