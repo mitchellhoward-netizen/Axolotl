@@ -25,7 +25,7 @@ import { fileURLToPath } from 'node:url';
 
 const ROOT = path.resolve(fileURLToPath(new URL('../../', import.meta.url)));
 const OUT = path.join(ROOT, 'public');
-const SITE = 'https://www.get-axolotl.com';
+const SITE = 'https://www.try-mycelium.com';
 
 // ── tiny helpers ─────────────────────────────────────────────────────────────
 
