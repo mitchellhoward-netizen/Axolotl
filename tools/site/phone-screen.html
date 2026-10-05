@@ -396,8 +396,8 @@
         </svg>
       </span>
       <span class="nav-body" id="nav-body">
-        <img src="/public/animation/axolotl-mascot.png" alt="" />
-        <span id="contact">Axolotl</span>
+        <img src="/public/mark-tile.svg" alt="" />
+        <span id="contact">Mycelium</span>
       </span>
     </div>
 
@@ -484,7 +484,7 @@
       const renderThread = (items, { group = false } = {}) => {
         for (const turn of items) {
           const out = isOutTurn(turn);
-          thread.append(turnRow(turn, group && !out ? (turn.from ?? 'Axolotl') : undefined));
+          thread.append(turnRow(turn, group && !out ? (turn.from ?? 'Mycelium') : undefined));
         }
       };
 

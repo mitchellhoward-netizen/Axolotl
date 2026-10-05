@@ -8,7 +8,7 @@
  *
  * The thesis the site carries (docs/FUNDS-MONEY-MAP.md): a union benefit fund
  * pays bills that Medicare, Social Security or the state should pay, and in
- * almost every one of those cases the member is losing money too. Axolotl gets
+ * almost every one of those cases the member is losing money too. Mycelium gets
  * the right payer to pay, from the member's side, by text, with their yes.
  * The fund pays per approval.
  *
@@ -28,16 +28,16 @@ export default {
   locale: 'en_US',
 
   meta: {
-    title: 'Axolotl: Part B premiums the state would pay',
+    title: 'Mycelium: Part B premiums the state would pay',
     description:
-      'Many retirees on a fund’s Part B reimbursement qualify for New York’s Medicare Savings Program, which pays the whole premium. Most never apply. Axolotl finds them in the fund’s files, enrolls them by text with their yes, and renews it every year. Retirees keep more each month. The fund stops paying. Paid from the savings.',
+      'Many retirees on a fund’s Part B reimbursement qualify for New York’s Medicare Savings Program, which pays the whole premium. Most never apply. Mycelium finds them in the fund’s files, enrolls them by text with their yes, and renews it every year. Retirees keep more each month. The fund stops paying. Paid from the savings.',
     shareAlt:
-      'A fund’s monthly ledger from Axolotl: retirees approved for a Medicare Savings Program, renewals sent, applications waiting on the state.',
+      'A fund’s monthly ledger from Mycelium: retirees approved for a Medicare Savings Program, renewals sent, applications waiting on the state.',
   },
 
   a11y: {
     skip: 'Skip to content',
-    home: 'Axolotl home',
+    home: 'Mycelium home',
     menu: 'Menu',
     mainNav: 'Main navigation',
     footerNav: 'Footer',
@@ -61,7 +61,7 @@ export default {
     h1Em: 'the state would pay.',
     // The social card (share.html) draws the headline as one line of plain text.
     h1: 'Your fund reimburses Part B premiums the state would pay.',
-    sub: 'Many retirees on your Part B reimbursement qualify for New York’s Medicare Savings Program, which pays the whole premium. Most never apply. Axolotl finds them in your files, enrolls them by text with their yes, and renews it every year. They keep about $100 more a month. Your fund stops paying. You pay a share of what you save.',
+    sub: 'Many retirees on your Part B reimbursement qualify for New York’s Medicare Savings Program, which pays the whole premium. Most never apply. Mycelium finds them in your files, enrolls them by text with their yes, and renews it every year. They keep about $100 more a month. Your fund stops paying. You pay a share of what you save.',
     primary: 'Get a free scan',
     secondary: 'See the numbers',
     trust: 'For union funds and public retiree plans that reimburse Part B. Nothing if nobody is approved.',
@@ -81,7 +81,7 @@ export default {
         { out: 'YES' },
         { in: 'Sent. I’ll text you as soon as the state confirms it.' },
       ],
-      alt: 'Text thread on a phone. A retiree asks if the fund’s letter about Part B is real. Axolotl says New York pays the whole Part B premium under $2,494 a month and asks whether it is just her and what comes in before Medicare is taken out. She has $2,050 alone, so she qualifies: the state would pay all $202.90, the fund’s half stops, and she keeps about $101 more a month plus Extra Help with prescriptions. Axolotl has filled in the application and will handle the yearly renewal; she replies YES, it is sent, and Axolotl will text when the state confirms.',
+      alt: 'Text thread on a phone. A retiree asks if the fund’s letter about Part B is real. Mycelium says New York pays the whole Part B premium under $2,494 a month and asks whether it is just her and what comes in before Medicare is taken out. She has $2,050 alone, so she qualifies: the state would pay all $202.90, the fund’s half stops, and she keeps about $101 more a month plus Extra Help with prescriptions. Mycelium has filled in the application and will handle the yearly renewal; she replies YES, it is sent, and Mycelium will text when the state confirms.',
     },
     // The social card's ledger. An example, not a client.
     folder: {
@@ -169,7 +169,7 @@ export default {
   // first, so the member has to file anyway, and most file alone.
   how: {
     phone: {
-      contact: 'Axolotl',
+      contact: 'Mycelium',
       meta: 'Six weeks later',
       metaTime: '11:04 AM',
       thread: [
@@ -183,7 +183,7 @@ export default {
         { kind: 'in', text: 'Deal. If your income or address changes, text me here.' },
       ],
       caption: 'Example conversation. Fictional member and fund.',
-      alt: 'Text conversation on a phone, six weeks after applying. Axolotl tells a retiree that New York approved her and Social Security stops taking $202.90 out of her check in May. She asks if her check goes up; yes, and the fund’s half stops the same month, so she comes out about $101 a month ahead, and she gets Extra Help on prescriptions. Axolotl says the benefit renews every year and it will text her in the fall; she agrees, and Axolotl asks her to text if her income or address changes.',
+      alt: 'Text conversation on a phone, six weeks after applying. Mycelium tells a retiree that New York approved her and Social Security stops taking $202.90 out of her check in May. She asks if her check goes up; yes, and the fund’s half stops the same month, so she comes out about $101 a month ahead, and she gets Extra Help on prescriptions. Mycelium says the benefit renews every year and it will text her in the fall; she agrees, and Mycelium asks her to text if her income or address changes.',
     },
   },
 
@@ -207,7 +207,7 @@ export default {
   steps: {
     h2Plain: 'Every retiree, checked every month.',
     h2Em: 'Nothing moves without a yes.',
-    lead: 'Axolotl keeps a live record of where each retiree on your reimbursement stands: watching, likely eligible, contacted, agreed, filed, approved, up for renewal. It reads what changed in your files and in the rules, and moves a retiree forward only when it’s sure. When it isn’t, a person decides.',
+    lead: 'Mycelium keeps a live record of where each retiree on your reimbursement stands: watching, likely eligible, contacted, agreed, filed, approved, up for renewal. It reads what changed in your files and in the rules, and moves a retiree forward only when it’s sure. When it isn’t, a person decides.',
     items: [
       { tag: 'Watch', text: 'Every month: your eligibility and Part B reimbursement files. Every year: the new premium, the cost-of-living raise and New York’s new income limits, which make more retirees eligible each January.' },
       { tag: 'Decide', text: 'The eligibility math is plain code, traceable to the rule and the number. A calibrated decision model reads what changed and says how sure it is. Below the bar, a person on our team looks.' },
@@ -307,15 +307,15 @@ export default {
   // that we are real before they text.
   members: {
     meta: {
-      title: 'Axolotl for members',
-      description: 'Your benefit fund works with Axolotl to help retirees get New York to pay their Medicare Part B premium. You text, we fill in the forms, and nothing is sent without your yes. Free to you.',
-      shareAlt: 'A fund’s monthly ledger from Axolotl.',
+      title: 'Mycelium for members',
+      description: 'Your benefit fund works with Mycelium to help retirees get New York to pay their Medicare Part B premium. You text, we fill in the forms, and nothing is sent without your yes. Free to you.',
+      shareAlt: 'A fund’s monthly ledger from Mycelium.',
     },
     hero: {
       eyebrow: 'For union retirees',
       h1Plain: 'Your fund sent you here.',
       h1Em: 'Here’s who we are.',
-      sub: 'Axolotl works with your benefit fund to help retirees get New York State to pay their Medicare Part B premium, $202.90 a month in 2026. You text. We fill in the forms. Nothing is sent without your yes. It’s free to you.',
+      sub: 'Mycelium works with your benefit fund to help retirees get New York State to pay their Medicare Part B premium, $202.90 a month in 2026. You text. We fill in the forms. Nothing is sent without your yes. It’s free to you.',
       primary: 'Get a text from us',
     },
     help: {
@@ -346,7 +346,7 @@ export default {
     phoneLabel: 'Your phone number',
     placeholder: 'Your phone number',
     submit: 'Text me',
-    note: 'By sending, you agree to receive texts from Axolotl.',
+    note: 'By sending, you agree to receive texts from Mycelium.',
     success: "Thanks. We'll text you at {phone}.",
     error: 'Enter a 10-digit US phone number.',
     generic: "We couldn't save your number. Please try again.",

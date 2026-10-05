@@ -267,6 +267,7 @@ function serve() {
     '.mjs': 'text/javascript; charset=utf-8',
     '.css': 'text/css; charset=utf-8',
     '.png': 'image/png',
+    '.svg': 'image/svg+xml',
     '.otf': 'font/otf',
   };
   const server = createServer(async (req, res) => {
