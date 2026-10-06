@@ -238,7 +238,7 @@ export default {
     h2: 'Quiénes somos',
     body: [
       'El Congreso creó el Programa de Ahorros de Medicare justamente para estos jubilados, y más de un tercio de las personas que califican no están inscritas. Mycelium existe para cerrar esa brecha. Solo cobramos cuando un jubilado es aprobado y sigue cubierto.',
-      'Mycelium lo construye Mitchell Howard, que trabajó en el equipo de alianzas con fondos de capital privado de Clay y estudió en Brown. Fideicomisarios, abogados de fondos e inversionistas pueden escribirnos con el formulario de abajo.',
+      'Mycelium lo construyen Mitch Howard y Sarah Xu, que se conocieron en Clay. Mitch dirigió las alianzas con fondos de capital privado y estudió en Brown. Sarah formó parte del equipo fundador de educación de Clay, creó su certificación y estudió en Stanford. Fideicomisarios, abogados de fondos e inversionistas pueden escribirnos con el formulario de abajo.',
     ],
   },
 

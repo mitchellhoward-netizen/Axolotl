@@ -267,7 +267,7 @@ export default {
     h2: 'Who we are',
     body: [
       'Congress created the Medicare Savings Program for exactly these retirees, and more than a third of the people who qualify aren’t enrolled. Mycelium exists to close that gap. We only get paid when a retiree is approved and stays covered.',
-      'Mycelium is built by Mitchell Howard, who worked on the private equity partnerships team at Clay and studied at Brown. Trustees, fund counsel and investors are welcome to reach us through the form below.',
+      'Mycelium is built by Mitch Howard and Sarah Xu, who met at Clay. Mitch ran private equity partnerships there and studied at Brown. Sarah was on Clay’s founding education team, built its certification, and studied at Stanford. Trustees, fund counsel and investors are welcome to reach us through the form below.',
     ],
   },
 
