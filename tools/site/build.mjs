@@ -318,6 +318,15 @@ function homeSections(s) {
       </div>
     </section>`;
 
+  const ab = at(s, 'about');
+  const about = `
+    <section class="section t-day" id="about" aria-labelledby="about-title">
+      <div class="wrap">
+        <h2 id="about-title">${esc(ab.h2)}</h2>
+        ${ab.body.map((para) => `<p class="lead">${esc(para)}</p>`).join('\n        ')}
+      </div>
+    </section>`;
+
   const p = at(s, 'pilot');
   const pilot = `
     <section class="section section-sheet" aria-labelledby="pilot-title">
@@ -392,7 +401,7 @@ function homeSections(s) {
       </div>
     </section>`;
 
-  return [hero, money, scan, example, after, steps, different, never, pilot, form, membersBand].join('');
+  return [hero, money, scan, example, after, steps, different, never, about, pilot, form, membersBand].join('');
 }
 
 // ── /members ──────────────────────────────────────────────────────────────────

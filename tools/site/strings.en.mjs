@@ -30,7 +30,7 @@ export default {
   meta: {
     title: 'Mycelium: Part B premiums the state would pay',
     description:
-      'Many retirees on a fund’s Part B reimbursement qualify for New York’s Medicare Savings Program, which pays the whole premium. Most never apply. Mycelium finds them in the fund’s files, enrolls them by text with their yes, and renews it every year. Retirees keep more each month. The fund stops paying. Paid from the savings.',
+      'Some retirees on a fund’s Part B reimbursement qualify for New York’s Medicare Savings Program, which pays the whole premium, and many aren’t enrolled. Mycelium finds them in the fund’s files, enrolls them by text with their yes, and renews it every year. The fund stops paying a premium the state would cover. Paid from the savings.',
     shareAlt:
       'A fund’s monthly ledger from Mycelium: retirees approved for a Medicare Savings Program, renewals sent, applications waiting on the state.',
   },
@@ -61,7 +61,7 @@ export default {
     h1Em: 'the state would pay.',
     // The social card (share.html) draws the headline as one line of plain text.
     h1: 'Your fund reimburses Part B premiums the state would pay.',
-    sub: 'Many retirees on your Part B reimbursement qualify for New York’s Medicare Savings Program, which pays the whole premium. Most never apply. Mycelium finds them in your files, enrolls them by text with their yes, and renews it every year. They keep about $100 more a month. Your fund stops paying. You pay a share of what you save.',
+    sub: 'Some of the retirees on your Part B reimbursement qualify for New York’s Medicare Savings Program, which pays the whole premium, and many aren’t enrolled. A free scan of your file tells you how many. Mycelium enrolls them by text with their yes and renews it every year. On a half reimbursement, they keep about $100 more a month. Your fund stops paying. You pay a share of what you save.',
     primary: 'Get a free scan',
     secondary: 'See the numbers',
     trust: 'For union funds and public retiree plans that reimburse Part B. Nothing if nobody is approved.',
@@ -105,8 +105,8 @@ export default {
 
   money: {
     h2Plain: 'Four in ten',
-    h2Em: 'never apply.',
-    lead: 'New York’s Medicare Savings Program pays the whole Part B premium for a retiree with up to about $2,494 a month before deductions, or $3,375 for a couple, and savings don’t count. About 4 in 10 people who qualify aren’t enrolled. When one of them is on your reimbursement, your fund pays a premium the state would cover.',
+    h2Em: 'aren’t enrolled.',
+    lead: 'New York’s Medicare Savings Program pays the whole Part B premium for a retiree with up to about $2,494 a month before deductions, or $3,375 for a couple, and savings don’t count. About 4 in 10 people who qualify for QI, the level most retirees on a reimbursement fall in, aren’t enrolled. When one of them is on your reimbursement, your fund pays a premium the state would cover.',
     stats: {
       eyebrow: 'The rule',
       example: 'New York, 2026',
@@ -114,7 +114,7 @@ export default {
         { v: '$202.90', l: 'Part B premium, every month', note: 'The 2026 standard premium. CMS.' },
         { v: '~$2,494', l: 'A month, one person, before deductions', note: 'New York’s limit with the $20 disregard. About $3,375 for a couple.' },
         { v: 'None', l: 'Asset test in New York', note: 'Savings and a home don’t count.' },
-        { v: '4 in 10', l: 'Eligible people not enrolled', note: 'MACPAC, 2021–23.' },
+        { v: '4 in 10', l: 'Eligible for QI, not enrolled', note: 'Urban Institute and West Health, 2021–23 data.' },
       ],
     },
     head: ['Who', 'Who pays the premium now', 'Who would pay', 'What the retiree gets'],
@@ -129,7 +129,7 @@ export default {
         when: 'A retiree under the limit, on a 100% reimbursement',
         now: 'The plan, all of it',
         should: 'The state, all of it',
-        member: 'Extra Help with prescriptions. The premium stays covered.',
+        member: 'No more paying the premium up front and waiting to be paid back, and Extra Help with prescriptions.',
       },
       {
         when: 'A retiree the state already covers',
@@ -144,7 +144,7 @@ export default {
         member: 'The same as the first row, starting now',
       },
     ],
-    note: 'Premium: 2026 standard Part B. Limits: New York QI-1, 2026, gross with the $20 disregard. Take-up: MACPAC. Extra Help comes automatically with a Medicare Savings Program.',
+    note: 'Premium: 2026 standard Part B. Limits: New York QI-1, 2026, gross with the $20 disregard. Take-up: Urban Institute and West Health (2026), 2021–23 data. Extra Help comes automatically with a Medicare Savings Program.',
   },
 
   example: {
@@ -261,6 +261,16 @@ export default {
     estimate: 'Our estimate for a fund with 50,000 retirees on a 50% Part B reimbursement and modest pensions: roughly $3–9 million a year in premiums the state would pay. The scan replaces it with your number.',
   },
 
+  // Who is behind this, and why it is paid the way it is. Read by trustees,
+  // fund counsel and investors as much as by buyers.
+  about: {
+    h2: 'Who we are',
+    body: [
+      'Congress created the Medicare Savings Program for exactly these retirees, and more than a third of the people who qualify aren’t enrolled. Mycelium exists to close that gap. We only get paid when a retiree is approved and stays covered.',
+      'Mycelium is built by Mitchell Howard, who worked on the private equity partnerships team at Clay and studied at Brown. Trustees, fund counsel and investors are welcome to reach us through the form below.',
+    ],
+  },
+
   pilot: {
     h2: 'Start with one mailing',
     lead: 'Pick the retirees on your Part B reimbursement who likely qualify. You send one letter. We screen, file, follow each case to approval and renew it every year.',
@@ -321,7 +331,7 @@ export default {
     help: {
       h2: 'What we can help with',
       items: [
-        { title: 'Your Medicare premium', body: 'If your income is under New York’s limit, the state may pay your whole Part B premium. If your fund pays back half of it today, that stops, and you still come out about $100 a month ahead.' },
+        { title: 'Your Medicare premium', body: 'If your income is under New York’s limit, the state may pay your whole Part B premium. If your fund pays back half of it today, that stops, and you still come out about $100 a month ahead. If it pays back all of it, the premium stops coming out of your check, so you no longer wait to be paid back.' },
         { title: 'Prescriptions', body: 'Extra Help lowers what you pay for medicines. Anyone in a Medicare Savings Program gets it automatically.' },
         { title: 'Renewing every year', body: 'The state asks for a renewal each year. We text you before it’s due, and send it with your yes.' },
         { title: 'When something changes', body: 'If you move, your income changes or your spouse passes away, text us. We’ll tell you what it means and update it.' },

@@ -16,7 +16,7 @@ export default {
   meta: {
     title: 'Mycelium: primas de la Parte B que pagaría el estado',
     description:
-      'Muchos jubilados con reembolso de la Parte B califican para el Programa de Ahorros de Medicare de Nueva York, que paga la prima completa. La mayoría nunca lo solicita. Mycelium los encuentra en los archivos del fondo, los inscribe por texto con su sí y lo renueva cada año. Los jubilados reciben más cada mes. El fondo deja de pagar. Se paga con los ahorros.',
+      'Algunos jubilados con reembolso de la Parte B califican para el Programa de Ahorros de Medicare de Nueva York, que paga la prima completa, y muchos no están inscritos. Mycelium los encuentra en los archivos del fondo, los inscribe por texto con su sí y lo renueva cada año. El fondo deja de pagar una prima que cubriría el estado. Se paga con los ahorros.',
     shareAlt:
       'El reporte mensual de Mycelium para un fondo: jubilados aprobados para un Programa de Ahorros de Medicare, renovaciones enviadas, solicitudes esperando al estado.',
   },
@@ -43,7 +43,7 @@ export default {
     h1Plain: 'Su fondo reembolsa primas de la Parte B',
     h1Em: 'que pagaría el estado.',
     h1: 'Su fondo reembolsa primas de la Parte B que pagaría el estado.',
-    sub: 'Muchos jubilados con su reembolso de la Parte B califican para el Programa de Ahorros de Medicare de Nueva York, que paga la prima completa. La mayoría nunca lo solicita. Mycelium los encuentra en sus archivos, los inscribe por texto con su sí y lo renueva cada año. Ellos reciben unos $100 más al mes. Su fondo deja de pagar. Usted paga una parte de lo que ahorra.',
+    sub: 'Algunos de los jubilados con su reembolso de la Parte B califican para el Programa de Ahorros de Medicare de Nueva York, que paga la prima completa, y muchos no están inscritos. Una revisión gratis de su archivo le dice cuántos. Mycelium los inscribe por texto con su sí y lo renueva cada año. Con un reembolso de la mitad, reciben unos $100 más al mes. Su fondo deja de pagar. Usted paga una parte de lo que ahorra.',
     primary: 'Pedir una revisión gratis',
     secondary: 'Ver las cifras',
     trust: 'Para fondos sindicales y planes públicos de jubilados que reembolsan la Parte B. Nada si nadie es aprobado.',
@@ -82,8 +82,8 @@ export default {
 
   money: {
     h2Plain: 'Cuatro de cada diez',
-    h2Em: 'nunca lo solicitan.',
-    lead: 'El Programa de Ahorros de Medicare de Nueva York paga toda la prima de la Parte B a un jubilado que recibe hasta unos $2,494 al mes antes de descuentos, o $3,375 una pareja, y los ahorros no cuentan. Cerca de 4 de cada 10 personas que califican no están inscritas. Cuando una de ellas está en su reembolso, su fondo paga una prima que cubriría el estado.',
+    h2Em: 'no están inscritos.',
+    lead: 'El Programa de Ahorros de Medicare de Nueva York paga toda la prima de la Parte B a un jubilado que recibe hasta unos $2,494 al mes antes de descuentos, o $3,375 una pareja, y los ahorros no cuentan. Cerca de 4 de cada 10 personas que califican para QI, el nivel en que cae la mayoría de los jubilados con reembolso, no están inscritas. Cuando una de ellas está en su reembolso, su fondo paga una prima que cubriría el estado.',
     stats: {
       eyebrow: 'La regla',
       example: 'Nueva York, 2026',
@@ -91,7 +91,7 @@ export default {
         { v: '$202.90', l: 'Prima de la Parte B, cada mes', note: 'La prima estándar de 2026. CMS.' },
         { v: '~$2,494', l: 'Al mes, una persona, antes de descuentos', note: 'El límite de Nueva York con la exclusión de $20. Unos $3,375 para una pareja.' },
         { v: 'Ninguna', l: 'Prueba de bienes en Nueva York', note: 'Los ahorros y la casa no cuentan.' },
-        { v: '4 de 10', l: 'Personas elegibles sin inscribirse', note: 'MACPAC, 2021–23.' },
+        { v: '4 de 10', l: 'Elegibles para QI, sin inscribirse', note: 'Urban Institute y West Health, datos de 2021–23.' },
       ],
     },
     head: ['Quién', 'Quién paga la prima hoy', 'Quién pagaría', 'Qué recibe el jubilado'],
@@ -106,7 +106,7 @@ export default {
         when: 'Un jubilado bajo el límite, con reembolso del 100%',
         now: 'El plan, todo',
         should: 'El estado, todo',
-        member: 'Ayuda Adicional con sus recetas. La prima sigue cubierta.',
+        member: 'Ya no paga la prima por adelantado para esperar el reembolso, y recibe Ayuda Adicional con sus recetas.',
       },
       {
         when: 'Un jubilado al que el estado ya cubre',
@@ -121,7 +121,7 @@ export default {
         member: 'Lo mismo que la primera fila, desde ahora',
       },
     ],
-    note: 'Prima: Parte B estándar de 2026. Límites: QI-1 de Nueva York, 2026, ingreso bruto con la exclusión de $20. Inscripción: MACPAC. La Ayuda Adicional llega automáticamente con un Programa de Ahorros de Medicare.',
+    note: 'Prima: Parte B estándar de 2026. Límites: QI-1 de Nueva York, 2026, ingreso bruto con la exclusión de $20. Inscripción: Urban Institute y West Health (2026), datos de 2021–23. La Ayuda Adicional llega automáticamente con un Programa de Ahorros de Medicare.',
   },
 
   example: {
@@ -234,6 +234,14 @@ export default {
     estimate: 'Nuestro cálculo para un fondo con 50,000 jubilados, reembolso del 50% de la Parte B y pensiones modestas: unos $3–9 millones al año en primas que pagaría el estado. La revisión lo reemplaza con su cifra.',
   },
 
+  about: {
+    h2: 'Quiénes somos',
+    body: [
+      'El Congreso creó el Programa de Ahorros de Medicare justamente para estos jubilados, y más de un tercio de las personas que califican no están inscritas. Mycelium existe para cerrar esa brecha. Solo cobramos cuando un jubilado es aprobado y sigue cubierto.',
+      'Mycelium lo construye Mitchell Howard, que trabajó en el equipo de alianzas con fondos de capital privado de Clay y estudió en Brown. Fideicomisarios, abogados de fondos e inversionistas pueden escribirnos con el formulario de abajo.',
+    ],
+  },
+
   pilot: {
     h2: 'Empiece con un envío',
     lead: 'Elija a los jubilados de su reembolso de la Parte B que probablemente califican. Usted envía una carta. Nosotros verificamos, presentamos, seguimos cada caso hasta la aprobación y lo renovamos cada año.',
@@ -291,7 +299,7 @@ export default {
     help: {
       h2: 'Con qué le podemos ayudar',
       items: [
-        { title: 'Su prima de Medicare', body: 'Si sus ingresos están por debajo del límite de Nueva York, el estado puede pagar toda su prima de la Parte B. Si hoy su fondo le devuelve la mitad, eso se acaba, y usted igual queda unos $100 al mes por delante.' },
+        { title: 'Su prima de Medicare', body: 'Si sus ingresos están por debajo del límite de Nueva York, el estado puede pagar toda su prima de la Parte B. Si hoy su fondo le devuelve la mitad, eso se acaba, y usted igual queda unos $100 al mes por delante. Si le devuelve todo, la prima deja de salir de su cheque, así que ya no espera el reembolso.' },
         { title: 'Recetas', body: 'La Ayuda Adicional baja lo que paga por sus medicinas. Quien está en un Programa de Ahorros de Medicare la recibe automáticamente.' },
         { title: 'La renovación de cada año', body: 'El estado pide una renovación cada año. Le escribimos antes de la fecha y la enviamos con su sí.' },
         { title: 'Cuando algo cambia', body: 'Si se muda, cambian sus ingresos o fallece su cónyuge, escríbanos. Le explicamos qué significa y lo actualizamos.' },
