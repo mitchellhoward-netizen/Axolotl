@@ -1,0 +1,84 @@
+# Assumptions for model.py: what SSDI help is worth to a multiemployer health fund.
+#
+# Each value says where it comes from. "sourced" values trace to the four
+# research notes in this folder; "assumption" values are ours and are the
+# first things a pilot or a fund's own claims data should replace.
+# Checked 2026-10-07.
+
+awards_per_10k_members_per_year:
+  low: 30
+  middle: 45
+  high: 55
+  kind: sourced (inferred from SSA actuarial incidence by age)
+  source: funds_incidence_market.md, summary 1-2 and A1-A3
+
+incremental_award_share:
+  description: >-
+    Share of SSDI awards in a fund that happen only because we found the
+    member, filed, and kept the case going through appeal. Members a fund
+    already pushes toward SSDI (disability pensions, 32BJ LTD) would mostly
+    get there without us.
+  low: 0.05
+  middle: 0.15
+  high: 0.30
+  kind: assumption
+  basis: >-
+    26% of potentially eligible work-disabled adults in one survey never
+    applied (funds_incidence_market.md F7, secondary); final award rates are
+    about 29-34% and most denials are never appealed to hearing
+    (ssa_process_and_fees.md). No study measures what outreach adds.
+
+months_earlier:
+  description: >-
+    For awards that would happen anyway, how many months earlier the member
+    files (and so reaches Medicare) because we prompted and did the paperwork.
+    Medicare starts 24 months after entitlement, and entitlement depends on
+    the filing date (back pay reaches at most 12 months before filing).
+  low: 1
+  middle: 3
+  high: 6
+  kind: assumption
+  source: ssa_process_and_fees.md (back pay and Medicare section)
+
+share_touched_for_speed:
+  description: Share of would-happen-anyway awards whose filing we speed up.
+  low: 0.3
+  middle: 0.5
+  high: 0.7
+  kind: assumption
+
+share_still_covered_at_medicare:
+  description: >-
+    Share of awardees the fund still covers when Medicare starts (about month
+    29 after onset): disability pensioners with retiree health, long
+    extensions. Funds whose coverage ends at 26 weeks to 30 months (32BJ: up
+    to 30 months) save little or nothing on health.
+  low: 0.2
+  middle: 0.4
+  high: 0.6
+  kind: assumption (measure per fund)
+  basis: >-
+    74% of multiemployer health plans cover retirees (IFEBP, in
+    funds_incidence_market.md); disability extensions run 26 weeks to 30
+    months (same file, summary 5).
+
+savings_per_member_year:
+  description: Fund saves this per member-year once Medicare is primary and the fund keeps drug coverage (2026 $).
+  low: 11459
+  middle: 23250
+  high: 35067
+  kind: sourced (inferred; arithmetic in health_costs.md step 4)
+
+member_years_of_savings:
+  description: >-
+    Expected years of savings per member who reaches Medicare, after deaths
+    and recoveries and before age 65 (when Medicare would be primary for a
+    retiree anyway).
+  low: 3.0
+  middle: 4.4
+  high: 5.5
+  kind: "sourced (health_costs.md step 6, 4.43-4.6 over 5 years) with the age-65 cap as an assumption"
+
+fee_share_of_savings:
+  middle: 0.20
+  kind: assumption (same as the Part B estimate on the website)
