@@ -65,6 +65,15 @@ screenshot cannot ship. The raw screen template is
 iPhone, and swapping in a real one means replacing the image and deleting that
 file.
 
+The two Part B calculators (the fund estimate at `/#estimate` and the member
+check at `/members#check`) take their New York numbers from the rules archive,
+never from the strings files: `cd archive && python -m tools.export_site_data`
+writes `tools/site/msp-ny.json`, and the arithmetic lives in
+`public/msp-calc.js`, which the build also runs to print each calculator's
+default result. `python -m tools.export_site_data --check` and
+`archive/tests/test_site_calculator.py` fail if the site and the archive drift.
+Re-export after the archive's MSP numbers change (each January), then rebuild.
+
 Social cards are generated too: `node scripts/build-share.mjs` renders
 `public/share.png` and `public/share-es.png` from `tools/site/share.html`, which
 reads the same strings. Re-run it after changing the hero copy.

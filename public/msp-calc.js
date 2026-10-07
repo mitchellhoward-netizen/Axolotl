@@ -87,7 +87,59 @@
     };
   }
 
-  var api = { countable: countable, member: member, fund: fund, num: num };
+  /** "$1,217" or "$202.90", in the page's language. */
+  function money(lang, n, cents) {
+    var digits = cents ? 2 : 0;
+    return new Intl.NumberFormat(lang === "es" ? "es-US" : "en-US", {
+      style: "currency", currency: "USD", minimumFractionDigits: digits, maximumFractionDigits: digits,
+    }).format(n);
+  }
+
+  function count(lang, n) {
+    return new Intl.NumberFormat(lang === "es" ? "es-US" : "en-US").format(n);
+  }
+
+  function fill(tpl, vars) {
+    return String(tpl).replace(/\{(\w+)\}/g, function (m, k) { return vars[k] === undefined ? m : vars[k]; });
+  }
+
+  /** The sentences a member sees. tpl holds the page's templates (strings.<lang>.mjs members.calc). */
+  function memberText(rules, input, tpl, lang) {
+    var r = member(rules, input);
+    var premium = money(lang, rules.values.part_b_premium_monthly, true);
+    var each = input.couple && input.onMedicare === 2;
+    var premiumText = fill(each ? tpl.premiumEach : tpl.premiumOne, { premium: premium });
+    var headline, gain = "", extra = "";
+    if (r.tier === "needs_part_a") headline = tpl.needs_part_a;
+    else if (r.tier === "over") headline = fill(tpl.over, { over: money(lang, Math.ceil(r.over), false) });
+    else if (r.medicaidChoice) headline = tpl.medicaid;
+    else {
+      headline = fill(tpl[r.tier], { premiumText: premiumText });
+      gain = r.gainMonthly > 0
+        ? fill(tpl.gain, { month: money(lang, r.gainMonthly, true), year: money(lang, Math.round(r.gainYearly), false) })
+        : tpl.gainNone;
+      extra = tpl.extraHelp;
+    }
+    return { tier: r.tier, headline: headline, gain: gain, extra: extra };
+  }
+
+  /** The figures a fund sees, formatted. */
+  function fundText(rules, input, tpl, lang) {
+    var r = fund(rules, input);
+    return {
+      eligible: count(lang, r.eligible),
+      gross: money(lang, r.gross, false),
+      fee: money(lang, r.fee, false),
+      net: money(lang, r.net, false),
+      retirees: money(lang, r.toRetirees, false),
+      perRetiree: fill(tpl.perRetiree, { amount: money(lang, r.perRetiree, false) }),
+    };
+  }
+
+  var api = {
+    countable: countable, member: member, fund: fund, num: num,
+    money: money, fill: fill, memberText: memberText, fundText: fundText,
+  };
   if (typeof module !== "undefined" && module.exports) module.exports = api;
   root.MSPCalc = api;
 })(typeof globalThis !== "undefined" ? globalThis : this);

@@ -7,9 +7,9 @@ name: Rules archive
 on:
   push:
     branches: [main]
-    paths: ['archive/**', '.github/workflows/rules-archive.yml']
+    paths: ['archive/**', 'tools/site/msp-ny.json', 'public/msp-calc.js', '.github/workflows/rules-archive.yml']
   pull_request:
-    paths: ['archive/**', '.github/workflows/rules-archive.yml']
+    paths: ['archive/**', 'tools/site/msp-ny.json', 'public/msp-calc.js', '.github/workflows/rules-archive.yml']
 
 jobs:
   validate:
@@ -30,3 +30,5 @@ jobs:
         run: python -m pytest
       - name: Yearly checklist is current
         run: python -m tools.yearly_checklist --check
+      - name: Website calculator numbers match the archive
+        run: python -m tools.export_site_data --check

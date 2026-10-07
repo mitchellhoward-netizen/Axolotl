@@ -31,8 +31,9 @@
       href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/site.css?v=17" />
-    <script src="/site.js?v=17" defer></script>
+    <link rel="stylesheet" href="/site.css?v=18" />
+    <script src="/msp-calc.js?v=18" defer></script>
+    <script src="/site.js?v=18" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main">Saltar al contenido</a>
@@ -122,6 +123,48 @@
           </tbody>
         </table>
         <p class="network-note">Prima: Parte B estándar de 2026. Límites: QI-1 de Nueva York, 2026, ingreso bruto con la exclusión de $20. Inscripción: MACPAC. La Ayuda Adicional llega automáticamente con un Programa de Ahorros de Medicare.</p>
+      </div>
+    </section>
+    <section class="section t-noon" id="estimate" aria-labelledby="estimate-title">
+      <div class="wrap">
+        <h2 id="estimate-title">Su número, <em>en un minuto.</em></h2>
+        <p class="lead">Un cálculo aproximado con tres números que usted ya conoce, usando los límites de Nueva York de 2026 y la prima de la Parte B de 2026. El análisis gratuito cambia el cálculo por un conteo de sus propios archivos.</p>
+        <form class="calc" data-calc="fund" data-lang="es" data-tpl="{&quot;perRetiree&quot;:&quot;Cada jubilado aprobado le vale a su fondo {amount} al año, cada año que siga inscrito.&quot;}" novalidate>
+          <div class="calc-inputs">
+            <div class="field">
+              <label for="fund-retirees">Jubilados a quienes les reembolsa la Parte B</label>
+              <input id="fund-retirees" name="retirees" type="number" inputmode="numeric" min="0" step="1" value="2000" />
+            </div>
+            <div class="field">
+              <label for="fund-reimbursed">Cuánto de la prima les devuelve</label>
+              <select id="fund-reimbursed" name="reimbursed"><option value="0.5" selected>La mitad</option><option value="1">Toda</option><option value="0.25">Una cuarta parte</option><option value="0.75">Tres cuartas partes</option></select>
+            </div>
+            <div class="field">
+              <label for="fund-eligible">Porcentaje que probablemente está bajo el límite de Nueva York <output for="fund-eligible" data-out="share">10%</output></label>
+              <input id="fund-eligible" name="eligibleShare" type="range" min="1" max="40" step="1" value="10" aria-describedby="fund-eligible-hint" />
+              <span class="hint" id="fund-eligible-hint">Su cálculo. El límite es de unos $2,494 al mes para una persona o $3,375 para una pareja, contando el Seguro Social antes de descontar Medicare, las pensiones y otros ingresos. Los ahorros y la casa no cuentan.</span>
+            </div>
+          </div>
+          <div class="calc-results brief-card" aria-live="polite">
+            <h3 class="brief-eyebrow">Al año, si a cada uno lo aprueban</h3>
+            <ul class="brief-rows brief-rows-money">
+              <li><span class="brief-v" data-out="eligible">200</span><span class="brief-l">Jubilados que probablemente califican</span></li>
+              <li><span class="brief-v" data-out="gross">$243,480</span><span class="brief-l">Primas que Nueva York pagaría en lugar de usted</span></li>
+              <li><span class="brief-v" data-out="fee">$48,696</span><span class="brief-l">Nuestra tarifa, el 20% de eso</span></li>
+              <li><span class="brief-v" data-out="net">$194,784</span><span class="brief-l">Lo que su fondo se ahorra</span></li>
+              <li><span class="brief-v" data-out="retirees">$243,480</span><span class="brief-l">Lo que vuelve a los cheques de los jubilados</span></li>
+            </ul>
+            <p class="calc-line" data-out="perRetiree">Cada jubilado aprobado le vale a su fondo $1,217 al año, cada año que siga inscrito.</p>
+            <p class="brief-note">Esto es el máximo, no una promesa. No todos dicen que sí, y las aprobaciones tardan unos meses.</p>
+          </div>
+        </form>
+        <noscript><p class="calc-noscript">Active JavaScript para cambiar los números. Las cifras corresponden al ejemplo.</p></noscript>
+        <div class="calc-scan">
+          <h3>Lo que agrega el análisis gratuito</h3>
+          <ul class="plain-list"><li>El conteo real de sus propios archivos, en lugar de un cálculo</li><li>Quiénes son, para que una sola carta llegue a los jubilados correctos</li><li>Primas que usted reembolsa y que ya paga el estado u otro plan</li></ul>
+          <a class="button primary" href="#school-contact">Obtenga su número real</a>
+        </div>
+        <script type="application/json" id="msp-rules">{"state":"ny","as_of":"2026-10-07","rules":["MSP-NY-QMB-INCOME","MSP-NY-QI-INCOME","MSP-NY-NO-RESOURCE-TEST","MSP-NY-DISREGARD","MSP-NY-COUPLE","MSP-NY-PART-A","MSP-NY-QI-NOT-MEDICAID","MSP-FED-EXTRA-HELP-DEEMED"],"values":{"part_b_premium_monthly":202.9,"part_b_deductible_yearly":283,"income_disregard_monthly":20,"earned_exclusion_monthly":65,"qmb_standard_monthly":{"1":1836,"2":2489},"qi_standard_monthly":{"1":2474,"2":3355}},"provenance":{"part_b_premium_monthly":{"parameter":"federal.cms.part_b_standard_premium","effective_from":"2026-01-01","confidence":"confirmed","sources":["cms-2026-part-a-b-premiums"]},"part_b_deductible_yearly":{"parameter":"federal.cms.part_b_deductible","effective_from":"2026-01-01","confidence":"confirmed","sources":["cms-2026-part-a-b-premiums"]},"income_disregard_monthly":{"parameter":"ny.msp.income_disregard_monthly","effective_from":"2026-01-01","confidence":"confirmed","sources":["ny-doh-msp-2026","ny-mrg-income"]},"earned_exclusion_monthly":{"parameter":"federal.ssi.earned_income_exclusion_monthly","effective_from":"1974-01-01","confidence":"confirmed","sources":["usc-42-1382a"]},"qmb_standard_monthly":{"parameter":"ny.msp.qmb_income_limit_monthly","effective_from":"2026-01-01","confidence":"confirmed","sources":["ny-gis-26-ma-05-att1","ny-doh-msp-2026"]},"qi_standard_monthly":{"parameter":"ny.msp.qi_income_limit_monthly","effective_from":"2026-01-01","confidence":"confirmed","sources":["ny-gis-26-ma-05-att1","ny-doh-msp-2026"]}}}</script>
       </div>
     </section>
     <section class="section t-golden" id="scan" aria-labelledby="scan-title">
