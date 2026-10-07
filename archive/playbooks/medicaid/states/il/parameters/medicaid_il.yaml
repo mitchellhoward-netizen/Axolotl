@@ -1,6 +1,6 @@
 # Illinois medical program standards, from the IDHS Policy Manual (WAG 25-03-02
 # (2) Medical FPLs and PM 07/15). The WAG page labels its tables "2026" but does
-# not say from what date IDHS applies the 2026 FPL standards (IL-OQ-01). The
+# not say from what date IDHS applies the 2026 FPL standards (MCD-IL-OQ-01). The
 # archive therefore records the 2026 values only from the date they were
 # verified in force (the snapshot date, 2026-10-07) and leaves earlier 2026
 # dates null, so January-October 2026 Illinois cases come back undetermined.
@@ -10,18 +10,18 @@ parameters:
     compare_to: Monthly MAGI household income for the household size, compared directly; IDHS says the 138% figure "includes 5% disregard".
     unit: usd_per_month
     keyed_by: household_size (1-10; "additional" = each person above 10)
-    open_question: IL-OQ-01
+    open_question: MCD-IL-OQ-01
     updates: Yearly with the FPL; IDHS updates WAG 25-03-02 (2).
     values:
       - effective_from: 2026-01-01
         effective_to: 2026-10-06
         value: null
         confidence: unresolved
-        open_question: IL-OQ-01
+        open_question: MCD-IL-OQ-01
       - effective_from: 2026-10-07
         value: {1: 1835, 2: 2488, 3: 3141, 4: 3795, 5: 4448, 6: 5101, 7: 5754, 8: 6407, 9: 7061, 10: 7714, additional: 652}
         confidence: confirmed
-        note: Date is the snapshot date, not a published effective date (IL-OQ-01).
+        note: Date is the snapshot date, not a published effective date (MCD-IL-OQ-01).
         sources:
           - source: il-idhs-wag-25-03-02-2-mcd
             locator: "2026 Family Health Plans Monthly Income Standards, column FamilyCare and ACA Adults MAGI - 138% FPL (includes 5% disregard) (Adults)"
@@ -32,18 +32,18 @@ parameters:
     compare_to: Monthly MAGI household income for the household size including the unborn child, compared directly.
     unit: usd_per_month
     keyed_by: household_size (2-10; "additional" = each person above 10)
-    open_question: IL-OQ-01
+    open_question: MCD-IL-OQ-01
     updates: Yearly with the FPL.
     values:
       - effective_from: 2026-01-01
         effective_to: 2026-10-06
         value: null
         confidence: unresolved
-        open_question: IL-OQ-01
+        open_question: MCD-IL-OQ-01
       - effective_from: 2026-10-07
         value: {2: 3841, 3: 4849, 4: 5857, 5: 6865, 6: 7873, 7: 8882, 8: 9890, 9: 10898, 10: 11906, additional: 1007}
         confidence: confirmed
-        note: Date is the snapshot date (IL-OQ-01).
+        note: Date is the snapshot date (MCD-IL-OQ-01).
         sources:
           - source: il-idhs-wag-25-03-02-2-mcd
             locator: "column MPE and Moms & Babies MAGI - 213% FPL (includes 5% disregard), Household Size = 2"
@@ -56,18 +56,18 @@ parameters:
       spouse: always the 2-person standard.
     unit: usd_per_month
     keyed_by: household_size (persons included in the standard, 1-10; "additional" above 10)
-    open_question: IL-OQ-01
+    open_question: MCD-IL-OQ-01
     updates: Yearly with the FPL.
     values:
       - effective_from: 2026-01-01
         effective_to: 2026-10-06
         value: null
         confidence: unresolved
-        open_question: IL-OQ-01
+        open_question: MCD-IL-OQ-01
       - effective_from: 2026-10-07
         value: {1: 1330, 2: 1803, 3: 2276, 4: 2750, 5: 3223, 6: 3696, 7: 4170, 8: 4643, 9: 5116, 10: 5590, additional: 473}
         confidence: confirmed
-        note: Date is the snapshot date (IL-OQ-01).
+        note: Date is the snapshot date (MCD-IL-OQ-01).
         sources:
           - source: il-idhs-wag-25-03-02-2-mcd
             locator: "AABD Medical/Medicare Savings Programs/HBWD, 2026 Monthly Income Standards, AABD 100% FPL column"

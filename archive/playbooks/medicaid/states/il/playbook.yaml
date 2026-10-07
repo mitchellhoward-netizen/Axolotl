@@ -1,0 +1,463 @@
+schema_version: 2
+program: medicaid
+scope: il
+title: Medicaid — Illinois
+last_researched: 2026-10-07
+
+summary:
+  plain_language: >-
+    Illinois Medicaid covers ACA Adults (19-64, no Medicare) and parents and
+    caretaker relatives (FamilyCare) up to 138% FPL ($1,835 a month for one
+    person, $3,141 for three) and pregnant people (Moms & Babies) up to 213%,
+    with no asset test. People 65+, blind or disabled use AABD Medical:
+    countable income after a $25 disregard (SSI not counted) at or below 100%
+    FPL ($1,330 single, $1,803 couple) and nonexempt assets at or below
+    $17,500 whatever the household size (since May 12, 2023). Being over
+    either is not a denial: the person is enrolled in spenddown and gets
+    Medicaid once medical bills (or a Pay-In Spenddown payment) cover the
+    excess income, plus any excess assets. Illinois is a 209(b) state, so SSI
+    recipients must apply for AABD Medical. Apply online through ABE
+    (abe.illinois.gov), by phone at 1-800-843-6154, at an IDHS Family
+    Community Resource Center, or on paper form IL444-2378B; renew through
+    ABE Manage My Case or the mailed forms.
+  administered_by: >-
+    Illinois Department of Healthcare and Family Services (HFS) is the
+    Medicaid agency; the Illinois Department of Human Services (IDHS) Family
+    Community Resource Centers take applications and decide eligibility
+    (IES system, ABE portal).
+  funded_by: Federal/state Medicaid match.
+  local_names:
+    - {name: ACA Adults, meaning: Illinois name for the adult expansion group}
+    - {name: FamilyCare / All Kids, meaning: Medicaid for parents and caretaker relatives / for children}
+    - {name: Moms & Babies, meaning: Medicaid for pregnant people and infants}
+    - {name: AABD Medical, meaning: "Aid to the Aged, Blind and Disabled medical assistance (non-MAGI)"}
+    - {name: ABE, meaning: Application for Benefits Eligibility (online portal; Manage My Case)}
+    - {name: FCRC, meaning: IDHS Family Community Resource Center (local office)}
+    - {name: REDE, meaning: Redetermination (renewal)}
+    - {name: Spenddown / Pay-In Spenddown, meaning: Medicaid after excess income/assets are met with medical bills or paid to HFS}
+  confidence: confirmed
+  sources:
+    - {source: il-idhs-wag-25-03-02-2-mcd, locator: "2026 Family Health Plans and AABD Medical tables"}
+    - {source: il-idhs-pm-07-02-01-mcd, locator: "WAG 07-02-01"}
+    - {source: il-idhs-pm-15-02-02, locator: "Community Spenddown"}
+    - {source: il-idhs-pm-02-04-01, locator: "A person may apply for benefits"}
+
+rules:
+  - id: MCD-IL-ACA-ADULT
+    statement: >-
+      In Illinois in 2026, an adult aged 19-64 without Medicare who is not
+      pregnant qualifies for Medicaid as an ACA Adult if monthly MAGI
+      household income is at or below 138% FPL including the 5% disregard:
+      $1,835 for one person, $2,488 for two, $3,141 for three (each
+      additional person $652), with no asset test.
+    kind: eligibility
+    applies_to: [adult_expansion]
+    effective_from: 2026-10-07
+    parameters: [il.medicaid.aca_adult_income_limit_monthly]
+    implemented_in: playbooks/medicaid/federal/rules.py:magi_test
+    confidence: confirmed
+    note: Effective date is when the 2026 figures were verified in force; the date IDHS began using them is MCD-IL-OQ-01.
+    sources:
+      - {source: il-idhs-pm-15-06-01-b, locator: "The income standard for ACA Adults is 138% of the Federal Poverty Level"}
+      - {source: il-idhs-wag-25-03-02-2-mcd, locator: "FamilyCare and ACA Adults MAGI - 138% FPL (includes 5% disregard): 1 $1,835; 2 2,488; 3 3,141"}
+  - id: MCD-IL-FAMILYCARE
+    statement: >-
+      In Illinois in 2026, a parent or caretaker relative qualifies for
+      FamilyCare Medicaid with MAGI household income at or below 138% FPL
+      ($1,835 for one, $2,488 for two, $3,141 for three a month).
+    kind: eligibility
+    applies_to: [parent_caretaker]
+    effective_from: 2026-10-07
+    parameters: [il.medicaid.aca_adult_income_limit_monthly]
+    implemented_in: playbooks/medicaid/federal/rules.py:magi_test
+    confidence: confirmed
+    note: Whether a parent enrolled in Medicare can use FamilyCare was not established; the evaluator sends such a parent to AABD.
+    sources:
+      - {source: il-idhs-wag-25-03-02-2-mcd, locator: "FamilyCare and ACA Adults MAGI - 138% FPL column"}
+  - id: MCD-IL-MOMS-BABIES
+    statement: >-
+      In Illinois in 2026, a pregnant person qualifies for Moms & Babies
+      Medicaid with MAGI household income (counting the unborn child) at or
+      below 213% FPL including the 5% disregard: $3,841 a month for a household
+      of two, $4,849 for three.
+    kind: eligibility
+    applies_to: [pregnant]
+    effective_from: 2026-10-07
+    parameters: [il.medicaid.moms_babies_income_limit_monthly]
+    implemented_in: playbooks/medicaid/federal/rules.py:magi_test
+    confidence: confirmed
+    sources:
+      - {source: il-idhs-wag-25-03-02-2-mcd, locator: "MPE and Moms & Babies MAGI - 213% FPL (includes 5% disregard)"}
+  - id: MCD-IL-209B
+    statement: >-
+      Illinois is a 209(b) state: receiving SSI does not by itself give
+      Illinois Medicaid; an SSI recipient applies for AABD Medical, where the
+      SSI payment is protected and not counted as income.
+    kind: coordination
+    applies_to: [ssi_recipient]
+    effective_from: 2026-10-07
+    overrides: [MCD-FED-SSI-1634]
+    implemented_in: playbooks/medicaid/states/il/rules.py:evaluate
+    confidence: confirmed
+    sources:
+      - {source: ssa-poms-si-01715-010-mcd, locator: "A.1 209(b) States: Illinois"}
+      - {source: il-idhs-pm-15-04-03-c, locator: "monthly SSI benefits are protected income ... deduct SSI benefits from total gross income"}
+  - id: MCD-IL-AABD-INCOME
+    statement: >-
+      In Illinois in 2026, a person 65 or older, blind or disabled living in
+      the community qualifies for AABD Medical without spenddown if countable
+      monthly income (after the $25 disregard, with SSI not counted) is at or
+      below 100% FPL: $1,330 for one person or $1,803 for two.
+    kind: eligibility
+    applies_to: [aabd]
+    effective_from: 2026-10-07
+    parameters: [il.medicaid.aabd_income_limit_monthly]
+    implemented_in: playbooks/medicaid/states/il/rules.py:evaluate
+    confidence: confirmed
+    sources:
+      - {source: il-idhs-pm-15-06-02-a, locator: "The Community Standard is 100% of the Federal Poverty Level"}
+      - {source: il-idhs-wag-25-03-02-2-mcd, locator: "AABD 100% FPL: 1 $1,330; 2 1,803"}
+  - id: MCD-IL-AABD-DISREGARD
+    statement: >-
+      In Illinois AABD Medical, the first $25 a month of earned or unearned
+      income other than SSI and contributions is exempt; a second $25 is
+      allowed when a spouse in the standard is also applying for or receiving
+      AABD Medical and also has such income.
+    kind: definition
+    applies_to: [aabd]
+    effective_from: 2026-10-07
+    parameters: [il.medicaid.aabd_income_disregard_monthly]
+    overrides: [MCD-FED-NONMAGI-METHOD]
+    implemented_in: playbooks/medicaid/states/il/rules.py:evaluate
+    confidence: confirmed
+    note: AABD earned-income exemptions (PM 08-02-02/03) were not retrieved; cases with earnings return undetermined (MCD-IL-OQ-03).
+    sources:
+      - {source: il-idhs-pm-15-04-03-a, locator: "WAG 15-04-03-a"}
+      - {source: il-idhs-pm-15-05-03, locator: "AABD income disregard of $25"}
+  - id: MCD-IL-SPOUSE-STANDARD
+    statement: >-
+      In Illinois AABD Medical, a person living with a spouse is always
+      measured against the 2-person income standard with both spouses'
+      income, whether or not the spouse receives assistance.
+    kind: definition
+    applies_to: [aabd]
+    effective_from: 2026-10-07
+    implemented_in: playbooks/medicaid/states/il/rules.py:evaluate
+    confidence: confirmed
+    sources:
+      - {source: il-idhs-pm-15-06-02-c, locator: "When a client is living with their spouse, always use the 2-person standard and asset limit"}
+  - id: MCD-IL-AABD-ASSET
+    statement: >-
+      Since May 12, 2023, Illinois's asset limit for AABD Medical is $17,500
+      whether one person or more is in the household (the $2,000 / $3,000
+      limits now apply only to AABD cash).
+    kind: eligibility
+    applies_to: [aabd]
+    effective_from: 2023-05-12
+    parameters: [il.medicaid.aabd_asset_limit]
+    implemented_in: playbooks/medicaid/states/il/rules.py:evaluate
+    confidence: confirmed
+    sources:
+      - {source: il-idhs-pm-07-02-01-mcd, locator: "WAG 07-02-01"}
+  - id: MCD-IL-ASSETS-EXEMPT
+    statement: >-
+      In Illinois AABD Medical, the homestead is exempt; one motor vehicle is
+      exempt regardless of value if needed for work, medical transport,
+      disability or essential travel, otherwise up to $4,500 of its value; and
+      a retirement account the person is drawing benefits from is exempt,
+      while an accessible one not in payout counts minus any withdrawal
+      penalty.
+    kind: definition
+    applies_to: [aabd]
+    effective_from: 2026-10-07
+    parameters: [il.medicaid.vehicle_exempt_value]
+    implemented_in: playbooks/medicaid/states/il/rules.py:evaluate
+    confidence: confirmed
+    sources:
+      - {source: il-idhs-pm-07-02-04-a-mcd, locator: "Homestead property is exempt"}
+      - {source: il-idhs-pm-07-02-05, locator: "WAG 07-02-05"}
+      - {source: il-idhs-pm-07-02-17, locator: "If the customer is drawing benefits from the plan ... The principle is exempt"}
+  - id: MCD-IL-SPENDDOWN
+    statement: >-
+      In Illinois, a person 65 or older, blind or disabled living in the
+      community whose countable income is at least $1 over the AABD standard
+      or whose nonexempt assets are at least $1 over $17,500 is not denied but
+      enrolled in spenddown: the excess income each month, plus any excess
+      assets, must be met with medical expenses (or paid to HFS through Pay-In
+      Spenddown) before Medicaid pays; assets do not have to be reduced.
+    kind: eligibility
+    applies_to: [aabd_spenddown]
+    effective_from: 2026-10-07
+    implemented_in: playbooks/medicaid/states/il/rules.py:evaluate
+    confidence: confirmed
+    sources:
+      - {source: il-idhs-pm-15-02-02, locator: "Community Spenddown"}
+      - {source: il-idhs-pm-15-04-01, locator: "excess resources do not have to be reduced to the resource limit"}
+      - {source: il-idhs-pm-15-05-03, locator: "the excess amount is added to the client's countable monthly income"}
+      - {source: il-idhs-pm-07-02-01-mcd, locator: "For Community Medical cases ... enroll the person in spenddown"}
+      - {source: il-hfs-medical-programs, locator: "Pay-In Spenddown"}
+  - id: MCD-IL-BACKDATE
+    statement: >-
+      In Illinois, medical eligibility is backdated for any of the 3 months
+      before the month of application in which all eligibility factors were
+      met (each month judged separately); the Illinois manual has not yet been
+      updated for the federal limit of 1 or 2 months on applications from
+      January 1, 2027.
+    kind: timing
+    effective_from: 2026-10-07
+    implemented_in: playbooks/medicaid/states/il/rules.py:finish
+    confidence: confirmed
+    sources:
+      - {source: il-idhs-pm-17-02-05-a, locator: "Backdate any month ... no more than 3 months before the month of application"}
+  - id: MCD-IL-TIMELINESS
+    statement: >-
+      In Illinois, IDHS must decide a medical application within 45 days for
+      Family Health Plans and AABD based on age or blindness, and within 60
+      days for AABD based on disability.
+    kind: timing
+    effective_from: 2026-10-07
+    overrides: [MCD-FED-TIMELINESS]
+    confidence: confirmed
+    sources:
+      - {source: il-idhs-pm-17-01-01, locator: "AABD(A) 45; AABD(B) 45; AABD(D) 60; Family Health Plans 45"}
+  - id: MCD-IL-CERT-PERIOD
+    statement: >-
+      In Illinois, ACA Adult, FamilyCare, AABD and other medical approvals
+      have a 12-month certification period starting with the application
+      month (backdated months are not part of it), and medical
+      redeterminations are due at least every 12 months.
+    kind: timing
+    effective_from: 2026-10-07
+    confidence: confirmed
+    note: The 6-month federal renewal rule for ACA Adults from 2027 is not yet in the manual (MCD-IL-OQ-02).
+    sources:
+      - {source: il-idhs-pm-17-02-07, locator: "All other Medical 12 months"}
+      - {source: il-idhs-pm-19-02-04, locator: "at least once every 12 months"}
+  - id: MCD-IL-EX-PARTE
+    statement: >-
+      In Illinois, IES checks every medical case for ex parte renewal about 75
+      days before the due date; people renewed automatically get a 2381C
+      notice about 60 days before, and others get a manual redetermination
+      form (643M MAGI, 643N non-MAGI) that must be returned.
+    kind: procedure
+    effective_from: 2026-10-07
+    confidence: confirmed
+    sources:
+      - {source: il-idhs-pm-19-02-04-a, locator: "Ex Parte Timeline"}
+      - {source: il-idhs-pm-19-02-04-g, locator: "643M; 643N; 2381C"}
+  - id: MCD-IL-HBIS
+    statement: >-
+      Illinois's Coverage for Immigrant Seniors program covers people 65 and
+      older who are not eligible for Medicaid because of immigration status;
+      it is a state program, not Medicaid.
+    kind: coordination
+    effective_from: 2026-10-07
+    implemented_in: playbooks/medicaid/states/il/rules.py:immigration
+    confidence: confirmed
+    note: Current enrollment status (open or paused) was not checked (MCD-IL-OQ-04).
+    sources:
+      - {source: il-hfs-medical-programs, locator: "Coverage for Immigrant Seniors"}
+  - id: MCD-IL-IMMIGRANT-2026
+    statement: >-
+      How Illinois covers noncitizens who lose federally funded Medicaid on
+      October 1, 2026 (refugees, asylees, parolees and others), and whether
+      state-funded medical continues for them, is not established in this
+      archive.
+    kind: eligibility
+    effective_from: 2026-10-01
+    implemented_in: playbooks/medicaid/states/il/rules.py:immigration
+    confidence: unresolved
+    open_question: MCD-IL-OQ-04
+  - id: MCD-IL-WORK-REQUIREMENT
+    statement: >-
+      Illinois's implementation of the federal community engagement
+      requirement for ACA Adults (start date, look-back months, verification)
+      was not found in an Illinois source; the archive applies the federal
+      January 1, 2027 date.
+    kind: eligibility
+    applies_to: [adult_expansion]
+    effective_from: 2027-01-01
+    implemented_in: playbooks/medicaid/federal/rules.py:community_engagement
+    confidence: unresolved
+    open_question: MCD-IL-OQ-02
+
+procedure:
+  applications:
+    - id: MCD-IL-PROC-ABE
+      text: Apply online through ABE at https://abe.illinois.gov/abe/access/ (24/7, electronic signature), by phone through the ABE/Broadway Central Customer Call Center at 1-800-843-6154 (telephonic signature), in person at an IDHS Family Community Resource Center, or on paper.
+      channel: any
+      url: https://abe.illinois.gov/abe/access/
+      confidence: confirmed
+      sources:
+        - {source: il-idhs-pm-02-04-01, locator: "A person may apply for benefits"}
+        - {source: il-idhs-pm-02-04-00-mcd, locator: "Application for Benefits Eligibility (ABE); ABE Customer Call Center"}
+    - id: MCD-IL-PROC-PAPER
+      text: The paper application is form IL444-2378B, "Request for Cash Assistance - Medical Assistance - Supplemental Nutrition Assistance Program (SNAP)".
+      form_number: IL444-2378B
+      form_name: Request for Cash Assistance - Medical Assistance - Supplemental Nutrition Assistance Program (SNAP)
+      channel: mail
+      confidence: confirmed
+      sources: [{source: il-idhs-pm-02-06-01-d, locator: "Form IL444-2378B"}]
+  filing:
+    - id: MCD-IL-FILE-ANYTIME
+      text: There is no open enrollment or deadline for Illinois Medicaid; an application needs a name, address and signature to be filed.
+      confidence: confirmed
+      sources: [{source: il-idhs-pm-02-04-00-mcd, locator: "There is no deadline on when a person may apply for Illinois Medicaid"}]
+  timelines:
+    - id: MCD-IL-TIME-DECISION
+      text: Decision within 45 days (Family Health Plans, AABD aged or blind) or 60 days (AABD disability), counted from the day after the application.
+      duration: 45 / 60 days
+      confidence: confirmed
+      sources: [{source: il-idhs-pm-17-01-01, locator: "Number of Days to Make Decision"}]
+  approval_notice:
+    - id: MCD-IL-NOTICE
+      text: IDHS gives the applicant a written notice of the decision.
+      confidence: confirmed
+      sources: [{source: il-idhs-pm-02-04-00-mcd, locator: "giving the applicant a written notice of the decision"}]
+  renewal:
+    - id: MCD-IL-RENEW
+      text: Renewal every 12 months; ex parte (auto-renewal, 2381C notice) where possible, otherwise a mailed 643M/643N form or 1893 combined form to return; online through ABE Manage My Case.
+      confidence: confirmed
+      sources:
+        - {source: il-idhs-pm-19-02-04-a, locator: "Ex Parte Timeline"}
+        - {source: il-idhs-pm-19-02-04-g, locator: "Medical Redetermination Forms"}
+    - id: MCD-IL-RENEW-IMMIGRANT
+      text: People on state-funded medical have their immigration status re-reviewed at each redetermination.
+      confidence: confirmed
+      sources: [{source: il-idhs-pm-19-02-08, locator: "WAG 19-02-08"}]
+  county_variation:
+    - id: MCD-IL-COUNTY
+      text: Eligibility rules are statewide; applications are processed by IDHS Family Community Resource Centers and the ABE call center rather than county agencies.
+      confidence: confirmed
+      sources: [{source: il-idhs-pm-02-04-01, locator: "apply in person at the Family Community Resource Center (FCRC)"}]
+
+life_events:
+  - id: MCD-IL-LE-TURNING-65
+    code: turning_65
+    event: Turning 65 or starting Medicare
+    why: Moves from ACA Adults (138% FPL, no assets) to AABD Medical (100% FPL, $17,500 assets) — many people end up in spenddown.
+    check_rules: [MCD-IL-AABD-INCOME, MCD-IL-AABD-ASSET, MCD-IL-SPENDDOWN]
+    confidence: confirmed
+    sources: [{source: il-idhs-wag-25-03-02-2-mcd, locator: "AABD 100% FPL"}]
+  - id: MCD-IL-LE-MARRIAGE
+    code: marriage
+    event: Marriage (AABD)
+    why: The 2-person standard and both incomes are always used for a person living with a spouse.
+    check_rules: [MCD-IL-SPOUSE-STANDARD]
+    confidence: confirmed
+    sources: [{source: il-idhs-pm-15-06-02-c, locator: "living with their spouse"}]
+  - id: MCD-IL-LE-ASSETS
+    code: asset_change
+    event: Savings rise above $17,500 (AABD)
+    why: Not a denial; the excess is added to the spenddown.
+    check_rules: [MCD-IL-SPENDDOWN]
+    confidence: confirmed
+    sources: [{source: il-idhs-pm-15-04-01, locator: "WAG 15-04-01"}]
+  - id: MCD-IL-LE-RENEWAL
+    code: renewal_due
+    event: Medical redetermination due
+    why: Watch for the 2381C (auto-renewed) or a 643 form that must be returned.
+    check_rules: [MCD-IL-EX-PARTE]
+    confidence: confirmed
+    sources: [{source: il-idhs-pm-19-02-04-g, locator: "forms table"}]
+
+outcome_proof:
+  - id: MCD-IL-PROOF-NOTICE
+    evidence: IDHS written decision notice; for renewals the 2381C Medical Redetermination Notice
+    shows: Medical approved (or auto-renewed) and the certification period; for spenddown cases, the spenddown amount.
+    how_to_get: Mailed by IDHS; also visible in ABE Manage My Case.
+    confidence: confirmed
+    sources:
+      - {source: il-idhs-pm-02-04-00-mcd, locator: "written notice of the decision"}
+      - {source: il-idhs-pm-19-02-04-g, locator: "2381C Medical Redetermination Notice"}
+
+links:
+  - id: MCD-IL-LINK-SNAP
+    playbook: snap
+    relation: Illinois's ABE application and paper form IL444-2378B request cash, medical and SNAP together.
+    test: MCD-X-05
+    confidence: confirmed
+    sources: [{source: il-idhs-pm-02-06-01-d, locator: "used to apply for Cash, SNAP and Medical programs"}]
+  - id: MCD-IL-LINK-DISABILITY
+    playbook: disability
+    rules: [MCD-IL-209B]
+    relation: An Illinois SSI recipient does not get Medicaid automatically; they apply for AABD Medical, where SSI is protected income.
+    test: MCD-X-03
+    confidence: confirmed
+    sources: [{source: ssa-poms-si-01715-010-mcd, locator: "A.1 209(b) States"}]
+
+open_questions:
+  - id: MCD-IL-OQ-01
+    priority: high
+    question: From what date did IDHS apply the 2026 FPL-based medical standards (ACA Adult $1,835, AABD $1,330) shown in WAG 25-03-02 (2)?
+    why_it_matters: Illinois cases dated January 1 - October 6, 2026 return undetermined until this is known.
+    checked: [WAG 25-03-02 (2), PM 15-06-01-b, PM 15-06-02-a, IL Department on Aging 2026 handout ("DHS posts the exact figures in Early April")]
+    affects: [il.medicaid.aca_adult_income_limit_monthly, il.medicaid.aabd_income_limit_monthly, il.medicaid.moms_babies_income_limit_monthly]
+    status: open
+  - id: MCD-IL-OQ-02
+    priority: high
+    question: How and from when will Illinois apply the 2027 federal changes (6-month renewals and community engagement for ACA Adults, shorter backdating)?
+    why_it_matters: The Illinois manual (PM 17-02-05-a, PM 17-02-07) still states 3-month backdating and 12-month certification.
+    checked: [PM 17-02-05-a, PM 17-02-07, PM 19-02-04, HFS Medical Programs page]
+    affects: [MCD-IL-WORK-REQUIREMENT, MCD-IL-BACKDATE, MCD-IL-CERT-PERIOD]
+    status: open
+  - id: MCD-IL-OQ-03
+    priority: medium
+    question: Which earned income exemptions apply to AABD Medical (PM 08-02-02 and 08-02-03)?
+    why_it_matters: Working disabled people under 65; the evaluator returns undetermined when there are earnings.
+    checked: [PM 15-04-03-b (points to PM 08-02-02/03, not retrieved)]
+    affects: [MCD-IL-AABD-DISREGARD]
+    status: open
+  - id: MCD-IL-OQ-04
+    priority: high
+    question: Illinois coverage after October 1, 2026 for refugees, asylees, parolees and other noncitizens losing federal funding, and the current status of Coverage for Immigrant Seniors.
+    why_it_matters: The evaluator returns undetermined.
+    checked: [HFS Medical Programs page, PM 19-02-08]
+    affects: [MCD-IL-IMMIGRANT-2026, MCD-IL-HBIS]
+    status: open
+  - id: MCD-IL-OQ-05
+    priority: low
+    question: For a retirement account not in payout, the countable value depends on the withdrawal penalty; the evaluator needs it as a fact.
+    why_it_matters: Older applicants with IRAs.
+    checked: [PM 07-02-17]
+    affects: [MCD-IL-ASSETS-EXEMPT]
+    status: open
+
+conflicts:
+  - id: MCD-IL-CONFLICT-01
+    topic: AABD Medical asset limit and ACA Adult income figure
+    claims:
+      - source: il-hfs-medical-programs
+        says: AABD Medical covers seniors and people with disabilities with "no more than $2,000 of non-exempt resources (one person)"; ACA Adults income up to "$1,366/individual".
+      - source: il-idhs-pm-07-02-01-mcd
+        says: Effective 05/12/2023, the asset limit for Medical cases is $17,500, whatever the household size.
+      - source: il-idhs-wag-25-03-02-2-mcd
+        says: 2026 ACA Adults standard is $1,835 for one person.
+    handling: The HFS overview page is out of date; the archive follows the IDHS Policy Manual, which caseworkers apply. The agent must not quote the HFS page figures.
+    affects: [MCD-IL-AABD-ASSET, MCD-IL-ACA-ADULT]
+    status: resolved
+  - id: MCD-IL-CONFLICT-02
+    topic: Backdating for applications from January 1, 2027
+    claims:
+      - source: il-idhs-pm-17-02-05-a
+        says: Backdate any month no more than 3 months before the month of application.
+      - source: pl-119-21-medicaid
+        says: For applications on or after January 1, 2027, at most 1 month (adult group) or 2 months (others).
+    handling: The archive applies the federal statute for applications dated January 1, 2027 or later and notes the Illinois manual text.
+    affects: [MCD-IL-BACKDATE, MCD-FED-RETRO-2027]
+    status: open
+
+claims_checked:
+  - claim: Illinois's asset limit for age/disability-based and long-term care Medicaid is reported as $17,500 for one person.
+    verdict: verified
+    detail: >-
+      PM 07-02-01: since May 12, 2023 the AABD Medical asset limit is $17,500
+      for one person or more (no increase for household size). For community
+      cases it is not a hard cap: excess assets go into spenddown. The HFS
+      overview page still shows $2,000 (MCD-IL-CONFLICT-01). Long-term care
+      details are in ltc_medicaid.
+    sources: [{source: il-idhs-pm-07-02-01-mcd, locator: "WAG 07-02-01"}]
+  - claim: Illinois AABD Medical income standard is 100% FPL.
+    verdict: verified
+    detail: $1,330 single / $1,803 couple in the 2026 table, after a $25 disregard; SSI not counted.
+    sources: [{source: il-idhs-pm-15-06-02-a, locator: "Community Standard is 100% FPL"}]

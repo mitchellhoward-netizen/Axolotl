@@ -1,6 +1,6 @@
 # California Medi-Cal income and property standards, from the Santa Clara
 # County Social Services Agency Medi-Cal charts and handbook (DHCS originals
-# not retrievable; see sources.yaml and CA-OQ-01). California applies the new
+# not retrievable; see sources.yaml and MCD-CA-OQ-01). California applies the new
 # year's FPL-based levels on different dates by population: MAGI from
 # January 1, 2026; MSP with RSDI income from March 1, 2026; ABD (Aged &
 # Disabled FPL program) and all other Medi-Cal programs from April 1, 2026.
@@ -72,14 +72,14 @@ parameters:
       against the 2-person figure.
     unit: usd_per_month
     keyed_by: household_size (1 = individual, 2 = couple)
-    open_question: CA-OQ-02
+    open_question: MCD-CA-OQ-02
     updates: Each year; ABD levels effective April 1.
     values:
       - effective_from: 2026-01-01
         effective_to: 2026-03-31
         value: null
         confidence: unresolved
-        open_question: CA-OQ-02
+        open_question: MCD-CA-OQ-02
         note: January-March 2026 use the 2025 FPL levels for ABD; the 2025 chart was not retrieved.
       - effective_from: 2026-04-01
         value: {1: 1836, 2: 2490}
@@ -154,7 +154,7 @@ parameters:
     description: Medi-Cal Medically Needy maintenance need level, monthly; net countable income above this is the share of cost.
     unit: usd_per_month
     keyed_by: "persons in the MFBU (1-10); 2 = two adults (1 adult and 1 child is $750, not modelled)"
-    updates: The county chart shows the level unchanged since July 1, 1989 (see CA-OQ-04 on the reported, then revoked, plan to raise it to 138% FPL).
+    updates: The county chart shows the level unchanged since July 1, 1989 (see MCD-CA-OQ-04 on the reported, then revoked, plan to raise it to 138% FPL).
     values:
       - effective_from: 1989-07-01
         value: {1: 600, 2: 934, 3: 934, 4: 1100, 5: 1259, 6: 1417, 7: 1550, 8: 1692, 9: 1825, 10: 1959}

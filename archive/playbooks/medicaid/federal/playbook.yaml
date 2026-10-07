@@ -37,9 +37,9 @@ summary:
   local_names:
     - {name: MAGI, meaning: Modified adjusted gross income (tax-based income counting)}
     - {name: Adult group / expansion group, meaning: "Section 1902(a)(10)(A)(i)(VIII) adults 19-64 up to 133% FPL (138% with the 5% disregard)"}
-    - {name: Non-MAGI / ABD, meaning: Aged, blind or disabled eligibility using SSI-style budgeting}
+    - {name: Non-MAGI / ABD, meaning: "Aged, blind or disabled eligibility using SSI-style budgeting"}
     - {name: Spenddown / medically needy, meaning: Medicaid after medical bills reduce income (or excess assets) to the state's level}
-    - {name: "H.R. 1 / OBBBA / Working Families Tax Cut", meaning: Public Law 119-21 (July 4, 2025)}
+    - {name: "H.R. 1 / OBBBA / Working Families Tax Cut", meaning: "Public Law 119-21 (July 4, 2025)"}
     - {name: Community engagement, meaning: The work/activity requirement for expansion adults from 2027}
   legal_basis: >-
     Social Security Act title XIX: sec. 1902(a)(10)(A)(i)(VIII) (adult group),
@@ -666,7 +666,7 @@ open_questions:
     priority: high
     question: How many look-back months (1-3) will each state require to show community engagement at application, and which states (if any) have a CMS good-faith exemption delaying the start beyond January 1, 2027?
     why_it_matters: Decides whether an expansion adult applying in early 2027 must document work for the prior months.
-    checked: [P.L. 119-21 sec. 71119, 42 CFR 435.552, 435.559, 435.560, NY State of Health H.R.1 page, Santa Clara County WCER page]
+    checked: ["P.L. 119-21 sec. 71119", "42 CFR 435.552, 435.559 and 435.560", "NY State of Health H.R.1 page", "Santa Clara County WCER page"]
     affects: [MCD-FED-COMMUNITY-ENGAGEMENT]
     status: open
   - id: MCD-FED-OQ-04

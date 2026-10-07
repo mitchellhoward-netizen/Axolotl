@@ -37,7 +37,7 @@ summary:
     - {name: MFBU, meaning: Medi-Cal Family Budget Unit}
     - {name: SIS, meaning: Satisfactory immigration status}
     - {name: WCER, meaning: Work and Community Engagement Requirement}
-    - {name: BenefitsCal, meaning: Online application portal for Medi-Cal, CalFresh and CalWORKs}
+    - {name: BenefitsCal, meaning: "Online application portal for Medi-Cal, CalFresh and CalWORKs"}
     - {name: SSApp, meaning: Single Streamlined Application ("Application for Health Insurance")}
   confidence: confirmed
   open_question: MCD-CA-OQ-01

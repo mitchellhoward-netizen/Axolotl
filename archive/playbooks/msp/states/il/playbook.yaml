@@ -1,0 +1,619 @@
+schema_version: 2
+program: msp
+scope: il
+title: Medicare Savings Program — Illinois (QMB, SLIB, QI-1)
+last_researched: 2026-10-07
+
+summary:
+  plain_language: >-
+    In Illinois the Medicare Savings Programs are run by the Department of
+    Healthcare and Family Services (HFS) and decided by IDHS Family Community
+    Resource Centers. Illinois uses the federal programs — QMB, SLIB (its name
+    for SLMB) and QI-1 — and the federal resource limit, $9,950 for one person
+    and $14,910 for a couple in 2026. Income is counted the Illinois AABD way:
+    the first $25 of income is ignored (not $20), and countable income up to
+    $1,330 a month single / $1,803 couple qualifies for QMB, up to $1,595 /
+    $2,163 for SLIB and up to $1,794 / $2,433 for QI-1. So gross Social
+    Security up to $1,355 (single) gets QMB. QMB pays Medicare premiums and
+    cost-sharing; SLIB and QI-1 pay the Part B premium ($202.90 a month in
+    2026). Enrolling brings Extra Help with Part D drug costs.
+  administered_by: >-
+    Illinois Department of Healthcare and Family Services (HFS, the Medicaid
+    agency) with the Illinois Department of Human Services (IDHS), whose
+    Family Community Resource Centers (FCRCs) take applications and whose
+    Cash, SNAP and Medical Policy Manual sets casework rules.
+  funded_by: >-
+    QMB, SLIB and QDWI are Medicaid (federal/state match); QI-1 is federally
+    funded within Illinois's allotment (federal rule).
+  local_names:
+    - {name: SLIB, meaning: "Specified Low-Income Medicare Beneficiary (Illinois's spelling of SLMB)"}
+    - {name: QI-1, meaning: Qualified Individual (QI)}
+    - {name: "MSP / Medicare Cost Sharing", meaning: "IDHS labels for QMB, SLIB and QI-1 together"}
+    - {name: AABD, meaning: "Aid to the Aged, Blind and Disabled (the Medicaid category whose budgeting MSP uses)"}
+    - {name: SMIB Buy-in / HIB, meaning: "Part B premium buy-in / Part A (Hospital Insurance Benefits)"}
+    - {name: ABE, meaning: "Application for Benefits Eligibility portal (abe.illinois.gov)"}
+    - {name: FCRC, meaning: IDHS Family Community Resource Center (local office)}
+  confidence: confirmed
+  sources:
+    - {source: il-idhs-pm-06-12-00, locator: "whole section"}
+    - {source: il-idhs-wag-25-03-02-msp, locator: "AABD Medical/Medicare Savings Programs/HBWD; Resources"}
+
+rules:
+  - id: MSP-IL-TIERS
+    statement: >-
+      Illinois offers QMB, SLIB (Illinois's name for SLMB), QI-1 and QDWI;
+      QMB is at or below 100% of the federal poverty level, SLIB above 100%
+      and below 120%, and QI-1 from 120% to 135%.
+    kind: definition
+    effective_from: 2026-01-01
+    implemented_in: playbooks/msp/states/il/rules.py:evaluate
+    confidence: confirmed
+    sources:
+      - {source: il-idhs-wag-25-03-02-msp, locator: "2026 Monthly Income Standards: QMB 100% FPL; SLIB Over 100% to $1 less than 120%; QI-1 120% to $1 less than 135% FPL"}
+      - {source: il-idhs-pm-06-06-03, locator: "QDWI"}
+  - id: MSP-IL-QMB-INCOME
+    statement: >-
+      In Illinois in 2026, a current Medicare Part A beneficiary qualifies for
+      QMB if countable monthly income (after the $25 exemption, rounded down
+      to the dollar) is $1,330 or less for one person or $1,803 or less for a
+      couple, so gross Social Security of up to $1,355 (single) qualifies.
+    kind: eligibility
+    applies_to: [QMB]
+    effective_from: 2026-01-01
+    parameters: [il.msp.qmb_income_limit_monthly, il.msp.income_exemption_monthly]
+    overrides: [MSP-FED-QMB-INCOME-FLOOR]
+    implemented_in: playbooks/msp/states/il/rules.py:_tier
+    confidence: confirmed
+    sources:
+      - {source: il-idhs-pm-06-12-01-b, locator: "The QMB income standard is 100% of the Federal Poverty Level (FPL). Compare the client's countable income ... Round income down to the next lowest dollar."}
+      - {source: il-idhs-wag-25-03-02-msp, locator: "QMB 100% FPL: $1,330 / 1,803"}
+      - {source: il-idhs-mr-26-11, locator: "revised standards are effective 01/01/26"}
+  - id: MSP-IL-SLIB-INCOME
+    statement: >-
+      In Illinois in 2026, a Part A beneficiary whose countable monthly income
+      is $1,331 to $1,595 (one person) or $1,804 to $2,163 (couple) qualifies
+      for SLIB (SLMB), which pays the Part B premium; gross Social Security of
+      $1,356 to $1,620 (single) qualifies.
+    kind: eligibility
+    applies_to: [SLMB]
+    effective_from: 2026-01-01
+    parameters: [il.msp.slib_income_limit_monthly]
+    overrides: [MSP-FED-SLMB-INCOME]
+    implemented_in: playbooks/msp/states/il/rules.py:_tier
+    confidence: confirmed
+    note: The PM wording at exactly 120% differs (MSP-IL-CONFLICT-02); only the tier (SLIB vs QI-1) is affected.
+    sources:
+      - {source: il-idhs-wag-25-03-02-msp, locator: "SLIB column: $ 1,331 - 1,595 / 1,804 - 2,163"}
+      - {source: il-idhs-pm-06-13-01-b, locator: "SLIB Income Limit"}
+  - id: MSP-IL-QI-INCOME
+    statement: >-
+      In Illinois in 2026, a Part A beneficiary who is not receiving Medicaid
+      and whose countable monthly income is $1,596 to $1,794 (one person) or
+      $2,164 to $2,433 (couple) qualifies for QI-1, which pays the Part B
+      premium; gross Social Security of $1,621 to $1,819 (single) qualifies.
+    kind: eligibility
+    applies_to: [QI]
+    effective_from: 2026-01-01
+    parameters: [il.msp.qi_income_limit_monthly, il.msp.qi_income_limit_pm_text_monthly]
+    overrides: [MSP-FED-QI-INCOME]
+    implemented_in: playbooks/msp/states/il/rules.py:_tier
+    confidence: confirmed
+    note: Countable income of exactly $1,795 / $2,434 is disputed (MSP-IL-CONFLICT-03); the evaluator returns undetermined.
+    sources:
+      - {source: il-idhs-wag-25-03-02-msp, locator: "QI-1 column: $ 1,596 - 1,794 / 2,164 - 2,433"}
+      - {source: il-idhs-pm-06-14-01, locator: "have income at least 120% but less than 135% of the Federal Poverty Level"}
+  - id: MSP-IL-INCOME-METHOD
+    statement: >-
+      Illinois counts income for QMB, SLIB and QI-1 with AABD Community
+      budgeting: SSI payments are not counted; the first $25 of other income
+      is exempt (one $25 per applicant with income, at most one if only one
+      spouse applies); from earnings of an aged or disabled person, $20 plus
+      one-half of the next $60 and employment expenses (withheld taxes, FICA,
+      transportation, union dues and similar) are deducted; the result is
+      rounded down to the dollar.
+    kind: definition
+    applies_to: [QMB, SLMB, QI]
+    effective_from: 2026-01-01
+    parameters: [il.msp.income_exemption_monthly, il.aabd.earned_income_disregard_flat_monthly, il.aabd.earned_income_disregard_half_band_monthly]
+    overrides: [MSP-FED-INCOME-SSI-METHOD]
+    implemented_in: playbooks/msp/states/il/rules.py:il_countable_income
+    confidence: confirmed
+    note: >-
+      The chain is PM 06-12-01-b -> PM 15-05-03 -> PM 15-04-03-a ($25) and
+      PM 08-02-03-a/b (earned income). The 2026 effective date is the earliest
+      this archive has; the PM pages are older.
+    sources:
+      - {source: il-idhs-pm-06-12-01-c, locator: "Income Exemption"}
+      - {source: il-idhs-pm-15-05-03-msp, locator: "deduct ... AABD income disregard of $25; earned income exemption and employment expense deductions"}
+      - {source: il-idhs-pm-15-04-03-a-msp, locator: "examples of one or two $25 exemptions"}
+      - {source: il-idhs-pm-08-02-03-a, locator: "Aged or Disabled: disregard the first $20 of earned income plus 1/2 of the next $60"}
+      - {source: il-idhs-pm-08-02-03-b, locator: "Employment Expenses"}
+      - {source: il-idhs-pm-15-04-03-c-msp, locator: "deduct SSI benefits from total gross income"}
+  - id: MSP-IL-EARNED-INCOME-FLOOR
+    statement: >-
+      Federal law requires MSP income to be counted no more strictly than SSI
+      counts it ($65 plus one-half of earnings excluded), while Illinois's
+      AABD rule excludes only $20 plus one-half of the next $60 (plus
+      employment expenses); for a working Illinois applicant who qualifies
+      under SSI counting but not under Illinois's rule, the outcome is
+      unresolved.
+    kind: eligibility
+    applies_to: [QMB, SLMB, QI]
+    effective_from: 2026-01-01
+    implemented_in: playbooks/msp/states/il/rules.py:evaluate
+    confidence: unresolved
+    open_question: MSP-IL-OQ-02
+    sources:
+      - {source: usc-42-1396d, locator: "(p)(1)(B): income determined under section 1382a"}
+      - {source: il-idhs-pm-08-02-03-a, locator: "Aged or Disabled"}
+  - id: MSP-IL-COLA
+    statement: >-
+      Illinois does not count the January Social Security cost-of-living
+      increase when deciding QMB, SLIB or QI-1 eligibility for January,
+      February and March (one month longer than the federal transition
+      months).
+    kind: timing
+    applies_to: [QMB, SLMB, QI]
+    effective_from: 2009-01-01
+    parameters: [il.msp.cola_disregard_last_month]
+    overrides: [MSP-FED-COLA-TRANSITION]
+    implemented_in: playbooks/msp/states/il/rules.py:il_countable_income
+    confidence: confirmed
+    sources:
+      - {source: il-idhs-pm-06-12-01-b, locator: "Do not use the annual January ... COLA increase in deciding QMB eligibility for January, February, and March."}
+      - {source: il-idhs-pm-06-14-01-b, locator: "same, for QI-1"}
+  - id: MSP-IL-FPL-EFFECTIVE
+    statement: >-
+      Illinois's 2026 MSP income standards are effective January 1, 2026 for
+      pending applications (any budget month from January 2026); active
+      cases were moved to the new standards by a mass change effective April
+      2026, which moved some QI-1 and SLIB cases to SLIB or QMB.
+    kind: timing
+    applies_to: [QMB, SLMB, QI]
+    effective_from: 2026-01-01
+    confidence: confirmed
+    sources:
+      - {source: il-idhs-mr-26-11, locator: "Increase in the Monthly Medical Income Standards; Mass Change Action in IES"}
+  - id: MSP-IL-COUPLE
+    statement: >-
+      In Illinois, a Medicare Savings Program applicant living with a spouse
+      is always measured against the 2-person income standard and resource
+      limit, with both spouses' income, whether or not the spouse is applying
+      or has Medicare.
+    kind: definition
+    applies_to: [QMB, SLMB, QI]
+    effective_from: 2026-01-01
+    overrides: [MSP-FED-COUPLE-INCOME]
+    implemented_in: playbooks/msp/states/il/rules.py:evaluate
+    confidence: confirmed
+    sources:
+      - {source: il-idhs-pm-15-06-02-c-msp, locator: "When a client is living with their spouse, always use the 2-person standard and asset limit regardless of whether or not the spouse is receiving assistance."}
+      - {source: il-idhs-pm-06-12-01-b, locator: "See PM 15-06-02-c (AABD) for how to determine the number in the household."}
+  - id: MSP-IL-RESOURCES
+    statement: >-
+      In Illinois in 2026, a person qualifies for QMB, SLIB or QI-1 only if
+      nonexempt resources are below the federal MSP limit of $9,950 for one
+      person or $14,910 for two or more; there is no spenddown of excess
+      resources for the MSPs.
+    kind: eligibility
+    applies_to: [QMB, SLMB, QI]
+    effective_from: 2026-01-01
+    parameters: [il.msp.resource_limit]
+    overrides: [MSP-FED-RESOURCES]
+    implemented_in: playbooks/msp/states/il/rules.py:evaluate
+    confidence: confirmed
+    note: Exactly $9,950 / $14,910 is disputed (MSP-IL-CONFLICT-01); the evaluator returns undetermined at the limit.
+    sources:
+      - {source: il-idhs-wag-25-03-02-msp, locator: "Resources: Medicare Savings Programs 9,950 (2026) / 14,910 (2026)"}
+      - {source: il-idhs-pm-06-12-01-a, locator: "Spenddown does not apply to QMB. When nonexempt resources are higher than the QMB standard, the person is not eligible"}
+      - {source: il-idhs-pm-06-12-01, locator: "have nonexempt assets less than the QMB asset standard"}
+  - id: MSP-IL-PART-A
+    statement: >-
+      In Illinois a person must be a current Medicare Part A beneficiary to
+      get QMB, SLIB or QI-1; the state cannot enroll anyone in Part A, so a
+      person without premium-free Part A must first enroll (conditionally) in
+      Part A at SSA, and HFS then pays the Part A premium from the month of
+      QMB eligibility.
+    kind: eligibility
+    applies_to: [QMB, SLMB, QI]
+    effective_from: 1999-11-22
+    implemented_in: playbooks/msp/states/il/rules.py:evaluate
+    confidence: confirmed
+    sources:
+      - {source: il-idhs-pm-06-12-01, locator: "be a current Medicare Part A beneficiary"}
+      - {source: il-idhs-pm-22-07-01-a, locator: "The Department cannot enroll a person in HIB. The conditional enrollment process allows a person to apply for HIB, but only receive coverage if they are determined to be eligible for QMB."}
+      - {source: il-idhs-pm-22-07-01, locator: "conditional enrollment process"}
+  - id: MSP-IL-QI-NOT-MEDICAID
+    statement: >-
+      In Illinois a person approved for Medicaid, or in met spenddown status
+      (or approved with Department on Aging services), cannot get QI-1; a
+      person whose Medicaid spenddown is not met is not considered to be
+      receiving Medicaid and can get QI-1. QMB and SLIB can be held with
+      Medicaid or spenddown.
+    kind: coordination
+    applies_to: [QI]
+    effective_from: 2026-05-06
+    overrides: [MSP-FED-QI-NOT-MEDICAID]
+    implemented_in: playbooks/msp/states/il/rules.py:evaluate
+    confidence: confirmed
+    sources:
+      - {source: il-idhs-pm-06-14-01, locator: "Additional Requirements"}
+      - {source: il-idhs-mr-26-10, locator: "MR #26.10 QI-1 PM Eligibility Clarification"}
+      - {source: il-idhs-pm-06-13-02-b, locator: "may be eligible for SLIB if they are in spenddown"}
+  - id: MSP-IL-AUTO-QMB
+    statement: >-
+      In Illinois, Medicare Part A beneficiaries who receive AABD cash or
+      regular (non-spenddown) AABD Medical are automatically eligible for
+      QMB, and an existing case does not need a separate QMB application.
+    kind: coordination
+    applies_to: [QMB]
+    effective_from: 1997-03-01
+    confidence: confirmed
+    note: AABD Medical's resource limit is $17,500, above the $9,950 MSP limit; whether "automatically eligible" overrides the MSP resource limit is open (MSP-IL-OQ-05).
+    sources:
+      - {source: il-idhs-pm-06-12-02-b, locator: "Medicare Part A beneficiaries are automatically eligible for QMB if they receive: cash (non-sheltered care cases), or regular MANG."}
+      - {source: il-idhs-pm-06-12-02-a, locator: "An application for QMB only benefits is not required to approve QMB benefits on an active case."}
+  - id: MSP-IL-QDWI
+    statement: >-
+      In Illinois, QDWI (payment of the Part A premium) is for people who lost
+      premium-free Part A because of work, with income no more than 200% of
+      the poverty level ($2,660 single / $3,606 couple in 2026), assets no more
+      than twice the SSI limit ($4,000 / $6,000), and no other Medicaid; IDHS
+      refers QDWI requests to its Bureau of Program and Field Management
+      Services, and coverage can go back three months before application.
+    kind: eligibility
+    applies_to: [QDWI]
+    effective_from: 2026-01-01
+    parameters: [il.msp.qdwi_income_limit_monthly, il.msp.qdwi_resource_limit]
+    overrides: [MSP-FED-QDWI]
+    implemented_in: playbooks/msp/states/il/rules.py:_qdwi
+    confidence: confirmed
+    note: The budgeting method for QDWI income is not stated (MSP-IL-OQ-06); the evaluator uses SSI methodology.
+    sources:
+      - {source: il-idhs-pm-06-06-03, locator: "To be eligible for QDWI a person must ..."}
+  - id: MSP-IL-QMB-EFFECTIVE
+    statement: >-
+      In Illinois QMB starts on the first day of the month after the month the
+      application is approved, with no retroactive months; HFS pays the
+      Medicare premiums from that month.
+    kind: timing
+    applies_to: [QMB]
+    effective_from: 1999-11-22
+    overrides: [MSP-FED-QMB-EFFECTIVE]
+    confidence: confirmed
+    sources:
+      - {source: il-idhs-pm-06-12-02-a, locator: "QMB eligibility starts the first day of the month after the month the application is approved."}
+      - {source: il-idhs-pm-22-07-01-a, locator: "Premiums are paid effective for the month of QMB eligibility, which is the month after the month of the QMB eligibility determination."}
+  - id: MSP-IL-RETRO
+    statement: >-
+      In Illinois SLIB and QI-1 can be paid for the month of application and up
+      to three months before it; QMB has no retroactive months.
+    kind: timing
+    applies_to: [SLMB, QI]
+    effective_from: 2026-05-06
+    overrides: [MSP-FED-RETRO-SLMB-QI]
+    confidence: confirmed
+    note: The 2027 federal shortening of retroactive coverage (MSP-FED-OQ-02) was not found in Illinois sources.
+    sources:
+      - {source: il-idhs-pm-06-13-01, locator: "SLIB eligibility may be retroactive to 3 months before the month of application."}
+      - {source: il-idhs-pm-06-14-01, locator: "QI-1 eligibility may be retroactive to 3 months before the month of application."}
+      - {source: il-idhs-pm-22-07-02, locator: "The Department may pay SMIB premiums for SLIB clients retroactive to 3 months before the month of the SLIB application."}
+  - id: MSP-IL-ESTATE
+    statement: >-
+      Illinois HFS has a claim on the estate of a deceased QMB client aged 55
+      or older for Medicare cost-sharing it paid, but no claim against the
+      estate of a SLIB-only or QI-1-only client.
+    kind: benefit
+    effective_from: 1999-11-22
+    confidence: confirmed
+    sources:
+      - {source: il-idhs-pm-06-12-02-a, locator: "NOTE: HFS has a claim on the estate ... for QMB clients age 55 and over"}
+      - {source: il-idhs-pm-06-13-00, locator: "HFS has no claim against the estate of a SLIB Only client"}
+      - {source: il-idhs-pm-06-14-00, locator: "HFS has no claim against the estate of a client who only receives QI-1"}
+  - id: MSP-IL-LTC-SPOUSE
+    statement: >-
+      In Illinois, when deciding QMB, SLIB or QI-1 for a nursing-home resident
+      or a person receiving Department on Aging in-home services, no deduction
+      is allowed for the community spouse or family maintenance allowance
+      (CSMNA/FMNA), and those allowances are not counted as income of the
+      community spouse applying for an MSP.
+    kind: coordination
+    applies_to: [QMB, SLMB, QI]
+    effective_from: 2009-01-01
+    confidence: confirmed
+    sources:
+      - {source: il-idhs-pm-06-12-01-b, locator: "last paragraph (CSMNA/FMNA)"}
+      - {source: il-idhs-pm-06-14-01-b, locator: "last paragraph"}
+      - {source: il-idhs-pm-06-12-02-b, locator: "They may also be QMB eligible if they ... live in a long term care or sheltered care facility."}
+
+procedure:
+  applications:
+    - id: MSP-IL-PROC-ABE
+      text: Apply online through ABE (abe.illinois.gov), which lists "Medicare Savings Program" as its own benefit choice and asks about backdating medical coverage for the prior 3 months.
+      url: https://abe.illinois.gov/
+      channel: online
+      confidence: confirmed
+      sources: [{source: il-idhs-mr-25-17, locator: "Apply for Benefits Page: Cash Assistance, Medical Programs, Medicare Savings Program, and SNAP"}]
+    - id: MSP-IL-PROC-PAPER
+      text: Or use the paper application IL444-2378B (Request for Cash Assistance, Medical Assistance, SNAP), or ask the local FCRC for an application; an application is treated as applying for every benefit unless the person declines in writing.
+      form_number: IL444-2378B
+      form_name: Request for Cash Assistance - Medical Assistance - Supplemental Nutrition Assistance Program
+      channel: any
+      confidence: confirmed
+      sources:
+        - {source: il-idhs-mr-25-17, locator: "Summary; Paper Application (IL444-2378B)"}
+        - {source: il-hfs-3352, locator: "How Do I Apply?"}
+    - id: MSP-IL-PROC-NO-INTERVIEW
+      text: No face-to-face interview is needed for QMB-only or SLIB-only; the applicant's statements are accepted except Medicare Part A enrollment.
+      confidence: confirmed
+      sources:
+        - {source: il-idhs-pm-06-12-02-a, locator: "A face-to-face interview is not required ... Accept the applicant's statement of information ... except for Medicare Part A enrollment."}
+        - {source: il-idhs-pm-06-13-02-a, locator: "same for SLIB"}
+  documents:
+    - id: MSP-IL-DOC-MEDICARE
+      text: A copy of the Medicare card or the letter saying the person is eligible for Medicare (Part A enrollment is verified).
+      confidence: confirmed
+      sources:
+        - {source: il-hfs-3352, locator: "You will need a copy of your Medicare card or a letter notifying you that you are eligible for Medicare."}
+        - {source: il-idhs-pm-06-12-02-a, locator: "except for Medicare Part A enrollment"}
+  filing:
+    - id: MSP-IL-FILE-FCRC
+      text: In person or by mail at the local IDHS Family Community Resource Center; DHS Helpline 1-800-843-6154 (TTY 1-866-324-5553).
+      channel: in_person
+      county_varies: true
+      confidence: confirmed
+      sources: [{source: il-hfs-3352, locator: "How Do I Apply?; DHS Helpline"}]
+  timelines:
+    - id: MSP-IL-TIME-DECISION
+      text: IDHS must approve or deny a QMB or SLIB application within 45 days of receipt.
+      duration: 45 days
+      confidence: confirmed
+      sources:
+        - {source: il-idhs-pm-06-12-02-a, locator: "Approve or deny applications within 45 days of receipt."}
+        - {source: il-idhs-pm-06-13-02-a, locator: "Approve or deny applications within 45 days of receipt."}
+    - id: MSP-IL-TIME-DEDUCTION-STOPS
+      text: How long after approval SSA stops deducting the Part B premium in Illinois was not found in Illinois sources.
+      confidence: unresolved
+      open_question: MSP-IL-OQ-07
+  approval_notice:
+    - id: MSP-IL-NOTICE-DECISION
+      text: >-
+        Eligibility changes are sent as a Notice of Decision (form 360C is the
+        IES notice generated for the yearly mass change of QI-1/SLIB cases);
+        HFS 3352 says the FCRC informs the applicant "in writing". SLIB-only
+        clients get no MediPlan card.
+      confidence: confirmed
+      note: The 360C is named for the mass-change notices; that the same form is used for new approvals is an inference.
+      sources:
+        - {source: il-idhs-mr-26-11, locator: "Mass Change Action in IES: A 360C Notice of Decision will be generated in IES."}
+        - {source: il-hfs-3352, locator: "your FCRC will inform you in writing if you qualify"}
+        - {source: il-idhs-pm-06-13-02-a, locator: "A MediPlan card is not issued to persons who are SLIB Only."}
+  renewal:
+    - id: MSP-IL-RENEW-12
+      text: QMB-only and SLIB-only cases are redetermined at least every 12 months; the REDE form is sent centrally in the 11th month. QMB with cash/regular Medical continues while Part A continues.
+      confidence: confirmed
+      sources:
+        - {source: il-idhs-pm-06-12-04-a, locator: "REDE QMB only cases at least once every 12 months"}
+        - {source: il-idhs-pm-06-13-04-a, locator: "REDE SLIB only cases at least once every 12 months"}
+  county_variation:
+    - id: MSP-IL-STATEWIDE
+      text: Rules are statewide (IDHS/HFS); only the local FCRC office differs.
+      county_varies: true
+      confidence: confirmed
+      sources: [{source: il-hfs-3352, locator: "local ... Family Community Resource Center (FCRC) nearest you"}]
+
+life_events:
+  - id: MSP-IL-LE-RETIRE
+    code: retirement
+    event: Retirement or a drop in income
+    why: Countable income up to $1,794 single / $2,433 couple (2026) qualifies for QI-1 or better if resources are under $9,950 / $14,910.
+    check_rules: [MSP-IL-QMB-INCOME, MSP-IL-SLIB-INCOME, MSP-IL-QI-INCOME, MSP-IL-RESOURCES]
+    confidence: confirmed
+    sources: [{source: il-idhs-wag-25-03-02-msp, locator: "2026 Monthly Income Standards"}]
+  - id: MSP-IL-LE-ASSETS
+    code: asset_change
+    event: Savings drop below (or rise above) $9,950 single / $14,910 couple
+    why: Illinois keeps the federal resource limit and has no MSP spenddown of excess resources.
+    check_rules: [MSP-IL-RESOURCES]
+    confidence: confirmed
+    sources: [{source: il-idhs-pm-06-12-01-a, locator: "Spenddown does not apply to QMB."}]
+  - id: MSP-IL-LE-JANUARY
+    code: cola_january
+    event: January COLA and new standards
+    why: The COLA is ignored through March; new standards apply to active cases by an April mass change, moving some QI-1 cases to SLIB or QMB.
+    check_rules: [MSP-IL-COLA, MSP-IL-FPL-EFFECTIVE]
+    confidence: confirmed
+    sources: [{source: il-idhs-mr-26-11, locator: "Mass Change Action in IES"}]
+  - id: MSP-IL-LE-SPENDDOWN
+    code: medicaid_change
+    event: Medicaid spenddown met or unmet, or Medicaid approved
+    why: QI-1 is lost when Medicaid is approved or spenddown is met; it is allowed while spenddown is unmet.
+    check_rules: [MSP-IL-QI-NOT-MEDICAID]
+    confidence: confirmed
+    sources: [{source: il-idhs-pm-06-14-01, locator: "Additional Requirements"}]
+  - id: MSP-IL-LE-NURSING-HOME
+    code: nursing_home_entry
+    event: A spouse enters a nursing home or starts Department on Aging in-home services
+    why: MSP budgeting for the resident and community spouse changes (no CSMNA/FMNA deduction; allowance not income to the community spouse).
+    check_rules: [MSP-IL-LTC-SPOUSE]
+    confidence: confirmed
+    sources: [{source: il-idhs-pm-06-12-01-b, locator: "last paragraph"}]
+
+outcome_proof:
+  - id: MSP-IL-PROOF-NOTICE
+    evidence: IDHS Notice of Decision approving QMB, SLIB or QI-1
+    shows: The program approved and its start month.
+    how_to_get: Mailed by IDHS, also visible in the ABE Manage My Case account
+    confidence: confirmed
+    sources: [{source: il-idhs-mr-26-11, locator: "360C Notice of Decision"}]
+  - id: MSP-IL-PROOF-SSA
+    evidence: Social Security payment no longer reduced by the Part B premium
+    shows: The SMIB buy-in is in effect; the deposit rises by $202.90 (2026).
+    how_to_get: my Social Security account or bank statement
+    confidence: unresolved
+    open_question: MSP-IL-OQ-07
+  - id: MSP-IL-PROOF-CARD
+    evidence: MediPlan card (QMB clients; not issued to SLIB-only)
+    shows: QMB (or Medicaid) is active so providers can bill for Medicare cost-sharing.
+    confidence: confirmed
+    note: The PM states only that SLIB-only clients get no card; that QMB-only clients get one is inferred from QDWI/SLIB statements.
+    sources: [{source: il-idhs-pm-06-13-02-a, locator: "A MediPlan card is not issued to persons who are SLIB Only."}]
+
+links:
+  - id: MSP-IL-LINK-MEDICAID
+    playbook: medicaid
+    rules: [MSP-IL-QI-NOT-MEDICAID, MSP-IL-AUTO-QMB]
+    relation: >-
+      AABD Medical recipients with Part A are automatically QMB; QI-1 is barred
+      by approved Medicaid or met spenddown but allowed with unmet spenddown.
+    test: MSP-IL-T18
+    confidence: confirmed
+    sources: [{source: il-idhs-pm-06-14-01, locator: "Additional Requirements"}]
+  - id: MSP-IL-LINK-LTC-MEDICAID
+    playbook: ltc_medicaid
+    rules: [MSP-IL-LTC-SPOUSE]
+    relation: >-
+      Nursing-home residents (and Department on Aging in-home clients) can
+      hold QMB/SLIB alongside long-term-care Medicaid, with HFS paying their
+      Medicare premiums; the community spouse maintenance allowance is not
+      deducted from the resident's income for the MSP test and is not income
+      to a community spouse who applies for an MSP.
+    confidence: confirmed
+    sources:
+      - {source: il-idhs-pm-06-12-01-b, locator: "last paragraph"}
+      - {source: il-idhs-pm-06-12-02-b, locator: "live in a long term care or sheltered care facility"}
+  - id: MSP-IL-LINK-EXTRA-HELP
+    playbook: msp
+    rules: [MSP-IL-RESOURCES, MSP-FED-EXTRA-HELP-ELIGIBILITY]
+    relation: >-
+      Illinois's MSP resource limit ($9,950) is below the Extra Help limit
+      ($16,590), so a retiree with $10,000-$16,590 is refused the MSP but can
+      still get Extra Help by applying to SSA.
+    test: MSP-X-05
+    confidence: confirmed
+    sources:
+      - {source: il-idhs-wag-25-03-02-msp, locator: "Resources"}
+      - {source: ssa-poms-hi-03030-025, locator: "B. 2026 resource limits"}
+
+open_questions:
+  - id: MSP-IL-OQ-01
+    priority: medium
+    question: In Illinois, does a person with nonexempt resources of exactly $9,950 (couple $14,910) qualify for the MSPs?
+    why_it_matters: PM 06-12-01 says "less than" the standard; PM 06-12-01-a bars only resources "higher than" it; federal law says "do not exceed".
+    checked: [PM 06-12-01, PM 06-12-01-a, "PM 06-14-01 (MR 26.10)", WAG 25-03-02(2)]
+    affects: [MSP-IL-RESOURCES]
+    status: open
+  - id: MSP-IL-OQ-02
+    priority: high
+    question: For working applicants, does Illinois actually apply the AABD earned income disregard ($20 + 1/2 of next $60) to QMB/SLIB/QI-1, and how is that squared with the federal requirement to use SSI methodology ($65 + 1/2) or something less restrictive?
+    why_it_matters: A retiree with part-time wages could be wrongly refused (or the agent could wrongly promise eligibility).
+    checked: [PM 06-12-01-b, PM 15-05-03, PM 08-02-03-a/b, 42 U.S.C. 1396d(p)(1)(B), 1396a(r)(2)]
+    affects: [MSP-IL-EARNED-INCOME-FLOOR, MSP-IL-INCOME-METHOD]
+    status: open
+  - id: MSP-IL-OQ-03
+    priority: medium
+    question: Is countable income of $1,795 (single) / $2,434 (couple) QI-1 eligible in Illinois in 2026?
+    why_it_matters: The WAG band stops at $1,794 / $2,433; PM 06-14-01-b says "equal to or less than 135%" ($1,795.50 / $2,434.50); PM 06-14-01 says "less than 135%".
+    checked: [WAG 25-03-02(2), PM 06-14-00, PM 06-14-01, PM 06-14-01-b]
+    affects: [MSP-IL-QI-INCOME, il.msp.qi_income_limit_pm_text_monthly]
+    status: open
+  - id: MSP-IL-OQ-04
+    priority: medium
+    question: How do dependent children in the home change the Illinois MSP income standard (WAG lists QMB/SLIB/QI-1 only for 1 and 2 people)?
+    why_it_matters: PM 15-06-02-c includes dependent children in the AABD standard, but the MSP bands are "NA" above two people.
+    checked: [PM 15-06-02-c, WAG 25-03-02(2)]
+    affects: [MSP-IL-COUPLE]
+    status: open
+  - id: MSP-IL-OQ-05
+    priority: medium
+    question: Does "automatically eligible for QMB" for AABD Medical recipients (PM 06-12-02-b) apply when their resources are between $9,950 and the $17,500 AABD Medical limit?
+    why_it_matters: Decides whether the agent tells such a person they have QMB.
+    checked: [PM 06-12-02-b, PM 06-12-01-a, WAG 25-03-02(2)]
+    affects: [MSP-IL-AUTO-QMB]
+    status: open
+  - id: MSP-IL-OQ-06
+    priority: low
+    question: How is QDWI income counted in Illinois (AABD budgeting, SSI methodology, or gross) and is the 200% FPL dollar figure the WAG's $2,660 / $3,606?
+    why_it_matters: QDWI applicants have earnings by definition.
+    checked: [PM 06-06-03, WAG 25-03-02(2)]
+    affects: [il.msp.qdwi_income_limit_monthly, MSP-IL-QDWI]
+    status: open
+  - id: MSP-IL-OQ-07
+    priority: high
+    question: After an Illinois MSP approval, how long until SSA stops deducting the Part B premium, and how are retroactive SLIB/QI-1 months refunded?
+    why_it_matters: The outcome proof the member will look for.
+    checked: [PM 22-07-02, PM 06-13-02-a, HFS 3352]
+    affects: [MSP-IL-PROOF-SSA, MSP-IL-TIME-DEDUCTION-STOPS]
+    status: open
+  - id: MSP-IL-OQ-08
+    priority: medium
+    question: Which resources are exempt for the Illinois MSP test (AABD rules, PM 07-02), including the $1,500 / $3,000 burial allowance the Department on Aging mentions?
+    why_it_matters: The evaluator excludes only the home, one vehicle and burial spaces.
+    checked: [PM 06-12-01-a (points to PM 07-02-00), Illinois Department on Aging 2026 MSP chart (secondary)]
+    affects: [MSP-IL-RESOURCES]
+    status: open
+
+conflicts:
+  - id: MSP-IL-CONFLICT-01
+    topic: Resources exactly at the limit
+    claims:
+      - {source: il-idhs-pm-06-12-01, locator: "QMB Eligibility", says: "have nonexempt assets less than the QMB asset standard"}
+      - {source: il-idhs-pm-06-12-01-a, locator: "Resource Limits", says: "When nonexempt resources are higher than the QMB standard, the person is not eligible"}
+      - {source: usc-42-1396d, locator: "(p)(1)(C)", says: "resources do not exceed twice the SSI limit (now the LIS level)"}
+    handling: Evaluator returns undetermined at exactly the limit (MSP-IL-OQ-01); below is eligible, above is not.
+    affects: [MSP-IL-RESOURCES]
+    status: open
+  - id: MSP-IL-CONFLICT-02
+    topic: Boundary between SLIB and QI-1 at 120% FPL
+    claims:
+      - {source: il-idhs-pm-06-13-00, locator: "SLIB", says: "countable income is not more than 120% of the FPL"}
+      - {source: il-idhs-wag-25-03-02-msp, locator: "SLIB column", says: "Over 100% to $1 less than 120% ($1,331-1,595)"}
+      - {source: il-idhs-pm-06-14-01, locator: "QI-1", says: "income at least 120% but less than 135%"}
+    handling: Evaluator follows the WAG bands (countable $1,596 is QI-1). Eligibility is the same; only the tier (and QI-1's Medicaid bar) differs.
+    affects: [MSP-IL-SLIB-INCOME, MSP-IL-QI-INCOME]
+    status: open
+  - id: MSP-IL-CONFLICT-03
+    topic: Top of QI-1
+    claims:
+      - {source: il-idhs-wag-25-03-02-msp, locator: "QI-1 column", says: "$1,596 - 1,794 single; $2,164 - 2,433 couple"}
+      - {source: il-idhs-pm-06-14-01-b, locator: "Income Limit", says: "equal to or less than 135% of the FPL ($1,795.50 single)"}
+    handling: Countable $1,795 / $2,434 returns undetermined (MSP-IL-OQ-03).
+    affects: [MSP-IL-QI-INCOME]
+    status: open
+  - id: MSP-IL-CONFLICT-04
+    topic: Earned income counting versus the federal SSI-methodology floor
+    claims:
+      - {source: il-idhs-pm-08-02-03-a, locator: "Aged or Disabled", says: "disregard the first $20 of earned income plus 1/2 of the next $60"}
+      - {source: usc-42-1396d, locator: "(p)(1)(B)", says: "QMB income is determined under section 1382a (SSI: $65 plus one-half of the remainder excluded)"}
+    handling: When SSI counting gives a better tier than Illinois's rule, the evaluator returns undetermined (MSP-IL-OQ-02).
+    affects: [MSP-IL-INCOME-METHOD, MSP-IL-EARNED-INCOME-FLOOR]
+    status: open
+  - id: MSP-IL-CONFLICT-05
+    topic: When new standards take effect
+    claims:
+      - {source: il-idhs-mr-26-11, locator: "Increase in the Monthly Medical Income Standards", says: "Revised standards effective 01/01/26; active cases updated effective April 2026."}
+      - {source: il-hfs-3352, locator: "eligibility list", says: "These amounts change every April."}
+      - {source: il-aging-msp-chart-2026, locator: "Note", says: "DHS posts the exact figures in early April."}
+    handling: The evaluator uses the 2026 standards from January 1, 2026 (MR #26.11, the directive); April is when active cases are mass-updated.
+    affects: [MSP-IL-FPL-EFFECTIVE]
+    status: open
+
+claims_checked:
+  - claim: Illinois applies the federal MSP resource limit ($9,950 / $14,910 in 2026).
+    verdict: verified
+    detail: WAG 25-03-02(2) lists $9,950 (one) and $14,910 (two or more) for 2026; there is no spenddown of excess resources. AABD Medical's own limit is $17,500.
+    sources: [{source: il-idhs-wag-25-03-02-msp, locator: "Resources"}]
+  - claim: Illinois MSP income limits include the $20 disregard.
+    verdict: corrected
+    detail: Illinois uses a $25 income exemption (PM 06-12-01-c) and publishes bands for countable income after it; gross Social Security up to $1,355 qualifies for QMB, not $1,350.
+    sources:
+      - {source: il-idhs-pm-06-12-01-c, locator: "Income Exemption"}
+      - {source: il-aging-msp-chart-2026, locator: "Note: Add $25 to incomes"}
+  - claim: Illinois switches MSP limits to the new FPL on April 1.
+    verdict: partly_verified
+    detail: The 2026 standards are effective January 1, 2026 (pending applications from January); active cases were updated by a mass change effective April 2026.
+    sources: [{source: il-idhs-mr-26-11, locator: "Increase in the Monthly Medical Income Standards"}]
+  - claim: Illinois is a Part A buy-in state.
+    verdict: refuted
+    detail: IDHS's manual says the Department cannot enroll anyone in Part A; people without premium-free Part A must use conditional enrollment at SSA, after which HFS pays the premium for QMBs. Not checked against a CMS list of Part A buy-in states; the PM pages are dated 1999-2009.
+    sources: [{source: il-idhs-pm-22-07-01-a, locator: "Department Payment of HIB Premiums"}]
