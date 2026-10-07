@@ -19,6 +19,12 @@ from rulesarchive.household import EARNED_KINDS, Household
 
 PROGRAM = "msp"
 
+# Fact keys read by the MSP logic (Person.facts unless noted):
+#   ss_cola_increase_monthly, part_a_buy_in, lost_part_a_due_to_work,
+#   chooses_qi_over_medicaid (NY);
+#   health_insurance_premiums_monthly, support_paid_monthly (NY only; see
+#   playbooks/msp/states/ny/rules.py).
+
 # Income that SSI methodology does not count as income to the MSP applicant.
 # SSI and state supplement payments are needs-based assistance; see
 # MSP-FED-OQ-05 (no MSP-specific primary text found yet).
@@ -34,6 +40,7 @@ class IncomeBreakdown:
     earned_disregard: float
     countable: float
     size: int
+    deductions: float = 0.0   # state deductions after the SSI disregards (e.g. NY health insurance premiums)
 
 
 def budget_unit(hh: Household) -> set[str]:
@@ -67,12 +74,20 @@ def cola_excluded(hh: Household, owners: set[str], as_of: date, det: Determinati
 
 def countable_income(hh: Household, as_of: date, det: Determination,
                      general_disregard_pid: str = "federal.ssi.general_income_exclusion_monthly",
-                     rule_id: str = "MSP-FED-INCOME-SSI-METHOD") -> IncomeBreakdown:
+                     rule_id: str = "MSP-FED-INCOME-SSI-METHOD",
+                     deductions: float = 0.0,
+                     deduction_rule_id: str | None = None) -> IncomeBreakdown:
     """SSI-method countable monthly income for the applicant (and spouse).
 
     One $20 general disregard per couple, applied to unearned income first and
     any remainder to earned income; then $65 and one-half of the remaining
     earned income are excluded.
+
+    ``deductions`` (default 0, so federal and other states' results are
+    unchanged) is a further monthly amount a state subtracts after those
+    disregards, floored at zero; New York passes the health insurance premiums
+    the budget unit pays (MSP-NY-HEALTH-PREMIUMS). It is recorded under
+    ``deduction_rule_id``.
     """
     owners = budget_unit(hh)
     unearned = sum(i.monthly for i in hh.incomes
@@ -86,13 +101,20 @@ def countable_income(hh: Household, as_of: date, det: Determination,
     unearned_after = max(0.0, unearned - gd)
     gd_left = max(0.0, gd - unearned)
     earned_after = max(0.0, earned - gd_left - ed) / 2.0
-    countable = round(unearned_after + earned_after, 2)
+    before = unearned_after + earned_after
+    deductions = max(0.0, float(deductions))
+    countable = round(max(0.0, before - deductions), 2)
     size = 2 if len(owners) == 2 else 1
+    if deductions:
+        det.note(deduction_rule_id or rule_id,
+                 f"${min(deductions, before):,.2f}/mo deducted after the SSI disregards "
+                 f"(${before:,.2f} -> ${countable:,.2f})", None)
     det.note(rule_id,
              f"countable income ${countable:,.2f}/mo = unearned ${unearned:,.2f} - ${gd:.0f} disregard"
              + (f" + (earned ${earned:,.2f} - ${gd_left:.0f} - ${ed:.0f}) / 2" if earned else "")
+             + (f" - ${deductions:,.2f} deductions" if deductions else "")
              + f"; household size {size}", None)
-    return IncomeBreakdown(unearned, earned, cola, gd, ed, countable, size)
+    return IncomeBreakdown(unearned, earned, cola, gd, ed, countable, size, deductions)
 
 
 def cola_amount(hh: Household, owners: set[str]) -> float:
@@ -154,7 +176,8 @@ def part_b_amount(det: Determination, as_of: date) -> None:
 
 
 def qdwi_test(hh: Household, as_of: date, det: Determination, income_pid: str, resource_pid: str,
-              rule_id: str, limit_includes_disregards: bool) -> bool:
+              rule_id: str, limit_includes_disregards: bool, deductions: float = 0.0,
+              deduction_rule_id: str | None = None) -> bool:
     """QDWI: under 65, disabled, lost premium-free Part A by working, not otherwise Medicaid-eligible."""
     a = hh.applicant
     if not (a.age < 65 and a.disabled and a.facts.get("lost_part_a_due_to_work")):
@@ -162,7 +185,7 @@ def qdwi_test(hh: Household, as_of: date, det: Determination, income_pid: str, r
     if a.receives("medicaid"):
         det.note(rule_id, "QDWI requires not being otherwise eligible for Medicaid", False)
         return False
-    inc = countable_income(hh, as_of, det)
+    inc = countable_income(hh, as_of, det, deductions=deductions, deduction_rule_id=deduction_rule_id)
     limit = params.use(income_pid, as_of, det)[inc.size]
     # Federal QDWI figures already fold in the disregards; compare gross for those.
     measured = inc.unearned + inc.earned if limit_includes_disregards else inc.countable
