@@ -15,7 +15,7 @@ parameters:
         value: {1: 1330, 2: 1803}
         confidence: confirmed
         sources:
-          - {source: il-idhs-wag-25-03-02-msp, locator: "AABD Medical/Medicare Savings Programs/HBWD, 2026 Monthly Income Standards, QMB 100% FPL column", quote: "QMB 100% FPL ... 1 ... $ 1,330 ... 2 ... 1,803"}
+          - {source: il-idhs-wag-25-03-02-2, locator: "AABD Medical/Medicare Savings Programs/HBWD, 2026 Monthly Income Standards, QMB 100% FPL column", quote: "QMB 100% FPL ... 1 ... $ 1,330 ... 2 ... 1,803"}
           - {source: il-idhs-mr-26-11, locator: "Increase in the Monthly Medical Income Standards", quote: "The revised standards are effective 01/01/26 for all programs except Medicaid Presumptive Eligibility (MPE)."}
   - id: il.msp.slib_income_limit_monthly
     description: Highest countable income in Illinois's published 2026 SLIB band ("Over 100% to $1 less than 120%").
@@ -30,7 +30,7 @@ parameters:
         confidence: confirmed
         note: PM 06-13-00 says SLIB income is "not more than 120%" of FPL, which would put $1,596 single in SLIB; the WAG band puts it in QI-1 (conflict MSP-IL-CONFLICT-02).
         sources:
-          - {source: il-idhs-wag-25-03-02-msp, locator: "SLIB Over 100% to $1 less than 120% column", quote: "$ 1,331 - 1,595 ... 1,804 - 2,163"}
+          - {source: il-idhs-wag-25-03-02-2, locator: "SLIB Over 100% to $1 less than 120% column", quote: "$ 1,331 - 1,595 ... 1,804 - 2,163"}
   - id: il.msp.qi_income_limit_monthly
     description: Highest countable income in Illinois's published 2026 QI-1 band ("120% to $1 less than 135% FPL").
     compare_to: >-
@@ -43,7 +43,7 @@ parameters:
         value: {1: 1794, 2: 2433}
         confidence: confirmed
         sources:
-          - {source: il-idhs-wag-25-03-02-msp, locator: "QI-1 120% to $1 less than 135% FPL column", quote: "$ 1,596 - 1,794 ... 2,164 - 2,433"}
+          - {source: il-idhs-wag-25-03-02-2, locator: "QI-1 120% to $1 less than 135% FPL column", quote: "$ 1,596 - 1,794 ... 2,164 - 2,433"}
   - id: il.msp.qi_income_limit_pm_text_monthly
     description: >-
       Highest whole-dollar countable income that is "equal to or less than
@@ -75,7 +75,7 @@ parameters:
         confidence: confirmed
         sources:
           - {source: il-idhs-pm-06-12-01-c, locator: "PM 06-12-01-c Income Exemption", quote: "The first $25 of earned or unearned income, other than SSI income, is exempt when determining eligibility for QMB."}
-          - {source: il-idhs-pm-15-04-03-a-msp, locator: "AABD Income Disregard (Community Cases)"}
+          - {source: il-idhs-pm-15-04-03-a, locator: "AABD Income Disregard (Community Cases)"}
   - id: il.aabd.earned_income_disregard_flat_monthly
     description: Illinois AABD (aged or disabled) earned income disregard, flat part — the first $20 of earned income.
     unit: usd_per_month
@@ -121,13 +121,13 @@ parameters:
         value: {1: 9660, 2: 14470}
         confidence: confirmed
         sources:
-          - {source: il-idhs-wag-25-03-02-msp, locator: "Resources table, Medicare Savings Programs row", quote: "9,660 (2025) ... 14,470 (2025)"}
+          - {source: il-idhs-wag-25-03-02-2, locator: "Resources table, Medicare Savings Programs row", quote: "9,660 (2025) ... 14,470 (2025)"}
           - {source: il-idhs-mr-25-15, locator: "Resource Limit for Medicare Savings Program (MSP)"}
       - effective_from: 2026-01-01
         value: {1: 9950, 2: 14910}
         confidence: confirmed
         sources:
-          - {source: il-idhs-wag-25-03-02-msp, locator: "Resources table, Medicare Savings Programs row", quote: "9,950 (2026) ... 14,910 (2026)"}
+          - {source: il-idhs-wag-25-03-02-2, locator: "Resources table, Medicare Savings Programs row", quote: "9,950 (2026) ... 14,910 (2026)"}
           - {source: il-idhs-mr-26-11, locator: "Resource Limit for Medicare Savings Program (MSP)"}
   - id: il.msp.qdwi_income_limit_monthly
     description: Illinois QDWI income limit (not more than 200% FPL), using the 200% FPL figures IDHS publishes for 2026.
@@ -143,7 +143,7 @@ parameters:
         note: The figures are the WAG's 200% FPL column (labelled for Refugee Medical Assistance); PM 06-06-03 sets QDWI at 200% FPL without a dollar table.
         sources:
           - {source: il-idhs-pm-06-06-03, locator: "To be eligible for QDWI a person must: have an income of not more than 200% of the Federal Poverty Level"}
-          - {source: il-idhs-wag-25-03-02-msp, locator: "2026 Monthly Income Standards, (RMA AABD) 200% FPL column", quote: "$2,660 ... 3,606"}
+          - {source: il-idhs-wag-25-03-02-2, locator: "2026 Monthly Income Standards, (RMA AABD) 200% FPL column", quote: "$2,660 ... 3,606"}
   - id: il.msp.qdwi_resource_limit
     description: Illinois QDWI resource limit (twice the SSI resource limit).
     compare_to: Countable resources of the individual or couple.

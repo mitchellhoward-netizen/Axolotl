@@ -131,7 +131,7 @@ rules:
     confidence: confirmed
     note: Rests on SSA's list (New York is not a 209(b) or SSI-criteria state). New York's own page says SSI recipients are served by the LDSS rather than NY State of Health.
     sources:
-      - {source: ssa-poms-si-01715-010-mcd, locator: "A.1-A.3 (New York not listed as 209(b) or SSI criteria)"}
+      - {source: ssa-poms-si-01715-010, locator: "A.1-A.3 (New York not listed as 209(b) or SSI criteria)"}
       - {source: ny-doh-medicaid-how-to-apply, locator: "Individuals who receive Supplemental Security Income (SSI)" }
   - id: MCD-NY-SSI-RELATED-BUDGET
     statement: >-
@@ -266,7 +266,7 @@ rules:
     note: Date is the snapshot date of the DOH page (undated).
     sources:
       - {source: ny-doh-medicaid-how-to-apply, locator: "You are required to apply for Medicare if: ... below 120% of the Federal Poverty Level"}
-      - {source: ny-doh-4220-mcd, locator: "SECTION D: You are required to apply for Medicare if"}
+      - {source: ny-doh-4220, locator: "SECTION D: You are required to apply for Medicare if"}
 
   # ---------------------------------------------------------------- timing
   - id: MCD-NY-RETRO
@@ -395,7 +395,7 @@ procedure:
       confidence: confirmed
       sources:
         - {source: ny-doh-medicaid-how-to-apply, locator: "You may apply for Medicaid in the following ways"}
-        - {source: ny-doh-4220-mcd, locator: "Any other Medicaid applicants must apply through NY State of Health ... 1-855-355-5777"}
+        - {source: ny-doh-4220, locator: "Any other Medicaid applicants must apply through NY State of Health ... 1-855-355-5777"}
     - id: MCD-NY-PROC-DOH-4220
       text: Non-MAGI applicants applying through the LDSS (and anyone applying with a spenddown) use form DOH-4220 (Health Insurance for Older Adults, People With Disabilities and Certain Other Populations), plus Supplement A (DOH-5178A) if 65+, certified blind or disabled, or seeking nursing home care.
       form_number: DOH-4220 (with DOH-5178A Supplement A)
@@ -404,7 +404,7 @@ procedure:
       confidence: confirmed
       sources:
         - {source: ny-doh-medicaid-how-to-apply, locator: "Medicaid Application for Non-MAGI Eligibility Group (DOH-4220); Supplement A (DOH-5178A)"}
-        - {source: ny-doh-4220-mcd, locator: "PURPOSE OF THIS APPLICATION; Supplement A"}
+        - {source: ny-doh-4220, locator: "PURPOSE OF THIS APPLICATION; Supplement A"}
     - id: MCD-NY-PROC-LDSS-2921
       text: The LDSS-2921 is New York's long combined application (public assistance, SNAP, Medicaid); it is not required for MSP-only applications, and its current use for Medicaid-only applicants was not established.
       form_number: LDSS-2921
@@ -419,7 +419,7 @@ procedure:
     - id: MCD-NY-DOC-RETRO-BILLS
       text: To get past bills paid, list the months and send copies of medical bills from the last three months (paid or unpaid) with the DOH-4220, and income for those months.
       confidence: confirmed
-      sources: [{source: ny-doh-4220-mcd, locator: "SECTION G Additional Health Questions; Medical bills for last three months"}]
+      sources: [{source: ny-doh-4220, locator: "SECTION G Additional Health Questions; Medical bills for last three months"}]
   filing:
     - id: MCD-NY-FILE-LDSS
       text: Mail or return the DOH-4220 to the Local Department of Social Services of the county where the person lives (HRA in New York City, 718-557-1399); no interview is required.
@@ -428,7 +428,7 @@ procedure:
       url: https://www.health.ny.gov/health_care/medicaid/ldss.htm
       confidence: confirmed
       sources:
-        - {source: ny-doh-4220-mcd, locator: "After you have completed this application please mail/return to the local department of social services in the county in which you reside; HOW TO GET HELP: you DO NOT need to visit"}
+        - {source: ny-doh-4220, locator: "After you have completed this application please mail/return to the local department of social services in the county in which you reside; HOW TO GET HELP: you DO NOT need to visit"}
         - {source: ny-doh-medicaid-how-to-apply, locator: "In New York City, contact the Human Resources Administration by calling (718) 557-1399"}
     - id: MCD-NY-FILE-HELPLINE
       text: Medicaid Helpline 1-800-541-2831.
@@ -583,7 +583,7 @@ conflicts:
   - id: MCD-NY-CONFLICT-01
     topic: Who gets 1 versus 2 retroactive months from 2027
     claims:
-      - source: pl-119-21-medicaid
+      - source: pl-119-21
         locator: "sec. 71112, new 1902(a)(34)(A)"
         says: One month only for individuals enrolled in the adult expansion group (1902(a)(10)(A)(i)(VIII)); two months for everyone else.
       - source: nysoh-stay-covered

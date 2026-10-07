@@ -132,14 +132,6 @@ sources:
     kind: primary
     jurisdiction: il
     doc_type: manual
-  - id: il-dhs-pm-07-02-01
-    retrieved: 2026-10-07
-    url: https://www.dhs.state.il.us/page.aspx?item=14876
-    publisher: Illinois Department of Human Services (Cash, SNAP, and Medical Manual)
-    title: PM 07-02-01 Asset Limits (AABD)
-    kind: primary
-    jurisdiction: il
-    doc_type: manual
   - id: il-dhs-drs-report-2011
     retrieved: 2026-10-07
     url: https://www.dhs.state.il.us/page.aspx?item=58745

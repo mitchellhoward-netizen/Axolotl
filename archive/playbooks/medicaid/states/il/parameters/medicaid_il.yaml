@@ -21,7 +21,7 @@ parameters:
           - source: il-idhs-mr-26-11
             locator: "Increase in the Monthly Medical Income Standards"
             quote: "The revised standards are effective 01/01/26 for all programs except Medicaid Presumptive Eligibility (MPE)."
-          - source: il-idhs-wag-25-03-02-2-mcd
+          - source: il-idhs-wag-25-03-02-2
             locator: "2026 Family Health Plans Monthly Income Standards, column FamilyCare and ACA Adults MAGI - 138% FPL (includes 5% disregard) (Adults)"
           - source: il-idhs-pm-15-06-01-b
             locator: "The income standard for ACA Adults is 138% of the Federal Poverty Level (FPL)."
@@ -40,7 +40,7 @@ parameters:
           - source: il-idhs-mr-26-11
             locator: "Increase in the Monthly Medical Income Standards"
             quote: "The revised standards are effective 01/01/26 for all programs except Medicaid Presumptive Eligibility (MPE)."
-          - source: il-idhs-wag-25-03-02-2-mcd
+          - source: il-idhs-wag-25-03-02-2
             locator: "column MPE and Moms & Babies MAGI - 213% FPL (includes 5% disregard), Household Size = 2"
   - id: il.medicaid.aabd_income_limit_monthly
     description: Illinois AABD Medical community income standard (100% FPL), monthly.
@@ -61,7 +61,7 @@ parameters:
           - source: il-idhs-mr-26-11
             locator: "Increase in the Monthly Medical Income Standards"
             quote: "The revised standards are effective 01/01/26 for all programs except Medicaid Presumptive Eligibility (MPE)."
-          - source: il-idhs-wag-25-03-02-2-mcd
+          - source: il-idhs-wag-25-03-02-2
             locator: "AABD Medical/Medicare Savings Programs/HBWD, 2026 Monthly Income Standards, AABD 100% FPL column"
           - source: il-idhs-pm-15-06-02-a
             locator: "The Community Standard is 100% of the Federal Poverty Level (FPL)."
@@ -79,7 +79,7 @@ parameters:
         value: 17500
         confidence: confirmed
         sources:
-          - source: il-idhs-pm-07-02-01-mcd
+          - source: il-idhs-pm-07-02-01
             locator: "WAG 07-02-01"
             quote: "Effective 05/12/2023, the asset limit for Medical cases is $17,500. This applies whether one person or more is in a household."
   - id: il.medicaid.aabd_income_disregard_monthly

@@ -52,8 +52,8 @@ summary:
   sources:
     - {source: ecfr-42-435-119, locator: "(b) eligibility conditions"}
     - {source: ecfr-42-435-603, locator: "(a), (g), (j)"}
-    - {source: pl-119-21-medicaid, locator: "secs. 71107, 71109, 71112, 71119, 71120"}
-    - {source: cms-cib-2025-11-18-wftc, locator: "Introduction and implementation timeline table"}
+    - {source: pl-119-21, locator: "secs. 71107, 71109, 71112, 71119, 71120"}
+    - {source: cms-cib-2025-11-18, locator: "Introduction and implementation timeline table"}
 
 rules:
   # ------------------------------------------------------------- MAGI route
@@ -248,7 +248,7 @@ rules:
     confidence: confirmed
     note: Effective date is the snapshot date of the POMS list, which carries no date of its own.
     sources:
-      - {source: ssa-poms-si-01715-010-mcd, locator: "A.1. 209(b) States (list includes Illinois); A.3. 1634 States"}
+      - {source: ssa-poms-si-01715-010, locator: "A.1. 209(b) States (list includes Illinois); A.3. 1634 States"}
   - id: MCD-FED-MEDICALLY-NEEDY
     statement: >-
       A state with a medically needy (spenddown) program lets a person whose
@@ -261,7 +261,7 @@ rules:
     confidence: confirmed
     note: Effective date is the snapshot date of the POMS page (undated). Each state part gives its own spenddown rules (NY Excess Income, CA share of cost, IL spenddown).
     sources:
-      - {source: ssa-poms-si-01715-010-mcd, locator: "A.1. paragraph on Medicaid spenddown"}
+      - {source: ssa-poms-si-01715-010, locator: "A.1. paragraph on Medicaid spenddown"}
   - id: MCD-FED-LTC-HANDOFF
     statement: >-
       In every state, a person asking Medicaid to pay for nursing-home care or
@@ -305,8 +305,8 @@ rules:
     confidence: confirmed
     note: The date is "the first day of the first quarter that begins after December 31, 2026", which is January 1, 2027; CMS states the date directly. The split turns on the group the person is enrolled in, not on age.
     sources:
-      - {source: pl-119-21-medicaid, locator: "sec. 71112(a) and (d)"}
-      - {source: cms-cib-2025-11-18-wftc, locator: "Section 71112"}
+      - {source: pl-119-21, locator: "sec. 71112(a) and (d)"}
+      - {source: cms-cib-2025-11-18, locator: "Section 71112"}
   - id: MCD-FED-RENEWAL-12-MONTHS
     statement: >-
       In every state, Medicaid eligibility is renewed once every 12 months
@@ -336,8 +336,8 @@ rules:
     implemented_in: playbooks/medicaid/federal/rules.py:renewal_interval
     confidence: confirmed
     sources:
-      - {source: pl-119-21-medicaid, locator: "sec. 71107(a), new 1902(e)(14)(L)"}
-      - {source: cms-cib-2025-11-18-wftc, locator: "Section 71107"}
+      - {source: pl-119-21, locator: "sec. 71107(a), new 1902(e)(14)(L)"}
+      - {source: cms-cib-2025-11-18, locator: "Section 71107"}
   - id: MCD-FED-TIMELINESS
     statement: >-
       In every state, a Medicaid application must be decided within 90 days
@@ -368,7 +368,7 @@ rules:
     confidence: confirmed
     note: The evaluator tests one month (the facts given); the look-back months (1-3 at application, chosen by the state) are a state choice not modelled.
     sources:
-      - {source: pl-119-21-medicaid, locator: "sec. 71119(a), new 1902(xx)(1)-(2), (xx)(11)(C)"}
+      - {source: pl-119-21, locator: "sec. 71119(a), new 1902(xx)(1)-(2), (xx)(11)(C)"}
       - {source: ecfr-42-435-552, locator: "(a)"}
       - {source: ecfr-42-435-559, locator: "(a)-(c)"}
       - {source: ecfr-42-435-560, locator: "(c)"}
@@ -389,7 +389,7 @@ rules:
     implemented_in: playbooks/medicaid/federal/rules.py:community_engagement
     confidence: confirmed
     sources:
-      - {source: pl-119-21-medicaid, locator: "new 1902(xx)(3)(A) and (xx)(9)(A)(ii)(I)-(IX)"}
+      - {source: pl-119-21, locator: "new 1902(xx)(3)(A) and (xx)(9)(A)(ii)(I)-(IX)"}
   - id: MCD-FED-CE-NONCOMPLIANCE
     statement: >-
       If a state cannot verify that an expansion adult met the community
@@ -404,7 +404,7 @@ rules:
     effective_from: 2027-01-01
     confidence: confirmed
     sources:
-      - {source: pl-119-21-medicaid, locator: "new 1902(xx)(6)(A)-(B) and (xx)(7)(B)"}
+      - {source: pl-119-21, locator: "new 1902(xx)(6)(A)-(B) and (xx)(7)(B)"}
 
   # ---------------------------------------------- immigration / cost sharing
   - id: MCD-FED-IMMIGRANT-2026
@@ -423,8 +423,8 @@ rules:
     confidence: confirmed
     note: The law limits federal payment, not state coverage; a state may keep covering these people with state funds (New York does for some). The evaluator's statuses are a simplification of PRWORA categories.
     sources:
-      - {source: pl-119-21-medicaid, locator: "sec. 71109(a), new 1903(v)(5)"}
-      - {source: cms-cib-2025-11-18-wftc, locator: "Section 71109"}
+      - {source: pl-119-21, locator: "sec. 71109(a), new 1903(v)(5)"}
+      - {source: cms-cib-2025-11-18, locator: "Section 71109"}
   - id: MCD-FED-EMERGENCY-MEDICAID
     statement: >-
       Emergency Medicaid (treatment of an emergency medical condition for a
@@ -435,8 +435,8 @@ rules:
     effective_from: 2026-10-01
     confidence: confirmed
     sources:
-      - {source: pl-119-21-medicaid, locator: "sec. 71110, new 1905(kk)"}
-      - {source: cms-cib-2025-11-18-wftc, locator: "Section 71110"}
+      - {source: pl-119-21, locator: "sec. 71110, new 1905(kk)"}
+      - {source: cms-cib-2025-11-18, locator: "Section 71110"}
   - id: MCD-FED-COST-SHARING-2028
     statement: >-
       Beginning October 1, 2028, states must charge copayments or similar cost
@@ -451,7 +451,7 @@ rules:
     parameters: [federal.medicaid.expansion_cost_sharing_max_per_service]
     confidence: confirmed
     sources:
-      - {source: pl-119-21-medicaid, locator: "sec. 71120(a), new 1916(k)(1)-(3)"}
+      - {source: pl-119-21, locator: "sec. 71120(a), new 1916(k)(1)-(3)"}
 
   # ------------------------------------------------------------ coordination
   - id: MCD-FED-SCHOOL-MEALS-DC
@@ -487,7 +487,7 @@ procedure:
       text: Before denying or ending coverage for community engagement, the state gives 30 calendar days from receipt of a noncompliance notice to show compliance or an exemption.
       duration: 30 days
       confidence: confirmed
-      sources: [{source: pl-119-21-medicaid, locator: "new 1902(xx)(6)(A)(ii)"}]
+      sources: [{source: pl-119-21, locator: "new 1902(xx)(6)(A)(ii)"}]
   renewal:
     - id: MCD-FED-PROC-RENEW-EXPARTE
       text: Renewal is first attempted from data the agency has (ex parte); if that fails, a pre-filled form is sent with at least 30 days to respond, and no interview may be required.
@@ -513,7 +513,7 @@ life_events:
     why: Having other coverage does not bar Medicaid; losing it is a reason to apply now, and the retroactive months (3, or 1-2 from 2027) can cover bills already incurred.
     check_rules: [MCD-FED-RETRO-3-MONTHS, MCD-FED-RETRO-2027]
     confidence: confirmed
-    sources: [{source: pl-119-21-medicaid, locator: "sec. 71112"}]
+    sources: [{source: pl-119-21, locator: "sec. 71112"}]
   - id: MCD-FED-LE-TURNING-65
     code: turning_65
     event: Turning 65 (or starting Medicare)
@@ -569,7 +569,7 @@ life_events:
     why: Refugees, asylees and parolees lose federally funded Medicaid on October 1, 2026; getting a green card (after the 5-year bar) restores it.
     check_rules: [MCD-FED-IMMIGRANT-2026]
     confidence: confirmed
-    sources: [{source: pl-119-21-medicaid, locator: "sec. 71109"}]
+    sources: [{source: pl-119-21, locator: "sec. 71109"}]
 
 outcome_proof:
   - id: MCD-FED-PROOF-NOTICE
@@ -613,7 +613,7 @@ links:
       route and exempts from community engagement.
     test: MCD-X-03
     confidence: confirmed
-    sources: [{source: ssa-poms-si-01715-010-mcd, locator: "A.1 and A.3"}]
+    sources: [{source: ssa-poms-si-01715-010, locator: "A.1 and A.3"}]
   - id: MCD-LINK-TURNING-65
     playbook: turning_65
     rules: [MCD-FED-ADULT-GROUP, MCD-FED-NONMAGI-GROUPS]
@@ -645,7 +645,7 @@ links:
       combined application (see the state parts).
     test: MCD-X-05
     confidence: confirmed
-    sources: [{source: pl-119-21-medicaid, locator: "new 1902(xx)(9)(A)(ii)(VI)(bb)"}]
+    sources: [{source: pl-119-21, locator: "new 1902(xx)(9)(A)(ii)(VI)(bb)"}]
 
 open_questions:
   - id: MCD-FED-OQ-01
@@ -681,7 +681,7 @@ conflicts:
   - id: MCD-FED-CONFLICT-01
     topic: Retroactive coverage period after January 1, 2027
     claims:
-      - source: pl-119-21-medicaid
+      - source: pl-119-21
         locator: "sec. 71112"
         says: For applications on or after January 1, 2027, retroactive coverage is one month (adult group) or two months (others) before the month of application.
       - source: ecfr-42-435-915
@@ -696,7 +696,7 @@ conflicts:
   - id: MCD-FED-CONFLICT-02
     topic: Renewal frequency for expansion adults from 2027
     claims:
-      - source: pl-119-21-medicaid
+      - source: pl-119-21
         locator: "sec. 71107"
         says: Redeterminations scheduled on or after January 1, 2027 must be made once every 6 months for expansion adults.
       - source: ecfr-42-435-916
@@ -718,12 +718,12 @@ claims_checked:
       split is confirmed by the statute and by CMS's November 18, 2025
       bulletin. It turns on the date of the application, not of the service.
     sources:
-      - {source: pl-119-21-medicaid, locator: "sec. 71112(a), (d)"}
-      - {source: cms-cib-2025-11-18-wftc, locator: "Section 71112"}
+      - {source: pl-119-21, locator: "sec. 71112(a), (d)"}
+      - {source: cms-cib-2025-11-18, locator: "Section 71112"}
   - claim: Six-month redeterminations for expansion adults start in 2027.
     verdict: verified
     detail: For redeterminations scheduled on or after January 1, 2027 (sec. 71107; CMS bulletin).
-    sources: [{source: pl-119-21-medicaid, locator: "sec. 71107"}]
+    sources: [{source: pl-119-21, locator: "sec. 71107"}]
   - claim: Community engagement (work requirements) for expansion adults start January 1, 2027, with state options.
     verdict: verified
     detail: >-
@@ -733,12 +733,12 @@ claims_checked:
       often than at renewal. The CMS interim final rule (42 CFR 435.550-563,
       June 2026) restates the January 1, 2027 date.
     sources:
-      - {source: pl-119-21-medicaid, locator: "new 1902(xx)(1), (4), (11)"}
+      - {source: pl-119-21, locator: "new 1902(xx)(1), (4), (11)"}
       - {source: ecfr-42-435-559, locator: "(a)-(b)"}
   - claim: Changes to immigrant eligibility take effect October 1, 2026.
     verdict: verified
     detail: Sec. 71109 limits federal Medicaid payment from October 1, 2026 to citizens/nationals, LPRs, Cuban/Haitian entrants and COFA migrants (emergency Medicaid and CHIPRA 214 excepted).
-    sources: [{source: pl-119-21-medicaid, locator: "sec. 71109(a)"}]
+    sources: [{source: pl-119-21, locator: "sec. 71109(a)"}]
   - claim: All three states (New York, California, Illinois) expanded Medicaid to adults at 138% FPL.
     verdict: verified
     detail: Each state's own 2026 tables show a 138% FPL adult standard (NY GIS 26 MA/05 chart; CA county FPL chart "ACA New Adult Group Ages 19-64"; IL PM 15-06-01-b and WAG 25-03-02 (2)). Their monthly figures differ by rounding ($1,836 NY and CA, $1,835 IL for one person).

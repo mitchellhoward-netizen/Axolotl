@@ -126,7 +126,7 @@ parameters:
         confidence: confirmed
         note: PM 07-02-01 says this cash limit is also the AABD limit that applied before 05/12/2023 (when the AABD medical limit became $17,500); it does not give the cash limit's own start date.
         sources:
-          - {source: il-dhs-pm-07-02-01, locator: "The resource limit for AABD Cash is below ... one person - $2,000; 2 persons - $3,000"}
+          - {source: il-idhs-pm-07-02-01, locator: "The resource limit for AABD Cash is below ... one person - $2,000; 2 persons - $3,000"}
   - id: il.aabd.minimum_payment_monthly
     description: Minimum AABD cash payment for a person in the community; the client qualifies only if needs exceed nonexempt income by at least this amount.
     unit: usd_per_month

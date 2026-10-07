@@ -107,16 +107,6 @@ sources:
     doc_type: dataset
     effective_date: 2025-10-01
     note: Excel file; the snapshot text is every row of the sheet, converted with openpyxl.
-  - id: pl-119-21-nutrition
-    retrieved: 2026-10-07
-    url: https://www.govinfo.gov/content/pkg/PLAW-119publ21/html/PLAW-119publ21.htm
-    publisher: U.S. Government Publishing Office
-    title: Public Law 119-21 (One Big Beautiful Bill Act), Title I Subtitle A (Nutrition), secs. 10101-10108
-    kind: primary
-    jurisdiction: federal
-    doc_type: statute
-    published: 2025-07-04
-    effective_date: 2025-07-04
   - id: usc-7-2014
     retrieved: 2026-10-07
     url: https://www.govinfo.gov/content/pkg/USCODE-2023-title7/html/USCODE-2023-title7-chap51-sec2014.htm
@@ -199,11 +189,3 @@ sources:
     jurisdiction: federal
     doc_type: regulation
     note: Regulation text predates Public Law 119-21's ABAWD changes; read with pl-119-21-nutrition sec. 10102.
-  - id: usc-42-1758-direct-cert
-    retrieved: 2026-10-07
-    url: https://www.govinfo.gov/content/pkg/USCODE-2023-title42/html/USCODE-2023-title42-chap13-sec1758.htm
-    publisher: U.S. Government Publishing Office (United States Code, 2023 edition)
-    title: 42 U.S.C. 1758 — School lunch program requirements (direct certification of SNAP children, (b)(4))
-    kind: primary
-    jurisdiction: federal
-    doc_type: statute

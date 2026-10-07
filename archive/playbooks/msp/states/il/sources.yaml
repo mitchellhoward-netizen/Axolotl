@@ -162,38 +162,6 @@ sources:
     kind: primary
     jurisdiction: il
     doc_type: manual
-  - id: il-idhs-pm-15-04-03-a-msp
-    retrieved: 2026-10-07
-    url: https://www.dhs.state.il.us/page.aspx?item=16387
-    publisher: Illinois Department of Human Services (Cash, SNAP and Medical Manual; policy set jointly with HFS)
-    title: PM 15-04-03-a — AABD Income Disregard (Community Cases)
-    kind: primary
-    jurisdiction: il
-    doc_type: manual
-  - id: il-idhs-pm-15-04-03-c-msp
-    retrieved: 2026-10-07
-    url: https://www.dhs.state.il.us/page.aspx?item=16394
-    publisher: Illinois Department of Human Services (Cash, SNAP and Medical Manual; policy set jointly with HFS)
-    title: PM 15-04-03-c — Monthly SSI Benefits
-    kind: primary
-    jurisdiction: il
-    doc_type: manual
-  - id: il-idhs-pm-15-05-03-msp
-    retrieved: 2026-10-07
-    url: https://www.dhs.state.il.us/page.aspx?item=16446
-    publisher: Illinois Department of Human Services (Cash, SNAP and Medical Manual; policy set jointly with HFS)
-    title: PM 15-05-03 — Determining Countable Monthly Income, AABD Community
-    kind: primary
-    jurisdiction: il
-    doc_type: manual
-  - id: il-idhs-pm-15-06-02-c-msp
-    retrieved: 2026-10-07
-    url: https://www.dhs.state.il.us/page.aspx?item=16512
-    publisher: Illinois Department of Human Services (Cash, SNAP and Medical Manual; policy set jointly with HFS)
-    title: PM 15-06-02-c — Using AABD Medical Income Standards
-    kind: primary
-    jurisdiction: il
-    doc_type: manual
   - id: il-idhs-pm-08-02-03
     retrieved: 2026-10-07
     url: https://www.dhs.state.il.us/page.aspx?item=15379
@@ -247,14 +215,6 @@ sources:
     url: https://www.dhs.state.il.us/page.aspx?item=18693
     publisher: Illinois Department of Human Services (Cash, SNAP and Medical Manual; policy set jointly with HFS)
     title: PM 22-07-02-a — SMIB Buy-in, AABD Clients
-    kind: primary
-    jurisdiction: il
-    doc_type: manual
-  - id: il-idhs-wag-25-03-02-msp
-    retrieved: 2026-10-07
-    url: https://www.dhs.state.il.us/page.aspx?item=21741
-    publisher: Illinois Department of Human Services (Cash, SNAP and Medical Manual; policy set jointly with HFS)
-    title: "WAG 25-03-02(2) — Medical FPLs, 2026 Monthly Income Standards and Resources (AABD Medical/Medicare Savings Programs)"
     kind: primary
     jurisdiction: il
     doc_type: manual

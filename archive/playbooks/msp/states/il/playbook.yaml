@@ -36,7 +36,7 @@ summary:
   confidence: confirmed
   sources:
     - {source: il-idhs-pm-06-12-00, locator: "whole section"}
-    - {source: il-idhs-wag-25-03-02-msp, locator: "AABD Medical/Medicare Savings Programs/HBWD; Resources"}
+    - {source: il-idhs-wag-25-03-02-2, locator: "AABD Medical/Medicare Savings Programs/HBWD; Resources"}
 
 rules:
   - id: MSP-IL-TIERS
@@ -49,7 +49,7 @@ rules:
     implemented_in: playbooks/msp/states/il/rules.py:evaluate
     confidence: confirmed
     sources:
-      - {source: il-idhs-wag-25-03-02-msp, locator: "2026 Monthly Income Standards: QMB 100% FPL; SLIB Over 100% to $1 less than 120%; QI-1 120% to $1 less than 135% FPL"}
+      - {source: il-idhs-wag-25-03-02-2, locator: "2026 Monthly Income Standards: QMB 100% FPL; SLIB Over 100% to $1 less than 120%; QI-1 120% to $1 less than 135% FPL"}
       - {source: il-idhs-pm-06-06-03, locator: "QDWI"}
   - id: MSP-IL-QMB-INCOME
     statement: >-
@@ -66,7 +66,7 @@ rules:
     confidence: confirmed
     sources:
       - {source: il-idhs-pm-06-12-01-b, locator: "The QMB income standard is 100% of the Federal Poverty Level (FPL). Compare the client's countable income ... Round income down to the next lowest dollar."}
-      - {source: il-idhs-wag-25-03-02-msp, locator: "QMB 100% FPL: $1,330 / 1,803"}
+      - {source: il-idhs-wag-25-03-02-2, locator: "QMB 100% FPL: $1,330 / 1,803"}
       - {source: il-idhs-mr-26-11, locator: "revised standards are effective 01/01/26"}
   - id: MSP-IL-SLIB-INCOME
     statement: >-
@@ -83,7 +83,7 @@ rules:
     confidence: confirmed
     note: The PM wording at exactly 120% differs (MSP-IL-CONFLICT-02); only the tier (SLIB vs QI-1) is affected.
     sources:
-      - {source: il-idhs-wag-25-03-02-msp, locator: "SLIB column: $ 1,331 - 1,595 / 1,804 - 2,163"}
+      - {source: il-idhs-wag-25-03-02-2, locator: "SLIB column: $ 1,331 - 1,595 / 1,804 - 2,163"}
       - {source: il-idhs-pm-06-13-01-b, locator: "SLIB Income Limit"}
   - id: MSP-IL-QI-INCOME
     statement: >-
@@ -100,7 +100,7 @@ rules:
     confidence: confirmed
     note: Countable income of exactly $1,795 / $2,434 is disputed (MSP-IL-CONFLICT-03); the evaluator returns undetermined.
     sources:
-      - {source: il-idhs-wag-25-03-02-msp, locator: "QI-1 column: $ 1,596 - 1,794 / 2,164 - 2,433"}
+      - {source: il-idhs-wag-25-03-02-2, locator: "QI-1 column: $ 1,596 - 1,794 / 2,164 - 2,433"}
       - {source: il-idhs-pm-06-14-01, locator: "have income at least 120% but less than 135% of the Federal Poverty Level"}
   - id: MSP-IL-INCOME-METHOD
     statement: >-
@@ -124,11 +124,11 @@ rules:
       this archive has; the PM pages are older.
     sources:
       - {source: il-idhs-pm-06-12-01-c, locator: "Income Exemption"}
-      - {source: il-idhs-pm-15-05-03-msp, locator: "deduct ... AABD income disregard of $25; earned income exemption and employment expense deductions"}
-      - {source: il-idhs-pm-15-04-03-a-msp, locator: "examples of one or two $25 exemptions"}
+      - {source: il-idhs-pm-15-05-03, locator: "deduct ... AABD income disregard of $25; earned income exemption and employment expense deductions"}
+      - {source: il-idhs-pm-15-04-03-a, locator: "examples of one or two $25 exemptions"}
       - {source: il-idhs-pm-08-02-03-a, locator: "Aged or Disabled: disregard the first $20 of earned income plus 1/2 of the next $60"}
       - {source: il-idhs-pm-08-02-03-b, locator: "Employment Expenses"}
-      - {source: il-idhs-pm-15-04-03-c-msp, locator: "deduct SSI benefits from total gross income"}
+      - {source: il-idhs-pm-15-04-03-c, locator: "deduct SSI benefits from total gross income"}
   - id: MSP-IL-EARNED-INCOME-FLOOR
     statement: >-
       Federal law requires MSP income to be counted no more strictly than SSI
@@ -187,7 +187,7 @@ rules:
     implemented_in: playbooks/msp/states/il/rules.py:evaluate
     confidence: confirmed
     sources:
-      - {source: il-idhs-pm-15-06-02-c-msp, locator: "When a client is living with their spouse, always use the 2-person standard and asset limit regardless of whether or not the spouse is receiving assistance."}
+      - {source: il-idhs-pm-15-06-02-c, locator: "When a client is living with their spouse, always use the 2-person standard and asset limit regardless of whether or not the spouse is receiving assistance."}
       - {source: il-idhs-pm-06-12-01-b, locator: "See PM 15-06-02-c (AABD) for how to determine the number in the household."}
   - id: MSP-IL-RESOURCES
     statement: >-
@@ -204,7 +204,7 @@ rules:
     confidence: confirmed
     note: Exactly $9,950 / $14,910 is disputed (MSP-IL-CONFLICT-01); the evaluator returns undetermined at the limit.
     sources:
-      - {source: il-idhs-wag-25-03-02-msp, locator: "Resources: Medicare Savings Programs 9,950 (2026) / 14,910 (2026)"}
+      - {source: il-idhs-wag-25-03-02-2, locator: "Resources: Medicare Savings Programs 9,950 (2026) / 14,910 (2026)"}
       - {source: il-idhs-pm-06-12-01-a, locator: "Spenddown does not apply to QMB. When nonexempt resources are higher than the QMB standard, the person is not eligible"}
       - {source: il-idhs-pm-06-12-01, locator: "have nonexempt assets less than the QMB asset standard"}
   - id: MSP-IL-PART-A
@@ -437,7 +437,7 @@ life_events:
     why: Countable income up to $1,794 single / $2,433 couple (2026) qualifies for QI-1 or better if resources are under $9,950 / $14,910.
     check_rules: [MSP-IL-QMB-INCOME, MSP-IL-SLIB-INCOME, MSP-IL-QI-INCOME, MSP-IL-RESOURCES]
     confidence: confirmed
-    sources: [{source: il-idhs-wag-25-03-02-msp, locator: "2026 Monthly Income Standards"}]
+    sources: [{source: il-idhs-wag-25-03-02-2, locator: "2026 Monthly Income Standards"}]
   - id: MSP-IL-LE-ASSETS
     code: asset_change
     event: Savings drop below (or rise above) $9,950 single / $14,910 couple
@@ -537,7 +537,7 @@ links:
     test: MSP-X-05
     confidence: confirmed
     sources:
-      - {source: il-idhs-wag-25-03-02-msp, locator: "Resources"}
+      - {source: il-idhs-wag-25-03-02-2, locator: "Resources"}
       - {source: ssa-poms-hi-03030-025, locator: "B. 2026 resource limits"}
 
 open_questions:
@@ -623,7 +623,7 @@ conflicts:
     topic: Boundary between SLIB and QI-1 at 120% FPL
     claims:
       - {source: il-idhs-pm-06-13-00, locator: "SLIB", says: "countable income is not more than 120% of the FPL"}
-      - {source: il-idhs-wag-25-03-02-msp, locator: "SLIB column", says: "Over 100% to $1 less than 120% ($1,331-1,595)"}
+      - {source: il-idhs-wag-25-03-02-2, locator: "SLIB column", says: "Over 100% to $1 less than 120% ($1,331-1,595)"}
       - {source: il-idhs-pm-06-14-01, locator: "QI-1", says: "income at least 120% but less than 135%"}
     handling: Evaluator follows the WAG bands (countable $1,596 is QI-1). Eligibility is the same; only the tier (and QI-1's Medicaid bar) differs.
     affects: [MSP-IL-SLIB-INCOME, MSP-IL-QI-INCOME]
@@ -631,7 +631,7 @@ conflicts:
   - id: MSP-IL-CONFLICT-03
     topic: Top of QI-1
     claims:
-      - {source: il-idhs-wag-25-03-02-msp, locator: "QI-1 column", says: "$1,596 - 1,794 single; $2,164 - 2,433 couple"}
+      - {source: il-idhs-wag-25-03-02-2, locator: "QI-1 column", says: "$1,596 - 1,794 single; $2,164 - 2,433 couple"}
       - {source: il-idhs-pm-06-14-01-b, locator: "Income Limit", says: "equal to or less than 135% of the FPL ($1,795.50 single)"}
     handling: Countable $1,795 / $2,434 returns undetermined (MSP-IL-OQ-03).
     affects: [MSP-IL-QI-INCOME]
@@ -658,7 +658,7 @@ claims_checked:
   - claim: Illinois applies the federal MSP resource limit ($9,950 / $14,910 in 2026).
     verdict: verified
     detail: WAG 25-03-02(2) lists $9,950 (one) and $14,910 (two or more) for 2026; there is no spenddown of excess resources. AABD Medical's own limit is $17,500.
-    sources: [{source: il-idhs-wag-25-03-02-msp, locator: "Resources"}]
+    sources: [{source: il-idhs-wag-25-03-02-2, locator: "Resources"}]
   - claim: Illinois MSP income limits include the $20 disregard.
     verdict: corrected
     detail: Illinois uses a $25 income exemption (PM 06-12-01-c) and publishes bands for countable income after it; gross Social Security up to $1,355 qualifies for QMB, not $1,350.

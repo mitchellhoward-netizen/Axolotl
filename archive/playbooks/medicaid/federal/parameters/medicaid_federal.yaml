@@ -58,10 +58,10 @@ parameters:
         value: {adult_expansion: 1, other: 2}
         confidence: confirmed
         sources:
-          - source: pl-119-21-medicaid
+          - source: pl-119-21
             locator: "sec. 71112(a) new 1902(a)(34)(A)-(B); 71112(d) effective date"
             quote: "based on an application made on or after the first day of the first quarter that begins after December 31, 2026"
-          - source: cms-cib-2025-11-18-wftc
+          - source: cms-cib-2025-11-18
             locator: "Section 71112. Reducing State Medicaid Costs"
             quote: "Effective for applications made on or after January 1, 2027 ... limited to one month prior to the month of application ... limited to two months prior"
   - id: federal.medicaid.renewal_interval_months
@@ -86,10 +86,10 @@ parameters:
         confidence: confirmed
         note: Applies to redeterminations scheduled on or after January 1, 2027; American Indians and Alaska Natives described in 1902(xx)(9)(A)(ii)(II) are exempt. 42 CFR 435.916 as retrieved has not been conformed (conflict MCD-FED-CONFLICT-02).
         sources:
-          - source: pl-119-21-medicaid
+          - source: pl-119-21
             locator: "sec. 71107(a), new 1902(e)(14)(L)(i)"
             quote: "scheduled on or after the first day of the first quarter that begins after December 31, 2026, a State shall make such a redetermination once every 6 months"
-          - source: cms-cib-2025-11-18-wftc
+          - source: cms-cib-2025-11-18
             locator: "Section 71107"
             quote: "Beginning with renewals scheduled on or after January 1, 2027, states and the District of Columbia will be required to conduct renewals once every 6 months"
   - id: federal.medicaid.community_engagement_start
@@ -101,7 +101,7 @@ parameters:
         value: 2027-01-01
         confidence: confirmed
         sources:
-          - source: pl-119-21-medicaid
+          - source: pl-119-21
             locator: "sec. 71119(a), new 1902(xx)(1) and (xx)(11)(C)"
             quote: "beginning not later than the first day of the first quarter that begins after December 31, 2026"
           - source: ecfr-42-435-559
@@ -116,7 +116,7 @@ parameters:
         value: 80
         confidence: confirmed
         sources:
-          - {source: pl-119-21-medicaid, locator: "sec. 71119, new 1902(xx)(2)(A)-(E)", quote: "The individual works not less than 80 hours."}
+          - {source: pl-119-21, locator: "sec. 71119, new 1902(xx)(2)(A)-(E)", quote: "The individual works not less than 80 hours."}
           - {source: ecfr-42-435-552, locator: "(a)(1)-(5)"}
   - id: federal.medicaid.community_engagement_income_hours
     description: Number of hours multiplied by the federal minimum wage to get the monthly income that also demonstrates community engagement.
@@ -127,7 +127,7 @@ parameters:
         value: 80
         confidence: confirmed
         sources:
-          - source: pl-119-21-medicaid
+          - source: pl-119-21
             locator: "sec. 71119, new 1902(xx)(2)(F)"
             quote: "a monthly income that is not less than the applicable minimum wage requirement under section 6 of the Fair Labor Standards Act of 1938, multiplied by 80 hours"
           - {source: ecfr-42-435-552, locator: "(a)(6)"}
@@ -140,7 +140,7 @@ parameters:
         value: 13
         confidence: confirmed
         sources:
-          - source: pl-119-21-medicaid
+          - source: pl-119-21
             locator: "sec. 71119, new 1902(xx)(9)(A)(ii)(III)"
             quote: "the parent, guardian, caretaker relative, or family caregiver ... of a dependent child 13 years of age and under or a disabled individual"
   - id: federal.dol.flsa_minimum_wage_hourly
@@ -163,8 +163,8 @@ parameters:
         value: 2026-10-01
         confidence: confirmed
         sources:
-          - {source: pl-119-21-medicaid, locator: "sec. 71109(a), new 1903(v)(5)", quote: "beginning on October 1, 2026"}
-          - {source: cms-cib-2025-11-18-wftc, locator: "Section 71109"}
+          - {source: pl-119-21, locator: "sec. 71109(a), new 1903(v)(5)", quote: "beginning on October 1, 2026"}
+          - {source: cms-cib-2025-11-18, locator: "Section 71109"}
   - id: federal.medicaid.expansion_cost_sharing_max_per_service
     description: Maximum cost sharing per item or service a state may impose on an expansion adult with family income above 100% FPL (states must impose more than $0 on some services); total family cost sharing is capped at 5% of family income.
     unit: usd
@@ -174,7 +174,7 @@ parameters:
         value: 35
         confidence: confirmed
         sources:
-          - source: pl-119-21-medicaid
+          - source: pl-119-21
             locator: "sec. 71120(a), new 1916(k)(2)(B)(ii)-(iii)"
             quote: "in no case may a deduction, cost sharing, or similar charge ... exceed $35"
   - id: federal.medicaid.decision_days

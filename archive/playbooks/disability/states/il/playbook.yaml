@@ -202,7 +202,7 @@ rules:
     confidence: confirmed
     note: The evaluator uses the SSI resource exclusions for AABD; IDHS's own exempt-asset list (PM 07-02) was not compared item by item (DIS-IL-OQ-06).
     sources:
-      - {source: il-dhs-pm-07-02-01, locator: "Effective 05/12/2023, the asset limit for Medical cases is $17,500 ... The resource limit for AABD Cash ... one person - $2,000; 2 persons - $3,000"}
+      - {source: il-idhs-pm-07-02-01, locator: "Effective 05/12/2023, the asset limit for Medical cases is $17,500 ... The resource limit for AABD Cash ... one person - $2,000; 2 persons - $3,000"}
     open_question: DIS-IL-OQ-06
   - id: DIS-IL-AABD-PAID-BY-IDHS
     statement: >-

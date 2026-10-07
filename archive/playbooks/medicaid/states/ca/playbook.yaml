@@ -145,7 +145,7 @@ rules:
     confidence: confirmed
     note: Santa Clara County's handbook adds that SSI/SSP recipients are not sent an annual Medi-Cal renewal packet (county-only detail).
     sources:
-      - {source: ssa-poms-si-01715-010-mcd, locator: "A.3 1634 States (California not in the 209(b) or SSI-criteria lists)"}
+      - {source: ssa-poms-si-01715-010, locator: "A.3 1634 States (California not in the 209(b) or SSI-criteria lists)"}
       - {source: ca-dhcs-acwdl-26-13, locator: "SSI, Foster Care, and CalWORKs: DHCS has bundled payments with their Medi-Cal eligibility"}
       - {source: ca-scc-mc-rd-forms, locator: "exception ... SSI/SSP (county cross-check)"}
   - id: MCD-CA-NONMAGI-BUDGET

@@ -39,7 +39,7 @@ summary:
   sources:
     - {source: fns-snap-eligibility, locator: "whole page"}
     - {source: fns-snap-elderly-disabled, locator: "whole page"}
-    - {source: pl-119-21-nutrition, locator: "secs. 10101-10108"}
+    - {source: pl-119-21, locator: "secs. 10101-10108"}
 
 rules:
   # ------------------------------------------------------------- household
@@ -328,7 +328,7 @@ rules:
     confidence: confirmed
     note: States applied the change from different dates (Illinois September 26, 2025; New York and California see their parts).
     sources:
-      - {source: pl-119-21-nutrition, locator: "sec. 10103(a): inserting \"with an elderly or disabled member\" after \"households\" in 7 U.S.C. 2014(e)(6)(C)(iv)(I)"}
+      - {source: pl-119-21, locator: "sec. 10103(a): inserting \"with an elderly or disabled member\" after \"households\" in 7 U.S.C. 2014(e)(6)(C)(iv)(I)"}
   - id: SNAP-FED-NO-INTERNET
     statement: Since Public Law 119-21 (July 4, 2025), internet service fees cannot be counted as a shelter or utility cost for the SNAP excess shelter deduction in any state.
     kind: benefit
@@ -336,7 +336,7 @@ rules:
     implemented_in: playbooks/snap/federal/rules.py:budget
     confidence: confirmed
     sources:
-      - {source: pl-119-21-nutrition, locator: "sec. 10104: Any service fee associated with internet connection shall not be used in computing the excess shelter expense deduction"}
+      - {source: pl-119-21, locator: "sec. 10104: Any service fee associated with internet connection shall not be used in computing the excess shelter expense deduction"}
   - id: SNAP-FED-HOMELESS
     statement: >-
       In states that choose it, a homeless SNAP household with some shelter
@@ -410,7 +410,7 @@ rules:
     parameters: [federal.snap.max_allotment_cap_monthly]
     confidence: confirmed
     sources:
-      - {source: pl-119-21-nutrition, locator: "sec. 10101, new 7 U.S.C. 2012(u)(2)-(4)"}
+      - {source: pl-119-21, locator: "sec. 10101, new 7 U.S.C. 2012(u)(2)-(4)"}
       - {source: fns-snap-fy27-allotments-deductions, locator: "Table 1: 18+ $3,887"}
 
   # ---------------------------------------------------- non-financial rules
@@ -430,7 +430,7 @@ rules:
     confidence: confirmed
     note: The evaluator only flags possible ABAWD status; it does not track the 3-month clock. Each state implemented on its own date (see state parts).
     sources:
-      - {source: pl-119-21-nutrition, locator: "sec. 10102(a), new 7 U.S.C. 2015(o)(3)(A)-(G)"}
+      - {source: pl-119-21, locator: "sec. 10102(a), new 7 U.S.C. 2015(o)(3)(A)-(G)"}
       - {source: ecfr-7-273-24, locator: "(a)-(b): 3 countable months in 36; 80 hours per month (pre-2025 text)"}
   - id: SNAP-FED-NONCITIZEN
     statement: >-
@@ -447,7 +447,7 @@ rules:
     note: Existing waiting periods (for example five years for many permanent residents) were not changed by sec. 10108 and are not modelled; non-citizen cases return undetermined.
     open_question: SNAP-FED-OQ-05
     sources:
-      - {source: pl-119-21-nutrition, locator: "sec. 10108, new 7 U.S.C. 2015(f)"}
+      - {source: pl-119-21, locator: "sec. 10108, new 7 U.S.C. 2015(f)"}
   - id: SNAP-FED-STATE-COST-SHARE
     statement: >-
       Beginning in fiscal year 2028 (October 1, 2027), states with a SNAP
@@ -459,7 +459,7 @@ rules:
     effective_from: 2026-10-01
     confidence: confirmed
     sources:
-      - {source: pl-119-21-nutrition, locator: "sec. 10105 (new 7 U.S.C. 2013(a)(2)) and sec. 10106 (7 U.S.C. 2025(a))"}
+      - {source: pl-119-21, locator: "sec. 10105 (new 7 U.S.C. 2013(a)(2)) and sec. 10106 (7 U.S.C. 2025(a))"}
 
   # ----------------------------------------------------------- procedure
   - id: SNAP-FED-PROCESSING
@@ -536,7 +536,7 @@ rules:
     implemented_in: playbooks/snap/federal/rules.py:_links_and_notes
     confidence: confirmed
     sources:
-      - {source: usc-42-1758-direct-cert, locator: "(b)(4) Direct certification for children in supplemental nutrition assistance program households"}
+      - {source: usc-42-1758, locator: "(b)(4) Direct certification for children in supplemental nutrition assistance program households"}
 
 procedure:
   applications:
@@ -605,7 +605,7 @@ life_events:
     why: Since Public Law 119-21 the ABAWD time limit covers ages 18-64; at 65 the person is exempt. Medicare (and the Part B premium as a medical deduction) usually starts.
     check_rules: [SNAP-FED-ABAWD, SNAP-FED-MEDICAL]
     confidence: confirmed
-    sources: [{source: pl-119-21-nutrition, locator: "sec. 10102(a): over 65"}]
+    sources: [{source: pl-119-21, locator: "sec. 10102(a): over 65"}]
   - id: SNAP-FED-LE-DISABILITY
     code: disability_onset
     event: A member starts receiving SSI or Social Security disability
@@ -682,7 +682,7 @@ links:
     relation: Children in SNAP households are directly certified for free school meals (no application).
     test: SNAP-X-02
     confidence: confirmed
-    sources: [{source: usc-42-1758-direct-cert, locator: "(b)(4)"}]
+    sources: [{source: usc-42-1758, locator: "(b)(4)"}]
   - id: SNAP-FED-LINK-DISABILITY
     playbook: disability
     rules: [SNAP-FED-ELDERLY-DISABLED, SNAP-FED-CATEGORICAL]
@@ -788,7 +788,7 @@ claims_checked:
       added), 10103 (LIHEAP SUA only for elderly/disabled households), 10104
       (no internet costs), 10105 (state benefit cost share from FY 2028), 10106
       (75% state administrative share from FY 2027), 10108 (non-citizens).
-    sources: [{source: pl-119-21-nutrition, locator: "secs. 10101-10108"}]
+    sources: [{source: pl-119-21, locator: "secs. 10101-10108"}]
   - claim: The minimum benefit is for 1-2 person households.
     verdict: verified
     detail: $24 (FY 2026) and $25 (FY 2027), 8% of the one-person maximum.

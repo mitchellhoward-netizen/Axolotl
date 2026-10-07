@@ -83,7 +83,7 @@ parameters:
         confidence: confirmed
         sources:
           - {source: fns-snap-fy27-allotments-deductions, locator: "Table 1: 18+ $3,887"}
-          - {source: pl-119-21-nutrition, locator: "sec. 10101, new 7 U.S.C. 2012(u)(2)(I): additional 22 percent per person ... shall not total more than 200 percent"}
+          - {source: pl-119-21, locator: "sec. 10101, new 7 U.S.C. 2012(u)(2)(I): additional 22 percent per person ... shall not total more than 200 percent"}
   - id: federal.snap.min_benefit_monthly
     description: Minimum monthly benefit for eligible 1- and 2-person households (8% of the 1-person maximum allotment).
     unit: usd_per_month
@@ -250,4 +250,4 @@ parameters:
           in the state parts. Earlier law covered
           ages 18-54 (SNAP-FED-OQ-03 for dates before 2025-07-04).
         sources:
-          - {source: pl-119-21-nutrition, locator: "sec. 10102(a), new 7 U.S.C. 2015(o)(3)(A): under 18, or over 65, years of age"}
+          - {source: pl-119-21, locator: "sec. 10102(a), new 7 U.S.C. 2015(o)(3)(A): under 18, or over 65, years of age"}

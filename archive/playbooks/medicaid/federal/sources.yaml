@@ -6,32 +6,6 @@
 # The eCFR pages are fetched through eCFR's public renderer API, because the
 # www.ecfr.gov site refuses scripted requests.
 sources:
-  - id: pl-119-21-medicaid
-    retrieved: 2026-10-07
-    url: https://www.govinfo.gov/content/pkg/PLAW-119publ21/html/PLAW-119publ21.htm
-    publisher: U.S. Government Publishing Office (Public and Private Laws)
-    title: Public Law 119-21 (July 4, 2025), Title VII, Subtitle B, Chapter 1 — Medicaid (secs. 71101-71121)
-    kind: primary
-    jurisdiction: federal
-    doc_type: statute
-    published: 2025-07-04
-    note: >-
-      Enacted text of the 2025 reconciliation law ("One Big Beautiful Bill
-      Act"; CMS calls it the "Working Families Tax Cut" legislation). The 2023
-      edition of the U.S. Code on govinfo predates it, so the amended
-      Social Security Act sections are cited from this text. Key sections:
-      71107 (6-month redeterminations), 71109 (alien eligibility), 71112
-      (retroactive coverage), 71119 (community engagement), 71120 (cost sharing).
-  - id: cms-cib-2025-11-18-wftc
-    retrieved: 2026-10-07
-    url: https://www.medicaid.gov/federal-policy-guidance/downloads/cib11182025.pdf
-    publisher: Centers for Medicare & Medicaid Services, Center for Medicaid and CHIP Services
-    title: CMCS Informational Bulletin, November 18, 2025 — "Working Families Tax Cut" Legislation, Public Law 119-21 — Summary of Medicaid and CHIP Related Provisions
-    kind: primary
-    jurisdiction: federal
-    doc_type: guidance
-    published: 2025-11-18
-    note: medicaid.gov refuses scripted requests (HTTP 403); the PDF was fetched with the WebFetch research tool and imported.
   - id: ecfr-42-435-603
     retrieved: 2026-10-07
     url: https://www.ecfr.gov/api/renderer/v1/content/enhanced/current/title-42?part=435&section=435.603
@@ -108,15 +82,6 @@ sources:
     kind: primary
     jurisdiction: federal
     doc_type: regulation
-  - id: ssa-poms-si-01715-010-mcd
-    retrieved: 2026-10-07
-    url: https://secure.ssa.gov/poms.nsf/lnx/0501715010
-    publisher: Social Security Administration (POMS)
-    title: SI 01715.010 Medicaid and the Supplemental Security Income (SSI) Program
-    kind: primary
-    jurisdiction: federal
-    doc_type: manual
-    note: Lists the 209(b) States (Illinois among them), the SSI criteria States, and says the other 34 States and DC are 1634 States.
   - id: usc-29-206-mcd
     retrieved: 2026-10-07
     url: https://www.govinfo.gov/content/pkg/USCODE-2023-title29/html/USCODE-2023-title29-chap8-sec206.htm
