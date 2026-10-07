@@ -1,0 +1,187 @@
+# California Medicare Savings Program standards. DHCS publishes monthly FPL
+# figures "rounded up to next higher dollar" each January (ACWDL 26-01
+# Enclosure 1); counties compare *net countable* income (after the $20 any
+# income deduction and the $65-plus-one-half earned income deduction) to them.
+# The year's new figures apply from January 1 for MSP cases without Social
+# Security (RSDI) income and from March 1 for cases with RSDI income.
+parameters:
+  - id: ca.msp.qmb_income_limit_monthly
+    description: California QMB monthly income standard (100% FPL, DHCS rounding), compared to net countable income.
+    compare_to: >-
+      Net countable income AFTER the $20 any income deduction and the $65 + one-half earned income deduction (MC 14A, MC 176). Eligible if income is equal to or less than this amount.
+    unit: usd_per_month
+    keyed_by: household_size (1 = individual, 2 = couple / MFBU of two)
+    updates: Each January by ACWDL (Enclosure 1); in effect from January 1 for non-RSDI cases and March 1 for RSDI cases.
+    values:
+      - effective_from: 2025-01-01
+        value: {1: 1305, 2: 1763}
+        confidence: confirmed
+        note: For RSDI recipients these 2025 figures stay in use through February 2026 (see ca.msp.new_fpl_month_rsdi).
+        sources:
+          - {source: ca-dhcs-acwdl-25-01, locator: "Enclosure 1, 2025 FPL Calculation Chart (Monthly Values), 100% column", quote: "1 15650 1305 ... 2 21150 1763"}
+      - effective_from: 2026-01-01
+        value: {1: 1330, 2: 1804}
+        confidence: confirmed
+        sources:
+          - {source: ca-dhcs-fpl-2026-monthly, locator: "100% column, family size 1 and 2", quote: "1 15960 1330 ... 2 21640 1804"}
+          - {source: ca-dhcs-msp-page, locator: "Qualified Medicare Beneficiary: Monthly – $1,330 / Monthly – $1,804"}
+  - id: ca.msp.slmb_income_limit_monthly
+    description: California SLMB monthly income standard (120% FPL, DHCS rounding); income must be LESS than this amount.
+    compare_to: >-
+      Net countable income after the $20 and earned income deductions; eligible if strictly less than this amount and above the QMB standard (Enclosure 3 marks SLMB "<").
+    unit: usd_per_month
+    keyed_by: household_size
+    updates: Each January by ACWDL (Enclosure 1).
+    values:
+      - effective_from: 2025-01-01
+        value: {1: 1566, 2: 2116}
+        confidence: confirmed
+        sources:
+          - {source: ca-dhcs-acwdl-25-01, locator: "Enclosure 1, 120% column", quote: "1566 ... 2116"}
+      - effective_from: 2026-01-01
+        value: {1: 1596, 2: 2165}
+        confidence: confirmed
+        sources:
+          - {source: ca-dhcs-fpl-2026-monthly, locator: "120% column, family size 1 and 2", quote: "1596 ... 2165"}
+          - {source: ca-dhcs-msp-page, locator: "Specified Low-Income Beneficiary: Monthly – $1,596 / Monthly – $2,165"}
+  - id: ca.msp.qi_income_limit_monthly
+    description: California QI(-1) monthly income standard (135% FPL, DHCS rounding); income must be LESS than this amount.
+    compare_to: >-
+      Net countable income after the $20 and earned income deductions; eligible if strictly less than this amount and at or above the SLMB standard (Enclosure 3 marks QI-1 "<").
+    unit: usd_per_month
+    keyed_by: household_size
+    updates: Each January by ACWDL (Enclosure 1).
+    values:
+      - effective_from: 2025-01-01
+        value: {1: 1762, 2: 2381}
+        confidence: confirmed
+        sources:
+          - {source: ca-dhcs-acwdl-25-01, locator: "Enclosure 1, 135% column", quote: "1762 ... 2381"}
+      - effective_from: 2026-01-01
+        value: {1: 1796, 2: 2436}
+        confidence: confirmed
+        sources:
+          - {source: ca-dhcs-fpl-2026-monthly, locator: "135% column, family size 1 and 2", quote: "1796 ... 2436"}
+          - {source: ca-dhcs-msp-page, locator: "Qualifying Individual: Monthly – $1,796 / Monthly – $2,436"}
+  - id: ca.msp.qdwi_income_limit_monthly
+    description: California QDWI monthly income standard (200% FPL, DHCS rounding).
+    compare_to: >-
+      Net countable income after the $20 and earned income deductions (assumed; see MSP-CA-OQ-07). Enclosure 3 marks QDWI "=" (equal to or less than).
+    unit: usd_per_month
+    keyed_by: household_size
+    updates: Each January by ACWDL (Enclosure 1).
+    values:
+      - effective_from: 2025-01-01
+        value: {1: 2610, 2: 3526}
+        confidence: confirmed
+        sources:
+          - {source: ca-dhcs-acwdl-25-01, locator: "Enclosure 1, second table, 200% column", quote: "2610 ... 3526"}
+      - effective_from: 2026-01-01
+        value: {1: 2660, 2: 3608}
+        confidence: confirmed
+        sources:
+          - {source: ca-dhcs-msp-page, locator: "Qualified Disabled and Working Individual: Monthly – $2,660 / Monthly – $3,608"}
+          - {source: ca-dhcs-fpl-2026-programs, locator: "200% FPL = Qualified Working Disabled Individuals"}
+  - id: ca.msp.income_disregard_monthly
+    description: The $20 "any income deduction" California subtracts from MSP income (one per budget).
+    unit: usd_per_month
+    updates: Fixed.
+    values:
+      - effective_from: 1997-10-22
+        value: 20
+        confidence: confirmed
+        sources:
+          - {source: ca-dhcs-mepm-5l, locator: "J. QMB Income Determination, SSI Income Methodology step 4: the $20 Any Income Deduction"}
+          - {source: ca-dhcs-mc-14a, locator: "A. Countable income, line s: Minus $20 (any income deduction)"}
+          - {source: ca-dhcs-mc-176-qmb, locator: "Section I, line 7: Any income deduction $ - 20"}
+  - id: ca.msp.new_fpl_month_rsdi
+    description: >-
+      Month (of the calendar year) from which California applies the new
+      year's FPL figures to MSP applicants and recipients who receive Title II
+      Social Security (RSDI) income; cases without RSDI income use them from January.
+    unit: month_number
+    updates: Restated each January in the FPL ACWDL.
+    values:
+      - effective_from: 2025-01-01
+        value: 3
+        confidence: confirmed
+        sources:
+          - {source: ca-dhcs-acwdl-25-01, locator: "page 1, bullets 1-2", quote: "For MSP applicants or recipients who are receiving Title II RSDI income, the effective date for the new FPLs is March 1, 2025."}
+          - {source: ca-dhcs-acwdl-26-01, locator: "page 1, bullets 1-2", quote: "For MSP applicants or recipients who are receiving Title II RSDI income, the effective date for the new FPLs is March 1, 2026."}
+          - {source: ca-dhcs-fpl-2026-programs, locator: "Notes, last paragraph"}
+  - id: ca.msp.asset_test_applies
+    description: Whether California applies a property (asset) limit to the Medicare Savings Programs on this date.
+    unit: boolean
+    updates: Only by legislation (WIC 14005.62).
+    values:
+      - effective_from: 2022-07-01
+        effective_to: 2023-12-31
+        value: true
+        confidence: confirmed
+        sources:
+          - {source: ca-dhcs-acwdl-22-28, locator: "Medicare Savings Program 2023 Property Limits"}
+      - effective_from: 2024-01-01
+        effective_to: 2025-12-31
+        value: false
+        confidence: confirmed
+        sources:
+          - {source: ca-dhcs-acwdl-22-25, locator: "Policy", quote: "The elimination of asset limits applies to all Non-MAGI programs, including LTC and the MSPs."}
+          - {source: ca-dhcs-acwdl-25-27, locator: "Important", quote: "In California, there were no asset/property limits for MSPs from January 1, 2024, through December 31, 2025."}
+      - effective_from: 2026-01-01
+        value: true
+        confidence: confirmed
+        sources:
+          - {source: ca-dhcs-acwdl-25-14, locator: "Policy Change; chart of affected programs (aid codes 80 QMB, 8C SLMB, 8D QI, 8A QDWI)"}
+          - {source: ca-dhcs-acwdl-25-27, locator: "MSP 2026 Property Limits"}
+  - id: ca.msp.asset_limit
+    description: California property (asset) limit for QMB, SLMB, QI and QDWI.
+    compare_to: >-
+      Net nonexempt property of the applicant and spouse (Medi-Cal property rules, MEPM Article 9 / 22 CCR); eligible if equal to or less than the limit. The archive excludes the home, one vehicle and burial spaces (see MSP-CA-OQ-05).
+    unit: usd
+    keyed_by: household_size (1 = individual, 2 = couple; $65,000 per additional person up to 10)
+    updates: Not indexed; DHCS said it will no longer publish a yearly MSP property-limit letter.
+    values:
+      - effective_from: 2022-07-01
+        effective_to: 2023-12-31
+        value: {1: 130000, 2: 195000}
+        confidence: confirmed
+        sources:
+          - {source: ca-dhcs-acwdl-22-28, locator: "Medicare Savings Program 2023 Property Limits", quote: "$130,000 for one person and $195,000 for two people"}
+      - effective_from: 2026-01-01
+        value: {1: 130000, 2: 195000}
+        confidence: confirmed
+        sources:
+          - {source: ca-dhcs-acwdl-25-27, locator: "MSP 2026 Property Limits", quote: "Effective January 1, 2026, the asset limits used to determine MSP eligibility are $130,000 for an individual, $195,000 for a couple."}
+          - {source: ca-dhcs-acwdl-25-14, locator: "Household Asset Limits for Non-MAGI Programs as of January 1, 2026"}
+          - {source: ca-dhcs-msp-page, locator: "Starting January 1, 2026, the asset limits ... $130,000 for an individual, and $65,000 for each additional household member up to 10"}
+  - id: ca.msp.asset_test_start_application_date
+    description: >-
+      Applications dated on or after this date are subject to the reinstated
+      property test; existing members become subject at their first annual
+      renewal (or an ex parte change redetermination) on or after it.
+    unit: date
+    updates: One-time transition.
+    values:
+      - effective_from: 2026-01-01
+        value: 2026-01-01
+        confidence: confirmed
+        note: ACWDL 25-14 says "after January 1, 2026" in one place and "on or after" in Example 1 (conflict MSP-CA-CONFLICT-04); the archive uses on or after.
+        sources:
+          - {source: ca-dhcs-acwdl-25-14, locator: "Impacted Populations; Application; Example #1 and #2"}
+  - id: ca.msp.standard_ssi_allocation_monthly
+    description: >-
+      The "Standard SSI Allocation" used under SSI income methodology for an
+      ineligible spouse living with an MSP applicant: if the spouse's income
+      is at or below it, the spouse's income is exempt and the applicant is
+      measured alone against the FPL for one.
+    compare_to: The ineligible spouse's gross nonexempt income (after any allocation to ineligible children).
+    unit: usd_per_month
+    updates: MEPM 5L says the amount is "provided to counties annually"; no current DHCS figure was found.
+    open_question: MSP-CA-OQ-04
+    values:
+      - effective_from: 2025-01-01
+        value: null
+        confidence: unresolved
+        open_question: MSP-CA-OQ-04
+        sources:
+          - {source: ca-dhcs-mepm-5l, locator: "J. QMB Income Determination, NOTE and 2.b) SSI Income Methodology"}
