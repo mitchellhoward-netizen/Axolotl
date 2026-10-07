@@ -1,0 +1,10 @@
+- retrieved: '2026-10-07'
+  url: https://aging.ny.gov/system/files/documents/2025/09/2025-hiicap-guide-for-counselors.pdf
+  final_url: https://aging.ny.gov/system/files/documents/2025/09/2025-hiicap-guide-for-counselors.pdf
+  status: 200
+  content_type: pdf
+  text_sha256: 9129e9a967d9756745dda3563c3c10a23e7561c046a10315c080cd8494334e49
+  text: nysofa-hiicap-guide-2025/2026-10-07.txt
+  raw: nysofa-hiicap-guide-2025/2026-10-07.pdf
+  fetched_via: WebFetch (aging.ny.gov returns 403 to scripts); PDF saved by the research
+    tool

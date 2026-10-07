@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://www.fns.usda.gov/snap/eligibility/elderly-disabled-special-rules
+  final_url: https://www.fna.usda.gov/snap/eligibility/elderly-disabled-special-rules
+  status: 200
+  content_type: text/html; charset=utf-8
+  text_sha256: 1f2c3ef6fa53f6841ffda8b5b2eaf5f95f15e88259e2e239971f9e27904b4562
+  text: fns-snap-elderly-disabled/2026-10-07.txt
+  raw: fns-snap-elderly-disabled/2026-10-07.html

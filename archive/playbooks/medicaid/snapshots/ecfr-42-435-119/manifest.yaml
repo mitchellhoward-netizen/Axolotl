@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://www.ecfr.gov/api/renderer/v1/content/enhanced/current/title-42?part=435&section=435.119
+  final_url: https://www.ecfr.gov/api/renderer/v1/content/enhanced/current/title-42?chapter=IV&subchapter=C&part=435&subpart=B&subject_group=ECFR6335dc9a0028e1c&section=435.119
+  status: 200
+  content_type: text/html; charset=utf-8
+  text_sha256: 9f3ac58a24e6dccd9aef42d170326193d85e665bf3b622787d64fc967805e0ff
+  text: ecfr-42-435-119/2026-10-07.txt
+  raw: ecfr-42-435-119/2026-10-07.html

@@ -1,0 +1,38 @@
+parameters:
+  - id: il.idoi.medigap_birthday_window_days
+    description: Length of Illinois's annual Medicare supplement open enrollment ("Birthday Law"), starting on the policyholder's birthday.
+    unit: days
+    updates: Statutory (215 ILCS 5/363 per secondary sources; statute not snapshotted).
+    open_question: T65-IL-OQ-01
+    values:
+      - effective_from: 2022-01-01
+        value: 45
+        confidence: confirmed
+        note: Effective date from the NAIC chart (secondary); the Department on Aging guide gives the rule but not its start date.
+        sources:
+          - {source: il-aging-medicare-choices-2026, locator: "p. 11, THE IL MEDIGAP \"BIRTHDAY LAW\"", quote: "begins on the individuals birthdate each year and lasts for 45 days"}
+          - {source: naic-medigap-birthday-chart-2026, locator: "Illinois row: Jan 1, 2022"}
+  - id: il.idoi.medigap_birthday_rule_ages
+    description: Age range (inclusive) for the Illinois Medigap birthday open enrollment.
+    unit: years
+    keyed_by: min / max
+    updates: Statutory.
+    values:
+      - effective_from: 2022-01-01
+        value: {min: 65, max: 75}
+        confidence: confirmed
+        sources:
+          - {source: il-aging-medicare-choices-2026, locator: "p. 11", quote: "If an individual is at least 65 years of age, but no more than 75 years of age, and has an existing Medicare supplement policy"}
+  - id: il.aging.benefit_access_income_limit
+    description: Benefit Access Program (Seniors Ride Free transit and license plate discount) gross income ceiling, by household size.
+    compare_to: "Total gross income for the last closed tax year (applicant plus spouse if married and living together on December 31); must be less than the figure."
+    unit: usd_per_year
+    keyed_by: household_size (1-3)
+    updates: Illinois Department on Aging, yearly.
+    values:
+      - effective_from: 2026-01-01
+        value: {1: 33562, 2: 44533, 3: 55500}
+        confidence: confirmed
+        note: Page undated; 2026 is the date it was retrieved for this archive.
+        sources:
+          - {source: il-aging-benefit-access, locator: "Income Requirements", quote: "$33,562 for a 1 person household"}

@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://www.cn.nysed.gov/content/CEP
+  final_url: https://www.cn.nysed.gov/content/CEP
+  status: 200
+  content_type: text/html; charset=utf-8
+  text_sha256: 077b6643bb2c68e5ae80e01340f70b051eae2d1e41807757de09ce49bc6e8f56
+  text: nysed-cep-page/2026-10-07.txt
+  raw: nysed-cep-page/2026-10-07.html

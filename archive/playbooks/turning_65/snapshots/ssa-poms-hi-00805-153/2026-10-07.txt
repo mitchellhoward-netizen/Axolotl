@@ -1,0 +1,43 @@
+Skip to content
+
+Program Operations Manual System (POMS)
+
+Effective Dates: 06/03/2024 - Present
+Previous | Next
+
+TN 107 (06-24)
+
+HI 00805.153 Prior Month Attainment Rule
+
+Policy for prior month attainment rule
+
+A deemed IEP may be established for an individual born on the first day of a month
+a person files an enrollment request in the first month after the IEP.
+
+Since individuals born on the first day of a month are ordinarily unaware that they
+actually attain a given age in the preceding month, the deemed IEP provision will
+be applied without further development.
+
+IMPORTANT: If there is evidence in file that demonstrates that the enrollee knew the “prior-month” attainment rule, do not establish a deemed IEP.
+
+EXAMPLE:
+
+IEP occurring
+before
+January 1, 2023 - John Allen DB 3/1/1920, enrolled on 6/22/1985. Although John's enrollment request
+was filed in the month after expiration of John's actual IEP, a deemed IEP of 12/1984-6/1985
+is established and SMI coverage is effective 9/1/1985. If John had enrolled in 3/1985,
+John's SMI coverage would be effective 5/1/1985, see HI 00805.165B.2. A deemed IEP could not be established since John enrolled during the actual IEP.
+
+IEP occurring on or after January 1/2023 - Allen Grady turned 65 5/1/2023 and enrolled on 8/28/2023. Since Allen filed for
+enrollment request after the end of this IEP, Allen’s is given a deemed IEP of 4/2023-8/2023.
+Allen’s SMI would be effective 9/2023, see HI 00805.165B.1.
+
+To Link to this section - Use this URL:
+http://policy.ssa.gov/poms.nsf/lnx/0600805153
+
+HI 00805.153 - Prior Month Attainment Rule - 06/03/2024
+
+Batch run: 06/03/2024
+
+Rev:06/03/2024

@@ -1,0 +1,10 @@
+- retrieved: '2026-10-07'
+  url: https://www.cde.ca.gov/ls/nu/sn/documents/umpfinalguidelines.docx
+  final_url: https://www.cde.ca.gov/ls/nu/sn/documents/umpfinalguidelines.docx
+  status: 200
+  content_type: txt
+  text_sha256: 2a8a094199f21dc251a91424b9998ecaeb1701ed1f7c79728b23a00a8f3857e1
+  text: ca-cde-ump-guidelines-2024/2026-10-07.txt
+  raw: ca-cde-ump-guidelines-2024/2026-10-07.raw
+  fetched_via: WebFetch saved the .docx (cde.ca.gov blocks scripts); text extracted
+    from word/document.xml with a zipfile script

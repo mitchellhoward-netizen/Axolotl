@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://www.medicare.gov/basics/costs/medicare-costs/avoid-penalties
+  final_url: https://www.medicare.gov/basics/costs/medicare-costs/avoid-penalties
+  status: 200
+  content_type: text/html; charset=utf-8
+  text_sha256: 36f2c8871030260462cc3ba9ad717603e5907d8cf19ab689ae8bdd51738837f1
+  text: medicare-gov-avoid-penalties/2026-10-07.txt
+  raw: medicare-gov-avoid-penalties/2026-10-07.html

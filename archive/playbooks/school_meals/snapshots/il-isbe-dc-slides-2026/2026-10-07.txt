@@ -1,0 +1,567 @@
+Direct Certification in the
+School Nutrition Programs
+
+Presented by:
+Roxanne Ramage
+rramage@isbe.net
+
+1
+
+Public Notification Requirements (ISBE Actions)
+• Near the beginning of each school year, the public must be notified
+that the National School Lunch Program (NSLP), School Breakfast
+Program (SBP), and/or Special Milk Program (SMP) are available in
+the school or school district.
+• This notice must include the Income Eligibility Guidelines (IEGs) for
+free and reduced-price meals and/or free milk.
+• The public announcement must be provided to the local news
+media.
+• The Illinois State Board of Education submits a statewide public
+announcement on behalf of all participating sponsors annually.
+• Copies of the public announcement must be made available upon
+request to any interested person.
+• A prototype is available online.
+
+2
+
+Public Notification Requirements (SFA
+Actions)
+
+• Local Education Agencies (LEAs) must submit public
+announcements to local unemployment offices and major
+employers contemplating large layoffs in the attendance
+area of the school.
+– Maintain documentation locally for an administrative
+review
+• When submitting a public announcement for print, LEAs
+should request the announcement be free of charge.
+
+3
+
+Carryover of Previous Year’s Eligibility
+● Schools are required to carry
+over eligibility from the previous
+year for 30 operating days into
+the subsequent school year or
+until a new determination has
+been made, whichever comes
+first.
+● Although schools are not
+required to notify households
+that the carryover period has
+ended, we have a sample form
+(ISBE 68-11) and recommend
+that you do.
+● Household is responsible for any
+meal charges incurred until new
+application is received and
+approved. Refer to your local
+school policy on charging meals.
+
+4
+
+Full-Year Eligibility
+• Once eligibility is determined, whether direct certification or via
+Household Eligibility Application (HEA), that eligibility remains in
+effect for the rest of that school year and for carryover into the
+subsequent school year.
+• Households are not required to report changes in income,
+household size, receipt of benefits, or homeless/migrant status.
+• Exceptions to full-year eligibility occur when:
+
+– The initial eligibility determination was incorrect, maybe due to
+a confirmation review or audit/review
+– Verification of household eligibility does not support the level of
+benefits for which the household was approved
+– Voluntary request by the household to withdraw the benefits
+(recommend request in writing)
+
+5
+
+Effective Date of Eligibility
+• In WINS, click on Sponsor Application & Participation,
+then Questionnaire, then Eligibility Determination
+• Determined at the LEA/Sponsor/SFA level for all sites
+
+6
+
+How Are Meal Benefits Determined?
+Direct Certification
+ Direct Certification
+◦ Certification of SNAP/TANF/income-eligible federal
+Medicaid(Free and Reduced Price)/Foster Child AND
+Homeless/Migrant/Head Start benefits via Electronic
+Direct Certification System
+or
+ Categorical Eligibility
+◦ Homeless, migrant, runaway, foster child or Head
+Start listing
+or
+ Household Eligibility Application
+◦ SNAP/TANF application
+◦ Income application
+◦ Foster child application
+
+7
+
+Overview of the Electronic Direct Certification System
+
+• The Electronic Direct Certification System contains
+confidential student data.
+• You must have a login name and password to IWAS to
+access WINS.
+• Access is ONLY provided to schools/districts
+participating in the National School Lunch/School
+Breakfast Program.
+• The Electronic Direct Certification System is available
+from the main dashboard in WINS.
+• All federal rules and regulations regarding the use of
+this data including confidentiality and disclosure must
+be followed.
+
+8
+
+WINS Dashboard
+
+9
+
+Direct Certification in Illinois
+Direct Certification is conducted
+through a partnership between the
+ISBE and the following:
+• Illinois Department of Human
+Services (IDHS) for SNAP and TANF
+records
+• Illinois Department of Healthcare
+and Family Services (HFS) for
+income-eligible federal Medicaid
+records
+• Illinois Department of Children and
+Family Services (DCFS) for foster
+children records
+
+10
+
+What is Direct Certification?
+• Direct Certification is the process when LEAs certify children who are members of
+households receiving assistance under the SNAP, TANF, income-eligible federal
+Medicaid or foster children as eligible for free or reduced-price school meals/milk
+based on agency records. Added Homeless, Migrant, and Head Start reports via SIS
+for public schools only.
+• Households in which students are directly certified are not required to complete
+the Household Eligibility Application to receive free or reduced-price meal/milk
+benefits.
+• Students directly certified for free or reduced-price school meal/milk benefits are
+eligible for the entire school year and are not subject to verification requirements.
+
+11
+
+What is Extension of Benefits?
+• Via extension of meal benefits, if any member of the household is eligible for
+SNAP/TANF/income-eligible federal Medicaid (free and reduced-price) benefits, all
+students in that household are eligible for free or reduced-price meal/milk benefits.
+– Extension of benefits is not allowed for Foster Child, Homeless, Migrant or
+Head Start status.
+– Prior to completing the extension of benefits required paperwork, please
+search using the case number in the Direct Certification System. This often will
+find all household children and minimize extension of benefit paperwork.
+Please keep the single child direct certification report for your documentation.
+
+12
+
+Frequency of Direct Certification
+– Direct Certification is a requirement for LEAs
+participating in NSLP and must be conducted at
+least three times annually per USDA as follows:
+1. at or around the beginning of the school year
+2. three months after the initial effort
+3. six months after the initial effort
+– ISBE recommends that all sponsors (public and
+nonpublic) access the Electronic Direct
+Certification System monthly to maximize direct
+certification and lessen administrative paperwork.
+
+13
+
+Eligibility Process (Step 1-3 of 6)
+• Step 1
+– Begin in early July each year
+– Maximize Direct Certification
+• Access and process the July Annual File or complete upload of
+enrollment file
+– Could also include August File, depending on start date of school and
+preference
+• Extend benefits if SNAP, TANF or income-eligible federal
+Medicaid (free and reduced-price eligible)
+• Step 2
+– Notify households directly certified for free or reduced-
+price meals benefits
+• Step 3
+– Distribute an HEA (Letter to Household, Application, and
+Instructions) to all households not directly certified for
+meal benefits. If DC reduced, HEA is also required.
+14
+
+Eligibility Process (Step 4-6)
+
+• Step 4
+– Process HEA according to USDA requirements
+within 10 days of receipt, providing meal benefits in
+accordance with your district’s effective date of
+eligibility
+– Continue to document directly certified students, if
+possible
+• Step 5
+– Notify all households that submitted HEA if
+approved or denied
+• Step 6
+– Throughout the school year, access direct
+certification reports and process all submitted
+HEAs
+15
+
+Direct Certification with Federal Medicaid –
+Free and Reduced-Price Eligibility
+• Direct Certification matches include students eligible for both free and
+reduced-price meal benefits based on their participation in federal
+Medicaid at the appropriate income levels.
+• Reduced-price matches will be on a separate downloadable export and
+print report via the Electronic Direct Certification system in WINS for
+NSLP/SBP schools.
+– Notification of Reduced-Price Medicaid match requires the notification letter as well as
+a HEA
+• Not all households that receive federal Medicaid benefits in Illinois
+will qualify for USDA meal benefits.
+– Illinois threshold for federal Medicaid for children exceeds the
+185% Income Eligibility Guidelines (IEGs) for reduced-price meal
+benefits
+
+16
+
+Using Medicaid in Direct Certification
+• This is only available to NSLP/SBP participating sponsors.
+• The addition of DC federal Medicaid reduced-price eligible
+students is to reduce administrative paperwork for eligible
+households and school staff.
+• A Medicaid case number cannot be entered on an HEA and
+approved for meal benefits.
+• Federal Medicaid is only used for USDA meal benefit approval if
+found in the ISBE Direct Certification System.
+
+17
+
+Electronic Direct Certification Home
+
+18
+
+Electronic Direct Certification
+• Annual/Monthly Match
+– Public School Districts only
+• Sponsor File Upload Match
+– All LEAs
+• Single Child Lookup
+– All LEAs
+
+19
+
+Annual Match File (Public School Districts Only)
+
+• File available July 1 annually
+• File Type: Annual
+• The Annual file will identify the students who
+were enrolled in SIS (June Records) for your
+district that are receiving SNAP/TANF/Foster
+or Income-Eligible Federal Medicaid benefits.
+• Each public school district will have one
+Annual File each school year.
+
+20
+
+Monthly Match File (Public School Districts Only)
+• File Type: Monthly
+• The Monthly file will identify any new students who:
+– are enrolled in SIS (Current Month Records)
+– did not appear on the Annual file for your district
+– are receiving SNAP/TANF/income-eligible federal Medicaid/Foster
+child benefits
+• Monthly files will identify the number of matches. In some cases, this will
+be zero.
+• Students on this report/file, currently enrolled in your district, are
+automatically eligible for free or reduced-price meals/milk, regardless of
+the case ID number and the address listed on the file.
+• It is unlikely that all students on the file will be directly certified. For
+example, some students may not re-enroll in your district or may transfer
+schools. Some matches are close matches and may not be an enrolled
+student.
+• Public schools should access the Monthly file as close to the 1st of the
+month as possible.
+
+21
+
+Electronic Direct Certification FREE Match Page
+22
+
+Electronic Direct Certification REDUCED Match Page
+
+23
+
+Homeless, Migrant, Head Start
+• Only available September 1 – June 30
+• This is only used to provide students in these categories who have not already
+been matched via SNAP, TANF, income-eligible federal Medicaid or Foster Student
+Status.
+• This report can change nightly based on SIS data submitted to ISBE.
+
+24
+
+Annual/Monthly Match (Public School Districts ONLY)
+
+• Select Print – an Annual/Monthly Match Report is
+displayed
+• This report must be printed and maintained to
+document eligibility status. Document may be saved
+electronically.
+• The eligibility of a student begins either the first day of
+the match month or the access date, depending on the
+district’s selections for HEA effective dates. (See slide 6)
+• File also available for download. See Admin Handbook
+for detailed instructions if needed for Point of Service
+Systems.
+
+25
+
+Sponsor Match (All LEAs)
+• Any LEA may upload a comma-delimited file at any time.
+• Each file must contain the following fields:
+• First Name
+• Last Name
+• Gender at birth (F-Female, M-Male)
+• Birth date (month/day/year; e.g., 01/17/2010)
+• An optional 5th and 6th column of data may be added.
+• Such fields will be returned unchanged in the sponsor match
+file.
+• May be helpful to include SIS ID number, name of school, etc.,
+for ease of matching to overall student file.
+• Results will be displayed as File Type: Sponsor File
+
+26
+
+Sponsor Match File Results
+• Results will identify the students included on the upload
+file who are receiving SNAP/TANF/income-eligible federal
+Medicaid/Foster Child benefits.
+• Two separate reports may be generated:
+– Free
+– Reduced Price
+• Students on this report/file may be directly certified for
+free or reduced-price meals/milk if the LEA determines
+that the students are enrolled in the school/school district.
+
+27
+
+What is a Comma-Delimited File ?
+• A file format that is used for
+uploading data to the Electronic
+Direct Certification System
+• A comma-delimited file uses a
+comma to separate values.
+– Example:
+Susan,Jones,F,01/01/2012
+• More detailed information
+about comma-delimited files
+and how to create one in both
+Notepad and Microsoft Excel
+are included in the Guidance
+Document.
+
+28
+
+Duplicate Matches for Same Student
+• In some instances, a student might be found in one program
+file one month, and another program file another month. This
+is a duplicate student match.
+• If this occurs, please use the following as the hierarchy of
+direct certification status:
+1. SNAP*
+2. TANF*
+3. Foster
+4. Income-Eligible federal Medicaid FREE*
+5. Income-Eligible federal Medicaid REDUCED-PRICE*
+* Status may be extended to all household students.
+
+29
+
+Single Child Lookup (ALL LEAs)
+
+• LEAs may search for a single student who may be
+receiving SNAP/TANF/income-eligible federal
+Medicaid/Foster Child benefits.
+• An LEA may search first name, last name, and city.
+• A Single Child Lookup Report is available.
+– There is no limit to the number of Single Child
+Reports that may be created.
+• The option to download a file is not available for a
+Single Child Lookup.
+
+30
+
+Single Child Match
+Name and Address Search
+
+31
+
+Single Child Match Results
+
+32
+
+Exact Match and Close Match
+• Exact Match – All fields match
+• Close Match – One or more fields may be close matches
+or could “sound like” the requested search
+• With all matches, the LEA determines if the match is the
+student enrolled in their school.
+• If the LEA determines that the match is an enrolled
+student, free or reduced-price meal/milk benefits must be
+provided.
+• If the LEA determines that the match is not an enrolled
+student, please indicate on the documentation. No further
+action is needed by the LEA. The household is always
+offered the HEA to submit for meal benefits.
+
+33
+
+USDA Policy – Extending SNAP/TANF/Income-
+34
+Eligible Federal Medicaid Eligibility for Free or
+Reduced-Price Meal Benefits
+• Extending eligibility means that all children or adults in the
+household who are participating in a Child Nutrition Program are
+categorically eligible for free or reduced-price meal/milk benefits
+if any household member (child or adult) is receiving
+SNAP/TANF/income-eligible federal Medicaid benefits.
+• NOTE: The Electronic Direct Certification System contains
+only children 23 and younger.
+• NOTE: Foster Child, Homeless, Migrant, and Head Start
+status is not extended to other students within the same
+household.
+
+34
+
+Required Notification to Households – FREE Eligibility
+
+• The LEA must notify the
+household of the following:
+– The student(s) is eligible for free
+meal/milk benefits;
+– If students residing in the same
+household are not included on
+the notice, they should contact
+the school to request an
+extension of free or reduced-price
+meal benefits to all students;
+– No further action is required. The
+household does not have to
+complete a Household Eligibility
+Application; and
+– If the household does not want
+free or reduced-price benefits for
+a directly certified student, how to
+notify the LEA.
+
+ISBE Form 69-15
+
+35
+
+Sample Notification Letter:
+Direct Certification Medicaid Reduced-Price Eligible
+
+• ISBE Form 68-48
+• Form posted in English
+and Spanish
+• HEA must be provided
+with this notice
+
+36
+
+Maximizing the Direct Certification Numbers
+
+• Access the system monthly or more frequently.
+• If an HEA with a SNAP/TANF number or a foster child application is
+submitted, the LEA should check the Electronic Direct Certification
+System for the student.
+▪ If found, direct certify the student (and any additional household
+members for SNAP/TANF/income-eligible federal Medicaid)
+▪ If not found, however, process the HEA at face value. Then begin
+the verification for cause process.
+
+Note: HEAs with Medicaid Case ID Numbers cannot be accepted under
+any circumstances.
+
+37
+
+How Are Meal Benefits Determined?
+Categorical Eligibility
+ Direct Certification
+◦ Certification of SNAP/TANF/income-eligible federal
+Medicaid(Free and Reduced Price)/Foster Child AND
+Homeless/Migrant/Head Start benefits via Electronic Direct
+Certification System
+or
+ Categorical Eligibility
+◦ Homeless, migrant, runaway, foster child or Head Start
+listing
+or
+ Household Eligibility Application
+◦ SNAP/TANF application
+◦ Income application
+◦ Foster child application
+
+38
+
+Categorical Eligibility — Head Start, Foster Child,
+Homeless, Migrant, and Runaway Children
+• Dated list with each child’s name and signed by
+appropriate person
+– Head Start director
+– Foster care agency director
+– Homeless education liaison
+– Shelter director
+– Migrant education coordinator
+– Runaway and homeless youth service provider
+or
+• Application with child’s name and signature of
+appropriate person
+
+39
+
+Household Eligibility
+Documents
+• Documents for SY 2026-27 will be
+available in late June 2026.
+– Household Eligibility Application
+Prototype
+– Sample Public Announcement
+– Direct Certification Sample
+Notification
+– Extension of Benefits Form
+• Watch for ISBE announcement
+• FY 2027 Income Eligibility
+Guidelines are currently available.
+
+40
+
+Nutrition Department
+Illinois State Board of Education
+Telephone: 800-545-7892 (in Illinois only)
+217-782-2491
+Fax: 217-524-6124
+Email: cnp@isbe.net
+Website: www.isbe.net/nutrition
+
+Resources:
+• USDA Eligibility Manual for School Meals
+• ISBE Administrative Handbook, Electronic Direct Certification
+
+41
+
+42

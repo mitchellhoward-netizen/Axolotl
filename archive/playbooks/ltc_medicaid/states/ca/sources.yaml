@@ -1,0 +1,64 @@
+# California sources for long-term care Medi-Cal. dhcs.ca.gov is behind an
+# Incapsula bot wall that refuses scripts and the WebFetch tool; the PDFs below
+# were downloaded with a headless Chromium browser (Playwright) and imported.
+# leginfo.legislature.ca.gov (statutes) is behind a Cloudflare challenge and could
+# not be retrieved at all, so no rule rests on Welfare and Institutions Code text
+# directly.
+sources:
+  - id: ca-dhcs-acwdl-25-14
+    retrieved: 2026-10-07
+    url: https://www.dhcs.ca.gov/services/medi-cal/eligibility/letters/Documents/25-14.pdf
+    publisher: California Department of Health Care Services, Medi-Cal Eligibility Division
+    title: ACWDL 25-14 — Reinstatement of Asset Limits for Non-MAGI Medi-Cal Programs
+    kind: primary
+    jurisdiction: ca
+    doc_type: directive
+    published: 2025-06-30
+    effective_date: 2026-01-01
+  - id: ca-dhcs-acwdl-25-18
+    retrieved: 2026-10-07
+    url: https://www.dhcs.ca.gov/services/medi-cal/eligibility/letters/Documents/25-18.pdf
+    publisher: California Department of Health Care Services, Medi-Cal Eligibility Division
+    title: ACWDL 25-18 — Transfers of Assets for Long-Term Care Medi-Cal and Periods of Ineligibility for Nursing Facility Level-of-Care
+    kind: primary
+    jurisdiction: ca
+    doc_type: directive
+    published: 2025-10-09
+    effective_date: 2026-01-01
+  - id: ca-dhcs-acwdl-26-02
+    retrieved: 2026-10-07
+    url: https://www.dhcs.ca.gov/services/medi-cal/eligibility/letters/Documents/26-02.pdf
+    publisher: California Department of Health Care Services, Medi-Cal Eligibility Division
+    title: ACWDL 26-02 — 2026 Medicare Catastrophic Coverage Act Spousal Impoverishment Caps
+    kind: primary
+    jurisdiction: ca
+    doc_type: directive
+    published: 2026-01-28
+    effective_date: 2026-01-01
+  - id: ca-dhcs-acwdl-26-03
+    retrieved: 2026-10-07
+    url: https://www.dhcs.ca.gov/wp-content/uploads/2026/04/26-03.pdf
+    publisher: California Department of Health Care Services, Medi-Cal Eligibility Division
+    title: ACWDL 26-03 — 2026 Statewide Average Private Pay Rate for Nursing Facility Services
+    kind: primary
+    jurisdiction: ca
+    doc_type: directive
+    published: 2026-02-09
+    effective_date: 2026-01-01
+  - id: ca-dhcs-ltc-medi-cal-qa
+    retrieved: 2026-10-07
+    url: https://www.dhcs.ca.gov/services/ltc/Documents/Medi_CalQandA.pdf
+    publisher: California Department of Health Care Services (California Partnership for Long-Term Care)
+    title: Medi-Cal Questions and Answers (long-term care), undated (figures are for 2001-2002)
+    kind: primary
+    jurisdiction: ca
+    doc_type: agency_page
+    note: Old document; cited only for the $35 personal needs allowance and the share-of-cost method, which no newer DHCS source retrieved here restates.
+  - id: justiceinaging-ca-asset-limit-faq
+    retrieved: 2026-10-07
+    url: https://justiceinaging.org/reinstatement-of-medi-cal-asset-limit-faq/
+    publisher: Justice in Aging
+    title: Reinstatement of the Medi-Cal Asset Limit — FAQ
+    kind: secondary
+    jurisdiction: ca
+    doc_type: advocacy

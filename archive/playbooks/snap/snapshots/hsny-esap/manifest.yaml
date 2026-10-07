@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://hungersolutionsny.org/federal-nutrition-programs/snap/snap-and-seniors/esap/
+  final_url: https://hungersolutionsny.org/federal-nutrition-programs/snap/snap-and-seniors/esap/
+  status: 200
+  content_type: text/html; charset=utf-8
+  text_sha256: ac72ea24138ec84a62baea951b3b8b94fa5ce5cf252efd1a8155b6e029fecb45
+  text: hsny-esap/2026-10-07.txt
+  raw: hsny-esap/2026-10-07.html

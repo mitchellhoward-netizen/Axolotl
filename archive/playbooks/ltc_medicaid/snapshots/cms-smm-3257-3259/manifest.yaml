@@ -1,0 +1,10 @@
+- retrieved: '2026-10-07'
+  url: https://www.cms.gov/regulations-and-guidance/guidance/manuals/downloads/p45_03.zip
+  final_url: https://www.cms.gov/regulations-and-guidance/guidance/manuals/downloads/p45_03.zip
+  status: 200
+  content_type: txt
+  text_sha256: 7490af1bb483be3408611f0b18dc6dd2b632af8f93b01b874b6295eefb182b24
+  text: cms-smm-3257-3259/2026-10-07.txt
+  raw: cms-smm-3257-3259/2026-10-07.raw
+  fetched_via: curl download of the CMS zip p45_03.zip; file 'sm 03 3 325 to 3259.8.doc'
+    converted to text with LibreOffice

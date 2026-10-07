@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://healthweb-back.health.ny.gov/health_care/medicaid/reference/mrg/resources.pdf
+  final_url: https://healthweb-back.health.ny.gov/health_care/medicaid/reference/mrg/resources.pdf
+  status: 200
+  content_type: application/pdf
+  text_sha256: 00cbacdb12d7a2dfa5765e258f89ff8c759c3fe69c125cf6779535a3b3c204b1
+  text: ny-mrg-resources/2026-10-07.txt
+  raw: ny-mrg-resources/2026-10-07.pdf

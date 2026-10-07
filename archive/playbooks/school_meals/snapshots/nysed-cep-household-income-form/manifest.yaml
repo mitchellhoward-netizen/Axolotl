@@ -1,0 +1,10 @@
+- retrieved: '2026-10-07'
+  url: https://www.cn.nysed.gov/sites/cn/files/spohouseholdincomeform.docx
+  final_url: https://www.cn.nysed.gov/sites/cn/files/spohouseholdincomeform.docx
+  status: 200
+  content_type: txt
+  text_sha256: e5bfbb7ff9c2115678d5610f448d30650b71f68f4c35df498351d34c5d31d6c8
+  text: nysed-cep-household-income-form/2026-10-07.txt
+  raw: nysed-cep-household-income-form/2026-10-07.raw
+  fetched_via: curl (NYSED intermediate certificate added to trust bundle); text extracted
+    from word/document.xml with a zipfile script

@@ -1,0 +1,94 @@
+# Federal sources for long-term care (nursing-facility) Medicaid: transfers of
+# assets, spousal impoverishment, home equity, estate recovery. medicaid.gov
+# refuses scripted requests, so the CMS bulletins were fetched with the WebFetch
+# research tool (which saved the PDF) and imported. The State Medicaid Manual is
+# published by CMS only as a zip of Word files; the relevant file was converted
+# to text and imported.
+sources:
+  - id: usc-42-1396p
+    retrieved: 2026-10-07
+    url: https://www.govinfo.gov/content/pkg/USCODE-2023-title42/html/USCODE-2023-title42-chap7-subchapXIX-sec1396p.htm
+    publisher: U.S. Government Publishing Office (United States Code, 2023 edition)
+    title: 42 U.S.C. 1396p — Liens, adjustments and recoveries, and transfers of assets (Social Security Act sec. 1917)
+    kind: primary
+    jurisdiction: federal
+    doc_type: statute
+    note: >-
+      2023 edition. (b) estate recovery; (c) transfers of assets (60-month look-back, DRA penalty start);
+      (f) home equity limit. Public Law 119-21 sec. 71108 amends (f)(1) from January 1, 2028 (see pl-119-21).
+  - id: usc-42-1396r-5
+    retrieved: 2026-10-07
+    url: https://www.govinfo.gov/content/pkg/USCODE-2023-title42/html/USCODE-2023-title42-chap7-subchapXIX-sec1396r-5.htm
+    publisher: U.S. Government Publishing Office (United States Code, 2023 edition)
+    title: 42 U.S.C. 1396r-5 — Treatment of income and resources for certain institutionalized spouses (Social Security Act sec. 1924)
+    kind: primary
+    jurisdiction: federal
+    doc_type: statute
+  - id: pl-119-21
+    retrieved: 2026-10-07
+    url: https://www.govinfo.gov/content/pkg/PLAW-119publ21/html/PLAW-119publ21.htm
+    publisher: U.S. Government Publishing Office
+    title: Public Law 119-21 (July 4, 2025), 139 Stat. 72 — secs. 71108 (home equity limit) and 71112 (retroactive coverage)
+    kind: primary
+    jurisdiction: federal
+    doc_type: statute
+    published: 2025-07-04
+  - id: cms-cib-2025-11-18
+    retrieved: 2026-10-07
+    url: https://www.medicaid.gov/federal-policy-guidance/downloads/cib11182025.pdf
+    publisher: Centers for Medicare & Medicaid Services, Center for Medicaid and CHIP Services
+    title: CMCS Informational Bulletin, November 18, 2025 — "Working Families Tax Cut" Legislation, Public Law 119-21 Summary of Medicaid and CHIP Provisions
+    kind: primary
+    jurisdiction: federal
+    doc_type: guidance
+    published: 2025-11-18
+  - id: cms-cib-2025-12-09
+    retrieved: 2026-10-07
+    url: https://www.medicaid.gov/federal-policy-guidance/downloads/cib12092025.pdf
+    publisher: Centers for Medicare & Medicaid Services, Center for Medicaid and CHIP Services
+    title: CMCS Informational Bulletin, December 9, 2025 — 2026 SSI, Spousal Impoverishment, and Medicare Savings Program Resource Standards
+    kind: primary
+    jurisdiction: federal
+    doc_type: guidance
+    published: 2025-12-09
+    effective_date: 2026-01-01
+  - id: cms-cib-2026-04-27
+    retrieved: 2026-10-07
+    url: https://www.medicaid.gov/federal-policy-guidance/downloads/cib04272026.pdf
+    publisher: Centers for Medicare & Medicaid Services, Center for Medicaid and CHIP Services
+    title: CMCS Informational Bulletin, April 27, 2026 — Updated 2026 SSI and Spousal Impoverishment Standards
+    kind: primary
+    jurisdiction: federal
+    doc_type: guidance
+    published: 2026-04-27
+    note: Revises the MMMNA and community spouse housing allowance effective July 1, 2026; other 2026 figures unchanged.
+  - id: cms-smdl-06-018-enclosure
+    retrieved: 2026-10-07
+    url: https://downloads.cms.gov/cmsgov/archived-downloads/SMDL/downloads/toaenclosure.pdf
+    publisher: Centers for Medicare & Medicaid Services
+    title: State Medicaid Director Letter #06-018 (July 27, 2006), Enclosure — Sections 6011 and 6016 of the Deficit Reduction Act of 2005 (transfers of assets)
+    kind: primary
+    jurisdiction: federal
+    doc_type: guidance
+    published: 2006-07-27
+  - id: cms-smm-3257-3259
+    retrieved: 2026-10-07
+    url: https://www.cms.gov/regulations-and-guidance/guidance/manuals/downloads/p45_03.zip
+    publisher: Centers for Medicare & Medicaid Services (State Medicaid Manual, Part 3 — Eligibility)
+    title: State Medicaid Manual secs. 3257-3259.8 — Transfers of Assets and Treatment of Trusts (HCFA Transmittal 64, November 1994)
+    kind: primary
+    jurisdiction: federal
+    doc_type: manual
+    section: "file 'sm 03 3 325 to 3259.8.doc' inside the zip"
+    note: >-
+      Written for OBRA 1993 (36-month look-back, penalty from the month of transfer). The Deficit Reduction
+      Act of 2005 changed the look-back to 60 months and the penalty start date; CMS has not reissued these
+      sections, so use them only for points the DRA did not change.
+  - id: ecfr-42-cfr-435-725
+    retrieved: 2026-10-07
+    url: https://www.ecfr.gov/api/renderer/v1/content/enhanced/current/title-42?part=435&section=435.725
+    publisher: National Archives, Electronic Code of Federal Regulations
+    title: 42 CFR 435.725 — Post-eligibility treatment of income of institutionalized individuals in SSI States
+    kind: primary
+    jurisdiction: federal
+    doc_type: regulation

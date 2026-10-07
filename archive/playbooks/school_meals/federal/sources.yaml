@@ -1,0 +1,94 @@
+# Federal sources for the school meals playbook (free and reduced-price
+# meal eligibility). FNS's public site is www.fns.usda.gov (now redirecting
+# to www.fna.usda.gov), which refuses scripted requests; FNS serves the same
+# pages from fns-prod.azureedge.us, which answers them, so snapshots use it.
+sources:
+  - id: usc-42-1758
+    retrieved: 2026-10-07
+    url: https://www.govinfo.gov/content/pkg/USCODE-2023-title42/html/USCODE-2023-title42-chap13-sec1758.htm
+    publisher: U.S. Government Publishing Office (United States Code, 2023 edition)
+    title: 42 U.S.C. 1758 — Program requirements (Richard B. Russell National School Lunch Act sec. 9)
+    kind: primary
+    jurisdiction: federal
+    doc_type: statute
+    note: >-
+      (b)(1) income guidelines (130% / 185%); (b)(3) verification sample;
+      (b)(4) direct certification with SNAP; (b)(5) categorical eligibility
+      (SNAP, FDPIR, TANF, homeless, runaway, migrant, foster); (b)(12) Head
+      Start; (b)(15) direct certification with Medicaid. 2023 edition of the Code.
+  - id: ecfr-7-cfr-245
+    retrieved: 2026-10-07
+    url: https://www.ecfr.gov/api/versioner/v1/full/2026-10-01/title-7.xml?part=245
+    publisher: Office of the Federal Register (eCFR), via the eCFR versioner API
+    title: 7 CFR Part 245 — Determining Eligibility for Free and Reduced Price Meals and Free Milk in Schools (as of October 1, 2026)
+    kind: primary
+    jurisdiction: federal
+    doc_type: regulation
+    effective_date: 2026-10-01
+    note: >-
+      245.2 definitions; 245.3 income standards announced by July 1; 245.6
+      applications, direct certification, 10-operating-day notice, duration of
+      eligibility and 30-operating-day carry-over; 245.6a verification (sample
+      by October 1, complete by November 15); 245.9(f) Community Eligibility
+      Provision (25% identified student percentage, 1.6 multiplier, 4-year cycle).
+  - id: fr-2026-06842-ieg
+    retrieved: 2026-10-07
+    url: https://public-inspection.federalregister.gov/2026-06842.pdf
+    publisher: USDA Food and Nutrition Service (Federal Register public inspection copy)
+    title: "Child Nutrition Programs: Income Eligibility Guidelines (July 1, 2026 - June 30, 2027), FR Doc. 2026-06842"
+    kind: primary
+    jurisdiction: federal
+    doc_type: federal_register
+    published: 2026-04-09
+    effective_date: 2026-07-01
+  - id: fr-2025-03821-ieg
+    retrieved: 2026-10-07
+    url: https://www.govinfo.gov/content/pkg/FR-2025-03-13/html/2025-03821.htm
+    publisher: USDA Food and Nutrition Service (Federal Register, govinfo)
+    title: "Child Nutrition Programs: Income Eligibility Guidelines (July 1, 2025 - June 30, 2026), 90 FR 11938, FR Doc. 2025-03821"
+    kind: primary
+    jurisdiction: federal
+    doc_type: federal_register
+    published: 2025-03-13
+    effective_date: 2025-07-01
+  - id: fns-eligibility-manual-2017
+    retrieved: 2026-10-07
+    url: https://www.usda.gov/sites/default/files/guidance-documents/fns.SP36cacfp15sfsp11-2017-eligibilityManualforSchools.pdf
+    publisher: USDA Food and Nutrition Service
+    title: Eligibility Manual for School Meals — Determining and Verifying Eligibility (2017 edition, SP 36-2017, July 18, 2017)
+    kind: primary
+    jurisdiction: federal
+    doc_type: manual
+    published: 2017-07-18
+    note: >-
+      FNS's manual page (fna.usda.gov/cn/eligibility-manual-school-meals,
+      "Page updated: September 10, 2026") still links this 2017 edition as
+      current. usda.gov returns 403 to scripts and to WebFetch, so the PDF's
+      text was obtained through the r.jina.ai reader and imported.
+  - id: fns-dcm-demonstration
+    retrieved: 2026-10-07
+    url: https://fns-prod.azureedge.us/cn/direct-certification-medicaid-demonstration-project
+    publisher: USDA Food and Nutrition Service
+    title: National School Lunch and School Breakfast Program Demonstration Projects to Evaluate Direct Certification with Medicaid
+    kind: primary
+    jurisdiction: federal
+    doc_type: agency_page
+    note: 'Lists the 44 participating states by start year and whether free only or free and reduced price. Page updated September 10, 2026; the newest round shown is SY 2024-25.'
+  - id: fns-cep-page
+    retrieved: 2026-10-07
+    url: https://fns-prod.azureedge.us/cn/community-eligibility-provision
+    publisher: USDA Food and Nutrition Service
+    title: Community Eligibility Provision
+    kind: primary
+    jurisdiction: federal
+    doc_type: agency_page
+  - id: fr-2023-20294-cep
+    retrieved: 2026-10-07
+    url: https://www.govinfo.gov/content/pkg/FR-2023-09-26/html/2023-20294.htm
+    publisher: USDA Food and Nutrition Service (Federal Register, govinfo)
+    title: "Child Nutrition Programs: Community Eligibility Provision — Increasing Options for Schools (final rule), 88 FR 65778, FR Doc. 2023-20294"
+    kind: primary
+    jurisdiction: federal
+    doc_type: federal_register
+    published: 2023-09-26
+    effective_date: 2023-10-26

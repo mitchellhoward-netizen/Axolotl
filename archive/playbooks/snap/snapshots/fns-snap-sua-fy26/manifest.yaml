@@ -1,0 +1,10 @@
+- retrieved: '2026-10-07'
+  url: https://www.fns.usda.gov/sites/default/files/resource-files/2026-05-21-SUA-Table-FY26.xlsx
+  final_url: https://www.fns.usda.gov/sites/default/files/resource-files/2026-05-21-SUA-Table-FY26.xlsx
+  status: 200
+  content_type: txt
+  text_sha256: 672240422745d100851b212f0a4258dabd4efbce27abd6b1731e1efcfc4bc347
+  text: fns-snap-sua-fy26/2026-10-07.txt
+  raw: fns-snap-sua-fy26/2026-10-07.raw
+  fetched_via: curl download of the .xlsx from www.fns.usda.gov, converted to text
+    (all rows, cells joined with |) with openpyxl

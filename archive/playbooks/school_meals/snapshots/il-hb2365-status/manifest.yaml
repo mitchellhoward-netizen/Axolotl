@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://ilga.gov/ftp/legislation/104/BillStatus/HTML/10400HB2365.html
+  final_url: https://ilga.gov/ftp/legislation/104/BillStatus/HTML/10400HB2365.html
+  status: 200
+  content_type: text/html
+  text_sha256: 85d93030b6748c5adb1a0a1ed902cb4b8ec78ea02044a43b850815c83fc77ec0
+  text: il-hb2365-status/2026-10-07.txt
+  raw: il-hb2365-status/2026-10-07.html

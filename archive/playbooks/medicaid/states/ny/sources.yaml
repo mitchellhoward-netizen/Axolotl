@@ -1,0 +1,69 @@
+# New York sources for the Medicaid playbook. NY DOH documents are served
+# from healthweb-back.health.ny.gov (same files as www.health.ny.gov), which
+# answers scripted requests. Also cited from the MSP playbook's NY part (not
+# duplicated here): ny-gis-26-ma-05, ny-gis-26-ma-05-att1 (2026 income and
+# resource standards chart), ny-gis-26-ma-03, ny-mrg-income, ny-gis-07-ma-027.
+sources:
+  - id: ny-doh-medicaid-how-to-apply
+    retrieved: 2026-10-07
+    url: https://healthweb-back.health.ny.gov/health_care/medicaid/how_do_i_apply.htm
+    publisher: New York State Department of Health
+    title: Medicaid — How to Apply (where to apply by eligibility group; documents; income and resource levels)
+    kind: primary
+    jurisdiction: ny
+    doc_type: agency_page
+    note: Its income/resource chart is still the 2025 one ("Effective January 1, 2025"); the 2026 levels are in GIS 26 MA/05.
+  - id: ny-doh-4220
+    retrieved: 2026-10-07
+    url: https://healthweb-back.health.ny.gov/forms/doh-4220.pdf
+    publisher: New York State Department of Health
+    title: DOH-4220 — Health Insurance for Older Adults, People With Disabilities and Certain Other Populations, Application (with instructions, DOH-4220I (1/23))
+    kind: primary
+    jurisdiction: ny
+    doc_type: form
+  - id: ny-18-nycrr-360-2-4
+    retrieved: 2026-10-07
+    url: https://regs.health.ny.gov/node/53597
+    publisher: New York State Department of Health (NYCRR Title 18)
+    title: 18 NYCRR 360-2.4 — Decision (time frames; retroactive authorization)
+    kind: primary
+    jurisdiction: ny
+    doc_type: regulation
+  - id: ny-gis-26-ma-14
+    retrieved: 2026-10-07
+    url: https://healthweb-back.health.ny.gov/health_care/medicaid/publications/docs/gis/26ma14.pdf
+    publisher: New York State Department of Health, Office of Health Insurance Programs
+    title: GIS 26 MA/14 — New Federal Eligibility Requirements for Non-Citizen Coverage in Medicaid and Child Health Plus
+    kind: primary
+    jurisdiction: ny
+    doc_type: directive
+    published: 2026-09-29
+    effective_date: 2026-10-01
+  - id: ny-gis-26-ma-10
+    retrieved: 2026-10-07
+    url: https://healthweb-back.health.ny.gov/health_care/medicaid/publications/docs/gis/26ma10.pdf
+    publisher: New York State Department of Health, Office of Health Insurance Programs
+    title: GIS 26 MA/10 — Discontinuance of Continuous Coverage for MAGI Adults and Children from Birth to age Six
+    kind: primary
+    jurisdiction: ny
+    doc_type: directive
+    published: 2026-06-22
+    effective_date: 2026-07-01
+  - id: nysoh-stay-covered
+    retrieved: 2026-10-07
+    url: https://info.nystateofhealth.ny.gov/stay-covered
+    publisher: NY State of Health (New York State Department of Health marketplace)
+    title: Changes to Medicaid Coverage (H.R.1) — immigration, work requirements, 6-month renewals, retroactive coverage
+    kind: primary
+    jurisdiction: ny
+    doc_type: agency_page
+    published: 2026-10-06
+  - id: ny-mrg-resources
+    retrieved: 2026-10-07
+    url: https://healthweb-back.health.ny.gov/health_care/medicaid/reference/mrg/resources.pdf
+    publisher: New York State Department of Health
+    title: Medicaid Reference Guide — Resources (sections updated 2008-2011)
+    kind: primary
+    jurisdiction: ny
+    doc_type: manual
+    note: Official reference guide; pages are old (2008-2011). Used for methods (excess resources, retirement funds, exception/pooled trusts), not for dollar levels.

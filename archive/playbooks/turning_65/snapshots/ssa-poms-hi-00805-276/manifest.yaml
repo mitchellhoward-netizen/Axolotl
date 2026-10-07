@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://secure.ssa.gov/poms.nsf/lnx/0600805276
+  final_url: https://secure.ssa.gov/poms.nsf/lnx/0600805276
+  status: 200
+  content_type: text/html; charset=utf-8
+  text_sha256: a10acdee88927b122b8ddceeae599778ddcac1b062419f65f3c872689a2a5686
+  text: ssa-poms-hi-00805-276/2026-10-07.txt
+  raw: ssa-poms-hi-00805-276/2026-10-07.html

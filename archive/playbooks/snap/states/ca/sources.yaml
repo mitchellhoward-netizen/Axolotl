@@ -1,0 +1,105 @@
+# California sources for CalFresh (SNAP). CDSS letters are fetched from the
+# cdss.ca.gov Portals path without the ?ver= cache key.
+sources:
+  - id: ca-acin-i-40-26
+    retrieved: 2026-10-07
+    url: https://www.cdss.ca.gov/Portals/9/Additional-Resources/Letters-and-Notices/ACINs/2026/I-40_26.pdf
+    publisher: California Department of Social Services
+    title: ACIN I-40-26 — CalFresh Cost-of-Living Adjustments Effective October 1, 2026
+    kind: primary
+    jurisdiction: ca
+    doc_type: directive
+    published: 2026-09-10
+    effective_date: 2026-10-01
+  - id: ca-acin-i-46-25
+    retrieved: 2026-10-07
+    url: https://www.cdss.ca.gov/Portals/9/Additional-Resources/Letters-and-Notices/ACINs/2025/I-46_25.pdf
+    publisher: California Department of Social Services
+    title: ACIN I-46-25 — CalFresh Cost-of-Living Adjustments Effective October 1, 2025
+    kind: primary
+    jurisdiction: ca
+    doc_type: directive
+    published: 2025-09-03
+    effective_date: 2025-10-01
+  - id: ca-acl-26-04
+    retrieved: 2026-10-07
+    url: https://www.cdss.ca.gov/Portals/9/Additional-Resources/Letters-and-Notices/ACLs/2026/26-04.pdf
+    publisher: California Department of Social Services
+    title: ACL 26-04 — CalFresh Standard Medical Deduction Demonstration Project Extension Approval
+    kind: primary
+    jurisdiction: ca
+    doc_type: directive
+    published: 2026-01-15
+    effective_date: 2025-10-01
+  - id: ca-acl-24-59
+    retrieved: 2026-10-07
+    url: https://cdss.ca.gov/Portals/9/Additional-Resources/Letters-and-Notices/ACLs/2024/24-59.pdf
+    publisher: California Department of Social Services
+    title: ACL 24-59 — CalFresh Standard Medical Deduction Demonstration Project, Increased Standard Medical Deduction Amount
+    kind: primary
+    jurisdiction: ca
+    doc_type: directive
+    published: 2024-08-16
+    effective_date: 2024-10-01
+  - id: ca-acl-26-58
+    retrieved: 2026-10-07
+    url: https://www.cdss.ca.gov/Portals/9/Additional-Resources/Letters-and-Notices/ACLs/2026/26-58.pdf
+    publisher: California Department of Social Services
+    title: ACL 26-58 — Elderly Simplified Application Project Extension Approval and Modifications to Remove Individuals Aged 60 Through 64
+    kind: primary
+    jurisdiction: ca
+    doc_type: directive
+    published: 2026-08-21
+  - id: ca-acl-25-68
+    retrieved: 2026-10-07
+    url: https://www.cdss.ca.gov/Portals/9/Additional-Resources/Letters-and-Notices/ACLs/2025/25-68.pdf
+    publisher: California Department of Social Services
+    title: ACL 25-68 — CalFresh Implementation of the Standard Utility Allowances Final Rule and Limitations on Who Can Receive the State Utility Assistance Subsidy Payment
+    kind: primary
+    jurisdiction: ca
+    doc_type: directive
+    published: 2025-09-18
+  - id: ca-acl-25-50
+    retrieved: 2026-10-07
+    url: https://www.cdss.ca.gov/Portals/9/Additional-Resources/Letters-and-Notices/ACLs/2025/25-50.pdf
+    publisher: California Department of Social Services
+    title: ACL 25-50 — CalFresh Impacts Due to House Resolution 1 (H.R. 1)
+    kind: primary
+    jurisdiction: ca
+    doc_type: directive
+    published: 2025-07-14
+  - id: ca-acl-25-93
+    retrieved: 2026-10-07
+    url: https://www.cdss.ca.gov/Portals/9/Additional-Resources/Letters-and-Notices/ACLs/2025/25-93.pdf
+    publisher: California Department of Social Services
+    title: ACL 25-93 — CalFresh Implementation of H.R. 1, Changes to Time Limit for Able-Bodied Adults Without Dependents Policy
+    kind: primary
+    jurisdiction: ca
+    doc_type: directive
+    published: 2025-12-31
+  - id: ca-acl-25-92
+    retrieved: 2026-10-07
+    url: https://www.cdss.ca.gov/Portals/9/Additional-Resources/Letters-and-Notices/ACLs/2025/25-92.pdf
+    publisher: California Department of Social Services
+    title: ACL 25-92 — CalFresh Implementation of H.R. 1, Changes to Noncitizen Eligibility Policy
+    kind: primary
+    jurisdiction: ca
+    doc_type: directive
+    published: 2025-12-31
+  - id: ca-cdss-ssi-calfresh
+    retrieved: 2026-10-07
+    url: https://cdss.ca.gov/inforesources/calfresh/supplemental-security-income
+    publisher: California Department of Social Services
+    title: Expanding CalFresh to SSI/SSP Recipients Beginning June 1, 2019
+    kind: primary
+    jurisdiction: ca
+    doc_type: agency_page
+    effective_date: 2019-06-01
+  - id: ca-cdss-calfresh
+    retrieved: 2026-10-07
+    url: https://www.cdss.ca.gov/inforesources/calfresh
+    publisher: California Department of Social Services
+    title: CalFresh program page
+    kind: primary
+    jurisdiction: ca
+    doc_type: agency_page

@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://fns-prod.azureedge.us/cn/community-eligibility-provision
+  final_url: https://fns-prod.azureedge.us/cn/cep
+  status: 200
+  content_type: text/html; charset=utf-8
+  text_sha256: 135bcb128d18d8d1904cf1f65fa425cff5b8de79df3b33abdcac4ae337ea2e49
+  text: fns-cep-page/2026-10-07.txt
+  raw: fns-cep-page/2026-10-07.html

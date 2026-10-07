@@ -1,0 +1,38 @@
+# Illinois school meal numbers and switches.
+parameters:
+  - id: il.isbe.dcm_type
+    description: Illinois's direct certification with Medicaid type under the FNS demonstration.
+    unit: enum (none | free_only | free_and_reduced)
+    values:
+      - effective_from: 2012-07-01
+        effective_to: 2022-06-30
+        value: free_only
+        confidence: confirmed
+        sources:
+          - {source: fns-dcm-demonstration, locator: "table, column DC-M Pilot States since SY 2012-13 (free meals only)", quote: "Illinois*"}
+      - effective_from: 2022-07-01
+        value: free_and_reduced
+        confidence: confirmed
+        sources:
+          - {source: fns-dcm-demonstration, locator: "table, column DC-M Pilot States since SY 2022-23 (free and reduced price meals)", quote: "Illinois*"}
+          - {source: il-isbe-dc-slides-2026, locator: "slide 16, Direct Certification with Federal Medicaid - Free and Reduced-Price Eligibility", quote: "Direct Certification matches include students eligible for both free and reduced-price meal benefits based on their participation in federal Medicaid at the appropriate income levels."}
+  - id: il.isbe.hsmfa_statewide_funded
+    description: Whether Illinois's Healthy School Meals for All Program (105 ILCS 125/2.3) has a state appropriation that makes meals free to all students at participating schools in the school year.
+    unit: bool
+    open_question: SCH-IL-OQ-01
+    values:
+      - effective_from: 2025-07-01
+        value: false
+        confidence: secondary
+        note: >-
+          The program exists only "subject to appropriation". The stand-alone $67 million
+          appropriation bill (HB2365) was re-referred to Rules on 7/1/2026 without passing,
+          ISBE's 2026-27 meal announcement describes only federal free/reduced eligibility and
+          CEP, and advocates say the state "has yet to allocate" the money. Whether any
+          HSMFA line is in the enacted FY2027 omnibus budget was not checked against the
+          appropriation act itself.
+        sources:
+          - {source: il-105-ilcs-125-2-3, locator: "(b)", quote: "Subject to appropriation, the State Board of Education shall establish the Healthy School Meals for All Program to begin on July 1, 2023."}
+          - {source: il-hb2365-status, locator: "Last Action", quote: "7/01/2026 - House: Rule 19(b) / Re-referred to Rules Committee"}
+          - {source: il-hsc-hsmfa-blog, locator: "paragraph 2", quote: "the state has yet to allocate the $216 million in funds needed to make free breakfast and lunch available to all students"}
+          - {source: il-iphi-hsmfa-overview-2026, locator: "page 1"}

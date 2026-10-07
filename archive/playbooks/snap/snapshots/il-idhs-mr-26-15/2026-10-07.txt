@@ -1,0 +1,471 @@
+Illinois Department of Human Services
+JB Pritzker, Governor · Dulce M. Quintero, Secretary
+
+Customers
+
+Providers
+
+About
+
+News
+
+Contact
+
+IDHS
+
+About IDHS
+
+Publications
+
+Manuals
+
+Family & Community Services Manuals
+
+Cash, SNAP, and Medical Manual
+
+Manual Releases
+
+MR #26.15 SNAP - Reinstatement of Six-Month Redetermination Process and EZ REDE
+
+06/12/2026
+
+This Manual Release obsoletes the following Manual Releases and Policy Memos:
+
+MR#15:21: Enrolling Households into Mid-Point Reporting with 12 Month Approval Periods, dated 10/15/2015;
+
+MR#16.05: Mid-Point Reporting (MPR) Process, dated 04/20/2016;
+
+MR#18.14: Revises Mid-Point Reporting Process - Reminder Notice Required, dated 07/01/2018;
+
+Mid-Point Reporting Policy Clarifications and System Changes, dated 10/29/2015;
+
+Mid-Point Reports Will Continue to be Waived Until Further Notice, dated 07/01/2021;
+
+Changes to the Mid-Point Report (IL444-2980) Process, dated 08/03/2023;
+
+Changes to the Mid-Point Report Process for SNAP, dated 10/10/2025; and
+
+Reinstatement of Six-Month Redetermination Process and EZ REDE for SNAP, dated 10/23/2025
+
+Summary
+
+This Manual Release introduces and provides guidance on the 6-month redetermination process and EZ redetermination (REDE) process for SNAP cases.
+
+In an effort to reduce SNAP payment error rates, effective 10/22/2025, Illinois Department of Human Services (IDHS) reinstated the 6-month redetermination process and the EZ redetermination (REDE) process for SNAP.
+
+All SNAP households, except those receiving SNAP under the Elderly and/or Disabled Simplified Redetermination Project (EDSRP), will be assigned 6-month certification periods.
+
+The EZ REDE process and new Medical, Cash, SNAP and/or State Food EZ REDE Notice (IL444-1894) will be implemented and will be sent every alternating 6 months with no interview required.
+
+SNAP households assigned 6-month certification periods will be converted to Simplified Reporting (SR) households.
+
+The Mid-Point Reporting Process has been discontinued and the SNAP & TANF Mid-Point Report (IL444-2890) has been obsoleted.
+
+EDSRP households remain subject to Change Reporting Requirements and will continue to have 24-month certification periods.
+
+Workers should continue to explain the relevant reporting requirements, Simplified Reporting or Change Reporting, to the SNAP households.
+
+System updates to the Integrated Eligibility System (IES) have been made for the new 6-month certification period and for the EZ REDE process and notice.
+
+Other pending updates to forms and correspondence will be announced at a later date.
+
+Introduction
+
+In an effort to reduce SNAP payment error rates, effective 10/22/2025, Illinois Department of Human Services (IDHS) reinstated the 6-month redetermination (interview required) process and the EZ redetermination (REDE) process (no interview required) for SNAP. This Manual Release introduces and provides guidance on the 6-month redetermination process and introduces the EZ REDE process for SNAP cases.
+
+All initial SNAP applications received on or after 10/22/2025 will receive a 6-month certification period.
+
+SNAP redeterminations with a certification period ending 10/31/2025 and after will receive a 6-month certification period.
+
+SNAP Six-Month Redetermination Process
+
+Interviews will be required at initial SNAP application, at the first SNAP redetermination after the initial application, and then at every alternating SNAP redetermination. For the interview required redeterminations, the Medical, Cash and SNAP and/or State Food Redetermination Notice (IL444-1893) will continue to be issued.
+
+EZ REDE Process and new Medical, Cash, SNAP and/or State Food EZ REDE Notice
+
+An EZ REDE is a no interview required redetermination process. This process includes a new redetermination form titled Medical, Cash, SNAP and/or State Food EZ REDE Notice (IL444-1894) that will be generated and mailed every alternating 6 months when no interview is required.
+
+The appropriate redetermination form will be systematically generated from IES and centrally mailed to the SNAP household 60 days prior to the certification ending.
+
+The returned Medical, Cash, SNAP and/or State Food EZ REDE Notice will go into the No Interview - Initiate REDE queue.
+
+Workers are still required to trigger clearances and issue a Verification Checklist (IL444-0267 VCL) if more information is needed to properly process the EZ REDE.
+
+Note: The Redetermination Fact Sheet (IL 444-4769) is currently being suppressed as system developments continue in IES for the new 6-month certification period.
+
+At the first 6-month SNAP redetermination, after the initial application, an interview will be required. At the following 6-month redetermination, known as EZ REDE, an interview will not be required. For every 6-month period thereafter the household will alternate between redeterminations with interviews and EZ REDES with no interviews.
+
+Note: The first group of EZ REDEs (IL444-1894) will be generated in May 2026 for REDEs due by 07/31/2026.
+
+The following table provides information on the interview process for SNAP redeterminations.
+
+Certification Period
+
+Form Number
+
+Interview Process
+
+Initial Application
+
+(6-month cert period)
+
+IL444-2378 B
+
+or
+
+IL444-0683
+
+Interview Required
+
+REDE
+
+(6-month cert period)
+
+IL444-1893
+
+Interview Required
+
+EZ REDE
+
+(6-month cert period)
+
+IL444-1894
+
+No Interview Required
+
+REDE
+
+(6-month cert period)
+
+IL444-1893
+
+Interview Required
+
+EZ REDE
+
+(6-month cert period)
+
+IL444-1894
+
+No Interview Required
+
+Example: John applied for SNAP in a Family Community Resource Center (FCRC) on 11/01/2025. The worker conducted his interview, processed his application, and approved his benefits on 11/01/2025. His certification date began 11/01/2025 and ends 04/30/2026. He will need to recertify his SNAP benefits prior to 04/30/2026 with a redetermination and will be required to complete an interview. The following redetermination due in October 2026 will be a EZ REDE and an interview will not be required.
+
+SNAP Cases Changed from Mid-Point Report Status to Simplified Reporting Status
+
+Active SNAP cases in Mid-Point Report (MPR) status will convert to Simplified Reporting at their first redetermination processed on or after 10/22/2025.
+
+Only non-EDSRP households will be assigned Simplified Reporting status. EDSRP households will continue to be subject to Change Reporting requirements.
+
+SNAP & TANF Mid-Point Report (MPR) (IL444-2890) has been obsoleted.
+
+Workers must explain to Simplified households that they will no longer receive or be expected to complete the SNAP & TANF Mid-Point Report (IL444-2890).
+
+During the certification period, a Simplified Reporting household must report the following changes within 10 days after the month in which the change occurred and at redetermination:
+
+when their gross monthly income exceeds the Gross Monthly Income Standard for the household size; and
+
+when an Able Bodied Adult without Dependents (ABAWDs) who is subject to the SNAP Work Requirement time limit has work hours that fall below 20 hours per week; and
+
+when a substantial lottery or gambling winning is won as a cash prize of more than $4,500 won in a single game.
+
+More information on changes required to be reported during the certification period can be found in PM 18-04-00.
+
+Discontinuation of Mid-Point Report Process and Obsoleting of Form IL444-2890
+
+With the implementation of the 6-month certification period and the EZ REDE process, the Mid-Point Report (MPR) process has been discontinued. The final round of Mid-Point Reports were due in March 2026. This was for SNAP cases with the 12 month certification periods from 10/01/2025 through 09/30/2026. The SNAP & TANF Mid-Point Report (IL444-2890) has been obsoleted.
+
+Example: An initial SNAP application was received and approved on 10/01/2025 with a Mid-Point Report status and a 12-month certification period. This household will still receive an MPR in February 2026 that is due on 03/02/2026. This MPR must be completed and submitted for SNAP benefits to continue.
+
+Elderly and/or Disabled Simplified Redetermination Project (EDSRP) Households
+
+EDSRP households will continue to have a 24-month certification period. EDSRP households that, at redetermination, are found to be no longer eligible for EDSRP will be changed to Simplified Reporting status and given a 6-month certification period. See PM 06-31-00.
+
+Change Reporting
+
+Although most SNAP households will transition to Simplified Reporting, EDSRP households will continue to be subject to Change Reporting requirements.
+
+State Food
+
+State Food Assistance households will also be assigned a 6-month certification period. Although State Food Assistance is not a federal benefit program it follows SNAP rules and processing procedures. For all applications that were received on or after 10/22/2025, State Food households were certified as Simplified Reporting households. For all redeterminations that were processed on or after 10/22/2025, State Food households were converted from Change Reporters to Simplified Reporting households and will follow those reporting requirements.
+
+SNAP Work Requirement and Able-bodied Adults without Dependents
+
+Households that are currently in Simplified Reporting status and subject to the SNAP Work Requirement will no longer be converted to Change Reporting status. They will remain in Simplified Reporting status. Workers must continue to screen SNAP households for the SNAP Work Requirement exemptions. Households that currently have a documented exemption and no longer meet that exemption will be required to report the change to their exemption status at the next redetermination.
+
+SNAP Work Rules (IL444-5175) will continue to be systematically generated for SNAP households subject to the SNAP Work Requirement. Workers are still required to explain the SNAP Work Rules (IL444-5175) and mandatory participation to the customer at each interview required redetermination. It is the household's continued responsibility to update the redetermination notices with changes that may affect their participation in the SNAP Work Requirements. As part of the Simplified Reporting requirements, SNAP households must report within 10 calendar days when an Able-bodied Adult without Dependents (ABAWD) who is subject to the SNAP Work Requirement time limit has work hours that fall below 20 hours per week (80 hours a month).
+
+IES System Updates
+
+Updates were made to the Integrated Eligibility System (IES) and Application for Benefits Eligibility (ABE) to implement a 6-month certification period to SNAP EDGs for non-EDSRP households. This update affects:
+
+all initial SNAP applications received on or after 10/22/2025; and
+
+redeterminations with a certification period ending on or after 10/31/2025.
+
+IES will implement a new cadence for SNAP REDEs, alternating interview (IL444-1893) and no-interview (IL444-1894) requirements.
+
+The first group of EZ REDEs (IL444-1894) will be generated in May 2026 for REDEs due by 07/31/2026.
+
+SNAP cases in Mid-Point Reporting status, that are active as of 10/22/2025, will continue in Mid-Point Reporting status until their next redetermination.
+
+IES will be updated to assign non-EDSRP SNAP households to Simplified Reporting Status.
+
+IES system generated notices will be updated with a 6-month certification period for households in Simplified Reporting status.
+
+IES will discontinue the auto generation/issuance of the SNAP & TANF Mid-Point Report (IL444-2890).
+
+SNAP Work Rules (IL444-5175) will systematically generate for SNAP households subject to SNAP Work Requirements.
+
+Forms and Correspondence
+
+Forms will be updated to reflect the new 6-month certification period and reporting requirements for households subject to Simplified Reporting requirements.
+
+Medical, Cash and SNAP and/or State Food Redetermination Notice (IES) (IL444-1893) will be centrally generated and mailed 60 days prior to the end of the 6-month certification period for interview required redeterminations.
+
+Medical, Cash, SNAP and/or State Food EZ REDE Notice (IL444-1894) will be centrally generated and mailed to SNAP households 60 days prior to the end of their 6-month certification period for no interview redeterminations.
+
+The first group of EZ REDE Notices (IL444-1894) will be generated in 05/2026 for SNAP Simplified Reporting households with a certification period ending 07/31/2026.
+
+Notice of Decision (IL444-0360C) will be updated to remove Mid-Point Reporting language.
+
+Redetermination Fact Sheet (IL444-4769) will be systematically suppressed as updates are being made to the document in relation to the discontinuation of the MPR Process and the implementation of the 6-month certification and EZ REDE processes.
+
+SNAP & TANF Mid-Point Report (IL444-2890) will no longer be generated and issued to SNAP households.
+
+Manual Revisions
+
+PM 01-06-01
+
+PM 01-06-03
+
+PM 02-06-01
+
+PM 02-06-01-g
+
+PM 02-07-03-l
+
+PM 04-05-04
+
+PM-06-31-01
+
+PM 06-31-05
+
+PM 07-04-00
+
+PM 07-04-01-d
+
+PM 07-04-21
+
+PM 08-04-01-g
+
+PM 13-02-00
+
+PM 13-02-03
+
+PM 17-05-00
+
+PM 17-05-02
+
+PM 17-05-02-b
+
+PM 17-05-02-g
+
+PM 17-05-02-i
+
+PM 18-04-00
+
+PM 18-04-03
+
+PM 18-04-04
+
+PM 18-04-05
+
+PM 18-04-09-a
+
+PM 18-07-01
+
+PM 19-02-05
+
+PM 19-03-02
+
+PM 19-03-03
+
+PM 19-03-04
+
+PM 19-03-05-b
+
+PM 19-03-05-c
+
+PM 19-03-05-d
+
+PM 19-03-06
+
+PM 19-05-00
+
+PM 19-07-00
+
+PM 19-07-01
+
+PM 19-07-05
+
+PM 19-07-06
+
+PM 21-06-12
+
+PM 23-03-03
+
+PM 23-03-03-b
+
+WAG 01-06-02-d
+
+WAG 02-06-01
+
+WAG 02-06-01-g
+
+WAG 06-04-03
+
+WAG 07-04-01-d
+
+WAG 07-04-02
+
+WAG 07-04-21
+
+WAG 08-04-01
+
+WAG 08-04-01-g
+
+WAG 13-02-03
+
+WAG 17-05-00
+
+WAG 17-05-02
+
+WAG 17-05-02-b
+
+WAG 17-05-02-g
+
+WAG 17-05-02-i
+
+WAG 18-04-03
+
+WAG 18-04-05
+
+WAG 18-07-01
+
+WAG 19-02-05-a
+
+WAG 19-03-03
+
+WAG 19-03-05
+
+WAG 19-03-05-a
+
+WAG 19-03-05-b
+
+WAG 19-03-05-c
+
+WAG 19-03-05-d
+
+WAG 19-03-06
+
+WAG 19-03-06-b
+
+WAG 19-05-01
+
+WAG 19-07-00
+
+WAG 19-07-01
+
+WAG 19-07-05
+
+WAG 19-07-06
+
+WAG 19-08-00
+
+WAG 21-06-12
+
+WAG 23-02-02-a
+
+WAG 23-03-03-a
+
+WAG 23-03-03-b
+
+WAG 25-13-00
+
+Obsoleted
+
+PM 19-02-06
+
+PM 19-07-02
+
+PM 19-07-03
+
+PM 19-07-04
+
+PM 19-07-04-a
+
+PM 19-07-04-b
+
+PM 19-07-07
+
+WAG 19-02-06
+
+WAG 19-07-02
+
+WAG 19-07-03
+
+WAG 19-07-04
+
+WAG 19-07-04-a
+
+WAG 19-07-04-b
+
+WAG 19-07-07
+
+[Signed copy on file]
+
+Dulce Quintero
+
+Secretary, Illinois Department of Human Services
+
+Forms Referenced
+
+IL444-0267
+
+IL444-0360 C
+
+IL444-0683
+
+IL444-1893
+
+IL444-1894
+
+IL444-2378 B
+
+IL444-2890
+
+IL444-4769
+
+Illinois Department of Human Services
+JB Pritzker, Governor · Dulce M. Quintero, Secretary
+
+IDHS Office Locator
+
+IDHS Help Line
+
+1-800-843-6154
+
+1-866-324-5553 TTY
+
+State of Illinois
+
+Accessibility
+
+Privacy
+
+Report Abuse/Neglect
+
+Contact
+
+Outlook Login

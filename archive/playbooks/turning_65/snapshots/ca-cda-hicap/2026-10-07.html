@@ -1,0 +1,637 @@
+
+<!DOCTYPE html>
+
+<html xmlns="https://www.w3.org/1999/xhtml" lang="en">
+    <!-- Detect IE Browser Versions and no-js -->
+    <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!--[if IE 9]>    <html class="no-js ie9 oldie" lang="en"> <![endif]-->
+<!--[if (gt IE 9)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+    <!-- Meta-tag calls -->
+    <meta charset="utf-8" /><meta name="Author" content="State of California" /><meta name="Description" content="State of California" /><meta name="Keywords" content="California, government" />
+<!-- Use highest compatibility mode -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<!-- https://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True" />
+<!-- for Blackberry, AvantGo -->
+<meta name="MobileOptimized" content="320" />
+<!-- for Windows mobile -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
+  
+    <!-- Main Css Calls -->
+    <!-- JQuery Styles -->
+<link href="/css/libraries/jquery/jquery-ui.min.css" rel="stylesheet" type="text/css" /><link href="/css/libraries/jquery/jquery-ui.structure.min.css" rel="stylesheet" type="text/css" /><link href="/css/libraries/jquery/jquery-ui.theme.min.css" rel="stylesheet" type="text/css" />
+<!-- Google Fonts -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" crossorigin="anonymous" />
+<!-- For all browsers -->
+<link href="/css/cagov.core.css?date=3.27.20" rel="stylesheet" type="text/css" /><link href="/css/colorscheme-oceanside.css?date=6.28.19" rel="stylesheet" type="text/css" />
+<!-- Custom CSS -->
+<link href="/css/custom.css?date=6.8.23" rel="stylesheet" type="text/css" />
+<!-- cda container boxes -->
+<link href="/css/cda-boxes.css?date=6.19.23" rel="stylesheet" type="text/css" />
+<!-- Font Awesome -->
+<link href="/css/fontawesome-4.6.3.min.css?date=6.28.19" rel="stylesheet" type="text/css" /><link rel="stylesheet" href="https://cdn.datatables.net/1.10.18/css/dataTables.jqueryui.min.css" integrity="sha512-NaFholmQqRn9rmnWrKWrcr/uob4ZiLo4DjD2TJVEa4XoalLAIehJAE4Okjx/PqQPPSRV3EEIaatHWoT7qtVgeQ==" crossorigin="anonymous" referrerpolicy="no-referrer" /><link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.2/css/responsive.jqueryui.min.css" integrity="sha512-UaJaTZ9jEmxC/slDMtUmSWExaVsOAfbDnBqu32JnAf21+l6v7Pr5wPDRMv7bgtTK+n2LoPsacuxdLWQ/bsd+mA==" crossorigin="anonymous" referrerpolicy="no-referrer" /><link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" integrity="sha512-LEcCbgUWPBUGbPctNaH+oxZRo415/rpwfqUQXcT4gS+gZyUTb8OIBV288vKAPLqbqsskLKQxgXOz4fr794XZhg==" crossorigin="anonymous" referrerpolicy="no-referrer" /><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha512-6c4nX2tn5KbzeBJo9Ywpa0Gkt+mzCzJBrE1RB6fmpcsoN+b/w/euwIMuQKNyUoU/nToKN3a8SgNOtPrbW12fug==" crossorigin="anonymous" referrerpolicy="no-referrer" /><link href="/css/cda-main.css?date=7.5.23" rel="stylesheet" type="text/css" /><link href="/css/libraries/jquery.contextMenu.css" rel="stylesheet" /><link type="text/css" rel="stylesheet" href="/css/two-col-template-specific.css" />
+
+    <!-- Mobile controls and feature detection -->
+    <!-- selectivizr.com, emulates CSS3 pseudo-classes and attribute selectors in Internet Explorer 6-8 -->
+<!--[if (lt IE 9) & (!IEMobile)]>
+
+<![endif]-->
+<!-- modernizr.com, feature detection -->
+
+<!---->
+<!-- For iPad 3-->
+<link rel="apple-touch-icon" sizes="144x144" href="/images/template2014/apple-touch-icon-144x144.png" />
+<!-- For iPhone 4 -->
+<link rel="apple-touch-icon" sizes="114x114" href="/images/template2014/apple-touch-icon-114x114.png" />
+<!-- For iPad 1-->
+<link rel="apple-touch-icon" sizes="72x72" href="/images/template2014/apple-touch-icon-72x72.png" />
+<!-- For iPhone 3G, iPod Touch and Android -->
+<link rel="apple-touch-icon" href="/images/template2014/apple-touch-icon-57x57.png" />
+<!-- For Nokia -->
+<link rel="shortcut icon" href="/images/template2014/apple-touch-icon-57x57.png" />
+<!-- For everything else -->
+<link rel="shortcut icon" href="/favicon.ico" />
+<!-- Activate ClearType for Mobile IE -->
+<!--[if IE]>
+<meta http-equiv="cleartype" content="on" />
+
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  
+  
+<![endif]-->
+
+
+    <!-- Required Scripts -->
+    <!-- Load jQuery from CDN with fallback to local copy -->
+
+
+
+
+
+<!-- Require HTTPS -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Google Analytics Code -->
+    <!-- Activity name for this tag: HNP | SFC | California Dept of Aging | View Through Pixel -->
+
+
+
+<!--Google Analytics 4 -->
+
+
+
+    
+
+
+    <style>
+        .navigation-search{
+            height:50px
+        }
+        #nav_list{
+            height: 35px !important;
+            min-height: 35px !important;
+        }
+        .nav-item{
+            height: 36px !important;
+            min-height: 36px !important;
+        }
+        .nav-item a{
+            height: 25px !important;
+            min-height: 25px !important;
+        }
+    </style>
+<title>
+	Medicare Counseling (HICAP) - Consumer | California Department of Aging - State of California
+</title></head>
+<body>
+    <!--<style>
+    .cda-alert-banner {
+        background-color: #0c4c91
+    }
+
+        .cda-alert-banner button.close {
+            color: #fff
+        }
+
+    .cda-alert-banner-body {
+        text-align: center;
+    }
+
+        .cda-alert-banner-body p {
+            color: #fff;
+            font-size: medium;
+        }
+</style>
+
+<div class="alert alert-dismissible alert-banner cda-alert-banner" role="alert">
+  <div class="container">
+       <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+       <div class="cda-alert-banner-body">
+           <p><b>Extreme heat is expected.</b></p>
+           <p>Stay safe and find resources for older adults, caregivers, and communities. <a href="/heatwave_resources/" style="color: #fec240"><b>Learn more</b></a>.</p>
+       </div>
+   </div>
+</div>-->
+<form method="post" action="./" id="ctl33" autocomplete="off" aria-autocomplete="none">
+<div class="aspNetHidden">
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" />
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="a5gQXx9OpvWeO94jrhQ+W9QsnoKTMwj3jqzhl3uG+trqJgadQfT24rT6X9NTgJ115pYFcLDDyeTT2jVLrAf+28ygi2F1kDT/kp95U512rZ8=" />
+</div>
+
+
+
+
+
+
+
+
+
+<div class="aspNetHidden">
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="24032778" />
+</div>
+        <input type="hidden" id="environmentVariable" value="prod"/>
+        
+
+        <header role="banner" id="header" class="global-header compact">
+            <div id="skip-to-content"><a href="#main-content">Skip to Main Content</a></div>
+            <!-- Location Bar -->
+            <div class="location-settings section section-standout collapse collapsed " id="locationSettings">
+    <div class="container p-y">
+        <button type="button" class="close" data-toggle="collapse" data-target="#locationSettings" aria-expanded="false" aria-controls="locationSettings" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <div class="form-group form-inline">
+            <label for="locationZipCode">Saving your location allows us to provide you with more relevant information.</label>
+            <input type="input" class="form-control" id="locationZipCode" placeholder="Zip Code">
+            <button type="button" class="btn btn-primary">Set Location</button>
+        </div>
+    </div>
+</div>
+
+            <!-- Utility Header -->
+            <style type="text/css">
+    a.ts-letter {
+        margin: 0px 2px;
+    }
+    
+    a.ts-letter.sm {
+        font-weight: bold;
+        font-size: 110%;
+    }
+
+    a.ts-letter.md {
+        font-weight: bold;
+        font-size: 130%;
+    }
+
+    a.ts-letter.lg {
+        font-weight: bold;
+        font-size: 160%;
+    }
+    .goog-te-combo {
+        padding: 5px;
+        max-width: 135px;
+        border-radius: 10px;
+    }
+    #google_translate_element {
+        margin-top: 5px;
+        padding-left: 5px;
+        padding-right: 5px;
+        border-radius: 4px;
+        background-color: #fff;
+    }
+</style>
+
+<div id="util-header" class="utility-header">
+    <div class="container">
+        <div class="group">
+            <div class="half">
+                <ul class="utility-links social-media-links">
+                    <li><div class="header-cagov-logo"><a href="https://www.ca.gov/" target="_blank" rel="nonopener noreferrer"><img src="/images/cagov-logo-white.svg" alt="CA.gov" /></a></div></li>
+                    <li><a href="/" title="Go to the California Department of Aging's Homepage"><span class="ca-gov-icon-home"></span><span class="sr-only sr-only-focusable">return to homepage</span></a></li>
+                    <li><a class="ca-gov-icon-facebook" title="Visit the California Department of Aging's Facebook page" href="https://www.facebook.com/CaliforniaAging/" target="_blank" rel="nonopener noreferrer"><span class="sr-only sr-only-focusable">department of aging facebook</span></a></li>
+                    <li><a class="ca-gov-icon-instagram" title="Visit the California Department of Aging's Instagram page" href="https://www.instagram.com/cal_aging/" target="_blank" rel="nonopener noreferrer"><span class="sr-only sr-only-focusable">department of aging instagram</span></a></li>
+                    <li><a title="Visit the California Department of Aging's Twitter page" href="https://x.com/CalAging" target="_blank" rel="nonopener noreferrer"><img class="twlogo-sm" src="/images/logos/twetter-x-logo.png" alt="twetter x logo" /><span class="sr-only sr-only-focusable">department of aging twitter</span></a></li>
+                    <li><a class="ca-gov-icon-youtube" title="Visit the California Department of Aging's YouTube Channel" href="https://www.youtube.com/channel/UCaNx9_40-7MjpRK_OD-LnPQ" target="_blank" rel="nonopener noreferrer"><span class="sr-only sr-only-focusable">department of aging youtube channed</span></a></li>
+                    <li><a class="ca-gov-icon-email" title="Email the California Department of Aging" href="/Contact_Us/Contact_the_California_Department_of_Aging/"><span class="sr-only sr-only-focusable">Email california department of aging</span></a></li>
+                </ul>
+            </div>
+            <div class="half settings-links">
+                <ul class="utility-links ">
+                    <!--<li><a role="button" data-toggle="collapse" href="#siteSettings" aria-expanded="false" aria-controls="siteSettings"><span class="ca-gov-icon-gear" aria-hidden="true"></span> Settings</a></li>-->
+                    <li>Change Text Size <a role="button" href="#" class="decreaseTextSize ts-letter sm" title="Click to decrease the size of the text">T</a> <a role="button" href="#" class="resetTextSize ts-letter md" title="Click to reset the size of the text">T</a> <a role="button" href="#" class="increaseTextSize ts-letter lg" title="Click to increase the size of the text">T</a></li>                                 
+                    <li><div id="google_translate_element"></div></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    
+            <!-- Settings Bar -->
+            <div class="site-settings section section-standout collapse collapsed" role="alert" id="siteSettings">
+    <div class="container  p-y">
+        <button type="button" class="close" data-toggle="collapse" data-target="#siteSettings" aria-expanded="false" aria-controls="siteSettings" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <div class="btn-group btn-group-justified-sm" role="group" aria-label="contrastMode">
+            <div class="btn-group"><button type="button" class="btn btn-standout disableHighContrastMode">Default</button></div>
+            <div class="btn-group"><button type="button" class="btn btn-standout enableHighContrastMode">High Contrast</button></div>
+        </div>
+        <div class="btn-group" role="group" aria-label="textSizeMode">
+            <div class="btn-group"><button type="button" class="btn btn-standout resetTextSize">Reset</button></div>
+            <div class="btn-group"><button type="button" class="btn btn-standout increaseTextSize"><span class="hidden-xs">Increase Font Size</span><span class="visible-xs">Font <small class="ca-gov-icon-plus-line"></small></span></button></div>
+            <div class="btn-group"><button type="button" class="btn btn-standout decreaseTextSize"><span class="hidden-xs">Decrease Font Size</span><span class="visible-xs">Font <small class="ca-gov-icon-minus-line"></small></span></button></div>
+        </div>
+
+    </div>
+</div>
+            <!-- Main picture bar -->
+            
+<div class="cda-picture-bar-holder">
+    <div class="branding">
+        <div class="col-xs-12 cda-picture-bar-item text-center">
+            <div class="header-organization-banner">
+                <a href="/"><img src="/images/CDA logo-stacked-color.png" alt="California Department of Aging" /></a>
+            </div>
+        </div>
+        <!--<div class="col-xs-3 cda-picture-bar-item">
+        <div class="header-organization-banner"><a href="/"><img src="/images/CDA logo-stacked-color.png" alt="California Department of Aging" /></a></div>
+    </div>
+    <div class="col-xs-9 cda-picture-bar-item">
+        <div class="header-primary-banner hidden-print">-->
+        <!--<a href="/CDA_50th_Anniversary/"><img src="/images/cda50th/CDA_50_year_banner.png" alt="CDA 50th years annnivarsary banner" /></a>-->
+        <!--
+        <img src="/images/banner/image/AdobeStock_340862075.jpg" alt="A picture demonstrating wearing a mask" />
+        <img src="/images/banner/image/AdobeStock_252280032.jpg" alt="A family reading a book" />
+        <img src="/images/banner/image/AdobeStock_319720998.jpg" alt="A family gathering for a picture" />
+        <img src="/images/banner/image/AdobeStock_180705309.jpg" alt="Demonstrating togetherness" />
+        <img src="/images/banner/image/OA food delivery.jpg" alt="Food delivery during a pandemic" />
+    -->
+        <!--</div>
+    </div>-->
+    </div>  
+</div>
+
+
+            <!-- Branding -->
+            <div id="mobile-branding" class="branding">
+    <div class="header-organization-banner"><a href="/"><img src="/images/CDA logo-stacked-color.png" alt="California Department of Aging" /></a></div>
+</div>
+        
+            <!-- Mobile navigation controls -->
+            <div class="mobile-controls">
+    <span class="mobile-control toggle-menu"><span class="ca-gov-icon-menu" aria-hidden="true"></span><span class="sr-only">Menu</span></span>
+    <!--<button class="mobile-control toggle-menu" aria-expanded="false" aria-controls="navigation"><span class="ca-gov-icon-menu" aria-hidden="true"></span><span class="sr-only">Menu</span></button>-->
+    <span class="mobile-control-group mobile-header-icons">
+        <!-- Add more mobile controls here. These will be on the right side of the mobile page header section -->
+    </span>
+    <span class="mobile-control toggle-search"><span class="ca-gov-icon-search" aria-hidden="true"></span><span class="sr-only">Search</span></span>
+    <span class="mobile-control-group mobile-menu-icons">
+        <!-- Add more mobile controls here. These will be on the top right section of the expanded mobile menu -->
+    </span>
+</div>
+
+            <!-- Navigation -->
+            <div class="navigation-search">
+    <div id="head-search" class="search-container">
+        <!-- Google Custom Search -->
+        <gcse:searchbox-only resultsUrl="/serp.aspx" enableAutoComplete="true"></gcse:searchbox-only>
+    </div>
+
+    <!-- Include Navigation -->
+    <!-- Top Level Navigation Only -->
+    <nav id="navigation" class="main-navigation singlelevelnav auto-highlight" style="min-height: 0px;">
+        <ul id="nav_list" class="top-level-nav">
+            <li class="nav-item">
+                <a href="/About_Us/" class="first-level-link"><span class="ca-gov-icon-info-bubble"></span>About Us</a>
+            </li>
+            <li class="nav-item">
+                <a href="/Providers_and_Partners/" class="first-level-link"><span class="ca-gov-icon- far fa-handshake pp-handshake-icon-header"></span>Providers &amp; Partners</a>
+            </li>
+            <li class="nav-item">
+                <a href="/Careers_with_CDA/" class="first-level-link"><span class="ca-gov-icon-capitol"></span>Careers with CDA</a>
+            </li>
+            <li class="nav-item">
+                <a href="/Newsroom/" class="first-level-link"><span class="ca-gov-icon- fa fa-newspaper newsroom-fix"></span>Newsroom</a>
+            </li>
+            <li class="nav-item">
+                <a href="/Contact_Us/" class="first-level-link"><span class="ca-gov-icon-lightbulb"></span>Contact Us</a>
+            </li>
+            <li class="nav-item nav-item-search">
+                <a href="javascript:;" class="first-level-link"><span class="ca-gov-icon-search"></span>Search</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+      
+
+        </header>
+        <div class="header-decoration"></div>
+        <div id="main-content" class="main-content row">
+            <div class="col-xs-12 mobile-main">
+                <div class="col-md-3 twoCol-overflow mobile-hide">
+                    <div class="main-two-column-cda-container row">
+                        
+    <!-- Main Consumer Boxes -->
+    <div class="col-xs-12 p-t-sm">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h2 class="panel-title h3">How Do I?</h2>
+        </div>
+        <div class="panel-body">
+            <ul class="divided-list">
+                <li><a href="/Programs_and_Services/Food_and_Nutrition/">Get home delivered meals</a></li>
+                <li><a href="/Find_Services_in_My_County/" target="_blank" rel="noreferrer nonopener">Find a nutrition or exercise class</a></li>
+            </ul>
+            <ul class="divided-list">
+                <li><a href="/Programs_and_Services/Digital_Inclusion/">Digital Resources</a></li>
+            </ul>
+            <ul class="divided-list">
+                <li><a href="https://www.dhcs.ca.gov/individuals/Pages/Steps-to-Medi-Cal.aspx" target="_blank" rel="noreferrer nonopener">Apply for Medi-Cal</a></li>
+                <li><a href="/Programs_and_Services/Medicare_Counseling/">Get help with Medicare</a></li>
+            </ul>
+            <ul class="divided-list">
+                <li><a href="/Care_Options/Determine_the_Best_Housing_Option_For_Me/">Determine the best housing option for me</a></li>
+                <li><a href="/Programs_and_Services/Legal_Services/">Get help with my landlord</a></li>
+                <li><a href="/Programs_and_Services/Legal_Services/">Get legal assistance</a></li>
+                <li><a href="/How_Do_I/Make_Home_Modifications/">Make home modifications so that I can safely stay in my current home</a></li>
+            </ul>
+            <ul class="divided-list">
+                <li><a href="/How_Do_I/Get_Help_Dealing_With_Memory_Problems/">Get help dealing with memory problems</a></li>
+                <li><a href="/How_Do_I/Learn_More_About_Hearing_Vision_and_Speech Assistive_Technology/">Learn more about hearing, vision, and speech assistive technology</a></li>
+            </ul>
+            <ul class="divided-list">
+                <li><a href="/Programs_and_Services/Home_and_Community_Services/">Get transportation to appointments</a></li>
+                <li><a href="/How_Do_I/Learn_More_About_Safe_Senior_Driving/">Learn more about safe senior driving</a></li>
+            </ul>
+            <ul class="divided-list">
+                <li><a href="https://www.cdss.ca.gov/inforesources/ihss/ihss-providers/how-to-become-an-ihss-provider" target="_blank" rel="noreferrer nonopener">Get paid to take care of a family member</a></li>
+                <li><a href="/Providers_and_Partners/Community-Based_Adult_Services/Become_a_New_CBAS_Provider/">Open an Adult Day Care Center</a></li>
+            </ul>
+            <ul class="divided-list divided-list-noborder">
+                <li><a href="/Programs_and_Services/Long-Term_Care_Ombudsman/Report_Elder_Abuse_or_Neglect/">Report elder abuse or neglect</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div id="eldercare-locator" class="col-xs-12 p-t-sm">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h2 class="panel-title h3">Outside California</h2>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div id="eldercare-locator-box" class="col-xs-12">
+                    <div class="form-group">
+                        <div class="panel panel-primary">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="form-group">
+                                            <p class="text-center">
+                                                Call 1-800-677-1116 <br />
+                                                <a href="https://eldercare.acl.gov/home" target="_blank" rel="noreferrer nonopener">Eldercare Locator</a>
+                                            </p>
+                                            <p>For information on services for seniors or adults with disabilities who live outside California.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="state-health-insurance-box" class="col-xs-12">
+                    <div class="form-group">
+                        <div class="panel panel-primary">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="form-group">
+                                            <p class="text-center">
+                                                <a href="https://www.shiptacenter.org/" target="_blank" rel="noreferrer nonopener">State Health Insurance Assistance Programs (SHIP)</a>
+                                            </p>
+                                            <p>
+                                                For one-on-one insurance counseling and assistance to Medicare beneficiaries, their families, friends, and caregivers.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+                    </div>                
+                </div>
+                <div class="col-md-9">
+                    <div class="main-two-column-cda-container">
+                        <ol class="breadcrumb dynamic"></ol>
+                        
+    
+    <div>
+        <div class="cda-box">                
+            <figure class="">                    
+                <div class="focused-cda-box">
+                    
+    <img class="focused img-bottom img-responsive" style="height:auto" alt="A man counseling an elder about Health Insurance" src="/images/cda-boxes/HICAPImage.jpg" />
+
+                </div>
+            </figure>
+        </div>
+    </div>   
+    
+    <div>
+        
+    <h1>Medicare Counseling (HICAP)</h1>
+
+    </div>
+    
+    <div class="col-xs-12">
+        
+
+    </div>
+    
+    <div class="col-xs-12">            
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <div class="panel-title">
+                    <h3>How To Find Services In My Area</h3>
+                </div>                    
+            </div>
+            <div class="panel-body">                    
+                
+    <p>
+        To learn more about Medicare <a href="/Helpful_Tools_and_Tips/HealthCare/" class="btn btn-primary btn-sm">Click Here</a>
+    </p>
+    <p>
+        You can locate a HICAP office in your area by selecting your county on the <a href="/Find_Services_in_My_County/">Find Services in My County page</a> of this website or by calling 1-800-434-0222.
+    </p>
+
+            </div>
+        </div>
+    </div> 
+    
+    <div id="div-PnS-available-services" class="col-xs-12">            
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <div class="panel-title">
+                    <h3 >What Services Are Available</h3>
+                </div>                    
+            </div>
+            <div class="panel-body">                    
+                
+    <ul>
+        <li>Wondering how to sign up for Medicare now that you are almost 65?</li>
+        <li>Confused about all the different parts to Medicare—do you need A, B, C, D?</li>
+        <li>Have questions on prescription drug coverage, co-pays, or eligibility rules?</li>
+        <li>Need help filing an appeal or challenging a denial?</li>
+        <li>Considering long-term care insurance?</li>
+        <li>Need a speaker for a community education event?</li>
+    </ul>
+    <p>
+        HICAP (Health Insurance Counseling and Advocacy Program) provides free, confidential one-on-one counseling, education, and assistance to individuals and their families on Medicare, Long-Term Care insurance, 
+        other health insurance related issues, and planning ahead for Long-Term Care needs.  HICAP also provides legal assistance or legal referrals in dealing with Medicare or Long-Term Care insurance related issues.
+    </p>
+    <p>
+        HICAP counselors are trained in Medi-Cal and Medicare and can help you understand the complex insurance options to find the best fit for you.  You can also learn about Medicare or Medi-Cal by attending 
+        community presentations or conferences conducted by HICAP counselors.
+    </p>
+
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-xs-12">            
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <div class="panel-title">
+                    <h3>Who Can Get These Services</h3>
+                </div>                    
+            </div>
+            <div class="panel-body">                    
+                
+    <p>
+        Counseling is provided to:
+    </p>
+    <ul>
+        <li>Persons 65 years of age or older and are eligible for Medicare </li>
+        <li>Persons younger than age 65 years of age with a disability and are eligible for Medicare </li>
+        <li>Persons soon to be eligible for Medicare </li>
+    </ul>
+    <p>
+        Education events are available for individuals of any age
+    </p>
+
+            </div>
+        </div>
+    </div> 
+    
+    <div class="col-xs-12">
+        
+    </div>
+    
+    <div class="col-xs-12">
+        
+    <div class="panel panel-primary">
+    <div class="panel-heading">
+        <div class="panel-title">
+            <h3>Program Data</h3>
+        </div>
+    </div>
+    <div class="panel-body">
+        <p>
+            For past and current program data visit the <a href="/Data_and_Reports/">Data and Reports</a> sections of the website.
+        </p>
+    </div>
+</div>
+
+    </div>
+    
+    <div class="col-xs-12">
+        
+    </div>
+
+                    </div>                
+                </div> 
+            </div>                  
+        </div>
+
+        <!-- Global Footer -->
+          <!-- Global Footer -->
+<footer id="footer" class="global-footer">
+    <div class="container">
+        <div class="row">
+            <div class="three-quarters">
+                <ul class="footer-links">
+                    <li><a href="#skip-to-content">Back to Top</a></li>
+                    <li><a href="/About_Us/Conditions_of_Use/">Conditions of Use</a></li>
+                    <li><a href="/About_Us/Privacy_Policy/">Privacy Policy</a></li>
+                    <li><a href="/About_Us/Accessibility/">Accessibility</a></li>
+                    <li><a href="https://get.adobe.com/reader/" target="_blank" rel="nonopener noreferrer">Get Free Reader</a></li>
+                    <li><a href="/AllCDAForms/" rel="nonopener noreferrer">CDA Forms</a></li>
+                    <li><a href="/Program_Memos/" rel="nonopener noreferrer">Program Memos</a></li>
+                </ul>
+            </div>
+            <div class="quarter text-right">
+                <ul class="socialsharer-container">
+                    <li><a href="https://www.facebook.com/CaliforniaAging/" target="_blank" rel="nonopener noreferrer"><span class="ca-gov-icon-facebook"></span><span class="sr-only sr-only-focusable">department of aging facebook</span></a></li>
+                    <li><a href="https://www.instagram.com/cal_aging/" target="_blank" rel="nonopener noreferrer"><span class="ca-gov-icon-instagram"></span><span class="sr-only sr-only-focusable">department of aging instagram</span></a></li>
+                    <li><a href="https://x.com/CalAging" target="_blank" rel="nonopener noreferrer"><img class="twlogo-md" src="/images/logos/twetter-x-logo.png" alt="twetter x logo" /><span class="sr-only sr-only-focusable">department of aging twitter</span></a></li>
+                    <li><a href="https://www.linkedin.com/company/calaging" target="_blank" rel="nonopener noreferrer"><span class="ca-gov-icon-linkedin"></span><span class="sr-only sr-only-focusable">navigate to linkin login</span></a></li>
+                    <li><a href="https://www.youtube.com/channel/UCaNx9_40-7MjpRK_OD-LnPQ" target="_blank" rel="nonopener noreferrer"><span class="ca-gov-icon-youtube"></span><span class="sr-only sr-only-focusable">department of aging youtube channed</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- Copyright Statement -->
+    <div class="copyright">
+        <div class="container">
+            Copyright &copy;
+             State of California
+        </div>
+    </div>
+</footer>        
+
+        <!-- Extra Decorative Content -->
+        <div class="decoration-last">&nbsp;</div>
+
+        <!-- Load template core -->
+        
+
+
+
+        <!-- Backwards Compatibility Fix for removing wrapper on new "sections" -->
+        
+    
+        <!-- Extra javascript files -->
+        </form>
+    
+        
+    
+
+
+</body>
+</html>

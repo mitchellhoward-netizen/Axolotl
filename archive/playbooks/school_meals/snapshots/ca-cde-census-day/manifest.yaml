@@ -1,0 +1,10 @@
+- retrieved: '2026-10-07'
+  url: https://www.cde.ca.gov/ds/ad/fsenrcensus.asp
+  final_url: https://www.cde.ca.gov/ds/ad/fsenrcensus.asp
+  status: 200
+  content_type: txt
+  text_sha256: 1f9c22cb8069cc6380571978bf2f166f6cf3753f39a1e9d437b38be8a5f30a2c
+  text: ca-cde-census-day/2026-10-07.txt
+  raw: ca-cde-census-day/2026-10-07.raw
+  fetched_via: r.jina.ai reader (https://r.jina.ai/<url>) returning the page text;
+    cde.ca.gov/leginfo block scripted requests

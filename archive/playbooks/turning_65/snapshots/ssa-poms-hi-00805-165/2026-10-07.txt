@@ -1,0 +1,156 @@
+Skip to content
+
+Program Operations Manual System (POMS)
+
+Effective Dates: 12/05/2022 - Present
+Previous | Next
+
+TN 66 (12-22)
+
+HI 00805.165 Individual Enrollment - When a Coverage Period Begins
+
+A. Policy - General
+
+The beginning of an individual's SMI coverage period depends on the enrollment period
+and the month in which the individual enrolls, or is deemed enrolled.
+
+B. Policy - IEP enrollment
+
+1. Rules on January 1, 2023 and after
+
+For an individual who first meets the eligibility requirements of HI 00805.005 and enrolls in the IEP January 1, 2023 or after (see HI 00805.015), the beginning of the SMI coverage period is related to the month of enrollment,
+as follows:
+
+a. Before first month of eligibility
+
+If an individual enrolls in the 3 months prior to the first month of eligibility for
+SMI, the coverage period will begin on the first day of the month of eligibility.
+
+b. In first month of eligibility or in the last 3 months following the month of first
+eligibility
+
+If an individual enrolls in the first month of eligibility or in the last 3 months
+following the month of first eligibility, the coverage period begins with the first
+day of the next month.
+
+EXAMPLE: If a person first meets the requirements in June and enrolls in July, the coverage
+period begins the first day of August.
+
+2. Rules before January 1, 2023 - Historical Information
+
+For an individual who first meets the eligibility requirements of HI 00805.005 on or after 3/1/66 and enrolled during the IEP before or on 12/31/22 (see HI 00805.015), the beginning of the SMI coverage period is related to the month of enrollment,
+as follows:
+
+a. Before first month of eligibility
+
+If an individual enrolls in the 3 months prior to the first month of eligibility for
+SMI, the coverage period will begin on the first day of the month of eligibility.
+
+b. In first month of eligibility
+
+If an individual enrolls in the first month of eligibility, the coverage period begins
+with the first day of the next month.
+
+c. In the month following the month of first eligibility
+
+If an individual enrolls in the month following the first month of eligibility, the
+coverage period begins with the first day of the second month following the month
+in which the individual enrolls.
+
+EXAMPLE: If a person first meets the requirements in June and enrolls in July, the coverage
+period begins the first day of September.
+
+d. In last 2 months of the IEP
+
+If an individual enrolls in the last two months of the IEP, the coverage period begins
+the first day of the third month following the month of enrollment.
+
+EXAMPLE: If a person first meets the requirements in June and enrolls in August, the coverage
+period begins the first day of November. If enrollment is in September, the coverage
+period begins on the first day of December.
+
+e. Overriding rules
+
+No coverage could begin before 7/1/66. All persons eligible before 6/66 and enrolling
+before 6/66, had SMI coverage beginning 7/1/66.
+
+C. Description of IEP enrollment
+
+1. Rules on January 1, 2023 and after
+
+The following chart (valid for persons who enroll after January 1, 2023) illustrates
+the situations in B.1, above.
+
+EXAMPLE: An individual’s 65th birthday is April 10 and they first meet the eligibility requirements
+for enrollment on April 1:
+
+Enrolls in IEP:
+
+Entitlement begins on—
+
+January
+
+April 1 (month eligibility requirements first met)
+
+February
+
+April 1
+
+March
+
+April 1
+
+April
+
+May 1 (month following month of enrollment)
+
+May
+
+June 1 (month following month of enrollment)
+
+June
+
+July 1 (month following month of enrollment)
+
+July
+
+August 1 (month following month of enrollment)
+
+2. Rules before January 1, 2023 - Historical Information
+
+The following chart (valid for persons first eligible after June 1966) illustrates
+the situations in B.2, above.
+
+D. Policy - GEP enrollment
+
+If an individual enrolls or re-enrolls during a GEP (January through March), but after
+the IEP, the SMI coverage period begins the first of the month following the month
+of enrollment.
+
+Prior to January 1, 2023, SMI entitlement based on a GEP enrollment always began July
+1 of the year during which the GEP enrollment took place.
+
+E. Policy - Equitable relief
+
+Because of the problems caused by retroactive SMI entitlement, in many equitable relief
+cases (see HI 00805.170), an individual's SMI entitlement may begin with the month in which the SMI award
+is processed rather than a much earlier date based on the time of enrollment.
+
+F. References
+
+•
+
+HI 00805.045 Deemed Enrollment – R-HI Beneficiaries
+
+•
+
+HI 00805.275 Special Enrollment Period (SEP) Enrollments
+
+To Link to this section - Use this URL:
+http://policy.ssa.gov/poms.nsf/lnx/0600805165
+
+HI 00805.165 - Individual Enrollment - When a Coverage Period Begins - 12/05/2022
+
+Batch run: 02/07/2025
+
+Rev:12/05/2022

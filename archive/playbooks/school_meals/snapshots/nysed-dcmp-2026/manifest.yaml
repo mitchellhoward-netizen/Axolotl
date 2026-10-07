@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://www.cn.nysed.gov/content/new-state-wide-direct-certification-matching-process-and-mandatory-reporting-snapmedicaid
+  final_url: https://www.cn.nysed.gov/content/new-state-wide-direct-certification-matching-process-and-mandatory-reporting-snapmedicaid
+  status: 200
+  content_type: text/html; charset=utf-8
+  text_sha256: d29330a56a67eb4f3639f88493bf8733422d0f0805aaaca6329e8db263717fba
+  text: nysed-dcmp-2026/2026-10-07.txt
+  raw: nysed-dcmp-2026/2026-10-07.html

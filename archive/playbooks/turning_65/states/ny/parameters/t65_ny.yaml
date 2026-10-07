@@ -1,0 +1,15 @@
+parameters:
+  - id: ny.epic.income_limit_annual
+    description: EPIC (Elderly Pharmaceutical Insurance Coverage) annual income ceiling for New York residents 65+.
+    compare_to: "Previous year's total annual household gross income of the senior (single) or both spouses (married), including federal AGI and listed non-taxable income; DOH's eligibility page says income must be below the figure, its program page says 'up to' (conflict T65-NY-CONFLICT-01)."
+    unit: usd_per_year
+    keyed_by: household_size (1 = single, 2 = married)
+    updates: Set in state law; DOH publishes program highlights each January.
+    values:
+      - effective_from: 2026-01-01
+        value: {1: 75000, 2: 100000}
+        confidence: confirmed
+        note: 2026 is the earliest date this archive has a source for; the ceiling has not been traced to its enacting statute.
+        sources:
+          - {source: ny-doh-epic-eligibility, locator: "What are the EPIC eligibility requirements?", quote: "have an annual income below $75,000 if single or $100,000 if married"}
+          - {source: ny-doh-epic, locator: "EPIC has two plans based on income", quote: "The Deductible Plan is for members with incomes ranging from $20,001 to $75,000 if single or $26,001 to $100,000 if married."}

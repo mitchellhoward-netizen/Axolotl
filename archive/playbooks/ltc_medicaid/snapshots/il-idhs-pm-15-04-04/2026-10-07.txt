@@ -1,0 +1,129 @@
+Illinois Department of Human Services
+JB Pritzker, Governor · Dulce M. Quintero, Secretary
+
+Customers
+
+Providers
+
+About
+
+News
+
+Contact
+
+IDHS
+
+About IDHS
+
+Publications
+
+Manuals
+
+Family & Community Services Manuals
+
+Cash, SNAP, and Medical Manual
+
+Policy Manual Chapter Table of Contents
+
+PM 15: Eligibility for Medical Only Programs
+
+PM 15-04-00: Use of Income and Assets
+
+PM 15-04-04: Use of Income (NH, SLF, and DoA HCBS Waiver)
+
+WAG 15-04-04
+
+Income of LTC spouse and community spouse
+
+The LTC customer and the community spouse are required to provide essential information regarding the total value of income and resources owned by either spouse or both spouses. They must also consent to verification of income and resources; however, beginning with the first full month that a person is a nursing home (NH) resident, SLF resident, or applies for or receives services through the DoA HCBS waiver, the community spouse's income is not considered available to meet the needs of the person.
+
+The payment of nonexempt income from any source (including income from a trust) is considered available to the person and his/her community spouse as follows:
+
+nonexempt income paid solely to one spouse is considered available only to that person;
+
+if income is paid to both spouses, 1/2 is considered available to each; or
+
+if income is paid in the names of one or both spouses and to another person(s), the income is considered available to each spouse in proportion to his/her share.
+
+If the customer can prove that the ownership interests in income are different than those listed above, use that proportion.
+
+Two-step eligibility process
+
+A two-step process is used for financial eligibility determination and income budgeting for LTC customers. The initial step determines financial eligibility for medical assistance using the AABD community medical standard. After eligibility has been established, including meeting spenddown if applicable, income is budgeted in a second step.
+
+Step 1: Determine eligibility using the AABD community medical standard
+
+Determine financial eligibility for a resident of an NH or SLF by comparing non-exempt income, minus the $25 income exemption and any earned income exemption or employment expenses, to the AABD community standard for one person. Use a one-month eligibility period. Resources are not used in this step.
+
+If non-exempt income after exemptions is less than or equal to the AABD community standard, the person is eligible with a regular (non-spenddown) case. Proceed to Step 2 to budget income.
+
+If non-exempt income after exemptions exceeds the AABD community standard, the case is spenddown. The amount of the spenddown liability is the difference between non-exempt income after exemptions and the AABD community standard. LTC charges anticipated for the month can be applied to meet the spenddown.
+
+If anticipated LTC charges for the month, plus any other applicable medical expenses, meet or exceed the spenddown liability amount, spenddown is met and the person is financially eligible. Proceed to Step 2 to budget income.
+
+If anticipated LTC charges for the month, plus any other applicable medical expenses, total less than the spenddown liability amount, spenddown is not met and the person is not financially eligible. Enroll as an unmet spenddown case; do not budget income in Step 2.
+
+Step 2: Budget income using LTC deductions (post-eligibility budgeting)
+
+After eligibility has been established in Step 1, determine the person's total countable income:
+
+The total gross non-exempt income used in Step 1; plus
+
+Any exempt or disregarded income which was not used in determining eligibility in Step 1.
+
+From this total, subtract applicable deductions listed below and any allowable medical expenses, to determine countable income. Add to this any non-exempt resources above the resource disregard to determine the amount the person owes to the facility.
+
+Do not use the $25 income exemption.
+
+Deduct the following, if applicable, in the order listed:
+
+employment expenses and the earned income disregard for employed individuals;
+
+personal needs allowance (NH/SLF standard or veteran benefit disregard);
+
+CSMNA;
+
+FMNA (includes minor or dependent children, dependent parents and dependent siblings of the LTC spouse or the community spouse who reside with the community spouse);
+
+SMIB, medical premiums, deductibles, coinsurance or other non-covered medical expenses (limited to expenses allowed according to PM 15-08-05);
+
+court-ordered support/medical expenses;
+
+voluntary support; and
+
+maintenance for community residence.
+
+Links
+
+PM 15-04-04-a: Community Spouse Maintenance Needs Allowance
+
+PM 15-04-04-b: Family Maintenance Needs Allowance
+
+PM 15-04-04-c: Maintenance Allowance - Child Under 21 (NH/SLF)
+
+PM 15-04-04-d: Community Home Maintenance Allowance (Nursing Home)
+
+PM 15-04-04-e: Nursing Home Veterans Benefit Disregard
+
+Illinois Department of Human Services
+JB Pritzker, Governor · Dulce M. Quintero, Secretary
+
+IDHS Office Locator
+
+IDHS Help Line
+
+1-800-843-6154
+
+1-866-324-5553 TTY
+
+State of Illinois
+
+Accessibility
+
+Privacy
+
+Report Abuse/Neglect
+
+Contact
+
+Outlook Login

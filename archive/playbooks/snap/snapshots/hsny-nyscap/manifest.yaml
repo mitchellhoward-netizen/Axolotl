@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://hungersolutionsny.org/federal-nutrition-programs/snap/snap-and-seniors/nyscap/
+  final_url: https://hungersolutionsny.org/federal-nutrition-programs/snap/snap-and-seniors/nyscap/
+  status: 200
+  content_type: text/html; charset=utf-8
+  text_sha256: 77bd19b200b5e6c4de3efbc5129a9e467671c20892cf79a155fb7119d48bd864
+  text: hsny-nyscap/2026-10-07.txt
+  raw: hsny-nyscap/2026-10-07.html

@@ -1,0 +1,43 @@
+# California school meal numbers and switches.
+parameters:
+  - id: ca.cde.universal_meals_start
+    description: First day of the school year from which California Education Code 49501.5 requires public LEAs to offer breakfast and lunch free to every pupil who requests one.
+    unit: date
+    values:
+      - effective_from: 2022-07-01
+        value: 2022-07-01
+        confidence: confirmed
+        sources:
+          - {source: ca-ec-49501-5, locator: "opening clause", quote: "commencing with the 2022–23 school year all of the following shall apply"}
+          - {source: ca-cde-ump-guidelines-2024, locator: "Abstract", quote: "Beginning in School Year 2022–23, Assembly Bill 130"}
+  - id: ca.cde.dcm_type
+    description: California's direct certification with Medicaid (Medi-Cal) type under the FNS demonstration.
+    unit: enum (none | free_only | free_and_reduced)
+    values:
+      - effective_from: 2017-07-01
+        value: free_and_reduced
+        confidence: confirmed
+        note: FNS lists California as free-only from SY 2012-13, free and reduced price in 14 districts from SY 2016-17, and statewide from SY 2017-18.
+        sources:
+          - {source: fns-dcm-demonstration, locator: "table, column DC-M Pilot States since SY 2017-18 (free and reduced price meals)", quote: "California* (statewide)"}
+          - {source: ca-cde-direct-cert, locator: "CALPADS Direct Certification Indicator Codes, R", quote: "The student is eligible for reduced-price meals because the student meets the income eligibility criteria through Medicaid."}
+  - id: ca.cde.ump_provision_isp_percent
+    description: Identified student percentage at or above which a California school site must apply for a federal universal meal provision (CEP or Provision 2) to get state Universal Meals reimbursement (EC 49564.3).
+    unit: percent
+    values:
+      - effective_from: 2022-07-01
+        value: 40
+        confidence: confirmed
+        sources:
+          - {source: ca-cde-ump-guidelines-2024, locator: "Universal Meal Program Reimbursement Requirements", quote: "high-poverty schools having an ISP of 40 percent or greater to apply to operate a federal universal meal service provision"}
+  - id: ca.cde.lcff_alt_income_form_deadline
+    description: Month-day by which the LEA must RECEIVE an Alternative Income Form for the pupil to count in that school year's LCFF unduplicated pupil count (forms received by then may be processed later).
+    unit: month_day
+    values:
+      - effective_from: 2025-07-01
+        value: "10-31"
+        confidence: confirmed
+        note: 2025-07-01 is the earliest school year checked (page last reviewed December 18, 2025); the page gives no start date for the rule.
+        sources:
+          - {source: ca-cde-alt-income-forms, locator: "Key Dates, October 31st", quote: "LEAs must receive Alternative Income Forms from families by October 31 st in order to be included in the UPC."}
+          - {source: ca-cde-alt-income-forms, locator: "FAQ 3", quote: "Alternative Income Forms submitted by October 31 may be processed by the LEA after October 31"}

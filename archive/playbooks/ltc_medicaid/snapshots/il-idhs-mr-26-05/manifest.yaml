@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://www.dhs.state.il.us/page.aspx?item=176442
+  final_url: https://www.dhs.state.il.us/page.aspx?item=176442
+  status: 200
+  content_type: text/html; charset=utf-8
+  text_sha256: 759ff35444f3c5f9dab7b7fedc4e69ae5c1275d6a88e7d5ae5deab55e72fc904
+  text: il-idhs-mr-26-05/2026-10-07.txt
+  raw: il-idhs-mr-26-05/2026-10-07.html

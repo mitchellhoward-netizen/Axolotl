@@ -1,0 +1,171 @@
+Illinois Department of Human Services
+JB Pritzker, Governor · Dulce M. Quintero, Secretary
+
+Customers
+
+Providers
+
+About
+
+News
+
+Contact
+
+IDHS
+
+About IDHS
+
+Publications
+
+Manuals
+
+Family & Community Services Manuals
+
+Cash, SNAP, and Medical Manual
+
+Policy Manual Chapter Table of Contents
+
+PM 07: Assets
+
+PM 07-02-00: Aid to the Aged, Blind, and Disabled (AABD)
+
+PM 07-02-20: Transfers of Resources and Income (NH, SLF, and DoA HCBS Waiver Services)
+
+PM 07-02-20-d: Penalty Period Due to Non-Allowable Transfers
+
+WAG 07-02-20-d
+
+If the FCRC or LTC-ADI decides that a transfer does not meet one of the allowable transfer criteria (see PM 07-02-20-b), the transfer is non-allowable. If the net value of all transfers is less than the allowable transfer limit (see PM 07-02-20 for the resource transfer limit), determine if the transfer is allowable and, if not, calculate the length of the penalty period. If the net value of all transfers is more than the allowable transfer limit (see PM 07-02-20 for the resource transfer limit), complete a referral packet using the HFS 3654A and send to HFS Long Term Care - Asset Discovery Investigation (LTC-ADI) for review (see PM 07-02-20-a). For non-allowable transfers, customers are subject to a penalty period for nursing home (NH), SLF, and DoA HCBS waiver services (see NOTE). If otherwise eligible, the person remains entitled to other covered medical services.
+
+NOTE: Persons with a penalty period who are eligible for QMB benefits remain eligible for LTC services during the benefit period in which Medicare covered SNF services are received.
+
+For NH and SLF cases, do not allow a deduction from income for NH or SLF expenses and/or charges for DoA HCBS waiver services incurred during a penalty period. For NH, SLF, or DoA HCBS waiver services cases, do not allow these expenses to meet any spenddown amount. This applies whether or not the person received benefits during the penalty period.
+
+When multiple non-allowable transfers are reported, combine them and treat them as a single transaction. Determine a single penalty period, equal to the total length of time (including partial months) the uncompensated amount (see NOTE below) of resources transferred meets the person's monthly (30-day) LTC costs at the private rate. There is no maximum penalty period.
+
+For nursing home cases, use the private rate at the facility where the person lives.
+
+For SLF cases and for persons applying for or receiving DoA HCBS waiver services, contact the Bureau of Long Term Care at (217) 782-0545 for the long term care private rate to use in the calculation.
+
+NOTE: The uncompensated amount is the fair market value (FMV) of each transferred resource, minus any value received for the resource. The total uncompensated amount is equal to the sum of the uncompensated amounts for each non-allowable transfer made.
+
+The beginning date of the penalty period is the later of:
+
+the date the person becomes otherwise eligible for NH, SLF, or DoA HCBS waiver services (including meeting any spenddown and following any days fully covered by Medicare); or
+
+the first day of the month during which the transfer for less than FMV is made; or
+
+the first month that can be affected for an ongoing case allowing for timely notice to be sent to the customer.
+
+Example 1: Mr. R has a non-allowable transfer of $50,000 which results in a 10-month penalty period. When he applies 09/01/13, he has SSA income of $1,800 per month and a short-term annuity paying $4,000 per month. He also has $750 in medical bills. The caseworker compares his income, minus medical bills, to the private pay rate of $5,000 per month and determines that he is not income eligible. The application is denied.
+
+Mr. R reapplies 03/01/14 after the annuity payments have ended. He is now income eligible and the case is approved with a 10-month penalty from March through December 2014.
+
+Once a penalty period is decided, it applies until the end of the calculated period unless events change regarding the transfer. Therefore, if the person leaves a facility and returns at a later date or stops receiving benefits and reapplies at a later date, the initial penalty period continues in effect until the end of the calculated period. Recalculate the end date of the penalty period so that it picks up with the remaining months of the penalty.
+
+Example 2: Ms. B has completed 5 months of an 8-month penalty period. She goes home for 4 months. When she returns to the LTC facility, the caseworker codes the end date of the penalty period to reflect that she is ineligible for 3 more months.
+
+An LTC penalty period for non-allowable transfers may include partial months (WAG 07-02-20-d). When a NH or SLF customer has a partial month of eligibility due to a penalty period, enter the admission date on the HFS 2299 by writing the first day the customer is eligible at the top of the form. (Completion of HFS 2299, as described, is OPTIONAL. Entry of new data and revision of existing data may instead be done in the MMIS LTC subsystem.)
+
+Example 3: Mr. Y applies for LTC assistance 09/01/12. He had a non-allowable transfer of $3,200 six months before application. The monthly LTC private payment rate is $5,310. Mr. Y is ineligible for .61 months ($3,200 ÷ $5,310 = .602; round up to two decimals). This makes Mr. Y ineligible for 18.3 days (30 days X .61). The admission date entered is 09/19/12, the first day of eligibility and coverage. Mr. Y has $53 remaining ($177 daily rate X .3) from the penalty period to pay as the group care credit on 09/19.
+
+Continue to apply Mr. Y's income and resources to any remaining days in the month after the penalty period expires. Enter the amount of the customer's NH credit or SLF credit and any remaining penalty liability in the MMIS LTC subsystem or on the HFS 2299. Complete the HFS 458LTC, Notice of Decision on Application for Medical Assistance - MANG Long Term Care/Supportive Living Facility, with the first day or partial day of eligibility.
+
+Example 3, continued: Mr. Y receives $900 monthly from Social Security and has $300 in countable resources. He is eligible for 12 days in September with a private pay rate of $2,124 ($177 daily rate X 12 days). Using the two-step budgeting process (PM 15-04-04), the caseworker determines that Mr. Y is eligible. Mr. Y has $923 in NH credit for his care for September ($900 SSA - $30 personal allowance + $53 remaining penalty = $923). The caseworker enters $923 for September. The FCRC sends the HFS 458LTC to Mr. Y and the facility to notify them that his coverage begins 09/19/12.
+
+For October, Mr. Y will have $870 NH credit ($900 - $30).
+
+Example 4: Ms. M transferred resources worth $16,650 for less than FMV in August 2012. She entered a LTC facility with a monthly private payment rate of $5,050, applied for medical assistance, and was determined eligible beginning 09/15/12. Ms. M has a 3-month, 9-day penalty based on the non-allowable transfer ($16,650 ÷ $5,050 = 3.297, rounded to 3.3; 30 days X 3.3 = 99 days). Her penalty runs 09/15 - 10/14 (month 1); 10/15 - 11/14 (month 2); 11/15 - 12/14 (month 3); and the remaining 9 days of penalty (12/15 - 12/23). The FCRC enters 12/24 as the admission date on the HFS 1156.
+
+For Department on Aging Community Care cases, add the amount of the unused penalty to the customer's income for the month to reflect the partial month of ineligibility.
+
+Example 5: Mrs. S receives $1,200 SSA benefits, has $500 in countable resources and a non-allowable transfer of $6,800 that occurred three months before application. She applied for medical benefits in September 2012. Using the Community Care rate of $5,430 ($181 per day), the caseworker determines that Mrs. S is ineligible for 1.26 months ($6,800 ÷ $5,430 = 1.252). Mrs. S is ineligible for September and part of October. After using $5,430 for September, Mrs. S has $1,370 plus her regular income to pay for her care in October. Mrs. S has a spenddown of $1,614 for October ($1,200 SSA + $1,370 penalty balance - $25 income disregard - $931 AABD medical standard). The FCRC enters $1,614 as her income spenddown for October and $244 for November because the penalty will no longer apply ($1,200 SSA - $25 income disregard - $931 AABD medical standard). The FCRC sends a decision form (360 series) to Mrs. S informing her that she is eligible beginning in October with a $1,614 spenddown. The FCRC sends the IL444-360L to notify the Community Care provider that the case has been approved, effective October.
+
+Non-allowable Transfers Found after the Admission has been Processed
+
+If an unallowable transfer is found after the admit has already been completed, only the remaining portion of the penalty period can be applied.
+
+The penalty period begin date is adjusted to the first day of the month following the month in which the decision is made to impose a penalty period when:
+
+The case doesn't have LTC NH/SLP SPD EDG'S; and
+
+The end month of the penalty period calculated by IES is after the month of decision.
+
+Disregard penalty months that end prior to the month of decision for cases that have been approved for LTC services. Only penalty months that continue past the month of decision will be imposed. The begin date of any remaining penalty period months is the first day of the month following the month of decision.
+
+Prior to certifying the case, review the penalty period end date on the Level of Care Tab or the Resource Tab on the EDG Summary Screen to determine if the penalty period end date is:
+
+Prior to the month of decision; or
+
+After the month of decision.
+
+Note: Month of decision is the month the action was taken.
+
+Disregard penalty months that end prior to the month of decision for cases that have been approved for LTC services. Only penalty months that continue past the month of decision will be imposed. The begin date of any remaining penalty period months is the first day of the month following the month of decision
+
+The remaining penalty period can only be applied if it extends past the month of decision.
+
+Note: Disregard any partial day calculations.
+
+If a partial penalty period can be applied:
+
+Certify case.
+
+Suppress the 360c notice in IES and send out a manual 458 informing the customer, facility and POA of penalty period.
+
+Send an email to BLTC at HFS.LTC@illinois.gov and request the OBRA begin and end dates in MMIS be corrected to reflect the adjusted penalty period, include the person's name and RIN.
+
+Discharge the resident in the LTC subsystem the day the penalty period begins.
+
+If a partial penalty period CANNOT be applied:
+
+The worker needs to return to the resource page and add the "Amount Received" data field equal to the transfer amount.
+
+Re-run eligibility.
+
+Penalty period should not be applied.
+
+Example 1. Admission approved with Penalty Period ending Prior to Month of Decision.
+
+Mrs. V moves to a supportive living program on 12/12/2022 and applies for Medicaid on the same day. The application and admission are approved on 12/20/2022. A VCL and 3654 form was sent to the customer and facility after the application was approved. The 3654 form was returned and met criteria to be sent to OIG as a referral. OIG returned recommendation on 02/2023. A caseworker took action on 03/12/2023 to process recommendation. OIG recommended a penalty period be imposed. The end date of the penalty period calculated by IES is 02/18/2023. Since the penalty period ends prior to the month of decision, the penalty cannot be imposed. The worker needs to return to the resource page and add the "Amount Received" data field equal to the transfer amount and re-run eligibility.
+
+Example 2. Penalty Period Ending after the Month of Decision.
+
+Mrs. J moves to a supportive living program on 10/25/22 and applies for Medicaid on the same day. Ms. J's admission (admission TAN submitted 10/25/17) and application are approved on11/12/22. A VCL and 3654 was sent out to the customer and facility after the application/admission was approved. The 3654 was returned and the customer stated they gave money to their grandchildren. A caseworker takes action on the case on 01/05/2023. The end date of the penalty period calculated by IES is 4/15/23. Only the remaining penalty period that extends after 01/05/2023 can be applied.
+
+Caseworker actions in LTC subsystem:
+
+Enter a discharge date of 01/31/2023 and discharge code of D9.
+
+Update the TAN status code to 01.
+
+Send BLTC a request to add OBRA code from 02/01/2023-04/15/2023.
+
+Suppress the 360c notice in IES and send out a manual 458 informing the customer, facility and POA of penalty period.
+
+NOTE: Only the penalty months that continue past the month of decision can be imposed. The begin date of the remaining penalty period month(s) is the 1st day of the month following the month of decision.
+
+Refer to the policy memo Provisional Eligibility for Nursing Home and Supportive Living Program Services for further details on processing cases that were granted provisional eligibility.
+
+Illinois Department of Human Services
+JB Pritzker, Governor · Dulce M. Quintero, Secretary
+
+IDHS Office Locator
+
+IDHS Help Line
+
+1-800-843-6154
+
+1-866-324-5553 TTY
+
+State of Illinois
+
+Accessibility
+
+Privacy
+
+Report Abuse/Neglect
+
+Contact
+
+Outlook Login

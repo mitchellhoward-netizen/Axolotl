@@ -1,0 +1,783 @@
+Skip to content
+
+Program Operations Manual System (POMS)
+
+Effective Dates: 11/23/2022 - Present
+Previous | Next
+
+TN 49 (11-22)
+
+HI 01001.205 State Buy-In
+
+The Social Security Act provides that States may enter into an agreement with SSA
+which permits State welfare agencies to enroll individuals for part B (SMI) coverage
+and/or “buy-in” for the payment of medical insurance premiums if the individual is a member of a
+coverage group (eligible for welfare payments under one of the titles I, X, XIV, XVI,
+XIX, or part A of title IV). Once a State has contracted an agreement with the Administration,
+the State is required to enroll and/or pay the medical insurance premiums for each
+individual eligible under the titles included in its contract and must continue payments
+as long as the individual is a member of that coverage group. (See the end of this
+section for the list of States having buy-in agreements and their effective dates.)
+States may buy-in for members of its coverage group(s) regardless of whether the individual
+is uninsured or insured or receiving monthly benefits or not, as long as the SMI eligibility
+requirements are met (age 65, 25 months of entitlement to disability insurance, etc.).
+
+States electing to pay SMI premiums for individuals determined to be members of the
+State's coverage group(s) may enroll such individuals in the SMI program regardless of the individual's own option. That is, individuals who have refused SMI coverage
+or had their coverage terminated, either voluntarily or involuntarily may be enrolled
+or reenrolled by the State. Individuals covered under a State buy-in may not voluntarily
+terminate their SMI coverage.
+
+Whenever a State buy-in is processed retroactively for individuals paying their own
+premiums, all premiums previously paid during the period of buy-in coverage will be
+refunded. For example, an individual whose premiums are being deducted from their
+monthly benefits becomes covered under a State buy-in effective 10/75. If the buy-in
+were processed in the 12/75 operating month, the individual would receive a premium
+refund for 10/75 through 12/ 75 (the premium for 12/75 having been deducted from 11/75
+benefit) in a separate check.
+
+NOTE: States electing to pay part A (HI) premiums for individuals entitled to HI on a premium
+paying basis, may do so only as group payers. There is no State buy-in agreement for
+premium-HI nor may a State enroll or reenroll an individual in the premium-HI program.
+
+Dependent upon the type of agreement the State has negotiated, a State may buy-in
+for its residents who are:
+
+A.
+
+receiving aid to families with dependent children (AFDC) under part A of title XV:
+or
+
+B.
+
+receiving a supplemental security income (SSI) payment or a State supplemental payment,
+either Federal or State administered, under title XVI; or
+
+C.
+
+receiving medical assistance (Medicaid) payments or determined to be “categorically needy” for Medicaid under title XIX.
+
+Normally, the individual States have full accretion/deletion responsibility for members
+of its coverage group(s) except in certain States whose residents are receiving SSI
+payments as explained below. For example, if an individual is covered under a buy-in
+in California due to the receipt of AFDC payments and changes residence to Florida,
+it is California's responsibility to delete its buy-in and Florida's to accrete, if
+appropriate.
+
+Under the SSI program, certain States have entered into an agreement with SSA whereby
+entitlement to SSI payment automatically establishes buy-in coverage. For these States,
+SSA makes the buy-in determination based on the individual's eligibility to SSI and
+SSA can delete the buy-in coverage when the individual's SSI eligibility has ended.
+The remaining States have elected to make their own determination as to the individual's
+buy-in eligibility and have full accretion/deletion responsibility.
+
+Agency codes for State payers will range from 010 through 650. A list of the States
+that have negotiated buy-in agreements, the effective date, and type of individuals
+covered under the agreement, their billing codes, and accretion/ deletion responsibility,
+etc., is provided at the end of this section.
+
+Once a State has submitted a report of buy-in accretion (or deletion), they cannot
+later modify the effective date unless it would be advantageous to the beneficiary.
+That is, the effective accretion date can only be adjusted to reflect an earlier date
+of coverage; the effective deletion date can only be adjusted to reflect a later date
+of deletion.
+
+When a State buys in for a claimant, the State will pay the SMI premiums for the individual
+beginning with the effective date of buy-in. The individual is liable for any premiums
+still due for months of SMI entitlement prior the effective date of the buy-in. Any
+such premiums due must be withheld from any benefit payable. If no benefit is payable,
+a premium billing notice including past due premiums must be manually prepared and
+sent to the claimant. No control should be established for receipt of payment and
+SMI termination is never appropriate while the State has assumed the responsibility
+for paying current premiums.
+
+State buy-in coverage will continue until:
+
+A.
+
+The individual dies; or
+
+B.
+
+The individual is no longer covered under the State's buy-in agreement; or
+
+C.
+
+two months after the individual has been notified that entitlement to a disability
+benefit has ceased (see HIIM section 310.03.).
+
+The States that have negotiated buy-in agreements, the particular contact district
+office code, the States' billing code, the type of individuals covered, and the effective
+dates of the buy-in agreement are shown in the chart below. The last column of the
+chart indicates whether SSA or the State makes the buy-in determination for individuals
+receiving SSI payments. Either SSA or the State assumes full accretion/deletion responsibility
+(e.g., in States where SSA determines buy-in coverage based on the receipt of SSI
+payments, the States will not be allowed to delete the buy-in; the deletion may only
+be accomplished by SSA and only because SSI eligibility has ceased).
+
+Buy-in determinations for individuals receiving AFDC payments will always be made
+by the States except in Wyoming whose buy-in agreement terminated July 31, 1967, and
+Kentucky whose residents are not covered under AFDC.
+
+NOTE: The “Effective Dates” columns also include the types of individuals covered. That is, the date that appears
+in the “Insured” or “Uninsured” columns indicates when that types of individual became covered (e.g., the State of
+Massachusetts covered only uninsured individuals prior to 11/75).
+
+State
+
+Contact
+District Office
+
+State
+Code
+
+Insured
+
+Effective
+Dates
+Uninsured
+
+SSI Buy-In
+Responsibility 1
+
+Ala.
+
+Montgomery (623)
+
+010
+
+1/1/70
+
+1/1/70
+
+SSA
+
+Ariz.
+
+Phoenix (907)
+
+030
+
+7/1/66
+
+7/1/66
+
+SSA
+
+Ark.
+
+Little Rock (755)
+
+040
+
+7/1/66
+
+7/1/66
+
+SSA
+
+Calif.
+
+Sacramento (955)
+
+050
+
+1/1/67
+
+7/1/66
+
+SSA
+
+Colo.
+
+Denver (882)
+
+060
+
+7/1/66
+
+7/1/66
+
+State
+
+Conn.
+
+Hartford (080)
+
+070
+
+7/1/66
+
+7/1/66
+
+State
+
+Del.
+
+Wilmington (267)
+
+080
+
+4/1/68
+
+4/1/68
+
+SSA
+
+D.C.
+
+Wash., D.C. (270)
+
+090
+
+8/1/69
+
+8/1/69
+
+SSA
+
+Fla.
+
+Jacksonville (655)
+
+100
+
+7/1/66
+
+7/1/66
+
+SSA
+
+Fla.2
+
+Jacksonville (655)
+
+10A-CCAP
+
+7/1/66
+
+7/1/66
+
+Ga.
+
+Atlanta (600)
+
+110
+
+10/1/67
+
+10/1/67
+
+SSA
+
+Hawaii
+
+Honolulu (990)
+
+120
+
+1/1/70
+
+1/1/70
+
+State
+
+Idaho
+
+Boise (893)
+
+130
+
+4/1/68
+
+4/1/68
+
+State
+
+Ill.
+
+Springfield (488)
+
+140
+
+1/1/68
+
+1/1/68
+
+State
+
+Ind.
+
+Indianapolis (455)
+
+150
+
+7/1/66
+
+7/1/66
+
+State
+
+Iowa
+
+Des Moines (690)
+
+160
+
+7/1/66
+
+7/1/66
+
+SSA
+
+Kans.
+
+Topeka (768)
+
+170
+
+10/1/67
+
+10/1/67
+
+State
+
+Ky.
+
+Frankfort (441)
+
+180
+
+4/1/68
+
+4/1/68
+
+SSA
+
+Maine3
+
+Augusta (003)
+
+200
+
+7/1/66
+
+7/1/66
+
+SSA
+
+Md.
+
+Baltimore (273)
+
+210
+
+7/1/70
+
+7/1/70
+
+State (SSA 1/75-4/79)
+
+Mass.
+
+Servicing
+
+220-DPW
+
+11/1/75
+
+7/1/66
+
+SSA (insured 11/75)
+
+Mass.
+
+Servicing
+
+22A-Blind
+
+11/1/75
+
+7/1/66
+
+Mich.
+
+Lansing (354)
+
+230
+
+1/1/68
+
+1/1/68
+
+SSA(9/76)
+
+Minn.
+
+Servicing
+
+240
+
+7/1/66
+
+7/1/66
+
+State
+
+Miss.
+
+Jackson (641)
+
+250
+
+1/1/70
+
+1/1/70
+
+SSA (State 1/70-7/80)
+
+Mo.
+
+Jefferson City (740)
+
+260
+
+5/1/68
+
+5/1/68
+
+State
+
+Mont.
+
+Helena (865)
+
+270
+
+7/1/66
+
+7/1/66
+
+SSA
+
+Nebr.4
+
+Lincoln (726)
+
+280
+
+7/1/66
+
+7/1/66
+
+State
+
+Nev.
+
+Reno (945)
+
+290
+
+5/1/69
+
+5/1/69
+
+State
+
+N.H.
+
+Concord (010)
+
+300
+
+12/1/66
+
+12/1/66
+
+State
+
+N.J.
+
+Trenton (171)
+
+310
+
+7/1/66
+
+7/1/66
+
+SSA
+
+N.M.
+
+Servicing
+
+320
+
+1/1/70
+
+1/1/70
+
+SSA
+
+N.Y.
+
+Albany (102)
+
+330
+
+7/1/66
+
+7/1/66
+
+State (SSA 1/74-8/80)
+
+N.C.
+
+Raleigh (322)
+
+340
+
+1/1/70
+
+1/1/70
+
+State
+
+N. Dak.
+
+Bismarck (708)
+
+350
+
+1/1/68
+
+1/1/68
+
+State
+
+Ohio
+
+Columbus (389)
+
+360
+
+4/1/68
+
+4/1/68
+
+State
+
+Okla.
+
+Oklahoma City (783)
+
+370
+
+7/1/66
+
+7/1/66
+
+State
+
+Pa.
+
+Servicing
+
+390
+
+4/1/68
+
+4/1/68
+
+SSA
+
+R.I.
+
+Providence (072)
+
+410
+
+4/1/68
+
+4/1/68
+
+SSA
+
+S.C.
+
+Columbia (583)
+
+420
+
+9/1/66
+
+9/1/66
+
+SSA
+
+S. Dak.
+
+Huron (718)
+
+430
+
+7/1/66
+
+7/1/66
+
+SSA
+
+Tenn.
+
+Nashville (565)
+
+440
+
+7/1/66
+
+7/1/66
+
+SSA
+
+Tex.
+
+Austin (813)
+
+450
+
+9/1/66
+
+9/1/66
+
+SSA
+
+Utah
+
+Salt Lake City (900)
+
+460
+
+5/1/68
+
+5/1/68
+
+State
+
+Vt.
+
+Servicing
+
+470
+
+7/1/66
+
+7/1/66
+
+SSA(7/74)
+
+V.I.
+
+St. Thomas (284)
+
+480
+
+9/1/68
+
+9/1/68
+
+—
+
+Va.
+
+Richmond (285)
+
+490
+
+7/1/66
+
+7/1/66
+
+State
+
+Wash.
+
+Servicing
+
+500
+
+5/1/68
+
+5/1/68
+
+SSA (State 5/68-6/77)
+
+W. Va.
+
+Charleston (305)
+
+510
+
+4/1/68
+
+4/1/68
+
+SSA
+
+Wisc.
+
+Madison (536)
+
+520
+
+11/1/75
+
+7/1/66
+
+SSA (insured 11/75)
+
+Wyo.5
+
+Servicing
+
+530
+
+7/1/66
+
+7/1/66
+
+Not Covered
+
+Guam
+
+Honolulu, Hawaii (990)
+
+650
+
+7/1/68
+
+6/1/67
+
+—
+
+1 Buy-in in agreements related to SSI eligibility are effective January 1974with the
+exception of Maryland, Michigan, Vermont, and Washington and with the exception of
+the insured in Massachusetts and Wisconsin.
+
+2 This code represents a special identification of Cuban refugees eligible for State
+buy-in under the Cuban Categorical Assistance Program (CCAP).
+
+3 Maine terminated its MAA agreement 8/31/74.
+
+4 Nebraska terminated its MAA agreement 3/31/69.
+
+5 Wyoming terminated its buy-in agreement effective 7/31/67.
+
+To Link to this section - Use this URL:
+http://policy.ssa.gov/poms.nsf/lnx/0601001205
+
+HI 01001.205 - State Buy-In - 11/23/2022
+
+Batch run: 11/23/2022
+
+Rev:11/23/2022

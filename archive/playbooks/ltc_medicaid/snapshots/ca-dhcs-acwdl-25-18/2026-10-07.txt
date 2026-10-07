@@ -1,0 +1,388 @@
+DATE: October 9, 2025
+
+TO: ALL COUNTY WELFARE DIRECTORS Letter No.: 25-18
+ALL COUNTY WELFARE ADMINISTRATIVE OFFICERS
+ALL COUNTY MEDI-CAL PROGRAM SPECIALISTS/LIAISONS
+ALL COUNTY HEALTH EXECUTIVES
+ALL COUNTY MENTAL HEALTH DIRECTORS
+ALL COUNTY MEDS LIAISONS
+
+SUBJECT: TRANSFERS OF ASSETS FOR LONG-TERM CARE MEDI-CAL AND
+PERIODS OF INELIGIBILITY FOR NURSING FACILITY LEVEL-OF-
+CARE
+
+References: (ACWDLs 25-14, 23-28, 90-01 sections 50408 through 50489
+et seq., and Medi-Cal Eligibility Procedures Manual Section 9J.)
+
+The purpose of this All-County Welfare Directors Letter (ACWDL) is to provide counties
+and the California Statewide Automated Welfare System with guidance regarding the
+transfers of assets and periods of ineligibility (POIs) once asset limits are reinstated for
+Non-Modified Adjusted Gross Income (Non-MAGI) Medi-Cal programs effective January
+1, 2026.
+
+Background
+
+Effective January 1, 2024, the California legislature eliminated the asset test for all Non-
+MAGI Medi-Cal programs, including Medicare Savings Programs (MSPs) and LTC
+Medi-Cal (Assembly Bill (AB) 133 (Chapter 143, Statutes of 2021)).
+
+However, effective January 1, 2026, the asset test will be reinstated for most Non-MAGI
+Medi-Cal programs (AB 116 (Chapter 21, Statutes of 2025)). For the impacted Non-
+MAGI programs, the asset limits will be set at $130,000 for one person and $65,000 for
+each additional person (up to a maximum of 10 people). For more information, please
+refer to ACWDL 25-14. As the asset limits for the Pickle, Disabled Adult Child (DAC),
+and Disabled Widow/er (DW) programs were eliminated under a separate federal
+waiver authority, these programs will continue to be exempt from the asset test until
+further guidance is issued.
+
+Review of Transfers of Assets
+
+Individuals seeking Long-Term Care (LTC) Medi-Cal coverage for nursing facility level-
+of-care services cannot transfer nonexempt assets for less than they are worth and still
+qualify for these services. When applying for Medi-Cal or entering an LTC facility,
+
+California Department of Health Care Services State of California
+Medi-Cal Eligibility Division Gavin Newsom, Governor
+1501 Capitol Avenue | Sacramento, CA | 95899-7413
+MS 4607 | Phone (916) 552-9200 | www.dhcs.ca.gov California Health and Human Services Agency
+
+Letter No.: 25-18
+Page 2
+October 9, 2025
+
+county eligibility workers (CEWs) will review for transfers of property in the applicant’s
+“look-back” period. In California, the look-back period is 30 months, which means that
+only transfers made within this period may prevent Medi-Cal from paying for LTC
+services if the transfer was not made in accordance with the requirements under the
+Title 22, California Code of Regulations (CCR), Section 50408.
+
+Once the CEW determines that an individual has made a transfer in their look-back
+period, the CEW reviews the value of the assets transferred to determine if a penalty
+period preventing payment for LTC services needs to be established. This penalty
+period is referred to as the period of ineligibility (POI) for nursing facility level-of-care.
+The POI does not apply to Medi-Cal members enrolled in community-based Medi-Cal
+programs. A POI can only be imposed when an LTC applicant or member has made
+transfers of nonexempt assets by any restricted manner described under 22 CCR
+50409. The penalty for a transfer must not cause the individual undue hardship as
+defined in Welfare and Institutions Code (WIC) section 14015.1(b). In addition, transfers
+of exempt assets are not penalized (WIC Section 14015).
+
+Counties must review transfers differently based on whether they occurred before,
+during, or after the period in which the asset requirement was eliminated. The following
+sections outline the treatment of nonexempt asset transfers made during each specific
+period.
+
+Transfers On or After January 1, 2026
+
+On or after January 1, 2026, counties should only review transfers when an individual
+requests LTC Medi-Cal. Only transfers made by the LTC applicant/members, or by their
+spouses, during the applicable review period in the chart on pages 4 and 5 will require
+further review. Starting July 1, 2026, only the months after the reinstatement of asset
+limits on January 1, 2026, will be reviewed for transfers.
+
+Counties must first review the electronic asset verification program (AVP) reports to
+determine if any transfers occurred during the look-back period or the months beginning
+on January 1, 2026, where applicable. DHCS will publish guidance for the use of AVP
+after the January 1, 2026, reinstatement of asset limits. Counties do not need to follow
+up when electronic asset verification shows transfers under the average private pay rate
+(APPR) for nursing facility level of care, or when the individual was within the asset
+limits at the date of the transfer. The APPR is published annually, with the updated
+figures for the calendar year typically available at the end of January of each year.
+When it appears that the applicant/member was over the asset limits and transferred
+property over the APPR, counties will follow up with the individual to determine whether
+
+Letter No.: 25-18
+Page 3
+October 9, 2025
+
+the transferred asset was exempt and the reason that the property was transferred.
+There is a presumption that assets transferred by an individual in LTC were transferred
+to establish eligibility. This presumption may be refuted with evidence that the transfer
+was made for reasons other than to establish eligibility for Medi-Cal. If the
+applicant/member demonstrates they transferred the nonexempt assets for any reason
+other than establishing eligibility to Medi-Cal (i.e., refutes the presumption), counties
+shall not calculate a POI. When nonexempt assets are transferred and the
+applicant/member does not refute that the transfer was to establish eligibility for Medi-
+Cal, counties must first look at undue hardship before calculating any potential POI.
+Individuals who are incompetent (unable to act on their own behalf in business and
+personal matters {Title 22, CCR Section 50032}) shall not be denied due to the
+noncooperation of the individual acting on their behalf. Refer to ACWDL 94-62 for
+additional guidance for making a competency determination and completing a diligent
+search.
+
+When calculating a POI, counties shall only request additional verification from the
+individual when the information in the AVP report is not sufficient to complete the Period
+of Ineligibility Worksheet (MC 176 PI).
+
+Transfers On or After January 1, 2024, but Before January 1, 2026
+
+Counties shall not request verification, review electronic asset verification information,
+or calculate any periods of ineligibility for transfers of assets made on or after January
+1, 2024, through December 31, 2025, for LTC applicants/members, or their spouses.
+
+Transfers Prior to January 1, 2024
+
+Counties shall review transfers of assets made prior to January 1, 2024, by an LTC
+applicant/member, or their spouse. Transfers of nonexempt assets made prior to
+January 1, 2024, are subject to the transfer of asset rules, including periods of
+ineligibility. The CEW shall utilize the AVP report to review for any transfers made
+during the look-back period. The CEW shall only request additional verification from the
+individual when the information in the AVP report is not sufficient to complete the Period
+of Ineligibility Worksheet (MC 176 PI).
+
+Look-Back Period
+The look-back period begins the month before the Medi-Cal application is submitted for
+an applicant in LTC. If the individual is already receiving Medi-Cal and enters LTC, the
+look-back period begins the month before admission into LTC. The look-back period
+extends back 30 months from the first month of the look-back period. Any months from
+
+Letter No.: 25-18
+Page 4
+October 9, 2025
+
+January 2024 through December 2025 shall not be reviewed for transfers in the
+look-back period, as the asset test did not apply during those months.
+
+For LTC applicants who apply between January 1, 2026, and June 30, 2026, and Medi-
+Cal members who enter LTC during the same time frame, the months prior to the
+elimination of asset limits on January 1, 2024, must be reviewed for transfers during
+their lookback period. Starting on July 1, 2026, only months after the reinstatement of
+asset limits on January 1, 2026, will need to be reviewed for transfers.
+
+Beginning July 1, 2026, the number of months that must be reviewed during the
+look-back period will increase by one month with each passing month. This incremental
+increase will continue until the full 30-month look-back period must be reviewed for
+transfers. The full 30-month review will apply to LTC applications and Medi-Cal
+members going into LTC on or after July 1, 2028.
+
+The chart below outlines months in the look-back period requiring review based on the
+date of the request for LTC Medi-Cal. For LTC applications and Medi-Cal members
+entering LTC in 2025, the number of months requiring review in the look-back period
+decreases. After January 1, 2026, when asset limits are reinstated, the number of
+months requiring review will no longer decrease and will instead begin to increase after
+July 2026.
+
+Date of LTC Review Period for Transfers Months in Review
+Application Period
+January 2025 7/2022-12/2023 18
+February 2025 8/2022-12/2023 17
+March 2025 9/2022-12/2023 16
+April 2025 10/2022-12/2023 15
+May 2025 11/2022-12/2023 14
+June 2025 12/2022-12/2023 13
+July 2025 1/2023-12/2023 12
+August 2025 2/2023-12/2023 11
+September 2025 3/2023-12/2023 10
+October 2025 4/2023-12/2023 9
+November 2025 5/2023-12/2023 8
+December 2025 6/2023-12/2023 7
+January 2026 7/2023-12/2023 6
+February 2026 8/2023-12/2023 & 1/2026 6
+March 2026 9/2023-12/2023 & 1/2026-2/2026 6
+April 2026 10/2023-12/2023 & 1/2026-3/2026 6
+
+Letter No.: 25-18
+Page 5
+October 9, 2025
+
+Date of LTC Review Period for Transfers Months in Review
+Application Period
+May 2026 11/2023-12/2023 & 1/2026-4/2026 6
+June 2026 12/2023 & 1/2026-5/2026 6
+July 2026 1/2026-6/2026 6
+August 2026 1/2026-7/2026 7
+September 2026 1/2026-8/2026 8
+October 2026 1/2026-9/2026 9
+November 2026 1/2026-10/2026 10
+December 2026 1/2026-11/2026 11
+January 2027 1/2026-12/2026 12
+February 2027 1/2026-1/2027 13
+March 2027 1/2026-2/2027 14
+April 2027 1/2026-3/2027 15
+May 2027 1/2026-4/2027 16
+June 2027 1/2026-5/2027 17
+July 2027 1/2026-6/2027 18
+August 2027 1/2026-7/2027 19
+September 2027 1/2026-8/2027 20
+October 2027 1/2026-9/2027 21
+November 2027 1/2026-10/2027 22
+December 2027 1/2026-11/2027 23
+January 2028 1/2026-12/2027 24
+February 2028 1/2026-1/2028 25
+March 2028 1/2026-2/2028 26
+April 2028 1/2026-3/2028 27
+May 2028 1/2026-4/2028 28
+June 2028 1/2026-5/2028 29
+July 2028 1/2026-6/2028 30
+August 2028 2/2026-7/2028 30
+September 2028 3/2026-8/2028 30
+
+Undue Hardship
+All cases must be reviewed for undue hardship before imposing a POI for nursing
+facility level-of-care. If undue hardship conditions are met, the county will not impose a
+POI. The criteria for undue hardship are set forth in WIC section 14015.1(b), and
+summarized below.
+
+(b) An undue hardship shall be found to exist under any of the following circumstances:
+
+Letter No.: 25-18
+Page 6
+October 9, 2025
+
+(1) The individual has been determined eligible for medical assistance for home
+and facility care based on an application filed on or after January 1, 2006, and
+before the date that regulations adopted pursuant or relating to this section have
+been certified with the Secretary of State.
+(2) The deprivation of medical assistance for home and facility care would cause
+an endangerment to the life or health of the individual.
+(3) The denial of medical assistance for home and facility care would result in the
+eviction of the individual from a nursing home.
+(4) The individual is otherwise eligible for the Medi-Cal program and unable to
+obtain home and facility care without Medi-Cal.
+(5) The denial of medical assistance for home and facility care would cause the
+individual to be unable to remain at home or in the community and would hasten
+or cause the individual’s entry into a medical or long-term care institution.
+(6) The individual would be deprived of food, clothing, shelter, or other
+necessities of life.
+
+Periods of Ineligibility
+
+Reminder: All cases must be reviewed for undue hardship before imposing a period of
+ineligibility.
+
+A. Existing POIs
+During case processing, counties shall review all current cases with an active
+period of ineligibility and/or restriction code for nursing facility level-of-care to
+determine if undue hardship applies. The criteria for undue hardship are set forth
+in WIC section 14015.1(b), and summarized in the undue hardship section
+above. Even if the current cases did not previously meet the undue hardship
+criteria at application and redetermination, CEWs shall reassess for undue
+hardship based on the members’ current financial and medical circumstances.
+
+B. New POIs
+Effective January 1, 2026, counties shall follow the instructions contained in
+ACWDL 90-01 regarding transfers of nonexempt assets and consider undue
+hardship prior to imposing any periods of ineligibility for disqualifying transfers. A
+disqualifying transfer occurs when, during an individual’s look-back period, they
+were over the asset limit and made a transfer of nonexempt assets valued more
+than the statewide APPR for nursing facility services. The CEW shall complete
+the MC 176 PI and submit the form and any relevant documentation regarding
+the transfer and the CEW’s review for undue hardship to DHCS for review at
+NonMAGIinbox@dhcs.ca.gov if a POI is the result. Counties shall submit the
+
+Letter No.: 25-18
+Page 7
+October 9, 2025
+
+completed MC 176 PI form and documentation to DHCS within 10 business days
+of discovery of the POI. DHCS shall review the form and documentation and
+issue a decision to the county within 10 business days.
+
+The POI shall not be imposed without approval from the DHCS Medi-Cal Eligibility
+Division. The maximum POI is 30 months from the date of the transfer (ACWDL 90-01,
+Section 50411.3). For disqualifying transfers made by individuals with a look-back
+period with months of review prior to January 1, 2024, the POI may extend into the
+months when asset limits were eliminated.
+
+Counties shall not issue a total denial of Medi-Cal eligibility for individuals based on
+making disqualifying transfers of assets. Counties shall instead impose a POI by
+granting restricted eligibility for nursing facility level-of-care, utilizing the restricted
+services codes “950” or “951” in MEDS as set forth in ACWDL 91-107, and providing
+the appropriate Notice of Action.
+
+Examples for Look-Back Period and Period of Ineligibility
+
+• Example 1:
+
+An aged LTC individual transfers $15,000 to their adult grandchild as a gift on
+December 5, 2025. They apply for Medi-Cal on February 1, 2026. The 30 month
+look-back period starts the month before the February 2026 application month.
+
+The look-back period is from August 1, 2023, through January 31, 2026. The
+CEW does not review the months of January 2024 through December 2025 for
+transfers of assets. No transfers of assets were made by the applicant from
+August 1, 2023, to December 31, 2023, and January 1, 2026, to January 31,
+2026, so the CEW ends the review for POI. The CEW determines that the
+applicant is eligible for full-scope Medi-Cal for LTC effective February 1, 2026.
+
+• Example 2:
+
+On December 25, 2023, an aged individual gifts $250,000 to their nephew to
+cover the cost of his medical school expenses. Later, on April 5, 2025, the aged
+individual is injured, resulting in them requiring assistance with daily activities and
+moving into an LTC facility. After paying out of pocket for their stay in the LTC
+facility, the individual applies for Medi-Cal on May 20, 2026, to help pay for the
+LTC facility.
+
+Letter No.: 25-18
+Page 8
+October 9, 2025
+
+At the time of the application, the aged individual is within the asset limit for a
+one-person household. When the CEW reviews the LTC application, they run an
+AVP report to review transfer of assets during the look-back period from
+November 1, 2023, to December 31, 2023, and from January 1, 2026, to
+April 30, 2026, noticing the applicant’s transferred assets in December 2023. The
+CEW contacts the applicant to request more information regarding the transfer.
+The applicant responds with a statement that they transferred the $250,000 to
+help their relative pay for school, had no intention of applying for Medi-Cal at the
+time, but now requires Medi-Cal assistance to be able to afford their LTC stay, as
+they exhausted their personal assets. The CEW accepts the applicant’s
+statement as a satisfactory showing that the assets were transferred exclusively
+for a purpose other than to qualify for medical assistance, and the CEW
+determines that the applicant is eligible for full-scope Medi-Cal for LTC effective
+May 1, 2026.
+
+• Example 3:
+
+An aged LTC individual transfers $25,000 to their best friend on January 6, 2026.
+The individual retains a total of $89,000 in nonexempt assets.
+
+The individual applies for Medi-Cal on February 1, 2026. When reviewing the
+applicant’s eligibility, the CEW reviews the AVP report for transfer of assets from
+August 1, 2023, to December 31, 2023, and from January 1, 2026, to
+January 31, 2026. The CEW determines that there is no POI as the applicant
+was within the $130,000 asset limits at the time of the transfer. The CEW
+determines that the applicant is eligible for full-scope Medi-Cal for LTC effective
+February 1, 2026.
+
+• Example 4:
+
+A 45-year-old individual receiving Social Security Disability Insurance benefits
+and enrolled in Medicare is admitted into an LTC facility on July 17, 2026. The
+individual owns $200,000 in nonexempt assets and transfers $70,000 to his son
+on August 24, 2026. He then applies for Medi-Cal on September 7, 2026, to help
+pay for the cost of the LTC facility.
+
+At the time of the application, the individual is under the asset limit. When the
+CEW reviews the LTC application, she runs an AVP report to review transfers of
+assets during the look-back period from January 1, 2026, to August 31, 2026.
+CEW discovered the applicant was over the asset limit and transferred an
+
+Letter No.: 25-18
+Page 9
+October 9, 2025
+
+amount greater than the APPR. The CEW reviews for undue hardship, but it
+does not apply. As it is presumed that a transfer of nonexempt assets by an LTC
+individual is to establish eligibility for Medi-Cal, the CEW moves forward with
+calculating a POI for the applicant using the MC 176 PI.
+
+For the purposes of this example, the APPR is $13,000. In calculating the POI,
+the CEW determines that the POI is 5 months long, as no partial month POI are
+imposed, and would run from August 1, 2026 (the month the disqualifying
+transfer was made) through the end of December 2026 (the end of the 5th
+month). The CEW sends the case details, including the completed MC 176 PI
+forms and the details of the review for undue hardship, to DHCS for review.
+DHCS agrees with the POI determination and the CEW utilizes the restricted
+services codes in MEDS and provides the appropriate Notice of Action.
+
+If you have any questions, or if we can provide further information, please contact
+assetlimitchanges@dhcs.ca.gov. County questions regarding this policy guidance
+should be sent to MCED-Policy@dhcs.ca.gov.
+
+Sincerely,
+
+Sarah Crow
+Division Chief, Medi-Cal Eligibility
+Department of Health Care Services

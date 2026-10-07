@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://www.ecfr.gov/api/renderer/v1/content/enhanced/current/title-42?part=435&section=435.560
+  final_url: https://www.ecfr.gov/api/renderer/v1/content/enhanced/current/title-42?chapter=IV&subchapter=C&part=435&subpart=F&subject_group=ECFRae6babdeed513af&section=435.560
+  status: 200
+  content_type: text/html; charset=utf-8
+  text_sha256: 3e9e68527b1d87a133b9ba2b8e5182c8e08c2d9e01cc305ba00af8097efa8d0c
+  text: ecfr-42-435-560/2026-10-07.txt
+  raw: ecfr-42-435-560/2026-10-07.html

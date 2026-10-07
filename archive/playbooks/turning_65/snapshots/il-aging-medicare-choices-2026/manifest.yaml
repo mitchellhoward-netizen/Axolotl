@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://ilaging.illinois.gov/content/dam/soi/en/web/aging/ship/documents/medicare-choices.pdf
+  final_url: https://ilaging.illinois.gov/content/dam/soi/en/web/aging/ship/documents/medicare-choices.pdf
+  status: 200
+  content_type: application/pdf
+  text_sha256: fdc19cec47076dfdf3c62902329808a8791fb9a6a8a60f4902df0e5a890096f8
+  text: il-aging-medicare-choices-2026/2026-10-07.txt
+  raw: il-aging-medicare-choices-2026/2026-10-07.pdf

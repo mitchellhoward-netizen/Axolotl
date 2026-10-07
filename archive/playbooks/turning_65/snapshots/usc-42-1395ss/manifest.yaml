@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://www.govinfo.gov/content/pkg/USCODE-2023-title42/html/USCODE-2023-title42-chap7-subchapXVIII-partE-sec1395ss.htm
+  final_url: https://www.govinfo.gov/content/pkg/USCODE-2023-title42/html/USCODE-2023-title42-chap7-subchapXVIII-partE-sec1395ss.htm
+  status: 200
+  content_type: text/html
+  text_sha256: f43f9986cf2880575eb8c905db7036771e1f45a8a0f84884e7e66babe7c42c13
+  text: usc-42-1395ss/2026-10-07.txt
+  raw: usc-42-1395ss/2026-10-07.html

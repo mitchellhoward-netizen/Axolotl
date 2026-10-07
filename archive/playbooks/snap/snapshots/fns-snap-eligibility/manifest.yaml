@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://www.fns.usda.gov/snap/recipient/eligibility
+  final_url: https://www.fna.usda.gov/snap/recipient/eligibility
+  status: 200
+  content_type: text/html; charset=utf-8
+  text_sha256: feb3c9c74836ba69d4796f83c40c6695800c6e0df0770afbbd1d8036d1f4f0af
+  text: fns-snap-eligibility/2026-10-07.txt
+  raw: fns-snap-eligibility/2026-10-07.html

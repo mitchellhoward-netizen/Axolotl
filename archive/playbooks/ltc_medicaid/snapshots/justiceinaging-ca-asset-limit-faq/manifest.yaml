@@ -1,0 +1,9 @@
+- retrieved: '2026-10-07'
+  url: https://justiceinaging.org/reinstatement-of-medi-cal-asset-limit-faq/
+  final_url: https://justiceinaging.org/reinstatement-of-medi-cal-asset-limit-faq/
+  status: 200
+  content_type: html
+  text_sha256: b296a7b377d33c19133154eece519f39273eaf5af053b83d679e5f05a8ad8d25
+  text: justiceinaging-ca-asset-limit-faq/2026-10-07.txt
+  raw: justiceinaging-ca-asset-limit-faq/2026-10-07.html
+  fetched_via: curl with a browser user agent (the archive fetcher got HTTP 412)

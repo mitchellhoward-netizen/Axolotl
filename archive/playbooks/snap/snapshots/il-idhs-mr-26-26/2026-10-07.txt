@@ -1,0 +1,451 @@
+Illinois Department of Human Services
+JB Pritzker, Governor · Dulce M. Quintero, Secretary
+
+Customers
+
+Providers
+
+About
+
+News
+
+Contact
+
+IDHS
+
+About IDHS
+
+Publications
+
+Manuals
+
+Family & Community Services Manuals
+
+Cash, SNAP, and Medical Manual
+
+Manual Releases
+
+MR# 26.26: October 2026 SNAP Adjustments due to COLA
+
+10/01/2026
+
+Summary
+
+This Manual Release includes changes to the Supplemental Nutrition Assistance Program (SNAP) Utility Standards, Maximum Monthly Gross/Net Income Standards and Deductions, the Maximum Excess Shelter Deduction, the Homeless Shelter Standard, the SNAP Asset Limits, and the SNAP Minimum/Maximum Monthly Benefit Amounts. These changes are effective with October 2026 issuances.
+
+As a result of the annual review of the State Utility Standards, the Food & Nutrition Administration (FNA) approved changes to the following standards, effective with October 2026 issuances:
+
+Air Conditioning/Heating Standard $565
+
+Limited Utility Standard $472
+
+Single Utility Standard $80
+
+Telephone Standard $69
+
+For Change Reporting households, the income reporting requirement has increased to $150.00
+
+IES system changes will reflect in the SNAP calculations starting with October 2026 issuances.
+
+System changes to the Application for Benefits Eligibility (ABE) site have been made to reflect these changes.
+
+Updates to the SNAP calculator on the Illinois Department of Human Services (IDHS) site are being made to reflect these changes.
+
+The Program Standards Chart for WAG 25-03-02 (1) SNAP has been revised with updated standards.
+
+The SNAP Brochure and the Expedited SNAP Screening Form are being revised with the new SNAP standards.
+
+The Supplemental Nutrition Assistance Program (SNAP) Change Report Form is being revised with updated amounts.
+
+The Change in Reporting Requirements is being revised with updated amounts.
+
+The Basis of Issuance (BOI) Table has been revised to reflect the updated SNAP benefit amounts.
+
+SNAP Utility Standards
+
+As a result of the annual review of the State utility standards, FNA approved changes to the SNAP utility standards as follows:
+
+Air Conditioning/Heating Standard $565
+
+Limited Utility Standard $472
+
+Single Utility Standard $80
+
+Telephone Standard $69
+
+SNAP Standard
+
+Federal law provides for an increase to the Maximum Monthly Gross (165% FPL) and Net Income Standards (100% FPL) effective with October 2026 issuances.
+
+The SNAP 200% FPL Gross Income Standards have increased and are used to determine categorical eligibility for qualifying member households.
+
+The Standard Deduction amount by SNAP household size is as follows:
+
+1 through 3 persons $213
+
+4 persons $225
+
+5 persons $264
+
+6 or more persons $304
+
+The Maximum Excess Shelter Deduction has increased to $769.
+
+The Homeless Shelter Standard has increased to $206.
+
+The Asset Limits for SNAP are as follows:
+
+$4,750 for households with at least 1 qualifying member.
+
+$3,000 for all other SNAP households without a qualifying member.
+
+$4,750 for Lottery or Gambling winnings.
+
+Maximum Monthly SNAP Allotments have increased for all household sizes.
+
+The minimum monthly benefit amount for 1-2 person households has increased to $25.
+
+The Income Reporting Requirement increases to $150
+
+These changes are effective with October 2026 issuances and are reflected in the tables below.
+
+The Program Standards Chart for WAG 25-03-02 (1) SNAP has been revised with the new SNAP standards.
+
+System Changes
+
+IES system changes will reflect in the SNAP calculations starting with October 2026 issuances.
+
+Active SNAP cases will be centrally updated for October 2026 issuances.
+
+System changes to ABE/IES have been made to reflect these changes.
+
+The SNAP calculator on the IDHS site is currently being updated to reflect these changes.
+
+Maximum Monthly Income Eligibility Standards
+
+SNAP
+
+Household Size
+
+Maximum Gross
+
+Income Standards
+
+165% FPL
+
+Maximum Gross
+
+Income Standards
+
+200% FPL
+
+Maximum Net Income
+
+Standards
+
+100% FPL
+
+1 Person
+
+$2,195
+
+$2,660
+
+$1,330
+
+2 Persons
+
+$2,976
+
+$3,607
+
+$1,804
+
+3 Persons
+
+$3,757
+
+$4,554
+
+$2,277
+
+4 Persons
+
+$4,538
+
+$5,500
+
+$2,750
+
+5 Persons
+
+$5,319
+
+$6,447
+
+$3,224
+
+6 Persons
+
+$6,100
+
+$7,394
+
+$3,697
+
+7 Persons
+
+$6,881
+
+$8,340
+
+$4,170
+
+8 Persons
+
+$7,662
+
+$9,287
+
+$4,644
+
+9 Persons
+
+$8,443
+
+$10,234
+
+$5,118
+
+10 Persons
+
+$9,224
+
+$11,180
+
+$5,592
+
+Each Add'l
+
+Person
+
++$781
+
++$947
+
++$474
+
+Standard Deductions
+
+Standard Deductions
+
+Standard Deduction
+
+Amount
+
+1-3 Persons
+
+$213
+
+4 Persons
+
+$225
+
+5 Persons
+
+$264
+
+6+ Persons
+
+$304
+
+Maximum Excess Shelter Deduction
+
+The Maximum Excess Shelter Deduction has increased to $769.
+
+Homeless Shelter Standard
+
+The Homeless Shelter Standard has increased to $206.
+
+SNAP Asset Limits
+
+Type of Household
+
+Asset Limits
+
+Lottery or Gambling Winnings
+
+At least 1 Qualifying Member
+
+$4,750
+
+$4,750
+
+No Qualifying Member(s)
+
+$3,000
+
+$4,750
+
+Maximum SNAP Benefit Amounts
+
+SNAP Household
+
+Size
+
+Maximum SNAP
+
+Benefit Amounts
+
+1 Person
+
+$306
+
+2 Persons
+
+$562
+
+3 Persons
+
+$808
+
+4 Persons
+
+$1,023
+
+5 Persons
+
+$1,217
+
+6 Persons
+
+$1,463
+
+7 Persons
+
+$1,616
+
+8 Persons
+
+$1,841
+
+9 Persons
+
+$2,066
+
+10 Persons
+
+$2,291
+
+11-17 Persons
+
++$225
+
+Each Additional
+
+Person
+
+18+ Persons
+
+$3,887
+
+NOTE: The maximum SNAP allotment amount for households with 18 or more persons is $3,887.
+
+Minimum SNAP Benefits
+
+SNAP Household Size
+
+SNAP Benefit Amount
+
+1-2 Persons
+
+$25
+
+Basis of Issuance (BOI) Tables
+
+The Basis of Issuance Tables are revised to reflect the increase in SNAP benefit amounts. The BOI Tables will be available in an accessible PDF document.
+
+Form Changes
+
+The SNAP Brochure (DHS 124) and the Expedited SNAP Screening Form (IL444-0401) are being revised with the new SNAP standards.
+
+The Supplemental Nutrition Assistance Program (SNAP) Change Report Form (IL444-1978) is currently being revised with updated amounts.
+
+The Change in Reporting Requirements (IL444-3324) is currently being revised with updated amounts.
+
+Manual Revisions
+
+PM 13-01-08
+
+PM 13-01-08-b
+
+PM 23-02-02
+
+WAG 04-05-02
+
+WAG 13-01-01
+
+WAG 13-01-01-a
+
+WAG 13-01-01-b
+
+WAG 13-01-04
+
+WAG 13-01-08
+
+WAG 13-01-08-b
+
+WAG 25-03-02 (1) SNAP
+
+WAG 25-03-02
+
+WAG 25-03-09
+
+WAG 25-06-05-a (1)
+
+WAG 25-06-05-b(1)
+
+WAG 25-06-05-b(2)
+
+WAG 25-06-05-c
+
+WAG 25-06-05-d
+
+[signed copy on file]
+
+Dulce M. Quintero
+
+Secretary, Illinois Department of Human Services
+
+Forms referenced:
+
+DHS 124
+
+IL444-0401
+
+IL444-1978
+
+IL444-3324
+
+Illinois Department of Human Services
+JB Pritzker, Governor · Dulce M. Quintero, Secretary
+
+IDHS Office Locator
+
+IDHS Help Line
+
+1-800-843-6154
+
+1-866-324-5553 TTY
+
+State of Illinois
+
+Accessibility
+
+Privacy
+
+Report Abuse/Neglect
+
+Contact
+
+Outlook Login

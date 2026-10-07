@@ -1,0 +1,64 @@
+# New York sources for SNAP. otda.ny.gov (OTDA directives, GIS messages, the
+# SNAP Source Book) answered every scripted, research-tool and headless-browser
+# request on 2026-10-07 with a bot challenge, a reset connection or HTTP 503, so
+# no OTDA-hosted document could be snapshotted. The FFY 2026 standards GIS is
+# taken from a verbatim copy posted by a county social services district.
+sources:
+  - id: ny-gis-25dc059
+    retrieved: 2026-10-07
+    url: https://www.warrencountyny.gov/sites/default/files/25DC059%20-%20Upstate%20and%20NYC%20%20Supplemental%20Nutrition%20Assistance%20Program%20(SNAP)%20Standards%20for%20FFY%202026%20(October%202025).pdf
+    publisher: New York State Office of Temporary and Disability Assistance (copy posted by Warren County, NY)
+    title: GIS 25 DC059 — Upstate and NYC Supplemental Nutrition Assistance Program (SNAP) Standards for FFY 2026 (October 2025)
+    kind: primary
+    jurisdiction: ny
+    doc_type: directive
+    effective_date: 2025-10-01
+    published: 2025-09-12
+    note: >-
+      OTDA's own copy (www.otda.ny.gov/policy/gis/2025/25DC059.pdf) could not be
+      fetched. This PDF is OTDA's file (PDF metadata: author New York State Office
+      of Temporary and Disability Assistance, title 25DC059, created 2025-09-12)
+      re-posted unchanged by a county department of social services, one of the
+      districts the GIS is addressed to; treated as primary on that basis. The
+      first-page header (GIS number, date, subject block) is an image and is not
+      in the text.
+  - id: ny-hra-snap-page
+    retrieved: 2026-10-07
+    url: https://www.nyc.gov/site/hra/help/snap-benefits-food-program.page
+    publisher: New York City Human Resources Administration (Department of Social Services)
+    title: SNAP Benefits Information (HRA)
+    kind: primary
+    jurisdiction: ny
+    doc_type: agency_page
+  - id: ny-hra-snap-faq
+    retrieved: 2026-10-07
+    url: https://www.nyc.gov/site/hra/help/snap-application-frequently-asked-questions.page
+    publisher: New York City Human Resources Administration (Department of Social Services)
+    title: SNAP Application Frequently Asked Questions (HRA)
+    kind: primary
+    jurisdiction: ny
+    doc_type: agency_page
+  - id: ny-hra-snap-interview
+    retrieved: 2026-10-07
+    url: https://www.nyc.gov/site/hra/help/snap-interview-instructions.page
+    publisher: New York City Human Resources Administration (Department of Social Services)
+    title: SNAP Interview Instructions (HRA)
+    kind: primary
+    jurisdiction: ny
+    doc_type: agency_page
+  - id: hsny-nyscap
+    retrieved: 2026-10-07
+    url: https://hungersolutionsny.org/federal-nutrition-programs/snap/snap-and-seniors/nyscap/
+    publisher: Hunger Solutions New York
+    title: New York State Combined Application Project (NYSCAP)
+    kind: secondary
+    jurisdiction: ny
+    doc_type: advocacy
+  - id: hsny-esap
+    retrieved: 2026-10-07
+    url: https://hungersolutionsny.org/federal-nutrition-programs/snap/snap-and-seniors/esap/
+    publisher: Hunger Solutions New York
+    title: The Elderly Simplified Application Project (ESAP)
+    kind: secondary
+    jurisdiction: ny
+    doc_type: advocacy

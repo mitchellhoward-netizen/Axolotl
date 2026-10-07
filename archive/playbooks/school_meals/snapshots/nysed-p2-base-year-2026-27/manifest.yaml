@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://www.cn.nysed.gov/node/3505
+  final_url: https://www.cn.nysed.gov/content/provision-2-base-year-income-eligibility-guidelines-application-and-related
+  status: 200
+  content_type: text/html; charset=utf-8
+  text_sha256: 83f0264dcad3d345b46995280cd8690fd232ba9b9e9ccc6304516a6f5dfaddd3
+  text: nysed-p2-base-year-2026-27/2026-10-07.txt
+  raw: nysed-p2-base-year-2026-27/2026-10-07.html

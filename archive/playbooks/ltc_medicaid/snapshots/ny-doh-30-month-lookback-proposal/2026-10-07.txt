@@ -1,0 +1,453 @@
+Navigation menu
+
+Department of Health
+
+Individuals/Families
+
+COVID-19 Vaccine
+
+Birth, Death, Marriage & Divorce Records
+
+Health Insurance Programs
+
+Consumer Health Care Information
+
+Community Health
+
+Healthy Lifestyles
+
+Health & Safety in the Home, Workplace & Outdoors
+
+Diseases & Conditions
+
+Data & Reports
+
+Health Topics A to Z
+
+Providers/Professionals
+
+Novel Coronavirus
+
+Narcotic Enforcement
+
+EMS
+
+Health Initiatives
+
+Data & Reports
+
+Diseases & Conditions
+
+Patient Resources
+
+Disease Reporting
+
+Clinical Guidelines, Standards & Quality of Care
+
+Permits, Licenses & Certification
+
+Health Commerce System (HCS)
+
+All Health Care Professionals & Patient Safety
+
+Health Topics A to Z
+
+Health Facilities
+
+Compare Health Care Providers
+
+Adult Care Facilities/Assisted Living
+
+Home Care & Hospice
+
+Hospitals & Clinics
+
+New York State Veterans Homes
+
+Nursing Homes
+
+School Based Health Centers
+
+Health Commerce System (HCS)
+
+All Health Care Facilities
+
+Health Topics A to Z
+
+Health Data
+
+Open Health Data
+
+NYS Health Connector
+
+Public Health Science Center
+
+Data & Reports
+
+About Us
+
+About the Department
+
+Related Sites
+
+Health Topics A to Z
+
+Search
+
+More information about
+
+MRT II
+
+Home
+
+Implemented Budget Actions
+
+Regulations Implementing
+MRT II Recommendations
+
+Private Duty Nursing (PDN)
+for Medically Challenged Children
+
+MRT 1115 Waiver Amendment Proposals
+
+MRT 1115 Waiver Extension Request
+
+Meetings/Forums
+
+Policy & Guidance
+
+Press Releases
+
+SPAs Submitted to CMS
+
+Pharmacy Benefit Transition
+
+Value Based Payment Reform (VBP)
+
+Archives
+
+Follow Us
+
+Search
+
+Search Medicaid Redesign:
+
+MRT Home
+
+Medicaid Redesign Team (MRT) Home Page
+
+You are Here: Home Page
+>
+MRT 1115 Waiver Amendment Proposals
+> 30-Month Lookback for Community Based Long Term Care Services
+
+30-Month Lookback for Community Based Long Term Care Services
+
+Document is also available in Portable Document Format (PDF)
+
+New York State Medicaid Redesign Team (MRT) Waiver
+
+1115 Research and Demonstration Waiver
+
+#11-W-00114/2
+
+30-Month Lookback for Community Based Long Term Care Services
+
+Amendment Request
+
+Contents
+
+Section I. Program Description and Objectives
+
+Goals and Objectives
+
+Proposed Implementation
+
+Section II. Proposed Amendment
+
+Section III. Waiver Authority
+
+Section IV. Expenditure Authority
+
+Section V. Beneficiary Impact
+
+Section VI. Budget Neutrality
+
+Section VII. Compliance with Tribal Consultation and Public Notice
+
+Section VIII. Evaluation Design
+
+Section I. Program Description and Objectives
+
+Goals and Objectives
+
+In July 1997, New York State received approval from the Centers for Medicare and Medicaid Services ("CMS") for its "Partnership Plan" Medicaid Section 1115 Demonstration (the "1115 Demonstration"). In implementing the 1115 Demonstration, the State sought to achieve the following goals:
+
+Improve access to health care for the Medicaid population;
+
+Improve the quality of health services delivered; and
+
+Expand coverage to additional low-income New Yorkers with resources generated through managed care efficiencies.
+
+In furtherance of these goals, the primary objective of the 1115 Demonstration was to enroll most of the State’s Medicaid population into managed care, and to use a managed care delivery system to deliver benefits to Medicaid recipients, create efficiencies in the Medicaid program and enable the extension of coverage to certain individuals who would otherwise be without health insurance.
+
+The 1115 Demonstration was last renewed by CMS on December 7, 2016 and, at the time of renewal, the name of 1115 Demonstration was changed from the Partnership Plan to the New York Medicaid Redesign Team ("MRT") Waiver. Since the MRT Waiver’s renewal, this waiver has been amended to reflect programmatic needs. Under the waiver, the State is required to seek Federal approval of any amendments.
+
+|top of page|
+
+Proposed Implementation
+
+The State intends to implement this Amendment effective January 1, 2021.
+
+|top of section|
+|top of page|
+
+Section II. Proposed Amendment
+
+The State of New York (the State or New York) is seeking to implement a 30-month transfer of assets lookback period for coverage of community based long-term care (CBLTC) services, and approval to exclude certain enrollees from these rules.
+
+Pursuant to a state statutory change on April 2, 2020, New York will be submitting a state plan amendment to request approval to apply the federal option to impose transfer of assets rules to certain categories of individuals applying for CBLTC services (non-institutionalized individuals). Under the federal statute, the transfer of assets lookback period is 60 months prior to the month the individual is applying for Medicaid. New York is seeking approval to impose a lookback period of 30 months for non-institutionalized individuals seeking coverage of CBLTC services. Under New York’s April 2, 2020 statutory change, the transfer of assets rules for CBLTC services are effective October 1, 2020. The exceptions to the Medicaid transfer of assets rules and provision for an undue hardship waiver that apply under the transfer of assets provisions of the federal Omnibus Budget Reconciliation (OBRA) of 1993 and Deficit Reduction Act (DRA) of 2005 would apply to transfers in these situations.
+
+In New York, community based long-term care services are available through Medicaid fee-for-service, managed long term care (MLTC), and Medicaid mainstream managed care (MMC). Under current standards, the services provided through MMC are included in one benefit package and enrollees are not required to be in need of CBLTC services for MMC plan enrollment. Conversely, under current standards, MLTC plan enrollees are dual eligible, over 21 years of age and assessed as needing CBLTC services for more than 120 days. The State is seeking approval to exclude individuals enrolled in MMC from the non-institutional transfer of assets rules, regardless of whether the individual is in a category that the State has elected to include in the eligibility groups that will be subject to non-institutional transfer penalties.
+
+The State will also seek approval under the Section 1115 to impose the lookback with a modified phase-in, meaning a full 30-month retroactive review will not be applied on January 1, 2021. Under New York’s April 2, 2020 statutory change, the transfer of assets rules for CBLTC services are effective October 1, 2020. Therefore, the State is seeking to begin applying the CBLTC transfer rules on January 1, 2021, meaning that applications for CBLTC services submitted on or after January 1, 2021 would be assessed for any transfers made on or after October 1, 2020.
+
+This statutory change was recommended by the Medicaid Redesign Team II and adopted by the New York State Legislature in order to ensure that Medicaid payments are not used when CBLTC services could be covered by an individual’s own income and/or resources that were transferred, if the transfer is subject to the imposition of a transfer of asset penalty period.
+
+Following are the community based long-term care services the State plans to impact by this initiative:
+
+Adult day health care
+
+Assisted living program (ALP)
+
+Certified home health agency (CHHA) services
+
+Personal care services
+
+Consumer directed personal assistance program
+
+Limited licensed home care services
+
+Private duty nursing services
+
+Managed long-term care in the community*
+
+*Note: Managed long-term care in the community is not a State Plan service and instead refers to enrollment in managed long-term care (MLTC) plans while residing in a community-based setting. These plans include Partial Capitation, Medicaid Advantage Plus and Programs of All- Inclusive Care for the Elderly (PACE). Because this service list includes most of the services in the MLTC benefit package found in Attachment B of the current 1115 Waiver Special Terms and Conditions, the State would not require nor permit enrollment in such plans prior to the proposed 30-month lookback.
+
+This initiative does not pertain to waiver services obtained pursuant to 1915(c) or (d) of the Social Security Act, which are waiver services provided through the Traumatic Brain Injury Program, the Nursing Home Transition and Diversion Waiver Program, the consolidated 1915(c) waiver for children and the Office for People with Developmental Disabilities’ (OPWDD) Comprehensive Home and Community-Based 1915(c) waiver.
+
+Eligibility categories determined pursuant to Modified Adjusted Gross Income (MAGI) budgeting rules would not be impacted by the State’s intended change. Following are the Medicaid eligibility categories of non-institutionalized individuals impacted by this initiative, which are eligibility groups categorized as Aged, Blind or Disabled and subject to non-MAGI budgeting rules:
+
+Optional Medicaid Eligibility Categories:
+
+Ticket to Work Basic Group (SSA §1902(a)(10)(A)(ii)(XV))
+Individuals eligible in this category are working individuals with disabilities between ages 16 and 65 whose income does not exceed established levels.
+
+Ticket to Work Medical Improvement Group (SSA § 1902(a)(10)(A)(ii)(XVI))
+Individuals eligible in this category are working individuals with disabilities between ages 16 and 65 whose income does not exceed established levels, who lose eligibility in the Ticket to Work Basic Group due to medical improvement and who are employed at least 40 hours per month and earn at least the federally required minimum wage.
+
+Medically Needy Medicaid Eligibility Categories:
+
+Medically Needy Aged (SSA § 1902(a)(10)(C), 42 CFR 435.320 and 435.330) Individuals eligible in this category are age 65 and over with income above the federal poverty level thresholds and who incur large medical expenses. These individuals may subtract these medical bills from their actual income and become eligible if their adjusted income falls below the established poverty level thresholds.
+
+Medically Needy Blind (SSA § 1902(a)(10)(C), 42 CFR 435.322 and 435.330) Individuals eligible in this category are blind with income above the federal poverty level thresholds and who incur large medical expenses. These individuals may subtract these medical bills from their actual income and become eligible if their adjusted income falls below the established poverty level thresholds.
+
+Medically Needy Disabled (SSA § 1902(a)(10)(C), 42 CFR 435.324 and 435.330) Individuals eligible in this category are disabled with income above the federal poverty level thresholds and who incur large medical expenses. These individuals may subtract these medical bills from their actual income and become eligible if their adjusted income falls below the established poverty level thresholds.
+
+|top of section|
+|top of page|
+
+Section III. Waiver Authority
+
+The State seeks such waiver authority as necessary under the demonstration to implement a 30-month transfer of assets lookback period for coverage of CBLTC services, and approval to exclude certain Mainstream Managed Care enrollees from these rules. This initiative was adopted to eliminate Medicaid payments that could be covered by an individual’s own income and/or resources that were transferred, if the transfer is subject to the imposition of a transfer of asset penalty period.
+
+Pursuant to the State’s statutory change, New York will be submitting a State Plan Amendment to request CMS approval to apply transfer of assets rules beginning January 1, 2021 to certain categories of individuals applying for coverage of CBLTC services (non-institutionalized individuals). In addition to the request to amend our State Plan, New York is seeking further approval through this proposed amendment to our Section 1115 waiver in order to implement this change more efficiently, contain costs and conform with changes in State law. 42 USC § 1396p9(c)(1)(B)(i) requires a 60-month lookback / transfer penalty for institutionalized individuals, or, at the option of the state, for non-institutionalized individuals as well. As provided for in the recently enacted State law, New York will be seeking approval under the Section 1115 waiver to apply a look-back period of thirty (30) months, rather than the federally required sixty (60) months.
+
+In addition, for individuals covered in the Medicaid eligibility groups that will be impacted by the State’s intended change, CBLTC services are provided primarily through Medicaid fee-for- service and managed long-term care (MLTC) plans. Some individuals in the Medicaid eligibility groups that will be impacted may receive these services through Medicaid mainstream managed care (MMC) plans. Under current standards, the services provided through MMC plans are included in one benefit package and enrollees are not required to be in need of CBLTC services for MMC plan enrollment. Conversely, MLTC plan enrollees are required to be in need of more than 120 days of CBLTC services. Therefore, the State is seeking approval through this proposed amendment to the State’s Section 1115 waiver to exclude from this initiative all individuals that are enrolled in MMC plans, regardless of whether an individual is in a category that the State has elected to include in the eligibility groups that will be subject to non-institutional transfer penalties, and include MLTC plan enrollees receiving CBLTC services.
+
+Further, the State will implement these proposed transfer of assets rules only to those newly seeking CBLTC services on or after January 1, 2021, and not to individuals already receiving CBLTC services on that date. This is in keeping with Federal and State practice implementing transfer of asset rules by "grandfathering" in individuals already in eligibility groups and receiving services that would be subject to transfer of assets rules.
+
+In summary, and in relation to the Comparability provisions of SSA §1902(a)(10(B), New York is seeking such waiver authority as necessary under the demonstration to, effective January 1, 2021:
+
+Implement a 30-month transfer of assets lookback period for coverage of CBLTC services, rather than the federally required 60 months (See 42 USC § 1396p9(c)(1)(B)(i));
+
+Impose the 30-month transfer of assets provision on individuals newly seeking CBLTC services through Medicaid fee-for-service or Managed Long Term Care plan enrollment on or after January 1, 2021, but exclude individuals seeking CBLTC services through Mainstream Managed Care or a Medicaid Advantage Plan; and
+
+Phase in the application of the CBLTC transfer rules and 30-month lookback on January 1, 2021, meaning that applications for CBLTC services submitted on or after January 1, 2021 would be assessed for any transfers made on or after October 1, 2020.
+
+|top of section|
+|top of page|
+
+Section IV. Expenditure Authority
+
+The State seeks such expenditure authority as necessary under the demonstration to implement a 30-month transfer of assets lookback period for coverage of CBLTC services through Medicaid fee-for-service and Managed Long Term Care Plans, and approval to exclude Mainstream Managed Care enrollees from these rules to maintain uniformity in the Mainstream benefit package. This initiative was adopted to eliminate Medicaid payments that could be covered by an individual’s own income and/or resources that were transferred, if the transfer is subject to the imposition of a transfer of asset penalty period. Therefore, the State is not seeking approval of additional expenditures for healthcare related costs for any Demonstration- Eligible populations.
+
+|top of section|
+|top of page|
+
+Section V. Beneficiary Impact
+
+The State reviewed current utilization of services while preparing this proposal, and developed estimates of potential asset transfers. It is estimated that in 2021 and annually thereafter, approximately 2,700 new non-institutionalized applicants seeking Medicaid coverage of CBLTC through enrollment in a Managed Long Term Care Plan and approximately 40 applicants through Medicaid fee-for-service would be subject to an average penalty period of .85 months as a result of an average $10,000 prohibited transfer during the 30-month transfer of assets lookback period. These are services that might be necessary for an individual to avoid institutionalization and remain in the community. However, these transfers would also result in a penalty period for Medicaid coverage of nursing home care, for consumers who are admitted to a nursing home during a transfer penalty period. It should be noted that once a penalty is imposed, the penalty impacts both levels of care - the same penalty period is not applied twice.
+
+The proposal to apply a 30-month look-back rather than 60 months will decrease the documentation required at application as compared to applications for Medicaid coverage of nursing home care, and reduce the review of transactions that may potentially result in a transfer of assets penalty for non-institutionalized individuals seeking CBLTC services through Medicaid fee-for-service or enrollment in MLTC.
+
+If the proposal to exclude beneficiaries enrolled in MMC and Medicaid Advantage from transfer of assets penalties for CBLTC services is approved, there will be no impact to these beneficiaries.
+
+|top of section|
+|top of page|
+
+Section VI. Budget Neutrality
+
+The State reviewed current utilization of services while preparing this proposal, and developed estimates of potential asset transfers. This statutory change was recommended by Medicaid Redesign Team II and adopted by the New York State Legislature in order to ensure that Medicaid payments are not used when CBTLC services could be covered by an individual’s own income and/or resources that were transferred, if the transfer is subject to the imposition of a transfer of asset penalty period. It is estimated that in 2021 and annually thereafter, approximately 2,700 new non-institutionalized applicants seeking Medicaid coverage of CBLTC through enrollment in a Managed Long Term Care Plan and approximately 40 applicants through Medicaid fee-for-service would be subject to an average penalty period of 0.85 months as a result of an average $10,000 prohibited transfer during the 30-month transfer of assets lookback period. Assuming an effective date of January 1, 2021, and as a result of this amendment, the State estimates approximately 2,700 new members will be impacted against an annual total enrollment of 2.8 million demonstration recipients. This amendment is expected to reduce the average annual total demonstration cost of $40 billion by $2.525 million in federal savings through the end of the current waiver period. Accordingly, any impact on the annual total enrollment of 2.8 million demonstration recipients, or individuals enrolled in Medicaid fee-for-service, is expected to be fairly small.
+
+|top of section|
+|top of page|
+
+Section VII. Compliance with Tribal Consultation and Public Notice
+
+Consistent with notice requirements, the State is notifying and seeking input from Tribal leaders and colleagues in Indian Health Centers, and posting public notice to the New York State Register seeking public input regarding implementation of a 30-month transfer of assets lookback period for coverage of CBLTC services, and approval to exclude Mainstream Managed Care and Medicaid Advantage enrollees from these rules.
+
+|top of section|
+|top of page|
+
+Section VIII. Evaluation Design
+
+New York believes this proposal will have no impact to evaluation design. This initiative is estimated to impact approximately 2,700 applicants for CBLTC services through MLTC enrollment and approximately 40 applicants through Medicaid fee-for-service in 2021 and annually thereafter. Because the impact is relatively small, it will not significantly impact current evaluation methodology.
+
+|top of page|
+
+Back to top
+
+Revised: August 2020
+
+Department of Health
+
+General Information
+
+James V. McDonald, M.D., M.P.H., Commissioner
+
+About the Department of Health
+
+Meetings & Webcasts
+
+Employment Opportunities
+
+Wadsworth Center
+
+AIDS Institute
+
+New York State Veterans Homes
+
+Helen Hayes Hospital
+
+NY State of Health (Health Plan Marketplace)
+
+New York State Physician Profile
+
+New York State Public Health Corps
+
+Contact
+
+Councils and Boards
+
+Grants & Funding Opportunities
+
+Laws & Regulations
+
+Press Releases, Reports & Publications
+
+Freedom of Information Law (FOIL)
+
+Forms
+
+Current Issues/Info
+
+Abortion in NYS: Know Your Rights
+
+Bird Flu (Avian Influenza)
+
+Consumer Directed Personal Assistance Program (CDPAP)
+
+Donate Life - Enroll Today!
+
+Drinking Water Protection Program
+
+Ending the Epidemic
+
+Lesbian, Gay, Bisexual and Transgender Health
+
+Long COVID
+
+Measles
+
+Medicaid in New York State
+
+Office of Drug User Health
+
+Polio
+
+Reproductive Health
+
+Vaping and E-Cigarettes
+
+Wastewater Surveillance
+
+Help
+
+Help Increasing the Text Size in Your Web Browser
+
+File Formats Used on this Web Site
+
+Disclaimer
+
+Privacy Policy
+
+Accessibility
+
+Language Assistance
+
+English
+
+Español (Spanish)
+
+中文 (Chinese)
+
+Русский (Russian)
+
+ইংরেজি (Bengali)
+
+Italiano (Italian)
+
+Kreyòl Ayisyen (Haitian-Creole)
+
+한국어 (Korean)
+
+יידיש (Yiddish)
+
+العربية (Arabic)
+
+Polski (Polish)
+
+Français (French)
+
+اُردُو (Urdu)
+
+Website Language Translations
+
+CONNECT WITH US
+
+FACEBOOK
+
+X
+
+YOUTUBE
+
+INSTAGRAM
+
+FLICKR
+
+LINKEDIN
+
+THREADS
+
+BLUESKY

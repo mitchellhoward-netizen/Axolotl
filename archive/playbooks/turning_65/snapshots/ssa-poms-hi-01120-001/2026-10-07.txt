@@ -1,0 +1,943 @@
+Skip to content
+
+Program Operations Manual System (POMS)
+
+Effective Dates: 06/05/2026 - Present
+Previous | Next
+
+TN 26 (06-26)
+
+HI 01120.001 Overview of New Initial Determinations on the Income-Related Monthly Adjustment Amount
+(IRMAA) Using Beneficiary Provided Information
+
+CITATIONS:
+
+20 CFR 418.1150;
+
+20 CFR 418.1201 through 20 CFR 418.1270;
+
+20 CFR 418.1301 through 20 CFR 418.1355
+
+A. Definition of new initial determination
+
+A new initial determination is a new decision made by SSA. It does not require the
+reopening or revising of a prior determination. Only the income-related monthly adjustment
+amount (IRMAA) process uses new initial determinations.
+
+We make IRMAA determinations based on information the IRS provides electronically.
+If the beneficiary wants SSA to use a more recent year's tax return information or
+information that is more accurate to make their IRMAA determination(s), they can request
+a new initial determination.
+
+NOTE: If the data received electronically from IRS does not indicate that a beneficiary
+owes an IRMAA, we cannot impose an IRMAA using beneficiary provided data.
+
+B. Policy for requesting a new initial determination
+
+Some circumstances allow us to use the modified adjusted gross income (MAGI) information
+the beneficiary provides, rather than the information we receive from IRS to make
+a new initial determination of the IRMAA. See the circumstances listed in HI 01120.001D in this section.
+
+1.
+
+If the beneficiary meets the criteria for a new initial determination, there is no
+need to appeal the prior determination. For an overview of the appeals process for
+IRMAA, see HI 01140.001.
+
+2.
+
+In order for us to make a new initial determination of IRMAA, the beneficiary:
+
+•
+
+must have a qualifying circumstance; and
+
+•
+
+must request, either verbally or in writing, that we use other tax information.
+
+NOTE: A beneficiary can file an appeal and request a new initial determination at the same
+time, if filed within the appeals period.
+
+A request for a new initial determination applies only to the beneficiary requesting
+it.
+
+If a beneficiary requests a new initial determination and provides information that
+could affect a spouse or ex-spouse, we do not extend its findings to the non-reporting
+spouse or ex-spouse. It is the responsibility of the affected beneficiary to contact
+us.
+
+If a beneficiary has a representative payee, the beneficiary or the payee can request
+a new initial determination on the beneficiary's behalf.
+
+C. Timeframes for requesting a new initial determination
+
+The allowable timeframes to request a new initial determination differ depending on
+the type of information the beneficiary reports.
+
+The beneficiary must file a request for a new initial determination within the appropriate
+timeframes listed in HI 01120.005, HI 01120.045 through HI 01120.060.
+
+If we can establish good cause, a request filed outside of the allowable timeframes
+is acceptable. For instructions on developing good cause, see GN 03101.020.
+
+A new initial determination is a new decision we make that does not require reopening
+or revising a prior initial determination during a specified period. Only the IRMAA
+process uses new initial determinations.
+
+D. Circumstances for allowing a new initial determination
+
+The following chart provides references on circumstances allowing new initial determinations:
+
+Life Changing Event (LCE)
+
+See HI 01120.005
+
+Amended Tax Return Filed with the IRS
+
+See HI 01120.045
+
+Correction of IRS Information
+
+See HI 01120.050
+
+Use of two-year-old tax return when we use IRS information from three years prior
+to the premium year
+
+See HI 01120.055
+
+Report of a change in Living Arrangement when Tax Filing status is Married Filing
+Separately
+
+See HI 01120.060
+
+E. Procedure for service representative (SR) or 800 number agent for new initial determination
+requests
+
+The following chart provides guidance on how to resolve the beneficiarys concerns
+for new initial determination requests:
+
+Determine the Reason for the ContactSR, 800-Number Agent, or Receptionist
+
+If
+
+Then
+
+Why
+
+the beneficiary alleges a life changing event (LCE) that affects MAGI, the qualifying
+LCEs are:
+
+•
+
+Death of Spouse;
+
+•
+
+Marriage;
+
+•
+
+Divorce or annulment;
+
+•
+
+Work Reduction;
+
+•
+
+Work Stoppage;
+
+•
+
+Loss of income-producing property;
+
+•
+
+Loss of employer pension income; or
+
+•
+
+Receipt of an employer payment
+
+800-Number Agents:
+
+Set up an appointment with the servicing field office.
+
+If the beneficiary does not want to go into the office and is only reporting a life-changing
+event, the SSA-44, Medicare Income-Related Monthly Adjustment Amount Life Changing Event is available
+online at
+
+Internet: http://www.ssa.gov/online/ssa-44.pdf
+
+The SSA-44 is only for beneficiaries wishing to request a new initial determination, based on
+a valid LCE; use of the form is optional.
+
+SRs:
+
+•
+
+Refer to or make an appointment with a claims representative (CR).
+
+•
+
+Advise the beneficiary that we need evidence of both the LCE and the more recent tax
+year's MAGI submitted, per HI 01120.005 through HI 01120.043.
+
+NOTE: If the beneficiary has not filed a tax return for the most recent tax year, we need
+a statement from the beneficiary estimating the MAGI.
+
+If the result of the LCE is a significant reduction of MAGI or a change in tax filing
+status that results in the use of a lower threshold table, the beneficiary can qualify
+for a new initial determination.
+
+the beneficiary alleges amending the tax return for the tax year we use to establish
+IRMAA
+
+800-Number Agents:
+
+Set up an appointment with the servicing field office.
+
+SRs:
+
+1.
+
+Refer to or make an appointment with a CR.
+
+2.
+
+Advise the beneficiary to provide:
+
+•
+
+the amended return, and
+
+•
+
+a letter from IRS acknowledging receipt of the amended tax return. If the beneficiary
+does not have a letter, they can get a transcript of the amended tax return from IRS.
+
+The beneficiary may be eligible for a new initial determination. For the policy on
+using an amended tax return, see HI 01120.045A.1.
+
+the beneficiary states that IRS made an error in the tax year we use to establish
+IRMAA
+
+NOTE: If the beneficiary alleges error in tax-exempt interest income, see HI 01120.050F.
+
+ask the beneficiary if they contacted IRS about the error:
+
+•
+
+If no, then provide the beneficiary with the number to IRS, 1-800-829-1040, to request a correction. Advise the beneficiary to recontact us after they receive
+a letter from IRS about the correction.
+
+•
+
+If yes and the beneficiary has proof from IRS about the correction:
+
+800-Number Agents:
+
+Set up an appointment with the servicing field office.
+
+SRs:
+
+Refer to or make an appointment with a CR.
+
+NOTE: If the beneficiary already contacted IRS and lacks IRS documentation, advise the
+beneficiary that we need to see the documentation from IRS before we can fully process
+the request.
+
+It is the beneficiarys responsibility to contact IRS for a correction of IRS information.
+A beneficiary must provide us with documentation of an IRS correction before we can
+make a new initial determination.
+
+we use three-year-old tax information to establish IRMAA and the beneficiary filed
+a tax return for two years before the premium year, or alleges they did not have to
+file a tax return for that tax year
+
+800 Number Agents:
+
+Set up an appointment with the servicing field office.
+
+SRs:
+
+Refer to or make an appointment with a CR.
+
+Both 800 Number Agents and SRs:
+
+If the beneficiary filed a tax return for the tax year two years before the premium
+year, advise the beneficiary that they must provide the signed two-year-old tax return
+or similar proof (such as a transcript), and submit the proof from IRS in order for
+us to complete their request.
+
+NOTE: If a beneficiary alleges electronic filing, ask the beneficiary to print and sign
+a copy of the electronic return.
+
+The beneficiary may be eligible for a new initial determination. For information on
+using old tax data, see HI 01120.055A.
+
+the beneficiary states that the tax return for the tax year we use to establish IRMAA
+is based on the status of Married Filing Separately, but they did not live with their
+spouse at all during that tax year
+
+800 Number Agents:
+
+Set up an appointment with the servicing field office.
+
+SRs:
+
+Refer to or make an appointment with a CR.
+
+Both 800 Number Agents and SRs:
+
+Advise the beneficiary that they must provide a copy of IRS Form 1040, or attest under
+penalty of perjury that they did not live with their spouse at all during that tax
+year, and provide the last known address of the spouse. For acceptable documentation
+on IRS Form 1040, see HI 01120.060B.
+
+The beneficiary may be eligible for a new initial determination. For information on
+married, filing separately when the beneficiary did not live with their spouse all
+year, see HI 01120.060.
+
+F. Determining if a request is for a new initial determination or an appeal and how to
+handle the request
+
+The field office processes most new initial determination and reconsideration requests.
+Occasionally, the PC may receive a request from a beneficiary directly or from the
+field office because a processing limitation occurred. The PC is responsible for processing
+all requests received. When a field office or PC receives a request for a new initial
+determination, take the following actions:
+
+1.
+
+Determine if any actions are currently pending;
+
+2.
+
+Determine if an action has been taken but a processing limitation has occurred,
+
+NOTE: If a processing limitation exists, the PC must process a manual action. The FO will
+not be able to process the request to completion. DO NOT make multiple inputs in POS
+if the first input does not process in 48 hours. Review the THIS Query for a possible
+T2R exception that require PC manual action.
+
+3.
+
+Check and review the IRMAA Appeals Tracking System to determine if an appeal is pending;
+
+4.
+
+If an appeal is pending, review the information in the Appeals Tracking System to
+determine if the NEW INITIAL DETERMINATION request is for the same premium year as
+the appeal.
+
+a.
+
+If the premium year is the same, see HI 01120.001I, in this section, for processing instructions.
+
+b.
+
+If there is no appeal pending or there is a different premium year involved, process
+the request as explained in HI 01120.005 through HI 01120.060.
+
+NOTE: If a beneficiary has a representative payee, the beneficiary or the representative
+payee can request a new initial determination on the beneficiary's behalf.
+
+The following chart provides guidance for handling requests for new initial determinations:
+
+If
+
+Then
+
+Why
+
+the beneficiary alleges a life-changing event causing a significant reduction in modified
+adjusted gross income (MAGI)
+
+•
+
+treat as a request for a new initial determination.
+
+•
+
+do not take a request for an appeal unless the beneficiary insists. (For information
+on appeals, see HI 01140.001).
+
+•
+
+follow the instructions on life changing events (LCE) in HI 01120.005 through HI 01120.043.
+
+We can use certain events to make a new determination without filing an appeal.
+
+NOTE: A beneficiary can file an appeal and request a new initial determination at the same
+time.
+
+the beneficiary alleges there is an amended tax return for the tax year that we use
+to determine the IRMAA
+
+•
+
+treat as a request for a new initial determination.
+
+•
+
+do not take a request for an appeal unless the beneficiary insists (For information
+on appeals, see HI 01140.001).
+
+•
+
+follow instructions on using amended income tax returns in HI 01120.045.
+
+We can use an amended tax return to make a new determination without filing an appeal.
+
+NOTE: A beneficiary can file an appeal and request a new initial determination at the same
+time.
+
+the beneficiary alleges there is corrected IRS information for the tax year that we
+use to determine the IRMAA
+
+•
+
+treat as a request for a new initial determination.
+
+•
+
+do not take a request for an appeal unless the beneficiary insists. (For information
+on appeals, see HI 01140.001).
+
+•
+
+follow instructions on using corrected IRS tax data in HI 01120.050.
+
+We can use corrected IRS tax information to make a new determination without filing
+an appeal.
+
+NOTE: A beneficiary can file an appeal and request a new initial determination at the same
+time.
+
+the beneficiary alleges there is a copy of a tax return from two years before the
+premium year and we use three-year-old information to set IRMAA or alleges they did
+not have to file taxes for that tax year
+
+•
+
+treat as a request for a new initial determination.
+
+•
+
+do not take a request for an appeal unless the beneficiary insists. (For information
+on appeals, see HI 01140.001).
+
+•
+
+follow instructions on using old tax data in HI 01120.055.
+
+We can use certain events to make a new determination without filing an appeal.
+
+NOTE: A beneficiary can file an appeal and request a new initial determination at the same
+time.
+
+the beneficiary alleges filing a tax return for the tax year we use to establish IRMAA
+as Married Filing Separately and did not live with their spouse at all during that
+tax year
+
+•
+
+treat as a request for a new initial determination.
+
+•
+
+do not take a request for an appeal unless the beneficiary insists. (For information
+on appeals, see HI 01140.001).
+
+•
+
+follow instruction on married, filing separately when the beneficiary did not live
+with their spouse all year in HI 01120.060.
+
+We can use certain events to make a new determination without filing an appeal.
+
+NOTE: A beneficiary can file an appeal and request a new initial determination at the same
+time.
+
+G. Processing a request for a new initial determination when evidence is not readily
+available
+
+All requests for a new initial determination require that the beneficiary provide
+evidence of a life-changing event (LCE) and more recent or accurate tax information.
+In some situations, the beneficiary can provide estimates of tax information pending
+the submission of evidence.
+
+NOTE: If the PC receives a request directly from the beneficiary, or erroneously from
+the FO, the PC will process the request using the following instructions. Do not transfer
+the case to the FO.
+
+If
+
+Then
+
+a beneficiary requests a new initial determination, but does not have evidence readily
+available
+
+Access the IRMAA screens (See screen details in MSOM T2PE 008.001 through MSOM T2PE
+008.019).
+
+1.
+
+On the IRMN screen:
+
+•
+
+Enter the beneficiary's own SSN.
+
+•
+
+In the Select the Desired Option field, select 1 Establish.
+
+•
+
+Input the Premium Year applying to the new initial determination.
+
+•
+
+In the Select the Desired Function field, select 1 Life Changing Event or 2 Tax Information.
+
+•
+
+Input the Tax Year the beneficiary requests we use to determine the IRMAA.
+
+•
+
+Press Enter.
+
+If the PYTY screen appears, there is data on file for the tax year requested and it
+displays under the Highest Probative Value Data Field. (For an explanation of Highest
+Probative see MSOM T2PE 008.019.)
+
+•
+
+If you select 1, use the highest probative value, the system will process the determination
+using the data on file. Note: The data also propagates to the IRMA screen.
+
+•
+
+If you select 2 New Tax Data, the system will process the determination using the
+new information provided, as long as the value of the data is of higher value than
+the information on file. See MSOM T2PE 008.019.
+
+•
+
+Press Enter.
+
+2.
+
+On the IRLC screen (if an LCE is involved):
+
+•
+
+In the Select Life Changing Event field, select the appropriate Event 1 through 7.
+
+•
+
+In the Date of LCE field, enter the date of the LCE that the beneficiary is claiming.
+
+•
+
+If we require proof of the LCE and a beneficiary statement is not sufficient and the
+proof is not available, use the allegation of the beneficiary. Show proof as PENDING.
+
+•
+
+In the Remarks field, document any information related to the LCE or leave blank.
+
+•
+
+Press Enter.
+
+3.
+
+On the IRMA screen:
+
+•
+
+Input the beneficiary's alleged adjusted gross income and tax-exempt income for the
+tax year the beneficiary is requesting to use. NOTE: If you select 1, Use Highest Probative Data on the PYTY, the tax data propagates
+into this field and you cannot change it.
+
+•
+
+On the Select Type field, select the appropriate tax source, based on the information
+the beneficiary provides. See MSOM T2PE 008.005.
+
+•
+
+On the Select Filing Status field, enter the appropriate filing status for the beneficiary.
+
+•
+
+On the Select Proof field, select 1 Proven. If proof of the tax information is required
+and proof is not available, show proof as PENDING.
+
+•
+
+Press Enter.
+
+Inform the beneficiary that you will dismiss the new initial determination if they
+do not provide the required evidence within 30 days.
+
+•
+
+If the beneficiary is unable to submit the documents immediately, or if they request
+a formal notice of our request, send the DPS notice, IRMAA Request For Information
+informing the beneficiary of all documents needed and the timeframe in which to return
+them.
+
+NOTE: PCs send the AURORA exhibit notice E4008
+
+•
+
+Prepare a 15-day follow-up tickle or Processing Center Action Control System (PCACS)
+diary using TOEL1/TOEL2=MEDACT IRMAA.
+
+after 15 days have passed from the date the beneficiary requested a new initial determination
+and you have not received the necessary evidence
+
+•
+
+Query the Master Beneficiary Record (MBR), Evidence (EVID), and IRMAA screens for
+any updated activity, as it is possible that another office received the required
+evidence and completed the IRMAA action.
+
+•
+
+If another office completed the action, cancel any outstanding tickles or PCACS diaries.
+
+•
+
+If there has been no update activity, contact the beneficiary to remind them of the
+time remaining and the evidence needed to process the new initial determination. If
+unable to contact the beneficiary by phone, send the DPS IRMAA Request For Information
+notice and include the closeout paragraph with the request for evidence.
+
+•
+
+Prepare another 15-day tickle or PCACS diary (or 90 days if the beneficiary requests
+additional time to provide proof).
+
+after 30 days have passed from the date the beneficiary requests a new initial determination
+(or 90 days if the beneficiary requests additional time to provide proof) and you
+have not received the necessary evidence or the evidence submitted is insufficient
+
+•
+
+Query the MBR, EVID, and IRMAA screens for any updates, as it is possible that another
+SSA office received the required evidence and completed the IRMAA action.
+
+•
+
+Access the IRMAA screens to change the proof from PENDING to NOT PROVEN. (See screen
+details in MSOM T2PE 008.001 through MSOM T2PE 008.019).
+
+•
+
+Process the dismissal on the IRMAA Results (IRRE) screen. The system automatically
+sends the dismissal notice.
+
+NOTE: If a beneficiary has not provided the required proof within the 30 days and they re-contact
+us to request additional time to provide the proof, advise them that we may grant
+a 90-day extension. If you do not receive proof within the additional 90 days, process
+as a dismissal.
+
+the beneficiary provides the requested proof
+
+•
+
+Query the MBR, EVID, and IRMAA screens for any updates, as it is possible that another
+SSA office received the required evidence and completed the IRMAA action.
+
+•
+
+Access the IRMAA screens to change the proof from PENDING to PROVEN. (See screen details
+in MSOM T2PE 008.001 through MSOM T2PE 008.019).
+
+•
+
+The IRRE Screen displays the current and recalculated IRMAA data. The New Determination
+Results field provides the new initial determination based on the information entered.
+
+•
+
+The IRMN Screen displays an alert to go to the EVID screen to document proofs submitted
+for the event reported. Pressing any PF key or the Enter key from the IRMN screen
+takes you to the Shared Processes Menu.
+
+H. Procedure for recording evidence submitted for a new initial determination request
+
+You must record all evidence submitted with a new initial determination request on
+the EVID screen of Shared Processes (Selection Number 4 on the SSA Main Menu). Pressing
+any PF key or the Enter key from the IRMN screen takes you to the Shared Processes
+Menu.
+
+NOTE: If we receive an SSA-44 (Medicare Income-Related Monthly Adjustment Amount - Life-Changing
+Event) to report an LCE, destroy the form once you document all the information from
+the form on the IRMAA screens and document all evidence received regarding the LCE
+on the EVID screen in Shared Processes. For instructions on how to complete the IRMAA
+screens and document the EVID screen, follow HI 01120.005 through HI 01120.043.
+
+Once you record all information in the IRMAA system, and you properly document the
+EVID screens, you may destroy all SSA-795s (Statement of Claimant or other person),
+related to the IRMAA, containing information documented on the IRMAA screens and in
+the EVID screen in Shared Processes. This includes an SSA-795 providing an income
+estimate or stating the beneficiary did not have to file a tax return.
+
+If
+
+Then
+
+the evidence submitted is for:
+
+•
+
+Death;
+
+•
+
+Marriage; or
+
+•
+
+Divorce or annulment
+
+follow instructions in GN 00301.286 through GN 00301.300 and MSOM EVID 001.003.
+
+the evidence submitted is for proof of work reduction
+
+see HI 01120.025.
+
+the evidence submitted is for proof of work stoppage
+
+see HI 01120.030.
+
+the evidence submitted is for proof of loss of income-producing property
+
+see HI 01120.035.
+
+the evidence submitted is for proof of loss of employer pension income
+
+see HI 01120.040.
+
+the evidence submitted is for proof of an employer settlement payment
+
+see HI 01120.043.
+
+the beneficiary claims to have an amended tax return for the tax year that SSA is
+using to determine the IRMAA
+
+see HI 01120.045.
+
+the beneficiary claims to have corrected IRS information for the tax year that SSA
+is using to determine the IRMAA
+
+see HI 01120.050.
+
+the beneficiary claims to have a copy of a tax return from two years before the premium
+year or alleges they were not required to file a tax return for the tax year two years
+before the premium year and we used three-year-old information to set IRMAA
+
+see HI 01120.055.
+
+the beneficiary alleges having filed a tax return for the tax year SSA is using to
+establish their IRMAA, as Married Filing Separately and did not live with their spouse
+at all during that tax year
+
+see HI 01120.060.
+
+I. Processing a new initial determination when an appeal is pending
+
+If an appeal is pending and you receive a new initial determination request for the
+same premium year, you must evaluate all the information received and determine if
+the information will or will not change the current IRMAA determination. To evaluate
+the MAGI information, use the IRMAA calculator in MSOM T2PE 008.013.
+
+NOTE: If an appeal is pending with the Department of Health and Human Services (DHHS),
+you should immediately review the new initial determination request when you receive
+it. If you are not able to review the new initial determination request the same day
+you receive it, send an MDW to the Southeastern Program Service Center (SEPSC), FO
+C34 with IRMAA HEAR as the issue. Document the Remarks with the fact that you received
+a new initial determination request and an appeal is currently pending with DHHS for
+the same Premium Year.
+
+If
+
+Then
+
+you receive a new initial determination request, with supporting evidence and a reconsideration
+is pending in the same or another SSA office, for the same premium year
+
+•
+
+do not process the new initial determination request.
+
+•
+
+inform the beneficiary that we will send the new information they provide to the office
+that currently has the appeal pending for the same premium year.
+
+•
+
+document the EVID screens in Shared Processes with any information the beneficiary
+provided for the new initial determination.
+
+•
+
+attach a route slip to the evidence stating New Initial Determination Request, Recon
+Pending Same PY. Associate with IRMAA reconsideration filed mm/dd/yy and forward to
+the appropriate office.
+
+•
+
+send an e-mail to the mailbox of the office with the pending appeal and advise that
+you received a new initial determination request and mailed it on mm/dd/yy. Include
+the name and SSN of the beneficiary.
+
+•
+
+if the appeal is pending in the same office, provide the new and material evidence
+to the technician with the pending reconsideration determination.
+
+the new initial determination request does not change the current IRMAA determination
+and the Department of Health and Human Services' Office of Medicare Hearings and Appeals
+(OMHA) has an appeal pending
+
+•
+
+process the new initial determination as a dismissal as described in HI 01120.005 through HI 01120.060.
+
+•
+
+send an MDW to SEPSC (FO C34).
+
+•
+
+show the ISSUE as IRMAA HEAR.
+
+•
+
+document the REMARKS with a statement that you received and dismissed a new initial
+determination request for the same premium year as the current pending appeal, and
+give a reason for the dismissal.
+
+•
+
+record the evidence submitted on the EVID screen in Shared Processes. (For instructions
+on completing evidence screens, see GN 00301.286 through GN 00301.300 and MSOM EVID 001.003.)
+
+the new initial determination request results in a change of the current IRMAA determination
+and the pending appeal is OMHA jurisdiction
+
+•
+
+do not process the request.
+
+•
+
+send an MDW to SEPSC FO C34.
+
+•
+
+show the ISSUE as IRMAA HEAR.
+
+•
+
+document the REMARKS with a statement that you received a new initial determination
+request. Advise that the new information changes the IRMAA determination and an appeal
+is pending with OMHA.
+
+•
+
+annotate that you are sending the new initial determination request to SEPSC.
+
+•
+
+send the new initial determination request to:
+
+Southeastern Program Service Center
+
+Attn.
+Workload Support Unit 1200 Rev. Abraham Woods Jr. Blvd
+
+Birmingham, AL
+35285.
+
+The new initial determination request will not change the current IRMAA determination
+and the pending appeal is Medicare Appeals Council (MAC) jurisdiction.
+
+•
+
+process a dismissal for the new initial determination as described in HI 01120.005 through HI 01120.060.
+
+•
+
+send an MDW to SEPSC FO C34.
+
+•
+
+show the ISSUE as IRMAA MAC.
+
+•
+
+document the REMARKS with a statement that you received and dismissed a new initial
+determination request for the same premium year as the current pending appeal, and
+give a reason for the dismissal.
+
+•
+
+record the evidence submitted on the EVID screen in Shared Processes (For instructions
+on completing evidence screens, see GN 00301.286 through GN 00301.300 and MSOM EVID 001.003).
+
+The new initial determination request will result in a change of the current IRMAA
+determination and the pending appeal is MAC jurisdiction.
+
+•
+
+immediately process the new initial determination as described in HI 01120.005 through HI 01120.060.
+
+•
+
+send an MDW to SEPSC FO C34.
+
+•
+
+show the ISSUE as IRMAA MAC.
+
+•
+
+document the REMARKS with a statement that you received and processed a new initial
+determination request. State that the new information resulted in a change of the
+current IRMAA determination and an appeal is pending with MAC.
+
+•
+
+annotate that you are sending the new initial determination request to SEPSC.
+
+•
+
+send the new initial determination request to:
+
+Southeastern Program Service Center
+
+Attn.
+Workload Support Unit 1200 Rev. Abraham Woods Jr. Blvd
+
+Birmingham, AL
+35285
+
+To Link to this section - Use this URL:
+http://policy.ssa.gov/poms.nsf/lnx/0601120001
+
+HI 01120.001 - Overview of New Initial Determinations on the Income-Related Monthly Adjustment Amount (IRMAA) Using Beneficiary Provided Information - 06/05/2026
+
+Batch run: 06/05/2026
+
+Rev:06/05/2026

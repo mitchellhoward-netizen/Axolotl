@@ -1,0 +1,123 @@
+Illinois Department of Human Services
+JB Pritzker, Governor · Dulce M. Quintero, Secretary
+
+Customers
+
+Providers
+
+About
+
+News
+
+Contact
+
+IDHS
+
+About IDHS
+
+Publications
+
+Manuals
+
+Family & Community Services Manuals
+
+Cash, SNAP, and Medical Manual
+
+Manual Releases
+
+MR #26.06 Updates to IES and Verification of Allowable Medical Expense Policy for SNAP
+
+02/19/2026
+
+Summary
+
+This Manual Release clarifies and revises policy regarding verification of allowable medical expenses at SNAP redetermination (REDE).
+
+In an effort to reduce payment error rates in the State of Illinois, the Illinois Department of Human Services (IDHS) is providing clarification on when verification of allowable medical expenses is required.
+
+Language in the Policy Manual regarding processes for verification of allowable medical expenses has been updated.
+
+Updates have also been made in the Medical Expense Module in the Integrated Eligibility System (IES).
+
+In an effort to reduce the payment error rate in Illinois, IDHS is providing clarification on the verification of allowable medical expenses at SNAP redetermination (REDE). This includes updating certain language in the Policy Manual. Updates to PM 19-03-04 provide clarification on when verifications are required for medical expenses for SNAP.
+
+Verification of Medical Expenses
+
+At REDE, workers must verify the following medical expenses:
+
+Previously unreported medical expenses;
+
+Total recurring medical expenses that have changed by more than $25; and
+
+Medical expenses that are incomplete, inaccurate, inconsistent, or that have not been updated within the last 60 days.
+
+Note: If the customer does not provide proof of an expense for which verification is required, approve the SNAP REDE application without allowing a deduction for the expense. Document why the expense was not allowed.
+
+Outdated Medical Expenses
+
+At SNAP REDE, workers must address and verify any outdated medical expense(s). Medical expenses will be considered outdated if they are 60 days old or older at the time of the REDE. These medical expenses must still be verified even when the customer reports that the amount of the expense(s) has not changed or that the change is less than $25. In these situations, the worker should issue a Verification Checklist requesting proof of the expense(s).
+
+For medical expenses that are less than 60 days old the worker should confirm with the customer that the expenses are still accurate. This includes medical expenses that have been submitted within the last 60 days old and not yet acted on. This also includes medical expenses that were submitted within the last 60 days, already acted on, and budgeted on the SNAP case. In these situations, a new verification for the medical expense is not required if the customer states that the medical expense is still accurate.
+
+Outdated Medical Expenses and Case Error Reduction (CER)
+
+Outdated medical expenses that are 60 days or older will be flagged in the Case Error Reduction (CER) page in IES. Information for the medical expenses will be displayed after Wrapup - Eligibility Summary and will provide details regarding the specific error for the medical expense for the worker to resolve. More information regarding CER and medical expenses in IES can be found in the Resource Center in IES under "Case Error Reduction DCPEI".
+
+Example 1: Susan submitted her SNAP REDE and completed her interview on 12/10/2025. During her interview, she stated she started paying monthly for her Aetna Medicare insurance in the amount of $200 on 11/01/2025. She currently has no other reported medical expenses on her case. She did not provide verification of her new medical expense at the time of her interview. The worker generated a Verification Checklist requesting verification of the Aetna Medicare insurance including the monthly amount for which she is responsible. The Verification Checklist is due 12/22/2025. If Susan does not provide verification of her medical expense by the due date, the worker will approve her SNAP REDE application without allowing the expense. If she provides the appropriate verification by the due date, the worker will then proceed with approving her REDE with the allowable medical expense.
+
+Example 2: Jan submitted her SNAP REDE on 01/08/2026 and her telephone interview was held on 01/15/2026. During her interview the worker asked if she has any new medical expenses that she is responsible for paying. Jan stated she still pays $150 per month for her supplemental Medicare plan insurance premium and provided that verification at her last SNAP REDE in January 2025. The worker reviewed the Medical Expense Details page in IES and found that this premium was budgeted and the customer was allowed the Standard Medical Deduction for SNAP. There is no change in the amount for the Medicare Supplement insurance, however, the verification is more than 60 days old at time of REDE therefore the worker will need to verify this medical expense. The worker will send a Verification Checklist and Jan will have 10 days to return an updated verification of her Medicare supplement insurance.
+
+Example 3: Dave submitted their SNAP REDE on 12/04/2025 and the telephone interview was conducted on 12/11/2025. During the interview the worker asked Dave about their Humana Medicare insurance premium which was reported on the REDE. Dave stated they started paying $100 per month on 11/01/2025. When reviewing the verifications provided the worker saw that Dave submitted a brochure about the Humana plan benefits however failed to provide adequate verification of the actual insurance premium for which they are responsible for paying. The worker determined that the document submitted did not provide the required information to allow the medical expense and, due to this being a new medical expense, issued a Verification Checklist requesting appropriate verification. Dave will have 10 days to respond to the request and if they do not, the worker will approve the SNAP REDE application without allowing a deduction for the medical expense.
+
+IES Update
+
+In an effort to reduce the payment error rates, the Medical Expense Module in IES will be updated to ensure medical expense information is accurate for both historical and current records. Updates have been made to the following pages:
+
+Medical Expenses - Summary;
+
+Medical Expenses - Details; and
+
+Data Collection Summary pages.
+
+IES Wizard titled Record Medical Expenses has been updated to provide further guidance and instruction on how to record new medical expenses and edit existing medical expenses for SNAP budgeting. IES Alert titled Medical Expenses-Summary Page Update provides further clarification on the update to the Medical Expense Module in IES. Workers should refer to the IES Wizard and IES Tip Alert for guidance and clarification on recording medical expenses for SNAP.
+
+Note: Workers must continue to document in the Case Comments section in IES for both new and existing medical expenses even if there is no change to the medical expense or Standard Medical Deduction. This will ensure that the medical expense is properly addressed with the customer for budgeting and benefit issuance.
+
+Manual Revision
+
+PM 19-03-04
+
+WAG 19-03-04
+
+[signed copy on file]
+
+Dulce M. Quintero
+
+Secretary, Illinois Department of Human Services
+
+Forms Referenced
+
+IL444-0267 Verification Checklist
+
+Illinois Department of Human Services
+JB Pritzker, Governor · Dulce M. Quintero, Secretary
+
+IDHS Office Locator
+
+IDHS Help Line
+
+1-800-843-6154
+
+1-866-324-5553 TTY
+
+State of Illinois
+
+Accessibility
+
+Privacy
+
+Report Abuse/Neglect
+
+Contact
+
+Outlook Login

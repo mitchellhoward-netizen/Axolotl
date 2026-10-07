@@ -1,0 +1,30 @@
+# California sources for the Turning 65 playbook. leginfo.legislature.ca.gov
+# refuses scripted and WebFetch requests (HTTP 403), so the Insurance Code text
+# itself could not be snapshotted; see T65-CA-OQ-01.
+sources:
+  - id: ca-cdi-sa-01-10b
+    retrieved: 2026-10-07
+    url: https://www.insurance.ca.gov/0150-seniors/0100alerts/SA-01-10B.cfm
+    publisher: California Department of Insurance
+    title: "Senior Alert SA-01-10B: Changes to Medigap Insurance (advisory dated 02/10/2010)"
+    kind: primary
+    jurisdiction: ca
+    doc_type: agency_page
+    published: 2010-02-10
+    note: Page states the birthday rule as 60 days; secondary sources say the window was 30 days until 2020 (conflict T65-CA-CONFLICT-01).
+  - id: ca-cda-hicap
+    retrieved: 2026-10-07
+    url: https://aging.ca.gov/Programs_and_Services/Medicare_Counseling/
+    publisher: California Department of Aging
+    title: Medicare Counseling (HICAP)
+    kind: primary
+    jurisdiction: ca
+    doc_type: agency_page
+  - id: healthinsurance-org-medicare-ca
+    retrieved: 2026-10-07
+    url: https://www.healthinsurance.org/medicare/california/
+    publisher: healthinsurance.org
+    title: Medicare in California
+    kind: secondary
+    jurisdiction: ca
+    doc_type: other

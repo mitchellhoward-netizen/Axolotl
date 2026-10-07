@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://healthweb-back.health.ny.gov/health_care/epic/eligibility.htm
+  final_url: https://healthweb-back.health.ny.gov/health_care/epic/eligibility.htm
+  status: 200
+  content_type: text/html; charset=utf-8
+  text_sha256: 1698b710e875676d7f9f26d7d9659ba52978f2da75ec6273a704e3b0b2f53454
+  text: ny-doh-epic-eligibility/2026-10-07.txt
+  raw: ny-doh-epic-eligibility/2026-10-07.html

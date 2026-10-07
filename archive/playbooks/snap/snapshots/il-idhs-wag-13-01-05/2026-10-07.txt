@@ -1,0 +1,123 @@
+Illinois Department of Human Services
+JB Pritzker, Governor · Dulce M. Quintero, Secretary
+
+Customers
+
+Providers
+
+About
+
+News
+
+Contact
+
+IDHS
+
+About IDHS
+
+Publications
+
+Manuals
+
+Family & Community Services Manuals
+
+Cash, SNAP, and Medical Manual
+
+Workers' Action Guide Chapter Table of Contents
+
+WAG 13: SNAP Eligibility and Benefit Amount
+
+WAG 13-01-00: Determining SNAP Eligibility
+
+WAG 13-01-05: Standard Medical Deductions
+
+PM 13-01-05
+
+Standard Medical Deductions
+
+To be eligible for a Standard Medical Deduction, the Food Assistance household must contain a qualifying member (age 60 or older or disabled) and verify that they have more than $35 per month in allowable medical expenses, see PM 13-01-05-a.
+
+The Standard Medical Deduction for residents of Group Homes, including CILAs is $485 a month.
+
+The Standard Medical Deduction for all other eligible Food Assistance households is $185.
+
+When a Food Assistance household containing a qualifying member, see PM 05-06-01, files an initial application for Food Assistance and the qualifying member has allowable medical expenses, see PM 13-01-05-a, or an active case containing a qualifying member reports medical expenses, verify the medical expenses exceed $35 a month. If the medical expenses do not exceed $35 a month, the Food Assistance household is not entitled to a medical expense deduction. If the medical expenses exceed $35, then allow the appropriate Standard Medical Deduction.
+
+Using Actual Medical Expenses Instead of a Standard Medical Deduction
+
+Food Assistance households with allowable medical expenses over $485 for residents of Group Homes (including CILAs) or $185 for all other Food Assistance households may choose to use actual medical expenses instead of the Standard Medical Deduction. If the Food Assistance household claims that their monthly medical expenses exceed the appropriate standard, verify their total monthly medical expenses. Once the Food Assistance household has verified their total monthly medical expenses, allow the actual medical expenses instead of the Standard Medical Deduction.
+
+If the Food Assistance household verifies that medical expenses exceed $35 but fails to verify total monthly medical expenses, allow the appropriate Standard Medical Deduction. If the Food Assistance household fails to verify any medical expenses, the Food Assistance household is not entitled to a medical expense deduction.
+
+Determining the Amount of Medical Expense for Group Home Services
+
+Verify what portion of the customer's income is retained by the group home and used for housing costs. If the household pays for their own private telephone, also allow the telephone standard as a utility expense. Count the rest of the amount the group home keeps as a medical expense. If an additional medical expense is claimed, such as health insurance, verification must be provided.
+
+Example 1: The group home where Kelly lives keeps $514 of their $564 SSI for their care and states that $0 is for housing costs. Budget $514 as a medical expense.
+
+Example 2: Mr. B is a resident of a group home. Of Mr. B's $580 SSA check, the group home keeps $530 for his care. The group home states and verifies that his housing cost is $300. Mr. B reports and verifies that he pays $35 per month in a private medical insurance policy. Budget $300 for housing costs. The group home medical expense amount is $230 ($530 - $300 = $230). Add the $35 private medical insurance amount to the group home medical expense to get the total medical expenses ($230 + $35 = $265). Mr. B is allowed $485 as a medical expense since $265 is less than the Standard Medical Deduction for group homes.
+
+Example 3: Ms. G lives in a group home. She is employed and earns $120 per month. Her monthly SSI check is $564. Between her earnings and SSI check, the group home keeps a total of $547 for her care. The group home states and verifies that $250 is for housing costs. Budget $250 for housing costs and allow the $485 Standard Medical Deduction since $297 ($547 - $250 = $297) is less than the Standard Medical Deduction for group homes.
+
+Medical Expenses for Customers in Community Integrated Living Arrangements (CILA) Facility
+
+Verify the facility's statement of what portion of the customer's income the CILA facility keeps for housing costs.
+
+Total the verified amount that the customer pays for housing costs, the telephone standard as a utility expense if the household pays for their own private telephone, the PNA, and all other allowable medical expenses that the customer pays for out of pocket.
+
+Subtract this sum from the customer's total gross monthly income and the remaining amount is the CILA medical expense that gets entered into the IES Medical Expenses- Details page when entering the medical expense for Food Assistance.
+
+Additional allowable and verified medical expenses which are not provided by the CILA facility, should be entered as a separate medical expense on the Medical Expenses - Details page in IES, see PM 13-01-05-a.
+
+Standard Deduction
+
+If the sum of the CILA services and other allowable medical expenses (drop cents from the sum) are more than $35 but less than the Group Home Standard Medical Deduction, select Yes on the, Does the client want to opt for Medical Standard? drop down on the Medical Expenses- Details page for all of the allowable medical expenses.
+
+Actual Medical Expenses
+
+If the sum of the CILA services medical expense and other allowable medical expenses (drop cents from the sum) are more than the Group Home Standard Medical Deduction, select No on the, Does the client want to opt for Medical Standard? drop down on the Medical Expenses- Details page for all of the allowable medical expenses.
+
+IES will drop the cents from the sum of the allowable medical expenses, then subtract $35 from that figure, and the result will be the Total Medical Expense (TME) Deduction, which will be shown on the Net Income Calculation Tab in IES Eligibility Summary as, Medical Deduction.
+
+Note: When actual medical expenses are used, the total allowable medical expenses must be more than $35 over the Group Home Standard Medical Deduction. IES will perform this calculation and allow the appropriate TME. Review the Net Income Calculation Tab in IES Eligibility Summary for accuracy.
+
+Example 4: Mr. T receives $994 per month in SSI. He lives in a CILA facility where he pays $500 per month for verified housing costs and does not pay for a telephone. Mr. T keeps $102.80 per month for his PNA and does not pay for any other out-of-pocket medical expenses. His CILA medical expense is the remaining $391.20 per month of his SSI. The worker updates the Medical Expenses- Details page with the CILA medical expense and selects Yes on the, Does the client want to opt for Medical Standard? drop down. The worker runs eligibility and verifies in the Net Income Calculation Tab that the correct Standard Medical Deduction of $450 is being allowed. The calculation is correct and the worker certifies the case. Mr. T qualifies for the Group Home Standard Medical Deduction since his allowable medical expenses are not more than the Group Home Standard Medical Deduction.
+
+Example 5: Ayo receives $1000 per month in RSDI. He lives in a CILA facility and pays $300 per month for verified housing costs, pays for his own private telephone, pays $250 per month for a medical insurance premium, and keeps $102.80 per month for his PNA. The worker enters his CILA medical expense as $280.20 per month and the additional medical insurance premium of $250 per month. Combined they are more than the Group Home Standard. The worker selects No on the Does the client want to opt for Medical Standard? drop down on the Medical Expenses- Details page for both medical expense entries. The worker runs eligibility, reviews the Net Income Calculation Tab and verifies that the actual Medical Deduction being allowed is $495 and certifies the case. Ayo's actual medical expenses are used because they are more than the Group Home Standard Medical Deduction.
+
+Links
+
+WAG 13-01-05-a: Allowable Medical Expenses
+
+WAG 13-01-05-b: Use of Actual Medical Expenses
+
+WAG 13-01-05-c: Nonreimbursable Medical Expenses
+
+WAG 13-01-05-d: Reimbursable Medical Expenses
+
+WAG 13-01-05-e: Medical Expenses Not Used
+
+WAG 13-01-05-f: Pay-in Spenddown Payments
+
+Illinois Department of Human Services
+JB Pritzker, Governor · Dulce M. Quintero, Secretary
+
+IDHS Office Locator
+
+IDHS Help Line
+
+1-800-843-6154
+
+1-866-324-5553 TTY
+
+State of Illinois
+
+Accessibility
+
+Privacy
+
+Report Abuse/Neglect
+
+Contact
+
+Outlook Login

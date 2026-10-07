@@ -1,0 +1,10 @@
+- retrieved: '2026-10-07'
+  url: https://www.cde.ca.gov/ls/nu/univmealsfaq.asp
+  final_url: https://www.cde.ca.gov/ls/nu/univmealsfaq.asp
+  status: 200
+  content_type: txt
+  text_sha256: b62180a3689a0bad3172b14dfebac774e8fab46c709d0f4f5a64360cdfc07cd2
+  text: ca-cde-ump-faq/2026-10-07.txt
+  raw: ca-cde-ump-faq/2026-10-07.raw
+  fetched_via: r.jina.ai reader (https://r.jina.ai/<url>) returning the page text;
+    cde.ca.gov/leginfo block scripted requests

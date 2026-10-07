@@ -1,0 +1,63 @@
+# New York State Supplement Program (SSP). New York sets a "standard of
+# monthly need" (federal SSI + state payment together) by living arrangement
+# in Social Services Law 209(2); the state payment is the standard minus the
+# SSI benefit plus countable income (SSL 209(4)).
+parameters:
+  - id: ny.ssp.standard_of_need_monthly
+    description: >-
+      New York standard of monthly need for additional state payments (SSI +
+      SSP combined), by living arrangement. Family care and residential care
+      have a higher standard in New York City and Nassau, Suffolk, Westchester
+      and Rockland counties ("metro") than in the rest of the state; couples in
+      family, residential or enhanced residential care get twice the
+      individual amount.
+    compare_to: >-
+      SSI countable income (as SSA computes it, counting the value of the
+      one-third reduction as income when it applies); the person is eligible
+      for SSP only if that countable income is LESS than the standard, and the
+      SSP equals the standard minus (SSI benefit + countable income).
+    unit: usd_per_month
+    keyed_by: "arrangement -> household size (1 = individual, 2 = couple); family_care / residential_care -> metro|rest -> size"
+    updates: Each January, by state law, to pass through the federal SSI increase (SSL 209(2)(f)).
+    values:
+      - effective_from: 2025-01-01
+        effective_to: 2025-12-31
+        value:
+          living_alone: {1: 1054.00, 2: 1554.00}
+          living_with_others: {1: 990.00, 2: 1496.00}
+          family_care: {metro: {1: 1233.48, 2: 2466.96}, rest: {1: 1195.48, 2: 2390.96}}
+          residential_care: {metro: {1: 1402.00, 2: 2804.00}, rest: {1: 1372.00, 2: 2744.00}}
+          enhanced_residential_care: {1: 1661.00, 2: 3322.00}
+        confidence: confirmed
+        sources:
+          - {source: ny-ssl-209, locator: "209(2)(a)-(e): On and after January first, two thousand twenty-five ... living alone, $1,054.00 ... couple living alone, $1,554.00; living with others $990.00 / $1,496.00; family care $1,233.48 (NYC, Nassau, Suffolk, Westchester, Rockland) / $1,195.48; residential care $1,402.00 / $1,372.00; enhanced residential care $1,661.00"}
+      - effective_from: 2026-01-01
+        effective_to: 2026-12-31
+        value:
+          living_alone: {1: 1081.00, 2: 1595.00}
+          living_with_others: {1: 1017.00, 2: 1537.00}
+          family_care: {metro: {1: 1260.48, 2: 2520.96}, rest: {1: 1222.48, 2: 2444.96}}
+          residential_care: {metro: {1: 1429.00, 2: 2858.00}, rest: {1: 1399.00, 2: 2798.00}}
+          enhanced_residential_care: {1: 1688.00, 2: 3376.00}
+        confidence: confirmed
+        note: >-
+          The nysenate.gov text marks the 2026 paragraphs "NB Effective December
+          31, 2026" and the 2025 paragraphs "NB Effective until December 31,
+          2026", but each 2026 paragraph itself reads "On and after January
+          first, two thousand twenty-six"; NY DOH's GIS 26 MA/03 applies the
+          2026 SSP amounts ($87 / $104 living alone) from January 1, 2026. The
+          archive uses January 1, 2026 (see DIS-NY-CONFLICT-02).
+        sources:
+          - {source: ny-ssl-209, locator: "209(2)(a): On and after January first, two thousand twenty-six, for an eligible individual living alone, $1,081.00; and for an eligible couple living alone, $1,595.00; (b) living with others $1,017.00 / $1,537.00; (c) family care $1,260.48 / $1,222.48; (d) residential care $1,429.00 / $1,399.00; (e) enhanced residential care $1,688.00"}
+          - {source: ny-gis-26-ma-03, locator: "5. The State Supplement is $87.00 for an individual and $104.00 for a couple living alone."}
+  - id: ny.ssp.metro_counties
+    description: Counties where New York's higher family-care and residential-care standards apply (New York City counties, Nassau, Suffolk, Westchester, Rockland).
+    unit: list
+    updates: Statutory.
+    values:
+      - effective_from: 2025-01-01
+        value: [new york, kings, queens, bronx, richmond, nassau, suffolk, westchester, rockland]
+        confidence: confirmed
+        note: SSL 209 says "the city of New York"; the five boroughs are listed by their county names.
+        sources:
+          - {source: ny-ssl-209, locator: "209(2)(c)(i): in the city of New York or the county of Nassau, Suffolk, Westchester or Rockland"}

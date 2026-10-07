@@ -1,0 +1,67 @@
+# New York sources for long-term care Medicaid. DOH documents are served from
+# healthweb-back.health.ny.gov (same files as www.health.ny.gov), which answers
+# scripted requests. The 2026 standards chart (GIS 26 MA/05 attachment) and
+# GIS 26 MA/03 are already snapshotted by the msp playbook and are cited from there.
+sources:
+  - id: ny-gis-25-ma-14
+    retrieved: 2026-10-07
+    url: https://healthweb-back.health.ny.gov/health_care/medicaid/publications/docs/gis/25ma14.pdf
+    publisher: New York State Department of Health, Office of Health Insurance Programs
+    title: GIS 25 MA/14 — Medicaid Regional Rates for Calculating Transfer Penalty Periods for 2026
+    kind: primary
+    jurisdiction: ny
+    doc_type: directive
+    published: 2025-12-22
+    effective_date: 2026-01-01
+  - id: ny-mrg
+    retrieved: 2026-10-07
+    url: https://healthweb-back.health.ny.gov/health_care/medicaid/reference/mrg/mrg.pdf
+    publisher: New York State Department of Health
+    title: Medicaid Reference Guide (MRG), full volume
+    kind: primary
+    jurisdiction: ny
+    doc_type: manual
+    note: >-
+      Pages carry their own "UPDATED" dates (mostly 2007-2012). Dollar figures in the MRG are out of date;
+      it is cited only for methods (transfer penalty, spousal budgeting, home equity, estate recovery).
+  - id: ny-doh-4220
+    retrieved: 2026-10-07
+    url: https://healthweb-back.health.ny.gov/forms/doh-4220.pdf
+    publisher: New York State Department of Health
+    title: DOH-4220 Access NY Health Care application (1/23), with instructions
+    kind: primary
+    jurisdiction: ny
+    doc_type: form
+  - id: ny-doh-5178a
+    retrieved: 2026-10-07
+    url: https://healthweb-back.health.ny.gov/forms/doh-5178a.pdf
+    publisher: New York State Department of Health
+    title: DOH-5178A Supplement A (8/15) — resource and transfer questions for people 65+, blind, disabled or applying for long-term care
+    kind: primary
+    jurisdiction: ny
+    doc_type: form
+  - id: ny-doh-30-month-lookback-2021
+    retrieved: 2026-10-07
+    url: https://healthweb-back.health.ny.gov/health_care/medicaid/redesign/mrt2/proposals/2021-04-07_30-month_lookback.htm
+    publisher: New York State Department of Health (Medicaid Redesign Team II)
+    title: 30-Month Lookback for Community-Based Long Term Care Services — CMS completeness letter (April 2021)
+    kind: primary
+    jurisdiction: ny
+    doc_type: agency_page
+  - id: ny-doh-30-month-lookback-proposal
+    retrieved: 2026-10-07
+    url: https://healthweb-back.health.ny.gov/health_care/medicaid/redesign/mrt2/proposals/30-month_lookback.htm
+    publisher: New York State Department of Health (Medicaid Redesign Team II)
+    title: 30-Month Lookback for Community Based Long Term Care Services — section 1115 amendment proposal
+    kind: primary
+    jurisdiction: ny
+    doc_type: agency_page
+  - id: khalsalaw-2026-ny-community-medicaid
+    retrieved: 2026-10-07
+    url: https://www.khalsalaw.com/2026/04/01/updated-guidance-for-2026-ny-community-medicaid/
+    publisher: Khalsa Law (elder law firm)
+    title: Updated Guidance for 2026 NY Community Medicaid (April 1, 2026)
+    kind: secondary
+    jurisdiction: ny
+    doc_type: law_firm
+    published: 2026-04-01

@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://fns-prod.azureedge.us/sites/default/files/resource-files/snap-fy27MinimumAllotments.pdf
+  final_url: https://fns-prod.azureedge.us/sites/default/files/resource-files/snap-fy27MinimumAllotments.pdf
+  status: 200
+  content_type: application/pdf
+  text_sha256: f5344c2e38516224561317c5f90cfb89b519005257975751b0244c17a89979fa
+  text: fns-snap-fy27-minimum-allotments/2026-10-07.txt
+  raw: fns-snap-fy27-minimum-allotments/2026-10-07.pdf

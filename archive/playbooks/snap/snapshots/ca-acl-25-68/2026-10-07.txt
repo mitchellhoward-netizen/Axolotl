@@ -1,0 +1,376 @@
+September 18, 2025
+
+CALIFORNIA DEPARTMENT OF SOCIAL SERVICES
+
+EXECUTIVE SUMMARY
+
+ALL COUNTY LETTER NO. 25-68
+
+The purpose of this All County Letter is to provide County Welfare Departments with
+guidance regarding the Food and Nutrition Service published Final Rule, Supplemental
+Nutrition Assistance Program: Standardization of Heating and Cooling Standard Utility
+Allowances. This letter also provides guidance on changes to eligibility criteria for the
+State Utility Assistance Subsidy as a result of the codification of House of
+Representatives 1, An Act to provide for reconciliation pursuant to title II of H. Con. Res.
+14. on July 4, 2025.
+
+September 18, 2025
+
+ALL COUNTY LETTER NO. 25-68
+
+TO: ALL COUNTY WELFARE DIRECTORS
+ALL CALFRESH PROGRAM SPECIALISTS
+ALL CONSORTIA PROJECT MANAGERS
+ALL QUALITY CONTROL PROGRAM COORDINATORS
+
+SUBJECT: CALFRESH IMPLEMENTATION OF THE STANDARD UTILITY
+ALLOWANCES FINAL RULE AND LIMITATIONS ON WHO CAN
+RECEIVE THE STATE UTILITY ASSISTANCE SUBSIDY
+PAYMENT
+
+REFERENCE: 7 UNITED STATES CODE (U.S.C). 2014(e)(6)(C)(iv)(I);
+TITLE 7 CODE OF FEDERAL REGULATIONS (CFR) 271.2;
+7 CFR 273.9(c)(1)(vii); 7 CFR 273.9(d)(6)(iii)(D)(3)(i);
+7 CFR 273.9(d)(6)(iii)(D)(3)(ii); 7 CFR 273.9(d)(6)(iii)(D)(3)(iii);
+7 CFR 273.9(d)(6)(iii)(D)(3)(iv); 7 CFR 273.9(d)(6)(iii)(D)(3)(v);
+7 CFR 273.9(d)(6)(iii)(D)(3)(vi); 7 CFR 273.9(d)(6)(iii)(D)(3)(vii);
+7 CFR 273.9(d)(6)(iii); 7 CFR 273.9(d)(6)(iii)(C);
+7 CFR 273.9(d)(6)(iii)(D)(1); 7 CFR 273.9(d)(6)(iii)(G)(2);
+7 CFR 273.10(d)(6);
+FINAL RULE, SUPPLEMENTAL NUTRITION ASSISTANCE
+PROGRAM (SNAP): STANDARDIZATION OF HEATING AND
+COOLING STANDARD UTILITY ALLOWANCES;
+UNITED STATES DEPARTMENT OF AGRICULTURE (USDA)
+FOOD AND NUTRITION SERVICE (FNS) MEMO – SNAP
+IMPLEMENTATION OF REGULATORY CHANGES TO STANDARD
+UTILITY ALLOWANCES;
+HOUSE OF REPRESENTATIVES 1 (PUBLIC LAW 119-21);
+USDA FNS MEMO – SNAP IMPLEMENTATION OF TREATMENT
+OF ENERGY ASSISTANCE PAYMENTS;
+WELFARE AND INSTITIUTIONS CODE (WIC)18901.2;
+MANUAL OF POLICIES AND PROCEDURES (MPP) 63-504.39;
+MPP 63-801.7; ALL COUNTY LETTER (ACL) NO. 14-66;
+ACL NO. 14-54; ACIN I-46-25
+
+All County Letter No. 25-68
+Page Two
+
+The purpose of this All County Letter (ACL) is to provide County Welfare Departments
+(CWDs) with guidance regarding the Food and Nutrition Service (FNS) published
+Final Rule, Supplemental Nutrition Assistance Program (SNAP): Standardization of
+Heating and Cooling Standard Utility Allowances. This letter also provides guidance on
+changes to household eligibility criteria for the State Utility Assistance Subsidy (SUAS) as
+a result of the enactment of House of Representatives 1, An Act to provide for
+reconciliation pursuant to title II of H. Con. Res. 14. (the Act) (Public Law 119-21) on
+July 4, 2025.
+
+BACKGROUND
+
+On November 18, 2024, FNS published the Final Rule, SNAP: Standardization of Heating
+and Cooling Standard Utility Allowances. This rule amended regulations for calculating
+the standard utility allowances, including the heating and cooling standard utility
+allowance (SUA), limited utility allowance (LUA), and telephone utility allowance (TUA).
+Additionally, it updated the treatment of payments under the
+Low-Income Home Energy Assistance Act of 1981, commonly known as the Low Income
+Home Energy Assistance Program (LIHEAP) or other similar energy assistance program
+payments. In California, the SUAS program is used to provide energy assistance
+payments to CalFresh households. For more information on SUAS, refer to
+ACL No. 14-66, issued September 14, 2014.
+On July 4, 2025, President Trump signed the Act into law, which limits the SUAS to
+households with elderly or disabled members, and excludes the cost of basic internet
+expense when determining the SUA.
+
+FINAL RULE – STANDARDIZATION OF HEATING AND COOLING UTILITY
+ALLOWANCES
+
+Standard Utility Allowance Methodology Update
+
+The Final Rule required States to update the SUA methodology to align with
+7 CFR 273.9(d)(6)(iii)(C) and expanded allowable shelter expenses to include basic
+internet costs. The amended regulations became effective on January 17, 2025, and
+States were required to ensure SUA value compliance by October 1, 2025, along with
+other annual utility deduction updates.
+However, Section 10104 (7 U.S.C. section 2014) of the Act now prohibits basic internet
+costs from being included in the calculation of SUA or qualification for LUA.
+The California Department of Social Services (CDSS) has submitted and FNS has
+approved a SUA methodology for Federal Fiscal Year (FFY) 2026 that is compliant with
+the Act, and which does not include basic internet costs. The new deduction amounts for
+SUA, LUA, and TUA was released with the annual Cost-of-Living Adjustments on
+September 3, 2025 in ACIN I-46-25.
+
+All County Letter No. 25-68
+Page Three
+
+SUA Eligibility
+
+The Final Rule implemented two provisions related to household eligibility to receive the
+SUA deduction. California is compliant with these provisions.
+No CWD action required.
+Minimal Expenses – 7 CFR 273.9(d)(6)(iii)(D)(1)
+The State is required to provide the SUA to all households that incur heating and cooling
+expenses, even if the costs are minimal.
+Public Housing Residents – 7 CFR 273.9(d)(6)(iii)(G)(2)
+States previously had the option to include excess heating and cooling costs of public
+housing residents in the LUA. The State is now required to provide the SUA to all
+households that incur heating and cooling expenses, even if the costs are minimal.
+
+SUAS Eligibility
+
+The Final Rule implemented a series of provisions related to household eligibility for the
+LIHEAP or a similar energy assistance program, known as SUAS in California. Current
+California policy is aligned with all but one of these requirements related to the treatment
+of weatherization payments received by a landlord on behalf of a CalFresh household.
+Other Similar Energy Assistance Program – 7 CFR 273.9(d)(6)(iii)(D)(3)(i)
+No CWD action required.
+Receipt of a payment of more than $20 under the LIHEAP or a similar energy assistance
+program make a CalFresh household eligible for the SUA. A similar energy assistance
+program is defined as a program designed to provide heating or cooling assistance
+through payments directly to or on behalf of low-income households. This assistance
+must be separate from a household’s rent or mortgage, home energy bills,
+weatherization, or energy-related minor home repairs. The SUAS qualifies as a similar
+energy assistance program.
+Quantifiable – 7 CFR 273.9(d)(6)(iii)(D)(3)(ii)
+No CWD action required.
+The State may opt to consider in-kind assistance as a qualifying payment for the purpose
+of making a CalFresh household eligible for the SUA if the assistance can be reasonably
+quantified. California is not opting to treat in-kind assistance as a qualifying payment.
+Tracking and Documentation – 7 CFR 273.9(d)(6)(iii)(D)(3)(iii)
+No CWD action required.
+The State is required to document the date and receipt of a SUAS payment to ensure the
+payment was received in the current month or the immediately preceding 12 months and
+exceeds $20 annually. Currently SUAS issuances are automatically recorded in the
+California Statewide Automation System (CalSAWS), including the date and receipt.
+
+All County Letter No. 25-68
+Page Four
+
+Current Month – 7 CFR 273.9(d)(6)(iii)(D)(3)(iv)
+No CWD action required.
+The SUA cannot be conferred based on the anticipated receipt of a qualifying payment,
+unless the household is scheduled to receive the payment in the current month. Current
+SUAS automation in CalSAWS is aligned with this requirement.
+Overissuance – 7 CFR 273.9(d)(6)(iii)(D)(3)(v)
+No CWD action required.
+If a qualifying energy assistance payment is scheduled to be received in the current
+month and the payment is not made within that month, the State must assess whether an
+overissuance (OI) has occurred. CalSAWS issues the SUAS payment in the current
+month, allowing the household to claim the SUA without risk of an OI occurring for this
+reason.
+Moving and Split Households – 7 CFR 273.9(d)(6)(iii)(D)(3)(vi)
+No CWD action required.
+Households who receive a SUAS payment and then change address or split into multiple
+households must maintain SUA eligibility. Current SUAS automation in CalSAWS is
+aligned with this requirement.
+Weatherization – 7 CFR 273.9(d)(6)(iii)(D)(3)(vii)
+CWD action required.
+A household that includes an elderly or disabled member is eligible for the SUA if they live
+in a multi-unit or individual unit dwelling and receive a qualifying weatherization program
+payment. Weatherization programs increase a home’s energy efficiency, lower energy
+costs, and make homes healthier and safer. See the Department of Energy’s
+Weatherization Assistance Program for details. A weatherization payment must be
+greater than $20.00 and received in the current month or immediately preceding 12
+months to qualify. Qualifying weatherization payments made to the landlord of a multi-unit
+dwelling are considered a payment made on behalf of the household and qualify residing
+CalFresh households for the SUA.
+To determine whether a weatherization payment made to a landlord or building manager
+of a multi-unit dwelling confers eligibility, the CWD should divide the total value of the
+weatherization payment by the number of units in the multi-unit dwelling. If the resulting
+amount is greater than $20.00, it is a qualifying weatherization payment.
+Proration – 7 CFR 273.10(d)(6)
+No CWD action required.
+Receiving a prorated qualifying energy assistance payment qualifies a household for
+more than one heating or cooling season, given the payment was received within the last
+12 months, or the proration period covered at least one month in the preceding 12
+months.
+
+All County Letter No. 25-68
+Page Five
+
+PROVISIONS OF THE ACT THAT IMPACT SUAS
+
+Availability of SUA Based on Receipt of Energy Assistance
+
+The Act amends how states treat receipt of a payment under the LIHEAP or other similar
+energy assistance program, including the SUAS.
+
+Treatment of Energy Assistance Payments Made Under State Law
+
+Effective upon completion of automation, payments made under a state law to provide
+energy assistance to a household without an elderly or disabled member must be
+considered money payable directly to the household. Payments made under a state law
+to provide energy assistance to a household with an elderly or disabled member must be
+considered an out-of-pocket expense incurred and paid by the household. Therefore, the
+SUAS payment will continue to be excluded from consideration as income.
+As a reminder, third-party payments that are not owed to the household, such as
+California Arrearages Payment Program (CAPP) payments, are excluded from income for
+CalFresh per 7 CFR 273.9(c)(1)(vii).
+
+Limitation of SUAS
+
+Effective upon completion of automation, only households with an elderly or disabled
+member which receive a payment of $20 or more through LIHEAP or SUAS in the month
+of application or the preceding 12 months, are automatically eligible to claim the SUA
+when determining household eligibility and benefit amount.
+The Act amends language in 7 U.S.C. 2014(e)(6)(C)(iv)(I) to state that: “if a State agency
+elects to use a standard utility allowance that reflects heating and cooling costs, the
+standard utility allowance must be made available to households with an elderly or
+disabled member that received a payment, or on behalf of which a payment was made,
+under the Low-Income Home Energy Assistance Act of 1981 (42 U.S.C. 8621 et seq.) or
+other similar energy assistance program, if in the current month or in the immediately
+preceding 12 months, the household either received such a payment, or such a payment
+was made on behalf of the household, that was greater than $20 annually, as determined
+by the Secretary.” As defined at 7 CFR 271.2, households with an elderly or disabled
+member include those with at least one individual who is 60 years of age or older and/or
+disabled and/or receives a disability-based benefit. There is no age requirement to qualify
+as disabled. A CalFresh household that includes an elderly or disabled member who is
+excluded or ineligible for CalFresh qualifies the household for a SUAS payment, if
+otherwise eligible.
+As a result of this change, CDSS must update guidance regarding the eligibility criteria for
+SUAS payments.
+
+New SUAS Guidance
+
+All County Letter No. 25-68
+Page Six
+
+SUAS payments will be limited to households who meet the following criteria:
+• Are not otherwise eligible for the SUA,
+• Are not already receiving the maximum CalFresh allotment for their household
+size, and
+• Contain an elderly or disabled household member.
+There is no change to the receipt of the Homeless Shelter Deduction instead of the SUAS
+payment/SUA expense; CalFresh households which meet the new criteria listed above
+may continue to receive the Homeless Shelter Deduction if it will result in a higher benefit
+amount than the SUA deduction. As a reminder, a CalFresh household cannot receive
+both the Homeless Shelter Deduction and SUA.
+
+Implementation and Automation of SUAS Changes
+
+Effective upon the completion of automation, the new SUAS guidance must be applied to
+applicants at initial certification. For ongoing cases, household circumstances must be
+reviewed, and the new SUAS guidance must be applied at the household’s next
+recertification. Households no longer eligible for SUAS must be evaluated for utility
+deductions, including SUA, LUA, and TUA, that they may be entitled to.
+The CWD must not remove an ongoing household’s eligibility for SUA during the
+certification period based solely on the information that the household does not contain an
+elderly or disabled member, regardless of the source of information. Even if the sole
+elderly or disabled household member is removed from the household, the SUA
+deduction must remain. However, if the CWD receives information during the certification
+period that the household has begun incurring heating or cooling costs, the change
+should be made to the case. The household’s verbal statement is sufficient to verify utility
+expenses unless questionable. The CWD must not send a mid-period Request for
+Verification (CW 2200) for utility verification for the purpose of making this change.
+
+SUAS Informing Notice
+
+The CF 1 provides SUAS-eligible households with information regarding the SUAS
+payment provided to their Electronic Benefit Transfer (EBT) account. CDSS has revised
+the CF 1 to contain updated SUAS eligibility criteria and is included as an attachment to
+this letter.
+In accordance with MPP Section 63-504.39, the CWD must inform all impacted CalFresh
+households as soon as possible of the new CalFresh SUAS eligibility criteria. The CWD
+may opt to use the CF 1 or can notify households via other mass noticing practices, such
+as disseminating information through news or other media outlets, using social media,
+county websites, posters in lobbies or other locations frequented by CalFresh
+households.
+
+All County Letter No. 25-68
+Page Seven
+
+Quality Control
+
+FNS will hold States harmless for Quality Control (QC) purposes for 120 days from the
+implementation date of July 4, 2025. A 120-day variance exclusion is permitted for the
+misapplication of changes in Section 10103 of the Act to new and ongoing SNAP
+households until the exclusionary period end date on November 1, 2025.
+QC must apply the verification standards and procedures specified in the
+SNAP Quality Control Review Handbook 310. QC will verify all circumstances, regardless
+of whether information is questionable, when conducting QC reviews.
+CWDs are reminded that the case record must provide sufficient documentation to
+support the benefit level determination. Documentation must provide enough detail to
+permit a reviewer with no prior knowledge of the individual case to independently
+determine the accuracy of benefit allotments.
+
+COPIES AND TRANSLATIONS
+
+Forms referenced in this letter are available on the CDSS Forms/Brochures webpage.
+When CDSS completes translations of a form, they are posted on the
+Translated Forms and Publications webpage. When made available by CDSS, forms
+translated into an individual’s preferred language must be provided to the individual
+pursuant to MPP Section 21-115.2. For questions on translated materials, please contact
+the Translation Services Section at lts@dss.ca.gov. If translations are not available,
+recipients who have elected to receive materials in languages other than English should
+be sent the English version of the form or notice along with the
+GEN 1365-Notice of Language Services and a local contact number. See ACL No. 22-56.
+Per MPP Section 21-115, the County Welfare Departments (CWDs) must ensure effective
+bilingual services are provided. This requirement may be met through utilization of paid
+interpreters, qualified bilingual employees, and qualified employees of other agencies or
+community resources. These services must be provided, free of charge, to the
+applicant/recipient. If CDSS does not provide translations of a form, it is the county’s
+responsibility to read and interpret the form if an applicant or recipient requests it. See
+ACL No. 22-56.
+Additionally, the CWDs must provide auxiliary aids and services to persons with vision,
+hearing, or speech disabilities, where applicable. More information regarding provisions
+for services to applicants and recipients who have limited English proficiency or who have
+disabilities can be found in MPP Section 21-115 and ACL No. 19-45.
+
+All County Letter No. 25-68
+Page Eight
+
+CONTACT INFORMATION
+
+If you have any questions or need additional guidance regarding the information in this
+letter, contact the CalFresh Policy Bureau at CalFreshPolicy@dss.ca.gov.
+
+Sincerely,
+
+Original Document Signed By
+
+ALEXIS FERNÁNDEZ GARCIA
+Deputy Director
+Family Engagement and Empowerment Division
+
+Attachment
+
+California Health & Human Services Agency California Department of Social Services
+
+NOTICE TO CALFRESH RECIPIENTS
+IMPORTANT – PLEASE READ
+Your household is eligible for a State Utility Assistance Subsidy (SUAS) payment. The SUAS is an annual
+payment of $20.01 that will be put on your cash Electronic Benefit Transfer (EBT) account. The SUAS can be
+used for food or cash purchases. If you do not currently have a cash EBT account, one has been set up for
+you. This payment allows the county to use the highest utility deduction (Standard Utility Allowance – SUA) for
+food benefits. If you no longer are an eligible household (per information below), you will not get the $20.01
+SUAS payment. If you want to know more, call your county.
+This payment is only given once a year. Only certain CalFresh households can get a SUAS payment.
+Households that will get this benefit are those that:
+• contain an elderly member and/or member with a disability,
+• do not have utility bills separate from rent/mortgage,
+• are not already getting the maximum CalFresh benefit for their household size, and
+• are not already receiving an increased benefit due to the Homeless Shelter Deduction.
+
+Follow these tips to increase your energy savings at home:
+
+• Weatherstrip around windows and doors
+• Wrap your water heater with insulation or install an insulating blanket
+• Set the water heater thermostat at 140 degrees or “normal” if you have a dishwasher.
+Otherwise, set it at 120 degrees or “low.” Check your dishwasher to see if you can use
+120 degree water.
+• Replace incandescent bulbs with compact fluorescent lamps – they use 75% less energy
+and last 10 times longer
+• Clean or replace your furnace and air-conditioner filters regularly
+• Set the furnace thermostat at 68 degrees or lower, and the air-conditioner thermostat at
+78 degrees or higher, health permitting. 3 percent to 5 percent more energy is used for
+each degree the furnace is set above 68 degrees and for each degree the air conditioner
+is set below 78 degrees
+• Repair leaking plumbing and dripping faucets
+• Close your shades on windows facing south and/or west to block summer light. In winter,
+open shades on sunny days to help warm rooms.
+• Defrost frozen food in the refrigerator before cooking
+• Use the oven light to check on progress when cooking or baking instead of opening the
+door
+• Set the refrigerator temperature at 36° to 39° F and freezer at 0° to 5° F
+• Turn off lights, televisions and other appliances when not in use
+• Unplug computer or other devices that may be running even when off
+
+CF 1 (9/25)

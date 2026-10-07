@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://ilaging.illinois.gov/benefitsaccess.html
+  final_url: https://ilaging.illinois.gov/benefitsaccess.html
+  status: 200
+  content_type: text/html;charset=utf-8
+  text_sha256: 6d508525b781953befd0bc421b784833772c7773bd3372fbce47581bb5200e96
+  text: il-aging-benefit-access/2026-10-07.txt
+  raw: il-aging-benefit-access/2026-10-07.html

@@ -1,0 +1,16 @@
+parameters:
+  - id: ca.cdi.medigap_birthday_window_days
+    description: Length of California's annual Medigap "birthday rule" open enrollment, starting on the policyholder's birthday.
+    unit: days
+    updates: Statutory (Insurance Code 10192.11 / Health and Safety Code 1358.11 per secondary sources; not snapshotted).
+    open_question: T65-CA-OQ-01
+    values:
+      - effective_from: 2026-01-01
+        value: 60
+        confidence: confirmed
+        note: >-
+          2026 is the earliest date this archive has a primary source for the 60-day length (CDI page retrieved 2026).
+          Secondary sources and the NAIC chart say 60 days since January 1, 2020 (30 days before); see T65-CA-CONFLICT-01.
+        sources:
+          - {source: ca-cdi-sa-01-10b, locator: "Q: What is the \"Birthday Rule\"", quote: "you have 60 days of \"open enrollment\" following your birthday each year"}
+          - {source: naic-medigap-birthday-chart-2026, locator: "California row"}

@@ -1,0 +1,116 @@
+Skip to content
+
+Program Operations Manual System (POMS)
+
+Effective Dates: 06/10/2024 - Present
+Previous | Next
+
+TN 108 (06-24)
+
+HI 00805.382 Special Enrollment Period (SEP) for Exceptional Conditions
+
+CITATIONS:
+
+Section 1837(m), 42 C.F.R. 407.23, 42 C.F.R. 406.27
+
+A. Policy for when enrollment can occur
+
+Beginning on or after January 1, 2023, individuals who are eligible for Medicare on
+any basis can enroll (or re-enroll) in Medicare Part B Supplementary Medical Insurance
+(SMI) and Part A Premium Hospital Insurance (HI) during any months that fall within
+the duration of the specific exceptional conditions SEPs described below. The duration
+of each SEP can be found at the link to the specific SEP:
+
+Individuals Impacted by an Emergency or Disaster
+
+HI 00805.383
+
+This SEP affords an opportunity to enroll in premium Part A and/or Part B to individuals
+who missed a Medicare enrollment period due to being impacted by a disaster or other
+emergency declared by a Federal, state, or local government entity.
+
+Misrepresentation by Group Health Plan (GHP) or Employer
+
+HI 00805.384
+
+This SEP affords an opportunity to enroll in premium Part A and/or Part B to individuals
+who missed a Medicare enrollment period and can demonstrate that their employer or
+group health plan materially misrepresented information regarding timely enrollment
+in Medicare.
+
+Termination of Medicaid Coverage
+
+HI 00805.385
+
+This SEP affords an opportunity to enroll in premium Part A and/or Part B to individuals
+who lost Medicaid eligibility and are eligible for Medicare.
+
+Formerly Incarcerated Individuals
+
+HI 00805.386
+
+This SEP affords individuals who missed a Medicare enrollment period due to being
+incarcerated and were released from incarceration an opportunity to enroll in premium
+Part A and/or Part B upon their release from a correctional facility.
+
+Other Exceptional Conditions
+
+HI 00805.387
+
+This SEP affords an opportunity to enroll in premium Part A and/or Part B to individuals
+who missed a Medicare enrollment period and can demonstrate that there were circumstances
+outside of the individual's control that prevented them from taking action to enroll
+in Medicare timely.
+
+The above SEPs, with the exception of the SEP for Termination of Medicaid Coverage,
+are for those who missed a Medicare enrollment period due to an exceptional condition that took place on or after January 1, 2023.
+
+B. Policy for SEP enrollment requests filed during the Initial Enrollment Period (IEP)
+
+When the IEP takes precedence over an SEP
+
+When a beneficiary enrolls in SMI, premium HI, or both, during the IEP, you must always process the enrollment as an IEP enrollment.
+
+EXAMPLE:
+
+Mr. Warren attains age 65 in July 2023. Mr. Warren IEP begins April 1, 2023 and ends
+October 31, 2023.
+
+There is a hurricane leading to a disaster declaration impacting the county Mr. Warren
+lives in on July 1, 2023, and is lifted November 30, 2023. Mr. Warren enrolls in SMI
+in October, which is the last month of the IEP.
+
+The enrollment must be processed as an IEP enrollment, regardless of Mr. Warren being
+affected by a disaster declaration.
+
+C. Policy when the SEP and GEP overlap
+
+If an individual who missed a prior enrollment period due to an exceptional condition
+enrolls in an SEP during the month of January, February, or March, they can elect
+to have the enrollment processed as either a General Enrollment Period (GEP) or as
+an SEP enrollment[1] .
+
+If the individual chooses a GEP enrollment even if they are eligible for an SEP, coverage
+begins the first day of the month after the month of enrollment. Calculate the premium
+surcharge through the end of the enrollment month using HI 01001.010.
+
+If the individual chooses an SEP enrollment, coverage options may vary based on the
+specific effective date of each exceptional condition SEP. The coverage effective
+date of each SEP can be found at the link to the specific SEP above.
+
+If an individual is eligible for any exceptional condition SEP and chooses to enroll
+using the SEP, no Premium Part A and/or Part B premium surcharge is applicable.
+
+Footnotes:
+
+[1]
+HI 00805.030 Relationship Between Initial and General Enrollment Periods.
+
+To Link to this section - Use this URL:
+http://policy.ssa.gov/poms.nsf/lnx/0600805382
+
+HI 00805.382 - Special Enrollment Period (SEP) for Exceptional Conditions - 06/10/2024
+
+Batch run: 01/08/2025
+
+Rev:06/10/2024

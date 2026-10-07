@@ -1,0 +1,848 @@
+Enclosure
+
+Sections 6011 and 6016
+
+New Medicaid Transfer of Asset Rules Under the Deficit
+Reduction Act of 2005
+
+Centers For Medicare & Medicaid Services
+Center for Medicaid and State Operations
+
+July 27, 2006
+
+Enclosure Highlights—Section 6011 and Section 6016
+
+I. Extension of the Look-Back Period to 60 Months
+
+II. Penalty Period
+
+A. Start Date of the Penalty Period
+
+B. Partial Month Transfers
+
+C. Option to Combine Multiple Transfers Made In More Than One Month
+
+III. Purchase of Promissory Notes, Loans or Mortgages
+
+IV. Purchase of Life Estates
+
+V. Undue Hardship
+
+A. Establishment of Procedures
+
+B. Authority of Facility to Request Undue Hardship Waiver for Resident
+
+C. Bed Hold Payments
+
+VI. Effective Dates
+
+I. Extension of the Look-Back Period to 60 Months
+
+Section 6011(a) of the Deficit Reduction Act (DRA); P.L. 109-171, amends section
+1917(c)(1)(B)(i) of the Social Security Act (the Act). The amendment provides that for any
+transfer of assets made on or after the date of enactment of the DRA (February 8, 2006), the
+look-back period is 60 months.
+
+II. II.Penalty Period
+
+A. Start Date of the Penalty Period
+
+Section 6011(b) of the DRA amends section 1917(c)(1)(D) of the Act to change the start date
+of the penalty period, which is the period during which an individual is ineligible for
+Medicaid payment for long term care services because of a transfer of assets for less than fair
+market value. Prior to the amendment, the penalty period began either in the month of
+transfer, or at State option, in the month following the month of transfer. Prior law resulted in
+some individuals being able to calculate the length of the penalty period that would result
+from an asset transfer and avoid the penalty by not applying for Medicaid coverage of
+institutional level care (or at State option, certain care provided to non-institutionalized
+individuals) until the expiration of that time period.
+
+For transfers of assets made on or after February 8, 2006, the period of ineligibility will begin
+with the later of:
+
+• The first day of a month during, or at State option the month after which, assets have
+been transferred for less than fair market value; or
+• The date on which the individual is eligible for medical assistance under the State plan
+and is receiving institutional level of care services (based on an approved application for
+such services) that, were it not for the imposition of the penalty period, would be covered
+by Medicaid.
+
+The penalty period cannot begin until the expiration of any existing period of ineligibility.
+The penalty period will continue to run for the number of months determined by dividing the
+total value of assets transferred within the look-back period by the State's average monthly
+cost to a private patient of nursing facility services in the State, or at the option of the State, in
+the community in which the individual is institutionalized, as under present law. Once the
+penalty period is imposed, it will not be tolled (i.e., will not be interrupted or temporarily
+suspended), but will continue to run even if the individual subsequently stops receiving
+institutional level care.
+
+States should be aware that imposition of a penalty period for new applicants for Medicaid
+requires a denial notice. If a penalty period is imposed on an individual who is already
+eligible for Medicaid, the State must provide a 10-day adverse action notice. As well as
+complying with existing legal requirements (see regulations at 42 CFR 431 Subpart E), this
+notice must contain information about the undue hardship exception (see below).
+
+B. Partial Month Transfers
+
+Prior to enactment of the DRA, States had the option to impose penalty periods for transfers
+in a month that were less than the State's average monthly cost to a private patient of nursing
+
+facility services in the State, or to impose no penalty period for such “partial month” transfers.
+Additionally, some States elected not to impose a penalty for transfers made within a month
+that were under a certain threshold e.g., $500. In States that elected to impose no penalty
+period for such partial month transfers, individuals were able to transfer amounts less than the
+average monthly cost of nursing facility services in successive months, but never incur a
+penalty.
+
+To address this, section 6016(a) of the DRA amended section 1917(c)(1)(E) of the Act, to add
+a new subsection (iv) that prohibits a State from rounding down or otherwise disregarding any
+fractional period of ineligibility. The result is that States are now required to impose penalty
+periods even in the case of smaller asset transfers, where the period of ineligibility would be
+less than a full month. In imposing penalties on such transfers, if the calculation of the
+penalty period produces a fractional amount, the penalty must include a partial month
+disqualification based upon the relationship between that fractional amount and the monthly
+nursing home rate used to calculate the penalty period.
+
+C. Option to Combine Multiple Transfers Made In More Than One Month
+
+While the DRA prohibits States from rounding down or disregarding fractional periods of
+ineligibility, it does give States the option to combine multiple transfers for less than fair
+market value in more than one month and impose a single period of ineligibility, rather than
+applying multiple penalty periods. This flexibility is the result of a new subsection (H), added
+to section 1917(c)(1) of the Act by section 6016(b) of the DRA. Under subsection (H), States
+may treat the total, cumulative value of all uncompensated transfers made within the look-
+back period as a single transfer and calculate a single period of ineligibility, which would
+begin on the earliest date applicable under section 1917(c)(1)(D). See Section II A. above.
+
+For example, if an individual, or the individual's spouse, makes an uncompensated transfer of
+assets of $1,000 in each of the 60 months of the look-back period, the State would have two
+options. It may calculate a separate period of ineligibility for each month and impose the
+resulting periods of ineligibility separately. Or, exercising the option provided under
+subparagraph (H), the State may add the transfers together, arrive at a total amount of
+$60,000, divide that total by the average private payment for nursing facility care and impose
+one continuous period of ineligibility. In either case, the penalty period would start with the
+earliest date applicable under section 1917(c)(1)(D).
+
+States must include information about whether they elect to combine multiple fractional
+transfers into a single transfer in their State Medicaid plans.
+
+NOTE: It is important to understand that if a State elects to combine multiple fractional transfers
+into a single transfer for purposes of imposing a penalty period, the earliest date applicable under
+section 1917(c)(1)(D) is always the LATER of the start dates discussed in Section II A above.
+
+III. Purchase of Promissory Notes, Loans, or Mortgages
+
+Some States have experienced problems with individuals who have attempted to circumvent
+rules penalizing transfers of assets by obtaining promissory notes, loans, or mortgages
+containing a promise of repayment from transferees. Individuals would then present the note,
+loan or mortgage instruments at the time of their Medicaid application for long-term care
+services in order to establish that these transactions were actually loans, not gifts. In some
+
+cases, these were merely sham transactions, and repayment of the full amount transferred was
+neither expected nor enforced. Various techniques, such as balloon payments, in which token
+payments are made for most of the term of the loan with the balance due in a lump sum at the
+very end of the loan, and cancellation of the loan upon the death of the transferor, were used
+to ensure that the transferee would in fact retain most, if not all, of the funds.
+
+In order to prevent improper use of promissory notes, loans or mortgages, section 6016(c) of
+the DRA amended section 1917(c)(1) of the Act by adding a new subparagraph (I) containing
+additional rules related to the purchase of these instruments. With respect to the transfer of
+assets, the term assets (see definition of “assets” at section 1917(e)(1) of the Act) includes
+funds used to purchase a promissory note, loan or mortgage unless all of the following criteria
+are met:
+
+• The repayment term must be actuarially sound;
+• Payments must be made in equal amounts during the term of the loan with no deferral of
+payments and no balloon payments; and
+• The promissory note, loan or mortgage must prohibit the cancellation of the balance
+upon the death of the lender.
+
+The actuarial standards to be applied are those determined by the Office of the Chief Actuary
+of the Social Security Administration (SSA). This table (called the Period Life Table, which
+can be found on SSA’s Actuarial Publications Statistical Tables Web page under the heading
+“Life Table”) may be accessed at http://www.ssa.gov/OACT/STATS/table4c6.html.
+
+If the above criteria are not met, the purchase of the promissory note, loan or mortgage must
+be treated as a transfer of assets. In determining the amount of the asset transfer, the value of
+the note, loan or mortgage is the outstanding balance due as of the date of the individual's
+application for Medicaid coverage of services listed in section 1917(c)(1)(C) of the Act.
+
+IV. Purchase of Life Estates
+
+Another technique used by individuals in some States to avoid transfer of assets penalties was
+the purchase of a life estate interest in another individual's home. The individual purchasing
+the life interest in the home would allege that something of value, i.e., the life estate, had been
+received in exchange for the funds paid. However, in many cases, the purchaser never lived
+in the home nor derived any benefit from the life estate, and was in effect making a gift to the
+owner, who still retained the remainder interest. Since some States have elected to use more
+liberal resource methodologies and do not count life estate interests as resources, the value of
+the life estate was excluded in determining Medicaid eligibility. Thus, the acquisition of a life
+estate in the property of another would serve to transform countable resources (cash) into a
+non-countable resource (the life estate).
+
+To deter the abuse of the life estate and transfer of assets rules, section 6016(d) of the DRA
+amended section 1917(c)(1) of the Act by adding a new subparagraph (J). This amendment
+provides that unless an individual purchasing a life estate in another individuals’ home
+actually resides there for a period of at least one year after the date of purchase, the
+transaction should be treated as a transfer of assets. The amount of the transfer is the entire
+amount used to purchase the life estate. This amount should not be reduced or prorated to
+reflect an individuals’ residency for a period of time less than a year.
+
+States should note that the new rules pertaining to purchase of life estates add a criterion for
+evaluating whether a transfer of assets has occurred, but do not replace existing provisions of
+title XIX. Thus, States should still apply Medicaid resource eligibility and transfer of assets
+rules, even in cases where individuals purchasing life estates in the home of another individual
+do live there for at least one year. In determining the value of life estates, States should
+continue to follow Centers for Medicare & Medicaid Services (CMS) instructions at Section
+3258.9 of the State Medicaid Manual. These instructions permit use of the life estate tables
+published by SSA for the Supplemental Security Income (SSI) program, which may be found
+in the Program Operations Manual System (POMS) at Section SI 01140.120.
+
+If payment for a life estate exceeds the fair market value of the life estate as calculated in
+accordance with the POMS table, the difference between the amount paid and the fair market
+value should be treated as an asset transfer. In addition, if an individual makes a gift or
+transfer of a life estate interest, the value of the life estate, as calculated under the POMS life
+estate and remainder interest table, should be treated as a transfer of assets. Finally, unless a
+State has a provision for excluding the value of life estates in its approved State Medicaid
+plan, or the property in which the individual has purchased the life estate qualifies as the
+individual's exempt home, the value of the life estate should be counted as a resource in
+determining Medicaid eligibility.
+
+The DRA provision pertaining to life estates does not apply to the retention or reservation of
+life estates by individuals transferring real property. In such cases, the value of the remainder
+interest, not the life estate, would be used in determining whether a transfer of assets has
+occurred and in calculating the period of ineligibility.
+
+V. Undue Hardship
+
+A. Establishment of Procedures
+
+Section 6011(d) of the DRA requires that each State provide a hardship waiver process in
+accordance with section 1917(c)(2)(D) of the Act. Previously the State was required to
+establish procedures for determining undue hardship, but the criteria, notice, and appeal
+requirements were not specifically addressed in the statute.
+
+Under the DRA, undue hardship exists when application of a transfer of assets penalty would
+deprive the individual----
+
+• of medical care such that the individual's health or life would be endangered; or
+• of food, clothing, shelter, or other necessities of life.
+
+Further, the statute specifically requires that States provide the following:
+
+• Notice to individuals that an undue hardship exception exists;
+• A timely process for determining whether an undue hardship waiver will be granted; and
+• A process, which the notice describes, under which an adverse determination can be
+appealed.
+
+While these criteria and procedural requirements are listed in the statute for the first time,
+they are the same criteria and procedures that CMS has provided to States in the State
+Medicaid Manual at Section 3258.10(C)(5). Thus, States should already be applying these
+criteria to the determination of undue hardship. In addition, as long as they adhere to the
+DRA criteria, States still have considerable flexibility in deciding the circumstances under
+which they will not impose penalties under the transfer of assets provisions because of undue
+hardship.
+
+States should note that in cases where application of the DRA provisions defining purchases
+of promissory notes, loans, mortgages, or life estates as transfers of assets would result in the
+imposition of a period of ineligibility (see sections III and IV above), the undue hardship
+rules apply.
+
+States must include information about their implementation of the DRA undue hardship
+waiver requirements in their State Medicaid plans.
+
+B. Authority of Facility to Request Undue Hardship Waiver for Resident
+
+Section 6011(e)(1) of the DRA amends section 1917(c)(2)(D) of the Act by adding a new
+requirement that the procedures established by the State for determining undue hardship must
+permit the facility in which the institutionalized individual is residing to file an undue
+hardship waiver application on behalf of an individual who would be subject to a penalty
+period resulting from a transfer of assets. Before filing such an application, the facility must
+have the consent of the individual or the individual's personal representative. States may
+allow individuals authorized to act on behalf of the individual with respect to a Medicaid
+application to provide such consent to the facility. In addition to filing an undue hardship
+waiver application, the facility may present information on behalf of the individual to the
+State and may, with the specific written consent of the individual or the individual’s personal
+representative, represent the individual throughout the appeals process.
+
+C. Bed Hold Payments
+
+Under the DRA (subsection 6011(e)(2)), States may, but are not required to, make bed hold
+payments to facilities on behalf of individuals for whom an undue hardship waiver application
+is pending, but not for more than 30 days. The application for an undue hardship waiver must
+meet the criteria specified in section 1917(c)(2)(D) of the Act, as described above. The State
+must include information about whether it will elect to make such payments in its State
+Medicaid plan.
+
+VII. VI.Effective Dates
+
+The provisions of the DRA discussed above in sections I (Extension of the Look-Back Period
+to 60 Months) and II A (Penalty Period) are effective for transfers of assets made on or after
+the date of enactment, February 8, 2006.
+
+The provisions of the DRA discussed above in sections II.B. and II.C. (Partial Months and
+Accumulation of Multiple Transfers Into One Penalty Period), III (Purchase of Promissory
+Notes, Loans, or Mortgages) and IV (Purchase of Life Estates) are effective for payments
+made under title XIX of the Act for calendar quarters beginning on April 1, 2006, and
+thereafter. These provisions do not apply to:
+
+• Medicaid provided for services furnished before February 8, 2006;
+• Disposal of assets made on or before February 8, 2006; or
+• Trusts established on or before February 8, 2006.
+
+The date by which States must implement the provisions discussed in sections II.B., II.C., III,
+and IV above may be extended if the Secretary of Health and Human Services determines that
+the State Medicaid plan requires State legislation in order for the plan to meet the additional
+requirements imposed by these amendments.
+
+If your State requires such legislation, please submit a letter so stating to your CMS regional
+office. The letter should include the date the State will begin implementing the statutory
+provisions of the DRA relating to partial month transfers. For States with annual legislative
+sessions, this date must be no later than the first day of the first calendar quarter beginning
+after the close of the first regular session of the State legislature that begins after February 8,
+2006. For States with biannual legislative sessions, this date must also be no later than the
+first day of the first calendar quarter beginning after the close of the first regular session of the
+legislature that begins after February 8, 2006.
+
+Enclosure
+
+Section 6012
+
+Changes in Medicaid Annuity Rules
+Under the
+Deficit Reduction Act of 2005
+
+Centers for Medicare & Medicaid Services
+Center for Medicaid and State Operations
+
+July 27, 2006
+
+Enclosure Highlights—Section 6012
+
+I. Application Requirements
+A. Disclosure of Interest in an Annuity
+B. Requirement to Name the State as a Remainder Beneficiary
+C. Applications for Coverage of Long-Term Care Services in 1634 States
+D. Consideration of Income and Resources from an Annuity
+II. Evaluation and Treatment of Purchases of Annuities and Certain Transactions
+Related to Annuities on or after February 8, 2006
+
+A. Annuity-Related Transactions Other than Purchases.
+B. Requirement to Name the State as a Remainder Beneficiary on Annuities
+C. Annuities Purchased by or on Behalf of an Annuitant Who Applied for
+Medical Assistance
+
+III. Effective Date
+
+The Deficit Reduction Act of 2005 (DRA), P.L. 109-171, adds new requirements to the
+Medicaid statute with respect to the treatment of annuities purchased on or after the date
+of enactment, February 8, 2006, as well as certain other transactions involving annuities
+that take place on or after the date of enactment. The DRA amends section 1917 of the
+Social Security Act (the Act) which pertains to Liens, Adjustments and Recoveries, and
+Transfers of Assets. The DRA adds new provisions to section 1917, which include:
+
+• The requirement to disclose, in an application for long-term care services,
+information regarding any interest an applicant or community spouse may have
+in an annuity;
+• The requirement to name the State as a remainder beneficiary in annuities in
+which the applicant or spouse is the annuitant; and
+• Provisions for the treatment of the purchase of certain annuities as a transfer for
+less than fair market value.
+
+I. Application Requirements
+
+A. Disclosure of Interest in an Annuity
+
+Section 6012(a) of the DRA adds a new section 1917(e) to the statute. Under the
+new section 1917(e)(1), all States, including those with “1634 agreements”, are
+required to alter their applications for medical assistance for long-term care
+services, including applications for recertification, to include a disclosure and
+description of any interest the applicant or the community spouse may have in an
+annuity. This disclosure is a condition for Medicaid coverage of long-term care
+services described in section 1917(c)(1)(C)(i), which include:
+• Nursing facility services;
+• A level of care in any institution equivalent to that of nursing facility
+services; and
+• Home and community-based services furnished under a waiver of
+section 1915 (c) or (d).
+
+This disclosure requirement applies regardless of whether or not an annuity is
+irrevocable or is treated as an asset.
+
+If the individual, spouse or representative refuses to disclose sufficient
+information related to any annuity the State must either:
+• Using the authority of new section 1917(e)(1) described above, deny or
+terminate coverage of long-term care services only; or
+• Using existing Medicaid program authority, deny or terminate eligibility
+for Medicaid entirely based on the applicant’s failure to cooperate.
+
+If the State wants to limit its action to denial of payment for long-term care services, it
+must still ensure that enough information regarding the income and/or resources
+related to an annuity has been collected and verified in order to establish Medicaid
+eligibility under existing rules. The DRA does not provide applicants an option to
+withhold information about annuities that may impact the computation of resources or
+income. If the State cannot collect enough information about an annuity to allow the
+
+State to establish Medicaid eligibility, the State should deny eligibility entirely based
+on the applicant’s failure to cooperate in accordance with the State’s existing policies.
+
+In cases where an unreported annuity is discovered after eligibility has been
+established and after payment for long-term care services has been made, the State
+should take appropriate steps to terminate payment for long-term care services as
+discussed above, including appropriate notice to the individual of adverse action. The
+State should also consider whether other steps should be taken including, if
+appropriate, possible civil and criminal charges, and potential recovery of benefits
+which were incorrectly paid.
+
+B. Requirement to Name the State as a Remainder Beneficiary
+
+Under new sections 1917(e)(1) and (2), all States must also include in the application
+for long-term care services, including the application for recertification, a statement
+that names the State as a remainder beneficiary on any annuity purchased on or after
+February 8, 2006 by virtue of the provision of medical assistance for institutional
+care. The State must also notify the issuer of any annuity disclosed for purposes of
+section 1917(c)(1)(F) of the State’s rights as a preferred remainder beneficiary.
+
+• The State may require the issuer to notify it regarding any changes in
+disbursement of income or principal from the annuity; and
+• The issuer of an annuity may disclose information about the State’s position as
+remainder beneficiary to others who have a remainder interest in the annuity.
+
+C. Applications for Coverage of Long-Term Care Services in 1634 States
+
+States that have entered into an agreement under section 1634 of the Social Security
+Act must ensure that any individual eligible for medical assistance under that
+agreement who wishes to receive coverage of long-term care services completes an
+application which includes the disclosure required under the new section 1917(e)(1)
+and the statement required under the new section 1917(e)(1) and (2). Failure to
+complete an application form that meets these requirements will not affect the
+individual’s eligibility for Medicaid; however, the individual will not be eligible for
+coverage of long-term care services unless the appropriate form is completed and
+signed.
+
+D. Consideration of Income and Resources from an Annuity
+
+The State may take into consideration the income or resources derived from an
+annuity when determining eligibility for medical assistance or the extent of the State’s
+obligations for such assistance. This means that even though an annuity is not
+penalized as a transfer for less than fair market value (see II. Evaluation and
+Treatment of Purchases of Annuities and Certain Transactions On or After February
+8, 2006 below for further information about treating the purchase of an annuity as a
+transfer of assets), it must still be considered in determining eligibility, including
+spousal income and resources, and in the post-eligibility calculation, as appropriate.
+In other words, even if an annuity is not subject to penalty under the provisions of the
+DRA, this does not mean that it is excluded as income or resource.
+
+II. Evaluation and Treatment of Purchases of Annuities and Certain Transactions
+Related to Annuities On or After February 8, 2006
+
+A. Annuity-Related Transactions Other than Purchases
+
+Section 6012(d) specifies that the provisions of the DRA apply to transactions,
+including purchases, which occur on or after the date of enactment. In addition to
+purchases, certain transactions which occur on or after that date would make an
+annuity, including one purchased before that date, subject to the provisions of the
+DRA. Such transactions include any action taken by the individual that changes
+the course of payments to be made by the annuity or the treatment of the income
+or principal of the annuity. These actions include additions of principal, elective
+withdrawals, requests to change the distribution of the annuity, elections to
+annuitize the contract and similar actions taken by the individual on or after
+February 8, 2006. Such transactions result in all provisions of the DRA being
+applicable to the annuity.
+
+For annuities purchased prior to February 8, 2006, routine changes and automatic
+events that do not require any action or decision after the effective date of
+enactment are not considered transactions that would subject the annuity to
+treatment under these provisions of the DRA. Routine changes could be
+notification of an address change or death or divorce of a remainder beneficiary,
+and other similar circumstances. Changes which occur based on the terms of the
+annuity which existed prior to February 8, 2006, and which do not require a
+decision, election or action to take effect are likewise not subject to the DRA.
+
+For example, if an annuity purchased in June 2001 included terms which require
+distribution to begin five years from the date of purchase, and payouts
+consequently begin, as scheduled, in June 2006 this will not be considered a
+transaction subject to the DRA, since no action was required, post-enactment, to
+initiate the change. Lastly, changes which are beyond the control of the
+individual, such as a change in law, a change in the policies of the issuer, or a
+change in the terms based on other factors, such as the issuer’s economic
+conditions, are not considered transactions that cause the annuity to be subject to
+the terms of the DRA.
+
+B. Requirement to Name the State as a Remainder Beneficiary on Annuities
+
+Section 6012(b) of the DRA adds a new section 1917(c)(1)(F) which provides
+that the purchase of an annuity shall be treated as a disposal of an asset for less
+than fair market value unless the State is named as a remainder beneficiary.
+Unlike the new section 1917(c)(1)(G) added by section 6012(c) of the DRA
+(discussed in detail below), section 1917(c)(1)(F) does not restrict application of
+its requirements only to an annuity purchased by or on behalf of an annuitant
+who has applied for medical assistance for nursing facility or other long term-
+care services. Therefore, we interpret section 1917(c)(1)(F) as applying to
+annuities purchased by an applicant or by a spouse, or to transactions made by
+the applicant or spouse.
+
+Under the DRA an annuity must name the State as the remainder beneficiary in
+the first position for the total amount of medical assistance paid on behalf of the
+annuitant, unless there is a community spouse and/or a minor or disabled child.
+A child is considered disabled if he or she meets the definition of disability
+found at section 1614(a)(3) of the Act. If there is a community spouse and/or
+any minor or disabled child, the State may be named in the next position after
+those individuals. If the State has been named after a community spouse and/or
+a minor or disabled child, and any of those individuals or their representatives
+dispose of any of the remainder of the annuity for less than fair market value, the
+State may then be named in the first position.
+
+As a remainder beneficiary, the State may receive up to the total amount of
+medical assistance paid on behalf of the individual, including both long term care
+services and community services. Under the new section 1917(e) (see section
+I.B. above) the State must notify the issuer of the annuity of the State’s right as
+the preferred remainder beneficiary. The State should require verification from
+the issuer that the State is named as a remainder beneficiary in the correct
+position. States should also require the issuer to notify the State if and when
+there is any change in the amount of income or principal being withdrawn.
+
+If the State is not named as a remainder beneficiary in the correct position,
+the purchase of the annuity will be considered a transfer for less than fair
+market value. We interpret the statute to mean that the full purchase value of
+the annuity will be considered the amount transferred.
+
+C. Annuities Purchased by or on Behalf of an Annuitant Who Applied for
+Medical Assistance
+
+Section 6012(c) of the DRA amends section 1917(c)(1) by adding a new sub-
+paragraph (G) which provides that the purchase of an annuity on or after
+February 8, 2006, by or on behalf of an annuitant who has applied for medical
+assistance with respect to nursing facility services or other long-term care
+services, shall be treated as a transfer of assets for less than fair market value
+unless the annuity meets certain criteria. Unlike the new section 1917(c)(1)(F)
+discussed above, this requirement does not apply to annuities for which the
+community spouse is the annuitant. This requirement is in addition to those
+specified in 1917(c)(1)(F) pertaining to the State’s position as a remainder
+beneficiary. An annuity purchased by or on behalf of an annuitant who has
+applied for medical assistance will not be treated as a transfer of assets if the
+annuity meets any of the following conditions:
+
+1. The annuity is considered either:
+• An individual retirement annuity (according to Sec. 408(b)) of the
+Internal Revenue Code of 1986 (IRC), or
+• A deemed Individual Retirement Account (IRA) under a qualified
+employer plan (according to Sec. 408(q) of the IRC).
+
+OR
+
+2. The annuity is purchased with proceeds from one of the following:
+• A traditional IRA (IRC Sec. 408a); or
+• Certain accounts or trusts which are treated as traditional IRAs (IRC
+Sec. 408 §(c)); or
+• A simplified retirement account (IRC Sec. 408 §(p)); or
+• A simplified employee pension (IRC Sec. 408 §(k)); or
+• A Roth IRA (IRC Sec. 408A).
+
+OR
+
+3. The annuity meets all of the following requirements:
+• The annuity is irrevocable and non-assignable; and
+• The annuity is actuarially sound; and
+• The annuity provides payments in approximately equal amounts, with
+no deferred or balloon payments.
+
+To determine that an annuity is established under any of the various provisions
+of the Internal Revenue Code that are referenced in items 1. and 2. above, rely on
+verification from the financial institution, employer or employer association that
+issued the annuity. The burden of proof is on the institutionalized individual or
+his or her representative to produce this documentation. Absent such
+documentation, the purchase of the annuity will be considered a transfer for
+less than fair market value which is subject to a penalty. We interpret the
+statute to mean that the full purchase value of the annuity will be considered the
+amount transferred.
+
+When evaluating whether or not an annuity meets the conditions listed in 3.
+above, use the methodology for determining actuarial soundness that is found in
+the State Medicaid Manual Chapter III, Section 3258.9 B. However, do not use
+the actuarial life expectancy tables published in that section. Instead, use the
+current actuarial tables published by the Office of the Chief Actuary of the
+Social Security Administration. These tables may be accessed at
+http://www.ssa.gov/OACT/STATS/table4c6.html.
+
+Note that even if an annuity is determined to meet the requirements above, and
+the purchase is not treated as a transfer, if the annuity or the income stream from
+the annuity is transferred, except to a spouse or to another individual for the sole
+benefit of the spouse, child or trust as described in 1917(c)(2)(B), that transfer
+may be subject to penalty.
+
+III. Effective Date
+
+These provisions apply to purchases of annuities, and certain transactions related to
+annuities, that occur on or after the date of enactment of the DRA, February 8, 2006.
+States must take all reasonable steps to implement these provisions as soon as
+practicable. States should consider if pending applications need to be supplemented to
+collect information regarding annuities, or if this information is already specifically
+collected to determine income and resources. States should also consider how to best
+
+notify applicants and recipients of the State’s rights regarding annuities purchased after
+the date of enactment.
+
+Enclosure
+
+Section 6013
+
+Application of the Spousal Impoverishment “Income-First”
+Rule Under the Deficit Reduction Act of 2005
+
+Centers for Medicare & Medicaid Services
+Center for Medicaid and State Operations
+
+July 27, 2006
+
+Enclosure Highlights—Section 6013
+
+I. Background
+II. New Provision
+
+III. Effective Date
+
+I. Background
+
+Section 6013 of the Deficit Reduction Act of 2005 (DRA); P.L. 105-171 amends section 1924 of the
+Social Security Act (the Act) to require all States to follow the "income-first" method in calculating
+revisions to the community spouse resource allowance (CSRA) under section 1924(d).
+
+Section 1924(d) of the Act requires States to set a monthly maintenance needs allowance (MMNA)
+for community spouses of institutionalized individuals applying for Medicaid. If the community
+spouse’s own income is less than the MMNA, income of the institutionalized spouse may be paid to
+the community spouse to make up the difference or "shortfall." The State must also protect (i.e., not
+count in determining the institutionalized spouse’s resource eligibility) for the community spouse a
+certain amount of the couple's resources, known as the community spouse resource allowance
+(CSRA). Protecting resources as part of the CSRA makes them available for transfer to the
+community spouse without counting as resources in determining the institutionalized spouse’s initial
+Medicaid eligibility.
+
+In calculating the community spouse's income, any interest, dividend, or other income generated by
+resources that are part of the CSRA, is included to the extent made available to the community
+spouse (see section 1924(d)(1)(B) of the Act). However, under section 1924(e)(2)(C) of the Act, the
+CSRA may be increased if an increase is necessary to raise the community spouse's income to the
+MMNA.
+
+Prior to enactment of the DRA, generally States could use one of two methods in determining
+whether to increase the CSRA in order to increase the community spouse’s income. States using an
+“income-first” method assume that all income of the institutionalized spouse that could be made
+available to the community spouse to bring the spouse up to the MMNA will be made available.
+Only if there would still be a remaining income "shortfall" would the CSRA be increased to the
+amount necessary to make up for the "shortfall" in income. In other States, using a "resources first"
+method, the increased CSRA is calculated based on comparing the community spouse's income to the
+MMNA without assuming that any allocation of income from the institutionalized spouse will be
+made.
+
+II. New Provision
+
+The DRA makes use of the "income first" method mandatory for all States. Thus, all States are
+required to attribute or allocate the maximum available income of the institutionalized spouse to the
+community spouse before granting an increase in the CSRA under section 1924(e)(2)(C) of the Act.
+
+In cases where a community spouse is seeking an increased CSRA on the basis that additional
+resources are needed to generate the monthly maintenance needs allowance (MMNA), States may
+now follow the following steps:
+
+1. Determine the MMNA for the community spouse in the same manner that you
+currently use pursuant to sections 1924(d)(3), (4), and (5) of the Act;
+
+2. Determine the community spouse's total gross monthly income, including income from
+income-producing assets retained by the community spouse;
+
+3. Subtract the community spouse's total monthly gross income from the MMNA. If there is
+a deficit, this is the amount of the income "shortfall" for the community spouse;
+
+4. Determine the institutionalized spouse's total gross monthly income. Deduct the personal
+needs allowance. Allocate sufficient income from the remainder of the institutionalized
+spouse's income to meet the "shortfall" amount for the community spouse.
+
+5. If, after Step 4 above, there is still some "shortfall" remaining for the community spouse,
+determine the amount of increased resources needed to generate that amount of income
+for the community spouse. In making this calculation, States may use any reasonable
+method for determining the amount of resources necessary to generate adequate income,
+including adjusting the CSRA to the amount a person would have to invest in a single
+premium annuity to generate the needed income, attributing a rate of return based on a
+presumed available rate of interest, or other methods.
+
+The above steps are offered for illustrative purposes, and do not preclude States from applying the
+income-first methodology in a different manner or sequence.
+
+III. Effective Date
+
+The effective date of this change is the date of enactment of DRA, February 8, 2006. However, this
+provision applies only to determinations of the CSRA made on or after the effective date, and only
+when the institutionalized spouse became institutionalized on or after the effective date. Couples
+who have had increased CSRAs calculated under a resources first methodology prior to the
+enactment of DRA will not be affected.
+
+Enclosure
+
+Section 6014
+
+Disqualification for Long-Term Care Coverage for
+Individuals with Substantial Home Equity Under the
+Deficit Reduction Act of 2005
+
+Centers for Medicare & Medicaid Services
+Center for Medicaid and State Operations
+
+July 27, 2006
+
+Enclosure Highlights—Section 6014
+
+I. New Provision
+II. Methodology
+
+III. Limitations
+
+IV. Increases in Limits
+
+V. Undue Hardship
+
+VI. Effective Date
+
+I. New Provision
+
+Section 6014 of the DRA amends section 1917 of the Social Security Act (the Act) to provide that
+in determining the eligibility of an individual to receive medical assistance payment for nursing
+facility services or other long-term care services, States must deny payment if the individual's
+equity interest in his or her home exceeds $500,000. States have the option to substitute an amount
+exceeding $500,000, but not in excess of $750,000. States that choose to use a higher amount than
+the $500,000 need not use the higher amount on a statewide basis. Also, States need not apply
+their higher amount to all eligibility groups.
+
+For purposes of this provision, “other long-term care services” include:
+
+• A level of care in any institution equivalent to nursing facility services;
+• Home or community-based services furnished under a waiver under sections 1915(c) or
+(d) of the Act; and
+• Services provided to a noninstitutionalized individual that are described in paragraph (7),
+(22), or (24) of section 1905(a) of the Act, and, if a State has elected to apply section
+1917(c) to other long-term care services for which medical assistance is otherwise available
+under the State plan to individuals requiring long-term care, those services.
+
+NOTE: This is not a change in the general rule that excludes a home of any value for
+purposes of determining eligibility for Medicaid. It applies only to medical assistance
+payment for nursing facility services, or other long-term care services as defined above.
+
+II. Methodology
+
+In determining the value of home equity, States should follow the basic policies of the
+Supplemental Security Income (SSI) program. The equity value of a resource is the current market
+value minus any encumbrance on it. Current market value is the going price of the home, or the
+amount for which it can reasonably be expected to sell on the open market in the particular
+geographic area involved. An encumbrance is a legally binding debt against the resource. This can
+be a mortgage, reverse mortgage, home equity loan, or other debt that is secured by the home.
+States should follow their existing policies to determine current market value. States should also
+apply their usual verification procedures if an encumbrance is alleged.
+
+If the home is held in any form of shared ownership, e.g., joint tenancy, tenancy in common, or
+other arrangement, only the fractional interest of the applicant for medical assistance for nursing
+facility or other long-term care services should be considered. For example, if the home is owned
+in joint tenancy by an applicant and a sibling, one-half of the home's current market value should
+be used in calculating the equity value of the individual, unless the individual can rebut the
+presumption that he or she has equal ownership interest in the property.
+
+III. Limitations
+
+The limitations on home equity do not apply if the spouse of the individual, the individual's child
+under 21, or the individual's blind or disabled child is residing in the home. A child is considered
+disabled if he or she meets the definition of disability in section 1614(a)(3) of the Act. In Guam,
+Puerto Rico, and the Virgin Islands, instead of using the section 1614(a)(3) definition of disability,
+the child must be permanently and totally disabled (as defined for purposes of the State plan
+
+program under title XVI of the Social Security Act) for the exemption to apply.
+
+IV. Increases in Limits
+
+Beginning in the year 2011, the $500,000 and $750,000 limits on home equity will increase each
+year. The increase will be based on the percentage increase in the consumer price index for all
+urban consumers, rounded to the nearest $1,000. However, States will continue to have the option
+under the State plan to elect a home equity limit that is greater than $500,000 as adjusted by
+inflation, but that does not exceed $750,000, as adjusted by inflation.
+
+V. Undue Hardship
+
+In addition, the Secretary of Health and Human Services is directed to establish a process to waive
+the application of the home equity limit in the case of a demonstrated hardship. Pending
+publication of a process specific to the home equity limit, States may use their existing procedures
+for determining the existence of undue hardship as currently required under section 1917(c)(2)(D)
+(transfers of assets for less than fair market value), or newer procedures developed for transfer of
+assets undue hardship waivers under section 6011 of the DRA.
+
+Effective Date
+
+The changes made by this section apply to individuals who are determined eligible for medical
+assistance with respect to nursing facility services or other long-term care services based on
+applications filed on or after January 1, 2006.
+
+Enclosure
+
+Section 6015
+
+Rules Pertaining to the Treatment of Continuing Care
+Retirement Community (CCRC) Entrance Fees Under the
+Deficit Reduction Act of 2005
+
+Centers for Medicare & Medicaid Services
+Center for Medicaid and State Operations
+
+July 27, 2006
+
+Enclosure Highlights—Section 6015
+
+I. General Discussion
+II. Effective Date
+
+I. General Discussion
+
+This enclosure concerns provisions of the Deficit Reduction Act of 2005 (DRA); P.L. 109-171,
+applicable to cases where entrance fees have been paid to continuing care retirement communities
+(CCRCs), or life care communities. The changes modify portions of the Federal Medicaid statute,
+specifically section 1919(c)(5) of the Social Security Act (the Act) and section 1917 of the Act.
+
+The Federal Medicaid statute does not define what constitutes a CCRC or life care community.
+However, as a general rule CCRCs or life care communities provide a range of living arrangements,
+from independent living through skilled nursing care. Regulation, licensing or certification of such
+facilities is a function of the States. Some CCRCs include Medicaid certified nursing facilities and
+others do not participate in Medicaid. In many cases, potential residents must provide extensive
+information about their finances, including their resources and income, before being accepted for
+admission. In addition, they frequently must pay substantial entrance fees and sign detailed contracts
+before moving to the community.
+
+The amendments to section 1919(c)(5) of the Act provide that contracts for admission to a State
+licensed, registered, certified, or equivalent CCRC or life care community may require residents to
+spend on their care the resources that were declared by the resident for the purpose of admission to
+the CCRC prior to applying for Medicaid. However, the provisions of the entrance contract are
+subject to the rules relating to the prevention of impoverishment of a community spouse under
+subsections 1924(c) and (d) of the Act. Therefore, any contractual provision requiring the
+expenditure of resident entrance deposits must take into account the required allocation of resources
+or income to the community spouse before determining the amount of resources that a resident must
+spend on his or her own care.
+
+In addition, the DRA and added a new subsection (G) to section 1917(c)(1) of the Act. The new
+subsection (G) defines when an entrance fee paid to a CCRC or life care community would be
+treated as a resource to an individual for purposes of determining Medicaid eligibility. The
+following three conditions must all be met in order for the entrance fee to be considered an available
+resource:
+
+• The entrance fee can be used to pay for care under the terms of the entrance contract
+should other resources of the individual be insufficient; and
+• The entrance fee (or remaining portion) is refundable when the individual dies or
+terminates the contract and leaves the CCRC or life care community; and
+• The entrance fee does not confer an ownership interest in the community.
+
+States should note that in order to meet the first condition listed above, it is not necessary for CCRCs
+or life care communities to provide a full, lump-sum refund of the entrance fee to the resident. If
+portions of the fee can be refunded or applied to pay for care as required, this condition would be
+met.
+
+Also, in order to meet the second condition listed above, it is not necessary for the resident to
+actually receive a refund of the entrance fee or deposit. This condition is met as long as the resident
+could receive a refund were the contract to be terminated, or if the resident dies.
+
+II. Effective Date
+
+The provisions related to entrance deposits made to CCRCs and life care communities became
+effective upon the date of enactment of the DRA, February 8, 2006.

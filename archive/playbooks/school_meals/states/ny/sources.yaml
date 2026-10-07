@@ -1,0 +1,77 @@
+# New York sources for school meals. NYSED's Child Nutrition site
+# (www.cn.nysed.gov) serves an incomplete certificate chain (the GlobalSign
+# RSA OV SSL CA 2018 intermediate is missing), so snapshots were fetched with
+# that intermediate added to the trusted bundle; verification stayed on.
+sources:
+  - id: nysed-ufm-memo-2025
+    retrieved: 2026-10-07
+    url: https://www.cn.nysed.gov/content/new-york-state-universal-free-meals
+    publisher: New York State Education Department, Child Nutrition Program Administration
+    title: New York State Universal Free Meals (memo to School Food Service Directors, May 13, 2025)
+    kind: primary
+    jurisdiction: ny
+    doc_type: directive
+    published: 2025-05-13
+    effective_date: 2025-07-01
+  - id: ny-edn-915-a-publiclaw
+    retrieved: 2026-10-07
+    url: https://newyork.public.law/laws/n.y._education_law_section_915-a
+    publisher: public.law (third-party copy of the NY Senate's Consolidated Laws text, updated Jul. 4, 2025)
+    title: N.Y. Education Law sec. 915-a — Universal free school meals
+    kind: secondary
+    jurisdiction: ny
+    doc_type: statute
+    note: The official text at nysenate.gov/legislation/laws/EDN/915-A refuses scripted requests (403); this third-party copy is used for wording only, and every rule resting on it also cites the NYSED memo.
+  - id: nysed-dcmp-2026
+    retrieved: 2026-10-07
+    url: https://www.cn.nysed.gov/content/new-state-wide-direct-certification-matching-process-and-mandatory-reporting-snapmedicaid
+    publisher: New York State Education Department, Child Nutrition Program Administration
+    title: State-Wide Direct Certification Matching Process and Mandatory Reporting of SNAP/Medicaid Eligible Students (memo, September 8, 2026)
+    kind: primary
+    jurisdiction: ny
+    doc_type: directive
+    published: 2026-09-08
+  - id: nysed-p2-base-year-2026-27
+    retrieved: 2026-10-07
+    url: https://www.cn.nysed.gov/node/3505
+    publisher: New York State Education Department, Child Nutrition Program Administration
+    title: "2026-2027 Provision 2 Base Year: Income Eligibility Guidelines, Application, and Related Information (memo, May 7, 2026)"
+    kind: primary
+    jurisdiction: ny
+    doc_type: directive
+    published: 2026-05-07
+  - id: nysed-ieg-2026-27
+    retrieved: 2026-10-07
+    url: https://www.cn.nysed.gov/sites/cn/files/incomeeligibilitygdlns.pdf
+    publisher: New York State Education Department, Child Nutrition Program Administration
+    title: 2026-2027 Income Eligibility Guidelines for Free and Reduced Price Meals or Free Milk
+    kind: primary
+    jurisdiction: ny
+    doc_type: form
+    effective_date: 2026-07-01
+  - id: nysed-application-2026-27
+    retrieved: 2026-10-07
+    url: https://www.cn.nysed.gov/sites/cn/files/appfrpschmeals.pdf
+    publisher: New York State Education Department, Child Nutrition Program Administration
+    title: 2026-2027 Application for Free and Reduced-Price School Meals/Milk (NYSED prototype)
+    kind: primary
+    jurisdiction: ny
+    doc_type: form
+    effective_date: 2026-07-01
+  - id: nysed-cep-household-income-form
+    retrieved: 2026-10-07
+    url: https://www.cn.nysed.gov/sites/cn/files/spohouseholdincomeform.docx
+    publisher: New York State Education Department, Child Nutrition Program Administration
+    title: Community Eligibility Provision (CEP)/Provision 2 non-base year/Summer EBT Household Income Eligibility Form (NYSED prototype)
+    kind: primary
+    jurisdiction: ny
+    doc_type: form
+    note: Word file; its text was extracted from word/document.xml and imported.
+  - id: nysed-cep-page
+    retrieved: 2026-10-07
+    url: https://www.cn.nysed.gov/content/CEP
+    publisher: New York State Education Department, Child Nutrition Program Administration
+    title: Community Eligibility Provision (CEP)
+    kind: primary
+    jurisdiction: ny
+    doc_type: agency_page

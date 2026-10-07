@@ -1,0 +1,190 @@
+schema_version: 2
+program: turning_65
+scope: il
+title: Turning 65 — Illinois additions (Medigap "Birthday Law", under-65 Medigap rights, SHIP, Benefit Access)
+last_researched: 2026-10-07
+
+summary:
+  plain_language: >-
+    Medicare enrollment, premiums and penalties are federal and the same in
+    Illinois. Illinois adds a Medigap "Birthday Law": a person aged 65 to 75
+    who has a Medicare supplement policy has 45 days starting on their
+    birthday each year to buy a policy with equal or lesser benefits from the
+    same company (or, per the 2026 state guide, an affiliate) without
+    underwriting. This is narrower than California's rule (same company group
+    only, ages 65-75 only). People under 65 on Medicare because of disability
+    have the same Medigap open enrollment rights as people 65+, and get a
+    second 6-month open enrollment at 65. Free counseling is through the
+    Senior Health Insurance Program (SHIP, 1-800-252-8966). Residents 65+
+    with low income can also get the Benefit Access Program (free transit and
+    a license-plate discount).
+  administered_by: >-
+    Medigap: Illinois Department of Insurance. SHIP and Benefit Access:
+    Illinois Department on Aging.
+  funded_by: Medigap premiums are paid by the policyholder; SHIP is federally funded (ACL); Benefit Access is state funded.
+  local_names:
+    - {name: SHIP, meaning: Senior Health Insurance Program (Illinois Department on Aging)}
+    - {name: Birthday Law, meaning: Illinois's annual 45-day Medicare supplement open enrollment for ages 65-75}
+    - {name: Benefit Access Program, meaning: Seniors Ride Free transit benefit and license plate discount}
+  confidence: confirmed
+  sources:
+    - {source: il-aging-medicare-choices-2026, locator: "pp. 10-12"}
+    - {source: il-aging-ship, locator: "SHIP page"}
+
+rules:
+  - id: T65-IL-MEDIGAP-BIRTHDAY
+    statement: >-
+      In Illinois, a person aged 65 to 75 who has a Medicare supplement
+      (Medigap) policy has an annual open enrollment period of 45 days starting
+      on their birthday, during which they may buy any Medigap policy with
+      equal or lesser benefits from the same insurer or an affiliate authorized
+      in Illinois, and the insurer may not deny, condition or price the policy
+      based on health status, claims experience or medical condition.
+    kind: eligibility
+    effective_from: 2022-01-01
+    parameters: [il.idoi.medigap_birthday_window_days, il.idoi.medigap_birthday_rule_ages]
+    overrides: [T65-FED-MEDIGAP-UNDERWRITING]
+    implemented_in: playbooks/turning_65/states/il/rules.py:evaluate
+    confidence: confirmed
+    open_question: T65-IL-OQ-01
+    note: >-
+      Stated by the Illinois Department on Aging's 2026 Medicare Choices guide.
+      The statute (215 ILCS 5/363) and the Public Acts could not be retrieved
+      from ilga.gov. The January 1, 2022 start date comes from the NAIC chart
+      (secondary). When the "or an affiliate" wording took effect is disputed
+      (T65-IL-CONFLICT-01).
+    sources:
+      - {source: il-aging-medicare-choices-2026, locator: "p. 11, THE IL MEDIGAP \"BIRTHDAY LAW\""}
+      - {source: naic-medigap-birthday-chart-2026, locator: "Illinois row"}
+  - id: T65-IL-MEDIGAP-UNDER-65
+    statement: >-
+      In Illinois, people under 65 who have Medicare because of a disability
+      have the same Medigap open enrollment rights as people 65 and older, and
+      get another six-month Medigap open enrollment period when they turn 65.
+    kind: eligibility
+    effective_from: 2026-02-01
+    confidence: confirmed
+    note: 2026 is the earliest date of the archive's source, not the date the right began.
+    sources:
+      - {source: il-aging-medicare-choices-2026, locator: "p. 12, INFORMATION FOR DISABLED INDIVIDUALS ON MEDICARE"}
+  - id: T65-IL-SHIP
+    statement: >-
+      In Illinois, free Medicare counseling (the State Health Insurance
+      Assistance Program) is the Senior Health Insurance Program (SHIP) of the
+      Illinois Department on Aging, reached through the Senior HelpLine
+      1-800-252-8966.
+    kind: procedure
+    effective_from: 2026-01-01
+    implemented_in: playbooks/turning_65/states/il/rules.py:evaluate
+    confidence: confirmed
+    sources:
+      - {source: il-aging-ship, locator: "SHIP section and contact: 1-800-252-8966"}
+  - id: T65-IL-BENEFIT-ACCESS
+    statement: >-
+      In Illinois, a resident who is 65 or older (or turns 65 this year), or 16
+      or older and disabled, with total gross income for the last tax year
+      under $33,562 (1 person), $44,533 (2) or $55,500 (3), can get the Benefit
+      Access Program's free transit (Seniors Ride Free) and license plate
+      discount by applying online.
+    kind: eligibility
+    applies_to: [BENEFIT_ACCESS]
+    effective_from: 2026-01-01
+    parameters: [il.aging.benefit_access_income_limit]
+    implemented_in: playbooks/turning_65/states/il/rules.py:evaluate
+    confidence: confirmed
+    note: Flagged as a link; not a Medicare program. Illinois has no state drug-cost program comparable to New York's EPIC in the sources checked (T65-IL-OQ-02).
+    sources:
+      - {source: il-aging-benefit-access, locator: "Qualifications"}
+
+procedure:
+  applications:
+    - id: T65-IL-PROC-BIRTHDAY
+      text: During the 45 days from the birthday, ask the current Medigap company (or its affiliate) for a policy with equal or lesser benefits; insurers must notify policyholders of this right before the window.
+      channel: any
+      confidence: secondary
+      note: The notice requirement (30-60 days before) is from secondary summaries of the bill, not a primary copy.
+      sources: [{source: healthinsurance-org-medicare-il, locator: "Medigap section"}]
+    - id: T65-IL-PROC-BENEFIT-ACCESS
+      text: Apply for the Benefit Access Program online; paper applications are not available.
+      channel: online
+      confidence: confirmed
+      sources: [{source: il-aging-benefit-access, locator: "you must submit a Benefit Access Application on the internet. Paper applications are not available."}]
+  filing:
+    - id: T65-IL-FILE-SHIP
+      text: Call the Senior HelpLine 1-800-252-8966 (711 TRS) or email Aging.SHIP@illinois.gov for SHIP counseling.
+      channel: phone
+      confidence: confirmed
+      sources: [{source: il-aging-ship, locator: "contact block"}]
+
+life_events:
+  - id: T65-IL-LE-BIRTHDAY
+    code: renewal_due
+    event: An Illinois Medigap policyholder aged 65-75 reaches their birthday
+    why: The 45-day Birthday Law window opens for an equal-or-lesser plan with the same company group.
+    check_rules: [T65-IL-MEDIGAP-BIRTHDAY]
+    confidence: confirmed
+    sources: [{source: il-aging-medicare-choices-2026, locator: "p. 11"}]
+  - id: T65-IL-LE-TURNING-65-DISABLED
+    code: turning_65
+    event: An Illinois Medicare beneficiary on disability turns 65
+    why: A second six-month Medigap open enrollment opens at 65, which may lower premiums.
+    check_rules: [T65-IL-MEDIGAP-UNDER-65, T65-FED-AGE65-NEW-IEP]
+    confidence: confirmed
+    sources: [{source: il-aging-medicare-choices-2026, locator: "p. 12"}]
+
+outcome_proof:
+  - id: T65-IL-PROOF-MEDIGAP
+    evidence: New Medigap policy from the same company or affiliate
+    shows: The switch was issued without underwriting during the birthday window.
+    confidence: unresolved
+    open_question: T65-IL-OQ-01
+
+open_questions:
+  - id: T65-IL-OQ-01
+    priority: medium
+    question: Retrieve 215 ILCS 5/363 and Public Acts 102-0142 and 103-0747 to confirm the 45-day window, ages 65-75, the affiliate expansion and its effective date.
+    why_it_matters: Decides whether an Illinois member can switch to an affiliate company's plan without health questions, and at what ages.
+    checked: [ilga.gov (TLS failure from scripts; HTTP 503 via WebFetch), IL Department on Aging 2026 Medicare Choices, NAIC chart May 2026, healthinsurance.org]
+    affects: [T65-IL-MEDIGAP-BIRTHDAY, il.idoi.medigap_birthday_window_days, T65-IL-PROOF-MEDIGAP]
+    status: open
+  - id: T65-IL-OQ-02
+    priority: low
+    question: Does Illinois have any state pharmaceutical assistance program for Medicare beneficiaries today (the former Illinois Cares Rx ended)?
+    why_it_matters: A new 65-year-old may be told about drug help that does not exist.
+    checked: [IL Department on Aging Benefit Access page, SHIP page]
+    status: open
+
+conflicts:
+  - id: T65-IL-CONFLICT-01
+    topic: When the "same issuer or affiliate" expansion of the Illinois Birthday Law took effect
+    claims:
+      - source: il-aging-medicare-choices-2026
+        says: "Public Act 103-0747 revised with new updates starting 1/1/2026."
+      - source: naic-medigap-birthday-chart-2026
+        says: The addition of affiliate insurers was due to legislation that Illinois enacted in 2024.
+      - source: healthinsurance-org-medicare-il
+        says: Enrollees can switch to a plan offered by their current insurer (or an affiliate of their current insurer).
+    handling: >-
+      The archive applies the affiliate wording for 2026 (the state guide's
+      date) and does not decide pre-2026 affiliate switches. Enactment in 2024
+      and effect in 2026 can both be true; the Public Act should be checked
+      (T65-IL-OQ-01).
+    affects: [T65-IL-MEDIGAP-BIRTHDAY]
+    status: open
+
+claims_checked:
+  - claim: Illinois adopted a Medigap birthday rule, reported effective 2025.
+    verdict: corrected
+    detail: >-
+      Illinois's birthday rule (45 days from the birthday, ages 65-75, same
+      company, equal or lesser benefits) dates from January 1, 2022 per the
+      NAIC chart; a later law (P.A. 103-0747) added affiliates, which the
+      Department on Aging dates to January 1, 2026. Neither is 2025 in the
+      sources found; statute text not retrieved.
+    sources:
+      - {source: il-aging-medicare-choices-2026, locator: "p. 11"}
+      - {source: naic-medigap-birthday-chart-2026, locator: "Illinois row"}
+  - claim: Illinois's SHIP is the Senior Health Insurance Program.
+    verdict: verified
+    detail: Run by the Illinois Department on Aging (Senior HelpLine 1-800-252-8966).
+    sources: [{source: il-aging-ship, locator: "SHIP"}]

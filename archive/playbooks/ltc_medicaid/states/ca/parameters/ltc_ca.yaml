@@ -1,0 +1,112 @@
+# California long-term care Medi-Cal numbers. The property (asset) test was
+# eliminated for 2024-2025 and reinstated January 1, 2026 (AB 116, ACWDL 25-14).
+parameters:
+  - id: ca.medi_cal_ltc.asset_test_applies
+    description: Whether Medi-Cal applies a property (asset) test to Non-MAGI programs, including long-term care.
+    unit: boolean
+    updates: Only by legislation.
+    values:
+      - effective_from: 2024-01-01
+        effective_to: 2025-12-31
+        value: false
+        confidence: confirmed
+        sources:
+          - {source: ca-dhcs-acwdl-25-14, locator: "Background", quote: "The second phase, effective January 1, 2024, eliminated the asset limits for Non-MAGI programs."}
+      - effective_from: 2026-01-01
+        value: true
+        confidence: confirmed
+        sources:
+          - {source: ca-dhcs-acwdl-25-14, locator: "Policy Change", quote: "No sooner than January 1, 2026, the asset test shall be reinstated for Non-MAGI programs, including LTC and MSPs"}
+  - id: ca.medi_cal_ltc.asset_limit
+    description: Medi-Cal property limit for Non-MAGI programs (including long-term care), by household size.
+    compare_to: >-
+      Net non-exempt property of the applicant's Medi-Cal family budget unit; for an institutionalized spouse,
+      property in the institutionalized spouse's name after the community spouse resource allowance.
+    unit: usd
+    keyed_by: household_size (1-10; $65,000 for each person after the first)
+    updates: Only by legislation (not indexed).
+    values:
+      - effective_from: 2022-07-01
+        effective_to: 2023-12-31
+        value: {1: 130000, 2: 195000, 3: 260000, 4: 325000, 5: 390000}
+        confidence: confirmed
+        sources:
+          - {source: ca-dhcs-acwdl-25-14, locator: "Background: The first phase, which was effective July 1, 2022, increased the asset limits to $130,000 for one person and $65,000 for each additional household member"}
+      - effective_from: 2026-01-01
+        value: {1: 130000, 2: 195000, 3: 260000, 4: 325000, 5: 390000}
+        confidence: confirmed
+        sources:
+          - {source: ca-dhcs-acwdl-25-14, locator: "Household Asset Limits for Non-MAGI Programs as of January 1, 2026", quote: "1 person $130,000 / 2 people $195,000"}
+          - {source: ca-dhcs-acwdl-26-02, locator: "Property Eligibility", quote: "The property limits are $130,000 for an individual, $195,000 for a couple, and $65,000 for each additional person"}
+  - id: ca.medi_cal_ltc.csra
+    description: California community spouse resource allowance (the full federal maximum is allowed to the community spouse).
+    unit: usd
+    updates: Each January (ACWDL on spousal impoverishment caps).
+    values:
+      - effective_from: 2026-01-01
+        effective_to: 2026-12-31
+        value: 162660
+        confidence: confirmed
+        sources:
+          - {source: ca-dhcs-acwdl-26-02, locator: "Purpose", quote: "Starting January 1, 2026, the CSRA is $162,660.00"}
+  - id: ca.medi_cal_ltc.mmmna
+    description: California minimum monthly maintenance needs allowance for a community spouse.
+    unit: usd_per_month
+    updates: Each January (ACWDL).
+    values:
+      - effective_from: 2025-01-01
+        effective_to: 2025-12-31
+        value: 3948
+        confidence: confirmed
+        sources:
+          - {source: ca-dhcs-acwdl-26-02, locator: "Note", quote: "The MMMNA amount effective January 1, 2025, through December 31, 2025, was $3,948."}
+      - effective_from: 2026-01-01
+        effective_to: 2026-12-31
+        value: 4067
+        confidence: confirmed
+        sources:
+          - {source: ca-dhcs-acwdl-26-02, locator: "Purpose", quote: "Effective January 1, 2026, the MMMNA is $4,067 per month"}
+  - id: ca.medi_cal_ltc.appr
+    description: California statewide average private pay rate (APPR) for nursing facility services, the divisor for a period of ineligibility.
+    unit: usd_per_month
+    updates: Each January-February (ACWDL); applies to cases with an application or institutionalization date in that year.
+    values:
+      - effective_from: 2026-01-01
+        effective_to: 2026-12-31
+        value: 14440
+        confidence: confirmed
+        sources:
+          - {source: ca-dhcs-acwdl-26-03, locator: "Purpose", quote: "the 2026 Statewide Average Private Pay Rate (APPR) for nursing facility services (NFS) of $14,440"}
+  - id: ca.medi_cal_ltc.lookback_months
+    description: California transfer look-back period for long-term care (nursing facility level of care).
+    unit: months
+    updates: Regulation (22 CCR 50408); not indexed.
+    values:
+      - effective_from: 2026-01-01
+        value: 30
+        confidence: confirmed
+        note: The same 30-month period applied before 2024 (ACWDL 25-18 reviews pre-2024 months under it); the archive records it from the 2026 reinstatement.
+        sources:
+          - {source: ca-dhcs-acwdl-25-18, locator: "Review of Transfers of Assets", quote: "In California, the look-back period is 30 months"}
+  - id: ca.medi_cal_ltc.max_poi_months
+    description: Maximum California period of ineligibility for nursing facility level of care, counted from the date of the transfer.
+    unit: months
+    updates: Regulation.
+    values:
+      - effective_from: 2026-01-01
+        value: 30
+        confidence: confirmed
+        sources:
+          - {source: ca-dhcs-acwdl-25-18, locator: "B. New POIs", quote: "The maximum POI is 30 months from the date of the transfer (ACWDL 90-01, Section 50411.3)."}
+  - id: ca.medi_cal_ltc.pna
+    description: California personal needs allowance for a Medi-Cal nursing facility resident (deducted from income before the share of cost).
+    unit: usd_per_month
+    updates: Set in statute/regulation; DHCS may raise it.
+    values:
+      - effective_from: 2002-01-01
+        value: 35
+        confidence: confirmed
+        open_question: CA-LTC-OQ-03
+        note: The DHCS source is an old Partnership Q&A (figures for 2001-2002). No newer DHCS text was retrievable; Welfare and Institutions Code 14005.12 could not be fetched (Cloudflare). Effective date is the earliest date the source supports, not the date the amount was set.
+        sources:
+          - {source: ca-dhcs-ltc-medi-cal-qa, locator: "married couple answer; share of cost answer", quote: "The spouse in the nursing home is permitted to keep $35 a month for personal needs."}

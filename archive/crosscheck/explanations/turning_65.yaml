@@ -1,0 +1,14 @@
+# Why archive results differ from PolicyEngine US for the Turning 65 playbook.
+# Run of 2026-10-07 (PolicyEngine US 2.29.14): 30 households (10 per state), all
+# agree on Part A premium (by quarters), Part B premium + IRMAA and Part D IRMAA,
+# so no explanations are needed yet.
+#
+# Compared only: premium amounts. PolicyEngine does not model enrollment
+# periods, coverage start dates, the Part A/B/D late penalties, Medicare
+# Secondary Payer rules or Medigap rights; those households are not marked
+# for the cross-check. Known modelling choices that would cause a difference
+# if tested: PolicyEngine's IRMAA thresholds start at whole dollars above the
+# CMS bound (e.g. $109,001), so a fractional MAGI such as $109,000.50 gets no
+# IRMAA in PolicyEngine but the first bracket in the archive (CMS: "greater
+# than $109,000"); PolicyEngine treats every person 65+ as enrolled in Medicare.
+explanations: []

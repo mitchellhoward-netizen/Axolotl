@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://www.healthinsurance.org/medicare/california/
+  final_url: https://www.healthinsurance.org/medicare/california/
+  status: 200
+  content_type: text/html; charset=utf-8
+  text_sha256: 3180463a9d4b5a6c63ca17ea41b6d65271f22d281909f048c30bb94a6bf12651
+  text: healthinsurance-org-medicare-ca/2026-10-07.txt
+  raw: healthinsurance-org-medicare-ca/2026-10-07.html

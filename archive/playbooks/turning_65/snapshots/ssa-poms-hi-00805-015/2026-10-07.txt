@@ -1,0 +1,78 @@
+Skip to content
+
+Program Operations Manual System (POMS)
+
+Effective Dates: 10/31/2022 - Present
+Previous | Next
+
+TN 56 (10-22)
+
+HI 00805.015 Initial Enrollment Period
+
+A. Policy - First opportunity to enroll
+
+The IEP is the first opportunity an individual has to enroll in SMI. The IEP is based
+on the first month of eligibility for HI for those who are eligible for SMI based
+only on HI entitlement, as noted in HI 00805.005 A.1. and B.
+
+The IEP may also be based on the month in which the individual meets the requirements
+related to attaining age 65 and having the required residence/ citizen/alien status,
+as noted in HI 00805.005 A.2.
+
+B. Policy - 7 month period
+
+Except for people whose first month of eligibility occurred before 3/66 (see HI 00805.700 A.), an individual's IEP consists of 7 months.
+
+The IEP begins on the first day of the third month before the first month of eligibility
+(as defined in HI 00805.005 C.) and ends on the last day of the third month following the first month of eligibility.
+
+EXAMPLE: An individual's first month of eligibility is 7/92. The IEP begins 4/1/92 and ends
+10/31/92.
+
+C. Policy - more than one IEP
+
+An individual under age 65 may have more than one IEP if the individual establishes entitlement to HI based on
+disability or ESRD more than once.
+
+EXAMPLE: A disabled person has a period of DIB entitlement terminated, along with HI and SMI.
+If HI is reestablished based on a second period of DIB entitlement, or based on ESRD,
+the beneficiary has a new IEP beginning 3 months before the new date of entitlement
+to HI.
+
+NOTE: No matter how often, or under what circumstances, entitlement occurred prior to age
+65, every eligible beneficiary has a new IEP at age 65.
+
+An individual age 65 or over has only one IEP, except where the aged individual develops
+ESRD after age 65 and may have a second IEP based on ESRD. (See HI 00805.085 and HI 00801.258 C.)
+
+NOTE: No months prior to a new IEP are countable for premium surcharge purposes. If the
+beneficiary had paid a surcharge during the earlier period of SMI entitlement, that
+has no effect on the premiums due for the new enrollment.
+
+D. Reference
+
+•
+
+IEP extends into a GEP and ends before the end of the GEP, HI 00805.030.
+
+•
+
+IEP for foreign residents who are eligible for HI and foreign residents who are ineligible
+for HI, HI 00805.007.
+
+•
+
+Effect of birth on first day of month, HI 00805.153.
+
+•
+
+Additional IEP information, HI 00805.165.
+
+To Link to this section - Use this URL:
+http://policy.ssa.gov/poms.nsf/lnx/0600805015
+
+HI 00805.015 - Initial Enrollment Period - 10/31/2022
+
+Batch run: 10/31/2022
+
+Rev:10/31/2022

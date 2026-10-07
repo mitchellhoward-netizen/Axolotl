@@ -1,0 +1,107 @@
+# Illinois long-term care Medicaid (AABD medical) numbers, from the IDHS Policy
+# Manual, WAG 25-03-02 (2) Medical Standards and Manual Release 26.05.
+parameters:
+  - id: il.aabd_medical.resource_limit
+    description: Illinois AABD medical asset limit (the same amount whether one person or more is in the household).
+    compare_to: >-
+      Non-exempt resources of the applicant (for a married nursing-home applicant, total non-exempt resources of
+      both spouses minus the community spouse resource allowance).
+    unit: usd
+    keyed_by: household_size (1 or 2; same amount)
+    updates: Only by state law or rule (not indexed).
+    values:
+      - effective_from: 2023-05-12
+        value: {1: 17500, 2: 17500}
+        confidence: confirmed
+        sources:
+          - {source: il-idhs-pm-07-02-01, locator: "first paragraph", quote: "Effective 05/12/2023, the asset limit for Medical cases is $17,500. This applies whether one person or more is in a household."}
+          - {source: il-idhs-wag-25-03-02-2, locator: "Resources table: AABD Medical $17,500 / $17,500"}
+  - id: il.ltc.csra
+    description: Illinois community spouse resource allowance (a single standard, not a spousal-share computation).
+    unit: usd
+    updates: Each January (Public Act 102-1037; IDHS manual release), for applications received in that year.
+    values:
+      - effective_from: 2025-01-01
+        effective_to: 2025-12-31
+        value: 135648
+        confidence: confirmed
+        sources:
+          - {source: il-idhs-wag-25-03-02-2, locator: "Changes in January table: Community Spouse Resource Allowance (CSRA), 2025 column"}
+      - effective_from: 2026-01-01
+        effective_to: 2026-12-31
+        value: 143172
+        confidence: confirmed
+        sources:
+          - {source: il-idhs-mr-26-05, locator: "Summary", quote: "The CSRA limit for 2026 is $143,172.00."}
+          - {source: il-idhs-pm-07-02-22, locator: "first paragraph", quote: "The CSRA, up to $143,172.00, is not considered available to pay for the care of the LTC spouse for applications received on or after 01/01/2026."}
+  - id: il.ltc.csmna_standard
+    description: Illinois maintenance needs standard for the community spouse (the CSMNA is this standard minus the community spouse's gross income).
+    unit: usd_per_month
+    updates: Each January (IDHS manual release).
+    values:
+      - effective_from: 2025-01-01
+        effective_to: 2025-12-31
+        value: 3948.00
+        confidence: confirmed
+        sources:
+          - {source: il-idhs-wag-25-03-02-2, locator: "Changes in January table: Spousal Income (CSMNA), 2025 column"}
+      - effective_from: 2026-01-01
+        effective_to: 2026-12-31
+        value: 4066.50
+        confidence: confirmed
+        sources:
+          - {source: il-idhs-mr-26-05, locator: "Summary", quote: "The CSMNA limit for 2026 is $4,066.50."}
+          - {source: il-idhs-pm-15-04-04-a, locator: "third paragraph", quote: "Beginning 01/01/2026, the CSMNA is the maintenance needs standard of $4066.50 minus the community spouse's gross income."}
+  - id: il.ltc.fmna_standard
+    description: Illinois family maintenance needs standard (FMNA) shown in the medical standards table; how the per-member allowance is computed from it is not stated in the pages retrieved.
+    unit: usd_per_month
+    open_question: IL-LTC-OQ-02
+    updates: Each January.
+    values:
+      - effective_from: 2026-01-01
+        effective_to: 2026-12-31
+        value: 2705.00
+        confidence: confirmed
+        sources:
+          - {source: il-idhs-wag-25-03-02-2, locator: "Changes in January table: Family Maintenance (FMNA), 2026 column"}
+  - id: il.ltc.home_equity_limit
+    description: Illinois home equity limit for nursing facility, supportive living and Department on Aging HCBS waiver services (Illinois uses the federal minimum).
+    compare_to: The person's equity value in homestead property (fair market value from the tax assessment multiplier, minus encumbrances).
+    unit: usd
+    updates: Each January.
+    values:
+      - effective_from: 2025-01-01
+        effective_to: 2025-12-31
+        value: 730000
+        confidence: confirmed
+        sources:
+          - {source: il-idhs-wag-25-03-02-2, locator: "Changes in January table: Home Equity Limit, 2025 column"}
+      - effective_from: 2026-01-01
+        effective_to: 2026-12-31
+        value: 752000
+        confidence: confirmed
+        sources:
+          - {source: il-idhs-wag-25-03-02-2, locator: "Changes in January table: Home Equity Limit, 2026 column 752,000"}
+          - {source: il-idhs-pm-07-02-04-a, locator: "item 2 (equity value over the allowable amount, see WAG 25-03-02 (2))"}
+  - id: il.ltc.pna_nursing_home
+    description: Illinois personal needs allowance for a nursing facility resident (SNF, ICF/IID, MC/DD, SMHRF).
+    unit: usd_per_month
+    updates: State rule; not indexed.
+    values:
+      - effective_from: 2026-01-01
+        value: 60
+        confidence: confirmed
+        note: Effective date is the date of the manual text retrieved; the PM 07-02-20-d examples from 2012 use a $30 allowance, so the $60 figure started at some earlier date not established here.
+        sources:
+          - {source: il-idhs-pm-15-06-02-b, locator: "Nursing Home PNA", quote: "The PNA for a Skilled Nursing Facility (SNF), Provider Type 33 is $60."}
+  - id: il.ltc.lookback_months
+    description: Illinois transfer look-back period for nursing facility, SLF and DoA HCBS waiver services.
+    unit: months
+    updates: Federal law.
+    values:
+      - effective_from: 2026-01-01
+        value: 60
+        confidence: confirmed
+        note: Effective date is the date of the manual text retrieved; the federal 60-month rule dates from February 8, 2006.
+        sources:
+          - {source: il-idhs-pm-07-02-20, locator: "second paragraph", quote: "The lookback period is 60 months from the request for the state to pay for LTC services"}

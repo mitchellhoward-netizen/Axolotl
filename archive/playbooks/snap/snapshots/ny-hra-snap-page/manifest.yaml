@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://www.nyc.gov/site/hra/help/snap-benefits-food-program.page
+  final_url: https://www.nyc.gov/site/hra/help/snap-benefits-food-program.page
+  status: 200
+  content_type: text/html;charset=utf-8
+  text_sha256: 6a657f8d69df80a11ecc6301f955d444cf78ca79bf809e9aeb9548c3ad0c6871
+  text: ny-hra-snap-page/2026-10-07.txt
+  raw: ny-hra-snap-page/2026-10-07.html

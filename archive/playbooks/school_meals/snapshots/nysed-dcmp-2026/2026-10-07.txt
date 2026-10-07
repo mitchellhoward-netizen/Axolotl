@@ -1,0 +1,391 @@
+NYSED.GOV
+
+Board of Regents
+
+News
+
+Index A-Z
+
+Translate
+
+Contact Us
+
+NYSED Employment
+
+Business Portal
+
+Home
+
+Programs
+
+Application Submission Process
+
+National School Lunch Program (NSLP)
+
+Summer Food Service Program (SFSP)
+
+Afterschool Snack Program (Snack)
+
+Farm to School
+
+Fresh Fruit and Vegetable Program (FFVP)
+
+School Breakfast Program (SBP)
+
+Special Milk Program (SMP)
+
+Eligibility
+
+Financial Management
+
+Administrative Review
+
+SFAs Scheduled For Administrative Review
+
+Findings Summary Documents for Completed Reviews
+
+Procurement
+
+Statutes and Regulations
+
+Guidance
+
+Buy American Provision
+
+Management Companies
+
+Contracts & Extensions
+
+Civil Rights
+
+Training
+
+Upcoming Events
+
+Webinar Library
+
+SFSP Training
+
+Tutorials
+
+CN Snip-its
+
+Master Instructor Training Network
+
+Training Resources
+
+Training Listserv
+
+Search
+
+THE STATE EDUCATION DEPARTMENT / THE UNIVERSITY OF THE STATE OF NEW YORK / ALBANY, NY 12234
+
+Office of P-20 Education Policy
+
+Child Nutrition Program Administration
+
+89 Washington Avenue, Room 375 EBA, Albany, NY 12234
+
+Phone: (518) 473-8781 Fax: (518) 473-0018
+
+To:
+
+School Food Service Directors/Managers
+
+From:
+
+Child Nutrition Program Administration
+
+Date:
+
+Tuesday, September 8, 2026
+
+Subject:
+
+State-Wide Direct Certification Matching Process and Mandatory Reporting of SNAP/Medicaid Eligible Students
+
+Online Direct Certification Matching Process (DCMP)
+
+The Direct Certification Matching Process (DCMP) is a federally mandated procedure that enables School Food Authorities (SFAs) to certify students for free meal benefits without the need for household applications. This process utilizes state-level data from the Supplemental Nutrition Assistance Program (SNAP) and Medicaid to identify eligible students and matches this information with student records maintained in the New York State Student Identification System (NYSSIS).
+
+Match Frequency
+
+As part of New York State’s Universal Free School Meal Program, all SFAs must complete the DCMP at least three times during each school year[1]. The first match must be conducted at the beginning of the school year to satisfy federal reporting requirements. The additional matches should be completed in December/January, and again in April.
+
+SFAs with schools operating in the base year of Provision 2 must ensure the maximum number of students are certified for free meal benefits for each month of the base year. For these schools, DCMP should be conducted at the beginning of the school year, before distributing household applications and parent letters, and each month thereafter. This ongoing practice helps maximize certification rates and ensures accurate federal reimbursement levels in the base year and in future non-base years.
+
+DCMP System Access
+
+The NYSSIS system and State Match functionality are available through the NYSED Application Business Portal (https://portal.nysed.gov/abp).
+
+State-level DCMP Functions
+
+State Matches - provides access to direct certification data pre-matched to your students using the student’s NYSSIS ID. Check here first for your eligible students.
+
+Search - allows you to search direct certification lists with or without student NYSSIS IDs (SNAP & Medicaid).
+
+Bulk Search - allows you to perform a batch search of direct certification lists, with or without student NYSIS IDs by uploading a file listing multiple student records.
+
+Student Eligibility Effective Date
+
+The effective date of a student’s eligibility for direct certification is determined by the date of the automated data matching file that first identifies the student as eligible, not the date on which the SFA accesses or processes the file in its local point-of-service system. This date is displayed in the “DC Eligibility Date” column of the match results.
+
+Mandatory Reporting of SNAP and Medicaid Eligibles Due Before Filing the September Claim for Reimbursement
+
+At the start of each school year, SFAs must report in the Child Nutrition Management System (CNMS) the number of students directly certified through SNAP and Medicaid matches, including any extensions of eligibility to other household members, for each school. SFAs will be prompted to enter this information before submitting their September reimbursement claim.
+
+To access the report:
+
+Sign into CNMS with login information
+
+Select SFA Annual Information
+
+Select applicable school year
+
+Click on SNAP & Medicaid Certified Entry link
+
+This report is required for federal reporting (FNS-742 Verification Summary, FNS-834 DC Rate Data Element Report, and CEP Notification List) and other NYSED education reporting purposes (UEI, Title 1, State Aid, etc.).
+
+State Match System Instructions/Guidance Documents
+
+Use the links below to access the instructions, checklist, and sample letters related to the DCMP.
+
+Note: Due to ongoing updates and system improvements, the screenshots and descriptions in the guidance documents may not exactly match the current DCMP website. However, the core functionality remains unchanged.
+
+Please be aware that the Child Nutrition Program Office does not have the authority to grant access to the NYSSIS State Match System or make account updates. For detailed steps on how to assign NYSSIS State Match entitlements, refer to the link titled "How to Grant NYSSIS State Match Entitlements."
+
+State Match User Document
+
+State Match User FAQ Updated July 2025
+
+How to Grant NYSSIS State Match Entitlements
+
+Prototype Notification Letter - English (Editable Version)
+
+Reset My DCMP Password
+
+If you have any questions, please contact your Child Nutrition Program Representative.
+
+[1] DCMP remains optional for schools participating in the Special Milk Program only.
+
+Popular Topics
+
+Accommodating Children with Disabilities
+
+"And Justice For All" Posters
+
+Annual Checklist
+
+Child Nutrition Spotlight
+
+Community Eligibility Provision
+
+Direct Certification Matching Process
+
+Disclosure
+
+Eligibility
+
+Equipment Purchases Approval Process
+
+Food Based Menu Planning
+
+Food Service Management Company
+
+Forms
+
+Grants
+
+HACCP/Sanitation
+
+Indirect Cost Guidance
+
+Local School Wellness Policy
+
+Nonprofit School Food Service Account
+
+Preschool/Prekindergarten
+
+Professional Standards
+
+Program Integrity Final Rule
+
+Public Reports
+
+Recalls
+
+Regulations
+
+Reimbursement Rates
+
+Smart Snacks in School
+
+Verification
+
+How Do I…?
+
+Add a Program
+
+Add a Recipient Agency
+
+Add a User to CNMS
+
+Adjust a Claim
+
+Appeal A State Agency
+
+Become a New SFA
+
+Change My CNMS Password
+
+Complete the Health Inspection Report
+
+Conduct a Self-review
+
+Determine Selling Prices
+
+Find Free Summer Meals
+
+Nominate a Person/Program for the CN Spotlight
+
+Renew SAMS Registration
+
+Report Fraud, Waste, and Abuse
+
+Request a Breakfast After the Bell Waiver
+
+Reset my CNMS password
+
+Reset My DCMP Password
+
+Submit a Claim
+
+Terminate Participation
+
+Update my CNMS Administrator
+
+Quick Links
+
+CDC
+
+CACFP
+
+DUNS
+
+Food Buying Guide
+
+FRAC School Breakfast
+
+Hunger Solutions
+
+Information and Reporting Services
+
+Institute of Child Nutrition (previously NFSMI)
+
+MyBenefits
+
+NYS Dept of Agriculture and Markets: Farm to School
+
+NYS DOH CACFP
+
+NYS OCFS Foster Care Contacts
+
+NYS-TEACHS
+
+OGS
+
+School Nutrition Association
+
+SED Charter School Office
+
+SEDREF Information Page
+
+SEDREF Query
+
+SAM
+
+Team Nutrition
+
+USDA
+
+WellSAT
+
+WIC Strong
+
+Media Center
+
+Newsletters
+
+Video Gallery
+
+Subscribe
+
+Facebook
+
+X (Formerly Twitter)
+
+Instagram
+
+LinkedIn
+
+New York State Education Building
+
+89 Washington Avenue
+
+Albany, NY 12234
+
+CONTACT US
+
+NYSED General Information: (518) 474-3852
+
+ACCES-VR: 1-800-222-JOBS (5627)
+
+TASC (formerly GED): (518) 474-5906
+
+New York State Archives: (518) 474-6926
+
+New York State Library: (518) 474-5355
+
+New York State Museum: (518) 474-5877
+
+Office of Higher Education: (518) 486-3633
+
+Office of the Professions: (518) 474-3817
+
+P-12 Education: (518) 474-3862
+
+EMAIL CONTACTS
+
+Adult Education & Vocational Services
+
+New York State Archives
+
+New York State Library
+
+New York State Museum
+
+Office of Higher Education
+
+Office of the Professions
+
+P-12 Education
+
+USDA Nondiscrimination Statement
+
+In accordance with federal civil rights law and USDA civil rights regulations and policies, the USDA, its agencies, offices, employees, and institutions participating in or administering USDA programs are prohibited from discriminating based on race, color, national origin, religion, sex, disability, age, marital status, family/parental status, income derived from a public assistance program, political beliefs, or reprisal or retaliation for prior civil rights activity, in any program or activity conducted or funded by USDA (not all bases apply to all programs). Remedies and complaint filing deadlines vary by program or incident.
+
+Persons with disabilities who require alternative means of communication for program information (e.g., Braille, large print, audiotape, American Sign Language, etc.) should contact the state or local agency that administers the program or contact USDA through the Telecommunications Relay Service at 711 (voice and TTY). Additionally, program information may be made available in languages other than English.
+
+To file a program discrimination complaint, complete the USDA Program Discrimination Complaint Form, AD-3027, found online at How to File a Program Discrimination Complaint and at any USDA office or write a letter addressed to USDA and provide in the letter all of the information requested in the form. To request a copy of the complaint form, call (866) 632-9992. Submit your completed form or letter to USDA by:
+
+Mail: U.S. Department of Agriculture, Office of the Assistant Secretary for Civil Rights, 1400 Independence Avenue, SW, Mail Stop 9410, Washington, D.C. 20250-9410;
+
+Fax: (202) 690-7442; or
+
+Email: program.intake@usda.gov.
+
+USDA is an equal opportunity provider, employer, and lender.
+
+Diversity & Access | Public Records (FOIL) | Accessibility | Public Records (FOIL) | Internet Privacy Policy | Disclaimer
+
+Top

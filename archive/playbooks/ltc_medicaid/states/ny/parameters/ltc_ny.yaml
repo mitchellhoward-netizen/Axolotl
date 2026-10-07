@@ -1,0 +1,115 @@
+# New York long-term care Medicaid numbers for 2026, from the DOH standards
+# chart attached to GIS 26 MA/05, GIS 26 MA/03 and GIS 25 MA/14.
+parameters:
+  - id: ny.ltc.resource_limit
+    description: New York SSI-related Medicaid resource level, which is also the resource allowance of an institutionalized spouse.
+    compare_to: >-
+      Countable (non-exempt) resources of the nursing-home applicant; for a married applicant with a community
+      spouse, the couple's combined countable resources minus the community spouse resource allowance.
+    unit: usd
+    keyed_by: household_size (1 = individual, 2 = couple both applying)
+    updates: Each January with the poverty levels (GIS chart), effective January 1.
+    values:
+      - effective_from: 2026-01-01
+        effective_to: 2026-12-31
+        value: {1: 33038, 2: 44796}
+        confidence: confirmed
+        sources:
+          - {source: ny-gis-26-ma-05-att1, locator: "Non-MAGI table: SSI-Related Medicaid Income Level ... Resource Level 33,038 44,796"}
+          - {source: ny-gis-26-ma-05-att1, locator: "Spousal Impoverishment: Institutionalized Spouse ... Resources $33,038"}
+  - id: ny.ltc.csra_minimum
+    description: New York's state minimum community spouse resource allowance.
+    unit: usd
+    updates: Each January (GIS levels message).
+    values:
+      - effective_from: 2026-01-01
+        effective_to: 2026-12-31
+        value: 74820
+        confidence: confirmed
+        sources:
+          - {source: ny-gis-26-ma-03, locator: "item 9", quote: "The Minimum State Community Spouse Resource Allowance is $74,820.00"}
+          - {source: ny-gis-26-ma-05-att1, locator: "Spousal Impoverishment footnote: the greater of the following $74,820 or the amount of the spousal share up to $162,660"}
+  - id: ny.ltc.csra_maximum
+    description: Maximum community spouse resource allowance New York applies (the federal maximum).
+    unit: usd
+    updates: Each January.
+    values:
+      - effective_from: 2026-01-01
+        effective_to: 2026-12-31
+        value: 162660
+        confidence: confirmed
+        sources:
+          - {source: ny-gis-26-ma-03, locator: "item 8", quote: "The Maximum Federal Community Spouse Resource Allowance is $162,660.00"}
+  - id: ny.ltc.mmmna
+    description: Community spouse minimum monthly maintenance needs allowance in New York (New York uses the federal maximum as its standard).
+    unit: usd_per_month
+    updates: Each January.
+    values:
+      - effective_from: 2026-01-01
+        effective_to: 2026-12-31
+        value: 4066.50
+        confidence: confirmed
+        sources:
+          - {source: ny-gis-26-ma-03, locator: "item 10", quote: "The community spouse Minimum Monthly Maintenance Needs Allowance (MMMNA) is $4,066.50"}
+          - {source: ny-gis-26-ma-05-att1, locator: "Spousal Impoverishment: Community Spouse Income $4,066.50"}
+  - id: ny.ltc.pna_nursing_home
+    description: Personal needs allowance for a nursing-home resident (Article 28 facility) without earned income.
+    unit: usd_per_month
+    updates: Rarely; the 2026 chart still shows $50.
+    values:
+      - effective_from: 2026-01-01
+        effective_to: 2026-12-31
+        value: 50
+        confidence: confirmed
+        note: The MRG (June 2010) gives the same $50 for Article 28 facilities ($35 for Mental Hygiene Law Article 31 facilities).
+        sources:
+          - {source: ny-gis-26-ma-05-att1, locator: "Spousal Impoverishment: Institutionalized Spouse Income $50"}
+          - {source: ny-mrg, locator: "INCOME, Persons in Medical Facilities, Chronic Care Budgeting for Institutionalized Spouses, p. 281", quote: "deduct $50.00 for the PNA"}
+  - id: ny.ltc.family_allowance_standard
+    description: Amount used in New York's family member allowance formula (150% of FPL for two); the allowance is one-third of this standard minus the family member's income.
+    unit: usd_per_month
+    updates: When the poverty levels are published (re-budgeted back to January 1).
+    values:
+      - effective_from: 2026-01-01
+        effective_to: 2026-12-31
+        value: 2705
+        confidence: confirmed
+        sources:
+          - {source: ny-gis-26-ma-05-att1, locator: "Family Member Allowance: $2,705 (150% of FPL for 2) is used in the FMA formula"}
+          - {source: ny-gis-26-ma-05, locator: "Family Member Allowance", quote: "the amount used in the Family Member Allowance (FMA) formula increased to $2,705.00 and the maximum monthly FMA increased to $902"}
+  - id: ny.ltc.family_allowance_maximum
+    description: Maximum monthly family member allowance per family member in New York.
+    unit: usd_per_month
+    updates: When the poverty levels are published.
+    values:
+      - effective_from: 2026-01-01
+        effective_to: 2026-12-31
+        value: 902
+        confidence: confirmed
+        sources:
+          - {source: ny-gis-26-ma-05-att1, locator: "Family Member Allowance: the maximum allowance is $902"}
+          - {source: ny-gis-26-ma-05, locator: "Family Member Allowance"}
+  - id: ny.ltc.home_equity_limit
+    description: New York home equity limit for Medicaid coverage of nursing facility services and community-based long-term care.
+    compare_to: The applicant's equity interest in the home (fair market value minus liens and mortgages; equal shares presumed for joint owners).
+    unit: usd
+    updates: Each January (GIS levels message).
+    values:
+      - effective_from: 2026-01-01
+        effective_to: 2026-12-31
+        value: 1130000
+        confidence: confirmed
+        sources:
+          - {source: ny-gis-26-ma-03, locator: "item 16", quote: "The home equity limit for Medicaid coverage of nursing facility services and community-based long-term care is $1,130,000.00"}
+  - id: ny.ltc.regional_rate
+    description: New York monthly regional nursing home rate used as the divisor for transfer penalty periods (rate in effect on the date of application, for the region where the facility is located).
+    unit: usd_per_month
+    keyed_by: region (central, northeastern, western, northern_metropolitan, new_york_city, long_island, rochester)
+    updates: Each January (a GIS in December).
+    values:
+      - effective_from: 2026-01-01
+        effective_to: 2026-12-31
+        value: {central: 14146, northeastern: 14783, western: 13765, northern_metropolitan: 15024, new_york_city: 15282, long_island: 15193, rochester: 15675}
+        confidence: confirmed
+        sources:
+          - {source: ny-gis-25-ma-14, locator: "rate table", quote: "Central $14,146 Northern Metropolitan $15,024 ... New York City $15,282 ... Long Island $15,193 ... Western $13,765 Rochester $15,675"}

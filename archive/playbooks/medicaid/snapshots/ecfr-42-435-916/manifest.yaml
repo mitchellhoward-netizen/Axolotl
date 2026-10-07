@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://www.ecfr.gov/api/renderer/v1/content/enhanced/current/title-42?part=435&section=435.916
+  final_url: https://www.ecfr.gov/api/renderer/v1/content/enhanced/current/title-42?chapter=IV&subchapter=C&part=435&subpart=J&subject_group=ECFR0717d3fdf4a090c&section=435.916
+  status: 200
+  content_type: text/html; charset=utf-8
+  text_sha256: b52be670d6129a8afebebee503ced3fe8baf17f927d49b4fe864f85157ca4e58
+  text: ecfr-42-435-916/2026-10-07.txt
+  raw: ecfr-42-435-916/2026-10-07.html

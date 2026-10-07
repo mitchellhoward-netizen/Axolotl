@@ -1,0 +1,215 @@
+schema_version: 2
+program: turning_65
+scope: ny
+title: Turning 65 — New York additions (Medigap continuous open enrollment and community rating, EPIC, HIICAP)
+last_researched: 2026-10-07
+
+summary:
+  plain_language: >-
+    Medicare enrollment, premiums and penalties are the same in New York as in
+    every state (see the federal part). New York adds strong Medigap rules: an
+    insurer selling Medicare supplement insurance in New York must accept an
+    application at any time of the year, and premiums are community rated (the
+    same for everyone on a policy form in a region, regardless of age or
+    health), so a New Yorker can buy or switch Medigap any month. A policy may
+    still have up to a six-month waiting period for pre-existing conditions,
+    shortened by prior coverage. New Yorkers 65+ with income below $75,000
+    (single) or $100,000 (married) should be checked for EPIC, the state
+    program that helps with Part D drug costs. Free counseling is through
+    HIICAP (1-800-701-0501).
+  administered_by: >-
+    Medigap: NY Department of Financial Services (DFS). EPIC: NY Department of
+    Health. HIICAP: NY State Office for the Aging through local offices for the
+    aging.
+  funded_by: Medigap premiums are paid by the policyholder (or a retiree fund); EPIC is state funded; HIICAP is federally (SHIP) and state funded.
+  local_names:
+    - {name: HIICAP, meaning: "Health Insurance Information, Counseling and Assistance Program (New York's SHIP)"}
+    - {name: EPIC, meaning: Elderly Pharmaceutical Insurance Coverage}
+    - {name: DFS, meaning: New York State Department of Financial Services (insurance regulator)}
+  confidence: confirmed
+  sources:
+    - {source: ny-ins-law-3231, locator: "(a)(1)-(4)"}
+    - {source: nysofa-hiicap-guide-2025, locator: "Medigap, Medicare Supplemental Plans"}
+    - {source: ny-doh-epic, locator: "program description"}
+
+rules:
+  - id: T65-NY-MEDIGAP-CONTINUOUS
+    statement: >-
+      In New York, every insurer selling Medicare supplement (Medigap) insurance
+      must accept an application from a Medicare enrollee at any time of the
+      year and may not deny a policy or set premiums because of health status,
+      claims experience or medical condition, so a New Yorker can buy or switch
+      Medigap policies in any month, not only in the federal 6-month open
+      enrollment period.
+    kind: eligibility
+    effective_from: 1996-01-01
+    overrides: [T65-FED-MEDIGAP-UNDERWRITING]
+    implemented_in: playbooks/turning_65/states/ny/rules.py:evaluate
+    confidence: confirmed
+    note: Effective year 1996 comes from the NAIC chart (secondary); the statute text in the archive is the current version.
+    sources:
+      - {source: ny-ins-law-3231, locator: "(a)(2)", quote: "must be accepted at all times throughout the year"}
+      - {source: nysofa-hiicap-guide-2025, locator: "Medigap", quote: "must accept a Medicare enrollee's application for coverage at any time throughout the year"}
+      - {source: naic-medigap-birthday-chart-2026, locator: "New York row: continuous open enrollment throughout the year and community rating, 1996"}
+  - id: T65-NY-MEDIGAP-COMMUNITY-RATED
+    statement: >-
+      In New York, Medigap premiums must be community rated: everyone covered
+      by the same policy form pays the same premium (by region), without regard
+      to age, sex, health status or occupation; DFS publishes the community-rated
+      monthly premiums of each standardized plan by region (for example, in
+      effect April 1, 2026).
+    kind: definition
+    effective_from: 1996-01-01
+    confidence: confirmed
+    sources:
+      - {source: ny-ins-law-3231, locator: "(a)(1) and (a)(4), definition of community rated for medicare supplemental insurance"}
+      - {source: ny-dfs-medsup-rates-2026-04, locator: "title page"}
+  - id: T65-NY-MEDIGAP-WAITING
+    statement: >-
+      In New York, a Medigap policy bought outside the federal 6-month Medigap
+      open enrollment period may impose a waiting period of up to six months
+      before covering a pre-existing condition, reduced by one month for each
+      month of prior creditable coverage without a break of more than 63 days
+      (six months of prior coverage means no waiting period).
+    kind: benefit
+    effective_from: 2025-09-01
+    implemented_in: playbooks/turning_65/states/ny/rules.py:evaluate
+    confidence: confirmed
+    open_question: T65-NY-OQ-01
+    note: Stated by NYSOFA's 2025 counselor guide (a state agency, not the regulator); the DFS regulation itself (11 NYCRR Part 58) was not retrieved.
+    sources:
+      - {source: nysofa-hiicap-guide-2025, locator: "Medigap Waiting Periods in New York State"}
+      - {source: ny-ins-law-3231, locator: "(a)(1): underwriting may involve no more than a pre-existing condition limitation if otherwise permitted"}
+  - id: T65-NY-EPIC
+    statement: >-
+      In New York, a resident 65 or older with annual income below $75,000
+      (single) or $100,000 (married) in the previous year, who is enrolled or
+      eligible to enroll in Medicare Part D and does not have full Medicaid, can
+      join EPIC, the state program that pays after Part D for covered drugs
+      and, for incomes up to $23,000 single / $29,000 married, helps pay the
+      Part D premium; people can apply any time of year.
+    kind: eligibility
+    applies_to: [EPIC]
+    effective_from: 2026-01-01
+    parameters: [ny.epic.income_limit_annual]
+    implemented_in: playbooks/turning_65/states/ny/rules.py:evaluate
+    confidence: confirmed
+    note: Checked as a link only; EPIC's own fee/deductible schedule is not modelled.
+    sources:
+      - {source: ny-doh-epic-eligibility, locator: "What are the EPIC eligibility requirements?; Income"}
+      - {source: ny-doh-epic, locator: "program description paragraphs"}
+  - id: T65-NY-HIICAP
+    statement: >-
+      In New York, free, unbiased Medicare counseling (the State Health
+      Insurance Assistance Program) is provided by HIICAP through local offices
+      for the aging; the statewide helpline is 1-800-701-0501.
+    kind: procedure
+    effective_from: 2025-09-01
+    implemented_in: playbooks/turning_65/states/ny/rules.py:evaluate
+    confidence: confirmed
+    sources:
+      - {source: nysofa-hiicap-guide-2025, locator: "cover page: HIICAP Help Line: 1-800-701-0501"}
+
+procedure:
+  applications:
+    - id: T65-NY-PROC-MEDIGAP
+      text: Buy or switch Medigap directly from an insurer at any time; DFS publishes the community-rated premiums by plan and region, and a rate look-up tool.
+      url: https://myportal.dfs.ny.gov/web/guest-applications/medicare-monthly-premiums
+      channel: any
+      confidence: confirmed
+      sources: [{source: ny-dfs-medsup-rates-2026-04, locator: "NOTE under each table: Medicare Supplement Rate Look-up Application"}]
+    - id: T65-NY-PROC-EPIC
+      text: Apply for EPIC by mailing or faxing the application or applying online; no documents are required because EPIC verifies information with SSA and the NY Department of Taxation and Finance.
+      channel: any
+      confidence: confirmed
+      sources: [{source: ny-doh-epic, locator: "It is easy to join the program. Just complete the application and mail/fax it to EPIC or apply online. No documentation is required."}]
+  filing:
+    - id: T65-NY-FILE-HIICAP
+      text: Call HIICAP at 1-800-701-0501; callers are routed to the HIICAP program in their county.
+      channel: phone
+      county_varies: true
+      confidence: confirmed
+      sources: [{source: nysofa-hiicap-guide-2025, locator: "page 1 and introduction: routed to their local HIICAP"}]
+
+life_events:
+  - id: T65-NY-LE-MOVE-IN
+    code: move_state
+    event: A Medicare beneficiary moves to New York
+    why: They can buy a New York Medigap policy at any time, community rated, regardless of health (a waiting period for pre-existing conditions may apply).
+    check_rules: [T65-NY-MEDIGAP-CONTINUOUS, T65-NY-MEDIGAP-WAITING]
+    confidence: confirmed
+    sources: [{source: ny-ins-law-3231, locator: "(a)(2)"}]
+  - id: T65-NY-LE-TURNING-65
+    code: turning_65
+    event: A New Yorker turns 65
+    why: Besides the federal windows, check EPIC eligibility and refer to HIICAP.
+    check_rules: [T65-NY-EPIC, T65-NY-HIICAP]
+    confidence: confirmed
+    sources: [{source: ny-doh-epic-eligibility, locator: "age 65 or older"}]
+  - id: T65-NY-LE-RETIREE-PLAN-END
+    code: employer_coverage_end
+    event: A union or employer retiree plan ends for a New York retiree
+    why: Medigap can be bought at any time in New York, in addition to the federal 63-day guaranteed-issue right.
+    check_rules: [T65-NY-MEDIGAP-CONTINUOUS]
+    confidence: confirmed
+    sources: [{source: nysofa-hiicap-guide-2025, locator: "Medigap"}]
+
+outcome_proof:
+  - id: T65-NY-PROOF-MEDIGAP
+    evidence: Medigap policy issued by the insurer
+    shows: The plan letter, effective date and community-rated premium; any pre-existing-condition waiting period.
+    confidence: unresolved
+    open_question: T65-NY-OQ-01
+
+links:
+  - id: T65-NY-LINK-MSP
+    playbook: msp
+    rules: [T65-FED-PART-B-PENALTY-MSP]
+    relation: In New York, MSP enrollment removes the Part B late penalty (federal rule; NYSOFA states it for New York, msp rule MSP-NY-PART-B-LEP) and New York's Part A Buy-in lets QMB pay a $311/$565 Part A premium.
+    test: T65-X-01
+    confidence: confirmed
+    sources: [{source: cfr-42-408, locator: "§ 408.24(a)(3)"}]
+
+open_questions:
+  - id: T65-NY-OQ-01
+    priority: medium
+    question: Retrieve the DFS Medigap regulation (11 NYCRR Part 58 / Regulation 62) to confirm the six-month pre-existing-condition waiting period and creditable-coverage credit rules in New York.
+    why_it_matters: Members switching Medigap mid-year need to know whether a condition will be covered at once.
+    checked: [NY Insurance Law 3231, NYSOFA HIICAP Guide 2025]
+    affects: [T65-NY-MEDIGAP-WAITING, T65-NY-PROOF-MEDIGAP]
+    status: open
+  - id: T65-NY-OQ-02
+    priority: low
+    question: Does New York's continuous open enrollment for Medigap also apply to people under 65 with Medicare because of disability, and on what terms?
+    why_it_matters: SSDI members in New York may be told they can buy Medigap any time.
+    checked: [NY Insurance Law 3231 (applies to "any individual"), NYSOFA HIICAP Guide 2025]
+    affects: [T65-NY-MEDIGAP-CONTINUOUS]
+    status: open
+
+conflicts:
+  - id: T65-NY-CONFLICT-01
+    topic: EPIC income ceiling — "below" or "up to"
+    claims:
+      - source: ny-doh-epic-eligibility
+        says: "have an annual income below $75,000 if single or $100,000 if married"
+      - source: ny-doh-epic
+        says: "The Deductible Plan is for members with incomes ranging from $20,001 to $75,000 if single or $26,001 to $100,000 if married."
+    handling: The evaluator flags EPIC when income is below the ceiling (eligibility page, the more specific statement); a household at exactly $75,000 / $100,000 is not flagged and should be asked to call EPIC.
+    affects: [T65-NY-EPIC, ny.epic.income_limit_annual]
+    status: open
+
+claims_checked:
+  - claim: New York requires continuous (year-round) Medigap open enrollment and community rating.
+    verdict: verified
+    detail: NY Insurance Law 3231(a)(1)-(2), (4) (Medicare supplemental coverage must be community rated and accepted "at all times throughout the year"); NYSOFA's 2025 counselor guide says the same. A pre-existing-condition waiting period of up to six months can still apply.
+    sources:
+      - {source: ny-ins-law-3231, locator: "(a)"}
+      - {source: nysofa-hiicap-guide-2025, locator: "Medigap"}
+  - claim: New York's SHIP is HIICAP, run through NYSOFA.
+    verdict: verified
+    detail: HIICAP helpline 1-800-701-0501, routed to the county program.
+    sources: [{source: nysofa-hiicap-guide-2025, locator: "cover"}]
+  - claim: A new 65-year-old in New York should be checked for EPIC.
+    verdict: verified
+    detail: EPIC requires age 65+, NY residence, income below $75,000 / $100,000, Part D enrollment or eligibility, and no full Medicaid.
+    sources: [{source: ny-doh-epic-eligibility, locator: "eligibility requirements"}]

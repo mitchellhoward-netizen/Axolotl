@@ -1,0 +1,142 @@
+# Federal numbers for long-term care (nursing-facility) Medicaid: the transfer
+# look-back, the spousal impoverishment bounds CMS publishes each year, the
+# home equity bounds, and the minimum personal needs allowance. States choose
+# their own figures inside these bounds; a state part uses its own parameters.
+parameters:
+  - id: federal.ltc.lookback_months
+    description: Transfer-of-assets look-back period for transfers made on or after February 8, 2006 (months before the baseline date).
+    unit: months
+    updates: Statutory (Deficit Reduction Act of 2005).
+    values:
+      - effective_from: 2006-02-08
+        value: 60
+        confidence: confirmed
+        sources:
+          - source: usc-42-1396p
+            locator: "(c)(1)(B)(i)"
+            quote: "in the case of any other disposal of assets made on or after February 8, 2006, 60 months"
+          - {source: cms-smdl-06-018-enclosure, locator: "I. Extension of the Look-Back Period to 60 Months"}
+  - id: federal.ltc.csra_minimum
+    description: Federal minimum community spouse resource standard (the state may set a higher floor, up to the maximum).
+    unit: usd
+    updates: Each January, indexed to CPI-U (42 U.S.C. 1396r-5(g)); CMS publishes it in a CMCS bulletin in November-December.
+    values:
+      - effective_from: 2026-01-01
+        effective_to: 2026-12-31
+        value: 32532
+        confidence: confirmed
+        sources:
+          - {source: cms-cib-2025-12-09, locator: "2026 SSI and Spousal Impoverishment Standards chart, Community Spouse Resources: Minimum Resource Standard", quote: "Minimum Resource Standard: 32,532.00"}
+          - {source: cms-cib-2026-04-27, locator: "revised 2026 chart (unchanged)"}
+          - {source: usc-42-1396r-5, locator: "(f)(2)(A)(i) and (g)"}
+  - id: federal.ltc.csra_maximum
+    description: Federal maximum community spouse resource standard (cap on the spousal-share computation).
+    unit: usd
+    updates: Each January, CPI-U indexed.
+    values:
+      - effective_from: 2026-01-01
+        effective_to: 2026-12-31
+        value: 162660
+        confidence: confirmed
+        sources:
+          - {source: cms-cib-2025-12-09, locator: "2026 chart, Maximum Resource Standard", quote: "Maximum Resource Standard 162,660.00"}
+          - {source: usc-42-1396r-5, locator: "(f)(2)(A)(ii)(II) and (g)"}
+  - id: federal.ltc.mmmna_minimum
+    description: Federal minimum monthly maintenance needs allowance for a community spouse (150% of the FPL for two, 48 states and DC), changed every July 1.
+    unit: usd_per_month
+    updates: July 1 each year (second calendar quarter after the poverty guidelines are published, 42 U.S.C. 1396r-5(d)(3)(A)).
+    values:
+      - effective_from: 2025-07-01
+        effective_to: 2026-06-30
+        value: 2643.75
+        confidence: confirmed
+        sources:
+          - {source: cms-cib-2025-12-09, locator: "Minimum Monthly Maintenance Needs Allowance (MMMNA): (Effective 7-1-25)", quote: "2,643.75      All States (Except Alaska and Hawaii)"}
+      - effective_from: 2026-07-01
+        value: 2705.00
+        confidence: confirmed
+        sources:
+          - {source: cms-cib-2026-04-27, locator: "Minimum Monthly Maintenance Needs Allowance (Effective 7-1-26)", quote: "2,705.00          All States (Except Alaska and Hawaii)"}
+  - id: federal.ltc.mmmna_maximum
+    description: Federal cap on the community spouse's monthly maintenance needs allowance (absent a fair hearing or court order).
+    unit: usd_per_month
+    updates: Each January, CPI-U indexed (42 U.S.C. 1396r-5(d)(3)(C), (g)).
+    values:
+      - effective_from: 2026-01-01
+        effective_to: 2026-12-31
+        value: 4066.50
+        confidence: confirmed
+        sources:
+          - {source: cms-cib-2025-12-09, locator: "Maximum Monthly Maintenance Needs Allowance", quote: "Maximum Monthly Maintenance Needs Allowance:                     4,066.50"}
+          - {source: cms-cib-2026-04-27, locator: "revised 2026 chart (unchanged)"}
+  - id: federal.ltc.cs_housing_allowance
+    description: Community spouse monthly housing allowance (30% of the MMMNA minimum); shelter costs above it are the excess shelter allowance.
+    unit: usd_per_month
+    updates: July 1 each year, with the MMMNA minimum.
+    values:
+      - effective_from: 2025-07-01
+        effective_to: 2026-06-30
+        value: 793.13
+        confidence: confirmed
+        sources:
+          - {source: cms-cib-2025-12-09, locator: "Community Spouse Monthly Housing Allowance: (Effective 7-1-25)", quote: "793.13       All States (Except Alaska and Hawaii)"}
+      - effective_from: 2026-07-01
+        value: 811.50
+        confidence: confirmed
+        sources:
+          - {source: cms-cib-2026-04-27, locator: "Community Spouse Monthly Housing Allowance: (Effective 7-1-26)", quote: "811.50             All States (Except Alaska and Hawaii)"}
+  - id: federal.ltc.home_equity_minimum
+    description: Federal home equity limit for nursing-facility and other long-term care Medicaid (the $500,000 statutory amount, CPI-U indexed); states may elect a higher limit up to the maximum.
+    unit: usd
+    updates: Each January (CPI-U, rounded to the nearest $1,000).
+    values:
+      - effective_from: 2025-01-01
+        effective_to: 2025-12-31
+        value: 730000
+        confidence: confirmed
+        sources:
+          - {source: cms-cib-2025-11-18, locator: "Section 71108, page 9", quote: "In 2025, the minimum and maximum home equity limits are, respectively, $730,000 and $1,097,000."}
+      - effective_from: 2026-01-01
+        effective_to: 2026-12-31
+        value: 752000
+        confidence: confirmed
+        sources:
+          - {source: cms-cib-2025-12-09, locator: "Home Equity Limits: Minimum", quote: "Minimum:                                                752,000.00"}
+          - {source: usc-42-1396p, locator: "(f)(1)(A), (C)"}
+  - id: federal.ltc.home_equity_maximum
+    description: Highest home equity limit a state may elect (the $750,000 statutory amount, CPI-U indexed). From January 1, 2028, capped at $1,000,000 for homes not on land zoned for agricultural use.
+    unit: usd
+    updates: Each January; Public Law 119-21 sec. 71108 caps the non-agricultural maximum at $1,000,000 from 2028.
+    values:
+      - effective_from: 2025-01-01
+        effective_to: 2025-12-31
+        value: 1097000
+        confidence: confirmed
+        sources:
+          - {source: cms-cib-2025-11-18, locator: "Section 71108, page 9"}
+      - effective_from: 2026-01-01
+        effective_to: 2026-12-31
+        value: 1130000
+        confidence: confirmed
+        sources:
+          - {source: cms-cib-2025-12-09, locator: "Home Equity Limits: Maximum", quote: "Maximum:                                              1,130,000.00"}
+          - {source: usc-42-1396p, locator: "(f)(1)(B)-(C)"}
+      - effective_from: 2028-01-01
+        value: 1000000
+        confidence: confirmed
+        note: Non-agricultural homes only. For homes on land zoned for agricultural use a state may keep the CPI-indexed maximum; that figure for 2028 is not published yet.
+        sources:
+          - {source: pl-119-21, locator: "sec. 71108(a)(1)(C) and (c)", quote: "an amount that exceeds such amount, but does not exceed $1,000,000"}
+          - {source: cms-cib-2025-11-18, locator: "Section 71108", quote: "beginning January 1, 2028, to cap the maximum home equity limit at $1,000,000, except that this limit will not apply to homes on land zoned for agricultural use"}
+  - id: federal.ltc.pna_minimum
+    description: Federal minimum monthly personal needs allowance for an institutionalized aged, blind or disabled individual ($60 for an institutionalized couple whose incomes are considered available to each other).
+    unit: usd_per_month
+    updates: Statutory; has not changed.
+    values:
+      - effective_from: 1988-07-01
+        value: 30
+        confidence: confirmed
+        note: The effective date is the date this archive can tie to the spousal impoverishment amendments that cite 1396a(q)(2); the $30 minimum is older.
+        sources:
+          - {source: usc-42-1396a, locator: "(q)(2)", quote: "is $30 for an institutionalized individual and $60 for an institutionalized couple"}
+          - {source: ecfr-42-cfr-435-725, locator: "(c)(1)(i)-(ii)"}

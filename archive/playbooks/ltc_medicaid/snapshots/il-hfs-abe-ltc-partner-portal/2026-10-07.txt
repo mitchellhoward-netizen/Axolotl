@@ -1,0 +1,563 @@
+The Application for Benefits Eligibility
+
+The ABE Partner Portal
+An Introduction for Long Term
+Care Providers
+Illinois Department of Healthcare & Family Services (HFS)
+Illinois Department of Human Services (DHS) 1
+February 2020
+
+Agenda
+
+• This Presentation will review:
+
+1. The ABE Partner Portal and New Long Term Care
+Provider function in ABE
+2. Creating a Partner Portal Account
+3. Logging in to the Partner Portal and Uploading
+Documents
+4. Primary ASA Tasks and Responsibilities
+
+2
+
+SECTION I
+THE ABE PARTNER PORTAL and Long Term Care
+
+3
+
+The Integrated Eligibility System(IES) and ABE:
+The Customer, Partner and Worker Facing Portals
+
+ABE IES
+Customer Portal Caseworker Portal
+Partner Portal
+
+Information that customers and Providers
+enter in ABE applications and Manage My
+Case (MMC), pre-populates the
+caseworker’s Data Collection pages in IES.
+
+Important customer information like notices
+and other benefits details are sent from IES
+to ABE MMC.
+
+4
+
+ABE and the Partner Portal
+
+• ABE, the Application for Benefits Eligibility, is the State of Illinois’ web-based
+portal for applying for, accessing and managing health coverage, SNAP and
+cash benefits, and the Medicare Savings Program (MSP). As Approved
+Representatives and/or Community Partners you have been using ABE to
+apply for benefits and receive notices through the Customer Portal.
+
+• The ABE Partner Portal allows certain Medicaid Providers the ability to
+complete specific tasks or functions.
+
+• Authorized Long Term Care providers through their Partner Portal account
+can securely submit necessary documentation to the State on changes in
+income, resources and TPL, as well as redeterminations or other relevant
+documents through ABE.
+
+• Following this training, if you should encounter problems using ABE, please
+contact your organization’s ABE Agency Security Administrator(ASAs). More 5
+about ASAs in a minute!
+
+Partner Portal Registration Requirements
+• Your organization/agency/hospital (these terms are used interchangeably
+and refer to both one facility agencies and organizations that include
+multiple facilities) must have a Medicaid Provider ID number. You will need
+this number to register in the Portal. For information on how to register as a
+Medicaid provider visit hfs.illinois.gov and click on Medical Provider’s –
+IMPACT Provider Enrollment.
+
+• Each Agency must identify one employee who will act as the Primary
+Agency Security Administrator (ASA) for the purpose of managing agency
+staff that will use the ABE Partner Portal.
+
+• Contractors may not be the Primary ASAs for a Provider however the LTC
+Provider Primary ASA may designate someone at the contractual agency as
+a secondary ASA.
+
+• Prior to leaving the agency, the Primary ASA must submit a request to have
+Partner Portal access deactivated and submit registration for a new Primary 6
+ASA. Additional ASA Information in Section 4.
+
+Navigating in ABE
+Please review the following tips on navigating through ABE:
+Do not use your Internet browser’s back, forward or stop buttons while in the
+application. Use the buttons provided at the bottom of each page of the application:
+
+Click the [Next] button when you are done with a page and
+ready for the next questions.
+Click the [Back] button if you need to go back to a page and need
+to change your answers
+You will see the [Exit] button after submitting your application.
+Clicking this button will take you back to the home page.
+
+Click the [Save and Exit] button to save the information already
+entered and return to the application later.
+
+• You must complete questions with a red star (*) next to them.
+• Your ABE session will time-out after 30 minutes of inactivity. You will need to log-in
+again to continue.
+
+Section 2
+Creating an ABE Partner Portal Account
+
+Setting up your ABE Partner Portal Account
+From the ABE Homepage (ABE.Illinois.gov), choose the ABE Partner
+Login link. You will use this link each time you return to ABE. Do NOT
+use the Login button in the upper right corner of the homepage.
+
+9
+
+Setting up an Account , cont’d
+
+Click the, [Create a new ABE User ID and Password] link at the bottom of the
+screen.
+
+10
+
+Section 1: User Information
+• Enter information about yourself and your organization type. Email entered
+should be your work email! This increases the security of your account and
+DHS/HFS Data.
+
+11
+
+User Information, cont’d
+Type of User:
+• A regular user for a provider that is certified to upload documents (everyone).
+• A designated Agency Security Administrator (ASA) for a Provider that is certified to
+upload documents.
+• The first ASA to register is considered the “Primary ASA” and will be responsible
+for carrying out the ASA tasks and responsibilities.
+
+12
+
+Important Information!
+
+As part of Partner Portal account creation you must check this box. Be careful to read and
+understand this requirement.
+
+This agreement and language is applicable for Provisional Eligibility
+Coverage as well!
+13
+
+Section 2: Provider User ID and Password
+Create a personal ABE
+User ID and Password
+that you will use to
+login to ABE on an
+ongoing basis. The It is important to write down the
+secret questions and answers to your security questions
+responses you choose and store them in a secure location.
+will be used as a Passwords cannot be reset without
+security check if you correct answers. If you are not able to
+reset your password, you will need to
+need to recover or go through the Account creation
+change your password. process again. Accounts are “locked”
+User IDs CANNOT be after 3 unsuccessful password
+recovered. attempts. This lock last for 60
+minutes.
+
+You will be prompted
+to change your ABE
+password every 6
+months. 14
+
+Section 3: Organization Information
+• Once you enter your ABE user type and create a User ID and Password, Section 3
+will display.
+• Enter your Organization’s State of Illinois Medicaid Provider ID Number. If you will
+upload documents for multiple facilities, click [Add] and an additional Provider ID
+box will display. You may do this as many times as needed to add all locations.
+• Click [Submit] when you have added all numbers. If you do not know your HFS
+Provider ID, contact your office administrator or billing office.
+
+Tip: If you need to add multiple
+Provider IDs because you work at
+more than one location, add them
+before entering your password and
+security questions. As a security
+measure, ABE wipes out these
+responses when the page is refreshed. 15
+
+Account Confirmation
+Once all required fields are complete, click [Submit].
+
+• If you are the Primary Agency Security Administrator, after creating your
+account you must go to ABE ASA Request SharePoint and enter your ABE
+account information as well as your organization’s information. Your ASA
+request will be reviewed by the HFS business and security offices before
+approval. You must be approved and granted access before you can
+approve others in your organization to use the portal.
+• All other users should submit the ABE Registration Form 1706P to the
+organization’s Primary ASA for review and record keeping. The 1706P can be
+found under the Medical Providers tab on the Medical Forms page under
+Providers, labeled Application for Benefits Eligibility (ABE) (pdf) on the HFS
+Website.
+• After review, the Primary ASA will approve and grant Partner Portal access 16
+to the remaining users.
+• Once granted access users are ready to begin using the Partner Portal.
+
+Knowledge Check:
+• What does ABE stand for?
+
+• Abraham Lincoln Benefits Exchange
+• All Benefits Eligibility
+• Application for Benefits Eligibility
+
+• Can any Provider use the ABE Partner Portal?
+
+• Can all documents be submitted in the Partner Portal?
+
+• If I forget my User ID or password can the state reset my account?
+17
+
+Section 3
+Logging in to the Partner Portal and Uploading
+Documents
+
+Logging In and Multi-Factor Authentication
+
+You will use the ABE
+Partner Login in the
+middle of the page to
+arrive at the correct
+Partner Login screen.
+
+19
+
+Multifactor Authentication (MFA) Process
+For security purposes, we are required to validate a user’s identity each time
+they log-in to the ABE Partner Portal. ABE does this through a process called
+multi-factor or two factor authentication.
+E-mail Activation
+• The first time you log into the ABE Partner Portal, you will be asked to
+register your e-mail address. You must enter the e-mail address you used
+when setting up your ABE User Partner Portal Account and one you can
+access when working in the Partner Portal. Because of this additional
+security measure, the email used should be your work email. Click
+[Register].
+
+20
+
+Email Activation
+An Activation Code will be sent to the e-mail address. Enter the code in the space provided
+and click [Activate Email Address].
+• If you do not receive the Activation Code, check your Junk or Spam folder. If the
+Activation Code is not received after 10 minutes (it usually arrive within a minute),
+click [Resend Activation Code] to generate a new code.
+• You will only need to activate your e-mail address once (unless your email changes).
+• If you no longer use or have access to the e-mail address associated with your ABE
+User Profile, you will need to contact your Agency Security Administrator to have
+your profile updated with your new e-mail address or you must set up a new ABE
+User Account with a valid e-mail address.
+
+21
+
+Access Authentication
+Once your e-mail is activated, an Access Code will be sent to that e-mail address.
+Enter this code in the space provided. Click [Next] and the Provider Portal
+Landing page displays.
+
+ABE will send an Access Code to the registered, activated e-mail each time you
+log into the ABE Partner Portal. The code must be entered on the Authentication
+Access Code page to reach the Partner Portal Landing page.
+
+22
+
+Location Selection
+• After completing Multifactor Authentication, if you entered multiple
+Provider IDs in your user profile, the Location Selection page displays. If you
+are associated with only one location, you will be taken directly to the ABE
+Partner Portal Landing Page.
+
+• On the Location Selection page, indicate the location where you are
+working for this ABE session.
+
+23
+
+Provider Portal Landing Page
+After logging in to the ABE Partner Portal, completing MFA, and choosing your
+work location (if you have multiple locations) the Partner Portal Landing Page will
+display.
+Select, “Upload document for existing Health Coverage Applications or cases.”
+Click [Next].
+You will choose the “Manage My Account” selection if you need to update your
+user profile including adding or changing a location, or changing an e-mail.
+
+24
+
+Uploading Documents
+Enter the client’s Application or Case Number, Social Security Number or Recipient
+Identification Number (RIN) and select the Transaction Type that the documents
+relate. All mandatory questions must be answered to proceed. Click, [Next].
+
+If you choose TPL or
+Income as your Transaction
+Type, you will then be asked
+for the Transaction Audit
+Number (TAN). When
+submitting a 3654
+document under Other
+Proof include the admission
+(TAN) when possible!
+
+25
+
+Finding the TAN
+The TAN is an auto generated tracking number assigned to each and every
+MEDI transaction; you need to submit the changes in MEDI first, in order to get
+the TAN and upload the documents in the ABE Partner Portal. You can find this
+number on the Summary Results page to the provider which tells the provider
+if the submission was accepted successfully.
+
+26
+
+Proof Categories
+• Review the various Proof Categories listed and examples for each category.
+Click [Next]. The Submit Your Documents page will display; select the
+category(s) of proof document you would like to submit. Click [Next]. Proof
+Categories include:
+• Proof of SSN Application
+• Proof of Aged, Blind and Disability Assistance
+• Proof of Disability
+• Proof of Medicare
+Remember - When
+• Proof of Liquid Assets
+submitting a 3654
+• Proof of Other Assets
+document under
+• Proof of Employment Other Proof include
+• Proof of Self Employment the admission TAN
+• Proof of Rental Payments when possible!
+• Proof of Support Expenses
+• Proof of Other Expenses
+• Other Proof (this category would include Additional Financial Information
+for LTC, HFS 3654 and Other Related Verification Documents not 27
+categorized elsewhere).
+
+Document Type
+Indicate the document type you are submitting from the drop down. (In this
+example the category selected is Other Proof and the document is an Additional
+Financial Information for LTC, HFS 3654).
+REMEMBER! It is very important to separate proof documents by category and
+type. Do not upload all documents together. There are separate verification
+‘queues’ the documents drop into depending on how the document was identified
+when you uploaded them. If you upload files together, it could appear that
+required documents are missing and some of the documents could be missed!
+
+Click the browse button to locate
+the desired document file Click Yes to
+upload more
+You will have the opportunity to add Proof documents from
+documents for another category on the next this category.
+page. If you change your mind and do not
+have a Proof Document to submit in this 28
+category, select Skip This Document. Click
+[Next].
+
+Document Summary
+• On the Document Summary page, review the Proof Category and the
+Document Type. You can view the document selected to verify that it is correct
+– and erase it if it is not the right document.
+• If you have documents in other Proof Categories, use the Type of Proof drop
+down under Upload Another Document to select the next document you would
+like to add. Click [Add]. You can add up to 10 documents at a time. If you have
+more than 10 documents, submit the first 10 and then begin the process again.
+
+**On RARE occasion,
+you will see more than
+one individual listed on
+the case. For example,
+this could occur for a
+short term
+rehabilitation stay. In
+these instances you will
+need to choose the 29
+individual you wish to
+upload docs for.
+
+Print and Submit
+Once all documents have been uploaded and BEFORE submitting, PRINT
+out a copy of the Summary page to keep as your receipt . The Summary will
+list all documents that were successfully uploaded. Click [Submit]. The
+documents will be transferred to the client’s case record for a LTC worker to
+process.
+
+30
+
+Confirmation and Location
+The confirmation page is your ‘proof’ that the documents were transmitted
+successfully and gives the address of the office that received them based on
+where the case is assigned. PRINT out this page and attach to the
+Document Summary page for your records. Use the Click here link to upload
+additional documents or Logout of ABE.
+
+31
+
+Thank you!
+
+Thank you for taking the time to view this Introduction for Long Term Care
+Providers and learn more about ABE - the Application for Benefits Eligibility.
+We hope you found this presentation useful. A LTC Guide and specific Job
+Aids are also available on the Long Term Services and Support (LTSS) page
+for your assistance.
+
+If you have any questions about using ABE, please e-mail them to
+HFS.ABEPartnerportal@Illinois.gov
+
+32
+
+Additional ABE Partner Portal Resources
+• ABE Partner Portal Problems and Questions
+HFS.ABEpartnerportal@Illinois.gov
+
+• To be approved as the ASA for your facility go to: ABE ASA Request
+SharePoint
+
+• Additional training materials are available on the Long Term Services and
+Support (LTSS) page.
+
+• The 1706P Form (must be completed and stored at your facility for all
+system users!) can be found on the HFS Medical Forms page under
+Providers, labeled Application for Benefits Eligibility (ABE) (pdf)
+
+• How do I know if my facility has already assigned a Primary ASA? Check with 33
+your administration/billing office or send the question to
+HFS.ABEPartnerPortal@illinois.gov
+
+Section 4
+Primary ASA Tasks and Responsibilities
+
+ASA Responsibilities
+• Each Partner organization that will use the Application for Benefits Eligibility
+(ABE) Partner Portal must select a senior staff member to serve as the
+organization’s Primary ABE Agency Security Administrator (ASA). The
+Primary ASA serves as the HFS point of contact regarding the organization’s
+ABE participation, and will be responsible for administering the ABE security
+protocols at their agency. The Primary ASA:
+
+• Will enter their ABE Partner Portal account information as well as
+agency/hospital information on the ABE ASA Request SharePoint site.
+• Is responsible for designating another staff member for this position should
+they leave the agency (before leaving)!
+• Will submit a deactivation request and direct the new Primary ASA to submit
+their ABE Partner Portal account and hospital/agency information on the ABE
+ASA Request SharePoint site.
+
+35
+
+Responsibilities, continued
+
+• May designate four additional agency staff as ASAs
+• Approves Partner Portal ‘Regular Users’ from the agency
+• Maintains Picture ID and 1706P records for all Partner Portal Users at the
+agency
+• Terminates ABE Partner Portal access when staff leave the agency or are
+otherwise determined to no longer need access
+• All ASAs are also able to perform the same functions in the Portal as a
+‘Regular User’ for their User Type
+
+36
+
+ASA Registration Overview
+• The Primary ASA should be the first person from the organization or location
+to register in ABE (refer to the Creating an ABE Partner Portal Account Job
+Aid for assistance). When completing the registration screen, indicate that
+you are the designated security administrator in the Type of User section.
+
+• After Registration, the Primary ASA will then go to: ABE ASA Request
+SharePoint site. and enter individual and agency/hospital information.
+
+• The HFS Business Unit will approve the account and the HFS Global Security
+Administrator (GSA) will grant access to the Portal. The Primary ASA will get
+an auto-notification e-mail indicating that their registration has been
+approved
+
+• The ASA should then invite the organization’s remaining users to set up
+their own ABE Partner Portal Accounts.
+37
+
+Registration Overview, continued
+• ASAs should verify the identity of each ABE Partner Portal user by reviewing
+a valid picture ID.
+
+• Valid forms of identification include:
+• Current and valid US driver’s license or state identity card
+• US passport
+• US military identification
+• Certificate of citizenship or naturalization, and various immigration forms for non-
+US citizens.
+
+• It is critical that all users remember their username and password as well as
+the answers to their security questions. Users will not be able to change
+their password or make other changes to their account if they do not have
+that information.
+38
+
+Approving Facility Users
+• The ASA will use the Manage My Account feature in ABE to approve each
+ABE user. As an ASA you will see this option that ‘regular users’ do not see
+in this section. Under Manage My Account select Search for users from my
+organization. Click [Next]. The Search Criteria page displays.
+
+39
+
+User Search
+• Search for Users. Enter information for the user. Click [Next]. You do not
+need to enter full name and birthdate, but the more information entered
+the fewer user names will display and the quicker your Search Results will
+come up.
+
+40
+
+Search Results
+• Search Results Display. Names that meet the search criteria entered will
+display. All new staff will display as “New” under Type of User. Click the [Go]
+button next to the user’s name in the list to change Type of User.
+
+41
+
+User Access Details
+• The User Access Detail screen displays. When the User Access Details page
+displays, the default of [No Access] will display for a new user. Select the Upload
+Only option in the bottom box. You may also choose to make this person an
+Administrator by checking the box on the bottom left.
+
+Click [Submit]. [If
+the staff member
+leaves the
+organization, be
+sure to revisit this
+section and change
+the user’s profile to
+Remove this user
+permanently. 42
+
+Updated User Type
+• Updated User Type is Displayed. You will not get a confirmation message,
+but the User will now display as an existing user on their User Access
+Details screen. Any time you need to change the Users access you will select
+the [Go] button for the chosen User.
+
+43
+
+Thank You!
+• The staff member is now able to login and use ABE to submit
+applications/enrollments/birth reports or documents depending on their
+user type.
+• Make sure that a ABE Partner Portal Registration Form 1706P has been
+submitted to the ASA for every ABE user at your
+agency/facility/organization.
+• It is the responsibility of the Primary ASA to maintain an accurate user list
+and keep copies of each user’s Registration Form and Identity Verification
+(picture ID) on file at your agency.
+• If you have any questions about using ABE, please e-mail them to
+HFS.ABEPartnerPortal@Illinois.gov
+
+**Remember to keep HFS informed of any Primary ASA changes at your
+organization! 44

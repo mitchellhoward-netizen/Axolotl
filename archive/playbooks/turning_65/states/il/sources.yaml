@@ -1,0 +1,38 @@
+# Illinois sources for the Turning 65 playbook. ilga.gov (statutes and Public
+# Acts) could not be reached (TLS failure from scripts, HTTP 503 from WebFetch),
+# so 215 ILCS 5/363 itself is not snapshotted; see T65-IL-OQ-01.
+sources:
+  - id: il-aging-medicare-choices-2026
+    retrieved: 2026-10-07
+    url: https://ilaging.illinois.gov/content/dam/soi/en/web/aging/ship/documents/medicare-choices.pdf
+    publisher: Illinois Department on Aging, Senior Health Insurance Program (SHIP)
+    title: 2026 Medicare Choices (updated February 2026)
+    kind: primary
+    jurisdiction: il
+    doc_type: guidance
+    published: 2026-02-01
+    note: State SHIP consumer guide; states the Illinois Medigap "Birthday Law" (pp. 10-11) and under-65 Medigap rights (p. 12).
+  - id: il-aging-ship
+    retrieved: 2026-10-07
+    url: https://ilaging.illinois.gov/ship.html
+    publisher: Illinois Department on Aging
+    title: Senior Health Insurance Program (SHIP)
+    kind: primary
+    jurisdiction: il
+    doc_type: agency_page
+  - id: il-aging-benefit-access
+    retrieved: 2026-10-07
+    url: https://ilaging.illinois.gov/benefitsaccess.html
+    publisher: Illinois Department on Aging
+    title: Benefit Access Program
+    kind: primary
+    jurisdiction: il
+    doc_type: agency_page
+  - id: healthinsurance-org-medicare-il
+    retrieved: 2026-10-07
+    url: https://www.healthinsurance.org/medicare/illinois/
+    publisher: healthinsurance.org
+    title: Medicare in Illinois
+    kind: secondary
+    jurisdiction: il
+    doc_type: other

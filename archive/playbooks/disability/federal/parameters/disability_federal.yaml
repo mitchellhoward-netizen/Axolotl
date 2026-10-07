@@ -1,0 +1,236 @@
+# Federal numbers for the Disability playbook (SSI and Social Security
+# disability). The SSI federal benefit rate, the SSI resource limit and the
+# $20 / $65 income exclusions are shared numbers and live in shared/parameters
+# (federal.ssa.ssi_federal_benefit_rate_monthly, federal.ssa.ssi_resource_limit,
+# federal.ssi.general_income_exclusion_monthly,
+# federal.ssi.earned_income_exclusion_monthly); they are not repeated here.
+parameters:
+  # ------------------------------------------------------------ Title II work
+  - id: federal.ssa.sga_monthly
+    description: >-
+      Substantial gainful activity (SGA) earnings guideline: countable monthly
+      earnings above this amount generally show SGA. Separate amounts for
+      statutorily blind and non-blind people. The blind amount applies to
+      Title II (SSDI) only; blind SSI applicants are not subject to SGA.
+    compare_to: Countable monthly earnings (gross wages less impairment-related work expenses and subsidies); SGA if they average MORE than this amount.
+    unit: usd_per_month
+    keyed_by: "nonblind | blind"
+    updates: Each January with the national average wage index (SSA announces in October).
+    values:
+      - effective_from: 2025-01-01
+        effective_to: 2025-12-31
+        value: {nonblind: 1620, blind: 2700}
+        confidence: confirmed
+        sources:
+          - {source: ssa-poms-di-10501-015, locator: "B. Table 2 (non-blind): In calendar year 2025 $1620; C. Table 3 (blind): 2025 $2700"}
+      - effective_from: 2026-01-01
+        effective_to: 2026-12-31
+        value: {nonblind: 1690, blind: 2830}
+        confidence: confirmed
+        sources:
+          - {source: ssa-poms-di-10501-015, locator: "B. Table 2 (non-blind): In calendar year 2026 $1690; C. Table 3 (blind): 2026 $2830"}
+  - id: federal.ssa.twp_service_month_monthly
+    description: >-
+      Trial work period: a month counts as a TWP service month for an SSDI
+      beneficiary if earnings are more than this amount (or, for self-employment,
+      more than 80 hours of work). Nine service months make up the TWP.
+    unit: usd_per_month
+    updates: Each January (SSA announces in October).
+    values:
+      - effective_from: 2025-01-01
+        effective_to: 2025-12-31
+        value: 1160
+        confidence: confirmed
+        sources:
+          - {source: ssa-poms-di-13010-060, locator: "A. Table of service months: 2025 $1,160"}
+      - effective_from: 2026-01-01
+        effective_to: 2026-12-31
+        value: 1210
+        confidence: confirmed
+        sources:
+          - {source: ssa-poms-di-13010-060, locator: "A. Table of service months: 2026 $1,210 / $1,210 or 80 hours"}
+  - id: federal.ssa.twp_months
+    description: Number of service months (not necessarily consecutive) in the SSDI trial work period.
+    unit: months
+    updates: Statutory.
+    values:
+      - effective_from: 1980-12-01
+        value: 9
+        confidence: confirmed
+        note: Effective date is the earliest date this archive can support for the nine-month rule in a source; the TWP itself is older.
+        sources:
+          - {source: ssa-poms-di-13010-035, locator: "B. What is the TWP? Consists of nine service months which do not have to be consecutive."}
+  - id: federal.ssa.dib_waiting_period_months
+    description: Full calendar months of disability that must pass before SSDI (DIB) entitlement can begin (waiting period).
+    unit: months
+    updates: Statutory (6 months before 1973).
+    values:
+      - effective_from: 1973-01-01
+        value: 5
+        confidence: confirmed
+        sources:
+          - {source: ssa-poms-di-10105-070, locator: "A. Present rule: a waiting period consisting of 5 full calendar months; B. Prior to January 1973 ... 6 full calendar months"}
+  - id: federal.ssa.dib_waiting_period_lookback_months
+    description: The SSDI waiting period can begin no earlier than this many months before the month of filing.
+    unit: months
+    updates: Statutory.
+    values:
+      - effective_from: 1973-01-01
+        value: 17
+        confidence: confirmed
+        sources:
+          - {source: ssa-poms-di-10105-070, locator: "A. The waiting period begins in the first month, no earlier than 17 months prior to the month of filing"}
+  - id: federal.ssa.medicare_disability_entitlement_months
+    description: Months of entitlement to disability insurance benefits after which Medicare Part A starts (Part A begins with the 25th month of entitlement).
+    unit: months
+    updates: Statutory.
+    values:
+      - effective_from: 1973-07-01
+        value: 24
+        confidence: confirmed
+        sources:
+          - {source: usc-42-426, locator: "(b)(2)(A) has for 24 calendar months been entitled to disability insurance benefits ... beginning with ... the twenty-fifth month of his entitlement"}
+  - id: federal.ssa.full_retirement_age_years
+    description: >-
+      Full retirement age for retirement benefits, by year of birth. SSDI
+      converts to retirement benefits at full retirement age. Only the cohorts
+      relevant to 2026 disability claims are listed; months are given as
+      fractions of a year.
+    unit: years
+    keyed_by: "birth year cohort: '1943-1954', '1955'..'1959', '1960+' (a person born January 1 belongs to the previous year's cohort)"
+    updates: Statutory.
+    values:
+      - effective_from: 2002-09-01
+        value: {"1943-1954": 66, "1955": 66.1667, "1956": 66.3333, "1957": 66.5, "1958": 66.6667, "1959": 66.8333, "1960+": 67}
+        confidence: confirmed
+        sources:
+          - {source: ssa-poms-rs-00615-003, locator: "A.2 chart: 1/2/43 thru 1/1/55 66 years ... 1/2/59 thru 1/1/60 66 years and 10 months; 1/2/60 and later 67 years"}
+
+  # ---------------------------------------------------------------- SSI
+  - id: federal.ssi.aged_age
+    description: Age at which a person qualifies for SSI as aged (no disability decision needed).
+    unit: years
+    updates: Statutory.
+    values:
+      - effective_from: 1974-01-01
+        value: 65
+        confidence: confirmed
+        sources:
+          - {source: ssa-poms-si-00501-001, locator: "B.1 Basic Eligibility Requirements: Age 65 or older, blind, or disabled"}
+  - id: federal.ssi.student_earned_income_exclusion
+    description: >-
+      SSI student earned income exclusion (SEIE) for a blind or disabled student
+      child under 22 regularly attending school: earnings up to the monthly
+      limit, but not more than the yearly limit, are excluded before the $20
+      and $65 exclusions.
+    unit: usd
+    keyed_by: "monthly | yearly"
+    updates: Each January (indexed).
+    values:
+      - effective_from: 2025-01-01
+        effective_to: 2025-12-31
+        value: {monthly: 2350, yearly: 9460}
+        confidence: confirmed
+        sources:
+          - {source: ssa-poms-si-00820-510, locator: "Table: 2025 $2,350 monthly / $9,460 maximum for calendar year"}
+      - effective_from: 2026-01-01
+        effective_to: 2026-12-31
+        value: {monthly: 2410, yearly: 9730}
+        confidence: confirmed
+        sources:
+          - {source: ssa-poms-si-00820-510, locator: "Table: 2026 $2,410 monthly / $9,730 maximum for calendar year"}
+  - id: federal.ssi.vtr_monthly
+    description: >-
+      Value of the one-third reduction (VTR): one-third of the FBR. When it
+      applies, the FBR is reduced by this amount; no income exclusion applies
+      to it.
+    unit: usd_per_month
+    keyed_by: "1 = eligible individual, 2 = eligible couple (both in household of another)"
+    updates: Each January with the FBR.
+    values:
+      - effective_from: 2025-01-01
+        effective_to: 2025-12-31
+        value: {1: 322.33, 2: 483.33}
+        confidence: confirmed
+        sources:
+          - {source: ssa-poms-si-00835-901, locator: "Q. Exhibit of values for CY 2025: In household of another VTR $322.33; Both members of an eligible couple ... $483.33"}
+      - effective_from: 2026-01-01
+        effective_to: 2026-12-31
+        value: {1: 331.33, 2: 497.00}
+        confidence: confirmed
+        sources:
+          - {source: ssa-poms-si-00835-901, locator: "R. Exhibit of values for CY 2026: Eligible Individual, In household of another, VTR $331.33; Both Members of an Eligible Couple, Both in household of another, $497.00"}
+  - id: federal.ssi.pmv_monthly
+    description: >-
+      Presumed maximum value (PMV) of in-kind support and maintenance: one-third
+      of the FBR plus $20. ISM valued under the PMV rule is counted as unearned
+      income at the lesser of its actual value or the PMV; the $20 general
+      exclusion then applies.
+    unit: usd_per_month
+    keyed_by: "1 = eligible individual, 2 = eligible couple"
+    updates: Each January with the FBR.
+    values:
+      - effective_from: 2025-01-01
+        effective_to: 2025-12-31
+        value: {1: 342.33, 2: 503.33}
+        confidence: confirmed
+        sources:
+          - {source: ssa-poms-si-00835-901, locator: "Q. Exhibit of values for CY 2025: In a household PMV $342.33; eligible couple $503.33"}
+      - effective_from: 2026-01-01
+        effective_to: 2026-12-31
+        value: {1: 351.33, 2: 517.00}
+        confidence: confirmed
+        sources:
+          - {source: ssa-poms-si-00835-901, locator: "R. Exhibit of values for CY 2026: Eligible Individual In a household PMV $351.33; Both Members of an Eligible Couple In a household $517.00"}
+  - id: federal.ssi.burial_funds_exclusion
+    description: Burial funds excluded from SSI resources, per person (individual and spouse each), reduced by excluded life insurance face value and irrevocable burial arrangements.
+    unit: usd
+    updates: Statutory; unchanged since 1982.
+    values:
+      - effective_from: 1990-08-01
+        value: 1500
+        confidence: confirmed
+        sources:
+          - {source: ssa-poms-si-01130-410, locator: "C. Policy General: We can exclude up to $1,500 each in funds set aside for: (the individual; the spouse)"}
+  - id: federal.ssi.life_insurance_face_value_exclusion
+    description: Life insurance policies are excluded from SSI resources when the total face value of all policies on one insured person is $1,500 or less; above that, the cash surrender value counts.
+    unit: usd
+    updates: Statutory.
+    values:
+      - effective_from: 1974-01-01
+        value: 1500
+        confidence: confirmed
+        sources:
+          - {source: ssa-poms-si-01130-300, locator: "C.2 Limited life insurance exclusion: ... This life insurance exclusion applies per person - $1500 in FV per insured individual."}
+  - id: federal.ssi.medical_facility_payment_monthly
+    description: Reduced SSI benefit rate for a person in a medical facility where Medicaid pays more than half the cost of care (federal living arrangement D).
+    unit: usd_per_month
+    keyed_by: "1 = individual, 2 = couple"
+    updates: Statutory ($25/$50 before July 1988).
+    values:
+      - effective_from: 1988-07-01
+        value: {1: 30, 2: 60}
+        confidence: confirmed
+        sources:
+          - {source: ssa-poms-si-01415-058, locator: "B.2.a California, Federal code D: 30.00 (Not the FBR; payment cap in a Title XIX institution); couple 60.00"}
+  - id: federal.ssa.appeal_period_days
+    description: Days to request the next level of administrative appeal (reconsideration, ALJ hearing, Appeals Council) after receiving the notice.
+    unit: days
+    updates: Regulation.
+    values:
+      - effective_from: 1980-08-05
+        value: 60
+        confidence: confirmed
+        sources:
+          - {source: ssa-poms-gn-03101-010, locator: "A.1 Appeal period: The appeal period is generally 60 days ... start the day after the individual receives the notice"}
+          - {source: cfr-20-404-909, locator: "(a)(1) Within 60 days after the date you receive notice of the initial determination"}
+  - id: federal.ssa.notice_receipt_presumption_days
+    description: SSA presumes a notice is received this many days after the date on the notice, unless the person shows otherwise.
+    unit: days
+    updates: Regulation.
+    values:
+      - effective_from: 1980-08-05
+        value: 5
+        confidence: confirmed
+        sources:
+          - {source: ssa-poms-gn-03101-010, locator: "A.1: We presume the date the claimant or representative receives the notice is 5 days after the date on the notice"}

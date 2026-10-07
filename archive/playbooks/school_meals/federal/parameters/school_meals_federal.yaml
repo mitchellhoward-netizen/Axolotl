@@ -1,0 +1,201 @@
+# Federal school meal numbers (National School Lunch Program / School
+# Breakfast Program). The income eligibility guidelines (IEGs) run on the
+# school year, July 1 - June 30, not the calendar year: the 2026 poverty
+# guidelines drive the IEGs only from July 1, 2026.
+#
+# IEG values are nested mappings: {annual|monthly|twice_monthly|biweekly|weekly:
+# {1..8: dollars, additional: dollars per person above 8}}, copied from the
+# Federal Register tables for the 48 contiguous states and DC (all three
+# archive states). They are USDA's own rounded figures, not recomputed here.
+parameters:
+  - id: federal.usda.cn_free_fpl_percent
+    description: Free meal income guideline as a percent of the federal poverty guideline (42 U.S.C. 1758(b)(1)(A)).
+    unit: percent_fpl
+    updates: Statutory; does not change yearly.
+    values:
+      - effective_from: 2025-07-01
+        value: 130
+        confidence: confirmed
+        note: Statutory figure; 2025-07-01 is the earliest school year this archive covers, not the date the percentage was set.
+        sources:
+          - source: usc-42-1758
+            locator: "(b)(1)(A)"
+            quote: "The income guidelines for determining eligibility for free lunches shall be 130 percent of the applicable family size income levels"
+          - source: fr-2026-06842-ieg
+            locator: "The Income Eligibility Guidelines (multiplying the 2026 poverty guidelines by 1.30 and 1.85)"
+  - id: federal.usda.cn_reduced_fpl_percent
+    description: Reduced-price meal income guideline as a percent of the federal poverty guideline (42 U.S.C. 1758(b)(1)(A)).
+    unit: percent_fpl
+    updates: Statutory.
+    values:
+      - effective_from: 2025-07-01
+        value: 185
+        confidence: confirmed
+        note: Statutory figure; 2025-07-01 is the earliest school year this archive covers.
+        sources:
+          - source: usc-42-1758
+            locator: "(b)(1)(A)"
+            quote: "The income guidelines for determining eligibility for reduced price lunches for any school year shall be 185 percent"
+  - id: federal.usda.cn_ieg_free_income_limit
+    description: >-
+      USDA income eligibility guideline for FREE meals and free milk (130% FPL), 48 contiguous
+      states and DC, by pay frequency and household size.
+    compare_to: >-
+      Total current gross household income (before taxes and deductions) of every
+      household member. If all income is received at one frequency, the sum is compared
+      with that frequency's column; if frequencies differ, each amount is annualized
+      (weekly x52, every two weeks x26, twice a month x24, monthly x12, unrounded) and the
+      total is compared with the annual column. At or below the figure qualifies.
+    unit: usd
+    keyed_by: "pay frequency (annual, monthly, twice_monthly, biweekly, weekly) -> household size (1-8; additional = each person above 8)"
+    updates: Published in the Federal Register each spring; effective July 1 for the school year.
+    values:
+      - effective_from: 2025-07-01
+        effective_to: 2026-06-30
+        value:
+          annual: {1: 20345, 2: 27495, 3: 34645, 4: 41795, 5: 48945, 6: 56095, 7: 63245, 8: 70395, additional: 7150}
+          monthly: {1: 1696, 2: 2292, 3: 2888, 4: 3483, 5: 4079, 6: 4675, 7: 5271, 8: 5867, additional: 596}
+          twice_monthly: {1: 848, 2: 1146, 3: 1444, 4: 1742, 5: 2040, 6: 2338, 7: 2636, 8: 2934, additional: 298}
+          biweekly: {1: 783, 2: 1058, 3: 1333, 4: 1608, 5: 1883, 6: 2158, 7: 2433, 8: 2708, additional: 275}
+          weekly: {1: 392, 2: 529, 3: 667, 4: 804, 5: 942, 6: 1079, 7: 1217, 8: 1354, additional: 138}
+        confidence: confirmed
+        sources:
+          - source: fr-2025-03821-ieg
+            locator: "Income Eligibility Guidelines [Effective from July 1, 2025 to June 30, 2026], 48 Contiguous States, Free meals--130%"
+            quote: "4............................. 32,150 59,478 4,957 2,479 2,288 1,144 41,795 3,483 1,742 1,608 804"
+      - effective_from: 2026-07-01
+        effective_to: 2027-06-30
+        value:
+          annual: {1: 20748, 2: 28132, 3: 35516, 4: 42900, 5: 50284, 6: 57668, 7: 65052, 8: 72436, additional: 7384}
+          monthly: {1: 1729, 2: 2345, 3: 2960, 4: 3575, 5: 4191, 6: 4806, 7: 5421, 8: 6037, additional: 616}
+          twice_monthly: {1: 865, 2: 1173, 3: 1480, 4: 1788, 5: 2096, 6: 2403, 7: 2711, 8: 3019, additional: 308}
+          biweekly: {1: 798, 2: 1082, 3: 1366, 4: 1650, 5: 1934, 6: 2218, 7: 2502, 8: 2786, additional: 284}
+          weekly: {1: 399, 2: 541, 3: 683, 4: 825, 5: 967, 6: 1109, 7: 1251, 8: 1393, additional: 142}
+        confidence: confirmed
+        sources:
+          - source: fr-2026-06842-ieg
+            locator: "INCOME ELIGIBILITY GUIDELINES Effective from July 1, 2026 to June 30, 2027, 48 contiguous states, FREE MEALS = 130%"
+            quote: "4 …….. 33,000 61,050 5,088 2,544 2,349 1,175 42,900 3,575 1,788 1,650 825"
+  - id: federal.usda.cn_ieg_reduced_income_limit
+    description: >-
+      USDA income eligibility guideline for REDUCED-PRICE meals (185% FPL), 48 contiguous
+      states and DC, by pay frequency and household size.
+    compare_to: >-
+      Same income as the free guideline (total current gross household income, by one
+      frequency or annualized when frequencies differ). Income above the free figure and
+      at or below this figure qualifies for reduced price.
+    unit: usd
+    keyed_by: "pay frequency (annual, monthly, twice_monthly, biweekly, weekly) -> household size (1-8; additional)"
+    updates: Federal Register each spring; effective July 1.
+    values:
+      - effective_from: 2025-07-01
+        effective_to: 2026-06-30
+        value:
+          annual: {1: 28953, 2: 39128, 3: 49303, 4: 59478, 5: 69653, 6: 79828, 7: 90003, 8: 100178, additional: 10175}
+          monthly: {1: 2413, 2: 3261, 3: 4109, 4: 4957, 5: 5805, 6: 6653, 7: 7501, 8: 8349, additional: 848}
+          twice_monthly: {1: 1207, 2: 1631, 3: 2055, 4: 2479, 5: 2903, 6: 3327, 7: 3751, 8: 4175, additional: 424}
+          biweekly: {1: 1114, 2: 1505, 3: 1897, 4: 2288, 5: 2679, 6: 3071, 7: 3462, 8: 3853, additional: 392}
+          weekly: {1: 557, 2: 753, 3: 949, 4: 1144, 5: 1340, 6: 1536, 7: 1731, 8: 1927, additional: 196}
+        confidence: confirmed
+        sources:
+          - source: fr-2025-03821-ieg
+            locator: "Income Eligibility Guidelines [Effective from July 1, 2025 to June 30, 2026], Reduced Price Meals--185%"
+      - effective_from: 2026-07-01
+        effective_to: 2027-06-30
+        value:
+          annual: {1: 29526, 2: 40034, 3: 50542, 4: 61050, 5: 71558, 6: 82066, 7: 92574, 8: 103082, additional: 10508}
+          monthly: {1: 2461, 2: 3337, 3: 4212, 4: 5088, 5: 5964, 6: 6839, 7: 7715, 8: 8591, additional: 876}
+          twice_monthly: {1: 1231, 2: 1669, 3: 2106, 4: 2544, 5: 2982, 6: 3420, 7: 3858, 8: 4296, additional: 438}
+          biweekly: {1: 1136, 2: 1540, 3: 1944, 4: 2349, 5: 2753, 6: 3157, 7: 3561, 8: 3965, additional: 405}
+          weekly: {1: 568, 2: 770, 3: 972, 4: 1175, 5: 1377, 6: 1579, 7: 1781, 8: 1983, additional: 203}
+        confidence: confirmed
+        sources:
+          - source: fr-2026-06842-ieg
+            locator: "INCOME ELIGIBILITY GUIDELINES Effective from July 1, 2026 to June 30, 2027, REDUCED PRICE MEALS = 185%"
+  - id: federal.usda.dcm_free_fpl_percent
+    description: >-
+      Direct certification with Medicaid (FNS demonstration): highest income, as measured by
+      Medicaid for the Medicaid family size, at which a Medicaid child can be directly
+      certified for FREE meals.
+    unit: percent_fpl
+    updates: Set by FNS in the demonstration terms.
+    values:
+      - effective_from: 2016-07-01
+        value: 130
+        confidence: confirmed
+        note: The statute's Medicaid direct certification definition, 42 U.S.C. 1758(b)(15)(A), uses 133% of the poverty line before disregards; see conflict SCH-FED-CONFLICT-01.
+        sources:
+          - source: fns-dcm-demonstration
+            locator: "Scope of Demonstration Projects"
+            quote: "Free school meal eligibility, 130 percent of the Federal Poverty Level (FPL) for the family size used by Medicaid"
+  - id: federal.usda.dcm_reduced_fpl_percent
+    description: Direct certification with Medicaid for free and reduced-price meals (DCM-F/RP states only) - highest Medicaid-measured income for REDUCED-PRICE certification.
+    unit: percent_fpl
+    updates: Set by FNS in the demonstration terms.
+    values:
+      - effective_from: 2016-07-01
+        value: 185
+        confidence: confirmed
+        sources:
+          - source: fns-dcm-demonstration
+            locator: "Scope of Demonstration Projects"
+            quote: "Reduced price school meal eligibility, 185 percent of the FPL for the family size used by Medicaid"
+  - id: federal.usda.cep_min_isp_percent
+    description: Minimum identified student percentage (as of April 1 of the prior school year) for a school, group of schools or LEA to elect the Community Eligibility Provision.
+    unit: percent
+    updates: Changes only by rule.
+    values:
+      - effective_from: 2023-10-26
+        value: 25
+        confidence: confirmed
+        sources:
+          - {source: ecfr-7-cfr-245, locator: "245.9(f)(3)(i)", quote: "must have an identified student percentage of at least 25 percent, as of April 1 of the school year prior to participating"}
+          - {source: fr-2023-20294-cep, locator: "SUMMARY and DATES", quote: "This rule is effective October 26, 2023."}
+  - id: federal.usda.cep_multiplier
+    description: Multiplier applied to the identified student percentage to get the share of CEP meals reimbursed at the free rate (capped at 100%).
+    unit: ratio
+    updates: Changes only by rule.
+    values:
+      - effective_from: 2023-10-26
+        value: 1.6
+        confidence: confirmed
+        note: 2023-10-26 is the date of the CFR text relied on; the multiplier predates it.
+        sources:
+          - {source: ecfr-7-cfr-245, locator: "245.9(f)(4)(v)(A)", quote: "multiply the applicable identified student percentage by a factor of 1.6"}
+  - id: federal.usda.application_notice_operating_days
+    description: Operating days within which the LEA must notify the household and provide benefits after receiving an income application.
+    unit: operating_days
+    values:
+      - effective_from: 2025-07-01
+        value: 10
+        confidence: confirmed
+        sources:
+          - {source: ecfr-7-cfr-245, locator: "245.6(c)(6)(i)", quote: "within 10 operating days of receiving the application from the household"}
+  - id: federal.usda.carryover_operating_days
+    description: Operating days into the new school year that the prior year's eligibility carries over unless a new determination is made first.
+    unit: operating_days
+    values:
+      - effective_from: 2025-07-01
+        value: 30
+        confidence: confirmed
+        sources:
+          - {source: ecfr-7-cfr-245, locator: "245.6(c)(2)", quote: "used only to determine eligibility for the first 30 operating days following the first operating day at the beginning of the school year"}
+  - id: federal.usda.verification_sample_percent
+    description: Standard verification sample - percent of applications approved as of October 1, selected from error-prone applications.
+    unit: percent
+    values:
+      - effective_from: 2025-07-01
+        value: 3
+        confidence: confirmed
+        sources:
+          - {source: ecfr-7-cfr-245, locator: "245.6a(c), standard sample size", quote: "Three (3) percent of all applications approved by the local educational agency for the school year, as of October 1 of the school year, selected from error prone applications"}
+          - {source: usc-42-1758, locator: "(b)(3)(D)(i)(I)"}
+  - id: federal.usda.verification_deadline
+    description: Date (month-day) each school year by which the LEA must complete verification (extensions to December 15 possible).
+    unit: month_day
+    values:
+      - effective_from: 2025-07-01
+        value: "11-15"
+        confidence: confirmed
+        sources:
+          - {source: ecfr-7-cfr-245, locator: "245.6a(b)(1)", quote: "not later than November 15 of each school year"}

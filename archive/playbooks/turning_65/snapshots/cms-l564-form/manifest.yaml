@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://www.cms.gov/medicare/cms-forms/cms-forms/downloads/cms-l564e.pdf
+  final_url: https://www.cms.gov/medicare/cms-forms/cms-forms/downloads/cms-l564e.pdf
+  status: 200
+  content_type: application/pdf
+  text_sha256: 02b3ee578ddbe3951cb28bad490ea5e209304fd03465dcbfe529c8c5545d4b45
+  text: cms-l564-form/2026-10-07.txt
+  raw: cms-l564-form/2026-10-07.pdf

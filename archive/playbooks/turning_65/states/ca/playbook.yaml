@@ -1,0 +1,188 @@
+schema_version: 2
+program: turning_65
+scope: ca
+title: Turning 65 — California additions (Medigap birthday rule and extra guaranteed-issue rights, HICAP)
+last_researched: 2026-10-07
+
+summary:
+  plain_language: >-
+    Medicare enrollment, premiums and penalties are federal and the same in
+    California. California adds a Medigap "birthday rule": a person who
+    already has a Medigap policy has 60 days starting on their birthday each
+    year to buy another Medigap policy with the same or lesser benefits,
+    from any company, without medical screening or a new waiting period.
+    California also gives Medigap rights when COBRA or Cal-COBRA ends and when
+    an employer stops covering Medicare's 20% coinsurance. Outside those
+    windows (and the federal 6-month open enrollment) insurers may
+    underwrite. Free counseling is through HICAP (1-800-434-0222).
+  administered_by: >-
+    Medigap: California Department of Insurance (CDI) (and the Department of
+    Managed Health Care for health-plan Medigap products). HICAP: California
+    Department of Aging through local Area Agencies on Aging.
+  funded_by: Medigap premiums are paid by the policyholder; HICAP is federally (SHIP) and state funded.
+  local_names:
+    - {name: HICAP, meaning: "Health Insurance Counseling and Advocacy Program (California's SHIP)"}
+    - {name: Birthday rule, meaning: California's annual 60-day Medigap open enrollment starting on the birthday}
+    - {name: Cal-COBRA, meaning: California's continuation coverage for small employers}
+  confidence: confirmed
+  sources:
+    - {source: ca-cdi-sa-01-10b, locator: "Q: What is the \"Birthday Rule\"; Q: What other changes did the new law make to Medigap?"}
+    - {source: ca-cda-hicap, locator: "Medicare Counseling (HICAP)"}
+
+rules:
+  - id: T65-CA-MEDIGAP-BIRTHDAY
+    statement: >-
+      In California, a person who already has a Medigap (Medicare supplement)
+      policy has a 60-day open enrollment period beginning on their birthday
+      each year, during which they can buy another Medigap policy with the same
+      or lesser benefits (from the same or a different insurer) without medical
+      screening or a new pre-existing-condition waiting period.
+    kind: eligibility
+    effective_from: 2026-01-01
+    parameters: [ca.cdi.medigap_birthday_window_days]
+    overrides: [T65-FED-MEDIGAP-UNDERWRITING]
+    implemented_in: playbooks/turning_65/states/ca/rules.py:evaluate
+    confidence: confirmed
+    open_question: T65-CA-OQ-01
+    note: >-
+      2026 is the earliest date the archive has a primary source for the
+      60-day length. The NAIC chart (secondary) says 60 days from January 1,
+      2020, and a secondary source says 30 days before that (T65-CA-CONFLICT-01).
+      The Insurance Code text (10192.11) could not be snapshotted.
+    sources:
+      - {source: ca-cdi-sa-01-10b, locator: "Q: What is the \"Birthday Rule\" and how does it apply to the new Medigap Plans?"}
+      - {source: naic-medigap-birthday-chart-2026, locator: "California row"}
+  - id: T65-CA-MEDIGAP-GI-EXTRA
+    statement: >-
+      In California, a person can buy a Medigap policy without health screening
+      or a new waiting period when an employer stops providing coverage that
+      pays all of Medicare's 20% coinsurance, and open enrollment rights also
+      apply when COBRA or Cal-COBRA coverage is lost or when a person becomes
+      eligible only for Medi-Cal with a share of cost because their income or
+      assets rose.
+    kind: eligibility
+    effective_from: 2009-07-02
+    overrides: [T65-FED-MEDIGAP-UNDERWRITING]
+    implemented_in: playbooks/turning_65/states/ca/rules.py:evaluate
+    confidence: confirmed
+    note: The CDI advisory describes AB 1543 (signed July 2, 2009) as making these changes; how long each right lasts (days after the loss) is not stated there (T65-CA-OQ-02).
+    sources:
+      - {source: ca-cdi-sa-01-10b, locator: "Q: What other changes did the new law make to Medigap?"}
+  - id: T65-CA-MEDIGAP-NO-HEALTH-QUESTIONS
+    statement: >-
+      In California, when a person has a guaranteed-issue or open enrollment
+      right to Medigap, the insurer may not request, require or obtain medical
+      information as part of the application, except that health questions may
+      be asked when the person is first enrolled in Part B.
+    kind: procedure
+    effective_from: 2009-07-02
+    confidence: confirmed
+    sources:
+      - {source: ca-cdi-sa-01-10b, locator: "When a person is entitled to \"guaranteed issue\" coverage or is applying under \"open enrollment\" rights, insurance companies cannot request, require or obtain medical information"}
+  - id: T65-CA-HICAP
+    statement: >-
+      In California, free one-on-one Medicare counseling (the State Health
+      Insurance Assistance Program) is provided by HICAP, run by the California
+      Department of Aging through local offices; the statewide number is
+      1-800-434-0222.
+    kind: procedure
+    effective_from: 2026-01-01
+    implemented_in: playbooks/turning_65/states/ca/rules.py:evaluate
+    confidence: confirmed
+    sources:
+      - {source: ca-cda-hicap, locator: "You can locate a HICAP office ... or by calling 1-800-434-0222."}
+
+procedure:
+  applications:
+    - id: T65-CA-PROC-BIRTHDAY-SWITCH
+      text: During the 60 days starting on the birthday, apply to the new Medigap insurer for a plan with the same or lesser benefits; keep the old policy until the new one is issued.
+      channel: any
+      confidence: secondary
+      note: The "keep the old policy until the new one is issued" advice is general counselling practice, not found in a CA primary source.
+      sources: [{source: healthinsurance-org-medicare-ca, locator: "birthday rule paragraph"}]
+  filing:
+    - id: T65-CA-FILE-HICAP
+      text: Call HICAP at 1-800-434-0222 or find the county office on the Department of Aging's site.
+      channel: phone
+      county_varies: true
+      confidence: confirmed
+      sources: [{source: ca-cda-hicap, locator: "Medicare Counseling (HICAP)"}]
+
+life_events:
+  - id: T65-CA-LE-BIRTHDAY
+    code: renewal_due
+    event: A Californian with Medigap reaches their birthday
+    why: The 60-day birthday window opens to switch to an equal-or-lesser plan, often at a lower premium, without health questions.
+    check_rules: [T65-CA-MEDIGAP-BIRTHDAY]
+    confidence: confirmed
+    sources: [{source: ca-cdi-sa-01-10b, locator: "Birthday Rule"}]
+  - id: T65-CA-LE-COBRA-END
+    code: employer_coverage_end
+    event: COBRA or Cal-COBRA ends, or an employer stops covering the 20% coinsurance
+    why: California Medigap guaranteed-issue / open enrollment rights apply.
+    check_rules: [T65-CA-MEDIGAP-GI-EXTRA]
+    confidence: confirmed
+    sources: [{source: ca-cdi-sa-01-10b, locator: "What other changes did the new law make to Medigap?"}]
+  - id: T65-CA-LE-MOVE-OUT
+    code: move_state
+    event: A Californian with Medigap moves to another state
+    why: The birthday rule is California law and does not follow them; the new state's rules apply.
+    check_rules: [T65-CA-MEDIGAP-BIRTHDAY]
+    confidence: confirmed
+    sources: [{source: medicare-gov-medigap-ready-to-buy, locator: "You may have additional rights under state law."}]
+
+outcome_proof:
+  - id: T65-CA-PROOF-MEDIGAP
+    evidence: New Medigap policy and the old insurer's cancellation confirmation
+    shows: The switch took effect without underwriting.
+    confidence: unresolved
+    open_question: T65-CA-OQ-02
+
+open_questions:
+  - id: T65-CA-OQ-01
+    priority: medium
+    question: Snapshot California Insurance Code 10192.11 (and Health and Safety Code 1358.11) to confirm the 60-day birthday window, its effective date, the "or more" wording, and whether it applies to people under 65 or with ESRD.
+    why_it_matters: The birthday window is the main California-only Medigap right; its exact length and start decide whether a switch is guaranteed.
+    checked: [leginfo.legislature.ca.gov (HTTP 403 to scripts and WebFetch), CDI SA-01-10B, NAIC chart May 2026, healthinsurance.org]
+    affects: [T65-CA-MEDIGAP-BIRTHDAY, ca.cdi.medigap_birthday_window_days]
+    status: open
+  - id: T65-CA-OQ-02
+    priority: low
+    question: How long after losing COBRA/Cal-COBRA or employer coinsurance coverage does a California Medigap right last, and what documents prove it?
+    why_it_matters: The agent must tell a member the deadline.
+    checked: [CDI SA-01-10B]
+    affects: [T65-CA-MEDIGAP-GI-EXTRA, T65-CA-PROOF-MEDIGAP]
+    status: open
+  - id: T65-CA-OQ-03
+    priority: low
+    question: Is there a California state pharmaceutical assistance program (or a Medi-Cal Rx discount for Medicare beneficiaries) that a new 65-year-old should be checked for, like New York's EPIC?
+    why_it_matters: Possible savings for members who do not qualify for Extra Help.
+    checked: [none found in CDA HICAP page]
+    status: open
+
+conflicts:
+  - id: T65-CA-CONFLICT-01
+    topic: Length and start date of the California birthday window
+    claims:
+      - source: ca-cdi-sa-01-10b
+        says: Advisory dated 02/10/2010 says Medigap holders have 60 days of open enrollment following their birthday each year.
+      - source: healthinsurance-org-medicare-ca
+        says: The window used to be 30 days long; legislation enacted in 2019 extended it to 60 days, as of 2020.
+      - source: naic-medigap-birthday-chart-2026
+        says: California birthday rule effective January 1, 2020; open enrollment of 60 days or more commencing with the birthday.
+    handling: >-
+      Both agree the window is 60 days now; the archive uses 60 days from 2026
+      (the earliest date of a primary copy) and does not evaluate earlier
+      years. The CDI advisory was probably updated in place after 2020.
+    affects: [T65-CA-MEDIGAP-BIRTHDAY]
+    status: open
+
+claims_checked:
+  - claim: California has a Medigap "birthday rule" annual switch window.
+    verdict: verified
+    detail: 60 days starting on the birthday, to a policy with the same or lesser benefits, without medical screening or a new waiting period (CDI). Statute text not snapshotted (T65-CA-OQ-01).
+    sources: [{source: ca-cdi-sa-01-10b, locator: "Birthday Rule"}]
+  - claim: California's SHIP is HICAP, run by the California Department of Aging.
+    verdict: verified
+    detail: HICAP 1-800-434-0222.
+    sources: [{source: ca-cda-hicap, locator: "Medicare Counseling (HICAP)"}]

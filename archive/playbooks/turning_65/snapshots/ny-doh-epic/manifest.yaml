@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://healthweb-back.health.ny.gov/health_care/epic/
+  final_url: https://healthweb-back.health.ny.gov/health_care/epic/
+  status: 200
+  content_type: text/html; charset=utf-8
+  text_sha256: 38e27e283098628e75ae44dfbff151a74357a552b2e032bf857441ba5571decf
+  text: ny-doh-epic/2026-10-07.txt
+  raw: ny-doh-epic/2026-10-07.html

@@ -1,0 +1,588 @@
+schema_version: 2
+program: ltc_medicaid
+scope: federal
+title: Long-term care (nursing-facility) Medicaid — transfers, spousal impoverishment, home equity, estate recovery — federal base
+last_researched: 2026-10-07
+
+summary:
+  plain_language: >-
+    Medicaid is the main payer for long nursing-home stays. To qualify, a person
+    who is 65 or older, blind or disabled must meet the state's resource (asset)
+    limit and have income too low to pay the nursing home privately; the resident
+    then pays most of their monthly income to the facility, keeping a small
+    personal needs allowance. Federal law adds special rules for long-term care:
+    gifts or other transfers for less than fair market value in the 60 months
+    before applying cause a penalty period during which Medicaid will not pay for
+    nursing-home care; a married applicant's spouse at home (the "community
+    spouse") may keep a protected share of the couple's savings and enough
+    income to reach a monthly maintenance allowance; a person whose home equity
+    exceeds a limit ($752,000 to $1,130,000 in 2026, depending on the state) is
+    not eligible for long-term care unless a spouse or qualifying child lives
+    there; and after death the state must try to recover what it paid from the
+    estate of people who were 55 or older. Ordinary (community) Medicaid
+    enrollment is a separate playbook (medicaid).
+  administered_by: State Medicaid agencies (county social services offices in New York and California; IDHS Family Community Resource Centers and HFS in Illinois).
+  funded_by: Federal and state Medicaid funds at the state's matching rate.
+  local_names:
+    - {name: Nursing home Medicaid, meaning: "Medicaid coverage of nursing facility services (also: institutional Medicaid, chronic care Medicaid in New York, LTC Medi-Cal in California)"}
+    - {name: Look-back period, meaning: The months before the baseline date in which transfers are reviewed (60 months federally)}
+    - {name: Penalty period, meaning: "Months of ineligibility for nursing facility services caused by an uncompensated transfer (California: period of ineligibility, POI)"}
+    - {name: CSRA, meaning: Community spouse resource allowance — savings the spouse at home keeps}
+    - {name: MMMNA, meaning: Minimum monthly maintenance needs allowance for the community spouse}
+    - {name: PNA, meaning: Personal needs allowance the resident keeps from monthly income}
+    - {name: Spousal impoverishment, meaning: The section 1924 rules protecting the community spouse}
+  legal_basis: Social Security Act secs. 1917 (42 U.S.C. 1396p) and 1924 (42 U.S.C. 1396r-5); sec. 1902(q) personal needs allowance; 42 CFR 435.725; Deficit Reduction Act of 2005 secs. 6011, 6014, 6016; Public Law 119-21 secs. 71108, 71112.
+  confidence: confirmed
+  sources:
+    - {source: usc-42-1396p, locator: "(b), (c), (f)"}
+    - {source: usc-42-1396r-5, locator: "(c)-(h)"}
+    - {source: cms-cib-2025-12-09, locator: "2026 SSI and Spousal Impoverishment Standards chart"}
+
+rules:
+  # ------------------------------------------------------------ who / setting
+  - id: LTC-FED-CATEGORY
+    statement: >-
+      In every state, the long-term care rules in this playbook (resource limit,
+      transfer penalty, spousal impoverishment) are applied here to nursing-facility
+      applicants who are 65 or older, blind or disabled; an adult under 65 who is
+      neither is assessed under the state's adult (MAGI) group, which this
+      playbook does not model.
+    kind: definition
+    effective_from: 2006-02-08
+    implemented_in: playbooks/ltc_medicaid/federal/rules.py:gate
+    confidence: unresolved
+    open_question: LTC-FED-OQ-01
+    note: >-
+      Transfer and home equity rules also apply to MAGI-group adults (CMS SMDL 14-001, cited in the
+      November 2025 CIB footnote 12), but the resource test does not. The archive returns "undetermined"
+      for them rather than guess.
+  - id: LTC-FED-INSTITUTIONALIZED
+    statement: >-
+      In every state, the institutional long-term care rules apply to a person in a
+      medical institution or nursing facility who is likely to stay at least 30
+      consecutive days and meets the state's nursing-facility level of care; a
+      spouse expected to stay fewer than 30 days is not an "institutionalized
+      spouse" for the spousal impoverishment rules.
+    kind: eligibility
+    effective_from: 1989-09-30
+    implemented_in: playbooks/ltc_medicaid/federal/rules.py:gate
+    confidence: confirmed
+    sources:
+      - source: usc-42-1396r-5
+        locator: "(h)(1)"
+        quote: "but does not include any such individual who is not likely to meet the requirements of subparagraph (A) for at least 30 consecutive days"
+  - id: LTC-FED-RESOURCE-COUNTING
+    statement: >-
+      In every state, resources for long-term care Medicaid are counted with SSI
+      rules: the home (subject to the home equity limit), household goods, one
+      vehicle and burial spaces are excluded, and the same exclusions apply when
+      the couple's resources are pooled under the spousal impoverishment rules.
+    kind: definition
+    effective_from: 1989-09-30
+    implemented_in: playbooks/ltc_medicaid/federal/rules.py:countable_resources
+    confidence: confirmed
+    note: SSI excludes one automobile regardless of value only under conditions in 20 CFR 416.1218; the archive excludes one vehicle without testing them.
+    sources:
+      - {source: usc-42-1396r-5, locator: "(c)(5)", quote: "the term \"resources\" does not include— (A) resources excluded under subsection (a) or (d) of section 1382b"}
+
+  # ------------------------------------------------------------- transfers
+  - id: LTC-FED-LOOKBACK
+    statement: >-
+      In every state, Medicaid reviews transfers of assets for less than fair market
+      value made by a nursing-facility applicant or their spouse on or after the
+      look-back date, which is 60 months before the baseline date (the first date
+      the person is both institutionalized and has applied for Medicaid), for any
+      transfer made on or after February 8, 2006; a state may use a shorter
+      look-back only where it has not implemented this rule (see the state parts).
+    kind: penalty
+    effective_from: 2006-02-08
+    parameters: [federal.ltc.lookback_months]
+    implemented_in: playbooks/ltc_medicaid/federal/rules.py:window_transfers
+    confidence: confirmed
+    note: California still uses a 30-month look-back under its regulations (conflict LTC-CA-CONFLICT-02).
+    sources:
+      - {source: usc-42-1396p, locator: "(c)(1)(B)(i)-(ii)"}
+      - {source: cms-smdl-06-018-enclosure, locator: "I. Extension of the Look-Back Period to 60 Months"}
+  - id: LTC-FED-PENALTY-MONTHS
+    statement: >-
+      In every state, the number of months a nursing-facility resident is
+      ineligible for nursing facility services after an uncompensated transfer
+      equals the total uncompensated value of all assets transferred on or after
+      the look-back date divided by the average monthly cost to a private patient of
+      nursing facility care in the state (or, at state option, in the community),
+      with no maximum.
+    kind: penalty
+    effective_from: 2006-02-08
+    implemented_in: playbooks/ltc_medicaid/federal/rules.py:federal_penalty_months
+    confidence: confirmed
+    sources:
+      - {source: usc-42-1396p, locator: "(c)(1)(E)(i)", quote: "the average monthly cost to a private patient of nursing facility services in the State (or, at the option of the State, in the community in which the individual is institutionalized) at the time of application"}
+      - {source: cms-smm-3257-3259, locator: "3258.5 D. Restricted Coverage - Institutionalized Individual"}
+  - id: LTC-FED-NO-ROUNDING
+    statement: >-
+      In every state, a transfer penalty may not be rounded down: a fractional
+      month must be imposed as a partial-month penalty, and a state may add up
+      transfers made in several months and impose one penalty period.
+    kind: penalty
+    effective_from: 2006-02-08
+    implemented_in: playbooks/ltc_medicaid/federal/rules.py:federal_penalty_months
+    confidence: confirmed
+    note: California's 2025 guidance says it imposes no partial-month penalty (conflict LTC-CA-CONFLICT-02).
+    sources:
+      - {source: usc-42-1396p, locator: "(c)(1)(E)(iv) and (H)", quote: "A State shall not round down, or otherwise disregard any fractional period of ineligibility"}
+      - {source: cms-smdl-06-018-enclosure, locator: "II.B Partial Month Transfers; II.C Option to Combine Multiple Transfers"}
+  - id: LTC-FED-PENALTY-START
+    statement: >-
+      In every state, for transfers made on or after February 8, 2006, the penalty
+      period starts on the later of the first day of a month during or after which
+      the assets were transferred and the date the person is otherwise eligible for
+      Medicaid and would be receiving nursing-facility care but for the penalty, so
+      the penalty runs only while the person is in care and otherwise eligible.
+    kind: penalty
+    effective_from: 2006-02-08
+    implemented_in: playbooks/ltc_medicaid/federal/rules.py:dra_penalty_start
+    confidence: confirmed
+    sources:
+      - {source: usc-42-1396p, locator: "(c)(1)(D)(ii)"}
+      - {source: cms-smdl-06-018-enclosure, locator: "II.A Start Date of the Penalty Period"}
+  - id: LTC-FED-PENALTY-SCOPE
+    statement: >-
+      In every state, a transfer penalty denies Medicaid payment only for nursing
+      facility services (and equivalent institutional or home and community-based
+      long-term care); the person stays eligible for other Medicaid-covered services
+      during the penalty, and a state may also apply the transfer rules to people
+      applying for home care and community-based services.
+    kind: penalty
+    effective_from: 1993-08-10
+    confidence: confirmed
+    sources:
+      - {source: usc-42-1396p, locator: "(c)(1)(A), (C)"}
+      - {source: cms-smm-3257-3259, locator: "3258.5 Penalty Periods", quote: "the individual remains eligible for Medicaid and can have payment made for services not subject to penalty"}
+  - id: LTC-FED-EXEMPT-TRANSFERS
+    statement: >-
+      In every state, no transfer penalty applies to assets transferred to the
+      person's spouse (or to another for the spouse's sole benefit), to the
+      person's blind or disabled child or a trust solely for that child, or to a
+      trust solely for a disabled person under 65; nor to a home transferred to a
+      spouse, a child under 21, a blind or disabled child, a sibling with an equity
+      interest who lived there at least a year, or a son or daughter who lived
+      there at least two years and provided care that delayed institutionalization.
+    kind: penalty
+    effective_from: 1993-08-10
+    implemented_in: playbooks/ltc_medicaid/federal/rules.py:exempt_transfer
+    confidence: confirmed
+    sources:
+      - {source: usc-42-1396p, locator: "(c)(2)(A)-(B)"}
+  - id: LTC-FED-TRANSFER-EXCEPTIONS
+    statement: >-
+      In every state, no transfer penalty applies if the person shows the assets
+      were meant to be sold at fair market value, were transferred only for a
+      reason other than qualifying for Medicaid, or were all returned, or if the
+      state finds the penalty would cause undue hardship; the nursing facility may
+      file the hardship request with the resident's consent.
+    kind: penalty
+    effective_from: 2006-02-08
+    confidence: confirmed
+    sources:
+      - {source: usc-42-1396p, locator: "(c)(2)(C)-(D) and the paragraph after (D)"}
+  - id: LTC-FED-ANNUITIES
+    statement: >-
+      In every state, buying an annuity is treated as a transfer for less than fair
+      market value unless the state is named remainder beneficiary (first, or second
+      after a community spouse or minor or disabled child) and the annuity is
+      irrevocable, non-assignable, actuarially sound and pays in equal amounts with
+      no balloon; an applicant must disclose any annuity.
+    kind: penalty
+    effective_from: 2006-02-08
+    confidence: confirmed
+    sources:
+      - {source: usc-42-1396p, locator: "(c)(1)(F)-(G)"}
+
+  # ------------------------------------------------- spousal impoverishment
+  - id: LTC-FED-SPOUSAL-DEFINITIONS
+    statement: >-
+      In every state, the spousal impoverishment rules apply when a married person
+      is (or is expected to be for 30+ days) in a medical institution or nursing
+      facility, or at state option receives home and community-based waiver
+      services, and the other spouse is not in an institution (the "community
+      spouse"); the rules apply regardless of state community-property law.
+    kind: definition
+    effective_from: 1989-09-30
+    implemented_in: playbooks/ltc_medicaid/federal/rules.py:community_spouse
+    confidence: confirmed
+    sources:
+      - {source: usc-42-1396r-5, locator: "(h)(1)-(2) and (c)(2)"}
+  - id: LTC-FED-SNAPSHOT
+    statement: >-
+      In every state, the couple's total countable resources are measured as of the
+      beginning of the institutionalized spouse's first continuous period of
+      institutionalization (the "snapshot"), and the spousal share is half of that
+      total; either spouse may ask the state for this assessment.
+    kind: definition
+    effective_from: 1990-11-05
+    implemented_in: playbooks/ltc_medicaid/federal/rules.py:snapshot_total
+    confidence: confirmed
+    sources:
+      - {source: usc-42-1396r-5, locator: "(c)(1)(A)-(B)", quote: "a spousal share which is equal to ½ of such total value"}
+  - id: LTC-FED-RESOURCE-ATTRIBUTION
+    statement: >-
+      In every state, when a married nursing-home resident applies, all countable
+      resources of either or both spouses are treated as available to the
+      institutionalized spouse except the community spouse resource allowance; after
+      eligibility is established, the community spouse's resources are no longer
+      counted for the institutionalized spouse.
+    kind: eligibility
+    effective_from: 1989-09-30
+    implemented_in: playbooks/ltc_medicaid/federal/rules.py:resources_after_csra
+    confidence: confirmed
+    sources:
+      - {source: usc-42-1396r-5, locator: "(c)(2) and (c)(4)"}
+  - id: LTC-FED-CSRA
+    statement: >-
+      In every state in 2026, the community spouse resource allowance is the
+      greatest of the state's minimum (at least $32,532, and states may set it as
+      high as $162,660) and the spousal share capped at $162,660, or a higher
+      amount set at a fair hearing or by court order.
+    kind: eligibility
+    effective_from: 2026-01-01
+    parameters: [federal.ltc.csra_minimum, federal.ltc.csra_maximum]
+    implemented_in: playbooks/ltc_medicaid/federal/rules.py:spousal_share_csra
+    confidence: confirmed
+    sources:
+      - {source: usc-42-1396r-5, locator: "(f)(2)(A)"}
+      - {source: cms-cib-2025-12-09, locator: "Community Spouse Resources: Minimum 32,532.00; Maximum 162,660.00"}
+  - id: LTC-FED-CSMIA
+    statement: >-
+      In every state, after a married nursing-home resident is found eligible, the
+      resident's income may be used to give the community spouse a monthly income
+      allowance equal to the minimum monthly maintenance needs allowance minus the
+      community spouse's own income (or more under a court order), to the extent the
+      resident actually makes the income available.
+    kind: benefit
+    effective_from: 1989-09-30
+    implemented_in: playbooks/ltc_medicaid/federal/rules.py:community_spouse_income_allowance
+    confidence: confirmed
+    sources:
+      - {source: usc-42-1396r-5, locator: "(d)(1)(B), (d)(2), (d)(5)"}
+  - id: LTC-FED-MMMNA
+    statement: >-
+      In every state, the community spouse's minimum monthly maintenance needs
+      allowance is at least 150% of the monthly poverty line for two ($2,643.75
+      from July 1, 2025 and $2,705 from July 1, 2026, outside Alaska and Hawaii)
+      plus an excess shelter allowance for housing costs above $793.13 (from July 1,
+      2026, $811.50), and may not exceed $4,066.50 a month in 2026 absent a fair
+      hearing or court order.
+    kind: definition
+    effective_from: 2026-01-01
+    parameters: [federal.ltc.mmmna_minimum, federal.ltc.mmmna_maximum, federal.ltc.cs_housing_allowance]
+    implemented_in: playbooks/ltc_medicaid/federal/rules.py:excess_shelter_mmmna
+    confidence: confirmed
+    sources:
+      - {source: usc-42-1396r-5, locator: "(d)(3)-(4)"}
+      - {source: cms-cib-2025-12-09, locator: "Spousal Impoverishment, MMMNA and housing allowance (effective 7-1-25); maximum 4,066.50"}
+      - {source: cms-cib-2026-04-27, locator: "MMMNA 2,705.00 and housing allowance 811.50 (effective 7-1-26)"}
+  - id: LTC-FED-FAMILY-ALLOWANCE
+    statement: >-
+      In every state, a married nursing-home resident may also keep, for each
+      minor or dependent child, dependent parent or dependent sibling living with
+      the community spouse, a family allowance of at least one-third of the amount
+      by which the 150%-of-poverty maintenance standard exceeds that family
+      member's monthly income.
+    kind: benefit
+    effective_from: 1989-09-30
+    implemented_in: playbooks/ltc_medicaid/federal/rules.py:family_allowance
+    confidence: confirmed
+    sources:
+      - {source: usc-42-1396r-5, locator: "(d)(1)(C) and the sentence after (D)"}
+  - id: LTC-FED-INCOME-FIRST
+    statement: >-
+      In every state, before raising the community spouse resource allowance at a
+      fair hearing to produce enough income for the community spouse, the state must
+      first count all income of the institutionalized spouse that could be made
+      available to the community spouse ("income first").
+    kind: definition
+    effective_from: 2006-02-08
+    confidence: confirmed
+    sources:
+      - {source: usc-42-1396r-5, locator: "(d)(6)"}
+  - id: LTC-FED-SUPPORT-ASSIGNMENT
+    statement: >-
+      In every state, an institutionalized spouse is not denied Medicaid because of
+      resources counted as available from the community spouse if the
+      institutionalized spouse assigns support rights to the state, cannot do so
+      because of impairment, or denial would cause undue hardship.
+    kind: eligibility
+    effective_from: 1989-09-30
+    confidence: confirmed
+    note: This is the federal basis of New York's "spousal refusal" practice (LTC-NY-SPOUSAL-REFUSAL).
+    sources:
+      - {source: usc-42-1396r-5, locator: "(c)(3)"}
+
+  # ---------------------------------------------- post-eligibility income
+  - id: LTC-FED-PNA
+    statement: >-
+      In every state, a nursing-facility resident on Medicaid keeps a monthly
+      personal needs allowance of at least $30 (at least $60 for an institutionalized
+      couple whose incomes are considered available to each other); states may set a
+      higher amount.
+    kind: benefit
+    effective_from: 1988-07-01
+    parameters: [federal.ltc.pna_minimum]
+    confidence: confirmed
+    sources:
+      - {source: usc-42-1396a, locator: "(q)(1)-(2)"}
+      - {source: ecfr-42-cfr-435-725, locator: "(c)(1)"}
+  - id: LTC-FED-POST-ELIGIBILITY
+    statement: >-
+      In every state, once a nursing-home resident is eligible, Medicaid reduces its
+      payment to the facility by the resident's income left after deducting, in
+      order, the personal needs allowance, the community spouse income allowance,
+      family allowances, and incurred medical expenses such as health insurance
+      premiums; that remainder is the resident's monthly payment to the facility.
+    kind: benefit
+    effective_from: 1989-09-30
+    implemented_in: playbooks/ltc_medicaid/federal/rules.py:post_eligibility
+    confidence: confirmed
+    sources:
+      - {source: usc-42-1396r-5, locator: "(d)(1)(A)-(D)"}
+      - {source: ecfr-42-cfr-435-725, locator: "(a)(1), (c)"}
+
+  # ------------------------------------------------------------ home equity
+  - id: LTC-FED-HOME-EQUITY
+    statement: >-
+      In every state, a person is not eligible for Medicaid payment of nursing
+      facility or other long-term care services if their equity interest in their
+      home exceeds the state's home equity limit, which in 2026 is between $752,000
+      and $1,130,000 (the state's choice); the limit does not apply while the
+      person's spouse, child under 21, or blind or disabled child lawfully lives in
+      the home, and the person may reduce equity with a reverse mortgage or home
+      equity loan.
+    kind: eligibility
+    effective_from: 2026-01-01
+    parameters: [federal.ltc.home_equity_minimum, federal.ltc.home_equity_maximum]
+    implemented_in: playbooks/ltc_medicaid/federal/rules.py:home_equity_test
+    confidence: confirmed
+    sources:
+      - {source: usc-42-1396p, locator: "(f)(1)-(3)"}
+      - {source: cms-cib-2025-12-09, locator: "Home Equity Limits: Minimum 752,000.00; Maximum 1,130,000.00"}
+  - id: LTC-FED-HOME-EQUITY-2028
+    statement: >-
+      Starting January 1, 2028, a state may not set its home equity limit above
+      $1,000,000 for a home that is not on land zoned for agricultural use (homes on
+      agricultural land may keep the CPI-indexed maximum), and states may no longer
+      use less restrictive methods to avoid the limit, for both MAGI and non-MAGI
+      applicants.
+    kind: eligibility
+    effective_from: 2028-01-01
+    parameters: [federal.ltc.home_equity_maximum]
+    confidence: confirmed
+    sources:
+      - {source: pl-119-21, locator: "sec. 71108(a)-(c)"}
+      - {source: cms-cib-2025-11-18, locator: "Section 71108, pages 8-9"}
+
+  # --------------------------------------------------------------- timing
+  - id: LTC-FED-RETRO-2027
+    statement: >-
+      For Medicaid applications made on or after January 1, 2027, a person outside
+      the adult expansion group (which includes most nursing-home applicants who are
+      65 or older, blind or disabled) can get retroactive coverage for care in the
+      two months before the month of application, instead of three.
+    kind: timing
+    effective_from: 2027-01-01
+    confidence: confirmed
+    note: Applies "beginning on the first day of the first quarter that begins after December 31, 2026", i.e. January 1, 2027. Whether each state applies it from that day is a state-implementation question (LTC-FED-OQ-02).
+    open_question: LTC-FED-OQ-02
+    sources:
+      - {source: pl-119-21, locator: "sec. 71112(a), new 1902(a)(34)(B), and (d)"}
+      - {source: cms-cib-2025-11-18, locator: "Section 71112"}
+  - id: LTC-FED-RETRO-BEFORE-2027
+    statement: >-
+      For Medicaid applications made before January 1, 2027, a nursing-home applicant
+      can get coverage for care in the three months before the month of application
+      if they would have been eligible then.
+    kind: timing
+    effective_from: 1988-01-01
+    effective_to: 2026-12-31
+    confidence: confirmed
+    sources:
+      - {source: usc-42-1396a, locator: "(a)(34) (2023 edition, before Public Law 119-21)"}
+
+  # -------------------------------------------------------- estate recovery
+  - id: LTC-FED-ESTATE-RECOVERY
+    statement: >-
+      In every state, after the death of a Medicaid recipient who was 55 or older
+      when they got the care (or who was permanently institutionalized), the state
+      must seek recovery from the estate for nursing facility services, home and
+      community-based services and related hospital and prescription drug services
+      it paid, and may recover other Medicaid services at its option.
+    kind: procedure
+    effective_from: 1993-10-01
+    confidence: confirmed
+    sources:
+      - {source: usc-42-1396p, locator: "(b)(1)(A)-(B)"}
+  - id: LTC-FED-ESTATE-RECOVERY-LIMITS
+    statement: >-
+      In every state, estate recovery may be made only after the death of the
+      recipient's surviving spouse and only when there is no surviving child under
+      21 or blind or disabled child; the state must waive recovery when it would
+      cause undue hardship.
+    kind: procedure
+    effective_from: 1993-10-01
+    confidence: confirmed
+    sources:
+      - {source: usc-42-1396p, locator: "(b)(2)-(3)"}
+
+procedure:
+  applications:
+    - id: LTC-FED-PROC-APPLY-STATE
+      text: >-
+        Nursing-home Medicaid is applied for with the state Medicaid agency (or its
+        local office); the application must disclose transfers in the look-back period
+        and any annuities. Either spouse may ask for a resource assessment (snapshot)
+        at the start of institutionalization even before applying.
+      channel: any
+      confidence: confirmed
+      sources:
+        - {source: usc-42-1396p, locator: "(c)(1)(G); (e) disclosure of annuities"}
+        - {source: usc-42-1396r-5, locator: "(c)(1)(B)"}
+  approval_notice:
+    - id: LTC-FED-PROC-NOTICE-SPOUSAL
+      text: >-
+        When a married applicant is decided, the state must notify both spouses of
+        the community spouse income allowance, any family allowances, how the
+        community spouse resource allowance was computed, and their right to a fair
+        hearing on these amounts.
+      confidence: confirmed
+      sources: [{source: usc-42-1396r-5, locator: "(e)(1)-(2)"}]
+    - id: LTC-FED-PROC-NOTICE-PENALTY
+      text: A notice imposing a transfer penalty must explain the undue hardship exception and how to ask for it.
+      confidence: confirmed
+      sources: [{source: cms-smdl-06-018-enclosure, locator: "II.A, notice must contain information about the undue hardship exception"}]
+  timelines:
+    - id: LTC-FED-TIME-CSRA-TRANSFER
+      text: Resources making up the CSRA should be moved to the community spouse as soon as practicable after the initial eligibility decision (states set the deadline).
+      confidence: confirmed
+      sources: [{source: usc-42-1396r-5, locator: "(f)(1)"}]
+
+life_events:
+  - id: LTC-FED-LE-NURSING-HOME
+    code: nursing_home_entry
+    event: Admission to a nursing home expected to last 30 days or more
+    why: Starts the look-back (once an application is filed), fixes the spousal snapshot date and triggers the spousal impoverishment rules.
+    check_rules: [LTC-FED-INSTITUTIONALIZED, LTC-FED-SNAPSHOT, LTC-FED-LOOKBACK]
+    confidence: confirmed
+    sources: [{source: usc-42-1396r-5, locator: "(c)(1), (h)(1)"}]
+  - id: LTC-FED-LE-HOME-CARE
+    code: home_care_need
+    event: Needing long-term care at home (personal care, home health, HCBS waiver)
+    why: States may apply the transfer rules and, for waiver services, the spousal rules to home care; the state parts say whether they do.
+    check_rules: [LTC-FED-PENALTY-SCOPE, LTC-FED-SPOUSAL-DEFINITIONS]
+    confidence: confirmed
+    sources: [{source: usc-42-1396p, locator: "(c)(1)(A), (C)(ii)"}]
+  - id: LTC-FED-LE-ASSETS
+    code: asset_change
+    event: Giving money or property to family, selling a home, buying an annuity, receiving an inheritance
+    why: Gifts within the look-back cause a penalty; equity and annuity rules may apply; new assets can exceed the resource limit.
+    check_rules: [LTC-FED-LOOKBACK, LTC-FED-PENALTY-MONTHS, LTC-FED-ANNUITIES, LTC-FED-HOME-EQUITY]
+    confidence: confirmed
+    sources: [{source: usc-42-1396p, locator: "(c), (f)"}]
+  - id: LTC-FED-LE-SPOUSE-DEATH
+    code: spouse_death
+    event: Death of the community spouse (or of the resident)
+    why: The spousal allowances end; resources left to the resident count again; estate recovery can begin after the surviving spouse dies.
+    check_rules: [LTC-FED-CSMIA, LTC-FED-ESTATE-RECOVERY-LIMITS]
+    confidence: confirmed
+    sources: [{source: usc-42-1396p, locator: "(b)(2)"}]
+  - id: LTC-FED-LE-DIVORCE
+    code: divorce_separation
+    event: Divorce or legal separation of a nursing-home resident and spouse
+    why: Transfers to a spouse are exempt only while married; a court-ordered support amount sets a floor for the spouse's income allowance.
+    check_rules: [LTC-FED-EXEMPT-TRANSFERS, LTC-FED-CSMIA]
+    confidence: confirmed
+    sources: [{source: usc-42-1396r-5, locator: "(d)(5), (f)(3)"}]
+  - id: LTC-FED-LE-MOVE
+    code: move_state
+    event: Moving to a nursing home in another state
+    why: Each state has its own resource limit, divisor, CSRA choice and home equity limit; a new application in the new state starts its own look-back.
+    check_rules: [LTC-FED-CSRA, LTC-FED-HOME-EQUITY, LTC-FED-PENALTY-MONTHS]
+    confidence: confirmed
+    sources: [{source: usc-42-1396p, locator: "(c)(1)(E)(i) (divisor is the state's)"}]
+
+outcome_proof:
+  - id: LTC-FED-PROOF-NOTICE
+    evidence: State notice of eligibility for Medicaid nursing facility services
+    shows: The coverage start date, the resident's monthly payment to the facility, and (for a married resident) the community spouse resource and income allowances.
+    how_to_get: Mailed by the state or local Medicaid office to the applicant (and community spouse)
+    confidence: confirmed
+    sources: [{source: usc-42-1396r-5, locator: "(e)(1)"}]
+
+links:
+  - id: LTC-LINK-MEDICAID
+    playbook: medicaid
+    rules: [LTC-FED-CATEGORY, LTC-FED-PENALTY-SCOPE]
+    relation: >-
+      Long-term care Medicaid sits on top of ordinary Medicaid eligibility (aged,
+      blind and disabled groups, medically needy spenddown, MAGI adults). During a
+      transfer penalty the person keeps ordinary Medicaid for other services; an
+      adult under 65 who is not disabled is assessed in the medicaid playbook.
+    test: LTC-X-01
+    confidence: confirmed
+    sources: [{source: cms-smm-3257-3259, locator: "3258.5 Penalty Periods"}]
+
+open_questions:
+  - id: LTC-FED-OQ-01
+    priority: medium
+    question: How should nursing-facility eligibility be decided for a MAGI-group adult (under 65, not disabled) in each state, given that transfer and home equity rules apply but no resource test?
+    why_it_matters: Some union members' younger spouses or adult children need nursing care after an accident; the agent must not apply the aged/disabled resource limit to them.
+    checked: [CMS CIB 2025-11-18 footnote 12 (cites SMDL 14-001), 42 U.S.C. 1396p(c)]
+    affects: [LTC-FED-CATEGORY]
+    status: open
+  - id: LTC-FED-OQ-02
+    priority: medium
+    question: From what date do New York, California and Illinois apply the two-month retroactive period to nursing-home applications (Public Law 119-21 sec. 71112), and is there CMS implementation guidance beyond the November 2025 CIB?
+    why_it_matters: A family that applies late in 2027 may lose a month of nursing-home coverage they would have had before.
+    checked: [Public Law 119-21 sec. 71112, CMS CIB 2025-11-18]
+    affects: [LTC-FED-RETRO-2027]
+    status: open
+  - id: LTC-FED-OQ-03
+    priority: low
+    question: What is the 2028 CPI-indexed maximum home equity limit states may elect for homes on agricultural land?
+    why_it_matters: Only for farm homes from 2028.
+    checked: [Public Law 119-21 sec. 71108, CMS CIB 2025-11-18]
+    affects: [federal.ltc.home_equity_maximum]
+    status: open
+  - id: LTC-FED-OQ-04
+    priority: low
+    question: CMS has not reissued State Medicaid Manual secs. 3257-3259 since the Deficit Reduction Act; is SMDL 06-018 the controlling CMS guidance on the look-back and penalty start date, or has later guidance replaced it?
+    why_it_matters: The manual still describes the 36-month look-back and a penalty starting in the month of transfer, which an agent reading it would get wrong.
+    checked: [CMS State Medicaid Manual (p45_03.zip), SMDL 06-018 enclosure]
+    affects: [LTC-FED-LOOKBACK, LTC-FED-PENALTY-START]
+    status: open
+
+conflicts:
+  - id: LTC-FED-CONFLICT-01
+    topic: Look-back length and penalty start date in CMS's manual versus the statute
+    claims:
+      - source: cms-smm-3257-3259
+        locator: "3258.4 and 3258.5 A"
+        says: The look-back is 36 months (60 for certain trusts) and the penalty date is the first day of the month of transfer (or the month after, at state option).
+      - source: usc-42-1396p
+        locator: "(c)(1)(B)(i), (D)(ii)"
+        says: For transfers on or after February 8, 2006 the look-back is 60 months and the penalty starts at the later of the transfer month or the date the person is otherwise eligible and in care.
+    handling: The archive follows the statute as amended by the Deficit Reduction Act (and CMS's 2006 letter); the manual is cited only for points the DRA did not change.
+    affects: [LTC-FED-LOOKBACK, LTC-FED-PENALTY-START]
+    status: resolved
+
+claims_checked:
+  - claim: The federal look-back period for nursing-home Medicaid is 60 months.
+    verdict: verified
+    detail: For any transfer made on or after February 8, 2006 (Deficit Reduction Act sec. 6011). California still uses 30 months.
+    sources: [{source: usc-42-1396p, locator: "(c)(1)(B)(i)"}]
+  - claim: For 2026 the community spouse resource allowance ranges from $32,532 to $162,660 and the maximum MMMNA is $4,066.50.
+    verdict: verified
+    detail: CMS 2026 chart (CIB December 9, 2025; unchanged in the April 27, 2026 update). The MMMNA minimum is $2,643.75 until June 30, 2026 and $2,705 from July 1, 2026.
+    sources: [{source: cms-cib-2025-12-09, locator: "2026 chart"}, {source: cms-cib-2026-04-27, locator: "revised 2026 chart"}]
+  - claim: Public Law 119-21 changed the home equity limit.
+    verdict: verified
+    detail: Sec. 71108 caps the non-agricultural maximum at $1,000,000 and bars methods that avoid the limit, but only from January 1, 2028. 2026 limits are $752,000 to $1,130,000.
+    sources: [{source: pl-119-21, locator: "sec. 71108(c)"}, {source: cms-cib-2025-11-18, locator: "Section 71108"}]

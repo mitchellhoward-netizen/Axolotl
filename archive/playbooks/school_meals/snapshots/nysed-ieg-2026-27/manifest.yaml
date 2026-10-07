@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://www.cn.nysed.gov/sites/cn/files/incomeeligibilitygdlns.pdf
+  final_url: https://www.cn.nysed.gov/sites/cn/files/incomeeligibilitygdlns.pdf
+  status: 200
+  content_type: application/pdf
+  text_sha256: 6753da5b43d2e2c0074d6563ef2946e9cd7f58c6312d027b748751a5d4b70f33
+  text: nysed-ieg-2026-27/2026-10-07.txt
+  raw: nysed-ieg-2026-27/2026-10-07.pdf

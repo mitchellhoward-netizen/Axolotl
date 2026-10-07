@@ -1,0 +1,386 @@
+schema_version: 2
+program: school_meals
+scope: ca
+title: School meals — California (California Universal Meals Program, Medi-Cal direct certification, LCFF Alternative Income Forms)
+last_researched: 2026-10-07
+
+summary:
+  plain_language: >-
+    Since the 2022-23 school year, every California public school district,
+    county office of education and charter school serving TK-12 must offer a
+    free breakfast and a free lunch every school day to any student who asks,
+    whatever the family's income (Education Code 49501.5, the California
+    Universal Meals Program). Private schools are not covered. So in a public
+    school, a family never has to qualify to get meals free. The household
+    meal application still matters: schools on standard counting and
+    claiming must still collect it, it brings in federal money and, through
+    the Local Control Funding Formula (LCFF), extra state money for the
+    school, and it can qualify the family for other help (SUN Bucks summer
+    food benefits, test and college application fee waivers). Schools that
+    do not collect meal applications (CEP schools, Provision 2 schools in
+    non-base years, schools outside the federal programs) use an Alternative
+    Income Form instead; it must reach the school by October 31 to count
+    for that year's LCFF. California also directly certifies students for
+    free AND reduced-price meals from Medi-Cal records, through CALPADS.
+  administered_by: >-
+    California Department of Education (CDE), Nutrition Services Division
+    (meals) and Principal Apportionment / CALPADS (LCFF counts); each school
+    district, county office or charter school runs its own meal program.
+  funded_by: >-
+    Federal NSLP/SBP reimbursement by category, plus state Universal Meals
+    reimbursement (subject to annual appropriation) that brings reduced-price
+    and paid meals up to the free rate for LEAs in the NSLP and SBP.
+  local_names:
+    - {name: California Universal Meals Program (UMP), meaning: "state reimbursement so public schools serve two free meals a day to all students"}
+    - {name: State Meal Mandate (SMM), meaning: "EC 49501.5's requirement on every public LEA, whether or not it is in the federal programs"}
+    - {name: CalFresh, meaning: SNAP in California}
+    - {name: CalWORKs, meaning: TANF in California}
+    - {name: Medi-Cal, meaning: Medicaid in California}
+    - {name: CALPADS, meaning: "California Longitudinal Pupil Achievement Data System (used for the monthly direct certification match and LCFF counts)"}
+    - {name: LCFF, meaning: "Local Control Funding Formula; supplemental and concentration grants depend on the unduplicated pupil count (UPC)"}
+    - {name: Alternative Income Form, meaning: "the 'alternative household income data collection form' of EC 42238.01, used only for LCFF counts"}
+    - {name: Universal Benefit Application (UBA), meaning: "SUN Bucks-compliant application that may also be used for LCFF"}
+  legal_basis: California Education Code sections 49501.5, 49564.3, 42238.01, 42238.02; federal 7 CFR part 245.
+  confidence: confirmed
+  sources:
+    - {source: ca-ec-49501-5, locator: "opening clause and paragraph (a)(1)"}
+    - {source: ca-cde-ump-guidelines-2024, locator: "Abstract; VIII. Maximizing Federal Funding"}
+    - {source: ca-cde-alt-income-forms, locator: "Purpose; Key Dates"}
+
+rules:
+  - id: SCH-CA-UNIVERSAL-MEALS
+    statement: >-
+      In California since the 2022-23 school year, every public school district,
+      county office of education and charter school serving TK-12 must make a
+      nutritionally adequate breakfast and lunch available free each school day
+      to any pupil who requests one, without regard to the pupil's free or
+      reduced-price eligibility (one free breakfast and one free lunch a day).
+    kind: benefit
+    applies_to: [free_universal]
+    effective_from: 2022-07-01
+    parameters: [ca.cde.universal_meals_start]
+    implemented_in: playbooks/school_meals/states/ca/rules.py:evaluate
+    confidence: confirmed
+    sources:
+      - {source: ca-ec-49501-5, locator: "(a)(1)", quote: "shall make available a nutritionally adequate breakfast and a nutritionally adequate lunch free of charge"}
+      - {source: ca-cde-ump-guidelines-2024, locator: "Abstract", quote: "This requirement applies regardless of an LEA's participation in the federal SNPs"}
+  - id: SCH-CA-PRIVATE-SCHOOLS
+    statement: >-
+      California's universal free school meals requirement does not generally
+      apply to private (nonpublic) schools; a California private school in the
+      NSLP follows the federal free, reduced-price and paid categories.
+    kind: eligibility
+    effective_from: 2022-07-01
+    implemented_in: playbooks/school_meals/states/ca/rules.py:evaluate
+    confidence: confirmed
+    note: Exception in the guidelines for public-school pupils placed by an LEA in a nonpublic, nonsectarian school under EC 56365; not modelled.
+    sources:
+      - {source: ca-cde-ump-guidelines-2024, locator: "IV. Applicability of the State Meal Mandate, Private/nonpublic schools", quote: "Private/nonpublic schools are generally not required to comply with the SMM."}
+  - id: SCH-CA-UMP-REIMBURSEMENT
+    statement: >-
+      In California, the state pays LEAs that run both the federal School
+      Breakfast and National School Lunch Programs the difference between the
+      free rate and the reduced-price or paid rate for each qualifying meal,
+      subject to annual budget appropriation; an LEA outside the federal programs
+      must still serve the free meals but receives no state or federal meal money.
+    kind: definition
+    effective_from: 2022-07-01
+    confidence: confirmed
+    sources:
+      - {source: ca-ec-49501-5, locator: "(a)(2)-(4), (c)"}
+      - {source: ca-cde-ump-guidelines-2024, locator: "IX. Universal Meal Program Reimbursements and Claims"}
+  - id: SCH-CA-APPLICATION-STILL-REQUIRED
+    statement: >-
+      In California, a public school on standard meal counting and claiming (or
+      setting a Provision 2 base year) must still collect household free and
+      reduced-price meal applications every year even though all students eat
+      free, because federal reimbursement and LCFF funding depend on each pupil's
+      category; filing one never changes whether the child eats free.
+    kind: procedure
+    effective_from: 2022-07-01
+    implemented_in: playbooks/school_meals/states/ca/rules.py:evaluate
+    confidence: confirmed
+    sources:
+      - {source: ca-cde-ump-faq, locator: "Q14 Do schools still need to collect free and reduced-price meal applications", quote: "Yes, LEAs participating in the NSLP and SBP will need to collect meal applications."}
+      - {source: ca-cde-ump-guidelines-2024, locator: "VIII. Maximizing Federal Funding, 1. Meal Applications"}
+  - id: SCH-CA-LCFF-ALT-INCOME-FORM
+    statement: >-
+      In California, schools that do not collect meal applications that year
+      (Community Eligibility Provision schools, Provision 2 or 3 schools in
+      non-base years, and schools outside the federal meal programs) may collect
+      an Alternative Income Form so that income-eligible pupils count in the LCFF
+      unduplicated pupil count; the form needs only the pupil's identity, enough
+      income information to show free or reduced-price income eligibility, and
+      an adult's certification, and it can never be used to decide meal eligibility.
+    kind: procedure
+    effective_from: 2014-07-01
+    implemented_in: playbooks/school_meals/states/ca/rules.py:evaluate
+    confidence: confirmed
+    sources:
+      - {source: ca-ec-42238-01, locator: "(b)(1)-(3), effective commencing with the 2014-15 fiscal year"}
+      - {source: ca-cde-alt-income-forms, locator: "Under the National School Lunch Program; Templates; FAQ on minimum information"}
+      - {source: ca-cde-ump-guidelines-2024, locator: "VIII. Maximizing Federal Funding, 1.c Alternative Income Forms", quote: "Alternative Income Forms cannot be used to establish a pupil's eligibility for the SBP and NSLP"}
+  - id: SCH-CA-LCFF-DEADLINE
+    statement: >-
+      In California, an Alternative Income Form counts toward a school's LCFF
+      unduplicated pupil count for a school year only if the LEA receives it from
+      the family by October 31 of that school year (it may be processed later),
+      the pupil is enrolled on Census Day (the first Wednesday in October), and
+      the pupil's free or reduced-price program record in CALPADS starts on or
+      before October 31.
+    kind: timing
+    effective_from: 2025-07-01
+    parameters: [ca.cde.lcff_alt_income_form_deadline]
+    confidence: confirmed
+    note: The October 31 date is CDE's guidance; no statute or regulation with the date was located (EC 42238.01 sets the form's contents, not the date). See SCH-CA-OQ-01.
+    sources:
+      - {source: ca-cde-alt-income-forms, locator: "Key Dates; FAQ: What is the timeline for collecting and processing Alternative Income Forms", quote: "To be included in the LCFF UPC, an Alternative Income Form must be submitted by students to their schools by October 31 of the school year."}
+      - {source: ca-cde-census-day, locator: "Academic Year definition", quote: "Census Day or Information Day is the first Wednesday in October."}
+  - id: SCH-CA-LCFF-UNDUPLICATED
+    statement: >-
+      For California's LCFF, a pupil counts as eligible for free or reduced-price
+      meals if found income-eligible through an NSLP application, a SUN Bucks
+      Universal Benefit Application or an alternative household income form, or
+      if directly certified or categorically eligible; CEP, Provision 2 and 3
+      schools may set an LCFF base year and carry pupils' status for up to three
+      following years.
+    kind: definition
+    effective_from: 2025-06-27
+    confidence: confirmed
+    sources:
+      - {source: ca-ec-42238-01, locator: "(b) and (b)(1)"}
+      - {source: ca-cde-alt-income-forms, locator: "Under the National School Lunch Program, last two paragraphs"}
+  - id: SCH-CA-DCM-MEDI-CAL
+    statement: >-
+      California directly certifies public-school students for free AND
+      reduced-price meals from Medi-Cal records (statewide since SY 2017-18): the
+      monthly CALPADS match flags a student "M" (free) or "R" (reduced price) using
+      family size and income as the Department of Health Care Services measured
+      them, and the match extends to all children in the household; schools may
+      not accept Medi-Cal numbers on applications, and only LEAs with CALPADS
+      access (public districts, county offices, charters) can use it.
+    kind: eligibility
+    applies_to: [free, reduced]
+    effective_from: 2017-07-01
+    parameters: [ca.cde.dcm_type, federal.usda.dcm_free_fpl_percent, federal.usda.dcm_reduced_fpl_percent]
+    implemented_in: playbooks/school_meals/federal/rules.py:medicaid_dc
+    confidence: confirmed
+    sources:
+      - {source: ca-cde-direct-cert, locator: "Definitions: Medi-Cal; CALPADS Direct Certification Indicator Codes M and R; Medi-Cal Eligibility"}
+      - {source: fns-dcm-demonstration, locator: "table: California* (statewide), SY 2017-18 free and reduced price"}
+  - id: SCH-CA-DCM-PRECEDENCE
+    statement: >-
+      In California, a student approved for free meals by application (or by
+      another direct certification) keeps free status even if the CALPADS
+      Medi-Cal match lists the student for reduced price; the most favorable
+      level always applies.
+    kind: coordination
+    effective_from: 2017-07-01
+    implemented_in: playbooks/school_meals/federal/rules.py:federal_category
+    confidence: confirmed
+    sources:
+      - {source: ca-cde-direct-cert, locator: "Demonstrations to Evaluate Direct Certification with Medicaid", quote: "The most favorable meal benefit level a family qualifies for always takes precedence, regardless of the method of eligibility."}
+  - id: SCH-CA-MEDI-CAL-NOT-CATEGORICAL
+    statement: >-
+      In California, Medi-Cal enrollment by itself is not categorical
+      eligibility for school meals: a Medi-Cal child not on the CALPADS direct
+      certification list must qualify on a meal application by household size
+      and income.
+    kind: eligibility
+    effective_from: 2017-07-01
+    confidence: confirmed
+    sources:
+      - {source: ca-cde-direct-cert, locator: "Medi-Cal Eligibility", quote: "Medi-Cal is not a categorically eligible assistance program because not all Medi-Cal recipients meet the income eligibility criteria for F/RP meals."}
+  - id: SCH-CA-DC-MONTHLY
+    statement: >-
+      California public school districts, county offices and charter schools,
+      including CEP and Provision 2 schools, must run direct certification
+      through CALPADS every month (CalFresh, CalWORKs and Medi-Cal), and at least
+      one Medi-Cal match each school year.
+    kind: procedure
+    effective_from: 2022-07-01
+    confidence: confirmed
+    sources:
+      - {source: ca-ec-49501-5, locator: "(a)(2)(B)", quote: "shall conduct direct certification matching through the California Longitudinal Pupil Achievement Data System on a monthly basis"}
+      - {source: ca-cde-direct-cert, locator: "Frequency of Direct Certification Efforts; Senate Bill 138"}
+  - id: SCH-CA-PROVISION-REQUIRED
+    statement: >-
+      To receive California Universal Meals reimbursement, a school site with an
+      identified student percentage of 40% or more must apply to operate a
+      federal universal provision such as CEP or Provision 2 (EC 49564.3).
+    kind: procedure
+    effective_from: 2022-07-01
+    parameters: [ca.cde.ump_provision_isp_percent]
+    confidence: confirmed
+    sources:
+      - {source: ca-cde-ump-guidelines-2024, locator: "VIII. Maximizing Federal Funding; IX. Universal Meal Program Reimbursement Requirements"}
+  - id: SCH-CA-CEP-ISP-FREE-ONLY
+    statement: >-
+      In California, students directly certified for free meals (including
+      through Medi-Cal) count in a school's CEP identified student percentage,
+      but students matched for reduced price through Medi-Cal, and students
+      approved by application, do not.
+    kind: definition
+    effective_from: 2017-07-01
+    confidence: confirmed
+    sources:
+      - {source: ca-cde-direct-cert, locator: "Medi-Cal and the Community Eligibility Provision"}
+
+procedure:
+  applications:
+    - id: SCH-CA-PROC-APPLICATION
+      text: >-
+        Families at standard-claiming schools fill in the district's Application
+        for Free and Reduced-Price Meals (each district adapts the federal
+        prototype; there is no separate application for the Universal Meals
+        Program). Directly certified families (CalFresh, CalWORKs, Medi-Cal match)
+        do not need to apply.
+      confidence: confirmed
+      sources:
+        - {source: ca-cde-ump-faq, locator: "Q4 Is there a separate application", quote: "No, there is not a separate application specifically for the California Universal Meals Program."}
+        - {source: ca-cde-direct-cert, locator: "introduction"}
+    - id: SCH-CA-PROC-ALT-FORM
+      text: >-
+        CEP and Provision 2/3 non-base-year schools, and schools outside the
+        federal programs, hand out an Alternative Income Form (CDE templates
+        Alternative Income Form 1-5, or the LEA's own form) or the Universal
+        Benefit Application. Forms may be collected online or completed by school
+        staff over the phone with the adult's information documented.
+      form_name: Alternative Income Form (CDE templates 1-5)
+      confidence: confirmed
+      sources: [{source: ca-cde-alt-income-forms, locator: "Templates; FAQs on online collection and completing a form by telephone"}]
+  documents:
+    - id: SCH-CA-DOC-NONE
+      text: No documents are needed with the meal application or Alternative Income Form; meal applications may be selected for federal verification later.
+      confidence: confirmed
+      sources: [{source: ca-cde-alt-income-forms, locator: "FAQ: What information must be collected (minimum information)"}]
+  filing:
+    - id: SCH-CA-FILE-SCHOOL
+      text: Return the meal application or Alternative Income Form to the school or district nutrition office named on the form.
+      channel: any
+      county_varies: true
+      confidence: confirmed
+      sources: [{source: ca-cde-alt-income-forms, locator: "FAQ on the timeline; FAQ on online collection"}]
+  timelines:
+    - id: SCH-CA-TIME-OCT-31
+      text: Alternative Income Forms must reach the LEA by October 31 to count for that school year's LCFF; forms can be collected from spring of the prior year once USDA's guidelines are out, with CALPADS records starting July 1 or later.
+      duration: by October 31
+      confidence: confirmed
+      sources: [{source: ca-cde-alt-income-forms, locator: "Key Dates"}]
+    - id: SCH-CA-TIME-CALPADS
+      text: The CALPADS direct certification match runs monthly and is usually available between the 5th and 7th of each month.
+      confidence: confirmed
+      sources: [{source: ca-cde-direct-cert, locator: "State Level Direct Certification Match"}]
+  approval_notice:
+    - id: SCH-CA-NOTICE
+      text: Meal applications get the federal approval/denial notice; CDE has no sample eligibility letter for Alternative Income Forms (an LEA may send one).
+      confidence: confirmed
+      sources: [{source: ca-cde-alt-income-forms, locator: "FAQ: Does CDE have a sample eligibility letter LEAs can send to households"}]
+  renewal:
+    - id: SCH-CA-RENEW
+      text: Meal applications are yearly at standard-claiming schools; Alternative Income Forms may set an LCFF base year good for up to three following years, and newly eligible pupils can be added between base years.
+      confidence: confirmed
+      sources:
+        - {source: ca-ec-42238-01, locator: "(b)(1)"}
+        - {source: ca-cde-alt-income-forms, locator: "FAQ: Can Alternative Income Forms be collected from continuing students during the LCFF non-base years"}
+  county_variation:
+    - id: SCH-CA-LEA-VARIATION
+      text: Each LEA chooses its claiming option (standard, Provision 2, CEP), its form (CDE template or its own) and its collection method; meals are free to all public-school students everywhere in the state.
+      county_varies: true
+      confidence: confirmed
+      sources: [{source: ca-cde-alt-income-forms, locator: "Templates; FAQ: Are LEAs required to use the templates"}]
+
+life_events:
+  - id: SCH-CA-LE-SCHOOL-YEAR
+    code: school_year_start
+    event: New school year in a California public school
+    why: Meals are free regardless; the family should still return the meal application or Alternative Income Form (by October 31 for LCFF) because it funds the school and can unlock SUN Bucks and fee waivers.
+    check_rules: [SCH-CA-UNIVERSAL-MEALS, SCH-CA-LCFF-DEADLINE]
+    confidence: confirmed
+    sources: [{source: ca-cde-alt-income-forms, locator: "Alternative Income Form Benefits to Households; Key Dates"}]
+  - id: SCH-CA-LE-MEDI-CAL
+    code: benefit_change
+    event: A household member starts Medi-Cal or CalFresh
+    why: The monthly CALPADS match can certify the student free or reduced price with no application.
+    check_rules: [SCH-CA-DCM-MEDI-CAL, SCH-CA-DC-MONTHLY]
+    confidence: confirmed
+    sources: [{source: ca-cde-direct-cert, locator: "State Level Direct Certification Match"}]
+  - id: SCH-CA-LE-PRIVATE
+    code: move_county
+    event: Moving between a public and a private school
+    why: Universal free meals cover public schools only.
+    check_rules: [SCH-CA-PRIVATE-SCHOOLS]
+    confidence: confirmed
+    sources: [{source: ca-cde-ump-guidelines-2024, locator: "Private/nonpublic schools"}]
+  - id: SCH-CA-LE-MOVE-STATE
+    code: move_state
+    event: Moving to or from California
+    why: A California public-school student eats free regardless of income; in another state the family may need to qualify by income.
+    check_rules: [SCH-CA-UNIVERSAL-MEALS]
+    confidence: confirmed
+    sources: [{source: ca-ec-49501-5, locator: "(a)(1)"}]
+
+outcome_proof:
+  - id: SCH-CA-PROOF-CALPADS
+    evidence: District notice that the student is directly certified or approved (free or reduced price)
+    shows: The student is counted for LCFF and qualifies for programs keyed to free/reduced-price status.
+    how_to_get: From the district nutrition office
+    confidence: unresolved
+    open_question: SCH-CA-OQ-02
+
+links:
+  - id: SCH-CA-LINK-MEDICAID
+    playbook: medicaid
+    rules: [SCH-CA-DCM-MEDI-CAL]
+    relation: Medi-Cal enrollment leads to free or reduced-price direct certification via CALPADS using DHCS income data (California is a DCM-F/RP state).
+    test: SCH-X-02
+    confidence: confirmed
+    sources: [{source: ca-cde-direct-cert, locator: "Medi-Cal Eligibility"}]
+  - id: SCH-CA-LINK-SNAP
+    playbook: snap
+    rules: [SCH-CA-DC-MONTHLY]
+    relation: CalFresh receipt is matched monthly through CALPADS and makes every child in the household free (the top of CDE's direct certification hierarchy).
+    test: SCH-X-01
+    confidence: confirmed
+    sources: [{source: ca-cde-direct-cert, locator: "Direct Certification Hierarchy"}]
+
+open_questions:
+  - id: SCH-CA-OQ-01
+    priority: low
+    question: Is the October 31 Alternative Income Form deadline set in statute or regulation, or only in CDE guidance (and CALPADS Fall 1 rules)?
+    why_it_matters: Districts follow CDE's date; if only guidance, CDE can move it without notice.
+    checked: [EC 42238.01, CDE Alternative Income Forms page, CDE census day file structure page]
+    affects: [SCH-CA-LCFF-DEADLINE, ca.cde.lcff_alt_income_form_deadline]
+    status: open
+  - id: SCH-CA-OQ-02
+    priority: low
+    question: What written proof does a California family receive of the student's CALPADS free/reduced-price status at a universal-meals school, if any?
+    why_it_matters: Families need proof for SUN Bucks, fee waivers and other benefits keyed to free/reduced-price status.
+    checked: [CDE Alternative Income Forms page (no sample eligibility letter), CDE direct certification page]
+    affects: [SCH-CA-PROOF-CALPADS]
+    status: open
+  - id: SCH-CA-OQ-03
+    priority: low
+    question: Is the 2026-27 state Universal Meals appropriation enough to reimburse all claims, or will CDE prorate?
+    why_it_matters: Proration would not change meals to students (the mandate stands) but could affect district behavior.
+    checked: [EC 49501.5(c), UMP guidelines (proration language)]
+    affects: [SCH-CA-UMP-REIMBURSEMENT]
+    status: open
+
+claims_checked:
+  - claim: California districts can count alternative income forms toward the state funding formula if they are collected by October 31.
+    verdict: partly_verified
+    detail: >-
+      Correct in substance, with precisions. The rule is CDE's: the LEA must
+      RECEIVE the form from the family by October 31 (it may process it
+      afterward), the pupil must be enrolled on Census Day (the first Wednesday
+      in October, the CALPADS Fall 1 count date), and the pupil's FRPM record in
+      CALPADS must start on or before October 31. Alternative forms are meant for
+      schools that do not collect meal applications (CEP, Provision 2/3
+      non-base years, schools outside the NSLP); they count for LCFF only and
+      can never establish meal eligibility. October 31 comes from CDE guidance,
+      not from EC 42238.01.
+    sources:
+      - {source: ca-cde-alt-income-forms, locator: "Key Dates; FAQ: What is the timeline for collecting and processing Alternative Income Forms"}
+      - {source: ca-cde-census-day, locator: "Census Day definition"}
+      - {source: ca-ec-42238-01, locator: "(b)"}
