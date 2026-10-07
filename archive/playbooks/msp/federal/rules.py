@@ -113,7 +113,8 @@ def countable_income_of(hh: Household, owners: set[str], as_of: date, det: Deter
     unearned = sum(i.monthly for i in hh.incomes
                    if i.owner in owners and i.kind not in EARNED_KINDS and i.kind not in NOT_COUNTED)
     earned = sum(i.monthly for i in hh.incomes if i.owner in owners and i.kind in EARNED_KINDS)
-    cola = cola_excluded(hh, owners, as_of, det)
+    # Only look up the transition months when someone has a COLA to exclude.
+    cola = cola_excluded(hh, owners, as_of, det) if cola_amount(hh, owners) else 0.0
     unearned = max(0.0, unearned - cola)
     gd = float(params.use(general_disregard_pid, as_of, det).value)
     ed = float(params.use("federal.ssi.earned_income_exclusion_monthly", as_of, det).value)

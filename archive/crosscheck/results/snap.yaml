@@ -117,7 +117,7 @@ rows:
     status: ineligible
     tier: null
     benefit_monthly: 0.0
-    net_income_monthly: 922.0
+    net_income_monthly: 1174.0
     utility_allowance_monthly: 663.0
   agree: true
   explanation: null
@@ -133,10 +133,10 @@ rows:
   policyengine:
     status: eligible
     tier: null
-    benefit_monthly: 112.0
-    net_income_monthly: 617.0
+    benefit_monthly: 24.0
+    net_income_monthly: 922.0
     utility_allowance_monthly: 663.0
-  agree: false
+  agree: true
   explanation: null
 - case: SNAP-CA-T09
   state: ca
@@ -474,7 +474,7 @@ rows:
     status: eligible
     tier: null
     benefit_monthly: 24.0
-    net_income_monthly: 1275.0
+    net_income_monthly: 1553.0
     utility_allowance_monthly: 546.0
   agree: true
   explanation: null
@@ -491,7 +491,7 @@ rows:
     status: ineligible
     tier: null
     benefit_monthly: 0.0
-    net_income_monthly: 1277.0
+    net_income_monthly: 1554.0
     utility_allowance_monthly: 546.0
   agree: true
   explanation: null
@@ -507,10 +507,10 @@ rows:
   policyengine:
     status: eligible
     tier: null
-    benefit_monthly: 77.0
-    net_income_monthly: 734.0
+    benefit_monthly: 24.0
+    net_income_monthly: 1013.0
     utility_allowance_monthly: 546.0
-  agree: false
+  agree: true
   explanation: null
 - case: SNAP-IL-T10
   state: il
@@ -592,10 +592,10 @@ rows:
   policyengine:
     status: eligible
     tier: null
-    benefit_monthly: 193.0
-    net_income_monthly: 349.0
-    utility_allowance_monthly: 78.0
-  agree: false
+    benefit_monthly: 295.0
+    net_income_monthly: 7.0
+    utility_allowance_monthly: 457.0
+  agree: true
   explanation: null
 - case: SNAP-IL-T15
   state: il
@@ -847,10 +847,10 @@ rows:
   policyengine:
     status: eligible
     tier: null
-    benefit_monthly: 177.0
-    net_income_monthly: 403.0
+    benefit_monthly: 85.0
+    net_income_monthly: 708.0
     utility_allowance_monthly: 877.0
-  agree: false
+  agree: true
   explanation: null
 - case: SNAP-NY-T10
   state: ny
@@ -915,10 +915,10 @@ rows:
   policyengine:
     status: eligible
     tier: null
-    benefit_monthly: 145.0
-    net_income_monthly: 508.0
+    benefit_monthly: 70.0
+    net_income_monthly: 760.0
     utility_allowance_monthly: 877.0
-  agree: false
+  agree: true
   explanation: null
 - case: SNAP-NY-T14
   state: ny

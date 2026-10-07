@@ -15,9 +15,11 @@ mortgage_payments / homeowners_insurance (property tax is not mapped), medical -
 other_medical_expenses (on the oldest elderly or disabled member),
 dependent_care -> childcare_expenses (SPM), child_support_paid ->
 child_support_expense, heating/cooling bill -> heating_cooling_expense (SPM),
-other billed utilities -> electricity_expense / water_expense /
+other billed utilities -> pre_subsidy_electricity_expense / water_expense /
 phone_expense (SPM; a nominal $1 a month when the household only says the
-utility is billed), and takes_up_snap_if_eligible = True.
+utility is billed), medicare_enrolled = False for every member (so PolicyEngine
+does not add its own imputed Part B premium to the medical deduction), and
+takes_up_snap_if_eligible = True.
 """
 
 from __future__ import annotations
@@ -36,7 +38,11 @@ def _billed(hh) -> set[str]:
 
 def pe_inputs(hh, as_of: date) -> dict:
     ex = hh.expenses
-    person: dict[str, dict] = {}
+    # PolicyEngine imputes a Medicare Part B premium as a medical expense for
+    # anyone it treats as Medicare-enrolled; our households state medical
+    # costs explicitly (``expenses.medical``, which includes Part B when the
+    # member pays it), so the imputation is switched off.
+    person: dict[str, dict] = {m.id: {"medicare_enrolled": False} for m in hh.members}
     first = hh.members[0].id
     if ex.get("rent"):
         person.setdefault(first, {})["pre_subsidy_rent"] = ex["rent"] * 12
@@ -57,7 +63,8 @@ def pe_inputs(hh, as_of: date) -> dict:
     if "heating_cooling" in billed:
         spm["heating_cooling_expense"] = max(ex.get("heating_cooling", 0), 1) * 12
     if "electricity" in billed:
-        spm["electricity_expense"] = 12
+        # count_distinct_utility_expenses reads the pre-subsidy input
+        spm["pre_subsidy_electricity_expense"] = 12
     if "water" in billed:
         spm["water_expense"] = 12
     if "phone" in billed:
