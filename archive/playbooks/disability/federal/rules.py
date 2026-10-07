@@ -11,6 +11,12 @@ earnings record, and the medical decision is the state DDS's).
 
 Every decision is recorded on the Determination with the rule ID that made it.
 
+Income counting is this module's own :func:`apply_exclusions` rather than
+``playbooks/msp/federal/rules.py: countable_income``: SSI itself needs the
+student earned income exclusion, impairment-related and blind work expenses,
+income based on need (no $20), in-kind support and maintenance, and deeming
+from spouses and parents, none of which the MSP helper handles.
+
 Inputs used (beyond the core Household model)
 --------------------------------------------
 Household.facts

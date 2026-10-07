@@ -783,3 +783,6 @@ cases:
     - school_meals:direct_certification
   crosscheck:
     policyengine: true
+  note: 'School meals link: the evaluator records school_meals:direct_certification for SNAP households with children; the
+    school_meals playbook decides the meal benefit (42 U.S.C. 1758(b)(4)). Not evaluated with also: because that playbook''s
+    inputs were not checked.'

@@ -299,6 +299,7 @@ sources:
     published: 2025-04-17
     effective_date: 2025-04-17
   - id: il-hfs-3352
+    retrieved: 2026-10-07
     url: https://hfs.illinois.gov/info/brochures-and-forms/brochures/hfs3352.html
     publisher: Illinois Department of Healthcare and Family Services
     title: HFS 3352 — Qualified Medicare Beneficiary (QMB) Program brochure
@@ -307,6 +308,7 @@ sources:
     doc_type: agency_page
     note: Dollar figures on the page are out of date (2021 levels); relied on only for how to apply and the helpline.
   - id: il-aging-msp-chart-2026
+    retrieved: 2026-10-07
     url: https://ilaging.illinois.gov/content/dam/soi/en/web/aging/ship/documents/medicare-savings-program-chart.pdf
     publisher: Illinois Department on Aging, Senior Health Insurance Program (SHIP)
     title: 2026 Illinois Medicare Savings Programs (QMB, SLIB, QI-1) chart

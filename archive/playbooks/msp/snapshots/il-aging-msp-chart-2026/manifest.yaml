@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://ilaging.illinois.gov/content/dam/soi/en/web/aging/ship/documents/medicare-savings-program-chart.pdf
+  final_url: https://ilaging.illinois.gov/content/dam/soi/en/web/aging/ship/documents/medicare-savings-program-chart.pdf
+  status: 200
+  content_type: application/pdf
+  text_sha256: d6ba03722bd052ed3f0b0ad864e7b18abd02305dc7ac7cf9d7b598af9b9d9b71
+  text: il-aging-msp-chart-2026/2026-10-07.txt
+  raw: il-aging-msp-chart-2026/2026-10-07.pdf

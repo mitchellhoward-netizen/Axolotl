@@ -768,6 +768,8 @@ cases:
       status: ineligible
   crosscheck:
     policyengine: true
+  note: 'Cross-state: eligible in California (200% BBCE, no asset test), ineligible in New York (earned income over the 150%
+    BBCE limit and over 130%) and Illinois (over 165%).'
 - id: SNAP-X-03
   title: 'Disability crossing: California adult on SSDI, $8,000 savings, SS $1,900'
   as_of: '2026-03-01'
@@ -810,3 +812,6 @@ cases:
       medical_deduction_monthly: 0.0
   crosscheck:
     policyengine: true
+  note: 'Disability link: SSDI receipt makes the member disabled for SNAP, so the gross test does not apply and the $8,000
+    savings fall under California''s 200% BBCE (no resource test). Without BBCE this household would fail the $4,500 resource
+    limit.'

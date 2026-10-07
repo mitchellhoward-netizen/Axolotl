@@ -343,8 +343,8 @@ links:
     rules: [SNAP-NY-MSP-MEDICAL-FREEZE, SNAP-FED-MSP-PART-B]
     relation: >-
       MSP approval removes the $202.90 Part B premium from the SNAP medical
-      deduction; for a one-person upstate household the SNAP benefit falls by
-      about $50 a month once applied (test SNAP-X-01, which models the
+      deduction; for the one-person upstate household in the test the SNAP
+      benefit falls from $220 to $145 once applied (test SNAP-X-01, which models the
       crossing the MSP playbook reserves as MSP-X-03). Whether New York
       freezes the deduction until recertification (02 ADM-07) is unresolved.
     test: SNAP-X-01

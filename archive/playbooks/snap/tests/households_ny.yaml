@@ -856,6 +856,8 @@ cases:
         benefit_monthly: 187.0
   crosscheck:
     policyengine: true
+  note: 'Cross-state: New York gives the $877 HT/AC SUA (rest of state) and deducts actual medical costs over $35 ($65); California
+    gives a $663 SUA and the $150 SMD; Illinois a $546 AC/Heating standard, the $185 SMD and a $205 standard deduction.'
 - id: SNAP-X-01
   title: 'MSP crossing (models MSP-X-03): NY retiree paying the $202.90 Part B premium'
   as_of: '2026-03-01'
@@ -903,6 +905,11 @@ cases:
       tier: QMB
   crosscheck:
     policyengine: true
+  note: 'Models the MSP <-> SNAP crossing the MSP playbook reserves as MSP-X-03 (link MSP-NY-LINK-SNAP / SNAP-NY-LINK-MSP).
+    With the Part B premium paid by the member the SNAP medical deduction is $167.90 and SNAP is $220. SNAP-X-01B is the same
+    household after QMB pays the premium: SNAP $145, a $75 drop (net income rises by 1.5 x $167.90 because the excess shelter
+    deduction also shrinks), against $202.90 a month gained from the MSP. When the drop takes effect (next recertification
+    under 02 ADM-07, or earlier under 7 CFR 273.12(c)) is SNAP-NY-OQ-05.'
 - id: SNAP-X-01B
   title: 'MSP crossing, after QMB pays Part B: same NY retiree with no medical cost'
   as_of: '2026-03-01'
@@ -942,3 +949,4 @@ cases:
       medical_deduction_monthly: 0.0
   crosscheck:
     policyengine: true
+  note: 'Second half of the MSP crossing (see SNAP-X-01): no medical deduction once the MSP pays Part B.'

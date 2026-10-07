@@ -508,8 +508,10 @@ rules:
       In every state, when a Medicare Savings Program (QMB, SLMB or QI) starts
       paying a SNAP member's Part B premium ($202.90 a month in 2026), the
       premium is no longer an out-of-pocket medical cost, so the SNAP medical
-      deduction falls and the SNAP benefit can drop by up to about 30 cents for
-      each dollar of deduction lost, once the change is applied.
+      deduction falls and, once the change is applied, the SNAP benefit drops
+      by about 30 cents per dollar of deduction lost, or about 45 cents when the
+      household also has an excess shelter deduction (net income then rises by
+      1.5 times the lost deduction).
     kind: coordination
     effective_from: 2026-01-01
     parameters: [federal.cms.part_b_standard_premium]
@@ -517,8 +519,10 @@ rules:
     confidence: confirmed
     note: >-
       Direct inference from 7 CFR 273.9(d)(3) (only costs not paid by insurance
-      or someone else are deductible) and the 30% benefit reduction rate. The
-      MSP gain ($202.90 a month in cash) is always larger than the SNAP loss.
+      or someone else are deductible), the 50%-of-income shelter formula and
+      the 30% benefit reduction rate (worked example: test SNAP-X-01 / -01B,
+      $220 -> $145). The MSP gain ($202.90 a month) is always larger than the
+      SNAP loss (at most 45% of $167.90, about $76).
     sources:
       - {source: ecfr-7-273-9, locator: "(d)(3)(v) Medicare premiums; (d)(3): medical expenses ... not reimbursable"}
       - {source: fns-snap-eligibility, locator: "if they are not paid by insurance or someone else"}
@@ -666,8 +670,9 @@ links:
     relation: >-
       MSP approval removes the Part B premium from the SNAP medical deduction
       (applied at the next recertification, or earlier if the agency learns it
-      from verified data); the SNAP benefit falls by roughly 30% of the premium
-      lost, which is far less than the $202.90 a month the MSP pays.
+      from verified data); the SNAP benefit falls by 30-45% of the $167.90
+      deduction lost (about $50-$76 a month), far less than the $202.90 a
+      month the MSP pays.
     test: SNAP-X-01
     confidence: confirmed
     sources: [{source: ecfr-7-273-9, locator: "(d)(3)(v)"}, {source: ecfr-7-273-12, locator: "(c)"}]
