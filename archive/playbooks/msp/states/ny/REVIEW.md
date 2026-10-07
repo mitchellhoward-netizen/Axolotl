@@ -16,6 +16,15 @@ in `playbook.yaml` with its source and locator; every number is in
 - **SLMB is gone** for new cases since January 1, 2023 (GIS 22 MA/10).
 - **Retroactivity**: QMB none; QI up to three months, never into a prior
   calendar year (GIS 22 MA/10).
+- **How the premium comes off the check (federal, applies in New York).** The
+  LDSS/HRA opens an eMedNY Buy-In span (GIS 23 MA/10, GIS 26 MA/05); buy-in
+  starts with the MSP effective month (POMS HI 00815.018); SSA mails a notice
+  of the buy-in effective date, stops the deduction and refunds premiums
+  already deducted for buy-in months as a separate payment (HI 00815.039,
+  HI 01001.205; CMS buy-in manual ch. 1, 1.5). MSP-NY-PROOF-SSA is now
+  confirmed for *what* happens; only *when* is open.
+- **Part B late-enrollment penalty removal** now rests on SSA POMS HI 00815.001
+  and HI 00815.039 and 42 CFR 407.47(g) (MSP-NY-OQ-04 answered).
 
 ## Assumptions made
 
@@ -43,16 +52,18 @@ in `playbook.yaml` with its source and locator; every number is in
 
 ## Weakest parts
 
-- **When the Social Security deduction actually stops** after approval, and how
-  refunds of QI retroactive months arrive (MSP-NY-OQ-02). This is the outcome
-  proof the institution pays on, and we found no New York primary source. It is
-  the most important gap.
+- **When the Social Security deduction actually stops** after approval
+  (MSP-NY-OQ-02, narrowed). The refund mechanism and the SSA notice are now
+  sourced federally, but no New York or federal primary source gives the number
+  of months; California tells members "up to 4 months" and Illinois workers
+  expect about 90 days, and neither can be carried to New York. This is still
+  the most important gap for the outcome proof.
 - **QMB start date.** New York says the first of the month after the
   *application* (GIS 07 MA/027, 2007; NYSOFA 2026). Federal law, 1902(e)(8),
   says after the month of *determination*. Which does New York actually use
   today? (MSP-NY-CONFLICT-01)
 - **Several benefits rest only on NYSOFA's counselor manual**: automatic QMB for
-  SSI recipients, MSP removing the Part B late-enrollment penalty, the SNAP
+  SSI recipients, the SNAP
   medical-deduction freeze (OTDA 02 ADM-07), and the estate-recovery exemption
   (GIS 10 MA/008). Each is marked `secondary` with an open question.
 - **Online filing.** The DOH page says people can "apply online with the NY
@@ -64,8 +75,10 @@ in `playbook.yaml` with its source and locator; every number is in
 
 ## Questions for a New York benefits expert
 
-1. After an MSP approval, how many months until SSA stops deducting the Part B
-   premium, and how are deducted months refunded (SSA check, or state)?
+1. After an MSP approval, how soon does the LDSS/HRA open the eMedNY Buy-In
+   span, and how many months until SSA stops deducting the Part B premium? Do
+   members in practice receive the SSA refund of deducted months as one
+   separate payment? Are DSS-4039 / DSS-4393 still the approval notices?
 2. Does New York start QMB the month after application or the month after the
    determination?
 3. Is a spouse without Medicare always budgeted in a household of two for MSP,

@@ -1,0 +1,266 @@
+STATE OF NEW YORK
+DEPARTMENT OF HEALTH
+Corning Tower The Governor Nelson A. Rockefeller Empire State Plaza Albany, New York 12237
+
+Antonia C. Novello, M.D., M.P.H., Dr. P.H. Dennis P. Whalen
+Commissioner Executive Deputy Commissioner
+
+ADMINISTRATIVE DIRECTIVE TRANSMITTAL: 00 OMM/ADM-7
+
+DIVISION: Office of Medicaid
+TO: Commissioners of Management
+Social Services
+
+DATE: September 1, 2000
+
+SUBJECT: Medicare Premium Payment Program (MPPP)
+
+SUGGESTED
+DISTRIBUTION: Medical Assistance Directors
+Staff Development Coordinators
+Third Party Resources Staff
+
+CONTACT
+PERSON: County Liaison in the Bureau of Local
+District Support at (518) 474-9130 for
+Upstate and (212) 268-6855 for New York City
+
+ATTACHMENTS: NONE
+
+FILING REFERENCES
+
+Previous Releases Dept. Regs Soc. Serv. Manual Ref. Misc. Ref.
+ADMs/INFs Cancelled Law & Other
+Legal Ref.
+
+84-ADM-40 360-2 367-a MCCA of
+89 ADM-7 360-7.7 PL 100-360 1988,92
+89 ADM-36 360-7.8 PL 100-485 LCM-69
+90 ADM-6 360-6.2 PL 100-467 MBL 89-1
+93 ADM-12 360-4 GIS 91
+93 ADM-30 MA/021
+
+Date: September 1, 2000
+
+Trans. No. 00 OMM/ADM-7 Page No.2
+____________________________________________________________________________
+
+I. PURPOSE
+This administrative directive (ADM) is to remind local departments of
+social services (LDSSs) of the importance of all of the Medicare Part B
+premium reimbursement programs to the impoverished Medicare eligible
+population in New York State. These include the Qualified Medicare
+Beneficiary (QMB) program, the Specified Low-Income Medicare
+Beneficiary program (SLIMB), the Qualified Individual-1 (QI-1) program
+and the Qualified Individual-2 (QI-2) program.
+
+II. BACKGROUND
+
+The Medicare Catastrophic Coverage Act of 1988 (MCCA) requires states
+to pay premiums, deductibles and coinsurance for Qualified Medicare
+Beneficiaries (QMBs). The Omnibus Budget Reconciliation Act of 1990
+(OBRA 90) requires states to provide Medicaid payments for Medicare
+Part B premiums for Specified Low Income Medicare Beneficiaries
+(SLIMBs). The Qualified Individual-1 (QI-1) and Qualified Individual-2
+(QI-2) programs which were effective in January, 1998 resulted from the
+federal Balanced Budget Act of 1997.
+
+III. PROGRAM IMPLICATIONS
+
+This directive is intended to remind all local district workers who
+conduct Medicaid interviews, including chronic care workers, that
+applicants for Medicaid must have their eligibility determined for the
+various Medicare premium payment programs (MPPP) referred to above if
+applicant is determined ineligible for Medicaid and has Medicare
+coverage. When an applicant is determined ineligible for Medicaid and
+he/she has Medicare Part A, workers must enter an "A" in the Buy-In
+indicator field of the SSI related budget to determine eligibility for
+the QMB program. If determined ineligible for the QMB program, the
+worker should enter an "S" in the Buy-In indicator field of the same
+SSI-related budget. A resident of a congregate care facility who is
+fully eligible for Medicaid at the appropriate congregate care level is
+precluded from eligibility for the Medicare premium payment programs.
+
+If the applicant's income and resources are under 100% of the Federal
+poverty Level and he/she has both Medicare Part A and Part B, workers
+must enter the QMB indicator in the third party system. This must be
+done regardless of whether the applicant checked the "Medicare Buy-In"
+indicator on the Medicaid application [DSS-2921].
+
+Date: September 1, 2000
+
+Trans. No. 00 OMM/ADM-7 Page No.3
+____________________________________________________________________________
+
+IV. REQUIRED ACTION
+
+A. Required Action For SSI-Related Recertifications For Medicaid
+
+At the next scheduled recertification, workers must determine
+eligibility for the MPPP and offer the appropriate benefit to each SSI-
+related individual/couple who has Medicare Part A coverage (the
+applicant must have Medicare Part B in effect for the QI-2 program).
+The appropriate Buy-In indicator should be entered into the Buy-In
+indicator field of the MBL budget as explained above. If the
+individual/couple is fully eligible for Medicaid and the QMB program,
+the individual/couple must be offered both benefits.
+
+The QMB program provides payment for the Medicare Parts A and B
+premiums (See 92 LCM-69 "Qualified Medicare Beneficiaries (QMBs)" for
+instructions on conditional enrollment into Medicare Part A in order to
+pay for the Part A premium). Payment for the Medicare Part A and B
+coinsurance and deductible can also be made even for additional
+Medicare benefits that are not normally covered by the Medicaid
+program. The additional benefits include: podiatry services, clinical
+social worker services and chiropractic services, all of which are
+covered under Medicare but are not covered under the State Plan for
+Medicaid.
+
+A full description of the procedures to follow for the QMB program may
+be found in the "Procedures" section of 89 ADM-7, "Implementation of
+the Medicare Catastrophic Coverage Act of 1988 (MCCA) Related to the
+Medicaid Payment of Medicare Premiums, Deductibles and Coinsurance".
+In 89 ADM-7, social services districts were advised to use the most
+current DSS-2921 or DSS-3174 (Medicaid Application/Recertification
+forms) to compute eligibility for the Medicare Buy-In program for
+active Medicaid-Only recipients. Although this directive was issued in
+1989, you should follow these instructions for determining QMB
+eligibility for fully eligible Medicaid recipients who have never had a
+QMB determination computed.
+
+MBL Transmittal 89-1 describes the QMB budgeting process. If the
+individual/couple is QMB eligible each person will have a Medicaid
+Coverage Code of "09" and a "P" will be entered onto the Buy-In screen
+of the third party subsystem of WMS. If the individual/couple is both
+Medicaid eligible and QMB eligible, each person will have a Medicaid
+Coverage of "01" (or "10" if the individual selects only community
+coverage or if a transfer penalty has been imposed) and a "P" on Buy-In
+screen. This will permit the individual/couple to have full Medicaid
+coverage and also permit providers to receive Medicaid payment for
+Medicare co-insurance and deductibles for the additional services
+covered by Medicare that are not ordinarily covered by Medicaid.
+
+Date: September 1, 2000
+
+Trans. No. 00 OMM/ADM-7 Page No.4
+____________________________________________________________________________
+
+The SLIMB program pays for the Medicare Part B premium only. The
+individual/couple must have Medicare Part A in order to have the
+Medicare Part B premium paid for. They do not need to be currently
+enrolled with Medicare Part B as entry into the Buy-In will provide
+them with that coverage. MBL Transmittal 93-3 describes the SLIMB
+budgeting process. If the individual/couple is SLIMB eligible each
+person will have a Medicaid Coverage Code of "06" and an "L" will be
+entered into the Buy-In screen of the third party subsystem of WMS. The
+individual/couple will have provisional coverage due to the "06"
+Medicaid Coverage Code and each person will have the full Medicare Part
+B premium paid for through the Buy-In. A more detailed explanation of
+the SLIMB program may be found in 93 ADM-30 entitled "Medical
+Assistance Payment of Medicare Part B Premiums For Specified Low Income
+Medicare Beneficiaries (SLIMBS)".
+
+The QI-1 and QI-2 programs which were effective in January, 1998 in New
+York State resulted from the federal Balanced Budget Act of 1997. An
+individual/couple cannot be Medicaid eligible and also be eligible for
+the Qualified Individual programs. On an annual basis, starting in
+January, 1998 and ending in December, 2003, the federal government
+allots a capped monetary payment to States to pay for the entire
+Medicare Part B premium for QI-1s and a portion of the Medicare Part B
+premium for QI-2s. There is no State or local share for these
+premiums. The processing of these cases differs from traditional case
+processing because if an individual is determined to be eligible either
+as a QI-1 or a QI-2, the case is actually denied on WMS. Based upon MA
+denial reason codes, a CNS notice is sent advising the individual of
+his/her eligibility for the program.
+
+To calculate SLIMB through QI-2 eligibility, an "S" is entered in the
+Buy-In Indicator field on the SSI-related MBL budget.
+
+B. New SSI-Related Applications For Medicaid
+
+For each new SSI-related Medicaid application, social services
+districts must also determine eligibility for the MPPP whenever the
+individual/couple has Medicare Part A even if the application is for
+Medicaid-Only and "Medicare Buy-In" is not checked off. Instructions
+for budgeting MPPP have been described in the Recertification section
+above. Workers should be reminded that individuals who are in receipt
+of SSI cash payments and have Medicare Part B only may conditionally
+enroll into Medicare Part A at the Social Security Office, apply for
+the QMB program and have the Medicare Part A premium paid for through
+the buy-in system. They also receive the additional services available
+to QMBs that are not normally available through the Medicaid program.
+Individuals having chronic renal disease are entitled to MPPP.
+
+Date: September 1, 2000
+
+Trans. No. 00 OMM/ADM-7 Page No.5
+____________________________________________________________________________
+
+V. NOTICE REQUIREMENTS
+
+Applicants/recipients for each of the MPPP are entitled to both
+adequate and timely notice concerning their eligibility.
+
+For the QMB Program, social services districts must use DSS-4039
+(Notice of Action on Application/Benefit for the Medicare Buy-In
+Program) or DSS-4040 (Notice of Decision on Eligibility for the
+Medicare Buy-In Program [Active MA-Only Recipients]). The DSS-4040
+should only be used for individuals who have Medicaid coverage and
+never had a QMB budget calculated (there is no CNS support for the DSS-
+4040). It is a one time only notice as explained in 89 ADM-7. If an
+individual applies for the Medicaid program and is denied and found
+eligible for the QMB program, social service districts should send the
+appropriate Medicaid denial notice and the appropriate QMB acceptance
+notice.
+
+CNS support is available for QMB denials and discontinuances (Reason
+Code X52 for both) for MA-Only cases. Acceptance notices for MA-Only
+QMB cases are manual and in some districts undercare notices (Reason
+Code C09,and S17) for MA-Only cases are supported by CNS.
+
+For the SLIMB program, social service districts must use the DSS-4393
+(Notice Of Action On Application/Benefit For Medical Assistance Payment
+Of The Medicare Part B Premium). CNS support (Reason Code X53) is
+available for SLIMB denials and discontinuances. Reason Code C10 is
+available for SLIMB continuation of the Medicare Part B premium as well
+as reason code S18.
+
+For manual notification of either the Qualified Individual-1 and
+Qualified Individual-2 programs, social service districts may use the
+DSS-4393 (Notice of Action on Application/Benefit for Medical
+Assistance Payment of the Medicare Part B Premium) programs. DSS-4393
+may also be used for individuals who lose eligibility for one of the
+MPPP programs at a lower Federal Poverty Level and are determined
+eligible for one of the Qualified Individual programs at
+recertification or for individuals who applied for full Medicaid or the
+QMB program and are determined ineligible for those programs but
+determined eligible for one of the Qualified Individual programs. CNS
+support is available for individuals/couples who have applied
+specifically for the Qualified Individual programs (U80, U81, E81,
+U82,and U83). Since the processing of these cases involves denying the
+Medicaid application, all notices, including acceptance notices are
+based upon CNS Denial Reason Codes.
+
+Date: September 1, 2000
+
+Trans. No. 00 OMM/ADM-7 Page No.6
+____________________________________________________________________________
+
+VI. NEW YORK CITY PROCEDURES
+
+In New York City, manual notices are used. Existing code cards and
+manuals should be referred to.
+
+VII. SYSTEMS IMPLICATION
+
+There are no new systems implications.
+
+VIII. EFFECTIVE DATE
+
+The provisions of this directive are effective immediately.
+
+_____________________________________
+Kathryn Kuhmerker
+Deputy Commissioner
+Office of Medicaid Management

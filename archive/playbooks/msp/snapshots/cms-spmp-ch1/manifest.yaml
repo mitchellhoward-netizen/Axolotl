@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://www.cms.gov/files/document/chapter-1-program-overview-and-policy.pdf
+  final_url: https://www.cms.gov/files/document/chapter-1-program-overview-and-policy.pdf
+  status: 200
+  content_type: application/pdf
+  text_sha256: 15429c923c5ac4629f088673090c2d3ddca782f3010576ed3d553e48ae7380ff
+  text: cms-spmp-ch1/2026-10-07.txt
+  raw: cms-spmp-ch1/2026-10-07.pdf

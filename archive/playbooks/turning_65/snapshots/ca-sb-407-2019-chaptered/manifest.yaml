@@ -1,0 +1,11 @@
+- retrieved: '2026-10-07'
+  url: https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=201920200SB407
+  final_url: https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=201920200SB407
+  status: 200
+  content_type: html
+  text_sha256: 0d5fc29c7b27a4f13666ca1d0286625873398810ebf594769eb8a15a85605480
+  text: ca-sb-407-2019-chaptered/2026-10-07.txt
+  raw: ca-sb-407-2019-chaptered/2026-10-07.html
+  fetched_via: leginfo.legislature.ca.gov blocks scripts (Cloudflare 403); chaptered
+    bill text from the Legislative Counsel's official bulk dataset downloads.leginfo.legislature.ca.gov/pubinfo_2019.zip
+    (BILL_VERSION_TBL_10083.lob), read by HTTP range requests

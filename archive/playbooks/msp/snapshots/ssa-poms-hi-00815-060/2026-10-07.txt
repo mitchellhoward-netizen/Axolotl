@@ -1,0 +1,101 @@
+Skip to content
+
+Program Operations Manual System (POMS)
+
+Effective Dates: 08/09/2017 - Present
+Previous | Next
+
+TN 17 (08-17)
+
+HI 00815.060 Centers for Medicare & Medicaid Services (CMS) State Buy-In Data Processing
+
+A. Background for the State Buy-In program
+
+We accomplish the month-to-month operation of the State Buy-in program through automated
+data exchange among the States, CMS, and Social Security Administration (SSA).
+
+One basic concept in the design of the Third Party System (TPS) is the agency that
+makes the Medicaid eligibility determination for a beneficiary, is responsible for
+accreting and deleting the beneficiary to the Buy-in Program.
+
+See Related Instructions
+
+•
+
+HI 00815.063 Systems Processing of State Responsibility Items
+
+•
+
+HI 00815.066 Systems Processing of CMS Responsibility Items (SSI auto accrete)
+
+B. Automated exchange of data
+
+CMS implemented the redesign of the Third Party System (TPS) in September 2003. We
+accomplish the operation of the State Buy-in program through an automated exchange
+of data among the States, CMS, and SSA.
+
+1. Daily file processing
+
+A primary feature of the redesigned TPS system is the opportunity for daily file processing.
+
+A State may submit
+
+•
+
+input files at any time for TPS processing.
+
+•
+
+unlimited Part A and Part B input file per month.
+
+•
+
+files that we process in the order they are received, in the next scheduled TPS daily
+update run.
+
+•
+
+elect to continue to receive only the Part A and Part B monthly billing files at the
+end of each month, or
+
+•
+
+elect to also receive Part A and Part B reply files every business day.
+
+2. Daily data exchange
+
+The data exchange between CMS and SSA occurs on a daily basis.
+
+•
+
+CMS maintains records of beneficiaries who are, or were, on Buy-in within the Enrollment
+Database (EDB).
+
+•
+
+TPS updates the EDB daily with accretion, deletion, and change records coming in from
+State agencies and from SSA.
+
+•
+
+The data that CMS receives from SSA comes from the Master Beneficiary Record (MBR)
+and the Supplementary Security Record (SSR).
+
+For every State the TPS creates Part A and Part B billing files based
+
+•
+
+on the files received throughout the month.
+
+•
+
+on the last business day of the month.
+
+To Link to this section - Use this URL:
+http://policy.ssa.gov/poms.nsf/lnx/0600815060
+
+HI 00815.060 - Centers for Medicare &amp; Medicaid Services (CMS) State Buy-In Data Processing - 08/09/2017
+
+Batch run: 07/15/2026
+
+Rev:08/09/2017

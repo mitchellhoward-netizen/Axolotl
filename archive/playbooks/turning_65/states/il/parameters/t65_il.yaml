@@ -2,27 +2,44 @@ parameters:
   - id: il.idoi.medigap_birthday_window_days
     description: Length of Illinois's annual Medicare supplement open enrollment ("Birthday Law"), starting on the policyholder's birthday.
     unit: days
-    updates: Statutory (215 ILCS 5/363 per secondary sources; statute not snapshotted).
-    open_question: T65-IL-OQ-01
+    updates: Statutory (215 ILCS 5/363(8)); changes only by Public Act.
     values:
       - effective_from: 2022-01-01
         value: 45
         confidence: confirmed
-        note: Effective date from the NAIC chart (secondary); the Department on Aging guide gives the rule but not its start date.
+        note: Added by Public Act 102-0142, effective January 1, 2022 (its Section 99). No birthday window existed in Illinois before that date.
         sources:
-          - {source: il-aging-medicare-choices-2026, locator: "p. 11, THE IL MEDIGAP \"BIRTHDAY LAW\"", quote: "begins on the individuals birthdate each year and lasts for 45 days"}
-          - {source: naic-medigap-birthday-chart-2026, locator: "Illinois row: Jan 1, 2022"}
+          - {source: ilga-215-ilcs-5-363, locator: "Sec. 363(8)", quote: "annual open enrollment period lasting 45 days, commencing with the individual's birthday"}
+          - {source: ilga-pa-102-0142, locator: "Sec. 363(8); Section 99", quote: "This Act takes effect on January 1, 2022."}
   - id: il.idoi.medigap_birthday_rule_ages
     description: Age range (inclusive) for the Illinois Medigap birthday open enrollment.
     unit: years
     keyed_by: min / max
-    updates: Statutory.
+    updates: Statutory (215 ILCS 5/363(8)).
     values:
       - effective_from: 2022-01-01
         value: {min: 65, max: 75}
         confidence: confirmed
         sources:
-          - {source: il-aging-medicare-choices-2026, locator: "p. 11", quote: "If an individual is at least 65 years of age, but no more than 75 years of age, and has an existing Medicare supplement policy"}
+          - {source: ilga-215-ilcs-5-363, locator: "Sec. 363(8)", quote: "If an individual is at least 65 years of age but no more than 75 years of age and has an existing Medicare supplement policy"}
+          - {source: ilga-pa-102-0142, locator: "Sec. 363(8); Section 99"}
+  - id: il.idoi.medigap_birthday_affiliate_allowed
+    description: Whether the Illinois birthday open enrollment covers a policy from an affiliate of the current issuer (not only the same issuer).
+    unit: boolean
+    updates: Statutory (215 ILCS 5/363(8)).
+    values:
+      - effective_from: 2022-01-01
+        effective_to: 2025-12-31
+        value: false
+        confidence: confirmed
+        sources:
+          - {source: ilga-pa-102-0142, locator: "Sec. 363(8)", quote: "may purchase any Medicare supplement policy with the same issuer that offers benefits equal to or lesser"}
+      - effective_from: 2026-01-01
+        value: true
+        confidence: confirmed
+        sources:
+          - {source: ilga-pa-103-0747, locator: "Sec. 363(8); Section 99", quote: "with the same issuer or any affiliate authorized to transact business in this State"}
+          - {source: ilga-215-ilcs-5-363, locator: "Sec. 363(8); source note 103-747, eff. 1-1-26"}
   - id: il.aging.benefit_access_income_limit
     description: Benefit Access Program (Seniors Ride Free transit and license plate discount) gross income ceiling, by household size.
     compare_to: "Total gross income for the last closed tax year (applicant plus spouse if married and living together on December 31); must be less than the figure."

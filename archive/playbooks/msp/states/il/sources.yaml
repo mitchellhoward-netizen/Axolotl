@@ -316,3 +316,19 @@ sources:
     jurisdiction: il
     doc_type: guidance
     note: Counselor guidance; the chart itself says its figures are estimates and points to WAG 25-03-02 as the main reference.
+  - id: il-idhs-wag-22-07-02
+    retrieved: 2026-10-07
+    url: https://www.dhs.state.il.us/page.aspx?item=18686
+    publisher: Illinois Department of Human Services (Cash, SNAP and Medical Manual; policy set jointly with HFS)
+    title: WAG 22-07-02 — Supplementary Medical Insurance Benefits (SMIB) (AABD, TANF), Workers' Action Guide
+    kind: primary
+    jurisdiction: il
+    doc_type: manual
+  - id: il-idhs-wag-22-07-01-a
+    retrieved: 2026-10-07
+    url: https://www.dhs.state.il.us/page.aspx?item=18684
+    publisher: Illinois Department of Human Services (Cash, SNAP and Medical Manual; policy set jointly with HFS)
+    title: WAG 22-07-01-a — Department Payment of HIB Premiums, Workers' Action Guide
+    kind: primary
+    jurisdiction: il
+    doc_type: manual

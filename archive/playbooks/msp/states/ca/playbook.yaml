@@ -489,7 +489,16 @@ procedure:
       text: After approval it may take up to 4 months for the Part B premium to stop being taken out of the Social Security check; premiums paid during qualifying months may be paid back.
       duration: up to 4 months
       confidence: confirmed
-      sources: [{source: ca-dhcs-acwdl-26-12, locator: "QMB / SLMB / QI Approval snippets", quote: "It may take up to 4 months for premiums to stop getting subtracted from your monthly Social Security benefit."}]
+      note: >-
+        DHCS's 1997 QMB approval notice text in MEPM Article 5L gave a similar
+        estimate for Part A ("allow 3-4 months from the time you are eligible
+        as a QMB for SSA to stop billing you or deducting these premiums").
+        The refund mechanism is federal: SSA refunds premiums deducted for any
+        buy-in month, as a separate payment (MSP-FED-BUYIN-REFUND).
+      sources:
+        - {source: ca-dhcs-acwdl-26-12, locator: "QMB / SLMB / QI Approval snippets", quote: "It may take up to 4 months for premiums to stop getting subtracted from your monthly Social Security benefit."}
+        - {source: ca-dhcs-mepm-5l, locator: "QMB Notice of Action (approval) text following page 5L-34, Manual Letter 188, Oct 22, 1997", quote: "allow 3-4 months from the time you are eligible as a QMB for SSA to stop billing you or deducting these premiums from your check"}
+        - {source: ssa-poms-hi-00815-039, locator: "A. Routine Buy-In Accretion"}
   approval_notice:
     - id: MSP-CA-NOTICE-NOA
       text: >-
@@ -576,7 +585,16 @@ outcome_proof:
     how_to_get: my Social Security account, SSA benefit letter, or bank statement
     when: Up to 4 months after approval
     confidence: confirmed
-    sources: [{source: ca-dhcs-acwdl-26-12, locator: "Approval snippets: It may take up to 4 months ..."}]
+    note: >-
+      Federal rules fill in the rest: SSA mails a notice of the buy-in
+      effective date, and premiums already deducted for buy-in months (from
+      the MSP start date, including SLMB/QI retroactive months) are refunded
+      by SSA as a separate payment (MSP-FED-PROOF-BUYIN-NOTICE,
+      MSP-FED-PROOF-PREMIUM-REFUND).
+    sources:
+      - {source: ca-dhcs-acwdl-26-12, locator: "Approval snippets: It may take up to 4 months ..."}
+      - {source: ssa-poms-hi-00815-039, locator: "A. Routine Buy-In Accretion"}
+      - {source: ssa-poms-hi-01001-205, locator: "'processed retroactively' ... in a separate check"}
   - id: MSP-CA-PROOF-PART-A-LETTER
     evidence: SSA Medicare Part A buy-in approval letter (QMB members without premium-free Part A)
     shows: The state is paying the Part A premium.

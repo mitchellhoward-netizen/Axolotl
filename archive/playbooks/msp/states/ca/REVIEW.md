@@ -23,7 +23,9 @@ with a headless browser and imported. Rules: `playbook.yaml`; numbers:
 - **Part A buy-in** since January 1, 2025; SSI/SSP recipients auto-enrolled in
   QMB (MEDIL I 25-01).
 - **Outcome proof timing.** DHCS's 2026 NOA text: up to 4 months for the Part B
-  deduction to stop (ACWDL 26-12) — the gap New York could not fill.
+  deduction to stop (ACWDL 26-12) — the gap New York could not fill. The
+  refund of already-deducted months (a separate SSA payment) and SSA's buy-in
+  notice come from federal sources (POMS HI 00815.039, HI 01001.205).
 - **Retroactivity.** SLMB/QI 3 months; 2 months for applications from
   January 1, 2027 (ACWDL 26-07, preliminary).
 

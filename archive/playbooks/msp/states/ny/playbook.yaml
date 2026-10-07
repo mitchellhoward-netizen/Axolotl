@@ -302,15 +302,44 @@ rules:
   - id: MSP-NY-PART-B-LEP
     statement: >-
       In New York, enrolling in a Medicare Savings Program removes any Part B
-      late enrollment penalty, and lets a person enroll in Part B outside the
+      late enrollment penalty (the state pays only the standard premium, and
+      if the MSP later ends and the person keeps Part B their premium stays
+      at the base amount), and lets a person enroll in Part B outside the
       usual enrollment periods with Part B starting on the MSP effective date.
     kind: benefit
     effective_from: 2026-01-01
-    confidence: secondary
-    note: Stated by NYSOFA; the federal basis (state buy-in agreements) was not traced to CMS text here. Cross-check in the Turning 65 playbook.
-    open_question: MSP-NY-OQ-04
+    confidence: confirmed
+    note: >-
+      Stated for New York by NYSOFA; the federal basis is the state buy-in
+      agreement (MSP-FED-BUYIN-NO-PENALTY, MSP-FED-BUYIN-START), which covers
+      the MSP groups in every state. Answers MSP-NY-OQ-04.
     sources:
       - {source: nysofa-hiicap-msp-2026, locator: "MSP BENEFITS: Elimination of Part B late enrollment penalties; Part B enrollment"}
+      - {source: ssa-poms-hi-00815-001, locator: "B. The State Buy-in Agreement", quote: "states and territories do not pay a premium surcharge due to late enrollment"}
+      - {source: ssa-poms-hi-00815-039, locator: "A. and B.", quote: "the premium will be the base amount even if they had been paying a premium surcharge for late enrollment prior to being on buy-in"}
+      - {source: cfr-42-407, locator: "407.40(c)(1); 407.47(g)"}
+  - id: MSP-NY-BUYIN-SPAN
+    statement: >-
+      In New York, the local department of social services (or HRA) puts an
+      approved MSP enrollee on the Medicare Buy-In by opening a Buy-In span
+      with the MSP code (for example "P" for QMB) in the eMedNY/WMS third-party
+      system; the state then pays the Part B premium through its buy-in
+      agreement, and the span is closed (with a discontinuance notice) when
+      the person is no longer MSP-eligible.
+    kind: procedure
+    applies_to: [QMB, QI]
+    effective_from: 2023-05-26
+    confidence: confirmed
+    note: >-
+      GIS 26 MA/05 instructs a "99-change transaction on the eMedNY Buy-in span"
+      for QI-to-QMB changes; GIS 23 MA/10 requires closing the span when MSP
+      ends. How often New York transmits buy-in changes to CMS, and how long
+      until SSA stops the deduction, is not stated (MSP-NY-OQ-02).
+    open_question: MSP-NY-OQ-02
+    sources:
+      - {source: ny-gis-23-ma-10, locator: "last paragraph", quote: "If recipients are no longer MSP eligible, the Medicare Buy-In span must be closed, and notification must be provided regarding the discontinuance of MSP."}
+      - {source: ny-gis-26-ma-05, locator: "QI to QMB change", quote: "staff must complete a 99-change transaction on the eMedNY Buy-in span"}
+      - {source: ny-adm-00-omm-07, locator: "Page 4, SLIMB paragraph; Page 3, QMB", quote: "an \"L\" will be entered into the Buy-In screen of the third party subsystem of WMS"}
   - id: MSP-NY-SNAP-EFFECT
     statement: >-
       In New York, a household that gets SNAP and then has its Part B premium
@@ -436,7 +465,15 @@ procedure:
       confidence: confirmed
       sources: [{source: ny-doh-4328-instructions, locator: "Step 8"}]
     - id: MSP-NY-TIME-DEDUCTION-STOPS
-      text: How long after approval the Part B premium stops being deducted from the Social Security payment, and when reimbursed months arrive, was not found in New York primary sources.
+      text: >-
+        No New York source says how many months after approval the Part B
+        premium stops being deducted from the Social Security payment. What is
+        established (federal sources): the buy-in starts with the MSP effective
+        month (QMB: the month after the determination; QI: up to three
+        retroactive months in the same calendar year); once SSA records it, the
+        deduction stops and SSA refunds every premium already deducted for
+        buy-in months in a separate payment (MSP-FED-BUYIN-START,
+        MSP-FED-BUYIN-REFUND, MSP-FED-QI-RETRO-SAME-YEAR).
       confidence: unresolved
       open_question: MSP-NY-OQ-02
   approval_notice:
@@ -516,13 +553,36 @@ outcome_proof:
     shows: The MSP tier and its coverage start date.
     how_to_get: Mailed by the county office within 45 days of application
     confidence: confirmed
-    sources: [{source: ny-doh-4328-instructions, locator: "Step 8"}]
-  - id: MSP-NY-PROOF-SSA
-    evidence: Social Security payment no longer reduced by the Part B premium
-    shows: The state's Medicare buy-in is in effect; the monthly Social Security deposit rises by $202.90 (2026), and QI retroactive months come back as a refund.
-    how_to_get: SSA benefit letter, my Social Security account, or bank statement
-    confidence: unresolved
+    note: >-
+      00 OMM/ADM-7 (2000) named the notices DSS-4039 (QMB, "Notice of Action on
+      Application/Benefit for the Medicare Buy-In Program") and DSS-4393
+      (SLIMB); whether those form numbers are still used was not checked.
+    sources:
+      - {source: ny-doh-4328-instructions, locator: "Step 8"}
+      - {source: ny-adm-00-omm-07, locator: "V. NOTICE REQUIREMENTS"}
+  - id: MSP-NY-PROOF-SSA-BUYIN-NOTICE
+    evidence: SSA notice of the state buy-in effective date
+    shows: New York has taken over the Part B premium from the stated month.
+    how_to_get: Mailed by SSA after New York's buy-in reaches SSA
+    when: Timing not stated in New York or federal sources (MSP-NY-OQ-02)
+    confidence: confirmed
     open_question: MSP-NY-OQ-02
+    sources: [{source: ssa-poms-hi-00815-039, locator: "A. Routine Buy-In Accretion"}]
+  - id: MSP-NY-PROOF-SSA
+    evidence: Social Security payment no longer reduced by the Part B premium, plus a separate SSA refund payment
+    shows: >-
+      The state's Medicare buy-in is in effect; the monthly Social Security
+      payment rises by the premium ($202.90 standard in 2026), and premiums
+      already deducted for buy-in months (from the MSP effective month,
+      including QI retroactive months) come back as a separate refund.
+    how_to_get: SSA benefit letter, my Social Security account, or bank statement
+    when: Not stated in New York or federal sources (MSP-NY-OQ-02)
+    confidence: confirmed
+    open_question: MSP-NY-OQ-02
+    sources:
+      - {source: ssa-poms-hi-00815-039, locator: "A. Routine Buy-In Accretion"}
+      - {source: ssa-poms-hi-01001-205, locator: "'processed retroactively' ... in a separate check"}
+      - {source: nysofa-hiicap-msp-2026, locator: "Qualified Individual: up to three months of retroactive reimbursement ... within the same year"}
   - id: MSP-NY-PROOF-MEDICAID-CARD
     evidence: New York Medicaid (benefit) card for a QMB enrollee
     shows: QMB is active; providers bill Medicaid for Medicare cost-sharing.
@@ -568,10 +628,16 @@ open_questions:
     status: open
   - id: MSP-NY-OQ-02
     priority: high
-    question: After a New York MSP approval, how many months until SSA stops deducting the Part B premium, and how are already-deducted months refunded?
+    question: >-
+      After a New York MSP approval, how many months until SSA stops
+      deducting the Part B premium (how soon does the LDSS/HRA open the
+      eMedNY Buy-In span after approval, and does DOH publish an expected
+      wait)? Narrowed: how already-deducted months are refunded, and what
+      notice the member gets, are answered federally (MSP-FED-BUYIN-REFUND,
+      MSP-FED-BUYIN-NOTICE).
     why_it_matters: This is the outcome proof; members will ask when their check goes up.
-    checked: [NY DOH MSP page, DOH-4328 instructions, GIS 22 MA/10, NYSOFA HIICAP Module 9]
-    affects: [MSP-NY-PROOF-SSA, MSP-NY-TIME-DEDUCTION-STOPS]
+    checked: [NY DOH MSP page, DOH-4328 and instructions, GIS 22 MA/10, GIS 23 MA/10, GIS 26 MA/05, 00 OMM/ADM-7, NYSOFA HIICAP Module 9, SSA POMS HI 00815.039, HI 01001.205, CMS buy-in manual ch. 1-2]
+    affects: [MSP-NY-PROOF-SSA, MSP-NY-PROOF-SSA-BUYIN-NOTICE, MSP-NY-TIME-DEDUCTION-STOPS, MSP-NY-BUYIN-SPAN]
     status: open
   - id: MSP-NY-OQ-03
     priority: medium
@@ -584,9 +650,17 @@ open_questions:
     priority: medium
     question: What is the primary (CMS or DOH) source for MSP enrollment removing the Part B late enrollment penalty and allowing Part B enrollment outside enrollment periods?
     why_it_matters: Strong selling point for members who delayed Part B; must be right before the agent says it.
-    checked: [NYSOFA HIICAP Module 9]
+    checked: [NYSOFA HIICAP Module 9, SSA POMS HI 00815.001, HI 00815.039, "42 CFR 407.40 and 407.47"]
     affects: [MSP-NY-PART-B-LEP]
-    status: open
+    status: answered
+    answer: >-
+      SSA POMS HI 00815.001 B (buy-in agreements let states enroll members in
+      Part B at any time, and states pay no late-enrollment surcharge), 42 CFR
+      407.40(c)(1) and 407.47(g) (buy-in group members can enroll in Part B at
+      any time), and HI 00815.039 A-B (Part B is established from the first
+      buy-in month; after buy-in ends the premium is the base amount even if a
+      surcharge was paid before). New York's MSP groups are in its buy-in
+      (GIS 23 MA/10, GIS 26 MA/05). See MSP-NY-PART-B-LEP.
   - id: MSP-NY-OQ-05
     priority: medium
     question: Does OTDA 02 ADM-07 (SNAP medical deduction freeze between certifications) still apply in 2026?

@@ -40,8 +40,11 @@ Aging's 2026 MSP chart. Rules: `playbook.yaml`; numbers: `parameters/msp_il.yaml
 
 - **Earned income**: Illinois's AABD disregard appears more restrictive than the
   SSI methodology federal law requires (MSP-IL-OQ-02). High priority.
-- **When the Part B deduction stops** after approval (MSP-IL-OQ-07): no Illinois
-  source found.
+- **When the Part B deduction stops** after approval (MSP-IL-OQ-07, answered
+  from the Workers' Action Guide): workers expect about 90 days (WAG 22-07-01-a
+  for Part A) and refer the case to SSA/PCU if there is no Part B buy-in after
+  90 days (WAG 22-07-02). These are worker instructions, not a promise to the
+  member; the date the SSA refund arrives is not stated.
 - **AABD Medical recipients "automatically" QMB** when their resources are
   between $9,950 and $17,500 (MSP-IL-OQ-05).
 - Most PM pages are dated 1997-2009; only the standards (MR #26.11) and QI-1
@@ -53,8 +56,9 @@ Aging's 2026 MSP chart. Rules: `playbook.yaml`; numbers: `parameters/msp_il.yaml
 1. For working MSP applicants, do FCRCs use $20 + 1/2 of $60 or SSI's $65 + 1/2?
 2. Is countable income of $1,795 QI-1 eligible? Are resources of exactly $9,950?
 3. Is an AABD Medical recipient with $12,000 in resources QMB?
-4. How long after approval does the Part B deduction stop, and how are
-   retroactive months refunded?
+4. Is about 90 days what members actually see before the Part B deduction
+   stops, and does the SSA refund of SLIB/QI-1 retroactive months arrive as one
+   separate payment?
 5. Which notice (form number) approves a new QMB/SLIB/QI-1 application?
 6. Which resources are exempt for MSP (burial allowance)?
 

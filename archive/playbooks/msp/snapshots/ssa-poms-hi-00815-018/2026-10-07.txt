@@ -1,0 +1,224 @@
+Skip to content
+
+Program Operations Manual System (POMS)
+
+Effective Dates: 12/08/2022 - Present
+Previous | Next
+
+TN 49 (01-24)
+
+HI 00815.018 When State Payment of Medicare Premiums (State Buy-In) Begins
+
+A. Background
+
+In general, an individual’s state buy-in coverage start date depends on the Medicaid
+eligibility group in which an individual is enrolled.
+
+The exception is for individuals covered by a new or modified buy-in agreement. Buy-in
+coverage can begin no sooner than three months after the effective date of a new or
+modified buy-in agreement.
+
+For more information about the start date of buy-in coverage, see CMS Manual
+for State Payment of Medicare Premiums, chapter 1, sections 1.13.1 and 1.14.1 and appendix 1.C.
+
+B. Beginning of State Payment of Part A Premiums (Part A Buy-in) for Qualified Medicare
+Beneficiaries
+
+Part A Buy-in for the Medicare Saving Program (MSP) Qualified Medicare Beneficiary
+(QMB) eligibility group begins the month the individual is enrolled in premium Part
+A and QMB.
+
+C. Beginning of State Payment of Part B Premiums (Part B Buy-in)
+
+See also the chart in Section D. for an explanation of these provisions.
+
+Individuals who Receive or are Deemed to Receive Cash Assistance or are Enrolled in
+an
+MSP.
+
+Part B buy-in generally begins the first month in which the individual meets the requirements
+both for eligibility in the buy-in coverage group (i.e., the start date of the individual’s
+Medicaid coverage) and eligibility for Medicare Part B for:
+
+•
+
+Medicaid beneficiaries who are cash assistance recipients or who are deemed to be
+recipients of cash assistance; and
+
+•
+
+Individuals enrolled in the following three MSP groups:
+
+–
+
+QMB;
+
+–
+
+Specified Low-Income Medicare Beneficiary (SLMB); and
+
+–
+
+Qualifying Individual (QI).
+
+Note for SSI recipients:
+
+In states with 1634 agreements (1634 states or auto-accrete states), Part B buy-in
+starts no later than the first month an individual is entitled to SSI and Part B.
+SSI recipients are automatically eligible for Medicaid based on their receipt of SSI.
+
+Example: If the individual is eligible for Part B and SSI in January, Part B buy-in is effective
+January 1.
+
+In alert states, Part B buy-in may begin later than the first month the individual
+is entitled to SSI and eligible for Part B. Alert states separately determine SSI
+recipients eligible for Medicaid.
+
+Example: If the individual is eligible for SSI and Part B in January and their Medicaid effective
+date is March 1, Part B buy-in is effective March 1.
+
+Other Medicaid Beneficiaries who do not receive or are Deemed to Receive Cash
+Assistance or are Enrolled in an MSP.
+
+Part B buy-in begins the second month after the individual meets the requirements for both:
+
+•
+
+eligibility in the buy-in group (i.e., the start date of the individual’s Medicaid
+coverage) and
+
+•
+
+eligibility for Medicare Part B for all other Medicaid eligibility groups included
+in the buy-in agreement.
+
+Example: If an individual is eligible for Medicaid and Part B in January, buy-in is effective
+March 1.
+
+An individual can be simultaneously enrolled in the QMB or SLMB MSP group and a full-benefit
+Medicaid eligibility group. For an individual who is simultaneously enrolled in one
+of these MSP groups and a full-benefit Medicaid eligibility group, Part B buy-in begins
+on the earlier of the buy-in start applicable to the MSP or Medicaid eligibility group.
+
+Exception: State liability for retroactive Medicare Part B premiums for
+full-benefit Medicaid beneficiaries under a buy-in agreement is limited to a period
+of no greater
+than 36 months prior to the date of the Medicare enrollment determination pursuant
+to 42 CFR §
+407.47(f) beginning January 1, 2024. CMS may approve shorter or longer retroactive
+buy-in periods
+upon state request.
+
+D. Summary of Buy-in Start Dates
+
+See the chart below for buy-in start dates as outlined in the CMS Manual
+for State Payment of Medicare Premiums, chapter 1, appendix 1.C.
+
+Start dates may be adjusted if:
+
+•
+
+the individual is covered by a new or modified buy-in agreement (coverage can start
+no sooner than three months after the effective date of a new or modified buy-in agreement);
+or
+
+•
+
+to avoid retroactive payments beyond 36 months (or different limits approved by CMS)
+after January 1, 2024.
+
+Medicaid Eligibility Group
+
+Part A Buy-in Start Date
+
+Part B Buy-in Start Date
+
+Cash assistance (SSI/SSPs) and deemed recipients of cash assistance who are
+categorically needy
+
+N/A
+
+Part B buy-in starts the first day of the month an individual qualifies for Medicare
+Part B and is eligible for Medicaid.
+
+In auto-accrete states, Part B buy-in starts the first month the individual is both
+entitled to SSI and eligible for Part B. In alert states, Part B buy-in starts the
+first month an SSI recipient is eligible for Medicaid and Part B.
+
+42 CFR § 407.47(b)
+
+QMB
+
+Part A buy-in starts the month an individual is enrolled in premium Part A and has
+QMB status. 42
+CFR § 406.26(b)
+
+In Group Payer states only: If an individual enrolls during the General Enrollment Period or later, as early
+as the first day of the month after enrollment in either actual or conditional Part
+A.
+
+Part B buy-in starts the first day of the month an individual qualifies for Medicare
+and has QMB status.
+
+42 CFR § 407.47(c)
+
+SLMB
+
+N/A
+
+Part B buy-in starts the first day of the month an individual qualifies for Medicare
+and is a member of the coverage group.
+
+42 CFR § 407.47(c)
+
+QI
+
+N/A
+
+Part B buy-in starts the first day of the month an individual qualifies for Medicare
+and is a member of the coverage group.
+
+42 CFR § 407.47(c)
+
+Other Full-benefit Medicaid Eligibility Categories[1]
+
+[2]
+
+N/A
+
+Part B buy-in starts the first day of the second month after an individual qualifies
+for Medicare and is a member of the coverage group.
+
+42 CFR § 407.47(d)
+
+E. Effect of Incorrect Report of Buy-In Eligibility
+
+If a state erroneously reports an individual as a member of its buy-in coverage group,
+buy-in coverage nevertheless begins in accordance with HI 00815.018B and HI 00815.018C.
+
+Once a State enrolls an individual in buy-in, the State cannot cancel the enrollment
+retroactively. (A cancellation of the entire enrollment may only occur during the
+same Current Operating Month (COM) that buy-in was established). However, the state
+can subsequently terminate the individual’s buy-in coverage as described in HI 00815.021, which outlines when buy-in ends.
+
+Please refer to SM 03040.245 for Special Situations and HI 00815.030 for Procedures to Develop buy-In Coverage in Initial Claims.
+
+Footnotes:
+
+[1]
+The Part B buy-in start date can be no greater than 36 months prior to the date of
+the Medicare enrollment determination beginning January 1, 2024, pursuant to 42 CFR § 407.47(f).
+
+[2]
+If an individual is eligible for a full-benefit Medicaid group and the QI or SLMB
+group, the buy in coverage starts on the earlier of the start date applicable to the
+MSP group or full Medicaid coverage group.
+
+To Link to this section - Use this URL:
+http://policy.ssa.gov/poms.nsf/lnx/0600815018
+
+HI 00815.018 - When State Payment of Medicare Premiums (State Buy-In) Begins - 12/08/2022
+
+Batch run: 06/30/2025
+
+Rev:12/08/2022

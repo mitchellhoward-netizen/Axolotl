@@ -1,0 +1,235 @@
+Illinois Department of Human Services
+JB Pritzker, Governor · Dulce M. Quintero, Secretary
+
+Customers
+
+Providers
+
+About
+
+News
+
+Contact
+
+IDHS
+
+About IDHS
+
+Publications
+
+Manuals
+
+Family & Community Services Manuals
+
+Cash, SNAP, and Medical Manual
+
+Workers' Action Guide Chapter Table of Contents
+
+WAG 22: Related Program Provisions
+
+WAG 22-07-00: Social Security Programs Control Unit (SSA/PCU)
+
+WAG 22-07-02: Supplementary Medical Insurance Benefits (SMIB) (AABD, TANF)
+
+PM 22-07-02.
+
+Persons Enrolled for SMIB
+
+(FCRC) Tell the client of the buy-in agreement.
+
+(FCRC) Verify SMIB enrollment for active cases using the BENDEX/SSA Benefit Inquiry program or the SOLQ response. If the information is unavailable on the online screen, verify enrollment by seeing the client's Medicare
+card.
+
+(FCRC) Enter the Medicare claim number in Item 60 of Form 552 (see WAG 27-60-09).
+
+(FCRC) Enter the correct SMIB status indicator code and date in Item 60 of Form 552.
+
+Definition
+
+Item 60 Code
+
+SMIB Enrolled
+
+5
+
+SMIB Buy-in
+
+6
+
+SMIB from BENDEX
+
+7
+
+SMIB Eligible, Not Coded
+
+9
+
+Enter the effective date (MM/YYYY) between the code SMIB and the status indicator code in Item 60 on Form 552.
+
+(FCRC) Enter the gross income (including the amount withheld for the SMIB premium) in Item 90 of Form 552, for SSA or RRB benefits.
+
+(FCRC) Tell a client who has been paying SMIB premiums they should continue to pay until the Department begins paying to avoid being disenrolled from SMIB. Tell them that SSA will automatically refund any premiums they paid
+for any month that the Department pays the premium.
+
+(FCRC) Send BENDEX Discrepancy Referral (Form 1925) to SSA PC Unit if conflicting information is identified or if enrollment is over 90 days and there is no Buy-in.
+
+Person Not Currently Enrolled for SMIB
+
+A client who receives SSA or Railroad Retirement benefits and is eligible for SMIB Buy-in is centrally enrolled for SMIB.
+
+(FCRC) Explain the SMIB Buy-in program.
+
+Encourage a person to enroll themselves in SMIB if they are eligible:
+
+for SMIB Buy-in but do not receive SSA or Railroad Retirement benefits, or
+
+for SMIB but not for SMIB Buy-in.
+
+(FCRC) Refer the person to the local Social Security Office to apply for SMIB.
+
+(FCRC) Ask the client to tell the FCRC the outcome of the SMIB application.
+
+(FCRC) Set a control for 60 days.
+
+(FCRC) Check with the client at the end of the 60 days.
+
+If a client has been enrolled in Medicare, code Item 60 of Form 552 as follows:
+
+enter effective date and appropriate status indicator code following code SMIB, and
+
+enter the Medicare claim number for the person.
+
+Definition
+
+Item 60 Code
+
+SMIB Enrolled
+
+5
+
+SMIB Buy-in
+
+6
+
+SMIB from BENDEX
+
+7
+
+SMIB Eligible, Not Coded
+
+9
+
+If a client has been denied SMIB:
+
+ask to see the denial notice,
+
+document the reason for denial in the case record,
+
+if it appears the person will be eligible at a future date, set a control to refer them for reapplication.
+
+If the client did not go to the Social Security Office to apply for SMIB:
+
+Complete HCFA 4040, Request for Enrollment in Supplementary Medical Insurance, and ask the person to sign it. If they refuse or fail to sign the form, complete unsigned HCFA 4040.
+
+In the remarks section on page 2 of HCFA 4040, enter information from the case record showing:
+
+the date the age of the person was established,
+
+documentation used to establish age,
+
+the date of entry into U.S. for persons born outside U.S., and
+
+documentation of citizenship or legal alien status.
+
+Have LOA sign HCFA 4040 in the space provided as follows:
+
+For (Name of Person)
+
+By (Name and Title of LOA)
+
+Enter in the Remarks Section a notation that the information was taken from the Department's case record.
+
+Send HCFA 4040 to SSA/PCU.
+
+(SSA/PCU) Sends HCFA 4040, with SSA 1610, to SSA.
+
+(SSA) Returns SSA 1610 to SSA/PCU.
+
+(SSA/PCU) Codes Form 552 to reflect SMIB enrollment, including Medicare claim number.
+
+(SSA) Mails the client a Medicare Health Insurance Card reflecting SMIB entitlement.
+
+(System) Matches SMIB coding in Item 60 with the BENDEX Master File to verify SMIB information.
+
+(SSA/PCU) Codes and enrolls in SMIB Buy-in anyone who is enrolled in SMIB with no Item 60 code, if eligible.
+
+(System) Generates Form 552 with the message BENDEX SMIB/HIB STATUS CHANGE.
+
+(SSA/CMS) Notifies client when they are:
+
+added to the SMIB Buy-in group, or
+
+removed from the SMIB Buy-in group.
+
+(FCRC) For AABD cases, use Form 157 to notify the person when aid is canceled.
+
+(FCRC) Send Discrepancy Referral (Form 1925) to SSA/PCU anytime SMIB Buy-in is discontinued.
+
+Cancellations and Suspensions
+
+(SSA/PCU) Deletes the person from the buy-in group for the months the cancellation or suspension is effective. If the client has died, payments will stop the month after the month of death.
+
+(SSA/CMS) Notifies the client that the buy-in coverage is terminated.
+
+(SSA/CMS) Continues SMIB coverage by:
+
+deducting the premium from the SSA or Railroad Retirement benefit, or
+
+billing the person.
+
+If the person does not wish to continue the SMIB coverage, they should notify the local SSA office.
+
+Aid is restored or resumed
+
+(SSA/PCU) Adds the person into the buy-in group.
+
+(SSA) Refunds the premiums paid by the person when aid is resumed retroactively.
+
+(FCRC) Complete Item 60 on Form 552:
+
+reenter the code SMIB status indicator,
+
+add the Medicare claim number, and
+
+send Form 1925 to SSA/PCU.
+
+Links
+
+WAG 22-07-02-a: AABD Clients
+
+WAG 22-07-02-b: TANF Clients
+
+WAG 22-07-02-c: Chronic Renal Disease (CRD)
+
+Illinois Department of Human Services
+JB Pritzker, Governor · Dulce M. Quintero, Secretary
+
+IDHS Office Locator
+
+IDHS Help Line
+
+1-800-843-6154
+
+1-866-324-5553 TTY
+
+State of Illinois
+
+Accessibility
+
+Privacy
+
+Report Abuse/Neglect
+
+Contact
+
+Outlook Login

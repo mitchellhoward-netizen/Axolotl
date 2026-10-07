@@ -293,7 +293,11 @@ rules:
     effective_from: 2026-05-06
     overrides: [MSP-FED-RETRO-SLMB-QI]
     confidence: confirmed
-    note: The 2027 federal shortening of retroactive coverage (MSP-FED-OQ-02) was not found in Illinois sources.
+    note: >-
+      The 2027 federal shortening of retroactive coverage (MSP-FED-OQ-02) was
+      not found in Illinois sources. Illinois's manual does not repeat CMS's
+      rule that QI retroactivity cannot reach into the prior calendar year
+      (MSP-FED-QI-RETRO-SAME-YEAR); that federal limit still applies to QI-1.
     sources:
       - {source: il-idhs-pm-06-13-01, locator: "SLIB eligibility may be retroactive to 3 months before the month of application."}
       - {source: il-idhs-pm-06-14-01, locator: "QI-1 eligibility may be retroactive to 3 months before the month of application."}
@@ -372,9 +376,33 @@ procedure:
         - {source: il-idhs-pm-06-12-02-a, locator: "Approve or deny applications within 45 days of receipt."}
         - {source: il-idhs-pm-06-13-02-a, locator: "Approve or deny applications within 45 days of receipt."}
     - id: MSP-IL-TIME-DEDUCTION-STOPS
-      text: How long after approval SSA stops deducting the Part B premium in Illinois was not found in Illinois sources.
-      confidence: unresolved
-      open_question: MSP-IL-OQ-07
+      text: >-
+        Illinois caseworkers are told to expect the buy-in within about 90
+        days: for Part A (QMB) they tell the client "the state will begin
+        making payments in approximately 90 days" and SSA refunds premiums the
+        client paid for any month the Department pays; for Part B (SMIB) they
+        refer the case to the SSA Programs Control Unit (Form 1925) "if
+        enrollment is over 90 days and there is no Buy-in". No Illinois source
+        promises a date to the member.
+      duration: about 90 days
+      confidence: confirmed
+      note: >-
+        The 90-day figure is a worker instruction (an expectation and a
+        follow-up trigger), not a legal deadline; for Part B it is stated as
+        the point to escalate, not as the expected wait.
+      sources:
+        - {source: il-idhs-wag-22-07-01-a, locator: "(FCRC) Tell the customer that the state will begin making payments in approximately 90 days"}
+        - {source: il-idhs-wag-22-07-02, locator: "Persons Enrolled for SMIB", quote: "Send BENDEX Discrepancy Referral (Form 1925) to SSA PC Unit if conflicting information is identified or if enrollment is over 90 days and there is no Buy-in."}
+    - id: MSP-IL-TIME-KEEP-PAYING
+      text: >-
+        An Illinois MSP client who has been paying the Part B premium
+        themselves (for example on a Medicare Premium Bill) should keep paying
+        until the Department starts paying, so Part B is not cancelled for
+        non-payment; SSA automatically refunds the premiums they paid for any
+        month the Department pays.
+      confidence: confirmed
+      sources:
+        - {source: il-idhs-wag-22-07-02, locator: "Persons Enrolled for SMIB", quote: "Tell a client who has been paying SMIB premiums they should continue to pay until the Department begins paying to avoid being disenrolled from SMIB. Tell them that SSA will automatically refund any premiums they paid for any month that the Department pays the premium."}
   approval_notice:
     - id: MSP-IL-NOTICE-DECISION
       text: >-
@@ -446,12 +474,29 @@ outcome_proof:
     how_to_get: Mailed by IDHS, also visible in the ABE Manage My Case account
     confidence: confirmed
     sources: [{source: il-idhs-mr-26-11, locator: "360C Notice of Decision"}]
+  - id: MSP-IL-PROOF-SSA-BUYIN-NOTICE
+    evidence: SSA/CMS notice that the person was added to the Illinois SMIB Buy-in group
+    shows: Illinois (HFS) has started paying the Part B premium, and from which month.
+    how_to_get: Mailed by SSA/CMS; a new Medicare card follows if Part B was newly established
+    when: After IDHS codes the case and the buy-in reaches SSA (workers follow up if no buy-in after 90 days)
+    confidence: confirmed
+    sources:
+      - {source: il-idhs-wag-22-07-02, locator: "(SSA/CMS) Notifies client when they are: added to the SMIB Buy-in group"}
+      - {source: ssa-poms-hi-00815-039, locator: "A. Routine Buy-In Accretion"}
   - id: MSP-IL-PROOF-SSA
-    evidence: Social Security payment no longer reduced by the Part B premium
-    shows: The SMIB buy-in is in effect; the deposit rises by $202.90 (2026).
-    how_to_get: my Social Security account or bank statement
-    confidence: unresolved
-    open_question: MSP-IL-OQ-07
+    evidence: Social Security payment no longer reduced by the Part B premium, plus SSA's refund of premiums already paid
+    shows: >-
+      The SMIB buy-in is in effect; the monthly Social Security payment rises
+      by the premium ($202.90 standard in 2026), and SSA refunds premiums the
+      member paid for any month the Department pays (including SLIB/QI-1
+      retroactive months), as a separate payment.
+    how_to_get: my Social Security account, SSA benefit letter, or bank statement
+    when: Illinois workers expect about 90 days and escalate to SSA/PCU after 90 days without a buy-in
+    confidence: confirmed
+    sources:
+      - {source: il-idhs-wag-22-07-02, locator: "Persons Enrolled for SMIB", quote: "SSA will automatically refund any premiums they paid for any month that the Department pays the premium."}
+      - {source: ssa-poms-hi-00815-039, locator: "A. Routine Buy-In Accretion"}
+      - {source: ssa-poms-hi-01001-205, locator: "'processed retroactively' ... in a separate check"}
   - id: MSP-IL-PROOF-CARD
     evidence: MediPlan card (QMB clients; not issued to SLIB-only)
     shows: QMB (or Medicaid) is active so providers can bill for Medicare cost-sharing.
@@ -542,9 +587,20 @@ open_questions:
     priority: high
     question: After an Illinois MSP approval, how long until SSA stops deducting the Part B premium, and how are retroactive SLIB/QI-1 months refunded?
     why_it_matters: The outcome proof the member will look for.
-    checked: [PM 22-07-02, PM 06-13-02-a, HFS 3352]
+    checked: [PM 22-07-02, PM 06-13-02-a, HFS 3352, WAG 22-07-02, WAG 22-07-01-a, HFS 3757 brochure (R-08-23, 2023 figures), SSA POMS HI 00815.039, HI 01001.205]
     affects: [MSP-IL-PROOF-SSA, MSP-IL-TIME-DEDUCTION-STOPS]
-    status: open
+    status: answered
+    answer: >-
+      Illinois's Workers' Action Guide sets the expectation at about 90 days
+      (WAG 22-07-01-a for Part A: "approximately 90 days"; WAG 22-07-02 for
+      Part B: refer to SSA/PCU "if enrollment is over 90 days and there is no
+      Buy-in"), tells clients to keep paying any direct premium until the
+      Department pays, and says SSA automatically refunds premiums paid for
+      any month the Department pays; the Department may pay SLIB premiums
+      retroactive to 3 months before the application month (PM 22-07-02).
+      SSA/CMS notifies the client when they are added to the buy-in. Federal
+      POMS adds that the refund comes as a separate payment (HI 01001.205).
+      Not established: an Illinois figure for when the refund itself arrives.
   - id: MSP-IL-OQ-08
     priority: medium
     question: Which resources are exempt for the Illinois MSP test (AABD rules, PM 07-02), including the $1,500 / $3,000 burial allowance the Department on Aging mentions?

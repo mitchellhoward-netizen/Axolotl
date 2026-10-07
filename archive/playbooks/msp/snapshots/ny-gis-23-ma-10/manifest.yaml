@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://www.health.ny.gov/health_care/medicaid/publications/docs/gis/23ma10.pdf
+  final_url: https://www.health.ny.gov/health_care/medicaid/publications/docs/gis/23ma10.pdf
+  status: 200
+  content_type: application/pdf
+  text_sha256: 642d0fead50343919f88d3fa7b8a9647f0b632a5c821a0784aa124a2ff662028
+  text: ny-gis-23-ma-10/2026-10-07.txt
+  raw: ny-gis-23-ma-10/2026-10-07.pdf

@@ -269,11 +269,31 @@ rules:
       months to "any individual who has been determined to be eligible for
       medical assistance under the plan" (SLMB and QI are medical assistance
       under 1902(a)(10)(E)), and 1902(e)(8) separately starts QMB after the
-      month of determination. No federal MSP-specific statement was found;
-      states (for example New York, GIS 22 MA/10) state it directly. See
+      month of determination. CMS's buy-in manual (ch. 1, 1.6.2.7 and 1.6.2.8,
+      Rev. 7) now states it for SLMB and QI directly, adds that QI
+      retroactivity "may not extend back to a prior calendar year"
+      (MSP-FED-QI-RETRO-SAME-YEAR), and words the SLMB retroactive months with
+      the general 42 CFR 435.915(a) condition ("if the individual received
+      Medicaid covered services and would have been eligible"). See
       MSP-FED-OQ-02 for the 2027 change.
     sources:
       - {source: usc-42-1396a, locator: "(a)(34) and (e)(8)"}
+      - {source: cms-spmp-ch1, locator: "1.6.2.7 (SLMB) and 1.6.2.8 (QI)", quote: "Coverage for an individual determined eligible under the SLMB group may be effective up to three months before the month of application"}
+  - id: MSP-FED-QI-RETRO-SAME-YEAR
+    statement: >-
+      In every state, Qualifying Individual (QI) coverage can be retroactive
+      for at most three months before the month of application and never into
+      the previous calendar year, so a QI applicant can recover Part B
+      premiums only for retroactive months in the same calendar year as the
+      application.
+    kind: timing
+    applies_to: [QI]
+    effective_from: 2025-01-16
+    effective_to: 2026-12-31
+    confidence: confirmed
+    note: The 2027 retroactivity change (MSP-FED-OQ-02) may shorten the three months.
+    sources:
+      - {source: cms-spmp-ch1, locator: "1.6.2.8 Qualifying Individuals Group", quote: "QI determinations may be retroactive for a maximum of three months prior to the month of application, but retroactivity may not extend back to a prior calendar year."}
   - id: MSP-FED-RETRO-2027
     statement: >-
       Starting with applications made on or after January 1, 2027, federal law
@@ -368,6 +388,163 @@ rules:
       - {source: ssa-poms-hi-00815-024, locator: "A. Background on MIPPA"}
       - {source: ssa-poms-hi-03001-005, locator: "B. SSA and Extra Help"}
 
+  # ------------------------------------------- state buy-in (the outcome)
+  - id: MSP-FED-BUYIN-MECHANISM
+    statement: >-
+      In every state, the Part B premium of a person enrolled in QMB, SLMB or
+      QI is paid through the state's Medicare buy-in agreement with CMS: the
+      state adds ("accretes") the person to its buy-in account, CMS bills the
+      state for the premium, and the federal government stops collecting the
+      premium from the person, either by ending the deduction from the
+      monthly Social Security (or Railroad Retirement or Civil Service)
+      benefit or by ending direct premium billing (Form CMS-500).
+    kind: benefit
+    applies_to: [QMB, SLMB, QI]
+    effective_from: 2023-01-01
+    confidence: confirmed
+    note: >-
+      Buy-in itself dates from 1966; the date is when 42 CFR 407.42 in its
+      current form (all 50 states and DC in buy-in group 2 or 3, both of
+      which include the three MSP groups; agreements held in the Medicaid
+      state plan) took effect (87 FR 66507).
+    sources:
+      - {source: ssa-poms-hi-00815-001, locator: "A. Background; C. State Payment of Part B Premiums (Part B Buy-in) in the 50 States and DC", quote: "stop collecting the premiums from the individual through deductions from their monthly Social Security, Railroad Retirement Board (RRB), or Civil Service Retirement benefits, or through CMS direct premium billing (Form CMS-500)"}
+      - {source: cfr-42-407, locator: "407.42(b)(2) Group 2 includes QMB, SLMB and QI; 407.40(b) definition of State buy-in agreement"}
+      - {source: cms-spmp-ch1, locator: "1.5 Effect of Buy-in on an Individual"}
+  - id: MSP-FED-BUYIN-START
+    statement: >-
+      In every state, Part B buy-in for a QMB, SLMB or QI enrollee starts the
+      first month in which the person both has Medicare Part B eligibility
+      and is covered by the MSP; it therefore starts with the MSP effective
+      month (for QMB, the month after the month of the determination; for
+      SLMB and QI, as early as the first retroactive month), not with the
+      month the deduction actually stops.
+    kind: timing
+    applies_to: [QMB, SLMB, QI]
+    effective_from: 2022-12-08
+    confidence: confirmed
+    note: >-
+      42 CFR 407.47(c) states this for QMBs; the regulation's text does not
+      name SLMB and QI, and its paragraph (d) ("not QMBs") gives a later
+      start. CMS's manual and SSA's POMS both apply the first-month rule to
+      all three MSP groups. Recorded as MSP-FED-CONFLICT-01.
+    sources:
+      - {source: ssa-poms-hi-00815-018, locator: "C. Beginning of State Payment of Part B Premiums; D. Summary of Buy-in Start Dates (QMB, SLMB, QI rows)", quote: "Part B buy-in starts the first day of the month an individual qualifies for Medicare and is a member of the coverage group."}
+      - {source: cms-spmp-ch1, locator: "1.13.1 Beginning of Part B Buy-in Coverage; Appendix 1.C"}
+      - {source: cfr-42-407, locator: "407.47(c)"}
+  - id: MSP-FED-BUYIN-DAILY-EXCHANGE
+    statement: >-
+      Since April 1, 2022, every state with a buy-in agreement must exchange
+      buy-in enrollment data with CMS daily, and CMS exchanges buy-in updates
+      with SSA daily; when SSA's Master Beneficiary Record accepts the update,
+      SSA starts or stops premium withholding and issues credits or debits
+      to the beneficiary. No federal source sets a deadline for how soon
+      after the MSP approval the state must send the accretion.
+    kind: procedure
+    applies_to: [QMB, SLMB, QI]
+    effective_from: 2022-04-01
+    confidence: confirmed
+    open_question: MSP-FED-OQ-06
+    sources:
+      - {source: cms-spmp-ch2, locator: "2.2 Frequency of State-CMS File Exchange; 2.3 Data Exchange Between CMS and SSA", quote: "Starting April 1, 2022, federal regulations at 42 CFR §§ 406.26 and 407.40 require all states to submit and receive buy-in files on a daily basis."}
+      - {source: cfr-42-407, locator: "407.40(c)(4)"}
+      - {source: cfr-42-406, locator: "406.26"}
+      - {source: ssa-poms-hi-00815-060, locator: "B. Automated exchange of data; 2. Daily data exchange"}
+  - id: MSP-FED-BUYIN-REFUND
+    statement: >-
+      Once a state's buy-in of the Part B premium takes effect, SSA refunds to
+      the person every premium (including any late-enrollment surcharge) that
+      was deducted from the Social Security benefit, or paid directly to CMS,
+      for any month covered by the buy-in; when the buy-in is processed after
+      its start month, the premiums for the months already deducted come back
+      as a separate payment, not spread over later checks.
+    kind: benefit
+    applies_to: [QMB, SLMB, QI]
+    effective_from: 2022-11-23
+    confidence: confirmed
+    note: >-
+      The "separate check" wording is from POMS HI 01001.205, whose worked
+      example dates from 1975 (buy-in effective 10/75 processed in the 12/75
+      operating month: refund of 10/75-12/75 in a separate check). It is the
+      current POMS text, but how the separate payment is delivered today
+      (direct deposit or paper) is not stated.
+    sources:
+      - {source: ssa-poms-hi-00815-039, locator: "A. Routine Buy-In Accretion", quote: "the individual will receive a refund of any premiums deducted or paid for any month the individual was on buy-in"}
+      - {source: cms-spmp-ch1, locator: "1.5 Effect of Buy-in on an Individual", quote: "the beneficiary shall receive a refund from SSA for any premiums (including any late enrollment penalties) that were deducted from the benefit amount or for premiums directly paid by the beneficiary to CMS, for any month the beneficiary is enrolled in state buy-in"}
+      - {source: ssa-poms-hi-01001-205, locator: "paragraph beginning 'Whenever a State buy-in is processed retroactively'", quote: "the individual would receive a premium refund for 10/75 through 12/ 75 (the premium for 12/75 having been deducted from 11/75 benefit) in a separate check"}
+  - id: MSP-FED-BUYIN-REFUND-NOT-INCOME
+    statement: >-
+      A refund of Medicare premiums that SSA pays because of a state buy-in
+      is not countable income for SSI-methodology eligibility, so a Medicaid
+      agency may not count it against MSP or Medicaid eligibility; a person
+      the state put on buy-in by mistake keeps the refund, and the state may
+      not recover it.
+    kind: definition
+    applies_to: [QMB, SLMB, QI]
+    effective_from: 2025-01-16
+    confidence: confirmed
+    sources:
+      - {source: cms-spmp-ch1, locator: "1.5 Effect of Buy-in on an Individual, NOTE and footnote 19"}
+      - {source: ssa-poms-hi-00815-039, locator: "A.", quote: "Such a refund of SMI premiums is not considered income when determining eligibility for assistance."}
+  - id: MSP-FED-BUYIN-NOTICE
+    statement: >-
+      When a state's buy-in of the Part B premium is processed, SSA sends the
+      person a notice giving the effective date of the buy-in; a person who
+      had refused or dropped Part B is enrolled from the first month of
+      buy-in eligibility and gets a new Medicare card showing the Part B
+      start date.
+    kind: procedure
+    applies_to: [QMB, SLMB, QI]
+    effective_from: 2022-12-08
+    confidence: confirmed
+    note: The POMS section does not give the notice's title or form number.
+    sources:
+      - {source: ssa-poms-hi-00815-039, locator: "A. Routine Buy-In Accretion", quote: "SSA will send the individual a notice informing them of the effective date of the buy-in action."}
+  - id: MSP-FED-BUYIN-NO-PENALTY
+    statement: >-
+      While a person is on a state's Part B buy-in (QMB, SLMB or QI), the
+      state pays only the standard Part B premium and no late-enrollment
+      surcharge is charged, the state may enroll the person in Part B at any
+      time without regard to enrollment periods, and if the buy-in later ends
+      and the person keeps Part B, their own premium is the base amount even
+      if they paid a surcharge before the buy-in.
+    kind: benefit
+    applies_to: [QMB, SLMB, QI]
+    effective_from: 2024-01-12
+    confidence: confirmed
+    sources:
+      - {source: ssa-poms-hi-00815-001, locator: "B. The State Buy-in Agreement", quote: "states and territories do not pay a premium surcharge due to late enrollment that may otherwise have applied to an individual's monthly premium amount"}
+      - {source: ssa-poms-hi-00815-039, locator: "B. Routine Buy-In Deletion", quote: "if the individual does not withdraw, the premium will be the base amount even if they had been paying a premium surcharge for late enrollment prior to being on buy-in"}
+      - {source: cfr-42-407, locator: "407.40(c)(1); 407.47(g)"}
+  - id: MSP-FED-BUYIN-END
+    statement: >-
+      When an MSP ends, the state's deletion from buy-in can be dated no more
+      than two months before the month CMS processes it; SSA sends a notice
+      of the date the state stopped paying, deducts the Part B premium again
+      starting with the month after buy-in ends, and the person may owe up
+      to three months of premiums at once depending on when the deletion was
+      processed.
+    kind: timing
+    applies_to: [QMB, SLMB, QI]
+    effective_from: 2022-12-08
+    confidence: confirmed
+    sources:
+      - {source: ssa-poms-hi-00815-039, locator: "B. Routine Buy-In Deletion", quote: "The individual may be liable for up to 3 month's premiums depending on when the termination was processed."}
+      - {source: cms-spmp-ch1, locator: "Appendix 1.C, note ***: CMS limits the retroactivity of Part B deletions to two months prior to the processing month"}
+      - {source: cms-spmp-ch2, locator: "2.6.1.3 (Commissioner's Decision; COM schedule)"}
+  - id: MSP-FED-BUYIN-DEDUCTION-TIMING
+    statement: >-
+      No federal primary source states how many months after an MSP approval
+      the Part B premium stops being deducted from the Social Security
+      payment; it depends on when the state sends the accretion and when SSA
+      records it, and premiums deducted in the meantime for buy-in months are
+      refunded (MSP-FED-BUYIN-REFUND).
+    kind: timing
+    applies_to: [QMB, SLMB, QI]
+    effective_from: 2022-04-01
+    confidence: unresolved
+    open_question: MSP-FED-OQ-06
+
 procedure:
   applications:
     - id: MSP-FED-PROC-APPLY-STATE
@@ -387,7 +564,30 @@ procedure:
       sources:
         - {source: ssa-poms-hi-03001-005, locator: "D. Deemed eligibility and applying for Extra Help"}
         - {source: ssa-poms-hi-00815-024, locator: "A. Background on MIPPA"}
+  timelines:
+    - id: MSP-FED-TIME-BUYIN
+      text: >-
+        After the state approves an MSP it adds the person to its Part B buy-in
+        (daily file exchange with CMS since April 2022); CMS passes the update
+        to SSA daily, and SSA then stops the Part B deduction and refunds the
+        premiums already deducted for months back to the buy-in start (the MSP
+        effective month). No federal source gives the number of months this
+        takes; state agencies' own estimates are in the state parts.
+      confidence: confirmed
+      open_question: MSP-FED-OQ-06
+      sources:
+        - {source: cms-spmp-ch2, locator: "2.2; 2.3"}
+        - {source: ssa-poms-hi-00815-018, locator: "D. Summary of Buy-in Start Dates"}
+        - {source: ssa-poms-hi-00815-039, locator: "A."}
   approval_notice:
+    - id: MSP-FED-PROC-BUYIN-NOTICE
+      text: >-
+        SSA mails a notice giving the effective date of the state buy-in; a
+        person newly enrolled in Part B by the buy-in also gets a new Medicare
+        card. If the buy-in later ends, SSA sends a buy-out notice
+        (HCFA-L1636TR) giving the date the state stopped paying.
+      confidence: confirmed
+      sources: [{source: ssa-poms-hi-00815-039, locator: "A. Routine Buy-In Accretion; B. Routine Buy-In Deletion"}]
     - id: MSP-FED-PROC-EXTRA-HELP-NOTICE
       text: >-
         People deemed eligible for Extra Help get a notice from CMS (deeming is
@@ -441,15 +641,55 @@ life_events:
     sources: [{source: ssa-poms-hi-00815-024, locator: "A."}]
 
 outcome_proof:
-  - id: MSP-FED-PROOF-SSA-DEDUCTION
-    evidence: Social Security benefit statement or bank deposit amount
+  - id: MSP-FED-PROOF-BUYIN-NOTICE
+    evidence: SSA notice of the state buy-in effective date
     shows: >-
-      The Part B premium (2026: $202.90) is no longer deducted from the monthly
-      Social Security payment, so the net deposit rises by that amount, once
-      the state's buy-in takes effect.
+      The state has taken over the Part B premium and from which month (the
+      buy-in effective date, normally the MSP effective month). This is the
+      first federal record that the premium has moved off the member.
+    how_to_get: Mailed by SSA once the state's buy-in accretion is processed; title and form number not published in POMS
+    when: After the state's accretion reaches SSA (timing not fixed federally, MSP-FED-OQ-06)
+    confidence: confirmed
+    open_question: MSP-FED-OQ-06
+    sources: [{source: ssa-poms-hi-00815-039, locator: "A. Routine Buy-In Accretion", quote: "SSA will send the individual a notice informing them of the effective date of the buy-in action."}]
+  - id: MSP-FED-PROOF-SSA-DEDUCTION
+    evidence: Social Security payment amount (benefit statement, my Social Security account, or bank deposit)
+    shows: >-
+      The Part B premium (2026: $202.90 standard) is no longer deducted from
+      the monthly Social Security payment, so the payment rises by that
+      amount once the state's buy-in is recorded by SSA.
     how_to_get: my Social Security account (ssa.gov), SSA benefit letter, or bank statement
-    confidence: unresolved
-    open_question: MSP-FED-OQ-04
+    when: From the first payment after SSA records the buy-in (MSP-FED-OQ-06)
+    confidence: confirmed
+    open_question: MSP-FED-OQ-06
+    note: >-
+      What the my Social Security screen or benefit verification letter
+      displays was not checked against a primary source (ssa.gov pages refuse
+      scripted and research fetches); the deduction stopping is confirmed.
+    sources:
+      - {source: ssa-poms-hi-00815-039, locator: "A.", quote: "the SMI (Part B) premium will no longer be deducted from their benefit resulting in a higher monthly payment"}
+      - {source: cms-spmp-ch1, locator: "1.5 Effect of Buy-in on an Individual"}
+  - id: MSP-FED-PROOF-PREMIUM-REFUND
+    evidence: SSA premium refund payment
+    shows: >-
+      A one-time payment refunding the Part B premiums that were deducted (or
+      paid on a Medicare Premium Bill) for months the state's buy-in covers,
+      i.e. from the MSP effective month (including SLMB/QI retroactive months)
+      until the deduction stopped.
+    how_to_get: Paid by SSA as a separate payment; shows on the bank statement and in SSA payment history
+    when: When SSA processes the buy-in
+    confidence: confirmed
+    sources:
+      - {source: ssa-poms-hi-01001-205, locator: "'Whenever a State buy-in is processed retroactively' ... in a separate check"}
+      - {source: cms-spmp-ch1, locator: "1.5"}
+  - id: MSP-FED-PROOF-PREMIUM-BILL-STOPS
+    evidence: Medicare Premium Bill (Form CMS-500) stops coming
+    shows: For a member who pays Medicare directly (not through Social Security), the state buy-in ends direct premium billing; premiums paid for buy-in months are refunded.
+    how_to_get: The member's own bills and Medicare.gov account payment history
+    confidence: confirmed
+    sources:
+      - {source: ssa-poms-hi-00815-001, locator: "A. Background (CMS direct premium billing (Form CMS-500))"}
+      - {source: ssa-poms-hi-00815-039, locator: "A.", quote: "direct billing will cease"}
   - id: MSP-FED-PROOF-MSN
     evidence: Medicare Summary Notice (Original Medicare)
     shows: For QMB enrollees, the Medicare Summary Notice shows the person is in the QMB program and owes nothing for Medicare-covered services.
@@ -526,8 +766,28 @@ open_questions:
       it usually takes before the deduction stops and the refund of
       already-deducted premiums arrives?
     why_it_matters: This is the outcome proof the institution pays on; the agent needs to tell the member what to look for and when.
-    checked: [Medicare.gov MSP page, SSA POMS HI 00815.024]
-    affects: [MSP-FED-PROOF-SSA-DEDUCTION]
+    checked: [Medicare.gov MSP page, SSA POMS HI 00815.024, HI 00815.001, HI 00815.018, HI 00815.039, HI 00815.060, HI 01001.205, CMS Manual for State Payment of Medicare Premiums ch. 1 (Rev. 7) and ch. 2 (Rev. 4), "42 CFR 406.26, 407.40, 407.42, 407.47"]
+    affects: [MSP-FED-PROOF-SSA-DEDUCTION, MSP-FED-PROOF-BUYIN-NOTICE, MSP-FED-PROOF-PREMIUM-REFUND]
+    status: answered
+    answer: >-
+      SSA POMS HI 00815.039 A: SSA sends a notice of the buy-in effective
+      date, the Part B deduction stops (higher monthly payment) or direct
+      billing ends, and SSA refunds premiums deducted or paid for any month on
+      buy-in; HI 01001.205 says a retroactively processed buy-in is refunded
+      in a separate check; CMS buy-in manual ch. 1, 1.5 adds that late
+      penalties are refunded too and the refund is not income. Buy-in starts
+      with the MSP effective month (HI 00815.018; 42 CFR 407.47(c)). The
+      number of months until the deduction stops is not in any federal
+      primary source: split out as MSP-FED-OQ-06.
+  - id: MSP-FED-OQ-06
+    priority: high
+    question: >-
+      How many months after an MSP approval does SSA typically stop the Part
+      B deduction and pay the refund (is there a federal processing standard
+      for state accretions or for SSA's refund)?
+    why_it_matters: The fund pays on the deduction stopping; the agent must tell the member when to expect it and when to escalate.
+    checked: [CMS Manual for State Payment of Medicare Premiums ch. 1 and ch. 2 (daily exchange, COM schedule, billing period rules; no beneficiary-facing timeline), SSA POMS HI 00815.039, HI 00815.060, HI 00815.063, HI 01001.205, "42 CFR 407.40 and 407.47", ssa.gov benefit-letter pages (HTTP 403)]
+    affects: [MSP-FED-BUYIN-DEDUCTION-TIMING, MSP-FED-BUYIN-DAILY-EXCHANGE, MSP-FED-TIME-BUYIN, MSP-FED-PROOF-SSA-DEDUCTION, MSP-FED-PROOF-BUYIN-NOTICE]
     status: open
 
   - id: MSP-FED-OQ-05
@@ -536,6 +796,22 @@ open_questions:
     why_it_matters: The evaluator excludes them; an SSI recipient's MSP result depends on it (though most SSI recipients get Medicaid and QMB anyway).
     checked: [42 U.S.C. 1382a(b) (SSI exclusions), SSA POMS HI 00815.023]
     affects: [MSP-FED-INCOME-SSI-METHOD]
+    status: open
+
+conflicts:
+  - id: MSP-FED-CONFLICT-01
+    topic: Which month Part B buy-in starts for SLMB and QI enrollees
+    claims:
+      - {source: cfr-42-407, locator: "407.47(c)-(d)", says: "407.47(c) gives the first-month start only to QMBs; 407.47(d) covers individuals who 'are not QMBs' (and not cash-assistance) and starts their buy-in the second month after they meet SMI and Medicaid eligibility."}
+      - {source: ssa-poms-hi-00815-018, locator: "D. Summary of Buy-in Start Dates (SLMB and QI rows, citing 42 CFR 407.47(c))", says: "SLMB and QI: Part B buy-in starts the first day of the month an individual qualifies for Medicare and is a member of the coverage group."}
+      - {source: cms-spmp-ch1, locator: "1.13.1; Appendix 1.C", says: "For the three MSPs, Part B buy-in begins the first month the individual meets both buy-in group and Part B eligibility (42 CFR 407.47(b) and (c))."}
+    handling: >-
+      The archive follows CMS's manual and SSA's POMS (the agencies that run
+      buy-in): SLMB and QI buy-in starts with the MSP effective month
+      (MSP-FED-BUYIN-START). Either way the person is refunded premiums for
+      every buy-in month, so the reading changes at most one month of
+      refund.
+    affects: [MSP-FED-BUYIN-START]
     status: open
 
 claims_checked:

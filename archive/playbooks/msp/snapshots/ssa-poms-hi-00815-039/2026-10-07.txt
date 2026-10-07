@@ -1,0 +1,96 @@
+Skip to content
+
+Program Operations Manual System (POMS)
+
+Effective Dates: 12/08/2022 - Present
+Previous | Next
+
+TN 58 (03-25)
+
+HI 00815.039 Effect of Buy-In on the Individual
+
+A. Routine Buy-In Accretion
+
+SSA will send the individual a notice informing them of the effective date of the
+buy-in action.
+
+If the individual is receiving a Social Security check, the SMI (Part B) premium will
+no longer be deducted from their benefit resulting in a higher monthly payment. If
+the individual was not receiving a Social Security check, but instead was being billed
+directly for SMI, direct billing will cease. In both cases, the individual will receive
+a refund of any premiums deducted or paid for any month the individual was on buy-in.
+Such a refund of SMI premiums is not considered income when determining eligibility
+for assistance.
+
+If the individual previously refused SMI or withdrew from it, entitlement will be
+established or reestablished effective with the first month the individual was eligible
+for buy-in. The individual will receive a new Medicare card indicating the new Part
+B entitlement date.
+
+B. Routine Buy-In Deletion
+
+SSA will send the individual a notice informing them of the date the State stopped
+paying their Part B premium. The individual will be sent a buy-out notice HCFA-L1636TR
+(see HI 00815.201) notifying them of the date the State stopped paying their Part B premium. If the
+individual is receiving a Social Security check, the SMI premium will be deducted
+from their monthly benefit check beginning with the first month after the month in
+which the buy-in terminated. The individual may be liable for up to 3 month's premiums
+depending on when the termination was processed. If the individual is not receiving
+a Social Security check, they will be billed directly for the SMI premiums. When buy-in
+ends they have the option to then withdraw from Part B if they do not want the coverage
+to continue. However, if the individual does not withdraw, the premium will be the
+base amount even if they had been paying a premium surcharge for late enrollment prior
+to being on buy-in.
+
+NOTE:
+
+See HI 00815.042C if the individual states that the SMI deduction is causing financial hardship.
+
+C. Closed Period of Buy-In Coverage
+
+The State may report a simultaneous accretion/deletion action, referred to as a closed
+period of buy-in coverage. The transaction will have both buy-in Start (first month
+covered by buy-in) and Stop (last month covered by buy-in) dates. For example, “Start
+07/2025 Stop 09/2025.”
+
+1. CURRENT CLOSED PERIOD
+
+If the deletion date in the simultaneous accretion/deletion action is less than 3 months retroactive from the month in which CMS is notified of the simultaneous
+accretion/deletion, the individual"s SMI coverage will continue even though the buy-in
+has terminated. If the individual already had SMI coverage, prior to the simultaneous
+accretion/deletion action, and is paying premium surcharge for late enrollment, their
+premium rate will be reduced to the standard premium amount for all months after the
+buy-in period. Any amount the individual paid in excess of the standard premium will
+be refunded to them along with all premiums they paid for the closed period of buy-in
+coverage. The individual will have the right to re-enroll in SMI if they terminate
+their present coverage. SSA will send the individual a notice informing them of the
+inclusive dates of the closed period of buy-in coverage.
+
+2. RETROACTIVE CLOSED PERIOD
+
+In simultaneous accretion/deletion cases when the reported deletion month does not
+represent a current period, i.e., when the effective deletion month is 3 or more months
+before the month in which CMS received the prescribed notice of accretion and deletion,
+the enrollee is awarded a closed period of buy-in coverage and has buy-in coverage
+only for the months reported by the State. The State is liable for premium payments
+only for those months. If the enrollee had individual coverage and paid premiums for
+any of the months in the closed period, premiums for those months are refunded to
+them.
+
+The enrollee's current SMI coverage is not affected, i.e., if they have SMI coverage,
+it will continue. Conversely, if the individual did not have SMI coverage prior to
+the State's action, they are not awarded individual SMI coverage following the period
+of buy-in coverage.
+
+However, the records are annotated to reflect the prior buy-in coverage. Also, if
+the individual enrolls for SMI at a later date, only months after the buy-in coverage
+period will be counted in determining the statutory premium increase for late enrollments.
+
+To Link to this section - Use this URL:
+http://policy.ssa.gov/poms.nsf/lnx/0600815039
+
+HI 00815.039 - Effect of Buy-In on the Individual - 12/08/2022
+
+Batch run: 07/16/2025
+
+Rev:12/08/2022

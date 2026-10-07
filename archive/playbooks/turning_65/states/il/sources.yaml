@@ -1,6 +1,6 @@
 # Illinois sources for the Turning 65 playbook. ilga.gov (statutes and Public
-# Acts) could not be reached (TLS failure from scripts, HTTP 503 from WebFetch),
-# so 215 ILCS 5/363 itself is not snapshotted; see T65-IL-OQ-01.
+# Acts) is reachable since tools/fetch.py supplies the missing intermediate
+# certificate; 215 ILCS 5/363 and the two Public Acts are snapshotted.
 sources:
   - id: il-aging-medicare-choices-2026
     retrieved: 2026-10-07
@@ -36,3 +36,33 @@ sources:
     kind: secondary
     jurisdiction: il
     doc_type: other
+  - id: ilga-215-ilcs-5-363
+    retrieved: 2026-10-07
+    url: https://www.ilga.gov/Documents/legislation/ilcs/documents/021500050K363.htm
+    publisher: Illinois General Assembly
+    title: "215 ILCS 5/363 (Illinois Insurance Code, Sec. 363: Medicare supplement policies; minimum standards)"
+    kind: primary
+    jurisdiction: il
+    doc_type: statute
+    section: "Sec. 363(8)"
+    note: "Current compiled text; source line: (Source: P.A. 103-102, eff. 6-16-23; 103-747, eff. 1-1-26; 104-417, eff. 8-15-25.)"
+  - id: ilga-pa-102-0142
+    retrieved: 2026-10-07
+    url: https://www.ilga.gov/Documents/legislation/publicacts/102/102-0142.htm
+    publisher: Illinois General Assembly
+    title: Public Act 102-0142 (SB 147), amending 215 ILCS 5/363 to add the annual birthday open enrollment
+    kind: primary
+    jurisdiction: il
+    doc_type: statute
+    effective_date: 2022-01-01
+    section: "Sec. 363(8); Section 99"
+  - id: ilga-pa-103-0747
+    retrieved: 2026-10-07
+    url: https://www.ilga.gov/Documents/legislation/publicacts/103/103-0747.htm
+    publisher: Illinois General Assembly
+    title: Public Act 103-0747 (SB 56), amending 215 ILCS 5/363(8) to add "or any affiliate authorized to transact business in this State"
+    kind: primary
+    jurisdiction: il
+    doc_type: statute
+    effective_date: 2026-01-01
+    section: "Sec. 363(8); Section 99"

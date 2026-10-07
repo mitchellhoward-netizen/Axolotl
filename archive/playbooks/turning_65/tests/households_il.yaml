@@ -631,3 +631,83 @@ cases:
     - T65-FED-IRMAA-PART-B
   crosscheck:
     policyengine: true
+- id: T65-IL-T21
+  title: 'Medigap holder at 70 on day 44 after the birthday (last day of the 45-day window)'
+  as_of: '2026-06-28'
+  tags:
+  - threshold
+  - edge
+  household:
+    state: il
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+      facts:
+        birth_date: '1956-05-15'
+        medigap:
+          has_policy: true
+          part_b_start: '2021-05-01'
+    incomes: []
+  expect:
+    status: eligible
+    tier: ENROLLED
+    rules_include:
+    - T65-IL-MEDIGAP-BIRTHDAY
+    amounts:
+      medigap_guaranteed_issue_now: 1.0
+      medigap_birthday_affiliate_allowed: 1.0
+  note: 215 ILCS 5/363(8) - 45 days commencing with the birthday (May 15 is day 0, June 28 is day 44). From 2026 an affiliate's policy is covered (P.A. 103-0747).
+- id: T65-IL-T22
+  title: 'Same holder on day 45 after the birthday: Illinois window closed'
+  as_of: '2026-06-29'
+  tags:
+  - threshold
+  - edge
+  household:
+    state: il
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+      facts:
+        birth_date: '1956-05-15'
+        medigap:
+          has_policy: true
+          part_b_start: '2021-05-01'
+    incomes: []
+  expect:
+    status: eligible
+    tier: ENROLLED
+    amounts:
+      medigap_guaranteed_issue_now: 0.0
+- id: T65-IL-T23
+  title: 'Medigap holder aged 75 (top of the age range) inside the window in 2025: same issuer only, no affiliate'
+  as_of: '2025-06-14'
+  tags:
+  - threshold
+  - timing
+  household:
+    state: il
+    members:
+    - id: a
+      age: 75
+      medicare_part_a: true
+      medicare_part_b: true
+      facts:
+        birth_date: '1950-05-15'
+        medigap:
+          has_policy: true
+          part_b_start: '2015-05-01'
+    incomes: []
+  expect:
+    status: eligible
+    tier: ENROLLED
+    rules_include:
+    - T65-IL-MEDIGAP-BIRTHDAY
+    amounts:
+      medigap_guaranteed_issue_now: 1.0
+      medigap_birthday_affiliate_allowed: 0.0
+  note: In 2025 Sec. 363(8) read "with the same issuer" (P.A. 102-0142); the affiliate wording took effect January 1, 2026 (P.A. 103-0747, Section 99). Age 75 is inside "no more than 75 years of age".

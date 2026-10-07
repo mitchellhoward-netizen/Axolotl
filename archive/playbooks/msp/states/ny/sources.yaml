@@ -103,3 +103,26 @@ sources:
       including headless Chromium); the snapshot was imported from a research
       fetch. Where this is the only source for a rule, the rule is marked
       secondary.
+  - id: ny-adm-00-omm-07
+    retrieved: 2026-10-07
+    url: https://www.health.ny.gov/health_care/medicaid/publications/docs/adm/00adm7.pdf
+    publisher: New York State Department of Health, Office of Medicaid Management
+    title: 00 OMM/ADM-7 — Medicare premium payment programs (MPPP) eligibility and notice requirements
+    kind: primary
+    jurisdiction: ny
+    doc_type: directive
+    published: 2000-09-01
+    note: >-
+      Dated September 1, 2000; describes the pre-2023 tiers (QMB, SLIMB, QI-1/QI-2)
+      and WMS Buy-In coding. Used only for the names of the LDSS notices and the
+      fact that MSP enrollment is entered on the Buy-In; check for later notice
+      revisions before relying on form numbers.
+  - id: ny-gis-23-ma-10
+    retrieved: 2026-10-07
+    url: https://www.health.ny.gov/health_care/medicaid/publications/docs/gis/23ma10.pdf
+    publisher: New York State Department of Health, Office of Health Insurance Programs
+    title: GIS 23 MA/10 — Update to Medicare Premium Payment Process for Individuals Referred From NY State of Health to a Local Department of Social Services
+    kind: primary
+    jurisdiction: ny
+    doc_type: directive
+    published: 2023-05-26

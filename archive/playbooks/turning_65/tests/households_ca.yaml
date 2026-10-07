@@ -677,3 +677,64 @@ cases:
     - T65-FED-IRMAA-PART-B
   crosscheck:
     policyengine: true
+- id: T65-CA-T21
+  title: 'Medigap holder at 72 on day 59 after the birthday (last day of the 60-day minimum window)'
+  as_of: '2026-11-08'
+  tags:
+  - threshold
+  - edge
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 72
+      medicare_part_a: true
+      medicare_part_b: true
+      facts:
+        birth_date: '1954-09-10'
+        medigap:
+          has_policy: true
+          part_b_start: '2019-09-01'
+    incomes: []
+  expect:
+    status: eligible
+    tier: ENROLLED
+    rules_include:
+    - T65-CA-MEDIGAP-BIRTHDAY
+    amounts:
+      medigap_guaranteed_issue_now: 1.0
+  note: Insurance Code 10192.11(h)(1) - "60 days or more, commencing with the individual's birthday"; Sept 10 is day 0, Nov 8 is day 59. Day 60 (Nov 9) is outside the statutory minimum (an insurer may allow longer).
+- id: T65-CA-T22
+  title: 'Disabled Medigap holder aged 58 inside the birthday window: California covers any age; Illinois only 65-75'
+  as_of: '2026-04-20'
+  tags:
+  - cross_state
+  - edge
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 58
+      disabled: true
+      medicare_part_a: true
+      medicare_part_b: true
+      facts:
+        birth_date: '1968-04-01'
+        medigap:
+          has_policy: true
+          part_b_start: '2020-04-01'
+    incomes: []
+  expect:
+    status: eligible
+    tier: ENROLLED
+    rules_include:
+    - T65-CA-MEDIGAP-BIRTHDAY
+    amounts:
+      medigap_guaranteed_issue_now: 1.0
+  compare_states:
+    il:
+      status: eligible
+      tier: ENROLLED
+      amounts:
+        medigap_guaranteed_issue_now: 0.0
+  note: Insurance Code 10192.11(h)(1) says "An individual" with no age range; 215 ILCS 5/363(8) requires age 65 to 75.
