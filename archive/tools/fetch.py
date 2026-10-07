@@ -85,11 +85,26 @@ def ca_bundle() -> str:
     return _BUNDLE
 
 
-def fetch(url: str, timeout: int = 60) -> Fetched:
-    try:
-        r = requests.get(url, headers=HEADERS, timeout=timeout, allow_redirects=True, verify=ca_bundle())
-    except requests.RequestException as e:
-        return Fetched(url, url, 0, "", b"", f"FETCH ERROR: {e}")
+RETRY_STATUS = {0, 404, 429, 500, 502, 503, 504}
+
+
+def fetch(url: str, timeout: int = 60, attempts: int = 5) -> Fetched:
+    """Fetch with retries: some agency CDNs (FNS) answer 404 or 5xx intermittently."""
+    import time
+
+    r = None
+    err = ""
+    for i in range(attempts):
+        try:
+            r = requests.get(url, headers=HEADERS, timeout=timeout, allow_redirects=True, verify=ca_bundle())
+            if r.status_code not in RETRY_STATUS:
+                break
+        except requests.RequestException as e:
+            r, err = None, str(e)
+        if i < attempts - 1:
+            time.sleep(1 + i)
+    if r is None:
+        return Fetched(url, url, 0, "", b"", f"FETCH ERROR: {err}")
     ctype = r.headers.get("content-type", "").lower()
     body = r.content
     f = Fetched(url, r.url, r.status_code, ctype, body, "")

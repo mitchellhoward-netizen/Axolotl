@@ -122,6 +122,14 @@ def validate(stats: bool = False) -> tuple[Report, dict[str, Any]]:
             elif str(s.get("retrieved")) != str(ok_snap["retrieved"]):
                 rep.err(where, f"source {s['id']} retrieved={s.get('retrieved')} but latest good snapshot is {ok_snap['retrieved']}")
 
+    by_url: dict[str, list[str]] = {}
+    for sid, (part, s) in sources.items():
+        by_url.setdefault(s["url"].rstrip("/"), []).append(f"{part.label}:{sid}")
+    for url, ids in by_url.items():
+        if len(ids) > 1:
+            rep.warn(ids[0].split(":")[0], f"same URL under {len(ids)} source IDs ({', '.join(ids)}); "
+                     "cite one ID (move it to shared/ if several playbooks need it)")
+
     def scope_of(where: str) -> str:
         """federal | ny | ca | il | shared, from a playbook or parameter path label."""
         if where.startswith("shared"):

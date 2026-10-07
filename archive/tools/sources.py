@@ -74,7 +74,8 @@ def take_snapshot(part: Part, src: dict, today: date | None = None) -> dict:
         # Keep the failure on record but do not store the error page as a snapshot.
         entry["error"] = f.text[:300] if f.status == 0 else f"HTTP {f.status}"
         entry["text"] = None
-        m = [e for e in read_manifest(part, sid) if e["retrieved"] != entry["retrieved"]] + [entry]
+        # Never let a failed re-fetch replace a good snapshot taken the same day.
+        m = [e for e in read_manifest(part, sid) if e["retrieved"] != entry["retrieved"] or not e.get("error")] + [entry]
         manifest_path(part, sid).write_text(yaml.safe_dump(m, sort_keys=False))
         return entry
     (d / f"{today.isoformat()}.txt").write_text(f.text)

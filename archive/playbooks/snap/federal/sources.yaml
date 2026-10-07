@@ -43,7 +43,8 @@ sources:
     effective_date: 2025-10-01
   - id: fns-snap-fy26-allotments-deductions
     retrieved: 2026-10-07
-    url: https://fns-prod.azureedge.us/sites/default/files/resource-files/snap-fy26maximumAllotments-deductions.pdf
+    url: https://www.fns.usda.gov/sites/default/files/resource-files/snap-fy26maximumAllotments-deductions.pdf
+    note: FNS's canonical host. Its CDN answers 404 intermittently (seen 2026-10-07); the fetcher retries. Same text as the original fns-prod.azureedge.us copy.
     publisher: USDA Food and Nutrition Service (FNS)
     title: SNAP Fiscal Year 2026 Maximum Allotments and Deductions
     kind: primary
