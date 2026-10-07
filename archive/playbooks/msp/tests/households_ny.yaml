@@ -1,0 +1,722 @@
+# Synthetic New York households for the Medicare Savings Program. No real people.
+program: msp
+scope: ny
+cases:
+- id: MSP-NY-T01
+  title: Single, Social Security $1,500 gross, well under QMB
+  as_of: '2026-03-01'
+  tags:
+  - single
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 1500
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: QMB
+    rules_include:
+    - MSP-NY-QMB-INCOME
+    - MSP-NY-NO-RESOURCE-TEST
+    links_include:
+    - extra_help:deemed
+    amounts:
+      part_b_premium_paid_monthly: 202.9
+  crosscheck:
+    policyengine: true
+- id: MSP-NY-T02
+  title: "Single, gross exactly $1,856 (QMB standard $1,836 + $20) \u2014 at the QMB limit"
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - threshold
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 1856
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: QMB
+  crosscheck:
+    policyengine: true
+- id: MSP-NY-T03
+  title: "Single, gross $1,857 \u2014 one dollar over QMB, so QI"
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - threshold
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 1857
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: QI
+    rules_include:
+    - MSP-NY-QI-INCOME
+    links_include:
+    - extra_help:deemed
+  crosscheck:
+    policyengine: true
+- id: MSP-NY-T04
+  title: "Single, gross exactly $2,494 \u2014 at the QI limit"
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - threshold
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 2494
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: QI
+  crosscheck:
+    policyengine: true
+- id: MSP-NY-T05
+  title: "Single, gross $2,495 \u2014 one dollar over QI"
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - threshold
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 2495
+      owner: a
+    assets: []
+  expect:
+    status: ineligible
+    tier: null
+  crosscheck:
+    policyengine: true
+- id: MSP-NY-T06
+  title: "Couple, combined gross $2,509 \u2014 at the couple QMB limit"
+  as_of: '2026-03-01'
+  tags:
+  - couple
+  - threshold
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    - id: b
+      age: 69
+      relationship: spouse
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 1400
+      owner: a
+    - kind: social_security
+      monthly: 1109
+      owner: b
+  expect:
+    status: eligible
+    tier: QMB
+    rules_include:
+    - MSP-NY-COUPLE
+  crosscheck:
+    policyengine: true
+- id: MSP-NY-T07
+  title: "Couple, combined gross $2,510 \u2014 just over couple QMB"
+  as_of: '2026-03-01'
+  tags:
+  - couple
+  - threshold
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    - id: b
+      age: 69
+      relationship: spouse
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 1400
+      owner: a
+    - kind: social_security
+      monthly: 1110
+      owner: b
+  expect:
+    status: eligible
+    tier: QI
+  crosscheck:
+    policyengine: true
+- id: MSP-NY-T08
+  title: "Couple, combined gross $3,375 \u2014 at the couple QI limit"
+  as_of: '2026-03-01'
+  tags:
+  - couple
+  - threshold
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    - id: b
+      age: 69
+      relationship: spouse
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 1800
+      owner: a
+    - kind: social_security
+      monthly: 1575
+      owner: b
+  expect:
+    status: eligible
+    tier: QI
+  crosscheck:
+    policyengine: true
+- id: MSP-NY-T09
+  title: "Couple, combined gross $3,376 \u2014 over the couple QI limit"
+  as_of: '2026-03-01'
+  tags:
+  - couple
+  - threshold
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    - id: b
+      age: 69
+      relationship: spouse
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 1800
+      owner: a
+    - kind: social_security
+      monthly: 1576
+      owner: b
+  expect:
+    status: ineligible
+    tier: null
+  crosscheck:
+    policyengine: true
+- id: MSP-NY-T10
+  title: "Single retiree, SS $1,200 + pension $1,000, $250,000 in savings \u2014 QI because NY has no asset test"
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - cross_state
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 1200
+      owner: a
+    - kind: pension
+      monthly: 1000
+      owner: a
+    assets:
+    - kind: cash
+      value: 250000
+      owner: a
+  expect:
+    status: eligible
+    tier: QI
+    rules_include:
+    - MSP-NY-NO-RESOURCE-TEST
+  crosscheck:
+    policyengine: true
+- id: MSP-NY-T11
+  title: "Single 66-year-old without Part A (no Buy-in) \u2014 not eligible"
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - edge
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 66
+      medicare_part_a: false
+      medicare_part_b: false
+    incomes:
+    - kind: social_security
+      monthly: 1100
+      owner: a
+    assets: []
+  expect:
+    status: ineligible
+    tier: null
+    rules_include:
+    - MSP-NY-PART-A
+  crosscheck:
+    policyengine: true
+- id: MSP-NY-T12
+  title: "Single 67-year-old without premium-free Part A using the Part A Buy-in \u2014 QMB"
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - edge
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 67
+      medicare_part_a: false
+      medicare_part_b: true
+      facts:
+        part_a_buy_in: true
+    incomes:
+    - kind: social_security
+      monthly: 900
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: QMB
+  crosscheck:
+    policyengine: false
+- id: MSP-NY-T13
+  title: "Working 67-year-old: SS $900 + wages $1,500 \u2014 gross $2,400 but QMB after earned income disregards"
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - edge
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 67
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 900
+      owner: a
+    - kind: earned
+      monthly: 1500
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: QMB
+  crosscheck:
+    policyengine: true
+- id: MSP-NY-T14
+  title: "Single with Medicaid (spenddown), income in QI range \u2014 cannot hold QI and Medicaid"
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - other_benefits
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+      benefits:
+      - medicaid
+    incomes:
+    - kind: social_security
+      monthly: 2100
+      owner: a
+    assets: []
+  expect:
+    status: ineligible
+    tier: null
+    rules_include:
+    - MSP-NY-QI-NOT-MEDICAID
+  crosscheck:
+    policyengine: true
+- id: MSP-NY-T15
+  title: "Same person choosing QI over Medicaid \u2014 QI"
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - other_benefits
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+      benefits:
+      - medicaid
+      facts:
+        chooses_qi_over_medicaid: true
+    incomes:
+    - kind: social_security
+      monthly: 2100
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: QI
+  crosscheck:
+    policyengine: false
+- id: MSP-NY-T16
+  title: "Medicaid recipient with income in QMB range \u2014 QMB alongside Medicaid"
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - other_benefits
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+      benefits:
+      - medicaid
+    incomes:
+    - kind: social_security
+      monthly: 1500
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: QMB
+  crosscheck:
+    policyengine: true
+- id: MSP-NY-T17
+  title: "Couple where only the applicant has Medicare; spouse (62) earns $2,000 \u2014 household of two, QMB"
+  as_of: '2026-03-01'
+  tags:
+  - couple
+  - edge
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    - id: b
+      age: 62
+      relationship: spouse
+      medicare_part_a: false
+      medicare_part_b: false
+    incomes:
+    - kind: social_security
+      monthly: 1000
+      owner: a
+    - kind: earned
+      monthly: 2000
+      owner: b
+  expect:
+    status: eligible
+    tier: QMB
+    rules_include:
+    - MSP-NY-COUPLE
+  crosscheck:
+    policyengine: true
+- id: MSP-NY-T18
+  title: "January 2026 transition month: SS $1,880 including a $51.43 COLA \u2014 COLA not counted, QMB"
+  as_of: '2026-01-15'
+  tags:
+  - single
+  - timing
+  - threshold
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+      facts:
+        ss_cola_increase_monthly: 51.43
+    incomes:
+    - kind: social_security
+      monthly: 1880
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: QMB
+    rules_include:
+    - MSP-FED-COLA-TRANSITION
+  crosscheck:
+    policyengine: false
+- id: MSP-NY-T19
+  title: "Same household in March 2026 \u2014 COLA now counted, QI"
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - timing
+  - threshold
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+      facts:
+        ss_cola_increase_monthly: 51.43
+    incomes:
+    - kind: social_security
+      monthly: 1880
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: QI
+  crosscheck:
+    policyengine: true
+- id: MSP-NY-T20
+  title: 'QDWI: 50-year-old disabled worker who lost premium-free Part A, wages $4,000, $3,000 saved'
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - edge
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 50
+      disabled: true
+      medicare_part_a: false
+      medicare_part_b: true
+      facts:
+        lost_part_a_due_to_work: true
+    incomes:
+    - kind: earned
+      monthly: 4000
+      owner: a
+    assets:
+    - kind: cash
+      value: 3000
+      owner: a
+  expect:
+    status: eligible
+    tier: QDWI
+    rules_include:
+    - MSP-NY-QDWI
+  crosscheck:
+    policyengine: false
+- id: MSP-NY-T21
+  title: "QDWI candidate with $5,000 saved \u2014 over the QDWI resource limit, and no Part A for QMB/QI"
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - edge
+  - threshold
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 50
+      disabled: true
+      medicare_part_a: false
+      medicare_part_b: true
+      facts:
+        lost_part_a_due_to_work: true
+    incomes:
+    - kind: earned
+      monthly: 4000
+      owner: a
+    assets:
+    - kind: cash
+      value: 5000
+      owner: a
+  expect:
+    status: ineligible
+    tier: null
+  crosscheck:
+    policyengine: false
+- id: MSP-NY-T22
+  title: "SSI recipient: SS $500 + SSI $494 (SSI not counted) \u2014 QMB"
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - other_benefits
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+      benefits:
+      - ssi
+      - medicaid
+    incomes:
+    - kind: social_security
+      monthly: 500
+      owner: a
+    - kind: ssi
+      monthly: 494
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: QMB
+  crosscheck:
+    policyengine: true
+- id: MSP-NY-T23
+  title: "Recently widowed: now single with survivor benefit $2,300 \u2014 QI at the individual limit"
+  as_of: '2026-03-01'
+  tags:
+  - single
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 78
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 2300
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: QI
+  crosscheck:
+    policyengine: true
+- id: MSP-NY-T24
+  title: "Date with no sourced parameters (June 2025) \u2014 undetermined, not guessed"
+  as_of: '2025-06-01'
+  tags:
+  - single
+  - unresolved
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 1500
+      owner: a
+    assets: []
+  expect:
+    status: undetermined
+  crosscheck:
+    policyengine: false
+- id: MSP-X-01
+  title: "Cross-playbook (Extra Help): SS $1,700, $40,000 savings \u2014 QMB deems Extra Help though she would fail the Extra\
+    \ Help asset test applying directly"
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - cross_playbook
+  - other_benefits
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 1700
+      owner: a
+    assets:
+    - kind: cash
+      value: 40000
+      owner: a
+  expect:
+    status: eligible
+    tier: QMB
+    links_include:
+    - extra_help:deemed
+    rules_include:
+    - MSP-FED-EXTRA-HELP-DEEMED
+  also:
+  - program: msp
+    function: extra_help_by_application
+    expect:
+      status: ineligible
+  crosscheck:
+    policyengine: true
+- id: MSP-X-02
+  title: "Cross-playbook (Medicaid): SS $2,000 and full Medicaid \u2014 QMB not available, QI blocked by Medicaid"
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - cross_playbook
+  - other_benefits
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+      benefits:
+      - medicaid
+    incomes:
+    - kind: social_security
+      monthly: 2000
+      owner: a
+    assets: []
+  expect:
+    status: ineligible
+    tier: null
+    rules_include:
+    - MSP-NY-QI-NOT-MEDICAID
+  crosscheck:
+    policyengine: true

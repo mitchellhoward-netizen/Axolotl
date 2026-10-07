@@ -1,0 +1,86 @@
+sources:
+  - id: usc-42-1396d
+    retrieved: 2026-10-07
+    url: https://www.govinfo.gov/content/pkg/USCODE-2023-title42/html/USCODE-2023-title42-chap7-subchapXIX-sec1396d.htm
+    publisher: U.S. Government Publishing Office (United States Code, 2023 edition)
+    title: 42 U.S.C. 1396d — Definitions (Social Security Act sec. 1905)
+    kind: primary
+    jurisdiction: federal
+    doc_type: statute
+    section: "(p) Qualified medicare beneficiary; medicare cost-sharing"
+    note: 2023 edition of the Code; check later amendments before relying on text outside subsection (p).
+  - id: usc-42-1396a
+    retrieved: 2026-10-07
+    url: https://www.govinfo.gov/content/pkg/USCODE-2023-title42/html/USCODE-2023-title42-chap7-subchapXIX-sec1396a.htm
+    publisher: U.S. Government Publishing Office (United States Code, 2023 edition)
+    title: 42 U.S.C. 1396a — State plans for medical assistance (Social Security Act sec. 1902)
+    kind: primary
+    jurisdiction: federal
+    doc_type: statute
+    note: (a)(10)(E) MSP groups; (e)(8) QMB effective date; (r)(2) less restrictive methodologies.
+  - id: usc-42-1396u-3
+    retrieved: 2026-10-07
+    url: https://www.govinfo.gov/content/pkg/USCODE-2023-title42/html/USCODE-2023-title42-chap7-subchapXIX-sec1396u-3.htm
+    publisher: U.S. Government Publishing Office (United States Code, 2023 edition)
+    title: 42 U.S.C. 1396u-3 — State programs for payment of Medicare Part B premiums for qualifying individuals
+    kind: primary
+    jurisdiction: federal
+    doc_type: statute
+  - id: medicare-gov-msp
+    retrieved: 2026-10-07
+    url: https://www.medicare.gov/basics/costs/help/medicare-savings-programs
+    publisher: Centers for Medicare & Medicaid Services (Medicare.gov)
+    title: Medicare Savings Programs
+    kind: primary
+    jurisdiction: federal
+    doc_type: agency_page
+    effective_date: 2026-01-01
+    note: Publishes the federal-minimum 2026 income and resource limits; the income limits include the $20 general income disregard.
+  - id: ssa-poms-hi-00815-023
+    retrieved: 2026-10-07
+    url: https://secure.ssa.gov/poms.nsf/lnx/0600815023
+    publisher: Social Security Administration (POMS)
+    title: HI 00815.023 Medicare Savings Programs Income and Resource Limits
+    kind: primary
+    jurisdiction: federal
+    doc_type: manual
+  - id: ssa-poms-hi-00815-024
+    retrieved: 2026-10-07
+    url: https://secure.ssa.gov/poms.nsf/lnx/0600815024
+    publisher: Social Security Administration (POMS)
+    title: HI 00815.024 SSA's Role in Medicare Savings Programs (MSP) Applications
+    kind: primary
+    jurisdiction: federal
+    doc_type: manual
+  - id: ssa-poms-hi-03001-005
+    retrieved: 2026-10-07
+    url: https://secure.ssa.gov/poms.nsf/lnx/0603001005
+    publisher: Social Security Administration (POMS)
+    title: HI 03001.005 Medicare Part D Extra Help (Low-Income Subsidy or LIS)
+    kind: primary
+    jurisdiction: federal
+    doc_type: manual
+  - id: ssa-poms-hi-03001-020
+    retrieved: 2026-10-07
+    url: https://secure.ssa.gov/poms.nsf/lnx/0603001020
+    publisher: Social Security Administration (POMS)
+    title: HI 03001.020 Eligibility for Extra Help (Prescription Drug Low-Income Subsidy)
+    kind: primary
+    jurisdiction: federal
+    doc_type: manual
+  - id: ssa-poms-hi-03020-055
+    retrieved: 2026-10-07
+    url: https://secure.ssa.gov/poms.nsf/lnx/0603020055
+    publisher: Social Security Administration (POMS)
+    title: HI 03020.055 Income Limits for Extra Help
+    kind: primary
+    jurisdiction: federal
+    doc_type: manual
+  - id: ssa-poms-hi-03030-025
+    retrieved: 2026-10-07
+    url: https://secure.ssa.gov/poms.nsf/lnx/0603030025
+    publisher: Social Security Administration (POMS)
+    title: HI 03030.025 Resource Limits for Subsidy Eligibility
+    kind: primary
+    jurisdiction: federal
+    doc_type: manual

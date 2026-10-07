@@ -1,0 +1,167 @@
+# Federal minimum Medicare Savings Program standards. States may be more
+# generous (42 U.S.C. 1396a(r)(2)); a state part that publishes its own
+# limits uses its own parameters instead of these.
+parameters:
+  - id: federal.msp.qmb_fpl_percent
+    description: QMB income ceiling set by federal law, as a percent of the poverty line (states may go higher via less restrictive methodologies).
+    unit: percent_fpl
+    updates: Statutory; does not change yearly.
+    values:
+      - effective_from: 1991-01-01
+        value: 100
+        confidence: confirmed
+        sources:
+          - source: usc-42-1396d
+            locator: "(p)(2)(A)-(B)(iii)"
+            quote: "shall be at least the percent provided under subparagraph (B) (but not more than 100 percent) of the official poverty line"
+  - id: federal.msp.slmb_fpl_percent
+    description: SLMB upper income bound (income above the QMB level but less than this percent of the poverty line).
+    unit: percent_fpl
+    updates: Statutory.
+    values:
+      - effective_from: 1995-01-01
+        value: 120
+        confidence: confirmed
+        sources:
+          - source: usc-42-1396a
+            locator: "(a)(10)(E)(iii)"
+            quote: "is less than 110 percent in 1993 and 1994, and 120 percent in 1995 and years thereafter of the official poverty line"
+  - id: federal.msp.qi_fpl_percent
+    description: QI upper income bound (at least 120 percent but less than this percent of the poverty line).
+    unit: percent_fpl
+    updates: Statutory.
+    values:
+      - effective_from: 1998-01-01
+        value: 135
+        confidence: confirmed
+        sources:
+          - source: usc-42-1396a
+            locator: "(a)(10)(E)(iv)"
+            quote: "is at least 120 percent, but less than 135 percent, of the official poverty line"
+  - id: federal.msp.qmb_income_limit_monthly
+    description: Federal-minimum QMB monthly income limit, 48 states + DC, already including the $20 general income exclusion (100% FPL + $20, rounded up).
+    compare_to: >-
+      Countable income after earned-income disregards but BEFORE the $20 general disregard; the figure already includes the $20 (100% FPL + $20).
+    unit: usd_per_month
+    keyed_by: household_size (1 = individual, 2 = couple)
+    updates: After the HHS poverty guidelines are published (mid-January); SSA posts the table in POMS HI 00815.023.
+    values:
+      - effective_from: 2026-01-01
+        value: {1: 1350, 2: 1824}
+        confidence: confirmed
+        note: The federal date from which states must use the 2026 figures is not stated in these sources; see MSP-FED-OQ-01.
+        sources:
+          - source: ssa-poms-hi-00815-023
+            locator: "1. QMB Monthly Income Limits (100% FPL + $20), 2026, All States except Alaska and Hawaii"
+          - source: medicare-gov-msp
+            locator: "Qualified Medicare Beneficiary (QMB) Program, monthly income limits for 2026"
+  - id: federal.msp.slmb_income_limit_monthly
+    description: Federal-minimum SLMB monthly income limit including the $20 exclusion (120% FPL + $20).
+    compare_to: >-
+      Same basis as the QMB table: the figure already includes the $20 disregard.
+    unit: usd_per_month
+    keyed_by: household_size
+    updates: Mid-January, with the poverty guidelines.
+    values:
+      - effective_from: 2026-01-01
+        value: {1: 1616, 2: 2184}
+        confidence: confirmed
+        sources:
+          - source: ssa-poms-hi-00815-023
+            locator: "2. SLMB Monthly Income Limits (120% FPL + $20), 2026"
+          - source: medicare-gov-msp
+            locator: "Specified Low-Income Medicare Beneficiary (SLMB) Program"
+  - id: federal.msp.qi_income_limit_monthly
+    description: Federal-minimum QI monthly income limit including the $20 exclusion (135% FPL + $20).
+    compare_to: >-
+      Same basis as the QMB table: the figure already includes the $20 disregard.
+    unit: usd_per_month
+    keyed_by: household_size
+    updates: Mid-January, with the poverty guidelines.
+    values:
+      - effective_from: 2026-01-01
+        value: {1: 1816, 2: 2455}
+        confidence: confirmed
+        sources:
+          - source: ssa-poms-hi-00815-023
+            locator: "3. QI Monthly Income Limits (135% FPL + $20), 2026"
+          - source: medicare-gov-msp
+            locator: "Qualifying Individual (QI) Program"
+  - id: federal.msp.qdwi_income_limit_monthly
+    description: Federal QDWI monthly income limit (200% FPL + $20, incorporating earned income disregards).
+    compare_to: >-
+      Gross income; SSA says the QDWI figures already incorporate earned income disregards and the $20.
+    unit: usd_per_month
+    keyed_by: household_size
+    updates: Mid-January, with the poverty guidelines.
+    values:
+      - effective_from: 2026-01-01
+        value: {1: 5405, 2: 7299}
+        confidence: confirmed
+        sources:
+          - source: ssa-poms-hi-00815-023
+            locator: "4. QDWI Monthly Income (200% FPL + $20), 2026"
+  - id: federal.msp.resource_limit
+    description: >-
+      Federal-minimum resource limit for QMB, SLMB and QI (tied by law to the
+      Part D low-income-subsidy resource level). States may disregard more or
+      drop the test.
+    compare_to: >-
+      Countable resources (SSI rules: home, one vehicle, burial spaces excluded) of the individual, or of the couple.
+    unit: usd
+    keyed_by: household_size
+    updates: Indexed yearly with the Part D LIS resource level; CMS/SSA publish in the fall or January.
+    values:
+      - effective_from: 2026-01-01
+        value: {1: 9950, 2: 14910}
+        confidence: confirmed
+        sources:
+          - source: ssa-poms-hi-00815-023
+            locator: "Resource Limits, 2026, QMB/SLMB/QI tables"
+          - source: medicare-gov-msp
+            locator: "Resource limit column, 2026"
+          - source: usc-42-1396d
+            locator: "(p)(1)(C)"
+  - id: federal.msp.qdwi_resource_limit
+    description: QDWI resource limit (twice the SSI resource limit).
+    compare_to: >-
+      Countable resources (SSI rules) of the individual or couple.
+    unit: usd
+    keyed_by: household_size
+    updates: Changes only if the SSI resource limit changes.
+    values:
+      - effective_from: 2026-01-01
+        value: {1: 4000, 2: 6000}
+        confidence: confirmed
+        sources:
+          - source: ssa-poms-hi-00815-023
+            locator: "4. QDWI, Resource Limits"
+  - id: federal.lis.income_limit_fpl_percent
+    description: Extra Help (Part D low-income subsidy) income ceiling; countable income must be LESS than this percent of the poverty line (full subsidy since 2024).
+    compare_to: >-
+      Countable income (SSI-style exclusions; in-kind support not counted) of the applicant and living-with spouse, as a percent of the FPL for the household size; must be strictly below.
+    unit: percent_fpl
+    updates: Statutory (Inflation Reduction Act raised it from 135% to 150% for 2024 on).
+    values:
+      - effective_from: 2024-01-01
+        value: 150
+        confidence: confirmed
+        sources:
+          - source: ssa-poms-hi-03001-020
+            locator: "B. Basic requirements for Extra Help eligibility"
+          - source: ssa-poms-hi-03020-055
+            locator: "4. Table: 2026 - Income limits for subsidy eligibility"
+  - id: federal.lis.resource_limit
+    description: Extra Help resource limit (add $1,500 per person if the applicant says some resources are set aside for burial).
+    compare_to: >-
+      Countable resources of the applicant and living-with spouse (life insurance cash value and home excluded).
+    unit: usd
+    keyed_by: household_size
+    updates: Indexed yearly; SSA updates POMS HI 03030.025 in the fall/January.
+    values:
+      - effective_from: 2026-01-01
+        value: {1: 16590, 2: 33100}
+        confidence: confirmed
+        sources:
+          - source: ssa-poms-hi-03030-025
+            locator: "B. Policy - 2026 resource limits for subsidy eligibility, 1. Individual and 2. Married couple"

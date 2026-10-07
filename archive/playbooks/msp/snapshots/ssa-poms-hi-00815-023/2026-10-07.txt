@@ -1,0 +1,199 @@
+Skip to content
+
+Program Operations Manual System (POMS)
+
+Effective Dates: 02/26/2026 - Present
+Previous | Next
+
+TN 64 (02-26)
+
+HI 00815.023 Medicare Savings Programs Income and Resource Limits
+
+A. Background
+
+The Medicare Savings Programs (MSPs) are mandatory Medicaid eligibility groups that
+assist low-income Medicare beneficiaries with some or all of their Parts A and B premiums
+and cost-sharing. State Medicaid agencies determine whether or not an individual is
+eligible for Medicaid coverage, including the MSPs.
+
+B. Policy
+
+The federal MSP income and resource standards (hereafter “limits”) are set by federal
+law and appear in subsection C.
+
+States can, however, effectively raise these limits for the Qualified Medicare Beneficiary
+(QMB), Specified Low-Income Medicare Beneficiary (SLMB), and Qualified Individuals
+(QI) eligibility groups above the federal statutory limits by disregarding amounts
+or certain types of income and resources. Some states have used this authority to
+effectively eliminate resources tests when determining eligibility for these MSP eligibility
+groups.
+
+Be familiar with the MSP income and resource limits in the claimant’s state of residence
+to assist you with screening whom to refer to the state. Even if the individual’s
+income or resources appear somewhat higher than the state limits, encourage them to
+apply for the MSPs.
+
+NOTE: CMS rounds up to the nearest dollar when computing the monthly income limits.
+
+C. Federal MSP Income and Resource Limits
+
+1. QMB Monthly Income Limits (100% FPL+ $20)*
+
+2026
+
+​
+
+State/Resource Limits
+
+Individual
+
+Couple
+
+All States except Alaska and Hawaii.
+
+$1,350.00
+
+$1,824.00
+
+Alaska
+
+$1,683.00
+
+$2,275.00
+
+Hawaii
+
+$1,550.00
+
+$2,095.00
+
+Resource Limits
+
+$9,950.00
+
+$14,910.00
+
+See TC 23001.050
+
+2. SLMB Monthly Income Limits (120% FPL+ $20)*
+
+2026
+
+State/Resource Limits
+
+Individual
+
+Couple
+
+All States except Alaska and Hawaii
+
+$1,616.00
+
+$2,184.00
+
+Alaska
+
+$2,015.00
+
+$2,725.00
+
+Hawaii
+
+$1,856.00
+
+$2,509.00
+
+Resource Limits
+
+$9,950.00
+
+$14,910.00
+
+See TC
+23001.060
+
+3. QI Monthly Income Limits (135% FPL+ $20)*
+
+2026
+
+State/Resource Limits
+
+Individual
+
+Couple
+
+All States except Alaska and Hawaii
+
+$1,816.00
+
+$2,455.00
+
+Alaska
+
+$2,265.00
+
+$3,064.00
+
+Hawaii
+
+$2,086.00
+
+$2,821.00
+
+Resource Limits
+
+$9,950.00
+
+$14,910.00
+
+See TC 23001.070
+
+4. QDWI Monthly Income (200% FPL+$20)**
+
+2026
+
+State/Resource Limits
+
+Individual
+
+Couple
+
+All States except Alaska and Hawaii
+
+$5,405.00
+
+$7,299.00
+
+Alaska
+
+$6,735.00
+
+$9,102.00
+
+Hawaii
+
+$6,205.00
+
+$8,382.00
+
+Resource Limits
+
+$4,000.00
+
+$6,000.00
+
+* $20 = monthly SSI general income exclusion.
+
+** The income figures for the QDWI group incorporate earned income disregards, in
+addition to the $20 general income disregard.
+
+See TC 23001.080
+
+To Link to this section - Use this URL:
+http://policy.ssa.gov/poms.nsf/lnx/0600815023
+
+HI 00815.023 - Medicare Savings Programs Income and Resource Limits - 02/26/2026
+
+Batch run: 02/26/2026
+
+Rev:02/26/2026

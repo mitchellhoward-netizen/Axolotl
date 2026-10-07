@@ -1,0 +1,555 @@
+schema_version: 2
+program: msp
+scope: federal
+title: Medicare Savings Programs (QMB, SLMB, QI, QDWI) and the link to Extra Help — federal base
+last_researched: 2026-10-07
+
+summary:
+  plain_language: >-
+    The Medicare Savings Programs (MSPs) are run by each state's Medicaid
+    agency and pay some or all of a person's Medicare costs. The most common
+    effect is that the state pays the Medicare Part B premium ($202.90 a month
+    in 2026), so it stops being deducted from the person's Social Security
+    check. There are four programs: QMB (pays Part A and B premiums,
+    deductibles, coinsurance and copays), SLMB and QI (pay the Part B premium
+    only) and QDWI (pays the Part A premium for certain working people with
+    disabilities). Anyone enrolled in QMB, SLMB or QI is automatically given
+    Extra Help, the federal subsidy for Medicare Part D drug costs. Federal
+    law sets minimum income and resource rules; states may be more generous,
+    and many are.
+  administered_by: State Medicaid agencies (applications are filed with the state, not with Medicare or SSA).
+  funded_by: >-
+    QMB, SLMB and QDWI are ordinary Medicaid, shared between the federal
+    government and the state at the state's Medicaid matching rate. QI is paid
+    100% by the federal government, but only up to a capped yearly allotment
+    per state; above the allotment the federal share is 0%.
+  local_names:
+    - {name: QMB, meaning: Qualified Medicare Beneficiary}
+    - {name: SLMB, meaning: "Specified Low-Income Medicare Beneficiary (some states write SLIMB)"}
+    - {name: QI, meaning: "Qualifying Individual (formerly QI-1)"}
+    - {name: QDWI, meaning: Qualified Disabled and Working Individual}
+    - {name: Extra Help, meaning: "Medicare Part D Low-Income Subsidy (LIS)"}
+  legal_basis: Social Security Act secs. 1902(a)(10)(E), 1905(p), 1905(s), 1933; 42 U.S.C. 1396a, 1396d, 1396u-3; Part D LIS at sec. 1860D-14.
+  confidence: confirmed
+  sources:
+    - {source: medicare-gov-msp, locator: "page introduction and program sections"}
+    - {source: usc-42-1396u-3, locator: "(a)-(c), federal share 100% within allocation, 0% above"}
+    - {source: ssa-poms-hi-00815-024, locator: "B. Description of the MSP"}
+
+rules:
+  # ---------------------------------------------------------------- groups
+  - id: MSP-FED-QMB-GROUP
+    statement: >-
+      In every state, a person qualifies for the Qualified Medicare Beneficiary
+      (QMB) program only if they are entitled to Medicare Part A (including
+      premium Part A bought under section 1818, but not Part A bought only as a
+      working disabled person under section 1818A), have countable income at
+      or below the state's QMB income level, and meet the state's resource rule.
+    kind: eligibility
+    applies_to: [QMB]
+    effective_from: 1991-01-01
+    implemented_in: playbooks/msp/federal/rules.py:federal_tiers
+    confidence: confirmed
+    sources:
+      - source: usc-42-1396d
+        locator: "(p)(1)(A)-(C)"
+  - id: MSP-FED-QMB-INCOME-FLOOR
+    statement: >-
+      Federal law requires every state to set its QMB income level at no less
+      than 100% of the federal poverty line for the household size; for 2026
+      the federal-minimum QMB limit, including the $20 general income
+      exclusion, is $1,350 a month for an individual and $1,824 for a couple
+      (48 states and DC).
+    kind: eligibility
+    applies_to: [QMB]
+    effective_from: 2026-01-01
+    parameters: [federal.msp.qmb_fpl_percent, federal.msp.qmb_income_limit_monthly]
+    implemented_in: playbooks/msp/federal/rules.py:federal_tiers
+    confidence: confirmed
+    sources:
+      - {source: usc-42-1396d, locator: "(p)(2)(A)-(B)"}
+      - {source: ssa-poms-hi-00815-023, locator: "1. QMB Monthly Income Limits, 2026"}
+      - {source: medicare-gov-msp, locator: "QMB, monthly income limits for 2026"}
+  - id: MSP-FED-SLMB-INCOME
+    statement: >-
+      Under the federal minimum rules, a person entitled to Part A whose
+      countable income is above the state's QMB level but below 120% of the
+      federal poverty line qualifies as a Specified Low-Income Medicare
+      Beneficiary (SLMB), and the state pays only their Part B premium; for
+      2026 the federal SLMB limit including the $20 exclusion is $1,616 a month
+      for an individual and $2,184 for a couple.
+    kind: eligibility
+    applies_to: [SLMB]
+    effective_from: 2026-01-01
+    parameters: [federal.msp.slmb_fpl_percent, federal.msp.slmb_income_limit_monthly]
+    implemented_in: playbooks/msp/federal/rules.py:federal_tiers
+    confidence: confirmed
+    sources:
+      - {source: usc-42-1396a, locator: "(a)(10)(E)(iii)"}
+      - {source: ssa-poms-hi-00815-023, locator: "2. SLMB Monthly Income Limits, 2026"}
+  - id: MSP-FED-QI-INCOME
+    statement: >-
+      Under the federal minimum rules, a person entitled to Part A whose
+      countable income is at least 120% but less than 135% of the federal
+      poverty line qualifies as a Qualifying Individual (QI), and the state
+      pays only their Part B premium; for 2026 the federal QI limit including
+      the $20 exclusion is $1,816 a month for an individual and $2,455 for a
+      couple.
+    kind: eligibility
+    applies_to: [QI]
+    effective_from: 2026-01-01
+    parameters: [federal.msp.qi_fpl_percent, federal.msp.qi_income_limit_monthly]
+    implemented_in: playbooks/msp/federal/rules.py:federal_tiers
+    confidence: confirmed
+    sources:
+      - {source: usc-42-1396a, locator: "(a)(10)(E)(iv)"}
+      - {source: ssa-poms-hi-00815-023, locator: "3. QI Monthly Income Limits, 2026"}
+  - id: MSP-FED-QI-NOT-MEDICAID
+    statement: >-
+      In every state, a person cannot be a Qualifying Individual (QI) while
+      they are otherwise eligible for Medicaid under the state plan; QI is only
+      for people who are not otherwise eligible for medical assistance.
+    kind: eligibility
+    applies_to: [QI]
+    effective_from: 1998-01-01
+    implemented_in: playbooks/msp/federal/rules.py:federal_tiers
+    confidence: confirmed
+    sources:
+      - source: usc-42-1396a
+        locator: "(a)(10)(E)(iv)"
+        quote: "and who are not otherwise eligible for medical assistance under the State plan"
+  - id: MSP-FED-QI-FUNDING
+    statement: >-
+      The QI program is paid entirely by the federal government (100% federal
+      share), but only up to a capped yearly allotment for each state; payments
+      above a state's allotment get no federal share.
+    kind: definition
+    applies_to: [QI]
+    effective_from: 1998-01-01
+    confidence: confirmed
+    sources:
+      - {source: usc-42-1396u-3, locator: "(a) and (c)"}
+  - id: MSP-FED-QDWI
+    statement: >-
+      In every state, a Qualified Disabled and Working Individual (QDWI) is a
+      person under 65 who lost premium-free Part A because they returned to
+      work, has income no higher than 200% of the poverty line (2026: $5,405 a
+      month individual, $7,299 couple, figures that already include earned
+      income disregards), has resources no more than $4,000 (individual) or
+      $6,000 (couple), and is not otherwise eligible for Medicaid; the state
+      pays only their Part A premium.
+    kind: eligibility
+    applies_to: [QDWI]
+    effective_from: 2026-01-01
+    parameters: [federal.msp.qdwi_income_limit_monthly, federal.msp.qdwi_resource_limit]
+    implemented_in: playbooks/msp/federal/rules.py:federal_tiers
+    confidence: confirmed
+    sources:
+      - {source: ssa-poms-hi-00815-023, locator: "4. QDWI Monthly Income (200% FPL+$20), 2026"}
+      - {source: usc-42-1396a, locator: "(a)(10)(E)(ii)"}
+
+  # --------------------------------------------------------- income method
+  - id: MSP-FED-INCOME-SSI-METHOD
+    statement: >-
+      For every Medicare Savings Program, income is counted the way SSI counts
+      it (42 U.S.C. 1382a): the first $20 a month of income is excluded (once
+      per couple, from unearned income first), and the first $65 a month of
+      earned income plus half of the rest is excluded; states may use less
+      restrictive methods but not more restrictive ones.
+    kind: definition
+    applies_to: [QMB, SLMB, QI]
+    effective_from: 1991-01-01
+    parameters: [federal.ssi.general_income_exclusion_monthly, federal.ssi.earned_income_exclusion_monthly]
+    implemented_in: playbooks/msp/federal/rules.py:countable_income
+    confidence: confirmed
+    sources:
+      - {source: usc-42-1396d, locator: "(p)(1)(B)"}
+      - {source: usc-42-1382a, locator: "(b)(2)(A), (b)(4)"}
+      - {source: usc-42-1396a, locator: "(r)(2)(A)"}
+      - {source: ssa-poms-hi-00815-023, locator: "footnote: $20 = monthly SSI general income exclusion"}
+  - id: MSP-FED-GROSS-SOCIAL-SECURITY
+    statement: >-
+      When counting income for a Medicare Savings Program, Social Security
+      benefits are counted at their gross amount, before the Medicare Part B
+      premium is deducted.
+    kind: definition
+    applies_to: [QMB, SLMB, QI]
+    effective_from: 1991-01-01
+    implemented_in: playbooks/msp/federal/rules.py:countable_income
+    confidence: secondary
+    note: >-
+      SSI income counting (1382a) counts the gross Title II benefit; SSA's Extra
+      Help example (HI 03020.055 E.1) counts Social Security "before the Medicare
+      Part B premium deduction". No MSP-specific primary statement was found;
+      New York's chart and DOH page say "gross monthly income".
+    sources:
+      - {source: ssa-poms-hi-03020-055, locator: "E. Examples, 1. Example 1: Individual"}
+  - id: MSP-FED-COLA-TRANSITION
+    statement: >-
+      In every state, for each month from January through the month after the
+      new federal poverty guidelines are published, the Medicare Savings
+      Program does not count the January Social Security cost-of-living
+      increase as income (for 2026: January and February, because the
+      guidelines were published January 15, 2026).
+    kind: timing
+    applies_to: [QMB, SLMB, QI]
+    effective_from: 1991-01-01
+    parameters: [federal.hhs.poverty_guideline_published]
+    implemented_in: playbooks/msp/federal/rules.py:cola_excluded
+    confidence: confirmed
+    sources:
+      - source: usc-42-1396d
+        locator: "(p)(2)(D)(i)-(ii)"
+        quote: "the term \"transition month\" means each month in a year through the month following the month in which the annual revision of the official poverty line ... is published"
+  - id: MSP-FED-COUPLE-INCOME
+    statement: >-
+      For the Medicare Savings Programs, a married person living with a spouse
+      is measured against the couple (household of two) limit using both
+      spouses' income, and the couple resource limit using both spouses'
+      resources.
+    kind: definition
+    applies_to: [QMB, SLMB, QI]
+    effective_from: 1991-01-01
+    implemented_in: playbooks/msp/federal/rules.py:countable_income
+    confidence: secondary
+    open_question: MSP-FED-OQ-03
+    note: >-
+      The SSI deeming rules that MSP borrows count a living-with spouse's
+      income; SSA and Medicare.gov publish only "individual" and "married
+      couple" limits. No federal MSP-specific primary text pinned down how a
+      couple with only one Medicare beneficiary is budgeted; New York's rule is
+      explicit (see MSP-NY-COUPLE).
+    sources:
+      - {source: medicare-gov-msp, locator: "Individual / Married couple limits"}
+
+  # --------------------------------------------------------------- resources
+  - id: MSP-FED-RESOURCES
+    statement: >-
+      Under the federal minimum rules, a person qualifies for QMB, SLMB or QI
+      only if countable resources are no more than the federal limit, which is
+      $9,950 for an individual and $14,910 for a married couple in 2026; states
+      may disregard more resources or drop the resource test entirely.
+    kind: eligibility
+    applies_to: [QMB, SLMB, QI]
+    effective_from: 2026-01-01
+    parameters: [federal.msp.resource_limit]
+    implemented_in: playbooks/msp/federal/rules.py:federal_tiers
+    confidence: confirmed
+    sources:
+      - {source: usc-42-1396d, locator: "(p)(1)(C)"}
+      - {source: ssa-poms-hi-00815-023, locator: "Resource Limits, 2026; and text: States can ... effectively eliminate resources tests"}
+      - {source: ssa-poms-hi-00815-024, locator: "A. Background on MIPPA: MSP resource limits equal full-LIS limits"}
+
+  # ------------------------------------------------------- timing / benefit
+  - id: MSP-FED-QMB-EFFECTIVE
+    statement: >-
+      Under federal law, QMB coverage applies to services furnished after the
+      end of the month in which the person is first determined to be a QMB;
+      QMB has no retroactive months.
+    kind: timing
+    applies_to: [QMB]
+    effective_from: 1991-01-01
+    confidence: confirmed
+    sources:
+      - source: usc-42-1396a
+        locator: "(e)(8)"
+        quote: "such determination shall apply to services furnished after the end of the month in which the determination first occurs"
+  - id: MSP-FED-RETRO-SLMB-QI
+    statement: >-
+      Under the general Medicaid rule, SLMB and QI benefits can be paid for up
+      to three months before the month of application if the person would have
+      qualified in those months; QMB has no retroactive months.
+    kind: timing
+    applies_to: [SLMB, QI]
+    effective_from: 1991-01-01
+    effective_to: 2026-12-31
+    confidence: confirmed
+    note: >-
+      Inference from two primary texts: 1902(a)(34) gives three retroactive
+      months to "any individual who has been determined to be eligible for
+      medical assistance under the plan" (SLMB and QI are medical assistance
+      under 1902(a)(10)(E)), and 1902(e)(8) separately starts QMB after the
+      month of determination. No federal MSP-specific statement was found;
+      states (for example New York, GIS 22 MA/10) state it directly. See
+      MSP-FED-OQ-02 for the 2027 change.
+    sources:
+      - {source: usc-42-1396a, locator: "(a)(34) and (e)(8)"}
+  - id: MSP-FED-RETRO-2027
+    statement: >-
+      Starting with applications made on or after January 1, 2027, federal law
+      shortens general Medicaid retroactive coverage from three months; whether
+      and how this shortens SLMB and QI retroactive months is not yet
+      established in this archive.
+    kind: timing
+    applies_to: [SLMB, QI]
+    effective_from: 2027-01-01
+    confidence: unresolved
+    open_question: MSP-FED-OQ-02
+  - id: MSP-FED-QMB-BENEFIT
+    statement: >-
+      A QMB enrollee's state Medicaid program pays their Medicare Part A
+      premium (if they owe one), Part B premium, and Medicare deductibles,
+      coinsurance and copayments, and Medicare providers may not bill a QMB
+      enrollee for Medicare-covered services (a small Medicaid copayment may
+      apply).
+    kind: benefit
+    applies_to: [QMB]
+    effective_from: 1991-01-01
+    confidence: confirmed
+    sources:
+      - {source: medicare-gov-msp, locator: "QMB: Helps pay for; If you qualify for the QMB program"}
+      - {source: usc-42-1396d, locator: "(p)(3) medicare cost-sharing"}
+  - id: MSP-FED-PART-B-BENEFIT
+    statement: >-
+      SLMB and QI enrollees have their Medicare Part B premium paid by the
+      state ($202.90 a month in 2026 for the standard premium); they must have
+      Part A and Part B to qualify.
+    kind: benefit
+    applies_to: [SLMB, QI]
+    effective_from: 2026-01-01
+    parameters: [federal.cms.part_b_standard_premium]
+    confidence: confirmed
+    sources:
+      - {source: medicare-gov-msp, locator: "SLMB and QI: Helps pay for: Part B premiums (You must have both Part A and Part B to qualify.)"}
+      - {source: cms-2026-part-a-b-premiums, locator: "Medicare Part B Premium"}
+
+  # ------------------------------------------------- link to Extra Help
+  - id: MSP-FED-EXTRA-HELP-DEEMED
+    statement: >-
+      Anyone enrolled in QMB, SLMB or QI (or full Medicaid, or SSI) is
+      automatically deemed eligible for Extra Help, the Medicare Part D
+      low-income subsidy, and should not file a separate Extra Help
+      application; QDWI enrollees are not deemed.
+    kind: coordination
+    applies_to: [QMB, SLMB, QI, QDWI]
+    effective_from: 2006-01-01
+    implemented_in: playbooks/msp/federal/rules.py:extra_help_link
+    confidence: confirmed
+    sources:
+      - {source: ssa-poms-hi-03001-005, locator: "A. Extra Help and deemed subsidy eligible; NOTE on QDWI; D. Deemed eligibility"}
+  - id: MSP-FED-EXTRA-HELP-DEEMING-BY-CMS
+    statement: >-
+      Extra Help deeming is done by CMS from monthly state Medicaid data, not
+      by SSA; CMS auto-enrolls deemed people who have no Part D plan, and a
+      person who loses deemed status keeps Extra Help through the end of that
+      calendar year.
+    kind: procedure
+    effective_from: 2006-01-01
+    confidence: confirmed
+    sources:
+      - {source: ssa-poms-hi-03001-005, locator: "C. CMS, deemed subsidy eligibles, and Extra Help eligibles"}
+  - id: MSP-FED-EXTRA-HELP-ELIGIBILITY
+    statement: >-
+      A person not deemed eligible can still get Extra Help by applying to SSA
+      if they have Medicare Part A or B, live in the 50 states or DC, and have
+      countable income (including a living-with spouse's) below 150% of the
+      federal poverty line and resources no more than $16,590 (individual) or
+      $33,100 (couple) in 2026.
+    kind: eligibility
+    applies_to: [EXTRA_HELP]
+    effective_from: 2026-01-01
+    parameters: [federal.lis.income_limit_fpl_percent, federal.lis.resource_limit]
+    implemented_in: playbooks/msp/federal/rules.py:extra_help_by_application
+    confidence: confirmed
+    sources:
+      - {source: ssa-poms-hi-03001-020, locator: "B. Basic requirements for Extra Help eligibility"}
+      - {source: ssa-poms-hi-03020-055, locator: "4. Table: 2026 - Income limits"}
+      - {source: ssa-poms-hi-03030-025, locator: "B. Policy - 2026 resource limits"}
+  - id: MSP-FED-LIS-STARTS-MSP
+    statement: >-
+      An Extra Help application filed with SSA on or after January 1, 2010
+      also starts a Medicare Savings Program application with the state,
+      because SSA sends the application data to the state Medicaid agency
+      unless the applicant objects.
+    kind: coordination
+    effective_from: 2010-01-01
+    confidence: confirmed
+    sources:
+      - {source: ssa-poms-hi-00815-024, locator: "A. Background on MIPPA"}
+      - {source: ssa-poms-hi-03001-005, locator: "B. SSA and Extra Help"}
+
+procedure:
+  applications:
+    - id: MSP-FED-PROC-APPLY-STATE
+      text: Medicare Savings Programs are applied for through the state Medicaid agency, which decides which program the person qualifies for.
+      channel: any
+      confidence: confirmed
+      sources: [{source: medicare-gov-msp, locator: "You'll apply for Medicare Savings Programs through your state."}]
+    - id: MSP-FED-PROC-LIS-ROUTE
+      text: >-
+        Filing for Extra Help with SSA (online i1020, paper SSA-1020-OCR, or
+        with an SSA employee) also starts an MSP application at the state
+        unless the person objects.
+      form_number: SSA-1020 / i1020
+      form_name: Application for Extra Help with Medicare Prescription Drug Plan Costs
+      channel: any
+      confidence: confirmed
+      sources:
+        - {source: ssa-poms-hi-03001-005, locator: "D. Deemed eligibility and applying for Extra Help"}
+        - {source: ssa-poms-hi-00815-024, locator: "A. Background on MIPPA"}
+  approval_notice:
+    - id: MSP-FED-PROC-EXTRA-HELP-NOTICE
+      text: >-
+        People deemed eligible for Extra Help get a notice from CMS (deeming is
+        a CMS action, and SSA cannot address appeals of it); people who apply
+        to SSA get an SSA subsidy determination notice.
+      confidence: confirmed
+      sources: [{source: ssa-poms-hi-03001-005, locator: "B. and C., NOTE: Deeming is a CMS activity"}]
+
+life_events:
+  - id: MSP-FED-LE-MEDICARE-START
+    code: medicare_entitlement
+    event: Becoming entitled to Medicare Part A (turning 65, or 24 months of SSDI)
+    why: Part A entitlement is a condition of QMB, SLMB and QI; the Part B premium starts at the same time.
+    check_rules: [MSP-FED-QMB-GROUP]
+    confidence: confirmed
+    sources: [{source: usc-42-1396d, locator: "(p)(1)(A)"}]
+  - id: MSP-FED-LE-INCOME-DROP
+    code: income_drop
+    event: Income falls (retirement from work, loss of a pension, end of unemployment benefits)
+    why: Eligibility turns on monthly countable income against the state's limits.
+    check_rules: [MSP-FED-QMB-INCOME-FLOOR, MSP-FED-SLMB-INCOME, MSP-FED-QI-INCOME]
+    confidence: confirmed
+    sources: [{source: medicare-gov-msp, locator: "How to qualify"}]
+  - id: MSP-FED-LE-SPOUSE-DEATH
+    code: spouse_death
+    event: Death of a spouse, divorce or separation
+    why: The person moves from the couple limit to the individual limit, and household income and resources change.
+    check_rules: [MSP-FED-COUPLE-INCOME]
+    confidence: secondary
+    sources: [{source: medicare-gov-msp, locator: "Individual / Married couple limits"}]
+  - id: MSP-FED-LE-COLA
+    code: cola_january
+    event: January Social Security cost-of-living increase and new poverty guidelines
+    why: Limits and counted income both change each year; some people move between tiers.
+    check_rules: [MSP-FED-COLA-TRANSITION]
+    confidence: confirmed
+    sources: [{source: usc-42-1396d, locator: "(p)(2)(D)"}]
+  - id: MSP-FED-LE-MEDICAID-CHANGE
+    code: medicaid_change
+    event: Starting or losing full Medicaid
+    why: QI cannot be held together with Medicaid; QMB can.
+    check_rules: [MSP-FED-QI-NOT-MEDICAID]
+    confidence: confirmed
+    sources: [{source: usc-42-1396a, locator: "(a)(10)(E)(iv)"}]
+  - id: MSP-FED-LE-EXTRA-HELP
+    code: benefit_change
+    event: Applying for or being approved for Extra Help
+    why: An Extra Help application starts an MSP application at the state.
+    check_rules: [MSP-FED-LIS-STARTS-MSP]
+    confidence: confirmed
+    sources: [{source: ssa-poms-hi-00815-024, locator: "A."}]
+
+outcome_proof:
+  - id: MSP-FED-PROOF-SSA-DEDUCTION
+    evidence: Social Security benefit statement or bank deposit amount
+    shows: >-
+      The Part B premium (2026: $202.90) is no longer deducted from the monthly
+      Social Security payment, so the net deposit rises by that amount, once
+      the state's buy-in takes effect.
+    how_to_get: my Social Security account (ssa.gov), SSA benefit letter, or bank statement
+    confidence: unresolved
+    open_question: MSP-FED-OQ-04
+  - id: MSP-FED-PROOF-MSN
+    evidence: Medicare Summary Notice (Original Medicare)
+    shows: For QMB enrollees, the Medicare Summary Notice shows the person is in the QMB program and owes nothing for Medicare-covered services.
+    how_to_get: Mailed by Medicare; also in the person's Medicare.gov account
+    confidence: confirmed
+    sources: [{source: medicare-gov-msp, locator: "If you qualify for the QMB program: ... Medicare Summary Notices. These statements show you're in the QMB program."}]
+  - id: MSP-FED-PROOF-EXTRA-HELP
+    evidence: CMS deemed-status notice for Extra Help
+    shows: The person is deemed eligible for the Part D low-income subsidy because of their MSP enrollment.
+    how_to_get: Mailed by CMS after the state reports MSP enrollment
+    confidence: confirmed
+    sources: [{source: ssa-poms-hi-03001-005, locator: "C. CMS ... Sends notices"}]
+
+links:
+  - id: MSP-LINK-EXTRA-HELP
+    playbook: msp
+    rules: [MSP-FED-EXTRA-HELP-DEEMED, MSP-FED-EXTRA-HELP-ELIGIBILITY]
+    relation: >-
+      Extra Help lives inside this playbook (not a separate playbook):
+      QMB/SLMB/QI enrollment deems Extra Help, and an Extra Help application
+      starts an MSP application.
+    test: MSP-X-01
+    confidence: confirmed
+    sources: [{source: ssa-poms-hi-03001-005, locator: "A."}]
+  - id: MSP-LINK-TURNING-65
+    playbook: turning_65
+    rules: [MSP-FED-QMB-GROUP]
+    relation: Part A entitlement (from the Turning 65 playbook) is a precondition of QMB/SLMB/QI; the Part B premium the MSP pays is set there.
+    confidence: confirmed
+    sources: [{source: usc-42-1396d, locator: "(p)(1)(A)"}]
+  - id: MSP-LINK-MEDICAID
+    playbook: medicaid
+    rules: [MSP-FED-QI-NOT-MEDICAID]
+    relation: Full Medicaid and QMB can be held together; full Medicaid and QI cannot. Full Medicaid also deems Extra Help.
+    test: MSP-X-02
+    confidence: confirmed
+    sources: [{source: usc-42-1396a, locator: "(a)(10)(E)(iv)"}]
+  - id: MSP-LINK-DISABILITY
+    playbook: disability
+    relation: SSI recipients are deemed for Extra Help; SSDI beneficiaries become entitled to Part A after 24 months and can then qualify for an MSP.
+    confidence: confirmed
+    sources: [{source: ssa-poms-hi-03001-005, locator: "A."}]
+
+open_questions:
+  - id: MSP-FED-OQ-01
+    priority: medium
+    question: From what date must states use the new year's poverty-guideline-based MSP limits (January 1, the publication date, or later)?
+    why_it_matters: Determines which limit applies to January-March applications. New York says January 1 (GIS 26 MA/05); other states may differ.
+    checked: [42 U.S.C. 1396d(p)(2), SSA POMS HI 00815.023, Medicare.gov MSP page]
+    affects: [federal.msp.qmb_income_limit_monthly, federal.msp.slmb_income_limit_monthly, federal.msp.qi_income_limit_monthly]
+    status: open
+  - id: MSP-FED-OQ-02
+    priority: medium
+    question: >-
+      Does the 2027 shortening of Medicaid retroactive coverage (Public Law
+      119-21) apply to SLMB and QI retroactive months, and if so, to one or
+      two months?
+    why_it_matters: Changes how much back premium a person can recover when they apply late.
+    checked: [42 U.S.C. 1396a(a)(34) (2023 edition, before the change), secondary summaries of Public Law 119-21 sec. 71112]
+    affects: [MSP-FED-RETRO-2027, MSP-FED-RETRO-SLMB-QI]
+    status: open
+  - id: MSP-FED-OQ-03
+    priority: high
+    question: How is a married couple budgeted when only one spouse has Medicare (couple limit with both incomes, or individual limit with spousal deeming)?
+    why_it_matters: Couples with one Medicare spouse are common among retirees.
+    checked: [Medicare.gov MSP page, SSA POMS HI 00815.023]
+    affects: [MSP-FED-COUPLE-INCOME]
+    status: open
+  - id: MSP-FED-OQ-04
+    priority: high
+    question: >-
+      Which primary source documents the SSA notice a person receives when a
+      state starts paying (buy-in of) their Part B premium, and how many months
+      it usually takes before the deduction stops and the refund of
+      already-deducted premiums arrives?
+    why_it_matters: This is the outcome proof the institution pays on; the agent needs to tell the member what to look for and when.
+    checked: [Medicare.gov MSP page, SSA POMS HI 00815.024]
+    affects: [MSP-FED-PROOF-SSA-DEDUCTION]
+    status: open
+
+  - id: MSP-FED-OQ-05
+    priority: low
+    question: Are SSI and state supplementary payments excluded from countable income for the Medicare Savings Programs (as needs-based assistance), in every state?
+    why_it_matters: The evaluator excludes them; an SSI recipient's MSP result depends on it (though most SSI recipients get Medicaid and QMB anyway).
+    checked: [42 U.S.C. 1382a(b) (SSI exclusions), SSA POMS HI 00815.023]
+    affects: [MSP-FED-INCOME-SSI-METHOD]
+    status: open
+
+claims_checked:
+  - claim: The 2026 federal poverty guideline for one person is $15,960 a year.
+    verdict: verified
+    detail: Federal Register Vol. 91 No. 10 (Jan 15, 2026), 48 contiguous states and DC; effective January 13, 2026 unless a program sets another date.
+    sources: [{source: fr-2026-hhs-poverty-guidelines, locator: "2026 Poverty Guidelines table"}]
+  - claim: The 2026 standard Part B premium is $202.90 a month.
+    verdict: verified
+    detail: CMS 2026 Parts A & B fact sheet (Nov 14, 2025).
+    sources: [{source: cms-2026-part-a-b-premiums, locator: "Medicare Part B Premium and Deductible"}]
+  - claim: The QI tier of the Medicare Savings Program is federally funded within capped state allotments and cannot be combined with full Medicaid.
+    verdict: verified
+    detail: 42 U.S.C. 1396u-3 (100% federal share within the state's allocation, 0% above) and 1396a(a)(10)(E)(iv) ("not otherwise eligible for medical assistance under the State plan").
+    sources:
+      - {source: usc-42-1396u-3, locator: "(a)"}
+      - {source: usc-42-1396a, locator: "(a)(10)(E)(iv)"}

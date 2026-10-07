@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://healthweb-back.health.ny.gov/health_care/medicaid/program/update/savingsprogram/medicaresavingsprogram.htm
+  final_url: https://healthweb-back.health.ny.gov/health_care/medicaid/program/update/savingsprogram/medicaresavingsprogram.htm
+  status: 200
+  content_type: text/html; charset=utf-8
+  text_sha256: 4320992d03a81480a25d8c42c84ef0f76693ba28b86373efa7de3164f9950297
+  text: ny-doh-msp-2026/2026-10-07.txt
+  raw: ny-doh-msp-2026/2026-10-07.html

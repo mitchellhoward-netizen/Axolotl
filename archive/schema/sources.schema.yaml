@@ -1,0 +1,43 @@
+# Schema for every sources.yaml (shared/, federal/, states/<st>/).
+#
+# Source IDs are global across the archive. `retrieved` is the date of the
+# saved snapshot (tools/sources.py sets it). `kind` decides what confidence
+# a rule resting on this source alone may claim: primary -> confirmed,
+# secondary -> secondary.
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: sources.schema.yaml
+type: object
+additionalProperties: false
+required: [sources]
+properties:
+  sources:
+    type: array
+    items:
+      type: object
+      additionalProperties: false
+      required: [id, url, publisher, title, kind, jurisdiction]
+      properties:
+        id: {type: string, pattern: '^[a-z0-9][a-z0-9.-]+$'}
+        url: {type: string, pattern: '^https?://'}
+        publisher: {type: string}
+        title: {type: string}
+        jurisdiction:
+          enum: [federal, ny, ca, il, multi]
+          description: >-
+            Whose rule the source states. A state part may cite only federal,
+            multi or its own state's sources (never another state's); a
+            federal rule may not be "confirmed" by a state source alone.
+            multi = a secondary source covering several states.
+        kind:
+          enum: [primary, secondary]
+          description: >-
+            primary = statute, regulation, agency manual, agency directive or
+            official agency page or form; secondary = advocacy, legal aid,
+            law firm, news, calculator, third-party hosting of primary text
+            (mark third-party hosting as secondary unless noted).
+        doc_type: {enum: [statute, regulation, manual, directive, agency_page, form, notice, federal_register, guidance, dataset, advocacy, law_firm, news, other]}
+        section: {type: string, description: "Default section/page; citations add their own locator"}
+        effective_date: {$ref: 'common.schema.yaml#/$defs/date'}
+        published: {$ref: 'common.schema.yaml#/$defs/date'}
+        retrieved: {$ref: 'common.schema.yaml#/$defs/date'}
+        note: {type: string}

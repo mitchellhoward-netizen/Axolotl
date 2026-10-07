@@ -1,0 +1,199 @@
+# Schema version 2 (revised after the New York MSP build; see schema/CHANGELOG.md).
+#
+# Schema for playbooks/<program>/federal/playbook.yaml and
+# playbooks/<program>/states/<st>/playbook.yaml.
+#
+# A federal part holds what is identical in every state. A state part holds
+# only what that state adds or changes, and names the federal rules it
+# replaces in `overrides`. Every rule, procedure item, life event and proof
+# item carries a confidence label and either sources or an open question.
+# tools/validate.py enforces the cross-references this schema cannot
+# (that cited sources exist, that unresolved items name an open question,
+# that overridden rules exist, that implemented_in functions exist, ...).
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: playbook.schema.yaml
+type: object
+additionalProperties: false
+required: [schema_version, program, scope, title, summary, rules, open_questions]
+properties:
+  schema_version: {const: 2}
+  program: {type: string, pattern: '^[a-z0-9_]+$'}
+  scope: {enum: [federal, ny, ca, il]}
+  title: {type: string}
+  last_researched: {$ref: 'common.schema.yaml#/$defs/date'}
+
+  summary:
+    type: object
+    additionalProperties: false
+    required: [plain_language, administered_by, funded_by, confidence, sources]
+    properties:
+      plain_language: {type: string}
+      administered_by: {type: string}
+      funded_by: {type: string}
+      local_names:
+        type: array
+        items:
+          type: object
+          additionalProperties: false
+          required: [name]
+          properties:
+            name: {type: string}
+            meaning: {type: string}
+      legal_basis: {type: string}
+      confidence: {$ref: 'common.schema.yaml#/$defs/confidence'}
+      sources: {$ref: 'common.schema.yaml#/$defs/citations'}
+      open_question: {$ref: 'common.schema.yaml#/$defs/oq_id'}
+
+  rules:
+    type: array
+    items: {$ref: '#/$defs/rule'}
+
+  procedure:
+    type: object
+    additionalProperties: false
+    properties:
+      applications: {type: array, items: {$ref: '#/$defs/procedure_item'}}
+      documents: {type: array, items: {$ref: '#/$defs/procedure_item'}}
+      filing: {type: array, items: {$ref: '#/$defs/procedure_item'}}
+      timelines: {type: array, items: {$ref: '#/$defs/procedure_item'}}
+      approval_notice: {type: array, items: {$ref: '#/$defs/procedure_item'}}
+      renewal: {type: array, items: {$ref: '#/$defs/procedure_item'}}
+      county_variation: {type: array, items: {$ref: '#/$defs/procedure_item'}}
+
+  life_events:
+    type: array
+    items:
+      allOf:
+        - {$ref: 'common.schema.yaml#/$defs/sourced_item'}
+        - type: object
+          required: [code, event, why]
+          properties:
+            code: {$ref: 'common.schema.yaml#/$defs/life_event_code'}
+            event: {type: string}
+            why: {type: string}
+            check_rules: {type: array, items: {$ref: 'common.schema.yaml#/$defs/rule_id'}}
+
+  outcome_proof:
+    type: array
+    items:
+      allOf:
+        - {$ref: 'common.schema.yaml#/$defs/sourced_item'}
+        - type: object
+          required: [evidence, shows]
+          properties:
+            evidence: {type: string, description: "The document or record that proves it"}
+            shows: {type: string, description: "What, in it, shows the benefit is in place"}
+            how_to_get: {type: string}
+            when: {type: string}
+
+  links:
+    description: Interactions with other playbooks. Each link must be recorded in both playbooks.
+    type: array
+    items:
+      type: object
+      additionalProperties: false
+      required: [id, playbook, relation, confidence]
+      properties:
+        id: {type: string}
+        playbook: {type: string}
+        rules: {type: array, items: {$ref: 'common.schema.yaml#/$defs/rule_id'}}
+        relation: {type: string}
+        test: {type: string, description: "ID of the cross-playbook test household"}
+        confidence: {$ref: 'common.schema.yaml#/$defs/confidence'}
+        sources: {$ref: 'common.schema.yaml#/$defs/citations'}
+
+  open_questions:
+    type: array
+    items:
+      type: object
+      additionalProperties: false
+      required: [id, question, why_it_matters, priority, status]
+      properties:
+        id: {$ref: 'common.schema.yaml#/$defs/oq_id'}
+        priority:
+          enum: [high, medium, low]
+          description: "high = could make the agent give a wrong eligibility answer or miss money; medium = procedure/timing; low = background"
+
+        question: {type: string}
+        why_it_matters: {type: string}
+        checked: {type: array, items: {type: string}, description: "Where we looked"}
+        affects: {type: array, items: {type: string}, description: "Rule or parameter IDs"}
+        status: {enum: [open, answered]}
+        answer: {type: string}
+
+  conflicts:
+    description: Sources that disagree. Never resolved silently.
+    type: array
+    items:
+      type: object
+      additionalProperties: false
+      required: [id, topic, claims, handling, status]
+      properties:
+        id: {type: string}
+        topic: {type: string}
+        claims:
+          type: array
+          minItems: 2
+          items:
+            type: object
+            additionalProperties: false
+            required: [source, says]
+            properties:
+              source: {type: string}
+              locator: {type: string}
+              says: {type: string}
+        handling: {type: string, description: "What the archive does meanwhile, and why"}
+        affects: {type: array, items: {type: string}}
+        status: {enum: [open, resolved]}
+
+  claims_checked:
+    description: Claims handed to us from earlier (partly secondary) research, and what primary sources said.
+    type: array
+    items:
+      type: object
+      additionalProperties: false
+      required: [claim, verdict, detail]
+      properties:
+        claim: {type: string}
+        verdict: {enum: [verified, corrected, refuted, unverified, partly_verified]}
+        detail: {type: string}
+        sources: {$ref: 'common.schema.yaml#/$defs/citations'}
+
+$defs:
+  rule:
+    type: object
+    additionalProperties: false
+    required: [id, statement, kind, effective_from, confidence]
+    properties:
+      id: {$ref: 'common.schema.yaml#/$defs/rule_id'}
+      statement:
+        type: string
+        description: >-
+          One or two plain sentences that stand alone: name the program, the
+          state (or "in every state"), the group, the test and the number or
+          parameter. A checking model compares agent messages against this.
+      kind: {enum: [eligibility, benefit, coordination, timing, procedure, definition, penalty]}
+      applies_to: {type: array, items: {type: string}}
+      effective_from: {$ref: 'common.schema.yaml#/$defs/date'}
+      effective_to: {$ref: 'common.schema.yaml#/$defs/date'}
+      parameters: {type: array, items: {type: string}}
+      overrides: {type: array, items: {$ref: 'common.schema.yaml#/$defs/rule_id'}}
+      implemented_in: {type: string, pattern: '^[a-z0-9_./]+\.py:[A-Za-z_][A-Za-z0-9_]*$'}
+      county_varies: {type: boolean}
+      confidence: {$ref: 'common.schema.yaml#/$defs/confidence'}
+      sources: {$ref: 'common.schema.yaml#/$defs/citations'}
+      open_question: {$ref: 'common.schema.yaml#/$defs/oq_id'}
+      note: {type: string}
+
+  procedure_item:
+    allOf:
+      - {$ref: 'common.schema.yaml#/$defs/sourced_item'}
+      - type: object
+        required: [text]
+        properties:
+          text: {type: string, description: "Plain statement of the step, document or fact"}
+          form_number: {type: string}
+          form_name: {type: string}
+          url: {type: string}
+          channel: {enum: [online, mail, in_person, phone, fax, automatic, any]}
+          duration: {type: string}

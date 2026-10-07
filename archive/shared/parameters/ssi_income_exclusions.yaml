@@ -1,0 +1,33 @@
+# SSI income exclusions. Medicaid's SSI-related groups and the Medicare
+# Savings Programs count income "as determined under section 1382a", so these
+# statutory amounts are used by several playbooks. They are fixed in statute
+# (not indexed), so they rarely change.
+parameters:
+  - id: federal.ssi.general_income_exclusion_monthly
+    description: >-
+      SSI general income exclusion: the first $240 a year ($20 a month) of any
+      income (applied to unearned income first, then to earned income).
+    unit: usd_per_month
+    updates: Fixed in statute; changes only by act of Congress.
+    values:
+      - effective_from: 1974-01-01
+        value: 20
+        confidence: confirmed
+        sources:
+          - source: usc-42-1382a
+            locator: "(b)(2)(A)"
+            quote: "the first $240 per year (or proportionately smaller amounts for shorter periods) of income"
+  - id: federal.ssi.earned_income_exclusion_monthly
+    description: >-
+      SSI earned income exclusion: the first $780 a year ($65 a month) of earned
+      income not otherwise excluded, plus one-half of the remainder.
+    unit: usd_per_month
+    updates: Fixed in statute.
+    values:
+      - effective_from: 1974-01-01
+        value: 65
+        confidence: confirmed
+        sources:
+          - source: usc-42-1382a
+            locator: "(b)(4)(A)-(C)"
+            quote: "the first $780 per year (or proportionately smaller amounts for shorter periods) of earned income not excluded by the preceding paragraphs of this subsection, plus one-half of the remainder thereof"

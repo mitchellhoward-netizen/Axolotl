@@ -1,0 +1,58 @@
+# Schema for playbooks/<program>/tests/households_<scope>.yaml.
+#
+# Synthetic households only. Each case states what the playbook's evaluate()
+# must return. `crosscheck` says whether the case is run through PolicyEngine
+# US by crosscheck/run.py, and the expected PolicyEngine answer when it is
+# known to differ (with the reason in `pe_difference`).
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: households.schema.yaml
+type: object
+additionalProperties: false
+required: [program, cases]
+properties:
+  program: {type: string}
+  scope: {type: string}
+  cases:
+    type: array
+    items:
+      type: object
+      additionalProperties: false
+      required: [id, title, as_of, household, expect]
+      properties:
+        id: {type: string, pattern: '^[A-Z0-9]+(-[A-Z0-9]+)+$'}
+        title: {type: string}
+        as_of: {$ref: 'common.schema.yaml#/$defs/date'}
+        tags: {type: array, items: {enum: [threshold, single, couple, other_benefits, cross_state, cross_playbook, edge, procedure, timing, unresolved, family]}}
+        household: {type: object}
+        expect:
+          type: object
+          additionalProperties: false
+          required: [status]
+          properties:
+            status: {enum: [eligible, ineligible, undetermined]}
+            tier: {type: [string, "null"]}
+            rules_include: {type: array, items: {type: string}}
+            open_questions_include: {type: array, items: {type: string}}
+            amounts: {type: object}
+            links_include: {type: array, items: {type: string}}
+        also:
+          description: Same household evaluated by other playbooks (cross-playbook tests).
+          type: array
+          items:
+            type: object
+            required: [program, expect]
+            properties:
+              program: {type: string}
+              function: {type: string, description: "Another entry point in that playbook package, called as fn(household, as_of)"}
+              expect: {type: object}
+        compare_states:
+          description: Same household in other states, with the expected result in each.
+          type: object
+        crosscheck:
+          type: object
+          additionalProperties: false
+          properties:
+            policyengine: {type: boolean}
+            pe_expect: {type: object, description: "Expected PolicyEngine output where it differs from ours"}
+            pe_difference: {type: string, description: "Why PolicyEngine differs"}
+        note: {type: string}

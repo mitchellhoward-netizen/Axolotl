@@ -1,0 +1,105 @@
+# New York sources for the Medicare Savings Program. NY DOH's public site is
+# www.health.ny.gov; the same documents are served from healthweb-back.health.ny.gov,
+# which answers scripted requests, so snapshots use that host.
+sources:
+  - id: ny-doh-msp-2026
+    retrieved: 2026-10-07
+    url: https://healthweb-back.health.ny.gov/health_care/medicaid/program/update/savingsprogram/medicaresavingsprogram.htm
+    publisher: New York State Department of Health
+    title: Medicare Savings Program 2026
+    kind: primary
+    jurisdiction: ny
+    doc_type: agency_page
+    effective_date: 2026-01-01
+    note: 'Page marked "Rev. 3/26" and "Revised: May 2026".'
+  - id: ny-gis-26-ma-05
+    retrieved: 2026-10-07
+    url: https://healthweb-back.health.ny.gov/health_care/medicaid/publications/docs/gis/26ma05.pdf
+    publisher: New York State Department of Health, Office of Health Insurance Programs
+    title: GIS 26 MA/05 — 2026 Federal Poverty Levels
+    kind: primary
+    jurisdiction: ny
+    doc_type: directive
+    published: 2026-02-13
+    effective_date: 2026-01-01
+  - id: ny-gis-26-ma-05-att1
+    retrieved: 2026-10-07
+    url: https://healthweb-back.health.ny.gov/health_care/medicaid/publications/docs/gis/26ma05_att1.pdf
+    publisher: New York State Department of Health, Office of Health Insurance Programs
+    title: GIS 26 MA/05 Attachment — New York State Income and Resource Standards (2026 FPL chart), Rev. 02.05.2026
+    kind: primary
+    jurisdiction: ny
+    doc_type: directive
+    effective_date: 2026-01-01
+  - id: ny-gis-26-ma-03
+    retrieved: 2026-10-07
+    url: https://healthweb-back.health.ny.gov/health_care/medicaid/publications/docs/gis/26ma03.pdf
+    publisher: New York State Department of Health, Office of Health Insurance Programs
+    title: GIS 26 MA/03 — 2026 Medicaid Levels and Other Updates
+    kind: primary
+    jurisdiction: ny
+    doc_type: directive
+    published: 2026-01-23
+    effective_date: 2026-01-01
+  - id: ny-gis-22-ma-10
+    retrieved: 2026-10-07
+    url: https://healthweb-back.health.ny.gov/health_care/medicaid/publications/docs/gis/22ma10.pdf
+    publisher: New York State Department of Health, Office of Health Insurance Programs
+    title: GIS 22 MA/10 — Changes to Medicare Savings Program (MSP) Income Levels
+    kind: primary
+    jurisdiction: ny
+    doc_type: directive
+    published: 2022-12-05
+    effective_date: 2023-01-01
+  - id: ny-gis-07-ma-027
+    retrieved: 2026-10-07
+    url: https://healthweb-back.health.ny.gov/health_care/medicaid/publications/docs/gis/07ma027.pdf
+    publisher: New York State Department of Health, Office of Health Insurance Programs
+    title: GIS 07 MA/027 — Elimination of Face-to-Face Interview for Medicare Savings Program
+    kind: primary
+    jurisdiction: ny
+    doc_type: directive
+    published: 2007-12-26
+  - id: ny-doh-4328
+    retrieved: 2026-10-07
+    url: https://healthweb-back.health.ny.gov/forms/doh-4328.pdf
+    publisher: New York State Department of Health
+    title: DOH-4328 Medicare Savings Program Application (11/23)
+    kind: primary
+    jurisdiction: ny
+    doc_type: form
+  - id: ny-doh-4328-instructions
+    retrieved: 2026-10-07
+    url: https://healthweb-back.health.ny.gov/forms/instructions/doh-4328_instructions.pdf
+    publisher: New York State Department of Health
+    title: How to Complete the Medicare Savings Program Application DOH-4328
+    kind: primary
+    jurisdiction: ny
+    doc_type: form
+  - id: ny-mrg-income
+    retrieved: 2026-10-07
+    url: https://healthweb-back.health.ny.gov/health_care/medicaid/reference/mrg/income.pdf
+    publisher: New York State Department of Health
+    title: Medicaid Reference Guide — Income (sections updated 1999-2012)
+    kind: primary
+    jurisdiction: ny
+    doc_type: manual
+    note: >-
+      Official reference guide, but pages are dated 1999-2012 and its MSP pages
+      still describe the pre-2023 levels (QMB 100%, SLIMB 120%, QI 135%). Use it
+      only for methodology that later directives did not change.
+  - id: nysofa-hiicap-msp-2026
+    retrieved: 2026-10-07
+    url: https://aging.ny.gov/hiicap-notebook-medicare-savings-programs
+    publisher: New York State Office for the Aging (NYSOFA)
+    title: HIICAP Notebook 2026, Module 9 — Medicare Savings Programs (MSPs)
+    kind: primary
+    jurisdiction: ny
+    doc_type: guidance
+    published: 2026-03-25
+    note: >-
+      State agency training manual for Medicare counselors, not the Medicaid
+      agency's own directive. aging.ny.gov refuses scripted requests (HTTP 403,
+      including headless Chromium); the snapshot was imported from a research
+      fetch. Where this is the only source for a rule, the rule is marked
+      secondary.

@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://healthweb-back.health.ny.gov/health_care/medicaid/reference/mrg/income.pdf
+  final_url: https://healthweb-back.health.ny.gov/health_care/medicaid/reference/mrg/income.pdf
+  status: 200
+  content_type: application/pdf
+  text_sha256: 3708c0e923d4c671e5cbf7ead3d0c4799eef7c028ab40ed71d3f5db8636dd12e
+  text: ny-mrg-income/2026-10-07.txt
+  raw: ny-mrg-income/2026-10-07.pdf

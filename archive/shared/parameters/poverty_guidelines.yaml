@@ -1,0 +1,32 @@
+parameters:
+  - id: federal.hhs.poverty_guideline_annual
+    description: >-
+      HHS poverty guideline, annual dollars, 48 contiguous states and DC (all
+      three archive states). Programs apply it from their own effective dates;
+      percent-of-FPL limits a state publishes are stored as that state's own
+      parameters and preferred over computing from this table.
+    unit: usd_per_year
+    keyed_by: household_size (1-8; "additional" = each person above 8)
+    updates: Published in the Federal Register in mid-January each year.
+    values:
+      - effective_from: 2026-01-13
+        value: {1: 15960, 2: 21640, 3: 27320, 4: 33000, 5: 38680, 6: 44360, 7: 50040, 8: 55720, additional: 5680}
+        confidence: confirmed
+        sources:
+          - source: fr-2026-hhs-poverty-guidelines
+            locator: "Table: 2026 Poverty Guidelines for the 48 Contiguous States and the District of Columbia"
+  - id: federal.hhs.poverty_guideline_published
+    description: >-
+      Date the year's poverty guidelines were published in the Federal Register.
+      Needed for the Medicare Savings Program "transition month" rule
+      (42 U.S.C. 1396d(p)(2)(D)): through the month after publication, the
+      January Social Security COLA is not counted.
+    unit: date
+    updates: Mid-January each year.
+    values:
+      - effective_from: 2026-01-01
+        value: 2026-01-15
+        confidence: confirmed
+        sources:
+          - source: fr-2026-hhs-poverty-guidelines
+            locator: "Federal Register Vol. 91, No. 10, Thursday, January 15, 2026"

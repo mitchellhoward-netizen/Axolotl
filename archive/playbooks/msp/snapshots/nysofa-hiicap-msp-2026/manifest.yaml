@@ -1,0 +1,9 @@
+- retrieved: '2026-10-07'
+  url: https://aging.ny.gov/hiicap-notebook-medicare-savings-programs
+  final_url: https://aging.ny.gov/hiicap-notebook-medicare-savings-programs
+  status: 200
+  content_type: pdf
+  text_sha256: 525df4df8f812ae6cebc0ef046585c73e63086259c98cd696bb7581f1fa648f4
+  text: nysofa-hiicap-msp-2026/2026-10-07.txt
+  raw: nysofa-hiicap-msp-2026/2026-10-07.pdf
+  fetched_via: WebFetch research tool (site blocks scripted clients)
