@@ -1,0 +1,1501 @@
+State Buy-in Data Exchange Processes
+Chapter 2
+Table of Contents
+(Rev. 4, 08-21-20)
+
+Transmittals for Chapter 2
+2.0 Introduction
+
+2.1 Overview of State Buy-in Data Exchange
+
+2.2 Frequency of State-CMS File Exchange
+2.2.1 State Input Files
+2.2.2 CMS Response to States (CMS Billing and Response Files)
+
+2.3 Data Exchange Between CMS and SSA
+
+2.4 Federal Resources for States to Support Buy-in and Medicaid Operations
+2.4.1 CMS Data Systems for States
+2.4.1.1 Territories and States Beneficiary Query (TBQ) File
+2.4.1.2 Enrollment Database (EDB) File
+2.4.1.3 Medicare Advantage Prescription Drug System User Interface
+(MARx UI)
+2.4.1.4 Medicare Prescription Drug, Improvement, and Modernization Act
+(MMA) File Exchange
+2.4.1.5 Table of CMS Files That Provide Data on Medicare Eligibility
+2.4.2 SSA Data Systems for States
+2.4.2.1 State Verification and Exchange System (SVES)
+2.4.2.2 State Online Query (SOLQ)
+2.4.2.3 Beneficiary and Earnings Data Exchange (BENDEX)
+2.4.2.4 State Data Exchange (SDX)
+2.4.2.5 Low-Income Subsidy (LIS)
+2.4.2.6 Table of SSA-State Data Exchanges
+
+2.5 Accretions
+2.5.1 Part B Buy-in Accretions
+2.5.1.1 Part B Buy-in for Cash Assistance Recipients (SSI/SSPs)
+2.5.1.1.1 Auto-Accrete States and States with Federal
+Administration of SSPs
+2.5.1.1.2 Alert States
+2.5.1.2 Members of the Buy-in Coverage Group Who Do Not Receive
+Cash Assistance
+2.5.2 Part A Buy-in Accretions
+
+2.5.3 Important Processing Rules for MSP Accretions
+2.5.3.1 Required Steps for QMB, SLMB, and QI Part B Buy-in Accretions
+2.5.3.2 Part B Before Part A Rule for QMB Accretions
+2.5.3.3 Part A Buy-in State v. Group Payer State Status
+2.5.4 CMS Adjustment of State Accretion Effective Date to Coincide with
+Medicare Entitlement Data
+
+2.6 Deletions
+2.6.1 State-Initiated Deletions
+2.6.1.1 Medicare Parts A and B Deletions Based on Loss of Buy-in
+Coverage
+2.6.1.2 Special Procedures for an Individual Who Loses SSI
+2.6.1.3 CMS Processing of Part B Deletions Because a Beneficiary is No
+Longer a Member of the State’s Coverage Group
+2.6.1.4 CMS Processing of State-Initiated Part A Deletion Requests Based
+on Loss of QMB Status
+2.6.2 CMS-Initiated Deletions
+2.6.2.1 Death of the Beneficiary
+2.6.2.2 Beneficiary’s Loss of Medicare Eligibility
+2.6.2.3 Beneficiary Changes of State of Residency
+2.6.2.4 Deletion as a Result of Another State's Accretion Action
+2.6.2.5 Change of State Residence for SSI Recipients
+2.6.2.6 Beneficiary Becomes Entitled to Reduced or Premium-Free Part A
+2.6.2.7 Deletions from Other Sources
+
+2.7 Changes and Corrections
+2.7.1 State Correction of a Previously Submitted State Accretion or Deletion Date
+2.7.1.1 Adjustment to the Start Date for Ongoing (Code 41) Billing Items
+2.7.1.2 Adjustment of Accretion or Deletion Date - Closed Period of State
+Buy-in Coverage
+2.7.2 State Request for Adjustment of SSI Actions Accreted by CMS
+2.7.3 State-Initiated Change Records
+2.7.3.1 Medicare Part B
+2.7.3.2 Medicare Part A
+2.7.4 CMS Reply to a State-Initiated Change Record (Code 99)
+
+2.8 SSA-Initiated Accretions - Public Welfare Accretion Procedure (Code 1167)
+
+2.9 Erroneous PW Accretion - All States
+
+2.10 Enrollment of Persons Who Refuse to Establish Medicare Eligibility
+
+2.11 State Accretion Procedure to Establish a Closed Period of State Buy-in Coverage
+2.11.1 Medicare Part B
+2.11.2 Medicare Part A
+
+2.0 Introduction
+(Rev. 4, Issued: 08-21-20, Effective: 09-08-20, Implementation: 09-08-20)
+
+State buy-in of Medicare premiums operates through a data exchange process among
+states, the Centers for Medicare & Medicaid Services (CMS), and the Social Security
+Administration (SSA).
+
+This chapter describes:
+• The buy-in data exchange processes involving states, CMS, and SSA;
+• State and CMS processes to start (“accrete”), change, and end (“delete”) buy-in
+enrollment; and
+• CMS buy-in system processing rules and tips for states.
+Chapter 3 contains buy-in file exchange layouts, and chapter 4 contains CMS system
+code definitions.
+
+NOTE: This chapter contains links to the SSA Program Operations Manual System
+(POMS) and information on SSA data exchange applications as of July 2020. 1
+2.1 Overview of State Buy-in Data Exchange
+(Rev. 4, Issued: 08-21-20, Effective: 09-08-20, Implementation: 09-08-20)
+
+States submit buy-in files to CMS’ Third Party System (TPS) to identify individuals dually
+eligible for Medicare and Medicaid for whom the state will pay Part A and/or B
+premiums. In turn, TPS responds to state submissions with response files and a monthly
+billing file.
+
+On a daily basis, TPS updates the CMS Enrollment Database (EDB) to record all state
+Medicaid recipients enrolled in, or being enrolled in, Medicare due to state buy-in. The
+EDB is the CMS authoritative source for Medicare enrollment information including
+demographic information, enrollment dates, state buy-in information, and Medicare
+managed care enrollment for all Medicare beneficiaries.
+
+On a daily basis, TPS and EDB exchange data directly with SSA systems for storage in
+the Master Beneficiary Record (MBR), SSA’s database that records Medicare and Social
+Security eligibility determinations and enrollment data. This CMS-SSA daily exchange
+may trigger updates to beneficiary data concerning buy-in enrollment, Medicare
+entitlement, and premium billing in either or both systems.
+
+States can obtain information to support state buy-in operations and Medicaid eligibility
+and enrollment processes by querying these SSA and CMS databases in a variety of ways
+as described in section 2.4.
+
+1 As a courtesy to states, CMS provides links to the SSA POMS and other online SSA materials as of the
+time the manual was published. Changes may occur after release. For more information visit ssa.gov.
+
+2.2 - Frequency of State-CMS File Exchange
+(Rev. 4, Issued: 08-21-20, Effective: 09-08-20, Implementation: 09-08-20)
+
+CMS encourages states to exchange buy-in data with TPS on a daily basis. Through
+March 2022, states can send input files to TPS as frequently as each business day (daily)
+and opt to receive one monthly response file or to receive daily response files, in addition
+to the monthly billing file.
+
+Daily state-CMS buy-in exchange promotes efficiencies for states and allows
+beneficiaries to more quickly enroll in Medicare Part A and/or B, or stop paying
+Medicare premiums if they are already enrolled and had been paying them on their own.
+
+Starting April 1, 2022, federal regulations at 42 CFR §§ 406.26 and 407.40 require all
+states to submit and receive buy-in files on a daily basis. See the Interoperability and
+Patient Access final rule (CMS-9115-F), 85 Federal Register 25510 (May 1, 2020).
+
+NOTE: States transitioning to daily receipt of CMS buy-in files should contact the
+MAPD Help Desk at mapdhelp@cms.hhs.gov to schedule the update. CMS may need to
+limit the number of states at any given time transitioning to receiving daily buy-in files
+given impacts to CMS systems.
+
+For CMS technical assistance to help shift to daily receipt of buy-in files, states can
+contact the CMS Office of Financial Management (OFM)/Accounting Management
+Group (AMG)/Division of Premium Billing and Collections (DPBC) through the DPBC
+resource mailbox at DPBCStateBuy-In@cms.hhs.gov.
+
+Unlike the shift to daily receipt of CMS buy-in files, a state’s shift to sending daily buy-in
+files involves no federal system changes. States can, therefore, start to send daily files to
+CMS at any time.
+
+2.2.1- State Input Files
+(Rev. 4, Issued: 08-21-20, Effective: 09-08-20, Implementation: 09-08-20)
+
+Each state submits the buy-in input file to TPS through an electronic file transfer (EFT)
+exchange setup. The state’s input file includes a record for each Medicare beneficiary
+for whom the Medicaid agency is accreting, deleting, or changing buy-in status and the
+state responsible for paying the Part A or B premiums.
+
+In response, CMS returns an updated transaction record that provides data identifying,
+for each transaction on the state input file, whether CMS accepted, modified, or rejected
+it, as well as a Part A or Part B billing record showing the state’s premium
+responsibility.
+
+In addition, CMS may “push” new updates obtained from SSA to the state, for example,
+Supplemental Security Income (SSI) determinations or changes in the Health Insurance
+
+Claim Number (HICN).
+
+NOTE: The HICN or RRB claim numbers are preferred for state buy-in exchanges. CMS
+will accept the MBI, but will return only the HICN (or, for RRB beneficiaries, the
+converted RRB claim number, also known as pseudo HICN) on state buy-in response
+files.
+
+See chapter 3 for further details on CMS/state data exchange.
+
+2.2.2 - CMS Response to States (CMS Billing and Response Files)
+(Rev. 4, Issued: 08-21-20, Effective: 09-08-20, Implementation: 09-08-20)
+
+All states receive Part A and Part B monthly billing files from CMS containing all new
+and ongoing credit/debit billing records. In states that receive only monthly exchange
+files from CMS, CMS sends a monthly billing file containing all billing records and reply
+records, reflecting state, CMS, and SSA information received through the last business
+day of the month. In daily exchange states, CMS sends daily response files (or, as
+frequently as the state submits the input file), containing only reply records; the CMS
+monthly file includes only billing records.
+CMS will process each state input file on a flow basis, in the order they are received, by
+adding them to the input processing lineup for the next scheduled daily update run of
+TPS.
+
+The CMS reply records for state accretions and deletions will be one of the following
+types:
+An acknowledgement reply that TPS has accepted the accretion or deletion action, found
+in daily response files only;
+• A billing reply indicating the liability charges or refund resulting from an
+accepted accretion or deletion action, found in monthly response files
+only;
+• A reject reply code describing the reason for the rejected accretion or
+deletion action; or
+• An adjustment reply if CMS changes the date of the state transaction.
+
+TPS responses are differentiated by a Record Identification Code (RIC) value of A
+through F, each identifying a type of response. Chapter 3 contains a detailed description
+of the format for each RIC type included on daily response files and the monthly billing
+file.
+RIC-A SSI Alert
+
+RIC-B Monthly Billing Records
+
+RIC-C Medicare Number Change Record
+
+RIC-D Date Change or Reply Record
+
+RIC-E Personal Characteristics Change Record
+
+RIC-F Reject Record
+
+2.3 - Data Exchange Between CMS and SSA
+(Rev. 4, Issued: 08-21-20, Effective: 09-08-20, Implementation: 09-08-20)
+
+The Combined Exchange Record (CER) file daily exchange process between CMS and
+SSA eligibility systems is another integral part of buy-in data exchange.
+
+Through CER file processing, CMS receives from SSA Medicare Part A and/or B
+entitlement dates, SSI and disability determinations, and demographic data. Once TPS
+completes its daily update of the EDB to reflect new state accretions, deletions, and
+changes, TPS also sends these update notifications to SSA systems for storage in its MBR
+database. CMS does so through its daily TPS Update Notification File transmission to
+SSA. If SSA systems receive and accept the records, the MBR will reflect updated
+enrollment information (e.g., newly enrolling buy-in coverage group members in
+Medicare Parts A or B) and trigger downstream premium billing actions (e.g., starting or
+stopping premium withholding and direct billing; issuing credits or debits for the
+beneficiary). SSA systems send MBR data on updated or new entitlement via the CER file
+to the EDB, which in turn updates the entitlement record.
+
+In addition to state-initiated buy-in transactions, SSA may transmit data that causes CMS
+to perform buy-in actions for states. When the MBR is updated to reflect new or modified
+beneficiary information received by other parts of SSA, the SSA systems share these MBR
+updates with the EDB. For example, once SSA makes an SSI determination, SSA systems
+will share this information with the EDB via the CER file, and TPS will auto-accrete the
+beneficiary to Part B buy-in in an auto-accrete state or send an alert notification on
+behalf of the beneficiary to an alert state. See section 2.5.1.1 for more information about
+accretions for SSI individuals.
+
+NOTE: When SSA’s automated system cannot accept a buy-in record from CMS,
+Medicare entitlement will not update to the MBR. In these instances, SSA systems will
+generate a processing limitation/exception or return a deletion record to CMS. Both
+instances will require administrative (manual) action by CMS and/or SSA to correct.
+
+Discrepancies between the EDB and MBR are common in these cases. For example, TPS
+will continue to bill states for Part A and/or Part B premiums even if a beneficiary record
+does not yet show Medicare entitlement and/or may show beneficiary premium liability
+amounts (i.e., the record shows SSA deduction or direct billing status). If any of these
+
+situations are identified, the state should submit a resolution request to CMS’ Offices of
+Hearings and Inquiries (OHI), Division of Medicare System Exceptions and Interfaces
+(DMSEI) for assistance (see chapter 6, section 6.2).
+
+2.4 - Federal Resources for States to Support Buy-in and Medicaid
+Operations
+(Rev. 4, Issued: 08-21-20, Effective: 09-08-20, Implementation: 09-08-20)
+
+States have a number of options to query an individual’s HICN/MBI and Medicare
+entitlement status in CMS or SSA systems, or SSI status in SSA systems, in order to help
+the state correct and re-submit the buy-in accretion.
+
+2.4.1 - CMS Data Systems for States
+(Rev. 4, Issued: 08-21-20, Effective: 09-08-20, Implementation: 09-08-20)
+
+2.4.1.1 - Territories and States Beneficiary Query (TBQ) File
+(Rev. 4, Issued: 08-21-20, Effective: 09-08-20, Implementation: 09-08-20)
+
+The TBQ File supports a query process that includes Medicare Parts A, B, C, and D
+eligibility and enrollment data on the queried beneficiaries. States and territories may
+query CMS daily for Medicare beneficiary eligibility determinations. For additional
+information about your state’s TBQ File, visit the CMS TBQ page at
+https://www.cms.gov/Medicare-Medicaid-Coordination/Medicare-and-Medicaid-
+Coordination/Medicare-Medicaid-Coordination-
+Office/DataStatisticalResources/TerritoryBeneficiaryQuery.
+
+2.4.1.2 - Enrollment Database (EDB) File
+(Rev. 4, Issued: 08-21-20, Effective: 09-08-20, Implementation: 09-08-20)
+
+The EDB File supports a query process that includes Medicare Parts A and B eligibility
+and enrollment data on the queried beneficiaries. States and territories may query CMS
+daily for Medicare beneficiary eligibility determination. Note that CMS is not expanding
+access to new states; CMS will provide new states access to the TBQ. 2 For additional
+questions about your state’s EDB File, contact the State Data Resource Center (SDRC)
+at http://statedataresourcecenter.com/.
+
+2 CMS. (2019). Data Disclosures and Data Use Agreements: States. Retrieved from
+https://www.cms.gov/Research-Statistics-Data-and-Systems/Files-for-Order/Data-
+Disclosures-Data-Agreements/States.html.
+
+2.4.1.3 - Medicare Advantage Prescription Drug System User Interface
+(MARx UI)
+(Rev. 4, Issued: 08-21-20, Effective: 09-08-20, Implementation: 09-08-20)
+
+The MARx UI system provides individual beneficiary look-up where users can find real-
+time data about a beneficiary who is enrolled in a Medicare Advantage and/or
+Prescription Drug plan, either currently, in the past, or in the future. Data fields include
+demographic data, Medicare Parts A and Part B Entitlement, Non-Entitlement,
+Enrollment, and Disenrollment codes, Low-Income Subsidy (LIS) status, and detailed
+health plan enrollment information at a beneficiary level. For information about
+accessing and using the MARx UI system, see the MAPD State User Guide at
+https://www.cms.gov/Research-Statistics-Data-and-Systems/CMS-Information-
+Technology/mapdhelpdesk/Downloads/MAPD-State-User-Guide-Version-80.pdf. Note
+that data are only available for individuals enrolled in a Medicare plan; if they are not,
+the end-user will not find them in MARx and will need to check a different CMS system.
+For help, contact the MAPD Help Desk at mapdhelp@cms.hhs.gov or 1-800-927-8069;
+for more information about the MAPD Help Desk, visit their website at
+http://go.cms.gov/mapdhelpdesk.
+
+2.4.1.4 - Medicare Prescription Drug, Improvement, and Modernization
+Act (MMA) File Exchange3
+(Rev. 4, Issued: 08-21-20, Effective: 09-08-20, Implementation: 09-08-20)
+
+The MMA File Exchange is the state’s data exchange with CMS in which the state
+provides current information on updated full-benefit dually eligible and partial-benefit
+dually eligible beneficiary status (i.e., those who get Medicaid help with Medicare
+premiums, and often for cost-sharing), and CMS provides a response file with Medicare
+Parts A, B, C, and D enrollment and eligibility information. This is an operational
+exchange, but states may find information on the CMS response file useful for
+researching and trouble-shooting rejected records. For information about the MMA File
+Exchange, visit the CMS MMA page at https://www.cms.gov/Medicare-Medicaid-
+Coordination/Medicare-and-Medicaid-Coordination/Medicare-Medicaid-Coordination-
+Office/DataStatisticalResources/StateMMAFile.html.
+
+Information about the MMA File Exchange, TBQ File, and/or EDB File can also be
+found at Understanding CMS Data: An Overview of EDB, MMA, and TBQ Files on the
+SDRC 4 website at
+
+3 The “MMA file” is named after the Medicare Prescription Drug, Improvement and Modernization Act of
+2003, and is also referred to as the “State Phasedown file.”
+4 In 2011, CMS established the SDRC to provide states with support, assistance, and guidance on how to
+request, access, and use Medicare data provided by CMS to support their dually eligible beneficiaries. The
+SDRC team consists of data experts who provide states with information and resources to help support
+their use of Medicare data for Medicare–Medicaid care coordination and program integrity purposes.
+
+https://statedataresourcecenter.com/assets/files/Task12_Overview_Edited_SDRC_MMC
+O_Final508.pdf.
+
+For technical help with the MMA File Exchange, MARx UI, TBQ File, and/or EDB File,
+contact the MAPD Help Desk at https://www.cms.gov/Research-Statistics-Data-and-
+Systems/CMS-Information-Technology/mapdhelpdesk/index or reference the MAPD State
+User Guide at https://www.cms.gov/Research-Statistics-Data-and-Systems/CMS-
+Information-Technology/mapdhelpdesk/Downloads/MAPD-State-User-Guide-Version-
+80.pdf.
+
+For questions regarding your CMS data agreement, status of exchanges and queries for
+your state/territory, or understanding the data in these files, contact SDRC at
+http://statedataresourcecenter.com/.
+
+Section 2.4.1.5 provides further detail on the information provided in each file to help
+states identify Medicare eligibility within their population.
+
+2.4.1.5 - Table of CMS Files That Provide Data on Medicare Eligibility
+(Rev. 4, Issued: 08-21-20, Effective: 09-08-20, Implementation: 09-08-20)
+
+File Element MMA EDB TBQ MARx UI
+
+Beneficiary
+Yes Yes Yes Yes
+Name
+
+Beneficiary Mailing and
+No Mailing Yes
+Address residence
+
+Date of Birth Yes Yes Yes Yes
+
+States can locate SDRC resources on the SDRC website
+(http://www.StateDataResourceCenter.com), submit questions by phone at (877) 657-9889, or by
+email at SDRC@EconometricaInc.com.
+
+File Element MMA EDB TBQ MARx UI
+
+MBI only
+
+NOTE: CMS has
+created an MBI
+HICN, Plan lookup tool in
+HICN, MBI,
+HICN, MBI, SSN MBI, HICN, MBI, SSN MARx that provides
+SSN
+SSN authorized users the
+ability to obtain an
+individual
+beneficiary’s MBI. 5
+
+Part A Yes Yes Yes Yes
+
+Part B Yes Yes Yes Yes
+
+Part C Yes No Yes Yes
+
+Part D Yes No Yes Yes
+
+Date of No Yes No Yes
+Disability
+
+Dual Qualified Medicare No QMBs, SLMBs,
+Eligibility Beneficiaries QIs, and other full-
+Status (QMBs), Specified benefit dually
+Low-Income eligible
+Medicare beneficiaries.
+Beneficiaries
+(SLMBs), Qualifying
+Individuals (QIs),
+and other full-benefit
+dually eligible
+beneficiaries.
+
+5 See the HPMS memo of May 19, 2020, on “Medicare Beneficiary Identifier (MBI) Plan Lookup Tool,”
+available at: https://www.cms.gov/files/document/mbi-lookup-tool.pdf.
+
+2.4.2 - SSA Data Systems for States
+(Rev. 4, Issued: 08-21-20, Effective: 09-08-20, Implementation: 09-08-20)
+
+In addition to querying CMS data systems for correct HICN/MBI information, states can
+also query SSA systems. These queries include SSN verification and benefit information
+for Title II (Old Age, Survivors, and Disability Insurance (OASDI)) and Title XVI (SSI) of
+the Social Security Act (“the Act”), which can be used to support states’ buy-in
+operations. Section 2.4.2.6 identifies the relevant SSA data exchanges, in the event a
+state prefers to leverage them. See SSA POMS GN 03314.155 at
+https://secure.ssa.gov/apps10/poms.nsf/lnx/0203314155.
+
+2.4.2.1 - State Verification and Exchange System (SVES)
+(Rev. 4, Issued: 08-21-20, Effective: 09-08-20, Implementation: 09-08-20)
+
+SVES is a batch query system that provides states and some federal agencies with a
+standardized method of SSN verification and uniform data response for Title II (OASDI)
+and Title XVI (SSI) of the Act. SVES also allows states to request information from other
+SSA exchange systems external to SVES (e.g., Beneficiary and Earnings Data Exchange
+(BENDEX), State Data Exchange (SDX)) via the SVES request.
+
+SVES utilizes SSA’s File Transfer Management System (CyberFusion) to receive and
+transmit files. States and, in some cases, federal agencies transmit files containing
+requests to SSA. SVES filters the files and routes the requests to the proper applications
+(e.g., BENDEX, SDX) for processing. For more details, see SSA’s State Verification and
+Exchange System (SVES) and State Online Query (SOLQ) Manual at
+https://www.ssa.gov/dataexchange/documents/sves_solq_manual.pdf.
+
+2.4.2.2 - State Online Query (SOLQ)
+(Rev. 4, Issued: 08-21-20, Effective: 09-08-20, Implementation: 09-08-20)
+
+SOLQ is an online version of SVES and allows states real-time access to SSA’s SSN
+verification service and retrieval of OASDI or SSI data. For a full list of SOLQ/SOLQ-I
+record data elements, see Appendix J of SSA’s State Verification and Exchange System
+(SVES) and State Online Query (SOLQ) Manual at
+https://www.ssa.gov/dataexchange/documents/sves_solq_manual.pdf. The manual also
+provides guidelines for requesting data from other SSA data exchange applications
+including BENDEX/Beneficiary Earnings Exchange Record (BEER) records, SDX
+records, prisoner data records, and 40 qualifying quarters records. In addition, the
+manual provides information about how states can obtain citizenship data to administer
+health care programs.
+
+2.4.2.3 - Beneficiary and Earnings Data Exchange (BENDEX)
+(Rev. 4, Issued: 08-21-20, Effective: 09-08-20, Implementation: 09-08-20)
+
+BENDEX is a batch data exchange from SSA that provides OASDI and earnings data to
+state agencies. BENDEX data is retrieved from the MBR. The primary purpose of the
+BENDEX is to assist states in administering the Temporary Assistance to Needy Families
+(TANF) program and their Medicaid programs.
+
+BENDEX contains only those records on which the state has requested data exchange as
+a result of direct input by the state or as a by-product of a state buy-in action.
+
+The BENDEX file provides OASDI benefit payment status, SSI payment status (if
+applicable), and Medicare enrollment dates (if applicable).
+
+For more details, see the SSA’s list of BENDEX data elements at
+https://www.ssa.gov/dataexchange/documents/Bendex%20record.pdf.
+
+2.4.2.4 - State Data Exchange (SDX)
+(Rev. 4, Issued: 08-21-20, Effective: 09-08-20, Implementation: 09-08-20)
+
+SDX is a batch data exchange that provides SSI data to states that administer federally
+funded income or health maintenance programs. The SDX is created by SSA from the SSI
+record. The primary purpose of the SDX is to assist the states in administering Medicaid
+and State Supplemental Programs (SSPs).
+
+SDX contains a record of all persons within the state who are eligible for the basic
+federal SSI payment or a federally-administered state supplement. It provides a method
+of identifying people who may be eligible for state buy-in. However, there is no
+indication of whether the individual has established eligibility for Medicare.
+
+SDX also identifies all individuals who lose SSI regardless of whether they are on state
+buy-in. Loss of SSI constitutes a change in circumstances that may affect an individual’s
+Medicaid eligibility and thus requires a redetermination. See 42 CFR § 435.916(d). See
+section 2.6.1.2 for more information about procedures when an individual loses SSI.
+
+For more details, see the SDX record data elements at
+https://www.ssa.gov/dataexchange/documents/SDX%20record.pdf
+
+2.4.2.5 - Low-Income Subsidy (LIS)
+(Rev. 4, Issued: 08-21-20, Effective: 09-08-20, Implementation: 09-08-20)
+
+Federal law requires SSA to transmit files containing data from LIS applications to
+
+states, and for states to use the data to initiate Medicare Savings Program (MSP)
+applications. States must treat the LIS “leads” data as an application for the MSP, as if
+it had been submitted directly by the applicant, even if SSA denied the applicant’s LIS
+application. See sections 1144(c)(3) and 1935(a)(4) of the Act.
+
+SSA sends daily files containing LIS application data and eligibility determinations to
+state Medicaid agencies. The files contain data for all LIS applications received, with
+limited exceptions. See SSA POMS HI 00815.024 at
+https://secure.ssa.gov/poms.nsf/lnx/0600815024 for information about these exceptions.
+SSA LIS leads data files contain information about beneficiaries’ LIS eligibility, as well
+as demographic, income, and resource information verified by SSA.
+
+For more details, see SSA’s list of LIS record data elements at
+https://www.ssa.gov/dataexchange/documents/LIS%20record.pdf.
+
+2.4.2.6 - Table of SSA-State Data Exchanges
+(Rev. 4, Issued: 08-21-20, Effective: 09-08-20, Implementation: 09-08-20)
+
+Data Type Description Manual/Data Elements
+Exchange
+
+State Batch SVES draws SVES/SOLQ Manual
+Verification query upon (https://www.ssa.gov/dataexchange/documents/sve
+and BENDEX, s_solq_manual.pdf)
+Exchange SDX,
+System prisoner
+(SVES) data, and 40
+qualifying
+quarters
+data.
+
+State Online Individual Online See above.
+Query query version of
+(SOLQ) SVES which
+allows states
+real-time
+access to
+SSA’s SSN
+verification
+service and
+retrieval of
+OASDI or
+SSI data.
+
+Data Type Description Manual/Data Elements
+Exchange
+
+State Data Batch Eligibility SDX record data elements
+Exchange query data for the (https://www.ssa.gov/dataexchange/documents/SD
+(SDX) basic federal X%20record.pdf)
+SSI payment
+or federally-
+administered
+SSPs. It
+provides a
+method of
+identifying
+people who
+may be
+eligible for
+state buy-in.
+
+Beneficiary Batch OASDI BENDEX data elements
+and query benefit (https://www.ssa.gov/dataexchange/documents/Be
+Earnings payment ndex%20record.pdf)
+Data status, SSI
+Exchange payment
+(BENDEX) status, and
+Medicare
+enrollment
+dates. Data
+retrieved
+from MBR.
+
+LIS Leads Daily file LIS LIS record data elements at
+Data from SSA application https://www.ssa.gov/dataexchange/documents/LIS
+to state data and %20record.pdf.
+Medicaid eligibility
+agencies determinatio
+ns.
+
+2.5 - Accretions
+(Rev. 4, Issued: 08-21-20, Effective: 09-08-20, Implementation: 09-08-20)
+
+2.5.1 - Part B Buy-in Accretions
+(Rev. 4, Issued: 08-21-20, Effective: 09-08-20, Implementation: 09-08-20)
+
+Each state is responsible for ensuring Part B buy-in enrollment for members of the buy-in
+coverage group identified in the state’s buy-in agreement. CMS will generally initiate
+Part B buy-in enrollments for SSI eligible individuals residing in states with signed 1634
+agreements, referred to as “SSI auto-accrete” states. Auto-accrete states make all buy-in
+eligibility determinations for non-SSI recipients and submit state accretion requests
+directly to CMS. Alert states are responsible for all buy-in eligibility determinations (i.e.,
+for both SSI and non-SSI) and submit accretion requests directly to CMS. In limited
+circumstances, SSA can take steps to initiate Part B buy-in through the Public Welfare
+(PW) Accretion process for individuals who file a Medicare application and appear to
+qualify for Part B buy-in. See section 2.8.
+
+2.5.1.1 - Part B Buy-in for Cash Assistance Recipients (SSI/SSPs)
+(Rev. 4, Issued: 08-21-20, Effective: 09-08-20, Implementation: 09-08-20)
+
+SSA explores Medicare eligibility for all SSI (including federally-administered SSPs)
+applicants. 6
+
+Through the daily CER file exchange, SSA notifies CMS about individuals who are
+entitled to SSI and found eligible for Medicare. CMS systems follow up with one of two
+actions.
+In auto-accrete states, CMS systems will automatically accrete the individual to Part B
+buy-in and transmit an auto-accretion code to the state (code 1180).
+
+NOTE: In auto-accrete states, an internal SSA process called the Medicare Attainment
+and Leads Process (MALP) identifies current SSI (and federally-administered SSPs)
+recipients for Medicare screening as they approach their 65th birthday. These
+individuals:
+
+• Must be within three months of the attainment of age 65, provided the SSI record
+is annotated to reflect that the individual has submitted proof of age (which meets
+the Title II proof of age requirements); and,
+• Must have submitted proof of U.S. citizenship or proof that he/she has been
+lawfully admitted for permanent residence and has resided in the United States
+continuously for five years.
+
+See SSA POMS HI 00810.010 at https://secure.ssa.gov/poms.nsf/lnx/0600810010.
+
+6 SSA explores eligibility for all possible benefits, including Medicare, under the SSI applicant’s SSN (this
+includes exploring under the SSN of a spouse, former spouse, or parent, etc.). SSA POMS SI
+00601.060.D.2.i at https://secure.ssa.gov/poms.nsf/lnx/0500601060#d.
+
+In alert states, CMS systems will transmit an SSI alert that a beneficiary in its jurisdiction
+is entitled to SSI benefits and may be eligible for buy-in (code 86bb).
+
+2.5.1.1.1 - Auto-Accrete States and States with Federal Administration of
+SSPs
+(Rev. 4, Issued: 08-21-20, Effective: 09-08-20, Implementation: 09-08-20)
+
+When CMS receives a record for an individual entitled to SSI (and/or federally-
+administered SSPs), TPS will auto-enroll the individual in Part B buy-in.
+
+The effective date of the accretion will be the first month/year of the most recent
+continuous period the individual is entitled to SSI (and/orfederally-administered SSPs),
+entitled to Medicare, and a resident of the state. 7 CMS generates auto-accretions at any
+time of the year, without regard to Medicare enrollment periods or premium increases
+for late enrollment.
+
+Systems Tip: CMS notifies states of Part B auto-accretions with transaction code 1180 in
+the monthly billing file (RIC-B) sent to states (or in the daily response files, RIC-D, sent
+to daily exchange states). The following month, the record will appear as an ongoing
+item (code 41) unless the item is deleted.
+
+NOTE: States are responsible for ensuring that all eligible individuals are enrolled in
+buy-in. Although CMS auto-accretes SSI (federally-administered SSPs) recipients in
+auto-accrete states, auto-accretion may omit SSI beneficiaries in limited instances.
+States should review SSA records (i.e., SVES/SOLQ, SDX, or BENDEX) to identify SSI
+recipients and other covered members and submit needed transactions to CMS. A state-
+initiated SSI accretion code 61 or code 63 is processed in the same manner as any other
+state-initiated accretion.
+In addition, SSA can initiate Part B buy-in through the PW accretion process when an
+individual files a new Medicare application. See SSA POMS HI 00815.030 at
+https://secure.ssa.gov/poms.nsf/lnx/0600815030 and section 2.8 for more information
+about PW accretions.
+
+7 Pursuant to the court decision in NY State v. Sebelius (N.D. NY, June 22, 2009), available at
+https://www.govinfo.gov/content/pkg/USCOURTS-nynd-1_07-cv-
+01003/pdf/USCOURTS-nynd-1_07-cv-01003-0.pdf, CMS has in effect a policy under which
+states are granted states equitable relief from the imposition of retroactive Part B premiums in certain
+instances involving lengthy delays in Medicare eligibility determinations to the extent that such delays
+would result in retroactive auto-accretions that would cover periods for which it is too late to obtain the
+benefits of Medicare coverage.
+
+2.5.1.1.2 - Alert States
+(Rev. 4, Issued: 08-21-20, Effective: 09-08-20, Implementation: 09-08-20)
+
+Alert states are responsible for accreting all SSI (SSPs) individuals in Part B buy-in if the
+state finds them eligible for a buy-in coverage group as part of a Medicaid eligibility
+determination.
+
+To assist states with the identification of SSI recipients who are also eligible for
+Medicare, CMS sends SSI accretion alert records to states. CMS generates such SSI
+accretion alert notifications once it is notified by SSA that the SSI individual qualifies for
+Medicare and may be eligible for a buy-in coverage group. States can also use
+information transmitted through SSA systems (i.e., SVES/SOLQ, SDX, or BENDEX) to
+identify SSI recipients for the purpose of Medicaid eligibility determinations.
+
+If the state determines that a Medicare-eligible individual is also eligible for a buy-in
+coverage group, it must submit a state accretion request to CMS. The effective date of
+the accretion will be the first month of buy-in eligibility based upon the SSI/SSPs effective
+date.
+
+Systems Tip: SSI accretion alert records (RIC-A) contain a Part B transaction (code 86).
+Once an alert state determines an SSI recipient eligible for a Part B buy-in coverage
+group, the state can accrete the individual to Part B buy-in (generally, code 84).
+
+2.5.1.2 - Members of the Buy-in Coverage Group Who Do Not Receive
+Cash Assistance
+(Rev. 4, Issued: 08-21-20, Effective: 09-08-20, Implementation: 09-08-20)
+
+States must initiate Part B buy-in accretions for any member of the buy-in coverage
+group who does not receive cash assistance.
+
+The effective date of the accretion will be based on the start date of the buy-in period,
+which differs depending upon the Medicaid eligibility category. See chapter 1, section
+1.13 and chapter 1, appendix 1.C. States can submit a Part B buy-in accretion and
+establish Medicare entitlement at any time of the year, without regard to Medicare
+enrollment periods or premium increases for late enrollment if the individual is already
+enrolled in Part A or Part B. Once TPS shares the new accretion record with the MBR,
+the MBR will update the Medicare enrollment record.
+The buy-in effective date is the first month the individual is eligible for buy-in. See
+chapter 1, appendix 1.C for more information about the effective dates for buy-in.
+
+Systems Tip: Common codes used by states
+• Code 61 - state accretion action;
+• Code 63 - identical to code 61 but used for special accretion actions or
+monitoring specific coverage groups;
+
+• Code 84 - used by an alert state to accrete a beneficiary to Part B buy-in in
+response to a code 86 accretion alert record or by an auto-accrete state to
+accrete a beneficiary based on an examination of the SDX file.
+
+See chapter 4 for detailed buy-in transaction code descriptions.
+
+2.5.2 - Part A Buy-in Accretions
+(Rev. 4, Issued: 08-21-20, Effective: 09-08-20, Implementation: 09-08-20)
+
+States may accrete QMB-eligible beneficiaries to their Part A buy-in rolls through a buy-
+in agreement or a group payer arrangement. For information about these options, see
+chapter 1, section 1.7 and chapter 2, section 2.5.3.3.
+
+States pay Part A premiums for Qualified Disabled Working Individuals (QDWIs) only
+through the group payer arrangement. States may only cover Part A premiums for
+QDWIs; however, the individuals must be enrolled in Part B prior to the state accreting
+the record to their buy-in account. For more information about QDWIs, see chapter 1,
+section 1.6.2.
+
+Each state is responsible for accreting individuals determined eligible for QMB or
+QDWI. CMS does not accrete beneficiaries to Part A buy-in except when requested to do
+so by the state in conjunction with a buy-in problem resolution request. See chapter 6.
+
+For any accretion, the latest acceptable effective date a state may submit is one month
+prior to the current billing period. The accretion effective date may not be equal to or
+later than the current billing period. The current billing period is equal to the calendar
+month in which the accretion is processed plus two months. For example, any action
+processed in April is part of the June billing period. The latest accretion effective date a
+state may submit within the June billing period is May. Any accretion with an effective
+date of June submitted during the June billing period will be rejected. In other words, for
+any accretion processed in April (i.e., in the June billing period), the latest acceptable
+effective date a state may submit is May.
+
+Systems Tip: States use accretion codes 61 and 63 for routine Part A accretions. The
+Buy-in Eligibility Code (BIEC) is not required for Part A billing records. States may
+submit a BIEC for Part A accretions and CMS will store the value in the beneficiary’s
+EDB record; CMS, however, will not return a Part A BIEC reply.
+
+NOTE: The Part A accretion BIEC will not update the Part B BIEC stored on the EDB.
+
+2.5.3 - Important Processing Rules for MSP Accretions
+(Rev. 4, Issued: 08-21-20, Effective: 09-08-20, Implementation: 09-08-20)
+
+2.5.3.1 - Required Steps for QMB, SLMB, and QI Part B Buy-in
+Accretions
+(Rev. 4, Issued: 08-21-20, Effective: 09-08-20, Implementation: 09-08-20)
+
+To ensure a Part B accretion for a QMB, SLMB, or QI successfully updates through TPS,
+states should leave the Buy-in Eligibility Code (BIEC) blank in the initial state accretion.
+If the state buy-in system requires a BIEC code, states should use another code besides
+“P,” “L,” or “U” to avoid triggering a rejection.
+
+The state can add the appropriate BIEC to the billing record by using the code 99 update
+process. CMS encourages states to verify Part B buy-in is present in CMS systems before
+submitting the code 99. A code 99 action will always update prospectively. States
+cannot change a BIEC for a past period through the buy-in data exchange.
+
+CMS will return a Part A or Part B code 21XX series rejection, or sub-code C rejection
+record in reply to state accretion requests if the state accretion request includes the BIEC
+identifier. See chapter 4, section 4.7.1, for a description of the code 21XX rejection
+series.
+
+NOTE: If a state determines an individual eligible for QMB-plus or SLMB-plus, Part B
+buy-in begins the earlier of the buy-in effective date applicable to the Medicaid or MSP
+categories. For QMB-plus individuals determined eligible at application, the separate
+full-benefit Medicaid coverage may be effective up to three months before the month of
+application, if the individual received Medicaid covered services and would have been
+eligible at the time the services were received, even though the same retroactive
+eligibility period does not apply to their QMB benefits. See 42 CFR § 435.915(a) and
+chapter 1, section 1.13.1. TPS will accept retroactive start dates for the Part B buy-in
+accretion as long as the BIEC identifier in the transaction is blank.
+
+2.5.3.2 - Part B Before Part A Rule for QMB Accretions
+(Rev. 4, Issued: 08-21-20, Effective: 09-08-20, Implementation: 09-08-20)
+
+TPS will not accept a state’s request for a Part A accretion unless the EDB shows
+current Medicare Part A and Part B entitlement and open buy-in coverage. That is, if a
+state determines an individual eligible for QMB, the state or CMS must first accrete Part
+B before the state can accrete Part A. States may submit Part A and Part B accretions
+simultaneously in the same month or first submit a Part B accretion followed by a Part A
+accretion. The exception to this rule applies to QDWIs for which the state only pays
+premiums for Part A. TPS cannot accept a Part A accretion for QDWI records unless the
+EDB shows current Part B entitlement, but the beneficiary, not the state, is liable for the
+Part B premiums.
+
+NOTE: TPS automatically sorts buy-in files so Part B actions process before Part A. To
+safeguard against TPS rejections for Part A and/or Part B, ensure the Part B accretion
+
+requests do not include the BIEC identifier.
+
+2.5.3.3 - Part A Buy-in State v. Group Payer State Status
+(Rev. 4, Issued: 08-21-20, Effective: 09-08-20, Implementation: 09-08-20)
+
+The state’s payment arrangement status (i.e., Part A buy-in state or Part A group payer
+state) determines when a state can enroll QMB-eligible individuals in Medicare Part A.
+This status will also determine if the state will pay applicable surcharge amounts due to
+late enrollments or re-enrollments.
+
+A Part A buy-in state can enroll a QMB individual in Part A buy-in at any time of year.
+If the individual is already enrolled in Part B and Part B buy-in is open, TPS will accept
+a state Part A buy-in accretion request. If the QMB individual lacks Parts A and B, the
+individual must first apply for Premium-Part A (conditionally or unconditionally) and for
+Part B at SSA before the state can submit the accretion to TPS. SSA will process the
+Premium-Part A enrollment without regard to Medicare enrollment periods and without
+premium increases for late enrollment.
+
+A group payer state is limited in when it can enroll a QMB in Part A buy-in. The
+individual must first file a conditional or unconditional Part A application (and enroll in
+Part B if they are not already enrolled) during the General Enrollment Period (GEP)
+(January through March; coverage will be effective July 1). The code Z99 on the MBR
+represents conditional enrollment.
+
+The effective date associated with the code Z99 is July 1. Once the state determines the
+individual eligible for QMB, it can submit the accretion request with an effective date of
+July 1 at the earliest. If premium surcharge amounts for late enrollment apply, CMS will
+bill the state for them.
+
+See chapter 1, section 1.11 for more information.
+
+2.5.4 - CMS Adjustment of State Accretion Effective Date to Coincide with
+Medicare Entitlement Data
+(Rev. 4, Issued: 08-21-20, Effective: 09-08-20, Implementation: 09-08-20)
+
+All state-initiated accretion actions are screened against the EDB for the presence of
+Medicare entitlement. In those cases where entitlement exists, TPS compares the
+beneficiary’s Medicare entitlement date established by SSA with the state buy-in effective
+date. If the state buy-in effective date precedes the individual’s Medicare entitlement
+date, TPS will automatically adjust the state buy-in date to agree with the individual’s
+Medicare entitlement date. For Part A accretions, the accretion cannot be earlier than
+both the Medicare Part B entitlement date on the EDB and the Part A entitlement or
+conditional enrollment (Z99) date.
+
+NOTE: Conditional Part A enrollment data are used by CMS in deriving Part A buy-in
+start dates, but do not appear in CMS response files. See chapter 4, section 4.7.1,
+transaction code 21XX, sub-code C.
+
+Systems Tip: The state will receive two reply records as a result of the adjustment to the
+state-submitted start date. The first record (code 30XX) will contain the effective date as
+submitted by the state. The second record will contain the adjusted effective date that
+corresponds to the individual’s Medicare entitlement date. The transaction code in this
+record can be any one of the possible reply codes for a state-submitted accretion.
+
+Example: The state-initiated accretion record contains a state buy-in effective date of
+03/2017. When the accretion is screened, CMS will examine the Medicare entitlement
+date. In this example, the EDB Medicare entitlement date is 04/2017.
+
+The state will receive two reply records for this situation. The first record will be a code
+30XX. This record will contain the state buy-in effective date of 3/2017 submitted by the
+state. The second record will be a code 1161. The state buy-in effective date contained
+in this record will be 04/2017.
+
+2.6 - Deletions
+(Rev. 4, Issued: 08-21-20, Effective: 09-08-20, Implementation: 09-08-20)
+
+2.6.1 - State-Initiated Deletions
+(Rev. 4, Issued: 08-21-20, Effective: 09-08-20, Implementation: 09-08-20)
+
+2.6.1.1 - Medicare Parts A and B Deletions Based on Loss of Buy-in
+Coverage
+(Rev. 4, Issued: 08-21-20, Effective: 09-08-20, Implementation: 09-08-20)
+
+States should submit deletion actions promptly when the state determines the individual is
+no longer eligible for buy-in due to loss of membership in the buy-in coverage group.
+See sections 2.1.6.3 and 2.1.6.4 for guidance on how the end date is applied for a state
+deletion request.
+
+Systems Tip: states use code 51 - state deletion record for a beneficiary who is no longer
+a member of the state’s coverage group - to delete a record from the state’s account.
+A state’s deletion record will be rejected if:
+
+• The deletion date is blank, incomplete, or otherwise in error.
+• The deletion date, other than a death deletion, is equal to or greater than the
+billing month.
+• The deletion date for a death deletion is later than the current (update) month.
+
+NOTE: See section 2.9 for information about state deletions for PW accretions.
+
+2.6.1.2 - Special Procedures for an Individual Who Loses SSI
+(Rev. 4, Issued: 08-21-20, Effective: 09-08-20, Implementation: 09-08-20)
+
+If a beneficiary loses SSI, a state must conduct a Medicaid redetermination to assess
+whether or not the individual qualifies for a different Medicaid category, including those
+encompassed by the state’s buy-in coverage group.
+
+CMS transmits an informational “SSI deletion alert” notification record (code 87) to
+auto-accrete and alert states upon notification from SSA that a beneficiary has lost SSI
+eligibility.
+
+The alert is not a notification that CMS has deleted the record or that the state must
+submit a deletion transaction. Rather, the alert is intended to prompt the state to conduct
+a redetermination. While the state is making this determination, the state must maintain
+Medicaid coverage and must not terminate the individual from buy-in. If the state
+determines the individual eligible for another Medicaid category in the buy-in coverage
+group, the state should maintain buy-in coverage for the individual. States shall not
+delete individuals from buy-in unless the state redetermination finds the individual no
+longer qualifies as a member of the buy-in coverage group. See chapter 1, section 1.4
+for more information about redeterminations.
+
+Systems Tip: If the state redetermination finds the individual no longer eligible as a
+member of the buy-in coverage group, the state should delete the individual using code
+51. If the state redetermination shows the individual qualifies under another Medicaid
+category in the buy-in coverage group, the state should not submit a code 51 deletion.
+Instead, the state should submit a code 99 (change record) to change the BIEC in the
+state’s billing record using the steps described in chapter 4.
+
+2.6.1.3 - CMS Processing of Part B Deletions Because a Beneficiary is No
+Longer a Member of the State’s Coverage Group
+(Rev. 4, Issued: 08-21-20, Effective: 09-08-20, Implementation: 09-08-20)
+
+CMS will evaluate the requested stop date of all state deletion requests for Part B (code
+51 and, in some cases, code 50) based on loss of buy-in coverage group membership (this
+does not apply to code 53) and, where necessary, modify the deletion effective date based
+on the processing limitations below.
+
+• The deletion regulations for Part B buy-in limit the retroactivity of Part B
+deletions to the CMS processing month minus two months. See 42 CFR §
+407.48(c). This rule aims to prevent excessive hardship for beneficiaries when
+
+buy-in coverage ends by restricting retroactive liability to two months.8
+
+NOTE: In practice, SSA may initially bill beneficiaries for premium liability
+amounts of up to three months (current month plus two retroactive billing months)
+when buy-in coverage ends. The deletion regulation is also known as the
+“Commissioner’s Decision” (CD) because it was issued in 1972 by SSA’s
+commissioner, before the creation of its sister-agency, the Health Care Financing
+Administration (HCFA, now CMS).
+
+• CMS operates in alignment with SSA’s Current Operating Month (COM)
+schedule, rather than by calendar month. COM dates vary each month and are
+determined by SSA. The COM dates provide the start and end dates for
+processing periods/months. For example, the August 2020 9 COM ran from July
+24 through August 25. The September 2020 COM ran from August 26 through
+September 23.
+CMS, in order to maintain synchronicity with SSA, processes code 51 deletions according
+to the business day prior to the COM change date. This is necessary because the TPS
+daily exchange with SSA is not processed by SSA until the next business day.
+
+Systems Tip: CMS sends a copy of SSA’s COM schedule to states on a quarterly basis to
+help the states determine the earliest deletion date.
+
+NOTE: The deletion cut-off of the 25th day of the month in 42 CFR § 407.48(c) no longer
+applies; SSA’s COM schedule should be referenced, instead.
+
+The date of CMS processing depends upon the time of day received. Generally, TPS
+update processing begins at 11:00 a.m. (Eastern Time (ET))--and no earlier--every
+business day. Files received before daily processing begins are processed the same day.
+Processing may be delayed on rare occasions. Files received after daily processing
+begins (usually 11:00 a.m. ET) are processed in the next scheduled TPS daily run.
+
+Example: State code 51 deletion requests are received in the calendar month of August
+2020. The TPS August 2020 COM is from July 24 through August 25, and the TPS
+September 2020 COM is from August 26 through September 23. TPS processing starts at
+11:00 a.m. ET.
+
+State code 51 deletion requests received by TPS in August 2020 prior to 11:00 a.m. ET
+on the 25th had a processing month of August and may have an effective deletion date no
+earlier than June. If the state requested an effective date prior to June, CMS adjusted the
+
+8 The retroactive liability may not extend to a point in time prior to the date of action in the notice which
+informed the beneficiary of their loss of Part B buy-in coverage through the Medicaid program. See 42
+CFR 431.201, 435.917, 431.206, and 431.210 to 214.
+9 Note: these dates are specific to 2020, and provided as illustrative examples. The specific dates will vary
+by calendar year.
+
+deletion date, processing it as June (i.e., if the state requested an effective date of April,
+TPS automatically adjusted the effective date to June). The state remained liable for
+billing prior to and including June. CMS refunded the state for any premiums already
+billed for July through September (CMS bills one month prospective to the date the
+billing invoice is mailed) and the beneficiary became liable for those months. 10
+
+State code 51 deletion requests processed by TPS on or after August 26 (regardless of the
+time of day), had a processing month of September and an effective deletion date no
+earlier than July 2020. If the state requested an effective date prior to July, TPS
+automatically adjusted the deletion date, processing it as July (e.g., if the state requested
+an effective date of April, TPS automatically adjusted the effective date to July). The
+state remained liable for billing prior to, and including, July 2020. CMS refunded the
+state for any premiums already billed for August through September (CMS bills one
+month prospectively) and the beneficiary became liable for those months.
+
+2.6.1.4 - CMS Processing of State-Initiated Part A Deletion Requests
+Based on Loss of QMB Status
+(Rev. 4, Issued: 08-21-20, Effective: 09-08-20, Implementation: 09-08-20)
+
+The state must notify CMS through a Part A deletion request when an individual loses
+eligibility for QMB. Part A buy-in ends at the end of the month the deletion is processed,
+regardless of the date the individual lost QMB status. See 42 CFR § 406.26. Actions
+received on the last business day of a month are processed the next month. CMS will
+evaluate the requested effective date of all state Part A deletions and modify the deletion
+effective date based on these two rules.
+
+Examples:
+
+State Part A deletion requests received in August prior to 11:00 a.m. ET on the 31st may
+have an effective deletion date no earlier than August. If the state requests an effective
+date prior to August, CMS will adjust the deletion date, processing it as August (e.g., if
+the state requests an effective date of July, TPS automatically adjusts the effective date to
+August). The state remains liable for billing prior to and including August. CMS will
+refund the state for any premiums already billed for September (CMS bills one month
+prospectively) and the beneficiary becomes liable for that month.
+
+State Part A deletion requests received in August after 11:00 a.m. ET on the 31st may be
+held until September. Those held until September may have an effective deletion date no
+
+10 Note: CMS does not automatically bill the beneficiary for those months; instead, CMS notifies SSA. SSA
+may begin withholding the monthly premium from the person’s benefits; if they do not, SSA would notify
+CMS to begin direct billing of the individual.
+
+earlier than September. If the state requests an effective date prior to September, TPS
+will automatically adjust the deletion date, processing it as September (e.g., if the state
+requested an effective date of August, TPS automatically adjusted the effective date to
+September). The state remains liable for billing prior to and including September. CMS
+will refund the state for any premiums already billed for October (CMS bills one month
+prospectively) and the beneficiary is liable for that month.
+
+2.6.2 - CMS-Initiated Deletions
+(Rev. 4, Issued: 08-21-20, Effective: 09-08-20, Implementation: 09-08-20)
+
+CMS will initiate a deletion action to terminate ongoing buy-in coverage or annul
+(“wipe-out”) the entire buy-in coverage period in response to certain events. This
+section describes events that will cause CMS to delete ongoing buy-in billing records
+from a state’s account.
+
+2.6.2.1 - Death of the Beneficiary
+(Rev. 4, Issued: 08-21-20, Effective: 09-08-20, Implementation: 09-08-20)
+
+SSA receives reports of death from a number of sources in the daily operation of its
+various programs. CMS receives death notifications in the CER file exchange with SSA,
+which will first trigger an update to the EDB, and then to TPS, to end buy-in coverage.
+CMS will delete the beneficiary from buy-in effective the last day of the beneficiary’s
+month of death. In cases where the date of death is prior to the buy-in start date, the
+state will receive credit for the entire buy-in period.
+
+Systems Tip: CMS sends code 16bb, notification of death, to the state on the next monthly
+billing file (and in the daily response files in a daily exchange state). The month and year
+of death reported by SSA are shown in the transaction effective date field.
+
+NOTE: In some instances, SSA may send a death notification to CMS in error. In these
+cases, the state should ask the beneficiary to submit proof of identity to SSA so it can
+remove the date of death from the MBR. The state may re-accrete the beneficiary to the
+buy-in rolls through the normal data exchange after SSA corrects the record in the MBR.
+
+2.6.2.2 - Beneficiary’s Loss of Medicare Eligibility
+(Rev. 4, Issued: 08-21-20, Effective: 09-08-20, Implementation: 09-08-20)
+
+SSA will end Medicare entitlement for a beneficiary for various reasons, such as the loss
+of entitlement to disability benefits, the receipt of a kidney transplant to treat End-Stage
+Renal Disease (ESRD), or failure to meet or provide documentation to meet citizenship
+or alien residency requirements.
+
+In such cases, CMS will receive a Medicare termination notification from SSA in the CER
+
+file exchange, which will first trigger an update to EDB, and then to TPS, to end buy-in
+coverage. The buy-in end date associated with the deletion transaction will be the last
+month prior to the Medicare termination.
+
+Systems Tip: CMS sends a code 15bb to the state on the next monthly billing file (and in
+the daily response files in a daily exchange state).
+
+2.6.2.3 - Beneficiary Changes of State of Residency
+(Rev. 4, Issued: 08-21-20, Effective: 09-08-20, Implementation: 09-08-20)
+
+Membership in a buy-in coverage group derives from the receipt of Medicaid coverage.
+Loss of state residency will disqualify an individual for Medicaid and, thus, buy-in
+coverage.
+
+2.6.2.4 - Deletion as a Result of Another State's Accretion Action
+(Rev. 4, Issued: 08-21-20, Effective: 09-08-20, Implementation: 09-08-20)
+
+If a beneficiary is enrolled in buy-in in one state (“former state”) and CMS receives an
+accretion action from another state (“new state”) for the same beneficiary, CMS assumes
+that the new state has jurisdiction over the record. When CMS processes the accretion
+from the new state, TPS will trigger a deletion to remove the records from the former
+state’s buy-in rolls. The stop date in the deletion record is the month prior to the buy-in
+accretion in the new state.
+
+Systems Tip: CMS will send the former state a code 1728 deletion record and reflect the
+new state in CMS records.
+
+2.6.2.5 - Change of State Residence for SSI Recipients
+(Rev. 4, Issued: 08-21-20, Effective: 09-08-20, Implementation: 09-08-20)
+
+When an SSI beneficiary moves to another state, SSA will process a change of state
+residency action to update the SSI record and the MBR, which then transmits the
+information to the EDB (via the CER file) to update the beneficiary’s record. The change
+of residency update in EDB will cause CMS to delete the individual from the former
+state’s account. The deletion (code 1728) effective date will be the last month of
+residency in the “former” state.
+
+• If the beneficiary moves from one auto-accrete state to another auto-
+accrete state, CMS will auto-accrete the beneficiary in Part B in the new
+state. The effective date of the accretion is the start of the first continuous
+period of SSI entitlement. If the SSI record reflects earlier SSI coverage
+while the beneficiary resided in the former state, CMS will send the new
+state a code 1180 followed by the sub-code A. Sub-code A alerts the state
+that CMS will also send a RIC-A record with the complete SSI data.
+
+• If the beneficiary moves from an auto-accrete state to an alert state, or
+from one alert state to another alert state, CMS will transmit an SSI alert
+notification (code 86bb) to the new state,.
+
+State Action: The former state should examine the Medicaid eligibility record for any
+beneficiary for whom it receives a code 1728 to ensure the state closed the
+beneficiary’s Medicaid eligibility record. If the former state believes it should retain
+jurisdiction of the case, it must contact the new state to resolve jurisdictional issues.
+
+Systems Tip: CMS will notify the former state of the deletion with a code 1728
+transaction in the billing/response files (i.e., positions 124 to 126 on the RIC-B record
+and positions 94-96 on the RIC-D record as described in chapter 3). The deletion date is
+the individual’s last month of residency in the former state. Chapter 3 describes the
+record format and data fields for the code 1167 accretion in the monthly billing file (RIC-
+B) and, for states receiving daily files, code 1167 is also sent as a RIC-D record. The
+new state will receive either an SSI alert record (code 86) or an SSI accretion record
+(code 1180), if SSI entitlement continues.
+
+NOTE: Upon receipt of the deletion transaction from CMS, the former state should
+conduct a Medicaid redetermination to assess continued Medicaid eligibility, including
+state residency. If the beneficiary no longer resides in the state, the state should ensure
+that it has closed the Medicaid record to prevent a cycle of re-accretion and deletion
+actions between states. If the state finds the individual still resides in the state, it must
+contact the new state in order to resolve state residency.
+
+2.6.2.6 - Beneficiary Becomes Entitled to Reduced or Premium-Free Part
+A
+(Rev. 4, Issued: 08-21-20, Effective: 09-08-20, Implementation: 09-08-20)
+
+Part A buy-in will terminate when an individual obtains enough Social Security quarters
+to qualify for Premium-free Part A (either based on their own on their spouse’s record).
+SSA will send a notification to CMS when coverage changes from Premium-Part A to a
+reduced premium or from reduced Premium-Part A to Premium-free Part A entitlement.
+Premium-based changes are received daily by CMS from SSA in the CER file exchange.
+Once EDB updates the new entitlement record, TPS will trigger the appropriate
+action(s).
+
+In cases where Premium-Part A premium liability changes from the full premium to a
+reduced amount, TPS will generate a deletion to stop billing at the “previous rate” and
+re-accrete the record to begin state billing at the “new rate.” In cases where the
+premium liability amount changes from reduced Premium-Part A to Premium-free Part
+A, TPS will send a deletion and stop billing the state for Part A. The deletion date in
+both instances is the month prior to the effective date of reduced or Premium-free Part A.
+
+Systems Tip: CMS sends a code 14bb to the state to identify the deletion.
+
+2.6.2.7 - Deletions from Other Sources
+(Rev. 4, Issued: 08-21-20, Effective: 09-08-20, Implementation: 09-08-20)
+
+CMS may be notified outside of the normal data exchange that a manual deletion action
+is required. CMS generally receives these requests from the state or from the SSA FO on
+the Form CMS-1957 “SSO Report of State Buy-in Problem,” or Form SSA-5002-HB
+“Report of Contact,” after a beneficiary reports information that indicates a change in
+residency or SSI entitlement. See chapter 6, section 6.6 for additional details.
+
+2.7 - Changes and Corrections
+(Rev. 4, Issued: 08-21-20, Effective: 09-08-20, Implementation: 09-08-20)
+
+2.7.1 - State Correction of a Previously Submitted State Accretion or
+Deletion Date
+(Rev. 4, Issued: 08-21-20, Effective: 09-08-20, Implementation: 09-08-20)
+
+2.7.1.1 - Adjustment to the Start Date for Ongoing (Code 41) Billing Items
+(Rev. 4, Issued: 08-21-20, Effective: 09-08-20, Implementation: 09-08-20)
+
+The state may adjust the accretion date of an ongoing record or a new accretion to an
+earlier date by submitting a code 61 transaction containing the new accretion date in the
+regular buy-in data exchange.
+
+NOTE: States should use a code 61 to adjust a period to an earlier date with caution -
+only when the earlier date/period is contiguous with the current period.
+
+• CMS will send the state a code 4361, 4363, or 4384 to reflect that CMS
+has established an earlier period of state buy-in coverage in response to
+the state’s retroactive accretion. If CMS establishes ongoing coverage,
+the state will receive a code 1161, 1163, or 1184.
+
+• The state may not adjust an accretion date to a later date since this would
+disadvantage the beneficiary. CMS will reject the state accretion with a
+code 2561, duplicate accretion action.
+
+2.7.1.2 - Adjustment of Accretion or Deletion Date - Closed Period of State
+Buy-in Coverage
+(Rev. 4, Issued: 08-21-20, Effective: 09-08-20, Implementation: 09-08-20)
+
+The state may send CMS a simultaneous accretion/deletion action (code 75) to establish
+a closed period of state buy-in coverage separate from existing buy-in coverage already
+reflected in CMS systems. CMS will acknowledge the closed period request with a reply
+code 4375.
+
+The state is responsible for the accuracy of the dates submitted. The state cannot adjust
+the accretion date to a later date nor adjust the deletion date to an earlier date on a
+closed period of state buy-in coverage. Either action would disadvantage the
+beneficiary.
+
+If the simultaneous accretion/deletion action duplicates an existing period of coverage on
+the EDB, CMS will send the state a rejection code 2575.
+
+• If a state receives this rejection code, it should not submit a code 61 to
+change the accretion date on a closed period. The system interprets a
+code 61 as a request to expand coverage. Not only will a code 61 change
+the accretion date to afford greater coverage, it will also reopen the
+closed period and establish ongoing coverage.
+• The state may adjust the deletion date for a closed period to an earlier
+date. For Part B, this may be no earlier than two months prior to the
+processing month in which the adjustment is processed and, for Part A,
+this may be no earlier than the calendar month in which the adjustment is
+processed, except in the case of death. A death case may be deleted
+retroactively to the month of death.
+
+If the date of death (DOD) in the MBR conflicts with the date of death on a state request
+to correct an erroneous code 16 death deletion, SSA will ask the state to provide
+corroborating evidence to support its request.
+
+• To correct an erroneous death deletion, submit a buy-in problem resolution
+request to CMS. See chapter 6 for submission methods. A separate
+memorandum is required for each request.
+
+CMS will notify the state through the buy-in data exchange of an adjustment action that
+results in a debit or credit action.
+
+• Code 4268 - acknowledgment of a state-submitted request to move an
+accretion date to a later date resulting in a credit to the state. CMS made
+this adjustment because it applied an incorrect accretion effective date.
+• Code 4269 - acknowledgment of a state-submitted request to move a
+deletion date to an earlier date resulting in a credit to the state. CMS
+made this adjustment because it applied an incorrect deletion date.
+• Code 4368 - acknowledgment of a state-submitted request to move an
+accretion date to an earlier date resulting in a debit to the state. CMS
+made this adjustment because it applied an incorrect accretion effective
+date.
+• Code 4369 - acknowledgment of a state-submitted request to move a
+deletion date to a later date resulting in a debit to the state. CMS made
+this adjustment because it applied an incorrect deletion date.
+
+2.7.2 - State Request for Adjustment of SSI Actions Accreted by CMS
+(Rev. 4, Issued: 08-21-20, Effective: 09-08-20, Implementation: 09-08-20)
+
+An auto-accrete state may identify items on its state buy-in account that conflict with
+state records or the SSA data in the SVES/SOLQ, SDX, or BENDEX.
+
+Potential discrepancies between the EDB records and the state records or the SSA data
+are:
+
+• CMS newly auto-accreted the record to the state’s buy-in account (code 1180) or
+the billing record shows ongoing buy-in (code 41), but SSA has no record of the
+individual;
+
+• SSA has a record of an individual age 65 or older in an auto-accrete state, but
+CMS has no record of the individual; or
+
+• The effective date of the CMS-initiated accretion and the effective date of SSI
+eligibility differ.
+
+In the situations described above, examine SSA data exchanges before initiating a
+complaint. The SSI eligibility date and the state buy-in eligibility date can differ if:
+
+• The beneficiary was not eligible for Medicare at the time of SSI eligibility;
+• The beneficiary changed legal residence after the individual established SSI
+eligibility; or
+• The beneficiary’s SSI status changed from conditional to ineligible or from
+ineligible to eligible, and SSA is processing a reinstatement.
+
+States can submit a State Buy-in Resolution request to correct an erroneous SSI-based
+accretion to DMSEI. See chapter 6 for instructions on how to submit buy-in cases for
+resolution.
+
+When DMSEI receives the request, it will conduct an investigation. If DMSEI
+determines:
+
+• Buy-in coverage was updated in error, the state will receive a code 1750, annulment
+of entire buy-in coverage period.
+• Buy-in coverage start and/or stop date is incorrect, the state will receive a credit item
+(code 4268) based on the accretion date adjustment and/or deletion date adjustment.
+
+Systems Tip: States must contact CMS to manually correct discrepant records. See
+chapter 6 for instructions on how to submit buy-in cases needing resolution.
+
+2.7.3 - State-Initiated Change Records
+(Rev. 4, Issued: 08-21-20, Effective: 09-08-20, Implementation: 09-08-20)
+
+2.7.3.1 - Medicare Part B
+(Rev. 4, Issued: 08-21-20, Effective: 09-08-20, Implementation: 09-08-20)
+
+The state may change a beneficiary’s BIEC and state welfare (Medicaid) identification
+number.
+
+• A state can use code 99 to add or change the individual’s BIEC. The code 99
+update will be effective with the next billing cycle.
+• A state code 99 submission with blanks in positions 71-72 will not eliminate an
+existing BIEC in the billing record.
+• A state can use code 99 to add or change a state welfare identification number, but
+cannot delete an existing state welfare identification number.
+• A state code 99 submission with blanks in positions 101-120 will not eliminate an
+existing state welfare identification number.
+
+The record format is the same as the format for the state accretion or deletion action
+(State Agency Input Record) described in chapter 3. The transaction code for the change
+record is code 99. A code 99 action can only be applied to an open TPS record (e.g.,
+code 41).
+
+2.7.3.2 - Medicare Part A
+(Rev. 4, Issued: 08-21-20, Effective: 09-08-20, Implementation: 09-08-20)
+
+The state may change only the Client Identification Number on the Part A TPS record.
+
+The transaction code for the change record is code 99 and can only apply to an open TPS
+record (e.g., code 41).
+
+2.7.4 - CMS Reply to a State-Initiated Change Record (Code 99)
+(Rev. 4, Issued: 08-21-20, Effective: 09-08-20, Implementation: 09-08-20)
+
+CMS will apply state change records (code 99) to existing open coverage billing records
+(code 41) if the change record matches the existing EDB record on HICN/MBI and state
+agency code and the EDB shows an open coverage record. If CMS applies the change, it
+will not send the state a reply. Otherwise, CMS will reject the change record with the
+transaction code 4999.
+
+If the state submits a Part B code 99 with a BIEC of “P” (QMB), “L” (SLMB), or “U”
+(QI) and the EDB does not reflect a current Part A and Part B entitlement and open Part
+B buy-in, CMS will reject the transaction with a reply code 4999.
+
+2.8 - SSA-Initiated Accretions - Public Welfare Accretion Procedure (Code
+1167)
+(Rev. 4, Issued: 08-21-20, Effective: 09-08-20, Implementation: 09-08-20)
+
+The SSA FO can start buy-in coverage through the PW accretion procedure when an
+individual files an application for Medicare and is, or will be, a member of a Part B buy-
+in coverage group in the state. See chapter 1, section 1.6, for a list of state buy-in
+coverage groups. The PW procedure allows the SSA FO to establish Part B through
+state buy-in, making the state responsible for paying the Part B premiums instead of the
+individual.
+
+Each state should work with its SSA Regional Office to define the individuals for whom
+SSA FOs will initiate a PW accretion and the procedures to verify an individual’s
+potential membership in the state’s buy-in coverage group before initiating a PW
+accretion.
+
+Systems Tip: After SSA establishes Medicare entitlement for a beneficiary who may be
+eligible for buy-in, SSA will transmit the PW accretion to CMS, which uses the code 1167
+to accrete the record to the state’s Part B buy-in account. If the individual is SSI-eligible
+and resides in an alert state, CMS will send an SSI alert record (code 86bb).
+
+SSA may use the PW accretion process for SSI-eligible individuals who are also eligible
+for Medicare in auto-accrete states, with the expectation that CMS will then auto-accrete
+(code 1180) these individuals in Part B buy-in. Depending on the timing of the SSI
+entitlement update from MBR to EDB, the state may first receive the PW accretion code
+1167 followed by code 1180 (after deletion of the code 1167), or it may only receive code
+1180. The state also receives a SSI alert record (code 86bb) for informational purposes.
+
+Chapter 3 describes the record format and data fields for the code 1167 accretion in
+CMS billing records (RIC-B and, for states receiving files daily, RIC-D).
+
+2.9 - Erroneous PW Accretion - All States
+(Rev. 4, Issued: 08-21-20, Effective: 09-08-20, Implementation: 09-08-20)
+
+If the state determines that a PW accretion (code 1167) was processed for an ineligible
+individual, the state may appeal the action. The state must react to the PW accretion
+before the end of the second month following the month in which the state received
+notification of the PW accretion on its billing file. If the state does not react within the
+established timeframe, the state becomes responsible for the premium liability until a
+state’s deletion action is processed per the standards in section 2.6.1.3.
+Example: A state receives a PW accretion (code 1167) billing record on the monthly
+billing file sent by CMS February 1st. The state may submit a code 50 deletion request to
+CMS within two billing months (i.e., must be received by CMS prior to 11:00 a.m. ET on
+April 30th or the last business day, if the last day of the month is a non-business day).
+
+Systems Tip: If a PW accretion is processed in error or the accretion date is incorrect,
+submit a code 50 deletion or “wipe-out” to CMS in the state’s input file within the
+established timeframe (two billing months). If the state submits the code 50 after the two-
+month window, the deletion will be subject to the limitations of the Commissioner’s
+Decision as if it were a code 51 deletion. TPS will delete the code 1167 open period and
+send a deletion reply code 1750 with a modified effective end date as required by the
+Commissioner’s Decision.
+
+If the effective date of the PW accretion is correct, but the state has determined the
+individual is no longer eligible for buy-in coverage, the state should submit a code 50
+deletion request with the appropriate end date to establish a closed period of coverage.
+
+2.10 - Enrollment of Persons Who Refuse to Establish Medicare Eligibility
+(Rev. 4, Issued: 08-21-20, Effective: 09-08-20, Implementation: 09-08-20)
+
+If an individual refuses to cooperate with SSA to establish eligibility for Medicare Part B
+(Supplementary Medical Insurance (SMI)), the FO will advise the state Medicaid agency
+or the office delegated to perform Medicaid eligibility determinations so they can take
+any appropriate action to obtain the cooperation of the individual. The state may enroll
+the individual only in Medicare Part B. The individual must enroll in Medicare Part A.
+
+In order to enroll the individual in Part B buy-in, the state must establish that the
+individual is a member of the state’s coverage group and that the individual meets the
+requirements for Medicare entitlement.
+
+The state must complete the application Form CMS-4040, “Request for Enrollment in
+Supplementary Medical Insurance” which it can obtain from the FO or from the CMS
+website under Medicare, CMS Forms at https://www.cms.gov/Medicare/CMS-
+Forms/CMS-Forms/index.html. Send the completed form and related documentation to
+the FO which services the individual’s address.
+
+Most of the information which is requested on the application can be obtained from local
+county eligibility records. Enter the following:
+
+• The beneficiary’s address, since that is the address to which the Medicare card will
+be mailed; and
+
+• The beneficiary’s HICN/MBI. If the individual does not have a HICN/MBI, contact
+the local FO for assistance in obtaining a HICN/MBI for the individual.
+
+The enrollee need not sign the application. Instead, the eligibility staff person should
+complete the signature block and annotate the form to show that the information on it
+was taken from local records.
+
+The application also requests that the state submit the following documentation:
+
+• Proof of age. The state should submit a copy of the individual’s birth certificate. If
+the birth certificate is not available, submit copies of the documents which were used
+to establish the date of birth in the Medicaid record; and
+• Proof of citizenship or residency. If the individual was born in the United States no
+proof of citizenship or residency is required. If the individual was born outside the
+United States, the state should submit a copy of the evidence which was used to
+establish citizenship or residency.
+SSA makes the final determination of Medicare entitlement. After SSA has established
+the Medicare record, SSA will accrete the individual to Part B buy-in through the PW
+procedure, accretion code 1167.
+
+2.11 - State Accretion Procedure to Establish a Closed Period of State
+Buy-in Coverage
+(Rev. 4, Issued: 08-21-20, Effective: 09-08-20, Implementation: 09-08-20)
+
+2.11.1 - Medicare Part B
+(Rev. 4, Issued: 08-21-20, Effective: 09-08-20, Implementation: 09-08-20)
+
+The Simultaneous Accretion/Deletion (SAD) transaction (code 75), also referred to as a
+“closed period,” is available to states for the purpose of inserting a closed period of buy-
+in coverage. A state’s buy-in request (code 75) must contain a start and stop date.
+Closed period insertions are common in SSA disability appeals cases involving
+individuals with past Medicaid entitlements. In these cases, SSA issues a retroactive
+SSI/SSDI award with a disability entitlement date more than 24 months in the past. In
+such cases, SSA will retroactively establish Part A entitlement (starting the 25th month
+after the disability entitlement date). States are required to pay Part B premiums for all
+periods for which an individual is eligible for buy-in under Medicaid and is Medicare
+entitled.
+
+Example:
+• SSA established retroactive premium-free Medicare Part A and Part B effective
+08/2017. The beneficiary is QMB beginning 09/2017.
+• The individual has SSI entitlement from 05/2017 through 07/2017. The state submits
+a code 75 with a start date of 05/2017 and a stop date of 08/2017.
+
+Systems Tip: Submit a code 75 (closed period) to insert a limited buy-in coverage period.
+The code 75 must provide the start date and stop date. Failure to send both the accretion
+start date and the deletion end date will result in a rejection. States may submit multiple
+requests for code 75 actions on a single input file. Each discrete period must be
+represented by a separate input record with the same transaction code.
+• A code 4375 is returned to the state to acknowledge the successful update of a code
+
+75 request.
+• The code 75 must contain the proper Medicare identification information to allow the
+item to be processed in the month submitted. If the transaction record does not match
+the Medicare data on the EDB, it is automatically rejected.
+
+2.11.2 - Medicare Part A
+(Rev. 4, Issued: 08-21-20, Effective: 09-08-20, Implementation: 09-08-20)
+
+There are situations where states fail to accrete eligible beneficiaries on a timely basis.
+That is, the beneficiary is not currently eligible as a QMB or a QDWI, but was eligible
+for one or more months in the past and should have been enrolled in Part A buy-in. This
+situation should occur infrequently.
+
+A Part A buy-in state may use the code 75 to establish Medicare Part A state buy-in
+coverage for a closed or limited period of coverage. In rare instances, a closed period of
+Part A Buy-in coverage may be updated for group payer states. A request to update a
+closed period in group payer states may be directed to DMSEI (see chapter 6).
+
+Transmittals Issued for this Chapter
+
+Rev # Issue Date Subject Impl Date CR#
+
+R4SPMP 08/21/2020 New State Payment of Medicare Premiums, 09/08/2020 N/A
+(SPMP)

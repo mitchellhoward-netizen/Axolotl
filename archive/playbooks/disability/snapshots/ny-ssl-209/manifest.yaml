@@ -1,0 +1,10 @@
+- retrieved: '2026-10-07'
+  url: https://www.nysenate.gov/legislation/laws/SOS/209
+  final_url: https://www.nysenate.gov/legislation/laws/SOS/209
+  status: 200
+  content_type: html
+  text_sha256: 3586a4750e8c9c34f1fd9fc57c46c324e573df7686c130c21fd7e790cda1f35b
+  text: ny-ssl-209/2026-10-07.txt
+  raw: ny-ssl-209/2026-10-07.html
+  fetched_via: headless Chromium (Playwright) page load; nysenate.gov returns 403
+    to non-JavaScript clients

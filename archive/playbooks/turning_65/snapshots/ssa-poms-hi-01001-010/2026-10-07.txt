@@ -1,0 +1,232 @@
+Skip to content
+
+Program Operations Manual System (POMS)
+
+Effective Dates: 02/02/2023 - Present
+Previous | Next
+
+TN 52 (02-23)
+
+HI 01001.010 Premium Increase for Late Enrollment
+
+CITATIONS:
+
+Section 1839(b) of the Social Security Act
+
+A. Policy
+
+1. Basic Principle
+
+The Supplementary Medical Insurance (SMI) premium (Part B) is increased 10 percent
+for each full 12 months during which an individual could have been, but was not, enrolled
+in SMI.
+
+2. Premium Increase (Also Known as Premium Surcharge or Late Enrollment Penalty)
+
+The increased premium is always the premium payable increased by the applicable percentage
+for late enrollment. When the premium rate rises, the surcharge percentage remains
+the same, but the amount of the surcharge increases in proportion to the amount of
+the rise in the premium.
+
+3. Premium Rollback
+
+a.
+
+If a premium surcharge was in effect prior to attainment of age 65, the premium is
+rolled back to the standard (unincreased) premium effective with the month of attainment
+of age 65.
+
+b.
+
+Months prior to age 65 are never counted in the calculation of a premium increase
+for late enrollment or reenrollment after age 65.
+
+c.
+
+Prior to age 65, the months of non-enrollment are ignored in each separate period
+of Part A entitlement based on disability or End-Stage Renal Disease (ESRD) in the
+calculation of the surcharge for any later period of entitlement based on disability
+or ESRD.
+
+4. Rounding
+
+All premium amounts that are not an exact multiple of 10 cents are rounded to the
+nearest dime (5 cents-9 cents are rounded to the next higher dime).
+
+B. Procedure
+
+Treat countable and excludable months as shown below.
+
+1. Count These Months
+
+a. For Enrollments Prior to 1/1/2023:
+
+1.
+
+For an individual who is enrolling for the first time, count all the months elapsing
+after the end of the Initial Enrollment Period (IEP), through the end of the enrollment
+period during which enrollment occurred.
+
+2.
+
+For an individual who is reenrolling after termination of one or more periods of SMI
+coverage:
+
+Add the total surcharge months from the first enrollment and add the months elapsing
+after the last day of each prior coverage period up to and including the last month
+of each enrollment period during which reenrollment took place. See HI 01001.010B.1.a.1.
+
+EXCEPTION: Where the first enrollment or reenrollment occurred from 4/1/1981 through 9/30/1981,
+count the months after the end of the Initial Enrollment Period (or last month of
+prior SMI entitlement) through the month of enrollment.
+
+b. For Enrollments On or After 1/1/2023:
+
+1.
+
+For an individual who is enrolling for the first time, count all the months elapsing
+after the end of the IEP through the end of the month in which the individual enrolls.
+
+2.
+
+For an individual who is reenrolling after termination of one or more periods of SMI
+coverage, add the total surcharge months from the first enrollment and add the months
+elapsing after the last day of each prior coverage period up to and through the end
+of the month in which the individual enrolls. See HI 01001.010B.1.a.1 or HI 01001.010B.1.b.1.
+
+EXCEPTION: Where the first enrollment or reenrollment occurs pursuant to an Exceptional Conditions
+Special Enrollment Period (SEP) at HI 00805.382 - HI 00805.387, there is no applicable premium surcharge, also known as late enrollment penalty
+(LEP). However, if the individual fails to enroll or reenroll during the available
+Exceptional Conditions SEP, any months of non-coverage, including the months during
+the Exceptional Conditions SEP, would be taken into consideration for calculating
+the LEP.
+
+NOTE: Under no circumstances will months in an IEP be counted in calculating the premium
+surcharge.
+
+2. Exclude These Months
+
+From the total months in HI 01001.010B.1., exclude:
+
+a.
+
+The months 6/1966 through 9/1966, if enrollment occurred during those months by an
+individual whose IEP ended prior to 6/1966.
+
+b.
+
+The months 1/1968 through 3/1968, if enrollment occurred in the period 10/1/1967 through
+4/1/1968.
+
+c.
+
+In "deemed IEP" cases (see HI 00805.150), exclude the months after the actual IEP through the end of the deemed IEP.
+
+d.
+
+All months prior to the beginning of individual entitlement for those who have left
+the State buy-in rolls. Individuals who leave the State buy-in rolls for SMI are always
+treated, for premium surcharge purposes, as if they had enrolled in their IEP and
+maintained that enrollment.
+
+NOTE: States never pay a premium increase for late enrollment in SMI under State buy-in.
+
+e.
+
+All months during which an individual was barred from enrollment prior to 1/1973.
+This applies to those enrolling for the first time after 1972 whose IEP ended in or
+before 1969, and those whose previous period of coverage ended in or before 1969.
+(The law in effect prior to the 1972 amendments prevented an individual from enrolling
+for the first time in SMI after the IEP unless the individual did so in a General
+Enrollment Period (GEP) that began no later than 3 years after the close of the IEP.
+Also, an individual whose SMI coverage ended could not reenroll unless the individual
+did so in a GEP that began no later than 3 years after the last day of SMI coverage.)
+
+f.
+
+Months prior to 1/1978 for those who were entitled to CHAMPUS (now TRICARE, see HI 00805.325) in 1977 and:
+
+•
+
+became entitled to Part A as a disability or ESRD beneficiary, or
+
+•
+
+became entitled to Part A as a spouse or surviving spouse when the Supreme Court declared
+the one-half support requirement for such benefits unconstitutional in 3/1977. (See
+HI 00805.720.)
+
+g.
+
+Months prior to 7/1978 for those who were entitled to CHAMPVA benefits, and met either
+of the requirements in HI 01001.010B.2.f. (See HI 00805.725.)
+
+h.
+
+Months prior to the first month after the end of the IEP established for ESRD beneficiaries
+who had refused SMI when they became entitled to Part A under the provisions that
+apply to the aged or the disabled and later developed ESRD. (See HI 00801.258C.)
+
+i.
+
+Months elapsing after the end of the second enrollment in SMI and prior to 4/1981
+for anyone who enrolled again in or after 4/1981 and had 2 enrollments (not counting
+State buy-in enrollments) in SMI prior to 1981.
+
+j.
+
+Months beginning with 1/1983 during which the individual, age 65 or over, was covered
+under an employer group health plan through their own or a spouse's current employment
+status. (See HI 00805.740.)
+
+k.
+
+Months beginning 1/1987 through 7/1993 during which a disability beneficiary was covered
+as an active individual in a large group health plan. (See HI 00805.752A. for an explanation of “active individual”.)
+
+l.
+
+Months effective 1/1987 during which a disability beneficiary was covered under their
+own or a spouse's group health plan based on current employment status. (Effective
+for premiums due for 7/1990 on.) (See HI 00805.280.)
+
+m.
+
+Months effective 8/1993 during which a disability beneficiary was covered under a
+large group health plan based on their own or a family member's current employment
+status. (See HI 00805.280.)
+
+n.
+
+For premiums due 1/2007 and later, exclude all months the individual was serving as
+a volunteer outside of the United States for a tax-exempt organization and had health
+insurance that provided coverage while the individual was outside of the United States
+when the enrollee uses a Special Enrollment Period for international volunteers. (See
+HI 00805.365.)
+
+C. References
+
+•
+
+HI 00805.010 - HI 00805.030 Enrollment Periods
+
+•
+
+HI 00805.265 The Special Enrollment Period -- Definition
+
+•
+
+HI 00805.310 Disability SEP Enrollments
+
+•
+
+HI 00805.350 Special Enrollment Period for International Volunteers
+
+To Link to this section - Use this URL:
+http://policy.ssa.gov/poms.nsf/lnx/0601001010
+
+HI 01001.010 - Premium Increase for Late Enrollment - 02/02/2023
+
+Batch run: 10/10/2024
+
+Rev:02/02/2023

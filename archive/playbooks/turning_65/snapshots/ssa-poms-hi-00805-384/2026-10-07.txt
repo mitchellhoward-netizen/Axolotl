@@ -1,0 +1,140 @@
+Skip to content
+
+Program Operations Manual System (POMS)
+
+Effective Dates: 12/21/2022 - Present
+Previous | Next
+
+TN 71 (12-22)
+
+HI 00805.384 Exceptional Conditions Special Enrollment Period (SEP) for Group Health Plan (GHP)
+or Employer Misrepresentation
+
+A. Background
+
+Often, the primary source of information about Medicare for working individuals is
+their employer or the carrier of their GHP. Despite the Centers for Medicare & Medicaid
+Services' (CMS) efforts to provide information to the working population, the potential
+for the dissemination of misinformation exists. In some cases, individuals may receive
+erroneous information from their employer or GHP that results in the individual not
+engaging in timely Part B enrollment and consequently being assessed a premium surcharge.
+
+B. Eligibility
+
+1.
+
+This SEP applies for individuals whose non-enrollment in premium Part A or Part B
+is unintentional, inadvertent, or erroneous and results from material misrepresentation
+or reliance on incorrect information provided by an employer or GHP, brokers or agents
+of private health plans, or anyone authorized to act on behalf of such organization.
+Note that the agents or brokers of private health plans are not required to be direct
+employees of the health plan in order to qualify as sources of misinformation for
+the purposes of this SEP.
+
+2.
+
+To be eligible for this SEP, an individual must demonstrate that they:
+
+a.
+
+Did not enroll in premium Part A or Part B during their IEP, GEP or another SEP in
+which they were eligible based on information received from an employer, GHP, or brokers
+or agents of private health plans that may have been a source of misinformation, and
+
+b.
+
+An employer, GHP, or brokers or agents of a private health plan materially misrepresented
+information or provided incorrect information relating to enrollment in premium Part
+A or Part B. The material misrepresentation or incorrect information must have occurred
+on or after January 1, 2023.
+
+NOTE: The person must have missed an enrollment period to be eligible for this
+SEP.
+
+C. Proof
+
+1.
+
+Primary Proof
+
+The individual will be required to provide documentation of the relevant misrepresentation
+to SSA. The documentation must show the:
+
+•
+
+information was provided directly from an employer, GHP, or agent or brokers of a
+private health plan prior to their IEP, GEP or another SEP, and
+
+•
+
+inaccuracy that caused the individual not to enroll timely.
+
+Example: The individual receives a letter (or GHP website public notice) from their employer
+or GHP that materially misrepresents the Medicare enrollment process which caused
+them to not enroll in Medicare during their IEP.
+
+NOTE: Form CMS-L564 (Request for Employment Information) is not required for
+this SEP enrollment.
+
+2.
+
+Secondary Proof
+
+Alternatively, a written and signed statement from the beneficiary is sufficient evidence
+for eligibility for this SEP.
+
+The written statement must include a detailed account of the incident including:
+
+•
+
+the name and title of the person who provided the misinformation;
+
+•
+
+the name of the company;
+
+•
+
+the approximate date in which the misinformation was provided; and
+
+•
+
+a description of what misinformation was provided.
+
+D. Duration
+
+The SEP duration begins the day the individual contacts SSA about being misinformed
+and ends on the last day of the month six months later.
+
+Example: An individual discovers they received erroneous information from their GHP. They
+contact SSA with supporting documentation on May 16, 2023, then the individual’s SEP
+begins on May 16, 2023 and ends on November 30, 2023. The individual has until November
+30, 2023 to enroll under the GHP or Employer Misrepresentation SEP.
+
+E. Calculation of premium surcharge
+
+There will be no premium surcharge when enrolled based on this SEP.
+
+F. Effective date
+
+The individual’s coverage begins the first day of the month following the month of
+enrollment.
+
+Example: The individual enrolls on May 16, 2023. Coverage will begin on June 1, 2023.
+
+G. Processing instructions
+
+See HI 00805.277 Processing SEP Enrollments for processing instructions.
+
+H. Reference
+
+HI 00805.277 Processing SEP Enrollments
+
+To Link to this section - Use this URL:
+http://policy.ssa.gov/poms.nsf/lnx/0600805384
+
+HI 00805.384 - Exceptional Conditions Special Enrollment Period (SEP) for Group Health Plan (GHP) or Employer Misrepresentation - 12/21/2022
+
+Batch run: 10/10/2024
+
+Rev:12/21/2022

@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://www.nyc.gov/site/hra/help/snap-interview-instructions.page
+  final_url: https://www.nyc.gov/site/hra/help/snap-interview-instructions.page
+  status: 200
+  content_type: text/html;charset=utf-8
+  text_sha256: 2995c51163fe95071188f9cfaa8336a03f5387b9effeb1092992e6cf81ce0751
+  text: ny-hra-snap-interview/2026-10-07.txt
+  raw: ny-hra-snap-interview/2026-10-07.html

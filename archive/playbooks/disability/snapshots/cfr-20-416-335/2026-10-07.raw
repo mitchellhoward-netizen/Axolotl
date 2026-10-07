@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="cfr.xsl"?>
+<CFRGRANULE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="CFRMergedXML.xsd">
+    <FDSYS>
+        <CFRTITLE>20</CFRTITLE>
+        <CFRTITLETEXT>Employees' Benefits</CFRTITLETEXT>
+        <VOL>2</VOL>
+        <DATE>2025-04-01</DATE>
+        <COVERONLY>false</COVERONLY>
+        <ORIGINALDATE>2025-04-01</ORIGINALDATE>
+        <TITLE>Filing Date Based Upon a Written Statement or Oral Inquiry</TITLE>
+        <ANCESTORS>
+            <PARENT HEADING="Title 20" SEQ="4">Employees' Benefits</PARENT>
+            <PARENT HEADING="CHAPTER III" SEQ="3">SOCIAL SECURITY ADMINISTRATION</PARENT>
+            <PARENT HEADING="PART 416" SEQ="2">SUPPLEMENTAL SECURITY INCOME FOR THE AGED, BLIND, AND DISABLED</PARENT>
+            <PARENT HEADING="Subpart C" SEQ="1">Filing of Applications</PARENT>
+            <PARENT HEADING="" SEQ="0">Effective Filing Period of Application</PARENT>
+        </ANCESTORS>
+    </FDSYS>
+    <SECTION>
+        <SECTNO>§ 416.335</SECTNO>
+        <SUBJECT>Filing in or after the month you meet the requirements for eligibility.</SUBJECT>
+        <P>When you file an application in the month that you meet all the other requirements for eligibility, the earliest month for which we can pay you benefits is the month following the month you filed the application. If you file an application after the month you first meet all the other requirements for eligibility, we cannot pay you for the month in which your application is filed or any months before that month. See §§ 416.340, 416.345 and 416.350 on how a written statement or an oral inquiry made before the filing of the application form may affect the filing date of the application.</P>
+        <CITA>[64 FR 31973, June 15, 1999]</CITA>
+    </SECTION>
+    <SUBJGRP>
+        <HD SOURCE="HED">Filing Date Based Upon a Written Statement or Oral Inquiry</HD>
+    </SUBJGRP>
+</CFRGRANULE>

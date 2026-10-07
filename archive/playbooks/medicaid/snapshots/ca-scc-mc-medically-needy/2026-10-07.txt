@@ -1,0 +1,67 @@
+Medically Needy
+
+AFDC-MN
+
+Linkage for the AFDC-MN program is established by the parent/caretaker living with the child or children for whose care the parent/caretaker relative has primary responsibility. For linkage purposes, a child is defined as a non-disabled individual who is under the age of 21 or a disabled individual under the age of 18.
+
+The following individuals may be eligible for MC under the AFDC-MN Program:
+
+A child(ren) who is living with a parent or caretaker relative
+
+The parent(s) of the child(ren)
+
+The nonparent caretaker relative of the child(ren)
+
+A caretaker relative of a child who is receiving PA
+
+A parent/caretaker relative of a child in a facility as long as that parent/caretaker still exercises care and control of the child.
+
+Note: When a nonparent caretaker relative has his/her own linkage factor (ABD) he/she may choose to be included in the children’s MFBU or in a separate MFBU. Example: Grandmother (age 66) requests MC for herself and her grandchildren. There is no spouse or children of her own in the home. She may be linked to the grandchildren and included in the same MFBU with them unless she requests otherwise because she has her own linkage (i.e. aged). If she does not request MC she is not included in the MFBU. (If the grandchildren are receiving PA, the Grandmother is the only person in an MFBU of 1)
+
+Treatment of Income and Property
+
+In households where there is an MFBU which contains a nonparent caretaker relative and related children and the spouse or children of the caretaker either do not request MC or do not receive PA and do not appear in any MFBU, no income or property of the caretaker’s spouse or own children is counted other than income which is actually contributed to the MFBU.
+
+The SSBS must ask the caretaker relative if any of the spouse’s or children’s income or property is contributed and available to the caretaker. Count only that income or property that is declared to be available.
+
+ABD-MN
+
+Individuals have linkage to ABD-MN if they are aged, blind, or disabled.
+
+Aged
+
+Individuals are aged if they are 65 years of age or older. Individuals are considered to be 65 years of age on the first day of the month in which they reach 65.
+
+Blind
+
+Individuals are considered blind if there has been a medical determination that they have either of the following conditions:
+
+Central visual acuity of no more than 20/200 with best possible correction, or
+
+Tunnel vision with a limited visual field of 20 degrees or less.
+
+Determination of blindness must be made by the Disability Determination Service Division (DDSD) prior to approval of MC eligibility under this program.
+
+Note: If client has previously been determined to be disabled, a DDSD is not required because they already have linkage to the ABD-MN program.
+
+Disabled
+
+Individuals 18 years of age or older are disabled if they are either of the following:
+
+Unable to engage in any substantial gainful activity because of a physical or mental impairment which:
+
+Can be expected to result in death, or
+
+Has lasted or can be expected to last for a continuous period of at least 12 months.
+
+Engaging in substantial gainful activity and meet both of the following conditions:
+
+Were eligible for SSI/SSP but became ineligible due to engagement in substantial gainful activity, and
+
+Continue to suffer from the physical or mental impairment which was the basis of the disability determination.
+
+Note: Children who are under 18 years of age are considered disabled if they have any medically determinable physical or mental impairment of comparable severity to that which would make an adult disabled.
+
+Related Topics
+
+Non-MAGI Linkage

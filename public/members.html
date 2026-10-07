@@ -30,8 +30,9 @@
       href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/site.css?v=17" />
-    <script src="/site.js?v=17" defer></script>
+    <link rel="stylesheet" href="/site.css?v=18" />
+    <script src="/msp-calc.js?v=18" defer></script>
+    <script src="/site.js?v=18" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -66,6 +67,56 @@
         <div class="hero-actions">
           <a class="button primary" href="#join">Get a text from us</a>
         </div>
+      </div>
+    </section>
+    <section class="section t-noon" id="check" aria-labelledby="check-title">
+      <div class="wrap">
+        <h2 id="check-title">Could New York pay your Part B premium?</h2>
+        <p class="lead">A quick estimate under New York’s 2026 rules. Nothing you type here leaves this page.</p>
+        <form class="calc" data-calc="member" data-lang="en" data-tpl="{&quot;QMB&quot;:&quot;You likely qualify for QMB, the fullest help. New York would pay your Part B premium, {premiumText}, and your Medicare deductibles and coinsurance.&quot;,&quot;QI&quot;:&quot;You likely qualify for QI. New York would pay your Part B premium, {premiumText}.&quot;,&quot;over&quot;:&quot;You look about {over} a month over New York’s limit. If your income drops, check again, or text us and we’ll take a closer look.&quot;,&quot;needs_part_a&quot;:&quot;You need Medicare Part A first. If you’re 65 or older and don’t have it, New York’s Part A Buy-in can get you Part A and QMB together. Text us and we’ll help.&quot;,&quot;medicaid&quot;:&quot;Your income is in QI’s range and you have Medicaid. In New York you can’t have both, so you’d pick one. We can help you compare.&quot;,&quot;gain&quot;:&quot;Your check would go up about {month} a month, {year} a year.&quot;,&quot;gainNone&quot;:&quot;Your fund already pays your premium, so your check stays the same.&quot;,&quot;extraHelp&quot;:&quot;You’d also get Extra Help with prescriptions, automatically.&quot;,&quot;premiumOne&quot;:&quot;{premium} a month&quot;,&quot;premiumEach&quot;:&quot;{premium} a month each&quot;}" novalidate>
+          <div class="calc-inputs">
+            <div class="field">
+              <label for="m-household">Who’s in your household?</label>
+              <select id="m-household" name="household"><option value="1" selected>Just me</option><option value="2">Me and my spouse</option></select>
+            </div>
+            <div class="field" data-when-couple>
+              <label for="m-medicare">If married: how many of you have Medicare?</label>
+              <select id="m-medicare" name="onMedicare"><option value="1" selected>One of us</option><option value="2">Both of us</option></select>
+            </div>
+            <div class="field">
+              <label for="m-income">Money that comes in each month</label>
+              <input id="m-income" name="unearned" type="number" inputmode="decimal" min="0" step="1" value="2050" aria-describedby="m-income-hint" />
+              <span class="hint" id="m-income-hint">Social Security before Medicare is taken out, pensions and other income. Include your spouse’s.</span>
+            </div>
+            <div class="field">
+              <label for="m-wages">Pay from work each month</label>
+              <input id="m-wages" name="earned" type="number" inputmode="decimal" min="0" step="1" value="0" aria-describedby="m-wages-hint" />
+              <span class="hint" id="m-wages-hint">Before taxes. Leave it at 0 if nobody works.</span>
+            </div>
+            <div class="field">
+              <label for="m-fund">Does your fund pay back your Part B premium?</label>
+              <select id="m-fund" name="reimbursed"><option value="0">No</option><option value="0.5" selected>Half of it</option><option value="1">All of it</option></select>
+            </div>
+            <div class="field">
+              <label for="m-parta">Do you have Medicare Part A (hospital)?</label>
+              <select id="m-parta" name="partA"><option value="yes" selected>Yes</option><option value="no">No</option></select>
+            </div>
+            <div class="field">
+              <label for="m-medicaid">Do you have Medicaid?</label>
+              <select id="m-medicaid" name="medicaid"><option value="no" selected>No</option><option value="yes">Yes</option></select>
+            </div>
+          </div>
+          <div class="calc-results brief-card" aria-live="polite">
+            <h3 class="brief-eyebrow">Your estimate</h3>
+            <p class="calc-headline" data-out="headline">You likely qualify for QI. New York would pay your Part B premium, $202.90 a month.</p>
+            <p class="calc-line" data-out="gain">Your check would go up about $101.45 a month, $1,217 a year.</p>
+            <p class="calc-line" data-out="extra">You’d also get Extra Help with prescriptions, automatically.</p>
+            <p class="brief-note">An estimate, not an approval. We count income the way New York does: $20 off, and $65 plus half the rest off pay from work. Savings and your home don’t count. New York makes the decision.</p>
+            <a class="button primary" href="#join">Get a text from us</a>
+          </div>
+        </form>
+        <noscript><p class="calc-noscript">Turn on JavaScript to change the answers. The estimate shown is for the example answers.</p></noscript>
+        <script type="application/json" id="msp-rules">{"state":"ny","as_of":"2026-10-07","rules":["MSP-NY-QMB-INCOME","MSP-NY-QI-INCOME","MSP-NY-NO-RESOURCE-TEST","MSP-NY-DISREGARD","MSP-NY-COUPLE","MSP-NY-PART-A","MSP-NY-QI-NOT-MEDICAID","MSP-FED-EXTRA-HELP-DEEMED"],"values":{"part_b_premium_monthly":202.9,"part_b_deductible_yearly":283,"income_disregard_monthly":20,"earned_exclusion_monthly":65,"qmb_standard_monthly":{"1":1836,"2":2489},"qi_standard_monthly":{"1":2474,"2":3355}},"provenance":{"part_b_premium_monthly":{"parameter":"federal.cms.part_b_standard_premium","effective_from":"2026-01-01","confidence":"confirmed","sources":["cms-2026-part-a-b-premiums"]},"part_b_deductible_yearly":{"parameter":"federal.cms.part_b_deductible","effective_from":"2026-01-01","confidence":"confirmed","sources":["cms-2026-part-a-b-premiums"]},"income_disregard_monthly":{"parameter":"ny.msp.income_disregard_monthly","effective_from":"2026-01-01","confidence":"confirmed","sources":["ny-doh-msp-2026","ny-mrg-income"]},"earned_exclusion_monthly":{"parameter":"federal.ssi.earned_income_exclusion_monthly","effective_from":"1974-01-01","confidence":"confirmed","sources":["usc-42-1382a"]},"qmb_standard_monthly":{"parameter":"ny.msp.qmb_income_limit_monthly","effective_from":"2026-01-01","confidence":"confirmed","sources":["ny-gis-26-ma-05-att1","ny-doh-msp-2026"]},"qi_standard_monthly":{"parameter":"ny.msp.qi_income_limit_monthly","effective_from":"2026-01-01","confidence":"confirmed","sources":["ny-gis-26-ma-05-att1","ny-doh-msp-2026"]}}}</script>
       </div>
     </section>
     <section class="section t-day" aria-labelledby="help-title">

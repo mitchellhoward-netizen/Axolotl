@@ -1,0 +1,281 @@
+Skip to content
+
+Program Operations Manual System (POMS)
+
+Effective Dates: 09/10/2026 - Present
+Previous | Next
+
+TN 47 (09-26)
+
+GN 00201.005 Title II and Title XVI Applications
+
+CITATIONS:
+
+SSAct 202(a), 1611(a)(1), and 1631(a)(1). 20 CFR
+404.603 - 404.621 and 416.301- 416.335.
+
+A. Policy - When a Title II or Title XVI application is required
+
+A valid application is required to make an initial determination on entitlement to
+a Title II benefit or eligibility to title XVI payments. See GN 00204.001 for requirements for a valid application. In some situations, Title II beneficiaries
+or Title XVI recipients may need to file a new application to be re-entitled to a
+benefit or the claimant meets all factors of eligibility after the date of the ALJ
+decision.
+
+1. Situations that require a new Title II application
+
+a. Entitlement terminates
+
+If entitlement terminates before the month the claimant can be re-entitled, the individual
+must file an application to become entitled again.
+
+b. Deemed filing
+
+A deemed spouse must file a new application to become re-entitled if the entitlement
+was previously terminated because of the entitlement of a legal spouse, see RS 00202.040.
+
+2. Situations that require a new Title XVI application
+
+a. Eligibility after ALJ decision
+
+If the claimant first meets all factors of eligibility after the date of the ALJ decision,
+a new application is necessary. Eligibility will be determined based on the filing
+date of the second application and would not be retroactive. (See Example 3 in SI 00601.010C.2.)
+
+NOTE: If the claimant meets all factors of eligibility in any month during the life of
+the application, the claimant can receive payment without filing a new application.
+
+b. Eligibility after suspension
+
+Refer to SI 02301.205 for when a new application is required to reestablish eligibility after a suspension.
+
+B. Policy When a Title II or Title XVI application is not required
+
+1. When an application is not required for Title II
+
+a. Entitlement Conversions
+
+A beneficiarys entitlement from one class of benefits to another will automatically
+occur without the beneficiary having to file an application for the other benefit.
+Beneficiaries may also have the option to retain their entitlement to specific class
+of benefits (i.e., child insurance benefits) based on meeting a new entitlement factor
+(i.e., full time student) without filing an application. We refer to these actions
+as Entitlement Conversions. In some cases, they may need to submit additional evidence
+or complete a certificate of election for the benefits to start. The following is
+a list of situations in which entitlement covers without an application with references
+to the policy for more information:
+
+•
+
+DIB to RIB conversions RS 00201.001 through RS 00201.003. NOTE: If the DIB NH is at FRA when a subsequent disability determination (i.e., medical
+or SGA) shows that DIB ceased prior to the conversion, the DIB to RIB conversion will
+remain valid, the conversion of entitled auxiliaries will also remain valid, and no
+new application is required.
+
+•
+
+Conversion from auxiliary child's benefits to surviving child's benefits RS 00203.040.
+
+•
+
+Conversion to widow(er)'s benefits RS 00207.004 through RS 00207.005
+
+•
+
+Conversion from auxiliary child's benefits to surviving child's benefits RS 00203.040.
+
+•
+
+Conversion of mothers/fathers benefits to widow(er)s benefits at FRA RS 00208.085.
+
+•
+
+Conversion of spouses benefits to mother's/father's benefits RS 00208.001, RS 00208.040, and RS 00208.090.
+
+•
+
+Retaining entitlement to child benefits: A child entitled to child's insurance benefits
+for the month before attainment of age 18, is eligible for benefit continuation, with
+no break in entitlement, based on disability or school attendance. (See RS 00205.001 for eligibility criteria for a student and RS 00205.400E.2. for completion requirements for the SSA-1372 (Student's Statement Regarding School
+Attendance).
+
+NOTE: Refer to DI 10115.001 through DI 10115.050 for eligibility requirements for a childhood disability beneficiary and RS 00203.080 for application guidelines for childhood disability benefits (CDB).
+
+•
+
+A disabled surviving spouse who is age 60, but not yet FRA, may elect to receive an
+aged widow(er)'s benefit if they are in suspense during the EPE because of SGA and
+payment of an aged widow(er)'s benefit though subject to the annual earnings test
+may still be advantageous. The individual can submit a signed written statement (e.g.,
+letter, SSA-795, etc.,) to elect an aged widow(er)'s benefit for any month in which
+the individual was an aged surviving spouse. See RS 00615.315 for policy and procedure for simultaneous entitlement to a widow(er) and disabled
+widow(er)'s benefit.
+
+b. Reinstatements
+
+A disabled individual whose earnings fall below substantial gainful activity (SGA)
+during the extended period of eligibility (EPE) after they complete the trial work
+period (TWP) is automatically reinstated to DIB, CDB or disabled widow(er)'s benefits
+(DWB). (See DI 13010.210G.) These reinstatements are for cash benefits or freeze and apply only to disability
+benefits that did not cease prior to 12/01/80.
+
+c. Expedited Reinstatements
+
+An application may not be required if expedited reinstatement of disability benefits
+is requested under the Ticket to Work and Work Incentives Improvement Act of 1999,
+see GN 00204.001F for the policy on using a reinstatement request as an application and DI
+13050.000 for procedures on expedited reinstatement
+
+2. When an application is not required for Title XVI
+
+a.
+
+An existing determination is reopened under the rules of administrative finality (see
+SI 04070.001 - SI 04070.080 for the policy on Title XVI administrative finality).
+
+b.
+
+Eligibility was established by conversion from a former State program unless eligibility
+was subsequently terminated (see SI 01410.001A.3. for the policy on conversion cases).
+
+c.
+
+Eligibility is reestablished within 12 months following a suspension or 24 months
+following a suspension only for blind and disabled children of military personnel
+stationed overseas (see SI 02301.205 for the policy on reinstatement).
+
+d.
+
+Members of an eligible couple separate or divorce (see SI 02005.030 for the policy requirements).
+
+e.
+
+One member of an eligible couple:
+
+•
+
+becomes ineligible (see SI 02005.030 for the policy requirements) or dies (see SI 02005.030 for the policy requirements).
+
+•
+
+A disabled or blind recipient attains age 65.
+
+•
+
+A disabled or blind recipient ceases to be disabled or blind after attaining age 65
+(see SI 00501.300 for the policy on multicategory eligibility).
+
+•
+
+An aged or disabled recipient becomes blind and the individual lives in a multicategory
+State where the blind rate is higher (see SI 00501.300 for the policy on multicategory eligibility).
+
+•
+
+An aged individual becomes disabled or blind and is potentially eligible under section
+1619(b) of the Social Security Act (see SI 02302.030C.5. for the policy on disability determinations for aged individuals).
+
+•
+
+An individual's request for reinstatement of SSI disability benefits is denied because
+the individual is found medically improved and able to perform substantial gainful
+activity
+
+•
+
+Reopening of a Title II determination. For more information on reopening see GN 04001.010.
+
+C. Earliest point an individual can file an application to receive Title II benefits
+and Title XVI payments
+
+1. Title II application
+
+a. Retirement or survivor applications
+
+•
+
+An individual can file for benefits as soon as meeting the entitlement factors (e.g.,
+age, marriage, etc.). Be aware that for age for all claim types (e.g., Title II, Title
+XVI), an individual attains a particular age on the first moment of the day preceding
+the anniversary of his/her birth. This rule is based on established legal principles.
+Example: a person born on January 1, 1962 attains age 65 on December 31, 2026.
+
+•
+
+A retirement or survivor application can be filed and awarded, up to 4 months before
+the month of entitlement as long as the claimant meets the entitlement factors (like
+age or insured status).
+
+•
+
+If the claimant wants to file the application earlier than 4 months before meeting
+the entitlement factors, you must accept the application but deny it. For more on
+denying applications for lack of insured status, see GN 01010.440.
+
+b. Disability applications
+
+A disability application can be filed and upon receiving the medical determination,
+it can be awarded if the number holder meets insured status in a future month within
+the same calendar year. However, you cannot pay benefits until all entitlement factors
+are met. For details on disability entitlement factors, see DI
+10105.005B.
+
+2. Title XVI application
+
+The earliest point at which an application may be taken before eligibility, and effectuated
+as an allowance, is in the month before the month of eligibility (see SI 00520.900 - SI 00520.930 for the exception related to pre-release cases and SI 00601.011 for the exception related to disabled youth transitioning out of foster care). No
+payment is due for the first month of eligibility. (See SI 00601.009 for the policy on application effective date.)
+
+EXAMPLE 1 Ineligible in the month of filing due to resources
+
+Tae Jones, age 66, applies for SSI at the field office on 9/10. The claims interviewer
+enters 9/10 for the PROTECTIVE FILING DATE and EFFECTIVE FILING DATE on the Supplemental
+Security Income Application page.
+
+Taes has too many resources on September 1, making him ineligible for September. He
+provides a bank statement dated September 9 showing his resources are now below the
+limit. Tae meets all other eligibility requirements.
+
+The claims interviewer approves Taes application. Taes payment status is set as N04
+(ineligible) for September and C01 (eligible) for October. The system will update
+the status from C01 to E02, and payments will start on November 1.
+
+EXAMPLE 2 Filing prior to attainment of age 65
+
+Hobi Stone will attain age 65 on October 29th. He visits the local Social Security
+office on September 1st and files for SSI. The claims interviewer enters 9/1 as the
+PROTECTIVE FILING DATE and 10/29 as the EFFECTIVE FILING DATE on the Supplemental
+Security Income Application page.
+
+The claim technician is able to adjudicate the SSI application as an allowance because
+the application was filed in the month before the month of eligibility. Based on Hobi's
+EFFECTIVE FILING DATE of 10/29 (E02 month), payments will begin 11/1.
+
+NOTE: The age 65 exception discussed in SI 00601.009C.2. applies to this example.
+
+D. Life of the application
+
+1. Application time period
+
+The life of a Title II and Title XVI application starts when the application is filed
+and extends from the filing date through the date a determination becomes final. See
+GN 00204.007 for determining the application filing date, and GN 03101.060 for when a determination becomes final.
+
+2. Extending the life of the application
+
+The life of an application continues based on a timely appeal, or if good cause is
+established for late filing of an appeal request, but only through the date of the
+administrative law judge (ALJ) decision. The life of an application also continues
+when it is remanded to an ALJ by the Appeals Council (AC) or court. (See SI
+00601.020A.2. for establishing a protective filing based on a request for AC review and DI 12045.027 when a new claim is filed while an appeal is pending before the ALJ or AC.) The appeal
+information must be annotated on the Supplemental Security Record (SSR) to keep the
+record current.
+
+To Link to this section - Use this URL:
+http://policy.ssa.gov/poms.nsf/lnx/0200201005
+
+GN 00201.005 - Title II and Title XVI Applications - 09/10/2026
+
+Batch run: 09/10/2026
+
+Rev:09/10/2026

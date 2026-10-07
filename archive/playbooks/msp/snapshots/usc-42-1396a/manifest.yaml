@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://www.govinfo.gov/content/pkg/USCODE-2023-title42/html/USCODE-2023-title42-chap7-subchapXIX-sec1396a.htm
+  final_url: https://www.govinfo.gov/content/pkg/USCODE-2023-title42/html/USCODE-2023-title42-chap7-subchapXIX-sec1396a.htm
+  status: 200
+  content_type: text/html
+  text_sha256: cd613dd7b8db7f104a89fa3163e569cf3c7bb8b564eadd6fe83f97a4fe9b014d
+  text: usc-42-1396a/2026-10-07.txt
+  raw: usc-42-1396a/2026-10-07.html

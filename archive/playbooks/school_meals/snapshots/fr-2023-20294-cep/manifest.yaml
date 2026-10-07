@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://www.govinfo.gov/content/pkg/FR-2023-09-26/html/2023-20294.htm
+  final_url: https://www.govinfo.gov/content/pkg/FR-2023-09-26/html/2023-20294.htm
+  status: 200
+  content_type: text/html
+  text_sha256: d07cbc930df5b213b282e06cd0e02ea06e642d691c84cd904ecf3533efe06479
+  text: fr-2023-20294-cep/2026-10-07.txt
+  raw: fr-2023-20294-cep/2026-10-07.html

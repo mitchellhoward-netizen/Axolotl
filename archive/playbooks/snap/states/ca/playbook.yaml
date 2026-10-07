@@ -1,0 +1,357 @@
+schema_version: 2
+program: snap
+scope: ca
+title: CalFresh (SNAP) — California
+last_researched: 2026-10-07
+
+summary:
+  plain_language: >-
+    California's SNAP is called CalFresh. It uses the federal income limits,
+    allotments and standard deduction, and adds: categorical eligibility for
+    every household with gross income up to 200% of the poverty level ($2,610
+    a month for one person October 2025 - September 2026, $2,660 from October
+    2026) with no resource test; one statewide utility allowance ($663, then
+    $686 from October 2026) that households with an elderly or disabled member
+    get even without their own heating bill; a $150 Standard Medical Deduction
+    for elderly or disabled members with $35.01-$185 of monthly medical costs;
+    and, since June 2019, CalFresh for SSI/SSP recipients. Apply at the county
+    social services office or online at BenefitsCal; older and disabled
+    households can use the short CF 485 form and 36-month certification
+    (ESAP).
+  administered_by: >-
+    California Department of Social Services (CDSS) supervises; the 58 county
+    welfare departments take applications and decide eligibility (CalFresh is
+    "state-supervised and county-operated").
+  funded_by: Federal benefits; administrative costs shared by federal, state and counties (state 52.5% and counties 22.5% of total from FY 2027, per CDSS).
+  local_names:
+    - {name: CalFresh, meaning: California's name for SNAP}
+    - {name: MCE / BBCE, meaning: Modified / broad-based categorical eligibility (200% FPL)}
+    - {name: SUA / LUA / TUA, meaning: "Standard (heating/cooling), Limited and Telephone utility allowances"}
+    - {name: SUAS, meaning: "State Utility Assistance Subsidy: a $20.01 yearly LIHEAP-funded payment that confers the SUA"}
+    - {name: SMD, meaning: Standard Medical Deduction demonstration project ($150)}
+    - {name: ESAP, meaning: Elderly Simplified Application Project}
+    - {name: CWD, meaning: County welfare department}
+    - {name: BenefitsCal, meaning: statewide online application portal}
+    - {name: CalSAWS, meaning: statewide eligibility system}
+  confidence: confirmed
+  sources:
+    - {source: ca-cdss-calfresh, locator: "CalFresh is federally mandated and in California, is state-supervised and county-operated."}
+    - {source: ca-acin-i-40-26, locator: "Attachment I"}
+    - {source: ca-acl-25-50, locator: "Administrative Cost Sharing"}
+
+rules:
+  - id: SNAP-CA-STANDARDS
+    statement: >-
+      CalFresh uses the federal standards: for October 2025 - September 2026
+      the gross limit (130%) is $1,696 and the net limit (100%) $1,305 for one
+      person, the maximum allotment $298, the minimum benefit $24, the standard
+      deduction $209 (1-3 people) and the shelter cap $744; from October 1,
+      2026 they are $1,729, $1,330, $306, $25, $217 and $769, and the resource
+      limit for households with someone 60+ or disabled rises from $4,500 to
+      $4,750.
+    kind: definition
+    effective_from: 2025-10-01
+    parameters: [federal.snap.gross_income_limit_monthly, federal.snap.net_income_limit_monthly, federal.snap.max_allotment_monthly, federal.snap.min_benefit_monthly, federal.snap.standard_deduction_monthly, federal.snap.excess_shelter_cap_monthly, federal.snap.resource_limit]
+    implemented_in: playbooks/snap/states/ca/rules.py:evaluate
+    confidence: confirmed
+    sources:
+      - {source: ca-acin-i-46-25, locator: "FFY 2026 Maximum Allotments ... Attachment I"}
+      - {source: ca-acin-i-40-26, locator: "FFY 2027 Maximum Allotments ... Attachment I"}
+  - id: SNAP-CA-BBCE
+    statement: >-
+      In California, every CalFresh household without a sanctioned or
+      disqualified member is categorically eligible (Modified/Broad-Based
+      Categorical Eligibility) if gross monthly income is at or below 200% of
+      the poverty level: $2,610 for one person, $3,526 for two and $5,360 for
+      four (October 2025 - September 2026), and $2,660, $3,608 and $5,500 from
+      October 1, 2026; no resource test applies.
+    kind: eligibility
+    effective_from: 2025-10-01
+    parameters: [ca.calfresh.bbce_gross_income_limit_monthly]
+    overrides: [SNAP-FED-BBCE]
+    implemented_in: playbooks/snap/states/ca/rules.py:bbce
+    confidence: confirmed
+    note: >-
+      Whether the federal 100% net test still applies to MCE households (it
+      decides one- and two-person cases with very high income after deductions)
+      was not established; the evaluator returns undetermined in that case
+      (SNAP-CA-OQ-02). The sanction exclusion is assumed from federal rules
+      (7 CFR 273.2(j)(2)(vii)), not from a CDSS text.
+    sources:
+      - {source: ca-acin-i-40-26, locator: "Gross Monthly Income Eligibility Standards for MCE/BBCE (200% of Poverty Level)"}
+      - {source: ca-acin-i-46-25, locator: "Gross Monthly Income Eligibility Standards for MCE/BBCE (200% of Poverty Level)"}
+      - {source: fns-snap-bbce-chart, locator: "California: All households are eligible (pamphlet); No limit on assets; 200%"}
+  - id: SNAP-CA-SUA
+    statement: >-
+      In California, CalFresh households that pay heating or cooling separately
+      from rent get the Standard Utility Allowance of $663 a month (October
+      2025 - September 2026) or $686 (from October 1, 2026); households billed
+      for at least two other utilities get the Limited Utility Allowance ($170,
+      then $176); households with only a telephone bill get the Telephone
+      Utility Allowance ($20, then $21).
+    kind: benefit
+    effective_from: 2025-10-01
+    parameters: [ca.calfresh.utility_allowances_monthly]
+    overrides: [SNAP-FED-SUA]
+    implemented_in: playbooks/snap/states/ca/rules.py:utility_allowance
+    confidence: confirmed
+    note: The SUA is already reduced by the $4 cost-neutrality offset for the SMD project (ACL 26-04; FNS SUA table "SMD Offset 4").
+    sources:
+      - {source: ca-acin-i-46-25, locator: "FFY 2026 SUA, LUA, TUA"}
+      - {source: ca-acin-i-40-26, locator: "FFY 2027 SUA, LUA, TUA"}
+      - {source: ca-acl-26-04, locator: "STANDARD UTILITY ALLOWANCE OFFSET"}
+  - id: SNAP-CA-SUAS
+    statement: >-
+      In California, a CalFresh household with a member aged 60 or older or
+      disabled that does not pay heating or cooling and is not already at the
+      maximum allotment receives the State Utility Assistance Subsidy, a LIHEAP
+      payment that qualifies it for the full Standard Utility Allowance; under
+      Public Law 119-21 households without such a member lose this route once
+      CalSAWS automation is complete (ongoing cases keep the SUA until their
+      next recertification).
+    kind: benefit
+    effective_from: 2025-07-04
+    implemented_in: playbooks/snap/states/ca/rules.py:utility_allowance
+    confidence: confirmed
+    note: >-
+      The automation completion date was not found, so households without an
+      elderly/disabled member and without heating/cooling costs return
+      undetermined unless the test states the new limit is in effect
+      (SNAP-CA-OQ-01).
+    sources:
+      - {source: ca-acl-25-68, locator: "New SUAS Guidance: SUAS payments will be limited to households who ... Contain an elderly or disabled household member; Implementation and Automation of SUAS Changes"}
+      - {source: ca-acl-25-50, locator: "Limitation of Standard Utility Allowances Based on Receipt of Energy Assistance"}
+  - id: SNAP-CA-SMD
+    statement: >-
+      In California, a CalFresh household with a member aged 60 or older or
+      disabled whose verified medical costs are $35.01 to $185.00 a month gets
+      a Standard Medical Deduction of $150; with costs above $185 it deducts
+      actual costs over $35 (for example $167.90 for a $202.90 Medicare Part B
+      premium alone); the demonstration project runs through September 30, 2029.
+    kind: benefit
+    effective_from: 2024-10-01
+    effective_to: 2029-09-30
+    parameters: [ca.calfresh.standard_medical_deduction_monthly, ca.calfresh.smd_actual_expense_threshold_monthly]
+    overrides: [SNAP-FED-MEDICAL]
+    implemented_in: playbooks/snap/states/ca/rules.py:medical_deduction
+    confidence: confirmed
+    sources:
+      - {source: ca-acl-26-04, locator: "SMD Eligibility Reference Table; extension through September 30, 2029"}
+      - {source: ca-acl-24-59, locator: "Standard Medical Deduction Amount (effective October 1, 2024)"}
+  - id: SNAP-CA-SSI
+    statement: >-
+      Since June 1, 2019, Californians who receive SSI/SSP can get CalFresh if
+      they meet the other rules (the SSI "cash-out" ended under AB 1811); a
+      household in which every member receives SSI is categorically eligible.
+    kind: eligibility
+    effective_from: 2019-06-01
+    implemented_in: playbooks/snap/federal/rules.py:_run
+    confidence: confirmed
+    sources:
+      - {source: ca-cdss-ssi-calfresh, locator: "Expanding CalFresh to SSI/SSP Recipients Beginning June 1, 2019 ... individuals receiving or authorized to receive SSI/SSP are eligible for CalFresh"}
+  - id: SNAP-CA-ESAP
+    statement: >-
+      In California, CalFresh households in which all members are aged 60 or
+      older or disabled and that have no earned income can use the Elderly
+      Simplified Application Project: the short CF 485 application, 36-month
+      certification, no recertification interview (unless the case is to be
+      denied), and no SAR 7 report; from March 1, 2027 the age is 65 instead of
+      60, so non-disabled people aged 60-64 leave ESAP.
+    kind: procedure
+    effective_from: 2026-10-01
+    effective_to: 2031-09-30
+    confidence: confirmed
+    sources:
+      - {source: ca-acl-26-58, locator: "California is approved to operate the ESAP effective October 1, 2026, through September 30, 2031, with the new age requirements effective beginning March 1, 2027; OVERVIEW OF CALFRESH ESAP WAIVERS"}
+  - id: SNAP-CA-ABAWD
+    statement: >-
+      In California, CalFresh applies the Public Law 119-21 ABAWD time-limit
+      rules (ages 18-64, child under 14, removal of the veteran, homeless and
+      former-foster-youth exemptions) from June 1, 2026, at application and
+      recertification; some counties have one-year ABAWD waivers.
+    kind: timing
+    effective_from: 2026-06-01
+    county_varies: true
+    confidence: confirmed
+    sources:
+      - {source: ca-acl-25-93, locator: "the guidance provided via this letter is effective June 1, 2026"}
+      - {source: ca-acl-26-58, locator: "HR 1 changed the definition of an ABAWD to include individuals aged 18 through 64"}
+  - id: SNAP-CA-NONCITIZEN
+    statement: >-
+      In California, the Public Law 119-21 noncitizen eligibility limits (for
+      example ending CalFresh eligibility for refugees and asylees who are not
+      permanent residents) apply from April 1, 2026.
+    kind: timing
+    effective_from: 2026-04-01
+    confidence: confirmed
+    note: Whether the state-funded California Food Assistance Program (CFAP) covers people who lost federal eligibility was not researched (SNAP-CA-OQ-04).
+    sources:
+      - {source: ca-acl-25-92, locator: "the guidance set forth in this ACL is effective April 1, 2026"}
+
+procedure:
+  applications:
+    - id: SNAP-CA-PROC-APPLY
+      text: Apply in person, by phone, mail or fax at the county social services office, or online at BenefitsCal (www.benefitscal.com).
+      channel: any
+      url: https://www.benefitscal.com/
+      county_varies: true
+      confidence: confirmed
+      sources: [{source: ca-acl-26-58, locator: "attached notice: In-person, By Phone, By Mail, By Fax ... Online: http://www.benefitscal.com/"}]
+    - id: SNAP-CA-PROC-CF285
+      text: The general paper application is the CF 285 (Application for CalFresh Benefits); recertification uses the CF 37; ESAP households may use the short CF 485.
+      form_number: CF 285 / CF 37 / CF 485
+      form_name: Application for CalFresh Benefits / Recertification for CalFresh Benefits / CalFresh Elderly Simplified Application
+      confidence: confirmed
+      sources: [{source: ca-acl-26-58, locator: "Application Forms for ESAP households"}]
+  timelines:
+    - id: SNAP-CA-TIME-INTERVIEW
+      text: Every household has an initial interview (by phone or in person); ESAP households skip the recertification interview unless the county is going to deny.
+      confidence: confirmed
+      sources: [{source: ca-acl-26-58, locator: "Interviews"}]
+    - id: SNAP-CA-TIME-EXPEDITED
+      text: Applications are screened for expedited service; eligible households get benefits within three days.
+      duration: 3 days
+      confidence: confirmed
+      sources: [{source: ca-acl-26-58, locator: "Expedited Service (ES): ... process and issue benefits within three days"}]
+  approval_notice:
+    - id: SNAP-CA-NOTICE-COLA
+      text: Every October counties notify households of the new benefit amounts, deductions and income reporting thresholds (CF 11 notice).
+      confidence: confirmed
+      sources: [{source: ca-acin-i-40-26, locator: "FFY 2027 COLA Notice (CF 11)"}]
+  renewal:
+    - id: SNAP-CA-RENEW
+      text: CalFresh households report semi-annually (SAR 7) and recertify (CF 37); ESAP households are certified for 36 months with no SAR 7.
+      confidence: confirmed
+      sources: [{source: ca-acl-26-58, locator: "four requirements waived ... 36 months ... SAR 7"}, {source: ca-acin-i-40-26, locator: "Gross Monthly Income Eligibility Standards for Semi-Annual Reporting"}]
+  county_variation:
+    - id: SNAP-CA-COUNTY
+      text: CalFresh is run by 58 county welfare departments; addresses, interview logistics and ABAWD waivers (one-year waivers for some counties) vary by county; eligibility rules and amounts are statewide.
+      county_varies: true
+      confidence: confirmed
+      sources: [{source: ca-cdss-calfresh, locator: "state-supervised and county-operated"}, {source: ca-acl-25-93, locator: "ABAWD time limit"}]
+
+life_events:
+  - id: SNAP-CA-LE-SSI
+    code: benefit_change
+    event: Starting SSI/SSP
+    why: SSI/SSP recipients can get CalFresh (since June 2019); SSI makes the member disabled for CalFresh (SMD, SUA through SUAS, no gross test).
+    check_rules: [SNAP-CA-SSI, SNAP-CA-SMD, SNAP-CA-SUAS]
+    confidence: confirmed
+    sources: [{source: ca-cdss-ssi-calfresh, locator: "Beginning Summer of 2019"}]
+  - id: SNAP-CA-LE-MSP
+    code: benefit_change
+    event: MSP approval starts paying the Part B premium
+    why: "If Part B was the only medical cost the deduction drops from $167.90 to $0 (or to the $150 SMD if other costs stay between $35.01 and $185)."
+    check_rules: [SNAP-CA-SMD]
+    confidence: confirmed
+    sources: [{source: ca-acl-26-04, locator: "SMD Eligibility Reference Table"}]
+  - id: SNAP-CA-LE-TURN-60
+    code: turning_65
+    event: A member turns 60 (the shared code is turning_65)
+    why: Elderly household rules start (SMD, SUA via SUAS, no gross test); ESAP uses 60 until March 1, 2027, then 65.
+    check_rules: [SNAP-CA-SMD, SNAP-CA-SUAS, SNAP-CA-ESAP]
+    confidence: confirmed
+    sources: [{source: ca-acl-26-58, locator: "effective March 1, 2027, the age requirement for ESAP eligibility has increased from 60 to 65"}]
+  - id: SNAP-CA-LE-RENEWAL
+    code: renewal_due
+    event: SAR 7 or recertification due
+    why: SUAS changes for households without an elderly/disabled member are applied at the next recertification; ESAP households recertify every 36 months.
+    check_rules: [SNAP-CA-SUAS, SNAP-CA-ESAP]
+    confidence: confirmed
+    sources: [{source: ca-acl-25-68, locator: "new SUAS guidance must be applied at the household's next recertification"}]
+
+outcome_proof:
+  - id: SNAP-CA-PROOF-NOTICE
+    evidence: County notice of action approving CalFresh
+    shows: CalFresh approved, monthly benefit and certification period.
+    how_to_get: Mailed by the county; also visible in BenefitsCal
+    confidence: secondary
+    note: The notice name and BenefitsCal display were not traced to a CDSS source.
+    sources: [{source: ca-acl-26-58, locator: "attached notice"}]
+
+links:
+  - id: SNAP-CA-LINK-MSP
+    playbook: msp
+    rules: [SNAP-CA-SMD, SNAP-FED-MSP-PART-B]
+    relation: In California a Part B premium alone gives a $167.90 medical deduction (actual costs over $35, since $202.90 is above the $185 SMD ceiling); MSP approval removes it.
+    test: SNAP-X-01
+    confidence: confirmed
+    sources: [{source: ca-acl-26-04, locator: "SMD Eligibility Reference Table"}]
+  - id: SNAP-CA-LINK-MEDICAID
+    playbook: medicaid
+    relation: >-
+      CalFresh and Medi-Cal can be applied for together: BenefitsCal and the
+      county office take applications for CalFresh "or other programs" at
+      once. Medi-Cal enrolment does not change CalFresh eligibility; Medi-Cal
+      spenddown (share-of-cost) payments are deductible medical costs.
+    test: MCD-X-05
+    confidence: confirmed
+    sources:
+      - {source: ca-acl-26-58, locator: "attached notice: Online: You can also apply for CalFresh or other programs online by going to http://www.benefitscal.com/"}
+      - {source: ecfr-7-273-9, locator: "(d)(3)(v): any cost-sharing or spend down expenses incurred by Medicaid recipients"}
+
+open_questions:
+  - id: SNAP-CA-OQ-01
+    priority: medium
+    question: On what date did CalSAWS automation put the Public Law 119-21 SUAS limit into effect, so that households without an elderly or disabled member and without heating/cooling costs stopped getting the SUA at application?
+    why_it_matters: The SUA ($663-$686) versus the LUA ($170-$176) changes benefits by up to about $150 a month for such households.
+    checked: [CDSS ACL 25-68 ("effective upon completion of automation"), ACL 25-50, ACIN I-40-26]
+    affects: [SNAP-CA-SUAS]
+    status: open
+  - id: SNAP-CA-OQ-02
+    priority: medium
+    question: Do CalFresh MCE/BBCE households still have to pass the 100% net income test?
+    why_it_matters: Decides whether a one- or two-person household with gross income under 200% but high net income gets the minimum benefit or is denied.
+    checked: [ACIN I-46-25, ACIN I-40-26, FNS BBCE chart]
+    affects: [SNAP-CA-BBCE]
+    status: open
+  - id: SNAP-CA-OQ-03
+    priority: low
+    question: Does California treat child support paid as an income exclusion (federal default) or a deduction?
+    why_it_matters: Changes the gross test only for payers near the limit.
+    checked: [ACIN I-40-26]
+    affects: [SNAP-FED-CHILD-SUPPORT]
+    status: open
+  - id: SNAP-CA-OQ-04
+    priority: medium
+    question: Does the state-funded California Food Assistance Program (CFAP) cover noncitizens who lost federal CalFresh eligibility under Public Law 119-21?
+    why_it_matters: Mixed-status families may keep food benefits through CFAP.
+    checked: [CDSS ACL 25-92 (effective date only)]
+    affects: [SNAP-CA-NONCITIZEN]
+    status: open
+
+conflicts:
+  - id: SNAP-CA-CONFLICT-01
+    topic: Whether the SUA figure already includes the SMD offset
+    claims:
+      - source: ca-acin-i-46-25
+        locator: "FFY 2026 SUA"
+        says: The SUA amount increased from $645 to $663.
+      - source: fns-snap-sua-fy26
+        locator: "California row and note"
+        says: "HCSUA 663, SMD Offset 4; note: SMD offsets have been taken out of the HCSUA amount shown."
+    handling: Both give $663 as the amount budgeted; the archive uses $663 (FY 2026) and $686 (FY 2027) as published by CDSS and does not subtract the offset again.
+    affects: [ca.calfresh.utility_allowances_monthly]
+    status: resolved
+
+claims_checked:
+  - claim: California BBCE is 200% FPL.
+    verdict: verified
+    detail: "$2,610 one person FY 2026, $2,660 FY 2027; no resource test."
+    sources: [{source: ca-acin-i-40-26, locator: "MCE/BBCE (200%)"}]
+  - claim: California has a Standard Medical Deduction for elderly/disabled households ($? verify).
+    verdict: verified
+    detail: "$150 for verified costs of $35.01-$185 a month; actual costs over $35 above $185; extended through September 30, 2029 (ACL 26-04)."
+    sources: [{source: ca-acl-26-04, locator: "SMD Eligibility Reference Table"}]
+  - claim: SSI recipients have been eligible for CalFresh since June 2019.
+    verdict: verified
+    detail: AB 1811 ended SSI cash-out effective June 1, 2019.
+    sources: [{source: ca-cdss-ssi-calfresh, locator: "title and first paragraphs"}]
+  - claim: California has ESAP, BenefitsCal and the CF 285 application, county administration and recertification.
+    verdict: verified
+    detail: ESAP renewed October 2026 - September 2031, with the age rising from 60 to 65 on March 1, 2027; CF 285, CF 37 and CF 485; BenefitsCal; 58 counties.
+    sources: [{source: ca-acl-26-58, locator: "whole letter"}]
+  - claim: California SUA 2026 amounts.
+    verdict: verified
+    detail: "SUA $663 / LUA $170 / TUA $20 (FY 2026); $686 / $176 / $21 (FY 2027)."
+    sources: [{source: ca-acin-i-40-26, locator: "SUA, LUA, TUA"}]

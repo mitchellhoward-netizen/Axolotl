@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://www.cms.gov/medicare/cms-forms/cms-forms/downloads/cms40b-e.pdf
+  final_url: https://www.cms.gov/medicare/cms-forms/cms-forms/downloads/cms40b-e.pdf
+  status: 200
+  content_type: application/pdf
+  text_sha256: 5632f0545f1e64667510be2c329da03ada45307bb1ca9372addf4c9e0d15a133
+  text: cms-40b-form/2026-10-07.txt
+  raw: cms-40b-form/2026-10-07.pdf

@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://downloads.cms.gov/cmsgov/archived-downloads/SMDL/downloads/toaenclosure.pdf
+  final_url: https://downloads.cms.gov/cmsgov/archived-downloads/SMDL/downloads/toaenclosure.pdf
+  status: 200
+  content_type: application/pdf
+  text_sha256: 8371f879447e14ec5066e018f4b6b67840c3b2eef2bca67a0b5dabb75716d427
+  text: cms-smdl-06-018-enclosure/2026-10-07.txt
+  raw: cms-smdl-06-018-enclosure/2026-10-07.pdf

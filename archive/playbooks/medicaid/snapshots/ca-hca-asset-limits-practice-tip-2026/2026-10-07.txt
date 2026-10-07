@@ -1,0 +1,1121 @@
+Health Care Practice Tip: December 2025
+The Return of Medi-Cal Asset Limits
+
+Sweeping changes to Medi-Cal enacted as part of HR-1 and the 2025 California State
+Budget process will impact almost every Medi-Cal member over the next several
+years. For most people enrolled in or applying for Non-MAGI Medi-Cal programs –
+Medi-Cal for the aged, blind, disabled, or those in need of long-term care – that
+means a return to asset limits in 2026.
+This Practice Tip explains what advocates need to know about assets, including if,
+when, and how assets can be transferred so Medi-Cal members and applicants with
+excess assets can get and keep Medi-Cal coverage.
+
+Quick Facts
+
+●​ Effective January 1, 2026, Medi-Cal will consider assets as part of the eligibility
+requirements for most non-MAGI Medi-Cal programs. To get or keep coverage,
+people who are aged, blind, disabled, or who need long-term care must have
+countable assets less than $130,000 for a single person, plus $65,000 for each
+additional household member, up to a maximum of 10 people.
+
+●​ Current Medi-Cal members may spend down or transfer assets to get under the
+limit without penalty as long as they complete the transfer by December 31,
+2025.
+
+●​ Asset transfers made on or after January 1, 2026, may result in a period of
+ineligibility during which Medi-Cal will not pay for long-term care.
+
+Last updated: 3.20.26 – See online version for future updates
+-1-
+
+●​ Applicants who do not need long-term care at time of application may not be
+denied Medi-Cal coverage simply because they transferred assets to establish
+eligibility.
+
+●​ The “look back” period for transfers that could lead to a period of ineligibility will
+not include 2024 or 2025.
+
+●​ The change only applies to Medi-Cal benefits. It does not change the asset rules
+related to other public benefit programs such as SSI or CalFresh.
+
+●​ There is still no asset limit for those enrolled in MAGI Medi-Cal.
+
+Section A: Background
+
+A.1. What Changed and Why
+If you feel like California JUST eliminated the asset test for Medi-Cal, you’re not
+wrong.
+
+●​ In January of 2024, the second part of a two-step plan to remove asset limits
+for people applying for or enrolled in non-MAGI Medi-Cal1 went into effect.
+The non-MAGI group includes most adults aged 65 or older, people with
+disabilities, and those who need long-term care.
+●​ Before that, a 2022 change increased the limits from the standard that had
+been set in 1989 – $2,000 for a single person, and $3,000 for a couple – to
+$130,000 for one person, with an additional $65,000 added for each member
+of the Medi-Cal household, up to 10 people total.
+
+The rules were changed so low-income seniors and people with disabilities could save
+for emergencies and invest in their own and their family’s futures. The change also
+helped simplify and streamline the non-MAGI Medi-Cal application and renewal
+processes. Many Californians who had been forced to get rid of even small savings
+accounts, second vehicles used by family members, or life insurance policies with
+cash value, could now keep those and still receive the medical care they needed.
+
+1
+Acronyms and words in bold red are defined in a Glossary of Terms at the end of this document.
+
+Last updated: 3.20.26 – See online version for future updates
+-2-
+
+The state started looking for ways to save money on Medi-Cal when federal changes
+and state shortfalls collided in 2025. The first plan was to bring back the asset test at
+the historical $2,000 / $3,000 levels. Strong advocacy from people like you who
+work with and for low-income Californians resulted in a return to the 2022 levels
+instead.2
+
+A.2. Who the Change Applies to
+Most people who are enrolled in non-MAGI Medi-Cal will have to meet the restored
+asset test to get or keep coverage.3, 4 People whose Medi-Cal is linked to SSI will still
+have to meet the lower SSI asset limits, which never changed.5 People enrolled in
+MAGI Medi-Cal programs have never been required to meet an asset test, and that
+has also not changed.
+
+2
+California Assembly Bill 116, Health Omnibus Trailer Bill (Chaptered June 30, 2025),
+https://legiscan.com/CA/text/AB116/id/3260237. See also ACWDL 24-14. (June 30,
+2025) Reinstatement of Asset Limits for Non-Modified Adjusted Gross Income
+(Non-MAGI) Medi-Cal Programs.
+https://www.dhcs.ca.gov/services/medi-cal/eligibility/letters/Documents/25-14.pdf
+3
+For a complete list of aid codes impacted by the restoration of asset limits, see
+ACWDL 24-14.
+4
+People in the Pickle, Disabled Adult Child, and Disabled Widow/ers programs are
+not impacted at this time. DHCS has indicated it will reinstate the asset limitation for
+these programs at the expiration of the CalAIM 1115 Waiver. See, CalAIM
+Demonstration Approval Technical Correction Attachment (January 2025),
+https://www.medicaid.gov/medicaid/section-1115-demonstrations/downloads/ca-ca
+laim-dmnstrn-appvl-thncl-crctn-atchmnt-c-aa-01172025.pdf at 8. It is anticipated
+that assets will once again be counted for beneficiaries in these groups beginning
+Jan. 2027.
+5
+See, https://www.ssa.gov/ssi/spotlights/spot-resources.htm. Those who become
+ineligible for SSI due to increased assets can usually qualify for non-MAGI Medi-Cal
+under other aid codes.
+
+Last updated: 3.20.26 – See online version for future updates
+-3-
+
+Section B: What Advocates Need to Know About Assets
+
+B.1. Asset Limits
+Beginning January 1, 2026, a single person who wants to get or keep Medi-Cal must
+have less than $130,000 in countable assets, with an additional $65,000 added per
+person in their household, up to 10 people total. Not all assets (sometimes called
+resources) count, and not everyone’s assets count. Though different non-MAGI
+Medi-Cal programs have different ways of defining who’s in the household, some
+common examples of people who don’t get included in a member or applicant’s
+household are:
+
+●​ Adult children living with their parent(s);
+●​ Roommates and other non-family cohabitants;
+●​ Short-term visitors;
+●​ People who rent rooms or space in the home – though the rent they pay does
+count as income for the Medi-Cal member who receives it.
+
+B.2. Spousal Impoverishment Protections
+**UPDATED 3.20.2026**
+Certain married couples or Registered Domestic Partners (RDP) may get protection
+for more of their assets through Spousal Impoverishment (SI) protections.
+
+These protections can allow a spouse or RDP who needs long-term care (the
+“institutionalized spouse”) to qualify for Medi-Cal coverage with up to $130,000 of
+countable assets in their name, while at the same time the spouse who does not
+need those services (the “community spouse”) can have countable assets in their
+name up to the Community Spouse Resource Allowance (CSRA). This is so the
+community spouse can keep sufficient resources to live in the community and
+manage a household on their own. The CSRA for 2026 is $162,660. Income
+adjustments are also applied under these protections.6
+
+6
+For more information on Spousal Impoverishment Protections for assets and
+income, see https://canhr.org/using-californias-spousal-impoverishment
+-rule-for-home-and-community-based-services/
+
+Last updated: 3.20.26 – See online version for future updates
+-4-
+
+PRACTICE NOTE: Spousal Impoverishment CSRA protections only apply when
+just the institutionalized spouse needs Medi-Cal coverage. If both spouses
+need Medi-Cal, both the institutionalized spouse and the community spouse
+must each meet the $130,000 individual asset limit. This is because when SI
+protections are applied, a household is split into two individual units.
+Sometimes counties will ‘automatically’ add the community spouse to an
+application. Advocates must confirm whether the community spouse actually
+needs Medi-Cal, and if they don’t, instruct the county to withdraw them from
+the application so SI protections can be invoked.
+
+Since the assets of many couples are jointly held, and the entire value of any joint
+asset is counted toward the institutionalized spouse’s individual asset limit, Medi-Cal
+allows a 90-day period7 after eligibility determination where assets can be transferred
+from joint ownership into the community spouse’s name alone without penalty. For
+new applications after January 1, 2026, this allows the institutionalized spouse to
+reduce their assets to under the $130,000 individual limit, and allows the community
+spouse to have assets in their name alone up to the CSRA, after eligibility is
+confirmed. The transfer period may actually be longer than 90 days, because it runs
+through the last day of the month in which the 90th day after the approval notice was
+issued falls.
+
+Example: Sylvia and Josh own a joint bank account with a balance of $280,000,
+putting them above the asset limit for a couple. Josh needs long-term care, and
+applies for Medi-Cal early in 2026. Spousal Impoverishment protections allow
+Josh to have $130,000 in his name or in a joint account, and Sylvia to have up
+to the CSRA amount of $162,660 in her name. Josh receives a Notice of Action
+dated March 4, 2026, that says he has been approved for Medi-Cal, but the
+couple’s assets must be separated by June 30, 2026 – not 90 days later on June
+2 – for Josh to stay eligible. They transfer $151,000 into an account in Sylvia’s
+name only, leaving $129,000 in their joint account. Josh’s assets are now under
+the individual asset limit, and Sylvia’s are under the CSRA. They can transfer
+the $129,000 into an account held only by Josh if they want to, but it is not
+necessary.
+7
+This “90-day period” is more accurately described as the three full calendar months
+beginning the first of the month after the date of the Notice of Action. It includes the
+remainder of the month in which the Notice was sent, plus the next three full
+calendar months.
+
+Last updated: 3.20.26 – See online version for future updates
+-5-
+
+As long as an institutionalized spouse remains in long-term care after they are first
+determined to be eligible for Medi-Cal long-term care services, the community
+spouse’s assets are no longer considered to be available to the institutionalized
+spouse, and are not counted at annual renewals. The community spouse is not
+required to keep assets in their name below the CSRA.
+
+Since there was no asset limit during 2024 and 2025, there was no CSRA calculation
+then either: A community spouse could have unlimited assets and the
+institutionalized spouse could still be found eligible for Medi-Cal long-term care
+services. After some initial confusion, DHCS has confirmed they will not be
+considering a community spouse’s assets at renewal time for cases where
+beneficiaries were determined eligible under SI protections before 2026.8
+
+Example: Peter and Xochi are in a registered domestic partnership. Peter has
+been in a long-term care facility since July of 2024. Peter’s income at the time
+was over the limit, but he was found eligible for long-term care coverage using
+SI income protections. Only Peter applied for Medi-Cal because Xochi didn’t
+need it. At the time of application, Peter had a savings account with a $75,000
+balance in it in his name alone, and Xochi had a separate savings account in her
+name only with $500,000 in it. Neither bank account was considered for
+Peter’s eligibility because there were no asset limits during 2024, or at renewal
+time in 2025. When time for Peter’s annual renewal comes up in July of 2026,
+only the current balance of Peter’s account will count. Xochi should not be
+asked for information about her bank account, the balance in her account will
+not be considered, and she will not have to spend down her assets to under
+the CSRA.
+
+Also for this reason, a 90-day CSRA transfer period will be applied to 2026 coverage
+renewals for institutionalized individuals who were first found eligible for Medi-Cal
+long-term care services when there were no asset limits. During this time, the
+institutionalized spouse can transfer assets out of their name to the community
+spouse without penalty. Remember there is no limit to the assets held by a
+community spouse at renewal, because the CSRA only applies at initial application.
+
+8
+ACWDL 26-02 (Jan. 28, 2026) “2026 Medicare Catastrophic Coverage Act Spousal
+Impoverishment Caps.” https://www.dhcs.ca.gov/services/medi-cal/eligibility/letters/
+Documents/26-02.pdf
+
+Last updated: 3.20.26 – See online version for future updates
+-6-
+
+B.3. Assets that DO NOT Count
+The rules about which assets count towards the limit and which don’t are the same
+as they were before 2024. Assets that don’t count towards the limit are called
+exempt. Some examples include:
+
+●​ The “principal residence” of the Medi-Cal member. This is the place where they
+live most of the time. The principal residence is exempt as long as the person
+lives there or intends to return. (See section B.5. below for information about
+keeping the home exempt after entering long-term care).
+●​ One vehicle used for transportation.
+●​ Household items like furniture and clothes.
+●​ Burial plots, prepaid irrevocable burial plans, and up to $1,500 in designated
+burial funds.
+●​ Real property used for business or self-support.
+●​ Certain items necessary for self-employment (property, inventory, bank
+accounts) or that are used on the job (tools, second vehicle.)
+●​ Musical instruments and recreation items like electronics, computers,
+collections, etc.
+●​ Nonexempt items in an irrevocable trust.
+●​ Life insurance policies with a face value of $1,500 or less.
+●​ Retirement funds if the member is receiving regular payments from them.9
+(The payments from these funds do count as income for eligibility purposes.)
+
+B.4. Assets that DO Count
+Cash or cash equivalent resources and many things that can be sold for cash are
+considered countable assets. Common examples include:
+
+●​ Checking and savings accounts.
+●​ Second cars or motorcycles.
+
+9
+Certain assets have always been exempt; see 20 C.F.R. §§ 416.1210, 416.1216,
+416.1218.
+
+Last updated: 3.20.26 – See online version for future updates
+-7-
+
+●​ Boats and RVs.
+●​ Second homes.
+●​ Other real property that is not used for business or self-support.
+●​ Other bank and investment accounts including stocks, bonds, and mutual
+funds.
+●​ Cryptocurrency and e-cash.
+●​ Nonexempt assets in a revocable trust.
+●​ Other financial resources, no matter where they are located.10
+
+B.5. The Principal Residence and ‘Intent to Return’
+The home a person leaves when they have to move into a long-term care facility stays
+an exempt asset if the person’s spouse or dependent relative lives in it. It also stays
+exempt as long as the person wants to return there. This is true even if the person’s
+doctors say they may never be physically well enough to leave the long-term care
+facility.11 Some things to keep in mind:
+
+●​ The Medi-Cal application asks if the applicant is in a long-term care facility, and
+if so, if the person intends to return home.
+●​ If the applicant (or someone who is helping the applicant fill out the
+application) checks “yes” to say that the person intends to return home, then
+the person’s home remains an exempt asset no matter how long they stay in
+the facility.
+
+10
+The “countable” and “exempt” status of other assets is detailed at 22 C.F.R. §§
+50401 et. seq. See also DHCS Asset Limits FAQ’s.
+https://www.dhcs.ca.gov/Medi-Cal/Pages/Help/asset-limits-faqs.aspx
+11
+ACWDL 95-48 (Aug. 24, 1995) “Exempt Principal Residence.” https://www.dhcs.ca.
+gov/services/medi-cal/eligibility/letters/Documents/c95-48.pdf See also ACWDL
+86-33 (June 9, 1983) https://www.dhcs.ca.gov/services/medical/eligibility/letters/
+Documents/c86-33.pdf
+
+Last updated: 3.20.26 – See online version for future updates
+-8-
+
+●​ If the person filling out the application makes a mistake and either misses the
+“yes” box, or wrongly states the person asking for Medi-Cal doesn’t want to
+return home, they can later make a correction. If they do that, counties must
+accept the correction and allow the home to remain exempt.12
+
+Counties are not allowed to require any kind of verification of a Medi-Cal member’s
+intent or ability to return home after they enter a long-term care facility. The only
+exception is if the person is asking for an income exemption to keep some of their
+income that otherwise would have been used for their copays so they can pay to
+maintain the home. Since the exemption only lasts six months, the county may ask
+for proof that the person will be able to return home in six months or less before
+granting the exemption.13
+
+B.6. Medi-Cal Estate Recovery
+Some Medi-Cal members and applicants may have concerns about getting or keeping
+Medi-Cal because of what they’ve heard about Medi-Cal possibly taking their homes
+or other assets. This is a process known as Medi-Cal Estate Recovery, and there are a
+lot of misunderstandings about it.
+Important things to remember and share:
+
+●​ DHCS will never put a lien on a member’s home or attempt to recover the
+costs of care while the person is still alive.
+●​ DHCS will also never attempt recovery or put a lien on a member’s home while
+the member’s spouse, children who are under age 21, or children 21 or older
+who are disabled, are alive.
+●​ If members do have any of those qualifying relatives, any recovery claim that
+could be made by DHCS will be waived forever and will not come back after
+their relatives die.
+●​ Only assets that go through the probate process because the member decides
+to give them away through their will instead of using other methods are
+subject to recovery.
+
+12
+ACWDL 95-48
+13
+22 C.C.R. Section 50605
+
+Last updated: 3.20.26 – See online version for future updates
+-9-
+
+●​ If the member does proper estate planning and all of the member’s assets
+transfer on death without having to go through probate, there will be nothing
+to recover.
+
+While federal law does require DHCS to try and recover from the estates of members
+the money it spent on certain services received, California uses the broadest possible
+interpretation of the law. Recovery is limited to services received while a person is
+in long-term care, or while they are enrolled in Home and Community Based
+Services programs. The cost of most basic health services such as doctor’s visits,
+hospital and emergency care, prescription drugs, and managed care premiums are
+not subject to recovery.
+It's also important to realize that many Medi-Cal members will not have enough
+value in their estates for DHCS to even try to make a recovery after asset limits are
+brought back. That’s because:
+
+●​ DHCS will only attempt recovery if the value of the member’s estate that goes
+through probate is greater than $208,850 in personal property, and/or $69,625
+in real property other than their primary residence, for deaths occurring on or
+after April 1, 2025. This amount changes every few years.
+●​ Also, the member’s primary residence is safe from recovery if its equity value
+(value after all mortgages and liens are paid off) is less than $750,000, or if it
+qualifies as a “homestead of modest value,” which is a home whose market
+value is 50 percent or less than the average price of homes in the county where
+it is located.
+It is very important for people who are concerned about possible estate recovery to
+do proper and effective estate planning to make sure assets don’t have to go through
+probate. This will ensure the member can avoid estate recovery entirely.
+For more information about Medi-Cal Estate Recovery and how Medi-Cal members
+can avoid it, you will find a link to brochures in multiple languages in the Additional
+Resources section below.
+
+B.7. Reporting Assets
+Current Medi-Cal members will receive several forms related to assets in their annual
+renewal packet starting in 2026. Form MC 604 IPS, called “Additional Income and
+Property Information Needed for Medi-Cal” asks about property and possessions
+
+Last updated: 3.20.26 – See online version for future updates
+- 10 -
+
+starting on page 3.14 New applicants will also see this form as part of the application
+packet beginning in 2026.
+If an applicant or member only has exempt assets, or has only checking and savings
+accounts plus one or two other nonexempt things, reporting assets is pretty simple.
+However, it can get complicated if the person has a larger variety of assets. The MC
+604 IPS form lists the kind of proof applicants and members will need to include
+when they return their renewal or application packet.
+Some examples include:
+
+●​ Bank statements.
+●​ Title and/or most recent registration for vehicles, boats, RVs, and trailers.
+●​ Receipts, purchase agreements, or estimates of value for vehicles, boats, RVs,
+and trailers.
+●​ Mortgage papers, tax assessments, appraisals, or title documents for other real
+property.
+●​ Statements from investment and retirement funds that show distributions if
+applicable.
+●​ Copies of annuities or life insurance policies that show their cash surrender
+value.
+●​ Documents showing ownership and cost or value of burial plots, burial
+contracts, or burial insurance.
+
+B.8. Self-attestation of Value
+Most Medi-Cal members or applicants will have less than the limit of countable
+assets that applies to them. Those who do can “self-attest” to the value of the assets
+they have if they are having trouble getting the proof the county is asking for.15 They
+only need to write down certain required information about the asset, then sign their
+
+14
+See https://www.dhcs.ca.gov/formsandpubs/forms/Forms/MC%20600/
+MC_604_IPS_ENG_ 0514 %20(2).pdf
+15
+See MEDIL I 22-49 https://www.dhcs.ca.gov/services/medical/eligibility/letters/
+Documents/ I22-49.pdf
+
+Last updated: 3.20.26 – See online version for future updates
+- 11 -
+
+name under penalty of perjury, meaning what they wrote is true and they understand
+they could face criminal or civil penalties if it turns out not to be true.
+
+The information required is:
+
+●​ For financial assets such as bank accounts, investments, trusts, and other
+similar: Type of asset, name of the financial institution where the asset is held,
+and current account balance.
+●​ For insurances and burial property or funds: Name of financial institution,
+insurance company, or provider that controls the asset, type of asset, current
+value or balance, and amount owed if any.
+●​ For non-financial resources such as nonexempt real property, nonexempt
+motor vehicles, or other nonexempt items: Property type, current value, and
+amount owed if any.
+
+B.9. Asset Verification Program
+DHCS is required by federal law to have an asset verification program (AVP) in place
+to independently verify the value of assets, and to find unreported assets.16 They use
+the personal information of the applicant or member to send out inquiries to various
+data hubs to do this. Applicants and members are required to give DHCS
+authorization to get this information and they may be found ineligible for Medi-Cal
+coverage if they refuse.
+This means that a person’s assets will likely be located even if the person doesn’t
+report them. It also means that once an asset is reported and verified through the
+AVP, Medi-Cal members usually won’t need to provide documentation about that
+asset again at renewal time.
+However, the AVP can sometimes make a connection between a person and an asset
+that the person doesn’t own anymore, or even one that they never owned in the first
+place. Applicants and Medi-Cal members have the right to ask for a state fair hearing
+to prove they don’t own assets found by the AVP, or to prove that the asset isn’t
+worth what the AVP says it is.
+
+16
+Calf. Welfare & Inst. Code Sec. 14013.5
+
+Last updated: 3.20.26 – See online version for future updates
+- 12 -
+
+B.10. Forms and Notices
+Various forms, some older but most updated in 2022, will be sent to Medi-Cal
+members at renewal time and included in new application packets. These may
+include:
+
+●​ Medi-Cal Renewal Form (MC 210 RV Revised 10/2020) or Pre-Populated
+Renewal Form (MC 217 Revised 10/2020)
+●​ Additional Income and Property Information Needed for Medi-Cal (MC 604 IPS
+Revised 5/2014)
+●​ Non-MAGI Informing Letter (ED_0004037 Revised 5/2014)
+●​ Non-MAGI Medi-Cal Information Sheet (Pub 10 Revised 07/2022)
+●​ Medi-Cal General Property Limitations (MC 007 Revised 07/2022)
+●​ Notice Regarding Standards for Medi-Cal Eligibility (DHCS 7077 Revised
+07/2022)
+
+Section C: Asset Transfers and Potential Penalties
+
+IMPORTANT: Quickly reducing assets to get under the limit before the end of the
+year might seem the logical thing for Medi-Cal members to do so they can keep their
+Medi-Cal into 2026. But that will not be the best solution for everyone. For example:
+
+●​ Some may need their assets more than they need Medi-Cal.
+●​ Some might have other coverage such as Medicare and enough assets to cover
+their Medicare cost sharing, so they don’t actually need Medi-Cal coverage.
+●​ Some might decide that because they’re generally healthy and rarely visit the
+doctor, the other coverage they have is enough.
+●​ Some might have a share of cost that makes Medi-Cal essentially useless, and
+wouldn’t want to shed assets just to keep it.
+●​ Some might find that the tax consequences that could result from transferring
+assets to another person would make their cost of health care seem small by
+comparison.
+
+Last updated: 3.20.26 – See online version for future updates
+- 13 -
+
+Advocates should never assume that reducing assets is the best option for all of
+their clients. It’s important that each person carefully weigh their options and
+consider what is best for their individual situation before hurrying to get rid of assets
+to keep their Medi-Cal.
+There are some important things to know if Medi-Cal members or applicants with
+excess assets do decide they need Medi-Cal more than their assets.
+
+C.1. For People Who Do Not Need Long-Term Care
+Medi-Cal members and new applicants who do not expect to need long-term care in
+the next 30 months can spend down or give away countable assets to get or stay
+under the limit at any time. DHCS refers to this as making a transfer. Counties should
+never look to see if someone has made any transfers unless the person requests
+Medi-Cal for long-term care, and applicants who do not need long-term care at the
+time of application can not be denied eligibility for Medi-Cal simply because they
+transferred assets to get eligible.17
+
+C.2. For People Who Need Long-Term Care Now or May Need it Soon
+●​ Members in Long-Term Care Now (Before 2026)
+Medi-Cal members who are already in a nursing facility for long-term care in
+December of 2025 and know they have too many countable assets can transfer assets
+without restriction or penalty until December 31, 2025.18 After that, any transfers of
+countable assets for less than full market value may result in a penalty as described
+below. Exempt assets can be transferred anytime without penalty.
+
+17
+ACWDL 25-18, p.2 “… counties should only review transfers when an individual
+requests LTC Medi-Cal.” See also ACWDL 91-107 (Nov. 20, 1991) Transfer of Assets
+Rules and MEDS Requirements,
+https://www.dhcs.ca.gov/services/medi-cal/eligibility/letters/Documents/c91-107.pd
+f and 22-07 and ACWDL 92-07 (Feb. 14, 1992) Errata to ACWDL 91-107 https://www.
+dhcs.ca.gov/services/medi-cal/eligibility/letters/Documents/c92-07.pdf and MC
+Information Notice 007 (Revision 07/22), p. 4
+https://www.dhcs.ca.gov/formsandpubs/forms/Documents/ MC007-ENG-1122.pdf
+18
+ACWDL 25-18
+
+Last updated: 3.20.26 – See online version for future updates
+- 14 -
+
+●​ Members or Applicants Who Need Long-Term Care After 1/2026
+If a Medi-Cal member or applicant needs long-term care after January 1, 2026,
+counties will look back through the person’s finances for any transfers.19 The amount
+of time the county can look at is called the look back period. The maximum look back
+period is 30 months before the date the person needs long-term care.20
+The county will review any transfers made during the look back period by a Medi-Cal
+member or applicant, or their spouse or RDP. A penalty called a period of ineligibility
+(POI) will be set if the county sees that a transfer was made of a countable asset for
+less than full market value during the look back period. Medi-Cal will not pay for
+long-term care during a POI, but will still pay for other covered services. The penalty
+could still apply even if the applicant or member made the transfer when they didn’t
+know they would need long-term care, with some exceptions as shown below.
+Only Medi-Cal members who are living in a long-term care facility, commonly called a
+nursing home or skilled nursing facility, will get a POI. The penalty doesn’t apply to
+members enrolled in Home and Community Based Services (HCBS) waiver programs.
+
+C.3. Transfers that Will Not Result in a Period of Ineligibility (POI):
+●​ Total countable assets under the limit at time of transfer
+A person will not have a POI if their total countable assets are under the limit for their
+household size when they make a transfer. People are free to do whatever they want
+with their assets as long as their total countable assets are less than the limit that
+applies to their situation.21
+
+19
+For the first few months of 2026, counties will look back for transfers made during
+the last few months of 2023. After that, the look back period will begin in January,
+2026.
+20
+Information about the length of the POI for transfers starting after January 1, 2026
+and beyond is available in ACWDL 25-18 beginning on p. 3.
+21
+22 C.C.R. Sec. 50408(a)(2)
+
+Last updated: 3.20.26 – See online version for future updates
+- 15 -
+
+Example: A single Medi-Cal member has $100,000 in the bank as their only
+countable asset. In March of 2026, they decide to give $50,000 to their adult
+child so their grandchildren can take an epic vacation. They won’t have a POI
+even if the person is currently in a long-term care facility, or if they need
+long-term care the very next month, because their total assets were below the
+limit at the time of transfer.
+
+●​ Transfers of exempt assets
+Transferring an asset which is exempt at the time of transfer will not lead to a POI, no
+matter how much the asset is worth. If a Medi-Cal member or applicant wants to
+transfer their primary residence, their only vehicle, household goods and furnishings,
+or anything else that doesn’t count toward the asset limit, they can do that at any
+time while the asset is exempt.22
+
+IMPORTANT: Some Medi-Cal members want to transfer the title of their home to try
+and avoid future Medi-Cal estate recovery. Advocates don’t suggest doing that
+because it can take away the person’s right to live in their own home, and it can cause
+tax and other financial consequences to both the giver and the receiver.23
+
+●​ Transfers made while there was no asset limit
+Any transfers that were made between January 1, 2024 and December 31, 2025, will
+not result in a POI no matter if the asset was countable, what the asset was worth, or
+where it went. Full stop, no exceptions.24
+
+22
+22 C.C.R. Sec. 50408(a)(1)
+23
+For more information on Medi-Cal Estate Recovery and how Medi-Cal members can
+avoid it, with publications available in multiple languages, see https://canhr.org/
+medi-cal-recovery-information/
+24
+ACWDL 25-18, p. 3
+
+Last updated: 3.20.26 – See online version for future updates
+- 16 -
+
+●​ Transfers made for reasons other than to establish Medi-Cal
+eligibility
+Counties are allowed to assume that assets transferred by someone who needs
+long-term care were transferred so the person would be eligible for Medi-Cal.25
+Counties will not give a member or applicant a POI if the person can prove that the
+transfer was made for reasons other than to establish eligibility.26
+
+Advocates should warn clients about potential future POIs when talking about
+transferring assets to qualify for Medi-Cal coverage. If a person has more than an
+“anything could happen” anticipation that they might need long-term care in the next
+30 months, advocates should talk to them about permissible spend down. (See next
+section below.) Some examples of how this ‘anticipation of need’ could play out:
+
+Example of no POI applied: A single, healthy, independent 70-year-old has
+$200,000 in assets and is not enrolled in Medi-Cal. In February of 2026, they
+buy their grandchild an $80,000 pickup truck as a college graduation present.
+Six months later, the person has a serious stroke and needs Medi-Cal to pay for
+long-term care services. Their statement that they were entirely healthy and
+had no anticipated need for long-term care services when they paid for the
+truck would be acceptable evidence that their assets were transferred
+exclusively for a purpose other than to qualify for coverage for long-term care.
+No POI would be applied.
+
+Example of POI applied: A 75-year-old and a 70-year-old have combined assets
+of $200,000 and are not enrolled in Medi-Cal. The younger spouse had a
+serious stroke in 2024 that resulted in a need for help with many activities of
+daily living. The older spouse has been taking care of the younger spouse at
+home ever since.
+
+In February 2026, the older spouse passes away. The surviving spouse’s adult
+grandchild temporarily moves in to help out. In August of 2026, the spouse
+buys the grandchild an $80,000 pickup truck as a thank-you gift for all their
+
+25
+22 C.C.R. Sec. 50409(b)(1), see ACWDL 25-18, p. 3
+26
+22 C.C.R. Sec. 50409(b)(2), see ACWDL 25-18, p. 3
+
+Last updated: 3.20.26 – See online version for future updates
+- 17 -
+
+help, which – coincidentally or not – puts the spouse’s total remaining assets
+under the Medi-Cal limit.
+A few months later, the grandchild says they will be moving away. The surviving
+spouse knows they can’t stay at home without help and applies for Medi-Cal.
+Soon after their application is approved, they enter a long-term care facility.
+The county reviews the case and sees the transfer. A POI would be applied
+unless the spouse was able to offer sufficient evidence to overcome the
+presumption that they bought such an expensive gift in order to reduce their
+assets and qualify for Medi-Cal for the long-term care they knew they would
+eventually need.
+
+●​ Transfers of amounts totaling less than the average private pay rate
+(APPR)
+The length of a period of ineligibility for long-term care is calculated by dividing the
+value of the asset transferred by the average private pay rate (APPR) for one month
+of long-term care. The result determines how many months’ of care the value of the
+asset could have covered, and therefore how long the POI will be.
+The county does not consider partial months of ineligibility, so no POI will result if the
+value of the transferred asset was less than the cost of one month of long-term care
+services at the private pay rate.27 That’s because even if the person had not
+transferred the asset, Medi-Cal would have to pay something starting in their first
+month in long-term care. The APPR is updated annually, and was $13,656 in 2025.
+
+Example: An applicant is $10,000 over the asset limit when they get ready to apply
+for Medi-Cal in February of 2026. They give away a boat valued at $11,000 to get
+under the limit. Then in January of 2027, they need long-term care services. The
+county reviews the transfer and determines it was made during the applicable look
+back period for less than full market value. But they also determine the value of the
+transfer was less than the APPR. Therefore, the person does not get a POI.
+
+27
+ACWDL 25-18, p.2
+
+Last updated: 3.20.26 – See online version for future updates
+- 18 -
+
+●​ Transfers made using acceptable spend-down methods
+Medi-Cal members or applicants who spend down their assets in approved ways will
+not get a POI if they need long-term care.28
+
+Some of the ways a person can spend down assets and still get coverage for
+long-term care services include:
+
+●​ Paying current bills.
+●​ Paying medical bills, whenever they got the care.
+●​ Paying ahead for future bills, like paying monthly mortgage or rent in advance
+or paying off an auto loan early.
+●​ Paying debts such as credit card bills.
+●​ Purchasing an exempt asset, such as a car if they don’t already have one, an
+irrevocable burial plan, or others.
+●​ Buying clothes.
+●​ Making home repairs.
+●​ Buying or replacing furniture or appliances.
+●​ Paying someone to care for a spouse in the home.
+●​ Also, a spouse who needs long-term care can transfer assets to a spouse who
+does not by using Spousal Impoverishment protections, and a parent can
+transfer assets to a blind or disabled child of any age at any time.
+
+Remember that applicants who do not need long-term care services at the time they
+apply should never be denied eligibility for Medi-Cal based solely on transfers. The
+POI only applies to people who need long-term care services.
+Finally, it is very important that people who are spending down or transferring assets
+keep good records, including receipts when possible. This is so they can prove where
+an asset went if they need long-term care within 30 months of a transfer.
+
+C.4. Look Back Periods
+If a Medi-Cal member or applicant who needs long-term care has transferred an asset
+for less than full market value during the applicable look back period, and none of the
+
+28
+See MC Information Notice 007 (Revision 07/22), p. 5 https://www.dhcs.ca.gov/
+formsandpubs/forms/Documents/MC007-ENG-1122.pdf
+
+Last updated: 3.20.26 – See online version for future updates
+- 19 -
+
+exceptions above apply, they will get a POI. The standard look back period in
+California is 30 months. But it will be shorter than that until July of 2028. That’s
+because there was no restriction on transfers while there were no asset limits in 2024
+and 2025. The last few months of 2023 will count for the first few months of 2026,
+but after that the look back period will only be for 2026 and later.
+Since the length of the look back period will be constantly changing between now
+and when it returns to a full 30 months in July of 2028, DHCS has created this helpful
+reference chart:
+
+Date applicant or Months that will be Total number of
+member first needs included in the months in the
+long-term care look back period look back period
+December 2025 6/2023-12/2023 7
+January 2026 7/2023-12/2023 6
+February 2026 8/2023-12/2023 & 1/2026 6
+March 2026 9/2023-12/2023 & 1/2026-2/2026 6
+10/2023-12/2023 &
+April 2026 6
+1/2026-3/2026
+11/2023-12/2023 &
+May 2026 6
+1/2026-4/2026
+June 2026 12/2023 & 1/2026-5/2026 6
+July 2026 1/2026-6/2026 6
+August 2026 1/2026-7/2026 7
+September 2026 1/2026-8/2026 8
+October 2026 1/2026-9/2026 9
+November 2026 1/2026-10/2026 10
+December 2026 1/2026-11/2026 11
+January 2027 1/2026-12/2026 12
+February 2027 1/2026-1/2027 13
+March 2027 1/2026-2/2027 14
+April 2027 1/2026-3/2027 15
+
+Last updated: 3.20.26 – See online version for future updates
+- 20 -
+
+May 2027 1/2026-4/2027 16
+June 2027 1/2026-5/2027 17
+July 2027 1/2026-6/2027 18
+August 2027 1/2026-7/2027 19
+September 2027 1/2026-8/2027 20
+October 2027 1/2026-9/2027 21
+November 2027 1/2026-10/2027 22
+December 2027 1/2026-11/2027 23
+January 2028 1/2026-12/2027 24
+February 2028 1/2026-1/2028 25
+March 2028 1/2026-2/2028 26
+April 2028 1/2026-3/2028 27
+May 2028 1/2026-4/2028 28
+June 2028 1/2026-5/2028 29
+July 2028 1/2026-6/2028 30
+August 2028 2/2026-7/2028 30
+September 2028 3/2026-8/2028 30
+
+C.5. Calculating the Length of a Period of Ineligibility
+Medi-Cal will not pay for long-term care services for someone who could have paid
+for the services themself, if they had not transferred away their assets. That's why a
+POI is given. The maximum length of a POI due to an improper transfer is 30 months
+from the date of transfer.29 But the actual length of a member’s POI is equal to 30
+months, OR the value of the asset divided by the APPR, whichever is shorter.30 The
+POI starts in the month they make the transfer, whether they need long-term care
+right away, a year or more later, or never need it at all.
+
+29
+See MC Information Notice 007 (Revision 07/22), p. 6
+30
+ACWDL 90-01, section 50411.3
+
+Last updated: 3.20.26 – See online version for future updates
+- 21 -
+
+This calculation can be tough to understand, even for county eligibility workers. They
+have a special worksheet they use to help them figure it out. For illustration, below
+are two calculations that result in POIs of different lengths. Example 1 is of a POI that
+actually impacts the member, and Example 2 is a POI that does not impact the
+member.
+
+Example 1: In January of 2026, a single senior citizen gives $100,000 in assets
+to their child to bring their total assets under the limit and stay eligible for
+Medi-Cal. They fall ill and first need long-term care two months later, in March
+of 2026.
+The county looks back and finds the transfer took place during the applicable
+look-back period, and didn’t meet any of the exceptions that would prevent a
+POI. Therefore, their maximum POI is 30 months starting when they made the
+transfer in January of 2026.
+But, when the county divides the $100,000 value of the asset by the APPR –
+which we will assume is $10,000 to make the math easier – they get 10
+months. Since the POI is the smaller of 30 months or the value of the asset
+divided by the APPR, their actual period when Medi-Cal will not pay for the
+long-term care services they need is only 10 months from the date of transfer
+in January. So in this example, Medi-Cal will start paying for long-term care in
+November of 2026. Until then, the senior must find another way to pay for the
+services. (They can also appeal the POI, as described in Section C.7. below.)
+
+Example 2: In January of 2026, a single senior citizen gives $100,000 in assets
+to their child to bring their total assets under the limit and stay eligible for
+Medi-Cal. They fall ill and first need long-term care two years later, in January
+of 2028.
+
+The county looks back and finds the transfer took place during the applicable
+look back period, and didn’t meet any of the exceptions that would prevent a
+POI. Therefore, their maximum penalty is 30 months starting when they made
+the transfer in January of 2026.
+Using the same math as Example 1, the county gets the same 10 months. Since
+the POI is the smaller of 30 months or the value of the asset divided by the
+
+Last updated: 3.20.26 – See online version for future updates
+- 22 -
+
+APPR, their actual POI when Medi-Cal will not pay for the long-term care
+services they need is only 10 months from the date of transfer in January,
+2026. That means this senior’s POI is already over before they first needed
+long-term care, and Medi-Cal will pay for those services as soon as the senior
+needs them in January of 2028.
+
+C.6. Appealing a Period of Ineligibility
+Medi-Cal members and applicants have the right to ask for a state fair hearing to
+argue that the county’s findings were wrong on anything related to eligibility. This
+includes situations where the county sets a POI. Some errors that could be corrected
+at a state hearing include:
+
+●​ A transferred asset was over-valued by the county.
+●​ The transferred asset was actually exempt at the time it was transferred.
+●​ The county decided the asset was transferred solely to become eligible for
+Medi-Cal, but there is evidence it was not.
+●​ Any other error related to assets or transfers.
+
+The decision about a POI will be overturned if the applicant or member can show
+evidence at a fair hearing to prove the county’s decision was wrong.
+
+C.7. “Undue Hardship” Appeals
+What if the county correctly gives a Medi-Cal member a POI that is still in effect when
+they actually need long-term care, but the person can’t afford to pay for the services
+themselves during what’s left of their POI? If the POI would cause them an “undue
+hardship,” the person can ask for a state fair hearing to show that they should still
+qualify for coverage for long-term care. Counties are supposed to look to be sure no
+undue hardship exists before giving someone a POI.31 But they might not do it, they
+might find no undue hardship even though there is one, or there might not have
+been an undue hardship when they were given the POI, but there is by the time they
+need long-term care.
+
+Welf. & Inst. Code § 14015.1(b), see also ACWDL 25-18, p. 5, ACWDL 90-01 Sec.
+31
+
+50411.5 and 50096.5
+
+Last updated: 3.20.26 – See online version for future updates
+- 23 -
+
+If the member or applicant can prove any of the following at a hearing, an undue
+hardship will be found and a POI will not be given:
+
+●​ That not getting long-term care services paid for by Medi-Cal would endanger
+their life or health.
+●​ That they would be evicted from their current long-term care facility if they lost
+Medi-Cal coverage. This exception is especially valuable for those who started
+living at a long-term care facility when there were no asset limits and who had
+to transfer assets after January 2026 to stay eligible.
+●​ That they are only able to get long-term care services through Medi-Cal.
+●​ That they wouldn’t be able to afford or arrange for food, clothing, shelter, or
+other necessities of life if they were denied coverage for long-term care
+services.
+
+Section D: Timeline and Terminations
+
+D.1. New Applications
+●​ New applications on or before December 31, 2025
+People who submit new applications for non-MAGI Medi-Cal before the end of 2025
+will not have to meet the asset test, even if their application is not approved until
+after January 1, 2026.
+
+●​ New applications on or after January 1, 2026
+
+Anyone who applies for non-MAGI Medi-Cal on or after January 1, 2026 will have to
+report what assets they have and provide proof. Their application will be denied if
+their assets are over the limit. But there is no restriction on reapplying once someone
+spends down their assets to get under the limit. In order to keep eligibility for the
+month in which the person applied, they would have to request a hearing to appeal
+the denial, then show proof that their assets were spent down to under the limit by
+the end of the application month.
+
+Last updated: 3.20.26 – See online version for future updates
+- 24 -
+
+D.2. Medi-Cal Members With Active Coverage as of December 2025
+Medi-Cal members whose coverage is active during December 2025 – either actually
+in December or retroactively – will not have to report their assets until their next
+annual renewal. They can spend down assets using approved methods like the ones
+shown in Section C.3. above to get under the limit until then. This means that
+members whose most recent renewal packet was submitted in December of 2025 will
+have up to a year to reduce their assets. Others whose last annual renewal was
+earlier in 2025 may have a much shorter timeframe to spend down their assets.
+It’s also important to note that it’s the date a completed renewal packet is submitted
+to the county that matters, not the date the renewal process is completed by the
+county: if a Medi-Cal member submits their completed renewal packet on or before
+December 31, 2025, they will not need to report on assets until 12 months after their
+renewal is completed and a Notice of Action is issued, no matter how long it takes
+the county to complete the renewal process.
+
+D.3. Timing of Denials and Terminations for Excess Assets
+For new applicants, assets must be under the limit by the end of the month they
+want their coverage to start. Existing members renewing their coverage may have
+until the end of the month following the issuance of a Notice of Action terminating
+coverage to spend down assets.32
+
+People who lose coverage because they don’t complete asset reports or submit
+verifications will have a 90-day grace period to fix the problem. DHCS calls this a cure
+period. If a Medi-Cal member can complete their reports and provide proof that their
+assets were under the limit within those 90 days, their Medi-Cal will be restored
+without a gap in coverage as if they had been eligible all along.33
+
+32
+New notice language found on p. 10 of ACWDL 25-14 states “If your excess
+property is spent down before the end of this month or the end of the following
+month, your discontinuance can be rescinded.”
+33
+ACWDL 25-14, p. 3
+
+Last updated: 3.20.26 – See online version for future updates
+- 25 -
+
+A Special Note for Some Immigrant Groups
+
+It is really important that current (in 2025) Medi-Cal members who have certain
+immigration statuses do everything they can to keep their Medi-Cal enrollment
+continuous.
+
+This is because under state changes beginning January 1, 2026, no new enrollment
+into full-scope Medi-Cal will be permitted for immigrants in these three status
+categories:
+●​ Adults with no immigration status (undocumented).
+●​ Adults with unverified immigration status.
+●​ Adults with any of the three non-immigrant visas: student, work, and tourist
+visas.
+
+These groups can still get restricted (emergency) Medi-Cal, which can be used to
+treat emergencies and provide care to pregnant persons.
+Immigrants get the same three-month cure period for any Medi-Cal terminations as
+other groups of people do, including when the termination is related to asset limits.
+During this grace period, these immigrants can show proof that their assets are under
+the limit – or fix other problems that led to termination – and get their coverage back
+without being considered a ‘new’ enrollee who would be ineligible for full-scope
+Medi-Cal. More information on what’s coming for immigrants and Medi-Cal in 2026
+and beyond is available in Western Center’s Immigration Changes Practice Tip, and
+through the resources below.
+
+Additional Resources
+
+●​ A consumer-facing fact sheet on asset limits from the Health Consumer
+Alliance can be found in English, here: Understanding Asset Limits: What You
+Need to Know, and in Spanish, here: Comprensión de los Límites de los Activos:
+Lo que Necesita Saber.
+●​ For the official DHCS Frequently Asked Questions page, see: DHCS Asset Limits
+FAQs
+
+Last updated: 3.20.26 – See online version for future updates
+- 26 -
+
+●​ For informational notices from DHCS about the return of asset limits in 19
+languages, see MEDIL I 25-23.
+●​ California Advocates for Nursing Home Reform (CANHR) also has a very helpful
+FAQ page on asset limits. See: 2026 Asset Limit Reinstatement Frequently
+Asked Questions - CANHR
+●​ The National Health Law Program has published a comprehensive series of Fact
+Sheets that cover all upcoming changes to Medi-Cal. See them at: Changes to
+Medi-Cal and Covered California Under the OBBBA and the CA Budget.
+●​ For more information on immigrants and Medi-Cal, see the Medi-Cal Changes
+for Adult Immigrants in 2026 and 2027 fact sheet from the Health Consumer
+Alliance. See also MEDIL I 25-22, which contains DHCS’s outreach letter related
+to this change, in 19 languages.
+●​ For more information on Spousal Impoverishment protections when one
+spouse would qualify for long-term care in a facility but remains at home, visit
+CANHR’s Spousal Impoverishment website: Using California’s Spousal
+Impoverishment Rule for Home and Community Based Services - CANHR
+●​ For more information on Medi-Cal Estate Recovery and how Medi-Cal
+members can avoid it, with publications available in multiple languages, see
+Medical Recovery: Rules for Medi-Cal beneficiaries at the CANHR website.
+●​ A complete bank of all published All County Welfare Directors Letters and
+Medi-Cal Eligibility Division Information Letters can be found here: ACWDLs &
+MEDILs.
+
+For more information or with any questions, please contact:
+
+●​ Joy Dockter, Western Center on Law & Poverty (jdockter@wclp.org)
+●​ Maura Gibney, California Advocates for Nursing Home Reform
+(maura@canhr.org)
+●​ Elizabeth Zirker, National Health Law Program (zirker@healthlaw.org)
+
+Last updated: 3.20.26 – See online version for future updates
+- 27 -
+
+Glossary of Terms
+
+●​ ACWDL: All County Welfare Directors’ Letter. These letters published by the
+Department of Health Care Services provide guidance to county workers.
+●​ Asset transfer / transferring an asset: Giving away, selling, spending, or
+otherwise getting rid of an asset.
+●​ Asset Verification Program (AVP): A program through which DHCS can send
+inquiries to federal and state data hubs to get information about people’s
+assets, even if the person doesn’t report the asset.
+●​ Average Private Pay Rate (APPR): The average monthly cost of care in a
+long-term care facility, if someone was paying out of pocket. Used to calculate
+periods of ineligibility (POI) for long-term care services, and to establish
+whether the value of a transferred asset would lead to a period of ineligibility.
+●​ Community Spouse Resource Allowance (CSRA): The amount of additional
+assets a community spouse can have that will not count against the
+institutionalized spouse.
+●​ Countable asset: An asset that is included as part of the asset limit calculation.
+Also referred to as a “nonexempt” asset.
+●​ Cure period: A 90-day grace period after the issuance of a Notice of Action
+terminating benefits because of missing information. During this period, a
+Medi-Cal member may “cure” the problem that caused the termination by
+providing the missing information and have coverage restored without gaps.
+●​ DHCS: Department of Health Care Services.
+●​ Exempt asset: An asset that is not included as part of the asset limit
+calculation. Also referred to as a “non-countable” asset.
+●​ Full market value: Also called “fair market value,” it’s the amount a person
+could get if they sold an asset in an open and competitive market.
+●​ Irrevocable trust: A type of trust that can not in any way be revoked or
+terminated under its own terms. It transfers ownership of assets to the trust,
+so the grantor no longer has control over them. Assets in irrevocable trusts are
+considered to no longer belong to the person who put them in the trust.
+
+Last updated: 3.20.26 – See online version for future updates
+- 28 -
+
+●​ Long-term care: In the context of asset limits and transfers, this refers to
+services provided to someone who is living in a long-term care facility, more
+commonly called a nursing home or skilled nursing facility. It does not include
+those receiving In-Home Supportive Services (IHSS) or enrolled in Home and
+Community Based Services (HCBS) waiver programs.
+●​ Look back period: The number of months prior to the date an applicant or
+Medi-Cal member first needs long-term care that the county will look at to
+determine if improper transfers were made. This is typically 30 months. But
+beginning in January 2026 and continuing until June of 2028, it will be less than
+that due to the elimination of asset limits during 2024 and 2025.
+●​ MAGI Medi-Cal: Medi-Cal provided under aid codes which use the Modified
+Adjusted Gross Income calculation which was introduced under the Affordable
+Care Act to determine eligibility. Applies mostly to able-bodied adults between
+age 19 and 64.
+●​ Minimum Monthly Maintenance Needs Allowance (MMMNA): The amount of
+monthly income a community spouse is allowed to “keep” for their own needs,
+which is not counted against the institutionalized spouse during eligibility
+determination. It allows a Medi-Cal beneficiary who needs long-term care to
+transfer a portion, or in some cases nearly all, of their monthly income to the
+community spouse. The MMMNA protects community spouses who have little
+to no monthly income of their own from becoming impoverished so that their
+institutionalized spouse can meet Medi-Cal’s income limit. For more
+information on MMMNA, see https://canhr.org/using-californias-spousal-
+impoverishment-rule-for-home-and-community-based-services/
+
+●​ Nonexempt Asset: An asset that is included as part of the asset limit
+calculation.
+●​ Non-MAGI Medi-Cal: Medi-Cal provided under aid codes which existed before
+the 2014 implementation of the Affordable Care Act, or which were created
+using pre-2014 rules in the years since. These aid codes are sometimes
+collectively referred to as “aged, blind, and disabled” Medi-Cal, or “ABD”
+Medi-Cal.
+●​ Period of Ineligibility (POI): A period of time during which Medi-Cal will not
+pay for long-term care services for a member who is living in a long-term care
+
+Last updated: 3.20.26 – See online version for future updates
+- 29 -
+
+facility as a result of a transfer of countable / nonexempt assets for less than
+full market value during the applicable look back period. The maximum length
+of a POI in California is 30 months.
+●​ Real property: Land, buildings, manufactured homes, life estates in real
+property, mortgages held by the member, promissory notes benefiting the
+member, and deeds of trust in property.
+●​ Registered Domestic Partner (RDP): A person who has filed paperwork with
+the state of California to enter into a legal relationship defined as “Two adults
+who have chosen to share one another’s lives in an intimate and committed
+relationship of mutual caring.” People in Registered Domestic Partnerships
+have the same rights, protections and benefits as those in marriages. They also
+have the same responsibilities, obligations, and duties under law as those in
+marriages. Outdated requirements related to RDPs made the relationship
+legally different from marriage in the past, and some who became RDPs under
+the old rules still maintain the status.
+●​ Resources: Another word the Department of Health Care Services sometimes
+uses in place of assets. It means the same thing.
+●​ Revocable trust: A flexible estate planning tool that allows the person who
+puts assets into the trust to cancel or alter its provisions during their lifetime.
+Assets in a revocable trust are still considered as belonging to the person who
+put them in the trust.
+●​ Spend down: In the context of assets, refers to spending or transferring assets
+in a manner that makes them exempt from potential penalties for transfer.
+Don’t be confused if you see the term used by DHCS in a different way when
+talking about Medi-Cal that comes with a share of cost.
+●​ Spousal Impoverishment protections: Protections designed to make sure the
+spouse who stays home can take care of themselves and their household when
+the other spouse moves into a long-term care facility. These protections adjust
+both asset and income limits for the spouse who stays home so the spouse in
+the long-term care facility can still qualify for Medi-Cal.
+
+Last updated: 3.20.26 – See online version for future updates
+- 30 -

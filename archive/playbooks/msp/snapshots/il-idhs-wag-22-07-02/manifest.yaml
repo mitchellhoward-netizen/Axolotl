@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://www.dhs.state.il.us/page.aspx?item=18686
+  final_url: https://www.dhs.state.il.us/page.aspx?item=18686
+  status: 200
+  content_type: text/html; charset=utf-8
+  text_sha256: 6da927856a0fd999b9235c3a17ef5e56e93f9da0df20b8f98ad501ba3a1fc4df
+  text: il-idhs-wag-22-07-02/2026-10-07.txt
+  raw: il-idhs-wag-22-07-02/2026-10-07.html

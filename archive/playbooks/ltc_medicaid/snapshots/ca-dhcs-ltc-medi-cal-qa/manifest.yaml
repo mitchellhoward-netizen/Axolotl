@@ -1,0 +1,10 @@
+- retrieved: '2026-10-07'
+  url: https://www.dhcs.ca.gov/services/ltc/Documents/Medi_CalQandA.pdf
+  final_url: https://www.dhcs.ca.gov/services/ltc/Documents/Medi_CalQandA.pdf
+  status: 200
+  content_type: pdf
+  text_sha256: 48df29c3385fa2996082864a05a7bead149415d5a728733cc61aa51be069331e
+  text: ca-dhcs-ltc-medi-cal-qa/2026-10-07.txt
+  raw: ca-dhcs-ltc-medi-cal-qa/2026-10-07.pdf
+  fetched_via: headless Chromium (Playwright) download; dhcs.ca.gov blocks scripted
+    clients

@@ -1,0 +1,33 @@
+# New York school meal numbers and switches.
+parameters:
+  - id: ny.nysed.universal_meals_start
+    description: First day of the school year from which New York Education Law 915-a requires schools in the NSLP/SBP to serve breakfast and lunch at no cost to every student.
+    unit: date
+    values:
+      - effective_from: 2025-07-01
+        value: 2025-07-01
+        confidence: confirmed
+        sources:
+          - {source: nysed-ufm-memo-2025, locator: "New York State Universal Free Meals, paragraph 1", quote: "Beginning in school year 2025-2026, New York State School Food Authorities (SFAs) participating in the federal school lunch and/or breakfast programs are required to provide reimbursable school meals at no cost to all students."}
+          - {source: ny-edn-915-a, locator: "subdivisions 1 and 2"}
+  - id: ny.nysed.dcm_type
+    description: New York's direct certification with Medicaid type under the FNS demonstration.
+    unit: enum (none | free_only | free_and_reduced)
+    values:
+      - effective_from: 2012-07-01
+        value: free_only
+        confidence: confirmed
+        note: FNS lists New York only in the SY 2012-13 free-meals-only column, without the asterisk that marks states that later expanded; NYSED's 2026 memo describes the SNAP/Medicaid match as certifying students for free meal benefits.
+        sources:
+          - {source: fns-dcm-demonstration, locator: "table, column DC-M Pilot States since SY 2012-13 (free meals only)", quote: "New York"}
+          - {source: nysed-dcmp-2026, locator: "Online Direct Certification Matching Process (DCMP)", quote: "enables School Food Authorities (SFAs) to certify students for free meal benefits without the need for household applications"}
+  - id: ny.nysed.dcmp_matches_per_year
+    description: Minimum number of direct certification matches a New York SFA must run each school year under the Universal Free School Meals law.
+    unit: count
+    values:
+      - effective_from: 2025-07-01
+        value: 3
+        confidence: confirmed
+        sources:
+          - {source: nysed-dcmp-2026, locator: "Match Frequency", quote: "all SFAs must complete the DCMP at least three times during each school year"}
+          - {source: ny-edn-915-a, locator: "subdivision 5"}

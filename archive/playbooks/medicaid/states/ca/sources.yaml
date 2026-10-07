@@ -1,0 +1,374 @@
+# California sources for the Medicaid (Medi-Cal) playbook.
+#
+# DHCS primaries. www.dhcs.ca.gov sits behind an Incapsula bot wall that
+# refuses scripted requests; the second pass (2026-10-07) fetched every DHCS
+# letter below with a headless Chromium browser (Playwright) and recorded it
+# with `python -m tools.sources import`. DHCS letters already snapshotted by
+# the msp and ltc_medicaid playbooks (ca-dhcs-acwdl-25-14, -25-01, -26-01,
+# -26-07, -26-16, ca-dhcs-fpl-2026-monthly, ca-dhcs-fpl-2026-programs,
+# ca-dhcs-mepm-5l, ...) are cited by their existing global IDs and are not
+# repeated here.
+#
+# County sources. The first pass rested on Santa Clara County's Medi-Cal
+# handbook and charts (and a San Mateo County flyer) because DHCS could not
+# be reached. A county restatement is not the rule-maker's text, so these are
+# now recorded as kind: secondary and kept only as cross-checks next to the
+# DHCS letter that each rule cites. The Health Consumer Alliance practice tip
+# is secondary (advocacy).
+sources:
+  - id: ca-dhcs-acwdl-25-13
+    retrieved: 2026-10-07
+    url: https://www.dhcs.ca.gov/file/25-13-pdf/
+    publisher: California Department of Health Care Services, Medi-Cal Eligibility Division
+    title: ACWDL 25-13 — Medi-Cal Expansion Freeze for Adults 19 and Older Without Satisfactory Immigration Status
+    kind: primary
+    jurisdiction: ca
+    doc_type: directive
+    published: 2025-06-30
+    effective_date: 2026-01-01
+  - id: ca-dhcs-acwdl-25-20
+    retrieved: 2026-10-07
+    url: https://www.dhcs.ca.gov/file/25-20-pdf/
+    publisher: California Department of Health Care Services, Medi-Cal Eligibility Division
+    title: ACWDL 25-20 — Resumption of Asset Verification Program Operations Due to Asset Limit Reinstatement
+    kind: primary
+    jurisdiction: ca
+    doc_type: directive
+    published: 2025-10-31
+    effective_date: 2026-01-01
+  - id: ca-dhcs-acwdl-25-25
+    retrieved: 2026-10-07
+    url: https://www.dhcs.ca.gov/file/25-25-pdf/
+    publisher: California Department of Health Care Services, Medi-Cal Eligibility Division
+    title: ACWDL 25-25 — Updated Policy Regarding Non-MAGI Medi-Cal Eligibility Determination Procedures (Non-MAGI Screening Packet)
+    kind: primary
+    jurisdiction: ca
+    doc_type: directive
+    published: 2025-11-18
+    effective_date: 2026-01-01
+  - id: ca-dhcs-acwdl-25-30
+    retrieved: 2026-10-07
+    url: https://www.dhcs.ca.gov/file/25-30-pdf/
+    publisher: California Department of Health Care Services, Medi-Cal Eligibility Division
+    title: ACWDL 25-30 — Work and Community Engagement Requirements for New Adult Group (preliminary guidance)
+    kind: primary
+    jurisdiction: ca
+    doc_type: directive
+    published: 2025-12-30
+    effective_date: 2027-01-01
+  - id: ca-dhcs-acwdl-25-33
+    retrieved: 2026-10-07
+    url: https://www.dhcs.ca.gov/file/25-33-pdf/
+    publisher: California Department of Health Care Services, Medi-Cal Eligibility Division
+    title: ACWDL 25-33 — Monthly Premiums for Adult Members with Unsatisfactory Immigration Status
+    kind: primary
+    jurisdiction: ca
+    doc_type: directive
+    published: 2025-12-30
+    effective_date: 2027-07-01
+  - id: ca-dhcs-acwdl-26-13
+    retrieved: 2026-10-07
+    url: https://www.dhcs.ca.gov/file/acwdl-26-13-pdf/
+    publisher: California Department of Health Care Services, Medi-Cal Eligibility Division
+    title: ACWDL 26-13 — Qualified Non-Citizen Changes from House Resolution 1 (H.R. 1)
+    kind: primary
+    jurisdiction: ca
+    doc_type: directive
+    published: 2026-08-21
+    effective_date: 2026-10-01
+  - id: ca-dhcs-acwdl-26-14
+    retrieved: 2026-10-07
+    url: https://www.dhcs.ca.gov/file/acwdl-26-14-pdf/
+    publisher: California Department of Health Care Services, Medi-Cal Eligibility Division
+    title: ACWDL 26-14 — Updated Guidance on Six-Month Renewal Requirements for New Adult Group
+    kind: primary
+    jurisdiction: ca
+    doc_type: directive
+    published: 2026-08-27
+    effective_date: 2027-01-01
+  - id: ca-dhcs-acwdl-25-08
+    retrieved: 2026-10-07
+    url: https://www.dhcs.ca.gov/file/25-08-pdf/
+    publisher: California Department of Health Care Services, Medi-Cal Eligibility Division
+    title: ACWDL 25-08 — County Medi-Cal Performance Data Standards and Calculations
+    kind: primary
+    jurisdiction: ca
+    doc_type: directive
+    published: 2025-04-01
+  - id: ca-dhcs-acwdl-20-18
+    retrieved: 2026-10-07
+    url: https://www.dhcs.ca.gov/services/medi-cal/eligibility/letters/Documents/20-18.pdf
+    publisher: California Department of Health Care Services, Medi-Cal Eligibility Division
+    title: ACWDL 20-18 — Medicare Part B Premium Disregard (ABD FPL program)
+    kind: primary
+    jurisdiction: ca
+    doc_type: directive
+    published: 2020-10-21
+    effective_date: 2020-12-01
+  - id: ca-dhcs-acwdl-20-24
+    retrieved: 2026-10-07
+    url: https://www.dhcs.ca.gov/services/medi-cal/eligibility/letters/Documents/20-24.pdf
+    publisher: California Department of Health Care Services, Medi-Cal Eligibility Division
+    title: ACWDL 20-24 — Income Disregard for the Aged, Blind & Disabled Federal Poverty Level Program (138% FPL)
+    kind: primary
+    jurisdiction: ca
+    doc_type: directive
+    published: 2020-11-23
+    effective_date: 2020-12-01
+  - id: ca-dhcs-acwdl-23-31
+    retrieved: 2026-10-07
+    url: https://www.dhcs.ca.gov/services/medi-cal/eligibility/letters/Documents/23-31.pdf
+    publisher: California Department of Health Care Services, Medi-Cal Eligibility Division
+    title: ACWDL 23-31 — Share of Cost (SOC) Reform (maintenance need to 138% FPL from January 1, 2025; revoked by ACWDL 24-10)
+    kind: primary
+    jurisdiction: ca
+    doc_type: directive
+    published: 2023-12-22
+    effective_date: 2025-01-01
+    note: Obsolete (ACWDL 24-10); kept for its statement of the SOC method and the $600 level since 1989.
+  - id: ca-dhcs-acwdl-24-10
+    retrieved: 2026-10-07
+    url: https://www.dhcs.ca.gov/services/medi-cal/eligibility/letters/Documents/24-10.pdf
+    publisher: California Department of Health Care Services, Medi-Cal Eligibility Division
+    title: ACWDL 24-10 — Obsolescence of Share of Cost (SOC) Reform Policy
+    kind: primary
+    jurisdiction: ca
+    doc_type: directive
+    published: 2024-09-18
+    effective_date: 2024-09-18
+  - id: ca-dhcs-acwdl-89-58
+    retrieved: 2026-10-07
+    url: https://www.dhcs.ca.gov/services/medi-cal/eligibility/letters/Documents/c89-58.pdf
+    publisher: California Department of Health Care Services, Medi-Cal Eligibility Division
+    title: ACWDL 89-58 — FY 1989/90 Maintenance Need and Income in Kind Levels
+    kind: primary
+    jurisdiction: ca
+    doc_type: directive
+    published: 1989-07-28
+    effective_date: 1989-07-01
+  - id: ca-dhcs-medil-i26-18
+    retrieved: 2026-10-07
+    url: https://www.dhcs.ca.gov/file/i26-18-pdf/
+    publisher: California Department of Health Care Services, Medi-Cal Eligibility Division
+    title: MEDIL I 26-18 — Elimination of Non-Emergency Dental Delayed in California State Budget
+    kind: primary
+    jurisdiction: ca
+    doc_type: directive
+    published: 2026-07-07
+    effective_date: 2026-07-07
+  - id: ca-dhcs-medil-i26-20
+    retrieved: 2026-10-07
+    url: https://www.dhcs.ca.gov/file/i26-20/
+    publisher: California Department of Health Care Services, Medi-Cal Eligibility Division
+    title: MEDIL I 26-20 — Implementation of New State Only Aid Codes for Individuals Who Are Not Eligible for Federally Funded Full Scope Medi-Cal
+    kind: primary
+    jurisdiction: ca
+    doc_type: directive
+    published: 2026-07-13
+    effective_date: 2027-01-01
+  - id: ca-dhcs-medil-i26-01
+    retrieved: 2026-10-07
+    url: https://www.dhcs.ca.gov/file/i26-01-pdf/
+    publisher: California Department of Health Care Services, Medi-Cal Eligibility Division
+    title: MEDIL I 26-01 — Availability of the Updated Single Streamlined Application
+    kind: primary
+    jurisdiction: ca
+    doc_type: directive
+    published: 2026-01-16
+    effective_date: 2026-01-16
+  - id: ca-dhcs-medil-i25-24
+    retrieved: 2026-10-07
+    url: https://www.dhcs.ca.gov/file/i25-24-pdf/
+    publisher: California Department of Health Care Services, Medi-Cal Eligibility Division
+    title: MEDIL I 25-24 — Updates to the Single Streamlined Application
+    kind: primary
+    jurisdiction: ca
+    doc_type: directive
+    published: 2025-10-19
+    effective_date: 2025-09-22
+  - id: ca-dhcs-medil-i26-03
+    retrieved: 2026-10-07
+    url: https://www.dhcs.ca.gov/file/i26-03-pdf/
+    publisher: California Department of Health Care Services, Medi-Cal Eligibility Division
+    title: MEDIL I 26-03 — Obsolescence of Guidance Related to Asset Elimination
+    kind: primary
+    jurisdiction: ca
+    doc_type: directive
+    published: 2026-01-27
+    effective_date: 2026-01-01
+  - id: ca-dhcs-medil-i25-23
+    retrieved: 2026-10-07
+    url: https://www.dhcs.ca.gov/file/i25-23-pdf/
+    publisher: California Department of Health Care Services, Medi-Cal Eligibility Division
+    title: MEDIL I 25-23 — Outreach Materials for the Reinstatement of Asset Limits (member notice and FAQ)
+    kind: primary
+    jurisdiction: ca
+    doc_type: directive
+    published: 2025-09-05
+    effective_date: 2026-01-01
+  - id: ca-scc-mc-update-2025-9-asset-limits
+    retrieved: 2026-10-07
+    url: https://stgenssa.sccgov.org/debs/program_handbooks/medi-cal/assets/00Updates/Updates2025/Medi-Cal_Update_2025-9_Reinstatement_of_the_Asset_Limits_for_Non-MAGI.htm
+    publisher: Santa Clara County Social Services Agency, Department of Employment & Benefits Services
+    title: Medi-Cal Update 2025-9 — Reinstatement of the Asset Limits Test for Non-MAGI Programs (11/25/25; refs ACWDL 25-14, 25-20)
+    kind: secondary
+    jurisdiction: ca
+    doc_type: manual
+    published: 2025-11-25
+    effective_date: 2026-01-01
+    note: County restatement of DHCS ACWDL 25-14 and 25-20, which could not be retrieved from dhcs.ca.gov (bot wall).
+  - id: ca-scc-mc-property-limits
+    retrieved: 2026-10-07
+    url: https://stgenssa.sccgov.org/debs/program_handbooks/medi-cal/assets/21Property/PropertyLimits.htm
+    publisher: Santa Clara County Social Services Agency (Medi-Cal Handbook)
+    title: Medi-Cal Handbook — Property Limits
+    kind: secondary
+    jurisdiction: ca
+    doc_type: manual
+  - id: ca-scc-chart-property-limits
+    retrieved: 2026-10-07
+    url: https://stgenssa.sccgov.org/debs/program_handbooks/charts/assets/5MediCal/PropLimits.htm
+    publisher: Santa Clara County Social Services Agency (Program Charts)
+    title: Medi-Cal Charts — Property Limits (history 1985 to 2026)
+    kind: secondary
+    jurisdiction: ca
+    doc_type: manual
+  - id: ca-scc-chart-fpl-2026
+    retrieved: 2026-10-07
+    url: https://stgenssa.sccgov.org/debs/program_handbooks/charts/assets/5MediCal/FPLMonthIncomeCompare.htm
+    publisher: Santa Clara County Social Services Agency (Program Charts)
+    title: Medi-Cal Charts — Federal Poverty Level Programs Monthly Income Comparison Chart (2026 FPL calculation chart and effective dates)
+    kind: secondary
+    jurisdiction: ca
+    doc_type: manual
+  - id: ca-scc-chart-maintenance-need
+    retrieved: 2026-10-07
+    url: https://stgenssa.sccgov.org/debs/program_handbooks/charts/assets/5MediCal/MaintNeed.htm
+    publisher: Santa Clara County Social Services Agency (Program Charts)
+    title: Medi-Cal Charts — Maintenance Need (effective 7/1/89)
+    kind: secondary
+    jurisdiction: ca
+    doc_type: manual
+  - id: ca-scc-mc-ad-fpl-program
+    retrieved: 2026-10-07
+    url: https://stgenssa.sccgov.org/debs/program_handbooks/medi-cal/assets/23ABDProg/AandDFPLProg.htm
+    publisher: Santa Clara County Social Services Agency (Medi-Cal Handbook)
+    title: Medi-Cal Handbook — Aged and Disabled Federal Poverty Level (A&D FPL) Program
+    kind: secondary
+    jurisdiction: ca
+    doc_type: manual
+  - id: ca-scc-mc-medically-needy
+    retrieved: 2026-10-07
+    url: https://stgenssa.sccgov.org/debs/program_handbooks/medi-cal/assets/19NonMAGILinkMFBU/MedicallyNeedy.htm
+    publisher: Santa Clara County Social Services Agency (Medi-Cal Handbook)
+    title: Medi-Cal Handbook — Medically Needy (AFDC-MN and ABD-MN linkage)
+    kind: secondary
+    jurisdiction: ca
+    doc_type: manual
+  - id: ca-scc-mc-share-of-cost
+    retrieved: 2026-10-07
+    url: https://stgenssa.sccgov.org/debs/program_handbooks/medi-cal/assets/27SOC/SOC.htm
+    publisher: Santa Clara County Social Services Agency (Medi-Cal Handbook)
+    title: Medi-Cal Handbook — Share of Cost
+    kind: secondary
+    jurisdiction: ca
+    doc_type: manual
+  - id: ca-scc-mc-retroactive
+    retrieved: 2026-10-07
+    url: https://stgenssa.sccgov.org/debs/program_handbooks/medi-cal/assets/05Apps/RetroactiveMC.htm
+    publisher: Santa Clara County Social Services Agency (Medi-Cal Handbook)
+    title: Medi-Cal Handbook — Retroactive MC (including the January 1, 2027 change)
+    kind: secondary
+    jurisdiction: ca
+    doc_type: manual
+  - id: ca-scc-mc-timeframes
+    retrieved: 2026-10-07
+    url: https://stgenssa.sccgov.org/debs/program_handbooks/medi-cal/assets/05Apps/TimeframesProcApps.htm
+    publisher: Santa Clara County Social Services Agency (Medi-Cal Handbook)
+    title: Medi-Cal Handbook — Timeframes for Processing Applications
+    kind: secondary
+    jurisdiction: ca
+    doc_type: manual
+  - id: ca-scc-mc-application
+    retrieved: 2026-10-07
+    url: https://stgenssa.sccgov.org/debs/program_handbooks/medi-cal/assets/05Apps/Application.htm
+    publisher: Santa Clara County Social Services Agency (Medi-Cal Handbook)
+    title: Medi-Cal Handbook — Application (acceptable application forms)
+    kind: secondary
+    jurisdiction: ca
+    doc_type: manual
+  - id: ca-scc-mc-how-to-file
+    retrieved: 2026-10-07
+    url: https://stgenssa.sccgov.org/debs/program_handbooks/medi-cal/assets/05Apps/HowtoFileApp.htm
+    publisher: Santa Clara County Social Services Agency (Medi-Cal Handbook)
+    title: Medi-Cal Handbook — How to File an Application (BenefitsCal, phone, mail, in person, Covered California)
+    kind: secondary
+    jurisdiction: ca
+    doc_type: manual
+  - id: ca-scc-mc-redetermination
+    retrieved: 2026-10-07
+    url: https://stgenssa.sccgov.org/debs/program_handbooks/medi-cal/assets/10Redeterminations/Redetermination.htm
+    publisher: Santa Clara County Social Services Agency (Medi-Cal Handbook)
+    title: Medi-Cal Handbook — Redetermination
+    kind: secondary
+    jurisdiction: ca
+    doc_type: manual
+  - id: ca-scc-mc-rd-forms
+    retrieved: 2026-10-07
+    url: https://stgenssa.sccgov.org/debs/program_handbooks/medi-cal/assets/10Redeterminations/MCRDForms.htm
+    publisher: Santa Clara County Social Services Agency (Medi-Cal Handbook)
+    title: Medi-Cal Handbook — MC RD Forms (MC 216, MC 210 RV, MC 217)
+    kind: secondary
+    jurisdiction: ca
+    doc_type: manual
+  - id: ca-scc-mc-90-day-cure
+    retrieved: 2026-10-07
+    url: https://stgenssa.sccgov.org/debs/program_handbooks/medi-cal/assets/10Redeterminations/90DayCurePeriod.htm
+    publisher: Santa Clara County Social Services Agency (Medi-Cal Handbook)
+    title: Medi-Cal Handbook — The 90-Day Cure Period
+    kind: secondary
+    jurisdiction: ca
+    doc_type: manual
+  - id: ca-scc-mc-update-2025-10-expansion-freeze
+    retrieved: 2026-10-07
+    url: https://stgenssa.sccgov.org/debs/program_handbooks/medi-cal/assets/00Updates/Updates2025/2025_Update_Medi-Cal_Expansion_Freeze.htm
+    publisher: Santa Clara County Social Services Agency, Department of Employment & Benefits Services
+    title: Medi-Cal Update 2025-10 — The Medi-Cal Expansion Freeze for Adults 19 and Older Without Satisfactory Immigration Status (12/2/2025; ref ACWDL 25-13)
+    kind: secondary
+    jurisdiction: ca
+    doc_type: manual
+    published: 2025-12-02
+    effective_date: 2026-01-01
+    note: County restatement of DHCS ACWDL 25-13 (not retrievable from dhcs.ca.gov).
+  - id: ca-scc-mc-wcer
+    retrieved: 2026-10-07
+    url: https://stgenssa.sccgov.org/debs/program_handbooks/medi-cal/assets/14MAGIMCTax/Work_and_Community_Engagement_Requirement.htm
+    publisher: Santa Clara County Social Services Agency (Medi-Cal Handbook)
+    title: Medi-Cal Handbook — Work and Community Engagement Requirement (preliminary guidance)
+    kind: secondary
+    jurisdiction: ca
+    doc_type: manual
+  - id: ca-scc-mc-pension-funds
+    retrieved: 2026-10-07
+    url: https://stgenssa.sccgov.org/debs/program_handbooks/medi-cal/assets/21Property/Pension.htm
+    publisher: Santa Clara County Social Services Agency (Medi-Cal Handbook)
+    title: Medi-Cal Handbook — Pension Funds (IRAs, Keogh)
+    kind: secondary
+    jurisdiction: ca
+    doc_type: manual
+  - id: ca-smc-medi-cal-changes-2025-26
+    retrieved: 2026-10-07
+    url: https://www.smcgov.org/media/155530/download
+    publisher: San Mateo County Human Services Agency
+    title: Upcoming Changes to the Medi-Cal Program, July 2025 through June 2026 (member flyer)
+    kind: secondary
+    jurisdiction: ca
+    doc_type: agency_page
+  - id: ca-hca-asset-limits-practice-tip-2026
+    retrieved: 2026-10-07
+    url: https://healthconsumer.org/wp/wp-content/uploads/2026/03/Asset-Limits-Practice-Tip-12-2025-March-2026-Update.pdf
+    publisher: Health Consumer Alliance (legal services)
+    title: Practice Tip — Medi-Cal Asset Limits Return (December 2025, March 2026 update)
+    kind: secondary
+    jurisdiction: ca
+    doc_type: advocacy

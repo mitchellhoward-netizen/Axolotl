@@ -1,0 +1,156 @@
+New York State Income and Resource Standards for Non-MAGI Population
+Effective January 1, 2026
+Household 138% FPL
+100% FPL 150% FPL 185% FPL 186% FPL 200% FPL 250% FPL Resources
+Size Medicaid Income
+Annual Monthly Annual Monthly Annual Monthly Annual Monthly Annual Monthly Annual Monthly Annual Monthly Annual HH Size
+One 15,960 1,330 22,025 1,836 23,940 1,995 29,526 2,461 29,686 2,474 31,920 2,660 39,900 3,325 33,038 One
+Two 21,640 1,804 29,864 2,489 32,460 2,705 40,034 3,337 40,251 3,355 43,280 3,607 54,100 4,509 44,796 Two
+Three 27,320 2,277 37,702 3,142 40,980 3,415 50,542 4,212 54,640 4,554
+Four 33,000 2,750 45,540 3,795 49,500 4,125 61,050 5,088 66,000 5,500
+Five 38,680 3,224 53,379 4,449 58,020 4,835 71,558 5,964 77,360 6,447
+Six 44,360 3,697 61,217 5,102 66,540 5,545 82,066 6,839 88,720 7,394
+Seven 50,040 4,170 69,056 5,755 75,060 6,255 92,574 7,715 100,080 8,340
+Eight 55,720 4,644 76,894 6,408 83,580 6,965 103,082 8,591 111,440 9,287
+Nine 61,400 5,117 84,732 7,061 92,100 7,675 113,590 9,466 122,800 10,234
+Ten 67,080 5,590 92,571 7,715 100,620 8,385 124,098 10,342 134,160 11,180
+Each
+Add'l 5,680 474 7,839 654 8,520 710 10,508 876 11,360 947 +
+Person
+
+Spousal Impoverishment Income Resources Special Standards for Housing Expenses
+Community Spouse $4,066.50 $162,660 Region Amount Region Amount Region Amount
+Institutionalized Spouse $50 $33,038 Central $439 Northeastern $567 Northern Metropolitan $1,380
+$2,705 (150% of FPL for 2)
+Family Member Allowance N/A Rochester $505 Long Island $1,828
+is used in the FMA formula
+the maximum allowance is
+$902 Western $402 New York City $2,104
+*In determining the community spouse resource allowance on and after January 1, 2026, the community spouse is permitted to retain resources in an amount equal to the greater of the
+following $74,820 or the amount of the spousal share up to $162,660. The spousal share is the amount equal to one-half of the total value of the countable resources of the couple as of the
+beginning of the most recent continuous period of institutionalization of the institutionalized spouse on or after September 30, 1989.
+
+Non-MAGI Population
+Household Size Resource Level
+Category Income Compared to: Special Notes
+1 2 1 2
+Under Age 21, ADC-RELATED Medicaid Income Level 1,836 2,489 No Resource Test
+SSI-Related Medicaid Income Level 1,836 2,489 33,038 44,796 Household size is always one or two.
+A/R may be eligible for Medicaid to pay the
+COBRA Continuation Coverage 100% FPL 1,330 1,804
+4,000 6,000 COBRA premium.
+A/R must be ineligible for Medicaid, including
+AIDS Insurance 185% FPL 2,461 3,337 No Resource Test
+COBRA continuation.
+If the A/R is determined eligible, Medicaid will
+Qualified Medicare Beneficiary (QMB) 138% FPL 1,836 2,489 No Resource Test pay Part B and/or A premium, coinsurance and
+deductible.
+
+1,836 2,489 If the A/R is determined eligible, Medicaid will
+Greater than (>)138% but less
+Qualifying Individual (QI) No Resource Test pay Medicare Part B premium. The A/R must
+than or equal to (≤)186% FPL
+2,474 3,355 have part A to qualify.
+
+Qualified Disabled & Working Individual If the A/R is determined eligible, Medicaid will
+200% FPL 2,660 3,607 4,000 6,000
+(QDWI) pay Medicare Part A premium.
+
+Medicaid Buy-In Program for Working
+250% FPL 3,325 4,509 33,038 44,796 Countable retirement accounts are disregarded
+People with Disabilities (MBI-WPD)
+as resources effective 10/01/11.
+
+Rev. 02.05.2026
+
+New York State Income Standards for MAGI Population
+Effective January 1, 2026
+Household 100% FPL 110% FPL 138% FPL 154% FPL 155% FPL 223% FPL
+Size Annual Monthly Annual Monthly Annual Monthly Annual Monthly Annual Monthly Annual Monthly
+One 15,960 1,330 17,556 1,463 22,025 1,836 24,579 2,049 24,738 2,062 35,591 2,966
+Two 21,640 1,804 23,804 1,984 29,864 2,489 33,326 2,778 33,542 2,796 48,258 4,022
+Three 27,320 2,277 30,052 2,505 37,702 3,142 42,073 3,507 42,346 3,529 60,924 5,077
+Four 33,000 2,750 36,300 3,025 45,540 3,795 50,820 4,235 51,150 4,263 73,590 6,133
+Five 38,680 3,224 42,548 3,546 53,379 4,449 59,568 4,964 59,954 4,997 86,257 7,189
+Six 44,360 3,697 48,796 4,067 61,217 5,102 68,315 5,693 68,758 5,730 98,923 8,244
+Seven 50,040 4,170 55,044 4,587 69,056 5,755 77,062 6,422 77,562 6,464 111,590 9,300
+Eight 55,720 4,644 61,292 5,108 76,894 6,408 85,809 7,151 86,366 7,198 124,256 10,355
+Nine 61,400 5,117 67,540 5,629 84,732 7,061 94,556 7,880 95,170 7,931 136,922 11,411
+Ten 67,080 5,590 73,788 6,149 92,571 7,715 103,304 8,609 103,974 8,665 149,589 12,466
+Each Add't
+Person 5,680 474 6,248 521 7,839 654 8,748 729 8,804 734 12,667 1,056
+
+Rev. 02.05.2026
+
+MAGI POPULATION
+Income Household Size Resource Level
+Category Special Notes
+Compared to: 1 2 1 2
+Presumptive Eligibility for Pregnant Qualified provider makes the presumptive eligibility determination. Cannot
+223% FPL No Resource Test
+Consumers N/A 4,022 spenddown to become eligible for presumptive eligibility.
+
+A woman determined eligible for Medicaid for any time during her pregnancy
+remains eligible for Medicaid coverage until the last day of the month in which the
+60th day from the date the pregnancy ends occurs, regardless of any change in
+Pregnant Consumers 223% FPL No Resource Test
+income or household size composition. If the income is above 223% FPL the A/R
+must spenddown to the Medicaid Income level. The baby will have guaranteed
+N/A 4,022 eligibility for one year.
+If the income is above 223% FPL the A/R may apply for CHPlus or spenddown to
+the Medicaid Income level. One year guaranteed eligibility if mother is in receipt
+Children Under One 223% FPL No Resource Test
+of Medicaid on delivery. Eligibility can be determined in the 3 months retro to
+2,966 4,022 obtain the one year extension.
+
+If income is above 154% FPL the A/R may apply for CHPlus or if chooses to
+Children Age 1 through 5 154% FPL No Resource Test
+2,049 2,778 spenddown, must spenddown to the Medicaid Income level.
+110% FPL 1,463 1,984 No Resource Test If income is above 154% FPL the A/R may apply for CHPlus or if chooses to
+Children Age 6 through 18
+154% FPL 2,049 2,778 No Resource Test spenddown, must spenddown to the Medicaid Income level.
+If income is above 138% FPL the A/R may apply for Advanced Premium Tax
+Parents/Caretaker Relatives 138% FPL No Resource Test Credit (APTC) or Essential Plan (EP) if chooses to spenddown, must spenddown
+1,836 2,489 to the Medicaid Level.
+19 and 20 Year Olds, Living with 138% FPL 1,836 2,489 No Resource Test If income is above 155% FPL the A/R can apply for APTC or EP or if chooses to
+Parents 155% FPL 2,062 2,796 No Resource Test spenddown, must spenddown to Medicaid Income level.
+
+100% FPL No Resource Test Single/Childless Couples (S/CCs) cannot spenddown, but can apply for APTC or
+Single/Childless Couples and 19 and 1,330 1,804
+EP; 19 and 20 year olds if income over 138% may apply for APTC or EP if
+20 Year Olds, Living Alone 138% FPL 1,836 2,489 No Resource Test chooses to spenddown, must spenddown to the Medicaid Income level.
+Family Planning Program 223% FPL 2,966 4,022 No Resource Test Eligibility determined using only applicant's income.
+
+Rev. 02.05.2026
+
+Pickle
+
+Section 503 of Public Law 94-566, referred to as the Pickle Amendment, protects Medicaid eligibility for all recipients of Retirement
+Survivors and Disability Insurance (RSDI) who were previously eligible for SSI benefits concurrently. These recipients are individuals who
+would be eligible for SSI, if all RSDI Cost of Living Allowances (COLAs) received since they were last eligible for and receiving RSDI and
+SSI benefits concurrently, were deducted from their countable income. (See 85 ADM-35 for further information). The reduction factors in
+the chart below, "REDUCTION FACTORS FOR CALCULATING MEDICAID ELIGIBILITY UNDER THE PICKLE AMENDMENT", should be
+used when determining Medicaid eligibility for individuals who are entitled to a reduction to their countable SSI Income.
+If SSI was terminated Multiply 2026 Social If SSI was terminated Multiply 2026 If SSI was terminated Multiply 2026 Social
+during this period: Security income by: during this period: Social Security during this period: Security income by:
+income by:
+May – June 1977 0.181 Jan. 1992 – Dec. 1992 0.425 Jan. 2007 – Dec. 2007 0.627
+July 1977 – June 1978 0.192 Jan. 1993 – Dec. 1993 0.437 Jan. 2008 – Dec. 2008 0.641
+July 1978 – June 1979 0.204 Jan. 1994 – Dec. 1994 0.449 Jan. 2009 – Dec. 2011 0.678
+July 1979 – June 1980 0.224 Jan. 1995 – Dec. 1995 0.461 Jan. 2012 – Dec. 2012 0.703
+July 1980 – June 1981 0.256 Jan. 1996 – Dec. 1996 0.473 Jan. 2013 – Dec. 2013 0.715
+July 1981 – June 1982 0.285 Jan. 1997 – Dec. 1997 0.487 Jan. 2014 – Dec. 2014 0.726
+July 1982 – Dec. 1983 0.306 Jan. 1998 – Dec. 1998 0.497 Jan. 2015 – Dec. 2016 0.738
+Jan. 1984 – Dec. 1984 0.317 Jan. 1999 – Dec. 1999 0.504 Jan. 2017 – Dec. 2017 0.740
+Jan. 1985 – Dec. 1985 0.328 Jan. 2000 – Dec. 2000 0.516 Jan. 2018 – Dec. 2018 0.755
+Jan. 1986 – Dec. 1986 0.338 Jan. 2001 – Dec. 2001 0.534 Jan. 2019 – Dec. 2019 0.776
+Jan. 1987 – Dec. 1987 0.342 Jan. 2002 – Dec. 2002 0.548 Jan. 2020 – Dec. 2020 0.788
+Jan. 1988 – Dec. 1988 0.357 Jan. 2003 – Dec. 2003 0.556 Jan. 2021 – Dec. 2021 0.799
+Jan. 1989 – Dec. 1989 0.371 Jan. 2004 – Dec. 2004 0.568 Jan. 2022 – Dec. 2022 0.846
+Jan. 1990 – Dec. 1990 0.388 Jan. 2005 – Dec. 2005 0.583 Jan. 2023 – Dec. 2023 0.920
+Jan. 1991 – Dec. 1991 0.409 Jan. 2006 – Dec. 2006 0.607 Jan. 2024 – Dec. 2024 0.949
+Jan. 2025 – Dec. 2025 0.973
+
+Note: This updates the Reduction Factors included in the Medicaid Reference Guide (MRG). The MRG table should no longer be used.
+
+Rev. 12.18.2025

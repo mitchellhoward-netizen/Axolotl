@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://www.warrencountyny.gov/sites/default/files/25DC059%20-%20Upstate%20and%20NYC%20%20Supplemental%20Nutrition%20Assistance%20Program%20(SNAP)%20Standards%20for%20FFY%202026%20(October%202025).pdf
+  final_url: https://www.warrencountyny.gov/sites/default/files/25DC059%20-%20Upstate%20and%20NYC%20%20Supplemental%20Nutrition%20Assistance%20Program%20(SNAP)%20Standards%20for%20FFY%202026%20(October%202025).pdf
+  status: 200
+  content_type: application/pdf
+  text_sha256: f28cdad835fa801d760ab438ab198d59e606f7d912bc98437bf33dee274803c9
+  text: ny-gis-25dc059/2026-10-07.txt
+  raw: ny-gis-25dc059/2026-10-07.pdf

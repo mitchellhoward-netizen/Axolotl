@@ -1,0 +1,514 @@
+program: turning_65
+policyengine_us_version: 2.29.14
+run_on: '2026-10-07'
+rows:
+- case: T65-CA-T13
+  state: ca
+  title: 'CA: Part A with 29 quarters (full premium); MAGI under IRMAA'
+  ours:
+    status: eligible
+    tier: ENROLLED
+    part_a_premium_monthly: 565.0
+    part_b_premium_monthly: 202.9
+    part_d_irmaa_monthly: 0.0
+  policyengine:
+    status: eligible
+    tier: ENROLLED
+    part_a_premium_monthly: 565.0
+    part_b_premium_monthly: 202.9
+    part_d_irmaa_monthly: 0.0
+  agree: true
+  explanation: null
+- case: T65-CA-T14
+  state: ca
+  title: 'CA: Part A with 30 quarters (reduced premium)'
+  ours:
+    status: eligible
+    tier: ENROLLED
+    part_a_premium_monthly: 311.0
+    part_b_premium_monthly: 202.9
+    part_d_irmaa_monthly: 0.0
+  policyengine:
+    status: eligible
+    tier: ENROLLED
+    part_a_premium_monthly: 311.0
+    part_b_premium_monthly: 202.9
+    part_d_irmaa_monthly: 0.0
+  agree: true
+  explanation: null
+- case: T65-CA-T15
+  state: ca
+  title: 'CA: Part A with 39 quarters (still reduced)'
+  ours:
+    status: eligible
+    tier: ENROLLED
+    part_a_premium_monthly: 311.0
+    part_b_premium_monthly: 202.9
+    part_d_irmaa_monthly: 0.0
+  policyengine:
+    status: eligible
+    tier: ENROLLED
+    part_a_premium_monthly: 311.0
+    part_b_premium_monthly: 202.9
+    part_d_irmaa_monthly: 0.0
+  agree: true
+  explanation: null
+- case: T65-CA-T16
+  state: ca
+  title: 'CA: Part A with 40 quarters (premium-free)'
+  ours:
+    status: eligible
+    tier: ENROLLED
+    part_a_premium_monthly: 0.0
+    part_b_premium_monthly: 202.9
+    part_d_irmaa_monthly: 0.0
+  policyengine:
+    status: eligible
+    tier: ENROLLED
+    part_a_premium_monthly: 0.0
+    part_b_premium_monthly: 202.9
+    part_d_irmaa_monthly: 0.0
+  agree: true
+  explanation: null
+- case: T65-CA-T17
+  state: ca
+  title: 'CA: MAGI exactly $109,000 single - no IRMAA'
+  ours:
+    status: eligible
+    tier: ENROLLED
+    part_a_premium_monthly: 0.0
+    part_b_premium_monthly: 202.9
+    part_d_irmaa_monthly: 0.0
+  policyengine:
+    status: eligible
+    tier: ENROLLED
+    part_a_premium_monthly: 0.0
+    part_b_premium_monthly: 202.9
+    part_d_irmaa_monthly: 0.0
+  agree: true
+  explanation: null
+- case: T65-CA-T18
+  state: ca
+  title: 'CA: MAGI $109,001 single - first IRMAA bracket'
+  ours:
+    status: eligible
+    tier: ENROLLED
+    part_a_premium_monthly: 0.0
+    part_b_premium_monthly: 284.1
+    part_d_irmaa_monthly: 14.5
+  policyengine:
+    status: eligible
+    tier: ENROLLED
+    part_a_premium_monthly: 0.0
+    part_b_premium_monthly: 284.1
+    part_d_irmaa_monthly: 14.5
+  agree: true
+  explanation: null
+- case: T65-CA-T19
+  state: ca
+  title: 'CA: MAGI $137,001 single - second bracket'
+  ours:
+    status: eligible
+    tier: ENROLLED
+    part_a_premium_monthly: 0.0
+    part_b_premium_monthly: 405.8
+    part_d_irmaa_monthly: 37.5
+  policyengine:
+    status: eligible
+    tier: ENROLLED
+    part_a_premium_monthly: 0.0
+    part_b_premium_monthly: 405.8
+    part_d_irmaa_monthly: 37.5
+  agree: true
+  explanation: null
+- case: T65-CA-T20
+  state: ca
+  title: 'CA: MAGI $205,001 single - fifth bracket'
+  ours:
+    status: eligible
+    tier: ENROLLED
+    part_a_premium_monthly: 0.0
+    part_b_premium_monthly: 649.2
+    part_d_irmaa_monthly: 83.3
+  policyengine:
+    status: eligible
+    tier: ENROLLED
+    part_a_premium_monthly: 0.0
+    part_b_premium_monthly: 649.2
+    part_d_irmaa_monthly: 83.3
+  agree: true
+  explanation: null
+- case: T65-CA-T21
+  state: ca
+  title: 'CA: MAGI $500,000 single - top bracket (at or above)'
+  ours:
+    status: eligible
+    tier: ENROLLED
+    part_a_premium_monthly: 0.0
+    part_b_premium_monthly: 689.9
+    part_d_irmaa_monthly: 91.0
+  policyengine:
+    status: eligible
+    tier: ENROLLED
+    part_a_premium_monthly: 0.0
+    part_b_premium_monthly: 689.9
+    part_d_irmaa_monthly: 91.0
+  agree: true
+  explanation: null
+- case: T65-CA-T22
+  state: ca
+  title: 'CA: Couple filing jointly, MAGI $218,001 - first joint bracket'
+  ours:
+    status: eligible
+    tier: ENROLLED
+    part_a_premium_monthly: 0.0
+    part_b_premium_monthly: 284.1
+    part_d_irmaa_monthly: 14.5
+  policyengine:
+    status: eligible
+    tier: ENROLLED
+    part_a_premium_monthly: 0.0
+    part_b_premium_monthly: 284.1
+    part_d_irmaa_monthly: 14.5
+  agree: true
+  explanation: null
+- case: T65-IL-T11
+  state: il
+  title: 'IL: Part A with 29 quarters (full premium); MAGI under IRMAA'
+  ours:
+    status: eligible
+    tier: ENROLLED
+    part_a_premium_monthly: 565.0
+    part_b_premium_monthly: 202.9
+    part_d_irmaa_monthly: 0.0
+  policyengine:
+    status: eligible
+    tier: ENROLLED
+    part_a_premium_monthly: 565.0
+    part_b_premium_monthly: 202.9
+    part_d_irmaa_monthly: 0.0
+  agree: true
+  explanation: null
+- case: T65-IL-T12
+  state: il
+  title: 'IL: Part A with 30 quarters (reduced premium)'
+  ours:
+    status: eligible
+    tier: ENROLLED
+    part_a_premium_monthly: 311.0
+    part_b_premium_monthly: 202.9
+    part_d_irmaa_monthly: 0.0
+  policyengine:
+    status: eligible
+    tier: ENROLLED
+    part_a_premium_monthly: 311.0
+    part_b_premium_monthly: 202.9
+    part_d_irmaa_monthly: 0.0
+  agree: true
+  explanation: null
+- case: T65-IL-T13
+  state: il
+  title: 'IL: Part A with 39 quarters (still reduced)'
+  ours:
+    status: eligible
+    tier: ENROLLED
+    part_a_premium_monthly: 311.0
+    part_b_premium_monthly: 202.9
+    part_d_irmaa_monthly: 0.0
+  policyengine:
+    status: eligible
+    tier: ENROLLED
+    part_a_premium_monthly: 311.0
+    part_b_premium_monthly: 202.9
+    part_d_irmaa_monthly: 0.0
+  agree: true
+  explanation: null
+- case: T65-IL-T14
+  state: il
+  title: 'IL: Part A with 40 quarters (premium-free)'
+  ours:
+    status: eligible
+    tier: ENROLLED
+    part_a_premium_monthly: 0.0
+    part_b_premium_monthly: 202.9
+    part_d_irmaa_monthly: 0.0
+  policyengine:
+    status: eligible
+    tier: ENROLLED
+    part_a_premium_monthly: 0.0
+    part_b_premium_monthly: 202.9
+    part_d_irmaa_monthly: 0.0
+  agree: true
+  explanation: null
+- case: T65-IL-T15
+  state: il
+  title: 'IL: MAGI exactly $109,000 single - no IRMAA'
+  ours:
+    status: eligible
+    tier: ENROLLED
+    part_a_premium_monthly: 0.0
+    part_b_premium_monthly: 202.9
+    part_d_irmaa_monthly: 0.0
+  policyengine:
+    status: eligible
+    tier: ENROLLED
+    part_a_premium_monthly: 0.0
+    part_b_premium_monthly: 202.9
+    part_d_irmaa_monthly: 0.0
+  agree: true
+  explanation: null
+- case: T65-IL-T16
+  state: il
+  title: 'IL: MAGI $109,001 single - first IRMAA bracket'
+  ours:
+    status: eligible
+    tier: ENROLLED
+    part_a_premium_monthly: 0.0
+    part_b_premium_monthly: 284.1
+    part_d_irmaa_monthly: 14.5
+  policyengine:
+    status: eligible
+    tier: ENROLLED
+    part_a_premium_monthly: 0.0
+    part_b_premium_monthly: 284.1
+    part_d_irmaa_monthly: 14.5
+  agree: true
+  explanation: null
+- case: T65-IL-T17
+  state: il
+  title: 'IL: MAGI $137,001 single - second bracket'
+  ours:
+    status: eligible
+    tier: ENROLLED
+    part_a_premium_monthly: 0.0
+    part_b_premium_monthly: 405.8
+    part_d_irmaa_monthly: 37.5
+  policyengine:
+    status: eligible
+    tier: ENROLLED
+    part_a_premium_monthly: 0.0
+    part_b_premium_monthly: 405.8
+    part_d_irmaa_monthly: 37.5
+  agree: true
+  explanation: null
+- case: T65-IL-T18
+  state: il
+  title: 'IL: MAGI $205,001 single - fifth bracket'
+  ours:
+    status: eligible
+    tier: ENROLLED
+    part_a_premium_monthly: 0.0
+    part_b_premium_monthly: 649.2
+    part_d_irmaa_monthly: 83.3
+  policyengine:
+    status: eligible
+    tier: ENROLLED
+    part_a_premium_monthly: 0.0
+    part_b_premium_monthly: 649.2
+    part_d_irmaa_monthly: 83.3
+  agree: true
+  explanation: null
+- case: T65-IL-T19
+  state: il
+  title: 'IL: MAGI $500,000 single - top bracket (at or above)'
+  ours:
+    status: eligible
+    tier: ENROLLED
+    part_a_premium_monthly: 0.0
+    part_b_premium_monthly: 689.9
+    part_d_irmaa_monthly: 91.0
+  policyengine:
+    status: eligible
+    tier: ENROLLED
+    part_a_premium_monthly: 0.0
+    part_b_premium_monthly: 689.9
+    part_d_irmaa_monthly: 91.0
+  agree: true
+  explanation: null
+- case: T65-IL-T20
+  state: il
+  title: 'IL: Couple filing jointly, MAGI $218,001 - first joint bracket'
+  ours:
+    status: eligible
+    tier: ENROLLED
+    part_a_premium_monthly: 0.0
+    part_b_premium_monthly: 284.1
+    part_d_irmaa_monthly: 14.5
+  policyengine:
+    status: eligible
+    tier: ENROLLED
+    part_a_premium_monthly: 0.0
+    part_b_premium_monthly: 284.1
+    part_d_irmaa_monthly: 14.5
+  agree: true
+  explanation: null
+- case: T65-NY-T16
+  state: ny
+  title: 'NY: Part A with 29 quarters (full premium); MAGI under IRMAA'
+  ours:
+    status: eligible
+    tier: ENROLLED
+    part_a_premium_monthly: 565.0
+    part_b_premium_monthly: 202.9
+    part_d_irmaa_monthly: 0.0
+  policyengine:
+    status: eligible
+    tier: ENROLLED
+    part_a_premium_monthly: 565.0
+    part_b_premium_monthly: 202.9
+    part_d_irmaa_monthly: 0.0
+  agree: true
+  explanation: null
+- case: T65-NY-T17
+  state: ny
+  title: 'NY: Part A with 30 quarters (reduced premium)'
+  ours:
+    status: eligible
+    tier: ENROLLED
+    part_a_premium_monthly: 311.0
+    part_b_premium_monthly: 202.9
+    part_d_irmaa_monthly: 0.0
+  policyengine:
+    status: eligible
+    tier: ENROLLED
+    part_a_premium_monthly: 311.0
+    part_b_premium_monthly: 202.9
+    part_d_irmaa_monthly: 0.0
+  agree: true
+  explanation: null
+- case: T65-NY-T18
+  state: ny
+  title: 'NY: Part A with 39 quarters (still reduced)'
+  ours:
+    status: eligible
+    tier: ENROLLED
+    part_a_premium_monthly: 311.0
+    part_b_premium_monthly: 202.9
+    part_d_irmaa_monthly: 0.0
+  policyengine:
+    status: eligible
+    tier: ENROLLED
+    part_a_premium_monthly: 311.0
+    part_b_premium_monthly: 202.9
+    part_d_irmaa_monthly: 0.0
+  agree: true
+  explanation: null
+- case: T65-NY-T19
+  state: ny
+  title: 'NY: Part A with 40 quarters (premium-free)'
+  ours:
+    status: eligible
+    tier: ENROLLED
+    part_a_premium_monthly: 0.0
+    part_b_premium_monthly: 202.9
+    part_d_irmaa_monthly: 0.0
+  policyengine:
+    status: eligible
+    tier: ENROLLED
+    part_a_premium_monthly: 0.0
+    part_b_premium_monthly: 202.9
+    part_d_irmaa_monthly: 0.0
+  agree: true
+  explanation: null
+- case: T65-NY-T20
+  state: ny
+  title: 'NY: MAGI exactly $109,000 single - no IRMAA'
+  ours:
+    status: eligible
+    tier: ENROLLED
+    part_a_premium_monthly: 0.0
+    part_b_premium_monthly: 202.9
+    part_d_irmaa_monthly: 0.0
+  policyengine:
+    status: eligible
+    tier: ENROLLED
+    part_a_premium_monthly: 0.0
+    part_b_premium_monthly: 202.9
+    part_d_irmaa_monthly: 0.0
+  agree: true
+  explanation: null
+- case: T65-NY-T21
+  state: ny
+  title: 'NY: MAGI $109,001 single - first IRMAA bracket'
+  ours:
+    status: eligible
+    tier: ENROLLED
+    part_a_premium_monthly: 0.0
+    part_b_premium_monthly: 284.1
+    part_d_irmaa_monthly: 14.5
+  policyengine:
+    status: eligible
+    tier: ENROLLED
+    part_a_premium_monthly: 0.0
+    part_b_premium_monthly: 284.1
+    part_d_irmaa_monthly: 14.5
+  agree: true
+  explanation: null
+- case: T65-NY-T22
+  state: ny
+  title: 'NY: MAGI $137,001 single - second bracket'
+  ours:
+    status: eligible
+    tier: ENROLLED
+    part_a_premium_monthly: 0.0
+    part_b_premium_monthly: 405.8
+    part_d_irmaa_monthly: 37.5
+  policyengine:
+    status: eligible
+    tier: ENROLLED
+    part_a_premium_monthly: 0.0
+    part_b_premium_monthly: 405.8
+    part_d_irmaa_monthly: 37.5
+  agree: true
+  explanation: null
+- case: T65-NY-T23
+  state: ny
+  title: 'NY: MAGI $205,001 single - fifth bracket'
+  ours:
+    status: eligible
+    tier: ENROLLED
+    part_a_premium_monthly: 0.0
+    part_b_premium_monthly: 649.2
+    part_d_irmaa_monthly: 83.3
+  policyengine:
+    status: eligible
+    tier: ENROLLED
+    part_a_premium_monthly: 0.0
+    part_b_premium_monthly: 649.2
+    part_d_irmaa_monthly: 83.3
+  agree: true
+  explanation: null
+- case: T65-NY-T24
+  state: ny
+  title: 'NY: MAGI $500,000 single - top bracket (at or above)'
+  ours:
+    status: eligible
+    tier: ENROLLED
+    part_a_premium_monthly: 0.0
+    part_b_premium_monthly: 689.9
+    part_d_irmaa_monthly: 91.0
+  policyengine:
+    status: eligible
+    tier: ENROLLED
+    part_a_premium_monthly: 0.0
+    part_b_premium_monthly: 689.9
+    part_d_irmaa_monthly: 91.0
+  agree: true
+  explanation: null
+- case: T65-NY-T25
+  state: ny
+  title: 'NY: Couple filing jointly, MAGI $218,001 - first joint bracket'
+  ours:
+    status: eligible
+    tier: ENROLLED
+    part_a_premium_monthly: 0.0
+    part_b_premium_monthly: 284.1
+    part_d_irmaa_monthly: 14.5
+  policyengine:
+    status: eligible
+    tier: ENROLLED
+    part_a_premium_monthly: 0.0
+    part_b_premium_monthly: 284.1
+    part_d_irmaa_monthly: 14.5
+  agree: true
+  explanation: null

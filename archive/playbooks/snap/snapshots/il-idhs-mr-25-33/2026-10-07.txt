@@ -1,0 +1,441 @@
+Illinois Department of Human Services
+JB Pritzker, Governor · Dulce M. Quintero, Secretary
+
+Customers
+
+Providers
+
+About
+
+News
+
+Contact
+
+IDHS
+
+About IDHS
+
+Publications
+
+Manuals
+
+Family & Community Services Manuals
+
+Cash, SNAP, and Medical Manual
+
+Manual Releases
+
+MR #25.33 October 2025 SNAP Adjustments due to COLA and Changes to AC/Heating Standard Eligibility for Certain Households
+
+09/26/2025
+
+Summary
+
+This manual release includes policy changes to the Supplemental Nutrition Assistance Program (SNAP) Utility Standards, Maximum Monthly Gross/Net Income Standards and Deductions, the Maximum Excess Shelter Deduction, the Homeless Shelter Deduction, the SNAP Asset Limits and the SNAP Minimum and Maximum Monthly Benefit Amounts, effective with October 2025 issuances.
+
+As a result of the annual review of the State utility standards, Food & Nutrition Service (FNS) approved changes to the following utility standards, effective with October 2025 issuances:
+
+Air Conditioning/Heating Standard $546
+
+Limited Utility Standard $457
+
+Single Utility Standard $78
+
+Telephone Standard $67
+
+In accordance with Public Law No: 119-21 (One Big Beautiful Bill Act), policy for certain SNAP households receiving LIHEAP has been revised.
+
+SNAP households that contain Qualifying Members (See PM 05-06-02) that receive Low Income Home Energy Assistance Program (LIHEAP) of $21 or more are eligible for the Air Conditioning/Heating Standard of $546.
+
+SNAP households that do not contain Qualifying Members (See PM 05-06-02) that receive Low Income Home Energy Assistance Program (LIHEAP) of $21 or more will no longer be eligible for the Air Conditioning/Heating Standard based solely on receiving LIHEAP benefits.
+
+IES system changes were effective 08/29/2025 and will reflect in the SNAP calculations starting with October 2025 issuances.
+
+System changes to the ABE/WEB SNAP calculators and the expedited questions in ABE/IES are currently being updated.
+
+The Program Standards Chart for WAG 25-03-02 (1) SNAP, has been revised with updated standards.
+
+The SNAP brochure (DHS 124) and the Expedited SNAP Screening Form (IL444-0401) are being revised with the new amounts. Staff will be notified when these forms become available.
+
+The Basis of Issuance Tables will be revised to reflect the increase in SNAP benefit amounts.
+
+SNAP Utility Standards
+
+As a result of the annual review of the State utility standards, FNS approved changes to the SNAP utility standards as follows:
+
+Air Conditioning/Heating Standard $546
+
+Limited Utility Standard $457
+
+Single Utility Standard $78
+
+Telephone Standard $67
+
+SNAP Households with LIHEAP
+
+SNAP households that contain Qualifying Members (See PM 05-06-02) that receive Low Income Home Energy Assistance Program (LIHEAP) of $21 or more are eligible for the Air Conditioning/Heating Standard of $546.
+
+SNAP households that do not contain Qualifying Members (See PM 05-06-02) that receive Low Income Home Energy Assistance Program (LIHEAP) of $21 or more will no longer be eligible for the Air Conditioning/Heating Standard based solely on receiving LIHEAP benefits. This change is in accordance with Public Law No:119-21 (One Big Beautiful Bill Act).
+
+New SNAP Applications and SNAP redeterminations processed on or after 09/26/2025 will be subject to the new LIHEAP eligibility criteria for SNAP households without a Qualifying Member.
+
+Effective 09/26/2025, all active SNAP cases will be subject to the new LIHEAP eligibility criteria when a new utility expense is added to the case. SNAP households without a Qualifying Member that were previously approved for the full utility standard due to LIHEAP will continue to receive the full utility standard through their next redetermination or if a change in utility expense is reported, whichever comes first.
+
+SNAP Standards
+
+Federal law provides for an increase to the Maximum Monthly Gross (165% FPL) and Net Income Standards (100% FPL) effective with October 2025 issuances.
+
+The SNAP 200% FPL Gross Income Standards have increased and are used to determine categorical eligibility for qualifying member households.
+
+The Standard Deduction amount by SNAP household size is as follows:
+
+1 through 3 persons $205
+
+4 persons $219
+
+5 persons $257
+
+6 or more persons $295
+
+The Maximum Excess Shelter Deduction has increased to $744.
+
+The Homeless Shelter Standard has increased to $199.
+
+The Asset Limits for SNAP are as follows:
+
+$4,500 for households with at least 1 qualifying member.
+
+$3,000 for all other SNAP households without a qualifying member.
+
+$4,500 for Lottery or Gambling winnings.
+
+Maximum Monthly SNAP Allotments have increased for all household sizes.
+
+The minimum monthly benefit amount for 1-2 person households has increased to $24.
+
+The Income Reporting Requirement remains the same at $125.
+
+These changes are effective with October 2025 issuances and are reflected in the tables below.
+
+System Changes
+
+IES system changes were effective 08/29/2025 and will reflect in the SNAP calculations starting with October 2025 issuances.
+
+Active SNAP cases will be centrally updated for October 2025 issuances.
+
+System changes to the ABE calculator and the expedited questions in ABE/IES are effective 10/01/2025.
+
+The SNAP Calculator on OneWeb is currently being updated.
+
+Maximum Monthly Income Eligibility Standards
+
+SNAP
+
+Household Size
+
+Maximum Gross
+
+Income Standards
+
+165% FPL
+
+Maximum Gross
+
+Income Standards
+
+200% FPL
+
+Maximum Net Income Standards
+
+100% FPL
+
+1 Person
+
+$2,152
+
+$2,608
+
+$1,305
+
+2 Persons
+
+$2,909
+
+$3,525
+
+$1,763
+
+3 Persons
+
+$3,665
+
+$4,441
+
+$2,221
+
+4 Persons
+
+$4,421
+
+$5,358
+
+$2,680
+
+5 Persons
+
+$5,177
+
+$6,275
+
+$3,138
+
+6 Persons
+
+$5,934
+
+$7,191
+
+$3,596
+
+7 Persons
+
+$6,690
+
+$8,108
+
+$4,055
+
+8 Persons
+
+$7,446
+
+$9,025
+
+$4,513
+
+9 Persons
+
+$8,203
+
+$9,941
+
+$4,972
+
+10 Persons
+
+$8,960
+
+$10,858
+
+$5,431
+
+Each Add'l
+
+Person
+
++$757
+
++$917
+
++$459
+
+Standard Deductions
+
+Standard Deductions
+
+Standard Deduction Amount
+
+1-3 Persons
+
+$205
+
+4 Persons
+
+$219
+
+5 Persons
+
+$257
+
+6+ Persons
+
+$295
+
+Maximum Excess Shelter Deduction
+
+The Maximum Excess Shelter Deduction has increased to $744.
+
+Homeless Shelter Standard
+
+The Homeless Shelter Standard has increased to $199.
+
+SNAP Asset Limits
+
+Type of Household
+
+Asset Limits
+
+Lottery or Gambling Winnings
+
+At least 1 Qualifying Member
+
+$4,500
+
+$4,500
+
+No Qualifying Member(s)
+
+$3,000
+
+$4,500
+
+Maximum SNAP Benefit Amounts
+
+SNAP Household Size Maximum SNAP Benefit Amounts
+
+SNAP Household Size
+
+Maximum SNAP Benefit Amounts
+
+1 Person
+
+$298
+
+2 Persons
+
+$546
+
+3 Persons
+
+$785
+
+4 Persons
+
+$994
+
+5 Persons
+
+$1,183
+
+6 Persons
+
+$1,421
+
+7 Persons
+
+$1,571
+
+8 Persons
+
+$1,789
+
+9 Persons
+
+$2,007
+
+10 Persons
+
+$2,225
+
+Each Add'l Person
+
++$218
+
+Minimum SNAP Benefits
+
+SNAP Household Size
+
+SNAP Benefit Amount
+
+1-2 Persons
+
+$24
+
+Basis of Issuance (BOI) Tables
+
+The Basis of Issuance Tables are revised to reflect the increase in SNAP benefit amounts. Starting in 2025 the BOI Tables will be available in an accessible PDF document.
+
+WAG 25-03-09
+
+Form Changes
+
+The Program Standards Chart for WAG 25-03-02 (1) SNAP, has been revised with the new SNAP standards.
+
+The SNAP Brochure (DHS 124) and the Expedited SNAP Screening Form (IL444-0401) are being revised with the new SNAP standards. Staff will be notified when these forms become available.
+
+MANUAL REVISIONS
+
+PM 13-01-08
+
+PM 13-01-08-b
+
+WAG 04-05-02
+
+WAG 06-04-03
+
+WAG 13-01-01
+
+WAG 13-01-01-a
+
+WAG 13-01-01-b
+
+WAG 13-01-04
+
+WAG 13-01-07
+
+WAG 13-01-08
+
+WAG 13-01-08-b
+
+WAG 13-02-00
+
+WAG 25-03-02 (1) SNAP
+
+WAG 25-03-02
+
+WAG 25-03-09
+
+WAG 25-06-05-a (1)
+
+WAG 25-06-05-b(1)
+
+WAG 25-06-05-b(2)
+
+WAG 25-06-05-c
+
+WAG 25-06-05-d
+
+[signed copy on file]
+
+Dulce M. Quintero
+
+Secretary, Illinois Department of Human Services
+
+Forms referenced:
+
+IL444-0401
+
+DHS 124
+
+Illinois Department of Human Services
+JB Pritzker, Governor · Dulce M. Quintero, Secretary
+
+IDHS Office Locator
+
+IDHS Help Line
+
+1-800-843-6154
+
+1-866-324-5553 TTY
+
+State of Illinois
+
+Accessibility
+
+Privacy
+
+Report Abuse/Neglect
+
+Contact
+
+Outlook Login

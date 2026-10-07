@@ -1,0 +1,192 @@
+# Federal Medicaid numbers and dates. Dollar income limits that states publish
+# (138% FPL tables and so on) are each state's own parameters; the federal
+# percentages here are used only by the federal-minimum helper and for rule
+# statements. Poverty guidelines: shared/parameters/poverty_guidelines.yaml.
+parameters:
+  - id: federal.medicaid.adult_group_fpl_percent
+    description: Income ceiling of the adult (expansion) group under 1902(a)(10)(A)(i)(VIII), percent of the poverty line, before the 5-point MAGI disregard.
+    unit: percent_fpl
+    updates: Statutory.
+    values:
+      - effective_from: 2014-01-01
+        value: 133
+        confidence: confirmed
+        sources:
+          - source: usc-42-1396a
+            locator: "(a)(10)(A)(i)(VIII)"
+            quote: "beginning January 1, 2014, who are under 65 years of age, not pregnant, not entitled to, or enrolled for, benefits under part A ... does not exceed 133 percent of the poverty line"
+          - source: ecfr-42-435-119
+            locator: "(b)(5)"
+            quote: "Have household income that is at or below 133 percent FPL for the applicable family size"
+  - id: federal.medicaid.magi_disregard_fpl_points
+    description: MAGI income disregard equal to 5 percentage points of the FPL, applied only for the eligibility group with the highest MAGI income standard the person could qualify for.
+    unit: percent_fpl
+    updates: Statutory.
+    values:
+      - effective_from: 2014-01-01
+        value: 5
+        confidence: confirmed
+        sources:
+          - source: ecfr-42-435-603
+            locator: "(d)(4)"
+            quote: "a state must subtract an amount equivalent to 5 percentage points of the Federal poverty level for the applicable family size only to determine the eligibility of an individual for medical assistance under the eligibility group with the highest income standard"
+          - source: usc-42-1396a
+            locator: "(e)(14)(I)"
+  - id: federal.medicaid.retroactive_months
+    description: >-
+      Maximum number of months before the month of application for which
+      Medicaid can be made retroactively available, by group. Keyed by the
+      group of the person: adult_expansion (1902(a)(10)(A)(i)(VIII)) or other.
+      The value is chosen by the APPLICATION date, not the service date.
+    unit: months
+    keyed_by: "adult_expansion | other"
+    updates: Statutory; changed by P.L. 119-21 sec. 71112 for applications on or after January 1, 2027.
+    values:
+      - effective_from: 1979-03-23
+        effective_to: 2026-12-31
+        value: {adult_expansion: 3, other: 3}
+        confidence: confirmed
+        note: The start date is the date in the history note of 42 CFR 435.915 (44 FR 17937, Mar. 23, 1979); the three-month rule is older.
+        sources:
+          - source: usc-42-1396a
+            locator: "(a)(34) (2023 edition)"
+            quote: "furnished in or after the third month before the month in which he made application"
+          - source: ecfr-42-435-915
+            locator: "(a)"
+            quote: "no later than the third month before the month of application"
+      - effective_from: 2027-01-01
+        value: {adult_expansion: 1, other: 2}
+        confidence: confirmed
+        sources:
+          - source: pl-119-21
+            locator: "sec. 71112(a) new 1902(a)(34)(A)-(B); 71112(d) effective date"
+            quote: "based on an application made on or after the first day of the first quarter that begins after December 31, 2026"
+          - source: cms-cib-2025-11-18
+            locator: "Section 71112. Reducing State Medicaid Costs"
+            quote: "Effective for applications made on or after January 1, 2027 ... limited to one month prior to the month of application ... limited to two months prior"
+  - id: federal.medicaid.renewal_interval_months
+    description: >-
+      How often a MAGI enrollee's eligibility is renewed, by group, chosen by
+      the date the renewal is scheduled (or, for a new enrollee, the
+      application date). Non-MAGI groups are renewed at least every 12 months.
+    unit: months
+    keyed_by: "adult_expansion | other"
+    updates: Statutory; changed by P.L. 119-21 sec. 71107.
+    values:
+      - effective_from: 2014-01-01
+        effective_to: 2026-12-31
+        value: {adult_expansion: 12, other: 12}
+        confidence: confirmed
+        sources:
+          - source: ecfr-42-435-916
+            locator: "(a)(1) and (b)"
+            quote: "must be renewed once every 12 months, and no more frequently than once every 12 months"
+      - effective_from: 2027-01-01
+        value: {adult_expansion: 6, other: 12}
+        confidence: confirmed
+        note: Applies to redeterminations scheduled on or after January 1, 2027; American Indians and Alaska Natives described in 1902(xx)(9)(A)(ii)(II) are exempt. 42 CFR 435.916 as retrieved has not been conformed (conflict MCD-FED-CONFLICT-02).
+        sources:
+          - source: pl-119-21
+            locator: "sec. 71107(a), new 1902(e)(14)(L)(i)"
+            quote: "scheduled on or after the first day of the first quarter that begins after December 31, 2026, a State shall make such a redetermination once every 6 months"
+          - source: cms-cib-2025-11-18
+            locator: "Section 71107"
+            quote: "Beginning with renewals scheduled on or after January 1, 2027, states and the District of Columbia will be required to conduct renewals once every 6 months"
+  - id: federal.medicaid.community_engagement_start
+    description: Date from which adult-group eligibility is conditioned on community engagement (unless the state has a good-faith exemption, which can last no later than December 31, 2028, or started earlier).
+    unit: date
+    updates: Statutory.
+    values:
+      - effective_from: 2025-07-04
+        value: 2027-01-01
+        confidence: confirmed
+        sources:
+          - source: pl-119-21
+            locator: "sec. 71119(a), new 1902(xx)(1) and (xx)(11)(C)"
+            quote: "beginning not later than the first day of the first quarter that begins after December 31, 2026"
+          - source: ecfr-42-435-559
+            locator: "(a)"
+            quote: "as a condition of eligibility for medical assistance furnished on or after January 1, 2027"
+  - id: federal.medicaid.community_engagement_hours_monthly
+    description: Hours a month of work, community service, work program, or a combination, that demonstrate community engagement (enrollment at least half-time in an educational program also counts).
+    unit: hours_per_month
+    updates: Statutory.
+    values:
+      - effective_from: 2027-01-01
+        value: 80
+        confidence: confirmed
+        sources:
+          - {source: pl-119-21, locator: "sec. 71119, new 1902(xx)(2)(A)-(E)", quote: "The individual works not less than 80 hours."}
+          - {source: ecfr-42-435-552, locator: "(a)(1)-(5)"}
+  - id: federal.medicaid.community_engagement_income_hours
+    description: Number of hours multiplied by the federal minimum wage to get the monthly income that also demonstrates community engagement.
+    unit: hours_per_month
+    updates: Statutory.
+    values:
+      - effective_from: 2027-01-01
+        value: 80
+        confidence: confirmed
+        sources:
+          - source: pl-119-21
+            locator: "sec. 71119, new 1902(xx)(2)(F)"
+            quote: "a monthly income that is not less than the applicable minimum wage requirement under section 6 of the Fair Labor Standards Act of 1938, multiplied by 80 hours"
+          - {source: ecfr-42-435-552, locator: "(a)(6)"}
+  - id: federal.medicaid.community_engagement_parent_child_age_max
+    description: A parent, guardian, caretaker relative or family caregiver of a dependent child this age or younger is a "specified excluded individual" (exempt from community engagement).
+    unit: years
+    updates: Statutory.
+    values:
+      - effective_from: 2027-01-01
+        value: 13
+        confidence: confirmed
+        sources:
+          - source: pl-119-21
+            locator: "sec. 71119, new 1902(xx)(9)(A)(ii)(III)"
+            quote: "the parent, guardian, caretaker relative, or family caregiver ... of a dependent child 13 years of age and under or a disabled individual"
+  - id: federal.dol.flsa_minimum_wage_hourly
+    description: Federal minimum wage under FLSA sec. 6(a)(1)(C), used for the Medicaid community engagement income test.
+    unit: usd_per_hour
+    updates: Only by Act of Congress.
+    values:
+      - effective_from: 2027-01-01
+        value: 7.25
+        confidence: confirmed
+        note: The $7.25 rate has applied since July 2009; it is recorded here from the first date it matters for this playbook. NY State of Health states the resulting monthly figure as $580 (80 x $7.25).
+        sources:
+          - {source: usc-29-206-mcd, locator: "(a)(1)(C)", quote: "$7.25 an hour, beginning 24 months after that 60th day"}
+  - id: federal.medicaid.alien_ffp_restriction_start
+    description: Date from which federal Medicaid payment is limited to citizens/nationals, lawful permanent residents, Cuban/Haitian entrants and COFA migrants (plus emergency Medicaid and the CHIPRA 214 option).
+    unit: date
+    updates: Statutory.
+    values:
+      - effective_from: 2025-07-04
+        value: 2026-10-01
+        confidence: confirmed
+        sources:
+          - {source: pl-119-21, locator: "sec. 71109(a), new 1903(v)(5)", quote: "beginning on October 1, 2026"}
+          - {source: cms-cib-2025-11-18, locator: "Section 71109"}
+  - id: federal.medicaid.expansion_cost_sharing_max_per_service
+    description: Maximum cost sharing per item or service a state may impose on an expansion adult with family income above 100% FPL (states must impose more than $0 on some services); total family cost sharing is capped at 5% of family income.
+    unit: usd
+    updates: Statutory.
+    values:
+      - effective_from: 2028-10-01
+        value: 35
+        confidence: confirmed
+        sources:
+          - source: pl-119-21
+            locator: "sec. 71120(a), new 1916(k)(2)(B)(ii)-(iii)"
+            quote: "in no case may a deduction, cost sharing, or similar charge ... exceed $35"
+  - id: federal.medicaid.decision_days
+    description: Maximum days for a state to decide a Medicaid application.
+    unit: days
+    keyed_by: "disability (applying on the basis of disability) | other"
+    updates: Regulatory.
+    values:
+      - effective_from: 2014-01-01
+        value: {disability: 90, other: 45}
+        confidence: confirmed
+        sources:
+          - source: ecfr-42-435-912
+            locator: "(c)(3)(i)-(ii)"
+            quote: "90 days for applicants who apply for Medicaid on the basis of disability; and 45 days for all other applicants"

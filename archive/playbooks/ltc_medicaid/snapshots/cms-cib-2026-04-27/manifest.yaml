@@ -1,0 +1,9 @@
+- retrieved: '2026-10-07'
+  url: https://www.medicaid.gov/federal-policy-guidance/downloads/cib04272026.pdf
+  final_url: https://www.medicaid.gov/federal-policy-guidance/downloads/cib04272026.pdf
+  status: 200
+  content_type: pdf
+  text_sha256: c89503d37c0b5822b7072fa0a5bd68c074f5948f703e9a21d88195bb9a718f49
+  text: cms-cib-2026-04-27/2026-10-07.txt
+  raw: cms-cib-2026-04-27/2026-10-07.pdf
+  fetched_via: WebFetch research tool saved the PDF (medicaid.gov returns 403 to scripts)

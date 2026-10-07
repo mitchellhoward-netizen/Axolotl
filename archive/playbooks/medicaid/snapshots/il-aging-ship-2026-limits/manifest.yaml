@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://ilaging.illinois.gov/content/dam/soi/en/web/aging/ship/documents/medicaidincomeassetlimits.pdf
+  final_url: https://ilaging.illinois.gov/content/dam/soi/en/web/aging/ship/documents/medicaidincomeassetlimits.pdf
+  status: 200
+  content_type: application/pdf
+  text_sha256: 0958352c15adb19f397774da4cc4c1736cd5318cb112aa923947d55b28e30707
+  text: il-aging-ship-2026-limits/2026-10-07.txt
+  raw: il-aging-ship-2026-limits/2026-10-07.pdf

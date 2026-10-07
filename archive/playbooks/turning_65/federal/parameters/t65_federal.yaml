@@ -1,0 +1,265 @@
+# Federal numbers for the Turning 65 playbook. The standard Part B premium is
+# shared (federal.cms.part_b_standard_premium in shared/parameters/medicare.yaml)
+# and is not duplicated here.
+parameters:
+  # ------------------------------------------------------------ enrollment windows
+  - id: federal.cms.iep_months_before
+    description: Months of the Part B Initial Enrollment Period before the first month of eligibility (the month the person attains 65).
+    unit: months
+    updates: Statutory/regulatory; does not change yearly.
+    values:
+      - effective_from: 1966-03-01
+        value: 3
+        confidence: confirmed
+        sources:
+          - source: cfr-42-407
+            locator: "§ 407.14(a)(1)"
+            quote: "the 7-month period that begins 3 months before the month an individual first meets the eligibility requirements"
+  - id: federal.cms.iep_months_after
+    description: Months of the Part B Initial Enrollment Period after the first month of eligibility.
+    unit: months
+    updates: Statutory/regulatory.
+    values:
+      - effective_from: 1966-03-01
+        value: 3
+        confidence: confirmed
+        sources:
+          - source: cfr-42-407
+            locator: "§ 407.14(a)(1)"
+            quote: "and ends 3 months after that first month of eligibility"
+  - id: federal.cms.gep_months
+    description: Calendar months of the General Enrollment Period (January through March).
+    unit: months_of_year
+    updates: Regulatory.
+    values:
+      - effective_from: 1981-10-01
+        value: [1, 2, 3]
+        confidence: confirmed
+        sources:
+          - {source: cfr-42-407, locator: "§ 407.15(a)", quote: "the general enrollment period is January through March of each calendar year"}
+          - {source: usc-42-1395p, locator: "(e)", quote: "beginning on January 1 and ending on March 31 of each year"}
+  - id: federal.cms.sep_ghp_months_after
+    description: Length of the group-health-plan Special Enrollment Period after the month current-employment GHP coverage (or the employment) ends.
+    unit: months
+    updates: Statutory.
+    values:
+      - effective_from: 1995-03-01
+        value: 8
+        confidence: confirmed
+        sources:
+          - source: cfr-42-406
+            locator: "§ 406.24(b)(2) (applied to Part B by § 407.20(a)(2), (e))"
+            quote: "The SEP ends on the last day of the eighth consecutive month during which the individual is at no time enrolled in a GHP or an LGHP by reason of current employment status."
+          - {source: medicare-gov-when-sign-up, locator: "Sign up: Within 8 months after you or your spouse stop working"}
+  - id: federal.cms.exceptional_sep_months
+    description: Length of the 2023 exceptional-conditions SEPs for loss of Medicaid (after Medicaid ends) and for employer/plan misinformation (after SSA is notified).
+    unit: months
+    keyed_by: SEP type
+    updates: Regulatory.
+    values:
+      - effective_from: 2023-01-01
+        value: {medicaid_loss: 6, employer_misinformation: 6}
+        confidence: confirmed
+        sources:
+          - {source: cfr-42-407, locator: "§ 407.23(e)(2)(ii)", quote: "the SEP starts when the individual is notified of termination of Medicaid eligibility and ends 6 months after the termination of eligibility"}
+          - {source: cfr-42-407, locator: "§ 407.23(c)(2)", quote: "This SEP begins the day the individual notifies SSA of the employer or GHP misrepresentation ... and ends 6 months later."}
+  # ------------------------------------------------------------ Part A premium
+  - id: federal.ssa.premium_free_part_a_quarters
+    description: Quarters of Medicare-covered employment (own or through a spouse) that give premium-free Part A.
+    unit: quarters
+    updates: Statutory.
+    values:
+      - effective_from: 1994-01-01
+        value: 40
+        confidence: confirmed
+        sources:
+          - {source: cms-2026-part-a-b-premiums, locator: "Medicare Part A Premium and Deductible, first paragraph", quote: "they have at least 40 quarters of Medicare-covered employment"}
+  - id: federal.ssa.reduced_part_a_premium_quarters
+    description: Minimum quarters of coverage (own, or a qualifying current/deceased/former spouse's) for the reduced Part A premium.
+    unit: quarters
+    updates: Statutory.
+    values:
+      - effective_from: 1994-01-01
+        value: 30
+        confidence: confirmed
+        sources:
+          - {source: cfr-42-406, locator: "§ 406.32(c)(1)-(5)", quote: "Has 30 or more quarters of coverage (QCs)"}
+          - {source: ssa-poms-hi-00801-134, locator: "B. Policy-Who is eligible for reduction"}
+  - id: federal.cms.part_a_premium_full_monthly
+    description: Full monthly premium for premium Part A (fewer than 30 quarters of coverage).
+    unit: usd_per_month
+    updates: CMS announces in the fall; effective January 1.
+    values:
+      - effective_from: 2025-01-01
+        effective_to: 2025-12-31
+        value: 518
+        confidence: confirmed
+        sources:
+          - {source: cms-2025-part-a-b-premiums, locator: "Medicare Part A Premium and Deductible", quote: "full premium, which will be $518"}
+      - effective_from: 2026-01-01
+        value: 565
+        confidence: confirmed
+        sources:
+          - {source: cms-2026-part-a-b-premiums, locator: "Medicare Part A Premium and Deductible", quote: "will pay the full premium, which will be $565 a month in 2026"}
+  - id: federal.cms.part_a_premium_reduced_monthly
+    description: Reduced monthly premium for premium Part A (30-39 quarters of coverage, own or through a qualifying spouse).
+    unit: usd_per_month
+    updates: CMS announces in the fall; effective January 1.
+    values:
+      - effective_from: 2025-01-01
+        effective_to: 2025-12-31
+        value: 285
+        confidence: confirmed
+        sources:
+          - {source: cms-2025-part-a-b-premiums, locator: "Medicare Part A Premium and Deductible", quote: "reduced monthly premium rate, which will be $285"}
+      - effective_from: 2026-01-01
+        value: 311
+        confidence: confirmed
+        sources:
+          - {source: cms-2026-part-a-b-premiums, locator: "Medicare Part A Premium and Deductible", quote: "a reduced monthly premium rate, which will be $311 in 2026"}
+  - id: federal.cms.part_a_late_penalty_percent
+    description: Increase in the premium-Part A premium for late enrollment (one flat 10%, owed for twice the number of full 12-month periods of delay).
+    unit: percent
+    updates: Statutory/regulatory.
+    values:
+      - effective_from: 1986-07-01
+        value: 10
+        confidence: confirmed
+        sources:
+          - {source: cfr-42-406, locator: "§ 406.32(d)", quote: "the premium increase is limited to 10 percent and is payable for twice the number of full 12-month periods"}
+          - {source: medicare-gov-avoid-penalties, locator: "Part A late enrollment penalty"}
+  # ------------------------------------------------------------ Part B penalty
+  - id: federal.cms.part_b_late_penalty_percent_per_12_months
+    description: Increase in the standard Part B premium for each full 12 months a person could have had Part B but did not.
+    unit: percent
+    updates: Statutory.
+    values:
+      - effective_from: 1966-07-01
+        value: 10
+        confidence: confirmed
+        sources:
+          - {source: usc-42-1395r, locator: "(b)", quote: "shall be increased by 10 percent of the monthly premium so determined for each full 12 months"}
+          - {source: cfr-42-408, locator: "§ 408.22", quote: "increased by ten percent for each full twelve months"}
+  # ------------------------------------------------------------ IRMAA
+  - id: federal.cms.part_b_irmaa_monthly
+    description: >-
+      2026 Part B income-related monthly adjustment amount (added to the standard premium), by tax filing status and
+      modified adjusted gross income from the tax return two years earlier (2024 return for 2026). Each row is
+      [lower bound, lower bound inclusive?, monthly IRMAA].
+    compare_to: "MAGI (AGI plus tax-exempt interest) on the tax return for the second preceding year; a row applies when MAGI is above its lower bound (or at/above it when the inclusive flag is true)."
+    unit: usd_per_month
+    keyed_by: filing status (single = individual returns, joint, separate = married living together filing separately)
+    updates: CMS fact sheet each November; thresholds indexed.
+    values:
+      - effective_from: 2026-01-01
+        value:
+          single: [[0, true, 0.0], [109000, false, 81.20], [137000, false, 202.90], [171000, false, 324.60], [205000, false, 446.30], [500000, true, 487.00]]
+          joint: [[0, true, 0.0], [218000, false, 81.20], [274000, false, 202.90], [342000, false, 324.60], [410000, false, 446.30], [750000, true, 487.00]]
+          separate: [[0, true, 0.0], [109000, false, 446.30], [391000, true, 487.00]]
+        confidence: confirmed
+        sources:
+          - {source: cms-2026-part-a-b-premiums, locator: "Medicare Part B Income-Related Monthly Adjustment Amounts, Full Part B Coverage tables"}
+          - {source: usc-42-1395r, locator: "(i)(1)", quote: "the individual's last taxable year beginning in the second calendar year preceding the year involved"}
+  - id: federal.cms.part_d_irmaa_monthly
+    description: 2026 Part D income-related monthly adjustment amount (paid on top of the plan premium), same rows and MAGI basis as Part B.
+    compare_to: "MAGI on the tax return for the second preceding year; same bracket convention as federal.cms.part_b_irmaa_monthly."
+    unit: usd_per_month
+    keyed_by: filing status
+    updates: CMS fact sheet each November.
+    values:
+      - effective_from: 2026-01-01
+        value:
+          single: [[0, true, 0.0], [109000, false, 14.50], [137000, false, 37.50], [171000, false, 60.40], [205000, false, 83.30], [500000, true, 91.00]]
+          joint: [[0, true, 0.0], [218000, false, 14.50], [274000, false, 37.50], [342000, false, 60.40], [410000, false, 83.30], [750000, true, 91.00]]
+          separate: [[0, true, 0.0], [109000, false, 83.30], [391000, true, 91.00]]
+        confidence: confirmed
+        sources:
+          - {source: cms-2026-part-a-b-premiums, locator: "Medicare Part D Income-Related Monthly Adjustment Amounts tables"}
+  # ------------------------------------------------------------ Part D penalty
+  - id: federal.cms.part_d_late_penalty_percent_per_month
+    description: Part D late enrollment penalty, percent of the national base beneficiary premium per uncovered month.
+    unit: percent
+    updates: Regulatory.
+    values:
+      - effective_from: 2006-01-01
+        value: 1
+        confidence: confirmed
+        sources:
+          - {source: cfr-42-423, locator: "§ 423.286(d)(3)(i)(B)", quote: "1 percent of the base beneficiary premium (computed under paragraph (c) of this section) for each uncovered month in the period"}
+  - id: federal.cms.part_d_base_beneficiary_premium
+    description: National base beneficiary premium for Part D (the base for the late penalty).
+    unit: usd_per_month
+    updates: CMS announces with Part D bid information each summer; effective January 1.
+    values:
+      - effective_from: 2026-01-01
+        value: 38.99
+        confidence: confirmed
+        sources:
+          - {source: medicare-gov-avoid-penalties, locator: "Part D late enrollment penalty, example", quote: "The penalty amount comes from the \"national base beneficiary premium\" ($38.99 in 2026)."}
+  - id: federal.cms.part_d_creditable_gap_days
+    description: A gap without creditable drug coverage must last this many days or more before the Part D penalty applies.
+    unit: days
+    updates: Regulatory.
+    values:
+      - effective_from: 2006-01-01
+        value: 63
+        confidence: confirmed
+        sources:
+          - {source: cfr-42-423, locator: "§ 423.46(a)", quote: "a continuous period of 63 days or longer"}
+  # ------------------------------------------------------------ coordination
+  - id: federal.cms.msp_working_aged_employer_size
+    description: Minimum employer size for a current-employment group health plan to pay before Medicare for a person entitled by age.
+    unit: employees
+    updates: Statutory.
+    values:
+      - effective_from: 1987-01-01
+        value: 20
+        confidence: confirmed
+        sources:
+          - {source: usc-42-1395y, locator: "(b)(1)(A)(ii)", quote: "an employer that has 20 or more employees for each working day in each of 20 or more calendar weeks in the current calendar year or the preceding calendar year"}
+          - {source: cfr-42-411, locator: "§ 411.172(a)(3)(i)"}
+  - id: federal.cms.msp_disability_lghp_size
+    description: Minimum employer size (large group health plan) for current-employment coverage to pay before Medicare for a person entitled by disability.
+    unit: employees
+    updates: Statutory (by reference to IRC 5000(b)(2)).
+    values:
+      - effective_from: 1987-01-01
+        value: 100
+        confidence: confirmed
+        sources:
+          - {source: cfr-42-411, locator: "§ 411.101, definition of large group health plan", quote: "employed at least 100 full-time or part-time employees on 50 percent or more of its regular business days during the previous calendar year"}
+          - {source: usc-42-1395y, locator: "(b)(1)(B)(iii)"}
+  - id: federal.cms.esrd_coordination_months
+    description: Months of the ESRD coordination period during which any group health plan (including a retiree plan or COBRA) pays before Medicare.
+    unit: months
+    updates: Statutory.
+    values:
+      - effective_from: 1997-08-05
+        value: 30
+        confidence: confirmed
+        note: The CFR text (§ 411.162(c)) still says 12/18 months; the statute controls (conflict T65-FED-CONFLICT-01).
+        sources:
+          - {source: usc-42-1395y, locator: "(b)(1)(C), concluding provisions", quote: "clauses (i) and (ii) shall be applied by substituting \"30-month\" for \"12-month\" each place it appears"}
+          - {source: cms-02179-who-pays-first, locator: "Coverage from COBRA", quote: "a coordination period that lasts up to 30 months"}
+  # ------------------------------------------------------------ Medigap
+  - id: federal.cms.medigap_oep_months
+    description: Length of the federal Medigap open enrollment period, starting the first month a person is both 65+ and enrolled in Part B.
+    unit: months
+    updates: Statutory.
+    values:
+      - effective_from: 1992-11-05
+        value: 6
+        confidence: confirmed
+        sources:
+          - {source: usc-42-1395ss, locator: "(s)(2)(A)", quote: "during the 6 month period beginning with the first month as of the first day on which the individual is 65 years of age or older and is enrolled for benefits under part B"}
+          - {source: medicare-gov-medigap-ready-to-buy, locator: "Your Medigap Open Enrollment Period"}
+  - id: federal.cms.medigap_gi_days
+    description: Days after coverage ends (or after the notice, by event) during which a federal Medigap guaranteed-issue right can be used.
+    unit: days
+    updates: Statutory.
+    values:
+      - effective_from: 2001-01-01
+        value: 63
+        confidence: confirmed
+        sources:
+          - {source: usc-42-1395ss, locator: "(s)(3)(E)(i)-(v)", quote: "ending on the date that is 63 days after"}

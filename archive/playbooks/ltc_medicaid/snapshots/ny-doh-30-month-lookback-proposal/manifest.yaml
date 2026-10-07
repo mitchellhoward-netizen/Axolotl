@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://healthweb-back.health.ny.gov/health_care/medicaid/redesign/mrt2/proposals/30-month_lookback.htm
+  final_url: https://healthweb-back.health.ny.gov/health_care/medicaid/redesign/mrt2/proposals/30-month_lookback.htm
+  status: 200
+  content_type: text/html; charset=utf-8
+  text_sha256: ccbc7c09d2818d668d396896e1fbdec265ef6d0fae2157f4b30fcb75856a0b40
+  text: ny-doh-30-month-lookback-proposal/2026-10-07.txt
+  raw: ny-doh-30-month-lookback-proposal/2026-10-07.html

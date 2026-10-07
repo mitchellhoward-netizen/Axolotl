@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://www.medicare.gov/health-drug-plans/medigap/ready-to-buy
+  final_url: https://www.medicare.gov/health-drug-plans/medigap/ready-to-buy
+  status: 200
+  content_type: text/html; charset=utf-8
+  text_sha256: ea0d89dcb598e582ff2ec2d1d14ee40bda1fa0da8495dc4147524c99d158e778
+  text: medicare-gov-medigap-ready-to-buy/2026-10-07.txt
+  raw: medicare-gov-medigap-ready-to-buy/2026-10-07.html

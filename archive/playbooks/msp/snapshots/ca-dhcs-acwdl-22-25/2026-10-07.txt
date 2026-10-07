@@ -1,0 +1,206 @@
+State of California—Health and Human Services Agency
+Department of Health Care Services
+
+MICHELLE BAASS GAVIN NEWSOM
+DIRECTOR GOVERNOR
+
+DATE: October 31, 2022
+
+TO: ALL COUNTY WELFARE DIRECTORS Letter No.: 22 - 25
+ALL COUNTY WELFARE ADMINISTRATIVE OFFICERS
+ALL COUNTY MEDI-CAL PROGRAM SPECIALISTS/LIAISONS
+ALL COUNTY HEALTH EXECUTIVES
+ALL COUNTY MENTAL HEALTH DIRECTORS
+ALL COUNTY MEDS LIAISONS
+
+SUBJECT: ELIMINATION OF ASSET LIMITS FOR NON-MODIFIED ADJUSTED
+GROSS INCOME MEDI-CAL PROGRAMS
+
+Purpose:
+
+The purpose of this All County Welfare Directors Letter (ACWDL) is to provide counties
+and the Statewide Automated Welfare System (SAWS) with guidance regarding the
+elimination of the asset limits for all Non-MAGI programs, including Medicare Savings
+Programs (MSP) and Long-Term Care (LTC) programs. This change, effective January
+1, 2024, enacted by Assembly Bill (AB) 133, (Chapter 143, Statutes of 2021), eliminates
+the asset limits for all Non-MAGI programs. Effective January 1, 2024, this guidance will
+supersede any previous guidance regarding asset limits for Non-MAGI Medi-Cal
+programs.
+
+Background:
+
+In 2021, several health measures were consolidated in AB 133 as part of the Health
+Omnibus Bill of 2021-2022. This ACWDL addresses the provisions of AB 133 that
+added section 14005.62 to the Welfare and Institutions Code (WIC). WIC § 14005.62
+established a two-phased approach to eliminating the asset limits for Non-MAGI Medi-
+Cal programs. The first phase, which became effective July 1, 2022, increased the
+asset limits to $130,000 per person and $65,000 for each additional household member
+(up to a maximum of 10 people). The second phase, effective January 1, 2024, will
+eliminate the asset limits for all Non-MAGI programs.
+
+Medi-Cal Eligibility Division
+1501 Capitol Avenue, MS 4607
+P.O. Box 997413, Sacramento, CA 95899-7413
+(916) 552-9200 phone • (916) 552-9477 fax
+Internet Address: www.dhcs.ca.gov
+
+All County Welfare Directors Letter No.: 22-25
+Page 2
+Date: October 31, 2022
+
+Policy
+
+Effective January 1, 2024, the asset limits for all Non-MAGI programs will be eliminated.
+Please see the chart on pages 5 and 6 for all affected programs. The elimination of
+asset limits applies to all Non-MAGI programs, including LTC and the MSPs. Individuals
+who apply for benefits in the month of December 2023 and are over the asset limit at
+that time shall be evaluated for eligibility for the month of January 2024 and ongoing.
+
+System Programming
+
+SAWS shall make programming changes to eliminate the asset limits as outlined in this
+ACWDL by January 1, 2024. DHCS will work with SAWS to facilitate programming of
+these changes.
+
+Notices & Forms
+
+DHCS has identified a list of forms and notices that will require updating to reflect the
+elimination of the asset limits. DHCS will update these forms and deliver them to SAWS
+in the following priority order:
+
+1. The following forms will be rendered obsolete as of January 1, 2024
+• Medi-Cal General Property Limitations (MC 007)
+• Sneede v. Kizer Property Worksheet (MC 175-3 P)
+• Medi-Cal Property Assessment Application (MC 176 PA-A)
+• QMB/SLMB/QI Property Worksheet, Adult (MC 176 P-A QMB/SLMB/QI)
+• QMB/SLMB/QI Property Worksheet,Child (MC 176 P-C QMB/SLMB/QI)
+• Period of Ineligibility for Nursing Facility Level of Care Worksheet (MC 176
+P-I)
+• QDWI Property Worksheet (MC 176 QDWI-2)
+• Supplement to Statement of Facts—Pickle Eligibility Determination (MC
+210 B)
+• Property Assessment Statement of Facts (MC 210 PA)
+• Medi-Cal Potential Overpayment Reporting Worksheet—Property Total
+Ineligibility or Ineligibility for a Specific Level of Services (MC 224 B)
+• Tuberculosis Program Property Worksheet-Adult (MC 278 TB)
+• Pickle Resource Worksheet (DHCS 7037)
+
+All County Welfare Directors Letter No.: 22-25
+Page 3
+Date: October 31, 2022
+
+The SAWS shall retain the above forms in a repository, for use in retroactive Medi-Cal
+determinations. DHCS will provide guidance regarding how these forms will be phased-
+out at a later date.
+
+2. DHCS shall deliver the full updated versions of the renewal forms along with a
+bulleted list of the information that was updated on each form by November 1,
+2022. DHCS shall also deliver the forms in English and in all threshold
+languages.
+• Medi-Cal Renewal Form (MC 210 RV)
+• Pre-Populated Renewal Form (MC 217)
+• Additional Income and Property Information Needed for Medi-Cal (MC 604
+IPS)
+• Non-MAGI Informing Letter (ED_0004037_ENG1_0514)
+• Non-MAGI Medi-Cal Information Sheet (Pub 10)
+• Redetermination for Medi-Cal Beneficiaries—Long-Term Care in Own
+MFBU (MC 262)
+
+3. DHCS shall update the forms listed below on a flow basis and deliver the full
+updated version along with a bulleted list of the information that was updated on
+each form. DHCS shall deliver the forms in English and in all threshold
+languages.
+• Qualified Medicare Beneficiary Program Information Notice (MC 008)
+• Qualified Disabled Working Individual Information Notice (MC 010)
+• QMB, SLMB, QI Application (MC 14 A)
+• Property Worksheet/Assessment for Institutionalized Spouses (MC 176
+PA-1)
+• Stepparent Computation When Only the Separate Children of One
+Spouse Want Medi-Cal (MC 176 W-1)
+• MC 210 A (Supplement to Statement of Facts for Retroactive
+Coverage/Restoration (MC 210 A)
+• What You Need to Know When You Apply for an Enroll in Medi-Cal (MC
+219)
+• Medi-Cal Request for Information (MC 355)
+• Notification of Medi-Cal Intercounty Transfer (MC 360)
+• Request for Limited Services (MC 4026)
+
+All County Welfare Directors Letter No.: 22-25
+Page 4
+Date: October 31, 2022
+
+• Notice Regarding Standards for Medi-Cal Eligibility (MC 7077)
+
+DHCS will not be creating new NOAs. The SAWS shall update existing NOA snippets to
+remove any references to denying/discontinuing a Non-MAGI individual due to
+exceeding the property (asset) limit, or denying/discontinuing a Non-MAGI individual for
+failure to provide property (asset) information.
+
+If you have questions or if we can provide further information, please contact Sara
+McDonald at (916) 345-8061 or by email at Sara.McDonald@dhcs.ca.gov.
+
+Orginal Signed By
+
+Sandra Williams
+Chief, Medi-Cal Eligibility Division
+
+All County Welfare Directors Letter No.: 22-25
+Page 5
+Date: October 31, 2022
+
+Non-MAGI Programs Affected by Asset Elimination
+
+Program name Aid code
+Aged, Blind, Disabled (ABD) Long-Term 13, 23, 63, D2, D3, D4, D5, D6,
+Care (LTC) Medically Needy (MN) D7
+Aged, Blind, Disabled Medically Needy 14, 24, 64, C1, C2, C3, C4, C7,
+(ABD MN) C8
+Aged, Blind, Disabled Medically Needy 17, 27, 67
+Share of Cost (ABD MN SOC)
+Aged, Blind, Disabled (ABD) Federal 1H, 2H, 6H, 1U, 6U
+Poverty Level (FPL)
+250% Working Disabled Program 6G
+Severely Impaired Working Individual 8G
+(SIWI)
+Multipurpose Senior Services Program 1X, 1Y
+(MSSP)
+DDS Waiver 6V, 6W
+Home- and Community-Based Alternative 6X, 6Y
+(formerly In-Home Operations (IHO))
+Waiver
+Aid to Families with Dependent Children 34, 37, C5, C6
+(AFDC) Medically Needy
+Medically Indigent LTC (state only) 53
+Dialysis Special Treatment Program (state 71
+only)
+Total Parenteral Nutrition 73
+(hyperalimentation) Special Treatment
+Program(state only)
+Tuberculosis 7H
+Medically Indigent (MI) Adults (state only) 81
+Medically Indigent (MI) Children 82, 83
+Medically Indigent (MI) Pregnant Women 86, 87
+Inmates – All Programs F1, F2, F3, F4, G0, G1, G2, G3,
+G4, G5, G6, G7, G8, G9
+Refugee Medical Assistance (RMA) 02
+Trafficking and Crime Victims Assistance 2V, 4V, 5V, 7V
+Program (TCVAP)
+Qualified Medicare Beneficiary (QMB) 80
+
+All County Welfare Directors Letter No.: 22-25
+Page 6
+Date: October 31, 2022
+
+Non-MAGI Programs Affected by Asset Elimination
+
+Program name Aid code
+Qualified Disabled Working Individual 8A
+(QWDI)
+Specified Low-Income Medicare 8C
+Beneficiary (SLMB)
+Qualifying Individual (QI) 8D
+Deactivated – Medically Needy Long-Term 55, 58, 5F
+Care Restricted
+Pickle 16, 26, 66
+Disabled Adult Child (DAC) 6A, 6C
+Aid to Disabled Widow(er)s 36

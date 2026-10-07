@@ -1,0 +1,258 @@
+State of California—Health and Human Services Agency Department of Health Care Services
+
+QUALIFIED MEDICARE BENEFICIARY (QMB)/SPECIFIED LOW-INCOME
+MEDICARE BENEFICIARY (SLMB)/QUALIFYING INDIVIDUAL (QI)
+ELIGIBILITY WORK SHEET FOR ALL APPLICANTS:
+INDIVIDUAL(S), COUPLE(S), AND CHILD(REN) (LTC INDIVIDUAL IN OWN MFBU)
+Case name County district County use
+
+Effective eligibility date for this budget
+ New application  Redetermination  Change  Correction Month Year
+Case Number Birthdate (1) Social Security Number and
+Seven-Digit Person Name (2) Health Insurance Claim Number Other
+County Aid Serial Number MFBU Number First, Middle, Last Month/Day/Year Sex or Railroad Retirement Number Coverage
+(1)
+(2)
+(1)
+(2)
+(1)
+(2)
+(1)
+(2)
+(1)
+(2)
+(1)
+(2)
+(1)
+(2)
+
+I. INCOME OF MFBU MEMBERS APPLYING AS AGED,
+BLIND, OR DISABLED PLUS INCOME OF SPOUSE II. INCOME OF MFBU MEMBERS NOT LISTED IN I.
+OR PARENT (EXCEPT PA OR OTHER PA) (EXCEPT PA OR OTHER PA) III. QMB/SLMB/QI ELIGIBILITY COMPUTATION
+A. Nonexempt Unearned Income A. Nonexempt Unearned Income 1. Countable income from Section I, line 16.
+(a) (b) 2. Countable income from Section II, line 9.
+1. RSDI
+QMB/SLMB/QI Spouse
+QMB/SLMB/QI (or) Parent/Ineligible 3. Combined countable income
+Applicant Spouse or Parent(s) 2. Net income from property (add 1 and 2, rounded) $
+3. Other—itemize 4. List current FPL for MFBU of ________________
+1. RSDI
+2. Net income a. QMB (100%) ________________
+from property b. SLMB (120%) ________________
+
+3. Other—itemize If line 3 is less than or equal to line 4(a), QMB eligible.
+
+4. 4. If line 3 is less than line 4(b), SLMB eligible.
+
+5. Total 5. Total unearned income If line 3 exceeds lines 4(a) or 4(b) and there is an ineligible spouse
+(add 1 through 4) (a) (b) (add 1 through 4) $ or applicant child, complete MC 176-2 A QMB/SLMB/QI or
+6. Combined unearned income MC 176-2 B QMB/SLMB/QI. If no ineligible spouse or applicant child,
+(add 5(a) and 5(b)) B. Nonexempt Earned Income go to step 5.
+
+7. Any income deduction 6. Total net earned income 5. List current FPL for MFBU of ________________
+$ – 20 (MC 176 W, Part IV, Line 11) $
+8. Countable unearned income a. QI-1 (135%) ________________
+(6 minus 7) $ C. Total Countable Income b. QI-2 (175%) ________________
+
+B. Nonexempt Earned Income 7. Subtotal If line 3 is less than lines 5(a) or 5(b), QI-1 or QI-2 eligible. If line 3
+(add 5 and 6) $ exceeds lines 5(a) or 5(b), deny QMB, SLMB, QI-1, or QI-2.
+9. Gross earned
+8. Child support/alimony paid
+income (a) (b)
+10. Combined earned income 9. Total countable income
+(add 9(a) and 9(b)) (7 minus 8) $
+11. Deduct IRWE of potential NOTE: If there is income from which educational expenses are
+QMB/SLMB/QI applicant(s) only – deducted (Section 50547), show calculations here. Enter net amount
+on line 3 or 4.
+12. Remainder
+(subtract 11 from 10) $ Total income for educational purpose ________________
+13. $65 Earned income deduction Less total education expenses ________________
+plus $_____________ unused $20 – Net countable income ________________
+14. Remainder
+(subtract 13 from 12) $ If any of the following deductions apply, complete MC 176 W, part VI,
+15. Countable earned income before completing Column I:
+(divide 14 by 2) $
+Educational Expenses Section 50547
+16. Total countable income
+(add 8 and 15) $ Absent Parent Support
+Student Deduction
+Section 50541
+Section 50551
+$30 Plus 1/3 Section 50551.1
+Work Expenses for the Blind Section 50551.4
+Income for Self-support Section 50551.5
+
+IV. EXEMPT INCOME
+Note: Do not allow a deduction for health insurance.
+Eligibility Worker signature Worker number Computation date County use
+
+➤
+MC176-1 QMB/SLMB/QI (05/07)
+
+QUALIFIED MEDICARE BENEFICIARY (QMB)/SPECIFIED LOW-INCOME
+MEDICARE BENEFICIARY (SLMB)/QUALIFYING INDIVIDUAL (QI)
+INCOME ELIGIBILITY WORK SHEET FOR ALL APPLICANTS:
+INDIVIDUAL(S); COUPLE(S); AND CHILDREN (LTC INDIVIDUAL IN OWN MFBU)
+INSTRUCTIONS, MC 176-1 QMB/SLMB/QI
+
+Form MC 176-1 QMB/SLMB/QI, Income Eligibility Work Sheet, is used to compute the income for all individuals who are
+applying under the QMB/SLMB/QI program. This form is completed at the time of a new application, restoration, reapplication,
+change in income, or other circumstances affecting the income, or correction in the income.
+
+Identification Section
+
+1. Enter case name.
+
+2. County district: If the county has districts, identify the district.
+
+3. County use: Make any entries the county department has designated it wants.
+
+4. Check the appropriate box which gives information concerning the reason for the computation. The “new application” box
+includes restorations and reapplications.
+
+5. Effective eligibility date for this budget: Enter the month in which eligibility will begin with this budget computation.
+
+6. Case number: For family members who are applying as an ABD medically needy (MN) QMB/SLMB/QI applicant and those
+included in the MFBU as ineligible members: enter the county code, appropriate aid code, the seven-digit number, MFBU
+number, and the person’s number. If the county does not use the seven-digit serial number, enter zeros in front of the serial
+number until there are seven digits. For the family members who are not included in the MFBU as eligible members, enter
+their status under the case number.
+
+7. Name: Enter the names of all family members living in the home in accordance with the California Code of Regulations
+(CCR), Title 22, Section 50071, and any ABD person or spouse of an ABD person in LTC or board and care. Enter an
+unborn child by listing as the name “unborn” and expected date of birth after “unborn.”
+
+8. Birth date: Enter the birth date of each person listed. Under sex, enter “M” for male or “F” for female for each person listed.
+
+9. Social Security number: Enter the Social Security number for each person applying as a QMB/SLMB/QI. If a person does
+not have a Social Security number, he/she is not eligible as a QMB/SLMB/QI. Enter the Medicare or Railroad Retirement
+claim number, if any. See CCR, Section 50187.
+
+10. Other coverage code: Determine the other coverage code in accordance with Section 15.A. of the procedural portion of
+the Medi-Cal Eligibility Manual.
+
+SECTION I. INCOME OF POTENTIAL QMB/SLMB/QI COMPOSITION
+
+In this section enter all the nonexempt unearned and earned income of the QMB/SLMB/QI applicant(s) and ineligible spouse, if
+any, who is applying as ABD in Section I(a) and (b), providing the spouse or parent is a member of the MFBU (either an eligible
+or ineligible member). Do not list income which is exempt in accordance with CCR, Sections 50523 through 50544.
+
+NOTE: The ownership of the income determination required by CCR, Section 50512, should be determined prior to the
+completion of this portion of the form if there is a spouse with LTC status who is in a separate MFBU.
+
+A. Nonexempt Unearned Income
+
+When any of the following deductions apply to a person’s income which will be listed in Section I, complete Section VI,
+Part A of the MC 176 W instead of Section I, lines 1 through 5.
+
+Educational Expenses Section 50547
+Absent Parent Support Section 50541
+Income for Self-Support Section 50551.5
+Court Ordered Child/Spousal Support Gibbins v. Rank
+
+MC176-1 QMB/SLMB/QI (05/07) Page 1 of 3
+
+1. Enter: Social Security income.
+
+2. Net income received from property.
+
+3–4. All other unearned income. If applicable, include SSI/SSP, In-Home Supportive Services (IHSS) recipients’ available
+income (from the MC 176 W, Part II), and income allocated from the Pickle-eligible spouse or parent.
+
+5. Total the amounts in Section I, Part A, lines 1(a) through 4(a). This is the total unearned income of the QMB/SLMB/QI
+applicant of the MFBU. Also, total the amounts in Section I, Part A, lines 1(b) through 4(b). This is the total unearned
+income of the QMB/SLMB/QI spouse; ineligible spouse; or parent of the QMB/SLMB/QI child applicant of the MFBU.
+
+6. Add lines 5(a) and (b), or enter the amount from MC 176 W, Section VI, Part A. This is the combined unearned
+income of the QMB/SLMB/QI ABD applicant in the MFBU and their eligible or ineligible spouse or ineligible parent(s)
+of a QMB/SLMB/QI child applicant who is a member of the MFBU.
+
+7. No entry. This shows the $20 any income deduction.
+
+8. Subtract line 7 from line 6. This is the total countable unearned income. If the countable unearned income is a minus
+figure, enter zero on line 8 and enter the minus figure, which is the unused portion of the $20 any income deduction
+in the blank provided on line 13.
+
+B. Nonexempt Earned Income
+
+When any of the following deductions apply to a person’s income which will be listed in Section I, complete Section VI,
+Part B of the MC 176 W instead of line 9:
+
+Student Deduction Section 50551
+$30 Plus One-Third, or $30 Section 50551.1
+Work Expenses for the Blind Section 50551.4
+Court Ordered Child/Spousal Support Gibbins v. Rank
+
+9. Enter the gross earned income.
+
+10. Add the amounts in lines 9(a) and (b) or enter the amount from Section VI, Part B, line 4 of the MC 176 W. This is
+the combined earned income of the QMB/SLMB/QI applicant(s), QMB/SLMB/QI spouse or parent(s) of the MFBU.
+
+11. Deduct any impairment related work expenses (IRWE) of the potential QMB/SLMB/QI applicant(s).
+
+12. Subtract number 11 (IRWE expenses) from number 10.
+
+13. Enter the $65 or the $65 and one-half deduction plus any unused portion of the $20 any income deduction here.
+
+14. Subtract line 13 from line 12. If line 14 is less than line 10, enter zero.
+
+15. Divide line 14 by 2. This figure equals the countable earned income.
+
+16. Total Part A, line 8 and Part B, line 15, to obtain the total unearned and earned income. Enter this amount in
+Section III, line 1.
+
+SECTION II. INCOME OF MFBU MEMBER (BOTH ELIGIBLE AND INELIGIBLE MEMBERS) NOT LISTED IN COLUMN I
+
+NOTE: The ownership of income determination required by CCR, Section 50512, should be determined prior to the completion
+of this portion of the form if there is a spouse with LTC status who is in a separate MFBU.
+
+A. Nonexempt Unearned Income
+
+1. Enter: Social Security income.
+
+2. Net income received from property.
+
+MC176-1 QMB/SLMB/QI (05/07) Page 2 of 3
+
+3–4. All other unearned income. Include SSI/SSP/IHSS recipient’s available income (from MC 176 W, Section II and
+Section V), Part B, and income allocated from a Pickle-eligible spouse or parent.
+
+5. Total lines 1 through 4.
+
+B. Nonexempt Earned Income
+
+6. Enter the amount from the MC 176 W, Part IV, line 11.
+
+C. Total Countable Income
+
+7. Add lines 5(a) and 6(b).
+
+8. Enter any amount paid for court ordered child support or alimony paid under an agreement with the district attorney.
+
+9. Subtract line 8 from line 7. This is the total countable income. Enter in Section III, line 2.
+
+SECTION III. QMB/SLMB/QI ELIGIBILITY COMPUTATION
+
+1. Enter: Total countable income from Section I, line 16.
+
+2. Enter: Total countable income from Section II, line 9.
+
+3. Add lines 1 and 2 (rounded). This is the combined countable income of the MFBU.
+
+4. List the current federal poverty level (FPL) for an MFBU of ______: (a) at 100 percent or (b) SLMB at 120 percent.
+If line 3 is less than or equal to line 4(a), QMB eligible. If line 3 is less than line 4(b), SLMB eligible. If line 3 exceeds
+line 4(a) or 4(b) and there is an ineligible spouse or applicant child, complete the MC 176-2 A QMB/SLMB/QI or
+MC 176-2 B QMB/SLMB/QI. If there is no ineligible spouse or applicant child, go to step 5.
+
+5. List the current FPL for MFBU of _____: (a) QI-1 at 135 percent, or (b) QI-2 at 175 percent of the FPL. If line 3 is
+less than line 5(a) or 5(b), QI-1 or QI-2 eligible. If line 3 exceeds line 5(a) or 5(b), deny QMB, SLMB, QI-1, or QI-2.
+
+Eligibility Worker signature: The worker enters his/her signature.
+
+Worker number: If the eligibility worker has a county number, enter here.
+
+Date of computation: The eligibility worker completes the box with the date the form was completed.
+
+County use: Optional—to be used in accordance with county policy.
+
+MC176-1 QMB/SLMB/QI (05/07) Page 3 of 3

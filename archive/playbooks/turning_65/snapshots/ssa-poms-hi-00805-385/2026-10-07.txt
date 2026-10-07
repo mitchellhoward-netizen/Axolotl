@@ -1,0 +1,268 @@
+Skip to content
+
+Program Operations Manual System (POMS)
+
+Effective Dates: 06/10/2024 - Present
+Previous | Next
+
+TN 108 (06-24)
+
+HI 00805.385 Exceptional Conditions Special Enrollment Period (SEP) for Termination of Medicaid
+Eligibility
+
+A. Background
+
+Many individuals are enrolled in Medicaid when their Initial Enrollment Period (IEP)
+for premium Part A or Part B begins. While some individuals stay eligible for Medicaid
+after they qualify for Medicare, other individuals lose Medicaid coverage entirely.
+
+Individuals transitioning from Medicaid to Medicare coverage are at risk for gaps
+in coverage and losing access to critical health care. Administrative delays may keep
+individuals in Medicaid for multiple months after they first qualify for Medicare
+and become ineligible for Medicaid benefits.
+
+Individuals who retain Medicaid after qualifying for Medicare may miss their IEP because
+they continue to be covered by Medicaid and may think they do not need or cannot afford
+Medicare at that time.
+
+If they lose Medicaid coverage outside of the Medicare General Enrollment Period (GEP),
+they may need to wait months to enroll in Medicare and be subject to a premium surcharge
+when they can eventually enroll.
+
+This SEP would help promote continuity of coverage for individuals who lose Medicaid
+coverage entirely and did not enroll in Medicare on time.
+
+B. Eligibility
+
+To be eligible for this SEP, an individual must lose Medicaid coverage entirely on
+or after January 1, 2023. Individuals who are eligible for Medicaid, including a Medicare
+Savings Program, are ineligible for this SEP, see HI 00805.385.G.
+
+Starting January 1, 2023, individuals are eligible for this SEP once they are notified
+of an upcoming Medicaid coverage termination. States must send individuals notice
+of an upcoming Medicaid termination at least 10 days in advance.
+
+EXAMPLE: If the state sends the individual a notice dated April 15, 2023, informing them of
+their Medicaid termination effective May 1, 2023, the individual first qualifies for
+this SEP on April 15, 2023.
+
+C. Proof
+
+1.
+
+A letter from the state Medicaid agency or Medicaid managed care plan showing the
+last day of Medicaid coverage, OR
+
+2.
+
+If the individual does not provide documentation, the SSA employee will attempt to
+contact the appropriate public assistance office to obtain verification of loss of
+Medicaid coverage.
+
+a.
+
+A telephone call or electronic communication (email, fax, etc).
+
+i.
+
+Verify the correct public assistance office contact information.
+
+ii.
+
+If the public assistance office does not respond and verification has not been obtained,
+notify the individual that SSA was unable reach the public assistance office to verify
+the Medicaid termination and that they have 30 days to obtain documentation and provide
+it to SSA, or they do not qualify for this SEP.
+
+3.
+
+Document the telephone contact via a SSA-5002 Report of Contact, and load the document
+or email it in Evidence Portal (EP). The documentation must contain the following
+information:
+
+a.
+
+The last day of Medicaid coverage,
+
+b.
+
+The Medicaid case number, and
+
+c.
+
+The location of the public assistance office furnishing the information and the name
+of the contact person.
+
+D. Duration
+
+1.
+
+The SEP starts upon notice of upcoming loss of all Medicaid coverage.
+
+2.
+
+The SEP ends six months after the Medicaid termination.
+
+EXAMPLE: If the state sends an individual a notice on April 15, 2023, informing them they will
+lose all Medicaid coverage on May 1, 2023, (i.e.,the last day of Medicaid coverage
+is April 30, 2023), The SEP starts on April 15, 2023, and ends on October 31, 2023.
+
+E. Calculation of premium surcharge
+
+There is no premium surcharge if an individual enrolls pursuant to this SEP.
+
+F. Effective date
+
+Individuals have the option to choose an entitlement date:
+
+Option1: Individuals enrolling in this SEP can choose a prospective entitlement to
+begin the first day of the month following the month of enrollment.
+
+Option 2: Individuals enrolling in this SEP can opt for a retroactive entitlement
+date back to the first day of the month of their loss of Medicaid coverage.
+
+NOTE:
+An individual who elects retroactive entitlement will be responsible for paying Medicare
+premiums back to the date of coverage.
+
+EXAMPLE
+1: John Smith is enrolled in Medicaid and turns 65 in February 2024. John has missed
+the IEP and was not enrolled in Medicare under a state buy-in agreement.
+
+Termination Notice: Mr. Smith receives a notice dated May 15, 2024 from his state Medicaid agency notifying
+Mr. Smith that the eligibility for Medicare coverage was terminated on June 1st, 2024
+(i.e., the last day of Medicaid coverage is May 31, 2024).
+
+SEP Duration: Mr. Smith’s exceptional condition SEP begins May 15, 2024 (the date of his notification
+from the state) and will run until November 30, 2024.
+
+SEP Filing: On September 10, 2024, Mr. Smith files the application for the exceptional condition
+SEP based on loss of Medicaid eligibility and includes the appropriate documentation.
+His effective date options are:
+
+Option 1 - Prospective: Effective date to begin the first of the month after the month
+of enrollment. If Mr. Smith chooses this option, his Medicare coverage would be effective
+October 1, 2024.
+
+Option 2 - Retroactive: Effective date retroactive to June 1, 2024 (first day of the
+month he no longer has any Medicaid coverage). If Mr. Smith chooses this option, his
+Medicare coverage would be effective June 1, 2024, and he will be responsible for
+paying Medicare premiums back to the date of coverage.
+
+EXAMPLE 2: Jane Taylor is enrolled in Medicaid and turns 65 in February 2022. She has missed
+her IEP and was not enrolled in Medicare under a state buy-in agreement.
+
+Termination Notice: Ms. Taylor receives a notice dated May 15, 2023, from the state Medicaid agency notifying
+Ms. Taylor the loss of eligibility for Medicaid coverage on June 1, 2023. (i.e., the
+last day of Medicaid coverage is May 31, 2023).
+
+SEP Duration: Ms. Taylor’s exceptional condition SEP begins May 15, 2023 (the date of her notification
+from the state) and will run until November 30, 2023.
+
+SEP Filing: On May 28, 2023, Ms. Taylor files the application for the exceptional condition SEP
+based on loss of Medicaid eligibility and includes the appropriate documentation.
+Ms. Taylor effective date options are:
+
+Option1 – Prospective: Effective date to begin the first of the month after the month
+of enrollment. If Ms. Taylor chooses this option, the Medicare coverage would be effective
+June 1, 2023.
+
+Option 2 - Retroactive: There is no retroactive option for Ms. Taylor. The earliest
+the coverage can start is June 1, 2023, the first day of the month when Ms. Taylor
+lost all Medicaid coverage. June 1 is the effective date of coverage in option 1.
+
+EXAMPLE 3: Sam Brown is enrolled in Medicaid and turns 65 in February 2024. Sam has missed the
+IEP and was not enrolled in Medicare under a state buy-in agreement.
+
+Termination Date: Mr. Brown receives a notice dated May 15, 2024, from the state Medicaid agency notifying
+Mr. Brown the loss of all eligibility for Medicaid coverage on June 1, 2024. (i.e.,
+the last day of Medicaid coverage is May 31, 2024).
+
+SEP Duration: Mr. Brown’s exceptional condition SEP begins May 15, 2024 (the date of his notification
+from the state) and will run until November 30, 2024.
+
+SEP Filing: On December 30, 2024, Mr. Brown files the application for the exceptional condition
+SEP based on loss of Medicaid eligibility and includes the appropriate documentation.
+Mr. Brown is not eligible for this SEP because he filed outside the six-month time
+limit of this SEP.
+
+EXAMPLE: Beth Lee is enrolled in Medicaid and turned 65 in February 2022. Beth has missed the
+IEP and was not enrolled in Medicare under a state buy-in agreement.
+
+Termination Notice: Ms. Lee receives a notice dated October 1, 2023, from the state Medicaid agency
+notifying of the loss Medicaid coverage on November 15, 2023 (i.e., the last day of
+Medicaid coverage is November 14, 2023).
+
+SEP Duration: Ms. Lee’s exceptional condition SEP begins October 1, 2023 (the date of the notification
+from the state) and will run until May 31, 2024.
+
+SEP Filing: On October 6, 2023, Ms. Lee files the application for the exceptional condition
+SEP based on loss of Medicaid coverage and includes the appropriate documentation.
+
+Option 1 – Prospective: Effective date to begin the first of the month after the month
+of enrollment. If Ms. Lee chooses this option, her Medicare coverage would be effective
+November 1, 2023.
+
+Option 2 – Retroactive: There is no retroactive option for Ms. Lee. The earliest the
+coverage can start is November 1, 2023, the first day of month she has lost Medicaid
+coverage. November 1 is the effective date of coverage in option 1.
+
+EXAMPLE: Javier Lopez is enrolled in Medicaid and turned 65 in February 2022. Javier missed
+his IEP and was not enrolled in Medicare under a state buy-in agreement.
+
+Termination Notice: Mr. Lopez receives a notice dated October 1, 2023, from his state Medicaid agency
+notifying the loss of all Medicaid coverage effective November 15, 2023 (i.e., the
+last day of Medicaid coverage is November 14, 2023). SEP Duration: Mr. Lopez’s exceptional
+condition SEP begins October 1, 2023 (the date of his notification from the state)
+and will run until May 31, 2024.
+
+SEP Filing: On November 10, 2023, Mr. Lopez files the application for the exceptional condition
+SEP based on loss of Medicaid coverage and includes the appropriate documentation.
+
+Option 1 – Prospective: Effective date to begin the first of the month after the month
+of enrollment. If Mr. Lopez chooses this option, his Medicare coverage would be effective
+December 1, 2023.
+
+Option 2 – Retroactive: Effective date retroactive to November 1, 2023 (first day
+of the month that Mr. Lopez no longer has any Medicaid coverage). If Mr. Lopez chooses
+this option, his Medicare coverage would be effective November 1, 2023, and Mr. Lopez
+will be responsible for paying Medicare premiums back to the date of coverage.
+
+G. Individuals who are not eligible for this SEP
+
+Individuals who still are eligible for Medicaid, including a Medicare Savings Program,
+and have not received notice of an upcoming Medicaid termination are not eligible
+for this SEP. For a description of Medicare Savings Programs, see HI 00815.024B.
+
+This is because states include most individuals who are enrolled in Medicaid, including
+a Medicare Savings Program, in their state buy-in agreements with the Centers for
+Medicare & Medicaid Services (CMS). Part A Buy-in states enroll individuals included
+in their buy-in agreements in premium Part A and/or Part B and pay premiums on their
+behalf at any time of the year without regard to Medicare enrollment periods or premium
+surcharge. This process is known as state buy-in. For background on state buy-in,
+see HI 00815.001.
+
+NOTE:
+Group Payer states do not include the payment of Part A premiums for Qualified Medicare
+Beneficiaries (QMB)under their buy-in agreements. In Group Payer states, individuals
+who receive notice of an upcoming Medicaid termination and are not yet determined
+by the State to be a QMB can use this SEP to enroll in Premium-Part A through the
+conditional enrollment process. For a description of the conditional enrollment process,
+see HI 00801.140B.
+
+H. Processing Instructions
+
+For processing instructions, see Processing SEP Enrollments HI 00805.277.
+
+I. References
+
+HI 00805.277 Processing SEP Enrollments
+
+To Link to this section - Use this URL:
+http://policy.ssa.gov/poms.nsf/lnx/0600805385
+
+HI 00805.385 - Exceptional Conditions Special Enrollment Period (SEP) for Termination of Medicaid Eligibility - 06/10/2024
+
+Batch run: 01/29/2026
+
+Rev:06/10/2024

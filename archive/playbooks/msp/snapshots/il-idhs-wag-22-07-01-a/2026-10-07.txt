@@ -1,0 +1,97 @@
+Illinois Department of Human Services
+JB Pritzker, Governor · Dulce M. Quintero, Secretary
+
+Customers
+
+Providers
+
+About
+
+News
+
+Contact
+
+IDHS
+
+About IDHS
+
+Publications
+
+Manuals
+
+Family & Community Services Manuals
+
+Cash, SNAP, and Medical Manual
+
+Workers' Action Guide Chapter Table of Contents
+
+WAG 22: Related Program Provisions
+
+WAG 22-07-00: Social Security Programs Control Unit (SSA/PCU)
+
+WAG 22-07-01: Hospital Insurance Benefits (HIB) (AABD, TANF)
+
+WAG 22-07-01-a: Department Payment of HIB Premiums
+
+PM 22-07-01-a.
+
+(FCRC) Decide if the applicant or customer is eligible for Qualified Medicare Beneficiary (QMB) benefits.
+
+(FCRC) Explain that the Department will pay the HIB premium beginning the date QMB starts, if they are enrolled or conditionally enrolled for HIB. Premiums are paid effective for the month of QMB eligibility, which is the month after the month of the QMB eligibility determination. HIB coverage begins the first month that the Department pays the HIB premium. Payment continues as long as the person is eligible for QMB benefits.
+
+(FCRC) Enter the Medicare information for each HIB beneficiary from the person's Medicare card or SOLQ response in IES on the Medicare Claims - Details page.
+
+Refer to WAG 25-04-04: SOLQ Inquiry Codes for Part A HIB Buy-In coding and definition information.
+
+Conditional Part A enrollments can be identified by the status code Z99- This person is not entitled to Part A which will appear in the Part A HIB Buy-In Payer position for the SOLQ response.t
+
+(FCRC) Tell the customer that the state will begin making payments in approximately 90 days and SSA automatically refunds to them the premiums they paid for any month the Department makes the payment.
+
+(SSA/CMS) Sends a notice to the customer when the Department begins paying HIB premiums.
+
+If a person loses QMB coverage:
+
+(SSAPC) Stops paying HIB premiums the effective month QMB status ends. If the customer has died, payments will stop the month after the month of death.
+
+NOTE: SSA continues HIB coverage for a person who loses QMB status. If a premium is charged, SSA bills the person.
+
+If the person does not wish to pay the HIB premium, they should notify the local SSA office.
+
+(SSA/CMS) Notifies customer that the Department has stopped paying HIB premiums.
+
+(FCRC) Send customer Notice of Change (Form 360C).
+
+(FCRC) Send Discrepancy Referral (Form 1925) to SSA/PCU. The form can be sent via email to DHS.SSAPC@illinois.gov.
+
+If a person regains QMB status:
+
+(FCRC) Reenter the Medicare information for each HIB beneficiary from the person's Medicare card or SOLQ response in IES on the Medicare Claims - Details page.
+
+Refer to WAG 25-04-04: SOLQ Inquiry Codes for Part A HIB Buy-In coding and definition information.
+
+Conditional Part A enrollments can be identified by the status code Z99- This person is not entitled to Part A which will appear in the Part A HIB Buy-In Payer position for the SOLQ response.t
+
+(FCRC) Send Discrepancy Referral (Form 1925) to SSA/PCU via email to DHS.SSAPC@illinois.gov.
+
+Illinois Department of Human Services
+JB Pritzker, Governor · Dulce M. Quintero, Secretary
+
+IDHS Office Locator
+
+IDHS Help Line
+
+1-800-843-6154
+
+1-866-324-5553 TTY
+
+State of Illinois
+
+Accessibility
+
+Privacy
+
+Report Abuse/Neglect
+
+Contact
+
+Outlook Login

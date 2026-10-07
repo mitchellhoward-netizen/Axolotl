@@ -1,0 +1,735 @@
+# Synthetic NY households for long-term care Medicaid. No real people.
+# Generated once from a script and then maintained by hand.
+program: ltc_medicaid
+scope: ny
+cases:
+- id: LTC-NY-T01
+  title: Single nursing-home resident, $33,038 in savings (at the limit), Social Security $2,200
+  as_of: '2026-10-01'
+  tags:
+  - single
+  - threshold
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 82
+      relationship: self
+      medicare_part_a: true
+      medicare_part_b: true
+      facts:
+        institutionalized: true
+    incomes:
+    - kind: social_security
+      monthly: 2200
+      owner: a
+    assets:
+    - kind: cash
+      value: 33038
+      owner: a
+    facts:
+      ny_region: new_york_city
+      nursing_facility_monthly_cost: 15282
+  expect:
+    status: eligible
+    tier: nursing_facility
+    rules_include:
+    - LTC-NY-RESOURCES
+    - LTC-NY-NAMI
+    amounts:
+      patient_liability_monthly: 2150
+  crosscheck:
+    policyengine: true
+- id: LTC-NY-T02
+  title: Single nursing-home resident, $33,039 in savings ($1 over the limit)
+  as_of: '2026-10-01'
+  tags:
+  - single
+  - threshold
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 82
+      relationship: self
+      medicare_part_a: true
+      medicare_part_b: true
+      facts:
+        institutionalized: true
+    incomes:
+    - kind: social_security
+      monthly: 2200
+      owner: a
+    assets:
+    - kind: cash
+      value: 33039
+      owner: a
+    facts:
+      ny_region: new_york_city
+      nursing_facility_monthly_cost: 15282
+  expect:
+    status: ineligible
+    tier: excess_resources
+    rules_include:
+    - LTC-NY-RESOURCES
+  crosscheck:
+    policyengine: true
+- id: LTC-NY-T03
+  title: Married, spouse at home; couple has $100,000; spousal share $50,000 is below the $74,820 floor (CSRA at minimum)
+  as_of: '2026-10-01'
+  tags:
+  - couple
+  - threshold
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 82
+      relationship: self
+      medicare_part_a: true
+      medicare_part_b: true
+      facts:
+        institutionalized: true
+    - id: b
+      age: 79
+      relationship: spouse
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 3000
+      owner: a
+    - kind: social_security
+      monthly: 1500
+      owner: b
+    assets:
+    - kind: cash
+      value: 60000
+      owner: a
+    - kind: cash
+      value: 40000
+      owner: b
+    facts:
+      ny_region: new_york_city
+      nursing_facility_monthly_cost: 15282
+  expect:
+    status: eligible
+    tier: nursing_facility
+    rules_include:
+    - LTC-NY-CSRA
+    - LTC-NY-CSMIA
+    amounts:
+      csra: 74820
+      community_spouse_income_allowance: 2566.5
+      patient_liability_monthly: 383.5
+  crosscheck:
+    policyengine: true
+- id: LTC-NY-T04
+  title: Married, couple has $158,000; spousal share $79,000 is the CSRA (between min and max); $79,000 left is over $33,038
+  as_of: '2026-10-01'
+  tags:
+  - couple
+  - threshold
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 82
+      relationship: self
+      medicare_part_a: true
+      medicare_part_b: true
+      facts:
+        institutionalized: true
+    - id: b
+      age: 79
+      relationship: spouse
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 2200
+      owner: a
+    - kind: social_security
+      monthly: 1500
+      owner: b
+    assets:
+    - kind: cash
+      value: 100000
+      owner: a
+    - kind: cash
+      value: 58000
+      owner: b
+    facts:
+      ny_region: new_york_city
+      nursing_facility_monthly_cost: 15282
+  expect:
+    status: ineligible
+    tier: excess_resources
+    amounts:
+      csra: 79000
+  crosscheck:
+    policyengine: true
+- id: LTC-NY-T05
+  title: Married, $400,000 at the snapshot (CSRA at the $162,660 maximum); couple has since spent down to $195,698
+  as_of: '2026-10-01'
+  tags:
+  - couple
+  - threshold
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 82
+      relationship: self
+      medicare_part_a: true
+      medicare_part_b: true
+      facts:
+        institutionalized: true
+    - id: b
+      age: 79
+      relationship: spouse
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 2200
+      owner: a
+    - kind: social_security
+      monthly: 1500
+      owner: b
+    assets:
+    - kind: cash
+      value: 100000
+      owner: a
+    - kind: cash
+      value: 95698
+      owner: b
+    facts:
+      snapshot_resources: 400000
+      ny_region: new_york_city
+      nursing_facility_monthly_cost: 15282
+  expect:
+    status: eligible
+    tier: nursing_facility
+    amounts:
+      csra: 162660
+  crosscheck:
+    policyengine: true
+- id: LTC-NY-T06
+  title: Single, gave $100,000 to a grandchild 3 years before applying (New York City facility); savings at the limit
+  as_of: '2026-10-01'
+  tags:
+  - single
+  - cross_state
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 82
+      relationship: self
+      medicare_part_a: true
+      medicare_part_b: true
+      facts:
+        institutionalized: true
+        transfers:
+        - date: '2023-10-15'
+          amount: 100000
+          recipient: other
+          resources_at_transfer: 300000
+    incomes:
+    - kind: social_security
+      monthly: 2200
+      owner: a
+    assets:
+    - kind: cash
+      value: 33038
+      owner: a
+    facts:
+      ny_region: new_york_city
+      nursing_facility_monthly_cost: 15282
+      facility_private_rate_monthly: 9000
+  expect:
+    status: ineligible
+    tier: transfer_penalty
+    rules_include:
+    - LTC-NY-PENALTY-DIVISOR
+    amounts:
+      penalty_months: 6.54
+  compare_states:
+    ca:
+      status: eligible
+      tier: nursing_facility
+      rules_include:
+      - LTC-CA-LOOKBACK
+    il:
+      status: ineligible
+      tier: transfer_penalty
+      amounts:
+        penalty_months: 11.12
+  note: 'NY: $100,000 / $15,282 (NYC) = 6.54 months. CA: October 2023 is before the 30-month look-back that starts April 2024
+    (and January 2024-December 2025 is never reviewed). IL: $100,000 / $9,000 facility rate = 11.12 months (rounded up). In
+    IL the $33,038 also exceeds $17,500, but the penalty decides first.'
+  crosscheck:
+    policyengine: true
+- id: LTC-NY-T07
+  title: Single, $100,000 gift 61 months before applying (outside the 60-month look-back)
+  as_of: '2026-10-01'
+  tags:
+  - single
+  - timing
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 82
+      relationship: self
+      medicare_part_a: true
+      medicare_part_b: true
+      facts:
+        institutionalized: true
+        transfers:
+        - date: '2021-09-01'
+          amount: 100000
+          recipient: other
+          resources_at_transfer: 300000
+    incomes:
+    - kind: social_security
+      monthly: 2200
+      owner: a
+    assets:
+    - kind: cash
+      value: 20000
+      owner: a
+    facts:
+      ny_region: new_york_city
+      nursing_facility_monthly_cost: 15282
+  expect:
+    status: eligible
+    tier: nursing_facility
+    rules_include:
+    - LTC-NY-LOOKBACK
+  crosscheck:
+    policyengine: true
+- id: LTC-NY-T08
+  title: Married, $80,000 given to the spouse at home last year (exempt transfer)
+  as_of: '2026-10-01'
+  tags:
+  - couple
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 82
+      relationship: self
+      medicare_part_a: true
+      medicare_part_b: true
+      facts:
+        institutionalized: true
+        transfers:
+        - date: '2025-09-01'
+          amount: 80000
+          recipient: spouse
+    - id: b
+      age: 79
+      relationship: spouse
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 2200
+      owner: a
+    - kind: social_security
+      monthly: 1500
+      owner: b
+    assets:
+    - kind: cash
+      value: 20000
+      owner: a
+    - kind: cash
+      value: 30000
+      owner: b
+    facts:
+      ny_region: new_york_city
+      nursing_facility_monthly_cost: 15282
+  expect:
+    status: eligible
+    rules_include:
+    - LTC-FED-EXEMPT-TRANSFERS
+  crosscheck:
+    policyengine: true
+- id: LTC-NY-T09
+  title: 'Married with a dependent child at home: community spouse income $1,000, child no income; income allowance plus family
+    member allowance'
+  as_of: '2026-10-01'
+  tags:
+  - couple
+  - family
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 82
+      relationship: self
+      medicare_part_a: true
+      medicare_part_b: true
+      facts:
+        institutionalized: true
+    - id: b
+      age: 79
+      relationship: spouse
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 4500
+      owner: a
+    - kind: social_security
+      monthly: 1000
+      owner: b
+    assets:
+    - kind: cash
+      value: 10000
+      owner: a
+    - kind: cash
+      value: 20000
+      owner: b
+    facts:
+      family_members:
+      - monthly_income: 0
+      ny_region: new_york_city
+      nursing_facility_monthly_cost: 15282
+  expect:
+    status: eligible
+    rules_include:
+    - LTC-NY-FAMILY-ALLOWANCE
+    amounts:
+      community_spouse_income_allowance: 3066.5
+      family_allowance: 901.67
+      patient_liability_monthly: 481.83
+  crosscheck:
+    policyengine: true
+- id: LTC-NY-T10
+  title: Single, home equity $1,200,000, nobody living in the home (over the $1,130,000 limit)
+  as_of: '2026-10-01'
+  tags:
+  - single
+  - threshold
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 82
+      relationship: self
+      medicare_part_a: true
+      medicare_part_b: true
+      facts:
+        institutionalized: true
+    incomes:
+    - kind: social_security
+      monthly: 2200
+      owner: a
+    assets:
+    - kind: cash
+      value: 10000
+      owner: a
+    - kind: home
+      value: 1200000
+      owner: a
+    facts:
+      ny_region: new_york_city
+      nursing_facility_monthly_cost: 15282
+  expect:
+    status: ineligible
+    tier: home_equity
+    rules_include:
+    - LTC-NY-HOME-EQUITY
+  crosscheck:
+    policyengine: true
+- id: LTC-NY-T11
+  title: Married, home equity $1,200,000 but the spouse lives in the home (limit does not apply)
+  as_of: '2026-10-01'
+  tags:
+  - couple
+  - edge
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 82
+      relationship: self
+      medicare_part_a: true
+      medicare_part_b: true
+      facts:
+        institutionalized: true
+    - id: b
+      age: 79
+      relationship: spouse
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 2200
+      owner: a
+    - kind: social_security
+      monthly: 1500
+      owner: b
+    assets:
+    - kind: cash
+      value: 20000
+      owner: a
+    - kind: home
+      value: 1200000
+      owner: a
+    facts:
+      ny_region: new_york_city
+      nursing_facility_monthly_cost: 15282
+  expect:
+    status: eligible
+    rules_include:
+    - LTC-NY-HOME-EQUITY
+  crosscheck:
+    policyengine: true
+- id: LTC-NY-T12
+  title: 'Single with $13,038 (room of $20,000 under the level) who gave $50,000 in June 2025: uncompensated value reduced
+    to $30,000'
+  as_of: '2026-10-01'
+  tags:
+  - single
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 82
+      relationship: self
+      medicare_part_a: true
+      medicare_part_b: true
+      facts:
+        institutionalized: true
+        transfers:
+        - date: '2025-06-10'
+          amount: 50000
+    incomes:
+    - kind: social_security
+      monthly: 2200
+      owner: a
+    assets:
+    - kind: cash
+      value: 13038
+      owner: a
+    facts:
+      ny_region: new_york_city
+      nursing_facility_monthly_cost: 15282
+  expect:
+    status: ineligible
+    tier: transfer_penalty
+    rules_include:
+    - LTC-NY-UNCOMPENSATED
+    amounts:
+      penalty_months: 1.96
+  crosscheck:
+    policyengine: true
+- id: LTC-NY-T13
+  title: 'Home care applicant who gave $100,000 last year: no community look-back in effect, so no penalty'
+  as_of: '2026-10-01'
+  tags:
+  - single
+  - edge
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 82
+      relationship: self
+      medicare_part_a: true
+      medicare_part_b: true
+      facts:
+        care_setting: home_care
+        transfers:
+        - date: '2025-10-01'
+          amount: 100000
+    incomes:
+    - kind: social_security
+      monthly: 2200
+      owner: a
+    assets:
+    - kind: cash
+      value: 30000
+      owner: a
+  expect:
+    status: eligible
+    tier: home_care
+    rules_include:
+    - LTC-NY-CBLTC-LOOKBACK
+- id: LTC-NY-T14
+  title: 'Single with pension income $16,000 a month: NAMI covers the cost of care'
+  as_of: '2026-10-01'
+  tags:
+  - single
+  - edge
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 82
+      relationship: self
+      medicare_part_a: true
+      medicare_part_b: true
+      facts:
+        institutionalized: true
+    incomes:
+    - kind: pension
+      monthly: 16000
+      owner: a
+    assets:
+    - kind: cash
+      value: 5000
+      owner: a
+    facts:
+      ny_region: new_york_city
+      nursing_facility_monthly_cost: 15282
+  expect:
+    status: ineligible
+    tier: income_covers_cost
+    rules_include:
+    - LTC-NY-NAMI
+  crosscheck:
+    policyengine: true
+- id: LTC-NY-T15
+  title: 'Adult aged 58, not disabled, in a nursing home after an accident: outside the aged/disabled rules modelled here'
+  as_of: '2026-10-01'
+  tags:
+  - single
+  - unresolved
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 58
+      facts:
+        institutionalized: true
+    incomes:
+    - kind: earned
+      monthly: 0
+      owner: a
+    assets:
+    - kind: cash
+      value: 5000
+      owner: a
+    facts:
+      ny_region: new_york_city
+      nursing_facility_monthly_cost: 15282
+  expect:
+    status: undetermined
+    open_questions_include:
+    - LTC-FED-OQ-01
+- id: LTC-NY-T16
+  title: Single with a recent $40,000 gift but the facility's region is unknown
+  as_of: '2026-10-01'
+  tags:
+  - single
+  - unresolved
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 82
+      relationship: self
+      medicare_part_a: true
+      medicare_part_b: true
+      facts:
+        institutionalized: true
+        transfers:
+        - date: '2026-03-01'
+          amount: 40000
+    incomes:
+    - kind: social_security
+      monthly: 2200
+      owner: a
+    assets:
+    - kind: cash
+      value: 30000
+      owner: a
+    facts:
+      nursing_facility_monthly_cost: 15000
+  expect:
+    status: undetermined
+    open_questions_include:
+    - LTC-NY-OQ-04
+- id: LTC-NY-T17
+  title: Single on SSI and QMB entering a nursing home, $1,000 savings
+  as_of: '2026-10-01'
+  tags:
+  - single
+  - other_benefits
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 82
+      relationship: self
+      medicare_part_a: true
+      medicare_part_b: true
+      facts:
+        institutionalized: true
+      benefits:
+      - ssi
+      - qmb
+      - medicaid
+    incomes:
+    - kind: ssi
+      monthly: 994
+      owner: a
+    - kind: social_security
+      monthly: 300
+      owner: a
+    assets:
+    - kind: cash
+      value: 1000
+      owner: a
+    facts:
+      ny_region: new_york_city
+      nursing_facility_monthly_cost: 15282
+  expect:
+    status: eligible
+    amounts:
+      patient_liability_monthly: 1244
+  crosscheck:
+    policyengine: true
+- id: LTC-X-01
+  title: 'Cross-playbook (Medicaid): home equity $1,300,000 bars long-term care, but community Medicaid without long-term
+    care remains possible'
+  as_of: '2026-10-01'
+  tags:
+  - single
+  - cross_playbook
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 82
+      relationship: self
+      medicare_part_a: true
+      medicare_part_b: true
+      facts:
+        institutionalized: true
+    incomes:
+    - kind: social_security
+      monthly: 2200
+      owner: a
+    assets:
+    - kind: cash
+      value: 10000
+      owner: a
+    - kind: home
+      value: 1300000
+      owner: a
+    facts:
+      ny_region: new_york_city
+      nursing_facility_monthly_cost: 15282
+  expect:
+    status: ineligible
+    tier: home_equity
+  note: 'Expected interaction with the medicaid playbook (not evaluated here because it is being built in parallel): New York
+    offers ''Community Coverage Without Long-Term Care'' to a person over the home equity limit (MRG Substantial Home Equity);
+    the medicaid playbook should find this person eligible for community Medicaid (SSI-related, $10,000 resources under $33,038,
+    home exempt for community Medicaid).'

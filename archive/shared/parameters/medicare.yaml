@@ -1,0 +1,31 @@
+parameters:
+  - id: federal.cms.part_b_standard_premium
+    description: Standard monthly Medicare Part B premium (before any income-related adjustment).
+    unit: usd_per_month
+    updates: CMS announces in October-November; effective January 1.
+    values:
+      - effective_from: 2025-01-01
+        effective_to: 2025-12-31
+        value: 185.00
+        confidence: confirmed
+        sources:
+          - source: cms-2025-part-a-b-premiums
+            locator: "Medicare Part B Premium and Deductible, first paragraph"
+      - effective_from: 2026-01-01
+        value: 202.90
+        confidence: confirmed
+        sources:
+          - source: cms-2026-part-a-b-premiums
+            locator: "Medicare Part B Premium and Deductible, first paragraph"
+            quote: "The standard monthly premium for Medicare Part B enrollees will be $202.90 for 2026"
+  - id: federal.cms.part_b_deductible
+    description: Annual Medicare Part B deductible.
+    unit: usd_per_year
+    updates: CMS announces in October-November; effective January 1.
+    values:
+      - effective_from: 2026-01-01
+        value: 283
+        confidence: confirmed
+        sources:
+          - source: cms-2026-part-a-b-premiums
+            locator: "Medicare Part B Premium and Deductible, first paragraph"

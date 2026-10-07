@@ -1,0 +1,746 @@
+program: medicaid
+policyengine_us_version: 2.29.14
+run_on: '2026-10-07'
+rows:
+- case: MCD-CA-T01
+  state: ca
+  title: "Single adult 30, wages $1,836/mo \u2014 exactly 138% FPL"
+  ours:
+    status: eligible
+    tier: adult_expansion
+  policyengine:
+    status: eligible
+    tier: adult_expansion
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: ineligible
+    tier: null
+  federal_minimum_agrees: false
+- case: MCD-CA-T02
+  state: ca
+  title: "Single adult 30, wages $1,837/mo \u2014 $1 over 138% FPL"
+  ours:
+    status: ineligible
+    tier: null
+  policyengine:
+    status: ineligible
+    tier: null
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: ineligible
+    tier: null
+  federal_minimum_agrees: true
+- case: MCD-CA-T03
+  state: ca
+  title: "Married parents with one child (household of 3), wages $3,143/mo \u2014 at 138% FPL for 3"
+  ours:
+    status: eligible
+    tier: adult_expansion
+  policyengine:
+    status: ineligible
+    tier: null
+  agree: false
+  explanation: Rounding of the 138% FPL monthly limit for three. DHCS's 2026 FPL Calculation Chart (ACWDL 26-01 Enclosure 1, "Rounded up to next
+    higher dollar"; source ca-dhcs-fpl-2026-monthly) shows $3,143 for three, which rounds the monthly guideline first ($27,320/12 = $2,277 x 1.38
+    = $3,142.26, rounded up); PolicyEngine rounds 138% of the annual guideline once ($3,141.84 -> $3,142). At $3,143 the archive (following the
+    DHCS table, MCD-CA-MAGI-ADULT) says eligible, PolicyEngine not.
+  ours_federal_minimum:
+    status: ineligible
+    tier: null
+  federal_minimum_agrees: true
+- case: MCD-CA-T04
+  state: ca
+  title: "Married parents with one child, wages $3,144/mo \u2014 $1 over 138% FPL for 3"
+  ours:
+    status: ineligible
+    tier: null
+  policyengine:
+    status: ineligible
+    tier: null
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: ineligible
+    tier: null
+  federal_minimum_agrees: true
+- case: MCD-CA-T05
+  state: ca
+  title: Single parent with two children (5 and 8), wages $2,000/mo
+  ours:
+    status: eligible
+    tier: parent_caretaker
+  policyengine:
+    status: eligible
+    tier: parent_caretaker
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: adult_expansion
+  federal_minimum_agrees: true
+- case: MCD-CA-T06
+  state: ca
+  title: Single adult 40, no income
+  ours:
+    status: eligible
+    tier: adult_expansion
+  policyengine:
+    status: eligible
+    tier: adult_expansion
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: adult_expansion
+  federal_minimum_agrees: true
+- case: MCD-CA-T07
+  state: ca
+  title: "Single 70-year-old with Medicare, Social Security $2,058.90/mo \u2014 at the non-MAGI income limit"
+  ours:
+    status: eligible
+    tier: aged_disabled_fpl
+  policyengine:
+    status: eligible
+    tier: senior_or_disabled
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: ineligible
+    tier: null
+  federal_minimum_agrees: false
+- case: MCD-CA-T08
+  state: ca
+  title: "Single 70-year-old, Social Security $2,059.90/mo \u2014 $1 over the non-MAGI income limit"
+  ours:
+    status: eligible
+    tier: share_of_cost
+  policyengine:
+    status: eligible
+    tier: senior_or_disabled
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: ineligible
+    tier: null
+  federal_minimum_agrees: false
+- case: MCD-CA-T09
+  state: ca
+  title: "Single 70-year-old, Social Security $1,200, savings $130,000 \u2014 at the asset limit"
+  ours:
+    status: eligible
+    tier: aged_disabled_fpl
+  policyengine:
+    status: ineligible
+    tier: null
+  agree: false
+  explanation: 'Asset test at exactly the limit. PolicyEngine''s is_optional_senior_or_disabled_asset_eligible requires assets strictly below
+    the limit ("assets < asset_limit"). California''s DHCS ACWDL 25-20 tells counties to grant eligibility when assets are "at, or under $130,000
+    for one person" and ACWDL 25-14 denies only property "above" the limit (MCD-CA-ASSET-LIMIT; MCD-CA-CONFLICT-01), and the Illinois PM treats
+    only amounts over $17,500 as excess (PM 15-02-02: "at least $1 over the asset limit"). The archive treats the limit itself as passing.'
+  ours_federal_minimum:
+    status: ineligible
+    tier: null
+  federal_minimum_agrees: true
+- case: MCD-CA-T10
+  state: ca
+  title: "Single 70-year-old, Social Security $1,200, savings $130,001 \u2014 $1 over the asset limit"
+  ours:
+    status: ineligible
+    tier: null
+  policyengine:
+    status: ineligible
+    tier: null
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: ineligible
+    tier: null
+  federal_minimum_agrees: true
+- case: MCD-CA-T11
+  state: ca
+  title: Married couple both 72 with Medicare, Social Security $1,300 + $900, savings $20,000
+  ours:
+    status: eligible
+    tier: aged_disabled_fpl
+  policyengine:
+    status: eligible
+    tier: senior_or_disabled
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: ineligible
+    tier: null
+  federal_minimum_agrees: false
+- case: MCD-CA-T12
+  state: ca
+  title: 'Spenddown / share of cost: single 72-year-old, Social Security $2,500/mo'
+  ours:
+    status: eligible
+    tier: share_of_cost
+  policyengine:
+    status: ineligible
+    tier: null
+  agree: false
+  explanation: 'Share of cost not modelled. Income $2,500 is over the A&D FPL limit; the archive reports Medically Needy Medi-Cal with a $1,677.10
+    monthly share of cost (MCD-CA-SHARE-OF-COST: income over the $600 maintenance need of ACWDL 89-58, kept by ACWDL 24-10). PolicyEngine''s California
+    medically needy pathway only admits income under the $600 maintenance need and has no share-of-cost spenddown, so it reports not eligible.'
+  ours_federal_minimum:
+    status: ineligible
+    tier: null
+  federal_minimum_agrees: true
+- case: MCD-CA-T13
+  state: ca
+  title: "Person with Medicare under 65: 55-year-old on SSDI ($1,500/mo) with Medicare \u2014 not in the adult group"
+  ours:
+    status: eligible
+    tier: aged_disabled_fpl
+  policyengine:
+    status: eligible
+    tier: senior_or_disabled
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: ineligible
+    tier: null
+  federal_minimum_agrees: false
+- case: MCD-CA-T22
+  state: ca
+  title: 70-year-old receiving SSI ($994) only, savings $1,000
+  ours:
+    status: eligible
+    tier: ssi_recipient
+  policyengine:
+    status: eligible
+    tier: ssi_recipient
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: ineligible
+    tier: null
+  federal_minimum_agrees: false
+- case: MCD-IL-T01
+  state: il
+  title: "Single adult 30, wages $1,835/mo \u2014 exactly 138% FPL"
+  ours:
+    status: eligible
+    tier: adult_expansion
+  policyengine:
+    status: eligible
+    tier: adult_expansion
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: adult_expansion
+  federal_minimum_agrees: true
+- case: MCD-IL-T02
+  state: il
+  title: "Single adult 30, wages $1,836/mo \u2014 $1 over 138% FPL"
+  ours:
+    status: ineligible
+    tier: null
+  policyengine:
+    status: eligible
+    tier: adult_expansion
+  agree: false
+  explanation: 'Rounding of the 138% FPL monthly limit. PolicyEngine computes the monthly limit as 138% x the annual guideline / 12 and rounds
+    it UP to the next dollar (its medicaid_income_level helper: $1,835.40 -> $1,836 for one, $3,141.84 -> $3,142 for three). Illinois publishes
+    $1,835 and $3,141 (WAG 25-03-02 (2), rounded down), so a household $1 over the Illinois figure is still within PolicyEngine''s. The archive
+    follows the IDHS table (MCD-IL-ACA-ADULT).'
+  ours_federal_minimum:
+    status: ineligible
+    tier: null
+  federal_minimum_agrees: false
+- case: MCD-IL-T03
+  state: il
+  title: "Married parents with one child (household of 3), wages $3,141/mo \u2014 at 138% FPL for 3"
+  ours:
+    status: eligible
+    tier: parent_caretaker
+  policyengine:
+    status: eligible
+    tier: parent_caretaker
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: adult_expansion
+  federal_minimum_agrees: true
+- case: MCD-IL-T04
+  state: il
+  title: "Married parents with one child, wages $3,142/mo \u2014 $1 over 138% FPL for 3"
+  ours:
+    status: ineligible
+    tier: null
+  policyengine:
+    status: eligible
+    tier: parent_caretaker
+  agree: false
+  explanation: 'Rounding of the 138% FPL monthly limit. PolicyEngine computes the monthly limit as 138% x the annual guideline / 12 and rounds
+    it UP to the next dollar (its medicaid_income_level helper: $1,835.40 -> $1,836 for one, $3,141.84 -> $3,142 for three). Illinois publishes
+    $1,835 and $3,141 (WAG 25-03-02 (2), rounded down), so a household $1 over the Illinois figure is still within PolicyEngine''s. The archive
+    follows the IDHS table (MCD-IL-ACA-ADULT).'
+  ours_federal_minimum:
+    status: ineligible
+    tier: null
+  federal_minimum_agrees: false
+- case: MCD-IL-T05
+  state: il
+  title: Single parent with two children (5 and 8), wages $2,000/mo
+  ours:
+    status: eligible
+    tier: parent_caretaker
+  policyengine:
+    status: eligible
+    tier: parent_caretaker
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: adult_expansion
+  federal_minimum_agrees: true
+- case: MCD-IL-T06
+  state: il
+  title: Single adult 40, no income
+  ours:
+    status: eligible
+    tier: adult_expansion
+  policyengine:
+    status: eligible
+    tier: adult_expansion
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: adult_expansion
+  federal_minimum_agrees: true
+- case: MCD-IL-T07
+  state: il
+  title: "Single 70-year-old with Medicare, Social Security $1,355.00/mo \u2014 at the non-MAGI income limit"
+  ours:
+    status: eligible
+    tier: aabd
+  policyengine:
+    status: eligible
+    tier: senior_or_disabled
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: ineligible
+    tier: null
+  federal_minimum_agrees: false
+- case: MCD-IL-T08
+  state: il
+  title: "Single 70-year-old, Social Security $1,356.00/mo \u2014 $1 over the non-MAGI income limit"
+  ours:
+    status: eligible
+    tier: aabd_spenddown
+  policyengine:
+    status: ineligible
+    tier: null
+  agree: false
+  explanation: Illinois spenddown not modelled. Over the AABD income standard ($1,330) or the $17,500 asset limit, an Illinois community case
+    is enrolled in spenddown rather than denied (PM 15-02-02, PM 15-04-01; MCD-IL-SPENDDOWN); the archive reports eligible with the spenddown
+    amount. PolicyEngine's medically_needy flag for Illinois is false, so it reports not eligible.
+  ours_federal_minimum:
+    status: ineligible
+    tier: null
+  federal_minimum_agrees: true
+- case: MCD-IL-T09
+  state: il
+  title: "Single 70-year-old, Social Security $1,200, savings $17,500 \u2014 at the asset limit"
+  ours:
+    status: eligible
+    tier: aabd
+  policyengine:
+    status: ineligible
+    tier: null
+  agree: false
+  explanation: 'Asset test at exactly the limit. PolicyEngine''s is_optional_senior_or_disabled_asset_eligible requires assets strictly below
+    the limit ("assets < asset_limit"). California''s DHCS ACWDL 25-20 tells counties to grant eligibility when assets are "at, or under $130,000
+    for one person" and ACWDL 25-14 denies only property "above" the limit (MCD-CA-ASSET-LIMIT; MCD-CA-CONFLICT-01), and the Illinois PM treats
+    only amounts over $17,500 as excess (PM 15-02-02: "at least $1 over the asset limit"). The archive treats the limit itself as passing.'
+  ours_federal_minimum:
+    status: ineligible
+    tier: null
+  federal_minimum_agrees: true
+- case: MCD-IL-T10
+  state: il
+  title: "Single 70-year-old, Social Security $1,200, savings $17,501 \u2014 $1 over the asset limit"
+  ours:
+    status: eligible
+    tier: aabd_spenddown
+  policyengine:
+    status: ineligible
+    tier: null
+  agree: false
+  explanation: Illinois spenddown not modelled. Over the AABD income standard ($1,330) or the $17,500 asset limit, an Illinois community case
+    is enrolled in spenddown rather than denied (PM 15-02-02, PM 15-04-01; MCD-IL-SPENDDOWN); the archive reports eligible with the spenddown
+    amount. PolicyEngine's medically_needy flag for Illinois is false, so it reports not eligible.
+  ours_federal_minimum:
+    status: ineligible
+    tier: null
+  federal_minimum_agrees: true
+- case: MCD-IL-T11
+  state: il
+  title: Married couple both 72 with Medicare, Social Security $1,300 + $900, savings $20,000
+  ours:
+    status: eligible
+    tier: aabd_spenddown
+  policyengine:
+    status: ineligible
+    tier: null
+  agree: false
+  explanation: Illinois spenddown not modelled. Over the AABD income standard ($1,330) or the $17,500 asset limit, an Illinois community case
+    is enrolled in spenddown rather than denied (PM 15-02-02, PM 15-04-01; MCD-IL-SPENDDOWN); the archive reports eligible with the spenddown
+    amount. PolicyEngine's medically_needy flag for Illinois is false, so it reports not eligible.
+  ours_federal_minimum:
+    status: ineligible
+    tier: null
+  federal_minimum_agrees: true
+- case: MCD-IL-T12
+  state: il
+  title: 'Spenddown / share of cost: single 72-year-old, Social Security $2,500/mo'
+  ours:
+    status: eligible
+    tier: aabd_spenddown
+  policyengine:
+    status: ineligible
+    tier: null
+  agree: false
+  explanation: Illinois spenddown not modelled. Over the AABD income standard ($1,330) or the $17,500 asset limit, an Illinois community case
+    is enrolled in spenddown rather than denied (PM 15-02-02, PM 15-04-01; MCD-IL-SPENDDOWN); the archive reports eligible with the spenddown
+    amount. PolicyEngine's medically_needy flag for Illinois is false, so it reports not eligible.
+  ours_federal_minimum:
+    status: ineligible
+    tier: null
+  federal_minimum_agrees: true
+- case: MCD-IL-T13
+  state: il
+  title: "Person with Medicare under 65: 55-year-old on SSDI ($1,500/mo) with Medicare \u2014 not in the adult group"
+  ours:
+    status: eligible
+    tier: aabd_spenddown
+  policyengine:
+    status: ineligible
+    tier: null
+  agree: false
+  explanation: Illinois spenddown not modelled. Over the AABD income standard ($1,330) or the $17,500 asset limit, an Illinois community case
+    is enrolled in spenddown rather than denied (PM 15-02-02, PM 15-04-01; MCD-IL-SPENDDOWN); the archive reports eligible with the spenddown
+    amount. PolicyEngine's medically_needy flag for Illinois is false, so it reports not eligible.
+  ours_federal_minimum:
+    status: ineligible
+    tier: null
+  federal_minimum_agrees: true
+- case: MCD-IL-T22
+  state: il
+  title: 70-year-old receiving SSI ($994) only, savings $1,000
+  ours:
+    status: eligible
+    tier: aabd
+  policyengine:
+    status: eligible
+    tier: ssi_recipient
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: ineligible
+    tier: null
+  federal_minimum_agrees: false
+- case: MCD-NY-T01
+  state: ny
+  title: "Single adult 30, wages $1,836/mo \u2014 exactly 138% FPL"
+  ours:
+    status: eligible
+    tier: adult_expansion
+  policyengine:
+    status: eligible
+    tier: adult_expansion
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: ineligible
+    tier: null
+  federal_minimum_agrees: false
+- case: MCD-NY-T02
+  state: ny
+  title: "Single adult 30, wages $1,837/mo \u2014 $1 over 138% FPL"
+  ours:
+    status: ineligible
+    tier: null
+  policyengine:
+    status: ineligible
+    tier: null
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: ineligible
+    tier: null
+  federal_minimum_agrees: true
+- case: MCD-NY-T03
+  state: ny
+  title: "Married parents with one child (household of 3), wages $3,142/mo \u2014 at 138% FPL for 3"
+  ours:
+    status: eligible
+    tier: parent_caretaker
+  policyengine:
+    status: eligible
+    tier: parent_caretaker
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: ineligible
+    tier: null
+  federal_minimum_agrees: false
+- case: MCD-NY-T04
+  state: ny
+  title: "Married parents with one child, wages $3,143/mo \u2014 $1 over 138% FPL for 3"
+  ours:
+    status: ineligible
+    tier: null
+  policyengine:
+    status: ineligible
+    tier: null
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: ineligible
+    tier: null
+  federal_minimum_agrees: true
+- case: MCD-NY-T05
+  state: ny
+  title: Single parent with two children (5 and 8), wages $2,000/mo
+  ours:
+    status: eligible
+    tier: parent_caretaker
+  policyengine:
+    status: eligible
+    tier: parent_caretaker
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: adult_expansion
+  federal_minimum_agrees: true
+- case: MCD-NY-T06
+  state: ny
+  title: Single adult 40, no income
+  ours:
+    status: eligible
+    tier: adult_expansion
+  policyengine:
+    status: eligible
+    tier: adult_expansion
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: adult_expansion
+  federal_minimum_agrees: true
+- case: MCD-NY-T07
+  state: ny
+  title: "Single 70-year-old with Medicare, Social Security $1,856.00/mo \u2014 at the non-MAGI income limit"
+  ours:
+    status: eligible
+    tier: ssi_related
+  policyengine:
+    status: ineligible
+    tier: null
+  agree: false
+  explanation: New York's SSI-related income level. PolicyEngine's New York senior_or_disabled income limit parameter is 82% FPL (and its asset
+    limit $31,175 / $42,312 from 2024), the pre-2023 level. New York's 2026 chart (GIS 26 MA/05 attachment) sets the SSI-related Medicaid income
+    level at 138% FPL ($1,836 / $2,489) and resources $33,038 / $44,796 (MCD-NY-SSI-RELATED-INCOME, MCD-NY-RESOURCE-LEVEL). These people are eligible
+    without spenddown under New York's current levels.
+  ours_federal_minimum:
+    status: ineligible
+    tier: null
+  federal_minimum_agrees: true
+- case: MCD-NY-T08
+  state: ny
+  title: "Single 70-year-old, Social Security $1,857.00/mo \u2014 $1 over the non-MAGI income limit"
+  ours:
+    status: eligible
+    tier: spenddown
+  policyengine:
+    status: ineligible
+    tier: null
+  agree: false
+  explanation: Spenddown not modelled by PolicyEngine. The archive reports New York's Excess Income program (income over $1,836, MCD-NY-EXCESS-INCOME)
+    and excess-resource spenddown (MCD-NY-EXCESS-RESOURCES) as eligible with a spenddown amount; PolicyEngine's medically needy category requires
+    income under its (outdated) medically needy limit and has no spenddown, so it reports not eligible. Also its 82% FPL senior limit (see above).
+  ours_federal_minimum:
+    status: ineligible
+    tier: null
+  federal_minimum_agrees: true
+- case: MCD-NY-T09
+  state: ny
+  title: "Single 70-year-old, Social Security $1,200, savings $33,038 \u2014 at the asset limit"
+  ours:
+    status: eligible
+    tier: ssi_related
+  policyengine:
+    status: ineligible
+    tier: null
+  agree: false
+  explanation: New York's SSI-related income level. PolicyEngine's New York senior_or_disabled income limit parameter is 82% FPL (and its asset
+    limit $31,175 / $42,312 from 2024), the pre-2023 level. New York's 2026 chart (GIS 26 MA/05 attachment) sets the SSI-related Medicaid income
+    level at 138% FPL ($1,836 / $2,489) and resources $33,038 / $44,796 (MCD-NY-SSI-RELATED-INCOME, MCD-NY-RESOURCE-LEVEL). These people are eligible
+    without spenddown under New York's current levels.
+  ours_federal_minimum:
+    status: ineligible
+    tier: null
+  federal_minimum_agrees: true
+- case: MCD-NY-T10
+  state: ny
+  title: "Single 70-year-old, Social Security $1,200, savings $33,039 \u2014 $1 over the asset limit"
+  ours:
+    status: eligible
+    tier: spenddown
+  policyengine:
+    status: ineligible
+    tier: null
+  agree: false
+  explanation: Spenddown not modelled by PolicyEngine. The archive reports New York's Excess Income program (income over $1,836, MCD-NY-EXCESS-INCOME)
+    and excess-resource spenddown (MCD-NY-EXCESS-RESOURCES) as eligible with a spenddown amount; PolicyEngine's medically needy category requires
+    income under its (outdated) medically needy limit and has no spenddown, so it reports not eligible. Also its 82% FPL senior limit (see above).
+  ours_federal_minimum:
+    status: ineligible
+    tier: null
+  federal_minimum_agrees: true
+- case: MCD-NY-T11
+  state: ny
+  title: Married couple both 72 with Medicare, Social Security $1,300 + $900, savings $20,000
+  ours:
+    status: eligible
+    tier: ssi_related
+  policyengine:
+    status: ineligible
+    tier: null
+  agree: false
+  explanation: New York's SSI-related income level. PolicyEngine's New York senior_or_disabled income limit parameter is 82% FPL (and its asset
+    limit $31,175 / $42,312 from 2024), the pre-2023 level. New York's 2026 chart (GIS 26 MA/05 attachment) sets the SSI-related Medicaid income
+    level at 138% FPL ($1,836 / $2,489) and resources $33,038 / $44,796 (MCD-NY-SSI-RELATED-INCOME, MCD-NY-RESOURCE-LEVEL). These people are eligible
+    without spenddown under New York's current levels.
+  ours_federal_minimum:
+    status: ineligible
+    tier: null
+  federal_minimum_agrees: true
+- case: MCD-NY-T12
+  state: ny
+  title: 'Spenddown / share of cost: single 72-year-old, Social Security $2,500/mo'
+  ours:
+    status: eligible
+    tier: spenddown
+  policyengine:
+    status: ineligible
+    tier: null
+  agree: false
+  explanation: Spenddown not modelled by PolicyEngine. The archive reports New York's Excess Income program (income over $1,836, MCD-NY-EXCESS-INCOME)
+    and excess-resource spenddown (MCD-NY-EXCESS-RESOURCES) as eligible with a spenddown amount; PolicyEngine's medically needy category requires
+    income under its (outdated) medically needy limit and has no spenddown, so it reports not eligible. Also its 82% FPL senior limit (see above).
+  ours_federal_minimum:
+    status: ineligible
+    tier: null
+  federal_minimum_agrees: true
+- case: MCD-NY-T13
+  state: ny
+  title: "Person with Medicare under 65: 55-year-old on SSDI ($1,500/mo) with Medicare \u2014 not in the adult group"
+  ours:
+    status: eligible
+    tier: ssi_related
+  policyengine:
+    status: ineligible
+    tier: null
+  agree: false
+  explanation: New York's SSI-related income level. PolicyEngine's New York senior_or_disabled income limit parameter is 82% FPL (and its asset
+    limit $31,175 / $42,312 from 2024), the pre-2023 level. New York's 2026 chart (GIS 26 MA/05 attachment) sets the SSI-related Medicaid income
+    level at 138% FPL ($1,836 / $2,489) and resources $33,038 / $44,796 (MCD-NY-SSI-RELATED-INCOME, MCD-NY-RESOURCE-LEVEL). These people are eligible
+    without spenddown under New York's current levels.
+  ours_federal_minimum:
+    status: ineligible
+    tier: null
+  federal_minimum_agrees: true
+- case: MCD-NY-T22
+  state: ny
+  title: 70-year-old receiving SSI ($994) only, savings $1,000
+  ours:
+    status: eligible
+    tier: ssi_recipient
+  policyengine:
+    status: eligible
+    tier: ssi_recipient
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: ineligible
+    tier: null
+  federal_minimum_agrees: false
+- case: MCD-X-00
+  state: ny
+  title: 'Cross-state: 70-year-old with Medicare, Social Security $1,200, $60,000 savings'
+  ours:
+    status: eligible
+    tier: spenddown
+  policyengine:
+    status: ineligible
+    tier: null
+  agree: false
+  explanation: Spenddown not modelled by PolicyEngine. The archive reports New York's Excess Income program (income over $1,836, MCD-NY-EXCESS-INCOME)
+    and excess-resource spenddown (MCD-NY-EXCESS-RESOURCES) as eligible with a spenddown amount; PolicyEngine's medically needy category requires
+    income under its (outdated) medically needy limit and has no spenddown, so it reports not eligible. Also its 82% FPL senior limit (see above).
+  ours_federal_minimum:
+    status: ineligible
+    tier: null
+  federal_minimum_agrees: true
+- case: MCD-X-00
+  state: ca
+  title: 'Cross-state: 70-year-old with Medicare, Social Security $1,200, $60,000 savings'
+  ours:
+    status: eligible
+    tier: aged_disabled_fpl
+  policyengine:
+    status: eligible
+    tier: senior_or_disabled
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: ineligible
+    tier: null
+  federal_minimum_agrees: false
+- case: MCD-X-00
+  state: il
+  title: 'Cross-state: 70-year-old with Medicare, Social Security $1,200, $60,000 savings'
+  ours:
+    status: eligible
+    tier: aabd_spenddown
+  policyengine:
+    status: ineligible
+    tier: null
+  agree: false
+  explanation: Illinois spenddown not modelled. Over the AABD income standard ($1,330) or the $17,500 asset limit, an Illinois community case
+    is enrolled in spenddown rather than denied (PM 15-02-02, PM 15-04-01; MCD-IL-SPENDDOWN); the archive reports eligible with the spenddown
+    amount. PolicyEngine's medically_needy flag for Illinois is false, so it reports not eligible.
+  ours_federal_minimum:
+    status: ineligible
+    tier: null
+  federal_minimum_agrees: true
+- case: MCD-X-01
+  state: ny
+  title: "Cross-playbook (MSP): 70-year-old, Social Security $1,800 \u2014 SSI-related Medicaid and QMB together"
+  ours:
+    status: eligible
+    tier: ssi_related
+  policyengine:
+    status: ineligible
+    tier: null
+  agree: false
+  explanation: New York's SSI-related income level. PolicyEngine's New York senior_or_disabled income limit parameter is 82% FPL (and its asset
+    limit $31,175 / $42,312 from 2024), the pre-2023 level. New York's 2026 chart (GIS 26 MA/05 attachment) sets the SSI-related Medicaid income
+    level at 138% FPL ($1,836 / $2,489) and resources $33,038 / $44,796 (MCD-NY-SSI-RELATED-INCOME, MCD-NY-RESOURCE-LEVEL). These people are eligible
+    without spenddown under New York's current levels.
+  ours_federal_minimum:
+    status: ineligible
+    tier: null
+  federal_minimum_agrees: true

@@ -1,0 +1,9 @@
+- retrieved: '2026-10-07'
+  url: https://content.naic.org/sites/default/files/inline-files/medigapbdayruleandunder65chart.pdf
+  final_url: https://content.naic.org/sites/default/files/inline-files/medigapbdayruleandunder65chart.pdf
+  status: 200
+  content_type: pdf
+  text_sha256: 7b7702bb89adf882bd26dbb8c5b5458377ba75f4dab992e1b6c25ba2a64e4e47
+  text: naic-medigap-birthday-chart-2026/2026-10-07.txt
+  raw: naic-medigap-birthday-chart-2026/2026-10-07.pdf
+  fetched_via: WebFetch (site returns 403 to scripts); PDF saved by the research tool

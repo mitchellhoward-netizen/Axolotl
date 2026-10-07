@@ -1,0 +1,115 @@
+# Illinois sources for school meals. ilga.gov serves an incomplete
+# certificate chain (Sectigo Public Server Authentication CA OV R40 missing);
+# snapshots were fetched with that intermediate added, verification on.
+sources:
+  - id: il-105-ilcs-125-2-3
+    retrieved: 2026-10-07
+    url: https://ilga.gov/legislation/ilcs/documents/010501250K2.3.htm
+    publisher: Illinois General Assembly
+    title: 105 ILCS 125/2.3 — Healthy School Meals for All Program (P.A. 103-532, eff. 8-11-23)
+    kind: primary
+    jurisdiction: il
+    doc_type: statute
+  - id: il-hb2365-status
+    retrieved: 2026-10-07
+    url: https://ilga.gov/ftp/legislation/104/BillStatus/HTML/10400HB2365.html
+    publisher: Illinois General Assembly
+    title: Bill Status of HB2365 (104th GA) — $ISBE-Healthy School Meals ($67,000,000 appropriation)
+    kind: primary
+    jurisdiction: il
+    doc_type: other
+    note: Last action 7/01/2026, re-referred to Rules Committee (not enacted).
+  - id: il-isbe-ieg-release-2026
+    retrieved: 2026-10-07
+    url: https://www.isbe.net/Lists/News/DispForm.aspx?ID=1599
+    publisher: Illinois State Board of Education
+    title: ISBE Announces New Income Eligibility Guidelines for Free and Reduced-Price School Meals (press release, September 10, 2026)
+    kind: primary
+    jurisdiction: il
+    doc_type: notice
+    published: 2026-09-10
+  - id: il-isbe-dc-slides-2026
+    retrieved: 2026-10-07
+    url: https://www.isbe.net/Documents/May2026-DCslides.pdf
+    publisher: Illinois State Board of Education, Nutrition Department
+    title: Direct Certification in the School Nutrition Programs (training slides, May 2026)
+    kind: primary
+    jurisdiction: il
+    doc_type: guidance
+    published: 2026-05-01
+  - id: il-isbe-68-06
+    retrieved: 2026-10-07
+    url: https://www.isbe.net/Documents/68-06.pdf
+    publisher: Illinois State Board of Education, Nutrition Department
+    title: ISBE 68-06 (7/26) School Year 2026-27 NSLP/SBP Letter to Households, Household Eligibility Application and Instructions
+    kind: primary
+    jurisdiction: il
+    doc_type: form
+    effective_date: 2026-07-01
+  - id: il-isbe-hea-resources
+    retrieved: 2026-10-07
+    url: https://www.isbe.net/Pages/Household-Eligibility-Resources.aspx
+    publisher: Illinois State Board of Education, Nutrition Department
+    title: Household Eligibility Applications (HEA) resources
+    kind: primary
+    jurisdiction: il
+    doc_type: agency_page
+  - id: il-iphi-hsmfa-overview-2026
+    retrieved: 2026-10-07
+    url: https://iphionline.org/wp-content/uploads/2026/05/HSMFA-Overview_2026-1.pdf
+    publisher: Illinois Public Health Institute (advocacy)
+    title: Healthy School Meals for All — Overview 2026
+    kind: secondary
+    jurisdiction: il
+    doc_type: advocacy
+    published: 2026-05-01
+  - id: il-hsc-hsmfa-blog
+    retrieved: 2026-10-07
+    url: https://healthyschoolscampaign.org/blog/illinois-must-step-up-and-meet-its-obligation-to-fund-free-school-meals-for-all-public-school-students/
+    publisher: Healthy Schools Campaign (advocacy)
+    title: Illinois Must Step Up and Meet its Obligation to Fund Free School Meals for all Public School Students
+    kind: secondary
+    jurisdiction: il
+    doc_type: advocacy
+    note: Fetched through the r.jina.ai reader (the site answers scripts with an empty 202).
+  - id: il-pa-104-0464
+    retrieved: 2026-10-07
+    url: https://www.ilga.gov/Documents/legislation/publicacts/104/104-0464.htm
+    publisher: Illinois General Assembly
+    title: Public Act 104-0464 (HB 111) - State Fiscal Year 2027 appropriations (with FY2026 supplemental changes to P.A. 104-0003)
+    kind: primary
+    jurisdiction: il
+    doc_type: statute
+    published: 2026-06-16
+    note: >-
+      Enacted FY2027 budget (approved with item/reduction vetoes June 16, 2026; most provisions
+      effective July 1, 2026). The Illinois State Board of Education articles appropriate "For
+      Reimbursement for the Free Breakfast/Lunch Program" but contain no Healthy School Meals for All
+      line; no line in the Act mentions "Meals for All". Large document (about 4.8 MB of text).
+  - id: il-pa-104-0003
+    retrieved: 2026-10-07
+    url: https://www.ilga.gov/Documents/legislation/publicacts/104/104-0003.htm
+    publisher: Illinois General Assembly
+    title: Public Act 104-0003 - State Fiscal Year 2026 appropriations
+    kind: primary
+    jurisdiction: il
+    doc_type: statute
+    published: 2025-06-16
+    note: Enacted FY2026 budget; no Healthy School Meals for All line (only "Reimbursement for the Free Breakfast/Lunch Program").
+  - id: il-hb111-status
+    retrieved: 2026-10-07
+    url: https://ilga.gov/ftp/legislation/104/BillStatus/HTML/10400HB0111.html
+    publisher: Illinois General Assembly
+    title: Bill Status of HB0111 (104th GA) - FY2027 appropriations, Public Act 104-0464
+    kind: primary
+    jurisdiction: il
+    doc_type: other
+  - id: il-sb1419-status
+    retrieved: 2026-10-07
+    url: https://ilga.gov/ftp/legislation/104/BillStatus/HTML/10400SB1419.html
+    publisher: Illinois General Assembly
+    title: Bill Status of SB1419 (104th GA) - $ISBE-Healthy School Meals ($67,000,000 appropriation)
+    kind: primary
+    jurisdiction: il
+    doc_type: other
+    note: Last action 7/02/2025, referred to Assignments (not enacted).

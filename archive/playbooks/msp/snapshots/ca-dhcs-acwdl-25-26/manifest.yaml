@@ -1,0 +1,10 @@
+- retrieved: '2026-10-07'
+  url: https://www.dhcs.ca.gov/file/25-26-pdf/
+  final_url: https://www.dhcs.ca.gov/file/25-26-pdf/
+  status: 200
+  content_type: pdf
+  text_sha256: 5fb6eab3b7da2566c11892e4d31dfa4e0a6f36bb29ea87739fc87ae217d1bdf5
+  text: ca-dhcs-acwdl-25-26/2026-10-07.txt
+  raw: ca-dhcs-acwdl-25-26/2026-10-07.pdf
+  fetched_via: headless Chromium (Playwright) via the session proxy; dhcs.ca.gov refuses
+    scripted requests (Incapsula)

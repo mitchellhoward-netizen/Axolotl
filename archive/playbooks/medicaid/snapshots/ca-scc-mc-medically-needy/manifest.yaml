@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://stgenssa.sccgov.org/debs/program_handbooks/medi-cal/assets/19NonMAGILinkMFBU/MedicallyNeedy.htm
+  final_url: https://stgenssa.sccgov.org/debs/program_handbooks/medi-cal/assets/19NonMAGILinkMFBU/MedicallyNeedy.htm
+  status: 200
+  content_type: text/html
+  text_sha256: 085a2d862c25e065abd3deb71e653e90ff5ab6c2525a7a9e452da18ffab618c8
+  text: ca-scc-mc-medically-needy/2026-10-07.txt
+  raw: ca-scc-mc-medically-needy/2026-10-07.html

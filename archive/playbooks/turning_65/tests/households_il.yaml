@@ -1,0 +1,713 @@
+# Synthetic IL households for the Turning 65 playbook. No real people.
+program: turning_65
+scope: il
+cases:
+- id: T65-IL-T01
+  title: Turns 65 Dec 10, 2026; signs up in September - Part B starts December
+  as_of: '2026-09-20'
+  tags:
+  - timing
+  - single
+  household:
+    state: il
+    members:
+    - id: a
+      age: 64
+      medicare_part_a: false
+      medicare_part_b: false
+      facts:
+        birth_date: '1961-12-10'
+    incomes: []
+  expect:
+    status: eligible
+    tier: IEP
+    amounts:
+      coverage_start_yyyymm: 202612
+- id: T65-IL-T02
+  title: Turned 65 in June; signs up in August (2 months after) - Part B starts September
+  as_of: '2026-08-03'
+  tags:
+  - timing
+  household:
+    state: il
+    members:
+    - id: a
+      age: 65
+      medicare_part_a: true
+      medicare_part_b: false
+      facts:
+        birth_date: '1961-06-25'
+    incomes: []
+  expect:
+    status: eligible
+    tier: IEP
+    amounts:
+      coverage_start_yyyymm: 202609
+- id: T65-IL-T03
+  title: 'Still working at 66 for an employer of 19, own plan: SEP open; Medicare pays first'
+  as_of: '2026-06-01'
+  tags:
+  - threshold
+  household:
+    state: il
+    members:
+    - id: a
+      age: 66
+      medicare_part_a: true
+      medicare_part_b: false
+      facts:
+        birth_date: '1960-03-03'
+        ghp:
+          basis: current_employment
+          whose: self
+          employer_size: 19
+    incomes: []
+  expect:
+    status: eligible
+    tier: SEP_GHP
+    amounts:
+      medicare_primary: 1.0
+- id: T65-IL-T04
+  title: 'Same, employer of 20: SEP open; job plan pays first'
+  as_of: '2026-06-01'
+  tags:
+  - threshold
+  household:
+    state: il
+    members:
+    - id: a
+      age: 66
+      medicare_part_a: true
+      medicare_part_b: false
+      facts:
+        birth_date: '1960-03-03'
+        ghp:
+          basis: current_employment
+          whose: self
+          employer_size: 20
+    incomes: []
+  expect:
+    status: eligible
+    tier: SEP_GHP
+    amounts:
+      medicare_primary: 0.0
+- id: T65-IL-T05
+  title: Job coverage ended May 2025, SEP missed (ended Jan 2026); GEP March 2026 - counted months exclude job-coverage months
+    (10 months, no penalty)
+  as_of: '2026-03-15'
+  tags:
+  - edge
+  household:
+    state: il
+    members:
+    - id: a
+      age: 67
+      medicare_part_a: true
+      medicare_part_b: false
+      facts:
+        birth_date: '1959-01-10'
+        ghp:
+          basis: current_employment
+          whose: self
+          employer_size: 50
+          last_month: '2025-05-31'
+    incomes: []
+  expect:
+    status: eligible
+    tier: GEP
+    rules_include:
+    - T65-FED-PART-B-PENALTY-MONTHS
+    amounts:
+      part_b_penalty_percent: 0.0
+- id: T65-IL-T06
+  title: 'Medigap holder at 70, 30 days after the birthday: inside Illinois''s 45-day window'
+  as_of: '2026-06-14'
+  tags:
+  - threshold
+  household:
+    state: il
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+      facts:
+        birth_date: '1956-05-15'
+        medigap:
+          has_policy: true
+          part_b_start: '2021-05-01'
+    incomes: []
+  expect:
+    status: eligible
+    tier: ENROLLED
+    rules_include:
+    - T65-IL-MEDIGAP-BIRTHDAY
+    amounts:
+      medigap_guaranteed_issue_now: 1.0
+- id: T65-IL-T07
+  title: 'Same holder 50 days after the birthday: Illinois window closed (California''s 60 days would still be open)'
+  as_of: '2026-07-04'
+  tags:
+  - threshold
+  - cross_state
+  household:
+    state: il
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+      facts:
+        birth_date: '1956-05-15'
+        medigap:
+          has_policy: true
+          part_b_start: '2021-05-01'
+    incomes: []
+  expect:
+    status: eligible
+    tier: ENROLLED
+    amounts:
+      medigap_guaranteed_issue_now: 0.0
+  compare_states:
+    ca:
+      status: eligible
+      tier: ENROLLED
+      amounts:
+        medigap_guaranteed_issue_now: 1.0
+    ny:
+      status: eligible
+      tier: ENROLLED
+      amounts:
+        medigap_guaranteed_issue_now: 1.0
+- id: T65-IL-T08
+  title: 'Medigap holder aged 76 in the birthday window: over Illinois''s 65-75 age range'
+  as_of: '2026-06-14'
+  tags:
+  - threshold
+  household:
+    state: il
+    members:
+    - id: a
+      age: 76
+      medicare_part_a: true
+      medicare_part_b: true
+      facts:
+        birth_date: '1950-05-15'
+        medigap:
+          has_policy: true
+          part_b_start: '2015-05-01'
+    incomes: []
+  expect:
+    status: eligible
+    tier: ENROLLED
+    rules_include:
+    - T65-IL-MEDIGAP-BIRTHDAY
+    amounts:
+      medigap_guaranteed_issue_now: 0.0
+- id: T65-IL-T09
+  title: 'Single 66, income $2,500/month ($30,000/yr): Benefit Access flagged'
+  as_of: '2026-05-01'
+  tags:
+  - other_benefits
+  - single
+  household:
+    state: il
+    members:
+    - id: a
+      age: 66
+      medicare_part_a: true
+      medicare_part_b: true
+      facts:
+        birth_date: '1960-03-10'
+    incomes:
+    - kind: social_security
+      monthly: 2500
+      owner: a
+  expect:
+    status: eligible
+    tier: ENROLLED
+    links_include:
+    - il_benefit_access:may_qualify
+- id: T65-IL-T10
+  title: 'Employer misinformation reported to SSA in May 2026: exceptional SEP, Part B next month, no penalty'
+  as_of: '2026-07-20'
+  tags:
+  - edge
+  household:
+    state: il
+    members:
+    - id: a
+      age: 68
+      medicare_part_a: true
+      medicare_part_b: false
+      facts:
+        birth_date: '1958-02-11'
+        employer_misinformation_reported: '2026-05-04'
+    incomes: []
+  expect:
+    status: eligible
+    tier: SEP_EMPLOYER_MISINFO
+    rules_include:
+    - T65-FED-SEP-MISINFORMATION
+    amounts:
+      coverage_start_yyyymm: 202608
+      part_b_penalty_percent: 0.0
+- id: T65-X-03
+  title: 'Medicaid ended May 31, 2026 (notice May 10); never took Part B: Medicaid-loss SEP, Part B September'
+  as_of: '2026-08-15'
+  tags:
+  - cross_playbook
+  - other_benefits
+  household:
+    state: il
+    members:
+    - id: a
+      age: 67
+      medicare_part_a: true
+      medicare_part_b: false
+      facts:
+        birth_date: '1959-03-02'
+        medicaid_loss:
+          notified: '2026-05-10'
+          ended: '2026-05-31'
+    incomes: []
+  expect:
+    status: eligible
+    tier: SEP_MEDICAID_LOSS
+    rules_include:
+    - T65-FED-SEP-MEDICAID-LOSS
+    links_include:
+    - medicaid:dual_eligibility_or_loss_sep
+    amounts:
+      coverage_start_yyyymm: 202609
+      part_b_penalty_percent: 0.0
+  note: 'T65-LINK-MEDICAID: the medicaid playbook (built in parallel) decides the Medicaid end; this SEP runs to 6 months
+    after it.'
+- id: T65-IL-T11
+  title: 'IL: Part A with 29 quarters (full premium); MAGI under IRMAA'
+  as_of: '2026-05-01'
+  tags:
+  - threshold
+  - single
+  household:
+    state: il
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+      facts:
+        birth_date: '1956-04-10'
+        quarters_of_coverage: 29
+        magi_two_years_prior: 60000
+        filing_status: single
+    incomes:
+    - kind: pension
+      monthly: 5000.0
+      owner: a
+  expect:
+    status: eligible
+    tier: ENROLLED
+    amounts:
+      part_a_premium_monthly: 565
+      part_b_premium_monthly: 202.9
+      part_d_irmaa_monthly: 0.0
+      part_b_penalty_percent: 0.0
+    rules_include:
+    - T65-FED-IRMAA-PART-B
+  crosscheck:
+    policyengine: true
+- id: T65-IL-T12
+  title: 'IL: Part A with 30 quarters (reduced premium)'
+  as_of: '2026-05-01'
+  tags:
+  - threshold
+  - single
+  household:
+    state: il
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+      facts:
+        birth_date: '1956-04-10'
+        quarters_of_coverage: 30
+        magi_two_years_prior: 60000
+        filing_status: single
+    incomes:
+    - kind: pension
+      monthly: 5000.0
+      owner: a
+  expect:
+    status: eligible
+    tier: ENROLLED
+    amounts:
+      part_a_premium_monthly: 311
+      part_b_premium_monthly: 202.9
+      part_d_irmaa_monthly: 0.0
+      part_b_penalty_percent: 0.0
+    rules_include:
+    - T65-FED-IRMAA-PART-B
+  crosscheck:
+    policyengine: true
+- id: T65-IL-T13
+  title: 'IL: Part A with 39 quarters (still reduced)'
+  as_of: '2026-05-01'
+  tags:
+  - threshold
+  - single
+  household:
+    state: il
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+      facts:
+        birth_date: '1956-04-10'
+        quarters_of_coverage: 39
+        magi_two_years_prior: 60000
+        filing_status: single
+    incomes:
+    - kind: pension
+      monthly: 5000.0
+      owner: a
+  expect:
+    status: eligible
+    tier: ENROLLED
+    amounts:
+      part_a_premium_monthly: 311
+      part_b_premium_monthly: 202.9
+      part_d_irmaa_monthly: 0.0
+      part_b_penalty_percent: 0.0
+    rules_include:
+    - T65-FED-IRMAA-PART-B
+  crosscheck:
+    policyengine: true
+- id: T65-IL-T14
+  title: 'IL: Part A with 40 quarters (premium-free)'
+  as_of: '2026-05-01'
+  tags:
+  - threshold
+  - single
+  household:
+    state: il
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+      facts:
+        birth_date: '1956-04-10'
+        quarters_of_coverage: 40
+        magi_two_years_prior: 60000
+        filing_status: single
+    incomes:
+    - kind: pension
+      monthly: 5000.0
+      owner: a
+  expect:
+    status: eligible
+    tier: ENROLLED
+    amounts:
+      part_a_premium_monthly: 0
+      part_b_premium_monthly: 202.9
+      part_d_irmaa_monthly: 0.0
+      part_b_penalty_percent: 0.0
+    rules_include:
+    - T65-FED-IRMAA-PART-B
+  crosscheck:
+    policyengine: true
+- id: T65-IL-T15
+  title: 'IL: MAGI exactly $109,000 single - no IRMAA'
+  as_of: '2026-05-01'
+  tags:
+  - threshold
+  - single
+  household:
+    state: il
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+      facts:
+        birth_date: '1956-04-10'
+        quarters_of_coverage: 40
+        magi_two_years_prior: 109000
+        filing_status: single
+    incomes:
+    - kind: pension
+      monthly: 9083.33
+      owner: a
+  expect:
+    status: eligible
+    tier: ENROLLED
+    amounts:
+      part_a_premium_monthly: 0
+      part_b_premium_monthly: 202.9
+      part_d_irmaa_monthly: 0.0
+      part_b_penalty_percent: 0.0
+    rules_include:
+    - T65-FED-IRMAA-PART-B
+  crosscheck:
+    policyengine: true
+- id: T65-IL-T16
+  title: 'IL: MAGI $109,001 single - first IRMAA bracket'
+  as_of: '2026-05-01'
+  tags:
+  - threshold
+  - single
+  household:
+    state: il
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+      facts:
+        birth_date: '1956-04-10'
+        quarters_of_coverage: 40
+        magi_two_years_prior: 109001
+        filing_status: single
+    incomes:
+    - kind: pension
+      monthly: 9083.42
+      owner: a
+  expect:
+    status: eligible
+    tier: ENROLLED
+    amounts:
+      part_a_premium_monthly: 0
+      part_b_premium_monthly: 284.1
+      part_d_irmaa_monthly: 14.5
+      part_b_penalty_percent: 0.0
+    rules_include:
+    - T65-FED-IRMAA-PART-B
+  crosscheck:
+    policyengine: true
+- id: T65-IL-T17
+  title: 'IL: MAGI $137,001 single - second bracket'
+  as_of: '2026-05-01'
+  tags:
+  - threshold
+  - single
+  household:
+    state: il
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+      facts:
+        birth_date: '1956-04-10'
+        quarters_of_coverage: 40
+        magi_two_years_prior: 137001
+        filing_status: single
+    incomes:
+    - kind: pension
+      monthly: 11416.75
+      owner: a
+  expect:
+    status: eligible
+    tier: ENROLLED
+    amounts:
+      part_a_premium_monthly: 0
+      part_b_premium_monthly: 405.8
+      part_d_irmaa_monthly: 37.5
+      part_b_penalty_percent: 0.0
+    rules_include:
+    - T65-FED-IRMAA-PART-B
+  crosscheck:
+    policyengine: true
+- id: T65-IL-T18
+  title: 'IL: MAGI $205,001 single - fifth bracket'
+  as_of: '2026-05-01'
+  tags:
+  - threshold
+  - single
+  household:
+    state: il
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+      facts:
+        birth_date: '1956-04-10'
+        quarters_of_coverage: 40
+        magi_two_years_prior: 205001
+        filing_status: single
+    incomes:
+    - kind: pension
+      monthly: 17083.42
+      owner: a
+  expect:
+    status: eligible
+    tier: ENROLLED
+    amounts:
+      part_a_premium_monthly: 0
+      part_b_premium_monthly: 649.2
+      part_d_irmaa_monthly: 83.3
+      part_b_penalty_percent: 0.0
+    rules_include:
+    - T65-FED-IRMAA-PART-B
+  crosscheck:
+    policyengine: true
+- id: T65-IL-T19
+  title: 'IL: MAGI $500,000 single - top bracket (at or above)'
+  as_of: '2026-05-01'
+  tags:
+  - threshold
+  - single
+  household:
+    state: il
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+      facts:
+        birth_date: '1956-04-10'
+        quarters_of_coverage: 40
+        magi_two_years_prior: 500000
+        filing_status: single
+    incomes:
+    - kind: pension
+      monthly: 41666.67
+      owner: a
+  expect:
+    status: eligible
+    tier: ENROLLED
+    amounts:
+      part_a_premium_monthly: 0
+      part_b_premium_monthly: 689.9
+      part_d_irmaa_monthly: 91.0
+      part_b_penalty_percent: 0.0
+    rules_include:
+    - T65-FED-IRMAA-PART-B
+  crosscheck:
+    policyengine: true
+- id: T65-IL-T20
+  title: 'IL: Couple filing jointly, MAGI $218,001 - first joint bracket'
+  as_of: '2026-05-01'
+  tags:
+  - threshold
+  - couple
+  household:
+    state: il
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+      facts:
+        birth_date: '1956-04-10'
+        quarters_of_coverage: 40
+        magi_two_years_prior: 218001
+        filing_status: joint
+    - id: b
+      age: 69
+      medicare_part_a: true
+      medicare_part_b: true
+      relationship: spouse
+      facts:
+        birth_date: '1957-02-20'
+        quarters_of_coverage: 40
+    incomes:
+    - kind: pension
+      monthly: 18166.75
+      owner: a
+  expect:
+    status: eligible
+    tier: ENROLLED
+    amounts:
+      part_a_premium_monthly: 0
+      part_b_premium_monthly: 284.1
+      part_d_irmaa_monthly: 14.5
+      part_b_penalty_percent: 0.0
+    rules_include:
+    - T65-FED-IRMAA-PART-B
+  crosscheck:
+    policyengine: true
+- id: T65-IL-T21
+  title: 'Medigap holder at 70 on day 44 after the birthday (last day of the 45-day window)'
+  as_of: '2026-06-28'
+  tags:
+  - threshold
+  - edge
+  household:
+    state: il
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+      facts:
+        birth_date: '1956-05-15'
+        medigap:
+          has_policy: true
+          part_b_start: '2021-05-01'
+    incomes: []
+  expect:
+    status: eligible
+    tier: ENROLLED
+    rules_include:
+    - T65-IL-MEDIGAP-BIRTHDAY
+    amounts:
+      medigap_guaranteed_issue_now: 1.0
+      medigap_birthday_affiliate_allowed: 1.0
+  note: 215 ILCS 5/363(8) - 45 days commencing with the birthday (May 15 is day 0, June 28 is day 44). From 2026 an affiliate's policy is covered (P.A. 103-0747).
+- id: T65-IL-T22
+  title: 'Same holder on day 45 after the birthday: Illinois window closed'
+  as_of: '2026-06-29'
+  tags:
+  - threshold
+  - edge
+  household:
+    state: il
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+      facts:
+        birth_date: '1956-05-15'
+        medigap:
+          has_policy: true
+          part_b_start: '2021-05-01'
+    incomes: []
+  expect:
+    status: eligible
+    tier: ENROLLED
+    amounts:
+      medigap_guaranteed_issue_now: 0.0
+- id: T65-IL-T23
+  title: 'Medigap holder aged 75 (top of the age range) inside the window in 2025: same issuer only, no affiliate'
+  as_of: '2025-06-14'
+  tags:
+  - threshold
+  - timing
+  household:
+    state: il
+    members:
+    - id: a
+      age: 75
+      medicare_part_a: true
+      medicare_part_b: true
+      facts:
+        birth_date: '1950-05-15'
+        medigap:
+          has_policy: true
+          part_b_start: '2015-05-01'
+    incomes: []
+  expect:
+    status: eligible
+    tier: ENROLLED
+    rules_include:
+    - T65-IL-MEDIGAP-BIRTHDAY
+    amounts:
+      medigap_guaranteed_issue_now: 1.0
+      medigap_birthday_affiliate_allowed: 0.0
+  note: In 2025 Sec. 363(8) read "with the same issuer" (P.A. 102-0142); the affiliate wording took effect January 1, 2026 (P.A. 103-0747, Section 99). Age 75 is inside "no more than 75 years of age".

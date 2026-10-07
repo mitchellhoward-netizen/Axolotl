@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://healthweb-back.health.ny.gov/health_care/medicaid/how_do_i_apply.htm
+  final_url: https://healthweb-back.health.ny.gov/health_care/medicaid/how_do_i_apply.htm
+  status: 200
+  content_type: text/html; charset=utf-8
+  text_sha256: 0fab4223414ba6c1f363d979774d473870a905155f28505eccd38aaef0b4829d
+  text: ny-doh-medicaid-how-to-apply/2026-10-07.txt
+  raw: ny-doh-medicaid-how-to-apply/2026-10-07.html

@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://www.ecfr.gov/api/renderer/v1/content/enhanced/current/title-42?part=435&section=435.725
+  final_url: https://www.ecfr.gov/api/renderer/v1/content/enhanced/current/title-42?chapter=IV&subchapter=C&part=435&subpart=H&section=435.725
+  status: 200
+  content_type: text/html; charset=utf-8
+  text_sha256: 38353d7bd9291117db4c059375bae4feaf5188109e5e93d8ade5128e2d76e2b6
+  text: ecfr-42-cfr-435-725/2026-10-07.txt
+  raw: ecfr-42-cfr-435-725/2026-10-07.html

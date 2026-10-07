@@ -1,0 +1,251 @@
+Illinois Department of Human Services
+JB Pritzker, Governor · Dulce M. Quintero, Secretary
+
+Customers
+
+Providers
+
+About
+
+News
+
+Contact
+
+IDHS
+
+About IDHS
+
+Publications
+
+Manuals
+
+Family & Community Services Manuals
+
+Cash, SNAP, and Medical Manual
+
+Manual Releases
+
+MR#25.17: Paper Application and IES/ABE Portal Changes to Help Determine Customer's Choice of Program Benefits
+
+04/17/2025
+
+Obsoletes Information Memo, Long Term Care (LTC) Facility Required to use ABE Application, dated 12/08/2014
+
+Summary
+
+Pursuant to Illinois Statute (305 ILCS 5/11-4), changes were made to the Application Benefits Eligibility (ABE) Portal, the Integrated Eligibility System (IES), and the paper application, Request for Cash Assistance, Medical Assistance, Supplemental Nutrition Assistance Program (SNAP) (IL444-2378B). The statute requires that an application filed with the Illinois Department of Human Services (IDHS) for public assistance be deemed an application for all benefits to which any person may be entitled except to the extent that the applicant expressly declines in writing to apply for the benefit.
+
+A customer may decline in writing by providing a written, signed and dated statement which indicates they do not want to apply for a certain program and/or by indicating (Yes) or (No) to the specific program when applying through the ABE Portal or when completing a paper application.
+
+A Verification List will be added to the Request for Cash Assistance, Medical Assistance, Supplemental Nutrition Assistance Program (SNAP) IL444-2378B to provide customers with examples of the types of verifications that may be provided, if needed to determine their eligibility. Verifications should only be requested after the interview has been conducted and it is known what the customer needs to provide.
+
+This manual release provides information on the changes that have been made to the Applications for Benefits Eligibility (ABE) portal, the Integrated Eligibility System (IES) and the paper application, Request for Cash Assistance, Medical Assistance, Supplemental Nutrition Assistance Program (SNAP) (IL444-2378B).
+
+Application for Benefits Eligibility (ABE) Portal
+
+Apply for Benefits Page
+
+The Apply for Benefits Page allows the customer to apply for one or more program benefits for their household. This page was changed to include:
+
+Icons for each program offered.
+
+A description of each program: Cash Assistance, Medical Programs, Medicare Savings Program, and the Supplemental Nutrition Assistance Program (SNAP).
+
+Each program has a question asking if the customer would like to apply for the benefit. The customer must select (Yes) or (No) to indicate if they want to apply for the benefits. At least one program benefit must be selected (Yes) and every benefit question must be answered before the customer is allowed to continue with the application process.
+
+Hyperlinks were added directing the customer to the Illinois Department of Human Services (IDHS) and the Illinois Department of Healthcare and Family Services websites where more information can be obtained on the SNAP, Cash and Medical programs.
+
+Two validation messages were added to the page:
+
+If the customer selects (No) for every program request, a message displays: Please select (Yes) for at least one of the programs below.
+
+If the customer does not provide a (Yes) or (No) response for each program request, a message displays: Please select (Yes) or (No) for each program below.
+
+Apply for Benefits Household Member Details Page
+
+The Apply for Benefits Household Member - Details page collects information for people in the home listed in the ABE application. The following changes were made to this page:
+
+The Program Selection section on the page is renamed Benefit Selection.
+
+The customer is required to select (Yes) or (No) for each benefit option displayed under the Benefits Selection section of the page. The benefit options displayed will match the benefits selected on the Apply for Benefits page.
+
+The customer must select (Yes) or (No) to apply for benefits for each person. If (No) is selected, the person will not be applying for the program.
+
+A question was added to ask if the customer would like medical backdated for the prior 3 months. If (Yes) is selected additional text and checkboxes for the months will display with validation messages to guide the applicant through the process of applying for medical backdate. A message will display if the medical backdate question is answered (Yes) but no prior months were selected or the months were not consecutive.
+
+Household Member Summary Page
+
+The Household Member Summary page provides the customer with a summary of the information that was entered for each household member on the previous ABE pages. Changes to this page include:
+
+A title name change was made from "Benefits Chosen" to "Benefits Selection".
+
+If a program was selected on the Apply for Benefits page, but no member in the household has been selected to apply for that program, then a message will display. For example, SNAP was selected on the Apply for Benefits page, but there was not an individual selected to apply for SNAP. The following message will display: SNAP was selected on the Apply for Benefits page. The benefit SNAP has not been selected for any household member. To remove the benefit selection, navigate "Back" to the Apply for Benefits page or use the "Change" link in the Benefit Selection panel to add the selection for Household Members.
+
+ABE Manage My Case
+
+Apply for Additional Programs Page
+
+The Apply for Additional Programs page allows customers to apply for additional programs. This page displays all household members on file as well as all programs that can be applied for. The change to this page allows:
+
+A (Yes) or (No) response for each program when a request for Cash, Medical, and/or SNAP assistance is made.
+
+A question was added to ask if the customer would like to apply for medical backdate for the 3 prior months.
+
+Someone Moved into Your Home Page
+
+This page collects information for new individuals that have moved into the household and allows:
+
+A (Yes) or (No) response for each program when a request for Cash, Medical, and/or SNAP assistance is made.
+
+A question was added to ask if the customer would like to apply for medical backdate for the 3 prior months.
+
+PDF/HTML of Submitted ABE Application
+
+The following changes were made to the PDF/HTML on the submitted ABE application:
+
+Under Benefit Selection, all programs are listed and have been rearranged.
+
+(Yes) and (No) check boxes have been added for each program on the list.
+
+Integrated Eligibility System (IES)
+
+Register Program-Program Page
+
+In the Individual Program Request section, workers must answer (Yes) or (No) to each program and for each person listed. This page will prefill from the ABE application.
+
+A new section, Backdated Months, has been added. Workers must answer (Yes) or (No) in the dropdowns for each backdated month the individual requests. The Backdated Month section will display all individuals on the case but only those individuals who are selected (Yes) to applying for medical will have their row enabled. For an individual that has not applied for medical, this page will update to (No) for all backdated months. The Backdated Months section will prefill from ABE but for all other applications the (Yes) or (No) dropdowns will be blank.
+
+All dropdowns on the Register Program - Program page are required to be populated. If a dropdown remains blank and the worker attempts to move to next page the following validation will display: Please select (Yes) or (No) for each program below. If the worker does not select consecutive months for backdating an additional validation message will display: Backdated Months must be consecutive months.
+
+The Add Program button has been removed.
+
+Register/Maintain Program Summary Pages
+
+The Register/Maintain Program Summary pages were changed as follows:
+
+Displays all individuals in the household and all the benefit programs with (Yes) or (No) values.
+
+Benefit program rows are collapsible.
+
+The ability to edit and delete by program has been removed. There is now only one edit button which will take the worker back to the Register Program - Program Page.
+
+The Add Program button is removed.
+
+Paper Application (IL444-2378B)
+
+The paper application IL444-2378B, Request for Cash Assistance - Medical Assistance - Supplemental Nutrition Assistance Program has been revised to allow an applicant to check (Yes) or (No) to the program requested for each household member. It is the customer's choice to accept or reject any services or programs, even if they might qualify. A space has been added on the application to allow entry of the Expected Release Date for individuals who reside in a Department of Corrections, Mental Health, or other facilities. The IL444-2378B is currently being tested prior to publication to OneNet. Staff will be notified when the new version becomes available.
+
+The paper application is scanned via Datacap, and a task is created for workers to process in the Screen New Application queue. It must be accepted as a valid application to register even if:
+
+The customer submits a version that does not have the updated (Yes) or (No) option; and/or
+
+It only contains a name, address and signature and other sections are incomplete. If received with just a name, address and signature, register the application for Cash, Medical and SNAP (see PM 02-04-04 , WAG 02-04-04); or
+
+The customer submits and only checks one box. For example, the customer checks SNAP but does not check a box for Medical and Cash, the application must be registered for all programs; or
+
+If medical is the only program selection, the application is registered for medical benefits only. This includes applications marked with a (Yes) or (No) response to a program request to indicate whether a person is applying for the benefit. This may be a hospital application, an application for long-term care, a short spenddown application, or a QMB or SLIB application or an MSP application. If additional information is needed, send a Verification Checklist (IL444-0267) to the customer requesting the information needed to process the medical only application. If the customer does not respond or there is an inadequate response, the application is denied; or or
+
+It is submitted without a program choice, but other sections are completed and there is a name, address and signature, register the application for all programs.
+
+Do not return the application to the customer simply because a program selection was not made. At the interview, confirm the customer's request for benefits. Take the appropriate action to review and update the program requests. The Review/Update Program Requests Wizard provides instructions to assist workers in determining if all requested programs have been registered and all individuals requesting the programs have been added to the request. Other program requests may be added, if necessary. Document all action taken, including the customer's decision to not apply for a benefit even if eligible.
+
+Long Term Care Nursing Facility/Supportive Living Program Applications
+
+This manual release obsoletes Information Memo, Long Term Care (LTC) Facility Required to use ABE Application, dated 12/08/2014 and adds the policy (PM 02-05-03, WAG 02-05-03) to the Cash, SNAP and Medical manual.
+
+Effective 12/08/2014, Illinois State Law (Public Act 98-0651) requires all long term care nursing facility (NF) and supported living program (SLP) providers to use the Application for Benefit Eligibility (ABE) portal to submit applications. Do not accept paper applications, including Mail-In Application for Medical Benefits (HFS 2378H) or Request for Cash Assistance - Medical Assistance - Supplemental Nutrition Assistance Program (IL 444-2378B) submitted by a long term care or supportive living program facility.
+
+When a facility submits a paper application, return the paper application and request the facility to resubmit using ABE. Never request a paper application when the application has been submitted using ABE.
+
+Accept paper applications only when an individual or someone applying on behalf of an individual, other than the facility, submits the application.
+
+Facilities are encouraged to scan and upload HFS 3654/HFS 3654S, Additional Financial Information for Long Term Care Applications and any available verification documents when submitting the ABE application to expedite processing. The FCRC sends HFS 3654, (PM 01-02-01-a, WAG 01-02-01-a) when the form is not included with the application. Accept hard copy HFS 3654 and verification documentation from the facility.
+
+Verification List
+
+Customers may need to provide proof of some of the things they reported on their application. Workers should only request verifications from the customer after the interview has been conducted so that they are only requesting verifications that are needed to determine eligibility for the specific case.To assist customers with providing acceptable proof, a Verification List has been added to the IL444-2378B.
+
+Interviews
+
+There is no change to the interview requirements. An interview is required for SNAP and/or Cash programs. For Medical programs, an interview is not required. If medical is the only program selection, register the application for medical benefits only. If additional information is needed, issue a Verification Checklist (IL444-0267) requesting information needed to process the medical only application. If no response or an inadequate response, deny the application.
+
+Manual Revisions
+
+PM I-01-02
+
+PM 01-01-03
+
+PM 02-04-04
+
+PM 02-05-00
+
+PM 02-05-03
+
+PM 02-06-01-e
+
+PM 02-06-01-d
+
+PM 02-07-02-a
+
+PM 17-01-02
+
+WAG 01-01-03
+
+WAG 02-04-04
+
+WAG 02-04-06-b
+
+WAG 02-05-01
+
+WAG 02-05-02
+
+WAG 02-05-03
+
+WAG 02-06-01-d
+
+WAG 02-07-02
+
+WAG 02-07-02-a
+
+WAG 17-01-02
+
+WAG 27-53-00
+
+[signed copy on file]
+
+Dulce M. Quintero
+
+Secretary, Illinois Department of Human Services
+
+Elizabeth Whitehorn
+
+Director, Healthcare and Family Services
+
+Forms referenced:
+
+IL444-2378B
+
+IL444-0267
+
+Illinois Department of Human Services
+JB Pritzker, Governor · Dulce M. Quintero, Secretary
+
+IDHS Office Locator
+
+IDHS Help Line
+
+1-800-843-6154
+
+1-866-324-5553 TTY
+
+State of Illinois
+
+Accessibility
+
+Privacy
+
+Report Abuse/Neglect
+
+Contact
+
+Outlook Login

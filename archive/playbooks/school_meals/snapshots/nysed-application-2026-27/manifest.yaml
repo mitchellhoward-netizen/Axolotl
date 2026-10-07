@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://www.cn.nysed.gov/sites/cn/files/appfrpschmeals.pdf
+  final_url: https://www.cn.nysed.gov/sites/cn/files/appfrpschmeals.pdf
+  status: 200
+  content_type: application/pdf
+  text_sha256: 5a13921d1dccf2362bedadcb0f48bf5f377453604bc47e3792443b615d739145
+  text: nysed-application-2026-27/2026-10-07.txt
+  raw: nysed-application-2026-27/2026-10-07.pdf

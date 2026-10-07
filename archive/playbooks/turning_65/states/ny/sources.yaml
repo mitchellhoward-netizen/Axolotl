@@ -1,0 +1,50 @@
+# New York sources for the Turning 65 playbook. NY Insurance Law text comes from
+# the NY Senate's Open Legislation PDF export (the HTML page refuses scripts).
+# aging.ny.gov and dfs.ny.gov refuse scripts; their PDFs were saved by WebFetch
+# and imported. NY DOH pages use the healthweb-back.health.ny.gov host.
+sources:
+  - id: ny-ins-law-3231
+    retrieved: 2026-10-07
+    url: https://legislation.nysenate.gov/pdf/laws/ISC3231/
+    publisher: New York State Senate (Open Legislation), Consolidated Laws — Insurance Law
+    title: NY Insurance Law § 3231 — Rating of individual and small group health insurance policies (incl. Medicare supplemental insurance)
+    kind: primary
+    jurisdiction: ny
+    doc_type: statute
+    section: "(a)(1)-(4)"
+  - id: nysofa-hiicap-guide-2025
+    retrieved: 2026-10-07
+    url: https://aging.ny.gov/system/files/documents/2025/09/2025-hiicap-guide-for-counselors.pdf
+    publisher: New York State Office for the Aging (NYSOFA)
+    title: Health Insurance Information, Counseling and Assistance Program (HIICAP) Guide for Counselors 2025
+    kind: primary
+    jurisdiction: ny
+    doc_type: guidance
+    published: 2025-09-01
+    note: State agency counselor manual (not the insurance regulator). Site refuses scripts; PDF saved by WebFetch and imported.
+  - id: ny-dfs-medsup-rates-2026-04
+    retrieved: 2026-10-07
+    url: https://www.dfs.ny.gov/system/files/documents/2026/03/medsup-2026-04.pdf
+    publisher: New York State Department of Financial Services
+    title: Comparison of Year 2026 Community Rated Standardized Medicare Supplement Monthly Premiums (premiums in effect as of April 1, 2026)
+    kind: primary
+    jurisdiction: ny
+    doc_type: dataset
+    effective_date: 2026-04-01
+    note: Site refuses scripts; PDF saved by WebFetch and imported.
+  - id: ny-doh-epic
+    retrieved: 2026-10-07
+    url: https://healthweb-back.health.ny.gov/health_care/epic/
+    publisher: New York State Department of Health
+    title: Elderly Pharmaceutical Insurance Coverage (EPIC) Program
+    kind: primary
+    jurisdiction: ny
+    doc_type: agency_page
+  - id: ny-doh-epic-eligibility
+    retrieved: 2026-10-07
+    url: https://healthweb-back.health.ny.gov/health_care/epic/eligibility.htm
+    publisher: New York State Department of Health
+    title: What are the EPIC eligibility requirements?
+    kind: primary
+    jurisdiction: ny
+    doc_type: agency_page

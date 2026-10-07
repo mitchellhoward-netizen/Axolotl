@@ -1,0 +1,368 @@
+schema_version: 2
+program: disability
+scope: ca
+title: Disability and SSI — California (SSI/SSP payment standards, Medi-Cal, CalFresh, CAPI, DDSD)
+last_researched: 2026-10-07
+
+summary:
+  plain_language: >-
+    In California, SSI comes with a State Supplementary Payment (SSP) that
+    SSA pays in the same monthly payment. In 2026 the most an aged or disabled
+    person living independently with cooking facilities can get is $1,233.94
+    a month ($994 SSI + $239.94 SSP); a couple gets up to $2,098.83. The SSP is
+    higher for blind people, for people without cooking facilities ("restaurant
+    meals"), and for people in non-medical out-of-home care, and lower for
+    people living in someone else's household. Income above the federal SSI
+    amount reduces the SSP, so some people get SSP only. SSI/SSP recipients
+    get Medi-Cal automatically and, since June 2019, can also get CalFresh
+    food benefits. Non-citizens turned down for SSI only because of
+    immigration status may get CAPI, a state program run by the counties.
+  administered_by: >-
+    SSA administers SSI and, under agreement with California, the SSP
+    (eligibility, payment, appeals). The California Department of Social
+    Services (CDSS) sets SSP policy; its Disability Determination Service
+    Division (DDSD) makes the medical decision on SSI and SSDI disability
+    claims. County social services agencies run CAPI and CalFresh.
+  funded_by: SSP and CAPI are state-funded; SSI is federal.
+  local_names:
+    - {name: SSI/SSP, meaning: Combined federal SSI and California State Supplementary Payment}
+    - {name: OSS code A-J, meaning: "California living-arrangement codes for the SSP (A independent with cooking; B non-medical out-of-home care; C no cooking facilities; D household of another; F out-of-home care in another's household; J medical facility)"}
+    - {name: CAPI, meaning: Cash Assistance Program for Immigrants}
+    - {name: DDSD, meaning: "CDSS Disability Determination Service Division (California's DDS)"}
+    - {name: CalFresh, meaning: California's name for SNAP}
+  legal_basis: Welfare and Institutions Code Div. 9, Part 3, Ch. 3, sec. 12000 et seq. (SSP); CAPI at W&I Code sec. 18937 et seq.
+  confidence: confirmed
+  sources:
+    - {source: ca-cdss-ssi-ssp, locator: "Both SSI and SSP benefits are administered by the Social Security Administration (SSA) ... If an eligible individual qualifies for SSI, they qualify for SSP; Guiding Authority"}
+    - {source: ssa-poms-si-sf01415-100, locator: "By agreement, SSA administers both mandatory and optional State supplementation payments for California"}
+    - {source: ssa-poms-si-01415-058, locator: "B.2 Coding and monthly payment levels for California effective January 1, 2026"}
+
+rules:
+  - id: DIS-CA-SSP-ADMIN
+    statement: >-
+      In California, SSA administers both the federal SSI and the State
+      Supplementary Payment under an agreement with the state: SSA decides SSP
+      eligibility using federal SSI rules, and anyone who qualifies for SSI
+      also qualifies for the SSP.
+    kind: procedure
+    applies_to: [SSP]
+    effective_from: 2022-10-12
+    implemented_in: playbooks/disability/states/ca/rules.py:evaluate
+    confidence: confirmed
+    note: Effective date is that of the regional POMS text consulted; the agreement dates from 1974.
+    sources:
+      - {source: ssa-poms-si-sf01415-100, locator: "By agreement, SSA administers both mandatory and optional State supplementation payments for California"}
+      - {source: ca-cdss-ssi-ssp, locator: "Both SSI and SSP benefits are administered by the Social Security Administration (SSA). Eligibility for both programs is determined by SSA using federal criteria."}
+  - id: DIS-CA-SSP-LEVELS
+    statement: >-
+      In California in 2026, the SSI/SSP maximum is $1,233.94 a month for an
+      aged or disabled individual living independently with cooking
+      facilities (SSP $239.94), $1,318.32 for a blind individual (SSP $324.32),
+      $1,362.81 for an aged or disabled individual without cooking facilities
+      (SSP $368.81), $1,626.07 in non-medical out-of-home care (SSP $632.07),
+      and $907.87 for an aged or disabled individual in another person's
+      household (federal $662.67 after the one-third reduction + SSP $245.20).
+    kind: benefit
+    applies_to: [SSP]
+    effective_from: 2026-01-01
+    parameters: [ca.ssp.payment_level_individual]
+    implemented_in: playbooks/disability/states/ca/rules.py:level
+    confidence: confirmed
+    sources:
+      - {source: ssa-poms-si-01415-058, locator: "B.2.a Recipient payment levels for California"}
+      - {source: ca-cdss-2026mr-ssp-grant, locator: "Maximum Grant $1,234 (January 2026), based on the Aged/Disabled Individual Payment Standard"}
+  - id: DIS-CA-SSP-COUPLE-LEVELS
+    statement: >-
+      In California in 2026, the SSI/SSP maximum for a couple living
+      independently with cooking facilities is $2,098.83 a month when both are
+      aged or disabled (SSP $607.83), $2,238.44 when one is blind (SSP
+      $747.44), $2,324.35 when both are blind (SSP $833.35), and $2,356.57
+      without cooking facilities (SSP $865.57).
+    kind: benefit
+    applies_to: [SSP]
+    effective_from: 2026-01-01
+    parameters: [ca.ssp.payment_level_couple]
+    implemented_in: playbooks/disability/states/ca/rules.py:level
+    confidence: confirmed
+    sources:
+      - {source: ssa-poms-si-01415-058, locator: "B.2.b Couple payment levels for California"}
+      - {source: ca-cdss-2026mr-ssp-grant, locator: "SSI/SSP Maximum Grant Comparison for Couples: $2,099"}
+  - id: DIS-CA-SSP-AMOUNT
+    statement: >-
+      In California, the SSP equals the state supplement level for the
+      person's living arrangement and category minus any countable income
+      above the federal benefit rate; for example, in 2026 an aged person
+      living independently with countable income of $1,000 gets no federal SSI
+      and an SSP of $233.94 ($239.94 - $6), and gets no SSP once countable
+      income reaches $1,233.94.
+    kind: benefit
+    applies_to: [SSP]
+    effective_from: 2026-01-01
+    implemented_in: playbooks/disability/states/ca/rules.py:evaluate
+    confidence: confirmed
+    note: California uses the general rule for federally administered supplements (DIS-FED-SSI-OSS-COMPUTATION).
+    sources:
+      - {source: ssa-poms-si-02005-001, locator: "D.2 No Additional State Disregards (All Except Maine): b.-c."}
+      - {source: ssa-poms-si-01401-001, locator: "B.5 State supplement level"}
+  - id: DIS-CA-SSP-HIGHEST-CATEGORY
+    statement: >-
+      In California, an SSI recipient gets the highest categorical supplement
+      they qualify for, so a blind person receives the blind SSP even if also
+      aged or disabled; blind people and children are not eligible for the
+      no-cooking-facilities (code C) supplement.
+    kind: definition
+    applies_to: [SSP]
+    effective_from: 2022-10-12
+    implemented_in: playbooks/disability/states/ca/rules.py:_cat
+    confidence: confirmed
+    sources:
+      - {source: ssa-poms-si-sf01415-100, locator: "California permits an SSI recipient to receive the highest categorical supplement for which the SSI recipient can qualify"}
+      - {source: ssa-poms-si-sf01415-140, locator: "A. NOTE: Blind recipients and children under age 18 are not eligible for OSS C"}
+  - id: DIS-CA-SSP-HOUSEHOLD-OF-ANOTHER
+    statement: >-
+      In California, an SSI recipient living in another person's household
+      and receiving shelter there (subject to the federal one-third reduction)
+      gets the code D supplement ($245.20 for an aged or disabled individual
+      in 2026) instead of the independent-living supplement.
+    kind: benefit
+    applies_to: [SSP]
+    effective_from: 2026-01-01
+    parameters: [ca.ssp.payment_level_individual]
+    implemented_in: playbooks/disability/states/ca/rules.py:oss_code
+    confidence: confirmed
+    note: The regional POMS still says "food and shelter"; the federal one-third reduction looks at shelter only since September 30, 2024 (DIS-FED-CONFLICT-01).
+    sources:
+      - {source: ssa-poms-si-sf01415-150, locator: "Most individuals/couples who are subject to the 1/3 reduction (VTR) of their Federal SSI payments are eligible for OSS D"}
+      - {source: ssa-poms-si-01415-058, locator: "B.2.a Federal code B / State code D Aged 662.67 245.20 907.87"}
+  - id: DIS-CA-SSP-DEEMING
+    statement: >-
+      In California, when an SSI recipient lives with an ineligible spouse
+      whose income is deemed, SSA computes the SSP from the couple's combined
+      countable income above the couple FBR, using the lower of the individual
+      and couple supplement levels and never more than the SSP without
+      deeming.
+    kind: benefit
+    applies_to: [SSP]
+    effective_from: 1988-10-01
+    implemented_in: playbooks/disability/states/ca/rules.py:evaluate
+    confidence: confirmed
+    note: >-
+      SI 01320.430 originated in Livermore v. Heckler (California). Which
+      couple category level to use when the spouse has no SSI category is not
+      stated; the archive uses the applicant's own category for both (for
+      example aged/aged), see DIS-CA-OQ-02.
+    sources:
+      - {source: ssa-poms-si-01320-430, locator: "A. Background (Livermore v. Heckler); C.3-C.5"}
+    open_question: DIS-CA-OQ-02
+  - id: DIS-CA-SSP-PAID-BY-SSA
+    statement: >-
+      In California, SSA pays the SSI and the State Supplementary Payment
+      together as one monthly payment; there is no separate state check and no
+      separate SSP application.
+    kind: procedure
+    applies_to: [SSP]
+    effective_from: 2022-10-12
+    implemented_in: playbooks/disability/states/ca/rules.py:evaluate
+    confidence: confirmed
+    note: The "one combined payment" wording is inferred directly from SSA administering and paying the SSP (SI SF01415.100; SI 01415.058 lists combined total payment levels); no text saying "one check" was retrieved.
+    sources:
+      - {source: ssa-poms-si-sf01415-100, locator: "By agreement, SSA administers both mandatory and optional State supplementation payments"}
+      - {source: ca-cdss-ssi-ssp, locator: "To apply for SSI/SSP, please visit your local Social Security office ... apply online or call 1-800-772-1213"}
+  - id: DIS-CA-MEDI-CAL
+    statement: >-
+      In California, a person eligible for SSI/SSP automatically receives
+      Medi-Cal without a separate application, because California is a
+      section 1634 state where SSA's SSI decision also decides Medicaid.
+    kind: coordination
+    applies_to: [SSI, SSP, MEDICAID]
+    effective_from: 2026-09-30
+    implemented_in: playbooks/disability/states/ca/rules.py:evaluate
+    confidence: confirmed
+    note: DHCS's own letters could not be retrieved (bot wall). The effective date is that of the POMS text.
+    sources:
+      - {source: ca-cdss-ssi-ssp-eligibility, locator: "Are medical services provided to SSI/SSP recipients? If you are eligible for SSI/SSP, you automatically receive benefits under the Medi-Cal program."}
+      - {source: ssa-poms-si-01715-010, locator: "A.3 1634 States (California is not in A.1 or A.2)"}
+    open_question: DIS-CA-OQ-03
+  - id: DIS-CA-CALFRESH
+    statement: >-
+      Since June 1, 2019, California SSI/SSP recipients can get CalFresh (SNAP)
+      if they meet the other CalFresh rules; before then California "cashed
+      out" SSI/SSP recipients, who could not get CalFresh.
+    kind: coordination
+    applies_to: [SSI, SSP, SNAP]
+    effective_from: 2019-06-01
+    implemented_in: playbooks/disability/states/ca/rules.py:evaluate
+    confidence: confirmed
+    sources:
+      - {source: ca-cdss-calfresh-ssi, locator: "Expanding CalFresh to SSI/SSP Recipients Beginning June 1, 2019: Assembly Bill 1811 ... reverses ... cash-out ... individuals receiving or authorized to receive SSI/SSP are eligible for CalFresh, provided all other eligibility criteria are met"}
+  - id: DIS-CA-CAPI
+    statement: >-
+      In California, an aged, blind or disabled non-citizen who is ineligible
+      for SSI/SSP solely because of immigration status, has resources under
+      $2,000 (individual) or $3,000 (couple) and income under the CAPI
+      standards may get CAPI, a state-funded payment equal to the SSI/SSP
+      amount, by applying (form SOC 814) at the county social services agency;
+      CAPI does not bring Medi-Cal or CalFresh automatically.
+    kind: eligibility
+    applies_to: [CAPI]
+    effective_from: 2026-09-23
+    implemented_in: playbooks/disability/states/ca/rules.py:evaluate
+    confidence: confirmed
+    note: CAPI eligibility is not computed; the evaluator flags it as a possibility (link ca_capi:possible). The CDSS page was current to September 2026.
+    sources:
+      - {source: ca-cdss-capi, locator: "CAPI is a 100 percent state-funded program ... ineligible for SSI/SSP solely due to their immigration status ... The amount of CAPI benefits is equivalent to the amount of SSI/SSP benefits ... must file for each benefit separately ... SOC 814 ... county social services agency"}
+  - id: DIS-CA-DDS
+    statement: >-
+      In California, medical decisions on SSI and SSDI disability claims are
+      made for SSA by the California Department of Social Services'
+      Disability Determination Service Division (DDSD).
+    kind: procedure
+    applies_to: [SSDI, SSI]
+    effective_from: 2026-10-07
+    implemented_in: playbooks/disability/states/ca/rules.py:evaluate
+    confidence: confirmed
+    note: The CDSS brochure is undated; the retrieval date is used as the effective date.
+    sources:
+      - {source: ca-cdss-pub417, locator: "DISABILITY DETERMINATION SERVICE DIVISION: Disability Determination Service Division (DDSD) is responsible for determining applicant's medical/vocational eligibility for disability benefits under SSDI, SSI"}
+
+procedure:
+  applications:
+    - id: DIS-CA-PROC-APPLY
+      text: Apply for SSI/SSP at a Social Security office, online, or by calling 1-800-772-1213 (TTY 1-800-325-0778); the SSP is decided in the same SSA claim.
+      channel: any
+      confidence: confirmed
+      sources: [{source: ca-cdss-ssi-ssp, locator: "To apply for SSI/SSP, please visit your local Social Security office ... apply online or call 1-800-772-1213 (TTY 1-800-325-0778)"}]
+    - id: DIS-CA-PROC-LIVING-ARRANGEMENT
+      text: SSA asks every California claimant whether they need care and supervision and whether they have adequate cooking and food storage facilities; a person without cooking facilities completes the Application for California Restaurant Meals Allowance, and out-of-home care needs county certification on form SSP-22.
+      form_number: SSP-22
+      channel: in_person
+      confidence: confirmed
+      sources: [{source: ssa-poms-si-sf01415-100, locator: "the lead questions ... must be asked and documented in all initial claims ... Complete the Application for California Restaurant Meals Allowance ... SSP-22"}]
+    - id: DIS-CA-PROC-CAPI
+      text: CAPI is applied for at the county social services agency on form SOC 814 (in person, by phone, email, fax or mail), with an SSA notice showing SSI was denied only for immigration status.
+      form_number: SOC 814
+      channel: any
+      county_varies: true
+      confidence: confirmed
+      sources: [{source: ca-cdss-capi, locator: "How to Apply: ... SOC 814 in person, by phone, email, fax, or mail at their county social services agency"}]
+
+life_events:
+  - id: DIS-CA-LE-HOUSEHOLD
+    code: household_change
+    event: Moving into a relative's or friend's home, losing cooking facilities, or entering a board-and-care home
+    why: The California SSP changes with the living-arrangement code (D in another's household, C without cooking, B in out-of-home care).
+    check_rules: [DIS-CA-SSP-LEVELS, DIS-CA-SSP-HOUSEHOLD-OF-ANOTHER]
+    confidence: confirmed
+    sources: [{source: ssa-poms-si-01415-058, locator: "B.1 Definitions of State living arrangement variations for California"}]
+  - id: DIS-CA-LE-BENEFIT
+    code: benefit_change
+    event: Starting SSI/SSP
+    why: Medi-Cal follows automatically; CalFresh is available since June 2019 (apply at the county).
+    check_rules: [DIS-CA-MEDI-CAL, DIS-CA-CALFRESH]
+    confidence: confirmed
+    sources: [{source: ca-cdss-calfresh-ssi, locator: "Beginning Summer of 2019"}]
+  - id: DIS-CA-LE-IMMIGRATION
+    code: immigration_status_change
+    event: A non-citizen is denied SSI for immigration status, or naturalizes
+    why: CAPI may pay the SSI/SSP-equivalent amount; after naturalization the person should apply for SSI/SSP.
+    check_rules: [DIS-CA-CAPI]
+    confidence: confirmed
+    sources: [{source: ca-cdss-capi, locator: "Are ineligible for SSI/SSP solely due to their immigration status"}]
+
+outcome_proof:
+  - id: DIS-CA-PROOF-PAYMENT
+    evidence: SSA SSI award notice and monthly deposit showing the combined SSI/SSP amount
+    shows: SSI and SSP are being paid together (for example $1,233.94 for an aged person with no other income in 2026).
+    how_to_get: SSA notice; my Social Security account; bank statement
+    confidence: confirmed
+    sources: [{source: ssa-poms-si-01415-058, locator: "Total Payment Levels"}]
+
+links:
+  - id: DIS-CA-LINK-MEDICAID
+    playbook: medicaid
+    rules: [DIS-CA-MEDI-CAL]
+    relation: SSI/SSP recipients in California get Medi-Cal automatically (1634 state); the Medicaid playbook should not ask them to apply.
+    test: DIS-CA-T18
+    confidence: confirmed
+    sources: [{source: ca-cdss-ssi-ssp-eligibility, locator: "Are medical services provided to SSI/SSP recipients?"}]
+  - id: DIS-CA-LINK-SNAP
+    playbook: snap
+    rules: [DIS-CA-CALFRESH]
+    relation: SSI/SSP recipients can get CalFresh since June 1, 2019 (end of cash-out); the SNAP playbook's California part should not exclude them.
+    test: DIS-CA-T18
+    confidence: confirmed
+    sources: [{source: ca-cdss-calfresh-ssi, locator: "Expanding CalFresh to SSI/SSP Recipients Beginning June 1, 2019"}]
+
+open_questions:
+  - id: DIS-CA-OQ-01
+    priority: medium
+    question: Do California's SSP levels change during 2026 or on January 1, 2027 (state budget actions after the 2026 May Revision)?
+    why_it_matters: The agent quotes the SSP; a mid-year state change would make the 2026 levels wrong.
+    checked: [POMS SI 01415.057 and 01415.058, CDSS 2026 May Revision table]
+    affects: [ca.ssp.payment_level_individual, ca.ssp.payment_level_couple]
+    status: open
+  - id: DIS-CA-OQ-02
+    priority: medium
+    question: In a California spouse-to-spouse deeming case (SI 01320.430), which couple category level does SSA use when the spouse is ineligible (has no aged/blind/disabled category)?
+    why_it_matters: It can change the SSP for a recipient with a working younger spouse.
+    checked: [SI 01320.430, SI 01415.058]
+    affects: [DIS-CA-SSP-DEEMING]
+    status: open
+  - id: DIS-CA-OQ-03
+    priority: medium
+    question: Retrieve DHCS's own statement of automatic Medi-Cal for SSI/SSP recipients and its 2025 automatic QMB enrollment for SSI recipients (dhcs.ca.gov refused scripted and browser access).
+    why_it_matters: Confirms the Medi-Cal and QMB links from the state Medicaid agency, not only CDSS and SSA.
+    checked: [CDSS SSI/SSP Eligibility Summary, SI 01715.010, dhcs.ca.gov (Incapsula block)]
+    affects: [DIS-CA-MEDI-CAL]
+    status: open
+  - id: DIS-CA-OQ-04
+    priority: low
+    question: CAPI income standards and the CAPI deeming rules (sponsor deeming) are not captured.
+    why_it_matters: Needed to estimate CAPI for a non-citizen member.
+    checked: [CDSS CAPI page]
+    affects: [DIS-CA-CAPI]
+    status: open
+
+conflicts:
+  - id: DIS-CA-CONFLICT-01
+    topic: Substantial gainful activity amount stated by CDSS
+    claims:
+      - source: ca-cdss-ssi-ssp-eligibility
+        says: '"Substantial, gainful activity" generally means work with wages in excess of $500 per month.'
+      - source: ssa-poms-di-10501-015
+        says: The non-blind SGA amount is $1,690 a month in 2026 ($1,620 in 2025).
+    handling: The archive uses SSA's 2026 figure; the CDSS FAQ is stale (it also describes 1996-97 immigrant reviews). It is cited only for the Medi-Cal statement.
+    affects: [DIS-FED-SSI-SGA-INITIAL]
+    status: resolved
+
+claims_checked:
+  - claim: California's SSP is administered by SSA under contract.
+    verdict: verified
+    detail: SI SF01415.100 ("By agreement, SSA administers both mandatory and optional State supplementation payments for California"); CDSS SSI/SSP page.
+    sources:
+      - {source: ssa-poms-si-sf01415-100, locator: "California"}
+      - {source: ca-cdss-ssi-ssp, locator: "Both SSI and SSP benefits are administered by the Social Security Administration"}
+  - claim: California SSI/SSP combined payment standards for 2026 by living arrangement.
+    verdict: verified
+    detail: POMS SI 01415.058 table (A $1,233.94; blind $1,318.32; C $1,362.81; B $1,626.07; D $907.87; couples $2,098.83 etc.); CDSS May Revision shows $1,234 / $2,099.
+    sources:
+      - {source: ssa-poms-si-01415-058, locator: "B.2"}
+      - {source: ca-cdss-2026mr-ssp-grant, locator: "January 2026 maximum grant"}
+  - claim: California ended SSI "cash-out" in 2019, so SSI recipients can get CalFresh.
+    verdict: verified
+    detail: AB 1811 (2018); effective June 1, 2019 per CDSS.
+    sources: [{source: ca-cdss-calfresh-ssi, locator: "Expanding CalFresh to SSI/SSP Recipients Beginning June 1, 2019"}]
+  - claim: CAPI is California's cash program for immigrants ineligible for SSI.
+    verdict: verified
+    detail: State-funded, same amount as SSI/SSP, county-administered, separate applications for Medi-Cal and CalFresh.
+    sources: [{source: ca-cdss-capi, locator: "CAPI is a 100 percent state-funded program"}]
+  - claim: SSI receipt confers Medi-Cal automatically in California (1634 state).
+    verdict: verified
+    detail: CDSS SSI/SSP FAQ and POMS SI 01715.010; DHCS letters not retrievable.
+    sources:
+      - {source: ca-cdss-ssi-ssp-eligibility, locator: "Are medical services provided to SSI/SSP recipients?"}
+      - {source: ssa-poms-si-01715-010, locator: "A.3"}
+  - claim: California's DDS is the CDSS Disability Determination Service Division.
+    verdict: verified
+    detail: CDSS brochure PUB 417.
+    sources: [{source: ca-cdss-pub417, locator: "Disability Determination Service Division"}]

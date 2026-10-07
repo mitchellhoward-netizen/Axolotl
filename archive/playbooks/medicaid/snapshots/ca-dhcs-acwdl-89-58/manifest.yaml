@@ -1,0 +1,10 @@
+- retrieved: '2026-10-07'
+  url: https://www.dhcs.ca.gov/services/medi-cal/eligibility/letters/Documents/c89-58.pdf
+  final_url: https://www.dhcs.ca.gov/services/medi-cal/eligibility/letters/Documents/c89-58.pdf
+  status: 200
+  content_type: pdf
+  text_sha256: 918c426ebbbbd6058f6fba37be05fbeda8a8ec2da7e3e4558960c8014c6db1be
+  text: ca-dhcs-acwdl-89-58/2026-10-07.txt
+  raw: ca-dhcs-acwdl-89-58/2026-10-07.pdf
+  fetched_via: headless Chromium (Playwright); dhcs.ca.gov refuses scripted requests
+    (Incapsula)

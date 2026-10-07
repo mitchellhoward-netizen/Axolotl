@@ -1,0 +1,391 @@
+Senate Bill No. 407, 2019-2020 Regular Session, Chaptered 2019-10-07, Chapter 549, Statutes of 2019 (from Legislative Counsel bulk data pubinfo_2019.zip, BILL_VERSION_TBL 20190SB40792CHP)
+
+20190SB__040792CHP92INTRODUCED2019-02-20AMENDED_SENATE2019-03-28AMENDED_ASSEMBLY2019-07-05AMENDED_ASSEMBLY2019-08-12AMENDED_ASSEMBLY2019-08-14AMENDED_ASSEMBLY2019-09-05PASSED_ASSEMBLY2019-09-09PASSED_SENATE2019-09-11ENROLLED2019-09-13CHAPTERED2019-10-07APPROVED2019-10-07FILED2019-10-0720190SB407CHP2019CHP0549Introduced by Senator MonningLEAD_AUTHORSENATEMonning An act to amend Sections 1358.91 and 1358.11 of the Health and Safety Code, and to amend Sections 10192.91 and 10192.11 of the Insurance Code, relating to Medicare. MedicareMedicare supplement benefit coverage.
+Existing federal law provides for the Medicare Program, which is a public health insurance program for persons 65 years of age and older and specified persons with disabilities who are under 65 years of age. Under the Medicare Program, eligible persons receive various health care services, including medically necessary services and supplies and preventive services.
+
+Existing law, the Knox-Keene Health Care Service Plan Act of 1975, provides for the licensure and regulation of health care service plans by the Department of Managed Health Care and makes a violation of the act a crime. Existing law provides for the licensure and regulation of health insurers by the Insurance Commissioner. Under existing law, a health plan or health insurer that issues a Medicare supplement contract or policy, as defined, is required to comply with requirements, in
+addition to those generally imposed on health care service plan contracts and health insurance policies. Existing law authorizes a health plan or health insurer with the prior approval of the department or commissioner, respectively, to offer a Medicare supplement contract or policy with new or innovative benefits, in addition to the standardized benefits provided in a contract or policy that otherwise complies with the applicable standards. Existing law imposes an annual open enrollment period of a minimum of 30 days to purchase a Medicare supplement contract or policy, and requires a health plan or health insurer to notify an enrollee or policyholder of specified rights prior to the open enrollment period.
+
+This bill would exclude outpatient prescription drug benefits as
+a new or innovative benefit. The bill, commencing July 1, 2020, would require the portion of the premium attributed to the new or innovative benefits to be identified as a separate line item on the payment invoice or bill. The bill would require the Department of Managed Health Care and the Department of Insurance to collaborate with specified individuals and entities, including consumer group representatives, to develop and implement various policies and procedures related to the new requirements, such as standardizing the new or innovative benefits approved for sale. The bill would authorize the Director of the Department of Managed Health Care and the Insurance Commissioner to issue, on or before July 1, 2020, guidance on these requirements, and would require the guidance to be effective only through December 31, 2022, or until the director and the commissioner promulgate regulations. The bill would extend the annual open enrollment period to a minimum of 60 days to purchase a Medicare supplement contract
+or policy, would require a health plan or health insurer to notify an enrollee or policyholder of specified rights on any notice related to a benefit modification or premium adjustment, and would exclude new or innovative benefits from the determination of whether benefits are equal to or lesser than those provided by the previous coverage.
+
+Because a willful violation of these provisions by a health care service plan would be a crime, the bill would impose a state-mandated local program.
+
+The California Constitution requires the state to reimburse local agencies and school districts for certain costs mandated by the state. Statutory provisions establish procedures for making that reimbursement.
+
+This bill would provide that no reimbursement is required by this act for a specified reason.
+MAJORITYNOYESYESNONONONONONONOThe people of the State of California do enact as follows:SECTION 1.Section 1358.91 of the Health and Safety Code, as amended by Section 1 of Chapter 157 of the Statutes of 2019, is amended to read:1358.91.
+The following standards are applicable to all Medicare supplement contracts delivered or issued for delivery in this state with an effective date on or after June 1, 2010. No contract may be advertised, solicited, delivered, or issued for delivery in this state as a Medicare supplement contract unless it complies with these benefit plan standards. Benefit plan standards applicable to Medicare supplement contracts issued with an effective date before June 1, 2010, remain subject to the requirements of Section 1358.9.
+
+(a)(1)An issuer shall make available to each prospective enrollee and subscriber a contract containing only the basic (core) benefits, as defined in subdivision (b) of Section
+1358.81.
+
+(2)If an issuer makes available any of the additional benefits described in subdivision (c) of Section 1358.81, or offers standardized benefit plan K or L, as described in paragraphs (8) and (9) of subdivision (e), then the issuer shall make available to each prospective enrollee and subscriber, in addition to a contract with only the basic (core) benefits as described in paragraph (1), a contract containing either standardized benefit plan C, as described in paragraph (3) of subdivision (e), or standardized benefit plan F, as described in paragraph (5) of subdivision (e).
+
+(b)No groups, packages, or combinations of Medicare supplement benefits other than those listed in this section shall be offered for sale in this state, except as may be permitted in subdivision (f)
+and by Section 1358.10.
+
+(c)Benefit plans shall be uniform in structure, language, designation, and format to the standard benefit plans listed in subdivision (e) and conform to the definitions in Section 1358.4. Each benefit shall be structured in accordance with the format provided in subdivisions (b) and (c) of Section 1358.81; or, in the case of plan K or L, in paragraph (8) or (9) of subdivision (e) of Section 1358.91 and list the benefits in the order shown in subdivision (e). For purposes of this section, “structure, language, and format” means style, arrangement, and overall content of a benefit.
+
+(d)In addition to the benefit plan designations required in subdivision (c), an issuer may use other designations to the extent permitted by law.
+
+(e)With respect to the makeup of 2010 standardized benefit plans, the following shall apply:
+
+(1)Standardized Medicare supplement benefit plan A shall include only the following: the basic (core) benefits as defined in subdivision (b) of Section 1358.81.
+
+(2)Standardized Medicare supplement benefit plan B shall include only the following: the basic (core) benefit as defined in subdivision (b) of Section 1358.81, plus 100 percent of the Medicare Part A deductible as defined in paragraph (1) of subdivision (c) of Section 1358.81.
+
+(3)Standardized Medicare supplement benefit plan C shall include only the following: the basic (core) benefit as defined in subdivision
+(b) of Section 1358.81, plus 100 percent of the Medicare Part A deductible, skilled nursing facility care, 100 percent of the Medicare Part B deductible, and medically necessary emergency care in a foreign country, as defined in paragraphs (1), (3), (4), and (6) of subdivision (c) of Section 1358.81, respectively.
+
+(4)Standardized Medicare supplement benefit plan D shall include only the following: the basic (core) benefit, as defined in subdivision (b) of Section 1358.81, plus 100 percent of the Medicare Part A deductible, skilled nursing facility care, and medically necessary emergency care in a foreign country, as defined in paragraphs (1), (3), and (6) of subdivision (c) of Section 1358.81, respectively.
+
+(5)Standardized Medicare supplement benefit plan F shall include only
+the following: the basic (core) benefit as defined in subdivision (b) of Section 1358.81, plus 100 percent of the Medicare Part A deductible, skilled nursing facility care, 100 percent of the Medicare Part B deductible, 100 percent of the Medicare Part B excess charges, and medically necessary emergency care in a foreign country, as defined in paragraphs (1), (3), (4), (5), and (6) of subdivision (c) of Section 1358.81, respectively.
+
+(6)Standardized Medicare supplement benefit high deductible plan F shall include only the following: 100 percent of covered expenses following the payment of the annual deductible set forth in subparagraph (B).
+
+(A)The basic (core) benefit as defined in subdivision (b) of Section 1358.81, plus 100 percent of the Medicare Part A deductible,
+skilled nursing facility care, 100 percent of the Medicare Part B deductible, 100 percent of the Medicare Part B excess charges, and medically necessary emergency care in a foreign country, as defined in paragraphs (1), (3), (4), (5), and (6) of subdivision (c) of Section 1358.81, respectively.
+
+(B)The annual deductible in high deductible plan F shall consist of out-of-pocket expenses, other than premiums, for services covered by plan F, and shall be in addition to any other specific benefit deductibles. The basis for the deductible shall be one thousand five hundred dollars ($1,500) and shall be adjusted annually from 1999 by the Secretary of the United States Department of Health and Human Services to reflect the change in the Consumer Price Index for all urban consumers for the 12-month period ending with August of the preceding year, and rounded
+to the nearest multiple of ten dollars ($10).
+
+(7)(A)Standardized Medicare supplement benefit plan G shall include only the following: the basic (core) benefit as defined in subdivision (b) of Section 1358.81, plus 100 percent of the Medicare Part A deductible, skilled nursing facility care, 100 percent of the Medicare Part B excess charges, and medically necessary emergency care in a foreign country, as defined in paragraphs (1), (3), (5), and (6) of subdivision (c) of Section 1358.81, respectively.
+
+(B)Effective January 1, 2020, the standardized benefit plans described in paragraph (4) of subdivision (a) of Section 1358.92 (redesignated high deductible plan G) may be offered to any individual who was eligible for Medicare prior to January 1, 2020.
+
+(8)Standardized Medicare supplement benefit plan K shall include only the following:
+
+(A)Coverage of 100 percent of the Part A hospital coinsurance amount for each day used from the 61st through the 90th day in any Medicare benefit period.
+
+(B)Coverage of 100 percent of the Part A hospital coinsurance amount for each Medicare lifetime inpatient reserve day used from the 91st through the 150th day in any Medicare benefit period.
+
+(C)Upon exhaustion of the Medicare hospital inpatient coverage, including the lifetime reserve days, coverage of 100 percent of the Medicare Part A eligible expenses for hospitalization paid at the applicable prospective payment
+system (PPS) rate, or other appropriate Medicare standard of payment, subject to a lifetime maximum benefit of an additional 365 days. The provider shall accept the issuer’s payment as payment in full and may not bill the insured for any balance.
+
+(D)Coverage for 50 percent of the Medicare Part A inpatient hospital deductible amount per benefit period until the out-of-pocket limitation is met as described in subparagraph (J).
+
+(E)Coverage for 50 percent of the coinsurance amount for each day used from the 21st day through the 100th day in a Medicare
+benefit period for posthospital skilled nursing facility care eligible under Medicare Part A until the out-of-pocket limitation is met as described in subparagraph (J).
+
+(F)Coverage for 50 percent of cost sharing for all Part A Medicare eligible expenses and respite care until the out-of-pocket limitation is met as described in subparagraph (J).
+
+(G)Coverage for 50 percent, under Medicare Part A or B, of the reasonable cost of the first three pints of blood, or equivalent quantities of packed red blood cells, as defined under federal regulations, unless replaced in accordance with federal regulations until the out-of-pocket limitation is met as described in subparagraph (J).
+
+(H)Except for coverage
+provided in subparagraph (I), coverage for 50 percent of the cost sharing otherwise applicable under Medicare Part B after the enrollee or subscriber pays the Part B deductible until the out-of-pocket limitation is met as described in subparagraph (J).
+
+(I)Coverage of 100 percent of the cost sharing for Medicare Part B preventive services after the enrollee or subscriber pays the Part B deductible.
+
+(J)Coverage of 100 percent of all cost sharing under Medicare Parts A and B for the balance of the calendar year after the individual has reached the out-of-pocket limitation on annual expenditures under Medicare Parts A and B of four thousand dollars ($4,000) in 2006, indexed each year by the appropriate inflation adjustment specified by the Secretary of the United States Department
+of Health and Human Services.
+
+(9)Standardized Medicare supplement benefit plan L shall include only the following:
+
+(A)The benefits described in subparagraphs (A), (B), (C), and (I) of paragraph (8).
+
+(B)The benefits described in subparagraphs (D), (E), (F), (G), and (H) of paragraph (8), but substituting 75 percent for 50 percent.
+
+(C)The benefit described in subparagraph (J) of paragraph (8), but substituting two thousand dollars ($2,000) for four thousand dollars ($4,000).
+
+(10)Standardized Medicare supplement benefit plan M shall include only the following: the basic (core) benefit as defined in subdivision
+(b) of Section 1358.81, plus 50 percent of the Medicare Part A deductible, skilled nursing facility care, and medically necessary emergency care in a foreign country, as defined in paragraphs (2), (3), and (6) of subdivision (c) of Section 1358.81,
+respectively.
+
+(11)Standardized Medicare supplement benefit plan N shall include only the following: the basic (core) benefit as defined in subdivision (b) of Section 1358.81, plus 100 percent of the Medicare Part A deductible, skilled nursing facility care, and medically necessary emergency care in a foreign country, as defined in paragraphs (1), (3), and (6) of subdivision (c) of Section 1358.81, respectively, with copayments in the following amounts:
+
+(A)The lesser of twenty dollars ($20) or the Medicare Part B coinsurance or copayment for each covered health care provider office visit, including visits to medical specialists.
+
+(B)The lesser of fifty dollars ($50) or the Medicare Part B coinsurance or
+copayment for each covered emergency room visit; however, this copayment shall be waived if the enrollee or
+subscriber is admitted to any hospital and the emergency visit is subsequently covered as a Medicare Part A expense.
+
+(f)(1)(A)An issuer may, with the prior approval of the director, offer contracts with new or innovative benefits, in addition to the standardized benefits provided in a contract that otherwise complies with the applicable standards. The new or innovative benefits shall include only benefits that are appropriate to Medicare supplement contracts, are new or innovative, are not otherwise available, and are cost effective. Approval of new or innovative benefits shall not adversely impact the goal of Medicare supplement simplification.
+
+(B)New or innovative benefits shall exclude an outpatient prescription
+drug benefit. New or innovative benefits shall not be used to change or reduce benefits, including a change of any cost-sharing, in any standardized plan.
+
+(C)Commencing July 1, 2020, the portion of the premium attributed to the new or innovative benefits shall be identified as a separate line item on the payment invoice or bill.
+
+(2)In the interest of full and fair disclosure, and to ensure the availability of necessary consumer information to current and potential enrollees or subscribers, for purposes of implementing this paragraph, the department shall collaborate with the Department of Insurance,
+consumer group representatives, and issuers to develop and implement policies and procedures, as necessary,
+including, but not limited to, all of the following:
+
+(A)The development and dissemination of information and material about any new or innovative benefits approved for sale.
+
+(B)The revision of materials described in Sections 1358.15 and 1358.18 of this code, and Sections 10192.15 and 10192.18 of the Insurance Code, as may be necessary.
+
+(C)The standardization of new or innovative benefits, as appropriate, for purposes of allowing consumer comparison of benefits, out-of-pocket costs, and premiums.
+
+(3)On or before July 1, 2020, the director may issue guidance to issuers regarding compliance with this section and that guidance shall not be subject to the Administrative Procedure Act (Chapter 3.5 (commencing with Section 11340) of Part 1 of Division 3 of Title 2 of the Government Code). Any guidance issued pursuant to this subdivision shall be effective only through December 31, 2022, or until the director adopts and effects regulations pursuant to the Administrative Procedure Act, whichever occurs first.
+SEC. 2.Section 1358.11 of the Health and Safety Code, as amended by Section 3 of Chapter 157 of the Statutes of 2019, is amended to read:1358.11.
+(a)(1)An issuer shall not deny or condition the offering or effectiveness of any Medicare supplement contract available for sale in this state, nor discriminate in the pricing of a contract because of the health status, claims experience, receipt of health care, or medical condition of an applicant in the case of an application for a contract that is submitted prior to or during the six-month period beginning with the first day of the first month in which an individual is both 65 years of age or older and is enrolled for benefits under Medicare Part B. Each Medicare supplement contract currently available from an issuer shall be made available to all applicants who qualify under this subdivision and who are 65 years of
+age or older.
+
+(2)(A)An issuer shall make available Medicare supplement benefit plans A, B, C, and F, if currently available, to an applicant who qualifies under this subdivision, who is 64 years of age or younger, and who does not have end-stage renal disease. An issuer shall also make available to those applicants Medicare supplement benefit plan K or L, if currently available, or Medicare supplement benefit plan M or N, if currently available. The selection between Medicare supplement benefit plan K or L and the selection between Medicare supplement benefit plan M or N shall be made at the issuer’s discretion.
+
+(B)For contracts sold or issued on or after January 1, 2020, to newly eligible Medicare beneficiaries, as defined in subdivision (b) of Section
+1358.92, an issuer shall make available Medicare supplement benefit plans A, B, D, and G, if currently available, to applicants who qualify under this subdivision who are 64 years of age or younger and who do not have end-stage renal disease. An issuer shall also make available to those applicants Medicare supplement benefit plan K or L, if currently available, or Medicare supplement benefit plan M or N, if currently available. The selection between Medicare supplement benefit plan K or L and the selection between Medicare supplement benefit plan M or N shall be made at the issuer’s discretion.
+
+(3)This section and Section 1358.12 do not prohibit an issuer in determining subscriber rates from treating applicants who are under 65 years of age and are eligible for Medicare Part B as a separate risk classification.
+
+(b)(1)If an applicant qualifies under subdivision (a) and submits an application during the time period referenced in subdivision (a) and, as of the date of application, has had a continuous period of creditable coverage of at least six months, the issuer shall not exclude benefits based on a preexisting condition.
+
+(2)If the applicant qualifies under subdivision (a) and submits an application during the time period referenced in subdivision (a) and, as of the date of application, has had a continuous period of creditable coverage that is less than six months, the issuer shall reduce the period of any preexisting condition exclusion by the aggregate of the period of creditable coverage applicable to the applicant as of the enrollment date. The manner of the
+reduction under this subdivision shall be as specified by the director.
+
+(c)Except as provided in subdivision (b) and Section 1358.23, subdivision (a) does not prevent the exclusion of benefits under a contract, during the first six months, based on a preexisting condition for which the enrollee received treatment or was otherwise diagnosed during the six months before the coverage became effective.
+
+(d)An individual enrolled in Medicare by reason of disability shall be entitled to open enrollment described in this section for six months after the date of their enrollment in Medicare Part B, or if notified retroactively of their eligibility for Medicare, for six months following notice of eligibility. Sales during the open enrollment period shall not be discouraged by any means,
+including the altering of the commission structure.
+
+(e)(1)An individual enrolled in Medicare Part B is entitled to open enrollment described in this section for six months following:
+
+(A)Receipt of a notice of termination or, if no notice is received, the effective date of termination from any employer-sponsored health plan including an employer-sponsored retiree health plan.
+
+(B)Receipt of a notice of loss of eligibility due to the divorce or death of a spouse or, if no notice is received, the effective date of loss of eligibility due to the divorce or death of a spouse, from any employer-sponsored health plan including an employer-sponsored retiree health plan.
+
+(C)Termination of health care services for a military retiree or the retiree’s Medicare eligible spouse or dependent as a result of a military base closure or loss of access to health care services because the base no longer offers services or because the individual relocates.
+
+(2)For purposes of this subdivision, “employer-sponsored retiree health plan” includes any coverage for medical expenses, including coverage under the Consolidated Omnibus Budget Reconciliation Act of 1985 (COBRA) and the California Continuation Benefits Replacement Act (Cal-COBRA), that is directly or indirectly sponsored or established by an employer for employees or retirees, their spouses, dependents, or other included covered persons.
+
+(f)An individual enrolled in Medicare Part B is entitled
+to open enrollment described in this section if the individual was covered under a policy, certificate, or contract providing Medicare supplement coverage but that coverage terminated because the individual established residence at a location not served by the issuer.
+
+(g)(1)An individual whose coverage was terminated by a Medicare Advantage plan shall be entitled to an additional 60-day open enrollment period to be added on to and run consecutively after any open enrollment period authorized by federal law or regulation, for any and all Medicare supplement coverage available on a guaranteed basis under state and federal law or regulations for persons terminated by their Medicare Advantage plan.
+
+(2)Health plans that terminate Medicare enrollees shall notify those
+enrollees in the termination notice of the additional open enrollment period authorized by this subdivision. Health plan notices shall inform enrollees of the opportunity to secure advice and assistance from the HICAP in their area, along with the toll-free telephone number for HICAP.
+
+(h)(1)An individual shall be entitled to an annual open enrollment period lasting 60 days or more, commencing with the individual’s birthday, during which time that person may purchase any Medicare supplement coverage that offers benefits equal to or lesser than those provided by the previous coverage. During this open enrollment period, an issuer that falls under this paragraph shall not deny or condition the issuance or effectiveness of Medicare supplement coverage, nor discriminate in the pricing of coverage, because of health status, claims
+experience, receipt of health care, or medical condition of the individual if, at the time of the open enrollment period, the individual is covered under another Medicare supplement policy, certificate, or contract. An issuer that offers Medicare supplement contracts shall notify an enrollee of their rights under this subdivision at least 30 and no more than 60 days before the beginning of the open enrollment period, and on any notice related to a benefit modification or premium adjustment.
+
+(2)For purposes of this subdivision, the following provisions apply:
+
+(A)A 1990 standardized Medicare supplement benefit plan A shall be deemed to offer benefits equal to those provided by a 2010 standardized Medicare supplement benefit plan A.
+
+(B)A 1990 standardized Medicare supplement benefit plan B shall be deemed to offer benefits equal to those provided by a 2010 standardized Medicare supplement benefit plan B.
+
+(C)A 1990 standardized Medicare supplement benefit plan C shall be deemed to offer benefits equal to those provided by a 2010 standardized Medicare supplement benefit plan C.
+
+(D)A 1990 standardized Medicare supplement benefit plan D shall be deemed to offer benefits equal to those provided by a 2010 standardized Medicare supplement benefit plan D.
+
+(E)A 1990 standardized Medicare supplement benefit plan E shall be deemed to offer benefits equal to those provided by a 2010 standardized Medicare benefit plan D.
+
+(F)(i)A 1990 standardized Medicare supplement benefit plan F shall be deemed to offer benefits equal to those provided by a 2010 standardized Medicare benefit plan F.
+
+(ii)A 1990 standardized Medicare supplement benefit high deductible plan F shall be deemed to offer benefits equal to those provided by a 2010 standardized Medicare supplement benefit high deductible plan F.
+
+(G)A 1990 standardized Medicare supplement benefit plan G shall be deemed to offer benefits equal to those provided by a 2010 standardized Medicare supplement benefit plan G.
+
+(H)A 1990 standardized Medicare supplement benefit plan H shall be deemed to offer benefits
+equal to those provided by a 2010 standardized Medicare supplement benefit plan D.
+
+(I)A 1990 standardized Medicare supplement benefit plan I shall be deemed to offer benefits equal to those provided by a 2010 standardized Medicare supplement benefit plan G.
+
+(J)(i)A 1990 standardized Medicare supplement benefit plan J shall be deemed to offer benefits equal to those provided by a 2010 standardized Medicare supplement benefit plan F.
+
+(ii)A 1990 standardized Medicare supplement benefit high deductible plan J shall be deemed to offer benefits equal to those provided by a 2010 standardized Medicare supplement benefit high deductible plan F.
+
+(K)A
+1990 standardized Medicare supplement benefit plan K shall be deemed to offer benefits equal to those provided by a 2010 standardized Medicare supplement benefit plan K.
+
+(L)A 1990 standardized Medicare supplement benefit plan L shall be deemed to offer benefits equal to those provided by a 2010 standardized Medicare supplement benefit plan L.
+
+(M)New or innovative benefits, as described in subdivision (f) of Section 1358.9 and subdivision (f) of Section 1358.91, shall not be included when determining whether benefits are equal to or lesser than those provided by the previous coverage.
+
+(i)An individual enrolled in Medicare Part B is entitled to open enrollment described in this section upon being notified that, because of an
+increase in the individual’s income or assets, they meet one of the following requirements:
+
+(1)They are no longer eligible for Medi-Cal benefits.
+
+(2)They are only eligible for Medi-Cal benefits with a share of cost and certifies at the time of application that they have not met the share of cost.
+SEC. 3.Section 10192.91 of the Insurance Code, as amended by Section 4 of Chapter 157 of the Statutes of 2019, is amended to read:10192.91.
+The following standards are applicable to all Medicare supplement policies or certificates delivered or issued for delivery in this state with an effective date on or after June 1, 2010. No policy or certificate may be advertised, solicited, delivered, or issued for delivery in this state as a Medicare supplement policy or certificate unless it complies with these benefit plan standards. Benefit plan standards applicable to Medicare supplement policies and certificates issued with an effective date before June 1, 2010, remain subject to the requirements of Section 10192.9.
+
+(a)(1)An issuer shall make available to each prospective policyholder and certificate holder a policy
+form or certificate form containing only the basic (core) benefits, as defined in subdivision (b) of Section 10192.81.
+
+(2)If an issuer makes available any of the additional benefits described in subdivision (c) of Section 10192.81, or offers standardized benefit plan K or L, as described in paragraphs (8) and (9) of subdivision (e), then the issuer shall make available to each prospective policyholder and certificate holder, in addition to a policy form or certificate form with only the basic core benefits as described in paragraph (1), a policy form or certificate form containing either standardized benefit plan C, as described in paragraph (3) of subdivision (e), or standardized benefit plan F, as described in paragraph (5) of subdivision (e).
+
+(b)No groups, packages, or
+combinations of Medicare supplement benefits other than those listed in this section shall be offered for sale in this state, except as may be permitted in subdivision (f) and by Section 10192.10.
+
+(c)Benefit plans shall be uniform in structure, language, designation, and format to the standard benefit plans listed in subdivision (e) and conform to the definitions in Section 10192.4. Each benefit shall be structured in accordance with the format provided in subdivisions (b) and (c) of Section 10192.81; or, in the case of plan K or L, in paragraph (8) or (9) of subdivision (e) and list the benefits in the order shown in subdivision (e). For purposes of this section, “structure, language, and format” means style, arrangement, and overall content of a benefit.
+
+(d)In addition to the
+benefit plan designations required in subdivision (c), an issuer may use other designations to the extent permitted by law.
+
+(e)With respect to the makeup of 2010 standardized benefit plans, the following shall apply:
+
+(1)Standardized Medicare supplement benefit plan A shall include only the basic (core) benefits as defined in subdivision (b) of Section 10192.81.
+
+(2)Standardized Medicare supplement benefit plan B shall include only the following: the basic (core) benefit as defined in subdivision (b) of Section 10192.81, plus 100 percent of the Medicare Part A deductible as defined in paragraph (1) of subdivision (c) of Section 10192.81.
+
+(3)Standardized Medicare supplement benefit plan C shall include only the following: the basic (core) benefit as defined in subdivision (b) of Section 10192.81, plus 100 percent of the Medicare Part A deductible, skilled nursing facility care, 100 percent of the Medicare Part B deductible, and medically necessary emergency care in a foreign country, as defined in paragraphs (1), (3), (4), and (6) of subdivision (c) of Section 10192.81, respectively.
+
+(4)Standardized Medicare supplement benefit plan D shall include only the following: the basic (core) benefit, as defined in subdivision (b) of Section 10192.81, plus 100 percent of the Medicare Part A deductible, skilled nursing facility care, and medically necessary emergency care in a foreign country, as defined in paragraphs (1), (3), and (6) of subdivision (c) of Section 10192.81,
+respectively.
+
+(5)Standardized Medicare supplement benefit plan F shall include only the following: the basic (core) benefit as defined in subdivision (b) of Section 10192.81, plus 100 percent of the Medicare Part A deductible, the skilled nursing facility care, 100 percent of the Medicare Part B deductible, 100 percent of the Medicare Part B excess charges, and medically necessary emergency care in a foreign country as defined in paragraphs (1), (3), (4), (5), and (6) of subdivision (c) of Section 10192.81, respectively.
+
+(6)Standardized Medicare supplement benefit high deductible plan F shall include only the following: 100 percent of covered expenses following the payment of the annual deductible set forth in subparagraph (B).
+
+(A)The covered expenses include the basic (core) benefit as defined in subdivision (b) of Section 10192.81, plus 100 percent of the Medicare Part A deductible, skilled nursing facility care, 100 percent of the Medicare Part B deductible, 100 percent of the Medicare Part B excess charges, and medically necessary emergency care in a foreign country, as defined in paragraphs (1), (3), (4), (5), and (6) of subdivision (c) of Section 10192.81, respectively.
+
+(B)The annual deductible in high deductible plan F shall consist of out-of-pocket expenses, other than premiums, for services covered by plan F, and shall be in addition to any other specific benefit deductibles. The basis for the deductible shall be one thousand five hundred dollars ($1,500) and shall be adjusted annually from 1999 by the Secretary of the United States Department
+of Health and Human Services to reflect the change in the Consumer Price Index for all urban consumers for the 12-month period ending with August of the preceding year, and rounded to the nearest multiple of ten dollars ($10).
+
+(7)(A)Standardized Medicare supplement benefit plan G shall include only the following: the basic (core) benefit as defined in subdivision (b) of Section 10192.81, plus 100 percent of the
+Medicare Part A deductible, skilled nursing facility care, 100 percent of the Medicare Part B excess charges, and medically necessary emergency care in a foreign country, as defined in paragraphs (1), (3), (5), and (6) of subdivision (c) of Section 10192.81, respectively.
+
+(B)Effective January 1, 2020, the standardized benefit plans described in paragraph (4) of subdivision (a) of Section 10192.92 (redesignated high deductible plan G) may be offered to any individual who was eligible for Medicare prior to January 1, 2020.
+
+(8)Standardized Medicare supplement benefit plan K shall include only the following:
+
+(A)Coverage of 100 percent of the Part A hospital coinsurance amount for each day used from the 61st
+through the 90th day in any Medicare benefit period.
+
+(B)Coverage of 100 percent of the Part A hospital coinsurance amount for each Medicare lifetime inpatient reserve day used from the 91st through the 150th day in any Medicare benefit period.
+
+(C)Upon exhaustion of the Medicare hospital inpatient coverage, including the lifetime reserve days, coverage of 100 percent of the Medicare Part A eligible expenses for hospitalization paid at the applicable prospective payment system (PPS) rate, or other appropriate Medicare standard of payment, subject to a lifetime maximum benefit of an additional 365 days. The provider shall accept the issuer’s payment as payment in full and may not bill the insured for any balance.
+
+(D)Coverage for 50 percent of the Medicare Part A inpatient hospital deductible amount per benefit period until the out-of-pocket limitation is met as described in subparagraph (J).
+
+(E)Coverage for 50 percent of the coinsurance amount for each day used from the 21st day through the 100th day in a Medicare benefit period for posthospital skilled nursing facility care eligible under Medicare Part A until the out-of-pocket limitation is met as described in subparagraph (J).
+
+(F)Coverage for 50 percent of cost sharing for all Part A Medicare eligible expenses and respite care until the out-of-pocket limitation is met as described in subparagraph (J).
+
+(G)Coverage for 50 percent, under Medicare Part A or B, of the
+reasonable cost of the first three pints of blood, or equivalent quantities of packed red blood cells, as defined under federal regulations, unless replaced in accordance with federal regulations until the out-of-pocket limitation is met as described in subparagraph (J).
+
+(H)Except for coverage provided in subparagraph (I), coverage for 50 percent of the cost sharing otherwise applicable under Medicare Part B after the policyholder pays the Part B deductible until the out-of-pocket limitation is met as described in subparagraph (J).
+
+(I)Coverage of 100 percent of the cost sharing for Medicare Part B preventive services after the policyholder pays the Part B deductible.
+
+(J)Coverage of 100 percent of all cost sharing under
+Medicare Parts A and B for the balance of the calendar year after the individual has reached the out-of-pocket limitation on annual expenditures under Medicare Parts A and B of four thousand dollars ($4,000) in 2006, indexed each year by the appropriate inflation adjustment specified by the Secretary of the United States Department of Health and Human Services.
+
+(9)Standardized Medicare supplement benefit plan L shall include only the following:
+
+(A)The benefits described in subparagraphs (A), (B), (C), and (I) of paragraph (8).
+
+(B)The benefit described in subparagraphs (D), (E), (F), (G), and (H) of paragraph (8), but substituting 75 percent for 50 percent.
+
+(C)The benefit described in subparagraph (J) of paragraph (8), but substituting two thousand dollars ($2,000) for four thousand dollars ($4,000).
+
+(10)Standardized Medicare supplement benefit plan M shall include only the following: the basic (core) benefit as defined in subdivision (b) of Section 10192.81, plus 50 percent of the Medicare Part A deductible, skilled nursing facility care, and
+medically necessary emergency care in a foreign country, as defined in paragraphs (2), (3), and (6) of subdivision (c) of Section 10192.81, respectively.
+
+(11)Standardized Medicare supplement benefit plan N shall include only the following: the basic (core) benefit as defined in subdivision (b) of Section 10192.81, plus 100 percent of the Medicare Part A deductible, skilled nursing facility care, and medically necessary emergency care in a foreign country, as defined in paragraphs (1), (3), and (6) of subdivision (c) of Section 10192.81, respectively, with copayments in the following amounts:
+
+(A)The lesser of twenty dollars ($20) or the Medicare Part B coinsurance or copayment for each covered health care provider office visit, including visits to medical
+specialists.
+
+(B)The lesser of fifty dollars ($50) or the Medicare Part B coinsurance or copayment for each covered emergency room visit; however, this copayment shall be waived if the insured is admitted to any hospital and the emergency visit is subsequently covered as a Medicare Part A expense.
+
+(f)(1)(A)An issuer may, with the prior approval of the commissioner, offer policies or certificates with new or innovative benefits, in addition to the standardized benefits provided in a policy or certificate that otherwise complies with the applicable standards. The new or innovative benefits shall include only benefits that are appropriate to Medicare supplement insurance, are new or innovative, are not otherwise available, and are cost effective.
+Approval of new or innovative benefits shall not adversely impact the goal of Medicare supplement simplification.
+
+(B)New or innovative benefits shall exclude an outpatient prescription drug benefit. New or innovative benefits shall not be used to change or reduce benefits, including a change of any cost-sharing provision, in any standardized plan.
+
+(C)Commencing July 1, 2020, the portion of the premium attributed to the new or innovative benefits shall be identified as a separate line item on the payment invoice or bill.
+
+(2)In the interest of full and fair disclosure, and to ensure the availability of necessary consumer information to current and prospective policyholders and certificate holders, for purposes of implementing this paragraph, the department shall collaborate with the Department of Managed Health Care, consumer group representatives, and issuers to develop and implement policies and procedures, as necessary, including, but not limited to, all of the following:
+
+(A)The development and dissemination of information and material about any new or innovative benefits approved for sale.
+
+(B)The revision of materials described in Sections 10192.15 and 10192.18 of this code, and Sections 1358.15 and 1358.18 of the Health and Safety Code, as may be necessary.
+
+(C)The standardization of new or innovative benefits, as appropriate, for purposes of allowing consumer comparison of benefits, out-of-pocket costs, and premiums.
+
+(3)On or before July 1, 2020, the commissioner may issue guidance to issuers regarding compliance with this section and that guidance shall not be subject to the Administrative Procedure Act (Chapter 3.5 (commencing with Section 11340) of Part 1 of Division 3 of Title 2 of the Government Code). Any guidance issued pursuant to this subdivision
+shall be effective only through December 31, 2022, or until the commissioner adopts and effects regulations pursuant to the Administrative Procedure Act, whichever occurs first.
+SEC. 4.Section 10192.11 of the Insurance Code, as amended by Section 6 of Chapter 157 of the Statutes of 2019, is amended to read:10192.11.
+(a)(1)An issuer shall not deny or condition the issuance or effectiveness of any Medicare supplement policy or certificate available for sale in this state, nor discriminate in the pricing of a policy or certificate because of the health status, claims experience, receipt of health care, or medical condition of an applicant in the case of an application for a policy or certificate that is submitted prior to or during the six-month period beginning with the first day of the first month in which an individual is both 65 years of age or older and is enrolled for benefits under Medicare Part B. Each Medicare supplement policy and certificate currently available from an issuer shall be made available to all applicants who
+qualify under this subdivision and who are 65 years of age or older.
+
+(2)(A)An issuer shall make available Medicare supplement benefit plans A, B, C, and F, if currently available, to an applicant who qualifies under this subdivision, who is 64 years of age or younger, and who does not have end-stage renal disease. An issuer shall also make available to those applicants Medicare supplement benefit plan K or L, if currently available, or Medicare supplement benefit plan M or N, if currently available. The selection between Medicare supplement plan K or L and the selection between Medicare supplement benefit plan M or N shall be made at the issuer’s discretion.
+
+(B)For policies sold on or after January 1, 2020, to newly eligible Medicare beneficiaries, as
+defined in subdivision (b) of Section 10192.92, an issuer shall make available Medicare supplement benefit plans A, B, D, and G, if currently available, to applicants who qualify under this subdivision who are 64 years of age or younger and who do not have end-stage renal disease. An issuer shall also make available to those applicants Medicare supplement benefit plan K or L, if currently available, or Medicare supplement benefit plan M or N, if currently available. The selection between Medicare supplement benefit plan K or L and the selection between Medicare supplement benefit plan M or N shall be made at the issuer’s discretion.
+
+(3)This section and Section 10192.12 do not prohibit an issuer in determining premium rates from treating applicants who are under 65 years of age and are eligible for Medicare Part B as a separate risk
+classification. This section
+does not prevent the exclusion of benefits for preexisting conditions as defined in paragraph (1) of subdivision (a) of Section 10192.8 or paragraph (1) of subdivision (a) of Section 10192.81.
+
+(b)(1)If an applicant qualifies under subdivision (a) and submits an application during the time period referenced in subdivision (a) and, as of the date of application, has had a continuous period of creditable coverage of at least six months, the issuer shall not exclude benefits based on a preexisting condition.
+
+(2)If the applicant qualifies under subdivision (a) and submits an application during the time period referenced in subdivision (a) and, as of the date of application, has had a continuous period of creditable coverage that is less than
+six months, the issuer shall reduce the period of any preexisting condition exclusion by the aggregate of the period of creditable coverage applicable to the applicant as of the enrollment date. The manner of the reduction under this subdivision shall be as specified by the commissioner.
+
+(c)Except as provided in subdivision (b) and Section 10192.23, subdivision (a) does not prevent the exclusion of benefits under a policy, during the first six months, based on a preexisting condition for which the policyholder or certificate holder received treatment or was otherwise diagnosed during the six months before the coverage became effective.
+
+(d)An individual enrolled in Medicare by reason of disability shall be entitled to open enrollment described in this section for six
+months after the date of their enrollment in Medicare Part B, or if notified retroactively of their eligibility for Medicare, for six months following notice of eligibility. Every issuer shall make available to every applicant qualified for open enrollment all policies and certificates offered by that issuer at the time of application. An issuer shall not discourage sales during the open enrollment period by any means, including the altering of the commission structure.
+
+(e)(1)An individual enrolled in Medicare Part B is entitled to open enrollment described in this section for six months following:
+
+(A)Receipt of a notice of termination or, if no notice is received, the effective date of termination from any employer-sponsored health plan including an
+employer-sponsored retiree health plan.
+
+(B)Receipt of a notice of loss of eligibility due to the divorce or death of a spouse or, if no notice is received, the effective date of loss of eligibility due to the divorce or death of a spouse, from any employer-sponsored health plan including an employer-sponsored retiree health plan.
+
+(C)Termination of health care services for a military retiree or the retiree’s Medicare eligible spouse or dependent as a result of a military base closure or loss of access to health care services because the base no longer offers services or because the individual relocates.
+
+(2)For purposes of this subdivision, “employer-sponsored retiree health plan” includes any coverage for medical
+expenses, including, but not limited to, coverage under the Consolidated Omnibus Budget Reconciliation Act of 1985 (COBRA) and the California Continuation Benefits Replacement Act (Cal-COBRA), that is directly or indirectly sponsored or established by an employer for employees or retirees, their spouses, dependents, or other included insureds.
+
+(f)An individual enrolled in Medicare Part B is entitled to open enrollment described in this section if the individual was covered under a policy, certificate, or contract providing Medicare supplement coverage but that coverage terminated because the individual established residence at a location not served by the plan.
+
+(g)An individual whose coverage was terminated by a Medicare Advantage plan shall be entitled to an
+additional 60-day open enrollment period to be added on to and run consecutively after any open enrollment period authorized by federal law or regulation, for any Medicare supplement coverage provided by a Medicare supplement issuer and available on a guaranteed basis under state and federal law or regulation for persons terminated by their Medicare Advantage plan.
+
+(h)(1)An individual shall be entitled to an annual open enrollment period lasting 60 days or more, commencing with the individual’s birthday, during which time that person may purchase any Medicare supplement policy that offers benefits equal to or lesser than those provided by the previous coverage. During this open enrollment period, an issuer that falls under this paragraph shall not deny or condition the issuance or effectiveness of Medicare
+supplement coverage, nor discriminate in the pricing of coverage, because of health status, claims experience, receipt of health care, or medical condition of the individual if, at the time of the open enrollment period, the individual is covered under another Medicare supplement policy or contract. An issuer shall notify a policyholder of their rights under this subdivision at least 30 and no more than 60 days before the beginning of the open enrollment period, and on any notice related to a benefit modification or premium adjustment.
+
+(2)For purposes of this subdivision, the following provisions apply:
+
+(A)A 1990 standardized Medicare supplement benefit plan A shall be deemed to offer benefits equal to those provided by a 2010 standardized Medicare supplement benefit plan
+A.
+
+(B)A 1990 standardized Medicare supplement benefit plan B shall be deemed to offer benefits equal to those provided by a 2010 standardized Medicare supplement benefit plan B.
+
+(C)A 1990 standardized Medicare supplement benefit plan C shall be deemed to offer benefits equal to those provided by a 2010 standardized Medicare supplement benefit plan C.
+
+(D)A 1990 standardized Medicare supplement benefit plan D shall be deemed to offer benefits equal to those provided by a 2010 standardized Medicare supplement benefit plan D.
+
+(E)A 1990 standardized Medicare supplement benefit plan E shall be deemed to offer benefits equal to those provided by a 2010 standardized
+Medicare benefit plan D.
+
+(F)(i)A 1990 standardized Medicare supplement benefit plan F shall be deemed to offer benefits equal to those provided by a 2010 standardized Medicare benefit plan F.
+
+(ii)A 1990 standardized Medicare supplement benefit high deductible plan F shall be deemed to offer benefits equal to those provided by a 2010 standardized Medicare supplement benefit high deductible plan F.
+
+(G)A 1990 standardized Medicare supplement benefit plan G shall be deemed to offer benefits equal to those provided by a 2010 standardized Medicare supplement benefit plan G.
+
+(H)A 1990 standardized Medicare supplement benefit plan H shall be
+deemed to offer benefits equal to those provided by a 2010 standardized Medicare supplement benefit plan D.
+
+(I)A 1990 standardized Medicare supplement benefit plan I shall be deemed to offer benefits equal to those provided by a 2010 standardized Medicare supplement benefit plan G.
+
+(J)(i)A 1990 standardized Medicare supplement benefit plan J shall be deemed to offer benefits equal to those provided by a 2010 standardized Medicare supplement benefit plan F.
+
+(ii)A 1990 standardized Medicare supplement benefit high deductible plan J shall be deemed to offer benefits equal to those provided by a 2010 standardized Medicare supplement benefit high deductible plan F.
+
+(K)A 1990 standardized Medicare supplement benefit plan K shall be deemed to offer benefits equal to those provided by a 2010 standardized Medicare supplement benefit plan K.
+
+(L)A 1990 standardized Medicare supplement benefit plan L shall be deemed to offer benefits equal to those provided by a 2010 standardized Medicare supplement benefit plan L.
+
+(M)New or innovative benefits, as described in subdivision (f) of Section 10192.9 and subdivision (f) of Section 10192.91, shall not be included when determining whether benefits are equal to or lesser than those provided by the previous coverage.
+
+(i)An individual enrolled in Medicare Part B is entitled to open enrollment described in this section upon being
+notified that, because of an increase in the individual’s income or assets, they meet one of the following requirements:
+
+(1)They are no longer eligible for Medi-Cal benefits.
+
+(2)They are only eligible for Medi-Cal benefits with a share of cost and certifies at the time of application that they have not met the share of cost.
+SEC. 5.
+No reimbursement is required by this act pursuant to Section 6 of Article XIIIB of the California Constitution because the only costs that may be incurred by a local agency or school district will be incurred because this act creates a new crime or infraction, eliminates a crime or infraction, or changes the penalty for a crime or infraction, within the meaning of Section 17556 of the Government Code, or changes the definition of a crime within the meaning of Section 6 of Article XIIIB of the California Constitution.

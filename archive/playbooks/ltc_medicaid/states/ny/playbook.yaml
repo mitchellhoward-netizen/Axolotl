@@ -1,0 +1,459 @@
+schema_version: 2
+program: ltc_medicaid
+scope: ny
+title: Long-term care Medicaid — New York (nursing home "chronic care" Medicaid, spousal impoverishment, transfers)
+last_researched: 2026-10-07
+
+summary:
+  plain_language: >-
+    In New York in 2026, a nursing-home resident who is 65 or older, blind or
+    disabled can get Medicaid to pay the nursing home if their countable
+    resources are no more than $33,038. A spouse living at home keeps the
+    greater of $74,820 or half the couple's resources (up to $162,660), and can
+    receive enough of the resident's income to bring their own income up to
+    $4,066.50 a month. The resident keeps $50 a month for personal needs and
+    pays the rest of their income (the "NAMI") to the nursing home. Gifts made
+    in the 60 months before applying cause a penalty: the gift divided by the
+    regional monthly nursing home rate (for example $15,282 in New York City in
+    2026) is the number of months Medicaid will not pay for the nursing home.
+    Home equity above $1,130,000 bars long-term care unless a spouse or
+    qualifying child lives there. For home care, New York has passed a 30-month
+    look-back but has not put it into effect.
+  administered_by: >-
+    New York State Department of Health (Office of Health Insurance Programs) sets policy; local
+    departments of social services (LDSS) in each county, and the Human Resources Administration (HRA)
+    in New York City, take and decide nursing-home applications.
+  funded_by: Federal and New York State Medicaid funds (with a local district share).
+  local_names:
+    - {name: Chronic care Medicaid, meaning: Medicaid budgeting for a person permanently in a nursing home}
+    - {name: NAMI, meaning: "Net Available Monthly Income — the resident's monthly payment to the nursing home"}
+    - {name: MMMNA, meaning: Community spouse minimum monthly maintenance needs allowance}
+    - {name: FMA, meaning: Family member allowance}
+    - {name: Spousal refusal, meaning: "The community spouse declines to make income or resources available; the institutionalized spouse can still be found eligible"}
+    - {name: CBLTC, meaning: "Community-based long-term care (home care, CDPAP, MLTC in the community)"}
+    - {name: LDSS / HRA, meaning: County Medicaid office / New York City Human Resources Administration}
+  confidence: confirmed
+  sources:
+    - {source: ny-gis-26-ma-05-att1, locator: "Spousal Impoverishment table"}
+    - {source: ny-gis-26-ma-03, locator: "items 8-10, 16"}
+    - {source: ny-gis-25-ma-14, locator: "rate table"}
+
+rules:
+  - id: LTC-NY-RESOURCES
+    statement: >-
+      In New York in 2026, a nursing-home applicant who is 65 or older, blind or
+      disabled qualifies for Medicaid coverage of nursing-home care only if their
+      countable resources are no more than $33,038 (for a married resident with a
+      spouse at home, the couple's countable resources minus the community spouse
+      resource allowance must be no more than $33,038).
+    kind: eligibility
+    effective_from: 2026-01-01
+    parameters: [ny.ltc.resource_limit]
+    implemented_in: playbooks/ltc_medicaid/states/ny/rules.py:evaluate
+    confidence: confirmed
+    note: >-
+      The 2026 chart lists $33,038 both as the SSI-related resource level and as the institutionalized
+      spouse's resource allowance. Whether excess resources can be offset against nursing-home bills in the
+      month of application was not researched; the evaluator treats any excess as ineligibility.
+    sources:
+      - {source: ny-gis-26-ma-05-att1, locator: "SSI-Related Medicaid Income Level row: resource level 33,038 / 44,796; Spousal Impoverishment: Institutionalized Spouse $33,038"}
+  - id: LTC-NY-CSRA
+    statement: >-
+      In New York, for a nursing-home resident whose spouse lives at home, the
+      community spouse may keep resources equal to the greater of $74,820 or the
+      spousal share (half the couple's countable resources at the start of the most
+      recent continuous period of institutionalization) up to $162,660, for
+      determinations on and after January 1, 2026.
+    kind: eligibility
+    effective_from: 2026-01-01
+    parameters: [ny.ltc.csra_minimum, ny.ltc.csra_maximum]
+    overrides: [LTC-FED-CSRA]
+    implemented_in: playbooks/ltc_medicaid/states/ny/rules.py:evaluate
+    confidence: confirmed
+    sources:
+      - {source: ny-gis-26-ma-05-att1, locator: "footnote under Spousal Impoverishment", quote: "the community spouse is permitted to retain resources in an amount equal to the greater of the following $74,820 or the amount of the spousal share up to $162,660"}
+      - {source: ny-gis-26-ma-03, locator: "items 8-9"}
+  - id: LTC-NY-CSMIA
+    statement: >-
+      In New York in 2026, the community spouse of a nursing-home resident may
+      receive from the resident's income a monthly allowance equal to $4,066.50
+      minus the community spouse's own income; New York uses $4,066.50 as the
+      maintenance standard for everyone, without an excess-shelter calculation.
+    kind: benefit
+    effective_from: 2026-01-01
+    parameters: [ny.ltc.mmmna]
+    overrides: [LTC-FED-MMMNA]
+    implemented_in: playbooks/ltc_medicaid/states/ny/rules.py:evaluate
+    confidence: confirmed
+    note: Income of the community spouse is counted without SSI disregards; all income except public assistance counts (MRG p. 277-278).
+    sources:
+      - {source: ny-gis-26-ma-03, locator: "item 10"}
+      - {source: ny-gis-26-ma-05-att1, locator: "Spousal Impoverishment: Community Spouse Income $4,066.50"}
+      - {source: ny-mrg, locator: "INCOME, Persons in Medical Facilities, Assessment/Determination of Income Available for the Cost of Care, p. 278", quote: "No other disregards are allowed when determining the community spouse's or family member's otherwise available income."}
+  - id: LTC-NY-CS-CONTRIBUTION
+    statement: >-
+      In New York, when a community spouse's own monthly income exceeds the
+      $4,066.50 maintenance allowance plus any family allowances, the county asks
+      the community spouse to contribute 25% of the excess toward the
+      institutionalized spouse's care; the institutionalized spouse is not denied
+      Medicaid if the community spouse refuses.
+    kind: coordination
+    effective_from: 2007-11-01
+    confidence: confirmed
+    note: MRG page dated November 2007; still described the same way in 2026 secondary sources but not re-confirmed in a newer DOH directive.
+    sources:
+      - {source: ny-mrg, locator: "INCOME, Persons in Medical Facilities, p. 278", quote: "the community spouse is requested to contribute twenty-five percent (25%) of the excess income to the cost of care"}
+  - id: LTC-NY-FAMILY-ALLOWANCE
+    statement: >-
+      In New York in 2026, a nursing-home resident with a spouse at home may keep a
+      family member allowance for each dependent child, parent or sibling living
+      with the community spouse equal to one-third of ($2,705 minus that family
+      member's income), up to $902 a month.
+    kind: benefit
+    effective_from: 2026-01-01
+    parameters: [ny.ltc.family_allowance_standard, ny.ltc.family_allowance_maximum]
+    overrides: [LTC-FED-FAMILY-ALLOWANCE]
+    implemented_in: playbooks/ltc_medicaid/states/ny/rules.py:evaluate
+    confidence: confirmed
+    sources:
+      - {source: ny-gis-26-ma-05, locator: "Family Member Allowance"}
+      - {source: ny-gis-26-ma-05-att1, locator: "Family Member Allowance row"}
+  - id: LTC-NY-PNA
+    statement: >-
+      In New York in 2026, a Medicaid nursing-home resident (Article 28 facility)
+      with no earned income keeps a personal needs allowance of $50 a month.
+    kind: benefit
+    effective_from: 2026-01-01
+    parameters: [ny.ltc.pna_nursing_home]
+    overrides: [LTC-FED-PNA]
+    implemented_in: playbooks/ltc_medicaid/states/ny/rules.py:evaluate
+    confidence: confirmed
+    sources:
+      - {source: ny-gis-26-ma-05-att1, locator: "Institutionalized Spouse Income $50"}
+      - {source: ny-mrg, locator: "Chronic care budgeting for institutionalized spouses, p. 281"}
+  - id: LTC-NY-NAMI
+    statement: >-
+      In New York, a nursing-home resident on Medicaid pays the nursing home each
+      month (the NAMI) their income minus the $50 personal needs allowance, the
+      community spouse allowance, family member allowances and health insurance
+      premiums; if that amount would cover the full monthly cost of care, Medicaid
+      pays nothing toward the nursing home.
+    kind: benefit
+    effective_from: 2026-01-01
+    overrides: [LTC-FED-POST-ELIGIBILITY]
+    implemented_in: playbooks/ltc_medicaid/states/ny/rules.py:evaluate
+    confidence: confirmed
+    note: >-
+      The "covers the full cost" consequence is an inference from the budgeting method (NAMI is applied to
+      the cost of care), not a quoted rule. The first month of permanent absence is budgeted under
+      community rules (MRG p. 280-281); the archive budgets every month the chronic-care way.
+    sources:
+      - {source: ny-mrg, locator: "INCOME, Persons in Medical Facilities, Chronic Care Budgeting Methodology for Institutionalized Spouses, pp. 280-281"}
+  - id: LTC-NY-HOME-EQUITY
+    statement: >-
+      In New York in 2026, a person applying for Medicaid nursing-facility services
+      or community-based long-term care is denied that coverage if their equity
+      interest in the home exceeds $1,130,000, unless a spouse, a child under 21 or
+      a blind or disabled child lives in the home; the person may still get
+      Medicaid "Community Coverage Without Long-Term Care".
+    kind: eligibility
+    effective_from: 2026-01-01
+    parameters: [ny.ltc.home_equity_limit]
+    overrides: [LTC-FED-HOME-EQUITY]
+    implemented_in: playbooks/ltc_medicaid/states/ny/rules.py:evaluate
+    confidence: confirmed
+    sources:
+      - {source: ny-gis-26-ma-03, locator: "item 16"}
+      - {source: ny-mrg, locator: "RESOURCES, Substantial Home Equity, pp. 401-403", quote: "Individuals whose equity interest in the home exceeds the home equity limit may, if otherwise eligible, receive Medicaid coverage of Community Coverage Without Long-Term Care."}
+  - id: LTC-NY-LOOKBACK
+    statement: >-
+      In New York, transfers of assets for less than fair market value made by a
+      nursing-home applicant or spouse in the 60 months before the application are
+      reviewed and can cause a penalty period for nursing-facility services;
+      applicants must document their resources for the past 60 months.
+    kind: penalty
+    effective_from: 2006-02-08
+    parameters: [federal.ltc.lookback_months]
+    implemented_in: playbooks/ltc_medicaid/states/ny/rules.py:evaluate
+    confidence: confirmed
+    sources:
+      - {source: ny-doh-5178a, locator: "B. What Care and Services are you Applying for?", quote: "You are institutionalized and applying for coverage of nursing home care. Documentation of your resources for the past 60 months is required."}
+      - {source: ny-mrg, locator: "RESOURCES, look-back, p. 400 (60 months or to February 8, 2006)"}
+  - id: LTC-NY-UNCOMPENSATED
+    statement: >-
+      In New York, the uncompensated value of a transfer is its fair market value
+      (less debts on it) minus what was received, further reduced by the amount by
+      which the applicant's resources were below the Medicaid resource level (and by
+      $1,500 for burial funds if the applicant has no burial fund or pre-need
+      funeral agreement); it cannot be reduced by the community spouse resource
+      allowance.
+    kind: penalty
+    effective_from: 2006-02-08
+    implemented_in: playbooks/ltc_medicaid/states/ny/rules.py:_penalty
+    confidence: confirmed
+    note: MRG page dated June 2010. The evaluator applies the resource-level reduction but not the $1,500 burial reduction (test households are assumed to have a burial fund).
+    sources:
+      - {source: ny-mrg, locator: "RESOURCES, Transfer of Assets, Uncompensated Value, p. 448"}
+  - id: LTC-NY-PENALTY-DIVISOR
+    statement: >-
+      In New York in 2026, a transfer penalty period equals the uncompensated value
+      divided by the regional monthly nursing home rate for the region where the
+      facility is located (Central $14,146; Northeastern $14,783; Western $13,765;
+      Rochester $15,675; Northern Metropolitan $15,024; New York City $15,282; Long
+      Island $15,193), with partial months kept and no maximum length.
+    kind: penalty
+    effective_from: 2026-01-01
+    parameters: [ny.ltc.regional_rate]
+    overrides: [LTC-FED-PENALTY-MONTHS]
+    implemented_in: playbooks/ltc_medicaid/states/ny/rules.py:_penalty
+    confidence: confirmed
+    sources:
+      - {source: ny-gis-25-ma-14, locator: "purpose paragraph and table", quote: "Districts must use the regional rate in effect as of the date of application or the date request for an increase in coverage for the region in which the facility is located."}
+      - {source: ny-mrg, locator: "RESOURCES, Transfer of Assets, p. 449: There is no cap on the length of the penalty period"}
+  - id: LTC-NY-PENALTY-START
+    statement: >-
+      In New York, for transfers made on or after February 8, 2006, the penalty
+      period starts on the later of the first day of the month after the transfer
+      and the first day of the month in which the otherwise-eligible applicant is
+      receiving nursing facility services Medicaid would pay for but for the penalty;
+      the partial month at the end is added to that month's NAMI.
+    kind: penalty
+    effective_from: 2006-02-08
+    overrides: [LTC-FED-PENALTY-START]
+    implemented_in: playbooks/ltc_medicaid/states/ny/rules.py:_penalty
+    confidence: confirmed
+    sources:
+      - {source: ny-mrg, locator: "RESOURCES, Transfer of Assets, pp. 449-450", quote: "the penalty period starts the first day of the month after assets have been transferred for less than fair market value, OR the first day of the month the otherwise eligible SSI-related institutionalized individual is receiving nursing facility services"}
+  - id: LTC-NY-CBLTC-LOOKBACK
+    statement: >-
+      In New York, a 30-month look-back for community-based long-term care (home
+      care, CDPAP, managed long-term care in the community) was enacted in 2020 for
+      transfers on or after October 1, 2020, but as of 2026 it has not been
+      implemented, so transfers do not cause a penalty for home care.
+    kind: penalty
+    effective_from: 2020-10-01
+    implemented_in: playbooks/ltc_medicaid/states/ny/rules.py:evaluate
+    confidence: secondary
+    open_question: LTC-NY-OQ-01
+    note: >-
+      The DOH pages show the law and the 1115 amendment sent to CMS (complete-application letter, April
+      2021) but no implementation notice. "Not implemented" rests on an April 2026 law-firm article.
+    sources:
+      - {source: ny-doh-30-month-lookback-proposal, locator: "Pursuant to a state statutory change on April 2, 2020 ... effective October 1, 2020"}
+      - {source: ny-doh-30-month-lookback-2021, locator: "CMS letter: received the state's proposal on March 25, 2021"}
+      - {source: khalsalaw-2026-ny-community-medicaid, locator: "Why the Look-Back Was Not Implemented", quote: "the 30-month look-back remained a law on the books without an operational start date"}
+  - id: LTC-NY-SPOUSAL-REFUSAL
+    statement: >-
+      In New York, an institutionalized spouse is not denied Medicaid because the
+      community spouse refuses to make income or excess resources available
+      ("spousal refusal"), but the county may then seek to recover the cost of care
+      from the community spouse; if the community spouse refuses even to give
+      information about resources, the application can be denied unless undue
+      hardship applies.
+    kind: coordination
+    effective_from: 2009-11-01
+    confidence: confirmed
+    note: Spousal refusal is used routinely in New York planning; this archive states only what the MRG says.
+    sources:
+      - {source: ny-mrg, locator: "INCOME, Persons in Medical Facilities, p. 278", quote: "An institutionalized spouse will not be denied Medicaid because the community spouse refuses or fails to make his/her income available"}
+      - {source: ny-mrg, locator: "RESOURCES, Persons in Medical Facilities, Assessment/Determination, pp. 396-397"}
+  - id: LTC-NY-ESTATE-RECOVERY
+    statement: >-
+      In New York, Medicaid paid for a recipient who was 55 or older, or who was
+      permanently institutionalized at any age, is recovered from the estate, which
+      since September 8, 2011 is defined to include jointly owned property, retained
+      life estates and interests in trusts; recovery is barred while a spouse is
+      alive or while there is a child under 21 or a blind or disabled child.
+    kind: procedure
+    effective_from: 2011-09-08
+    overrides: [LTC-FED-ESTATE-RECOVERY]
+    confidence: confirmed
+    open_question: LTC-NY-OQ-02
+    note: Secondary sources report that New York has not enforced the expanded (non-probate) estate definition in practice; not verified here.
+    sources:
+      - {source: ny-mrg, locator: "OTHER ELIGIBILITY REQUIREMENTS, Recoveries, Estate Recoveries, pp. 680.2-680.3"}
+
+procedure:
+  applications:
+    - id: LTC-NY-PROC-FORM
+      text: >-
+        Apply on form DOH-4220 (Access NY Health Care) and complete Supplement A
+        (DOH-5178A), which is required for anyone 65 or older, blind, disabled or
+        applying for nursing home care; Supplement A asks about resources and about
+        transfers in the last 60 months.
+      form_number: DOH-4220 with DOH-5178A (Supplement A)
+      form_name: Access NY Health Care application; Supplement A
+      url: https://www.health.ny.gov/forms/doh-4220.pdf
+      confidence: confirmed
+      sources:
+        - {source: ny-doh-4220, locator: "instructions page 1", quote: "This application, along with Supplement A, must be filled out completely if you are 65 years old or older, certified blind, certified disabled or institutionalized, and/or if you are applying for coverage of nursing home care."}
+        - {source: ny-doh-5178a, locator: "F. Asset Transfers"}
+    - id: LTC-NY-PROC-LDSS-2921
+      text: >-
+        The older long application LDSS-2921 is still referred to by nursing homes
+        and counties; whether districts still accept it for nursing-home cases
+        instead of the DOH-4220 was not confirmed.
+      confidence: unresolved
+      open_question: LTC-NY-OQ-03
+  documents:
+    - id: LTC-NY-DOC-60-MONTHS
+      text: >-
+        Nursing-home applicants must document resources for the past 60 months; at
+        application they send proof for life insurance, burial agreements or funds,
+        securities, annuities and trusts, and list bank accounts closed in the past
+        60 months with where the money went. Other resources may be verified by
+        computer match, and Medicaid may review all transactions in the look-back.
+      confidence: confirmed
+      sources: [{source: ny-doh-5178a, locator: "DOCUMENTATION REQUIREMENTS; C. accounts closed in the past 60 months"}]
+  filing:
+    - id: LTC-NY-FILE-LDSS
+      text: File with the local department of social services of the county where the person lives (HRA in New York City); the nursing home's admissions or business office often files on the resident's behalf.
+      county_varies: true
+      confidence: secondary
+      note: The county filing rule is general Medicaid practice; the nursing-home filing practice was not confirmed in a DOH source.
+      sources: [{source: ny-doh-4220, locator: "where to send your application"}]
+  approval_notice:
+    - id: LTC-NY-NOTICE-NAMI
+      text: The notice approving nursing-home Medicaid states the NAMI the resident must pay the facility and, for a married resident, the community spouse resource and income allowances; either spouse may request a fair hearing on them.
+      confidence: confirmed
+      sources: [{source: ny-mrg, locator: "INCOME, Persons in Medical Facilities, p. 278 (fair hearing on allowances)"}]
+  county_variation:
+    - id: LTC-NY-COUNTY-REGION
+      text: The transfer penalty divisor depends on the region of the nursing home (seven regions, GIS 25 MA/14); the rules are otherwise statewide.
+      county_varies: true
+      confidence: confirmed
+      sources: [{source: ny-gis-25-ma-14, locator: "county-to-region table"}]
+
+life_events:
+  - id: LTC-NY-LE-NURSING-HOME
+    code: nursing_home_entry
+    event: Permanent placement in a New York nursing home
+    why: Chronic-care budgeting starts; resources over $33,038 (after the CSRA for a married person) and transfers in the last 60 months matter.
+    check_rules: [LTC-NY-RESOURCES, LTC-NY-LOOKBACK, LTC-NY-CSRA]
+    confidence: confirmed
+    sources: [{source: ny-doh-5178a, locator: "B."}]
+  - id: LTC-NY-LE-HOME-CARE
+    code: home_care_need
+    event: Needing home care, CDPAP or managed long-term care at home
+    why: No transfer penalty applies yet (30-month look-back not implemented); the home equity limit and resource level do apply.
+    check_rules: [LTC-NY-CBLTC-LOOKBACK, LTC-NY-HOME-EQUITY]
+    confidence: secondary
+    sources: [{source: khalsalaw-2026-ny-community-medicaid, locator: "Why the Look-Back Was Not Implemented"}]
+  - id: LTC-NY-LE-ASSETS
+    code: asset_change
+    event: Gifting money or a house to children
+    why: A gift within 60 months of a nursing-home application causes a penalty of (gift / regional rate) months.
+    check_rules: [LTC-NY-PENALTY-DIVISOR, LTC-NY-PENALTY-START]
+    confidence: confirmed
+    sources: [{source: ny-gis-25-ma-14, locator: "purpose"}]
+  - id: LTC-NY-LE-SPOUSE-DEATH
+    code: spouse_death
+    event: Death of the community spouse
+    why: The income and resource allowances end; estate recovery from the resident's estate becomes possible after the resident's death.
+    check_rules: [LTC-NY-CSMIA, LTC-NY-ESTATE-RECOVERY]
+    confidence: confirmed
+    sources: [{source: ny-mrg, locator: "Estate Recoveries"}]
+  - id: LTC-NY-LE-DIVORCE
+    code: divorce_separation
+    event: Divorce or separation
+    why: Spousal allowances and the spousal transfer exemption stop applying once the couple is no longer married.
+    check_rules: [LTC-NY-CSRA, LTC-NY-CSMIA]
+    confidence: confirmed
+    sources: [{source: usc-42-1396r-5, locator: "(h)"}]
+  - id: LTC-NY-LE-MOVE
+    code: move_state
+    event: Moving a parent into a New York nursing home from another state
+    why: New York's resource level, CSRA floor ($74,820) and regional divisors replace the other state's; New York applies the full 60-month look-back.
+    check_rules: [LTC-NY-RESOURCES, LTC-NY-CSRA, LTC-NY-PENALTY-DIVISOR]
+    confidence: confirmed
+    sources: [{source: ny-gis-26-ma-05-att1, locator: "Spousal Impoverishment table"}]
+
+outcome_proof:
+  - id: LTC-NY-PROOF-NOTICE
+    evidence: LDSS/HRA notice of decision approving Medicaid coverage of nursing facility services
+    shows: Coverage start date, the monthly NAMI, any penalty period and its dates, and spousal allowances.
+    how_to_get: Mailed by the county (HRA in NYC) to the applicant, representative and community spouse
+    confidence: confirmed
+    sources: [{source: usc-42-1396r-5, locator: "(e)(1)"}]
+
+links:
+  - id: LTC-NY-LINK-MEDICAID
+    playbook: medicaid
+    rules: [LTC-NY-HOME-EQUITY, LTC-NY-RESOURCES]
+    relation: >-
+      A person denied long-term care because of home equity can still get New York
+      Medicaid "Community Coverage Without Long-Term Care"; the $33,038 resource level
+      is the same SSI-related level used for community Medicaid.
+    test: LTC-X-01
+    confidence: confirmed
+    sources: [{source: ny-mrg, locator: "Substantial Home Equity, Policy"}]
+
+open_questions:
+  - id: LTC-NY-OQ-01
+    priority: high
+    question: Has DOH issued any directive (GIS/ADM) setting an implementation date for the 30-month community-based long-term care look-back, or has CMS approved the 1115 amendment?
+    why_it_matters: If implemented, gifts made in the last 30 months would delay home-care Medicaid; the agent currently tells families there is no home-care penalty.
+    checked: [DOH MRT II 30-month lookback pages (2020-2021), Khalsa Law April 2026 article, web search for 2025-2026 GIS]
+    affects: [LTC-NY-CBLTC-LOOKBACK]
+    status: open
+  - id: LTC-NY-OQ-02
+    priority: low
+    question: Does New York enforce the expanded estate definition (jointly held property, life estates) effective September 8, 2011, or was it suspended?
+    why_it_matters: Families decide about life estates and joint deeds based on this.
+    checked: [NY MRG Estate Recoveries (January 2012)]
+    affects: [LTC-NY-ESTATE-RECOVERY]
+    status: open
+  - id: LTC-NY-OQ-03
+    priority: low
+    question: Do districts still accept the LDSS-2921 for nursing-home applications, or is the DOH-4220 with Supplement A required?
+    why_it_matters: Avoid sending a family the wrong form.
+    checked: [DOH-4220 instructions, DOH-5178A]
+    affects: [LTC-NY-PROC-LDSS-2921]
+    status: open
+  - id: LTC-NY-OQ-04
+    priority: medium
+    question: (Input gap) Which region is the facility in? The penalty divisor depends on it.
+    why_it_matters: Without it the penalty length cannot be computed; the agent should ask for the facility's county.
+    checked: [GIS 25 MA/14]
+    affects: [LTC-NY-PENALTY-DIVISOR]
+    status: open
+  - id: LTC-NY-OQ-05
+    priority: medium
+    question: How are retirement accounts (IRA, 401(k)) of a nursing-home applicant and of a community spouse treated in New York in 2026 (exempt if in periodic payout status?)
+    why_it_matters: Many union retirees hold savings in retirement accounts; the evaluator counts them in full.
+    checked: [NY MRG resource chapter index]
+    affects: [LTC-NY-RESOURCES]
+    status: open
+
+conflicts:
+  - id: LTC-NY-CONFLICT-01
+    topic: Penalty start month for transfers after February 8, 2006
+    claims:
+      - source: usc-42-1396p
+        locator: "(c)(1)(D)(ii)"
+        says: The first day of a month during or after which assets were transferred, or the otherwise-eligible date, whichever is later.
+      - source: ny-mrg
+        locator: "RESOURCES, Transfer of Assets, p. 449"
+        says: The first day of the month after the transfer, or the first day of the month the otherwise eligible person is receiving nursing facility services, whichever is later.
+    handling: >-
+      Not a real conflict for applicants (the otherwise-eligible date is almost always later); the
+      archive uses New York's wording. It matters only if a transfer happens in the month of application.
+    affects: [LTC-NY-PENALTY-START]
+    status: resolved
+
+claims_checked:
+  - claim: New York's asset limit for age/disability-based and long-term care Medicaid is about $33,038 for one person in 2026.
+    verdict: verified
+    detail: >-
+      $33,038 is the 2026 SSI-related resource level for one person ($44,796 for two) and the
+      institutionalized spouse's resource allowance. A married nursing-home resident's spouse at home keeps
+      $74,820 to $162,660 on top of that.
+    sources: [{source: ny-gis-26-ma-05-att1, locator: "Non-MAGI table and Spousal Impoverishment table"}]
+  - claim: New York's 2026 spousal figures are community spouse resource $74,820 minimum / $162,660 maximum, MMMNA $4,066.50, PNA $50.
+    verdict: verified
+    detail: GIS 26 MA/03 items 8-10 and the GIS 26 MA/05 attachment; family member allowance formula number $2,705 and maximum $902 after the 2026 poverty levels.
+    sources: [{source: ny-gis-26-ma-03, locator: "items 8-10"}, {source: ny-gis-26-ma-05-att1, locator: "Spousal Impoverishment"}]
+  - claim: New York enacted a 30-month look-back for community-based long-term care.
+    verdict: partly_verified
+    detail: Enacted (April 2020 law, transfers from October 1, 2020) and submitted to CMS in March 2021, but no implementation found; a 2026 law-firm source says it has never taken effect.
+    sources: [{source: ny-doh-30-month-lookback-proposal, locator: "description"}, {source: khalsalaw-2026-ny-community-medicaid, locator: "Why the Look-Back Was Not Implemented"}]

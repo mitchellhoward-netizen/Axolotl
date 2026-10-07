@@ -1,0 +1,109 @@
+# Federal sources for the Medicaid (enrollment and renewal) playbook.
+# Snapshots: playbooks/medicaid/snapshots/<id>/. `retrieved` is set by tools/sources.py.
+# Also cited from other parts of the archive (not duplicated here):
+#   usc-42-1396a, usc-42-1396d (playbooks/msp/federal), fr-2026-hhs-poverty-guidelines,
+#   usc-42-1382a, cms-2026-part-a-b-premiums (shared/).
+# The eCFR pages are fetched through eCFR's public renderer API, because the
+# www.ecfr.gov site refuses scripted requests.
+sources:
+  - id: ecfr-42-435-603
+    retrieved: 2026-10-07
+    url: https://www.ecfr.gov/api/renderer/v1/content/enhanced/current/title-42?part=435&section=435.603
+    publisher: Office of the Federal Register (eCFR)
+    title: 42 CFR 435.603 — Application of modified adjusted gross income (MAGI)
+    kind: primary
+    jurisdiction: federal
+    doc_type: regulation
+  - id: ecfr-42-435-119
+    retrieved: 2026-10-07
+    url: https://www.ecfr.gov/api/renderer/v1/content/enhanced/current/title-42?part=435&section=435.119
+    publisher: Office of the Federal Register (eCFR)
+    title: 42 CFR 435.119 — Coverage for individuals age 19 or older and under age 65 at or below 133 percent FPL
+    kind: primary
+    jurisdiction: federal
+    doc_type: regulation
+    note: Paragraph (d) (community engagement) was added by the interim final rule at 91 FR 33469 (June 3, 2026).
+  - id: ecfr-42-435-110
+    retrieved: 2026-10-07
+    url: https://www.ecfr.gov/api/renderer/v1/content/enhanced/current/title-42?part=435&section=435.110
+    publisher: Office of the Federal Register (eCFR)
+    title: 42 CFR 435.110 — Parents and other caretaker relatives
+    kind: primary
+    jurisdiction: federal
+    doc_type: regulation
+  - id: ecfr-42-435-912
+    retrieved: 2026-10-07
+    url: https://www.ecfr.gov/api/renderer/v1/content/enhanced/current/title-42?part=435&section=435.912
+    publisher: Office of the Federal Register (eCFR)
+    title: 42 CFR 435.912 — Timely determinations and redeterminations of eligibility
+    kind: primary
+    jurisdiction: federal
+    doc_type: regulation
+  - id: ecfr-42-435-915
+    retrieved: 2026-10-07
+    url: https://www.ecfr.gov/api/renderer/v1/content/enhanced/current/title-42?part=435&section=435.915
+    publisher: Office of the Federal Register (eCFR)
+    title: 42 CFR 435.915 — Effective date (retroactive eligibility)
+    kind: primary
+    jurisdiction: federal
+    doc_type: regulation
+    note: As retrieved, still says "third month before the month of application"; not yet conformed to P.L. 119-21 sec. 71112.
+  - id: ecfr-42-435-916
+    retrieved: 2026-10-07
+    url: https://www.ecfr.gov/api/renderer/v1/content/enhanced/current/title-42?part=435&section=435.916
+    publisher: Office of the Federal Register (eCFR)
+    title: 42 CFR 435.916 — Periodic renewal of Medicaid eligibility
+    kind: primary
+    jurisdiction: federal
+    doc_type: regulation
+    note: Text as revised at 91 FR 33480 (June 3, 2026); still states 12-month MAGI renewals and does not yet contain the 6-month rule of P.L. 119-21 sec. 71107.
+  - id: ecfr-42-435-552
+    retrieved: 2026-10-07
+    url: https://www.ecfr.gov/api/renderer/v1/content/enhanced/current/title-42?part=435&section=435.552
+    publisher: Office of the Federal Register (eCFR)
+    title: 42 CFR 435.552 — Demonstrating community engagement
+    kind: primary
+    jurisdiction: federal
+    doc_type: regulation
+    note: Added by the community engagement interim final rule (91 FR, June 3, 2026).
+  - id: ecfr-42-435-559
+    retrieved: 2026-10-07
+    url: https://www.ecfr.gov/api/renderer/v1/content/enhanced/current/title-42?part=435&section=435.559
+    publisher: Office of the Federal Register (eCFR)
+    title: 42 CFR 435.559 — Implementation timing for the community engagement requirement
+    kind: primary
+    jurisdiction: federal
+    doc_type: regulation
+  - id: ecfr-42-435-560
+    retrieved: 2026-10-07
+    url: https://www.ecfr.gov/api/renderer/v1/content/enhanced/current/title-42?part=435&section=435.560
+    publisher: Office of the Federal Register (eCFR)
+    title: 42 CFR 435.560 — Good faith effort exemption (community engagement)
+    kind: primary
+    jurisdiction: federal
+    doc_type: regulation
+  - id: usc-29-206-mcd
+    retrieved: 2026-10-07
+    url: https://www.govinfo.gov/content/pkg/USCODE-2023-title29/html/USCODE-2023-title29-chap8-sec206.htm
+    publisher: U.S. Government Publishing Office (United States Code, 2023 edition)
+    title: 29 U.S.C. 206 — Minimum wage (Fair Labor Standards Act sec. 6)
+    kind: primary
+    jurisdiction: federal
+    doc_type: statute
+    note: Cited for the $7.25 federal minimum wage that sets the community engagement income test (80 x minimum wage).
+  - id: ecfr-42-435-4
+    retrieved: 2026-10-07
+    url: https://www.ecfr.gov/api/renderer/v1/content/enhanced/current/title-42?part=435&section=435.4
+    publisher: Office of the Federal Register (eCFR)
+    title: 42 CFR 435.4 — Definitions and use of terms (dependent child, caretaker relative, MAGI-based terms)
+    kind: primary
+    jurisdiction: federal
+    doc_type: regulation
+  - id: ecfr-42-435-601
+    retrieved: 2026-10-07
+    url: https://www.ecfr.gov/api/renderer/v1/content/enhanced/current/title-42?part=435&section=435.601
+    publisher: Office of the Federal Register (eCFR)
+    title: 42 CFR 435.601 — Application of financial eligibility methodologies (non-MAGI; cash assistance/SSI methodology)
+    kind: primary
+    jurisdiction: federal
+    doc_type: regulation

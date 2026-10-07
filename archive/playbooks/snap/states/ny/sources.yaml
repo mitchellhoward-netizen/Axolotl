@@ -1,0 +1,192 @@
+# New York sources for SNAP. otda.ny.gov (OTDA directives, GIS messages, the
+# SNAP Source Book) answered every scripted, research-tool and headless-browser
+# request on 2026-10-07 with a bot challenge, a reset connection or HTTP 503, so
+# no OTDA-hosted document could be snapshotted. A second pass the same day
+# (Playwright headful under Xvfb with a desktop user agent and network-idle
+# waits; WebFetch) still got only the F5 JavaScript challenge or HTTP 503, and
+# the Internet Archive (web.archive.org) was unreachable from this environment
+# (connection reset; WebFetch refused; archive.org's availability API reports no
+# capture of 02 ADM-07). The FFY 2026 standards GIS is taken from a verbatim copy
+# posted by a county social services district; the FFY 2027 figures come from a
+# county DSS page (income limits) and two advocacy sheets (utility allowances).
+# OTDA regulations (18 NYCRR Part 387) are cited from Cornell LII's copy
+# (secondary: the official NYCRR and NYS Register hosts refused requests).
+sources:
+  - id: ny-gis-25dc059
+    retrieved: 2026-10-07
+    url: https://www.warrencountyny.gov/sites/default/files/25DC059%20-%20Upstate%20and%20NYC%20%20Supplemental%20Nutrition%20Assistance%20Program%20(SNAP)%20Standards%20for%20FFY%202026%20(October%202025).pdf
+    publisher: New York State Office of Temporary and Disability Assistance (copy posted by Warren County, NY)
+    title: GIS 25 DC059 — Upstate and NYC Supplemental Nutrition Assistance Program (SNAP) Standards for FFY 2026 (October 2025)
+    kind: primary
+    jurisdiction: ny
+    doc_type: directive
+    effective_date: 2025-10-01
+    published: 2025-09-12
+    note: >-
+      OTDA's own copy (www.otda.ny.gov/policy/gis/2025/25DC059.pdf) could not be
+      fetched. This PDF is OTDA's file (PDF metadata: author New York State Office
+      of Temporary and Disability Assistance, title 25DC059, created 2025-09-12)
+      re-posted unchanged by a county department of social services, one of the
+      districts the GIS is addressed to; treated as primary on that basis. The
+      first-page header (GIS number, date, subject block) is an image and is not
+      in the text.
+  - id: ny-hra-snap-page
+    retrieved: 2026-10-07
+    url: https://www.nyc.gov/site/hra/help/snap-benefits-food-program.page
+    publisher: New York City Human Resources Administration (Department of Social Services)
+    title: SNAP Benefits Information (HRA)
+    kind: primary
+    jurisdiction: ny
+    doc_type: agency_page
+  - id: ny-hra-snap-faq
+    retrieved: 2026-10-07
+    url: https://www.nyc.gov/site/hra/help/snap-application-frequently-asked-questions.page
+    publisher: New York City Human Resources Administration (Department of Social Services)
+    title: SNAP Application Frequently Asked Questions (HRA)
+    kind: primary
+    jurisdiction: ny
+    doc_type: agency_page
+  - id: ny-hra-snap-interview
+    retrieved: 2026-10-07
+    url: https://www.nyc.gov/site/hra/help/snap-interview-instructions.page
+    publisher: New York City Human Resources Administration (Department of Social Services)
+    title: SNAP Interview Instructions (HRA)
+    kind: primary
+    jurisdiction: ny
+    doc_type: agency_page
+  - id: hsny-nyscap
+    retrieved: 2026-10-07
+    url: https://hungersolutionsny.org/federal-nutrition-programs/snap/snap-and-seniors/nyscap/
+    publisher: Hunger Solutions New York
+    title: New York State Combined Application Project (NYSCAP)
+    kind: secondary
+    jurisdiction: ny
+    doc_type: advocacy
+  - id: hsny-esap
+    retrieved: 2026-10-07
+    url: https://hungersolutionsny.org/federal-nutrition-programs/snap/snap-and-seniors/esap/
+    publisher: Hunger Solutions New York
+    title: The Elderly Simplified Application Project (ESAP)
+    kind: secondary
+    jurisdiction: ny
+    doc_type: advocacy
+  - id: ny-erie-snap-eligibility
+    retrieved: 2026-10-07
+    url: https://www3.erie.gov/snap/eligibility
+    publisher: Erie County Department of Social Services (a New York social services district)
+    title: SNAP Eligibility (Erie County DSS) — budget changes effective October 1, 2026
+    kind: primary
+    jurisdiction: ny
+    doc_type: agency_page
+    effective_date: 2026-10-01
+    note: >-
+      Official page of a local social services district restating the FFY 2027
+      SNAP standards (page "Changed 09/22/2026"). It reproduces the 150% and
+      200% FPL gross income tables but not the utility allowances. Two
+      clerical slips on the page: the allotment and standard deduction tables
+      are headed "Effective 10/1/26 to 9/30/26" and "to 9/20/26", and the 150%
+      table shows both "+$710" and a stale "add $688" for each additional
+      person; the archive uses $710 (matches Hunger Solutions New York's
+      2026-27 sheet).
+  - id: ny-hra-community-updates
+    retrieved: 2026-10-07
+    url: https://www.nyc.gov/site/hra/partners/community-updates.page
+    publisher: New York City Human Resources Administration (Department of Social Services)
+    title: HRA Community Partner Updates
+    kind: primary
+    jurisdiction: ny
+    doc_type: agency_page
+    note: >-
+      Long rolling page. Its item "Supplemental Nutrition Assistance Program
+      (SNAP) Standards for FFY 2027 - Effective October 1, 2026" links (via an
+      e-mail tracking redirect) to OTDA GIS 26 DC045
+      (otda.ny.gov/policy/gis/2026/26DC045.pdf), which could not be fetched,
+      and says state notices of the change will not be sent to households.
+  - id: ny-dss-heap-sua-notice-2025
+    retrieved: 2026-10-07
+    url: https://communications.cityofnewyork.us/changes-to-the-snap-sua-policy-for-households-in-receipt-of-heap
+    publisher: NYC Department of Social Services, Office of Community Outreach
+    title: Changes to the SNAP SUA Policy for Households in Receipt of HEAP (letter to community partners)
+    kind: primary
+    jurisdiction: ny
+    doc_type: notice
+    published: 2025-10-14
+    effective_date: 2025-11-01
+    note: The district's notice of the statewide policy; its "full policy" link is OTDA GIS 25 DC061 (not fetchable).
+  - id: hsny-snap-worksheet-2026-27
+    retrieved: 2026-10-07
+    url: https://hungersolutionsny.org/wp-content/uploads/2023/04/SNAP-Budget-Worksheet-9_22_26.pdf
+    publisher: Hunger Solutions New York
+    title: SNAP Budget Worksheet and SNAP Standards & Deductions Reference Sheet, effective 10/1/26 through 9/30/27
+    kind: secondary
+    jurisdiction: ny
+    doc_type: advocacy
+    published: 2026-09-22
+    effective_date: 2026-10-01
+  - id: hsny-ce-desk-guide-2026-27
+    retrieved: 2026-10-07
+    url: https://hungersolutionsny.org/wp-content/uploads/2023/04/Expanded-Cat-Eligibility-Desk-Guide-9_22_26.pdf
+    publisher: Hunger Solutions New York
+    title: Expanded Categorical Eligibility Desk Guide (poverty guidelines chart effective 10/1/26 - 9/30/27)
+    kind: secondary
+    jurisdiction: ny
+    doc_type: advocacy
+    published: 2026-09-22
+    effective_date: 2026-10-01
+  - id: css-bplc-snap-calculator
+    retrieved: 2026-10-07
+    url: https://bplc.cssny.org/benefit_tools/snap_calculator
+    publisher: Community Service Society of New York, Benefits Plus Learning Center
+    title: SNAP Calculator (reflects updates effective October 1, 2026 through September 30, 2027)
+    kind: secondary
+    jurisdiction: ny
+    doc_type: other
+    note: >-
+      Calculator page; its SUA levels by region are in the form's
+      data-snap-calculator-data-value attribute ("sua_chart") of the saved
+      raw HTML, not in the visible text.
+  - id: hsny-snapguide-deductions
+    retrieved: 2026-10-07
+    url: https://snapguideny.org/budgeting-estimating-snap-benefits/calculating-deductions/
+    publisher: Hunger Solutions New York (NYS SNAP Eligibility Prescreening Guide)
+    title: Calculating Deductions — NYS SNAP Eligibility Prescreening Guide (policy updates through 05/2026)
+    kind: secondary
+    jurisdiction: ny
+    doc_type: advocacy
+  - id: ny-nycrr-387-12-lii
+    retrieved: 2026-10-07
+    url: https://www.law.cornell.edu/regulations/new-york/18-NYCRR-387.12
+    publisher: Legal Information Institute, Cornell Law School (copy of 18 NYCRR)
+    title: 18 NYCRR 387.12 — Income deductions (SNAP) (third-party copy)
+    kind: secondary
+    jurisdiction: ny
+    doc_type: regulation
+    note: Third-party hosting of the OTDA regulation; the official NYCRR (govt.westlaw.com) and the NYS Register (dos.ny.gov) refused scripted and browser requests.
+  - id: ny-nycrr-387-17-lii
+    retrieved: 2026-10-07
+    url: https://www.law.cornell.edu/regulations/new-york/18-NYCRR-387.17
+    publisher: Legal Information Institute, Cornell Law School (copy of 18 NYCRR)
+    title: 18 NYCRR 387.17 — Certification and reporting changes (SNAP) (third-party copy)
+    kind: secondary
+    jurisdiction: ny
+    doc_type: regulation
+    note: Third-party hosting; LII notes the section as last amended by NYS Register June 9, 2021, eff. 6/9/2021.
+  - id: ny-nycrr-387-24-lii
+    retrieved: 2026-10-07
+    url: https://www.law.cornell.edu/regulations/new-york/18-NYCRR-387.24
+    publisher: Legal Information Institute, Cornell Law School (copy of 18 NYCRR)
+    title: 18 NYCRR 387.24 — New York State Combined Application Project (NYSCAP) (third-party copy)
+    kind: secondary
+    jurisdiction: ny
+    doc_type: regulation
+    effective_date: 2021-02-24
+    note: Third-party hosting; adopted NYS Register February 24, 2021, eff. 2/24/2021 (per LII notes).
+  - id: ny-nycrr-387-26-lii
+    retrieved: 2026-10-07
+    url: https://www.law.cornell.edu/regulations/new-york/18-NYCRR-387.26
+    publisher: Legal Information Institute, Cornell Law School (copy of 18 NYCRR)
+    title: 18 NYCRR 387.26 — Elderly Simplified Application Project (ESAP) (third-party copy)
+    kind: secondary
+    jurisdiction: ny
+    doc_type: regulation
+    note: Third-party hosting of the OTDA regulation.

@@ -1,0 +1,916 @@
+DATE: August 27, 2026
+
+TO: ALL COUNTY WELFARE DIRECTORS Letter No.:26-14
+ALL COUNTY WELFARE ADMINISTRATIVE OFFICERS
+ALL COUNTY MEDI-CAL PROGRAM SPECIALISTS/LIAISONS
+ALL COUNTY HEALTH EXECUTIVES
+ALL COUNTY MENTAL HEALTH DIRECTORS
+ALL COUNTY MEDS LIAISONS
+
+SUBJECT: Updated Guidance on Six-Month Renewal Requirements for New Adult
+Group
+(Reference: All County Welfare Directors Letter (ACWDL): 25-31)
+
+Purpose
+The purpose of this All County Welfare Directors Letter (ACWDL) is to provide counties
+with updated guidance on implementing six‑month Medi‑Cal renewal requirements for
+individuals enrolled in the Modified Adjusted Gross Income (MAGI) Adult Expansion
+Group (New Adult Group). This updated guidance is necessary to align state operations
+with federal direction issued in the Centers for Medicare & Medicaid Services (CMS)
+State Medicaid Director Letter (SMD) #26‑001, which implements Section 71107 of
+Public Law 119‑21 and requires states to conduct eligibility redeterminations for this
+population every six months beginning January 1, 2027.
+
+This ACWDL builds upon preliminary guidance previously provided in ACWDL 25‑31 and
+does not replace it. It expands and clarifies the policy expectations, operational
+processes, and implementation considerations counties must follow to ensure
+compliance with the federal six‑month renewal mandate.
+
+Background
+Section 71107 of House of Representatives 1 (H.R. 1), (Public Law 119-21) requires states
+to evaluate Medi-Cal eligibility for individuals enrolled under section
+1902(a)(10)(A)(i)(VIII) (MAGI New Adult Group, ages 19-64) at least once every six
+months beginning January 1, 2027.
+
+California Department of Health Care Services State of California
+Medi-Cal Eligibility Division Gavin Newsom, Governor
+1501 Capitol Avenue | Sacramento, CA | 95899-7413
+MS 4607 | Phone (916) 552-9200 | www.dhcs.ca.gov California Health and Human Services Agency
+
+Letter No.:26-14
+Page 2
+August 27, 2026
+
+Under current Medi-Cal requirements, most Medi-Cal members receive annual renewals
+every twelve (12) months. The new federal requirement for six-month renewals affects
+only the MAGI New Adult Group. All other populations including children, Non-MAGI
+adults, pregnant individuals and individuals in the 12-month postpartum period, and
+American Indian/Alaska Native members will remain on a 12-month renewal cycle unless
+otherwise protected. Self-attestation of American Indian/Alaska Native members status
+is accepted and counties must not request verification for this exemption. As a reminder,
+counties shall not apply the changes outlined in this ACWDL to members protected
+under a Consumer Protection Program or any other protection that may be in place,
+such as Transitional Medi-Cal (TMC) (ACWDL 21-27), deemed infants (ACWDL 11-33),
+children in Continuous Eligibility for Children (CEC) (ACWDL 14-05), individuals who are
+pregnant or in the 12-month post-pregnancy period (MEDIL I 21-13E), or other federally
+or state-mandated protections.
+
+Populations Subject to Six‑Month Renewals
+As outlined in ACWDL 25-31, the population subject to the six‑month Medi‑Cal renewal
+requirement includes individuals enrolled in the MAGI‑based New Adult Group, which
+includes adults ages 19 through 64 with income up to 138 percent of the Federal
+Poverty Level in aid codes M1, M2, 1C, 1J, and 1M. This aligns with CMS’ guidance in
+SMD Letter #26‑001 that the federal mandate to conduct eligibility redeterminations
+every six months applies to all Medicaid expansion adults in states that have adopted
+full expansion under section 1902(a)(10)(A)(i)(VIII) of the Social Security Act. In California,
+this provision also applies to individuals enrolled in the Medi-Cal Inmate Eligibility
+Program (MCIEP) New Adult Group in county aid codes K6, K7, K8, K9, N7, and N8 and
+state aid codes K2, K3, K4, K5, N5, and N6.
+
+Separately, CMS has clarified that the six-month renewal requirement applies to all adult
+expansion groups (MAGI New Adult Group) for whom states use MAGI eligibility
+methodologies. Because California is a full‑expansion state and uses MAGI
+methodologies for both the MAGI New Adult Group and the Unsatisfactory Immigration
+Status (UIS) population eligible for emergency and pregnancy‑related services only
+under the MAGI New Adult Group category, the six‑month renewal requirement applies
+to all individuals determined eligible under these MAGI new adult group coverage
+categories, including individuals in aid code M2, except during pregnancy and the 12-
+month post-pregnancy period or if otherwise exempt.
+
+Letter No.:26-14
+Page 3
+August 27, 2026
+
+Transition Renewals Beginning in 2027
+SMD #26-001 outlines the renewal process for existing Medi-Cal members that will
+transition to a six-month renewal cycle.
+
+States have two permissible approaches for transitioning the MAGI New Adult Group to
+the federally required six-month renewal cycle beginning in 2027. Consistent with the
+approach outlined in ACWDL 25‑31, DHCS has elected to implement the federal
+six‑month renewal requirement under CMS Option 2, which allows states to transition
+members to the six-month renewal schedule at the next scheduled renewal.
+
+CMS also clarified that states must begin transitioning Medi-Cal members to a six-
+month renewal cycle beginning with renewals initiated on or after January 1, 2027. In
+California, a renewal is considered initiated two months before the renewal month to
+allow time for the ex parte process, generation of the renewal packet, and the 60-day
+period for members to submit required information.
+
+This means that counties must wait until the next scheduled renewal initiated on or after
+January 1, 2027, to move current members in the MAGI New Adult Group to a six-month
+renewal timeline. Since the renewal process is initiated during ex parte two months
+before the renewal month, individuals with a March 2027 renewal month will be the first
+members to transition to a six-month renewal timeline, as their renewals are initiated on
+or after January 1, 2027. Counties will begin transitioning affected Medi-Cal members to
+a six-month renewal cycle starting with renewals due in March 2027.
+
+Medi-Cal members with annual renewals due in January 2027 or February 2027 must not
+transition to the six-month renewal cycle at that time. These renewals are initiated in
+November 2026 and December 2026, which is prior to the federal January 1, 2027,
+initiation date. These members will transition to the six-month renewal cycle beginning
+with their first renewal in 2028. Members with January 2027 and February 2027 renewals
+will be granted a 12-month renewal due month to January or February 2028 if
+determined eligible for ongoing Medi-Cal benefits.
+
+Letter No.:26-14
+Page 4
+August 27, 2026
+
+Example: March 2027 Renewal Timeline - This example shows the March 2027 renewal
+cycle, with the ex parte review in January, the annual renewal in March, the first six‑month
+renewal in September, and the cure period after the first six-month renewal ending in
+December.
+
+1/27 2/27 3/27 4/27 5/27 6/27 7/27 8/27 9/27 10/27 11/27 12/27
+Ex 2027 90-Day 1st 90-Day
+Parte Renewal Cure 6MR Cure
+Review Period Period
+Ends Ends
+
+The chart below reflects when transitioning Medi-Cal members will complete their
+scheduled annual renewal and future six-month renewal schedule.
+
+2027/2028 Renewal First Six-Month Second Six-Month
+Month Renewal Renewal
+March 2027 September 2027 March 2028
+April 2027 October 2027 April 2028
+May 2027 November 2027 May 2028
+June 2027 December 2027 June 2028
+July 2027 January 2028 July 2028
+August 2027 February 2028 August 2028
+September 2027 March 2028 September 2028
+October 2027 April 2028 October 2028
+November 2027 May 2028 November 2028
+December 2027 June 2028 December 2028
+January 2028 July 2028 January 2029
+February 2028 August 2028 February 2029
+
+Note: This chart supersedes the chart in ACWDL 25-31, page 19. The earlier chart
+incorrectly listed January as the starting month based on available CMS guidance at
+letter publication.
+
+Letter No.:26-14
+Page 5
+August 27, 2026
+
+Households with Multiple Renewal Schedules
+With the implementation of six‑month renewals for the MAGI New Adult Group, some
+households will include individuals who have six‑month renewal schedules and others
+who retain 12‑month renewal schedules. Counties must maintain separate renewal
+timelines for each individual and determine eligibility, verification needs, and renewal
+dates at the individual level, consistent with existing Medi‑Cal policy.
+
+The change in circumstance (CIC) rules and procedures for six-month renewal are
+outlined in ACWDL 25‑31. Nothing in SMD #26‑001 changes the policies described in
+ACWDL 25‑31 and the letter remains the primary source for detailed six-month renewal
+guidance on how to process mixed‑household CICs, how to determine individual
+renewal dates, and how to address situations where household members have different
+renewal frequencies.
+
+When a new individual is added to a household that already includes members with
+different renewal schedules, counties must process the addition as a new applicant
+under the rules in MEDIL 22-42. The new member’s renewal date is determined based
+on their individual coverage group. The addition also triggers a CIC redetermination for
+existing household members. Existing MAGI New Adult Group members must not
+receive a new six‑month renewal date based on the month the CIC is completed and
+must keep their existing renewal date, while 12‑month groups would receive a new
+annual renewal date. As a reminder, CIC actions must be limited to individuals whose
+eligibility is affected, and counties must apply only the verifications required for each
+impacted individual.
+
+DHCS will release a quick reference guide on CIC prior to implementation.
+
+Movement Between Eligibility Groups
+Members Moving Into the MAGI New Adult Group
+Per ACWDL 25-31, when a Medi-Cal member subject to a six-month renewal, who is also
+subject to work and community engagement requirements, reports a CIC after January
+1, 2027, but prior to their next scheduled renewal, the next scheduled renewal date must
+remain the same. The work and community engagements requirements will be assessed
+at the next scheduled renewal that occurs March 2027 or after, at the individual’s next
+scheduled renewal initiated on or after January 1, 2027, and if the member remains
+
+Letter No.:26-14
+Page 6
+August 27, 2026
+
+eligible, the six-month renewal date will be set at that time. This guidance is the same
+for individuals who move into the MAGI New Adult Group after January 1, 2027, as a
+result of a CIC. The work and community engagements requirements will be assessed at
+the next scheduled renewal that occurs March 2027 or after, and the six-month renewal
+date will be set at that time.
+
+When an individual is determined eligible for the MAGI New Adult Group through a
+renewal that occurs March 2027 or after, counties must assign a six-month renewal date
+based on the month the determination is completed. Counties must issue appropriate
+notices when a member’s eligibility period is shortened due to this transition. DHCS, in
+coordination with the California Statewide Automated Welfare System (CalSAWS), will
+update Notice of Actions and the MC 216 renewal form to inform members of the new
+renewal timeframes for consistent statewide implementation. Counties shall reassess
+only those household members whose eligibility is affected by the change and ensure
+that individuals with protected coverage retain all applicable protections. Verification
+requests must be limited to only what is necessary to complete the determination.
+
+Example 1
+At the end of the postpartum continuous eligibility period, the individual becomes due
+for renewal. If the member is determined eligible for the MAGI New Adult Group during
+this renewal, the county sets a new six-month renewal date based on the month the
+determination is completed and begins the six-month renewal cycle.
+
+Example 2
+A member, whose next renewal was scheduled for June 2027 and who was previously
+eligible under a Non-MAGI program, reports a change in circumstances. The county
+evaluates eligibility and determines the member qualifies for the MAGI New Adult
+Group in February 2027. The individual keeps the original renewal date of June 2027.
+After the June 2027 renewal is complete, and the individual remains in the MAGI New
+Adult Group, the county assigns a new six-month renewal date, which in this case would
+be December 2027.
+Transition from Parent/Caretaker to MAGI New Adult Group
+When a member moves from the Parent/Caretaker Relative group into the MAGI New
+Adult Group due to a CIC and is not eligible for Transitional Medi‑Cal (TMC) or
+Continuous Eligibility for Children (CEC), counties shall process the CIC redetermination
+
+Letter No.:26-14
+Page 7
+August 27, 2026
+
+and keep the existing annual renewal date. The work and community engagements
+requirements will be assessed at the next scheduled renewal that occurs March 2027 or
+after, and the six-month renewal date will be set at that time. When an individual is
+determined eligible for the MAGI New Adult Group through a renewal that occurs
+March 2027 or after, counties must assign a six-month renewal date based on the
+month the determination is completed.
+
+Example 1
+A member is currently in the Parent/Caretaker Relative group, with a renewal scheduled
+for November 2027. The member reports a CIC in May 2027 that the only child in the
+home has moved out. This CIC means that the member no longer qualifies as a
+caretaker relative. After verification, the county determines the member is now eligible
+for the MAGI New Adult Group. The county processes the CIC and keeps the original
+renewal date of November 2027. After the November 2027 renewal is complete, and the
+individual remains in the MAGI New Adult Group, the county assigns a new six-month
+renewal date based on the month the determination is completed, which in this case
+would be May 2028.
+
+Children Turning 19 and Transitioning into the MAGI New Adult Group
+When a child turns 19, ages out of the children’s coverage group, and is eligible under
+the New Adult Group, the member transitions from a child aid code to the MAGI New
+Adult Group aid code. Renewal dates for other household members who are not
+impacted by the age‑out transition remain unchanged as there was no CIC initiated for
+the case. This process ensures alignment with Medi‑Cal’s individual‑level eligibility
+framework. The county must then evaluate eligibility at the individual’s regularly
+scheduled annual renewal, and assess work and community engagement requirements,
+following the hierarchy outlined in ACWDL 17‑03. If the individual is determined to have
+continued eligibility for the MAGI New Adult Group at the next renewal, the six‑month
+renewal requirement applies. Upon reconfirming eligibility under the MAGI New Adult
+Group during the next scheduled renewal, the county must establish a new six‑month
+renewal date based on the month the redetermination is completed. This new six‑month
+renewal date replaces the individual’s prior 12‑month renewal date associated with the
+children’s group.
+
+Letter No.:26-14
+Page 8
+August 27, 2026
+
+Example 1
+A member turns 19 and ages out of the children’s MAGI group after January 1, 2027, but
+prior to their original annual renewal date of November 2027. The member transitions
+from a child aid code to the MAGI New Adult Group and keeps their original annual
+renewal date of November 2027. At the member’s regularly scheduled annual renewal,
+the county evaluates eligibility and assesses work and community engagement
+requirements. After the November 2027 renewal is complete and the individual remains
+eligible for the MAGI New Adult Group, the county then assigns a new six-month
+renewal date based on the month the redetermination is completed, which in this case
+would be May 2028.
+
+Members Moving Out of the MAGI New Adult Group
+When a member is determined ineligible for the MAGI New Adult Group during a
+renewal or CIC, counties shall evaluate eligibility for all other Medi-Cal programs
+following the hierarchy outlined in ACWDL 17-03. If the member qualifies for an
+eligibility group with an annual renewal cycle, the county shall assign a new 12-month
+renewal date based on the month the determination is completed. The six-month
+renewal requirement no longer applies once the member transitions out of the MAGI
+New Adult Group. Counties shall reassess only those household members affected by
+the change and ensure that individuals with protected coverage retain all applicable
+protections.
+
+Example 1
+A member in the MAGI New Adult Group reports a decrease in income during a CIC.
+After verification, the county determines the member qualifies for the Parent/Caretaker
+Relative group. The county assigns a new 12-month renewal date based on the month
+the CIC determination is completed. The member is no longer subject to six-month
+renewals.
+
+Example 2
+During a six-month renewal, a member in the MAGI New Adult Group provides
+verification of disability and requests a Non-MAGI evaluation. They are determined
+eligible for a Non-MAGI disability based program. The county assigns a new 12-month
+renewal date consistent with Non-MAGI requirements. The member is no longer subject
+to six-month renewals.
+
+Letter No.:26-14
+Page 9
+August 27, 2026
+
+Example 3
+A member in the MAGI New Adult Group reports an income increase during a CIC and is
+determined ineligible for the MAGI New Adult Group and all other Medi-Cal programs.
+Because no protections apply, the county discontinues only the member’s Medi-Cal with
+timely notice. Other household members potentially affected by the increase in income
+also have their eligibility redetermined, and if they continue to be eligible, have their
+annual renewal set to the appropriate next renewal cycle, unless they are in the MAGI
+New Adult Group, as MAGI New Adult Group members must not have their renewal
+date reset during a CIC. Individuals with protected coverage retain all applicable
+protections, including continuous eligibility during the 12-month post-pregnancy period
+and for children in their continuous eligibility periods.
+
+Inter-County Transfers (ICTs)
+ICTs must not restart, postpone, or otherwise alter the established six‑month renewal
+timeline for Medi‑Cal members in the MAGI New Adult Group. Receiving Counties are
+responsible for obtaining the most recent renewal date and any pending CIC
+information from the Sending County and must initiate the renewal if the member
+moves out of the county during either of the last two months of the renewal period.
+However, the Sending County may complete the renewal if both counties mutually
+agree it is in the member’s best interest. When a six‑month renewal is due or overdue
+during an ICT, the Receiving County must complete the renewal upon taking
+responsibility for the case and set the next renewal based on the month the
+determination is completed, while the Sending County must ensure coverage is
+maintained during the ICT process. When a CIC is identified or reported during the ICT
+process, counties must follow standard CIC procedures. Please refer to ACWDL 18‑02E
+for detailed guidance on the procedures for processing renewals during an ICT.
+
+Note: There are no changes to the ICT procedures resulting from the implementation of
+the six‑month renewal process.
+
+Pregnant and Postpartum Individuals Are Not Subject to the Six‑Month Renewal
+Pregnant individuals are exempt from the six‑month renewal requirement and from
+Work and Community Engagement Requirement policies and remain exempt
+throughout pregnancy and the full 12-month postpartum coverage period. Renewals
+
+Letter No.:26-14
+Page 10
+August 27, 2026
+
+cannot occur during pregnancy or the 12-month postpartum period. When a member
+subject to six‑month renewals reports a pregnancy, counties must immediately stop any
+pending renewal actions and treat the report as a CIC. Because renewals cannot occur
+during pregnancy or postpartum continuous eligibility, counties must update the
+renewal date so that it occurs after the conclusion of the postpartum period.
+
+When the postpartum period ends, a renewal must be conducted consistent with
+Medi‑Cal policy. Upon completing the redetermination, the county must place the
+individual into the appropriate eligibility group and assign a renewal month consistent
+with that group’s standard renewal schedule.
+
+Example 1
+A member in the MAGI New Adult Group reports a pregnancy outside of renewal. The
+county processes the update using standard CIC procedures and determines the
+member qualifies for pregnancy coverage. The six-month renewal requirement stops
+immediately, and the renewal date is adjusted to occur after the postpartum continuous
+eligibility period.
+
+Example 2
+A member in the MAGI New Adult Group reports a pregnancy after the renewal packet
+has already been sent. The county processes the update using standard CIC procedures
+and determines the member qualifies for pregnancy coverage. The six‑month renewal
+requirement stops immediately, the renewal packet becomes Not Applicable, and the
+renewal date is adjusted to occur after the postpartum continuous eligibility period.
+
+Delayed Renewal Processing
+Effective January 1, 2027, the policy for how a renewal date is advanced after processing
+a delayed renewal, for a member that has remained eligible, has been updated for both
+six-month renewals and annual renewals.
+
+Six-Month Renewal Delayed Processing
+When a six-month renewal is completed after its original due month, the county shall
+establish the next six-month renewal due month using the month in which the delayed
+determination is finalized. This approach ensures the member receives a full six-month
+eligibility period before the next renewal is due and prevents the ex parte process from
+
+Letter No.:26-14
+Page 11
+August 27, 2026
+
+initiating immediately following the delayed renewal determination. Counties must also
+ensure the notice that is sent to the member provides the accurate date of the next
+upcoming renewal. This policy applies to all six-month renewals that are delayed
+beyond the due month.
+
+Example
+A MAGI New Adult Group member’s six‑month renewal was originally due in April 2028,
+but the county was unable to complete the renewal during the original due month. The
+renewal is finalized in July 2028. Because the renewal determination occurred in July, the
+county must set the next six‑month renewal due month to January 2029, which is six
+months from the month of completion. The NOA issued to the member must clearly
+display January 2029 as the next renewal due date to ensure the member receives a full
+six‑month eligibility period before the next renewal and to prevent an immediate ex
+parte review following the delayed determination.
+
+Annual Renewal Delayed Processing
+Effective January 1, 2027, the process for setting annual renewal dates after a delayed
+renewal has changed, as described below. For annual renewals, how the renewal due
+month is advanced depends on when the delayed renewal is processed. When an annual
+renewal is processed within the first six months after the renewal due month, counties
+shall complete the overdue renewal and reset the next annual renewal date based on
+the month the determination is finalized.
+
+Example
+A member’s annual renewal was originally due in June 2027, but the county did not
+complete the renewal until November 2027, within the first six months after the due
+month. Because the determination occurred in November, the county must reset the
+next annual renewal due month to November 2028 and ensure the appropriate NOA is
+issued.
+
+If the annual renewal is six to eleven months overdue, counties must process the
+overdue renewal and set the next renewal date one year from the previous renewal
+month, consistent with current policy.
+
+Letter No.:26-14
+Page 12
+August 27, 2026
+
+Example
+A member’s annual renewal was originally due in June 2027. The county does not
+complete the renewal until March 2028, which is within the six to eleven month overdue
+period. In this situation, the county must process the overdue renewal and set the next
+renewal due date to June 2028, one year from the previous renewal month, and ensure
+the appropriate NOA is sent.
+
+For annual renewals overdue twelve months or more, counties must restart the renewal
+process, beginning with ex parte before sending a renewal form.
+
+Example
+A member’s annual renewal was originally due in June 2027, but the renewal was never
+processed and remained outstanding for over a year. When the county realizes the
+renewal did not occur and reviews the case in August 2028, the renewal is now more
+than twelve months overdue. Because the renewal is twelve months or more overdue,
+the county must restart the entire renewal process, beginning with an ex parte
+determination in August 2028. If ex parte cannot confirm eligibility, the county must
+send a new renewal form and proceed with a full annual renewal, including all required
+contacts. If eligibility is established, the county sets a new renewal cycle based on when
+the determination was completed and ensures the appropriate NOA is sent. In this
+example, if the renewal was completed in October 2028, the next annual renewal will be
+due in October 2029.
+
+These rules ensure alignment with Medi Cal’s individual level eligibility framework and
+maintain proper annual renewal cycles for populations not subject to six month
+renewals.
+
+90-Day Cure Period
+The six‑month renewal provision does not modify any existing 90‑Day Cure Period rules
+or policies. Medi‑Cal members have 90 days after discontinuance to provide missing
+information, which must be treated as timely. This policy applies to both MAGI and
+Non‑MAGI Medi‑Cal. When required information is received within 90 days, counties
+must reinstate eligibility back to the discontinuance date, maintain the same renewal
+month, and process all returned information in CalSAWS/CalHEERS immediately. If the
+
+Letter No.:26-14
+Page 13
+August 27, 2026
+
+member remains eligible, aid must be restored with no break; if ineligible, the case must
+be referred to Covered California. Information received after 90 days may be accepted
+as timely only if good cause exists; otherwise, the member must reapply. Counties must
+ensure all necessary information and verifications are available to confirm continued
+eligibility, avoid requesting documentation not required for the determination, and
+apply standard CIC procedures when updated information affects the eligibility of other
+household members. CMS has issued updated guidance on the 90‑Day Cure Period, and
+DHCS will provide further clarification in a future ACWDL.
+
+Timely Application and Renewal Processing
+In addition to the requirements above, CMS final guidance in SMD #26-001 emphasizes
+the need for states to maintain timely application and renewal processing during the
+transition to a six‑month renewal cycle, acknowledging the operational challenges this
+shift may bring. Counties are expected to take all necessary steps to:
+
+• Maintain timely application and renewal processing,
+• Resolve any existing application or renewal backlogs, and
+• Prevent the creation of new backlogs during system and policy transitions.
+
+CMS notes that states that do not resolve current backlogs or that develop new
+backlogs prior to implementation of Section 71107 will have reduced capacity to
+successfully implement the eligibility provisions of Public Law 119‑21 legislation and
+may face a heightened risk of federal compliance action.
+
+To support timely processing and county readiness for six-month renewals, DHCS has
+compiled recommended county operational strategies. These strategies are considered
+best practices to improve workload management and reduce the risk of backlog
+accumulation.
+
+Recommended County Strategies
+DHCS is committed to supporting counties through this major shift in policy. We will
+continue to work with counties to address statewide challenges that affect application
+and renewal processing, including but not limited to expanding automation and
+improving and simplifying the Non-MAGI and mixed household renewal packets to
+align with the updates to the MC 216 MAGI renewal form. Recommended county
+strategies to implement this policy change include:
+
+Letter No.:26-14
+Page 14
+August 27, 2026
+
+• Structured staffing models that assign workers to targeted workload categories
+such as current-month renewals, overdue renewals, or same-day actions.
+• Routine monitoring of overdue renewals through weekly internal reporting to
+identify trends and redirect staff resources.
+• Collaboration with Managed Care Plans (MCPs) and Community Based
+Organizations (CBOs) to update member contact information in advance of
+renewal notices and to assist the MCPs in providing for targeted outreach.
+• Use of CalSAWS “Get Next” functionality to support consistent and automated
+work distribution.
+• Prioritization of Skipped Batch and MAGI skipped cases to resolve easily
+correctable issues.
+• Designation of renewal focused work periods or days to maximize uninterrupted
+processing time.
+• Categorization of backlog cases into priority groups to support orderly and
+timely case resolution.
+• Temporary reassignment of staff during peak workload periods to support
+backlog reduction.
+• Deployment of specialized teams to address complex or high-volume case
+categories.
+• Implementation of ongoing training and support to address staffing turnover and
+maintain processing quality.
+
+Counties are encouraged to promptly work all call‑center tasks and tickets, mark
+incoming items and verifications as received to protect eligibility, ensure mailed
+renewals are barcode‑scanned upon receipt, and maintain adequate call‑center staffing
+to minimize member wait times.
+
+Additional Six-Month Renewal Examples
+The following examples illustrate common scenarios counties may encounter when
+processing six‑month renewals.
+
+Example 1 – New Applicant Approved Under the MAGI New Adult Group on or after
+January 1, 2027
+
+Letter No.:26-14
+Page 15
+August 27, 2026
+
+A Medi-Cal applicant is approved for the MAGI New Adult Group with an April 2027
+application month. The individual is not exempt from the six-month renewal
+requirement.
+
+• Outcome 1a: Ex Parte Successful at Six-Month Renewal
+
+o The county initiates the ex parte review in July 2027, at least 85 days prior
+to the end of the first six-month renewal due month, which is September
+2027.
+o Eligibility is confirmed through ex parte review.
+o The individual’s new six-month renewal is set for March 2028.
+
+• Outcome 1b: Ex Parte Unsuccessful; Renewal Returned with No Changes
+Reported
+
+o The county sends a prepopulated six-month renewal form in July 2027.
+o The member returns the form with no changes and provides verification,
+and eligibility is confirmed.
+o The renewal date is advanced to March 2028.
+
+• Outcome 1c: Ex Parte Unsuccessful; Renewal Returned with Updated Information
+
+o The member returns updated income information during the September
+2027 renewal.
+o After verifications, a reasonable explanation, or a sworn statement are
+provided, the county confirms eligibility and sets the next renewal for
+March 2028.
+
+• Outcome 1d: Failure to Return Required Verification
+
+o The member reports a change in income but fails to submit requested
+verifications, a reasonable explanation, or a sworn statement.
+
+Letter No.:26-14
+Page 16
+August 27, 2026
+
+o After required contact attempts, the county discontinues coverage
+effective September 30, 2027.
+
+• Outcome 1e: Failure to Complete the Six-Month Renewal
+
+o The county sends the renewal packet in July 2027.
+o The member does not provide the renewal form or otherwise provide the
+required information required to complete the renewal.
+o The county discontinues coverage effective September 30, 2027.
+
+Example 2 – Transitioning Existing Member with a March 2027 Renewal Month
+A MAGI New Adult Group member has an annual renewal due in March 2027. Because
+the ex parte process for that renewal is initiated after January 1, 2027, the individual
+transitions into the six-month renewal cycle following completion of the March renewal.
+
+• Outcome 2a: Ex Parte Successful at March 2027 Renewal
+
+o Ex parte begins in January 2027.
+o Renewed successfully in March 2027.
+o The member transitions into a six-month eligibility period from April 2027
+through September 2027.
+o The next renewal is set for September 2027.
+
+• Outcome 2b: Renewal Returned with No Changes
+
+o The renewal form is returned in March 2027 with no changes and
+verification provided.
+o The member remains eligible and the next renewal is set for September
+2027.
+
+• Outcome 2c: Updated Income and Verification Returned
+
+Letter No.:26-14
+Page 17
+August 27, 2026
+
+o The member reports updated income on the March 2027 renewal and
+provides verification, a reasonable explanation, or a sworn statement and
+eligibility is confirmed.
+o The next renewal is set for September 2027.
+
+• Outcome 2d: Eligibility Changes at Renewal
+
+o The member reports updated income on the March 2027 renewal and
+provides verification, a reasonable explanation, or a sworn statement.
+o The member is determined over income in March 2027 and has no
+eligibility under another Medi-Cal program.
+o The member is referred to Covered California and is discontinued from
+Medi-Cal effective March 31, 2027.
+
+• Outcome 2e: Failure to Complete March 2027 Renewal
+
+o The member does not complete the renewal.
+o The county discontinues coverage effective March 31, 2027.
+
+Example 3 – Mixed Household (MAGI Adult and MAGI Child)
+A household includes one MAGI New Adult Group member (Member 1 – six-month
+renewal) and one MAGI Child (Member 2 – annual renewal). The renewal month for both
+members is August 2027.
+
+• Outcome 3a: Ex Parte Successful for Both Members
+
+o Ex parte confirms both members’ eligibility during the August 2027
+renewal.
+o Member 1’s next renewal is set for February 2028.
+o Member 2’s next renewal is set for August 2028.
+
+• Outcome 3b: Renewal Returned with No Changes
+
+Letter No.:26-14
+Page 18
+August 27, 2026
+
+o Member 1 returns the August renewal with no changes and verification
+provided.
+o Member 1’s next renewal is set for February 2028.
+o Member 2’s next renewal is set for August 2028.
+
+• Outcome 3c: Updated Income Reported Affecting the Household
+
+o Member 1 reports updated income during the August renewal that affects
+both household members and provides verification, a reasonable
+explanation, or a sworn statement.
+o The county redetermines eligibility for both members and eligibility is
+confirmed.
+o Member 1’s next renewal is set for February 2028.
+o Member 2’s next renewal is set for August 2028.
+o During the February 2028 renewal for Member 1, member 1 reports new
+income that affects both members and provides verification, a reasonable
+explanation, or a sworn statement.
+o Member 1 is determined over-income and is evaluated for Covered
+California coverage.
+o Member 2 is found over-income.
+o Since Member 2’s renewal is not due until August 2028, member 2 is
+moved into CEC until their renewal date.
+
+• Outcome 3d: Member 1 Over-Income
+
+o Member 1 reports updated income during the August renewal that affects
+both household members.
+o Member 1 becomes ineligible at renewal and is assessed for Covered
+California.
+o Member 2 remains eligible due to higher FPL limit and renewal is set to
+August 2028.
+
+Letter No.:26-14
+Page 19
+August 27, 2026
+
+• Outcome 3e: Delayed Processing - August Renewal Complete in September
+o The August 2027 renewal is completed late, in September, after Member 1
+provides all required information.
+o Eligibility for both members is confirmed based on the updated income.
+o Member 1’s next renewal is set for March 2028.
+o Member 2’s renewal is set for September 2028.
+
+Example 4 – CIC Between Six-Month Renewal Cycles
+A MAGI New Adult Group member completes a renewal in March 2027, establishing a
+new eligibility period with a six-month renewal cycle. The next planned renewal is
+September 2027. The member then reports an income change in May 2027.
+
+• Outcome 4a: CIC Results in Continued Eligibility
+
+o County conducts ex parte and verifies updated information.
+o The CIC results in a full redetermination and the member remains eligible.
+o The eligibility period is not reset and the member keeps their existing
+renewal date, where Work and Community Engagement Requirements will
+be assessed.
+o The next renewal remains September 2027.
+
+• Outcome 4b: CIC Verification Required but Not Returned
+
+o County conducts ex parte and confirms verification is needed.
+o The member does not return required income verification, a reasonable
+explanation, or a sworn statement.
+o After required contact attempts, coverage is discontinued.
+
+Note: Please see ACWDL 25-31 for additional CIC examples during six-month renewal.
+
+Example 5 – Inter-County Transfer (ICT) Scenario
+A household consists of one MAGI New Adult Group member (Member 1) subject to a
+six-month renewal and one MAGI Child (Member 2) subject to an annual renewal. The
+renewal month for both members is September 2027.
+
+Letter No.:26-14
+Page 20
+August 27, 2026
+
+• Outcome 5a: ICT Received Before Renewal Packet is Sent
+
+o The household moves from County A to County B in late June 2027 and an
+ICT is initiated.
+o County A begins ex parte in July 2027 for the September 2027 renewal and
+a renewal form is sent automatically before the ICT is complete.
+o County A communicates this information to County B and the ICT is
+completed with County B keeping existing coverage pending the outcome
+of the renewal.
+o County B should complete the ICT using the existing case information, and
+after fully assuming responsibility for the case, process any reported
+income changes at the time of renewal. Member 1’s renewal is set to
+March 2028 and Member 2’s renewal is set to September 2028.
+• Outcome 5b: Renewal not Returned During ICT; ICT Completed After the Renewal
+Due Date
+
+o The renewal is due in September 2027 and has not been returned by the
+member following all required contacts, but the ICT does not finalize until
+late September.
+o County A may not discontinue the case due to non-response while the ICT
+is pending.
+o After accepting the case, County B discontinues eligibility .
+
+• Outcome 5c: Income Change Reported During ICT Affecting All Members
+
+o Member 1 reports a change in income on their renewal form during the
+ICT.
+o County B must receive the current case information and process the
+renewal. If all required verifications are provided and members remain
+eligible, Member 1’s renewal is set to March 2028, and Member 2’s
+renewal is set to September 2028.
+
+Letter No.:26-14
+Page 21
+August 27, 2026
+
+o If verifications, a reasonable explanation, or a sworn statement are not
+provided, County B discontinues both members.
+
+Example 6 – Household with Two Members on Different Renewal Cycles (MAGI Adult and
+Non-MAGI Adult)
+A household includes two adults with different eligibility groups and corresponding
+renewal cycles. Member 1 is enrolled in the MAGI New Adult Group and is therefore
+subject to six‑month renewals, with a current renewal month of April 2028. Member 2 is
+enrolled in a Non‑MAGI Aged and Disabled program, which follows a 12‑month renewal
+cycle, and their current renewal month is October 2028.
+
+• Outcome 6a: Ex Parte Successful for Member 1
+
+o In February 2028, the county initiates ex parte for Member 1’s April six-
+month renewal.
+o Eligibility for Member 1 is confirmed through ex parte for Member 1.
+o Member 1’s next renewal is set for October 2028.
+o Member 2 is not due for renewal, and the county does not have enough
+information to redetermine Non-MAGI eligibility, so their October 2028
+renewal date remains unchanged.
+o No additional information is requested for Member 2.
+
+• Outcome 6b: Member 1 Returns Renewal with No Changes
+
+o County sends Member 1’s prepopulated renewal form in February 2028 for
+their April renewal.
+o Member 1 returns the form with no changes and provides verification, a
+reasonable explanation, or a sworn statement.
+o Eligibility is confirmed, and Member 1’s next renewal is set for October
+2028.
+
+Letter No.:26-14
+Page 22
+August 27, 2026
+
+o Member 2 is not due for renewal, and the county does not have enough
+information to redetermine Non-MAGI eligibility, so their October 2028
+renewal date remains unchanged.
+
+• Outcome 6c: Updated Income Reported Affecting Both Members
+
+o Member 1 reports updated income during the April renewal that affects
+the household and provides verification, a reasonable explanation, or a
+sworn statement.
+o County processes the information as a renewal for Member 1 and treats
+the reported income on Member 1’s renewal as a CIC for Member 2 and
+follows renewal and CIC procedures. Both members remain eligible.
+o Member 1’s next renewal set to October 2028.
+o Member 2’s annual renewal remains October 2028 as updated asset
+information is not provided and therefore the annual renewal date cannot
+be reset.
+
+• Outcome 6d: Member 1 Over-Income
+
+o Member 1 reports an income increase that exceeds the MAGI New Adult
+Group limit and provides verification, a reasonable explanation, or a sworn
+statement, and is found to be over income for the MAGI New Adult Group.
+o Member 1 is evaluated for other Medi-Cal programs; none apply.
+o Member 1 is discontinued and referred to Covered California.
+o Member 2 is determined to now have a share of cost.
+o Member 2’s annual renewal remains October 2028 as updated asset
+information is not provided and therefore the annual renewal date cannot
+be reset.
+
+• Outcome 6e: Member 1 Fails to Return Six-Month Renewal
+
+Letter No.:26-14
+Page 23
+August 27, 2026
+
+o Member 1 does not return their April 2028 six-month renewal form.
+o After required contact attempts, Member 1 is discontinued from Medi-Cal
+effective April 30, 2028.
+o No negative action is taken for Member 2, as they are not due for renewal
+and their eligibility is not impacted.
+
+Forms and Notices
+DHCS has updated the MC 216 MAGI renewal form. The updated form will be available
+in all Medi‑Cal threshold languages and in the required alternate formats at the time
+six‑month renewal implementation begins. DHCS will issue a Medi-Cal Eligibility Division
+Information Letter (MEDIL) to provide counties with detailed information on the form
+updates.
+
+Consistent with ACWDL 22-33, counties must verify eligibility through federal and state
+electronic data sources before requesting information from the individual. When
+required data cannot be verified electronically or through available information, a
+renewal packet is issued to obtain only the information necessary to complete the
+renewal. The table below outlines the appropriate renewal forms associated with each
+household composition:
+
+Household Composition Required Renewal Form(s)
+
+MAGI Only Households with MAGI New Updated MC 216 that includes the work
+Adult Group Members requirement section
+
+MAGI Only Households without any MAGI Updated MC 216 form without the work
+New Adult Group Members requirement section
+
+Mixed Households with MAGI New Adult Updated MC 216 that includes the work
+Group Members and Non-MAGI requirement section
+
+Letter No.:26-14
+Page 24
+August 27, 2026
+
+Household Composition Required Renewal Form(s)
+
+Members Where Only the MAGI
+Individuals are Due for Renewal
+
+Mixed Households with MAGI and Non- Updated MC 216 form without the work
+MAGI members, without MAGI New Adult requirement section
+Group Members, Where Only the MAGI
+Individuals are Due for Renewal
+
+Mixed Households with MAGI New Adult MC 217 that includes the work
+Group Members and Non-MAGI requirement section (One Form)
+Members, Where all Members Have the
+Same Renewal Date
+
+For Mixed MAGI and Non-MAGI MC 217 that does not include the work
+Households without a MAGI New Adult requirements section
+Group Members, Where all Members
+Have the Same Renewal Date
+
+For Households with Non-MAGI Medi-Cal MC 210 RV
+Members Only
+
+System Changes
+DHCS, in coordination with CalHEERS, CalSAWS, and MEDS, will implement system
+changes to support compliance with the new federal mandate by the January 1, 2027,
+implementation date. DHCS will issue a MEDIL when these changes are implemented in
+the system.
+
+Letter No.:26-14
+Page 25
+August 27, 2026
+
+If you have any questions or if we can provide further information, please send a policy
+clarification request to MCED-Policy@dhcs.ca.gov.
+
+Sincerely,
+
+Sarah Crow, Chief
+Medi-Cal Eligibility Division
+Department of Health Care Services

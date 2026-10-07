@@ -1,0 +1,10 @@
+- retrieved: '2026-10-07'
+  url: https://www.dhcs.ca.gov/wp-content/uploads/2026/04/26-03.pdf
+  final_url: https://www.dhcs.ca.gov/wp-content/uploads/2026/04/26-03.pdf
+  status: 200
+  content_type: pdf
+  text_sha256: be72271a0e950f1390714ddd87d72b6d08a6890be939a8bee43a97011d23dde7
+  text: ca-dhcs-acwdl-26-03/2026-10-07.txt
+  raw: ca-dhcs-acwdl-26-03/2026-10-07.pdf
+  fetched_via: headless Chromium (Playwright) download; dhcs.ca.gov blocks scripted
+    clients and WebFetch with an Incapsula challenge

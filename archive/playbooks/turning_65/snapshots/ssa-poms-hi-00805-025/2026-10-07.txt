@@ -1,0 +1,84 @@
+Skip to content
+
+Program Operations Manual System (POMS)
+
+Effective Dates: 07/03/2024 - Present
+Previous | Next
+
+TN 109 (07-24)
+
+HI 00805.025 General Enrollment Period (GEP)
+
+A. Definition of GEP
+
+A GEP is the first calendar quarter of each year (January through March).
+
+B. Policy
+
+1. GEP enrollment
+
+The person who fails to enroll during the IEP, or refuses automatic (deemed) enrollment,
+may enroll only during the GEP.
+
+The person whose SMI has ended because of non-payment of premiums or voluntary withdrawal
+from SMI, may reenroll only during the GEP.
+
+EXCEPTION: For a person who becomes eligible for SMI and does not lose that eligibility, the
+only time enrollment after the IEP need not occur in a GEP is where the individual
+meets the requirements for an SEP, as described in HI 00805.265. If an individual is eligible for an SEP, they may enroll under that SEP, even if
+they were terminated due to premium non-payment.
+
+2. Extension of GEP
+
+When the GEP ends on a day which is a non-workday (e.g., Saturday, Sunday, legal holiday,
+etc.), an eligible individual may enroll on the first regular workday after the end
+of the GEP.
+
+3. When SMI will begin
+
+SMI entitlement based on a GEP enrollment will begin the first of the month after
+the month of enrollment.
+
+Prior to January 1, 2023, SMI entitlement based on a GEP enrollment always begins
+July 1 of the year during which the GEP enrollment took place.
+
+4. Inquiry late in GEP
+
+Individuals who inquire by telephone about enrollment shortly before a GEP expires
+should be told to make their request for SMI enrollment on a letter or postcard and
+immediately mail it to the FO, if they are unable to visit the FO before the end of
+the GEP.
+
+5. Deemed filing rules when Medicare is initially established
+
+If the application establishing entitlement to HI is filed after the IEP, but during the
+GEP, the individual is deemed to have filed the enrollment request on the first day of
+the current GEP.
+
+If the application establishing entitlement to HI is filed after the IEP, but not
+during a GEP or SEP, the individual is deemed to have filed the enrollment request
+on the first day of the next GEP.
+
+Note:
+
+The GEP deemed filing rules that apply when Medicare is initially established does
+not apply for individuals who previously refused or terminated SMI in the past and
+file on a postentitlement basis.
+
+Refer to HI 00805.040 for additional informational on Automatic (Deemed) Enrollment -Aged and Disabled
+Individuals
+
+C. References
+
+HI 00805.040 Automatic (Deemed) Enrollment - Aged and Disabled Individuals
+
+SM 03040.055 General Enrollment Period (GEP) Processing Via MCS and POS/T2R
+
+To Link to this section - Use this URL:
+http://policy.ssa.gov/poms.nsf/lnx/0600805025
+
+HI 00805.025 - General Enrollment Period (GEP) - 07/03/2024
+
+Batch run: 07/03/2024
+
+Rev:07/03/2024

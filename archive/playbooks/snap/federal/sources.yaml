@@ -1,0 +1,191 @@
+# Federal sources for the SNAP playbook. FNS (renamed "Food and Nutrition
+# Administration" in 2026; its site answers on www.fns.usda.gov and
+# www.fna.usda.gov) publishes the yearly COLA tables as resource files; the
+# signed COLA memos themselves sit on www.usda.gov, which refuses scripted and
+# research-tool requests (HTTP 403), so the archive relies on the FNS tables.
+sources:
+  - id: fns-snap-fy27-income-standards
+    retrieved: 2026-10-07
+    url: https://fns-prod.azureedge.us/sites/default/files/resource-files/snap-fy27-incomeEligibilityStandards.pdf
+    publisher: USDA Food and Nutrition Administration (FNS)
+    title: SNAP Fiscal Year 2027 Income Eligibility Standards
+    kind: primary
+    jurisdiction: federal
+    doc_type: dataset
+    effective_date: 2026-10-01
+    note: Same file is linked from www.fns.usda.gov/snap/allotment/cola (fns-prod.azureedge.us is the FNS site's own file host).
+  - id: fns-snap-fy27-allotments-deductions
+    retrieved: 2026-10-07
+    url: https://fns-prod.azureedge.us/sites/default/files/resource-files/snap-fy27-maximumAllotments-deductions.pdf
+    publisher: USDA Food and Nutrition Administration (FNS)
+    title: SNAP Fiscal Year 2027 Maximum Allotments and Deductions
+    kind: primary
+    jurisdiction: federal
+    doc_type: dataset
+    effective_date: 2026-10-01
+  - id: fns-snap-fy27-minimum-allotments
+    retrieved: 2026-10-07
+    url: https://fns-prod.azureedge.us/sites/default/files/resource-files/snap-fy27MinimumAllotments.pdf
+    publisher: USDA Food and Nutrition Administration (FNS)
+    title: SNAP Fiscal Year 2027 Minimum Allotments
+    kind: primary
+    jurisdiction: federal
+    doc_type: dataset
+    effective_date: 2026-10-01
+  - id: fns-snap-fy26-income-standards
+    retrieved: 2026-10-07
+    url: https://fns-prod.azureedge.us/sites/default/files/resource-files/snap-fy26-incomeEligibilityStandards.pdf
+    publisher: USDA Food and Nutrition Service (FNS)
+    title: SNAP Fiscal Year 2026 Income Eligibility Standards
+    kind: primary
+    jurisdiction: federal
+    doc_type: dataset
+    effective_date: 2025-10-01
+  - id: fns-snap-fy26-allotments-deductions
+    retrieved: 2026-10-07
+    url: https://www.fns.usda.gov/sites/default/files/resource-files/snap-fy26maximumAllotments-deductions.pdf
+    note: FNS's canonical host. Its CDN answers 404 intermittently (seen 2026-10-07); the fetcher retries. Same text as the original fns-prod.azureedge.us copy.
+    publisher: USDA Food and Nutrition Service (FNS)
+    title: SNAP Fiscal Year 2026 Maximum Allotments and Deductions
+    kind: primary
+    jurisdiction: federal
+    doc_type: dataset
+    effective_date: 2025-10-01
+  - id: fns-snap-fy26-minimum-allotments
+    retrieved: 2026-10-07
+    url: https://fns-prod.azureedge.us/sites/default/files/resource-files/snap-fy26MinimumAllotments.pdf
+    publisher: USDA Food and Nutrition Service (FNS)
+    title: SNAP Fiscal Year 2026 Minimum Allotments
+    kind: primary
+    jurisdiction: federal
+    doc_type: dataset
+    effective_date: 2025-10-01
+  - id: fns-snap-cola-page
+    retrieved: 2026-10-07
+    url: https://www.fns.usda.gov/snap/allotment/cola
+    publisher: USDA Food and Nutrition Administration (FNS)
+    title: SNAP Cost-of-Living Adjustment (COLA) Information (FY 2027 standards, allotments and deductions)
+    kind: primary
+    jurisdiction: federal
+    doc_type: agency_page
+    effective_date: 2026-10-01
+  - id: fns-snap-eligibility
+    retrieved: 2026-10-07
+    url: https://www.fns.usda.gov/snap/recipient/eligibility
+    publisher: USDA Food and Nutrition Administration (FNS)
+    title: SNAP Eligibility (information for Oct. 1, 2026 - Sept. 30, 2027)
+    kind: primary
+    jurisdiction: federal
+    doc_type: agency_page
+    effective_date: 2026-10-01
+    note: The page says FNS is still updating it for the One Big Beautiful Bill Act changes.
+  - id: fns-snap-elderly-disabled
+    retrieved: 2026-10-07
+    url: https://www.fns.usda.gov/snap/eligibility/elderly-disabled-special-rules
+    publisher: USDA Food and Nutrition Administration (FNS)
+    title: SNAP Special Rules for the Elderly or Disabled
+    kind: primary
+    jurisdiction: federal
+    doc_type: agency_page
+    effective_date: 2026-10-01
+  - id: fns-snap-bbce-chart
+    retrieved: 2026-10-07
+    url: https://www.fns.usda.gov/snap/broad-based-categorical-eligibility
+    publisher: USDA Food and Nutrition Administration (FNS)
+    title: Broad-Based Categorical Eligibility (BBCE) state chart (June 2026)
+    kind: primary
+    jurisdiction: federal
+    doc_type: agency_page
+    published: 2026-06-29
+  - id: fns-snap-sua-fy26
+    retrieved: 2026-10-07
+    url: https://www.fns.usda.gov/sites/default/files/resource-files/2026-05-21-SUA-Table-FY26.xlsx
+    publisher: USDA Food and Nutrition Administration (FNS)
+    title: SNAP FY 2026 Standard Utility Allowances (SUA) by State (spreadsheet)
+    kind: primary
+    jurisdiction: federal
+    doc_type: dataset
+    effective_date: 2025-10-01
+    note: Excel file; the snapshot text is every row of the sheet, converted with openpyxl.
+  - id: usc-7-2014
+    retrieved: 2026-10-07
+    url: https://www.govinfo.gov/content/pkg/USCODE-2023-title7/html/USCODE-2023-title7-chap51-sec2014.htm
+    publisher: U.S. Government Publishing Office (United States Code, 2023 edition)
+    title: 7 U.S.C. 2014 — Eligible households (Food and Nutrition Act sec. 5)
+    kind: primary
+    jurisdiction: federal
+    doc_type: statute
+    note: 2023 edition, before Public Law 119-21 amended (e)(6) and (k)(4); read with pl-119-21-nutrition.
+  - id: usc-7-2017
+    retrieved: 2026-10-07
+    url: https://www.govinfo.gov/content/pkg/USCODE-2023-title7/html/USCODE-2023-title7-chap51-sec2017.htm
+    publisher: U.S. Government Publishing Office (United States Code, 2023 edition)
+    title: 7 U.S.C. 2017 — Value of allotment (Food and Nutrition Act sec. 8)
+    kind: primary
+    jurisdiction: federal
+    doc_type: statute
+  - id: ecfr-7-271-2
+    retrieved: 2026-10-07
+    url: https://www.ecfr.gov/api/renderer/v1/content/enhanced/current/title-7?part=271&section=271.2
+    publisher: Office of the Federal Register (eCFR)
+    title: 7 CFR 271.2 — Definitions (elderly or disabled member, household)
+    kind: primary
+    jurisdiction: federal
+    doc_type: regulation
+  - id: ecfr-7-273-2
+    retrieved: 2026-10-07
+    url: https://www.ecfr.gov/api/renderer/v1/content/enhanced/current/title-7?part=273&section=273.2
+    publisher: Office of the Federal Register (eCFR)
+    title: 7 CFR 273.2 — Office operations and application processing (interview, 30-day and expedited timelines, categorical eligibility)
+    kind: primary
+    jurisdiction: federal
+    doc_type: regulation
+  - id: ecfr-7-273-8
+    retrieved: 2026-10-07
+    url: https://www.ecfr.gov/api/renderer/v1/content/enhanced/current/title-7?part=273&section=273.8
+    publisher: Office of the Federal Register (eCFR)
+    title: 7 CFR 273.8 — Resource eligibility standards
+    kind: primary
+    jurisdiction: federal
+    doc_type: regulation
+  - id: ecfr-7-273-9
+    retrieved: 2026-10-07
+    url: https://www.ecfr.gov/api/renderer/v1/content/enhanced/current/title-7?part=273&section=273.9
+    publisher: Office of the Federal Register (eCFR)
+    title: 7 CFR 273.9 — Income and deductions
+    kind: primary
+    jurisdiction: federal
+    doc_type: regulation
+  - id: ecfr-7-273-10
+    retrieved: 2026-10-07
+    url: https://www.ecfr.gov/api/renderer/v1/content/enhanced/current/title-7?part=273&section=273.10
+    publisher: Office of the Federal Register (eCFR)
+    title: 7 CFR 273.10 — Determining household eligibility and benefit levels
+    kind: primary
+    jurisdiction: federal
+    doc_type: regulation
+  - id: ecfr-7-273-12
+    retrieved: 2026-10-07
+    url: https://www.ecfr.gov/api/renderer/v1/content/enhanced/current/title-7?part=273&section=273.12
+    publisher: Office of the Federal Register (eCFR)
+    title: 7 CFR 273.12 — Reporting requirements and State agency action on changes
+    kind: primary
+    jurisdiction: federal
+    doc_type: regulation
+  - id: ecfr-7-273-14
+    retrieved: 2026-10-07
+    url: https://www.ecfr.gov/api/renderer/v1/content/enhanced/current/title-7?part=273&section=273.14
+    publisher: Office of the Federal Register (eCFR)
+    title: 7 CFR 273.14 — Recertification
+    kind: primary
+    jurisdiction: federal
+    doc_type: regulation
+  - id: ecfr-7-273-24
+    retrieved: 2026-10-07
+    url: https://www.ecfr.gov/api/renderer/v1/content/enhanced/current/title-7?part=273&section=273.24
+    publisher: Office of the Federal Register (eCFR)
+    title: 7 CFR 273.24 — Time limit for able-bodied adults (ABAWD)
+    kind: primary
+    jurisdiction: federal
+    doc_type: regulation
+    note: Regulation text predates Public Law 119-21's ABAWD changes; read with pl-119-21-nutrition sec. 10102.

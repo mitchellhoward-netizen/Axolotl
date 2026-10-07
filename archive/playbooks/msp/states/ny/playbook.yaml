@@ -1,0 +1,761 @@
+schema_version: 2
+program: msp
+scope: ny
+title: Medicare Savings Program — New York
+last_researched: 2026-10-07
+
+summary:
+  plain_language: >-
+    In New York the Medicare Savings Program (MSP) pays the Medicare Part B
+    premium ($202.90 a month in 2026) for people with Medicare Part A whose
+    gross income is up to $2,494 a month (single) or $3,375 (couple) in 2026,
+    with no limit on savings or other assets. Below $1,856 / $2,509 a person
+    gets QMB, which also pays Medicare deductibles and coinsurance; between
+    those amounts and the top limit they get QI, which pays only the Part B
+    premium. New York stopped using the separate SLMB tier in 2023. Enrolling
+    in either tier also brings Extra Help with Part D drug costs.
+  administered_by: >-
+    New York State Department of Health (Office of Health Insurance Programs)
+    sets policy; applications are processed by the county Local Department of
+    Social Services (LDSS), by the Human Resources Administration (HRA) in New
+    York City, and by NY State of Health for some people.
+  funded_by: >-
+    QMB and QDWI are Medicaid, shared federal/state; NYSOFA describes the
+    administrative cost split as 50% federal, 25% state, 25% county. QI is
+    federally funded within New York's allotment.
+  local_names:
+    - {name: MSP, meaning: Medicare Savings Program (also called the Medicare Buy-In or Medicare Premium Payment Program)}
+    - {name: QI, meaning: "Qualifying Individual (older NY documents say QI-1)"}
+    - {name: SLIMB, meaning: "New York's spelling of SLMB; no longer used for new cases since January 1, 2023"}
+    - {name: LDSS, meaning: Local Department of Social Services (county Medicaid office)}
+    - {name: HRA, meaning: New York City Human Resources Administration}
+  confidence: confirmed
+  sources:
+    - {source: ny-doh-msp-2026, locator: "whole page"}
+    - {source: ny-gis-22-ma-10, locator: "SLMB: This category will no longer be used"}
+    - {source: nysofa-hiicap-msp-2026, locator: "Background and History (funding split)"}
+
+rules:
+  - id: MSP-NY-TIERS
+    statement: >-
+      Since January 1, 2023, New York offers three Medicare Savings Program
+      tiers to new applicants — QMB, QI and QDWI — and no longer determines
+      anyone eligible for SLMB (SLIMB), which was folded into QMB.
+    kind: definition
+    effective_from: 2023-01-01
+    overrides: [MSP-FED-SLMB-INCOME]
+    implemented_in: playbooks/msp/states/ny/rules.py:evaluate
+    confidence: confirmed
+    sources:
+      - {source: ny-gis-22-ma-10, locator: "Specified Low Income Medicare Beneficiary (SLMB): This category will no longer be used for new applications or renewals on or after January 1, 2023."}
+      - {source: nysofa-hiicap-msp-2026, locator: "There are three types of MSPs in New York State"}
+  - id: MSP-NY-QMB-INCOME
+    statement: >-
+      In New York in 2026, a person with Medicare Part A qualifies for QMB if
+      countable monthly income is at or below 138% of the federal poverty
+      level: $1,836 for a single person or $2,489 for a couple after the $20
+      disregard, which means gross income up to $1,856 (single) or $2,509
+      (couple).
+    kind: eligibility
+    applies_to: [QMB]
+    effective_from: 2026-01-01
+    parameters: [ny.msp.qmb_fpl_percent, ny.msp.qmb_income_limit_monthly, ny.msp.income_disregard_monthly]
+    overrides: [MSP-FED-QMB-INCOME-FLOOR]
+    implemented_in: playbooks/msp/states/ny/rules.py:evaluate
+    confidence: confirmed
+    sources:
+      - {source: ny-gis-26-ma-05-att1, locator: "Non-MAGI table, QMB row"}
+      - {source: ny-doh-msp-2026, locator: "Qualified Medicare Beneficiary Program (QMB)"}
+      - {source: ny-gis-22-ma-10, locator: "QMB: income less than or equal to 138% of the FPL"}
+  - id: MSP-NY-QI-INCOME
+    statement: >-
+      In New York in 2026, a person with Medicare Part A whose countable
+      monthly income is above the QMB level and at or below 186% of the federal
+      poverty level ($2,474 single, $3,355 couple after the $20 disregard;
+      gross up to $2,494 single or $3,375 couple) qualifies for QI, which pays
+      the Part B premium only.
+    kind: eligibility
+    applies_to: [QI]
+    effective_from: 2026-01-01
+    parameters: [ny.msp.qi_fpl_percent, ny.msp.qi_income_limit_monthly, ny.msp.income_disregard_monthly]
+    overrides: [MSP-FED-QI-INCOME]
+    implemented_in: playbooks/msp/states/ny/rules.py:evaluate
+    confidence: confirmed
+    sources:
+      - {source: ny-gis-26-ma-05-att1, locator: "Non-MAGI table, Qualifying Individual (QI) row"}
+      - {source: ny-doh-msp-2026, locator: "Qualifying Individual (QI)"}
+      - {source: ny-gis-22-ma-10, locator: "Qualifying Individuals (QI)"}
+  - id: MSP-NY-NO-RESOURCE-TEST
+    statement: >-
+      New York has no resource (asset) test for QMB or QI: savings, retirement
+      accounts, a home and other assets do not affect Medicare Savings Program
+      eligibility.
+    kind: eligibility
+    applies_to: [QMB, QI]
+    effective_from: 2026-01-01
+    overrides: [MSP-FED-RESOURCES]
+    implemented_in: playbooks/msp/states/ny/rules.py:evaluate
+    confidence: confirmed
+    note: >-
+      The 2026 chart says "No Resource Test" for QMB and QI. The year New York
+      first dropped the test was not established here; the 2026 effective date
+      is the earliest date this archive has a source for.
+    sources:
+      - {source: ny-gis-26-ma-05-att1, locator: "QMB ... No Resource Test; QI ... No Resource Test"}
+      - {source: nysofa-hiicap-msp-2026, locator: "2026 New York asset limits: No limit"}
+  - id: MSP-NY-DISREGARD
+    statement: >-
+      When New York decides Medicare Savings Program eligibility it subtracts
+      $20 a month from gross income (only one $20 per couple), and counts
+      income using the Medicaid rules for people who are 65 or older, blind or
+      disabled (SSI-related budgeting), including the $65-plus-half earned
+      income disregard.
+    kind: definition
+    applies_to: [QMB, QI, QDWI]
+    effective_from: 2026-01-01
+    parameters: [ny.msp.income_disregard_monthly, federal.ssi.earned_income_exclusion_monthly]
+    overrides: [MSP-FED-INCOME-SSI-METHOD]
+    implemented_in: playbooks/msp/federal/rules.py:countable_income
+    confidence: confirmed
+    sources:
+      - {source: ny-doh-msp-2026, locator: "Note: Medicaid allows a $20 deduction from applicant's gross monthly income"}
+      - {source: ny-mrg-income, locator: "SSI-Related Disregards: EARNED INCOME ($65 and 1/2); UNEARNED INCOME (one $20 per couple)"}
+      - {source: nysofa-hiicap-msp-2026, locator: "Important budgeting considerations: Medicaid rules for counting income under the DAB category ... are used for MSP applications"}
+  - id: MSP-NY-COUPLE
+    statement: >-
+      In New York, when two spouses live together, Medicare Savings Program
+      eligibility is decided by comparing the couple's income to the limit for
+      a household of two, whatever the income or category of each spouse
+      (even if only one spouse is applying or has Medicare).
+    kind: definition
+    applies_to: [QMB, QI]
+    effective_from: 2009-11-01
+    overrides: [MSP-FED-COUPLE-INCOME]
+    implemented_in: playbooks/msp/federal/rules.py:countable_income
+    confidence: confirmed
+    note: The Medicaid Reference Guide page carrying this rule is dated November 2009; later directives were not found to change it. DOH-4328 instructions also require the spouse's information "even if the spouse is not applying".
+    sources:
+      - {source: ny-mrg-income, locator: "MEDICARE SAVINGS PROGRAM, NOTE: When two spouses reside together in a household, eligibility for MSP will be determined by comparing income to a household of two"}
+      - {source: ny-doh-4328-instructions, locator: "Step 2"}
+  - id: MSP-NY-PART-A
+    statement: >-
+      In New York, a person must have Medicare Part A to qualify for QMB or QI;
+      a New Yorker 65 or older who is not eligible for premium-free Part A may
+      use the Part A Buy-in to enroll in conditional Part A and then get QMB,
+      which pays the Part A premium.
+    kind: eligibility
+    applies_to: [QMB, QI]
+    effective_from: 2026-01-01
+    implemented_in: playbooks/msp/states/ny/rules.py:evaluate
+    confidence: confirmed
+    sources:
+      - {source: ny-doh-msp-2026, locator: "QI: The applicant must have Medicare Part A."}
+      - {source: nysofa-hiicap-msp-2026, locator: "PART A BUY-IN (GIS 04 MA/013)"}
+  - id: MSP-NY-QI-NOT-MEDICAID
+    statement: >-
+      In New York a person cannot have QI and Medicaid at the same time; a
+      person in the QI income range who also qualifies for Medicaid (for
+      example with a spenddown) must choose one. QMB and Medicaid can be held
+      together.
+    kind: coordination
+    applies_to: [QI]
+    effective_from: 2023-01-01
+    implemented_in: playbooks/msp/states/ny/rules.py:evaluate
+    confidence: confirmed
+    sources:
+      - {source: ny-gis-22-ma-10, locator: "Note: Clients cannot be enrolled as QI and enrolled in NY Medicaid at the same time."}
+      - {source: ny-doh-msp-2026, locator: "Individuals cannot be eligible for QI and Medicaid."}
+  - id: MSP-NY-SPENDDOWN-CHOICE
+    statement: >-
+      In New York the Medicare premium the MSP pays cannot also be used to
+      reduce a Medicaid spenddown; an applicant who could get Medicaid with a
+      spenddown is asked to choose between the spenddown and the Medicare
+      Savings Program.
+    kind: coordination
+    effective_from: 2009-11-01
+    confidence: confirmed
+    sources:
+      - {source: ny-mrg-income, locator: "MEDICARE SAVINGS PROGRAM, Interpretation"}
+      - {source: nysofa-hiicap-msp-2026, locator: "those eligible for QI will have to choose between QI and Medicaid with a spend-down"}
+  - id: MSP-NY-QDWI
+    statement: >-
+      In New York in 2026, QDWI (payment of the Part A premium only) is for
+      people under 65 who lost premium-free Part A by returning to work, with
+      income at or below 200% FPL ($2,660 single, $3,607 couple, before the $20
+      and earned income disregards) and resources no more than $4,000 single or
+      $6,000 couple.
+    kind: eligibility
+    applies_to: [QDWI]
+    effective_from: 2026-01-01
+    parameters: [ny.msp.qdwi_income_limit_monthly, ny.msp.qdwi_resource_limit]
+    overrides: [MSP-FED-QDWI]
+    implemented_in: playbooks/msp/states/ny/rules.py:evaluate
+    confidence: confirmed
+    sources:
+      - {source: ny-gis-26-ma-05-att1, locator: "Qualified Disabled & Working Individual (QDWI) row"}
+      - {source: nysofa-hiicap-msp-2026, locator: "QUALIFIED DISABLED AND WORKING INDIVIDUAL PROGRAM (QDWI)"}
+  - id: MSP-NY-QMB-EFFECTIVE
+    statement: >-
+      In New York, QMB starts the first day of the month after the month of
+      application and is never retroactive.
+    kind: timing
+    applies_to: [QMB]
+    effective_from: 2007-12-26
+    overrides: [MSP-FED-QMB-EFFECTIVE]
+    confidence: confirmed
+    note: See conflict MSP-NY-CONFLICT-01 — federal law ties the start to the month of determination, not application.
+    sources:
+      - {source: ny-gis-07-ma-027, locator: "eligibility for QMB begins the first of the month following the date of the application"}
+      - {source: ny-gis-22-ma-10, locator: "Retroactive MSP: Clients eligible for QMB are not entitled to retroactive benefits."}
+      - {source: nysofa-hiicap-msp-2026, locator: "Summary chart: QMB — No. Effective in month following month of application"}
+  - id: MSP-NY-QI-RETRO
+    statement: >-
+      In New York, QI can pay Part B premiums for up to three months before the
+      month of application, but never for months in an earlier calendar year.
+    kind: timing
+    applies_to: [QI]
+    effective_from: 2023-01-01
+    overrides: [MSP-FED-RETRO-SLMB-QI]
+    confidence: confirmed
+    sources:
+      - {source: ny-gis-22-ma-10, locator: "Retroactive MSP: ... SLMB and QI may be entitled to retroactive benefits for three months prior. However, retroactive QI benefits may not be provided for a previous calendar year."}
+      - {source: nysofa-hiicap-msp-2026, locator: "Qualified Individual: up to three months of retroactive reimbursement ... within the same year"}
+  - id: MSP-NY-RENEWAL
+    statement: >-
+      New York Medicare Savings Program coverage is renewed (recertified) every
+      year; QI coverage runs twelve months from the month of application.
+    kind: procedure
+    applies_to: [QMB, QI]
+    effective_from: 2023-01-01
+    confidence: confirmed
+    sources:
+      - {source: ny-doh-4328-instructions, locator: "You will need to renew (recertify) your MSP every year."}
+      - {source: ny-gis-22-ma-10, locator: "Upstate QI Eligible Individuals: example 04/01/2023 - 03/31/2024"}
+  - id: MSP-NY-MSP-FIRST
+    statement: >-
+      New York districts must determine Medicare Savings Program eligibility
+      before Medicaid eligibility, and must determine MSP eligibility even when
+      the person applied for Medicaid without asking for the MSP.
+    kind: procedure
+    effective_from: 2009-11-01
+    confidence: confirmed
+    sources:
+      - {source: ny-gis-22-ma-10, locator: "MSP determinations must be completed before determining Medicaid eligibility per 00 OMM/ADM 07."}
+      - {source: ny-mrg-income, locator: "Eligibility for the MSPs must be determined even if an applicant does not indicate that he or she is applying for the MSP"}
+  - id: MSP-NY-JAN-BUDGETING
+    statement: >-
+      For New York MSP-only cases with a budget start date in January 2026 or
+      later, districts were told to budget the 2025 Social Security amount and
+      the 2025 Part B premium ($185.00) until the 2026 poverty levels were
+      released (in the eligibility system February 17, 2026), and then to
+      re-budget back to January 1, 2026 with the 2026 levels.
+    kind: timing
+    applies_to: [QMB, QI]
+    effective_from: 2026-01-01
+    effective_to: 2026-02-16
+    parameters: [ny.msp.part_b_premium_budgeted_before_fpl_release]
+    confidence: confirmed
+    note: >-
+      New York's operational form of the federal transition-month COLA rule
+      (MSP-FED-COLA-TRANSITION). Evaluations in this archive apply the 2026
+      levels from January 1 (the re-budgeted result) and exclude the COLA in
+      January and February.
+    sources:
+      - {source: ny-gis-26-ma-03, locator: "Note: As in previous years, Medicare Savings Program (MSP)-only cases ..."}
+      - {source: ny-gis-26-ma-05, locator: "updated levels will be available in MBL on February 17, 2026 ... re-budgeted retroactive to January 1, 2026"}
+  - id: MSP-NY-FPL-EFFECTIVE
+    statement: >-
+      New York applies each year's new federal poverty levels to Medicare
+      Savings Program eligibility from January 1 of that year (for 2026,
+      January 1, 2026), even though they are published later in January.
+    kind: timing
+    effective_from: 2026-01-01
+    confidence: confirmed
+    sources:
+      - {source: ny-gis-26-ma-05, locator: "EFFECTIVE DATE: January 1, 2026"}
+  - id: MSP-NY-SSI-AUTO
+    statement: >-
+      In New York, people who receive SSI should be enrolled in full Medicaid,
+      Medicare Parts A and B, and QMB automatically, without filing an MSP
+      application.
+    kind: coordination
+    effective_from: 2026-01-01
+    confidence: secondary
+    note: Only source found is the NYSOFA counselor manual; no DOH directive located.
+    open_question: MSP-NY-OQ-03
+    sources:
+      - {source: nysofa-hiicap-msp-2026, locator: "Note: Individuals with Supplemental Security Income (SSI) should be automatically enrolled ..."}
+  - id: MSP-NY-EXTRA-HELP
+    statement: >-
+      In New York, anyone enrolled in QMB or QI is automatically enrolled in
+      Extra Help for Medicare Part D; a person over the Extra Help asset limit
+      can still get Extra Help this way, because New York's MSP has no asset
+      test.
+    kind: coordination
+    applies_to: [QMB, QI]
+    effective_from: 2026-01-01
+    implemented_in: playbooks/msp/federal/rules.py:extra_help_link
+    confidence: confirmed
+    sources:
+      - {source: ssa-poms-hi-03001-005, locator: "A. deemed subsidy eligible"}
+      - {source: nysofa-hiicap-msp-2026, locator: "Extra Help enrollment: ... Clients over assets who need prescription drug assistance can use MSP enrollment to receive Extra Help."}
+  - id: MSP-NY-PART-B-LEP
+    statement: >-
+      In New York, enrolling in a Medicare Savings Program removes any Part B
+      late enrollment penalty (the state pays only the standard premium, and
+      if the MSP later ends and the person keeps Part B their premium stays
+      at the base amount), and lets a person enroll in Part B outside the
+      usual enrollment periods with Part B starting on the MSP effective date.
+    kind: benefit
+    effective_from: 2026-01-01
+    confidence: confirmed
+    note: >-
+      Stated for New York by NYSOFA; the federal basis is the state buy-in
+      agreement (MSP-FED-BUYIN-NO-PENALTY, MSP-FED-BUYIN-START), which covers
+      the MSP groups in every state. Answers MSP-NY-OQ-04.
+    sources:
+      - {source: nysofa-hiicap-msp-2026, locator: "MSP BENEFITS: Elimination of Part B late enrollment penalties; Part B enrollment"}
+      - {source: ssa-poms-hi-00815-001, locator: "B. The State Buy-in Agreement", quote: "states and territories do not pay a premium surcharge due to late enrollment"}
+      - {source: ssa-poms-hi-00815-039, locator: "A. and B.", quote: "the premium will be the base amount even if they had been paying a premium surcharge for late enrollment prior to being on buy-in"}
+      - {source: cfr-42-407, locator: "407.40(c)(1); 407.47(g)"}
+  - id: MSP-NY-BUYIN-SPAN
+    statement: >-
+      In New York, the local department of social services (or HRA) puts an
+      approved MSP enrollee on the Medicare Buy-In by opening a Buy-In span
+      with the MSP code (for example "P" for QMB) in the eMedNY/WMS third-party
+      system; the state then pays the Part B premium through its buy-in
+      agreement, and the span is closed (with a discontinuance notice) when
+      the person is no longer MSP-eligible.
+    kind: procedure
+    applies_to: [QMB, QI]
+    effective_from: 2023-05-26
+    confidence: confirmed
+    note: >-
+      GIS 26 MA/05 instructs a "99-change transaction on the eMedNY Buy-in span"
+      for QI-to-QMB changes; GIS 23 MA/10 requires closing the span when MSP
+      ends. How often New York transmits buy-in changes to CMS, and how long
+      until SSA stops the deduction, is not stated (MSP-NY-OQ-02).
+    open_question: MSP-NY-OQ-02
+    sources:
+      - {source: ny-gis-23-ma-10, locator: "last paragraph", quote: "If recipients are no longer MSP eligible, the Medicare Buy-In span must be closed, and notification must be provided regarding the discontinuance of MSP."}
+      - {source: ny-gis-26-ma-05, locator: "QI to QMB change", quote: "staff must complete a 99-change transaction on the eMedNY Buy-in span"}
+      - {source: ny-adm-00-omm-07, locator: "Page 4, SLIMB paragraph; Page 3, QMB", quote: "an \"L\" will be entered into the Buy-In screen of the third party subsystem of WMS"}
+  - id: MSP-NY-SNAP-EFFECT
+    statement: >-
+      In New York, a household that gets SNAP and then has its Part B premium
+      paid by the MSP does not have to report the lower medical expense before
+      its next SNAP recertification; if it does report the drop (or the change
+      is verified by the district's Medicaid unit for a six-month reporter),
+      SNAP may be recalculated sooner. Either way the benefit falls by less than
+      the premium removed.
+    kind: coordination
+    effective_from: 2026-01-01
+    confidence: secondary
+    note: >-
+      NYSOFA's counselor manual describes OTDA directive 02 ADM-07 as freezing
+      the medical deduction until recertification "even if they do report the
+      change". The SNAP playbook could not retrieve 02 ADM-07 and found that
+      18 NYCRR 387.17 (Cornell LII copy) supports "no need to report" but not
+      "no cut if reported" (SNAP-NY-MEDICAL-CHANGE-REPORTING,
+      SNAP-NY-CONFLICT-04; SNAP-NY-MSP-MEDICAL-FREEZE stays unresolved). The
+      agent should therefore not promise the member that SNAP cannot drop
+      before recertification. NYSOFA puts the drop at roughly $30 per $100;
+      the SNAP playbook's budget arithmetic (SNAP-X-01/01B) shows about 45
+      cents per dollar when the household also has an excess shelter deduction
+      (a smaller medical deduction raises the income half of which is
+      subtracted from shelter costs), so no per-dollar figure is stated here.
+    open_question: MSP-NY-OQ-05
+    sources:
+      - {source: nysofa-hiicap-msp-2026, locator: "Important budgeting considerations, SNAP protections"}
+  - id: MSP-NY-ESTATE
+    statement: >-
+      New York does not recover Medicare Savings Program premium payments (or,
+      since 2010, QMB cost-sharing) from a deceased person's estate.
+    kind: benefit
+    effective_from: 2010-01-01
+    confidence: secondary
+    note: NYSOFA cites GIS 10 MA/008; the GIS itself was not retrieved.
+    open_question: MSP-NY-OQ-06
+    sources:
+      - {source: nysofa-hiicap-msp-2026, locator: "No Medicaid lien on estate to recover MSP benefits paid"}
+
+procedure:
+  applications:
+    - id: MSP-NY-PROC-FORM
+      text: Use form DOH-4328, the Medicare Savings Program Application, for an MSP-only application. The full Medicaid application (LDSS-2921) is not needed unless the person also wants Medicaid.
+      form_number: DOH-4328
+      form_name: Medicare Savings Program Application (11/23)
+      url: https://www.health.ny.gov/forms/doh-4328.pdf
+      confidence: confirmed
+      sources:
+        - {source: ny-doh-4328, locator: "page 1 header; DOH-4328 (11/23)"}
+        - {source: ny-gis-07-ma-027, locator: "The DOH-4328 is to be used for all Medicare Savings Program applications. The long application, LDSS-2921, is no longer required"}
+    - id: MSP-NY-PROC-NO-INTERVIEW
+      text: No face-to-face interview is required when the person applies only for the MSP.
+      confidence: confirmed
+      sources: [{source: ny-gis-07-ma-027, locator: "the face-to-face interview will be waived"}]
+    - id: MSP-NY-PROC-SPOUSE
+      text: A married applicant living with a spouse must fill in the spouse's information too, even if the spouse is not applying; both sign if both apply.
+      confidence: confirmed
+      sources: [{source: ny-doh-4328-instructions, locator: "Step 2 and Step 4"}]
+    - id: MSP-NY-PROC-RETRO-BOX
+      text: To ask for QI retroactive months, tick "consider providing retroactive reimbursement of your Medicare premium" and send proof of income for the previous three months.
+      confidence: confirmed
+      sources:
+        - {source: ny-doh-4328, locator: "MEDICARE INFORMATION: Would you like us to consider providing retroactive reimbursement of your Medicare premium?"}
+        - {source: ny-doh-4328, locator: "page 2: If you are requesting retroactive reimbursement ... proof of income for the previous three-months"}
+  documents:
+    - id: MSP-NY-DOC-MEDICARE-CARD
+      text: Photocopy of the front and back of the Medicare card.
+      confidence: confirmed
+      sources: [{source: ny-doh-4328-instructions, locator: "Step 5"}]
+    - id: MSP-NY-DOC-INCOME
+      text: Proof of income — pay stubs (4 weeks), employer letter, pension statement showing amount and frequency, tax return, or award letter for Social Security, unemployment or veterans' benefits.
+      confidence: confirmed
+      sources: [{source: ny-doh-4328-instructions, locator: "Step 5, Proof of income"}]
+    - id: MSP-NY-DOC-DOB
+      text: Proof of date of birth — driver's license, U.S. birth certificate, U.S. passport, green card, or NYS Benefit ID card.
+      confidence: confirmed
+      sources: [{source: ny-doh-4328-instructions, locator: "Step 5, Proof of Date of Birth"}]
+    - id: MSP-NY-DOC-RESIDENCE
+      text: Proof of residence dated within 6 months of signing — lease or rent receipt, utility bill, property tax or mortgage statement, or a postmarked envelope (not to a P.O. box).
+      confidence: confirmed
+      sources: [{source: ny-doh-4328-instructions, locator: "Step 5, Proof of Residence"}]
+    - id: MSP-NY-DOC-OTHER-PREMIUMS
+      text: Proof of any other health insurance premium paid (for example a retiree plan or Medigap premium statement).
+      confidence: confirmed
+      sources: [{source: ny-doh-4328-instructions, locator: "Step 5"}]
+    - id: MSP-NY-DOC-IMMIGRATION
+      text: Non-citizens provide documents showing current immigration status (for example I-551 green card). People receiving Medicare do not have to document citizenship.
+      confidence: confirmed
+      sources:
+        - {source: ny-doh-4328-instructions, locator: "Step 5"}
+        - {source: ny-gis-07-ma-027, locator: "persons in receipt of Medicare are not required to provide documentation of citizenship"}
+  filing:
+    - id: MSP-NY-FILE-MAIL
+      text: Mail the DOH-4328 and documents to the Local Department of Social Services (LDSS) for the county where the person lives, or to HRA in New York City. All paper MSP applications must be mailed to the LDSS where the person lives.
+      channel: mail
+      county_varies: true
+      url: http://www.health.ny.gov/health_care/medicaid/ldss.htm
+      confidence: confirmed
+      sources:
+        - {source: ny-doh-4328-instructions, locator: "Step 7"}
+        - {source: ny-doh-msp-2026, locator: "All paper applications for the Medicare Savings Program must be mailed to the local Department of Social Services where you live."}
+    - id: MSP-NY-FILE-IN-PERSON
+      text: The DOH-4328 can also be submitted in person at the local Medicaid office.
+      channel: in_person
+      county_varies: true
+      confidence: secondary
+      note: NYSOFA says "by mail or in person"; DOH's own page and form instructions mention only mail.
+      sources: [{source: nysofa-hiicap-msp-2026, locator: "submit it by mail or in-person"}]
+    - id: MSP-NY-FILE-ONLINE
+      text: DOH says people may "apply online with the NY State of Health"; which Medicare beneficiaries can apply for the MSP online through NY State of Health was not established.
+      channel: online
+      confidence: unresolved
+      open_question: MSP-NY-OQ-01
+      sources: [{source: ny-doh-msp-2026, locator: "You may print the application from the link below or apply online with the NY State of Health."}]
+    - id: MSP-NY-FILE-DATE
+      text: The application date is the day the signed, dated application is received by the Medicaid office.
+      confidence: confirmed
+      sources: [{source: ny-gis-07-ma-027, locator: "The date of application will be the date a signed and dated application is received"}]
+    - id: MSP-NY-FILE-HELPLINE
+      text: Questions go to the NYS Medicaid Helpline, 1-800-541-2831.
+      channel: phone
+      confidence: confirmed
+      sources: [{source: ny-doh-msp-2026, locator: "Medicaid Helpline is 1-800-541-2831"}]
+  timelines:
+    - id: MSP-NY-TIME-DECISION
+      text: The LDSS sends a Notice of Action within 45 days of the application saying whether the MSP is approved.
+      duration: 45 days
+      confidence: confirmed
+      sources: [{source: ny-doh-4328-instructions, locator: "Step 8"}]
+    - id: MSP-NY-TIME-DEDUCTION-STOPS
+      text: >-
+        No New York source says how many months after approval the Part B
+        premium stops being deducted from the Social Security payment. What is
+        established (federal sources): the buy-in starts with the MSP effective
+        month (QMB: the month after the determination; QI: up to three
+        retroactive months in the same calendar year); once SSA records it, the
+        deduction stops and SSA refunds every premium already deducted for
+        buy-in months in a separate payment (MSP-FED-BUYIN-START,
+        MSP-FED-BUYIN-REFUND, MSP-FED-QI-RETRO-SAME-YEAR).
+      confidence: unresolved
+      open_question: MSP-NY-OQ-02
+  approval_notice:
+    - id: MSP-NY-NOTICE-ACTION
+      text: Approval or denial comes as a Notice of Action from the LDSS (or HRA). It says whether the person gets the MSP benefit; it is the first written proof of enrollment.
+      confidence: confirmed
+      sources: [{source: ny-doh-4328-instructions, locator: "Step 8: The LDSS will send you a Notice of Action"}]
+    - id: MSP-NY-NOTICE-QMB-CARD
+      text: QMB enrollees receive a New York Medicaid card even if they do not have full Medicaid; providers use it to bill Medicaid for Medicare coinsurance and deductibles.
+      confidence: secondary
+      sources: [{source: nysofa-hiicap-msp-2026, locator: "QMB recipients receive a Medicaid card even if they are not also receiving Medicaid."}]
+  renewal:
+    - id: MSP-NY-RENEW-YEARLY
+      text: Renew every year. If no renewal notice arrives, contact the local Medicaid office or HRA.
+      confidence: confirmed
+      sources: [{source: ny-doh-4328-instructions, locator: "You will need to renew (recertify) your MSP every year."}]
+    - id: MSP-NY-RENEW-OFF-CYCLE
+      text: If eligibility is redetermined between renewals (for example a move from QI to QMB after the January increase in poverty levels), the renewal month does not change.
+      confidence: confirmed
+      sources:
+        - {source: ny-gis-22-ma-10, locator: "MSP Redeterminations"}
+        - {source: ny-gis-26-ma-05, locator: "some Qualifying Individuals (QI) may be income eligible for ... QMB"}
+  county_variation:
+    - id: MSP-NY-COUNTY-OFFICE
+      text: >-
+        Applications are processed by each county's LDSS (HRA in New York
+        City). Rules and forms are
+        statewide; mailing address, processing speed and in-person options
+        vary by office. Upstate QI cases were historically renewed every June
+        (ended 2023).
+      county_varies: true
+      confidence: confirmed
+      sources:
+        - {source: ny-doh-4328-instructions, locator: "Step 7 (find the address in your county)"}
+        - {source: ny-gis-22-ma-10, locator: "Upstate QI Eligible Individuals"}
+
+life_events:
+  - id: MSP-NY-LE-RETIRE
+    code: retirement
+    event: Retirement, or a drop in wages or pension
+    why: Gross income at or below $2,494 single / $3,375 couple (2026) qualifies for QI or QMB with no asset test.
+    check_rules: [MSP-NY-QMB-INCOME, MSP-NY-QI-INCOME]
+    confidence: confirmed
+    sources: [{source: ny-doh-msp-2026, locator: "QMB and QI limits"}]
+  - id: MSP-NY-LE-JANUARY
+    code: cola_january
+    event: New year's poverty levels in January
+    why: Limits rise each January 1; some QI enrollees become QMB-eligible and should be moved.
+    check_rules: [MSP-NY-FPL-EFFECTIVE, MSP-NY-JAN-BUDGETING]
+    confidence: confirmed
+    sources: [{source: ny-gis-26-ma-05, locator: "some Qualifying Individuals (QI) may be income eligible for the Qualified Medicare Beneficiary (QMB) benefit"}]
+  - id: MSP-NY-LE-MEDICAID
+    code: medicaid_change
+    event: Applying for, getting, or losing Medicaid (including a spenddown)
+    why: QI cannot be held with Medicaid; the member may need to choose between QI and a spenddown.
+    check_rules: [MSP-NY-QI-NOT-MEDICAID, MSP-NY-SPENDDOWN-CHOICE]
+    confidence: confirmed
+    sources: [{source: ny-gis-22-ma-10, locator: "Note: Clients cannot be enrolled as QI and enrolled in NY Medicaid at the same time."}]
+  - id: MSP-NY-LE-SPOUSE
+    code: spouse_death
+    event: Death of a spouse, divorce, or a spouse moving out (for example into a nursing home)
+    why: The comparison switches from the household-of-two limit to the individual limit.
+    check_rules: [MSP-NY-COUPLE]
+    confidence: confirmed
+    sources: [{source: ny-mrg-income, locator: "MSP NOTE on two spouses residing together"}]
+  - id: MSP-NY-LE-NO-PART-A
+    code: turning_65
+    event: Turning 65 without enough work quarters for premium-free Part A
+    why: The Part A Buy-in can get conditional Part A and QMB.
+    check_rules: [MSP-NY-PART-A]
+    confidence: confirmed
+    sources: [{source: nysofa-hiicap-msp-2026, locator: "PART A BUY-IN"}]
+
+outcome_proof:
+  - id: MSP-NY-PROOF-NOTICE
+    evidence: LDSS / HRA Notice of Action approving QMB or QI
+    shows: The MSP tier and its coverage start date.
+    how_to_get: Mailed by the county office within 45 days of application
+    confidence: confirmed
+    note: >-
+      00 OMM/ADM-7 (2000) named the notices DSS-4039 (QMB, "Notice of Action on
+      Application/Benefit for the Medicare Buy-In Program") and DSS-4393
+      (SLIMB); whether those form numbers are still used was not checked.
+    sources:
+      - {source: ny-doh-4328-instructions, locator: "Step 8"}
+      - {source: ny-adm-00-omm-07, locator: "V. NOTICE REQUIREMENTS"}
+  - id: MSP-NY-PROOF-SSA-BUYIN-NOTICE
+    evidence: SSA notice of the state buy-in effective date
+    shows: New York has taken over the Part B premium from the stated month.
+    how_to_get: Mailed by SSA after New York's buy-in reaches SSA
+    when: Timing not stated in New York or federal sources (MSP-NY-OQ-02)
+    confidence: confirmed
+    open_question: MSP-NY-OQ-02
+    sources: [{source: ssa-poms-hi-00815-039, locator: "A. Routine Buy-In Accretion"}]
+  - id: MSP-NY-PROOF-SSA
+    evidence: Social Security payment no longer reduced by the Part B premium, plus a separate SSA refund payment
+    shows: >-
+      The state's Medicare buy-in is in effect; the monthly Social Security
+      payment rises by the premium ($202.90 standard in 2026), and premiums
+      already deducted for buy-in months (from the MSP effective month,
+      including QI retroactive months) come back as a separate refund.
+    how_to_get: SSA benefit letter, my Social Security account, or bank statement
+    when: Not stated in New York or federal sources (MSP-NY-OQ-02)
+    confidence: confirmed
+    open_question: MSP-NY-OQ-02
+    sources:
+      - {source: ssa-poms-hi-00815-039, locator: "A. Routine Buy-In Accretion"}
+      - {source: ssa-poms-hi-01001-205, locator: "'processed retroactively' ... in a separate check"}
+      - {source: nysofa-hiicap-msp-2026, locator: "Qualified Individual: up to three months of retroactive reimbursement ... within the same year"}
+  - id: MSP-NY-PROOF-MEDICAID-CARD
+    evidence: New York Medicaid (benefit) card for a QMB enrollee
+    shows: QMB is active; providers bill Medicaid for Medicare cost-sharing.
+    confidence: secondary
+    sources: [{source: nysofa-hiicap-msp-2026, locator: "QMB recipients receive a Medicaid card"}]
+  - id: MSP-NY-PROOF-EXTRA-HELP
+    evidence: CMS notice of deemed Extra Help eligibility
+    shows: Extra Help is in place because of QMB/QI enrollment.
+    confidence: confirmed
+    sources: [{source: ssa-poms-hi-03001-005, locator: "C. CMS ... Sends notices"}]
+
+links:
+  - id: MSP-NY-LINK-EXTRA-HELP
+    playbook: msp
+    rules: [MSP-NY-EXTRA-HELP, MSP-FED-EXTRA-HELP-DEEMED]
+    relation: QMB or QI in New York deems Extra Help even for people whose assets are above the Extra Help limit.
+    test: MSP-X-01
+    confidence: confirmed
+    sources: [{source: nysofa-hiicap-msp-2026, locator: "Extra Help enrollment"}]
+  - id: MSP-NY-LINK-MEDICAID
+    playbook: medicaid
+    rules: [MSP-NY-QI-NOT-MEDICAID, MSP-NY-SPENDDOWN-CHOICE]
+    relation: New York's QMB income limit equals the SSI-related Medicaid income level ($1,836 / $2,489 in 2026), so QMB-eligible people are usually Medicaid-eligible without a spenddown; QI-range people must choose between QI and Medicaid with a spenddown.
+    test: MSP-X-02
+    confidence: confirmed
+    sources:
+      - {source: ny-gis-26-ma-05-att1, locator: "SSI-Related Medicaid Income Level 1,836 2,489; QMB 1,836 2,489"}
+  - id: MSP-NY-LINK-SNAP
+    playbook: snap
+    rules: [MSP-NY-SNAP-EFFECT]
+    relation: MSP approval removes the Part B premium from the SNAP medical deduction at the next recertification.
+    test: MSP-X-03
+    confidence: secondary
+    sources: [{source: nysofa-hiicap-msp-2026, locator: "SNAP protections"}]
+
+open_questions:
+  - id: MSP-NY-OQ-01
+    priority: medium
+    question: Which Medicare beneficiaries can apply for the MSP online through NY State of Health, and is there a separate online route for MSP-only applicants?
+    why_it_matters: The agent should offer the fastest filing route that actually accepts the member's application.
+    checked: [NY DOH Medicare Savings Program 2026 page, DOH-4328 instructions, GIS 23 MA/10 title only]
+    affects: [MSP-NY-FILE-ONLINE]
+    status: open
+  - id: MSP-NY-OQ-02
+    priority: high
+    question: >-
+      After a New York MSP approval, how many months until SSA stops
+      deducting the Part B premium (how soon does the LDSS/HRA open the
+      eMedNY Buy-In span after approval, and does DOH publish an expected
+      wait)? Narrowed: how already-deducted months are refunded, and what
+      notice the member gets, are answered federally (MSP-FED-BUYIN-REFUND,
+      MSP-FED-BUYIN-NOTICE).
+    why_it_matters: This is the outcome proof; members will ask when their check goes up.
+    checked: [NY DOH MSP page, DOH-4328 and instructions, GIS 22 MA/10, GIS 23 MA/10, GIS 26 MA/05, 00 OMM/ADM-7, NYSOFA HIICAP Module 9, SSA POMS HI 00815.039, HI 01001.205, CMS buy-in manual ch. 1-2]
+    affects: [MSP-NY-PROOF-SSA, MSP-NY-PROOF-SSA-BUYIN-NOTICE, MSP-NY-TIME-DEDUCTION-STOPS, MSP-NY-BUYIN-SPAN]
+    status: open
+  - id: MSP-NY-OQ-03
+    priority: medium
+    question: Is there a DOH directive confirming automatic QMB enrollment for SSI recipients in New York?
+    why_it_matters: SSI recipients should not be told to file a DOH-4328 if enrollment is automatic.
+    checked: [NYSOFA HIICAP Module 9]
+    affects: [MSP-NY-SSI-AUTO]
+    status: open
+  - id: MSP-NY-OQ-04
+    priority: medium
+    question: What is the primary (CMS or DOH) source for MSP enrollment removing the Part B late enrollment penalty and allowing Part B enrollment outside enrollment periods?
+    why_it_matters: Strong selling point for members who delayed Part B; must be right before the agent says it.
+    checked: [NYSOFA HIICAP Module 9, SSA POMS HI 00815.001, HI 00815.039, "42 CFR 407.40 and 407.47"]
+    affects: [MSP-NY-PART-B-LEP]
+    status: answered
+    answer: >-
+      SSA POMS HI 00815.001 B (buy-in agreements let states enroll members in
+      Part B at any time, and states pay no late-enrollment surcharge), 42 CFR
+      407.40(c)(1) and 407.47(g) (buy-in group members can enroll in Part B at
+      any time), and HI 00815.039 A-B (Part B is established from the first
+      buy-in month; after buy-in ends the premium is the base amount even if a
+      surcharge was paid before). New York's MSP groups are in its buy-in
+      (GIS 23 MA/10, GIS 26 MA/05). See MSP-NY-PART-B-LEP.
+  - id: MSP-NY-OQ-05
+    priority: medium
+    question: Does OTDA 02 ADM-07 (SNAP medical deduction freeze between certifications) still apply in 2026?
+    why_it_matters: Members on SNAP need to know their food benefit will not drop right away.
+    checked: [NYSOFA HIICAP Module 9 (cites 02 ADM-07)]
+    affects: [MSP-NY-SNAP-EFFECT]
+    status: open
+  - id: MSP-NY-OQ-06
+    priority: low
+    question: Retrieve GIS 10 MA/008 to confirm the estate recovery exemption for MSP benefits.
+    why_it_matters: Families worry about estate recovery; a wrong answer can stop someone from enrolling.
+    checked: [NYSOFA HIICAP Module 9]
+    affects: [MSP-NY-ESTATE]
+    status: open
+
+conflicts:
+  - id: MSP-NY-CONFLICT-01
+    topic: When QMB coverage starts
+    claims:
+      - source: usc-42-1396a
+        locator: "(e)(8)"
+        says: QMB applies to services furnished after the end of the month in which the QMB determination first occurs.
+      - source: ny-gis-07-ma-027
+        locator: "last paragraph"
+        says: Eligibility for QMB begins the first of the month following the date of the application.
+      - source: nysofa-hiicap-msp-2026
+        locator: "summary chart"
+        says: QMB is effective in the month following the month of application.
+    handling: >-
+      The archive states New York's rule (month after application) because the
+      member deals with New York's practice, and keeps the federal rule on
+      record. A benefits expert should confirm New York's current practice and
+      how it is squared with 1902(e)(8).
+    affects: [MSP-NY-QMB-EFFECTIVE, MSP-FED-QMB-EFFECTIVE]
+    status: open
+  - id: MSP-NY-CONFLICT-02
+    topic: Whether income exactly at the top limit qualifies
+    claims:
+      - source: ny-gis-26-ma-05-att1
+        says: "QMB at 138% FPL; QI greater than 138% but less than or equal to (≤) 186% FPL."
+      - source: ny-gis-22-ma-10
+        says: "QMB 0% up to and equal to 138%; QI above 138% and up to and equal to 186%."
+      - source: ny-doh-msp-2026
+        says: "QMB: Income at or Below 138% FPL; QI: Income Below 186% FPL."
+      - source: nysofa-hiicap-msp-2026
+        says: "Summary chart: QMB Under $1,856; QI $1,857 to $2,494."
+    handling: >-
+      The rules use "at or below" for both tiers, following the two DOH
+      directives (GIS 22 MA/10 and the 2026 chart), which are the binding
+      instructions to districts. Tests pin the at-limit case.
+    affects: [MSP-NY-QMB-INCOME, MSP-NY-QI-INCOME]
+    status: open
+  - id: MSP-NY-CONFLICT-03
+    topic: QDWI income figure
+    claims:
+      - source: ny-gis-26-ma-05-att1
+        says: QDWI 200% FPL is $2,660 single / $3,607 couple.
+      - source: nysofa-hiicap-msp-2026
+        says: QDWI monthly income up to $2,680 / $3,627, including the $20 disregard.
+      - source: ssa-poms-hi-00815-023
+        says: QDWI federal limit is $5,405 / $7,299 because the figures incorporate earned income disregards.
+    handling: >-
+      Not a real disagreement once the disregards are applied: all three are
+      200% FPL measured at different points. The rules compare countable income
+      (after the $20 and $65-plus-half disregards) to $2,660 / $3,607.
+    affects: [MSP-NY-QDWI]
+    status: resolved
+
+claims_checked:
+  - claim: New York has no asset test for the Medicare Savings Program.
+    verdict: verified
+    detail: The 2026 DOH chart says "No Resource Test" for QMB and QI. QDWI does have a resource limit ($4,000 / $6,000).
+    sources: [{source: ny-gis-26-ma-05-att1, locator: "Non-MAGI table"}]
+  - claim: Its income limits are 138% of the federal poverty level for the top tier (QMB) and 186% for the premium-only tier (QI).
+    verdict: verified
+    detail: >-
+      Correct percentages. Note that QMB is the more generous benefit but the
+      lower income band (at or below 138%); QI covers the band above it up to
+      186%.
+    sources: [{source: ny-gis-22-ma-10, locator: "2023 MSP Income limits"}]
+  - claim: The 2026 individual QMB limit is $1,856 a month, with a $20 income disregard.
+    verdict: partly_verified
+    detail: >-
+      The 2026 QMB standard is $1,836 a month (138% FPL). $1,856 is that
+      standard plus the $20 disregard, i.e. the highest gross income that
+      qualifies. Both numbers appear on DOH's 2026 MSP page. The agent should
+      quote "$1,856 gross" or "$1,836 after the $20 deduction", not "$1,856
+      after the disregard".
+    sources: [{source: ny-doh-msp-2026, locator: "QMB: $1,836 per month / +$20: $1,856"}]
+  - claim: Enrolling brings Extra Help automatically.
+    verdict: verified
+    detail: QMB and QI are deemed eligible for Extra Help by CMS (federal rule); QDWI is not.
+    sources: [{source: ssa-poms-hi-03001-005, locator: "A."}]

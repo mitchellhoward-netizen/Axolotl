@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://fns-prod.azureedge.us/sites/default/files/resource-files/snap-fy27-maximumAllotments-deductions.pdf
+  final_url: https://fns-prod.azureedge.us/sites/default/files/resource-files/snap-fy27-maximumAllotments-deductions.pdf
+  status: 200
+  content_type: application/pdf
+  text_sha256: e0a72bc6402e1d77d95a858b1486cc641b8425d59e2eb70608bc10c9bd7d8fbe
+  text: fns-snap-fy27-allotments-deductions/2026-10-07.txt
+  raw: fns-snap-fy27-allotments-deductions/2026-10-07.pdf

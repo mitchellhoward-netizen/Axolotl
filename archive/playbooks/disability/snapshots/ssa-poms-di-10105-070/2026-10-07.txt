@@ -1,0 +1,99 @@
+Skip to content
+
+Program Operations Manual System (POMS)
+
+Effective Dates: 03/02/2011 - Present
+Previous | Next
+
+Basic (06-06)
+
+DI 10105.070 Waiting Period for Disability Insurance Benefits (DIB)
+
+A. Present rule
+
+Before entitlement to DIB can begin, the number holder (NH) must have served a waiting
+period consisting of 5 full calendar months unless the NH meets the condition found
+in DI 10105.075.
+
+This period is long enough to permit most temporary disabilities to be corrected or
+for the individual to show definite signs of probable recovery.
+
+The waiting period begins in the first month, no earlier than 17 months prior to the
+month of filing, (18 months prior to January 1973), in which:
+
+•
+
+The NH has been under a disability for the entire month; i.e., the date of onset is
+on or before the first day of the month; and
+
+•
+
+The NH has DIB insured status.
+
+•
+
+See RS 00301.120 for the effect which the freeze provisions have upon DIB insured status when the
+date of onset occurs more than 17 months prior to the month of filing, (18 months
+prior to January 1973).
+
+Entitlement to the DIB begins with the first full calendar month after the waiting
+period in which all other requirements are met, except where the NH limits the retroactivity
+of the application. For cases involving statutory blindness, see DI 10105.070D.
+
+IMPORTANT: See NOTE: in DI 11015.020C.2. regarding a circumstance that does not require disability to exist throughout the
+month.
+
+B. Waiting period prior to 1973
+
+Prior to January 1973, the waiting period was 6 full calendar months rather than 5.
+
+C. Waiting period prior to 11/60
+
+Where the NH attained age 50 before 11/60, the first month of the waiting period could
+not be more than 6 months before the month in which this individual attained age 50.
+No waiting period could begin before 1/1/57.
+
+Where a NH was under age 50 in 11/60 but disability began previously, it was possible
+for the waiting period to end before DIB could start. Entitlement could not start
+before 11/60 but the waiting period could start as early as the 18th month before
+the month of filing if the disability and insured status requirements were met then.
+
+D. Waiting period for statutorily blind NH's in freeze status
+
+A statutorily blind NH can be in freeze status but not entitled to DIB because:
+
+•
+
+He or she is under age 55 and able to engage in Substantial Gainful Activity (SGA);
+or
+
+•
+
+Is age 55 or over and able to engage in “comparable” SGA.
+
+If this individual later becomes unable to engage in such SGA and is, therefore, eligible
+for DIB, he/ she must serve a waiting period before DIB payments can begin. This waiting
+period begins with the first full month the NH does not perform SGA. However, the
+number of months after age 55 in which the NH was engaging in “non-comparable” SGA
+can be counted as months in the waiting period if they fall within the period of disability.
+(See DI 26005.001 and DI 26005.005 for additional information)
+
+If the NH's entitlement to cash benefits terminates, and he/she subsequently becomes
+re-entitled to cash benefits at a later date, he/she does not have to serve another
+waiting period if his/her period of disability freeze has been continuous. This is
+true even if his/her previous entitlement to cash benefits terminated more than 60
+months prior to his/her new entitlement.
+
+NOTE: When a disabled NH in freeze status ceases SGA, the NH must file a new application
+to be entitled to monthly disability benefits. DI 41001.001C. explains the program service center’s (PSC’s) responsibility for the SSA-833-C3 Cessation
+or Continuation Title II, SSA-833-U3 Cessation or Continuation of Disability/Blindness
+determination.
+
+To Link to this section - Use this URL:
+http://policy.ssa.gov/poms.nsf/lnx/0410105070
+
+DI 10105.070 - Waiting Period for Disability Insurance Benefits (DIB) - 03/02/2011
+
+Batch run: 09/05/2025
+
+Rev:03/02/2011

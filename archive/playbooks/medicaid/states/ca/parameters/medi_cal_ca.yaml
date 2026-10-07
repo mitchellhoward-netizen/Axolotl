@@ -1,0 +1,241 @@
+# California Medi-Cal income, property and premium standards, from the DHCS
+# All County Welfare Directors Letters (ACWDLs). California applies each new
+# year's FPL-based levels on different dates by population (ACWDL 26-01,
+# 25-01): MAGI from January 1; MSP with RSDI income from March 1; the Aged,
+# Blind and Disabled FPL program and the 250% Working Disabled Program from
+# April 1. Santa Clara County's charts (secondary) agree with every DHCS
+# figure below and are kept as a cross-check.
+parameters:
+  - id: ca.medi_cal.magi_adult_income_limit_monthly
+    description: Medi-Cal MAGI income limit for the ACA new adult group (ages 19-64, 138% FPL), monthly; also the A&D FPL program level.
+    compare_to: >-
+      Monthly MAGI household income for the MAGI household size, compared
+      directly ("=" in DHCS Enclosure 3: eligible if income is equal to or
+      less than the limit); 138% is the 133% adult standard plus the 5% MAGI
+      disregard (inference from the chart, which shows the 114% parent level
+      as "109% FPL, Plus 5% MAGI Disregard").
+    unit: usd_per_month
+    keyed_by: household_size (1-12; "additional" = each person above 12)
+    updates: Each year by ACWDL ("<year> Federal Poverty Levels"); MAGI levels effective January 1.
+    values:
+      - effective_from: 2025-01-01
+        effective_to: 2025-12-31
+        value: {1: 1801, 2: 2433, 3: 3065, 4: 3699, 5: 4331, 6: 4963, 7: 5596, 8: 6228, 9: 6860, 10: 7494, 11: 8126, 12: 8758, additional: 634}
+        confidence: confirmed
+        sources:
+          - source: ca-dhcs-acwdl-25-01
+            locator: "Enclosure 1, 2025 FPL Calculation Chart (Monthly Values), 138% column"
+            quote: "1 15650 1305 783 1305 1410 1423 1488 1566 1671 1736 1762 1801 1854"
+          - source: ca-dhcs-acwdl-25-01
+            locator: "page 1: MAGI ... the new FPL figures are effective January 1, 2025"
+      - effective_from: 2026-01-01
+        value: {1: 1836, 2: 2490, 3: 3143, 4: 3795, 5: 4450, 6: 5102, 7: 5755, 8: 6409, 9: 7062, 10: 7715, 11: 8369, 12: 9022, additional: 655}
+        confidence: confirmed
+        sources:
+          - source: ca-dhcs-fpl-2026-monthly
+            locator: "ACWDL 26-01 Enclosure 1, 2026 FPL Calculation Chart (Monthly Values), 138% column"
+          - source: ca-dhcs-acwdl-26-01
+            locator: "page 2: For applicants and recipients whose Medi-Cal is determined based upon MAGI methodologies, the new FPL figures are effective January 1, 2026"
+          - source: ca-scc-chart-fpl-2026
+            locator: "2026 FPL Calculation Chart (Monthly Values), column 138% (county copy; cross-check)"
+  - id: ca.medi_cal.magi_parent_income_limit_monthly
+    description: Medi-Cal MAGI income limit for parents and caretaker relatives (109% FPL), monthly.
+    compare_to: Monthly MAGI household income for the household size, compared directly (no 5% disregard, because the adult group at 138% is the higher standard for a parent without Medicare).
+    unit: usd_per_month
+    keyed_by: household_size (1-12; "additional" = each person above 12)
+    updates: Each year by ACWDL; MAGI levels effective January 1.
+    values:
+      - effective_from: 2025-01-01
+        effective_to: 2025-12-31
+        value: {1: 1423, 2: 1922, 3: 2421, 4: 2922, 5: 3421, 6: 3920, 7: 4420, 8: 4920, 9: 5419, 10: 5919, 11: 6418, 12: 6918, additional: 501}
+        confidence: confirmed
+        sources:
+          - source: ca-dhcs-acwdl-25-01
+            locator: "Enclosure 1, 2025 monthly values, 109% column; Enclosure 3: 109% FPL = ACA Parents and Caretaker Relatives"
+      - effective_from: 2026-01-01
+        value: {1: 1450, 2: 1967, 3: 2482, 4: 2998, 5: 3515, 6: 4030, 7: 4546, 8: 5062, 9: 5578, 10: 6094, 11: 6610, 12: 7126, additional: 517}
+        confidence: confirmed
+        sources:
+          - source: ca-dhcs-fpl-2026-monthly
+            locator: "2026 FPL Calculation Chart (Monthly Values), 109% column"
+          - source: ca-dhcs-fpl-2026-programs
+            locator: "109% FPL = ACA Parents and Caretaker Relatives"
+  - id: ca.medi_cal.magi_parent_medicare_income_limit_monthly
+    description: Medi-Cal MAGI income limit for parents and caretaker relatives not eligible for the new adult group because of Medicare (Part A or B) or age 65+ (109% FPL plus the 5% MAGI disregard = 114%), monthly.
+    compare_to: Monthly MAGI household income for the household size, compared directly; the figure already includes the 5% disregard.
+    unit: usd_per_month
+    keyed_by: household_size (1-12; "additional" = each person above 12)
+    updates: Each year by ACWDL; MAGI levels effective January 1.
+    values:
+      - effective_from: 2025-01-01
+        effective_to: 2025-12-31
+        value: {1: 1488, 2: 2010, 3: 2532, 4: 3056, 5: 3578, 6: 4100, 7: 4623, 8: 5145, 9: 5667, 10: 6191, 11: 6713, 12: 7235, additional: 524}
+        confidence: confirmed
+        sources:
+          - source: ca-dhcs-acwdl-25-01
+            locator: "Enclosure 1, 2025 monthly values, 114% column; Enclosure 3 114% FPL description"
+      - effective_from: 2026-01-01
+        value: {1: 1517, 2: 2057, 3: 2596, 4: 3135, 5: 3676, 6: 4215, 7: 4754, 8: 5295, 9: 5834, 10: 6373, 11: 6913, 12: 7453, additional: 541}
+        confidence: confirmed
+        sources:
+          - source: ca-dhcs-fpl-2026-monthly
+            locator: "2026 FPL Calculation Chart (Monthly Values), 114% column"
+          - source: ca-dhcs-fpl-2026-programs
+            locator: "114% FPL = ACA Parents and Caretaker Relatives Not Eligible for the ACA New Adult Group due to ... Enrollment in Medicare Parts A or B (109% FPL, Plus 5% MAGI Disregard)"
+  - id: ca.medi_cal.magi_pregnant_income_limit_monthly
+    description: Medi-Cal MAGI income limit for pregnant people (213% FPL, full-scope coverage per DHCS), monthly.
+    compare_to: Monthly MAGI household income for the household size counting the unborn child(ren), compared directly.
+    unit: usd_per_month
+    keyed_by: household_size (1-5)
+    updates: Each year by ACWDL; MAGI levels effective January 1.
+    values:
+      - effective_from: 2025-01-01
+        effective_to: 2025-12-31
+        value: {1: 2780, 2: 3756, 3: 4731, 4: 5709, 5: 6684}
+        confidence: confirmed
+        sources:
+          - source: ca-dhcs-acwdl-25-01
+            locator: "Enclosure 1, 2025 monthly values, 213% column; Enclosure 3: 213% FPL = Full-Scope Coverage for ACA Pregnant Persons"
+      - effective_from: 2026-01-01
+        value: {1: 2833, 2: 3843, 3: 4851, 4: 5858, 5: 6868}
+        confidence: confirmed
+        sources:
+          - source: ca-dhcs-fpl-2026-monthly
+            locator: "2026 FPL Calculation Chart (Monthly Values), 213% column"
+          - source: ca-dhcs-fpl-2026-programs
+            locator: "213% FPL = Full-Scope Coverage for ACA Pregnant Persons"
+  - id: ca.medi_cal.ad_fpl_income_limit_monthly
+    description: Aged, Blind & Disabled FPL program income limit (138% FPL), monthly; zero share of cost Medi-Cal for people 65+, blind or disabled not in long-term care.
+    compare_to: >-
+      Countable income after the $20 any-income deduction, the
+      $65-plus-one-half earned income deduction, health insurance premiums,
+      the Medicare Part B premium disregard (whoever pays the premium) and a
+      maintenance need deduction for a spouse not in Medi-Cal; "equal to or
+      less than" the limit (ACWDL 20-24). One person or a non-applicant
+      spouse's budget uses the 1-person figure; two applicant spouses use the
+      2-person figure.
+    unit: usd_per_month
+    keyed_by: household_size (1 = individual, 2 = couple)
+    open_question: MCD-CA-OQ-02
+    updates: Each year by the FPL ACWDL; ABD FPL levels effective April 1.
+    values:
+      - effective_from: 2025-01-01
+        effective_to: 2025-03-31
+        value: null
+        confidence: unresolved
+        open_question: MCD-CA-OQ-02
+        note: January-March 2025 used the 2024 levels (ACWDL 24-xx, not retrieved).
+      - effective_from: 2025-04-01
+        effective_to: 2026-03-31
+        value: {1: 1801, 2: 2433}
+        confidence: confirmed
+        note: Applies until the 2026 levels take effect for ABD on April 1, 2026 (ACWDL 26-01). During January-March the January Social Security COLA is disregarded (ACWDL 20-24); see MCD-CA-AD-FPL-COLA.
+        sources:
+          - source: ca-dhcs-acwdl-25-01
+            locator: "Enclosure 1, 138% column (1: 1801; 2: 2433); page 1: ABD FPL programs ... effective date of the revised FPL figures is April 1, 2025"
+          - source: ca-dhcs-acwdl-26-01
+            locator: "page 2: ABD FPL programs ... effective date of the revised FPL figures is April 1, 2026"
+      - effective_from: 2026-04-01
+        value: {1: 1836, 2: 2490}
+        confidence: confirmed
+        sources:
+          - source: ca-dhcs-fpl-2026-monthly
+            locator: "138% column, family size 1 and 2"
+          - source: ca-dhcs-fpl-2026-programs
+            locator: "138% FPL = ACA New Adults Ages 19-64; and = FPL Program for Aged & Disabled"
+          - source: ca-dhcs-acwdl-26-01
+            locator: "page 2: ABD FPL programs ... April 1, 2026"
+  - id: ca.medi_cal.non_magi_income_deduction_monthly
+    description: The $20 any-income deduction Medi-Cal allows from unearned (then earned) income in Non-MAGI budgets (A&D FPL and Medically Needy).
+    unit: usd_per_month
+    updates: Fixed.
+    values:
+      - effective_from: 2020-12-01
+        value: 20
+        confidence: confirmed
+        note: Start date is the effective date of ACWDL 20-24, which restates the deduction; the deduction is older (MEPM Article 5L examples, 1997).
+        sources:
+          - {source: ca-dhcs-acwdl-20-24, locator: "ABD FPL Program Reminders: the $20.00 Any Income deduction", quote: "Any Income deduction - $20.00"}
+          - {source: ca-dhcs-mepm-5l, locator: "Medi-Cal Share of Cost Determination examples", quote: "- $ 20 Any Income Deduction"}
+  - id: ca.medi_cal.non_magi_asset_test_applies
+    description: Whether Medi-Cal counts property for Non-MAGI programs (aged, blind, disabled, long-term care, MSP, AFDC-Medically Needy), except Pickle, Disabled Adult Child and Disabled Widow(er), which have no asset test until January 1, 2027.
+    unit: boolean
+    updates: State law (AB 133 of 2021 phase-out; AB 116 of 2025 reinstatement).
+    values:
+      - effective_from: 2022-07-01
+        effective_to: 2023-12-31
+        value: true
+        confidence: confirmed
+        sources:
+          - {source: ca-dhcs-acwdl-25-14, locator: "Background: The first phase, which was effective July 1, 2022, increased the asset limits to $130,000"}
+      - effective_from: 2024-01-01
+        effective_to: 2025-12-31
+        value: false
+        confidence: confirmed
+        sources:
+          - {source: ca-dhcs-acwdl-25-14, locator: "Background: The second phase, effective January 1, 2024, eliminated the asset limits for Non-MAGI programs"}
+          - {source: ca-dhcs-acwdl-22-25, locator: "Elimination of Asset Limits for Non-MAGI Medi-Cal Programs"}
+      - effective_from: 2026-01-01
+        value: true
+        confidence: confirmed
+        sources:
+          - {source: ca-dhcs-acwdl-25-14, locator: "Policy Change: No sooner than January 1, 2026, the asset test shall be reinstated for Non-MAGI programs, including LTC and MSPs, except for the Pickle, DAC, and DW programs"}
+          - {source: ca-dhcs-medil-i26-03, locator: "the asset test will be reinstated ... effective January 1, 2026"}
+          - {source: ca-scc-mc-update-2025-9-asset-limits, locator: "Changes and Implementation Dates (county cross-check)"}
+  - id: ca.medi_cal.non_magi_asset_limit
+    description: Medi-Cal Non-MAGI property limit ($130,000 for one person plus $65,000 for each additional person in the Medi-Cal Family Budget Unit, up to 10 people).
+    compare_to: >-
+      Countable property of the MFBU; eligible when "at, or under" the limit
+      (ACWDL 25-20) and ineligible when "above" it (ACWDL 25-14 notice
+      snippets). Not counted: the home the person lives in, one vehicle,
+      household items, retirement funds paying periodic payments or required
+      minimum distributions (MEDIL I 25-23). The county handbook's separate
+      $6,000 limit on other real property is not modelled.
+    unit: usd
+    keyed_by: household_size (persons in the MFBU, 1-10)
+    updates: State law; unchanged since July 2022 except for the 2024-2025 elimination.
+    values:
+      - effective_from: 2022-07-01
+        effective_to: 2023-12-31
+        value: {1: 130000, 2: 195000, 3: 260000, 4: 325000, 5: 390000, 6: 455000, 7: 520000, 8: 585000, 9: 650000, 10: 715000}
+        confidence: confirmed
+        note: Sizes 3-10 computed from the stated $65,000 increment (the 2026 table in ACWDL 25-14 gives the same figures).
+        sources:
+          - {source: ca-dhcs-acwdl-25-14, locator: "Background: $130,000 for one person and $65,000 for each additional household member (up to a maximum of 10 people)"}
+      - effective_from: 2026-01-01
+        value: {1: 130000, 2: 195000, 3: 260000, 4: 325000, 5: 390000, 6: 455000, 7: 520000, 8: 585000, 9: 650000, 10: 715000}
+        confidence: confirmed
+        sources:
+          - {source: ca-dhcs-acwdl-25-14, locator: "page 9: Household Asset Limits for Non-MAGI Programs as of January 1, 2026", quote: "1 person $130,000 2 people $195,000 ... 10 people $715,000"}
+          - {source: ca-dhcs-acwdl-25-20, locator: "page 7: at, or under $130,000 for one person and $65,000 for each additional person (up to 10 maximum)"}
+          - {source: ca-scc-mc-property-limits, locator: "Effective January 1, 2026 ... (county cross-check)"}
+  - id: ca.medi_cal.maintenance_need_monthly
+    description: Medi-Cal Medically Needy maintenance need level, monthly; net countable income above this is the share of cost. Also the A&D FPL deduction for a spouse not in Medi-Cal.
+    unit: usd_per_month
+    keyed_by: "persons in the MFBU (1-10); 2 = two adults ($934; 1 adult and 1 child is $750, not modelled); each person above 10 adds $14 (not modelled)"
+    updates: >-
+      Based on the former AFDC payment levels; unchanged since July 1, 1989.
+      SB 184 (2022) would have raised it to 138% FPL from January 1, 2025
+      (ACWDL 23-31), but ACWDL 24-10 (September 18, 2024) revoked that reform
+      for budget reasons. No later DHCS letter (ACWDL or MEDIL lists for 2025
+      and 2026, checked 2026-10-07) changes it.
+    values:
+      - effective_from: 1989-07-01
+        value: {1: 600, 2: 934, 3: 934, 4: 1100, 5: 1259, 6: 1417, 7: 1550, 8: 1692, 9: 1825, 10: 1959}
+        confidence: confirmed
+        sources:
+          - {source: ca-dhcs-acwdl-89-58, locator: "Enclosure: Maintenance Need Levels Effective July 1, 1989", quote: "1 Person in all situations $600"}
+          - {source: ca-dhcs-acwdl-24-10, locator: "the Medi-Cal Share of Cost (SOC) reform outlined in ACWDL No. 23-31 is hereby revoked ... maintenance need will continue to be based on the AFDC program payment levels"}
+          - {source: ca-dhcs-acwdl-23-31, locator: "The maintenance need has remained at $600 for an individual since 1989"}
+          - {source: ca-scc-chart-maintenance-need, locator: "Effective 7/1/89 (county cross-check)"}
+  - id: ca.medi_cal.uis_premium_monthly
+    description: Monthly premium for adults 19-59 in state-funded full scope (no dental) Medi-Cal because of unsatisfactory immigration status, five-year-bar status or PRUCOL; not charged while pregnant or postpartum, to people 60+ or under 19, or in restricted scope.
+    unit: usd_per_month
+    updates: State law (AB 116 of 2025, W&I Code 14007.8); DHCS sets the start date.
+    values:
+      - effective_from: 2027-07-01
+        value: 30
+        confidence: confirmed
+        note: '"Effective no sooner than July 1, 2027"; DHCS will contract a vendor to bill and collect. Not yet implemented on the archive date.'
+        sources:
+          - {source: ca-dhcs-acwdl-25-33, locator: "Implementation of Premiums: Effective July 1, 2027, the following impacted populations ages 19-59 will be subject to a $30 monthly premium"}

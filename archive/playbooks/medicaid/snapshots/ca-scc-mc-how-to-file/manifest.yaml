@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://stgenssa.sccgov.org/debs/program_handbooks/medi-cal/assets/05Apps/HowtoFileApp.htm
+  final_url: https://stgenssa.sccgov.org/debs/program_handbooks/medi-cal/assets/05Apps/HowtoFileApp.htm
+  status: 200
+  content_type: text/html
+  text_sha256: bd5fb91dfee9093532e96457cdb980971c4f2b6a5201d95bba8b693110043712
+  text: ca-scc-mc-how-to-file/2026-10-07.txt
+  raw: ca-scc-mc-how-to-file/2026-10-07.html

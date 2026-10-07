@@ -1,0 +1,602 @@
+# Synthetic CA households for long-term care Medicaid. No real people.
+# Generated once from a script and then maintained by hand.
+program: ltc_medicaid
+scope: ca
+cases:
+- id: LTC-CA-T01
+  title: Single nursing-home resident, $130,000 property (at the limit), Social Security $2,200
+  as_of: '2026-10-01'
+  tags:
+  - single
+  - threshold
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 82
+      relationship: self
+      medicare_part_a: true
+      medicare_part_b: true
+      facts:
+        institutionalized: true
+    incomes:
+    - kind: social_security
+      monthly: 2200
+      owner: a
+    assets:
+    - kind: cash
+      value: 130000
+      owner: a
+    facts:
+      nursing_facility_monthly_cost: 14440
+  expect:
+    status: eligible
+    tier: nursing_facility
+    rules_include:
+    - LTC-CA-ASSET-LIMIT
+    - LTC-CA-SOC
+    amounts:
+      patient_liability_monthly: 2165
+  crosscheck:
+    policyengine: true
+- id: LTC-CA-T02
+  title: Single nursing-home resident, $130,001 property ($1 over)
+  as_of: '2026-10-01'
+  tags:
+  - single
+  - threshold
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 82
+      relationship: self
+      medicare_part_a: true
+      medicare_part_b: true
+      facts:
+        institutionalized: true
+    incomes:
+    - kind: social_security
+      monthly: 2200
+      owner: a
+    assets:
+    - kind: cash
+      value: 130001
+      owner: a
+    facts:
+      nursing_facility_monthly_cost: 14440
+  expect:
+    status: ineligible
+    tier: excess_resources
+  crosscheck:
+    policyengine: true
+- id: LTC-CA-T03
+  title: Married, spouse at home; couple has $292,660 ($130,000 + $162,660 CSRA, at the maximum)
+  as_of: '2026-10-01'
+  tags:
+  - couple
+  - threshold
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 82
+      relationship: self
+      medicare_part_a: true
+      medicare_part_b: true
+      facts:
+        institutionalized: true
+    - id: b
+      age: 79
+      relationship: spouse
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 2200
+      owner: a
+    - kind: social_security
+      monthly: 1500
+      owner: b
+    assets:
+    - kind: cash
+      value: 200000
+      owner: a
+    - kind: cash
+      value: 92660
+      owner: b
+    facts:
+      nursing_facility_monthly_cost: 14440
+  expect:
+    status: eligible
+    rules_include:
+    - LTC-CA-CSRA
+    amounts:
+      csra: 162660
+  crosscheck:
+    policyengine: true
+- id: LTC-CA-T04
+  title: Married, couple has $292,661 ($1 over)
+  as_of: '2026-10-01'
+  tags:
+  - couple
+  - threshold
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 82
+      relationship: self
+      medicare_part_a: true
+      medicare_part_b: true
+      facts:
+        institutionalized: true
+    - id: b
+      age: 79
+      relationship: spouse
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 2200
+      owner: a
+    - kind: social_security
+      monthly: 1500
+      owner: b
+    assets:
+    - kind: cash
+      value: 200000
+      owner: a
+    - kind: cash
+      value: 92661
+      owner: b
+    facts:
+      nursing_facility_monthly_cost: 14440
+  expect:
+    status: ineligible
+    tier: excess_resources
+  crosscheck:
+    policyengine: true
+- id: LTC-CA-T05
+  title: Married, couple has $50,000 (far below the CSRA); community spouse income $1,500 less $202.90 Part B premium
+  as_of: '2026-10-01'
+  tags:
+  - couple
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 82
+      relationship: self
+      medicare_part_a: true
+      medicare_part_b: true
+      facts:
+        institutionalized: true
+    - id: b
+      age: 79
+      relationship: spouse
+      medicare_part_a: true
+      medicare_part_b: true
+      facts:
+        health_insurance_premiums_monthly: 202.9
+    incomes:
+    - kind: social_security
+      monthly: 3000
+      owner: a
+    - kind: social_security
+      monthly: 1500
+      owner: b
+    assets:
+    - kind: cash
+      value: 30000
+      owner: a
+    - kind: cash
+      value: 20000
+      owner: b
+    facts:
+      nursing_facility_monthly_cost: 14440
+  expect:
+    status: eligible
+    rules_include:
+    - LTC-CA-SPOUSAL-ALLOCATION
+    amounts:
+      csra: 162660
+      community_spouse_income_allowance: 2769.9
+      patient_liability_monthly: 195.1
+  crosscheck:
+    policyengine: true
+- id: LTC-CA-T06
+  title: 'Single, owned $200,000, gave $70,000 to a son on 2026-08-24, applied 2026-09-07: POI of 4 whole months from August
+    2026'
+  as_of: '2026-09-07'
+  tags:
+  - single
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 82
+      relationship: self
+      medicare_part_a: true
+      medicare_part_b: true
+      facts:
+        institutionalized: true
+        ltc_application_date: '2026-09-07'
+        transfers:
+        - date: '2026-08-24'
+          amount: 70000
+          resources_at_transfer: 200000
+    incomes:
+    - kind: social_security
+      monthly: 2200
+      owner: a
+    assets:
+    - kind: cash
+      value: 100000
+      owner: a
+    facts:
+      nursing_facility_monthly_cost: 14440
+  expect:
+    status: ineligible
+    tier: transfer_penalty
+    rules_include:
+    - LTC-CA-POI
+    amounts:
+      penalty_months: 4
+  crosscheck:
+    policyengine: true
+- id: LTC-CA-T07
+  title: 'Single, gave $25,000 in January 2026 while holding $114,000 in total (within the limit): not disqualifying'
+  as_of: '2026-10-01'
+  tags:
+  - single
+  - threshold
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 82
+      relationship: self
+      medicare_part_a: true
+      medicare_part_b: true
+      facts:
+        institutionalized: true
+        transfers:
+        - date: '2026-01-06'
+          amount: 25000
+          resources_at_transfer: 114000
+    incomes:
+    - kind: social_security
+      monthly: 2200
+      owner: a
+    assets:
+    - kind: cash
+      value: 89000
+      owner: a
+    facts:
+      nursing_facility_monthly_cost: 14440
+  expect:
+    status: eligible
+    rules_include:
+    - LTC-CA-DISQUALIFYING
+  crosscheck:
+    policyengine: true
+- id: LTC-CA-T08
+  title: 'Single, gave $100,000 in March 2025 (no property test then): never reviewed'
+  as_of: '2026-10-01'
+  tags:
+  - single
+  - timing
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 82
+      relationship: self
+      medicare_part_a: true
+      medicare_part_b: true
+      facts:
+        institutionalized: true
+        transfers:
+        - date: '2025-03-01'
+          amount: 100000
+          resources_at_transfer: 400000
+    incomes:
+    - kind: social_security
+      monthly: 2200
+      owner: a
+    assets:
+    - kind: cash
+      value: 50000
+      owner: a
+    facts:
+      nursing_facility_monthly_cost: 14440
+  expect:
+    status: eligible
+    rules_include:
+    - LTC-CA-TRANSFER-BLACKOUT
+  crosscheck:
+    policyengine: true
+- id: LTC-CA-T09
+  title: Single, $100,000 gift 61 months ago (outside every look-back)
+  as_of: '2026-10-01'
+  tags:
+  - single
+  - timing
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 82
+      relationship: self
+      medicare_part_a: true
+      medicare_part_b: true
+      facts:
+        institutionalized: true
+        transfers:
+        - date: '2021-09-01'
+          amount: 100000
+          recipient: other
+          resources_at_transfer: 300000
+    incomes:
+    - kind: social_security
+      monthly: 2200
+      owner: a
+    assets:
+    - kind: cash
+      value: 50000
+      owner: a
+    facts:
+      nursing_facility_monthly_cost: 14440
+  expect:
+    status: eligible
+    rules_include:
+    - LTC-CA-LOOKBACK
+  crosscheck:
+    policyengine: true
+- id: LTC-CA-T10
+  title: 'Single, $20,000 gift in February 2026 while over the limit: 1-month POI (February 2026) already over by October'
+  as_of: '2026-10-01'
+  tags:
+  - single
+  - timing
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 82
+      relationship: self
+      medicare_part_a: true
+      medicare_part_b: true
+      facts:
+        institutionalized: true
+        transfers:
+        - date: '2026-02-10'
+          amount: 20000
+          resources_at_transfer: 200000
+    incomes:
+    - kind: social_security
+      monthly: 2200
+      owner: a
+    assets:
+    - kind: cash
+      value: 60000
+      owner: a
+    facts:
+      nursing_facility_monthly_cost: 14440
+  expect:
+    status: eligible
+    rules_include:
+    - LTC-CA-POI
+    amounts:
+      penalty_months: 1
+  crosscheck:
+    policyengine: true
+- id: LTC-CA-T11
+  title: 'Single, home equity $900,000, nobody at home: whether California applies the home equity limit is unresolved'
+  as_of: '2026-10-01'
+  tags:
+  - single
+  - unresolved
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 82
+      relationship: self
+      medicare_part_a: true
+      medicare_part_b: true
+      facts:
+        institutionalized: true
+    incomes:
+    - kind: social_security
+      monthly: 2200
+      owner: a
+    assets:
+    - kind: cash
+      value: 20000
+      owner: a
+    - kind: home
+      value: 900000
+      owner: a
+    facts:
+      nursing_facility_monthly_cost: 14440
+  expect:
+    status: undetermined
+    open_questions_include:
+    - LTC-CA-OQ-01
+  crosscheck:
+    policyengine: true
+- id: LTC-CA-T12
+  title: 'Home care applicant who gave $150,000 in July 2026 while over the limit: no POI for community programs'
+  as_of: '2026-10-01'
+  tags:
+  - single
+  - edge
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 82
+      relationship: self
+      medicare_part_a: true
+      medicare_part_b: true
+      facts:
+        care_setting: home_care
+        transfers:
+        - date: '2026-07-01'
+          amount: 150000
+          resources_at_transfer: 300000
+    incomes:
+    - kind: social_security
+      monthly: 2200
+      owner: a
+    assets:
+    - kind: cash
+      value: 100000
+      owner: a
+  expect:
+    status: eligible
+    tier: home_care
+    rules_include:
+    - LTC-CA-NO-POI-COMMUNITY
+- id: LTC-CA-T13
+  title: Single with $500,000 applying in June 2025, when there was no property test
+  as_of: '2025-06-01'
+  tags:
+  - single
+  - timing
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 82
+      relationship: self
+      medicare_part_a: true
+      medicare_part_b: true
+      facts:
+        institutionalized: true
+    incomes:
+    - kind: social_security
+      monthly: 2200
+      owner: a
+    assets:
+    - kind: cash
+      value: 500000
+      owner: a
+    facts:
+      nursing_facility_monthly_cost: 14440
+  expect:
+    status: eligible
+    rules_include:
+    - LTC-CA-ASSET-TEST
+- id: LTC-CA-T14
+  title: Single who gave $40,000 in May 2026 but does not know what they owned at the time
+  as_of: '2026-10-01'
+  tags:
+  - single
+  - unresolved
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 82
+      relationship: self
+      medicare_part_a: true
+      medicare_part_b: true
+      facts:
+        institutionalized: true
+        transfers:
+        - date: '2026-05-01'
+          amount: 40000
+    incomes:
+    - kind: social_security
+      monthly: 2200
+      owner: a
+    assets:
+    - kind: cash
+      value: 60000
+      owner: a
+    facts:
+      nursing_facility_monthly_cost: 14440
+  expect:
+    status: undetermined
+    open_questions_include:
+    - LTC-CA-OQ-04
+- id: LTC-CA-T15
+  title: 'Single who gave $600,000 in January 2026 while over the limit: POI capped at 30 months'
+  as_of: '2026-10-01'
+  tags:
+  - single
+  - threshold
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 82
+      relationship: self
+      medicare_part_a: true
+      medicare_part_b: true
+      facts:
+        institutionalized: true
+        transfers:
+        - date: '2026-01-15'
+          amount: 600000
+          resources_at_transfer: 800000
+    incomes:
+    - kind: social_security
+      monthly: 2200
+      owner: a
+    assets:
+    - kind: cash
+      value: 100000
+      owner: a
+    facts:
+      nursing_facility_monthly_cost: 14440
+  expect:
+    status: ineligible
+    tier: transfer_penalty
+    amounts:
+      penalty_months: 30
+  crosscheck:
+    policyengine: true
+- id: LTC-CA-T16
+  title: Single on SSI/SSP with Medicare and QMB, $2,000 savings, entering a nursing home
+  as_of: '2026-10-01'
+  tags:
+  - single
+  - other_benefits
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 82
+      relationship: self
+      medicare_part_a: true
+      medicare_part_b: true
+      facts:
+        institutionalized: true
+      benefits:
+      - ssi
+      - ssp
+      - qmb
+      - medicaid
+    incomes:
+    - kind: ssi
+      monthly: 994
+      owner: a
+    - kind: social_security
+      monthly: 400
+      owner: a
+    assets:
+    - kind: cash
+      value: 2000
+      owner: a
+    facts:
+      nursing_facility_monthly_cost: 14440
+  expect:
+    status: eligible
+    amounts:
+      patient_liability_monthly: 1359
+  crosscheck:
+    policyengine: true

@@ -1,0 +1,853 @@
+# Synthetic California households for the Medicare Savings Program. No real people.
+program: msp
+scope: ca
+cases:
+- id: MSP-CA-T01
+  title: Single, Social Security $1,350 gross (countable $1,330 = QMB standard) — at the QMB limit
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - threshold
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 1350
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: QMB
+    rules_include:
+    - MSP-CA-QMB-INCOME
+    - MSP-CA-ASSET-LIMIT
+    links_include:
+    - extra_help:deemed
+    amounts:
+      part_b_premium_paid_monthly: 202.9
+  crosscheck:
+    policyengine: true
+- id: MSP-CA-T02
+  title: Single, Social Security $1,351 — $1 over QMB, so SLMB
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - threshold
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 1351
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: SLMB
+    rules_include:
+    - MSP-CA-SLMB-INCOME
+  crosscheck:
+    policyengine: true
+- id: MSP-CA-T03
+  title: Single, Social Security $1,615 (countable $1,595, below the $1,596 SLMB standard) — top of SLMB
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - threshold
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 1615
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: SLMB
+  crosscheck:
+    policyengine: true
+- id: MSP-CA-T04
+  title: Single, Social Security $1,616 (countable $1,596 is not below $1,596) — QI, though the federal table would say SLMB
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - threshold
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 1616
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: QI
+    rules_include:
+    - MSP-CA-QI-INCOME
+  crosscheck:
+    policyengine: true
+- id: MSP-CA-T05
+  title: Single, Social Security $1,815 (countable $1,795, below the $1,796 QI standard) — top of QI
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - threshold
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 1815
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: QI
+  crosscheck:
+    policyengine: true
+- id: MSP-CA-T06
+  title: Single, Social Security $1,816 — $1 over QI, not eligible
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - threshold
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 1816
+      owner: a
+    assets: []
+  expect:
+    status: ineligible
+    tier: null
+  crosscheck:
+    policyengine: true
+- id: MSP-CA-T07
+  title: Couple, combined Social Security $1,824 (countable $1,804 = DHCS couple QMB standard, rounded up) — QMB
+  as_of: '2026-03-01'
+  tags:
+  - couple
+  - threshold
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    - id: b
+      age: 69
+      medicare_part_a: true
+      medicare_part_b: true
+      relationship: spouse
+    incomes:
+    - kind: social_security
+      monthly: 1000
+      owner: a
+    - kind: social_security
+      monthly: 824
+      owner: b
+    assets: []
+  expect:
+    status: eligible
+    tier: QMB
+    rules_include:
+    - MSP-CA-COUPLE
+  crosscheck:
+    policyengine: true
+- id: MSP-CA-T08
+  title: Couple, combined $1,825 — $1 over couple QMB, SLMB
+  as_of: '2026-03-01'
+  tags:
+  - couple
+  - threshold
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    - id: b
+      age: 69
+      medicare_part_a: true
+      medicare_part_b: true
+      relationship: spouse
+    incomes:
+    - kind: social_security
+      monthly: 1000
+      owner: a
+    - kind: social_security
+      monthly: 825
+      owner: b
+    assets: []
+  expect:
+    status: eligible
+    tier: SLMB
+  crosscheck:
+    policyengine: true
+- id: MSP-CA-T09
+  title: Couple, combined $2,456 (countable $2,436, not below the couple QI standard) — not eligible
+  as_of: '2026-03-01'
+  tags:
+  - couple
+  - threshold
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    - id: b
+      age: 69
+      medicare_part_a: true
+      medicare_part_b: true
+      relationship: spouse
+    incomes:
+    - kind: social_security
+      monthly: 1300
+      owner: a
+    - kind: social_security
+      monthly: 1156
+      owner: b
+    assets: []
+  expect:
+    status: ineligible
+    tier: null
+  crosscheck:
+    policyengine: true
+- id: MSP-CA-T10
+  title: Single, Social Security $1,500, savings exactly $130,000 — at the 2026 property limit, SLMB
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - threshold
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 1500
+      owner: a
+    assets:
+    - kind: cash
+      value: 130000
+      owner: a
+  expect:
+    status: eligible
+    tier: SLMB
+    rules_include:
+    - MSP-CA-ASSET-LIMIT
+  crosscheck:
+    policyengine: true
+- id: MSP-CA-T11
+  title: Single, Social Security $1,500, savings $130,001 (new 2026 application) — over the reinstated property limit
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - threshold
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 1500
+      owner: a
+    assets:
+    - kind: cash
+      value: 130001
+      owner: a
+    facts:
+      application_date: '2026-02-10'
+  expect:
+    status: ineligible
+    tier: null
+    rules_include:
+    - MSP-CA-ASSET-LIMIT
+  crosscheck:
+    policyengine: true
+- id: MSP-CA-T12
+  title: Member who applied in November 2025 with $250,000 savings, renewal not yet due — property not yet considered, SLMB
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - timing
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 1500
+      owner: a
+    assets:
+    - kind: cash
+      value: 250000
+      owner: a
+    facts:
+      application_date: '2025-11-15'
+  expect:
+    status: eligible
+    tier: SLMB
+    rules_include:
+    - MSP-CA-ASSET-TRANSITION
+  crosscheck:
+    policyengine: true
+- id: MSP-CA-T13
+  title: Same member after her 2026 annual renewal — property now counted, not eligible
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - timing
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 1500
+      owner: a
+    assets:
+    - kind: cash
+      value: 250000
+      owner: a
+    facts:
+      application_date: '2025-11-15'
+      renewed_since_asset_reinstatement: true
+  expect:
+    status: ineligible
+    tier: null
+    rules_include:
+    - MSP-CA-ASSET-LIMIT
+  crosscheck:
+    policyengine: false
+- id: MSP-CA-T14
+  title: June 2025 (no property test in 2024-2025), Social Security $1,500 and $250,000 savings — SLMB under the 2025 standards
+  as_of: '2025-06-01'
+  tags:
+  - single
+  - timing
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 1500
+      owner: a
+    assets:
+    - kind: cash
+      value: 250000
+      owner: a
+  expect:
+    status: eligible
+    tier: SLMB
+    rules_include:
+    - MSP-CA-NO-ASSET-TEST-2024-2025
+  crosscheck:
+    policyengine: true
+- id: MSP-CA-T15
+  title: 'Working 67-year-old: Social Security $900 + wages $1,200 — countable $1,447.50 after $20 and $65-plus-half, SLMB'
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - edge
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 67
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 900
+      owner: a
+    - kind: earned
+      monthly: 1200
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: SLMB
+    rules_include:
+    - MSP-CA-INCOME-METHOD
+  crosscheck:
+    policyengine: true
+- id: MSP-CA-T16
+  title: Full-scope (zero share of cost) Medi-Cal member, Social Security $1,700 — QI range, QI cannot be held with Medi-Cal
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - other_benefits
+  - cross_playbook
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+      benefits:
+      - medicaid
+    incomes:
+    - kind: social_security
+      monthly: 1700
+      owner: a
+    assets: []
+  expect:
+    status: ineligible
+    tier: null
+    rules_include:
+    - MSP-CA-QI-NOT-MEDI-CAL
+  note: 'Cross-playbook (medicaid, link MSP-CA-LINK-MEDICAID): expected interaction — Medi-Cal already pays the Part B premium
+    for full-scope members under the state buy-in, so losing QI costs nothing; the Medicaid playbook should show full-scope
+    Medi-Cal for this person.'
+  crosscheck:
+    policyengine: false
+- id: MSP-CA-T17
+  title: Share-of-cost Medi-Cal member, Social Security $1,700 — whether QI is barred is unresolved
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - other_benefits
+  - unresolved
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+      benefits:
+      - medicaid
+      facts:
+        share_of_cost: true
+    incomes:
+    - kind: social_security
+      monthly: 1700
+      owner: a
+    assets: []
+  expect:
+    status: undetermined
+    tier: null
+    open_questions_include:
+    - MSP-CA-OQ-01
+  crosscheck:
+    policyengine: false
+- id: MSP-CA-T18
+  title: Medi-Cal member, Social Security $1,200 — QMB alongside Medi-Cal
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - other_benefits
+  - cross_playbook
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+      benefits:
+      - medicaid
+    incomes:
+    - kind: social_security
+      monthly: 1200
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: QMB
+  note: 'Cross-playbook (medicaid): QMB and Medi-Cal are held together; QMB brings the Part A buy-in for a member without
+    premium-free Part A.'
+  crosscheck:
+    policyengine: true
+- id: MSP-CA-T19
+  title: January 2026, Social Security $1,360 including a $37 COLA — RSDI case still on 2025 standards and COLA not counted,
+    QMB
+  as_of: '2026-01-15'
+  tags:
+  - single
+  - timing
+  - threshold
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+      facts:
+        ss_cola_increase_monthly: 37
+    incomes:
+    - kind: social_security
+      monthly: 1360
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: QMB
+    rules_include:
+    - MSP-CA-FPL-EFFECTIVE
+    - MSP-FED-COLA-TRANSITION
+  crosscheck:
+    policyengine: false
+- id: MSP-CA-T20
+  title: Same household in March 2026 — 2026 standards and the COLA counted, SLMB
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - timing
+  - threshold
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+      facts:
+        ss_cola_increase_monthly: 37
+    incomes:
+    - kind: social_security
+      monthly: 1360
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: SLMB
+  crosscheck:
+    policyengine: true
+- id: MSP-CA-T21
+  title: January 2026, pension only $1,340 (no RSDI) — 2026 standards apply from January 1, QMB (2025 standards would give
+    SLMB)
+  as_of: '2026-01-20'
+  tags:
+  - single
+  - timing
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: pension
+      monthly: 1340
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: QMB
+    rules_include:
+    - MSP-CA-FPL-EFFECTIVE
+  crosscheck:
+    policyengine: false
+- id: MSP-CA-T22
+  title: Applicant (SS $1,300) with a 62-year-old spouse without Medicare who has a $600 pension — SSI-method spouse allocation
+    needed, unresolved
+  as_of: '2026-03-01'
+  tags:
+  - couple
+  - edge
+  - unresolved
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    - id: b
+      age: 62
+      medicare_part_a: false
+      medicare_part_b: false
+      relationship: spouse
+    incomes:
+    - kind: social_security
+      monthly: 1300
+      owner: a
+    - kind: pension
+      monthly: 600
+      owner: b
+    assets: []
+  expect:
+    status: undetermined
+    tier: null
+    open_questions_include:
+    - MSP-CA-OQ-04
+  crosscheck:
+    policyengine: false
+- id: MSP-CA-T23
+  title: 67-year-old with Part B but no Part A, Social Security $900 — Part A buy-in route for an MSP-only applicant unresolved
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - edge
+  - unresolved
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 67
+      medicare_part_a: false
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 900
+      owner: a
+    assets: []
+  expect:
+    status: undetermined
+    tier: null
+    open_questions_include:
+    - MSP-CA-OQ-02
+  crosscheck:
+    policyengine: false
+- id: MSP-CA-T24
+  title: 66-year-old with no Medicare at all — not eligible
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - edge
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 66
+      medicare_part_a: false
+      medicare_part_b: false
+    incomes:
+    - kind: social_security
+      monthly: 1100
+      owner: a
+    assets: []
+  expect:
+    status: ineligible
+    tier: null
+    rules_include:
+    - MSP-CA-PART-A
+  crosscheck:
+    policyengine: true
+- id: MSP-CA-T25
+  title: 'QDWI: 50-year-old disabled worker who lost premium-free Part A, wages $4,000, $50,000 saved — QDWI (property limit
+    $130,000 in California)'
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - edge
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 50
+      medicare_part_a: false
+      medicare_part_b: true
+      disabled: true
+      facts:
+        lost_part_a_due_to_work: true
+    incomes:
+    - kind: earned
+      monthly: 4000
+      owner: a
+    assets:
+    - kind: cash
+      value: 50000
+      owner: a
+  expect:
+    status: eligible
+    tier: QDWI
+    rules_include:
+    - MSP-CA-QDWI
+  compare_states:
+    ny:
+      status: ineligible
+      tier: null
+    il:
+      status: ineligible
+      tier: null
+  crosscheck:
+    policyengine: false
+- id: MSP-CA-T26
+  title: Grandparent raising a child at home — California MFBU family size not modelled, undetermined
+  as_of: '2026-03-01'
+  tags:
+  - family
+  - unresolved
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    - id: c
+      age: 10
+      medicare_part_a: false
+      medicare_part_b: false
+      relationship: child
+    incomes:
+    - kind: social_security
+      monthly: 1500
+      owner: a
+    assets: []
+  expect:
+    status: undetermined
+    tier: null
+    open_questions_include:
+    - MSP-CA-OQ-03
+  crosscheck:
+    policyengine: false
+- id: MSP-CA-T27
+  title: 'Cross-state: single retiree, Social Security $1,500 and $50,000 savings — SLMB in California, QMB in New York, not
+    eligible in Illinois (resources)'
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - cross_state
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 1500
+      owner: a
+    assets:
+    - kind: cash
+      value: 50000
+      owner: a
+  expect:
+    status: eligible
+    tier: SLMB
+  compare_states:
+    ny:
+      status: eligible
+      tier: QMB
+    il:
+      status: ineligible
+      tier: null
+  crosscheck:
+    policyengine: true
+- id: MSP-CA-T28
+  title: 'SSI/SSP recipient: Social Security $400 + SSI/SSP (not counted) — QMB'
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - other_benefits
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+      benefits:
+      - ssi
+      - ssp
+      - medicaid
+    incomes:
+    - kind: social_security
+      monthly: 400
+      owner: a
+    - kind: ssi
+      monthly: 594
+      owner: a
+    - kind: ssp
+      monthly: 200
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: QMB
+  crosscheck:
+    policyengine: true
+- id: MSP-X-04
+  title: 'Cross-playbook (Extra Help), California: SLMB with $50,000 savings deems Extra Help though she fails the Extra Help
+    resource test applying directly'
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - cross_playbook
+  - other_benefits
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 1500
+      owner: a
+    assets:
+    - kind: cash
+      value: 50000
+      owner: a
+  expect:
+    status: eligible
+    tier: SLMB
+    links_include:
+    - extra_help:deemed
+    rules_include:
+    - MSP-FED-EXTRA-HELP-DEEMED
+  also:
+  - program: msp
+    function: extra_help_by_application
+    expect:
+      status: ineligible
+  crosscheck:
+    policyengine: false

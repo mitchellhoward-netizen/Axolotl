@@ -1,0 +1,401 @@
+Skip to content
+
+Emergency Message
+
+Effective Dates: 01/17/2025 - Present
+
+Identification Number:
+
+EM-24047 REV
+
+Intended Audience:
+
+All RCs/ARCs/ADs/FOs/WSUs
+
+Originating Office:
+
+DCO OPSOS
+
+Title:
+
+SSI Living Arrangements Regulatory Changes - Technician Instructions for Identifying and Processing Affected Cases
+
+Type:
+
+EM - Emergency Messages
+
+Program:
+
+Title XVI (SSI)
+
+Link To Reference:
+
+See References at the end of this EM.
+
+Retention Date: 02/11/2027
+
+Revisions:
+
+Section A updated with additional information and a link to the SharePoint site dedicated to these changes which contains all available resources.
+
+Section C.5 added more information on the impact to deeming.
+
+Section C.6 has been updated with information regarding the available data exchange agreements and additional information on SSA Access to State Records Online (SASRO). In addition, we included more specific examples of acceptable evidence for SNAP.
+
+A. Purpose
+
+The purpose of this message is to notify Regional and Field Office (FO) staff of three Supplemental Security Income (SSI) regulatory changes which took effect on September 30, 2024, and how to address cases potentially impacted. These changes may affect the determination of the living arrangement (LA), in-kind support and maintenance (ISM), deeming, and rental subsidy.
+
+For all available resources related to these changes, technicians can utilize the SSI Living Arrangement Regulatory Changes SharePoint site. This site contains:
+
+· Links to all Emergency Messages, MSS Messages
+
+· VODs
+
+· FAQ document
+
+· PowerPoint document for training
+
+· List of states with existing Supplemental Nutrition Assistance Program (SNAP) data exchanges
+
+NOTE: The question submission form on the SharePoint site is for Regional Office Subject Matter Experts ONLY. FO technicians cannot access the question submission forms.
+
+B. Background
+
+1. Omitting Food from ISM
+
+Effective September 30, 2024, food is no longer part of the ISM calculations in determining when the claimant or recipient’s contribution equals or exceeds their share of the household expenses. Determine a claimant’s pro rata share and if ISM applies, by only calculating shelter expenses.
+
+NOTE: Food remains in the definition of income, SI 00810.005; however, it will now include the exception that food is no longer used to calculate ISM.
+
+2. Expanding the Definition of a Public Assistance (PA) Household and Adding SNAP (formerly known as Food Stamps) to the list of PA and Public Income Maintenance (PIM) Payment Types
+
+Living Arrangement
+
+This regulation expands the definition of a PA household to include any situation in which the SSI claimant or recipient resides with at least one other person who receives a PIM payment. Prior to September 30, 2024, every member of the household had to receive public assistance to be considered a PA household. For more information on PA households, refer to SI 00835.130.
+
+EXAMPLE: Mike and Sarah are married and live with their friend Carl in a household together. Mike files for SSI payments based on disability and meets the non-disability criteria. Carl receives SNAP from the State. Consider the household a PA household, as Mike, the SSI claimant, lives with Carl (one other person) who receives a PIM payment. Upon verification of Carl’s SNAP benefits, development of inside ISM is no longer needed.
+
+Deeming
+
+In addition, SNAP benefits were added to the list of acceptable types of PA and PIM payments. The addition of SNAP as a PIM payment will impact deeming situations where an ineligible spouse or parent:
+
+· receives SNAP; and
+
+· has other income that may affect SSI payment or eligibility.
+
+Exclude from deemed income any PIM payment and any income used to compute such payment. For the ineligible spouse or parent who receives SNAP benefits, type F income will post to the Supplemental Security Record (SSR) with an amount of zero, for more information see section C.5 in this EM. The type F income posting will occur unless there is another type F income amount present for the same month and is currently excluding the deemor’s income. For more information on PIM payments and when the exclusion applies in other situations, refer to SI 01320.141A.
+
+EXAMPLE: Mike and Sarah are married. Mike files for SSI payments based on disability and meets the non-disability criteria. Sarah receives SNAP and has income from part-time employment. Upon verification of Sarah’s SNAP benefits, Sarah’s income from employment does not affect Mike’s SSI payment or eligibility. The technician codes the new Non-Cash Public Assistance income page in the SSI Claims system for Sarah with the months of eligibility for SNAP. The system will automatically exclude Sarah’s income from deeming.
+
+3. Rental Subsidy
+
+Effective September 30, 2024, in rental subsidy situations where someone in the household is related to the landlord as parent or child, we consider a business arrangement exists when the verified required rent or flat fee equals or exceeds the lessor of the applicable presumed maximum value (PMV) or current market rental value (CMRV). If the required rent or flat fee equals or exceeds either the PMV or CMRV, no further development is needed, and no rental subsidy applies. If the required rent or flat fee is less than both the PMV and CMRV, complete development to determine if ISM applies following instructions in SI 00835.380.
+
+If the required rent is equal to or exceeds the PMV, technicians do not need to verify the CMRV. However, technicians will need to enter an amount within the CMRV value field in order to close-out the event, which can be the alleged rental amount. If the rent equals or exceeds the PMV, do not contact the landlord for CMRV development. This process currently exists in the Second and Seventh circuit states and Texas but is now being expanded nationwide. Current states include Connecticut, New York, and Vermont (Second Circuit); Illinois, Indiana, and Wisconsin (Seventh Circuit); and Texas.
+
+EXAMPLE: Billie receives SSI and pays their mother, who is also their landlord, $350 in monthly rent. The rent exceeds the 2024 PMV of $334.33; therefore, no rental subsidy is charged even though the CMRV is $500 per month. No other development is needed.
+
+EXAMPLE: Kelly, an SSI claimant is paying rent of $200 monthly to their father for a basement apartment. The rent is less than the 2024 PMV of $334.33; therefore, the technician must develop the CMRV to determine if ISM will apply. If the CMRV is $500 per month, the technician will use the difference between the PMV and the monthly rent to determine the countable ISM ($134.33), and not the higher CMRV amount.
+
+Every year the system will generate a new diary, the E2 diary in the cost-of-living adjustment (COLA) run for cases involving rental subsidy to alert technicians of the need to review the rental subsidy information. Because the cost of living typically increases annually, the PMV limit increases as well. An increase in the PMV could affect the amount of ISM being charged.
+
+Therefore, when the claimant’s rental payment amount is over, but close to the PMV amount, inform the claimant of the impact of COLA on the PMV after the first of each year and the subsequent potential impact on payment and ISM. Refer to instructions in C.5. below for steps on processing E2 diaries.
+
+EXAMPLE: If the claimant is currently paying rent of $350 monthly and the rent exceeded the 2024 PMV of $334.33, no rental subsidy could be charged, even if the CMRV was $500 per month. However, if the PMV increases to $380 in January 2025 (estimate), there may be a rental subsidy chargeable as ISM beginning in January if the recipient's required rent did not increase to equal to or exceeding the new PMV.
+
+C. Processing Instructions
+
+Be alert to situations where H type income (ISM) or J type income (value of the one-third reduction for LA “B”) is shown as continuing on the SSR in the Unearned Income Data (UMIH) segment, and the new regulations will either reduce or eliminate ISM.
+
+1. Omitting Food from ISM
+
+New LA development will be needed for cases where the ISM determination includes food. Refer to the chart below for processing instructions.
+
+NOTE: For cases involving trusts, food will no longer be included in ISM calculations effective September 30, 2024. For example, prior to September 30, 2024, if a trust (that is not a resource) disburses funds to pay a credit card bill for the trust beneficiary and the bill includes restaurant and shelter charges, then those charges are included in the ISM calculation. In the same scenario on or after September 30, 2024, only the shelter charges would be included in the ISM calculation and the restaurant charges for food would not be included in the ISM calculation.
+
+2. Expanding the Definition of a PA Household
+
+New LA development will be needed when a claimant lives with others. Refer to chart #1 below for processing instructions.
+
+3. Rental Subsidy
+
+New LA development will be needed when an individual’s ongoing LA period involves rental subsidy, and the individual does not live in New York, Connecticut, Indiana, Illinois, Wisconsin, Vermont, or Texas. You must insert a new LA period effective September 30, 2024, to ensure proper payment due to the regulatory change period with a change date of September 29, 2024.
+
+Refer to chart #2 below for processing instructions.
+
+For cases that set an E2 diary in the 2025 COLA run, you must develop the LA back to September 30, 2024, to ensure proper payment effective with the date of the regulatory change if you have not already done so.
+
+E2 Diary Instructions
+
+Due to the COLA which affects the PMV amount each year, the change in the PMV may affect the amount of ISM charged on cases with rental subsidy.
+
+For these cases, the system will generate an E2 diary with an associated limited issue or RZ for the technician to review and resolve.
+
+The system sets the E2 diary when:
+
+· the rental subsidy amount is greater than zero for the most recent LA period, and
+
+· the current payment status on the SSR is C01, M02, or N01.
+
+To develop rental subsidy when you have an E2 diary:
+
+· Attempt to contact the claimant to obtain information regarding the amount they pay for rent effective January 1st of the current year, and CMRV if applicable.
+
+· If you are unable to reach the claimant via phone or in person, obtain a signed Letter to Landlord Requesting Rental Information (SSA-L5061) to verify the rental amount and CMRV effective January 1st of the year in question.
+
+· If there are no other changes to the LA after the rental amount and CMRV is verified, create a new LA effective January 1st of the year in question (12/31/CCYY) and update the rental amount and CMRV if necessary.
+
+If you are unable to obtain the information from the claimant after two attempts and 30 days have passed, document all attempts on a Report of Contact and clear the diary via the UDIA screen in the Direct SSR update prior to closing the LI/RZ.
+
+If a claimant contacts SSA about any change in payment after clearing the diary, update the record based on the information provided at the time of contact, back to the date of their rental amount change if applicable, considering administrative finality.
+
+4. Systems Updates - Systems Edit
+
+a. PA Household Edits
+
+There are two new PA edits.
+
+The system will generate an edit on the Living Arrangements Edit page when there is an LA period where:
+
+· the LA start date is prior to 9/30/2024, and
+
+· the LA end date is later than 9/29/2024 or continuing, and
+
+· the PA household question appears in the path and the response is “Yes,” “No,” or “Unknown.”
+
+Edit Text: New LA period required for ISM regulation changes. Living arrangement period with a change date of 9/29/2024 is required.
+
+The system will generate an edit on the Edit and Alert Messages page when:
+
+· CLOSE EVENT= Y on the Build SSR page and the technician submits the page, and
+
+· there is an LA period where:
+
+· the LA start date is prior to 09/30/2024, and
+
+· the LA end date is later than 09/29/2024 or continuing, and
+
+· the PA household question appears in the path and the response is “Yes,” “No,” or “Unknown.”
+
+Edit Text: Cannot close event. Missing 09/30/24 living arrangement period for ISM changes.
+
+Technicians must resolve these edits before closing an event.
+
+NOTE: The PA question only appears in the path when the claimant lives with others.
+
+NOTE: Beginning with LA periods with an effective date of 9/30/2024 or later, the Household of Another and Household Expenses and Contributions pages no longer come into the path. These pages are consolidated into the new Household Living with Others page. The question regarding token contributions will be removed from this page in a future release. In the meantime, answer “no” to the “Claimant makes token contribution” question.
+
+Chart #1 How to Update the LA When PAHH Edit Appears in the Path
+
+Step
+
+Action
+
+1
+
+If you receive either of the following edits during an initial claim, redeterminations (RZ), or post-eligibility event:
+
+· New LA period required for ISM regulation changes. Living arrangement period with a change date of 9/29/2024 is required.
+
+· Cannot close event. Missing 09/30/24 living arrangement period for ISM changes.
+
+Take the following steps:
+
+If there is no ongoing Type H or Type J type income, and no reason to suspect a change in household composition or residence, no re-contact is needed. Copy the prior LA and input a new living arrangement with a change date of 9/29/2004, enter through the subsequent LA pages to resolve the edit. STOP HERE DO NOT CONTINUE.
+
+If there is ongoing Type H or Type J type income on the SSR, you must contact the claimant to create a new LA effective 9/30/2024 (input with a change date of 9/29/2024). Go to step 2.
+
+If there are undocumented LAs prior to 9/30/2024, develop and document under prior rules considering separate consumption.
+
+2
+
+Once you reach the new Household Living with Others page, if anyone who lives in the household is receiving PA (other than the SSI claimant/recipient), including SNAP, answer “Yes” to “The household has both the SSI claimant and one other household member who receives a public assistance benefit.”
+
+For the claimant, select the option for “Receives SSI” or “Filing for SSI,” whichever applies. From the drop down, select the other household member who receives PA, and then select their assistance type and verify receipt.
+
+Note: Development of inside ISM is not required; however, development of outside ISM is required.
+
+If no one in the household receives PA and the claimant does not live alone, you will continue with the Household Living with Others page. The following question will be presented: “Others within the household pay for or provide all of your meals”
+
+If they answer yes, go to step 3.
+
+If they answer no, go to step 4.
+
+Note: If the individual receives some meals from the household, or if they receive SNAP, the answer will be “No” because they are not receiving ALL meals from within the household. This will cover current earmark sharing cases.
+
+3
+
+The individual is now in the VTR path for ISM development. Evaluate their shelter contribution to determine if ISM applies.
+
+If the claimant is not contributing their pro rata share to shelter items, they are placed in a FLA/B LA and charged ISM under the VTR rules. STOP.
+
+If the claimant contributes their pro rate share to shelter items, go to step 4.
+
+4
+
+The claimant is placed in a FLA/A LA with the possibility of ISM calculated under PMV rules. Develop the shelter items to determine if the claimant is contributing their pro rata share. If yes, no inside ISM will be applied.
+
+NOTE: Development of outside ISM is needed.
+
+NOTE: Please refer to SI 00835.005 for a flowchart illustrating the process in determining LA and ISM.
+
+b. Rental Subsidy Edits
+
+There are two new rental subsidy edits and one revised rental subsidy edit.
+
+The first new rental subsidy edit is to ensure the technician creates a new LA as of the regulation effective date for rental subsidy situations. The system will generate this edit on the Living Arrangement Change page when:
+
+· the LA Change on the Living Arrangement Change page is “No,” and
+
+· there is an LA period where:
+
+· the LA start date is earlier than 09/30/2024, and
+
+· the LA end date is later than 9/29/2024 or continuing, and
+
+· the address state on the Residence Address and Jurisdiction page is not NY, CT, IN, IL, TX, WI or VT, and
+
+· the rental subsidy amount on the Home Ownership and Rental Liability page is greater than $0.00.
+
+Edit Text: Review rental subsidy. Living arrangement period with a change date of 09/29/2024 is required.
+
+There is a revised edit to ensure the technician creates a new LA each January for rental subsidy situations. The system will generate this edit on the Living Arrangement Change page when:
+
+· the LA change on the Living Arrangement Change page is “No,” and
+
+· there is an LA period where:
+
+· the LA start date is less than or equal to 24 months prior to the current date, and
+
+· the address state on the Residence Address and Jurisdiction page is New York, Connecticut, Indiana, Illinois, Wisconsin, Vermont, Texas (eff. 5/96), or any of the remaining states, District of Columbia, or Northern Mariana Islands (eff. 09/30/2024), and
+
+· the rental subsidy amount on the Home Ownership and Rental Liability page is greater than $0.00, and
+
+· a COLA change occurred and there is no change date equal to 01/01/<CCYY> where CCYY is the LA start date year plus 1.
+
+Edit Text: New living arrangement period required for January <CCYY> for COLA update.
+
+The second new rental subsidy edit is a close event edit and is to ensure the technician creates a new LA as of the regulation effective date for rental subsidy situations. The system will generate an edit on the Edit and Alert Messages page when:
+
+· CLOSE EVENT= Y on the Build SSR page and the technician submits the page, and
+
+· there is an LA period where:
+
+· the LA start date earlier than 09/30/2024, and
+
+· the LA end date is later than 09/29/2024 or continuing, and
+
+· the address state on the Residence Address and Jurisdiction page is not equal to New York, Connecticut, Indiana, Illinois, Wisconsin, Vermont, Texas, and
+
+· the rental subsidy amount on the Home Ownership and Rental Liability page is greater than $0.00.
+
+Edit Text: Cannot close event. Missing 09/30/24 living arrangement period for rental subsidy rule change.
+
+Technicians must resolve these edits before closing an event.
+
+Chart #2 How to Update the Living Arrangement When You Receive a Rental Subsidy Edit
+
+Step
+
+Action
+
+1
+
+During all initial claims, RZs, and post-eligibility events if you receive either of the following edits:
+
+· Review Rental Subsidy. Living arrangement period with a change date of 09/29/2024 is required.
+
+· Cannot close event. Missing 09/30/24 living arrangement period for rental subsidy rule change.
+
+Take the following steps:
+
+You must contact the claimant to create a new living arrangement effective 9/30/2024 (using a change date of 9/29/2024).
+
+Verify the rental amount and CMRV and update as needed.
+
+The system will compute the rental subsidy using both the PMV and CMRV and will revise the rental subsidy amount as needed.
+
+2
+
+During all initial claims, RZs, and post-eligibility events if you receive the following edit:
+
+New living arrangement period required for January <CCYY> for COLA update.
+
+Take the following steps:
+
+You must contact the claimant to create a new living arrangement effective 01/01/CCYY (using a change date of 12/31/CCYY).
+
+Verify the rental amount and CMRV and update as needed.
+
+The system will compute the rental subsidy using both the PMV and CMRV and will revise the rental subsidy amount as needed.
+
+5. Impact on Deeming
+
+The addition of SNAP to the list of PA and PIM payments may affect the deeming computation. Exclude from deemed income any PIM payment and any income used to compute such payment, as discussed in SI 01320.141A. This exclusion applies to the income of an ineligible spouse or parent when used to compute a PIM payment regardless of who receives that payment. In addition, per SI 01310.110D.3. there is no ineligible child allocation for any child who receives PIM payments.
+
+Assume that the agency paying the PIM payments considered all the income of the individual who received the PIM payment (either counting or excluding the income). Absent evidence to the contrary, no further verification of the income used in determining the PIM payment is necessary.
+
+In initial claims, always:
+
+· Verify the receipt of PIM payments if PIM eligibility is alleged by a deemor (or an ineligible child in the deeming household). Only verify that the PIM payment includes the deemor. There is no need to verify the PIM payment amount. See section 6 below for more information on verifying eligibility for a PIM payment.
+
+In redeterminations:
+
+· If an ineligible spouse or parent alleges receiving PIM payments at a redetermination, there is no need to verify the PIM payment when it is consistent with information on the SSR for the period of review. Accept the allegation without further development unless the case involves Temporary Assistance for Needy Families (TANF) and wages. If so, see the bullet below.
+
+· There is an exception for cases involving TANF and wages. See SI 01320.141C.5.b.
+
+For income related diaries generated after September 2024, if the income is for a period prior to September 2024, follow normal development procedures to update the wage information.
+
+If the income is for periods after September 2024 and the deemor receives SNAP or their income was used in the SNAP determination, refer to SI 02310.005C.4 to clear the diary without verifying the income. Otherwise, continue to follow normal development procedures to update the income information. For example, a deemor was eligible for SNAP from January 2025 through March 2025, and then again from July 2025 through December 2025. If you receive an income related diary, you will only need to develop income for the period of April 2025 through June 2025.
+
+Systems Enhancements
+
+There is a new income type available for selection within the SSI claims path called “Non-Cash Public Assistance – Supplemental Nutrition Assistance Program (SNAP).” If an ineligible spouse or parent (and ineligible children, if any) receives SNAP benefits, you must select “Yes” to “Non-Cash Public Assistance” on the Income Selection page.
+
+Within the Non-Cash Public Assistance page, key in the source of the assistance, the address, and the months of eligibility. You must verify receipt of the PIM payment; however, you do not need to verify the amount. Inputting eligibility for Non-Cash Public Assistance will automatically post F type income to the SSR.
+
+When you complete the Non-Cash Public Assistance page with Months of Eligibility and build to the SSR in CCE or MSSICS, the build to the SSR will post type F income. The amount will be zero unless the person also receives another PIM that also posts as type F income. Also, if the person with the non-cash public assistance is an ineligible child, the build to the SSR will not build an ineligible child allocation as type I income for this child.
+
+6. Verifying Receipt of SNAP and other PA/PIM Payments
+
+If available, use any existing SSA Access to State Records Online (SASRO) data exchanges with your local state agency to verify receipt of SNAP.
+
+SASRO allows SSA personnel to electronically query certain information directly from a state online system. Refer to the SSI Living Arrangement SharePoint for a list of states that allow offices to query SNAP data via SASRO. For questions, refer to your state data exchange agreement or reach out to your Regional Data Exchange Coordinator.
+
+NOTE: The Office of Data Exchange, Policy Publications, and International Negotiations and Regional Data Exchange Coordinators are working to increase the number of States that allow access to SNAP data via SASRO.
+
+Document verification of SASRO data on a Report of Contact or Shared Processes (EVID).
+
+If your office does not have an existing data exchange and if there is only one SSI applicant or recipient in the household, document the file for each month in question to substantiate receipt of one or more PA payments by at least one household member other than the SSI applicant or recipient. Evidence may take the form of, for example, an award letter or Report of Contact page with the paying agency.
+
+Acceptable evidence for verifying a PA payment should include the individual’s name, type of public assistance, and period of eligibility within the type of evidence.
+
+NOTE: Effective 09/30/2024, SNAP is included as a PA payment. Acceptable evidence of SNAP receipt could include the following:
+
+· SNAP award letter or comparable document;
+
+· A Report of Contact with a representative from the toll-free phone number on the back of the SNAP Electronic Benefits Transfer (EBT) card or from the State’s EBT customer service number; or
+
+· Information from the claimant or recipient’s account within an app authorized or used by the applicable State SNAP agency.
+
+Do not store Personally Identifiable Information (PII) for a non-deemor in the Evidence Portal.
+
+PIF Regulatory Changes.pdf
+
+Direct all program-related and technical questions to your Regional Office (RO) support staff using vHelp or Program Service Center (PSC) Operations Analysis (OA) staff. RO support staff or PSC OA staff may refer questions, concerns, or problems to their Central Office contacts.
+
+D. References
+
+SI 00810.005 What is Income
+
+SI 00835.130 Public Assistance Households
+
+SI 00835.380 Rental Subsidies
+
+SI 01320.141 Deeming: Public Income Maintenance Payments
+
+EM 24048 Omitting Food from In-Kind Support and Maintenance Calculations
+
+EM-24047 REV - SSI Living Arrangements Regulatory Changes - Technician Instructions for Identifying and Processing Affected Cases - 01/17/2025

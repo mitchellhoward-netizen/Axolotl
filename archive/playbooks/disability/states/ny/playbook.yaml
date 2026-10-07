@@ -1,0 +1,378 @@
+schema_version: 2
+program: disability
+scope: ny
+title: Disability and SSI — New York (State Supplement Program, Medicaid link, Division of Disability Determinations)
+last_researched: 2026-10-07
+
+summary:
+  plain_language: >-
+    In New York, SSI recipients also get a State Supplement Program (SSP)
+    payment from New York State. In 2026 it is $87 a month for a person living
+    alone ($104 for a couple), and $23 ($46 for a couple) for someone living
+    with others, so the combined SSI + SSP maximum is $1,081 (alone) or $1,017
+    (with others) for one person. Since October 2014 New York's Office of
+    Temporary and Disability Assistance (OTDA) pays the SSP itself, as a
+    separate payment from SSA's SSI check; nobody files a separate SSP
+    application when they get SSI. A person whose income is a little too high
+    for SSI can still get an SSP-only payment. People who get SSI in New York
+    get Medicaid without a separate application. Medical decisions on SSI and
+    SSDI disability claims are made by OTDA's Division of Disability
+    Determinations.
+  administered_by: >-
+    SSA decides SSI; the New York State Office of Temporary and Disability
+    Assistance (OTDA) administers and pays the State Supplement Program and,
+    through its Division of Disability Determinations, makes the medical
+    decision on disability claims for SSA. Medicaid for SSI recipients is
+    New York Medicaid (Department of Health).
+  funded_by: SSP is paid from New York State funds; SSI is federal.
+  local_names:
+    - {name: SSP, meaning: "State Supplement Program (New York's additional state payment, Social Services Law 209)"}
+    - {name: OTDA, meaning: Office of Temporary and Disability Assistance}
+    - {name: DDD, meaning: "OTDA Division of Disability Determinations (New York's DDS)"}
+    - {name: Standard of need, meaning: SSI + SSP combined amount set in Social Services Law 209(2)}
+  legal_basis: New York Social Services Law sections 207-212 (additional state payments); SSL 209 sets eligibility and the standard of need.
+  confidence: confirmed
+  sources:
+    - {source: ny-ssl-209, locator: "209(1)-(4)"}
+    - {source: ny-gis-26-ma-03, locator: "5. The State Supplement is $87.00 for an individual and $104.00 for a couple living alone."}
+
+rules:
+  - id: DIS-NY-SSP-ELIGIBILITY
+    statement: >-
+      In New York, a person qualifies for the State Supplement Program only if
+      they applied for SSI and got a decision, are 65 or older, blind or
+      disabled, have countable income less than the New York standard of need,
+      have resources within the SSI limit, and live in New York; anyone
+      properly receiving SSI is treated as meeting the income, resource and
+      category tests, and anyone ineligible for SSI for a reason other than
+      income gets no SSP.
+    kind: eligibility
+    applies_to: [SSP]
+    effective_from: 2026-01-01
+    implemented_in: playbooks/disability/states/ny/rules.py:evaluate
+    confidence: confirmed
+    note: Effective date is that of the 2026 statute text consulted; the rule is decades older.
+    sources:
+      - {source: ny-ssl-209, locator: "209(1)(a)(i)-(iv) and (b): A person who is properly receiving supplemental security income benefits shall be deemed to have met the eligibility criteria"}
+  - id: DIS-NY-SSP-STANDARD
+    statement: >-
+      In New York in 2026, the standard of monthly need (SSI and SSP combined)
+      is $1,081 for an individual and $1,595 for a couple living alone, and
+      $1,017 for an individual and $1,537 for a couple living with others; for
+      2025 it was $1,054 / $1,554 and $990 / $1,496.
+    kind: benefit
+    applies_to: [SSP]
+    effective_from: 2026-01-01
+    effective_to: 2026-12-31
+    parameters: [ny.ssp.standard_of_need_monthly]
+    implemented_in: playbooks/disability/states/ny/rules.py:standard
+    confidence: confirmed
+    sources:
+      - {source: ny-ssl-209, locator: "209(2)(a)-(b), paragraphs for January 1, 2025 and January 1, 2026"}
+      - {source: ny-gis-26-ma-03, locator: "5. State Supplement $87.00 individual / $104.00 couple living alone"}
+  - id: DIS-NY-SSP-CONGREGATE
+    statement: >-
+      In New York in 2026, the standard of need is $1,260.48 a month for an
+      individual in family care in New York City, Nassau, Suffolk, Westchester
+      or Rockland ($1,222.48 elsewhere), $1,429.00 in residential care in those
+      counties ($1,399.00 elsewhere), and $1,688.00 in enhanced residential
+      care; couples get twice the individual amount.
+    kind: benefit
+    applies_to: [SSP]
+    effective_from: 2026-01-01
+    effective_to: 2026-12-31
+    parameters: [ny.ssp.standard_of_need_monthly, ny.ssp.metro_counties]
+    implemented_in: playbooks/disability/states/ny/rules.py:standard
+    confidence: confirmed
+    note: Who pays the SSP in these congregate settings (OTDA or SSA) was not confirmed (DIS-NY-OQ-02).
+    sources:
+      - {source: ny-ssl-209, locator: "209(2)(c)-(e), 2026 paragraphs; 209(3)(c)-(e) definitions"}
+    open_question: DIS-NY-OQ-02
+  - id: DIS-NY-SSP-ARRANGEMENTS
+    statement: >-
+      In New York, "living alone" for the SSP means a private household of
+      only the eligible individual or eligible couple; "living with others"
+      means a private household with at least one other person, and any child
+      under 18 (under 22 if in school) who is not head of the household is
+      always "living with others" outside licensed mental-hygiene residential
+      care.
+    kind: definition
+    applies_to: [SSP]
+    effective_from: 2026-01-01
+    implemented_in: playbooks/disability/states/ny/rules.py:arrangement
+    confidence: confirmed
+    sources:
+      - {source: ny-ssl-209, locator: "209(3)(a)-(b)"}
+  - id: DIS-NY-SSP-AMOUNT
+    statement: >-
+      In New York, the State Supplement Program payment equals the standard of
+      need for the person's living arrangement minus the sum of the SSI
+      benefit and countable income; for example, in 2026 a person living
+      alone with countable income of $780 gets SSI of $214 and an SSP of $87,
+      and a person with countable income of $1,000 gets no SSI but an SSP of
+      $81.
+    kind: benefit
+    applies_to: [SSP]
+    effective_from: 2026-01-01
+    overrides: [DIS-FED-SSI-OSS-COMPUTATION]
+    implemented_in: playbooks/disability/states/ny/rules.py:evaluate
+    confidence: confirmed
+    note: >-
+      When the SSI one-third reduction applies (living in another person's
+      household), the archive counts the VTR ($331.33) as income in this
+      formula, so the SSP is $1,017 - ($662.67 + $331.33) = $23. Treating the
+      VTR as income follows SSA's description of the VTR as an income value
+      (SI 00835.200 A.1); no New York text applying SSL 209(4) to VTR cases
+      was found, but a secondary chart of 2026 New York amounts gives the same
+      $685.67 total.
+    sources:
+      - {source: ny-ssl-209, locator: "209(4): an additional state payment in an amount equal to the difference between the monthly standard of need ... and the sum of such individual's or couple's supplemental security income benefit plus countable income"}
+      - {source: ssa-poms-si-00835-200, locator: "A.1 This reduction in the FBR has an income value, known as the VTR"}
+  - id: DIS-NY-SSP-DEEMING
+    statement: >-
+      How New York computes the State Supplement Program payment for an SSI
+      recipient living with an ineligible spouse (whose income is deemed for
+      SSI) is not established in this archive.
+    kind: benefit
+    applies_to: [SSP]
+    effective_from: 2026-01-01
+    implemented_in: playbooks/disability/states/ny/rules.py:evaluate
+    confidence: unresolved
+    open_question: DIS-NY-OQ-01
+  - id: DIS-NY-SSP-PAYMENT
+    statement: >-
+      Since October 1, 2014, New York State (OTDA) administers the State
+      Supplement Program and pays it as a separate monthly payment from SSA's
+      federal SSI payment, by the same method (check, direct deposit or
+      Direct Express card); there is no SSP application: OTDA starts the
+      payment from SSA's data on the person's SSI status, effective the first
+      full month after all SSP criteria are met (and after a mandatory 90-day
+      waiting period).
+    kind: procedure
+    applies_to: [SSP]
+    effective_from: 2014-10-01
+    implemented_in: playbooks/disability/states/ny/rules.py:evaluate
+    confidence: secondary
+    note: >-
+      Administration, the no-application rule and the start month now rest on
+      OTDA's SSP regulation, 18 NYCRR Part 398 (adopted eff. October 1, 2014,
+      the transfer date; amended eff. January 13, 2021), read in Cornell LII's
+      third-party copy; the separate payment and payment method rest on a
+      State Senate post quoting OTDA's 2014 notice. The regulation does not
+      define the "mandatory 90-day waiting period" or say on what day of the
+      month the SSP is paid; otda.ny.gov (SSP pages, 14-ADM-07) could not be
+      reached. SSA's chart SI 01415.010 lists New York's supplement as
+      state-administered.
+    sources:
+      - {source: ny-nycrr-398-1-1-lii, locator: "The Commissioner of the NYS Office of Temporary and Disability Assistance ... is responsible for the administration of all State benefits ... as of the time that the federal SSA electronic data file ... is transmitted to NYS via the State Data Exchange (SDX)"}
+      - {source: ny-nycrr-398-4-1-lii, locator: "(a) No separate application for SSP shall be required or accepted by NYS ... remains eligible for the duration of the mandatory 90-day waiting period; (c) Eligibility for SSP benefits begins the first full month following the month in which all SSP eligibility criteria are met"}
+      - {source: ny-senate-ssp-takeover-2014, locator: "effective October 1, 2014, the responsibility for administering the New York State supplement ... transferring from the U.S. Social Security Administration (SSA) to ... OTDA ... most SSI recipients ... two separate payments"}
+      - {source: ssa-poms-si-01415-010, locator: "New York: Mandatory S, Optional S"}
+    open_question: DIS-NY-OQ-04
+  - id: DIS-NY-MEDICAID-1634
+    statement: >-
+      In New York, a person who is eligible for SSI generally gets Medicaid
+      automatically and does not file a Medicaid application, because New York
+      has a section 1634 agreement with SSA; aged, blind or disabled people not
+      on SSI apply to their local social services district.
+    kind: coordination
+    applies_to: [SSI, MEDICAID]
+    effective_from: 2005-02-01
+    implemented_in: playbooks/disability/states/ny/rules.py:evaluate
+    confidence: confirmed
+    note: Whether an SSP-only recipient (no federal SSI) is also covered automatically is DIS-NY-OQ-03.
+    sources:
+      - {source: ny-mrg-income, locator: "SSI-RELATED BUDGETING METHODOLOGY (UPDATED: FEBRUARY 2005): New York State has contracted with the Social Security Administration so that eligibility for SSI generally means automatic eligibility for Medicaid. The SSI recipient does not need to file an application for Medicaid."}
+      - {source: ssa-poms-si-01715-010, locator: "A.3 1634 States (New York is not listed in A.1 or A.2)"}
+  - id: DIS-NY-DDS
+    statement: >-
+      In New York, medical decisions on SSI and SSDI disability claims are made
+      for SSA by the Office of Temporary and Disability Assistance's Division
+      of Disability Determinations (DDD).
+    kind: procedure
+    applies_to: [SSDI, SSI]
+    effective_from: 2006-04-01
+    implemented_in: playbooks/disability/states/ny/rules.py:evaluate
+    confidence: confirmed
+    note: Source is the 2006-07 Executive Budget; the name is unchanged in current secondary listings, but OTDA's current page could not be retrieved (DIS-NY-OQ-05).
+    sources:
+      - {source: ny-budget-otda-2006, locator: "Through its Division of Disability Determinations, the Office also evaluates the medical eligibility of disability claimants for SSI and SSDI"}
+    open_question: DIS-NY-OQ-05
+
+procedure:
+  applications:
+    - id: DIS-NY-PROC-NO-SSP-APPLICATION
+      text: There is no separate SSP application for an SSI recipient; a person approved for SSI is treated as meeting the SSP criteria. Apply for SSI with SSA (see the federal procedure).
+      channel: automatic
+      confidence: confirmed
+      sources: [{source: ny-ssl-209, locator: "209(1)(b)"}]
+    - id: DIS-NY-PROC-SSP-ONLY
+      text: >-
+        A person with income too high for SSI but below the New York standard
+        must still apply for SSI and get SSA's decision; there is no separate
+        SSP application. SSA's data exchange (SDX) sends OTDA the person's SSI
+        payment status, and OTDA reviews those with status N01 (countable
+        income above the federal benefit rate) or E01 (eligible, no payment
+        due) for an SSP-only payment.
+      confidence: secondary
+      open_question: DIS-NY-OQ-04
+      note: Rests on LII's copy of 18 NYCRR 398-2.1(p) and 398-4.1(a); how long it takes and whether the person should contact OTDA was not found.
+      sources:
+        - {source: ny-ssl-209, locator: "209(1)(a): has applied for supplemental security income benefits, has received a determination"}
+        - {source: ny-nycrr-398-4-1-lii, locator: "(a) No separate application for SSP shall be required or accepted by NYS ... or who would be in current pay status for federal SSI benefits except for countable income"}
+        - {source: ny-nycrr-398-2-1-lii, locator: "(p) Federal payment status codes potentially eligible for SSP benefits: C01, E01, E02, M02, N01 - Non-pay - recipient countable income exceeds Title XVI federal benefit rate"}
+  filing:
+    - id: DIS-NY-FILE-SSP-HELP
+      text: OTDA's SSP Customer Support Center (toll-free 1-855-488-0541, weekdays 8:30 AM to 4:45 PM, as given in 2014) answers SSP payment questions.
+      channel: phone
+      confidence: secondary
+      sources: [{source: ny-senate-ssp-takeover-2014, locator: "OTDA State Supplement Program (SSP) Customer Support Center ... 1-855-488-0541"}]
+  approval_notice:
+    - id: DIS-NY-NOTICE-SSP
+      text: SSP recipients receive letters from OTDA about the state payment, separately from SSA's SSI notices.
+      confidence: secondary
+      sources: [{source: ny-senate-ssp-takeover-2014, locator: "Letters explaining this change ... have been sent to recipients by both OTDA and SSA"}]
+
+life_events:
+  - id: DIS-NY-LE-HOUSEHOLD
+    code: household_change
+    event: Someone moves in, or the SSI recipient moves in with others
+    why: The New York SSP drops from $87 (living alone) to $23 (living with others) for an individual in 2026; the federal SSI may also fall by one-third.
+    check_rules: [DIS-NY-SSP-ARRANGEMENTS, DIS-NY-SSP-STANDARD, DIS-FED-SSI-VTR]
+    confidence: confirmed
+    sources: [{source: ny-ssl-209, locator: "209(2)(a)-(b), 209(3)"}]
+  - id: DIS-NY-LE-FACILITY
+    code: nursing_home_entry
+    event: Moving into an adult home, family-type home or residential care
+    why: Higher New York standards of need apply ($1,260.48-$1,688.00 in 2026); a Medicaid nursing facility ends the SSP.
+    check_rules: [DIS-NY-SSP-CONGREGATE, DIS-NY-SSP-ELIGIBILITY]
+    confidence: confirmed
+    sources: [{source: ny-ssl-209, locator: "209(1)(d), 209(2)(c)-(e)"}]
+  - id: DIS-NY-LE-INCOME
+    code: income_rise
+    event: Income rises above the SSI limit
+    why: SSI stops but an SSP-only payment continues until countable income reaches the standard of need ($1,081 living alone in 2026).
+    check_rules: [DIS-NY-SSP-AMOUNT]
+    confidence: confirmed
+    sources: [{source: ny-ssl-209, locator: "209(1)(a)(ii), 209(4)"}]
+
+outcome_proof:
+  - id: DIS-NY-PROOF-SSP-DEPOSIT
+    evidence: A separate New York State deposit (or check) of the SSP amount, in addition to SSA's SSI deposit
+    shows: The state supplement is being paid ($87 a month for a person living alone in 2026).
+    how_to_get: Bank statement or Direct Express record
+    confidence: secondary
+    sources: [{source: ny-senate-ssp-takeover-2014, locator: "two separate payments ... arrive on the same day"}]
+  - id: DIS-NY-PROOF-MEDICAID
+    evidence: New York Medicaid (benefit) card issued after SSI approval
+    shows: Medicaid coverage linked to SSI. The card and its timing were not documented from a New York primary source.
+    confidence: unresolved
+    open_question: DIS-NY-OQ-03
+
+links:
+  - id: DIS-NY-LINK-MEDICAID
+    playbook: medicaid
+    rules: [DIS-NY-MEDICAID-1634]
+    relation: New York is a 1634 state; SSI recipients get Medicaid without an application. The Medicaid playbook should treat them as Medicaid-eligible.
+    test: DIS-X-02
+    confidence: confirmed
+    sources: [{source: ny-mrg-income, locator: "SSI-RELATED BUDGETING METHODOLOGY"}]
+  - id: DIS-NY-LINK-MSP
+    playbook: msp
+    rules: [DIS-FED-SSI-EXTRA-HELP]
+    relation: An SSI recipient with Medicare in New York is income-eligible for QMB (the MSP playbook's NY part records automatic QMB for SSI recipients as secondary, MSP-NY-SSI-AUTO).
+    test: DIS-X-01
+    confidence: confirmed
+    sources: [{source: ssa-poms-hi-03001-005, locator: "A."}]
+
+open_questions:
+  - id: DIS-NY-OQ-01
+    priority: high
+    question: How does OTDA compute the SSP for an SSI recipient living with an ineligible spouse whose income is deemed (individual or couple standard; deemed income counted?), and is that household "living alone" or "living with others"?
+    why_it_matters: Married retirees where one spouse is under 65 and not disabled are common; the agent cannot quote their total.
+    checked: [SSL 209, GIS 26 MA/03]
+    affects: [DIS-NY-SSP-DEEMING]
+    status: open
+  - id: DIS-NY-OQ-02
+    priority: medium
+    question: For family care, residential care and enhanced residential care, does OTDA or SSA pay the SSP after the 2014 transfer, and how is the facility's certification documented?
+    why_it_matters: Members in adult homes ask why their SSI amounts differ; the "most recipients" wording suggests some stayed with SSA.
+    checked: [SSL 209(2)-(3), NY Senate 2014 notice]
+    affects: [DIS-NY-SSP-CONGREGATE]
+    status: open
+  - id: DIS-NY-OQ-03
+    priority: medium
+    question: Does an SSP-only recipient (no federal SSI) in New York get Medicaid automatically, and how does an SSI recipient receive the Medicaid card?
+    why_it_matters: SSP-only cases are near the SSI limit; telling them Medicaid is automatic could be wrong.
+    checked: [NY DOH Medicaid Reference Guide (income), SI 01715.010]
+    affects: [DIS-NY-MEDICAID-1634, DIS-NY-PROOF-MEDICAID]
+    status: open
+  - id: DIS-NY-OQ-04
+    priority: medium
+    question: >-
+      Confirm from OTDA's own text (otda.ny.gov/programs/ssp, 14-ADM-07, or the
+      official 18 NYCRR Part 398) the SSP payment day and method, what the
+      "mandatory 90-day waiting period" in 18 NYCRR 398-4.1 means for a new
+      SSI recipient's first SSP month, how long an SSP-only case takes after
+      SSA's decision, and the current contact number.
+    why_it_matters: Members ask when the state payment starts and arrives; administration and the no-application rule are now in a third-party copy of the regulation, but timing and contact details still rest on a 2014 secondary post.
+    checked: [otda.ny.gov (F5 challenge to headful Playwright; HTTP 503 to WebFetch; resets to scripts), web.archive.org (unreachable), NY DOH DAL 14-23 (404/403), 18 NYCRR 398-1.1, 398-2.1 and 398-4.1 via LII]
+    affects: [DIS-NY-SSP-PAYMENT, DIS-NY-PROC-SSP-ONLY]
+    status: open
+  - id: DIS-NY-OQ-05
+    priority: low
+    question: Confirm the current name, address and contact for OTDA's Division of Disability Determinations.
+    why_it_matters: Members sometimes receive letters from the DDD and ask who it is.
+    checked: [2006-07 Executive Budget (OTDA)]
+    affects: [DIS-NY-DDS]
+    status: open
+
+conflicts:
+  - id: DIS-NY-CONFLICT-01
+    topic: When New York took over its State Supplement Program from SSA
+    claims:
+      - source: ny-senate-ssp-takeover-2014
+        says: Effective October 1, 2014, administration of the New York State supplement transferred from SSA to OTDA; the 2012-13 budget gave the authority.
+      - source: ssa-poms-si-01415-010
+        says: New York's mandatory and optional supplements are State-administered (chart carries TN 26, 12-06).
+    handling: >-
+      The archive dates the state takeover to October 1, 2014 (the date the
+      state notice gives, and the effective date of OTDA's SSP regulation,
+      18 NYCRR Part 398, per LII's notes). The POMS chart's 2006 transmittal
+      number most likely predates a later edit of the chart; the assignment
+      brief's "since 2012" is the year the authority was enacted, not the
+      transfer date.
+    affects: [DIS-NY-SSP-PAYMENT]
+    status: open
+  - id: DIS-NY-CONFLICT-02
+    topic: Effective date of the 2026 standards of need
+    claims:
+      - source: ny-ssl-209
+        says: The 2026 paragraphs are marked "NB Effective December 31, 2026" and the 2025 paragraphs "NB Effective until December 31, 2026", while each 2026 paragraph reads "On and after January first, two thousand twenty-six".
+      - source: ny-gis-26-ma-03
+        says: For 2026 the State Supplement is $87.00 for an individual and $104.00 for a couple living alone (DOH's January 2026 levels).
+    handling: The archive applies the 2026 amounts from January 1, 2026, matching DOH's 2026 levels and the statute's own wording; the NB markers look like the statute's sunset bookkeeping.
+    affects: [DIS-NY-SSP-STANDARD]
+    status: open
+
+claims_checked:
+  - claim: New York OTDA administers the SSP since 2012.
+    verdict: corrected
+    detail: The state legislature enacted the authority in the 2012-13 budget; the actual transfer from SSA to OTDA took effect October 1, 2014 (OTDA's SSP regulation, 18 NYCRR Part 398, is effective that day), and SSP has since been a separate state payment for most recipients with no separate application (secondary sources - a Senate post quoting OTDA and the LII copy of the regulation).
+    sources: [{source: ny-senate-ssp-takeover-2014, locator: "In 2012, in enacting the State Fiscal Year 2012-2013 budget ... effective October 1, 2014"}, {source: ny-nycrr-398-4-1-lii, locator: "(a)"}]
+  - claim: New York SSP amounts for 2026 by living arrangement.
+    verdict: verified
+    detail: SSL 209(2) 2026 standards; SSP = standard - SSI ($87 / $104 alone, $23 / $46 with others; congregate care standards listed). GIS 26 MA/03 confirms $87 / $104.
+    sources:
+      - {source: ny-ssl-209, locator: "209(2)"}
+      - {source: ny-gis-26-ma-03, locator: "5."}
+  - claim: SSI receipt confers Medicaid automatically in New York (1634 state).
+    verdict: verified
+    detail: DOH Medicaid Reference Guide (SSA contract; no Medicaid application) and POMS SI 01715.010 (New York not in the 209(b) or SSI-criteria lists).
+    sources:
+      - {source: ny-mrg-income, locator: "SSI-RELATED BUDGETING METHODOLOGY"}
+      - {source: ssa-poms-si-01715-010, locator: "A.3"}
+  - claim: New York's DDS is OTDA's Division of Disability Determinations.
+    verdict: verified
+    detail: Named in the 2006-07 Executive Budget presentation for OTDA; current OTDA pages unreachable.
+    sources: [{source: ny-budget-otda-2006, locator: "Division of Disability Determinations"}]

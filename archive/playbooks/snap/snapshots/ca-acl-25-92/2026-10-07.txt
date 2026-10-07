@@ -1,0 +1,1088 @@
+December 31, 2025
+
+CALIFORNIA DEPARTMENT OF SOCIAL SERVICES
+
+EXECUTIVE SUMMARY
+
+ALL COUNTY LETTER NO. 25-92
+
+The purpose of this All County Letter is to provide County Welfare Departments with
+guidance regarding implementation of significant changes to noncitizen eligibility for the
+Supplemental Nutrition Assistance Program, known as CalFresh in California. House of
+Representatives 1, An Act to Provide Reconciliation Pursuant to Title II of H. Con. Res.
+14 (Public Law 119-21), signed into law on July 4, 2025, narrowed eligibility for
+CalFresh to U.S. citizens, noncitizen U.S. nationals, lawful permanent residents, Cuban-
+Haitian entrants, and citizens of the Republic of the Marshall Islands, the Republic of
+Palau, and the Federated States of Micronesia who are in the U.S. under the Compacts
+of Free Association.
+
+￼
+
+December 31, 2025
+
+ALL COUNTY LETTER NO. 25-92
+
+TO: ALL COUNTY WELFARE DIRECTORS
+ALL CALFRESH PROGRAM SPECIALISTS
+ALL CALWORKS PROGRAM SPECIALISTS
+ALL COUNTY REFUGEE COORDINATORS
+ALL REFUGEE CASH ASSISTANCE CONTACTS
+ALL CONSORTIA REPRESENTATIVES
+ALL QUALITY CONTROL COORDINATORS
+
+SUBJECT: CALFRESH IMPLEMENTATION OF HOUSE OF
+REPRESENTATIVES 1: CHANGES TO NONCITIZEN ELIGIBILITY
+POLICY
+
+REFERENCE: FOOD AND NUTRITION ACT OF 2008 SECTION 6(f) (7 U.S.C §
+2015(f)); PUBLIC LAW 119-21; 8 U.S.C § 1611, ET SEQ.;
+SUPPLEMENTAL NUTRITION ASSISTANCE PROGRAM (SNAP)
+IMPLEMENTATION OF THE BIG BEAUTIFUL BILL ACT OF 2025
+– ALIEN SNAP ELIGIBILITY; SUPPLEMENTAL NUTRITION
+ASSISTANCE PROGRAM (SNAP) PROVISIONS OF THE ONE
+BIG BEAUTIFUL BILL – ALIEN SNAP ELIGIBILITY – QUESTION
+AND ANSWER #1 REVISED; WELFARE AND INSTITUTIONS
+CODE §§ (WIC) 18930, 18930(b)(1), 18930(b)(2); TITLE 45 CODE
+OF FEDERAL REGULATIONS (CFR) 401.2; 7 CFR
+273.2(f)(1)(ii)(B)(3); 7 CFR 273.12(a)(5); 7 CFR 273.12(a)(5)(iii); 7
+CFR 275.12(d)(2)(vii); 7 CFR 273.2(f)(1)(ii); 7 CFR
+273.2(f)(1)(ii)(B)(1); 7 CFR 273.2(f)(10); 7 CFR 273.4(a)(6)(ii) 7
+CFR 273.4(a)(6)(i)(D); CALIFORNIA MANUAL OF POLICIES AND
+PROCEDURES (MPP) 63-503.442; MPP 63-503.442(b); MPP 63-
+503.442(c); All County Letter (ACL) 88-131; ACL 13-32; ACL 14-
+56; ACL 14-56E; ACL 21-101; ACL 21-101E; ACL 25-50; ACL 25-
+50E; ACL 23-57; and ALL COUNTY INFORMATION NOTICE I-
+102-10
+
+This All County Letter (ACL) provides County Welfare Departments (CWDs) with
+guidance regarding implementation of significant changes to noncitizen eligibility for the
+
+All County Letter No. 25-92
+Page Two
+
+Supplemental Nutrition Assistance Program (SNAP), known as CalFresh in California,
+as a result of House of Representatives 1, An Act to Provide Reconciliation Pursuant to
+Title II of H. Con. Res. 14 (H.R. 1) (Public Law (P.L.) 119-21). For additional information
+regarding H.R. 1 and its impact to CalFresh, reference ACL 25-50 and ACL 25-50E,
+issued July 14, 2025, and August 26, 2025, respectively.
+
+Due to the complexity of the recent changes in federal law and policy, and delays
+resulting from the Food and Nutrition Service (FNS) only recently issuing complete
+guidance (described further below), the guidance set forth in this ACL is effective
+April 1, 2026. This date reflects the time required to train county staff and to design and
+implement the necessary automation changes within the California Automated Welfare
+System (CalSAWS) to ensure consistent and accurate application of the guidance
+statewide. It also reflects the extended exclusionary period through April 9, 2026, that
+FNS is required to provide pursuant to the district court’s order in New York et al. v.
+Rollins et al., No. 6:25-cv-02186-MTK (D. Or.), which is described further below.
+
+The guidance provided in this letter supersedes any previous guidance on issues
+addressed within this ACL regarding noncitizen eligibility. This letter does not supersede
+or alter guidance on issues not specifically addressed herein.
+
+BACKGROUND
+
+On July 4, 2025, President Trump signed H.R. 1 into law, thereby limiting CalFresh
+eligibility to citizens and a narrower group of noncitizens compared to those previously
+eligible. On October 31, 2025, the U.S. Department of Agriculture, FNS issued guidance
+on this change via a memorandum titled Supplemental Nutrition Assistance Program
+(SNAP) Implementation of the Big Beautiful Bill Act of 2025 – Alien SNAP Eligibility,
+which is attached for reference. The October 31, 2025, guidance is the subject of
+litigation New York et al. v. Rollins et al., No. 6:25-cv-02186-MTK (D. Or.) (Filed Nov.
+26, 2025) because of inconsistencies, omissions, and related concerns. On December
+9, 2025, FNS issued guidance in the form of a question-and-answer document that
+conflicts with FNS’ October 31 guidance. On December 10, 2025,
+FNS issued a revised version of the question-and-answer document, which is attached
+for reference. The revised question-and-answer document conflicts with the October
+31st guidance but does not purport to revoke or supersede it. However, on December
+15, 2025, the district court issued a preliminary injunction extending the Quality Control
+(QC) exclusionary period through April 9, 2026.
+
+Consequently, this letter provides direction based on the California Department of
+Social Services’ (CDSS) best understanding of the federal requirements despite the
+inconsistencies and errors in the guidance documents issued by FNS since
+October 31, 2025. If FNS provides additional clarification that changes any part of the
+guidance provided via this letter or if there are impacts from the ongoing litigation,
+CDSS will issue updated guidance.
+
+All County Letter No. 25-92
+Page Three
+
+OVERVIEW OF CHANGES TO CALFRESH NONCITIZEN ELIGIBILITY
+
+H.R. 1 did not change the definition of “qualified immigrants” or any other provision of
+the Personal Responsibility and Work Opportunity Reconciliation Act (PRWORA) of
+1996 (8 USC § 1611, et seq.) which at the time resulted in the loss of federal nutrition
+benefits for certain noncitizens. Rather, H.R. 1 amended Section 6(f) of the
+Food and Nutrition Act of 2008 (7 U.S.C. § 2015(f)) to narrow SNAP eligibility to
+individuals who reside in the United States (U.S.) and fall within one of the following
+categories:
+
+• Citizens of the United States (U.S.)
+This category includes individuals who are:
+o U.S. born citizens
+o Born a U.S. territory: Guam, Puerto Rico, and U.S. Virgin Islands
+o Naturalized
+• Noncitizen U.S. Nationals
+This category includes individuals who are not citizens of the U.S. but owe
+permanent allegiance to the U.S. Nationals can enter the U.S. at any time without
+going through immigration procedure. Presently, the term “national” applies to:
+o People born in American Samoa and Swain’s Island after December 21,
+1952; and
+o Residents of the Northern Mariana Islands who choose not to become
+U.S. citizens.
+• Lawful Permanent Residents (LPRs)
+This category includes any noncitizen who is living in the U.S. under legally
+recognized and lawfully recorded permanent residence as an immigrant. Also
+known as “permanent resident alien”, “resident alien permit holder”, and “Green
+Card holder”.
+• Individuals who reside in the U.S. in accordance with a Compact of Free
+Association (COFA) agreement.
+This category includes lawfully present citizens of the Federated States of
+Micronesia, the Republic of the Marshall Islands, and the Republic of Palau; and
+• Cuban and Haitian Entrants (CHEs)
+This category includes:
+o An individual granted parole as a Cuban-Haitian Entrant (status pending)
+or any other special status under the immigration laws for nationals of
+Cuba or Haiti (according to 45 CFR 401.2),regardless of the status of the
+individual at the time assistance or services are provided;
+o A national of Cuba or Haiti who is not subject to a final, non-appealable
+and legally enforceable removal order, and:
+ Was paroled into the United States and has not acquired any other
+status under the Immigration and Nationality Act (INA); or
+ Is in removal proceedings under the Immigration and Nationality
+Act; or
+
+All County Letter No. XX-XX
+Page Four
+
+ Has an application for asylum pending with the U.S. Citizenship
+and Immigration Services (USCIS).
+
+Five-Year Waiting Period for Certain LPRs
+
+Certain LPRs are subject to a five-year waiting period before becoming eligible for
+CalFresh, unless they are exempt from the waiting period as specified under PRWORA.
+The five-year waiting period begins on the date the noncitizen obtains a qualified
+noncitizen status.
+
+However, both before and after H.R. 1, there are groups of noncitizens who are exempt
+from the five-year waiting period and become immediately eligible for CalFresh after
+becoming an LPR. Although some of the following categories of non-LPR noncitizens
+are no longer eligible for CalFresh pursuant to H.R. 1, these humanitarian noncitizens
+continue to qualify for an exemption from the five-year waiting period, and, if all other
+eligibility requirements are met, are immediately eligible for CalFresh if and when they
+become LPRs:
+
+• Noncitizens admitted to the U.S. as refugees
+• Noncitizens granted asylum
+• Noncitizens whose deportations were withheld
+• Cuban and Haitian entrants (eligible as CHEs before becoming LPRs)
+• COFA Citizens
+• Iraqis and Afghans with Special Immigrant Visas (SIV)
+• Certain Afghan Nationals Granted Parole Between July 31, 2021, and September
+30, 2023
+• Certain Ukrainian Nationals Granted Parole Between February 24, 2022, and
+September 30, 2024
+• Noncitizens admitted to the United States as Amerasian immigrants
+• Victims of Trafficking
+
+In addition, LPRs who meet any of the following criteria, continue to qualify for an
+exemption from the five-year waiting period, and, if all other eligibility requirements are
+met, are immediately eligible for CalFresh:
+
+• Are under 18 years old
+• Have 40 qualifying work quarters
+• Are blind or disabled
+• Were lawfully residing in the U.S. and 65 or older on August 22, 1996
+• Have a U.S. military connection
+• Are an American Indian born abroad
+• Certain Hmong or Highland Laotian tribal members
+
+All County Letter No. 25-92
+Page Five
+
+As noted above, H.R. 1 did not amend the rules regarding LPRs and the five-year
+waiting period, or any other provisions of PRWORA.
+
+No Longer Eligible for CalFresh
+
+The following categories of lawfully present noncitizens who are not LPRs, are no
+longer eligible for CalFresh as a result of H.R. 1:
+
+• Asylees;
+• Refugees;
+• Parolees (unless they are CHEs);
+• Individuals with deportation or removal withheld;
+• Conditional entrants;
+• Victims of trafficking;
+• Battered noncitizens;
+• Certain Afghan Nationals granted parole between July 31, 2021, and September
+30, 2023; and
+• Certain Ukrainian Nationals granted parole between February 24, 2022, and
+September 30, 2024.
+
+Lawfully present noncitizens in the categories listed above that are newly ineligible for
+CalFresh under H.R. 1 may become eligible for CalFresh or CFAP if they later adjust
+their status to LPR and dependent on whether or not they have met the five-year waiting
+period or an exemption.
+
+IMPLEMENTATION GUIDANCE
+
+Effective April 1, 2026, CWDs must apply the eligibility criteria outlined above at initial
+certification for new applicant households, and at recertification for ongoing households.
+This implementation date is necessary because H.R. 1 introduces complex noncitizen
+policy changes that require adequate time to provide accurate and comprehensive
+policy training to county staff. In addition, CalSAWS must complete the necessary
+automation updates to ensure accurate application of the changes. Further, it has been
+determined that the use of the current automation or manual workarounds are not
+feasible because CalSAWS is not designed to support the changes required under H.R.
+1. Relying on manual processes at this scale would create a high risk of inconsistent
+data entry, incorrect case actions, and data tracking gaps the system would not be able
+to reconcile. These errors could lead to systemic and long-term inaccurate eligibility
+outcomes and disruptions in benefits. For these reasons, CDSS directs CWDs not to
+use current automation or manual workarounds to implement the changes under H.R. 1
+prior to the effective date in this letter.
+
+NEW APPLICATIONS
+
+All County Letter No. 25-92
+Page Six
+
+Effective April 1, 2026, at application, CWDs must deny CalFresh eligibility for
+household members who do not meet the updated noncitizen eligibility criteria specified
+above. When the entire household is ineligible due to ineligible noncitizen status, a
+notice of action must be sent to the household informing them that the household was
+denied due to ineligible noncitizen status. In cases where some applicant household
+members are determined eligible but at least one household member is denied due to
+ineligible noncitizen status, a notice of action must be provided to the household
+informing them which household members were approved, and which were denied due
+to ineligible noncitizen status.
+
+Any application received before April 1, 2026, must be processed under the pre-H.R. 1
+criteria and will not be subject to the new noncitizen eligibility restrictions under H.R. 1
+until their recertification.
+
+ONGOING HOUSEHOLDS
+
+Effective April 1, 2026, at recertification, CWDs must inquire with the household whether
+any noncitizen household members have experienced a change in immigration status
+(e.g., adjustment to LPR or other status). CWDs must document the household’s
+response, request verification when applicable, and determine whether household
+members remain eligible under the H.R. 1 noncitizen eligibility criteria. This applies to
+recertifications due in April 2026 with an effective date of May 1, 2026, and onwards.
+Consistent with existing program requirements, in all cases immigration status for
+noncitizens must be verified through the Systematic Alien Verification for Entitlements
+(SAVE) system. Refer to the SAVE section of this ACL for further guidance.
+
+When a currently aided household member is determined to be ineligible at
+recertification due to an ineligible noncitizen status, the CWD must issue a notice of
+action informing the ineligible household member of the denial. As with new
+applications, when the entire household is ineligible due to ineligible noncitizen status, a
+notice of action must be sent to the household informing them that the household was
+denied due to ineligible noncitizen status. In addition, if some household members are
+determined eligible at recertification but at least one household member is denied, a
+notice of action must be provided to the household informing them which household
+members were approved, and which were denied due to ineligible noncitizen status.
+
+CHANGES DURING THE CERTIFICATION PERIOD
+
+Households are not required to report a change in immigration status during the
+certification period. Voluntary reports of a change in immigration status made by a
+household during the certification period that would result in a decrease in the
+household’s benefits must result in the issuance of a no-change notice. CWDs must not
+request verification and must document the voluntarily reported information, including
+any verification submitted voluntarily, in the case record, and follow up at the
+household’s next recertification. When a household voluntarily reports a change in
+
+All County Letter No. 25-92
+Page Seven
+
+immigration status during the certification period that would result in an increase in the
+household’s benefits, the CWD must act on the change.
+
+A SAVE match is considered Verified Upon Receipt (VUR), therefore if a SAVE match is
+received during the certification period, the CWD must follow existing policy regarding
+mid-period changes as outlined in ACL 21-101 issued October 15, 2021, and
+ACL 21-101E issued July 25, 2025.
+
+TREATMENT OF INCOME AND RESOURCES OF EXCLUDED MEMBERS
+
+The CWD must treat an ineligible noncitizen household member as an excluded
+household member. The CWD must follow all current rules and regulations regarding
+the treatment of excluded household members’ income, resources and deductible
+expenses, in accordance with MPP Section 63-503.442.
+
+An ineligible noncitizen household member’s resources must be included in the budget
+when calculating the household’s allotment, except households determined eligible
+under Categorical Eligibility (CE) or Modified Categorical Eligibility (MCE) rules. Refer to
+ACL 13-32 issued April 24, 2013 , ACL 14-56 issued August 22, 2014, and ACL 14-56E,
+issued April 10, 2015, for more information on CE and MCE. In addition, a pro rata
+share of an ineligible household member’s income must be included in the budget when
+determining the household’s allotment. The ineligible household member’s allowable
+deductible expenses must also be prorated.
+
+SYSTEMATIC ALIEN VERIFICATION FOR ENTITLEMENTS (SAVE)
+
+In accordance with 7 CFR 273.2(f)(1)(ii) and 7 CFR 273.2(f)(10), CWDs must verify a
+noncitizen’s immigration status at both initial application and recertification through
+SAVE to determine CalFresh eligibility. Note, per 7 CFR 273.2(f)(1)(ii)(B)(1), if the CWD
+submits a SAVE request to USCIS for verification and verification is pending, the CWD
+cannot delay, deny, reduce or terminate the individual's eligibility for benefits on the
+basis of the individual's immigration status.
+
+A SAVE match is considered VUR and it must be acted on accordingly during initial
+application, recertification, and during the certification period. However, if a household
+disagrees with a SAVE verification result which results in a denial or discontinuance of
+their benefits, the CWD must request any additional information needed to complete the
+secondary SAVE via USCIS Form G-845 by sending the household a CW 2200, if
+applicable, and must certify the household pending the results of the secondary SAVE
+for up to six months from the date of the original request for verification (ACL 88-131;
+7 CFR 273.2(f)(1)(ii)(B)(3)). Once the CWD receives the secondary SAVE verification
+results, the CWD must follow existing policy regarding mid-period changes and, based
+on the SAVE verification results, either continue benefits or provide the household with
+a timely notice of action to terminate benefits. Refer to ACIN I-102-10, issued December
+29, 2010, and ACL 23-57, issued June 29, 2023, for more information on SAVE.
+
+All County Letter No. 25-92
+Page Eight
+
+CALIFORNIA FOOD ASSISTANCE PROGRAM (CFAP)
+
+Currently, CFAP is operated pursuant to a federal option that limits eligibility to lawfully
+present noncitizens in immigration status categories that lost eligibility for CalFresh
+under PRWORA (7 USC § 2016(i)). As such, Welfare and Institutions Code (WIC)
+Section 18930(b)(1), provides that lawfully present noncitizens qualify for state-funded
+food benefits through CFAP if they are ineligible for CalFresh solely as a result of
+PRWORA.
+
+H.R. 1 does not impact CFAP noncitizen eligibility criteria pursuant to this federal option,
+and state law governing CFAP eligibility remains unchanged. Thus, most lawfully
+present noncitizens who lose CalFresh eligibility due to H.R. 1 are not eligible for CFAP,
+with the exception of battered noncitizens per WIC Section 18930(b)(2). However,
+lawfully present noncitizens who lose CalFresh eligibility due to H.R. 1 may qualify for
+CFAP if they later adjust their status to a CFAP qualifying status.
+
+QUALITY CONTROL
+
+FNS’s guidance states that the QC 120-day exclusionary period outlined at
+7 CFR 275.12(d)(2)(vii), often referred to as a “QC hold harmless period”, ended on
+November 1, 2025, 120 days after the law was enacted on July 4, 2025. However, as
+previously described in the background section of this letter, a preliminary injunction has
+been issued extending the QC exclusionary period through April 9, 2026. CDSS plans
+to issue updated policy guidance in 2026 as the end of the exclusionary period
+approaches.
+
+If you have any questions or need additional guidance regarding the information in this
+letter, contact the CalFresh Policy Bureau at CalFreshPolicy@dss.ca.gov.
+
+Sincerely,
+
+Original Document Signed By
+
+ALEXIS FERNÁNDEZ GARCIA
+Deputy Director
+Family Engagement and Empowerment Division
+
+Attachments
+
+DATE: October 31, 2025
+
+SUBJECT: Supplemental Nutrition Assistance Program (SNAP) Implementation of the One
+Big Beautiful Bill Act of 2025 – Alien SNAP Eligibility
+
+TO: All SNAP State Agencies
+All Regions
+
+On July 4, 2025, President Donald J. Trump signed into law Public Law 119-21, the One Big
+Beautiful Bill Act of 2025 (OBBB). On September 4, 2025, the Food and Nutrition Service (FNS)
+published a memorandum describing the Supplemental Nutrition Assistance Program (SNAP)
+provisions of the OBBB, titled “Supplemental Nutrition Assistance Program Provisions of the
+One Big Beautiful Bill Act of 2025 – Information Memorandum.”
+
+This memorandum provides State agencies with additional information on implementing
+Section 10108 of the OBBB, which makes changes to alien eligibility for SNAP.
+
+SNAP Alien Eligibility
+
+Section 10108 of the OBBB amends section 6(f) of the Food and Nutrition Act of 2008 (FNA),
+limiting eligibility for SNAP to the following groups: U.S. citizens, U.S. nationals, lawful
+permanent residents (LPRs), Cuban and Haitian entrants1, and Compact of Free Association
+(COFA) citizens.
+
+Prior to the OBBB, certain lawfully present aliens, as defined by the Personal Responsibility
+and Work Opportunity Act (PRWORA)2 were eligible to receive SNAP benefits, provided they
+met all other SNAP eligibility requirements and completed a 5-year waiting period, unless
+exempted by PRWORA.
+
+1
+Cuban and Haitian entrants as defined in section 501(e) of the Refugee Education Assistance Act of 1980, 8 U.S.C. Sec 1522 note.
+2
+Aliens who were qualified aliens as defined by section 431 of the Personal Responsibility and Work Opportunity Reconciliation Act
+(PRWORA) (8 USC 1641) and aliens included in section 402(a) of PRWORA (8 USC 1612(a)) in addition to groups listed in section 6(f) of the FNA
+were eligible for SNAP.
+
+Food and Nutrition Service, Braddock Metro Center, 1320 Braddock Place, Alexandria, VA 22314
+
+USDA is an equal opportunity provider, employer, and lender.
+
+Page 2 of 11
+
+Following the OBBB, some alien groups previously eligible for SNAP are no longer eligible.
+Aliens continue to be subject to a 5-year waiting period, unless exempted by PRWORA.3 The
+chart below summarizes eligibility for aliens pursuant to the OBBB amendments to section
+6(f) of the FNA.
+
+Eligible Alien Groups Under the OBBB Eligibility Timing
+
+• Non-citizen U.S. nationals Eligible immediately, with no waiting
+• Cuban and Haitian entrants period, as long as they meet all other SNAP
+• Compacts of Free Association (COFA) financial and non-financial eligibility
+citizens requirements.
+
+• Lawful permanent residents (LPR) Eligible after a 5-year waiting period, as long
+(also known as Green Card holders) as they meet all other SNAP financial and
+non-financial eligibility requirements.
+
+LPRs may still be eligible for SNAP without a
+waiting period if they meet one or more of
+the following conditions:
+• Are under 18 years old
+• Have 40 qualifying work quarters
+• Are blind or disabled
+• Were lawfully residing in the U.S. and
+65 or older on August 22, 1996
+• Have a U.S. military connection
+• Are admitted to the United States as
+an Amerasian immigrant
+• Are an American Indian born abroad
+• Certain Hmong or Highland Laotian
+tribal members
+
+The chart in Attachment 1 illustrates changes to SNAP alien eligibility.
+
+3
+See 8 USC 1612.
+
+Page 3 of 11
+
+Implementation
+
+Section 10108 of the OBBB was effective upon enactment, July 4, 2025. State agencies must
+immediately apply the new eligibility criteria to new applicants at initial certification. For
+households already receiving SNAP, State agencies must review household circumstances
+and apply these policies at recertification. If an alien does not fall into one of the groups listed
+in section 6(f) of the FNA, as amended by OBBB, the alien is no longer eligible for SNAP and
+must be removed from the household at that time.4
+
+Changes During the Certification Period
+
+The Food and Nutrition Act of 2008 requires State agencies to use the Systematic Alien
+Verification for Entitlements (SAVE) program to verify the immigration status of all aliens
+participating in SNAP prior to certification. FNS strongly encourages States to check SAVE
+whenever required changes or recertifications actions are made. Through these updates, State
+agencies may obtain information during a household’s certification period that indicates an
+alien is no longer in a SNAP-eligible immigration status or designation. State agencies must
+review household circumstances to take appropriate action when this occurs and follow
+program rules for acting on changes and resolving unclear information at 7 CFR 273.12(c).
+
+Quality Control and Technical Assistance
+
+FNS will, as appropriate, hold States harmless for Quality Control (QC) purposes for 120 days
+from the required implementation date in accordance with 7 CFR 275.12(d)(2)(vii).
+
+The 120-day variance exclusion period will not apply if the State agency does not implement
+the new provision in accordance with 7 CFR 275.12(d)(2)(vii)(D). State agencies that
+implement a provision later than the required implementation date, but before the end date
+
+4
+Pursuant to USDA regulations at 7 CFR 273.12(a)(1), 7 CFR 273.12(d), and 7 CFR 273.18, households are not liable for a claim due to a change
+in circumstances the household is not required to report. Since households are not required to report a change in immigration status, aliens
+who lose SNAP eligibility at recertification due to the OBBB SNAP eligibility changes, are not subject to a claim for over issuance for the
+benefits received after the OBBB changes took effect.
+
+Page 4 of 11
+
+of the exclusionary period, will only be allowed a variance exclusion for the time remaining.
+State agencies that implement after the exclusionary period end date do not get a variance
+exclusion. Early implementation rules at 7 CFR 275.12(d)(2)(vii)(A) do not apply since the
+enactment date for Section 10108 of OBBB was July 4, 2025.
+
+A 120-day variance exclusion is permitted for the misapplication of changes in Section 10108
+of the OBBB to new and ongoing SNAP households until the exclusionary period end date on
+November 1, 2025.
+
+FNS stands ready to work with State agencies and provide additional technical assistance as
+OBBB implementation continues. State agencies with questions on Section 10108 of the
+OBBB should contact their respective FNS Regional Office. These questions will help inform
+additional guidance in future memos.
+
+Sincerely,
+
+SASHA Digitally signed by SASHA
+GERSTEN-PAAL
+GERSTEN- Date: 2025.10.31 10:20:47
+PAAL -04'00'
+
+for Ronald Ward
+Acting Associate Administrator
+Supplemental Nutrition Assistance Program
+Food and Nutrition Service
+
+Attachments
+
+Attachment 1
+
+SNAP Alien Eligibility Pre- and Post- One Big Beautiful Bill Act (OBBB)
+
+This chart compares SNAP eligibility for alien groups before and after the OBBB became law. The chart in Attachment 2 provides a
+description of alien groups. Per 7 CFR 273.4(a)(6)(iv), each category of eligible alien status stands alone for purposes of
+determining eligibility. If eligibility expires under one eligible alien status, the State agency must determine if eligibility exists
+under another status.
+
+Alien Group Pre-OBBB Eligibility Post-OBBB Eligibility
+
+Non-Citizen U.S. Nationals Eligible immediately Eligible immediately
+
+Lawful Permanent Residents (LPR) Eligible after a 5-year waiting period, as Eligible after a 5-year waiting period, as
+long as they meet all other SNAP financial long as they meet all other SNAP financial
+and non-financial eligibility requirements. and non-financial eligibility requirements.
+
+LPRs may still be eligible for SNAP without LPRs may still be eligible for SNAP without
+a waiting period if they meet one or more a waiting period if they meet one or more
+of the following conditions: of the following conditions:
+• Are under 18 years old • Are under 18 years old
+• Have 40 qualifying work quarters • Have 40 qualifying work quarters
+• Are blind or disabled • Are blind or disabled
+• Were lawfully residing in the U.S. • Were lawfully residing in the U.S.
+and 65 or older on August 22, 1996 and 65 or older on August 22, 1996
+• Have a U.S. military connection • Have a U.S. military connection
+
+Food and Nutrition Service, Braddock Metro Center, 1320 Braddock Place, Alexandria, VA 22314
+
+USDA is an equal opportunity provider, employer, and lender.
+
+Page 6 of 11
+
+Alien Group Pre-OBBB Eligibility Post-OBBB Eligibility
+• Are admitted to the United States
+as an Amerasian immigrant
+• Are certain American Indians born
+abroad
+• Are certain Hmong or Highland
+Laotian tribal members
+
+Cuban and Haitian Entrants (CHE) Eligible immediately Eligible immediately
+
+Compacts of Free Association Eligible immediately Eligible immediately
+(COFA) Citizens
+
+Children Under Age 18 in any SNAP- Eligible immediately Eligible immediately
+eligible Alien Group5
+
+LPRs with 40 Qualifying Work Eligible immediately Eligible immediately
+Quarters
+
+Individuals in any SNAP-eligible Eligible immediately Eligible immediately
+Alien Group3 Who is Blind or
+Disabled
+
+Individuals in any SNAP-eligible Eligible immediately Eligible immediately
+Alien Group3 Lawfully Residing in
+
+5
+Note that “SNAP-eligible alien groups” are different pre- and post-OBBB. Post-OBBB SNAP eligible alien groups are U.S. nationals, lawful permanent residents (LPRs), Cuban and Haitian entrants
+(CHEs), and Compacts of Free Association (COFA) citizens.
+
+Page 7 of 11
+
+Alien Group Pre-OBBB Eligibility Post-OBBB Eligibility
+the U.S. and Was 65 or Older on
+August 22, 1996
+
+Individuals in any SNAP-eligible Eligible immediately Eligible immediately
+Alien Group3 Who Has a Military
+Connection
+
+Deportation Withheld Eligible immediately Not eligible
+
+Amerasians Eligible immediately Eligible immediately
+
+Certain American Indians Born Eligible immediately Not eligible unless an LPR, then eligible
+Abroad immediately
+
+Hmong or Highland Laotian Tribal Eligible immediately Not eligible unless an LPR, then eligible
+Members immediately
+
+Iraqi and Afghan Special Eligible immediately See “Post-OBBB Eligibility” for LPR.
+Immigrants (SIV)
+
+Conditional Entrants Eligible immediately Not eligible unless an LPR. See “Post-
+OBBB Eligibility” for LPR
+
+Battered Aliens Eligible immediately Not eligible unless an LPR. See “Post-
+OBBB Eligibility” for LPR
+
+Victims of Severe Trafficking and Eligible immediately Not eligible unless an LPR. See “Post-
+Certain Family Members OBBB Eligibility” for LPR
+
+Refugees Eligible immediately Not eligible
+
+Page 8 of 11
+
+Alien Group Pre-OBBB Eligibility Post-OBBB Eligibility
+
+Individuals Granted Asylum Eligible immediately Not eligible
+
+Parolees Eligible after a 5-year waiting period Not eligible
+
+Certain Afghan Nationals Granted Eligible immediately Not eligible
+Parole Between July 31, 2021, and
+September 30, 2023
+
+Certain Ukrainian Nationals Eligible immediately Not eligible
+Granted Parole Between February
+24, 2022, and September 30, 2024
+
+LPR Pursuant to Section 249 of the Eligible after a 5-year waiting period See “Post-OBBB Eligibility” for LPR
+INA6 (8 USC 1259)7
+
+Alien groups in the above chart who are eligible immediately are exempt from meeting the 5-year waiting period outlined in
+PRWORA. Individuals must meet all other SNAP eligibility requirements, such as income and resource limits.
+
+6
+Immigration and Nationality Act.
+7
+Status acquired after any type of entry into the U.S. prior to January 1, 1972, and maintained continuous residence in the U.S. since entry. See USCIS policy manual for more information.
+
+Page 9 of 11
+
+Attachment 2
+
+Alien Group Descriptions
+
+This table provides a detailed description of some of the alien groups who were either previously eligible for or are currently
+eligible for SNAP.
+
+Alien Group Description
+
+Battered aliens Under certain circumstances, a battered alien spouse or child,
+an alien parent of a battered child, or an alien child of a
+battered parent with a petition pending.
+
+Certain American Indians born abroad American Indians born in Canada living in the United States
+(U.S.) under §289 of the Immigration and Nationality Act (INA)
+or alien members of a federally recognized Indian tribe under
+§4(e) of the Indian Self-Determination and Education
+Assistance Act.
+
+Compacts of Free Association (COFA) citizens of the Federated Individuals who lawfully reside in the U.S. in accordance with
+States of Micronesia, the Republic of the Marshall Islands, and section 141 of the Compacts of Free Association between the
+the Republic of Palau Government of the United States and the Governments of the
+Federated States of Micronesia, the Republic of the Marshall
+Islands, and the Republic of Palau.
+
+Conditional entrants Granted conditional entry under §203(a)(7) of the INA as in
+effect before 04/01/80.
+
+Cuban or Haitian entrants Cuban or Haitian entrant under §501(e) of the Refugee
+Education Assistance Act of 1980.
+
+Page 10 of 11
+
+Alien Group Description
+
+Deportation (or removal) withheld Deportation is being withheld under §243(h) of the INA as in
+effect before 04/01/97, or removal is withheld under §241(b)(3)
+of the INA.
+
+Hmong or Highland Laotian tribal members An individual lawfully residing in the U.S. who was a member
+of a Hmong or Highland Laotian tribe that rendered assistance
+to U.S. personnel by taking part in a military or rescue
+operation during the Vietnam era (Aug. 5, 1964 – May 7, 1975).
+This category includes the spouse (or un-remarried surviving
+spouse) or unmarried dependent children of these individuals.
+
+Individuals granted asylum Granted asylum under §208(b) of the INA.
+
+Iraqi and Afghan special immigrants (SIV) Special immigrant status under §101(a)(27) of the INA may be
+granted to Iraqi and Afghan nationals who have worked on
+behalf of the U.S. government in Iraq or Afghanistan. The
+Department of Defense Appropriations Act of 2010, PL 111-
+118, § 8120 enacted on Dec. 19, 2009, provides that SIVs are
+eligible for all benefits to the same extent and the same time
+period as refugees.
+
+Lawful Permanent Resident (LPR) LPRs, also known as “Green Card” holders, are aliens who are
+lawfully authorized to live permanently in the United States.
+This category also includes “Amerasian immigrants” as
+defined under §584 of the Foreign Operations, Export
+Financing and Related Programs Appropriations Act of 1988.
+
+Military connection An individual who is lawfully residing in a State and is on
+active duty in the military (excluding National Guard) or is an
+
+Page 11 of 11
+
+Alien Group Description
+honorably discharged veteran whose discharge is not because
+of immigration status (includes spouse, surviving spouse if not
+married, and unmarried dependent children). A discharge
+“Under Honorable Conditions”, which is not the same as an
+honorable discharge, does not meet this requirement.
+
+Parolees Paroled into the U.S. under §212(d)(5) of the INA for a period of
+at least 1 year.
+
+Refugees Refugees admitted to the U.S. under §207 of the INA.
+
+Victims of a severe form of trafficking in persons and certain Victims under the Trafficking Victims Protection Act of 2000
+family members and family members granted derivative T nonimmigrant
+status.
+
+DATE: December 9, 2025
+
+SUBJECT: Supplemental Nutrition Assistance Program (SNAP) Provisions of the One Big
+Beautiful Bill – Alien SNAP Eligibility – Question and Answer #1
+
+TO: All SNAP State Agencies
+All Regions
+
+On July 4, 2025, President Donald J. Trump signed into law the One Big Beautiful Bill
+legislation (OBBB). The OBBB makes significant changes to the Supplemental Nutrition
+Assistance Program (SNAP), including changes to alien eligibility for SNAP.
+
+On October 31, 2025, the Food and Nutrition Service (FNS) published a memorandum with
+information on Section 10108 of the OBBB, which makes changes to alien eligibility for SNAP.
+
+This question-and-answer set provides additional information on Section 10108 of the OBBB.
+
+FNS stands ready to work with State agencies and provide additional technical assistance.
+State agencies with questions on Section 10108 of the OBBB should contact their respective
+FNS Regional Office.
+
+Sincerely,
+
+Patrick A. Penn
+Deputy Under Secretary
+Food, Nutrition, and Consumer Services
+U.S. Department of Agriculture
+
+Attachments
+
+Office of the Under Secretary for Food, Nutrition, and Consumer Services
+1400 Independence Avenue, SW, Washington, DC 20250-9600
+USDA is an Equal Opportunity Provider, Employer, and Lender
+
+Supplemental Nutrition Assistance Program (SNAP) Provisions of the
+One Big Beautiful Bill (OBBB)
+Alien Eligibility
+Question and Answer #1
+
+A. General
+
+1. Are the OBBB changes to alien eligibility effective immediately or upon
+rulemaking?
+
+The changes were effective upon the enactment of OBBB—July 4, 2025. OBBB
+specifies which alien groups are eligible for SNAP under section 6(f) of the Food and
+Nutrition Act of 2008 (FNA) and is not contingent on regulations before the changes go
+into effect.
+
+2. Are individuals who have been granted asylum or who are refugees eligible for
+SNAP?
+
+No. Individuals who have been granted asylum or who are refugees, including
+individuals under 18 years of age, are not eligible for SNAP by virtue of that status.
+
+With the passage of OBBB, the only aliens eligible for SNAP are those with the
+following statuses: lawful permanent resident (LPR), Cuban and Haitian entrant (CHE),
+or Compacts of Free Association (COFA) citizen. See chart below for additional
+information on asylees or refugees who have adjusted status to LPR.
+
+B. 5-year Waiting Period
+
+3. Does the 5-year waiting period still apply following the OBBB?
+
+Yes. OBBB did not make changes to the 5-year waiting period requirement and
+exceptions, which are established by the Personal Responsibility and Work
+Opportunity Reconciliation Act of 1996 (PRWORA), 8 USC 1613.
+
+Office of the Under Secretary for Food, Nutrition, and Consumer Services
+1400 Independence Avenue, SW, Washington, DC 20250-9600
+USDA is an Equal Opportunity Provider, Employer, and Lender
+
+Page 3 of 5
+
+4. When does the 5-year waiting period begin?
+
+The 5-year waiting period begins on the date the alien obtains status as a qualified
+alien or enters the U.S. in a qualifying status under 8 USC 1613. 1
+
+5. Post-OBBB, will individuals who adjust from a status not eligible for SNAP under
+Section 6(f) of the FNA to lawful permanent resident (LPR) status now need to
+wait 5 years after adjusting to LPR status to receive SNAP?
+
+Not necessarily. Per current policy, aliens who adjust status to LPR from one of the
+groups exempt from the 5-year waiting period in section 403 of PRWORA (8 USC 1613),
+are not required to wait for 5 years after becoming an LPR. 2
+
+The chart below shows alien groups and whether they are subject to the 5-year
+waiting period after adjusting their status to LPR.
+
+Alien Group Pre-LPR-Adjustment Subject to 5-year Waiting
+Period After Adjusted
+Status to LPR 3
+
+Refugees No
+
+Individuals Granted Asylum No
+
+Deportation Withheld No
+
+1
+These groups include lawful permanent residents, asylees, refugees, parolees, individuals granted withholding of deportation or removal,
+conditional entrants, Cuban or Haitian entrants, battered aliens, and alien victims of a severe form of trafficking, Certain American Indians
+born abroad and Hmong or Highland Laotian tribal members.
+
+2
+Refugee, individuals granted asylum, deportation withheld, Cuban and Haitian entrant, Amerasian, individual in a SNAP-eligible alien
+group with a military connection, individual in a SNAP-eligible alien group who is under age 18, American Indian born abroad, and Hmong or
+Highland Laotian tribal member.
+
+3
+An individual has “adjusted status to LPR” when they have received an approval notice and Permanent Resident Card (Green Card) from
+the United States Citizenship and Immigration Services (USCIS). An individual is not considered an LPR if they have applied to adjust status
+and have not yet received a decision.
+
+Page 4 of 5
+
+Alien Group Pre-LPR-Adjustment Subject to 5-year Waiting
+Period After Adjusted
+Status to LPR 3
+
+Cuban and Haitian Entrants (CHE) No
+
+Amerasians No
+
+Compacts of Free Association (COFA) Citizens No
+
+American Indians Born Abroad No
+
+Hmong or Highland Laotian Tribal Members No
+
+Iraqi and Afghan Special Immigrants (SIV) No
+
+Certain Afghan Nationals Granted Parole Between No
+July 31, 2021, and September 30, 2023
+
+Certain Ukrainian Nationals Granted Parole No
+Between February 24, 2022, and September 30,
+2024
+
+Conditional Entrants Yes
+
+Battered Aliens Yes
+
+Victims of Severe Trafficking Yes
+
+Individuals Granted Parole for a Period of at Least Yes
+One Year
+
+Provided other SNAP eligibility requirements are met, someone in one of the above
+“Yes” groups is not subject to the 5-year waiting period if the person:
+
+• Is under 18 years old;
+• Has 40 qualifying work quarters;
+
+Page 5 of 5
+
+• Is blind or disabled;
+• Was lawfully residing in the U.S. and 65 or older on August 22, 1996; or
+• Has a U.S. military connection.
+
+C. Verification
+
+6. How can a State agency verify how long an alien has been in a qualified status?
+
+United States Citizenship and Immigration Services (USCIS) documents generally
+contain the date an alien entered the country or adjusted to the immigration status
+reflected on the document. If an alien does not have USCIS documentation, the State
+agency can verify the date of entry into the United States or date status was given by
+submitting a request for additional verification through the Systematic Alien
+Verification for Entitlements (SAVE) program. State agencies with questions about
+SAVE should contact SAVE.help@uscis.dhs.gov.
+
+DATE: December 9, 2025
+
+SUBJECT: Supplemental Nutrition Assistance Program (SNAP) Provisions of the One Big
+Beautiful Bill – Alien SNAP Eligibility – Question and Answer #1 REVISED
+
+TO: All SNAP State Agencies
+All Regions
+
+On July 4, 2025, President Donald J. Trump signed into law the One Big Beautiful Bill
+legislation (OBBB). The OBBB makes significant changes to the Supplemental Nutrition
+Assistance Program (SNAP), including changes to alien eligibility for SNAP.
+
+On October 31, 2025, the Food and Nutrition Service (FNS) published a memorandum with
+information on Section 10108 of the OBBB, which makes changes to alien eligibility for SNAP.
+
+This question-and-answer set provides additional information on Section 10108 of the OBBB.
+FNS revised Question 5 due to a typo.
+
+FNS stands ready to work with State agencies and provide additional technical assistance.
+State agencies with questions on Section 10108 of the OBBB should contact their respective
+FNS Regional Office. These questions will help inform additional guidance in future memos.
+
+Sincerely,
+
+Patrick A. Penn
+Deputy Under Secretary
+Food, Nutrition, and Consumer Services
+U.S. Department of Agriculture
+
+Attachments
+
+Office of the Under Secretary for Food, Nutrition, and Consumer Services
+1400 Independence Avenue, SW, Washington, DC 20250-9600
+USDA is an Equal Opportunity Provider, Employer, and Lender
+
+Supplemental Nutrition Assistance Program (SNAP) Provisions of the
+One Big Beautiful Bill (OBBB)
+Alien Eligibility
+Question and Answer #1
+
+A. General
+
+1. Are the OBBB changes to alien eligibility effective immediately or upon
+rulemaking?
+
+The changes were effective upon the enactment of OBBB—July 4, 2025. OBBB
+specifies which alien groups are eligible for SNAP under section 6(f) of the Food and
+Nutrition Act of 2008 (FNA) and is not contingent on regulations before the changes go
+into effect.
+
+2. Are individuals who have been granted asylum or who are refugees eligible for
+SNAP?
+
+No. Individuals who have been granted asylum or who are refugees, including
+individuals under 18 years of age, are not eligible for SNAP by virtue of that status.
+
+With the passage of OBBB, the only aliens eligible for SNAP are those with the
+following statuses: lawful permanent resident (LPR), Cuban and Haitian entrant (CHE),
+or Compacts of Free Association (COFA) citizen. See chart below for additional
+information on asylees or refugees who have adjusted status to LPR.
+
+B. 5-year Waiting Period
+
+3. Does the 5-year waiting period still apply following the OBBB?
+
+Yes. OBBB did not make changes to the 5-year waiting period requirement and
+exceptions, which are established by the Personal Responsibility and Work
+Opportunity Reconciliation Act of 1996 (PRWORA), 8 USC 1613.
+
+Office of the Under Secretary for Food, Nutrition, and Consumer Services
+1400 Independence Avenue, SW, Washington, DC 20250-9600
+USDA is an Equal Opportunity Provider, Employer, and Lender
+
+Page 3 of 5
+
+4. When does the 5-year waiting period begin?
+
+The 5-year waiting period begins on the date the alien obtains status as a qualified
+alien or enters the U.S. in a qualifying status under 8 USC 1613. 1
+
+5. Post-OBBB, will individuals who adjust from a status not eligible for SNAP under
+Section 6(f) of the FNA to lawful permanent resident (LPR) status now need to
+wait 5 years after adjusting to LPR status to receive SNAP?
+
+Not necessarily. Per current policy, aliens who adjust status to LPR from one of the
+groups exempt from the 5-year waiting period in section 403 of PRWORA (8 USC 1613),
+are not required to wait for 5 years after becoming an LPR. 2
+
+The chart below shows alien groups and whether they are subject to the 5-year
+waiting period after adjusting their status to LPR.
+
+Alien Group Pre-LPR-Adjustment Subject to 5-year Waiting
+Period After Adjusted
+Status to LPR 3
+
+Refugees No
+
+Individuals Granted Asylum No
+
+Deportation Withheld No
+
+1
+These groups include lawful permanent residents, asylees, refugees, parolees, individuals granted withholding of deportation or removal,
+conditional entrants, Cuban or Haitian entrants, battered aliens, and alien victims of a severe form of trafficking, Certain American Indians
+born abroad and Hmong or Highland Laotian tribal members.
+
+2
+Refugee, individuals granted asylum, deportation withheld, Cuban and Haitian entrant, Amerasian, individual in a SNAP-eligible alien
+group with a military connection, individual in a SNAP-eligible alien group who is under age 18, American Indian born abroad, and Hmong or
+Highland Laotian tribal member.
+
+3
+An individual has “adjusted status to LPR” when they have received an approval notice and Permanent Resident Card (Green Card) from
+the United States Citizenship and Immigration Services (USCIS). An individual is not considered an LPR if they have applied to adjust status
+and have not yet received a decision.
+
+Page 4 of 5
+
+Alien Group Pre-LPR-Adjustment Subject to 5-year Waiting
+Period After Adjusted
+Status to LPR 3
+
+Cuban and Haitian Entrants (CHE) No
+
+Amerasians No
+
+Compacts of Free Association (COFA) Citizens No
+
+American Indians Born Abroad No
+
+Hmong or Highland Laotian Tribal Members No
+
+Iraqi and Afghan Special Immigrants (SIV) No
+
+Certain Afghan Nationals Granted Parole Between No
+July 31, 2021, and September 30, 2023
+
+Certain Ukrainian Nationals Granted Parole No
+Between February 24, 2022, and September 30,
+2024
+
+Victims of Severe Trafficking No
+
+Conditional Entrants Yes
+
+Battered Aliens Yes
+
+Individuals Granted Parole for a Period of at Least Yes
+One Year
+
+Provided other SNAP eligibility requirements are met, someone in one of the above
+“Yes” groups is not subject to the 5-year waiting period if the person:
+
+• Is under 18 years old;
+• Has 40 qualifying work quarters;
+
+Page 5 of 5
+
+• Is blind or disabled;
+• Was lawfully residing in the U.S. and 65 or older on August 22, 1996; or
+• Has a U.S. military connection.
+
+C. Verification
+
+6. How can a State agency verify how long an alien has been in a qualified status?
+
+United States Citizenship and Immigration Services (USCIS) documents generally
+contain the date an alien entered the country or adjusted to the immigration status
+reflected on the document. If an alien does not have USCIS documentation, the State
+agency can verify the date of entry into the United States or date status was given by
+submitting a request for additional verification through the Systematic Alien
+Verification for Entitlements (SAVE) program. State agencies with questions about
+SAVE should contact SAVE.help@uscis.dhs.gov.

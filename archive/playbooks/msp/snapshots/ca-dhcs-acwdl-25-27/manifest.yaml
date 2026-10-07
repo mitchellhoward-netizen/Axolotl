@@ -1,0 +1,10 @@
+- retrieved: '2026-10-07'
+  url: https://www.dhcs.ca.gov/services/medi-cal/eligibility/letters/Documents/25-27.pdf
+  final_url: https://www.dhcs.ca.gov/services/medi-cal/eligibility/letters/Documents/25-27.pdf
+  status: 200
+  content_type: pdf
+  text_sha256: 022d2d3cf075a0c0ba31a97e8965eb0ea66b19c42c949439b4a521d838ec0360
+  text: ca-dhcs-acwdl-25-27/2026-10-07.txt
+  raw: ca-dhcs-acwdl-25-27/2026-10-07.pdf
+  fetched_via: headless Chromium (Playwright) via the session proxy; dhcs.ca.gov refuses
+    scripted requests (Incapsula)

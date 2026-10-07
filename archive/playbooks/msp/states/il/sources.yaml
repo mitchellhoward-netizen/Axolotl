@@ -1,0 +1,294 @@
+# Illinois sources for the Medicare Savings Program. IDHS's Cash, SNAP and Medical
+# Policy Manual (PM) and Workers' Action Guide (WAG) pages answer scripted requests.
+# IDs that another playbook already uses for the same page carry a -msp suffix.
+sources:
+  - id: il-idhs-pm-06-12-00
+    retrieved: 2026-10-07
+    url: https://www.dhs.state.il.us/page.aspx?item=14170
+    publisher: Illinois Department of Human Services (Cash, SNAP and Medical Manual; policy set jointly with HFS)
+    title: PM 06-12-00 — Qualified Medicare Beneficiary (QMB) Program
+    kind: primary
+    jurisdiction: il
+    doc_type: manual
+  - id: il-idhs-pm-06-12-01
+    retrieved: 2026-10-07
+    url: https://www.dhs.state.il.us/page.aspx?item=14172
+    publisher: Illinois Department of Human Services (Cash, SNAP and Medical Manual; policy set jointly with HFS)
+    title: PM 06-12-01 — QMB Eligibility
+    kind: primary
+    jurisdiction: il
+    doc_type: manual
+  - id: il-idhs-pm-06-12-01-a
+    retrieved: 2026-10-07
+    url: https://www.dhs.state.il.us/page.aspx?item=14174
+    publisher: Illinois Department of Human Services (Cash, SNAP and Medical Manual; policy set jointly with HFS)
+    title: PM 06-12-01-a — QMB Resource Limits (MR #23.15)
+    kind: primary
+    jurisdiction: il
+    doc_type: manual
+  - id: il-idhs-pm-06-12-01-b
+    retrieved: 2026-10-07
+    url: https://www.dhs.state.il.us/page.aspx?item=14177
+    publisher: Illinois Department of Human Services (Cash, SNAP and Medical Manual; policy set jointly with HFS)
+    title: PM 06-12-01-b — QMB Income Limit (MR 09.05)
+    kind: primary
+    jurisdiction: il
+    doc_type: manual
+  - id: il-idhs-pm-06-12-01-c
+    retrieved: 2026-10-07
+    url: https://www.dhs.state.il.us/page.aspx?item=14179
+    publisher: Illinois Department of Human Services (Cash, SNAP and Medical Manual; policy set jointly with HFS)
+    title: PM 06-12-01-c — QMB Income Exemption
+    kind: primary
+    jurisdiction: il
+    doc_type: manual
+  - id: il-idhs-pm-06-12-02-a
+    retrieved: 2026-10-07
+    url: https://www.dhs.state.il.us/page.aspx?item=14183
+    publisher: Illinois Department of Human Services (Cash, SNAP and Medical Manual; policy set jointly with HFS)
+    title: PM 06-12-02-a — Processing Applications, QMB Only (AABD)
+    kind: primary
+    jurisdiction: il
+    doc_type: manual
+  - id: il-idhs-pm-06-12-02-b
+    retrieved: 2026-10-07
+    url: https://www.dhs.state.il.us/page.aspx?item=14185
+    publisher: Illinois Department of Human Services (Cash, SNAP and Medical Manual; policy set jointly with HFS)
+    title: PM 06-12-02-b — Dual Eligibility (QMB/Medicaid)
+    kind: primary
+    jurisdiction: il
+    doc_type: manual
+  - id: il-idhs-pm-06-12-04-a
+    retrieved: 2026-10-07
+    url: https://www.dhs.state.il.us/page.aspx?item=14196
+    publisher: Illinois Department of Human Services (Cash, SNAP and Medical Manual; policy set jointly with HFS)
+    title: PM 06-12-04-a — Rede, QMB Only
+    kind: primary
+    jurisdiction: il
+    doc_type: manual
+  - id: il-idhs-pm-06-12-06
+    retrieved: 2026-10-07
+    url: https://www.dhs.state.il.us/page.aspx?item=14207
+    publisher: Illinois Department of Human Services (Cash, SNAP and Medical Manual; policy set jointly with HFS)
+    title: PM 06-12-06 — Ending QMB
+    kind: primary
+    jurisdiction: il
+    doc_type: manual
+  - id: il-idhs-pm-06-13-00
+    retrieved: 2026-10-07
+    url: https://www.dhs.state.il.us/page.aspx?item=14210
+    publisher: Illinois Department of Human Services (Cash, SNAP and Medical Manual; policy set jointly with HFS)
+    title: PM 06-13-00 — Specified Low-Income Medicare Beneficiary (SLIB) Program
+    kind: primary
+    jurisdiction: il
+    doc_type: manual
+  - id: il-idhs-pm-06-13-01
+    retrieved: 2026-10-07
+    url: https://www.dhs.state.il.us/page.aspx?item=14213
+    publisher: Illinois Department of Human Services (Cash, SNAP and Medical Manual; policy set jointly with HFS)
+    title: PM 06-13-01 — SLIB Eligibility
+    kind: primary
+    jurisdiction: il
+    doc_type: manual
+  - id: il-idhs-pm-06-13-01-b
+    retrieved: 2026-10-07
+    url: https://www.dhs.state.il.us/page.aspx?item=14218
+    publisher: Illinois Department of Human Services (Cash, SNAP and Medical Manual; policy set jointly with HFS)
+    title: PM 06-13-01-b — SLIB Income Limit
+    kind: primary
+    jurisdiction: il
+    doc_type: manual
+  - id: il-idhs-pm-06-13-02-a
+    retrieved: 2026-10-07
+    url: https://www.dhs.state.il.us/page.aspx?item=14222
+    publisher: Illinois Department of Human Services (Cash, SNAP and Medical Manual; policy set jointly with HFS)
+    title: PM 06-13-02-a — Processing Applications, SLIB Only
+    kind: primary
+    jurisdiction: il
+    doc_type: manual
+  - id: il-idhs-pm-06-13-02-b
+    retrieved: 2026-10-07
+    url: https://www.dhs.state.il.us/page.aspx?item=14224
+    publisher: Illinois Department of Human Services (Cash, SNAP and Medical Manual; policy set jointly with HFS)
+    title: PM 06-13-02-b — Dual Eligibility (SLIB/Medicaid)
+    kind: primary
+    jurisdiction: il
+    doc_type: manual
+  - id: il-idhs-pm-06-13-04-a
+    retrieved: 2026-10-07
+    url: https://www.dhs.state.il.us/page.aspx?item=14234
+    publisher: Illinois Department of Human Services (Cash, SNAP and Medical Manual; policy set jointly with HFS)
+    title: PM 06-13-04-a — Rede, SLIB Only
+    kind: primary
+    jurisdiction: il
+    doc_type: manual
+  - id: il-idhs-pm-06-14-00
+    retrieved: 2026-10-07
+    url: https://www.dhs.state.il.us/page.aspx?item=14244
+    publisher: Illinois Department of Human Services (Cash, SNAP and Medical Manual; policy set jointly with HFS)
+    title: PM 06-14-00 — Qualified Individuals Program
+    kind: primary
+    jurisdiction: il
+    doc_type: manual
+  - id: il-idhs-pm-06-14-01
+    retrieved: 2026-10-07
+    url: https://www.dhs.state.il.us/page.aspx?item=14246
+    publisher: Illinois Department of Human Services (Cash, SNAP and Medical Manual; policy set jointly with HFS)
+    title: PM 06-14-01 — QI-1 Eligibility (MR #26.10)
+    kind: primary
+    jurisdiction: il
+    doc_type: manual
+  - id: il-idhs-pm-06-14-01-b
+    retrieved: 2026-10-07
+    url: https://www.dhs.state.il.us/page.aspx?item=14250
+    publisher: Illinois Department of Human Services (Cash, SNAP and Medical Manual; policy set jointly with HFS)
+    title: PM 06-14-01-b — QI-1 Income Limit
+    kind: primary
+    jurisdiction: il
+    doc_type: manual
+  - id: il-idhs-pm-06-14-02-b
+    retrieved: 2026-10-07
+    url: https://www.dhs.state.il.us/page.aspx?item=14257
+    publisher: Illinois Department of Human Services (Cash, SNAP and Medical Manual; policy set jointly with HFS)
+    title: PM 06-14-02-b — QI-1 Dual Eligibility
+    kind: primary
+    jurisdiction: il
+    doc_type: manual
+  - id: il-idhs-pm-06-06-03
+    retrieved: 2026-10-07
+    url: https://www.dhs.state.il.us/page.aspx?item=13842
+    publisher: Illinois Department of Human Services (Cash, SNAP and Medical Manual; policy set jointly with HFS)
+    title: PM 06-06-03 — Qualified Disabled Working Individuals (QDWI)
+    kind: primary
+    jurisdiction: il
+    doc_type: manual
+  - id: il-idhs-pm-08-02-03
+    retrieved: 2026-10-07
+    url: https://www.dhs.state.il.us/page.aspx?item=15379
+    publisher: Illinois Department of Human Services (Cash, SNAP and Medical Manual; policy set jointly with HFS)
+    title: PM 08-02-03 — Deductions from Earned Income (Cash, Medical)
+    kind: primary
+    jurisdiction: il
+    doc_type: manual
+  - id: il-idhs-pm-08-02-03-a
+    retrieved: 2026-10-07
+    url: https://www.dhs.state.il.us/page.aspx?item=15381
+    publisher: Illinois Department of Human Services (Cash, SNAP and Medical Manual; policy set jointly with HFS)
+    title: PM 08-02-03-a — Earned Income Disregard (AABD)
+    kind: primary
+    jurisdiction: il
+    doc_type: manual
+  - id: il-idhs-pm-08-02-03-b
+    retrieved: 2026-10-07
+    url: https://www.dhs.state.il.us/page.aspx?item=15385
+    publisher: Illinois Department of Human Services (Cash, SNAP and Medical Manual; policy set jointly with HFS)
+    title: PM 08-02-03-b — Employment Expenses
+    kind: primary
+    jurisdiction: il
+    doc_type: manual
+  - id: il-idhs-pm-22-07-01
+    retrieved: 2026-10-07
+    url: https://www.dhs.state.il.us/page.aspx?item=18681
+    publisher: Illinois Department of Human Services (Cash, SNAP and Medical Manual; policy set jointly with HFS)
+    title: PM 22-07-01 — Hospital Insurance Benefits (HIB)
+    kind: primary
+    jurisdiction: il
+    doc_type: manual
+  - id: il-idhs-pm-22-07-01-a
+    retrieved: 2026-10-07
+    url: https://www.dhs.state.il.us/page.aspx?item=18683
+    publisher: Illinois Department of Human Services (Cash, SNAP and Medical Manual; policy set jointly with HFS)
+    title: PM 22-07-01-a — Department Payment of HIB Premiums
+    kind: primary
+    jurisdiction: il
+    doc_type: manual
+  - id: il-idhs-pm-22-07-02
+    retrieved: 2026-10-07
+    url: https://www.dhs.state.il.us/page.aspx?item=18685
+    publisher: Illinois Department of Human Services (Cash, SNAP and Medical Manual; policy set jointly with HFS)
+    title: PM 22-07-02 — Supplementary Medical Insurance Benefits (SMIB) Buy-in
+    kind: primary
+    jurisdiction: il
+    doc_type: manual
+  - id: il-idhs-pm-22-07-02-a
+    retrieved: 2026-10-07
+    url: https://www.dhs.state.il.us/page.aspx?item=18693
+    publisher: Illinois Department of Human Services (Cash, SNAP and Medical Manual; policy set jointly with HFS)
+    title: PM 22-07-02-a — SMIB Buy-in, AABD Clients
+    kind: primary
+    jurisdiction: il
+    doc_type: manual
+  - id: il-idhs-mr-26-11
+    retrieved: 2026-10-07
+    url: https://www.dhs.state.il.us/page.aspx?item=177031
+    publisher: Illinois Department of Human Services (Cash, SNAP and Medical Manual; policy set jointly with HFS)
+    title: MR #26.11 — 2026 Revised Medical Program Standards
+    kind: primary
+    jurisdiction: il
+    doc_type: directive
+    published: 2026-05-20
+    effective_date: 2026-01-01
+  - id: il-idhs-mr-26-10
+    retrieved: 2026-10-07
+    url: https://www.dhs.state.il.us/page.aspx?item=174521
+    publisher: Illinois Department of Human Services (Cash, SNAP and Medical Manual; policy set jointly with HFS)
+    title: MR #26.10 — QI-1 PM Eligibility Clarification
+    kind: primary
+    jurisdiction: il
+    doc_type: directive
+    published: 2026-05-06
+    effective_date: 2026-05-06
+  - id: il-idhs-mr-25-15
+    retrieved: 2026-10-07
+    url: https://www.dhs.state.il.us/page.aspx?item=171081
+    publisher: Illinois Department of Human Services (Cash, SNAP and Medical Manual; policy set jointly with HFS)
+    title: MR #25.15 — 2025 Revised Medical Program Standards
+    kind: primary
+    jurisdiction: il
+    doc_type: directive
+    published: 2025-04-09
+    effective_date: 2025-01-01
+  - id: il-idhs-mr-25-17
+    retrieved: 2026-10-07
+    url: https://www.dhs.state.il.us/page.aspx?item=144522
+    publisher: Illinois Department of Human Services (Cash, SNAP and Medical Manual; policy set jointly with HFS)
+    title: MR #25.17 — Paper Application and IES/ABE Portal Changes
+    kind: primary
+    jurisdiction: il
+    doc_type: directive
+    published: 2025-04-17
+    effective_date: 2025-04-17
+  - id: il-hfs-3352
+    retrieved: 2026-10-07
+    url: https://hfs.illinois.gov/info/brochures-and-forms/brochures/hfs3352.html
+    publisher: Illinois Department of Healthcare and Family Services
+    title: HFS 3352 — Qualified Medicare Beneficiary (QMB) Program brochure
+    kind: primary
+    jurisdiction: il
+    doc_type: agency_page
+    note: Dollar figures on the page are out of date (2021 levels); relied on only for how to apply and the helpline.
+  - id: il-aging-msp-chart-2026
+    retrieved: 2026-10-07
+    url: https://ilaging.illinois.gov/content/dam/soi/en/web/aging/ship/documents/medicare-savings-program-chart.pdf
+    publisher: Illinois Department on Aging, Senior Health Insurance Program (SHIP)
+    title: 2026 Illinois Medicare Savings Programs (QMB, SLIB, QI-1) chart
+    kind: secondary
+    jurisdiction: il
+    doc_type: guidance
+    note: Counselor guidance; the chart itself says its figures are estimates and points to WAG 25-03-02 as the main reference.
+  - id: il-idhs-wag-22-07-02
+    retrieved: 2026-10-07
+    url: https://www.dhs.state.il.us/page.aspx?item=18686
+    publisher: Illinois Department of Human Services (Cash, SNAP and Medical Manual; policy set jointly with HFS)
+    title: WAG 22-07-02 — Supplementary Medical Insurance Benefits (SMIB) (AABD, TANF), Workers' Action Guide
+    kind: primary
+    jurisdiction: il
+    doc_type: manual
+  - id: il-idhs-wag-22-07-01-a
+    retrieved: 2026-10-07
+    url: https://www.dhs.state.il.us/page.aspx?item=18684
+    publisher: Illinois Department of Human Services (Cash, SNAP and Medical Manual; policy set jointly with HFS)
+    title: WAG 22-07-01-a — Department Payment of HIB Premiums, Workers' Action Guide
+    kind: primary
+    jurisdiction: il
+    doc_type: manual

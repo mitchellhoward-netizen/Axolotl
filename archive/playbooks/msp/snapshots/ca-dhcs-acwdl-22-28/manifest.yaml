@@ -1,0 +1,10 @@
+- retrieved: '2026-10-07'
+  url: https://www.dhcs.ca.gov/services/medi-cal/eligibility/letters/Documents/22-28.pdf
+  final_url: https://www.dhcs.ca.gov/services/medi-cal/eligibility/letters/Documents/22-28.pdf
+  status: 200
+  content_type: pdf
+  text_sha256: 928da42e408dc6e191e22dc30caefcb3d3e46fccdb52e073236bb27a523a7c21
+  text: ca-dhcs-acwdl-22-28/2026-10-07.txt
+  raw: ca-dhcs-acwdl-22-28/2026-10-07.pdf
+  fetched_via: headless Chromium (Playwright) via the session proxy; dhcs.ca.gov refuses
+    scripted requests (Incapsula)

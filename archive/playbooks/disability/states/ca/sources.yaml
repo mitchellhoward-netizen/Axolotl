@@ -1,0 +1,80 @@
+# California sources for the Disability playbook. cdss.ca.gov answers
+# scripted requests. dhcs.ca.gov (Medi-Cal letters) is behind an Incapsula
+# bot wall that refused both the script and a headless browser on 2026-10-07,
+# so the Medi-Cal link rests on CDSS's SSI/SSP page and on SSA POMS SI 01715.010.
+sources:
+  - id: ca-cdss-ssi-ssp
+    retrieved: 2026-10-07
+    url: https://www.cdss.ca.gov/inforesources/ssi-ssp
+    publisher: California Department of Social Services
+    title: Supplemental Security Income/State Supplementary Payment (SSI/SSP)
+    kind: primary
+    jurisdiction: ca
+    doc_type: agency_page
+  - id: ca-cdss-ssi-ssp-eligibility
+    retrieved: 2026-10-07
+    url: https://www.cdss.ca.gov/inforesources/CDSS-Programs/SSI-SSP/SSI-SSP-Eligibility-Summary
+    publisher: California Department of Social Services
+    title: SSI/SSP Eligibility Summary
+    kind: primary
+    jurisdiction: ca
+    doc_type: agency_page
+    note: Undated FAQ. Parts are stale (it gives SGA as "$500 per month" and describes 1996-1997 immigrant reviews); used only for the Medi-Cal statement. See DIS-CA-CONFLICT-01.
+  - id: ca-cdss-2026mr-ssp-grant
+    retrieved: 2026-10-07
+    url: https://cdss.ca.gov/Portals/9/IHSS/2026MR_SSI.SSP_GrantAmounts.pdf
+    publisher: California Department of Social Services (Local Assistance Estimates, 2026 May Revision)
+    title: SSI/SSP Maximum Grant Comparison to Fair Market Rent Amounts (2026 May Revision, auxiliary tables)
+    kind: primary
+    jurisdiction: ca
+    doc_type: dataset
+    effective_date: 2026-01-01
+  - id: ca-cdss-calfresh-ssi
+    retrieved: 2026-10-07
+    url: https://www.cdss.ca.gov/inforesources/CalFresh/Supplemental-Security-Income
+    publisher: California Department of Social Services
+    title: Expanding CalFresh to SSI/SSP Recipients Beginning June 1, 2019
+    kind: primary
+    jurisdiction: ca
+    doc_type: agency_page
+  - id: ca-cdss-capi
+    retrieved: 2026-10-07
+    url: https://www.cdss.ca.gov/inforesources/cash-assistance-for-immigrants
+    publisher: California Department of Social Services
+    title: Cash Assistance Program for Immigrants (CAPI)
+    kind: primary
+    jurisdiction: ca
+    doc_type: agency_page
+  - id: ca-cdss-pub417
+    retrieved: 2026-10-07
+    url: https://www.cdss.ca.gov/cdssweb/entres/pdf/PUB417-CDSS_Brochure.pdf
+    publisher: California Department of Social Services
+    title: PUB 417 — California Department of Social Services brochure (divisions, incl. Disability Determination Service Division)
+    kind: primary
+    jurisdiction: ca
+    doc_type: other
+  - id: ssa-poms-si-sf01415-100
+    retrieved: 2026-10-07
+    url: https://secure.ssa.gov/poms.nsf/lnx/0501415100SF
+    publisher: Social Security Administration (POMS, San Francisco Region)
+    title: SI SF01415.100 State Supplementation - California
+    kind: primary
+    jurisdiction: ca
+    doc_type: manual
+    note: Regional POMS for California; SSA is California's agent for the SSP.
+  - id: ssa-poms-si-sf01415-150
+    retrieved: 2026-10-07
+    url: https://secure.ssa.gov/poms.nsf/lnx/0501415150SF
+    publisher: Social Security Administration (POMS, San Francisco Region)
+    title: SI SF01415.150 California Optional State Supplement (OSS) D - Living in the Household of Another
+    kind: primary
+    jurisdiction: ca
+    doc_type: manual
+  - id: ssa-poms-si-sf01415-140
+    retrieved: 2026-10-07
+    url: https://secure.ssa.gov/poms.nsf/lnx/0501415140SF
+    publisher: Social Security Administration (POMS, San Francisco Region)
+    title: SI SF01415.140 California Optional State Supplement (OSS) C - Independent Living Without Cooking Facilities
+    kind: primary
+    jurisdiction: ca
+    doc_type: manual

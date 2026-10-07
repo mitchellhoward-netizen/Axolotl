@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://www.cdss.ca.gov/inforesources/calfresh
+  final_url: https://www.cdss.ca.gov/inforesources/calfresh
+  status: 200
+  content_type: text/html; charset=utf-8
+  text_sha256: a634c240b2d46586d6761f7b5407817bf7598a23468c89c7faee6013112cee1d
+  text: ca-cdss-calfresh/2026-10-07.txt
+  raw: ca-cdss-calfresh/2026-10-07.html

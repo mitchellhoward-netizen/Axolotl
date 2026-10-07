@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://www.medicare.gov/basics/costs/help/medicare-savings-programs
+  final_url: https://www.medicare.gov/basics/costs/help/medicare-savings-programs
+  status: 200
+  content_type: text/html; charset=utf-8
+  text_sha256: 24532059e302d438cc3e525fb141ead2f505c635ce67f982b9692109b8831bc4
+  text: medicare-gov-msp/2026-10-07.txt
+  raw: medicare-gov-msp/2026-10-07.html

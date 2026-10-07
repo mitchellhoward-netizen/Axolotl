@@ -1,0 +1,364 @@
+Skip to content
+
+Program Operations Manual System (POMS)
+
+Effective Dates: 05/30/2024 - Present
+Previous | Next
+
+SI SF01415.140 California Optional State Supplement (OSS) C - Independent Living Without Cooking
+Facilities (RTN 01, 05/2015)
+
+A. General
+
+Certain SSI recipients residing in California may be eligible for OSS C (also commonly
+referred to as the “Restaurant Meals Allowance” (RMA) or “No Cooking Facilities” OSS)
+when they:
+
+•
+
+do not have access to adequate cooking and food storage facilities as part of their
+living arrangement
+
+AND
+
+•
+
+are not provided any meals as part of their living arrangement
+
+NOTE: Blind recipients and children under age 18 are not eligible for OSS C.
+
+B. Eligibility
+
+1. An individual/couple qualifies for OSS C if any of the following situations exist:
+
+a.
+
+The individual/couple's immediate living quarters do not have adequate cooking or
+food storage facilities with which the individual/couple or another person (who is
+responsible for preparing the individual/couple's meals) can prepare meals on a daily
+basis.
+
+b.
+
+The individual/couple does not have access to adequate cooking or food storage facilities as part of the living
+arrangement (including cooking or food storage facilities that are outside the immediate
+living quarters) for the purpose of preparing meals or having them prepared on their
+behalf.
+
+c.
+
+The individual/couple lives in a boarding house that does not have a communal kitchen with adequate cooking or food storage facilities to which
+they have access for preparation of meals.
+
+d.
+
+The individual/couple lives in private living quarters within a home or in separate
+living quarters (e.g., "over the garage"), or in a similar situation, and does not
+have access to the cooking or food storage facilities in the main residence for preparation
+of meals.
+
+e.
+
+The individual/couple lives in a room and board facility and does not contract with
+the facility to have meals prepared and provided as part of the living arrangement
+(e.g., the SSI applicant's/recipient's living arrangement with the facility is to
+purchase only shelter on a monthly basis).
+
+The following examples illustrate situations in which a recipient is considered to
+be contracting with the facility for meals and is not, therefore, eligible for OSS C:
+
+•
+
+Conventional room and board situations in which a recipient purchases meals through
+the facility on a periodic basis (generally monthly) or on a per meal basis.
+
+•
+
+Situations in which a recipient has two separate agreements with a facility; one covers
+shelter and the other covers meals.
+
+•
+
+Situations in which the facility, which provides shelter, contracts with a food preparation
+service to provide meals. (This does not include situations in which meals are either obtained at a discount or brought into
+the recipient's living arrangement, e.g., "Meals on Wheels" Program, provided the
+shelter facility is not involved in obtaining them).
+
+2. Adequate cooking and food storage facilities
+
+An individual/couple must have both adequate cooking facilities and food storage facilities.
+
+a.
+
+“Adequate cooking facilities" consist of any of the following:
+
+•
+
+A stove without a working oven, but which has at least two working burners.
+
+OR
+
+•
+
+A hot plate with at least two burners with separate temperature controls or two one-burner
+hot plates with temperature controls, (Hot plates without temperature controls are
+not adequate cooking facilities).
+
+OR
+
+•
+
+A stove with a working oven in combination with:
+
+a.
+
+At least one working burner, or
+
+b.
+
+A one-burner hot plate with a temperature control.
+
+OR
+
+•
+
+A microwave or toaster oven in combination with:
+
+a.
+
+One working burner on a stove, or
+
+b.
+
+One-burner hotplate with a temperature control.
+
+b.
+
+"Adequate food storage facilities" consist of either a working refrigerator or icebox to which the individual has access.
+Capacity of the refrigerator or icebox is not a factor of consideration. An ice chest
+is not considered adequate storage.
+
+3. Eligibility effective date
+
+a.
+
+Eligibility for OSS C begins in the month the individual applies for this supplement
+rate provided the individual anticipates, at the point the application is filed, being
+without cooking or food storage facilities throughout the month.
+
+b.
+
+The applicant's intent at the point the Application for Restaurant Meals Allowance
+(RMA) is filed is critical, since we make a determination based upon the applicant's expectation.
+If an applicant expects to be without adequate facilities throughout the month at
+the point the restaurant meals application is filed, OSS C is appropriate, even if
+the applicant gains access to adequate facilities later in the month. However, if
+the recipient does not expect to be without adequate food storage facilities for the
+entire month, or is no longer without adequate facilities at the point the restaurant
+meals application is filed, then OSS C is not appropriate.
+
+c.
+
+For purpose of OSS C, "throughout a month" does not mean the applicant/recipient must
+lack adequate cooking or food storage facilities from the very first moment of the
+month. The
+applicant/recipient need only lack them from some time on the first day of the
+month (see example in SI SF01415.140B.5).
+
+d.
+
+Eligibility for this supplemental payment ceases the month following the month in
+which meals are provided or adequate cooking and food storage facilities are available.
+
+e.
+
+If eligibility is based on temporary loss or non-functioning of an appliance (including
+temporary removal of appliances and/or turn-off of utilities pending repair or replacement),
+the individual should be advised of the individual's responsibility to report immediately
+when the temporary condition has ceased. If the individual provides an expected date
+on which the appliance will be replaced/repaired, diary the case for recontact.
+
+4. Miscellaneous
+
+•
+
+Transients/homeless individuals: To rule out OSS C eligibility, an individual must receive meals or have access to
+adequate cooking and food storage facilities as part of a living arrangement. A transient by definition does not have a permanent living arrangement, i.e., no
+fixed place of residence. Therefore, receipt of meals or access to cooking and food
+storage facilities does not preclude OSS C (see Example SI SF01415.140B.5 step 5.). NOTE: Development of ISM for the value of meals is still necessary.
+
+•
+
+For a couple, comprised of an aged or disabled individual and a blind individual,
+whose living arrangement lacks adequate cooking or food storage facilities, pay the
+SSI/SSP level for blind/aged or blind/disabled couple plus the restaurant meals allowance
+for the aged/disabled member of the couple. Force due (M02) is required in this living
+arrangement.
+
+•
+
+Individuals who have adequate cooking and food storage, but whose disability prevents
+them from preparing meals should be referred to In-Home Supportive Services (IHSS).
+
+5. Examples:
+
+a.
+
+Mary Ambrose lives in a commercial boarding house. Mary's monthly rent includes both
+food and shelter. The boarding house owner contracts with a restaurant to have one
+meal per day provided for the boarder. Mary is not eligible for OSS C.
+
+b.
+
+Bill Larson rents a room above Bill's cousin's automobile repair shop and has only
+a one-burner hotplate to prepare meals. The FO completes a RMA application to establish
+OSS C eligibility.
+
+c.
+
+John Thomas moves into a hotel on the afternoon of March 1, 2012. John reports the
+change of address on March 7, 2012. At that time, John alleges no cooking facilities
+and completes a RMA application. John is eligible for OSS C effective March 2012.
+
+d.
+
+Stacy Pantaleon moves into a hotel that has a communal kitchen available for residents’
+use on Mondays through Saturdays. The kitchen has a stove with an oven and working
+burners as well as a refrigerator. Even though Stacy's hotel room does not have cooking
+facilities, Stacy is not eligible for OSS C because Stacy has access to the kitchen
+for meal preparation. The lack of access for one day out of the week is considered
+temporary, i.e., not throughout the month.
+
+e.
+
+Ellen Nkobi is a homeless individual who receives lunch daily at St Anthony’s Church.
+Since receipt of these meals is not part of a living arrangement, Ellen is eligible
+for OSS C. In this case, ISM is potentially excludable and should be developed following
+SI 00830.605, if a Support and Maintenance Assistance (SMA) precedent does not already exist.
+
+f.
+
+James Smithers has no fixed place of residence. James frequently spends one or two
+nights at the homes of various relatives. Although each of James relatives’ homes
+have cooking facilities, James is determined to be a transient because James does
+not have a fixed place of residence. Therefore, James is eligible for OSS C. If James
+also alleges receipt of meals from relatives, ISM development is needed.
+
+g.
+
+Will Sebastian lives in an apartment with cooking facilities. On February 24, 2015,
+Will reports that the refrigerator has stopped working and the landlord does not expect
+it to be repaired or replaced until sometime in April. Will applies for RMA and is
+approved for OSS C beginning March 2015. The landlord purchases a refrigerator on
+March 29, 2015. Since Will expected to be without adequate food storage facilities
+throughout the month of March, OSS C was appropriate for that month. OSS A applies
+effective April 2015.
+
+h.
+
+Karen Belladonna rents a room from a cousin and is determined to be in a separate
+household after developing the living arrangement following SI 00835.120E. Karen's cousin does not allow Karen to use the stove or refrigerator and does not
+prepare nor provide meals for Karen. Since Karen does not have access to cooking and
+food storage facilities, Karen is eligible for OSS C.
+
+C. Development and Documentation
+
+1.
+
+Ask if the individual has adequate cooking and food storage facilities (SI SF01415.190, Exhibit 1) for:
+
+•
+
+All initial claims
+
+•
+
+FO initiated redeterminations
+
+•
+
+Reports of living arrangement changes
+
+•
+
+Reports of change in residence
+
+Record the information on the California Optional Supplement page in the Consolidated
+Claims Experience (CCE). For non-MSSICS cases, record the information in the remarks
+section of the application/redetermination or on an SSA-795.
+
+If the answer is "No," determine eligibility for OSS C based on a California Application for Restaurant Meals Allowance
+(RMA) (SI SF01415.190, Exhibit 3) signed by the eligible individual/couple. An SSA employee's signature
+on the application form is preferable but not a documentation requirement. Store the
+application form in the electronic file.
+
+2.
+
+A protective writing as defined in GN 00204.010 protects eligibility for this supplement payment provided the answer to the lead
+question when obtained is "No." This is true even though the lead question and/or
+Application for California Restaurant Meals Allowance are completed in a month after
+the month in which the protective writing is received.
+
+If the RMA application is not completed when the lead question about adequate cooking/food
+storage facilities is asked, a “No” answer to the question protects the recipient’s
+eligibility for OSS C. The recipient is also afforded protection if the interviewer
+neglects to ask the lead question.
+
+If a claimant reports a change of address or living arrangement and was not asked
+the lead question regarding cooking and food storage facilities, retroactivity for
+OSS C should be granted to the date the change was reported to SSA. The date the change
+was reported must be supported by evidence in file. Under no circumstances can retroactivity be granted earlier than the date
+the move was reported or for a reason other than failure to ask about cooking and
+food storage
+facilities.
+
+Examples:
+
+a.
+
+Robert Turner stated on the application that Robert has adequate cooking and food
+storage facilities. The claim was denied for excess resources. Robert appealed the
+denial and the denial was reversed at the hearing level. While the hearing request
+was pending, Robert moved to a living arrangement where Robert does not have adequate
+cooking and food storage facilities. The claimant did not report the change until
+the "update" was conducted; at which time Robert answered the lead question "No."
+The claimant signed the Application for California Restaurant Meals Allowance on the
+date of the "update" and is eligible for OSS C only from the month in which the "update"
+is conducted.
+
+b.
+
+Cathy Chao was previously determined to be in a Federal Living Arrangement (FLA) A
+and OSS C - AC living arrangement because the hotel in which Cathy resided did not
+have cooking or food storage facilities available for the residents’ use. Cathy reported
+in August 2013 that Cathy moved to another hotel without cooking facilities in January
+2013, but failed to report the move. Since Cathy failed to report the move timely,
+Cathy's living arrangement for February through July 2013 is determined to be AA.
+Cathy is again eligible for OSS C beginning August 2013, the month Cathy signed a
+Restaurant Meals Allowance application based on the new residence.
+
+3.
+
+Under the agreement with the State of California, the applicant’s/recipient's statement
+of fact on the Application for California Restaurant Meals Allowance that the applicant/recipient
+has inadequate cooking and food storage facilities is acceptable proof and shall not
+be verified by the FO. When or if the facts as presented on the claimant's statement
+and the Application for California Restaurant Meals Allowance are incomplete, unclear,
+or in conflict with other evidence, refer the case to the Southwest Regional Office
+(RO), Center for Programs Support, SSI Team (SSIT) via vHelp.
+
+The SSIT will refer the case to the State of California for investigation if appropriate.
+The FO should not make field visits to investigate these cases. In initial claims
+and posteligibility situations not currently being paid the OSS C rate, do not pay
+the OSS C rate until the State completes its investigation. In posteligibility situations
+currently in OSS C, continue to pay this rate pending the State's investigation. The
+SSIT will notify the FO of the outcome of the investigation.
+
+To Link to this section - Use this URL:
+http://policy.ssa.gov/poms.nsf/lnx/0501415140SF
+
+SI SF01415.140 - California Optional State Supplement (OSS) C - Independent Living Without Cooking Facilities (RTN 01, 05/2015) - 05/30/2024
+
+Batch run: 06/15/2026
+
+Rev:05/30/2024

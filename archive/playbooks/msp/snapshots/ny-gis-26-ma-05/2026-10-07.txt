@@ -1,0 +1,109 @@
+WGIUPD GENERAL INFORMATION SYSTEM 2/13/2026
+DIVISION: Office of Health Insurance Programs PAGE 1
+GIS 26 MA/05
+
+TO: Local District Commissioners, Medicaid Directors
+
+FROM: Gabrielle Armenia, Director
+Division of Eligibility and Marketplace Integration
+
+SUBJECT: 2026 Federal Poverty Levels
+
+ATTACHMENT: 2026 FPL Chart
+
+EFFECTIVE DATE: January 1, 2026
+
+CONTACT PERSON: Local District Support Unit
+Rest of State (ROS) (518) 474-8887 NYC (212) 417-4500
+
+The purpose of this General Information System (GIS) message is to inform local departments of
+social services (LDSS) of the revised federal poverty levels (FPLs). The revised FPLs are effective
+January 1, 2026, as published in the Federal Register.
+
+The new FPLs should be used for all transactions with a Medicaid Budget Logic (MBL) eligibility
+“From” date of January 1, 2026, or later. The updated levels will be available in MBL on
+February 17, 2026. For all new and pending applications, income must be compared to the 2026
+FPLs. All redeterminations effective January 1, 2026 or later, must be re-budgeted retroactive to
+January 1, 2026, using the Medically Needy Income Level (MNIL) based on the 2026 FPLs. As a
+result of the increase in the MNIL, the personal needs allowance amount for certain waiver
+participants and Managed Long Term Care enrollees who are subject to spousal impoverishment
+budgeting increases to $653 effective January 1, 2026.
+
+Neither Phase 1 or Phase 2 of Mass Re-Budgeting (MRB), including the systematic update of the
+2.8 percent (%) Cost of Living Adjustment (COLA) was run. Districts will be informed of any
+additional updates regarding MRB.
+
+Due to the increase in the FPLs, some Qualifying Individuals (QI) may be income eligible for the
+Qualified Medicare Beneficiary (QMB) benefit. In such cases, staff must complete a 99-change
+transaction on the eMedNY Buy-in span, with the effective date of January 1, 2026, and change the
+Medicare Savings Program (MSP) code appropriately. For NYC, the change in MSP level can be
+transmitted via an undercare case transaction.
+
+Medicare Part B Premium
+
+In 2026, there is a COLA of 2.8% for Social Security benefits. Under a “hold-harmless” provision of
+federal law, a beneficiary’s Medicare Part B premiums in any year cannot rise higher than that year’s
+COLA.
+
+In 2026, most beneficiaries will pay the full Part B premium as the 2.8% COLA will generate enough
+increased income for them to pay $202.90 without reducing their net Social Security benefits.
+
+WGIUPD GENERAL INFORMATION SYSTEM 2/13/2026
+DIVISION: Office of Health Insurance Programs PAGE 2
+GIS 26 MA/05
+
+If an individual’s Social Security benefit does not increase enough for them to pay the $202.90
+without their benefit decreasing, the “hold harmless” provision will limit the Part B premium increase
+to the amount of their 2026 Social Security benefit increase.
+
+The “hold-harmless” provision does not apply to all beneficiaries. The Medicare Part B premium for
+individuals in the following categories will increase to $202.90 (or higher) in 2026:
+
+● Individuals whose income is above $109,000, or a married individual when the couple’s
+combined income is over $218,000, will pay the standard premium and an Income Related
+Monthly Adjustment Amount (IRMAA);
+
+● New Medicare Part B beneficiaries since these individuals did not pay the Medicare Part B
+premium in 2025; and
+
+● Individuals who do not have the Medicare Part B premium deducted from their Social
+Security benefit, including individuals who are enrolled in the Medicare Savings Program.
+These individuals will not be directly affected as the increased premium will be paid by
+Medicaid.
+
+If an individual has chosen to pay the Medicare Part B premium to reduce a spenddown obligation,
+the actual premium that is paid must be used in calculating the individual’s budget.
+
+Family Member Allowance
+
+As a result of the increase in the FPLs, the amount used in the Family Member Allowance (FMA)
+formula increased to $2,705.00 and the maximum monthly FMA increased to $902. All spousal
+impoverishment cases involving a family member entitled to the family member allowance, with a
+budget effective date of January 1, 2026 or later and which were budgeted using the 2025 Family
+Member Allowance, must be re-budgeted using the 2026 Family Member Allowance.
+
+If a district determines that a previously budgeted case with a “From” date of January 1, 2026 or
+greater, has been negatively affected due to use of 2025 FPL, or if a case is brought to the district’s
+attention, the case should be re-budgeted using the revised FPLs. If eligible, covered medical
+expenses paid by an individual as a result of an improper calculation must be reimbursed pursuant
+to 10 OHIP/ADM-9, “Reimbursement of Paid Medical Expenses Under 18 NYCRR §360-7.5(a).”
+
+Congregate Care
+
+Medicaid eligibility for SSI-related consumers is determined by comparing income, after appropriate
+deductions, to the MNIL or the Medicaid Standard (and MBL Living Arrangement Chart as
+appropriate), and applying whichever income level is most beneficial.
+
+Special Income Standard for Housing Expenses
+
+The special income standard for housing expenses that is available to certain individuals who enroll
+in the Managed Long-Term Care program (See 12 OHIP/ADM-5 and GIS 14 MA/017 for further
+information) varies by region. The 2026 amounts for each region have been updated based on the
+FPLs for 2026.
+
+WGIUPD GENERAL INFORMATION SYSTEM 2/13/2026
+DIVISION: Office of Health Insurance Programs PAGE 3
+GIS 26 MA/05
+
+Charts with the 2026 FPLs for the various categories of Medicaid eligibility are attached to this GIS.
+Please direct any questions to your local district liaison.

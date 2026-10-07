@@ -1,0 +1,12 @@
+- retrieved: '2026-10-07'
+  url: https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=INS&sectionNum=10192.11
+  final_url: https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=INS&sectionNum=10192.11
+  status: 200
+  content_type: html
+  text_sha256: e978cd21b1ec52a77a4f483c0b6a31d3802c2ffea9445650f5367e7251ce8eb1
+  text: ca-ins-code-10192-11/2026-10-07.txt
+  raw: ca-ins-code-10192-11/2026-10-07.html
+  fetched_via: leginfo.legislature.ca.gov blocks scripts/WebFetch/headless Chromium
+    (Cloudflare 403); text taken from the Legislative Counsel's official bulk dataset
+    downloads.leginfo.legislature.ca.gov/pubinfo_2025.zip (LAW_SECTION_TBL_56401.lob
+    plus the table row's history line), read by HTTP range requests

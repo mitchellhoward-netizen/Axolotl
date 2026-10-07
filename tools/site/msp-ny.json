@@ -1,0 +1,81 @@
+{
+  "state": "ny",
+  "as_of": "2026-10-07",
+  "rules": [
+    "MSP-NY-QMB-INCOME",
+    "MSP-NY-QI-INCOME",
+    "MSP-NY-NO-RESOURCE-TEST",
+    "MSP-NY-DISREGARD",
+    "MSP-NY-COUPLE",
+    "MSP-NY-PART-A",
+    "MSP-NY-QI-NOT-MEDICAID",
+    "MSP-FED-EXTRA-HELP-DEEMED"
+  ],
+  "values": {
+    "part_b_premium_monthly": 202.9,
+    "part_b_deductible_yearly": 283,
+    "income_disregard_monthly": 20,
+    "earned_exclusion_monthly": 65,
+    "qmb_standard_monthly": {
+      "1": 1836,
+      "2": 2489
+    },
+    "qi_standard_monthly": {
+      "1": 2474,
+      "2": 3355
+    }
+  },
+  "provenance": {
+    "part_b_premium_monthly": {
+      "parameter": "federal.cms.part_b_standard_premium",
+      "effective_from": "2026-01-01",
+      "confidence": "confirmed",
+      "sources": [
+        "cms-2026-part-a-b-premiums"
+      ]
+    },
+    "part_b_deductible_yearly": {
+      "parameter": "federal.cms.part_b_deductible",
+      "effective_from": "2026-01-01",
+      "confidence": "confirmed",
+      "sources": [
+        "cms-2026-part-a-b-premiums"
+      ]
+    },
+    "income_disregard_monthly": {
+      "parameter": "ny.msp.income_disregard_monthly",
+      "effective_from": "2026-01-01",
+      "confidence": "confirmed",
+      "sources": [
+        "ny-doh-msp-2026",
+        "ny-mrg-income"
+      ]
+    },
+    "earned_exclusion_monthly": {
+      "parameter": "federal.ssi.earned_income_exclusion_monthly",
+      "effective_from": "1974-01-01",
+      "confidence": "confirmed",
+      "sources": [
+        "usc-42-1382a"
+      ]
+    },
+    "qmb_standard_monthly": {
+      "parameter": "ny.msp.qmb_income_limit_monthly",
+      "effective_from": "2026-01-01",
+      "confidence": "confirmed",
+      "sources": [
+        "ny-gis-26-ma-05-att1",
+        "ny-doh-msp-2026"
+      ]
+    },
+    "qi_standard_monthly": {
+      "parameter": "ny.msp.qi_income_limit_monthly",
+      "effective_from": "2026-01-01",
+      "confidence": "confirmed",
+      "sources": [
+        "ny-gis-26-ma-05-att1",
+        "ny-doh-msp-2026"
+      ]
+    }
+  }
+}

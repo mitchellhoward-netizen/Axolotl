@@ -1,0 +1,219 @@
+schema_version: 2
+program: turning_65
+scope: il
+title: Turning 65 — Illinois additions (Medigap "Birthday Law", under-65 Medigap rights, SHIP, Benefit Access)
+last_researched: 2026-10-07
+
+summary:
+  plain_language: >-
+    Medicare enrollment, premiums and penalties are federal and the same in
+    Illinois. Illinois adds a Medigap "Birthday Law": a person aged 65 to 75
+    who has a Medicare supplement policy has 45 days starting on their
+    birthday each year to buy a policy with equal or lesser benefits from the
+    same company (since January 1, 2026, also from an affiliate of that
+    company authorized in Illinois) without underwriting (215 ILCS 5/363(8)). This is narrower than California's rule (same company group
+    only, ages 65-75 only). People under 65 on Medicare because of disability
+    have the same Medigap open enrollment rights as people 65+, and get a
+    second 6-month open enrollment at 65. Free counseling is through the
+    Senior Health Insurance Program (SHIP, 1-800-252-8966). Residents 65+
+    with low income can also get the Benefit Access Program (free transit and
+    a license-plate discount).
+  administered_by: >-
+    Medigap: Illinois Department of Insurance. SHIP and Benefit Access:
+    Illinois Department on Aging.
+  funded_by: Medigap premiums are paid by the policyholder; SHIP is federally funded (ACL); Benefit Access is state funded.
+  local_names:
+    - {name: SHIP, meaning: Senior Health Insurance Program (Illinois Department on Aging)}
+    - {name: Birthday Law, meaning: Illinois's annual 45-day Medicare supplement open enrollment for ages 65-75}
+    - {name: Benefit Access Program, meaning: Seniors Ride Free transit benefit and license plate discount}
+  confidence: confirmed
+  sources:
+    - {source: il-aging-medicare-choices-2026, locator: "pp. 10-12"}
+    - {source: ilga-215-ilcs-5-363, locator: "Sec. 363(8)"}
+    - {source: il-aging-ship, locator: "SHIP page"}
+
+rules:
+  - id: T65-IL-MEDIGAP-BIRTHDAY
+    statement: >-
+      In Illinois, a person aged 65 to 75 who has a Medicare supplement
+      (Medigap) policy has an annual open enrollment period of 45 days starting
+      on their birthday, during which they may buy any Medigap policy with
+      equal or lesser benefits from the same insurer (and, from January 1,
+      2026, from any affiliate of that insurer authorized in Illinois), and the
+      insurer may not deny, condition or price the policy based on health
+      status, claims experience, receipt of health care or medical condition.
+    kind: eligibility
+    effective_from: 2022-01-01
+    parameters: [il.idoi.medigap_birthday_window_days, il.idoi.medigap_birthday_rule_ages, il.idoi.medigap_birthday_affiliate_allowed]
+    overrides: [T65-FED-MEDIGAP-UNDERWRITING]
+    implemented_in: playbooks/turning_65/states/il/rules.py:evaluate
+    confidence: confirmed
+    note: >-
+      Statute: 215 ILCS 5/363(8). Public Act 102-0142 (SB 147, Section 99:
+      effective January 1, 2022) added the 45-day window for ages 65-75 with
+      the same issuer only. Public Act 103-0747 (SB 56, Section 99: effective
+      January 1, 2026) inserted "or any affiliate authorized to transact
+      business in this State". Before 2026 an affiliate switch is not covered.
+      The statute requires the issuer to give notice of the right when the
+      application for the policy is made (not before each birthday). The
+      age range applies at the time of the window; the statute does not cover
+      people under 65.
+    sources:
+      - {source: ilga-215-ilcs-5-363, locator: "Sec. 363(8)", quote: "at least 65 years of age but no more than 75 years of age ... annual open enrollment period lasting 45 days, commencing with the individual's birthday"}
+      - {source: ilga-pa-102-0142, locator: "Sec. 363(8) as added; Section 99", quote: "This Act takes effect on January 1, 2022."}
+      - {source: ilga-pa-103-0747, locator: "Sec. 363(8) as amended; Section 99", quote: "This Act takes effect January 1, 2026."}
+      - {source: il-aging-medicare-choices-2026, locator: "p. 11, THE IL MEDIGAP \"BIRTHDAY LAW\""}
+  - id: T65-IL-MEDIGAP-UNDER-65
+    statement: >-
+      In Illinois, people under 65 who have Medicare because of a disability
+      have the same Medigap open enrollment rights as people 65 and older, and
+      get another six-month Medigap open enrollment period when they turn 65.
+    kind: eligibility
+    effective_from: 2026-02-01
+    confidence: confirmed
+    note: 2026 is the earliest date of the archive's source, not the date the right began.
+    sources:
+      - {source: il-aging-medicare-choices-2026, locator: "p. 12, INFORMATION FOR DISABLED INDIVIDUALS ON MEDICARE"}
+  - id: T65-IL-SHIP
+    statement: >-
+      In Illinois, free Medicare counseling (the State Health Insurance
+      Assistance Program) is the Senior Health Insurance Program (SHIP) of the
+      Illinois Department on Aging, reached through the Senior HelpLine
+      1-800-252-8966.
+    kind: procedure
+    effective_from: 2026-01-01
+    implemented_in: playbooks/turning_65/states/il/rules.py:evaluate
+    confidence: confirmed
+    sources:
+      - {source: il-aging-ship, locator: "SHIP section and contact: 1-800-252-8966"}
+  - id: T65-IL-BENEFIT-ACCESS
+    statement: >-
+      In Illinois, a resident who is 65 or older (or turns 65 this year), or 16
+      or older and disabled, with total gross income for the last tax year
+      under $33,562 (1 person), $44,533 (2) or $55,500 (3), can get the Benefit
+      Access Program's free transit (Seniors Ride Free) and license plate
+      discount by applying online.
+    kind: eligibility
+    applies_to: [BENEFIT_ACCESS]
+    effective_from: 2026-01-01
+    parameters: [il.aging.benefit_access_income_limit]
+    implemented_in: playbooks/turning_65/states/il/rules.py:evaluate
+    confidence: confirmed
+    note: Flagged as a link; not a Medicare program. Illinois has no state drug-cost program comparable to New York's EPIC in the sources checked (T65-IL-OQ-02).
+    sources:
+      - {source: il-aging-benefit-access, locator: "Qualifications"}
+
+procedure:
+  applications:
+    - id: T65-IL-PROC-BIRTHDAY
+      text: During the 45 days starting on the birthday, apply to the current Medigap company (or, from January 1, 2026, an affiliate of it authorized in Illinois) for a policy with equal or lesser benefits. The insurer must tell the policyholder about this right when the original Medigap application is made; Illinois law does not require a reminder before each birthday.
+      channel: any
+      confidence: confirmed
+      note: >-
+        Corrected in the second pass. The first build said insurers must give notice 30-60 days before
+        the window, from secondary summaries; 215 ILCS 5/363(8) requires notice "at the time that the
+        application is made". (The 30-60-day pre-birthday notice is California's rule, not Illinois's.)
+      sources: [{source: ilga-215-ilcs-5-363, locator: "Sec. 363(8), last two sentences", quote: "An issuer shall provide notice of this annual open enrollment period for eligible Medicare supplement policyholders at the time that the application is made"}]
+    - id: T65-IL-PROC-BENEFIT-ACCESS
+      text: Apply for the Benefit Access Program online; paper applications are not available.
+      channel: online
+      confidence: confirmed
+      sources: [{source: il-aging-benefit-access, locator: "you must submit a Benefit Access Application on the internet. Paper applications are not available."}]
+  filing:
+    - id: T65-IL-FILE-SHIP
+      text: Call the Senior HelpLine 1-800-252-8966 (711 TRS) or email Aging.SHIP@illinois.gov for SHIP counseling.
+      channel: phone
+      confidence: confirmed
+      sources: [{source: il-aging-ship, locator: "contact block"}]
+
+life_events:
+  - id: T65-IL-LE-BIRTHDAY
+    code: renewal_due
+    event: An Illinois Medigap policyholder aged 65-75 reaches their birthday
+    why: The 45-day Birthday Law window opens for an equal-or-lesser plan with the same company (or, from 2026, an affiliate).
+    check_rules: [T65-IL-MEDIGAP-BIRTHDAY]
+    confidence: confirmed
+    sources: [{source: ilga-215-ilcs-5-363, locator: "Sec. 363(8)"}]
+  - id: T65-IL-LE-TURNING-65-DISABLED
+    code: turning_65
+    event: An Illinois Medicare beneficiary on disability turns 65
+    why: A second six-month Medigap open enrollment opens at 65, which may lower premiums.
+    check_rules: [T65-IL-MEDIGAP-UNDER-65, T65-FED-AGE65-NEW-IEP]
+    confidence: confirmed
+    sources: [{source: il-aging-medicare-choices-2026, locator: "p. 12"}]
+
+outcome_proof:
+  - id: T65-IL-PROOF-MEDIGAP
+    evidence: New Medigap policy from the same company or affiliate
+    shows: The switch was issued without underwriting during the birthday window.
+    confidence: unresolved
+    open_question: T65-IL-OQ-03
+
+open_questions:
+  - id: T65-IL-OQ-01
+    priority: medium
+    question: Retrieve 215 ILCS 5/363 and Public Acts 102-0142 and 103-0747 to confirm the 45-day window, ages 65-75, the affiliate expansion and its effective date.
+    why_it_matters: Decides whether an Illinois member can switch to an affiliate company's plan without health questions, and at what ages.
+    checked: [ilga.gov 215 ILCS 5/363 (compiled), Public Act 102-0142, Public Act 103-0747, IL Department on Aging 2026 Medicare Choices, NAIC chart May 2026]
+    affects: [T65-IL-MEDIGAP-BIRTHDAY, il.idoi.medigap_birthday_window_days, il.idoi.medigap_birthday_affiliate_allowed]
+    status: answered
+    answer: >-
+      Answered from the statute (second pass). 215 ILCS 5/363(8): ages 65 through 75 with an existing
+      Medicare supplement policy; 45 days commencing with the birthday; equal or lesser benefits; same
+      issuer. P.A. 102-0142 took effect January 1, 2022. P.A. 103-0747 added "or any affiliate
+      authorized to transact business in this State", effective January 1, 2026 (its Section 99).
+  - id: T65-IL-OQ-03
+    priority: low
+    question: What document does an Illinois insurer issue to show a birthday-window Medigap policy was issued without underwriting, and does the Department of Insurance prescribe the notice form 215 ILCS 5/363(8) allows?
+    why_it_matters: The agent needs to tell a member what to keep as proof of the switch.
+    checked: [215 ILCS 5/363(8), IL Department on Aging 2026 Medicare Choices]
+    affects: [T65-IL-PROOF-MEDIGAP]
+    status: open
+  - id: T65-IL-OQ-02
+    priority: low
+    question: Does Illinois have any state pharmaceutical assistance program for Medicare beneficiaries today (the former Illinois Cares Rx ended)?
+    why_it_matters: A new 65-year-old may be told about drug help that does not exist.
+    checked: [IL Department on Aging Benefit Access page, SHIP page]
+    status: open
+
+conflicts:
+  - id: T65-IL-CONFLICT-01
+    topic: When the "same issuer or affiliate" expansion of the Illinois Birthday Law took effect
+    claims:
+      - source: il-aging-medicare-choices-2026
+        says: "Public Act 103-0747 revised with new updates starting 1/1/2026."
+      - source: naic-medigap-birthday-chart-2026
+        says: The addition of affiliate insurers was due to legislation that Illinois enacted in 2024.
+      - source: healthinsurance-org-medicare-il
+        says: Enrollees can switch to a plan offered by their current insurer (or an affiliate of their current insurer).
+      - source: ilga-pa-103-0747
+        says: >-
+          "Section 99. Effective date. This Act takes effect January 1, 2026." The Act inserts "or any
+          affiliate authorized to transact business in this State" into Sec. 363(8).
+    handling: >-
+      Resolved by the Public Act. Both earlier claims were compatible: the
+      law was enacted in 2024 (per NAIC; the archive did not capture the
+      approval date) and took effect January 1, 2026. The archive applies the
+      affiliate wording from 2026-01-01 (parameter
+      il.idoi.medigap_birthday_affiliate_allowed); for 2022-2025 only the same
+      issuer is covered.
+    affects: [T65-IL-MEDIGAP-BIRTHDAY, il.idoi.medigap_birthday_affiliate_allowed]
+    status: resolved
+
+claims_checked:
+  - claim: Illinois adopted a Medigap birthday rule, reported effective 2025.
+    verdict: corrected
+    detail: >-
+      Illinois's birthday rule (45 days from the birthday, ages 65-75, same
+      issuer, equal or lesser benefits) took effect January 1, 2022 (P.A.
+      102-0142, Section 99); P.A. 103-0747 added affiliates effective January
+      1, 2026. Neither date is 2025. Verified against the statute and both
+      Public Acts on ilga.gov in the second pass.
+    sources:
+      - {source: ilga-pa-102-0142, locator: "Section 99"}
+      - {source: ilga-pa-103-0747, locator: "Section 99"}
+      - {source: ilga-215-ilcs-5-363, locator: "Sec. 363(8)"}
+  - claim: Illinois's SHIP is the Senior Health Insurance Program.
+    verdict: verified
+    detail: Run by the Illinois Department on Aging (Senior HelpLine 1-800-252-8966).
+    sources: [{source: il-aging-ship, locator: "SHIP"}]

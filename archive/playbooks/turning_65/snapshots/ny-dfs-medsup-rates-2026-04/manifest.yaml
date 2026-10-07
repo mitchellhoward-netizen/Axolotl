@@ -1,0 +1,10 @@
+- retrieved: '2026-10-07'
+  url: https://www.dfs.ny.gov/system/files/documents/2026/03/medsup-2026-04.pdf
+  final_url: https://www.dfs.ny.gov/system/files/documents/2026/03/medsup-2026-04.pdf
+  status: 200
+  content_type: pdf
+  text_sha256: e67830e12536969c041251c4a740639680a0ad625b43145a7af7b4d58c0388d1
+  text: ny-dfs-medsup-rates-2026-04/2026-10-07.txt
+  raw: ny-dfs-medsup-rates-2026-04/2026-10-07.pdf
+  fetched_via: WebFetch (dfs.ny.gov returns 403 to scripts); PDF saved by the research
+    tool

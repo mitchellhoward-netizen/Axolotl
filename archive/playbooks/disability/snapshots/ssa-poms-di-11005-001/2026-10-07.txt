@@ -1,0 +1,351 @@
+Skip to content
+
+Program Operations Manual System (POMS)
+
+Effective Dates: 08/01/2023 - Present
+Previous | Next
+
+TN 134 (05-26)
+
+DI 11005.001 Field Office Disability Interviews
+
+Interviewers should review all relevant queries before conducting the interview, e.g.,
+the Master Beneficiary Record (MBR), Supplemental Security Income Display (SSID),
+Disability Determination Services Query (DDSQ), Hearing and Appeals Case Processing
+System (HACPS), or Appeals Review Processing System (ARPS).
+
+References:
+
+GN 00203.001 General Guidelines for Discussing Benefit Eligibility and Conducting Application
+Interviews
+
+GN 00203.002 Discussing Title II and Title XVI filing options
+
+A. Application interview
+
+The purpose of a application interview before the actual disability interview is to
+determine
+
+•
+
+the types of benefits the claimant may qualify for;
+
+•
+
+whether there are any prior filings;
+
+•
+
+whether there are any eligible dependents to develop for auxiliary (e.g., spouse or
+child) benefits;
+
+•
+
+the need for an interpreter; and
+
+•
+
+the applications, forms, and evidence needed for the interview.
+
+During the
+
+application interview, explain to the
+claimant
+
+•
+
+Eligibility requirements and whether the claimant appears to meet these requirements;
+and
+
+•
+
+Field Office (FO) and Disability Determination Services (DDS) roles in the disability
+claims process.
+
+If the claimant does not appear to meet the eligibility
+requirements
+
+•
+
+Explain why the claimant is ineligible;
+
+•
+
+Issue an informal denial letter; or
+
+•
+
+Advise the claimant of the right to a formal determination if the claimant insists
+on filing.
+
+NOTE: Effective July 28, 2011, we will not accept a new disability application if the claimant
+has a prior disability claim for the same title and benefit type pending at any level of administrative review, unless the
+claimant meets the exception to this procedural change. For more information about
+Subsequent Disability Applications, see DI 51501.000.
+
+1. Interviewing methods
+
+The FO conducts disability interviews by several methods. If the claimant appears
+to meet the eligibility requirements, determine the best method of conducting the
+interview, i.e., face-to-face, self-help (e.g., Internet), telephone, or a combination
+of these methods. For details about the self-help and non-self-help methods, see DI 11005.018B.
+
+2. Determine the best method for conducting the interview
+
+If a claimant calls the FO or comes into the office and wants to file an application
+for disability benefits, ask the claimant questions to help you decide what the best
+method for conducting the interview, such as:
+
+•
+
+Alleged disabling conditions;
+
+•
+
+Ability to understand, read, and write English (For instructions on Special Interviewing
+Situations: Limited English Proficiency (LEP) or Language Assistance Required, see
+GN 00203.011);
+
+•
+
+Deaf or hard-of-hearing (For instructions on Special Interviewing Situations (Deaf
+or Hard-of-Hearing Individual, see GN 00203.012);
+
+•
+
+Blind or visually-impaired;
+
+•
+
+Willingness to complete the required forms; and
+
+•
+
+Computer and Internet access (self-help).
+
+NOTE:
+
+The self-help method may not be appropriate if you determine that FO or DDS recontact
+will be difficult (e.g., when the claimant is homeless, will be difficult to contact
+by telephone, or will be on an extended trip and unavailable for contact). Instead,
+in these situations, complete all required forms during the initial interview and
+do not curtail completion of the SSA-3368 (Disability Report Adult) or SSA-3820 (Disability
+Report Child), and annotate the SSA-3367 (Disability Report Field Office) with the
+reason for any current or expected difficulty in recontacting the claimant.
+
+References:
+
+GN 00203.003 Face-to-Face Contact with Claimants
+
+GN 00301.180 Identifying Claimants Who Need Assistance
+
+GN 00203.009 Difficult Interviewing Situations
+
+DI 11005.020 Curtailing Completion of the SSA-3368 (Disability Report Adult) or the SSA-3820 (Disability
+Report Child) Forms
+
+GN 03910.001 Representation of Claimants Overview
+
+SI 00601.035 Adjudicating Title II When a Title XVI Application Is Filed
+
+B. Disability interview
+
+The goal of a disability interview is to produce a complete and accurate report of
+the alleged disabling conditions and develop for the earliest potential onset date
+(POD) based on non-medical factors. Therefore, give the claimant the opportunity to
+describe in their own words:
+
+•
+
+The alleged disabling conditions;
+
+•
+
+How the conditions prevent or limit work activity; and
+
+•
+
+In a title XVI child claim, how the disabling conditions limit the child’s ability
+to function.
+
+When it is not possible to conduct an application interview, e.g., claimant files
+and Internet claim (iClaim), determine the best method of conducting the interview
+at the beginning of the disability interview, see details in DI 11005.001A.2. in this section.
+
+1. Taking the disability claim
+
+During the interview:
+
+•
+
+Complete the appropriate applications and related forms with the claimant, and obtain
+and explain the purpose of the SSA-827 Authorization to Disclose Information to the
+Social Security Administration.
+
+•
+
+Explain the roles of the FO and DDS in the disability claims process.
+
+•
+
+Help the claimant obtain supporting evidence, e.g., wages from an employer if work
+activity or insured status is an issue; and
+
+•
+
+Tell the claimant about their responsibility to report any change in work activity.
+
+•
+
+If you determine that the claimant does not meet certain factors of technical entitlement,
+e.g., insured status, curtail further development and deny the claim. (Refer to local
+procedures for taking abbreviated applications).
+
+References:
+
+GN 00203.004 Title II and Title XVI Application Interviews
+
+DI 11005.055 Completing the Authorization to Disclose Information to the Social Security Administration
+(SSA) Form SSA-827
+
+DI 11010.025 Guidelines for Deferral of Non-Medical Development
+
+2. Identify potential claims issues
+
+Identify and resolve potential claims issues. For example:
+
+•
+
+Substantial gainful activity (SGA);
+
+•
+
+Potential onset date (POD);
+
+•
+
+Prior claims activity;
+
+•
+
+Workers compensation or public disability benefits (WC/PDB) issues;
+
+•
+
+Claims requiring simultaneous development; and
+
+•
+
+Capability (if it appears the claimant may not be able to manage benefits, request
+capability development by DDS or develop for a representative payee, as appropriate).
+
+References:
+
+DI 10501.025 Responsibilities and Procedures Work Issue Cases
+
+DI 11005.045 Completing the Paper Form SSA-3367F5 (Disability ReportField Office)
+
+DI 11005.085 Prior Claims Activity
+
+DI 11010.025 Guidelines for Deferral of Non-Medical Development
+
+GN 00502.000 Determining the Need for, Developing and Selecting a Representative Payee Table of
+Contents
+
+3. Claimant rights and responsibilities
+
+Advise the claimant of all rights and responsibilities (e.g., reporting work activity,
+changes in contact information, or medical improvement). Explain to the claimant:
+
+•
+
+The importance of identifying all medical sources to assist the DDS in processing
+the case;
+
+•
+
+Full cooperation if special examination is necessary. When a claimant asks about a
+possible special examination, provide the leaflet, A Special Examination Is Needed
+for Your Disability Claim (SSA Publication No. 05-10087);
+
+•
+
+SSAs policy on payment for medical records;
+
+•
+
+His or her responsibility to report any change in work activity;
+
+NOTE: The claimant must report when work stops or starts, hours worked, or earnings.
+
+•
+
+Explain the Ticket To Work program and other work incentives, such as, the trial work
+period (TWP); and
+
+•
+
+Disability benefit payments may not be permanent, and we may review his or her work
+activity or impairments.
+
+Finally, ask the claimant if he or she fully understands his or her rights and responsibilities.
+
+References:
+
+DI 11010.545 Payment for Medical Evidence of Record (MER)
+
+DI 10005.001 Field Office (FO) Role The Disability Process
+
+GN 00203.005 Reporting Instructions Title II Claims
+
+DI 13010.001 Work Activity and Work Incentives
+
+C. Terminating the disability interview
+
+The FO is responsible for reviewing all interview forms for completeness and accuracy
+before sending the claim to the DDS. Ask the claimant to provide any required forms
+or evidence as quickly as possible if we cannot obtain certain information at the
+initial interview. Before terminating the interview:
+
+•
+
+Obtain a valid, acceptable signature;
+
+•
+
+Resolve discrepancies between the applicants statements and other information in the
+case file; and
+
+•
+
+Provide necessary information or guidance to the claimant.
+
+Reference:
+
+GN 00205.115 Retirement, Survivor, Disability Insurance (RSDI) Applications - Signature
+
+Post-interview information
+
+If the claimant calls the FO to provide additional information, record the information
+on the:
+
+•
+
+Report of Contact (RPOC) screen in the Modernized Claims System (MCS) or
+
+•
+
+Report of Contact page in the Consolidated Claims Experience (CCE).
+
+If the claimant provides information that will affect the medical development, enter
+the information via the Update-After-Transfer (UAT) utility and send a message to
+DDS to alert them to the new information.
+
+To Link to this section - Use this URL:
+http://policy.ssa.gov/poms.nsf/lnx/0411005001
+
+DI 11005.001 - Field Office Disability Interviews - 08/01/2023
+
+Batch run: 09/22/2026
+
+Rev:08/01/2023

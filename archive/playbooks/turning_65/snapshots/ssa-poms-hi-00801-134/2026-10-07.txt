@@ -1,0 +1,146 @@
+Skip to content
+
+Program Operations Manual System (POMS)
+
+Effective Dates: 02/01/2023 - Present
+Previous | Next
+
+TN 57 (02-23)
+
+HI 00801.134 HI Premium Reduction for Aged Individuals With At Least 30 Quarters of Coverage
+
+A. Background
+
+Under section 13508 of P.L. 103-66, individuals age 65 or over who are not insured
+for monthly title II benefits and/or premium-free HI, but have at least 30 quarters
+of coverage (QCs), are eligible for a reduction in the amount of their HI premium.
+In some cases, an individual whose spouse or former spouse has at least 30 QCs can
+also qualify for HI premium reduction (see B. below).
+
+The amount of the HI premium reduction for months in 1994 is 25 percent. The amount
+of the reduction increases by 5 percent effective January of each year until the maximum
+reduction of 45 percent is reached in 1998. See HI 01005.007 for the reduced HI premium amount, additional eligibility information, and effective
+dates.
+
+NOTE: Premium reduction also applies to Premium-HI for the Working Disabled. (See HI 00801.170 E. for a discussion of how the reduction applies to the disabled.)
+
+B. Policy-Who is eligible for reduction
+
+An aged individual qualifies for HI premium reduction if:
+
+•
+
+Has 30 or more QCs on own E/R; or
+
+•
+
+Has been married for at least 1 year to a number holder (NH) (any age) with 30 or
+more QCs; or
+
+•
+
+Was married to a deceased NH with 30 or more QCs for at least 1 year prior to the
+death of the NH; or
+
+•
+
+Is divorced, after at least 10 years of marriage, from a NH who had acquired 30 or
+more QCs, at the time the divorce became final.
+
+Normal title II development rules apply in determining and allocating QCs and also
+in determining relationship, divorce and death of the NH. However, it should be noted
+that the duration of marriage requirements for premium reduction for surviving spouses
+differs from the duration of marriage requirement for title II surviving spouses benefits.
+
+C. Policy - When QCs may not be counted
+
+The following QCs may not be counted as QCs for purposes of reducing an individual's HI premium:
+
+•
+
+Deemed Government Employees Quarters of Coverage (GEQCs) for Federal employment performed
+prior to 1983 (see HI 00801.410 B. for a discussion of deemed GEQCs);
+
+•
+
+“Totalization” QCs granted for monthly benefit purposes for work performed under the social security
+system of another country with which SSA has a totalization agreement. (See GN 01701.115.)
+
+NOTE: Actual GEQCs acquired for Federal employment after 1982 and for State or local government
+employment after March 1986 are counted in determining whether a NH has at least 30
+QCs.
+
+D. Procedure - Verifying eligibility for reduction
+
+1. NH
+
+Verify that the NH has at least 30 QCs.
+
+2. Spouse
+
+For a spouse, obtain:
+
+•
+
+Proof of marriage; and
+
+•
+
+Verification that the NH has at least 30 QCs.
+
+Advise the enrollee to report any change in marital status.
+
+3. Surviving Spouse
+
+For a surviving spouse, obtain:
+
+•
+
+Proof of marriage;
+
+•
+
+Evidence of the death of the NH; and
+
+•
+
+Verification that the NH has at least 30 QCs.
+
+4. Divorced spouse
+
+For a divorced spouse, obtain:
+
+•
+
+Proof of marriage;
+
+•
+
+Proof of divorce;
+
+•
+
+Evidence of the death of the NH (if the Premium-HI enrollee is a surviving divorced
+spouse); and
+
+•
+
+Verification that the NH had at least 30 QCs at the time the divorce occurred.
+
+E. Procedure- Current enrollee
+
+If an individual who is currently entitled to Premium-HI inquires about HI premium
+reduction, develop as described in HI 00801.134D. Forward all development to the appropriate PC. Annotate the cover sheet in red “Premium-HI Reduction Case.”
+
+F. Procedure - Establishing entitlement
+
+Establish entitlement under the individual's own SSN using the BIC of “M,” even if eligiblity for premium reduction is based on another individual's earnings.
+
+To Link to this section - Use this URL:
+http://policy.ssa.gov/poms.nsf/lnx/0600801134
+
+HI 00801.134 - HI Premium Reduction for Aged Individuals With At Least 30 Quarters of Coverage - 02/01/2023
+
+Batch run: 02/01/2023
+
+Rev:02/01/2023

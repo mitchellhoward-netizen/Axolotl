@@ -1,0 +1,313 @@
+Skip to content
+
+Program Operations Manual System (POMS)
+
+Effective Dates: 01/10/2023 - Present
+Previous | Next
+
+TN 43 (01-23)
+
+DI 25501.300 Established Onset Dates (EOD) for Disability Insurance Benefit (DIB) Claims
+
+A. Policy for establishing the established onset date (EOD) for DIB claims
+
+1. General DIB onset rules
+
+We must establish the EOD on the earliest possible date based on the evidence and
+our program rules. This is important for the following reasons.
+
+•
+
+It affects the claimant’s monthly benefit amount.
+
+•
+
+It may affect the period for which the claimant qualifies for benefits or payments.
+
+•
+
+It may affect whether the claimant is entitled to future or subsequent benefits, if
+we cease the claimant’s benefits.
+
+•
+
+We may adopt the EOD when adjudicating subsequent claims, thereby saving agency resources.
+
+2. When you don’t need an exact EOD
+
+In many instances, we do not need to establish an exact EOD for DIB claims. After
+the first day of the month, all other days of that month have an equal effect on the
+claimant’s monthly benefit and waiting period. Onset on the first day of the month
+affects the date that the five-month waiting period starts. If we establish the EOD
+after the first day of the month, the five-month waiting period begins on the first
+day of the following month. Onset on the first day of the month can also affect the
+amount of the claimant’s monthly benefit (the primary insurance amount or PIA), the
+timeframe used to calculate the disability waiting period, or the Medicare eligibility
+period. Therefore, if we can determine the claimant did not become disabled on the
+first day of the month, any date within that month is a fully favorable onset date
+as long as:
+
+•
+
+the claimant did not allege an onset date on the first day of the month, or
+
+•
+
+the claimant did not first meet the medical or medical-vocational criteria on the
+first day of the month.
+
+Sometimes we cannot pinpoint the exact day in a given month a claimant became disabled.
+If we can determine the claimant did not become disabled on the first day of the month,
+any date within the given month is a fully favorable onset date.
+
+EXCEPTION: For Title II DIB claims with partially favorable onsets established at the beginning
+of a quarter (i.e., first day of the month). and the onset is not limited by attainment
+of age, the last day of SGA, or a traumatic onset, change the onset to the last day
+of the previous quarter (e.g., 03/31, 06/30, 09/30, or 12/31) to provide the most
+favorable onset, as this affects the freeze period.
+
+3. When you need an exact EOD
+
+If the claimant alleges an onset date on the first day of a month or there is evidence
+that a claimant became disabled on the first day of a month, we will attempt to obtain
+all available evidence necessary to determine the exact day of that month the claimant
+became disabled.
+
+4. Onset and the five month waiting period
+
+The EOD is the first day of the claimant’s five-month waiting period. If we establish
+onset after the first day of the month, the claimant’s five-month waiting period begins
+the first day of the following month.
+
+EXCEPTION: There is no waiting period for a DIB claim approved based on Amyotrophic Lateral
+Sclerosis (ALS) with a Notice of Award date on or after 07/23/2020.
+
+5. Expedient for establishing an EOD in the same year and calendar quarter
+
+When the earliest possible EOD is not clear, we do not need to do additional development
+to establish an exact EOD, if:
+
+•
+
+the evidence is sufficient to establish an EOD as of the last day of the same calendar
+quarter (that is, 03/31, 06/30, 09/30, or 12/31) in which the alleged onset date (AOD)
+or potential onset date (POD) falls , and
+
+•
+
+the date after the five month waiting period is more than 12 full calendar months
+prior to the filing date, and
+
+•
+
+insured status is met at the EOD.
+
+We apply this expedient only when the claimant meets all of the bulleted requirements.
+
+EXAMPLE: If the filing date is 11/02/2011 and the AOD is 04/07/2001, the expedient allows establishing
+an EOD of 06/30/2001, the last day of the same calendar quarter and year as the AOD.
+No further development of the exact EOD is necessary if the evidence is sufficient
+to establish disability began no later than 06/30/2001.
+
+IMPORTANT: Do not use this expedient if the claimant also filed an application for Childhood
+Disability Benefits.
+
+NOTE: If the expedient applies, the determination is fully favorable and the claimant does
+not need a personalized disability notice. However, you do need to complete a written
+rationale for the case folder explaining the adjudicator used this policy to determine
+the EOD. For more information on preparing an EOD rationale, see DI 25501.200C.1.
+
+6. Date first insured (DFI)
+
+The DFI is the date the claimant first meets insured status. Since a claimant must
+meet insured status requirements to establish entitlement to benefits, the EOD cannot
+be before the DFI. However, the adjudicator may consider the period before EOD to
+determine whether the claimant meets the 12-month duration requirement (see DI 25501.310 Onset and Date First Insured).
+
+7. Date last insured (DLI)
+
+The DLI is the last day of the last quarter the claimant meets the disability insured
+status requirements. The EOD must be established on or before the DLI for a claimant
+to be entitled to benefits (see RS 00301.148).
+
+8. Insured status for DIB or disability freeze
+
+A claimant must meet insured status requirements at the time of the EOD. The insured
+status requirements differ for entitlement to DIB, to a disability freeze based on
+disability (see RS 00301.120), or to benefits or a freeze based on statutory blindness (see RS 00301.150). For more information on insured status requirements, see RS 00301.101.
+
+a.
+
+For DIB or disability freeze based on disability, the claimant must:
+
+•
+
+meet disability insurance status requirements at the time of the EOD and,
+
+•
+
+be fully insured (that is, meet “20/40” or “special insured status for disability
+before age 31” criteria). (See RS 00301.120 and RS 00301.140.)
+
+b.
+
+For DIB or a disability freeze based on statutory blindness, the claimant must be
+fully insured, but does not need to be currently insured (see RS 00301.150). In addition, a claimant filing for statutory blindness benefits may have two different
+EODs, that is, an EOD for freeze purposes (which does not consider substantial gainful
+activity (SGA) and an EOD for monetary benefits (which does consider SGA). A claimant
+may have different EODs for blind and non-blind benefits. The FO must advise the Disability
+Determination Services (DDS) on the SSA-3367 (Disability Report-Field Office) of all
+Potential Onset Dates (POD) (there may be two or more) and explain each date.
+
+B. Component roles for establishing the EOD for DIB claims
+
+1. Field office (FO)
+
+The FO provides the DDS with the claimant’s AOD, POD, DFI, and the DLI. If the DLI
+is in the past and claimant alleges vision loss, the FO provides a blindness DLI.
+
+2. Disability Determination Services (DDS)
+
+The DDS establishes the earliest possible EOD supported by the medical evidence of
+record and the policy stated in DI 25501.300A in this section. The EOD cannot be earlier than the DFI or later than the DLI.
+
+C. Component instructions for establishing the EOD for DIB claims
+
+1. Field office (FO)
+
+a.
+
+If there is no allegation of statutory blindness, take the following actions.
+
+1.
+
+Complete the EDCS-3367 Disability Report – Field Office “Onset” page.
+
+2.
+
+Complete the “Miscellaneous, DWB and Prior Filing Information” page, following the
+instructions found in DI 81010.025.
+
+3.
+
+For EDCS exclusion claims, follow the instructions found in DI 11005.045B and:
+
+•
+
+complete Form SSA-3367 (Disability Report – Field Office),
+
+•
+
+indicate the claimant’s AOD in section 2,
+
+•
+
+indicate the POD in section 3,
+
+•
+
+indicate DLI in section 6,
+
+•
+
+annotate the DFI in section 5, and
+
+•
+
+if the claimant also filed for Childhood Disability Benefits, annotate the following
+in the remarks section, “Claimant has also filed for Childhood Disability Benefits.
+Do not use the DIB expedient when establishing onset.”
+
+b.
+
+If there is an allegation of statutory blindness, take the following actions.
+
+•
+
+On the EDCS screens, or in items 3 and 4 of the paper SSA-3367, enter the DLI in the
+space provided and check the “Date Last Insured” and “Statutorily Blind” boxes.
+
+•
+
+Enter the following statement in the “Explanation for potential onset date,” in the
+applicable box on the EDCS screen, or in item 5 on the paper SSA-3367: “Possible later
+DLI due to claimant meeting fully insured status, if claimant is found statutorily
+blind.”
+
+•
+
+Finally, on the EDCS screens, or in item 6 on the paper SSA-3367, enter the non-blind
+Date Last Insured in the space provided.
+
+•
+
+If the claimant also filed for Childhood Disability Benefits, annotate the following
+in the remarks section, “Claimant has also filed for Childhood Disability Benefits.
+Do not use the DIB expedient when establishing onset.”
+
+For more information on completing the EDCS 3367, see DI 11005.045B.
+
+2. Disability Determination Services (DDS)
+
+After obtaining the claimant’s POD (provided by the FO), take the following actions.
+
+a.
+
+Secure sufficient medical evidence and non-medical evidence to determine the earliest
+possible EOD supported by the medical and other evidence.
+
+b.
+
+Establish the earliest EOD based on the claimant’s POD, as well as the medical and
+other evidence in file, using the policy stated in DI 25501.300A in this section. The EOD must be on or after the DFI and no later than the DLI.
+
+c.
+
+If you know the month of onset, but you do not know the specific day, establish onset on the last day of the month. However, if the AOD or POD is the
+first day of the month, fully develop the claim to determine the exact EOD.
+
+d.
+
+Suggestion: Explain the EOD on an appropriate medical assessment form explaining judgment
+factors used to arrive at the EOD. For more information on preparing an EOD explanation,
+see DI 25501.200C. Preparing an explanation is not required. However, providing a well-written explanation
+may preclude a third party quality reviewer from disagreeing with your EOD and citing
+a deficiency.
+
+NOTE: In some instances, in the absence of SGA, we may need to consider the severity of
+the claimant’s condition before the DFI to evaluate the 12-month duration period.
+
+e.
+
+If the actual onset date predates the DFI, on the SSA-831:
+
+•
+
+enter the DFI in item 15A;
+
+•
+
+enter the following statement, “Item 15A is based on date first insured. Impairment(s)
+was of disabling severity for purposes of the duration requirement as of [enter the
+actual onset date],” in item 34,
+
+•
+
+prepare a personalized disability explanation (PDE) if the EOD is partially favorable
+and send the PDE with an SSA-L1157–DI. (For information on Notifying the Claimant
+of a Partially Favorable Allowance, see DI 25501.280.)
+
+f.
+
+If you use the expedient found in DI 25501.300A.5 to establish the EOD, input the following in item 34 of the SSA-831, “DIB EOD expedient
+was used to establish EOD. Additional onset development is required if claimant applies
+for Childhood Disability Benefits.”
+
+To Link to this section - Use this URL:
+http://policy.ssa.gov/poms.nsf/lnx/0425501300
+
+DI 25501.300 - Established Onset Dates (EOD) for Disability Insurance Benefit (DIB) Claims - 01/10/2023
+
+Batch run: 09/22/2026
+
+Rev:01/10/2023

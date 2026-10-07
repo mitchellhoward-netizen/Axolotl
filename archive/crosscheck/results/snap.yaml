@@ -1,0 +1,1300 @@
+program: snap
+policyengine_us_version: 2.29.14
+run_on: '2026-10-07'
+rows:
+- case: SNAP-CA-T01
+  state: ca
+  title: Single worker earning $2,610 = CalFresh 200% BBCE limit (minimum benefit)
+  ours:
+    status: eligible
+    tier: null
+    benefit_monthly: 24.0
+    net_income_monthly: 1135.0
+    utility_allowance_monthly: 663.0
+  policyengine:
+    status: ineligible
+    tier: null
+    benefit_monthly: 0.0
+    net_income_monthly: 1135.0
+    utility_allowance_monthly: 663.0
+  agree: false
+  explanation: 'Threshold rounding, a PolicyEngine modelling choice. These households sit exactly at the state''s published BBCE gross limit.
+    PolicyEngine computes the limit as percent x the 2025 poverty guideline / 12 without rounding (e.g. California 200% for one person = $2,608.33;
+    Illinois 165% = $2,151.88; New York 150% = $1,956.25), so a household at the published figure is $1-2 over in PolicyEngine. The states publish
+    whole-dollar limits that the archive uses: CDSS ACIN I-46-25 ($2,610 / $3,526 / $5,360), IDHS MR #25.33 ($2,152 / $2,909 / $4,421) and OTDA
+    GIS 25 DC059 ($1,957). Illinois cases also differ by the standard deduction (next entry), which does not change the status.'
+- case: SNAP-CA-T02
+  state: ca
+  title: "Single worker earning $2,611 \u2014 $1 over the 200% limit"
+  ours:
+    status: ineligible
+    tier: null
+    benefit_monthly: 0.0
+    net_income_monthly: 1135.8
+    utility_allowance_monthly: 663.0
+  policyengine:
+    status: ineligible
+    tier: null
+    benefit_monthly: 0.0
+    net_income_monthly: 1136.0
+    utility_allowance_monthly: 663.0
+  agree: true
+  explanation: null
+- case: SNAP-CA-T03
+  state: ca
+  title: Single parent with one child earning $3,526 = 200% limit for 2, $200 child care
+  ours:
+    status: eligible
+    tier: null
+    benefit_monthly: 45.0
+    net_income_monthly: 1667.8
+    utility_allowance_monthly: 663.0
+  policyengine:
+    status: ineligible
+    tier: null
+    benefit_monthly: 0.0
+    net_income_monthly: 1668.0
+    utility_allowance_monthly: 663.0
+  agree: false
+  explanation: 'Threshold rounding, a PolicyEngine modelling choice. These households sit exactly at the state''s published BBCE gross limit.
+    PolicyEngine computes the limit as percent x the 2025 poverty guideline / 12 without rounding (e.g. California 200% for one person = $2,608.33;
+    Illinois 165% = $2,151.88; New York 150% = $1,956.25), so a household at the published figure is $1-2 over in PolicyEngine. The states publish
+    whole-dollar limits that the archive uses: CDSS ACIN I-46-25 ($2,610 / $3,526 / $5,360), IDHS MR #25.33 ($2,152 / $2,909 / $4,421) and OTDA
+    GIS 25 DC059 ($1,957). Illinois cases also differ by the standard deduction (next entry), which does not change the status.'
+- case: SNAP-CA-T04
+  state: ca
+  title: "Single parent with one child earning $3,527 \u2014 $1 over the 200% limit for 2"
+  ours:
+    status: ineligible
+    tier: null
+    benefit_monthly: 0.0
+    net_income_monthly: 1668.6
+    utility_allowance_monthly: 663.0
+  policyengine:
+    status: ineligible
+    tier: null
+    benefit_monthly: 0.0
+    net_income_monthly: 1669.0
+    utility_allowance_monthly: 663.0
+  agree: true
+  explanation: null
+- case: SNAP-CA-T05
+  state: ca
+  title: Family of 4 earning $5,360 = 200% limit for 4, $700 child care
+  ours:
+    status: eligible
+    tier: null
+    benefit_monthly: 207.0
+    net_income_monthly: 2621.0
+    utility_allowance_monthly: 663.0
+  policyengine:
+    status: ineligible
+    tier: null
+    benefit_monthly: 0.0
+    net_income_monthly: 2621.0
+    utility_allowance_monthly: 663.0
+  agree: false
+  explanation: 'Threshold rounding, a PolicyEngine modelling choice. These households sit exactly at the state''s published BBCE gross limit.
+    PolicyEngine computes the limit as percent x the 2025 poverty guideline / 12 without rounding (e.g. California 200% for one person = $2,608.33;
+    Illinois 165% = $2,151.88; New York 150% = $1,956.25), so a household at the published figure is $1-2 over in PolicyEngine. The states publish
+    whole-dollar limits that the archive uses: CDSS ACIN I-46-25 ($2,610 / $3,526 / $5,360), IDHS MR #25.33 ($2,152 / $2,909 / $4,421) and OTDA
+    GIS 25 DC059 ($1,957). Illinois cases also differ by the standard deduction (next entry), which does not change the status.'
+- case: SNAP-CA-T06
+  state: ca
+  title: "Family of 4 earning $5,361 \u2014 $1 over the 200% limit for 4"
+  ours:
+    status: ineligible
+    tier: null
+    benefit_monthly: 0.0
+    net_income_monthly: 2621.8
+    utility_allowance_monthly: 663.0
+  policyengine:
+    status: ineligible
+    tier: null
+    benefit_monthly: 0.0
+    net_income_monthly: 2622.0
+    utility_allowance_monthly: 663.0
+  agree: true
+  explanation: null
+- case: SNAP-CA-T07
+  state: ca
+  title: 'Retiree, SS $2,700 (over 200%), $5,000 savings: regular rules, fails the $4,500 resource limit'
+  ours:
+    status: ineligible
+    tier: null
+    benefit_monthly: 0.0
+    net_income_monthly: 1173.5
+    utility_allowance_monthly: 663.0
+  policyengine:
+    status: ineligible
+    tier: null
+    benefit_monthly: 0.0
+    net_income_monthly: 1174.0
+    utility_allowance_monthly: 663.0
+  agree: true
+  explanation: null
+- case: SNAP-CA-T08
+  state: ca
+  title: 'Retiree, SS $2,700 (over 200%), $2,000 savings: no gross test, net test passed'
+  ours:
+    status: eligible
+    tier: null
+    benefit_monthly: 24.0
+    net_income_monthly: 921.65
+    utility_allowance_monthly: 663.0
+  policyengine:
+    status: eligible
+    tier: null
+    benefit_monthly: 24.0
+    net_income_monthly: 922.0
+    utility_allowance_monthly: 663.0
+  agree: true
+  explanation: null
+- case: SNAP-CA-T09
+  state: ca
+  title: "Retiree, medical costs exactly $35 \u2014 no deduction"
+  ours:
+    status: eligible
+    tier: null
+    benefit_monthly: 65.0
+    net_income_monthly: 773.5
+    utility_allowance_monthly: 663.0
+  policyengine:
+    status: eligible
+    tier: null
+    benefit_monthly: 65.0
+    net_income_monthly: 774.0
+    utility_allowance_monthly: 663.0
+  agree: true
+  explanation: null
+- case: SNAP-CA-T10
+  state: ca
+  title: "Retiree, medical costs $36 \u2014 $150 Standard Medical Deduction"
+  ours:
+    status: eligible
+    tier: null
+    benefit_monthly: 133.0
+    net_income_monthly: 548.5
+    utility_allowance_monthly: 663.0
+  policyengine:
+    status: eligible
+    tier: null
+    benefit_monthly: 133.0
+    net_income_monthly: 549.0
+    utility_allowance_monthly: 663.0
+  agree: true
+  explanation: null
+- case: SNAP-CA-T11
+  state: ca
+  title: "Retiree, medical costs $186 \u2014 actual costs over $35 ($151)"
+  ours:
+    status: eligible
+    tier: null
+    benefit_monthly: 133.0
+    net_income_monthly: 547.0
+    utility_allowance_monthly: 663.0
+  policyengine:
+    status: eligible
+    tier: null
+    benefit_monthly: 133.0
+    net_income_monthly: 547.0
+    utility_allowance_monthly: 663.0
+  agree: true
+  explanation: null
+- case: SNAP-CA-T12
+  state: ca
+  title: "Worker with high rent and no elderly member \u2014 shelter deduction capped at $744"
+  ours:
+    status: eligible
+    tier: null
+    benefit_monthly: 247.0
+    net_income_monthly: 167.0
+    utility_allowance_monthly: 663.0
+  policyengine:
+    status: eligible
+    tier: null
+    benefit_monthly: 247.0
+    net_income_monthly: 167.0
+    utility_allowance_monthly: 663.0
+  agree: true
+  explanation: null
+- case: SNAP-CA-T13
+  state: ca
+  title: 'Worker with $20,000 savings, gross under 200%: BBCE, no asset test'
+  ours:
+    status: eligible
+    tier: null
+    benefit_monthly: 55.0
+    net_income_monthly: 807.0
+    utility_allowance_monthly: 663.0
+  policyengine:
+    status: eligible
+    tier: null
+    benefit_monthly: 55.0
+    net_income_monthly: 807.0
+    utility_allowance_monthly: 663.0
+  agree: true
+  explanation: null
+- case: SNAP-CA-T15
+  state: ca
+  title: 'Disabled renter (SSDI) with no heating bill: SUA through SUAS'
+  ours:
+    status: eligible
+    tier: null
+    benefit_monthly: 230.0
+    net_income_monthly: 223.5
+    utility_allowance_monthly: 663.0
+  policyengine:
+    status: eligible
+    tier: null
+    benefit_monthly: 230.0
+    net_income_monthly: 224.0
+    utility_allowance_monthly: 663.0
+  agree: true
+  explanation: null
+- case: SNAP-CA-T17
+  state: ca
+  title: 'FY 2027: single worker earning $2,660 = 200% limit'
+  ours:
+    status: eligible
+    tier: null
+    benefit_monthly: 25.0
+    net_income_monthly: 1142.0
+    utility_allowance_monthly: 686.0
+  policyengine:
+    status: eligible
+    tier: null
+    benefit_monthly: 25.0
+    net_income_monthly: 1142.0
+    utility_allowance_monthly: 663.0
+  agree: true
+  explanation: null
+- case: SNAP-CA-T18
+  state: ca
+  title: "FY 2027: single worker earning $2,661 \u2014 $1 over"
+  ours:
+    status: ineligible
+    tier: null
+    benefit_monthly: 0.0
+    net_income_monthly: 1142.8
+    utility_allowance_monthly: 686.0
+  policyengine:
+    status: ineligible
+    tier: null
+    benefit_monthly: 0.0
+    net_income_monthly: 1143.0
+    utility_allowance_monthly: 663.0
+  agree: true
+  explanation: null
+- case: SNAP-CA-T19
+  state: ca
+  title: 'FY 2027: retiree, SUA $686, SMD $150'
+  ours:
+    status: eligible
+    tier: null
+    benefit_monthly: 211.0
+    net_income_monthly: 313.5
+    utility_allowance_monthly: 686.0
+  policyengine:
+    status: eligible
+    tier: null
+    benefit_monthly: 204.0
+    net_income_monthly: 337.0
+    utility_allowance_monthly: 663.0
+  agree: false
+  explanation: 'FY 2027 California SUA: CDSS ACIN I-40-26 raises the SUA to $686 from October 1, 2026; PolicyEngine''s California SUA parameter
+    stops at the FY 2026 value ($663). The archive''s higher utility allowance gives a $7 higher benefit.'
+- case: SNAP-CA-T21
+  state: ca
+  title: 'Same worker in CA, NY and IL: earned $2,200, $20,000 savings (BBCE gross limits differ: 200% / 150% / 165%)'
+  ours:
+    status: eligible
+    tier: null
+    benefit_monthly: 55.0
+    net_income_monthly: 807.0
+    utility_allowance_monthly: 663.0
+  policyengine:
+    status: eligible
+    tier: null
+    benefit_monthly: 55.0
+    net_income_monthly: 807.0
+    utility_allowance_monthly: 663.0
+  agree: true
+  explanation: null
+- case: SNAP-CA-T21
+  state: ny
+  title: 'Same worker in CA, NY and IL: earned $2,200, $20,000 savings (BBCE gross limits differ: 200% / 150% / 165%)'
+  ours:
+    status: ineligible
+    tier: null
+    benefit_monthly: 0.0
+    net_income_monthly: 807.0
+    utility_allowance_monthly: 877.0
+  policyengine:
+    status: ineligible
+    tier: null
+    benefit_monthly: 0.0
+    net_income_monthly: 807.0
+    utility_allowance_monthly: 877.0
+  agree: true
+  explanation: null
+- case: SNAP-CA-T21
+  state: il
+  title: 'Same worker in CA, NY and IL: earned $2,200, $20,000 savings (BBCE gross limits differ: 200% / 150% / 165%)'
+  ours:
+    status: ineligible
+    tier: null
+    benefit_monthly: 0.0
+    net_income_monthly: 811.0
+    utility_allowance_monthly: 546.0
+  policyengine:
+    status: ineligible
+    tier: null
+    benefit_monthly: 0.0
+    net_income_monthly: 807.0
+    utility_allowance_monthly: 546.0
+  agree: true
+  explanation: null
+- case: SNAP-X-03
+  state: ca
+  title: 'Disability crossing: California adult on SSDI, $8,000 savings, SS $1,900'
+  ours:
+    status: eligible
+    tier: null
+    benefit_monthly: 125.0
+    net_income_monthly: 573.5
+    utility_allowance_monthly: 663.0
+  policyengine:
+    status: eligible
+    tier: null
+    benefit_monthly: 125.0
+    net_income_monthly: 574.0
+    utility_allowance_monthly: 663.0
+  agree: true
+  explanation: null
+- case: SNAP-IL-T01
+  state: il
+  title: Single, unemployment $2,152 = Illinois 165% limit (minimum benefit, no net test)
+  ours:
+    status: eligible
+    tier: null
+    benefit_monthly: 24.0
+    net_income_monthly: 1474.5
+    utility_allowance_monthly: 546.0
+  policyengine:
+    status: ineligible
+    tier: null
+    benefit_monthly: 0.0
+    net_income_monthly: 1469.0
+    utility_allowance_monthly: 546.0
+  agree: false
+  explanation: 'Threshold rounding, a PolicyEngine modelling choice. These households sit exactly at the state''s published BBCE gross limit.
+    PolicyEngine computes the limit as percent x the 2025 poverty guideline / 12 without rounding (e.g. California 200% for one person = $2,608.33;
+    Illinois 165% = $2,151.88; New York 150% = $1,956.25), so a household at the published figure is $1-2 over in PolicyEngine. The states publish
+    whole-dollar limits that the archive uses: CDSS ACIN I-46-25 ($2,610 / $3,526 / $5,360), IDHS MR #25.33 ($2,152 / $2,909 / $4,421) and OTDA
+    GIS 25 DC059 ($1,957). Illinois cases also differ by the standard deduction (next entry), which does not change the status.'
+- case: SNAP-IL-T02
+  state: il
+  title: "Single, unemployment $2,153 \u2014 $1 over 165%"
+  ours:
+    status: ineligible
+    tier: null
+    benefit_monthly: 0.0
+    net_income_monthly: 1476.0
+    utility_allowance_monthly: 546.0
+  policyengine:
+    status: ineligible
+    tier: null
+    benefit_monthly: 0.0
+    net_income_monthly: 1470.0
+    utility_allowance_monthly: 546.0
+  agree: true
+  explanation: null
+- case: SNAP-IL-T03
+  state: il
+  title: Couple, both on unemployment, $2,909 total = 165% limit for 2
+  ours:
+    status: eligible
+    tier: null
+    benefit_monthly: 24.0
+    net_income_monthly: 2310.0
+    utility_allowance_monthly: 546.0
+  policyengine:
+    status: ineligible
+    tier: null
+    benefit_monthly: 0.0
+    net_income_monthly: 2304.0
+    utility_allowance_monthly: 546.0
+  agree: false
+  explanation: 'Threshold rounding, a PolicyEngine modelling choice. These households sit exactly at the state''s published BBCE gross limit.
+    PolicyEngine computes the limit as percent x the 2025 poverty guideline / 12 without rounding (e.g. California 200% for one person = $2,608.33;
+    Illinois 165% = $2,151.88; New York 150% = $1,956.25), so a household at the published figure is $1-2 over in PolicyEngine. The states publish
+    whole-dollar limits that the archive uses: CDSS ACIN I-46-25 ($2,610 / $3,526 / $5,360), IDHS MR #25.33 ($2,152 / $2,909 / $4,421) and OTDA
+    GIS 25 DC059 ($1,957). Illinois cases also differ by the standard deduction (next entry), which does not change the status.'
+- case: SNAP-IL-T04
+  state: il
+  title: "Couple, both on unemployment, $2,910 total \u2014 $1 over 165% for 2"
+  ours:
+    status: ineligible
+    tier: null
+    benefit_monthly: 0.0
+    net_income_monthly: 2311.5
+    utility_allowance_monthly: 546.0
+  policyengine:
+    status: ineligible
+    tier: null
+    benefit_monthly: 0.0
+    net_income_monthly: 2306.0
+    utility_allowance_monthly: 546.0
+  agree: true
+  explanation: null
+- case: SNAP-IL-T05
+  state: il
+  title: Family of 4 earning $4,421 = 165% limit for 4, $800 child care
+  ours:
+    status: eligible
+    tier: null
+    benefit_monthly: 461.0
+    net_income_monthly: 1773.8
+    utility_allowance_monthly: 546.0
+  policyengine:
+    status: ineligible
+    tier: null
+    benefit_monthly: 0.0
+    net_income_monthly: 1770.0
+    utility_allowance_monthly: 546.0
+  agree: false
+  explanation: 'Threshold rounding, a PolicyEngine modelling choice. These households sit exactly at the state''s published BBCE gross limit.
+    PolicyEngine computes the limit as percent x the 2025 poverty guideline / 12 without rounding (e.g. California 200% for one person = $2,608.33;
+    Illinois 165% = $2,151.88; New York 150% = $1,956.25), so a household at the published figure is $1-2 over in PolicyEngine. The states publish
+    whole-dollar limits that the archive uses: CDSS ACIN I-46-25 ($2,610 / $3,526 / $5,360), IDHS MR #25.33 ($2,152 / $2,909 / $4,421) and OTDA
+    GIS 25 DC059 ($1,957). Illinois cases also differ by the standard deduction (next entry), which does not change the status.'
+- case: SNAP-IL-T06
+  state: il
+  title: "Family of 4 earning $4,422 \u2014 $1 over 165% for 4"
+  ours:
+    status: ineligible
+    tier: null
+    benefit_monthly: 0.0
+    net_income_monthly: 1774.6
+    utility_allowance_monthly: 546.0
+  policyengine:
+    status: ineligible
+    tier: null
+    benefit_monthly: 0.0
+    net_income_monthly: 1771.0
+    utility_allowance_monthly: 546.0
+  agree: true
+  explanation: null
+- case: SNAP-IL-T07
+  state: il
+  title: 'Retiree with $10,000 savings, gross $2,608 = 200% qualifying-member limit: categorically eligible'
+  ours:
+    status: eligible
+    tier: null
+    benefit_monthly: 24.0
+    net_income_monthly: 1558.5
+    utility_allowance_monthly: 546.0
+  policyengine:
+    status: eligible
+    tier: null
+    benefit_monthly: 24.0
+    net_income_monthly: 1553.0
+    utility_allowance_monthly: 546.0
+  agree: true
+  explanation: null
+- case: SNAP-IL-T08
+  state: il
+  title: "Retiree with $10,000 savings, gross $2,609 \u2014 over 200%, regular resource limit fails"
+  ours:
+    status: ineligible
+    tier: null
+    benefit_monthly: 0.0
+    net_income_monthly: 1560.0
+    utility_allowance_monthly: 546.0
+  policyengine:
+    status: ineligible
+    tier: null
+    benefit_monthly: 0.0
+    net_income_monthly: 1554.0
+    utility_allowance_monthly: 546.0
+  agree: true
+  explanation: null
+- case: SNAP-IL-T09
+  state: il
+  title: 'Retiree, SS $2,700 (over 200%), modest savings: net test only, passed'
+  ours:
+    status: eligible
+    tier: null
+    benefit_monthly: 24.0
+    net_income_monthly: 1019.0
+    utility_allowance_monthly: 546.0
+  policyengine:
+    status: eligible
+    tier: null
+    benefit_monthly: 24.0
+    net_income_monthly: 1013.0
+    utility_allowance_monthly: 546.0
+  agree: true
+  explanation: null
+- case: SNAP-IL-T10
+  state: il
+  title: "Retiree, medical costs exactly $35 \u2014 no deduction"
+  ours:
+    status: eligible
+    tier: null
+    benefit_monthly: 29.0
+    net_income_monthly: 896.5
+    utility_allowance_monthly: 546.0
+  policyengine:
+    status: eligible
+    tier: null
+    benefit_monthly: 30.0
+    net_income_monthly: 891.0
+    utility_allowance_monthly: 546.0
+  agree: true
+  explanation: null
+- case: SNAP-IL-T11
+  state: il
+  title: "Retiree, medical costs $36 \u2014 $185 Standard Medical Deduction"
+  ours:
+    status: eligible
+    tier: null
+    benefit_monthly: 112.0
+    net_income_monthly: 619.0
+    utility_allowance_monthly: 546.0
+  policyengine:
+    status: eligible
+    tier: null
+    benefit_monthly: 114.0
+    net_income_monthly: 613.0
+    utility_allowance_monthly: 546.0
+  agree: false
+  explanation: 'Illinois standard deduction. IDHS budgets $205 for 1-3 people in FY 2026 (MR #25.33; $213 in FY 2027, MR #26.26), $4 below the
+    FNS table ($209) that PolicyEngine uses for every state; net income is $4-6 higher in the archive and the benefit $2 lower. The reason for
+    Illinois'' lower figure is open (SNAP-IL-CONFLICT-01, SNAP-IL-OQ-01).'
+- case: SNAP-IL-T12
+  state: il
+  title: "Worker with high rent, no qualifying member \u2014 shelter capped at $744"
+  ours:
+    status: eligible
+    tier: null
+    benefit_monthly: 246.0
+    net_income_monthly: 171.0
+    utility_allowance_monthly: 546.0
+  policyengine:
+    status: eligible
+    tier: null
+    benefit_monthly: 247.0
+    net_income_monthly: 167.0
+    utility_allowance_monthly: 546.0
+  agree: true
+  explanation: null
+- case: SNAP-IL-T13
+  state: il
+  title: 'Worker paying $150 child support: excluded from gross, brings $2,250 earnings under 165%'
+  ours:
+    status: eligible
+    tier: null
+    benefit_monthly: 87.0
+    net_income_monthly: 701.0
+    utility_allowance_monthly: 546.0
+  policyengine:
+    status: eligible
+    tier: null
+    benefit_monthly: 88.0
+    net_income_monthly: 697.0
+    utility_allowance_monthly: 546.0
+  agree: true
+  explanation: null
+- case: SNAP-IL-T14
+  state: il
+  title: 'Non-elderly household with LIHEAP but no heating bill: Limited Utility Standard, not AC/Heating'
+  ours:
+    status: eligible
+    tier: null
+    benefit_monthly: 294.0
+    net_income_monthly: 11.0
+    utility_allowance_monthly: 457.0
+  policyengine:
+    status: eligible
+    tier: null
+    benefit_monthly: 295.0
+    net_income_monthly: 7.0
+    utility_allowance_monthly: 457.0
+  agree: true
+  explanation: null
+- case: SNAP-IL-T15
+  state: il
+  title: 'Elderly household with LIHEAP and heat included in rent: AC/Heating Standard'
+  ours:
+    status: eligible
+    tier: null
+    benefit_monthly: 209.0
+    net_income_monthly: 296.5
+    utility_allowance_monthly: 546.0
+  policyengine:
+    status: eligible
+    tier: null
+    benefit_monthly: 46.0
+    net_income_monthly: 837.0
+    utility_allowance_monthly: 0.0
+  agree: false
+  explanation: 'LIHEAP-conferred utility allowance. The household has heat included in rent but received a LIHEAP payment and has a qualifying
+    (60+) member, so IDHS gives the AC/Heating standard (PM 13-01-08-b; MR #25.33). PolicyEngine has no LIHEAP-receipt input in its SNAP utility
+    logic, so it allows no utility allowance.'
+- case: SNAP-IL-T16
+  state: il
+  title: 'Single phone-only renter: Telephone Standard'
+  ours:
+    status: eligible
+    tier: null
+    benefit_monthly: 137.0
+    net_income_monthly: 535.5
+    utility_allowance_monthly: 67.0
+  policyengine:
+    status: eligible
+    tier: null
+    benefit_monthly: 139.0
+    net_income_monthly: 530.0
+    utility_allowance_monthly: 67.0
+  agree: false
+  explanation: 'Illinois standard deduction. IDHS budgets $205 for 1-3 people in FY 2026 (MR #25.33; $213 in FY 2027, MR #26.26), $4 below the
+    FNS table ($209) that PolicyEngine uses for every state; net income is $4-6 higher in the archive and the benefit $2 lower. The reason for
+    Illinois'' lower figure is open (SNAP-IL-CONFLICT-01, SNAP-IL-OQ-01).'
+- case: SNAP-IL-T17
+  state: il
+  title: 'FY 2027: single, unemployment $2,195 = 165% limit'
+  ours:
+    status: eligible
+    tier: null
+    benefit_monthly: 25.0
+    net_income_monthly: 1508.0
+    utility_allowance_monthly: 565.0
+  policyengine:
+    status: ineligible
+    tier: null
+    benefit_monthly: 0.0
+    net_income_monthly: 1521.0
+    utility_allowance_monthly: 546.0
+  agree: false
+  explanation: 'Two PolicyEngine parameter gaps for October 2026. (1) Rounding as above: PolicyEngine''s 165% limit is $2,194.50 against IDHS''s
+    published $2,195 (MR #26.26), so the at-limit household fails in PolicyEngine. (2) PolicyEngine still uses the FY 2026 Illinois AC/Heating
+    standard ($546); IDHS raised it to $565 from October 2026 (MR #26.26).'
+- case: SNAP-IL-T18
+  state: il
+  title: "FY 2027: single, unemployment $2,196 \u2014 $1 over"
+  ours:
+    status: ineligible
+    tier: null
+    benefit_monthly: 0.0
+    net_income_monthly: 1509.5
+    utility_allowance_monthly: 565.0
+  policyengine:
+    status: ineligible
+    tier: null
+    benefit_monthly: 0.0
+    net_income_monthly: 1523.0
+    utility_allowance_monthly: 546.0
+  agree: true
+  explanation: null
+- case: SNAP-IL-T19
+  state: il
+  title: 'FY 2027: retiree, AC/Heating $565, SMD $185, standard deduction $213'
+  ours:
+    status: eligible
+    tier: null
+    benefit_monthly: 189.0
+    net_income_monthly: 388.0
+    utility_allowance_monthly: 565.0
+  policyengine:
+    status: eligible
+    tier: null
+    benefit_monthly: 185.0
+    net_income_monthly: 401.0
+    utility_allowance_monthly: 546.0
+  agree: false
+  explanation: 'FY 2027 Illinois figures: the archive uses IDHS''s October 2026 AC/Heating standard ($565) and standard deduction ($213) from
+    MR #26.26; PolicyEngine has no FY 2027 Illinois utility value (keeps $546) and uses the FNS standard deduction ($217). Net effects partly
+    offset; benefit differs by $4.'
+- case: SNAP-X-02
+  state: il
+  title: 'School meals crossing: Illinois family of 3 on SNAP (children directly certified)'
+  ours:
+    status: eligible
+    tier: null
+    benefit_monthly: 565.0
+    net_income_monthly: 731.0
+    utility_allowance_monthly: 546.0
+  policyengine:
+    status: eligible
+    tier: null
+    benefit_monthly: 566.0
+    net_income_monthly: 727.0
+    utility_allowance_monthly: 546.0
+  agree: true
+  explanation: null
+- case: SNAP-NY-T01
+  state: ny
+  title: Single, unemployment benefits $1,696 = 130% gross limit (no earnings, so no BBCE)
+  ours:
+    status: eligible
+    tier: null
+    benefit_monthly: 24.0
+    net_income_monthly: 1075.5
+    utility_allowance_monthly: 355.0
+  policyengine:
+    status: eligible
+    tier: null
+    benefit_monthly: 75.0
+    net_income_monthly: 743.0
+    utility_allowance_monthly: 877.0
+  agree: false
+  explanation: New York utility allowances. PolicyEngine treats New York as a state where every household gets the full Heating/Air Conditioning
+    SUA (utility/always_standard = true for NY). OTDA's GIS 25 DC059 has three separate SUAs; the archive gives the HT/AC SUA only to households
+    paying heating/cooling (or, after Public Law 119-21, HEAP households with an aged/disabled member), the Utility SUA ($355 upstate) to households
+    with a separate non-heating utility bill, the Phone SUA to phone-only households, and nothing when all utilities are in the rent (SNAP-NY-SUA,
+    SNAP-NY-HEAP-SUA; in NY-T22 the HEAP payment no longer confers the SUA on a household without an elderly or disabled member).
+- case: SNAP-NY-T02
+  state: ny
+  title: "Single, unemployment $1,697 \u2014 $1 over the 130% gross limit, no BBCE route"
+  ours:
+    status: ineligible
+    tier: null
+    benefit_monthly: 0.0
+    net_income_monthly: 1077.0
+    utility_allowance_monthly: 355.0
+  policyengine:
+    status: ineligible
+    tier: null
+    benefit_monthly: 0.0
+    net_income_monthly: 744.0
+    utility_allowance_monthly: 877.0
+  agree: true
+  explanation: null
+- case: SNAP-NY-T03
+  state: ny
+  title: Couple, both on unemployment, $2,292 total = 130% limit for 2
+  ours:
+    status: eligible
+    tier: null
+    benefit_monthly: 144.0
+    net_income_monthly: 1339.0
+    utility_allowance_monthly: 877.0
+  policyengine:
+    status: eligible
+    tier: null
+    benefit_monthly: 144.0
+    net_income_monthly: 1339.0
+    utility_allowance_monthly: 877.0
+  agree: true
+  explanation: null
+- case: SNAP-NY-T04
+  state: ny
+  title: "Couple, both on unemployment, $2,293 total \u2014 $1 over the limit for 2"
+  ours:
+    status: ineligible
+    tier: null
+    benefit_monthly: 0.0
+    net_income_monthly: 1340.0
+    utility_allowance_monthly: 877.0
+  policyengine:
+    status: ineligible
+    tier: null
+    benefit_monthly: 0.0
+    net_income_monthly: 1340.0
+    utility_allowance_monthly: 877.0
+  agree: true
+  explanation: null
+- case: SNAP-NY-T05
+  state: ny
+  title: Family of 4, unemployment $3,483 = 130% limit for 4, NYC
+  ours:
+    status: eligible
+    tier: null
+    benefit_monthly: 239.0
+    net_income_monthly: 2516.0
+    utility_allowance_monthly: 1062.0
+  policyengine:
+    status: eligible
+    tier: null
+    benefit_monthly: 239.0
+    net_income_monthly: 2516.0
+    utility_allowance_monthly: 877.0
+  agree: true
+  explanation: null
+- case: SNAP-NY-T06
+  state: ny
+  title: "Family of 4, unemployment $3,484 \u2014 $1 over the limit for 4"
+  ours:
+    status: ineligible
+    tier: null
+    benefit_monthly: 0.0
+    net_income_monthly: 2517.0
+    utility_allowance_monthly: 1062.0
+  policyengine:
+    status: ineligible
+    tier: null
+    benefit_monthly: 0.0
+    net_income_monthly: 2517.0
+    utility_allowance_monthly: 877.0
+  agree: true
+  explanation: null
+- case: SNAP-NY-T07
+  state: ny
+  title: Single worker earning $1,957 = New York 150% BBCE limit (over 130%)
+  ours:
+    status: eligible
+    tier: null
+    benefit_monthly: 114.0
+    net_income_monthly: 612.6
+    utility_allowance_monthly: 877.0
+  policyengine:
+    status: ineligible
+    tier: null
+    benefit_monthly: 0.0
+    net_income_monthly: 613.0
+    utility_allowance_monthly: 877.0
+  agree: false
+  explanation: 'Threshold rounding, a PolicyEngine modelling choice. These households sit exactly at the state''s published BBCE gross limit.
+    PolicyEngine computes the limit as percent x the 2025 poverty guideline / 12 without rounding (e.g. California 200% for one person = $2,608.33;
+    Illinois 165% = $2,151.88; New York 150% = $1,956.25), so a household at the published figure is $1-2 over in PolicyEngine. The states publish
+    whole-dollar limits that the archive uses: CDSS ACIN I-46-25 ($2,610 / $3,526 / $5,360), IDHS MR #25.33 ($2,152 / $2,909 / $4,421) and OTDA
+    GIS 25 DC059 ($1,957). Illinois cases also differ by the standard deduction (next entry), which does not change the status.'
+- case: SNAP-NY-T08
+  state: ny
+  title: "Single worker earning $1,958 \u2014 $1 over the 150% BBCE limit"
+  ours:
+    status: ineligible
+    tier: null
+    benefit_monthly: 0.0
+    net_income_monthly: 613.4
+    utility_allowance_monthly: 877.0
+  policyengine:
+    status: ineligible
+    tier: null
+    benefit_monthly: 0.0
+    net_income_monthly: 613.0
+    utility_allowance_monthly: 877.0
+  agree: true
+  explanation: null
+- case: SNAP-NY-T09
+  state: ny
+  title: 'Retiree, 70, Social Security $2,700 (over 200%): no gross test, passes the net test with high rent'
+  ours:
+    status: eligible
+    tier: null
+    benefit_monthly: 85.0
+    net_income_monthly: 707.65
+    utility_allowance_monthly: 877.0
+  policyengine:
+    status: eligible
+    tier: null
+    benefit_monthly: 85.0
+    net_income_monthly: 708.0
+    utility_allowance_monthly: 877.0
+  agree: true
+  explanation: null
+- case: SNAP-NY-T10
+  state: ny
+  title: "Retiree, medical costs exactly $35 \u2014 no medical deduction"
+  ours:
+    status: eligible
+    tier: null
+    benefit_monthly: 130.0
+    net_income_monthly: 559.5
+    utility_allowance_monthly: 877.0
+  policyengine:
+    status: eligible
+    tier: null
+    benefit_monthly: 130.0
+    net_income_monthly: 560.0
+    utility_allowance_monthly: 877.0
+  agree: true
+  explanation: null
+- case: SNAP-NY-T11
+  state: ny
+  title: "Retiree, medical costs $36 \u2014 $1 medical deduction"
+  ours:
+    status: eligible
+    tier: null
+    benefit_monthly: 130.0
+    net_income_monthly: 558.0
+    utility_allowance_monthly: 877.0
+  policyengine:
+    status: eligible
+    tier: null
+    benefit_monthly: 130.0
+    net_income_monthly: 558.0
+    utility_allowance_monthly: 877.0
+  agree: true
+  explanation: null
+- case: SNAP-NY-T12
+  state: ny
+  title: "Couple with earnings and high Nassau rent \u2014 excess shelter capped at $744"
+  ours:
+    status: eligible
+    tier: null
+    benefit_monthly: 351.0
+    net_income_monthly: 647.0
+    utility_allowance_monthly: 988.0
+  policyengine:
+    status: eligible
+    tier: null
+    benefit_monthly: 351.0
+    net_income_monthly: 647.0
+    utility_allowance_monthly: 877.0
+  agree: true
+  explanation: null
+- case: SNAP-NY-T13
+  state: ny
+  title: 'Retiree with $10,000 savings, gross under 200%: BBCE, no asset test'
+  ours:
+    status: eligible
+    tier: null
+    benefit_monthly: 70.0
+    net_income_monthly: 759.5
+    utility_allowance_monthly: 877.0
+  policyengine:
+    status: eligible
+    tier: null
+    benefit_monthly: 70.0
+    net_income_monthly: 760.0
+    utility_allowance_monthly: 877.0
+  agree: true
+  explanation: null
+- case: SNAP-NY-T14
+  state: ny
+  title: 'Non-working adult with $3,500 savings: no BBCE route in New York, fails the $3,000 resource limit'
+  ours:
+    status: ineligible
+    tier: null
+    benefit_monthly: 0.0
+    net_income_monthly: 0.0
+    utility_allowance_monthly: 877.0
+  policyengine:
+    status: eligible
+    tier: null
+    benefit_monthly: 298.0
+    net_income_monthly: 0.0
+    utility_allowance_monthly: 877.0
+  agree: false
+  explanation: New York BBCE scope. PolicyEngine gives every New York household an unlimited asset limit under BBCE (its parameter comment notes
+    the earned-income/dependent-care restriction is "not currently implemented"). OTDA's GIS 25 DC059 extends categorical eligibility only to
+    households with earned income (150%) or with an aged/disabled member or dependent care costs (200%); this household has none of these, so
+    the $3,000 resource limit applies and its $3,500 savings make it ineligible (SNAP-NY-NO-BBCE-OTHER).
+- case: SNAP-NY-T15
+  state: ny
+  title: 'Retiree, SS $1,800, low rent with heat included: net over 100% but BBCE 200% gives the $24 minimum'
+  ours:
+    status: eligible
+    tier: null
+    benefit_monthly: 24.0
+    net_income_monthly: 1591.0
+    utility_allowance_monthly: 0.0
+  policyengine:
+    status: eligible
+    tier: null
+    benefit_monthly: 24.0
+    net_income_monthly: 1210.0
+    utility_allowance_monthly: 877.0
+  agree: true
+  explanation: null
+- case: SNAP-NY-T16
+  state: ny
+  title: 'FY 2027: retiree, SS $1,500, utilities in rent (no SUA needed)'
+  ours:
+    status: eligible
+    tier: null
+    benefit_monthly: 25.0
+    net_income_monthly: 987.0
+    utility_allowance_monthly: 0.0
+  policyengine:
+    status: eligible
+    tier: null
+    benefit_monthly: 273.0
+    net_income_monthly: 110.0
+    utility_allowance_monthly: 877.0
+  agree: false
+  explanation: New York utility allowances. PolicyEngine treats New York as a state where every household gets the full Heating/Air Conditioning
+    SUA (utility/always_standard = true for NY). OTDA's GIS 25 DC059 has three separate SUAs; the archive gives the HT/AC SUA only to households
+    paying heating/cooling (or, after Public Law 119-21, HEAP households with an aged/disabled member), the Utility SUA ($355 upstate) to households
+    with a separate non-heating utility bill, the Phone SUA to phone-only households, and nothing when all utilities are in the rent (SNAP-NY-SUA,
+    SNAP-NY-HEAP-SUA; in NY-T22 the HEAP payment no longer confers the SUA on a household without an elderly or disabled member).
+- case: SNAP-NY-T17
+  state: ny
+  title: "FY 2027: retiree paying heat upstate \u2014 HT/AC SUA $908 (FY 2027 SUA from secondary sources)"
+  ours:
+    status: eligible
+    tier: null
+    benefit_monthly: 271.0
+    net_income_monthly: 116.5
+    utility_allowance_monthly: 908.0
+  policyengine:
+    status: eligible
+    tier: null
+    benefit_monthly: 261.0
+    net_income_monthly: 148.0
+    utility_allowance_monthly: 877.0
+  agree: false
+  explanation: 'New York FY 2027 and regional utility allowances. Both households pay heat, so both sides give the HT/AC SUA, but PolicyEngine
+    uses one statewide figure and has no FY 2027 New York value: it budgets $877 (the FY 2026 rest-of-state amount) for an Albany household in
+    November 2026 and for a Brooklyn couple. The archive uses the FY 2027 regional amounts ($908 rest of state, $1,100 New York City; SNAP-NY-SUA-FY27,
+    resting on Hunger Solutions New York''s 2026-27 sheet and CSS''s calculator because OTDA GIS 26 DC045 could not be retrieved). With no shelter
+    cap (elderly members) the extra $31 / $223 of shelter cost lowers net income and raises the benefit by $10 (T17) and $67 (T28).'
+- case: SNAP-NY-T18
+  state: ny
+  title: "FY 2027: retiree with $6,000 savings (over the $4,750 limit), gross under 200% \u2014 BBCE, $25 minimum"
+  ours:
+    status: eligible
+    tier: null
+    benefit_monthly: 25.0
+    net_income_monthly: 1283.0
+    utility_allowance_monthly: 0.0
+  policyengine:
+    status: eligible
+    tier: null
+    benefit_monthly: 81.0
+    net_income_monthly: 748.0
+    utility_allowance_monthly: 877.0
+  agree: false
+  explanation: New York utility allowances. PolicyEngine treats New York as a state where every household gets the full Heating/Air Conditioning
+    SUA (utility/always_standard = true for NY). OTDA's GIS 25 DC059 has three separate SUAs; the archive gives the HT/AC SUA only to households
+    paying heating/cooling (or, after Public Law 119-21, HEAP households with an aged/disabled member), the Utility SUA ($355 upstate) to households
+    with a separate non-heating utility bill, the Phone SUA to phone-only households, and nothing when all utilities are in the rent (SNAP-NY-SUA,
+    SNAP-NY-HEAP-SUA; in NY-T22 the HEAP payment no longer confers the SUA on a household without an elderly or disabled member).
+- case: SNAP-NY-T19
+  state: ny
+  title: 'FY 2027: worker earning $1,729 = 130% gross limit (regular rules, no NY figures needed)'
+  ours:
+    status: eligible
+    tier: null
+    benefit_monthly: 81.0
+    net_income_monthly: 749.3
+    utility_allowance_monthly: 0.0
+  policyengine:
+    status: eligible
+    tier: null
+    benefit_monthly: 186.0
+    net_income_monthly: 397.0
+    utility_allowance_monthly: 877.0
+  agree: false
+  explanation: New York utility allowances. PolicyEngine treats New York as a state where every household gets the full Heating/Air Conditioning
+    SUA (utility/always_standard = true for NY). OTDA's GIS 25 DC059 has three separate SUAs; the archive gives the HT/AC SUA only to households
+    paying heating/cooling (or, after Public Law 119-21, HEAP households with an aged/disabled member), the Utility SUA ($355 upstate) to households
+    with a separate non-heating utility bill, the Phone SUA to phone-only households, and nothing when all utilities are in the rent (SNAP-NY-SUA,
+    SNAP-NY-HEAP-SUA; in NY-T22 the HEAP payment no longer confers the SUA on a household without an elderly or disabled member).
+- case: SNAP-NY-T20
+  state: ny
+  title: 'Single parent earning $2,900 with $400 child care: over 150% but dependent care gives 200% BBCE'
+  ours:
+    status: eligible
+    tier: null
+    benefit_monthly: 255.0
+    net_income_monthly: 967.0
+    utility_allowance_monthly: 877.0
+  policyengine:
+    status: eligible
+    tier: null
+    benefit_monthly: 255.0
+    net_income_monthly: 967.0
+    utility_allowance_monthly: 877.0
+  agree: true
+  explanation: null
+- case: SNAP-NY-T22
+  state: ny
+  title: 'HEAP-only household without an elderly/disabled member (December 2025): no HT/AC SUA'
+  ours:
+    status: eligible
+    tier: null
+    benefit_monthly: 276.0
+    net_income_monthly: 71.5
+    utility_allowance_monthly: 355.0
+  policyengine:
+    status: eligible
+    tier: null
+    benefit_monthly: 295.0
+    net_income_monthly: 7.0
+    utility_allowance_monthly: 877.0
+  agree: false
+  explanation: New York utility allowances. PolicyEngine treats New York as a state where every household gets the full Heating/Air Conditioning
+    SUA (utility/always_standard = true for NY). OTDA's GIS 25 DC059 has three separate SUAs; the archive gives the HT/AC SUA only to households
+    paying heating/cooling (or, after Public Law 119-21, HEAP households with an aged/disabled member), the Utility SUA ($355 upstate) to households
+    with a separate non-heating utility bill, the Phone SUA to phone-only households, and nothing when all utilities are in the rent (SNAP-NY-SUA,
+    SNAP-NY-HEAP-SUA; in NY-T22 the HEAP payment no longer confers the SUA on a household without an elderly or disabled member).
+- case: SNAP-NY-T23
+  state: ny
+  title: 'Same retiree in NY, CA and IL: SS $1,400, rent $600 with heat, $100 medical (cross-state)'
+  ours:
+    status: eligible
+    tier: null
+    benefit_monthly: 234.0
+    net_income_monthly: 212.0
+    utility_allowance_monthly: 877.0
+  policyengine:
+    status: eligible
+    tier: null
+    benefit_monthly: 234.0
+    net_income_monthly: 212.0
+    utility_allowance_monthly: 877.0
+  agree: true
+  explanation: null
+- case: SNAP-NY-T23
+  state: ca
+  title: 'Same retiree in NY, CA and IL: SS $1,400, rent $600 with heat, $100 medical (cross-state)'
+  ours:
+    status: eligible
+    tier: null
+    benefit_monthly: 208.0
+    net_income_monthly: 298.5
+    utility_allowance_monthly: 663.0
+  policyengine:
+    status: eligible
+    tier: null
+    benefit_monthly: 208.0
+    net_income_monthly: 299.0
+    utility_allowance_monthly: 663.0
+  agree: true
+  explanation: null
+- case: SNAP-NY-T23
+  state: il
+  title: 'Same retiree in NY, CA and IL: SS $1,400, rent $600 with heat, $100 medical (cross-state)'
+  ours:
+    status: eligible
+    tier: null
+    benefit_monthly: 187.0
+    net_income_monthly: 369.0
+    utility_allowance_monthly: 546.0
+  policyengine:
+    status: eligible
+    tier: null
+    benefit_monthly: 189.0
+    net_income_monthly: 363.0
+    utility_allowance_monthly: 546.0
+  agree: false
+  explanation: 'Illinois standard deduction. IDHS budgets $205 for 1-3 people in FY 2026 (MR #25.33; $213 in FY 2027, MR #26.26), $4 below the
+    FNS table ($209) that PolicyEngine uses for every state; net income is $4-6 higher in the archive and the benefit $2 lower. The reason for
+    Illinois'' lower figure is open (SNAP-IL-CONFLICT-01, SNAP-IL-OQ-01).'
+- case: SNAP-X-01
+  state: ny
+  title: 'MSP crossing (models MSP-X-03): NY retiree paying the $202.90 Part B premium'
+  ours:
+    status: eligible
+    tier: null
+    benefit_monthly: 220.0
+    net_income_monthly: 257.65
+    utility_allowance_monthly: 877.0
+  policyengine:
+    status: eligible
+    tier: null
+    benefit_monthly: 220.0
+    net_income_monthly: 258.0
+    utility_allowance_monthly: 877.0
+  agree: true
+  explanation: null
+- case: SNAP-X-01B
+  state: ny
+  title: 'MSP crossing, after QMB pays Part B: same NY retiree with no medical cost'
+  ours:
+    status: eligible
+    tier: null
+    benefit_monthly: 145.0
+    net_income_monthly: 509.5
+    utility_allowance_monthly: 877.0
+  policyengine:
+    status: eligible
+    tier: null
+    benefit_monthly: 145.0
+    net_income_monthly: 510.0
+    utility_allowance_monthly: 877.0
+  agree: true
+  explanation: null
+- case: SNAP-NY-T24
+  state: ny
+  title: "FY 2027: retiree with SS $2,660 = 200% BBCE limit and $6,000 savings \u2014 categorically eligible, $25 minimum"
+  ours:
+    status: eligible
+    tier: null
+    benefit_monthly: 25.0
+    net_income_monthly: 2443.0
+    utility_allowance_monthly: 0.0
+  policyengine:
+    status: eligible
+    tier: null
+    benefit_monthly: 25.0
+    net_income_monthly: 2443.0
+    utility_allowance_monthly: 877.0
+  agree: true
+  explanation: null
+- case: SNAP-NY-T25
+  state: ny
+  title: "FY 2027: same retiree with SS $2,661 \u2014 $1 over the 200% limit, fails the $4,750 resource limit"
+  ours:
+    status: ineligible
+    tier: null
+    benefit_monthly: 0.0
+    net_income_monthly: 2444.0
+    utility_allowance_monthly: 0.0
+  policyengine:
+    status: ineligible
+    tier: null
+    benefit_monthly: 0.0
+    net_income_monthly: 2444.0
+    utility_allowance_monthly: 877.0
+  agree: true
+  explanation: null
+- case: SNAP-NY-T26
+  state: ny
+  title: 'FY 2027: single worker earning $1,995 = New York 150% BBCE limit (over the $1,729 130% limit)'
+  ours:
+    status: eligible
+    tier: null
+    benefit_monthly: 123.0
+    net_income_monthly: 610.0
+    utility_allowance_monthly: 908.0
+  policyengine:
+    status: eligible
+    tier: null
+    benefit_monthly: 123.0
+    net_income_monthly: 610.0
+    utility_allowance_monthly: 877.0
+  agree: true
+  explanation: null
+- case: SNAP-NY-T27
+  state: ny
+  title: "FY 2027: single worker earning $1,996 \u2014 $1 over the 150% BBCE limit"
+  ours:
+    status: ineligible
+    tier: null
+    benefit_monthly: 0.0
+    net_income_monthly: 610.8
+    utility_allowance_monthly: 908.0
+  policyengine:
+    status: ineligible
+    tier: null
+    benefit_monthly: 0.0
+    net_income_monthly: 611.0
+    utility_allowance_monthly: 877.0
+  agree: true
+  explanation: null
+- case: SNAP-NY-T28
+  state: ny
+  title: "FY 2027: couple of retirees in Brooklyn paying heat \u2014 NYC HT/AC SUA $1,100"
+  ours:
+    status: eligible
+    tier: null
+    benefit_monthly: 329.0
+    net_income_monthly: 774.5
+    utility_allowance_monthly: 1100.0
+  policyengine:
+    status: eligible
+    tier: null
+    benefit_monthly: 262.0
+    net_income_monthly: 998.0
+    utility_allowance_monthly: 877.0
+  agree: false
+  explanation: 'New York FY 2027 and regional utility allowances. Both households pay heat, so both sides give the HT/AC SUA, but PolicyEngine
+    uses one statewide figure and has no FY 2027 New York value: it budgets $877 (the FY 2026 rest-of-state amount) for an Albany household in
+    November 2026 and for a Brooklyn couple. The archive uses the FY 2027 regional amounts ($908 rest of state, $1,100 New York City; SNAP-NY-SUA-FY27,
+    resting on Hunger Solutions New York''s 2026-27 sheet and CSS''s calculator because OTDA GIS 26 DC045 could not be retrieved). With no shelter
+    cap (elderly members) the extra $31 / $223 of shelter cost lowers net income and raises the benefit by $10 (T17) and $67 (T28).'

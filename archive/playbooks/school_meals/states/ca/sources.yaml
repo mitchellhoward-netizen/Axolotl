@@ -1,0 +1,77 @@
+# California sources for school meals. www.cde.ca.gov and
+# leginfo.legislature.ca.gov block scripted requests (Radware bot manager /
+# HTTP 403). Their pages were fetched through the r.jina.ai reader, which
+# returns the page text, and imported; Word files were saved by WebFetch and
+# their text extracted.
+sources:
+  - id: ca-ec-49501-5
+    retrieved: 2026-10-07
+    url: https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=EDC&sectionNum=49501.5
+    publisher: California Legislative Information
+    title: California Education Code sec. 49501.5 (state meal mandate / Universal Meals)
+    kind: primary
+    jurisdiction: ca
+    doc_type: statute
+    note: Version effective January 1, 2026.
+  - id: ca-ec-42238-01
+    retrieved: 2026-10-07
+    url: https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=EDC&sectionNum=42238.01
+    publisher: California Legislative Information
+    title: California Education Code sec. 42238.01 (LCFF definitions; alternative household income data collection form)
+    kind: primary
+    jurisdiction: ca
+    doc_type: statute
+    note: Version effective June 27, 2025.
+  - id: ca-cde-ump-guidelines-2024
+    retrieved: 2026-10-07
+    url: https://www.cde.ca.gov/ls/nu/sn/documents/umpfinalguidelines.docx
+    publisher: California Department of Education, Nutrition Services Division
+    title: Universal Meals Program Implementation Guidelines (September 2024)
+    kind: primary
+    jurisdiction: ca
+    doc_type: guidance
+    published: 2024-09-01
+  - id: ca-cde-ump-faq
+    retrieved: 2026-10-07
+    url: https://www.cde.ca.gov/ls/nu/univmealsfaq.asp
+    publisher: California Department of Education, Nutrition Services Division
+    title: California Universal Meals Program Frequently Asked Questions
+    kind: primary
+    jurisdiction: ca
+    doc_type: agency_page
+    note: Last Reviewed March 3, 2026.
+  - id: ca-cde-alt-income-forms
+    retrieved: 2026-10-07
+    url: https://www.cde.ca.gov/fg/aa/pa/altincomeforms.asp
+    publisher: California Department of Education, Principal Apportionment
+    title: Alternative Income Forms (for LCFF unduplicated pupil count)
+    kind: primary
+    jurisdiction: ca
+    doc_type: agency_page
+    note: Last Reviewed December 18, 2025.
+  - id: ca-cde-direct-cert
+    retrieved: 2026-10-07
+    url: https://www.cde.ca.gov/ls/nu/sn/directcert.asp
+    publisher: California Department of Education, Nutrition Services Division
+    title: Direct Certification (including Medi-Cal direct certification for free and reduced-price meals)
+    kind: primary
+    jurisdiction: ca
+    doc_type: agency_page
+  - id: ca-cde-census-day
+    retrieved: 2026-10-07
+    url: https://www.cde.ca.gov/ds/ad/fsenrcensus.asp
+    publisher: California Department of Education, Data Reporting
+    title: File Structure — Census Day Enrollment (defines Census Day as the first Wednesday in October)
+    kind: primary
+    jurisdiction: ca
+    doc_type: agency_page
+    note: Last Reviewed February 17, 2026.
+  - id: ca-cde-ieg-2026-27
+    retrieved: 2026-10-07
+    url: https://www.cde.ca.gov/ls/nu/rs/scales2627.asp
+    publisher: California Department of Education, Nutrition Services Division
+    title: Income Eligibility Scales for School Year 2026-27
+    kind: primary
+    jurisdiction: ca
+    doc_type: agency_page
+    effective_date: 2026-07-01

@@ -1,0 +1,851 @@
+Title: School Nutrition (CA Dept of Education)
+
+URL Source: https://www.cde.ca.gov/ls/nu/sn/directcert.asp
+
+Markdown Content:
+[Skip to main content](https://www.cde.ca.gov/ls/nu/sn/directcert.asp#content)
+
+[California Department of Education](https://www.cde.ca.gov/ "A link to the California Department of Education home page.")
+
+Search
+
+Navigation Menu[California Department of Education](https://www.cde.ca.gov/)[CA Dept of Education](https://www.cde.ca.gov/)Search Site
+
+Search
+
+* [Teaching & Learning](https://www.cde.ca.gov/ls/nu/sn/directcert.asp#)
+*
+* [Teaching & Learning Home](https://www.cde.ca.gov/ci/)
+* [Becoming an Educator](https://www.cde.ca.gov/ci/be/)
+* * [Become a Teacher](https://www.cde.ca.gov/ci/be/become-a-teacher.asp)
+
+* [California Literacy](https://www.cde.ca.gov/ci/cl/)
+* [Career Technical Education](https://www.cde.ca.gov/ci/ct/)
+* * [Business & Marketing](https://www.cde.ca.gov/ci/ct/bm/)
+* [Health Careers Education](https://www.cde.ca.gov/ci/ct/hc/)
+* [Industrial & Technology Education](https://www.cde.ca.gov/ci/ct/ie/)
+* [Perkins](https://www.cde.ca.gov/ci/ct/pk/)
+* [ROCP](https://www.cde.ca.gov/ci/ct/rp/)
+* [Standards & Framework](https://www.cde.ca.gov/ci/ct/sf/)
+* [Work Experience Education (WEE)](https://www.cde.ca.gov/ci/ct/we/)
+
+* [Curriculum and Instruction Resources](https://www.cde.ca.gov/ci/cr/)
+* * [Common Core State Standards](https://www.cde.ca.gov/re/cc/)
+* [Curriculum Frameworks & Instructional Materials](https://www.cde.ca.gov/ci/cr/cf/)
+* [Driver Education](https://www.cde.ca.gov/ci/cr/dr/)
+* [Multi-Tiered System of Supports](https://www.cde.ca.gov/ci/cr/ri/)
+* [Recommended Literature](https://www.cde.ca.gov/ci/cr/rl/)
+* [School Libraries](https://www.cde.ca.gov/ci/cr/lb/)
+* [Service-Learning](https://www.cde.ca.gov/ci/cr/sl/)
+* [Specialized Media](https://www.cde.ca.gov/re/pn/sm/)
+
+* [Grade Spans](https://www.cde.ca.gov/ci/gs/)
+* * [Early Education](https://www.cde.ca.gov/sp/cd/)
+* [P-3 Alignment](https://www.cde.ca.gov/ci/gs/p3/)
+* [Elementary](https://www.cde.ca.gov/ci/gs/em/)
+* [Middle Grades](https://www.cde.ca.gov/ci/gs/mg/)
+* [High School](https://www.cde.ca.gov/ci/gs/hs/)
+* [Postsecondary](https://www.cde.ca.gov/ci/gs/ps/)
+* [Adult Education](https://www.cde.ca.gov/sp/ae/)
+
+* [Professional Learning](https://www.cde.ca.gov/ci/pl/)
+* * [Administrators](https://www.cde.ca.gov/ci/pl/administrators.asp)
+* [Curriculum Areas](https://www.cde.ca.gov/ci/pl/index.asp?tabsection=2)
+* [Professional Standards](https://www.cde.ca.gov/ci/pl/professionalstandards.asp)
+* [Quality Schooling Framework](https://www.cde.ca.gov/qs/)
+
+* [Social and Emotional Learning](https://www.cde.ca.gov/ci/se/)
+* [Subject Areas](https://www.cde.ca.gov/ci/cr/cf/cimegasubjectareas.asp)
+* * [Computer Science](https://www.cde.ca.gov/ci/pl/computerscience.asp)
+* [English Language Arts](https://www.cde.ca.gov/ci/rl/)
+* [Health](https://www.cde.ca.gov/ci/he/)
+* [History-Social Science](https://www.cde.ca.gov/ci/hs/)
+* [Mathematics](https://www.cde.ca.gov/ci/ma/)
+* [Physical Education](https://www.cde.ca.gov/ci/pe/)
+* [Science](https://www.cde.ca.gov/ci/sc/)
+* [Visual & Performing Arts](https://www.cde.ca.gov/ci/vp/)
+* [World Languages](https://www.cde.ca.gov/ci/fl/)
+
+* [Testing & Accountability](https://www.cde.ca.gov/ls/nu/sn/directcert.asp#)
+*
+* [Testing & Accountability Home](https://www.cde.ca.gov/ta/)
+* [Accountability](https://www.cde.ca.gov/ta/ac/)
+* * [California School Dashboard and System of Support](https://www.cde.ca.gov/ta/ac/cm/)
+* [Dashboard Alternative School Status (DASS)](https://www.cde.ca.gov/ta/ac/dass.asp)
+* [Local Educational Agency Accountability Report Card](https://www.cde.ca.gov/ta/ac/le/)
+* [School Accountability Report Card (SARC)](https://www.cde.ca.gov/ta/ac/sa/)
+* [State Accountability Report Card](https://www.cde.ca.gov/ta/ac/sc/)
+
+* [Compliance Monitoring](https://www.cde.ca.gov/ta/cr/)
+* [District & School Interventions](https://www.cde.ca.gov/ta/lp/)
+* [Awards and Recognition](https://www.cde.ca.gov/ta/sr/)
+* * [Academic Achievement Awards](https://www.cde.ca.gov/ta/sr/aa/)
+* [California Distinguished Schools Program](https://www.cde.ca.gov/ta/sr/cs/)
+* [California Teachers of the Year](https://www.cde.ca.gov/ta/sr/ct/)
+* [Classified School Employees of the Year](https://www.cde.ca.gov/ta/sr/cl/)
+* [California Gold Ribbon Schools](https://www.cde.ca.gov/ta/sr/gr/)
+
+* [Testing](https://www.cde.ca.gov/ta/tg/)
+* * [Assessment Information](https://www.cde.ca.gov/ta/tg/ai/)
+* [CA Assessment of Student Performance and Progress (CAASPP)](https://www.cde.ca.gov/ta/tg/ca/)
+* [CA Proficiency Program (CPP)](https://www.cde.ca.gov/ta/tg/cp.asp)
+* [English Language Proficiency Assessments for CA (ELPAC)](https://www.cde.ca.gov/ta/tg/ep/)
+* [Grade Two Diagnostic Assessment](https://www.cde.ca.gov/ta/tg/da/)
+* [High School Equivalency (HSE) Tests](https://www.cde.ca.gov/ta/tg/gd/)
+* [National Assessment of Educational Progress (NAEP)](https://www.cde.ca.gov/ta/tg/nr/)
+* [Physical Fitness Testing (PFT)](https://www.cde.ca.gov/ta/tg/pf/)
+* [Smarter Balanced Assessment System](https://www.cde.ca.gov/ta/tg/sa/)
+
+* [Finance & Grants](https://www.cde.ca.gov/ls/nu/sn/directcert.asp#)
+*
+* [Finance & Grants Home](https://www.cde.ca.gov/fg/)
+* [Accounting](https://www.cde.ca.gov/fg/ac/)
+* * [Definitions, Instructions, & Procedures](https://www.cde.ca.gov/fg/ac/sa/)
+* [Indirect Cost Rates (ICR)](https://www.cde.ca.gov/fg/ac/ic/)
+* [Standardized Account Code Structure (SACS)](https://www.cde.ca.gov/fg/ac/ac/)
+
+* [Allocations & Apportionments](https://www.cde.ca.gov/fg/aa/)
+* * [Categorical Programs](https://www.cde.ca.gov/fg/aa/ca/)
+* [Early Education](https://www.cde.ca.gov/fg/aa/cd/)
+* [Consolidated Application](https://www.cde.ca.gov/fg/aa/co/)
+* [Federal Cash Management](https://www.cde.ca.gov/fg/aa/cm/)
+* [Local Control Funding Formula](https://www.cde.ca.gov/fg/aa/lc/)
+* [Principal Apportionment](https://www.cde.ca.gov/fg/aa/pa/)
+
+* [Funding](https://www.cde.ca.gov/fg/fo/)
+* * [Available Funding](https://www.cde.ca.gov/fg/fo/af/)
+* [Funding Results](https://www.cde.ca.gov/fg/fo/fr/)
+* [Projected Funding](https://www.cde.ca.gov/fg/fo/pf/)
+* [Search CDE Funding](https://www.cde.ca.gov/fg/fo/sf/)
+* [Funding Tools & Materials](https://www.cde.ca.gov/fg/fo/fm/)
+
+* [Finance & Grants Other Topics](https://www.cde.ca.gov/fg/fo/fm/fgmegaothertopics.asp)
+* * [Auditing](https://www.cde.ca.gov/fg/au/)
+* [Fiscal Oversight](https://www.cde.ca.gov/fg/fi/)
+* [Reports](https://www.cde.ca.gov/fg/fr/)
+* [Software & Forms](https://www.cde.ca.gov/fg/sf/)
+
+* [Data & Statistics](https://www.cde.ca.gov/ls/nu/sn/directcert.asp#)
+*
+* [Data & Statistics Home](https://www.cde.ca.gov/ds/)
+* [Accessing Educational Data](https://www.cde.ca.gov/ds/ad/)
+* * [About CDE's Education Data](https://www.cde.ca.gov/ds/ad/aedo.asp)
+* [About DataQuest](https://www.cde.ca.gov/ds/ad/dataquest.asp)
+* [Data Reports by Topic](https://www.cde.ca.gov/ds/ad/accessdatasub.asp)
+* [Downloadable Data Files](https://www.cde.ca.gov/ds/ad/downloadabledata.asp)
+
+* [Data Collections](https://www.cde.ca.gov/ds/dc/)
+* * [California Basic Educational Data System (CBEDS)](https://www.cde.ca.gov/ds/dc/cb/)
+* [California Longitudinal Pupil Achievement Data System (CALPADS)](https://www.cde.ca.gov/ds/sp/cl/)
+* [Consolidated Application and Reporting System (CARS)](https://www.cde.ca.gov/fg/aa/co/cars.asp)
+* [Cradle-to-Career Data System](https://www.cde.ca.gov/ds/dc/c2cdatasystemp20.asp)
+
+* [Financial](https://www.cde.ca.gov/ds/fd/)
+* * [Annual Financial Data](https://www.cde.ca.gov/ds/fd/fd/)
+* [Certificated Salaries & Benefits](https://www.cde.ca.gov/ds/fd/cs/)
+* [Current Expense of Education & Per-pupil Spending](https://www.cde.ca.gov/ds/fd/ec/)
+* [Indirect Cost Rates (ICR)](https://www.cde.ca.gov/fg/ac/ic/)
+
+* [Data Strategy](https://www.cde.ca.gov/ds/ed/)
+* * [Data Privacy](https://www.cde.ca.gov/ds/ed/dataprivacy.asp)
+
+* [Student Health & Support](https://www.cde.ca.gov/ds/sh/)
+* * [Free and Reduced Price Meal Eligibility Data](https://www.cde.ca.gov/ds/sh/cw/)
+* [Food Programs](https://www.cde.ca.gov/ds/sh/sn/)
+
+* [Data Requests](https://www.cde.ca.gov/ds/da/)
+* [School & District Information](https://www.cde.ca.gov/ds/si/)
+* * [California School Directory](https://www.cde.ca.gov/schooldirectory/)
+* [Charter School Locator](https://www.cde.ca.gov/ds/si/cs/)
+* [County-District-School Administration](https://www.cde.ca.gov/ds/si/ds/)
+* [Private School Data](https://www.cde.ca.gov/ds/si/ps/)
+* [Public Schools and District Data Files](https://www.cde.ca.gov/ds/si/ds/pubschls.asp)
+* [Regional Occupational Centers & Programs](https://www.cde.ca.gov/ds/si/rp/)
+
+* [School Performance](https://www.cde.ca.gov/ds/sp/)
+* * [California School Dashboard and System of Support](https://www.cde.ca.gov/ta/ac/cm/)
+* [Postsecondary Preparation](https://www.cde.ca.gov/ds/sp/ai/)
+
+* [Specialized Programs](https://www.cde.ca.gov/ls/nu/sn/directcert.asp#)
+*
+* [Specialized Programs Home](https://www.cde.ca.gov/sp/)
+* [Adult Education](https://www.cde.ca.gov/sp/ae/)
+* * [Directory of Schools](https://www.cde.ca.gov/sp/ae/ds/)
+* [Federal Grants Administration](https://www.cde.ca.gov/sp/ae/fg/)
+
+* [Charter Schools](https://www.cde.ca.gov/sp/ch/)
+* [Early Education](https://www.cde.ca.gov/sp/cd/)
+* * [Contractor Information](https://www.cde.ca.gov/sp/cd/ci/)
+* [Laws, Regulations, & Requirements](https://www.cde.ca.gov/sp/cd/lr/)
+* [Program Overview](https://www.cde.ca.gov/sp/cd/op/)
+* [Resources](https://www.cde.ca.gov/sp/cd/re/)
+
+* [Educational Options](https://www.cde.ca.gov/sp/eo/)
+* * [Independent Study](https://www.cde.ca.gov/sp/eo/is/)
+* [Open Enrollment](https://www.cde.ca.gov/sp/eo/op/)
+
+* [Multilingual Learners](https://www.cde.ca.gov/sp/ml/)
+* * [Title III](https://www.cde.ca.gov/sp/ml/title3.asp)
+
+* [Special Education](https://www.cde.ca.gov/sp/se/)
+* * [Communications](https://www.cde.ca.gov/sp/se/communications.asp)
+* [Dispute Resolution](https://www.cde.ca.gov/sp/se/disputeresolution.asp)
+* [Family Involvement & Partnerships](https://www.cde.ca.gov/sp/se/familyinvolvement.asp)
+* [Fiscal Management](https://www.cde.ca.gov/sp/se/fiscalmanagement.asp)
+* [Integrated Monitoring](https://www.cde.ca.gov/sp/se/integratedmonitoring.asp)
+* [Policy & Initiatives](https://www.cde.ca.gov/sp/se/policy.asp)
+* [Special Education Data](https://www.cde.ca.gov/sp/se/specialeducationdata.asp)
+
+* [Title I](https://www.cde.ca.gov/sp/sw/)
+* * [CA Equity Performance and Improvement Program](https://www.cde.ca.gov/sp/sw/t1/equity.asp)
+* [Improving Academic Achievement](https://www.cde.ca.gov/sp/sw/t1/)
+* [Schoolwide Programs](https://www.cde.ca.gov/sp/sw/rt/)
+* [Statewide System of School Support (S4)](https://www.cde.ca.gov/sp/sw/ss/)
+
+* [Specialized Programs Other Topics](https://www.cde.ca.gov/sp/ai/re/spmegaothertopics.asp)
+* * [American Indian](https://www.cde.ca.gov/sp/ai/)
+* [Gifted & Talented Education](https://www.cde.ca.gov/sp/gt/)
+* [Homeless Education](https://www.cde.ca.gov/sp/hs/)
+* [Migrant/International](https://www.cde.ca.gov/sp/me/)
+* [Private Schools and Schooling at Home](https://www.cde.ca.gov/sp/ps/)
+* [State Special Schools](https://www.cde.ca.gov/sp/ss/)
+
+* [Learning Support](https://www.cde.ca.gov/ls/nu/sn/directcert.asp#)
+*
+* [Learning Support Home](https://www.cde.ca.gov/ls/)
+* [Attendance Improvement](https://www.cde.ca.gov/ls/ai/)
+* * [School Attendance Review Boards](https://www.cde.ca.gov/ls/ai/sb/)
+* [Truancy](https://www.cde.ca.gov/ls/ai/tr/)
+
+* [Expanded Learning](https://www.cde.ca.gov/ls/ex/)
+* * [21st Century Community Learning Centers](https://www.cde.ca.gov/ls/ex/fundingop.asp#centurycommunitylearningcenters21st)
+* [After School Education & Safety Program](https://www.cde.ca.gov/ls/ex/fundingop.asp#afterschooleducationandsafetyprogram)
+* [Expanded Learning Opportunities Program](https://www.cde.ca.gov/ls/ex/elopinfo.asp)
+
+* [Nutrition](https://www.cde.ca.gov/ls/nu/)
+* * [Child Nutrition Information & Payment System (CNIPS)](https://www.cde.ca.gov/ls/nu/cn/)
+* [Rates, Eligibility Scales, & Funding](https://www.cde.ca.gov/ls/nu/rs/)
+* [School Nutrition](https://www.cde.ca.gov/ls/nu/sn/)
+
+* [Parents/Family & Community](https://www.cde.ca.gov/ls/pf/)
+* * [Clearinghouse for Multilingual Documents](https://www.cde.ca.gov/ls/pf/cm/)
+
+* [School Disaster and Emergency Management](https://www.cde.ca.gov/ls/ep/)
+* [Learning Support Other Topics](https://www.cde.ca.gov/ls/yd/rs/lsmegaothertopics.asp)
+* * [Class Size Reduction](https://www.cde.ca.gov/ls/cs/)
+* [Education Technology](https://www.cde.ca.gov/ls/et/)
+* [Educational Counseling](https://www.cde.ca.gov/ls/ec/)
+* [Health](https://www.cde.ca.gov/ls/he/)
+* [Mental Health](https://www.cde.ca.gov/ls/mh/)
+* [Safe Schools](https://www.cde.ca.gov/ls/ss/)
+* [School Facilities](https://www.cde.ca.gov/ls/fa/)
+* [Transportation](https://www.cde.ca.gov/ls/tn/)
+* [Youth Development](https://www.cde.ca.gov/ls/yd/)
+
+![Image 1: California Department of Education Logo](https://www.cde.ca.gov/images/cdeLogoBaseBW-faded.gif)
+
+* [Home](https://www.cde.ca.gov/)
+* [Learning Support](https://www.cde.ca.gov/ls/)
+* [Nutrition](https://www.cde.ca.gov/ls/nu/)
+* [School Nutrition](https://www.cde.ca.gov/ls/nu/sn/)
+
+[](https://www.cde.ca.gov/ls/nu/sn/directcert.asp)
+# Direct Certification
+
+A federally mandated process that sponsors must use to certify school-age recipients of CalFresh and CalWORKs benefits as eligible for free school meals without further application.
+
+* * *
+
+Direct certification (DC) is the federally mandated process that School Nutrition Program operators must use to certify children who are eligible for free meals or milk without completing an application. Charter schools, public school districts, and county offices of education may implement DC by using a local data match through their county’s department of social or welfare services, and by using the California Department of Education’s California Longitudinal Pupil Achievement Data System. Private schools, residential child care institutions, and nonpublic schools with day students may implement DC by using a local data match with their county’s department of social or welfare services.
+
+The DC process uses information provided by state or local agencies administering assistance programs and Other Source Categorically Eligible programs. Assistance programs include the Supplemental Nutrition Assistance Program (SNAP [known as CalFresh in California]), Temporary Assistance for Needy Families (TANF [known as CalWORKs in California]), and Food Distribution Program on Indian Reservations. Other Source Categorically Eligible programs include foster, migrant, homeless, runaway, and Head Start.
+
+Student eligibility for free and reduced-price meals is determined by meal application or by DC. DC eliminates the need for paper applications. The DC matching process, whether automated or manual, requires no action by the household. Children from households with incomes at or below 130 percent of the federal poverty level are eligible for free school meals. Children from households with incomes between 130 and 185 percent of the federal poverty level are eligible for reduced-price meals.
+
+As stated in Title 7, _Code of Federal Regulations_, Section 245.6(b), if a household submits an application for directly certified children, the DC eligibility determination will take precedence and the application must be disregarded. The application must be retained and the date of disregard must be documented. Please note this does not apply to households who are directly certified for reduced-price meals through Medi-Cal then submit an income application demonstrating eligibility for free meals. The most favorable meal benefit level a family qualifies for always takes precedence, regardless of the method of eligibility.
+
+* [Definitions](https://www.cde.ca.gov/ls/nu/sn/directcert.asp#)
+* [Regulations](https://www.cde.ca.gov/ls/nu/sn/directcert.asp#)
+* [State Level Match](https://www.cde.ca.gov/ls/nu/sn/directcert.asp#)
+* [Local Level Match](https://www.cde.ca.gov/ls/nu/sn/directcert.asp#)
+* [Verification](https://www.cde.ca.gov/ls/nu/sn/directcert.asp#)
+* [FAQs](https://www.cde.ca.gov/ls/nu/sn/directcert.asp#)
+* [Resources](https://www.cde.ca.gov/ls/nu/sn/directcert.asp#)
+
+## Definitions
+
+**Automated Data Matching:** Automated data matching is the most common direct certification (DC) method used to directly certify children. Matches are made between student enrollment records and benefit recipient records from assistance programs, foster care agencies, Head Start programs, Migrant Education programs, and agencies working with homeless and runaway children, or other appropriate state or local agencies to establish categorical eligibility.
+
+**CalFresh:** A federally mandated, state-supervised, and county-operated government entitlement program that provides monthly food benefits to assist low-income households in purchasing the food they need to maintain adequate nutritional levels. Children from households that receive benefits under CalFresh are deemed categorically eligible for free school meals. CalFresh is federally known as Supplemental Nutrition Assistance Program (SNAP).
+
+**California Longitudinal Pupil Achievement Data System (CALPADS):** A longitudinal data system used to maintain individual-level data including student demographics, course data, discipline, assessments, staff assignments, and other data for state and federal reporting.
+
+**California Work Opportunity and Responsibility to Kids (CalWORKs):** A federally designated, state-funded and county-operated public assistance program that provides cash aid and services to eligible families that have a child(ren) in the home. Children from households that receive benefits under CalWORKs are deemed categorically eligible for free school meals. CalWORKs is federally known as Temporary Assistance for Needy Families (TANF).
+
+**Child Nutrition Information and Payment System (CNIPS):** The California Department of Education’s (CDE) web-based system for administering the federal and state School Nutrition Programs including the National School Lunch and School Breakfast, Food Distribution, Special Milk, Child and Adult Care Food, Summer Food Service, and Seamless Summer Option Programs.
+
+**Categorical Eligibility:** Automatic eligibility for free meals or free milk due to a child’s (or any household member’s) receipt of benefits under an assistance program (e.g., CalFresh, Food Distribution Program on Indian Reservations [FDPIR], or CalWORKs). Categorical eligibility for free meal benefits is extended to all children in a household (Title 7, _Code of Federal Regulations_ [7 _CFR_], Section 245.6[b][7]).
+
+**Direct Certification (DC):** Determining children eligible for free or reduced-price meal benefits based on documentation obtained directly from appropriate state or local agencies or other authorized individuals. DC of a child’s eligibility status should not involve the household. The communication exchange should be between an appropriate agency and the state agency, local educational agency, or school.
+
+**Direct Certification for Assistance Programs:** A process conducted through automated data matching or an exchange of information between the assistance program agency and the state agency or local educational agency. No application from the household is necessary. Letters from TANF (CalWORKs in California) or Food Distribution Programs on Indian Reservations agencies submitted by households are considered DC. However, DC for SNAP (CalFresh in California) households must be conducted using an automated data matching process (7 _CFR_, Section 245.6[b][1]). If a household provides a SNAP eligibility letter to the
+local educational agency (LEA) or school, the letter must be used to establish eligibility, but it is not considered DC for reporting purposes.
+
+**Direct Verification:** The use of public records as a means to verify children’s eligibility for free and reduced-price meal benefits determined by application. Direct verification may be conducted with assistance program agencies or appropriate officials of Other Source Categorically Eligible programs to confirm eligibility for free meals. Direct verification may be used for applications included in the verification sample or those verified for cause (7 _CFR_, Section 245.6a[g]).
+
+**Extension of Categorical Eligibility for Assistance Programs:** A child or other household member’s receipt of benefits from an assistance program automatically extends eligibility for free benefits to all children who are members of the household (7 _CFR_, Section 245.6[b][7]).
+
+**Food Distribution Program on Indian Reservations (FDPIR):** FDPIR is a federal program that provides U.S. Department of Agriculture (USDA) foods to low-income households living on Indian reservations. Children from households that receive benefits from FDPIR are deemed categorically eligible for free school meals.
+
+**Foster Child:** An Other Source Categorical Eligibility program designation for a child who is formally placed by a court or a state child welfare agency. Whether placed by the state child welfare agency or a court, in order for a child to be considered categorically eligible for free meals, the state must retain legal custody of the child. This definition does not apply to informal arrangements or permanent guardianship placements that may exist outside of state or court-based systems (7 _CFR_, Section 245.2).
+
+**Free Meal:** A meal served in the National School Lunch Program or School Breakfast Program to a child from a household eligible for such benefits under 7 _CFR_, Part 245 and for which neither the child nor any member of the household pays or is required to work.
+
+**Head Start:** An Other Source Categorically Eligible program, which refers to federal Head Start and any state-funded prekindergarten programs that use eligibility criteria that are identical to or more stringent than federal Head Start (7 _CFR_, Section 245.2).
+
+**Homeless:** An Other Source Categorical Eligibility program designation for a child who is identified by the LEA’s homeless liaison or by an official of a homeless shelter as lacking a fixed, regular, and adequate nighttime residence (7 _CFR_, Section 245.2).
+
+**Household:** A group of related or nonrelated individuals who are living as one economic unit. The term “family” has the same definition as “household” under 7 _CFR_, Section 245.2.
+
+**Local Educational Agency (LEA):** A public board of education, or other public authority, legally constituted within a state for either administrative control or direction of or to perform a service function for public elementary schools or secondary schools in a city, county, township, school district, other political subdivision of a state, or for a combination of school districts or counties as are recognized in a state as an administrative agency for its public elementary schools or secondary schools.
+
+**Medicaid:** The program of medical assistance established under Title XIX of the Social Security Act, Title 42, _United States Code_ (42 _U.S.C._) 1396 et seq. This definition encompasses both regular Medicaid programs and expanded Medicaid programs where states have used funding from Title XXI of the Social Security Act to fund Medicaid expansions to reach children in families with higher incomes. California is currently participating in a demonstration project to directly certify students for free and reduced-price meals based on family size and income as determined by the California Department of Health Care Services. The data exchange between state departments and local educational agencies takes place securely without disclosing a student’s Medicaid status, health information, or specific income data. Medicaid is known as Medi-Cal in California.
+
+**Medi-Cal:** The program of medical assistance established under Title XIX of the Social Security Act, Title 42, _United States Code_ (42 _U.S.C._) 1396 et seq. This definition encompasses both regular Medi-Cal programs and expanded Medi-Cal programs where funding has been used from Title XXI of the Social Security Act to fund Medi-Cal expansions to reach children in families with higher incomes. California is currently participating in a demonstration project to directly certify students for free and reduced-price meals based on family size and income as determined by the California Department of Health Care Services. The data exchange between state departments and local educational agencies takes place securely without disclosing a student’s Medi-Cal status, health information, or specific income data. Medi-Cal is federally known as Medicaid.
+
+**Migrant:** An Other Source Categorical Eligibility designation for a child who is enrolled in the Migrant Education Program, as determined by the state or local Migrant Education Program coordinator; or as documented by an appropriate LEA official, such as the homeless liaison (7 _CFR_, Section 245.2).
+
+**National School Lunch Program (NSLP):** A federally funded program that assists schools and other agencies in providing nutritious lunches to children at reasonable prices. In addition to financial assistance, the program provides donated USDA Foods to help reduce lunch program costs. The USDA is responsible for overseeing the program nationally. In California, the program is administered by the CDE Nutrition Services Division.
+
+**Other Source Categorical Eligibility:** Categories that make children automatically eligible for free benefits, either through DC or application. A child’s eligibility for free benefits under Other Source Categorical Eligibility does not extend to any other child in the household. A child is Other Source Categorically Eligible if they are:
+
+* Enrolled in federal Head Start
+
+* Determined to be homeless by the LEA’s homeless liaison or by an official of a homeless shelter
+
+* Determined to be a migrant by the state or local Migrant Education Program coordinator or homeless liaison
+
+* Determined to be a runaway who is identified by the local education liaison as receiving assistance through a program under the Runaway and Homeless Youth Act
+
+* Determined to be a foster child whose care and placement is the responsibility of the state, or who is formally placed by a court with a caretaker household through which the state retains legal custody of the child
+
+An individual child’s eligibility for free benefits under any of the Other Source Categorical Eligibility programs does not convey to other children in the household (7 _CFR_, Section 245.6[b][8]). Except for a foster child, the household indication of Other Source Categorically Eligible status must be confirmed through documentation prior to certifying the child’s eligibility for free meals. If documentation does not confirm eligibility for an Other Source Categorical Eligibility, the household should be asked to resubmit the application and include income information.
+
+**Reduced-price Meal:** A meal served in the National School Lunch Program or School Breakfast Program to a child from a household eligible for such benefits under 7 _CFR_, Part 245; for which the price does not exceed the maximum allowable reduced price specified under 7 _CFR_, Part 245; and for which neither the child nor any member of the household is required to work.
+
+**Runaway:** An Other Source Categorical Eligibility designation for a child who is identified by the LEA’s homeless liaison or a program official as receiving assistance from a program under the Runaway and Homeless Youth Act. (7 _CFR_, Section 245.2)
+
+**School Breakfast Program (SBP):** The SBP is a federally funded program which assists schools and other agencies in providing nutritious breakfasts to children at reasonable prices. The USDA is responsible for overseeing the program nationally. In California, the program is administered by the CDE Nutrition Services Division.
+
+**Supplemental Nutrition Assistance Program (SNAP):** Known as CalFresh in California, SNAP offers nutrition assistance to millions of eligible, low-income individuals and families and provides economic benefits to communities. Children from households that receive benefits under SNAP are deemed categorically eligible for free school meals.
+
+**Temporary Assistance for Needy Families (TANF):** Known as CalWORKs in California, TANF is a federal designation for a state-funded program under Part A of Title IV of the Social Security Act. Categorical eligibility for free benefits is limited to beneficiaries in states with TANF standards that are comparable to or more restrictive than those in effect on June 1, 1995.
+
+**Without Further Application:** “Without further application” means that no action is required by the household of a child who has been directly certified to receive free meal benefits (42 _U.S.C._ 1758[b][4][G][i]).
+
+## Regulations for Direct Certification
+
+The direct certification (DC) process allows local educational agencies (LEA) to certify children for free meal benefits without further application based on information provided by the state or local agencies administering CalFresh, CalWORKs, and Food Distribution Programs on Indian Reservations (FDPIR). Other Source Categorically Eligible children, such as homeless, migrant, foster, runaway, and Head Start are identified by the LEA’s liaisons or county officials and are processed using procedures similar to DC. The California Department of Education (CDE) also provides a list of students eligible through Medi-Cal in the California Longitudinal Pupil Achievement Data System (CALPADS) DC extract. Local Medi-Cal agencies cannot exchange Medi-Cal data for the purposes of DC.
+
+Automated data matching is required for CalFresh, and encouraged for CalWORKs and FDPIR (Title 7, _Code of Federal Regulations_ [7 _CFR_], Section 245.6[b][4]). The data exchange must include a date and signature. An electronic signature is acceptable. LEAs are encouraged to take appropriate steps to identify children who are part of a household receiving benefits, but were not identified through the DC process. For example, LEAs may review school district enrollment records or reference submitted meal benefit applications to find potential matches that were missed through the DC process.
+
+### [](https://www.cde.ca.gov/ls/nu/sn/directcert.asp)Frequency of Direct Certification Efforts
+
+California (CA) _Education Code_ (_EC_) Section 49501.5 requires public school districts, charter schools, and county offices of education (COE) to conduct DC monthly through the CALPADS. This requirement includes LEAs that are on a provision, such as Provision 2 (P2) or the Community Eligibility Provision (CEP). With the implementation of the Universal Meals Program, eligibility determinations are still required, and the amount of federal vs. state reimbursement is determined by the number of meals claimed at the free, reduced-price, and paid rates. Therefore, conducting DC monthly will ensure that LEAs continue to make free and reduced-price (F/RP) eligibility determinations, thus ensuring maximum federal funding for the School Nutrition Programs. The requirement set forth in CA _EC_ Section 49501.5 applies to all public schools, charter schools, and COEs, but private schools, nonpublic schools, and Residential Child Care Institutions (RCCI) with day students must still comply with the federal requirements outlined in 7 _CFR_, Section 245.6(b)(3(ii) which states, at a minimum, LEAs operating standard counting and claiming must conduct DC:
+
+* At or around the beginning of the school year
+* Three months after the beginning of the school year
+* Six months after the beginning of the school year
+
+LEAs are required to conduct subsequent DC efforts for children who were not initially directly certified and who are currently determined to receive reduced-price or paid meals. If the LEA has the capability, the status of any newly enrolled child must be checked through DC for F/RP meal eligibility at the time of enrollment. If this is not possible, the household must be provided with an application so that the child’s benefits are not delayed until the next scheduled DC update.
+
+### Senate Bill (SB) 138
+
+SB 138 requires LEAs who participate in a federal school meal program to conduct DC using participation data from the Medi-Cal program. Medi-Cal data is only available to LEAs which have access to the CALPADS. Therefore, public school districts, county offices of education, and charter schools must conduct at least one Medi-Cal DC effort through the CALPADS each school year. For more information on completing DC with Medi-Cal data, please see [Demonstrations to Evaluate Direct Certification with Medicaid](https://www.cde.ca.gov/ls/nu/sn/directcert.asp#dcmedicaid).
+
+### Required Documentation
+
+Documentation to establish eligibility and to substantiate claims for reimbursement based on DC must be retrievable by an LEA to ensure proper delivery of benefits and to allow substantiation of the number of children eligible for free meals or free milk. Documentation based on DC must include:
+
+* For assistance program households: the names of the children currently certified to receive benefits from the assistance program
+
+* For Other Source Categorically Eligible children: the names of children currently certified to receive benefits from Other Source Categorical Eligibility programs
+
+* For all DC options: the date and signature of an official of the program and at least one form of identifying information matching each child with a child attending a particular school. Examples include:
+
+* Child’s birth date
+* Address
+* Parent or guardian names
+* Gender identity
+
+Electronic matches do not need to include the official’s original signature. For electronic matches, sufficient documentation must include correspondence or a written agreement between the assistance program office and the LEA. The correspondence must set out or confirm the manner in which determining officials would receive the children’s CalFresh, CalWORKs, or FDPIR status.
+
+### [](https://www.cde.ca.gov/ls/nu/sn/directcert.asp)Direct Certification Hierarchy
+
+A hierarchy exists for DC eligibility among the different types of benefit programs. DC through CalFresh is prioritized over all other DC types. The pyramid below depicts the hierarchy. The DC hierarchy, in descending order, is as follows: the top tier is CalFresh; the second tier is CalWORKs and FDPIR; the third tier is Homeless, Migrant, Runaway, Head Start, and Foster; and the fourth tier is Medi-Cal. DC eligibility through CalFresh, CalWORKs, FDPIR, and Medi-Cal extend to all members of the household. DC through Other Source Categorical Eligibility programs (homeless, migrant, runaway, etc.) does not extend to other members of the household. The hierarchy is important because a student can have more than one DC category.
+
+For example, if a student is directly certified homeless but is later listed on a DC list as certified through CalFresh, the DC through CalFresh overrides the DC as homeless. In that example, the household should be notified of the new categorical eligibility and benefits extended to other school-age children in the household.
+
+![Image 2: Picture of the direct certification hierarchy.](https://www.cde.ca.gov/ls/nu/sn/images/dcpyramid.jpg)
+
+### Letter Method
+
+According to 7 _CFR_, Section 245.6(b)(5)(ii), LEAs may accept CalFresh notification letters to a household as a secondary method of recognizing categorical eligibility for free meals. If a household provides a CalFresh eligibility letter to the LEA or school, the letter must be used to establish eligibility but will not be considered DC for reporting purposes. This restriction applies only to CalFresh and does not impact the use of the letter method for CalWORKs or FDPIR (7 _CFR_, Section 245.6[b][5][i])[B]).
+
+DC with CalWORKs and FDPIR may use an automated data matching technique or the letter method (7 _CFR_, sections 245.6[b][4] and 245.6[b][5][ii][B]). The letter method involves the household, or an agency official, submitting official documentation of the child’s status to the LEA.
+
+### Disclosure of Eligibility Data
+
+CA _EC_ sections 49557 and 49558 prohibit School Nutrition Program (SNP) operators from sharing individual student eligibility data. Due to the restrictive nature of _EC_ Section 49558, the confidentiality and disclosure guidelines mentioned in the U.S Department of Agriculture (USDA) Eligibility Manual for School Meals are **not** applicable in California. SNP operators must follow the confidentiality provisions set forth in California’s _EC_, which are more restrictive than the USDA confidentiality policies and regulations.
+
+For more information regarding the sharing of individual student eligibility data, please refer to CDE [Management Bulletin (MB) SNP-12-2015](https://www.cde.ca.gov/ls/nu/sn/mbsnp122015.asp).
+
+When a student transfers from one LEA participating in the SNP to another, the LEA making the original eligibility determination may share eligibility status with the new LEA.
+
+### [](https://www.cde.ca.gov/ls/nu/sn/directcert.asp)Demonstrations to Evaluate Direct Certification with Medicaid
+
+The USDA Food and Nutrition Service (FNS) approved the CDE, in partnership with the California Department of Health Care Services (CDHCS), to participate in a new demonstration project to evaluate DC with Medicaid (known as Medi-Cal in California) in the National School Lunch Program (NSLP) and School Breakfast Program (SBP). The FNS is conducting the new demonstration project under the administrative pilot authority in Section 18(c) of the Richard B. Russell National School Lunch Act.
+
+LEAs with access to CALPADS must directly certify students for F/RP meal eligibility using an expanded income data matching capability. The CDHCS utilizes Medi-Cal records to capture income data. The data exchange between state departments and LEAs will take place securely without disclosing a student’s Medi-Cal status, health information, or specific income data.
+
+This demonstration project provides the one circumstance in which DC would not overwrite free eligibility based on an application. This circumstance arises when a student is determined eligible for free meals based on an application, and their name also appears on a CALPADS DC extract report for reduced-price meals through Medi-Cal. LEAs must confirm that students maintain the greatest eligibility benefit determination. A student determined as eligible for free meals, whether through an application or DC with the local county or a local liaison, should maintain that free eligibility status even if they are identified as eligible for reduced-price meals on the CALPADS DC extract report.
+
+#### Medi-Cal Eligibility
+
+The students who are eligible for F/RP meals through Medi-Cal, are only directly certified through CALPADS. LEAs are not allowed to conduct a DC with Medi-Cal match with the local county agencies. LEAs are not allowed to accept Medi-Cal numbers on meal applications or Medi-Cal cards as verification of eligibility for F/RP meals. Medi-Cal is not a categorically eligible assistance program because not all Medi-Cal recipients meet the income eligibility criteria for F/RP meals. If a student is not listed on the CALPADS DC extract report, and they are a Medi-Cal beneficiary, they will need to complete a meal application and qualify based on family size and income.
+
+#### Medi-Cal and the Child and Adult Care Food Program
+
+The Medi-Cal demonstration project is only for eligibility determinations in the NSLP and SBP. Eligibility through Medi-Cal does not extend to those students who are also served through the Child and Adult Care Food Program (CACFP). LEAs should use another method to determine a student’s eligibility for CACFP if the student was determined eligible for F/RP meals for NSLP or SBP through Medi-Cal.
+
+#### Medi-Cal and the Community Eligibility Provision
+
+Free eligibility through Medi-Cal can have a direct impact on an LEA’s identified student percentage (ISP) for the Community Eligibility Provision (CEP). All students identified as eligible for free meals through DC can be included in the ISP calculation.
+
+Students identified as eligible for reduced-price meals through Medi-Cal **cannot** be included in the ISP calculation. Additionally, students who are eligible for F/RP meals through the application process cannot be included in the ISP calculation. For more information on CEP, please refer to the CDE [CEP web page](https://www.cde.ca.gov/ls/nu/sn/cep.asp).
+
+## State Level Direct Certification Match
+
+The California Department of Education (CDE) has established a statewide direct certification (DC) system that matches data from the student information stored in the California Longitudinal Pupil Achievement Data System (CALPADS) against statewide data identifying CalFresh, CalWORKs, and Medi-Cal recipients with the California Department of Social Services and the California Department of Health Care Services. The CALPADS is available to all public school districts, county offices of education, and charter schools. Pursuant to California _Education Code_ Section 49501.5, public school districts, charter schools, and county offices of education are required to conduct DC through the CALPADS on a monthly basis. The CALPADS conducts a monthly match that is usually available between the fifth and the seventh of each month. However, the CALPADS DC extract results will change as student enrollments are updated.
+
+### CALPADS Direct Certification Indicator Codes
+
+The following DC indicator codes are currently available to identify students eligible for free and reduced-price (F/RP) meals:
+
+| Code | Definition |
+| --- | --- |
+| S | Supplemental Nutrition Assistance Program (SNAP): The student is eligible for free meals because the student is receiving SNAP benefits (known as CalFresh in California). |
+| T | Temporary Assistance for Needy Families (TANF): The student is eligible for free meals because the student is receiving TANF benefits (known as CalWORKs in California). |
+| M | Medicaid: The student is eligible for free meals because the student meets income eligibility criteria through Medicaid (known as Medi-Cal in California). |
+| R | Medicaid: The student is eligible for reduced-price meals because the student meets the income eligibility criteria through Medicaid. |
+| N | Not Certified: The student is not determined eligible for F/RP meals through DC, because no match was found. |
+
+### Best Practices
+
+For the best results using the CALPADS DC extract report:
+
+* Download and **save** the DC extract at least once each month. Historical data is not saved in the CALPADS and the data will change with each student that transfers in or out of the local educational agency (LEA). Saving the DC extract data is essential for confirming eligibility determinations and verifying claims for reimbursement.
+
+* Confirm that each DC extract is for the entire school year (July 1) to capture all students including those that may have been certified earlier in the year at another LEA but were not enrolled at their current LEA.
+
+* Ensure that all enrollment records are updated in the CALPADS prior to the first day of each month, to receive the most current DC results.
+
+* Establish local policies and procedures that set clear roles, responsibilities, and timelines for each individual involved in the DC process. The DC staff and the CALPADS Administrator should work collaboratively. Access to the DC extract can be assigned from the CALPADS Administrator to designated nutrition staff.
+
+### How to Access the DC Extract Report
+
+In order to access and download the CALPADS extract, you must have a CALPADS account with the DC role assigned to your CALPADS account.
+
+**Step 1:**
+
+Go to the [CALPADS Home page![Image 3: External link opens in new window or tab.](https://www.cde.ca.gov/images/icons/externallink.gif)](https://identity.calpads.org/Account/Login?ReturnUrl=/connect/authorize/callback?client_id=CALPADSWebClient&redirect_uri=https://www.calpads.org/signin-oidc&response_type=code%20id_token&scope=openid%20profile&max_age=14400&response_mode=form_post&nonce=636946550156445095.ZTQyOWY2ZGQtMjhkOS00ZmYzLTk0MDMtNWQyY2YxZDdiZGMzZTljYjAwN2EtMjBhYi00MDIyLWI5NzItZmQ4ZWI2NGEwODgx&state=CfDJ8Np66SOFYHxBtQueTRCDXcP_mF9hLXWIL1uisT-OyVTpKD26D9ax7tFFYgFw8_2V5oXa8eGn4fm8sidtMWNR6oNl5zFBNYWtWIAqbZRrSuXlI6klAdqimkLaVsH3by7tbEf_mRsyUT5QDkgUrEDGNq3cvWF0pWIifH17eeZieHLUWcDm0_Ysl7s-c9CGtSza6ytCs__6vDXipuIkeX1Y24a6RW4C0jYsS26z3ERl8MMYen1TsRpGL7FBzmBv32va1wA9DvfZXqJ-xCiwC4cfR1-jJpNDdEb_oSU1MoFVDi5Qgi1m2ssM0URm0RVYFku-abP22sxnSU0iMaXn3Zk1sTg&x-client-SKU=ID_NETSTANDARD2_0&x-client-ver=5.3.0.0) and log in. After logging in, select the “Admin” dropdown menu, located on the right-hand side of the top navigation bar. Select the last option from the dropdown menu, “View Direct Certification Status”.
+
+**Step 2:**
+
+The View Direct Certification Status page will show you results for all students currently enrolled in your LEA who have been directly certified since July 2 of the current academic year, even if they were not initially directly certified at your LEA. This means the contents of the DC extract will change as students move in and out of your LEA.
+
+At the top of this page you will see the “Filter Options” section. The Academic Year field will always reflect the current academic year, beginning July 1. There are several ways you can filter the results you see on the page:
+
+* Filter by school to see the results for a specific school
+
+* Filter by Certification Status Code to see the students who are directly certified with a particular status or to omit the students who are “Not Certified”
+
+* Filter by certification date if you want to know the students who were directly certified as of a certain date. NOTE: If you are trying to filter students who are most recently directly certified you can use this filter, but remember that any newly enrolled students who were directly certified at a previous LEA may have DC dates that fall **before** the date you select. Therefore, it is always a good idea to download the entire results file going back to July 1.
+
+* Filter by state student identification or local identification to look for a specific student. This would be a good filter to use when new students enroll to determine if they are directly certified.
+
+Any new students who are enrolled on or after the second of the month will not appear in the extract unless they were certified in a prior district in the current academic year. CalFresh, or S, values for students will not change for the duration of the academic year. However T, M, R, or N values can change in subsequent months if the student receives an eligibility code that is higher on the DC hierarchy pyramid (located in the [Regulations tab](https://www.cde.ca.gov/ls/nu/sn/directcert.asp?tabsection=1#hierarchy)).
+
+**Step 3:**
+
+To download the DC extract, select the “Request Direct Certification Extract” button, located at the bottom right of the page. This will take you to the Direct Certification Extract page. Apply any necessary filters you want to apply to the extract, name the extract, and click the “Request File” button at the bottom of the page. The request is then put into a queue. To retrieve the extract, select the “Reports” option, located on the right-hand side of the top navigation bar, and select “Extracts” from the dropdown menu.
+
+**Step 4:**
+
+In the “Retrieve CALPADS Files” section of the Extracts Home page, find the “Direct Certification” link. It usually takes approximately 10 minutes for the extract to become available; however, download times can vary depending on how many requests are in the queue.
+
+**Step 5:**
+
+The next screen will display the Download Extract page. There will be a row with the file name of the extract type that was requested. The archive date that is displayed indicates the date the extract will no longer be available for download through this screen (one week from the date the extract was created). Select the “Download” button at the end of the row. You will then be prompted to save a text file with the results you included in the extract.
+
+#### Download the Foster Results
+
+**Step 1:**
+
+Go to the [CALPADS Home page![Image 4: External link opens in new window or tab.](https://www.cde.ca.gov/images/icons/externallink.gif)](https://identity.calpads.org/Account/Login?ReturnUrl=/connect/authorize/callback?client_id=CALPADSWebClient&redirect_uri=https://www.calpads.org/signin-oidc&response_type=code%20id_token&scope=openid%20profile&max_age=14400&response_mode=form_post&nonce=636946550156445095.ZTQyOWY2ZGQtMjhkOS00ZmYzLTk0MDMtNWQyY2YxZDdiZGMzZTljYjAwN2EtMjBhYi00MDIyLWI5NzItZmQ4ZWI2NGEwODgx&state=CfDJ8Np66SOFYHxBtQueTRCDXcP_mF9hLXWIL1uisT-OyVTpKD26D9ax7tFFYgFw8_2V5oXa8eGn4fm8sidtMWNR6oNl5zFBNYWtWIAqbZRrSuXlI6klAdqimkLaVsH3by7tbEf_mRsyUT5QDkgUrEDGNq3cvWF0pWIifH17eeZieHLUWcDm0_Ysl7s-c9CGtSza6ytCs__6vDXipuIkeX1Y24a6RW4C0jYsS26z3ERl8MMYen1TsRpGL7FBzmBv32va1wA9DvfZXqJ-xCiwC4cfR1-jJpNDdEb_oSU1MoFVDi5Qgi1m2ssM0URm0RVYFku-abP22sxnSU0iMaXn3Zk1sTg&x-client-SKU=ID_NETSTANDARD2_0&x-client-ver=5.3.0.0) and log in. Ensure you have the “Foster” administration assigned to your CALPADS account. Only individuals with the “Foster” administration will be able to access the foster reports in CALPADS.
+
+To download a list of foster students in your LEA, go to “Reports” and then select “ODS Reports” from the dropdown menu.
+
+**Step 2:**
+
+In the Fall 1 section of the ODS Reports page, select Report 5.7—Foster Youth Enrolled-Student List.
+
+Report 5.7 will contain a list of all students who are in foster placement or foster family maintenance who are enrolled in the LEA.
+
+**Step 3:**
+
+From the Foster Youth Enrolled-Student List page, select the floppy disk icon from the toolbar in above the list to save a copy of the list in whatever format you prefer.
+
+### Contact Information
+
+LEAs can contact the CALPADS support team by email at [calpads-support@cde.ca.gov](mailto:calpads-support@cde.ca.gov), by phone at 916-324-6738 or by requesting service through the [CDE CALPADS HELP web page](https://www2.cde.ca.gov/CALPADSHELP/DEFAULT.ASPX).
+
+## Local Level Direct Certification Match
+
+Private schools, nonpublic schools, residential child care institutions with day students, and camps must use a local match process because they cannot access the California Longitudinal Pupil Achievement Data System (CALPADS). Public school districts, county offices of education, and charter schools can elect to conduct both local and state level direct certification (DC).
+
+Local educational agencies (LEA) may establish a Memorandum of Understanding with the county department of social or welfare services to match enrolled students against those children receiving CalFresh and CalWORKs benefits. To assist in the development, LEAs may use the [Direct Certification Implementation Checklist (DOCX)](https://www.cde.ca.gov/ls/nu/sn/documents/dircert.docx) to help implement a DC process with the county department of social or welfare services. Please refer to the [CalFRESH County Contacts for Direct Certification](https://www.cde.ca.gov/ls/nu/sn/directcertcountycontacts.asp) to obtain a list of local welfare or social service office contacts.
+
+LEAs can include foster and other available lists in their agreement with local welfare agencies. They can also work with homeless, migrant, runaway, the Food Distribution Program on Indian Reservations, and foster liaisons in school districts to directly certify additional students.
+
+**Reminder:** Medi-Cal matching is not available at the local level, and can only be obtained through the CALPADS.
+
+## Verification
+
+Each local educational agency (LEA) must annually verify eligibility of children from a sample of household applications approved for free and reduced-price (F/RP) benefits for that school year. The sample pool is the actual number of approved applications on file as of October 1. The sample size must be based on the October 1 sample pool. If October 1 falls on a weekend, LEAs use the next operating day to establish the sample pool.
+
+Nationally, on average, 40 percent of contacted households do not respond to the verification notice, which results in the loss of meal benefits for potentially eligible children (source: FNS-742 data from School Year 2014–15.) Directly certifying students for F/RP meals will help to minimize the risk of eligible children losing access to meal benefits due to nonresponse.
+
+### Direct Certification Performance Requirements
+
+The Healthy, Hunger-Free Kids Act of 2010 requires that all states meet direct certification (DC) through Supplemental Nutrition Assistance Program (SNAP [CalFresh, in California]) performance targets. States that fail to directly certify at least 95 percent of SNAP eligible students are required to develop and implement continuous improvement plans. The verification report is the source document used to measure how well LEAs are performing to meet DC goals. Completing Section 3 of the verification report, “Students approved as **free** eligible **not** subject to verification”, with accurate data is exceedingly important in order for California to reach the 95 percent target.
+
+### Completing the Verification Collection Report in Child Nutrition Information and Payment System (CNIPS)
+
+The following items provide guidance for completing Section 3—students approved as **free** eligible **not** subject to verification:
+
+**3-1:** Only those school food authorities (SFA) exempt from conducting DC, or SFAs with all sites participating in the Community Eligibility Provision (CEP) or Provision 2 in nonbase years will check this box. Checking this box will gray out the remainder of Section 3.
+
+**3-2:** Report all students directly certified through CalFresh as of the **last operating day of October**. Do not include those students certified through the CalFresh letter method (family brings in a letter from the CalFresh office to qualify their children for free meal benefits). If a student's family receives both CalFresh and CalWORKs benefits, the SFA must report all students in the same household as recipients of CalFresh only.
+
+**3-3:** Report all students directly certified through other programs, including:
+
+* CalWORKs
+* Medi-Cal (Free only)
+* Food Distribution Program on Indian Reservations (FDPIR)
+* Homeless
+* Migrant
+* Runaway
+* Foster
+* Head Start
+* Nonapplicants, but approved by local officials
+
+**3-4:** Report all students certified through the CalFresh letter method (family brings in a letter from the CalFresh office to qualify their children for free meal benefits).
+
+**MP-1:** Report all students directly certified for free meals through Medi-Cal and the number of household members who received free meal benefits due to Medi-Cal benefit extension. This number is also included in the total for item 3-3.
+
+**MP-2:** Report all students directly certified for reduced-price meals through Medi-Cal and the number of household members who received reduced-price meal benefits due to Medi-Cal benefit extension. This number should **not** be included in any other totals in Section 3.
+
+## Frequently Asked Questions (FAQ)
+
+[](https://www.cde.ca.gov/ls/nu/sn/directcert.asp)
+[Expand All](https://www.cde.ca.gov/ls/nu/sn/directcert.asp#accordionfaq) | [Collapse All](https://www.cde.ca.gov/ls/nu/sn/directcert.asp#accordionfaq)
+
+### Direct Certification Basics
+
+##### Who is required to conduct the direct certification (DC) process?
+
+All local educational agencies (LEA) approved to participate in the National School Lunch Program and the School Breakfast Program are mandated to conduct DC. Only those agencies that provide services solely for residential students are exempt.
+
+##### How frequently should DC be conducted?
+
+California _Education Code_ (_EC_) Section 49501.5 requires public school districts, charter schools, and county offices of education (COE) to conduct DC through the California Longitudinal Pupil Achievement Data System (CALPADS) monthly, regardless of their participation in a federal provision (i.e., Provision 2 or the Community Eligibility Provision). Private schools, nonpublic schools, and residential child care institutions with day students that do not have access to CALPADS are required to comply with the federal requirements, and conduct DC at their local social services agency at least three times per year to comply with Title 7, _Code of Federal Regulations_ (7 _CFR_), Section 245.6(b)(3). For more information, refer to the [Regulations](https://www.cde.ca.gov/ls/nu/sn/directcert.asp?tabsection=1#frequency) tab.
+
+##### If a child is listed on both the DC report with CalFresh and the CalWORKs status what program should I use to determine their eligibility?
+
+CalFresh always supersedes all other programs. For the DC hierarchy, refer to the [Regulations](https://www.cde.ca.gov/ls/nu/sn/directcert.asp?tabsection=1#hierarchy) tab.
+
+##### We have a lunch application that has two students in the same household listed; one student qualifies as free under categorical eligibility, and the other student has been determined free through DC. Do we need to override the categorical free status with the DC free status? Or do we leave it because both students are free?
+
+DC takes precedence over an application. The only time DC would not override an application is if the student is DC for reduced-price meals and the application qualifies them eligible for free meals. In addition, DC reduced-price status can be overridden by any other free DC status.
+
+##### As part of DC we can qualify individual members of a family determined to be homeless, but is this really something we should be doing at the beginning of the year since their homeless status potentially has changed?
+
+Yes. All students, regardless of the assistance program, remain eligible for free meals for the duration of the entire school year, even if there is a change in their living situation. Eligibility continues for the carry-over period, up to 30 operating days or until a new eligibility determination is made, into the subsequent school year due to the yearlong eligibility requirement.
+
+##### Are children enrolled in a state-funded or Indian Tribal Organization (ITO)-funded pre-kindergarten program automatically eligibile for free meals?
+
+Students enrolled in the state-funded or ITO-funded pre-kindergarten program are only automatically eligible for free meals if the program uses eligibility criteria that is identical to or more stringent than federal Head Start eligibility criteria.
+
+### Provisions
+
+##### All of our sites are on Community Eligibility Provision (CEP) or Provision 2. Do we need to conduct DC?
+
+Yes, all public school districts, charter schools, and county offices of education (COE)s are required to conduct DC monthly through California Longitudinal Pupil Achievement Data System (CALPADS). This includes all sites on a federal provision, such as the CEP or Provision 2. Private schools, nonpublic schools, and residential child care institutions (RCCI)s operating a special Provision must conduct a DC match at least once annually (7 _CFR_, Section 245.6[b][1][v]).
+
+### Direct Certification with Medi-Cal
+
+##### I have a student that was directly certified as Medi-Cal reduced-price. I just received an application from the family and based on family size and income, the student qualifies for free meals. What should I do?
+
+If the student qualifies for free meals by submitting an application, the DC for reduced-price meals should be disregarded and the student should receive free meals.
+
+##### Can members of the same household have a different DC status or does one certification status apply to all students in the household?
+
+Yes. It is possible for students in the same household to receive different eligibility determinations. Free meal benefits through CalFresh, CalWORKs, Food Distribution Program on Indian Reservations, and Medi-Cal can be extended to other students in the household, even if those students are directly certified for reduced-price meals.
+
+##### We have a family that has students on Medi-Cal that are not in the California Longitudinal Pupil Achievement Data System (CALPADS) extract. The parent has provided a copy of the student's Medi-Cal card. Is this sufficient backup to directly certify the student?
+
+No. Not all Medi-Cal recipients are low income which is why you cannot accept Medi-Cal numbers on applications or accept Medi-Cal cards to qualify students for free or reduced-price meals. If the family is not on the DC extract report in CALPADS, they must complete an application and qualify based on family size and income.
+
+##### A student is DC Medi-Cal Free and has siblings that we extend the benefits to, but the next month the student is on the Foster DC list. According to the hierarchy the foster status overrides Medi-Cal status. But we extended the benefits based on Medi-Cal, so what happens to the extended benefits?
+
+The student who is now eligible for benefits through foster should have their eligibility updated to reflect that they are directly certified as foster. The other household members should retain their eligibility for the school year based on the initial Medi-Cal determination. Ensure the eligibility trail is documented to support the eligibility determinations for review purposes.
+
+##### If a student is directly certified as Medi-Cal reduced-price, and they submit an application which qualifies them as free through income, are they then subject to verification? If so, do they revert to paid status if they do not respond or do they revert to reduced-price based on DC?
+
+Yes, all students whose eligibility is determined by application will be subject to verification. If they do not respond, they would revert to the reduced-price eligibility based on DC.
+
+## Resources
+
+### Webinars
+
+[Direct Certification—The Basics![Image 5: External link opens in new window or tab.](https://www.cde.ca.gov/images/icons/externallink.gif) (Video; 12:45)](https://www.youtube.com/watch?v=erFQ5xmvUJk&feature=youtu.be)
+This webinar is intended for all agencies that perform direct certification (DC). It covers basic information regarding the DC requirements and process.
+
+[Direct Certification Best Practices![Image 6: External link opens in new window or tab.](https://www.cde.ca.gov/images/icons/externallink.gif) (Video; 15:36)](https://www.youtube.com/watch?v=C0ASMPovN70)
+This webinar is intended for all agencies that perform DC. It covers the best practices for maximizing DC results.
+
+[Direct Certification with Medicaid![Image 7: External link opens in new window or tab.](https://www.cde.ca.gov/images/icons/externallink.gif) (Video; 8:23)](https://www.youtube.com/watch?v=ra6funztvvs)
+This webinar is intended for all agencies that can perform DC through California Longitudinal Pupil Achievement Data System (CALPADS). It covers the administrative requirements and regulations regarding the Medicaid demonstration project.
+
+[Direct Certification and the Verification Collection Report![Image 8: External link opens in new window or tab.](https://www.cde.ca.gov/images/icons/externallink.gif) (Video; 9:22)](https://www.youtube.com/watch?v=ZImp1M6JKjk)
+This webinar is intended for all agencies that perform DC. It covers the reporting requirements for the DC section of the verification collection report.
+
+### All County Letter
+
+[All County Letter 07-16![Image 9: External link opens in new window or tab.](https://www.cde.ca.gov/images/icons/externallink.gif) (PDF)](http://www.cdss.ca.gov/lettersnotices/entres/getinfo/acl07/pdf/07-16.pdf): The California Department of Social Services issued this letter which may be used to communicate with a local county agencies to implement a direct certification process.
+
+### CALPADS
+
+[CALPADS home page](https://www.cde.ca.gov/ds/sp/cl/index.asp): Please visit this web page for the latest information and updates on CALPADS.
+
+[CALPADS System Documentation web page](https://www.cde.ca.gov/ds/sp/cl/systemdocs.asp): This web page provides file specifications, user manual, known issues, and release updates.
+
+[CALPADS Training web page](https://www.cde.ca.gov/ds/sp/cl/training.asp): This web page provides information on presenter-led and self-paced training.
+
+### Community Eligibility Provision (CEP)
+
+[CEP web page](https://www.cde.ca.gov/ls/nu/sn/cep.asp): The CEP provides School Nutrition Programs (SNP) sponsors an alternative method for claiming student meals in high poverty schools.
+
+### Local Control Funding Formula (LCFF)
+
+[LCFF web page](https://www.cde.ca.gov/fg/aa/lc/): This web page provides information regarding LCFF components and the California accountability model.
+
+[LCFF Overview web page](https://www.cde.ca.gov/fg/aa/lc/lcffoverview.asp): This web page provides information about the funding provisions of the LCFF.
+
+[LCFF Frequently Asked Questions](https://www.cde.ca.gov/fg/aa/lc/lcfffaq.asp): Frequently asked questions (FAQ) and answers regarding the LCFF can be found at the LCFF FAQs web page.
+
+### Management Bulletins
+
+The following management bulletins are available on the California Department of Education (CDE) [SNP management bulletin web page](https://www.cde.ca.gov/ls/nu/sn/mb.asp):
+
+* [SNP-02-2025](https://www.cde.ca.gov/ls/nu/sn/mbsnp022025.asp), Direct Certification Requirements in the SNPs, March 2025
+* [CNP-03-2015](https://www.cde.ca.gov/ls/nu/sn/mbcnp032015.asp), Exceptions to Sharing Eligibility Data in the Child Nutrition Programs, July 2015
+* [SNP-05-2015](https://www.cde.ca.gov/ls/nu/sn/mbsnp052015.asp), Preventing Overt Identification of Children, January 2015
+* [SNP-17-2015](https://www.cde.ca.gov/ls/nu/sn/mbsnp172015.asp), Eligibility Effective Date For Directly Certified, March 2015
+* [USDA-CNP-05-2010](https://www.cde.ca.gov/ls/nu/sn/mbusdacnp052010.asp), Extending Categorical Eligibility Questions and Answers, September 2010
+* [USDA-SNP-25-2012](https://www.cde.ca.gov/ls/nu/sn/mbusdasnp252012.asp), Foster Children Now Eligible for Free Meals/Milk, May 2012
+
+### Migrant Education Office
+
+[California’s State Migrant Education Office](https://www.cde.ca.gov/sp/me/mt/regions.asp) administers program services in collaboration with 20 regional office and direct funded districts statewide.
+
+### U.S. Department of Agriculture (USDA) Eligibility Manual
+
+For a current copy of the _Eligibility Manual for School Meals_, please visit the USDA’s [Eligibility Manual for School Meals web page![Image 10: External link opens in new window or tab.](https://www.cde.ca.gov/images/icons/externallink.gif)](https://www.fns.usda.gov/cn/eligibility-manual-school-meals).
+
+### Contact Information
+
+If you have any questions regarding DC, please contact the SNP team by email at [SNPInfo@cde.ca.gov](mailto:SNPInfo@cde.ca.gov) or reach out to your county's assigned [SNP Specialist](https://www.cde.ca.gov/ls/nu/sn/snpcontacts.asp).
+
+Questions: School Nutrition Programs Unit | [snpinfo@cde.ca.gov](mailto:snpinfo@cde.ca.gov) | 800-952-5609
+
+Last Reviewed: Wednesday, February 4, 2026
+
+[This institution is an equal opportunity provider. Esta institución es un proveedor que ofrece igualdad de oportunidades.](https://www.cde.ca.gov/ls/nu/cr/crfactsheet.asp)
+
+Related Content
+
+* [Foster Children Now Eligible for Free Meals/Milk](https://www.cde.ca.gov/ls/nu/sn/mbusdasnp252012.asp)
+Management Bulletin USDA-SNP-25-2012: Foster children now eligible for free meals/milk.
+
+Trending in Nutrition
+
+* [Income Eligibility Scales for School Year 2026–27](https://www.cde.ca.gov/ls/nu/rs/scales2627.asp)
+* [USDA Nondiscrimination Statement](https://www.cde.ca.gov/ls/nu/cr/crfactsheet.asp)
+* [Child Nutrition Information & Payment System](https://www.cde.ca.gov/ls/nu/cn/index.asp)
+* [Income Eligibility Scales for School Year 2025–26](https://www.cde.ca.gov/ls/nu/rs/scales2526.asp)
+* [Nutrition](https://www.cde.ca.gov/ls/nu/index.asp)
+
+* [California Universal Meals](https://www.cde.ca.gov/ls/nu/sn/cauniversalmeals.asp)
+* [School Nutrition](https://www.cde.ca.gov/ls/nu/sn/index.asp)
+* [SUN Bucks (Summer EBT)](https://www.cde.ca.gov/ls/nu/sunbucks.asp)
+* [Grapes, Variety](https://www.cde.ca.gov/ls/nu/fd/grapes.asp)
+* [Rates, Eligibility Scales, & Funding](https://www.cde.ca.gov/ls/nu/rs/index.asp)
+* [Proposition 12 - Farm Animal Confinement](https://www.cde.ca.gov/ls/nu/fd/mb-fdp-03-2022-a.asp)
+
+More Trending Items
+
+Recently Posted in Nutrition
+
+* [FNS 709-5, Rev. 4: Shipment & Receipt of USDA Food](https://www.cde.ca.gov/ls/nu/fd/mbfdp012026.asp) (added 01-Oct-2026)
+This management bulletin outlines the updates to the U.S. Department of Agriculture (USDA) Food and Nutrition Service (FNS) Instruction 709-5, Revision 4: Shipment and Receipt of USDA Foods.
+* [2026–27 FFVP Second Allocation Funding Results](https://www.cde.ca.gov/ls/nu/ffvpsecondallocation.asp) (added 30-Sep-2026)
+On September 29, 2026, the CDE NSD awarded and posted the FFVP second allocation grant recipients and funding allocations for School Year 2026–27 on the CDE FFVP Funding Results web page. The FFVP second allocation is October 1, 2026–June 30, 2027.
+* [USDA Foods Participation Election for SY 2027–28](https://www.cde.ca.gov/ls/nu/usdafoodsparticipation.asp) (added 29-Sep-2026)
+Beginning October 1, 2026, and through December 15, 2026, SNP sponsors participating in the Food Distribution Program may submit a request to change the way they order and receive USDA Foods for School Year (SY) 2027–28.
+* [Updates to Child Nutrition Program Standards](https://www.cde.ca.gov/ls/nu/mbsupdatestocnpstandards.asp) (added 29-Sep-2026)
+Two MBs SNP-08-2026, SFSP-02-2026 Updates to School Nutrition Program Standards and SNP-09-2026 Preschool Meal Pattern Requirements have been updated to reflect new federal meal pattern and nutrition standard requirement & flexibility options.
+* [Fontanini Foods Recalls Pork Sausage Products](https://www.cde.ca.gov/ls/nu/fontaninifoodsrecall.asp) (added 29-Sep-2026)
+Fontanini Foods LLC Recalls Raw, Frozen Pork Sausage Products Due to Possible Foreign Matter Contamination.
+
+* [SUN Bucks Funds](https://www.cde.ca.gov/ls/nu/sunbucksapport.asp) (added 29-Sep-2026)
+SUN Bucks Funding allocations provide eligible local educational agencies (LEA) funds to help support the work associated with Universal Benefits Applications (UBA)/SUN Bucks-compliant applications during the applicable SUN Bucks eligibility period.
+* [2026 SUN Bucks Funds](https://www.cde.ca.gov/ls/nu/sunbucksapport26.asp) (added 29-Sep-2026)
+The 2026 SUN Bucks Funding allocations provide eligible local educational agencies with funds to help support the work associated with Universal Benefits Applications (UBA)/SUN Bucks-compliant applications during the applicable SUN Bucks eligible.
+* [Assembly Bill 1264 Public Input Survey Open](https://www.cde.ca.gov/ls/nu/ab1264inputsurveyopen.asp) (added 28-Sep-2026)
+Survey forwarded from California Department of Public Health for public input on AB 1264.
+* [Updates to School Nutrition Program Standards](https://www.cde.ca.gov/ls/nu/sn/mbsnp082026.asp) (added 28-Sep-2026)
+MB SNP-08-2026; SFSP-02-2026 Updates to School Nutrition Program Standards for Schools.
+* [Star Meat Delivery Recalls Pork, Beef, and Goat](https://www.cde.ca.gov/ls/nu/starmeatrecall.asp) (added 24-Sep-2026)
+Star Meat Delivery Inc. Recalls Raw Pork, Beef, and Goat Products Produced Without the Benefit of Inspection.
+
+More Recently Posted Items
+
+## Footer Navigation Menu
+
+### About CDE
+
+[CDE Locations](https://www.cde.ca.gov/re/di/cd/cde.asp)
+
+[CDE Mission](https://www.cde.ca.gov/eo/mn/mv)
+
+[CDE Organization](https://www.cde.ca.gov/re/di/or/)
+
+[Contact Us](https://www.cde.ca.gov/re/di/cd/)
+
+[Equal Opportunity](https://www.cde.ca.gov/re/di/eo/)
+
+[Jobs at CDE](https://www.cde.ca.gov/re/di/jb/)
+
+[Newsroom](https://www.cde.ca.gov/nr/)
+
+[Stay Connected with CDE](https://www.cde.ca.gov/re/di/sc/)
+
+[Superintendent's Initiatives](https://www.cde.ca.gov/eo/in/)
+
+### State Board of Education
+
+[Meeting Agendas](https://www.cde.ca.gov/be/ag/ag/)
+
+[Meeting Minutes & Schedule](https://www.cde.ca.gov/be/mt/)
+
+[Members](https://www.cde.ca.gov/be/ms/mm/)
+
+### Popular Content
+
+[California School Dashboard](https://www.cde.ca.gov/ta/ac/cm/)
+
+[Common Core State Standards](https://www.cde.ca.gov/re/cc/)
+
+[Complaint Procedures](https://www.cde.ca.gov/re/cp/)
+
+[Content Standards](https://www.cde.ca.gov/be/st/ss/)
+
+[Curriculum Resources](https://www.cde.ca.gov/ci/cr/)
+
+[Education Funding](https://www.cde.ca.gov/fg/fo/)
+
+[English Language Development Standards](https://www.cde.ca.gov/sp/el/er/eldstandards.asp)
+
+[Financial Allocations & Apportionments](https://www.cde.ca.gov/fg/aa/)
+
+[High School Equivalency Tests](https://www.cde.ca.gov/ta/tg/gd/)
+
+[High School Graduation Requirements](https://www.cde.ca.gov/ci/gs/hs/hsgrgen.asp)
+
+[Kindergarten in California](https://www.cde.ca.gov/ci/gs/em/kinderinfo.asp)
+
+[Social and Emotional Learning](https://www.cde.ca.gov/eo/in/socialemotionallearning.asp)
+
+[Standards & Frameworks](https://www.cde.ca.gov/be/st/)
+
+### Popular Program Areas
+
+[Accountability - School Performance](https://www.cde.ca.gov/ta/ac/)
+
+[Career Technical Education](https://www.cde.ca.gov/ci/ct/)
+
+[Charter Schools](https://www.cde.ca.gov/sp/ch/)
+
+[Child Nutrition](https://www.cde.ca.gov/ls/nu/)
+
+[Child Development](https://www.cde.ca.gov/sp/cd/)
+
+[Disaster and Emergency Management](https://www.cde.ca.gov/ls/ep/)
+
+[Expanded Learning](https://www.cde.ca.gov/ls/ex/)
+
+[Principal Apportionments](https://www.cde.ca.gov/fg/aa/pa/)
+
+[Safe Schools](https://www.cde.ca.gov/ls/ss/)
+
+[School Facilities](https://www.cde.ca.gov/ls/fa/)
+
+[Special Education](https://www.cde.ca.gov/sp/se/)
+
+[Standardized Testing](https://www.cde.ca.gov/ta/tg/)
+
+[Title I](https://www.cde.ca.gov/sp/sw/)
+
+[Title III](https://www.cde.ca.gov/sp/el/t3/)
+
+### Resources
+
+[California School Directory](https://sd.cde.ca.gov/schooldirectory/)
+
+[Education Calendars](https://www.cde.ca.gov/re/ca/)
+
+[Education FAQs](https://www.cde.ca.gov/re/di/fq/)
+
+[Language Access Complaint](https://www.cde.ca.gov/re/di/eo/languageservices.asp)
+
+[Laws & Regulations](https://www.cde.ca.gov/re/lr/)
+
+[Multilingual Documents](https://www.cde.ca.gov/ls/pf/cm/)
+
+[Publications](https://www.cde.ca.gov/re/pn/)
+
+[School and District Reports](https://www.cde.ca.gov/sdprofile/search.aspx)
+
+>>[More Resources](https://www.cde.ca.gov/re/)
+
+### Site Information
+
+[A-Z Index](https://www.cde.ca.gov/azindex/) | [Site Map](https://www.cde.ca.gov/sitemap/)
+
+[Web Policy](https://www.cde.ca.gov/re/di/ws/webpolicy.asp)
+
+[Accessibility Certification](https://www.cde.ca.gov/re/di/ws/accessibility2017.asp)
+
+© California Department of Education

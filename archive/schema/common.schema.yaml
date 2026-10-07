@@ -1,0 +1,70 @@
+# Shared definitions used by the playbook, parameters and sources schemas.
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: common.schema.yaml
+$defs:
+  date:
+    description: ISO date (YYYY-MM-DD). YAML loads these as dates; validation accepts both.
+    anyOf:
+      - {type: string, pattern: '^\d{4}-\d{2}-\d{2}$'}
+      - {type: object}   # a datetime.date after YAML load; checked by tools/validate.py
+  confidence:
+    description: >-
+      confirmed = a primary source states it; secondary = only a secondary
+      source supports it; unresolved = not established (must point at an open question).
+    enum: [confirmed, secondary, unresolved]
+  citation:
+    type: object
+    required: [source]
+    additionalProperties: false
+    properties:
+      source: {type: string, description: "Source ID from any sources.yaml in the archive"}
+      locator: {type: string, description: "Section, page, table or paragraph inside the source"}
+      quote: {type: string, description: "Short verbatim excerpt that supports the claim"}
+  citations:
+    type: array
+    items: {$ref: '#/$defs/citation'}
+  rule_id:
+    type: string
+    pattern: '^[A-Z0-9]+(-[A-Z0-9]+)+$'
+  oq_id:
+    type: string
+    pattern: '^[A-Z0-9]+(-[A-Z0-9]+)*-OQ-\d{2,3}$'
+  life_event_code:
+    description: >-
+      Shared vocabulary so one event in a member's life can trigger every
+      playbook that cares about it.
+    enum:
+      - turning_65
+      - medicare_entitlement      # Part A/B starts (age or 24 months of SSDI)
+      - retirement
+      - income_drop               # job loss, reduced hours, pension or benefit ends
+      - income_rise
+      - cola_january              # new year's COLA, poverty guidelines, premiums
+      - spouse_death
+      - marriage
+      - divorce_separation
+      - household_change          # someone moves in or out, new child
+      - disability_onset
+      - disability_cessation
+      - medicaid_change           # starts/loses Medicaid, spenddown
+      - benefit_change            # starts/loses SSI, SNAP, SSDI, other benefit
+      - asset_change              # sale of home, inheritance, spend-down of savings
+      - nursing_home_entry
+      - home_care_need
+      - move_state
+      - move_county
+      - renewal_due
+      - school_year_start
+      - employer_coverage_end     # retiree plan or active employer coverage ends
+      - immigration_status_change
+  # Any sourced item in procedure / life events / outcome proof.
+  sourced_item:
+    type: object
+    required: [id, confidence]
+    properties:
+      id: {type: string}
+      confidence: {$ref: '#/$defs/confidence'}
+      sources: {$ref: '#/$defs/citations'}
+      open_question: {$ref: '#/$defs/oq_id'}
+      county_varies: {type: boolean}
+      note: {type: string}

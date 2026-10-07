@@ -1,0 +1,461 @@
+schema_version: 2
+program: ltc_medicaid
+scope: il
+title: Long-term care Medicaid — Illinois (AABD medical for nursing home, SLP and DoA HCBS waiver residents)
+last_researched: 2026-10-07
+
+summary:
+  plain_language: >-
+    In Illinois, Medicaid (AABD medical) pays for nursing-home care for people
+    who are 65 or older, blind or disabled. The asset limit is $17,500, the same
+    for one person or a couple. Savings above $17,500 do not deny the case
+    outright: they are added to what the resident owes the nursing home, so the
+    case works like a spenddown. A spouse at home keeps up to $143,172 in 2026
+    and enough of the resident's income to reach $4,066.50 a month. The
+    resident keeps $60 a month for personal needs. Gifts in the 60 months
+    before applying cause a penalty equal to the gift divided by the nursing
+    home's own monthly private rate, counted to the day, with no maximum; the
+    same rule applies to Department on Aging home care waiver services. Home
+    equity above $752,000 bars nursing-home payment unless a spouse or
+    qualifying relative lives there.
+  administered_by: >-
+    Illinois Department of Human Services (IDHS) Family Community Resource Centers and Long Term Care
+    Medical Field Offices decide eligibility; the Department of Healthcare and Family Services (HFS) is
+    the Medicaid agency (Bureau of Long Term Care, Asset Discovery Investigation unit).
+  funded_by: Federal and Illinois Medicaid funds.
+  local_names:
+    - {name: AABD medical, meaning: "Aid to the Aged, Blind and Disabled medical assistance"}
+    - {name: CSMNA, meaning: Community Spouse Maintenance Needs Allowance}
+    - {name: FMNA, meaning: Family Maintenance Needs Allowance}
+    - {name: NH credit, meaning: The resident's monthly payment toward the nursing home}
+    - {name: SLP / SLF, meaning: Supportive Living Program / Facility}
+    - {name: DoA HCBS waiver, meaning: Department on Aging Community Care Program home and community-based services}
+    - {name: ABE, meaning: Application for Benefits Eligibility (online portal)}
+    - {name: FCRC, meaning: IDHS Family Community Resource Center (local office)}
+  confidence: confirmed
+  sources:
+    - {source: il-idhs-wag-25-03-02-2, locator: "Changes in January and Resources tables"}
+    - {source: il-idhs-pm-07-02-20-d, locator: "whole section"}
+    - {source: il-idhs-mr-26-05, locator: "Summary"}
+
+rules:
+  - id: LTC-IL-RESOURCES
+    statement: >-
+      In Illinois, a nursing-home applicant who is 65 or older, blind or disabled
+      must have non-exempt resources of no more than $17,500 (the same limit for one
+      person or a household of more, since May 12, 2023); resources above $17,500
+      are added to the amount the resident owes the facility, so the person is
+      enrolled with a spenddown rather than denied.
+    kind: eligibility
+    effective_from: 2023-05-12
+    parameters: [il.aabd_medical.resource_limit]
+    implemented_in: playbooks/ltc_medicaid/states/il/rules.py:evaluate
+    confidence: confirmed
+    note: >-
+      The spenddown treatment combines PM 07-02-01 (community medical cases over the limit are enrolled in
+      spenddown) and PM 15-04-04 step 2 ("Add to this any non-exempt resources above the resource
+      disregard to determine the amount the person owes to the facility"). The evaluator applies the whole
+      excess in one month and treats the case as not eligible that month if the amount owed covers the
+      private rate. A caseworker may handle large excess differently (LTC-IL-OQ-05).
+    sources:
+      - {source: il-idhs-pm-07-02-01, locator: "first paragraph", quote: "Effective 05/12/2023, the asset limit for Medical cases is $17,500. This applies whether one person or more is in a household."}
+      - {source: il-idhs-pm-07-02-01, locator: "last paragraph", quote: "when the total value of nonexempt resources exceeds the resource limit and all other eligibility factors are met, enroll the person in spenddown"}
+      - {source: il-idhs-pm-15-04-04, locator: "Step 2: Budget income using LTC deductions"}
+  - id: LTC-IL-CSRA
+    statement: >-
+      In Illinois, for nursing-home, supportive living and DoA HCBS waiver
+      applications received on or after January 1, 2026, the community spouse may
+      keep up to $143,172 of the couple's non-exempt resources (a single standard,
+      not half the couple's resources); a higher amount is allowed only by court
+      order or appeal.
+    kind: eligibility
+    effective_from: 2026-01-01
+    parameters: [il.ltc.csra]
+    overrides: [LTC-FED-CSRA]
+    implemented_in: playbooks/ltc_medicaid/states/il/rules.py:evaluate
+    confidence: confirmed
+    sources:
+      - {source: il-idhs-mr-26-05, locator: "Summary", quote: "The CSRA limit for 2026 is $143,172.00."}
+      - {source: il-idhs-pm-07-02-22, locator: "first and fifth paragraphs"}
+  - id: LTC-IL-CSRA-TRANSFER-DEADLINE
+    statement: >-
+      In Illinois, the resources making up the community spouse resource allowance
+      must be moved to the community spouse by the first redetermination after
+      approval; resources still in the resident's name then count as the resident's.
+    kind: timing
+    effective_from: 2026-01-01
+    confidence: confirmed
+    sources:
+      - {source: il-idhs-pm-07-02-22, locator: "second paragraph", quote: "they are only allowed to do so until the first redetermination after initial approval of medical benefits"}
+  - id: LTC-IL-CS-DISCLOSURE
+    statement: >-
+      In Illinois, if the community spouse of a long-term care applicant fails to
+      disclose information about their resources or transferred resources, the
+      applicant is ineligible; both spouses must cooperate.
+    kind: eligibility
+    effective_from: 2026-01-01
+    overrides: [LTC-FED-SUPPORT-ASSIGNMENT]
+    confidence: confirmed
+    note: Illinois's manual does not describe the federal support-assignment route (42 U.S.C. 1396r-5(c)(3)); whether it is available in Illinois was not established.
+    sources:
+      - {source: il-idhs-pm-07-02-22, locator: "paragraph on disclosure", quote: "If the community spouse fails to disclose information about his or her resources or transferred resources, the customer is ineligible."}
+  - id: LTC-IL-CSMNA
+    statement: >-
+      In Illinois in 2026, a nursing-home resident's income may be used for a
+      Community Spouse Maintenance Needs Allowance equal to $4,066.50 minus the
+      community spouse's gross income (more only by court order or fair hearing),
+      deducted after the personal needs allowance and only to the extent income is
+      actually given to the spouse; it is not deducted from SSI.
+    kind: benefit
+    effective_from: 2026-01-01
+    parameters: [il.ltc.csmna_standard]
+    overrides: [LTC-FED-MMMNA, LTC-FED-CSMIA]
+    implemented_in: playbooks/ltc_medicaid/states/il/rules.py:evaluate
+    confidence: confirmed
+    sources:
+      - {source: il-idhs-pm-15-04-04-a, locator: "paragraphs 1, 3-5"}
+      - {source: il-idhs-mr-26-05, locator: "Summary"}
+  - id: LTC-IL-FMNA
+    statement: >-
+      In Illinois, a nursing-home resident may also keep a Family Maintenance Needs
+      Allowance for dependent children, adult children, parents or siblings who live
+      with the community spouse and are claimed for tax purposes; the 2026 standard is
+      $2,705, but how the per-member amount is computed was not found in the pages
+      retrieved.
+    kind: benefit
+    effective_from: 2026-01-01
+    parameters: [il.ltc.fmna_standard]
+    overrides: [LTC-FED-FAMILY-ALLOWANCE]
+    implemented_in: playbooks/ltc_medicaid/states/il/rules.py:evaluate
+    confidence: unresolved
+    open_question: LTC-IL-OQ-02
+    sources:
+      - {source: il-idhs-pm-15-04-04-b, locator: "qualifying family members"}
+      - {source: il-idhs-wag-25-03-02-2, locator: "Family Maintenance (FMNA) 2026: 2,705.00"}
+  - id: LTC-IL-PNA
+    statement: >-
+      In Illinois, a Medicaid resident of a skilled nursing facility (and of an
+      ICF/IID, MC/DD or SMHRF) keeps a personal needs allowance of $60 a month; a
+      supportive living program resident keeps $120 plus room and board.
+    kind: benefit
+    effective_from: 2026-01-01
+    parameters: [il.ltc.pna_nursing_home]
+    overrides: [LTC-FED-PNA]
+    implemented_in: playbooks/ltc_medicaid/states/il/rules.py:evaluate
+    confidence: confirmed
+    sources:
+      - {source: il-idhs-pm-15-06-02-b, locator: "Nursing Home PNA; Supportive Living Program PNA"}
+  - id: LTC-IL-NH-CREDIT
+    statement: >-
+      In Illinois, after a nursing-home resident is found eligible, the monthly
+      amount they pay the facility is their total income minus, in order, the
+      personal needs allowance, the CSMNA, the FMNA and health insurance premiums
+      and other allowed medical expenses, plus any non-exempt resources above
+      $17,500; the $25 income exemption used to decide eligibility is not allowed in
+      this step.
+    kind: benefit
+    effective_from: 2026-01-01
+    overrides: [LTC-FED-POST-ELIGIBILITY]
+    implemented_in: playbooks/ltc_medicaid/states/il/rules.py:evaluate
+    confidence: confirmed
+    sources:
+      - {source: il-idhs-pm-15-04-04, locator: "Two-step eligibility process; Step 2"}
+  - id: LTC-IL-HOME-EQUITY
+    statement: >-
+      In Illinois in 2026, a nursing-home, supportive living or DoA HCBS waiver
+      resident whose equity in their homestead exceeds $752,000 is ineligible for
+      payment of those services unless the resident's spouse, dependent sibling,
+      child under 21, blind or disabled child, or a caregiver child who lived there
+      two years lives in the home, or a hardship waiver is granted.
+    kind: eligibility
+    effective_from: 2026-01-01
+    parameters: [il.ltc.home_equity_limit]
+    overrides: [LTC-FED-HOME-EQUITY]
+    implemented_in: playbooks/ltc_medicaid/states/il/rules.py:evaluate
+    confidence: confirmed
+    note: Illinois's list of occupants who lift the limit (dependent sibling, caregiver child) is broader than the federal one; the evaluator implements the federal list plus any occupant the household marks as qualifying.
+    sources:
+      - {source: il-idhs-pm-07-02-04-a, locator: "item 2"}
+      - {source: il-idhs-wag-25-03-02-2, locator: "Home Equity Limit 2026: 752,000"}
+  - id: LTC-IL-HOME-VALUE
+    statement: >-
+      In Illinois, the fair market value of a non-farm homestead is the most recent
+      tax assessment value times 10 in Cook County and times 3 in other counties,
+      unless the applicant gives a reasonable alternative value from a licensed real
+      estate professional.
+    kind: definition
+    effective_from: 2026-01-01
+    county_varies: true
+    confidence: confirmed
+    sources:
+      - {source: il-idhs-pm-07-02-04-a, locator: "last paragraph"}
+  - id: LTC-IL-LOOKBACK
+    statement: >-
+      In Illinois, transfers of resources or income by a nursing-home, supportive
+      living or DoA HCBS waiver applicant or spouse are reviewed for the 60 months
+      before the request for the state to pay for long-term care; reported transfers
+      totaling over $25,000 are referred to the HFS Long Term Care Asset Discovery
+      Investigation unit.
+    kind: penalty
+    effective_from: 2026-01-01
+    parameters: [il.ltc.lookback_months]
+    overrides: [LTC-FED-LOOKBACK]
+    implemented_in: playbooks/ltc_medicaid/states/il/rules.py:_penalty
+    confidence: confirmed
+    sources:
+      - {source: il-idhs-pm-07-02-20, locator: "first and second paragraphs"}
+  - id: LTC-IL-HCBS-TRANSFERS
+    statement: >-
+      In Illinois, the transfer penalty rules apply not only to nursing-home and
+      supportive living residents but also to people applying for or receiving
+      Department on Aging home and community-based waiver services; they do not
+      apply to others living in the community.
+    kind: penalty
+    effective_from: 2026-01-01
+    overrides: [LTC-FED-PENALTY-SCOPE]
+    implemented_in: playbooks/ltc_medicaid/states/il/rules.py:_penalty
+    confidence: confirmed
+    sources:
+      - {source: il-idhs-pm-07-02-20, locator: "first paragraph", quote: "Do not apply the resource/income transfer policy to others living in the community."}
+  - id: LTC-IL-PENALTY-DIVISOR
+    statement: >-
+      In Illinois, a transfer penalty lasts as long as the total uncompensated value
+      of all non-allowable transfers would pay the person's monthly (30-day)
+      long-term care cost at the private rate of the facility where they live (for
+      HCBS, a rate from the HFS Bureau of Long Term Care), including partial months
+      rounded up to two decimals and counted in days, with no maximum.
+    kind: penalty
+    effective_from: 2026-01-01
+    overrides: [LTC-FED-PENALTY-MONTHS, LTC-FED-NO-ROUNDING]
+    implemented_in: playbooks/ltc_medicaid/states/il/rules.py:_penalty
+    confidence: confirmed
+    sources:
+      - {source: il-idhs-pm-07-02-20-d, locator: "fourth to sixth paragraphs and Example 3", quote: "For nursing home cases, use the private rate at the facility where the person lives."}
+  - id: LTC-IL-PENALTY-START
+    statement: >-
+      In Illinois, a transfer penalty begins on the latest of the date the person
+      becomes otherwise eligible for nursing-home, SLF or HCBS waiver services
+      (including meeting any spenddown and after Medicare-covered days), the first
+      day of the month of the transfer, and, for an ongoing case, the first month
+      that allows timely notice; once set it runs to its end even if the person
+      leaves the facility.
+    kind: penalty
+    effective_from: 2026-01-01
+    overrides: [LTC-FED-PENALTY-START]
+    implemented_in: playbooks/ltc_medicaid/states/il/rules.py:_penalty
+    confidence: confirmed
+    sources:
+      - {source: il-idhs-pm-07-02-20-d, locator: "The beginning date of the penalty period is the later of"}
+  - id: LTC-IL-LIEN
+    statement: >-
+      In Illinois, HFS files and keeps a lien against all real property (except a
+      mobile home) owned by an AABD cash client, or by an AABD medical client who has
+      lived in one or more long-term care facilities for at least 120 calendar days.
+    kind: procedure
+    effective_from: 2026-01-01
+    confidence: confirmed
+    note: Illinois estate recovery rules beyond the federal ones were not retrieved (LTC-IL-OQ-06).
+    open_question: LTC-IL-OQ-06
+    sources:
+      - {source: il-idhs-pm-07-02-04, locator: "third paragraph", quote: "an AABD Medical client who has resided in one or more long term care facilities for at least 120 calendar days"}
+
+procedure:
+  applications:
+    - id: LTC-IL-PROC-ABE
+      text: >-
+        Apply online through ABE (abe.illinois.gov), by phone through the ABE
+        Customer Call Center, on paper, or in person at an IDHS Family Community
+        Resource Center; there is no deadline or enrollment period for Medicaid.
+        Nursing facilities can file long-term care applications and upload documents
+        through the ABE Partner Portal.
+      channel: any
+      url: https://abe.illinois.gov/abe/access/
+      confidence: confirmed
+      sources:
+        - {source: il-idhs-pm-02-04-00, locator: "first paragraph; Applications for Medical Benefits; ABE"}
+        - {source: il-hfs-abe-ltc-partner-portal, locator: "ABE and the Partner Portal"}
+    - id: LTC-IL-PROC-FORM
+      text: The paper application form number for long-term care medical in Illinois was not confirmed.
+      confidence: unresolved
+      open_question: LTC-IL-OQ-07
+  documents:
+    - id: LTC-IL-DOC-TRANSFERS
+      text: >-
+        Transfers in the look-back are verified with form HFS 3654 (and a referral
+        packet HFS 3654A when transfers exceed $25,000); approval notices for
+        nursing-home cases use form HFS 458LTC.
+      form_number: HFS 3654 / HFS 3654A / HFS 458LTC
+      confidence: confirmed
+      sources: [{source: il-idhs-pm-07-02-20-d, locator: "first paragraph and Examples"}]
+  approval_notice:
+    - id: LTC-IL-NOTICE-458
+      text: The HFS 458LTC Notice of Decision on Application for Medical Assistance (Long Term Care / Supportive Living Facility) gives the first day of eligibility and coverage and the monthly NH credit.
+      form_number: HFS 458LTC
+      confidence: confirmed
+      sources: [{source: il-idhs-pm-07-02-20-d, locator: "Example 3 continued"}]
+  renewal:
+    - id: LTC-IL-RENEW-CSRA
+      text: At the first redetermination the caseworker checks that the CSRA resources reported at intake were moved to the community spouse; the community spouse's resources are not otherwise reviewed.
+      confidence: confirmed
+      sources: [{source: il-idhs-pm-07-02-22, locator: "second paragraph"}]
+
+life_events:
+  - id: LTC-IL-LE-NURSING-HOME
+    code: nursing_home_entry
+    event: Entering an Illinois nursing home or supportive living facility
+    why: The $17,500 asset limit (excess becomes a spenddown), 60-month look-back and spousal allowances apply.
+    check_rules: [LTC-IL-RESOURCES, LTC-IL-LOOKBACK, LTC-IL-CSRA]
+    confidence: confirmed
+    sources: [{source: il-idhs-pm-07-02-20, locator: "first paragraph"}]
+  - id: LTC-IL-LE-HOME-CARE
+    code: home_care_need
+    event: Applying for Department on Aging home care (Community Care Program waiver)
+    why: Transfer penalties and spousal rules apply to DoA HCBS waiver services as for nursing homes.
+    check_rules: [LTC-IL-HCBS-TRANSFERS, LTC-IL-CSRA]
+    confidence: confirmed
+    sources: [{source: il-idhs-pm-07-02-20, locator: "first paragraph"}]
+  - id: LTC-IL-LE-ASSETS
+    code: asset_change
+    event: Gifting money or property, or adding a child to a deed
+    why: Any non-allowable transfer in 60 months causes a penalty of (value / facility private rate) months, with no cap.
+    check_rules: [LTC-IL-PENALTY-DIVISOR, LTC-IL-PENALTY-START]
+    confidence: confirmed
+    sources: [{source: il-idhs-pm-07-02-20, locator: "definition of a transfer"}]
+  - id: LTC-IL-LE-SPOUSE-DEATH
+    code: spouse_death
+    event: Death of the community spouse
+    why: The CSMNA ends; resources the resident inherits count against $17,500.
+    check_rules: [LTC-IL-CSMNA, LTC-IL-RESOURCES]
+    confidence: confirmed
+    sources: [{source: il-idhs-pm-07-02-22, locator: "Note on resources received after eligibility"}]
+  - id: LTC-IL-LE-DIVORCE
+    code: divorce_separation
+    event: Divorce or separation
+    why: Spousal allowances apply only to a community spouse.
+    check_rules: [LTC-IL-CSRA, LTC-IL-CSMNA]
+    confidence: confirmed
+    sources: [{source: il-idhs-pm-15-04-04-a, locator: "definition of community spouse"}]
+  - id: LTC-IL-LE-MOVE
+    code: move_state
+    event: Moving into or out of an Illinois nursing home from another state
+    why: Illinois's $17,500 limit, flat $143,172 CSRA, facility-rate divisor and $752,000 home equity limit replace the other state's.
+    check_rules: [LTC-IL-RESOURCES, LTC-IL-CSRA, LTC-IL-HOME-EQUITY]
+    confidence: confirmed
+    sources: [{source: il-idhs-wag-25-03-02-2, locator: "Changes in January table"}]
+
+outcome_proof:
+  - id: LTC-IL-PROOF-458
+    evidence: HFS 458LTC notice of decision
+    shows: Eligibility for nursing-home or SLF payment, the first day of coverage (after any penalty) and the monthly NH credit.
+    how_to_get: Sent by the FCRC to the customer and the facility; also visible in ABE Manage My Case
+    confidence: confirmed
+    sources: [{source: il-idhs-pm-07-02-20-d, locator: "Example 3"}]
+
+links:
+  - id: LTC-IL-LINK-MSP
+    playbook: msp
+    relation: >-
+      Illinois nursing-home residents (and Department on Aging in-home clients)
+      can hold QMB/SLIB alongside long-term-care Medicaid, with HFS paying their
+      Medicare premiums; the community spouse maintenance allowance is not
+      deducted from the resident's income for the MSP test (see MSP-IL-LTC-SPOUSE).
+    confidence: confirmed
+    sources:
+      - {source: il-idhs-pm-06-12-01-b, locator: "last paragraph"}
+      - {source: il-idhs-pm-06-12-02-b, locator: "live in a long term care or sheltered care facility"}
+  - id: LTC-IL-LINK-MEDICAID
+    playbook: medicaid
+    rules: [LTC-IL-RESOURCES]
+    relation: >-
+      The $17,500 limit is the AABD medical limit used for community Medicaid too; a
+      nursing-home case over the limit is an AABD spenddown case, and during a
+      transfer penalty the person keeps other covered medical services.
+    test: LTC-X-01
+    confidence: confirmed
+    sources: [{source: il-idhs-pm-07-02-20-d, locator: "If otherwise eligible, the person remains entitled to other covered medical services."}]
+
+open_questions:
+  - id: LTC-IL-OQ-01
+    priority: medium
+    question: What monthly rate does the HFS Bureau of Long Term Care give for computing transfer penalties for DoA HCBS waiver (Community Care) cases in 2026?
+    why_it_matters: Needed to tell a home-care applicant how long a gift will delay services.
+    checked: [PM 07-02-20-d (says to call BLTC at 217-782-0545)]
+    affects: [LTC-IL-PENALTY-DIVISOR]
+    status: open
+  - id: LTC-IL-OQ-02
+    priority: low
+    question: How is the Illinois Family Maintenance Needs Allowance computed per family member (one-third of $2,705 minus the member's income, as federally, or another formula)?
+    why_it_matters: Changes the NH credit for residents with dependants at home.
+    checked: [PM 15-04-04-b, WAG 25-03-02 (2)]
+    affects: [LTC-IL-FMNA, il.ltc.fmna_standard]
+    status: open
+  - id: LTC-IL-OQ-03
+    priority: medium
+    question: (Input gap) What is the private monthly (30-day) rate of the person's nursing facility? It is the Illinois penalty divisor.
+    why_it_matters: The agent must ask for it (the facility's business office knows) before estimating a penalty.
+    checked: [PM 07-02-20-d]
+    affects: [LTC-IL-PENALTY-DIVISOR]
+    status: open
+  - id: LTC-IL-OQ-04
+    priority: low
+    question: How are excess resources handled for a DoA HCBS waiver applicant (spenddown limits in PM 15-04-04-a mention $17,500 after the CSRA)?
+    why_it_matters: Home-care applicants with savings over $17,500.
+    checked: [PM 15-04-04-a, PM 07-02-01]
+    affects: [LTC-IL-RESOURCES]
+    status: open
+  - id: LTC-IL-OQ-05
+    priority: high
+    question: For a nursing-home applicant with resources well above $17,500, does Illinois really enroll the case with excess resources added to the first month's NH credit, or must the excess be spent before eligibility (and is a spenddown met by facility charges)?
+    why_it_matters: Decides whether the agent says "eligible now, you pay more the first month" or "spend down first"; Illinois's treatment differs from New York and California.
+    checked: [PM 07-02-01, PM 15-04-04]
+    affects: [LTC-IL-RESOURCES, LTC-IL-NH-CREDIT]
+    status: open
+  - id: LTC-IL-OQ-06
+    priority: low
+    question: Which Illinois rules govern estate recovery and liens on homes of nursing-home residents (who is covered, hardship waivers)?
+    why_it_matters: Families ask whether the house will be taken after death.
+    checked: [PM 07-02-04, PM 07-02-04-a]
+    affects: [LTC-IL-LIEN]
+    status: open
+  - id: LTC-IL-OQ-07
+    priority: low
+    question: What is the current Illinois paper application form for medical (including long-term care), and is a separate long-term care supplement required?
+    why_it_matters: Procedure guidance for families without internet access.
+    checked: [PM 02-04-00, PM 02-04-01]
+    affects: [LTC-IL-PROC-FORM]
+    status: open
+
+conflicts:
+  - id: LTC-IL-CONFLICT-01
+    topic: Personal needs allowance amount
+    claims:
+      - source: il-idhs-pm-15-06-02-b
+        locator: "Nursing Home PNA"
+        says: The PNA for a skilled nursing facility is $60.
+      - source: il-idhs-pm-07-02-20-d
+        locator: "Example 3 continued (2012)"
+        says: "$900 SSA - $30 personal allowance + $53 remaining penalty = $923."
+    handling: The archive uses $60 (the current PNA section); the $30 is from an example written in 2012 that was not updated.
+    affects: [LTC-IL-PNA]
+    status: resolved
+
+claims_checked:
+  - claim: Illinois's asset limit for age/disability-based and long-term care Medicaid is reported as $17,500 for one person.
+    verdict: verified
+    detail: >-
+      $17,500 since May 12, 2023, the same for one person or more (so also $17,500 for a couple), per PM
+      07-02-01 and WAG 25-03-02 (2). For nursing-home residents, resources above it are applied to the cost
+      of care (spenddown) rather than denying the case.
+    sources: [{source: il-idhs-pm-07-02-01, locator: "first paragraph"}, {source: il-idhs-wag-25-03-02-2, locator: "Resources table"}]
+  - claim: Illinois's 2026 CSRA and MMMNA.
+    verdict: verified
+    detail: CSRA $143,172 (a flat standard, below the federal maximum) and CSMNA standard $4,066.50 from January 1, 2026 (MR #26.05).
+    sources: [{source: il-idhs-mr-26-05, locator: "Summary"}]
+  - claim: Illinois uses a daily private pay rate as the transfer penalty divisor.
+    verdict: partly_verified
+    detail: The divisor is the monthly (30-day) private rate at the facility where the person lives, and the fractional month is converted to days at that rate; it is not a statewide average.
+    sources: [{source: il-idhs-pm-07-02-20-d, locator: "Examples 3-4"}]
+  - claim: Illinois's personal needs allowance.
+    verdict: verified
+    detail: $60 a month in a skilled nursing facility; $120 plus room and board in a supportive living program.
+    sources: [{source: il-idhs-pm-15-06-02-b, locator: "Nursing Home PNA"}]

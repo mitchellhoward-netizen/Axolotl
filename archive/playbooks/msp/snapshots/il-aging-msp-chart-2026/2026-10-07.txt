@@ -1,0 +1,46 @@
+2026 Illinois Medicare Savings Programs (QMB, SLIB, QI-1)
+The Medicare Savings Program (MSP) is a State Medicaid program that can help to
+pay Medicare premiums, and possibly deductibles, and coinsurance for Medicare beneficiaries
+(elderly or disabled) who qualify.
+You can apply at: https://abe.illinois.gov/
+
+Monthly
+Resource/
+Program Name Income Program Pays Effective Date
+Asset Limits
+Limits
+100% FPL
+$9,950 Part A & B Premiums are paid effective the
+Qualified Medicare $1,330
+Individual Premiums, month of QMB eligibility which is (the
+Beneficiary Individual
+$14,910 Deductibles, & month after the month of the QMB
+(QMB) $1,803
+Couple Coinsurance eligibility determination.
+Couple
+120% FPL
+Specified Low- $9,950
+$1,596 Part B premium paid for application
+Income Medicare Individual Medicare Part B
+Individual month & may be backdated an
+Beneficiary $14,910 Premiums
+$2,164 additional 3 months.
+(SLIB/SLMB) Couple
+Couple
+135 % FPL
+$9,950
+Qualified Individual- $1,796 Part B premium paid for application
+Individual Medicare Part B
+1 Individual month & may be backdated an
+$14,910 Premiums
+(QI-1) $2,435 additional 3 months.
+Couple
+Couple
+Note: These figures are estimates based on the Federal Poverty Level percentages as posted at HHS.gov. IL DHS
+determines how to round various multiples of the poverty guidelines and what income is included. DHS posts the
+exact figures in Early April and can be found at the Main Reference below.
+Note: Asset Limits do not include an additional $1,500/$3000 burial allowance deduction
+Note: Add $25 to incomes because Illinois automatically disregards $25
+Main Reference: DHS WAG 25-03-02 https://www.dhs.state.il.us/page.aspx?item=21741
+HHS.gov Federal 2026 Poverty Level Guidelines: https://aspe.hhs.gov/topics/poverty-economic-mobility/poverty-guidelines
+FPL Chart https://aspe.hhs.gov/sites/default/files/documents/b1bfa16b20ae9b89d525bc35de7c1643/detailed-guidelines-2026.pdf

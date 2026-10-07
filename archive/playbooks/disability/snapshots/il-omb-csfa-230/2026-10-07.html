@@ -1,0 +1,347 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>
+	CSFA | GATA | Illinois.gov
+</title><link href="Common.css" rel="stylesheet" />
+
+    <style>
+        .banner { background-color:#c8dcff; padding:5px; border-radius:4px; font-weight:bold; }
+
+
+        .tblList { border-collapse:collapse; width:100%; }
+        .tblList th { border-bottom:solid 1px #102952; padding:4px; padding-right:10px; background-color:#c8dcff; text-align:left; white-space:nowrap; width:1px; vertical-align:top; }
+        .tblList td { border-bottom:solid 1px #102952; padding:4px; }
+
+        .datahead { font-weight:bold; margin-top:15px; margin-bottom:5px; }
+        .data { margin-bottom:20px; border-bottom:solid 1px #c8dcff; padding-bottom:20px; }
+
+        .gms { display:inline-block; background-color:#a4ffd1; font-size:70%; border-radius:5px; padding:0px 3px 2px 2px; border:solid 1px green; }
+    </style>
+
+    
+</head>
+<body>
+    <form method="post" action="./Program.aspx?csfa=230" id="form1">
+<div class="aspNetHidden">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="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" />
+</div>
+
+<div class="aspNetHidden">
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="2153A54A" />
+</div>
+    <div>
+
+
+        <div class="bc np">
+            <a href="Default.aspx">CSFA Home</a> /
+            <span id="spanFromProgramList">
+                <a href="AgencyList.aspx" id="lnk_AgencyList">Agency List</a> /
+                <a href="ProgramList.aspx?Agency=444" id="lnk_ProgramList">Program List</a> /
+            </span>
+
+            
+            Program
+
+        </div>
+
+
+        
+        
+        <div id="divFound">
+
+            <div style="padding:5px 0px 25px 5px;">
+                <div id="div_Program_Name" style="font-size:150%">DHS Social Security Disability Insurance - Not subject to 2CFR 200</div>
+                <div id="div_Popular_Name">Disability Determination Services</div>
+                <div id="div_CSFA">CSFA Number: 444-20-0230</div>
+            </div>
+
+
+            <div class="banner">STATE AGENCY INFORMATION</div>
+
+            <div class="datahead">Agency Name</div>
+            <div id="div_Agency" class="data">Department Of Human Services (444)</div>
+
+            <div id="Agency_ID">
+                <div class="datahead">Agency Identification</div>
+                <div id="div_Agency_ID" class="data">DRS</div>
+            </div>
+
+            <div class="datahead">Agency Contact</div>
+            <div id="div_Agency_Contact" class="data">Julie Potter<div> 217-782-8283</div><div><a href='mailto:julie.potter@ssa.gov'>julie.potter@ssa.gov</a></div></div>
+
+
+            <div class="banner">PROGRAM INFORMATION</div>
+
+            <div id="view_Short_Desc">
+                <div class="datahead">Short Description</div>
+                <div id="div_Short_Desc" class="data">Funds are used to pay the costs associated with collecting medical evidence and making disability determinations in accordance with the Social Security Administration's disability program.  Therefore, this program is not subject to 2 CFR 200.
+
+
+The Social Security Administration (SSA) is responsible for disability determinations under the Disability Insurance (DI) and the Supplemental Security Income (SSI) programs. The disability process begins when a person, referred to as a claimant, completes a claim for DI or SSI benefits. SSA field office staff verifies the claimant’s medical eligibility. The claim is then forwarded to the State Disability Determination Services (DDS) for a medical determination of disability. To assist in making proper disability determinations, the DDS is authorized to purchase medical examinations, x-rays and laboratory tests on a consultative basis to supplement evidence obtained from the claimants’ physicians or other treating sources.</div>
+            </div>
+
+            <div id="view_Fed_Authorization">
+                <div class="datahead">Federal Authorization</div>
+                <div id="div_Fed_Authorization" class="data">Social Security Act of 1935, Title II, as amended; Public Laws 96-265; 97-123, and 97-35. 42 U.S.C. 401; 42 U.S.C. 402; 42 U.S.C. 416; 42 U.S.C. 420-425
+
+Social Security Act of 1935, Title XVI, as amended; 42 U.S.C. 1381-1383f.
+
+The DI program was established in 1954 under Title II of the Social Security Act and provides benefits to disabled wage earners and their families in the event the family wage earner becomes disabled (Section 221 of the Social Security Act). In 1974, Congress enacted Title XVI, the SSI program, which provides benefits to financially needy individuals who are aged, blind or disabled (Section 1633 of Social Security Act).</div>
+            </div>
+
+            <div id="view_IL_Statute_Authorization">
+                <div class="datahead">Illinois Statue Authorization</div>
+                <div id="div_IL_Statute_Authorization" class="data">89 ILCS Chapter 4, Sub-chapter g</div>
+            </div>
+
+            <div id="view_IL_Rules_Authorization">
+                <div class="datahead">Illinois Administrative Rules Authorization</div>
+                <div id="div_IL_Rules_Authorization" class="data">Not Applicable</div>
+            </div>
+
+            <div id="view_Objective">
+                <div class="datahead">Objective</div>
+                <div id="div_Objective" class="data">The Social Security Administration (SSA) is responsible for disability determinations under the Disability Insurance (DI) and the Supplemental Security Income (SSI) programs. The State Disability Determination Services assists in making proper disability determinations for citizens of the State of Illinois.</div>
+            </div>
+
+            <div id="view_Prime_Recipient">
+                <div class="datahead">Prime Recipient</div>
+                <div id="div_Prime_Recipient" class="data">Yes</div>
+            </div>
+
+            <div id="view_Program_Terms">
+                <div class="datahead">UGA Program Terms</div>
+                <div id="div_Program_Terms" class="data">Not Applicable</div>
+            </div>
+
+            <div id="view_Eligible_Applicants">
+                <div class="datahead">Eligible Applicants</div>
+                <div id="div_Eligible_Applicants" class="data">None, State Agency Use; </div>
+            </div>
+
+            <div id="view_Applicant_Eligibility">
+                <div class="datahead">Applicant Eligibility</div>
+                <div id="div_Applicant_Eligibility" class="data">The Social Security Administration (SSA) is responsible for disability determinations under the Disability Insurance (DI) and the Supplemental Security Income (SSI) programs. The SSA has a partnership with each State pursuant to the Social Security Act Section 221(42USC.421).  The State Disability Determination Services assists in making proper disability determinations for citizens of the State of Illinois.</div>
+            </div>
+
+            <div id="view_Beneficiary_Eligibility">
+                <div class="datahead">Beneficiary Eligibility</div>
+                <div id="div_Beneficiary_Eligibility" class="data">The disability process begins when a person, referred to as a claimant, completes a claim for DI or SSI benefits. SSA field office staff verifies the claimant’s medical eligibility. The claim is then forwarded to the State Disability Determination Services (DDS) for a medical determination of disability. To assist in making proper disability determinations, the DDS is authorized to purchase medical examinations, x-rays and laboratory tests on a consultative basis to supplement evidence obtained from the claimants’ physicians or other treating sources. The State Disability Determination Services provides support to local Social Security Offices throughout the state. To find the nearest Social Security office, dial (800) 772-1213 and tell the service representative your city, state and zip code or go to the Social Security Administration's web site: https://www.ssa.gov/.</div>
+            </div>
+
+            <div id="view_Types_Assistance">
+                <div class="datahead">Types of Assistance</div>
+                <div id="div_Types_Assistance" class="data">Direct Payments for Specific Use</div>
+            </div>
+
+            <div id="view_Subject_Area">
+                <div class="datahead">Subject / Service Area</div>
+                <div id="div_Subject_Area" class="data">Government Services</div>
+            </div>
+
+            <div id="view_Credentials_Documentation">
+                <div class="datahead">Credentials / Documentation</div>
+                <div id="div_Credentials_Documentation" class="data">Not Applicable</div>
+            </div>
+
+            <div id="view_Preapplication_Coordination">
+                <div class="datahead">Preapplication Coordination</div>
+                <div id="div_Preapplication_Coordination" class="data">Not Applicable</div>
+            </div>
+
+            <div id="view_Application_Procedures">
+                <div class="datahead">Application Procedures</div>
+                <div id="div_Application_Procedures" class="data">Not Applicable</div>
+            </div>
+
+            <div id="view_Criteria_Selecting_Proposals">
+                <div class="datahead">Criteria Selecting Proposals</div>
+                <div id="div_Criteria_Selecting_Proposals" class="data">Not Applicable</div>
+            </div>
+
+            <div id="view_Award_Procedures">
+                <div class="datahead">Award Procedures</div>
+                <div id="div_Award_Procedures" class="data">Not Applicable</div>
+            </div>
+
+            <div id="view_Deadlines">
+                <div class="datahead">Deadlines</div>
+                <div id="div_Deadlines" class="data">Not Applicable</div>
+            </div>
+
+            <div id="view_Range_Times">
+                <div class="datahead">Range of Approval or Disapproval Time</div>
+                <div id="div_Range_Times" class="data">Not Applicable</div>
+            </div>
+
+            <div id="view_Appeals">
+                <div class="datahead">Appeals</div>
+                <div id="div_Appeals" class="data">Not Applicable</div>
+            </div>
+
+            <div id="view_Renewals">
+                <div class="datahead">Renewals</div>
+                <div id="div_Renewals" class="data">Not Applicable</div>
+            </div>
+
+            <div id="view_Formula_Matching">
+                <div class="datahead">Formula Matching Requirements</div>
+                <div id="div_Formula_Matching" class="data">Not Applicable</div>
+            </div>
+
+            <div id="view_Uses_Restrictions">
+                <div class="datahead">Uses and Restrictions</div>
+                <div id="div_Uses_Restrictions" class="data">Funds are used to pay the costs associated with collecting medical evidence and making disability determinations in accordance with the Social Security Administration's disability program.</div>
+            </div>
+
+            <div id="view_Reports">
+                <div class="datahead">Reports</div>
+                <div id="div_Reports" class="data">Not Applicable</div>
+            </div>
+
+            <div id="view_Audits">
+                <div class="datahead">Audits</div>
+                <div id="div_Audits" class="data">Not Applicable</div>
+            </div>
+
+            <div id="view_Records">
+                <div class="datahead">Records</div>
+                <div id="div_Records" class="data">Not Applicable</div>
+            </div>
+
+            <div id="view_Account_Identification">
+                <div class="datahead">Account Identification</div>
+                <div id="div_Account_Identification" class="data">0495 444 20 4400 00 00</div>
+            </div>
+
+            <div id="view_Obligations">
+                <div class="datahead">Obligations</div>
+                <div id="div_Obligations" class="data">Not Applicable</div>
+            </div>
+
+            <div id="view_Financial_Assistance">
+                <div class="datahead">Range and Average of Financial Assistance</div>
+                <div id="div_Financial_Assistance" class="data">Not Applicable</div>
+            </div>
+
+            <div id="view_Program_Accomplishments">
+                <div class="datahead">Program Accomplishments</div>
+                <div id="div_Program_Accomplishments" class="data">The State Disability Determination Services has an agreed upon clearance goal with the Social Security Administration which is used to determine annual funding and hiring levels.</div>
+            </div>
+
+            <div id="view_Regulations_Guidelines_Literature">
+                <div class="datahead">Regulations, Guidelines, and Literature</div>
+                <div id="div_Regulations_Guidelines_Literature" class="data">Social Security Act of 1935, Title II, as amended; Public Laws 96-265; 97-123, and 97-35. 42 U.S.C. 401; 42 U.S.C. 402; 42 U.S.C. 416; 42 U.S.C. 420-425, 2CFR 200,</div>
+            </div>
+
+            <div id="view_Assistance_Location">
+                <div class="datahead">Regional or Local Assistance Location</div>
+                <div id="div_Assistance_Location" class="data">Not Applicable</div>
+            </div>
+
+            <div id="view_Headquarters_Office">
+                <div class="datahead">Headquarters Office</div>
+                <div id="div_Headquarters_Office" class="data">100 North 1st Street
+Springfield, Illinois 62701</div>
+            </div>
+
+            <div id="view_Program_Website">
+                <div class="datahead">Program Website</div>
+                <div id="div_Program_Website" class="data">Not Applicable</div>
+            </div>
+
+            <div id="view_Related_Programs">
+                <div class="datahead">Related Programs</div>
+                <div id="div_Related_Programs" class="data">Not Applicable</div>
+            </div>
+
+            <div id="view_Example_Projects">
+                <div class="datahead">Example Projects</div>
+                <div id="div_Example_Projects" class="data">Not Applicable</div>
+            </div>
+
+            <div id="view_Published_Date">
+                <div class="datahead">Published Date</div>
+                <div id="div_Published_Date" class="data">10/1/2020</div>
+            </div>
+
+
+            <!------------------------->
+            <!-- EXCEPTIONS 4/2/2026 -->
+            <!------------------------->
+            <div id="view_Exceptions">
+                <div class="datahead">GATA Exceptions</div>
+                <div id="div_Exceptions" class="data">Application; Budget / Budget Template; Cost Principles; Financial Reporting; Indirect Cost Rate; Indirect Cost Limitations; Merit Based Review; Notice of Funding Opportunity; Performance Reporting; Risk Assessments; Uniform Agreement; Other; </div>
+            </div>
+
+
+
+
+            <!------------------------->
+            <!-- FUNDING INFORMATION -->
+            <!------------------------->
+
+            <div class="banner">FUNDING INFORMATION</div>
+
+            <div id="view_Funding_By_FY">
+                <div class="datahead">Funding By Fiscal Year</div>
+                <div id="div_Funding_By_FY" class="data">FY 2019 : $75,144,202<br />FY 2020 : $70,040,981<br />FY 2021 : $70,862,996<br />FY 2022 : $73,000,000<br />FY 2023 : $73,000,000<br />FY 2024 : $73,000,000<br />FY 2025 : $73,000,000<br /></div>
+            </div>
+
+            <div class="datahead">Federal Funding</div>
+            <div id="div_Federal_Funding" class="data"><a href='https://sam.gov/fal/bb7da041e18549818965009a38e75c9a/view' target='_blank'>96.001 - Social Security Disability Insurance</a><br /><a href='https://sam.gov/fal/65841174e9664bc6bd8953f50a6f16df/view' target='_blank'>96.006 - Supplemental Security Income</a><br /></div>
+
+
+            <div class="datahead">Notice of Funding Opportunities</div>
+            <style>
+                #tbl_NOFOs { margin-top:15px; }
+                #tbl_NOFOs th { border:solid 1px #c8dcff; padding:3px 5px 3px 5px; }
+                #tbl_NOFOs td { border:solid 1px #c8dcff; padding:3px 5px 3px 5px; vertical-align:top; white-space:nowrap; }
+                #tbl_NOFOs td:nth-child(2) { white-space:normal; }
+            </style>
+            <div id="div_Funding_Opportunities" class="data">
+                <table id="tbl_NOFOs" style="margin-top:0;">
+	<tbody>
+		<tr>
+			<td style="border:0;padding:0;">None</td>
+		</tr>
+	</tbody>
+</table>
+            </div>
+
+
+
+            <!----------------------->
+            <!-- TOP ACTIVE AWARDS -->
+            <!----------------------->
+
+            <div id="div_Top_Awards" class="banner">ACTIVE AWARDS</div>
+
+            <style>
+                #tbl_Awards { margin-top:15px; }
+                #tbl_Awards th { border:solid 1px #c8dcff; padding:3px 5px 3px 5px; }
+                #tbl_Awards td { border:solid 1px #c8dcff; text-align:center; padding:3px 5px 3px 5px; vertical-align:top; }
+                #tbl_Awards td:nth-child(2) { white-space:normal; }
+            </style>
+            <div id="div_Awards" class="data">
+                <table id="tbl_Awards">
+	<tbody>
+		<tr>
+			<td colspan="5" style="border:0;">None</td>
+		</tr>
+	</tbody>
+</table>
+                
+            </div>
+
+
+        </div>
+
+    </div>
+    </form>
+</body>
+</html>

@@ -1,0 +1,66 @@
+Skip to content
+
+Program Operations Manual System (POMS)
+
+Effective Dates: 03/07/2023 - Present
+Previous | Next
+
+TN 77 (03-23)
+
+HI 00805.270 General Eligibility Requirements for the Special Enrollment Period - Group Health
+Plans
+
+A. Policy for general eligibility requirements
+
+An individual is eligible to enroll under the Group Health Plan/Large Group Health
+Plan (GHP/LGHP) Special Enrollment Period (SEP) provisions if the individual meets
+one of the following requirements.
+
+1. No previous Supplementary Medical Insurance (SMI) enrollment
+
+If the individual did not enroll in the initial enrollment period (IEP), the individual
+must be covered under a group health plan (GHP) based on own or a spouse’s current
+employment status in the first month of eligibility for SMI and for all months thereafter.
+If the individual was covered under a large group health plan (LGHP), the coverage
+must be based on own, or a family member’s current employment status.
+
+The first month of eligibility for SMI is the fourth month of the IEP, as explained
+in HI 00805.015.
+
+2. Previous SMI entitlement
+
+If the individual enrolled during an IEP and later terminated SMI coverage, the individual
+must be covered under a GHP based on own , or a spouse’s, current employment status
+the month of SMI termination and for all months thereafter. If the individual was
+covered under a large group health plan (LGHP), the coverage must be based on own,
+or a family member’s current employment status.
+
+NOTE: If the individual previously enrolled during the GEP, the individual must have enrolled
+in SMI or have coverage under a GHP or LGHP in the first month of eligibility for
+SMI.
+
+3. Subsequent SEP
+
+If the individual enrolled in SMI during an SEP, and later terminated SMI coverage,
+the individual must be covered under a GHP based on own, or a spouse’s, current employment
+status the month of SMI termination and for all months thereafter. If the individual
+was covered under a large group health plan (LGHP), the coverage must be based on
+own, or a family member’s current employment status.
+
+NOTE: There is no limit on the number of subsequent SEPs. However, to have a subsequent
+SEP, the individual must enroll during the earlier SEPs available to the individual.
+Enrollment during a GEP that falls within an SEP satisfies the requirement for an
+"earlier SEP enrollment.”
+
+B. Reference
+
+HI 00805.275 SEP Enrollments-Break in Employment or GHP/LGHP Coverage
+
+To Link to this section - Use this URL:
+http://policy.ssa.gov/poms.nsf/lnx/0600805270
+
+HI 00805.270 - General Eligibility Requirements for the Special Enrollment Period - Group Health Plans - 03/07/2023
+
+Batch run: 10/10/2024
+
+Rev:03/07/2023

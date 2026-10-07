@@ -1,0 +1,23 @@
+parameters:
+  - id: ca.cdi.medigap_birthday_window_days
+    description: Minimum length of California's annual Medigap "birthday rule" open enrollment, starting on the policyholder's birthday ("60 days or more").
+    unit: days
+    updates: Statutory (Insurance Code 10192.11(h); Health and Safety Code 1358.11 for health-plan contracts).
+    values:
+      - effective_from: 2019-10-07
+        effective_to: 2019-12-31
+        value: 30
+        confidence: confirmed
+        note: >-
+          2019-10-07 is the date of the source (SB 407's Digest describing existing law), not the date
+          the 30-day rule began; that start date was not researched.
+        sources:
+          - {source: ca-sb-407-2019-chaptered, locator: "Legislative Counsel's Digest", quote: "Existing law imposes an annual open enrollment period of a minimum of 30 days"}
+      - effective_from: 2020-01-01
+        value: 60
+        confidence: confirmed
+        note: SB 407 (Stats. 2019, Ch. 549, Sec. 4), effective January 1, 2020. The statute sets a minimum; insurers may allow longer.
+        sources:
+          - {source: ca-ins-code-10192-11, locator: "subdivision (h)(1); history line", quote: "lasting 60 days or more, commencing with the individual's birthday"}
+          - {source: ca-sb-407-2019-chaptered, locator: "Legislative Counsel's Digest", quote: "extend the annual open enrollment period to a minimum of 60 days"}
+          - {source: ca-cdi-sa-01-10b, locator: "Q: What is the \"Birthday Rule\"", quote: "you have 60 days of \"open enrollment\" following your birthday each year"}

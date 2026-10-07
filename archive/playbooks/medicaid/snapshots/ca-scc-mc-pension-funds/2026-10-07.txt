@@ -1,0 +1,97 @@
+Pension Funds (i.e., IRAs, Keogh)
+
+Pension funds are held in:
+
+Individual Retirement Accounts (IRAs).
+
+Funds that are administered by an employer or union, including Deferred Compensation Plans and Thrift Plans; for providing income when employment ends.
+
+Keogh plans, for self-employed persons.
+
+Work-related pension funds may be annuities but are NOT subject to the annuity guidelines. For Medi-Cal eligibility determination, when clients receive periodic payments, the fund is considered properly annuitized as long as the distribution includes both principal and interest.
+
+Periodic payments received by the client is always considered available income.
+
+Good Faith/Bona Fide Effort
+
+A good faith/bona fide effort exists when the Medi-Cal applicant/recipient is taking reasonable steps to pursue or receive payments from the work-related funds.
+
+A verification of a good faith bona fide effort may include, but is not limited to:
+
+Letters sent by clients to their employer or fund manager, requesting release of the funds, or
+
+Verbal verification by the employer or fund manager. The SSBS must have a release of information from the client to obtain this.
+
+Exempt/Unavailable
+
+Work-related pension funds are exempt/unavailable in the following situations:
+
+It is exempt if funds are held in the name of a:
+
+Parent, step-parent, spouse, community spouse, or child who are otherwise eligible for MC but choose not to apply or receive MC.
+
+Parent, step-parent, spouse, or community spouse who are ineligible for MC (i.e., no linkage).
+
+They are included in the Maintenance Need Level, and property limit. Their nonexempt property/income are counted toward the property reserve.
+
+It is unavailable if funds are held in the name of the MC applicant/recipient and the following conditions are met:
+
+Is receiving periodic payments, or systematic withdrawals from each fund, or
+
+Is receiving minimum mandatory distributions from his/her total fund at age 70 and one half or older, or
+
+Has requested release of the funds either in the form of periodic payments or lump sum. The balance of the fund is considered unavailable property from the first of the month that a request for release of funds is made, until the funds are received, or a good faith effort to receive payments continues and is verified, or
+
+Was denied on his/her petition for the release of the funds, or
+
+Must terminate employment to access the funds, or
+
+Has no sole authority to access or request the release of the funds
+
+(i.e., funds are jointly held with a third party and/or an employer and that party refuses to grant access to the funds).
+
+Only the balance of the fund may be considered unavailable if any of the above criteria is met.
+
+Nonexempt
+
+The work-related pension funds are considered nonexempt in the following situations:
+
+Pension funds continue to be nonexempt for purposes of determining if an interspousal agreement was equally divided.
+
+When an individual received a lump sum payment of both the principal and interest of the pension fund, it is considered as converted property.
+
+When an individual chooses to defer payments (allowed under IRS Code) from his/her work-related pension plans, IRA, Keogh or other retirement funds, the CSV is considered available and must be included in the property reserve.
+
+However, if the individual chooses not to receive MC, the value of the pension fund becomes exempt and not counted in the property reserve.
+
+ExampleExampleA family applies for AFDC-MN. The mother has linkage (absent parent) and she wishes to receive MC. She has established an IRA, with contributions totaling $4,200; however, she has not yet reached retirement age. The pension fund is considered available. The current value, minus the penalties for early withdrawal are included in the property reserve. She could, however, refuse MC for herself and apply only for her children. The pension fund, in her name only, is then exempt. She would still be included in the MFBU, and her other resources and income are used to determine eligibility for her children.
+
+Verification
+
+Verification must be obtained in the following situations:
+
+Initial MC application
+
+To establish good faith effort in requesting release of the funds
+
+Petition for release of funds was denied. The client does not have to repeat the request until the client reaches age 55 or terminates employment. The funds are considered unavailable and are not counted in the property reserve.
+
+The client starts receiving periodic payments. The following chart identifies the verification requirement of periodic payments for the following age group:
+
+Verification of Pension Funds
+
+Under Age 70 and one-half
+
+Age 70 and one-half or Over
+
+The SSBS MUST obtain verification from the financial broker or fund manager that the:
+
+Distribution meets the requirements for early distribution based upon Internal Revenue Service (IRS) life expectancy tables, OR
+
+Periodic payments from each fund include principal and interest.
+
+Verification of early distribution based upon IRS life expectancy table, or principal/interest combination is not required. The amount reported by the client is deemed to meet the minimum mandatory distribution requirement.
+
+Related Topics
+
+Property Limits

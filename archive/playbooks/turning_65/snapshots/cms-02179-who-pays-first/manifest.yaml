@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://www.medicare.gov/publications/02179-medicare-and-other-health-benefits-your-guide-to-who-pays-first.pdf
+  final_url: https://www.medicare.gov/publications/02179-how-medicare-works-with-other-insurance.pdf
+  status: 200
+  content_type: application/pdf
+  text_sha256: 86780ec6d9aff203bd5e40389d3a770bc871364fe2a6d81ee0c4b634905c7bfb
+  text: cms-02179-who-pays-first/2026-10-07.txt
+  raw: cms-02179-who-pays-first/2026-10-07.pdf

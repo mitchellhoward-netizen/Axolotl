@@ -1,0 +1,629 @@
+December 31, 2025
+
+CALIFORNIA DEPARTMENT OF SOCIAL SERVICES
+
+EXECUTIVE SUMMARY
+
+ALL COUNTY LETTER NO. 25-93
+
+The purpose of this All County Letter is to provide County Welfare Departments with
+guidance regarding significant changes to policy related to the CalFresh time limit for
+Able-Bodied Adults Without Dependents, as required by the House of Representatives
+1, An Act To provide for reconciliation pursuant to title II of H. Con. Res. 14. (HR1)
+(Public Law 119-21), signed into law on July 4, 2025.
+
+December 31, 2025
+
+ALL COUNTY LETTER NO. 25-93
+
+TO: ALL COUNTY WELFARE DIRECTORS
+ALL CALFRESH PROGRAM SPECIALISTS
+ALL CONSORTIUM PROJECT MANAGERS
+ALL QUALITY CONTROL PROGRAM COORDINATORS
+ALL TRIBES WITH A TITLE IV-E AGREEMENT WITH CDSS
+
+SUBJECT: CALFRESH IMPLEMENTATION OF HOUSE OF
+REPRESENTATIVES 1: CHANGES TO TIME LIMIT FOR ABLE-
+BODIED ADULTS WITHOUT DEPENDENTS POLICY
+
+REFERENCE: HOUSE OF REPRESENTATIVES 1 (PUBLIC LAW 119-21); TITLE
+7 OF THE UNITED STATES CODE SECTION 2015(o)(2); TITLE 7
+CODE OF FEDERAL REGULATIONS (CFR) 273.24; ALL
+COUNTY LETTER (ACL) NO.23-80; FISCAL RESPONSIBILITY
+ACT OF 2023 (FRA); INDIAN HEALTH CARE IMPROVEMENT
+ACT (IHCIA); FOOD AND NUTRITION SERVICE (FNS) MEMO:
+THE SECRETARY’S AUTHORITY ON ABLE-BODIED ADULTS
+WITHOUT DEPENDENTS (ABAWD) WAIVERS; WELFARE AND
+INSTITUTIONS CODE (WIC) SECTION 18926; 7 CFR 273.7(b)(1);
+ACL NO. 25-41; ACL NO. 19-93; ACL NO. 22-74;
+SUPPLEMENTAL NUTRITION ASSISTANCE PROGRAM (SNAP)
+QUALITY CONTROL REVIEW HANDBOOK (FOOD AND
+NUTRITION SERVICE HANDBOOK 310); UNITED STATES
+DEPARTMENT OF AGRICIULTURE FOOD AND NUTRITION
+SERIVCE SUPPLEMENTAL NUTRITION ASSISTANCE
+PROGRAM (SNAP) PROVISIONS OF THE ONE BIG BEAUTIFUL
+BILL ACT OF 2025 ABAWD EXCEPTIONS IMPLEMENTATION
+MEMORANDUM; 7 CFR 273.24(c)(3); 7 CFR 273.24(c)(4); USDA
+FNS SUPPLEMENTAL NUTRITION ASSISTANCE PROGRAM
+(SNAP) PROVISIONS OF THE ONE BIG BEAUTIFUL BILL ACT
+OF 2025 ABAWD WAIVERS IMPLEMENTATION
+MEMORANDUM;
+
+All County Letter No. 25-93
+Page Two
+
+7 CFR 271.2; 7 CFR 273.24(l); USDA FNS SNAP MEMO – USE
+OF INFORMATION RECEIVED FROM OTHER PUBLIC
+ASSISTANCE PROGRAMS; 7 CFR 273.24(k); 7 CFR
+273.24(k)(1)(i); 7 CFR 273.24(k)(1)(ii); ALL COUNTY
+INFORMATION NOTICE (ACIN) NO. I-88-16; 7 CFR 273.24(b)
+(2); ACL No. 23-30; 7 USC 2015(o)(3); ACL NO. 21-101; ACL NO.
+21-101E
+
+The purpose of this All County Letter (ACL) is to provide County Welfare Departments
+(CWDs) with guidance on significant changes to policy related to the CalFresh time limit
+for Able-Bodied Adults Without Dependents (ABAWD) set forth in House of
+Representatives 1, an Act to provide for reconciliation pursuant to title II of H. Con. Res.
+14. (HR1) (Public Law 119-21), signed into law on July 4, 2025.
+
+Due to the complexity of these policy changes and other factors beyond CDSS’s
+control, the guidance provided via this letter is effective June 1, 2026. This is the earliest
+possible implementation date that reflects the time required to design and implement
+the necessary automation changes within the California Statewide Automated Welfare
+System (CalSAWS) and to train county staff to ensure consistent and accurate
+application of the guidance statewide.
+
+Counties must not attempt to implement HR 1 related policy changes through manual
+processes or system workarounds. Relying on manual processes at this scale would
+create a high risk of inconsistent data entry, incorrect case actions, and data tracking
+gaps the system would not be able to reconcile. These errors could lead to systemic
+and long-term inaccurate eligibility outcomes and disruptions in benefits. That said, until
+the required CalSAWS automation changes are implemented, counties must continue to
+enter information to assist with future exemption screening using current system
+functionality.
+
+BACKGROUND
+
+Under Title 7 of the United States Code Section 2015(o)(2) and Title 7 Code of Federal
+Regulations (CFR) 273.24, the receipt of Supplemental Nutrition Assistance Program
+(SNAP) benefits, known as CalFresh in California, is limited to three full months in a 36-
+month period for people that meet the definition of an ABAWD. This is commonly
+referred to as the “ABAWD time limit.”
+
+On July 4, 2025, President Trump signed HR1 into law, which includes significant
+changes to CalFresh. Specifically, HR1 makes changes to the definition of an ABAWD,
+including increased age requirements, and narrows exemption criteria. Additionally,
+HR1 limits eligibility for state and county waivers of the time limit. A forthcoming ACL will
+provide more information on federal changes to the criteria for requesting a waiver of
+the time limit. Changes to CalFresh time limit policy will result in more people subject to
+
+All County Letter No. 25-93
+Page Three
+
+the time limit and at risk of losing CalFresh eligibility, unless they are determined
+exempt or meet the work requirements.
+
+For additional information regarding HR1 and its impact to CalFresh, reference ACL 25-
+50 and ACL 25-50E issued July 14, 2025, and August 26, 2025, respectively.
+
+OVERVIEW OF CALFRESH TIME LIMIT POLICY
+
+For CalFresh recipients deemed to be an ABAWD, eligibility for CalFresh is limited to
+three full countable months of benefits in a fixed 36-month period unless the individual:
+
+• Is exempt from the ABAWD time limit;
+• Satisfies the ABAWD work requirement;
+• Lives in a county or area with a waiver of the ABAWD time limit;
+• Qualifies for an additional three consecutive month period of eligibility; or
+• Receives a discretionary exemption.
+
+If an individual is exempt, they are not subject to the ABAWD time limit. If an individual
+is not exempt, they are subject to the ABAWD time limit and must work or participate in
+a qualifying work activity in order to receive benefits beyond the three countable months
+granted within a fixed 36-month period.
+
+HR1 does not change the general parameters of the time limit rules but significantly
+changes who is subject to the time limit and who qualifies for an exemption.
+
+NEW ABAWD TIME LIMIT AGE REQUIREMENTS
+
+Under prior federal law, ABAWDs were defined as CalFresh recipients aged 18 through
+49 who are able‑bodied, do not have dependents, and do not meet any exemption
+criteria. As announced in ACL No. 23-80, issued on September 21, 2023, the Fiscal
+Responsibility Act of 2023 (FRA) gradually increased the upper age limit of those
+subject to the time limit from 49 to 54, effective October 1, 2024.
+
+HR1 changes the definition of an ABAWD to include individuals between the ages of 18
+through 64, unless exempt. Prior to HR1, the definition of an ABAWD included
+individuals between the ages of 18 through 54.
+
+Per the USDA FNS SNAP Provisions of the One Big Beautiful Bill Act of 2025 ABAWD
+Exceptions Implementation Memorandum released October 3, 2025, HR1 does not
+change general SNAP work requirements, also known as work registration. Individuals
+aged 60 or older remain exempt from work registration. However, due to amendments
+at 7 USC 2015(o)(3) that raise the ABAWD age threshold to 64, individuals aged 60
+through 64 who are exempt from work registration solely due to age, are still subject to
+
+All County Letter No. 25-93
+Page Four
+
+the ABAWD time limit, unless they qualify for another work registration exemption or
+an ABAWD exemption.
+
+Counties must screen individuals age 60 through 64 for any applicable ABAWD time
+limit exemptions under 7 USC 2015(o)(3), including all the work registration exemptions
+under 7 CFR 273.7(b)(1) other than age. If an individual meets the criteria for an
+ABAWD time limit exemption or a work registration exemption other than age, then the
+individual is exempt for the ABAWD time limit.
+
+Individuals are no longer considered ABAWDs starting the month of their 65th birthday.
+
+Example: A CalFresh participant turns 65 on November 15, 2026. This individual
+would no longer be subject to the ABAWD time limit beginning November 1,
+2026.
+
+HR1 also does not impact the definition of “elderly” in Section 3(j) of HR1. Individuals
+age 60 or older continue to be defined as “elderly” for CalFresh purposes. Therefore,
+individuals 60 or older will continue to receive the excess medical deduction and an
+uncapped shelter deduction, regardless of whether they are also considered an
+ABAWD under HR1.
+
+CHANGES TO ABAWD TIME LIMIT EXEMPTIONS
+
+Prior to HR1, ABAWDs who met the following criteria were exempt from the time
+limit:
+• Under the age of 18 or over the age of 54;
+• Medically certified as physically or mentally unfit for work;
+• Exempt from work registration;
+• Participating in an Office of Refugee Resettlement training program at least
+half-time;
+• Residing in a household with a member under the age of 18;
+• Pregnant; or
+• Temporarily exempt as a veteran, an individual experiencing homelessness, or
+a former foster youth under the age of 25 who was in foster care on the date of
+attaining 18 years of age. These exemptions were established under the FRA of
+2023 and were set to sunset on October 1, 2030.
+
+HR1 introduces a new exemption criterion and eliminates several others.
+
+New ABAWD Time Limit Exemption
+
+Individuals who meet the definition of Indian, Urban Indian, or California Indian as
+defined under the Indian Health Care Improvement Act (IHCIA), also referred to as
+Native Americans, Alaska Natives, and Tribal Members, are exempt from the time limit.
+
+All County Letter No. 25-93
+Page Five
+
+IHCIA Definitions
+
+Per FNS guidance, the following definitions must be used to establish an exemption
+under this criterion. Self-attestation that a household member is Indian, Urban Indian, or
+California Indian per the definitions below is sufficient to grant the exemption. Self-
+attestation may be captured verbally or in writing. If the household verbally attests that
+they are Indian, Urban Indian, or California Indian, the county must note it in the case
+record and must not seek additional verification, unless questionable.
+
+Indian (25 U.S.C. 1603(13))
+An individual is considered an “Indian” if they are a member of an Indian Tribe. An
+Indian Tribe includes any Indian Tribe, band, nation, or other organized group or
+community, including Alaska Native villages, groups, or regional or village corporations
+established under the Alaska Native Claims Settlement Act, that is recognized as
+eligible for federal programs and services provided to Indians because of their status as
+Indians. This definition of “Indian” is narrower than the definition of “Indian Tribe” at 7
+CFR 271.2.
+
+Urban Indian (25 U.S.C. 1603(18))
+An individual is considered an “Urban Indian” if they reside in an urban center and meet
+at least one of the following:
+
+1. They are a member of a Tribe, band, or other organized group of Indians,
+including groups terminated since 1940 and those recognized now or in the
+future by their State, or a first- or second-degree descendant of such a member;
+2. They are an Eskimo, Aleut, or other Alaska Native;
+3. They are determined to be an Indian under regulations issued by the U.S.
+Secretary of the Interior; or
+4. They are determined to be an Indian under regulations issued by the U.S.
+Secretary of Health and Human Services.
+
+An urban center is any community with a sufficient urban Indian population with unmet
+health needs to warrant assistance under subchapter IV of the IHICA, as determined by
+the Secretary of Health and Human Services.
+
+California Indian (25 U.S.C. 1679(a))
+An individual is considered a “California Indian” if they meet at least one of the following:
+
+1. They are a member of a federally recognized Indian Tribe;
+2. They are a descendant of an Indian who resided in California on June 1, 1852,
+provided they are a member of the Indian community served by a local Indian
+Health Service program and are regarded as an Indian by their community;
+3. They are an Indian who holds trust interests in public domain, national forest, or
+reservation allotments in California; or
+
+All County Letter No. 25-93
+Page Six
+
+4. They are an Indian of California listed in the plans for distribution of assets of
+rancherias and reservations under the Act of August 18, 1958, including their
+descendants.
+
+ELIMINATED AND MODIFIED ABAWD TIME LIMIT EXEMPTIONS
+
+Eliminated Exemptions
+
+HR1 removes the temporary exemptions added by the FRA of 2023 for the following
+populations:
+• Veterans;
+• Individuals experiencing homelessness; and
+• Youth under age 25 who were in foster care on their 18th
+birthday.
+Meeting these criteria alone no longer qualifies someone for an exemption from the
+ABAWD time limit. These individuals may be subject to the ABAWD time limit unless
+they qualify for another exemption.
+
+Modified Exemptions
+
+HR1 also modified exemptions under 7 CFR 273.24(c)(3) and 7 CFR 273.24(c)(4) which
+allowed individuals who were either the parent of a child under the age of 18 or those
+who reside with a household member under the age of 18 to be exempt from the
+ABAWD time limit. Individuals are no longer exempt solely because they live in a
+household with or are a parent of someone under the age of 18.
+
+The exemption criteria has been modified under HR1 to limit the dependent child
+exemption to individuals who are either the parent of, or otherwise responsible for the
+care of, a dependent child under the age of 14. An adult may qualify for this exemption if
+they have primary or shared responsibility for the care of a dependent child under the
+age of 14 regardless of whether the child physically resides in the household.
+
+A single dependent child under age 14 may exempt more than one adult, provided each
+adult independently meets the definition of being responsible for the child’s care. Each
+adult’s responsibility for care must be individually established and documented in the
+case record.
+
+A dependent child under this provision is defined as a child under age 14 who relies on
+the individual for care or supervision. The child is not required to be included in the
+CalFresh household, nor is physical or legal custody required.
+
+Responsibility may be established through formal or informal caregiving arrangements
+with any adult, including but not limited to a parent, stepparent, sibling, grandparent,
+
+All County Letter No. 25-93
+Page Seven
+
+other relative, or unrelated person, provided the adult regularly provides necessary care
+or supervision.
+
+Examples:
+• Two parents residing together with one mutual child under age 14 may both
+qualify.
+• Two parents residing together with two or more children under age 14 may both
+qualify.
+• Two adults in the same household, each responsible for the care of their own
+child under age 14, may each qualify.
+• An adult sibling (age 18 or older) who regularly provides after-school care and
+supervision for a younger sibling under age 14 may qualify.
+• A non-parent household member who routinely provides childcare may qualify.
+
+Responsibility for care may be verified through self-attestation, unless questionable.
+
+VERIFICATION OF ABAWD EXEMPTIONS
+
+For the new and modified ABAWD time‑limit exemptions established under HR1 and in
+alignment with current policy, counties must only request verification to establish an
+exemption if verification is required per ACL No. 19-93 issued September 12, 2019, or
+if the information provided is questionable, as per 7 CFR 273.24(l). Information can
+only be considered questionable by the county if it conflicts with previous statements
+made by the individual or conflicts with information in the case record.
+
+As mentioned above, self-attestation that a household member is Indian, Urban Indian,
+or California Indian per the definitions articulated in this letter, is sufficient to grant the
+new exemption under HR1. If a county determines that verification from a participant is
+necessary, it must first use all available internal resources, including case record data
+and information shared from other public assistance programs, as discussed below.
+Only after exhausting these alternatives may the county request documentary evidence
+or other verification directly from the participant.
+
+For all ABAWD exemptions, including the new and modified exemptions, verified case
+information provided for Medi-Cal or California Work Opportunity and Responsibility to
+Kids (CalWORKs) purposes may be used for CalFresh purposes without additional
+verification, provided that the information has been verified by Medi-Cal or CalWORKs
+and clearly affects the CalFresh case. This approach aligns with the FNS memo SNAP -
+Use of Information Received from Other Public Assistance Programs released June 21,
+2023, which allows CalFresh to accept verified information from other programs
+administered by the same agency.
+
+IMPLEMENTATION INSTRUCTIONS
+
+All County Letter No. 25-93
+Page Eight
+
+Counties must not take any negative action related to the time limit or work
+requirements on a case, including applying a countable month toward the ABAWD time
+limit, reducing benefits, or closing a case due to ineligibility, until an individual who
+meets the new definition of an ABAWD has been re-screened under the new and
+modified time limit exemption criteria under HR1 and has been informed of the ABAWD
+time limit and work requirements. For the purpose of this letter, an “HR1 compliant
+exemption screening” refers to an exemption screening that assess an induvial for an
+exemption using the new and modified time limit exemption criteria under HR1. Effective
+June 1, 2026 and moving forward, counties must do the following:
+
+EXEMPTION SCREENING
+
+Per 7 CFR 273.24(k), counties must screen for an exemption from work registration and
+the ABAWD time limit before the time limit or any countable month can be applied.
+Counties must screen for exemptions at both certification and recertification. This
+exemption screening must be complete or offered voluntarily if an individual discloses
+they may meet the criteria for an exemption.
+
+Per ACL No. 19-93, counties must screen each household member individually.
+Counties must not solely rely on information available in CalSAWS to determine if an
+individual meets the criteria for an exemption from the ABAWD time limit. A full
+screening is required to ensure that all available exemptions are reviewed and captured
+in the system. Counties must ensure that all applicable exemptions are entered into
+CalSAWS and documented in the case record when an ABAWD qualifies for more than
+one exemption.
+
+Ongoing Households
+
+On June 1, 2026, counties will have the ability to review ongoing cases in CalSAWS
+based on the updated policy under HR1. Beginning June 1, 2026, ongoing CalFresh
+households must complete an HR1 compliant exemption screening at their next
+recertification, and every recertification thereafter. Meaning, this change is effective for
+all ongoing households with recertifications due in June 2026 and thereafter. Counties
+must not assign a countable month until a HR 1 compliant exemption screening is
+complete, and only if the individual does not meet the criteria for an exemption or is not
+complying with the ABAWD work requirements.
+
+Federal regulations at 7 CFR 273.24(k) require counties to screen ABAWDs for all
+current exemptions before assigning countable months. Because exemption screening
+completed before June 1, 2026 does not reflect the new and modified exemption criteria
+under HR1, counties must rescreen all ongoing households with recertification due June
+1, 2026 and thereafter.
+
+All County Letter No. 25-93
+Page Nine
+
+New Applicants
+
+On June 1, 2026, counties will have the ability to review new applications in CalSAWS
+based on the updated policy under HR1. Beginning June 1, 2026, new applicants must
+complete an HR1 compliant exemption screening at initial certification. As previously
+stated, an HR1 compliant screening must be complete before the time limit can be
+imposed on an individual, including the application of a countable month. Individuals
+who are determined eligible before June 1, 2026 will not be subject to the ABAWD time
+limit until a HR1 compliant exemption screening is complete at their recertification.
+Counties are also reminded that a partial month of benefits does not count toward the 3
+months in a 36-month limit. See ACL No. 19-93 for more information.
+
+Changes During the Certification Period
+
+According to 7 CFR 273.24(k)(1)(i), if during the certification period, an individual loses
+an existing exemption due to a change in circumstances, the county must not begin
+assigning countable months until the individual is re-screened to determine whether
+another exemption applies. Following the recertification during which an HR1 compliant
+exemption screening is complete, counties must apply current rules regarding mid-
+period reports for ABAWDs subject to the time limit, including a drop in work hours. The
+county must re-screen at the household’s next scheduled recertification. See ACL No.
+21-101 and ACL No. 21-101E for more information on mid-period actions.
+
+If during the certification period, an individual subject to the time limit experiences a
+change in circumstances that results in newly qualifying for an exemption, the county
+must act promptly, but no later than 10 days beyond the date of receipt, to apply the
+exemption (assuming the information provided is not questionable). The county must
+not assign a countable month after a new exemption is established. If the information
+received during the certification period is questionable, the county must request
+verification and allow the household 10 days to provide it before determining whether
+the exemption can be applied.
+
+As a reminder, per ACL No. 19-93, individuals subject to the time limit are required to
+report mid-period if their household’s gross monthly income goes over their Income
+Reporting Threshold (IRT). They are also required to report if their work hours drop
+below 20 hours per week or 80 hours per month averaged monthly, unless the
+individual resides in a waived county. After June 1, 2026, if an individual subject to the
+time limit (who has completed HR1 compliant exemption screening) reports a drop in
+work hours, the county must assess of the individual qualifies for good cause or another
+exemption before applying a countable month in accordance with ACL No. 19-93. An
+additional exemption screening is not required during the certification period.
+
+All County Letter No. 25-93
+Page Ten
+
+If an individual has not completed an HR 1 compliant exemption screening, they are
+only required to report mid-period if their household’s gross monthly income goes over
+their IRT. This individual is not required to report if their work hours drop below 20 hours
+per week because they cannot be subject to the ABAWD time limit until an HR1
+compliant exemption screening is complete. Only if this individual is screened for an
+exemption at recertification and is determined not exempt, can the individual be subject
+to the time limit and the corresponding work and mid-period reporting requirements.
+
+STATEWIDE CLOCK
+
+Beginning January 1, 2026, a new statewide 36-month ABAWD clock will start. This
+means that, beginning January 1, 2026 all individuals subject to the time limit have
+three countable months available within the new 36-month period. In other words, the
+statewide clock will reset, and an individual subject to the time limit will have three
+countable months to use between January 1, 2026 and December 31, 2028 (36-month
+period). A fixed statewide clock means the start and end dates are the same for all
+individuals subject to the time limit across all 58 counties. Once started, the 36-month
+clock continues uninterrupted, regardless of whether an individual receives CalFresh
+benefits in any given month, lives in a county or geographic area within a county where
+the time-limit is waived, satisfies the ABAWD work requirement, qualifies for an
+exemption, is granted a discretionary exemption, or loses eligibility.
+
+HR1 does not have an impact on California’s statewide 36-month ABAWD clock. As
+previously mentioned , no countable months may be assigned prior to June 1, 2026.
+Beginning June 1, 2026, countable months may only be applied after an individual
+completes a HR1 compliant exemption screening, at initial certification for new
+applicants or at recertification for ongoing households. Any unused countable months
+do not carryover to the preceding clock. For information on the 36-month clock, refer to
+All County Information Notice (ACIN) No. I-88-16, issued December 14, 2016.
+
+NOTICING REQUIREMENTS
+
+Noticing requirements related to ABAWD time limit rules are unchanged under H.R. 1.
+Counties must issue the following notices consistent with instructions in ACL No.
+19-93 and ACL No. 22-74 issued September 2, 2022:
+
+• CalFresh Notice of Work Rules (CF 886) and Oral Explanation – The CF 886 and
+oral explanation must be provided to any household with a member who
+becomes newly subject to CalFresh work requirements as a result of H.R. 1. As
+standard procedure, the CF 886 and oral explanation must be provided at
+application, recertification, and whenever a previously exempt or new household
+member becomes subject to work requirements. The oral explanation may be
+provided to the head of household, a responsible household member, or an
+authorized representative, and must convey the same information for each
+household member as reflected on the CF 886.
+
+All County Letter No. 25-93
+Page Eleven
+
+• CalFresh Countable Month Letter – Use of Countable Month for ABAWDs (CF
+377.11B) – The CF 377.11B must be sent no later than the 5th day of each
+month during which the ABAWD uses a countable month of CalFresh benefits.
+
+• CalFresh Time Limit Notice – Failure to Meet ABAWD Work Requirement (CF
+377.11) – The CF 377.11 must be sent no later than ten days prior to
+discontinuance of CalFresh benefits.
+
+• CalFresh ABAWD Time Limit Exemption Screening Form (CF 377.11E) – The
+CF 377.11E must be included in the recertification package, and for counties
+coming off a waiver, it may be sent at least 30 days prior to implementation of the
+time limit to all households that include at least one member determined to be a
+potential ABAWD.
+
+• The ABAWD Work Reminder Letter - Effective the release of this ACL, CWDs
+are no longer required to provide the ABAWD Work Reminder letter to ABAWDs
+subject to the time limit. Instead, the CF 886 and comprehensive oral explanation
+of work rules and CF 377.11B will provide households with relevant reminders
+regarding ABAWD time limit rules.
+
+VOLUNTEER AND COMMUNITY SERVICE HOURS
+
+Individuals subject to the time limit who are not exempt may meet the work requirement
+by performing volunteer or community service hours, consistent with the policy guidance
+in ACL No. 19-93. Volunteer and community service hours can be combined with work
+or other qualifying activities to meet the ABAWD work requirement. Counties are
+reminded that the CF 888 – CalFresh ABAWD Volunteer Work Hours Verification Form
+is available for the purpose of verifying volunteer or community service hours. Unlike
+other exemptions, Verification of volunteer or community service hours must be
+obtained and documented in the case record.
+
+For additional information on verifying whether an individual is meeting the work
+requirement through qualifying activities beyond volunteer and community service
+hours, such as work and education and training, see ACL No. 19-93.
+
+DISCRETIONARY EXEMPTIONS
+
+As a result of the FRA, there are currently zero discretionary exemptions available for
+county use. Counties may not apply discretionary exemptions at this time.
+
+California will begin to accrue new discretionary exemptions upon the expiration of the
+statewide waiver. FNS releases the amount of discretionary exemptions a state will
+
+All County Letter No. 25-93
+Page Twelve
+
+receive annually. Once California has been allocated a new number of discretionary
+exemptions, CDSS will release a separate letter with further instructions.
+
+Although no statewide discretionary exemptions are available at this time, counties must
+continue to evaluate individuals for allowable exemptions or determine if the individual
+had good cause for not satisfying the work requirement, as outlined in 7 CFR
+273.24(b)(2) and ACL No. 23-30, issued on March 22, 2023.
+
+If a discretionary exemption is improperly applied, counties must review for a potential
+overissuance (OI) and take corrective action.
+
+ELDERLY SIMPLIFIED APPLICATION PROJECT (ESAP) HOUSEHOLDS
+
+Households certified under the Elderly Simplified Application Project (ESAP) are
+certified for 36 months. The ESAP certification period cannot be shortened once it is
+assigned. ESAP households with individuals ages 60–64 cannot be subjected to
+ABAWD rules until they have been screened in compliance with the modified exemption
+criteria under HR 1. As stated previously, counties must screen for exemptions at both
+initial certification and recertification.
+
+At recertification, counties must follow the correct screening order for ESAP participants
+ages 60–64:
+
+1. Screen for work registration exemptions first.
+• If the individual qualifies for a work registration exemption other than the
+age exemption, they are not considered an ABAWD and do not require
+further ABAWD screening.
+2. If no work registration exemption applies, screen for ABAWD exemptions.
+• Individuals who meet an ABAWD exemption are not subject to the time
+limit.
+• Those who do not qualify for any exemption are subject to the time limit.
+
+Typically, the recertification interview for ESAP households is waived. Counties must
+attempt to contact the household to complete the required screening. If the county is
+able to complete the exemption screening through contact with the household, no
+interview is required solely for this purpose. If the county is unable to reach the ESAP
+household to complete the HR 1 compliant exemption screening, the county must
+document all attempts to make contact and then require an interview in order to
+complete the screening prior to taking any negative action, including the application of
+countable months. If the household fails to complete the required interview, the
+recertification must be denied for missed interview.
+
+As a reminder, per ACL No. 19-93, an individual cannot be subject to the time limit until
+they have been screened for an exemption and informed of the ABAWD work rules.
+Those who have not been informed cannot be required to make a report of a drop in
+
+All County Letter No. 25-93
+Page Thirteen
+
+work hours, because they are not subject to the time limit. Following the screening
+process, counties must provide an oral explanation of the work rules along with the CF
+886.
+
+ESAP households with exempt or non-exempt ABAWD members ages 60-64 who
+otherwise meet ESAP eligibility criteria must continue to receive a 36-month certification
+period. For additional guidance on ESAP procedures, refer to ACL No. 20-145.
+
+COUNTY WELFARE DEPARTMENT REMINDERS
+
+Regardless of waiver status, counties must remain ready to transition off the waiver
+when it expires or if it is terminated. All counties, including those under a waiver of the
+ABAWD time limit must:
+
+• Identify ABAWDs, screen for exemptions (including HR1 compliant exemption
+screening beginning June 1, 2026), and inform participants of ABAWD rules.
+• Provide the CF 886 along with a comprehensive oral explanation of each
+applicable work rule to the household for all members whether exempt or subject
+to the CalFresh work rules.
+• Track and report work registrant, ABAWD, and Employment and Training (E&T)
+data on the Non-Assistance CalFresh Work Registrants, Able-Bodied Adults
+Without Dependents, and Employment and Training Program Quarterly
+Statistical (STAT 47) report.
+
+For more information on county responsibilities pertaining to ABAWDs, see ACL No. 19-
+93; and ACL No. 22-74, issued September 2, 2022.
+
+QUALITY CONTROL
+
+CalFresh Quality Control (QC) will review cases based on the updated state guidance
+issued in this letter on the new changes under HR1 for individuals subject to the
+ABAWD time limit. QC must apply the verification standards and procedures specified in
+the Supplemental Nutrition Assistance Program (SNAP) Quality Control Review
+Handbook (Food and Nutrition Service Handbook 310) for its review.
+
+Counties are reminded the case record must provide sufficient documentation to
+support the benefit level determination. Documentation must provide enough detail to
+permit a reviewer with no prior knowledge of the individual case to determine the
+accuracy of benefit allotments.
+
+If you have any questions or need additional guidance regarding the information in this
+letter, contact the CalFresh Policy Bureau at CalFreshPolicy@dss.ca.gov.
+
+Sincerely,
+
+All County Letter No. 25-93
+Page Fourteen
+
+Original Document Signed By
+
+ALEXIS FERNÁNDEZ GARCIA
+Deputy Director
+Family Engagement and Empowerment Division
+
+cc: All Federally Recognized Tribes

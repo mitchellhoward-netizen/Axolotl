@@ -1,0 +1,10 @@
+- retrieved: '2026-10-07'
+  url: https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=EDC&sectionNum=49501.5
+  final_url: https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=EDC&sectionNum=49501.5
+  status: 200
+  content_type: txt
+  text_sha256: 3ff39eb2755befc3eeaa63ae7abe5e09274a5901d2c166ff065b030cf9b4e8ea
+  text: ca-ec-49501-5/2026-10-07.txt
+  raw: ca-ec-49501-5/2026-10-07.raw
+  fetched_via: r.jina.ai reader (https://r.jina.ai/<url>) returning the page text;
+    cde.ca.gov/leginfo block scripted requests

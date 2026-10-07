@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://healthweb-back.health.ny.gov/forms/doh-4328.pdf
+  final_url: https://healthweb-back.health.ny.gov/forms/doh-4328.pdf
+  status: 200
+  content_type: application/pdf
+  text_sha256: 98b71d771ce7492e8f44be68978d5642077d6bfe1a584552b0cf54b18984aaa5
+  text: ny-doh-4328/2026-10-07.txt
+  raw: ny-doh-4328/2026-10-07.pdf

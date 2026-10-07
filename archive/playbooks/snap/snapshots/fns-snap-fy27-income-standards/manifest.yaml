@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://fns-prod.azureedge.us/sites/default/files/resource-files/snap-fy27-incomeEligibilityStandards.pdf
+  final_url: https://fns-prod.azureedge.us/sites/default/files/resource-files/snap-fy27-incomeEligibilityStandards.pdf
+  status: 200
+  content_type: application/pdf
+  text_sha256: 065c66b49357710e06a857eb0004275b3c2d42340bd2dc7d9017de559e30a5a0
+  text: fns-snap-fy27-income-standards/2026-10-07.txt
+  raw: fns-snap-fy27-income-standards/2026-10-07.pdf

@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://www.medicare.gov/basics/get-started-with-medicare/sign-up/when-does-medicare-coverage-start
+  final_url: https://www.medicare.gov/basics/get-started-with-medicare/sign-up/when-does-medicare-coverage-start
+  status: 200
+  content_type: text/html; charset=utf-8
+  text_sha256: 05e807ab6c3dd1445a214e1fe04e06e7ec48444a195ce6004700d005449075e1
+  text: medicare-gov-coverage-start/2026-10-07.txt
+  raw: medicare-gov-coverage-start/2026-10-07.html

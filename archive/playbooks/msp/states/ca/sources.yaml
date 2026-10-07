@@ -1,0 +1,196 @@
+# California sources for the Medicare Savings Program. www.dhcs.ca.gov sits
+# behind a bot-protection (Incapsula) challenge that refuses scripted requests,
+# so every DHCS document here was fetched with a headless Chromium browser
+# (Playwright) and recorded with `python -m tools.sources import`.
+sources:
+  - id: ca-dhcs-acwdl-25-27
+    retrieved: 2026-10-07
+    url: https://www.dhcs.ca.gov/services/medi-cal/eligibility/letters/Documents/25-27.pdf
+    publisher: California Department of Health Care Services, Medi-Cal Eligibility Division
+    title: ACWDL 25-27 — 2026 Medicare Savings Program Property Limits
+    kind: primary
+    jurisdiction: ca
+    doc_type: directive
+    published: 2025-12-02
+    effective_date: 2026-01-01
+  - id: ca-dhcs-acwdl-26-16
+    retrieved: 2026-10-07
+    url: https://www.dhcs.ca.gov/file/acwdl-26-16-pdf/
+    publisher: California Department of Health Care Services, Medi-Cal Eligibility Division
+    title: ACWDL 26-16 — Reinstatement of Asset Limits for the Pickle, DAC and DW Programs
+    kind: primary
+    jurisdiction: ca
+    doc_type: directive
+    published: 2026-09-17
+    effective_date: 2027-01-01
+  - id: ca-dhcs-acwdl-22-25
+    retrieved: 2026-10-07
+    url: https://www.dhcs.ca.gov/services/medi-cal/eligibility/letters/Documents/22-25.pdf
+    publisher: California Department of Health Care Services, Medi-Cal Eligibility Division
+    title: ACWDL 22-25 — Elimination of Asset Limits for Non-MAGI Medi-Cal Programs
+    kind: primary
+    jurisdiction: ca
+    doc_type: directive
+    published: 2022-10-31
+    effective_date: 2024-01-01
+  - id: ca-dhcs-acwdl-22-28
+    retrieved: 2026-10-07
+    url: https://www.dhcs.ca.gov/services/medi-cal/eligibility/letters/Documents/22-28.pdf
+    publisher: California Department of Health Care Services, Medi-Cal Eligibility Division
+    title: ACWDL 22-28 — 2023 Medicare Savings Program Property Limit
+    kind: primary
+    jurisdiction: ca
+    doc_type: directive
+    published: 2022-11-28
+    effective_date: 2022-07-01
+  - id: ca-dhcs-acwdl-26-01
+    retrieved: 2026-10-07
+    url: https://www.dhcs.ca.gov/file/26-01-pdf/
+    publisher: California Department of Health Care Services, Medi-Cal Eligibility Division
+    title: ACWDL 26-01 — 2026 Federal Poverty Levels
+    kind: primary
+    jurisdiction: ca
+    doc_type: directive
+    published: 2026-01-21
+    effective_date: 2026-01-01
+  - id: ca-dhcs-fpl-2026-monthly
+    retrieved: 2026-10-07
+    url: https://www.dhcs.ca.gov/services/medi-cal-resources/medi-cal-eligibility-division/all-county-welfare-directors-medi-cal-eligibility-division-information-letters/2026-fpl-calculation-chart-monthly-values-enclosure-1/
+    publisher: California Department of Health Care Services, Medi-Cal Eligibility Division
+    title: ACWDL 26-01 Enclosure 1 — 2026 FPL Calculation Chart (Monthly Values)
+    kind: primary
+    jurisdiction: ca
+    doc_type: directive
+    effective_date: 2026-01-01
+  - id: ca-dhcs-fpl-2026-programs
+    retrieved: 2026-10-07
+    url: https://www.dhcs.ca.gov/services/medi-cal-resources/medi-cal-eligibility-division/all-county-welfare-directors-medi-cal-eligibility-division-information-letters/program-descriptions-by-fpl-enclosure-3/
+    publisher: California Department of Health Care Services, Medi-Cal Eligibility Division
+    title: ACWDL 26-01 Enclosure 3 — Program Descriptions by FPL (2026)
+    kind: primary
+    jurisdiction: ca
+    doc_type: directive
+    effective_date: 2026-01-01
+  - id: ca-dhcs-acwdl-25-01
+    retrieved: 2026-10-07
+    url: https://www.dhcs.ca.gov/file/25-01-pdf/
+    publisher: California Department of Health Care Services, Medi-Cal Eligibility Division
+    title: ACWDL 25-01 — 2025 Federal Poverty Levels (with Enclosures 1-3)
+    kind: primary
+    jurisdiction: ca
+    doc_type: directive
+    published: 2025-01-21
+    effective_date: 2025-01-01
+  - id: ca-dhcs-acwdl-25-26
+    retrieved: 2026-10-07
+    url: https://www.dhcs.ca.gov/file/25-26-pdf/
+    publisher: California Department of Health Care Services, Medi-Cal Eligibility Division
+    title: ACWDL 25-26 — 2026 Medicare Premiums and Social Security Title II Cost of Living Adjustments
+    kind: primary
+    jurisdiction: ca
+    doc_type: directive
+    published: 2025-12-01
+    effective_date: 2026-01-01
+  - id: ca-dhcs-acwdl-23-05
+    retrieved: 2026-10-07
+    url: https://www.dhcs.ca.gov/wp-content/uploads/2025/10/23-05.pdf
+    publisher: California Department of Health Care Services, Medi-Cal Eligibility Division
+    title: ACWDL 23-05 — New Medicare Part B Immunosuppressive Drug Benefit (restates MSP income and timing rules)
+    kind: primary
+    jurisdiction: ca
+    doc_type: directive
+    published: 2023-02-24
+    effective_date: 2023-01-01
+  - id: ca-dhcs-acwdl-26-12
+    retrieved: 2026-10-07
+    url: https://www.dhcs.ca.gov/file/acwdl26-12-pdf/
+    publisher: California Department of Health Care Services, Medi-Cal Eligibility Division
+    title: ACWDL 26-12 — Updated Notice of Action Snippets for the Medicare Savings Programs (asset reinstatement and Part A buy-in)
+    kind: primary
+    jurisdiction: ca
+    doc_type: directive
+    published: 2026-08-14
+    effective_date: 2026-08-14
+  - id: ca-dhcs-acwdl-26-07
+    retrieved: 2026-10-07
+    url: https://www.dhcs.ca.gov/file/acwdl-26-07-pdf/
+    publisher: California Department of Health Care Services, Medi-Cal Eligibility Division
+    title: ACWDL 26-07 — Policy Changes to Retroactive Medi-Cal Coverage Periods (preliminary guidance)
+    kind: primary
+    jurisdiction: ca
+    doc_type: directive
+    published: 2026-03-12
+    effective_date: 2027-01-01
+  - id: ca-dhcs-medil-i25-01
+    retrieved: 2026-10-07
+    url: https://www.dhcs.ca.gov/file/i25-01-pdf/
+    publisher: California Department of Health Care Services, Medi-Cal Eligibility Division
+    title: MEDIL I 25-01 — Reminders about the QMB Program for Non-SSI/Non-SSP Recipients (Part A buy-in)
+    kind: primary
+    jurisdiction: ca
+    doc_type: directive
+    published: 2025-01-10
+    effective_date: 2025-01-01
+  - id: ca-dhcs-msp-page
+    retrieved: 2026-10-07
+    url: https://www.dhcs.ca.gov/individuals/medicare-savings-programs-in-california/
+    publisher: California Department of Health Care Services
+    title: Medicare Savings Programs in California
+    kind: primary
+    jurisdiction: ca
+    doc_type: agency_page
+    effective_date: 2026-01-01
+  - id: ca-dhcs-buyin-page
+    retrieved: 2026-10-07
+    url: https://www.dhcs.ca.gov/services/medicare-premium-payment-buy-in-program/
+    publisher: California Department of Health Care Services
+    title: Medicare Premium Payment (Buy-In) Program
+    kind: primary
+    jurisdiction: ca
+    doc_type: agency_page
+    effective_date: 2025-01-01
+  - id: ca-dhcs-part-a-buyin-flyer
+    retrieved: 2026-10-07
+    url: https://www.dhcs.ca.gov/file/medicare-part-a-buy-in-flyer-pdf/
+    publisher: California Department of Health Care Services
+    title: Get Help Paying for Your Medicare Part A Costs! (Part A Buy-In flyer, January 2025)
+    kind: primary
+    jurisdiction: ca
+    doc_type: agency_page
+    published: 2025-01-01
+  - id: ca-dhcs-mc-14a
+    retrieved: 2026-10-07
+    url: https://www.dhcs.ca.gov/file/mc14a-eng-2-pdf/
+    publisher: California Department of Health Care Services
+    title: MC 14A ENG (5/22) — QMB, SLMB and QI Application
+    kind: primary
+    jurisdiction: ca
+    doc_type: form
+    effective_date: 2022-05-01
+    note: The dollar amounts printed on this 5/22 form are 2022 figures and the pre-2024 property limit; only its structure and rules are relied on.
+  - id: ca-dhcs-mepm-5l
+    retrieved: 2026-10-07
+    url: https://www.dhcs.ca.gov/services/medi-cal/eligibility/Documents/c188.pdf
+    publisher: California Department of Health Services (now DHCS)
+    title: Medi-Cal Eligibility Procedures Manual Letter 188 — Article 5L, Qualified Medicare Beneficiary (QMB) Program
+    kind: primary
+    jurisdiction: ca
+    doc_type: manual
+    published: 1997-10-22
+    effective_date: 1997-10-22
+  - id: ca-dhcs-mc-176-qmb
+    retrieved: 2026-10-07
+    url: https://www.dhcs.ca.gov/formsandpubs/forms/Forms/MC%20176%201QMBSLMBQI.pdf
+    publisher: California Department of Health Care Services
+    title: MC 176-1 QMB/SLMB/QI — Eligibility Work Sheet for All Applicants
+    kind: primary
+    jurisdiction: ca
+    doc_type: form
+  - id: ca-dhcs-msp-county-contacts
+    retrieved: 2026-10-07
+    url: https://www.dhcs.ca.gov/file/file-190991-pdf/
+    publisher: California Department of Health Care Services
+    title: Medicare Savings Program County Contact List
+    kind: primary
+    jurisdiction: ca
+    doc_type: agency_page

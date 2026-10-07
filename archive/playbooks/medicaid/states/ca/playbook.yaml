@@ -1,0 +1,806 @@
+schema_version: 2
+program: medicaid
+scope: ca
+title: Medi-Cal — California
+last_researched: 2026-10-07
+
+summary:
+  plain_language: >-
+    California's Medicaid program is Medi-Cal. "MAGI Medi-Cal" covers adults
+    19-64 up to 138% FPL ($1,836 a month for one, $3,143 for three in 2026),
+    parents and caretaker relatives up to 109% (114% if they have Medicare)
+    and pregnant people up to 213%, with no asset test. "Non-MAGI Medi-Cal"
+    for people 65+, blind or disabled offers free (zero share of cost)
+    coverage through the Aged & Disabled FPL program when income after a $20
+    deduction, health insurance premiums and the Medicare Part B premium is
+    at or below 138% FPL ($1,836 single, $2,490 couple from April 1, 2026;
+    $1,801 / $2,433 from April 2025 to March 2026); above that, Medically
+    Needy Medi-Cal with a monthly share of cost equal to income above $600
+    (one person). From January 1, 2026 California again counts assets for
+    Non-MAGI programs: $130,000 for one person plus $65,000 for each
+    additional person (no asset limit in 2024-2025); Pickle, DAC and Disabled
+    Widow(er) cases follow on January 1, 2027. Also from January 1, 2026,
+    adults 19+ without satisfactory immigration status can no longer newly
+    enroll in full-scope Medi-Cal (restricted scope only); from July 1, 2027
+    adults 19-59 who kept state-funded coverage pay $30 a month. Apply online
+    at BenefitsCal or Covered California, by phone, mail, fax or in person
+    with the county social services agency; counties run Medi-Cal for DHCS.
+  administered_by: >-
+    California Department of Health Care Services (DHCS) sets policy through
+    All County Welfare Directors Letters (ACWDL) and Medi-Cal Eligibility
+    Division Information Letters (MEDIL); the 58 county social services
+    agencies determine eligibility (CalSAWS system); Covered California
+    (CalHEERS) takes MAGI applications.
+  funded_by: >-
+    Federal/state Medicaid match; state-only funds (100% State General Fund)
+    for full-scope services to people without satisfactory immigration status
+    who are still entitled to them (MEDIL I 26-20).
+  local_names:
+    - {name: Medi-Cal, meaning: California's Medicaid program}
+    - {name: MAGI Medi-Cal / Non-MAGI Medi-Cal, meaning: The income-based and the aged/blind/disabled routes}
+    - {name: A&D FPL / ABD FPL program, meaning: "Aged (Blind) and Disabled Federal Poverty Level program (zero share of cost)"}
+    - {name: SOC, meaning: Share of cost (Medically Needy spenddown)}
+    - {name: MFBU, meaning: Medi-Cal Family Budget Unit}
+    - {name: SIS / UIS, meaning: Satisfactory / unsatisfactory immigration status (for federally funded full scope)}
+    - {name: QNC / NQI, meaning: "Qualified non-citizen / newly qualified immigrant (LPR in the five-year bar)"}
+    - {name: Limited scope / full scope with no dental, meaning: "Full-scope benefits without non-emergency dental, for adults who kept state-funded coverage after the 2026 freeze"}
+    - {name: WCER, meaning: Work and Community Engagement Requirement}
+    - {name: BenefitsCal, meaning: "Online application portal for Medi-Cal, CalFresh and CalWORKs"}
+    - {name: SSApp, meaning: Single Streamlined Application ("Application for Health Insurance")}
+  confidence: confirmed
+  sources:
+    - {source: ca-dhcs-acwdl-26-01, locator: "2026 Federal Poverty Levels and effective dates"}
+    - {source: ca-dhcs-fpl-2026-programs, locator: "Program Descriptions by FPL"}
+    - {source: ca-dhcs-acwdl-25-14, locator: "Reinstatement of asset limits, whole letter"}
+    - {source: ca-dhcs-acwdl-20-24, locator: "ABD FPL methodology"}
+    - {source: ca-dhcs-acwdl-25-13, locator: "Expansion freeze"}
+    - {source: ca-dhcs-acwdl-25-33, locator: "Premiums"}
+    - {source: ca-dhcs-medil-i26-20, locator: "Background: state-only aid codes, 100 percent State General Fund"}
+
+rules:
+  - id: MCD-CA-MAGI-ADULT
+    statement: >-
+      In California from January 1, 2026, an adult aged 19-64 without
+      Medicare who is not pregnant qualifies for MAGI Medi-Cal (ACA new adult
+      group) if monthly MAGI household income is at or below 138% FPL: $1,836
+      for one person, $2,490 for two, $3,143 for three (each additional person
+      $655), with no asset test; the 2025 levels were $1,801, $2,433 and
+      $3,065.
+    kind: eligibility
+    applies_to: [adult_expansion]
+    effective_from: 2026-01-01
+    parameters: [ca.medi_cal.magi_adult_income_limit_monthly]
+    implemented_in: playbooks/medicaid/federal/rules.py:magi_test
+    confidence: confirmed
+    note: >-
+      "No asset test" for MAGI: ACWDL 25-14 reinstates assets only for the
+      Non-MAGI programs it lists; MEDIL I 25-23 tells members the limits apply
+      to people whose eligibility rests on age, disability, a nursing home or
+      a family over the MAGI income limit.
+    sources:
+      - {source: ca-dhcs-fpl-2026-monthly, locator: "138% column", quote: "1836"}
+      - {source: ca-dhcs-fpl-2026-programs, locator: "138% FPL = ACA New Adults Ages 19-64"}
+      - {source: ca-dhcs-acwdl-25-01, locator: "Enclosure 1, 2025, 138% column"}
+      - {source: ca-dhcs-medil-i25-23, locator: "Who do the asset limits apply to?"}
+      - {source: ca-scc-chart-fpl-2026, locator: "138% ACA New Adult Group (county cross-check)"}
+  - id: MCD-CA-MAGI-PARENT
+    statement: >-
+      In California in 2026, a parent or caretaker relative qualifies for MAGI
+      Medi-Cal in the parent/caretaker group with household income at or below
+      109% FPL ($1,450 for one, $2,482 for three a month), or 114% FPL
+      ($2,596 for three) if enrolled in Medicare Part A or B or 65 or older; a
+      parent without Medicare between 109% and 138% FPL is covered in the
+      adult group instead.
+    kind: eligibility
+    applies_to: [parent_caretaker]
+    effective_from: 2026-01-01
+    parameters: [ca.medi_cal.magi_parent_income_limit_monthly, ca.medi_cal.magi_parent_medicare_income_limit_monthly]
+    implemented_in: playbooks/medicaid/federal/rules.py:magi_test
+    confidence: confirmed
+    sources:
+      - {source: ca-dhcs-fpl-2026-programs, locator: "109% FPL = ACA Parents and Caretaker Relatives; 114% FPL = ... Not Eligible for the ACA New Adult Group due to ... 65 years of age or older or Enrollment in Medicare Parts A or B"}
+      - {source: ca-dhcs-fpl-2026-monthly, locator: "109% and 114% columns"}
+      - {source: ca-dhcs-acwdl-25-30, locator: "Background: parents with income over 109% but at or below 138% of the federal poverty level (M1 new adult group)"}
+  - id: MCD-CA-MAGI-PREGNANT
+    statement: >-
+      In California in 2026, a pregnant person qualifies for full-scope
+      Medi-Cal with MAGI household income (counting the unborn child) at or
+      below 213% FPL ($3,843 a month for a household of two); above 213% up to
+      322% FPL the Medi-Cal Access Program (MCAP) applies.
+    kind: eligibility
+    applies_to: [pregnant]
+    effective_from: 2026-01-01
+    parameters: [ca.medi_cal.magi_pregnant_income_limit_monthly]
+    implemented_in: playbooks/medicaid/federal/rules.py:magi_test
+    confidence: confirmed
+    note: The county chart says full scope only up to 138% and pregnancy-related coverage above it; DHCS says full scope up to 213% (MCD-CA-CONFLICT-03). MCAP is not evaluated here.
+    sources:
+      - {source: ca-dhcs-fpl-2026-programs, locator: "213% FPL = Full-Scope Coverage for ACA Pregnant Persons; Above 213% to 322% FPL = Medi-Cal Access Program (MCAP)"}
+      - {source: ca-dhcs-fpl-2026-monthly, locator: "213% column", quote: "3843"}
+      - {source: ca-scc-chart-fpl-2026, locator: "213% ACA Pregnant Women (county cross-check; differs on scope)"}
+  - id: MCD-CA-FPL-DATES
+    statement: >-
+      California applies each year's federal poverty levels to Medi-Cal on
+      three dates: January 1 for MAGI applicants and recipients (and MSP
+      applicants without Social Security income), March 1 for MSP applicants
+      with Social Security (RSDI) income, and April 1 for the Aged, Blind and
+      Disabled FPL program and the 250% Working Disabled Program; for 2026
+      these were January 1, March 1 and April 1, 2026.
+    kind: timing
+    effective_from: 2025-01-01
+    confidence: confirmed
+    sources:
+      - {source: ca-dhcs-acwdl-26-01, locator: "pages 1-2, effective dates by group"}
+      - {source: ca-dhcs-acwdl-25-01, locator: "pages 1-2, effective dates by group (2025)"}
+      - {source: ca-scc-chart-fpl-2026, locator: "FPL Effective Date table (county cross-check)"}
+  - id: MCD-CA-SSI-AUTO
+    statement: >-
+      In California, a person who receives SSI/SSP gets Medi-Cal from the SSI
+      award (California is a 1634 state; DHCS bundles SSI/SSP with Medi-Cal
+      eligibility), with no separate Medi-Cal income or asset test.
+    kind: coordination
+    applies_to: [ssi_recipient]
+    effective_from: 2026-10-07
+    implemented_in: playbooks/medicaid/federal/rules.py:ssi_recipient_1634
+    confidence: confirmed
+    note: Santa Clara County's handbook adds that SSI/SSP recipients are not sent an annual Medi-Cal renewal packet (county-only detail).
+    sources:
+      - {source: ssa-poms-si-01715-010, locator: "A.3 1634 States (California not in the 209(b) or SSI-criteria lists)"}
+      - {source: ca-dhcs-acwdl-26-13, locator: "SSI, Foster Care, and CalWORKs: DHCS has bundled payments with their Medi-Cal eligibility"}
+      - {source: ca-scc-mc-rd-forms, locator: "exception ... SSI/SSP (county cross-check)"}
+  - id: MCD-CA-NONMAGI-BUDGET
+    statement: >-
+      In California, Non-MAGI Medi-Cal (the A&D FPL program and Medically
+      Needy) counts income with a $20 any-income deduction, a $65 plus
+      one-half deduction from earnings, and a deduction for health insurance
+      premiums, using the Medically Needy income and property rules.
+    kind: definition
+    applies_to: [aged_disabled_fpl, share_of_cost]
+    effective_from: 2020-12-01
+    parameters: [ca.medi_cal.non_magi_income_deduction_monthly, federal.ssi.earned_income_exclusion_monthly]
+    overrides: [MCD-FED-NONMAGI-METHOD]
+    implemented_in: playbooks/medicaid/federal/rules.py:ssi_style_countable
+    confidence: confirmed
+    sources:
+      - {source: ca-dhcs-acwdl-20-24, locator: "ABD FPL Program Reminders: Apply all applicable program deductions and disregards, including: the $20.00 Any Income deduction, health insurance premiums, and ... the $65.00 and one-half Earned Income deduction"}
+      - {source: ca-dhcs-mepm-5l, locator: "Medi-Cal Share of Cost Determination examples"}
+      - {source: ca-scc-mc-ad-fpl-program, locator: "Examples (county cross-check)"}
+  - id: MCD-CA-AD-FPL
+    statement: >-
+      In California from April 1, 2026, a person 65 or older, blind or
+      disabled (not in long-term care) gets zero-share-of-cost Medi-Cal
+      through the Aged, Blind & Disabled FPL program if countable income,
+      after the $20 deduction, earned income deductions, health insurance
+      premiums and a disregard equal to the Medicare Part B premium (whether
+      the person or the state pays it), is equal to or less than 138% FPL:
+      $1,836 a month for one person or $2,490 for a couple ($1,801 / $2,433
+      from April 1, 2025 to March 31, 2026).
+    kind: eligibility
+    applies_to: [aged_disabled_fpl]
+    effective_from: 2026-04-01
+    parameters: [ca.medi_cal.ad_fpl_income_limit_monthly, federal.cms.part_b_standard_premium]
+    implemented_in: playbooks/medicaid/states/ca/rules.py:evaluate
+    confidence: confirmed
+    note: >-
+      The Part B disregard used to require that the person pay the premium;
+      since December 1, 2020 it applies regardless of who pays (ACWDL 20-18).
+      The first pass applied it only to people paying Part B; the evaluator
+      now applies it to everyone in the budget enrolled in Part B. In the
+      Medically Needy (share of cost) budget the person must still pay the
+      premium to deduct it.
+    sources:
+      - {source: ca-dhcs-acwdl-20-24, locator: "Policy: compare countable income to 138 percent of the FPL ... If it is equal to or less than that limit, the individual is eligible"}
+      - {source: ca-dhcs-acwdl-20-18, locator: "Policy Change: counties must disregard income equal to the amount of the individual's Medicare Part B premium when determining eligibility for the ABD FPL program, regardless of the state's payment of the premium"}
+      - {source: ca-dhcs-fpl-2026-programs, locator: "138% FPL = ... FPL Program for Aged & Disabled"}
+      - {source: ca-dhcs-acwdl-26-01, locator: "ABD FPL programs ... April 1, 2026"}
+      - {source: ca-scc-mc-ad-fpl-program, locator: "program description (county cross-check)"}
+  - id: MCD-CA-AD-FPL-COLA
+    statement: >-
+      In California's Aged, Blind & Disabled FPL program, the January Social
+      Security cost-of-living increase is disregarded from January until the
+      new federal poverty levels take effect on April 1, so January-March
+      eligibility is measured with the pre-COLA benefit against the prior
+      year's 138% FPL limit.
+    kind: definition
+    applies_to: [aged_disabled_fpl]
+    effective_from: 2020-12-01
+    implemented_in: playbooks/medicaid/states/ca/rules.py:evaluate
+    confidence: confirmed
+    open_question: MCD-CA-OQ-02
+    note: The archive holds only the current benefit, so a January-March case that is over the limit with the COLA counted returns undetermined (MCD-CA-OQ-02); one within the limit is eligible either way.
+    sources:
+      - {source: ca-dhcs-acwdl-20-24, locator: "ABD FPL Program Reminders: Disregard annual Social Security Administration Title II cost-of-living adjustments (COLA) from January of each year until the effective FPL increases are issued (generally in April each year)"}
+  - id: MCD-CA-AD-FPL-COUPLE
+    statement: >-
+      In California's A&D FPL program, when only one spouse applies (for
+      example, the other is not aged or disabled), both spouses' incomes are
+      combined, a $600 maintenance need deduction is taken for the spouse not
+      in Medi-Cal, and the result is compared with 138% FPL for one person;
+      when both spouses apply, the couple's income is compared with 138% FPL
+      for two.
+    kind: definition
+    applies_to: [aged_disabled_fpl]
+    effective_from: 2020-12-01
+    parameters: [ca.medi_cal.maintenance_need_monthly]
+    implemented_in: playbooks/medicaid/states/ca/rules.py:evaluate
+    confidence: confirmed
+    note: ACWDL 20-24 also lets a couple who cannot both qualify choose which spouse applies; the evaluator does not search those options.
+    sources:
+      - {source: ca-dhcs-acwdl-20-24, locator: "Example 2: Married Couple with One Spouse Applicant", quote: "Deduction for ineligible family members - $600.00"}
+      - {source: ca-dhcs-acwdl-20-24, locator: "Example 3: Married Couple with Both Spouse Applicants; Compare to 138% FPL for two people"}
+      - {source: ca-scc-mc-ad-fpl-program, locator: "when only one spouse qualifies (county cross-check)"}
+  - id: MCD-CA-SHARE-OF-COST
+    statement: >-
+      In California, a person 65 or older, blind or disabled whose income is
+      too high for the A&D FPL program can get Medically Needy Medi-Cal with a
+      monthly share of cost equal to net countable income (after the $20
+      deduction and health insurance premiums the person pays, such as Part
+      B) above the maintenance need level of $600 for one person or $934 for
+      two adults; Medi-Cal pays after the person pays or owes that amount in
+      medical bills that month.
+    kind: eligibility
+    applies_to: [share_of_cost]
+    effective_from: 1989-07-01
+    parameters: [ca.medi_cal.maintenance_need_monthly]
+    implemented_in: playbooks/medicaid/states/ca/rules.py:evaluate
+    confidence: confirmed
+    note: >-
+      SB 184 (2022) would have raised the maintenance need to 138% FPL from
+      January 1, 2025 (ACWDL 23-31); ACWDL 24-10 revoked that for budget
+      reasons and no later DHCS letter changes the $600 level.
+    sources:
+      - {source: ca-dhcs-acwdl-23-31, locator: "The SOC is calculated by determining how much income an individual has in excess of the maintenance need minus any applicable deductions (Title 22 CCR section 50653); example: Gross income $2000, Any income deduction $20, Medicare Part B deduction, SOC maintenance need deduction $600"}
+      - {source: ca-dhcs-acwdl-24-10, locator: "SOC reform ... is hereby revoked"}
+      - {source: ca-dhcs-acwdl-89-58, locator: "Maintenance Need Levels Effective July 1, 1989"}
+      - {source: ca-dhcs-acwdl-20-18, locator: "Individuals in the Medically Needy program must still pay for the premium before receiving the health insurance premium deduction"}
+      - {source: ca-scc-mc-share-of-cost, locator: "Share of Cost (county cross-check)"}
+  - id: MCD-CA-ASSET-LIMIT
+    statement: >-
+      In California from January 1, 2026, Non-MAGI Medi-Cal (aged, blind,
+      disabled including the A&D FPL program and Medically Needy, long-term
+      care and the Medicare Savings Programs; Pickle, Disabled Adult Child and
+      Disabled Widow(er) only from January 1, 2027) requires countable
+      property at or under $130,000 for one person plus $65,000 for each
+      additional person in the family budget unit, up to 10 people ($195,000
+      for a couple); MAGI Medi-Cal still has no asset test.
+    kind: eligibility
+    applies_to: [aged_disabled_fpl, share_of_cost]
+    effective_from: 2026-01-01
+    parameters: [ca.medi_cal.non_magi_asset_test_applies, ca.medi_cal.non_magi_asset_limit]
+    implemented_in: playbooks/medicaid/states/ca/rules.py:evaluate
+    confidence: confirmed
+    note: >-
+      Over the limit, the person may spend down excess property by the end of
+      the month in which eligibility is to be established (ACWDL 25-14, MC
+      007); the evaluator reports ineligible with the excess amount. Pickle,
+      DAC and DW programs are not modelled separately.
+    sources:
+      - {source: ca-dhcs-acwdl-25-14, locator: "pages 1-2 Policy Change; pages 8-9 affected programs and Household Asset Limits as of January 1, 2026"}
+      - {source: ca-dhcs-acwdl-25-20, locator: "page 7: at, or under $130,000 for one person and $65,000 for each additional person"}
+      - {source: ca-dhcs-acwdl-26-16, locator: "No sooner than January 1, 2027, the asset test shall be reinstated for the Pickle, DAC, and DW Non-MAGI Medi-Cal programs"}
+      - {source: ca-scc-mc-property-limits, locator: "Property Limits (county cross-check)"}
+  - id: MCD-CA-ASSET-ELIMINATION-2024
+    statement: >-
+      California had no asset limit for any Non-MAGI Medi-Cal program from
+      January 1, 2024 through December 31, 2025; from July 1, 2022 to December
+      31, 2023 the limit was $130,000 for one person plus $65,000 for each
+      additional person.
+    kind: eligibility
+    effective_from: 2024-01-01
+    effective_to: 2025-12-31
+    parameters: [ca.medi_cal.non_magi_asset_test_applies]
+    implemented_in: playbooks/medicaid/states/ca/rules.py:evaluate
+    confidence: confirmed
+    note: The county chart gives the pre-July 2022 limit as $2,000 for one and $3,000 for two (county only; not in the DHCS letters retrieved).
+    sources:
+      - {source: ca-dhcs-acwdl-25-14, locator: "Background: two-phased approach ... first phase, effective July 1, 2022 ... second phase, effective January 1, 2024, eliminated the asset limits"}
+      - {source: ca-dhcs-acwdl-22-25, locator: "Elimination of Asset Limits for Non-MAGI Medi-Cal Programs"}
+      - {source: ca-scc-chart-property-limits, locator: "Property Limit history (county cross-check)"}
+  - id: MCD-CA-ASSET-TRANSITION
+    statement: >-
+      In California, Non-MAGI applications received before January 1, 2026
+      are decided without assets even if processed later, retroactive months
+      before January 2026 need no asset verification, and current Non-MAGI
+      members report assets at the earlier of their first annual renewal due
+      on or after January 1, 2026 or a change-in-circumstance
+      redetermination where assets can be verified ex parte; a member
+      discontinued for missing asset information gets a 90-day cure period.
+    kind: timing
+    effective_from: 2026-01-01
+    confidence: confirmed
+    sources:
+      - {source: ca-dhcs-acwdl-25-14, locator: "Impacted Populations; Application; Change in Circumstance; Annual Renewal"}
+      - {source: ca-dhcs-acwdl-25-25, locator: "Medi-Cal members will not be required to report assets at CIC until after completing their first annual renewal due on or after January 1, 2026"}
+      - {source: ca-scc-mc-update-2025-9-asset-limits, locator: "New Applicants; Annual Renewals (county cross-check)"}
+  - id: MCD-CA-PROPERTY-EXEMPT
+    statement: >-
+      In California's Non-MAGI property test, the home the person lives in,
+      one vehicle and household items are not counted, and a retirement fund
+      (such as an IRA) from which the person receives required minimum
+      distributions or periodic payments of interest and principal is not
+      counted; bank accounts, cash, second homes and vehicles, stocks and
+      bonds count.
+    kind: definition
+    effective_from: 2026-01-01
+    implemented_in: playbooks/medicaid/federal/rules.py:countable_resources
+    confidence: confirmed
+    note: The county handbook's $6,000 net-market-value limit on other real property is county-only in this archive and not modelled; the evaluator counts other real property toward the general limit. MEDIL I 26-03 points to 22 CCR and MEPM Articles 9J/10 for annuities, retirement plans, rental property and trusts.
+    sources:
+      - {source: ca-dhcs-medil-i25-23, locator: "Some Assets Do Not Count: The home you live in; One vehicle; Household items; Certain retirement accounts; FAQ table: Retirement funds (like IRAs), if you are receiving the Required Minimum Monthly Distribution or periodic payments"}
+      - {source: ca-dhcs-medil-i26-03, locator: "IRAs, Retirement Plans ... ACWDL 02-51, ACWDL 90-01"}
+      - {source: ca-scc-mc-property-limits, locator: "Real Property Limits (county cross-check)"}
+      - {source: ca-scc-mc-pension-funds, locator: "Pension Funds (county cross-check)"}
+  - id: MCD-CA-EXPANSION-FREEZE
+    statement: >-
+      In California from January 1, 2026, adults 19 and older who do not have
+      or cannot establish satisfactory immigration status and apply on or
+      after that date get only restricted-scope Medi-Cal (emergency and
+      pregnancy-related services); children under 19, pregnant people (through
+      12 months postpartum), newly qualified immigrants in the five-year bar,
+      qualified non-citizens and people claiming PRUCOL are not affected.
+    kind: eligibility
+    effective_from: 2026-01-01
+    overrides: [MCD-FED-IMMIGRANT-2026]
+    implemented_in: playbooks/medicaid/states/ca/rules.py:immigration
+    confidence: confirmed
+    sources:
+      - {source: ca-dhcs-acwdl-25-13, locator: "Medi-Cal Expansion Freeze for Adults 19 and Older Without Satisfactory Immigration Status; The Expansion Freeze does not apply to Newly Qualified Immigrants (NQI) under the five-year bar, Qualified Non-Citizens ..., PRUCOL ...; Individuals reporting a pregnancy will be eligible for full scope"}
+      - {source: ca-scc-mc-update-2025-10-expansion-freeze, locator: "Changes (county cross-check)"}
+  - id: MCD-CA-EXPANSION-GRACE
+    statement: >-
+      In California, adults 19 and older without satisfactory immigration
+      status who had state-funded full-scope Medi-Cal before January 1, 2026
+      keep it (as "limited scope") while eligible and can re-enroll within a
+      three-month Expansion Grace Period after any loss of coverage;
+      non-emergency dental for them ends July 1, 2027 (delayed from July 1,
+      2026 by the 2026-27 state budget).
+    kind: eligibility
+    effective_from: 2026-01-01
+    implemented_in: playbooks/medicaid/states/ca/rules.py:immigration
+    confidence: confirmed
+    sources:
+      - {source: ca-dhcs-acwdl-25-13, locator: "Impacted Populations: Medi-Cal Limited Scope Expansion Population; Expansion Grace Period"}
+      - {source: ca-dhcs-medil-i26-18, locator: "the proposed elimination of non-emergency dental benefits ... has been delayed to July 1, 2027"}
+      - {source: ca-scc-mc-update-2025-10-expansion-freeze, locator: "Expansion Grace Period (county cross-check; dental date superseded)"}
+  - id: MCD-CA-UNDOC-PREMIUM
+    statement: >-
+      In California from July 1, 2027, adults aged 19-59 in state-funded
+      full-scope (no dental) Medi-Cal because they lack satisfactory
+      immigration status, are newly qualified immigrants in the five-year bar
+      or claim PRUCOL pay a $30 monthly premium per person, with no household
+      cap; pregnant and postpartum people, people 60 and older, children and
+      restricted-scope members do not pay, and after 90 days of nonpayment
+      the member moves to restricted scope.
+    kind: benefit
+    effective_from: 2027-07-01
+    parameters: [ca.medi_cal.uis_premium_monthly]
+    implemented_in: playbooks/medicaid/states/ca/rules.py:_scope
+    confidence: confirmed
+    note: Whether qualified non-citizens who lost federal eligibility on October 1, 2026 (refugees, asylees) are in the premium group is not settled (ACWDL 25-33 predates ACWDL 26-13); see MCD-CA-OQ-03.
+    sources:
+      - {source: ca-dhcs-acwdl-25-33, locator: "Implementation of Premiums, Elimination of Dental, and Impacted Populations; Non-Impacted Populations"}
+  - id: MCD-CA-NQI-STATE-FULL
+    statement: >-
+      In California, a lawful permanent resident still in the federal
+      five-year waiting period who otherwise qualifies gets state-funded
+      full-scope Medi-Cal, and the 2026 expansion freeze does not apply to
+      them.
+    kind: eligibility
+    effective_from: 2026-01-01
+    implemented_in: playbooks/medicaid/states/ca/rules.py:immigration
+    confidence: confirmed
+    sources:
+      - {source: ca-dhcs-acwdl-26-13, locator: "California will continue to provide state-funded full scope Medi-Cal to LPRs during their five-year waiting period"}
+      - {source: ca-dhcs-acwdl-25-13, locator: "Individuals identified as NQI under the five-year bar or PRUCOL will remain eligible for state-funded full scope Medi-Cal"}
+  - id: MCD-CA-QNC-2026
+    statement: >-
+      In California from October 1, 2026, qualified non-citizens who lose
+      federally funded full-scope Medicaid under P.L. 119-21 sec. 71109
+      (refugees, asylees, people granted withholding of removal, parolees of a
+      year or more, trafficking victims and others, other than LPRs,
+      Cuban/Haitian entrants and COFA migrants) keep or get state-funded
+      full-scope Medi-Cal, moving to state-only aid codes and fee-for-service
+      on January 1, 2027; lawfully present children under 21 and pregnant
+      people keep federally funded full scope.
+    kind: eligibility
+    effective_from: 2026-10-01
+    implemented_in: playbooks/medicaid/states/ca/rules.py:immigration
+    confidence: confirmed
+    note: >-
+      For new applicants after October 1, 2026 this is an inference from two
+      DHCS statements read together: ACWDL 26-13 ("California will provide
+      state-funded full scope Medi-Cal to QNCs who no longer meet the
+      immigration status criteria") and ACWDL 25-13 (the freeze "does not
+      apply to ... Qualified Non-Citizens as defined in Section 1641(b)").
+      Dually eligible QNCs keep MSP/Buy-in on state funds until Medicare ends
+      (February 1, 2027).
+    sources:
+      - {source: ca-dhcs-acwdl-26-13, locator: "Federal Medicaid Eligibility Changes Under H.R.1; Step 4 – Transition to State-Funded Full Scope; QNCs Dually Eligible for Medicare and Medi-Cal; CHIPRA 214"}
+      - {source: ca-dhcs-acwdl-25-13, locator: "The Expansion Freeze does not apply to ... Qualified Non-Citizens as defined in Section 1641(b) of Title 8"}
+      - {source: ca-dhcs-medil-i26-20, locator: "state-only aid codes for adults 19-64 not eligible for federally funded full scope, implementation January 1, 2027"}
+  - id: MCD-CA-IMMIGRANT-2026
+    statement: >-
+      How California classifies a lawfully present adult who is not a
+      qualified non-citizen (for example, a parolee for less than a year or
+      another lawfully present status) for Medi-Cal scope (PRUCOL state-funded
+      full scope, or unsatisfactory status and restricted scope under the
+      freeze) is not established in this archive.
+    kind: eligibility
+    effective_from: 2026-10-01
+    implemented_in: playbooks/medicaid/states/ca/rules.py:immigration
+    confidence: unresolved
+    open_question: MCD-CA-OQ-05
+  - id: MCD-CA-RETRO-2027
+    statement: >-
+      In California, Medi-Cal applications dated before January 1, 2027 can
+      get up to 3 months of retroactive coverage; for applications dated on or
+      after January 1, 2027 retroactive coverage is limited to 1 month for the
+      MAGI new adult group and 2 months for all other coverage groups, a
+      retroactive request is made on the MC 210A, and it may be made up to one
+      year from the month the medical services were received.
+    kind: timing
+    effective_from: 2027-01-01
+    implemented_in: playbooks/medicaid/federal/rules.py:retroactive_months
+    confidence: confirmed
+    note: ACWDL 26-07 is marked preliminary guidance.
+    sources:
+      - {source: ca-dhcs-acwdl-26-07, locator: "Policy Change; Policy Guidance; Reminders"}
+      - {source: ca-scc-mc-retroactive, locator: "Retroactive MC Coverage Periods (county cross-check)"}
+  - id: MCD-CA-WCER
+    statement: >-
+      In California, beginning January 1, 2027, applicants in the MAGI new
+      adult group must meet the Work and Community Engagement Requirement in
+      the month before the month of application (80 hours, $580 of income, or
+      half-time school) unless exempt, and members who applied by December
+      31, 2026 are assessed at their next scheduled renewal in 2027 (the first
+      transitions are March 2027 renewals); it does not apply to Non-MAGI,
+      children's, pregnancy or restricted-scope members.
+    kind: eligibility
+    applies_to: [adult_expansion]
+    effective_from: 2027-01-01
+    implemented_in: playbooks/medicaid/federal/rules.py:community_engagement
+    confidence: confirmed
+    note: ACWDL 25-30 is marked preliminary guidance. The evaluator checks the as-of month rather than the look-back month.
+    sources:
+      - {source: ca-dhcs-acwdl-25-30, locator: "Policy; Excluded Populations; Exemptions; How to Verify Compliance (look-back month)"}
+      - {source: ca-dhcs-acwdl-26-14, locator: "individuals with a March 2027 renewal month will be the first members to transition"}
+      - {source: ca-scc-mc-wcer, locator: "whole page (county cross-check)"}
+  - id: MCD-CA-TIMELINESS
+    statement: >-
+      In California, counties must complete Medi-Cal eligibility
+      determinations within 45 days of application, or 90 days when the
+      application is based on disability (excluding state disability
+      determination delays), measured by DHCS as a 90% performance standard.
+    kind: timing
+    effective_from: 2025-04-01
+    confidence: confirmed
+    note: Santa Clara County adds that delays need documented good cause and may not exceed three months (county-only detail).
+    sources:
+      - {source: ca-dhcs-acwdl-25-08, locator: "Performance Standards: complete shall be completed within 45 days; applications for Medi-Cal based on disability shall be completed within 90 days, excluding delays by the state"}
+      - {source: ca-scc-mc-timeframes, locator: "Application Processing (county cross-check)"}
+  - id: MCD-CA-RENEWAL
+    statement: >-
+      In California, Medi-Cal is renewed every 12 months (every 6 months for
+      the MAGI new adult group from renewals initiated on or after January 1,
+      2027): the county first tries an ex parte renewal from available data
+      and otherwise sends a renewal form (MC 216 for MAGI, MC 210 RV for
+      Non-MAGI, MC 217 pre-populated), and a person discontinued for not
+      returning it is restored if they comply within the 90-day cure period.
+    kind: procedure
+    effective_from: 2026-01-01
+    confidence: confirmed
+    sources:
+      - {source: ca-dhcs-acwdl-26-14, locator: "most Medi-Cal members receive annual renewals every twelve (12) months; six-month renewals for New Adult Group; MC 216 MAGI renewal form"}
+      - {source: ca-dhcs-acwdl-25-14, locator: "Annual Renewal: MC 210 RV and MC 217 Annual Renewal Forms; 90-day cure period; ex parte review"}
+      - {source: ca-scc-mc-rd-forms, locator: "MC RD Packets (county cross-check)"}
+      - {source: ca-scc-mc-90-day-cure, locator: "The 90-Day Cure Period (county cross-check)"}
+
+procedure:
+  applications:
+    - id: MCD-CA-PROC-ONLINE
+      text: Apply online at BenefitsCal (which also covers CalFresh and CalWORKs) or through Covered California (CoveredCA.com, the online Single Streamlined Application); applications are also accepted by mail, telephone, fax or in person at the county.
+      channel: online
+      url: https://benefitscal.com
+      confidence: confirmed
+      sources:
+        - {source: ca-dhcs-acwdl-25-13, locator: "Application Process: Individuals may apply for Medi-Cal online, by mail, by telephone, by fax or in person"}
+        - {source: ca-dhcs-msp-page, locator: "Online at BenefitsCal.org"}
+        - {source: ca-dhcs-medil-i25-24, locator: "online Single Streamlined Application (SSApp), which individuals use to apply ... through CoveredCA.com"}
+        - {source: ca-scc-mc-how-to-file, locator: "Online; Phone-In; Mail-in (county cross-check)"}
+    - id: MCD-CA-PROC-FORMS
+      text: >-
+        The paper Medi-Cal application is the Single Streamlined Application
+        ("Application for Health Insurance"; updated English version January
+        2026, the 2013 version still accepted); the SAWS 2 PLUS statement of
+        facts also works and DHCS prefers it for applicants with property to
+        report; retroactive requests use the MC 210A (old version still
+        accepted); Non-MAGI applicants may get the Non-MAGI screening packet
+        (MC 604 IPS income and property supplement, MC 007 property
+        limitations, Pub 10).
+      form_number: SSApp / SAWS 2 PLUS / MC 210A / MC 604 IPS
+      form_name: Application for Health Insurance (Single Streamlined Application)
+      confidence: confirmed
+      note: The county handbook lists the old MC 210 mail-in application as outdated but acceptable (county-only).
+      sources:
+        - {source: ca-dhcs-medil-i26-01, locator: "The updated Single Streamlined Application (SSApp) is now available in English"}
+        - {source: ca-dhcs-medil-i25-24, locator: "Counties must continue to accept the 2013 paper or PDF versions of the SSApp"}
+        - {source: ca-dhcs-acwdl-25-20, locator: "CEWs should facilitate use of the SAWS2 Plus in lieu of the Single Streamlined Application (SSApp) for applicants with a property component"}
+        - {source: ca-dhcs-acwdl-26-07, locator: "The MC 210A continues to be the required form to initiate a retroactive eligibility determination"}
+        - {source: ca-dhcs-acwdl-25-25, locator: "Non-MAGI Medi-Cal Screening Packet documents"}
+        - {source: ca-scc-mc-application, locator: "Outdated but Acceptable Forms (county cross-check)"}
+  documents:
+    - id: MCD-CA-DOC-ASSETS
+      text: Non-MAGI applicants (from January 1, 2026) report assets; the county must accept a complete attestation that is reasonably compatible with the electronic Asset Verification Program data and approve when assets are at or under the limit, asking for paper (MC 355) only when needed. Attestation is not accepted for trusts, annuities or spousal impoverishment cases.
+      confidence: confirmed
+      sources:
+        - {source: ca-dhcs-acwdl-25-20, locator: "pages 6-7: attestation; As of January 1, 2026, CEWs must grant Medi-Cal eligibility ... at, or under $130,000"}
+        - {source: ca-dhcs-acwdl-25-14, locator: "Change in Circumstance: MC 355"}
+        - {source: ca-scc-mc-update-2025-9-asset-limits, locator: "Verifying Assets (county cross-check)"}
+  filing:
+    - id: MCD-CA-FILE-COUNTY
+      text: Mail, phone, fax or in-person applications go to the county social services agency where the person lives.
+      channel: any
+      county_varies: true
+      confidence: confirmed
+      sources:
+        - {source: ca-dhcs-acwdl-25-13, locator: "Application Process"}
+        - {source: ca-dhcs-msp-county-contacts, locator: "County contact list"}
+        - {source: ca-scc-mc-how-to-file, locator: "Applicants are not required to go to a district office to apply (county cross-check)"}
+  timelines:
+    - id: MCD-CA-TIME-DECISION
+      text: Decision within 45 days; 90 days if the application is based on disability.
+      duration: 45 / 90 days
+      confidence: confirmed
+      sources: [{source: ca-dhcs-acwdl-25-08, locator: "Performance Standards"}]
+    - id: MCD-CA-TIME-RETRO-REQUEST
+      text: A retroactive Medi-Cal request may be made up to one year from the month the medical services were received.
+      duration: 12 months
+      confidence: confirmed
+      sources: [{source: ca-dhcs-acwdl-26-07, locator: "Applicants may request retroactive coverage for up to one year from the month medical services were received"}]
+  approval_notice:
+    - id: MCD-CA-NOTICE
+      text: The county (CalSAWS) sends a Notice of Action (NOA) for approvals, denials and discontinuances, including asset and share-of-cost decisions; a member who disagrees can request a state fair hearing within 90 days of the NOA.
+      confidence: confirmed
+      sources:
+        - {source: ca-dhcs-acwdl-25-14, locator: "Notices and Forms; NOA snippets"}
+        - {source: ca-dhcs-acwdl-25-13, locator: "can file for a fair hearing within 90 days of receiving their Notice of Action (NOA)"}
+        - {source: ca-scc-mc-rd-forms, locator: "Notices Of Action (county cross-check)"}
+  renewal:
+    - id: MCD-CA-RENEW
+      text: Renewal every 12 months (6 months for the new adult group from 2027); ex parte first, then a renewal form (MC 216 MAGI; MC 210 RV Non-MAGI, with a property supplement in early 2026; MC 217 pre-populated); 90-day cure period after a discontinuance for not returning information.
+      confidence: confirmed
+      sources:
+        - {source: ca-dhcs-acwdl-25-14, locator: "Annual Renewal"}
+        - {source: ca-dhcs-acwdl-26-14, locator: "Populations Subject to Six-Month Renewals; Forms and Notices"}
+        - {source: ca-scc-mc-rd-forms, locator: "signature methods (county cross-check)"}
+  county_variation:
+    - id: MCD-CA-COUNTY
+      text: Each of the 58 counties administers Medi-Cal under DHCS rules; offices, phone lines and in-person options vary. Earlier California detail in this archive came from Santa Clara County's handbook, now kept only as a cross-check.
+      county_varies: true
+      confidence: confirmed
+      sources:
+        - {source: ca-dhcs-msp-county-contacts, locator: "County contact list"}
+        - {source: ca-scc-mc-how-to-file, locator: "District Office procedures (county cross-check)"}
+
+life_events:
+  - id: MCD-CA-LE-TURNING-65
+    code: turning_65
+    event: Turning 65 or starting Medicare
+    why: Moves from MAGI (no asset test) to Non-MAGI Medi-Cal with the $130,000 asset limit and the A&D FPL / share-of-cost budget; the county sends the Non-MAGI (Turning 65) screening packet.
+    check_rules: [MCD-CA-AD-FPL, MCD-CA-ASSET-LIMIT]
+    confidence: confirmed
+    sources:
+      - {source: ca-dhcs-acwdl-25-25, locator: "Non-MAGI Medi-Cal and Turning 65 Medi-Cal Screening Packets"}
+  - id: MCD-CA-LE-RENEWAL
+    code: renewal_due
+    event: First renewal on or after January 1, 2026 (Non-MAGI) or from March 2027 (new adult group)
+    why: Non-MAGI members report assets for the first time; new adult group members move to six-month renewals and must meet the work requirement.
+    check_rules: [MCD-CA-ASSET-TRANSITION, MCD-CA-WCER, MCD-CA-RENEWAL]
+    confidence: confirmed
+    sources:
+      - {source: ca-dhcs-acwdl-25-14, locator: "Annual Renewal"}
+      - {source: ca-dhcs-acwdl-26-14, locator: "Transition Renewals Beginning in 2027"}
+  - id: MCD-CA-LE-MOVE-COUNTY
+    code: move_county
+    event: Moving to another California county
+    why: The case transfers between counties (inter-county transfer); eligibility rules are the same statewide.
+    check_rules: [MCD-CA-RENEWAL]
+    confidence: secondary
+    sources: [{source: ca-scc-mc-retroactive, locator: "Requests for retroactive Medi-Cal can be approved in Santa Clara County regardless of residency"}]
+  - id: MCD-CA-LE-IMMIGRATION
+    code: immigration_status_change
+    event: Applying without satisfactory immigration status, losing federal eligibility in October 2026, or losing full scope
+    why: New adult applicants without SIS get restricted scope; existing members must not let coverage lapse more than three months; refugees and asylees move to state-funded full scope; premiums start July 2027.
+    check_rules: [MCD-CA-EXPANSION-FREEZE, MCD-CA-EXPANSION-GRACE, MCD-CA-QNC-2026, MCD-CA-UNDOC-PREMIUM]
+    confidence: confirmed
+    sources:
+      - {source: ca-dhcs-acwdl-25-13, locator: "Expansion Freeze; Expansion Grace Period"}
+      - {source: ca-dhcs-acwdl-26-13, locator: "Member Outreach Notice"}
+  - id: MCD-CA-LE-ASSETS
+    code: asset_change
+    event: Inheritance or sale of property (Non-MAGI)
+    why: Countable property above $130,000 (one) ends Non-MAGI eligibility until reduced; members report asset changes within 10 days once assets count; giving away assets does not affect most people outside long-term care.
+    check_rules: [MCD-CA-ASSET-LIMIT]
+    confidence: confirmed
+    sources:
+      - {source: ca-dhcs-medil-i25-23, locator: "Will transferring assets out of my name affect my Medi-Cal? For most individuals, giving away or selling their assets does not impact their Medi-Cal eligibility"}
+      - {source: ca-dhcs-acwdl-25-14, locator: "Change in Circumstance: report changes to their assets (property) within 10 days"}
+
+outcome_proof:
+  - id: MCD-CA-PROOF-NOA
+    evidence: Medi-Cal Notice of Action from the county (CalSAWS)
+    shows: Approval or denial, coverage months, any share of cost, and property figures for asset decisions.
+    how_to_get: Mailed by the county; also in the BenefitsCal account.
+    confidence: confirmed
+    sources:
+      - {source: ca-dhcs-acwdl-25-14, locator: "Notice snippets: countable property ... above the Medi-Cal program limit"}
+      - {source: ca-scc-mc-rd-forms, locator: "Notices Of Action (county cross-check)"}
+
+links:
+  - id: MCD-CA-LINK-SNAP
+    playbook: snap
+    relation: The SAWS 2 PLUS statement of facts and BenefitsCal cover Medi-Cal, CalFresh and CalWORKs together.
+    test: MCD-X-05
+    confidence: confirmed
+    sources:
+      - {source: ca-dhcs-acwdl-25-20, locator: "SAWS2 Plus"}
+      - {source: ca-scc-mc-application, locator: "Statement of Facts for Cash Aid, CalFresh and Medi-Cal/State CMSP (SAWS 2 PLUS) (county cross-check)"}
+      - {source: ca-scc-mc-how-to-file, locator: "BenefitsCal ... apply for MC, CF and CW (county cross-check)"}
+
+open_questions:
+  - id: MCD-CA-OQ-01
+    priority: high
+    question: >-
+      Retrieve the DHCS originals (ACWDL 25-13 expansion freeze, ACWDL 25-14
+      and 25-20 asset limit reinstatement, the 2026 FPL letter, the Medi-Cal
+      eligibility procedures manual) and confirm the county handbook's
+      restatement.
+    why_it_matters: The first pass rested every California rule on a county restatement of DHCS letters.
+    checked: [dhcs.ca.gov via headless Chromium (2026-10-07), ACWDL and MEDIL lists 2025 and 2026]
+    affects: [MCD-CA-ASSET-LIMIT, MCD-CA-AD-FPL, MCD-CA-EXPANSION-FREEZE, MCD-CA-MAGI-ADULT]
+    status: answered
+    answer: >-
+      Retrieved on 2026-10-07 with a headless browser: ACWDLs 20-18, 20-24,
+      23-31, 24-10, 25-08, 25-13, 25-20, 25-25, 25-30, 25-33, 26-13, 26-14,
+      89-58 and MEDILs I 25-23, I 25-24, I 26-01, I 26-03, I 26-18, I 26-20,
+      plus the letters already snapshotted by the msp and ltc_medicaid
+      playbooks (ACWDL 25-01, 25-14, 26-01, 26-07, 26-16 and the 2026 FPL
+      enclosures). Every county figure matched DHCS except the dental cut
+      date (MCD-CA-CONFLICT-04) and the scope of pregnancy coverage between
+      138% and 213% FPL (MCD-CA-CONFLICT-03). County sources are now
+      secondary cross-checks.
+  - id: MCD-CA-OQ-02
+    priority: medium
+    question: >-
+      How should an A&D FPL case in January-March be budgeted when the
+      archive only knows the post-COLA Social Security benefit (DHCS
+      disregards the January COLA until April), and what were the 2024 ABD
+      FPL limits for January-March 2025?
+    why_it_matters: January-March Non-MAGI cases that are over the prior year's limit with the COLA counted return undetermined; January-March 2025 dates return undetermined.
+    checked: [ACWDL 20-24, ACWDL 25-01, ACWDL 26-01, ACWDL 25-22 title (2026 COLA)]
+    affects: [ca.medi_cal.ad_fpl_income_limit_monthly, MCD-CA-AD-FPL-COLA, MCD-CA-FPL-DATES]
+    status: open
+  - id: MCD-CA-OQ-03
+    priority: medium
+    question: >-
+      Does the $30 monthly premium from July 1, 2027 (ACWDL 25-33: UIS, NQI in
+      the five-year bar, PRUCOL, ages 19-59) also apply to refugees, asylees
+      and other qualified non-citizens who moved to state-funded full scope
+      after October 1, 2026, and has DHCS confirmed the July 2027 start (the
+      letter says "no sooner than")?
+    why_it_matters: A refugee aged 19-59 could owe $30 a month from July 2027 or nothing.
+    checked: [ACWDL 25-33, ACWDL 26-13, MEDIL I 26-20, MEDIL I 26-18]
+    affects: [MCD-CA-UNDOC-PREMIUM, ca.medi_cal.uis_premium_monthly]
+    status: open
+  - id: MCD-CA-OQ-04
+    priority: medium
+    question: Confirm that the Medically Needy maintenance need is still $600/$934 in 2026.
+    why_it_matters: Sets the share of cost for every Non-MAGI person over the A&D FPL limit.
+    checked: [ACWDL 89-58, ACWDL 23-31, ACWDL 24-10, ACWDL and MEDIL lists for 2025 and 2026]
+    affects: [MCD-CA-SHARE-OF-COST, ca.medi_cal.maintenance_need_monthly]
+    status: answered
+    answer: >-
+      Yes. ACWDL 24-10 (September 18, 2024) revoked the SB 184 increase to
+      138% FPL that ACWDL 23-31 had scheduled for January 1, 2025 and keeps the
+      AFDC-based levels of ACWDL 89-58 ($600 for one, $934 for two adults).
+      No 2025 or 2026 ACWDL or MEDIL title on the DHCS lists (checked
+      2026-10-07) changes the maintenance need.
+  - id: MCD-CA-OQ-05
+    priority: high
+    question: >-
+      How does California classify lawfully present adults who are not
+      qualified non-citizens (for example parolees for less than a year,
+      people with TPS or pending applications) after October 1, 2026: PRUCOL
+      with state-funded full scope, or unsatisfactory status under the
+      expansion freeze (restricted scope)?
+    why_it_matters: The evaluator returns undetermined for these members.
+    checked: [ACWDL 25-13, ACWDL 26-13, MEDIL I 26-20, MEDIL I 25-27 (immigration status crosswalk, not imported), MEDIL I 26-24 title (termination of categorical parole programs)]
+    affects: [MCD-CA-IMMIGRANT-2026]
+    status: open
+
+conflicts:
+  - id: MCD-CA-CONFLICT-01
+    topic: Whether property exactly at $130,000 qualifies
+    claims:
+      - source: ca-dhcs-acwdl-25-20
+        says: CEWs must grant eligibility if attested or electronically found assets are at, or under $130,000 for one person and $65,000 for each additional person.
+      - source: ca-dhcs-acwdl-25-14
+        says: Denial notice when countable property "is above the Medi-Cal program limit".
+      - source: ca-hca-asset-limits-practice-tip-2026
+        says: To get or keep coverage a single person must have countable assets less than $130,000.
+    handling: DHCS (ACWDL 25-20 and the 25-14 notices) and the county handbook ("equal to or below") agree that $130,000 qualifies; the advocacy summary is secondary and the archive follows DHCS. Tests pin the at-limit case.
+    affects: [MCD-CA-ASSET-LIMIT]
+    status: resolved
+  - id: MCD-CA-CONFLICT-02
+    topic: Header of the reinstated property limit column
+    claims:
+      - source: ca-scc-chart-property-limits
+        says: Column headed "Propert Limit Reinstatement January 1, 2024" with $130,000 for one person.
+      - source: ca-dhcs-acwdl-25-14
+        says: The asset test is reinstated no sooner than January 1, 2026; the second phase eliminated limits January 1, 2024.
+    handling: Treated as a typo in the county chart header; the archive uses January 1, 2026 per DHCS.
+    affects: [ca.medi_cal.non_magi_asset_limit]
+    status: resolved
+  - id: MCD-CA-CONFLICT-03
+    topic: Scope of coverage for pregnant people between 138% and 213% FPL
+    claims:
+      - source: ca-dhcs-fpl-2026-programs
+        says: "213% FPL = Full-Scope Coverage for ACA Pregnant Persons."
+      - source: ca-scc-chart-fpl-2026
+        says: 138% is full-scope coverage for ACA pregnant women; above 138% to 213% FPL is pregnancy-related Medi-Cal.
+    handling: The archive follows DHCS (full scope up to 213%). The evaluator does not distinguish full from pregnancy-related scope for pregnant people, so no test outcome depends on it.
+    affects: [MCD-CA-MAGI-PREGNANT]
+    status: open
+  - id: MCD-CA-CONFLICT-04
+    topic: Date dental ends for adults without satisfactory immigration status who kept coverage
+    claims:
+      - source: ca-dhcs-medil-i26-18
+        says: The elimination of non-emergency dental for members 19 and older no longer eligible for federally funded full scope has been delayed to July 1, 2027 (SB 164, 2026 budget).
+      - source: ca-dhcs-acwdl-25-13
+        says: Limited scope Medi-Cal will cover the same services as full scope with the exception of dental care services effective July 1, 2026.
+      - source: ca-scc-mc-update-2025-10-expansion-freeze
+        says: Dental coverage ends July 1, 2026 except emergencies.
+    handling: The later DHCS letter (MEDIL I 26-18, July 7, 2026) governs; the archive uses July 1, 2027. The first pass used July 1, 2026 from the county page.
+    affects: [MCD-CA-EXPANSION-GRACE]
+    status: resolved
+
+claims_checked:
+  - claim: California reinstated an asset limit for Medi-Cal, reported as $130,000 for one person.
+    verdict: verified
+    detail: >-
+      DHCS ACWDL 25-14: effective January 1, 2026, for Non-MAGI programs
+      (aged, blind, disabled, Medically Needy, long-term care and the Medicare
+      Savings Programs), $130,000 for one person plus $65,000 for each
+      additional household member, up to 10 people ($195,000 for a couple);
+      Pickle, DAC and Disabled Widow(er) follow on January 1, 2027 (ACWDL
+      26-16). MAGI Medi-Cal has no asset test. Limits were eliminated January
+      1, 2024 through December 31, 2025. At exactly the limit the person
+      qualifies ("at, or under", ACWDL 25-20).
+    sources:
+      - {source: ca-dhcs-acwdl-25-14, locator: "Policy Change; Household Asset Limits"}
+      - {source: ca-dhcs-acwdl-25-20, locator: "at, or under $130,000"}
+      - {source: ca-dhcs-acwdl-26-16, locator: "Policy Change"}
+  - claim: California's Medi-Cal application forms include the MC 210, MC 210 RV, MC 216 and SAWS 2 Plus.
+    verdict: corrected
+    detail: >-
+      The application is the Single Streamlined Application (updated 2026,
+      2013 version still accepted) or the SAWS 2 PLUS; MC 216 is the MAGI
+      renewal form, MC 210 RV the Non-MAGI renewal form and MC 217 the
+      pre-populated renewal form; MC 210A is the retroactive supplement. The
+      county handbook calls the old MC 210 application outdated but
+      acceptable (county-only).
+    sources:
+      - {source: ca-dhcs-medil-i25-24, locator: "Counties must continue to accept the 2013 paper or PDF versions of the SSApp"}
+      - {source: ca-dhcs-acwdl-26-14, locator: "MC 216 MAGI renewal form"}
+      - {source: ca-dhcs-acwdl-25-14, locator: "Medi-Cal Renewal Form (MC 210 RV); Pre-Populated Renewal Form (MC 217)"}
+      - {source: ca-scc-mc-application, locator: "Outdated but Acceptable Forms (county cross-check)"}
+  - claim: California would raise the Medi-Cal share-of-cost maintenance need from $600 to 138% FPL in 2025.
+    verdict: refuted
+    detail: ACWDL 23-31 scheduled the increase for January 1, 2025 contingent on funding; ACWDL 24-10 (September 2024) revoked it. The maintenance need remains $600 for one person.
+    sources:
+      - {source: ca-dhcs-acwdl-24-10, locator: "hereby revoked"}
+  - claim: California will charge undocumented adults a $30 monthly Medi-Cal premium starting in 2027.
+    verdict: verified
+    detail: ACWDL 25-33 — from no sooner than July 1, 2027, ages 19-59 in state-funded full scope with UIS, NQI (five-year bar) or PRUCOL status; not pregnant/postpartum people, 60+, children or restricted-scope members.
+    sources:
+      - {source: ca-dhcs-acwdl-25-33, locator: "Implementation of Premiums"}

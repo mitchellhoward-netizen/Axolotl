@@ -1,0 +1,34 @@
+name: Rules archive
+
+# Validates the benefits rules archive (archive/): schema and cross-reference
+# checks, the synthetic-household tests, and that YEARLY-CHECKLIST.md matches
+# the parameter files. PolicyEngine cross-checks are run locally, not here
+# (PolicyEngine US is AGPL-3.0 and is kept out of the service's dependencies).
+on:
+  push:
+    branches: [main]
+    paths: ['archive/**', 'tools/site/msp-ny.json', 'public/msp-calc.js', '.github/workflows/rules-archive.yml']
+  pull_request:
+    paths: ['archive/**', 'tools/site/msp-ny.json', 'public/msp-calc.js', '.github/workflows/rules-archive.yml']
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: archive
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: sudo apt-get install -y poppler-utils
+      - run: pip install -r requirements.txt
+      - name: Validate archive
+        run: python -m tools.validate --stats
+      - name: Synthetic households and tool tests
+        run: python -m pytest
+      - name: Yearly checklist is current
+        run: python -m tools.yearly_checklist --check
+      - name: Website calculator numbers match the archive
+        run: python -m tools.export_site_data --check

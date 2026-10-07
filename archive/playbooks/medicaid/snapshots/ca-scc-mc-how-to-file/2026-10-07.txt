@@ -1,0 +1,273 @@
+How to File an Application
+
+There are many ways to file an MC application. Clients can choose whichever method meets their needs.
+
+Online
+
+Phone-In
+
+Mail-in
+
+Walk-in
+
+MC applications are received from external sources, including but not limited to:
+
+Application Referrals from the Children’s Health Initiative (CHI) Toll-free Number (1-888-244-5222)
+
+Outreach Events
+
+The Single Point of Entry (SPE)
+
+Hospitals
+
+Non-Profits
+
+Covered California
+
+BenefitsCal (Online)
+
+BenefitsCal provides the general public and current clients with an easier method to self-screen for potential eligibility and apply for MC, CF and CW at www.benefitsCal.com. BenefitsCal is the web version of the paper application.
+
+BenefitsCal allows clients to:
+
+Apply for benefits or cancel/withdraw an application.
+
+Find out if they are eligible for other assistance programs.
+
+Check benefit status and amount.
+
+Report changes
+
+Submit verifications
+
+Complete their MC Renewal
+
+Note: The retrieval, registering and distribution of the BenefitsCal online applications are handled by appointed clerical staff.
+
+Mail-In and Phone-In MC Application Procedures
+
+Clients may complete and return all necessary forms and verifications by mail. However, if the applicant has an immediate need for MC the option to come into a District Office to apply is available.
+
+Note: An applicant can request a face-to-face interview at any time, regardless of immediate MC need.
+
+Client:
+
+Calls any District Office and indicates he/she would like to apply for MC benefits OR
+
+Mails in the SSApp.
+
+Designated District Office Staff:
+
+If a client calls requesting other programs (i.e. GA) refer the client to the appropriate district office.
+
+IDs the client or application.
+
+Completes the SCD 41 (For phone applications).
+
+Performs preliminary File Clearance procedures to make sure the application is valid.
+
+Completes application registration in CalSAWS.
+
+HCR STAFF: Completes the application by phone.
+
+SSBS:
+
+Receives the MC application.
+
+Contacts the client if there are missing verifications.
+
+NOTE: At initial application, paper verifications must only be requested after a CalHEERS BRE eHIT and ex parte review. For the ex parte review, documents or information must be within 90 days. [Refer to Chapter 16, Section 16.5 "Federal Data Services Hub,” page-3]
+
+Provides the client with the case number and instructs him/her to write the case number on the documents to be provided. If the client prefers to:
+
+Provide paper verifications in person:
+
+Explains to the client to bring in the verifications and have clerical photocopy them, or
+
+Schedules an appointment for the client to bring the verifications to the SSBS.
+
+Mail/Fax the paper verifications:
+
+Explains to the client that when the paper verifications are received, the application will be processed and he/she may be contacted if further verification is needed.
+
+Upload paper verifications:
+
+Explains the MyBCW process, or explains the Covered CA process.
+
+Client:
+
+Gathers the necessary paper verifications.
+
+Mails or brings paper verifications to the District Office.
+
+SSBS:
+
+Receives the necessary paper verifications.
+
+Enters information into CalSAWS windows.
+
+Runs EDBC and approves or denies benefits.
+
+Mails NOAs.
+
+Documents actions in the Search Case Comments window.
+
+Checks MEDS in 2 business days.
+
+Prints and IDMs the MEDS, CalSAWS, and CalHEERS screenshots to verify eligibility and manual verifications verified by the Federal Hub. Refer to Intake Documents to IDM.
+
+Follows district office CHI process, if children are not determined eligible for MC. Refer to Children's Health Care Initiative.
+
+In-Person/Walk-In MC Application Procedures
+
+Applicants are not required to go to a district office to apply for MC; however many clients prefer to file in-person and have a face-to-face interview with an SSBS. An applicant who comes into the office will be given an intake packet and may mail it back, or may switch from a face-to-face interview to the mail-in process at any time.
+
+Reminder: Clients applying in person should complete and sign the SSApp and submit it BEFORE leaving the office whenever possible, and therefore avoid any delays that may occur due to mailing forms back and forth.
+
+Client:
+
+Requests MC at a district office.
+
+Clerical:
+
+IDs the client.
+
+Performs a preliminary File Clearance to make sure the application is valid.
+
+Provides the client an intake packet and required informing notices.
+
+NOTE: The applicant or the person acting on behalf of the applicant should sign the application.
+
+Completes the SCD 41.
+
+If the client does not want to complete the application in person:
+
+Provides the client a date-stamped intake packet and required informing notices.
+
+Provides a postage-paid return envelope to MC applicants who wish to mail back their application, additional forms and/or verifications.
+
+Note: This date is only valid for 10 days. On or after the 11th day, the date of application is the day the application is actually returned. Example Example OnMay 4th, a client comes in to the office asking to apply for Medi-Cal but wants to take the application home. On May 23rd, the application is received at the office. The date stamp is no longer valid as more than ten days has passed. The application date will be May 23rd.
+
+If the client requests a Face-to-Face interview:
+
+Completes SAWS 1 and schedules appointment.
+
+If the client completes and submits the application in person and the application is:
+
+Not valid, then refers the client to the correct district office or SSBS.
+
+Valid, then date stamps the SSApp.
+
+Provides the SSApp to the client.
+
+Instructs the client to complete the forms in the lobby and return to the window when they are complete.
+
+Client:
+
+Completes the application forms.
+
+Returns to the window and submits the application to clerical.
+
+Clerical:
+
+Receives the MC application forms.
+
+Provides the client with a MC Intake informing packet.
+
+Explains that the client may schedule an appointment with his/her SSBS when the SSBS contacts him/her, if preferred.
+
+Forwards the completed application to the Centralized Application Registration unit.
+
+Centralized Application Registration Unit:
+
+Receives the completed MC application.
+
+Performs the Application Registration function in CalSAWS.
+
+Assigns the case to an SSBS.
+
+Forwards the application packet to the assigned SSBS for processing.
+
+SSBS:
+
+Receives the MC application.
+
+Determines if an immediate medical need exists, schedules the client for an interview as soon as possible.
+
+Contacts the client and requests any additional verifications needed to complete the application process.
+
+NOTE: Paper verifications are not required if the client’s information is e-verified in CalHEERS.
+
+Provides the client with the case number and instructs him/her to write the case number on the documents that may need to be provided. If the client prefers to:
+
+Come into the office for an appointment:
+
+Schedules an appointment with the client to complete the application process.
+
+Provide the paper verifications in person:
+
+Explains to the client to bring the paper verifications and have clerical photocopy them, or
+
+Schedules an appointment for the client to bring the paper verifications directly to the SSBS.
+
+Mail the paper verifications:
+
+Explains to the client that when the paper verifications are received, the application will be processed. The client will be contacted if any further paper verification is required.
+
+Client:
+
+Gathers necessary paper verifications.
+
+Mails or brings verifications to the district office.
+
+SSBS:
+
+Receives the requested paper verifications.
+
+Enters information into CalSAWS windows.
+
+Runs EDBC and approves or denies benefits as appropriate.
+
+Mails NOAs.
+
+Documents actions in the Search Case Comments window.
+
+Checks MEDS in 2 business days.
+
+Prints and IDMs the MEDS, CalSAWS, and CalHEERS screenshots to verify eligibility and manual verifications verified by the Federal Hub. Refer to Intake Documents to IDM
+
+Follows district office CHI process, if children are not determined eligible for MC. Refer to Children's Health Care Initiative.
+
+Forms Not Returned
+
+Forms must be returned within 10 calendar days from when they were mailed. When application forms are not received by the due date, the appointed district office staff must follow these procedures:
+
+If...
+
+Then...
+
+The application forms are returned,
+
+Assign the case to an SSBS for processing.
+
+The applicant does not return their forms by the due date or keep their scheduled appointment for the intake interview,
+
+A appointed person sends the “Medi-Cal Application 2nd Notice” (SCD 823) allowing the applicant an additional 10 calendar days to complete and return the application.
+
+The application forms are not returned by the second due date,
+
+A appointed person initiates a phone contact with the applicant to determine if assistance is needed to complete the application process.
+
+The phone contact is unsuccessful, OR the applicant has not indicated a desire to complete the application process OR the application forms have still not been returned,
+
+Assign the application to an SSBS for the appropriate denial.
+
+Related Topics
+
+HIPAA/PII
+
+Application
+
+Persons Who May Represent a Client
+
+Who Can Complete a MC Application

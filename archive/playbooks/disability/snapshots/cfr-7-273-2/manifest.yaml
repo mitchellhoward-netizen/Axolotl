@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://www.govinfo.gov/content/pkg/CFR-2025-title7-vol4/xml/CFR-2025-title7-vol4-sec273-2.xml
+  final_url: https://www.govinfo.gov/content/pkg/CFR-2025-title7-vol4/xml/CFR-2025-title7-vol4-sec273-2.xml
+  status: 200
+  content_type: application/xml
+  text_sha256: 0c5651e8058e9edaf425d559d2d4950cf173252a42ce1718f90b6fe36ce01663
+  text: cfr-7-273-2/2026-10-07.txt
+  raw: cfr-7-273-2/2026-10-07.raw

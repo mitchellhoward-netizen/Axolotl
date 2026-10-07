@@ -1,0 +1,324 @@
+schema_version: 2
+program: school_meals
+scope: ny
+title: School meals — New York (Universal Free School Meals, Education Law 915-a)
+last_researched: 2026-10-07
+
+summary:
+  plain_language: >-
+    Starting with the 2025-26 school year, every New York school district,
+    charter school and nonpublic school that takes part in the federal school
+    lunch or breakfast program must serve breakfast and lunch at no cost to
+    all students, whatever the family's income (Education Law 915-a); the
+    state pays the schools the difference up to the free-meal rate. Schools
+    still have to find out which students qualify federally: they run the
+    statewide SNAP/Medicaid direct certification match at least three times
+    a year, and schools not in the Community Eligibility Provision (CEP) or
+    in a Provision 2 non-base year still hand out the free and
+    reduced-price application. CEP and Provision 2 non-base-year schools use
+    a separate Household Income Eligibility Form instead, which identifies
+    students for other state and federal benefits such as Summer EBT. New
+    York's Medicaid match certifies students for free meals only.
+  administered_by: >-
+    New York State Education Department (NYSED), Child Nutrition Program
+    Administration; each school food authority (district, charter or
+    nonpublic school) runs its own program. SNAP data come from the Office
+    of Temporary and Disability Assistance (OTDA).
+  funded_by: >-
+    Federal NSLP/SBP reimbursement plus state reimbursement under Education
+    Law 915-a for the difference between the reduced-price or paid rate and
+    the free rate for each meal.
+  local_names:
+    - {name: Universal Free School Meals, meaning: "Education Law 915-a program, from SY 2025-26"}
+    - {name: DCMP, meaning: "Direct Certification Matching Process (statewide SNAP and Medicaid match against NYSSIS student IDs)"}
+    - {name: SFA, meaning: school food authority}
+    - {name: NYSSIS, meaning: New York State Student Identification System}
+    - {name: CNMS, meaning: Child Nutrition Management System}
+    - {name: Household Income Eligibility Form, meaning: "NYSED's form for CEP / Provision 2 non-base-year schools (not a meal application)"}
+  legal_basis: New York Education Law sec. 915-a (added by Part B of Chapter 56 of the Laws of 2025, effective July 1, 2025); 8 NYCRR 114.6 (SNAP outreach, effective January 28, 2026); federal 7 CFR part 245.
+  confidence: confirmed
+  sources:
+    - {source: nysed-ufm-memo-2025, locator: "New York State Universal Free Meals"}
+    - {source: nysed-dcmp-2026, locator: "Online Direct Certification Matching Process (DCMP); Match Frequency"}
+    - {source: nysed-p2-base-year-2026-27, locator: "2026-2027 School Year Income Eligibility Guidelines"}
+
+rules:
+  - id: SCH-NY-UNIVERSAL-MEALS
+    statement: >-
+      In New York, beginning with the 2025-26 school year, every school district,
+      charter school and nonpublic school that participates in the National
+      School Lunch or School Breakfast Program must serve reimbursable breakfasts
+      and lunches at no cost to all students, regardless of household income.
+    kind: benefit
+    applies_to: [free_universal]
+    effective_from: 2025-07-01
+    parameters: [ny.nysed.universal_meals_start]
+    implemented_in: playbooks/school_meals/states/ny/rules.py:evaluate
+    confidence: confirmed
+    note: Schools not in the federal meal programs are not covered; schools not enrolled had to apply to NYSED by July 31, 2025 to join for 2025-26.
+    sources:
+      - {source: nysed-ufm-memo-2025, locator: "paragraph 1", quote: "Beginning in school year 2025-2026, New York State School Food Authorities (SFAs) participating in the federal school lunch and/or breakfast programs are required to provide reimbursable school meals at no cost to all students."}
+      - {source: ny-edn-915-a, locator: "subdivision 1"}
+  - id: SCH-NY-STATE-REIMBURSEMENT
+    statement: >-
+      Under New York's Universal Free School Meals law, for every breakfast and
+      lunch claimed at the reduced-price or paid rate, the state reimburses the
+      school food authority the difference up to the combined state and federal
+      free-meal rate, starting in the 2025-26 school year.
+    kind: definition
+    effective_from: 2025-07-01
+    confidence: confirmed
+    sources:
+      - {source: nysed-ufm-memo-2025, locator: "paragraph 1", quote: "The state will reimburse SFAs up to the combined state and federal reimbursement rate for a free meal for each federally reimbursed reduced-price and paid meal claimed."}
+      - {source: ny-edn-915-a, locator: "subdivision 2"}
+  - id: SCH-NY-MAXIMIZE-FEDERAL
+    statement: >-
+      New York school food authorities in the Universal Free School Meals program
+      must maximize federal reimbursement by operating the Community Eligibility
+      Provision if eligible (an identified student percentage of at least 25%,
+      grouping schools where possible), or otherwise Provision 2.
+    kind: procedure
+    effective_from: 2025-07-01
+    confidence: confirmed
+    sources:
+      - {source: nysed-ufm-memo-2025, locator: "Maximize Federal Reimbursement"}
+      - {source: nysed-cep-page, locator: "Eligibility", quote: "To be eligible for CEP, a SFA/group of RAs/individual RA must have an ISP of 25 percent or more."}
+  - id: SCH-NY-DCMP-3X
+    statement: >-
+      In New York under the Universal Free School Meals program, every school
+      food authority must run the statewide SNAP and Medicaid direct
+      certification match at least three times each school year (beginning of
+      the year, December/January and April) and designate other-source
+      categorically eligible children (foster, homeless, migrant, runaway, Head
+      Start/Even Start).
+    kind: procedure
+    effective_from: 2025-07-01
+    parameters: [ny.nysed.dcmp_matches_per_year]
+    confidence: confirmed
+    sources:
+      - {source: nysed-dcmp-2026, locator: "Match Frequency"}
+      - {source: nysed-ufm-memo-2025, locator: "Maximize the Number of Children Eligible for Federal Free Meals"}
+  - id: SCH-NY-DCM-FREE-ONLY
+    statement: >-
+      New York directly certifies students with Medicaid data for FREE school
+      meals only (an FNS free-meals-only demonstration state since SY 2012-13): a
+      Medicaid household in the reduced-price income range is not certified for
+      reduced price from Medicaid and must file an application to be recorded as
+      reduced price.
+    kind: eligibility
+    applies_to: [free]
+    effective_from: 2012-07-01
+    parameters: [ny.nysed.dcm_type, federal.usda.dcm_free_fpl_percent]
+    implemented_in: playbooks/school_meals/federal/rules.py:medicaid_dc
+    confidence: confirmed
+    note: Since 2025-26 a reduced-price student eats free in New York anyway at schools in the NSLP/SBP; the category matters for funding and other programs.
+    sources:
+      - {source: fns-dcm-demonstration, locator: "table, column DC-M Pilot States since SY 2012-13 (free meals only): New York (no asterisk)"}
+      - {source: nysed-dcmp-2026, locator: "Online Direct Certification Matching Process (DCMP)", quote: "enables School Food Authorities (SFAs) to certify students for free meal benefits without the need for household applications"}
+  - id: SCH-NY-DC-EXTENSION
+    statement: >-
+      In New York, a student found through the SNAP or Medicaid match extends
+      free-meal eligibility to siblings and other household members, and SFAs
+      must report the number of students directly certified through SNAP and
+      Medicaid in CNMS before filing the September claim.
+    kind: procedure
+    effective_from: 2025-07-01
+    confidence: confirmed
+    sources:
+      - {source: nysed-ufm-memo-2025, locator: "Maximize the Number of Children Eligible for Federal Free Meals"}
+      - {source: nysed-dcmp-2026, locator: "Mandatory Reporting of SNAP and Medicaid Eligibles"}
+      - {source: nysed-cep-page, locator: "Eligibility: Extension of eligibility to siblings or household members of SNAP or Medicaid"}
+  - id: SCH-NY-APPLICATION-STILL-REQUIRED
+    statement: >-
+      In New York, schools not operating CEP or a Provision 2 non-base year must
+      still collect the free and reduced-price meal application every year while
+      serving all students free; the 2026-27 NYSED application tells families
+      that schools must establish eligibility while offering meals at no charge.
+    kind: procedure
+    effective_from: 2025-07-01
+    implemented_in: playbooks/school_meals/states/ny/rules.py:evaluate
+    confidence: confirmed
+    sources:
+      - {source: ny-edn-915-a, locator: "subdivision 5"}
+      - {source: nysed-application-2026-27, locator: "page 1 header", quote: "Schools are required to establish free and reduced-price eligibility while offering meals at no-charge."}
+  - id: SCH-NY-HOUSEHOLD-INCOME-FORM
+    statement: >-
+      In New York, CEP schools and Provision 2 schools in non-base years may hand
+      out NYSED's Household Income Eligibility Form, which says all children get
+      meals at no charge regardless of the form and is used to identify students
+      for other state and federal benefits, including Summer EBT.
+    kind: procedure
+    effective_from: 2025-07-01
+    implemented_in: playbooks/school_meals/states/ny/rules.py:evaluate
+    confidence: confirmed
+    note: The form's date and any deadline for returning it were not found; see SCH-NY-OQ-02.
+    sources:
+      - {source: nysed-cep-household-income-form, locator: "heading and introduction", quote: "All children in the school will receive meals/milk at no charge regardless of household income or completion of this form."}
+  - id: SCH-NY-SNAP-PROMOTION
+    statement: >-
+      Under New York's Universal Free School Meals law, every school district,
+      charter school and nonpublic school operating as a school food authority
+      must inform low-income families about SNAP using at least one of three
+      strategies: a direct referral to an OTDA-designated SNAP outreach
+      provider, SNAP educational materials at registration or other contact
+      points, or a direct referral to the local social services district.
+    kind: procedure
+    effective_from: 2025-07-01
+    confidence: confirmed
+    note: >-
+      The statute (915-a(3)) took effect July 1, 2025 and required NYSED to
+      adopt a regulation; the three strategies are in Section 114.6 of the
+      Commissioner's regulations, effective January 28, 2026, as NYSED's March
+      30, 2026 memo describes them (the regulation text itself was not
+      snapshotted).
+    sources:
+      - {source: ny-edn-915-a, locator: "subdivision 3"}
+      - {source: nysed-snap-outreach-2026, locator: "Requirements", quote: "Such procedures must include at least one of the following strategies"}
+      - {source: nysed-ufm-memo-2025, locator: "Promotion of SNAP"}
+
+procedure:
+  applications:
+    - id: SCH-NY-PROC-APPLICATION
+      text: >-
+        At schools still collecting applications, families complete the 2026-2027
+        Application for Free and Reduced-Price School Meals/Milk (NYSED prototype,
+        adapted by each school): children, SNAP/TANF/FDPIR case number, or every
+        household member's income with frequency, last four digits of an adult's
+        SSN, and an adult's signature. Directly certified families do not apply.
+      form_name: 2026-2027 Application for Free and Reduced-Price School Meals/Milk
+      confidence: confirmed
+      sources: [{source: nysed-application-2026-27, locator: "Parts 1-4"}]
+    - id: SCH-NY-PROC-INCOME-FORM
+      text: CEP and Provision 2 non-base-year schools use the Household Income Eligibility Form instead of the meal application.
+      form_name: CEP/Provision 2 non-base year/Summer EBT Household Income Eligibility Form
+      confidence: confirmed
+      sources: [{source: nysed-cep-household-income-form, locator: "heading"}]
+  documents:
+    - id: SCH-NY-DOC-NONE
+      text: No documents with the application; income proof only if picked for verification.
+      confidence: confirmed
+      sources: [{source: nysed-application-2026-27, locator: "Part 4 certification: school officials may verify the information"}]
+  filing:
+    - id: SCH-NY-FILE-SCHOOL
+      text: Return the application to the school address printed on it.
+      channel: any
+      county_varies: true
+      confidence: confirmed
+      sources: [{source: nysed-application-2026-27, locator: "Return Completed Applications to: (School Name)"}]
+  timelines:
+    - id: SCH-NY-TIME-DC-DATE
+      text: A directly certified student's eligibility starts on the date of the match file that first identifies the student, not the date the school processes it.
+      confidence: confirmed
+      sources: [{source: nysed-dcmp-2026, locator: "Student Eligibility Effective Date"}]
+  approval_notice:
+    - id: SCH-NY-NOTICE
+      text: Schools send the NYSED prototype Notification Letter for School Meals (applications) or the Notification Letter for Directly Certified Students.
+      confidence: confirmed
+      sources: [{source: nysed-p2-base-year-2026-27, locator: "NYSED Provision 2 Base Year: Eligibility Prototype Documents"}]
+  renewal:
+    - id: SCH-NY-RENEW
+      text: Applications are yearly where collected; CEP cycles last four years (with a possible grace year).
+      confidence: confirmed
+      sources: [{source: nysed-cep-page, locator: "Duration"}]
+  county_variation:
+    - id: SCH-NY-SFA-VARIATION
+      text: Whether a school collects the meal application or the Household Income Eligibility Form depends on its claiming option (standard, Provision 2, CEP), chosen school by school.
+      county_varies: true
+      confidence: confirmed
+      sources: [{source: nysed-ufm-memo-2025, locator: "Maximize Federal Reimbursement"}]
+
+life_events:
+  - id: SCH-NY-LE-SCHOOL-YEAR
+    code: school_year_start
+    event: New school year at a New York school in the NSLP/SBP
+    why: Meals are free for all students since 2025-26; the family should still return the application or Household Income Eligibility Form, which feeds Summer EBT and other benefits.
+    check_rules: [SCH-NY-UNIVERSAL-MEALS, SCH-NY-HOUSEHOLD-INCOME-FORM]
+    confidence: confirmed
+    sources: [{source: nysed-cep-household-income-form, locator: "introduction"}]
+  - id: SCH-NY-LE-BENEFIT
+    code: benefit_change
+    event: A household member starts SNAP or Medicaid
+    why: The DCMP match (at least three times a year) certifies the students free; Medicaid certifies free only.
+    check_rules: [SCH-NY-DCMP-3X, SCH-NY-DCM-FREE-ONLY]
+    confidence: confirmed
+    sources: [{source: nysed-dcmp-2026, locator: "Match Frequency"}]
+  - id: SCH-NY-LE-MOVE-STATE
+    code: move_state
+    event: Moving to or from New York
+    why: In New York every student at an NSLP/SBP school eats free; elsewhere the family may need to qualify.
+    check_rules: [SCH-NY-UNIVERSAL-MEALS]
+    confidence: confirmed
+    sources: [{source: nysed-ufm-memo-2025, locator: "paragraph 1"}]
+
+outcome_proof:
+  - id: SCH-NY-PROOF-DC-LETTER
+    evidence: NYSED prototype Notification Letter for Directly Certified Students, or the school's approval letter
+    shows: The student's federal category (free or reduced price) for Summer EBT and other programs.
+    how_to_get: From the school food service office
+    confidence: confirmed
+    sources: [{source: nysed-p2-base-year-2026-27, locator: "Notification Letter for Directly Certified Students"}]
+
+links:
+  - id: SCH-NY-LINK-MEDICAID
+    playbook: medicaid
+    rules: [SCH-NY-DCM-FREE-ONLY]
+    relation: New York Medicaid enrollment leads to free-meal direct certification only; reduced price still needs an application.
+    test: SCH-X-02
+    confidence: confirmed
+    sources: [{source: fns-dcm-demonstration, locator: "table"}]
+  - id: SCH-NY-LINK-SNAP
+    playbook: snap
+    rules: [SCH-NY-DCMP-3X, SCH-NY-SNAP-PROMOTION]
+    relation: SNAP households are matched by the DCMP (free for all children in the household), and schools must refer families to SNAP.
+    test: SCH-X-01
+    confidence: confirmed
+    sources: [{source: nysed-ufm-memo-2025, locator: "Promotion of SNAP"}]
+
+open_questions:
+  - id: SCH-NY-OQ-01
+    priority: medium
+    question: Has New York applied to FNS to move from free-only to free and reduced-price direct certification with Medicaid for 2025-26 or later?
+    why_it_matters: Decides whether Medicaid families between 130% and 185% are recorded as reduced price without an application (affects Summer EBT and funding counts, not meals).
+    checked: ["FNS DCM demonstration page (rounds through SY 2024-25)", "NYSED DCMP memo of September 8, 2026"]
+    affects: [SCH-NY-DCM-FREE-ONLY, ny.nysed.dcm_type]
+    status: open
+  - id: SCH-NY-OQ-02
+    priority: low
+    question: Is there a NYSED deadline for returning the Household Income Eligibility Form (as California has October 31), and which state aid counts use it?
+    why_it_matters: Families at CEP schools should know when the form must be in.
+    checked: [NYSED Household Income Eligibility Form, NYSED CEP page, NYSED 2025 UFM memo]
+    affects: [SCH-NY-HOUSEHOLD-INCOME-FORM]
+    status: open
+  - id: SCH-NY-OQ-03
+    priority: low
+    question: Retrieve the official text of Education Law 915-a (nysenate.gov refuses scripted requests) to replace the third-party copy.
+    why_it_matters: Statute text is cited from public.law; rules are confirmed by the NYSED memo.
+    checked: [www.nysenate.gov (Cloudflare 403 to scripts and headless Chromium), legislation.nysenate.gov Open Legislation PDF, "NYSED SNAP outreach memo of March 30, 2026"]
+    affects: [SCH-NY-UNIVERSAL-MEALS]
+    status: answered
+    answer: >-
+      The Senate's Open Legislation service serves the official text as a PDF
+      (legislation.nysenate.gov/pdf/laws/EDN915-A); it is now snapshotted as
+      ny-edn-915-a and matches the public.law copy word for word. NYSED's March
+      30, 2026 memo dates the section: Part B of Chapter 56 of the Laws of 2025,
+      effective July 1, 2025.
+
+claims_checked:
+  - claim: New York uses Medicaid data to certify students for free school meals only, not reduced-price meals.
+    verdict: verified
+    detail: >-
+      FNS lists New York only among the free-meals-only Medicaid demonstration
+      states (since SY 2012-13) and not among states that later expanded to free
+      and reduced price; NYSED's September 2026 DCMP memo describes the SNAP and
+      Medicaid match as certifying students "for free meal benefits". The
+      practical effect is small since 2025-26 because every student at a New
+      York NSLP/SBP school eats free.
+    sources:
+      - {source: fns-dcm-demonstration, locator: "table"}
+      - {source: nysed-dcmp-2026, locator: "Online Direct Certification Matching Process (DCMP)"}
+  - claim: New York enacted free school meals for all students beginning SY 2025-26.
+    verdict: verified
+    detail: Education Law 915-a (Part B of Chapter 56 of the Laws of 2025, effective July 1, 2025; official text from the Senate's Open Legislation service) requires schools in the NSLP/SBP (districts, charters and nonpublic schools) to serve breakfast and lunch at no cost to all students from 2025-26; schools outside the federal programs are not covered.
+    sources:
+      - {source: nysed-ufm-memo-2025, locator: "paragraph 1"}
+      - {source: ny-edn-915-a, locator: "subdivisions 1-2"}

@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://hfs.illinois.gov/medicalclients/medicalprograms.html
+  final_url: https://hfs.illinois.gov/medicalclients/medicalprograms.html
+  status: 200
+  content_type: text/html;charset=utf-8
+  text_sha256: 33f97152aaff78b075ff18079927e209ce323dbd862da410406d1203408bec18
+  text: il-hfs-medical-programs/2026-10-07.txt
+  raw: il-hfs-medical-programs/2026-10-07.html

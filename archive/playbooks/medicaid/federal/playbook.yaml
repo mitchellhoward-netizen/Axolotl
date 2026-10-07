@@ -1,0 +1,748 @@
+schema_version: 2
+program: medicaid
+scope: federal
+title: Medicaid enrollment and renewal (MAGI and age/blind/disabled routes) — federal base
+last_researched: 2026-10-07
+
+summary:
+  plain_language: >-
+    Medicaid is public health coverage run by each state under federal rules.
+    There are two financial routes. Children, pregnant people, parents and
+    caretaker relatives, and adults 19-64 without Medicare are judged on
+    "MAGI" income (tax-style income of the tax household) with no asset test;
+    in states that expanded Medicaid (New York, California and Illinois all
+    did) adults 19-64 qualify up to 138% of the federal poverty level (133%
+    plus a 5-point disregard). People 65 or older, blind or disabled are judged
+    with SSI-style rules on income and, in most states, assets; states set
+    their own levels and may let people "spend down" excess income on medical
+    bills. The 2025 reconciliation law (Public Law 119-21) changes Medicaid in
+    stages: from October 1, 2026 federal funding is limited to citizens,
+    green-card holders, Cuban/Haitian entrants and COFA migrants; from
+    January 1, 2027 adults in the expansion group must show 80 hours a month
+    of work or similar activity (or enough income) and renew every 6 months,
+    and retroactive coverage for new applications shrinks from 3 months to 1
+    month (expansion adults) or 2 months (everyone else); from October 1, 2028
+    expansion adults above the poverty line face required copayments.
+    Long-term care Medicaid is a separate playbook (ltc_medicaid).
+  administered_by: >-
+    State Medicaid agencies (New York DOH with county LDSS/HRA and NY State of
+    Health; California DHCS with the 58 county social services agencies;
+    Illinois HFS with IDHS Family Community Resource Centers). CMS sets federal
+    rules.
+  funded_by: >-
+    Shared federal/state financing at each state's matching rate (FMAP); the
+    adult expansion group has an enhanced 90% federal share. From October 1,
+    2026 no federal share is paid for full coverage of noncitizens outside the
+    four listed statuses (P.L. 119-21 sec. 71109).
+  local_names:
+    - {name: MAGI, meaning: Modified adjusted gross income (tax-based income counting)}
+    - {name: Adult group / expansion group, meaning: "Section 1902(a)(10)(A)(i)(VIII) adults 19-64 up to 133% FPL (138% with the 5% disregard)"}
+    - {name: Non-MAGI / ABD, meaning: "Aged, blind or disabled eligibility using SSI-style budgeting"}
+    - {name: Spenddown / medically needy, meaning: Medicaid after medical bills reduce income (or excess assets) to the state's level}
+    - {name: "H.R. 1 / OBBBA / Working Families Tax Cut", meaning: "Public Law 119-21 (July 4, 2025)"}
+    - {name: Community engagement, meaning: The work/activity requirement for expansion adults from 2027}
+  legal_basis: >-
+    Social Security Act title XIX: sec. 1902(a)(10)(A)(i)(VIII) (adult group),
+    1902(e)(14) (MAGI), 1902(a)(34) and 1905(a) (retroactive coverage),
+    1902(xx) (community engagement), 1903(v) (noncitizens), 1916(k) (cost
+    sharing); 42 CFR Part 435 (435.110, 435.119, 435.601-603, 435.912,
+    435.915, 435.916, 435.550-563); Public Law 119-21 secs. 71107, 71109,
+    71110, 71112, 71119, 71120.
+  confidence: confirmed
+  sources:
+    - {source: ecfr-42-435-119, locator: "(b) eligibility conditions"}
+    - {source: ecfr-42-435-603, locator: "(a), (g), (j)"}
+    - {source: pl-119-21, locator: "secs. 71107, 71109, 71112, 71119, 71120"}
+    - {source: cms-cib-2025-11-18, locator: "Introduction and implementation timeline table"}
+
+rules:
+  # ------------------------------------------------------------- MAGI route
+  - id: MCD-FED-ADULT-GROUP
+    statement: >-
+      In every state that adopted the Medicaid expansion, an adult aged 19 to
+      64 who is not pregnant, is not entitled to or enrolled in Medicare Part A
+      or B, and is not eligible for a mandatory group (such as
+      parent/caretaker) qualifies in the adult group if MAGI household income
+      is at or below 133% of the federal poverty level, which becomes 138% of
+      the poverty level with the 5-percentage-point MAGI disregard.
+    kind: eligibility
+    applies_to: [adult_expansion]
+    effective_from: 2014-01-01
+    parameters: [federal.medicaid.adult_group_fpl_percent, federal.medicaid.magi_disregard_fpl_points]
+    implemented_in: playbooks/medicaid/federal/rules.py:magi_test
+    confidence: confirmed
+    sources:
+      - {source: ecfr-42-435-119, locator: "(b)(1)-(5)"}
+      - {source: usc-42-1396a, locator: "(a)(10)(A)(i)(VIII)"}
+      - {source: ecfr-42-435-603, locator: "(d)(4)"}
+  - id: MCD-FED-ADULT-CHILD-COVERAGE
+    statement: >-
+      In every expansion state, a parent or caretaker relative living with a
+      child under 19 can be covered in the Medicaid adult group only if the
+      child is enrolled in Medicaid, CHIP or other minimum essential coverage.
+    kind: eligibility
+    applies_to: [adult_expansion]
+    effective_from: 2014-01-01
+    confidence: confirmed
+    note: Not tested in the evaluator; the agent should ask about the children's coverage when a parent qualifies only through the adult group (California parents between 109% and 138% FPL).
+    sources:
+      - {source: ecfr-42-435-119, locator: "(c)(1)"}
+  - id: MCD-FED-PARENT-GROUP
+    statement: >-
+      In every state, Medicaid must cover parents and other caretaker
+      relatives of a dependent child (under 18, or 18 and a full-time
+      secondary student) whose MAGI household income is at or below the
+      income standard the state sets in its plan; the standard differs by
+      state.
+    kind: eligibility
+    applies_to: [parent_caretaker]
+    effective_from: 2014-01-01
+    implemented_in: playbooks/medicaid/federal/rules.py:magi_test
+    confidence: confirmed
+    sources:
+      - {source: ecfr-42-435-110, locator: "(b) Scope; (c) Income standard"}
+      - {source: ecfr-42-435-4, locator: "Dependent child, (1)"}
+  - id: MCD-FED-MAGI-METHOD
+    statement: >-
+      In every state, Medicaid for children, pregnant people, parents and
+      caretaker relatives and the adult group counts income with MAGI rules:
+      the tax definition of modified adjusted gross income (wages,
+      self-employment, all Social Security benefits, pensions, unemployment,
+      interest and similar taxable income), not counting SSI, child support
+      received, or veterans' and workers' compensation benefits, with lump
+      sums counted only in the month received.
+    kind: definition
+    applies_to: [adult_expansion, parent_caretaker, pregnant]
+    effective_from: 2014-01-01
+    implemented_in: playbooks/medicaid/federal/rules.py:magi_household
+    confidence: confirmed
+    note: >-
+      The list of counted kinds is this archive's mapping of IRC 36B(d)(2)(B)
+      MAGI to the household model; the regulation incorporates the tax
+      definition by reference rather than listing income types.
+    sources:
+      - {source: ecfr-42-435-603, locator: "(e) MAGI-based income, (e)(1) lump sums"}
+  - id: MCD-FED-MAGI-HOUSEHOLD
+    statement: >-
+      In every state, the MAGI household of a tax filer is the filer, a spouse
+      living with them and everyone they expect to claim as a tax dependent; a
+      non-filer's household is the person, a living-with spouse and their
+      children under 19; a pregnant person counts as herself plus the number of
+      expected children; and the income of a child or tax dependent who is not
+      required to file a tax return is not counted.
+    kind: definition
+    applies_to: [adult_expansion, parent_caretaker, pregnant]
+    effective_from: 2014-01-01
+    implemented_in: playbooks/medicaid/federal/rules.py:magi_household
+    confidence: confirmed
+    note: The evaluator builds the household from the members listed (applicant, spouse, children, declared tax dependents); unusual tax situations use facts.magi_household_size.
+    sources:
+      - {source: ecfr-42-435-603, locator: "(b) Family size; (d)(2); (f)(1)-(4)"}
+  - id: MCD-FED-MAGI-DISREGARD
+    statement: >-
+      In every state, when MAGI income is tested for the highest-income MAGI
+      group a person could qualify for, the state subtracts an amount equal to
+      5 percentage points of the poverty level (this is why the 133% adult
+      group level is usually published as 138%).
+    kind: definition
+    effective_from: 2014-01-01
+    parameters: [federal.medicaid.magi_disregard_fpl_points]
+    confidence: confirmed
+    sources:
+      - {source: ecfr-42-435-603, locator: "(d)(4)"}
+      - {source: usc-42-1396a, locator: "(e)(14)(I)"}
+  - id: MCD-FED-NO-ASSET-TEST-MAGI
+    statement: >-
+      In every state, Medicaid eligibility determined with MAGI rules (children,
+      pregnant people, parents and caretaker relatives, the adult group) has
+      no asset or resource test, and no other income disregards apply beyond
+      the 5-point disregard.
+    kind: eligibility
+    applies_to: [adult_expansion, parent_caretaker, pregnant]
+    effective_from: 2014-01-01
+    implemented_in: playbooks/medicaid/federal/rules.py:magi_test
+    confidence: confirmed
+    sources:
+      - {source: ecfr-42-435-603, locator: "(g)", quote: "Apply any assets or resources test"}
+  - id: MCD-FED-PREGNANT-COUNT
+    statement: >-
+      In every state, a pregnant person's Medicaid household size counts the
+      pregnant person plus the number of children she is expected to deliver.
+    kind: definition
+    applies_to: [pregnant]
+    effective_from: 2014-01-01
+    implemented_in: playbooks/medicaid/federal/rules.py:magi_household
+    confidence: confirmed
+    sources:
+      - {source: ecfr-42-435-603, locator: "(b) Family size"}
+  - id: MCD-FED-BUDGET-PERIOD
+    statement: >-
+      In every state, a new Medicaid applicant's MAGI eligibility is based on
+      current monthly household income and family size; for people already
+      enrolled a state may instead use projected annual income for the rest of
+      the calendar year.
+    kind: definition
+    effective_from: 2014-01-01
+    confidence: confirmed
+    note: The evaluator compares monthly income with monthly limits (current monthly income).
+    sources:
+      - {source: ecfr-42-435-603, locator: "(h)(1)-(2)"}
+
+  # --------------------------------------------------------- non-MAGI route
+  - id: MCD-FED-NONMAGI-GROUPS
+    statement: >-
+      In every state, MAGI rules do not apply to people whose Medicaid is based
+      on being 65 or older, blind or disabled, on receiving SSI, on needing
+      long-term care, on the Medicare Savings Programs, or on the medically
+      needy (spenddown) pathway; for them the state uses SSI-based (non-MAGI)
+      income and resource methods.
+    kind: definition
+    applies_to: [aged_blind_disabled]
+    effective_from: 2014-01-01
+    confidence: confirmed
+    sources:
+      - {source: ecfr-42-435-603, locator: "(j)(1)-(6)"}
+      - {source: ecfr-42-435-601, locator: "(b) Basic rule for use of non-MAGI financial methodologies"}
+  - id: MCD-FED-NONMAGI-METHOD
+    statement: >-
+      In every state, income of a person applying on the basis of age,
+      blindness or disability is counted with the SSI program's methods (for
+      example the $20 general and $65-plus-one-half earned income exclusions),
+      or with less restrictive state methods; a 209(b) state may use its own
+      more restrictive pre-1972 methods.
+    kind: definition
+    applies_to: [aged_blind_disabled]
+    effective_from: 2014-01-01
+    parameters: [federal.ssi.general_income_exclusion_monthly, federal.ssi.earned_income_exclusion_monthly]
+    implemented_in: playbooks/medicaid/federal/rules.py:ssi_style_countable
+    confidence: confirmed
+    note: Each state part names its own disregard (New York and California $20, Illinois $25).
+    sources:
+      - {source: ecfr-42-435-601, locator: "(a) definition of cash assistance financial methodologies; (d)(2)(i)"}
+      - {source: usc-42-1382a, locator: "(b)(2)(A), (b)(4)"}
+  - id: MCD-FED-RESOURCES-STATE
+    statement: >-
+      Federal law sets no single Medicaid resource limit for people who are 65
+      or older, blind or disabled; each state applies the SSI resource rules
+      or less restrictive ones (or, in a 209(b) state, its own), so the asset
+      limit and what counts must be taken from the state part.
+    kind: definition
+    applies_to: [aged_blind_disabled]
+    effective_from: 2014-01-01
+    implemented_in: playbooks/medicaid/federal/rules.py:countable_resources
+    confidence: confirmed
+    note: Inference from 435.601(d), which lets states use less restrictive resource methodologies than SSI; the three state parts each give their own limit.
+    sources:
+      - {source: ecfr-42-435-601, locator: "(d)(1)-(2)"}
+  - id: MCD-FED-SSI-1634
+    statement: >-
+      In the 34 "1634 states" and DC (New York and California among them) SSA's
+      SSI award also decides Medicaid, so an SSI recipient gets Medicaid
+      without a separate income test; Illinois is one of eight 209(b) states,
+      where an SSI recipient must apply to the state, which may use more
+      restrictive rules.
+    kind: coordination
+    applies_to: [ssi_recipient]
+    effective_from: 2026-10-07
+    implemented_in: playbooks/medicaid/federal/rules.py:ssi_recipient_1634
+    confidence: confirmed
+    note: Effective date is the snapshot date of the POMS list, which carries no date of its own.
+    sources:
+      - {source: ssa-poms-si-01715-010, locator: "A.1. 209(b) States (list includes Illinois); A.3. 1634 States"}
+  - id: MCD-FED-MEDICALLY-NEEDY
+    statement: >-
+      A state with a medically needy (spenddown) program lets a person whose
+      income is above the state's limit become eligible by incurring medical
+      expenses that reduce income to the state's medically needy level; the
+      person pays those expenses.
+    kind: eligibility
+    applies_to: [spenddown]
+    effective_from: 2026-10-07
+    confidence: confirmed
+    note: Effective date is the snapshot date of the POMS page (undated). Each state part gives its own spenddown rules (NY Excess Income, CA share of cost, IL spenddown).
+    sources:
+      - {source: ssa-poms-si-01715-010, locator: "A.1. paragraph on Medicaid spenddown"}
+  - id: MCD-FED-LTC-HANDOFF
+    statement: >-
+      In every state, a person asking Medicaid to pay for nursing-home care or
+      other institutional-level long-term services is evaluated under the
+      long-term care (non-MAGI) rules, which this archive keeps in the
+      separate ltc_medicaid playbook.
+    kind: coordination
+    effective_from: 2014-01-01
+    implemented_in: playbooks/medicaid/federal/rules.py:ltc_handoff
+    confidence: confirmed
+    sources:
+      - {source: ecfr-42-435-603, locator: "(j)(4)"}
+
+  # ---------------------------------------------------------------- timing
+  - id: MCD-FED-RETRO-3-MONTHS
+    statement: >-
+      In every state, for Medicaid applications made before January 1, 2027,
+      coverage can be made retroactive to the third month before the month of
+      application for any month the person had covered services and would
+      have been eligible.
+    kind: timing
+    effective_from: 1979-03-23
+    effective_to: 2026-12-31
+    parameters: [federal.medicaid.retroactive_months]
+    implemented_in: playbooks/medicaid/federal/rules.py:retroactive_months
+    confidence: confirmed
+    sources:
+      - {source: usc-42-1396a, locator: "(a)(34) (2023 edition, before P.L. 119-21)"}
+      - {source: ecfr-42-435-915, locator: "(a)"}
+  - id: MCD-FED-RETRO-2027
+    statement: >-
+      In every state, for Medicaid applications made on or after January 1,
+      2027, retroactive coverage reaches back only one month before the month
+      of application for people enrolled in the adult expansion group, and two
+      months before the month of application for everyone else (for example a
+      person 65 or older, a parent or a pregnant person).
+    kind: timing
+    effective_from: 2027-01-01
+    parameters: [federal.medicaid.retroactive_months]
+    implemented_in: playbooks/medicaid/federal/rules.py:retroactive_months
+    confidence: confirmed
+    note: The date is "the first day of the first quarter that begins after December 31, 2026", which is January 1, 2027; CMS states the date directly. The split turns on the group the person is enrolled in, not on age.
+    sources:
+      - {source: pl-119-21, locator: "sec. 71112(a) and (d)"}
+      - {source: cms-cib-2025-11-18, locator: "Section 71112"}
+  - id: MCD-FED-RENEWAL-12-MONTHS
+    statement: >-
+      In every state, Medicaid eligibility is renewed once every 12 months
+      (MAGI groups no more often than that; non-MAGI groups at least that
+      often), by first trying to renew from data the agency already has (ex
+      parte) and otherwise by sending a pre-filled renewal form with at least
+      30 days to respond; a person cut off for not returning it can be
+      reconsidered without a new application if they respond within 90 days.
+    kind: procedure
+    effective_from: 2014-01-01
+    parameters: [federal.medicaid.renewal_interval_months]
+    implemented_in: playbooks/medicaid/federal/rules.py:renewal_interval
+    confidence: confirmed
+    sources:
+      - {source: ecfr-42-435-916, locator: "(a)(1)-(3), (b)"}
+  - id: MCD-FED-RENEWAL-6-MONTHS
+    statement: >-
+      In every state and DC, for redeterminations scheduled on or after
+      January 1, 2027, adults enrolled in the Medicaid expansion group must
+      have their eligibility redetermined every 6 months instead of every 12;
+      certain American Indians and Alaska Natives are exempt, and renewal
+      frequency for all other groups does not change.
+    kind: timing
+    applies_to: [adult_expansion]
+    effective_from: 2027-01-01
+    parameters: [federal.medicaid.renewal_interval_months]
+    implemented_in: playbooks/medicaid/federal/rules.py:renewal_interval
+    confidence: confirmed
+    sources:
+      - {source: pl-119-21, locator: "sec. 71107(a), new 1902(e)(14)(L)"}
+      - {source: cms-cib-2025-11-18, locator: "Section 71107"}
+  - id: MCD-FED-TIMELINESS
+    statement: >-
+      In every state, a Medicaid application must be decided within 90 days
+      when the person applies on the basis of disability and within 45 days
+      for everyone else, except in unusual circumstances.
+    kind: timing
+    effective_from: 2014-01-01
+    parameters: [federal.medicaid.decision_days]
+    confidence: confirmed
+    sources:
+      - {source: ecfr-42-435-912, locator: "(c)(3)(i)-(ii)"}
+
+  # ------------------------------------------------ community engagement
+  - id: MCD-FED-COMMUNITY-ENGAGEMENT
+    statement: >-
+      Beginning no later than January 1, 2027 (earlier at state option, or as
+      late as December 31, 2028 for a state CMS exempts for good-faith
+      effort), an adult in the Medicaid expansion group must show, for one to
+      three months before applying and for at least one month between
+      renewals, 80 hours a month of work, community service, a work program,
+      half-time school, or a combination, or monthly income of at least 80
+      times the federal minimum wage ($580 at $7.25 an hour).
+    kind: eligibility
+    applies_to: [adult_expansion]
+    effective_from: 2027-01-01
+    parameters: [federal.medicaid.community_engagement_start, federal.medicaid.community_engagement_hours_monthly, federal.medicaid.community_engagement_income_hours, federal.dol.flsa_minimum_wage_hourly]
+    implemented_in: playbooks/medicaid/federal/rules.py:community_engagement
+    confidence: confirmed
+    note: The evaluator tests one month (the facts given); the look-back months (1-3 at application, chosen by the state) are a state choice not modelled.
+    sources:
+      - {source: pl-119-21, locator: "sec. 71119(a), new 1902(xx)(1)-(2), (xx)(11)(C)"}
+      - {source: ecfr-42-435-552, locator: "(a)"}
+      - {source: ecfr-42-435-559, locator: "(a)-(c)"}
+      - {source: ecfr-42-435-560, locator: "(c)"}
+  - id: MCD-FED-CE-EXCLUSIONS
+    statement: >-
+      The Medicaid community engagement requirement does not apply to people
+      under 19 or with Medicare, pregnant or postpartum people, parents or
+      caretakers of a child 13 or under or of a disabled person, people who
+      are medically frail, blind or disabled, American Indians and Alaska
+      Natives, veterans with a total disability rating, people meeting SNAP or
+      TANF work rules, people in drug or alcohol treatment, and people
+      incarcerated now or in the last three months; states may also excuse
+      short-term hardship months.
+    kind: eligibility
+    applies_to: [adult_expansion]
+    effective_from: 2027-01-01
+    parameters: [federal.medicaid.community_engagement_parent_child_age_max]
+    implemented_in: playbooks/medicaid/federal/rules.py:community_engagement
+    confidence: confirmed
+    sources:
+      - {source: pl-119-21, locator: "new 1902(xx)(3)(A) and (xx)(9)(A)(ii)(I)-(IX)"}
+  - id: MCD-FED-CE-NONCOMPLIANCE
+    statement: >-
+      If a state cannot verify that an expansion adult met the community
+      engagement requirement, it must send a notice and give 30 days to show
+      compliance or an exemption, keep coverage during those 30 days, check
+      every other basis of eligibility, and only then deny or end coverage
+      (no later than the end of the following month) with fair-hearing
+      rights; a person dropped for this reason cannot get Marketplace premium
+      tax credits.
+    kind: procedure
+    applies_to: [adult_expansion]
+    effective_from: 2027-01-01
+    confidence: confirmed
+    sources:
+      - {source: pl-119-21, locator: "new 1902(xx)(6)(A)-(B) and (xx)(7)(B)"}
+
+  # ---------------------------------------------- immigration / cost sharing
+  - id: MCD-FED-IMMIGRANT-2026
+    statement: >-
+      Beginning October 1, 2026, in every state, federal Medicaid funding is
+      available only for U.S. citizens and nationals, lawful permanent
+      residents (who have met or are exempt from the 5-year bar), Cuban and
+      Haitian entrants, and COFA migrants; refugees, asylees, parolees and
+      other previously "qualified" noncitizens lose federally funded Medicaid,
+      except for emergency Medicaid and the state option to cover lawfully
+      residing children and pregnant people (CHIPRA 214).
+    kind: eligibility
+    effective_from: 2026-10-01
+    parameters: [federal.medicaid.alien_ffp_restriction_start]
+    implemented_in: playbooks/medicaid/federal/rules.py:ffp_immigration
+    confidence: confirmed
+    note: The law limits federal payment, not state coverage; a state may keep covering these people with state funds (New York does for some). The evaluator's statuses are a simplification of PRWORA categories.
+    sources:
+      - {source: pl-119-21, locator: "sec. 71109(a), new 1903(v)(5)"}
+      - {source: cms-cib-2025-11-18, locator: "Section 71109"}
+  - id: MCD-FED-EMERGENCY-MEDICAID
+    statement: >-
+      Emergency Medicaid (treatment of an emergency medical condition for a
+      noncitizen without qualifying status who otherwise meets the state's
+      rules) remains federally funded after October 1, 2026, but only at the
+      state's regular matching rate, not the 90% expansion rate.
+    kind: benefit
+    effective_from: 2026-10-01
+    confidence: confirmed
+    sources:
+      - {source: pl-119-21, locator: "sec. 71110, new 1905(kk)"}
+      - {source: cms-cib-2025-11-18, locator: "Section 71110"}
+  - id: MCD-FED-COST-SHARING-2028
+    statement: >-
+      Beginning October 1, 2028, states must charge copayments or similar cost
+      sharing (more than $0, at most $35 per item or service, and no more than
+      5% of family income in total) to expansion adults with family income
+      above 100% of the poverty level, but not for primary care, mental
+      health, substance use disorder services or care at FQHCs and rural
+      health clinics, and may not charge them premiums.
+    kind: benefit
+    applies_to: [adult_expansion]
+    effective_from: 2028-10-01
+    parameters: [federal.medicaid.expansion_cost_sharing_max_per_service]
+    confidence: confirmed
+    sources:
+      - {source: pl-119-21, locator: "sec. 71120(a), new 1916(k)(1)-(3)"}
+
+  # ------------------------------------------------------------ coordination
+  - id: MCD-FED-SCHOOL-MEALS-DC
+    statement: >-
+      A state Medicaid agency may agree with its school meals agency to share
+      data so that children receiving Medicaid whose family income is at or
+      below 133% of the poverty level are certified for free school meals
+      without a separate application.
+    kind: coordination
+    effective_from: 2026-10-07
+    confidence: confirmed
+    note: Date is the snapshot date of the 2023 Code edition used; the provision is older. Whether each state uses Medicaid data for direct certification belongs to the school_meals playbook.
+    sources:
+      - {source: usc-42-1396a, locator: "(a)(7)(A)(ii) and (a)(7)(B)(i)"}
+
+procedure:
+  applications:
+    - id: MCD-FED-PROC-APPLY-MODES
+      text: >-
+        States must accept a Medicaid application online, by phone, by mail
+        and in person; where to apply and on which form is set by each state
+        (see the state parts).
+      channel: any
+      confidence: unresolved
+      open_question: MCD-FED-OQ-04
+  timelines:
+    - id: MCD-FED-PROC-DECISION
+      text: The state must decide within 45 days, or 90 days when the application is based on disability.
+      duration: 45 / 90 days
+      confidence: confirmed
+      sources: [{source: ecfr-42-435-912, locator: "(c)(3)"}]
+    - id: MCD-FED-PROC-CE-NOTICE
+      text: Before denying or ending coverage for community engagement, the state gives 30 calendar days from receipt of a noncompliance notice to show compliance or an exemption.
+      duration: 30 days
+      confidence: confirmed
+      sources: [{source: pl-119-21, locator: "new 1902(xx)(6)(A)(ii)"}]
+  renewal:
+    - id: MCD-FED-PROC-RENEW-EXPARTE
+      text: Renewal is first attempted from data the agency has (ex parte); if that fails, a pre-filled form is sent with at least 30 days to respond, and no interview may be required.
+      confidence: confirmed
+      sources: [{source: ecfr-42-435-916, locator: "(a)(2)-(3)"}]
+    - id: MCD-FED-PROC-RENEW-90-DAY
+      text: A person terminated for not returning renewal information can be reconsidered without a new application if they return it within 90 days after termination.
+      duration: 90 days
+      confidence: confirmed
+      sources: [{source: ecfr-42-435-916, locator: "(a)(3)(iii)"}]
+
+life_events:
+  - id: MCD-FED-LE-INCOME-DROP
+    code: income_drop
+    event: Job loss, fewer hours, or end of other income
+    why: MAGI eligibility uses current monthly income, so a drop can qualify the person (and household) right away.
+    check_rules: [MCD-FED-ADULT-GROUP, MCD-FED-BUDGET-PERIOD]
+    confidence: confirmed
+    sources: [{source: ecfr-42-435-603, locator: "(h)(1)"}]
+  - id: MCD-FED-LE-EMPLOYER-COVERAGE
+    code: employer_coverage_end
+    event: Employer or retiree health coverage ends
+    why: Having other coverage does not bar Medicaid; losing it is a reason to apply now, and the retroactive months (3, or 1-2 from 2027) can cover bills already incurred.
+    check_rules: [MCD-FED-RETRO-3-MONTHS, MCD-FED-RETRO-2027]
+    confidence: confirmed
+    sources: [{source: pl-119-21, locator: "sec. 71112"}]
+  - id: MCD-FED-LE-TURNING-65
+    code: turning_65
+    event: Turning 65 (or starting Medicare)
+    why: The person leaves the adult group (age and Medicare exclude it) and must qualify through the age-based non-MAGI route, which in most states has an asset test.
+    check_rules: [MCD-FED-ADULT-GROUP, MCD-FED-NONMAGI-GROUPS]
+    confidence: confirmed
+    sources: [{source: ecfr-42-435-119, locator: "(b)(1), (b)(3)"}]
+  - id: MCD-FED-LE-DISABILITY
+    code: disability_onset
+    event: Becoming disabled or blind
+    why: Opens the non-MAGI disability route (decided within 90 days), exempts the person from community engagement, and after 24 months of SSDI brings Medicare, which ends adult-group eligibility.
+    check_rules: [MCD-FED-NONMAGI-GROUPS, MCD-FED-CE-EXCLUSIONS, MCD-FED-TIMELINESS]
+    confidence: confirmed
+    sources: [{source: ecfr-42-435-603, locator: "(j)(3)"}]
+  - id: MCD-FED-LE-HOUSEHOLD
+    code: household_change
+    event: A baby, a child moving in or out, or a household member leaving
+    why: MAGI household size changes the income limit; a child under 14 also exempts a parent from community engagement.
+    check_rules: [MCD-FED-MAGI-HOUSEHOLD, MCD-FED-CE-EXCLUSIONS]
+    confidence: confirmed
+    sources: [{source: ecfr-42-435-603, locator: "(f)"}]
+  - id: MCD-FED-LE-MARRIAGE
+    code: marriage
+    event: Marriage
+    why: A spouse living together is always in each other's MAGI household, and the spouse's income counts in non-MAGI budgets too.
+    check_rules: [MCD-FED-MAGI-HOUSEHOLD]
+    confidence: confirmed
+    sources: [{source: ecfr-42-435-603, locator: "(f)(4)"}]
+  - id: MCD-FED-LE-DIVORCE
+    code: divorce_separation
+    event: Divorce or separation
+    why: The former spouse's income stops counting; household size drops.
+    check_rules: [MCD-FED-MAGI-HOUSEHOLD]
+    confidence: confirmed
+    sources: [{source: ecfr-42-435-603, locator: "(f)(4)"}]
+  - id: MCD-FED-LE-RENEWAL
+    code: renewal_due
+    event: Medicaid renewal notice arrives
+    why: Must respond within the deadline (at least 30 days); expansion adults renew every 6 months from 2027 and must show community engagement at renewal.
+    check_rules: [MCD-FED-RENEWAL-12-MONTHS, MCD-FED-RENEWAL-6-MONTHS, MCD-FED-COMMUNITY-ENGAGEMENT]
+    confidence: confirmed
+    sources: [{source: ecfr-42-435-916, locator: "(a)(3)"}]
+  - id: MCD-FED-LE-MOVE-STATE
+    code: move_state
+    event: Moving to another state
+    why: Medicaid is state-specific; the person must apply in the new state, whose limits and asset rules may differ sharply (for example New York $33,038, California $130,000, Illinois $17,500 for one person aged 65+ in 2026).
+    check_rules: [MCD-FED-RESOURCES-STATE]
+    confidence: confirmed
+    sources: [{source: ecfr-42-435-601, locator: "(d)"}]
+  - id: MCD-FED-LE-IMMIGRATION
+    code: immigration_status_change
+    event: Change of immigration status (or the October 1, 2026 federal change)
+    why: Refugees, asylees and parolees lose federally funded Medicaid on October 1, 2026; getting a green card (after the 5-year bar) restores it.
+    check_rules: [MCD-FED-IMMIGRANT-2026]
+    confidence: confirmed
+    sources: [{source: pl-119-21, locator: "sec. 71109"}]
+
+outcome_proof:
+  - id: MCD-FED-PROOF-NOTICE
+    evidence: Written notice of the agency's eligibility decision (approval or denial with reasons and fair-hearing rights)
+    shows: Which Medicaid coverage was approved and from what date, or why it was denied.
+    how_to_get: Mailed (or sent electronically) by the state agency; see each state part for the notice name.
+    confidence: confirmed
+    sources: [{source: ecfr-42-435-916, locator: "(a)(2)(i), (a)(3)(i)(C) notice of decision"}]
+
+links:
+  - id: MCD-LINK-MSP
+    playbook: msp
+    rules: [MCD-FED-NONMAGI-GROUPS]
+    relation: >-
+      Full Medicaid and QMB can be held together; full Medicaid and QI cannot
+      (QI is only for people not otherwise eligible for Medicaid). MSP
+      eligibility is evaluated with non-MAGI rules. In New York the QMB income
+      level equals the SSI-related Medicaid level ($1,836 / $2,489 in 2026).
+    test: MCD-X-01
+    confidence: confirmed
+    sources:
+      - {source: usc-42-1396a, locator: "(a)(10)(E)(iv)"}
+      - {source: ecfr-42-435-603, locator: "(j)(5)"}
+  - id: MCD-LINK-LTC
+    playbook: ltc_medicaid
+    rules: [MCD-FED-LTC-HANDOFF]
+    relation: >-
+      Community Medicaid (this playbook) and institutional/long-term care
+      Medicaid (ltc_medicaid) use different rules; a person seeking nursing
+      home or HCBS-level care is handed over to ltc_medicaid.
+    test: MCD-X-02
+    confidence: confirmed
+    sources: [{source: ecfr-42-435-603, locator: "(j)(4)"}]
+  - id: MCD-LINK-DISABILITY
+    playbook: disability
+    rules: [MCD-FED-SSI-1634]
+    relation: >-
+      SSI approval brings Medicaid automatically in 1634 states (New York,
+      California) but not in 209(b) Illinois, where the person applies for AABD
+      Medical separately; a disability determination also opens the non-MAGI
+      route and exempts from community engagement.
+    test: MCD-X-03
+    confidence: confirmed
+    sources: [{source: ssa-poms-si-01715-010, locator: "A.1 and A.3"}]
+  - id: MCD-LINK-TURNING-65
+    playbook: turning_65
+    rules: [MCD-FED-ADULT-GROUP, MCD-FED-NONMAGI-GROUPS]
+    relation: >-
+      Turning 65 or becoming entitled to Medicare ends adult-group eligibility,
+      so the person must requalify through the age-based non-MAGI route (with
+      the state's asset test); the turning_65 playbook covers Medicare
+      enrollment and the special enrollment period when Medicaid is lost.
+    test: MCD-X-06
+    confidence: confirmed
+    sources: [{source: ecfr-42-435-119, locator: "(b)(1), (b)(3)"}]
+  - id: MCD-LINK-SCHOOL-MEALS
+    playbook: school_meals
+    rules: [MCD-FED-SCHOOL-MEALS-DC]
+    relation: >-
+      Medicaid enrollment data can be used to directly certify children for
+      free school meals (Medicaid income at or below 133% FPL); whether and how
+      each state does so is for the school_meals playbook.
+    test: MCD-X-04
+    confidence: confirmed
+    sources: [{source: usc-42-1396a, locator: "(a)(7)(B)(i)"}]
+  - id: MCD-LINK-SNAP
+    playbook: snap
+    rules: [MCD-FED-CE-EXCLUSIONS]
+    relation: >-
+      A member of a SNAP household who meets (is not exempt from) SNAP work
+      requirements is excluded from the Medicaid community engagement
+      requirement; all three states also take Medicaid and SNAP on one
+      combined application (see the state parts).
+    test: MCD-X-05
+    confidence: confirmed
+    sources: [{source: pl-119-21, locator: "new 1902(xx)(9)(A)(ii)(VI)(bb)"}]
+
+open_questions:
+  - id: MCD-FED-OQ-01
+    priority: medium
+    question: Has CMS issued guidance or rules on how states apply the 1-month/2-month retroactive limit (sec. 71112) to people whose group is unclear at application, and when 42 CFR 435.915 will be conformed?
+    why_it_matters: Members applying in 2027 need to know how far back bills are covered; the regulation still says three months.
+    checked: [P.L. 119-21 sec. 71112, CMCS bulletin 11/18/2025, 42 CFR 435.915 (current eCFR)]
+    affects: [MCD-FED-RETRO-2027]
+    status: open
+  - id: MCD-FED-OQ-02
+    priority: medium
+    question: The SMD letter of March 6, 2026 (smd26001) on 6-month redeterminations was listed by CMS but not retrieved (medicaid.gov blocks scripts). Does it set how a 6-month renewal works (ex parte, forms, which date starts the cycle)?
+    why_it_matters: Expansion adults will face renewals twice as often from 2027; missing one is the main way people lose coverage.
+    checked: [CMS WFTC guidance page listing, P.L. 119-21 sec. 71107, CMCS bulletin 11/18/2025]
+    affects: [MCD-FED-RENEWAL-6-MONTHS]
+    status: open
+  - id: MCD-FED-OQ-03
+    priority: high
+    question: How many look-back months (1-3) will each state require to show community engagement at application, and which states (if any) have a CMS good-faith exemption delaying the start beyond January 1, 2027?
+    why_it_matters: Decides whether an expansion adult applying in early 2027 must document work for the prior months.
+    checked: ["P.L. 119-21 sec. 71119", "42 CFR 435.552, 435.559 and 435.560", "NY State of Health H.R.1 page", "Santa Clara County WCER page"]
+    affects: [MCD-FED-COMMUNITY-ENGAGEMENT]
+    status: open
+  - id: MCD-FED-OQ-04
+    priority: low
+    question: Retrieve 42 CFR 435.907 (application modes) to support the federal statement that applications must be accepted online, by phone, by mail and in person.
+    why_it_matters: Background; each state part already lists its own channels from state sources.
+    checked: [42 CFR 435.916 (references 435.907(a) modes)]
+    affects: [MCD-FED-PROC-APPLY-MODES]
+    status: open
+
+conflicts:
+  - id: MCD-FED-CONFLICT-01
+    topic: Retroactive coverage period after January 1, 2027
+    claims:
+      - source: pl-119-21
+        locator: "sec. 71112"
+        says: For applications on or after January 1, 2027, retroactive coverage is one month (adult group) or two months (others) before the month of application.
+      - source: ecfr-42-435-915
+        locator: "(a)"
+        says: The agency must make eligibility effective no later than the third month before the month of application.
+    handling: >-
+      The statute controls; the archive applies 1 or 2 months for applications
+      dated January 1, 2027 or later and 3 months before then. The regulation
+      has not yet been conformed.
+    affects: [MCD-FED-RETRO-2027, MCD-FED-RETRO-3-MONTHS]
+    status: open
+  - id: MCD-FED-CONFLICT-02
+    topic: Renewal frequency for expansion adults from 2027
+    claims:
+      - source: pl-119-21
+        locator: "sec. 71107"
+        says: Redeterminations scheduled on or after January 1, 2027 must be made once every 6 months for expansion adults.
+      - source: ecfr-42-435-916
+        locator: "(a)(1)"
+        says: MAGI eligibility must be renewed once every 12 months, and no more frequently than once every 12 months.
+    handling: The statute controls; the archive uses 6 months for expansion adults with application or renewal dates from January 1, 2027.
+    affects: [MCD-FED-RENEWAL-6-MONTHS, MCD-FED-RENEWAL-12-MONTHS]
+    status: open
+
+claims_checked:
+  - claim: A federal change shortens retroactive Medicaid coverage starting January 2027.
+    verdict: verified
+    detail: >-
+      P.L. 119-21 sec. 71112 rewrites 1902(a)(34): for applications made on or
+      after the first day of the first quarter beginning after December 31,
+      2026 (January 1, 2027), retroactive coverage reaches back one month
+      before the application month for adult-expansion enrollees and two
+      months for everyone else (previously three months). The 1-month/2-month
+      split is confirmed by the statute and by CMS's November 18, 2025
+      bulletin. It turns on the date of the application, not of the service.
+    sources:
+      - {source: pl-119-21, locator: "sec. 71112(a), (d)"}
+      - {source: cms-cib-2025-11-18, locator: "Section 71112"}
+  - claim: Six-month redeterminations for expansion adults start in 2027.
+    verdict: verified
+    detail: For redeterminations scheduled on or after January 1, 2027 (sec. 71107; CMS bulletin).
+    sources: [{source: pl-119-21, locator: "sec. 71107"}]
+  - claim: Community engagement (work requirements) for expansion adults start January 1, 2027, with state options.
+    verdict: verified
+    detail: >-
+      No later than January 1, 2027; a state may start earlier, and CMS may
+      grant a good-faith exemption that ends no later than December 31, 2028.
+      States choose 1-3 look-back months at application and may verify more
+      often than at renewal. The CMS interim final rule (42 CFR 435.550-563,
+      June 2026) restates the January 1, 2027 date.
+    sources:
+      - {source: pl-119-21, locator: "new 1902(xx)(1), (4), (11)"}
+      - {source: ecfr-42-435-559, locator: "(a)-(b)"}
+  - claim: Changes to immigrant eligibility take effect October 1, 2026.
+    verdict: verified
+    detail: Sec. 71109 limits federal Medicaid payment from October 1, 2026 to citizens/nationals, LPRs, Cuban/Haitian entrants and COFA migrants (emergency Medicaid and CHIPRA 214 excepted).
+    sources: [{source: pl-119-21, locator: "sec. 71109(a)"}]
+  - claim: All three states (New York, California, Illinois) expanded Medicaid to adults at 138% FPL.
+    verdict: verified
+    detail: Each state's own 2026 tables show a 138% FPL adult standard (NY GIS 26 MA/05 chart; CA county FPL chart "ACA New Adult Group Ages 19-64"; IL PM 15-06-01-b and WAG 25-03-02 (2)). Their monthly figures differ by rounding ($1,836 NY and CA, $1,835 IL for one person).
+    sources:
+      - {source: ny-gis-26-ma-05-att1, locator: "MAGI chart 138% FPL"}
+      - {source: ca-scc-chart-fpl-2026, locator: "138% ACA New Adult Group Ages 19-64"}
+      - {source: il-idhs-pm-15-06-01-b, locator: "ACA Adults 138%"}

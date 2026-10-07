@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://www.govinfo.gov/content/pkg/CFR-2025-title42-vol2/xml/CFR-2025-title42-vol2-part408.xml
+  final_url: https://www.govinfo.gov/content/pkg/CFR-2025-title42-vol2/xml/CFR-2025-title42-vol2-part408.xml
+  status: 200
+  content_type: application/xml
+  text_sha256: f9f20175a7cbd9c2d8591e2f4f6b3e6c1dd378b284ab36206e44b7401230fc98
+  text: cfr-42-408/2026-10-07.txt
+  raw: cfr-42-408/2026-10-07.raw

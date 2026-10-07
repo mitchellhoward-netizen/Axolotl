@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://www.medicare.gov/basics/get-started-with-medicare/sign-up/when-can-i-sign-up-for-medicare
+  final_url: https://www.medicare.gov/basics/get-started-with-medicare/sign-up/when-can-i-sign-up-for-medicare
+  status: 200
+  content_type: text/html; charset=utf-8
+  text_sha256: e72298f580f61b3b119b8ccfefe6d8d15203a3430fdf892aa9a96234547bb229
+  text: medicare-gov-when-sign-up/2026-10-07.txt
+  raw: medicare-gov-when-sign-up/2026-10-07.html

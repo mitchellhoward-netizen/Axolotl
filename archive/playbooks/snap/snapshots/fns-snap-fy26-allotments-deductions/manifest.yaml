@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://www.fns.usda.gov/sites/default/files/resource-files/snap-fy26maximumAllotments-deductions.pdf
+  final_url: https://fna-bwbufwdzbabpezgc.z01.azurefd.us/sites/default/files/resource-files/snap-fy26maximumAllotments-deductions.pdf
+  status: 200
+  content_type: application/pdf
+  text_sha256: f1671c44dd9bd13c8376c9a221c4f58abb4ba1ea3c5909ff353b54223bb9371a
+  text: fns-snap-fy26-allotments-deductions/2026-10-07.txt
+  raw: fns-snap-fy26-allotments-deductions/2026-10-07.pdf

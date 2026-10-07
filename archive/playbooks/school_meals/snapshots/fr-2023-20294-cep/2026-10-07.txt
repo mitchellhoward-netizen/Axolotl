@@ -1,0 +1,1634 @@
+[Federal Register Volume 88, Number 185 (Tuesday, September 26, 2023)]
+[Rules and Regulations]
+[Pages 65778-65794]
+From the Federal Register Online via the Government Publishing Office [www.gpo.gov]
+[FR Doc No: 2023-20294]
+
+=======================================================================
+-----------------------------------------------------------------------
+
+DEPARTMENT OF AGRICULTURE
+
+Food and Nutrition Service
+
+7 CFR Part 245
+
+[FNS-2022-0044]
+RIN 0584-AE93
+
+Child Nutrition Programs: Community Eligibility Provision--
+Increasing Options for Schools
+
+AGENCY: Food and Nutrition Service (FNS), Department of Agriculture
+(USDA).
+
+ACTION: Final rule.
+
+-----------------------------------------------------------------------
+
+SUMMARY: This final rule amends the Community Eligibility Provision
+(CEP) regulations by lowering the minimum identified student percentage
+(ISP) from 40 percent to 25 percent. Lowering the minimum ISP will give
+States and schools greater flexibility to offer meals to all enrolled
+students at no cost when financially viable. As a result of this rule,
+more schools are eligible to participate in CEP and experience the
+associated benefits, such as increasing students' access to healthy,
+no-cost school meals; eliminating unpaid meal charges; reducing stigma;
+and streamlining Program administration and meal service operations.
+
+DATES: This rule is effective October 26, 2023.
+
+FOR FURTHER INFORMATION CONTACT: Michelle Frey, Branch Chief, Policy
+Design Branch, School Meals Policy Division--4th Floor, Food and
+Nutrition Service, 1320 Braddock Place, Alexandria, VA 22314,
+telephone: 703-305-2590.
+
+SUPPLEMENTARY INFORMATION:
+
+I. Background
+
+The Community Eligibility Provision (CEP) is an option for eligible
+schools to offer meals at no cost to all enrolled students without
+collecting household applications. Authorized by the Healthy, Hunger-
+Free Kids Act of 2010 (HHFKA) and codified in regulations at 7 CFR
+245.9(f), CEP is a reimbursement alternative for eligible local
+educational agencies (LEAs) and schools participating in both the
+National School Lunch Program (NSLP) and School Breakfast Program
+(SBP).\1\ CEP eliminates the need for schools to collect household
+income applications by sharing eligibility data between specific
+Federal assistance programs, which can reduce administrative burden for
+both schools and families.
+---------------------------------------------------------------------------
+
+\1\ On July 29, 2016, the U.S. Department of Agriculture (USDA)
+published the final rule, National School Lunch Program and School
+Breakfast Program: Eliminating Applications through Community
+Eligibility as Required by the Healthy, Hunger-Free Kids Act of 2010
+[81 FR 50194, July 29, 2016], which codified CEP requirements that
+were implemented through statute and policy guidance, at Sec.
+245.9(f).
+---------------------------------------------------------------------------
+
+To be eligible for CEP, an individual school, group of schools, or
+LEA must meet or exceed the established, minimum identified student
+percentage (ISP) in the school year prior to implementing CEP. The ISP
+is the percentage of enrolled students who are certified for free
+school meals without submitting a household application, such as those
+directly certified through specific Federal benefits programs (e.g.,
+the Supplemental Nutrition Assistance Program (SNAP) and the Food
+Distribution Program on Indian Reservations (FDPIR)). For CEP, students
+who are certified for free meals without a household application are
+``identified students'' (42 U.S.C. 1759a(a)(1)(F)(i); 7 CFR
+245.9(f)(1)(ii)) \2\ The ISP is calculated by dividing the total number
+of identified students by the total number of enrolled students:
+---------------------------------------------------------------------------
+
+\2\ Identified students include students living in households
+participating in SNAP, Temporary Assistance for Needy Families, and
+FDPIR. Identified students also include those who are homeless,
+migrant, runaway, in foster care, or enrolled in Head Start. In some
+States, students are directly certified through Medicaid direct
+certification demonstration projects. Students in States
+participating in the Medicaid direct certification demonstration
+projects are only included in the ISP if they are certified for free
+meals (not reduced price meals).
+[GRAPHIC] [TIFF OMITTED] TR26SE23.000
+
+Under current regulations, the minimum ISP is 40 percent;
+therefore, to be eligible for CEP, an individual school, group of
+schools, or LEA must have an ISP greater than, or equal to, 40 percent
+(ISP >=40 percent) as of April 1 of the school year prior to
+implementing CEP (7 CFR 245.9(f)(3)(i)).
+The ISP determines eligibility to participate in CEP and is also
+the basis of Federal reimbursements for meals served to students in CEP
+schools. The National School Lunch Act (NSLA) gives the Secretary
+discretion to establish a CEP ``multiplier'' between 1.3 and 1.6 that
+is used to determine the percentage of meals that CEP schools claim at
+the free and paid reimbursement rate levels (42 U.S.C.
+1759a(a)(1)(F)(vii)(II)(aa)). To promote CEP financial viability, USDA
+codified a multiplier of 1.6 (7 CFR 245.9(f)(4)(vi)). The ISP is
+multiplied by 1.6 to calculate the percentage of meals reimbursed at
+the Federal free rate. Any remaining meals, up to 100 percent, are
+reimbursed at the Federal paid rate.\3\
+---------------------------------------------------------------------------
+
+\3\ CEP schools only claim meals at the free and paid
+reimbursement rates. CEP schools do not claim reduced price meals.
+
+% Meals reimbursed at Federal free rate = ISP x 1.6
+% Meals reimbursed at Federal paid rate = 100-% meals reimbursed at
+Federal free rate
+
+CEP requires that LEAs must pay, with non-Federal funds, any costs
+of offering free meals to all students that exceed the Federal
+assistance provided. If all operating costs are covered by the Federal
+assistance provided, then LEAs are not required to contribute non-
+Federal funds (7 CFR 245.9(f)(4)(vii)).
+On March 23, 2023, USDA published a proposed rule in the Federal
+Register (88 FR 17406), seeking to lower the minimum ISP to 25 percent,
+and make related, conforming changes to CEP regulatory text at 7 CFR
+245.9(f).
+
+[[Page 65779]]
+
+As described in detail in the proposed rule, CEP benefits children,
+families, schools, and communities. Schools participating in CEP often
+experience an increase in the number of students accessing the SBP and
+NSLP, resulting in more children benefiting from the advantages these
+Programs offer.\4\ Research demonstrates that access to school meals at
+no cost improves students' diet quality and academic performance and
+can reduce social stigma and food insecurity.\5\ Researchers have
+observed that ``CEP exposure is associated with an almost five percent
+decline in households classified as food insecure.'' \6\ LEAs have also
+reported that CEP reduces administrative burden and eliminates unpaid
+meal debt in schools.\7\ Lastly, CEP improves Program integrity by
+simplifying administration and lowering error rates in certifying
+students.8 9
+---------------------------------------------------------------------------
+
+\4\ USDA's first comprehensive study since CEP became available
+nationwide compared the impact of CEP participation in school
+districts that elected CEP to similar non-participating school
+districts. The study showed about 7% and 12% higher student
+participation in NSLP and SBP, respectively, in schools under CEP
+compared to eligible but non-participating schools. U.S. Department
+of Agriculture. (2022). USDA Community Eligibility Provision
+Characteristics Study, School Year 2016-2017. OMB #0584-0612,
+expiration 9/30/2019. Available at: https://www.fns.usda.gov/cn/usda-cep-characteristics-study-sy-2016-17.
+\5\ Cohen JFW, Hecht AA, McLoughlin GM, Turner L, Schwartz MB.
+Universal School Meals and Associations with Student Participation,
+Attendance, Academic Performance, Diet Quality, Food Security, and
+Body Mass Index: A Systematic Review. Nutrients. 2021 Mar
+11;13(3):911. Diet quality and food security (pp. 6-9); Academic
+performance (p. 10). Available at: https://pubmed.ncbi.nlm.nih.gov/33799780/.
+\6\ National Bureau of Economics. (2022). The Effect of Free
+School Meals on Household Food Purchases: Evidence from the
+Community Eligibility Provision. Available at: https://www.nber.org/papers/w29395. ``CEP exposure'' is the probability that a household
+has a child enrolled at a CEP school, based on schools' CEP
+participation, household zip codes, and school attendance areas.
+\7\ U.S. Department of Agriculture. (2022). USDA Community
+Eligibility Provision Characteristics Study, School Year 2016-2017.
+OMB #0584-0612, expiration 9/30/2019. Available at https://www.fns.usda.gov/cn/usda-cep-characteristics-study-sy-2016-17 (p.
+43).
+\8\ U.S. Department of Agriculture. (2014). Community
+Eligibility Provision Evaluation Final Report. Available at: http://www.fns.usda.gov/sites/default/files/CEPEvaluation.pdf (p. 127-135).
+\9\ Milfort et al. (2021). Third Access, Participation,
+Eligibility, and Certification Study. Prepared by Westat, Inc.,
+Contract No. AG-3198-K-15-0054. Alexandria, VA: U.S. Department of
+Agriculture, Food and Nutrition Service, Office of Policy Support,
+Project Officer: Conor McGovern. Available online at: https://fns-prod.azureedge.us/sites/default/files/resource-files/APECIII-Vol1.pdf (p. 8-14 through 9-3).
+---------------------------------------------------------------------------
+
+This final rule lowers the minimum ISP from 40 percent to 25
+percent and makes conforming changes to ISP-related requirements (i.e.,
+grace year eligibility and identification/notification/publication
+requirements). Electing CEP is a voluntary decision made by LEAs based
+on their unique student populations. Prior to participating in CEP, LEA
+decisionmakers should consider student nutrition, educational,
+administrative, and financial factors. This rule does not impose any
+new requirements on LEAs or schools. Through this final rule an
+increased number of LEAs, schools, and groups of schools will be
+eligible to offer all students lunches and breakfasts at no-cost when
+it is financially viable. This final rule supports State and local
+choices to expand the availability of no-cost school meals for all
+students through programs supported by State or local funding.
+USDA solicited public comments on the proposed change to lower the
+minimum ISP to 25 percent. In addition, USDA requested public comments
+on the following questions:
+(1) To what extent are LEAs that would be newly eligible under this
+proposed rule expected to elect CEP?
+(2) What sources of non-Federal funds are available to support LEAs
+electing CEP at lower ISPs?
+(3) In a typical year, how much time do LEAs spend on
+administrative duties that may be eliminated by electing CEP (e.g.,
+processing applications, managing unpaid meal charges, conducting
+verification)? What administrative activities are included in that
+estimate?
+(4) To what extent are administrative cost savings a factor in
+determining whether to elect CEP?
+(5) How do State policies related to offering free school meals for
+all students influence the likelihood of CEP election among newly
+eligible LEAs?
+Public comments received in response to the proposed rule helped
+inform the development of this final rule.
+
+II. Public Comments and USDA Response
+
+During the 45-day comment period (March 23-May 8, 2023), USDA
+received a total of 10,625 comments, including 849 unique submissions
+and four form letters representing 8,689 submissions. Of the 10,625
+comments, 1,087 were duplicate or non-germane submissions, resulting in
+9,538 relevant comments. All comments, except non-germane comments, are
+posted online at www.regulations.gov (see docket FNS-2022-0044, Child
+Nutrition Programs: Community Eligibility Provision-Increasing Options
+for Schools). Relevant comments were submitted by Members of Congress,
+State and local government entities and elected officials, school
+districts and school staff, advocacy organizations, nongovernmental
+organizations, and other stakeholders, including food banks, healthcare
+and health insurance organizations and healthcare professionals,
+professional and trade associations, the research community, faith-
+based organizations, and individual commenters and members of the
+public. USDA greatly appreciates the thoughtful comments provided.
+These comments were essential to the development of this final rule.
+Overall, including the form letters, almost 97 percent of comments
+supported the proposed rule (9,220 of 9,538) and less than 1 percent
+opposed it (14 of 9,538); the remaining comments were mixed, offered
+conditional support, or were neutral, in that they were generally
+supportive of lowering the minimum ISP to 25 percent, but also
+discussed additional considerations for school meals and school
+nutrition departments.
+Comments in favor of lowering the minimum ISP to 25 percent cited
+benefits to children, families, schools, communities, and Program
+operators. Supporters noted that lowering the minimum ISP would
+increase student access to school meals and improve children's food
+security, health, and academic performance. Many comments also
+supported the proposal for its administrative benefits to school
+districts and schools.
+Comments opposed to lowering the minimum ISP primarily focused on
+concerns about school finances and funding to support CEP or argued
+that the proposed 25 percent threshold was chosen arbitrarily and could
+expand CEP to schools serving communities that do not need assistance.
+Comments offering mixed or conditional support generally agreed
+with lowering the threshold, but also urged USDA to take additional
+measures to support and expand CEP (e.g., increase the CEP multiplier
+or make school meals available at no cost to students nationwide). The
+following discussion is a detailed summary of public comments by topic.
+
+Minimum ISP
+
+Proposed Change
+Under current regulations, the minimum ISP required to elect CEP is
+40 percent; therefore, to be eligible for CEP, an LEA, group of
+schools, or school must have an ISP greater than, or equal to, 40
+percent (ISP >=40 percent) as of April 1 of the school year prior to
+implementing CEP (7 CFR 245.9(f)(3)(i)). USDA proposed to amend 7 CFR
+
+[[Page 65780]]
+
+245.9(f)(3)(i) to require an LEA, group of schools, or school to have
+an ISP of at least 25 percent, as of April 1 of the prior school year,
+to participate in CEP. Individual schools participating in CEP as part
+of a group would be permitted to have an ISP lower than 25 percent,
+provided that the group's aggregate ISP is at least 25 percent.
+Public Comments
+USDA received 9,220 comments that were generally supportive of
+lowering the minimum ISP threshold to 25 percent. Commenters supporting
+the lower threshold included: Members of Congress; State and local
+agencies; school districts and school staff; advocacy groups, trade
+associations, and individuals. Many commenters reasoned that the
+proposed change would expand CEP, allowing more students access to
+free, nourishing school meals. Further, commenters highlighted that
+expanding CEP could benefit numerous stakeholders by reducing hunger
+and food insecurity, improving students' academic performance,
+increasing equity, reducing families' financial burdens, and
+streamlining school meal operations.
+Many commenters who supported the rule discussed the importance of
+feeding schoolchildren equitably and supporting families. Numerous
+commenters, including advocacy groups, a food bank, trade associations,
+and individuals, noted that access to nutritious school meals is
+important to ensure educational equity, improve learning outcomes, and
+advance children's intellectual and physical development. Some
+individual commenters asserted that student hunger has a significant
+impact on academic performance and outcomes. A form letter campaign
+emphasized that hungry schoolchildren cannot learn effectively, and
+that CEP helps to alleviate the negative impact of hunger on learning.
+Several commenters, including an advocacy group and individuals,
+expressed support for the proposed rule because, for many children,
+school meals are the only nutritious meals they have access to each
+day. Similarly, an advocacy group commented that CEP helps feed
+schoolchildren, while also increasing attendance and improving academic
+outcomes. Another advocacy group asserted that, without CEP, thousands
+of students would go hungry at school. One advocacy group cited
+research which found that universal school meals improved academic
+performance, reduced suspension among students, reduced household
+spending on groceries, and improved dietary quality at home. Similarly,
+some commenters, including a trade association and individuals, stated
+that lowering the minimum ISP would decrease children's and families'
+food insecurity.
+School staff and a few individual commenters said that lowering the
+minimum ISP to 25 percent would benefit their school districts because
+they are unable to participate in CEP at the 40 percent threshold, but
+they know students in their communities experience widespread food
+insecurity. A school district reported that 69 percent of their
+students receive free and reduced price meals, but only three of 18
+schools in the district qualify for CEP (two of which barely meet the
+40 percent threshold). Further, commenters, including a school board,
+suggested that lowering the minimum ISP would improve communities'
+attitudes toward school meals and school nutrition programs.
+A couple of commenters, including a State and a local agency, noted
+that reducing the minimum ISP increases access and makes school meals
+more equitable among rural, Tribal, and underserved communities. Many
+commenters discussed the historical disadvantages, particularly food
+insecurity, faced by rural and underserved communities. For example, an
+advocacy group emphasized that ``Black and Brown communities experience
+food insecurity at higher rates'' than their White counterparts due to
+systemic racial injustice. Some commenters reasoned that CEP has been
+useful in minimizing these disadvantages through access to free meals,
+especially among Latino and Black children. Additionally, a few
+commenters with first-hand CEP experience, including a school and an
+advocacy group, stated that when meals were available at no cost to all
+students, significantly more students opted to participate in school
+meals and the school culture improved. Notably, a form letter campaign
+said that expanding access to CEP is a ``great step forward'' to
+improve equity, accessibility, and nutrition in school meals.
+Many commenters, including a State agency, an advocacy group, a
+professional association, and individuals, stated that CEP helps reduce
+the prevalence of unpaid meal debt, and some commenters, including a
+school and individual commenters, cited the elimination of unpaid meal
+charges and student meal debt as a primary reason they support lowering
+the minimum ISP. Many commenters, including a local government, school
+districts, a trade association, individuals, and a form letter
+campaign, expressed support for decreasing the minimum ISP, as it would
+provide ``peace of mind'' to parents and children by eliminating the
+cost of school meals.
+Commenters also support lowering the minimum ISP because it reduces
+administrative burden and gives school districts more options for
+operating school meal programs to best serve their communities. Several
+commenters, including a State agency and local agency, school districts
+and schools, a trade association and an individual, supported lowering
+the minimum ISP because it would significantly reduce administrative
+burden. A couple of State agencies said that the proposed change would
+help their States' small and rural schools, which serve many critical
+roles for isolated, rural communities and often struggle with higher
+per-meal administrative costs because of their small size. Commenters
+also recognized that expanding CEP would help schools and school
+nutrition staff operate the SBP and NSLP more efficiently and would
+allow them to focus more on local purchasing, farm-to-school
+initiatives, and scratch cooking. Additionally, many commenters,
+including a local agency, schools and school staff, advocacy groups, a
+trade association, and individuals, expressed support for the proposal
+because lowering the minimum ISP would give schools greater flexibility
+in operational decisions, in addition to providing more enrolled
+students with no-cost meals.
+While still supportive, commenters discussed how funding to operate
+school meal programs via CEP at the proposed 25 percent minimum ISP
+would be challenging. Several commenters asserted that the proposed
+lower minimum ISP will not be financially viable for many school
+districts without a concurrent increase in the CEP multiplier. A few
+commenters suggested that to offset the burden of costs, USDA should
+allow statewide CEP participation so that CEP administration and any
+costs can be shared among school districts within a State and are not
+placed on individual school districts.
+In addition, several supportive commenters expressed concerns about
+the loss of free and reduced price eligibility data--frequently used
+for education funding--that occurs in CEP schools when applications are
+eliminated. For example, an advocacy group commented that schools that
+do not process school meal applications will need to navigate how to
+adjust policies that previously relied on household application data
+but
+
+[[Page 65781]]
+
+reasoned that this is true at any ISP level. Other commenters
+recommended that USDA work with other Federal partners to assess
+alternative poverty measures.
+Despite overwhelming support for lowering the minimum ISP to 25
+percent, approximately 300 commenters, including a State agency,
+advocacy groups, and individuals, provided mixed feedback or
+conditional support. Many noted that successful implementation of CEP
+in schools with lower ISPs requires additional funding. A school staff
+commenter expressed concern that the proposed change to CEP would lead
+communities and school boards to believe it is financially viable for
+districts with a 25 percent ISP to elect CEP. Some commenters suggested
+increasing the CEP multiplier, while others thought the rule did not go
+far enough, suggesting further lowering the minimum ISP, eliminating
+the minimum ISP completely in States where there is identified State
+funding to support CEP, and providing universal school meals at no cost
+to all students nationwide.
+Though most commenters supported lowering the minimum ISP to 25
+percent, 14 commenters expressed opposition to the proposed change.
+Many commenters opposed to lowering the minimum ISP expressed concern
+that expanding CEP might financially burden schools and school
+nutrition programs in cases where Federal reimbursements fall short of
+Program operating costs. Of these, about half expressed that the
+proposed lower minimum ISP would not be financially viable without
+increasing the CEP multiplier. Opposing commenters, including a school
+district and individual commenters, remarked that the proposed change
+would not encourage more schools to implement CEP because of its
+economic infeasibility. Similar to commenters with mixed feedback on
+the rule, a school district asserted that the CEP multiplier needs to
+be increased from 1.6 to at least 2.0 or higher. The district added
+that lowering the minimum ISP, without increasing the multiplier, would
+only assist schools that have the financial means to help pay the
+``nutrition bills.'' An individual commenter expressed concern that the
+lower minimum ISP would not simplify determinations for severe need
+payments in the SBP or allow more schools to participate in CEP. The
+commenter concluded by expressing concern that the 25 percent minimum
+ISP was chosen arbitrarily. One commenter expressed concern about
+government overreach and suggested that State and local agencies are
+better suited to address free meals. Another individual stated that the
+proposed rule promotes socialism, adding that social services should be
+involved to provide meals while simultaneously assessing students' home
+environments. Finally, a school nutrition director stated that
+expanding CEP to a student population that does not have an economic
+need is not an efficient use of funds, and an advocacy group asserted
+that lowering the minimum ISP significantly expands CEP in a way that
+is inconsistent with the intent of the Federal meal programs because it
+could result in more middle- and upper-income students receiving
+taxpayer-funded meals.
+Thirty commenters responded to the question, ``to what extent are
+LEAs that would be newly eligible under this proposed rule expected to
+elect CEP?'' Of these, the majority provided estimates of the number of
+schools expected to be newly eligible. Some commenters shared that,
+although more schools would be eligible, they would likely not elect
+CEP without an increase to the CEP multiplier. Other commenters
+responded that newly eligible schools in their States would elect CEP
+due to the availability of State funding to cover any costs that exceed
+Federal assistance. One State agency did not indicate how many more
+schools would participate in CEP, but expressed concern that many newly
+eligible schools may not initially understand the financial impacts of
+electing CEP at a lower ISP threshold.
+Additionally, approximately 15 commenters responded to the
+question, ``what sources of non-Federal funds are available to support
+LEAs electing CEP at lower ISPs?'' The majority of commenters
+responding to this question indicated there is State or local funding
+available to help cover costs. A State agency said that non-Federal
+sources in their State include angel funds (local or community
+donations). Another State reported there are no State funds available
+to pay for the cost of meals not covered by Federal assistance.
+Finally, an advocacy group emphasized that, for their area, the
+availability of State and local funds varies greatly based on school-
+level factors, such as enrollment and student participation in school
+meal programs.
+USDA Response
+USDA concurs with commenters who stated that lowering the minimum
+ISP is expected to significantly benefit students, families, schools,
+and communities. USDA's CEP Characteristics Study found that LEAs
+participating in CEP reported multiple perceived benefits, including
+increased student participation, decreased financial burden on
+families, elimination of unpaid meal debt, reduced administrative
+burden, and decreased stigma for students in need.\10\ USDA also
+understands that lowering the minimum ISP to 25 percent is expected to
+result in more schools being eligible for CEP; yet, without additional
+State or local funding, electing CEP at lower ISPs may not be
+financially viable for many schools.
+---------------------------------------------------------------------------
+
+\10\ U.S. Department of Agriculture. (2022). USDA Community
+Eligibility Provision Characteristics Study, School Year 2016-2017.
+OMB #0584-0612, expiration 9/30/2019. Available at https://www.fns.usda.gov/cn/usda-cep-characteristics-study-sy-2016-17.
+---------------------------------------------------------------------------
+
+Non-CEP LEAs and schools that serve high proportions of low-income
+children are expending already-constrained resources to collect and
+process school meal applications to ensure low-income students have
+access to free or reduced price meals. Lowering the minimum ISP to 25
+percent provides an opportunity for more LEAs with high proportions of
+low-income students--especially those with non-Federal funds available
+to support school meals--to capitalize on CEP's administrative and
+operational benefits, while maintaining CEP's intent to provide schools
+serving high poverty areas with opportunity to offer healthy, no-cost
+school meals to all students. This is particularly applicable to LEAs
+and schools in States with healthy school meals for all initiatives; in
+these States, students already have access to meals at no cost and now
+the lower minimum ISP will allow more schools to experience the
+administrative and operational benefits of CEP.
+Healthy school meals for all initiatives, supported by State
+funding, are gaining momentum across the nation. Currently, eight
+States have permanent policies in place, more than 20 States are
+actively pursuing healthy school meals for all legislation, and 63
+percent of voters nationwide support legislation that would make school
+meals permanently available to all
+
+[[Page 65782]]
+
+students at no cost.\11\ These initiatives align with USDA's priority
+to tackle food and nutrition insecurity: USDA is leveraging all
+resources to ensure consistent and equitable access to healthy, safe,
+affordable foods essential to optimal health and well-being.\12\
+Expanding schools' access to CEP--and providing students access to a
+nourishing breakfast and lunch each school day--is an important action
+USDA can take to support those efforts.
+---------------------------------------------------------------------------
+
+\11\ Food Research and Action Center, Healthy School Meals for
+All website. Available at: https://frac.org/healthy-school-meals-for-all.
+\12\ U.S. Department of Agriculture, Priorities website.
+Available at: https://www.usda.gov/
+priorities#:~:text=Tackling%20Food%20and%20Nutrition%20Insecurity,-
+At%20USDA%2C%20we.
+---------------------------------------------------------------------------
+
+USDA acknowledges that lowering the minimum ISP is not accompanied
+by additional funding and that, for the most part, school districts and
+schools that are newly eligible under the 25 percent threshold may need
+additional non-Federal funds for CEP to be financially viable. However,
+USDA supports CEP expansion in States and localities where non-Federal
+funding is available to support healthy school meals at no charge for
+all students.
+As detailed earlier, the CEP multiplier is used to calculate the
+percentage of breakfasts and lunches to be claimed and reimbursed at
+the Federal free rate at CEP schools. Section 11(a)(1)(F)(vii)(II) of
+the NSLA provides the Secretary the option to establish the CEP
+multiplier between 1.3 and 1.6. Accordingly, USDA established 1.6 as
+the multiplier to be used to determine CEP claiming percentages for an
+entire 4-year CEP cycle (7 CFR 245.9(f)(4)(vi)). Increasing the
+multiplier to provide more funding to CEP schools (in the form of a
+higher free claiming percentage) would require Congressional action;
+USDA does not have statutory authority to increase the multiplier any
+further. Similarly, USDA does not have the authority to allow a
+statewide CEP option. Section 11(a)(1)(F)(x) of the NSLA requires CEP
+to be elected at the LEA-level.
+Electing CEP is a local decision, not a Federal mandate; as a
+result, the financial viability of participating in CEP must be
+evaluated based on the unique circumstances of each individual school
+district. If the total amount of Federal assistance available does not
+fully cover the cost of offering all students meals at no charge, LEAs
+must contribute non-Federal funds (7 CFR 245.9(f)(4)(vii)). The use of
+non-Federal funds is not required if all operating costs are covered by
+the Federal reimbursement and other assistance provided under the NSLA
+and the Child Nutrition Act of 1966 (42 U.S.C. 1759a
+(a)(1)(F)(ii)(I)(bb)). Additionally, school food authorities (SFAs) may
+use excess funds in the non-profit school food service account to
+support CEP (7 CFR 210.14(a)).
+When deciding whether to elect CEP, eligible schools must consider
+their ability to provide meals at no cost and cover their operating
+costs with Federal assistance and any other available funds, including
+State and/or local funds. USDA has an updated estimator tool to help
+LEAs determine if CEP is financially viable, and to help assess LEA
+groupings to optimize Federal reimbursements. The estimator tool is
+available at the CEP Resource Center (https://www.fns.usda.gov/cn/community-eligibility-provision-resource-center).
+With respect to concerns regarding the loss of free and reduced
+price eligibility data, USDA understands that many entities have
+historically relied on data from free and reduced price school meal
+applications as a school- or school district-based poverty measure and/
+or means of allocating education funding. Since CEP's inception in
+2011, USDA has worked extensively to ensure that State agencies and
+eligible LEAs are aware of alternative means of assessing socioeconomic
+status. USDA has coordinated meetings and webinars to share best
+practices related to assessing socioeconomic status in the absence of
+household applications.\13\ In addition, USDA worked with the National
+Forum on Education Statistics to develop a guide on alternative
+measures of socioeconomic status for use in education data systems.\14\
+USDA continues to work with the U.S. Department of Education's National
+Center for Education Statistics, on an ongoing basis, to discuss and
+identify school-based poverty measures that have potential to serve as
+alternatives to free and reduced price application data. USDA
+encourages stakeholders at the State and local levels to pursue similar
+conversations to ensure that electing CEP, and the loss of application
+data, does not result in reduced education funding or benefits to CEP
+school districts, schools, or students.
+---------------------------------------------------------------------------
+
+\13\ Visit the CEP Resource Center for more information:
+Community Eligibility Provision Resource Center [bond] Food and
+Nutrition Service (usda.gov).
+\14\ National Forum on Education Statistics (2015). Forum Guide
+to Alternative Measures of Socioeconomic Status in Education Data
+Systems (NFES 2015-158). U.S. Department of Education. Washington,
+DC: National Center for Education Statistics. Available at: http://nces.ed.gov/pubs2015/2015158.pdf.
+---------------------------------------------------------------------------
+
+USDA has discretion to establish a minimum ISP that is lower than
+40 percent (42 U.S.C. 1759a(a)(1)(F)(viii)(II)). In addition to public
+comments, to determine an appropriate threshold, USDA considered
+operational factors, including characteristics of LEAs currently
+eligible and near eligible to elect CEP, and analyzed the composition
+of the ISP and the proportion of free and reduced price students at
+varying ISP levels. Based on these analyses, a minimum ISP of 25
+percent results in at least 40 percent of meals reimbursed at the free
+rate (25 percent x 1.6 = 40 percent). Schools where at least 40 percent
+of the lunches served to students in the second preceding school year
+were free or reduced price qualify as severe need schools and receive
+an additional reimbursement (42 U.S.C. 1773(d)(1)(A); 7 CFR
+220.9(d)(2)). Aligning the CEP threshold with the severe need payments
+threshold provides consistency because all CEP-eligible schools will
+qualify for severe need reimbursements. In addition, CEP's positive
+impact on school breakfast participation further supports the SBP.\15\
+---------------------------------------------------------------------------
+
+\15\ USDA's CEP Characteristics Study found that SBP
+participation increased by about 12 percent in LEAs operating CEP
+(compared to similar, eligible LEAs that did not elect CEP). U.S.
+Department of Agriculture (2022). USDA Community Eligibility
+Provision Characteristics Study, School Year 2016-2017. OMB #0584-
+0612, expiration 9/30/2019. Available at https://www.fns.usda.gov/cn/usda-cep-characteristics-study-sy-2016-17.
+---------------------------------------------------------------------------
+
+Given the broad stakeholder support for lowering the minimum ISP to
+25 percent--and the potential benefit to children, families, schools,
+and communities--USDA is adopting the lower, 25 percent minimum ISP in
+this final rule. Accordingly, this final rule amends the CEP provisions
+at 7 CFR 245.9(f)(3)(i) to reflect a 25 percent minimum ISP.
+
+Conforming Amendments to Grace Year and Identification/Notification
+Requirements
+
+Proposed Change
+To conform with the proposed 25 percent ISP threshold in 7 CFR
+245.9(f)(3), USDA proposed to amend 7 CFR 245.9(f)(4)(ix), the
+regulations governing grace years, to allow an LEA, group of schools,
+or school in the fourth year of the 4-year CEP cycle with an ISP of
+less than 25 percent but equal to or greater than 15 percent (as of
+April 1 of the fourth year of a CEP cycle) to continue using CEP for an
+additional ``fifth year'' or a ``grace year'' beyond the 4-year CEP
+cycle. In addition, USDA
+
+[[Page 65783]]
+
+proposed to amend 7 CFR 245.9(f)(5) and (6), the regulations governing
+LEA and State agency identification and notification requirements, and
+7 CFR 245.9(f)(7)(i) and (ii), the regulations governing State agency
+public notification requirements. USDA only proposed changes to the
+numbers (i.e., 40 percent to 25 percent, 30 percent to 15 percent)
+consistent with the proposed lower threshold and statutory requirements
+(42 U.S.C. 1759a(a)(1)(F)(v)(I), (a)(1)(F)(x)); no additional
+substantive changes were proposed.
+Public Comments
+USDA received eight comments pertaining to these conforming changes
+and all comments were supportive. A State agency noted that the grace
+year flexibility would allow schools an extra year to attempt to meet
+the 25 percent ISP threshold to remain on CEP. In addition, an advocacy
+group suggested that USDA should require States to use the actual
+counts of identified students as opposed to proxy data to ensure more
+accurate lists and notifications.
+USDA Response
+USDA appreciates one commenter's suggestion to change requirements
+related to the data that States use for notification purposes. However,
+this rulemaking only changes the numbers (e.g., 40 percent to 25
+percent, 30 percent to 15 percent) consistent with the lower ISP
+threshold and statutory requirements (42 U.S.C. 1759a(a)(1)(F)(v)(I),
+(a)(1)(F)(x)); no additional substantive changes are made by this
+rulemaking. Therefore, under this final rule, USDA will continue to
+allow States to use proxy data for CEP notification purposes.
+Consistent with current requirements, actual counts of identified
+students must be used for CEP elections.
+Given the support for these changes and the statutory requirement
+that these provisions conform to the final threshold, this final rule
+modifies the following regulations to align with the 25 percent ISP
+threshold in 7 CFR 245.9(f)(3):
+7 CFR 245.9(f)(4)(ix), the regulations governing the use
+of CEP for a grace year;
+7 CFR 245.9(f)(5) and (6), the regulations governing LEA
+and State agency identification and notification requirements; and
+7 CFR 245.9(f)(7)(i) and (ii), the regulations governing
+State agency public notification requirements.
+
+Comments on Other CEP-Related Items
+
+Healthy School Meals for All
+Public Comments
+Approximately 330 commenters discussed healthy school meals for all
+initiatives; many of those commenters, including a professional
+association and individuals, expressed general support for providing
+all students with no-cost, healthy school meals. Several commenters,
+including a trade association and a form letter campaign, stated that
+the proposed rule is an improvement on existing CEP requirements and
+represents a positive step toward universal, no-cost meals for all
+students. A form letter campaign applauded the proposed CEP expansion
+and its potential to enable more schools and districts across the
+country to provide school meals at no charge to all students, closing a
+gap in healthy food access for many children and families, especially
+those in need. However, some commenters, including school staff,
+advocacy groups, and individuals, noted that a nationwide program
+making school meals available at no charge for all students would be
+preferable over lowering the minimum ISP.
+Several commenters highlighted that the proposed change to CEP
+would support the growing number of States choosing to invest funding
+to provide no-cost school meals to all children. A few commenters,
+including a school district and individuals, commented that lowering
+the minimum ISP to 25 percent would give States and schools greater
+flexibility to choose to invest non-Federal funds to offer no-cost
+meals to all enrolled students. An individual representing a non-profit
+organization stated that the proposed change creates an ``easier entry
+point'' for States to adopt their own universal, no-cost meals policies
+in a more balanced and sustainable way. The commenter continued,
+declaring that a lower minimum ISP would support the growing number of
+States that are choosing to invest their own funds to provide free
+school meals to all students, through maximizing LEA use of CEP in
+combination with State-specific initiatives. Conversely, one State
+agency shared that, in their State, State funding is not available to
+encourage lower ISP schools to adopt CEP, and concerns exist regarding
+whether some schools have sufficient financial support to be able to
+implement CEP at lower ISPs.
+Approximately 15 commenters responded to the question, ``how do
+State policies related to offering free school meals for all students
+influence the likelihood of CEP election among newly eligible LEAs?'' A
+couple of commenters stated that the proposed rule provides more
+options to LEAs and State agencies in those States that incentivize CEP
+adoption through State legislation. Some commenters, including State
+agencies and advocacy groups, asserted that LEAs in States with
+existing healthy school meals for all legislation, or significant non-
+Federal funding sources, will see an increase in CEP participation
+because they do not have to reconcile significant budgetary gaps. One
+State agency commented that the State's policies neither require nor
+discourage districts to participate in CEP, and another State agency
+noted that LEAs will need to assess how current application-based
+reimbursements compare to CEP's direct certification-based
+reimbursements because eliminating applications may affect school
+districts and States differently, depending on their policies.
+Additionally, one State agency asserted that without State funding to
+support free school meal programs, newly eligible LEAs would not be
+likely to participate in CEP because it would not be financially
+viable.
+USDA Response
+USDA anticipates that LEAs most likely to elect CEP at the 25
+percent ISP are those in States that have committed to offering healthy
+school meals for all through State funding. Numerous public comments
+submitted by States support this assumption. The Colorado Department of
+Education confirmed that, to opt-in to the State's Healthy School Meals
+for All Program and receive additional State funding, qualifying
+schools are required to elect CEP. In its comment, the Minnesota
+Department of Education noted that, while the State will not require
+school districts to participate in CEP under the recently passed
+Minnesota Free School Meals Program, it anticipates ``schools will be
+interested in adopting CEP at a lower threshold to have the option to
+streamline meal counting and claiming.'' A recent publication from the
+Food Research and Action Center has also found that States offering
+free meals to all students in school year (SY) 2022-23 experienced
+significant increases in CEP uptake.\16\
+---------------------------------------------------------------------------
+
+\16\ Food Research & Action Center. Community Eligibility: The
+Key to Hunger-Free Schools, School Year 2022-23 (May 2023).
+Available at: https://frac.org/wp-content/uploads/cep-report-2023.pdf.
+---------------------------------------------------------------------------
+
+USDA estimates that as many as 2,090 schools in 471 LEAs across
+California, Colorado, Maine, Minnesota, and New Mexico, all of which
+have implemented
+
+[[Page 65784]]
+
+healthy school meals for all policies for SY 2023-24, would elect to
+participate in CEP under the 25 percent ISP.\17\ Estimates are based on
+the School Food Authority Verification Collection Report, found at:
+https://www.fns.usda.gov/form/school-food-authority-sfa-verification-collection-report. Specifically, the analysis used 2023 data related to
+student enrollment, direct certification, free and reduced price
+claiming percentages, and CEP participation status.\18\
+---------------------------------------------------------------------------
+
+\17\ USDA only included States with permanent legislation at the
+time of the analysis.
+\18\ Data from FNS-742: School Food Authority Verification
+Collection Report, available at: https://www.fns.usda.gov/form/school-food-authority-sfa-verification-collection-report.
+---------------------------------------------------------------------------
+
+A recent report on CEP uptake showed that the number of students in
+schools participating in CEP has increased annually since 2014, with
+the greatest increases occurring more recently.\19\ In SY 2021-22,
+there were 16.2 million students in CEP schools; in SY 2022-23, there
+were 19.9 million. California was the greatest contributor, adding more
+than 1.3 million students to the total enrolled in CEP schools. The
+percentage of eligible schools adopting CEP also increased from 75.3
+percent to 99.5 percent in California during this time. In all but one
+of the seven States offering free meals to all students during SY 2022-
+23 through State funding (California, Connecticut, Maine, Nevada, New
+Mexico, Vermont), the percentage of eligible schools participating in
+CEP was 92 percent or higher. The percentage of participating eligible
+CEP schools in Massachusetts, the remaining State, was 87 percent. High
+CEP participation rates in States providing free school meals to all
+students is consistent with the feedback submitted in public comments
+and supports USDA's assumption that school districts in these States
+are most likely to benefit from, and take advantage of, the 25 percent
+ISP.
+---------------------------------------------------------------------------
+
+\19\ Community Eligibility: The Key to Hunger-Free Schools
+(School Year 2022-2023). May 2023. Food Research and Action Center.
+Available at: https://frac.org/cep-report-2023.
+---------------------------------------------------------------------------
+
+USDA is fully committed to ensuring all children have access to
+healthy school meals. Lowering the minimum ISP provides States and LEAs
+greater flexibility to combine CEP with State initiatives to simplify
+Program administration, reduce burden, and offer meals to all students
+at no charge.
+Costs & Cost Savings
+Public Comments
+LEAs assume significant responsibility to administer school meal
+programs and, in response to the proposed rule, respondents submitted
+several comments and questions related to costs and cost savings. One
+advocacy group stated that reducing the minimum ISP--even to zero--will
+not appreciably drive up Federal costs because reimbursements are tied
+to the ISP, and that schools or districts with lower ISPs will receive
+lower Federal reimbursements and will have to cover remaining costs
+with non-Federal funds. Another advocacy group commented that the lower
+minimum ISP would result in additional government spending annually.
+Numerous commenters stated that, in general, CEP helps reduce
+administrative costs. Many commenters, including Members of Congress, a
+State agency, a local government, school districts, advocacy groups,
+and form letter campaigns, said that CEP helps reduce administrative
+and paperwork costs, and streamlines Program operations for LEAs and
+schools. Some commenters, including advocacy groups and a form letter
+campaign, added that administrative cost savings allow school officials
+to focus resources on core SBP and NSLP mission-oriented tasks, such as
+planning and preparing healthy meals for students. Similarly, some
+commenters, including State and local agencies, advocacy groups, and a
+trade association, remarked that the reduced administrative burden from
+CEP helps schools focus on investing in operations and meal program
+improvements, such as scratch cooking or farm-to-school programs. One
+staff member of a public charter school noted that if the school were
+eligible for CEP, the school would save a minimum of $50,000 per year
+in administrative staff costs. Commenters remarked that CEP reduces
+costs for schools because, as a result of increased student
+participation, it leverages economies of scale in food purchasing and
+preparation. An advocacy group and a trade association concluded that
+administrative savings resulting from CEP help schools combat rising
+food prices, focus on serving quality meals, and invest in school
+nutrition programs. Furthermore, a State explained that by reducing
+administrative costs, CEP helps ensure a greater share of each meal
+reimbursement is spent directly on food and food preparation. Some
+commenters, including an advocacy group and a trade association,
+asserted that lowering the minimum ISP would reduce State costs
+associated with expanding school meal access and would help sustain
+recently enacted healthy school meals for all programs, if State fiscal
+conditions change.
+An advocacy group suggested that schools with higher ISPs can adopt
+CEP without relying on non-Federal funds because administrative savings
+often offset the loss of revenue from student payments but recognized
+that may not be the case for districts with lower ISPs. Another
+advocacy group stated that expansion of CEP will pay for itself by
+reducing administrative burden and increasing Program efficiency. A
+school district warned that access to CEP may not reduce paperwork as
+much as expected because paperwork will still be required for other
+Federal programs.
+Six commenters responded to the question: ``In a typical year, how
+much time do LEAs spend on administrative duties that may be eliminated
+by electing CEP (e.g., processing applications, managing unpaid meal
+charges, conducting verification)? What administrative activities are
+included in that estimate?'' Two State agencies commented generally
+that CEP would reduce LEAs' time spent on processing applications and
+verification activities. In addition, two State agencies acknowledged
+that the time spent on applications varies by school district size,
+with one estimating the number of hours would vary from as few as 12
+hours per school year to almost 50 percent of a full-time equivalent.
+One school district reported that hundreds of hours of work are spent
+each year processing free and reduced price applications, including
+dealing with unpaid meal debt and other activities. Similarly, another
+school district estimated that 490 hours per year are dedicated to the
+application process. One school district reported that, after adopting
+CEP at several (but not all) schools, time spent on processing
+applications was cut ``nearly in half.''
+Six commenters responded to the question, ``to what extent are
+administrative cost savings a factor in determining whether to elect
+CEP?'' Some of the commenters stated that administrative cost savings
+were a determining factor, while others depended more on cafeteria
+operations or the capacity to serve no-cost meals as a primary factor
+in deciding to elect CEP.
+USDA Response
+USDA analyzed administrative data and relied on information from
+public comments and stakeholder engagement, to examine the economic
+impacts (i.e., costs) of lowering the minimum ISP to 25 percent.
+Historically, CEP has not been a significant driver of Federal costs.
+CEP became available nationwide in SY 2014-15; during that school year
+and in subsequent school years, the number of schools electing CEP--
+and, as a result, students in CEP schools--
+
+[[Page 65785]]
+
+grew significantly. However, since the CEP multiplier is designed to,
+on average, mirror the free and reduced price percentage, claiming
+meals merely shifted from free and reduced price-based claiming to ISP-
+based claiming with no significant impact on Federal costs.
+The number of students in CEP schools more than doubled, from 6.5
+million in SY 2014-2015 to 13.7 million in SY 2018-2019. During this
+same time period, the annual growth rate in school meal earnings (i.e.,
+costs) was about 3 percent.\20\ Most of the annual growth was due to an
+annual inflation rate of 2.2 to 3 percent during this period. USDA
+anticipates that CEP uptake as a result of the 25 percent minimum ISP
+will be significantly smaller than typical, historical year-over-year
+CEP increases due to the financial considerations LEAs must weigh when
+deciding to elect CEP at lower ISPs. Therefore, based on these
+analyses, USDA does not agree with the commenter that indicated there
+would be large increases in Federal Government spending from this CEP
+expansion.
+---------------------------------------------------------------------------
+
+\20\ USDA limited its analysis to fiscal year (FY) 2015-FY 2019
+due to the impacts of nationwide child nutrition waivers, which were
+provided to ensure access to meals through the Child Nutrition
+Programs as communities responded to the COVID-19 pandemic. Cash
+payments for NSLP and SBP were $15.6 billion in FY 2015 and $17.4
+billion in FY 2019.
+---------------------------------------------------------------------------
+
+The decision to elect CEP is the result of a cost-benefit analysis
+specific to eligible LEAs. State initiatives, such as healthy school
+meals for all, make it easier for LEAs to elect CEP due to the
+additional State funding. Administrative cost savings associated with
+CEP are a significant factor that may make CEP economically viable for
+many LEAs, as indicated in several comments.
+USDA estimates administrative cost savings of $103,869, based on a
+total annual reduction of 5,679 burden hours and a $18.29 median hourly
+rate for Office and Administrative Support Occupations in Educational
+Services.\21\ Actual decreases in administrative burden will vary by
+LEA based on factors such as student enrollment, current percentage of
+students eligible for free and reduced price meals, local wage rates,
+and current mode of operation before electing CEP (e.g., Provision 2 or
+3). Though some commenters indicated that systems may need to be
+updated or reprogrammed to accommodate the new minimum ISP for CEP,
+USDA expects that these costs would be limited to one-time, system
+modification costs.
+---------------------------------------------------------------------------
+
+\21\ For a full discussion of the impacts of this final rule on
+information collection requirements, please refer to the Paperwork
+Reduction Act section.
+---------------------------------------------------------------------------
+
+USDA understands that newly eligible school districts and schools
+may have questions about implementing CEP at a lower ISP. USDA plans to
+issue guidance related to the lower minimum ISP to help LEAs and
+schools make informed decisions about electing CEP. USDA, in
+collaboration with Federal and State agency partners, stands ready to
+provide support, customer service, and technical assistance to school
+districts interested in electing CEP at all eligibility levels.
+
+Procedural Matters
+
+Executive Orders 12866 and 13563
+Executive Orders 12866 and 13563 direct agencies to assess all
+costs and benefits of available regulatory alternatives and, if
+regulation is necessary, to select regulatory approaches that maximize
+net benefits (including potential economic, environmental, public
+health and safety effects, distributive impacts, and equity). Executive
+Order 13563 emphasizes the importance of quantifying both costs and
+benefits, of reducing costs, of harmonizing rules, and of promoting
+flexibility. This final rule has been determined to be not significant
+and was not reviewed by the Office of Management and Budget (OMB) in
+conformance with Executive Order 12866.
+Regulatory Impact Analysis
+This final rule has been designated as not significant by the
+Office of Management and Budget. Therefore, no Regulatory Impact
+Analysis is required.
+Regulatory Flexibility Act
+The Regulatory Flexibility Act (5 U.S.C. 601-612) requires Agencies
+to analyze the impact of rulemaking on small entities and consider
+alternatives that would minimize any significant impacts on a
+substantial number of small entities. Pursuant to that review, it has
+been certified that this final rule would not have a significant impact
+on a substantial number of small entities. The provisions of this final
+rule are intended to reflect the operational needs of LEAs of all
+sizes. No specific additional burdens are placed on small LEAs seeking
+to operate CEP. USDA's 2022 CEP Characteristics Study found that 36
+percent of LEAs participating in CEP in SY 2016-17 were single-school
+LEAs; 32 percent of participating LEAs were in rural areas; and 83
+percent served fewer than 5,000 students.\22\ For smaller LEAs, the
+decision to elect CEP may be a simpler process and/or involve gaining
+approvals from fewer governing bodies. Additionally, CEP is an optional
+provision, and there is no requirement for LEAs to participate.
+---------------------------------------------------------------------------
+
+\22\ U.S. Department of Agriculture (2022). USDA Community
+Eligibility Provision Characteristics Study, School Year 2016-2017.
+OMB #0584-0612, expiration 9/30/2019. Available at https://www.fns.usda.gov/cn/usda-cep-characteristics-study-sy-2016-17.
+---------------------------------------------------------------------------
+
+Currently, many small LEAs participate in CEP; in SY 2016-17, 1,939
+of the 4,263 school districts (45 percent) electing CEP had enrollments
+of 999 or less.\23\
+---------------------------------------------------------------------------
+
+\23\ Ibid.
+---------------------------------------------------------------------------
+
+Unfunded Mandates Reform Act
+Title II of the Unfunded Mandate Reform Act of 1995 (UMRA)
+established requirements for Federal agencies to assess the effects of
+their regulatory actions on State, local, and Tribal governments, and
+the private sector. Under section 202 of UMRA, USDA generally must
+prepare a written statement, including a cost-benefit analysis, for
+proposed and final rules with ``Federal mandates'' that may result in
+expenditures to State, local, or Tribal governments in the aggregate,
+or to the private sector, of $146 million or more (when adjusted for
+inflation; gross domestic product (GDP) deflator source: Table 1.1.9 at
+https://www.bea.gov/iTable) in any one year. When such a statement is
+needed for a rule, section 205 of UMRA generally requires USDA to
+identify and consider a reasonable number of regulatory alternatives
+and adopt the least costly, more cost-effective, or least burdensome
+alternative that achieves the objectives of the rule.
+This final rule contains no Federal mandates (under the regulatory
+provisions of Title II of URMA) for State, local and Tribal
+governments, or the private sector, of $146 million or more in any one
+year. Therefore, this final rule is not subject to the requirements of
+sections 202 and 205 of UMRA.
+Executive Order 12372
+The NSLP and SBP are assigned Assistance Listing Numbers--NSLP
+(10.555) and SBP (10.553)--and are subject to Executive Order 12372,
+which requires intergovernmental consultation with State and local
+officials (see 2 CFR chapter IV).\24\ Since the child nutrition
+programs are State-administered, USDA's FNS Regional Offices have
+formal and informal discussions with
+
+[[Page 65786]]
+
+State and local officials, including representatives of Indian Tribal
+Organizations, on an ongoing basis regarding program requirements and
+operations. This provides USDA with the opportunity to receive regular
+input from program administrators and contributes to the development of
+feasible program requirements.
+---------------------------------------------------------------------------
+
+\24\ Assistance listings are detailed public descriptions of
+Federal programs that provide grants, loans, scholarships,
+insurance, and other types of assistance awards. More information is
+available at: https://sam.gov/content/home.
+---------------------------------------------------------------------------
+
+Federalism Summary Impact Statement
+Executive Order 13132 requires Federal agencies to consider the
+impact of their regulatory actions on State and local governments.
+Where such actions have federalism implications, agencies are directed
+to provide a statement for inclusion in the preamble to the regulations
+describing the agency's considerations in terms of the three categories
+called for under section (6)(b)(2)(B) of Executive Order 13132.
+The Department has determined that this final rule does not have
+federalism implications. Electing CEP is a local decision, not a
+Federal mandate, and lowering the minimum ISP from 40 percent to 25
+percent does not limit State or local policymaking discretion.
+Furthermore, this final rule does not impose substantial or direct
+compliance costs on State and local governments. Therefore, under
+section 6(b) of the Executive order, a Federalism summary impact
+statement is not required.
+Executive Order 12988, Civil Justice Reform
+This final rule has been reviewed under Executive Order 12988,
+Civil Justice Reform. This final rule is intended to have preemptive
+effect with respect to any State or local laws, regulations, or
+policies which conflict with its provisions or which would otherwise
+impede its full implementation. However, USDA does not expect
+significant inconsistencies between this final rule and existing State
+or local regulations regarding the provision of school food service
+operations under CEP. This final rule would permit schools to elect CEP
+if their ISP is greater than or equal to 25 percent. Per statutory
+requirements outlined in the NSLA, State agencies operating the Federal
+school meal programs may not bar an eligible LEA from CEP
+participation. Additionally, States may not set an eligibility
+threshold lower than an ISP of 25 percent for participation in CEP.
+This final rule is not intended to have retroactive effect. Prior to
+any judicial challenge to the provisions of this final rule or the
+application of its provisions, all applicable administrative procedures
+must be exhausted.
+Civil Rights Impact Analysis
+USDA has reviewed the final rule, in accordance with Departmental
+Regulation 4300-004, ``Civil Rights Impact Analysis,'' to identify and
+address any major civil rights impacts the final rule might have on
+participants on the basis of age, race, color, national origin, sex,
+and disability. The FNS Civil Rights Division finds that the current
+mitigation and outreach strategies outlined in the regulations and this
+Civil Rights Impact Analysis (CRIA) provide ample consideration to
+participants' ability to participate in the NSLP and SBP. The
+promulgation of this final rule will expand access to no-cost meals for
+all enrolled students at participating CEP schools by lowering the
+minimum participation threshold. As previously outlined, the final rule
+is likely to impact the growing number of minority students and
+families attending participating schools that face a greater risk of
+food insecurity and health disparities by providing sustained
+nutritious food and reducing families' paperwork burdens. The changes
+implemented by this final rule are likely to impact participating LEAs
+and SFAs by providing greater flexibility to offer no-cost meals to
+students, which would further support eliminating unpaid meal debt,
+minimizing stigma, streamlining meal service operations, and reducing
+paperwork for school nutrition staff.
+Executive Order 13175: Consultation and Coordination With Indian Tribal
+Governments
+Executive Order 13175 requires Federal agencies to consult and
+coordinate with Tribes on a government-to-government basis on policies
+that have Tribal implications, including regulations, legislative
+comments or proposed legislation, and other policy statements or
+actions that have substantial direct effects on one or more Indian
+Tribes, on the relationship between the Federal Government and Indian
+Tribes, or on the distribution of power and responsibilities between
+the Federal Government and Indian Tribes. USDA provides regularly
+scheduled consultation sessions as a venue for collaborative
+conversations with Tribal officials or their designees. This rule was
+discussed during the consultation on May 23, 2023. Tribal members
+supported this rule and indicated their belief that lowering the
+minimum ISP will increase access to the program. USDA is unaware of any
+current Tribal laws that could be in conflict with the final rule.
+Paperwork Reduction Act
+The Paperwork Reduction Act of 1995 (PRA) (44 U.S.C. Chap. 35; 5
+CFR part 1320) requires that the Office of Management and Budget (OMB)
+approve all collection of information requirements by a Federal agency
+before they can be implemented. Respondents are not required to respond
+to any collection of information unless it displays a current, valid
+OMB Control Number. This rulemaking expands access to the Community
+Eligibility Provision (CEP) by lowering the minimum identified student
+percentage (ISP) participation threshold from 40 percent to 25 percent,
+which would give States and schools greater flexibility to choose to
+invest non-Federal funds to offer no-cost meals to all enrolled
+students. As a result, more students, families, and schools will have
+an opportunity to experience the benefits of CEP, including access to
+meals at no cost, eliminating unpaid meal charges, minimizing stigma,
+reducing paperwork for school nutrition staff and families, and
+streamlining meal service operations.
+In accordance with the PRA, this final rule would revise existing
+information collection requirements, which are subject to review and
+approval by the Office of Management and Budget. These existing
+information collection requirements are currently approved under OMB
+Control Number 0584-0026, 7 CFR Part 245--Determining Eligibility for
+Free & Reduced Price Meals and Free Milk in Schools, which expired on
+July 31, 2023 (a renewal of OMB Control Number 0584-0026 has been
+submitted to OMB for review). Revisions to the currently approved
+information collection requirements will result in a decrease in burden
+on State and local program operators, as well as participating
+households. To ensure that the review of this final rule does not
+interfere with the renewal of OMB Control Number 0584-0026, FNS is
+requesting a new OMB Control Number for the existing information
+requirements that are impacted by this final rule. Therefore, the
+provisions outlined in this rule will initially be shown as increases
+to the information collection inventory. After OMB has approved the
+information collection requirements submitted in conjunction with the
+final rule and after the renewal of OMB Control Number 0584-0026 is
+completed, FNS will merge these requirements and their burden into OMB
+Control Number 0584-0026. When the two information collection requests
+are merged, the decrease in burden
+
+[[Page 65787]]
+
+noted above will be fully captured in OMB Control Number 0584-0026.
+In connection to this final rule, USDA published a proposed rule,
+Child Nutrition Programs: Community Eligibility Provision-Increasing
+Options for Schools, on March 23, 2023, which provided notice to the
+public of the forthcoming changes to CEP. In addition, a notice for the
+proposed rule's impact on information collection requirements and their
+associated burden was embedded in the proposed rule. The proposed rule
+solicited public comments on the proposed changes to the existing
+information collection requirements that are being finalized via this
+final rule. In response to the notice, FNS did not receive any comments
+specific to the estimated number of respondents or burden hours
+associated with the collection of information requirements addressed in
+the PRA section of the proposed rule, yet a few general comments
+submitted indicated that State agencies may have to update or reprogram
+systems to accommodate the proposed minimum ISP.
+FNS recognizes that State agencies have systems in place that may
+maintain CEP data, such as ISP data for LEAs under their jurisdiction.
+Systems may be used to assist program administrators to efficiently
+meet the collection of information requirements that are impacted by
+this rulemaking. For example, systems may be used to help State
+agencies meet the reporting requirement to inform LEAs of their CEP
+eligibility status, as well as meet the recordkeeping requirement that
+requires State agencies to review ISP documentation that is submitted
+by LEAs (7 CFR 245.9(f)(6) and (f)(4)(ii), respectively). When
+estimating the burden associated with information collection
+requirements, FNS takes into consideration the various methods that may
+be used to meet such requirements, including the use of information
+technology. FNS did not change the estimated burden associated with
+meeting CEP information collection requirements in response to the
+comments received about system updates or reprogramming; however, FNS
+expects and acknowledges some State agencies may experience a one-time
+cost associated with system modifications. The estimated cost
+associated with such modifications is included in the One Time Annual
+Cost subsection below.
+The estimated numbers of respondents, responses, and burden hours
+for the information collection requirements that were included in the
+March 23, 2023, proposed rule are being revised via this final rule.
+Revisions are not due to public comments received on the proposed rule;
+instead, they are based on more recent data that became available after
+publication of the proposed rule. Using more recent data, FNS re-
+evaluated the number of schools in States that have committed to
+offering healthy school meals for all children that would be eligible
+to elect CEP in accordance with the lowered identified student
+percentage threshold. FNS also analyzed a recent publication from the
+Food Research and Action Center that indicated States offering free
+meals to all students in SY 2022-2023 experienced significant increases
+in CEP uptake and analyzed trends in CEP participation in recent years.
+As a result, FNS has obtained more accurate and recent data that better
+reflects the number of respondents that will comply with the collection
+of information requirements that are impacted by this final rule.
+Accordingly, FNS updated the estimated number of respondents,
+responses, and burden hours associated with the collections of
+information that are included in this final rule to reflect the most
+recent and accurate data available.
+In addition to updating the estimated number of respondents,
+responses, and burden hours for the information collection requirements
+addressed in this rulemaking with the use of more recent data, FNS is
+making a technical correction to a typographical error that was
+identified in the proposed rule's PRA section. Specially, the table
+that represented the reporting requirements impacted by this rulemaking
+and their associated burden indicated an estimated 628,673 burden hours
+were currently approved under OMB Control Number 0584-0026. The correct
+number of burden hours currently approved under OMB Control Number
+0584-0026 for the reporting requirements impacted by this rulemaking is
+approximately 643,824 burden hours. FNS has made the correction in the
+reporting table below by replacing 628,673 burden hours with 643,824
+burden hours for the number of currently approved burden hours
+associated with the reporting requirements impacted by this rulemaking.
+FNS now estimates that this final rule will have an estimated
+3,454,060 respondents, 12,064,195 responses, and 624,833 burden hours.
+This is a decrease of 31,128 respondents, 107,072 responses, and 5,374
+burden hours in comparison to the estimations included in the proposed
+rule.
+The burden estimates associated with the collections of information
+addressed in this final rule are contingent upon OMB approval under the
+PRA. When the information collection request associated with the final
+rule is approved, the USDA will publish a separate notice in the
+Federal Register announcing OMB's approval.
+Comments on the information collection requirements addressed in
+this final rule may be submitted. Comments must be received by October
+26, 2023. Send comments to Office of Information and Regulatory
+Affairs, OMB, Attention: Desk Officer for FNS, Washington, DC 20403,
+Fax: 202-395-7285, or email to [email protected]. Please also
+send a copy of your comments to School Meals Policy Division, Food and
+Nutrition Service, 1320 Braddock Place, Alexandria, VA 22314. For
+further information, please contact Wesley Gaddie at
+usda.gov">wesley.gaddie@usda.gov.
+Comments are invited on: (a) Whether the proposed collection of
+information is necessary for the proper performance of the functions of
+the agency, including whether the information shall have practical
+utility; (b) the accuracy of the agency's estimate of the burden of the
+proposed collection of information, including the validity of the
+methodology and assumptions used; (c) ways to enhance the quality,
+utility, and clarity of the information to be collected; and (d) ways
+to minimize the burden of the collection of information on those who
+are to respond, including use of appropriate automated, electronic,
+mechanical, or other technological collection techniques or other forms
+of information technology. All responses to this notice will be
+summarized and included in the request for OMB approval. All comments
+will also become a matter of public record.
+Title: Community Eligibility Provision: Increasing Options for
+Schools.
+Form Number: None.
+OMB Control Number: 0584-NEW.
+Expiration Date: Not Yet Determined.
+Type of Request: New Collection.
+Abstract: This is a new information collection that revises the
+existing information collection request approved under OMB Control
+Number 0584-0026. Below is a summary of the changes in the final rule
+and the accompanying reporting and recordkeeping requirements that will
+impact the burden that program requirements have on state administering
+agencies, local education agencies (LEAs), and participating
+households. FNS has updated the number of respondents, responses, and
+burden hours associated with the collection of information requirements
+included in the final rule since publication of the proposed rule Child
+Nutrition Programs: Community
+
+[[Page 65788]]
+
+Eligibility Provision-Increasing Options for Schools, published on
+March 23, 2023. Revisions are based on more recent and accurate data
+that became available after the publication of the proposed rule. In
+addition, because FNS received comments on the proposed rule indicating
+that State agencies may experience a one-time cost associated with
+system modifications, an estimated cost for updating and reprogramming
+State systems is included in the One Time Annual Cost subsection below.
+Participating in the CEP is a voluntary decision made by local
+school districts. To be eligible for CEP under current program
+regulations, an LEA, group of schools, or school must ensure that at
+least 40 percent of enrolled students are identified students,
+participate in both the National School Lunch Program and the School
+Breakfast Program, and serve lunches and breakfasts to all enrolled
+students at no charge.
+Identified students are certified for free school meals without
+submitting a household application, such as those directly certified
+through the Supplemental Nutrition Assistance Program (SNAP). This
+final rule will expand access to CEP by lowering the required
+identified student percentage. This will provide more schools with an
+additional option for offering no-cost meals to students without
+requiring households to submit applications for free or reduced price
+meals.
+This final rule would amend 7 CFR 245.9(f)(3)(i) to require a LEA,
+group of schools, or school to have an identified student percentage of
+at least 25 percent, as of April 1 of the school year prior to
+participating in CEP. Individual schools participating in CEP as part
+of a group would be permitted to have an ISP lower than 25 percent,
+provided that the group's aggregate ISP is at least 25 percent.
+
+Reporting
+
+State Agencies
+The changes in this final rule impact the existing reporting
+requirement currently approved under OMB Control Number 0584-0026 and
+found at 7 CFR 245.9(f)(6), that requires State agencies to notify LEAs
+of their CEP status. USDA expects that the number of LEAs that must be
+notified will increase by 5,131, based on the finalized changes and
+more recent and accurate data that became available after publication
+of the proposed rule.
+USDA estimates the 54 State agency respondents will be required to
+notify approximately 95 additional LEAs each year, and that it takes
+approximately three minutes (.050 hours) to complete this reporting
+requirement for each record. The reporting requirement adds a total of
+257 annual burden hours and 5,131 responses into the new information
+collection request. Once this new collection is merged into OMB Control
+Number 0584-0026, USDA expects that an additional 257 hours and 5,131
+responses will be added to the collection.
+LEAs
+The changes in this rule will impact the existing reporting
+requirements currently approved under OMB Control Number 0584-0026 for
+LEAs.
+USDA estimates that 471 additional LEAs will elect CEP and will be
+required to fulfill the reporting requirement at 7 CFR 245.9(f)(4)(i),
+that requires LEAs to submit to the State agency documentation of an
+acceptable identified student percentage of the LEA/school electing the
+provision. This collection of information requirement is currently
+approved under OMB Control Number 0584-0026. This estimation is being
+updated from what was published in the proposed rule on March 23, 2023,
+to reflect more recent and accurate data that became available after
+publication of the proposed rule, along with the other estimations
+regarding the impact of PRA requirements in this section.
+For this final rule, USDA estimates that the 471 LEA respondents
+will be required to submit identified student percentage data when
+electing CEP each year and that it takes approximately 15 minutes (.25
+hours) to complete this reporting requirement for each record. The
+reporting requirement adds an estimated total of 118 annual burden
+hours and 471 responses into the new information collection request.
+Once this new collection is merged into OMB Control Number 0584-0026,
+USDA expects that an additional 118 hours and 471 responses will be
+added to the collection.
+USDA expects that as a result of the changes, more LEAs electing
+CEP will be electing CEP for all schools in the LEA, or district wide.
+This will result in a decrease in the number of LEAs required to
+process free and reduced price meal applications and conduct
+verification.
+USDA estimates 471 fewer LEAs than currently approved under OMB
+Control Number 0584-0026 will be required to fulfill the requirement at
+7 CFR 245.6(c)(6)(i), that requires LEAs to notify households of
+approval of meal benefit applications. USDA estimates that 14,869 LEA
+respondents will be required to notify 219 households of approval of
+meal benefit applications each year and that it takes approximately one
+minute (.02 hours) to complete this reporting requirement for each
+record. The reporting requirement adds a total of 65,126 annual burden
+hours and 3,256,311 responses into the new information collection
+request. Once this new collection is merged into OMB Control Number
+0584-0026, USDA expects that there will be an approximate decrease of
+2,288 hours and 114,364 responses.
+USDA estimates 471 fewer LEAs than currently approved under OMB
+Control Number 0584-0026 will be required to fulfill the requirement at
+7 CFR 245.6(c)(6)(ii), that requires LEAs to notify households in
+writing that children are eligible for free meals based on direct
+certification and that no application is required. USDA estimates that
+14,869 LEA respondents will be required to notify 332 households in
+writing that children are eligible for free meals based on direct
+certification and that no application is required each year and that it
+takes approximately one minute (.02 hours) to complete this reporting
+requirement for each record. The reporting requirement adds a total of
+98,730 annual burden hours and 4,936,508 responses into the new
+information collection request. Once this new collection is merged into
+OMB Control Number 0584-0026, USDA expects that there will be an
+approximate decrease of 3,186 hours and 159,268 responses.
+USDA estimates 471 fewer LEAs than currently approved under OMB
+Control Number 0584-0026 will be required to fulfill the requirement at
+7 CFR 245.6(c)(7), that requires LEAs to provide written notice to each
+household of denied free or reduced price benefits. USDA estimates that
+14,869 LEA respondents will be required to provide written notice to
+approximately 12 households denied free or reduced price benefits each
+year and that it takes approximately one minute (.02 hours) to complete
+this reporting requirement for each record. The reporting requirement
+adds a total of 3,438 annual burden hours and 171,886 responses into
+the new information collection request. Once this new collection is
+merged into OMB Control Number 0584-0026, USDA expects that there will
+be an approximate decrease of 110 hours and 5,518 responses.
+USDA estimates 471 fewer LEAs than currently approved under OMB
+Control Number 0584-0026 will be required to fulfill the requirement at
+7 CFR 245.6a(f), that requires LEAs to notify households of selection
+for verification. USDA estimates that 14,869 LEA respondents will be
+required to notify
+
+[[Page 65789]]
+
+approximately seven households of selection for verification and that
+it takes approximately 15 minutes (.25 hours) to complete this
+reporting requirement for each record. The reporting requirement adds a
+total of 24,162 annual burden hours and 96,649 responses into the new
+information collection request. Once this new collection is merged into
+OMB Control Number 0584-0026, USDA expects that there will be an
+approximate decrease of 930 hours and 3,720 responses.
+USDA estimates 471 fewer LEAs than currently approved under OMB
+Control Number 0584-0026 will be required to fulfill the requirement at
+7 CFR 245.6a(j), that requires LEAs to provide households that failed
+to confirm eligibility with 10 days' notice for receiving a reduction
+or termination of free or reduced price meal benefit. USDA estimates
+that 14,869 LEA respondents will be required to provide approximately
+three households that failed to confirm eligibility with 10 days'
+notice for receiving a reduction or termination of free or reduced
+price meal benefits and that it takes approximately six minutes (.1
+hours) to complete this reporting requirement for each record. The
+reporting requirement adds a total of 3,940 annual burden hours and
+39,403 responses into the new information collection request. Once this
+new collection is merged into OMB Control Number 0584-0026, USDA
+expects that there will be an approximate decrease of 131 hours and
+1,304 responses.
+USDA estimates that 5,131 more LEAs than currently approved under
+OMB Control Number 0584-0026 will fulfill the requirement at 7 CFR
+245.9(f)(5), that requires LEAs to submit to the State agency for
+publication a list of eligible and potentially eligible schools and
+their eligibility status, unless otherwise exempted by the State
+agency. USDA estimates that 5,131 LEA respondents will be required to
+submit to the State agency for publication a list of eligible and
+potentially eligible schools and their eligibility status each year and
+that it takes approximately five minutes (.08 hours) to complete this
+reporting requirement for each record. The reporting requirement adds a
+total of 410 annual burden hours and 5,131 responses into the new
+information collection request. Once this new collection is merged into
+OMB Control Number 0584-0026, USDA expects that 410 hours and 5,131
+responses will be added to the collection.
+USDA estimates that 471 more LEAs than currently approved under OMB
+Control Number 0584-0026 will fulfill the requirement at 7 CFR
+245.9(g), that requires LEAs to amend free and reduced policy
+statements and certify that schools meet the eligibility criteria when
+electing CEP and that it takes approximately six minutes (.1 hours) to
+complete this reporting requirement for each record. The reporting
+requirement adds a total of 47 annual burden hours and 471 responses
+into the new information collection request. Once this new collection
+is merged into OMB Control Number 0584-0026, USDA expects that an
+additional 47 hours and 471 responses will be added to the collection.
+Households
+Since households attending schools participating in CEP are not
+required to submit applications, USDA estimates that, with the changes,
+108,941 fewer households than currently approved under OMB Control
+Number 0584-0026 will be required to fulfill the requirement at
+245.6(a)(1), that requires households to complete an application form
+for free or reduced price meal benefits. USDA estimates that 3,439,137
+household respondents will be required to submit applications and that
+it takes approximately seven minutes (.110 hours) to complete this
+reporting requirement for each record. The reporting requirement adds a
+total of 378,305 annual burden hours and 3,439,137 responses into the
+new information collection request. Once this new collection is merged
+into OMB Control Number 0584-0026, USDA expects that there will be an
+approximate decrease of 11,984 hours and 108,941 responses.
+Households attending schools participating in CEP are also not
+required to assemble written evidence for verification of eligibility
+for free and reduced price meals and send to LEA. USDA estimates that
+3,082 fewer households than currently approved under OMB Control Number
+0584-0026 will be required to fulfill the requirement at Sec. 245.6a
+(a)(7)(i), that requires households to assemble written evidence for
+verification of eligibility for free and reduced price meals and send
+to the LEA. USDA estimates that 97,287 household respondents will be
+required to assemble written evidence for verification of eligibility
+for free and reduced price meals and that it takes approximately 30
+minutes (.5 hours) to complete this reporting requirement for each
+record. The reporting requirement adds a total of 48,644 annual burden
+hours and 97,287 responses into the new information collection request.
+Once this new collection is merged into OMB Control Number 0584-0026,
+USDA expects that there will be an approximate decrease of 1,542 hours
+and 3,082 responses.
+
+Recordkeeping
+
+State Agencies
+The changes in this final rule will impact the existing
+recordkeeping requirement currently approved under OMB Control Number
+0584-0026 and found at 7 CFR 245.9(f)(4)(ii), that require State
+agencies to review and confirm LEAs' eligibility to participate in CEP.
+USDA expects that State agencies will need to review an additional 471
+LEAs with schools newly electing CEP, based on the changes in this rule
+and after analyzing more recent and accurate CEP participation data
+that became available after USDA published the proposed rule. USDA
+estimates that 54 State Agency respondents will be required to review
+and confirm LEAs' eligibility to participate in Provision 1, 2, or 3 or
+the Community Eligibility Provision for approximately 471 LEAs electing
+CEP each year and that it takes approximately five minutes (.08 hours)
+to complete this recordkeeping requirement for each record. The
+recordkeeping requirement adds a total of 38 annual burden hours and
+471 responses into the new information collection request. Once this
+new collection is merged into OMB Control Number 0584-0026, USDA
+expects that an additional 38 hours and 471 responses will be added to
+the collection.
+LEAs
+The changes in this final rule will impact the existing reporting
+requirements currently approved under OMB Control Number 0584-0026 for
+LEAs. USDA expects that as a result of the changes, more LEAs electing
+CEP will be electing CEP for all schools in the LEA, or district wide.
+This will result in a decrease in the number of LEAs required to
+maintain documentation substantiating eligibility determinations. USDA
+estimates 471 fewer LEAs than currently approved under OMB Control
+Number 0584-0026 will be required to fulfill the requirement at 7 CFR
+245.6(e) to maintain documentation substantiating eligibility
+determinations for three years after the end of the fiscal year. USDA
+estimates that 14,869 LEA respondents will be required to maintain
+documentation related to substantiating eligibility determinations for
+three years after the end of the fiscal year and that it takes
+approximately 5 minutes (.08 hours) to complete this recordkeeping
+requirement for each record. The recordkeeping requirement adds a total
+
+[[Page 65790]]
+
+of 1,190 annual burden hours and 14,869 responses into the new
+information collection request. Once this new collection is merged into
+OMB Control Number 0584-0026, USDA expects that there will be an
+approximate decrease of 37 hours and 471 responses.
+USDA expects that as a result of the changes, 471 more LEAs than
+currently approved under OMB Control Number 0584-0026 will elect CEP
+and be required to fulfill the recordkeeping requirement at 7 CFR
+245.9(h)(3) that LEAs maintain documentation related to the methodology
+used to calculate the identified student percentage and determine
+eligibility for the CEP. USDA estimates that 471 LEA respondents will
+be required to maintain documentation related to methodology used to
+calculate the identified student percentage and determine eligibility
+and that it takes approximately 55 minutes (.910 hours) to complete
+this recordkeeping requirement for each record. The recordkeeping
+requirement adds a total of 429 annual burden hours and 471 responses
+into the new information collection request. Once this new collection
+is merged into OMB Control Number 0584-0026, USDA expects that an
+additional 429 hours and 471 responses will be added to the collection.
+USDA does not expect lowering the threshold to participate in CEP
+to an ISP of 25 percent to impact the approved public notification
+requirements at 7 CFR 245.9(f)(7). While this rule will increase the
+number of schools eligible for the CEP, the burden for states to notify
+LEAs of their community eligibility status due to the increased number
+of eligible schools is already captured above in the reporting
+requirements at 7 CFR 245.9(f)(6). Making these lists publicly
+available will not take any additional time than is currently approved
+under OMB Control Number 0584-0026. Accordingly, this requirement is
+not addressed in this information collection.
+
+One Time Annual Cost
+
+In recognition that State agencies may have to update or reprogram
+systems to accommodate the proposed minimum ISP, FNS is adding an
+estimated one-time, system modification cost, which will be included in
+the information collection request associated with this final rule. FNS
+received 2 comments that State agencies may modify existing systems in
+response to this rulemaking. In addition, FNS met with another State
+agency on August 16, 2023, and discussed how lowering the minimum ISP
+would impact that State's system. FNS received feedback indicating
+updates to State systems could be done efficiently and in time to allow
+LEAs the opportunity to implement CEP at the lower ISP threshold soon
+after the final rule was effective, and encouraged FNS to allow mid-
+year election.
+Given the wide variation of systems in place, programming and
+maintenance costs across State agencies varies. After considering
+feedback and analyzing different systems States have in place, FNS is
+including an estimated one-time cost of $2,000 per State agency to make
+system modifications in response to the lowered ISP. As a result of the
+proposals outlined in this final rule, FNS estimates that this
+collection is expected to have $108,000 in costs related to system
+modifications, which will be added as a one-time, annual cost to the
+information collection requirements associated with the final rule, OMB
+Control Number 0584-00XX.
+
+Summary
+
+As a result of the proposals outlined in this final rule, FNS
+estimates that this new information collection will have 3,454,060
+respondents, 12,064,195 responses, and 624,833 burden hours. The
+average burden per response and the annual burden hours are explained
+below and summarized in the charts which follow. Once the information
+collection requirement (ICR) for the final rule is approved and the
+requirements and associated burden for this new information collection
+are merged into the existing collection, FNS estimates that the burden
+for OMB Control Number 0584-0026 will decrease by 384,522 responses and
+18,908 burden hours. The collection will also have a one-time increase
+of $108,000 in annual costs related to system modifications.
+Reporting
+Respondents (Affected Public): Individual/Households; and State,
+Local and Tribal Government. The respondent groups identified include
+households, State Agencies and LEAs.
+Estimated Number of Respondents: 3,454,060.
+Estimated Number of Responses per Respondent: 3.49.
+Estimated Total Annual Responses: 12,048,384.
+Estimated Time per Response: 0.052 (approximately 3 minutes).
+Estimate Total Annual Burden on Respondents: 623,177 hours.
+Recordkeeping
+Respondents (Affected Public): State, Local and Tribal Government.
+The respondent groups identified include State Agencies and LEAs.
+Estimated Number of Respondents: 14,923.
+Estimated Number of Responses per Respondent: 1.06.
+Estimated Total Annual Responses: 15,811.
+Estimated Time per Response: .105 (approximately 6 minutes).
+Estimate Total Annual Burden on Respondents: 1,656 hours.
+BILLING CODE 3410-30-P
+
+[[Page 65791]]
+
+[GRAPHIC] [TIFF OMITTED] TR26SE23.001
+
+[[Page 65792]]
+
+[GRAPHIC] [TIFF OMITTED] TR26SE23.002
+
+[[Page 65793]]
+
+[GRAPHIC] [TIFF OMITTED] TR26SE23.003
+
+[[Page 65794]]
+
+[GRAPHIC] [TIFF OMITTED] TR26SE23.004
+
+BILLING CODE 3410-30-C
+
+E-Government Act Compliance
+
+The Department is committed to complying with the E-Government Act,
+to promote the use of the internet and other information technologies
+to provide increased opportunities for citizen access to Government
+information and services, and for other purposes.
+
+List of Subjects in 7 CFR Part 245
+
+Civil rights, Food assistance programs, Grant programs--education,
+Grant programs--health, Infants and children, Milk, Reporting and
+recordkeeping requirements, School breakfast and lunch programs.
+
+Accordingly, 7 CFR part 245 is amended as follows:
+
+PART 245--DETERMINING ELIGIBILITY FOR FREE AND REDUCED PRICE MEALS
+AND FREE MILK IN SCHOOLS
+
+0
+1. The authority citation for 7 CFR part 245 continues to read as
+follows:
+
+Authority: 42 U.S.C. 1752, 1758, 1759a, 1772, 1773, and 1779.
+
+Sec. 245.9 [Amended]
+
+0
+2. In Sec. 245.9, in paragraph (f), remove ``40 percent'' and ``30
+percent'' wherever they appear and add in their places ``25 percent''
+and ``15 percent'', respectively.
+
+Cynthia Long,
+Administrator, Food and Nutrition Service.
+[FR Doc. 2023-20294 Filed 9-25-23; 8:45 am]
+BILLING CODE 3410-30-P

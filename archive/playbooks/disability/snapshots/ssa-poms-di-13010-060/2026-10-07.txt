@@ -1,0 +1,519 @@
+Skip to content
+
+Program Operations Manual System (POMS)
+
+Effective Dates: 06/18/2024 - Present
+Previous | Next
+
+TN 89 (12-25)
+
+DI 13010.060 Determining Trial Work Period (TWP) Service Months and Evaluating Subsequent Work
+Activity
+
+A. Service Months
+
+Table of service months
+
+For Year
+
+Wages-Earnings in a month are “services” for TWP if more than:
+
+Self-Employment-earnings or activities in a month are “services” for TWP if more than:
+
+2026
+
+$1,210
+
+$1,210 or 80 hours*
+
+2025
+
+$1,160
+
+$1,160 or 80 hours*
+
+2024
+
+$1,110
+
+$1,110 or 80 hours*
+
+2023
+
+$1,050
+
+$1,050 or 80 hours*
+
+2022
+
+$970
+
+$970 or 80 hours*
+
+2021
+
+$940
+
+$940 or 80 hours*
+
+2020
+
+$910
+
+$910 or 80 hours*
+
+2019
+
+$880
+
+$880 or 80 hours*
+
+2018
+
+$850
+
+$850 or 80 hours*
+
+2017
+
+$840
+
+$840 or 80 hours*
+
+2016
+
+$810
+
+$810 or 80 hours*
+
+2015
+
+$780
+
+$780 or 80 hours*
+
+2014
+
+$770
+
+$770 or 80 hours*
+
+2013
+
+$750
+
+$750 or 80 hours*
+
+2012
+
+$720
+
+$720 or 80 hours*
+
+2011
+
+$720
+
+$720 or 80 hours*
+
+2010
+
+$720
+
+$720 or 80 hours*
+
+2009
+
+$700
+
+$700 or 80 hours*
+
+2008
+
+$670
+
+$670 or 80 hours*
+
+2007
+
+$640
+
+$640 or 80 hours*
+
+2006
+
+$620
+
+$620 or 80 hours*
+
+2005
+
+$590
+
+$590 or 80 hours*
+
+2004
+
+$580
+
+$580 or 80 hours*
+
+2003
+
+$570
+
+$570 or 80 hours*
+
+2002
+
+$560
+
+$560 or 80 hours*
+
+2001
+
+$530
+
+$530 or 80 hours*
+
+1990-2000
+
+$200
+
+$200 or 40 hours*
+
+1979-1989
+
+$75
+
+$75 or 15 hours*
+
+Before 1979
+
+$50
+
+$50 or 15 hours*
+
+*NOTE: The number of hours that indicate a self-employment month for a TWP is different
+from the number of hours used in the evaluation of self-employment for substantial
+gainful activity (SGA).
+
+B. TWP services
+
+1. Work that constitutes services
+
+Work activity in employment constitutes services only if it is actually or usually
+performed for remuneration or profit:
+
+•
+
+Only count services that produce earnings higher than the TWP amounts in a month either
+in cash or for earnings that are normally done for pay or profit.
+
+•
+
+Commissions constitute services when it is possible to isolate the earnings for each
+particular month. When it is not possible to isolate the earnings, divide the commissions
+for the particular period by the months of employment to find the commissions earned
+per month.
+
+•
+
+Sheltered workshop earnings, under a program of rehabilitation training constitute
+“services” for TWP purposes.
+
+•
+
+Vocational rehabilitation (VR) program earnings constitute “services” for TWP purposes.
+
+•
+
+Paid internship programs or work therapy programs constitute “services” for TWP purposes.
+
+References:
+
+•
+
+RS
+02101.270B, Services for Sheltered Workshops
+
+•
+
+DI 13501.001, The Vocational Rehabilitation (VR) Program
+
+•
+
+DI 13010.025, Referral Procedure
+
+2. Work that does not constitute services
+
+Work activity performed without remuneration, (e.g., therapy, training, or self-care)
+does not constitute services if the activity, although resembling services in employment
+for remuneration or gain, is:.
+
+•
+
+part of a prescribed program of medical therapy; or
+
+•
+
+carried out in a hospital under the supervision of medical and administrative staff;
+or
+
+•
+
+the result of a beneficiary performing as a volunteer in a program under the Domestic
+Volunteer Service Act (DVSA) or the Small Business Act; or
+
+•
+
+not performed in an employer-employee relationship per RS 02101.005.
+
+NOTE: Participants in Federally sponsored volunteer programs under the DVSA may receive
+a stipend or allowance for volunteer services. Neither the stipend (“earnings”) received
+by the volunteers, nor the services performed by them under the DVSA, should be evaluated
+for the purposes of the TWP. This protection does not apply to any work that the volunteer
+may undertake in activities outside the specified programs. It also does not apply
+to non-volunteers who are associated with the program. For further discussion, and
+a listing of the DVSA programs that applies to this exclusion, see DI 10505.025.
+
+3. Services in self-employment
+
+•
+
+Work activity in self-employment constitutes “services” only when net earnings in
+a calendar month are more than the dollar amount shown in The table of service months,
+or if the self-employed person spends more than the amount of hours shown in that
+month in the work activity.
+
+•
+
+Use eWork to record self-employment income and hours of work. The eWork system propagates
+the earnings information onto the Verify/Update Earnings (VERN) screen in the Disability
+Control File (DCF).
+
+•
+
+When it is not possible to determine the total net earnings for each particular month
+of self-employment, divide the net earnings for the particular work period by the
+months of self-employment to find net earnings per month.
+
+C. Determining service months
+
+It is important to determine how many months in the TWP are actual service months.
+It may be necessary for you to combine the findings from a current review with the
+findings of previous reviews to arrive at the total service months completed in the
+TWP. When you evaluate work activity, take the following steps:
+
+1. Use earnings from any reliable source
+
+Use verified earnings information on the supplemental security income record (SSR), along with
+the beneficiary's statement of work to determine service months for TWP purposes.
+Do not rely solely on SSR wage information to determine if a beneficiary has used
+a TWP month. Continuing disability review (CDR) procedures apply at the end of the
+TWP (for work CDR procedure, see DI 13010.025).
+
+2. Count the number of service months in a TWP
+
+It is not complicated when only one period of work activity is involved. However,
+because the nine service months do not have to be consecutive, you may need to consider
+work in several periods over several years. It may be necessary for you to combine
+the findings from a current review with the findings of previous reviews to arrive
+at the total service months completed in the TWP.
+
+3. Query eWork or the disability control file (DCF)
+
+Check to see if eWork or the DCF contains the necessary information about prior determinations.
+While querying eWork, access the “earnings and events” screen by clicking on the “View
+Prior Decision” button on the Work Review Summary screen. When there is no pending
+work review, click on the “Query Work Development” button. You can access completed
+cases by clicking on the “View Prior Decisions/Retransmit” button. In the initial
+conversion, when the DCF converted TWP data from the Master Beneficiary Record (MBR),
+the system attempted to determine service months. It posted these earnings as “C”
+if it believed it properly converted the information. If the DCF did not determine
+exact TWP data, it posted what it determined to be the most likely months, and posted
+these months as “Q” for questionable. Accept both entries of “C” and “Q” as verified
+earnings.
+
+4. Note the TWP ending date on the DCF
+
+Evaluate the ending date on the DCF to determine TWP service months: Based on converted
+data or on a month previously posted to the DCF; the DCF screen shows the TWP service
+month of “9”.
+
+5. Additional queries
+
+Carefully review all related queries and the work development screen in eWork for
+any prior work activity. Review the claims folder for evidence of prior periods of
+work. If it is in the paper folder, you may find the prior periods of work on an SSA-3845,
+Trial Work Period Tally Sheet. Other obtainable queries: Shared process evidence screen from the SSA MAIN screen, PC Paperless System, the
+MBR special message field, and Claims File Record Management System (CFRMS).
+
+References:
+
+•
+
+MSOM CDR 001.003, CDR Entitlement Screen (ECDR)
+
+•
+
+DI 13010.655, The Query Earnings (QERN) Screen
+
+•
+
+DI 13010.675, The Verify/Update Earnings (VERN) Screen
+
+•
+
+DI 13010.677, The Entitlement Selection (ESEL) Screen
+
+•
+
+DI 13010.679, The Entitlement Summary (ESUM) Screen
+
+D. Determining the rolling 60-Month period
+
+1. Background
+
+Effective 01/1992, a TWP is complete only when a beneficiary for disability insurance
+benefits (DIB), disabled widow’s benefits (DWB), or childhood disability benefits
+(CDB) completes nine service months within a 60 consecutive month rolling period.
+The earliest that we can credit a ninth service month under the rolling 60-month TWP
+provisions is 01/1992. For that reason, the first service month that we can credit
+under the rolling 60-month TWP provision is 02/1987.
+
+2. When the 60-month period applies
+
+Apply the rolling 60-month TWP in an initial or subsequent period of entitlement to
+DIB, DWB, or CDB, if the beneficiary:
+
+•
+
+completed less than nine TWP service months as of 01/1992 (i.e., eight or less TWP
+service months are credited prior to 01/1992); and
+
+•
+
+has not medically recovered (i.e., disability has not been found to have ceased due
+to medical improvement, or an exception to medical improvement (e.g., SGA)).
+
+3. How to count the 60-month period
+
+When a beneficiary completes nine service months (01/1992 or later), count back 60
+consecutive months to see if the nine service months were completed in that 60-month
+period.
+
+If they were not completed:
+
+•
+
+the service months that fall before the 60-month period are ignored,
+
+•
+
+the service months that fall within the 60-month period are counted, and
+
+•
+
+the TWP continues.
+
+Each time that a service month is used, count to determine if nine service months
+are completed within the 60-month period, ending with the ninth service month. Consider
+the TWP complete when you identify nine service months within a 60-month period.
+
+4. Work issue determinations made August 10, 2000 and later
+
+If the TWP is not completed prior to 01/1992, apply the provisions of the rolling
+60-month TWP. Do not count service months for the rolling 60-month TWP before 02/1987.
+The earliest that a beneficiary can complete a TWP under the rolling 60 month TWP
+provision is 01/1992.
+
+5. Work issue determinations made prior to August 10, 2000
+
+When a beneficiary did not complete a TWP before 01/1992, (e.g., if they completed
+eight or fewer service months before 01/1992, or if the beneficiary was re-entitled
+to DIB or DWB, so the work was never evaluated under the TWP service month criteria)
+find the beneficiary entitled to a rolling 60-month TWP beginning with 01/1992. The
+ninth service month of the rolling 60-month TWP could not have been completed prior
+to 01/1992.
+
+Determine the first possible 60-month period when pre-01/1992 TWP service months were
+possible by:
+
+•
+
+counting the first service month in or after 01/1992, and the last eight service months
+immediately prior to that month, and
+
+•
+
+disregarding the months of work before these nine months when crediting services in
+the TWP.
+
+E. Evaluating work after the TWP
+
+When a beneficiary works after completing the TWP, determine if the work activity
+shows an ability to engage in SGA.
+
+•
+
+If it does, the disability has ceased, if it does not, determine that the disability
+continues.
+
+•
+
+Returning to work may present a medical improvement issue. If this issue is present,
+and the beneficiary is not protected from a medical CDR, consider if the beneficiary
+may be protected from a medical review under the Ticket to Work program, or under
+Section 111 of the Ticket to Work and Work Incentives Improvement Act of 1999 (see
+DI 55001.001 or DI 13010.012).
+
+•
+
+If the beneficiary is not protected from a medical review, send the case to the Disability
+Determination Services (DDS) for a medical CDR. If SGA continues for at least one
+month following completion of the TWP, and the beneficiary has met all the other rules
+related to SGA cessation, use the SGA exception to medical improvement, and find that
+disability ceased. For instructions on how to complete the SSA-833-U3, see DI 13010.170).
+
+EXAMPLE: If the ninth TWP month is 12/2002, and we made a SGA decision on 01/2003, there
+must have been actual performance of SGA in the month of 1/2003 before we can find
+that the disability ceased in 01/2003. If work does not continue for at least one
+month at the SGA level, you can not use the SGA exception to medical improvement.
+
+NOTE: Section 303 of the 1980 amendment provides a re-entitlement period, or EPE, to beneficiaries
+who have completed their TWP. The re-entitlement period is a period of time where
+the beneficiary may test their ability to work, and receives a disability payment
+for any month that they do not perform SGA.
+
+When evaluating work after the TWP, your determination must take into consideration
+whether substantial gainful work is continuing, or, if it has stopped. Also, how long
+has the work lasted? What was the reason the work stopped? Finally, consider all relevant
+work incentives: i.e., unsuccessful work attempts (UWA) averaging, IRWEs, unincurred
+business expenses, and subsidy, when applicable. Evaluate work activity, and decide
+if it is SGA by using the SGA policies. Disability ceases when the beneficiary demonstrates
+a continuing ability to engage in SGA.
+
+References:
+
+•
+
+DI 10501.015, Tables of Substantial Gainful Activity (SGA) Earnings Guidelines and Effective Dates
+Based on Year of Work Activity
+
+•
+
+DI 10505.001, General - Evaluation and Development of Employment
+
+•
+
+DI 13010.210, Extended Period of Eligibility (EPE)
+
+To Link to this section - Use this URL:
+http://policy.ssa.gov/poms.nsf/lnx/0413010060
+
+DI 13010.060 - Determining Trial Work Period (TWP) Service Months and Evaluating Subsequent Work Activity - 06/18/2024
+
+Batch run: 05/08/2026
+
+Rev:06/18/2024

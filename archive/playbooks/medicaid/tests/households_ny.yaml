@@ -1,0 +1,872 @@
+# Synthetic NY households for the Medicaid playbook. No real people.
+program: medicaid
+scope: ny
+cases:
+- id: MCD-NY-T01
+  title: Single adult 30, wages $1,836/mo — exactly 138% FPL
+  as_of: '2026-11-02'
+  tags:
+  - single
+  - threshold
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 30
+    incomes:
+    - kind: earned
+      monthly: 1836
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: adult_expansion
+    rules_include:
+    - MCD-NY-MAGI-ADULT
+  crosscheck:
+    policyengine: true
+- id: MCD-NY-T02
+  title: Single adult 30, wages $1,837/mo — $1 over 138% FPL
+  as_of: '2026-11-02'
+  tags:
+  - single
+  - threshold
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 30
+    incomes:
+    - kind: earned
+      monthly: 1837
+      owner: a
+    assets: []
+  expect:
+    status: ineligible
+    rules_include:
+    - MCD-NY-MAGI-ADULT
+  crosscheck:
+    policyengine: true
+- id: MCD-NY-T03
+  title: Married parents with one child (household of 3), wages $3,142/mo — at 138% FPL for 3
+  as_of: '2026-11-02'
+  tags:
+  - couple
+  - threshold
+  - family
+  household:
+    state: ny
+    members: &id001
+    - id: a
+      age: 30
+      relationship: self
+    - id: b
+      age: 31
+      relationship: spouse
+    - id: c
+      age: 5
+      relationship: child
+    incomes:
+    - kind: earned
+      monthly: 3142
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: parent_caretaker
+    rules_include:
+    - MCD-NY-MAGI-PARENT
+  crosscheck:
+    policyengine: true
+- id: MCD-NY-T04
+  title: Married parents with one child, wages $3,143/mo — $1 over 138% FPL for 3
+  as_of: '2026-11-02'
+  tags:
+  - couple
+  - threshold
+  - family
+  household:
+    state: ny
+    members: *id001
+    incomes:
+    - kind: earned
+      monthly: 3143
+      owner: a
+    assets: []
+  expect:
+    status: ineligible
+  crosscheck:
+    policyengine: true
+- id: MCD-NY-T05
+  title: Single parent with two children (5 and 8), wages $2,000/mo
+  as_of: '2026-11-02'
+  tags:
+  - family
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 35
+    - id: c1
+      age: 5
+      relationship: child
+    - id: c2
+      age: 8
+      relationship: child
+    incomes:
+    - kind: earned
+      monthly: 2000
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: parent_caretaker
+    rules_include:
+    - MCD-NY-MAGI-PARENT
+  crosscheck:
+    policyengine: true
+- id: MCD-NY-T06
+  title: Single adult 40, no income
+  as_of: '2026-11-02'
+  tags:
+  - single
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 40
+    incomes: []
+    assets: []
+  expect:
+    status: eligible
+    tier: adult_expansion
+  crosscheck:
+    policyengine: true
+- id: MCD-NY-T07
+  title: Single 70-year-old with Medicare, Social Security $1,856.00/mo — at the non-MAGI income limit
+  as_of: '2026-11-02'
+  tags:
+  - single
+  - threshold
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 1856
+      owner: a
+    assets:
+    - kind: cash
+      value: 5000
+      owner: a
+  expect:
+    status: eligible
+    tier: ssi_related
+    rules_include:
+    - MCD-NY-SSI-RELATED-INCOME
+  crosscheck:
+    policyengine: true
+- id: MCD-NY-T08
+  title: Single 70-year-old, Social Security $1,857.00/mo — $1 over the non-MAGI income limit
+  as_of: '2026-11-02'
+  tags:
+  - single
+  - threshold
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 1857
+      owner: a
+    assets:
+    - kind: cash
+      value: 5000
+      owner: a
+  expect:
+    status: eligible
+    tier: spenddown
+    amounts:
+      spenddown_monthly: 1
+  crosscheck:
+    policyengine: true
+- id: MCD-NY-T09
+  title: Single 70-year-old, Social Security $1,200, savings $33,038 — at the asset limit
+  as_of: '2026-11-02'
+  tags:
+  - single
+  - threshold
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 1200
+      owner: a
+    assets:
+    - kind: cash
+      value: 33038
+      owner: a
+  expect:
+    status: eligible
+    tier: ssi_related
+    rules_include:
+    - MCD-NY-RESOURCE-LEVEL
+  crosscheck:
+    policyengine: true
+- id: MCD-NY-T10
+  title: Single 70-year-old, Social Security $1,200, savings $33,039 — $1 over the asset limit
+  as_of: '2026-11-02'
+  tags:
+  - single
+  - threshold
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 1200
+      owner: a
+    assets:
+    - kind: cash
+      value: 33039
+      owner: a
+  expect:
+    status: eligible
+    tier: spenddown
+    amounts:
+      excess_resources: 1
+  crosscheck:
+    policyengine: true
+  note: 'New York: excess resources can be spent down on medical bills (MCD-NY-EXCESS-RESOURCES).'
+- id: MCD-NY-T11
+  title: Married couple both 72 with Medicare, Social Security $1,300 + $900, savings $20,000
+  as_of: '2026-11-02'
+  tags:
+  - couple
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 72
+      medicare_part_a: true
+      medicare_part_b: true
+    - id: b
+      age: 72
+      relationship: spouse
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 1300
+      owner: a
+    - kind: social_security
+      monthly: 900
+      owner: b
+    assets:
+    - kind: cash
+      value: 20000
+      owner: a
+  expect:
+    status: eligible
+    tier: ssi_related
+  crosscheck:
+    policyengine: true
+- id: MCD-NY-T12
+  title: 'Spenddown / share of cost: single 72-year-old, Social Security $2,500/mo'
+  as_of: '2026-11-02'
+  tags:
+  - single
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 72
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 2500
+      owner: a
+    assets:
+    - kind: cash
+      value: 5000
+      owner: a
+  expect:
+    status: eligible
+    tier: spenddown
+    amounts:
+      spenddown_monthly: 644
+  crosscheck:
+    policyengine: true
+- id: MCD-NY-T13
+  title: 'Person with Medicare under 65: 55-year-old on SSDI ($1,500/mo) with Medicare — not in the adult group'
+  as_of: '2026-11-02'
+  tags:
+  - single
+  - other_benefits
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 55
+      disabled: true
+      benefits:
+      - ssdi
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 1500
+      owner: a
+    assets:
+    - kind: cash
+      value: 3000
+      owner: a
+  expect:
+    status: eligible
+    tier: ssi_related
+    rules_include:
+    - MCD-FED-NONMAGI-GROUPS
+  crosscheck:
+    policyengine: true
+- id: MCD-NY-T14
+  title: Adult applying December 15, 2026 — 3 retroactive months, 12-month renewal
+  as_of: '2026-12-15'
+  tags:
+  - timing
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 30
+    incomes:
+    - kind: earned
+      monthly: 1000
+      owner: a
+    assets: []
+    facts:
+      application_date: '2026-12-15'
+  expect:
+    status: eligible
+    tier: adult_expansion
+    amounts:
+      retroactive_months: 3
+      renewal_interval_months: 12
+    rules_include:
+    - MCD-FED-RETRO-3-MONTHS
+  crosscheck:
+    policyengine: false
+- id: MCD-NY-T15
+  title: Adult applying January 5, 2027, working 90 hours — 1 retroactive month, 6-month renewal
+  as_of: '2027-01-05'
+  tags:
+  - timing
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 30
+      facts:
+        community_engagement_hours: 90
+    incomes:
+    - kind: earned
+      monthly: 1000
+      owner: a
+    assets: []
+    facts:
+      application_date: '2027-01-05'
+  expect:
+    status: eligible
+    tier: adult_expansion
+    amounts:
+      retroactive_months: 1
+      renewal_interval_months: 6
+    rules_include:
+    - MCD-FED-RETRO-2027
+    - MCD-FED-COMMUNITY-ENGAGEMENT
+  crosscheck:
+    policyengine: false
+  note: 2027 dates use the latest published (2026) state levels until the 2027 tables are added.
+- id: MCD-NY-T16
+  title: 70-year-old applying January 5, 2027 — 2 retroactive months
+  as_of: '2027-01-05'
+  tags:
+  - timing
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 1200
+      owner: a
+    assets:
+    - kind: cash
+      value: 1000
+      owner: a
+    facts:
+      application_date: '2027-01-05'
+  expect:
+    status: eligible
+    tier: ssi_related
+    amounts:
+      retroactive_months: 2
+      renewal_interval_months: 12
+  crosscheck:
+    policyengine: false
+- id: MCD-NY-T17
+  title: Adult 30 with no income and no work activity in February 2027 — fails community engagement
+  as_of: '2027-02-01'
+  tags:
+  - timing
+  - edge
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 30
+    incomes: []
+    assets: []
+  expect:
+    status: ineligible
+    rules_include:
+    - MCD-FED-COMMUNITY-ENGAGEMENT
+  crosscheck:
+    policyengine: false
+- id: MCD-NY-T18
+  title: Adult 30, medically frail, no income, February 2027 — excluded from community engagement
+  as_of: '2027-02-01'
+  tags:
+  - timing
+  - edge
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 30
+      facts:
+        medically_frail: true
+    incomes: []
+    assets: []
+  expect:
+    status: eligible
+    tier: adult_expansion
+    rules_include:
+    - MCD-FED-CE-EXCLUSIONS
+  crosscheck:
+    policyengine: false
+- id: MCD-NY-T19
+  title: Adult 30 earning $600/mo (over 80 x $7.25 = $580), February 2027 — meets community engagement by income
+  as_of: '2027-02-01'
+  tags:
+  - timing
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 30
+    incomes:
+    - kind: earned
+      monthly: 600
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: adult_expansion
+    rules_include:
+    - MCD-FED-COMMUNITY-ENGAGEMENT
+  crosscheck:
+    policyengine: false
+- id: MCD-NY-T20
+  title: Pregnant 28-year-old (household of 2 with the unborn child), income $4,022/mo — at the pregnancy limit
+  as_of: '2026-11-02'
+  tags:
+  - single
+  - threshold
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 28
+      pregnant: true
+    incomes:
+    - kind: earned
+      monthly: 4022
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: pregnant
+    rules_include:
+    - MCD-NY-MAGI-PREGNANT
+  crosscheck:
+    policyengine: false
+  note: 'Not cross-checked: PolicyEngine needs the unborn child count as a separate input.'
+- id: MCD-NY-T21
+  title: Refugee aged 40, wages $1,000/mo, November 2026 (after the October 1, 2026 federal change)
+  as_of: '2026-11-02'
+  tags:
+  - edge
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 40
+      citizen_or_qualified: true
+      facts:
+        immigration_status: refugee_asylee
+    incomes:
+    - kind: earned
+      monthly: 1000
+      owner: a
+    assets: []
+  expect:
+    status: ineligible
+    links_include:
+    - essential_plan:refer
+    rules_include:
+    - MCD-NY-IMMIGRANT-2026
+  crosscheck:
+    policyengine: false
+- id: MCD-NY-T22
+  title: 70-year-old receiving SSI ($994) only, savings $1,000
+  as_of: '2026-11-02'
+  tags:
+  - other_benefits
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 70
+      benefits:
+      - ssi
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: ssi
+      monthly: 994
+      owner: a
+    assets:
+    - kind: cash
+      value: 1000
+      owner: a
+  expect:
+    status: eligible
+    tier: ssi_recipient
+    links_include:
+    - disability:ssi_medicaid
+  crosscheck:
+    policyengine: true
+- id: MCD-NY-T23
+  title: 'Working 67-year-old with Medicare: Social Security $900 + wages $1,500'
+  as_of: '2026-11-02'
+  tags:
+  - single
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 67
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 900
+      owner: a
+    - kind: earned
+      monthly: 1500
+      owner: a
+    assets:
+    - kind: cash
+      value: 2000
+      owner: a
+  expect:
+    status: eligible
+    tier: ssi_related
+  crosscheck:
+    policyengine: false
+- id: MCD-NY-T24
+  title: Adult 30 in June 2025 — no 2025 MAGI table in the archive
+  as_of: '2025-06-01'
+  tags:
+  - unresolved
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 30
+    incomes:
+    - kind: earned
+      monthly: 1000
+      owner: a
+    assets: []
+  expect:
+    status: undetermined
+  crosscheck:
+    policyengine: false
+- id: MCD-NY-T25
+  title: Single adult 30 at $2,000/mo — over 138%, cannot spend down (single/childless)
+  as_of: '2026-11-02'
+  tags:
+  - single
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 30
+    incomes:
+    - kind: earned
+      monthly: 2000
+      owner: a
+    assets: []
+  expect:
+    status: ineligible
+    rules_include:
+    - MCD-NY-SCC-NO-SPENDDOWN
+    links_include:
+    - essential_plan:refer
+  crosscheck:
+    policyengine: false
+- id: MCD-X-00
+  title: 'Cross-state: 70-year-old with Medicare, Social Security $1,200, $60,000 savings'
+  as_of: '2026-11-02'
+  tags:
+  - cross_state
+  - single
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 1200
+      owner: a
+    assets:
+    - kind: cash
+      value: 60000
+      owner: a
+  expect:
+    status: eligible
+    tier: spenddown
+    amounts:
+      excess_resources: 26962
+  compare_states:
+    ca:
+      status: eligible
+      tier: aged_disabled_fpl
+    il:
+      status: eligible
+      tier: aabd_spenddown
+      amounts:
+        excess_resources: 42500
+  crosscheck:
+    policyengine: true
+  note: 'NY: over $33,038 by $26,962 (resource spenddown); CA: under $130,000, zero share of cost; IL: over $17,500 by $42,500 (spenddown).'
+- id: MCD-X-01
+  title: 'Cross-playbook (MSP): 70-year-old, Social Security $1,800 — SSI-related Medicaid and QMB together'
+  as_of: '2026-11-02'
+  tags:
+  - cross_playbook
+  - other_benefits
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 1800
+      owner: a
+    assets:
+    - kind: cash
+      value: 5000
+      owner: a
+  expect:
+    status: eligible
+    tier: ssi_related
+    rules_include:
+    - MCD-NY-SSI-RELATED-INCOME
+  also:
+  - program: msp
+    expect:
+      status: eligible
+      tier: QMB
+  crosscheck:
+    policyengine: true
+- id: MCD-X-02
+  title: 'Cross-playbook (LTC): 80-year-old asking Medicaid to pay for a nursing home — handed to ltc_medicaid'
+  as_of: '2026-11-02'
+  tags:
+  - cross_playbook
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 80
+      facts:
+        seeking_ltc: true
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 1500
+      owner: a
+    assets:
+    - kind: cash
+      value: 20000
+      owner: a
+  expect:
+    status: undetermined
+    links_include:
+    - ltc_medicaid:evaluate
+    rules_include:
+    - MCD-FED-LTC-HANDOFF
+  crosscheck:
+    policyengine: false
+  note: The ltc_medicaid playbook evaluates institutional Medicaid; community Medicaid here does not.
+- id: MCD-X-03
+  title: 'Cross-playbook (disability/SSI): 50-year-old disabled SSI recipient with Medicaid via SSI in NY; Illinois requires an AABD application'
+  as_of: '2026-11-02'
+  tags:
+  - cross_playbook
+  - cross_state
+  - other_benefits
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 50
+      disabled: true
+      benefits:
+      - ssi
+    incomes:
+    - kind: ssi
+      monthly: 994
+      owner: a
+    assets:
+    - kind: cash
+      value: 500
+      owner: a
+  expect:
+    status: eligible
+    tier: ssi_recipient
+    rules_include:
+    - MCD-NY-SSI-AUTO
+    links_include:
+    - disability:ssi_medicaid
+  compare_states:
+    ca:
+      status: eligible
+      tier: ssi_recipient
+    il:
+      status: eligible
+      tier: adult_expansion
+      rules_include:
+      - MCD-IL-209B
+  crosscheck:
+    policyengine: false
+  note: 'Illinois: SSI is not counted as MAGI income, so a disabled SSI recipient under 65 without Medicare qualifies as an ACA Adult; the disability
+    playbook covers SSI itself (DIS-X-02).'
+- id: MCD-X-04
+  title: 'Cross-playbook (school meals): single parent and child, wages $1,500 — Medicaid household data can directly certify the child for free
+    meals'
+  as_of: '2026-11-02'
+  tags:
+  - cross_playbook
+  - family
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 33
+    - id: c
+      age: 9
+      relationship: child
+    incomes:
+    - kind: earned
+      monthly: 1500
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: parent_caretaker
+  crosscheck:
+    policyengine: false
+  note: Income $1,500 is under 133% FPL for 2 ($2,398), the direct-certification ceiling in 1902(a)(7)(B); whether NY uses Medicaid data is for
+    the school_meals playbook.
+- id: MCD-X-05
+  title: 'Cross-playbook (SNAP): Illinois single adult, wages $1,200, applying for medical and SNAP on one ABD application'
+  as_of: '2026-11-02'
+  tags:
+  - cross_playbook
+  household:
+    state: il
+    members:
+    - id: a
+      age: 45
+    incomes:
+    - kind: earned
+      monthly: 1200
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: adult_expansion
+  crosscheck:
+    policyengine: false
+  note: IL444-2378B / ABE take cash, medical and SNAP together; SNAP eligibility is for the snap playbook.
+- id: MCD-X-06
+  title: 'Cross-playbook (turning 65): New Yorker just turned 65 with Medicare, SS $1,700, savings $40,000 — leaves the adult group'
+  as_of: '2026-11-02'
+  tags:
+  - cross_playbook
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 65
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 1700
+      owner: a
+    assets:
+    - kind: cash
+      value: 40000
+      owner: a
+  expect:
+    status: eligible
+    tier: spenddown
+    amounts:
+      excess_resources: 6962
+    rules_include:
+    - MCD-FED-NONMAGI-GROUPS
+  crosscheck:
+    policyengine: false
+  note: At 64 without Medicare the same income would pass the 138% adult test with no asset test; at 65 the $33,038 resource level applies.

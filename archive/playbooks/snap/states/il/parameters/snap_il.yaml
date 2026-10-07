@@ -1,0 +1,101 @@
+# Illinois SNAP numbers that add to or differ from the federal tables (IDHS
+# Manual Releases and the WAG 25-03-02 program standards chart).
+parameters:
+  - id: il.snap.bbce_gross_income_limit_monthly
+    description: Illinois gross income limit for households without a qualifying (elderly or disabled) member, 165% of the poverty level (broad-based categorical eligibility).
+    compare_to: >-
+      Total non-excluded gross monthly household income (court-ordered child
+      support paid is excluded first, PM 13-01-07). Households at or below it
+      are categorically eligible: no resource test and no net income test.
+    unit: usd_per_month
+    keyed_by: household_size (1-10; additional = each person above 10)
+    updates: Each October 1 (IDHS COLA Manual Release).
+    values:
+      - effective_from: 2025-10-01
+        effective_to: 2026-09-30
+        value: {1: 2152, 2: 2909, 3: 3665, 4: 4421, 5: 5177, 6: 5934, 7: 6690, 8: 7446, 9: 8203, 10: 8960, additional: 757}
+        confidence: confirmed
+        sources:
+          - {source: il-idhs-mr-25-33, locator: "Maximum Monthly Income Eligibility Standards: Maximum Gross Income Standards 165% FPL"}
+          - {source: il-idhs-snap-page, locator: "Gross Monthly Income Limit (165% FPL) ... (Updated 10/1/2025)"}
+      - effective_from: 2026-10-01
+        effective_to: 2027-09-30
+        value: {1: 2195, 2: 2976, 3: 3757, 4: 4538, 5: 5319, 6: 6100, 7: 6881, 8: 7662, 9: 8443, 10: 9224, additional: 781}
+        confidence: confirmed
+        sources:
+          - {source: il-idhs-mr-26-26, locator: "Maximum Monthly Income Eligibility Standards: 165% FPL column"}
+          - {source: il-idhs-wag-25-03-02-1, locator: "SNAP Maximum Gross Income Standard 165% FPL (No Qualifying Member) Effective 10/01/2026"}
+  - id: il.snap.bbce_qm_gross_income_limit_monthly
+    description: Illinois gross income limit for categorical eligibility of households with a qualifying (elderly or disabled) member, 200% of the poverty level.
+    compare_to: >-
+      Total non-excluded gross monthly household income. At or below it the
+      household is categorically eligible; above it the household may still
+      qualify under the regular net income and resource tests.
+    unit: usd_per_month
+    keyed_by: household_size (1-10; additional = each person above 10)
+    updates: Each October 1.
+    values:
+      - effective_from: 2025-10-01
+        effective_to: 2026-09-30
+        value: {1: 2608, 2: 3525, 3: 4441, 4: 5358, 5: 6275, 6: 7191, 7: 8108, 8: 9025, 9: 9941, 10: 10858, additional: 917}
+        confidence: confirmed
+        sources:
+          - {source: il-idhs-mr-25-33, locator: "Maximum Gross Income Standards 200% FPL column"}
+      - effective_from: 2026-10-01
+        effective_to: 2027-09-30
+        value: {1: 2660, 2: 3607, 3: 4554, 4: 5500, 5: 6447, 6: 7394, 7: 8340, 8: 9287, 9: 10234, 10: 11180, additional: 947}
+        confidence: confirmed
+        sources:
+          - {source: il-idhs-mr-26-26, locator: "Maximum Gross Income Standards 200% FPL column"}
+          - {source: il-idhs-wag-25-03-02-1, locator: "SNAP Maximum Gross Income Standard 200% FPL (Qualifying Member) Effective 10/01/2026"}
+  - id: il.snap.standard_deduction_monthly
+    description: Illinois SNAP standard deduction by household size as IDHS budgets it (key 6 = six or more); $4 below the FNS table (see SNAP-IL-CONFLICT-01).
+    unit: usd_per_month
+    keyed_by: household_size (1-5; 6 = six or more)
+    updates: Each October 1.
+    values:
+      - effective_from: 2025-10-01
+        effective_to: 2026-09-30
+        value: {1: 205, 2: 205, 3: 205, 4: 219, 5: 257, 6: 295}
+        confidence: confirmed
+        sources:
+          - {source: il-idhs-mr-25-33, locator: "The Standard Deduction amount by SNAP household size: 1 through 3 persons $205; 4 persons $219; 5 persons $257; 6 or more persons $295"}
+      - effective_from: 2026-10-01
+        effective_to: 2027-09-30
+        value: {1: 213, 2: 213, 3: 213, 4: 225, 5: 264, 6: 304}
+        confidence: confirmed
+        sources:
+          - {source: il-idhs-mr-26-26, locator: "Standard Deductions: 1-3 Persons $213; 4 Persons $225; 5 Persons $264; 6+ Persons $304"}
+          - {source: il-idhs-wag-25-03-02-1, locator: "SNAP Standard Deductions (10/26)"}
+  - id: il.snap.utility_standards_monthly
+    description: Illinois SNAP utility standards (Air Conditioning/Heating, Limited Utility, Single Utility, Telephone).
+    unit: usd_per_month
+    keyed_by: "ac_heat, limited, single, telephone"
+    updates: Each October 1 (FNS-approved annual review).
+    values:
+      - effective_from: 2025-10-01
+        effective_to: 2026-09-30
+        value: {ac_heat: 546, limited: 457, single: 78, telephone: 67}
+        confidence: confirmed
+        sources:
+          - {source: il-idhs-mr-25-33, locator: "SNAP Utility Standards: Air Conditioning/Heating $546, Limited $457, Single $78, Telephone $67"}
+          - {source: fns-snap-sua-fy26, locator: "Illinois row: 546, 457, 78 (each single utility), 67"}
+      - effective_from: 2026-10-01
+        effective_to: 2027-09-30
+        value: {ac_heat: 565, limited: 472, single: 80, telephone: 69}
+        confidence: confirmed
+        sources:
+          - {source: il-idhs-mr-26-26, locator: "SNAP Utility Standards: Air Conditioning/Heating Standard $565, Limited $472, Single $80, Telephone $69"}
+          - {source: il-idhs-wag-25-03-02-1, locator: "SNAP Utility Standards (10/2026)"}
+  - id: il.snap.standard_medical_deduction_monthly
+    description: Illinois Standard Medical Deduction for households with a qualifying member living in the community (not a group home or CILA) whose verified medical costs exceed $35.
+    unit: usd_per_month
+    updates: Rarely; the chart dates this amount 12/21.
+    values:
+      - effective_from: 2021-12-01
+        value: 185
+        confidence: confirmed
+        note: The Illinois Administrative Code (third-party copy) gives $150 with actual costs allowed above $185; see SNAP-IL-CONFLICT-02.
+        sources:
+          - {source: il-idhs-wag-25-03-02-1, locator: "Standard Medical Deduction ... All other SNAP households with Qualifying Members $185 (12/21)"}
+          - {source: il-idhs-wag-13-01-05, locator: "The Standard Medical Deduction for all other eligible Food Assistance households is $185."}

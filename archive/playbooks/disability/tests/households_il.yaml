@@ -1,0 +1,520 @@
+# Synthetic IL households for the Disability playbook (SSI, state supplement, SSDI). No real people.
+program: disability
+scope: il
+cases:
+- id: DIS-IL-T01
+  title: 'Single 70, SS $1,014, Cook County renter paying utilities: federal breakeven'
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - threshold
+  household:
+    state: il
+    members:
+    - id: a
+      age: 70
+    incomes:
+    - kind: social_security
+      monthly: 1014
+      owner: a
+    assets: []
+    county: Cook
+    expenses:
+      rent: 500
+    facts:
+      il_utilities_paid: &id001
+      - water
+      - electricity
+      - cooking_fuel
+      - heat_metered_gas
+  expect:
+    status: eligible
+    tier: SSI
+    rules_include:
+    - DIS-FED-SSI-BREAKEVEN
+    - DIS-IL-AABD-AMOUNT
+    open_questions_include:
+    - DIS-FED-OQ-01
+    amounts:
+      ssi_federal_monthly: 0.0
+      state_supplement_monthly: 11.58
+      total_monthly: 11.58
+  crosscheck:
+    policyengine: true
+  note: Needs 62.43 + 97 + (3.80+5.55+3.00+11.90) + 816.90 = 1,000.58; income 1,014 - 25 = 989; AABD 11.58.
+- id: DIS-IL-T02
+  title: 'Single 70, SS $1,015: $1 over federal breakeven, AABD only'
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - threshold
+  household:
+    state: il
+    members:
+    - id: a
+      age: 70
+    incomes:
+    - kind: social_security
+      monthly: 1015
+      owner: a
+    assets: []
+    county: Cook
+    expenses:
+      rent: 500
+    facts:
+      il_utilities_paid: *id001
+  expect:
+    status: eligible
+    tier: STATE_SUPPLEMENT_ONLY
+    amounts:
+      ssi_federal_monthly: 0.0
+      state_supplement_monthly: 10.58
+      total_monthly: 10.58
+  crosscheck:
+    policyengine: true
+- id: DIS-IL-T03
+  title: 'Single 70, SS $1,024.58: needs exceed income by exactly $1 (AABD minimum)'
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - threshold
+  household:
+    state: il
+    members:
+    - id: a
+      age: 70
+    incomes:
+    - kind: social_security
+      monthly: 1024.58
+      owner: a
+    assets: []
+    county: Cook
+    expenses:
+      rent: 500
+    facts:
+      il_utilities_paid: *id001
+  expect:
+    status: eligible
+    tier: STATE_SUPPLEMENT_ONLY
+    amounts:
+      ssi_federal_monthly: 0.0
+      state_supplement_monthly: 1.0
+      total_monthly: 1.0
+  crosscheck:
+    policyengine: true
+- id: DIS-IL-T04
+  title: 'Single 70, SS $1,025: needs exceed income by only $0.58, under the $1 minimum'
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - threshold
+  household:
+    state: il
+    members:
+    - id: a
+      age: 70
+    incomes:
+    - kind: social_security
+      monthly: 1025
+      owner: a
+    assets: []
+    county: Cook
+    expenses:
+      rent: 500
+    facts:
+      il_utilities_paid: *id001
+  expect:
+    status: ineligible
+    tier: null
+    amounts:
+      ssi_federal_monthly: 0.0
+      state_supplement_monthly: 0.0
+      total_monthly: 0.0
+  crosscheck:
+    policyengine: true
+- id: DIS-IL-T05
+  title: 'Aged 67 working, wages $2,073 (federal earned breakeven): AABD earned disregards leave income above needs'
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - threshold
+  household:
+    state: il
+    members:
+    - id: a
+      age: 67
+    incomes:
+    - kind: earned
+      monthly: 2073
+      owner: a
+    assets: []
+    county: Cook
+    expenses:
+      rent: 500
+    facts:
+      il_utilities_paid: *id001
+  expect:
+    status: eligible
+    tier: SSI
+    amounts:
+      ssi_federal_monthly: 0.0
+      state_supplement_monthly: 0.0
+      total_monthly: 0.0
+  crosscheck:
+    policyengine: true
+  note: AABD income 2,073 - 25 - 20 - 30 = 1,998 > needs 1,000.58.
+- id: DIS-IL-T06
+  title: Married couple both 70, SS $600 + $500, Cook County, rent $800, utilities paid
+  as_of: '2026-03-01'
+  tags:
+  - couple
+  household:
+    state: il
+    members:
+    - id: a
+      age: 70
+    - id: b
+      age: 69
+      relationship: spouse
+    incomes:
+    - kind: social_security
+      monthly: 600
+      owner: a
+    - kind: social_security
+      monthly: 500
+      owner: b
+    assets: []
+    county: Cook
+    expenses:
+      rent: 800
+    facts:
+      il_utilities_paid: *id001
+  expect:
+    status: eligible
+    tier: SSI
+    rules_include:
+    - DIS-FED-SSI-COUPLE
+    - DIS-IL-AABD-AMOUNT
+    amounts:
+      ssi_federal_monthly: 411.0
+      state_supplement_monthly: 410.6
+      total_monthly: 821.6
+  crosscheck:
+    policyengine: true
+  note: 'Each spouse: needs 57.25 + 48.50 + 13.15 + 816.90 = 935.80; incomes 205.50+600-25 = 780.50 and 680.50; AABD 155.30
+    + 255.30.'
+- id: DIS-IL-T07
+  title: 'Aged 68 (SS $500) with ineligible working spouse: SSI deemed, AABD unresolved'
+  as_of: '2026-03-01'
+  tags:
+  - couple
+  household:
+    state: il
+    members:
+    - id: a
+      age: 68
+    - id: b
+      age: 60
+      relationship: spouse
+    incomes:
+    - kind: social_security
+      monthly: 500
+      owner: a
+    - kind: earned
+      monthly: 1200
+      owner: b
+    assets: []
+    county: Cook
+    expenses:
+      rent: 800
+  expect:
+    status: eligible
+    tier: SSI
+    rules_include:
+    - DIS-FED-SSI-DEEM-SPOUSE
+    open_questions_include:
+    - DIS-IL-OQ-01
+    amounts:
+      ssi_federal_monthly: 443.5
+  crosscheck:
+    policyengine: true
+- id: DIS-IL-T08
+  title: Single 70, SS $800, savings $2,000
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - threshold
+  household:
+    state: il
+    members:
+    - id: a
+      age: 70
+    incomes:
+    - kind: social_security
+      monthly: 800
+      owner: a
+    assets:
+    - kind: cash
+      value: 2000
+      owner: a
+    county: Cook
+    expenses:
+      rent: 500
+    facts:
+      il_utilities_paid: *id001
+  expect:
+    status: eligible
+    tier: SSI
+    amounts:
+      ssi_federal_monthly: 214.0
+      state_supplement_monthly: 11.58
+      total_monthly: 225.58
+  crosscheck:
+    policyengine: true
+- id: DIS-IL-T09
+  title: Single 70, SS $800, savings $2,001
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - threshold
+  household:
+    state: il
+    members:
+    - id: a
+      age: 70
+    incomes:
+    - kind: social_security
+      monthly: 800
+      owner: a
+    assets:
+    - kind: cash
+      value: 2001
+      owner: a
+    county: Cook
+    expenses:
+      rent: 500
+    facts:
+      il_utilities_paid: *id001
+  expect:
+    status: ineligible
+    tier: null
+    amounts:
+      ssi_federal_monthly: 0.0
+      state_supplement_monthly: 0.0
+      total_monthly: 0.0
+  crosscheck:
+    policyengine: true
+- id: DIS-IL-T10
+  title: Single 70, no income, lives in her daughter's home, pays nothing (VTR)
+  as_of: '2026-03-01'
+  tags:
+  - edge
+  household:
+    state: il
+    members:
+    - id: a
+      age: 70
+    - id: d
+      age: 45
+      relationship: child
+    incomes: []
+    assets: []
+    county: Cook
+    facts:
+      living_arrangement: household_of_another
+  expect:
+    status: eligible
+    tier: SSI
+    rules_include:
+    - DIS-FED-SSI-VTR
+    - DIS-IL-AABD-STANDARD
+    amounts:
+      ssi_federal_monthly: 662.67
+      state_supplement_monthly: 236.48
+      total_monthly: 899.15
+  crosscheck:
+    policyengine: true
+  note: Needs 57.25 (2 eating together) + 0 shelter + 816.90 = 874.15; income 662.67 - 25 = 637.67; AABD 236.48.
+- id: DIS-IL-T11
+  title: Homeowner 70 in DuPage County, property costs $150/mo, pays electricity and gas heat, SS $900
+  as_of: '2026-03-01'
+  tags:
+  - single
+  household:
+    state: il
+    members:
+    - id: a
+      age: 70
+    incomes:
+    - kind: social_security
+      monthly: 900
+      owner: a
+    assets: []
+    county: DuPage
+    expenses:
+      property_tax: 100
+      homeowners_insurance: 50
+    facts:
+      il_utilities_paid:
+      - electricity
+      - heat_metered_gas
+  expect:
+    status: eligible
+    tier: SSI
+    amounts:
+      ssi_federal_monthly: 114.0
+      state_supplement_monthly: 4.33
+      total_monthly: 118.33
+  crosscheck:
+    policyengine: true
+  note: 'Area 2: needs 62.43 + 97 + 6.80 + 10.20 + 816.90 = 993.33; income 114 + 900 - 25 = 989; AABD 4.33.'
+- id: DIS-IL-T12
+  title: 'Utilities claimed but county not given: AABD standard cannot be built'
+  as_of: '2026-03-01'
+  tags:
+  - edge
+  - unresolved
+  household:
+    state: il
+    members:
+    - id: a
+      age: 70
+    incomes:
+    - kind: social_security
+      monthly: 800
+      owner: a
+    assets: []
+    county: null
+    expenses:
+      rent: 500
+    facts:
+      il_utilities_paid: *id001
+  expect:
+    status: eligible
+    tier: SSI
+    rules_include:
+    - DIS-IL-AABD-UTILITIES
+    open_questions_include:
+    - DIS-IL-OQ-04
+    amounts:
+      ssi_federal_monthly: 214.0
+- id: DIS-IL-T13
+  title: 'Bedfast 80, rent $300, no utility costs, SS $500: SSI but no AABD'
+  as_of: '2026-03-01'
+  tags:
+  - single
+  household:
+    state: il
+    members:
+    - id: a
+      age: 80
+    incomes:
+    - kind: social_security
+      monthly: 500
+      owner: a
+    assets: []
+    county: Cook
+    expenses:
+      rent: 300
+    facts:
+      il_bedfast: true
+  expect:
+    status: eligible
+    tier: SSI
+    amounts:
+      ssi_federal_monthly: 514.0
+      state_supplement_monthly: 0.0
+      total_monthly: 514.0
+  note: Needs 48.11 + 97 + 816.90 = 962.01 < income 514 + 500 - 25 = 989.
+- id: DIS-IL-T14
+  title: 'SSDI: disabled 52, insured, wages $1,690 (at SGA), medical decision not yet made'
+  as_of: '2026-03-01'
+  tags:
+  - threshold
+  - procedure
+  household:
+    state: il
+    members:
+    - id: a
+      age: 52
+      facts:
+        ssdi_insured: true
+    incomes:
+    - kind: earned
+      monthly: 1690
+      owner: a
+    assets: []
+    facts:
+      claim: ssdi
+  expect:
+    status: undetermined
+    tier: null
+    rules_include:
+    - DIS-FED-SSDI-SGA
+    - DIS-FED-SSDI-DDS
+  note: The archive does not evaluate the medical criteria; the Illinois DDS decides.
+- id: DIS-IL-T15
+  title: 'Medicaid link: SSI recipient in Illinois must apply separately for AABD medical (209(b))'
+  as_of: '2026-03-01'
+  tags:
+  - cross_playbook
+  household:
+    state: il
+    members:
+    - id: a
+      age: 70
+    incomes:
+    - kind: social_security
+      monthly: 700
+      owner: a
+    assets: []
+    county: Cook
+    expenses:
+      rent: 500
+    facts:
+      il_utilities_paid: *id001
+  expect:
+    status: eligible
+    tier: SSI
+    rules_include:
+    - DIS-IL-MEDICAID-209B
+    links_include:
+    - medicaid:separate_application_209b
+    amounts:
+      ssi_federal_monthly: 314.0
+      state_supplement_monthly: 11.58
+      total_monthly: 325.58
+  crosscheck:
+    policyengine: true
+  note: The Medicaid playbook should not treat SSI as automatic Medicaid in Illinois.
+- id: DIS-IL-T16
+  title: 'Non-citizen 70 who does not meet SSI immigration rules: no SSI and no AABD under these rules'
+  as_of: '2026-03-01'
+  tags:
+  - edge
+  household:
+    state: il
+    members:
+    - id: a
+      age: 70
+      citizen_or_qualified: false
+    incomes:
+    - kind: social_security
+      monthly: 300
+      owner: a
+    assets: []
+    county: Cook
+    expenses:
+      rent: 500
+    facts:
+      il_utilities_paid: *id001
+  expect:
+    status: ineligible
+    tier: null
+    rules_include:
+    - DIS-FED-SSI-NONCITIZEN
+    amounts:
+      ssi_federal_monthly: 0.0
+      state_supplement_monthly: 0.0
+      total_monthly: 0.0
+  note: 'AABD has its own non-citizen categories (PM 03-03-02: 7-year-limit and 1996 cases) not encoded here.'

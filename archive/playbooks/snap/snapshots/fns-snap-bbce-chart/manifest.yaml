@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://www.fns.usda.gov/snap/broad-based-categorical-eligibility
+  final_url: https://www.fna.usda.gov/snap/broad-based-categorical-eligibility
+  status: 200
+  content_type: text/html; charset=utf-8
+  text_sha256: 5f0c5c5042828c34710ef5ac61d7fe2fd8e8a9c3e15fae17a305b90c29a3f37a
+  text: fns-snap-bbce-chart/2026-10-07.txt
+  raw: fns-snap-bbce-chart/2026-10-07.html

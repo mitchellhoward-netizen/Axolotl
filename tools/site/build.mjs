@@ -22,6 +22,7 @@ import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import vm from 'node:vm';
 
 const ROOT = path.resolve(fileURLToPath(new URL('../../', import.meta.url)));
 const OUT = path.join(ROOT, 'public');
@@ -392,7 +393,7 @@ function homeSections(s) {
       </div>
     </section>`;
 
-  return [hero, money, scan, example, after, steps, different, never, pilot, form, membersBand].join('');
+  return [hero, money, fundCalcSection(s), scan, example, after, steps, different, never, pilot, form, membersBand].join('');
 }
 
 // ── /members ──────────────────────────────────────────────────────────────────
@@ -434,7 +435,143 @@ function membersPageSections(s) {
 ${joinForm(s, 'join')}
       </div>
     </section>`;
-  return [hero, help, rules, join].join('');
+  return [hero, memberCalcSection(s), help, rules, join].join('');
+}
+
+
+// ── calculators ──────────────────────────────────────────────────────────────
+
+/** The New York MSP numbers (exported from the rules archive by
+ *  archive/tools/export_site_data.py) and the shared arithmetic in
+ *  public/msp-calc.js. Both are loaded in render(); the build prints each
+ *  calculator's default result so the page reads correctly with no script. */
+let mspRules = null;
+let MSPCalc = null;
+
+const options = (pairs, selected) =>
+  pairs
+    .map(([v, label]) => `<option value="${esc(v)}"${String(v) === String(selected) ? ' selected' : ''}>${esc(label)}</option>`)
+    .join('');
+
+/** The rules as JSON for the browser, safe inside a <script> element. */
+const rulesScript = () =>
+  `<script type="application/json" id="msp-rules">${JSON.stringify(mspRules).replace(/</g, '\\u003c')}</script>`;
+
+/** One data-tpl attribute carrying the page's templates (as JSON) to site.js. */
+const tplAttrs = (tpl, keys) => `data-tpl="${esc(JSON.stringify(Object.fromEntries(keys.map((k) => [k, tpl[k]]))))}"`;
+
+const FUND_DEFAULTS = { retirees: 2000, reimbursed: 0.5, eligibleShare: 0.1, fee: 0.2 };
+
+function fundCalcSection(s) {
+  const c = at(s, 'fundCalc');
+  const v = mspRules.values;
+  const money = (n, cents = false) => MSPCalc.money(s.lang, n, cents);
+  const hint = c.eligibleHint
+    .replace('{single}', money(v.qi_standard_monthly['1'] + v.income_disregard_monthly))
+    .replace('{couple}', money(v.qi_standard_monthly['2'] + v.income_disregard_monthly));
+  const t = MSPCalc.fundText(mspRules, FUND_DEFAULTS, c, s.lang);
+  const outRows = ['eligible', 'gross', 'fee', 'net', 'retirees']
+    .map((k) => `<li><span class="brief-v" data-out="${k}">${esc(t[k])}</span><span class="brief-l">${esc(c.out[k])}</span></li>`)
+    .join('\n              ');
+  return `
+    <section class="section t-noon" id="estimate" aria-labelledby="estimate-title">
+      <div class="wrap">
+        <h2 id="estimate-title">${payoff(c.h2Plain, c.h2Em)}</h2>
+        <p class="lead">${esc(c.lead)}</p>
+        <form class="calc" data-calc="fund" data-lang="${s.lang}" ${tplAttrs(c, ['perRetiree'])} novalidate>
+          <div class="calc-inputs">
+            <div class="field">
+              <label for="fund-retirees">${esc(c.retireesLabel)}</label>
+              <input id="fund-retirees" name="retirees" type="number" inputmode="numeric" min="0" step="1" value="${FUND_DEFAULTS.retirees}" />
+            </div>
+            <div class="field">
+              <label for="fund-reimbursed">${esc(c.shareLabel)}</label>
+              <select id="fund-reimbursed" name="reimbursed">${options(c.shareOptions, FUND_DEFAULTS.reimbursed)}</select>
+            </div>
+            <div class="field">
+              <label for="fund-eligible">${esc(c.eligibleLabel)} <output for="fund-eligible" data-out="share">${Math.round(FUND_DEFAULTS.eligibleShare * 100)}%</output></label>
+              <input id="fund-eligible" name="eligibleShare" type="range" min="1" max="40" step="1" value="${Math.round(FUND_DEFAULTS.eligibleShare * 100)}" aria-describedby="fund-eligible-hint" />
+              <span class="hint" id="fund-eligible-hint">${esc(hint)}</span>
+            </div>
+          </div>
+          <div class="calc-results brief-card" aria-live="polite">
+            <h3 class="brief-eyebrow">${esc(c.resultsTitle)}</h3>
+            <ul class="brief-rows brief-rows-money">
+              ${outRows}
+            </ul>
+            <p class="calc-line" data-out="perRetiree">${esc(t.perRetiree)}</p>
+            <p class="brief-note">${esc(c.caveat)}</p>
+          </div>
+        </form>
+        <noscript><p class="calc-noscript">${esc(c.noScript)}</p></noscript>
+        <div class="calc-scan">
+          <h3>${esc(c.scanTitle)}</h3>
+          <ul class="plain-list">${c.scanItems.map((i) => `<li>${esc(i)}</li>`).join('')}</ul>
+          <a class="button primary" href="#school-contact">${esc(c.cta)}</a>
+        </div>
+        ${rulesScript()}
+      </div>
+    </section>`;
+}
+
+const MEMBER_DEFAULTS = { couple: false, onMedicare: 1, unearned: 2050, earned: 0, reimbursed: 0.5, partA: true, medicaid: false };
+const MEMBER_TPL = ['QMB', 'QI', 'over', 'needs_part_a', 'medicaid', 'gain', 'gainNone', 'extraHelp', 'premiumOne', 'premiumEach'];
+
+function memberCalcSection(s) {
+  const c = at(s, 'members.calc');
+  const t = MSPCalc.memberText(mspRules, MEMBER_DEFAULTS, c, s.lang);
+  const d = MEMBER_DEFAULTS;
+  return `
+    <section class="section t-noon" id="check" aria-labelledby="check-title">
+      <div class="wrap">
+        <h2 id="check-title">${esc(c.h2)}</h2>
+        <p class="lead">${esc(c.lead)}</p>
+        <form class="calc" data-calc="member" data-lang="${s.lang}" ${tplAttrs(c, MEMBER_TPL)} novalidate>
+          <div class="calc-inputs">
+            <div class="field">
+              <label for="m-household">${esc(c.householdLabel)}</label>
+              <select id="m-household" name="household">${options(c.householdOptions, d.couple ? '2' : '1')}</select>
+            </div>
+            <div class="field" data-when-couple>
+              <label for="m-medicare">${esc(c.medicareLabel)}</label>
+              <select id="m-medicare" name="onMedicare">${options(c.medicareOptions, d.onMedicare)}</select>
+            </div>
+            <div class="field">
+              <label for="m-income">${esc(c.incomeLabel)}</label>
+              <input id="m-income" name="unearned" type="number" inputmode="decimal" min="0" step="1" value="${d.unearned}" aria-describedby="m-income-hint" />
+              <span class="hint" id="m-income-hint">${esc(c.incomeHint)}</span>
+            </div>
+            <div class="field">
+              <label for="m-wages">${esc(c.wagesLabel)}</label>
+              <input id="m-wages" name="earned" type="number" inputmode="decimal" min="0" step="1" value="${d.earned}" aria-describedby="m-wages-hint" />
+              <span class="hint" id="m-wages-hint">${esc(c.wagesHint)}</span>
+            </div>
+            <div class="field">
+              <label for="m-fund">${esc(c.fundLabel)}</label>
+              <select id="m-fund" name="reimbursed">${options(c.fundOptions, d.reimbursed)}</select>
+            </div>
+            <div class="field">
+              <label for="m-parta">${esc(c.partALabel)}</label>
+              <select id="m-parta" name="partA">${options(c.yesNo, 'yes')}</select>
+            </div>
+            <div class="field">
+              <label for="m-medicaid">${esc(c.medicaidLabel)}</label>
+              <select id="m-medicaid" name="medicaid">${options(c.noYes, 'no')}</select>
+            </div>
+          </div>
+          <div class="calc-results brief-card" aria-live="polite">
+            <h3 class="brief-eyebrow">${esc(c.resultsTitle)}</h3>
+            <p class="calc-headline" data-out="headline">${esc(t.headline)}</p>
+            <p class="calc-line" data-out="gain"${t.gain ? '' : ' hidden'}>${esc(t.gain)}</p>
+            <p class="calc-line" data-out="extra"${t.extra ? '' : ' hidden'}>${esc(t.extra)}</p>
+            <p class="brief-note">${esc(c.note)}</p>
+            <a class="button primary" href="#join">${esc(c.cta)}</a>
+          </div>
+        </form>
+        <noscript><p class="calc-noscript">${esc(c.noScript)}</p></noscript>
+        ${rulesScript()}
+      </div>
+    </section>`;
 }
 
 
@@ -475,8 +612,9 @@ function document(s, { title, description, canonical, alts, body, prefix, langHr
       href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/site.css?v=17" />
-    <script src="/site.js?v=17" defer></script>
+    <link rel="stylesheet" href="/site.css?v=18" />
+    <script src="/msp-calc.js?v=18" defer></script>
+    <script src="/site.js?v=18" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main">${esc(at(s, 'a11y.skip'))}</a>
@@ -508,6 +646,13 @@ async function render() {
   const lock = JSON.parse(await readFile(lockPath, 'utf8'));
   art = lock.art;
   shot = (name) => `/${name}?v=${lock.copyHash}`;
+
+  // Calculator numbers (from the rules archive) and the shared arithmetic.
+  mspRules = JSON.parse(await readFile(new URL('./msp-ny.json', import.meta.url), 'utf8'));
+  const sandbox = {};
+  vm.createContext(sandbox);
+  vm.runInContext(await readFile(path.join(OUT, 'msp-calc.js'), 'utf8'), sandbox);
+  MSPCalc = sandbox.MSPCalc;
 
   const load = async (lang) => (await import(`./strings.${lang}.mjs`)).default;
   const en = await load('en');

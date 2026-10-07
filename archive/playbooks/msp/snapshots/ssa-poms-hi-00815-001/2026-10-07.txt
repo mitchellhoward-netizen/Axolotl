@@ -1,0 +1,180 @@
+Skip to content
+
+Program Operations Manual System (POMS)
+
+Effective Dates: 01/12/2024 - Present
+Previous | Next
+
+TN 49 (01-24)
+
+HI 00815.001 State Payment of Medicare Premiums (Buy-In Program)
+
+A. Background
+
+Since the start of the Medicare program in 1966, the 50 states, the District of Columbia
+(DC), and the U.S. territories have had the option to enter into agreements with the
+Centers for Medicare & Medicaid Services (CMS) to enroll certain individuals who are
+dually eligible for Medicare and Medicaid into Medicare and pay the premiums on their
+behalf (known as “state buy-in”). See the CMS Manual
+for State Payment of Medicare Premiums, chapter 1, sections 1.0 and 1.2.
+
+For an individual who is determined eligible for, but not yet enrolled in Medicare,
+state buy-in serves to enroll the individual in Medicare Part A and/or B and directs
+the federal government to bill the state for the individual’s premiums. For an individual
+who is already enrolled in Medicare, state buy-in enables the federal government to
+bill the state for the individual’s Medicare premiums and stop collecting the premiums
+from the individual through deductions from their monthly Social Security, Railroad
+Retirement Board (RRB), or Civil Service Retirement benefits, or through CMS direct
+premium billing (Form CMS-500).
+
+B. The State Buy-in Agreement
+
+Each state and territory describe which Medicaid eligibility groups are eligible for
+state payment of Medicare premiums in their buy-in agreement with CMS. Effective January
+1, 2023, all buy-in agreements are contained in the state or territory’s Medicaid
+State Plan filed with CMS. See the chart in HI 00815.006 for state buy-in coverage in the 50 States, DC and the three U.S. territories with
+buy-in agreements.
+
+Buy-in agreements permit states and territories to directly enroll individuals covered
+under the buy-in agreement into Medicare Part A and Medicare Part B at any time, without
+regard for Medicare enrollment periods. States and territories pay the standard premium
+for individuals covered under state buy-in (i.e., states and territories do not pay
+a premium surcharge due to late enrollment that may otherwise have applied to an individual’s
+monthly premium amount).
+
+An individual’s enrollment under a State Buy-in agreement is involuntary. States must
+enroll eligible individuals in buy-in even if they do not wish to enroll. A beneficiary
+cannot voluntarily terminate State Buy-in coverage.
+
+Note:
+
+For additional information refer to CMS Manual
+for State Payment of Medicare Premiums, chapter 1, sections 1.2 and 1.4.
+
+C. State Payment of Part B Premiums (Part B Buy-in)in the 50 States and the District
+of Columbia (DC)
+
+All 50 states and DC have elected to enter into buy-in agreements to pay the Part
+B premiums for certain Medicaid beneficiaries who are Medicare-eligible. All states
+have selected one of two groups of Medicaid beneficiaries in their agreements (known
+as Part B buy-in coverage groups).
+
+Part B buy-in Coverage Group Options
+
+This Coverage Group includes:
+
+1.
+
+Cash assistance recipients and certain deemed recipients of cash assistance plus three
+Medicare Savings Programs (MSP) groups
+
+•
+
+Medicaid beneficiaries who receive cash assistance (Supplemental Security Income [SSI]
+and/or State Supplemental program [SSP] benefits);
+
+•
+
+Medicaid beneficiaries who are deemed to receive cash assistance (SSI, SSP, and at
+state option, beneficiaries who are deemed to receive the former Aid to Dependent
+Children and Families (AFDC) program); and
+
+•
+
+Individuals enrolled in one of three MSP groups: Qualified Medicare Beneficiary (QMB),
+Specified Low-Income Medicare Beneficiary (SLMB), and Qualifying Individual (QI).
+
+2.
+
+All Medicaid Beneficiaries
+
+•
+
+The three groups described above (Medicaid beneficiaries who receive cash assistance
+(SSI/SSP); Medicaid beneficiaries who are deemed to receive cash assistance (SSI/SSP,
+and at state option, AFDC); and individuals enrolled in the QMB, SLMB, and QI groups);
+and
+
+•
+
+All other Medicaid beneficiaries
+
+D. Part B Buy-in in Specified U.S. Territories
+
+The following U.S territories have elected to enter into buy-in agreements to pay
+the Part B premiums for all Medicaid beneficiaries who are Medicare-eligible.
+
+•
+
+Guam;
+
+•
+
+The Commonwealth of the Northern Mariana Islands; and
+
+•
+
+U.S. Virgin Islands
+
+The MSPs are not included in state buy-in agreements in these territories because
+no territory includes these Medicaid eligibility groups in their Medicaid programs.
+
+Note:
+
+For additional information about Part B buy-in coverage groups, refer to and Appendix
+1D.
+
+E. State Payment of Part A Premiums (Part A Buy-in) for Qualified Medicare Beneficiaries
+
+All states must pay the Part A premiums for QMB-eligible individuals who do not have
+premium-free Part A. However, states can choose one of two methods to pay the Part
+A premium for QMBs -- either through their buy-in agreement or through a group payer
+arrangement.
+
+Most states have expanded their buy-in agreements to also include the payment of Part
+A premiums for individuals who must pay a premium to enroll in Medicare Part A and
+who are eligible for the QMB eligibility group. These states are referred to as “Part
+A buy-in states.” States that do not include premium Part A for QMBs in their state
+buy-in agreements are referred to as “group payer states.” See HI 00815.021B.
+
+For more information about the payment of Medicare Part A premiums for QMBs and a
+list of Part A buy-in and group payer states, see section HI 00801.140.
+
+Note:
+
+No territories include the QMB eligibility group in their Medicaid program.
+
+1. Part A Buy-in States
+
+Part A Buy-in states include the payment of Medicare Part A premiums for QMBs in their
+buy-in agreements.
+
+•
+
+Individuals in Part A buy-in states can file for Medicare Part B with a conditional
+enrollment application for Medicare premium Part A at any time, without regard to
+enrollment periods or premium surcharges.
+
+•
+
+States can enroll eligible individuals already enrolled in Part B in the QMB group
+at any time.
+
+Late enrollment penalties do not apply.
+
+2. Group Payer States
+
+Group payer states do not include the payment of Medicare Part A premiums for QMBs
+in their buy-in agreements. Individuals who do have premium-free Part A in group payer
+states can file for premium Part A during any prescribed enrollment period. Group
+payer states pay Medicare Part A premiums and any applicable premium surcharges under
+a group payer arrangement.
+
+To Link to this section - Use this URL:
+http://policy.ssa.gov/poms.nsf/lnx/0600815001
+
+HI 00815.001 - State Payment of Medicare Premiums (Buy-In Program) - 01/12/2024
+
+Batch run: 01/06/2025
+
+Rev:01/12/2024

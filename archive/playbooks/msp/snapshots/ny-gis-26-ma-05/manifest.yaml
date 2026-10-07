@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://healthweb-back.health.ny.gov/health_care/medicaid/publications/docs/gis/26ma05.pdf
+  final_url: https://healthweb-back.health.ny.gov/health_care/medicaid/publications/docs/gis/26ma05.pdf
+  status: 200
+  content_type: application/pdf
+  text_sha256: 4ca8a9882784f913058f3a4395ba6094b1baacb06cd2961c801dac5189650e1f
+  text: ny-gis-26-ma-05/2026-10-07.txt
+  raw: ny-gis-26-ma-05/2026-10-07.pdf

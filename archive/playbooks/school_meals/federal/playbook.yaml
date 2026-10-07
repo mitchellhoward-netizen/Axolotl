@@ -1,0 +1,596 @@
+schema_version: 2
+program: school_meals
+scope: federal
+title: Free and reduced-price school meals (National School Lunch and School Breakfast Programs) — federal base
+last_researched: 2026-10-07
+
+summary:
+  plain_language: >-
+    Schools in the National School Lunch Program (NSLP) and School Breakfast
+    Program (SBP) give a child free meals when the household's gross income
+    is at or below 130% of the federal poverty guideline, and reduced-price
+    meals (no more than 40 cents for lunch and 30 cents for breakfast) at or
+    below 185%. For the 2026-27 school year (July 1, 2026 - June 30, 2027) a
+    household of four qualifies for free meals with income up to $42,900 a
+    year ($3,575 a month, $825 a week) and for reduced price up to $61,050
+    ($5,088 a month, $1,175 a week). Children in households getting SNAP,
+    TANF or FDPIR, and children who are in foster care, homeless, migrant,
+    runaway or in Head Start, get free meals without an income test. Most
+    are certified automatically by data matching (direct certification);
+    the others apply on a household application. Schools in high-poverty
+    areas can serve every child free under the Community Eligibility
+    Provision (CEP), and some states (California, New York) now pay for
+    free meals for all students, which changes what the application is for.
+  administered_by: >-
+    USDA Food and Nutrition Service (FNS) nationally; a state agency (the
+    state education department in all three archive states) runs the
+    programs; the local educational agency (school district, charter or
+    private school, called the LEA or school food authority) takes
+    applications, directly certifies children and decides eligibility.
+  funded_by: >-
+    Federal per-meal reimbursement at free, reduced-price and paid rates
+    (CEP schools are reimbursed by formula: identified student percentage
+    x 1.6 at the free rate); states add their own money, and universal-meal
+    states pay the difference up to the free rate.
+  local_names:
+    - {name: NSLP, meaning: National School Lunch Program}
+    - {name: SBP, meaning: School Breakfast Program}
+    - {name: F/RP or FRPM, meaning: free and reduced-price meals}
+    - {name: IEGs, meaning: "Income Eligibility Guidelines, USDA's yearly free (130%) and reduced-price (185%) income tables"}
+    - {name: DC, meaning: "direct certification: eligibility from agency records, with no application"}
+    - {name: DCM / DC-M, meaning: "direct certification with Medicaid (an FNS demonstration); DCM-F is free meals only, DCM-F/RP is free and reduced price"}
+    - {name: CEP, meaning: "Community Eligibility Provision: free meals for all students in a qualifying school, no applications"}
+    - {name: ISP, meaning: "identified student percentage: share of students certified free without an application"}
+    - {name: OSCE, meaning: "Other Source Categorically Eligible: foster, homeless, migrant, runaway, Head Start children"}
+    - {name: LEA / SFA, meaning: local educational agency / school food authority}
+  legal_basis: Richard B. Russell National School Lunch Act sec. 9 (42 U.S.C. 1758) and sec. 11 (42 U.S.C. 1759a, CEP); Child Nutrition Act of 1966 sec. 4 (42 U.S.C. 1773); 7 CFR parts 210, 220 and 245.
+  confidence: confirmed
+  sources:
+    - {source: usc-42-1758, locator: "(b)(1)(A), (b)(4), (b)(5), (b)(12), (b)(15)"}
+    - {source: ecfr-7-cfr-245, locator: "245.2 definitions; 245.6; 245.9(f)"}
+    - {source: fr-2026-06842-ieg, locator: "SUMMARY and Income Eligibility Guidelines table"}
+
+rules:
+  # ------------------------------------------------------------ income test
+  - id: SCH-FED-IEG-FREE
+    statement: >-
+      In every state, a child qualifies for free school meals under the NSLP and
+      SBP when the household's total current gross income is at or below 130% of
+      the federal poverty guideline; for the 2026-27 school year (July 1, 2026 -
+      June 30, 2027) the limit for a household of four is $42,900 a year, $3,575
+      a month, $1,788 twice a month, $1,650 every two weeks or $825 a week.
+    kind: eligibility
+    applies_to: [free]
+    effective_from: 2026-07-01
+    effective_to: 2027-06-30
+    parameters: [federal.usda.cn_free_fpl_percent, federal.usda.cn_ieg_free_income_limit]
+    implemented_in: playbooks/school_meals/federal/rules.py:income_test
+    confidence: confirmed
+    sources:
+      - {source: usc-42-1758, locator: "(b)(1)(A)", quote: "The income guidelines for determining eligibility for free lunches shall be 130 percent"}
+      - {source: fr-2026-06842-ieg, locator: "Income Eligibility Guidelines table, 48 contiguous States, household size 4"}
+      - {source: ecfr-7-cfr-245, locator: "245.6(c)(4)", quote: "at or below the eligibility limits specified in the Income Eligibility Guidelines"}
+  - id: SCH-FED-IEG-REDUCED
+    statement: >-
+      In every state, a child whose household gross income is above the free
+      limit and at or below 185% of the federal poverty guideline qualifies for
+      reduced-price school meals; for the 2026-27 school year the limit for a
+      household of four is $61,050 a year, $5,088 a month, $2,544 twice a month,
+      $2,349 every two weeks or $1,175 a week.
+    kind: eligibility
+    applies_to: [reduced]
+    effective_from: 2026-07-01
+    effective_to: 2027-06-30
+    parameters: [federal.usda.cn_reduced_fpl_percent, federal.usda.cn_ieg_reduced_income_limit]
+    implemented_in: playbooks/school_meals/federal/rules.py:income_test
+    confidence: confirmed
+    sources:
+      - {source: usc-42-1758, locator: "(b)(1)(A)", quote: "reduced price lunches for any school year shall be 185 percent"}
+      - {source: fr-2026-06842-ieg, locator: "Income Eligibility Guidelines table, REDUCED PRICE MEALS = 185%"}
+  - id: SCH-FED-IEG-2025-26
+    statement: >-
+      In every state, for the 2025-26 school year (July 1, 2025 - June 30, 2026)
+      the school meal income limits for a household of four were $41,795 a year
+      ($3,483 a month, $804 a week) for free meals and $59,478 a year ($4,957 a
+      month, $1,144 a week) for reduced-price meals.
+    kind: eligibility
+    applies_to: [free, reduced]
+    effective_from: 2025-07-01
+    effective_to: 2026-06-30
+    parameters: [federal.usda.cn_ieg_free_income_limit, federal.usda.cn_ieg_reduced_income_limit]
+    implemented_in: playbooks/school_meals/federal/rules.py:income_test
+    confidence: confirmed
+    sources:
+      - {source: fr-2025-03821-ieg, locator: "Income Eligibility Guidelines [Effective from July 1, 2025 to June 30, 2026], household size 4"}
+  - id: SCH-FED-SCHOOL-YEAR-IEGS
+    statement: >-
+      In every state, the school meal income limits change on July 1, not
+      January 1: each school year's limits (published by USDA in the Federal
+      Register in the spring) are the new calendar year's poverty guidelines
+      times 1.30 and 1.85, rounded up, and apply from July 1 to June 30.
+    kind: timing
+    effective_from: 2025-07-01
+    confidence: confirmed
+    sources:
+      - {source: fr-2026-06842-ieg, locator: "DATES: July 1, 2026; The Income Eligibility Guidelines paragraph"}
+      - {source: ecfr-7-cfr-245, locator: "245.3(a)", quote: "Each State agency ... shall by July 1 of each year announce family-size income standards"}
+      - {source: usc-42-1758, locator: "(b)(1)(A)", quote: "during the 12-month period beginning July 1"}
+  - id: SCH-FED-INCOME-DEFINITION
+    statement: >-
+      For school meals in every state, income means current gross income before
+      taxes and deductions of every household member, including wages, net
+      self-employment income, Social Security, pensions, child support, alimony,
+      unemployment, public assistance and regular contributions from people
+      outside the household; benefits excluded by federal statute are not
+      counted, and there is no asset test.
+    kind: definition
+    effective_from: 2026-07-01
+    implemented_in: playbooks/school_meals/federal/rules.py:income_test
+    confidence: confirmed
+    note: The "no asset test" part is an inference — neither the statute nor the IEG notice provides any resource limit, and the application asks only for income.
+    sources:
+      - {source: fr-2026-06842-ieg, locator: "Definition of Income"}
+      - {source: fns-eligibility-manual-2017, locator: "Determining Household Reportable Income"}
+  - id: SCH-FED-INCOME-TEST
+    statement: >-
+      In every state, the school (LEA) compares the household's total gross
+      income with USDA's income eligibility guideline for the household's size:
+      at or below the free figure means free meals, above it but at or below the
+      reduced-price figure means reduced price, and above that means full price
+      unless the child is categorically eligible or the school serves all
+      students free.
+    kind: eligibility
+    applies_to: [free, reduced, paid]
+    effective_from: 2025-07-01
+    parameters: [federal.usda.cn_ieg_free_income_limit, federal.usda.cn_ieg_reduced_income_limit]
+    implemented_in: playbooks/school_meals/federal/rules.py:income_test
+    confidence: confirmed
+    sources:
+      - {source: ecfr-7-cfr-245, locator: "245.6(c)(4) Calculating income"}
+      - {source: fns-eligibility-manual-2017, locator: "Determining Eligibility for Applications Based on Income", quote: "those with income at or below the income limit for free or reduced price benefits must be approved for the appropriate level of benefits"}
+  - id: SCH-FED-INCOME-CONVERSION
+    statement: >-
+      In every state, when all of a household's income is received at the same
+      frequency (for example all weekly), the school adds it and compares the
+      total with that frequency's column of the income guideline; when income
+      comes at different frequencies, the school must annualize each amount
+      (weekly x 52, every two weeks x 26, twice a month x 24, monthly x 12)
+      without rounding and compare the total with the annual figure.
+    kind: definition
+    effective_from: 2017-07-18
+    implemented_in: playbooks/school_meals/federal/rules.py:income_test
+    confidence: confirmed
+    sources:
+      - {source: fns-eligibility-manual-2017, locator: "Converting Income: No Income Conversion Required / Income Conversion Required", quote: "the LEA must annualize (calculate all income as for an entire year) by multiplying: Weekly income by 52"}
+      - {source: fr-2026-06842-ieg, locator: "Income calculations are made based on the following formulas"}
+  - id: SCH-FED-HOUSEHOLD
+    statement: >-
+      For school meals in every state, the household is everyone living together
+      as one economic unit (related or not) who share income and expenses, and
+      the income guideline for that household size applies; a foster child may
+      be listed as a household member or not, at the foster family's choice.
+    kind: definition
+    effective_from: 2017-07-18
+    implemented_in: playbooks/school_meals/federal/rules.py:income_test
+    confidence: confirmed
+    sources:
+      - {source: ecfr-7-cfr-245, locator: "245.2 Family; Household", quote: "a group of related or nonrelated individuals, who are not residents of an institution or boarding house, but who are living as one economic unit"}
+      - {source: fns-eligibility-manual-2017, locator: "Foster children (household composition)"}
+  - id: SCH-FED-REDUCED-PRICE-MAX
+    statement: >-
+      In every state, a reduced-price school meal costs the child no more than
+      40 cents for a lunch and 30 cents for a breakfast.
+    kind: benefit
+    applies_to: [reduced]
+    effective_from: 2025-07-01
+    confidence: confirmed
+    sources:
+      - {source: ecfr-7-cfr-245, locator: "245.2 Reduced price meal", quote: "the price shall not exceed 40 cents for a lunch and 30 cents for a breakfast"}
+
+  # --------------------------------------------------- categorical / direct cert
+  - id: SCH-FED-CATEGORICAL-PROGRAM
+    statement: >-
+      In every state, every child in a household where someone receives SNAP,
+      TANF cash assistance or FDPIR is categorically eligible for free school
+      meals regardless of income, either by direct certification or by giving a
+      case number on the household application.
+    kind: eligibility
+    applies_to: [free]
+    effective_from: 2025-07-01
+    implemented_in: playbooks/school_meals/federal/rules.py:household_categorical
+    confidence: confirmed
+    sources:
+      - {source: ecfr-7-cfr-245, locator: "245.2 Categorically eligible"}
+      - {source: usc-42-1758, locator: "(b)(12)(A)(i)-(ii)"}
+  - id: SCH-FED-CATEGORICAL-INDIVIDUAL
+    statement: >-
+      In every state, a child who is a foster child placed by a court or child
+      welfare agency, homeless (McKinney-Vento), migrant, a runaway served under
+      the Runaway and Homeless Youth Act, or enrolled in federal Head Start is
+      categorically eligible for free school meals; this eligibility covers that
+      child only and does not extend to other children in the household.
+    kind: eligibility
+    applies_to: [free]
+    effective_from: 2025-07-01
+    implemented_in: playbooks/school_meals/federal/rules.py:individual_categorical
+    confidence: confirmed
+    sources:
+      - {source: ecfr-7-cfr-245, locator: "245.2 Categorically eligible; Foster child; Homeless child; Migrant child; Runaway child; Head Start child"}
+      - {source: usc-42-1758, locator: "(b)(12)(A)(iii)-(vii)"}
+      - {source: fns-eligibility-manual-2017, locator: "Other Source Categorically Eligible"}
+  - id: SCH-FED-DC-SNAP
+    statement: >-
+      In every state, school districts must directly certify children in SNAP
+      households for free meals by matching SNAP records against student
+      enrollment, so these families do not need to file an application; the
+      eligibility extends to all children in the household.
+    kind: procedure
+    effective_from: 2008-07-01
+    implemented_in: playbooks/school_meals/federal/rules.py:federal_category
+    confidence: confirmed
+    sources:
+      - {source: ecfr-7-cfr-245, locator: "245.6(b)(1)(i)", quote: "All local educational agencies conducting eligibility determinations must directly certify children who are members of a household receiving assistance under SNAP"}
+      - {source: usc-42-1758, locator: "(b)(4)"}
+  - id: SCH-FED-DCM
+    statement: >-
+      Under an FNS demonstration in 44 states, school districts also directly
+      certify children who receive Medicaid (or live with someone who does): a
+      household whose Medicaid-measured income is at or below 130% of poverty is
+      certified free, and only in states approved for free and reduced-price
+      certification (DCM-F/RP) is a household between 130% and 185% certified for
+      reduced price; elsewhere those families must apply.
+    kind: eligibility
+    applies_to: [free, reduced]
+    effective_from: 2016-07-01
+    parameters: [federal.usda.dcm_free_fpl_percent, federal.usda.dcm_reduced_fpl_percent]
+    implemented_in: playbooks/school_meals/federal/rules.py:medicaid_dc
+    confidence: confirmed
+    note: Each state part records its own DCM type (free only or free and reduced) from the FNS table.
+    sources:
+      - {source: fns-dcm-demonstration, locator: "Scope of Demonstration Projects; Fifth Round ... 44 states; table"}
+      - {source: usc-42-1758, locator: "(b)(15)"}
+      - {source: fns-eligibility-manual-2017, locator: "Direct Certification with Medicaid"}
+  - id: SCH-FED-DC-PRECEDENCE
+    statement: >-
+      In every state, a child keeps the most favorable school meal category the
+      household qualifies for by any route; a direct certification normally
+      replaces a household application, but whether a reduced-price Medicaid
+      match may ever take away free status already approved from an application
+      is not settled in federal text found for this archive.
+    kind: coordination
+    effective_from: 2016-07-01
+    implemented_in: playbooks/school_meals/federal/rules.py:federal_category
+    confidence: unresolved
+    open_question: SCH-FED-OQ-03
+    note: The logic keeps the most favorable category. California states the rule for Medi-Cal matches explicitly (SCH-CA-DCM-PRECEDENCE).
+  - id: SCH-FED-NSLP-PARTICIPATION
+    statement: >-
+      Federal free and reduced-price meals are available only at schools that
+      run the National School Lunch or School Breakfast Program; a school that
+      does not participate has no federal free or reduced-price meals to offer.
+    kind: eligibility
+    effective_from: 2025-07-01
+    implemented_in: playbooks/school_meals/federal/rules.py:evaluate_federal
+    confidence: confirmed
+    note: Direct inference from 7 CFR 245.1-245.6, which apply to schools and institutions participating in the NSLP, SBP and Special Milk Program.
+    sources:
+      - {source: ecfr-7-cfr-245, locator: "245.1 General purpose and scope"}
+
+  # ------------------------------------------------------------------- CEP
+  - id: SCH-FED-CEP
+    statement: >-
+      In every state, a school, group of schools or district that elects the
+      Community Eligibility Provision serves breakfast and lunch free to every
+      enrolled student for its (up to) four-year cycle, without household
+      applications; since October 26, 2023 it qualifies with an identified
+      student percentage of at least 25% as of April 1 of the prior school year
+      (40% before), and the free reimbursement share is that percentage x 1.6.
+    kind: eligibility
+    applies_to: [free_universal]
+    effective_from: 2023-10-26
+    parameters: [federal.usda.cep_min_isp_percent, federal.usda.cep_multiplier]
+    implemented_in: playbooks/school_meals/federal/rules.py:cep
+    confidence: confirmed
+    sources:
+      - {source: ecfr-7-cfr-245, locator: "245.9(f), (f)(3)(i), (f)(4)(v)(A)"}
+      - {source: fr-2023-20294-cep, locator: "SUMMARY; DATES"}
+      - {source: fns-cep-page, locator: "Eligibility and Participation in CEP; June 30 election deadline"}
+  - id: SCH-FED-CEP-NO-APPLICATIONS
+    statement: >-
+      A school operating the Community Eligibility Provision must not collect
+      free and reduced-price meal applications; a district that wants household
+      income data from those families (for state funding or other programs) must
+      collect it on a separate form, run and paid for outside the school meal
+      programs.
+    kind: procedure
+    effective_from: 2023-10-26
+    confidence: confirmed
+    sources:
+      - {source: ecfr-7-cfr-245, locator: "245.9(f)(4)(iv) Household applications", quote: "must not collect applications for free and reduced price school meals on behalf of children in schools participating in the community eligibility provision"}
+
+  # ----------------------------------------------------------- timing
+  - id: SCH-FED-DURATION
+    statement: >-
+      In every state, once a child is approved for free or reduced-price meals
+      by application or direct certification, the approval lasts the whole
+      school year and up to 30 operating days into the next one; households do
+      not have to report income or household changes during the year.
+    kind: timing
+    effective_from: 2025-07-01
+    confidence: confirmed
+    sources:
+      - {source: ecfr-7-cfr-245, locator: "245.6(c)(1) Duration of eligibility; 245.6(c)(3)(i) Voluntary reporting of changes"}
+  - id: SCH-FED-CARRYOVER
+    statement: >-
+      In every state, at the start of a school year a child approved last year
+      keeps that free or reduced-price status for the first 30 operating days, or
+      until the school makes a new determination if sooner; after that the child
+      pays full price unless re-certified.
+    kind: timing
+    effective_from: 2025-07-01
+    parameters: [federal.usda.carryover_operating_days]
+    implemented_in: playbooks/school_meals/federal/rules.py:carryover
+    confidence: confirmed
+    sources:
+      - {source: ecfr-7-cfr-245, locator: "245.6(c)(2) Use of prior year's eligibility status"}
+  - id: SCH-FED-TRANSFER
+    statement: >-
+      In every state, when a child moves to another school in the same district,
+      the new school must accept the child's free or reduced-price approval; when
+      the child moves to a different district, the new district is permitted (and
+      encouraged) but not required to accept the old district's approval, and a
+      child leaving a CEP or Provision school for a standard school in another
+      district gets free meals for at least 10 operating days while eligibility
+      is re-established.
+    kind: timing
+    effective_from: 2019-07-01
+    confidence: confirmed
+    sources:
+      - {source: fns-eligibility-manual-2017, locator: "Transferring Within an LEA; transfers to a new LEA", quote: "When a student transfers to a new LEA, the new LEA is permitted to accept the eligibility determination from the student's former LEA [7 CFR 245.6(a)(4)]."}
+      - {source: fns-eligibility-manual-2017, locator: "transfers from Provision or CEP schools", quote: "Effective July 1, 2019, LEAs must provide free reimbursable meals for 10 operating days for a child who transfers from a Provision 1, 2, or 3 or CEP school to a non-Provision school in another LEA."}
+  - id: SCH-FED-NOTICE-10-DAYS
+    statement: >-
+      In every state, the school must tell a household whether its income
+      application is approved, and start the benefit, within 10 operating days of
+      receiving the application; a denial notice must give the reason and explain
+      how to appeal.
+    kind: procedure
+    effective_from: 2025-07-01
+    parameters: [federal.usda.application_notice_operating_days]
+    confidence: confirmed
+    sources:
+      - {source: ecfr-7-cfr-245, locator: "245.6(c)(6)(i) and (c)(7)"}
+  - id: SCH-FED-OSCE-3-DAYS
+    statement: >-
+      In every state, once a homeless liaison, shelter director, migrant
+      coordinator, Head Start official or foster agency gives the school
+      documentation of a child's status, the child must get free meals as soon as
+      possible and within three operating days.
+    kind: timing
+    effective_from: 2025-07-01
+    confidence: confirmed
+    sources:
+      - {source: ecfr-7-cfr-245, locator: "245.6(b) direct certification documentation", quote: "no later than three operating days after the date the local educational agency receives the direct certification documentation"}
+  - id: SCH-FED-VERIFICATION
+    statement: >-
+      Each school year, every district must verify a sample of approved income
+      applications — normally 3% of applications approved as of October 1, chosen
+      from error-prone ones — and finish by November 15; directly certified
+      children are not verified, and a household selected must send proof or lose
+      benefits.
+    kind: procedure
+    effective_from: 2025-07-01
+    parameters: [federal.usda.verification_sample_percent, federal.usda.verification_deadline]
+    confidence: confirmed
+    sources:
+      - {source: ecfr-7-cfr-245, locator: "245.6a(b)(1) deadline; 245.6a(c) sample size"}
+      - {source: usc-42-1758, locator: "(b)(3)(D)"}
+
+procedure:
+  applications:
+    - id: SCH-FED-PROC-ONE-APPLICATION
+      text: >-
+        One household application covers all children in the household at the
+        district. Households already directly certified (SNAP, and Medicaid
+        where allowed) do not need to apply. A household application is
+        complete with either a SNAP/TANF/FDPIR case number, or all household
+        members' names and income plus the last four digits of an adult's
+        Social Security number (or a box saying the adult has none), and an
+        adult's signature.
+      channel: any
+      confidence: confirmed
+      sources:
+        - {source: ecfr-7-cfr-245, locator: "245.6(a)"}
+        - {source: fns-eligibility-manual-2017, locator: "The School Meal Application; Complete application"}
+    - id: SCH-FED-PROC-PROTOTYPE
+      text: >-
+        USDA publishes a prototype household application and letter that state
+        agencies adapt; each state's own version is the form families actually
+        receive (see the state parts).
+      form_name: USDA prototype Application for Free and Reduced Price School Meals
+      confidence: confirmed
+      sources: [{source: fns-eligibility-manual-2017, locator: "references to SP 33-2015: Revised Prototype Free and Reduced Price Application Materials"}]
+    - id: SCH-FED-PROC-ANYTIME
+      text: A household can apply at any time during the school year (for example after a job loss); the school must decide whenever an application is submitted.
+      confidence: confirmed
+      sources: [{source: ecfr-7-cfr-245, locator: "245.6(c)(1)", quote: "must determine eligibility for free or reduced price meals when a household submits an application ... at any time during the school year"}]
+  documents:
+    - id: SCH-FED-DOC-NONE-AT-APPLICATION
+      text: >-
+        No income documents are needed to apply; proof is requested only if the
+        application is picked for verification (pay stubs, benefit letters, or
+        a case number letter).
+      confidence: confirmed
+      sources:
+        - {source: usc-42-1758, locator: "(b)(3)", quote: "documentation may be requested for verification of eligibility"}
+        - {source: ecfr-7-cfr-245, locator: "245.6a"}
+  filing:
+    - id: SCH-FED-FILE-SCHOOL
+      text: The application goes to the child's school or district (school food authority), not to a state or federal office. Paper, and in many districts online, applications are accepted.
+      channel: any
+      county_varies: true
+      confidence: confirmed
+      sources: [{source: ecfr-7-cfr-245, locator: "245.6(a)"}]
+  timelines:
+    - id: SCH-FED-TIME-10-DAYS
+      text: Decision and benefits within 10 operating days of the school receiving the application; within 3 operating days for documented foster, homeless, migrant, runaway or Head Start children.
+      duration: 10 operating days
+      confidence: confirmed
+      sources: [{source: ecfr-7-cfr-245, locator: "245.6(c)(6)(i); 245.6(b)"}]
+  approval_notice:
+    - id: SCH-FED-NOTICE-APPROVAL
+      text: The school sends a written notice of approval (free or reduced price) or of denial with the reason and appeal rights; directly certified households get a notification letter.
+      confidence: confirmed
+      sources: [{source: ecfr-7-cfr-245, locator: "245.6(c)(6)-(8)"}]
+  renewal:
+    - id: SCH-FED-RENEW-YEARLY
+      text: Approvals end 30 operating days into the next school year; households not directly certified must file a new application each school year.
+      confidence: confirmed
+      sources: [{source: ecfr-7-cfr-245, locator: "245.6(c)(1)-(2)"}]
+  county_variation:
+    - id: SCH-FED-LEA-VARIATION
+      text: Each district sets its own application address, online system and meal prices, and decides whether its schools elect CEP or Provision 2; the eligibility rules are the same everywhere.
+      county_varies: true
+      confidence: confirmed
+      sources: [{source: ecfr-7-cfr-245, locator: "245.6; 245.9"}]
+
+life_events:
+  - id: SCH-FED-LE-SCHOOL-YEAR
+    code: school_year_start
+    event: Start of a new school year (July 1 for the programs; first day of classes for carry-over)
+    why: New income limits take effect July 1; last year's approval lasts only 30 operating days; a new application is needed unless directly certified.
+    check_rules: [SCH-FED-SCHOOL-YEAR-IEGS, SCH-FED-CARRYOVER]
+    confidence: confirmed
+    sources: [{source: ecfr-7-cfr-245, locator: "245.3(a); 245.6(c)(2)"}]
+  - id: SCH-FED-LE-INCOME-DROP
+    code: income_drop
+    event: Job loss, fewer hours or end of a benefit during the school year
+    why: A household can apply at any time; current income is what counts.
+    check_rules: [SCH-FED-INCOME-TEST, SCH-FED-IEG-FREE, SCH-FED-IEG-REDUCED]
+    confidence: confirmed
+    sources: [{source: ecfr-7-cfr-245, locator: "245.6(c)(1)"}]
+  - id: SCH-FED-LE-HOUSEHOLD
+    code: household_change
+    event: Someone moves in or out, a baby is born, or a foster child is placed
+    why: Household size sets the income limit; a foster child is free on their own.
+    check_rules: [SCH-FED-HOUSEHOLD, SCH-FED-CATEGORICAL-INDIVIDUAL]
+    confidence: confirmed
+    sources: [{source: ecfr-7-cfr-245, locator: "245.2 Family; Foster child"}]
+  - id: SCH-FED-LE-BENEFIT
+    code: benefit_change
+    event: The household starts SNAP, TANF, FDPIR or Medicaid
+    why: SNAP/TANF/FDPIR make every child free (SNAP by automatic match); Medicaid can lead to direct certification where the state's demonstration allows.
+    check_rules: [SCH-FED-CATEGORICAL-PROGRAM, SCH-FED-DC-SNAP, SCH-FED-DCM]
+    confidence: confirmed
+    sources: [{source: ecfr-7-cfr-245, locator: "245.2; 245.6(b)"}]
+  - id: SCH-FED-LE-MOVE
+    code: move_county
+    event: Moving to another school district
+    why: A new school in the same district must keep the approval; a new district may (and is encouraged to) accept it but is not required to, and the new school may or may not be a CEP school.
+    check_rules: [SCH-FED-TRANSFER, SCH-FED-CEP, SCH-FED-DC-SNAP]
+    confidence: confirmed
+    sources: [{source: fns-eligibility-manual-2017, locator: "Transferring Within an LEA / Transfers to a new LEA"}]
+  - id: SCH-FED-LE-MOVE-STATE
+    code: move_state
+    event: Moving to another state
+    why: Federal limits are the same in the 48 states and DC, but universal-meal laws, Medicaid direct certification and state forms differ by state.
+    check_rules: [SCH-FED-DCM]
+    confidence: confirmed
+    sources: [{source: fns-dcm-demonstration, locator: "table of participating states"}]
+
+outcome_proof:
+  - id: SCH-FED-PROOF-NOTICE
+    evidence: School/district approval notice or direct certification letter
+    shows: The child's category (free or reduced price) and the date it starts.
+    how_to_get: Mailed or e-mailed by the district within 10 operating days of the application
+    confidence: confirmed
+    sources: [{source: ecfr-7-cfr-245, locator: "245.6(c)(6)"}]
+  - id: SCH-FED-PROOF-POS
+    evidence: The child's school meal account (point-of-sale) showing no charge or the reduced price
+    shows: Meals are being served at the approved price.
+    how_to_get: District meal-account portal or cafeteria office
+    confidence: unresolved
+    open_question: SCH-FED-OQ-04
+
+links:
+  - id: SCH-LINK-SNAP
+    playbook: snap
+    rules: [SCH-FED-CATEGORICAL-PROGRAM, SCH-FED-DC-SNAP]
+    relation: >-
+      SNAP receipt by any household member makes every child categorically
+      eligible for free school meals, and districts must directly certify SNAP
+      children by data match (no application). Approving SNAP is therefore the
+      route to free meals for a household above 130% FPL in a state whose SNAP
+      gross limit is higher (broad-based categorical eligibility).
+    test: SCH-X-01
+    confidence: confirmed
+    sources: [{source: ecfr-7-cfr-245, locator: "245.6(b)(1)"}]
+  - id: SCH-LINK-MEDICAID
+    playbook: medicaid
+    rules: [SCH-FED-DCM]
+    relation: >-
+      A child's (or household member's) Medicaid enrollment leads to direct
+      certification for free meals (income <= 130% FPL as Medicaid measures it)
+      in demonstration states, and for reduced price (<= 185%) only in DCM-F/RP
+      states. Medicaid by itself is not categorical eligibility.
+    test: SCH-X-02
+    confidence: confirmed
+    sources: [{source: fns-dcm-demonstration, locator: "Scope of Demonstration Projects"}]
+
+open_questions:
+  - id: SCH-FED-OQ-01
+    priority: medium
+    question: Has FNS replaced the 2017 Eligibility Manual for School Meals with a newer edition that changes any rule used here?
+    why_it_matters: The income-conversion and household rules rest on the 2017 edition, which FNS still links as current.
+    checked: ["FNS eligibility manual page (fna.usda.gov, updated September 10, 2026)", "NYSED 2026-27 base year memo (links the USDA manual)"]
+    affects: [SCH-FED-INCOME-CONVERSION, SCH-FED-HOUSEHOLD]
+    status: open
+  - id: SCH-FED-OQ-02
+    priority: low
+    question: When a child transfers between districts mid-year, must the new district accept the old district's approval, and for how long?
+    why_it_matters: Families who move need to know whether to re-apply at once.
+    checked: [7 CFR 245.6, Eligibility Manual 2017 (transfer students)]
+    affects: [SCH-FED-LE-MOVE]
+    status: answered
+    answer: The Eligibility Manual says a new district is permitted, not required, to accept the old approval (7 CFR 245.6(a)(4)); within a district the new school must accept it (245.3(c)). See SCH-FED-TRANSFER.
+  - id: SCH-FED-OQ-03
+    priority: low
+    question: Which FNS document (demonstration terms or policy memo) states that a reduced-price Medicaid match does not override free eligibility from an application?
+    why_it_matters: The rule is followed in this archive's logic on the basis of CDE's wording only.
+    checked: [FNS DCM demonstration page, 7 CFR 245.6, CDE direct certification page]
+    affects: [SCH-FED-DC-PRECEDENCE]
+    status: open
+  - id: SCH-FED-OQ-04
+    priority: low
+    question: What record can a parent show to prove the free or reduced-price status is in effect, other than the approval notice?
+    why_it_matters: Outcome proof for the agent; meal-account systems vary by district.
+    checked: [7 CFR 245.6(c)(6)]
+    affects: [SCH-FED-PROOF-POS]
+    status: open
+  - id: SCH-FED-OQ-05
+    priority: medium
+    question: Did FNS approve additional DCM states or change any state's DCM type for SY 2025-26 or 2026-27 (the FNS page lists rounds only through SY 2024-25)?
+    why_it_matters: A state's DCM type decides whether Medicaid families between 130% and 185% are certified for reduced price without applying.
+    checked: ["FNS DCM demonstration page (updated September 10, 2026)"]
+    affects: [SCH-FED-DCM]
+    status: open
+
+conflicts:
+  - id: SCH-FED-CONFLICT-01
+    topic: Income ceiling for direct certification with Medicaid for free meals (130% vs 133%)
+    claims:
+      - source: usc-42-1758
+        locator: "(b)(15)(A)(i)(I)(bb)"
+        says: An eligible child for Medicaid direct certification is in a family whose income as measured by Medicaid, before disregards, does not exceed 133 percent of the poverty line.
+      - source: fns-dcm-demonstration
+        locator: "Scope of Demonstration Projects"
+        says: Direct certification with Medicaid is limited to households with income not exceeding 130 percent of FPL (free) or 185 percent (reduced price), for the family size used by Medicaid.
+    handling: >-
+      The archive uses FNS's 130% / 185% demonstration standards, because the
+      demonstrations operate under the pilot authority (42 U.S.C. 1769(c)) on
+      FNS's terms and match the income guidelines. The statutory 133% text
+      governs the separate (b)(15) demonstration. The data match is run by the
+      state, so the agent should not promise a Medicaid match to a family near
+      130%.
+    affects: [federal.usda.dcm_free_fpl_percent, SCH-FED-DCM]
+    status: open

@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://www.cdss.ca.gov/inforesources/CalFresh/Supplemental-Security-Income
+  final_url: https://www.cdss.ca.gov/inforesources/calfresh/supplemental-security-income
+  status: 200
+  content_type: text/html; charset=utf-8
+  text_sha256: 3e2c4e983d9570288c2026b857ae53afd7dead0e0369bac73d971ed27796d12d
+  text: ca-cdss-calfresh-ssi/2026-10-07.txt
+  raw: ca-cdss-calfresh-ssi/2026-10-07.html

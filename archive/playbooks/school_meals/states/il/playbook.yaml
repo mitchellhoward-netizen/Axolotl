@@ -1,0 +1,309 @@
+schema_version: 2
+program: school_meals
+scope: il
+title: School meals — Illinois (federal free/reduced-price rules; Healthy School Meals for All not funded statewide)
+last_researched: 2026-10-07
+
+summary:
+  plain_language: >-
+    Illinois uses the federal rules: a child gets free meals with household
+    income at or below 130% of poverty ($42,900 a year for a family of four
+    in 2026-27), reduced-price meals up to 185% ($61,050), and otherwise pays
+    full price, unless the school serves all students free under the
+    Community Eligibility Provision (489 Illinois districts used CEP in
+    2025-26). Illinois passed a Healthy School Meals for All law in 2023, but
+    it works only "subject to appropriation" and neither the 2025-26 nor the
+    2026-27 state budget (Public Acts 104-0003 and 104-0464) funds it, so there
+    is no statewide free meals for all students.
+    Families apply on ISBE's Household Eligibility Application (HEA) unless
+    directly certified. Illinois directly certifies students from SNAP, TANF,
+    foster care records and, since 2022-23, Medicaid for both free and
+    reduced-price meals.
+  administered_by: >-
+    Illinois State Board of Education (ISBE), Nutrition Department; school
+    districts and nonpublic schools run the programs. Direct certification
+    data come from IDHS (SNAP, TANF), HFS (Medicaid) and DCFS (foster
+    children).
+  funded_by: Federal NSLP/SBP reimbursement and the state's Free Breakfast/Lunch reimbursement ($26,000,000 in FY2027, P.A. 104-0464); no Healthy School Meals for All appropriation in FY2026 or FY2027.
+  local_names:
+    - {name: HEA, meaning: "Household Eligibility Application (ISBE form 68-06 packet)"}
+    - {name: HSMFA, meaning: "Healthy School Meals for All Program, 105 ILCS 125/2.3"}
+    - {name: WINS, meaning: "Web-based Illinois Nutrition System (Electronic Direct Certification System inside it)"}
+    - {name: IWAS, meaning: ISBE Web Application Security (login)}
+    - {name: HFS, meaning: Illinois Department of Healthcare and Family Services (Medicaid)}
+  legal_basis: 105 ILCS 125/2.3 (Healthy School Meals for All, P.A. 103-532); federal 7 CFR part 245.
+  confidence: confirmed
+  sources:
+    - {source: il-isbe-ieg-release-2026, locator: "whole release"}
+    - {source: il-105-ilcs-125-2-3, locator: "(b)"}
+    - {source: il-pa-104-0464, locator: "ISBE article, Section 15"}
+    - {source: il-isbe-dc-slides-2026, locator: "slides 15-17"}
+
+rules:
+  - id: SCH-IL-HSMFA
+    statement: >-
+      Illinois's Healthy School Meals for All Program (105 ILCS 125/2.3, 2023)
+      lets participating school boards serve free meals to all students with
+      state reimbursement only "subject to appropriation", and Illinois's
+      enacted budgets for the 2025-26 and 2026-27 school years (Public Acts
+      104-0003 and 104-0464) contain no appropriation for it, so in Illinois in
+      2026-27 a household above 185% of poverty pays full price unless its
+      school is a CEP school.
+    kind: benefit
+    applies_to: [free_universal, paid]
+    effective_from: 2023-08-11
+    parameters: [il.isbe.hsmfa_statewide_funded]
+    implemented_in: playbooks/school_meals/states/il/rules.py:evaluate
+    confidence: confirmed
+    note: >-
+      Second pass: read the enacted FY2027 appropriation act (P.A. 104-0464,
+      HB 111, approved with item/reduction vetoes June 16, 2026) and the FY2026
+      act (P.A. 104-0003) on ilga.gov. ISBE's articles appropriate "For
+      Reimbursement for the Free Breakfast/Lunch Program" ($26,000,000 for FY2027)
+      but have no Healthy School Meals for All line, and no line in either act
+      mentions "Meals for All". The stand-alone $67 million bills (HB2365,
+      SB1419) were not enacted. "Not funded" is an inference from the absence
+      of a line in the acts (kept confirmed because the acts are the complete
+      appropriation for the year). Funding for 2027-28 (FY2028) is SCH-IL-OQ-03.
+    sources:
+      - {source: il-105-ilcs-125-2-3, locator: "(b)", quote: "Subject to appropriation, the State Board of Education shall establish the Healthy School Meals for All Program to begin on July 1, 2023."}
+      - {source: il-pa-104-0464, locator: "ISBE article, Section 15 (fiscal year beginning July 1, 2026)", quote: "For Reimbursement for the Free Breakfast/"}
+      - {source: il-pa-104-0003, locator: "ISBE article (fiscal year beginning July 1, 2025)"}
+      - {source: il-hb2365-status, locator: "Synopsis; Last Action"}
+      - {source: il-sb1419-status, locator: "Synopsis; Last Action"}
+      - {source: il-isbe-ieg-release-2026, locator: "paragraphs 1-4"}
+  - id: SCH-IL-HSMFA-CEP-CONDITION
+    statement: >-
+      If Illinois funds the Healthy School Meals for All Program, only school
+      boards that maximize federal funds by participating in the Community
+      Eligibility Provision or another special assistance alternative (if
+      eligible) can get the state reimbursement, and when money is short CEP
+      schools with higher identified student percentages are paid first.
+    kind: definition
+    effective_from: 2023-08-11
+    confidence: confirmed
+    sources:
+      - {source: il-105-ilcs-125-2-3, locator: "(b) and (c)"}
+  - id: SCH-IL-DCM-FREE-REDUCED
+    statement: >-
+      Since the 2022-23 school year Illinois directly certifies students with
+      federal Medicaid data for both free and reduced-price meals, at income
+      levels set by the FNS demonstration (Medicaid-measured income at or below
+      130% of poverty for free, 185% for reduced price); before 2022-23 Illinois
+      used Medicaid data for free meals only. Medicaid by itself does not qualify
+      a child, because Illinois children's Medicaid reaches above 185% of poverty.
+    kind: eligibility
+    applies_to: [free, reduced]
+    effective_from: 2022-07-01
+    parameters: [il.isbe.dcm_type, federal.usda.dcm_free_fpl_percent, federal.usda.dcm_reduced_fpl_percent]
+    implemented_in: playbooks/school_meals/federal/rules.py:medicaid_dc
+    confidence: confirmed
+    sources:
+      - {source: il-isbe-dc-slides-2026, locator: "slide 16, Direct Certification with Federal Medicaid - Free and Reduced-Price Eligibility"}
+      - {source: fns-dcm-demonstration, locator: "table: Illinois* in SY 2012-13 (free only) and SY 2022-23 (free and reduced price) columns"}
+  - id: SCH-IL-DCM-REDUCED-NOTICE
+    statement: >-
+      In Illinois, a household whose students are matched for reduced-price
+      meals through Medicaid must be sent both the direct certification
+      notification letter and a Household Eligibility Application, so it can
+      apply for free meals if its income qualifies.
+    kind: procedure
+    effective_from: 2022-07-01
+    confidence: confirmed
+    note: The reason (so the household can claim free) is an inference; the slides state only that both are required.
+    sources:
+      - {source: il-isbe-dc-slides-2026, locator: "slides 14 and 16", quote: "Notification of Reduced-Price Medicaid match requires the notification letter as well as a HEA"}
+  - id: SCH-IL-MEDICAID-NOT-ON-HEA
+    statement: >-
+      In Illinois, a Medicaid case number cannot be written on the Household
+      Eligibility Application to get meal benefits; Medicaid counts only when the
+      student is found in ISBE's Electronic Direct Certification System.
+    kind: procedure
+    effective_from: 2022-07-01
+    confidence: confirmed
+    sources:
+      - {source: il-isbe-dc-slides-2026, locator: "slide 17, Using Medicaid in Direct Certification", quote: "A Medicaid case number cannot be entered on an HEA and approved for meal benefits."}
+  - id: SCH-IL-DC-EXTENSION
+    statement: >-
+      In Illinois, if any household member is matched through SNAP, TANF or
+      income-eligible Medicaid, all students in the household get the matched
+      free or reduced-price benefit for the whole school year without an
+      application and are not subject to verification; foster, homeless, migrant
+      and Head Start eligibility does not extend to other children.
+    kind: eligibility
+    effective_from: 2022-07-01
+    confidence: confirmed
+    sources:
+      - {source: il-isbe-dc-slides-2026, locator: "slide 12, What is Extension of Benefits?"}
+  - id: SCH-IL-DC-FREQUENCY
+    statement: >-
+      Illinois schools in the NSLP must run direct certification at least three
+      times a year (at or around the start of the school year, and three and six
+      months later), and ISBE encourages monthly matching in the Electronic
+      Direct Certification System.
+    kind: procedure
+    effective_from: 2025-07-01
+    confidence: confirmed
+    sources:
+      - {source: il-isbe-dc-slides-2026, locator: "slide 13 (at least three times annually; monthly access encouraged)"}
+  - id: SCH-IL-HEA-TIMING
+    statement: >-
+      In Illinois, districts must give the Household Eligibility Application,
+      instructions and letter to every household not directly certified, and may
+      not distribute or process applications for a school year before July 1 of
+      that year.
+    kind: timing
+    effective_from: 2026-07-01
+    confidence: confirmed
+    sources:
+      - {source: il-isbe-hea-resources, locator: "Household Eligibility Applications (HEA)", quote: "Application, instructions and letter cannot be distributed any earlier than July 1."}
+
+procedure:
+  applications:
+    - id: SCH-IL-PROC-HEA
+      text: >-
+        Households not directly certified complete the Household Eligibility
+        Application in ISBE's 68-06 packet (School Year 2026-27 NSLP/SBP Letter to
+        Households, Application and Instructions, English or Spanish), one per
+        household per district.
+      form_number: ISBE 68-06 (7/26)
+      form_name: School Year 2026-27 NSLP/SBP Letter to Households, Household Eligibility Application and Instructions
+      url: https://www.isbe.net/Documents/68-06.pdf
+      confidence: confirmed
+      sources:
+        - {source: il-isbe-68-06, locator: "page 1 and Q1"}
+        - {source: il-isbe-hea-resources, locator: "SY 2026-27 NSLP/SBP Letter to Households, Application, and Instructions (68-06)"}
+  documents:
+    - id: SCH-IL-DOC-NONE
+      text: No documents are sent with the HEA; an incomplete application cannot be approved.
+      confidence: confirmed
+      sources: [{source: il-isbe-68-06, locator: "page 1", quote: "We cannot approve an application that is incomplete"}]
+  filing:
+    - id: SCH-IL-FILE-SCHOOL
+      text: Return the HEA to the address the district prints on the letter.
+      channel: any
+      county_varies: true
+      confidence: confirmed
+      sources: [{source: il-isbe-68-06, locator: "Return the completed Household Eligibility Application to"}]
+  timelines:
+    - id: SCH-IL-TIME-10-DAYS
+      text: Districts process HEAs within 10 days of receipt and notify each household of approval or denial.
+      duration: 10 days
+      confidence: confirmed
+      sources: [{source: il-isbe-dc-slides-2026, locator: "slide 15, Eligibility Process (Step 4-6)"}]
+  approval_notice:
+    - id: SCH-IL-NOTICE-68-02
+      text: Approval or denial comes on ISBE's Denial/Approval Notification Letter (68-02) or the district's version.
+      form_number: ISBE 68-02
+      confidence: confirmed
+      sources: [{source: il-isbe-hea-resources, locator: "Denial/Approval Notification Letter (68-02)"}]
+  renewal:
+    - id: SCH-IL-RENEW
+      text: An approved application is good for that school year and the first days of the next; families must apply again each year unless told the child is directly certified.
+      confidence: confirmed
+      sources: [{source: il-isbe-68-06, locator: "Q6"}]
+  county_variation:
+    - id: SCH-IL-CEP-VARIATION
+      text: Whether a school serves all students free depends on whether its district elected CEP (489 districts in 2025-26).
+      county_varies: true
+      confidence: confirmed
+      sources: [{source: il-isbe-ieg-release-2026, locator: "CEP paragraph"}]
+
+life_events:
+  - id: SCH-IL-LE-SCHOOL-YEAR
+    code: school_year_start
+    event: New school year in Illinois
+    why: Families not directly certified must file a new HEA (from July 1); there is no statewide free meals for all.
+    check_rules: [SCH-IL-HEA-TIMING, SCH-IL-HSMFA]
+    confidence: confirmed
+    sources: [{source: il-isbe-hea-resources, locator: "HEA distribution"}]
+  - id: SCH-IL-LE-MEDICAID
+    code: benefit_change
+    event: A household member enrolls in Medicaid (All Kids) or SNAP
+    why: The Electronic Direct Certification System can certify the students free or reduced price without an application.
+    check_rules: [SCH-IL-DCM-FREE-REDUCED, SCH-IL-DC-EXTENSION]
+    confidence: confirmed
+    sources: [{source: il-isbe-dc-slides-2026, locator: "slide 16"}]
+  - id: SCH-IL-LE-MOVE-STATE
+    code: move_state
+    event: Moving to Illinois from California or New York
+    why: A family that ate free under a universal-meals law may have to pay full price in Illinois unless it qualifies or the school is CEP.
+    check_rules: [SCH-IL-HSMFA]
+    confidence: confirmed
+    sources:
+      - {source: il-105-ilcs-125-2-3, locator: "(b)"}
+      - {source: il-pa-104-0464, locator: "ISBE article, Section 15"}
+
+outcome_proof:
+  - id: SCH-IL-PROOF-68-02
+    evidence: ISBE 68-02 approval letter or direct certification notification letter
+    shows: The child's free or reduced-price status for the school year.
+    how_to_get: From the district within about 10 days of the HEA
+    confidence: confirmed
+    sources: [{source: il-isbe-hea-resources, locator: "Denial/Approval Notification Letter (68-02)"}]
+
+links:
+  - id: SCH-IL-LINK-MEDICAID
+    playbook: medicaid
+    rules: [SCH-IL-DCM-FREE-REDUCED]
+    relation: Illinois Medicaid enrollment (via HFS data) directly certifies students free or reduced price when income-eligible; Medicaid alone is not categorical.
+    test: SCH-X-02
+    confidence: confirmed
+    sources: [{source: il-isbe-dc-slides-2026, locator: "slide 16"}]
+  - id: SCH-IL-LINK-SNAP
+    playbook: snap
+    rules: [SCH-IL-DC-EXTENSION]
+    relation: SNAP (IDHS data) directly certifies all students in the household for free meals.
+    test: SCH-X-01
+    confidence: confirmed
+    sources: [{source: il-isbe-dc-slides-2026, locator: "slide 10 (IDHS, HFS and DCFS partnerships)"}]
+
+open_questions:
+  - id: SCH-IL-OQ-01
+    priority: high
+    question: Does Illinois's enacted FY2027 budget (school year 2026-27) appropriate any money to the Healthy School Meals for All Program, and if so, which school boards are participating?
+    why_it_matters: Decides whether an Illinois family above 185% of poverty pays for meals; it is the main difference from California and New York.
+    checked: [105 ILCS 125/2.3, Public Act 104-0464 (FY2027 appropriations), Public Act 104-0003 (FY2026 appropriations), HB0111, HB2365 and SB1419 bill status, ISBE 2026-27 IEG press release]
+    affects: [SCH-IL-HSMFA, il.isbe.hsmfa_statewide_funded]
+    status: answered
+    answer: >-
+      No. The enacted FY2027 appropriation act, P.A. 104-0464 (HB 111, approved June 16, 2026 with
+      item/reduction vetoes), has no Healthy School Meals for All line; ISBE gets only the existing
+      "Reimbursement for the Free Breakfast/Lunch Program" ($26,000,000). The FY2026 act (P.A.
+      104-0003) has none either, and the stand-alone $67 million bills (HB2365, SB1419) were not
+      enacted. With no appropriation, no school board can participate in the State program in 2026-27.
+  - id: SCH-IL-OQ-02
+    priority: low
+    question: Does Illinois use school meal applications or alternative income forms for state funding counts (Evidence-Based Funding low-income count), as California does for LCFF?
+    why_it_matters: Would tell families at CEP schools whether returning an income form matters.
+    checked: [ISBE HEA resources page]
+    affects: [SCH-IL-HSMFA]
+    status: open
+  - id: SCH-IL-OQ-03
+    priority: medium
+    question: Does Illinois's FY2028 appropriation (school year 2027-28) fund the Healthy School Meals for All Program?
+    why_it_matters: The archive has no value for il.isbe.hsmfa_statewide_funded from July 1, 2027, so Illinois reduced-price and paid cases in 2027-28 are undetermined until the FY2028 budget is read.
+    checked: [none yet - the FY2028 budget is not enacted as of 2026-10-07]
+    affects: [il.isbe.hsmfa_statewide_funded, SCH-IL-HSMFA]
+    status: open
+
+claims_checked:
+  - claim: Illinois uses Medicaid data to certify students for free school meals only, not reduced-price meals.
+    verdict: refuted
+    detail: >-
+      Out of date. Illinois was a free-only Medicaid demonstration state from SY
+      2012-13, but since SY 2022-23 it directly certifies with Medicaid for both
+      free and reduced-price meals (FNS table; ISBE's May 2026 training: "Direct
+      Certification matches include students eligible for both free and
+      reduced-price meal benefits based on their participation in federal
+      Medicaid at the appropriate income levels").
+    sources:
+      - {source: fns-dcm-demonstration, locator: "table"}
+      - {source: il-isbe-dc-slides-2026, locator: "slide 16"}
+  - claim: Illinois enacted a Healthy School Meals for All program in 2023.
+    verdict: partly_verified
+    detail: Enacted (P.A. 103-532, eff. 8-11-23) but only "subject to appropriation"; the FY2026 and FY2027 appropriation acts (P.A. 104-0003, P.A. 104-0464) contain no line for it, so it does not give free meals to any Illinois students in 2025-26 or 2026-27.
+    sources:
+      - {source: il-105-ilcs-125-2-3, locator: "(b)"}
+      - {source: il-pa-104-0464, locator: "ISBE article, Section 15"}
+      - {source: il-hb2365-status, locator: "Last Action"}

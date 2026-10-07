@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://www.insurance.ca.gov/0150-seniors/0100alerts/SA-01-10B.cfm
+  final_url: https://www.insurance.ca.gov/0150-seniors/0100alerts/SA-01-10B.cfm
+  status: 200
+  content_type: text/html;charset=utf-8
+  text_sha256: 8b5e09981ebbe3db774ca56fe91418a96a4894eebf1857fc221e6ffe4fc26f3d
+  text: ca-cdi-sa-01-10b/2026-10-07.txt
+  raw: ca-cdi-sa-01-10b/2026-10-07.html

@@ -1,0 +1,431 @@
+N.Y. Comp. Codes R. & Regs. Tit. 18 §§ 398-2.1 - Definitions
+
+State Regulations
+
+Compare
+
+The following words and terms, when used in this Part,
+shall have the following meanings, unless the context clearly indicates
+otherwise:
+
+(a)
+Active receipt of
+SSI.
+Active receipt of SSI shall mean an individual or
+couple for whom SSA has established an eligible federal SSI payment status code
+as defined in this Part, who is in current pay status for federal SSI benefits,
+or who would be in current pay status for federal SSI benefits except for
+countable income. Such individual or couple must also meet all other State
+eligibility criteria for current ongoing SSP benefit issuances as of the time
+that the federal SSA electronic data file containing such individual's or
+couple's relevant SSI eligibility determination is transmitted to NYS via the
+SDX with federal payment status codes as defined in section
+398-2.1 of this Part.
+
+(b)
+Adequate notice. An
+adequate notice is a notice of action that is sent no later than the effective
+date of the action and complies with section
+358-2.2(a)(2)-(13)
+of this Title.
+
+(c)
+Aged
+person. An aged person is a person who is 65 years of age or
+older.
+
+(d)
+Aid
+continuing.
+Aid continuing means the right to have SSP
+benefits or SSPNA continue unchanged until a fair hearing decision is issued.
+Specific criteria for aid continuing are listed in 398-10.2 of this Part.
+
+(e)
+Blind person. A
+blind person is a person determined blind in accordance with
+federal regulations at 20 CFR part 416, subpart I, and as defined pursuant to
+pursuant to section
+208 of the
+Social Services Law. (Code of Federal Regulations, title 20,
+part 416, subpart I, sections 416.901 - 416.999d; U.S. Government Printing
+Office, 732 North Capitol Street, NW, Washington, DC 20401-0001. An electronic
+location is available from the U.S. Government Printing Office at
+http://www.gpo.gov/fdsys/pkg/CFR-2014-title20-vol2/pdf/CFR-2014-title20-vol2-part416-subpartI.pdf.
+Copies may be obtained from the Office of Temporary and Disability Assistance,
+Public Information Office, 40 North Pearl Street, Albany, NY
+12243-0001.)
+
+(f)
+Congregate
+care. Congregate care is a shared living environment designed to serve
+individuals who are unable to function with complete independence. There are
+three levels of congregate care settings. Level 1 is "receiving family care" as
+defined in section
+209
+(3)(c) of the Social Services Law. Level 2 is
+"receiving residential care" as defined in section
+209
+(3)(d) of the Social Services Law. Level 3 is
+"receiving enhanced residential care" as defined in section
+209
+(3)(e) of the Social Services Law. Congregate
+care does not include nursing homes or medical care facilities.
+
+(g)
+Countable income.
+Countable income is all of a person's income, in cash or in
+kind, earned and unearned, which is not excluded by federal law or regulation
+in determining eligibility for SSI. The restoration of any SSP benefit and/or
+SSPNA to an individual eligible for current ongoing SSP benefits and or SSPNA
+on account of an underpayment shall not be considered countable income for
+purposes of SSP or SSPNA eligibility.
+
+(h)
+Countable resources.
+Countable resources are cash, or other liquid assets, or any
+real or personal property that an individual, or couple owns and could convert
+to cash to be used for support and maintenance which is not excluded by federal
+law or regulation in determining eligibility for SSI. The restoration of any
+SSP benefit and/or SSPNA to an individual eligible for current ongoing SSP
+benefits and or SSPNA on account of an underpayment shall not be considered a
+countable resource for purposes of SSP and/or SSPNA in the month of receipt and
+in the nine calendar months following the month in which the individual
+receives the benefits.
+
+(i)
+Designated representative. A designated
+representative is a person or organization authorized to perform
+certain specified functions associated with receiving information regarding an
+individual or couple, or the management of the recipient's SSP benefit
+issuances. A designated representative may only access case-specific
+information for periods where they are clearly listed in the SSP system as the
+recipient's designated representative.
+
+(j)
+Disabled person. A
+disabled person is a person who is disabled in accordance with
+federal regulations at 20 CFR part 416, subpart I, and as defined by § 208 of
+the Social Services Law. (Code of Federal Regulations, title 20, part 416,
+subpart I, sections 416.901 - 416.999d; U.S. Government Printing Office, 732
+North Capitol Street, NW, Washington, DC 20401-0001. An electronic location is
+available from the U.S. Government Printing Office at
+http://www.gpo.gov/fdsys/pkg/CFR-2014-title20-vol2/pdf/CFR-2014-title20-vol2-part416-subpartI.pdf.
+Copies may be obtained from the Office of Temporary and Disability Assistance,
+Public Information Office, 40 North Pearl Street, Albany, NY
+12243-0001.)
+
+(k)
+Earned
+income.
+Earned income is wages and earnings, including
+earnings from self-employment, in accordance with federal law and
+regulations.
+
+(l)
+Eligible
+couple. An eligible couple consists of two persons,
+both of whom the SSA has established with an eligible federal SSI payment
+status code as defined in section
+398-2.1 of this Part, who are in
+active receipt of SSI as defined in this Part, live together in the same
+residence, and are legally recognized as married under the laws of NYS, or are
+unmarried but are administratively recognized by the SSA as married.
+
+(m)
+Eligible individual. An
+eligible individual is a person whom SSA has established with
+an eligible federal SSI payment status code as defined in section
+398-2.1 of this Part, who is in
+active receipt of SSI as defined in section
+398-2.1 of this Part.
+
+(n)
+Eligible spouse. An
+eligible spouse is a person who: meets all eligibility
+criteria of the SSP or SSPNA program; is the spouse of an SSP-eligible
+individual; and is living in the same household with that person. The
+individual must be legally recognized as married under the laws of NYS or be
+unmarried but administratively recognized by the SSA as married.
+
+(o)
+Federal Benefit Rate (FBR).
+The FBR is the maximum amount of SSI payable to an individual
+or couple with no countable income.
+
+(p)
+Federal payment status codes
+potentially eligible for SSP benefits.
+
+Those federal payment status codes potentially
+eligible for SSP benefits, as defined herein, shall be the exclusive
+federal payment status codes reviewed for participation in SSP provided by the
+SSA to New York State via the SDX:
+
+(1)
+C01 - Current pay
+
+(2) E01 -
+Eligibility for federal and/or state benefits based on the eligibility
+determination, but no payment is due
+
+(3) E02 - Eligible for benefits but not
+payable in the first month
+
+(4) M02
+- Force Payment
+
+(5) N01 - Non-pay -
+recipient countable income exceeds Title XVI federal benefit rate
+
+(q)
+Good cause.
+Good cause for failure or refusal to comply, as set forth in
+Subpart 398-7 of this Part, includes, but is not limited to, circumstances
+beyond the SSP recipient's control.
+
+(r)
+Interim assistance reimbursement
+(IAR) process. Section 1631 of the Social Security Act establishing IAR
+authorizes the recovery of assistance benefits issued to individuals from State
+and local funds for basic needs while their applications for SSI are pending,
+or whose SSI benefits are retroactively reinstated after a period of suspension
+or termination from the individual's initial retroactive payment of SSI
+benefits. The IAR process is set forth in Part 353 of this Title.
+
+(s)
+Medical Assistance Program.
+The Medical Assistance Program, administered by the New York
+State Department of Health, provides medical assistance payments for medically
+necessary services and supplies for needy persons pursuant to title 11 of
+article 5 of the Social Services Law and Part 360 of this Title.
+
+(t)
+Minor Child. A minor
+child is a person under age 18, or under age 22 and a student
+regularly attending school, college, or vocational training and who is neither
+married nor a head of a household.
+
+(u)
+Notice of action. A
+notice of action is a communication from the Office advising a
+recipient of SSP benefits or SSPNA of any action that the Office intends to
+take, or has taken, with respect to a currently-eligible individual's SSP or
+SSPNA case.
+
+(v)
+Office. The Office is the New York State Office
+of Temporary and Disability Assistance.
+
+(w)
+Overpayment. An
+overpayment is the difference between the actual amount of SSP
+benefits or SSPNA issued to or on behalf of the recipient and the lesser amount
+of benefits that the recipient was eligible to receive in any given
+month.
+
+(x)
+Parental
+control.
+Parental control is the authority of the
+parent(s) to make decisions on the minor child's behalf, regardless of whether
+or not such control is actually exercised.
+
+(y)
+Public institution. A
+public institution is an institution that is operated or
+controlled by the federal or state government, or a political subdivision of
+the State such as a city or county. The term public institution does not
+include a publicly operated community residence which serves 16 or fewer
+residents.
+
+(z)
+Representative
+payee. A representative payee is an individual or
+organization appointed by SSA to receive SSI benefits for a person who cannot
+manage their benefits.
+
+(aa)
+Retroactive benefits.
+Retroactive benefits are
+SSP benefits, or SSPNA, issued for specific past period(s) of eligibility for
+which the recipient received SSI benefits between the month of initial federal
+SSI eligibility and active receipt of SSI as defined in section
+398-2.1 of this Part or for any
+period in which the SSP or SSPNA benefit is reinstated after a period of
+suspension or termination. Retroactive SSP benefits, or SSPNA, may only be
+issued to an individual or couple currently eligible for SSP benefits or SSPNA.
+Retroactive benefits may not be issued to, or assigned on behalf of, deceased
+individuals, their payees, relatives, heirs, estates, or on behalf of any debt,
+including any debt owed to a congregate care facility where such individual may
+have been provided room and board, or any other private or public entities to
+whom the deceased SSP recipient may owe any debt or legal obligation.
+
+(ab)
+Social Security Administration
+(SSA). The SSA is the federal agency that administers
+the SSI program.
+
+(ac)
+State
+benefit rate. The State benefit rate is equal to the
+State standard of need for the recipient's applicable State Living Arrangement
+minus the FBR or a recipient's monthly Countable Income, whichever is
+greater.
+
+(ad)
+State Living
+Arrangements.
+State Living Arrangements are categories
+of community living situations or congregate care settings which are criteria
+used to establish SSP eligibility and the SSP benefit level of individuals or
+couples. Where an SSP recipient receives both SSP and Supplemental Nutrition
+Assistance Program (SNAP) benefits and there is an observed discrepancy between
+the living arrangement information reported to SSP by the SSP recipient and the
+SNAP case record, the information as regards household composition contained in
+the SNAP record shall be determinative for SSP purposes.
+
+(ae)
+State standard of need. The
+State standard of need is the maximum level of countable
+income that an individual or couple may have and still be eligible to receive
+State benefit issuances as set forth in section
+209 of the
+Social Services Law. The term as used in this Part applies solely to the
+program of State benefit issuances and has no application to any other federal
+or State program or benefit.
+
+(af)
+State Supplement Program (SSP).
+SSP is the NYS
+benefit issuance program by which SSP benefits and SSPNA are administered and
+issued.
+
+(ag)
+State Supplement
+Program benefit. The SSP benefit is provided in
+accordance with NYS law and rules to individuals or couples, for whom SSA has
+established with an eligible federal SSI payment status code as defined in this
+Part, and who are in active receipt of federal SSI benefits or who would be in
+active receipt of federal SSI benefits except for countable income, and who
+meet all other State eligibility criteria for receipt of prospective SSP
+benefits as of the time the SSA electronic data file containing such individual
+or couple's SSI eligibility determination is transmitted to NYS via the SDX
+with federal payment status codes as defined in section
+398-2.1 of this Part.
+
+(ah)
+State Supplement Program benefit
+levels.
+State Supplement Program benefit levels are the
+various levels of SSP benefit issuances based on State Living Arrangement,
+county of residence and whether the recipient is an individual or a member of a
+couple.
+
+(ai)
+State Supplement
+Program benefit issuances.
+State Supplement Program benefit
+issuances are paid by NYS to aged, blind, or disabled persons who are
+in active receipt of SSI as defined in 398-2.1 of this Part.
+
+(aj)
+SSP-only recipient. An
+SSP-only recipient is an individual or couple who is
+ineligible for federal SSI benefits solely because their countable income
+equals or exceeds the FBR but who is eligible to receive SSP benefits based on
+the State standard of need and who meets all other State criteria in order to
+participate in the SSP.
+
+(ak)
+State Supplemental Personal Needs Allowance (SSPNA).
+SSPNA is a monthly State benefit to help address personal
+needs of individuals who are in active receipt of federal SSI benefits and who
+otherwise meet the State criteria necessary in order to receive SSPNA and who
+are residing in a residential health care facility regulated pursuant to the
+provisions of article 28 of the Public Health Law.
+
+(al)
+Supplemental Security Income (SSI)
+application effective date. An individual's SSI application
+effective date is the first day of the month following the later of
+the date the: SSI application is filed; or the individual becomes eligible for
+such benefits.
+
+(am)
+Supplemental Security Income (SSI) program.
+SSI
+is a federally-funded program which provides benefits to aged, blind and
+disabled individuals based on uniform federal eligibility standards and a
+national base payment level pursuant to title XVI of the Federal Social
+Security Act and which is administered by the SSA.
+
+(an)
+Temporary absence. A
+temporary absence is any absence from NYS that does not exceed
+three consecutive months, provided that the recipient does not leave the United
+States for an entire calendar month during such three consecutive months and
+does not evidence intent to establish residence elsewhere. A minor child may be
+temporarily absent without time limit if he or she is away from their permanent
+residence to attend school and intends to return to their permanent living
+arrangement during the summer or extended holidays, or upon graduation or
+completion of training and remains under parental control.
+
+(ao)
+Timely notice. A
+timely notice is a notice of action issued by the Office that
+is sent at least 10 days before the effective date of the proposed
+action.
+
+(ap)
+Timely
+reporting.
+Timely reporting means the reporting of
+change in circumstances and/or any factors which effect eligibility and benefit
+amount, as listed in section
+398-5.2 of this Part, to the
+Office by SSP or SSPNA recipients, or their designated representatives, payees,
+or other parties authorized to provide such information in a time period not to
+exceed 10 days after the change occurred.
+
+(aq)
+Underpayment. An
+underpayment is the difference between the amount of benefits
+that the recipient was eligible to receive while in active pay status for SSP
+or SSPNA and the lesser amount of benefits which were actually issued to or on
+behalf of the recipient. Restored SSP benefits on account of underpayments may
+only be issued to eligible individuals in active receipt of SSP benefits. SSP
+underpayments may not be issued to, or assigned on behalf of, deceased
+individuals, their payees, relatives, heirs, estates or on behalf of any debt,
+including any debt owing to a congregate care facility where such individual
+may have been provided room and board, or any other private or public entities
+to whom the deceased recipient may owe a debt or legal obligation.
+
+(ar)
+Unearned income.
+Unearned income is all income, other than that defined as
+earned income, in accordance with federal law and regulation.
+
+Notes
+
+N.Y. Comp.
+Codes R. & Regs. Tit. 18
+§§
+398-2.1
+
+Adopted by
+New
+York State Register September 24, 2014/Volume XXXVI, Issue 38,
+eff. 10/1/2014.
+Amended
+New
+York State Register January 13, 2021/Volume XLIII, Issue 02, eff.
+1/13/2021
+
+State regulations are updated quarterly; we currently have two versions available.
+Below is a comparison between our most recent version and the prior quarterly release.
+More comparison features will be added as we have more versions to compare.
+
+No prior version found.
+
+State Regulations Toolbox

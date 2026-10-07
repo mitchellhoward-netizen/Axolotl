@@ -1,0 +1,441 @@
+Skip to content
+
+Program Operations Manual System (POMS)
+
+Effective Dates: 10/30/2009 - Present
+Previous | Next
+
+TN 30 (06-24)
+
+SI 01320.400 Deeming of Income from an Ineligible Spouse
+
+CITATIONS:
+
+Social Security Act, Sec. 1614(f), as amended
+
+Regulations 20 CFR 416.1160 and 416.1163
+
+A. Introduction to deeming of income from an ineligible spouse
+
+Spouse-to-spouse deeming of income can be involved in the eligibility or the payment
+determination, or both, for an eligible individual who lives with an ineligible spouse.
+For spouse-to-spouse deeming to apply, the SSI applicant or recipient must be eligible
+based on their own income. The following subsections explain the rules to follow when
+deeming income from an ineligible spouse.
+
+In order to deem income, first determine the amount of the ineligible spouse's earned
+and unearned income applying the appropriate exclusions in SI 01320.100. Then, use the rules in SI 01320.400B. and SI 01320.400C. in this section to determine the individual's eligibility and payment amount.
+
+B. Policy for determining SSI eligibility
+
+1. Spouse-to-spouse
+
+When an ineligible spouse lives in the same household as the eligible individual,
+these deeming rules are applied in the following order:
+
+a. Ineligible spouse’s earned and unearned income
+
+The amount of the ineligible spouse's earned and unearned income is determined in
+the computation month. See SI 01320.400A. in this section.
+
+b. Ineligible child allocation
+
+An allocation for each ineligible child who lives in the household is deducted. See
+SI 01310.110B. (Deeming Concept – Allocation).
+
+EXCEPTION:
+
+No allocation is given for any ineligible children who are receiving public income
+maintenance payments (see SI 01320.141).
+
+•
+
+The allocation for each ineligible child is the difference between the Federal Benefit
+Rate (FBR) for an eligible couple and the FBR for an eligible individual. The amount
+of the allocation automatically increases whenever the FBR increases.
+
+•
+
+Each ineligible child's allocation is reduced by the amount of their own income. For
+purposes of reducing the allocation, the items listed in SI 01320.100B. are not included as income to the ineligible child.
+
+•
+
+The allocations for ineligible children are first deducted from the ineligible spouse's
+unearned income. If the ineligible spouse does not have enough unearned income to
+cover the allocations, the balance is deducted from the ineligible spouse's earned
+income.
+
+c. When there is no income to deem from the ineligible spouse to the eligible individual
+
+If the remaining income (both earned and unearned) of the ineligible spouse is equal
+to or less than the difference between the FBR for an eligible couple and the FBR
+for an eligible individual, there is no income to deem to the eligible individual.
+In this situation, the individual's own countable income is subtracted from the FBR
+for an individual to determine eligibility.
+
+d. When there is income to deem from the ineligible spouse to the eligible individual
+
+If the remaining income (both earned and unearned income) of the ineligible spouse
+is more than the difference between the FBR for an eligible couple and the FBR for
+an eligible individual, the eligible individual and the ineligible spouse are treated
+as an eligible couple.
+
+NOTE: The $20 general exclusion is not deducted from the eligible individual's income at
+this point.
+
+e. When the eligible individual and the ineligible spouse are treated as a couple
+
+The eligible individual and the ineligible spouse are treated as an eligible couple
+by:
+
+•
+
+Combining the remainder of the ineligible spouse's unearned income with the eligible
+individual's own unearned income, and the remainder of the ineligible spouse's earned
+income with the eligible individual's earned income;
+
+•
+
+Applying all appropriate income exclusions, including the first $20 of unearned income
+(if less than $20 of unearned income in a month, any remaining portion of the $20
+exclusion is applied to any earned income in the month), $65 of any earned income
+in a month, and one-half of remaining earned income in a month; and
+
+•
+
+Subtracting the couple's countable income from the FBR for an eligible couple.
+
+NOTE: The FBR is reduced by the value of the one-third reduction (VTR) for an eligible
+couple, if appropriate. When a Federally administered optional State supplement is
+involved, see SI 01320.430.
+
+f. When the couple’s countable income equals or is less than the FBR
+
+If the couple's countable income is equal to or less than the FBR for an eligible
+couple in the computation month, the individual is eligible for SSI under the deeming
+rules.
+
+2. Sponsor-to-noncitizen
+
+An allocation is also deducted for eligible noncitizens who are sponsored by and who
+have income deemed from the ineligible spouse.
+
+•
+
+The allocation for each noncitizen who is sponsored by and who has income deemed from
+the ineligible spouse is the difference between the FBR for an eligible couple and
+the FBR for an eligible individual. The amount of the allocation automatically increases
+whenever the FBR increases.
+
+•
+
+Each noncitizen's allocation is reduced by the amount of their own income. For purposes
+of reducing the allocation, the items listed in SI 01320.100B. are not included as income to the noncitizen.
+
+•
+
+The allocations for eligible noncitizens are first deducted from the ineligible spouse's
+unearned income. If the ineligible spouse does not have enough unearned income to
+cover the allocations, the balance is deducted from the ineligible spouse's earned
+income.
+
+NOTE: The noncitizen allocation is given only for a noncitizen who is eligible for SSI
+or a Federally administered State supplementary payment.
+
+•
+
+An allocation for an eligible noncitizen is given even if the sponsor's income has
+no effect on their eligibility or payment (i.e., nothing is deemed).
+
+•
+
+If the noncitizen is ineligible for any reason (including excess income due to sponsor-to-noncitizen
+deeming), there is no allocation for them.
+
+•
+
+For purposes of determining the allocation, the noncitizen's income is their own income
+and any income deemed from a source other than the sponsor (i.e., other than the ineligible
+spouse). If the noncitizen has income deemed from another sponsor or income deemed
+from their own spouse or parent, that deemed income reduces the allocation.
+
+•
+
+The allocation is not reduced by the noncitizen's SSI payment, or any income deemed
+to the noncitizen from the sponsor who is the ineligible spouse.
+
+•
+
+A noncitizen's income reduces the allocation for them alone; the noncitizen's income
+is not used to reduce the allocation for another noncitizen.
+
+C. Policy for determining SSI payment amount
+
+1. Determining SSI payment amount
+
+To determine the SSI payment amount, follow the procedure in SI 01320.400B.1.a. through SI 01320.400B.1.f. in this section, using the ineligible spouse's income from the budget month. Subtract
+the countable income from the budget month from the FBR for an eligible couple in
+the computation month. The budget month is 2 months prior to the computation month except when determining the payment amount for the first and second months of eligibility
+or for the first and second months after a period of ineligibility. When an exception
+to the standard retrospective computation rules apply, see SI 02005.005. For the amount of Title II benefits used for a deemor when there is a Title II cost-of-living
+adjustment (COLA), see SI 02005.010.
+
+NOTE: When using a prior month as a budget month, use those allocation values which were
+in effect for that prior month. For example, when determining the payment amount for
+January 2010, use the ineligible child allocation amount in effect for November 2009.
+
+EXCEPTIONS:
+
+The ineligible spouse's income from an earlier budget month is not used when:
+
+•
+
+Determining the payment amount for months when the eligible individual is subject
+to the $30 payment limit ($25 prior to July 1, 1988); or
+
+•
+
+Determining the payment amount for months after the month an ineligible spouse dies.
+
+When an exception above applies, only the eligible individual's own income from the
+prior budget month is used. Deemed income from the ineligible spouse in that prior
+budget month is not used to compute the payment amount.
+
+2. The SSI benefit
+
+The SSI benefit under these deeming rules cannot be higher than it would be if deeming
+did not apply. The payment amount from SI 01320.400C.l. (in this section) is compared to the amount the individual is due based on their
+own income in the budget month; the lesser amount is the payment due. When a Federally
+administered optional State supplement is involved, see SI 01320.430.
+
+D. Examples of spouse-to-spouse deeming rules
+
+The following examples illustrate application of the spouse-to-spouse deeming rules
+in the eligibility computation. The same rules apply in the budget month to determine
+the amount of the SSI payment. It is possible for eligibility to be based on the couple
+computation using income in the current month, while payment is determined based on
+the individual's own income received in the budget month.
+
+1. No deemed income after allocation
+
+In September 2024, Anne, an eligible individual, lives with their ineligible spouse
+and their ineligible child. Anne is eligible for SSI based on their own income. Anne's
+spouse only receives $677 unearned income per month. The ineligible child has no income
+at all. First allocate to the ineligible child $472 (the difference between the FBR
+for a couple and the FBR for an individual). Then subtract the $472 allocation from
+the ineligible spouse's $677 unearned income, leaving $205. Since the $205 remaining
+income is not more than $472, which is the difference between the FBR for a couple
+and the FBR for an individual in September, no income is deemed to Anne. Instead,
+compare only Anne's own countable income with the FBR for an eligible individual ($943
+in September 2024) to determine whether Anne is eligible. If Anne's own countable
+income is less than or equal to the FBR, Anne is eligible. To determine the amount
+of Anne's payment, determine the countable income, including any deemed income from
+the ineligible spouse in July, and subtract this income from the FBR for September.
+
+2. Spouse has earned and unearned income after ineligible child allocation
+
+In August 2024, Jack, a disabled individual, lives with their ineligible spouse and
+ineligible child. Jack and the ineligible child have no income. Jack's spouse has
+earned income of $715 a month and unearned income of $662 a month. First, allocate
+$472 to the ineligible child. Subtract the $472 allocation from the ineligible spouse's
+$662 unearned income, leaving $190 in unearned income. Since the total remaining income
+($190 unearned plus $715 earned) is more than $472, which is the difference between
+the FBR for a couple and the FBR for an individual in August, combine Jack and their
+spouse's income and compute countable income the same as for an eligible couple. Apply
+the $20 general income exclusion to the unearned income, reducing it to $170. Then
+apply the earned income exclusion ($65 plus one-half the remainder) to the ineligible
+spouse's earned income of $715, leaving $325. Combine the $170 countable unearned
+income and $325 countable earned income and compare it ($495) with the 2024 FBR for
+a couple ($1415), and determine that Jack is eligible. Since Jack is eligible, the
+amount of their payment is determined by subtracting Jack's countable income in June
+(including any deemed income from the ineligible spouse) from August's FBR for a couple.
+
+3. Both eligible individual and ineligible spouse have income
+
+In December 2024, Harold, a disabled individual, lives with their ineligible spouse,
+who earns $680 per month. Harold receives a pension (unearned income) of $395 a month.
+Since the ineligible spouse's income is greater than $472, which is the difference
+between the FBR for a couple and the FBR for an individual in December, deem all of
+the ineligible spouse's income to be available to both, and compute the combined countable
+income for the couple. Apply the $20 general income exclusion to Harold's $395 unearned
+income, leaving $375. Then apply the earned income exclusion ($65 plus one-half the
+remainder) to the ineligible spouse's $680, leaving $307.50. The total countable income
+($682.50) is less than the $1415 December FBR for a couple, so Harold is eligible
+based on deeming. Since Harold is eligible, determine the amount of their payment
+based on Harold's income (including any deemed from the ineligible spouse) in October.
+
+4. Spouse-to-spouse deeming and noncitizen allocation
+
+David is a noncitizen whose sponsor is John Clark. John Clark's spouse, Quinn, is
+an SSI recipient. The Clarks have two dependent children who are ineligible children
+for SSI purposes. The income received in December 2024 is:
+
+John Clark's earned income
+
+$1830.00
+
+Quinn Clark's Title II benefits
+
+$739.00
+
+David's pension
+
+$ 95.00
+
+Clarks' older child's unearned income
+
+$ 115.00
+
+First, a sponsor-to-noncitizen deeming computation is done, following procedures in
+SI 01320.950.
+
+Sponsor-to-Noncitizen
+Deeming
+
+Income of sponsor and spouse
+
+$2569.00
+
+Sponsor allocation
+
+$943.00
+
+Allocation for spouse
+
+$471.50
+
+Dependent allocation for child
+
+$471.50
+
+Dependent allocation for child
+
+$471.50
+
+Total allocation amount
+
+$2357.50
+
+-2357.50
+
+Deemed income
+
+211.50
+
+David's pension
+
++95.00
+
+David's unearned income
+
+$ 306.50
+
+General exclusion
+
+- 20.00
+
+David's countable income
+
+$ 286.50
+
+Next, a spouse-to-spouse deeming computation is done to determine eligibility for
+Quinn Clark.
+
+Spouse-to-Spouse Deeming
+
+As an individual, Quinn Clark's countable income of $719 ($739 - $20 general exclusion)
+is less than the 2024 individual FBR of $943. Quinn Clark is also eligible using the
+couple FBR as follows:
+
+John Clark's earned income
+
+$1830.00
+
+Allocation for children
+
+-829.00
+
+(2 x $472, minus $115)
+
+Noncitizen allocation ($472 minus $95)
+
+-377.00
+
+John Clark's remaining earned income
+
+$624.00
+
+NOTE: Because David is eligible for SSI, use the noncitizen allocation.
+
+Combined Incomes:
+
+Quinn Clark's unearned income
+
+$739.00
+
+General exclusion
+
+- 20.00
+
+Remaining unearned income
+
+$719.00
+
+John Clark's remaining earned income
+
+$624.00
+
+Earned income exclusion
+
+- 65.00
+
+Remainder
+
+$559.00
+
+½ remainder
+
+- 279.50
+
+Countable earned income
+
+$ 279.50
+
+Countable unearned income
+
++719.00
+
+Couple's CI
+
+$998.50
+
+Quinn Clark is eligible after deeming because the countable income of $998.50 in December
+2024 does not exceed the 2024 couple FBR of $1415.
+
+E. References
+
+•
+
+SI 01310.110 - Deeming Concept – Allocation
+
+•
+
+SI 01320.100 - Items Not Included in Deeming – General
+
+•
+
+SI 01320.430 - Effect of Spouse-to-Spouse Deeming on Optional State Supplementation
+
+•
+
+SI 02005.010 - SSI Computations – Title II/Title XIV COLA Coordination
+
+To Link to this section - Use this URL:
+http://policy.ssa.gov/poms.nsf/lnx/0501320400
+
+SI 01320.400 - Deeming of Income from an Ineligible Spouse - 10/30/2009
+
+Batch run: 05/26/2026
+
+Rev:10/30/2009

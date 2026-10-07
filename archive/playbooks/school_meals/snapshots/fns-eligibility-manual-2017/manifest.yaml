@@ -1,0 +1,10 @@
+- retrieved: '2026-10-07'
+  url: https://www.usda.gov/sites/default/files/guidance-documents/fns.SP36cacfp15sfsp11-2017-eligibilityManualforSchools.pdf
+  final_url: https://www.usda.gov/sites/default/files/guidance-documents/fns.SP36cacfp15sfsp11-2017-eligibilityManualforSchools.pdf
+  status: 200
+  content_type: txt
+  text_sha256: 16ac024c6d28d365000b54c2013117638ccf9c9b58e2fa2b55dd45b04a853173
+  text: fns-eligibility-manual-2017/2026-10-07.txt
+  raw: fns-eligibility-manual-2017/2026-10-07.raw
+  fetched_via: r.jina.ai reader text of the usda.gov PDF (usda.gov returns 403 to
+    scripts and WebFetch)

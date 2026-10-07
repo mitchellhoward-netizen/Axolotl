@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://www.ecfr.gov/api/versioner/v1/full/2026-10-01/title-7.xml?part=245
+  final_url: https://www.ecfr.gov/api/versioner/v1/full/2026-10-01/title-7.xml?part=245
+  status: 200
+  content_type: application/xml; charset=utf-8
+  text_sha256: d8a725825133961f0f535ce0235e745937e98fda4eb4c4cb0aecbe1ccfd64417
+  text: ecfr-7-cfr-245/2026-10-07.txt
+  raw: ecfr-7-cfr-245/2026-10-07.raw

@@ -1,0 +1,327 @@
+Module 9: MEDICARE SAVINGS PROGRAMS (MSPs)
+TABLE OF CONTENTS
+MSP basics…………………………………………………………………………………………………………………………………………………1
+MSP benefits……………………………………………………………………………………………………………………………………………..2
+MSP eligibility and application……………………………………………………………………………………………………………………3
+QDWI program…………………………………………………………………………………………………………………………………………..6
+Part A Buy-in………………………………………………………………………………………………………………………………………………6
+Summary chart…………………………………………………………………………………………………………………………………………..8
+
+MODULE 9 LEARNING OBJECTIVES
+1. Identify the different types of Medicare Savings Programs (MSPs) available in New York State
+2. Educate clients on the benefits of MSP enrollment
+3. Help clients determine if they are eligible for an MSP and know where to apply
+
+MEDICARE SAVINGS PROGRAMS (MSP)
+Medicare beneficiaries with limited incomes may be able to get assistance with their health care costs
+through a Medicare Savings Program (MSP). Specifically, each MSP pays for the monthly Part B premium
+and eliminates the Part B late enrollment penalty (LEP), if applicable. Additionally, MSPs enrollees
+automatically receive Extra Help, the federal program that helps with Part D prescription drug costs.
+
+There are three types of MSPs in New York State:
+• Qualifying Individual (QI)
+• Qualified Medicare Beneficiary (QMB)
+• Qualified Disabled and Working Individual (QDWI) program
+
+Note: Specified Low-Income Medicare Beneficiary (SLMB) is another MSP. This MSP is no longer available
+in New York as it was absorbed into the other programs as part of the 2023 expansion of MSP income
+limits. SLMB continues as a separate MSP in other states.
+
+Although the Medicaid agency administers the Medicare Savings Program benefits, an MSP recipient
+does not have full Medicaid benefits unless they apply for Medicaid in addition to the MSP. It is also
+important to note that individuals with Medicaid do not necessarily automatically receive the MSP.
+People who have QMB may apply for and receive Medicaid if they want services that Medicaid offers that
+Medicare may not, such as dental care and home care. Individuals with QI cannot have Medicaid at the
+same time as QI.
+
+HIICAP Notebook 2026 1
+
+HIICAP Notebook Module 9: Medicare Savings Programs
+
+Background and History
+Congress first enacted Medicare Savings Programs as part of the Medicare Catastrophic Coverage Act of
+1988. The programs were subsequently expanded by the Omnibus Budget Reform Act (OBRA) of 1990, the
+Balanced Budget Act of 1997 (BBA), and Medicare Improvements for Patients and Providers Act (MIPPA)
+of 2008. These programs are sometimes called the Medicare Buy-In or the Medicare Premium Payment
+Programs. In New York these programs are most often referred to as the Medicare Savings Programs
+(MSPs) to avoid confusion with the Medicaid Buy-In for Working People with Disabilities (MBI-WPD). For
+information about MBI-WPD, see HIICAP Notebook Module 14: Medicaid.
+
+The MSP is funded by both the state and federal government. Specifically, the administrative costs for
+QMB and QDWI are split between federal (50%), state (25%), and county (25%) governments. However, QI
+benefits are fully federally funded. The state Medicaid office within the New York State Department of
+Health (NYSDOH), the Office of Health Insurance Programs (OHIP), administers all of these programs.
+
+QMB, QI, and QDWI are entitlement programs. This means that anyone eligible for the benefit will be able
+to receive it. Previously, the QI program was funded by block grants, which meant that beneficiaries
+received benefits contingent on the availability of funds. But in 2015, the Senate and Congress
+permanently funded the QI program.
+
+MSP BENEFITS
+Each MSP pays for the monthly Part B premium ($202.90 in 2026). Enrollees also receive the following
+benefits:
+• Elimination of Part B late enrollment penalties: There is a 10% Part B premium penalty for each 12-
+month period a person delays Medicare enrollment. In most cases, this penalty is permanent. MSP
+enrollment eliminates this LEP. Even if your client loses their MSP later, they will not owe the LEP.
+• Part B enrollment: MSP allows individuals to enroll in Part B outside of usual enrollment periods.
+The Part B effective date will be the same as the individual’s MSP effective date. For more
+information, see this Part B enrollment flier from the Medicare Rights Center.
+• Extra Help enrollment: Enrollees automatically receive Extra Help, which provides prescription drug
+assistance. Clients over assets who need prescription drug assistance can use MSP enrollment to
+receive Extra Help. For more information, see HIICAP Notebook Module 10: Extra Help.
+
+Enrollees automatically receive the Extra Help program, which helps with Part D prescription drug costs.
+Additional benefits depend on which type of MSP a beneficiary is eligible for.
+
+Qualified Individual
+QI recipients may receive up to three months of retroactive reimbursement for Part B premiums deducted
+from their Social Security checks. QI only reimburses premiums paid up to three months before the
+individual’s MSP effective date, and within the same year of that effective date. For example, if your client
+
+HIICAP Notebook 2026 2
+
+HIICAP Notebook Module 9: Medicare Savings Programs
+
+submitted an MSP application at the end of 2025 and are approved for February 2026, they can only
+receive premium reimbursement for January 2026 because they cannot be reimbursed for premiums paid
+in the previous year. If your client’s QI effective date is April 2026, they would receive premium
+reimbursements for January, February, and March. Note that an individual cannot have QI and Medicaid.
+
+Qualified Medicare Beneficiary
+Unlike QI, QMB does not offer retroactive premium reimbursement. An additional QMB benefit is
+improper billing protections. Federal law prohibits Medicare providers from billing QMB recipients. This
+means Medicare providers should not bill QMB recipients for any Medicare-covered services they receive.
+For more information, see http://www.medicaid.gov/Federal-Policy-Guidance/downloads/CIB-01-06-
+12.pdf and http://wnylc.com/health/entry/99/.
+
+Additionally, QMB can pay the Part A premium for those who do not qualify for premium-free Part A. QMB
+recipients receive a Medicaid card even if they are not also receiving Medicaid. Their doctors and other
+providers may use the card to bill Medicaid for the beneficiary’s Medicare Part A and Part B coinsurance
+and deductibles.
+
+No Medicaid lien on estate to recover MSP benefits paid
+In some circumstances, states may place liens on the estates of deceased Medicaid recipients to recover
+the cost of Medicaid services that were provided after the recipient reached the age of 55. Since 2002,
+states have not been allowed to recover the cost of Medicare premiums paid under MSPs. Further, states
+may not place liens on the estates of Medicaid recipients who died after January 1, 2010 to recover costs
+for coinsurance paid under the QMB program for services rendered after January 1, 2010. The federal
+government made this change in order to eliminate barriers to enrollment in MSPs.
+
+See NYS DOH GIS 10-MA-008 - Medicare Savings Program Changes in Estate Recovery
+http://www.health.ny.gov/health_care/medicaid/publications/gis/10ma008.htm. The GIS clarifies that a
+client who receives both QMB and full Medicaid is exempt from estate recovery for Medicare cost-sharing
+expenses.
+
+MSP ELIGIBILITY AND APPLICATION
+Income limits for QI and QMB are listed below. MSPs applicants can apply by mail or in person by using
+the DOH-4328 application. Keep in mind that QI applicants must have Medicare Part A.
+
+HIICAP Notebook 2026 3
+
+HIICAP Notebook Module 9: Medicare Savings Programs
+
+2026 New York gross monthly income limits 2026 New York asset limits
+
+Program Individuals Couples Individuals Couples
+QI (139% FPL- $2,494 $3,375 No limit No limit
+186% FPL)
+QMB (138% $1,856 $2,509 No limit No limit
+FPL and below)
+Income limits are based on the Federal Poverty Level (FPL). These limits include a standard $20
+disregard. You may qualify even if your income is slightly higher. Ask a Medicaid counselor about
+whether you can subtract certain expenses from your income.
+
+Important budgeting considerations
+Medicaid rules for counting income under the DAB category (age 65+, blind, or disabled) are used for MSP
+applications. For information about these rules, see HIICAP Notebook Module 14: Medicaid.
+
+Individuals who apply for an MSP cannot choose which benefit they would like to apply for (QI or QMB).
+Applicants will be awarded whichever benefit they are eligible for based on their income.
+
+A person’s SNAP (food stamp) benefits may be reduced once they receive the MSP. However, their
+SNAP benefits will not be reduced immediately.
+Many people receive both SNAP benefits and an MSP. Income, for purposes of SNAP, is reduced by a
+deduction for medical expenses, which includes payment of the Part B premium. Since approval for an
+MSP means that the client no longer pays for the Part B premium, their SNAP income goes up, so the SNAP
+may be reduced. Here are some protections:
+o MSP households do not have to report the decrease in their medical expenses to the SNAP/food
+stamp office until their next SNAP recertification. Even if they do report the change, or the local
+district finds out because the same worker is handling both the MSP and SNAP case, there should
+be no reduction in the household’s benefit until the next recertification. New York’s SNAP policy
+per administrative directive 02 ADM-07 is to “freeze” the deduction for medical expenses between
+certification periods. Increases in medical expenses can be budgeted at the household’s request,
+but NYS never decreases a household’s medical expense deduction until the next recertification.
+Most elderly and disabled households have 24-month SNAP certification periods.
+o The decrease in medical expenses will need to be reported when the household recertifies for
+SNAP, and the household should expect to see a decrease in their monthly SNAP benefit. It is vital
+to stress that the loss in SNAP benefits is NOT dollar for dollar. For example, a $100 decrease in out
+of pocket medical expenses would translate roughly into a $30 drop in SNAP benefits.
+
+HIICAP Notebook 2026 4
+
+HIICAP Notebook Module 9: Medicare Savings Programs
+
+o See more info on SNAP/Food Stamp benefits at http://wnylc.com/health/entry/99/#4_-
+_4_Special_Benefits_of_MSPs and http://otda.ny.gov/programs/food-stamps/
+
+Individuals who receive Medicaid or have the Medicaid spend-down may be pushed into a spend-down
+or may have an increased spend-down. This is because the individual will no longer pay for the Part B
+premium, and their income will increase by the cost of the Part B premium for the current year. Because
+QMB and Aged, Blind, Disabled (ABD) Medicaid income limits are the same, someone would not be
+pushed into a spend-down if they qualify for QMB. However, those eligible for QI will have to choose
+between QI and Medicaid with a spend-down. This is because beneficiaries cannot have both the
+Qualifying Individual Medicare Savings Program and Medicaid. Since the expansion of the Medicare
+Savings Program and ABD Medicaid in New York State, it has become more common as one of the SLMB
+MSP was eliminated.
+
+To apply for an MSP, beneficiaries should use the DOH-4328 application and submit it by mail or in-person.
+Along with the MSP application, they must also include supporting documents. These documents include:
+▪ Copy of U.S. Birth Certificate, U.S. Passport or State ID (Driver’s License)
+o Note: If the applicant is not a U.S. citizen, the applicant must include a copy of their
+permanent resident card.
+▪ Copy of Social Security Card
+▪ Copy of Medicare Card
+▪ Proof of Other Names (if applicable)
+o Copy of Marriage License or Death Certificate of spouse
+▪ Proof of Home Address
+o Copy of Phone, Electric, or Rent bill with name and home address on it
+▪ Proof of Income (all applicable sources)
+o Social Security Income (copy of current year’s Social Security award letter)
+o Income from employment (3 pay stubs, if they are weekly pay stubs then must include 4 pay
+stubs)
+o Income from self-employment (most recent 1040 tax return with Schedule C)
+o Pension or Veterans’ Benefits (statement indicating amount and frequency of payment or
+1099 form)
+o Income from Annuity (3 bank statements OR 1099 form)
+▪ Retirement Account Dividends (3 bank statements OR 1099 form)
+▪ Proof of Other Health Insurance Premium (ex: Medigap or HMO premium)
+▪ Copy of Premium Statement or Bill
+
+QUALIFIED DISABLED AND WORKING INDIVIDUAL PROGRAM (QDWI)
+The Qualified Disabled and Working Individual Program pays the Medicare Part A premium only, not the
+Part B premium for people who meet the following criteria.
+
+HIICAP Notebook 2026 5
+
+HIICAP Notebook Module 9: Medicare Savings Programs
+
+o Under age 65 and eligible for Medicare due to disability.
+o Lost Part A benefits because of a return to paid work
+o Disability status not changed
+
+Unlike other MSPs, there are resource limits for QDWI in New York. Note that this income is calculated
+according to the same methods for SSI and Medicaid, and so the earned income disregards will likely
+apply.
+o Individuals: Monthly income up to $2,680 (2026); Resources up to $4,000 (2026)
+o Couples: Monthly income up to $3,627 (2026); Resources up to $6,000 (2026)
+
+Note: Amounts listed include a standard $20 income disregard.
+
+The client must be eligible for Medicare Part A and B to apply for QDWI. If a person wants to apply for
+Medicaid and QDWI, they must complete a Medicaid application (LDSS 2921). Eligibility can be retroactive
+back to three months before the month of application if income and resources are within limits.
+
+PART A BUY-IN
+New Yorkers who are eligible for Medicare Part A with a Premium but did not enroll when they were first
+eligible may be able to enroll outside of the General Enrollment Period though the Part A Buy-in (GIS 04
+MA/013). The Part A Buy-in enrolls a beneficiary into “conditional” Part A and Medicare Part B so that
+they can apply for QMB at their local Department of Social Services. QMB is the only level of the MSP that
+pays for the Part A premium.
+
+To be eligible for the Part A Buy-in, the individual must:
+• Be 65 years or older
+• Be a current U.S. resident and either:
+o A U.S. citizen
+o OR, a lawful permanent U.S. resident having lived in the U.S. for five continuous years
+before applying for Medicare
+• Be ineligible for premium-free Part A
+• Meet the eligibility requirements for the QMB MSP
+
+Note: Individuals with Supplemental Security Income (SSI) should be automatically enrolled in full
+Medicaid, Medicare Parts A and B, and in QMB without needing to file an application. Contact your local
+Department of Social Services if an SSI recipient is being charged for Medicare premiums to correct the
+issue.
+
+After successfully getting the Part A Buy-in, beneficiaries should be enrolled in
+• Medicare Parts A, B, and D
+
+HIICAP Notebook 2026 6
+
+HIICAP Notebook Module 9: Medicare Savings Programs
+
+• QMB program, which pays their Part A and Part B premiums, and will cover or waive their
+Medicare coinsurances, copayments, and deductibles
+• Extra Help
+
+Please note that if a person already has Medicare Part B , then the person can apply for QMB directly
+without using the Part A Buy-In process. (However, sometimes a beneficiary with Part B but not Part A will
+enroll in QMB but still not be bought into Part A in error. Follow up with the Medicaid office and SSA to
+resolve this problem.)
+
+For more information about the Part A buy-in process, see the Medicare Rights Center’s step-by-step
+guide.
+
+2026 MEDICARE SAVINGS PROGRAMS SUMMARY CHART
+
+HIICAP Notebook 2026 7
+
+HIICAP Notebook Module 9: Medicare Savings Programs
+
+Name of Program Benefit (What Monthly Income Resource Limits Retroactive?
+Medicaid Pays) Eligibility
+(**amounts listed
+include a standard
+$20 income
+disregard)
+Individual Couple Individual Couple
+Qualified Medicare Medicare premiums, Under Under None None No. Effective
+Beneficiary (QMB) deductibles and **$1,856 **$2,509 in month
+138% FPL coinsurance following
+month of
+People 65+ eligible for application
+but without Medicare
+may enroll in Part A, B
+& QMB through Buy-In
+Qualified Individual Medicare Part B **$1,857 **2,510 None None Yes. 3 months
+(QI) premium to $2,494 to $3,375 within same
+186% FPL calendar year
+Qualified Disabled Medicare Part A Under Under $4,000 $6,000 Yes. 3 months
+and Working premium **$2,680 **$3,627 before month
+Individual (QDWI) of application
+200% FPL
+Under age 65 only
+
+HIICAP Notebook 2026 8
+
+HIICAP Notebook Module 9: Medicare Savings Programs
+
+Sources of Assistance
+
+New York State Medicaid Helpline (NYS Dept. of Health)
+1-800-541-2831
+
+NYSOFA HIICAP Helpline
+1-800-701-0501
+
+NY Connects
+1-800-342-9871
+
+Managed Care Consumer Assistance Program (MCCAP) Technical Assistance Hotlines:
+o Community Services Society Community Health Advocates 1-888-614-5400
+o Empire Justice Center/Legal Services for the Elderly,
+Disabled of Western New York (Upstate and Long Island Only) 1-800-635-0355
+o The Legal Aid Society Hotline 1-888-500-2455
+(NYC and Long Island) 1-212-577-3575
+o Medicare Rights Center HIICAP Hotline 1-800-480-2060
+o New York Legal Assistance Group (NYC only) 1-212-613-5000
+o Evelyn Frank Legal Resources Program at NYLAG
+- NYC Hotline or eflrp@nylag.org 1-212-613-7310
+
+Check for news items and information on http://nyhealthaccess.org - a joint project of Empire Justice
+Center, Legal Aid Society, and Selfhelp Community Services.
+
+Application forms:
+• MSP only (DOH-4328): https://www.health.ny.gov/forms/doh-4328.pdf
+• Medicaid application (LDSS 2921): https://www.health.ny.gov/forms/doh-4220.pdf
+
+HIICAP Notebook 2026 9

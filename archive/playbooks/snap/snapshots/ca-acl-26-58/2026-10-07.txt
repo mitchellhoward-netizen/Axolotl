@@ -1,0 +1,1691 @@
+August 21, 2026
+
+CALIFORNIA DEPARTMENT OF SOCIAL SERVICES
+
+EXECUTIVE SUMMARY
+
+ALL COUNTY LETTER NO. 26-58
+
+The purpose of this All County Letter is to provide County Welfare Departments (CWDs)
+with guidance on the extension of California’s Elderly Simplified Application Project
+(ESAP) Demonstration Project and significant changes to the project as a result of
+modifications to the Terms and Conditions of the Project by the Food and Nutrition
+Administration.
+
+August 21, 2026
+
+ALL COUNTY LETTER NO. 26-58
+
+TO: ALL COUNTY WELFARE DIRECTORS
+ALL CALFRESH PROGRAM SPECIALISTS
+ALL CONSORTIA PROJECT MANAGERS
+ALL QUALITY CONTROL PROGRAM COORDINATORS
+ALL TRIBES WITH A TITLE IV-E AGREEMENT WITH CDSS
+
+SUBJECT: ELDERLY SIMPLIFIED APPLICATION PROJECT EXTENSION
+APPROVAL AND MODIFICATIONS TO REMOVE INDIVIDUALS
+AGED 60 THROUGH 64
+
+REFERENCE: HOUSE OF REPRESENTATIVES 1 (HR 1) (PUBLIC LAW 119-21);
+FOOD AND NUTRITION ACT OF 2008 SECTIONS 3(f), 6(o),
+11(e)(3), AND 17(B); 7 CODE OF FEDERAL REGULATIONS
+(CFR) 273.2(e)-(f); 7 CFR 273.10(f)(1)-(f)(4); 7 CFR 273.14(b)(3); 7
+CFR 273.24(k); ALL COUNTY LETTER (ACL) NO. 17-34; ACL NO.
+17-53; ACL NO. 17-53E; ACL NO. 20-145, ACL NO. 22-15; ACL
+NO. 23-85; ACL NO. 26-29; UNITED STATES DEPARTMENT OF
+AGRICULTURE (USDA) FOOD AND NUTRITION SERVICE
+SUPPLEMENTAL NUTRITION ASSISTANCE PROGRAM (SNAP)
+– QUESTION AND ANSWER #1 FOR THE PROGRAM PURPOSE
+AND WORK REQUIREMENT PROVISIONS OF THE FRA OF
+2023 FINAL RULE
+
+The purpose of this All County Letter (ACL) is to provide County Welfare Departments
+(CWDs) with guidance regarding the extension of California’s Elderly Simplified
+Application Project (ESAP) Demonstration Project and significant changes to the Project
+as a result of modifications to the Terms and Conditions of the Project by the United
+States Department of Agriculture (USDA), Food and Nutrition Administration (FNA),
+formerly the Food and Nutrition Service (FNS). These required changes were
+communicated by FNA on June 11, 2026 via memorandum and are required for
+continued operation of the ESAP.
+
+All County Letter No. 26-58
+Page 2
+
+The California Department of Social Services (CDSS) has been authorized by the FNA
+to continue implementing the ESAP for the period beginning October 1, 2026, and
+ending September 30, 2031. However, effective March 1, 2027, the age requirement
+for ESAP eligibility has increased from 60 to 65.
+
+California’s ESAP is approved with four existing waivers which, beginning March 1,
+2027, apply only to CalFresh households where all members are age 65 or older and/or
+have a disability and the household has no earned income. Individuals ages 60 through
+64 who do not have a disability will no longer be eligible to participate in ESAP. There
+have been no changes in eligibility for people with a disability.
+
+The implementation date for the new age requirement reflects the time necessary to
+complete required automation changes in the California Statewide Automated Welfare
+System (CalSAWS) and provide training to county staff. Counties must not implement
+the modified ESAP through manual processes or system workarounds.
+
+BACKGROUND
+
+On November 13, 2020, CDSS received authorization from FNA to continue
+implementing the ESAP for the period beginning October 1, 2021, and ending
+September 30, 2026. At that time, California’s ESAP approval included four waivers
+which applied only to CalFresh households wherein all members were age 60 or older
+and/or have a disability and the household had no earned income.
+
+On July 4, 2025, President Trump signed House of Representatives 1 (HR 1) (Public
+Law 119-21) into law. HR 1 changed the definition of an Able-Bodied Adult Without
+Dependents (ABAWD) to include individuals aged 18 through 64, unless exempt. Prior
+to HR 1, the definition of an ABAWD included individuals aged 18 through 54.
+
+Per the USDA FNA SNAP Provisions of the One Big Beautiful Bill Act of 2025 ABAWD
+Exceptions Implementation Memorandum released October 3, 2025, HR 1 does not
+change general SNAP work requirements, also known as work registration. Individuals
+aged 60 or older remain exempt from work registration. However, due to amendments
+at 7 USC 2015(o)(3) that raise the ABAWD age threshold to 65, individuals aged 60
+through 64 who are exempt from work registration solely due to age, are still subject to
+the ABAWD time limit, unless they qualify for another work registration exemption or an
+ABAWD time limit exemption. Households participating in the ESAP are not excluded
+from this new criteria.
+
+On June 11, 2026, the FNA notified CDSS via memorandum that it was modifying all
+ESAP demonstration projects nationwide to exclude participants aged 60 through 64
+who do not have a disability, citing alignment with the new ABAWD time limit and
+corresponding work and community engagement rules under HR 1. State agencies
+were given a deadline to implement this change no later than 60 days after publication
+of the memorandum, making California’s deadline August 10, 2026. The FNA also
+
+All County Letter No. 26-58
+Page 3
+
+requested that states provide information regarding the feasibility of meeting this
+deadline, including eligibility system updates.
+
+To ensure accurate and consistent implementation of these modified requirements,
+CDSS submitted a formal notice to FNA informing California’s intent to implement the
+modified terms upon completion of CalSAWS automation, effective March 1, 2027.
+
+On June 22, 2026, the FNA approved CDSS’ delayed implementation of the modified
+Terms and Conditions effective March 1, 2027. California is approved to operate the
+ESAP effective October 1, 2026, through September 30, 2031, with the new age
+requirements effective beginning March 1, 2027.
+
+OVERVIEW OF CALFRESH ELDERLY SIMPLIFIED APPLICATION PROJECT
+WAIVERS
+
+The ESAP was approved in accordance with the requirements to operate a
+demonstration project under section 17(b) of the Food and Nutrition Act of 2008 (the
+Act). The four requirements waived as part of California’s ESAP are described below:
+
+• The recertification interview requirement (7 CFR 273.14(b)(3));
+• Verification requirements for information that is not questionable; data matching
+used to reduce client-provided verifications (7 CFR 273.2(f), Section 11(e)(3) of
+the Act);
+• The requirement to certify elderly/disabled households for 24 months such that
+households may be certified for 36 months, including for ESAP cases processed
+by the Social Security Administration (SSA) (7 CFR 273.10(f)(1), Section 3(f) of
+the Act, 7 CFR 273.2(k)(1)(iii)(B)(1)); and
+• The requirement to contact the household at least once every 12 months thereby
+eliminating the need to send and collect a SAR 7 Eligibility Status Report (SAR 7)
+(7 CFR 273.10(f)(1), 7 CFR 273.12(a)(5)(iii)(B), Section 3(f) of the Act).
+
+These waivers currently apply to CalFresh households wherein all members are age 60
+or older and/or have a disability and the household has no earned income. Beginning
+March 1, 2027, these waivers apply only to CalFresh households where all members
+are age 65 or older and/or have a disability and the household has no earned income.
+
+IMPLEMENTATION INTRUCTIONS
+
+ESAP CERTIFICATION AT INITIAL APPLICATION
+
+ESAP Eligible Households: Currently, CalFresh applicants and recipient households are
+eligible for the ESAP if all household members are aged 60 or older and/or have a
+disability and the household has no earned income. If the household includes excluded
+or ineligible members that are also all aged 60 and older and/or have a disability, the
+
+All County Letter No. 26-58
+Page 4
+
+household is eligible for the ESAP. Effective March 1, 2027, individuals aged 60 through
+64 who do not have a disability no longer qualify for ESAP.
+
+Application Forms for ESAP households: CDSS released the paper CalFresh Elderly
+Simplified Application (CF 485) via ACL No. 23-85 issued on October 10, 2023. The
+CWD is encouraged to utilize the CF 485 for ESAP initial applications, as it includes
+only those questions that are federally required and relevant to ESAP eligible
+households. This is intended to improve program access, decrease churn, and
+decrease administrative burden on the CWD. The CF 485 has been updated to reflect
+the new age requirements and will be available for use beginning March 1, 2027.
+
+While the CF 485 is designed specifically for use by ESAP eligible households, CWDs
+may also use any CalFresh application, including the Application for CalFresh Benefits
+(CF 285) as an initial application and the Recertification for CalFresh Benefits (CF 37)
+as the recertification application, for ESAP households.
+
+Expedited Service (ES): Per existing policy, CWDs must screen all applications,
+including those received from ESAP households, for ES entitlement and if eligible,
+process and issue benefits within three days. Under the ESAP and to the greatest
+extent possible, CWDs will use existing electronic data matches to complete
+verifications pending due to ES entitlement.
+
+Interviews: 7 CFR 273.2(e) requires CWDs to interview applicant households to
+determine eligibility at initial certification and recertification. Under California’s ESAP
+approval, part of this rule is waived to permit CWDs to forgo the recertification interview
+for ESAP households, unless the case is set to be denied. CWDs must continue to
+conduct an initial certification interview for all ESAP households.
+
+During the initial certification interview or the recertification interview when ESAP
+eligibility is first established, CWDs must clearly inform the household that an interview
+will not be required at the household’s next recertification unless (1) the household
+requests an interview; (2) the CWD is going to deny the household’s recertification
+application (e.g. a household’s circumstances have changed and they appear to be
+ineligible for CalFresh); or (3) the information supplied by the household or authorized
+representative is questionable, incomplete or contradictory. The CWD must also inform
+the household of other reporting requirements, including requirements specific to ESAP
+households such as not completing a SAR 7 but continuing to be responsible for
+reporting gross monthly income received over the Income Reporting Threshold during
+the certification period.
+
+Verifications: To the greatest extent possible, electronic matches will be used to verify
+identity, income, residency and social security numbers. Under California’s ESAP
+approval, two rules related to verifications are waived:
+
+All County Letter No. 26-58
+Page 5
+
+• Section 11(e)(3) of the Act requires CWDs to verify non-excludable income and
+household size (if questionable). FNA is waiving this section so that ESAP
+households are only required to submit verification of income if it is questionable.
+• 7 CFR 273.2(f) requires CWDs to verify gross nonexempt income, non-citizen
+eligibility, utility expenses, medical expenses, social security numbers, residency,
+identity, and child support payments. FNA is waiving this provision so that ESAP
+households do not have to provide such verifications unless questionable.
+Electronic matches will be used to the greatest extent possible for verification.
+
+If applicable, CWDs are required to use standard methods to verify excess medical
+expenses that exceed $35 a month, and questionable information. If a medical expense
+can be verified via electronic sources (such as Medicare premiums), the household
+does not need to submit verification of that expense. Otherwise, the household must
+submit verification in order to claim the expense.
+
+Certification Periods: The CWDs will assign ESAP households to a 36-month
+certification period. 7 CFR 273.10(f)(1) allows certification periods to extend up to 24
+months for Elderly/Disabled (E/D) households. Section 3(f) of the Act defines a
+certification period. Under California’s ESAP approval, both rules have been waived and
+ESAP household certification periods have been extended to 36 months.
+
+Periodic Reporting Requirements: All ESAP households will be on simplified reporting;
+however, ESAP participants are not required to submit periodic reports (i.e., SAR 7s).
+Households will report when the household monthly gross income exceeds 130% of the
+federal poverty guidelines (the Income Reporting Threshold for ESAP households); and
+when a household member wins substantial lottery or gambling winnings as defined by
+7 CFR 273.11(r) in accordance with 7 CFR 273.12(a)(2).
+
+MID-PERIOD CONVERSION TO NON-ESAP
+
+Conversion from ESAP to Non-ESAP: During the 36-month certification period, if an
+ESAP household becomes ineligible for the ESAP, but remains eligible for CalFresh (for
+example, due to a household composition change or employment), the CWD must
+convert the household from ESAP to a non-ESAP household in accordance with current
+reporting rules. To maintain eligibility, households converted from ESAP to non-ESAP
+must comply with all reporting requirements, including submission of a SAR 7 at 12 and
+24 months as applicable, for the remainder of the 36-month certification period.
+
+Households that become ineligible for ESAP must maintain their 36-month certification
+period. The CWD cannot shorten a household’s certification period once assigned. At
+the end of the 36-month certification period, the CWD must determine not only the
+household’s continuing CalFresh eligibility but also whether the household continues to
+be ineligible for ESAP and, if so, assign the household a certification period based on
+household type. The length of the new certification period will be 12 or 24 months,
+depending on the reason why the household is no longer eligible for ESAP. If the
+
+All County Letter No. 26-58
+Page 6
+
+household is determined to once again be ESAP eligible, the household must again be
+assigned a 36-month certification period.
+
+The CWD must notify an ESAP household when it is converted from ESAP to a regular
+CalFresh household. The CalFresh Notice of Status Change for Households with only
+Elderly and/or Disabled Members (CF 377.2D) informs the household about non-ESAP
+reporting responsibilities (e.g. interview required at recertification and periodic
+reporting).
+
+RECERTIFICATION
+
+Interviews: In accordance with 7 CFR 273.14(b)(2), ESAP households must submit an
+application for recertification to continue receiving benefits beyond the approved
+certification period. If, at recertification, it appears that an ESAP household will no
+longer be eligible for CalFresh based on the information provided on the application for
+recertification or other information available to the CWD, the CWD must attempt to
+schedule an interview. A recertification application for an ESAP household must not be
+denied without an attempt to schedule an interview.
+
+NEW ESAP REQUIREMENTS EFFECTIVE MARCH 1, 2027
+
+The modified Terms and Conditions of the ESAP specify that:
+
+• State agencies must exclude participants aged 60 through 64 who do not have a
+disability.
+• Current ESAP households that include participants aged 60 to 64 who do not
+have a disability are no longer eligible for the demonstration project.
+• State agencies must convert these households to non-ESAP during the
+certification period under the State agency’s approved waiver terms and
+conditions.
+• State agencies must screen individuals formerly eligible for ESAP for an
+exemption from the ABAWD time limit in accordance with 7 CFR 273.24(k) to
+determine if they are exempt or subject to the time limit.
+• All other terms and conditions of the State agency’s ESAP approval remain in
+effect.
+
+NEW APPLICANTS
+Effective March 1, 2027, individuals aged 60 through 64 who do not have a disability no
+longer qualify for ESAP. All other ESAP eligibility criteria continue to apply.
+
+ONGOING ESAP HOUSEHOLDS
+Effective March 1, 2027, ongoing ESAP households that include individuals aged 60
+through 64 who do not have a disability will no longer be eligible for ESAP, meaning this
+
+All County Letter No. 26-58
+Page 7
+
+change is effective for all ongoing ESAP households with recertifications due in March
+2027 and thereafter.
+
+As a reminder, households converted from ESAP to non-ESAP must comply with all
+reporting requirements, including submission of a SAR 7 at 12 and 24 months as
+applicable, for the remainder of the 36-month certification period. The conversion
+process for these households mirrors the steps described above under the “Mid-Period
+Conversion to Non-ESAP” section. For SAR 7 reporting, the earliest possible
+submission of a periodic report for an affected household will be in April 2027.
+
+Households that become ineligible for ESAP must maintain their 36-month certification
+period. If a CalFresh household that was previously converted from ESAP to non-ESAP
+as a result of the modified waiver appears ESAP eligible based on the information
+provided on the application for recertification (e.g. all household members are now aged
+65 or older), the CWD must conduct a recertification interview to establish ESAP
+eligibility going forward. A recertification interview cannot be waived until after ESAP
+eligibility has been established.
+
+APPLYING THE CALFRESH TIME LIMIT TO FORMER ESAP ELIGIBLE
+INDIVIDUALS
+
+Once an individual age 60 through 64 who does not have a disability has been
+converted from ESAP to non-ESAP, that person may be considered an ABAWD. That
+determination, including whether the person is exempt from or subject to the time limit,
+must only happen at the individual’s next recertification when an exemption screening
+must be completed and, if subject to the time limit, when the individual must be informed
+of the CalFresh work rules. The exemption screening must reflect the modified
+exemption criteria under HR 1.
+
+Counties are also reminded that an exemption from the time limit granted at initial
+application, mid-period or recertification cannot be removed until the ABAWD has been
+rescreened for an exemption at their next recertification (United States Department of
+Agriculture (USDA) Food and Nutrition Service Supplemental Nutrition Assistance
+Program (SNAP) – Question and Answer #1 for the Program Purpose and Work
+Requirement Provisions of the FRA of 2023 Final Rule issued on December 20, 2024).
+
+At recertification, the CWD must follow the required screening order for former ESAP
+participants age 60 through 64 and who do not have a disability:
+
+1. Screen for work registration exemptions.
+• If the individual qualifies for a work registration exemption other than the
+age exemption, they are not considered an ABAWD and do not require
+further ABAWD screening.
+2. If no work registration exemption applies, screen for an exemption from the
+ABAWD time limit.
+
+All County Letter No. 26-58
+Page 8
+
+• Individuals who meet the criteria for an exemption are not subject to the
+time limit.
+• Individuals who do not meet the criteria for an exemption are subject to
+the time limit.
+
+As a reminder, per ACL No. 26-29 issued on April 15, 2026, an individual cannot be
+subject to the time limit until they have been screened for an exemption and informed of
+the ABAWD work rules. Following the screening process, counties must provide an oral
+explanation of the work rules along with the CF 886.
+
+NOTICING REQUIREMENTS
+
+Three ESAP specific notices (CF 377.2B, CF 377.2C, and CF 377.2D) were released
+via ACL No. 17-53 issued on June 14, 2017, which provides instructions on the use of
+the three forms, and revised via ACL No. 17-53E issued on May 18, 2018.
+
+The CF 377.2B and CF 377.2C serve as alternative notices of expiration of certification.
+Households nearing the end of the 36-month certification period must be sent either the
+CF 377.2B or the CF 377.2C, but not both. If the household is still participating in the
+ESAP, the CWD must use the CF 377.2B. If the household was converted from ESAP
+to non-ESAP during the 36-month certification period, the CWD must use the CF
+377.2C.
+
+For impacted households being converted from ESAP to non-ESAP mid-period due to
+the FNA modification of ESAP terms, CDSS has created a new one-time notice, the
+CalFresh Notice of Change for Households with Only Elderly and/or Disabled Members
+(CF 891). The CF 891 will inform households that they will now be subject to regular
+CalFresh reporting requirements, including a recertification interview. This notice will be
+sent to all impacted households following the batch conversion to non-ESAP in
+CalSAWS, prior to the policy effective date.
+
+FORMS UPDATE
+
+CDSS has updated the CF 485 CalFresh Elderly Simplified Application to reflect the
+updated ESAP eligibility criteria. The updated CF 485 has been included as an
+attachment to this letter and will be available for use beginning March 1, 2027.
+
+QUALITY CONTROL
+
+The FNA has determined that the ESAP does not significantly modify the rules of
+determining a household’s eligibility or benefit level. Therefore, ESAP household case
+review outcomes must be included in the state’s error rate.
+
+Reviewers will first make sure that all impacted households are correctly classified as
+ESAP households under the project rules. If the household is not correctly classified as
+
+All County Letter No. 26-58
+Page 9
+
+an ESAP household, eligibility and benefits will be reviewed following the regular SNAP
+standards. If the household is correctly classified as an ESAP household, eligibility and
+benefits will be reviewed following the rules of the ESAP. QC must apply verification
+standards and procedures specified in the FNS 310 Handbook. Without verification of
+all relevant circumstances, QC will be unable to complete a full QC review.
+
+Cases selected for QC review may be included in the evaluation of the ESAP.
+Additional cases may be chosen if cases selected through the regular QC process are
+insufficient. A desk review of case information and verification of client information may
+be done via telephone if additional cases are needed.
+
+REPORTING REQUIREMENTS AND EVALUATION
+
+The FNA requires that the State submit an annual ESAP evaluation report. Reports are
+due four and a half months after the end of the federal fiscal year (FFY). The CalSAWS
+will provide CDSS with the necessary data through the existing CalSAWS Internal Data
+Request (CIDR) process to complete required ESAP evaluation reports. Additionally,
+CDSS will now submit a Sampling Plan with a narrative explanation of the process used
+to select the sample and conduct case reviews.
+
+California ESAP Reporting Schedule
+
+Reports Date Range Covered Report Due Date
+First Report October 1, 2026 - September 30, 2027 February 15, 2028
+Second Report October 1, 2027 - September 30, 2028 February 15, 2029
+Third Report October 1, 2028 - September 30, 2029 February 15, 2030
+Fourth Report October 1, 2029 - September 30, 2030 February 15, 2031
+Request for N/A April 1, 3031
+Renewal
+Fifth Report October 1, 2030 - September 30, 2031 February 15, 2032
+
+Please refer to the attached Project approval letter for additional information on the
+reporting requirements for the Sampling Plan and Annual Report.
+
+COPIES AND TRANSLATIONS
+
+Forms referenced in this letter are available on the CDSS Forms/Brochures webpage.
+When CDSS completes translations of a form, they are posted on the Translated Forms
+and Publications webpage. When made available by CDSS, forms translated into an
+individual’s preferred language must be provided to the individual pursuant to MPP
+Section 21-115.2. For questions on translated materials, please contact Translation
+Services Section at lts@dss.ca.gov. If translations are not available, recipients who
+have elected to receive materials in languages other than English should be sent the
+English version of the form or notice along with the GEN 1365-Notice of Language
+Services and a local contact number. See ACL No. 22-56.
+
+All County Letter No. 26-58
+Page 10
+
+Per MPP Section 21-115, the CWD must ensure effective bilingual services are
+provided. This requirement may be met through utilization of paid interpreters, qualified
+bilingual employees, and qualified employees of other agencies or community
+resources. These services must be provided, free of charge, to the applicant/recipient. If
+CDSS does not provide translations of a form, it is the county’s responsibility to read
+and interpret the form if an applicant or recipient requests it. See ACL No. 22-56.
+
+Additionally, the CWD must provide auxiliary aids and services such as notices and
+forms in alternate formats to persons with vision, hearing, or speech disabilities, where
+applicable. More information regarding provisions for services to applicants and
+recipients who have limited English proficiency or who have disabilities can be found in
+MPP Section 21-115 and ACL No. 19-45.
+
+If you have any questions or need additional guidance regarding the information in this
+letter, contact the CalFresh Policy Bureau at CalFreshPolicy@dss.ca.gov.
+
+Sincerely,
+
+Original Document Signed By
+
+ALEXIS FERNÁNDEZ GARCIA
+Deputy Director
+Family Engagement and Empowerment Division
+
+Attachments
+
+Docusign Envelope ID: CD3060EE-C4C5-8409-8103-820886870370
+
+July 22, 2026
+
+Becky Silva
+Branch Chief
+CalFresh Branch
+Family Engagement and Empowerment Division
+California Department of Social Services
+744 P Street
+Sacramento, CA 95814
+
+Dear Branch Chief Silva,
+
+This letter is in response to the March 10, 2026, request from California’s Department of Social
+Services (the State) to renew the California Elderly Simplified Application Project (CA ESAP)
+demonstration project. Under the authority granted by section 17(b)(1)(A) of the Food and
+Nutrition Act of 2008, as amended (the Act), the Food and Nutrition Administration (FNA) is
+pleased to approve the State agency’s request to continue its ESAP subject to the enclosed
+waivers effective October 1, 2026, through September 30, 2031.
+
+FNA approves this request because it improves the efficiency and effectiveness of program
+administration and streamlines State agency processes for serving the elderly and disabled
+population. Under regular SNAP rules, the State agency may assign individuals who are
+elderly and/or disabled a certification period up to 24 months. The State agency is required to
+conduct a recertification interview and verify household circumstances through use of
+documentation provided by the household or a third-party contact. For applicants who are
+elderly or disabled, the SNAP application process may be confusing and difficult to navigate
+due to health and technology challenges. It is also administratively burdensome on the State
+to conduct recertification interviews for households with no earned income whose
+circumstances are typically stable.
+
+This Project improves customer service by waiving the recertification interview, extending the
+certification period to 36 months with no periodic report required to maintain eligibility, and
+allowing for greater use of computer matching for verification.
+
+The ESAP waiver only applies to households where all household members are 65 years or
+older and/or disabled with no earned income.
+
+As of FY 2025, the CA ESAP served nearly 1.2 million households, or 36% of the State’s total
+SNAP caseload. Further, the monthly retention rate among CA ESAP households was six
+percentage points higher than that of the overall CA SNAP caseload in July 2025. The growth
+in the caseload of households containing elderly and/or disabled individuals, as well as
+
+Food and Nutrition Administration, 1400 Jefferson Dr SW, Suite 217-E, Washington, DC 20250
+USDA is an equal opportunity provider, employer, and lender.
+
+Docusign Envelope ID: CD3060EE-C4C5-8409-8103-820886870370
+Page 2 of 18
+
+reduced churn among ESAP households, highlights the importance of maintaining
+administrative flexibility for this vulnerable population.
+
+The streamlined ESAP renewal process leverages electronic verification sources to improve
+both efficiency and accuracy. Further, in FY 2025, CA ESAP generated approximately $230.2
+million in administrative savings (or 1.5 million staff hours) by waiving recertification
+interviews and periodic reports, allowing redeployment of State resources to more error-
+prone cases. This project addresses some of the most common barriers to SNAP enrollment
+faced by elderly individuals and results in more effective administration of the program.
+
+FNA appreciates the State agency’s dedication to supporting this population. The attached
+terms and conditions provide the evaluation requirements and include a reporting schedule.
+During the project period, FNA requires your agency to submit annual reports, the first of
+which will be due to FNA by February 15, 2028. FNA also requires your agency to submit a
+sampling plan, which will be due to FNA by February 15, 2027.
+
+Please note that FNA has updated the quality control (QC) language, updated ESAP
+reporting requirements, and added a new sampling plan requirement in this approval.
+Please ensure your QC office and other appropriate staff are provided the updated
+language. See the Quality Control and Evaluation sections of this approval for more
+information.
+
+We are requesting that your agency submit as quickly as possible, written acceptance of
+these terms and conditions signed by the appropriate State official in WIMS case #13842. Your
+acceptance letter must also include an attestation that the approval has been shared with
+relevant State policy and Quality Control officials. Please alert FNA when uploading the
+document by tagging the relevant Regional and National staff listed in the WIMS case team
+using the @ sign.
+
+Sincerely,
+
+Ronald Ward
+Acting Associate Administrator
+Supplemental Nutrition Assistance Program
+Food and Nutrition Administration
+U.S. Department of Agriculture
+
+Enclosure
+
+Docusign Envelope ID: CD3060EE-C4C5-8409-8103-820886870370
+Page 3 of 18
+
+APPROVED WAIVERS
+CALIFORNIA ELDERLY SIMPLIFIED APPLICATION PROJECT
+(CA ESAP)
+
+Elderly Simplified Application Project (the Project) waivers are approved in accordance with
+requirements to operate demonstration projects under section 17(b) of the Food and Nutrition
+Act of 2008, as amended (the Act). The waivers described below only apply to households where
+all members are 65 years or older and/or disabled with no earned income.1 The waivers do not
+apply to any other Supplemental Nutrition Assistance Program (SNAP) participants in the State.
+
+WAIVERS OF THE ACT
+
+1. Section 3(f) of the Act defines “certification period” as the period for which households
+are eligible to receive SNAP benefits. The certification period shall not exceed 12
+months, except that the certification period may be up to 24 months if all adult
+household members are elderly or disabled. A State agency shall have at least one
+contact with each certified household every 12 months.
+
+The Food and Nutrition Administration (FNA) is waiving this section to allow the State
+agency to extend the certification period for 36 months and eliminate the requirement
+that the State agency contact ESAP households once every 12 months. The State
+agency will continue to make annual contact with ESAP households.
+
+2. Section 6(c)(1)(D)(i) of the Act notes that the State agency may require households
+that report on a periodic basis to submit reports not less often than once every 6
+months, but not more often than once each month.
+
+FNA is waiving this section to allow the State agency to waive the periodic report
+requirements.
+
+3. Section 11(e)(3) of the Act requires that the State agency verify all non-excludable
+income and household size.
+
+FNA is waiving this section of the Act to allow the State agency to use data matches
+in lieu of asking the client for income verification. Households will verify this
+information when it is questionable. The State agency will use computer
+matches to the greatest extent possible.
+
+1
+Until the State agency’s system changes go into effect in March 2027 to implement the terms of FNA’s June 11, 2026, modification letter,
+the CA ESAP population will be households where all members are 60 years or older and/or disabled with no earned income.
+
+Docusign Envelope ID: CD3060EE-C4C5-8409-8103-820886870370
+Page 4 of 18
+
+WAIVERS OF SNAP REGULATIONS
+
+1. 7 CFR 273.2(f) requires the State agency to verify gross nonexempt income,
+immigration status, utility expenses, medical expenses, social security numbers,
+residency, identity, disability, and child support payments.
+
+FNA is waiving this provision of the regulations so participating ESAP households do
+not have to provide such verifications unless questionable. Computer matches will be
+used to the greatest extent possible to verify gross nonexempt income, social security
+numbers, identity, child support paid, disability and medical expenses for households
+that pay a Medicare premium. ESAP households will self-attest shelter expenses. The
+State agency will verify residency through readily available documentary evidence,
+collateral contacts, or home visits. The State agency will continue to verify non-citizen
+status, medical expenses greater than $35 per month for households that do not pay a
+Medicare premium, and questionable information.
+
+2. 7 CFR 273.2(k)(1)(iii)(B)(1) requires the State to certify SNAP applications processed by
+the Social Security Administration (SSA) for up to twelve months.
+
+FNA is waiving this provision of the regulations to allow the State to extend
+certification periods up to 36 months for SNAP applications processed by the SSA for
+Supplemental Security Income (SSI) recipients with no earned income that are eligible
+for ESAP.
+
+3. 7 CFR 273.10(f)(1) allows the State agency to certify households in which all adult
+members are elderly or disabled for up to 24 months. The State agency must have at
+least one contact with each household every 12 months. The State agency may use
+any method it chooses for this contact.
+
+FNA is waiving this provision of the regulations to allow the State agency to certify
+ESAP households for 36 months. The State agency will continue to make annual
+contact with ESAP households.
+
+4. 7 CFR 273.12(a)(5)(iii)(B) requires households in which all adult members are elderly or
+have a disability, have no earned income and whose certification periods last between
+13 and 24 months to file a periodic report once a year.
+
+FNA is waiving this provision of the regulations to allow the State agency to eliminate
+the periodic report requirements for households in which all members are 65 years or
+older and/or disabled, have no earned income, and are certified or converted under
+ESAP.
+
+Docusign Envelope ID: CD3060EE-C4C5-8409-8103-820886870370
+Page 5 of 18
+
+5. 7 CFR 273.14(b)(3) requires that the State agency interview applicant households prior
+to recertification.
+
+FNA is waiving this provision of the regulations to permit the State agency to forego
+recertification interviews with participating households unless the State agency plans
+to deny the application for recertification, there is outstanding information or
+questions, or the household requests an interview. The State agency will not deny an
+ESAP recertification application if it does not schedule an interview. Interviews are
+required at initial certification.
+
+Docusign Envelope ID: CD3060EE-C4C5-8409-8103-820886870370
+Page 6 of 18
+
+IMPLEMENTATION
+
+Eligibility
+
+Households that meet the following conditions are eligible for the State agency’s ESAP
+demonstration project: all household members are 65 years or older and/or disabled and
+where no household member receives earned income.1
+
+Application and Screening
+
+ESAP households may apply using the State agency’s ESAP application or any other SNAP
+(CalFresh) application.
+
+Expedited Service
+
+The State agency will process initial ESAP applications that appear eligible for expedited
+service within 7 days, consistent with existing procedures. The State agency will assign 36-
+month certification periods to ESAP households, assuming all necessary information is
+provided to the State agency in accordance with 273.2(i)(4(iii).
+
+Certification Period
+
+The State agency will certify ESAP households for 36 months.
+
+Simplified Reporting
+
+All ESAP households will be on simplified reporting; however, ESAP participants are not
+required to submit periodic reports. Households will report when the household monthly
+gross income exceeds 130% of the federal poverty guidelines; and when a household member
+wins substantial lottery or gambling winnings as defined by 7 CFR 273.11(r) in accordance
+with 7 CFR 273.12(a)(2).
+
+The State agency will inform households converted from regular SNAP to ESAP of their
+reporting requirements through an ESAP-specific notice at the time of conversion. The State
+agency will inform ESAP households new to SNAP of their reporting requirements through
+both their ESAP-specific eligibility notice and in their initial interview.
+
+Additionally, the State agency will make annual contact with ESAP households at the 12-
+month and 24-month marks reminding households of their reporting requirements and how
+to report changes.
+
+Interview
+
+The State agency will conduct initial interviews for all households applying for the ESAP
+demonstration project.
+
+Docusign Envelope ID: CD3060EE-C4C5-8409-8103-820886870370
+Page 7 of 18
+
+At recertification, the State agency must conduct an interview in the following situations:
+1. If there are outstanding information or questions;
+2. If the household requests an interview; or
+3. If the State agency determines it will deny a recertification application. The State
+agency may not deny an ESAP recertification application if it does not schedule an
+interview.
+
+Verification
+
+The State agency will use data matches as verification for ESAP households to the greatest
+extent possible to verify gross nonexempt income, social security numbers, identity, child
+support paid, disability, and medical expenses for households that pay a Medicare premium.
+ESAP households will self-attest shelter expenses. The State agency will verify residency
+through readily available documentary evidence, collateral contacts, or home visits. The
+State agency will require verification from the household for non-citizen status, medical
+expenses exceeding $35 a month for households that do not pay a Medicare premium, and
+any questionable information, which the State agency must verify in accordance with 7 CFR
+273.2(f)(2).
+
+Existing ESAP households covered by the California Standard Medical Deduction (SMD)
+demonstration project do not need to re-verify previously reported medical expenses
+exceeding $35 at recertification. ESAP households that report new medical expenses that
+exceed the State agency’s SMD must verify medical expenses in order to receive the medical
+expense deduction in excess of the SMD.
+
+The State agency must continue to use the five FNA-required data sources: Electronic
+Disqualified Recipient System (eDRS), National Directory of New Hires (NDNH), Systematic
+Alien Verification for Entitlements Program (SAVE), Prisoner Update Processing System
+(PUPS)/SSA Prisoner Verification System, and the Internet-Electronic Death Registration/SSA
+Death Master File.
+
+The State agency will use additional data matches to the greatest extent possible to verify
+information not already covered by the FNA-required data sources, such as the Income and
+Eligibility Verification System (IEVS).
+
+If the State agency receives unclear information about a household’s circumstances during
+the certification period and the State agency cannot readily determine its impact on the
+household’s continued eligibility for SNAP, the State agency will follow regulations at 7 CFR
+273.12(c)(3) and issue a written request for contact (RFC), as appropriate.
+
+Docusign Envelope ID: CD3060EE-C4C5-8409-8103-820886870370
+Page 8 of 18
+
+Conversion of Households
+
+Converting Existing SNAP Households to ESAP
+
+If the State agency becomes aware that a regular SNAP household is eligible for the ESAP at
+recertification, including households that were former ESAP participants removed from the
+demonstration project due to changes in circumstances, the State agency must add these
+households to the demonstration project and inform the households of their new status,
+reporting procedures, and responsibilities.
+
+If the State discovers that a regular SNAP household is eligible for ESAP during their
+certification period due to a reported change, they will be converted at their next
+recertification. The State agency must continue to follow regulations at 7 CFR 273.12(c)(3) on
+unclear information.
+
+Converting Ineligible ESAP Households to SNAP
+
+When the State agency’s system changes go into effect in March 2027 to implement the terms
+and conditions of FNA’s June 11, 2026, modification letter, current ESAP households that
+include participants aged 60 to 64 who do not have a disability are no longer eligible for the
+demonstration project. The State agency will convert these households back to regular SNAP
+during the certification period following the below conversion process.
+
+If during their certification period, an ESAP household becomes ineligible for ESAP, but
+remains eligible for SNAP, the State agency must remove the household from the ESAP
+demonstration project and convert the household to a regular SNAP household. Once the
+State agency converts an ESAP household into a regular SNAP household, the household is
+still entitled to the 36-month certification period. The State agency will assign these
+households to simplified reporting, and the households will be required to submit periodic
+reports at the frequency specified at 7 CFR 273.12(a)(5)(iii)(B).
+
+At the time of conversion, the State agency must notify the household of the changes in their
+status and responsibilities. At the end of the 36-month certification period, the State agency
+must recertify households according to normal SNAP recertification requirements, including
+certification periods.
+
+Outreach
+
+The State agency will leverage existing partnerships with other State agencies and a broad
+statewide network of community-based organizations that work with elderly and disabled
+populations to communicate changes in CalFresh policy. Additionally, the State agency will
+proactively target existing CalFresh Outreach resources to the elderly population.
+
+Docusign Envelope ID: CD3060EE-C4C5-8409-8103-820886870370
+Page 9 of 18
+
+Training
+
+The State agency will issue an All County Letter (ACL) describing policy changes and the
+operational details of implementation. Additionally, the State agency will provide counties
+with technical assistance support, such as an implementation guide, recommended best
+practices, webinars, and a technical assistance point of contact at the State agency.
+
+Docusign Envelope ID: CD3060EE-C4C5-8409-8103-820886870370
+Page 10 of 18
+
+GENERAL WAIVER TERMS AND CONDITIONS
+CALIFORNIA ELDERLY SIMPLIFIED APPLICATION PROJECT
+(CA ESAP)
+
+GENERAL
+
+• The Food and Nutrition Administration (FNA) authorizes California to operate the
+Elderly Simplified Application Demonstration Project (the Project) for a period of 5
+years from the Project’s start date of October 1, 2026. The Project will begin on
+October 1, 2026, and expire on September 30, 2031. The State agency will operate this
+project statewide.
+
+• FNA reserves the right to withdraw its waiver approval and terminate the Project at
+any time if FNA determines that the Project is inconsistent with the Supplemental
+Nutrition Assistance Program (SNAP) goals to increase the efficiency of the Program
+and to improve the delivery of SNAP benefits to raise levels of nutrition among low–
+income individuals.
+
+• If any Federal laws regarding this Project change during the approved period, the
+State agency will submit a modification request to FNA to ensure the Project’s terms
+and conditions reflect current Federal law. FNA will review and approve the
+modification in accordance with section 17(b)(1)(D) of the Food and Nutrition Act of
+2008, as amended.
+
+• The State agency will ensure that all participants in the Project are qualified under the
+terms and conditions set forth in this approval.
+
+• The State agency will provide FNA with regular reports, using the updated evaluation
+template available on FNA’s Waiver Information Management System (WIMS).
+
+REQUEST FOR AN EXTENSION
+
+If the State agency would like to continue the Project beyond September 30, 2031, the State
+agency should send a request to FNA by April 1, 2031, six months before the Project
+expiration. The extension request letter should include a summary of progress to date,
+including the time since the last annual report, although FNA recognizes that data from the
+first part of the reporting period may only be preliminary.
+
+QUALITY CONTROL (QC)
+
+Authority
+
+7 CFR 275.11(g) governs QC’s review of demonstration projects and states, “households
+correctly classified for participation under the rules of an FNS-authorized demonstration
+
+Docusign Envelope ID: CD3060EE-C4C5-8409-8103-820886870370
+Page 11 of 18
+
+project which FNS determines to significantly modify the rules for determining households'
+eligibility or allotment level, shall be included in the QC selection and review process.” FNA
+has determined the Project does not significantly modify the rules for determining
+households' eligibility or allotment level and therefore, the results of the reviews, in both the
+active and negative sample frames of households participating in the Project, must be
+included in the State agency's error rate.
+
+Case Classifications
+
+The State agency must code all active cases reviewed under the Project with a classification
+of "1" (included in the error rate calculation) in item #11 of the FNS-380-1, Quality Control
+Review Schedule. In addition, the State must code all negative cases reviewed the Project
+with a classification of “1” (included in the error rate calculation) in Section II, item #9 of the
+FNS-245, Supplemental Nutrition Assistance Program (SNAP) Negative Case Action Review
+Schedule.
+
+Modified review procedures
+
+The State agency must modify QC procedures for households participating in the Project. For
+all reviews, when verifying household circumstances, reviewers must independently verify all
+relevant circumstances for the period under review, following the rules for verification found
+in the FNS-310, SNAP’s QC Review Handbook.
+
+To determine if the State correctly classified the household for participation under the
+Project’s rules, the QC reviewer must apply the household’s verified circumstances against
+the eligibility rules of the Project. For active cases, if the State accurately included the
+household in the Project, the QC reviewer will move on to determine the accuracy of the
+allotment under review, again based on verified household circumstances and the Project’s
+rules for determining benefit allotments. If the State did not correctly classify the household’s
+participation under the Project, the household’s eligibility and allotment under review will be
+evaluated against SNAP standards established in the Food and Nutrition Act, as amended,
+and Federal regulations, considering any FNA-approved waivers (other than those approved
+for the Project) or State agency options that deviate from specific provisions. For negative
+cases, the reviewer must follow the FNS-310’s procedures for determining the validity of a
+negative action.
+
+COST NEUTRALITY
+
+To ensure that Federal costs do not increase because of implementing the approved waivers,
+the State agency guarantees that it will maintain cost neutrality for the duration of the
+Project.
+
+Docusign Envelope ID: CD3060EE-C4C5-8409-8103-820886870370
+Page 12 of 18
+
+EVALUATION
+
+The State agency must provide FNA with regular reports, detailed in the evaluative
+components section below.
+
+CA ESAP Reporting Schedule
+
+Report Type Reporting Period Due Date
+Fifth Annual Report from October 1, 2025-September 30, 2026 February 15, 2027
+previous approval period
+Sampling plan N/A February 15, 2027
+First Annual Report October 1, 2026-September 30, 2027 February 15, 2028
+Second Annual Report October 1, 2027-September 30, 2028 February 15, 2029
+Third Annual Report October 1, 2028-September 30, 2029 February 15, 2030
+Fourth Annual Report October 1, 2029-September 30, 2030 February 15, 2031
+Renewal Request April 1, 2031
+Fifth Annual Report* October 1, 2030-September 30, 2031 February 15, 2032
+*If the State extends the Project, this report will be due during the new approval period. If the
+State discontinues the Project, this report will accompany a Project close-out report; the
+details of which are to be determined by FNA.
+
+Evaluative Components
+
+FNA is providing templates for the sampling plan and templates for all annual reports
+through the Waiver Information Management System (WIMS) library. Please refer to the WIMS
+User Manual for help locating the libraries and templates.
+
+Sampling plan
+
+The State agency must provide detailed information from a random sample of at least 200
+ESAP households. The random sample of 200 ESAP cases can be sampled from 1 month or
+more months within the annual reporting period. The State should consider oversampling to
+account for any dropped cases to meet the minimum sample size. The State agency can
+choose to select the sample from two main sources: (1) your State’s regular active QC sample
+and (2) your State’s eligibility system (i.e., non-QC sampled cases). Your State may also
+sample from other sources such as an ESAP-specific database used to track ESAP households.
+
+By February 15, 2027, the State will provide FNA with a narrative explanation (Sampling
+Plan) of the process used to select the sample and conduct case reviews. FNA recently
+created the Demonstration Project Sampling Plan and Case Review Procedures Template to
+guide State agencies through the steps of creating a sampling plan and the process for
+reviewing and reporting sampled case review results to FNA. Please review the template upon
+receipt and direct any questions to the FNA National staff listed in the WIMS case team using
+
+Docusign Envelope ID: CD3060EE-C4C5-8409-8103-820886870370
+Page 13 of 18
+
+the @ sign. Using the sampling plan template available in WIMS, the State will report on the
+following information:
+
+1. State Agency and Demonstration Project Information
+
+1.1. State, District, or Territory
+
+1.2. Demonstration Project: (CAP, ESAP, SMD, or Other)
+
+1.3. State agency contact: (Name, Title, Email, and Phone number)
+
+1.4. Template submission date: (MM/DD/YYYY)
+
+2. Sampling
+
+2.1. State agency entity responsible for sampling: If multiple entities, clarify for
+which step(s) each entity is responsible.
+
+2.2. Sample universe: The sample universe is the entire set of cases that could be
+included in the sample. It is the total population from which a sample is drawn.
+
+2.3. Sample source: The sample source is the specific origin from which the sample
+will be drawn for the case review component of the demonstration project
+evaluation.
+
+2.4. Sample month(s): For each sample source, indicate the month or months within
+the reporting period from which the State agency will sample cases to reach the
+minimum required sample size of active cases.
+
+2.5. Sample frame construction: The sample frame is an unduplicated list of all the
+cases from the sample universe during the sample month(s).
+
+2.6. Oversampling rate: The oversampling rate is the percentage of cases expected to
+be not subject to review or nonresponsive.
+
+2.7. Random sampling method for selecting cases: A random sampling method
+must be used to select cases from the sampling frame.
+
+3. Case Review Procedures
+
+3.1. State agency entity responsible for conducting case reviews: If multiple
+entities, clarify for which step(s) each entity is responsible.
+
+3.2. Process for providing sampled cases to case reviewers: Describe how the
+random sample of cases will be provided to case reviewers and how personally
+identifiable information and other sensitive information will be protected.
+
+Docusign Envelope ID: CD3060EE-C4C5-8409-8103-820886870370
+Page 14 of 18
+
+3.3. Cases sampled from the State agency’s active QC sample: Complete this
+section if you will sample cases from the active QC sample.
+
+3.4. Case review process for cases sampled from a source other than the active QC
+sample: Complete this section if you will sample cases from a source other than
+the active QC sample.
+
+3.5. Recalculating SNAP benefit amount process: Describe the process for
+recalculating the benefit amounts for the sample cases based on the data
+elements captured in sections 3.3 and 3.4.
+
+3.6. Quality assurance process: Describe the quality assurance process for checking
+the case-level data for accuracy and completeness.
+
+4. Reporting
+
+4.1. State agency entity responsible for reporting: If multiple entities, clarify for
+which step(s) each entity is responsible.
+
+4.2. Data compilation process: Describe how the State agency will consolidate the
+case review results from section 3 into the appropriate FNA reporting template.
+
+4.3. Quality assurance process: Describe the quality assurance process for checking
+the case-level data for accuracy, reasonableness, and completeness.
+
+4.4. Reporting: Describe the process for finalizing and submitting the completed
+reporting template to FNA.
+
+Annual reports
+
+The State agency will provide an annual report for each year of the project. Annual reports are
+due 4.5 months after the end of each reporting period. The annual reports include three
+parts: Certification and Recertification, Active Review Findings, and Timeliness. FNA recently
+updated the ESAP report template and created the Procedures for the Elderly Simplified
+Application Project (ESAP) Data Collection Reporting document for ease of use. Please
+review both documents before the first reporting period and direct any questions to the
+FNA National staff listed in the WIMS case team using the @ sign. Using the report
+template available in WIMS, the State will report on the following information:
+
+Certification and Recertification
+
+The State agency must provide ESAP caseload data for the reporting period including the
+overall number of applications and recertifications approved and trends in your State’s ESAP
+caseload.
+
+Docusign Envelope ID: CD3060EE-C4C5-8409-8103-820886870370
+Page 15 of 18
+
+• Reporting Period Months (Month Year): The Reporting Template will auto populate
+the 12-month reporting period based on the month and year entered in the [Reporting
+Period Starting Month] on the START HERE tab.
+
+• Approved Initial ESAP Applications: Enter the total number of initial ESAP
+applications approved during the data reporting period.
+
+• Approved ESAP Recertifications: Enter the total number of ESAP recertifications
+approved during the data reporting period.
+
+• Number of Active ESAP Households: Enter the total number of active ESAP
+households in each month during the data reporting period.
+
+• Number of Active ESAP Households With Children: Enter the total number of active
+ESAP households with children in each month during the data reporting period. Please
+enter “0” if your State does not allow children in ESAP households.
+
+Active Review Findings
+
+For each of the 200 or more sample cases, enter the following data points:
+
+• Household Reference Number: Enter the case or reference number of the household
+sampled. Ensure the number used does not contain PII (e.g., SSN).
+
+• Sample Month: Enter the month and year the case was sampled from.
+
+o For QC cases: Enter the sample month recorded in section 1, item 5 – Sample
+Month and Year on the case’s FNS-380-1.
+
+o For eligibility system sampled cases: Enter the month and year the case was
+sampled from.
+
+• Sample Source: Select the source of the sample for the case. If the case was sampled
+from your active QC sample, select QC Sample. If the case was sampled from your
+eligibility system, select Eligibility System. If the case was sampled from another
+source, select Other.
+
+• Type of Case: Based on the sample month, select the most recent action on the case.
+
+o For QC cases: Refer to section 3, item 21 – Type of Action on the case’s FNS-
+380-1. Select 1 - Certification if item 21 is 1. Select 2 - Recertification if item 21 is
+2.
+
+Docusign Envelope ID: CD3060EE-C4C5-8409-8103-820886870370
+Page 16 of 18
+
+o For eligibility system sampled cases: Select 1 - Certification or 2 -
+Recertification as determined in step 3.1 in the Case Review: Eligibility System
+(or Other Non-QC Sampled) Case section.
+
+• SNAP Benefit Amount Issued: Enter the SNAP benefit amount issued to the
+household in the sample month.
+
+o For QC cases: Enter the amount recorded in section 1, item 9 – SNAP Allotment
+Under Review on the case’s FNS-380-1.
+
+o For eligibility system sampled cases: Enter the SNAP benefit amount the case
+received in the sample month as determined in step 3.1 in the Case Review:
+Eligibility System (or Other Non-QC Sampled) Case).
+
+• Review Finding: Select the appropriate finding based on the review of the case.
+
+o For QC cases: Refer to section 1, item 8 – Findings on the case’s FNS-380-1. The
+following list shows relevant codes and the associated [Review Finding] that
+should be selected.
+
+o For eligibility system sampled cases: Select the appropriate [Review Finding]
+as determined in step 7 in the Case Review: Eligibility System (or Other Non-QC
+Sampled) Case.
+
+• Variance Amount: If the case received SNAP benefits it was not entitled to in the
+sample month, enter the variance amount regardless of the QC error tolerance
+threshold. For cases with a [Review Finding] of Correct, the field will be shaded dark
+gray to indicate you should not enter a value.
+
+o For QC cases: Enter the [Variance Amount] you determined in the Case Review:
+QC Cases section under step 3.2.
+
+o For eligibility system sampled cases: Enter the amount (as an absolute value)
+you calculated in step 6 in the Case Review: Eligibility System (or Other Non-QC
+Sampled) Case section.
+
+• Primary Case Error (QC Sampled Cases): For cases sampled from your active QC
+sample that have a [Review Finding] of over- or underissuance or ineligible, enter the
+error element that QC determined was the most significant contributor to the case
+error. Refer to section 2, item 12 – Element, number 1 on the case’s FNS 380-1. Use the
+three-digit element code as entered on the case’s FNS 380-1. For cases with a [Review
+Finding] of Correct, the fields will be shaded dark gray; you should not indicate any
+case errors.
+
+Docusign Envelope ID: CD3060EE-C4C5-8409-8103-820886870370
+Page 17 of 18
+
+• Primary Case Error (Non-QC Sampled Cases): For cases sampled from a non-QC
+source that have a [Review Finding] of over- or underissuance or ineligible, select from
+the drop-down the error element you determined to be the most significant
+contributor to the case error in the Case Review: Eligibility System (or Other Non-QC
+Sampled) Case section under step 8. Select Other if the specific error element is not
+available. For cases with a [Review Finding] of Correct, the fields will be shaded dark
+gray; you should not indicate any case errors.
+
+Timeliness
+
+The State agency must report ESAP timeliness data from the Federal fiscal year quarter that
+includes the sixth month of the annual reporting period (see Table 5. Timeliness tab Federal
+fiscal year quarter guide).
+
+• Reporting Period: The ESAP Reporting Template will auto populate the Federal fiscal
+year quarter based on the month and year entered in the [Reporting Period Start Month]
+on the START HERE tab. The quarter should be the quarter that includes the sixth month
+of the annual reporting period.
+
+• Initial ESAP Applications: For the data reporting period, enter the following information.
+These numbers should include all expedited initial ESAP applications.
+
+o Approvals (column B): Enter the total number of initial ESAP applications
+approved.
+
+o Approved Overdue Applications: Of the initial ESAP applications approved, enter
+the total number approved overdue by 1 or more days.
+
+• ESAP Recertifications: For the data reporting period, enter the following information.
+These numbers should include all expedited ESAP recertification applications.
+
+o Approvals (column B): Enter the total number of ESAP recertifications approved.
+
+o Approved Overdue Applications: Of the ESAP recertifications approved, enter the
+total number approved overdue by 1 or more days.
+
+• Expedited Service - Initial ESAP Applications: For the data reporting period, enter the
+following information:
+
+o Approvals: Enter the total number of expedited service initial ESAP applications
+approved.
+
+o Approved Overdue Applications: Of the expedited service initial ESAP
+applications approved, enter the total number approved overdue by 1 or more
+days.
+
+Docusign Envelope ID: CD3060EE-C4C5-8409-8103-820886870370
+Page 18 of 18
+
+• Expedited Service - ESAP Recertifications: For the data reporting period, enter the
+following information:
+
+o Approvals: Enter the total number of expedited service ESAP recertifications
+approved.
+
+o Approved Overdue Applications: Of the expedited service ESAP recertifications
+approved, enter the total number approved overdue by 1 or more days.
+
+Please note: When submitting reports to FNA, do not include clients’ Personally Identifiable
+Information (PII). FNA reserves the right to add additional data fields in consultation with the
+State for reporting purposes.
+
+California Health & Human Services Agency California Department of Social Services
+CALFRESH NOTICE OF CHANGE COUNTY OF
+FOR HOUSEHOLDS WITH ONLY Notice Date : _________________________
+ELDERLY AND/OR DISABLED Case Name : _________________________
+Case Number : _________________________
+MEMBERS
+Worker Name : _________________________
+Worker Number : _________________________
+Telephone Number : _________________________
+Address : _________________________
+(Addressee)
+_________________________
+_________________________
+If you have any questions or want more information
+about this action, please contact your worker.
+State Hearing: If you think this action is
+wrong, you can ask for a hearing unless you
+already had a hearing on the amount you
+owe. Page two will tell you how. Your benefits
+may not be changed if you ask for a hearing
+before this action takes place.
+
+OVERVIEW OF CHANGE
+• Due to Federal changes, only households with people over the age of 65 or people with disabilities
+can participate under CalFresh’s simplified application rules.
+• Your household contains an individual aged 60-64 who does not have a disability.
+• As a result of this change, you now need to complete a recertification interview at the end of your
+36-month certification period.
+• Additionally, you will need to complete a reporting form every 6 or 12 months. The county will tell
+you when you need to report.
+• No action is required at this time.
+• At the end of your certification period, you will get two notices. You will get a notice of expiration of
+certification. You will also get a notice with an interview appointment date and time. Once you get
+these notices, you will be required to take action.
+
+Rules: These rules apply to the above action(s): 7 CFR 273.2(e), 7 CFR 273.2(f), 7 CFR 273.10(f)(1);
+7 CFR 273.10(f)(4); 7 CFR 273.14(b)(3). You may review them online at cdss.ca.gov or at your local
+county office.
+CF 891 (8/26) Required Form - No Substitute Permitted Page 1 of 2
+
+California Health & Human Services Agency California Department of Social Services
+
+YOUR HEARING RIGHTS
+
+YOUR HEARING RIGHTS (See also PUB 412 at www.cdss.ca.gov/inforesources/state-hearings)
+You can ask for a hearing if you disagree with a county/agency action or failure to act. You have 90 days to do so,
+starting the day after the date of the notice. After 90 days, you must prove you had a good reason for asking late. You
+can also ask for a hearing to review your benefits for the past 90 days. If you ask for a hearing before the date of the
+change, your benefits will continue unchanged. CalFresh will end if you don’t recertify when due.
+
+• Online at acms.dss.ca.gov Click “Create an account” to • Fill out this page, and deliver it by one of the
+have an ACMS account and get documents online; or click following:
+“Submit Appeal without Account” to file without an account o In-person: ____________________________________
+___________________________________________________
+OR
+___________________________________________________
+• Call toll free (800) 743-8525 (or TDD (800) 952-8349) OR
+o Mail to: CDSS State Hearings Division,
+• Fax fill out this page/fax to (833) 281-0905 OR PO Box 944243, MS 21-37
+Sacramento CA 94244-2430
+o Email to: SHDCSU@DSS.ca.gov
+
+HEARING REQUEST
+
+1. My hearing issue involves ________________________________________________________________________ (benefit program)
+and ________________________________________________________________________________________________ County/Agency.
+2. I want a hearing because: __________________________________________________________________________________________
+_____________________________________________________________________________________________________________________
+3. Print name of person who needs a hearing: _________________________________________ Birthdate: _____________________
+4. Mailing Address: _________________________________________________________________ Phone number: _________________
+I want to get hearing notices from the State Hearing Division by email. Email Address: __________________________________
+5. Name/Signature: __________________________________ _________________________________ Date Signed: ________________
+6. Interpreter: I want a free interpreter for the __________________________________________________ language or dialect.
+7. Disability Accommodation for hearing? No Yes (explain): _____________________________________________________
+8. Your Hearing will be scheduled by phone. If you want your hearing conducted by a different method, tell us how:
+By Telephone By Video (you see judge on your phone/computer) In person at the county hearing site
+I have no phone or Internet access. I want to go and use the phone or video at hearing site for my hearing.
+9. I need a faster scheduled hearing due to Denial of CalWORKs or CalFresh emergency benefits
+Medical Emergency Eviction/homelessness Other (explain): _______________________________________________
+10. If you timely appeal before the action listed in the notice takes place, your aid may stay the same. For CalWORKs
+(including Child Care) and CalFresh, if the county action was correct, you have to pay back any extra aid.
+Check to have your aid lowered or stopped pending the hearing for: CalWORKs Childcare CalFresh
+11. You can have a friend, relative, legal counsel or other person help with your hearing. If they have agreed:
+Name: ___________________________________________________________________ Email: __________________________________
+Address: __________________________________________________________________________________ Phone: _________________
+12. To Get Help: These groups below may be able to give you legal advice or represent you at the hearing:
+
+NA Back 9 (5/22) Required Form - No Substitute Permitted Page 2 of 2
+
+California Health & Human Services Agency California Department of Social Services
+
+CALFRESH ELDERLY SIMPLIFIED APPLICATION
+
+This CalFresh application is used only if everyone applying is:
+• At least 65 or older and/or disabled.
+• Not getting any income from work.
+• Purchasing and preparing food together.
+
+The application process begins when you give the county your name, address, and signature. Your
+application date is the day the county office gets your signed application. This will start the processing
+time to give you an answer on whether you can get benefits.
+Questions? See pages 6 & 7 for more information.
+
+Tell us about your household
+Applicant name (first, middle initial, last)
+
+Physical address (street address, city, state, zip code) Home Address Institution Homeless
+
+Mailing address (street address or PO box, city, state, zip code, if different from physical address)
+
+Email address Phone number where we can call you Best time to call you
+
+You may choose someone at least 18 years old to help you with CalFresh benefits.
+• This person is called an “Authorized Representative” (AR). The AR can help speak for you at the
+interview, help complete your forms, buy food for you, and/or report changes for you. ARs are not to
+be household members that purchase and prepare meals with the CalFresh applicant.
+• You will have to repay any benefits you get by mistake because of information this person gives the
+county and any benefits you did not want them to spend will not be replaced.
+• You will need to give the county proof of identity to act as an AR.
+I want the person below to help me with my CalFresh case. Yes No
+I want the person below to be allowed to get and spend CalFresh benefits
+for my household. Yes No
+Authorized Representative (first, middle initial, last) Phone Number
+
+Address (street address, city, state, zip code)
+
+By signing below, I certify and agree that:
+• I have read and understand the information on pages 6 & 7.
+• I have read, understand, and agree to the Rights & Responsibilities/Program Rules on pages 8-10.
+• I give my word, under penalty of perjury, that what I write in this application is correct and complete
+to the best of my knowledge and belief.
+Signature of Applicant/Authorized Representative Date
+
+CF 485 (8/26) Required Form - No Substitute Permitted Page 1 of 10
+
+California Health & Human Services Agency California Department of Social Services
+
+You do not have to answer the following two questions, but they may help you get other services.
+
+1. Does anyone in your household have a disability? Yes No
+Tip: This includes anyone recovering from a disability or major illness.
+If yes, name of person(s): _____________________________________________________________________________________
+
+2. Does anyone in your household need help due to a disability? Yes No
+Tip: This includes anyone needing help completing the eligibility process or anything benefits
+related.
+If yes, name of person(s): _____________________________________________________________________________________
+
+Expedited Service
+Let’s see if your household can get benefits within 3 days. Answer the questions below for everyone
+applying for CalFresh.
+3. Is anyone a migrant/seasonal farmworker and has anyone’s income stopped? Yes No
+4. Is your household’s gross income (before deductions) less than $150 this month? Yes No
+
+5. Does your household have $100 or less in cash, including amounts in bank
+accounts? Yes No
+6. Is your household’s monthly rent/mortgage and utility costs more than your
+household’s gross income and available cash this month? Yes No
+
+For the questions below, use additional space on page 5 or extra paper if needed.
+Household Members
+Tell us about everyone in the household.
+Date of birth (mm/dd/yyyy)
+Applicant (from page 1)
+Social Security Number Relationship to applicant
+U.S. citizen? Yes No SELF Working? Yes No
+
+Ethnicity (Optional): Race (Optional): Gender Identity (Optional):
+Hispanic/Latino American Indian/Alaska Native Female
+Non-Hispanic/Latino Asian Male
+Black/African American Transgender Female
+Native Hawaiian/Other Pacific Transgender Male
+Islander Non-binary (neither male nor female)
+White Another gender identity
+Other Decline to state
+
+CF 485 (8/26) - Required Form - No Substitute Permitted Page 2 of 10
+
+California Health & Human Services Agency California Department of Social Services
+
+Household Members (Continued)
+Name (first, middle, last) Date of birth (mm/dd/yyyy)
+
+Social Security Number Relationship to applicant
+U.S. citizen? Yes No Working? Yes No
+
+Ethnicity (Optional): Race (Optional): Gender Identity (Optional):
+Hispanic/Latino American Indian/Alaska Native Female
+Non-Hispanic/Latino Asian Male
+Black/African American Transgender Female
+Native Hawaiian/Other Pacific Transgender Male
+Islander Non-binary (neither male nor female)
+White Another gender identity
+Other Decline to state
+
+*If more than 2 household members, please put their information on page 5 of this application*
+Income
+7. Does anyone in the household get income? Yes No
+If yes, tell us about all the income that everyone in your household gets. Income may include Social
+Security; Child Support; Alimony; Unemployment or Worker’s Compensation; Disability benefits;
+money from friends or relatives; Pensions; Retirement benefits, SSI/SSP; Veteran’s benefits.
+
+Person with income Type of income How much How often Date received
+$
+$
+$
+$
+
+Resources
+8. Does anyone in the household have any resources (cash, money in the bank,
+Certificate of Deposit, stocks, bonds, etc.)? Yes No
+Expenses
+9. Does anyone in your household pay court-ordered child support? Yes No
+Person who pays How much How often
+$
+
+10. Who paid for dependent/child care?
+Amount paid for dependent/child care in $
+Names of dependents/children:
+
+CF 485 (8/26) - Required Form - No Substitute Permitted Page 3 of 10
+
+California Health & Human Services Agency California Department of Social Services
+
+11. Does anyone in your household pay more than $35 per month in out-of-pocket
+medical expenses? Yes No
+If yes, tell us about any out-of-pocket medical expenses paid by anyone in your household.
+Expenses may include medications, doctor visits, hospital bills, transportation costs (including
+mileage), medical supplies, home health aides, service animal expenses, mental health expenses,
+and health insurance premiums. (Ask your county for a list of allowable expenses.)
+Person who pays Type of medical expense Amount paid monthly
+$
+$
+$
+$
+
+Tell us about your household’s shelter and utility expenses.
+12. Does your household pay rent or mortgage? Yes No
+If yes, what is the payment? $ ________________ weekly monthly other
+If you are homeless, do you have shelter costs? Yes No
+If yes, what are your costs? $ _________________ weekly monthly other
+13. Does your household pay for any of the following costs? Check all that apply and specify if it is paid
+weekly, monthly, or other (If the cost is included in your rent or mortgage payment, do not list it here):
+Phone (including cell) weekly monthly other
+Electric and/or Gas weekly monthly other
+Water weekly monthly other
+Trash weekly monthly other
+Property tax: $________________ weekly monthly other
+Home or Renter’s insurance: $______________ weekly monthly other
+Homeowner’s Association (HOA) fees: $_______________ weekly monthly other
+Mobile home lot rent: $_______________ weekly monthly other
+Other (please specify): $________________ weekly monthly other
+___________________________________________________________________
+
+Answer the questions below about everyone in the household.
+14. Did anyone in your household win a substantial amount in a single bet or hand
+from lottery/gambling that is equal to, or greater than the maximum resource
+limit for elderly/disabled household members? Yes No
+15. Has anyone been convicted of welfare fraud or misuse of benefits in any state? Yes No
+16. Is anyone a fleeing felon or found to be in violation of their parole or probation? Yes No
+17. Have you or any member of your household been convicted as an adult of
+aggravated sexual abuse, murder, sexual exploitation, and/or other abuse of
+children, a Federal or State offense involving sexual assault, or an offense under
+State law determined by the Attorney General to be similar to any of the
+offenses listed, and the conviction happened after February 7, 2014, and not in
+compliance with the terms of their sentence? Yes No
+CF 485 (8/26) - Required Form - No Substitute Permitted Page 4 of 10
+
+California Health & Human Services Agency California Department of Social Services
+
+Additional Writing Space (if needed):
+
+CF 485 (8/26) - Required Form - No Substitute Permitted Page 5 of 10
+
+California Health & Human Services Agency California Department of Social Services
+
+Important Information You Need to Know
+Application Process
+• Complete pages 1 to 5.
+• Make sure you read pages 6 thru 10 and then sign on page 1.
+• Make copies of any documents needed as proof (e.g., income, proof of identity for yourself, proof
+of out-of-pocket medical expenses, or power of attorney). You can submit any documents with
+your application.
+• Submit your application:
+In-person, By Phone, By Mail, By Fax: To the county social services office where you live.
+Online: You can also apply for CalFresh or other programs online by going to
+http://www.benefitscal.com/.
+• Complete an interview with the county to discuss your application. You have the option to
+complete your interview over the phone, in person at the county office, or another place arranged
+with the county.
+Have questions? Need help applying? Call the CalFresh Benefits Helpline at 1-877-847-3663 or
+contact your county social services office. If you have limited English, ask for a free interpreter. If you
+need help because of a disability, dial 7-1-1 or talk to your county social services office.
+
+Noncitizens
+• You can apply for and get CalFresh benefits for eligible people, even if your family includes others
+who are not eligible.
+• Applying for or getting CalFresh benefits does not affect the immigration status for you or your
+family. CalFresh is NOT a “Public Charge.” Immigration information is private and confidential.
+• The immigration status of noncitizens who apply for benefits will be checked with the U.S.
+Citizenship and Immigration Services (USCIS). Federal law says the USCIS cannot use the
+information for anything else other than for cases of fraud.
+
+Opting Out
+You do not have to give immigration information, Social Security numbers, or documents for any
+noncitizen family member(s) who are not applying for CalFresh benefits. The county will need to know
+their income and resource information to correctly determine your household’s benefits. The county
+will not contact USCIS about the people who don’t apply for CalFresh benefits.
+
+USDA Non-Discrimination Statement (Do Not Send Applications Here)
+In accordance with Federal civil rights law and U.S. Department of Agriculture (USDA) civil rights
+regulations and policies, the USDA, its Agencies, offices, and employees, and institutions participating
+in or administering USDA programs are prohibited from discriminating based on race, color, national
+origin, religion, sex, disability, age, marital status, family/parental status, income derived from a
+public assistance program, political beliefs, or reprisal or retaliation for prior civil rights activity, in any
+program or activity conducted or funded by USDA (not all bases apply to all programs). Remedies
+and complaint filing deadlines vary by program or incident.
+Persons with disabilities who require alternative means of communication for program information
+(e.g., Braille, large print, audiotape, American Sign Language, etc.) should contact the State or
+CF 485 (8/26) - Required Form - No Substitute Permitted Page 6 of 10
+
+California Health & Human Services Agency California Department of Social Services
+
+local Agency that administers the program or contact USDA through the Telecommunications
+Relay Service at 711 (voice and TTY). Additionally, program information may be made available in
+languages other than English.
+
+To file a program discrimination complaint, complete the USDA Program Discrimination Complaint
+Form, AD-3027, found online at: https://www.usda.gov/about-usda/general-information/staff-offices/
+office-assistant-secretary-civil-rights/how-file-usda-discrimination-complaint/how-file-program-
+discrimination-complaint and at any USDA office or write a letter addressed to USDA and provide
+in the letter all of the information requested in the form. To request a copy of the complaint form,
+call (866) 632-9992. Submit your completed form or letter to USDA by: (1) mail: USDA Food
+and Nutrition Service, 1320 Braddock Place, Room 334, Alexandria, VA 22314; or (2) email:
+FNACIVILRIGHTSCOMPLAINTS@usda.gov.
+USDA is an equal opportunity provider, employer, and lender.
+Do Not Send Applications Here
+
+Privacy Act Statement
+(i) The collection of this information, including the Social Security number (SSN) of each household
+member, is authorized under the Food Stamp Act of 1977, as amended, 7 U.S.C. 2011-2036.
+The information will be used to determine whether your household is eligible or continues to
+be eligible to participate in SNAP. We will verify this information through computer matching
+programs. This information will also be used to monitor compliance with program regulations and
+for program management.
+(ii) This information may be disclosed to other federal and state agencies for official examination,
+and to law enforcement officials for the purpose of apprehending persons fleeing to avoid the
+law.
+(iii) If a SNAP claim arises against your household, the information on this application, including
+all SSNs, may be referred to federal and state agencies, as well as private claims collection
+agencies, for claims collection action.
+(iv) Providing the requested information, including the SSN of each household member, is voluntary.
+However, failure to provide an SSN will result in the denial of SNAP benefits to each individual
+failing to provide an SSN. Any SSNs provided will be used and disclosed in the same manner as
+SSNs of eligible household members.
+Your county office may verify immigration status of household members applying for benefits. This
+is done by contacting the USCIS. Information the county gets from these agencies may affect your
+eligibility and level of benefits.
+Your county office will check your answers using state and federal electronic databases. This includes
+the Internal Revenue Service (IRS), Social Security Administration, the Department of Homeland
+Security, and/or a consumer reporting agency. The county may ask you to send proof if the
+information does not match.
+Rights & Responsibilities/Program Rules
+Call your county office to help understand your rights and responsibilities.
+You may ask for a fair hearing if you disagree with a decision about benefits. To do so:
+
+CF 485 (8/26) - Required Form - No Substitute Permitted Page 7 of 10
+
+California Health & Human Services Agency California Department of Social Services
+
+• Call (800) 952-5253. For hearing rights or speech impaired who use TDD (800) 952-8349 or
+• Go online at acms.dss.ca.gov or
+• Fax the Hearing Request form to (833) 281-0905
+• You may get free legal help at your local legal aid or welfare rights office. The back of your county
+notice lists your free local help or call the numbers listed above.
+
+You have the right to get a copy of this application. Ask your county office for a copy.
+
+You have the right to a timely decision. Unless there is a delay, an emergency, or an administrative
+problem beyond the county’s control, expect a decision within 30 days of applying. For emergency
+benefits, you will get the county’s decision within 3 days.
+
+You may get free aids & services to help you participate if you have a disability. These are
+called “reasonable accommodations.” Call your county office to ask for these, if needed.
+
+You have the right to privacy and confidentiality. We will only share information about your
+case when it’s connected to program administration, allowed by law/court order, or you give your
+permission. This is also required of all the agencies that work with us.
+
+Give proof of your household’s expenses that may help you get more benefits. Not giving proof
+to the county is the same as saying that you do not have that expense. You then will not be able to
+get more benefits.
+
+You need to report changes that could affect your benefits. The county office will give you
+information about what, when, and how to report. If you don’t report when required your CalFresh
+benefits may be lowered or stopped.
+
+You must provide a Social Security number (SSN) or proof that you have applied for an SSN
+for each person on this application. Federal and State law requires it as a condition of eligibility.
+There are some exceptions. If you need more information about those exceptions, please ask your
+county office.
+
+You must tell the county right away if you get benefits from another state. You must also report
+if anyone has been convicted of lying about where they live to get benefits from more than one state
+in the past 10 years.
+
+You must cooperate with the county and the state if your application is selected for a quality
+control review. This includes giving proof of information and letting us get that proof if you can’t.
+
+You need to give accurate information. If the information is not accurate, benefits may be reduced
+and, you may be asked to repay benefits. If you are found to have intentionally given false or
+misleading information, you could be barred from getting benefits. You may also be charged with a
+crime.
+
+You must not:
+• sell your CalFresh benefits.
+• use CalFresh to buy ineligible items (e.g., non-food, alcohol, or tobacco products).
+• trade CalFresh for illegal drugs, firearms, ammunition, or explosives.
+
+CF 485 (8/26) - Required Form - No Substitute Permitted Page 8 of 10
+
+California Health & Human Services Agency California Department of Social Services
+
+• let anyone use your EBT card unless they are buying food for your household.
+• use or have someone else’s EBT card unless you are buying food for their household.
+• get food benefits in more than one state for the same month.
+Anyone found guilty of any of the above misuse shall face penalties. This includes a ban from the
+CalFresh program for a specific period, a fine, and imprisonment. The specific period of the ban can
+be one year, two years, or permanently.
+
+Program Rules and Penalties
+You are committing a crime if you give information that is false or untrue on purpose to try to get
+CalFresh benefits that you are not eligible to get. It is also a crime to on purpose help someone else
+get benefits that they are not eligible to get. You must pay back any benefits you get that you were not
+eligible to get.
+
+Program Violations Penalties
+For CalFresh: I understand I may have I may:
+committed an intentional program violation if • Lose CalFresh benefits for 12 months for
+I do any of the following: the first offense and be required to repay all
+• Hide information or make false statements CalFresh benefits overpaid to me
+• Use Electronic Benefit Transfer (EBT) cards that • Lose CalFresh benefits for 24 months for
+belong to someone else or let someone else use the second offense and be required to
+my card repay all CalFresh benefits overpaid to me
+• Use CalFresh benefits to buy alcohol or tobacco • Lose CalFresh benefits permanently for the
+third offense and be required to repay all
+• Trade, buy, sell, steal, or give away CalFresh
+CalFresh benefits overpaid to me
+benefits or EBT cards, or attempt to trade, buy, sell,
+steal, or give away CalFresh benefits or EBT cards • Be fined up to $250,000 imprisoned up to
+20 years or both
+• Try to get dual benefits, for example, apply in two
+or more different counties or states at the same
+time
+• Submit false documents for children or adult
+household members who are not eligible or who do
+not exist
+• Violate conditions of my probation or parole
+• Flee after a felony conviction
+• Purchase (buy) a product with CalFresh benefits
+that has a return deposit, intentionally (on purpose)
+throw away the contents and return the container
+for the deposit amount or attempt to return the
+container for the deposit amount
+• Buy a product with CalFresh benefits and
+intentionally resell it for cash or anything other than
+eligible food
+CF 485 (8/26) - Required Form - No Substitute Permitted Page 9 of 10
+
+California Health & Human Services Agency California Department of Social Services
+
+Program Violations Penalties
+For CalFresh: I understand I may have I may:
+committed an intentional program violation if • Lose CalFresh benefits for 10 years for
+I do any of the following: each offense
+• Trade CalFresh benefits or attempt to trade • Lose CalFresh benefits permanently
+CalFresh benefits for: cash, firearms, non-eligible
+goods, or controlled substances such as drugs
+
+• Give false information about who I am and where I • Lose CalFresh benefits for 24 months for
+live, so I can get extra CalFresh benefits the first offense
+
+• Have been convicted of trading, selling, or • Lose CalFresh benefits permanently for the
+attempting to trade CalFresh benefits worth second offense
+more than $500, or trading or attempting to trade
+CalFresh benefits for firearms, ammunition, or
+explosives
+
+CF 485 (8/26) - Required Form - No Substitute Permitted Page 10 of 10

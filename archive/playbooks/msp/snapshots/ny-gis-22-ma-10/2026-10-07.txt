@@ -1,0 +1,108 @@
+WGIUPD GENERAL INFORMATION SYSTEM 12/5/22
+DIVISION: Office of Health Insurance Programs PAGE 1
+GIS 22 MA/10
+
+TO: Local District Commissioners, Medicaid Directors
+
+FROM: Lisa Sbrana, Director
+Division of Eligibility and Marketplace Integration
+
+SUBJECT: Changes to Medicare Savings Program (MSP) Income Levels
+
+ATTACHMENT: Attachment I – Sample One-Time Medicare Savings Plan Letter
+
+EFFECTIVE DATE: January 1, 2023
+
+CONTACT PERSON: Local District Support Units
+Upstate (518) 474-8887 NYC (212) 417-4500
+
+The purpose of this General Information System (GIS) message is to advise local departments of
+social services of an increase in the percent of Federal Poverty Level (FPL) for determining
+eligibility for payment of Medicare premiums through the Medicare Buy-In process pursuant to
+Chapter 56 of the Laws of 2022.
+
+This change is effective with new applications and requests for redetermination of Medicare
+Savings Program (MSP) eligibility received on or after January 1, 2023. Determinations for any
+period prior to January 1, 2023, must be determined using the 2022 MSP FPL levels.
+
+New FPL levels effective January 1, 2023
+
+Qualified Medicare Beneficiary (QMB) Clients with income less than or equal to 138% of the FPL
+will be QMB eligible, beginning January 1, 2023. QMB eligible clients may also have active
+Medicaid coverage. NY Medicaid will pay Medicare Part B premiums, coinsurance, and
+deductibles for those eligible at the QMB level.
+
+Specified Low Income Medicare Beneficiary (SLMB) This category will no longer be used for new
+applications or renewals on or after January 1, 2023. Since the SLMB income level is 120% of
+the FPL, it is being subsumed into the QMB level.
+
+Qualifying Individuals (QI) Clients with income above 138% of the FPL and less than or equal to
+186% of the FPL will be QI eligible, beginning January 1, 2023.
+
+Note: Clients cannot be enrolled as QI and enrolled in NY Medicaid at the same time. They must
+choose which program they prefer. NY Medicaid will pay only Medicare Part B premiums for
+those eligible at the QI level.
+
+Mass re-budgeting will not occur for those with current MSP coverage. Letters will be sent to
+these individuals who are MSP eligible, above the 2022 QMB level, advising them that they may
+be eligible for MSP with benefits not currently available with their current level of coverage.
+
+Instructions on where to obtain and submit both the MSP Only and full Medicaid applications are
+provided. (See Attachment I). A separate letter with similar information will be sent to those
+individuals who are eligible for Medicaid with excess income. Should consumers contact local
+districts in the month of December, staff should wait until January to process any applications or
+changes when the new rates take effect. Current processes for determining MSP eligibility will
+not change. MSP determinations must be completed before determining Medicaid eligibility per
+00 OMM/ADM 07.
+
+2023 MSP Income limits
+CATEGORY INCOME/FPL
+QMB 0% up to and equal to, 138%
+SLMB Category is no longer applicable
+QI Above 138% and up to and equal to, 186%
+
+MSP Redeterminations
+
+When processing a request for a redetermination of MSP outside of the Client’s normal renewal
+period, the coverage and authorization “To” date should not be changed. This will result in the
+individual keeping the same renewal month as they had prior to the new determination.
+
+Upstate QI Eligible Individuals
+
+All Upstate QI individuals will no longer be renewed in June of each year. Upstate QI eligible
+applicants will no longer be given a coverage and authorization “To” date of 12/31/49. Applicants
+newly eligible for QI will be given coverage “From” and “To" dates corresponding to their date of
+application.
+
+Example: Applications submitted in April of 2023, determined QI eligible, will be provided a
+coverage and authorization “From” date of 04/01/2023 and a coverage and
+authorization “To” date of 03/31/2024.
+
+If the district touches a case prior to the annual renewal, for a client who is currently eligible for
+QI, and has a coverage and authorization “To” date of 12/31/49, they must update the coverage
+and authorization “To” date to June 30, 2023. This will result in the individual continuing to have
+the same renewal period but end the practice of using 12/31/49.
+
+The Department is working on a process to address the current population with 12/31/49
+authorization “To” dates who do not report a change or request an update to their case, so that
+these clients will be renewed based on an authorization “To” date of 6/30/23, rather than the
+12/31/49 date. This is expected to be resolved during the first quarter of 2023.
+
+Retroactive MSP
+
+The policy for retroactive MSP benefits has not changed. Clients eligible for QMB are not entitled
+to retroactive benefits. Clients eligible for SLMB and QI may be entitled to retroactive benefits for
+three months prior. However, retroactive QI benefits may not be provided for a previous calendar
+year.
+
+As of January 1, 2023, the SLMB category should no longer be utilized in eMedNY unless you
+are entering retroactive SLMB that will be for all or a part of the period 10/01/2022 to 12/31/2022.
+Clients may show as being currently enrolled at the SLMB level after January 1, 2023, however
+they will no longer be able to be determined eligible for SLMB in WMS.
+
+If, after January 1, 2023, there is a need to determine MSP eligibility retroactively for SLMB for
+any time in the last quarter of 2022, a manual budget will need to be performed and eMedNY
+
+updated. Determination for SLMB eligibility in 2022 will need to use the MSP rates for 2022.
+
+Please direct any questions to your local district liaison.

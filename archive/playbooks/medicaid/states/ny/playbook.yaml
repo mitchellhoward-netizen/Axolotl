@@ -1,0 +1,615 @@
+schema_version: 2
+program: medicaid
+scope: ny
+title: Medicaid — New York
+last_researched: 2026-10-07
+
+summary:
+  plain_language: >-
+    New York Medicaid covers adults 19-64 and parents with MAGI income up to
+    138% of the federal poverty level ($1,836 a month for one person, $3,142
+    for three, in 2026) and pregnant people up to 223%, with no asset test;
+    these people apply and renew through NY State of Health. People 65 or
+    older, blind or disabled ("SSI-related") may have countable income up to
+    $1,836 a month ($2,489 for a couple) after a $20 disregard and resources
+    up to $33,038 ($44,796 for a couple) in 2026; above either level they can
+    still get Medicaid through the Excess Income ("spenddown") program by
+    showing medical bills or paying the excess to the county, and a pooled
+    trust can shelter a disabled person's excess income. SSI recipients get
+    Medicaid automatically. Applications for older and disabled people go on
+    form DOH-4220 to the county Local Department of Social Services (HRA in
+    New York City), or through NY State of Health for people 65+ not seeking
+    long-term care. The Essential Plan (a separate state program, not
+    Medicaid) is the next step up for people over the Medicaid limit.
+  administered_by: >-
+    New York State Department of Health (Office of Health Insurance Programs);
+    NY State of Health (the state marketplace) for MAGI groups and some
+    non-MAGI people; county Local Departments of Social Services (LDSS) and
+    the NYC Human Resources Administration (HRA) for most non-MAGI groups,
+    spenddown, SSI recipients and long-term care.
+  funded_by: >-
+    Federal/state Medicaid match. From October 1, 2026 some lawfully present
+    noncitizens are covered with State-only funds or moved to the Essential
+    Plan (GIS 26 MA/14).
+  local_names:
+    - {name: NY State of Health (NYSoH), meaning: New York's health plan marketplace; applications and renewals for MAGI Medicaid}
+    - {name: LDSS / HRA, meaning: County Local Department of Social Services / New York City Human Resources Administration}
+    - {name: SSI-related, meaning: "Non-MAGI applicant who is 65+, certified blind or certified disabled"}
+    - {name: Excess Income program / spenddown / Pay-In, meaning: Medicaid for people over the income or resource level who meet the excess with medical bills or by paying it to the district}
+    - {name: MNIL, meaning: Medically Needy Income Level (the SSI-related Medicaid income level a spenddown reduces income to)}
+    - {name: S/CC, meaning: Single/childless couple (MAGI adults; cannot spend down)}
+    - {name: Essential Plan (EP), meaning: State health plan for people above Medicaid levels (not Medicaid)}
+  confidence: confirmed
+  sources:
+    - {source: ny-gis-26-ma-05-att1, locator: "MAGI and Non-MAGI tables, Rev. 02.05.2026"}
+    - {source: ny-doh-medicaid-how-to-apply, locator: "Where you apply ... depends on your category of eligibility"}
+    - {source: ny-mrg-income, locator: "INCOME EXCESS; PAY-IN"}
+
+rules:
+  # ------------------------------------------------------------------- MAGI
+  - id: MCD-NY-MAGI-ADULT
+    statement: >-
+      In New York in 2026, an adult aged 19-64 without Medicare who is not
+      pregnant qualifies for Medicaid if monthly MAGI household income is at or
+      below 138% of the federal poverty level: $1,836 for one person, $2,489
+      for two, $3,142 for three (each additional person $654), with no
+      resource test.
+    kind: eligibility
+    applies_to: [adult_expansion]
+    effective_from: 2026-01-01
+    parameters: [ny.medicaid.magi_adult_income_limit_monthly]
+    implemented_in: playbooks/medicaid/federal/rules.py:magi_test
+    confidence: confirmed
+    sources:
+      - {source: ny-gis-26-ma-05-att1, locator: "MAGI chart 138% FPL Monthly; MAGI POPULATION: Single/Childless Couples ... 138% FPL 1,836 2,489 No Resource Test"}
+  - id: MCD-NY-MAGI-PARENT
+    statement: >-
+      In New York in 2026, a parent or caretaker relative living with a
+      dependent child, of any age and even with Medicare, qualifies for MAGI
+      Medicaid with household income at or below 138% FPL ($1,836 for one,
+      $2,489 for two, $3,142 for three a month), with no resource test.
+    kind: eligibility
+    applies_to: [parent_caretaker]
+    effective_from: 2026-01-01
+    parameters: [ny.medicaid.magi_parent_income_limit_monthly]
+    implemented_in: playbooks/medicaid/federal/rules.py:magi_test
+    confidence: confirmed
+    sources:
+      - {source: ny-gis-26-ma-05-att1, locator: "MAGI POPULATION: Parents/Caretaker Relatives 138% FPL 1,836 2,489 No Resource Test"}
+      - {source: ny-doh-medicaid-how-to-apply, locator: "Parents and Caretaker Relatives of any age, who may have Medicare"}
+  - id: MCD-NY-MAGI-PREGNANT
+    statement: >-
+      In New York in 2026, a pregnant person qualifies for Medicaid with MAGI
+      household income at or below 223% FPL, counting the pregnant person as
+      two ($4,022 a month for a household of two), with no resource test, and
+      stays covered through the end of the month in which the 60th day after
+      the pregnancy ends falls.
+    kind: eligibility
+    applies_to: [pregnant]
+    effective_from: 2026-01-01
+    parameters: [ny.medicaid.magi_pregnant_income_limit_monthly]
+    implemented_in: playbooks/medicaid/federal/rules.py:magi_test
+    confidence: confirmed
+    note: The chart's postpartum sentence (end of month of the 60th day) is what the 2026 chart says; whether New York's 12-month postpartum extension applies on top was not checked here (MCD-NY-OQ-05).
+    sources:
+      - {source: ny-gis-26-ma-05-att1, locator: "MAGI POPULATION: Pregnant Consumers 223% FPL N/A 4,022"}
+  - id: MCD-NY-SCC-NO-SPENDDOWN
+    statement: >-
+      In New York, a single adult or childless couple (MAGI adult) over 138%
+      FPL cannot spend down to Medicaid and is referred to the Essential Plan
+      or premium tax credits; parents and people under 21 or pregnant may
+      instead choose to spend down to the Medicaid income level.
+    kind: eligibility
+    effective_from: 2026-01-01
+    implemented_in: playbooks/medicaid/states/ny/rules.py:evaluate
+    confidence: confirmed
+    sources:
+      - {source: ny-gis-26-ma-05-att1, locator: "Single/Childless Couples (S/CCs) cannot spenddown, but can apply for APTC or EP"}
+  - id: MCD-NY-CONTINUOUS-COVERAGE-END
+    statement: >-
+      In New York, the 12-month continuous Medicaid coverage for MAGI adults
+      (and continuous coverage for children from birth to age six) ended July
+      1, 2026; NY State of Health redetermines those enrollees and ends
+      coverage with timely notice if they are no longer eligible.
+    kind: timing
+    applies_to: [adult_expansion]
+    effective_from: 2026-07-01
+    confidence: confirmed
+    sources:
+      - {source: ny-gis-26-ma-10, locator: "effective July 1, 2026, the following authorities will end"}
+
+  # ----------------------------------------------------------- SSI-related
+  - id: MCD-NY-SSI-AUTO
+    statement: >-
+      In New York, a person who receives SSI gets Medicaid from the SSI award,
+      without a separate Medicaid income or resource test, because New York is
+      a 1634 state.
+    kind: coordination
+    applies_to: [ssi_recipient]
+    effective_from: 2026-10-07
+    implemented_in: playbooks/medicaid/federal/rules.py:ssi_recipient_1634
+    confidence: confirmed
+    note: Rests on SSA's list (New York is not a 209(b) or SSI-criteria state). New York's own page says SSI recipients are served by the LDSS rather than NY State of Health.
+    sources:
+      - {source: ssa-poms-si-01715-010, locator: "A.1-A.3 (New York not listed as 209(b) or SSI criteria)"}
+      - {source: ny-doh-medicaid-how-to-apply, locator: "Individuals who receive Supplemental Security Income (SSI)" }
+  - id: MCD-NY-SSI-RELATED-BUDGET
+    statement: >-
+      In New York, income of a Medicaid applicant who is 65 or older, blind or
+      disabled is counted with SSI-related rules: $20 a month of unearned
+      income is disregarded (one $20 per couple) and $65 plus one-half of the
+      rest of earned income is disregarded; the household size is always one
+      or two.
+    kind: definition
+    applies_to: [ssi_related]
+    effective_from: 2010-06-01
+    parameters: [ny.medicaid.ssi_related_unearned_disregard_monthly, federal.ssi.earned_income_exclusion_monthly]
+    overrides: [MCD-FED-NONMAGI-METHOD]
+    implemented_in: playbooks/medicaid/federal/rules.py:ssi_style_countable
+    confidence: confirmed
+    sources:
+      - {source: ny-mrg-income, locator: "SSI-Related Disregards: UNEARNED INCOME (one $20 per couple); EARNED INCOME ($65 and 1/2)"}
+      - {source: ny-gis-26-ma-05-att1, locator: "SSI-Related Medicaid Income Level ... Household size is always one or two."}
+  - id: MCD-NY-SSI-RELATED-INCOME
+    statement: >-
+      In New York in 2026, a person who is 65 or older, blind or disabled
+      qualifies for Medicaid without a spenddown if countable monthly income
+      (after the $20 disregard) is at or below $1,836 for one person or $2,489
+      for a couple (138% FPL); in 2025 the levels were $1,800 and $2,433.
+    kind: eligibility
+    applies_to: [ssi_related]
+    effective_from: 2026-01-01
+    parameters: [ny.medicaid.ssi_related_income_limit_monthly]
+    implemented_in: playbooks/medicaid/states/ny/rules.py:evaluate
+    confidence: confirmed
+    sources:
+      - {source: ny-gis-26-ma-05-att1, locator: "SSI-Related Medicaid Income Level 1,836 2,489"}
+      - {source: ny-doh-medicaid-how-to-apply, locator: "2025 chart: $1,800 / $2,433"}
+  - id: MCD-NY-RESOURCE-LEVEL
+    statement: >-
+      In New York in 2026, a Medicaid applicant who is 65 or older, blind or
+      disabled may have countable resources up to $33,038 for one person or
+      $44,796 for a couple (2025: $32,396 and $43,781); the same level applies
+      to long-term care Medicaid.
+    kind: eligibility
+    applies_to: [ssi_related]
+    effective_from: 2026-01-01
+    parameters: [ny.medicaid.ssi_related_resource_limit]
+    implemented_in: playbooks/medicaid/states/ny/rules.py:evaluate
+    confidence: confirmed
+    sources:
+      - {source: ny-gis-26-ma-05-att1, locator: "SSI-Related ... Resource Level 33,038 44,796; Institutionalized Spouse resources $33,038"}
+      - {source: ny-doh-medicaid-how-to-apply, locator: "Resource Level (Individuals who are Blind, Disabled or Age 65+ ONLY) $32,396 / $43,781 (2025)"}
+  - id: MCD-NY-RESOURCES-COUNTED
+    statement: >-
+      In New York, the home (homestead) is not counted toward the Medicaid
+      resource level, a retirement fund is not a countable resource while the
+      person receives periodic payments from it, and resources are valued on
+      the first day of the month coverage is sought.
+    kind: definition
+    applies_to: [ssi_related]
+    effective_from: 2011-06-01
+    implemented_in: playbooks/medicaid/federal/rules.py:countable_resources
+    confidence: confirmed
+    note: >-
+      Medicaid Reference Guide resource pages (2008-2011). The evaluator also
+      excludes one car and burial spaces; the MRG's vehicle and burial-fund
+      rules (a second car exempt for medical or work need; burial fund limits)
+      are not modelled in detail.
+    sources:
+      - {source: ny-mrg-resources, locator: "RESOURCES: a homestead is exempt; RETIREMENT FUNDS: not a countable resource if ... periodic payments"}
+      - {source: ny-mrg-resources, locator: "EXCESS RESOURCES, Interpretation: evaluated as of the first day of the month"}
+  - id: MCD-NY-EXCESS-INCOME
+    statement: >-
+      In New York, a person who is 65 or older, blind or disabled (and a
+      parent, a person under 21 or pregnant) whose countable income is above
+      the Medicaid income level can get Medicaid through the Excess Income
+      program: each month, outpatient coverage starts once medical bills
+      (paid or owed) or a pay-in to the county equal the excess; meeting six
+      months of excess at once also covers inpatient care.
+    kind: eligibility
+    applies_to: [spenddown]
+    effective_from: 2010-06-01
+    implemented_in: playbooks/medicaid/states/ny/rules.py:evaluate
+    confidence: confirmed
+    sources:
+      - {source: ny-mrg-income, locator: "INCOME EXCESS, Interpretation (monthly = outpatient only; six-month excess = inpatient and outpatient); Excess Income Program participants"}
+      - {source: ny-mrg-income, locator: "PAY-IN: may elect to pay-in for periods of one to six months"}
+  - id: MCD-NY-EXCESS-RESOURCES
+    statement: >-
+      In New York, a person who is 65 or older, blind or disabled with
+      resources above the Medicaid resource level can be eligible for any
+      month in which medical bills equal or exceed the excess resources (or
+      after reducing resources); for MAGI groups resources are never counted.
+    kind: eligibility
+    applies_to: [spenddown]
+    effective_from: 2011-06-01
+    implemented_in: playbooks/medicaid/states/ny/rules.py:evaluate
+    confidence: confirmed
+    sources:
+      - {source: ny-mrg-resources, locator: "EXCESS RESOURCES, Policy: SSI-related applicants may be eligible ... in a month in which their medical bills are equal to or greater than their excess resources"}
+  - id: MCD-NY-POOLED-TRUST
+    statement: >-
+      In New York, a disabled person of any age can place assets in a pooled
+      trust run by a non-profit (an "exception trust"), which is then not
+      counted for Medicaid; New York's GIS 26 MA/14 also mentions qualifying
+      "through a spenddown or pooled trust".
+    kind: eligibility
+    applies_to: [ssi_related, spenddown]
+    effective_from: 2010-06-01
+    confidence: confirmed
+    note: Briefly covered; transfer-penalty rules for additions after age 65 belong to ltc_medicaid. Using a pooled trust to meet a monthly income spenddown is common practice but the MRG page retrieved covers the asset exemption only (MCD-NY-OQ-06).
+    sources:
+      - {source: ny-mrg-resources, locator: "TRUST FUNDS: exception trust ... pooled trust ... disregarded for Medicaid purposes regardless of the age"}
+      - {source: ny-gis-26-ma-14, locator: "Required Redeterminations: ... qualify through a spenddown or pooled trust"}
+  - id: MCD-NY-FPL-JAN-1
+    statement: >-
+      New York applies each year's new poverty-level-based Medicaid levels from
+      January 1 of that year (for 2026, January 1, 2026), and districts
+      re-budget cases back to January 1 once the levels are loaded (February
+      17, 2026); until then the 2025 medically needy levels were used.
+    kind: timing
+    effective_from: 2026-01-01
+    confidence: confirmed
+    sources:
+      - {source: ny-gis-26-ma-05, locator: "EFFECTIVE DATE: January 1, 2026; re-budgeted retroactive to January 1, 2026"}
+      - {source: ny-gis-26-ma-03, locator: "The 2025 Medically Needy Income and Resources Levels remain in effect until the FPLs for 2026 are published"}
+  - id: MCD-NY-MEDICARE-APPLY
+    statement: >-
+      In New York, a Medicaid applicant turning 65 within three months or
+      already 65 whose income is below 120% FPL or at or below the Medicaid
+      standard must apply for Medicare as a condition of Medicaid
+      eligibility, and Medicaid then pays or reimburses the Medicare premiums.
+    kind: coordination
+    effective_from: 2026-10-07
+    confidence: confirmed
+    note: Date is the snapshot date of the DOH page (undated).
+    sources:
+      - {source: ny-doh-medicaid-how-to-apply, locator: "You are required to apply for Medicare if: ... below 120% of the Federal Poverty Level"}
+      - {source: ny-doh-4220, locator: "SECTION D: You are required to apply for Medicare if"}
+
+  # ---------------------------------------------------------------- timing
+  - id: MCD-NY-RETRO
+    statement: >-
+      In New York, Medicaid pays medical bills from the three months before the
+      month of application if the person was eligible in the month of care,
+      for applications made before January 1, 2027; NY State of Health says
+      that from January 1, 2027 adults 19-64 can get 1 month and all others 2
+      months of past bills covered.
+    kind: timing
+    effective_from: 2013-04-24
+    implemented_in: playbooks/medicaid/federal/rules.py:retroactive_months
+    confidence: confirmed
+    note: Regulation dated 04/24/2013 on the DOH regulations site. See MCD-NY-CONFLICT-01 on "adults 19-64" versus the statute's adult expansion group.
+    sources:
+      - {source: ny-18-nycrr-360-2-4, locator: "(c) A retroactive authorization will be issued for medical expenses incurred during the three months prior to the month of application"}
+      - {source: nysoh-stay-covered, locator: "Help with Past Medical Bills (Retroactive Coverage)"}
+  - id: MCD-NY-6-MONTH-RENEWAL
+    statement: >-
+      In New York, most adults 19-64 must renew Medicaid every 6 months
+      starting January 1, 2027: people who apply before January 1, 2027 or
+      renew before March 1, 2027 get 12 months first and then renew every 6
+      months; American Indian and Alaska Native adults, children and people
+      with disabilities keep yearly renewals.
+    kind: timing
+    applies_to: [adult_expansion]
+    effective_from: 2027-01-01
+    implemented_in: playbooks/medicaid/federal/rules.py:renewal_interval
+    confidence: confirmed
+    sources:
+      - {source: nysoh-stay-covered, locator: "Medicaid Renewals"}
+  - id: MCD-NY-WORK-REQUIREMENT
+    statement: >-
+      In New York, starting January 1, 2027, adults 19-64 in the expansion
+      group must show at application and renewal that they earn at least $580
+      a month or do 80 hours a month of work, school (at least half time), job
+      training or volunteering, or a combination, unless an exception applies
+      (for example parents of a child under 14, people with Medicare, a
+      disability, pregnancy in the last 12 months, or SNAP/TANF work
+      compliance).
+    kind: eligibility
+    applies_to: [adult_expansion]
+    effective_from: 2027-01-01
+    implemented_in: playbooks/medicaid/federal/rules.py:community_engagement
+    confidence: confirmed
+    note: NY State of Health lists "pregnant, or were pregnant in the last 12 months", "in foster care" and "under 26 and aged out of foster care" among exceptions; the evaluator models the federal list.
+    sources:
+      - {source: nysoh-stay-covered, locator: "Work Requirements for Medicaid Coverage; Will the Work Requirements ... Affect Me?"}
+  - id: MCD-NY-TIMELINESS
+    statement: >-
+      In New York, the county must decide a Medicaid application within 45
+      days, within 90 days when eligibility depends on disability, and within
+      30 days for a pregnant woman or infant up to 200% FPL or a child 1-18 up
+      to 133% FPL.
+    kind: timing
+    effective_from: 2013-04-24
+    overrides: [MCD-FED-TIMELINESS]
+    confidence: confirmed
+    sources:
+      - {source: ny-18-nycrr-360-2-4, locator: "(a)(1)-(3) Time frames"}
+
+  # ------------------------------------------------- immigration / where
+  - id: MCD-NY-IMMIGRANT-2026
+    statement: >-
+      In New York from October 1, 2026, noncitizens who no longer qualify for
+      federally funded Medicaid (refugees, asylees, parolees and similar)
+      aged 21-64 are moved to the Essential Plan if eligible, and those who
+      cannot get the Essential Plan (for example people needing long-term care
+      or qualifying through spenddown or a pooled trust) keep Medicaid with
+      State-only funds; children and pregnant people are not affected, and
+      such people lose the Medicare Savings Program.
+    kind: eligibility
+    effective_from: 2026-10-01
+    overrides: [MCD-FED-IMMIGRANT-2026]
+    implemented_in: playbooks/medicaid/states/ny/rules.py:immigration
+    confidence: confirmed
+    sources:
+      - {source: ny-gis-26-ma-14, locator: "Background; Required Redeterminations for Existing Beneficiaries; MSP"}
+      - {source: nysoh-stay-covered, locator: "How is Coverage Changing for Immigrants?"}
+  - id: MCD-NY-UNDOCUMENTED
+    statement: >-
+      In New York, a person without a satisfactory immigration status can get
+      Medicaid only if pregnant or for treatment of an emergency medical
+      condition, if otherwise eligible.
+    kind: eligibility
+    effective_from: 2026-10-07
+    implemented_in: playbooks/medicaid/states/ny/rules.py:immigration
+    confidence: confirmed
+    note: Date is the snapshot date of the DOH page (undated). Coverage routes for undocumented children were not established (MCD-NY-OQ-04).
+    sources:
+      - {source: ny-doh-medicaid-how-to-apply, locator: "Note: Medicaid coverage is available, regardless of alien status, if you are pregnant or require treatment for an emergency medical condition"}
+  - id: MCD-NY-WHERE-TO-APPLY
+    statement: >-
+      In New York, MAGI groups (adults 19-64 without Medicare, children,
+      pregnant people, parents and caretakers) apply through NY State of
+      Health, as do people 65+ not seeking long-term care, dual-eligibles and
+      MSP applicants; blind or disabled people outside MAGI groups, SSI
+      recipients, spenddown participants and people seeking community-based
+      long-term care apply with the county LDSS (HRA in New York City).
+    kind: procedure
+    effective_from: 2026-10-07
+    county_varies: true
+    confidence: confirmed
+    note: Date is the snapshot date of the DOH page (undated).
+    sources:
+      - {source: ny-doh-medicaid-how-to-apply, locator: "NY State of Health determines eligibility using MAGI Rules ...; All other non-MAGI eligibility groups should continue to work with their LDSS"}
+  - id: MCD-NY-ESSENTIAL-PLAN
+    statement: >-
+      In New York, the Essential Plan is a separate state health plan (not
+      Medicaid) that adults over the 138% FPL Medicaid level, and from October
+      1, 2026 certain lawfully present noncitizens aged 21-64, are referred to;
+      this playbook does not evaluate it.
+    kind: coordination
+    effective_from: 2026-01-01
+    confidence: confirmed
+    sources:
+      - {source: ny-gis-26-ma-05-att1, locator: "If income is above 138% FPL the A/R may apply for Advanced Premium Tax Credit (APTC) or Essential Plan (EP)"}
+      - {source: ny-gis-26-ma-14, locator: "transitioned to the Essential Plan (EP), if eligible"}
+
+procedure:
+  applications:
+    - id: MCD-NY-PROC-NYSOH
+      text: MAGI groups apply online at nystateofhealth.ny.gov, by phone at 1-855-355-5777, with an enrollment assistor, or through a managed care plan; NY State of Health also handles people 65+ not seeking long-term care.
+      channel: online
+      url: https://nystateofhealth.ny.gov/
+      confidence: confirmed
+      sources:
+        - {source: ny-doh-medicaid-how-to-apply, locator: "You may apply for Medicaid in the following ways"}
+        - {source: ny-doh-4220, locator: "Any other Medicaid applicants must apply through NY State of Health ... 1-855-355-5777"}
+    - id: MCD-NY-PROC-DOH-4220
+      text: Non-MAGI applicants applying through the LDSS (and anyone applying with a spenddown) use form DOH-4220 (Health Insurance for Older Adults, People With Disabilities and Certain Other Populations), plus Supplement A (DOH-5178A) if 65+, certified blind or disabled, or seeking nursing home care.
+      form_number: DOH-4220 (with DOH-5178A Supplement A)
+      form_name: Health Insurance for Older Adults, People With Disabilities and Certain Other Populations — Application
+      url: https://www.health.ny.gov/forms/doh-4220.pdf
+      confidence: confirmed
+      sources:
+        - {source: ny-doh-medicaid-how-to-apply, locator: "Medicaid Application for Non-MAGI Eligibility Group (DOH-4220); Supplement A (DOH-5178A)"}
+        - {source: ny-doh-4220, locator: "PURPOSE OF THIS APPLICATION; Supplement A"}
+    - id: MCD-NY-PROC-LDSS-2921
+      text: The LDSS-2921 is New York's long combined application (public assistance, SNAP, Medicaid); it is not required for MSP-only applications, and its current use for Medicaid-only applicants was not established.
+      form_number: LDSS-2921
+      confidence: unresolved
+      open_question: MCD-NY-OQ-01
+      sources: [{source: ny-gis-07-ma-027, locator: "The long application, LDSS-2921, is no longer required"}]
+  documents:
+    - id: MCD-NY-DOC-LIST
+      text: Non-MAGI applicants send proof of citizenship/immigration status (if not verified through SSA), age, four weeks of pay stubs, other income (Social Security, VA, pensions, unemployment, child support), address, other insurance, and the Medicare card; resource documents (bank accounts, insurance policies) are asked for when seeking long-term care.
+      confidence: confirmed
+      sources: [{source: ny-doh-medicaid-how-to-apply, locator: "If you qualify under a non-MAGI eligibility group, the following is a guide to the documentation"}]
+    - id: MCD-NY-DOC-RETRO-BILLS
+      text: To get past bills paid, list the months and send copies of medical bills from the last three months (paid or unpaid) with the DOH-4220, and income for those months.
+      confidence: confirmed
+      sources: [{source: ny-doh-4220, locator: "SECTION G Additional Health Questions; Medical bills for last three months"}]
+  filing:
+    - id: MCD-NY-FILE-LDSS
+      text: Mail or return the DOH-4220 to the Local Department of Social Services of the county where the person lives (HRA in New York City, 718-557-1399); no interview is required.
+      channel: mail
+      county_varies: true
+      url: https://www.health.ny.gov/health_care/medicaid/ldss.htm
+      confidence: confirmed
+      sources:
+        - {source: ny-doh-4220, locator: "After you have completed this application please mail/return to the local department of social services in the county in which you reside; HOW TO GET HELP: you DO NOT need to visit"}
+        - {source: ny-doh-medicaid-how-to-apply, locator: "In New York City, contact the Human Resources Administration by calling (718) 557-1399"}
+    - id: MCD-NY-FILE-HELPLINE
+      text: Medicaid Helpline 1-800-541-2831.
+      channel: phone
+      confidence: confirmed
+      sources: [{source: ny-doh-medicaid-how-to-apply, locator: "Call the Medicaid Helpline (800) 541-2831"}]
+  timelines:
+    - id: MCD-NY-TIME-DECISION
+      text: Decision within 45 days; 90 days if eligibility depends on disability; 30 days for pregnant women/infants up to 200% FPL and children 1-18 up to 133% FPL.
+      duration: 45 / 90 / 30 days
+      confidence: confirmed
+      sources: [{source: ny-18-nycrr-360-2-4, locator: "(a)"}]
+  approval_notice:
+    - id: MCD-NY-NOTICE
+      text: The LDSS/HRA (or NY State of Health) sends a written decision notice; the name and format of the NY Medicaid approval notice were not retrieved.
+      confidence: unresolved
+      open_question: MCD-NY-OQ-02
+  renewal:
+    - id: MCD-NY-RENEW-NYSOH
+      text: NY State of Health first tries to renew automatically; if it needs information it sends a notice to log in, warns at least 15 days before coverage closes, and allows 90 days after closing to submit and be reinstated.
+      duration: 15-day warning; 90 days to restore
+      confidence: confirmed
+      sources: [{source: nysoh-stay-covered, locator: "How does the Medicaid renewal process work?"}]
+    - id: MCD-NY-RENEW-LDSS
+      text: People enrolled through the LDSS renew with the LDSS and should keep their contact information current with that office.
+      county_varies: true
+      confidence: confirmed
+      sources: [{source: nysoh-stay-covered, locator: "If you enrolled in Medicaid with your county's Local Department of Social Services, contact that office"}]
+  county_variation:
+    - id: MCD-NY-COUNTY
+      text: Income levels and rules are statewide; the LDSS (or HRA in NYC) handles non-MAGI applications, spenddown and pay-in accounts, so addresses, processing speed and in-person options differ by county.
+      county_varies: true
+      confidence: confirmed
+      sources:
+        - {source: ny-mrg-income, locator: "PAY-IN: The local district establishes a special account"}
+        - {source: ny-doh-medicaid-how-to-apply, locator: "Through your Local Department of Social Services Office"}
+
+life_events:
+  - id: MCD-NY-LE-TURNING-65
+    code: turning_65
+    event: Turning 65 or getting Medicare
+    why: Moves from NY State of Health MAGI rules to SSI-related rules with a $33,038 resource level (unless a parent/caretaker, who may stay MAGI); must apply for Medicare.
+    check_rules: [MCD-NY-SSI-RELATED-INCOME, MCD-NY-RESOURCE-LEVEL, MCD-NY-MEDICARE-APPLY]
+    confidence: confirmed
+    sources: [{source: ny-gis-26-ma-05-att1, locator: "Non-MAGI table"}]
+  - id: MCD-NY-LE-INCOME-DROP
+    code: income_drop
+    event: Job loss or reduced income
+    why: Income at or below $1,836 (one) / $3,142 (three) a month qualifies a MAGI adult or parent in 2026.
+    check_rules: [MCD-NY-MAGI-ADULT, MCD-NY-MAGI-PARENT]
+    confidence: confirmed
+    sources: [{source: ny-gis-26-ma-05-att1, locator: "MAGI chart"}]
+  - id: MCD-NY-LE-MOVE-COUNTY
+    code: move_county
+    event: Moving to another New York county
+    why: LDSS cases transfer to the new county's office; NY State of Health cases only need the address updated.
+    check_rules: [MCD-NY-WHERE-TO-APPLY]
+    confidence: confirmed
+    sources: [{source: nysoh-stay-covered, locator: "Make sure NY State of Health has your current address"}]
+  - id: MCD-NY-LE-IMMIGRATION
+    code: immigration_status_change
+    event: Refugee, asylee or parolee status (October 1, 2026 change)
+    why: Adults 21-64 move to the Essential Plan; 65+ and those needing long-term care keep State-only Medicaid; MSP ends.
+    check_rules: [MCD-NY-IMMIGRANT-2026]
+    confidence: confirmed
+    sources: [{source: ny-gis-26-ma-14, locator: "Required Redeterminations"}]
+  - id: MCD-NY-LE-RENEWAL
+    code: renewal_due
+    event: Renewal notice
+    why: From 2027 adults renew every 6 months and show work activity; respond to NY State of Health notices; 90 days to restore after closure.
+    check_rules: [MCD-NY-6-MONTH-RENEWAL, MCD-NY-WORK-REQUIREMENT]
+    confidence: confirmed
+    sources: [{source: nysoh-stay-covered, locator: "Medicaid Renewals"}]
+
+outcome_proof:
+  - id: MCD-NY-PROOF-NYSOH-ACCOUNT
+    evidence: NY State of Health account, "Plans" tab
+    shows: The Medicaid enrollment and its renewal (end) date.
+    how_to_get: Log in at nystateofhealth.ny.gov
+    confidence: confirmed
+    sources: [{source: nysoh-stay-covered, locator: "How do I find my Medicaid renewal date?"}]
+  - id: MCD-NY-PROOF-NOTICE
+    evidence: Written eligibility notice from the LDSS/HRA or NY State of Health
+    shows: Medicaid approved, its start date, any spenddown amount.
+    confidence: unresolved
+    open_question: MCD-NY-OQ-02
+
+links:
+  - id: MCD-NY-LINK-MSP
+    playbook: msp
+    rules: [MCD-NY-SSI-RELATED-INCOME]
+    relation: >-
+      New York's QMB income level equals the SSI-related Medicaid income level
+      ($1,836 / $2,489 in 2026), so a QMB-eligible person is usually also
+      Medicaid-eligible without a spenddown; a person in the QI range must
+      choose between QI and Medicaid with a spenddown.
+    test: MCD-X-01
+    confidence: confirmed
+    sources: [{source: ny-gis-26-ma-05-att1, locator: "SSI-Related Medicaid Income Level 1,836 2,489; QMB 138% FPL 1,836 2,489"}]
+  - id: MCD-NY-LINK-SNAP
+    playbook: snap
+    relation: The LDSS-2921 combined application covers public assistance, SNAP and Medicaid in New York; whether it is still used for Medicaid was not established (MCD-NY-OQ-01).
+    test: MCD-X-05
+    confidence: secondary
+    sources: [{source: ny-gis-07-ma-027, locator: "The long application, LDSS-2921"}]
+
+open_questions:
+  - id: MCD-NY-OQ-01
+    priority: low
+    question: Is the LDSS-2921 still accepted or used for Medicaid-only applications, or only for combined public assistance/SNAP/Medicaid requests?
+    why_it_matters: The agent should name the right form for a member who also wants SNAP.
+    checked: [GIS 07 MA/027, DOH How to Apply page, DOH-4220]
+    affects: [MCD-NY-PROC-LDSS-2921]
+    status: open
+  - id: MCD-NY-OQ-02
+    priority: medium
+    question: What is the name/format of New York's Medicaid approval notice (LDSS Notice of Decision; NY State of Health eligibility notice), and does it state the spenddown amount?
+    why_it_matters: Outcome proof the member can show.
+    checked: [DOH How to Apply page, DOH-4220, NY State of Health H.R.1 page]
+    affects: [MCD-NY-NOTICE, MCD-NY-PROOF-NOTICE]
+    status: open
+  - id: MCD-NY-OQ-03
+    priority: high
+    question: For 2027, will New York's 2027 SSI-related income and resource levels again take effect January 1 (the archive uses the 2026 levels for 2027 dates until a GIS publishes them)?
+    why_it_matters: January-February 2027 cases near the limit.
+    checked: [GIS 26 MA/03, GIS 26 MA/05]
+    affects: [ny.medicaid.ssi_related_income_limit_monthly, ny.medicaid.ssi_related_resource_limit]
+    status: open
+  - id: MCD-NY-OQ-04
+    priority: medium
+    question: Which coverage do undocumented children and young adults under 21 get in New York (Medicaid, Child Health Plus), and is any noncitizen category before October 1, 2026 (e.g. parolees) treated differently from the federal list?
+    why_it_matters: The evaluator returns undetermined for these cases.
+    checked: [GIS 26 MA/14, DOH How to Apply page, NY State of Health H.R.1 page]
+    affects: [MCD-NY-UNDOCUMENTED, MCD-NY-IMMIGRANT-2026]
+    status: open
+  - id: MCD-NY-OQ-05
+    priority: low
+    question: Does New York's 12-month postpartum coverage extension apply on top of the 60-day statement in the 2026 chart?
+    why_it_matters: Postpartum members.
+    checked: [GIS 26 MA/05 attachment]
+    affects: [MCD-NY-MAGI-PREGNANT]
+    status: open
+  - id: MCD-NY-OQ-06
+    priority: medium
+    question: Which current DOH directive governs using a pooled trust to meet a monthly income spenddown (the MRG pages retrieved cover the asset exemption only)?
+    why_it_matters: Pooled trusts are the main way disabled New Yorkers over the income level keep Medicaid without paying the spenddown.
+    checked: [MRG Resources (TRUST FUNDS), MRG Income (EXCESS), GIS 26 MA/14]
+    affects: [MCD-NY-POOLED-TRUST]
+    status: open
+
+conflicts:
+  - id: MCD-NY-CONFLICT-01
+    topic: Who gets 1 versus 2 retroactive months from 2027
+    claims:
+      - source: pl-119-21
+        locator: "sec. 71112, new 1902(a)(34)(A)"
+        says: One month only for individuals enrolled in the adult expansion group (1902(a)(10)(A)(i)(VIII)); two months for everyone else.
+      - source: nysoh-stay-covered
+        locator: "Help with Past Medical Bills"
+        says: "If you are an adult aged 19-64: Medicaid can pay for 1 month of past medical bills. All others: 2 months."
+    handling: >-
+      The archive follows the statute (enrollment group), so a New York parent
+      aged 19-64 covered as a parent/caretaker gets 2 months. A reviewer
+      should confirm New York's implementation; the NYSoH page is consumer
+      shorthand.
+    affects: [MCD-NY-RETRO, MCD-FED-RETRO-2027]
+    status: open
+
+claims_checked:
+  - claim: New York's asset limit for age/disability-based and long-term care Medicaid is about $33,038 for one person in 2026.
+    verdict: verified
+    detail: >-
+      The 2026 chart (GIS 26 MA/05 attachment) gives an SSI-related resource
+      level of $33,038 for one and $44,796 for a couple, and $33,038 for an
+      institutionalized spouse. It is not a hard cap in community Medicaid:
+      resources over the level can be spent down on medical bills
+      (MCD-NY-EXCESS-RESOURCES). The 2025 figure was $32,396. Long-term care
+      details are in ltc_medicaid.
+    sources:
+      - {source: ny-gis-26-ma-05-att1, locator: "SSI-Related Medicaid ... Resource Level 33,038 44,796"}
+  - claim: New York's non-MAGI SSI-related income level is $1,836 (single) / $2,489 (couple) a month in 2026.
+    verdict: verified
+    detail: 138% FPL, compared with countable income after the $20 disregard (so gross unearned income up to $1,856 single qualifies).
+    sources: [{source: ny-gis-26-ma-05-att1, locator: "SSI-Related Medicaid Income Level 1,836 2,489"}]

@@ -1,0 +1,10 @@
+- retrieved: '2026-10-07'
+  url: https://www.cde.ca.gov/ls/nu/sn/directcert.asp
+  final_url: https://www.cde.ca.gov/ls/nu/sn/directcert.asp
+  status: 200
+  content_type: txt
+  text_sha256: 453d00004fb4793972e2ca85d7a7d3851899f82fe1bf37417f4322b459813fd0
+  text: ca-cde-direct-cert/2026-10-07.txt
+  raw: ca-cde-direct-cert/2026-10-07.raw
+  fetched_via: r.jina.ai reader (https://r.jina.ai/<url>) returning the page text;
+    cde.ca.gov/leginfo block scripted requests

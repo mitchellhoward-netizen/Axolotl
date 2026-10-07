@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="cfr.xsl"?>
+<CFRGRANULE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="CFRMergedXML.xsd">
+    <FDSYS>
+        <CFRTITLE>20</CFRTITLE>
+        <CFRTITLETEXT>Employees' Benefits</CFRTITLETEXT>
+        <VOL>2</VOL>
+        <DATE>2025-04-01</DATE>
+        <COVERONLY>false</COVERONLY>
+        <ORIGINALDATE>2025-04-01</ORIGINALDATE>
+        <ANCESTORS>
+            <PARENT HEADING="Title 20" SEQ="4">Employees' Benefits</PARENT>
+            <PARENT HEADING="CHAPTER III" SEQ="3">SOCIAL SECURITY ADMINISTRATION</PARENT>
+            <PARENT HEADING="PART 404" SEQ="2">FEDERAL OLD-AGE, SURVIVORS AND DISABILITY INSURANCE (1950- )</PARENT>
+            <PARENT HEADING="Subpart J" SEQ="1">Determinations, Administrative Review Process, and Reopening of Determinations and Decisions</PARENT>
+            <PARENT HEADING="" SEQ="0">Reconsideration</PARENT>
+        </ANCESTORS>
+    </FDSYS>
+    <SECTION>
+        <SECTNO>§ 404.909</SECTNO>
+        <SUBJECT>How to request reconsideration.</SUBJECT>
+        <P>
+            (a) We shall reconsider an initial determination if you or any other party to the reconsideration files a written request—
+            <PRTPAGE P="241"/>
+        </P>
+        <P>(1) Within 60 days after the date you receive notice of the initial determination (or within the extended time period if we extend the time as provided in paragraph (b) of this section);</P>
+        <P>(2) At one of our offices, the Veterans Administration Regional Office in the Philippines, or an office of the Railroad Retirement Board if you have 10 or more years of service in the railroad industry.</P>
+        <P>
+            (b) 
+            <E T="03">Extension of time to request a reconsideration.</E>
+             If you want a reconsideration of the initial determination but do not request one in time, you may ask us for more time to request a reconsideration. Your request for an extension of time must be in writing and must give the reasons why the request for reconsideration was not filed within the stated time period. If you show us that you had good cause for missing the deadline, we will extend the time period. To determine whether good cause exists, we use the standards explained in § 404.911.
+        </P>
+    </SECTION>
+</CFRGRANULE>

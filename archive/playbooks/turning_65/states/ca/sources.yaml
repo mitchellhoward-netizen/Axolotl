@@ -1,0 +1,56 @@
+# California sources for the Turning 65 playbook. leginfo.legislature.ca.gov
+# refuses scripted and WebFetch requests (HTTP 403), so the Insurance Code text
+# itself could not be snapshotted; see T65-CA-OQ-01.
+sources:
+  - id: ca-cdi-sa-01-10b
+    retrieved: 2026-10-07
+    url: https://www.insurance.ca.gov/0150-seniors/0100alerts/SA-01-10B.cfm
+    publisher: California Department of Insurance
+    title: "Senior Alert SA-01-10B: Changes to Medigap Insurance (advisory dated 02/10/2010)"
+    kind: primary
+    jurisdiction: ca
+    doc_type: agency_page
+    published: 2010-02-10
+    note: Page states the birthday rule as 60 days; secondary sources say the window was 30 days until 2020 (conflict T65-CA-CONFLICT-01).
+  - id: ca-cda-hicap
+    retrieved: 2026-10-07
+    url: https://aging.ca.gov/Programs_and_Services/Medicare_Counseling/
+    publisher: California Department of Aging
+    title: Medicare Counseling (HICAP)
+    kind: primary
+    jurisdiction: ca
+    doc_type: agency_page
+  - id: healthinsurance-org-medicare-ca
+    retrieved: 2026-10-07
+    url: https://www.healthinsurance.org/medicare/california/
+    publisher: healthinsurance.org
+    title: Medicare in California
+    kind: secondary
+    jurisdiction: ca
+    doc_type: other
+  - id: ca-ins-code-10192-11
+    retrieved: 2026-10-07
+    url: https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=INS&sectionNum=10192.11
+    publisher: California Legislature (Legislative Counsel)
+    title: California Insurance Code section 10192.11 (Medicare supplement open enrollment and guaranteed issue)
+    kind: primary
+    jurisdiction: ca
+    doc_type: statute
+    section: "10192.11(h)"
+    effective_date: 2020-01-01
+    note: >-
+      leginfo.legislature.ca.gov answers scripts, WebFetch and headless Chromium with a Cloudflare
+      challenge (HTTP 403). The text was taken from the Legislative Counsel's official bulk data
+      (downloads.leginfo.legislature.ca.gov/pubinfo_2025.zip, LAW_SECTION_TBL row INS10192.11, last
+      updated 2026-07-10) and imported; history line "Amended ... by Stats. 2019, Ch. 549, Sec. 4.
+      (SB 407) Effective January 1, 2020."
+  - id: ca-sb-407-2019-chaptered
+    retrieved: 2026-10-07
+    url: https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=201920200SB407
+    publisher: California Legislature (Legislative Counsel)
+    title: Senate Bill 407 (2019), Chapter 549, Statutes of 2019 - Medicare supplement benefit coverage (chaptered text and Legislative Counsel's Digest)
+    kind: primary
+    jurisdiction: ca
+    doc_type: statute
+    published: 2019-10-07
+    note: Chaptered version from the Legislative Counsel's bulk data (pubinfo_2019.zip, BILL_VERSION_TBL 20190SB40792CHP); the Digest states prior law's 30-day minimum and the extension to 60 days.

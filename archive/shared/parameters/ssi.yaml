@@ -1,0 +1,33 @@
+# SSI federal amounts used by several playbooks (Disability/SSI, Medicaid
+# age-blind-disabled groups, long-term care, MSP QDWI). State supplements live
+# in the Disability playbook's state parts.
+parameters:
+  - id: federal.ssa.ssi_federal_benefit_rate_monthly
+    description: SSI federal benefit rate (maximum federal monthly payment), individual and eligible couple.
+    unit: usd_per_month
+    keyed_by: "1 = individual, 2 = individual and eligible spouse (couple)"
+    updates: Each January 1 with the Social Security COLA (announced in October).
+    values:
+      - effective_from: 2025-01-01
+        effective_to: 2025-12-31
+        value: {1: 967, 2: 1450}
+        confidence: confirmed
+        sources:
+          - {source: ssa-poms-si-02001-020, locator: "11. Federal Benefits Rates, 01/25 to 12/25: Individual $967.00; Individual and Spouse $1450.00"}
+      - effective_from: 2026-01-01
+        value: {1: 994, 2: 1491}
+        confidence: confirmed
+        sources:
+          - {source: ssa-poms-si-02001-020, locator: "11. Federal Benefits Rates, 01/26 to 12/26: Individual $994.00; Individual and Spouse $1,491.00"}
+  - id: federal.ssa.ssi_resource_limit
+    description: SSI resource limit, individual and couple.
+    unit: usd
+    keyed_by: "1 = individual, 2 = couple"
+    compare_to: Countable resources under SSI rules (home, one vehicle, burial spaces and other exclusions removed) as of the first moment of the month.
+    updates: Statutory; unchanged since 1/1/89.
+    values:
+      - effective_from: 1989-01-01
+        value: {1: 2000, 2: 3000}
+        confidence: confirmed
+        sources:
+          - {source: ssa-poms-si-01110-003, locator: "Resource limits table, 1/1/89: 2,000 / 3,000; NOTE: The statutory limits have not changed since 1/1/89"}

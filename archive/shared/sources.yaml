@@ -1,0 +1,65 @@
+# Sources for numbers that several playbooks use (shared/parameters/).
+# Snapshots: shared/snapshots/<id>/. `retrieved` is set by tools/sources.py.
+sources:
+  - id: fr-2026-hhs-poverty-guidelines
+    retrieved: 2026-10-07
+    url: https://www.govinfo.gov/content/pkg/FR-2026-01-15/html/2026-00755.htm
+    publisher: U.S. Department of Health and Human Services (Federal Register Vol. 91, No. 10)
+    title: Annual Update of the HHS Poverty Guidelines (2026)
+    kind: primary
+    jurisdiction: federal
+    doc_type: federal_register
+    published: 2026-01-15
+    effective_date: 2026-01-13
+    note: >-
+      FR doc 2026-00755, pp. 1797-1798. States "Effective Date: January 13, 2026
+      unless an office administering a program using the guidelines specifies a
+      different effective date for that particular program." Each program sets
+      its own effective date; see the program parameters.
+  - id: cms-2026-part-a-b-premiums
+    ends_at: '^Previous Newsroom Article$'
+    retrieved: 2026-10-07
+    url: https://www.cms.gov/newsroom/fact-sheets/2026-medicare-parts-b-premiums-deductibles
+    publisher: Centers for Medicare & Medicaid Services
+    title: 2026 Medicare Parts A & B Premiums and Deductibles (fact sheet)
+    kind: primary
+    jurisdiction: federal
+    doc_type: agency_page
+    published: 2025-11-14
+    effective_date: 2026-01-01
+  - id: cms-2025-part-a-b-premiums
+    ends_at: '^Previous Newsroom Article$'
+    retrieved: 2026-10-07
+    url: https://www.cms.gov/newsroom/fact-sheets/2025-medicare-parts-b-premiums-and-deductibles
+    publisher: Centers for Medicare & Medicaid Services
+    title: 2025 Medicare Parts A & B Premiums and Deductibles (fact sheet)
+    kind: primary
+    jurisdiction: federal
+    doc_type: agency_page
+    effective_date: 2025-01-01
+  - id: usc-42-1382a
+    retrieved: 2026-10-07
+    url: https://www.govinfo.gov/content/pkg/USCODE-2023-title42/html/USCODE-2023-title42-chap7-subchapXVI-partA-sec1382a.htm
+    publisher: U.S. Government Publishing Office (United States Code, 2023 edition)
+    title: 42 U.S.C. 1382a — Income; earned and unearned income defined; exclusions from income (SSI)
+    kind: primary
+    jurisdiction: federal
+    doc_type: statute
+    section: "(b) Exclusions from income"
+  - id: ssa-poms-si-02001-020
+    retrieved: 2026-10-07
+    url: https://secure.ssa.gov/poms.nsf/lnx/0502001020
+    publisher: Social Security Administration (POMS)
+    title: SI 02001.020 Title XVI Federal Benefit Rate Increases and Rate Charts
+    kind: primary
+    jurisdiction: federal
+    doc_type: manual
+    section: "11. Federal Benefits Rates (1/24 through 12/26)"
+  - id: ssa-poms-si-01110-003
+    retrieved: 2026-10-07
+    url: https://secure.ssa.gov/poms.nsf/lnx/0501110003
+    publisher: Social Security Administration (POMS)
+    title: SI 01110.003 Resources limits for SSI benefits
+    kind: primary
+    jurisdiction: federal
+    doc_type: manual

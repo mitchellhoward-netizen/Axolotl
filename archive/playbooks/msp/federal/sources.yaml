@@ -1,0 +1,142 @@
+sources:
+  - id: usc-42-1396d
+    retrieved: 2026-10-07
+    url: https://www.govinfo.gov/content/pkg/USCODE-2023-title42/html/USCODE-2023-title42-chap7-subchapXIX-sec1396d.htm
+    publisher: U.S. Government Publishing Office (United States Code, 2023 edition)
+    title: 42 U.S.C. 1396d — Definitions (Social Security Act sec. 1905)
+    kind: primary
+    jurisdiction: federal
+    doc_type: statute
+    section: "(p) Qualified medicare beneficiary; medicare cost-sharing"
+    note: 2023 edition of the Code; check later amendments before relying on text outside subsection (p).
+  - id: usc-42-1396a
+    retrieved: 2026-10-07
+    url: https://www.govinfo.gov/content/pkg/USCODE-2023-title42/html/USCODE-2023-title42-chap7-subchapXIX-sec1396a.htm
+    publisher: U.S. Government Publishing Office (United States Code, 2023 edition)
+    title: 42 U.S.C. 1396a — State plans for medical assistance (Social Security Act sec. 1902)
+    kind: primary
+    jurisdiction: federal
+    doc_type: statute
+    note: (a)(10)(E) MSP groups; (e)(8) QMB effective date; (r)(2) less restrictive methodologies.
+  - id: usc-42-1396u-3
+    retrieved: 2026-10-07
+    url: https://www.govinfo.gov/content/pkg/USCODE-2023-title42/html/USCODE-2023-title42-chap7-subchapXIX-sec1396u-3.htm
+    publisher: U.S. Government Publishing Office (United States Code, 2023 edition)
+    title: 42 U.S.C. 1396u-3 — State programs for payment of Medicare Part B premiums for qualifying individuals
+    kind: primary
+    jurisdiction: federal
+    doc_type: statute
+  - id: medicare-gov-msp
+    retrieved: 2026-10-07
+    url: https://www.medicare.gov/basics/costs/help/medicare-savings-programs
+    publisher: Centers for Medicare & Medicaid Services (Medicare.gov)
+    title: Medicare Savings Programs
+    kind: primary
+    jurisdiction: federal
+    doc_type: agency_page
+    effective_date: 2026-01-01
+    note: Publishes the federal-minimum 2026 income and resource limits; the income limits include the $20 general income disregard.
+  - id: ssa-poms-hi-00815-023
+    retrieved: 2026-10-07
+    url: https://secure.ssa.gov/poms.nsf/lnx/0600815023
+    publisher: Social Security Administration (POMS)
+    title: HI 00815.023 Medicare Savings Programs Income and Resource Limits
+    kind: primary
+    jurisdiction: federal
+    doc_type: manual
+  - id: ssa-poms-hi-00815-024
+    retrieved: 2026-10-07
+    url: https://secure.ssa.gov/poms.nsf/lnx/0600815024
+    publisher: Social Security Administration (POMS)
+    title: HI 00815.024 SSA's Role in Medicare Savings Programs (MSP) Applications
+    kind: primary
+    jurisdiction: federal
+    doc_type: manual
+  - id: ssa-poms-hi-03001-005
+    retrieved: 2026-10-07
+    url: https://secure.ssa.gov/poms.nsf/lnx/0603001005
+    publisher: Social Security Administration (POMS)
+    title: HI 03001.005 Medicare Part D Extra Help (Low-Income Subsidy or LIS)
+    kind: primary
+    jurisdiction: federal
+    doc_type: manual
+  - id: ssa-poms-hi-03001-020
+    retrieved: 2026-10-07
+    url: https://secure.ssa.gov/poms.nsf/lnx/0603001020
+    publisher: Social Security Administration (POMS)
+    title: HI 03001.020 Eligibility for Extra Help (Prescription Drug Low-Income Subsidy)
+    kind: primary
+    jurisdiction: federal
+    doc_type: manual
+  - id: ssa-poms-hi-03020-055
+    retrieved: 2026-10-07
+    url: https://secure.ssa.gov/poms.nsf/lnx/0603020055
+    publisher: Social Security Administration (POMS)
+    title: HI 03020.055 Income Limits for Extra Help
+    kind: primary
+    jurisdiction: federal
+    doc_type: manual
+  - id: ssa-poms-hi-03030-025
+    retrieved: 2026-10-07
+    url: https://secure.ssa.gov/poms.nsf/lnx/0603030025
+    publisher: Social Security Administration (POMS)
+    title: HI 03030.025 Resource Limits for Subsidy Eligibility
+    kind: primary
+    jurisdiction: federal
+    doc_type: manual
+  - id: ssa-poms-hi-00815-001
+    retrieved: 2026-10-07
+    url: https://secure.ssa.gov/poms.nsf/lnx/0600815001
+    publisher: Social Security Administration (POMS)
+    title: HI 00815.001 State Payment of Medicare Premiums (Buy-In Program)
+    kind: primary
+    jurisdiction: federal
+    doc_type: manual
+    effective_date: 2024-01-12
+  - id: ssa-poms-hi-00815-018
+    retrieved: 2026-10-07
+    url: https://secure.ssa.gov/poms.nsf/lnx/0600815018
+    publisher: Social Security Administration (POMS)
+    title: HI 00815.018 When State Payment of Medicare Premiums (State Buy-In) Begins
+    kind: primary
+    jurisdiction: federal
+    doc_type: manual
+    effective_date: 2022-12-08
+  - id: ssa-poms-hi-00815-039
+    retrieved: 2026-10-07
+    url: https://secure.ssa.gov/poms.nsf/lnx/0600815039
+    publisher: Social Security Administration (POMS)
+    title: HI 00815.039 Effect of Buy-In on the Individual
+    kind: primary
+    jurisdiction: federal
+    doc_type: manual
+    effective_date: 2022-12-08
+  - id: ssa-poms-hi-00815-060
+    retrieved: 2026-10-07
+    url: https://secure.ssa.gov/poms.nsf/lnx/0600815060
+    publisher: Social Security Administration (POMS)
+    title: HI 00815.060 Centers for Medicare & Medicaid Services (CMS) State Buy-In Data Processing
+    kind: primary
+    jurisdiction: federal
+    doc_type: manual
+    effective_date: 2017-08-09
+  - id: cms-spmp-ch1
+    retrieved: 2026-10-07
+    url: https://www.cms.gov/files/document/chapter-1-program-overview-and-policy.pdf
+    publisher: Centers for Medicare & Medicaid Services (CMS Manual System, Pub. 100-24)
+    title: Manual for State Payment of Medicare Premiums (formerly State Buy-in Manual), Chapter 1 — Program Overview and Policy
+    kind: primary
+    jurisdiction: federal
+    doc_type: manual
+    effective_date: 2025-01-16
+    note: Rev. 7, issued 01-16-2025; individual sections carry Rev. 6 (04-26-2024) or Rev. 7 dates. Linked from https://www.cms.gov/medicare/medicaid-coordination/about/state-payment-premiums.
+  - id: cms-spmp-ch2
+    retrieved: 2026-10-07
+    url: https://www.cms.gov/files/document/chapter-2-data-exchange-processes.pdf
+    publisher: Centers for Medicare & Medicaid Services (CMS Manual System, Pub. 100-24)
+    title: Manual for State Payment of Medicare Premiums, Chapter 2 — State Buy-in Data Exchange Processes
+    kind: primary
+    jurisdiction: federal
+    doc_type: manual
+    effective_date: 2020-09-08
+    note: Rev. 4, issued 08-21-2020, effective 09-08-2020. Daily state-CMS exchange became mandatory April 1, 2022 (42 CFR 406.26, 407.40).

@@ -1,0 +1,10 @@
+# Runtime + test dependencies for the rules archive. PolicyEngine US is NOT
+# listed here on purpose: it is AGPL-3.0 and is only used by the optional
+# cross-check script (crosscheck/), installed into a separate virtualenv.
+PyYAML>=6.0
+jsonschema>=4.20
+requests>=2.31
+beautifulsoup4>=4.12
+lxml>=5.0
+pypdf>=4.0
+pytest>=8.0

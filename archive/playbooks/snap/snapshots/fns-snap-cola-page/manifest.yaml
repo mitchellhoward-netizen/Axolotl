@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://www.fns.usda.gov/snap/allotment/cola
+  final_url: https://www.fna.usda.gov/snap/allotment/cola
+  status: 200
+  content_type: text/html; charset=utf-8
+  text_sha256: 91b800bba91f3b37d427aa2592846369d0de81288abe1b4d2309647233d9155d
+  text: fns-snap-cola-page/2026-10-07.txt
+  raw: fns-snap-cola-page/2026-10-07.html

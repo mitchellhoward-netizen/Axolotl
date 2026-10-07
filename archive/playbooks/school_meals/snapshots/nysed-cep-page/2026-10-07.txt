@@ -1,0 +1,479 @@
+NYSED.GOV
+
+Board of Regents
+
+News
+
+Index A-Z
+
+Translate
+
+Contact Us
+
+NYSED Employment
+
+Business Portal
+
+Home
+
+Programs
+
+Application Submission Process
+
+National School Lunch Program (NSLP)
+
+Summer Food Service Program (SFSP)
+
+Afterschool Snack Program (Snack)
+
+Farm to School
+
+Fresh Fruit and Vegetable Program (FFVP)
+
+School Breakfast Program (SBP)
+
+Special Milk Program (SMP)
+
+Eligibility
+
+Financial Management
+
+Administrative Review
+
+SFAs Scheduled For Administrative Review
+
+Findings Summary Documents for Completed Reviews
+
+Procurement
+
+Statutes and Regulations
+
+Guidance
+
+Buy American Provision
+
+Management Companies
+
+Contracts & Extensions
+
+Civil Rights
+
+Training
+
+Upcoming Events
+
+Webinar Library
+
+SFSP Training
+
+Tutorials
+
+CN Snip-its
+
+Master Instructor Training Network
+
+Training Resources
+
+Training Listserv
+
+Search
+
+Community Eligibility Provision (CEP)
+
+Application Period Is Closed
+
+General Information
+
+The Community Eligibility Provision (CEP) is a meal service option for School Food Authorities (SFA) and schools to serve breakfast and lunch at no cost to all enrolled students without the burden of collecting household applications. By eliminating the household application process and streamlining meal counting and claiming procedures, CEP may substantially reduce administrative burden related to operating the National School Lunch Program and School Breakfast Program. Additionally, CEP may increase student participation, creating more opportunities for students to receive nutrition necessary to optimize academic performance. CEP may be implemented in individual schools, groups of schools, or entire school districts.
+
+Eligibility
+
+CEP Eligibility is based on the Identified Student Percentage (ISP) certified for free meals by a means other than a household application, compared to the total enrollment of that SFA/group of recipient agencies (RAs)/Individual RA on April 1, 2025.
+
+The ISP includes:
+
+Students identified through the electronic direct certification matching process (DCMP):
+
+Supplemental Nutrition Assistance Program (SNAP) recipients
+
+Medicaid recipients
+
+Extension of eligibility to siblings or household members of SNAP or Medicaid
+
+Homeless children identified by the Homeless Liaison
+
+Head Start/Evenstart
+
+Migrant Youth
+
+Runaways
+
+Foster Children certified directly by the State or local foster agency
+
+Students who are eligible for free meals based on submission of an application are not included in the ISP.
+
+To be eligible for CEP, a SFA/group of RAs/individual RA must have an ISP of 25 percent or more. SFAs are encouraged to combine a group of RAs or the entire SFA to meet the minimum ISP of 25 percent. RAs with an ISP less than 25 percent can be included in the SFA or group of RAs as long as the entire SFA or group of RAs’ ISP is at least 25 percent.
+
+CEP schools must participate in both the School Breakfast and National School Lunch Programs.
+
+Please note that Residential Child Care Institutions are not eligible to participate in the CEP.
+
+Application
+
+To participate in CEP, SFAs must apply and be approved by the New York State Education Department prior to implementation.
+
+Duration
+
+The SFA/group of RAs/individual RA elects CEP in 4-year cycles. The approved ISP is valid for four years. However, SFAs can reapply during the annual application period in any year during the 4-year cycle to operate at a higher ISP and begin a new 4-year cycle.
+
+When SFAs reach the end of the 4-year cycle, they may continue to participate in CEP for one grace year (a fifth year) if the SFA/group of RAs/individual RA has an ISP of at least 15 percent but less than 25 percent, as of April 1. Reimbursement for schools in a grace year is based on the ISP as of April 1 in year 4. For example, the claiming percentages for participating schools in a grace year would be calculated based on the year 4 ISP.
+
+An SFA/group of RAs/individual RA that has a year 4 ISP at least 25 percent or greater is not entitled to a grace year but may begin a new 4-year CEP cycle in the following school year by completing the CEP application process.
+
+Reimbursement
+
+Funding for CEP meals is provided through both federal and state funds.
+
+Federal Funding
+
+The amount of federal funding is based on the SFA/group of RAs/individual RA ISP multiplied by 1.6.
+
+ISP x 1.6 = percentage of meals reimbursed at the federal free rate, not exceeding 100 percent. The remaining meals are reimbursed at the federal paid rate.
+
+State Funding
+
+For all meals reimbursed at the federal free rate, the state free reimbursement amount for breakfast and lunch is the same rates applied to standard counting and claiming meals.
+
+As of school year 2023-2024, the State paid reimbursement rate will provide the difference between the federal free and the federal paid rate for CEP meals reimbursed in the paid category. This will ensure that all CEP meals are reimbursed at an amount equal to the total free reimbursement rate. This additional funding will only be provided for the portion of meals served in schools participating in CEP for which the SFA receives the federal paid rate of reimbursement.
+
+Local Funding
+
+The amount received in federal and state reimbursement is meant to cover the cost of providing meals through CEP. Should meal costs exceed the total federal and state reimbursement amount, SFAs must cover any remaining meal costs from another source. General fund donations or other non-federal funding would be needed if the cost of implementing the CEP is higher than the reimbursement received for CEP meals.
+
+Claiming
+
+Schools participating in CEP must provide access to both breakfast and lunch for all students during each school day. During meal service, schools are required to keep accurate meal counts and maintain a POS system that ensures meals are claimed only once for each student served a reimbursable meal. Schools may not claim reimbursement for additional meals served to students, or for meals that do not meet the meal pattern requirements.
+
+After-School Snack Program in CEP Schools
+
+Schools that participate in the afterschool snack program serve reimbursable snacks to every student at no charge. For Community Eligibility Schools (CEP) schools, snack claims will be reimbursed according to the school’s snack needy status. Schools that qualify as snack needy are reimbursed for all snacks at the federal free rate. CEP schools that do not qualify as snack needy (non-snack needy) are reimbursed for snacks based on the approved CEP claiming percentage.
+
+Snack Needy Eligibility (Area Eligible)
+
+In the first year of CEP participation, schools are considered snack needy if at least 50% of students enrolled in the school during the previous school year were eligible for free and reduced-price lunch in October. Once established, snack needy eligibility is effective for a period of five years.
+
+If a school is not eligible for snack needy during the first year of CEP participation, snack needy eligibility will be determined through CNMS annually until such time the building is eligible. If the individual school’s ISP times 1.6 is at least 50%, the school will be eligible. The school or site may also be considered snack needy if it is located in the attendance area of another school in which at least 50 percent of the children enrolled at the school are certified as eligible for free or reduced-price lunch.
+
+Claiming
+
+The SFA will enter the total number of monthly snacks served by building into CNMS. All snacks claimed for snack needy schools will appear in the free reimbursement category. CNMS will automatically categorize snacks claimed in non-needy snack schools into the appropriate claiming category (free or paid) based on the SFA’s CEP claiming percentage. Claiming instructions can be found below under Attachments.
+
+Data Matching
+
+SFAs operating CEP are required to conduct the DCMP at least three times each school year and to report the number of SNAP and Medicaid matched eligibles, by RA, to SED with the September reimbursement claim.
+
+Collection of Income Information from Families for Other Federal, State and Local Funding/Reporting
+
+The DCMP should always be used as the first step in establishing student economic need. Students not found in the DCMP can be provided the CEP and P2 Household Income Form (provided to SFAs after they are approved for the CEP). Since Income data is used as a proxy for many education and other purposes in New York State, a sample prototype is provided for this purpose. Schools can choose to collect this information using a different process as collection of this information is not required for Child Nutrition Program purposes.
+
+DCMP efforts may be charged to the Child Nutrition Programs as the DCMP is required in all years of CEP participation. The collection and certification of the CEP and P2 Household Income Form or other SFA created form, is not a chargeable activity as the data collected from these forms is not being used for Child Nutrition Program purposes. Certification activities other than the DCMP must be supported/funded by the General Fund or other alternative non-federal funding.
+
+The CEP and P2 Household Income Form cannot be used to provide free or reduced-price meals to students, should the students move from a participating building within the SFA to a non-participating CEP building, or to another SFA that is not participating in the CEP. Should a student move within or outside of the SFA to a non-participating building, they must either be directly certified using the DCMP, or provide a Free and Reduced-Price Eligibility Application to receive Program benefits. The Application must include all the appropriate confidentiality and non-discrimination statements.
+
+Partial CEP Districts
+
+Districts may opt to use the CEP and P2 Household Income Form to collect household income information from students in both CEP and non-CEP schools to streamline information collection. A school using a single form must ensure that all information required for non-CEP schools is contained on the form. The following details the requirements for Partial CEP Districts using a single form.
+
+Single forms developed for this purpose must:
+
+Contain all information required on the school meals application;
+
+Include a clear, concise, and prominent disclaimer to indicate that, in CEP schools, receipt of school meals does not depend on households returning the form; and
+
+SFA’s opting to use a single form must be able to:
+
+Distinguish between forms from students in CEP vs. non-CEP households so the SFA can comply with Program requirements related to household applications.
+
+Cost-allocate expenses for form processing, costs for form processing for students in CEP schools may not be paid from the nonprofit school food service account.
+
+Transfer from a CEP to a non-CEP School
+
+SFAs must provide free reimbursable meals for 30 operating days or until a new eligibility determination is made for a child who transfers from a CEP school to a non-CEP school.
+
+Option to End Participation in CEP
+
+An SFA/group of RAs/individual RA may elect to stop the CEP for the following school year by notifying the New York State Education Department Child Nutrition office no later than June 30 of the current school year. Although it is an option to end participation in CEP at any time during the school year, it is not recommended as adequate communication with families and collection of certifying eligibility data must occur prior to moving to standard counting and claiming procedures.
+
+If you have any questions regarding this memo, please contact your Child Nutrition Representative.
+
+Printer-friendly version available here.
+
+Attachments
+
+Application Instructions
+
+Documents for Non-pricing Schools
+
+To be utilized while operating CEP: Household Income Form, Parent Letter, Public Announcement. (These forms do NOT fulfill the outreach requirements for those SFAs/RAs operating standard counting and claiming.)
+
+Submitting Breakfast and Lunch Claims
+
+After-School Snack Program in Community Eligibility Provision Schools
+
+Claiming Instructions
+
+Guidance
+
+CEP Reimbursement Estimator
+
+Used to estimate the level of federal reimbursement a CEP school, group of schools, or school district would receive under CEP. Currently reflects SY 25-26 reimbursement rates.
+
+CEP Notification Report
+
+This notification report was created using proxy data and does not fully reflect the number of identified students.
+
+Key: Yellow shaded boxes represent potential ISPs between 15 and 25% and orange shaded boxes represent potential ISPs below 15%.
+
+List of SFAs Whose CEP is Expiring in June 2026, as of April 1, 2026
+
+This list does not update to reflect SFAs who have reapplied for CEP after the publication of this notice.
+
+USDA FNS CEP Resource Center
+
+Community Eligibility Provision Fact Sheet
+
+SP 08-2024: Community Eligibility Provision: Planning and Implementation Guidance - Updated
+
+SP 09-2024: Community Eligibility Provision: Guidance and Updated Q&As
+
+SP 10-2024: Community Eligibility Provision: Statutory Annual Notification and Publication Requirements and School Year 2024-2025 Election Deadline
+
+SP 11-2024: Community Eligibility Provision: State Agency Procedures to Ensure Identified Student Percentage Accuracy
+
+SP 35-2015: Community Eligibility Provision: Revised Department of Education Title I Guidance
+
+SP 10-2023: Updated Title I Guidance for Making Within District Allocations
+
+SP 08-2015: Updated E-Rate Guidance for Schools Electing Community Eligibility
+
+Popular Topics
+
+Accommodating Children with Disabilities
+
+"And Justice For All" Posters
+
+Annual Checklist
+
+Child Nutrition Spotlight
+
+Community Eligibility Provision
+
+Direct Certification Matching Process
+
+Disclosure
+
+Eligibility
+
+Equipment Purchases Approval Process
+
+Food Based Menu Planning
+
+Food Service Management Company
+
+Forms
+
+Grants
+
+HACCP/Sanitation
+
+Indirect Cost Guidance
+
+Local School Wellness Policy
+
+Nonprofit School Food Service Account
+
+Preschool/Prekindergarten
+
+Professional Standards
+
+Program Integrity Final Rule
+
+Public Reports
+
+Recalls
+
+Regulations
+
+Reimbursement Rates
+
+Smart Snacks in School
+
+Verification
+
+How Do I…?
+
+Add a Program
+
+Add a Recipient Agency
+
+Add a User to CNMS
+
+Adjust a Claim
+
+Appeal A State Agency
+
+Become a New SFA
+
+Change My CNMS Password
+
+Complete the Health Inspection Report
+
+Conduct a Self-review
+
+Determine Selling Prices
+
+Find Free Summer Meals
+
+Nominate a Person/Program for the CN Spotlight
+
+Renew SAMS Registration
+
+Report Fraud, Waste, and Abuse
+
+Request a Breakfast After the Bell Waiver
+
+Reset my CNMS password
+
+Reset My DCMP Password
+
+Submit a Claim
+
+Terminate Participation
+
+Update my CNMS Administrator
+
+Quick Links
+
+CDC
+
+CACFP
+
+DUNS
+
+Food Buying Guide
+
+FRAC School Breakfast
+
+Hunger Solutions
+
+Information and Reporting Services
+
+Institute of Child Nutrition (previously NFSMI)
+
+MyBenefits
+
+NYS Dept of Agriculture and Markets: Farm to School
+
+NYS DOH CACFP
+
+NYS OCFS Foster Care Contacts
+
+NYS-TEACHS
+
+OGS
+
+School Nutrition Association
+
+SED Charter School Office
+
+SEDREF Information Page
+
+SEDREF Query
+
+SAM
+
+Team Nutrition
+
+USDA
+
+WellSAT
+
+WIC Strong
+
+Media Center
+
+Newsletters
+
+Video Gallery
+
+Subscribe
+
+Facebook
+
+X (Formerly Twitter)
+
+Instagram
+
+LinkedIn
+
+New York State Education Building
+
+89 Washington Avenue
+
+Albany, NY 12234
+
+CONTACT US
+
+NYSED General Information: (518) 474-3852
+
+ACCES-VR: 1-800-222-JOBS (5627)
+
+TASC (formerly GED): (518) 474-5906
+
+New York State Archives: (518) 474-6926
+
+New York State Library: (518) 474-5355
+
+New York State Museum: (518) 474-5877
+
+Office of Higher Education: (518) 486-3633
+
+Office of the Professions: (518) 474-3817
+
+P-12 Education: (518) 474-3862
+
+EMAIL CONTACTS
+
+Adult Education & Vocational Services
+
+New York State Archives
+
+New York State Library
+
+New York State Museum
+
+Office of Higher Education
+
+Office of the Professions
+
+P-12 Education
+
+USDA Nondiscrimination Statement
+
+In accordance with federal civil rights law and USDA civil rights regulations and policies, the USDA, its agencies, offices, employees, and institutions participating in or administering USDA programs are prohibited from discriminating based on race, color, national origin, religion, sex, disability, age, marital status, family/parental status, income derived from a public assistance program, political beliefs, or reprisal or retaliation for prior civil rights activity, in any program or activity conducted or funded by USDA (not all bases apply to all programs). Remedies and complaint filing deadlines vary by program or incident.
+
+Persons with disabilities who require alternative means of communication for program information (e.g., Braille, large print, audiotape, American Sign Language, etc.) should contact the state or local agency that administers the program or contact USDA through the Telecommunications Relay Service at 711 (voice and TTY). Additionally, program information may be made available in languages other than English.
+
+To file a program discrimination complaint, complete the USDA Program Discrimination Complaint Form, AD-3027, found online at How to File a Program Discrimination Complaint and at any USDA office or write a letter addressed to USDA and provide in the letter all of the information requested in the form. To request a copy of the complaint form, call (866) 632-9992. Submit your completed form or letter to USDA by:
+
+Mail: U.S. Department of Agriculture, Office of the Assistant Secretary for Civil Rights, 1400 Independence Avenue, SW, Mail Stop 9410, Washington, D.C. 20250-9410;
+
+Fax: (202) 690-7442; or
+
+Email: program.intake@usda.gov.
+
+USDA is an equal opportunity provider, employer, and lender.
+
+Diversity & Access | Public Records (FOIL) | Accessibility | Public Records (FOIL) | Internet Privacy Policy | Disclaimer
+
+Top

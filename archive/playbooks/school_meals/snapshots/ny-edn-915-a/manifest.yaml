@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://legislation.nysenate.gov/pdf/laws/EDN915-A
+  final_url: https://legislation.nysenate.gov/pdf/laws/EDN915-A
+  status: 200
+  content_type: application/pdf;charset=utf-8
+  text_sha256: a5589d42cbaaa7d8a70da58e57f6cf4fb984622797b0596ecade04bacd20283b
+  text: ny-edn-915-a/2026-10-07.txt
+  raw: ny-edn-915-a/2026-10-07.pdf

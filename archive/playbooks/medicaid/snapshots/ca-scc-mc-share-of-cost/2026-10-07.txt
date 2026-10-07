@@ -1,0 +1,21 @@
+Share of Cost
+
+A share of cost (SOC) is the amount of the family’s net countable income which exceeds the monthly maintenance need level for the size of the Medi-Cal Family Budget Unit (MFBU).
+
+An individual’s or family’s monthly SOC must be paid (or obligated to pay) toward the cost of health care services/prescriptions received before Medi-Cal will pay the provider for the remaining amount of the bill.
+
+When SOC is Determined
+
+CalSAWS will determine the SOC:
+
+At application
+
+When there is a change in income or income deductions
+
+When there is a change in the size of the MFBU
+
+When there is a change in any other eligibility factors affecting the SOC.
+
+Related Topics
+
+SOC Responsibility

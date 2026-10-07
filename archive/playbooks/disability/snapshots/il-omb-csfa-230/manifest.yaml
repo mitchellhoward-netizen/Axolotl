@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://omb.illinois.gov/public/gata/csfa/Program.aspx?csfa=230
+  final_url: https://omb.illinois.gov/public/gata/csfa/Program.aspx?csfa=230
+  status: 200
+  content_type: text/html; charset=utf-8
+  text_sha256: 4b487e8b3af56459dbfb052cfc5f91de59e27eb699c65500e3f4c6940db059d3
+  text: il-omb-csfa-230/2026-10-07.txt
+  raw: il-omb-csfa-230/2026-10-07.html

@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://fns-prod.azureedge.us/cn/direct-certification-medicaid-demonstration-project
+  final_url: https://fns-prod.azureedge.us/cn/direct-certification-medicaid-demonstration-project
+  status: 200
+  content_type: text/html; charset=utf-8
+  text_sha256: 16fc295af4dc98cf11b8debf05810e30e9fb5f6cf023f9ed38ddac296166be99
+  text: fns-dcm-demonstration/2026-10-07.txt
+  raw: fns-dcm-demonstration/2026-10-07.html

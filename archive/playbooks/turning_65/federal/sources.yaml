@@ -1,0 +1,267 @@
+# Federal sources for the Turning 65 playbook (Medicare enrollment windows,
+# premiums and late penalties, coordination with employer/retiree coverage,
+# federal Medigap rights). Snapshots: ../snapshots/<id>/.
+# CFR text is the October 1, 2025 annual edition on govinfo (XML); U.S. Code
+# text is the 2023 edition on govinfo.
+sources:
+  - id: cfr-42-406
+    retrieved: 2026-10-07
+    url: https://www.govinfo.gov/content/pkg/CFR-2025-title42-vol2/xml/CFR-2025-title42-vol2-part406.xml
+    publisher: U.S. Government Publishing Office (Code of Federal Regulations, revised as of Oct 1, 2025)
+    title: 42 CFR Part 406 — Hospital Insurance Eligibility and Entitlement
+    kind: primary
+    jurisdiction: federal
+    doc_type: regulation
+    note: "406.10 (age 65 entitlement), 406.12 (disability: 25th month), 406.24 (GHP SEP, 8 months, effective dates), 406.32-406.33 (premium, reduced premium for 30+ QCs, late penalty 10% for twice the years)."
+  - id: cfr-42-407
+    retrieved: 2026-10-07
+    url: https://www.govinfo.gov/content/pkg/CFR-2025-title42-vol2/xml/CFR-2025-title42-vol2-part407.xml
+    publisher: U.S. Government Publishing Office (Code of Federal Regulations, revised as of Oct 1, 2025)
+    title: 42 CFR Part 407 — Supplementary Medical Insurance (SMI) Enrollment and Entitlement
+    kind: primary
+    jurisdiction: federal
+    doc_type: regulation
+    note: "407.14 IEP, 407.15 GEP, 407.20 GHP SEP, 407.23 exceptional-conditions SEPs (2023), 407.25 coverage start dates (2023 change)."
+  - id: cfr-42-408
+    retrieved: 2026-10-07
+    url: https://www.govinfo.gov/content/pkg/CFR-2025-title42-vol2/xml/CFR-2025-title42-vol2-part408.xml
+    publisher: U.S. Government Publishing Office (Code of Federal Regulations, revised as of Oct 1, 2025)
+    title: 42 CFR Part 408 — Premiums for Supplementary Medical Insurance
+    kind: primary
+    jurisdiction: federal
+    doc_type: regulation
+    note: "408.22 (10% per full 12 months), 408.24 (months counted and excluded, incl. GHP months and state buy-in), 408.27 (rounding to 10 cents), 408.28 (IRMAA)."
+  - id: cfr-42-411
+    retrieved: 2026-10-07
+    url: https://www.govinfo.gov/content/pkg/CFR-2025-title42-vol2/xml/CFR-2025-title42-vol2-part411.xml
+    publisher: U.S. Government Publishing Office (Code of Federal Regulations, revised as of Oct 1, 2025)
+    title: 42 CFR Part 411 — Exclusions from Medicare and Limitations on Medicare Payment (Medicare Secondary Payer)
+    kind: primary
+    jurisdiction: federal
+    doc_type: regulation
+    note: "411.101 (LGHP = 100+ employees), 411.104 (current employment status), 411.162 (ESRD coordination period; text not updated for 30 months, see conflict T65-FED-CONFLICT-01), 411.170-411.175 (working aged, 20+ employees; age attained day before birthday)."
+  - id: cfr-42-423
+    retrieved: 2026-10-07
+    url: https://www.govinfo.gov/content/pkg/CFR-2025-title42-vol3/xml/CFR-2025-title42-vol3-part423.xml
+    publisher: U.S. Government Publishing Office (Code of Federal Regulations, revised as of Oct 1, 2025)
+    title: 42 CFR Part 423 — Voluntary Medicare Prescription Drug Benefit
+    kind: primary
+    jurisdiction: federal
+    doc_type: regulation
+    note: "423.46 (late enrollment penalty, 63 days without creditable coverage), 423.286(d)(3) (1% of base beneficiary premium per uncovered month), 423.286(d)(4) (Part D IRMAA)."
+  - id: usc-42-1395p
+    retrieved: 2026-10-07
+    url: https://www.govinfo.gov/content/pkg/USCODE-2023-title42/html/USCODE-2023-title42-chap7-subchapXVIII-partB-sec1395p.htm
+    publisher: U.S. Government Publishing Office (United States Code, 2023 edition)
+    title: 42 U.S.C. 1395p — Enrollment periods (Social Security Act sec. 1837)
+    kind: primary
+    jurisdiction: federal
+    doc_type: statute
+  - id: usc-42-1395r
+    retrieved: 2026-10-07
+    url: https://www.govinfo.gov/content/pkg/USCODE-2023-title42/html/USCODE-2023-title42-chap7-subchapXVIII-partB-sec1395r.htm
+    publisher: U.S. Government Publishing Office (United States Code, 2023 edition)
+    title: 42 U.S.C. 1395r — Amount of premiums (Social Security Act sec. 1839)
+    kind: primary
+    jurisdiction: federal
+    doc_type: statute
+    note: "(b) late enrollment increase; (i) income-related monthly adjustment, MAGI from the second preceding year."
+  - id: usc-42-1395y
+    retrieved: 2026-10-07
+    url: https://www.govinfo.gov/content/pkg/USCODE-2023-title42/html/USCODE-2023-title42-chap7-subchapXVIII-partE-sec1395y.htm
+    publisher: U.S. Government Publishing Office (United States Code, 2023 edition)
+    title: 42 U.S.C. 1395y — Exclusions from coverage and Medicare as secondary payer (Social Security Act sec. 1862)
+    kind: primary
+    jurisdiction: federal
+    doc_type: statute
+    section: "(b)(1)(A)-(C)"
+  - id: usc-42-1395ss
+    retrieved: 2026-10-07
+    url: https://www.govinfo.gov/content/pkg/USCODE-2023-title42/html/USCODE-2023-title42-chap7-subchapXVIII-partE-sec1395ss.htm
+    publisher: U.S. Government Publishing Office (United States Code, 2023 edition)
+    title: 42 U.S.C. 1395ss — Certification of Medicare supplemental health insurance policies (Social Security Act sec. 1882)
+    kind: primary
+    jurisdiction: federal
+    doc_type: statute
+    section: "(s)(2) Medigap open enrollment; (s)(3) guaranteed issue"
+  - id: ssa-poms-hi-00805-015
+    retrieved: 2026-10-07
+    url: https://secure.ssa.gov/poms.nsf/lnx/0600805015
+    publisher: Social Security Administration (POMS)
+    title: HI 00805.015 Initial Enrollment Period
+    kind: primary
+    jurisdiction: federal
+    doc_type: manual
+  - id: ssa-poms-hi-00805-025
+    retrieved: 2026-10-07
+    url: https://secure.ssa.gov/poms.nsf/lnx/0600805025
+    publisher: Social Security Administration (POMS)
+    title: HI 00805.025 General Enrollment Period (GEP)
+    kind: primary
+    jurisdiction: federal
+    doc_type: manual
+  - id: ssa-poms-hi-00805-153
+    retrieved: 2026-10-07
+    url: https://secure.ssa.gov/poms.nsf/lnx/0600805153
+    publisher: Social Security Administration (POMS)
+    title: HI 00805.153 Prior Month Attainment Rule
+    kind: primary
+    jurisdiction: federal
+    doc_type: manual
+  - id: ssa-poms-hi-00805-165
+    retrieved: 2026-10-07
+    url: https://secure.ssa.gov/poms.nsf/lnx/0600805165
+    publisher: Social Security Administration (POMS)
+    title: HI 00805.165 Individual Enrollment - When a Coverage Period Begins
+    kind: primary
+    jurisdiction: federal
+    doc_type: manual
+  - id: ssa-poms-hi-00805-270
+    retrieved: 2026-10-07
+    url: https://secure.ssa.gov/poms.nsf/lnx/0600805270
+    publisher: Social Security Administration (POMS)
+    title: HI 00805.270 General Eligibility Requirements for the Special Enrollment Period - Group Health Plans
+    kind: primary
+    jurisdiction: federal
+    doc_type: manual
+  - id: ssa-poms-hi-00805-276
+    retrieved: 2026-10-07
+    url: https://secure.ssa.gov/poms.nsf/lnx/0600805276
+    publisher: Social Security Administration (POMS)
+    title: HI 00805.276 SMI Effective Date for SEP Enrollments - Group Health Plans
+    kind: primary
+    jurisdiction: federal
+    doc_type: manual
+  - id: ssa-poms-hi-00805-330
+    retrieved: 2026-10-07
+    url: https://secure.ssa.gov/poms.nsf/lnx/0600805330
+    publisher: Social Security Administration (POMS)
+    title: HI 00805.330 Individuals with GHP Coverage Under COBRA
+    kind: primary
+    jurisdiction: federal
+    doc_type: manual
+  - id: ssa-poms-hi-00805-382
+    retrieved: 2026-10-07
+    url: https://secure.ssa.gov/poms.nsf/lnx/0600805382
+    publisher: Social Security Administration (POMS)
+    title: HI 00805.382 Special Enrollment Period (SEP) for Exceptional Conditions
+    kind: primary
+    jurisdiction: federal
+    doc_type: manual
+  - id: ssa-poms-hi-00805-384
+    retrieved: 2026-10-07
+    url: https://secure.ssa.gov/poms.nsf/lnx/0600805384
+    publisher: Social Security Administration (POMS)
+    title: HI 00805.384 Exceptional Conditions SEP for Group Health Plan (GHP) or Employer Misrepresentation
+    kind: primary
+    jurisdiction: federal
+    doc_type: manual
+  - id: ssa-poms-hi-00805-385
+    retrieved: 2026-10-07
+    url: https://secure.ssa.gov/poms.nsf/lnx/0600805385
+    publisher: Social Security Administration (POMS)
+    title: HI 00805.385 Exceptional Conditions SEP for Termination of Medicaid Eligibility
+    kind: primary
+    jurisdiction: federal
+    doc_type: manual
+  - id: ssa-poms-hi-01001-010
+    retrieved: 2026-10-07
+    url: https://secure.ssa.gov/poms.nsf/lnx/0601001010
+    publisher: Social Security Administration (POMS)
+    title: HI 01001.010 Premium Increase for Late Enrollment
+    kind: primary
+    jurisdiction: federal
+    doc_type: manual
+  - id: ssa-poms-hi-01001-205
+    retrieved: 2026-10-07
+    url: https://secure.ssa.gov/poms.nsf/lnx/0601001205
+    publisher: Social Security Administration (POMS)
+    title: HI 01001.205 State Buy-In
+    kind: primary
+    jurisdiction: federal
+    doc_type: manual
+  - id: ssa-poms-hi-00801-134
+    retrieved: 2026-10-07
+    url: https://secure.ssa.gov/poms.nsf/lnx/0600801134
+    publisher: Social Security Administration (POMS)
+    title: HI 00801.134 HI Premium Reduction for Aged Individuals With At Least 30 Quarters of Coverage
+    kind: primary
+    jurisdiction: federal
+    doc_type: manual
+  - id: ssa-poms-hi-01120-001
+    retrieved: 2026-10-07
+    url: https://secure.ssa.gov/poms.nsf/lnx/0601120001
+    publisher: Social Security Administration (POMS)
+    title: HI 01120.001 Overview of New Initial Determinations on the IRMAA Using Beneficiary Provided Information
+    kind: primary
+    jurisdiction: federal
+    doc_type: manual
+  - id: medicare-gov-avoid-penalties
+    retrieved: 2026-10-07
+    url: https://www.medicare.gov/basics/costs/medicare-costs/avoid-penalties
+    publisher: Centers for Medicare & Medicaid Services (Medicare.gov)
+    title: Avoid late enrollment penalties
+    kind: primary
+    jurisdiction: federal
+    doc_type: agency_page
+    effective_date: 2026-01-01
+    note: Gives the 2026 national base beneficiary premium ($38.99) and worked 2026 examples for the Part B and Part D penalties.
+  - id: medicare-gov-coverage-start
+    retrieved: 2026-10-07
+    url: https://www.medicare.gov/basics/get-started-with-medicare/sign-up/when-does-medicare-coverage-start
+    publisher: Centers for Medicare & Medicaid Services (Medicare.gov)
+    title: When does Medicare coverage start?
+    kind: primary
+    jurisdiction: federal
+    doc_type: agency_page
+  - id: medicare-gov-when-sign-up
+    retrieved: 2026-10-07
+    url: https://www.medicare.gov/basics/get-started-with-medicare/sign-up/when-can-i-sign-up-for-medicare
+    publisher: Centers for Medicare & Medicaid Services (Medicare.gov)
+    title: When can I sign up for Medicare?
+    kind: primary
+    jurisdiction: federal
+    doc_type: agency_page
+  - id: medicare-gov-medigap-ready-to-buy
+    retrieved: 2026-10-07
+    url: https://www.medicare.gov/health-drug-plans/medigap/ready-to-buy
+    publisher: Centers for Medicare & Medicaid Services (Medicare.gov)
+    title: Get ready to buy (Medigap Open Enrollment Period)
+    kind: primary
+    jurisdiction: federal
+    doc_type: agency_page
+  - id: cms-02179-who-pays-first
+    retrieved: 2026-10-07
+    url: https://www.medicare.gov/publications/02179-medicare-and-other-health-benefits-your-guide-to-who-pays-first.pdf
+    publisher: Centers for Medicare & Medicaid Services
+    title: "How Medicare Works with Other Insurance (CMS Product No. 02179, February 2026)"
+    kind: primary
+    jurisdiction: federal
+    doc_type: guidance
+    published: 2026-02-01
+  - id: cms-40b-form
+    retrieved: 2026-10-07
+    url: https://www.cms.gov/medicare/cms-forms/cms-forms/downloads/cms40b-e.pdf
+    publisher: Centers for Medicare & Medicaid Services
+    title: "CMS-40B (07/2025) Request for Enrollment in Medicare Part B (Medical Insurance)"
+    kind: primary
+    jurisdiction: federal
+    doc_type: form
+  - id: cms-l564-form
+    retrieved: 2026-10-07
+    url: https://www.cms.gov/medicare/cms-forms/cms-forms/downloads/cms-l564e.pdf
+    publisher: Centers for Medicare & Medicaid Services
+    title: CMS-L564 Medicare Request for Employment Information
+    kind: primary
+    jurisdiction: federal
+    doc_type: form
+  - id: naic-medigap-birthday-chart-2026
+    retrieved: 2026-10-07
+    url: https://content.naic.org/sites/default/files/inline-files/medigapbdayruleandunder65chart.pdf
+    publisher: National Association of Insurance Commissioners (NAIC)
+    title: "State Medigap Rules: \"Birthday Rule\" and Coverage for <65, as of May 11, 2026"
+    kind: secondary
+    jurisdiction: multi
+    doc_type: other
+    published: 2026-05-11
+    note: Compiled by the regulators' association, not itself law; used only to cross-check state Medigap rules. Site refuses scripts; copy saved by WebFetch.

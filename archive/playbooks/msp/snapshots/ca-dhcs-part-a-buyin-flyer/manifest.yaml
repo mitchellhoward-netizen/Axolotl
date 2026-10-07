@@ -1,0 +1,10 @@
+- retrieved: '2026-10-07'
+  url: https://www.dhcs.ca.gov/file/medicare-part-a-buy-in-flyer-pdf/
+  final_url: https://www.dhcs.ca.gov/file/medicare-part-a-buy-in-flyer-pdf/
+  status: 200
+  content_type: pdf
+  text_sha256: 5a0333e55e1e97f366a94166292cf2b7c55ec393cc632d5dac71d6d007c8e9f0
+  text: ca-dhcs-part-a-buyin-flyer/2026-10-07.txt
+  raw: ca-dhcs-part-a-buyin-flyer/2026-10-07.pdf
+  fetched_via: headless Chromium (Playwright) via the session proxy; dhcs.ca.gov refuses
+    scripted requests (Incapsula)

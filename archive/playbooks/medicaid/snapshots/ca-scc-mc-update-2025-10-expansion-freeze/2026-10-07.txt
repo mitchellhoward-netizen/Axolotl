@@ -1,0 +1,101 @@
+↵
+
+Medi-Cal Update 2025-10 The Medi-Cal Expansion Freeze
+
+The Medi-Cal Expansion Freeze for Adults 19 and Older Without Satisfactory Immigration Status
+
+Date
+
+References
+
+Clerical
+
+Implementation
+
+12/2/2025
+
+ACWDL 25-13
+
+N/A
+
+January 1, 2026
+
+Background
+
+Federal law states that federally funded full-scope Medi-Cal coverage is available to U.S. citizens, immigrants who are qualified non-citizens and have met or are exempt from the five-year bar, and lawfully present immigrants under the age of 21 or who are pregnant. California implemented the following expansions of state-funded full-scope Medi-Cal, regardless of immigration status, if otherwise eligible, beginning in May 2016 in a phased approach based on age:
+
+Senate Bill (SB) 75 in May 2016 provided full-scope coverage for all children under age 19,
+
+The Young Adult Expansion through Senate Bill (SB) 104 in January 2020 provided full-scope coverage for individuals aged 19-26,
+
+The Older Adult Expansion through Assembly Bill (AB) 133 in May 2022 provided full-scope coverage to all individuals age 50 and older,
+
+The Adult Expansion through Senate Bill (SB) 184 in January 2024 provided full-scope coverage to all individuals 26-49 years of age.
+
+Changes
+
+Beginning January 1, 2026, the Medi-Cal Expansion Freeze will pause all new enrollments in full-scope coverage for adults aged 19 and older who cannot provide proof of a satisfactory immigration status (SIS). New applicants in this category who apply on or after January 1, 2026, will be eligible for restricted-scope Medi-Cal coverage (emergency and pregnancy-related services).
+
+Current Medi-Cal members age 19 and older who do not have a SIS are eligible to continue on full-scope coverage unless they experience a loss of eligibility that exceeds three months following the discontinuance. This three-month period is referred to as the Expansion Grace Period, during which the discontinued member, regardless of the discontinuance reason, can reestablish eligibility and re-enroll in full scope coverage if they are otherwise eligible. Once they exceed the Expansion Grace Period, the individual will no longer be able to re-enroll into full-scope Medi-Cal and will be eligible only for restricted-scope Medi-Cal coverage.
+
+There is no age-out policy for members who were approved for full scope Medi-Cal before January 1, 2026. If a current member ages out of their aid type (turning age 19 or 65) after the January 1st implementation date, they will continue on full-scope coverage if otherwise eligible.
+
+Members in this population approved for full scope prior to January 1, 2026, can transition between various coverage groups (MAGI, Non-MAGI) and retain full scope coverage. Once a member transitions to restricted-scope Medi-Cal, they will be unable to re-enroll into full-scope Medi-Cal unless they can provide proof of U.S. citizenship or a SIS.
+
+The following MC Handbook topics have been revised to reflect these changes:
+
+Citizenship/Immigration Status
+
+Restricted-scope Benefits
+
+Full-Scope Expansions and The Medi-Cal Expansion Freeze
+
+Exceptions
+
+Exceptions to the Expansion Freeze policy for certain immigration categories are detailed in Non-citizens Eligible for Full-Scope MC Benefits.
+
+Members enrolled in full-scope Medi-Cal under one of the prior expansions who are entering a Consumer Protection Program (CPP), such as the 365 day postpartum period or Transitional Medi-Cal (TMC), are not subject to the Expansion Freeze for the duration of the CPP. If they experience a loss of eligibility following the end of the CPP, they will be eligible to re-enroll during the Expansion Grace Period, if otherwise eligible.
+
+Changes to Dental Coverage for the Expansion Freeze Population
+
+Beginning July 1, 2026, individuals without SIS who applied or retained coverage prior to January 1, 2026, will transition to full-scope Medi-Cal with no dental. Full-scope Medi-Cal with no dental members will be able to retain their chosen Managed Care Plan (MCP). After July 1, 2026, dental services will be covered only for emergencies.
+
+Reasonable Opportunity Period
+
+After January 1, 2026, any applicant attesting to having U.S citizenship or SIS shall be granted full-scope Medi-Cal if otherwise eligible. The applicant will have 90 days to provide verification of their status. If the individual does not provide the required verification during the Reasonable Opportunity Period (ROP), they should be transitioned to restricted-scope coverage with a timely 10-day notice of action. Individuals who were in their ROP and were granted full scope prior to December 31, 2025, should remain in full-scope coverage as long as they maintain their eligibility.
+
+Retroactive Medi-Cal
+
+Full-scope retroactive coverage will be available to applicants, regardless of immigration status, for any months prior to January 2026. However, they will be eligible only for restricted-scope retroactive coverage beginning January 1, 2026, if otherwise eligible.
+
+Expansion Grace Period vs. 90-day Cure Period Policy
+
+The Expansion Grace Period is not the same as the 90-day cure period. The purpose of the Expansion Grace Period is to retain eligibility to full-scope coverage regardless of the reason for discontinuance. The Expansion Grace Period does not restore coverage back to the date of discontinuance, however if a new application is submitted within the 3-month Expansion Grace Period and they are found eligible, they can re-enroll into full-scope coverage, beginning with the application month, even with a break in aid.
+
+The purpose of the 90-day cure period is to restore Medi-Cal coverage back to the date of discontinuance when someone was discontinued for a failure to provide at an annual Renewal (RE) or a Change in Circumstance (CIC) without submitting a new application. If an individual is eligible for the 90-day cure period, provides the necessary information and is otherwise eligible, the full-scope coverage must be restored back to the date of discontinuance.
+
+Aid Codes
+
+No new aid codes will be created for the implementation of the Expansion Freeze.
+
+Data Systems
+
+The CalSAWS and CalHEERS eligibility systems will be updated prior to the January 1, 2026, implementation date to recognize members of the Expansion Freeze population and apply the Expansion Grace Period as appropriate.
+
+Forms
+
+Revised Notices of Action (NOA) will be generated by CalSAWS after the January 2026 implementation.
+
+Resources
+
+The Immigration Status and Healthcare Coverage Eligibility chart located in Reference Materials has been revised.
+
+Eligibility Based on Immigration Status and Expansion Freeze Desk Guide have been added to the Reference Materials page.
+
+SSBS Supervisor
+
+Please review this information with your staff immediately.
+
+Department of Employment & Benefits Services
+
+Contact Person(s): Megan Turney and Manuel Garcia, SSA Business and Policy Implementation Specialists, 408-755-7540

@@ -1,0 +1,278 @@
+Michelle Baass | Director
+
+DATE: August 14, 2026
+
+TO: ALL COUNTY WELFARE DIRECTORS Letter No.:26-12
+ALL COUNTY WELFARE ADMINISTRATIVE OFFICERS
+ALL COUNTY MEDI-CAL PROGRAM SPECIALISTS/LIAISONS
+ALL COUNTY HEALTH EXECUTIVES
+ALL COUNTY MENTAL HEALTH DIRECTORS
+ALL COUNTY MEDS LIAISONS
+
+SUBJECT: UPDATED NOTICES OF ACTION (NOA) SNIPPETS FOR THE MEDICARE
+SAVINGS PROGRAMS (MSP) REFLECTING ASSET REINSTATEMENT AND
+PART A BUY-IN POLICY CHANGES
+
+REFERENCES: All COUNTY WELFARE DIRECTORS LETTERS: ACWDL 08-21, ACWDL 22-25,
+and ACWDL 24-20.
+
+Purpose
+The purpose of this All County Welfare Directors Letter (ACWDL) is to provide counties
+with the updated Notices of Action (NOA) snippets for the Medicare Savings Programs
+(MSP), including the Qualified Medicare Beneficiary (QMB), Specified Low-Income
+Medicare Beneficiary (SLMB), and Qualifying Individual (QI) programs. These revisions
+align with recent policy changes and are crucial for ensuring accurate and consistent
+communication with members regarding their MSP eligibility.
+
+Key Updates
+Developed in cooperation with stakeholders, these updates aim to ensure clarity,
+accuracy, and minimize confusion for members. The updates to the NOA language
+reflect the following policy changes:
+
+• Reinstatement of assets: Effective January 1, 2026, asset limits for all Non-
+Modified Adjusted Gross Income (Non-MAGI) programs, including Medicare
+Savings Programs and Long-Term Care (LTC) were reinstated (ACWDL 25-14).
+
+California Department of Health Care Services State of California
+Medi-Cal Eligibility Division Gavin Newsom, Governor
+1501 Capitol Avenue | Sacramento, CA | 95899-7413
+MS 4607 | Phone (916) 552-9200 | www.dhcs.ca.gov California Health and Human Services Agency
+
+Letter No.:26-12
+Page 2
+August 14, 2026
+
+• Part A Buy-in policy changes: Effective January 1, 2025, the Department of
+Health Care Services (DHCS) entered into a Medicare Part A buy-in agreement
+(ACWDL 24-20). This agreement allows DHCS to streamline the enrollment
+process for all eligible QMB members in Medicare Part A and pay their premiums.
+California as a Part A buy-in state, is required by the Center for Medicare and
+Medicaid Services (CMS) Final Rule to automatically enroll Medicare eligible
+Supplemental Security Income (SSI) recipients into the QMB program.
+
+Specific NOA Snippet Updates
+The enclosed NOA snippets include the following revisions:
+
+• Approvals for QMB, SLMB, and QI programs: The updated NOA clearly
+informs the member or applicant of the approval for the QMB, SLMB, or QI
+program, and the program effective date.
+
+• Discontinuance and Denial for all MSP programs: The new discontinuance and
+denial language provides detailed explanations for a denial or discontinuance of
+the MSP programs due to income over the program limit and not having
+Medicare Part A and B. Separate discontinuance and denial NOAs have been
+added to allow counties to notify members and applicants of a specific reason for
+a discontinuance or denial.
+
+Implementation and Accessibility
+The English versions of all NOA snippets have been translated into the 18 threshold
+languages: Arabic, Armenian, Cambodian, Chinese, Farsi, Hindi, Hmong, Japanese,
+Korean, Laotian, Mien, Punjabi, Russian, Spanish, Tagalog, Thai, Ukrainian, and
+Vietnamese. For reference, the updated NOA snippets, in both English and the
+translated versions, are enclosed with this ACWDL. The Statewide Automated Welfare
+System (SAWS) will make the necessary programming changes to incorporate the
+English and translated NOA snippets in the upcoming 26.11. SAWS release.
+
+Letter No.:26-12
+Page 3
+August 14, 2026
+
+If you have any questions regarding the information provided in this letter, please
+contact the Non-MAGI unit at NonMAGIInbox@dhcs.ca.gov. County questions
+regarding policy guidance should be sent to MCED-Policy@dhcs.ca.gov.
+
+Sincerely,
+
+Sysvanh Kabkeo
+Branch Chief
+Eligibility Policy Branch I, Medi-Cal Eligibility Division
+
+Enclosure
+
+Notice of Action Snippets
+
+Notice Type English Text Snippets
+About Your Medicare Savings Program Eligibility
+Header for All Notices This does not change any regular Medi-Cal benefits you get.
+<Applicant> is eligible for the Qualified Medicare Beneficiary (QMB) program starting
+<mm/dd/yyyy>.
+
+QMB eligibility starts the month after you apply.
+
+The QMB program pays your Medicare Part A and Part B premiums, co-insurance, and deductibles.
+
+It may take up to 4 months for premiums to stop getting subtracted from your monthly Social
+Security benefit. You may get paid back for premiums you paid out of pocket during the months
+QMB Approval you qualify for QMB.
+
+Under QMB, federal law says providers cannot bill you for Medicare cost sharing.
+
+Questions?
+Go to your local Social Security Office or call 1-800-MEDICARE (1-800-633-4227).
+
+Based on California Code of Regulations, Title 22, sections 50179 and 50258.
+
+1
+Medicare Savings Programs Notice of Action
+
+Notice of Action Snippets
+
+Notice Type English Text Snippets
+<Applicant> is eligible for the Specified Low-Income Medicare Beneficiary (SLMB) program
+starting <mm/dd/yyyy>.
+
+The SLMB program pays your Medicare Part B premiums.
+
+It may take up to 4 months for premiums to stop getting subtracted from your monthly Social
+SLMB Approval Security benefit. You may get paid back for premiums you paid out of pocket during the months
+you qualify for SLMB.
+
+Questions?
+Go to your local Social Security Office or call 1-800-MEDICARE (1-800-633-4227).
+
+Based on California Code of Regulations, Title 22, section 50179, and 50258.1.
+<Applicant> is eligible for the Qualifying Individual (QI) program starting
+<mm/dd/yyyy>.
+
+The QI program pays your Medicare Part B premiums.
+
+It may take up to 4 months for premiums to stop getting subtracted from your monthly Social
+Security benefit. You may get paid back for premiums you paid out of pocket during the months
+QI Approval you qualify for QI.
+
+Questions?
+Go to your local Social Security Office or call 1-800-MEDICARE (1-800-633-4227).
+
+Based on California Code of Regulations, Title 22, section 50179 and United States Code, Title 42,
+section 1396(a)(10)(E)(iv).
+
+2
+Medicare Savings Programs Notice of Action
+
+Notice of Action Snippets
+
+Notice Type English Text Snippets
+The last day of your <MSP> program is <mm/dd/yyyy>.
+Your monthly countable income of $<countable income> is above the <MSP> program limit. The
+monthly limit is $<income limit>. Your <MSP> program will end <mm/dd/yyyy>.
+
+Income limits may change each year. If you have Medicare Part A and/or Part B and your income
+decreases, you may apply any time.
+
+If you also applied for regular Medi-Cal benefits, you will get another letter.
+
+If your Qualified Medicare Beneficiary (QMB) program ends and you do not qualify for premium-
+free Medicare Part A:
+▪ The state will no longer pay your Medicare Part A premiums.
+▪ The state may no longer pay your Medicare Part B premiums.
+▪ When your coverage ends, the Social Security Administration may deduct (subtract) up to 3
+months of Medicare Part B premiums from your monthly benefit payment. This would be for
+All MSP –
+the current month plus 2 past months.
+Discontinuance for over
+▪ You may be able to get financial help with Medicare Part B premiums billed in past months.
+income
+▪ If you do not get a monthly Social Security benefit payment, you will get a bill for your
+Medicare premiums.
+▪ If you do not pay your Medicare premiums, your Medicare may end. You may lose access to
+your doctors, medications, or hospitals.
+▪ You may qualify for financial relief from Medicare Part B premiums.
+
+Questions?
+Go to your local Social Security Office or call 1-800-MEDICARE (1-800-633-4227).
+To learn more about Medicare Savings Programs, go to https://www.dhcs.ca.gov/MSPCal. Based on
+California Code of Regulations, Title 22, sections 50179 and 50570.
+
+3
+Medicare Savings Programs Notice of Action
+
+Notice of Action Snippets
+
+Notice Type English Text Snippets
+You do not have Medicare Part A and/or Part B.
+You must contact your local Social Security Administration office to apply.
+
+When you get proof of Medicare enrollment, contact the office listed at the top of this letter.
+
+If your Qualified Medicare Beneficiary (QMB) program ends and you do not qualify for
+premium-free Medicare Part A:
+• The state will no longer pay for your Medicare Part A premiums.
+• The state may no longer pay for your Medicare Part B premiums.
+• When your coverage ends, the Social Security Administration may deduct (subtract) up to 3
+months of Medicare Part B premiums from your monthly benefit payment. This would be for
+the current month plus past months.
+All MSP – • You may have options for financial help from retroactive (past months) Part B premium
+Discontinuance for not billing.
+meeting requirement of • If you do not get a monthly Social Security benefit payment, you will get a bill for the
+having both Medicare premiums.
+Part A and B • If you do not pay your Medicare premiums, your Medicare may end. You may lose access to
+your doctors, medications, or hospitals.
+• You may qualify for financial relief from Part B premiums.
+
+Questions?
+Go to your local Social Security Office or call 1-800-MEDICARE (1-800-633-4227).
+
+To learn more about Medicare Savings Programs, go to https://www.dhcs.ca.gov/MSPCal. Based on
+
+California Code of Regulations, Title 22, sections 50179, 50775, and 50777.
+
+4
+Medicare Savings Programs Notice of Action
+
+Notice of Action Snippets
+
+Notice Type English Text Snippets
+<Other reason> Your <MSP> program will end on <mm/dd/yyyy>.
+
+Income limits may change each year. If you have Medicare Part A and/or Part B and your income
+decreases, you may apply any time.
+
+If you also applied for regular Medi-Cal benefits, you will get another letter.
+
+If your Qualified Medicare Beneficiary (QMB) program ends and you do not qualify for
+premium-free Medicare Part A:
+• The state will no longer pay for your Medicare Part A premiums.
+• The state may no longer pay for your Medicare Part B premiums.
+All MSP – • When your coverage ends, the Social Security Administration may deduct (subtract) up to 3
+Discontinuance for other months of Medicare Part B premiums from your monthly benefit payment. This would be for
+reason the current month plus 2 past months.
+• You may have options for financial help from retroactive (past months) Part B premium
+billing.
+• If you do not get a monthly Social Security benefit payment, you will get a bill for the
+premiums.
+• If you do not pay your Medicare premiums, your Medicare may end. You may lose access to
+your doctors, medications, or hospitals.
+• You may qualify for financial relief from Part B premiums.
+
+Questions?
+Go to your local Social Security Office or call 1-800-MEDICARE (1-800-633-4227).
+
+To learn more about Medicare Savings Programs, go to https://www.dhcs.ca.gov/MSPCal. Based on
+
+California Code of Regulations, Title 22, sections 50175 and 50179.
+
+5
+Medicare Savings Programs Notice of Action
+
+Notice of Action Snippets
+
+Notice Type English Text Snippets
+We reviewed your application to see if you are eligible for the Medicare Savings Programs
+(Qualified Medicare Beneficiary [QMB], Specified Low-Income Medicare Beneficiary [SLMB] or
+Qualifying Individual [QI]).
+
+We determined that you are not eligible for these benefits for the month of <MonthYear1>
+
+Here is why:
+
+Questions?
+Go to your local Social Security Office or call 1-800-MEDICARE (1-800-633-4227).
+
+To learn more about Medicare Savings Programs, go to https://www.dhcs.ca.gov/MSPCal. Based on
+
+California Code of Regulations, Title 2, sections 50175 and 50179.
+All MSP –
+Denial
+
+6
+Medicare Savings Programs Notice of Action

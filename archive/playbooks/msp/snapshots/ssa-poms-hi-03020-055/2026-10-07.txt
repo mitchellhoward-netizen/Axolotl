@@ -1,0 +1,373 @@
+Skip to content
+
+Program Operations Manual System (POMS)
+
+Effective Dates: 03/05/2026 - Present
+Previous | Next
+
+TN 41 (03-26)
+
+HI 03020.055 Income Limits for Subsidy Eligibility
+
+A. Background
+
+To be eligible for the subsidy, an individual or couple must have countable income
+below certain limits prescribed by the law. We base these income eligibility limits
+on the Federal Poverty Levels (FPL) issued annually by the Department of Health and
+Human Services (HHS). For the current FPLs, see HI 03001.020C.3.
+
+B. Policy for use of federal poverty levels
+
+1. General description of poverty levels
+
+The FPL is derived from the Federal Poverty Guidelines published in the Federal Register
+each year by HHS and are used to determine financial eligibility for certain federal
+programs. The poverty levels are the same regardless of the age of the family members.
+
+2. Separate levels for Alaska and Hawaii
+
+One set of poverty levels apply to the 48 contiguous States and the District of Columbia.
+Alaska and Hawaii have separate and slightly higher poverty levels. When an individual
+applies for subsidy, we apply the FPL that corresponds to the individual’s State of
+residence, in the month they file the application. We program the system to compute
+eligibility using the correct poverty levels for the applicable State of residence.
+Moving to a State that has a higher or lower FPL is not a subsidy-changing event (unless
+one of the events also occurred as in Processing Reports of Change and Subsidy Changing
+Events (SCEs) HI 03050.005). Therefore, the system will not schedule an immediate redetermination when a person
+reports they moved.
+
+C. The effect of family size on income limits
+
+1. Family size
+
+HHS bases the FPL dollar amounts on the size of the individual’s family. The dollar
+amount increases as the family size increases. For purposes of determining eligibility
+for subsidy, family size is determined as follows:
+
+•
+
+the individual who is applying for the subsidy,
+
+•
+
+the spouse who is living in the household, and
+
+•
+
+any relatives who are living with the individual, and who are dependent on the individual
+or the individual’s spouse for at least one-half of their financial support.
+
+2. Individual lives alone or does not provide support to relatives
+
+If the individual who is filing for a subsidy lives alone, we base the income eligibility
+limit on the poverty guideline for a one-person family.
+
+If the individual lives with others, but is not married and does not provide one-half
+support for a relative living in the household, we base the income eligibility limit
+on the poverty guideline for a one-person family.
+
+a. Example 1: Individual lives with other relatives
+
+Margaret, who is a surviving spouse, files for a subsidy and lives with two aged siblings
+who are also filing for a subsidy. Margaret does not provide the siblings with any
+financial support. Therefore, consider Margaret a one-person family when determining
+subsidy.
+
+b. Example 2: Individual lives with non-relatives
+
+John is filing for a subsidy. John lives with two other people who are not relatives
+and provides one-half support to one of the persons who live in the house. Consider
+John a one-person family for subsidy determination purposes because John does not
+provide one-half support to any relatives who live in the house. If John supported
+a household relative, the family size would be two for subsidy determination purposes.
+
+3. Married couple
+
+If the individual filing for a subsidy lives only with their spouse, base the income
+eligibility limit on the poverty level for a two-person family. This is true whether
+only the individual files, or both spouses file for subsidy.
+
+EXAMPLE:
+Rebecca and Rick Johnson are married and live together. Nobody else lives with them.
+Rick, age 67, applies for the subsidy. Rebecca is not old enough for Medicare and
+is not applying. For purposes of determining subsidy, the family size is two.
+
+4. Other household members
+
+If the subsidy applicant lives with a relative and provides that relative with at
+least one-half support, count the relative as a member of the family for purposes
+of determining the applicable poverty level. (We do not consider the relative’s income
+and resources in determining the subsidy.)
+
+a. Example 1: Individual lives with relatives
+
+Romaine and Phillip are married and live together. Phillip applies for the subsidy.
+Romaine is not old enough for Medicare and is not applying for the subsidy. At the
+time Phillip files for subsidy, Phillip and Romaine provide at least one-half support
+for their grandchild who lives with them. For determining subsidy, the family size
+is three.
+
+b. Example 2: Individual lives with non-relatives
+
+Jimmy and Doris are married and live together. Jimmy applies for the subsidy. Doris
+is not old enough for Medicare and is not applying for the subsidy. At the time Jimmy
+files for subsidy, Jimmy and Doris provide at least one-half support for a friend
+who lives with them. For determining subsidy, the family size is two.
+
+5. Determining one-half support
+
+a. Applicant indicates how many relatives get support
+
+The subsidy application asks how many relatives live with the individual (and spouse)
+for whom the individual (or spouse) provide one-half of their financial support. Accept,
+absent evidence to the contrary, the individual’s allegation that they are providing
+one-half support for relatives and accept the allegation of the number of relatives
+living with them.
+
+b. Applicant is unable to provide number of relatives who get support
+
+If the applicant is unable to state the number of relatives getting one-half support,
+ask the applicant to check the number of dependents claimed on their federal tax return
+as a way to help the applicant provide the correct number. The tax return is always
+for a previous year; so if the individual uses a tax return to determine the number
+of relatives getting one-half support, you must ascertain whether the same number
+of relatives is currently getting one-half support from the applicant.
+
+c. Applicant is unsure if they provide one-half support
+
+If the applicant is reluctant to make an allegation because they do not know whether
+they provide one-half support, ask for estimates of the relative’s food and shelter
+expenses, and the applicant’s contribution to the support of the living-with relative.
+
+If the applicant’s estimated contributions are more than one-half of the living-with
+relative’s estimated expenses, determine that the applicant is supporting the living-with
+relative, and include the living-with relative in the applicant’s family unit to determine
+the FPL for subsidy purposes.
+
+d. Applicant is unwilling to provide number of relatives who get support
+
+If an applicant refuses to state the number of relatives living with him or her or
+refuses to provide information about one-half support, explain that we need the information
+to determine their eligibility for a subsidy. Explain that without the information,
+they may receive less of a subsidy or no subsidy.
+
+If the applicant still refuses to provide the information, assume that the applicant
+lives in a one-person family to determine the FPL.
+
+D. Policy for income limits for subsidy eligibility
+
+The income limits for subsidy eligibility are determined based on a percentage of
+the FPL.
+
+The Inflation Reduction Act (IRA) provides full subsidy to all Extra Help beneficiaries
+who have Extra Help on or after January 1, 2024.
+
+Extra Help applications that have a coverage start date before January 01, 2024, may result in a partial subsidy award. The amount of Extra Help
+may vary on partial subsidy awards.
+
+NOTE: For more information about partial subsidy amount categories, see HI 03035.010C. To locate the coverage start date field in MAPS, see MS 03301.008C. [11-D]. For
+applications that have not been sent to subsidy determination and do not have a coverage
+start date, locate the field in MAPS that captures the estimated effective date, see
+MS 03206.002E.[21-D].
+
+1. Full subsidy
+
+In or
+after 2024, to be eligible for a full (100%) premium subsidy, the individual must have
+countable income less than 150% of the FPL for the applicable State and family size.
+
+Before 2024, the individual's countable income must be less than 135% of the FPL for the
+applicable State and family size.
+
+NOTE: If the individual’s countable income is less than the FPL income limit prescribed
+by HHS regulations for the applicable State and family size, the individual is eligible
+for a full premium subsidy regardless of whether the individual’s countable resources are under Extra Help resource limits
+prescribed by law ($16,590 in 2026). To view income limits for years before 2024 see hyperlinks at the bottom of this section under the title Section History. (For details on full and partial subsidies, see HI 03001.005G.)
+
+2. Partial subsidy
+
+The individual may be eligible for a partial premium subsidy if they have an estimated
+effective date or coverage start date before January 1, 2024 and, their income is greater than 135% of the FPL but is less than 150% of the FPL.
+
+NOTE: In 2023, if the individual’s income fell within the range shown above in D.2., they
+were eligible for a partial premium subsidy if countable resources were $9,090 or
+less, or $15,160 or less. If the individual’s countable resources exceeded $15,160,
+they were not eligible for any premium subsidy.
+
+3. No subsidy
+
+An applicant is ineligible for any subsidy if their countable income is 150% or
+more of the FPL for the applicable State and family size.
+
+4. Table: 2026 - Income limits for subsidy eligibility
+
+Countable Income
+
+Premium Subsidy
+
+Less than 150% of FPL and countable resources are less than or equal $16,590 for an
+individual, $33,100 for a married couple.
+
+100%
+
+150% or more
+
+None
+
+5. Table: Before 2024 - Income limits for subsidy eligibility
+
+Countable Income
+
+Premium Subsidy
+
+Less than or equal to 135% of FPL and countable resources are less than or equal to
+the low resource limit for an individual, $9,090 in 2023 (or the low resource limit
+for a married couple, $13,630 in 2023).
+
+100%
+
+Less than or equal to 135% of FPL and countable resources exceed the low resource
+limit for an individual, $9,090 in 2023 (or the low resource limit for a married couple,
+$13,630 in 2023) but do not exceed the high resource limit for an individual, $15,160
+in 2023 (or the high resource limit for a married couple, $30,240 in 2023)
+
+100% premium subsidy (but less help with co-pays and deductibles)
+
+Greater than 135% FPL, but not more than 140%
+
+75%
+
+Greater than 140% FPL, but not more than 145%
+
+50%
+
+Greater than 145% FPL, but less than 150%
+
+25%
+
+150% or more
+
+None
+
+E. Examples
+
+The following examples illustrate how the income limits are determined for subsidy
+eligibility.
+
+1. Example 1: Individual
+
+On January 19, 2026, Jeremy applied for the subsidy. Jeremy lives alone and receives
+$1,300 per month in Social Security benefits before the Medicare Part B premium deduction,
+and a private pension of $550 per month before taxes. Assume Jeremy's countable resources
+are below the limit. Jeremy's countable income is:
+
+Income Type
+
+Income Calculation
+
+Social Security
+
+$15,600 (12 x $1,300)
+
+Private pension
+
++$6,600 (12 x $550)
+
+$22,200
+
+​
+
+- $240 (12 x the $20 general income exclusion)
+
+Total Countable Unearned Income = $21,960
+
+Assume that the applicable FPL for a one-person family is $15,960. (We used the 2026
+FPL rates for this example. For current FPL rates, see HI 03001.020C.3.). We determine the subsidy income limits as follows:
+
+$15,960 x 135% = $21,546.00
+
+$15,960 x 140% = $22,344.00
+
+$15,960 x 145% = $23,142.00
+
+$15,960 x 150% = $23,940.00
+
+Analysis: Jeremy’s countable income is greater than 135% of the poverty guideline, but it is
+less than 140% of the poverty guideline. Jeremy's award letter will state subsidy
+eligibility will be 100% starting January 1, 2026. Jeremy will pay up to $5.10 for
+each generic drug or up to $12.65 for each brand-name drug until total out-of-pocket
+prescription drug spending reaches $2,100).
+
+2. Example 2: Married couple
+
+Billy and Norma are married and live together in Kansas. Billy is age 70, receives
+Title II benefits of $1,308 and a private pension of $545 per month. On November 24,
+2023, Billy enrolls in Part D Medicare and applies for the premium subsidy. Norma
+is not old enough for Medicare and is still working. Norma expects annual gross earnings
+of $14,011. Assume their resources are within the limits for eligibility.
+
+Income Type
+
+Income Calculation
+
+Billy’s Social Security
+
+$15,696 (12 x $1,308)
+
+Billy’s Pension
+
++$6,540
+(12 x $545)
+
+$22,236
+
+- $240 (12 x the $20 exclusion)
+
+Countable Unearned Income = $21,996
+
+Income Type
+
+Income Calculation
+
+Norma’s Wages
+
+$14,011
+
+-$780 (12 x the $65 exclusion)
+
+$13,231
+
+$13,231 X .5 = $6,615.50 (one-half exclusion)
+
+Countable Earned Income $6,615.50
+
+Countable Unearned Income +
+$21,996
+
+Total Countable Income = $28,611.50
+
+Assume that the FPL for a two-person family is $20,440. (We used the 2024 FPL rates
+for this example. For current FPL rates, see HI 03001.020C.3.). We determine the subsidy income limits as follows:
+
+$20,440 x 135% = $27,594
+
+$20,440 x 140% = $28,616
+
+$20,440 x 145% = $29,638
+
+$20,440 x 150% = $30,660
+
+Analysis: The couple’s countable income ($28,611.50) is greater than 135% of the FPL and less
+than 140%. Therefore, Billy's award letter will state subsidy eligibility is 75% subsidy
+starting November 1, 2023. If Billy's circumstances remain the same, Billy will receive
+another letter stating starting January 1, 2024 the subsidy eligibility will change
+from 75% to 100% due to a new law (the Inflation Reduction Act).
+
+To Link to this section - Use this URL:
+http://policy.ssa.gov/poms.nsf/lnx/0603020055
+
+HI 03020.055 - Income Limits for Subsidy Eligibility - 03/05/2026
+
+Batch run: 03/05/2026
+
+Rev:03/05/2026

@@ -1,0 +1,173 @@
+WGIUPD GENERAL INFORMATION SYSTEM 9/29/2026
+DIVISION: Office of Health Insurance Programs PAGE 1
+GIS 26 MA/14
+
+TO: Local District Commissioners, Medicaid Directors
+
+FROM: Gabrielle Armenia, Director
+Division of Eligibility and Marketplace Integration
+
+SUBJECT: New Federal Eligibility Requirements for Non-Citizen Coverage in
+Medicaid and Child Health Plus (CHPlus)
+
+ATTACHMENT: Documentation Guide for Citizen and Non-Citizen Eligibility for
+Health Insurance Coverage in New York State (OHIP-0046)
+
+EFFECTIVE DATE: October 1, 2026
+
+CONTACT PERSON: Local District Support Unit
+Rest of State (518) 474-8887 NYC (212) 417-4500
+
+Purpose
+The purpose of this General Information System (GIS) message is to advise Local Departments of
+Social Services (LDSS) and New York City Human Resources Administration (HRA) of changes
+to Medicaid eligibility procedures resulting from new federal requirements involving immigration
+status.
+
+Background
+Section 71109 of Public Law 119-21, commonly referred to as “H.R.1,” establishes significant new
+limits on the categories of non-citizens for whom federal financial participation (FFP) is available
+under Medicaid. These changes affect Medicaid coverage for certain lawfully present non-citizens
+who have historically been eligible for federally funded Medicaid coverage. As described below,
+these federal changes do not mean that individuals in these categories will no longer be eligible
+for health coverage in New York, but rather that federal funding is no longer available.
+
+Before October 1, 2026, New York may receive FFP for Medicaid provided to “qualified” non-
+citizens, as defined under the Personal Responsibility and Work Opportunity Reconciliation Act of
+1996 (PRWORA), who meet all other applicable eligibility requirements, as described in OHIP-
+0046, “Documentation Guide for Citizen and Non-Citizen Eligibility for Health Insurance Coverage
+in New York State.”
+
+Effective October 1, 2026, in addition to U.S. citizens and nationals, federal Medicaid funding is
+generally limited to individuals who are:
+• Lawful permanent residents who have completed or are not subject to the 5-year bar;
+• Cuban-Haitian entrants; or
+• Compact of Free Association (COFA) migrants.
+
+The new federal limitations do not affect New York’s authority under section 214 of the Children’s
+Health Insurance Program Reauthorization Act (CHIPRA) to provide federally funded Medicaid
+and Child Health Plus coverage to eligible lawfully residing children and pregnant individuals.
+
+Affected non-citizens who are enrolled in Medicare may continue to receive Medicare coverage
+until federal Medicare eligibility changes take effect on January 4, 2027, but will no longer qualify
+
+WGIUPD GENERAL INFORMATION SYSTEM 9/29/2026
+DIVISION: Office of Health Insurance Programs PAGE 2
+GIS 26 MA/14
+
+for the Medicare Savings Program (MSP) beginning October 1, 2026. Only citizens and the non-
+citizens in the groups listed above may qualify for the MSP after September 30, 2026.
+
+The new federal Medicaid limitations also apply to Supplemental Security Income (SSI) recipients.
+Beginning October 1, 2026, SSI recipients must meet one of the above immigration categories to
+receive federally funded Medicaid. SSI recipients who do not meet these requirements will
+continue to receive Medicaid with State-only funding.
+
+Procedure Change
+
+Overview
+
+The LDSS must distinguish between individuals whose Medicaid coverage will remain eligible for
+FFP and those whose coverage will be funded solely by New York State. To accommodate this
+distinction, systems changes are being made in the Welfare Management System (WMS) in the
+October migration, scheduled for October 19, 2026. These changes will allow district staff to more
+precisely distinguish immigration categories to align with federal law and to establish a new
+state/federal charge code. Additionally, the Department of Health (Department) will systematically
+be applying the new state/federal charge code to individuals whose eligibility was changed on or
+after October 1, 2026, but before the October 19, 2026, migration.
+
+Systems changes include:
+• A new WMS Alien Citizenship Indicator (ACI) code will be established to distinguish
+COFA migrants from refugees and Amerasians:
+o Refugees and Amerasians will continue to be assigned ACI code R.
+o COFA migrants will be assigned ACI code Q.
+
+• A new state/federal charge code will be established for individuals who no longer qualify
+for FFP. State/federal charge code 78 (HR 1 FNP Adults (21+) Qualified Non-Citizens/
+HR1FNPAD) will be used for Medicaid recipients who are not identified as Lawful
+Permanent Residents (LPRs), Cuban-Haitian entrants, or COFA migrants.
+o State/federal charge code 78 will be systematically applied to individuals with ACI
+A, B, D, G, J, M, R, or V when the charge code is blank or 88. The state/federal
+charge code will not be changed systematically to state/federal 78 if the worker
+enters a different valid charge code.
+
+Refugees, Amerasians and COFA migrants all previously received ACI code R. Therefore, at
+renewal, LDSS staff must review information currently available in the case record for individuals
+with ACI code R to determine if the individual’s ACI code needs to be updated to Q for COFA
+migrants. As described above, charge codes will be applied systematically, based on ACI to
+support proper federal claiming.
+
+LDSS staff must verify if MSP applicants/recipients (A/Rs) meet the new immigration
+requirements for FFP when determining MSP eligibility from October 1, 2026, forward. If A/Rs are
+not citizens and do not meet the new immigration requirements for FFP, they are ineligible for
+MSP. As a reminder, individuals who do not qualify for FFP cannot receive MSP and State-only
+funding is not available for MSP.
+
+Verification
+
+The LDSS will continue to verify immigration status using documents provided by the individual
+
+WGIUPD GENERAL INFORMATION SYSTEM 9/29/2026
+DIVISION: Office of Health Insurance Programs PAGE 3
+GIS 26 MA/14
+
+and are encouraged to use Attachment I “Documentation Guide for Citizen and Non-Citizen
+Eligibility for Health Insurance Coverage in New York State” (OHIP-0046) to determine what
+coverage and coding is appropriate, especially for non-citizens impacted by the changes
+discussed in this directive.
+
+When documentation is needed to determine the individual’s immigration status, a request for
+information must be made and the individual provided adequate time to respond to the request. If
+no response to this request is received, the individual’s application for Medicaid must be denied or
+their Medicaid coverage discontinued.
+
+Additionally, if documentation is received by the LDSS, and there is need to verify the legitimacy
+of the document, the Systematic Alien Verification for Entitlements (SAVE) system has been
+updated to provide information on whether an individual’s immigration status qualifies for FFP
+under the new federal requirements.
+
+Required Redeterminations for Existing Beneficiaries
+
+The Department will systematically redetermine the eligibility of all potentially affected
+beneficiaries with coverage in WMS prior to October 1, 2026, to distinguish between individuals
+whose Medicaid coverage remains eligible for FFP and those whose coverage will be funded
+solely by New York State. On the fourth weekend of October, the Department will perform a
+conversion to systematically apply state/federal charge codes 65, 66, and 78 to consumers whose
+eligibility was determined prior to the October migration.
+
+Non-citizens age 21 through 64 who no longer qualify for federally funded Medicaid will be
+transitioned to the Essential Plan (EP), if eligible, based on their immigration status and other
+applicable eligibility criteria. For additional information regarding the transition process to NY State
+of Health-administered Essential Plan coverage, see 16 OHIP/ADM-01.
+
+Individuals who do not meet EP eligibility criteria will remain in WMS and receive Medicaid with
+State-only funding, if otherwise eligible. This may include lawfully present noncitizens who are
+under age 65 who require Long-Term Services and Supports (LTSS), such as nursing home care,
+or who qualify through a spenddown or pooled trust. However, some may transition to NY State
+of Health and remain in Medicaid with state-only funding because they have third-party health
+insurance coverage and cannot enroll in EP.
+
+Required Redeterminations for Existing Medicare Savings Program Beneficiaries
+
+Department staff are identifying existing MSP consumers on WMS who do not meet the new
+immigration requirements and will end their MSP effective September 30, 2026.
+
+Consumers with both Medicaid and MSP will transition to State-only funded Medicaid beginning
+October 1, 2026, but will no longer be enrolled in MSP.
+
+Consumers who have MSP-Only coverage will have their cases and Medicare Buy-In spans
+closed with an end date of September 30, 2026. Department staff will close the Medicare Buy-In
+spans for all impacted consumers and will also close the MSP-Only cases for Rest of State (ROS)
+consumers. However, HRA staff will need to close the MSP-Only cases for their consumers. The
+HRA MSP-only cases are expected to be a very small number of consumers (less than 50) and
+additional information will be provided to HRA to identify the affected consumers.
+
+WGIUPD GENERAL INFORMATION SYSTEM 9/29/2026
+DIVISION: Office of Health Insurance Programs PAGE 4
+GIS 26 MA/14
+
+Department staff will also produce and mail notices to all impacted consumers who are losing
+MSP. Work will need to be undertaken in the near future to remove the MSP indicator from WMS
+for affected consumers. Additional guidance will be forthcoming regarding this work.
+
+Please direct any questions to your local district liaison.

@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://www.cdss.ca.gov/inforesources/CDSS-Programs/SSI-SSP/SSI-SSP-Eligibility-Summary
+  final_url: https://www.cdss.ca.gov/inforesources/cdss-programs/ssi-ssp/ssi-ssp-eligibility-summary
+  status: 200
+  content_type: text/html; charset=utf-8
+  text_sha256: fe7fbea41dc5ed73ec4694c9b15cb652cd4e3f1bfb28aacddb9ce8cac3b48e41
+  text: ca-cdss-ssi-ssp-eligibility/2026-10-07.txt
+  raw: ca-cdss-ssi-ssp-eligibility/2026-10-07.html

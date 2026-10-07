@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://www.cms.gov/files/document/chapter-2-data-exchange-processes.pdf
+  final_url: https://www.cms.gov/files/document/chapter-2-data-exchange-processes.pdf
+  status: 200
+  content_type: application/pdf
+  text_sha256: 5026f40f0ab9f4fc1285821d0019b5370c7dc4073aca65286e698a0a7c9d00fb
+  text: cms-spmp-ch2/2026-10-07.txt
+  raw: cms-spmp-ch2/2026-10-07.pdf

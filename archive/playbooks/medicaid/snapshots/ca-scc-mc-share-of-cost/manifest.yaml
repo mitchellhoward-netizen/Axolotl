@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://stgenssa.sccgov.org/debs/program_handbooks/medi-cal/assets/27SOC/SOC.htm
+  final_url: https://stgenssa.sccgov.org/debs/program_handbooks/medi-cal/assets/27SOC/SOC.htm
+  status: 200
+  content_type: text/html
+  text_sha256: d67981335449f2d68c62427f33576f1cfd73d1d25aec38fddd990f397a74234f
+  text: ca-scc-mc-share-of-cost/2026-10-07.txt
+  raw: ca-scc-mc-share-of-cost/2026-10-07.html

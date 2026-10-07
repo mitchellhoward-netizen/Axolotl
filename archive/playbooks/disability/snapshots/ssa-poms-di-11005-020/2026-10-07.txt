@@ -1,0 +1,98 @@
+Skip to content
+
+Program Operations Manual System (POMS)
+
+Effective Dates: 07/27/2018 - Present
+Previous | Next
+
+TN 26 (03-11)
+
+DI 11005.020 Curtailing Completion of the SSA-3368 (Disability Report-Adult) or the SSA-3820 (Disability
+Report - Child) Forms
+
+A. Introduction to curtailing completion of the SSA-3368 or SSA-3820
+
+This section lists situations in which the Disability Determination Services (DDS)
+will usually make the disability determination based on medical considerations alone,
+so the vocational history is unnecessary. In these situations, the field office (FO)
+can partially complete the SSA-3368 (Disability Report - Adult) or the SSA-3820 (Disability
+Report - Child).
+
+NOTE: The FO still has the responsibility to recognize, develop, document, and resolve
+substantial gainful activity issues and complete a SSA-3367 (Disability Report - Field
+Office) even when curtailing completion of a disability report. For guidance on completing
+form SSA-3367, see DI 11005.045. For guidance on FO responsibilities in work activity development, see DI 11010.140A.
+
+B. When to curtail completion of the SSA-3368 or SSA-3820
+
+When curtailing medical development in terminal illness (TERI), compassionate allowance
+(CAL), and military service casualty (MSCC) cases, if there is any doubt that the
+claim may result in an allowance, it is in the claimant's best interest to complete
+the entire form(s) to avoid unnecessary recontact with the claimant.
+
+CAUTION: If it is probable that the FO or DDS recontact with the applicant will be difficult
+for the reasons described in DI 11005.001, at the initial interview, the interviewer should complete all the necessary forms
+indicated in DI 11005.018A.1.a. and DI 11005.018A.1.b.
+
+The FO may curtail completion of the disability report forms when expediting the case
+as one of the following.
+
+1. Presumptive Disability/Presumptive Blindness (PD/PB) cases
+
+Classify and expedite the case as PD/PB when the allegation is consistent with FO
+observations and the categories for PD/PB findings in DI 11055.231.
+
+For development requirements in title XVI claims, see DI 11055.230. You can also use FO findings to determine whether to curtail forms completion in
+both title II and title XVI claims, even though PD/PB provisions apply only to title
+XVI.
+
+2. Terminal illness (TERI) cases
+
+Classify and expedite the case as TERI when it meets the criteria in DI 11005.601C.
+
+NOTE: In those cases where the claimant did not allege a terminal illness, make every effort
+to ensure that the claimant sees no material, which would indicate that he or she
+has a terminal illness. Do not use the words "terminal" or "terminal illness" on any
+material in the case folder that might disclose that information to the claimant.
+
+3. Compassionate allowances (CAL) cases
+
+Classify and expedite the case as CAL when the claimant alleges one of the medical
+conditions found in the list of CAL conditions in DI DI 23022.080.
+
+NOTE: System software recognizes the diseases or conditions on the CAL list; therefore,
+refer to the list on a regular basis to verify that you have the most updated information.
+
+For EDCS (3368 and 3820) guidelines, see DI 81010.085A.
+
+For information on curtailment of the EDCS 3368 for CAL conditions, see DI 81010.025B.3.
+
+4. Military Service Casualty Cases (MSCC) cases
+
+Classify and expedite the case as MSCC, following the guidelines in DI 11005.003 and DI 11005.006 .
+
+C. Procedure for curtailing completion of the SSA-3368 or SSA-3820
+
+1. Sections to curtail when partially completing the SSA-3368 or SSA-3820
+
+Do not complete sections five (Education and Training) and six (Job History) of the
+paper SSA-3368 or section nine (Work History) of the paper SSA-3820.
+
+NOTE: Curtailing completion procedures do not apply to a SSA-3368 or SSA-3820 already completed
+in the file or completed online.
+
+2. Alert the DDS when curtailing completion of SSA-3368 or SSA-3820
+
+Draw a line through the uncompleted section parts of the paper SSA-3368 or SSA-3820
+to alert the DDS that the form is not complete. When a SSA-3368 or SSA-3820 is curtailed
+in EDCS the curtailed sections are grayed out and the FO does not complete them. For
+instructions on how to curtail completion in EDCS, see DI 81010.020.
+
+To Link to this section - Use this URL:
+http://policy.ssa.gov/poms.nsf/lnx/0411005020
+
+DI 11005.020 - Curtailing Completion of the SSA-3368 (Disability Report-Adult) or the SSA-3820 (Disability Report - Child) Forms - 07/27/2018
+
+Batch run: 09/22/2026
+
+Rev:07/27/2018

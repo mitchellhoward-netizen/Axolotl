@@ -1,0 +1,3686 @@
+STATE OF CALIFORNIA-HEALTH AND WELFARE AGENCY PETE WILSON, Governor
+
+DEPARTMENT OF HEALTH SERVICES
+714/744 P Street
+P.O. Box 942732
+Sacramento, CA 94234-7320
+(916) 657-2941 October 22, 1997
+
+MEDI-CAL ELIGIBILITY PROCEDURES MANUAL LETTER NO.: 188
+
+TO: All Holders of the Medi-Cal Eligibility Procedures Manual
+All County Welfare Directors
+All County Administrative Officers
+All County Medi-Cal Program Specialists/Liaisons
+
+QUALIFIED MEDICARE BENEFICIARY (QMB) PROGRAM-ARTICLE 5L
+
+Enclosed are the new procedures for Article 5L of the Medi-Cal Eligibility Procedures
+Manual. These procedures were originally sent out as an All County Welfare Directors Letter
+(ACWDL) No. 91-09 and were indexed as Article 5F. Please remove Article 5F (ACWDL
+No. 91-09), if they were filed in your procedures. Article 5F is currently the Asset Waiver
+program dated January 13, 1993 of the Medi-Cal Eligibility Procedures Manual.
+
+Please also note that Section J (Income) of Article 5L has been changed when a parent is
+allocating income to an ineligible child under Step II.
+
+Procedure Revision Description
+
+Article 5 Qualified Medicare Beneficiary (QMB) Program
+— Added to provide a detailed description of the
+procedures counties are to follow when determining
+eligibility for the QMB program.
+
+Filing Instructions:
+
+Remove Pages Insert Pages
+
+Article 5 Article 5
+Procedures Table of Contents Procedures Table of Contents
+Page PTC-6 Page PTC-6
+
+Article 5 Table of Contents Article 5 Table of Contents
+Pages TC-5 and TC-6 Pages TC-5 and TC-6
+
+Article 5L
+Pages 5L-1 through 5L-65
+
+All Holders of the Medi-Cal Eligibility Procedures Manual
+All County Welfare Directors
+All County Administrative Officers
+All County Medi-Cal Program Specialists/Liaisons
+Page 2
+
+If you have any questions concerning a specific revision, please contact Marge Buzdas of
+my staff at (916)657-0726.
+
+Sincerely,
+
+Original signed by
+
+Frank S. Martucci, Chief
+Medi-Cal Eligibility Branch
+Enclosures
+
+MEDI-CAL ELIGIBILITY PROCEDURES MANUAL
+
+Article 5 - MEDI-CAL PROGRAMS
+
+5A - AID CODES
+
+5B - FOUR- MONTH CONTINUING ELIGIBILITY, TRANSITIONAL MEDI-CAL, AND
+WEDFARE
+
+5C - DEPRIVATION-LINKAGE TO AID TO FAMILIES WITH DEPENDENT CHILDREN
+(AFDC)
+
+5D - MEDI-CAL ELIGIBILITY FOR NONFEDERAL AFDC CASH ASSISTANCE
+RECIPIENTS
+
+5E - RAMOS V. MYERS PROCEDURES
+
+5F - ASSET WAIVER PROVISION PROCEDURES
+
+5G - 60-DAY POSTPARTUM PROGRAM PROCEDURES
+
+5H - CONTINUED ELIGIBILITY (CE) PROGRAM PROCEDURES
+
+51 - QUALIFIED DISABLED WORKING INDIVIDUAL (QDWI) PROGRAM
+
+5J - SPECIFIED LOW-INCOME MEDICARE BENEFICIARY (SLMB) PROGRAM
+
+5K - PERCENT PROGRAMS
+
+5L - QUALIFIED MEDICARE BENEFICIARY (QMB) PROGRAM
+
+5M - PRESUMPTIVE ELIGIBILITY (PE) PROGRAM
+
+5N - MEDI-CAL TUBERCULOSIS (TB) PROGRAM
+
+50 - NOT IN USE PRESENTLY
+
+5P - DRUG ADDICTION AND ALCOHOLISM (DA&A) PROGRAM
+
+MANUAL LETTER NO.: 1 8 8 DATE: OCT 2 2 1997 PAGE: PTC-6
+
+MEDI-CAL ELIGIBILITY PROCEDURES MANUAL
+
+D. Overview of Program
+
+E. Eligibility
+
+F. Dual Eligibility-QDWI Medi-Cal Eligibiles
+
+G. Card Issuance
+
+H. Ineligibility for Undocumented Aliens and Certain Amnesty Aliens
+
+I. Retroactive Medi-Cal Benefits
+
+J. Part A Enrollment and Benefits
+
+K. Initial QDWI Processing
+
+L. EMC2/TAO Screen
+
+M. QDWI Property Determination
+
+N. QDWI Income Determination
+
+O. Forms and Notices
+
+5J - SPECIFIED LOW-INCOME MEDICARE BENEFICIARY (SLMB) PROGRAM
+
+A. Background
+
+B. Scope of Benefits
+
+C. Enrollment
+
+D. Eligibility
+
+E. Dual Eligibility
+
+F. Retroactive Benefits
+
+G. Medi-Cal Card
+
+H. Aid Code
+
+1. Buy In of Medicare Part B
+
+J. Charts
+
+K. Forms
+
+MANUAL LETTER NO.: 1 8 8 DATE: OCT 22 PAGE: ARTICLE 5, TC-5
+
+MEDI-CAL ELIGIBILITY PROCEDURES MANUAL
+
+5K - MEDI-CAL PERCENT PROGRAMS FOR PREGNANT WOMEN, INFANTS, AND
+CHILDREN
+
+A. Background
+
+B. Implementation Date, Aid Codes, Benefits
+
+C. Period of Eligibility
+
+D. Eligibility Determination
+
+E. Medi-Cal Family Budget Unit
+
+F. Retroactive Repayment of Share of Cost '52
+
+G. MEDS Alerts
+
+H. Questions and Answers
+
+I. Notices
+
+J. Worksheet
+
+5L - QUALIFIED MEDICARE BENEFICIARY (QMB) PROGRAM
+
+A. Background
+
+B. QMB Eligibility Criteria
+
+C. Medicare Information
+
+D. Dually Eligible QMBs and QMB-Onlys
+
+E. Benefits
+
+F. Verification
+
+G. Enrollment
+
+H. QMB Processing
+
+I. QMB Property Determination
+
+J. QMB Income Determination
+
+K. Questions and Answers
+
+MANUAL LETTER NO.: 1 8 8 DATE: OCT 2 2 PAGE: ARTICLE 5, TC-6
+
+MEDI-CAL ELIGIBILITY PROCEDURES MANUAL
+
+5L-QUALIFIED MEDICARE BENEFICIARY (QMB) PROGRAM
+
+A. BACKGROUND
+
+The Medicare Catastrophic Coverage Act (MCCA) of 1988 mandated changes in state Medicaid Programs
+(Medi-Cal). One of the provisions of MCCA (Section 301) requires that states pay the Medicare Part A
+and Part B cost-sharing expenses of low income Medicare beneficiaries. Cost-sharing expenses are:
+
+1. premiums;
+
+2. deductibles; and,
+
+3. coinsurance fees.
+
+California was granted a waiver to delay implementation until January 1, 1990 due to the need for state
+legislation. The Governor signed implementing legislation SB 1413, Chapter 1430, Statutes of 1989 into
+law on October 2, 1989. Congress repealed a majority of MCCA; however, the QMB provision and other
+Medicaid sections have been retained. We will not be providing Medi-Cal drug coverage up to the Medicare
+deductible since the drug provision was one of the Medicare benefits repealed.
+
+The Omnibus Budget Reconciliation Act of 1990 raised the original QMB income level to 100% of the
+federal poverty level in 1991 and requires that the Title II cost of living increase for a year be disregarded
+until the publication of the federal poverty level for that year.
+
+B. QMB ELIGIBILITY CRITERIA
+
+1. Requirement
+
+A QMB must:
+
+a) Meet QMB property requirements. That is, a QMB must meet the property
+requirement under the regular Medi-Cal program or have net nonexempt property,
+as determined under QMB methodology, at or below twice that of California's
+regular Medi-Cal property limits;
+
+b) Meet the 0MB income standard. That is, a QMB must have net nonexempt
+income at or below 90% of the federal poverty level in 1990, and 100% in 1991
+and thereafter;
+
+c) Be eligible for Part A Medicare hospital insurance with or without a premium; and,
+
+d) Be otherwise eligible for Medi-Cal, i.e. meet all other Medi-Cal requirements such
+as California residency and linkage (e.g., being aged, blind, disabled), and be
+either a qualified alien or a citizen of the United States.
+
+SECTION: 50258 MANUAL LETTER NO.: 1 8 8 DATE: OCT 2 2 1937 PAGE:5L-1
+
+MEDI-CAL ELIGIBILITY PROCEDURES MANUAL
+
+2. Effective-Date
+
+Benefits are effective the first of the month following the date of approval (i.e., the first
+of the month following the date the county makes the determination of eligibility). There
+are no retroactive QMB benefits.
+
+C. MEDICARE INEORMATION
+
+1. Scope of Benefits
+
+Medicare Part A hospital insurance includes inpatient hospital care, medically necessary
+(not custodial) inpatient care in a skilled nursing facility, home health care, and hospice
+care and other services.
+
+Medicare Part B medical insurance includes doctor's services, outpatient hospital care,
+diagnostic tests, durable medical equipment, ambulance service, and many other health
+services and supplies.
+
+2. Deductibles. and Coinsurance
+
+Both Part A and B have deductibles and coinsurance that vary depending on the service.
+A deductible must be paid before Medicare will make any payments. Coinsurance is a
+percentage (generally 20%) charge to the beneficiary of the Medicare approved rate for
+the particular service.
+
+3. Part. A. Enrollment
+
+a) Costs
+
+Most Medicare beneficiaries (90%) receive Part A insurance at no cost, i.e., no
+premium. However, those who have not qualified for free Part A benefits solely
+because they lack the required amount of SSA-covered employment may purchase
+Part A with a premium. Very few Medicare beneficiaries choose to purchase Part
+A due to the high monthly premium. Medi-Cal does not pay for a regular Medi-Cal
+beneficiary’s Part A premium. Medi-Cal does currently pay the Part A deductibles
+and coinsurance under the Buy-In program if the beneficiary already receives free
+Part A and has no share of cost or meets the share of cost.
+
+b) Enrollment Period
+
+If an individual is not already receiving Medicare Part A, application for Part A can
+only be made either:
+
+• During the initial enrollment period (IEP) which is no earlier than three months
+before age 65 but no later than three months after the individual's 65th birthday;
+
+• After 24 months of receiving Title II disability benefits to be effective in the 25th
+month;
+
+SECTION: 50258 MANUAL LETTER NO.: 1 8 8 DATE: OCT 2 2 1997 PAGE: 5L-2
+
+MEDI-CAL ELIGIBILITY PROCEDURES MANUAL
+
+• The month after an individual stops working if he/she is over 65;
+
+When receiving dialysis related health care services including renal transplants; or,
+
+• During the general enrollment period (GEP) of January - March, to be effective the
+following July for those Medicare beneficiaries who do not enroll in an IEP. They
+must apply at the Social Security Administration (SSA) office during the GEP.
+If they fail to do so, they would have to wait until the next year’s GEP and would
+not be eligible for Part A Medicare until July of that year.
+
+c) Penalties
+
+An individual who does not apply for Part A or Part 8 at the first opportunity is
+charged a penalty by the SSA. Under the QMB program, the state will pay the
+penalty for a Medicare beneficiary's late enrollment in Part A.
+
+4. Part B Enrollment
+
+a) Costs
+
+There is a monthly Medicare Part B medical insurance (outpatient/physician care)
+premium and a Part B annual deductible and a 20% coinsurance charge. Medicare
+will only pay 80% of the approved Medicare rate. These fees increase each year.
+
+Example:
+
+Assume a Part B beneficiary's first yearly charge is $500 and that the annual
+deductible is $100. The beneficiary would first have to pay $100 (the annual
+deductible) and if the $500 were the approved Medicare rate, the beneficiary
+also would pay 20% of $400 or $80.
+
+b) Enrollment Period
+
+QMB Part B enrollment criteria for an individual is the same as Part A enrollment;
+however, the general or IEP is waived for DHS under the Buy-In agreement and we
+may begin paying the Part B premium at the time of eligibility or approval, provided
+the beneficiary is enrolled in Part A.
+
+c) Penalties
+
+There are Part B penalties for late enrollment similar to those of late enrollment
+for Part A; however, under the Buy-In agreement, the State is not charged a
+penalty for a Medicare beneficiary's late enrollment in Part B.
+
+5.FederaL FinanciaL Pa ricipation_(FFP)
+
+Although Medi-Cal "buys-in" for medically needy-only (MNOs) beneficiaries because it is
+cost effective, the Medi-Cal program currently does not receive FFP for payment of Part B
+premiums for MNOs. With the onset of the QMB program, FFP will become available for
+the MNOs who are also eligible for the QMB program. Thus, it is to the state's advantage
+to enroll these individuals with Part A at no cost as QMBs, if eligible.
+
+SECTION: 50258 MANUAL LETTER NO.: 1 8 8 DATE: OCT 2 2 1997 PAGE: 5L-3
+
+MEDI-CAL ELIGIBILITY PROCEDURES MANUAL
+
+6. Referral toSSA for Specific Questions
+
+Beneficiaries with specific questions about Medicare should be referred to SSA at
+(800) 772-1213. Counties and individuals may request a copy of "The Medicare
+Handbook" from the U.S. Department of Health and Human Services, Health Care
+Financing Administration, 6325 Security Boulevard, Baltimore, Maryland 21207 or the
+local SSA office.
+
+(See Title 22, California Code of Regulations, Section 50777 or the Medi-Cal Eligibility
+Manual, Section 1 5 for more information on who should apply for Medicare Part A and
+Part B.)
+
+D. DUALLY ELIGIBLE QMBS.AND QMB-ONLYS
+
+There are two basic groups of QMBs:
+
+1. Those receiving regular, full scope Medi-Cal, either as cash grant recipients
+[e.g., Supplemental Security Income (SSI) recipients] or MNO beneficiaries, who therefore
+already meet the Medi-Cal property limits and who have been determined to meet the
+(QMB) income requirement. This group is dually eligible (i.e., eligible for regular Medi-Cal
+and QMB benefits).
+
+2. Those eligible as a QMB-only who do not want regular Medi-Cal or who are not eligible for
+regular Medi-Cal due to property above the regular Medi-Cal property limit.
+
+E. BENEFITS
+
+1. Dually-Eligible_lndividuals
+
+a) Those with Part A at no cost
+
+Individuals who have regular Medi-Cal and who also have Medicare Part A at no
+cost receive no direct benefits by becoming a QMB because we already pay their
+Part B premiums as well as their Part A and B coinsurance and deductibles (Buy-In)
+up to the approved rate. As current Medicare/Medi-Cal crossovers, they may
+already have access to a wider choice of providers since they are not limited to
+a Medi-Cal contract hospital, i.e., they can go to a non-contract Medi-Cal hospital.
+As discussed above, it is to the State's advantage to enroll this population in the
+QMB program, if eligible.
+
+b) Those who must pay for Part A
+
+Current Medi-Cal beneficiaries who pay a monthly Part A premium will benefit
+from Medi-Cal paying their Part A premiums.
+
+SECTION: 50258 MANUAL LETTER NO.: 1 8 8 DATE: OCT 2 2 1997 PAGE: 5L-4
+
+MEDI-CAL ELIGIBILITY PROCEDURES MANUAL
+
+c) Those with no Part A
+
+Those Medi-Cal beneficiaries who do not have Part A but who will now enroll in
+Part A as a QMB may have a wider choice of providers since they would not be
+limited to a Medi-Cal contract hospital, i.e., they may go to a Medi-Cal
+non-contract hospital.
+
+2. QMB-Only
+
+a) Those with Part A at no cost
+
+Most of the potential QMB-only applicants receive Part A at no cost and will be
+applying for Medi-Cal to pay their Part B premiums and their Part A and B
+coinsurance and deductibles. Thus, the QMB benefit for them would be an
+increase in monthly spendable income.
+
+b) Those who must pay for Part A
+
+Those who pay for Part A (estimated to be a small number) will also experience
+an increase in spendable income.
+
+c) Those who have no Part A and may or may not have Part B
+
+Those individuals will now have full Medicare coverage at no expense.
+
+F. VEBIFICAT
+ION
+
+Counties may verify Part A and B Medicare benefits by viewing the following records:
+
+1. MEDS;
+
+2. IEVS;
+
+3. SSA MedicareAward Letter;
+
+4. Medicare card ("Hospital" or "HI" indicates Part A; "Medical" or "SMI" indicates Part B)
+
+5. QMB Referral Form (MC 176 QMB-3); or,
+
+6. Any county developed or SSA District Office letter.
+
+G. ENROLLMENT PROCESS
+
+The QMB Referral Form (MC 176 QMB-3) should be used to determine Medicare eligibility. Part I
+should be completed for the applicant. The applicant should submit this form to SSA for
+completion of Part II. The form is then returned to the county showing Part A or Part A and B
+eligibility.
+
+SECTION: 50258 MANUAL LETTER NO.: 1 8 8 DATE: OCT 2 2 1997 PAGE: 5L-5
+
+MEDI-CAL ELIGIBILITY PROCEDURES MANUAL
+
+H. QMB PROCESSING
+
+1. Medically Needy-Only Beneficiaries With Part A At No Cost
+
+Counties should evaluate those medically needy beneficiaries who receive Part A at no
+cost at the time of application or redetermination. If eligible as a QMB, they would be
+eligible the month after the month of QMB approval. Since this group receives no
+additional benefit, they need not be informed of this program; however, counties must
+ensure they are identified as QMBs on MEDS for funding purposes since California will
+receive FFP for the Part B premium for these individuals. Note: We already receive FFP
+for "Pickle Persons” and other cash Medi-Cal beneficiaries.
+
+2. Medically Needy-Only Beneficiaries and AFDC/IHSS Recipients Who Pay For Part A
+
+Counties should inform medically needy beneficiaries and AFDC/IHSS recipients who are
+paying for Part A about the QMB program at the time of their application or
+redetermination. If they apply for QMB coverage, the county should send a notice of
+action (NOA). If eligible, QMB coverage begins the month after the month of QMB
+approval.
+
+3. Medically Needy Beneficiaries and AFDC/IHSS Recipients Without Part A
+
+If the beneficiary/recipient applies from April to December (or his/her redetermination is
+during this period and he/she wants to be evaluated as a QMB), the county should inform
+him/her of the QMB program and instruct him/her to return to the county in January if
+he/she wishes to apply as a QMB unless he/she has already applied for Part A at an earlier
+date. The county should send a NOA.
+
+If the beneficiary/recipient applies from January - March (or his/her redetermination is
+during this period) or has previously signed up for Part A and he/she wants to be
+evaluated as a QMB, the county shall determine whether he/she is otherwise eligible as
+QMB, i.e., meets all requirements except for eligibility for Part A.
+
+If otherwise eligible as a QMB and if:
+
+a) the beneficiary/recipient is on Buy-In, the county will issue a NOA and the
+MC 176 QMB-3 and refer the person to SSA to enroll in conditional Medicare Part
+A; or,
+
+b) the beneficiary/recipient is not on Buy-In, but appears to be eligible for Medicare,
+( e.g., aged, blind, disabled), the county should evaluate him/her for QMB
+eligibility and if eligible, refer him/her to SSA and send the appropriate NOA and
+the MC 176 QMB-3;
+
+If not otherwise eligible as a QMB, the county must send a denial NOA.
+
+SECTION: 50258 MANUAL LETTER NO.; 1 8 8 DATE: OCT 2 2 1997 PAGE: 5L-6
+
+MEDI-CAL ELIGIBILITY PROCEDURES MANUAL
+
+NOTE: If the beneficiary/recipient is not on Buy-In and does not appear to be
+eligible for Medicare, (e.g., not aged, blind, or disabled), the county should refer
+him/her to SSA before determining if otherwise eligible since the person
+probably is not eligible for Medicare. The county should deny the
+beneficiary/recipient and inform him/her to reapply for QMB benefits after applying
+for conditional Part A.
+
+4. SSI/SSP recipients with out Part A
+
+a) Part A Conditional Enrollees
+
+SSA should refer these individuals to the counties after they sign up for
+"conditional" Part A. These individuals may have verification showing they have
+applied for Part A. The county must determine whether they are otherwise eligible
+as a QMB. These individuals would be eligible in July.
+
+b) Those Who Have Not Enrolled in Conditional Part A
+
+If the individual is currently on the Buy-In program and has not signed up for
+conditional Part A, the MC 176 QMB-3 may be used during the general enrollment
+period to sign up for Part A. The county should send the appropriate NOA.
+
+If the individual (whether on Buy-In or not) applies after the GEP and has not
+signed up for conditional Part A, the county should inform him/her to apply for
+conditional Part A and reapply at the county in January - March.
+
+c) Application Process
+
+A face-to-face interview is not required for the SSI/SSP recipient who contacts
+the county to apply for the QMB program. The county should review MEDS to
+determine if he/she meets the QMB income requirement. (See Section J(4)(d) for
+detailed instructions).
+
+If his/her total net nonexempt and deemed income exceeds the QMB income
+limit, the county should send a denial notice and state that the individual may
+provide verification of income if he/she does not agree with the notice.
+
+If his/her income is below the QMB limit as reported on MEDS, the county should
+complete the SAWS 1, Sections 1 and 2 and the signature block (counties
+should indicate QMB Program in the "Other" box). The SAWS 1, the MEDS
+printout with the income information, and the NOA are the only documents
+required in the case file. No MC 210 is required. The county shall send to the
+individual a Notice of Action, the MC 176 QMB-3, and if Part A is not being
+received, an instruction to apply for Medicare Part A at SSA.
+
+SECTION: 50258 MANUAL LETTER NO.: 1 8 8 DATE: OCT 2 2 1997 PAGE: 5L-7
+
+MEDI-CAL ELIGIBILITY PROCEDURES MANUAL
+
+5. General Public (QMB
+
+The application process for a QMB-only is the same as for any other Medi-Cal applicant,
+e.g., a Statement of Facts must be completed, Rights and Responsibilities reviewed, an
+MC 13 completed and an IEVS referral made.
+
+a) Individuals with Part A
+
+These individuals can be evaluated for QMB eligibility at any time since they
+already have Part A. The county should send an NOA.
+
+b) Individuals without Part A (whether or not they have Part B)
+
+If these individuals inquire about the QMB program or apply between April and
+December, the county should advise them to return in January for an eligibility
+determination unless they have previously signed up for conditional Part A at SSA.
+The county should also inform them of the Part A requirement and that they may
+sign up for "conditional” Part A at SSA during the general enrollment period. If
+the individual actually applied for QMB benefits, the county should send an
+appropriate NOA.
+
+If these individuals apply in January through March or have previously applied for
+conditional Part A with SSA, the county should evaluate the individual for QMB
+eligibility. If otherwise eligible, they should be referred to SSA to apply for
+conditional Part A benefits unless they have already done so. When Part A
+eligibility is verified by SSA, these individuals would be eligible for QMB benefits
+in July. The county should send an NOA.
+
+I. OMB PROPERTY DETERMINATION
+
+1. General
+
+The net nonexempt property of a QMB applicant/beneficiary cannot exceed twice the
+Medi-Cal property limit as determined under QMB property methodology (Method II as
+described below in items 5 and 6). Nonexempt property shall be determined in accordance
+with standard Medi-Cal rules governing property [Title 22, California Code of Regulation
+(CCR) Article 9].
+
+Note: For purposes of this section, property determinations for QMB applicants also
+include ongoing property redeterminations for QMB beneficiaries.
+
+2.Property Limit Met
+
+If the QMB applicant is receiving Medi-Cal from another program (e.g., ABD-MN, SSI,
+AFDC), the QMB property requirement is met. If one or both members of a married couple
+living together are applying for QMB benefits but only one member is receiving Medi-Cal
+from another program, the QMB property requirement is met for both members of the
+couple.
+
+SECTION: 50258 MANUAL LETTER NO.: 18 8 DATE: OCT 22 1997 PAGE: 5L-8
+
+MEDI-CAL ELIGIBILITY PROCEDURES MANUAL
+
+3. Twa-MelhadS for DuaLEligiblas
+
+If the QMB applicant is also applying for Medi-Cal under another program at the same time
+as the QMB application, there are two methods for determining whether the QMB property
+requirement is met.
+
+a) Method I: This method is the regular method of determining Medi-Cal
+eligibility and follows the normal Medi-Cal rules found in Title 22,
+CCR, Article 9.
+
+b) Method II: This method is the QMB methodology found in Title 22, CCR,
+Section 50421 (Property Limit for the QMB Program).
+
+Choosing a Method
+
+For flexibility in determining whether a QMB applicant meets the QMB property limit, the
+eligibility worker (EW) may choose the method he/she believes would permit eligibility to
+the QMB program. However, since the QMB applicant is also applying for regular
+Medi-Cal, it is likely that the EW will first use Method I to determine whether the QMB
+property requirement is met. IF INELIGIBILITY RESULTS FROM METHOD I, THE EW
+MUST EVALUATE ELIGIBILITY UNDER METHOD II TO DETERMINE IF QMB PROPERTY
+ELIGIBILITY CAN BE ESTABLISHED.
+
+4. QMB*Only
+
+If the QMB applicant is applying as a QMB-only, only Method II (See above) should be
+used.
+
+5. QMB Methodology (Method II) for Determining Property When the QMB Applicant is 18
+years ofAge_or Older or is Married
+
+a. Only consider the property of the QMB applicant (and spouse, if any). Do NOT
+consider the property of any other family members in the home.
+
+b. Determine the net nonexempt property in accordance with Article 9.
+
+c. Compare the net nonexempt property to twice the Medi-Cal property limit for one
+person (or twice the property limit for two persons if the spouse is at home,
+regardless of whether the spouse is a QMB applicant/beneficiary).
+
+d. If the result in Step (c) is equal to or less than twice the Medi-Cal property limit
+shown in that step, then the QMB property requirement is met.
+
+e. If the result in Step (c) exceeds twice the Medi-Cal property limit shown in that
+step, then the applicant is ineligible for QMB due to excess property.
+
+Note: The QMB applicant in this situation is an adult under Method II even if he/she is
+between 18-21 years of age and would be treated as a child in determining eligibility for
+regular Medi-Cal as specified in Title 22, CCR, Section 50030 (e.g., is a blind or disabled
+MN person who is 18 to 21 years of age, living in the home of a parent and currently in
+school).
+
+SECTION: 50258 MANUAL LETTER NO.: 1 8 8 DATE: 22 1997
+OCT PAGE: 5L-9
+
+MEDI-CAL ELIGIBILITY PROCEDURES MANUAL
+
+Example 1
+
+Joe and Jackie are married and living together with their three minor children. Joe has
+been receiving Social Security disability (not SSI) for two years and is now eligible for
+Medicare. He is applying for QMB benefits for himself. Neither he nor Jackie receive
+Medi-Cal from any other program and they do not wish to. Joe and Jackie have nonexempt
+property which consists of a checking and savings account. The lowest balance in the
+month of application is $5,000. Their three children have separate trust accounts created
+by their grandparents. The total value of the trust accounts is $20,000. Joe's and
+Jackie’s names do not appear on any of the trust documents. The EW uses Method II
+since Joe is applying as a QMB-only. The EW will only consider Joe's and Jackie’s own
+property and will ignore the children's trust accounts.
+
+1. $5,000 = Joe's and Jackie's own net nonexempt property
+
+2. COMPARE TO $6,000 (twice the Medi-Cal property limit for two)
+
+3. Joe meets QMB property requirements since $5,000 is less than $6,000
+
+Example 2
+
+Kyle is 20 years old, totally disabled and residing with his mother. Kyle has been receiving
+Social Security benefits as a disabled adult child on his mother's Social Security Account
+and is eligible for Medicare. He is not on SSI and is in school. Kyle has $300 in net
+nonexempt resources. His mother has $3,100 in net nonexempt resources. Kyle and his
+mother now want to apply for regular Medi-Cal and Kyle wants QMB coverage.
+
+1. Since Kyle is applying for regular Medi-Cal, the EW will determine property under
+regular Medi-Cal rules. Under Title 22, CCR, Section 50030, Kyle is a child living
+in the home of a parent. The MFBU consists of Kyle and his mother. Their total
+nonexempt property is $3400. Since the Medi-Cal property limit for two is $3000,
+they are ineligible due to excess resources.
+
+2. The EW now evaluates whether Kyle is eligible as a QMB. Under Method II, Kyle
+is considered an adult and there is no deeming of any other family member's
+resources except for those of a spouse. Since Kyle is not married, only his own
+resources are considered. His total resources are $300. Therefore, Kyle meets
+the QMB property requirement.
+
+6. QMB Methodology (Method 11) When the. Applicant is Under Age 18
+
+Under the QMB program, a child under age 18 would be eligible for QMB benefits only
+under certain circumstances since children under age 18 are not normally eligible for
+Medicare. Persons may be eligible for Medicare at any age if they need maintenance
+dialysis or a kidney transplant for permanent kidney failure (chronic renal disease).
+Therefore, a child under age 18 would be eligible for Medicare only if he/she were
+determined to have chronic renal disease. This would be the only situation when a child
+under 18 would be eligible to the QMB program.
+
+SECTION: 50258 MANUAL LETTER NO.: 18 8 DATE: OCT 2 2 1997 PAGE: 5L-10
+
+MEDI-CAL ELIGIBILITY PROCEDURES MANUAL
+
+a. There Is Only One QMB Child
+
+(i) Consider only the property of the parent(s) and/or stepparent in the home
+and the property of the QMB child applicant. Do NOT consider the
+property of any other family members.
+
+(ii) Determine the parent(s)' net nonexempt property in accordance with
+Article 9.
+
+(iii) Subtract the property limit for one person (if two parents, subtract the
+Medi-Cal property limit for 2 persons) from the parent(s) net nonexempt
+property. The net result will be the amount of property allocated to the
+child QMB applicant.
+
+(iv) Add the property allocated from the parent (Step (iii)) to the child QMB
+applicant's own net nonexempt property.
+
+(v) Compare the result from Step (iv) to twice the Medi-Cal property limit for
+one person.
+
+(vi) If the result from Step (iv) is less than or equal to twice the Medi-Cal
+property limit for one person, the QMB property requirement is met.
+
+(vii) If the result from Step (iv) is greater than twice the Medi-Cal property limit
+for one person, the child QMB applicant is ineligible due to excess
+property. If there is more than one child QMB applicant in the home,
+proceed to item b. below.
+
+Example 3
+
+Sandy is 7 years old and has chronic renal disease. She receives Medicare but no
+Medi-Cal from any other program. She is applying as a QMB-only. She lives with her
+mother, Carol, who has a savings account of $5000 and no other property. Sandy has no
+property of her own. The EW uses Method II to determine her property eligibility.
+
+1. Allocation from parent:
+
+Carol's savings: $5,000
+Medi-Cal property limit for one: - 2,000
+Remainder to be allocated: $ 3,000
+
+2. Sandy's property and parental allocation:
+
+Sandy's net nonexempt property: 0
+
+Allocation from parent + 3,000
+Total nonexempt property $ 3,000
+
+3. COMPARE TO TWICE THE MEDI-CAL
+PROPERTY LIMIT FOR ONE PERSON: $4,000
+
+SECTION: 50258 MANUAL LETTER NO.: 1 8 8 DATE: OCT 2 2 1997 PAGE: 5L-11
+
+MEDI-CAL ELIGIBILITY PROCEDURES MANUAL
+
+4. Sandy meets the QMB property requirement.
+
+b) There is More Than One Child QMB Applicant
+
+1. Use this methodology if there are multiple QMB children residing
+with their parent(s)/stepparent. Under this methodology,
+allocation of parental {including stepparents) net nonexempt
+resources are divided equally among QMB eligible children. This
+entire process must be recalculated if at any time one or more of
+these QMB children is or becomes ineligible for QMB benefits as
+a child, for example, due to excess property, attainment of age
+18 so that the QMB child becomes a QMB adult, or eligibility for
+Medicare ceases (disability ends).
+
+Example 4
+
+Ann and Andy are twins. They are both 14 years old, residing at home with their mother
+Anna, stepfather Aaron, and a young stepsister, Angela. Ann and Andy have chronic renal
+disease and have been receiving Medicare (Parts A and B). They are not on SSI and do
+not receive Medi-Cal from any other program. Ann has a savings account with a value of
+$4,000 and no other property. Andy has a savings account with a value of $2,000 and
+no other property. Their mother and stepfather have combined net nonexempt property
+totaling $5,000. Both Ann and Andy are applying as QMB-only's.
+
+Ann
+
+1. Parents'property:
+
+$5,000 mother and stepfather's nonexempt property
+3,000 property limit for two persons
+$2,000 remainder
+
+2. Parental Allocation of Property to Ann:
+
+Divide $2,000 by the number of QMB children (2) = $1,000 each
+to be allocated to Ann and Andy.
+
+3. Ann's Property Plus Parental Property Allocation:
+
+$1,000 property allocated from parents
++ 4,000 Ann's savings account
+$5,000 combined net nonexempt property
+
+4. COMPARE TO $4,000 (twice the Medi-Cal property limit for one
+person)
+
+SECTION: 50258 MANUAL LETTER NO.: 188 DATE: OCT 22 PAGE: 5L-12
+
+MEDI-CAL ELIGIBILITY PROCEDURES MANUAL
+
+5. Ann is ineligible for QMB due to excess property. Therefore, the
+property allocation from her parent and stepparent ($1,000) is
+now allocated to Andy, the remaining child QMB applicant. The
+new allocation from his parent and stepparent is $2,000 ($2,000
+parental allocation divided by one QMB child).
+
+Andy
+
+1. Andy's Property Plus Parental Allocation:
+
+$2,000 property allocated from parent and stepparent
++ $2,000 Andy's savings account
+$4,000 combined nonexempt property
+
+2. COMPARE TO $4,000 (twice the Medi-Cal property limit for one
+person.)
+
+3. Andy has met the QMB property requirement since his net
+nonexempt property does not exceed $4,000 (twice the Medi-Cal
+property limit.)
+
+Example 5
+
+Jake is 1 5 years old, has chronic renal disease, and is receiving Medicare (Parts A and B).
+He lives with his father, Jason, and his mother Janet. They are also disabled and have
+been receiving Social Security benefits for two years. Jason and Janet are eligible for
+Medicare. None of the three are on SSI. They do not receive Medi-Cal under any other
+program and only want to receive QMB coverage. Their property consists of the following:
+
+Jason (father) $3,000 cash surrender value of life insurance
+Janet (mother) + $2,000 stocks and bonds
+Jason and Janet $2,000 joint bank accounts
+TOTAL (parent's) $7,000
+
+Jake (son) $3,000 savings account
+
+1. Property eligibility determination for Jason and Janet (parents)
+
+Method II is used since neither are applying for or receiving
+regular Medi-Cal
+
+$7,000 total net nonexempt property
+
+b. COMPARE TO $6,000 (twice the Medi-Cal property limit)
+
+c. Jason and Janet are not eligible for the QMB program
+because their net nonexempt property exceeds twice the
+Medi-Cal Property limit.
+
+SECTION: 50258 MANUAL LETTER NO.: 1 8 B DATE: OCT 2 2 1997 PAGE: 5L-13
+
+MEDI-CAL ELIGIBILITY PROCEDURES MANUAL
+
+Note: If either or both had been eligible, none of their
+property would be allocated to Jake in determining
+whether he meets the QMB property requirement.
+
+2. Property determination for Jake:
+
+Method II is used.
+
+a. Parental allocation:
+
+$7,000 Total nonexempt property of parents
+-3,000 Medi-Cal property limit for two persons
+$4,000 remainder
+
+b. $4,000 parental allocation
++ 3,000 Jake's savings account
+$7,000 Jake's net nonexempt property
+
+c. COMPARE TO $4,000 (twice the Medi-Cal property limit
+for one)
+
+d. Jake is ineligible for the QMB program because he has
+excess property.
+
+J. QMB INCOME DETERMINATION
+
+NOTE: Amounts such as the federal benefit rate or standard allocation referred to below will be
+provided to counties annually.
+
+1. lncome Eligibility Criteria Overview
+
+Section 50258, Title 22, CCR, requires a QMB applicant to have net nonexempt income
+which does not exceed 90 percent of the official federal poverty level beginning January
+1, 1990 and 100 percent on January 1, 1991 and thereafter. This information will be
+provided annually to counties when applicable.
+
+2. Income Eligibility Determination Process - Overview
+
+a) Medi-Cal Income Methodology - Overview
+
+Section 50570, Title 22, CCR, requires when determining the eligibility of a QMB
+adult, couple or child, the net nonexempt income shall first be determined using
+Medi-Cal income methodology. This includes all applicable provisions of Article
+8, Medi-Cal Family Budget (MFBU), and Article 10, Income, with the following
+exceptions:
+
+health insurance and Medicare premium deductions are not allowed; and
+
+deductions for Impairment Related Work Expenses (IRWE) are allowed.
+
+SECTION: 50258 MANUAL LETTER NO.: 188 DATE: OCT 2 2 PAGE:5L-14
+
+MEDI-CAL ELIGIBILITY PROCEDURES MANUAL
+
+IRWE, as defined in Title 22, CCR, Section 50045.1, are those expenses
+of a working disabled QMB necessary to become or remain employed.
+This deduction is only allowed for the QMB applicant/beneficiary. The
+IRWE must be paid by the applicant/beneficiary to be allowed. Any
+payment made by a third party (e.g., Department of Rehabilitation) is not
+allowable.
+
+b) SSI Income Methodology - Overview
+
+If ineligibility results after using Medi-Cal methodology, and there is an ineligible
+spouse (with or without children) living with the QMB applicant, net nonexempt
+income shall be determined using SSI income methodology. Because SSI income
+methodology allows for deductions not allowed under Medi-Cal and only considers
+the income of the QMB applicant and the spouse/parent of the applicant, there
+may be particular family circumstances where SSI income methodology is less
+restrictive than Medi-Cal income methodology. SSI income methodology allows
+the ineligible spouse of a QMB applicant to reduce his/her gross nonexempt
+income by:
+
+• Allocating income to an ineligible minor child(ren) residing with the
+applicant (referred to as the "actual allocation"), by subtracting any
+income the child(ren) may have from an amount known as the "Standard
+SSI Allocation".
+
+• If the remaining income of the ineligible spouse after the allocation to the
+ineligible minor child(ren) is equal to or less than the Standard SSI
+Allocation amount, the income shall be considered exempt. If there are
+no ineligible children to allocate to and the ineligible spouse's income is
+equal to or less than the Standard SSI Allocation amount, it is also
+exempt.
+
+3. Madi-CaLlncomeMethodology
+
+a) Medi-Cal Income Determination Form
+
+In order to determine the net nonexempt income of a QMB applicant using
+Medi-Cal income methodology, the basic format of the MC 176 M (Share of Cost
+Determination Form) has been modified. This form (MC176 QMB1) accommodates
+all the provisions of Article 8 (MFBU) and Article 10 (Income) of the Medi-Cal
+Eligibility Manual.
+
+b) Income Eligibility Determination Process
+
+Determine the net nonexempt income using Medi-Cal income methodology in the
+following order:
+
+1) Determine the members of the MFBU both eligible and ineligible, as
+specified in Article 8.
+
+SECTION: 50258 MANUAL LETTER NO.: 1 8 8 DATE: OCT 2 2 1997 PAGE: 5L-15
+
+MEDI-CAL ELIGIBILITY PROCEDURES MANUAL
+
+2) Determine the gross nonexempt income of all members of the MFBU, as
+defined in Article 10. Do not include any Public Assistance (PA) when
+determining the gross nonexempt income. Under Medi-Cal methodology,
+income and deductions shall be apportioned, if applicable, as specified in
+Article 10.
+
+3) Allow all applicable deductions. Any Aged, Blind or Disabled-Medically
+Needy (ABD - MN) deductions of the QMB applicant and his/her spouse
+can be determined using Section VI (ABD INCOME DEDUCTIONS) of the
+MC 176W (Allocation/Special Deduction Worksheet). Any deductions
+that are applicable to any Aid to Families with Dependent Children -
+Medically Needy/Medically Indigent (AFDC - MN/MI) members of the
+MFBU can be determined using Section IV (AFDC MN/MI Earned Income
+Deductions) of the MC 176 W. IRWE deductions are entered on the MC
+176 QMB/SLMB1. Do not allow any deductions for Medicare or health
+insurance premiums.
+
+4) Determine the net nonexempt income.
+
+5) Compare the net nonexempt income to the appropriate poverty level for
+the number of members in the MFBU. If the net nonexempt income is
+equal to or less than the federal poverty level (FPL), the QMB applicant
+is income eligible. If the net nonexempt income exceeds the FPL for the
+MFBU, and certain family circumstances exist, attempt to establish
+income eligibility using SSI methodology.
+
+4. SSI Income Methodology
+
+a) QMB Applicants Ineligible Using Medi-Cal Income Methodology
+
+If after using Medi-Cal income methodology, the net nonexempt income exceeds
+the appropriate FPL for the MFBU, determine the QMB income eligibility using SSI
+income methodology if family circumstances include an ineligible spouse with or
+without an ineligible minor child(ren) who resides with the QMB applicant.
+
+b) SSI Income Determination Form
+
+In order to determine the net nonexempt income of a QMB (adult) applicant using
+SSI income methodology, the MC 176 QMB/SLMB2A was developed. This form
+accommodates all income and deductions for a QMB adult, ineligible spouse, or
+a couple. It also provides for the determination of an actual allocation to an
+ineligible child(ren) who resides with the QMB applicant and his/her ineligible
+spouse as well as the QMB income eligibility determination.
+
+c) Income Eligibility Determination Process-QMB Adults
+
+Determine the net nonexempt income of the QMB applicant using SSI income
+methodology in the following order:
+
+SECTION: 50258 MANUAL LETTER NO.: 1 8 8 -DATE: OCT 2 2 1997 PAGE: 5L-16
+
+MEDI-CAL ELIGIBILITY PROCEDURES MANUAL
+
+1) Determine the gross nonexempt income of the QMB applicant, his/her
+spouse and ineligible child(ren) who reside with the QMB applicant. SSI
+income methodology requires that actual income be used to determine
+gross nonexempt income. Therefore, the apportionment of income and
+deductions are not applicable using SSI income methodology.
+
+2) Determine any actual allocation to the ineligible minor child(ren) residing
+with the QMB applicant from the ineligible spouse using Section II of the
+MC 176 QMB/SLMB2A. The actual allocation is only allowed from an
+ineligible spouse. Do not allocate from a QMB applicant. Subtract any
+income the child(ren) may have from the Standard SSI Allocation. (Do not
+include any PA or other PA.) The remainder is the actual allocation
+amount. If the ineligible minor child(ren) is a student, allow the Student
+Income Deduction.
+
+NOTE: Under SSI Income Methodology, an eligible minor child is defined
+as any child under eighteen years of age and unmarried. For purposes of
+an allocation to ineligible children, however, an ineligible child is defined
+as any unmarried child under 18 years of age as well as an unmarried
+child 18 to 21 years of age who is a full-time student.
+
+3) Determine if the remaining income of the ineligible spouse, after the
+allocation to ineligible minor children, is less than the Standard SSI
+Allocation. If so, it shall be considered exempt. This also applies to an
+ineligible spouse with no child(ren). Section III of the MC 176
+QMB/SLMB2A can be used to make this determination.
+
+Note: Section III is used for evaluation purposes only. If the remaining
+income of the ineligible spouse exceeds the Standard SSI Allocation
+amount, include the gross income and any applicable allocations to minor
+ineligible children in Section I.
+
+4) Determine the net nonexempt income. Allow all applicable deductions as
+indicated on the MC 176 QMB/SLMB2A. These deductions include: the
+$65 and 1/2 deduction; the IRWE deduction; allocation to ineligible
+child(ren); and the $20 Any Income Deduction.
+
+5) Compare the net nonexempt income to the appropriate FPL. Since SSI
+income methodology only considers the income of the applicant and
+spouse, determine the appropriate FPL as follows: use the FPL for one,
+if only the QMB applicant's income is used; or the FPL for two, if the QMB
+applicant's income is combined with income of the spouse. If the net
+nonexempt income is less than or equal to the appropriate FPL, the QMB
+applicant is income eligible.
+
+SECTION: 50258 MANUAL LETTER NO.: 188 DATE: OCT 22. 1997 PAGE:5L-17
+
+MEDI-CAL ELIGIBILITY PROCEDURES MANUAL
+
+d) SSI/SSP QMB Applicants
+
+Since SSA has already determined the net unearned, earned and deemed income
+of an SSI/SSP recipient, use the SDX Inquiry screen (QX on MEDS) to determine
+the total net nonexempt income. If the net nonexempt income is equal to or less
+than the applicable percentage of the FPL for one, the applicant is income eligible
+for QMB. The MC 176 QMB/SLMB2A or a print-out of the inquiry screen may be
+used to document the net nonexempt income of the QMB applicant.
+
+If an SSI couple is applying for QMB, use the individual SDX (QX on MEDS) Inquiry
+screen for each applicant and determine the income eligibility separately using the
+FPL for one.
+
+As previously stated, a face-to-face interview is not required for this group of
+applicants; a telephone inquiry is sufficient. The county need only complete
+Sections 1 and 2 of the SAWS 1 and sign the application on behalf of the
+applicant. If the SDX information indicates income ineligibility, the applicant has
+the right to provide income verification and have his/her income eligibility
+determined using either the Medi-Cal or SSI methodology, if applicable. Do not
+include PA income.
+
+5. OMB Children Applicants
+
+A QMB child applicant with net nonexempt income which exceeds the current FPL for the
+MFBU using Medi-Cal income methodology shall next be evaluated for income eligibility
+using SSI income methodology, if family circumstances include ineligible parents with or
+without ineligible siblings who reside with the QMB child applicant.
+
+a) QMB Applicants Under Eighteen Years of Age
+
+Only children receiving renal dialysis can receive Medicare at any age (if the
+parents have sufficient work quarters). SSI Income Methodology allows
+allocations to ineligible minor children and certain income deductions for an
+ineligible parent(s) who resides with the QMB applicant. Only unmarried QMB child
+applicants under eighteen years of age shall have their net nonexempt income
+determined using the QMB child income eligibility determination process.
+
+NOTE: Linder SSI methodology, persons who are married or eighteen years and
+older are considered adults.
+
+b) In order to determine the net nonexempt income of a QMB child using SSI income
+methodology, the MC 176 QMB/SLMB2B was developed. This form
+accommodates all income and deductions for the ineligible parent(s) with or
+without minor ineligible children and allocations to the ineligible minor child(ren).
+
+SECTION: 50258 MANUAL LETTER NO.: 1 8 8 DATE: OCT 2 2 1997 PAGE: 5L-18
+
+MEDI-CAL ELIGIBILITY PROCEDURES MANUAL
+
+c) QMB Child Income Eligibility Determination Process
+
+Determine the net nonexempt income of the QMB child in the following order:
+
+1) Determine the actual gross unearned income of the ineligible parent(s);
+
+2) Determine the actual allocation to the ineligible minor child(ren) from the
+ineligible parent(s) (Section II). Subtract the actual allocation, first, from
+the gross unearned income of the ineligible parent(s). Any unused portion
+of the allocation is subtracted later from earned income;
+
+3) Subtract the $20 any income deduction;
+
+4) This gives the countable unearned income;
+
+5) Determine actual gross earned income;
+
+6) Subtract any unused portion of the actual allocation to ineligible minor
+children;
+
+7) Subtract $65 and any unused portion of the $20 any income deduction;
+
+8) Divide by two and subtract;
+
+9) This gives the countable earned income;
+
+10) Determine total countable income by adding countable unearned and
+countable earned income;
+
+11) Subtract the parent deduction. The parent deduction is the monthly
+federal benefit rate (FBR) for a couple if both parents live in the home or
+it is the FBR for an individual only if one parent without a spouse lives in
+the home;
+
+1 2) This gives the allocation to the QMB child from the ineligible parent(s);
+
+13) Use Section III to determine the QMB child's net nonexempt income.
+Enter the countable income of the ineligible parent(s);
+
+14) Add any earned or unearned income of the QMB child. If the QMB child
+is a student, he/she is entitled to a student deduction of $1620 per year
+as specified in Title 22, CCR, Section 50551;
+
+1 5) Allow the $20 Any Income Deduction, IRWE and the $65 and 1/2 Earned
+Income Deduction, if applicable;
+
+1 6) Determine the net nonexempt income of the QMB child; and
+
+17) Compare this amount to the current FPL for one. If the net nonexempt
+income of the QMB child is equal to or less than the FPL, the child is
+income eligible for the QMB program.
+
+SECTION: 50258 MANUAL LETTER NO.: 188 DATE: OCT 2 2 1997 PAGE:5L-19
+
+MEDI-CAL ELIGIBILITY PROCEDURES MANUAL
+
+Example #1
+
+Robert Williams is a single man who receives a Social Security benefit of $465 per month. He is currently
+not on Medi-Cal but Will apply at the same time he applies as a QMB. He currently pays his own Part B
+Medicare premium of $31.90 (1989 amount) each month.
+
+QMB INCOME ELIGIBILITY DETERMINATION
+
+USE MEDI-CAL INCOME METHODOLOGY FIRST
+
+1) Determine the MFBU - One
+
+2) Determine the Net Nonexempt Income
+
+$465 Gross Unearned Income
+- $ 20 Any Income Deduction
+$445 Net Nonexempt Income
+
+3) Compare the Net Nonexempt Income to the Federal Poverty Level (FPL)
+for the appropriate MFBU.
+
+Assume the net nonexempt income of $445 is equal to or less than the current FPL for one; Mr. William’s
+income eligible for QMB.
+
+Medi-Cal Share of Cost Determination
+
+$465 Gross Unearned Income
+- $ 20 Any Income Deduction
+$445
+- $ 32 Medicare Premium Deduction
+$413 Net Nonexempt Income
+- $.600 Maintenance Need (One)
+$ 0 Share of Cost
+
+SECTION: 50258 MANUAL LETTER NO.: 1 8 8 DATE: OCT 2 2 1997 PAGE:5L-20
+
+MEDI-CAL ELIGIBILITY PROCEDURES MANUAL
+
+Example #2
+
+Steven Baker is applying for both QMB and Medi-Cal. He receives a monthly Social Security benefit of
+$325. He is also employed part-time with an insurance company. He earns $400 (gross) per month.
+Mr. Baker rents an electric wheelchair which is necessary for him to continue working. The monthly rental
+cost of the wheelchair is $150. Steven's wife, Wilma, receives a monthly pension of $192 from her union.
+Steven pays a monthly Medicare Part B Premium of $31.90 per month.
+
+QMB INCOME ELIGIBILITY DETERMINATION
+USE MEDI-CAL INCOME METHODOLOGY FIRST
+
+1) Determine the MFBU - Two
+
+2) Determine the Net Nonexempt Income
+
+$325.00 Steven’s Gross Unearned Income
++ $192.00 Wilma's Gross Unearned Income
+$517.00
+- $ 20.00 Any Income Deduction
+$497.00 Net Unearned Income
+
+$400.00 Steven's Gross Earned Income
+- $ 65.00 Earned Income Deduction
+$335.00
+- $ 150.00 IRWE
+$185.00
+x 1/2- Earned Income Deduction
+$ 92.50 Net Earned Income
++ $497.00 Net Unearned Income
+$589.50 Net Nonexempt Income
+
+3) Compare the Net Nonexempt Income to the current FPL for the
+appropriate MFBU.
+
+Assume the net nonexempt income of $590 (rounded) is equal to or less than the current FPL for two; Mr.
+Baker is income eligible for QMB.
+
+Medi-Cal Share of Cost Determination
+
+$400.00 Steven's Gross Earned Income
+- $ 65.00 Earned Income Deduction
+$335.00
+x ____ 112 Earned Income Deduction
+$167.50
++ $497.00 Net Unearned Income
+$664.50
+- $ 31.90 Health Insurance Deduction
+$632.60 Nonexempt Income
+- $934.00 MN (Two)
+$ 0 Share of Cost
+
+SECTION. 50258 MANUAL LETTER NO.: 188 DATE: OCT 22 1997 PAGE:5L-21
+
+MEDI-CAL ELIGIBILITY PROCEDURES MANUAL
+
+Example #3
+
+Sam Ito is a disabled individual applying for QMB benefits only. Sam, his wife Emiko, and their two
+children, Michael and Rose, all receive Social Security benefits. Sam receives a monthly disability benefit
+of $460. Emiko receives a monthly Social Security benefit of $250. Michael and Rose each receive a
+monthly benefit of $135.
+
+QMB INCOME ELIGIBILITY DETERMINATION
+
+USE MEDI-CAL INCOME METHODOLOGY FIRST
+
+1) Determine the MFBU.
+
+2) Determine the Net Nonexempt Income using the MC 176
+QMB1.
+
+3) Compare the Net Nonexempt Income to the current FPL for
+the appropriate MFBU. Assume Mr. Ito is ineligible under
+this method.
+
+Since Mr. Ito's net nonexempt income exceeds the current FPL for an MFBU of four, he is income ineligible
+for the QMB program using Medi-Cal methodology. Since there is an ineligible spouse in the home,
+determine the net nonexempt income using SSI Income Methodology.
+
+USE SSI INCOME METHODOLOGY NEXT
+
+1) Determine the actual allocation to ineligible children as
+follows: Determine the Standard SSI Allocation for ineligible
+minor children using Section II of the MC 176
+QMB/SLMB2A. Assume this amount is $1 85. Subtract the
+children's own income. The student deduction does not
+apply because the children's income is unearned.
+
+Child - Michael Rose
+
+Standard SSI Allocation $185 $185
+Less Any Income of child - $135 $135
+Actual Allocation $ 50 $ 50 = $100
+
+Subtract the actual allocation amount, first, from the unearned income of the ineligible spouse. Any
+unused allocation can be deducted from the gross earned income of the ineligible spouse.
+
+2) Determine if the remaining income of the ineligible spouse,
+after the deduction to ineligible children if applicable, can be
+exempt.
+
+$250 Emiko's Unearned Income
+- $ 100 Total allocation to the ineligible minor children
+($ 50 + $50)
+$ 1 50 Net Unearned Income (less than $ 185 - Exempt)
+
+SECTION: 50258 MANUAL LETTER NO.: 1 8 8 DATE: OCT 22 1997 PAGE: 5L-22
+
+MEDI-CAL ELIGIBILITY PROCEDURES MANUAL
+
+3) Determine the Net Nonexempt Income using the MC 176
+QMB2A.
+
++ $460 Sam's Unearned Income
+- $ 20 Any Income Deduction
+$440 Net Nonexempt Income
+
+4) Compare the Net Nonexempt Income to the appropriate FPL.
+
+Since the income of the ineligible spouse was not combined with the applicant's income, the appropriate
+FPL is one.
+
+Assume the net nonexempt income is less than or equal to the appropriate FPL for one; Mr. Ito is income
+eligible using SSI Income Methodology.
+
+Example #4
+
+Jason Peters is 15 years old and receiving renal dialysis. He is currently paying for his Part A Medicare.
+He receives a monthly Social Security benefit of $150. Jason's father, Stephen, is employed as a
+mechanic. He earns $1,900 (gross) per month. Jason's mother, Brenda, has no income. Jason has an
+infant brother, Bobby.
+
+QMB CHILD INCOME ELIGIBILITY DETERMINATION
+
+USE MEDI-CAL INCOME METHODOLOGY FIRST
+
+1) Determine the MFBU - Four
+
+2) Determine the Net Nonexempt Income using the MC 176
+QMB1.
+
+$ 150.00 Jason's SSA
+- $ 20.00 Any Income Deduction
+$ 130.00
+
+$1,900.00 Stephen's Gross Earned Income
+Earned Income Deduction
+$1,835.00
+x1/2 Earned Income Deduction
+$ 917.50
++ $ 130.00 Jason's Net Unearned Income
+$1,047.50 Net Nonexempt Income to be compared to
+the FPL for the appropriate MFBU.
+
+Assume the net nonexempt income of $1,048 (Rounded) exceeds the FPL for four; income ineligible using
+Medi-Cal Income Methodology. Attempt to establish income eligibility using SSI Income Methodology.
+
+SECTION: 50258 MANUAL LETTER NO.: 1 8 8 DATE: OCT 22 1997 PAGE: 5L-23
+
+MEDI-CAL ELIGIBILITY PROCEDURES MANUAL
+
+USE SSI INCOME METHODOLOGY NEXT
+
+1) Determine the actual allocation to ineligible minor
+children as follows: Determine the Standard SSI
+Allocation to the ineligible minor children using Section II
+of the MC 176 QMB/SLMB2A. Assume this amount is
+$185. Subtract the children's own income.
+
+$185 Standard SSI Allocation
+- $ 0 Less Any Income of Child
+$185 Actual Allocation Amount to Bobby
+
+Subtract the actual allocation first, from the unearned income of the ineligible parent(s). Any unused
+allocation can be deducted from the gross earned income.
+
+2) Determine the Parent Deduction
+
+Since both parents live with Jason the actual parent deduction is the federal benefit rate for a couple.
+Assume the parent deduction for a couple is $553.
+
+3) Determine the allocation from the ineligible parent(s) to
+the QMB child.
+
+$ 0 Unearned Income
+$1,900 Gross Earned Income
+- $ 185 Actual Allocation Amount to Ineligible child
+$1,715
+- ,$...... 20 Unused Any Income Deduction
+$1,695
+- $ 65 Earned Income Deduction
+$1,630
+x 1/2 Earned Income Deduction
+$ 815 Countable earned income
++ 0 Countable unearned income
+$ 815 Total countable income
+- 553 Subtract parent deduction (Couple)
+$ 262 Allocation to QMB Child
+
+4) Determine the QMB Child's Income Eligibility.
+
+$262 Allocation from the ineligible parents
++ $150 Jason's SSA
+- $ 20 Any Income Deduction
+$392 Net Unearned Income
+
+5) Compare the Net Nonexempt Income of the QMB Child to
+the FPL for one.
+
+Assume the net nonexempt income of $392 is equal to or less than the FPL for one; income eligible for
+QMB.
+
+SECTION: 50258 MANUAL LETTER NO.: 18 8 DATE: OCT 2 2 PAGE: 5L-24
+
+MEDI-CAL ELIGIBILITY PROCEDURES MANUAL
+
+Example #5
+
+Emilio Sanchez is ten years old and receiving renal dialysis. He receives a monthly Social Security benefit
+of $175. His father, Roberto, also receives a monthly Social Security benefit of $450. Only Emilio is
+applying for QMB. Emilio's mother, Charlene, is a nursing assistant. She earns $1,600 (gross) per month.
+Roberto and Charlene have another son, Roberto Jr.
+
+QMB CHILD INCOME ELIGIBILITY DETERMINATION
+
+USE MEDI-CAL INCOME METHODOLOGY FIRST
+
+1) Determine the MFBU - Four
+
+2) Determine the Net Nonexempt Income using the
+MC 176 QMB/SLMB1.
+
+$ 175.00 Emilio's SSA
++ $ 0.00
+45 Roberto's SSA
+$ 625.00
+-$ 20.00
+$ 605.00 Net Unearned Income
+
+$1,600.00 Charlene's Gross Earned Income
+-$ 65.00 Earned Income Deduction
+$1,535.00
+x______ 112 Earned Income Deduction
+$ 767.50 Net Earned Income
++ $ 605.00 Net Unearned Income
+$1,372.50 Net Nonexempt Income
+
+3) Compare the Net Nonexempt Income to the FPL
+for the appropriate MFBU.
+
+Assume the net nonexempt income of $1,373 (Rounded) exceeds the current FPL for four; income ineligible
+using Medi-Cal Income Methodology. Attempt to establish income eligibility using SSI Income
+Methodology.
+
+SECTION: 50258 MANUAL LETTER NO.: 1 8 8 DATE: OCT 28 1997 PAGE: 5L-25
+
+MEDI-CAL ELIGIBILITY PROCEDURES MANUAL
+
+USE SSI INCOME METHODOLOGY NEXT
+
+1) Determine the actual allocation to all ineligible
+minor children as follows: Determine the
+Standard SSI Allocation to the ineligible minor
+child(ren) using Section II of the MC 176
+QMB/SLMB2B. Assume this amount is $185.
+Subtract the child's own income. (Roberto, Jr.
+has $0 income.) The actual allocation is $185.
+
+Subtract the actual allocation first from the
+unearned income of the ineligible parent(s). Any
+unused allocation can be deducted from the
+gross earned income.
+
+$ 450.00 Roberto's SSA
+185.00 Actual Allocation to Roberto, Jr.
+- 20.00 Any Income Deduction
+$ 245.00 Countable Unearned Income
+
+$1,600.00 Charlene's Gross Earned Income
+65.00 Earned Income Deduction
+One half of remainder
+$ 767.50 Countable Earned Income
+
+2) Determine the Parent Deduction of the QMB
+Child. Assume the parent deduction for a couple
+is $553.
+
+3) Determine allocation from income of the ineligible
+parents to the QMB child using the MC 176
+QMB/SLMB2B.
+
+$ 245.00 Countable Unearned
++ 767.50 Countable Earned
+$ 1,012.50 Total Countable Income
+- $ 553.00 Parent Deduction
+$ 459.50 Allocation to QMB Child
+
+4) Determine the QMB Child Income Eligibility.
+
+$ 459.50 Allocation from Ineligible Parents
++ 175.00 Emilio's Own SSA
+20.00
+$ 614.50
+
+5) Compare the Net Nonexempt Income of the QMB
+Child to the FPL for one. Assume FPL for one is
+$581. Emilio is ineligible.
+
+SECTION: 50258 MANUAL LETTER NO.: 1 8 8 DATE: OCT 2 2 1997 PAGE: 5L-26
+
+MEDI-CAL ELIGIBILITY PROCEDURES MANUAL
+
+K. QUESTlONS AND ANSWERS
+
+Program
+
+1. Is an IEVS check required for a QMB?
+
+Answer: A QMB-only applicant must be otherwise eligible for Medi-Cal and is therefore
+subject to applicable Medi-Cal regulations and the regular application process including an
+IEVS check. Dually eligible QMB applicants including SSI/SSP recipients have already had
+an IEVS check when their income and property were reviewed during the application
+process.
+
+2. If QMB benefits begin the month after the month of QMB approval, is this date reported
+to MEDS or the date the supervisor or worker approves the case?
+
+Answer: The county reports as the effective date the month QMB coverage is to begin,
+i.e., the month after the case is actually approved.
+
+For example: Mr. Jones applies for QMB benefits in January, the county determines
+eligibility in March with an approval date of January, the effective date is February 1st.
+
+3. If, on March 15th, an individual with Part B Medicare-only applies to the county for a QMB
+determination and the county is not able to schedule an appointment or make a
+determination before March 31st, should the county inform the applicant to first apply for
+conditional Part A before the March 31st deadline and return for an eligibility determination
+later?
+
+Answer: Yes. The county should inform the individual of the Part A enrollment deadline
+and advise him/her to apply for conditional Part A before March 31st. If the county later
+determines the individual as QMB eligible, benefits could begin in July. Otherwise, he/she
+would be required to wait another year to apply for Part A and could not be eligible for
+QMB benefits this year.
+
+4. Are status reports required for QMB-only recipients?
+
+Answer: No. A QMB is similar to aged, blind, or disabled (ABD) recipients who are not
+required to complete status reports, but as with ABDs, QMBs must report income or
+property changes.
+
+5. If a family was discontinued for failure to return a status report (mother and children were
+AFDC-MN based on the father's incapacity) and the father is also a disabled QMB, would
+he remain eligible as a QMB since no status reports are required?
+
+Answer: Yes.
+
+6. If a QMB-only without Part A was preapproved in January but benefits do not begin until
+July, when is his/her redetermination date?
+
+Answer: January.
+
+SECTION: 50258 MANUAL LETTER NO.: 1 8 8 DATE: OCT 2 2 1997 PAGE: 5L-27
+
+MEDI-CAL ELIGIBILITY PROCEDURES MANUAL
+
+7. If a dually eligible individual in LTC who has a SOC under regular Medi-Cal is paying his/her
+Part A premium and is approved for QMB benefits, how many months should the county
+allow for Medicare to begin billing DHS for the premium?
+
+Answer: Counties should allow approximately two months before readjusting the
+individual’s share of cost. This is similar to the Buy-In process (Part B).
+
+8. Can an IHSS statement of facts form be used for a dually eligible IHSS/QMB or must the
+county complete an MC 210?
+
+Answer: Counties may use the existing IHSS information.
+
+Medicare (This information is based on conversations with SSA. Detailed questions
+regarding Medicare should be referred to SSA).
+
+1. Must the parent of a QMB child on dialysis be deceased, aged, or disabled in order for the
+child to be eligible for Medicare?
+
+Answer: No, however, the parent must have worked the appropriate number of quarters
+under Social Security.
+
+2. If an individual with chronic renal disease has not paid into SSA and is not eligible for
+premium free Part A Medicare and has no parent or spouse who has worked the
+appropriate number of quarters under Social Security, may he/she purchase Part A.?
+
+Answer: No.
+
+3. If an individual who is eligible for premium free Part A does not apply for this benefit, may
+he/she enroll later at anytime?
+
+Answer: An individual is not given the option of refusing premium free Part A Medicare.
+He/she receives it when eligible; therefore, there is no need to enroll later.
+
+4. How does an individual who has chronic renal disease apply for Medicare Part A?
+
+Answer: Application is made with SSA. Most providers who specialize in this disease
+have the appropriate Medicare forms.
+
+5. When is a person with chronic renal disease eligible for Medicare Part A?
+
+Answer: An individual may apply in the third month of dialysis or immediately for home
+dialysis or a kidney transplant.
+
+6. May an individual purchase Medicare Part A but not B?
+
+Answer: No.
+
+SECTION: 50258 MANUAL LETTER NO.: 188 DATE: OCT 22 1997 PAGE: 5L-28
+
+MEDI-CAL ELIGIBILITY PROCEDURES MANUAL
+
+7. a) Can OBRA applicants/beneficiaries qualify for Medicare?
+
+b) If Yes, can they be eligible as a QMB?
+
+Answer: a) Yes, an OBRA individual can qualify for Medicare if the individual has paid into
+Social Security for the required quarters and is also either 1) blind or disabled and has
+received Title II benefits for at least 24 months or 2) aged.
+
+b) Federal guidelines state that a QMB must be either a citizen or a lawfully admitted for
+permanent residence alien; therefore, an OBRA alien is not eligible for QMB benefits.
+
+8. Must a blind individual also receive Title II benefits for 24 months before eligibility for
+Medicare begins?
+
+Answer: Yes.
+
+9. If an individual files for Part A benefits after the March 31st general enrollment, will SSA
+waive this deadline in some cases?
+
+Answer: Yes. If the individual has good cause.
+
+10. Is a child or spouse of an aged, deceased, blind, or disabled individual eligible for
+Medicare?
+
+Answer: Yes, but only if he/she is also aged, blind, or disabled and the spouse or parent
+is or was entitled to Medicare.
+
+SSI/SSP Recipients
+
+1. Should the county mail an application or Statement of Facts to the individual who was
+terminated from SSI/SSP to determine if he/she continues to be eligible as a QMB?
+
+Answer: Yes, if the individual did not receive these forms with the Ramos v. Myers NOA.
+
+2. If an SSI/SSP individual who is also eligible as a QMB has an increase in income which
+changes the amount of his/her cash grant but is not enough to cause the loss of SSI/SSP
+eligibility, will the county be notified?
+
+Answer: Unless the individual informs the county directly, the county will not be aware
+of this fact until the QMB redetermination.
+
+3. How may the SSI/SSP recipient distinguish his/her check from that of the SSA Title II
+check?
+
+Answer: The SSI/SSP check is sent in a blue envelope and has "SSI" on the face of the
+check as opposed to an SSA Title II check which is sent in a manila envelope and has
+"SOC SEC" on the face.
+
+SECTION: 50258 MANUAL LETTER NO.: 188 DATE: OCT 2 2 1997 PAGE: 5L-29
+
+MEDI-CAL ELIGIBILITY PROCEDURES MANUAL
+
+4. Is the MC 13 Form (Citizenship) required for SSI/SSP recipients who apply for QMB
+benefits?
+
+Answer: No. SSA has already asked for this information.
+
+5. If the county inadvertently reviews IEVS and finds a contradiction in income from the
+income recorded on MEDS, should the county attempt to verify the difference?
+
+Answer: No. Counties are to assume that the income information on MEDS is correct
+unless the individual reports otherwise.
+
+6. Is a QMB redetermination required for SSI recipients?
+
+Answer: Yes. They are considered aged, blind, or disabled and should be evaluated
+yearly.
+
+7. If the individual has been receiving QMB benefits based on the SDX information and he/she
+is then terminated from SSI/SSP, should the county require a regular application to
+continue QMB benefits?
+
+Answer: Yes. We are in the process of changing the Ramos v. Myers Notices of Action
+to include QMBs. Until that time, counties should terminate QMBs benefits if a regular
+application is not received from the QMB beneficiary within a reasonable time after the
+county request.
+
+Providers and Billing
+
+1. If a QMB-only individual resides in a county that requires Medi-Cal recipients to use certain
+facilities such as a prepaid health plan (PHP), may the QMB-only use that facility?
+
+Answer: Not at this time, but he/she can use other providers who accept Medi-Cal and
+Medicare.
+
+2. If a QMB beneficiary receives services from a provider who does not accept Medi-Cal, can
+the beneficiary be billed for the coinsurance and deductibles if the beneficiary receives
+services from a provider who is not an approved Medi-Cal provider?
+
+Answer: Yes
+
+3. May a provider bill a QMB for the difference between his/her rate and the approved
+Medicare reimbursement (in the case when we do not reimburse for any or all coinsurance
+and deductibles)?
+
+Answer: No.
+
+SECTION: 50258 MANUAL LETTER NO.: 1 8 8 DATE: OCT 2 2 1997 PAGE: 5L-30
+
+MEDI-CAL ELIGIBILITY PROCEDURES MANUAL
+
+Proparty
+
+1. Can a QMB applicant spenddown excess property to within the QMB property limit?
+
+Answer: Yes.
+
+2. If an individual is less than 18 years old and married, is he considered a QMB adult or
+child?
+
+Answer: He/she would be considered an adult for Medi-Cal, (unless claimed as a tax
+dependent by his/her parents), as well as for QMB regulations.
+
+3. When there is more than one child in the home applying for QMB benefits and one has
+more property than the other, should the county begin the QMB property determination
+with the child with less property or more?
+
+Answer: It is the county's decision. However, the county may wish to begin with the
+child who has the most property to avoid a recomputation if that child is ineligible.
+
+4. Will the property level change on an annual basis?
+
+Answer: No.
+
+5. How will community spouse rules under MCCA affect QMB property rules?
+
+Answer: MCCA primarily affects situations where one spouse is institutionalized after
+September 30, 1989, the other spouse is not institutionalized, and the application is made
+on or after January 1, 1990. Each spouse is in a separate MFBU. After initial MCCA
+eligibility is established, the EW uses the CSRA for the community spouse's QMB
+determination and the property reserve of no more than $2,000 for the QMB determination
+of the institutionalized spouse. The division of community property applies in all other
+cases where spouses are in separate MFBUs. In those cases, the spouse's separate and
+one-half of the community property is used in determining the QMB eligibility of each
+respective spouse.
+
+Income
+
+1. Must the county deny or discontinue QMB applicants/recipients who are not eligible due
+to excess income based on the SSA COLA or may the county wait until the increase in the
+federal poverty level?
+
+Answer: Effective January 1, 1991, the county must disregard the COLA increase until
+the publication of the federal poverty level.
+
+2. When does the "Standard QMB Allocation" amount change?
+
+Answer: The Standard QMB Allocation amount changes on January 1st of each year
+based on the annual Title II, Social Security Cost of Living Adjustment (COLA).
+
+SECTION: 50258 MANUAL LETTER NO.: 18 8 DATE: OCT 2 2 1997 PAGE: 5L-31
+
+MEDI-CAL ELIGIBILITY PROCEDURES MANUAL
+
+3. How are Impairment Related Work Expenses (IRWE) deducted? Are there set limits? Are
+IRWEs allowed under the regular Medi-Cal program?
+
+Answer: The IRWE is deducted from a QMB applicant's earned income. The IRWE
+deduction is the actual amount paid by the applicant. These deductions are not applicable
+for those applying for regular Medi-Cal.
+
+4. Since the Medicare Part B premium is deducted from the SSA benefit check (unless the
+beneficiary does not receive a check), what amount is used to determine QMB income?
+
+Answer: Since the gross amount of the SSA benefit is considered, it is necessary to add
+the premium amount back if it was deducted.
+
+5. If the spouse is also applying and he/she has income less than the Standard QMB
+Allocation amount, would this income be exempt?
+
+Answer: No. Only the income of the ineligible spouse shall be evaluated for exemption
+if less than the Standard QMB Allocation amount.
+
+6. Under Medi-Cal income methodology, a child may be excluded from the MFBU. May the
+child be excluded using SSI Income methodology?
+
+Answer: No, not unless the child receives PA or other PA. A child's income is only
+considered when computing the parent allocation to an ineligible child(ren).
+
+7. When do the SSA grant amounts change?
+
+Answer: The grant amounts are based on the COLA and are effective on January 1st of
+each year; however, the COLA is to be disregarded for QMB applicants/beneficiaries for
+the first three months.
+
+8. Would any QMB applicant have a share of cost (SOC) under regular Medi-Cal?
+
+Answer: There is a possibility that a QMB child might have earned income. Ineligible
+parents would be entitled to a parent deduction under SSI methodology. This deduction
+is not allowed under regular Medi-Cal. There are also individuals in LTC with a SOC who
+will be QMB eligible.
+
+9. Under "Pickle", a person is in his/her own MFBU. Would a person be in his/her own MFBU
+when applying for QMB benefits?
+
+Answer: Only if the person were in long term care. A person who is applying as a QMB
+should first be determined using Medi-Cal rules (all family members are in the MFBU). If
+not eligible, then SSI rules are used and there would be an MFBU of either one or two
+(depending on whether the income of the ineligible spouse is combined with the
+applicant's income).
+
+10. Is income apportioned under SSI income methodology?
+
+Answer: No. SSI income methodology requires that the actual gross income be used to
+determine income eligibility.
+
+SECTION: 50258 MANUAL LETTER NO.: 1 8 8 DATE: OCT 2 2 1997 PAGE: 5L-32
+
+MEDI-CAL ELIGIBILITY PROCEDURES MANUAL
+
+11. How will community spouse rules under MCCA affect QMB income rules?
+
+Answer: They do not. Post-eligibility treatment of income rules do not apply to QMB
+individuals.
+
+12. If the individual is paying for Board and Care, is this amount considered unavailable as it
+is under Medi-Cal?
+
+Answer: Board and Care expenses are considered unavailable under Step I (Medi-Cal), but
+not under the Step II (SSI) determination.
+
+L. NOTICES and FORMS
+
+The following notices and forms are enclosed. The MC 176 2A and 2B have been revised.
+
+1. MC 239 J Notice of Action - Approval for Benefits as a QMB
+
+This NOA may be used for all approved and preapproved QMB applicants. For example,
+this form may be used for:
+
+• Medi-Cal beneficiaries who have not met the QMB eligibility requirements except
+for Part A and who must apply for Part A, or who have met all the QMB eligibility
+requirements; or,
+
+• The general public who must apply for conditional Part A at the SSA office or are
+eligible because they already have Part A and meet all other QMB requirements.
+
+2. MC 239 J (SP) Notice of Action - Approval for Benefits as a QMB
+
+This is the Spanish version of the MC 239 J NOA.
+
+3. MC 239 K Notice of Action - Denial or Discontinuance of Benefits as a QMB.
+
+This NOA may be used for all QMB applicants.
+
+4. MC 239 K (SP) Notice of Action - Denial or Discontinuance of Benefits as a QMB
+
+This is the Spanish version of the MC 239 L NOA.
+
+5. MC 176 QMB-3 and Cover Sheet (English & Spanish)
+
+This form and information sheet may be used to enroll those QMB applicants who do not
+have Part A. Counties may use another method if their local Social Security
+Administration Office prefers; NOTE: Counties should include the Medicare HIC number
+and entitlement date for MEDS input if using a different form.
+
+6. MC 1 76 P QMB/SLMB-A - QMB Property Worksheet - Adult
+
+This form may be used to determine the property of a QMB applicant 18 years of age and
+older or if married.
+
+SECTION: 50258 MANUAL LETTER NO.: 18 8 DATE: OCT 22 1997 PAGE: 5L-33
+
+MEDI-CAL ELIGIBILITY PROCEDURES MANUAL
+
+7. MC 176 P QMB/SLMB-C - QMB Property Worksheet - Child
+
+This form may be used to determine the property of a QMB applicant 17 years of age and
+younger and unmarried.
+
+8. MC 176 QMB/SLMB 1 - QMB Income Eligibility Worksheet - All Applicants
+
+This form may be used to determine the income of a QMB applicant, couple, or a minor
+child(ren) who is also applying for regular Medi-Cal benefits.
+
+9. MC 176 QMB/SLMB 2A - QMB Income Eligibility Worksheet - Applicant with an Ineligible
+Spouse, with or without children.
+
+This form may be used to determine the income of a QMB applicant who has an ineligible
+spouse with or without children, who is not applying for regular Medi-Cal benefits or who
+was not eligible using the MC 176 QMB1 worksheet.
+
+10. MC 176 QMB/SLMB 2B - QMB Income Eligibility Worksheet - Child Applying with or
+without Ineligible Parents
+
+This form may be used to determine the income of a QMB child who is not applying for
+regular Medi-Cal benefits or who was not eligible using the MC 176 QMB 1 worksheet.
+
+11. MC Information Notice 008 - QMB Program Information Notice
+
+This form may be used to provide information to those interested in the requirements of
+the QMB program.
+
+SECTION: 50258 MANUAL LETTER NO.: 1 8 8 DATE: OCT 2 2 1997 PAGE: 5L-34
+
+MEDI-CAL ELIGIBILITY PROCEDURES MANUAL
+
+(County Stamp)
+MEDI-CAL —
+NOTICE OF ACTION
+Approval For Benefits as a Qualified
+Medicare Beneficiary (QMB)
+
+Data: ______________________
+
+Case No: ___________________
+
+Worker No:__________________
+
+This Affects: ___________
+
+IF YOU ARE ALREADY RECEIVING MEDI-CAL BENEFITS, THIS DOES NOT
+AFFECT THOSE BENEFITS.
+We reviewed your application to see if you are eligible for the Qualified Medicare Beneficiary (QMB)
+program. This program pays your Social Security Administration (SSA) Medicare Part A and B
+premiums, coinsurance and deductibles.
+
+We determined that:
+
+□ Beginning, you meet the basic eligibility requirements for the QMB
+program: however, before Medi-Cal can begin paying your Medicare expenses SSA must confirm
+your Part A eligibility.
+
+□ Since you have already applied for Part A, no further action is required now.
+
+□ You must apply for Part A. Take the enclosed form to the SSa office. Ask SSA to return this
+form to us as soon as possible.
+
+□ We have requested SSA to verify your Part A eligibility. No further action is required now.
+
+□ If you applied for regular Medi-Cal eligibility, you will receive a separate notice.
+
+If you pay Part A premiums, allow 3-4 months from the time you are eligible as a QMB for SSA to stop
+billing you or deducting these premiums from your check. If you do not pay Part A premiums, ask SSA
+when your Medicare will start.
+
+The regulation which requires this action is California Code of Regulations. Title 22, Section 50258.
+
+MC23 J (3/93)
+
+SECTION: 50258 MANUAL LETTER NO.: 1 8 8 DATE: OCT 22 1997 PAGE: 5L-35
+
+MEDI-CAL ELIGIBILITY PROCEDURES MANUAL
+
+STATE OF CALIFORNIA - HEALTH AND WELFARE AGENCY DEPARTMENT OF HEALTH SERVICES
+
+NOTIFICACION DE ACCION (Sello del Condado)
+DE MEDI-CAL
+Aprobación de Beneficios como Beneficiario
+Aprobado de Medicare (QMB)
+
+Fecha: _________________________
+
+No. del Caso: ____________________
+
+No. del Trabajador(a):
+
+Esto Afecta a:____________________
+
+SI USTED YA ESTA RECIBIENDO BENEFICIOS DE MEDI-CAL, ESTO NO AFECTA
+ESOS BENEFICIOS.
+Hemos revisado su solicitud para ver si usted reúne los requisitos para el Programa de Beneficiario
+Aprobado de Medicare (QMB). Este programa paga sus primas, coseguro y deducibles de Medicare
+Parte A y B de la Administración del Seguro Social (SSA).
+
+Hemos establecido que:
+
+□ Comenzando el, usted reúne los requisitos básicos para el programa
+QMB; sin embargo, antes que Medi-Cal pueda comenzar a pagar sus gastos de Medicare, la SSA
+tiene que confirmar su elegibilidad para la Parte A.
+
+□ Puesto que usted ya ha presentado una solicitud para la Parte A, ahora no se requiere
+ninguna otra acción.
+
+□ Usted tiene que solicitar la Parte A. Lleve la forma que se adjunta a la oficina de la SSA.
+Pidale a la SSA que nos la devuelva tan pronto como sea posible.
+
+□ Le hemos pedido a la SSA que verifique la elegibilidad suya para la Parte A. Ahora no se
+requiere ninguna otra acción.
+
+□ Si usted solicitó elegibilidad para Medi-Cal regular, recibirá una notificación por separado.
+
+Si usted paga primas para la Parte A, permita que pasen de 3 a 4 meses a partir de la fecha en que
+usted reúna los requisitos como QMB, para que la SSA deje de enviarle cobros a usted, o para que deje
+de deducir estas primas de su cheque. Si no paga primas para la Parte A, pregúntele a la SSA cuándo
+comenzará su Medicare.
+
+El ordenamiento que requiere esta acción, es la sección 50258 del Título 22 del Código de
+Ordenamientos de California.
+
+MC 239 J (SP) (3-93)
+
+SECTION: 50258 MANUAL LETTER NO.: 1 8 8 DATE: OCT 2 2 1997 PAGE:5L-36
+
+MEDI-CAL ELIGIBILITY PROCEDURES MANUAL
+
+MEDI-CAL (County Stamp)
+NOTICE OF ACTION
+Denial or Discontinuance of Benefits as a
+Qualified Medicare Beneficiary
+
+L
+State No:
+। District:
+
+IF YOU ARE ALREADY RECEIVING MEDI-CAL BENEFITS, THIS DOES NOT AFFECT THESE
+BENEFITS.
+We reviewed your application to see if you are eligible for a new program called the Qualified Medicare
+Beneficiary (QMB) program.
+We determined that:
+□ You are not eligible for the QMB program.
+□ Your eligibility for the QMB program ends.
+Here is why:
+□ Your is above the limit. If you have Part A Medicare and should your
+_________________ decrease, you may reapply. The limit is $. If you do not
+income/property
+have Part A Medicare, please reapply In January. The income limit may rise in future years.
+□ The Social Security Administration did not confirm that you are eligible for Medicare Part A.
+Contact your local SSA office for more information.
+□ You do not have Medicare Part A and/or Part B. You must contact your local SSA office to apply.
+When you receive verification of Medicare, please contact this office again.
+□ Other reasons.........
+
+□ You are not eligible for the regular Medi-Cal program because:
+
+□ If you also applied for regular Medi-Cal benefits, you will receive a separate notice about that
+program.
+The regulations which require this action are California Code of Regulations, Title 22.
+
+Sections .
+
+(Eligibility Worker) (Phone) (Dated)
+
+MC 239 K (10-39)
+
+SECTION: 50258 MANUAL LETTER NO.: 1 8 8 DATE: OCT PAGE: 5L-37
+
+MEDI-CAL ELIGIBILITY PROCEDURES MANUAL
+
+YOUR HEARING RIGHTS HOW TO ASK FOR A STATE HEARING
+To Ask For a State Hearing The best way to ask for a hearing is to fill out this page and
+send or take it to:
+The right side of this sheet tells how
+• You only have 90 days to ask for a hearing
+• The 90 days started the day after we mailed this notice
+You have a much shorter time to ask for a hearing if you want
+keep your same benefits. You may also call 1 -800-952-5253.
+
+To Keep Your Same Benefits While You Wait For a Hearing HEARING REQUEST
+You must ask for a hearing before the action takes place.
+I want a hearing because of an action by the Welfare
+Your Cash And will stay the same until your hearing Department of County about my:
+Your Medi-Cal will stay the same until your hearing. Cash Aid Food Stamps Medi-Cal
+Your Food Stamps will stay the same until the hearing or
+Other (list)
+the end of your certification period, whichever is earlier.
+If the hearing decision says we are right, you will owe us for
+any extra cash aid or food stamps you got. Here's why:
+
+To Have Your Benefits Cut Now
+If you want your Cash Aid or Food Stamps cut while you wait
+for a hearing, check one or both boxes.
+Cash Aid Food Stamps
+
+To Get Help
+
+You can ask about your hearing rights or free legal aid at the state
+information number.
+
+Call toll free 1-800-952-5253
+If you are deaf and use Too call: 1-800-952-8349
+
+If you don’t want to come to the hearing alone, you can bring a
+friend, an attorney or anyone else. You must get the other person
+yourself
+
+You may get free legal help at your local legal aid office or welfare
+rights group.
+I will bring this person to the hearing to help me
+(name and address, if known):
+
+Other Information
+I need on interpreter at no cost .
+Child Support: The District Attorney’s office- will help you collect child
+to me. My language or dialect is:
+support even if you are not on cash aid There is no cost for this help. If they
+now collect child support for you. they will keep doing so unless you tell them
+in writing to stop They will send you any current support money collected My name: .................................................................... ____ .____ _
+They will keep past due money collected that is owed to the county
+Address
+Family Planning: Your welfare office will give you information when
+you ask
+
+Hssring File: If you ask lor a hearing the Slate Hearing Office will set ups Phone:
+You nave the right to see this file The State may give your file
+to the Welfare Department, the U S Department of Health and Human
+Services and the US Department of Agriculture (W & I Code Section
+My signature ______________________________________________
+10950:
+Date_____________________________________________________
+
+SECTION: 50258 MANUAL LETTER NO.: 18 8 DATE: OCT 22 1997 PAGE: 5L-38
+
+MEDI-CAL ELIGIBILITY PROCEDURES MANUAL
+
+MEDI-CAL (County Stamp)
+NOTIFICACION DE ACCION
+Negación o Descontinuación de Beneficios como
+Beneficiario Aprobado de Medicare
+
+L
+No del Estado:
+Distrito: ____________________
+
+SI USTED YA ESTA RECIBIENDO BENEFICIOS DE MEDI-CAL ESTO NO AFECTARA ESTOS
+BENEFICIOS.
+Hemos revisado su solicitud para ver si usted es elegible para un programa nuevo que se llama
+Beneficiario Aprobado de Medicare (QMB).
+Se ha determinado que:
+□ Usted no es elegible para el programa QMB.
+□ Su elegibilidad para el programa QMB termina //.
+La razón es la siguiente:
+□ Sus ____________________ exceden el límite. Si usted tiene la porción A del seguro de Medicare
+íngresos/bienes
+y si el valor de sus _ disminuyen, usted puede volver a solicitar. El límite es
+
+$________________ . Si usted no tiene la porción A de Medicare, por favor vuelva a solicitarla en
+enero. Es posible que el límite de ingreso aumente en los próximos arios,
+□ La Administración del Seguro Social (SSA) no confirmó que usted es elegible para la porción A del
+seguro de Medicare. Para mayor información comuniqúese con su oficina local de la SSA.
+□ Usted no tiene cobertura de la porción A y/o de la porción B. Para solicitarla, comuniqúese con su
+oficina local de la SSA. Una vez que usted reciba la verificación de Medicare, comuniqúese con
+nuestra oficina nuevamente.
+□ Otras razones.........
+
+□ Usted no es elegible para recibir beneficios normales del programa de Medi-Cal porque:
+
+□ Si también solicitó beneficios normales de Medi-Cal, recibirá notificación sobre este programa por
+separado.
+Los ordenamientos que requieren esta acción son las secciones_____________________ del título 22
+del Código de Ordenamientos de California.
+
+(Trabajador(a) de elegibilidad) (Teléfono) (Fecha)
+
+MC239K(10/89) (SP)
+
+SECTION: 50258 MANUAL LETTER NO.: 1 8 8 DATE: OCT 2 2 1997 PAGE: 5L-39
+
+MEDI-CAL ELIGIBILITY PROCEDURES MANUAL
+
+SUS DERECHOS A UNA AUDIENCIA COMO PEDIR UNA AUDIENCIA CON EL ESTADO
+Para pedir una audiencia con el estado. La mejor manera de solicitar una audiencia es llenar paginay
+El lado derecho de esta página le indica cómo hacerlo. enviarla a:
+• Usted tiene solamente 90 dias para solicitar una audiencia.
+• Los 90 dias comenzaron un día después de la techa en que
+le enviamos esta notificación.
+• Tiene menos tiempo para pedir una audiencia si desea seguir También puede llamar al 1-800-952-5253.
+recibiendo los mismos beneficios.
+Para conservar sus mismos beneficios mientras espera una PETICION PARA UNA AUDIENCIA
+audiencia Deseo solicitar una audiencia a causa de una acción ejercitada por
+Debe solicitar una audiencia antes que la acción entre en vigor. el Departamento de Bienestar del Condado de
+• Su asistencia monetaria permanecerá sin cambios hasta que acerca de mi:
+se lleve a cabo su audiencia. Asistencia monetaria Estampillas para Comida
+• Su Medi-Cal permanecerá sin cambios hasta que se lleve
+Medi-Cal
+acabo su audiencia.
+• Sus estampillas para comida permanecerán sin cambios Otro (anote)_________________________________________
+hasta que se lleve a cabo la audiencia o hasta el fin de su
+périodo de certificación; lo que ocurra primero. La razón es la siguiente:______________________________
+• Si la decisión de la audiencia indica que estamos en lo
+correcto, usted nos deberá cyalesquier dinero o estampillas
+para comida que haya recibido. .
+Para que se descontinúen ahora sus beneficios
+Si usted desea que se descontinúen su asistencia monetaria o
+sus estampillas para comida mientras espera una audiencia,
+marque uno de los casilleros.
+□ Asistencia monetaria Estampillas para comida
+Para que le asistan
+Puede obtener información acerca de sus derechos a una
+audiencia o asesoría legal gratuita llamando al teléfono de
+información del estado.
+Número gratuito 1-800-952-5253
+Si es sordo y usa TDD: 1-800-952-8349
+Si no desea venir a la audiencia solo, puede traer un amigo, un
+abogado o cualquier otra persona, pero usted debe hacer los
+arreglos para traer a esa otra persona.
+Es posible que pueda obtener ayuda legal gratuita en su oficina
+local de asesoramiento legal (legal aid) o de su grupo de
+derechos de recipientes de asistencia pública.
+La siguiente persona vendrá conmigo a la audiencia a ayudarme
+(nombre y dirección si los sabe):
+
+Otra Informacion
+Mantenimiento de hijos: La oficina del Fiscal del Distrito le
+ayudará a cobrar mantenimiento de hijos aun cuando no esté
+recibiendo asistencia monetaria. Esta asistencia es gratuita. Si
+en la actualidad están cobrando mantenimiento de hijos a su Necesito un intérprete sin costo para mi.
+nombre, ellos continuarán haciéndolo hasta que usted les dé
+aviso por escrito indicándoles que paren. Le enviarán a usted
+Mi idioma es el:
+cualesquier cantidades de mantenimiento que cobren. Se
+quedarán con las cantidades vencidas cobradas que se le deban
+al condado. Mi nombre:
+Planificación familiar: Su oficina de bienestar le proporcionará
+Dilección:
+información cuando usted la solicite.
+Expediente de la audiencia: Si usted solicita una audiencia, la
+oficina de audiencias con el estado formará un expediente. Usted
+tiene el derecho de examinar este expediente. El Estado puede Telelono: _ ______________________________________________
+car su expediente al departamento de bienestar, al Departamento
+de Salud y Servicios Humanos de los Estados Unidos y al
+Mi Firma:______________________________________________
+Departamento de Agricultura de los Estados Unidos. (Sección
+10950 del Código de Bienestar e Instituciones)
+Fecha:________________________________________________
+NA BACK
+
+SECTION: 50258 MANUAL LETTER NO.: 18 8 DATE: OCT 2 2 1997 PAGE: 5L-40
+
+MEDI-CAL ELIGIBILITY PROCEDURES MANUAL
+
+Of CALIFORNIA AND WELL ARE AGENCY DEPARTMENT Of HEALTH SERVICES
+
+COVER SHEET FOR THE MC 176 QMB-3
+MEDICARE HOSPITAL INSURANCE
+REFERRAL FORM
+
+A NEW BENEFIT MAY BE AVAILABLE TO YOU- WHO CAN BECOME A “QUALIFIED MEDICARE
+MEDICARE HOSPITAL INSURANCE BENEFICIARY?"
+
+There is a new benefit under the Medi-Cal program To become a Qualified Medicare Beneficiary:
+you may want to have. Under a new law, if you
+want to have Medicare Hospital Insurance (Part 1. Your income must be at or below a federal limit
+A), we may be able to buy it for you and pay the which is a percentage of the federal poverty
+premiums, deductibles, and coinsurance. We may level.
+already pay for your Medicare Medical Insurance
+(Part B), for doctors’ services and some other 2. Your property must be at or below twice that of
+medical items and services. However, before we the Medi-Cal property limit.
+can pay for your Part A Hospital Insurance you
+must be a "Qualified Medicare Beneficiary". 3. You must meet other requirements of the
+regular Medi-Cal program such as residency,
+WHY SHOULD YOU ENROLL FOR HOSPITAL etc.
+INSURANCE?
+4. You must qualify for Medicare Part A Hospital
+With Medicare Hospital Insurance, you may have a Insurance.
+wider choice of hospitals in which to receive care
+depending on where you live. Medicare Hospital If you are not entitled to free Medicare Hospital
+Insurance may provide slightly different benefits Insurance and must pay a monthly premium, we
+than the Medi-Cal program. will pay the premium for you if you meet the 4
+requirements shown above.
+WHAT HAPPENS IF YOU DO NOT WISH TO
+BECOME A QUALIFIED MEDICARE BENEFICIARY? WHAT YOU SHOULD DO TO ENROLL
+
+If you do not wish to enroll, we will continue to pay You have already been determined to meet the
+your Part B Medicare Medical Insurance premium, first, second, and third steps because your income
+coinsurance and deductible, if you are eligible, and and property is at or below the federal limit and you
+your regular Medi-Cal will continue unless you no meet other Medi-Cal program requirements. If you
+longer meet the eligibility requirements for the want to become a Qualified Medicare Beneficiary,
+Medi-Cal program. You still are covered for all the last step is to take the enclosed Form MC 176
+necessary medical care, including full QMB-3 to your local SSA office by March 31st.
+hospitalization. Return this form to your county office when it is
+completed by SSA.
+
+MC 176 OMB-3 COVER SHEET (12/92)
+
+SECTION: 50258 MANUAL LETTER NO.: 188 DATE: OCT 2 2 1997 PAGE: 5L-41
+
+MEDI-CAL ELIGIBILITY PROCEDURES MANUAL
+
+The Social Security Administration will tell us when WHAT HAPPENS IF YOU ARE NO LONGER A
+you meet the Hospital Insurance requirements. QUALIFIED MEDICARE BENEFICIARY?
+
+WHAT HAPPENS IF YOU ENROLL IN If you are no longer a Qualified Medicare
+HOSPITAL INSURANCE? Beneficiary because your income or property has
+increased, or you fail to meet other Medi-Cal
+If you meet all the requirements, we will then make requirements, we will not be able to continue to
+you a Qualified Medicare Beneficiary and will begin pay your Hospital Insurance premium. If this
+paying your Medicare Hospital Insurance happens and you want to keep the Medicare
+premiums, deductible, and coinsurance in July. Hospital Insurance, you will have to pay the
+You will receive the same Medicare benefits as premium yourself.
+other Medicare beneficiaries, plus the benefit of
+having the Medi-Cal program pay for other Part A MEDI-CAL ESTATE RECOVERY
+costs. We will continue to pay your Part B
+Medicare Medical Insurance premium, deductible, Any Medi-Cal payments made on behalf of an
+and coinsurance if you are eligible. individual after age 65 are recoverable by the
+state after death under certain conditions.
+WHAT HAPPENS IF YOU DON'T ENROLL ON Recovery may be made from the estate or
+TIME? distributee/heir of the Medi-Cal beneficiary if the
+beneficiary does not leave a surviving spouse,
+To enroll this year, you must take the enclosed minor children, or a totally disabled child.
+form to your local SSA office by March 31st. If you
+don't, you must wait until January, February or IF YOU HAVE ANY QUESTIONS
+March of the following year for your next chance to
+enroll in Hospital Insurance. If you have any questions, you should call or write
+to your eligibility worker at your local welfare office
+for more information.
+
+SECTION: 50258 MANUAL LETTER NO.: 1 8 8 DATE OCT 2 2 1997 PAGE:5L-42
+
+MEDI-CAL ELIGIBILITY PROCEDURES MANUAL
+
+of CALIFORNIA HEALTH AND WELFARE AGENCY DEPARTMENT OF HEALTH SERVICES
+
+QUALIFIED MEDICARE BENEFICIARY (QMB) REFERRAL
+
+APPLICANT NAME: ADDRESS:
+
+SSN: DOB: SEX
+
+MEDICARE
+
+PHONE
+
+The person named above is an applicant for the Qualified Medicare Beneficiary (QMB)
+Program. Medicare eligibility status must be confirmed before the State can begin paying
+his/her Medicare premiums, deductibles and coinsurance.
+
+INSTRUCTIONS: COUNTY WELFARE DEPT. - Please complete Part I.
+SSA - Please enroll applicant In Medicare and complete Part II. Have the applicant
+return this form to the county.
+PART I COMPLETED BY COUNTY DEPARTMENT OF SOCIAL SERVICES/WELFARE,
+
+□ Currently eligible for Part B; however, must apply for conditional Part A.
+
+□ Not currently enrolled in either Medicare Part A or Part B. Please enroll the
+applicant in conditional Part A and Part B (if eligible).
+
+□ Medicare status unknown.
+
+COUNTY WELFARE ADDRESS: EW NAME/EW: PHONE: DATE:
+
+PART II COMPLETED BY SOCIAL SECURITY ADMINISTRATION
+
+□ Eligible for conditional Medicare Part A effective.
+Please evaluate for QMB eligibility.
+
+□ Currently receiving Medicare Part A.
+
+□ Must reapply during the general enrollment period.
+
+□ Not eligible for Part A or B because:
+
+SSA SIGNATURE: TITLE: PHONE; DATE:
+
+MC 176 OMB-3(10/92)
+
+SECTION: 50258 MANUAL LETTER NO.: 1 8 8 DATE: OCT 2 2 1997 PAGE: 5L-43
+
+MEDI-CAL ELIGIBILITY PROCEDURES MANUAL
+
+STATE OF CALIFORNIA HEALTH AND WELFARE AGENCY DEPARTMENT OF HEALTH SERVICES
+
+PAGINA INFORMATIVA SOBRE LA FORMA MC 176 QMB - 3
+SEGURO DE HOSPITAL DE MEDICARE
+FORMA DE REFERENCIA
+
+ES POSIBLE QUE UN BENEFICIO NUEVO ESTE ¿QUIEN PUEDE CONVERTIRSE EN "BENEFl-
+A SU DISPOSICION-EL SEGURO DE HOSPITAL CIARIO APROBADO DE MEDICARE”?
+DE MEDICARE
+A fin de convertirse en Beneficiario Aprobado de
+Es posible que usted desee tener el nuevo Medicare:
+beneficio que existe bajo el programa de Medi-Cal.
+Conforme a una nueva ley, si usted desea tener 1. Sus ingresos tienen que estar al límite federal o
+Seguro de Hospital de Medicare (Parte A), es por debajo del mismo, el cual es un porcentaje
+posible que se lo podamos comprar y pagarle las del nivel de pobreza federal.
+primas, deducibles y coseguro. Es posible que ya 2. Sus bienes tienen que estar al límite de bienes
+paguemos su Seguro Médico de Medicare (Parte de Medi-Cal o dos veces por debajo del mismo.
+B), para los servicios de médico y algunos otros
+artículos y servicios. Sin embargo, antes de que 3. Usted tiene que reunir otros requisitos del
+podamos pagar su Seguro de Hospital Parte A, programa de Medi-Cal regular, tales como el de
+usted tiene que reunir los requisitos como residencia, etc.
+"Beneficiario Aprobado de Medicare". 4. Usted tiene que reunir los requisitos para recibir
+¿POR QUE SE DEBE REGISTRAR PARA Seguro de Hospital de Medicare, Parte A.
+RECIBIR SEGURO DE HOSPITAL? Si usted no tiene derecho a recibir Seguro de
+Es posible que con el Seguro de Hospital de Hospital de Medicare gratis, y tiene que pagar una
+Medicare usted tenga una selección más amplia prima mensual, le pagaremos esa prima si reúne
+de hospitales en los cuales puede recibir cuidado, los 4 requisitos mencionados anteriormente.
+dependiendo de su lugar de residencia. El
+LO QUE DEBE HACER PARA REGISTRARSE
+Seguro de Hospital de Medicare le puede
+proporcionar beneficios un poco diferentes de los Ya se ha determinado que usted reúne el primer,
+que le brinda el programa de Medi-Cal. segundo y tercer requisitos, puesto que sus
+¿QUE PASA SI USTED NO DESEA ingresos y bienes están al límite federal o por
+CONVERTIRSE EN BENEFICIARIO APROBADO debajo del mismo, y usted reúne otros requisitos
+DE MEDICARE? del programa de Medi-Cal. Si usted desea
+convertirse en Beneficiario Aprobado de Medicare,
+Si no desea registrarse, continuaremos pagando el último paso a seguir es llevar la Forma MC 176
+su prima, del Seguro Médico de Medicare, Parte B, QMB-3 que se adjunta, a su oficina local de la
+el coseguro y el deducible y, si usted reúne los Administración del Seguro Social (SSA), a más
+requisitos, y continuará recibiendo sus beneficios tardar el 31 de marzo. Una vez que la SSA la haya
+regulares de Medi-Cal, a menos que ya no reúna completado, devuelva esta forma a la oficina de su
+los requisitos para recibirlos conforme al programa condado.
+de Medi-Cal. Usted sigue recibiendo cobertura
+para todo su cuidado médico necesario,
+incluyendo la hospitalización completa.
+
+MC 176 OMB-3 COVER SHEET (SP) (12/92)
+
+SECTION: 50258 MANUAL LETTER NO.: 188 DATE: OCT 2 2 1997 PAGE:5L-44
+
+MEDI-CAL ELIGIBILITY PROCEDURES MANUAL
+
+La Administración del Seguro Social nos ¿QUE PASA SI DEJA DE SER BENEFICIARIO
+comunicará cuando usted reúna los requisitos APROBADO DE MEDICARE?
+para recibir Seguro de Hospital.
+Si ya no es Beneficiario Aprobado de Medicare
+¿QUE SUCEDE S! SE REGISTRA PARA debido a que sus ingresos o bienes han aumentado,
+RECIBIR SEGURO DE HOSPITAL? o no reunió otros requisitos de Medi-Cal, no
+podremos seguir pagando su prima de Seguro de
+Si usted reúne todos los requisitos, entonces
+Hospital. Si esto sucede, y usted desea mantener
+nosotros lo convertiremos en Beneficiario
+su Seguro de Hospital de Medicare, tendrá que
+Aprobado de Medicare y comenzaremos a pagarle
+pagar la prima usted mismo(a).
+sus primas, deducibles y coseguro del Seguro de
+Hospital de Medicare, en julio. Usted recibirá los RECUPERACION QUE HACE MEDI-CAL DEL
+mismos beneficios de Medicare que los otros CAUDAL HEREDITARIO
+beneficiarios de Medicare, más el beneficio de que
+Cualesquier pagos de Medi-Cal que se hagan en
+el programa de Medi-Cal le pague otros costos de
+beneficio de un individuo mayor de 65 anos.
+la Parte A. Continuaremos pagando su prima,
+pueden ser recuperados por el estado después de
+deducible y coseguro del Seguro Médico de
+la muerte de éste, bajo ciertas condiciones. Se
+Medicare, Parte B, si reúne los requisitos.
+puede hacer la recuperación del caudal hereditario
+¿QUE SUCEDE SI NO SE REGISTRA A o del heredero del beneficiario de Medi-Cal, si el
+TIEMPO? beneficiario no deja un cónyuge, niños menores, o
+un hijo totalmente incapacitado que le sobrevivan.
+A fin de registrarse este año, usted tiene que llevar
+la forma que se adjunta, a su oficina local de la SI TIENE ALGUNA PREGUNTA
+SSA, a más tardar el 31 de marzo. Si no lo hace,
+Si tiene alguna pregunta, debe llamar o escribir a
+tiene que esperar hasta enero, febrero o marzo del
+su trabajador(a) de elegibilidad a su oficina local
+siguiente año para tener la oportunidad de
+de bienestar para recibir más información.
+registrarse para recibir Seguro de Hospital.
+
+SECTION: 50258 MANUAL LETTER NO.: 188 DATE: OCT 2 2 1997 PAGE: 5L-45
+
+MEDI-CAL ELIGIBILITY PROCEDURES MANUAL
+
+STATE OF CALIFORNIA • HEALTH AND WELFARE AGENCY DEPARTMENT OF HEALTH SERVICES
+
+QUALIFIED MEDICARE BENEFICIARY(QMB)/
+SPECIFIED LOW-INCOME MEDICARE BENEFICIARY (SLMB)
+PROPERTY WORKSHEET
+ADULT
+(18 YEARS OF AGE AND OLDER OR MARRIED)
+
+NAME CASE NUMBER MONTH
+
+STEP I - REGULAR MEDI-CAL METHODOLOGY
+
+A. Determine net nonexempt property in accordance with Article 9.
+
+B. Does family qualify under the regular Medi-Cal property
+rules and property limits?
+
+□ Yes, stop here. QMB/SLMB property requirement met.
+
+□ No, proceed to step II.
+
+STEP II - QMB/SLMB METHODOLOGY
+
+A. Only consider the net nonexempt property of the QMB/SLMB applicant (and spouse);
+do not consider the property of any other family members in the home.
+
+B. Net nonexempt property of QMB/SLMB applicant (and spouse). $ ______________
+
+C. Property limit for one person (or two persons if there is a spouse). $ ______________
+
+D. Twice the property limit shown on line IIC. $ ______________
+
+E. Is line IIB less than or equal to line IID?
+
+□ Yes, QMB/SLMB property requirement met.
+
+□ No, ineligible due to excess property.
+
+Eligibly Worker Signature Worker Number
+
+MC 176 P QMB/SLMB • A (10/92)
+
+SECTION: 50258 MANUAL LETTER NO.: 18 8 DATE: OCT 2 2 1997 PAGE: 5L-46
+
+MEDI-CAL ELIGIBILITY PROCEDURES MANUAL
+
+STATE OFCALIFORNIA • HEALTH AND WELFARE AGENCY DEPARTMENT OF HEALTH SERVICES
+
+QUALIFIED MEDICARE BENEFICIARY(QMB)/
+SPECIFIED LOW-INCOME MEDICARE BENEFICIARY (SLMB)
+PROPERTY WORKSHEET
+CHILD
+NAME CASE NUMBER MONTH
+STEP I - REGULAR MEDI-CAL METHODOLOGY
+A. Determine net nonexempt property in accordance with Article 9.
+B. Does family quality under the regular Medi-Cal property rules and property limits?
+□ Yes, stop here.
+□ No, proceed to Step II.
+STEP II - QMB/SLMB METHODOLOGY
+A. Parental allocation (Includes stepparent)
+Only consider the net nonexempt property of the parent(s) in the home; do not consider
+the property of any other family members.
+1. Parent(s)' net nonexempt property. $
+2 Property limit tor one person (if 2 parents, enter property limit for two persons). $
+3. Subtract line A2 from line A1 (enter 0 if negative). Total Allocation $
+4. Divide line A3 by the # of QMB/SLMB children in the home.
+QMB/SLMB Child's Share.......................... $
+B. QMB/SLMB child's and parent(s)'s resources
+1. Child's own net nonexempt property (as determined under Article 9). $
+2. Enter child's share of property from parent(s) (line A4) $
+3. Add line B1 and B2. $
+4. Twice the property limit for one person. $
+5. Is line B3 less than or equal to line B4?
+□ Yes, QMB/SLMB property requirement met.
+□ No. ineligible due to excess property. If more than one QMB/SLMB
+child in the home, proceed to Section C.
+C. Child In Section B Is Ineligible and more than one QMB/SLMB child In the home
+A. Follow these steps if the child in Section B above is ineligible lor any reason, e.g., attainment of
+age 18 or due to excess property because the parental allocation when combined with the
+QMB/SLMB child's own net nonexempt property exceeds twice the Medi-Cal property limit for
+one person.
+B. Take the amount ol property deemed from the parent(s) (Line A3) and re-divide it among the
+remaining number of QMB/SLMB children in the home (Line A4).
+C. Repeat Section B for each of the remaining QMB/SLMB children in the home to determine if the
+combined amount ol the child's share of parental net nonexempt property and the child's own
+net nonexempt property (Line B3) is within the allowable QMB/SLMB property limit (Line B4).
+
+Eligibility Worker Signature Worker Number
+
+MC 176 P OMBSLM8-C (10/92)
+
+SECTION: 50258 MANUAL LETTER NO.: 1 8 8 DATE: OCT 2 2 1997/ PAGE: 5L-47
+
+MEDI-CAL ELIGIBILITY PROCEDURES MANUAL
+
+INSTRUCTIONS
+QUALIFIED MEDICARE BENEFICIARY (QMB)/SPECIFIED
+LOW-INCOME MEDICARE BENEFICIARY (SLMB)
+INCOME ELIGIBILITY WORKSHEET FOR ALL APPLICANTS:
+INDIVIDUAL(S); COUPLE(S); AND CHILDREN
+(LTC INDIVIDUAL IN OWN MFBU)
+FORM MC176 QMB/SLMB 1
+Form MC 176 QMB/SLMB1, Income Eligibility Worksheet, is used to compute the income for all individuals who are
+applying under the QMB/SLMB program. This form is completed at the time of a new application, restoration,
+reapplication, change in income or other circumstances affecting the income, or correction in the income.
+
+Instruction for Completion
+Identification Section
+1. Enter: Case Name.
+
+2.County District. If the county has district, identify the district.
+
+3. County Use. Make any entries the county department has designated it wants.
+4.Check the appropriate box which gives information concerning the reason for the computation. The box “new
+application" includes restorations and reapplications.
+5 Effective Eligibility Date for This Budget. Enter the month in which eligibility will begin with this budget
+computation.
+
+6. State Number. For family members who are applying as an ABD medically needy (MN) QMB/SLMB applicant,
+and those included in the MFBU as ineligible members: enter the county code, appropriate aid code, seven digit
+number, MFBU number, and the persons number. If the county does not use the seven-digit serial number, enter
+• zeros in from of the serial number until there are seven digits. For the family members who are not included in
+the MFBU as eligible members, enter their status under state number, in accordance with the following:
+
+DO NOT INCLUDE RECIPIENTS OF PA IN MFBU.
+Four Month or Nine Month Continuing: Family members eligible for Four Month or Nine Month Continuing
+Eligibility are considered as ineligible members of the MFBU.
+
+Excluded ----- ---------------------------------- For children with income or property of their own who are excluded from
+the MFBU.
+
+I.E. (or county--—--------------------------------For members of MFBU who are not
+designated I.E. aid code) applying for QMB/SLMB benefits.
+S/P--------------------------------------------------- For family members in the stepparent unit when only the parent and the
+parent's children are included in the MFBU.
+
+Pickle Eligible--------------------- -—...... —For Aged, Blind, and Disabled (ABD) family member
+Members who were discontinued from Supplemental Security
+Income/State Supplementary Payment (SSI/SSP)
+and continue to receive a no-cost Medi-Cal card in
+accordance with the Lynch v. Rank decision.
+
+ABD/LTC............................ ------- ---------- For an ABD person or the spouse of an ABD person
+or who is in LTC or board and care who will be in a
+ABD/B&C separate MFBU from his/her spouse and/or child(ren)
+listed on the MC 176M.
+
+7 Name: Enter the names of all family members living in the home in accordance with the California Code of
+Regulations (CCR), Title 22, Section 50071, and any ABD person or spouse of an ABD person in LTC or board
+and care. Enter an unborn child by listing as the name "unborn" and expected date of birth after “unborn".
+
+MC 176 QMB/SLMB 1 (INST) (10/92) 1
+
+SECTION: 50258 MANUAL LETTER NO.: 18 8 DATE: OCT 2 2 1997 PAGE: 5L-48
+
+MEDI-CAL ELIGIBILITY PROCEDURES MANUAL
+
+3 Birthdate. Enter the birthdate of each person listed. Under sex. enter “M" for male and “F" for female for each
+person listed.
+
+9. Social Security number: Enter the Social Security number tor each person applying as a QMB/SLMB. If a
+person does not have a Social Security number, he/she is not eligible as a QMB/SLMB. Enter the Medicare or
+Railroad Retirement claim number, if any. See CCR, Section 50187.
+10. Other Coverage Code: Determine the other coverage code in accordance with Section 15A of the procedural
+portion of the Medi-Cal Eligibility Manual.
+
+Section 1 : income of Potential QMB Composition
+
+In this section enter all the nonexempt unearned and earned income of the QMB/SLMB applicant(s) and ineligible
+spouse, if one, who are applying as ABD in Section I (A) and (B), providing the spouse or parent is a member of the
+MFBU (either an eligible or ineligible member). Do not list income which is exempt in accordance with CCR, Section(s)
+50523 through 50544.
+NOTE. The ownership of the income determination required by CCR, Section 50512 should be determined prior to the
+completion of this portion of the form it there is a spouse with LTC status who is in a separate MFBU.
+
+a. Nonexempt Unearned Income
+When any of the following deductions apply to a person's income which will be listed in Section I, complete Part VI. A of
+the MC 176W instead of lines 1 through 5 of Section I.
+
+Educational Expenses Section 50547
+Absent Parent Support Section 50541
+Income for Self-Support Section 50551.5
+Court Ordered Child/Spousal Support Gibbins v Bank
+1. Enter: Social Security income.
+
+2 Net income received from property.
+
+3-4. All other unearned income. II applicable, include SSI/SSP In-Home Supportive Services (IHSS) recipient's
+available income: stepparent's income deemed available from MC 176W, Parts II and V.B: and income allocated
+from the Pickle eligible spouse or parent.
+
+5. Total the amounts in Section I, Part A, lines 1.a. through 4.a. This is the total unearned income of the
+QMB/SLMB applicant of the MFBU. Also, total the amounts in Section I, Part A, lines l.b. through 4.b. This is
+the total unearned income of the QMB/SLMB spouse; ineligible spouse or parent of the QMB/SLMB child
+applicant of the MFBU.
+
+6. Add lines 5.a. and 5.b., or enter the amount from 176W, Part VI.A. This is the combined unearned income of the
+QMB/SLMB ABD applicant in the MFBU and their eligible or ineligible spouse or ineligible parent(s) of a
+QMB/SLMB child applicant who is a member of the MFBU.
+
+7. No entry. This shows the $20 any income deduction.
+
+8. Subtract line 7 from line 6. This is the total countable unearned income. If the countable unearned income is a
+minus figure, enter zero on line 8 and enter the minus figure, which is the unused portion of the $20 any income
+deduction, in the blank provided on line 13.
+
+B. Nonexempt Earned Income
+
+When any of the following deductions apply to a person's income which will be listed in Section 1, complete Part
+VI.B of the MC 176W instead of line 9:
+
+Student Deduction Section 50551
+$30 Plus One-Third, or $30 Section 50551.1
+Work Expenses for the Blind Section 50551.4
+Court Ordered Child/Spousal Support Gibbins v. Rank
+
+2
+
+SECTION: 50258 MANUAL LETTER NO.: 1 8 8 DATE: OCT 2 2 1997 PAGE:5L-49
+
+MEDI-CAL ELIGIBILITY PROCEDURES MANUAL
+
+9. Enter. Gross earned income.
+
+10. Add the amounts in lines 9.a. and 9.b. or enter the amount from line 4 of the MC 176W, Part VI.B. This
+is the combined earned income of the QMB/SLMB applicant(s). QMB/SLMB spouse or parent(s) of the
+MFBU.
+11. Deduct any impairment related work expenses (IRWE) of the potential QMB/SLMB applicant(s).
+
+12. Subtract number 11 (IRWE expenses) from number 10.
+
+13. Enter the $65 or the $65 and one-half deduction plus any unused portion of the $20 any income
+deduction here.
+
+14. Subtract line 13. from line 12. If line 14. is less than line 10. enter zero.
+
+15. Divide line 14. by two. This figure equals the countable earned income.
+16. Total lines 8.A. and 15.B. to obtain the total unearned and earned income. Enter this amount in Section
+III. line 1.
+
+Section II = income of MFBU Member (Both Eligible and Inellgible Mem bers) Not Listed In Column I
+NOTE: The ownership of income determination required by CCR, Section 50512 should be determined prior to
+the completion of this portion of the form if there is a spouse with LTC status who is in a separate MFBU.
+
+A. Nonexempt Unearned income
+
+1. Enter: Social Security income.
+
+2. Net income received form property.
+
+3-4 All other unearned income. Include SSI/SSP/IHSS recipient’s available income, stepparent's income
+deemed available from MC 176W, Part II and Part V.B, and income allocated from a Pickle eligible
+spouse or parent.
+
+5. Total lines 1 through 4.
+B. Nonexempt Earned Income
+
+6. Enter the amount from the MC 176W, Part IV, fine 11.
+
+C. Total Countable Income
+
+7. Add lines 5.A and 6.B.
+
+8. Enter any amount paid for court ordered child support or alimony paid under an agreement with the
+district attorney.
+
+9. Subtract line 8 from line 7. This is the total countable income. Enter in Section m, line 2.
+
+Section III :: QMB/SLMB Eligibility Computation
+
+1. Enter: Total countable income from Section I, line 16.
+
+2. Enter: Total countable income from Section II, line 9.
+
+3. Add lines 1, and 2, (rounded). This is the combined countableincomeof the MFBU.
+
+4. Enter the current QMB/SLMB poverty level for the appropriate MFBU. If line 3. is equal to or less than
+line 4., QMB/SLMB eligible. If line 3. exceeds line 4., complete the MC 176 QMB/SLMB2A, for an
+individual or couple (who have minor children in the home): applicant with an ineligible spouse, (with or
+without a child(ren): or MC 176 QMB/SLMB2B, if a child(ren) is applying who does or does not have a
+parent(s).
+
+3
+
+SECTION: 50258 MANUAL LETTER NO.: 1 8 8 DATE: OCT 22 1997 PAGE: 5L-50
+
+MEDI-CAL ELIGIBILITY PROCEDURES MANUAL
+
+Eligibiliy Worker signature.
+The worker enters his/her signature.
+
+Worker Number
+If the Eligibility Worker has a county number, enter here.
+
+Date of Computation
+The eligibility worker completes the box with the date the form was completed.
+
+Caunty. Use
+Optional - - to be used in accordance with county policy. _
+
+SECTION. 50258 MANUAL LETTER NO.: 1 8 8 DATE: OCT 2 2 1997 PAGE: 5L-51
+
+MEDI-CAL ELIGIBILITY PROCEDURES MANUAL
+
+STATE OFCALIFORNIA - HEALTH AND WELFARE AGENCY DEPARTMENT OF HEALTH SERVICES
+
+QUALIFIED MEDICARE BENEFICIARY (QMB)/SPECIFIED LOW-INCOME MEDICARE
+BENEFICIARY (SLMB) INCOME ELIGIBILITY WORKSHEET FOR ALL APPLICANTS:
+INDIVIDUAL(S); COUPLE(S); AND CHILD(REN) (LTC INDIVIDUAL IN OWN MFBU)
+Case Name County District County Use
+
+Effective Eligibility Dale for this Budget
+New Application Redetermination □ Change □ Correction
+MO. Yr.
+State Number Birthdale Sex (1) Social Security No. and
+Pers (2) Health Insurance Claim No. Other
+Name — First, Middle, Last Mo. Day Yr. or Rajlroad Retirement No. Coverage
+Co Aid 7 Diglt Serial No. MFBU No.
+(1)
+(2)
+(1) .......................................................
+(2)
+(1)
+(2)
+(1)
+(2)
+(1)
+
+tn
+(2)
+
+(2)
+1. INCOME OF MFBU MEMBERS APPLYING AS AGED, II. INCOME OF MFBU MEMBERS NOT USTED IN L III. QMB/SLMB ELIGIBILITY COMPUTATION
+BLIND.OR DISABLED PLUS INCOME OF SPOUSE (EXCEPT PA OR OTHER PA)
+OR PARENT (EXCEPT PA OR OTHER PA)
+A. NONEXEMPT UNEARNED INCOME A NONEXEMPT UNEARNED INCOME 1. Countable Income from 1. 16.
+
+a. QMB/SLMB b.QMB/SLMB Spouse
+(or) 2. Countable Income from □ 9.
+Applicant 1. RSDI
+Spouse or Parent(s)
+2. Net Income from property 3. Combined Countable Income
+1. RSDI S
+(add 1 and 2. rounded)
+2. Net Income 3. Other—Itemize 4. Total current OMBZSLM8 Poverty Level
+from property for appropriate MFBU of____ S
+3. Other—temize (II line 3 Is less than Ine 4. QMB/SLMB eligible. If line 3
+exceeds Ine 4. complete line MC QMB/SLMB 2A or 26)
+4 4.
+
+5 Total 5. Total Unearned Income
+(add 1 thru 4) a. b. (add 1 thru 4) S
+6 Combined Unearned Income B. NONEXEMPT EARNED INCOME
+(add 5a and Sb)
+7. Any income deduction $ 20 6. Total Net Earned Income
+(MC 176W. Part IV, Line 11.) S
+6, Countable Unearned Income C. TOTAL COUNTABLE INCOME
+(6 minus 7) S
+0. NONEXEMPT EARNED INCOME
+7. Subtotal (add 5 and 6) S
+9. Grass Earned a. b.
+8. Child Support/Almony paid
+Income
+10.Combined Earned Income 9. Total Countable Income
+(add 9a and 9b) (7 minus 8) S
+11.Deduct IRWE of potential NOTE:
+QMB/SLMB Applicant(s) Only -
+If there is Income from which Educational Expenses are
+12 Remainder deducted (Section 50547). show calcutallons here. Enter
+(subtract 11 from 10) $ net amount on line 3 or 4.
+13. $ 65 Earned Inc. deduction
+Plus $_____ unused $20
+14 .Remainder
+(subtract 13 from 12) $ Less total educational expenses
+
+15 Countable Earned Net countable Income
+Income ( 14 by 2) $
+16 Total Countable If any of the following deductions apply, cúmplele MC 176W.
+income (add 6 and 15) $ Part VI before compteling Column I:
+Educational Expenses Section 50547
+Absent Parent Support Section 50541
+Student Deduction Section 50551
+$30 plus 1/3 Section50551.1
+Work Expenses lor the Blind Section 50551 4
+income for Self-Support Section50551.5
+
+IV. EXEMPT INCOME
+
+Note: Do not allow a deduction for health Insurance.
+
+Eligibility Worker Signeture Worker Number Date County Use
+
+MC 176 QMB/SLMB '1 (10/92)
+
+SECTION: 50258 MANUAL LETTER NO.: 1 8 8 DATE: OCT 2 2 1997 PAGE: 5L-52
+
+MEDI-CAL ELIGIBILITY PROCEDURES MANUAL
+
+QUALIFIER MEDICARE BENEFICIARY (QMB)/SPECIFIED LOW-INCOME
+MEDICARE BENEFICIARY (SLMB) INCOME ELIGIBILITY WORK SHEET
+COUPLE OR APPLICANT WITH AN INELIGIBLE SPOUSE, WITH OR WITHOUT CHILD(REN)
+
+Form MC 176 QMB/SLMB-2A, Income Eligibility Work Sheet, is used to compute the income (using current Medi-Cal income
+methodology and incorporating certain criteria which is less restrictive than Medi-Cal methodology) for allocating income from a
+spouse (eligible or ineligible) with or without a child(ren) to either the applicant and/or a child(ren) who does not qualify using
+Medi-Cal income rules only. This form is completed at the time of a new application, restoration, application, change in income,
+or other circumstances affecting the income or correction in the income.
+
+NOTE: The MC 176 QMB/SLMB1 should be completed prior to completion of the MC 176 QMB/SLMB-2A to determine if the
+applicant (s)/beneficiary(ies) are eligible using Medi-Cal rules.
+
+instructions for Completion
+
+Identification Section
+
+1. Enter: Case name
+
+2. County District: If the county has districts, identity the district.
+
+3. County Use: Make any entries the county department has designated it wants.
+
+4. Check the appropriate box which gives information concerning the reason for the computation. The box “new application"
+includes restorations and reapplications. .
+
+5. Effective Eligibility Date For This Budget: Enter the month in which eligibility will begin with this budget computation.
+
+6. State Number: For family members who are applying as an ABD medically needy (MN) QMB/SLMB application and those
+included in the MFBU as ineligible members: enter the county code, appropriate aid code, and seven-digit serial number;
+enter zeros in front of the serial number until there are seven digits. For the family members who are not included in the
+MFBU as eligible members, enter their status under state number, in accordance with the following:
+
+DO NOT INCLUDE RECIPIENTS OF A PA IN MFBU.
+
+Four-Month or Nine-Month Continuing Eligibility............................... Family members eligible for Four-Month or
+Nine-Month Continuing Eligibility are considered as
+ineligible members of the MFBU.
+
+Excluded ............................................................................................... For children with income or property of their own who
+are excluded from the MFBU.
+I.E. (or county designated I.E. aid code) .......................................... For members of the family unit who are not applying
+for QMB/SLMB benefits.
+S/P ........................................................................................................ For family members in the stepparent unit when only
+the parent and the parent's children are included in
+the MFBU.
+Pickle Eligible Member ........ For Aged, Blind, and Disabled (ABD) family members
+who were discontinued from Supplemental Security
+income/State Supplementary Payment (SSI/SSP)
+and continue to receive a no-cost Medi-Cal card in
+accordance with the Lynch v. Rank decision.
+ABD/LTC or ABD/B&C ........................................................................ For an ABD person or the spouse of an ABD person
+who is in LTC or board and care who will be in a
+separate MFBU from his/her spouse and/or chiid(ren)
+listed on the MC 176M.
+
+MC 176 QMB/SLMB-2A (INST) (9-95)
+
+SECTION: 50258 MANUAL LETTER NO.:188 DATE: OCT 22 PAGE:5L-53
+
+MEDI-CAL ELIGIBILITY PROCEDURES MANUAL
+
+7. Name: Enter the names of all family members living in the home in accordance with the California Code of Regulations
+(CCR). Title 22. Section 50071, and any ABD person or spouse of an ABD person in LTC or board and care. Enter an
+unborn child by listing as the name “unborn" and expected date of birth after "unborn."
+
+8. Birthdate: Enter the birthdate of each person listed. Under sex, enter “M" for male or “F” for female for each person listed.
+
+9. Social Security Number: Enter the Social Security number for each person applying as a QMB/SLMB. If a person does
+not have a Social Security number, he/she is not eligible as a QMB/SLMB. Enter the Medicare or Railroad Retirement
+claim number, it any. See CCR. Section 50187.
+
+10. Other Coverage Code: Determine the other coverage code in accordance with Section 15.A. of the procedural portion of
+the Medi-Cal Eligibility Manual.
+
+Section I. Income of Potential QMB/SLMB Composition
+
+In this section enter all the nonexempt unearned and earned income of the QMB/SLMB applicant(s); and ineligible spouse, if
+any, who is applying as ABD in Section I.a. and b., providing the spouse or parent is a member of the MFBU (either an eligible
+or ineligible member). Do not list income which is exempt in accordance with CCR, Sections 50523 through 50544.
+
+NOTE: The ownership of the income determination required by CCR, Section 50512, should be completed prior to the
+completion of this portion of the form if there is a spouse with LTC status who is in a separate MFBU.
+
+A. Nonexempt Unearned Income
+
+When any of the following deductions apply to a person’s income which will be listed in Section I, complete Part VI.A. of
+the MC 176W instead of lines 1 through 5.
+
+Educational Expenses Section 50547
+Absent Parent Support Section 50541
+Income for Self-Support Section 50551.5
+Court Ordered Child/Spousal Support Gibbins v. Rank
+
+1. Enter: Social Security income
+
+2. Net income received from properly.
+
+3- 4. All other unearned income. If applicable, include SSI/SSP In-Home Supportive Services (IHSS) recipients' available
+income and income allocated from a Pickle eligible spouse or parent.
+
+5 Total the amounts in Section I, Part A, lines 1.a. through 4.a. This is the total unearned income of the QMB/SLMB
+applicant of the MFBU. Also, total the amounts in Section I, Part A., lines 1 .b. through 4.b. This is the total unearned
+income of the eligible or ineligible spouse of the QMB/SLMB members of the MFBU.
+
+6. Enter the total amount allocated to the minor child(ren), if any, from the ineligible spouse. Enter the figure computed
+from Section II. line 5, onto line 6.b. NOTE: Income can only be allocated to a child(ren) from an ineligible spouse.
+
+7. Subtract line 6.b. from line 5b. and enter this amount on line 7.b.(1). If line 7.b.(1) is a minus figure, enter the minus
+amount on line 12.b. and enter zero on line 7.b.(2). Otherwise, enter the amount from line 7.b.(1) onto line 7.b.(2).
+
+8. This is the combined unearned income of the ABD member(s) of the MFBU and/or spouse who may be a member of
+the MFBU (either eligible or ineligible member). (Add line 7.b.(2) and line 5.a.)
+
+9. No entry This shows the $20 any income deduction.
+
+10. Subtract line 8 from line 7. This is the total countable unearned income, If the countable unearned income is a minus
+figure, enter zero on line 10 and enter the minus figure, which is the unused portion of the $20 any income deduction,
+in the blank provided on line 17
+
+MC 176 QMB/SLMB-2A (INST) (9/95)
+
+SECTION: 50258 MANUAL LETTER NO.: 1 8 8 DATE: OCT 22 1997 PAGE: 5L-54
+
+MEDI-CAL ELIGIBILITY PROCEDURES MANUAL
+
+State of California-Health and welfare Department of Health Services
+
+B. Nonexempt Earned Income
+
+11. Enter the gross earned income.
+
+12. Enter the amount of any allocation for any ineligible minor child(ren) that is not offset by countable unearned income
+(Any minus amount on line 7.b.(1)). Otherwise, enter zero in line I.B.12.b
+
+13. Subtract line 12.b. from line 11.b. Enter the remainder on line 13.b. Exception; enter zero on line 13.b. if line 12.b.
+is greater or equal to line 11.b.
+
+14. Add lines 11.a. and 13.b. This is the combined nonexempt earned income of the applicant(s) and ineligible spouse
+if the ineligible spouse's income is combined with the applicant's.
+
+15. Deduct any impairment related work expenses the potential QMB/SLMB applicant(s) may have.
+
+16. Subtract line 15 from line 14 and enter this amount on line 16. Exception: enter zero on line 16 if line 15 is greater
+or equal to line 14.
+
+17. Enter the $65 of the $65 and one-half deduction plus any unused portion of the $20 any income deduction.
+
+18. Subtract line 17 from line 16 and enter the difference on line 18. If line 17 is greater or equal to line 16, enter zero.
+
+19. Divide line 18 by two. This figure equals the countable earned income.
+
+20. Add lines 10 and 19. This is the total countable income of the ABD applicant(s) of the MFBU or applicant and his/her
+spouse who is a member of the MFBU (either eligible or ineligible). Enter this amount on line 20 and on line 1 of
+Section IV.
+
+Section II. Allocation to Minor Child(ren) from the Ineligible Spouse (Do Not Allocate From a QMB/SLMB Applicant(s).
+Do Not Include a QMB/SLMB Child(ren), PA or Other PA.
+
+1. Enter: Name(s) of ineligible child(ren). Do not include QMB/SLMB child(ren), PA or other PA.
+
+2. Standard SSI allocation: Enter current year's allocation amount for each child (see QMB/SLMB poverty level chart). If no
+child(ren), enter zero on line 5, and on line I.A.6.b.).
+
+3. Income for the ineligible minor child(ren): Enter the income amount for each child, excluding up to $400 per month or
+$1620 per year if student income.
+
+4. Subtract line 3 from line 2 and enter on line 4.
+
+5. Total all columns on line 4 . Complete Section III to determine whether this figure is to be entered on line I.A.6.b. If Section
+III, line 5 is less than the current SSI allocation, stop and do not complete Section Lb.
+
+Section III. Ineligible Spouse Income Exemption Determination
+
+1. Enter: Total gross unearned income of the spouse (potentially eligible or ineligible) from line l.5.b.
+
+2. Gross Earned Income: Enter the gross earned income of the spouse from line I.B.11 .b.
+
+3. Total columns 1 and 2. for combined income of spouse.
+
+4. Allocation to minor child(ren): Enter the figure from line II 5.
+
+5. Remainder: Subtract line 4 from line 3. If line III.5. is less than the current SSI allocation amount, this income is exempt.
+Do not complete Section Lb. Do not enter the total allocation to ineligible children from Section II, line 5 to Section I,
+line A.6.b.
+
+MC 176 QMB/SLMB 2A (INST) (9/95)
+
+SECTION: 50258 MANUAL LETTER NO.: 1 8 8 DATE: OCT 22 PAGE: 5L-55
+
+MEDI-CAL ELIGIBILITY PROCEDURES MANUAL
+
+Section IV. QMB/SLMB Eligibility Determination
+
+1 Total Countable income: This is the total countable income entered on line l.B.20. This figure was obtained by adding
+lines I.A.10 and I B.19.
+
+2 . Enter the appropriate current poverty level for either: (a) one, if the income of the ineligible spouse is not combined with
+the applicant's income; or (b) two, if the ineligible spouse's income is combined with the applicant's income. If line IV. 1. is
+less than line IV.2., the individual or couple is eligible under the QMB/SLMB program.
+
+Eligibility Worker Signature
+
+The worker enters his/her signature.
+
+Worker Number
+
+If the eligibility worker has a county number, enter here.
+
+Date of Computation
+
+The eligibility worker completes the box with the date the form was completed.
+
+County Use
+
+Optional — to be used in accordance with county policy.
+
+MC 176 QMB/SLMB-2A (INST) (9/95) 4
+
+SECTION: 50258 MANUAL LETTER NO.: 1 8 8
+DATE: OCT 22 1997 PAGE: 5L-56
+
+MEDI-CAL ELIGIBILITY PROCEDURES MANUAL
+
+State of California-health and Welfare Department of Health Services
+
+QUALIFIED MEDICARE BENEFICIARY (QMB)/SPECIFIED LOW-INCOME
+MEDICARE BENEFICIARY (SLMB) INCOME ELIGIBILITY WORK SHEET
+COUPLE OR APPLICANT WITH AN INELIGIBLE SPOUSE, WITH OR WITHOUT CHILD(REN)
+Case Name County County Use
+
+Eigbility Date for this Budget
+Application Redelerminabon Change in Income Change in Circumstances Mo. Yr.
+State Number (1) Social Security No. and
+Pera Birthdate (2) Health Inaurance Claim No. Other
+Co Aid 7 Diglt Serial No. MFBU Mo. Name—First, middle , Last Mo. Day Yr. Sea or Raliroed No.
+(1)
+(2)
+(1) ...................
+(2) ...
+(1)
+(2)
+(1)
+(2)
+(2)
+(2)
+(1)
+(2)
+(1)
+(2)
+1. INCOME OF POTENTIAL QMB/SLMB INDIVIDUAL; COUPLE APPLYING AS II. ALLOCATION TO MINOR CHILDREN) FROM THE INELIGIBLE SPOUSE. DO
+AGED, BLIND, OR DISABLED AND INCOME OF INELIGIBLE SPOUSE NOT ALLOCATE FROM THE APPLICANT(S). DO NOT INCLUDE QMB/SLMB
+WITHOUT) CHILD(REN). CHILD(REN). PA OR OTHER PA.
+A. NONEXEMPT UNEARNED b. Eligible or Child Child Child Child
+INCOME a. QMB/SLMB Applicant Ineligible Spouse 1 2 3 4
+
+RSDI 1. Name
+
+2 Net income from property 2. Standard SSI allocation
+3. Subtract ineligible minor child(ren) income
+3 Other—itemize (gross) Evaluate for student deduction.
+4. Allocation to ineligible child
+4 (2 minus 3)
+5. Total 5. Total allocation to ineligible children
+(add 1 through 4) a b. (add 4a.. b.. c.. and d.)
+6 Allocation to ineligible child(ren) Enter the amount from line 5. Section II to line 6.b.. Section 1 A., only if the remairing
+from ineligible spouse (Column 11.5) b. income of the ineligible spouse exceeds the standard SSI allocation amount Use
+b. (1) Section III to make this determination.
+7. Remainder (line 5.b. minus 6.b.)
+b (2) III. INELIGIBLE SPOUSE INCOME EXEMPTION DETERMINATION
+8 Combine unearned income
+(THIS SECTION USED FOR EVALUATION PURPOSES ONLY.)
+(add 5.a and 7.b.(2)) $
+1. Total unearned income (gross)
+9 Any income deduction $ 20 (line 5b.. Section I.)
+2. total earned income (gross)
+10. Countable unearned income
+(line 11 b., Section 1)
+(8 minus 9)
+0. NONEXEMPT EARNED INCOME 3. Total
+(add 1 and 2) $
+11. Gross earned income a. b. 4. Allocation to children
+12. Unused portion of allocation to (line 5. Section II) $
+ineligible children b. 5. Remainder
+13 Remainder (subtract 4 from 3) $
+(11 .b. minus 12.b.) b (If Iie n 5 is leu than the current standard SSI allocation amount, this income is
+14. Combined earned income exempt: do not complete Section lA.b. or I.B.b.)
+(11. plus 13.b.) $ IV. QMB/SLMB ELIGIBILITY DETERMINATION
+15. Deduct IRWE of potential 1. Total countable income
+QME/SLMB applicant(s) only (line 20 b . Section 1. rounded) $
+16. Remainder 2 Current poverty level for
+(subtract 15 from 14) $ $______________________
+17. $65 earned income deduction plus (II line 1 Is less than line 2. individual or couple QMB/SLMB eligible)
+_______ of unused $20 NOTE: IF THE INCOME OF THE SPOUSE IS USED. USE THE CURRENT
+1 B Remainder POVERTY LEVEL FOR TWO IF ONLY THE INCOME OF THE APPLICANT
+(17 minus 16) $ IS USED. USE THE CURRENT POVERTY LEVEL FOR ONE.
+19 Countable earned income
+(drvide 18 by 2)______________ __ $
+20. Total countable income
+(add 10 plus 19) $
+(Enter this amount on line 3. Section IV)
+
+Eligiblity Worker Signature Worker Number Computaion Date County Use
+
+MC 176 QMB/SLMB.2A (9/95)
+
+SECTION: 50258 MANUAL LETTER NO.: 1 8 8 DATE: OCT 2 2 PAGE: 5L-57
+
+MEDI-CAL ELIGIBILITY PROCEDURES MANUAL
+
+INSTRUCTIONS
+QUALIFIED MEDICARE BENEFICIARY (QMB)/SPECIFIED
+LOW-INCOME MEDICARE BENEFICIARY (SLMB)
+INCOME ELIGIBILITY WORK SHEET FOR CHILD APPLYING
+• WITH INELIGIBLE PARENT(S)
+FORM MC 176 QMB/SLMB 2B
+
+Form MC 176 QMB-2B, Income Eligibility Work Sheet, is used to compute the income (using current Medi-Cal income
+methodology and incorporating certain QMB/SLMB income criteria which is less restrictive than Medi-Cal methodology) for
+allocating income from an ineligible parent(s) for a child who is applying under the QMB/SLMB program. This form is used if
+the child does not qualify using Medi-Cal income rules only. This form is completed at the time of a new application, restoration,
+reapplication, change in income, or other circumstances affecting the income or correction in the income.
+
+NOTE: The MC 176 QMB/SLMB1 should be completed prior to completion of the MC 176 QMB/SLMB-2B to determine if the
+child is found to be eligible using Medi-Cal rules.
+
+Instructions for Completion
+
+Identification Section
+
+1. Enter: Case name.
+
+2. County District: If the county has districts, identify the district.
+
+3. County Use: Make any entries the county department has designated it wants.
+
+4. Check the appropriate box which gives information concerning the reason for the computation. The box
+"new application' includes restorations and reapplications.
+
+5. Effective Eligibility Date for this budget: Enter the month in which eligibility will begin with this budget computation.
+
+6. State Number: For a QMB/SLMB child who is applying as ABD medically needy (MN), enter the county code,
+appropriate aid code, seven-digit number, MFBU number, and. the persons number. If the county does not use a
+seven-digit serial number, enter zeros in front of the serial number until there are seven digits. For the family members
+who are not included in the MFBU as eligible members, enter their status under state number, in accordance with the
+following:
+
+Excluded ........................................................................................ . For children with income or property of their own who
+are excluded from the MFBU.
+l.E. (or county designated I.E. aid code) ...................................... For members of the family unit who are not applying
+for QMB/SLMB benefits.
+S/P ................................................................................................... For family members in the stepparent unit when only
+the parent and the parent’s children are included in
+the MFBU.
+Pickle Eligible Member .................................................................. For Aged. Blind, and Disabled (ABD) family members
+who were discontinued from Supplemental Security
+Income/State Supplementary Payment (SSI/SSP)
+and continue to receive a no-cost Medi-Cal card in
+accordance with the Lynch v. Rank decision.
+
+ABD/LTC............................................................................................ For an ABD person or the spouse of an ABD person
+ABD/B&C who is in LTC or board and care who will be in a
+separate MFBU from his/her spouse and/or child(ren)
+listed on the MC 176M.
+
+MC 176 QMB/SLMB-20 (INST) (11/95)
+
+SECTION: 50258 MANUAL LETTER NO.: 1 8 8 DATE: OCT 22 PAGE: 5L-58
+
+MEDI-CAL ELIGIBILITY PROCEDURES MANUAL
+
+7 Name Enter the names of all family members living in the home in accordance with the California Code of Regulations
+(CCR), Title 22, Section 50071, and any ABD person or spouse of an ABD person in LTC or board and care. Enter an
+unborn child by listing as the name “unborn" and expected date of birth after “unborn."
+
+8 . Birthdate: Enter the birthdate of each person listed. Under sex. enter "M" for male or “F" for female for each person
+listed.
+
+9 Social Security Number. Enter the Social Security number for each person applying as a QMB/SLMB. If a person does
+not have a Social Security number, he/she is not eligible for QMB/SLMB. Enter the Medicare or Railroad Retirement
+claim number, if any. See CCR. Section 50187.
+
+10 . Other Coverage Code: Determine the other coverage code in accordance with Section 15.A of the procedural portion
+of the Medi-Cal Eligibility Manual.
+
+Section I. Parent(s) Income of Potential QMB Child Applying as Aged, Blind, or Disabled (ABD)
+
+In this section enter all the nonexempt unearned and earned income of the ineligible parent(s) of the child who is applying as
+an ABD MN under the QMB/SLMB program. NOTE: “Ineligible parent(s)' refers to the parent(s) of the child who is applying
+under the QMB/SLMB program. Do not include a parent(s) who is eligible as a QMB/SLMB PA or other PA. Only include the
+income of an ineligible parent(s).
+
+NOTE: The ownership of the income determination required by Section 50512 should be completed prior to the completion of
+this portion of the form if there is a spouse with LTC status who is in a separate MFBU.
+
+A. Nonexempt Unearned Income
+
+When any of the following deductions apply to a person's income which will be listed in Section I, complete Part VI.A. of
+the MC 176W instead of lines 1 through 5.
+
+Educational Expenses Section 50547
+Absent Parent Support Section 50541
+Income for Self-Support Section 50551.5
+Court Ordered Child/Spousal Support Gibbins v. Rank
+
+1. Enter: Social Security income.
+
+2. Net income received from property.
+
+3-4. Enter the amount of all other unearned income.
+
+5. Total the amounts in Section I, Part A, lines 1 through 4. This is the total unearned income of the ineligible parent(s)
+of the potential QMB/SLMB child.
+
+6. Enter the total amount allocated to a minor child(ren), if any, from the ineligible parent(s). Enter the figure computed
+from Section II, line 5 onto line 6.b.
+
+7. Subtract line 6 from line 5, or enter the amount from MC 176W, Part VI.A. on 7a. If this is a minus amount, enter zero
+on line 7b and the minus amount on Section I, Part B, line 11. Otherwise enter the amount on line 7a onto line 7b.
+
+8. No entry. This shows the $20 any income deduction.
+
+9. Subtract line 8 from line 7b. This is the countable unearned income. If the countable unearned income is a minus
+figure, enter zero on line 16 and enter the minus figure, which is the unused portion of the $20 any income deduction,
+in the blank provided on line 12.
+
+MC 176 QMB/SLMB-28 (INST) (11/95) 2
+
+SECTION: 50258 MANUAL LETTER NO.: 1 8 8 DATE: OCT 2 2 1997 PAGE: 5L-59
+
+MEDI-CAL ELIGIBILITY PROCEDURES MANUAL
+
+B. Nonexempt Earned Income
+
+When any of the following deductions apply to a person's income which will be listed in Section I, complete Part VI.B. of
+the MC 176W instead of line 11: -
+
+Student Deduction Section 50551
+$30 Plus One-Third, or $30 Section 50551.1
+Work Expenses lor the Blind Section 50551.4
+Income for Self-Support Section 50551.5
+Court Ordered Chiid/Spousal Support Gibbins v. Rank
+
+10. Enter the gross earned income.
+
+11. Enter the unused amount of any allocation for ineligible minor child(ren) that was not offset by countable unearned
+income (I.A.6.). NOTE: If there is no income remaining, either unearned or earned, do not allocate to the QMB
+child(ren). Enter zero on line 1 of Section III. If there is income, proceed with number 12.
+
+12. Enter the $65 of the $65 and one-half deduction plus any unused portion of the $20 any income deduction.
+
+13. Subtract lines 11 and 12 from line 10 to obtain the remaining earned income of the ineligible parent(s). Enter zero if
+the remainder is a negative amount.
+
+14. Divide by 2.
+
+15. Subtract line 14 from line 13 to obtain the remaining countable earned income of the ineligible parent(s).
+
+16. Enter countable unearned income from line 9.
+
+17. Add lines 15 and 16. This figure equals the countable income.
+
+18. Enter the parent(s) deduction. Use the parent deduction of a QMB/SLMB child(ren) for an individual, if one Ineligible
+parent lives with the child(ren), or use the parent deduction of a QMB/SLMB child(ren) for a couple, if both ineligible
+parents live with the potential QMB/SLMB child.
+
+19. Subtract line 16 from line 17 and enter this figure on line 1 of Section III. This is the allocation from the ineligible
+parent(s) to the potential QMB/SLMB applicant.
+
+Section II. Allocation to Minor Chlld(ren) from the Ineligible Parent
+
+1. Enter the name(s) of the ineligible child(ren). Do not include a QMB/SLMB child(ren), PA, or other PA.
+
+2. Enter the standard QMB/SLMB allocation for each child. If no child(ren), enter zero on line 5 of this Section.
+
+3. Enter any income for each minor child(ren), excluding up to $400 per month and up to $1,620 per year if student earned
+income. .
+
+4. Subtract line 3 from line 2.
+
+5. Total all columns on line 4 and enter the total allocation. This figure is also to be entered in Section I. line A.6.
+
+Section III. QMB/SLMB Child Computation
+
+1. Enter the parent(s) allocation from Section I, line B.19.
+2. Enter the potential QMB/SLMB child's own RSDI income.
+3. Enter any other unearned income the potential QMB/SLMB child may have.
+4. Total lines 1 through 3.
+
+MC 176 QMB/SLMB(INST) (11/95) 3
+
+SECTION: 50258 MANUAL LETTER NO.: 1 8 8 DATE: OCT 22 1997 PAGE: 5L-60
+
+MEDI-CAL ELIGIBILITY PROCEDURES MANUAL
+
+5 No entry. This shows the $20 any income deduction.
+6. Subtract line 5 Irorh line 4. This is the total remaining countable unearned income.
+
+7 Enter the potential QMB/SLMB child’s countable earned income or amount from line 4, VLB of the MC 176W.
+if appropriate, allow the student deduction.
+
+8. Deduct any impairment related work expenses the potential QMB/SLMB child may have.
+
+9. Enter the $65 of the $65 and one-half deduction plus any unused portion of the $20 any income deduction.
+
+10. Subtract lines 8 and 9 from line 7 to obtain the remaining earned income of the potential QMB/SLMB child(ren)
+
+11. Divide the amount in line 10 by 2 to obtain the total countable earned income of the potential QMB/SLMB child(ren).
+
+12. Total lines 6 and 11 for the combined net nonexempt income of the potential QMB/SLMB child(ren).
+
+13. Enter the current QMB/SLMB Poverty Level for one. If line 12 is less than line 13. the child is eligible for QMB/SLMB.
+
+Eligibility Worker Signature
+
+The worker enters his/her signature.
+
+Worker Number
+
+If the eligibility worker has a county number, enter here.
+
+Date of Computation
+
+The eligibility worker completes the box with the date the form was completed.
+
+County Use
+
+Optional — to be used in accordance with county policy.
+
+mc 176 QMB/SLMB-28 (INST) (11/95) 4
+
+SECTION: 50258 MANUAL LETTER NO.: 1 8 8 DATE: OCT 22 1997 PAGE: 5L-61
+
+MEDI-CAL ELIGIBILITY PROCEDURES MANUAL
+
+of ard welfare Department of HELETH services
+
+QUALIFIED MEDICARE BENEFICIARY (QMB).'SPECIFIED LOW-INCOME MEDICARE
+BENEFICIARY(SLMB) INCOME ELIGIBILITY WORK SHEET
+CHILD APPLYING WITH OR WITHOUT INELIGIBLE PARENT(S)
+______________________ (DO NOT INCLUDE QMB/SLMB PARENT(S), PA, OR OTHER PA)
+Case Name County County Use
+
+Eligibility date for
+New Application Redelermination Change in Income Change in Circumstances i Mo. Yr.
+
+State Number (1) Social Security No. and
+Birthbate (2) Health Insurnce Claim No. Other
+Co Ai d 7 Diglt Serial No. MFBU • No. nName- First, Mlddle, Last Mo. Day Yr or
+
+I (1).....................................
+(2) _________
+(1)
+(1)___ ____ _____
+1
+(1)
+
+(1)
+(2)
+(1) ——————
+(2)
+(1)
+I. INELIGIBLE PARENT(S) INCOME OF POTENTIAL QMB/SLMB CHILD APPLYING, II.
+(2)
+ALLOCATION TO MINOR CHILDREN) FROM THE INELIGIBLE PARENT(S). DO
+AS AGED. BUND. OR DISABLED. NOT ALLOCATE FROM THE APPLiCANT(S). DO NOT INCLUDE QMB/SLMB
+
+A. NONEXEMPT UNEARNED insligible Child Child Child Child
+INCOME Psrent(s) 1 2 4
+RSDI 1 Narne
+
+2. Net Income from pro perry
+2. Standard SSI allocation
+3. Subtract ineligible minor child(ren) income
+3. Other-temize Evaluate for student deduction.
+4- Remaining allocation to ineligible cnild(ren)
+4. (line 2 minus line 3) b. c.
+a. d.
+5. Total 5. Total allocation to ineligible child(ren)
+(add lines 1 through 4) $ (add lines 4a., b , c., and d)
+6. Alocation to ineligible child(ren) (Enter the amount from line 5 on line 6. Section I.)
+(Section 11 line 5) III. QMB/SLMB CHILD COMPUTATION
+7, Remainder (line 5 minus line 6)
+Allocation from parent(s)
+(line 19., Section I, rounded) $
+Any income deduction $ 20
+8
+9. Countable unearned income 2 Add QMB/SLMB child's own RSD1 income $
+Puton line 16 unless negative
+3. Add other unearned income $
+B- NONEXEMPT EARNED INCOME 4. Total unearned income
+(add lines 1 through 3)
+10. Gross earned income
+5. Subtract any income deducoon -$20
+11. Unused portion of alocaron
+6. Remainder
+to the inaligible Child(ren)
+(line 4 minus line 5)
+12. $65 earned income deduction
+plus $ of unused $20 7. Child(ren) countable earned income -$
+
+13 Remainder $ 8 Subtract I.R.W.E
+9. Subtract $65 earned income
+14. Divide by 2 and subtract
+deduction plus $ of unused $20
+15. Countable earned income $ 10 Remainder
+16. Add countable unearned
+(subtract lines 8 and 9 from line 7) $
+income /line 9)
+it. Countable earned income
+17. Total countable income
+(add lines 15 and 16) $ (divde line 10 by 2) $
+12. Net nonexempt income
+18 Subtract parent deduction*
+(add lines 6 and 11)
+19. Allocation to QMB/SLMB Child
+13. Current QMB/SLMB poverty level for one $
+If zero or negative, do not count toward applicant's income
+determination. Otherwise enter this amount on line 1. Section III (it line 12 is than 13. the child income for QMB/SLMB
+
+Individual parent deduction amount if any one parent lives with
+QMB/SLMB child applicant, couple parent deduction amount it both
+parents live with the child.
+
+wORKER Signature Worker Number County Use
+
+MC 176 QMB/SLMB-28 (11/95)
+
+SECTION: 50258 MANUAL LETTER NO.: 1 8 8 DATE: OCT 22 1997 PAGE: 5L-62
+
+MEDI-CAL ELIGIBILITY PROCEDURES MANUAL
+
+State of California-Health and Welfare Agency Department of Health Services
+
+QUALIFIED MEDICARE BENEFICIARY PROGRAM
+INFORMATION NOTICE
+
+This notice is to help you decide whether to apply for the Qualified Medicare Beneficiary Program.
+People eligible for this program will have their Medicare expenses for Part A and Part B premiums,
+coinsurance and deductibles paid by the Medi-Cal program. You may apply for the QMB program at
+your local county department of social services.
+There are four requirements which you must meet if you want to be a Qualified Medicare Beneficiary
+(QMB).
+HERE ARE THE FOUR REQUIREMENTS:
+1. A QMB must be eligible for Medicare Part A (Hospital Insurance).
+2. A QMB must have income which is equal to or less than $643 if he/she is a single person or
+$856 if he/she is married and living with a spouse.
+3. A QMB must have property which is equal to or less than $4000 if he/she is single or equal to or
+less than $6000 if he/she is married and living with a spouse.
+4. A QMB must meet certain other requirements and conditions which are part of the Medi-Cal
+program, such as being a California resident
+The following gives more information about the four QMB requirements,
+A QMB must be eligible for Medicare Part A.
+
+□ I already have Part A Medicare Hospital Insurance.
+
+□ I do not have Part A Hospital Insurance but I understand I must apply for Part A at the
+Social Security Administration before March 31st. I understand that I can make a
+“conditional application" for Part A so that I will only receive it if the premium is paid
+by the Medi-Cal program.
+
+□ I have already applied for Part A.
+
+□ I will apply before March 31 st.
+
+REQUIREMENT 2 A QMB who is not married or not living with a spouse must have countable
+income which Is equal to or less than $643. A QMB living with a spouse must have countable
+income which is equal to or less than $856. These amounts are expected to increase sometime in
+April.
+The following are examples of some types of income that count towards the QMB income limit.
+When a person applies to be a QMB at the county department of social services, the county will also
+look at other types of income and may treat the income differently from what is on this sheet. For
+example, if there is a minor child or children in the home, there may be deductions allowed which
+would reduce the amount of countable income.
+Fill in the amounts to see if you are close to the limit.
+
+MC(4/95) 1 of 3
+
+SECTION: 50258 MANUAL LETTER NO.: 18 8 DATE: PAGE: 5L-63
+
+MEDI-CAL ELIGIBILITY PROCEDURES MANUAL
+
+State of California-Health and Walafre Agency Department of Heath
+l services
+
+I. Fill in the MONTHLY amoums for the Person Wants to be a QMB.
+$
+1. Social Security check
+2. VA benefits $..... .....................
+
+3 Interest from bank accounts or certificates of deposits $...........................
+
+$
+4. Retirement Income
+5. Any other Income $............................
+
+6. Total - Add lines 1 through 5. $ . ..........
+
+II. If you are married and living with your spouse, complete the following MONTHLY
+amounts for your spouse even JI this spouse also wants to be a QMB.
+7. Social Security check $...........................
+
+8. VA benefits --------
+$
+9. Interest from bank accounts or certificates of deposit ----------
+$
+10. Any other Income
+$
+11. Retirement Income ................
+$
+12. Total-Add lines 7 through 11.
+
+III. Fill In the MONTHLY amounts for the person in I. and if married, the. spouse in II-
+13. Gross earnings for the person who wants to be a QMB ?...........................
+
+14. Gross earnings for the Spouse $...........................
+
+15. Total-Add lines 13 and 14 $............................
+
+16. Subtract $65
+17. Remainder $............................
+
+18. Divide by 2
+19. Total - Add lines 6,12. and 18 $
+
+If you are not married, this amount cannot exceed $643. If you are married and living with your
+spouse, this total cannot exceed $856. However, if you have children or your spouse has low
+income this total may be higher. If you received a Title II Social Security cost of living
+adjustment, this amount will not be counted until April.
+
+/ 5)
+MC(49 2 of .3
+
+SECTION: 50258 MANUAL LETTER NO.: 188 DATE: OCT 2 2 1997 PAGE: 5L-64
+
+MEDI-CAL ELIGIBILITY PROCEDURES MANUAL
+
+State of California-Health and Welfare Agency Department of Health Services
+
+A QMB who is not married or not living with his/her spouse must have
+countable property which is equal to or less than $4000. A QMB who is married and living with
+his/her spouse must have countable property which is equal to or less than $6000.
+
+The following gives examples of countable property. Important: The home you and/or a spouse live
+in does not count. One car used for transportation does not count. If you apply at the county
+welfare department as a QMB, the county may treat the property listed on this form differently.
+There are other types of property which will also be looked at by the county welfare department
+This other property may or may not count towards the QMB property limit.
+
+Fill in the value of the following property which belongs to you. your spouse, or both of you.
+
+1. Checking accounts _ _______ __ _
+$
+2. Savings accounts $. ............ .... ........
+$
+3. Certificates of Deposit ...... -.....................
+4. Stocks $..... ..... ....... ....
+
+5. Bonds $.......... ... ..............
+$
+6. A second car (value minus amount owed) $..... ................... .
+7. A second home (value minus amount owed) $.............................
+
+8. The cash surrender value of life insurance policies if
+the face value of all policies combined exceeds $1500.
+(Do not include “term” insurance policies) $............................
+
+9. Total-Add lines 1 - 8
+
+This amount cannot exceed $4000 for a single person or $6000 for a couple.
+
+A QMB must meet certain other Medi-Cal conditions. For example. Medi-Cal
+benefits received by a beneficiary after age 65 are recoverable by the State after death under certain
+conditions. Recovery may be made from the estate or distributee/heir of the Medi-Cal beneficiary if
+the beneficiary does not leave a surviving spouse, minor children, or a totally disabled child.
+
+Addltional Information
+
+For more information or if you wish to apply as a QMB, please call the number of your local
+department of social services.
+
+MC(4/95) 3 Of 3
+
+SECTION: 50258 MANUAL LETTER NO. 1 8 8 DATE: OCT 2 2 1997 PAGE:5L-65

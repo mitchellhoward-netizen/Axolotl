@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://www.ecfr.gov/api/renderer/v1/content/enhanced/current/title-7?part=271&section=271.2
+  final_url: https://www.ecfr.gov/api/renderer/v1/content/enhanced/current/title-7?subtitle=B&chapter=II&subchapter=C&part=271&section=271.2
+  status: 200
+  content_type: text/html; charset=utf-8
+  text_sha256: 24d1fe35d7e4b37d12c3785d73bb11ad5b7934825f051a9cd4ec16f7143467d1
+  text: ecfr-7-271-2/2026-10-07.txt
+  raw: ecfr-7-271-2/2026-10-07.html

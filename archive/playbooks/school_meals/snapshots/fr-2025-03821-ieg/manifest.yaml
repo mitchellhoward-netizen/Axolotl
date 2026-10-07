@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://www.govinfo.gov/content/pkg/FR-2025-03-13/html/2025-03821.htm
+  final_url: https://www.govinfo.gov/content/pkg/FR-2025-03-13/html/2025-03821.htm
+  status: 200
+  content_type: text/html
+  text_sha256: 5e53a9b408cd056e7e064e64cc902feacc33f467aded4d407acf38e8c6c75778
+  text: fr-2025-03821-ieg/2026-10-07.txt
+  raw: fr-2025-03821-ieg/2026-10-07.html

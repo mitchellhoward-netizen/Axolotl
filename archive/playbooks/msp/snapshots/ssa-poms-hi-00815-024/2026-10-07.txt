@@ -1,0 +1,275 @@
+Skip to content
+
+Program Operations Manual System (POMS)
+
+Effective Dates: 05/08/2024 - Present
+Previous | Next
+
+TN 63 (01-26)
+
+HI 00815.024 SSA’s Role in Medicare Savings Programs (MSP) Applications
+
+CITATIONS:
+
+Social Security Act
+Section
+1144
+
+A. Background on the Medicare Improvements for Patients and Providers Act of 2008 (MIPPA)
+
+Public Law 110-275, MIPPA amends the Social Security Act to require that applications
+for Extra Help (SSA-1020) effectively filed on or after January 1, 2010 will start
+the application process for Medicare Savings Programs (MSP) benefits unless the beneficiary
+objects. In addition, effective January 2010, MIPPA amended the Act to make the resource
+limits for the Qualified Medicare Beneficiary program, Specified Low-Income Medicare
+Beneficiary program, and Qualifying Individual program the same as the resource limits
+for individuals who qualify for the full low-income subsidy under the Medicare prescription
+drug coverage program. This MIPPA provision does not apply to the Qualified Disabled
+Working Individual program.
+
+MSPs are administered by the States. Unless the beneficiary refuses on the Extra Help
+(also known as low income subsidy or LIS) application, data from the Extra Help determination
+will be sent daily (except Saturdays, Sundays, and holidays) to the appropriate state
+Medicaid agency to begin the MSP application process.
+
+Regarding interviewing and filing procedures for Extra Help, see instructions
+
+HI 03010.005 Interviewing for Medicare Part D Extra Help
+
+HI 03010.010 Filing Applications
+
+Social Security is also not sending data to the state Medicaid agency if the beneficiary
+is already deemed (see HI 03001.005A for definition of deemed) for LIS, or the application received is a duplicate, or
+the LIS application was denied because the beneficiary was not a US resident.
+
+B. Description of the MSP
+
+A Medicare beneficiary may qualify to get help paying for their Medicare Part A or
+Part B premiums. States have programs that can help pay their Medicare expenses like
+premiums, deductibles, and coinsurance.
+
+There are four Medicare Savings Programs:
+
+•
+
+Qualified Medicare Beneficiary (QMB)
+
+•
+
+Specified Low-Income Medicare Beneficiary (SLMB)
+
+•
+
+Qualifying Individual (QI or QI-1)
+
+•
+
+Qualified Disabled & Working Individuals (QDWI)
+
+If a beneficiary qualifies for QMB, SLMB, or QI, the beneficiary automatically qualifies
+for Extra Help, which pays for all costs, except for a minimal co-payment of Medicare
+prescription drug coverage (see the chart in HI 03001.005G.1).
+
+To qualify for the QMB, SLMB, or QI programs a beneficiary must meet all of these
+conditions:
+
+•
+
+Have Medicare Part A (hospital insurance) including Premium-free HI or Premium HI
+for the Aged, but excluding Premium HI for the Working Disabled;
+
+•
+
+Reside in a state or the District of Columbia; and
+
+•
+
+Meet the following standard income and resource limits:
+
+–
+
+2026 limits – Single person – monthly income of $1,816 or less (higher in Alaska and Hawaii)
+and resources not more than $9,950.
+
+Married and living together – monthly income of $2,455 or less (higher in Alaska and
+Hawaii) and resources not more than $14,910.
+
+–
+
+2025 limits – Single person – monthly income of $1,781 or less (higher in Alaska and Hawaii)
+and resources not more than $9,660.
+
+Married and living together – monthly income of $2,400 or less (higher in Alaska and
+Hawaii) and resources not more than $14,470.
+
+NOTE:
+
+The resource limits do not include the $1500 per individual ($3,000 for a married
+couple) burial exclusion.
+
+To qualify for the QDWI program, a beneficiary must:
+
+•
+
+Have lost entitlement to free Part A solely because of substantial gainful activity
+(SGA);
+
+•
+
+Continue to be disabled and under age 65;
+
+•
+
+Reside in a state or the District of Columbia;
+
+•
+
+Not be otherwise eligible for Medicaid;
+
+•
+
+Be eligible to enroll in Medicare Part A; and
+
+•
+
+Meet the following income and resources limits:
+
+–
+
+2026 limits – Single person – monthly income of $5,405 or less (higher in Alaska and Hawaii)
+with resources not more than $4,000.
+
+Married and living together – monthly income of $7,299 or less (higher in Alaska and
+Hawaii) with resources not more than $6,000.
+
+–
+
+2025 limits – Single person – monthly income of $5,302 or less (higher in Alaska and Hawaii)
+with resources not more than $4,000.
+
+Married and living together – monthly income of $7,135 or less (higher in Alaska and
+Hawaii) with resources not more than $6,000.
+
+Only the state can determine if an individual qualifies for coverage under one of
+these programs. Many states apply different standards and methods to determine MSP
+eligibility. Some states, for example, have no resources for these programs or figure
+the income and resources differently.
+
+For more information regarding MSP, see
+
+HI 00815.023 Medicare Savings Programs Income Limits
+
+HI 00815.025 SSA Outreach to Low-Income Medicare Beneficiaries – Extra Help and Medicare Savings
+Programs
+
+HI 00801.170 Premium-HI for the Working Disabled
+
+The chart explains how MSP can help with Medicare expenses:
+
+Medicare Savings Programs
+
+Helps Pay For
+
+QMB
+
+Part A and Part B premiums and other covered cost-sharing expenses like deductibles
+and coinsurance.
+
+SLMB
+
+Part B premiums only
+
+QI
+
+Part B premiums only
+
+QDWI
+
+Part A premiums only
+
+C. Beneficiary requests information about MSP
+
+If a beneficiary requests an MSP application, check the Medicare Application Processing
+System (MAPS).
+
+If listed in MAPS, check the effective filing date of the Extra Help application.
+
+If the application was effectively filed on or after January 1, 2010, and the applicant
+did not refuse data referral to the state, explain that the Extra Help application
+was also an application for MSP and that the beneficiary should hear from the state
+soon.
+
+If the beneficiary still requests current status, refer the beneficiary to the state
+medical assistance office (Medicaid).
+
+If MAPS shows the beneficiary refused data referral to the state or the Extra Help application was effectively filed before January 1, 2010, explain
+the Medicare Savings Programs and refer the beneficiary to the State Health Insurance
+Counseling and Assistance Program (SHIP) for more information. You can use this language
+“Beneficiaries can obtain assistance through their State Health Insurance Counseling
+and Assistance Program. SHIP telephone contact information is on the back of the Medicare & You
+handbook or may be accessed by selecting the state at Medicare.gov/talk-to-someone or through SSA’s web site located at www.ssa.gov/benefits/medicare/prescriptionhelp/
+
+If the beneficiary is on the phone and not listed in MAPS, ask if you can refer them for an Extra Help application (or mail
+an application).
+
+If the beneficiary is in the field office offer to complete an application for Extra
+Help. Explain that unless they tell us otherwise, the Extra Help application will
+start the MSP process with their state. Also, explain the MSP benefits to the beneficiary.
+For more information about MSP, see HI 00815.025.
+
+D. MSP Applications and the Extra Help program
+
+If a beneficiary calls and wants an MSP application (regardless of whether they want
+to file an Extra Help application), ask if they have computer access.
+
+•
+
+If yes, explain that an application is available in English and also available in
+10 other languages at SSA.gov . They can scroll down on the right side, where the forms are located under “Additional
+Resources,” and click on “Medicare Savings Programs Model
+Application for Premium Assistance," or they can scroll down the middle and click on “The Official Government Site for
+People with Medicare.”
+
+•
+
+If no, or the individual wants the application from SSA, print the model application
+in the appropriate language from SSA.gov and mail it.
+
+The available languages are English, Arabic, Chinese, French, Haitian-Creole, Farsi,
+Korean, Spanish, Tagalog, Russian, and Vietnamese.
+
+Even if the state uses a different MSP application form from the model forms on SSA’s
+web pages, when the state receives this form from the beneficiary it will start the
+MSP application process.
+
+E. Procedure on obtaining status inquiries on MSP Applications
+
+Refer beneficiaries to their state Medicaid agency for any inquiries concerning the
+status of their MSP application.
+
+F. References
+
+HI 03001.001 Description of the Medicare Part D Prescription Drug Program
+
+HI 03001.005 Medicare Part D Extra Help (Low Income Subsidy or LIS)
+
+HI 00801.131 Eligibility for Premium-HI
+
+HI 00801.139 QMB Provisions
+
+TC 23001.050 Qualified Medicare Beneficiaries (QMB)
+
+TC 23001.060 Specified Low-Income Medicare Beneficiaries (SLMB)
+
+TC 23001.070 Qualifying Individual 1 (QI1)
+
+MSOM INTRANETMEDQ 001.001 Medicare Query System (MEDQ)
+
+To Link to this section - Use this URL:
+http://policy.ssa.gov/poms.nsf/lnx/0600815024
+
+HI 00815.024 - SSA&rsquo;s Role in Medicare Savings Programs (MSP) Applications - 05/08/2024
+
+Batch run: 05/28/2026
+
+Rev:05/08/2024

@@ -1,0 +1,828 @@
+# Synthetic Illinois households for the Medicare Savings Program. No real people.
+program: msp
+scope: il
+cases:
+- id: MSP-IL-T01
+  title: Single, Social Security $1,355 (countable $1,330 after the $25 exemption) — at the QMB limit
+  as_of: '2026-05-01'
+  tags:
+  - single
+  - threshold
+  household:
+    state: il
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 1355
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: QMB
+    rules_include:
+    - MSP-IL-QMB-INCOME
+    - MSP-IL-INCOME-METHOD
+    - MSP-IL-RESOURCES
+    links_include:
+    - extra_help:deemed
+    amounts:
+      part_b_premium_paid_monthly: 202.9
+  crosscheck:
+    policyengine: true
+- id: MSP-IL-T02
+  title: Single, Social Security $1,356 — $1 over QMB, SLIB (SLMB)
+  as_of: '2026-05-01'
+  tags:
+  - single
+  - threshold
+  household:
+    state: il
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 1356
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: SLMB
+    rules_include:
+    - MSP-IL-SLIB-INCOME
+  crosscheck:
+    policyengine: true
+- id: MSP-IL-T03
+  title: Single, Social Security $1,620 (countable $1,595) — top of the SLIB band
+  as_of: '2026-05-01'
+  tags:
+  - single
+  - threshold
+  household:
+    state: il
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 1620
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: SLMB
+  crosscheck:
+    policyengine: true
+- id: MSP-IL-T04
+  title: Single, Social Security $1,621 (countable $1,596) — $1 over SLIB, QI-1
+  as_of: '2026-05-01'
+  tags:
+  - single
+  - threshold
+  household:
+    state: il
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 1621
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: QI
+    rules_include:
+    - MSP-IL-QI-INCOME
+  crosscheck:
+    policyengine: true
+- id: MSP-IL-T05
+  title: Single, Social Security $1,819 (countable $1,794) — top of the published QI-1 band
+  as_of: '2026-05-01'
+  tags:
+  - single
+  - threshold
+  household:
+    state: il
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 1819
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: QI
+  crosscheck:
+    policyengine: true
+- id: MSP-IL-T06
+  title: 'Single, Social Security $1,820 (countable $1,795) — above the WAG QI-1 band but within the PM''s ''equal to or less
+    than 135%'': unresolved'
+  as_of: '2026-05-01'
+  tags:
+  - single
+  - threshold
+  - unresolved
+  household:
+    state: il
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 1820
+      owner: a
+    assets: []
+  expect:
+    status: undetermined
+    tier: null
+    open_questions_include:
+    - MSP-IL-OQ-03
+  crosscheck:
+    policyengine: true
+- id: MSP-IL-T07
+  title: Single, Social Security $1,821 (countable $1,796) — over 135% FPL, not eligible
+  as_of: '2026-05-01'
+  tags:
+  - single
+  - threshold
+  household:
+    state: il
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 1821
+      owner: a
+    assets: []
+  expect:
+    status: ineligible
+    tier: null
+  crosscheck:
+    policyengine: true
+- id: MSP-IL-T08
+  title: Couple, both on Medicare, combined Social Security $1,853 (two $25 exemptions, countable $1,803) — at the couple
+    QMB limit
+  as_of: '2026-05-01'
+  tags:
+  - couple
+  - threshold
+  household:
+    state: il
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    - id: b
+      age: 69
+      medicare_part_a: true
+      medicare_part_b: true
+      relationship: spouse
+    incomes:
+    - kind: social_security
+      monthly: 1000
+      owner: a
+    - kind: social_security
+      monthly: 853
+      owner: b
+    assets: []
+  expect:
+    status: eligible
+    tier: QMB
+    rules_include:
+    - MSP-IL-COUPLE
+  crosscheck:
+    policyengine: true
+- id: MSP-IL-T09
+  title: Couple, combined $1,854 (countable $1,804) — $1 over couple QMB, SLIB
+  as_of: '2026-05-01'
+  tags:
+  - couple
+  - threshold
+  household:
+    state: il
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    - id: b
+      age: 69
+      medicare_part_a: true
+      medicare_part_b: true
+      relationship: spouse
+    incomes:
+    - kind: social_security
+      monthly: 1000
+      owner: a
+    - kind: social_security
+      monthly: 854
+      owner: b
+    assets: []
+  expect:
+    status: eligible
+    tier: SLMB
+  crosscheck:
+    policyengine: true
+- id: MSP-IL-T10
+  title: Applicant (SS $1,300) with a 62-year-old spouse without Medicare and a $600 pension — 2-person standard, one $25
+    exemption, SLIB
+  as_of: '2026-05-01'
+  tags:
+  - couple
+  - edge
+  household:
+    state: il
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    - id: b
+      age: 62
+      medicare_part_a: false
+      medicare_part_b: false
+      relationship: spouse
+    incomes:
+    - kind: social_security
+      monthly: 1300
+      owner: a
+    - kind: pension
+      monthly: 600
+      owner: b
+    assets: []
+  expect:
+    status: eligible
+    tier: SLMB
+    rules_include:
+    - MSP-IL-COUPLE
+  crosscheck:
+    policyengine: true
+- id: MSP-IL-T11
+  title: Single, Social Security $1,200, resources $9,949 — just under the resource limit, QMB
+  as_of: '2026-05-01'
+  tags:
+  - single
+  - threshold
+  household:
+    state: il
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 1200
+      owner: a
+    assets:
+    - kind: cash
+      value: 9949
+      owner: a
+  expect:
+    status: eligible
+    tier: QMB
+  crosscheck:
+    policyengine: true
+- id: MSP-IL-T12
+  title: 'Single, Social Security $1,200, resources exactly $9,950 — Illinois manual says both ''less than'' and ''higher
+    than'' the limit: unresolved'
+  as_of: '2026-05-01'
+  tags:
+  - single
+  - threshold
+  - unresolved
+  household:
+    state: il
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 1200
+      owner: a
+    assets:
+    - kind: cash
+      value: 9950
+      owner: a
+  expect:
+    status: undetermined
+    tier: null
+    open_questions_include:
+    - MSP-IL-OQ-01
+  crosscheck:
+    policyengine: true
+- id: MSP-IL-T13
+  title: Single, Social Security $1,200, resources $9,951 — over the resource limit, not eligible
+  as_of: '2026-05-01'
+  tags:
+  - single
+  - threshold
+  household:
+    state: il
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 1200
+      owner: a
+    assets:
+    - kind: cash
+      value: 9951
+      owner: a
+  expect:
+    status: ineligible
+    tier: null
+    rules_include:
+    - MSP-IL-RESOURCES
+  crosscheck:
+    policyengine: true
+- id: MSP-IL-T14
+  title: Couple, combined Social Security $1,800, resources $14,911 — over the couple resource limit
+  as_of: '2026-05-01'
+  tags:
+  - couple
+  - threshold
+  household:
+    state: il
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    - id: b
+      age: 69
+      medicare_part_a: true
+      medicare_part_b: true
+      relationship: spouse
+    incomes:
+    - kind: social_security
+      monthly: 1000
+      owner: a
+    - kind: social_security
+      monthly: 800
+      owner: b
+    assets:
+    - kind: cash
+      value: 14911
+      owner: a
+  expect:
+    status: ineligible
+    tier: null
+  crosscheck:
+    policyengine: true
+- id: MSP-IL-T15
+  title: 'Working 67-year-old: Social Security $900 + wages $400 — AABD earned disregard, QMB'
+  as_of: '2026-05-01'
+  tags:
+  - single
+  - edge
+  household:
+    state: il
+    members:
+    - id: a
+      age: 67
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 900
+      owner: a
+    - kind: earned
+      monthly: 400
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: QMB
+  crosscheck:
+    policyengine: true
+- id: MSP-IL-T16
+  title: 'Working 67-year-old: Social Security $900 + wages $1,500 — Illinois AABD counting gives $2,325 (over), SSI counting
+    gives QI: unresolved'
+  as_of: '2026-05-01'
+  tags:
+  - single
+  - edge
+  - unresolved
+  household:
+    state: il
+    members:
+    - id: a
+      age: 67
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 900
+      owner: a
+    - kind: earned
+      monthly: 1500
+      owner: a
+    assets: []
+  expect:
+    status: undetermined
+    tier: null
+    open_questions_include:
+    - MSP-IL-OQ-02
+  crosscheck:
+    policyengine: true
+- id: MSP-IL-T17
+  title: 'Working 66-year-old: Social Security $500 + wages $1,000 with $400 withheld taxes and work expenses — QMB'
+  as_of: '2026-05-01'
+  tags:
+  - single
+  - edge
+  household:
+    state: il
+    members:
+    - id: a
+      age: 66
+      medicare_part_a: true
+      medicare_part_b: true
+      facts:
+        work_expenses_monthly: 400
+    incomes:
+    - kind: social_security
+      monthly: 500
+      owner: a
+    - kind: earned
+      monthly: 1000
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: QMB
+  crosscheck:
+    policyengine: false
+- id: MSP-IL-T18
+  title: Approved for AABD Medical (Medicaid), Social Security $1,700 — QI-1 range, not allowed with Medicaid
+  as_of: '2026-05-01'
+  tags:
+  - single
+  - other_benefits
+  - cross_playbook
+  household:
+    state: il
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+      benefits:
+      - medicaid
+    incomes:
+    - kind: social_security
+      monthly: 1700
+      owner: a
+    assets: []
+  expect:
+    status: ineligible
+    tier: null
+    rules_include:
+    - MSP-IL-QI-NOT-MEDICAID
+  note: 'Cross-playbook (medicaid, link MSP-IL-LINK-MEDICAID): with income above 100% FPL this person can have AABD Medical
+    only through spenddown; met spenddown bars QI-1.'
+  crosscheck:
+    policyengine: false
+- id: MSP-IL-T19
+  title: Medicaid spenddown not yet met, Social Security $1,700 — unmet spenddown is not Medicaid, QI-1 allowed
+  as_of: '2026-05-01'
+  tags:
+  - single
+  - other_benefits
+  - cross_playbook
+  household:
+    state: il
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+      benefits:
+      - medicaid
+      facts:
+        spenddown_status: unmet
+    incomes:
+    - kind: social_security
+      monthly: 1700
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: QI
+    rules_include:
+    - MSP-IL-QI-NOT-MEDICAID
+  note: 'Cross-playbook (medicaid): PM 06-14-01 (MR #26.10) — unmet spenddown cases may hold QI-1.'
+  crosscheck:
+    policyengine: false
+- id: MSP-IL-T20
+  title: AABD Medical recipient, Social Security $1,200 — QMB alongside Medicaid
+  as_of: '2026-05-01'
+  tags:
+  - single
+  - other_benefits
+  household:
+    state: il
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+      benefits:
+      - medicaid
+    incomes:
+    - kind: social_security
+      monthly: 1200
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: QMB
+  crosscheck:
+    policyengine: true
+- id: MSP-IL-T21
+  title: 'March 2026: Social Security $1,380 including a $38 COLA — Illinois does not count the COLA through March, QMB'
+  as_of: '2026-03-15'
+  tags:
+  - single
+  - timing
+  - threshold
+  household:
+    state: il
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+      facts:
+        ss_cola_increase_monthly: 38
+    incomes:
+    - kind: social_security
+      monthly: 1380
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: QMB
+    rules_include:
+    - MSP-IL-COLA
+  crosscheck:
+    policyengine: false
+- id: MSP-IL-T22
+  title: Same household in April 2026 — COLA counted, SLIB
+  as_of: '2026-04-15'
+  tags:
+  - single
+  - timing
+  - threshold
+  household:
+    state: il
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+      facts:
+        ss_cola_increase_monthly: 38
+    incomes:
+    - kind: social_security
+      monthly: 1380
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: SLMB
+  crosscheck:
+    policyengine: true
+- id: MSP-IL-T23
+  title: 67-year-old with Part B but not Part A — must enroll (conditionally) in Part A at SSA first, not eligible now
+  as_of: '2026-05-01'
+  tags:
+  - single
+  - edge
+  household:
+    state: il
+    members:
+    - id: a
+      age: 67
+      medicare_part_a: false
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 900
+      owner: a
+    assets: []
+  expect:
+    status: ineligible
+    tier: null
+    rules_include:
+    - MSP-IL-PART-A
+  crosscheck:
+    policyengine: false
+- id: MSP-IL-T24
+  title: 'QDWI: 50-year-old disabled worker who lost premium-free Part A, wages $4,000, $3,000 saved — QDWI'
+  as_of: '2026-05-01'
+  tags:
+  - single
+  - edge
+  household:
+    state: il
+    members:
+    - id: a
+      age: 50
+      medicare_part_a: false
+      medicare_part_b: true
+      disabled: true
+      facts:
+        lost_part_a_due_to_work: true
+    incomes:
+    - kind: earned
+      monthly: 4000
+      owner: a
+    assets:
+    - kind: cash
+      value: 3000
+      owner: a
+  expect:
+    status: eligible
+    tier: QDWI
+    rules_include:
+    - MSP-IL-QDWI
+  crosscheck:
+    policyengine: false
+- id: MSP-IL-T25
+  title: QDWI candidate with $5,000 saved — over twice the SSI resource limit, not eligible
+  as_of: '2026-05-01'
+  tags:
+  - single
+  - edge
+  - threshold
+  household:
+    state: il
+    members:
+    - id: a
+      age: 50
+      medicare_part_a: false
+      medicare_part_b: true
+      disabled: true
+      facts:
+        lost_part_a_due_to_work: true
+    incomes:
+    - kind: earned
+      monthly: 4000
+      owner: a
+    assets:
+    - kind: cash
+      value: 5000
+      owner: a
+  expect:
+    status: ineligible
+    tier: null
+  crosscheck:
+    policyengine: false
+- id: MSP-IL-T26
+  title: 'SSI recipient: Social Security $500 + SSI $494 (SSI not counted) — QMB'
+  as_of: '2026-05-01'
+  tags:
+  - single
+  - other_benefits
+  household:
+    state: il
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+      benefits:
+      - ssi
+      - medicaid
+    incomes:
+    - kind: social_security
+      monthly: 500
+      owner: a
+    - kind: ssi
+      monthly: 494
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: QMB
+  crosscheck:
+    policyengine: true
+- id: MSP-IL-T27
+  title: 'June 2025 — no 2025 Illinois income standards in the archive: undetermined, not guessed'
+  as_of: '2025-06-01'
+  tags:
+  - single
+  - unresolved
+  household:
+    state: il
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 1300
+      owner: a
+    assets: []
+  expect:
+    status: undetermined
+    tier: null
+  crosscheck:
+    policyengine: false
+- id: MSP-IL-T28
+  title: 'Cross-state: single retiree, Social Security $1,500 and $12,000 savings — not eligible in Illinois (resources),
+    SLMB in California, QMB in New York'
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - cross_state
+  household:
+    state: il
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 1500
+      owner: a
+    assets:
+    - kind: cash
+      value: 12000
+      owner: a
+  expect:
+    status: ineligible
+    tier: null
+    rules_include:
+    - MSP-IL-RESOURCES
+  compare_states:
+    ca:
+      status: eligible
+      tier: SLMB
+    ny:
+      status: eligible
+      tier: QMB
+  crosscheck:
+    policyengine: true
+- id: MSP-X-05
+  title: 'Cross-playbook (Extra Help), Illinois: Social Security $1,500 and $12,000 savings — over the MSP resource limit
+    but can still get Extra Help by applying to SSA'
+  as_of: '2026-05-01'
+  tags:
+  - single
+  - cross_playbook
+  household:
+    state: il
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 1500
+      owner: a
+    assets:
+    - kind: cash
+      value: 12000
+      owner: a
+  expect:
+    status: ineligible
+    tier: null
+  also:
+  - program: msp
+    function: extra_help_by_application
+    expect:
+      status: eligible
+  crosscheck:
+    policyengine: false

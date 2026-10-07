@@ -1,0 +1,153 @@
+# Illinois medical program standards, from the IDHS Policy Manual (WAG 25-03-02
+# (2) Medical FPLs and PM 07/08/15) and 89 Ill. Adm. Code 120. Manual Release
+# MR #26.11 (05/20/2026) dates the 2026 FPL standards: effective 01/01/2026 for
+# every program except MPE (03/01/2026); IES applied them to active cases from
+# April 2026 (mass change), and to pending applications for any budget month
+# from January 2026. The 2025 figures are no longer on the WAG page and are not
+# in the archive, so 2025 Illinois cases have no income standard.
+parameters:
+  - id: il.medicaid.aca_adult_income_limit_monthly
+    description: Illinois MAGI income standard for ACA Adults and for FamilyCare (parents and caretaker relatives), 138% FPL including the 5% disregard, monthly.
+    compare_to: Monthly MAGI household income for the household size, compared directly; IDHS says the 138% figure "includes 5% disregard".
+    unit: usd_per_month
+    keyed_by: household_size (1-10; "additional" = each person above 10)
+    updates: Yearly with the FPL; IDHS updates WAG 25-03-02 (2).
+    values:
+      - effective_from: 2026-01-01
+        value: {1: 1835, 2: 2488, 3: 3141, 4: 3795, 5: 4448, 6: 5101, 7: 5754, 8: 6407, 9: 7061, 10: 7714, additional: 652}
+        confidence: confirmed
+        note: MR #26.11 - revised standards effective 01/01/26 (IES updated active cases effective April 2026; pending applications use them for any budget month from January 2026).
+        sources:
+          - source: il-idhs-mr-26-11
+            locator: "Increase in the Monthly Medical Income Standards"
+            quote: "The revised standards are effective 01/01/26 for all programs except Medicaid Presumptive Eligibility (MPE)."
+          - source: il-idhs-wag-25-03-02-2
+            locator: "2026 Family Health Plans Monthly Income Standards, column FamilyCare and ACA Adults MAGI - 138% FPL (includes 5% disregard) (Adults)"
+          - source: il-idhs-pm-15-06-01-b
+            locator: "The income standard for ACA Adults is 138% of the Federal Poverty Level (FPL)."
+  - id: il.medicaid.moms_babies_income_limit_monthly
+    description: Illinois Moms & Babies (pregnant people) income standard, 213% FPL including the 5% disregard, monthly; the pregnant person counts as two.
+    compare_to: Monthly MAGI household income for the household size including the unborn child, compared directly.
+    unit: usd_per_month
+    keyed_by: household_size (2-10; "additional" = each person above 10)
+    updates: Yearly with the FPL.
+    values:
+      - effective_from: 2026-01-01
+        value: {2: 3841, 3: 4849, 4: 5857, 5: 6865, 6: 7873, 7: 8882, 8: 9890, 9: 10898, 10: 11906, additional: 1007}
+        confidence: confirmed
+        note: MR #26.11 - effective 01/01/26 for Moms & Babies; the same column's Medicaid Presumptive Eligibility (MPE) standards took effect 03/01/2026 (MPE is not modelled).
+        sources:
+          - source: il-idhs-mr-26-11
+            locator: "Increase in the Monthly Medical Income Standards"
+            quote: "The revised standards are effective 01/01/26 for all programs except Medicaid Presumptive Eligibility (MPE)."
+          - source: il-idhs-wag-25-03-02-2
+            locator: "column MPE and Moms & Babies MAGI - 213% FPL (includes 5% disregard), Household Size = 2"
+  - id: il.medicaid.aabd_income_limit_monthly
+    description: Illinois AABD Medical community income standard (100% FPL), monthly.
+    compare_to: >-
+      Countable monthly income of everyone included in the standard (SSI
+      excluded) after the $25 AABD income disregard, earned income exemptions,
+      up to $50 of child support received and child support paid. Living-with
+      spouse: always the 2-person standard.
+    unit: usd_per_month
+    keyed_by: household_size (persons included in the standard, 1-10; "additional" above 10)
+    updates: Yearly with the FPL.
+    values:
+      - effective_from: 2026-01-01
+        value: {1: 1330, 2: 1803, 3: 2276, 4: 2750, 5: 3223, 6: 3696, 7: 4170, 8: 4643, 9: 5116, 10: 5590, additional: 473}
+        confidence: confirmed
+        note: MR #26.11 - revised standards effective 01/01/26 (IES updated active cases effective April 2026; pending applications use them for any budget month from January 2026).
+        sources:
+          - source: il-idhs-mr-26-11
+            locator: "Increase in the Monthly Medical Income Standards"
+            quote: "The revised standards are effective 01/01/26 for all programs except Medicaid Presumptive Eligibility (MPE)."
+          - source: il-idhs-wag-25-03-02-2
+            locator: "AABD Medical/Medicare Savings Programs/HBWD, 2026 Monthly Income Standards, AABD 100% FPL column"
+          - source: il-idhs-pm-15-06-02-a
+            locator: "The Community Standard is 100% of the Federal Poverty Level (FPL)."
+  - id: il.medicaid.aabd_asset_limit
+    description: Illinois AABD Medical asset limit (one amount for any number of persons).
+    compare_to: >-
+      Nonexempt resources of the persons included in the income standard,
+      valued on the date of decision for the application month (first day of
+      each month for backdated months). Over the limit is not a denial for a
+      community case: the excess goes into a spenddown.
+    unit: usd
+    updates: State policy; unchanged since May 12, 2023.
+    values:
+      - effective_from: 2023-05-12
+        value: 17500
+        confidence: confirmed
+        sources:
+          - source: il-idhs-pm-07-02-01
+            locator: "WAG 07-02-01"
+            quote: "Effective 05/12/2023, the asset limit for Medical cases is $17,500. This applies whether one person or more is in a household."
+  - id: il.medicaid.aabd_income_disregard_monthly
+    description: Illinois AABD Medical income disregard for community cases ($25 of earned or unearned income other than SSI and contributions; one per applicant with such income).
+    unit: usd_per_month
+    updates: State policy.
+    values:
+      - effective_from: 2012-11-26
+        value: 25
+        confidence: confirmed
+        note: >-
+          2012-11-26 is the effective date of the last amendment of 89 Ill. Adm. Code 120.335 (the rule
+          that states the $25 exemption); the exemption may be older. The IDHS manual (PM 15-04-03-a)
+          states the same rule today.
+        sources:
+          - source: il-iac-89-120-335
+            locator: "Section 120.335(a)(1); Source: Amended at 36 Ill. Reg. 17044, effective November 26, 2012"
+            quote: "the first $25.00 of a client's earned or unearned income other than SSI income, or contributions from a spouse or other individual, is exempt"
+          - source: il-iac-89-120-362
+            locator: "Section 120.362(a)"
+            quote: "A client is eligible for only one $25.00 exemption regardless of the type or source of income."
+          - source: il-idhs-pm-15-04-03-a
+            locator: "WAG 15-04-03-a"
+            quote: "The first $25 of earned or unearned income, other than SSI income and contributions, is exempt when determining eligibility for medical."
+  - id: il.medicaid.vehicle_exempt_value
+    description: Value of one motor vehicle exempt from the AABD asset limit when the vehicle is not needed for work, medical transport, disability modification or essential travel (a needed vehicle is exempt whatever its value).
+    unit: usd
+    updates: State policy.
+    values:
+      - effective_from: 2026-10-07
+        value: 4500
+        confidence: confirmed
+        note: The PM page carries no date; recorded from the snapshot date.
+        sources:
+          - source: il-idhs-pm-07-02-05
+            locator: "WAG 07-02-05"
+            quote: "exempt one vehicle with a current fair market value of no more than $4,500. Apply any excess fair market value above $4,500 to the asset limit."
+  - id: il.medicaid.aabd_earned_disregard_aged_disabled
+    description: Illinois AABD Medical earned income exemption for aged or disabled people - the first `flat` dollars of gross earned income plus one-half of the next `half_of_next` dollars.
+    compare_to: Applied to monthly gross earned income after the $25 AABD income disregard and self-employment expenses, before employment expenses.
+    unit: usd_per_month
+    keyed_by: flat / half_of_next
+    updates: State rule (89 Ill. Adm. Code 120.362(b)(1)); not indexed.
+    values:
+      - effective_from: 1996-12-09
+        value: {flat: 20, half_of_next: 60}
+        confidence: confirmed
+        note: 1996-12-09 is the effective date of the last amendment of Section 120.362.
+        sources:
+          - source: il-iac-89-120-362
+            locator: "Section 120.362(b)(1)"
+            quote: "For MANG (AABD(A)(D)), the first $20.00 of gross earned income and one-half of the next $60.00 are exempt."
+          - source: il-idhs-pm-08-02-03-a
+            locator: "Aged or Disabled - AABD(A) or (D)"
+            quote: "disregard the first $20 of earned income plus 1/2 of the next $60"
+  - id: il.medicaid.aabd_earned_disregard_blind
+    description: Illinois AABD Medical earned income exemption for blind people - the first `flat` dollars of gross earned income plus one-half of the amount above it.
+    compare_to: Applied like the aged/disabled exemption; an approved plan for self-support can exempt more (not modelled).
+    unit: usd_per_month
+    keyed_by: flat
+    updates: State rule (89 Ill. Adm. Code 120.362(b)(2)); not indexed.
+    values:
+      - effective_from: 1996-12-09
+        value: {flat: 85}
+        confidence: confirmed
+        sources:
+          - source: il-iac-89-120-362
+            locator: "Section 120.362(b)(2)(A)"
+            quote: "The first $85.00 of the gross earned income and one-half of the amount in excess of $85.00 are exempt."
+          - source: il-idhs-pm-08-02-03-a
+            locator: "Blind - AABD(B)"

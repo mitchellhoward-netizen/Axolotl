@@ -1,0 +1,1257 @@
+# Synthetic New York households for SNAP. No real people. Expected amounts are
+# monthly dollars; see the case notes and the rule IDs for how each was budgeted.
+program: snap
+scope: ny
+cases:
+- id: SNAP-NY-T01
+  title: Single, unemployment benefits $1,696 = 130% gross limit (no earnings, so no BBCE)
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - threshold
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 40
+      relationship: self
+    incomes:
+    - kind: unemployment
+      monthly: 1696
+      owner: a
+    assets: []
+    county: Albany
+    expenses:
+      rent: 800
+    facts:
+      utilities: &id001
+      - electricity
+      - phone
+  expect:
+    status: eligible
+    tier: regular
+    rules_include:
+    - SNAP-FED-GROSS-TEST
+    - SNAP-NY-SUA
+    amounts:
+      benefit_monthly: 24.0
+      net_income_monthly: 1075.5
+      utility_allowance_monthly: 355.0
+      medical_deduction_monthly: 0.0
+  crosscheck:
+    policyengine: true
+- id: SNAP-NY-T02
+  title: Single, unemployment $1,697 — $1 over the 130% gross limit, no BBCE route
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - threshold
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 40
+      relationship: self
+    incomes:
+    - kind: unemployment
+      monthly: 1697
+      owner: a
+    assets: []
+    county: Albany
+    expenses:
+      rent: 800
+    facts:
+      utilities: *id001
+  expect:
+    status: ineligible
+    rules_include:
+    - SNAP-FED-GROSS-TEST
+    - SNAP-NY-NO-BBCE-OTHER
+    amounts:
+      net_income_monthly: 1077.0
+      utility_allowance_monthly: 355.0
+      medical_deduction_monthly: 0.0
+  crosscheck:
+    policyengine: true
+- id: SNAP-NY-T03
+  title: Couple, both on unemployment, $2,292 total = 130% limit for 2
+  as_of: '2026-03-01'
+  tags:
+  - couple
+  - threshold
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 45
+      relationship: self
+    - id: b
+      age: 44
+      relationship: spouse
+    incomes:
+    - kind: unemployment
+      monthly: 1500
+      owner: a
+    - kind: unemployment
+      monthly: 792
+      owner: b
+    assets: []
+    county: Albany
+    expenses:
+      rent: 1100
+    facts:
+      utilities: &id002
+      - heating_cooling
+      - electricity
+  expect:
+    status: eligible
+    tier: regular
+    rules_include:
+    - SNAP-FED-GROSS-TEST
+    amounts:
+      benefit_monthly: 144.0
+      net_income_monthly: 1339.0
+      utility_allowance_monthly: 877.0
+      medical_deduction_monthly: 0.0
+  crosscheck:
+    policyengine: true
+- id: SNAP-NY-T04
+  title: Couple, both on unemployment, $2,293 total — $1 over the limit for 2
+  as_of: '2026-03-01'
+  tags:
+  - couple
+  - threshold
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 45
+      relationship: self
+    - id: b
+      age: 44
+      relationship: spouse
+    incomes:
+    - kind: unemployment
+      monthly: 1500
+      owner: a
+    - kind: unemployment
+      monthly: 793
+      owner: b
+    assets: []
+    county: Albany
+    expenses:
+      rent: 1100
+    facts:
+      utilities: *id002
+  expect:
+    status: ineligible
+    rules_include:
+    - SNAP-FED-GROSS-TEST
+    amounts:
+      net_income_monthly: 1340.0
+      utility_allowance_monthly: 877.0
+      medical_deduction_monthly: 0.0
+  crosscheck:
+    policyengine: true
+- id: SNAP-NY-T05
+  title: Family of 4, unemployment $3,483 = 130% limit for 4, NYC
+  as_of: '2026-03-01'
+  tags:
+  - family
+  - threshold
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 40
+      relationship: self
+    - id: b
+      age: 38
+      relationship: spouse
+    - id: k1
+      age: 10
+      relationship: child
+    - id: k2
+      age: 7
+      relationship: child
+    incomes:
+    - kind: unemployment
+      monthly: 3483
+      owner: a
+    assets: []
+    county: Kings
+    expenses:
+      rent: 1800
+    facts:
+      utilities: *id002
+  expect:
+    status: eligible
+    tier: regular
+    rules_include:
+    - SNAP-FED-GROSS-TEST
+    - SNAP-NY-SUA
+    amounts:
+      benefit_monthly: 239.0
+      net_income_monthly: 2516.0
+      utility_allowance_monthly: 1062.0
+      medical_deduction_monthly: 0.0
+    links_include:
+    - school_meals:direct_certification
+  crosscheck:
+    policyengine: true
+- id: SNAP-NY-T06
+  title: Family of 4, unemployment $3,484 — $1 over the limit for 4
+  as_of: '2026-03-01'
+  tags:
+  - family
+  - threshold
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 40
+      relationship: self
+    - id: b
+      age: 38
+      relationship: spouse
+    - id: k1
+      age: 10
+      relationship: child
+    - id: k2
+      age: 7
+      relationship: child
+    incomes:
+    - kind: unemployment
+      monthly: 3484
+      owner: a
+    assets: []
+    county: Kings
+    expenses:
+      rent: 1800
+    facts:
+      utilities: *id002
+  expect:
+    status: ineligible
+    rules_include:
+    - SNAP-FED-GROSS-TEST
+    amounts:
+      net_income_monthly: 2517.0
+      utility_allowance_monthly: 1062.0
+      medical_deduction_monthly: 0.0
+  crosscheck:
+    policyengine: true
+- id: SNAP-NY-T07
+  title: Single worker earning $1,957 = New York 150% BBCE limit (over 130%)
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - threshold
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 35
+      relationship: self
+    incomes:
+    - kind: earned
+      monthly: 1957
+      owner: a
+    assets: []
+    county: Albany
+    expenses:
+      rent: 1300
+    facts:
+      utilities: *id002
+  expect:
+    status: eligible
+    tier: bbce
+    rules_include:
+    - SNAP-NY-BBCE-150
+    amounts:
+      benefit_monthly: 114.0
+      net_income_monthly: 612.6
+      utility_allowance_monthly: 877.0
+      medical_deduction_monthly: 0.0
+  crosscheck:
+    policyengine: true
+- id: SNAP-NY-T08
+  title: Single worker earning $1,958 — $1 over the 150% BBCE limit
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - threshold
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 35
+      relationship: self
+    incomes:
+    - kind: earned
+      monthly: 1958
+      owner: a
+    assets: []
+    county: Albany
+    expenses:
+      rent: 1300
+    facts:
+      utilities: *id002
+  expect:
+    status: ineligible
+    rules_include:
+    - SNAP-NY-BBCE-150
+    - SNAP-FED-GROSS-TEST
+    amounts:
+      net_income_monthly: 613.4
+      utility_allowance_monthly: 877.0
+      medical_deduction_monthly: 0.0
+  crosscheck:
+    policyengine: true
+- id: SNAP-NY-T09
+  title: 'Retiree, 70, Social Security $2,700 (over 200%): no gross test, passes the net test with high rent'
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - edge
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 70
+      relationship: self
+    incomes:
+    - kind: social_security
+      monthly: 2700
+      owner: a
+    assets: []
+    county: Albany
+    expenses:
+      rent: 1900
+      medical: 202.9
+    facts:
+      utilities: *id002
+      part_b_premium_in_medical: true
+  expect:
+    status: eligible
+    tier: regular
+    rules_include:
+    - SNAP-FED-NET-TEST
+    - SNAP-FED-SHELTER-UNCAPPED
+    amounts:
+      benefit_monthly: 85.0
+      net_income_monthly: 707.65
+      utility_allowance_monthly: 877.0
+      medical_deduction_monthly: 167.9
+    links_include:
+    - msp:part_b_in_medical_deduction
+  crosscheck:
+    policyengine: true
+- id: SNAP-NY-T10
+  title: Retiree, medical costs exactly $35 — no medical deduction
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - threshold
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 68
+      relationship: self
+    incomes:
+    - kind: social_security
+      monthly: 1500
+      owner: a
+    assets: []
+    county: Albany
+    expenses:
+      rent: 500
+      medical: 35
+    facts:
+      utilities: *id002
+  expect:
+    status: eligible
+    tier: regular
+    rules_include:
+    - SNAP-FED-MEDICAL
+    amounts:
+      benefit_monthly: 130.0
+      net_income_monthly: 559.5
+      utility_allowance_monthly: 877.0
+      medical_deduction_monthly: 0.0
+  crosscheck:
+    policyengine: true
+- id: SNAP-NY-T11
+  title: Retiree, medical costs $36 — $1 medical deduction
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - threshold
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 68
+      relationship: self
+    incomes:
+    - kind: social_security
+      monthly: 1500
+      owner: a
+    assets: []
+    county: Albany
+    expenses:
+      rent: 500
+      medical: 36
+    facts:
+      utilities: *id002
+  expect:
+    status: eligible
+    tier: regular
+    rules_include:
+    - SNAP-FED-MEDICAL
+    amounts:
+      benefit_monthly: 130.0
+      net_income_monthly: 558.0
+      utility_allowance_monthly: 877.0
+      medical_deduction_monthly: 1.0
+  crosscheck:
+    policyengine: true
+- id: SNAP-NY-T12
+  title: Couple with earnings and high Nassau rent — excess shelter capped at $744
+  as_of: '2026-03-01'
+  tags:
+  - couple
+  - edge
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 40
+      relationship: self
+    - id: b
+      age: 39
+      relationship: spouse
+    incomes:
+    - kind: earned
+      monthly: 1500
+      owner: a
+    - kind: unemployment
+      monthly: 400
+      owner: b
+    assets: []
+    county: Nassau
+    expenses:
+      rent: 2400
+    facts:
+      utilities: *id002
+  expect:
+    status: eligible
+    tier: regular
+    rules_include:
+    - SNAP-FED-SHELTER-CAP
+    amounts:
+      benefit_monthly: 351.0
+      net_income_monthly: 647.0
+      utility_allowance_monthly: 988.0
+      medical_deduction_monthly: 0.0
+  crosscheck:
+    policyengine: true
+- id: SNAP-NY-T13
+  title: 'Retiree with $10,000 savings, gross under 200%: BBCE, no asset test'
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - edge
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 72
+      relationship: self
+    incomes:
+    - kind: social_security
+      monthly: 1600
+      owner: a
+    - kind: pension
+      monthly: 300
+      owner: a
+    assets:
+    - kind: cash
+      value: 10000
+      owner: a
+    county: Albany
+    expenses:
+      rent: 900
+    facts:
+      utilities: *id002
+  expect:
+    status: eligible
+    tier: bbce
+    rules_include:
+    - SNAP-NY-BBCE-200
+    amounts:
+      benefit_monthly: 70.0
+      net_income_monthly: 759.5
+      utility_allowance_monthly: 877.0
+      medical_deduction_monthly: 0.0
+  crosscheck:
+    policyengine: true
+- id: SNAP-NY-T14
+  title: 'Non-working adult with $3,500 savings: no BBCE route in New York, fails the $3,000 resource limit'
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - edge
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 50
+      relationship: self
+    incomes:
+    - kind: unemployment
+      monthly: 900
+      owner: a
+    assets:
+    - kind: cash
+      value: 3500
+      owner: a
+    county: Albany
+    expenses:
+      rent: 700
+    facts:
+      utilities: *id002
+  expect:
+    status: ineligible
+    rules_include:
+    - SNAP-FED-RESOURCES
+    - SNAP-NY-NO-BBCE-OTHER
+    amounts:
+      net_income_monthly: 0.0
+      utility_allowance_monthly: 877.0
+      medical_deduction_monthly: 0.0
+  crosscheck:
+    policyengine: true
+- id: SNAP-NY-T15
+  title: 'Retiree, SS $1,800, low rent with heat included: net over 100% but BBCE 200% gives the $24 minimum'
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - edge
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 75
+      relationship: self
+    incomes:
+    - kind: social_security
+      monthly: 1800
+      owner: a
+    assets: []
+    county: Albany
+    expenses:
+      rent: 300
+    facts:
+      utilities: []
+  expect:
+    status: eligible
+    tier: bbce
+    rules_include:
+    - SNAP-NY-BBCE-200
+    - SNAP-FED-MIN-BENEFIT
+    amounts:
+      benefit_monthly: 24.0
+      net_income_monthly: 1591.0
+      utility_allowance_monthly: 0.0
+      medical_deduction_monthly: 0.0
+  crosscheck:
+    policyengine: true
+- id: SNAP-NY-T16
+  title: 'FY 2027: retiree, SS $1,500, utilities in rent (no SUA needed)'
+  as_of: '2026-11-01'
+  tags:
+  - single
+  - timing
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 70
+      relationship: self
+    incomes:
+    - kind: social_security
+      monthly: 1500
+      owner: a
+    assets: []
+    county: Albany
+    expenses:
+      rent: 900
+      medical: 60
+    facts:
+      utilities: []
+  expect:
+    status: eligible
+    tier: regular
+    rules_include:
+    - SNAP-FED-BENEFIT
+    amounts:
+      benefit_monthly: 25.0
+      net_income_monthly: 987.0
+      utility_allowance_monthly: 0.0
+      medical_deduction_monthly: 25.0
+  crosscheck:
+    policyengine: true
+- id: SNAP-NY-T17
+  title: 'FY 2027: retiree paying heat upstate — HT/AC SUA $908 (FY 2027 SUA from secondary sources)'
+  as_of: '2026-11-01'
+  note: >-
+    Was undetermined in the first pass (no FY 2027 SUA). Budget: $1,500 - $217
+    standard = $1,283; shelter $900 + $908 SUA - $641.50 = $1,166.50 (no cap,
+    elderly); net $116.50; $306 - $35 = $271. The $908 rests on two secondary
+    sources (SNAP-NY-SUA-FY27).
+  tags:
+  - single
+  - timing
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 70
+      relationship: self
+    incomes:
+    - kind: social_security
+      monthly: 1500
+      owner: a
+    assets: []
+    county: Albany
+    expenses:
+      rent: 900
+    facts:
+      utilities: *id002
+  expect:
+    status: eligible
+    tier: regular
+    rules_include:
+    - SNAP-NY-SUA
+    amounts:
+      benefit_monthly: 271.0
+      net_income_monthly: 116.5
+      utility_allowance_monthly: 908.0
+      medical_deduction_monthly: 0.0
+  crosscheck:
+    policyengine: true
+- id: SNAP-NY-T18
+  title: 'FY 2027: retiree with $6,000 savings (over the $4,750 limit), gross under 200% — BBCE, $25 minimum'
+  as_of: '2026-11-01'
+  note: >-
+    Was undetermined in the first pass (no FY 2027 BBCE limit). Fails the
+    regular resource test ($6,000 > $4,750) but gross $1,500 <= $2,660 (200%
+    FPL, FY 2027) makes it categorically eligible; net $1,283 gives a computed
+    benefit below zero, raised to the $25 minimum for one person.
+  tags:
+  - single
+  - timing
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 70
+      relationship: self
+    incomes:
+    - kind: social_security
+      monthly: 1500
+      owner: a
+    assets:
+    - kind: cash
+      value: 6000
+      owner: a
+    county: Albany
+    expenses:
+      rent: 300
+    facts:
+      utilities: []
+  expect:
+    status: eligible
+    tier: bbce
+    rules_include:
+    - SNAP-NY-BBCE-200
+    amounts:
+      benefit_monthly: 25.0
+      net_income_monthly: 1283.0
+      utility_allowance_monthly: 0.0
+      medical_deduction_monthly: 0.0
+  crosscheck:
+    policyengine: true
+- id: SNAP-NY-T19
+  title: 'FY 2027: worker earning $1,729 = 130% gross limit (regular rules, no NY figures needed)'
+  as_of: '2026-11-01'
+  tags:
+  - single
+  - threshold
+  - timing
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 30
+      relationship: self
+    incomes:
+    - kind: earned
+      monthly: 1729
+      owner: a
+    assets: []
+    county: Albany
+    expenses:
+      rent: 1000
+    facts:
+      utilities: []
+  expect:
+    status: eligible
+    tier: regular
+    rules_include:
+    - SNAP-FED-GROSS-TEST
+    amounts:
+      benefit_monthly: 81.0
+      net_income_monthly: 749.3
+      utility_allowance_monthly: 0.0
+      medical_deduction_monthly: 0.0
+  crosscheck:
+    policyengine: true
+- id: SNAP-NY-T20
+  title: 'Single parent earning $2,900 with $400 child care: over 150% but dependent care gives 200% BBCE'
+  as_of: '2026-03-01'
+  tags:
+  - family
+  - edge
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 33
+      relationship: self
+    - id: k1
+      age: 4
+      relationship: child
+    incomes:
+    - kind: earned
+      monthly: 2900
+      owner: a
+    assets: []
+    county: Albany
+    expenses:
+      rent: 1400
+      dependent_care: 400
+    facts:
+      utilities: *id002
+  expect:
+    status: eligible
+    tier: bbce
+    rules_include:
+    - SNAP-NY-BBCE-200
+    amounts:
+      benefit_monthly: 255.0
+      net_income_monthly: 967.0
+      utility_allowance_monthly: 877.0
+      medical_deduction_monthly: 0.0
+    links_include:
+    - school_meals:direct_certification
+  crosscheck:
+    policyengine: true
+- id: SNAP-NY-T21
+  title: 'SSI recipient living alone (all members on SSI): categorically eligible'
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - other_benefits
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 67
+      relationship: self
+      benefits:
+      - ssi
+      disabled: false
+    incomes:
+    - kind: ssi
+      monthly: 994
+      owner: a
+    assets:
+    - kind: cash
+      value: 6000
+      owner: a
+    county: Albany
+    expenses:
+      rent: 600
+    facts:
+      utilities: *id002
+  expect:
+    status: eligible
+    tier: categorical
+    rules_include:
+    - SNAP-FED-CATEGORICAL
+    amounts:
+      benefit_monthly: 298.0
+      net_income_monthly: 0.0
+      utility_allowance_monthly: 877.0
+      medical_deduction_monthly: 0.0
+    links_include:
+    - disability:ssi_household
+  note: 'NYSCAP would normally open this case automatically (SNAP-NY-NYSCAP). Not cross-checked: PolicyEngine computes SSI
+    itself from its own inputs.'
+- id: SNAP-NY-T22
+  title: 'HEAP-only household without an elderly/disabled member (December 2025): no HT/AC SUA'
+  as_of: '2025-12-01'
+  tags:
+  - single
+  - edge
+  - timing
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 45
+      relationship: self
+    incomes:
+    - kind: earned
+      monthly: 1200
+      owner: a
+    assets: []
+    county: Albany
+    expenses:
+      rent: 700
+    facts:
+      utilities:
+      - electricity
+      - water
+      energy_assistance_over_20: true
+  expect:
+    status: eligible
+    tier: regular
+    rules_include:
+    - SNAP-NY-HEAP-SUA
+    - SNAP-NY-SUA
+    amounts:
+      benefit_monthly: 276.0
+      net_income_monthly: 71.5
+      utility_allowance_monthly: 355.0
+      medical_deduction_monthly: 0.0
+  crosscheck:
+    policyengine: true
+- id: SNAP-NY-T23
+  title: 'Same retiree in NY, CA and IL: SS $1,400, rent $600 with heat, $100 medical (cross-state)'
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - cross_state
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 70
+      relationship: self
+    incomes:
+    - kind: social_security
+      monthly: 1400
+      owner: a
+    assets: []
+    county: Albany
+    expenses:
+      rent: 600
+      medical: 100
+    facts:
+      utilities: *id002
+  expect:
+    status: eligible
+    tier: regular
+    rules_include:
+    - SNAP-NY-SUA
+    - SNAP-FED-MEDICAL
+    amounts:
+      benefit_monthly: 234.0
+      net_income_monthly: 212.0
+      utility_allowance_monthly: 877.0
+      medical_deduction_monthly: 65.0
+  compare_states:
+    ca:
+      status: eligible
+      tier: regular
+      amounts:
+        benefit_monthly: 208.0
+    il:
+      status: eligible
+      tier: regular
+      amounts:
+        benefit_monthly: 187.0
+  crosscheck:
+    policyengine: true
+  note: 'Cross-state: New York gives the $877 HT/AC SUA (rest of state) and deducts actual medical costs over $35 ($65); California
+    gives a $663 SUA and the $150 SMD; Illinois a $546 AC/Heating standard, the $185 SMD and a $205 standard deduction.'
+- id: SNAP-X-01
+  title: 'MSP crossing (models MSP-X-03): NY retiree paying the $202.90 Part B premium'
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - cross_playbook
+  - other_benefits
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 70
+      relationship: self
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 1400
+      owner: a
+    assets: []
+    county: Albany
+    expenses:
+      rent: 400
+      medical: 202.9
+    facts:
+      utilities: *id002
+      part_b_premium_in_medical: true
+  expect:
+    status: eligible
+    tier: regular
+    rules_include:
+    - SNAP-FED-MEDICAL
+    - SNAP-FED-MSP-PART-B
+    amounts:
+      benefit_monthly: 220.0
+      net_income_monthly: 257.65
+      utility_allowance_monthly: 877.0
+      medical_deduction_monthly: 167.9
+    links_include:
+    - msp:part_b_in_medical_deduction
+  also:
+  - program: msp
+    expect:
+      status: eligible
+      tier: QMB
+  crosscheck:
+    policyengine: true
+  note: 'Models the MSP <-> SNAP crossing the MSP playbook reserves as MSP-X-03 (link MSP-NY-LINK-SNAP / SNAP-NY-LINK-MSP).
+    With the Part B premium paid by the member the SNAP medical deduction is $167.90 and SNAP is $220. SNAP-X-01B is the same
+    household after QMB pays the premium: SNAP $145, a $75 drop (net income rises by 1.5 x $167.90 because the excess shelter
+    deduction also shrinks), against $202.90 a month gained from the MSP. When the drop takes effect (next recertification
+    under 02 ADM-07, or earlier under 7 CFR 273.12(c)) is SNAP-NY-OQ-05.'
+- id: SNAP-X-01B
+  title: 'MSP crossing, after QMB pays Part B: same NY retiree with no medical cost'
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - cross_playbook
+  - other_benefits
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 70
+      relationship: self
+      medicare_part_a: true
+      medicare_part_b: true
+      benefits:
+      - qmb
+    incomes:
+    - kind: social_security
+      monthly: 1400
+      owner: a
+    assets: []
+    county: Albany
+    expenses:
+      rent: 400
+    facts:
+      utilities: *id002
+  expect:
+    status: eligible
+    tier: regular
+    rules_include:
+    - SNAP-FED-BENEFIT
+    amounts:
+      benefit_monthly: 145.0
+      net_income_monthly: 509.5
+      utility_allowance_monthly: 877.0
+      medical_deduction_monthly: 0.0
+  crosscheck:
+    policyengine: true
+  note: 'Second half of the MSP crossing (see SNAP-X-01): no medical deduction once the MSP pays Part B.'
+- id: SNAP-NY-T24
+  title: 'FY 2027: retiree with SS $2,660 = 200% BBCE limit and $6,000 savings — categorically eligible, $25 minimum'
+  as_of: '2026-11-01'
+  tags:
+  - single
+  - threshold
+  - timing
+  note: Regular rules fail (resources $6,000 > $4,750; net $2,443 > $1,330); gross $2,660 is exactly New York's FY 2027 200% limit (Erie County DSS page).
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 68
+      relationship: self
+    incomes:
+    - kind: social_security
+      monthly: 2660
+      owner: a
+    assets:
+    - kind: cash
+      value: 6000
+      owner: a
+    county: Albany
+    expenses:
+      rent: 300
+    facts:
+      utilities: []
+  expect:
+    status: eligible
+    tier: bbce
+    rules_include:
+    - SNAP-NY-BBCE-200
+    - SNAP-FED-MIN-BENEFIT
+    amounts:
+      benefit_monthly: 25.0
+      net_income_monthly: 2443.0
+      utility_allowance_monthly: 0.0
+  crosscheck:
+    policyengine: true
+- id: SNAP-NY-T25
+  title: 'FY 2027: same retiree with SS $2,661 — $1 over the 200% limit, fails the $4,750 resource limit'
+  as_of: '2026-11-01'
+  tags:
+  - single
+  - threshold
+  - timing
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 68
+      relationship: self
+    incomes:
+    - kind: social_security
+      monthly: 2661
+      owner: a
+    assets:
+    - kind: cash
+      value: 6000
+      owner: a
+    county: Albany
+    expenses:
+      rent: 300
+    facts:
+      utilities: []
+  expect:
+    status: ineligible
+    rules_include:
+    - SNAP-NY-BBCE-200
+  crosscheck:
+    policyengine: true
+- id: SNAP-NY-T26
+  title: 'FY 2027: single worker earning $1,995 = New York 150% BBCE limit (over the $1,729 130% limit)'
+  as_of: '2026-11-01'
+  tags:
+  - single
+  - threshold
+  - timing
+  note: 'Budget: $1,995 - 20% $399 - $217 = $1,379; shelter $1,300 + $908 HT/AC SUA - $689.50 = $1,518.50, capped at $769; net $610; $306 - $183 = $123.'
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 35
+      relationship: self
+    incomes:
+    - kind: earned
+      monthly: 1995
+      owner: a
+    assets: []
+    county: Albany
+    expenses:
+      rent: 1300
+    facts:
+      utilities:
+      - heating_cooling
+      - electricity
+  expect:
+    status: eligible
+    tier: bbce
+    rules_include:
+    - SNAP-NY-BBCE-150
+    amounts:
+      benefit_monthly: 123.0
+      net_income_monthly: 610.0
+      utility_allowance_monthly: 908.0
+  crosscheck:
+    policyengine: true
+- id: SNAP-NY-T27
+  title: 'FY 2027: single worker earning $1,996 — $1 over the 150% BBCE limit'
+  as_of: '2026-11-01'
+  tags:
+  - single
+  - threshold
+  - timing
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 35
+      relationship: self
+    incomes:
+    - kind: earned
+      monthly: 1996
+      owner: a
+    assets: []
+    county: Albany
+    expenses:
+      rent: 1300
+    facts:
+      utilities:
+      - heating_cooling
+      - electricity
+  expect:
+    status: ineligible
+    rules_include:
+    - SNAP-NY-BBCE-150
+    - SNAP-FED-GROSS-TEST
+  crosscheck:
+    policyengine: true
+- id: SNAP-NY-T28
+  title: 'FY 2027: couple of retirees in Brooklyn paying heat — NYC HT/AC SUA $1,100'
+  as_of: '2026-11-01'
+  tags:
+  - couple
+  - timing
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 74
+      relationship: self
+    - id: b
+      age: 71
+      relationship: spouse
+    incomes:
+    - kind: social_security
+      monthly: 1700
+      owner: a
+    - kind: social_security
+      monthly: 900
+      owner: b
+    assets: []
+    county: Kings
+    expenses:
+      rent: 1400
+      medical: 235
+    facts:
+      utilities:
+      - heating_cooling
+      - electricity
+  expect:
+    status: eligible
+    rules_include:
+    - SNAP-NY-SUA
+    amounts:
+      utility_allowance_monthly: 1100.0
+      medical_deduction_monthly: 200.0
+  crosscheck:
+    policyengine: true
+- id: SNAP-NY-T29
+  title: 'FY 2027: Nassau renter paying only electricity (one non-heating utility) — Utility SUA $402'
+  as_of: '2026-11-01'
+  tags:
+  - single
+  - edge
+  - timing
+  note: One separate non-heating utility gets New York's Utility SUA (NYC DSS notice; Hunger Solutions 'Level 2'); before this pass the archive required two (SNAP-NY-CONFLICT-05).
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 66
+      relationship: self
+    incomes:
+    - kind: social_security
+      monthly: 1400
+      owner: a
+    assets: []
+    county: Nassau
+    expenses:
+      rent: 1200
+    facts:
+      utilities:
+      - electricity
+  expect:
+    status: eligible
+    rules_include:
+    - SNAP-NY-SUA
+    amounts:
+      utility_allowance_monthly: 402.0
+- id: SNAP-NY-T30
+  title: 'FY 2027: upstate tenant with only a phone bill — Phone SUA $33'
+  as_of: '2026-11-01'
+  tags:
+  - single
+  - edge
+  - timing
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 66
+      relationship: self
+    incomes:
+    - kind: social_security
+      monthly: 1400
+      owner: a
+    assets: []
+    county: Albany
+    expenses:
+      rent: 700
+    facts:
+      utilities:
+      - phone
+  expect:
+    status: eligible
+    rules_include:
+    - SNAP-NY-SUA
+    amounts:
+      utility_allowance_monthly: 33.0
+- id: SNAP-NY-T31
+  title: HEAP-only household without an elderly/disabled member, October 2025 (before the November 1 change) — HT/AC SUA
+  as_of: '2025-10-15'
+  tags:
+  - single
+  - edge
+  - timing
+  note: Was undetermined in the first pass (start date unknown). NYC DSS's notice puts New York's start at November 1, 2025 for new and pending applications; Hunger Solutions New York says July 4, 2025 (SNAP-NY-CONFLICT-03).
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 45
+      relationship: self
+    incomes:
+    - kind: earned
+      monthly: 1200
+      owner: a
+    assets: []
+    county: Albany
+    expenses:
+      rent: 700
+    facts:
+      utilities:
+      - electricity
+      - water
+      energy_assistance_over_20: true
+  expect:
+    status: eligible
+    rules_include:
+    - SNAP-NY-HEAP-SUA
+    - SNAP-NY-SUA
+    amounts:
+      utility_allowance_monthly: 877.0

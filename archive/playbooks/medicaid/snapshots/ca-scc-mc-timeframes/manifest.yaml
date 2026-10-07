@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://stgenssa.sccgov.org/debs/program_handbooks/medi-cal/assets/05Apps/TimeframesProcApps.htm
+  final_url: https://stgenssa.sccgov.org/debs/program_handbooks/medi-cal/assets/05Apps/TimeframesProcApps.htm
+  status: 200
+  content_type: text/html
+  text_sha256: eb2b75c7cf5b0d44e6643e0cd69bdeb2727900d05a774dc8f2931deb42da8945
+  text: ca-scc-mc-timeframes/2026-10-07.txt
+  raw: ca-scc-mc-timeframes/2026-10-07.html

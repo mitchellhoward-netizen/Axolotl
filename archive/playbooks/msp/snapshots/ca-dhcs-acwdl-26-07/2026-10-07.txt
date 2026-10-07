@@ -1,0 +1,265 @@
+DATE: March 12, 2026
+
+TO: ALL COUNTY WELFARE DIRECTORS Letter No.: 26-07
+ALL COUNTY WELFARE ADMINISTRATIVE OFFICERS
+ALL COUNTY MEDI-CAL PROGRAM SPECIALISTS/LIAISONS
+ALL COUNTY HEALTH EXECUTIVES
+ALL COUNTY MENTAL HEALTH DIRECTORS
+ALL COUNTY MEDS LIAISONS
+
+SUBJECT: Policy Changes to Retroactive Medi-Cal Coverage Periods
+(Reference MEDIL 14-27, ACWDL 18-11)
+
+Note: This ACWDL represents preliminary guidance and is subject to change based
+on developing federal policy guidance and state legislative changes.
+
+Purpose
+The purpose of this All County Welfare Directors Letter (ACWDL) is to provide counties
+with updated guidance regarding changes to retroactive Medi-Cal eligibility policy
+effective January 1, 2027. These policy changes are required pursuant to federal
+legislation enacted under H.R. 1.
+
+Background
+Under current Medi-Cal policy, individuals may be eligible for up to 3 months of
+retroactive Medi-Cal coverage prior to the month of application, provided all eligibility
+requirements are met for each retroactive month.
+
+Effective January 1, 2027, Section 71112 of H.R. 1, Public Law 119-21, reduces the
+maximum allowable retroactive Medi-Cal coverage period for all eligibility groups.
+
+Under the revised policy, individuals in the Modified Adjusted Gross Income (MAGI)
+New Adult Group may be eligible for up to one month of retroactive coverage. All other
+Medi-Cal coverage groups may be eligible for up to two months of retroactive
+coverage.
+
+Policy Change
+
+California Department of Health Care Services State of California
+Medi-Cal Eligibility Division Gavin Newsom, Governor
+1501 Capitol Avenue | Sacramento, CA | 95899-7413
+MS 4607 | Phone (916) 552-9200 | www.dhcs.ca.gov California Health and Human Services Agency
+
+Letter No.: 26-07
+Page 2
+March 12, 2026
+
+The revised retroactive Medi-Cal coverage periods apply to applications with an
+application date of January 1, 2027, or later.
+
+Effective January 1, 2027, retroactive Medi-Cal coverage periods are as follows:
+• MAGI New Adult Groups: Retroactive Medi-Cal coverage is limited to 1 month
+prior to the month of application
+• All Other Medi-Cal Eligibility Groups: Retroactive Medi-Cal coverage is limited
+to 2 months prior to the month of application.
+
+The New Adult Group is a Medi-Cal coverage group that provides eligibility to adults
+ages 19 through 64 with income up to 138 percent of the Federal Poverty Level,
+provided they meet all other applicable eligibility requirements, including California
+residency, or a valid Social Security number and U.S. citizenship or satisfactory
+immigration status for those who required to provide it. Aid codes for this population
+include M1, M2, 1C, 1J, and 1M.
+
+Additionally, policies and notices outlined in this letter also apply to the Medi-Cal
+Inmate Eligibility Program (MCIEP) New Adult Group population in the following aid
+codes: K2, K3, K4, K5, K6, K7, K8, K9, N5, N6, N7, and N8. Counties must follow the
+processes detailed in this letter for this population. For more information on MCIEP
+policy, counties may reference ACWDL 24-04.
+
+Policy Guidance
+For Medi-Cal applications received prior to an application date of January 1, 2027,
+Counties must continue to evaluate and determine retroactive eligibility consistent with
+current policy outlined in MEDIL 14-27.
+
+Beginning with applications received on or after January 1, 2027, counties shall evaluate
+retroactive eligibility only within the shortened retroactive period established under H.R.
+1, not to exceed two months prior to the month of application. Counties must enter the
+month(s) of service requested by the applicant; however, the California Statewide
+Automated Welfare System (CalSAWS) and California Healthcare Eligibility, Enrollment
+and Retention System (CalHEERS) will automatically limit eligibility determinations to the
+
+Letter No.: 26-07
+Page 3
+March 12, 2026
+
+allowable retroactive months based on the individual’s coverage group. Months outside
+the applicable retroactive period are not eligible for consideration.
+
+Upon request, counties must assist with or complete the MC 210A using information
+provided by the applicant or family member through any available application method.
+When information reported on the MC 210A differs from the application month,
+counties must follow existing verification rules and accept electronic verification and
+reasonable explanations when permitted.
+
+Because applicants may not know which coverage group they qualify for, counties must
+allow applicants to request up to two months of retroactive coverage and shall not
+discourage such requests, even if their eligibility for both months is uncertain.
+
+Reminders
+The process for requesting retroactive Medi-Cal coverage remains unchanged. The MC
+210A continues to be the required form to initiate a retroactive eligibility determination.
+
+The MC 210A has been revised to reflect updated policy changes. However, counties
+must continue to accept the old version of the MC 210A when submitted.
+
+Counties must complete the MC 210A form from information the individual/family
+provides over the phone, in person or through any other avenue currently available for
+individuals/families applying for Medi-Cal. The county must obtain a telephonic
+signature for Retroactive Medi-Cal applications completed over the phone. When a
+request for retroactive coverage is submitted through the Single Streamlined
+Application (SSApp), the county must contact the applicant, either by telephone or mail,
+to complete the MC 210A and collect any additional information needed to determine
+eligibility.
+
+Existing verification standards continue to apply when evaluating retroactive eligibility.
+When an applicant indicates “no change” on the MC 210A and a full Medi-Cal
+application with verified information is already on file, counties must not request
+additional income or eligibility information, consistent with MEDIL 14-27.
+
+Letter No.: 26-07
+Page 4
+March 12, 2026
+
+The distinctions between MAGI and Non-MAGI eligibility determinations remain
+unchanged. For MAGI cases, income is reasonably compatible for a retroactive month
+when it is at or below the Medi-Cal income limit and electronically verified. For Non-
+MAGI cases, asset rules and documentation requirements continue to apply. Verification
+must be provided for each month unless “no change” is marked on the MC 210A and
+income and property information listed on the SAWS 2 Plus or Single SSApp is verified.
+
+Applicants may request retroactive coverage for up to one year from the month medical
+services were received. Eligibility for retroactive coverage must be evaluated separately
+for each requested month, based on the individual’s eligibility criteria and circumstances
+during that specific month.
+
+System Updates
+To support implementation of the reduced retroactive coverage period, DHCS is
+coordinating required system changes within CalHEERS and CalSAWS. Programming
+updates are being made to ensure eligibility determinations and member notices
+accurately reflect the updated policy requirements.
+
+System updates will take effect on January 1, 2027, in alignment with the
+implementation of the policy changes. Applications submitted prior to January 1, 2027,
+will not be impacted by these updates. For individuals who apply for Medi-Cal before
+January 1, 2027, the current system configuration will remain in place, allowing up to
+one year to request up to three months of retroactive coverage, consistent with existing
+policy.
+
+DHCS will continue to work collaboratively with Counties and provide technical
+assistance to support consistent statewide implementation of these changes.
+
+Notices
+DHCS has revised Notice of Action (NOA) snippets to reflect recent changes to
+retroactive Medi-Cal coverage policy. The updated snippets will be programmed into
+CalSAWS to ensure that eligibility determinations and corresponding member notices
+
+Letter No.: 26-07
+Page 5
+March 12, 2026
+
+accurately align with new policy requirements, effective dates, and retroactive coverage
+timeframes.
+
+To support statewide implementation and member understanding, NOA snippets will be
+translated into all threshold languages and effective January 1, 2027.
+
+The updated NOA snippets are included as an attachment to this letter. These snippets
+have been developed for the following determination types:
+• Retroactive Benefits Approved: Used when retroactive coverage is approved.
+• Retroactive Benefits Denied: Used when denied for a reason other than over
+MAGI income or outside of New Adult Group aid code retroactive limits, and
+reason must be populated.
+• Retroactive Benefits Denied: Over Income: Used when denied for being over
+MAGI income limits.
+• Retroactive Benefits Denied: New Adult Group Population: Used when the
+request is outside of the New Adult Group aid code retroactive month limit.
+
+As a reminder, per ACWDL 18-11 counties must issue a NOA to individuals who are
+denied MAGI Medi-Cal due to being over income during any of the months prior to the
+application month.
+
+Examples
+If eligible, individuals under the New Adult Group are limited to one month of
+retroactive coverage, while individuals under all other coverage groups may receive up
+to two months of retroactive coverage.
+
+For retroactive eligibility, it is important to remember the difference between an
+individual’s coverage group and their scope of coverage (full scope or restricted scope).
+The coverage group determines how many months of retroactive Medi-Cal may be
+granted, while the scope of coverage determines what services are covered in those
+approved months. The scope of coverage does not affect the number of retroactive
+months available.
+
+Example 1: New Adult Group – Application Filed January 2027
+
+Letter No.: 26-07
+Page 6
+March 12, 2026
+
+Scenario:
+An individual applies for Medi-Cal on January 20, 2027, and is determined eligible under
+the New Adult Group (aid code M1).
+
+Outcome:
+Under the revised policy, retroactive coverage for the New Adult Group is limited to 1
+month prior to the month of application.
+
+The individual may be eligible for retroactive coverage for December 2026 only,
+provided all eligibility requirements are met for that month, including any applicable
+work requirements. If eligible, retroactive Medi-Cal coverage may be authorized for
+December 2026. An approval NOA will be sent for December 2026.
+
+Example 2: All Other Eligibility Groups – Application Filed February 2027
+Scenario:
+An individual who is a parent or caretaker relative applies for Medi-Cal on February 10,
+2027. This individual is determined eligible for M3 aid code based on their status as a
+parent/caretaker in a Medi-Cal eligibility group other than the New Adult Group.
+
+Outcome:
+Retroactive coverage for all other Medi-Cal eligibility groups is limited to 2 months prior
+to the month of application. The individual may be eligible for coverage for December
+2026 and January 2027. If all eligibility requirements are met for each month, retroactive
+Medi-Cal coverage may be authorized for December 2026 and January 2027. An
+approval NOA will be sent for December 2026 and January 2027.
+
+Example 3: Application Filed Prior to January 1, 2027
+Scenario:
+An individual applies for Medi-Cal on December 28, 2026, and eligibility is approved
+with a beginning benefit month of December 2026. The individual is eligible with an M1
+aid code.
+
+Letter No.: 26-07
+Page 7
+March 12, 2026
+
+Outcome:
+Since the Medi-Cal application was received prior to January 1, 2027, the individual may
+be eligible for up to 3 months of retroactive coverage. If eligible, retroactive Medi-Cal
+coverage may be authorized for September, October, and November 2026. An approval
+NOA will be sent for September, October, and November 2026.
+
+Example 4: Request for Retroactive Coverage Beyond the Allowable Period
+Scenario:
+An individual in a non–New Adult eligibility group applies for Medi-Cal in April 2027 and
+requests retroactive coverage for January, February, and March 2027.
+
+Outcome:
+Retroactive coverage for all other eligibility groups is limited to 2 months prior to the
+month of application. Only February and March 2027 may be authorized for retroactive
+coverage, if otherwise eligible. January 2027 is outside the allowable retroactive period.
+The systems will automatically limit the eligibility determinations to February and March
+2027.
+
+Note: DHCS is developing a notice snippet for individuals that use the old version of the
+MC 210A and request retroactive coverage beyond 2 months. Once the new MC 210A is
+in place and the old MC 210A is no longer available online or in CalSAWS, DHCS expects
+the use of the old MC 210A to be limited. However, the county will still need to send a
+denial NOA to individuals who request coverage for a retroactive month beyond two
+months. DHCS will release this NOA snippet in a future MEDIL.
+
+If you have any questions on the revised retroactive Medi-Cal policy, please contact the
+Medi-Cal Eligibility Division (MCED) Policy inbox at MCED-Policy@dhcs.ca.gov.
+
+Sincerely,
+
+Sarah Crow, Chief
+Medi-Cal Eligibility Division

@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://healthweb-back.health.ny.gov/forms/doh-5178a.pdf
+  final_url: https://healthweb-back.health.ny.gov/forms/doh-5178a.pdf
+  status: 200
+  content_type: application/pdf
+  text_sha256: 893a360d8722ada487811ddf32e186aad2d51b82243c6c88395b20876eabb330
+  text: ny-doh-5178a/2026-10-07.txt
+  raw: ny-doh-5178a/2026-10-07.pdf

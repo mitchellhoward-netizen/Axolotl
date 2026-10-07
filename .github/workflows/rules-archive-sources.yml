@@ -1,0 +1,51 @@
+name: Rules archive source check
+
+# The scheduled change-detection job. Re-fetches every source the archive
+# cites, compares it with the saved snapshot, and reports which rules and
+# parameters need re-checking, grouped by state. It never edits the archive:
+# a person re-checks the flagged rules and re-snapshots the source.
+#
+# Some agency sites refuse requests from cloud runners; those show up under
+# "Could not compare automatically" and need a manual check.
+on:
+  schedule:
+    - cron: '17 11 * * 1'   # Mondays 11:17 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: archive
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: sudo apt-get install -y poppler-utils
+      - run: pip install -r requirements.txt
+      - name: Re-fetch sources and compare with snapshots
+        id: check
+        run: |
+          python -m tools.check_changes --out source-check.md | tee summary.txt
+          cat source-check.md >> "$GITHUB_STEP_SUMMARY"
+          if grep -q '\*\*0 changed\*\*' source-check.md; then echo "changed=false" >> "$GITHUB_OUTPUT"; else echo "changed=true" >> "$GITHUB_OUTPUT"; fi
+      - uses: actions/upload-artifact@v4
+        with:
+          name: source-check
+          path: |
+            archive/source-check.md
+            archive/reports/fetched/
+      - name: Open an issue when sources changed
+        if: steps.check.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue create --title "Rules archive: sources changed ($(date -u +%Y-%m-%d))" \
+            --body-file source-check.md --label rules-archive || \
+          gh issue create --title "Rules archive: sources changed ($(date -u +%Y-%m-%d))" --body-file source-check.md

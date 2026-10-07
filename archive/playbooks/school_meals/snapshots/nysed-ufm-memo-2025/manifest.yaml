@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://www.cn.nysed.gov/content/new-york-state-universal-free-meals
+  final_url: https://www.cn.nysed.gov/content/new-york-state-universal-free-meals
+  status: 200
+  content_type: text/html; charset=utf-8
+  text_sha256: 80e256f6d939bde6632b7210fdb2d73de7cd7f07205f4ea66f8d54838f03c227
+  text: nysed-ufm-memo-2025/2026-10-07.txt
+  raw: nysed-ufm-memo-2025/2026-10-07.html

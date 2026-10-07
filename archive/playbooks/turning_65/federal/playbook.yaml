@@ -1,0 +1,1024 @@
+schema_version: 2
+program: turning_65
+scope: federal
+title: Turning 65 — Medicare enrollment windows, premiums, late penalties, coordination with employer and retiree coverage, Medigap rights (federal base)
+last_researched: 2026-10-07
+
+summary:
+  plain_language: >-
+    Around their 65th birthday a person has a 7-month Initial Enrollment
+    Period (IEP) to sign up for Medicare Part B (and Part A if they must buy
+    it): the 3 months before the month they turn 65, that month, and the 3
+    months after. Signing up before the birthday month starts coverage in the
+    birthday month; signing up later starts it the next month. Someone who
+    misses the IEP can enroll January-March (General Enrollment Period, GEP),
+    with coverage the next month, but pays a Part B penalty of 10% for each
+    full 12 months they went without Part B. People still covered by a group
+    health plan from their own or their spouse's CURRENT job can wait and use
+    an 8-month Special Enrollment Period (SEP) after the job or coverage ends,
+    without penalty; retiree coverage and COBRA do not count. For retirees,
+    Medicare pays first and the retiree plan pays second. Part D has its own
+    penalty (1% of the national base premium, $38.99 in 2026, per month
+    without creditable drug coverage). Higher-income people pay an extra
+    income-related amount (IRMAA) based on their tax return from two years
+    earlier. The 2026 standard Part B premium is $202.90. Most people get Part
+    A free (40 quarters of work); others pay $311 (30-39 quarters) or $565 a
+    month in 2026. Medigap (Medicare supplement) policies must be sold without
+    health questions during a one-time 6-month window starting when a person
+    is 65 and has Part B, and in certain guaranteed-issue situations such as
+    an employer or union retiree plan ending.
+
+    How this playbook's evaluator reports a result: status "eligible" means the
+    person may enroll in Part B now (or already has it), "ineligible" means no
+    window is open on that date, "undetermined" means a needed fact is missing;
+    tier is the open window (IEP, GEP, SEP_GHP, SEP_MEDICAID_LOSS,
+    SEP_EMPLOYER_MISINFO, SEP_EXCEPTIONAL, or ENROLLED); amounts carry the
+    coverage start month, penalty percent, premiums, IRMAA, Part D penalty,
+    who pays first and whether Medigap guaranteed issue applies (see the
+    docstring of federal/rules.py).
+  administered_by: >-
+    Social Security Administration (enrollment in Parts A and B, premium
+    deductions, IRMAA determinations) for the Centers for Medicare & Medicaid
+    Services (CMS), which sets the rules and premiums; Part D and Medigap are
+    sold by private insurers (Medigap regulated by each state's insurance
+    department).
+  funded_by: >-
+    Medicare trust funds (Part A by payroll tax; Part B and Part D by general
+    revenue plus enrollee premiums). Medigap and Part D plan premiums are paid
+    by the enrollee (or a retiree fund or state program).
+  local_names:
+    - {name: IEP, meaning: Initial Enrollment Period}
+    - {name: GEP, meaning: "General Enrollment Period (January 1 - March 31)"}
+    - {name: SEP, meaning: Special Enrollment Period}
+    - {name: LEP, meaning: Late enrollment penalty (SSA calls it a premium surcharge)}
+    - {name: IRMAA, meaning: Income-Related Monthly Adjustment Amount}
+    - {name: Premium-HI / Premium-Part A, meaning: Part A bought by people without enough work quarters}
+    - {name: Medigap, meaning: Medicare supplement insurance}
+    - {name: MSP (in coordination of benefits), meaning: "Medicare Secondary Payer — not the Medicare Savings Program"}
+  legal_basis: >-
+    Social Security Act secs. 226, 1818, 1837, 1838, 1839, 1860D-13, 1862(b),
+    1882; 42 U.S.C. 1395p, 1395r, 1395w-113, 1395y(b), 1395ss; 42 CFR parts
+    406, 407, 408, 411, 423.
+  confidence: confirmed
+  sources:
+    - {source: cfr-42-407, locator: "§§ 407.14, 407.15, 407.20, 407.23, 407.25"}
+    - {source: medicare-gov-coverage-start, locator: "whole page"}
+    - {source: medicare-gov-avoid-penalties, locator: "whole page"}
+    - {source: cms-2026-part-a-b-premiums, locator: "Part A and Part B premium sections"}
+
+rules:
+  # ------------------------------------------------------------ eligibility month
+  - id: T65-FED-AGE-ATTAINMENT
+    statement: >-
+      For Medicare in every state, a person attains age 65 on the day before
+      their 65th birthday, so a person born on the first day of a month is
+      treated as turning 65 in the previous month, and their Medicare
+      eligibility month and Initial Enrollment Period start one month earlier.
+    kind: definition
+    effective_from: 1966-07-01
+    implemented_in: playbooks/turning_65/federal/rules.py:attains_65_month
+    confidence: confirmed
+    sources:
+      - {source: cfr-42-411, locator: "§ 411.170(c)(1)", quote: "An individual attains a particular age on the day preceding the anniversary of his or her birth."}
+      - {source: medicare-gov-coverage-start, locator: "If your birthday is on the first of the month, coverage starts the month before you turn 65."}
+      - {source: ssa-poms-hi-00805-153, locator: "Policy for prior month attainment rule"}
+  - id: T65-FED-PART-A-AGE
+    statement: >-
+      In every state, a person 65 or older who is entitled to (or eligible for)
+      Social Security or Railroad Retirement benefits is entitled to premium-free
+      Medicare Part A beginning the first month they are 65; Part A applied for
+      later is retroactive up to 6 months but not before the month they turned 65.
+    kind: eligibility
+    effective_from: 1981-03-01
+    implemented_in: playbooks/turning_65/federal/rules.py:first_eligibility_month
+    confidence: confirmed
+    sources:
+      - {source: cfr-42-406, locator: "§ 406.10(a)-(b)"}
+      - {source: medicare-gov-coverage-start, locator: "Signing up for premium-free Part A later"}
+  - id: T65-FED-PART-A-DISABILITY
+    statement: >-
+      In every state, a person under 65 entitled to Social Security disability
+      benefits becomes entitled to Medicare Part A with the 25th month of
+      disability benefit entitlement (after 24 months of SSDI), and has an
+      Initial Enrollment Period for Part B built around that month.
+    kind: eligibility
+    effective_from: 1973-07-01
+    implemented_in: playbooks/turning_65/federal/rules.py:first_eligibility_month
+    confidence: confirmed
+    sources:
+      - {source: cfr-42-406, locator: "§ 406.12(a)(1), (d)(1)", quote: "Entitlement to hospital insurance begins with the 25th month of an individual's entitlement or deemed entitlement to disability benefits."}
+      - {source: ssa-poms-hi-00805-015, locator: "C. Policy - more than one IEP"}
+  - id: T65-FED-AGE65-NEW-IEP
+    statement: >-
+      In every state, a person who had Medicare because of disability gets a
+      new Initial Enrollment Period at age 65, and any Part B late-enrollment
+      surcharge from before 65 ends with the month they turn 65; months before
+      65 are never counted for a surcharge after 65.
+    kind: timing
+    effective_from: 1973-07-01
+    implemented_in: playbooks/turning_65/federal/rules.py:links
+    confidence: confirmed
+    sources:
+      - {source: ssa-poms-hi-00805-015, locator: "C. NOTE: every eligible beneficiary has a new IEP at age 65"}
+      - {source: ssa-poms-hi-01001-010, locator: "A.3. Premium Rollback"}
+  - id: T65-FED-AUTO-ENROLL
+    statement: >-
+      In every state, a person already getting Social Security or Railroad
+      Retirement benefits when their Initial Enrollment Period begins (and a
+      disability beneficiary reaching the 25th month) is enrolled in Part A and
+      Part B automatically, with Part B starting the first month of
+      eligibility, and is sent a notice giving at least 2 months to decline
+      Part B.
+    kind: procedure
+    effective_from: 1966-07-01
+    confidence: confirmed
+    sources:
+      - {source: cfr-42-407, locator: "§ 407.17(c), § 407.18(b)"}
+
+  # ------------------------------------------------------------- windows
+  - id: T65-FED-IEP
+    statement: >-
+      In every state, the Medicare Part B (and premium Part A) Initial
+      Enrollment Period is 7 months long: it begins 3 months before the month a
+      person first becomes eligible (the month they turn 65) and ends 3 months
+      after that month.
+    kind: timing
+    effective_from: 1966-03-01
+    parameters: [federal.cms.iep_months_before, federal.cms.iep_months_after]
+    implemented_in: playbooks/turning_65/federal/rules.py:enrollment_window
+    confidence: confirmed
+    sources:
+      - {source: cfr-42-407, locator: "§ 407.14(a)(1)"}
+      - {source: ssa-poms-hi-00805-015, locator: "B. Policy - 7 month period"}
+  - id: T65-FED-IEP-COVERAGE-START
+    statement: >-
+      In every state, for Initial Enrollment Periods starting on or after
+      January 1, 2023, a person who signs up for Part B in one of the 3 months
+      before the month they turn 65 is covered from the first day of that
+      birthday month, and a person who signs up in the birthday month or any of
+      the 3 months after is covered from the first day of the following month.
+    kind: timing
+    effective_from: 2023-01-01
+    implemented_in: playbooks/turning_65/federal/rules.py:enrollment_window
+    confidence: confirmed
+    note: Before 2023, enrolling in the last months of the IEP delayed coverage by 2-3 months (42 CFR 407.25(a)(1)); this archive does not evaluate pre-2023 enrollments.
+    sources:
+      - {source: cfr-42-407, locator: "§ 407.25(a)(2)(i)-(ii)", quote: "If an individual enrolls during the last 4 months of the initial enrollment period, entitlement begins with the month following the month in which they enroll."}
+      - {source: ssa-poms-hi-00805-165, locator: "B.1. Rules on January 1, 2023 and after; C.1 chart"}
+      - {source: medicare-gov-coverage-start, locator: "When your coverage starts table"}
+  - id: T65-FED-DEEMED-IEP-FIRST-OF-MONTH
+    statement: >-
+      In every state, a person born on the first day of a month who files for
+      Part B in the month right after their (one-month-earlier) Initial
+      Enrollment Period ends is given a deemed Initial Enrollment Period by
+      SSA, so the enrollment counts as on time with no penalty and Part B
+      starts the following month.
+    kind: timing
+    effective_from: 2023-01-01
+    implemented_in: playbooks/turning_65/federal/rules.py:enrollment_window
+    confidence: confirmed
+    sources:
+      - {source: ssa-poms-hi-00805-153, locator: "Policy and example: Allen Grady turned 65 5/1/2023 ... deemed IEP of 4/2023-8/2023"}
+      - {source: ssa-poms-hi-01001-010, locator: "B.2.c. deemed IEP months excluded"}
+  - id: T65-FED-GEP
+    statement: >-
+      In every state, a person who missed their Initial Enrollment Period and
+      has no Special Enrollment Period can sign up for Part B (and premium Part
+      A) only during the General Enrollment Period, January 1 through March 31
+      of each year.
+    kind: timing
+    effective_from: 1981-10-01
+    parameters: [federal.cms.gep_months]
+    implemented_in: playbooks/turning_65/federal/rules.py:enrollment_window
+    confidence: confirmed
+    sources:
+      - {source: cfr-42-407, locator: "§ 407.15(a)"}
+      - {source: usc-42-1395p, locator: "(e)"}
+      - {source: ssa-poms-hi-00805-025, locator: "B.1. GEP enrollment"}
+  - id: T65-FED-GEP-COVERAGE-START
+    statement: >-
+      In every state, since January 1, 2023 Part B taken during the January-March
+      General Enrollment Period starts on the first day of the month after the
+      month the person signs up (before 2023 it always started July 1).
+    kind: timing
+    effective_from: 2023-01-01
+    implemented_in: playbooks/turning_65/federal/rules.py:enrollment_window
+    confidence: confirmed
+    sources:
+      - {source: cfr-42-407, locator: "§ 407.25(b)(3)"}
+      - {source: ssa-poms-hi-00805-025, locator: "B.3. When SMI will begin"}
+  - id: T65-FED-SEP-GHP
+    statement: >-
+      In every state, a person 65 or older who has been covered by a group
+      health plan based on their own or their spouse's CURRENT employment since
+      first becoming eligible for Part B may sign up for Part B at any time
+      while that coverage continues, without waiting for the General Enrollment
+      Period and without a penalty.
+    kind: eligibility
+    effective_from: 1987-01-01
+    implemented_in: playbooks/turning_65/federal/rules.py:sep_ghp
+    confidence: confirmed
+    sources:
+      - {source: cfr-42-407, locator: "§ 407.20(b)-(c)"}
+      - {source: ssa-poms-hi-00805-270, locator: "A.1. No previous SMI enrollment"}
+      - {source: cms-l564-form, locator: "first page instructions"}
+  - id: T65-FED-SEP-GHP-DURATION
+    statement: >-
+      In every state, the employment-based Special Enrollment Period ends on the
+      last day of the 8th full month after the month in which the
+      current-employment group health coverage or the employment ends,
+      whichever happens first.
+    kind: timing
+    effective_from: 1995-03-01
+    parameters: [federal.cms.sep_ghp_months_after]
+    implemented_in: playbooks/turning_65/federal/rules.py:sep_ghp
+    confidence: confirmed
+    sources:
+      - {source: cfr-42-406, locator: "§ 406.24(b)(2)"}
+      - {source: medicare-gov-coverage-start, locator: "Have or had health insurance through your job ... Ends: 8 months after the group health plan coverage or the employment ends, whichever happens first."}
+  - id: T65-FED-SEP-GHP-COVERAGE-START
+    statement: >-
+      In every state, Part B taken in the employment-based Special Enrollment
+      Period while still covered, or in the first full month after that
+      coverage ends, can start on the first day of the enrollment month (or, at
+      the person's choice, any of the next three months); taken in any later
+      month of the SEP, it starts the month after enrollment.
+    kind: timing
+    effective_from: 1996-08-02
+    implemented_in: playbooks/turning_65/federal/rules.py:sep_ghp
+    confidence: confirmed
+    note: Medicare.gov describes the start as "the month after Social Security gets your completed forms"; the regulation and POMS allow the enrollment month itself (conflict T65-FED-CONFLICT-02). The evaluator reports the earliest date the regulation allows.
+    sources:
+      - {source: cfr-42-406, locator: "§ 406.24(e)(1)-(2), applied to Part B by § 407.20(e)"}
+      - {source: ssa-poms-hi-00805-276, locator: "Policy"}
+  - id: T65-FED-SEP-NO-RETIREE-COBRA
+    statement: >-
+      In every state, retiree group health coverage and COBRA continuation
+      coverage are not coverage based on current employment: they do not give a
+      Special Enrollment Period, do not stop the Part B penalty clock, and do
+      not extend the 8-month SEP, which runs from the end of the employment (or
+      employment-based coverage) even if the person takes COBRA.
+    kind: eligibility
+    effective_from: 1987-01-01
+    implemented_in: playbooks/turning_65/federal/rules.py:sep_ghp
+    confidence: confirmed
+    sources:
+      - {source: ssa-poms-hi-00805-330, locator: "A. Individuals covered under COBRA are never covered under a GHP by reason of current employment status"}
+      - {source: cfr-42-406, locator: "§ 406.24(a)(3)(i): the \"former employee\" language does not apply with respect to SEPs"}
+      - {source: medicare-gov-when-sign-up, locator: "Your 8-month Special Enrollment Period to sign up for Part B starts when you stop working, even if you choose COBRA"}
+  - id: T65-FED-SEP-SMALL-EMPLOYER
+    statement: >-
+      In every state, the employment-based Special Enrollment Period does not
+      depend on employer size: a person covered through a current job with an
+      employer of fewer than 20 employees still has the SEP, but Medicare pays
+      first for them, so the employer plan may not pay unless they have Parts A
+      and B.
+    kind: coordination
+    effective_from: 1987-01-01
+    confidence: confirmed
+    sources:
+      - {source: cfr-42-407, locator: "§ 407.20(c) (no size condition)"}
+      - {source: medicare-gov-when-sign-up, locator: "Because the company has less than 20 employees, your job-based coverage might not pay ... You can sign up anytime while you or your spouse are still working for that employer, or up to 8 months after"}
+  - id: T65-FED-SEP-MEDICAID-LOSS
+    statement: >-
+      In every state, a person eligible for Medicare whose Medicaid ends
+      entirely on or after January 1, 2023 has a Special Enrollment Period for
+      Part B and premium Part A that starts when they are notified the Medicaid
+      is ending and lasts until 6 months after it ends, with no late penalty; a
+      person who still has Medicaid or a Medicare Savings Program does not
+      qualify.
+    kind: eligibility
+    effective_from: 2023-01-01
+    parameters: [federal.cms.exceptional_sep_months]
+    implemented_in: playbooks/turning_65/federal/rules.py:exceptional_seps
+    confidence: confirmed
+    sources:
+      - {source: cfr-42-407, locator: "§ 407.23(e)"}
+      - {source: ssa-poms-hi-00805-385, locator: "B. Eligibility"}
+      - {source: medicare-gov-coverage-start, locator: "Lost Medicaid coverage on or after 1/1/2023"}
+  - id: T65-FED-SEP-MISINFORMATION
+    statement: >-
+      In every state, a person who missed a Medicare enrollment period because
+      their employer, group health plan, or a plan agent or broker gave them
+      incorrect information or misrepresented the rules (on or after January 1,
+      2023) has a 6-month Special Enrollment Period beginning the day they tell
+      SSA, with coverage the month after they enroll and no late penalty.
+    kind: eligibility
+    effective_from: 2023-01-01
+    parameters: [federal.cms.exceptional_sep_months]
+    implemented_in: playbooks/turning_65/federal/rules.py:exceptional_seps
+    confidence: confirmed
+    sources:
+      - {source: cfr-42-407, locator: "§ 407.23(c)"}
+      - {source: ssa-poms-hi-00805-384, locator: "whole section"}
+  - id: T65-FED-SEP-DISASTER
+    statement: >-
+      In every state, a person (or their representative or caregiver) living in
+      an area with a government-declared emergency or disaster that prevented a
+      timely Medicare enrollment has a Special Enrollment Period lasting until 6
+      months after the declaration ends, with coverage the month after
+      enrollment.
+    kind: eligibility
+    effective_from: 2023-01-01
+    confidence: confirmed
+    sources:
+      - {source: cfr-42-407, locator: "§ 407.23(b)"}
+  - id: T65-FED-SEP-INCARCERATION
+    statement: >-
+      In every state, a person released from incarceration on or after January
+      1, 2023 who missed Medicare enrollment while confined has a Special
+      Enrollment Period until the last day of the 12th month after the release
+      month, and may ask for up to 6 months of retroactive coverage if they pay
+      the premiums.
+    kind: eligibility
+    effective_from: 2023-01-01
+    confidence: confirmed
+    sources:
+      - {source: cfr-42-407, locator: "§ 407.23(d)"}
+  - id: T65-FED-SEP-OTHER-EXCEPTIONAL
+    statement: >-
+      In every state, CMS may grant a Special Enrollment Period of at least 6
+      months, case by case, to a person who missed a Medicare enrollment
+      period because of an exceptional event outside their control; the person
+      must ask Social Security for it.
+    kind: eligibility
+    effective_from: 2023-01-01
+    implemented_in: playbooks/turning_65/federal/rules.py:exceptional_seps
+    confidence: confirmed
+    sources:
+      - {source: cfr-42-407, locator: "§ 407.23(f)"}
+      - {source: medicare-gov-coverage-start, locator: "Missed a chance to sign up because you experienced other exceptional conditions"}
+
+  # ------------------------------------------------------------- Part B costs
+  - id: T65-FED-PART-B-PREMIUM
+    statement: >-
+      In every state, the 2026 standard Medicare Part B premium is $202.90 a
+      month (2025: $185.00), before any late-enrollment penalty or
+      income-related adjustment.
+    kind: benefit
+    effective_from: 2026-01-01
+    parameters: [federal.cms.part_b_standard_premium]
+    implemented_in: playbooks/turning_65/federal/rules.py:part_b_premium
+    confidence: confirmed
+    sources:
+      - {source: cms-2026-part-a-b-premiums, locator: "Medicare Part B Premium and Deductible"}
+  - id: T65-FED-PART-B-PENALTY
+    statement: >-
+      In every state, a person who signs up for Part B after their Initial
+      Enrollment Period (other than in a Special Enrollment Period) pays a
+      standard premium increased by 10% for each full 12 months they could have
+      had Part B but did not: 11 counted months means no penalty, 12 to 23
+      months 10%, 24 months 20%; in 2026 a 20% penalty makes the premium
+      $243.50 a month. The penalty usually lasts as long as they have Part B.
+    kind: penalty
+    effective_from: 1966-07-01
+    parameters: [federal.cms.part_b_late_penalty_percent_per_12_months, federal.cms.part_b_standard_premium]
+    implemented_in: playbooks/turning_65/federal/rules.py:part_b_penalty_percent
+    confidence: confirmed
+    sources:
+      - {source: usc-42-1395r, locator: "(b)"}
+      - {source: cfr-42-408, locator: "§ 408.22"}
+      - {source: medicare-gov-avoid-penalties, locator: "Part B late enrollment penalty, 2026 Calculation"}
+  - id: T65-FED-PART-B-PENALTY-MONTHS
+    statement: >-
+      In every state, for Part B enrollments on or after January 1, 2023 the
+      months counted for the late penalty run from the month after the Initial
+      Enrollment Period ends through the end of the month the person enrolls,
+      leaving out months before 65 and months of group health coverage based on
+      the person's or spouse's current employment; months in the IEP are never
+      counted.
+    kind: penalty
+    effective_from: 2023-01-01
+    implemented_in: playbooks/turning_65/federal/rules.py:part_b_penalty_months
+    confidence: confirmed
+    sources:
+      - {source: cfr-42-408, locator: "§ 408.24(a)(5), (a)(7), (b)"}
+      - {source: ssa-poms-hi-01001-010, locator: "B.1.b. For Enrollments On or After 1/1/2023; NOTE: months in an IEP"}
+  - id: T65-FED-PART-B-PENALTY-GHP-EXCLUDED
+    statement: >-
+      In every state, months in which a person 65 or older was covered by a
+      group health plan based on their own or their spouse's current employment
+      are not counted toward the Part B late penalty, and enrolling during the
+      employment-based Special Enrollment Period carries no penalty.
+    kind: penalty
+    effective_from: 1986-06-01
+    implemented_in: playbooks/turning_65/federal/rules.py:part_b_penalty_months
+    confidence: confirmed
+    sources:
+      - {source: cfr-42-408, locator: "§ 408.24(a)(7)"}
+      - {source: usc-42-1395r, locator: "(b): not pursuant to a special enrollment period under subsection (i)(4)"}
+  - id: T65-FED-PART-B-PENALTY-EXCEPTIONAL-SEP
+    statement: >-
+      In every state, a person who enrolls in Part B during one of the
+      exceptional-conditions Special Enrollment Periods created in 2023 (loss
+      of Medicaid, employer or plan misinformation, disaster, release from
+      incarceration, other exceptional conditions) pays no late penalty for the
+      months covered by that condition, provided they enroll before that SEP
+      ends.
+    kind: penalty
+    effective_from: 2023-01-01
+    implemented_in: playbooks/turning_65/federal/rules.py:part_b_penalty_months
+    confidence: confirmed
+    sources:
+      - {source: ssa-poms-hi-01001-010, locator: "B.1.b. EXCEPTION: ... there is no applicable premium surcharge"}
+      - {source: cfr-42-408, locator: "§ 408.24(b)(2)"}
+  - id: T65-FED-PART-B-PENALTY-MSP
+    statement: >-
+      In every state, a person whose Part B premium is paid by the state through
+      a Medicare Savings Program (state buy-in) is not charged a Part B late
+      enrollment penalty: states never pay the surcharge, months in or before a
+      buy-in are not counted, and Medicare.gov says people who enroll in a
+      Medicare Savings Program generally do not pay the Part B penalty.
+    kind: penalty
+    effective_from: 1987-12-18
+    implemented_in: playbooks/turning_65/federal/rules.py:part_b_premium
+    confidence: confirmed
+    note: Answers the federal-basis part of MSP-NY-OQ-04 (msp playbook).
+    sources:
+      - {source: cfr-42-408, locator: "§ 408.24(a)(3)", quote: "Any months in or before a period of coverage under a State buy-in agreement."}
+      - {source: ssa-poms-hi-01001-010, locator: "B.2.d. NOTE: States never pay a premium increase for late enrollment in SMI under State buy-in."}
+      - {source: medicare-gov-avoid-penalties, locator: "Generally, you won't have to pay a Part B penalty if you qualify for a Special Enrollment Period, or you enroll in a Medicare Savings Program."}
+  - id: T65-FED-PREMIUM-ROUNDING
+    statement: >-
+      In every state, a Part B premium that includes a late-enrollment increase
+      is rounded to the nearest 10 cents (an odd 5 cents rounds up); the Part D
+      late penalty is also rounded to the nearest 10 cents.
+    kind: definition
+    effective_from: 1987-12-18
+    implemented_in: playbooks/turning_65/federal/rules.py:round_dime
+    confidence: confirmed
+    sources:
+      - {source: cfr-42-408, locator: "§ 408.27"}
+      - {source: medicare-gov-avoid-penalties, locator: "2026 Calculation: rounded to the nearest $.10"}
+  - id: T65-FED-IRMAA-PART-B
+    statement: >-
+      In every state in 2026, a Part B enrollee whose modified adjusted gross
+      income is above $109,000 (individual tax return) or $218,000 (joint
+      return) pays an income-related monthly adjustment on top of the $202.90
+      premium: $81.20, $202.90, $324.60, $446.30 or $487.00 a month by bracket
+      (individual brackets above $109,000, $137,000, $171,000, $205,000 and at
+      or above $500,000; joint brackets double, with the top at $750,000);
+      married people filing separately who lived together pay $446.30 above
+      $109,000 and $487.00 at or above $391,000.
+    kind: benefit
+    effective_from: 2026-01-01
+    parameters: [federal.cms.part_b_irmaa_monthly]
+    implemented_in: playbooks/turning_65/federal/rules.py:irmaa
+    confidence: confirmed
+    sources:
+      - {source: cms-2026-part-a-b-premiums, locator: "Medicare Part B Income-Related Monthly Adjustment Amounts"}
+  - id: T65-FED-IRMAA-LOOKBACK
+    statement: >-
+      In every state, IRMAA for a year is based on modified adjusted gross income
+      from the tax return for two years earlier (2024 income for 2026); a person
+      whose income fell because of a life-changing event such as retirement
+      (work stoppage or reduction), loss of a pension, or the death of a spouse
+      can ask SSA for a new determination using more recent income, on form
+      SSA-44.
+    kind: timing
+    effective_from: 2007-01-01
+    implemented_in: playbooks/turning_65/federal/rules.py:part_b_premium
+    confidence: confirmed
+    sources:
+      - {source: usc-42-1395r, locator: "(i)(4)(A)"}
+      - {source: ssa-poms-hi-01120-001, locator: "D. qualifying circumstances (Death of Spouse; Work Reduction; Work Stoppage) and the SSA-44"}
+  - id: T65-FED-IRMAA-PART-D
+    statement: >-
+      In every state in 2026, a Part D enrollee with income in the same IRMAA
+      brackets pays an extra $14.50, $37.50, $60.40, $83.30 or $91.00 a month
+      (married filing separately: $83.30 or $91.00) on top of the plan premium,
+      based on the tax return from two years earlier.
+    kind: benefit
+    effective_from: 2026-01-01
+    parameters: [federal.cms.part_d_irmaa_monthly]
+    implemented_in: playbooks/turning_65/federal/rules.py:part_d
+    confidence: confirmed
+    sources:
+      - {source: cms-2026-part-a-b-premiums, locator: "Medicare Part D Income-Related Monthly Adjustment Amounts"}
+      - {source: cfr-42-423, locator: "§ 423.286(d)(4)"}
+
+  # ------------------------------------------------------------- Part D penalty
+  - id: T65-FED-PART-D-PENALTY
+    statement: >-
+      In every state, a person who goes 63 days or more after their Initial
+      Enrollment Period without a Part D plan or other creditable drug coverage
+      pays a Part D late penalty of 1% of the national base beneficiary premium
+      ($38.99 in 2026) for each uncovered month, rounded to the nearest 10
+      cents and added to the plan premium for as long as they have Part D (14
+      uncovered months = $5.50 a month in 2026).
+    kind: penalty
+    effective_from: 2026-01-01
+    parameters: [federal.cms.part_d_late_penalty_percent_per_month, federal.cms.part_d_base_beneficiary_premium, federal.cms.part_d_creditable_gap_days]
+    implemented_in: playbooks/turning_65/federal/rules.py:part_d_penalty
+    confidence: confirmed
+    sources:
+      - {source: cfr-42-423, locator: "§ 423.46(a); § 423.286(d)(3)"}
+      - {source: medicare-gov-avoid-penalties, locator: "Part D late enrollment penalty, example"}
+  - id: T65-FED-PART-D-PENALTY-EXTRA-HELP
+    statement: >-
+      In every state, people who qualify for Extra Help (the Part D low-income
+      subsidy, including people deemed eligible through Medicaid or a Medicare
+      Savings Program) generally do not pay a Part D late enrollment penalty.
+    kind: penalty
+    effective_from: 2006-01-01
+    implemented_in: playbooks/turning_65/federal/rules.py:part_d
+    confidence: confirmed
+    sources:
+      - {source: medicare-gov-avoid-penalties, locator: "Generally, you won't have to pay a Part D penalty if: ... You qualify for Extra Help"}
+      - {source: cfr-42-423, locator: "§ 423.46(a): except as described at § 423.780(e)"}
+
+  # ------------------------------------------------------------- Part A premium
+  - id: T65-FED-PART-A-PREMIUM-FREE
+    statement: >-
+      In every state, a person 65 or older with at least 40 quarters of
+      Medicare-covered employment (their own, or through a spouse's work
+      record) gets Part A without a premium.
+    kind: benefit
+    effective_from: 1994-01-01
+    parameters: [federal.ssa.premium_free_part_a_quarters]
+    implemented_in: playbooks/turning_65/federal/rules.py:part_a_premium
+    confidence: confirmed
+    note: The spouse route follows the Social Security insured-status rules (not modelled in detail); test households give the higher of own and qualifying spouse's quarters.
+    sources:
+      - {source: cms-2026-part-a-b-premiums, locator: "Medicare Part A Premium and Deductible, first paragraph"}
+  - id: T65-FED-PART-A-PREMIUM-REDUCED
+    statement: >-
+      In every state in 2026, a person 65 or older with 30 to 39 quarters of
+      coverage, or married for at least a year to (or widowed or divorced after
+      10 years from) a worker with 30 or more quarters, can buy Part A at the
+      reduced premium of $311 a month (2025: $285).
+    kind: benefit
+    effective_from: 2026-01-01
+    parameters: [federal.ssa.reduced_part_a_premium_quarters, federal.cms.part_a_premium_reduced_monthly]
+    implemented_in: playbooks/turning_65/federal/rules.py:part_a_premium
+    confidence: confirmed
+    sources:
+      - {source: cfr-42-406, locator: "§ 406.32(b)(3), (c)"}
+      - {source: ssa-poms-hi-00801-134, locator: "B. Policy-Who is eligible for reduction"}
+      - {source: cms-2026-part-a-b-premiums, locator: "Medicare Part A Premium and Deductible"}
+  - id: T65-FED-PART-A-PREMIUM-FULL
+    statement: >-
+      In every state in 2026, a person 65 or older with fewer than 30 quarters
+      of coverage (own or qualifying spouse's) who buys Part A pays the full
+      premium of $565 a month (2025: $518).
+    kind: benefit
+    effective_from: 2026-01-01
+    parameters: [federal.cms.part_a_premium_full_monthly]
+    implemented_in: playbooks/turning_65/federal/rules.py:part_a_premium
+    confidence: confirmed
+    sources:
+      - {source: cms-2026-part-a-b-premiums, locator: "Medicare Part A Premium and Deductible"}
+  - id: T65-FED-PART-A-PENALTY
+    statement: >-
+      In every state, a person who must buy Part A and signs up after their
+      Initial Enrollment Period (without a Special Enrollment Period) pays a
+      Part A premium 10% higher for twice the number of full 12-month periods
+      they could have had it but did not (for example, 2 years late means 4
+      years of the higher premium).
+    kind: penalty
+    effective_from: 1986-07-01
+    parameters: [federal.cms.part_a_late_penalty_percent]
+    implemented_in: playbooks/turning_65/federal/rules.py:part_a
+    confidence: confirmed
+    note: How the 10% increase on a whole-dollar Part A premium is rounded was not found; the evaluator rounds to the nearest dollar (T65-FED-OQ-03).
+    sources:
+      - {source: cfr-42-406, locator: "§ 406.32(d), § 406.33(c)"}
+      - {source: medicare-gov-avoid-penalties, locator: "Part A late enrollment penalty"}
+
+  # ------------------------------------------------------------- coordination
+  - id: T65-FED-COB-WORKING-AGED
+    statement: >-
+      In every state, for a person entitled to Medicare because of age who is
+      covered by a group health plan through their own or their spouse's
+      current employment with an employer of 20 or more employees (or a
+      multi-employer plan with at least one such employer), the group plan pays
+      first and Medicare pays second.
+    kind: coordination
+    effective_from: 1987-01-01
+    parameters: [federal.cms.msp_working_aged_employer_size]
+    implemented_in: playbooks/turning_65/federal/rules.py:who_pays_first
+    confidence: confirmed
+    sources:
+      - {source: usc-42-1395y, locator: "(b)(1)(A)(i)-(ii)"}
+      - {source: cfr-42-411, locator: "§ 411.172(a)"}
+      - {source: cms-02179-who-pays-first, locator: "You're 65 or older and have group health plan coverage based on your (or your spouse's) current employment status"}
+  - id: T65-FED-COB-SMALL-EMPLOYER
+    statement: >-
+      In every state, when the current employer has fewer than 20 employees
+      (and is not in a multi-employer plan with a 20+ employer, or the
+      multi-employer plan has elected the small-employer exception), Medicare
+      pays first and the employer plan pays second for a worker or spouse 65 or
+      older.
+    kind: coordination
+    effective_from: 1987-01-01
+    parameters: [federal.cms.msp_working_aged_employer_size]
+    implemented_in: playbooks/turning_65/federal/rules.py:who_pays_first
+    confidence: confirmed
+    sources:
+      - {source: usc-42-1395y, locator: "(b)(1)(A)(ii)-(iii)"}
+      - {source: cfr-42-411, locator: "§ 411.172(b)"}
+      - {source: cms-02179-who-pays-first, locator: "If your (or your spouse's) employer has fewer than 20 employees ... Medicare pays first"}
+  - id: T65-FED-COB-RETIREE
+    statement: >-
+      In every state, for a person 65 or older who is retired and has retiree
+      group health coverage from their own or their spouse's former employer
+      or union, Medicare pays first and the retiree plan pays second, whatever
+      the employer's size.
+    kind: coordination
+    effective_from: 1987-01-01
+    implemented_in: playbooks/turning_65/federal/rules.py:who_pays_first
+    confidence: confirmed
+    sources:
+      - {source: cms-02179-who-pays-first, locator: "You're 65 or older, retired, and have retiree coverage ... Medicare pays first, and your (or your spouse's) group health plan pays second."}
+      - {source: cfr-42-411, locator: "§ 411.104 (current employment status) and § 411.172(a)(3)"}
+  - id: T65-FED-RETIREE-NEEDS-B
+    statement: >-
+      In every state, because Medicare pays first for retirees, a retiree group
+      plan may pay little or nothing for services Medicare would have covered
+      if the person does not enroll in Part B; whether a particular union or
+      employer retiree plan requires Part B is set by that plan's documents.
+    kind: coordination
+    effective_from: 1987-01-01
+    implemented_in: playbooks/turning_65/federal/rules.py:coordination
+    confidence: confirmed
+    note: The plan-document rules belong to the institution layer, not this archive.
+    sources:
+      - {source: cms-02179-who-pays-first, locator: "How does retiree coverage work with Medicare? ... the coverage might not pay your ... full benefits from your retiree coverage"}
+  - id: T65-FED-COB-COBRA
+    statement: >-
+      In every state, for a person with Medicare because of age or disability
+      who also has COBRA continuation coverage, Medicare pays first; for a
+      person with Medicare because of end-stage renal disease, COBRA pays first
+      during the 30-month coordination period.
+    kind: coordination
+    effective_from: 1997-08-05
+    implemented_in: playbooks/turning_65/federal/rules.py:who_pays_first
+    confidence: confirmed
+    sources:
+      - {source: cms-02179-who-pays-first, locator: "If you have Medicare and COBRA continuation coverage, who pays first?"}
+      - {source: cfr-42-411, locator: "§ 411.175(a)(5)"}
+  - id: T65-FED-COB-DISABILITY
+    statement: >-
+      In every state, for a person under 65 with Medicare because of a
+      disability who has group health coverage through their own or a family
+      member's current employment, the group plan pays first only if the
+      employer has 100 or more employees (a large group health plan); otherwise
+      Medicare pays first.
+    kind: coordination
+    effective_from: 1987-01-01
+    parameters: [federal.cms.msp_disability_lghp_size]
+    implemented_in: playbooks/turning_65/federal/rules.py:who_pays_first
+    confidence: confirmed
+    sources:
+      - {source: usc-42-1395y, locator: "(b)(1)(B)"}
+      - {source: cfr-42-411, locator: "§ 411.101, large group health plan"}
+      - {source: cms-02179-who-pays-first, locator: "You're under 65 and have Medicare because of a disability"}
+  - id: T65-FED-COB-ESRD
+    statement: >-
+      In every state, for a person entitled to Medicare because of end-stage
+      renal disease, any group health plan (including a retiree plan or COBRA,
+      regardless of employer size) pays first during a 30-month coordination
+      period that begins with the first month of ESRD-based Part A eligibility;
+      after that Medicare pays first.
+    kind: coordination
+    effective_from: 1997-08-05
+    parameters: [federal.cms.esrd_coordination_months]
+    implemented_in: playbooks/turning_65/federal/rules.py:who_pays_first
+    confidence: confirmed
+    note: 42 CFR 411.162 still says 12 months for post-1997 entitlements; the statute and CMS say 30 (conflict T65-FED-CONFLICT-01).
+    sources:
+      - {source: usc-42-1395y, locator: "(b)(1)(C)"}
+      - {source: cfr-42-411, locator: "§ 411.162(a)(1)-(2) (any GHP including a retirement plan; size and employment status do not apply)"}
+      - {source: cms-02179-who-pays-first, locator: "coordination period that lasts up to 30 months"}
+
+  # ------------------------------------------------------------- Medigap
+  - id: T65-FED-MEDIGAP-OEP
+    statement: >-
+      In every state, federal law gives a one-time 6-month Medigap open
+      enrollment period starting with the first month in which a person is 65
+      or older on the first day of the month and enrolled in Part B; during it
+      an insurer must sell any Medigap policy it offers without medical
+      underwriting and cannot charge more for health status.
+    kind: eligibility
+    effective_from: 1992-11-05
+    parameters: [federal.cms.medigap_oep_months]
+    implemented_in: playbooks/turning_65/federal/rules.py:medigap_federal
+    confidence: confirmed
+    sources:
+      - {source: usc-42-1395ss, locator: "(s)(2)(A)"}
+      - {source: medicare-gov-medigap-ready-to-buy, locator: "Your Medigap Open Enrollment Period"}
+  - id: T65-FED-MEDIGAP-GI-EMPLOYER-PLAN-ENDS
+    statement: >-
+      In every state, a person whose employer or union group plan that
+      supplements Medicare (for example a union retiree plan) ends or stops
+      providing all supplemental benefits has a federal guaranteed-issue right
+      to buy Medigap Plan A, B, C, F (or, for people new to Medicare since
+      2020, the comparable plans a state offers) if they apply within 63 days
+      after the coverage ends or the notice of termination.
+    kind: eligibility
+    effective_from: 2001-01-01
+    parameters: [federal.cms.medigap_gi_days]
+    implemented_in: playbooks/turning_65/federal/rules.py:medigap_federal
+    confidence: confirmed
+    note: The plan letters available to people newly eligible after 2019 (C and F closed to them) follow 1395ss(z); not traced here (T65-FED-OQ-04).
+    sources:
+      - {source: usc-42-1395ss, locator: "(s)(3)(A)-(C), (E)(i)"}
+  - id: T65-FED-MEDIGAP-UNDERWRITING
+    statement: >-
+      Under federal law, outside the 6-month Medigap open enrollment period and
+      the federal guaranteed-issue situations, a Medigap insurer may use medical
+      underwriting, deny a policy or charge more, and federal law gives no
+      yearly right to switch Medigap policies; individual states may give more
+      rights.
+    kind: eligibility
+    effective_from: 1992-11-05
+    implemented_in: playbooks/turning_65/federal/rules.py:medigap_federal
+    confidence: confirmed
+    sources:
+      - {source: medicare-gov-medigap-ready-to-buy, locator: "What if I miss my Medigap Open Enrollment Period? ... Check with your State Insurance Department ... You may have additional rights under state law."}
+
+procedure:
+  applications:
+    - id: T65-FED-PROC-AUTO
+      text: People already getting Social Security retirement benefits are enrolled in Parts A and B automatically and receive a Medicare card with a notice letting them decline Part B; they do not need to file.
+      channel: automatic
+      confidence: confirmed
+      sources: [{source: cfr-42-407, locator: "§ 407.17(c)"}]
+    - id: T65-FED-PROC-APPLY-SSA
+      text: Others sign up with Social Security (online, by phone 1-800-772-1213, or at a local office). A person who already has Part A and wants Part B files form CMS-40B, Request for Enrollment in Medicare Part B, by mail or fax to the local Social Security office.
+      form_number: CMS-40B (07/2025)
+      form_name: Request for Enrollment in Medicare Part B (Medical Insurance)
+      url: https://www.cms.gov/medicare/cms-forms/cms-forms/downloads/cms40b-e.pdf
+      channel: any
+      confidence: confirmed
+      sources: [{source: cms-40b-form, locator: "page 1: Submit your form by mail or fax"}]
+    - id: T65-FED-PROC-SEP-L564
+      text: For the employment-based SEP, send CMS-L564 (Request for Employment Information; the employer fills in Section B) together with the CMS-40B; it proves group coverage based on current employment since the first month of Part B eligibility.
+      form_number: CMS-L564
+      form_name: Medicare Request for Employment Information
+      url: https://www.cms.gov/medicare/cms-forms/cms-forms/downloads/cms-l564e.pdf
+      channel: mail
+      confidence: confirmed
+      sources: [{source: cms-l564-form, locator: "page 1"}]
+    - id: T65-FED-PROC-EXCEPTIONAL-10797
+      text: For the exceptional-conditions SEPs (loss of Medicaid, misinformation, disaster, incarceration, other), Medicare.gov says to fill out form CMS-10797 and fax or mail it to the local Social Security office.
+      form_number: CMS-10797
+      channel: mail
+      confidence: confirmed
+      note: The CMS-10797 form itself was not retrieved (the cms.gov link tried returned 404).
+      sources: [{source: medicare-gov-coverage-start, locator: "Fill out form CMS-10797 and send the completed form to your local Social Security office by fax or mail."}]
+  documents:
+    - id: T65-FED-DOC-GHP-PROOF
+      text: Proof of group health coverage based on current employment (CMS-L564 Section B from the employer, or other evidence SSA accepts) for every month since Part B eligibility.
+      confidence: confirmed
+      sources: [{source: cms-l564-form, locator: "page 1"}]
+    - id: T65-FED-DOC-MEDICAID-END
+      text: For the Medicaid-loss SEP, a letter from the state Medicaid agency or Medicaid managed care plan showing the last day of Medicaid coverage.
+      confidence: confirmed
+      sources: [{source: ssa-poms-hi-00805-385, locator: "C. Proof"}]
+  timelines:
+    - id: T65-FED-TIME-L564-WINDOW
+      text: The employment-based SEP closes 8 months after the job or the coverage ends (whichever is first); Medicare.gov advises signing up the month before retiring so Part B starts when job coverage ends.
+      duration: 8 months
+      confidence: confirmed
+      sources: [{source: medicare-gov-when-sign-up, locator: "If you want Medicare coverage to start when your job-based health insurance ends, you need to sign up for Part B the month before"}]
+    - id: T65-FED-TIME-MEDIGAP
+      text: Buy Medigap within the 6 months after Part B starts at 65+ (one-time window), or within 63 days of losing employer/union supplemental coverage.
+      duration: 6 months / 63 days
+      confidence: confirmed
+      sources:
+        - {source: usc-42-1395ss, locator: "(s)(2)(A), (s)(3)(E)"}
+  approval_notice:
+    - id: T65-FED-NOTICE-CARD
+      text: Enrollment is confirmed by a Medicare card (red, white and blue) showing Part A and/or Part B and their start dates; the Social Security benefit statement shows the Part B premium being deducted.
+      confidence: unresolved
+      open_question: T65-FED-OQ-02
+  renewal:
+    - id: T65-FED-RENEW-NONE
+      text: Parts A and B do not need renewing; the Part B penalty and IRMAA are recalculated each year (IRMAA from the tax return two years earlier).
+      confidence: confirmed
+      sources: [{source: usc-42-1395r, locator: "(b) and (i)"}]
+
+life_events:
+  - id: T65-FED-LE-TURNING-65
+    code: turning_65
+    event: The person is about to turn 65 (or turns 65 on the first of a month)
+    why: The 7-month IEP opens 3 months before the birthday month (one month earlier for a birthday on the 1st); the Medigap open enrollment starts with Part B.
+    check_rules: [T65-FED-AGE-ATTAINMENT, T65-FED-IEP, T65-FED-IEP-COVERAGE-START, T65-FED-MEDIGAP-OEP]
+    confidence: confirmed
+    sources: [{source: cfr-42-407, locator: "§ 407.14"}]
+  - id: T65-FED-LE-RETIREMENT
+    code: retirement
+    event: The person (or spouse) stops working, so job-based group coverage ends or turns into retiree coverage or COBRA
+    why: An 8-month SEP starts; retiree coverage and COBRA do not extend it; Medicare becomes primary; income may drop enough to ask for an IRMAA redetermination.
+    check_rules: [T65-FED-SEP-GHP-DURATION, T65-FED-SEP-NO-RETIREE-COBRA, T65-FED-COB-RETIREE, T65-FED-IRMAA-LOOKBACK]
+    confidence: confirmed
+    sources: [{source: medicare-gov-when-sign-up, locator: "Sign up: Within 8 months after you or your spouse stop working"}]
+  - id: T65-FED-LE-EMPLOYER-COVERAGE-END
+    code: employer_coverage_end
+    event: Employer or union coverage ends (active plan terminated, or a retiree plan that supplements Medicare ends)
+    why: Ends the employment-based SEP clock (8 months) or creates a 63-day Medigap guaranteed-issue right if a supplemental retiree plan ends.
+    check_rules: [T65-FED-SEP-GHP-DURATION, T65-FED-MEDIGAP-GI-EMPLOYER-PLAN-ENDS]
+    confidence: confirmed
+    sources: [{source: usc-42-1395ss, locator: "(s)(3)(B)(i)"}]
+  - id: T65-FED-LE-SPOUSE-DEATH
+    code: spouse_death
+    event: Death of a working spouse whose job-based plan covered the person
+    why: Coverage based on the spouse's current employment ends, starting the 8-month SEP; the death is also a life-changing event for IRMAA; a widow(er) may qualify for premium-free or reduced Part A on the spouse's record.
+    check_rules: [T65-FED-SEP-GHP-DURATION, T65-FED-IRMAA-LOOKBACK, T65-FED-PART-A-PREMIUM-REDUCED]
+    confidence: confirmed
+    sources:
+      - {source: ssa-poms-hi-01120-001, locator: "Death of Spouse"}
+      - {source: cfr-42-406, locator: "§ 406.32(c)(3)"}
+  - id: T65-FED-LE-SSDI
+    code: medicare_entitlement
+    event: 25th month of Social Security disability benefits (Medicare starts before 65)
+    why: Part A starts automatically and a disability IEP opens; at 65 the person gets a new IEP and any surcharge ends.
+    check_rules: [T65-FED-PART-A-DISABILITY, T65-FED-AGE65-NEW-IEP, T65-FED-COB-DISABILITY]
+    confidence: confirmed
+    sources: [{source: cfr-42-406, locator: "§ 406.12(d)(1)"}]
+  - id: T65-FED-LE-MEDICAID-LOSS
+    code: medicaid_change
+    event: Medicaid ends for a person eligible for Medicare who never took Part B
+    why: Opens the Medicaid-loss SEP (from the notice until 6 months after Medicaid ends), with no penalty.
+    check_rules: [T65-FED-SEP-MEDICAID-LOSS]
+    confidence: confirmed
+    sources: [{source: cfr-42-407, locator: "§ 407.23(e)"}]
+  - id: T65-FED-LE-MOVE
+    code: move_state
+    event: The person moves to another state
+    why: Medicare enrollment rules and penalties do not change, but Medigap rights beyond federal law (continuous enrollment, birthday rules) are state law and change with the move; Medicare Advantage and Part D plans are local.
+    check_rules: [T65-FED-MEDIGAP-UNDERWRITING]
+    confidence: confirmed
+    sources: [{source: medicare-gov-medigap-ready-to-buy, locator: "You may have additional rights under state law."}]
+
+outcome_proof:
+  - id: T65-FED-PROOF-CARD
+    evidence: Medicare card
+    shows: Parts held and the date each started (for example "Medical (Part B) 06-01-2026").
+    how_to_get: Mailed by CMS after enrollment; replacement through Medicare.gov or 1-800-MEDICARE
+    confidence: unresolved
+    open_question: T65-FED-OQ-02
+  - id: T65-FED-PROOF-PREMIUM
+    evidence: Social Security benefit letter / my Social Security account
+    shows: The monthly Part B premium deducted (2026 standard $202.90; higher if a penalty or IRMAA applies), which proves Part B is in force and shows whether a surcharge is being charged.
+    how_to_get: my Social Security account (ssa.gov) or the yearly COLA notice
+    confidence: unresolved
+    open_question: T65-FED-OQ-02
+
+links:
+  - id: T65-LINK-MSP
+    playbook: msp
+    rules: [T65-FED-PART-B-PENALTY-MSP, T65-FED-PART-A-PREMIUM-FULL, T65-FED-PART-A-PREMIUM-REDUCED]
+    relation: >-
+      Part A entitlement and the Part B premium set here are what the Medicare
+      Savings Program builds on (msp link MSP-LINK-TURNING-65): MSP (state
+      buy-in) pays the Part B premium and removes the Part B late penalty, and
+      QMB pays the Part A premium for a person without enough quarters, so a
+      low-income person facing a Part B penalty or a $311/$565 Part A premium
+      should be checked for MSP.
+    test: T65-X-01
+    confidence: confirmed
+    sources:
+      - {source: cfr-42-408, locator: "§ 408.24(a)(3)"}
+      - {source: medicare-gov-avoid-penalties, locator: "Part B late enrollment penalty"}
+  - id: T65-LINK-DISABILITY
+    playbook: disability
+    rules: [T65-FED-PART-A-DISABILITY, T65-FED-AGE65-NEW-IEP, T65-FED-COB-DISABILITY]
+    relation: SSDI entitlement leads to Medicare Part A in the 25th month; the disability IEP, the 100-employee coordination rule and the new IEP at 65 all depend on the SSDI start date set in the disability playbook.
+    test: T65-X-02
+    confidence: confirmed
+    sources: [{source: cfr-42-406, locator: "§ 406.12(d)(1)"}]
+  - id: T65-LINK-MEDICAID
+    playbook: medicaid
+    rules: [T65-FED-SEP-MEDICAID-LOSS, T65-FED-PART-D-PENALTY-EXTRA-HELP]
+    relation: Losing Medicaid entirely opens the Medicaid-loss SEP; full Medicaid (dual eligibility) deems Extra Help and so removes the Part D penalty, and the state usually pays the Part B premium.
+    test: T65-X-03
+    confidence: confirmed
+    sources: [{source: ssa-poms-hi-00805-385, locator: "B. Eligibility"}]
+
+open_questions:
+  - id: T65-FED-OQ-01
+    priority: medium
+    question: >-
+      For the employment-based SEP, does SSA in practice start Part B in the
+      month of enrollment (42 CFR 406.24(e), POMS HI 00805.276) or the month
+      after SSA receives the forms (Medicare.gov)?
+    why_it_matters: Decides whether a retiree who signs up in the last month of job coverage has a gap of one month.
+    checked: [42 CFR 406.24(e), POMS HI 00805.276, Medicare.gov When can I sign up]
+    affects: [T65-FED-SEP-GHP-COVERAGE-START]
+    status: open
+  - id: T65-FED-OQ-02
+    priority: medium
+    question: Which primary source describes the Medicare card / award notice a new enrollee receives, its timing, and how the Part B premium deduction appears on the SSA benefit statement?
+    why_it_matters: This is the outcome proof the institution relies on to confirm enrollment.
+    checked: [CMS-40B form, Medicare.gov coverage start page]
+    affects: [T65-FED-NOTICE-CARD, T65-FED-PROOF-CARD, T65-FED-PROOF-PREMIUM]
+    status: open
+  - id: T65-FED-OQ-03
+    priority: low
+    question: How is the 10% Part A late penalty rounded (Part A premiums are whole dollars; 42 CFR 406.32(b)(4) rounds the base premium to the dollar)?
+    why_it_matters: Small dollar differences in a quoted Part A premium with penalty.
+    checked: [42 CFR 406.32, Medicare.gov avoid penalties]
+    affects: [T65-FED-PART-A-PENALTY]
+    status: open
+  - id: T65-FED-OQ-04
+    priority: low
+    question: Which Medigap plan letters does the employer-plan-ends guaranteed-issue right cover for people first eligible for Medicare on or after January 1, 2020 (42 U.S.C. 1395ss(z))?
+    why_it_matters: The agent should name the plans a member can get without underwriting.
+    checked: [42 U.S.C. 1395ss(s)(3)(C)]
+    affects: [T65-FED-MEDIGAP-GI-EMPLOYER-PLAN-ENDS]
+    status: open
+  - id: T65-FED-OQ-05
+    priority: medium
+    question: >-
+      For a person with current-employment group coverage who also had gaps,
+      how exactly does SSA count penalty months when the GHP coverage did not
+      start at the first month of eligibility (the evaluator counts only
+      months after the IEP not covered by such coverage)?
+    why_it_matters: Penalty percent for people who mixed employer coverage and uncovered months.
+    checked: [42 CFR 408.24, POMS HI 01001.010, HI 01001.011 examples]
+    affects: [T65-FED-PART-B-PENALTY-MONTHS]
+    status: open
+
+conflicts:
+  - id: T65-FED-CONFLICT-01
+    topic: Length of the ESRD coordination period
+    claims:
+      - source: usc-42-1395y
+        locator: "(b)(1)(C), concluding provisions"
+        says: For items and services furnished on or after August 5, 1997, the 12-month coordination period is applied as 30 months.
+      - source: cfr-42-411
+        locator: "§ 411.162(c)(2)(iii)"
+        says: For individuals who become entitled to Part A on the basis of ESRD after September 1997, the coordination period ends with the earlier of the 12th month of eligibility or entitlement.
+      - source: cms-02179-who-pays-first
+        says: COBRA pays first during a coordination period that lasts up to 30 months.
+    handling: >-
+      The archive uses 30 months (statute, which controls over an unamended
+      regulation, and CMS's 2026 booklet agree). The CFR text appears never to
+      have been updated after the Balanced Budget Act of 1997.
+    affects: [T65-FED-COB-ESRD, federal.cms.esrd_coordination_months]
+    status: open
+  - id: T65-FED-CONFLICT-02
+    topic: Part B start date for an employment-based SEP enrollment
+    claims:
+      - source: cfr-42-406
+        locator: "§ 406.24(e)(1)"
+        says: Enrolling while covered, or in the first full month after, coverage begins the first day of the month of enrollment or, at the person's option, any of the following three months.
+      - source: ssa-poms-hi-00805-276
+        says: Same as the regulation.
+      - source: medicare-gov-when-sign-up
+        says: Your coverage will start the month after Social Security gets your completed forms.
+    handling: The evaluator reports the earliest start the regulation and POMS allow (the enrollment month) and the agent should tell members to file the month before job coverage ends, which satisfies both readings.
+    affects: [T65-FED-SEP-GHP-COVERAGE-START]
+    status: open
+
+claims_checked:
+  - claim: The Initial Enrollment Period is 7 months around the 65th birthday month, and starts a month earlier for a birthday on the 1st.
+    verdict: verified
+    detail: 42 CFR 407.14(a)(1); age is attained the day before the birthday (42 CFR 411.170(c)(1)); Medicare.gov repeats the first-of-month rule.
+    sources:
+      - {source: cfr-42-407, locator: "§ 407.14(a)(1)"}
+      - {source: cfr-42-411, locator: "§ 411.170(c)(1)"}
+  - claim: Since 2023, coverage starts the month after enrollment in the IEP's later months and in the GEP.
+    verdict: verified
+    detail: 42 CFR 407.25(a)(2) and (b)(3), for eligibility months beginning on or after January 1, 2023 and GEP enrollments on or after that date.
+    sources: [{source: cfr-42-407, locator: "§ 407.25"}]
+  - claim: The SEP based on current employment lasts 8 months; COBRA and retiree coverage do not count.
+    verdict: verified
+    detail: 42 CFR 406.24(b)(2); POMS HI 00805.330 (COBRA never current employment). Retiree coverage is excluded because the "former employee" language of the GHP definition does not apply to SEPs (406.24(a)(3)).
+    sources:
+      - {source: cfr-42-406, locator: "§ 406.24"}
+      - {source: ssa-poms-hi-00805-330, locator: "A."}
+  - claim: 2023 exceptional-conditions SEPs exist for loss of Medicaid, employer misinformation and others.
+    verdict: verified
+    detail: 42 CFR 407.23(b)-(f) lists disaster, employer/plan misrepresentation, incarceration, Medicaid termination and other exceptional conditions; no penalty when used in time (POMS HI 01001.010).
+    sources: [{source: cfr-42-407, locator: "§ 407.23"}]
+  - claim: The Part B late penalty is 10% per full 12-month period.
+    verdict: verified
+    detail: 42 U.S.C. 1395r(b); 42 CFR 408.22. 11 counted months = 0%.
+    sources: [{source: cfr-42-408, locator: "§ 408.22"}]
+  - claim: The Part D penalty is 1% of the national base beneficiary premium per uncovered month.
+    verdict: verified
+    detail: 42 CFR 423.286(d)(3)(i)(B) (the greater of 1% or an actuarially sound amount CMS sets; CMS uses 1%). 2026 base premium $38.99 (Medicare.gov).
+    sources:
+      - {source: cfr-42-423, locator: "§ 423.286(d)(3)"}
+      - {source: medicare-gov-avoid-penalties, locator: "Part D example"}
+  - claim: 2026 Part A premiums for people with fewer than 40 quarters are $311 (30-39) and $565 (under 30).
+    verdict: verified
+    detail: CMS 2026 fact sheet (Nov 14, 2025).
+    sources: [{source: cms-2026-part-a-b-premiums, locator: "Medicare Part A Premium and Deductible"}]
+  - claim: IRMAA uses the tax return from two years earlier.
+    verdict: verified
+    detail: 42 U.S.C. 1395r(i) uses the taxable year beginning in the second calendar year preceding; SSA-44 allows a newer year after a life-changing event.
+    sources: [{source: usc-42-1395r, locator: "(i)"}]
+  - claim: Active-employment group plans pay first with 20+ employees (age), 100+ (disability); Medicare primary for retirees; ESRD 30-month coordination.
+    verdict: verified
+    detail: 42 U.S.C. 1395y(b)(1)(A)-(C); CMS 02179 (Feb 2026). The CFR's ESRD text is out of date (conflict T65-FED-CONFLICT-01).
+    sources:
+      - {source: usc-42-1395y, locator: "(b)(1)"}
+      - {source: cms-02179-who-pays-first, locator: "Section 2"}
+  - claim: Federal 6-month Medigap open enrollment starts the month a person is 65 and has Part B.
+    verdict: verified
+    detail: 42 U.S.C. 1395ss(s)(2)(A); Medicare.gov.
+    sources: [{source: usc-42-1395ss, locator: "(s)(2)(A)"}]

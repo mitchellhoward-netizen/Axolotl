@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://www.isbe.net/Pages/Household-Eligibility-Resources.aspx
+  final_url: https://www.isbe.net/Pages/Household-Eligibility-Resources.aspx
+  status: 200
+  content_type: text/html; charset=utf-8
+  text_sha256: 329e95cd477ba50a73d30c2f5b7457132bf504176e64e8ce7a169dece3787472
+  text: il-isbe-hea-resources/2026-10-07.txt
+  raw: il-isbe-hea-resources/2026-10-07.html

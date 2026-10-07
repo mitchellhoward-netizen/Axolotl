@@ -1,0 +1,67 @@
+Skip to content
+
+Program Operations Manual System (POMS)
+
+Effective Dates: 10/31/2022 - Present
+Previous | Next
+
+TN 57 (10-22)
+
+HI 00805.330 Individuals with GHP Coverage Under COBRA
+
+A. POLICY – COVERAGE UNDER COBRA
+
+The Consolidated Omnibus Reconciliation Act (COBRA) of 1985 amended the law to require
+that group health plans of covered employers provide employees and certain family
+members the opportunity to continue health care coverage under the GHP in certain
+instances (called qualifying events) where coverage under the GHP would otherwise
+be terminated.
+
+Qualifying events are:
+
+•
+
+The death of the covered employee.
+
+•
+
+The termination (other than by reason of such employee's gross misconduct), or reduction
+of hours, of the covered employee's employment.
+
+•
+
+The divorce or legal separation of the covered employee from their spouse.
+
+•
+
+The covered employee becoming entitled to benefits under title XVIII (Medicare) of
+the Social Security Act.
+
+•
+
+A dependent child ceasing to be a dependent child under the generally accetable requirements
+of the plan.
+
+Individuals covered under COBRA are never covered under a GHP by reason of current employment status which is a requirement
+for the SEP or premium surcharge rollback. Even when COBRA coverage is in effect by
+reason of a reduction of employment hours, as distinguished from termination of employment,
+it is in effect because the individual no longer qualifies for the regular group health
+plan based on employment.
+
+Similarly, COBRA coverage for qualified dependents is not based on current employment
+status even when the employee continues to qualify for regular GHP coverage. That
+is, in the case of divorce or legal separation, or a dependent child ceasing to be
+a dependent child, the qualified dependent is eligible for coverage solely by virtue
+of the provisions of the COBRA statute.
+
+NOTE: The rules above apply only for individuals who do not enroll in SMI during the 8-month
+period following the last month of coverage based on current employment status.
+
+To Link to this section - Use this URL:
+http://policy.ssa.gov/poms.nsf/lnx/0600805330
+
+HI 00805.330 - Individuals with GHP Coverage Under COBRA - 10/31/2022
+
+Batch run: 10/31/2022
+
+Rev:10/31/2022

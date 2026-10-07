@@ -1,0 +1,97 @@
+Illinois Department of Human Services
+JB Pritzker, Governor · Dulce M. Quintero, Secretary
+
+Customers
+
+Providers
+
+About
+
+News
+
+Contact
+
+IDHS
+
+About IDHS
+
+Publications
+
+Manuals
+
+Family & Community Services Manuals
+
+Cash, SNAP, and Medical Manual
+
+Workers' Action Guide Chapter Table of Contents
+
+WAG 13: SNAP Eligibility and Benefit Amount
+
+WAG 13-01-00: Determining SNAP Eligibility
+
+WAG 13-01-01: SNAP Monthly Income Standards
+
+PM 13-01-01
+
+Determine a SNAP household's eligibility as follows:
+
+Compare gross income to the Gross Income Standard.
+
+If gross income eligible, determine net SNAP income in order to determine the benefit amount. If net income is above the level where benefits are issued, the household is ineligible. A SNAP household of one or two members receive a monthly minimum benefit amount.
+
+If income is over the Gross Income Standard, deny benefits, unless every person in the SNAP household is authorized to receive TANF or SSI, or unless the SNAP household includes a qualifying member.
+
+Verify Income Prior to Denying A SNAP Application due to Income Exceeding the Income Standard
+
+A SNAP application cannot be denied based solely on an unverified statement of household income. A SNAP household's non-exempt income must be verified prior to denying an application, if the denial is due to the income exceeding the income standard. If a household states on the SNAP application or during the interview that its income exceeds the gross income limit, the HSC must pursue verification of income and continue the 30-day application process with the household.
+
+If the household fails to provide timely verification of income, the application may be denied for failure to provide verification. If the household provides timely verification that shows its non-exempt income exceeds the gross income limit, the application is denied based on exceeding the gross income limit. This only applies to households that are subject to the gross income limit.
+
+Verifications must be uploaded to the Electronic Case Record (ECR) and the case information must be documented in Case Comments to support eligibility, ineligibility, and benefit level determinations. Documentation should be sufficient in detail to permit a reviewer to determine the reasonableness and accuracy of the determination. A negative action taken is only "valid" if the information in the ECR and the documentation in Case Comments supports the negative action, as well as the reason for the negative action that was presented to the household.
+
+Example: Mr. J applies for SNAP for himself, his wife, and 3 children. At the interview Mr. J states he is employed and earns around $6,500 monthly. The HSC does not have proof of Mr. J's income at the time of the interview to determine if it actually exceeds the gross monthly income standard for a household of 5. The HSC gives Mr. J a Verification Checklist to request his paystubs. If Mr. J returns his paystubs the HSC can determine if his income exceeds the gross monthly income standard for a household of 5 and may deny the application for gross income over standard. If Mr. J does not return his paystubs the application is denied because he failed to provide verification and eligibility cannot be determined.
+
+SNAP household with a Qualifying Member with Income Over Gross
+
+For SNAP households that include a Qualifying Member, with gross income more than the gross income standard (200% FPL), do not deny but determine net monthly income. Compare this figure to the Net Monthly Income Chart. If the net income is at or below the standard, determine the SNAP household's monthly benefit.
+
+SNAP household with a Member Disqualified for an IPV or Work Provision Sanction
+
+Determine gross monthly income and compare the result to the Gross Monthly Income Standard (see WAG 13-01-01-a).
+
+If gross income is equal to or less than the Gross Monthly Income Standard, determine Net Monthly Income.
+
+Compare net monthly income to the Net Monthly Income Standard.
+
+If net income is equal to or less than the Net Monthly Income Standard, determine the SNAP household's monthly benefit amount.
+
+The Integrated Eligiblity System (IES) determines income eligibility and benefit amount based on the income and expense amounts entered on the income and expense screens.
+
+Links
+
+WAG 13-01-01-a: Gross Monthly Income
+
+WAG 13-01-01-b: Net Monthly Income
+
+Illinois Department of Human Services
+JB Pritzker, Governor · Dulce M. Quintero, Secretary
+
+IDHS Office Locator
+
+IDHS Help Line
+
+1-800-843-6154
+
+1-866-324-5553 TTY
+
+State of Illinois
+
+Accessibility
+
+Privacy
+
+Report Abuse/Neglect
+
+Contact
+
+Outlook Login

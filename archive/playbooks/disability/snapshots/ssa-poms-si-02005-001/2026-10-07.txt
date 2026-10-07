@@ -1,0 +1,510 @@
+Skip to content
+
+Program Operations Manual System (POMS)
+
+Effective Dates: 09/22/2010 - Present
+Previous | Next
+
+TN 24 (09-23)
+
+SI 02005.001 Retrospective Monthly Accounting Computation
+
+A. Background
+
+Quarterly Computation
+
+From January 1974 through March 1982, we used a quarterly computation to compute eligibility
+and payment for Federal supplemental security income (SSI) benefits and federally
+administered optional State supplementary (OSS) payments. We based these computations
+on circumstances during the quarter.
+
+“For information on quarterly computations, see SI 02009.000.”
+
+B. Policy — Retrospective Monthly Accounting (RMA)
+
+Effective April 1982, we base payment for a month on known circumstances for a closed
+month. This is RMA.
+
+It has two elements:
+
+•
+
+the eligibility test, which is based on the individual's (or couple's) income, resources
+and other factors in a month; and
+
+•
+
+the payment computation, which is generally based on the income in the second month
+before the month for which payment is being computed (the “budget month” (BM)).
+
+C. Policy — The Federal Eligibility Test
+
+1. Computation Month (CM)
+
+The computation month is the month for which eligibility or payment is being determined.
+
+2. Rates
+
+The Federal benefit rate (FBR) will be used for an eligible individual or an eligible
+couple. Any essential person increment will be added. (See SI 02001.020 for the FBR table).
+
+3. Countable Income (CI)
+
+To be ineligible because of CI, an individual's (or couple's) CI in the CM must exceed
+the FBR (plus any essential person increment) in the CM. If the CI is equal to or
+less than the FBR (plus any essential person increment) the individual, based on income,
+is eligible.
+
+D. Policy — The OSS Eligibility Test
+
+1. OSS Payment Level
+
+a. OSS Payment Level
+
+The OSS payment level is the amount of federally administered OSS that would be payable
+to an eligible individual/couple with CI less than or equal to the FBR (plus any essential
+person increment). (See SI 01415.001 and POMS regional supplements for amounts. See SI 01401.001 for general information, and SI 01410.010 for residency rules).
+
+b. Eligible Couples
+
+If the eligible couple is living together, use the couple's combined income, couple's
+FBR and couple's OSS payment level and perform the eligibility computation jointly.
+Use the State's couple payment level for their living arrangement variation. See SI 02005.050 if one or both members of the couple are temporarily absent from home in a Title
+XIX facility.
+
+NOTE: Some States provide different payment levels by category (aged, blind, and/or disabled).
+
+c. Multicategory Couple
+
+If the eligible couple is living together, the average of their individual categorical
+OSS payment level will be used (unless the State provides specific couple's multicategory
+levels). (See SI 01415.001) (See SI 02005.030 when members of an eligible couple live apart).
+
+2. No Additional State Disregards (All Except Maine)
+
+a.
+
+Do the Federal SSI eligibility computation. If eligible for Federal SSI, the individual/couple
+is eligible for OSS.
+
+b.
+
+If ineligible for Federal SSI based on CM CI, the difference between CI and the FBR
+(plus any essential person increment) is the excess income.
+
+c.
+
+If the excess income is less than the CM OSS payment level, the individual/couple
+is eligible for OSS.
+
+If the excess income is equal to the CM OSS payment level (this differs from the Federal
+eligibility test) or more than the CM OSS payment level, the individual/couple is
+not eligible for OSS.
+
+3. Additional State Income Disregards - Maine
+
+a.
+
+See SI 01415.001.
+
+b.
+
+Do the Federal SSI eligibility computation. State deductions do not apply when deriving
+the CM Federal countable income. If the individual/couple is eligible for Federal
+SSI, the individual/couple is also eligible for OSS.
+
+c.
+
+If ineligible for Federal SSI based on CM CI, subtract the State's income disregards
+from the CM's CI except for the “value of the one-third reduction” (VTR). Add the VTR to the FCI that remains. Compare the resulting CI (including the
+VTR) to the FBR.
+
+d.
+
+If eligible for Federal SSI based on the remaining CI (new CI is less than or equal
+to the FBR), the individual/couple is eligible for OSS.
+
+e.
+
+If ineligible for Federal SSI based on the remaining CI, the difference between that
+new CI and the FBR (plus any essential person increment) is the excess income.
+
+f.
+
+If the excess income, based on the new CI, is less than the CM OSS payment level,
+the individual/couple is eligible for OSS.
+
+If the excess income, based on the new CI, is equal to or more than the CM OSS payment
+level, the individual/couple is not eligible for OSS.
+
+NOTE: This is different than the Federal eligibility test. In the Federal eligibility test,
+the individual/couple is eligible if CI equals the FBR.
+
+E. Policy — The Federal Payment Computation
+
+1. Rates
+
+Use the FBR and essential person increment from the eligibility test or the $30 ($60
+for certain couple situations) payment cap for Federal living arrangement (FLA) “D.” Subtract the CI for the BM. See SI 02005.050 if one or both members of the couple are temporarily absent from home in a Title
+XIX facility.
+
+2. Budget Month (BM)
+
+The budget month is the month which is 2 months before the CM, unless you must use
+either:
+
+•
+
+“The Transitional Computational Cycle” (SI 02005.005), or
+
+•
+
+“Title II/Title XVI COLA Coordination” (SI 02005.010), or
+
+•
+
+“Prospective Accounting for Certain Income Based on Need” (SI 02005.025).
+
+3. Eligible But Not Payable (E01 Status)
+
+a.
+
+Since the eligibility computation and payment computation under RMA generally are
+based on income from different months, an individual may be eligible based on income
+in the CM but not payable based on the income in the BM. This status does not disrupt
+the 2-month retrospective computation of benefits for future months.
+
+b.
+
+An individual in “FLA-D” is ineligible for a Federal SSI benefit because of CI only if the CI exceeds the
+FBR. The individual is in E01 status if there is no OSS, and they have CI in the BM
+that equals or exceeds the $30 cap but is less than the FBR.
+
+c.
+
+E01 status can also happen in certain couple status changes, when CI from the BM equals
+the FBR, and in COLA coordination months (January and February) due to COLA coordination
+of title II and/or ISM/VTR income.
+
+4. Value of One-Third Reduction (VTR) and Presumed Maximum Value (PMV)
+
+a. General
+
+The VTR will be added to FCI to compute SSI payments. The VTR is equal to one-third
+of the FBR for an eligible individual or an eligible couple. When an individual or
+couple qualifies to have an essential person increment, the VTR is equal to one-third
+of the sum of the FBR and the increment. (See SI 01320.150, in-kind income and deeming and SI 00835.200, one-third reduction provision). (See SI 02001.020 for the table of rates and VTR amounts.)
+
+For purposes of SSI payment computation, the PMV is included in FCI. The PMV is equal
+to one-third of the individual or couple FBR plus $20. See SI 00835.300. (The PMV and VTR values are located in the table in SI 00835.900 and SI 00835.901.)
+
+NOTE: The new rule for determining the PMV after a COLA only applies when the actual PMV
+was charged prior to the COLA. It does not apply when the PMV is rebutted, and the
+actual value of ISM (less than the PMV) is charged.
+
+b. Benefits Payable for Months Prior to January 1995 - Recipient Subject to the VTR or
+PMV Prior to an FBR Increase
+
+For benefits payable for months prior to January 1995, the VTR and PMV increased when
+the FBR increased because they are based on the FBR. In the retrospective payment
+computation, the VTR or PMV generally did not affect payment until 2 months later.
+Thus, if an SSI individual was subject to the VTR or PMV, the first payment that would
+be reduced because of the increased value of the in-kind support and maintenance (ISM)
+would be the SSI payment due 2 months following the month of increase.
+
+c. Effective for Benefits Payable for January 1995 and after - Recipient Subject to the
+VTR or PMV Prior to an FBR COLA Increase
+
+Effective for benefits paid for January 1995 and after, for the first 2 months in
+which a COLA is in effect, the new FBR, as increased by the COLA, will be used in
+determining the value of the VTR and PMV used for the payment computation. Thus, under
+RMA, when there is a COLA and an SSI individual is subject to the VTR or PMV prior
+to an FBR COLA increase (i.e., November or December), the value of the VTR or PMV
+will be based on the new increased FBR and used to compute the individual's January
+and/or February payment.
+
+This change in the value of the VTR or PMV does not interrupt the RMA cycle. (See
+SI 02005.001H. for example).
+
+F. Policy - The OSS Payment Computation
+
+1. No Additional State Income Disregards (All Except Maine)
+
+a. Step 1
+
+Compute the Federal SSI payment. If a Federal SSI payment is due, there is no excess
+income and the full CM OSS payment level is payable.
+
+b. Step 2
+
+If no Federal payment is due, compute the excess income. The excess income in the
+payment computation is the difference between the BM's CI and the CM FBR (plus any
+essential person increment). If the Federal payment limit for FLA D was used in the
+Federal payment computation, the excess income is the difference between the BM's
+CI and the FLA D payment limit.
+
+If there is no excess income in the payment computation (whether or not there is excess
+income in the CM), the full OSS payment level is payable.
+
+If there is excess income in the payment computation, it is subtracted from the CM
+OSS payment level; the remainder is the OSS payment.
+
+If the excess income in the payment computation equals or exceeds the CM's OSS payment
+level, no OSS is due.
+
+c. Eligible Couple Living Together
+
+Select an OSS payment level based on the couple's living arrangement variation for
+the State of residence. Perform the payment computation jointly; and, divide the results
+by two. Do not add the Federal SSI and OSS amounts because rounding may be necessary
+in the final step of either the Federal SSI or OSS computation. (See SI 02001.010).
+
+d. Eligible Couple Living Apart
+
+(See SI 02005.030).
+
+e. Mandatory Minimum State Supplementation (MMSS) Payments
+
+The OSS will be paid if it is equal to or greater than the MMSS. (See SI 02005.082.)
+
+2. Additional State Income Disregards — Maine
+
+a. Step 1
+
+Compute the Federal SSI payment based on regular income rules. If a Federal payment
+is due based on BM CI (without considering the additional State disregards), there
+is no excess income and the full CM OSS payment level is payable.
+
+b. Step 2
+
+If no Federal payment is due (based on regular income rules), compute the excess income
+as in SI 02005.001F.1.b.
+
+If there is no excess income in the payment computation, whether or not there is excess
+income in the CM, the full OSS payment level is payable.
+
+If there is excess income in the payment computation, apply the State's additional
+income disregards.
+
+c. Step 3
+
+Subtract the State's additional income disregards from the BM's CI except for the
+VTR. Add the VTR to the FCI that remains after the State's additional exclusions have
+been applied. Compare this remaining CI (including the VTR) to the FBR (plus any essential
+person increment).
+
+d. Step 4
+
+If a Federal SSI benefit is due based on the remaining CI (new CI is less than or
+equal to the Federal limit in Step 3 above), there is no excess income and the individual/couple
+is due the full OSS level.
+
+REMINDER: State disregards do not affect the Federal payment, so the individual/couple is still
+not due a Federal payment.
+
+e. Step 5
+
+If a Federal SSI benefit is not due based on the remaining CI, the difference between
+the new CI and the Federal limit in Step 3 above is the excess income. Subtract this
+income from the OSS level.
+
+If the excess income (based on the new CI) is less than the OSS level, the difference
+is the OSS payment.
+
+If the excess income (based on the new CI) is equal to or greater than the OSS level,
+the individual/couple is due no OSS payment.
+
+G. Example - Earned Income Changes
+
+1. Rates/Information
+
+a.
+
+The date of filing is August 1999.
+
+b.
+
+The FBR in 1999 is $500 per month.
+
+c.
+
+The FBR in 2000 is $512 per month.
+
+2. CI
+
+a.
+
+The earned CI in September 1999 = $0
+
+b.
+
+The earned CI in October 1999 = $0
+
+c.
+
+The earned CI in November 1999 = $220
+
+d.
+
+The earned CI in December 1999 = $100
+
+e.
+
+The earned CI from January 2000 on = $50 per month
+
+3. Eligibility Test
+
+a.
+
+Nonincome: The individual meets all factors.
+
+b.
+
+Income: The individual meets the test; CI never exceeds FBR.
+
+4. Payment Computation
+
+a.
+
+November 1999
+
+$500
+- 0
+$500
+
+FBR in November
+CI in September
+
+b.
+
+December 1999
+
+$500
+- 0
+$500
+
+FBR in December
+CI in October
+
+c.
+
+January 2000
+
+$512
+-220
+$292
+
+FBR in January
+CI in November
+
+d.
+
+February 2000
+
+$512
+-100
+$412
+
+FBR in February
+CI in December
+
+e.
+
+March 2000
+
+$512
+- 50
+$462
+
+FBR in March
+CI in January
+
+H. Example - Individual Subject To VTR Prior To FBR Increase
+
+1. Facts/Information
+
+a.
+
+Individual eligible since 1990.
+
+b.
+
+Individual subject to VTR since April 1992.
+
+c.
+
+CI: $0
+
+d.
+
+Cost-of-Living Adjustment: effective January 2000
+
+2. Eligibility Test
+
+a.
+
+Nonincome: Individual meets all factors.
+
+b.
+
+Income: Individual meets test; FCI ($0) does not exceed FBR; individual only subject
+to VTR.
+
+3. Payment Computations
+
+a.
+
+January 2000
+
+$512.00
+- 0.00
+-170.66
+
+January FBR
+FCI in November 1999
+VTR charged 11/99 — Value of VTR based on increased 2000 FBR due to COLA
+
+341.34
+
+January Payment
+
+b.
+
+February 2000
+
+$512.00
+- 0.00
+-170.66
+
+February FBR
+FCI in December 1999
+VTR charged 12/99 — Value of VTR based on 2000 FBR (second month of COLA)
+
+341.34
+
+February 2000 Payment
+
+c.
+
+March 2000
+
+$512.00
+- 0.00
+-170.66
+
+March 2000 FBR
+FCI in January 2000
+VTR charged 1/00 — Valued of VTR based on 2000 FBR
+
+341.34
+
+March 2000 Payment
+
+To Link to this section - Use this URL:
+http://policy.ssa.gov/poms.nsf/lnx/0502005001
+
+SI 02005.001 - Retrospective Monthly Accounting Computation - 09/22/2010
+
+Batch run: 12/23/2025
+
+Rev:09/22/2010

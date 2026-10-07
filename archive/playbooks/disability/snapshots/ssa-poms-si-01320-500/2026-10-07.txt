@@ -1,0 +1,698 @@
+Skip to content
+
+Program Operations Manual System (POMS)
+
+Effective Dates: 12/09/2009 - Present
+Previous | Next
+
+TN 52 (10-24)
+
+SI 01320.500 Deeming of Income from Ineligible Parent(s)
+
+CITATIONS: Social Security Act, Section 1614(f)(2)(A) ; Regulations 20 CFR 416.1165
+
+A. Policy for deeming of income from ineligible parent(s)
+
+A child under age 18 who is applying for or receiving SSI, and who lives in the same
+household as their parent(s) or the spouse of a parent, is presumed to share in the
+parents’ income. Deeming continues through the month the child attains age 18 and
+meets all other requirements of the definition of a child in SI 01310.115.
+
+A child who is away at school may be considered to be temporarily absent from the
+parents' household and may also be subject to deeming (see SI 01310.165, Deeming Concept – Temporary Absence).
+
+1. Effective 06/16/08
+
+Parent-to-child deeming applies to a child under age 18 who lives in the same household
+with their:
+
+•
+
+natural or adoptive parent(s); or
+
+•
+
+natural or adoptive parent and the spouse of a parent (stepparent).
+
+IMPORTANT: The income and resources of the spouse of a natural or adoptive parent (stepparent)
+who lives with the eligible child are deemed to the child only when the natural or
+adoptive parent also lives in the household with the stepparent and the child.
+
+2. Prior to 06/16/08
+
+Parent-to-child deeming applied to a child under age 18 who lived in the same household
+with their:
+
+•
+
+natural or adoptive parent(s); or
+
+•
+
+the spouse of a parent (stepparent).
+
+EXCEPTION: Prior to regulatory changes made effective on 06/16/08, in the Second Circuit (Connecticut,
+New York, and Vermont), the Florez v. Callahan decision set an additional requirement for deeming from the spouse of a natural or
+adoptive parent. In Connecticut, New York, and Vermont ONLY, the income and resources
+of the spouse of a natural or adoptive parent who lived with the eligible child were
+deemed to the child only when the natural or adoptive parent also lived in the household.
+
+B. Policy for parental income and allocations
+
+Parent-to-child deeming of income applies to both eligibility and payment determinations.
+When parent-to-child deeming of income is an issue, the rules in this section apply
+in the order presented.
+
+1. Parent's earned and unearned income
+
+The amount of the parents' deemable earned and unearned income is determined by first
+applying the appropriate exclusions in SI 01320.100 and then subtracting any of the following allocations that apply.
+
+2. Allocation for ineligible children
+
+An allocation is deducted for each ineligible child who lives in the household (see
+SI 01310.115A.3., Deeming Concept – Child).
+
+The amount of the allocation is the difference between the couple Federal Benefit
+Rate (FBR) and the individual FBR.
+
+EXCEPTION: There is no ineligible child allocation for any child who receives public income maintenance
+(PIM) payments (as defined in SI 01320.141).
+
+Each ineligible child's allocation is reduced by the amount of their own income. For
+the purposes of reducing the allocation, the items listed in SI 01320.100B. are not included as income to the ineligible child.
+
+The allocations for ineligible children are deducted from the ineligible parents'
+unearned income first. If the ineligible parents' unearned income does not completely
+offset the allocation(s), the remainder of the allocation is deducted from the ineligible
+parents' earned income.
+
+3. Allocation for eligible noncitizens
+
+a. Eligible noncitizen allocations
+
+An allocation is deducted for eligible noncitizen whose sponsors:
+
+•
+
+Sign the old version of the affidavit of support, INS Form I-134 SI 00502.200;
+
+•
+
+Deem income to the noncitizen; and
+
+•
+
+Are also the ineligible parents of SSI eligible children.
+
+The amount of the allocation is the difference between the couple FBR and the individual
+FBR.
+
+Each eligible noncitizen's allocation is reduced by the amount of their own income.
+The items listed in SI 01320.100B., Items Not Included in Deeming – General, are not included as income to the noncitizen
+for purposes of reducing the allocation.
+
+Allocations for eligible noncitizens are deducted from the ineligible parents' unearned
+income first. If the parents' unearned income does not completely offset the allocation,
+the remainder of the allocation is deducted from the ineligible parents' earned income.
+
+b. Considerations for noncitizen allocations
+
+The allocation for an eligible noncitizen is given only for a noncitizen who is eligible
+for SSI or a federally administered State supplementary payment.
+
+•
+
+A noncitizen allocation is deducted even if the sponsor's income has no effect on
+the noncitizen's eligibility or payment amount (i.e., no income is deemed).
+
+•
+
+An allocation is not deducted for a noncitizen who is ineligible for any reason (including
+excess income resulting from sponsor-to-noncitizen deeming).
+
+•
+
+For purposes of determining the allocation, the noncitizen's income includes their
+own income plus any income deemed from a source other than the sponsor (i.e., the
+allocation is not reduced by the amount of income deemed from the sponsor who is the
+ineligible parent of an SSI eligible child).
+
+•
+
+The allocation is not reduced by the amount of the noncitizen's SSI payment.
+
+•
+
+An eligible noncitizen's income deemed from another sponsor or income deemed from
+their own spouse or parent reduces the allocation.
+
+•
+
+A noncitizen's income reduces only the allocation applicable to themselves; it is
+not used to reduce the allocation for another noncitizen.
+
+4. Living allowance for ineligible parent(s)
+
+The parental living allowance is:
+
+•
+
+The monthly FBR for a couple if both parents (or one parent and their spouse) live
+in the household; or
+
+•
+
+The monthly FBR for an individual if only one parent lives in the household; or
+
+•
+
+The monthly FBR for a couple AND the monthly FBR for an individual if both the natural or adoptive parents and the spouse of the natural or adoptive parent
+(stepparent) live in the household.
+
+EXCEPTION: A parental living allowance is not deducted for any parent who receives public income
+maintenance (PIM) payments, as described in SI 01320.141.
+
+NOTE: For a waiver of parental deeming when a child is eligible for Medicaid under a State
+home care plan, see SI 01310.201.
+
+C. Procedure for deeming parental income
+
+Follow the procedure in the chart to deem parental income.
+
+Step
+
+Action
+
+1
+
+Subtract the allocation for ineligible children and/or eligible noncitizens from the
+parental unearned income.
+
+2
+
+If the allocations are greater than the unearned income, or there is no unearned income,
+subtract the excess allocations from the parental earned income.
+
+3
+
+Subtract the $20 general income exclusion from any remaining parental unearned income.
+
+4
+
+If the remaining unearned income is less than $20, subtract the remainder of the $20
+from the parents' combined earned income.
+
+5
+
+Subtract $65 from the remaining earned income.
+
+6
+
+Subtract one-half the remaining earned income from the result of Step 5.
+
+7
+
+Add the result of Step 3 to the result of Step 6.
+
+8
+
+Subtract the parental living allowance (see SI 01320.500B.4 in this section.) from the result of Step 7.
+
+9
+
+Divide the result of Step 8 by the number of eligible children in the deeming household.
+
+D. Procedure for determining a child's eligibility
+
+1. One eligible child in the household
+
+Follow the procedure in this chart when there is only one eligible child in the household.
+
+Step
+
+Action
+
+1
+
+Add the deemed income from SI 01320.500C. in this section to the child's own unearned income.
+
+2
+
+Subtract all appropriate unearned income exclusions, including the $20 general income
+exclusion, from the result of Step 1. (For unearned income exclusions, see SI 00830.050).
+
+3
+
+If the child has any earned income, subtract all appropriate earned income exclusions
+including any remainder of the general income exclusion. (For earned income exclusions,
+see SI 00820.500).
+
+4
+
+Add the result of Step 2 to the result of Step 3.
+
+5
+
+Subtract the result of Step 4 from the FBR for an individual. If the result of Step
+5 exceeds the FBR for an individual, the child is ineligible for Federal SSI payments.
+
+2. Two or more eligible children in the household
+
+If two or more eligible children live in the household, divide the income deemed from
+the parents equally among them. Add the deemed income to each child's own unearned
+income to determine eligibility.
+
+However, if the total of the child's share of the deemed income plus their own income
+is greater than the FBR for an individual, deem only that amount which, when combined
+with their own income, reduces their benefit (Federal amount plus any federally administered
+State supplement) to zero.
+
+If the deemed income makes a child ineligible for a payment (reduces the benefit to
+zero) because that child has other countable income, charge the excess deemed income
+remaining after reducing their payment to zero equally to the other eligible child(ren)
+in the household following SI 01320.500F.4. in this section.
+
+NOTE: In multiple eligible children deeming cases, continue to deem to a child who is ineligible
+because of a combination of deemed income and their own income until there is a change
+of deeming status (e.g., the child attains age 18) or until the child becomes ineligible
+for some reason other than excess income due to deeming (e.g., the child's eligibility
+is terminated following 12 months of suspension).
+
+E. Procedure for determining payment for an eligible child
+
+To determine the payment amount for an eligible child using the ineligible parents'
+income from the budget month, follow the procedures in SI 01320.500C. and SI 01320.500D. in this section.
+
+REMINDER: The budget month is two months prior to the computation month, except when determining
+the payment amount for the first and second months of eligibility after the E02 month
+or after a period of ineligibility. (For more information on the retrospective monthly
+accounting provision, see SI 02005.001.)
+
+•
+
+For the first month of eligibility (or reinstatement), use the ineligible parents' income received in the current month
+to determine payment amount.
+
+•
+
+For the second month, use the ineligible parents' income received in the first month to determine the
+payment amount.
+
+IMPORTANT: When a prior month is the budget month, use the allocation values that were in effect
+for that prior month in the payment computation.
+
+F. Examples
+
+1. Parents have only earned income
+
+Bill Sanders is an SSI-eligible child who lives with both of their ineligible parents,
+Earnest and Sarah. Also in the household are Bill's siblings both of whom are ineligible
+for SSI. In January 2025, Earnest earned $4,500.00. Earnest's earnings were the family's
+only income. There is no State supplement involved.
+
+Parent-to-Child Deeming Computation
+
+Parents' Earned Income
+
+$4,500.00
+
+Allocation for Two Ineligible Children
+
+(2 x $483)
+
+-966.00
+
+Remaining Earned Income
+
+3,534.00
+
+General Income Exclusion and
+
+Earned Income Exclusion
+
+-85.00
+
+Remaining Earned Income
+
+3,449.00
+
+1/2 Remaining Earned Income
+
+1,724.50
+
+Parental Living Allowance
+
+-1,450.00
+
+Deemed Income
+
+$ 274.50
+
+The deemed income is greater than the FBR for an individual of $967 + $20 (the general
+income exclusion for Bill), so Bill is ineligible for SSI in January.
+
+2. Parents have only unearned income
+
+Nancy Weaver, a disabled child, lives with parents, Chris and Deanna, and a 10-year-old
+ineligible brother. In January 2025, Chris receives a pension of $1,000 and Deanna
+receives a pension of $1,124. Neither Nancy nor her brother has any income and they
+live in a State that has no State supplement.
+
+Parent-to-Child Deeming Computation
+
+Parents' Unearned Income
+
+$ 2,124.00
+
+Allocation for Ineligible Child
+
+-483.00
+
+Remaining Unearned Income
+
+1,641.00
+
+Unearned Income Exclusion
+
+-20.00
+
+Remaining Unearned Income
+
+1,621.00
+
+Parental Living Allowance
+
+-1450.00
+
+Deemed Income
+
+$ 171.00
+
+Apply the $20 general income exclusion to the deemed income leaving $151 as countable
+income to Nancy. Because this amount is less than the $967 FBR for January, Nancy
+is eligible for SSI. Determine Nancy's payment amount by subtracting Nancy's countable
+income (including deemed income) for November from the January FBR for an individual.
+
+3. Two eligible children
+
+James and Janet Johnson are disabled children who live with their parent, Lucille,
+in a State that does not provide a State supplement. In January 2025, the children
+have no income but Lucille receives $1,295.00 in unemployment compensation.
+
+Parent-to-Child Deeming Computation
+
+Parent's Unearned Income
+
+$ 1,295.00
+
+General Income Exclusion
+
+-20.00
+
+Remaining Unearned Income
+
+1,275.00
+
+Parental Living Allowance
+
+-967.00
+
+Deemed Income
+
+308.00
+
+Number of Eligible Children: 2
+
+308 / 2
+
+Deemed Income to Each Eligible Child
+
+$ 154.00
+
+Apply the $20 general income exclusion for each child leaving $134 as countable income
+for each child.
+
+Because this amount is less than the $967 FBR for an individual in January, both children
+are eligible for SSI. Determine each child's benefit amount by subtracting their own
+countable income (including deemed income) in November from the FBR for an individual
+in January.
+
+4. Two otherwise-eligible children: One has excess income
+
+In February 2025, Lucille (from SI 01320.500F.3. in this section) receives $2,532 in unemployment compensation and James receives
+a $300 birthday present from their grandparents. Janet still has no income. The family
+still lives in a State with no State supplement.
+
+Parent-to-Child Deeming Computation
+
+Parent's Unearned Income
+
+$2,532.00
+
+General Income Exclusion
+
+-20.00
+
+Remaining Unearned Income
+
+2,512.00
+
+Parental Living Allowance
+
+-967.00
+
+Deemed Income
+
+1,545.00
+
+Number of Eligible Children: 2
+
+1,545 / 2
+
+Income Deemed to Each Eligible Child
+
+772.50
+
+To determine James' eligibility, first apply the infrequent income exclusion described
+in SI 00810.410D. to the birthday gift James received. Applying the infrequent income exclusion means
+that $60 is subtracted from the value of James’ birthday gift for a remaining amount
+of $240. Then add the income deemed to James to their own countable income ($240)
+for a total of $1,012.50. Then apply the general income exclusion, which reduces James'
+income to $992.50. Because this amount is greater than the FBR for an individual,
+James is ineligible for SSI in February. James' countable income exceeds the applicable
+FBR by $25.50, so that amount is added to Janet's share of the deemed income resulting
+in $798 in deemed income to Janet.
+
+Reduce Janet's income by the $20 general income exclusion. This leaves $778 in countable
+income. Because this is less than the $967 FBR for an individual, Janet is eligible
+for SSI in February. Determine Janet's benefit amount by subtracting Janet's countable
+income in December from the FBR for an individual for February.
+
+5. More than two parent household situations
+
+Tommy Robinson, an eligible child, and their parent, Willie Robinson, move into Tommy’s
+other parent’s household. Tommy’s other parent, Jasmine Craig, is married to Jacob
+Craig who also lives in the household as do the Craig’s two other children. In August
+2025, Willie Robinson receives $1,242.00 per month in unemployment compensation. Jasmine
+Craig has earned income of $2,274.00 in August and Jacob Craig has earned income of
+$2,200. The two ineligible children do not receive any income. There is no State supplement.
+
+Parent-to-Child Deeming Computation
+
+Parents’ Unearned Income (Willie Robinson’s Unearned Income)
+
+$ 1,242.00
+
+Allocation for two Ineligible Children (2 x $337)
+
+-966.00
+
+Remaining Unearned Income
+
+276.00
+
+General Income Exclusion
+
+-20.00
+
+Remaining Unearned Income
+
+256.00
+
+Parents’ Earned Income (the Craig's Earned Income)
+
+4,474.00
+
+Earned Income Exclusion
+
+-65.00
+
+Remaining Earned Income
+
+4,409.00
+
+½ Remaining Earned Income
+
+2,204.50
+
+Parents’ Total Countable Income ($256.00 plus $2,204.50)
+
+2,460.50
+
+Parental Living Allowance (FBR for a couple plus the FBR for an individual ($1450
++ $967))
+
+-2,417.00
+
+Deemed Income to Tommy
+
+$ 43.50
+
+Apply the $20 general income exclusion to the deemed income leaving $23.50 as countable
+income to Tommy. Because this amount is less than the $967 FBR for August, Tommy is
+eligible for SSI. Determine Tommy's payment amount by subtracting Tommy's countable
+income (including deemed income) for June from the August FBR for an individual.
+
+6. Parent also sponsors an noncitizen who is receiving SSI
+
+William Grand is an eligible child living with their parent, Karen Grand, who is also
+sponsoring a noncitizen, Maria Cruz. Maria has no income of their own, but we do deem
+income to Maria from Karen.
+
+Karen has earned income of $1,694.50 in March 2025; William has no income. There is
+no State supplement.
+
+First, do a sponsor-to-noncitizen deeming computation following the instructions in
+SI 01320.950.
+
+a. Sponsor-to-noncitizen Deeming Computation
+
+Sponsor's Income
+
+$1,694.50
+
+Sponsor Allocation
+
+$967.00
+
+Dependent Allocation for Son
+
++483.50
+
+Total Allocation Amount
+
+$1,450.50
+
+-1,450.50
+
+Deemed Income
+
+244.00
+
+General Income Exclusion
+
+-20.00
+
+Noncitizen's Countable Income (CI)
+
+$ 224.00
+
+NOTE: Because Maria's CI is less than the FBR for an individual of $967, Maria Cruz is eligible.
+
+Next, do a parent-to-child deeming computation to determine eligibility for William.
+
+b. Parent-to-Child Deeming Computation
+
+Parent's Income
+
+$1,694.50
+
+Noncitizen Allocation
+
+-483.00
+
+Remaining Earned Income
+
+1,211.50
+
+Exclusions ($20 +$65)
+
+-85.00
+
+Remaining Earned Income
+
+1,126.50
+
+1/2 Remaining Earned Income
+
+563.25
+
+Parent's Allocation
+
+-967.00
+
+Deemed Income
+
+$ 0.00
+
+NOTE: Because Maria is eligible for SSI, the noncitizen allocation is used.
+
+Both William and Maria Cruz are eligible in March, so the SSI payment for each is
+based on their own countable income (including income deemed from Karen Grand) in
+January.
+
+G. References
+
+•
+
+SI 00502.200 - Sponsor-to-Noncitizen Deeming (1996-1997 Legislation)
+
+•
+
+SI 00810.410 - Infrequent or Irregular Income Exclusion
+
+•
+
+SI 00820.500 - Earned Income Exclusions – General
+
+•
+
+SI 00830.050 - Overview of Unearned Income Exclusions
+
+•
+
+SI 01310.115 - Deeming Concept – Child
+
+•
+
+SI 01310.165 - Deeming Concept – Temporary Absence
+
+•
+
+SI 01310.201 - Waiver of Parental Deeming Rules
+
+•
+
+SI 01320.100 - Items Not Included in Deeming – General
+
+•
+
+SI 01320.141 - Deeming – Public Income Maintenance Payments
+
+•
+
+SI 01320.950 - Deeming of Income From a Sponsor of a Non-Citizen
+
+•
+
+SI 02005.001 - Retrospective Monthly Accounting Computation
+
+To Link to this section - Use this URL:
+http://policy.ssa.gov/poms.nsf/lnx/0501320500
+
+SI 01320.500 - Deeming of Income from Ineligible Parent(s) - 12/09/2009
+
+Batch run: 05/26/2026
+
+Rev:12/09/2009

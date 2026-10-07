@@ -1,0 +1,10 @@
+- retrieved: '2026-10-07'
+  url: https://www.dhcs.ca.gov/file/file-190991-pdf/
+  final_url: https://www.dhcs.ca.gov/file/file-190991-pdf/
+  status: 200
+  content_type: pdf
+  text_sha256: 638960149a614090937adbaa28e4a8615f4e2785211c8a5d95cc549391408e02
+  text: ca-dhcs-msp-county-contacts/2026-10-07.txt
+  raw: ca-dhcs-msp-county-contacts/2026-10-07.pdf
+  fetched_via: headless Chromium (Playwright) via the session proxy; dhcs.ca.gov refuses
+    scripted requests (Incapsula)

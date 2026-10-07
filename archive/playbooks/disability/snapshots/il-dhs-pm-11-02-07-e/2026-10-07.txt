@@ -1,0 +1,69 @@
+Illinois Department of Human Services
+JB Pritzker, Governor · Dulce M. Quintero, Secretary
+
+Customers
+
+Providers
+
+About
+
+News
+
+Contact
+
+IDHS
+
+About IDHS
+
+Publications
+
+Manuals
+
+Family & Community Services Manuals
+
+Cash, SNAP, and Medical Manual
+
+Policy Manual Chapter Table of Contents
+
+PM 11: AABD Cash Eligibility and Benefit Amount
+
+PM 11-02-00: Determining Eligibility for AABD Cash
+
+PM 11-02-07: Special Budgeting Situations
+
+PM 11-02-07-e: Budgeting When Both Spouses Are Applying for or Receiving AABD Cash
+
+WAG 11-02-07-e
+
+When 2 persons who are married to each other are categorically eligible (both are either 65 or older or disabled) and are applying for cash, a budget for each client must be figured.
+
+Each spouse receives the Grant Adjustment and the $25 income exemption.
+
+First, determine the budget for the spouse with the greater income. If that person's income is less than needs, both spouses are eligible for an AABD grant. Budget each of their incomes against their respective needs.
+
+If the spouse with the greater income has income in excess of his or her needs, budget the excess income along with the 2nd spouse's income, against the 2nd spouse's needs. If the excess income plus the 2nd spouse's income is greater than the 2nd spouse's needs, neither spouse is eligible for AABD cash. Determine their AABD medical eligibility.
+
+If the excess income of the first spouse plus the 2nd spouse's income is less than the 2nd spouse's needs authorize an AABD cash case for both. The spouse with the greater income is authorized as an AABD zero grant case. Enter this excess income on their case as Needs Code 467, DINC, which will make their income equal to their total needs. Enter zero grant reason 9 in Item 34. On the second spouse's case, budget their spouse's excess income as Income Code 551, Voluntary Contribution from spouse.
+
+Illinois Department of Human Services
+JB Pritzker, Governor · Dulce M. Quintero, Secretary
+
+IDHS Office Locator
+
+IDHS Help Line
+
+1-800-843-6154
+
+1-866-324-5553 TTY
+
+State of Illinois
+
+Accessibility
+
+Privacy
+
+Report Abuse/Neglect
+
+Contact
+
+Outlook Login

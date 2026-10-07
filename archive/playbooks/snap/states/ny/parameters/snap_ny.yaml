@@ -1,0 +1,129 @@
+# New York SNAP numbers that differ from or add to the federal tables. FFY 2026
+# values come from GIS 25 DC059. FFY 2027 (from October 1, 2026) values: OTDA's
+# FFY 2027 standards GIS is 26 DC045 (named by HRA) but otda.ny.gov could not be
+# reached; the 200%/150% limits come from Erie County DSS's official page
+# (confirmed, cross-checked by Hunger Solutions New York and CSS Benefits Plus),
+# and the utility allowances from two independent secondary sources only.
+parameters:
+  - id: ny.snap.bbce_200_income_limit_monthly
+    description: >-
+      New York 200% FPL gross income limit for broad-based categorical
+      eligibility of households with an aged or disabled member or with
+      out-of-pocket dependent care costs.
+    compare_to: >-
+      Total gross monthly household income (same basis as the federal 130%
+      gross test). A household at or below it, with no SNAP-sanctioned or IPV
+      member, is categorically eligible: no resource test, no net income test.
+    unit: usd_per_month
+    keyed_by: household_size (1-8; additional = each person above 8)
+    updates: Each October 1 (OTDA SNAP standards GIS).
+    values:
+      - effective_from: 2025-10-01
+        effective_to: 2026-09-30
+        value: {1: 2608, 2: 3525, 3: 4442, 4: 5358, 5: 6275, 6: 7192, 7: 8108, 8: 9025, additional: 917}
+        confidence: confirmed
+        sources:
+          - {source: ny-gis-25dc059, locator: "Federal Poverty Limit (FPL) Thresholds as of October 1, 2025: 200% of FPL* column and footnote *"}
+      - effective_from: 2026-10-01
+        effective_to: 2027-09-30
+        value: {1: 2660, 2: 3607, 3: 4553, 4: 5500, 5: 6447, 6: 7393, 7: 8340, 8: 9287, additional: 947}
+        confidence: confirmed
+        note: OTDA's own GIS 26 DC045 was not retrievable; a county DSS page restating it is the primary source.
+        sources:
+          - {source: ny-erie-snap-eligibility, locator: "Income Guidelines for Households with an Elderly or Disabled Member and Households with Dependent Care Expenses (200% of FPL), Effective October 1, 2026"}
+          - {source: hsny-snap-worksheet-2026-27, locator: "SNAP Standards & Deductions Reference Sheet, 200% FPL column"}
+          - {source: css-bplc-snap-calculator, locator: "calculator data gross_income_test_by_household_size, 200%"}
+  - id: ny.snap.bbce_150_income_limit_monthly
+    description: >-
+      New York 150% FPL gross income limit for broad-based categorical
+      eligibility of households with earned income (and no aged/disabled
+      member and no dependent care costs).
+    compare_to: >-
+      Total gross monthly household income. A household with earned income at
+      or below it, with no sanctioned or IPV member, is categorically eligible.
+    unit: usd_per_month
+    keyed_by: household_size (1-8; additional = each person above 8)
+    updates: Each October 1.
+    values:
+      - effective_from: 2025-10-01
+        effective_to: 2026-09-30
+        value: {1: 1957, 2: 2644, 3: 3332, 4: 4019, 5: 4707, 6: 5394, 7: 6082, 8: 6769, additional: 688}
+        confidence: confirmed
+        sources:
+          - {source: ny-gis-25dc059, locator: "150% of FPL*** column and footnote ***"}
+      - effective_from: 2026-10-01
+        effective_to: 2027-09-30
+        value: {1: 1995, 2: 2705, 3: 3415, 4: 4125, 5: 4835, 6: 5545, 7: 6255, 8: 6965, additional: 710}
+        confidence: confirmed
+        note: Erie's table shows "+$710" and a stale "add $688" for each additional person; $710 is used (Hunger Solutions and CSS agree).
+        sources:
+          - {source: ny-erie-snap-eligibility, locator: "Income Guidelines for Households with Earned Income (150% of Federal Poverty Line), Effective October 1, 2026"}
+          - {source: hsny-snap-worksheet-2026-27, locator: "150% FPL column"}
+  - id: ny.snap.heating_cooling_sua_monthly
+    description: New York Heating/Air Conditioning (HT/AC) standard utility allowance by region ("Combined Heat/Utility/Phone SUA" in NYC ABEL).
+    unit: usd_per_month
+    keyed_by: "region: nyc, nassau_suffolk, rest"
+    open_question: SNAP-NY-OQ-02
+    updates: Each October 1.
+    values:
+      - effective_from: 2025-10-01
+        effective_to: 2026-09-30
+        value: {nyc: 1062, nassau_suffolk: 988, rest: 877}
+        confidence: confirmed
+        sources:
+          - {source: ny-gis-25dc059, locator: "Standard Utility Allowances (SUA): HT/AC SUA column (includes water, sewage, trash)"}
+          - {source: fns-snap-sua-fy26, locator: "rows New York - New York City / Nassau and Suffolk Counties / Rest of New York State, HCSUA column"}
+      - effective_from: 2026-10-01
+        effective_to: 2027-09-30
+        value: {nyc: 1100, nassau_suffolk: 1023, rest: 908}
+        confidence: secondary
+        open_question: SNAP-NY-OQ-02
+        note: OTDA GIS 26 DC045 (the FFY 2027 standards) could not be retrieved; two independent secondary sources agree on these amounts.
+        sources:
+          - {source: hsny-snap-worksheet-2026-27, locator: "Standard Utility Allowances (SUA), Level 1: New York City $1,100, Nassau & Suffolk $1,023, Rest of State $908"}
+          - {source: css-bplc-snap-calculator, locator: "sua_chart level_1: nyc 1100, li 1023, other 908"}
+  - id: ny.snap.utility_sua_monthly
+    description: New York Utility (UTIL) standard utility allowance by region ("Limited Utility Allowance" in NYC ABEL), for households with at least two non-heating utility costs.
+    unit: usd_per_month
+    keyed_by: "region: nyc, nassau_suffolk, rest"
+    open_question: SNAP-NY-OQ-02
+    updates: Each October 1.
+    values:
+      - effective_from: 2025-10-01
+        effective_to: 2026-09-30
+        value: {nyc: 419, nassau_suffolk: 388, rest: 355}
+        confidence: confirmed
+        note: FNS's FY 2026 SUA table lists different regional figures (see conflict SNAP-NY-CONFLICT-01); the OTDA directive is used.
+        sources:
+          - {source: ny-gis-25dc059, locator: "UTIL SUA column: NYC $419, Nassau & Suffolk $388, Rest of State $355"}
+      - effective_from: 2026-10-01
+        effective_to: 2027-09-30
+        value: {nyc: 434, nassau_suffolk: 402, rest: 368}
+        confidence: secondary
+        open_question: SNAP-NY-OQ-02
+        note: OTDA GIS 26 DC045 (the FFY 2027 standards) could not be retrieved; two independent secondary sources agree on these amounts.
+        sources:
+          - {source: hsny-snap-worksheet-2026-27, locator: "Level 2: New York City $434, Nassau & Suffolk $402, Rest of State $368"}
+          - {source: css-bplc-snap-calculator, locator: "sua_chart level_2: nyc 434, li 402, other 368"}
+  - id: ny.snap.phone_sua_monthly
+    description: New York telephone standard utility allowance (all regions).
+    unit: usd_per_month
+    open_question: SNAP-NY-OQ-02
+    updates: Each October 1.
+    values:
+      - effective_from: 2025-10-01
+        effective_to: 2026-09-30
+        value: 32
+        confidence: confirmed
+        sources:
+          - {source: ny-gis-25dc059, locator: "Phone SUA $32 (all areas)"}
+          - {source: fns-snap-sua-fy26, locator: "New York rows, Phone column: 32"}
+      - effective_from: 2026-10-01
+        effective_to: 2027-09-30
+        value: 33
+        confidence: secondary
+        open_question: SNAP-NY-OQ-02
+        note: OTDA GIS 26 DC045 could not be retrieved; two independent secondary sources agree.
+        sources:
+          - {source: hsny-snap-worksheet-2026-27, locator: "Level 3: $33 (all three regions)"}
+          - {source: css-bplc-snap-calculator, locator: "sua_chart level_3: 33 (nyc, li, other)"}

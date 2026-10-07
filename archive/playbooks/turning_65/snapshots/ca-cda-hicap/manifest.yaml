@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://aging.ca.gov/Programs_and_Services/Medicare_Counseling/
+  final_url: https://aging.ca.gov/Programs_and_Services/Medicare_Counseling/
+  status: 200
+  content_type: text/html; charset=utf-8
+  text_sha256: d83bbc6febf08283b2a6f4f3ff8569ec358389d45cf8a8faf17c85edea07799a
+  text: ca-cda-hicap/2026-10-07.txt
+  raw: ca-cda-hicap/2026-10-07.html

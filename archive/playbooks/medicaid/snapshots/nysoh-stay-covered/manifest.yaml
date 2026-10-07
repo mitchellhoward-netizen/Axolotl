@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://info.nystateofhealth.ny.gov/stay-covered
+  final_url: https://info.nystateofhealth.ny.gov/stay-covered
+  status: 200
+  content_type: text/html
+  text_sha256: 9136ffcbee637e6318eb9d55e9169966d26e69441e57f256f7d85b498e55ca9f
+  text: nysoh-stay-covered/2026-10-07.txt
+  raw: nysoh-stay-covered/2026-10-07.html

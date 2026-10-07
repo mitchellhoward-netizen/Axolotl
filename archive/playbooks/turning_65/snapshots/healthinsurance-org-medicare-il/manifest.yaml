@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://www.healthinsurance.org/medicare/illinois/
+  final_url: https://www.healthinsurance.org/medicare/illinois/
+  status: 200
+  content_type: text/html; charset=utf-8
+  text_sha256: 6f00654de3fda7660ee8690e3fa9e7600b7ad40c0e2ad31535a5ca43e063b130
+  text: healthinsurance-org-medicare-il/2026-10-07.txt
+  raw: healthinsurance-org-medicare-il/2026-10-07.html

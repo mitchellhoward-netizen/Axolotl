@@ -1,0 +1,1169 @@
+program: school_meals
+policyengine_us_version: 2.29.14
+run_on: '2026-10-07'
+rows:
+- case: SCH-CA-T01
+  state: ca
+  title: Public school, family of 4 with $42,900 - free for all; federal category free; application still collected
+  ours:
+    status: eligible
+    tier: free
+    archive_tier: free_universal
+  policyengine:
+    status: eligible
+    tier: free
+    federal_tier: free
+    fpg_ratio: 1.3
+    categorical: false
+    state_universal: true
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: free
+    basis: federal
+  federal_minimum_agrees: true
+- case: SCH-CA-T02
+  state: ca
+  title: Public school, family of 4 with $42,901 - federal category reduced
+  ours:
+    status: eligible
+    tier: free
+    archive_tier: free_universal
+  policyengine:
+    status: eligible
+    tier: free
+    federal_tier: reduced
+    fpg_ratio: 1.3
+    categorical: false
+    state_universal: true
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: reduced
+    basis: federal
+  federal_minimum_agrees: true
+- case: SCH-CA-T03
+  state: ca
+  title: Public school, family of 4 with $61,051 - federal category paid, still free
+  ours:
+    status: eligible
+    tier: free
+    archive_tier: free_universal
+  policyengine:
+    status: eligible
+    tier: free
+    federal_tier: paid
+    fpg_ratio: 1.85
+    categorical: false
+    state_universal: true
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: ineligible
+    tier: paid
+    basis: federal
+  federal_minimum_agrees: true
+- case: SCH-CA-T04
+  state: ca
+  title: Private school in the NSLP, family of 4 with $42,900 - free (federal rules only)
+  ours:
+    status: eligible
+    tier: free
+    archive_tier: free
+  policyengine:
+    status: eligible
+    tier: free
+    federal_tier: free
+    fpg_ratio: 1.3
+    categorical: false
+    state_universal: true
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: free
+    basis: federal
+  federal_minimum_agrees: true
+- case: SCH-CA-T05
+  state: ca
+  title: Private school, family of 4 with $61,050 - reduced price
+  ours:
+    status: eligible
+    tier: reduced
+    archive_tier: reduced
+  policyengine:
+    status: eligible
+    tier: free
+    federal_tier: reduced
+    fpg_ratio: 1.85
+    categorical: false
+    state_universal: true
+  agree: false
+  explanation: Policy-coverage difference. These students attend a private school in the NSLP. PolicyEngine's state_universal_free_meals flag
+    gives every California household the FREE tier from 2022-07-01, whatever the school. The archive follows Education Code 49501.5 and CDE's
+    Universal Meals guidelines (section IV, "Private/nonpublic schools are generally not required to comply"), so a private-school student gets
+    only the federal category (reduced or paid here). Our federal category matches PolicyEngine's own federal tier for all four. For SCH-CA-T10
+    the archive also withholds Medi-Cal direct certification, which runs only through CALPADS (not modelled in PolicyEngine).
+  ours_federal_minimum:
+    status: eligible
+    tier: reduced
+    basis: federal
+  federal_minimum_agrees: true
+- case: SCH-CA-T06
+  state: ca
+  title: Private school, family of 4 with $61,051 - full price
+  ours:
+    status: ineligible
+    tier: paid
+    archive_tier: paid
+  policyengine:
+    status: eligible
+    tier: free
+    federal_tier: paid
+    fpg_ratio: 1.85
+    categorical: false
+    state_universal: true
+  agree: false
+  explanation: Policy-coverage difference. These students attend a private school in the NSLP. PolicyEngine's state_universal_free_meals flag
+    gives every California household the FREE tier from 2022-07-01, whatever the school. The archive follows Education Code 49501.5 and CDE's
+    Universal Meals guidelines (section IV, "Private/nonpublic schools are generally not required to comply"), so a private-school student gets
+    only the federal category (reduced or paid here). Our federal category matches PolicyEngine's own federal tier for all four. For SCH-CA-T10
+    the archive also withholds Medi-Cal direct certification, which runs only through CALPADS (not modelled in PolicyEngine).
+  ours_federal_minimum:
+    status: ineligible
+    tier: paid
+    basis: federal
+  federal_minimum_agrees: true
+- case: SCH-CA-T07
+  state: ca
+  title: Private school, paid weekly $825 - free; $826 would be reduced
+  ours:
+    status: eligible
+    tier: free
+    archive_tier: free
+  policyengine:
+    status: eligible
+    tier: free
+    federal_tier: free
+    fpg_ratio: 1.3
+    categorical: false
+    state_universal: true
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: free
+    basis: federal
+  federal_minimum_agrees: true
+- case: SCH-CA-T08
+  state: ca
+  title: Private school, paid monthly $5,089 ($1 over the monthly reduced limit) - full price
+  ours:
+    status: ineligible
+    tier: paid
+    archive_tier: paid
+  policyengine:
+    status: eligible
+    tier: free
+    federal_tier: paid
+    fpg_ratio: 1.8505
+    categorical: false
+    state_universal: true
+  agree: false
+  explanation: Policy-coverage difference. These students attend a private school in the NSLP. PolicyEngine's state_universal_free_meals flag
+    gives every California household the FREE tier from 2022-07-01, whatever the school. The archive follows Education Code 49501.5 and CDE's
+    Universal Meals guidelines (section IV, "Private/nonpublic schools are generally not required to comply"), so a private-school student gets
+    only the federal category (reduced or paid here). Our federal category matches PolicyEngine's own federal tier for all four. For SCH-CA-T10
+    the archive also withholds Medi-Cal direct certification, which runs only through CALPADS (not modelled in PolicyEngine).
+  ours_federal_minimum:
+    status: ineligible
+    tier: paid
+    basis: federal
+  federal_minimum_agrees: true
+- case: SCH-CA-T09
+  state: ca
+  title: Public school, children on Medi-Cal at 152% FPL - directly certified reduced price through CALPADS
+  ours:
+    status: eligible
+    tier: free
+    archive_tier: free_universal
+  policyengine:
+    status: eligible
+    tier: free
+    federal_tier: reduced
+    fpg_ratio: 1.5152
+    categorical: false
+    state_universal: true
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: reduced
+    basis: federal
+  federal_minimum_agrees: true
+- case: SCH-CA-T10
+  state: ca
+  title: Private school, children on Medi-Cal at 152% FPL - no CALPADS match; reduced price only by application
+  ours:
+    status: eligible
+    tier: reduced
+    archive_tier: reduced
+  policyengine:
+    status: eligible
+    tier: free
+    federal_tier: reduced
+    fpg_ratio: 1.5152
+    categorical: false
+    state_universal: true
+  agree: false
+  explanation: Policy-coverage difference. These students attend a private school in the NSLP. PolicyEngine's state_universal_free_meals flag
+    gives every California household the FREE tier from 2022-07-01, whatever the school. The archive follows Education Code 49501.5 and CDE's
+    Universal Meals guidelines (section IV, "Private/nonpublic schools are generally not required to comply"), so a private-school student gets
+    only the federal category (reduced or paid here). Our federal category matches PolicyEngine's own federal tier for all four. For SCH-CA-T10
+    the archive also withholds Medi-Cal direct certification, which runs only through CALPADS (not modelled in PolicyEngine).
+  ours_federal_minimum:
+    status: eligible
+    tier: reduced
+    basis: federal
+  federal_minimum_agrees: true
+- case: SCH-CA-T11
+  state: ca
+  title: Public CEP school, $90,000 - free; Alternative Income Form (by October 31) for LCFF
+  ours:
+    status: eligible
+    tier: free
+    archive_tier: free_universal
+  policyengine:
+    status: eligible
+    tier: free
+    federal_tier: paid
+    fpg_ratio: 2.7273
+    categorical: false
+    state_universal: true
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: ineligible
+    tier: paid
+    basis: federal
+  federal_minimum_agrees: true
+- case: SCH-CA-T12
+  state: ca
+  title: Public Provision 2 school in a non-base year, $45,000 - free; Alternative Income Form for LCFF
+  ours:
+    status: eligible
+    tier: free
+    archive_tier: free_universal
+  policyengine:
+    status: eligible
+    tier: free
+    federal_tier: reduced
+    fpg_ratio: 1.3636
+    categorical: false
+    state_universal: true
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: reduced
+    basis: federal
+  federal_minimum_agrees: true
+- case: SCH-CA-T13
+  state: ca
+  title: Public LEA not in the federal programs, $90,000 - still free under the state meal mandate
+  ours:
+    status: eligible
+    tier: free
+    archive_tier: free_universal
+  policyengine:
+    status: eligible
+    tier: free
+    federal_tier: paid
+    fpg_ratio: 2.7273
+    categorical: false
+    state_universal: true
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: ineligible
+    tier: paid
+    basis: federal
+  federal_minimum_agrees: true
+- case: SCH-CA-T14
+  state: ca
+  title: Public school, CalFresh household with $6,000 a month - federal category free by direct certification
+  ours:
+    status: eligible
+    tier: free
+    archive_tier: free_universal
+  policyengine:
+    status: eligible
+    tier: free
+    federal_tier: free
+    fpg_ratio: 2.1818
+    categorical: true
+    state_universal: true
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: free
+    basis: federal
+  federal_minimum_agrees: true
+- case: SCH-CA-T15
+  state: ca
+  title: Private school, foster child student, $90,000 - free
+  ours:
+    status: eligible
+    tier: free
+    archive_tier: free
+  policyengine:
+    status: eligible
+    tier: free
+    federal_tier: free
+    fpg_ratio: 2.7273
+    categorical: true
+    state_universal: true
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: free
+    basis: federal
+  federal_minimum_agrees: true
+- case: SCH-CA-T16
+  state: ca
+  title: Charter school, single parent and one child with $40,035 (over the reduced limit for 2) - free for all; federal category paid
+  ours:
+    status: eligible
+    tier: free
+    archive_tier: free_universal
+  policyengine:
+    status: eligible
+    tier: free
+    federal_tier: paid
+    fpg_ratio: 1.85
+    categorical: false
+    state_universal: true
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: ineligible
+    tier: paid
+    basis: federal
+  federal_minimum_agrees: true
+- case: SCH-IL-T01
+  state: il
+  title: Family of 4, $42,900 a year (exactly the 2026-27 free limit) - free
+  ours:
+    status: eligible
+    tier: free
+    archive_tier: free
+  policyengine:
+    status: eligible
+    tier: free
+    federal_tier: free
+    fpg_ratio: 1.3
+    categorical: false
+    state_universal: false
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: free
+    basis: federal
+  federal_minimum_agrees: true
+- case: SCH-IL-T02
+  state: il
+  title: Family of 4, $42,901 a year ($1 over the free limit) - reduced price
+  ours:
+    status: eligible
+    tier: reduced
+    archive_tier: reduced
+  policyengine:
+    status: eligible
+    tier: reduced
+    federal_tier: reduced
+    fpg_ratio: 1.3
+    categorical: false
+    state_universal: false
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: reduced
+    basis: federal
+  federal_minimum_agrees: true
+- case: SCH-IL-T03
+  state: il
+  title: Family of 4, $61,050 a year (exactly the reduced-price limit) - reduced price
+  ours:
+    status: eligible
+    tier: reduced
+    archive_tier: reduced
+  policyengine:
+    status: eligible
+    tier: reduced
+    federal_tier: reduced
+    fpg_ratio: 1.85
+    categorical: false
+    state_universal: false
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: reduced
+    basis: federal
+  federal_minimum_agrees: true
+- case: SCH-IL-T04
+  state: il
+  title: Family of 4, $61,051 a year ($1 over reduced price) - pays full price; no funded statewide HSMFA
+  ours:
+    status: ineligible
+    tier: paid
+    archive_tier: paid
+  policyengine:
+    status: ineligible
+    tier: paid
+    federal_tier: paid
+    fpg_ratio: 1.85
+    categorical: false
+    state_universal: false
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: ineligible
+    tier: paid
+    basis: federal
+  federal_minimum_agrees: true
+- case: SCH-IL-T05
+  state: il
+  title: Family of 4 paid monthly, $3,575 a month (monthly free limit) - free
+  ours:
+    status: eligible
+    tier: free
+    archive_tier: free
+  policyengine:
+    status: eligible
+    tier: free
+    federal_tier: free
+    fpg_ratio: 1.3
+    categorical: false
+    state_universal: false
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: free
+    basis: federal
+  federal_minimum_agrees: true
+- case: SCH-IL-T06
+  state: il
+  title: Family of 4 paid weekly, $825 a week (weekly free limit) - free
+  ours:
+    status: eligible
+    tier: free
+    archive_tier: free
+  policyengine:
+    status: eligible
+    tier: free
+    federal_tier: free
+    fpg_ratio: 1.3
+    categorical: false
+    state_universal: false
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: free
+    basis: federal
+  federal_minimum_agrees: true
+- case: SCH-IL-T07
+  state: il
+  title: Family of 4 paid weekly, $826 a week ($1 over the weekly free limit) - reduced price
+  ours:
+    status: eligible
+    tier: reduced
+    archive_tier: reduced
+  policyengine:
+    status: eligible
+    tier: reduced
+    federal_tier: reduced
+    fpg_ratio: 1.3016
+    categorical: false
+    state_universal: false
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: reduced
+    basis: federal
+  federal_minimum_agrees: true
+- case: SCH-IL-T08
+  state: il
+  title: Family of 4, $500 a week wages plus $1,400 a month wages (mixed frequencies, annualized $42,800) - free
+  ours:
+    status: eligible
+    tier: free
+    archive_tier: free
+  policyengine:
+    status: eligible
+    tier: free
+    federal_tier: free
+    fpg_ratio: 1.297
+    categorical: false
+    state_universal: false
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: free
+    basis: federal
+  federal_minimum_agrees: true
+- case: SCH-IL-T09
+  state: il
+  title: Family of 4 on SNAP with $4,000 a month wages - free by direct certification regardless of income
+  ours:
+    status: eligible
+    tier: free
+    archive_tier: free
+  policyengine:
+    status: eligible
+    tier: free
+    federal_tier: free
+    fpg_ratio: 1.4545
+    categorical: true
+    state_universal: false
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: free
+    basis: federal
+  federal_minimum_agrees: true
+- case: SCH-IL-T10
+  state: il
+  title: Family of 4, children on Medicaid, $50,000 a year (between 130% and 185%) - reduced price by Medicaid direct certification
+  ours:
+    status: eligible
+    tier: reduced
+    archive_tier: reduced
+  policyengine:
+    status: eligible
+    tier: reduced
+    federal_tier: reduced
+    fpg_ratio: 1.5152
+    categorical: false
+    state_universal: false
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: reduced
+    basis: federal
+  federal_minimum_agrees: true
+- case: SCH-IL-T11
+  state: il
+  title: Foster child (the student) in a family of 4 with $70,000 a year - free (categorical, this child only)
+  ours:
+    status: eligible
+    tier: free
+    archive_tier: free
+  policyengine:
+    status: eligible
+    tier: free
+    federal_tier: free
+    fpg_ratio: 2.1212
+    categorical: true
+    state_universal: false
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: free
+    basis: federal
+  federal_minimum_agrees: true
+- case: SCH-IL-T12
+  state: il
+  title: 'Same household: the non-foster sibling with $70,000 a year - full price (foster status does not extend)'
+  ours:
+    status: ineligible
+    tier: paid
+    archive_tier: paid
+  policyengine:
+    status: eligible
+    tier: free
+    federal_tier: free
+    fpg_ratio: 2.1212
+    categorical: true
+    state_universal: false
+  agree: false
+  explanation: Unit-of-eligibility difference. The student is the foster child's non-foster sibling. PolicyEngine computes categorical eligibility
+    for the whole SPM unit, so one member with was_in_foster_care makes every child FREE. Under 7 CFR 245.2 and the FNS Eligibility Manual (Other
+    Source Categorically Eligible), foster, homeless, migrant, runaway and Head Start eligibility covers only that child; the sibling is judged
+    on household income ($70,000 for 4 = paid). Rule SCH-FED-CATEGORICAL-INDIVIDUAL.
+  ours_federal_minimum:
+    status: ineligible
+    tier: paid
+    basis: federal
+  federal_minimum_agrees: false
+- case: SCH-IL-T13
+  state: il
+  title: Family of 4 with $90,000 a year at a CEP school - free for all students
+  ours:
+    status: eligible
+    tier: free
+    archive_tier: free_universal
+  policyengine:
+    status: ineligible
+    tier: paid
+    federal_tier: paid
+    fpg_ratio: 2.7273
+    categorical: false
+    state_universal: false
+  agree: false
+  explanation: PolicyEngine does not model the Community Eligibility Provision. The school is a CEP school (7 CFR 245.9(f)), which serves breakfast
+    and lunch free to all enrolled students; PolicyEngine sees only the $90,000 income (paid).
+  ours_federal_minimum:
+    status: ineligible
+    tier: paid
+    basis: federal
+  federal_minimum_agrees: true
+- case: SCH-IL-T14
+  state: il
+  title: Single parent and one child, $28,132 a year (free limit for 2) - free
+  ours:
+    status: eligible
+    tier: free
+    archive_tier: free
+  policyengine:
+    status: eligible
+    tier: free
+    federal_tier: free
+    fpg_ratio: 1.3
+    categorical: false
+    state_universal: false
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: free
+    basis: federal
+  federal_minimum_agrees: true
+- case: SCH-IL-T15
+  state: il
+  title: Homeless student identified by the district liaison, family income $80,000 - free
+  ours:
+    status: eligible
+    tier: free
+    archive_tier: free
+  policyengine:
+    status: eligible
+    tier: free
+    federal_tier: free
+    fpg_ratio: 2.4242
+    categorical: true
+    state_universal: false
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: free
+    basis: federal
+  federal_minimum_agrees: true
+- case: SCH-IL-T16
+  state: il
+  title: 'School year 2025-26 (March 2026): family of 4, $41,795 a year (2025-26 free limit) - free'
+  ours:
+    status: eligible
+    tier: free
+    archive_tier: free
+  policyengine:
+    status: eligible
+    tier: free
+    federal_tier: free
+    fpg_ratio: 1.2665
+    categorical: false
+    state_universal: false
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: free
+    basis: federal
+  federal_minimum_agrees: true
+- case: SCH-IL-T17
+  state: il
+  title: 'School year 2025-26 (March 2026): family of 4, $41,796 a year - reduced price (the 2026-27 limit is not yet in force)'
+  ours:
+    status: eligible
+    tier: reduced
+    archive_tier: reduced
+  policyengine:
+    status: eligible
+    tier: free
+    federal_tier: free
+    fpg_ratio: 1.2665
+    categorical: false
+    state_universal: false
+  agree: false
+  explanation: 'School-year vs calendar-year guidelines. On 2026-03-02 the 2025-26 income eligibility guidelines apply (July 1, 2025 - June 30,
+    2026, built on the 2025 poverty guidelines; free limit $41,795 for 4, FR Doc. 2025-03821). PolicyEngine divides by the 2026 poverty guideline
+    for the 2026 period ($33,000), so $41,796 is 126.7% FPL and FREE. Under the guidelines in force it is $1 over the free limit: reduced price
+    (SCH-FED-SCHOOL-YEAR-IEGS).'
+  ours_federal_minimum:
+    status: eligible
+    tier: reduced
+    basis: federal
+  federal_minimum_agrees: false
+- case: SCH-IL-T21
+  state: il
+  title: 'Cross-state: family of 4 with $90,000 a year at a standard school - full price in Illinois, free for all in California and New York'
+  ours:
+    status: ineligible
+    tier: paid
+    archive_tier: paid
+  policyengine:
+    status: ineligible
+    tier: paid
+    federal_tier: paid
+    fpg_ratio: 2.7273
+    categorical: false
+    state_universal: false
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: ineligible
+    tier: paid
+    basis: federal
+  federal_minimum_agrees: true
+- case: SCH-IL-T21
+  state: ca
+  title: 'Cross-state: family of 4 with $90,000 a year at a standard school - full price in Illinois, free for all in California and New York'
+  ours:
+    status: eligible
+    tier: free
+    archive_tier: free_universal
+  policyengine:
+    status: eligible
+    tier: free
+    federal_tier: paid
+    fpg_ratio: 2.7273
+    categorical: false
+    state_universal: true
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: ineligible
+    tier: paid
+    basis: federal
+  federal_minimum_agrees: true
+- case: SCH-IL-T21
+  state: ny
+  title: 'Cross-state: family of 4 with $90,000 a year at a standard school - full price in Illinois, free for all in California and New York'
+  ours:
+    status: eligible
+    tier: free
+    archive_tier: free_universal
+  policyengine:
+    status: eligible
+    tier: free
+    federal_tier: paid
+    fpg_ratio: 2.7273
+    categorical: false
+    state_universal: true
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: ineligible
+    tier: paid
+    basis: federal
+  federal_minimum_agrees: true
+- case: SCH-X-01
+  state: il
+  title: 'Cross-playbook (SNAP): family of 4 starts SNAP with $5,500 a month (above 185%) - free for both children by SNAP direct certification'
+  ours:
+    status: eligible
+    tier: free
+    archive_tier: free
+  policyengine:
+    status: eligible
+    tier: free
+    federal_tier: free
+    fpg_ratio: 2.0
+    categorical: true
+    state_universal: false
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: free
+    basis: federal
+  federal_minimum_agrees: true
+- case: SCH-NY-T01
+  state: ny
+  title: Family of 4, $42,900 a year - free for all students; federal category free
+  ours:
+    status: eligible
+    tier: free
+    archive_tier: free_universal
+  policyengine:
+    status: eligible
+    tier: free
+    federal_tier: free
+    fpg_ratio: 1.3
+    categorical: false
+    state_universal: true
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: free
+    basis: federal
+  federal_minimum_agrees: true
+- case: SCH-NY-T02
+  state: ny
+  title: Family of 4, $42,901 a year - free for all; federal category reduced
+  ours:
+    status: eligible
+    tier: free
+    archive_tier: free_universal
+  policyengine:
+    status: eligible
+    tier: free
+    federal_tier: reduced
+    fpg_ratio: 1.3
+    categorical: false
+    state_universal: true
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: reduced
+    basis: federal
+  federal_minimum_agrees: true
+- case: SCH-NY-T03
+  state: ny
+  title: Family of 4, $61,050 a year - free for all; federal category reduced
+  ours:
+    status: eligible
+    tier: free
+    archive_tier: free_universal
+  policyengine:
+    status: eligible
+    tier: free
+    federal_tier: reduced
+    fpg_ratio: 1.85
+    categorical: false
+    state_universal: true
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: reduced
+    basis: federal
+  federal_minimum_agrees: true
+- case: SCH-NY-T04
+  state: ny
+  title: Family of 4, $61,051 a year - free for all; federal category paid
+  ours:
+    status: eligible
+    tier: free
+    archive_tier: free_universal
+  policyengine:
+    status: eligible
+    tier: free
+    federal_tier: paid
+    fpg_ratio: 1.85
+    categorical: false
+    state_universal: true
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: ineligible
+    tier: paid
+    basis: federal
+  federal_minimum_agrees: true
+- case: SCH-NY-T05
+  state: ny
+  title: Family of 4 paid monthly $3,576 ($1 over monthly free limit) - federal category reduced
+  ours:
+    status: eligible
+    tier: free
+    archive_tier: free_universal
+  policyengine:
+    status: eligible
+    tier: free
+    federal_tier: reduced
+    fpg_ratio: 1.3004
+    categorical: false
+    state_universal: true
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: reduced
+    basis: federal
+  federal_minimum_agrees: true
+- case: SCH-NY-T06
+  state: ny
+  title: Family of 4 paid weekly $1,175 (weekly reduced limit) - federal category reduced
+  ours:
+    status: eligible
+    tier: free
+    archive_tier: free_universal
+  policyengine:
+    status: eligible
+    tier: free
+    federal_tier: paid
+    fpg_ratio: 1.8515
+    categorical: false
+    state_universal: true
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: reduced
+    basis: federal
+  federal_minimum_agrees: false
+- case: SCH-NY-T07
+  state: ny
+  title: Family of 4 paid weekly $1,176 - federal category paid, still free
+  ours:
+    status: eligible
+    tier: free
+    archive_tier: free_universal
+  policyengine:
+    status: eligible
+    tier: free
+    federal_tier: paid
+    fpg_ratio: 1.8531
+    categorical: false
+    state_universal: true
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: ineligible
+    tier: paid
+    basis: federal
+  federal_minimum_agrees: true
+- case: SCH-NY-T08
+  state: ny
+  title: Family of 4 on SNAP, $5,000 a month - federal category free by direct certification
+  ours:
+    status: eligible
+    tier: free
+    archive_tier: free_universal
+  policyengine:
+    status: eligible
+    tier: free
+    federal_tier: free
+    fpg_ratio: 1.8182
+    categorical: true
+    state_universal: true
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: free
+    basis: federal
+  federal_minimum_agrees: true
+- case: SCH-NY-T09
+  state: ny
+  title: Children on Medicaid, Medicaid-measured income 120% FPL - free by Medicaid direct certification
+  ours:
+    status: eligible
+    tier: free
+    archive_tier: free_universal
+  policyengine:
+    status: eligible
+    tier: free
+    federal_tier: free
+    fpg_ratio: 1.1818
+    categorical: false
+    state_universal: true
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: free
+    basis: federal
+  federal_minimum_agrees: true
+- case: SCH-NY-T10
+  state: ny
+  title: Family of 4 with $90,000 at a CEP school - free; Household Income Eligibility Form instead of an application
+  ours:
+    status: eligible
+    tier: free
+    archive_tier: free_universal
+  policyengine:
+    status: eligible
+    tier: free
+    federal_tier: paid
+    fpg_ratio: 2.7273
+    categorical: false
+    state_universal: true
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: ineligible
+    tier: paid
+    basis: federal
+  federal_minimum_agrees: true
+- case: SCH-NY-T11
+  state: ny
+  title: Family of 4 with $90,000, school NOT in the NSLP/SBP - not covered by universal meals; full price
+  ours:
+    status: ineligible
+    tier: paid
+    archive_tier: paid
+  policyengine:
+    status: eligible
+    tier: free
+    federal_tier: paid
+    fpg_ratio: 2.7273
+    categorical: false
+    state_universal: true
+  agree: false
+  explanation: Coverage difference. The school does not run the NSLP/SBP. New York's universal free meals (Education Law 915-a; NYSED memo of
+    May 13, 2025) cover only schools that participate in the federal programs, and without the NSLP there are no federal free or reduced-price
+    meals. PolicyEngine has no school participation input and gives every New York household FREE from 2025-07-01.
+  ours_federal_minimum:
+    status: ineligible
+    tier: paid
+    basis: federal
+  federal_minimum_agrees: true
+- case: SCH-NY-T12
+  state: ny
+  title: School year 2025-26 (first universal year), family of 4 with $59,479 (over the 2025-26 reduced limit) - free for all; federal category
+    paid
+  ours:
+    status: eligible
+    tier: free
+    archive_tier: free_universal
+  policyengine:
+    status: ineligible
+    tier: paid
+    federal_tier: paid
+    fpg_ratio: 1.85
+    categorical: false
+    state_universal: false
+  agree: false
+  explanation: PolicyEngine timing choice. The date is 2025-09-15, in the first school year of New York's universal free meals (from July 1, 2025).
+    PolicyEngine's school meal variables are yearly and read the state universal-meal parameter at the start of the period (January 1, 2025, when
+    it was still false), so it returns PAID for calendar 2025. The archive applies Education Law 915-a from SY 2025-26 (ny.nysed.universal_meals_start).
+  ours_federal_minimum:
+    status: ineligible
+    tier: paid
+    basis: federal
+  federal_minimum_agrees: true
+- case: SCH-NY-T13
+  state: ny
+  title: Foster child student, family income $80,000 - federal category free
+  ours:
+    status: eligible
+    tier: free
+    archive_tier: free_universal
+  policyengine:
+    status: eligible
+    tier: free
+    federal_tier: free
+    fpg_ratio: 2.4242
+    categorical: true
+    state_universal: true
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: free
+    basis: federal
+  federal_minimum_agrees: true
+- case: SCH-NY-T14
+  state: ny
+  title: Single parent and one child, $28,133 a year ($1 over the free limit for 2) - federal category reduced
+  ours:
+    status: eligible
+    tier: free
+    archive_tier: free_universal
+  policyengine:
+    status: eligible
+    tier: free
+    federal_tier: reduced
+    fpg_ratio: 1.3
+    categorical: false
+    state_universal: true
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: reduced
+    basis: federal
+  federal_minimum_agrees: true
+- case: SCH-X-02
+  state: ny
+  title: 'Cross-playbook (Medicaid): children on Medicaid, $50,000 a year (Medicaid-measured 152% FPL), no application filed - New York''s Medicaid
+    match certifies free only, so reduced price needs an application'
+  ours:
+    status: eligible
+    tier: free
+    archive_tier: free_universal
+  policyengine:
+    status: eligible
+    tier: free
+    federal_tier: reduced
+    fpg_ratio: 1.5152
+    categorical: false
+    state_universal: true
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: reduced
+    basis: federal
+  federal_minimum_agrees: true
+- case: SCH-X-02
+  state: ca
+  title: 'Cross-playbook (Medicaid): children on Medicaid, $50,000 a year (Medicaid-measured 152% FPL), no application filed - New York''s Medicaid
+    match certifies free only, so reduced price needs an application'
+  ours:
+    status: eligible
+    tier: free
+    archive_tier: free_universal
+  policyengine:
+    status: eligible
+    tier: free
+    federal_tier: reduced
+    fpg_ratio: 1.5152
+    categorical: false
+    state_universal: true
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: reduced
+    basis: federal
+  federal_minimum_agrees: true
+- case: SCH-X-02
+  state: il
+  title: 'Cross-playbook (Medicaid): children on Medicaid, $50,000 a year (Medicaid-measured 152% FPL), no application filed - New York''s Medicaid
+    match certifies free only, so reduced price needs an application'
+  ours:
+    status: eligible
+    tier: reduced
+    archive_tier: reduced
+  policyengine:
+    status: eligible
+    tier: reduced
+    federal_tier: reduced
+    fpg_ratio: 1.5152
+    categorical: false
+    state_universal: false
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: reduced
+    basis: federal
+  federal_minimum_agrees: true

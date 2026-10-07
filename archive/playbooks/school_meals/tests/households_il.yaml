@@ -1,0 +1,818 @@
+# Synthetic IL households for the school meals playbook. No real people.
+# Income is in facts.reported_income (amount + pay frequency), as on a meal application.
+program: school_meals
+scope: il
+cases:
+- id: SCH-IL-T01
+  title: Family of 4, $42,900 a year (exactly the 2026-27 free limit) - free
+  as_of: '2026-09-15'
+  tags:
+  - threshold
+  - family
+  household:
+    members:
+    - id: p
+      age: 40
+    - id: q
+      age: 38
+      relationship: spouse
+    - id: c1
+      age: 10
+      relationship: child
+      student: true
+    - id: c2
+      age: 7
+      relationship: child
+      student: true
+    facts:
+      reported_income:
+      - owner: p
+        kind: earned
+        amount: 42900
+        frequency: annual
+    state: il
+  expect:
+    status: eligible
+    tier: free
+    rules_include:
+    - SCH-FED-INCOME-TEST
+    - SCH-IL-HSMFA
+    links_include:
+    - route:income_application
+  crosscheck:
+    policyengine: true
+- id: SCH-IL-T02
+  title: Family of 4, $42,901 a year ($1 over the free limit) - reduced price
+  as_of: '2026-09-15'
+  tags:
+  - threshold
+  - family
+  household:
+    members:
+    - id: p
+      age: 40
+    - id: q
+      age: 38
+      relationship: spouse
+    - id: c1
+      age: 10
+      relationship: child
+      student: true
+    - id: c2
+      age: 7
+      relationship: child
+      student: true
+    facts:
+      reported_income:
+      - owner: p
+        kind: earned
+        amount: 42901
+        frequency: annual
+    state: il
+  expect:
+    status: eligible
+    tier: reduced
+  crosscheck:
+    policyengine: true
+- id: SCH-IL-T03
+  title: Family of 4, $61,050 a year (exactly the reduced-price limit) - reduced price
+  as_of: '2026-09-15'
+  tags:
+  - threshold
+  - family
+  household:
+    members:
+    - id: p
+      age: 40
+    - id: q
+      age: 38
+      relationship: spouse
+    - id: c1
+      age: 10
+      relationship: child
+      student: true
+    - id: c2
+      age: 7
+      relationship: child
+      student: true
+    facts:
+      reported_income:
+      - owner: p
+        kind: earned
+        amount: 61050
+        frequency: annual
+    state: il
+  expect:
+    status: eligible
+    tier: reduced
+  crosscheck:
+    policyengine: true
+- id: SCH-IL-T04
+  title: Family of 4, $61,051 a year ($1 over reduced price) - pays full price; no funded statewide HSMFA
+  as_of: '2026-09-15'
+  tags:
+  - threshold
+  - family
+  household:
+    members:
+    - id: p
+      age: 40
+    - id: q
+      age: 38
+      relationship: spouse
+    - id: c1
+      age: 10
+      relationship: child
+      student: true
+    - id: c2
+      age: 7
+      relationship: child
+      student: true
+    facts:
+      reported_income:
+      - owner: p
+        kind: earned
+        amount: 61051
+        frequency: annual
+    state: il
+  expect:
+    status: ineligible
+    tier: paid
+    rules_include:
+    - SCH-IL-HSMFA
+  crosscheck:
+    policyengine: true
+- id: SCH-IL-T05
+  title: Family of 4 paid monthly, $3,575 a month (monthly free limit) - free
+  as_of: '2026-09-15'
+  tags:
+  - threshold
+  - family
+  household:
+    members:
+    - id: p
+      age: 40
+    - id: q
+      age: 38
+      relationship: spouse
+    - id: c1
+      age: 10
+      relationship: child
+      student: true
+    - id: c2
+      age: 7
+      relationship: child
+      student: true
+    facts:
+      reported_income:
+      - owner: p
+        kind: earned
+        amount: 3575
+        frequency: monthly
+    state: il
+  expect:
+    status: eligible
+    tier: free
+  crosscheck:
+    policyengine: true
+- id: SCH-IL-T06
+  title: Family of 4 paid weekly, $825 a week (weekly free limit) - free
+  as_of: '2026-09-15'
+  tags:
+  - threshold
+  - family
+  household:
+    members:
+    - id: p
+      age: 40
+    - id: q
+      age: 38
+      relationship: spouse
+    - id: c1
+      age: 10
+      relationship: child
+      student: true
+    - id: c2
+      age: 7
+      relationship: child
+      student: true
+    facts:
+      reported_income:
+      - owner: p
+        kind: earned
+        amount: 825
+        frequency: weekly
+    state: il
+  expect:
+    status: eligible
+    tier: free
+  crosscheck:
+    policyengine: true
+- id: SCH-IL-T07
+  title: Family of 4 paid weekly, $826 a week ($1 over the weekly free limit) - reduced price
+  as_of: '2026-09-15'
+  tags:
+  - threshold
+  - family
+  household:
+    members:
+    - id: p
+      age: 40
+    - id: q
+      age: 38
+      relationship: spouse
+    - id: c1
+      age: 10
+      relationship: child
+      student: true
+    - id: c2
+      age: 7
+      relationship: child
+      student: true
+    facts:
+      reported_income:
+      - owner: p
+        kind: earned
+        amount: 826
+        frequency: weekly
+    state: il
+  expect:
+    status: eligible
+    tier: reduced
+  crosscheck:
+    policyengine: true
+- id: SCH-IL-T08
+  title: Family of 4, $500 a week wages plus $1,400 a month wages (mixed frequencies, annualized $42,800) - free
+  as_of: '2026-09-15'
+  tags:
+  - family
+  - edge
+  household:
+    members:
+    - id: p
+      age: 40
+    - id: q
+      age: 38
+      relationship: spouse
+    - id: c1
+      age: 10
+      relationship: child
+      student: true
+    - id: c2
+      age: 7
+      relationship: child
+      student: true
+    facts:
+      reported_income:
+      - owner: p
+        kind: earned
+        amount: 500
+        frequency: weekly
+      - owner: q
+        kind: earned
+        amount: 1400
+        frequency: monthly
+    state: il
+  expect:
+    status: eligible
+    tier: free
+    rules_include:
+    - SCH-FED-INCOME-CONVERSION
+  crosscheck:
+    policyengine: true
+- id: SCH-IL-T09
+  title: Family of 4 on SNAP with $4,000 a month wages - free by direct certification regardless of income
+  as_of: '2026-09-15'
+  tags:
+  - family
+  - other_benefits
+  household:
+    members:
+    - id: p
+      age: 40
+      benefits:
+      - snap
+    - id: q
+      age: 38
+      relationship: spouse
+    - id: c1
+      age: 10
+      relationship: child
+      student: true
+    - id: c2
+      age: 7
+      relationship: child
+      student: true
+    facts:
+      reported_income:
+      - owner: p
+        kind: earned
+        amount: 4000
+        frequency: monthly
+    state: il
+  expect:
+    status: eligible
+    tier: free
+    rules_include:
+    - SCH-FED-CATEGORICAL-PROGRAM
+    - SCH-FED-DC-SNAP
+    links_include:
+    - snap:direct_certification
+    - route:categorical_snap
+  crosscheck:
+    policyengine: true
+- id: SCH-IL-T10
+  title: Family of 4, children on Medicaid, $50,000 a year (between 130% and 185%) - reduced price by Medicaid direct certification
+  as_of: '2026-09-15'
+  tags:
+  - family
+  - other_benefits
+  household:
+    members:
+    - id: p
+      age: 40
+    - id: q
+      age: 38
+      relationship: spouse
+    - id: c1
+      age: 10
+      relationship: child
+      student: true
+      benefits:
+      - medicaid
+    - id: c2
+      age: 7
+      relationship: child
+      student: true
+      benefits:
+      - medicaid
+    facts:
+      medicaid_income_fpl_percent: 152
+      application_filed: false
+      reported_income:
+      - owner: p
+        kind: earned
+        amount: 50000
+        frequency: annual
+    state: il
+  expect:
+    status: eligible
+    tier: reduced
+    rules_include:
+    - SCH-IL-DCM-FREE-REDUCED
+    links_include:
+    - medicaid:direct_certification_reduced
+    - route:dcm_medicaid
+  crosscheck:
+    policyengine: true
+- id: SCH-IL-T11
+  title: Foster child (the student) in a family of 4 with $70,000 a year - free (categorical, this child only)
+  as_of: '2026-09-15'
+  tags:
+  - family
+  - other_benefits
+  household:
+    members:
+    - id: p
+      age: 40
+    - id: q
+      age: 38
+      relationship: spouse
+    - id: c1
+      age: 10
+      relationship: child
+      student: true
+      benefits:
+      - foster_care
+    - id: c2
+      age: 7
+      relationship: child
+      student: true
+    facts:
+      reported_income:
+      - owner: p
+        kind: earned
+        amount: 70000
+        frequency: annual
+    state: il
+  expect:
+    status: eligible
+    tier: free
+    rules_include:
+    - SCH-FED-CATEGORICAL-INDIVIDUAL
+    links_include:
+    - route:categorical_individual
+  crosscheck:
+    policyengine: true
+- id: SCH-IL-T12
+  title: 'Same household: the non-foster sibling with $70,000 a year - full price (foster status does not extend)'
+  as_of: '2026-09-15'
+  tags:
+  - family
+  - edge
+  household:
+    members:
+    - id: p
+      age: 40
+    - id: q
+      age: 38
+      relationship: spouse
+    - id: c1
+      age: 10
+      relationship: child
+      student: true
+      benefits:
+      - foster_care
+    - id: c2
+      age: 7
+      relationship: child
+      student: true
+    facts:
+      student: c2
+      reported_income:
+      - owner: p
+        kind: earned
+        amount: 70000
+        frequency: annual
+    state: il
+  expect:
+    status: ineligible
+    tier: paid
+    rules_include:
+    - SCH-FED-INCOME-TEST
+  crosscheck:
+    policyengine: true
+- id: SCH-IL-T13
+  title: Family of 4 with $90,000 a year at a CEP school - free for all students
+  as_of: '2026-09-15'
+  tags:
+  - family
+  - edge
+  household:
+    members:
+    - id: p
+      age: 40
+    - id: q
+      age: 38
+      relationship: spouse
+    - id: c1
+      age: 10
+      relationship: child
+      student: true
+    - id: c2
+      age: 7
+      relationship: child
+      student: true
+    facts:
+      school_cep: true
+      reported_income:
+      - owner: p
+        kind: earned
+        amount: 90000
+        frequency: annual
+    state: il
+  expect:
+    status: eligible
+    tier: free_universal
+    rules_include:
+    - SCH-FED-CEP
+    links_include:
+    - route:cep
+    - federal_category:paid
+  crosscheck:
+    policyengine: true
+- id: SCH-IL-T14
+  title: Single parent and one child, $28,132 a year (free limit for 2) - free
+  as_of: '2026-09-15'
+  tags:
+  - single
+  - threshold
+  household:
+    members:
+    - id: p
+      age: 33
+    - id: c1
+      age: 8
+      relationship: child
+      student: true
+    facts:
+      reported_income:
+      - owner: p
+        kind: earned
+        amount: 28132
+        frequency: annual
+    state: il
+  expect:
+    status: eligible
+    tier: free
+  crosscheck:
+    policyengine: true
+- id: SCH-IL-T15
+  title: Homeless student identified by the district liaison, family income $80,000 - free
+  as_of: '2026-09-15'
+  tags:
+  - family
+  - other_benefits
+  household:
+    members:
+    - id: p
+      age: 40
+    - id: q
+      age: 38
+      relationship: spouse
+    - id: c1
+      age: 10
+      relationship: child
+      student: true
+      facts:
+        homeless: true
+    - id: c2
+      age: 7
+      relationship: child
+      student: true
+    facts:
+      reported_income:
+      - owner: p
+        kind: earned
+        amount: 80000
+        frequency: annual
+    state: il
+  expect:
+    status: eligible
+    tier: free
+    rules_include:
+    - SCH-FED-CATEGORICAL-INDIVIDUAL
+  crosscheck:
+    policyengine: true
+- id: SCH-IL-T16
+  title: 'School year 2025-26 (March 2026): family of 4, $41,795 a year (2025-26 free limit) - free'
+  as_of: '2026-03-02'
+  tags:
+  - threshold
+  - timing
+  household:
+    members:
+    - id: p
+      age: 40
+    - id: q
+      age: 38
+      relationship: spouse
+    - id: c1
+      age: 10
+      relationship: child
+      student: true
+    - id: c2
+      age: 7
+      relationship: child
+      student: true
+    facts:
+      reported_income:
+      - owner: p
+        kind: earned
+        amount: 41795
+        frequency: annual
+    state: il
+  expect:
+    status: eligible
+    tier: free
+    rules_include:
+    - SCH-FED-INCOME-TEST
+  crosscheck:
+    policyengine: true
+- id: SCH-IL-T17
+  title: 'School year 2025-26 (March 2026): family of 4, $41,796 a year - reduced price (the 2026-27 limit is not yet in force)'
+  as_of: '2026-03-02'
+  tags:
+  - threshold
+  - timing
+  household:
+    members:
+    - id: p
+      age: 40
+    - id: q
+      age: 38
+      relationship: spouse
+    - id: c1
+      age: 10
+      relationship: child
+      student: true
+    - id: c2
+      age: 7
+      relationship: child
+      student: true
+    facts:
+      reported_income:
+      - owner: p
+        kind: earned
+        amount: 41796
+        frequency: annual
+    state: il
+  expect:
+    status: eligible
+    tier: reduced
+  crosscheck:
+    policyengine: true
+- id: SCH-IL-T18
+  title: 'Day 20 of the new school year: approved reduced price last year, now $70,000 - reduced price carries over'
+  as_of: '2026-09-15'
+  tags:
+  - timing
+  - family
+  household:
+    members:
+    - id: p
+      age: 40
+    - id: q
+      age: 38
+      relationship: spouse
+    - id: c1
+      age: 10
+      relationship: child
+      student: true
+    - id: c2
+      age: 7
+      relationship: child
+      student: true
+    facts:
+      prior_year_tier: reduced
+      operating_days_into_school_year: 20
+      reported_income:
+      - owner: p
+        kind: earned
+        amount: 70000
+        frequency: annual
+    state: il
+  expect:
+    status: eligible
+    tier: reduced
+    rules_include:
+    - SCH-FED-CARRYOVER
+    links_include:
+    - route:carryover
+- id: SCH-IL-T19
+  title: Day 31 of the school year, same family, no new application - carry-over has lapsed, full price
+  as_of: '2026-09-15'
+  tags:
+  - timing
+  - family
+  household:
+    members:
+    - id: p
+      age: 40
+    - id: q
+      age: 38
+      relationship: spouse
+    - id: c1
+      age: 10
+      relationship: child
+      student: true
+    - id: c2
+      age: 7
+      relationship: child
+      student: true
+    facts:
+      prior_year_tier: reduced
+      operating_days_into_school_year: 31
+      reported_income:
+      - owner: p
+        kind: earned
+        amount: 70000
+        frequency: annual
+    state: il
+  expect:
+    status: ineligible
+    tier: paid
+    rules_include:
+    - SCH-FED-CARRYOVER
+- id: SCH-IL-T20
+  title: 'School board says it participates in Healthy School Meals for All in 2026-27 - no State appropriation, so federal categories apply (paid)'
+  as_of: '2026-09-15'
+  tags:
+  - edge
+  - family
+  household:
+    members:
+    - id: p
+      age: 40
+    - id: q
+      age: 38
+      relationship: spouse
+    - id: c1
+      age: 10
+      relationship: child
+      student: true
+    - id: c2
+      age: 7
+      relationship: child
+      student: true
+    facts:
+      il_hsmfa_participating: true
+      reported_income:
+      - owner: p
+        kind: earned
+        amount: 90000
+        frequency: annual
+    state: il
+  expect:
+    status: ineligible
+    tier: paid
+    rules_include:
+    - SCH-IL-HSMFA
+  note: >-
+    P.A. 104-0464 (FY2027 appropriations) has no Healthy School Meals for All line, so the program cannot
+    reimburse universal meals in 2026-27; the agent should ask whether the school is a CEP school.
+- id: SCH-IL-T21
+  title: 'Cross-state: family of 4 with $90,000 a year at a standard school - full price in Illinois, free for all in California
+    and New York'
+  as_of: '2026-09-15'
+  tags:
+  - cross_state
+  - family
+  household:
+    members:
+    - id: p
+      age: 40
+    - id: q
+      age: 38
+      relationship: spouse
+    - id: c1
+      age: 10
+      relationship: child
+      student: true
+    - id: c2
+      age: 7
+      relationship: child
+      student: true
+    facts:
+      reported_income:
+      - owner: p
+        kind: earned
+        amount: 90000
+        frequency: annual
+    state: il
+  expect:
+    status: ineligible
+    tier: paid
+    rules_include:
+    - SCH-IL-HSMFA
+  compare_states:
+    ca:
+      status: eligible
+      tier: free_universal
+      rules_include:
+      - SCH-CA-UNIVERSAL-MEALS
+      links_include:
+      - federal_category:paid
+    ny:
+      status: eligible
+      tier: free_universal
+      rules_include:
+      - SCH-NY-UNIVERSAL-MEALS
+      links_include:
+      - federal_category:paid
+  crosscheck:
+    policyengine: true
+- id: SCH-X-01
+  title: 'Cross-playbook (SNAP): family of 4 starts SNAP with $5,500 a month (above 185%) - free for both children by SNAP
+    direct certification'
+  as_of: '2026-09-15'
+  tags:
+  - cross_playbook
+  - other_benefits
+  - family
+  household:
+    members:
+    - id: p
+      age: 40
+    - id: q
+      age: 38
+      relationship: spouse
+      benefits:
+      - snap
+    - id: c1
+      age: 10
+      relationship: child
+      student: true
+    - id: c2
+      age: 7
+      relationship: child
+      student: true
+    facts:
+      reported_income:
+      - owner: p
+        kind: earned
+        amount: 5500
+        frequency: monthly
+    state: il
+  expect:
+    status: eligible
+    tier: free
+    rules_include:
+    - SCH-FED-DC-SNAP
+    links_include:
+    - snap:direct_certification
+  crosscheck:
+    policyengine: true
+  note: 'SNAP playbook: whether this household qualifies for SNAP at $5,500/month is decided there (Illinois gross income
+    test); once SNAP is approved, the children are directly certified free here. Not evaluated with also: because the SNAP
+    playbook is built in parallel.'

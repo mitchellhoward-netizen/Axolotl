@@ -1,0 +1,95 @@
+Skip to content
+
+Program Operations Manual System (POMS)
+
+Effective Dates: 10/12/2022 - Present
+Previous | Next
+
+SI SF01415.100 State Supplementation - California (RTN 01, 05/2015)
+
+California
+
+California provides additional payments in supplementation to the basic Federal SSI
+payment. An SSI recipient in California may receive either a mandatory or an optional
+supplement depending on individual circumstances. By agreement, SSA administers both
+mandatory and optional State supplementation payments for California
+
+The provision for mandatory supplementation requires that states provide a supplement
+to maintain individuals/couples converted from State to Federal assistance in 1974
+at their December 1973 income levels. This was mandated to assure that no one would
+be reduced in income as a result of the federalization of state welfare programs in
+1974. (SI 01401.001B.4, SI 01403.001B.9, and SI 02005.082)
+
+The Mandatory State Supplement (MSS) is designated as the Minimum Income Level (MIL)
+and is retained until the converted recipient dies or is no longer blind or disabled.
+
+Most recipients in California receive payments based on Optional State Supplement
+(OSS) payment levels instead of MILs because OSS payment levels are generally higher
+and the population converted from State to Federal assistance has decreased.
+
+California provides supplementation for eight living arrangement variations:
+
+1.
+
+OSS A - Independent Living with cooking facilities (SI SF01415.110)
+
+2.
+
+OSS B - Nonmedical Out-of-Home Care (NMOHC) (SI SF01415.120)
+
+3.
+
+OSS F - Nonmedical Out-of-Home Care Living in the Household of Another (SI SF01415.130)
+
+4.
+
+OSS C - Independent Living without cooking facilities (SI SF01415.140)
+
+5.
+
+OSS D - Living in the Household of Another (SI SF01415.150)
+
+6.
+
+OSS E - Disabled Child under Age 18 (SI SF01415.160)
+
+7.
+
+OSS G - Disabled Child Under Age 18 Living in the Household of Another (SI SF01415.160)
+
+8.
+
+OSS J - Residing in a Medical Facility when Title XIX (Medicaid) pays more than 50 per cent
+of the cost of care (SI SF01415.170)
+
+NOTE: OSS K is not applicable for SSI cases. It applies only to Title VIII Special Veterans
+Benefits (SVB). Refer to VB 01305.003 for eligibility requirements.
+
+The payment rates for each state supplementation living arrangement are available
+via the Southwest Region Center for Programs Support (CPS) SharePoint
+site under SSI/SSP Payment Rates and Break-Even Deeming Charts.
+
+California permits an SSI recipient to receive the highest categorical supplement
+for which the SSI recipient can qualify. Therefore, the lead questions (SI SF01415.190, Exhibit 1) regarding the need for care and supervision and access to adequate cooking
+and food storage facilities must be asked and documented in all initial claims, FO-initiated
+redeterminations, and posteligibility reports of living arrangement changes since
+the last living arrangement determination.
+
+For cases in the Consolidated Claims Experience (CCE), document the answers to the
+lead questions on the California Optional Supplement page screen. For non-MSSICS cases,
+document on an SSA-795 and store it electronically.
+
+NOTE:
+For deferred development cases (SI 00603.003), ask the lead questions at the initial interview. Complete the Application for California
+Restaurant Meals Allowance at the initial interview if the applicant alleges inadequate
+cooking/food storage facilities (SI SF01415.190, Exhibit 3). For potential OSS B and F cases, defer completion of the SSP-22 until
+the "update" (SI SF01415.120 and SI SF01415.130).
+
+To Link to this section - Use this URL:
+http://policy.ssa.gov/poms.nsf/lnx/0501415100SF
+
+SI SF01415.100 - State Supplementation - California (RTN 01, 05/2015) - 10/12/2022
+
+Batch run: 08/25/2025
+
+Rev:10/12/2022

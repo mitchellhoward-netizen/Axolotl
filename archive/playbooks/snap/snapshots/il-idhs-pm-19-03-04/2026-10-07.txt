@@ -1,0 +1,121 @@
+Illinois Department of Human Services
+JB Pritzker, Governor · Dulce M. Quintero, Secretary
+
+Customers
+
+Providers
+
+About
+
+News
+
+Contact
+
+IDHS
+
+About IDHS
+
+Publications
+
+Manuals
+
+Family & Community Services Manuals
+
+Cash, SNAP, and Medical Manual
+
+Policy Manual Chapter Table of Contents
+
+PM 19: Reviewing Eligibility
+
+PM 19-03-00: Case Reviews and Redeterminations (SNAP)
+
+PM 19-03-04: Verifications
+
+WAG 19-03-04
+
+Allow the customer 10 calendar days from the date of the local office request to provide the required verifications. If the 10th day is not a workday, the last day is the first workday following the 10th calendar day.
+
+If the customer does not provide the required information (except for proof of expenses) by the 10th calendar day, deny the SNAP REDE application on the first workday after the 10th day.
+
+The gross monthly income of the SNAP household must be verified before an application for SNAP can be denied for income being over the income standard for the household size, see WAG 13-01-01-a. A SNAP application cannot be denied based solely on the applicant's statement of the household's income.
+
+If the customer does not provide proof of an expense for which verification is required, approve the SNAP REDE application without allowing a deduction for the expense. Document why the expense was not allowed.
+
+Note: SNAP households entitled to the Standard Medical Deduction remain eligible for the deduction if they state that their medical expenses continue to exceed $35. Do not verify expenses exceed $35 unless their statement is questionable.
+
+If the SNAP household provides the required information within 30 days of the end of the current approval period, reopen the case, see PM 19-03-08.
+
+If the SNAP household is eligible, approve the application so the SNAP household receives its benefits within:
+
+30 calendar days after the date of application, or
+
+10 days after the date the household provides the information, whichever is later.
+
+Verifications at SNAP Redetermination
+
+At SNAP Redeterminations, verify:
+
+income, if the source of the income has changed, or the amount has changed by more than $125. See PM 13-02-03, Best Estimate, to determine the income to use. For Simplified Reporting cases, also verify earned income.
+
+a change in child support payments if someone in the SNAP household claims the child support deduction;
+
+change in assets for noncategorical eligible SNAP households, see PM 07-04-01, if the reported change exceeds the asset limit;
+
+newly reported social security numbers (SSN);
+
+the SNAP Work Requirements status for all customers who are subject to the Work Requirement;
+
+financial management when SNAP related expenses exceed known income and assets, see PM 02-07-03-l;
+
+the amount of their housing costs;
+
+other questionable or inconsistent information.
+
+Note: For verification of housing costs, new verification is not required if the household has not moved or reported a change in housing costs since the last time verification was provided. The verification must be in the Electronic Case Record (ECR) and the information must be documented in the case record.
+
+Verification of Medical Expenses
+
+At redetermination, workers must verify the following medical expenses:
+
+Previously unreported medical expenses;
+
+Total recurring medical expenses that have changed by more than $25; and
+
+Medical expenses that are incomplete, inaccurate, inconsistent, or that have not been updated within the last 60 days.
+
+Outdated Medical Expenses
+
+At SNAP redetermination, workers must address and verify any outdated medical expense(s). Medical expenses will be considered outdated if they are 60 days old or older at the time of the redetermination. These medical expenses must still be verified even when the customer reports that the amount of the expense(s) has not changed or that the change is less than $25.
+
+In these situations, the worker should issue a Verification Checklist requesting proof of the expense(s). For medical expenses that are less than 60 days old the worker should confirm with the customer that the expenses are still accurate. This includes medical expenses that have been submitted within the last 60 days and not yet acted on. This also includes medical expenses that were submitted within the last 60 days, already acted on, and budgeted on the SNAP case. In these situations, a new verification for the medical expense is not required if the customer states that the medical expense is still accurate.
+
+Outdated Medical Expenses and Case Error Reduction (CER)
+
+Outdated medical expenses that are 60 days or older will be flagged in the Case Error Reduction (CER) page in IES. Information for the medical expenses will be displayed after Wrapup - Eligibility Summary and will provide details regarding the specific error for the medical expense for the worker to resolve. More information regarding CER and medical expenses in IES can be found in the Resource Center in IES under Case Error Reduction DCPEI.
+
+Accepting Verifications via the Customer's Cell Phone
+
+Documentary evidence is used as the primary source of verification when possible. Documentary evidence is the actual item itself, such as a driver's license or paystubs. When a customer is claiming not to have the actual item, the Family Community Resource Center (FCRC) must accept any reasonable documentary evidence provided by the household that adequately proves the statements on the application and can be identified as belonging to customer.
+
+Illinois Department of Human Services
+JB Pritzker, Governor · Dulce M. Quintero, Secretary
+
+IDHS Office Locator
+
+IDHS Help Line
+
+1-800-843-6154
+
+1-866-324-5553 TTY
+
+State of Illinois
+
+Accessibility
+
+Privacy
+
+Report Abuse/Neglect
+
+Contact
+
+Outlook Login

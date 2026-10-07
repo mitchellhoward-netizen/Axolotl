@@ -1,0 +1,303 @@
+Skip to content
+
+Program Operations Manual System (POMS)
+
+Effective Dates: 12/17/2024 - Present
+Previous | Next
+
+TN 23 (12-25)
+
+HI 03030.025 Resource Limits for Subsidy Eligibility
+
+CITATIONS:
+
+Soc. Sec. Act,
+§1860D-14(a)(3)(D)
+
+A. Background
+
+To be eligible for a subsidy, an individual or married couple must have countable
+resources below certain limits prescribed by law.
+
+Every year, the Centers for Medicare and Medicaid Services (CMS) considers changes
+in the consumer price index and publishes updated subsidy resource limits.
+
+Starting January 1, 2024, all applicants who meet Extra Help eligibility requirements will receive full subsidy
+(the highest level of subsidy under the Medicare Part D Extra Help Program). The Inflation
+Reduction Act (IRA) of 2022 increases the resource limits for full subsidy to the
+high resource levels, eliminates the low resource levels, and eliminates partial subsidy.
+
+For more information about subsidy eligibility requirements or subsidy low and high
+resource levels, see HI 03001.005. To view subsidy eligibility resource levels for prior years, see HI 03030.025
+
+NOTE:
+
+The amounts below DO NOT include the $1,500 individual and $3,000 married couple burial exclusions. The Medicare
+Application Processing System (MAPS) automatically adds $1500 to individual applicants
+resource limit amount (or $3,000 from married couple applicants), unless applicants
+report NONE of their resources will be used to pay for funeral or burial expenses.
+If an individual or couple expects to use some of their resources for funeral or burial
+expenses, ADD $1,500 per individual ($3,000 for a married couple) to the below individual
+or married couple resource limit amounts. For information about the Medicare Part
+D subsidy burial fund exclusion, see HI 03030.020.
+
+B. Policy - 2026 resource limits for subsidy eligibility
+
+1. Individual
+
+The resource limit for an individual in 2026 is $16,590.
+
+a. Countable resources are $16,590 or more
+
+If countable resources are $16,590.01 or more, the individual is not eligible for
+any subsidy but can enroll in Part D.
+
+b. Countable resources are $16,590 or less
+
+If countable resources are $16,590 or less, the individual can be eligible for a subsidy
+depending on the amount of countable income.
+
+If an individual's income is less than 150% of the Federal Poverty Level (FPL), the
+individual will:
+
+•
+
+receive a 100% premium subsidy; and
+
+•
+
+is eligible for $0 co-pays and deductibles, as explained in HI 03001.005.
+
+NOTE:
+
+Individuals also received 100% if they had an estimated subsidy effective date or
+coverage start date before January 1, 2024, had income less than 135% of the FPL, and had countable resources
+below the lower resource limits prescribed by law during the year of their subsidy
+effective date or coverage start date.
+
+For more information about low and high resource limits see HI 03001.005. To view subsidy eligibility resource levels for prior years, see HI 03030.025.To locate the field in MAPS that captures the estimated effective date, see MS 03206.002E.[21-D].
+To locate the coverage start date field in MAPS, see MS 03301.008C. [11-D]. For information
+about MAPS determination dates, see MS 03206.021.
+
+c. Table: 2026 resource limits for individuals
+
+Individual’s Countable Resources
+
+Individual’s Countable Income
+
+Amount of the Premium Subsidy
+
+$16,590 or less
+
+Below 150% FPL
+
+100%
+
+$16,590 or less
+
+At or above150% of FPL
+
+Not eligible for subsidy (income over allowable LIS limit)
+
+$16,590.01 or more
+
+Any amount
+
+Not eligible for subsidy (resources over allowable LIS limit)
+
+2. Married couple
+
+The resource limit for a married couple in 2026 is $33,100. The couple resource limits
+apply to a married couple who live together whether one or both members apply for
+the subsidy.
+
+a. Countable resources are $33,100 or more
+
+If countable resources are $33,100.01 or more, the couple is not eligible for any
+subsidy regardless of countable income, but can enroll in Part D.
+
+b. Countable resources are $33,100 or less
+
+If countable resources are $33,100 or less, the couple can be eligible for a subsidy
+depending on the amount of countable income.
+
+If their income is less than 150% FPL, the couple:
+
+•
+
+receives a 100% premium subsidy; and
+
+•
+
+is eligible for $0 co-pays and deductibles, as explained in HI 03001.005G.
+
+NOTE:
+
+Individuals also received 100% if they had an estimated subsidy effective date or
+coverage start date before January 1, 2024, had income less than 135% of the FPL, and had countable resources
+below the lower resource limits prescribed by law during the year of their subsidy
+effective date or coverage start date.
+
+For more information about low and high resource limits see HI 03001.005. To view subsidy eligibility resource levels for prior years, see HI 03030.025.To locate the field in MAPS that captures the estimated effective date, see MS 03206.002E.[21-D].
+To locate the coverage state date field in MAPS, see MS 03301.008C. [11-D]. For information
+about MAPS determination dates, see MS 03206.021.
+
+c. Table: 2026 resource limits for married couples
+
+Couple’s Countable Resources
+
+Couple’s Countable Income
+
+Amount of the Premium Subsidy
+
+$33,100 or less
+
+Below 150% FPL
+
+100%
+
+$33,100 or less
+
+At or above 150 FPL%
+
+Not eligible for subsidy (income over allowable LIS limit)
+
+$33,100.01 or more
+
+Any amount
+
+Not eligible for subsidy (resources over allowable LIS limit)
+
+C. Policy - Prior Year resource limits for subsidy eligibility
+
+2025
+
+Individual - $16,100
+
+Married - $32,130
+
+2024
+
+Individual - $15,720
+
+Married - $31,360
+
+2023
+
+Individual - $9,090 and $15,160
+
+Married - $13,630 and $30,240
+
+2022
+
+Individual - $8,400 and $14,010
+
+Married - $12,600 and $27,950
+
+2021
+
+Individual - $7,970 and $13,290
+
+Married - $11,960 and $26,520
+
+2020
+
+Individual - $7,860 and $13,110
+
+Married - $11,800 and $26,160
+
+2019
+
+Individual - $7,730 and $12,890
+
+Married - $11,600 and $25,720
+
+2018
+
+Individual - $7,560 and $12,600
+
+Married - $11,340 and $25,150
+
+2017
+
+Individual - $7,390 and $12,320
+
+Married - $11,090 and $24,600
+
+2015 and 2016
+
+Individual - $7,280 and $12,140
+
+Married - $10,930 and $24,250
+
+2014
+
+Individual - $7,160 and $11,940
+
+Married - $10,750 and $23,860
+
+2013
+
+Individual - $7,080 and $11,800
+
+Married - $10,620 and $23,580
+
+2012
+
+Individual - $6,940 and $11,570
+
+Married - $10,410 and $23,120
+
+2011
+
+Individual - $6,680 and $11,140
+
+Married - $10,020 and $22,260
+
+2009 and 2010
+
+Individual - $6,600 and $11,010
+
+Married - $9,910 and $22,010
+
+2008
+
+Individual - $6,290 and $10,490
+
+Married - $9,440 and $20,970
+
+2007
+
+Individual - $6,120 and $10,210
+
+Married - $9,190 and $20,410
+
+2006
+
+Individual - $6,000 and $10,000
+
+Married - $9,000 and $20,000
+
+D. References
+
+•
+
+HI 03001.005 Medicare Part D Extra Help (Low-Income Subsidy or LIS)
+
+•
+
+HI 03020.055 Income Limits for Subsidy Eligibility
+
+•
+
+DHHS
+Poverty Guidelines and Federal Register References
+
+To Link to this section - Use this URL:
+http://policy.ssa.gov/poms.nsf/lnx/0603030025
+
+HI 03030.025 - Resource Limits for Subsidy Eligibility - 12/17/2024
+
+Batch run: 03/05/2026
+
+Rev:12/17/2024

@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://stgenssa.sccgov.org/debs/program_handbooks/medi-cal/assets/21Property/Pension.htm
+  final_url: https://stgenssa.sccgov.org/debs/program_handbooks/medi-cal/assets/21Property/Pension.htm
+  status: 200
+  content_type: text/html
+  text_sha256: e380c295ce8e7e272b88b283178132c81f3672c6799bde3a94d8221679336a22
+  text: ca-scc-mc-pension-funds/2026-10-07.txt
+  raw: ca-scc-mc-pension-funds/2026-10-07.html

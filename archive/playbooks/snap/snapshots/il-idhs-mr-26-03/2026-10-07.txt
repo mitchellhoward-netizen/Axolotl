@@ -1,0 +1,653 @@
+Illinois Department of Human Services
+JB Pritzker, Governor · Dulce M. Quintero, Secretary
+
+Customers
+
+Providers
+
+About
+
+News
+
+Contact
+
+IDHS
+
+About IDHS
+
+Publications
+
+Manuals
+
+Family & Community Services Manuals
+
+Cash, SNAP, and Medical Manual
+
+Manual Releases
+
+MR#26.03 Updates to SNAP Work Rules Policy and Implementation of Time Limited Benefits for ABAWDs
+
+02/04/2026
+
+This Manual Release updates the following:
+
+MR #23.35: Change in Age Requirement and New Modified Exceptions (Exemptions) from SNAP Work Requirement Time Limits, dated 12/18/2023;
+
+MR #24.27 Change in Age Requirement for SNAP Work Requirement Limits, dated 11/08/2024; and
+
+Policy Memo, End of Waiver for Time-Limited SNAP Benefits and Changes to Exemptions for SNAP Work Requirements, dated 10/16/2025.
+
+Summary:
+
+In accordance with Public Law No: 119-21, certain exemptions for the SNAP Work Requirement have changed. Due to these changes updates have been made to the Integrated Eligibility System (IES) and the Application for Benefits Eligibility (ABE) system.
+
+Other changes include the clarification of the SNAP Work Rules exemption for individuals who are experiencing a physical or mental condition that limits their ability to work the required number of hours.
+
+Due to a Federal Court's decision, Illinois' Work Requirement waiver is remaining in place through its original end date of 01/31/2026. The first potential countable month for Able-Bodied Adults Without Dependents (ABAWD) who are not exempt from or meeting the SNAP Work Requirement is February 2026.
+
+There are two categories of Work Rules for SNAP, the Work Provisions (PM 03-15-00) and the SNAP Work Requirement (PM 03-16-00). This Manual Release updates the Policy Manual for both SNAP Work Rules.
+
+Updates have been made to the Policy Manual for screening, granting, and verifying exemptions for both SNAP Work Requirement and Work Provisions. Updates were also made to the policy regarding good cause for both SNAP Work Requirement and Work Provisions.
+
+Details and examples have been added to provide a better understanding of the Time-Limit Clock, on how individuals can regain eligibility, and how countable months of benefits received in other states apply to an individual's Time-Limit Clock counter.
+
+SNAP Work Requirement chapters are moving from PM/WAG 03-25-00 to PM/WAG 03-16-00 and will now be located directly below the Work Provisions chapters PM/WAG 03-15-00.
+
+Changes in SNAP Work Requirement Exemptions
+
+In accordance with Public Law No: 119-21, certain exemptions for the SNAP Work Requirement have changed. Updates in the Integrated Eligibility System (IES) and the Application for Benefits Eligibility (ABE) system have been made to accommodate these changes.
+
+End of Certain Exemptions
+
+The following categories will no longer be exempt from the SNAP Work Requirement unless they qualify for another exemption:
+
+Veterans;
+
+Individuals age 24 and younger and were in a foster care program at the time of their 18th birthday; and
+
+Homeless as defined in PM 06-04-02.
+
+Note: Being chronically homeless is an indicator that an individual is facing physical or mental barriers to work and is therefore exempt from the Work Requirement. Homelessness, even if it does not meet the definition of chronically homeless, may also be an indicator that an individual is facing physical or mental barriers to work, see the Chronic Homelessness and Homelessness section below.
+
+Change to Age Related Exemption
+
+Individuals who are between the ages of 18-64 and do not meet a Work Requirement exemption found in PM 03-16-01 are considered Able-Bodied Adults Without Dependents (ABAWDs) and must comply with the SNAP Work Requirement.
+
+A customer will become exempt in the month of their 65th birthday.
+
+Note: Individuals exempt from the SNAP Work Provisions continue to be exempt from the SNAP Work Requirement, except those who are exempt due to their age being 60 or older, see PM 03-15-02.
+
+Change to Age of Dependent Child Exemption
+
+Individuals living in a SNAP household (purchase and prepare food together) with a child age 13 or younger, even if the child is ineligible for SNAP, are exempt from meeting the SNAP Work Requirement.
+
+New Native American Exemption
+
+Individuals with the following status will be exempt from the SNAP Work Requirement: Alaska Native, American Indian, American Urban Indian, or California Indian as defined in the Indian Health Care Improvement Act. See PM 03-16-01 for more information on the definitions.
+
+Exemption to SNAP Work Rules for Physical or Mental Conditions that Limit Ability to Work
+
+Individuals receiving government or private disability benefits are exempt, these benefits can be temporary or permanent. This includes receipt of disability benefits from SSI, SSA, Railroad Retirement, or Aid to the Aged, Blind, and Disabled (AABD) regardless of the percentage of disability or level of payment.
+
+Individuals who have a pending application or appeal for any government or private disability benefits are also exempt.
+
+Individuals determined by the FCRC worker to be mentally or physically unable to work are also exempt. See the section below titled FCRC Worker Observation.
+
+Chronic Homelessness and Homelessness
+
+Individuals who are experiencing chronic homelessness are considered to have a physical or mental condition that limits their ability to work, therefore these individuals are considered exempt from the Work Requirement.
+
+Workers must apply the chronic homelessness exemption manually on the Exemptions - Details page in IES for the exemption to be applied. Workers should only require verification if there is a direct contradiction between information provided by the customer or household and other information provided or found via clearances. Manual exemptions must be entered with an end date that coincides with the end of the SNAP certification period, unless the customer provides an earlier date then the end of the certification period. If an earlier date is provided, worker's should enter that date.
+
+Homelessness, even if it does not meet the definition of chronically homeless, is also an indicator that an individual may be facing physical or mental barriers to work. During the screening, which most often occurs during the interview, determine if the customer meets the definition of homeless in PM 06-04-02 and discuss all aspects of the customer's situation to decide if they have a physical or mental condition that limits their ability to obtain or maintain work. Having a physical or mental condition that limits an individual's ability to obtain or maintain work is a valid exemption for both of the SNAP Work Rules.
+
+To enter an exemption for being physically or mentally unable to work, without a permanent disability, workers must apply the exemption manually on the Exemptions - Details page in IES. Manual exemptions must be entered with an end date that coincides with the end of the SNAP certification period, unless the customer provides an earlier date then the end of the certification period. If an earlier date is provided, worker's should enter that date.
+
+A customer's statement as to their being chronically homeless or homeless and their physical or mental conditions is sufficient verification unless questionable, see PM 02-07-04. Additional verification is not required unless the information directly contradicts other information provided or found via clearances.
+
+End of SNAP Work Requirement Waiver
+
+Due to a Federal Court's decision, Illinois' Work Requirement waiver is in place through 01/31/2026. The first potential countable month for Able-Bodied Adults Without Dependents (ABAWD) who are not exempt from or meeting the SNAP Work Requirement is February 2026.
+
+SNAP Work Rules and Exemptions
+
+SNAP Work Rules are two categories of rules, Work Provisions and Work Requirement, that together aim to promote self-sufficiency and require certain groups of SNAP customers to attain work, volunteer in their communities, or attain skills to increase their employability.
+
+The table below compares the requirements, penalties for non-compliance, and exemptions for each Work Rule.
+
+SNAP Work Provisions
+
+SNAP Work Requirement (ABAWD)
+
+Requirements for nonexempt individuals:
+
+Register for work by receipt of the SNAP Work Rules consolidated notice at the time of the initial SNAP application and every 12 months after initial registration.
+
+Cooperate with TANF work and training program requirements, if receiving TANF.
+
+Accept a bona fide offer of suitable employment.
+
+If referred to suitable employment, report to the employer.
+
+Not voluntarily and without good cause quit a job of 30 hours a week or more.
+
+Not voluntarily reduce work hours to less than 30 hours per week without good cause.
+
+Notify the Family Community Resource Center (FCRC) when employment begins, the rate of pay, and the number of hours worked, if requested by the FCRC.
+
+Requirements for nonexempt individuals:
+
+Work (paid or unpaid or in-kind) at least 80 hours per month. Self-initiated Community Service counts as unpaid work;
+
+Participate and comply with a qualifying work program, such as a Workforce Innovation and Opportunity Act (WIOA) Title I program, an employment and training program for veterans operated by the Department of Labor or Department of Veterans Affairs, or a SNAP Employment and Training (E&T) program including Earnfare;
+
+Do any combination of the above activities for a total of at least 80 hours per month.
+
+Penalty for Non-Compliance:
+
+Sanctions - 3 Months for 1st and 2nd violation, and 6 months for every violation thereafter
+
+Penalty for Non-Compliance:
+
+Limit of 3 Months of SNAP benefits in a fixed 3 Year Period
+
+Work Provisions Exemptions:
+
+Age 15 and younger or age 60 and older;
+
+Student enrolled at least half-time in any recognized school or training program, or institution of higher education;
+
+Physically or mentally unable to work;
+
+Caring for a dependent child under age 6 (The child does not have to live in the home);
+
+Caring for an incapacitated person (The incapacitated person does not have to live in the home);
+
+Receiving unemployment compensation. A person who has applied for, or who has a pending appeal for unemployment compensation, but has not yet received unemployment is also exempt if that person is complying with work requirements of the unemployment application process;
+
+A regular participant enrolled in and cooperating with a substance abuse treatment program, other than Narcotics Anonymous (NA) or Alcoholics Anonymous (AA);
+
+Participating and complying with the TANF work and training requirements, if receiving TANF;
+
+Working at least 30 hours per week or receiving weekly wages of 30 times the Federal minimum wage ($7.25) = $217.50. The person can be employed or self-employed. The weekly amounts can be averaged. This includes migrant and seasonal farm workers under contract or similar agreement with an employer or crew chief to begin employment within 30 days;
+
+Working as an AmeriCorps VISTA volunteer 30 or more hours per week paid, unpaid, or paid in-kind (living stipend), or receiving weekly wages of 30 times the Federal minimum wage ($7.25) = $217.50.
+
+Work Requirement Exemptions:
+
+Are 17 or younger or age 65 or older;
+
+Experiencing a physical or mental condition that limits ability to work;
+
+Experiencing chronic homelessness;
+
+Pregnant (any stage of pregnancy);
+
+Living in a SNAP household with a child age 13 or younger;
+
+Are an Alaska Native, American Indian, American Urban Indian, or California Indian (as defined in the Indian Health Care Improvement Act);
+
+Residing in a waived county or area;
+
+Receiving a discretionary exemption by the FCS Central Office staff;
+
+Otherwise exempt from the SNAP Work Provisions, except those who are exempt due to their age being 60 or older.
+
+Screening for Work Rules Exemptions
+
+Family Community Resource Center (FCRC) workers must thoroughly screen customers for all potential SNAP Work Rules exemptions during SNAP interviews at both initial application and redetermination.
+
+Customers must also be screened when being added to a SNAP household, whenever a SNAP household member becomes nonexempt, and whenever the State re-implements the SNAP Work Requirement due to the end of a statewide waiver.
+
+Countable months should not be assigned until the customer is screened to determine if another exemption exists. Customers meeting an exemption for part of a month are considered exempt for the entire month.
+
+FCRC Worker Observation
+
+An FCRC worker's observation is sufficient to determine if a customer is physically unable to work.
+
+An observation can be based on the customer's statement. For example:
+
+if the customer says they are pregnant.
+
+if the customer says they are physically or mentally unable to work due to substance abuse addiction.
+
+if the customer says they have a walking boot on an ankle.
+
+Allow the exemption and do not request verification unless the information provided by the customer or household directly contradicts with other information provided or found through clearances.
+
+An observation can be based on the worker's visual observation. For example, if the worker observes:
+
+a cast on a broken leg or arm.
+
+an individual walking on crutches.
+
+an individual wearing a neck brace.
+
+Visual observations of an exemption due to being physically unable to work are not limited to the above conditions.
+
+Workers must still ask the relevant questions regarding the details of the customer's condition, document the responses, and document all of the exemptions for which the customer qualifies.
+
+SNAP Work Rules Notice (IL444-5175)
+
+Policy and procedures for the SNAP Work Rules notice and the oral explanation is updated to include both nonexempt people required to comply with only the Work Provisions, only the Work Requirement, or both. Customers must be screened for all exemptions. When providing the oral explanation, the FRCR worker must use the IES Procedural Wrap Up page and/or SNAP Work Rules notice as a guide to explaining the applicable requirements.
+
+For more information on the SNAP Work Rules notice and the procedures regarding the oral explanation see PM 03-16-01-a/WAG 03-16-01-a.
+
+Granting SNAP Work Rules Exemptions
+
+FCRCs should act promptly when they are made aware of a nonexempt customer gaining an exemption, this includes changes reported during the certification period.
+
+When a customer qualifies for more than one exemption, IES will prioritize the exemptions and then apply the exemption that will be in effect the longest amount of time.
+
+When entering a manual exemption for SNAP, only one per customer can be added into IES. If more than one manual exemption exists, the FCRC worker must apply the one that will be in effect the longest amount of time. The FCRC worker must enter the exemption begin date and the last day of the household's SNAP certification period as the end date of the manual exemption in order for the exemption to be reviewed at the household's next redetermination.
+
+Note: If the customer states that the exemption will end at an earlier date then the end of the certification period, worker's should enter that date.
+
+Change in Work Requirement Exemption Status
+
+A change in a customer's exemption status is effective the month the FCRC receives the information, unless the customer failed to report an exemption due to good cause, see the good cause section below. If the information provided is questionable, request verification using the process described in the "Verification of SNAP Work Rules Exemptions - Only When Questionable" section below. Document the request for exemption and the reason for seeking verification.
+
+Verification of SNAP Work Rules Exemptions - Only When Questionable
+
+Verification of a SNAP Work Rules exemption is not needed from the customer. Client statement is an acceptable verification type to allow a SNAP Work Rules exemption.
+
+However, if there is a direct contradiction between the information provided by the customer or household and other information provided to the FCRC or available in clearances, the customer may be asked to verify their exemption(s).
+
+Note: A customer may be eligible for more than one exemption. Questionable information provided for one exemption may not need to be verified if eligibility for a different exemption exists.
+
+Before requesting verifications from the customer, the FCRC worker must first attempt to verify the exemption using clearances and any other information available.
+
+If verification is still required after reviewing clearances and other available information, the case should be certified without allowing the questionable exemption. A manually issued request for verifications will be issued to the customer outside of IES as a way to record the exemption request date and provide instruction to the customer without pending the case in IES.
+
+To complete this process the FCRC worker should take the following steps:
+
+Not pend the case;
+
+Manually issue a Verification Checklist (VCL) (IL444-0267) or a SNAP Work Rules - Unable to Work Determination (IL444-2340) for medical related exemptions. Either form should be issued out of OneNet.
+
+If issuing a Verification Checklist, do not enter a due date on the form. In the additional comments/instructions section, paste the following text:
+
+"Verification of your (ENTER specific Work Requirement or Work Provision Exemption) is needed in order to accurately update your case. The household member(s) listed below will be processed without the stated exemption unless verification of the exemption is received."
+
+Update Page 2 of the Verification Checklist for every household member who needs to verify a Work Rules exemption. In the Required For box paste the following text: "Allowing a Work Rules exemption".
+
+The SNAP Work Rules - Unable to Work Determination is an optional form. A medical related SNAP Work Rules exemption can also be verified by a healthcare professional's written statement, collateral contact or other verification from a healthcare professional. Verification may be accepted from a physician, physician's assistant, nurse, nurse practitioner, designated representative of the physician's office, a licensed or certified psychologist, a social worker, a counselor or staff person at a drug and alcohol program, or a social worker or staff person at a homeless or domestic violence services provider or shelter; or any other medical personnel determined appropriate.
+
+If needed, the FCRC worker must help the household in obtaining verification, provided the household is cooperating, and accept any reasonable documentary evidence provided by the household;
+
+Certify the case without the exemption (if attempts to verify the exemption were unsuccessful), do not wait 10 days for the verification to be returned; and
+
+Document the customer's statements and if they were determined questionable indicate why, document the actions taken on the case, what observations were made, and/or the documents that were received that qualified the customer for the exemption. If not allowed, indicate the reason.
+
+If the customer submits the verification of exemption after being issued the manual VCL, allow the exemption back to the month the customer reported the exemption. Document in case comments what verification(s) were received.
+
+Scan and upload any verifications or applicable documents to the ECR.
+
+Meeting the SNAP Work Requirement
+
+To meet the Work Requirement an individual must:
+
+Work (paid or unpaid or in-kind) at least 80 hours per month (self-initiated Community Service is considered unpaid work); or
+
+Participate and comply with a qualifying work program, such as a WIOA Title I program, an employment and training program for veterans operated by the Department of Labor or Department of Veterans Affairs, or a SNAP Employment and Training program including Earnfare; or
+
+Any combination of the above activities for a total of at least 80 hours per month.
+
+Note: Participation in SNAP E&T is voluntary, but the individual must still perform the activity for the required number of hours to meet the Work Requirement. Community Workfare is based on the household's SNAP benefit amount divided by the State minimum wage ($15.00). Community Workfare placement can only be done through a SNAP E&T Provider.
+
+Good Cause
+
+A customer who would have otherwise met the Work Requirement but missed some hours for good cause can still be considered as having met the Work Requirement, if it is temporary and the job is still retained.
+
+A customer who would have otherwise been exempt from the Work Requirement but failed to report the exemption due to good cause could still be considered exempt, see PM 03-16-03.
+
+Good cause includes circumstances beyond the customer's control, such as but not limited to:
+
+The customer's illness or illness of another SNAP household member that requires the customer's presence;
+
+A lack of transportation;
+
+An unexpected reduction in hours worked, that was not requested by the customer; or
+
+A household emergency.
+
+The FCRC should accept customer statement as verification and not request additional verification, unless the information provided by the household is questionable due to it contradicting other information provided or found via clearances, see PM 03-15-05. The FCRC must document in Case Comments that good cause was claimed and whether or not it was allowed.
+
+If deemed questionable, the FCRC must document in the Case Comments the specific information that it deems to be contradictory in order to justify the request for additional verification.
+
+Eligibility Limits for Work Requirement
+
+An individual who is required to comply with the SNAP Work Requirement is limited to 3 months of SNAP benefits in a fixed 3-year period if the Work Requirement is not met and the individual does not qualify for an exemption. The current fixed 3-year period started 01/01/2024 and ends 12/31/2026.
+
+The 3 countable months do not have to be consecutive. A SNAP application prorated benefit month does not count toward the 3 months and the month the FCRC notifies the customer of a SNAP E&T provider determination does not count toward the 3 countable months, see PM 21-06-09.
+
+Once 3 countable months have been received, a nonexempt customer remains ineligible for the remainder of the 3-year period, unless they regain eligibility or becomes exempt.
+
+The status of an individual meeting the Work Requirement changes to not meeting the Work Requirement in the month in which the individual becomes non-compliant and is considered a countable (unmet) month. See PM 03-16-04/WAG 03-16-04.
+
+Countable Months Received in Another State
+
+FCRC workers must screen customers for any countable months of SNAP benefits they received in another state. This screening occurs at initial application and at the addition of a nonexempt individual to the SNAP case. Only out of state benefits received in the last 12 months and during the current 3-year fixed period should be considered towards the customer's 3-month time limit in Illinois. Client attestation is acceptable as verification of these countable months.
+
+If the customer reports that they do not know if they have any countable months in another state the worker should utilize the National Directory of SNAP Contacts in an attempt to attain that information. Both verbal and written verification from the other state are acceptable.
+
+Any verified countable month(s) of SNAP benefits received by nonexempt ABAWDs who were not meeting the Work Requirement in another state will count towards the 3 months of time-limited SNAP in Illinois.
+
+Work Requirement ABAWD Time Limit Clock
+
+The ABAWD Time Limit Clock is built into IES and is programmed to tick countable unmet months on an individual level for nonexempt individuals who are not meeting the SNAP Work Requirement. An individual who is an ABAWD subject to the Work Requirement will display on the IES EDG Summary page as a "Mandatory Participant" under the Work Requirement Exemption / Participation Reason column.
+
+When eligibility runs and the case is certified, the ABAWD Time Limit Clock will count for nonexempt individuals unless the Work Requirement is being met. See PM 03-16-04-a/WAG 03-16-04-a for detailed information on the ABAWD Time Limit Clock.
+
+In certain instances the Time Limit Clock must be manually overridden by a worker. The Override the Time Limited SNAP Clock IES Wizard contains instructions on manually overriding the ABAWD Time Limit clock.
+
+Work Requirement - Regaining Eligibility
+
+Customers who use their 3 countable (unmet) months of time-limited SNAP and lose benefits due to not meeting the SNAP Work Requirement can regain eligibility at anytime. There is no limit to the number of times an individual may regain eligibility. To regain eligibility the individual must:
+
+Meet the Work Requirement over a 30-day period; or
+
+Become exempt from the Work Requirement; and
+
+Meet all other eligibility requirements.
+
+To regain eligibility by meeting the Work Requirement, the individual must show proof that they have done one or a combination of the following within a 30-day period:
+
+Worked (paid, or unpaid, or in-kind) for 80 hours;
+
+Participated in a qualifying work program for 80 hours; or
+
+Any combination of the above.
+
+Note: Proof may be check stubs showing the hours worked or an applicable activity form signed by the service provider that verifies the hours the individual has worked. Once it is verified, do not require the individual to provide verifications monthly.
+
+To regain eligibility after becoming exempt or meeting the Work Requirement, the customer must apply for SNAP benefits or request benefits if they are being added to SNAP household that is currently receiving SNAP benefits.
+
+Additional Three Months of SNAP Benefits
+
+An individual who regains eligibility for SNAP and then stops meeting the Work Requirement is eligible for an additional 3 consecutive countable months of SNAP in that 36-month period.
+
+This includes a customer who has met the criteria to regain eligibility but chooses not to immediately reapply for benefits.
+
+The additional 3 consecutive months begin on the date the customer first notifies the FCRC that they are no longer meeting the requirement.
+
+An application prorated month does not count as one of the 3 months.
+
+The additional 3-month benefit period runs for 3 consecutive countable months, regardless of whether the individual receives benefits in all 3 months.
+
+The additional 3 consecutive months is issued only one time in any 36-month period.
+
+New Policy Manual Location for the SNAP Work Requirement
+
+The Policy Manual chapter for the SNAP Work Requirement policy has been moved from PM 03-25-00/WAG 03-25-00 to PM 03-16-00/WAG 03-16-00. The order of the subchapters has also changed.
+
+SNAP Work Provisions Policy Updates
+
+Provide sufficient information regarding employment status or availability to work has been removed as a Work Provision exemption.
+
+The title to PM 03-15-02/WAG 03-15-02 has been updated to Screening for Work Provisions Exemptions.
+
+PM 03-15-03 has been updated to reflect the correct number of weekly work hours for job quit to not affect eligibility.
+
+PM 03-15-04 has been updated to include voluntary reduction in work hours to less than 30 hours per week does not affect eligibility if weekly gross wages remain above $217.50, this amount can be averaged.
+
+SNAP Work Provisions - Good Cause Updates
+
+A good cause for leaving an employer includes if a customer faces harassment or an intolerable work environment based on the factors of discrimination found in PM 03-15-05. It is not required that the customer make a formal report to the employer or any governmental agency.
+
+Examples of allowable reduction in work hours and of good cause reasons for voluntarily quitting or leaving employment have been added to WAG 03-15-04 and WAG 03-15-05.
+
+An individual who fails to report an exemption due to good cause will still be considered exempt, see PM 03-15-05 for allowable good cause reasons.
+
+Form Updates
+
+SNAP Work Requirement Notice (IL444-2293)
+
+SNAP Work Rules - Unable to Work Determination (IL444-2340)
+
+SNAP Work Rules - Request for Exemption (IL444-2341)
+
+SNAP Work Requirement - Community Workfare Verification (IL444-3673) - (IES version only)
+
+SNAP Work Rules (IL444-5175)
+
+FCRC Action
+
+FCRCs must:
+
+Explain the SNAP Work Rules to the household, including:
+
+how to meet the Work Provisions and Work Requirement;
+
+who is exempt from the Work Provisions and Work Requirement; and
+
+what happens if they do not meet or are exempt from the Work Provisions and Work Requirement.
+
+Screen all SNAP household members to determine if they are eligible for any exemptions keeping in mind that an individual may be eligible for more than one exemption.
+
+Not request verification of an exemption unless there is a direct contradiction between the information provided by the household and other information provided to the FCRC or available in clearances.
+
+Review eligibility results in IES to ensure customers that qualify are given the correct exemptions.
+
+Screen households for SNAP benefits received in other states in the prior 12 months of application.
+
+Screen households for good cause for failing to meet either of the SNAP Work Rules and document in Case Comments if good cause was requested and allowed. If the good cause request was deemed questionable, the FCRC worker must document in Case Comments the specific information that it deemed to be contradictory.
+
+Update the End Date for Manual Exemptions on the Exemptions - Details page in IES. The End Date should be the last day of the SNAP certification period.
+
+Manual Revisions:
+
+PM 03-15-00
+
+PM 03-15-01
+
+PM 03-15-02
+
+PM 03-15-03
+
+PM 03-15-04
+
+PM 03-15-05
+
+PM 03-15-06
+
+PM 03-15-07
+
+PM 03-15-08-a
+
+PM 03-15-09-a
+
+PM 03-15-09-b
+
+PM 03-15-10
+
+PM 03-16-00
+
+PM 03-16-01
+
+PM 03-16-01-a
+
+PM 03-16-02
+
+PM 03-16-03
+
+PM 03-16-04
+
+PM 03-16-04-a
+
+PM 03-16-05
+
+PM 06-04-02
+
+PM 18-04-00
+
+PM 18-04-09-a
+
+PM 19-07-00
+
+PM 19-07-01
+
+PM 19-07-03
+
+PM 21-06-02
+
+PM 21-06-03
+
+PM 21-06-07-d
+
+PM 21-06-07-g
+
+PM 21-06-07-h
+
+PM 21-06-09
+
+Glossary (D)
+
+PM 03-25-00 Obsolete
+
+PM 03-25-01 Obsolete
+
+PM 03-25-01-a Obsolete
+
+PM 03-25-02 Obsolete
+
+PM 03-25-02-a Obsolete
+
+PM 03-25-03 Obsolete
+
+PM 03-25-03-a Obsolete
+
+PM 03-25-04 Obsolete
+
+PM 03-25-05 Obsolete
+
+PM 03-25-05-a Obsolete
+
+PM 03-25-05-b Obsolete
+
+PM 03-25-06 Obsolete
+
+WAG 02-06-01
+
+WAG 02-06-01-e
+
+WAG 03-15-01
+
+WAG 03-15-02
+
+WAG 03-15-04
+
+WAG 03-15-05
+
+WAG 03-15-08
+
+WAG 03-15-08-b
+
+WAG 03-15-09-a
+
+WAG 03-15-09-b
+
+WAG 03-16-00
+
+WAG 03-16-01
+
+WAG 03-16-01-a
+
+WAG 03-16-02
+
+WAG 03-16-03
+
+WAG 03-16-04
+
+WAG 03-16-04-a
+
+WAG 03-16-05
+
+WAG 18-04-05
+
+WAG 19-03-06-b
+
+WAG 19-07-00
+
+WAG 19-07-01
+
+WAG 19-07-02
+
+WAG 21-06-02
+
+WAG 21-06-03
+
+WAG 21-06-09
+
+WAG 25-06-07-p
+
+WAG 25-13-00
+
+WAG 03-25-00 Obsolete
+
+WAG 03-25-01 Obsolete
+
+WAG 03-25-01-a Obsolete
+
+WAG 03-25-02 Obsolete
+
+WAG 03-25-02-a Obsolete
+
+WAG 03-25-03 Obsolete
+
+WAG 03-25-03-a Obsolete
+
+WAG 03-25-04 Obsolete
+
+WAG 03-25-05 Obsolete
+
+WAG 03-25-05-a Obsolete
+
+WAG 03-25-05-b Obsolete
+
+WAG 03-25-06 Obsolete
+
+WAG 25-02-11 Obsolete
+
+[signed copy on file]
+
+Dulce M. Quintero
+
+Secretary, Illinois Department of Human Services
+
+Forms Referenced
+
+IL444-0267
+
+IL444-2293
+
+IL444-2340
+
+IL444-2341
+
+IL444-3673
+
+IL444-5175
+
+Illinois Department of Human Services
+JB Pritzker, Governor · Dulce M. Quintero, Secretary
+
+IDHS Office Locator
+
+IDHS Help Line
+
+1-800-843-6154
+
+1-866-324-5553 TTY
+
+State of Illinois
+
+Accessibility
+
+Privacy
+
+Report Abuse/Neglect
+
+Contact
+
+Outlook Login

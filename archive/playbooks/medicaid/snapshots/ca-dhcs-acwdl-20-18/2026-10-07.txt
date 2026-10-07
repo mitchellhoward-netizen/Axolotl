@@ -1,0 +1,165 @@
+State of California—Health and Human Services Agency
+Department of Health Care Services
+
+WILL LIGHTBOURNE GAVIN NEWSOM
+DIRECTOR GOVERNOR
+
+October 21, 2020
+
+TO: ALL COUNTY WELFARE DIRECTORS Letter No.: 20-18
+ALL COUNTY WELFARE ADMINISTRATIVE OFFICERS
+ALL COUNTY MEDI-CAL PROGRAM SPECIALISTS/LIAISONS
+ALL COUNTY MEDS LIAISONS
+
+SUBJECT: MEDICARE PART B PREMIUM DISREGARD
+
+The purpose of this All County Welfare Directors Letter (ACWDL) is to provide counties
+and the Statewide Automated Welfare Systems (SAWS) with guidance regarding a new
+income disregard for Medicare Part B premiums for the Aged, Blind, and Disabled
+Federal Poverty Level (ABD FPL) program. The income disregard allows an individual
+to remain eligible for the ABD FPL program regardless of the state’s payment of the
+individual’s Medicare Part B premium. This new income disregard is effective December
+1, 2020.
+
+Background
+In 2019, Assembly Bill (AB) 1088 (Wood, Chapter 450, Statutes of 2019) was signed
+into law, which added Welfare and Institutions Code (WIC) Section 14005.401. This
+new law requires the Department of Health Care Services (DHCS) to seek a Medicaid
+State Plan Amendment (SPA) in order to implement an income disregard based on the
+Medi-Cal beneficiary’s Medicare Part B premium. The disregard would allow individuals
+who become ineligible for the ABD FPL program due to the state’s payment of their
+Medicare Part B premium to remain eligible for the ABD FPL program if their income
+and resources otherwise meet all eligibility requirements. The Centers for Medicare and
+Medicaid Services (CMS) approved this disregard in CA SPA 20-0016 on October 21,
+2020.
+
+The Medically Needy (MN) program allows for an income deduction for health insurance
+premiums paid by and purchased for any person in the family, as authorized in title 22,
+California Code of Regulations (CCR) Section 50555.2 – Health Insurance Premiums.
+This includes the payment of the Medicare Part B premium. The ABD FPL program
+allows MN deductions when determining countable income and has historically allowed
+this deduction (ACWDL 02-38). Individuals who become eligible for the ABD FPL
+program have their Medicare Part B premiums paid for by the state and they lose the
+
+Medi-Cal Eligibility Division
+1501 Capitol Avenue, MS 4607
+P.O. Box 997413, Sacramento, CA 95899-7413
+(916) 552-9200 phone • (916) 552-9477 fax
+Internet Address: www.dhcs.ca.gov
+
+All County Welfare Directors Letter No.: 20-18
+Page 2
+October 21, 2020
+
+health insurance premium deduction. For certain individuals, this can result in flipping
+between no-cost Medi-Cal and Medi-Cal with a share of cost.
+
+Policy Change
+Effective December 1, 2020, counties must disregard income equal to the amount of the
+individual’s Medicare Part B premium when determining eligibility for the ABD FPL
+program, regardless of the state’s payment of the premium. Previous policy required
+counties to apply an income deduction for the Medicare Part B premiums only if the
+individual was paying for the premium. The new policy does not require the individual to
+pay for the premium when enrolled in or applying for the ABD FPL program. This
+income disregard is applied to the budget for as long as the individual’s countable
+income remains within the ABD FPL program limits. Individuals in the Medically Needy
+program must still pay for the premium before receiving the health insurance premium
+deduction.
+
+DHCS will promulgate regulations to implement the new policy for the ABD FPL
+program at a later date.
+
+Example 1
+An aged, single individual applies for Medi-Cal post implementation of the ABD FPL
+Expansion (ACWDL 20-02E) and the Medicare Part B premium disregard. The
+individual receives $1500 a month in unearned income and pays a monthly premium of
+$144.60 for Medicare Part B.
+
+Unearned income $1500.00
+Any income deduction - $20.00
+Medicare Part B premium disregard - $144.60
+Total countable income $1335.40
+
+138% FPL for one person $1468.00
+
+The individual receives a deduction equal to the cost of their Medicare Part B premium.
+In this example, the individual’s countable income is below 138 percent FPL and
+qualifies for the ABD FPL program. Two months later, the state begins payment of the
+individual’s Medicare Part B premium. While the individual is no longer paying for their
+Medicare Part B premium, they retain the Medicare Part B premium disregard. The
+disregard remains active during their eligibility for the ABD FPL program.
+
+Example 2
+
+All County Welfare Directors Letter No.: 20-18
+Page 3
+October 21, 2020
+
+A disabled, single individual in the 250% Working Disabled Program is up for
+redetermination post implementation of the ABD FPL Expansion and the Medicare Part
+B premium disregard. The individual receives $1500 a month in disability-based
+unearned income, $35 of earned income, and the state pays for the individual’s
+Medicare Part B premium of $144.60. During annual redetermination, the county
+evaluates eligibility pursuant to the hierarchy, as provided in ACWDL 17-03. The
+individual will be assessed for all Medi-Cal programs until found eligible. The individual’s
+income would be counted as follows when determining eligibility for the ABD FPL
+program.
+
+Unearned income $1500.00
+Any income deduction - $20.00
+Total unearned income $1480.00
+
+Earned income $35.00
+$65 earned income deduction - $65.00
+½ earned income deduction - $0.00
+Total earned income $0.00
+
+Total unearned income $1480.00
+Total earned income + $0.00
+Medicare Part B premium disregard - $144.60
+Total countable income $1335.40
+
+138% FPL for one person $1468.00
+
+Due to the application of the Medicare Part B premium disregard, the individual qualifies
+for the ABD FPL program.
+
+Example 3
+An aged, single individual in the ABD FPL program, post implementation of the ABD
+FPL Expansion and the Medicare Part B premium disregard, has unearned income of
+$1500. This amount, subtracting the $20 any income deduction and the Medicare Part B
+premium disregard, puts the individual below 138% FPL. The individual later reports an
+increase in their unearned income from $1500 to $1700. The change in circumstances
+results in a redetermination of eligibility.
+
+Unearned income $1700.00
+Any income deduction - $20.00
+Medicare Part B premium disregard - $144.60
+
+All County Welfare Directors Letter No.: 20-18
+Page 4
+October 21, 2020
+
+Total countable income $1535.40
+
+138% FPL for one person $1468.00
+
+Even with the application of the Medicare Part B premium disregard, the individual no
+longer qualifies for the ABD FPL program due to an increase in income. The individual
+will be evaluated for the Medi-Cal program that is most beneficial according to the
+hierarchy. After a full screening for all other programs, this beneficiary is only eligible for
+the Medically Needy program and may have a share of cost. The Medicare Part B
+premium disregard no longer applies, as it is only applicable to the ABD FPL program.
+The individual will be able to deduct the Medicare Part B premium from the Medically
+Needy budget once the individual resumes paying for their Medicare Part B premium.
+
+Implementation Timeline
+SAWS shall implement the new income disregard at the next available SAWS release.
+
+If you have any questions about this letter or require further information, please contact:
+
+Derek Soiu (916) 345-8193 Derek.Soiu@dhcs.ca.gov
+Daniela Gutierrez (916) 345-8501 Daniela.Gutierrez@dhcs.ca.gov
+
+Sandra Williams, Chief
+Medi-Cal Eligibility Division

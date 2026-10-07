@@ -1,0 +1,388 @@
+schema_version: 2
+program: disability
+scope: il
+title: Disability and SSI — Illinois (AABD cash supplement, 209(b) Medicaid, Disability Determination Services)
+last_researched: 2026-10-07
+
+summary:
+  plain_language: >-
+    Illinois does not pay a flat state supplement through SSA. Instead, the
+    Illinois Department of Human Services (IDHS) runs AABD cash (Aid to the
+    Aged, Blind or Disabled), which works out each person's needs from set
+    allowances — a personal allowance (about $62 a month), rent or home costs
+    up to $97, standard utility allowances, and a "grant adjustment" of
+    $816.90 in 2026 — and pays the difference between those needs and the
+    person's income, SSI included, after a $25 exemption. For most single SSI
+    recipients the AABD payment is small (a few dollars to about $15 a month)
+    or zero; it is larger for people whose SSI is reduced because they live
+    in someone else's household and for couples. People denied SSI only
+    because of income can still get AABD. Illinois is a "209(b)" state: SSI
+    does not bring Medicaid automatically; the person must apply to IDHS for
+    AABD medical. SSI and SSDI medical decisions are made by IDHS's
+    Disability Determination Services.
+  administered_by: >-
+    SSA decides SSI. IDHS (Family Community Resource Centers) decides and pays
+    AABD cash and AABD medical; IDHS's Division of Rehabilitation Services
+    houses the state Disability Determination Services.
+  funded_by: AABD cash is state-funded; SSI is federal.
+  local_names:
+    - {name: AABD, meaning: "Aid to the Aged, Blind or Disabled (IDHS cash and medical programs); AABD cash is Illinois's State Supplemental Payment"}
+    - {name: FCRC, meaning: IDHS Family Community Resource Center (local office)}
+    - {name: ABE, meaning: Application for Benefits Eligibility (Illinois online application)}
+    - {name: Grant adjustment, meaning: AABD allowance equal to all SSI increases since July 1977}
+  legal_basis: 89 Ill. Adm. Code Part 113 (AABD); IDHS Cash, SNAP and Medical Policy Manual chapters 03, 07, 09 and 11.
+  confidence: confirmed
+  sources:
+    - {source: il-dhs-pm-11-01-00, locator: "The AABD Cash Assistance Standard is established by Illinois Law ... AABD Cash Assistance is also called State Supplemental Payments (SSP)"}
+    - {source: il-dhs-pm-03-03-02, locator: "The cash payment is the difference between the client's income and the AABD Cash Assistance Standard"}
+    - {source: ssa-poms-si-01415-010, locator: "Illinois: Mandatory S, Optional S (State administration)"}
+
+rules:
+  - id: DIS-IL-AABD-ELIGIBILITY
+    statement: >-
+      In Illinois, a person 65 or older can get AABD cash if they receive SSI
+      or were denied SSI only because of income (or are certain non-citizens);
+      a person under 65 must receive SSI or have been denied SSI only because
+      of income and found blind or disabled.
+    kind: eligibility
+    applies_to: [AABD]
+    effective_from: 2026-10-07
+    implemented_in: playbooks/disability/states/il/rules.py:evaluate
+    confidence: confirmed
+    note: PM pages are undated; the retrieval date is used. Non-citizen AABD categories (7-year limit, 1996 residents denied as "not disabled") are not encoded.
+    sources:
+      - {source: il-dhs-pm-11-01-00, locator: "To receive AABD cash benefits, a person who is age 65 or older must meet one of the following criteria ... under age 65 ..."}
+      - {source: il-dhs-pm-03-03-02, locator: "To receive AABD Cash, a person must: be receiving SSI; or have been denied SSI due to income; or ..."}
+  - id: DIS-IL-AABD-STANDARD
+    statement: >-
+      In Illinois, the AABD Cash Assistance Standard for a person living in
+      the community is the sum of a personal allowance ($62.43 a month for an
+      active person eating alone, $57.25 for two eating together), a shelter
+      allowance (actual rent or home costs up to $97 per dwelling, divided
+      among people sharing it), standard allowances for utilities the person
+      pays, and the grant adjustment ($816.90 from January 2026).
+    kind: benefit
+    applies_to: [AABD]
+    effective_from: 2026-01-01
+    parameters: [il.aabd.personal_allowance_monthly, il.aabd.shelter_maximum_monthly, il.aabd.utility_allowance_monthly, il.aabd.grant_adjustment_monthly]
+    implemented_in: playbooks/disability/states/il/rules.py:needs
+    confidence: confirmed
+    note: Laundry, telephone, transportation, therapeutic diet, restaurant meals and service-animal allowances exist (PM 11-01-04 to 11-01-12) but are not encoded.
+    sources:
+      - {source: il-dhs-pm-11-01-00, locator: "The AABD Cash Assistance Standard includes specific needs found in this chapter"}
+      - {source: il-dhs-wag-11-01-01, locator: "PERSONAL ALLOWANCE CHART"}
+      - {source: il-dhs-pm-11-01-02, locator: "The maximum rent allowance for a dwelling is $97 ... divide the allowable shelter expenses by the number of persons living in the dwelling"}
+      - {source: il-dhs-pm-11-01-07, locator: "$816.90 for January 2026 and after"}
+  - id: DIS-IL-AABD-GRANT-ADJUSTMENT
+    statement: >-
+      In Illinois, every AABD cash client living in the community (whether or
+      not they receive SSI) gets a grant adjustment allowance equal to the sum
+      of SSI increases since July 1977: $816.90 a month from January 2026
+      ($788.90 in 2025); clients in sheltered care get $28 and long-term care
+      residents get none.
+    kind: benefit
+    applies_to: [AABD]
+    effective_from: 2026-01-01
+    parameters: [il.aabd.grant_adjustment_monthly]
+    implemented_in: playbooks/disability/states/il/rules.py:needs
+    confidence: confirmed
+    sources:
+      - {source: il-dhs-pm-11-01-07, locator: "WAG 11-01-07"}
+      - {source: il-dhs-wag-25-06-01, locator: "01/01/2025-12/31/2025 788.90"}
+  - id: DIS-IL-AABD-UTILITIES
+    statement: >-
+      In Illinois, AABD adds a standard allowance for each utility the client
+      pays (water, electricity, cooking fuel, one heating fuel), set by IDHS
+      area and household size — for one person in Cook County $3.80 water,
+      $5.55 electricity, $3.00 cooking fuel and $11.90 metered-gas heat — and
+      divides it among the people in a shared living arrangement.
+    kind: benefit
+    applies_to: [AABD]
+    effective_from: 2026-01-01
+    parameters: [il.aabd.utility_allowance_monthly, il.aabd.utility_area_counties]
+    implemented_in: playbooks/disability/states/il/rules.py:needs
+    confidence: confirmed
+    sources:
+      - {source: il-dhs-pm-11-01-03, locator: "Allowances for utilities and heating fuel are based on the county of residence and the number of persons ... prorate"}
+      - {source: il-dhs-wag-25-03-03, locator: "AREA 1 - COOK COUNTY, column 1"}
+    open_question: DIS-IL-OQ-04
+  - id: DIS-IL-AABD-SHARED
+    statement: >-
+      In Illinois, an AABD client who lives with others is in a shared living
+      arrangement (shelter and utility allowances divided among everyone in
+      the dwelling) unless they pay a flat fee for shelter and share no
+      expenses; spouses living together are always a shared arrangement.
+    kind: definition
+    applies_to: [AABD]
+    effective_from: 2026-10-07
+    implemented_in: playbooks/disability/states/il/rules.py:needs
+    confidence: confirmed
+    sources:
+      - {source: il-dhs-pm-11-01-02-a, locator: "Separate Living Arrangement ... Shared Living Arrangement ... a client and spouse who live in the same dwelling are in a shared living arrangement"}
+  - id: DIS-IL-AABD-INCOME
+    statement: >-
+      In Illinois, AABD cash counts the client's nonexempt income, including
+      SSI and gross Social Security, budgeted prospectively for the payment
+      month, minus one $25 income exemption per client; earnings also get the
+      earned income disregard shown in IDHS's example (the first $20 plus half
+      of the next $60) and employment expenses.
+    kind: definition
+    applies_to: [AABD]
+    effective_from: 2026-10-07
+    parameters: [il.aabd.income_exemption_monthly]
+    implemented_in: playbooks/disability/states/il/rules.py:budgetable_income
+    confidence: confirmed
+    note: >-
+      The earned-income disregard is taken from the worked example in PM
+      11-01-13, not from the general income chapter (PM 08, not retrieved),
+      see DIS-IL-OQ-05. Which unearned kinds IDHS exempts (pensions? VA?) was
+      not checked: the evaluator counts all of them (DIS-IL-OQ-03).
+    sources:
+      - {source: il-dhs-pm-11-01-13, locator: "The first $25 of earned or unearned income is exempt ... Example: ... earned income disregard (the first $20 plus 1/2 of the next $60)"}
+      - {source: il-dhs-pm-11-02-01, locator: "In prospective budgeting, the budget month is the payment month"}
+      - {source: il-dhs-pm-03-03-02, locator: "The cash payment is the difference between the client's income and the AABD Cash Assistance Standard"}
+    open_question: DIS-IL-OQ-03
+  - id: DIS-IL-AABD-AMOUNT
+    statement: >-
+      In Illinois, the AABD cash payment is the AABD Cash Assistance Standard
+      minus the client's budgetable income, paid only when needs exceed income
+      by at least $1; for example, in 2026 a single SSI recipient in Cook
+      County with $800 Social Security who pays $500 rent and her own gas,
+      electricity and water gets $11.58 a month (needs $1,000.58 minus income
+      $989).
+    kind: benefit
+    applies_to: [AABD]
+    effective_from: 2026-01-01
+    parameters: [il.aabd.minimum_payment_monthly]
+    overrides: [DIS-FED-SSI-OSS-COMPUTATION]
+    implemented_in: playbooks/disability/states/il/rules.py:evaluate
+    confidence: confirmed
+    sources:
+      - {source: il-dhs-pm-11-02-03, locator: "A client qualifies for AABD Cash benefits when their nonexempt income minus allowable disregards, is less than their needs by at least $1"}
+      - {source: il-dhs-pm-11-02-02, locator: "The minimum payment for a person living in the community is $1."}
+  - id: DIS-IL-AABD-COUPLE
+    statement: >-
+      In Illinois, when both spouses qualify for AABD cash, IDHS figures a
+      separate budget for each (each gets the grant adjustment and the $25
+      exemption); if the spouse with more income has more than their own
+      needs, the excess is budgeted against the other spouse's needs.
+    kind: benefit
+    applies_to: [AABD]
+    effective_from: 2026-10-07
+    implemented_in: playbooks/disability/states/il/rules.py:evaluate
+    confidence: confirmed
+    note: The evaluator splits a couple's federal SSI equally between the spouses as each one's SSI income.
+    sources:
+      - {source: il-dhs-pm-11-02-07-e, locator: "a budget for each client must be figured. Each spouse receives the Grant Adjustment and the $25 income exemption ... budget the excess income along with the 2nd spouse's income"}
+  - id: DIS-IL-AABD-RELATIVE
+    statement: >-
+      How Illinois budgets AABD cash for a client living with an ineligible
+      spouse (or a child living with parents) — the responsible relative's
+      income above that relative's own AABD needs is used against the
+      client's needs — is not computed in this archive.
+    kind: benefit
+    applies_to: [AABD]
+    effective_from: 2026-10-07
+    implemented_in: playbooks/disability/states/il/rules.py:evaluate
+    confidence: unresolved
+    sources:
+      - {source: il-dhs-pm-09-02-03-b, locator: "Use the AABD Cash Standard to determine if the responsible relative has income sufficient to meet the responsible relative's needs. If income exceeds the needs, use the excess amount"}
+    open_question: DIS-IL-OQ-01
+  - id: DIS-IL-AABD-RESOURCES
+    statement: >-
+      In Illinois, AABD cash requires nonexempt resources of no more than
+      $2,000 for one person or $3,000 for two (plus $50 for each additional
+      person); AABD medical has a separate $17,500 asset limit since May 12,
+      2023.
+    kind: eligibility
+    applies_to: [AABD]
+    effective_from: 2023-05-12
+    parameters: [il.aabd.cash_resource_limit]
+    implemented_in: playbooks/disability/states/il/rules.py:evaluate
+    confidence: confirmed
+    note: The evaluator uses the SSI resource exclusions for AABD; IDHS's own exempt-asset list (PM 07-02) was not compared item by item (DIS-IL-OQ-06).
+    sources:
+      - {source: il-idhs-pm-07-02-01, locator: "Effective 05/12/2023, the asset limit for Medical cases is $17,500 ... The resource limit for AABD Cash ... one person - $2,000; 2 persons - $3,000"}
+    open_question: DIS-IL-OQ-06
+  - id: DIS-IL-AABD-PAID-BY-IDHS
+    statement: >-
+      In Illinois, the state supplement (AABD cash) is decided and paid by the
+      Illinois Department of Human Services, not by SSA, so it needs its own
+      IDHS application and arrives separately from the SSI payment.
+    kind: procedure
+    applies_to: [AABD]
+    effective_from: 2006-12-01
+    implemented_in: playbooks/disability/states/il/rules.py:evaluate
+    confidence: confirmed
+    note: Effective date is the POMS chart's transmittal; "arrives separately" is a direct inference from state administration.
+    sources:
+      - {source: ssa-poms-si-01415-010, locator: "Illinois: Mandatory S, Optional S (S = State Administration)"}
+      - {source: il-dhs-aabd, locator: "How to apply? See Apply For SNAP, Cash, Medical Assistance to apply for AABD benefits."}
+  - id: DIS-IL-MEDICAID-209B
+    statement: >-
+      In Illinois, getting SSI does not by itself bring Medicaid: Illinois is
+      a 209(b) state, so an SSI recipient must apply to IDHS for AABD medical,
+      whose rules may be stricter than SSI's; AABD cash recipients receive
+      medical assistance as part of AABD.
+    kind: coordination
+    applies_to: [SSI, MEDICAID]
+    effective_from: 2026-09-30
+    implemented_in: playbooks/disability/states/il/rules.py:evaluate
+    confidence: confirmed
+    sources:
+      - {source: ssa-poms-si-01715-010, locator: "A.1 209(b) States: ... Illinois; A.3: SSA makes Medicaid decisions only in 1634 States; SSA refers SSI claimants to their local Medicaid agencies"}
+      - {source: il-dhs-aabd, locator: "A person who is eligible for AABD receives cash and medical assistance."}
+  - id: DIS-IL-DDS
+    statement: >-
+      In Illinois, medical decisions on SSI and SSDI disability claims are
+      made for SSA by Disability Determination Services within the Illinois
+      Department of Human Services, Division of Rehabilitation Services.
+    kind: procedure
+    applies_to: [SSDI, SSI]
+    effective_from: 2011-01-01
+    implemented_in: playbooks/disability/states/il/rules.py:evaluate
+    confidence: confirmed
+    note: The 2011 DRS annual report and the state's grant catalog name "Disability Determination Services"; the title "Bureau of Disability Determination Services" was not found in these sources.
+    sources:
+      - {source: il-dhs-drs-report-2011, locator: "Disability Determination Services: We determine the eligibility of people to receive benefits from SSDI or SSI"}
+      - {source: il-omb-csfa-230, locator: "Disability Determination Services ... The claim is then forwarded to the State Disability Determination Services (DDS) for a medical determination"}
+
+procedure:
+  applications:
+    - id: DIS-IL-PROC-AABD-APPLY
+      text: Apply for AABD cash and AABD medical with IDHS (online through ABE, or at the local Family Community Resource Center); call the IDHS Help Line at 1-800-843-6154 (TTY 1-866-324-5553).
+      channel: any
+      county_varies: true
+      confidence: confirmed
+      sources: [{source: il-dhs-aabd, locator: "How to apply? See Apply For SNAP, Cash, Medical Assistance ... DHS Office Locator ... Help Line at (800) 843-6154 or (866) 324-5553 (TTY)"}]
+    - id: DIS-IL-PROC-SSI-FIRST
+      text: An AABD cash applicant must have applied for SSI and either receive it or have been denied for income; for AABD a person under 65 denied SSI only for income must be found disabled.
+      confidence: confirmed
+      sources: [{source: il-dhs-pm-11-01-00, locator: "To receive AABD cash benefits ..."}]
+  documents:
+    - id: DIS-IL-DOC-SHELTER
+      text: Proof of rent or home costs (mortgage, taxes, homeowners insurance) and of which utilities the client pays, since these set the AABD shelter and utility allowances.
+      confidence: confirmed
+      note: Direct inference from the allowance rules; IDHS's verification list was not retrieved.
+      sources: [{source: il-dhs-pm-11-01-02, locator: "Rent ... Properties, Payments, Taxes and Insurance"}]
+  timelines:
+    - id: DIS-IL-TIME-AABD
+      text: IDHS's processing time for AABD cash and medical applications was not found in the pages retrieved.
+      confidence: unresolved
+      open_question: DIS-IL-OQ-07
+
+life_events:
+  - id: DIS-IL-LE-HOUSEHOLD
+    code: household_change
+    event: Moving in with others, a rent change, or starting to pay utilities
+    why: AABD shelter and utility allowances change (divided in a shared arrangement); SSI may fall by one-third in another's household, which raises AABD.
+    check_rules: [DIS-IL-AABD-STANDARD, DIS-IL-AABD-SHARED, DIS-IL-AABD-UTILITIES]
+    confidence: confirmed
+    sources: [{source: il-dhs-pm-11-01-02-a, locator: "Shared Living Arrangement"}]
+  - id: DIS-IL-LE-BENEFIT
+    code: benefit_change
+    event: Approved for SSI
+    why: Medicaid is not automatic in Illinois; apply for AABD medical (and AABD cash) with IDHS.
+    check_rules: [DIS-IL-MEDICAID-209B, DIS-IL-AABD-ELIGIBILITY]
+    confidence: confirmed
+    sources: [{source: ssa-poms-si-01715-010, locator: "A.1"}]
+  - id: DIS-IL-LE-COLA
+    code: cola_january
+    event: January SSI increase
+    why: The AABD grant adjustment rises with SSI ($788.90 to $816.90 in January 2026), so the AABD payment is not cut by the SSI increase.
+    check_rules: [DIS-IL-AABD-GRANT-ADJUSTMENT]
+    confidence: confirmed
+    sources: [{source: il-dhs-pm-11-01-07, locator: "The grant adjustment ... is adjusted whenever there is an SSI benefit increase"}]
+
+outcome_proof:
+  - id: DIS-IL-PROOF-AABD-NOTICE
+    evidence: IDHS notice approving AABD cash and/or AABD medical
+    shows: The AABD grant amount and medical coverage. Notice contents were not documented from an IDHS source.
+    confidence: unresolved
+    open_question: DIS-IL-OQ-07
+
+links:
+  - id: DIS-IL-LINK-MEDICAID
+    playbook: medicaid
+    rules: [DIS-IL-MEDICAID-209B]
+    relation: Illinois is a 209(b) state; SSI does not confer Medicaid, and the Medicaid playbook's Illinois part (AABD medical) decides it on a separate IDHS application.
+    test: DIS-IL-T15
+    confidence: confirmed
+    sources: [{source: ssa-poms-si-01715-010, locator: "A.1"}]
+
+open_questions:
+  - id: DIS-IL-OQ-01
+    priority: high
+    question: How does IDHS budget AABD cash when the client lives with an ineligible spouse (responsible relative), with parents, or is in long-term care or sheltered care?
+    why_it_matters: Married members with a younger, working spouse cannot be told whether AABD cash is payable.
+    checked: [PM 09-02-03-b, PM 11-02-07-e, PM 11-03-00 index]
+    affects: [DIS-IL-AABD-RELATIVE]
+    status: open
+  - id: DIS-IL-OQ-02
+    priority: medium
+    question: The personal allowance chart (WAG 11-01-01), $97 shelter maximum, utility allowance table (WAG 25-03-03), $25 exemption and $1 minimum carry no effective date on the IDHS pages; when did the current values take effect and are they in 89 Ill. Adm. Code 113 (ilga.gov unreachable here)?
+    why_it_matters: Every value needs an effective date from its source; past-period calculations depend on them.
+    checked: [IDHS PM 11-01-01 to 11-02-03, WAG 11-01-01, WAG 25-03-03; ilga.gov (TLS failure)]
+    affects: [il.aabd.personal_allowance_monthly, il.aabd.shelter_maximum_monthly, il.aabd.utility_allowance_monthly, il.aabd.income_exemption_monthly, il.aabd.minimum_payment_monthly, il.aabd.utility_area_counties]
+    status: open
+  - id: DIS-IL-OQ-03
+    priority: high
+    question: Which unearned income does AABD cash exempt (for example private pensions, VA benefits, child support)? PolicyEngine's Illinois model exempts pensions and VA benefits; the archive counts them.
+    why_it_matters: A union pensioner's AABD eligibility could flip on this.
+    checked: [PM 11-01-13, PM 11-02-04]
+    affects: [DIS-IL-AABD-INCOME]
+    status: open
+  - id: DIS-IL-OQ-04
+    priority: medium
+    question: Utility allowances for households of 3 or more, and how heating with electricity is allowed ("most expensive heating fuel used in the region").
+    why_it_matters: Larger households and electric-heat homes get a different standard.
+    checked: [PM 11-01-03, WAG 25-03-03]
+    affects: [DIS-IL-AABD-UTILITIES]
+    status: open
+  - id: DIS-IL-OQ-05
+    priority: medium
+    question: The general AABD earned-income disregards (PM 08 or 89 Ill. Adm. Code 113.120 ff.) — does every AABD client get "$20 plus one-half of the next $60", or only sheltered-workshop earners as in the PM 11-01-13 example?
+    why_it_matters: Changes AABD for working aged or disabled members.
+    checked: [PM 11-01-13 example]
+    affects: [DIS-IL-AABD-INCOME]
+    status: open
+  - id: DIS-IL-OQ-06
+    priority: medium
+    question: Compare IDHS's AABD exempt-asset rules (PM 07-02, burial, vehicle, retirement accounts) with the SSI exclusions used by the evaluator.
+    why_it_matters: A member near $2,000 could pass one test and fail the other.
+    checked: [PM 07-02-01]
+    affects: [DIS-IL-AABD-RESOURCES]
+    status: open
+  - id: DIS-IL-OQ-07
+    priority: low
+    question: IDHS processing times and the AABD approval notice's contents.
+    why_it_matters: Members ask when AABD and medical coverage start.
+    checked: [IDHS AABD page]
+    affects: [DIS-IL-TIME-AABD, DIS-IL-PROOF-AABD-NOTICE]
+    status: open
+
+conflicts: []
+
+claims_checked:
+  - claim: Illinois runs a state-administered AABD cash supplement through IDHS rather than an SSA-administered SSP.
+    verdict: verified
+    detail: SSA's chart shows Illinois's mandatory and optional supplements as State-administered; IDHS PM 11-01-00 says AABD cash "is also called State Supplemental Payments (SSP)" and is built from a needs standard established by Illinois law.
+    sources:
+      - {source: ssa-poms-si-01415-010, locator: "Illinois S S"}
+      - {source: il-dhs-pm-11-01-00, locator: "AABD Cash Assistance is also called State Supplemental Payments (SSP)"}
+  - claim: Illinois AABD amounts depend on individual budgets.
+    verdict: verified
+    detail: The payment is needs minus income, with needs built from personal, shelter, utility and grant-adjustment allowances; the method and all allowance values are encoded, with undated values flagged (DIS-IL-OQ-02) and spouse/parent cases unresolved (DIS-IL-OQ-01).
+    sources:
+      - {source: il-dhs-pm-03-03-02, locator: "The cash payment is the difference"}
+      - {source: il-dhs-pm-11-02-03, locator: "less than their needs by at least $1"}
+  - claim: Illinois is a 209(b) state, so SSI does not automatically confer Medicaid.
+    verdict: verified
+    detail: POMS SI 01715.010 lists Illinois among the eight 209(b) states; AABD medical is applied for with IDHS.
+    sources: [{source: ssa-poms-si-01715-010, locator: "A.1"}]
+  - claim: Illinois's DDS is the IL DHS Bureau of Disability Determination Services.
+    verdict: partly_verified
+    detail: IDHS sources place Disability Determination Services in the Division of Rehabilitation Services; the word "Bureau" was not found in the sources retrieved.
+    sources:
+      - {source: il-dhs-drs-report-2011, locator: "Disability Determination Services"}
+      - {source: il-omb-csfa-230, locator: "Disability Determination Services"}

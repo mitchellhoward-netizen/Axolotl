@@ -1,0 +1,112 @@
+# New York Medicare Savings Program standards. New York publishes its own
+# limits (rounded monthly dollars), so the rules use these tables directly
+# rather than recomputing from the federal poverty guidelines.
+parameters:
+  - id: ny.msp.qmb_fpl_percent
+    description: New York QMB income ceiling, percent of FPL (income at or below).
+    unit: percent_fpl
+    updates: Set by state law (Chapter 56 of the Laws of 2022); changes only by legislation.
+    values:
+      - effective_from: 2023-01-01
+        value: 138
+        confidence: confirmed
+        sources:
+          - {source: ny-gis-22-ma-10, locator: "New FPL levels effective January 1, 2023; 2023 MSP Income limits table"}
+          - {source: ny-gis-26-ma-05-att1, locator: "Non-MAGI Population table: Qualified Medicare Beneficiary (QMB) 138% FPL"}
+  - id: ny.msp.qi_fpl_percent
+    description: New York QI income ceiling, percent of FPL (income above the QMB level and at or below this).
+    unit: percent_fpl
+    updates: State law.
+    values:
+      - effective_from: 2023-01-01
+        value: 186
+        confidence: confirmed
+        sources:
+          - {source: ny-gis-22-ma-10, locator: "Qualifying Individuals (QI): above 138% ... less than or equal to 186%"}
+          - {source: ny-gis-26-ma-05-att1, locator: "Qualifying Individual (QI): Greater than (>)138% but less than or equal to (≤)186% FPL"}
+  - id: ny.msp.qmb_income_limit_monthly
+    description: >-
+      New York QMB monthly income standard (138% FPL), before the $20 disregard.
+      Gross income up to this amount plus $20 qualifies.
+    compare_to: >-
+      Countable income AFTER the $20 disregard and SSI-related earned income disregards. Gross unearned income up to this + $20 qualifies.
+    unit: usd_per_month
+    keyed_by: household_size (1 = individual, 2 = couple)
+    updates: New FPL chart via a GIS each January-February, effective January 1.
+    values:
+      - effective_from: 2026-01-01
+        value: {1: 1836, 2: 2489}
+        confidence: confirmed
+        sources:
+          - {source: ny-gis-26-ma-05-att1, locator: "Non-MAGI Population: Qualified Medicare Beneficiary (QMB) 138% FPL 1,836 2,489"}
+          - {source: ny-doh-msp-2026, locator: "Qualified Medicare Beneficiary Program (QMB): Single $1,836 per month / Couple $2,489"}
+  - id: ny.msp.qi_income_limit_monthly
+    description: New York QI monthly income standard (186% FPL), before the $20 disregard.
+    compare_to: >-
+      Countable income AFTER the $20 disregard and earned income disregards.
+    unit: usd_per_month
+    keyed_by: household_size
+    updates: New FPL chart via a GIS each January-February, effective January 1.
+    values:
+      - effective_from: 2026-01-01
+        value: {1: 2474, 2: 3355}
+        confidence: confirmed
+        sources:
+          - {source: ny-gis-26-ma-05-att1, locator: "Qualifying Individual (QI) ... 2,474 3,355"}
+          - {source: ny-doh-msp-2026, locator: "Qualifying Individual (QI): Single $2,474 per month / Couple $3,355"}
+  - id: ny.msp.qdwi_income_limit_monthly
+    description: New York QDWI monthly income standard (200% FPL), before the $20 disregard and before earned income disregards.
+    compare_to: >-
+      Countable income AFTER the $20 disregard and earned income disregards ($65 + 1/2).
+    unit: usd_per_month
+    keyed_by: household_size
+    updates: New FPL chart each year.
+    values:
+      - effective_from: 2026-01-01
+        value: {1: 2660, 2: 3607}
+        confidence: confirmed
+        sources:
+          - {source: ny-gis-26-ma-05-att1, locator: "Qualified Disabled & Working Individual (QDWI) 200% FPL 2,660 3,607 4,000 6,000"}
+  - id: ny.msp.qdwi_resource_limit
+    description: New York QDWI resource limit.
+    compare_to: >-
+      Countable resources of the individual or couple.
+    unit: usd
+    keyed_by: household_size
+    updates: Rarely (twice the SSI resource limit).
+    values:
+      - effective_from: 2026-01-01
+        value: {1: 4000, 2: 6000}
+        confidence: confirmed
+        sources:
+          - {source: ny-gis-26-ma-05-att1, locator: "QDWI resource level 4,000 6,000"}
+  - id: ny.msp.income_disregard_monthly
+    description: >-
+      The $20 a month SSI general income disregard New York applies to MSP
+      income (one per couple). New York's "+$20" limits are the standards
+      above plus this.
+    unit: usd_per_month
+    updates: Fixed (federal SSI exclusion).
+    values:
+      - effective_from: 2026-01-01
+        value: 20
+        confidence: confirmed
+        sources:
+          - {source: ny-doh-msp-2026, locator: "Note: Medicaid allows a $20 deduction from applicant's gross monthly income when calculating eligibility for MSP."}
+          - {source: ny-mrg-income, locator: "SSI-Related Disregards, UNEARNED INCOME: Only one $20 disregard is permitted per month per couple"}
+  - id: ny.msp.part_b_premium_budgeted_before_fpl_release
+    description: >-
+      Part B premium New York told districts to budget for MSP-only cases dated
+      January 1, 2026 or later until the 2026 FPLs were released (the 2025
+      premium), together with the 2025 Social Security amount.
+    unit: usd_per_month
+    updates: Each January, by GIS.
+    values:
+      - effective_from: 2026-01-01
+        effective_to: 2026-02-16
+        value: 185.00
+        confidence: confirmed
+        note: effective_to is the day before 2026 FPLs became available in MBL (Feb 17, 2026, per GIS 26 MA/05); GIS 26 MA/05 then required re-budgeting retroactive to January 1.
+        sources:
+          - {source: ny-gis-26-ma-03, locator: "Note: ... MSP-only cases ... re-budgeted using the 2025 Social Security benefit amount and the 2025 Medicare Part B premium amount of $185.00 until the 2026 FPLs are released."}
+          - {source: ny-gis-26-ma-05, locator: "The updated levels will be available in MBL on February 17, 2026"}
