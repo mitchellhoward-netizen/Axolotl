@@ -1,0 +1,104 @@
+SNAP Budget Worksheet — effective 10/1/26 through 9/30/27
+1 Gross monthly earned income
+
+2 Monthly unearned income
+
+3 Gross income: add Lines 1 and 2
+
+4 Child support paid
+5 Adjusted gross income: Line 3 minus Line 4
+Cannot exceed correct gross income test—see reverse side
+
+6 Earned income deduction: Line 1 multiplied by 20%
+
+7 Enter Standard deduction—see reverse side
+
+8 Dependent care: use actual costs
+
+9 Homeless deduction—see reverse side
+10 Medical expenses over $35/month
+Available only to elderly/disabled household members
+
+11 Total deductions: add Lines 6 through 10
+12 Adjusted income: Line 5 minus Line 11
+If the amount is a negative number, enter $0.
+
+13 Rent/mortgage
+
+14 Standard Utility Allowance (SUA)—see reverse side
+
+15 Other shelter (taxes, etc)
+
+16 Total shelter expenses: add Lines 13 through 15
+
+17 Divide adjusted income (Line 12) by 2
+17a Shelter excess: Line 16 minus Line 17. If the amount is greater than $769, enter
+$769. If there are elderly/disabled household members, enter the full dollar amount.
+If the amount is a negative number, enter $0.
+18 Net income: Line 12 minus Line 17a.
+If the amount is a negative number, enter $0.
+Only for households that are not categorically eligible
+
+19 Maximum SNAP benefit amount—see reverse side
+
+20 Net income (Line 18) multiplied by 30%
+
+21 Estimated benefit: Line 19 minus Line 20
+All one- and two-person households that pass the net income test or are categorically
+eligible automatically receive a minimum $25 allotment, even if Line 21 is less than $25.
+Categorically eligible households with 3 or more members who yield a zero or negative
+monthly SNAP benefit (Line 21) will not be eligible for SNAP benefits.
+
+HungerSolutionsNY.org
+9/2026. This material was funded, in part, by the USDA’s Supplemental Nutrition Assistance Program – SNAP.
+This institution is an equal opportunity provider.
+
+SNAP Standards & Deductions Reference Sheet
+All effective 10/1/26 through 9/30/27
+Federal Poverty Limit (FPL) Monthly Gross Income Test by Household Size
+Household Size 200% FPL 150% FPL 130% FPL 165% FPL 100% FPL
+1 $2,660 $1,995 $1,729 $2,195 $1,330
+2 $3,607 $2,705 $2,345 $2,976 $1,804
+3 $4,553 $3,415 $2,960 $3,757 $2,277
+4 $5,500 $4,125 $3,575 $4,538 $2,750
+5 $6,447 $4,835 $4,191 $5,319 $3,224
+6 $7,393 $5,545 $4,806 $6,100 $3,697
+7 $8,340 $6,255 $5,421 $6,881 $4,170
+8 $9,287 $6,965 $6,037 $7,662 $4,644
+Each Additional
++$947 +$710 +$616 +$781 +$474
+Person
+
+200% FPL: Households with elderly/disabled members or out-of-pocket dependent care costs
+150% FPL: Households with earned income that do not meet 200% criteria
+130% FPL: Households not meeting criteria for 200% or 150%
+165% FPL: Only for severely disabled and elderly people with disabilities living with others
+and unable to purchase and prepare their own food
+100% FPL: Households that are not categorically eligible must meet a net income test
+
+Standard Deductions Maximum SNAP Benefit
+Amounts (Thrifty Food Plan)
+Household Size Amount
+1-3 $217 Household Size Maximum Benefit
+1 $306
+4 $229
+5 $268 2 $562
+
+6+ $308 3 $808
+
+Standard Utility Allowances (SUA) 4 $1,023
+
+5 $1,217
+Level 1 Level 2 Level 3
+New York City $1,100 $434 $33 6 $1,463
+
+Nassau & Suffolk Counties $1,023 $402 $33 7 $1,616
+
+Rest of State $908 $368 $33 8 $1,841
+Each Additional
+Other +$225
+Person
+Homeless Shelter Deduction: $205.66
+Maximum Shelter Deduction: $769.00
+Minumum SNAP Benefit for One & Two Person Households: $25.00
+Resource Limits: $4,750 for Hh with senior/disabled member, $3,000 for all other households

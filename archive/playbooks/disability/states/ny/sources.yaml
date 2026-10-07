@@ -4,6 +4,12 @@
 # be saved. The SSP amounts rest on the statute (Social Services Law 209, from
 # nysenate.gov, saved with a headless browser because the site requires
 # JavaScript) and NY DOH's GIS 26 MA/03 (already in the MSP playbook).
+# Second pass (same day): otda.ny.gov still served only an F5 JavaScript
+# challenge to Playwright (headful under Xvfb, desktop user agent, network-idle
+# waits) and HTTP 503 to WebFetch; web.archive.org was unreachable; a NY DOH
+# Dear Administrator Letter on the 2014 change (DAL 14-23) returned 404/403.
+# OTDA's SSP regulation, 18 NYCRR Part 398, was found in Cornell LII's copy
+# (secondary: third-party hosting).
 sources:
   - id: ny-ssl-209
     retrieved: 2026-10-07
@@ -33,3 +39,33 @@ sources:
     jurisdiction: ny
     doc_type: other
     note: Old (fiscal year 2006-07) but an official state document naming OTDA's Division of Disability Determinations.
+  - id: ny-nycrr-398-1-1-lii
+    retrieved: 2026-10-07
+    url: https://www.law.cornell.edu/regulations/new-york/18-NYCRR-398-1.1
+    publisher: Legal Information Institute, Cornell Law School (copy of 18 NYCRR)
+    title: 18 NYCRR 398-1.1 — State Supplement Program, scope and purpose (third-party copy)
+    kind: secondary
+    jurisdiction: ny
+    doc_type: regulation
+    effective_date: 2014-10-01
+    note: Third-party hosting of OTDA's SSP regulation (Part 398 adopted NYS Register September 24, 2014, eff. 10/1/2014; amended eff. 1/13/2021, per LII's notes). The official NYCRR (govt.westlaw.com) and NYS Register (dos.ny.gov) refused scripted and browser requests.
+  - id: ny-nycrr-398-2-1-lii
+    retrieved: 2026-10-07
+    url: https://www.law.cornell.edu/regulations/new-york/18-NYCRR-398-2.1
+    publisher: Legal Information Institute, Cornell Law School (copy of 18 NYCRR)
+    title: 18 NYCRR 398-2.1 — State Supplement Program definitions (third-party copy)
+    kind: secondary
+    jurisdiction: ny
+    doc_type: regulation
+    effective_date: 2014-10-01
+    note: Third-party hosting; adopted eff. 10/1/2014, amended eff. 1/13/2021 (per LII's notes).
+  - id: ny-nycrr-398-4-1-lii
+    retrieved: 2026-10-07
+    url: https://www.law.cornell.edu/regulations/new-york/18-NYCRR-398-4.1
+    publisher: Legal Information Institute, Cornell Law School (copy of 18 NYCRR)
+    title: 18 NYCRR 398-4.1 — Eligibility for SSP (third-party copy)
+    kind: secondary
+    jurisdiction: ny
+    doc_type: regulation
+    effective_date: 2014-10-01
+    note: Third-party hosting; adopted eff. 10/1/2014, amended eff. 1/13/2021 (per LII's notes).

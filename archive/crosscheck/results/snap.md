@@ -1,6 +1,6 @@
 # PolicyEngine US cross-check: snap
 
-PolicyEngine US 2.29.14, run 2026-10-07. 46 of 65 households agree.
+PolicyEngine US 2.29.14, run 2026-10-07. 50 of 72 households agree.
 
 "Ours (federal minimum)" reruns our shared federal logic without the state's own rules; where PolicyEngine models only federal rules, that column isolates logic errors from policy differences.
 
@@ -63,6 +63,8 @@ PolicyEngine US 2.29.14, run 2026-10-07. 46 of 65 households agree.
 | SNAP-NY-T14 | ny | ineligible | eligible | NO | — | — | New York BBCE scope. PolicyEngine gives every New York household an unlimited asset limit under BBCE (its parameter comment notes the earned-income/dependent-care restriction is "not currently implemented"). OTDA's GIS 25 DC059 extends categorical eligibility only to households with earned income (150%) or with an aged/disabled member or dependent care costs (200%); this household has none of these, so the $3,000 resource limit applies and its $3,500 savings make it ineligible (SNAP-NY-NO-BBCE-OTHER). |
 | SNAP-NY-T15 | ny | eligible | eligible | yes | — | — |  |
 | SNAP-NY-T16 | ny | eligible | eligible | NO | — | — | New York utility allowances. PolicyEngine treats New York as a state where every household gets the full Heating/Air Conditioning SUA (utility/always_standard = true for NY). OTDA's GIS 25 DC059 has three separate SUAs; the archive gives the HT/AC SUA only to households paying heating/cooling (or, after Public Law 119-21, HEAP households with an aged/disabled member), the Utility SUA ($355 upstate) to households with two or more other utility bills, the Phone SUA to phone-only households, and nothing when all utilities are in the rent (SNAP-NY-SUA, SNAP-NY-HEAP-SUA; in NY-T22 the HEAP payment no longer confers the SUA on a household without an elderly or disabled member). |
+| SNAP-NY-T17 | ny | eligible | eligible | NO | — | — | **UNEXPLAINED** |
+| SNAP-NY-T18 | ny | eligible | eligible | NO | — | — | **UNEXPLAINED** |
 | SNAP-NY-T19 | ny | eligible | eligible | NO | — | — | New York utility allowances. PolicyEngine treats New York as a state where every household gets the full Heating/Air Conditioning SUA (utility/always_standard = true for NY). OTDA's GIS 25 DC059 has three separate SUAs; the archive gives the HT/AC SUA only to households paying heating/cooling (or, after Public Law 119-21, HEAP households with an aged/disabled member), the Utility SUA ($355 upstate) to households with two or more other utility bills, the Phone SUA to phone-only households, and nothing when all utilities are in the rent (SNAP-NY-SUA, SNAP-NY-HEAP-SUA; in NY-T22 the HEAP payment no longer confers the SUA on a household without an elderly or disabled member). |
 | SNAP-NY-T20 | ny | eligible | eligible | yes | — | — |  |
 | SNAP-NY-T22 | ny | eligible | eligible | NO | — | — | New York utility allowances. PolicyEngine treats New York as a state where every household gets the full Heating/Air Conditioning SUA (utility/always_standard = true for NY). OTDA's GIS 25 DC059 has three separate SUAs; the archive gives the HT/AC SUA only to households paying heating/cooling (or, after Public Law 119-21, HEAP households with an aged/disabled member), the Utility SUA ($355 upstate) to households with two or more other utility bills, the Phone SUA to phone-only households, and nothing when all utilities are in the rent (SNAP-NY-SUA, SNAP-NY-HEAP-SUA; in NY-T22 the HEAP payment no longer confers the SUA on a household without an elderly or disabled member). |
@@ -71,3 +73,8 @@ PolicyEngine US 2.29.14, run 2026-10-07. 46 of 65 households agree.
 | SNAP-NY-T23 | il | eligible | eligible | NO | — | — | Illinois standard deduction. IDHS budgets $205 for 1-3 people in FY 2026 (MR #25.33; $213 in FY 2027, MR #26.26), $4 below the FNS table ($209) that PolicyEngine uses for every state; net income is $4-6 higher in the archive and the benefit $2 lower. The reason for Illinois' lower figure is open (SNAP-IL-CONFLICT-01, SNAP-IL-OQ-01). |
 | SNAP-X-01 | ny | eligible | eligible | yes | — | — |  |
 | SNAP-X-01B | ny | eligible | eligible | yes | — | — |  |
+| SNAP-NY-T24 | ny | eligible | eligible | yes | — | — |  |
+| SNAP-NY-T25 | ny | ineligible | ineligible | yes | — | — |  |
+| SNAP-NY-T26 | ny | eligible | eligible | yes | — | — |  |
+| SNAP-NY-T27 | ny | ineligible | ineligible | yes | — | — |  |
+| SNAP-NY-T28 | ny | eligible | eligible | NO | — | — | **UNEXPLAINED** |

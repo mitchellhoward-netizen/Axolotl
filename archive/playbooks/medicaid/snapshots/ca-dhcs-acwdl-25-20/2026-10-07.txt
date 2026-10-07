@@ -1,0 +1,776 @@
+DATE: October 31, 2025
+
+TO: ALL COUNTY WELFARE DIRECTORS Letter No.:25-20
+ALL COUNTY WELFARE ADMINISTRATIVE OFFICERS
+ALL COUNTY MEDI-CAL PROGRAM SPECIALISTS/LIAISONS
+ALL COUNTY HEALTH EXECUTIVES
+ALL COUNTY MENTAL HEALTH DIRECTORS
+ALL COUNTY MEDS LIAISONS
+
+SUBJECT: RESUMPTION OF ASSET VERIFICATION PROGRAM OPERATIONS
+DUE TO ASSET LIMIT REINSTATEMENT
+(References: All County Welfare Directors Letter (ACWDL) 25-14, 25-09,
+23-29, 22-33, 22-13E, 22-12, 21-24, 21-23, 21-12, 19-17E, 17-37, 17-26E,
+and Medi-Cal Eligibility Division Information Letter (MEDIL) I 22-49, I 21-
+42, I 21-03, I 17-05)
+
+Purpose
+
+The purpose of this All County Welfare Directors Letter (ACWDL) is to inform counties
+that Asset Verification Program (AVP) operations will resume due to the reinstatement
+of asset limits for all Long-Term Care (LTC) and non-LTC Aged, Blind, and Disabled
+(ABD) applicants, members, and their responsible relatives (RRs) effective January 1,
+2026. This ACWDL consolidates previous DHCS guidance on AVP and reminds
+counties of actions to be taken when determining eligibility for Non-MAGI Medi-Cal
+cases requiring an asset test at application, change in circumstance (CIC), and annual
+renewal.
+
+Authority
+
+Federal law (42 United States Code Section 1396w [Section 1940 of the Federal Social
+Security Act]) requires California’s Medicaid program, Medi-Cal, to maintain an
+electronic AVP to detect unreported assets for applicants, members, and their RRs.
+Welfare & Institutions Code (WIC) Section 14013.5 outlines the requirements of
+California’s AVP.
+
+Background
+
+DHCS conducted a test pilot program from January 2017 through March 2017. As
+outlined in MEDIL I 17-05 and ACWDL 17-37, the pilot aimed to assess a new AVP and
+its ability to identify undisclosed assets that may exceed property reserve limits. The
+success of the pilot program resulted in a phased rollout, beginning with monthly AVP
+reports for LTC annual redeterminations, and gradually increasing scope to include
+
+California Department of Health Care Services State of California
+Medi-Cal Eligibility Division Gavin Newsom, Governor
+1501 Capitol Avenue | Sacramento, CA | 95899-7413
+MS 4607 | Phone (916) 552-9200 | www.dhcs.ca.gov California Health and Human Services Agency
+
+Letter No.: 25-20
+Page 2
+October 31, 2025
+
+reports for all ABD annual redeterminations. This expansion occurred alongside report
+automation and request functionality programming in the Medi-Cal Eligibility Data
+System (MEDS) and the Statewide Automated Welfare System (SAWS) allowing
+County Eligibility Workers (CEWs) to order AVP for applications, CIC, and RR requests.
+
+In 2021, several health measures were consolidated in Assembly Bill (AB) 133 as part
+of the Health Omnibus Bill of 2021-2022. AB 133 added section 14005.62 to the
+Welfare and Institutions Code (WIC), which established a two-phased approach to
+eliminating the asset limits for Non-MAGI Medi-Cal programs:
+
+• Phase I: Increased the asset limits to $130,000 person and $65,000 for each
+additional household member (up to a maximum of 10 people) effective July 1,
+2022.
+• Phase II: Eliminated the asset limits for all Non-MAGI programs, effective
+January 1, 2024.
+o In accordance with ACWDL 23-29, AVP is used only to determine whether
+ABD applicants or members seeking coverage for LTC transferred assets
+for less than fair market value during the federally-mandated five-year
+lookback period. Starting with applications and renewals dated on or
+after January 1, 2026, CEWs must resume normal business
+processes as outlined in this ACWDL.
+
+The 2025-2026 Health Omnibus Bill, AB 116, amends section 14005.62 of the Welfare
+and Institutions Code (WIC) to remove the subdivision which had eliminated the asset
+limits for all Non-MAGI programs, and reenacts sections of the WIC to reinstate the
+consideration of resources, including property and other assets, when making Medi-Cal
+eligibility determinations, no sooner than January 1, 2026. An asset test will be required
+for all impacted Non-MAGI programs, including the Medicare Savings Programs (MSP)
+and LTC programs, at application, CIC, and annual renewal. The Pickle, Disabled Adult
+Child (DAC), and Disabled Widow/er (DW) programs are under separate federal waiver
+authority and are currently exempt from the new requirements.
+
+Changes to AVP Review Requirements at Application, and Change in
+Circumstance, and Annual Renewal Effective January 1, 2026
+
+Effective January 1, 2026, the asset limit will be reinstated and set to $130,000 for one
+person and $65,000 for each additional person (up to 10 maximum). CEWs must follow
+the modified asset verification review requirements at application, CIC, and annual
+renewal below.
+
+Letter No.: 25-20
+Page 3
+October 31, 2025
+
+I: Application and Change in Circumstance
+
+Weekly Batch Process/AVP Requests Submitted by CEWs
+
+Each week, CEWs will submit AVP requests for applications, reported and unreported
+CIC1, and RR searches in the MEDS2 or the SAWS by 5pm PT each Friday. For RRs
+who are not applying for coverage and are not known to MEDS, CEWs must submit
+requests through a manual process by 5pm PT each Wednesday. DHCS will distribute
+updated instructions on submitting non-applying RR requests to counties via CWDA
+following the publication of this ACWDL.
+
+Submitted requests, including non-applying RRs, are compiled by DHCS on Friday
+evening and are sent to LexisNexis for processing on Monday morning. Requests in this
+batch cycle are processed at a volume of about 6,000 per week.
+
+Request Rejections
+Requests that could not be sent to LexisNexis due to an invalid SSN or address will be
+returned to CEWs the following week for revision and resubmission. If CEWs do not
+receive a rejection email, then it indicates that there were no rejections for that week.
+
+For successful AVP requests, LexisNexis returns the response file to DHCS within 12-
+14 calendar days. DHCS will distribute the response file to CalSAWS 1-3 business days
+later.
+
+Below is a visualization of the weekly batch process and timeline:
+
+Batch Target AVP Requests Timeline
+Process Population(s) Submitted By
+Weekly Applications, CEWs via Request file Response Response
+Change in MEDS or picked up file file received
+Circumstance, SAWS by 5pm and received by CEWs via
+and PT each Friday submitted by DHCS SAWS 1-3
+Responsible (manual) by vendor within 12- business
+Relative each 14 days later
+Searches Monday calendar
+days
+
+1
+Counties shall not send out a Medi-Cal Request for Information form (MC 355)
+requesting asset information for reported changes unrelated to assets.
+22 ACWDL
+ACWDL 21-2421-24 and
+and MEDIL MEDIL
+I 21-42 provideI guidance
+21-42 on provide guidance
+how to submit on how
+AVP requests in
+MEDS with expectations for appropriate use.
+to submit AVP requests in MEDS with expectations for
+appropriate use.
+
+Letter No.: 25-20
+Page 4
+October 31, 2025
+
+Reminders and Useful Tips for Submitting AVP Requests
+
+Constraints
+• AVP cannot be ordered in SAWS or MEDS for individuals with no SSN,
+pseudo SSN, or SSN that has not yet been verified in MEDS. For ABD
+applicants and RRs with no SSN or pseudo SSN, CEWs must request
+administrative verification of all assets.
+• Determine whether RRs not known to MEDS are applying for benefits. If
+applying, wait for the SSN to be verified in MEDS before requesting AVP
+electronically. If not applying, utilize the manual process.
+
+Lookback Period
+• Both MEDS and SAWS have lookback indicator functionality, allowing CEWs
+to differentiate between LTC and non-LTC AVP requests. Marking the LTC
+indicator in either system will result in a request for asset information with a
+60-month lookback period, while marking the non-LTC indicator will result in a
+90-day lookback period.
+• The lookback period is calculated based on the date the request is submitted
+to the vendor, not when it is submitted in MEDS or SAWS.
+
+Request Tracking
+• There is no mechanism to prevent the request of asset verification inquiries
+for non-ABD individuals.
+• Improperly submitted requests will result in additional costs to DHCS and
+unnecessary response data returning to the county. Therefore, CEWs must
+carefully track AVP request submissions and remain mindful of the
+demographics subject to AVP reporting requirements.
+
+Fair Credit Reporting Act (FCRA)
+• Consumer information obtained via the asset verification reports is protected
+under the provisions of the Fair Credit Reporting Act (FCRA). The presence
+of an AVP response will subject the case to the FCRA requirements as set
+forth in ACWDL 21-23.
+
+Data Longevity
+• All data received from the AVP reports are valid for 90 days. CEWs must
+consider attested values and the timeliness of AVP response when
+
+Letter No.: 25-20
+Page 5
+October 31, 2025
+
+adjudicating eligibility. Please refer to the section “Use of Self-Attestation and
+Reasonable Compatibility for Non-MAGI Eligibility Determinations” and
+“Determining Counts,” below, for more information.
+
+II: Annual Renewal
+
+Monthly Batch Process/Requests Submitted by DHCS
+
+After MEDS renewal, DHCS compiles AVP requests for all ABD LTC and Non-LTC
+Medi-Cal members with an upcoming annual renewal. Annual renewal requests are
+submitted two months prior to their redetermination date in MEDS (for example,
+members with a redetermination due in June 2026 will have their AVP requests
+submitted in April 2026).
+
+LexisNexis picks up the request file between the 1st and 5th of each month and returns
+the response file to DHCS within 12-14 calendar days. DHCS will distribute the
+response file to CalSAWS 1-3 business days later.
+
+Below is a visualization of the monthly batch process and timeline:
+
+Batch Target AVP Requests Timeline
+Process Population(s) Submitted By
+Monthly Annual DHCS after Request file Response Response
+Renewals MEDS renewal picked up file file received
+(automatic) and received by CEWs via
+submitted by DHCS SAWS 1-3
+by vendor on or business
+between 1st before the days later
+and 5th of 15th of
+each month each
+month
+N/a Response file (spreadsheet format)
+received by participating counties after
+the 20th of each month
+
+IMPORTANT: DHCS will transmit annual renewal AVP request files in November and
+December 2025 to ensure AVP results are available prior to the mailing of renewal
+packets for the January and February 2026 renewal populations. These early
+transmissions are necessary to ensure counties process annual renewals in compliance
+with the reinstated asset limit requirements effective January 1, 2026. For these two
+renewal months, the AVP results will be viewable exclusively in MEDS via the Financial
+
+Letter No.: 25-20
+Page 6
+October 31, 2025
+
+Institution, Real Property, Aircraft, and Watercraft screens. For more information about
+these screens, please refer to MEDIL I 21-03. DHCS will also redistribute the MEDS
+Manual update showing step-by-step instructions for accessing these screens to CWDA
+and/or county AVP contact(s). DHCS and CalSAWS are working together to re-
+establish the annual renewal batch process, with work efforts currently underway to
+validate timelines, system readiness, and data accuracy. AVP reports for applications,
+CIC, and RR searches (weekly batch process) are already available for use in SAWS
+and MEDS.
+
+Use of Self-Attestation and Reasonable Compatibility for Non-MAGI Eligibility
+Determinations
+
+The Centers for Medicare & Medicaid Services (CMS) permit the use of attested
+information that is “reasonably compatible” with electronic data sources to streamline
+Non-MAGI eligibility determinations. 3 Self-attestation by an individual, or attestation by
+the individual’s household, family member, or authorized representative, is unverified
+information collected during the application process. CEWs must determine whether
+attested values are reasonably compatible with electronic data sources, such as the
+asset verification reports. If both the attested value and the electronic data are at or
+below the asset limits, they are considered reasonably compatible. CEWs must rely on
+attested asset information provided during the application process, wherever possible,
+and subsequently verify that information using the AVP reports pre or post Medi-Cal
+enrollment as stipulated in 42 CFR § 435.945.
+
+For applicants and RRs without an SSN, CEWs must accept self-attestation and
+administratively verify the information provided, if applicable. As the use of attested
+values can expedite the provision of care, CEWs should facilitate use of the SAWS2
+Plus in lieu of the Single Streamlined Application (SSApp) for applicants with a property
+component to their eligibility determination wherever possible.
+
+To be accepted within the context of California’s AVP, attestation must include:
+• The minimum necessary information for all asset types listed in MEDIL I 22-49
+(defined as “complete attestation”); and/or,
+• An attested absence of asset(s). For example:
+o Client states they do not have any assets during intake; or,
+
+3 See, Streamlined Eligibility and Enrollment for Non-MAGI Populations, p. 16.
+https://www.medicaid.gov/state-resource-center/mac-learning-collaboratives/
+downloads/non-magi-populations.pdf.
+
+Letter No.: 25-20
+Page 7
+October 31, 2025
+
+o Client states they do not have any assets under penalty of perjury 4.
+
+As of January 1, 2026, CEWs must grant Medi-Cal eligibility for all LTC and non-LTC
+ABD applicants and their RRs if:
+
+• The attested asset information and/or information found on electronic verification
+sources are at, or under $130,000 for one person and $65,000 for each
+additional person (up to 10 maximum).
+
+A complete attestation (and/or the attested absence of asset(s)) is needed to approve
+eligibility using this method. However, attestation cannot be accepted for trusts
+(including special needs trusts), annuities, and Spousal Impoverishment (SI) cases. For
+these scenarios, CEWs must continue to obtain administrative verification and follow
+standard eligibility approval procedures.
+
+Attested values can be used to expedite the approval of Medi-Cal, but they cannot be
+used to maintain benefits in the absence of AVP reports or administrative verification. If
+eligibility is approved based on attested values, please refer to Member/CIC Scenarios
+#1-3 on pages 11-13 for actions to be taken based on the timely receipt or non-receipt
+of the AVP report.
+
+Ex-Parte Processing
+
+Consistent with federal and state policy, counties must conduct ex-parte reviews at the
+start of processing an application, CIC, or annual redetermination for Medi-Cal. This
+process allows CEWs to use existing case information, AVP results, and other
+electronic data sources to complete eligibility determinations without contacting the
+individual, provided all necessary information is available and the case meets
+reasonable compatibility standards. Ex-parte processing helps minimize delays, reduce
+administrative burden, and ensure uninterrupted access to coverage for eligible
+individuals.
+
+CMS previously granted DHCS Section 1902(e)(14)(A) waiver flexibilities for use in ex-
+parte eligibility determinations and redeterminations during the Public Health
+Emergency (PHE) and Continuous Coverage Unwinding Period. The following waiver
+flexibilities, once used for AVP, were sunset as of June 30, 2025:
+
+4 See, ACWDL 21-12 for affidavits signed under penalty of perjury; See, ACWDL 19-17E
+4
+forSee, ACWDL
+telephonic 21-12 for
+and electronic affidavits
+signature signed for
+requirements under penalty of perjury; See,
+affidavits.
+ACWDL 19-17E for telephonic and electronic signature requirements
+4 See,
+for ACWDL 21-12 for affidavits signed under penalty of perjury; See,
+affidavits.
+ACWDL 19-17E for telephonic and electronic signature requirements
+
+Letter No.: 25-20
+Page 8
+October 31, 2025
+
+1. Renew Medi-Cal eligibility without regard to the asset test for Non-MAGI
+members subject to an asset test (prior to January 1, 2024).
+2. Renew Medi-Cal for individuals for whom Asset Verification data is not returned
+or returned within a reasonable timeframe
+Due to the sunsetting of Section 1902(e)(14)(A) waiver flexibilities, the application, CIC,
+and annual renewal scenarios as presented in ACWDL 22-13E are obsolete. Please
+refer to the scenarios below for the most up-to-date information.
+
+However, despite the sunset of waiver flexibilities, DHCS will continue to maintain the
+reasonable timeframe counts for AVP reports established in MEDIL I 22-20E to simplify
+the ex-parte process and provide counties with a deadline for when administrative
+verification must be requested due to the non-receipt or untimely receipt of AVP reports.
+
+Determining Counts
+• The 20- calendar day reasonable timeframe count applies to applications, CIC,
+and RR searches (weekly batch process) and must begin on the Monday after
+counties request the AVP report in MEDS or SAWS.
+• The 30- calendar day reasonable timeframe count applies to annual renewals
+(monthly batch process) and must begin on the 5th of each month.
+• If either the Monday or the 5th of the month falls on a weekend or holiday, CEWs
+must begin the reasonable timeframe count on the following business day.
+
+Application and CIC scenarios and actions CEWs must take to determine or
+redetermine eligibility for Non-MAGI Medi-Cal programs requiring an asset test
+(effective January 1, 2026):
+
+Application Scenario Actions CEWs Must Take
+• Complete Calculate property reserve using the most recent
+attestation is values from the AVP report (do not document AVP
+provided report values in the case file). For asset(s) not
+1. detected by the AVP report, utilize attested or
+• AVP report is
+received within administratively verified values in the case file to
+20- calendar day determine eligibility. If present, administratively
+timeframe verified values should be used in lieu of attested
+• (This scenario values.
+assumes the
+application is still Example 1: John attested to owning a Bank of
+pending approval) America checking account with a $500 balance which
+is documented in the case file, but the AVP report
+
+Letter No.: 25-20
+Page 9
+October 31, 2025
+
+Application Scenario Actions CEWs Must Take
+N/a N/a does not detect the account. In this scenario, CEWs
+would use the attested value of $500 when
+calculating the property reserve.
+
+Under limit: The attested and AVP report values are
+reasonably compatible. Approve Medi-Cal eligibility
+and do not request further verification of assets.
+
+Over limit: The attested and AVP report values are
+not reasonably compatible. Request administrative
+verification of assets such as banking statements
+and/or property valuation reports and follow normal
+business processes to complete the eligibility
+determination.
+
+NOTE: Counties must follow Second Contact
+requirements prior to denial at application to
+obtain necessary verifications. Please refer to
+Second Contact guidance reminders and
+scenario examples in ACWDL 22-12.
+
+• Complete Calculate property reserve using attested value(s).
+attestation is
+2. provided Under limit: Approve Medi-Cal eligibility and
+• AVP report is not recalculate property reserve once AVP report is
+received but still received. Refer to Member/CIC Scenarios #1-3 on
+within 20- pages 11-13 for next steps to be taken.
+calendar day
+timeframe Over limit: Request administrative verification of
+• (This scenario assets such as banking statements and/or property
+assumes the valuation reports and recalculate the property reserve
+application is still to determine eligibility.
+pending approval)
+NOTE: Counties must follow Second Contact
+requirements prior to denial at application to
+obtain necessary verifications. Please refer to
+Second Contact guidance reminders and
+scenario examples in ACWDL 22-12.
+
+Letter No.: 25-20
+Page 10
+October 31, 2025
+
+Application Scenario Actions CEWs Must Take
+• Complete Calculate property reserve using attested value(s).
+attestation is
+3. provided Under limit: Reasonable compatibility cannot be
+• AVP report is not established. Request administrative verification of
+received within assets, such as banking statements and/or property
+20-calendar day valuation reports, and reconcile attested value(s) with
+timeframe administratively verified values to determine eligibility.
+• (This scenario Document in the case file that ex-parte review was
+assumes the unsuccessful due to the non-receipt or untimely
+application is still receipt of the AVP report.
+pending approval)
+Over limit: Request administrative verification of
+assets such as banking statements and/or property
+valuation reports and recalculate the property reserve
+to determine eligibility. Document in the case file that
+ex-parte review was unsuccessful due to the non-
+receipt or untimely receipt of the AVP report.
+
+NOTE: Counties must follow Second Contact
+requirements prior to denial at application to
+obtain necessary verifications. Please refer to
+Second Contact guidance reminders and
+scenario examples in ACWDL 22-12.
+
+• No or incomplete Application is incomplete.
+attestation A determination of eligibility cannot be made until
+4. provided complete attestation is obtained. Request the MC 604
+• AVP report is not IPS and other supplemental forms necessary for Non-
+received but still MAGI eligibility determinations in accordance with
+within 20- ACWDL 17-26E. CEWs can also obtain attestation
+calendar day via writing, telephone or in-person interview.
+timeframe
+NOTE: Counties must follow Second Contact
+requirements prior to denial at application to
+obtain necessary verifications. Please refer to
+Second Contact guidance reminders and
+scenario examples in ACWDL 22-12.
+
+If/when a complete attestation is obtained, please
+follow Application Scenario # 1 or 2 above.
+
+Letter No.: 25-20
+Page 11
+October 31, 2025
+
+Application Scenario Actions CEWs Must Take
+N/a N/a N/a
+• No or incomplete Application is incomplete.
+attestation A determination of eligibility cannot be made until
+5. provided complete attestation is obtained. Request the MC 604
+• AVP report is not IPS and other supplemental forms necessary for Non-
+received within MAGI eligibility determinations in accordance with
+20- calendar-day ACWDL 17-26E. CEWs can also obtain attestation
+timeframe via writing, telephone, or in-person interview.
+
+NOTE: Counties must follow Second Contact
+requirements prior to denial at application to
+obtain necessary verifications. Please refer to
+Second Contact guidance reminders and
+scenario examples in ACWDL 22-12.
+
+If/when a complete attestation is obtained, please
+follow Scenario # 3 above.
+
+Member/CIC Scenario* Actions CEWs Must Take
+• Eligibility was Recalculate property reserve using the most recent
+1. approved based values from the AVP report (do not document AVP
+on complete report values in the case file) and information known
+attestation in the case file for asset(s) not detected by the AVP
+• AVP report is report. Values for asset(s) not detected by the AVP
+received within report can include attested or administratively verified
+20- calendar day values. If present, administratively verified values
+timeframe should be used in lieu of attested values.
+
+Example 1: Jennifer attested to owning a checking
+account at Golden 1 Credit Union with a $500
+Note: This scenario is a balance, which is documented in the case file. She
+continuation of was approved for Medi-Cal based on attested values,
+Application Scenario #2. but the AVP report does not detect the Golden 1
+checking account when it returns. In this scenario,
+CEWs would use the attested value of $500 when
+recalculating the property reserve.
+
+Letter No.: 25-20
+Page 12
+October 31, 2025
+
+Member/CIC Scenario* Actions CEWs Must Take
+N/a N/a Example 2: Ernesto was approved for Medi-Cal
+based on attested values and a previously verified
+Mechanics Bank trust account valued at $50,000. All
+assets were documented in the case file,
+but the AVP report does not detect the trust account
+when it returns. In this scenario, CEWs would use the
+administratively verified value of $50,000 when
+recalculating the property reserve if the verification is
+90 or less days old (new trust documentation must be
+requested if over 90 days old).
+
+Under limit: The attested and AVP report values are
+reasonably compatible. Maintain Medi-Cal eligibility
+and do not request further verification of assets
+(including closed accounts and those not detected by
+the AVP report).
+
+Over limit: The attested and AVP report values are
+not reasonably compatible. Request administrative
+verification of all assets, including closed accounts
+and those asset(s) not detected by the AVP report,
+with banking statements and/or property valuation
+reports. Redetermine eligibility in accordance with 42
+CFR § 435.916(d) and W&I Section 14005.37.
+
+• Eligibility was Maintain Medi-Cal eligibility. If AVP report is received,
+2. approved based recalculate property reserve and take action in
+on complete accordance with Member/CIC Scenario #1. If AVP
+attestation report is not received, take action in accordance with
+• AVP report is not Member/CIC Scenario #3.
+received but still
+within 20-
+calendar day
+timeframe
+
+Note: This scenario is a
+continuation of
+Application Scenario #2.
+
+Letter No.: 25-20
+Page 13
+October 31, 2025
+
+Member/CIC Scenario* Actions CEWs Must Take
+• Eligibility was If after the 30-day period following the mailing of the
+3. approved based MC 355 and the second attempted contact, the
+on complete member does not provide the administrative
+attestation verification of assets requested, the county shall send
+• AVP report is not a timely 10-day NOA explaining the reason for
+received within discontinuance from Medi-Cal.
+20- calendar day
+timeframe
+
+Note: This scenario is a
+continuation of
+Application Scenario #2.
+
+• Member reports a Recalculate property reserve using the most recent
+4. CIC or values from the AVP report (do not document AVP
+• There is an report values in the case file) and information known
+unreported CIC in the case file for asset(s) not detected by the AVP
+(e.g., client turns report. Values for asset(s) not detected by the AVP
+65 and is being report can include attested or administratively verified
+evaluated for values. If present, administratively verified values
+Non-MAGI Medi- should be used in lieu of attested values.
+Cal)
+• AVP report is Example 1: At application, Nathan attested to owning
+received within a checking account at Umpqua Bank with a $500
+20- calendar day balance. During the initial run, the AVP report
+timeframe detected the Umpqua Bank account but because his
+attestation was reasonably compatible with the AVP
+report, the $500 value was documented in the case
+file.
+AVP is run after Nathan reports a CIC, and it
+does not detect the Umpqua Bank account. In
+this scenario, CEWs would use the attested
+value of $500 when recalculating the property
+reserve.
+
+Example 2: Sharice turned 65 and is being evaluated
+for Non-MAGI Medi-Cal. As part of her evaluation,
+she provides administrative verification of a Wells
+
+Letter No.: 25-20
+Page 14
+October 31, 2025
+
+Member/CIC Scenario* Actions CEWs Must Take
+N/a N/a Fargo trust account valued at $50,000. The AVP
+report does not detect the Wells Fargo trust when it
+returns. In this scenario, CEWs would use the
+administratively verified value of $50,000 when
+recalculating the property reserve if the verification is
+90 or less days old (new trust documentation must be
+requested if over 90 days old).
+
+Under limit: The case file and AVP report values are
+reasonably compatible. Maintain Medi-Cal eligibility
+and do not request further verification of assets
+(including closed accounts and those not detected by
+the AVP report).
+
+Over limit: The case file and AVP report values are
+not reasonably compatible. Request administrative
+verification of all assets, including closed accounts
+and those assets not detected by the AVP report, with
+banking statements and/or property valuation reports.
+Recalculate property reserve using the most recent
+combined value of all assets provided on all
+administrative verification documents, including those
+asset(s) previously disclosed but not returned by the
+AVP report.
+
+NOTE: Counties must follow ACWDL 22-33
+requirements to obtain necessary verifications
+at CIC and discontinue when necessary
+information is not received.
+
+• Member reports a If after the 30-day period following the mailing of the
+5. CIC or MC 355 and the second attempted contact, the
+• There is an member does not provide the administrative
+unreported CIC verification of assets requested, the county shall send
+(e.g., client turns a timely 10-day NOA explaining the reason for
+65 and is being discontinuance from Medi-Cal.
+evaluated for
+Non-MAGI Medi-
+Cal)
+
+Letter No.: 25-20
+Page 15
+October 31, 2025
+
+Member/CIC Scenario* Actions CEWs Must Take
+N/a N/a
+• AVP report is not
+received within
+20- calendar day
+timeframe
+
+*This section does not apply to members with an upcoming annual redetermination.
+Actions to be taken for annual renewals can be found in the Annual Renewal Scenario
+table below.
+
+Annual Renewal scenarios and actions CEWs must take to redetermine eligibility
+for Non-MAGI Medi-Cal programs requiring an asset test (effective January 1,
+2026):
+
+Annual Renewal Scenario Actions CEWs Must Take
+• AVP report is Calculate property reserve using the most recent
+1. received within values from the AVP report (do not document AVP
+30-calendar day report values in the case file) and information known
+timeframe in the case file for asset(s) not detected by AVP.
+Values for asset(s) not detected by AVP can include
+attested or administratively verified values. If
+present, administratively verified values should be
+used in lieu of attested values.
+
+Example 1: At application, Thomas was approved
+based on attested values which were reasonably
+compatible with the AVP report. All attested values
+were documented in the case file, including a
+Golden 1 Credit Union checking account valued at
+$500.
+When AVP was run at annual renewal, it did
+not detect the Golden 1 checking account. In
+this scenario, CEWs would use the attested
+value of $500 when calculating the property
+reserve.
+
+Example 2: At application, Julia was approved based
+on attested values, but when AVP returned the
+attested values were not reasonably compatible with
+the AVP report. After requesting administrative
+
+Letter No.: 25-20
+Page 16
+October 31, 2025
+
+Annual Renewal Scenario Actions CEWs Must Take
+N/a N/a verification of all assets, Julia was found to be under
+limits and eligibility was maintained. All of the
+administratively verified assets were documented in
+the case file, and one of these was a Redwood
+Credit Union savings account with a $5,000 balance.
+When AVP was run at annual renewal, it did
+not detect the Redwood Credit Union savings
+account. In this scenario, CEWs would use
+the previously verified value of $5,000 when
+calculating the property reserve.
+
+Under limit: The case file and AVP report values
+are reasonably compatible. Maintain Medi-Cal
+eligibility and do not request further verification of
+assets (including closed accounts and those not
+detected by AVP).
+
+Over limit: The case file and AVP report values are
+not reasonably compatible. Request administrative
+verification of all assets, including closed accounts
+and those not detected by AVP, with banking
+statements and/or property valuation reports.
+Recalculate property reserve using the most recent
+combined value of all assets provided on
+administrative verification documents, including
+assets previously disclosed but not returned by the
+AVP report.
+
+NOTE: Counties must follow ACWDL 22-33
+requirements to obtain necessary verifications
+at annual renewal and discontinue when
+necessary information is not received.
+
+• AVP report is not If after the 30-day period following the mailing of the
+2. received within MC 355 and the second attempted contact, the
+30-calendar day member does not provide the administrative
+timeframe verification of assets requested, the county shall
+send a timely 10-day NOA explaining the reason for
+discontinuance from Medi-Cal.
+
+Letter No.: 25-20
+Page 17
+October 31, 2025
+
+Reminders and Best Practices
+
+CEWs must not request AVP reports to assist in eligibility determinations for other
+welfare programs, such as CalWORKS or CalFresh. In cases where individuals are
+applying for or dually enrolled in Medi-Cal and CalWORKS or CalFresh, counties are to
+use the AVP reports solely to determine or redetermine Medi-Cal eligibility. In addition,
+CEWs must not request AVP reports for MAGI Medi-Cal cases, except when members
+transition from MAGI to Non-MAGI Medi-Cal. To ensure access to and continuity of
+care, CEWs must assist clients in obtaining administrative verification of assets
+whenever needed.
+
+Documentation of Attested Values
+
+CEWs should document only attested values and values obtained through
+administrative verification in the case file (as a reminder, AVP report values must not be
+documented in the case file). If a client is over limits or AVP is not received timely,
+attested values should be updated with administratively verified values.
+
+Documentation of Closed Assets
+
+If the AVP report provides evidence that a previously known asset has been closed,
+then the CEW should remove that asset in the case record. If the record is known in
+SAWS, then the case should be updated to reflect that the asset is closed by using the
+AVP report to end date the asset listing.
+
+All supporting information and/or documentation used in eligibility determinations must
+be retained in the case notes/files to be compliant with audits and appeals
+requirements. This may include person(s) contacted, dates, times, and other applicable
+information or documentation to support the case file.
+
+If you have any questions, or if we can provide further information, please contact the
+Medi-Cal Eligibility Division (MCED) Policy Inbox at MCED-Policy@dhcs.ca.gov.
+
+Sincerely,
+
+Sarah Crow, Chief
+Medi-Cal Eligibility Division

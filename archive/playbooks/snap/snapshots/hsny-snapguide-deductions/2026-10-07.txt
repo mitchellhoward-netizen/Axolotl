@@ -1,0 +1,676 @@
+search
+
+Menu
+
+How to Use This Guide
+
+How to Use This Guide
+
+Common Acronyms and Terms
+
+Organizational Structure of the Supplemental Nutrition Assistance Program (SNAP)
+
+Eligibility Rules
+
+General Eligibility Rules
+
+Factors That Impact Eligibility
+
+Household Composition
+
+Applicants’ Responsibilities
+
+Eligibility Rules for Select Groups
+
+Students
+
+Non-Citizens
+
+Strikers
+
+Fleeing Felons and Probation Violators
+
+Seniors and People with a Disability
+
+Programs to Help Seniors and Disabled Applicants Access SNAP
+
+Elderly Simplified Application Project (ESAP)
+
+NYSCAP
+
+Budgeting and Estimating SNAP Benefits
+
+SNAP Standards & Deductions
+
+Overview of Budgeting
+
+Before Calculating a Budget
+
+Using the SNAP Benefits Estimator
+
+Expanded Categorical Eligibility and Resources
+
+Households with Dependent Care Costs
+
+Households that Are Not Categorically Eligible
+
+Resource Limitations for Households That Are Not Categorically Eligible
+
+Calculating Income
+
+Earned vs. Unearned Income
+
+Common Sources of Income
+
+These Do Not Count As Income for SNAP
+
+How To Calculate Monthly Totals for Income and Deductions
+
+Gross Income, Adjusted Gross Income, and the Gross Income Test
+
+Income of Non-household Members
+
+Calculating Deductions
+
+Common Deductions
+
+How To Calculate Monthly Totals for Income and Deductions
+
+Shelter Expenses and Excess Shelter Deduction
+
+Calculating the Excess Shelter Deduction
+
+Calculating the SNAP Benefit Allotment
+
+Advanced Budgeting
+
+Income of Ineligible Household Members
+
+Budgeting for Non-citizens
+
+Budgeting Shelter Costs for Homeless People
+
+Boarders
+
+Sanctioned People
+
+Self-employment Income
+
+Self-employed Farmers
+
+Military Families
+
+Applying for SNAP
+
+Applying for SNAP
+
+The Application Form
+
+NYS “myBenefits” Screening Tool and “myBenefits” Online SNAP Application
+
+Accessing the Application
+
+Accommodations for Special Populations
+
+Application in Alternative Format for Those with Disabilities
+
+People Who Do Not Speak English
+
+Filing the Application
+
+Filing Date
+
+Households with SSI Benefits
+
+Applying for SNAP When Not Applying for Cash Assistance Benefits
+
+Timeliness
+
+Delays Caused by the Applicant(s)
+
+Delays Caused by the SNAP Office
+
+SNAP Expedited Service
+
+Eligibility for Expedited SNAP Benefits
+
+Documentation Requirements for Ongoing SNAP
+
+The SNAP Interview
+
+Phone Interviews
+
+Authorized Representatives
+
+Notice of Missed Interview Rules at Application
+
+Verification and Documentation
+
+Documents Typically Provided by Applicants
+
+Collateral Contacts
+
+Home Visits
+
+Computer Matches for Verification
+
+Computer Matches Involving NYC Veterans Only
+
+Necessary Verification
+
+Verification of Questionable Information
+
+Front End Detection Systems
+
+Households Without Social Security Numbers
+
+Households With Undocumented Non-Citizens
+
+Notification of Acceptance or Denial
+
+Notice of Pending Application
+
+Maintaining SNAP Benefits and Recertification
+
+SNAP Work Rules
+
+General SNAP Work Rules
+
+Voluntary Quit
+
+Employment and Training (E&T)
+
+Able-Bodied Adults Without Dependents
+
+Intentional Program Violations
+
+Recertification and Reporting Requirements
+
+Transitional Benefits
+
+Using SNAP Benefits
+
+Monthly Benefits Issuance Schedule
+
+The EBT Card
+
+Eligible Food Items
+
+Using SNAP to Purchase Food Online
+
+Restaurant Meals Program
+
+Appointing an Authorized Representative
+
+Unspent SNAP Balances
+
+SNAP Benefits During Disasters, Misfortunes, & Theft
+
+Disaster SNAP
+
+Replacement SNAP Benefits in a Misfortune
+
+Replacement SNAP Benefits After Electronic Theft
+
+Eligibility
+
+Information Needed for Replacement
+
+Filing a Claim
+
+Protecting SNAP Benefits
+
+SNAP Benefits Estimator
+
+Download a PDF of the Guide
+
+search
+
+Press enter to begin your search
+Search
+
+Close Search
+
+SNAP Prescreening Guide
+
+Home » Budgeting and Estimating SNAP Benefits » Calculating Deductions
+
+Calculating Deductions
+
+Reference Documents
+
+SNAPSB SECTION 12
+
+08-ADM-09
+
+Resources
+
+SNAP Medical Expense Deduction Worksheet
+
+SNAP budgeting includes a number of income deductions, which are subtracted from a household’s income during the budgeting process. Some deductions are applied to all households, including a 20% earned income deduction and a standard deduction based on household size. Other deductions are based on individual household circumstances, such as deductions for dependent care costs, child support payments, shelter for homeless individuals, medical expenses for seniors and people with disabilities, and excess shelter costs. Deductions reduce income and can result in higher benefit amounts.
+
+Common Deductions
+
+Child support—Legally obligated child support paid by a household member is deducted from a household’s gross income. Legally obligated health insurance payments for children and court-ordered arrears can be included. (02 ADM 07)
+
+Earned Income Deduction—The earned income expense deduction is 20 percent of the gross earned wages, salary, or self-employment income.
+
+Standard Deduction—The Standard Deduction is listed on the SNAP Standards & Deductions Reference Sheet, and is based on the number of eligible SNAP household members.
+
+Dependent Care Costs —The actual cost for care of each child/dependent household member, due to work (including households looking for work or attending employment and training programs) or school responsibilities, can be deducted. This deduction can be applied to the care of a disabled adult household member if necessary. (08-ADM-09)
+
+Homeless Household Shelter Deduction—SNAP households that have no fixed or permanent address can take a monthly deduction of $198.99 per household instead of actual shelter costs. See Advanced Budgeting for more information.
+
+Medical Expense Deductions for Elderly and Disabled Applicants Only—All non-reimbursable medical expenses incurred by elderly or disabled household members can be deducted, except for the first $35 per month. Medical expenses of other household members cannot be included.
+
+Larger lump sum medical bills should be divided by the number of months a household is certified* to receive SNAP to calculate the monthly cost.
+
+For example: Mary has a medical procedure which costs $1,800. Mary divides the amount of the procedure by the number of months* she will be certified for SNAP: $1800 ÷ 36 = $50/month.
+
+*Households participating in the Elderly Simplified Application Project (ESAP) or the New York State Combined Application Project (NYSCAP) are certified for 36 months, while households participating in regular SNAP are certified for 12 months.
+
+The SNAP office will need documentation to verify each monthly expense deducted.
+
+Deductible medical expenses include:
+
+Medical and dental care, including psychotherapy and rehabilitation services
+
+Hospitalization or outpatient treatments, nursing care, and nursing home care
+
+Prescription drugs, over-the-counter medications approved by a licensed practitioner, costs of medical supplies, sickroom, or other prescribed equipment. The costs of special diets are not allowed as a medical deduction.
+
+Health and hospital insurance policy premiums, including Medicare, Medicaid and private medical insurance premiums, copayments, and deductibility. This includes, but is not limited to, “spend down” expenses incurred by Medicaid recipients.
+
+Payments to maintain an attendant, home health aide, child care service, or housekeeper necessary due to age or illness. (Includes reasonable cost of food eaten in the home by caretaker.)
+
+Costs of transportation and lodging to obtain medical treatment and services. Households that drive their own vehicle should use the IRS medical mileage rate. This amount may differ by county as the SNAP office is encouraged to use the LDSS mileage reimbursement rate set for county employees, but only if it is higher than the IRS rate.
+
+Medical supplies and equipment, including eyeglasses, dentures, hearing aids, and prosthetics
+
+Cost of securing & maintaining a seeing eye, hearing, or service dog (including dog food costs and veterinary expenses)
+
+Unpaid medical bills
+
+See the SNAP Medical Expense Deduction Desk Guide and Worksheet.
+
+Reference Documents
+
+SNAPSB SECTION 12
+
+08-ADM-09
+
+Resources
+
+SNAP Medical Expense Deduction Desk Guide & Worksheet
+
+How To Calculate Monthly Totals for Income and Deductions
+
+SNAP budgets are calculated based on monthly figures for income and deductions. SNAP defines one month as 4.333333 weeks. Calculate monthly totals income as follows:
+
+If income is received/deduction is paid:
+
+Weekly: multiply by 4.333333
+
+Every other week: multiply by 2.166666
+
+Twice per month: multiply by 2
+
+Shelter Expenses and Excess Shelter Deduction
+
+Reference Documents
+
+SNAPSB SECTION 12
+
+GIS 14 TA/DC 018
+
+GIS 14 TA/DC023
+
+16-ADM-07
+
+GIS 18 TA/DC012
+
+25DC055
+
+25DC061
+
+The concept of “excess shelter costs” is unique to SNAP. It assumes that a certain percentage of the household’s income should be allocated to pay shelter costs. Households with particularly high shelter costs relative to their income (excess shelter costs) are assumed not to have as much money left for food, and so are allowed to deduct the “excess” portion of their shelter costs. However, the amount that can be deducted is capped at $744.
+
+This “excess shelter cap” does not apply to households with an elderly or disabled member. These households can deduct the entire excess shelter cost, which typically results in significantly higher benefit amounts.
+
+Reference Documents
+
+SNAPSB SECTION 12
+
+GIS 14 TA/DC 018
+
+GIS 14 TA/DC023
+
+16-ADM-07
+
+GIS 18 TA/DC012
+
+25DC055
+
+25DC061
+
+Calculating the Excess Shelter Deduction
+
+Adjusted Income
+
+Adjusted income is calculated by subtracting all non-shelter deductions from a household’s Adjusted Gross Income. Half of the household’s adjusted income is considered to be theoretically available to cover housing costs.
+
+Any housing costs exceeding that figure are used to calculate the Excess Shelter Deduction. Total shelter costs—rent/mortgage, the Standard Utility Allowance (SUA), and other shelter expenses (see more about those expenses below)—are subtracted from half of the household’s adjusted income. If the result is a negative number, there is no Excess Shelter Deduction. For elderly/disabled households, the actual amount is deducted. For all other households, the actual amount is deducted up to $744, which is the Excess Shelter Cap. $744 is the maximum Excess Shelter Deduction for households without elderly/disabled members.
+
+Shelter Expenses
+
+Actual Rent or Mortgage—This is the actual monthly rent or mortgage payment incurred by the household for the home in which it lives.
+
+Multiple mortgages and other loans for which the home was used as collateral, such as home equity loans, can all be included.
+
+Homes in foreclosure and households facing eviction proceedings continue to have an allowable shelter deduction as long as the cost is incurred. Mortgage costs, homeowner’s insurance, property taxes, and rent remain as allowable shelter expenses even if they are not being paid, including during foreclosure and eviction processes.
+
+If non-household members are living with the SNAP household, use the share of the rent or mortgage actually paid by the SNAP household. Do not include the non-household member’s share. For example, if two families share a house and each family pays half the rent, the applying household can only deduct their half of the rent as a shelter cost.
+
+Shared living arrangements: Some households take in roomers to help cover their rent or mortgage expenses. SNAP offices should generally treat these situations as “shared living” arrangements, meaning that the roomer’s share of the rent would not count as income to the household—even if the roomer is paying their share of the rent or mortgage directly to the household. However, the roomer’s share of rent would not be included in the household’s shelter deduction. (SNAPSB Section 5, p. 52, 55)
+
+Standard Utility Allowance (SUA)—SNAP households may receive one of three possible SUAs, depending on their type of housing and where they live in NYS. In all cases, the standardized allowance is used, rather than the household’s actual utility expense—even if the household’s actual expenses are higher than the standard.
+
+The SUA is never prorated. Households in shared living situations and households with ineligible members can still receive a full SUA.
+
+Using the wrong SUA can result in dramatically miscalculating a household’s benefits.
+
+Level 1. Combined Heating/Cooling, Utility, and Phone Allowance. Households are eligible for Level 1 if they meet one of the following:
+
+Own their own home (including co-op apartments and condominiums).
+
+Do not own their home, but are responsible for separately paying for heating and/or air conditioning costs either to a utility provider or landlord. This includes households that are not currently paying or are unable to pay the separate cost or bill, regardless of whether or not the bill for the separate expense is in their name.
+
+The following only apply to households that include a senior and/or disabled member:
+
+Received a HEAP benefit greater than $20 in the current month or the previous 12 months. These are households that have heating costs included in their rent.
+
+Received a $21 HEAP Heating/Cooling SUA (HCSUA). These are households that live in government subsidized housing or a group home setting with heat included in their rent.
+
+The $21 HEAP benefit is issued to SNAP applicants throughout the year including the months in which the normal “HEAP season” is closed. SNAP applicants receive this $21 payment on the cash side of their EBT card. This benefit can be withdrawn and spent by the household.
+
+Other things to note:
+
+The change to the $21 HEAP benefit was part of H.R.1, passed by Congress in July 2025.
+
+New SNAP applications filed on or after July 4, 2025, which have not been approved for ongoing SNAP benefits, must be evaluated for the HCSUA using this new policy.
+
+For households with recertification dates of July 31, 2025, or after, their SUA will be evaluated under this new policy at their next recertification.
+
+SNAP offices are not allowed to change a household’s SUA during the certification period solely based on information that the household does not include a senior or disabled member.
+
+This includes the periodic report: the HCSUA should only be removed during the Periodic Reporting interval if the household reports and verifies a change in their shelter arrangement with no separate heating or cooling expense.
+
+Households that voluntarily report (outside of required points of contact) and verify a move with no separate heating or cooling expenses will have the HCSUA removed, and their SNAP benefit will be adjusted.
+
+If a household with a senior or disabled member splits into multiple households, the SNAP office must evaluate each separate household under this new HCSUA policy.
+
+Under this policy, households that do not have a heating expense, but that claim a cooling expense and provide documentation of an electric bill, have no further responsibility to prove they have an air conditioner.
+
+Advanced HEAP benefits cannot be issued for expedited or single issuances of SNAP benefits, unless a recurring SNAP benefit has also been authorized
+
+If a household is not eligible for Level 1 SUA, follow-up questions are needed to determine the correct SUA level from below.
+
+Level 2. Combined Utility and Phone Allowance. Any household that is not eligible for Level 1 but can show some non-heat utility cost (like electricity not used for heating or cooling, water, sewage, or trash collection) is eligible for Level 2.
+
+Level 3. Phone Allowance Only. This is for households that have no other utility costs but do have a telephone. This allowance is automatically provided to households not eligible for Levels 1 or 2, except for homeless households receiving the standard homeless deduction. They cannot receive a separate SUA.
+
+See the SUA chart on the SNAP Standards and Deductions Reference Sheet.
+
+Other Shelter Expenses—Other expenses related to shelter can be included, such as:
+
+Taxes
+
+Homeowners insurance—use a standard figure of 55% of the homeowners insurance premium unless you can determine the portion of the premium cost attributable to insurance on the structure of the home.
+
+Condo fees
+
+Expenses that cannot be included:
+
+Insurance costs for insuring furniture or personal belongings
+
+Routine home maintenance
+
+Home repairs, unless damage was the result of a disaster (such as fire or flood)
+
+Calculating the SNAP Benefit Allotment
+
+Previous Page
+
+Visit Hunger Solutions NY
+
+This guide includes policy updates through 05/2026.
+
+We strive to maximize participation in, and support for, federally funded nutrition assistance programs like SNAP, the School Breakfast and National School Lunch Programs, the Summer Food Service Program, WIC, and the Child and Adult Care Food Program.
+
+Our funders
+
+This institution is an equal opportunity provider.
+
+Close Menu
+
+How to Use This Guide
+
+How to Use This Guide
+
+Common Acronyms and Terms
+
+Organizational Structure of the Supplemental Nutrition Assistance Program (SNAP)
+
+Eligibility Rules
+
+General Eligibility Rules
+
+Factors That Impact Eligibility
+
+Household Composition
+
+Applicants’ Responsibilities
+
+Eligibility Rules for Select Groups
+
+Students
+
+Non-Citizens
+
+Strikers
+
+Fleeing Felons and Probation Violators
+
+Seniors and People with a Disability
+
+Programs to Help Seniors and Disabled Applicants Access SNAP
+
+Elderly Simplified Application Project (ESAP)
+
+NYSCAP
+
+Budgeting and Estimating SNAP Benefits
+
+SNAP Standards & Deductions
+
+Overview of Budgeting
+
+Before Calculating a Budget
+
+Using the SNAP Benefits Estimator
+
+Expanded Categorical Eligibility and Resources
+
+Households with Dependent Care Costs
+
+Households that Are Not Categorically Eligible
+
+Resource Limitations for Households That Are Not Categorically Eligible
+
+Calculating Income
+
+Earned vs. Unearned Income
+
+Common Sources of Income
+
+These Do Not Count As Income for SNAP
+
+How To Calculate Monthly Totals for Income and Deductions
+
+Gross Income, Adjusted Gross Income, and the Gross Income Test
+
+Income of Non-household Members
+
+Calculating Deductions
+
+Common Deductions
+
+How To Calculate Monthly Totals for Income and Deductions
+
+Shelter Expenses and Excess Shelter Deduction
+
+Calculating the Excess Shelter Deduction
+
+Calculating the SNAP Benefit Allotment
+
+Advanced Budgeting
+
+Income of Ineligible Household Members
+
+Budgeting for Non-citizens
+
+Budgeting Shelter Costs for Homeless People
+
+Boarders
+
+Sanctioned People
+
+Self-employment Income
+
+Self-employed Farmers
+
+Military Families
+
+Applying for SNAP
+
+Applying for SNAP
+
+The Application Form
+
+NYS “myBenefits” Screening Tool and “myBenefits” Online SNAP Application
+
+Accessing the Application
+
+Accommodations for Special Populations
+
+Application in Alternative Format for Those with Disabilities
+
+People Who Do Not Speak English
+
+Filing the Application
+
+Filing Date
+
+Households with SSI Benefits
+
+Applying for SNAP When Not Applying for Cash Assistance Benefits
+
+Timeliness
+
+Delays Caused by the Applicant(s)
+
+Delays Caused by the SNAP Office
+
+SNAP Expedited Service
+
+Eligibility for Expedited SNAP Benefits
+
+Documentation Requirements for Ongoing SNAP
+
+The SNAP Interview
+
+Phone Interviews
+
+Authorized Representatives
+
+Notice of Missed Interview Rules at Application
+
+Verification and Documentation
+
+Documents Typically Provided by Applicants
+
+Collateral Contacts
+
+Home Visits
+
+Computer Matches for Verification
+
+Computer Matches Involving NYC Veterans Only
+
+Necessary Verification
+
+Verification of Questionable Information
+
+Front End Detection Systems
+
+Households Without Social Security Numbers
+
+Households With Undocumented Non-Citizens
+
+Notification of Acceptance or Denial
+
+Notice of Pending Application
+
+Maintaining SNAP Benefits and Recertification
+
+SNAP Work Rules
+
+General SNAP Work Rules
+
+Voluntary Quit
+
+Employment and Training (E&T)
+
+Able-Bodied Adults Without Dependents
+
+Intentional Program Violations
+
+Recertification and Reporting Requirements
+
+Transitional Benefits
+
+Using SNAP Benefits
+
+Monthly Benefits Issuance Schedule
+
+The EBT Card
+
+Eligible Food Items
+
+Using SNAP to Purchase Food Online
+
+Restaurant Meals Program
+
+Appointing an Authorized Representative
+
+Unspent SNAP Balances
+
+SNAP Benefits During Disasters, Misfortunes, & Theft
+
+Disaster SNAP
+
+Replacement SNAP Benefits in a Misfortune
+
+Replacement SNAP Benefits After Electronic Theft
+
+Eligibility
+
+Information Needed for Replacement
+
+Filing a Claim
+
+Protecting SNAP Benefits
+
+SNAP Benefits Estimator
+
+Download a PDF of the Guide

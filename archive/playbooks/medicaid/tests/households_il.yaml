@@ -583,10 +583,11 @@ cases:
   crosscheck:
     policyengine: true
 - id: MCD-IL-T23
-  title: 'Working 67-year-old with Medicare: Social Security $900 + wages $1,500'
+  title: 'Working 67-year-old with Medicare: Social Security $900 + wages $1,500, $200/mo withheld taxes and FICA'
   as_of: '2026-11-02'
   tags:
   - single
+  - other_benefits
   household:
     state: il
     members:
@@ -594,6 +595,8 @@ cases:
       age: 67
       medicare_part_a: true
       medicare_part_b: true
+      facts:
+        aabd_work_expenses_monthly: 200
     incomes:
     - kind: social_security
       monthly: 900
@@ -606,16 +609,24 @@ cases:
       value: 2000
       owner: a
   expect:
-    status: undetermined
-    open_questions_include:
-    - MCD-IL-OQ-03
+    status: eligible
+    tier: aabd_spenddown
+    amounts:
+      countable_income_monthly: 2125
+      spenddown_monthly: 795
+    rules_include:
+    - MCD-IL-AABD-EARNED
   crosscheck:
     policyengine: false
+  note: >-
+    $900 SS - $25 = $875; wages $1,500 - ($20 + 1/2 of $60 = $50) - $200 employment expenses = $1,250;
+    countable $2,125 vs $1,330 (89 Ill. Adm. Code 120.335, 120.362(b)(1), 120.370; PM 08-02-03). The order of
+    the $25 does not matter here (wages are well over $105).
 - id: MCD-IL-T24
-  title: Adult 30 in May 2026 — date IDHS started the 2026 standards unknown
+  title: Adult 30 in May 2026, wages $1,000 - the 2026 standards apply from January 1, 2026 (MR #26.11)
   as_of: '2026-05-01'
   tags:
-  - unresolved
+  - timing
   household:
     state: il
     members:
@@ -627,9 +638,11 @@ cases:
       owner: a
     assets: []
   expect:
-    status: undetermined
+    status: eligible
+    tier: adult_expansion
   crosscheck:
     policyengine: false
+  note: Was undetermined in the first build (start date unknown); MR #26.11 says the 2026 standards are effective 01/01/26.
 - id: MCD-IL-T25
   title: Single 70-year-old, SS $1,200, savings $10,000 and a $9,000 car not needed for work or medical travel
   as_of: '2026-11-02'
@@ -663,3 +676,121 @@ cases:
   crosscheck:
     policyengine: false
   note: '$9,000 car minus the $4,500 exempt value adds $4,500: $14,500 total, under $17,500.'
+
+- id: MCD-IL-T26
+  title: 'Working 70-year-old: Social Security $800 + wages $600, $60 employment expenses - under the AABD standard'
+  as_of: '2026-11-02'
+  tags:
+  - threshold
+  - other_benefits
+  household:
+    state: il
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+      facts:
+        aabd_work_expenses_monthly: 60
+    incomes:
+    - kind: social_security
+      monthly: 800
+      owner: a
+    - kind: earned
+      monthly: 600
+      owner: a
+    assets:
+    - kind: cash
+      value: 3000
+      owner: a
+  expect:
+    status: eligible
+    tier: aabd
+    amounts:
+      countable_income_monthly: 1265
+  crosscheck:
+    policyengine: false
+  note: $800 - $25 = $775; $600 - $50 - $60 = $490; countable $1,265 <= $1,330.
+- id: MCD-IL-T27
+  title: 'Blind 50-year-old with Medicare, wages $2,500, $150 employment expenses - blind exemption $85 + 1/2'
+  as_of: '2026-11-02'
+  tags:
+  - edge
+  household:
+    state: il
+    members:
+    - id: a
+      age: 50
+      blind: true
+      disabled: true
+      medicare_part_a: true
+      medicare_part_b: true
+      facts:
+        aabd_work_expenses_monthly: 150
+    incomes:
+    - kind: earned
+      monthly: 2500
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: aabd
+    amounts:
+      countable_income_monthly: 1045
+  crosscheck:
+    policyengine: false
+  note: $2,500 - $25 = $2,475; exemption $85 + 1/2 x $2,390 = $1,280; $1,195 - $150 = $1,045 <= $1,330 (89 Ill. Adm. Code 120.362(b)(2)).
+- id: MCD-IL-T28
+  title: 'Working 68-year-old, SS $900 + wages $1,500, employment expenses not given - over the standard before expenses'
+  as_of: '2026-11-02'
+  tags:
+  - unresolved
+  household:
+    state: il
+    members:
+    - id: a
+      age: 68
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 900
+      owner: a
+    - kind: earned
+      monthly: 1500
+      owner: a
+    assets: []
+  expect:
+    status: undetermined
+  crosscheck:
+    policyengine: false
+  note: Withheld taxes and Social Security tax are deducted (PM 08-02-03-b); without them the agent must ask.
+- id: MCD-IL-T29
+  title: 'February 2026: 70-year-old, Social Security $1,355 - at the 2026 AABD standard after the $25 disregard'
+  as_of: '2026-02-02'
+  tags:
+  - timing
+  - threshold
+  household:
+    state: il
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 1355
+      owner: a
+    assets:
+    - kind: cash
+      value: 1000
+      owner: a
+  expect:
+    status: eligible
+    tier: aabd
+    amounts:
+      countable_income_monthly: 1330
+  crosscheck:
+    policyengine: false
+  note: MR #26.11 - 2026 standards effective 01/01/26 for eligibility (IES changed active cases only from April 2026).

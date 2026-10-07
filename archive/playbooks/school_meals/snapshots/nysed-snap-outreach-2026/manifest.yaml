@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://www.cn.nysed.gov/content/snap-outreach-requirements
+  final_url: https://www.cn.nysed.gov/content/snap-outreach-requirements
+  status: 200
+  content_type: text/html; charset=utf-8
+  text_sha256: b0d233293c63109d6f17ff8e53ee358b2efbdce40b2a8502e154e12b7351d0f5
+  text: nysed-snap-outreach-2026/2026-10-07.txt
+  raw: nysed-snap-outreach-2026/2026-10-07.html

@@ -524,7 +524,7 @@ cases:
     policyengine: false
   note: 'Not cross-checked: PolicyEngine needs the unborn child count as a separate input.'
 - id: MCD-CA-T21
-  title: Refugee aged 40, wages $1,000/mo, November 2026 (after the October 1, 2026 federal change)
+  title: Refugee aged 40, wages $1,000/mo, November 2026 — state-funded full scope after the October 1, 2026 federal change
   as_of: '2026-11-02'
   tags:
   - edge
@@ -542,11 +542,14 @@ cases:
       owner: a
     assets: []
   expect:
-    status: undetermined
-    open_questions_include:
-    - MCD-CA-OQ-05
+    status: eligible
+    tier: adult_expansion
+    rules_include:
+    - MCD-CA-QNC-2026
+    - MCD-CA-MAGI-ADULT
   crosscheck:
     policyengine: false
+  note: 'Changed in the DHCS re-sourcing: ACWDL 26-13 gives qualified non-citizens who lose federal full scope on October 1, 2026 state-funded full-scope Medi-Cal, and ACWDL 25-13 exempts qualified non-citizens from the expansion freeze (was undetermined, MCD-CA-OQ-05).'
 - id: MCD-CA-T22
   title: 70-year-old receiving SSI ($994) only, savings $1,000
   as_of: '2026-11-02'
@@ -605,10 +608,10 @@ cases:
   crosscheck:
     policyengine: false
 - id: MCD-CA-T24
-  title: 70-year-old in February 2026 — 2025 A&D FPL limit (used until March 31, 2026) not in the archive
+  title: 70-year-old in February 2026, Social Security $1,200 — within the 2025 A&D FPL limit ($1,801, used until March 31, 2026)
   as_of: '2026-02-01'
   tags:
-  - unresolved
+  - timing
   household:
     state: ca
     members:
@@ -622,9 +625,13 @@ cases:
       owner: a
     assets: []
   expect:
-    status: undetermined
+    status: eligible
+    tier: aged_disabled_fpl
+    rules_include:
+    - MCD-CA-AD-FPL
   crosscheck:
     policyengine: false
+  note: 'Changed in the DHCS re-sourcing: the 2025 ABD FPL limit ($1,801 for one, ACWDL 25-01) now covers April 2025-March 2026. $1,200 - $20 - $202.90 Part B = $977.10. Disregarding the January COLA (ACWDL 20-24) could only lower income, so the result is eligible either way (was undetermined).'
 - id: MCD-CA-T25
   title: Undocumented adult 40 applying March 2026, income $1,000 — restricted scope only (expansion freeze)
   as_of: '2026-03-01'
@@ -683,3 +690,203 @@ cases:
     - MCD-CA-AD-FPL-COUPLE
   crosscheck:
     policyengine: false
+- id: MCD-CA-T27
+  title: 70-year-old in February 2026, Social Security $2,030 — over the 2025 A&D FPL limit only because of the January COLA
+  as_of: '2026-02-01'
+  tags:
+  - timing
+  - unresolved
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 2030
+      owner: a
+    assets: []
+  expect:
+    status: undetermined
+    rules_include:
+    - MCD-CA-AD-FPL-COLA
+    open_questions_include:
+    - MCD-CA-OQ-02
+  crosscheck:
+    policyengine: false
+  note: '$2,030 - $20 - $202.90 = $1,807.10 > $1,801 (2025 limit). DHCS disregards the January 2026 COLA until April (ACWDL 20-24); the archive does not hold the pre-COLA benefit, so it does not guess.'
+- id: MCD-CA-T28
+  title: 'Other benefits: 72-year-old whose Part B premium the state pays (Buy-In), Social Security $2,000 — Part B disregard still applies'
+  as_of: '2026-11-02'
+  tags:
+  - other_benefits
+  - edge
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 72
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 2000
+      owner: a
+    assets: []
+    facts:
+      pays_part_b_premium: false
+  expect:
+    status: eligible
+    tier: aged_disabled_fpl
+    rules_include:
+    - MCD-CA-AD-FPL
+  crosscheck:
+    policyengine: false
+  note: '$2,000 - $20 - $202.90 = $1,777.10 <= $1,836. ACWDL 20-18: the ABD FPL Part B disregard applies regardless of the state''s payment of the premium. The first pass gave no disregard when the person did not pay and would have put this person in share of cost.'
+- id: MCD-CA-T29
+  title: Undocumented adult 45 enrolled in full scope before 2026, July 2027 — keeps state-funded coverage, $30 premium
+  as_of: '2027-07-01'
+  tags:
+  - edge
+  - timing
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 45
+      citizen_or_qualified: false
+      facts:
+        full_scope_before_2026: true
+        community_engagement_hours: 100
+    incomes:
+    - kind: earned
+      monthly: 1200
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: adult_expansion
+    rules_include:
+    - MCD-CA-EXPANSION-GRACE
+    - MCD-CA-UNDOC-PREMIUM
+    amounts:
+      premium_monthly: 30.0
+  crosscheck:
+    policyengine: false
+  note: ACWDL 25-33 ($30 from July 1, 2027, ages 19-59); MEDIL I 26-18 (non-emergency dental ends July 1, 2027). Works 100 hours, so the 2027 work requirement is met.
+- id: MCD-CA-T30
+  title: Undocumented adult 62 enrolled in full scope before 2026, July 2027 — no premium at 60 or older
+  as_of: '2027-07-01'
+  tags:
+  - edge
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 62
+      citizen_or_qualified: false
+      facts:
+        full_scope_before_2026: true
+        community_engagement_hours: 100
+    incomes:
+    - kind: earned
+      monthly: 1200
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: adult_expansion
+    rules_include:
+    - MCD-CA-EXPANSION-GRACE
+  crosscheck:
+    policyengine: false
+  note: ACWDL 25-33 - individuals 60 years of age and older are not subject to monthly premiums; no premium_monthly amount is set.
+- id: MCD-CA-T31
+  title: LPR aged 35 in the five-year bar applying March 2026, wages $1,500 — state-funded full scope, not frozen
+  as_of: '2026-03-02'
+  tags:
+  - edge
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 35
+      citizen_or_qualified: true
+      facts:
+        immigration_status: lpr
+        lpr_five_year_bar_met: false
+    incomes:
+    - kind: earned
+      monthly: 1500
+      owner: a
+    assets: []
+    facts:
+      application_date: '2026-03-02'
+  expect:
+    status: eligible
+    tier: adult_expansion
+    rules_include:
+    - MCD-CA-NQI-STATE-FULL
+  crosscheck:
+    policyengine: false
+  note: ACWDL 25-13 (freeze does not apply to NQI under the five-year bar) and ACWDL 26-13 (state-funded full scope during the waiting period). The first pass returned undetermined for this status.
+- id: MCD-CA-T32
+  title: Pregnant undocumented woman 30 applying March 2026, income $2,000 (household of 2) — full scope despite the freeze
+  as_of: '2026-03-02'
+  tags:
+  - edge
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 30
+      pregnant: true
+      citizen_or_qualified: false
+    incomes:
+    - kind: earned
+      monthly: 2000
+      owner: a
+    assets: []
+    facts:
+      application_date: '2026-03-02'
+  expect:
+    status: eligible
+    tier: pregnant
+    rules_include:
+    - MCD-CA-EXPANSION-FREEZE
+    - MCD-CA-MAGI-PREGNANT
+  crosscheck:
+    policyengine: false
+  note: 'ACWDL 25-13: individuals reporting a pregnancy are eligible for full scope through the pregnancy and 12 months postpartum. Income $2,000 <= $3,843 (213% FPL for two).'
+- id: MCD-CA-T33
+  title: 70-year-old in June 2025 with $500,000 savings, Social Security $1,700 — no asset test in 2025, 2025 A&D FPL limit
+  as_of: '2025-06-02'
+  tags:
+  - timing
+  - single
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 1700
+      owner: a
+    assets:
+    - kind: cash
+      value: 500000
+      owner: a
+  expect:
+    status: eligible
+    tier: aged_disabled_fpl
+    rules_include:
+    - MCD-CA-ASSET-ELIMINATION-2024
+    - MCD-CA-AD-FPL
+  crosscheck:
+    policyengine: false
+  note: 'Asset limits eliminated January 2024-December 2025 (ACWDL 25-14 background). $1,700 - $20 - Part B (2025 premium from the shared parameter) is under $1,801.'

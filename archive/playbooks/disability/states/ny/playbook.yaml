@@ -141,17 +141,31 @@ rules:
     open_question: DIS-NY-OQ-01
   - id: DIS-NY-SSP-PAYMENT
     statement: >-
-      Since October 1, 2014, New York's State Supplement Program payment for
-      most SSI recipients is issued by New York State (OTDA) as a separate
-      payment from SSA's federal SSI payment, on the same day and by the same
-      method (check, direct deposit or Direct Express card).
+      Since October 1, 2014, New York State (OTDA) administers the State
+      Supplement Program and pays it as a separate monthly payment from SSA's
+      federal SSI payment, by the same method (check, direct deposit or
+      Direct Express card); there is no SSP application: OTDA starts the
+      payment from SSA's data on the person's SSI status, effective the first
+      full month after all SSP criteria are met (and after a mandatory 90-day
+      waiting period).
     kind: procedure
     applies_to: [SSP]
     effective_from: 2014-10-01
     implemented_in: playbooks/disability/states/ny/rules.py:evaluate
     confidence: secondary
-    note: Only source retrieved is a State Senate newsroom post quoting an OTDA notice; otda.ny.gov could not be reached. SSA's chart SI 01415.010 lists New York's supplement as state-administered (see DIS-NY-CONFLICT-01).
+    note: >-
+      Administration, the no-application rule and the start month now rest on
+      OTDA's SSP regulation, 18 NYCRR Part 398 (adopted eff. October 1, 2014,
+      the transfer date; amended eff. January 13, 2021), read in Cornell LII's
+      third-party copy; the separate payment and payment method rest on a
+      State Senate post quoting OTDA's 2014 notice. The regulation does not
+      define the "mandatory 90-day waiting period" or say on what day of the
+      month the SSP is paid; otda.ny.gov (SSP pages, 14-ADM-07) could not be
+      reached. SSA's chart SI 01415.010 lists New York's supplement as
+      state-administered.
     sources:
+      - {source: ny-nycrr-398-1-1-lii, locator: "The Commissioner of the NYS Office of Temporary and Disability Assistance ... is responsible for the administration of all State benefits ... as of the time that the federal SSA electronic data file ... is transmitted to NYS via the State Data Exchange (SDX)"}
+      - {source: ny-nycrr-398-4-1-lii, locator: "(a) No separate application for SSP shall be required or accepted by NYS ... remains eligible for the duration of the mandatory 90-day waiting period; (c) Eligibility for SSP benefits begins the first full month following the month in which all SSP eligibility criteria are met"}
       - {source: ny-senate-ssp-takeover-2014, locator: "effective October 1, 2014, the responsibility for administering the New York State supplement ... transferring from the U.S. Social Security Administration (SSA) to ... OTDA ... most SSI recipients ... two separate payments"}
       - {source: ssa-poms-si-01415-010, locator: "New York: Mandatory S, Optional S"}
     open_question: DIS-NY-OQ-04
@@ -193,10 +207,20 @@ procedure:
       confidence: confirmed
       sources: [{source: ny-ssl-209, locator: "209(1)(b)"}]
     - id: DIS-NY-PROC-SSP-ONLY
-      text: A person with income too high for SSI but below the New York standard must still apply for SSI and receive a decision before getting an SSP-only payment; how SSA's denial reaches OTDA and whether OTDA needs its own application was not found.
-      confidence: unresolved
+      text: >-
+        A person with income too high for SSI but below the New York standard
+        must still apply for SSI and get SSA's decision; there is no separate
+        SSP application. SSA's data exchange (SDX) sends OTDA the person's SSI
+        payment status, and OTDA reviews those with status N01 (countable
+        income above the federal benefit rate) or E01 (eligible, no payment
+        due) for an SSP-only payment.
+      confidence: secondary
       open_question: DIS-NY-OQ-04
-      sources: [{source: ny-ssl-209, locator: "209(1)(a): has applied for supplemental security income benefits, has received a determination"}]
+      note: Rests on LII's copy of 18 NYCRR 398-2.1(p) and 398-4.1(a); how long it takes and whether the person should contact OTDA was not found.
+      sources:
+        - {source: ny-ssl-209, locator: "209(1)(a): has applied for supplemental security income benefits, has received a determination"}
+        - {source: ny-nycrr-398-4-1-lii, locator: "(a) No separate application for SSP shall be required or accepted by NYS ... or who would be in current pay status for federal SSI benefits except for countable income"}
+        - {source: ny-nycrr-398-2-1-lii, locator: "(p) Federal payment status codes potentially eligible for SSP benefits: C01, E01, E02, M02, N01 - Non-pay - recipient countable income exceeds Title XVI federal benefit rate"}
   filing:
     - id: DIS-NY-FILE-SSP-HELP
       text: OTDA's SSP Customer Support Center (toll-free 1-855-488-0541, weekdays 8:30 AM to 4:45 PM, as given in 2014) answers SSP payment questions.
@@ -285,9 +309,14 @@ open_questions:
     status: open
   - id: DIS-NY-OQ-04
     priority: medium
-    question: Retrieve OTDA's current SSP pages (otda.ny.gov/programs/ssp, 2026 maximum monthly benefit chart, 14-ADM-07) to confirm administration, payment method, the SSP-only process and current contact numbers.
-    why_it_matters: The only source for the 2014 transfer and the contact line is secondary; otda.ny.gov refused all retrieval on 2026-10-07.
-    checked: [otda.ny.gov (empty reply / upstream connect error to scripts, headless browser and WebFetch)]
+    question: >-
+      Confirm from OTDA's own text (otda.ny.gov/programs/ssp, 14-ADM-07, or the
+      official 18 NYCRR Part 398) the SSP payment day and method, what the
+      "mandatory 90-day waiting period" in 18 NYCRR 398-4.1 means for a new
+      SSI recipient's first SSP month, how long an SSP-only case takes after
+      SSA's decision, and the current contact number.
+    why_it_matters: Members ask when the state payment starts and arrives; administration and the no-application rule are now in a third-party copy of the regulation, but timing and contact details still rest on a 2014 secondary post.
+    checked: [otda.ny.gov (F5 challenge to headful Playwright; HTTP 503 to WebFetch; resets to scripts), web.archive.org (unreachable), NY DOH DAL 14-23 (404/403), 18 NYCRR 398-1.1, 398-2.1 and 398-4.1 via LII]
     affects: [DIS-NY-SSP-PAYMENT, DIS-NY-PROC-SSP-ONLY]
     status: open
   - id: DIS-NY-OQ-05
@@ -308,9 +337,11 @@ conflicts:
         says: New York's mandatory and optional supplements are State-administered (chart carries TN 26, 12-06).
     handling: >-
       The archive dates the state takeover to October 1, 2014 (the date the
-      state notice gives). The POMS chart's 2006 transmittal number most likely
-      predates a later edit of the chart; the assignment brief's "since 2012"
-      is the year the authority was enacted, not the transfer date.
+      state notice gives, and the effective date of OTDA's SSP regulation,
+      18 NYCRR Part 398, per LII's notes). The POMS chart's 2006 transmittal
+      number most likely predates a later edit of the chart; the assignment
+      brief's "since 2012" is the year the authority was enacted, not the
+      transfer date.
     affects: [DIS-NY-SSP-PAYMENT]
     status: open
   - id: DIS-NY-CONFLICT-02
@@ -327,8 +358,8 @@ conflicts:
 claims_checked:
   - claim: New York OTDA administers the SSP since 2012.
     verdict: corrected
-    detail: The state legislature enacted the authority in the 2012-13 budget; the actual transfer from SSA to OTDA took effect October 1, 2014, and SSP has since been a separate state payment for most recipients (secondary source quoting OTDA).
-    sources: [{source: ny-senate-ssp-takeover-2014, locator: "In 2012, in enacting the State Fiscal Year 2012-2013 budget ... effective October 1, 2014"}]
+    detail: The state legislature enacted the authority in the 2012-13 budget; the actual transfer from SSA to OTDA took effect October 1, 2014 (OTDA's SSP regulation, 18 NYCRR Part 398, is effective that day), and SSP has since been a separate state payment for most recipients with no separate application (secondary sources - a Senate post quoting OTDA and the LII copy of the regulation).
+    sources: [{source: ny-senate-ssp-takeover-2014, locator: "In 2012, in enacting the State Fiscal Year 2012-2013 budget ... effective October 1, 2014"}, {source: ny-nycrr-398-4-1-lii, locator: "(a)"}]
   - claim: New York SSP amounts for 2026 by living arrangement.
     verdict: verified
     detail: SSL 209(2) 2026 standards; SSP = standard - SSI ($87 / $104 alone, $23 / $46 with others; congregate care standards listed). GIS 26 MA/03 confirms $87 / $104.

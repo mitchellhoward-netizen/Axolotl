@@ -14,19 +14,21 @@ explanations:
   - cases: [MCD-CA-T03]
     match: {state: ca}
     reason: >-
-      Rounding of the 138% FPL monthly limit for three. California's chart
-      (Santa Clara County FPL chart, 2026) shows $3,143 for three, which
-      appears to round the monthly guideline first ($27,320/12 = $2,277 x
-      1.38 = $3,142.26, rounded up); PolicyEngine rounds 138% of the annual
+      Rounding of the 138% FPL monthly limit for three. DHCS's 2026 FPL
+      Calculation Chart (ACWDL 26-01 Enclosure 1, "Rounded up to next higher
+      dollar"; source ca-dhcs-fpl-2026-monthly) shows $3,143 for three, which
+      rounds the monthly guideline first ($27,320/12 = $2,277 x 1.38 =
+      $3,142.26, rounded up); PolicyEngine rounds 138% of the annual
       guideline once ($3,141.84 -> $3,142). At $3,143 the archive (following
-      the California table, MCD-CA-MAGI-ADULT) says eligible, PolicyEngine not.
+      the DHCS table, MCD-CA-MAGI-ADULT) says eligible, PolicyEngine not.
   - cases: [MCD-CA-T09, MCD-IL-T09]
     reason: >-
       Asset test at exactly the limit. PolicyEngine's
       is_optional_senior_or_disabled_asset_eligible requires assets strictly
-      below the limit ("assets < asset_limit"). The California county handbook
-      says the property reserve "must be equal to or below the limit"
-      (MCD-CA-ASSET-LIMIT; conflict MCD-CA-CONFLICT-01), and the Illinois PM
+      below the limit ("assets < asset_limit"). California's DHCS ACWDL 25-20
+      tells counties to grant eligibility when assets are "at, or under
+      $130,000 for one person" and ACWDL 25-14 denies only property "above"
+      the limit (MCD-CA-ASSET-LIMIT; MCD-CA-CONFLICT-01), and the Illinois PM
       treats only amounts over $17,500 as excess (PM 15-02-02: "at least $1
       over the asset limit"). The archive treats the limit itself as passing.
   - cases: [MCD-NY-T07, MCD-NY-T09, MCD-NY-T11, MCD-NY-T13, MCD-X-01]
@@ -53,9 +55,10 @@ explanations:
     reason: >-
       Share of cost not modelled. Income $2,500 is over the A&D FPL limit; the
       archive reports Medically Needy Medi-Cal with a $1,677.10 monthly share
-      of cost (MCD-CA-SHARE-OF-COST). PolicyEngine's California medically
-      needy pathway only admits income under the $600 maintenance need and
-      has no share-of-cost spenddown, so it reports not eligible.
+      of cost (MCD-CA-SHARE-OF-COST: income over the $600 maintenance need
+      of ACWDL 89-58, kept by ACWDL 24-10). PolicyEngine's California
+      medically needy pathway only admits income under the $600 maintenance
+      need and has no share-of-cost spenddown, so it reports not eligible.
   - cases: [MCD-IL-T08, MCD-IL-T10, MCD-IL-T11, MCD-IL-T12, MCD-IL-T13, MCD-X-00]
     match: {state: il}
     reason: >-

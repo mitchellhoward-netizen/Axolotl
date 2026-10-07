@@ -1,0 +1,10 @@
+- retrieved: '2026-10-07'
+  url: https://www.dhcs.ca.gov/file/i26-01-pdf/
+  final_url: https://www.dhcs.ca.gov/file/i26-01-pdf/
+  status: 200
+  content_type: pdf
+  text_sha256: 5a58fdb68b3503857e851ae7e2e1cefe6c4397cdb1d665008d5caf137945f2ef
+  text: ca-dhcs-medil-i26-01/2026-10-07.txt
+  raw: ca-dhcs-medil-i26-01/2026-10-07.pdf
+  fetched_via: headless Chromium (Playwright); dhcs.ca.gov refuses scripted requests
+    (Incapsula)

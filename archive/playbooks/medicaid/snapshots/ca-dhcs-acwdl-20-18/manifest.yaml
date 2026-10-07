@@ -1,0 +1,10 @@
+- retrieved: '2026-10-07'
+  url: https://www.dhcs.ca.gov/services/medi-cal/eligibility/letters/Documents/20-18.pdf
+  final_url: https://www.dhcs.ca.gov/services/medi-cal/eligibility/letters/Documents/20-18.pdf
+  status: 200
+  content_type: pdf
+  text_sha256: ed84aee6270917b231ebdd3eb309e92efed219f4d9671fee0101ec2e080146e9
+  text: ca-dhcs-acwdl-20-18/2026-10-07.txt
+  raw: ca-dhcs-acwdl-20-18/2026-10-07.pdf
+  fetched_via: headless Chromium (Playwright); dhcs.ca.gov refuses scripted requests
+    (Incapsula)

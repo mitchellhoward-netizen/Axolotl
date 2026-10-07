@@ -1,0 +1,354 @@
+Benefits Plus Online
+
+Home / Benefit Tools / SNAP Calculator
+
+Benefits Plus SNAP Calculator
+
+General Disclaimer
+
+Immigrant Households
+
+Requesting a NYC SNAP Budget
+
+A NYS SNAP Budget Worksheet, please email bplc@cssny.org for a worksheet from previous years.
+
+Using the Calculator
+
+The calculator estimates whether a New York State household meets SNAP income guidelines and the possible monthly SNAP benefit amount. It does not determine final eligibility and does not evaluate every eligibility factor. Enter monthly amounts without dollar signs or commas. Select the help icon next to a field for definitions and instructions.
+
+For more on SNAP benefits, eligibility, and applications, subscribe to Benefits Plus Online and visit our Blog.
+
+The calculator reflects updates effective October 1, 2026 through September 30, 2027.
+
+For technical issues, email bplc@cssny.org.
+
+Number in Household:
+
+Household Members (Choose the first option that applies):
+
+The household includes an older adult (60+) or disabled
+member.
+
+The household is a working family with out-of-pocket
+child/dependent care expenses.
+
+The household has earned income.
+
+None of the above options apply.
+
+Income
+
+Monthly Gross Earned Income:
+
+$
+
+Salary, self-employment, etc.
+
+Boarder/Lodger Occupancy?:
+
+No Boarder/Lodger
+
+One Boarder/Lodger
+
+Two Boarders/Lodgers
+
+Monthly Income from Boarder/Lodger:
+
+$
+
+Monthly gross Unearned Cash Assistance Income:
+
+$
+
+Monthly gross Unearned RSI/SSDI/SSI:
+
+$
+
+Other Monthly gross Unearned Income:
+
+$
+
+Monthly Net Rental Income:
+
+$
+
+Monthly Child Support Payments:
+
+$
+
+Actually paid, legally obligated amounts
+
+Adjust Monthly Gross Income:
+
+$
+
+Deductions
+
+Deduction on Gross Earned Income:
+
+$
+
+Standard Deduction based on household size:
+
+$
+
+Child Care/Dependent Costs:
+
+$
+
+Are you homeless?:
+
+Yes
+
+No
+
+Medical Expenses
+
+$
+
+Total Deductions
+
+$
+
+Monthly Shelter Costs
+
+Amount household actually pays for rent/mortgage:
+
+$
+
+Where do you live?
+
+NYC (5 boroughs)
+
+Long Island (Nassau and Suffolk counties)
+
+Other Areas in NYS
+
+Standard Utility Allowance (SUA) Levels:
+
+Level 1: Enter this amount if there are heating/cooling costs;
+As of November 1, 2025, HEAP households automatically qualify
+only if there is a member age 60+ or disabled; all other HEAP
+households must demonstrate heating/cooling costs.
+
+Level 2: Enter this amount if there are no heating/cooling
+costs but has other utility costs.
+
+Level 3: Enter this amount if there are no heating/cooling or
+utility costs but has a phone. (This is automatically provided
+to households not eligible for Levels 1 or 2.).
+
+SUA Level Amount:
+
+$
+
+Taxes, Insurance, Repairs when homes are damaged in disasters:
+
+$
+
+Calculated Total Shelter Cost:
+
+$
+
+SNAP Net Income
+
+Monthly Net SNAP Income:
+
+$
+
+Potential SNAP Benefit
+
+Thrifty Food Plan amount for H.H. Size:
+
+$
+
+SNAP Recoupment (if applicable):
+
+$
+
+Potential SNAP Allotment:
+
+$
+
+Based on the information provided, it appears that the household
+is not entitled to SNAP benefits. However, households with one or
+two persons may be entitled to a $
+25
+minimum benefit amount; all other households will not be entitled
+to SNAP.
+
+Reset
+
+Number in Household
+
+Enter the number of individuals in the applying SNAP household.
+
+A SNAP household is defined as a single person or group of people who live together and who purchase and prepare meals together, regardless of their relationship.
+
+However, certain people must be included together even if they purchase and prepare meals separately.
+
+Mandatory SNAP Households
+
+The following households are considered a household regardless of whether or not they purchase and prepare meals together:
+
+Spouses living together, this includes same sex spouses;
+
+Parent(s) living with their biological/adoptive children under age 22 (includes stepchildren), and if applicable, the children’s spouse and their own children;
+
+Adults and children under 18 who live together and is under the "parental control" of that adult who is not their parent or stepparent.
+
+Parental control means that the adult provides 50% or more of the minor child's support.
+
+Household Members
+
+This selection helps determine which income guidelines and deduction rules apply to your household.
+
+The household includes an older adult (60+) or disabled member.
+
+Choose this option if the household includes a person age 60 or older or a person who meets SNAP’s disability definition.
+
+Disabled Definition
+
+To be considered “disabled” under the SNAP program rules, an individual MUST be in receipt of ONE of the following benefits:
+
+SSI-Disability/Blind, Social Security Disability Insurance, Railroad Retirement Disability, veterans with a service-connected or non-service connected disability rated 100% disabled by the VA or receiving VA Aid and Attendance, federal or state disability retirement benefits for a disability considered permanent under Social Security, or disability-related Medicaid.
+
+The household is a working family with out-of-pocket child/dependent care expenses
+
+Working Families
+
+Choose this option when the household has out-of-pocket child/ dependent care costs that have earned income, have accepted a job, are looking for work, attending employment training programs or pursuing education that is preparatory to employment.
+
+The household has earned income
+
+Earned Income
+
+Choose this option if the household has earned income, whether the income is a combination of earned and unearned income or whether it is earned income only. Earned income includes income from a boarder/lodger.
+
+Note: If you have child/dependent care costs and you have earned income, choose the "working family with out-of-pocket child/dependent care expenses" instead.
+
+None of the above options apply
+
+Choose this option when the household does not have:
+
+An older adult (60+) or disabled member
+
+Out-of-pocket child/dependent care expenses.
+
+Earned income.
+
+Monthly Gross Earned Income (salary, self-employment, etc.)
+
+Enter the total monthly earned income amount before taxes or other deductions are taken. Include wages, salary, and self-employment income.
+
+If earnings are sporadic, use the average earnings from the previous 4 weeks. To determine monthly income, a local agency may multiply:
+
+Average weekly earnings by 4.333, or
+
+Average biweekly earnings by 2.1667.
+
+Do you have a boarder or lodger?
+
+Select either,
+
+No boarder/lodger,
+
+one boarder/lodger, or
+
+two boarders/lodgers.
+
+A lodger pays for lodging but not meals.
+
+A boarder pays for lodging and meals.
+
+Note: Boarder/lodger Income is treated as earned income.
+
+Boarders
+
+Boarders cannot apply for SNAP benefits on their own.
+
+A household with boarders may include a boarder as a household member or not – it is the household’s choice.
+
+If a boarder is included, they will be included in the household size, along with their income to determine the household’s eligibility and the amount of SNAP benefits.
+
+If a boarder is not included, the household must include the net income they receive from the boarder in the budgeting process.
+
+Monthly Gross Unearned Cash Assistance Income
+
+Enter the total monthly amount of Cash Assistance benefit, including the shelter and utility allowance, even when these payments are direct vendor payments.
+
+Do not include rent payments from government subsidies, such as Section 8, SCRIE, DRIE, HASA, FHEPS supplement, CITYFHEPS, as part of the household’s income.
+
+Monthly gross Unearned RSI/SSDI/SSI
+
+Enter the total monthly income from Social Security Retirement, Survivors, Dependent benefits, Social Security Disability Insurance benefits, Supplemental Security Income (SSI).
+
+Monthly Net Rental Income
+
+Enter the total monthly net rental income amount only when a member of the household spends less than 20 hours a week on average managing the property.
+
+Other Monthly Gross Unearned Income
+
+Enter the total monthly of any other source of unearned income not listed above.
+
+This includes veteran's benefits, Unemployment Insurance Benefits, Worker's Comp, NYS Disability, pensions, child support payments received by the household, alimony, cash contributions directly to the household from non-legally responsible relatives, bank interest, or other sources of unearned income.
+
+Monthly Child Support Payments (actually paid, legally obligated amounts)
+
+Enter the total monthly amount of legally obligated, court ordered, support payments that a parent is actually paying for a child outside the household.
+
+Child Care/Dependent Costs
+
+Enter the total monthly amount of out-of-pocket costs for the care of a child or other dependent (including an incapacitated adult) when necessary for a household member to accept or continue employment, seek employment, attend training or pursue education preparatory to employment.
+
+There is no cap on this deduction. Include only expenses that are actually paid by the household.
+
+Are you homeless?
+
+Select "Yes" if undomiciled and not residing in continuous shelter, the calculator will automatically include a standard deduction.
+
+A household generally should not receive both the homeless shelter deduction and actual shelter-cost deductions for the same month.
+
+Medical Expenses
+
+Enter the total average monthly unreimbursed medical expenses paid out of pocket by an older adult (age 60+) or disabled household member. This deduction is available only for the medical expenses of the older adult or disabled household member.
+
+Note: Please include the full amount. The calculator will automatically deduct the first $35 of these medical expenses.
+
+Medical expenses include: medical and dental care; prescription medications; medical supplies and equipment; health and hospital insurance policy premiums, including Medicare and private health insurance premiums; health insurance co-payments and deductibles; payments to maintain an attendant, home health aide, or housekeeper necessary due to age or illness; and the cost of transportation and lodging to obtain medical treatment and services. The cost of special diets is not allowed as a medical deduction.
+
+Amount household actually pays for rent/mortgage
+
+Enter the monthly portion of shelter costs that the SNAP household is responsible for paying.
+
+Monthly shelter costs include:
+
+Rent or mortgage payments billed to the household.
+
+Property taxes.
+
+Insurance on the housing structure.
+
+Shared housing arrangement, include only the household's share of the rent or other shelter expenses. This applies when individuals who are not part of the SNAP household, such as roommates, pay a portion of the rent.
+
+Direct vendor payments: If a non-legally responsible individual makes a payment directly to the landlord on the household's behalf, include only the portion of the shelter expense actually paid by the SNAP household.
+
+Cash Assistance households: Include the regular Cash Assistance (CA) shelter allowance, even when it is issued as a direct vendor payment to the landlord.
+
+Do not include portions of shelter costs paid by government subsidies or rental assistance programs, such as Section 8, SCRIE, DRIE, HASA, FHEPS, or CityFHEPS.
+
+Thrifty Food Plan amount for H.H. size
+
+This is the maximum amount of SNAP benefits that can be issued to a household, which is based on household size.
+
+SNAP Recoupment (if applicable)
+
+Households charged with a SNAP overpayment have to pay it back to the program.
+
+This is called a recoupment. If the household is subject to a recoupment enter the monthly amount here.
+
+Potential SNAP Benefit Amount
+
+Based on the information you provided, this is the amount of SNAP benefits your household may be eligible for.
+
+Households with one or two persons will be entitled to a $25 minimum benefit amount, even when the result is a negative number, $0, or less than $25.

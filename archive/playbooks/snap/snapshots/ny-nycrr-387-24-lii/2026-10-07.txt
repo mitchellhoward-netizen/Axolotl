@@ -1,0 +1,461 @@
+N.Y. Comp. Codes R. & Regs. Tit. 18 § 387.24 - New York State Combined Application Project (NYSCAP)
+
+State Regulations
+
+Compare
+
+The NYSCAP is a federally-approved demonstration project
+which uses an automatic SNAP case enrollment and conversion process for certain
+single, live-alone Supplemental Security Income (SSI) recipients. Information
+from the Social Security Administration (SSA) provided to the Office of
+Temporary and Disability Assistance (Office) is used to identify individuals
+eligible to receive SNAP benefits under the NYSCAP. The operation of the
+NYSCAP, as set forth in this section, is subject to continued federal approval
+and funding.
+
+(a)
+Eligible
+Households. The process for enrollment of eligible households in the
+NYSCAP is set forth below:
+(1) Automatically
+Enrolled Eligible Households.
+(i) Single SSI,
+live-alone households, not currently receiving SNAP benefits, designated with
+an SSI federal living arrangement Code A, and a State SSI Supplemental Code A.
+These are individuals that SSA and the Office have determined to be separate,
+independent households; even if they are physically living with others. These
+households are automatically enrolled in the NYSCAP, except as otherwise
+provided by this section.
+
+(ii)
+Automatic enrollment of a NYSCAP case for an individual will be stopped if an
+"Exception" situation exists for that individual. The NYSCAP case will not be
+automatically enrolled. The Exception reason must be reviewed and resolved, and
+its effect on eligibility for SNAP and for participation in the NYSCAP must be
+determined prior to manually opening a NYSCAP case. Exception situations
+include but are not limited to:
+(a) The
+individual is a member of a household that has a pending application for SNAP
+benefits.
+
+(b) The individual is
+sanctioned or disqualified from participation in the SNAP due to a SNAP
+Intentional Program Violation (IPV).
+
+(c) The last case action recorded in the
+Welfare Management System, (WMS) or any system of record that succeeds WMS, for
+a SNAP household of which the individual was a member, was the closure of the
+case due to the request of the household.
+
+(d) The last case action recorded in WMS, for
+a SNAP household of which the individual was the only member, is the
+termination of an automatic NYSCAP enrollment because the individual failed to
+redeem SNAP benefits following the automatic enrollment in the NYSCAP, as
+provided by this section.
+
+(2) Conversion of NYSCAP-Eligible Current
+SNAP Recipient Households to the NYSCAP.
+(i)
+Current SNAP recipients who are determined eligible for SSI will be converted
+to the NYSCAP.
+
+(ii) Automatic
+conversion of a currently active regular SNAP case to the NYSCAP will be
+stopped if an "Exception" situation exists for that household. The NYSCAP case
+will not be automatically enrolled, and the Exception Reason must be reviewed
+by the social services district for possible resolution and subsequent NYSCAP
+enrollment. Exceptions include but are not limited to:
+
+(a) Case Exception Reasons:
+
+(1) The individual is a member of a household
+that has a pending application for SNAP benefits.
+
+(2) The individual is sanctioned or
+disqualified from participating in the SNAP due to a SNAP IPV.
+
+(3) The individual is an active member of
+another SNAP household.
+
+(4)
+Information about the individual failed a date of birth or sex validation match
+between the SSA and the WMS.
+
+(5)
+The individual is listed as residing in more than one social services
+district.
+
+(6) The individual is
+listed as deceased in the WMS.
+
+(7)
+The last SNAP case transaction for the household in the WMS was case closure
+for having moved out-of-state.
+
+(b) Budget Exception Reasons:
+
+(1) The individual is sanctioned or
+disqualified from participating in the SNAP due to a SNAP IPV.
+
+(2) The SNAP case has no stored
+budget.
+
+(3) The individual is in an
+open SNAP case with a household greater than one.
+
+(4) The household has a SNAP budget with an
+overpayment claim, for either a past, current or future period, stored in
+WMS.
+
+(5) The household is not
+receiving any SSI.
+
+(6) If the
+effective date of an SSA change is reported after the expiration date of the
+household's SNAP certification period.
+
+(7) Information from the SSA indicates that
+the household's social services district of residence has changed.
+
+(3)
+Ineligibility to opt out of the NYSCAP.
+
+All individuals eligible to participate in the NYSCAP who
+wish to participate in the SNAP must receive SNAP through the
+project.
+
+(b)
+Ineligible Households. Households ineligible to participate in
+the NYSCAP are as follows:
+(1) Individuals in
+receipt of SSI who are not designated with a federal living arrangement Code A,
+and a State SSI Supplemental Code A.
+
+(2) SSI individuals residing in Group Living
+Arrangements as defined in section
+387.1 of this Part.
+
+(3) NYSCAP-eligible SNAP recipients aged 18
+through 21 who are currently receiving SNAP benefits as part of a multi-person
+SNAP household are ineligible to participate and must remain part of the
+multi-person household if they otherwise would be a required member of the
+household as defined in section
+387.1 of this Part.
+
+(4) Individuals who are currently or
+permanently disqualified from participation in the SNAP.
+
+(c)
+Enrollment Process. The
+NYSCAP automatic enrollment process for eligible households.
+
+(1) Eligible households automatically
+enrolled in the NYSCAP are authorized to receive an initial SNAP benefit of at
+least the minimum allotment for a household of one (excepting those cases
+wherein a recoupment for an outstanding claim balance is re-established for
+collection) and a certification period of 36 months. These households are sent
+an initial enrollment notice by the Office which includes:
+
+(i) Notification of their eligibility for
+SNAP benefits under the NYSCAP;
+
+(ii) Overview of the NYSCAP;
+
+(iii) Explanation of the individual's rights
+and responsibilities under the NYSCAP; and
+
+(iv) Provisions for submitting documentation
+to support the receipt of a higher SNAP benefit.
+
+(2) Verification.
+
+(i) For the purpose of the NYSCAP, unless
+contradicted by more current, verified-upon-receipt information, the use of the
+SSI, SSA and the State-funded SSI State Supplement Program (SSP) data will
+fulfill SNAP verification requirements for the following:
+
+(a) Identity;
+
+(b) Date of Birth;
+
+(c) Social Security Number;
+
+(d) Sex;
+
+(e) SSI and Other Income;
+
+(f) Household Size; and
+
+(g) Living Arrangement.
+
+(ii) Information subsequently reported is
+subject to SNAP verification requirements as set forth in section
+387.8 of this Part.
+
+(3) SNAP benefits are accessible
+using the Electronic Benefit Transfer (EBT) Card.
+
+Use of the EBT card to access SNAP benefits within 90
+days following automatic NYSCAP case enrollment constitutes an electronic
+signature and an acknowledgment that the recipient understands and agrees to
+their rights and responsibilities under the SNAP.
+
+(i) A NYSCAP case is not considered open, and
+a household is not considered a SNAP recipient or to have been an applicant,
+until the household has redeemed a portion of any SNAP benefit within 90 days
+following automatic NYSCAP case enrollment.
+
+(ii) A household has no rights to a fair
+hearing unless the household has accessed a portion of any SNAP benefit within
+90 days following automatic NYSCAP case enrollment.
+
+(iii) A NYSCAP enrollment is closed
+automatically if a household has not redeemed any SNAP benefits within 90 days
+following automatic NYSCAP case enrollment. No further notices are
+required.
+
+(4) Automatic
+Case Enrollment / Closing Date for the NYSCAP.
+
+(i) The SNAP case for an automatic NYSCAP
+enrollment is open effective the first day of the month following the month
+that the information on the household's SSI and SSP case activation is
+received, provided the information is received on or before the
+20th day of the month. If the information is
+received after the 20th day of the month, automatic
+NYSCAP enrollment is effective no later than the first day of the second month
+following receipt of this information.
+
+(ii) The SNAP case for an automatic NYSCAP
+enrollment is closed automatically if a household has not redeemed any SNAP
+benefits within 90 days following automatic NYSCAP case enrollment. No further
+notices are required.
+
+(5) No eligibility for expedited processing.
+
+There is no expedited processing, pursuant to section
+387.8 of this Part, for the NYSCAP
+automatic enrollment process.
+
+(6) Restored benefits.
+
+(i) There are no restored SNAP benefits
+dating back to the date of SSI eligibility for automatically-enrolled NYSCAP
+cases.
+
+(ii) If a NYSCAP household
+fails to redeem any SNAP benefits within 90 days of automatic NYSCAP case
+enrollment and the SNAP case created by the automatic NYSCAP case enrollment is
+closed as a result, and the individual then subsequently applies for and is
+found eligible for SNAP, there is no right or entitlement to restored SNAP
+benefits back to the date of the initial automatic NYSCAP case enrollment. The
+new SNAP application and case would then be processed pursuant to section
+387.8 of this Part.
+
+(7) Initial Certification
+Interview.
+
+An initial certification interview is not required for
+households automatically enrolled in the NYSCAP.
+
+(d)
+Conversion Process. The
+NYSCAP Conversion Process for Active SNAP Households.
+
+(1) Conversion.
+
+SNAP recipients who are determined eligible for the
+NYSCAP will be converted to the NYSCAP as follows:
+
+(i) Conversion to the NYSCAP is effective the
+first day of the month following the month the information on the SSI case
+activation is received by the Office provided the information is received by
+the 20th of the month. If the information is
+received after the 20th of the month, conversion to
+the NYSCAP is effective no later than the first day of the second month
+following receipt of this information.
+
+(ii) The Office will send a notice that
+includes:
+(a) Notification of the household's
+conversion to the NYSCAP.
+
+(b)
+Overview of the NYSCAP.
+
+(c)
+Explanation of the household's rights and responsibilities under the
+NYSCAP.
+
+(iii)
+NYSCAP-eligible SNAP recipients aged 18 through 21 who are in an open SNAP case
+with a household greater than one must remain part of the multi-person
+household if they otherwise would be a required member of the household as
+defined in section
+387.1
+
+(2) Verification.
+
+NYSCAP households are subject to SNAP verification
+requirements as set forth in paragraph (2) of subdivision (c) of this
+section.
+
+(e)
+NYSCAP Benefit Levels.
+
+Households automatically enrolled in the NYSCAP pursuant
+to paragraph (1) of subdivision (a) of this section initially receive at least
+the federal minimum monthly benefit level for a household of one, excepting
+those cases wherein a recoupment for an outstanding claim balance is
+re-established for collection. The household may qualify for a higher SNAP
+benefit by submitting information regarding household circumstances and all
+required verification as outlined in section
+387.15 of this Part.
+
+(f)
+Transition from NYSNIP
+to NYSCAP.
+
+The New York State Nutrition Improvement Project (NYSNIP)
+is an expiring, federally-approved demonstration project which used an
+automatic SNAP case enrollment and conversion process for certain single,
+live-alone SSI recipients.
+
+NYSNIP households in receipt of a standardized benefit
+amount will be transitioned to the NYSCAP and the regular SNAP budgeting
+methodology as put forth in this Part as soon as practicable but no later than
+the household's next required contact.
+
+(g)
+Certification Periods.
+
+SNAP households participating in the NYSCAP will be
+assigned certification periods of 36 months. Households that were previously
+certified under NYSNIP with certification periods of between 36-48 months will
+receive a 36-month certification period at their next recertification.
+
+(h)
+Reporting
+Requirements.
+
+Between certifications, the only reporting requirement
+for NYSCAP households is to respond to NYSCAP SNAP Benefit Interim Reports
+(Interim Reports) as set forth below.
+
+(1) Interim Reports. NYSCAP households are
+required to complete Interim Reports. Approximately 18 months prior to the end
+of the certification period, households are mailed the Interim Reports
+requesting that the households provide updated information regarding living
+arrangements, shelter costs, and utility expenses. Households are advised to
+return the completed form by the tenth day of the month following the month the
+Interim Report is received or SNAP benefits will be discontinued. Blank
+reports, reports submitted without required verification as set forth in
+section 387.8 of this Part, and unsigned
+reports will be treated as "No change" reports and processed for continuing
+NYSCAP eligibility at the current benefit amount.
+
+(2) Client Reported Changes. A NYSCAP
+household is not required to report any changes except as provided in paragraph
+(1) of this subdivision. When a household reports and verifies a change, in
+accordance with paragraph (2) of subdivision (c) of this section, that would
+affect the household's eligibility or change its benefit amount, the social
+services district must act upon that information.
+
+(3) System Reported Changes.
+
+(i) The Office receives change information
+daily from the SSA. SSA information is transmitted to or made available to the
+social services districts by daily NYSCAP reports. Action by the social
+services district is required for certain case status changes. System-reported
+changes that require the social services districts to make a determination of
+continuing eligibility for SNAP benefits include:
+
+(a) Loss of SSI income;
+
+(b) Relocation from one social services
+district to another; or
+
+(c)
+Relocation to an ineligible living arrangement.
+
+(ii) System-reported changes that do not
+require the social services districts to take action are changes in:
+
+(a) Income;
+
+(b) Relocation within the same social
+services district;
+
+(c) Relocation
+to an eligible living arrangement; or
+
+(d) Death.
+
+(i)
+Recertification.
+
+(1) All
+SNAP cases recertified into the NYSCAP are recertified for a 36-month
+period.
+
+(2) NYSCAP households are
+required to recertify by the end of the current certification period, in order
+to determine continued eligibility in accordance with recertification
+requirements set forth in section
+387.17(f) of this
+Part.
+
+(3) A NYSCAP household's
+failure to recertify for the SNAP results in case closing.
+
+(j)
+Notice
+Requirements.
+
+(1) Initial
+enrollment:
+(i) NYSCAP-eligible households
+will receive an initial enrollment notice as set forth in paragraph (1) of
+subdivision (c) of this section.
+
+(ii) SNAP households converted to the NYSCAP
+will receive a notice of conversion as set forth in paragraph (1) of
+subdivision (d) of this section.
+
+(iii) NYSCAP households that have redeemed
+SNAP benefits within three months of case opening but have not submitted the
+information collection sheet or otherwise had the initially-authorized budget
+adjusted within six months of case opening will receive a reminder letter
+prompting the household to submit information regarding household
+circumstances.
+
+(2)
+Interim Report: The Interim Report is automatically mailed to households 18
+months prior to the end of the certification period as set forth in subdivision
+(h) of this section.
+
+(3)
+Recertification: NYSCAP households are subject to recertification requirements
+set forth in section
+387.17 of this Part and
+subdivision (i) of this section.
+
+Notes
+
+N.Y. Comp.
+Codes R. & Regs. Tit. 18
+§
+387.24
+
+Adopted
+New
+York State Register February 24, 2021/Volume XLIII, Issue 08,
+eff. 2/24/2021
+
+State regulations are updated quarterly; we currently have two versions available.
+Below is a comparison between our most recent version and the prior quarterly release.
+More comparison features will be added as we have more versions to compare.
+
+No prior version found.
+
+State Regulations Toolbox

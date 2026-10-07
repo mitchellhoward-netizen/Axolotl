@@ -1,57 +1,94 @@
 # Review notes: Medicaid (Medi-Cal), California
 
-Built 2026-10-07. **DHCS (dhcs.ca.gov, including all ACWDL/MEDIL letters) could
-not be retrieved**: its bot wall blocked scripted requests, the WebFetch tool
-and the Wayback Machine. Every California rule therefore rests on the Medi-Cal
-handbook and charts of the Santa Clara County Social Services Agency (a county
-that administers Medi-Cal; its updates name ACWDL 25-13, 25-14 and 25-20), a San
-Mateo County member flyer, and, for cross-checking only, a Health Consumer
-Alliance practice tip. All carry open question MCD-CA-OQ-01.
+Built 2026-10-07; re-sourced from DHCS the same day (second pass). The first
+pass could not reach dhcs.ca.gov and rested every rule on Santa Clara County's
+Medi-Cal handbook. The second pass fetched the DHCS letters with a headless
+Chromium browser (dhcs.ca.gov refuses scripted requests) and now cites a DHCS
+primary for every confirmed rule: ACWDLs 20-18, 20-24, 23-31, 24-10, 25-01,
+25-08, 25-13, 25-14, 25-20, 25-25, 25-30, 25-33, 26-01 (and enclosures),
+26-07, 26-13, 26-14, 26-16, 89-58; MEDILs I 25-23, I 25-24, I 26-01, I 26-03,
+I 26-18, I 26-20; MEPM Article 5L. County sources are now `kind: secondary`
+and kept only as cross-checks; one life event (inter-county move) rests on
+the county alone and is labelled `secondary`.
 
 ## What is solid
 
-- **Asset limit reinstated January 1, 2026** for Non-MAGI programs (not Pickle,
-  DAC, DW): $130,000 for one plus $65,000 per additional person up to 10;
-  eliminated January 2024 - December 2025; $130,000 phase from July 2022.
-  Transition rules for applications and renewals.
-- **2026 MAGI levels** (from January 1): adults 138% ($1,836 / $2,490 /
-  $3,143), parents 109% (114% with Medicare), pregnant 213%.
-- **A&D FPL program** (138% after $20 and the Part B premium; ABD levels from
-  April 1, 2026) and **share of cost** (income over the $600 / $934 maintenance need).
-- **Expansion freeze** for adults 19+ without satisfactory immigration status
-  from January 1, 2026; dental ends July 1, 2026 for those grandfathered.
-- **Retroactive coverage**: 3 months before 2027; 1 month (new adult group) /
-  2 months (others) from January 1, 2027; 12-month request limit.
+- **Asset limit reinstated January 1, 2026** (ACWDL 25-14) for Non-MAGI
+  programs: $130,000 for one plus $65,000 per additional person up to 10;
+  "at, or under" qualifies (ACWDL 25-20). Pickle, DAC and DW follow on
+  January 1, 2027 (ACWDL 26-16). Eliminated January 2024 - December 2025.
+  Transition rules for applications, retro months, renewals and CIC.
+- **MAGI levels** for 2025 and 2026 straight from the DHCS FPL charts
+  (ACWDL 25-01, 26-01): adults 138%, parents 109% (114% with Medicare or
+  65+), pregnant 213% full scope. Effective dates by group.
+- **A&D FPL program** (ACWDL 20-24, 20-18): 138% FPL after $20, earned
+  income deductions, health premiums and the Part B disregard **whoever pays
+  the premium**; $600 deduction for a non-applicant spouse and 138% for one;
+  2025 limits ($1,801 / $2,433) now cover April 2025 - March 2026.
+- **Share of cost**: maintenance need still $600 / $934 (ACWDL 89-58; the
+  138% FPL reform of ACWDL 23-31 was revoked by ACWDL 24-10).
+- **Immigration**: expansion freeze (ACWDL 25-13), grace period, NQI and QNC
+  exemptions, October 2026 move of refugees/asylees to state-funded full
+  scope (ACWDL 26-13), $30 premium for ages 19-59 from July 1, 2027 (ACWDL
+  25-33), dental cut delayed to July 1, 2027 (MEDIL I 26-18).
+- **2027 changes**: retroactive months 1/2 (ACWDL 26-07), WCER with
+  look-back month (ACWDL 25-30), six-month renewals from March 2027 renewals
+  (ACWDL 26-14). All three letters are marked preliminary.
+
+## What changed in the second pass
+
+- Outcomes: MCD-CA-T21 (refugee, November 2026) undetermined -> eligible
+  (state-funded full scope); MCD-CA-T24 (February 2026) undetermined ->
+  eligible under the 2025 A&D FPL limit.
+- Logic: Part B disregard in the A&D FPL budget no longer requires that the
+  person pay the premium (ACWDL 20-18); other health premiums are deducted in
+  the A&D FPL budget too (ACWDL 20-24); January-March A&D cases over the prior
+  year's limit return undetermined because the COLA is disregarded until
+  April; LPRs in the five-year bar and pregnant undocumented applicants get
+  (state-funded) full scope instead of undetermined/restricted; premium amount
+  reported from July 2027.
+- New tests MCD-CA-T27 to T33 pin these.
+- Values: 2025 MAGI and A&D FPL values added; no 2026 value changed.
 
 ## Assumptions made
 
-1. Property exactly at $130,000 qualifies (county: "equal to or below"; HCA:
-   "less than"; MCD-CA-CONFLICT-01).
-2. Over the property limit = ineligible (no property spenddown outside LTC),
-   per the county flyer's "you may need to reduce your countable assets".
-3. A&D FPL with a non-aged/non-disabled spouse: deduct the $600 maintenance need
-   for the spouse and use 138% for one (handbook example).
-4. Medically Needy share of cost deducts Part B and other health premiums; the
-   $600/$934 levels (1989) still apply (MCD-CA-OQ-04).
-5. The other-real-property $6,000 limit is not modelled.
+1. Over the property limit = ineligible for the month, with the excess shown;
+   DHCS allows spending down excess property within the month (ACWDL 25-14),
+   which the evaluator does not simulate.
+2. New applicants who are qualified non-citizens after October 1, 2026 get
+   state-funded full scope: inference from ACWDL 26-13 plus the freeze
+   exemption for QNCs in ACWDL 25-13 (noted on MCD-CA-QNC-2026).
+3. Parolees count as QNCs only with `facts.parole_one_year_or_more` (a new
+   Person fact, not yet listed in the federal rules docstring).
+4. The other-real-property $6,000 limit (county handbook only) is not
+   modelled.
+5. WCER is checked for the as-of month, not DHCS's look-back month.
 
 ## Weakest parts
 
-- Whole state part depends on a county restatement (MCD-CA-OQ-01).
-- 2025 A&D FPL limits for January-March 2026 missing (MCD-CA-OQ-02).
-- Premiums for undocumented adults (reported $30 in 2027) not found (MCD-CA-OQ-03).
-- October 2026 treatment of refugees/asylees/parolees not found (MCD-CA-OQ-05).
+- January-March A&D FPL cases near the limit (COLA disregard; MCD-CA-OQ-02).
+- Lawfully present adults who are not QNCs (MCD-CA-OQ-05).
+- Premium applicability to refugees/asylees from July 2027 (MCD-CA-OQ-03).
+- 2027 letters (26-07, 25-30) are preliminary and may change.
 
 ## Questions for a California benefits expert
 
-1. Does ACWDL 25-14/25-20 say "at or below" or "less than" $130,000?
-2. Is the maintenance need still $600 for one in 2026?
-3. What are the undocumented-adult premium rules and dates?
-4. How are lawfully present noncitizens who lost federal funding on October 1, 2026 covered?
-5. Is the MC 210 still accepted, and is the SSApp the only current paper application?
+1. After October 1, 2026, does a newly applying refugee get state-funded
+   full scope (our reading of ACWDL 26-13 + 25-13), and do the 2027 premiums
+   reach them?
+2. How are parolees under one year, TPS holders and pending applicants
+   classified (PRUCOL or UIS)?
+3. Is any change to the $600 maintenance need planned for 2027?
+4. How should the January-March COLA disregard be computed when only the
+   post-COLA benefit is known?
 
 ## Cross-checks
 
-15 California runs through PolicyEngine US; 3 differ, all explained: table
-rounding for a household of 3 ($3,143 vs PolicyEngine's $3,142), PolicyEngine's
-strict "assets < limit" at exactly $130,000, and no share-of-cost modelling.
+15 California runs through PolicyEngine US; 3 differ, all explained (now
+citing DHCS): DHCS table rounding for a household of 3 ($3,143 vs
+PolicyEngine's $3,142), PolicyEngine's strict "assets < limit" at exactly
+$130,000 (DHCS says "at, or under"), and no share-of-cost modelling.
+PolicyEngine does not model the immigration-status scopes, premiums or the
+2027 changes. Santa Clara County figures matched DHCS everywhere except
+the dental cut date (MCD-CA-CONFLICT-04) and the 138-213% pregnancy scope
+(MCD-CA-CONFLICT-03).

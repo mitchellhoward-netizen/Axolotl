@@ -2,10 +2,19 @@
 
 MAGI: ACA Adults and FamilyCare (parents/caretaker relatives) at 138% FPL,
 Moms & Babies at 213%. AABD Medical for people 65+, blind or disabled: income
-after the $25 disregard (SSI excluded) against 100% FPL and nonexempt assets
-against $17,500. A community case over either is not denied: it is enrolled
+after the $25 disregard (SSI excluded), the earned income exemption ($20 + 1/2
+of the next $60 for aged/disabled; $85 + 1/2 of the rest for blind) and
+recognized employment expenses (89 Ill. Adm. Code 120.335, 120.362, 120.370;
+PM 08-02-03) against 100% FPL, and nonexempt assets against $17,500. A community case over either is not denied: it is enrolled
 in spenddown (the excess income each month, plus any excess assets).
 Illinois is a 209(b) state, so SSI does not by itself confer Medicaid.
+
+Person.facts read here (in addition to the federal list):
+  aabd_work_expenses_monthly  recognized employment expenses actually paid (withheld
+                              income taxes, Social Security tax, transportation,
+                              lunch allowance, required tools/uniforms/dues/premiums,
+                              day care, disability work expenses); PM 08-02-03-b/-c/-d
+  applying                    a spouse in the standard who is also applying (second $25)
 """
 
 from __future__ import annotations
@@ -78,26 +87,26 @@ def evaluate(hh: Household, as_of: date) -> Determination:
     # ------------------------------------------------------------ AABD Medical
     det.note("MCD-FED-NONMAGI-GROUPS", "65 or older, blind or disabled: AABD Medical", None)
     owners = fed.budget_unit(hh)
-    if any(i.owner in owners and i.kind in EARNED_KINDS for i in hh.incomes):
-        det.status = UNDETERMINED
-        det.unresolved("MCD-IL-OQ-03")
-        det.note("MCD-IL-AABD-INCOME", "earned income: the AABD earned income exemptions (PM 08-02-02/03) are not "
-                 "in this archive", None)
-        return det
     size = 2 if len(owners) == 2 else 1
     if size == 2:
         det.note("MCD-IL-SPOUSE-STANDARD", "living with a spouse: the 2-person standard and both incomes", None)
-    gross = sum(i.monthly for i in hh.incomes if i.owner in owners and i.kind not in fed.NON_MAGI_NOT_COUNTED)
-    disregard = float(params.use("il.medicaid.aabd_income_disregard_monthly", as_of, det).value)
-    applying = [p for p in hh.members if p.id in owners and (p is a or p.facts.get("applying"))]
-    with_income = [p for p in applying
-                   if any(i.owner == p.id and i.kind not in fed.NON_MAGI_NOT_COUNTED for i in hh.incomes)]
-    n_disregards = max(1, len(with_income)) if gross > 0 else 0
-    countable = round(max(0.0, gross - disregard * n_disregards), 2)
-    det.note("MCD-IL-AABD-DISREGARD", f"countable ${countable:,.2f} = ${gross:,.2f} (SSI not counted) - "
-             f"{n_disregards} x ${disregard:.0f}", None)
-    det.amounts["countable_income_monthly"] = countable
     standard = params.use("il.medicaid.aabd_income_limit_monthly", as_of, det)[size]
+    counted = [i for i in hh.incomes if i.owner in owners and i.kind not in fed.NON_MAGI_NOT_COUNTED]
+    gross = sum(i.monthly for i in counted)
+    disregard = float(params.use("il.medicaid.aabd_income_disregard_monthly", as_of, det).value) if gross > 0 else 0.0
+    applying = [p for p in hh.members if p.id in owners and (p is a or p.facts.get("applying"))]
+    with_income = [p for p in applying if any(i.owner == p.id for i in counted)]
+    n_disregards = max(1, len(with_income)) if gross > 0 else 0
+    earners = sorted({i.owner for i in counted if i.kind in EARNED_KINDS})
+    if not earners:
+        countable = round(max(0.0, gross - disregard * n_disregards), 2)
+        det.note("MCD-IL-AABD-DISREGARD", f"countable ${countable:,.2f} = ${gross:,.2f} (SSI not counted) - "
+                 f"{n_disregards} x ${disregard:.0f}", None)
+    else:
+        countable = _countable_with_earnings(hh, a, owners, counted, earners, disregard, standard, as_of, det)
+        if countable is None:
+            return det
+    det.amounts["countable_income_monthly"] = countable
     asset_limit = float(params.use("il.medicaid.aabd_asset_limit", as_of, det).value)
     resources = _resources(hh, owners, as_of, det)
     if resources is None:
@@ -121,8 +130,79 @@ def evaluate(hh: Household, as_of: date) -> Determination:
     return finish(hh, det)
 
 
+def _earned_exemption(person, earned: float, as_of: date, det: Determination) -> float:
+    """89 Ill. Adm. Code 120.362(b) / PM 08-02-03-a: aged or disabled $20 + 1/2 of the next $60; blind $85 + 1/2."""
+    if earned <= 0:
+        return 0.0
+    if person.blind:
+        flat = float(params.use("il.medicaid.aabd_earned_disregard_blind", as_of, det)["flat"])
+        return min(earned, flat) + max(0.0, earned - flat) / 2
+    p = params.use("il.medicaid.aabd_earned_disregard_aged_disabled", as_of, det)
+    flat, nxt = float(p["flat"]), float(p["half_of_next"])
+    return min(earned, flat) + min(max(0.0, earned - flat), nxt) / 2
+
+
+def _countable_with_earnings(hh, a, owners, counted, earners, disregard, standard, as_of, det):
+    """Countable income for an AABD case with earnings.
+
+    Order (PM 08-02-03): the $25 disregard and self-employment expenses first, then the earned income
+    exemption, then recognized employment expenses. Neither the rule nor the manual says whether the $25
+    comes off unearned or earned income first; both orders are computed and the case is undetermined only
+    when the order changes the outcome (MCD-IL-OQ-03).
+    """
+    det.note("MCD-IL-AABD-EARNED", "earned income: $25 disregard, then the earned income exemption, then "
+             "employment expenses (PM 08-02-03)", None)
+    for pid in earners:
+        if pid not in {p.id for p in hh.members if p is a or p.facts.get("applying")}:
+            det.status = UNDETERMINED
+            det.unresolved("MCD-IL-OQ-03")
+            det.note("MCD-IL-AABD-EARNED", "a spouse who is not applying has earnings: how the earned income "
+                     "exemption treats a responsible relative's wages was not established", None)
+            return None
+    unearned = sum(i.monthly for i in counted if i.kind not in EARNED_KINDS)
+    results = []
+    for order in ("unearned_first", "earned_first"):
+        left = disregard
+        u = unearned
+        if order == "unearned_first":
+            take = min(u, left); u -= take; left -= take
+        total = u
+        for pid in earners:
+            person = hh.person(pid)
+            e = sum(i.monthly for i in counted if i.owner == pid and i.kind in EARNED_KINDS)
+            take = min(e, left); e -= take; left -= take
+            e -= _earned_exemption(person, e, as_of, det)
+            e -= float(person.facts.get("aabd_work_expenses_monthly") or 0)
+            total += max(0.0, e)
+        if order == "earned_first" and left > 0:
+            total = max(0.0, total - left)
+        results.append(round(max(0.0, total), 2))
+    lo, hi = min(results), max(results)
+    # A second $25 for a spouse who is also applying with income (not covered by the order question).
+    spouses_with_income = [p for p in hh.members if p.id in owners and p is not a and p.facts.get("applying")
+                           and any(i.owner == p.id for i in counted)]
+    extra = disregard * len(spouses_with_income)
+    lo, hi = round(max(0.0, lo - extra), 2), round(max(0.0, hi - extra), 2)
+    det.note("MCD-IL-AABD-DISREGARD", f"countable ${hi:,.2f} after the $25 disregard(s), earned income exemption "
+             f"and employment expenses" + (f" (${lo:,.2f} if the $25 is taken from earnings first)" if lo != hi else ""),
+             None)
+    missing_expenses = [pid for pid in earners if hh.person(pid).facts.get("aabd_work_expenses_monthly") is None]
+    if hi > standard and missing_expenses:
+        det.status = UNDETERMINED
+        det.note("MCD-IL-AABD-EARNED", f"countable ${hi:,.2f} is over ${standard:,} before employment expenses, "
+                 "which are not given (withheld taxes, Social Security tax, transportation and others are "
+                 "deducted, PM 08-02-03-b)", None)
+        return None
+    if lo != hi and hi > standard:
+        det.status = UNDETERMINED
+        det.unresolved("MCD-IL-OQ-03")
+        det.note("MCD-IL-AABD-EARNED", "whether the $25 disregard comes off unearned or earned income first "
+                 "changes the result", None)
+        return None
+    return hi
+
+
 def _resources(hh: Household, owners: set[str], as_of: date, det: Determination) -> float | None:
-    vehicle_cap = float(params.use("il.medicaid.vehicle_exempt_value", as_of, det).value)
     total = 0.0
     vehicles = 0
     for x in hh.assets:
@@ -134,7 +214,9 @@ def _resources(hh: Household, owners: set[str], as_of: date, det: Determination)
             vehicles += 1
             if vehicles == 1:
                 needed = hh.person(x.owner).facts.get("vehicle_needed", False) if x.owner else False
-                total += 0.0 if needed else max(0.0, x.value - vehicle_cap)
+                if not needed:
+                    vehicle_cap = float(params.use("il.medicaid.vehicle_exempt_value", as_of, det).value)
+                    total += max(0.0, x.value - vehicle_cap)
                 continue
         if x.kind == "retirement":
             if hh.person(x.owner).facts.get("retirement_in_payout"):
@@ -149,7 +231,7 @@ def _resources(hh: Household, owners: set[str], as_of: date, det: Determination)
             continue
         total += x.value
     det.note("MCD-IL-ASSETS-EXEMPT", f"nonexempt assets ${total:,.0f} (homestead, burial spaces exempt; one vehicle "
-             f"exempt if needed, otherwise up to ${vehicle_cap:,.0f})", None)
+             "exempt if needed, otherwise up to the exempt value in PM 07-02-05)", None)
     det.amounts["countable_resources"] = total
     return total
 

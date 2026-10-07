@@ -1,0 +1,177 @@
+DATE: December 22, 2023
+
+TO: ALL COUNTY WELFARE DIRECTORS Letter No.: 23-31
+ALL COUNTY WELFARE ADMINISTRATIVE OFFICERS
+ALL COUNTY MEDI-CAL PROGRAM SPECIALISTS/LIAISONS
+ALL COUNTY HEALTH EXECUTIVES
+ALL COUNTY MENTAL HEALTH DIRECTORS
+ALL COUNTY MEDS LIAISONS
+
+SUBJECT: SHARE OF COST (SOC) REFORM
+
+References: Title 22 California Code of Regulations sections 50601,
+50603, and 50653, ACWDL 89-58
+
+The purpose of this All County Welfare Directors Letter (ACWDL) is to provide counties
+and the Statewide Automated Welfare System (SAWS) with guidance regarding
+changes to the “maintenance need” (sometimes referred to as the maintenance need
+income level (MNIL)) used to calculate the share of cost (SOC) for Medically Needy
+(MN) program enrollees who are not in long-term care. These changes, enacted by
+Senate Bill (SB) 184 (Chapter 47, Statutes of 2022), increase the maintenance need for
+the MN program to 138 percent of the federal poverty level (FPL) effective January 1,
+2025. This policy shall be implemented on January 1, 2025, contingent upon a
+determination of available State General Fund resources in 2024-2025’s May Revision
+and subsequent fiscal years, as well as receipt of all necessary federal approvals. The
+Department of Health Care Services (DHCS) will issue follow-up guidance in the form of
+a Medi-Cal Eligibility Division Informational Letter (MEDIL) to provide counties and
+SAWS with instructions on final readiness.
+
+Background
+
+In 2022, several health measures were consolidated in SB 184 as part of the Health
+Omnibus Bill of 2021-2022. This ACWDL addresses the SB 184 provisions that
+amended section 14005.12 of the Welfare and Institutions Code (WIC). WIC § 14005.12
+set the maintenance need to 138 percent of the FPL which is equal to the income limit
+for Medi-Cal without a SOC under the Aged, Blind, and Disabled Federal Poverty Level
+Program (ABD FPL). Raising the maintenance need to 138 percent FPL is referred to
+as SOC Reform.
+
+The Medically Needy program is a non-MAGI program that allows Medi-Cal applicants,
+who are otherwise eligible except for income, to spend down excess income on
+qualified medical expenses (known as SOC) in order to become eligible for Medi-Cal
+coverage.
+
+California Department of Health Care Services State of California
+Medi-Cal Eligibility Division Gavin Newsom, Governor
+1501 Capitol Avenue | Sacramento, CA | 95899-7413
+MS 4607 | Phone (916) 552-9200 | www.dhcs.ca.gov California Health and Human Services Agency
+
+Letter No.: 23-31
+Page 2
+December 22, 2023
+
+SOC is the amount an individual must pay or promise to pay to the provider for health or
+dental care before Medi-Cal starts to pay. The SOC amount resets each month and
+Medi-Cal members only need to pay their SOC in months when they get health and/or
+dental care services. The SOC amount is owed to the health or dental care provider. It
+is not owed to Medi-Cal or the State. Providers may allow Medi-Cal members to pay for
+the services later instead of all at once.
+
+The SOC is calculated by determining how much income an individual has in excess of
+the maintenance need minus any applicable deductions (Title 22 CCR section 50653).
+
+SOC individuals are responsible for paying their remaining income in excess of the
+maintenance need level towards their health care each month before Medi-Cal
+coverage is active. The maintenance need is a standard amount for an individual or
+family to allow them to meet their basic needs and and is not based on their actual
+expenses. Prior to January 1, 2025 the Medi-Cal maintenance need is based on the
+former Aid to Families with Dependent Children (AFDC) program payment levels. The
+maintenance need has remained at $600 for an individual since 1989.
+
+Policy
+
+Effective January 1, 2025, the maintenance need for all Medi-Cal programs that utilize
+the medically needy methodology to calculate a SOC will change to 138 percent of the
+FPL for the appropriate Medi-Cal Family Budget Unit size. With the implementation of
+this policy change, the maintence need will increase annually with the change instead of
+the previous static value.
+
+This guidance supersedes previous guidance in ACWDL 89-58 regarding how to
+calculate the maintenance need for individuals living in the community. It does not
+change how a SOC is calculated for Long-Term Care (LTC) Medi-Cal. Share of cost
+reform does not impact the policies and procedures of applying unpaid medical bills
+towards SOC under Hunt v. Kizer. Please see the enclosed chart for a list of Medi-Cal
+programs by aid code that use the maintence need.
+
+For all existing Medi-Cal members with a SOC, the SOC shall be recalculated using the
+new maintenance need for the January 2025 month of eligibility (MOE) by no later than
+December 31, 2024. All new applicants who apply in December 2024 shall have their
+eligibility determined using the new maintenance need for January 2025 MOE.
+
+Letter No.: 23-31
+Page 3
+December 22, 2023
+
+The table below illustrates an example of the calculation amounts before and after of
+the SOC reform using the 2023 FPL figures.
+
+Income and SOC before SOC after January
+Deductions January 1, 2025 1, 2025
+Gross income $2000 $2000
+Any income $20 $20
+deduction
+Medicare Part B $164.90 164.90
+(2023) deduction
+1Net Income $1815 $1815
+(rounded)
+SOC maintenance $600 $1677(138 percent
+need deduction FPL 1 person for
+2023)
+2Monthly SOC $1215 $138
+
+System Programming
+
+CalSAWS shall make program changes to automate the new maintenance need values
+as outlined in this ACWDL by January 1, 2025. Additionally, CalSAWS will redetermine
+eligibility for existing Medi-Cal members with a SOC for January MOE prior to January
+1, 2025. DHCS will work with CalSAWS to facilitate programming of these changes.
+
+Notices
+
+Counties shall use existing SOC Notices of Action (NOA) when determining eligibility for
+the Non-MAGI Medi-Cal programs listed in the chart below. Effective January 1, 2025,
+the new maintenance need should be reflected in the share of cost NOAs. The
+department is currently engaged in notice improvements for SOC notices which will be
+released in a separate ACWDL.
+
+Outreach
+
+1 If net income is at or below the ABD FPL of 138 percent, then member is eligible for free Medi-Cal.
+2 If member does not use medical services for that month, then no SOC is paid for that month.
+
+Letter No.: 23-31
+Page 4
+December 22, 2023
+
+DHCS plans to notify those individuals who will be impacted by SOC reform prior to the
+implementation date with the upcoming changes to share of cost calculation that will
+help to reduce or eliminate their SOC. In October 2024 the targeted outreach population
+will be identified in MEDS. Approximately 60 days prior to January 1, 2025, all
+individuals impacted by SOC reform will receive an outreach mailer from DHCS.
+Counties will be required to include the outreach notice with approval notices for
+individuals who apply for Medi-Cal after October 1, 2024, and up to January 1, 2025, if
+the eligibility determination resulted in a SOC.
+
+If you have any questions, or if we can provide further information, please contact Gabe
+Doria, by phone at (916) 775-0407 or by email at Gabe.Doria@dhcs.ca.gov, or Andrey
+Bodrov, by phone at (916) 345-8675 or by email at Andrey.Bodrov@dhcs.ca.gov.
+
+Sincerely,
+
+Yingjia Huang
+Assistant Deputy Director
+Health Care and Benefits
+Department of Health Care Services
+
+Enclosure
+
+State Medi-Cal Programs with a Share of Cost
+
+Program name Aid code
+Aged, Blind, and Disabled Medically Needy 17, 27, 67, C2, C4, C8
+(ABD MN)
+Aid to Families with Dependent Children 37, C6
+(AFDC) – Medically Needy (MN)
+Medically Indigent (MI) 81, 82, 83, 87, D1, D9
+Multipurpose Senior Services Program (MSSP) 1Y
+Refugee Medical Assistance and Trafficking and 02, 4V, 7V
+Crime Victims Assistance Program (TCVAP)
+Pending SB 87 Disability Determination 5R, 6R
+Disabled - Substantial Gainful Activity (SGA) 6S
+Department of Developmental Services (DDS) 6W
+Waivers
+Medi-Cal Home and Community Based 6Y
+Alternatives (HCBA) Waiver
+Medi-Cal County Inmates Hospital Inpatient G3, G4, G7, G8
+Services and Juvenile Inmate
+County Compassionate Release J2, J4

@@ -140,8 +140,6 @@ cases:
     tier: paid
     rules_include:
     - SCH-IL-HSMFA
-    open_questions_include:
-    - SCH-IL-OQ-01
   crosscheck:
     policyengine: true
 - id: SCH-IL-T05
@@ -687,10 +685,10 @@ cases:
     rules_include:
     - SCH-FED-CARRYOVER
 - id: SCH-IL-T20
-  title: School board says it participates in a funded Healthy School Meals for All program - free for all (unresolved funding)
+  title: 'School board says it participates in Healthy School Meals for All in 2026-27 - no State appropriation, so federal categories apply (paid)'
   as_of: '2026-09-15'
   tags:
-  - unresolved
+  - edge
   - family
   household:
     members:
@@ -716,14 +714,13 @@ cases:
         frequency: annual
     state: il
   expect:
-    status: eligible
-    tier: free_universal
+    status: ineligible
+    tier: paid
     rules_include:
     - SCH-IL-HSMFA
-    links_include:
-    - federal_category:paid
-    open_questions_include:
-    - SCH-IL-OQ-01
+  note: >-
+    P.A. 104-0464 (FY2027 appropriations) has no Healthy School Meals for All line, so the program cannot
+    reimburse universal meals in 2026-27; the agent should ask whether the school is a CEP school.
 - id: SCH-IL-T21
   title: 'Cross-state: family of 4 with $90,000 a year at a standard school - full price in Illinois, free for all in California
     and New York'

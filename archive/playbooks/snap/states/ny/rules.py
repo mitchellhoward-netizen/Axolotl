@@ -5,8 +5,9 @@ shelter cap. It adds: regional standard utility allowances (NYC, Nassau and
 Suffolk, rest of state), broad-based categorical eligibility at 200% FPL for
 households with an aged/disabled member or dependent care costs and at 150%
 FPL for other households with earnings (no resource test), and the
-post-Public Law 119-21 HEAP rule. Medical costs are deducted at actual cost
-over $35 (no New York standard medical deduction was found).
+post-Public Law 119-21 HEAP rule. Any separate non-heating utility cost gives
+the Utility SUA (SNAP-NY-CONFLICT-05). Medical costs are deducted at actual
+cost over $35 (New York has no standard medical deduction).
 """
 
 from __future__ import annotations
@@ -20,7 +21,7 @@ from rulesarchive.household import Household
 from playbooks.snap.federal import rules as fed
 
 STATE = "ny"
-HEAP_ED_ONLY_FROM = date(2025, 11, 1)   # SNAP-NY-HEAP-SUA (date: SNAP-NY-OQ-03)
+HEAP_ED_ONLY_FROM = date(2025, 11, 1)   # SNAP-NY-HEAP-SUA (NYC DSS notice; conflict SNAP-NY-CONFLICT-03)
 
 
 def region(hh: Household) -> str:
@@ -44,25 +45,27 @@ def utility_allowance(hh: Household, as_of: date, det: Determination, ed: bool):
         return 0.0, "no SUA"
     heat = "heating_cooling" in billed
     if not heat and hh.facts.get("energy_assistance_over_20"):
-        if not ed and as_of < HEAP_ED_ONLY_FROM:
-            raise fed.Unresolved("SNAP-NY-OQ-03", "SNAP-NY-HEAP-SUA",
-                                 "HEAP-only household without an elderly/disabled member before November 2025")
         heat = fed.energy_assistance_confers_hcsua(hh, ed, as_of, HEAP_ED_ONLY_FROM, det, "SNAP-NY-HEAP-SUA")
+        if not ed and as_of >= HEAP_ED_ONLY_FROM:
+            det.note("SNAP-NY-HEAP-SUA", "New York applies this to new and pending applications from November 1, 2025; "
+                     "a household already certified keeps the HT/AC SUA until its recertification or a reported change", None)
     rg = region(hh)
     if heat:
         amt = float(params.use("ny.snap.heating_cooling_sua_monthly", as_of, det)[rg])
         det.note("SNAP-NY-SUA", f"HT/AC SUA ({rg}) ${amt:,.0f}", None)
         return amt, "HT/AC SUA"
     others = billed - {"heating_cooling"}
-    if len(others) >= 2:
+    non_phone = others - {"phone"}
+    if non_phone:
         amt = float(params.use("ny.snap.utility_sua_monthly", as_of, det)[rg])
-        det.note("SNAP-NY-SUA", f"UTIL SUA ({rg}) ${amt:,.0f} (two or more non-heating utilities)", None)
+        det.note("SNAP-NY-SUA", f"UTIL SUA ({rg}) ${amt:,.0f} (separate non-heating utility cost: "
+                 f"{', '.join(sorted(non_phone))})", None)
         return amt, "UTIL SUA"
     if "phone" in others:
         amt = float(params.use("ny.snap.phone_sua_monthly", as_of, det).value)
         det.note("SNAP-NY-SUA", f"Phone SUA ${amt:,.0f}", None)
         return amt, "Phone SUA"
-    det.note("SNAP-NY-SUA", f"one non-heating utility ({', '.join(sorted(others))}) and no phone: no SUA", None)
+    det.note("SNAP-NY-SUA", "no separate heating, utility or phone cost: no SUA", None)
     return 0.0, "no SUA"
 
 

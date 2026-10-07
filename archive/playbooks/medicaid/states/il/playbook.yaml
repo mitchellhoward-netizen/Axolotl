@@ -52,12 +52,16 @@ rules:
       additional person $652), with no asset test.
     kind: eligibility
     applies_to: [adult_expansion]
-    effective_from: 2026-10-07
+    effective_from: 2026-01-01
     parameters: [il.medicaid.aca_adult_income_limit_monthly]
     implemented_in: playbooks/medicaid/federal/rules.py:magi_test
     confidence: confirmed
-    note: Effective date is when the 2026 figures were verified in force; the date IDHS began using them is MCD-IL-OQ-01.
+    note: >-
+      MR #26.11 (05/20/2026): the 2026 standards are effective 01/01/26; IES
+      applied them to active cases from April 2026 (mass change) and to
+      pending applications for any budget month from January 2026.
     sources:
+      - {source: il-idhs-mr-26-11, locator: "Increase in the Monthly Medical Income Standards", quote: "The revised standards are effective 01/01/26 for all programs except Medicaid Presumptive Eligibility (MPE)."}
       - {source: il-idhs-pm-15-06-01-b, locator: "The income standard for ACA Adults is 138% of the Federal Poverty Level"}
       - {source: il-idhs-wag-25-03-02-2-mcd, locator: "FamilyCare and ACA Adults MAGI - 138% FPL (includes 5% disregard): 1 $1,835; 2 2,488; 3 3,141"}
   - id: MCD-IL-FAMILYCARE
@@ -67,13 +71,14 @@ rules:
       ($1,835 for one, $2,488 for two, $3,141 for three a month).
     kind: eligibility
     applies_to: [parent_caretaker]
-    effective_from: 2026-10-07
+    effective_from: 2026-01-01
     parameters: [il.medicaid.aca_adult_income_limit_monthly]
     implemented_in: playbooks/medicaid/federal/rules.py:magi_test
     confidence: confirmed
     note: Whether a parent enrolled in Medicare can use FamilyCare was not established; the evaluator sends such a parent to AABD.
     sources:
       - {source: il-idhs-wag-25-03-02-2-mcd, locator: "FamilyCare and ACA Adults MAGI - 138% FPL column"}
+      - {source: il-idhs-mr-26-11, locator: "Family Health Plans & ACA Adult Income Standards (FamilyCare Assist)"}
   - id: MCD-IL-MOMS-BABIES
     statement: >-
       In Illinois in 2026, a pregnant person qualifies for Moms & Babies
@@ -82,12 +87,14 @@ rules:
       of two, $4,849 for three.
     kind: eligibility
     applies_to: [pregnant]
-    effective_from: 2026-10-07
+    effective_from: 2026-01-01
     parameters: [il.medicaid.moms_babies_income_limit_monthly]
     implemented_in: playbooks/medicaid/federal/rules.py:magi_test
     confidence: confirmed
+    note: MR #26.11 - effective 01/01/26 for Moms & Babies (presumptive eligibility, MPE, from 03/01/2026; not modelled).
     sources:
       - {source: il-idhs-wag-25-03-02-2-mcd, locator: "MPE and Moms & Babies MAGI - 213% FPL (includes 5% disregard)"}
+      - {source: il-idhs-mr-26-11, locator: "Increase in the Monthly Medical Income Standards"}
   - id: MCD-IL-209B
     statement: >-
       Illinois is a 209(b) state: receiving SSI does not by itself give
@@ -104,19 +111,22 @@ rules:
       - {source: il-idhs-pm-15-04-03-c, locator: "monthly SSI benefits are protected income ... deduct SSI benefits from total gross income"}
   - id: MCD-IL-AABD-INCOME
     statement: >-
-      In Illinois in 2026, a person 65 or older, blind or disabled living in
-      the community qualifies for AABD Medical without spenddown if countable
-      monthly income (after the $25 disregard, with SSI not counted) is at or
-      below 100% FPL: $1,330 for one person or $1,803 for two.
+      In Illinois in 2026 (from January 1, 2026), a person 65 or older, blind
+      or disabled living in the community qualifies for AABD Medical without
+      spenddown if countable monthly income (after the $25 disregard and any
+      earned income exemptions, with SSI not counted) is at or below 100% FPL:
+      $1,330 for one person or $1,803 for two.
     kind: eligibility
     applies_to: [aabd]
-    effective_from: 2026-10-07
+    effective_from: 2026-01-01
     parameters: [il.medicaid.aabd_income_limit_monthly]
     implemented_in: playbooks/medicaid/states/il/rules.py:evaluate
     confidence: confirmed
     sources:
       - {source: il-idhs-pm-15-06-02-a, locator: "The Community Standard is 100% of the Federal Poverty Level"}
       - {source: il-idhs-wag-25-03-02-2-mcd, locator: "AABD 100% FPL: 1 $1,330; 2 1,803"}
+      - {source: il-iac-89-120-20, locator: "Section 120.20", quote: "The monthly countable income standard is 100 percent of the Federal Poverty Level Income Guidelines"}
+      - {source: il-idhs-mr-26-11, locator: "Monthly Income Standards for AABD and Medicare Cost Sharing; effective 01/01/26"}
   - id: MCD-IL-AABD-DISREGARD
     statement: >-
       In Illinois AABD Medical, the first $25 a month of earned or unearned
@@ -125,15 +135,55 @@ rules:
       AABD Medical and also has such income.
     kind: definition
     applies_to: [aabd]
-    effective_from: 2026-10-07
+    effective_from: 2012-11-26
     parameters: [il.medicaid.aabd_income_disregard_monthly]
     overrides: [MCD-FED-NONMAGI-METHOD]
     implemented_in: playbooks/medicaid/states/il/rules.py:evaluate
     confidence: confirmed
-    note: AABD earned-income exemptions (PM 08-02-02/03) were not retrieved; cases with earnings return undetermined (MCD-IL-OQ-03).
+    note: >-
+      2012-11-26 is the effective date of the last amendment of 89 Ill. Adm.
+      Code 120.335, not necessarily when the $25 began. The earned income
+      exemptions are MCD-IL-AABD-EARNED.
     sources:
+      - {source: il-iac-89-120-335, locator: "Section 120.335(a)(1)", quote: "A client is eligible for only one $25.00 exemption regardless of the types of sources of earned or unearned income."}
       - {source: il-idhs-pm-15-04-03-a, locator: "WAG 15-04-03-a"}
       - {source: il-idhs-pm-15-05-03, locator: "AABD income disregard of $25"}
+  - id: MCD-IL-AABD-EARNED
+    statement: >-
+      In Illinois AABD Medical, after the $25 disregard, an aged or disabled
+      person's earned income is further reduced by the first $20 plus one-half
+      of the next $60 (at most $50 a month), a blind person's by the first $85
+      plus one-half of the rest, and then by recognized employment expenses
+      actually paid: withheld federal and state income taxes, Social Security
+      tax, transportation (19 cents a mile by own car), a lunch allowance (up
+      to $3 or $9 a month), required tools, uniforms, union dues, group life
+      or health premiums and retirement withholding, and items a disabled
+      person needs to work.
+    kind: definition
+    applies_to: [aabd]
+    effective_from: 1996-12-09
+    parameters: [il.medicaid.aabd_earned_disregard_aged_disabled, il.medicaid.aabd_earned_disregard_blind]
+    overrides: [MCD-FED-NONMAGI-METHOD]
+    implemented_in: playbooks/medicaid/states/il/rules.py:_countable_with_earnings
+    confidence: confirmed
+    note: >-
+      89 Ill. Adm. Code 120.362(b) (last amended effective December 9, 1996)
+      and 120.370(a) (August 12, 1991); the IDHS manual (PM 08-02-03, -a, -b,
+      -d) states the same deductions and the order ($25 disregard and
+      self-employment expenses first). Employment expenses are an input
+      (Person.facts.aabd_work_expenses_monthly); when they are not given and
+      income is over the standard before them, the case is undetermined.
+      Whether the $25 comes off unearned or earned income first is not
+      stated; the evaluator computes both and is undetermined only when the
+      order changes the result (MCD-IL-OQ-03). Day care costs (PM 08-02-03-c)
+      and a blind person's plan for self-support are not modelled beyond the
+      expenses input.
+    sources:
+      - {source: il-iac-89-120-362, locator: "Section 120.362(b)(1)-(2)", quote: "For MANG (AABD(A)(D)), the first $20.00 of gross earned income and one-half of the next $60.00 are exempt."}
+      - {source: il-iac-89-120-370, locator: "Section 120.370(a)", quote: "The following recognized expenses of employment shall be exempt from consideration for MANG(AABD)"}
+      - {source: il-idhs-pm-08-02-03, locator: "WAG 08-02-03", quote: "Allow these deductions after deducting the $25 AABD income disregard and self-employment expenses."}
+      - {source: il-idhs-pm-08-02-03-a, locator: "Aged or Disabled - AABD(A) or (D); Blind - AABD(B)"}
+      - {source: il-idhs-pm-08-02-03-b, locator: "WAG 08-02-03-b"}
   - id: MCD-IL-SPOUSE-STANDARD
     statement: >-
       In Illinois AABD Medical, a person living with a spouse is always
@@ -390,10 +440,17 @@ open_questions:
   - id: MCD-IL-OQ-01
     priority: high
     question: From what date did IDHS apply the 2026 FPL-based medical standards (ACA Adult $1,835, AABD $1,330) shown in WAG 25-03-02 (2)?
-    why_it_matters: Illinois cases dated January 1 - October 6, 2026 return undetermined until this is known.
-    checked: [WAG 25-03-02 (2), PM 15-06-01-b, PM 15-06-02-a, IL Department on Aging 2026 handout ("DHS posts the exact figures in Early April")]
+    why_it_matters: Illinois cases dated January 1 - October 6, 2026 returned undetermined until this was known.
+    checked: [WAG 25-03-02 (2), IDHS Manual Releases index, "MR #26.11", "MR #25.15", 89 Ill. Adm. Code 120.20]
     affects: [il.medicaid.aca_adult_income_limit_monthly, il.medicaid.aabd_income_limit_monthly, il.medicaid.moms_babies_income_limit_monthly]
-    status: open
+    status: answered
+    answer: >-
+      Manual Release MR #26.11 (05/20/2026, IDHS and HFS): the revised 2026 standards are effective
+      01/01/26 for all programs except Medicaid Presumptive Eligibility (03/01/2026); IES updated
+      them on 03/03/2026 effective April 2026 for active cases (mass change, 360C notices), and
+      pending applications use them for any budget month from January 2026. The same pattern held in
+      2025 (MR #25.15: effective 01/01/25, mass change April 2025). The 2025 dollar figures are not in
+      the archive (WAG 25-03-02(2) now shows only 2026), so 2025 cases have no standard.
   - id: MCD-IL-OQ-02
     priority: high
     question: How and from when will Illinois apply the 2027 federal changes (6-month renewals and community engagement for ACA Adults, shorter backdating)?
@@ -402,11 +459,15 @@ open_questions:
     affects: [MCD-IL-WORK-REQUIREMENT, MCD-IL-BACKDATE, MCD-IL-CERT-PERIOD]
     status: open
   - id: MCD-IL-OQ-03
-    priority: medium
-    question: Which earned income exemptions apply to AABD Medical (PM 08-02-02 and 08-02-03)?
-    why_it_matters: Working disabled people under 65; the evaluator returns undetermined when there are earnings.
-    checked: [PM 15-04-03-b (points to PM 08-02-02/03, not retrieved)]
-    affects: [MCD-IL-AABD-DISREGARD]
+    priority: low
+    question: >-
+      In Illinois AABD Medical with both earned and unearned income, is the $25 disregard taken from
+      unearned income first or from earnings first (it matters only when monthly earnings are under
+      about $105)? And how are the earnings of a spouse who is not applying (a responsible relative)
+      treated - with the $20 + 1/2 exemption or only employment expenses?
+    why_it_matters: The evaluator returns undetermined in those narrow cases.
+    checked: ["89 Ill. Adm. Code 120.335", "89 Ill. Adm. Code 120.362", "89 Ill. Adm. Code 120.370", PM 08-02-02, PM 08-02-03, PM 08-02-03-a/-b/-d, PM 15-04-03-b]
+    affects: [MCD-IL-AABD-EARNED]
     status: open
   - id: MCD-IL-OQ-04
     priority: high
@@ -459,5 +520,11 @@ claims_checked:
     sources: [{source: il-idhs-pm-07-02-01-mcd, locator: "WAG 07-02-01"}]
   - claim: Illinois AABD Medical income standard is 100% FPL.
     verdict: verified
-    detail: $1,330 single / $1,803 couple in the 2026 table, after a $25 disregard; SSI not counted.
-    sources: [{source: il-idhs-pm-15-06-02-a, locator: "Community Standard is 100% FPL"}]
+    detail: >-
+      $1,330 single / $1,803 couple in the 2026 table (effective January 1,
+      2026 per MR #26.11), after a $25 disregard; SSI not counted. 89 Ill.
+      Adm. Code 120.20 sets the standard at 100% of the poverty guidelines.
+    sources:
+      - {source: il-idhs-pm-15-06-02-a, locator: "Community Standard is 100% FPL"}
+      - {source: il-iac-89-120-20, locator: "Section 120.20"}
+      - {source: il-idhs-mr-26-11, locator: "effective 01/01/26"}

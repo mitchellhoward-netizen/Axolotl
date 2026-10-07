@@ -13,15 +13,30 @@ sources:
     doc_type: directive
     published: 2025-05-13
     effective_date: 2025-07-01
-  - id: ny-edn-915-a-publiclaw
+  - id: ny-edn-915-a
     retrieved: 2026-10-07
-    url: https://newyork.public.law/laws/n.y._education_law_section_915-a
-    publisher: public.law (third-party copy of the NY Senate's Consolidated Laws text, updated Jul. 4, 2025)
-    title: N.Y. Education Law sec. 915-a — Universal free school meals
-    kind: secondary
+    url: https://legislation.nysenate.gov/pdf/laws/EDN915-A
+    publisher: New York State Senate (Open Legislation, official Consolidated Laws text)
+    title: N.Y. Education Law sec. 915-a - Universal free school meals
+    kind: primary
     jurisdiction: ny
     doc_type: statute
-    note: The official text at nysenate.gov/legislation/laws/EDN/915-A refuses scripted requests (403); this third-party copy is used for wording only, and every rule resting on it also cites the NYSED memo.
+    effective_date: 2025-07-01
+    note: >-
+      PDF from the Senate's Open Legislation service (the www.nysenate.gov page answers scripts and
+      headless Chromium with a Cloudflare challenge). Added by Part B of Chapter 56 of the Laws of
+      2025, effective July 1, 2025 (per NYSED's SNAP outreach memo of March 30, 2026). Replaces the
+      third-party public.law copy used in the first build; the wording is identical.
+  - id: nysed-snap-outreach-2026
+    retrieved: 2026-10-07
+    url: https://www.cn.nysed.gov/content/snap-outreach-requirements
+    publisher: New York State Education Department, Child Nutrition Program Administration
+    title: Supplemental Nutrition Assistance Program (SNAP) Outreach Requirements (memo, March 30, 2026)
+    kind: primary
+    jurisdiction: ny
+    doc_type: directive
+    published: 2026-03-30
+    note: Implements Education Law 915-a(3) through Section 114.6 of the Regulations of the Commissioner of Education, effective January 28, 2026.
   - id: nysed-dcmp-2026
     retrieved: 2026-10-07
     url: https://www.cn.nysed.gov/content/new-state-wide-direct-certification-matching-process-and-mandatory-reporting-snapmedicaid

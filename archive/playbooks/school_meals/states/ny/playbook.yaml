@@ -35,7 +35,7 @@ summary:
     - {name: NYSSIS, meaning: New York State Student Identification System}
     - {name: CNMS, meaning: Child Nutrition Management System}
     - {name: Household Income Eligibility Form, meaning: "NYSED's form for CEP / Provision 2 non-base-year schools (not a meal application)"}
-  legal_basis: New York Education Law sec. 915-a (added by the 2025-2026 state budget, per the NYSED memo); federal 7 CFR part 245.
+  legal_basis: New York Education Law sec. 915-a (added by Part B of Chapter 56 of the Laws of 2025, effective July 1, 2025); 8 NYCRR 114.6 (SNAP outreach, effective January 28, 2026); federal 7 CFR part 245.
   confidence: confirmed
   sources:
     - {source: nysed-ufm-memo-2025, locator: "New York State Universal Free Meals"}
@@ -58,7 +58,7 @@ rules:
     note: Schools not in the federal meal programs are not covered; schools not enrolled had to apply to NYSED by July 31, 2025 to join for 2025-26.
     sources:
       - {source: nysed-ufm-memo-2025, locator: "paragraph 1", quote: "Beginning in school year 2025-2026, New York State School Food Authorities (SFAs) participating in the federal school lunch and/or breakfast programs are required to provide reimbursable school meals at no cost to all students."}
-      - {source: ny-edn-915-a-publiclaw, locator: "subdivision 1"}
+      - {source: ny-edn-915-a, locator: "subdivision 1"}
   - id: SCH-NY-STATE-REIMBURSEMENT
     statement: >-
       Under New York's Universal Free School Meals law, for every breakfast and
@@ -70,7 +70,7 @@ rules:
     confidence: confirmed
     sources:
       - {source: nysed-ufm-memo-2025, locator: "paragraph 1", quote: "The state will reimburse SFAs up to the combined state and federal reimbursement rate for a free meal for each federally reimbursed reduced-price and paid meal claimed."}
-      - {source: ny-edn-915-a-publiclaw, locator: "subdivision 2"}
+      - {source: ny-edn-915-a, locator: "subdivision 2"}
   - id: SCH-NY-MAXIMIZE-FEDERAL
     statement: >-
       New York school food authorities in the Universal Free School Meals program
@@ -139,7 +139,7 @@ rules:
     implemented_in: playbooks/school_meals/states/ny/rules.py:evaluate
     confidence: confirmed
     sources:
-      - {source: ny-edn-915-a-publiclaw, locator: "subdivision 5"}
+      - {source: ny-edn-915-a, locator: "subdivision 5"}
       - {source: nysed-application-2026-27, locator: "page 1 header", quote: "Schools are required to establish free and reduced-price eligibility while offering meals at no-charge."}
   - id: SCH-NY-HOUSEHOLD-INCOME-FORM
     statement: >-
@@ -156,15 +156,25 @@ rules:
       - {source: nysed-cep-household-income-form, locator: "heading and introduction", quote: "All children in the school will receive meals/milk at no charge regardless of household income or completion of this form."}
   - id: SCH-NY-SNAP-PROMOTION
     statement: >-
-      Under New York's Universal Free School Meals law, schools must promote SNAP
-      to students' families by giving application assistance or a referral to an
-      OTDA-identified outreach partner, to increase direct certification.
+      Under New York's Universal Free School Meals law, every school district,
+      charter school and nonpublic school operating as a school food authority
+      must inform low-income families about SNAP using at least one of three
+      strategies: a direct referral to an OTDA-designated SNAP outreach
+      provider, SNAP educational materials at registration or other contact
+      points, or a direct referral to the local social services district.
     kind: procedure
     effective_from: 2025-07-01
     confidence: confirmed
+    note: >-
+      The statute (915-a(3)) took effect July 1, 2025 and required NYSED to
+      adopt a regulation; the three strategies are in Section 114.6 of the
+      Commissioner's regulations, effective January 28, 2026, as NYSED's March
+      30, 2026 memo describes them (the regulation text itself was not
+      snapshotted).
     sources:
+      - {source: ny-edn-915-a, locator: "subdivision 3"}
+      - {source: nysed-snap-outreach-2026, locator: "Requirements", quote: "Such procedures must include at least one of the following strategies"}
       - {source: nysed-ufm-memo-2025, locator: "Promotion of SNAP"}
-      - {source: ny-edn-915-a-publiclaw, locator: "subdivision 3"}
 
 procedure:
   applications:
@@ -283,9 +293,15 @@ open_questions:
     priority: low
     question: Retrieve the official text of Education Law 915-a (nysenate.gov refuses scripted requests) to replace the third-party copy.
     why_it_matters: Statute text is cited from public.law; rules are confirmed by the NYSED memo.
-    checked: [nysenate.gov (403), public.law copy]
+    checked: [www.nysenate.gov (Cloudflare 403 to scripts and headless Chromium), legislation.nysenate.gov Open Legislation PDF, NYSED SNAP outreach memo of March 30, 2026]
     affects: [SCH-NY-UNIVERSAL-MEALS]
-    status: open
+    status: answered
+    answer: >-
+      The Senate's Open Legislation service serves the official text as a PDF
+      (legislation.nysenate.gov/pdf/laws/EDN915-A); it is now snapshotted as
+      ny-edn-915-a and matches the public.law copy word for word. NYSED's March
+      30, 2026 memo dates the section: Part B of Chapter 56 of the Laws of 2025,
+      effective July 1, 2025.
 
 claims_checked:
   - claim: New York uses Medicaid data to certify students for free school meals only, not reduced-price meals.
@@ -302,7 +318,7 @@ claims_checked:
       - {source: nysed-dcmp-2026, locator: "Online Direct Certification Matching Process (DCMP)"}
   - claim: New York enacted free school meals for all students beginning SY 2025-26.
     verdict: verified
-    detail: Education Law 915-a requires schools in the NSLP/SBP (districts, charters and nonpublic schools) to serve breakfast and lunch at no cost to all students from 2025-26; schools outside the federal programs are not covered.
+    detail: Education Law 915-a (Part B of Chapter 56 of the Laws of 2025, effective July 1, 2025; official text from the Senate's Open Legislation service) requires schools in the NSLP/SBP (districts, charters and nonpublic schools) to serve breakfast and lunch at no cost to all students from 2025-26; schools outside the federal programs are not covered.
     sources:
       - {source: nysed-ufm-memo-2025, locator: "paragraph 1"}
-      - {source: ny-edn-915-a-publiclaw, locator: "subdivisions 1-2"}
+      - {source: ny-edn-915-a, locator: "subdivisions 1-2"}

@@ -41,6 +41,8 @@ Person.facts:
   veteran_total_disability, recently_incarcerated   community engagement exclusions
   seeking_ltc            wants nursing-home or institutional long-term care
   full_scope_before_2026 (CA) enrolled in full-scope Medi-Cal before January 1, 2026
+  parole_one_year_or_more (CA) for a parolee: paroled into the U.S. for at least one year
+                         (a qualified non-citizen; shorter paroles are not)
 """
 
 from __future__ import annotations

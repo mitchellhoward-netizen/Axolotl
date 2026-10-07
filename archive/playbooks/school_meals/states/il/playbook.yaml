@@ -12,8 +12,9 @@ summary:
     full price, unless the school serves all students free under the
     Community Eligibility Provision (489 Illinois districts used CEP in
     2025-26). Illinois passed a Healthy School Meals for All law in 2023, but
-    it works only "subject to appropriation" and no statewide funding was
-    found for 2026-27, so there is no statewide free meals for all students.
+    it works only "subject to appropriation" and neither the 2025-26 nor the
+    2026-27 state budget (Public Acts 104-0003 and 104-0464) funds it, so there
+    is no statewide free meals for all students.
     Families apply on ISBE's Household Eligibility Application (HEA) unless
     directly certified. Illinois directly certifies students from SNAP, TANF,
     foster care records and, since 2022-23, Medicaid for both free and
@@ -23,7 +24,7 @@ summary:
     districts and nonpublic schools run the programs. Direct certification
     data come from IDHS (SNAP, TANF), HFS (Medicaid) and DCFS (foster
     children).
-  funded_by: Federal NSLP/SBP reimbursement and the state's required matching funds; no state universal-meal reimbursement was found for 2026-27.
+  funded_by: Federal NSLP/SBP reimbursement and the state's Free Breakfast/Lunch reimbursement ($26,000,000 in FY2027, P.A. 104-0464); no Healthy School Meals for All appropriation in FY2026 or FY2027.
   local_names:
     - {name: HEA, meaning: "Household Eligibility Application (ISBE form 68-06 packet)"}
     - {name: HSMFA, meaning: "Healthy School Meals for All Program, 105 ILCS 125/2.3"}
@@ -35,6 +36,7 @@ summary:
   sources:
     - {source: il-isbe-ieg-release-2026, locator: "whole release"}
     - {source: il-105-ilcs-125-2-3, locator: "(b)"}
+    - {source: il-pa-104-0464, locator: "ISBE article, Section 15"}
     - {source: il-isbe-dc-slides-2026, locator: "slides 15-17"}
 
 rules:
@@ -42,26 +44,34 @@ rules:
     statement: >-
       Illinois's Healthy School Meals for All Program (105 ILCS 125/2.3, 2023)
       lets participating school boards serve free meals to all students with
-      state reimbursement only "subject to appropriation"; no statewide funding
-      for the 2026-27 school year was found, so in Illinois a household above
-      185% of poverty pays full price unless its school is a CEP school.
+      state reimbursement only "subject to appropriation", and Illinois's
+      enacted budgets for the 2025-26 and 2026-27 school years (Public Acts
+      104-0003 and 104-0464) contain no appropriation for it, so in Illinois in
+      2026-27 a household above 185% of poverty pays full price unless its
+      school is a CEP school.
     kind: benefit
     applies_to: [free_universal, paid]
     effective_from: 2023-08-11
     parameters: [il.isbe.hsmfa_statewide_funded]
     implemented_in: playbooks/school_meals/states/il/rules.py:evaluate
-    confidence: secondary
-    open_question: SCH-IL-OQ-01
+    confidence: confirmed
     note: >-
-      The law's text is primary; the absence of funding rests on HB2365 not
-      passing (primary bill status), ISBE's 2026-27 announcement mentioning only
-      federal eligibility and CEP, and advocacy sources. The enacted FY2027
-      appropriation act itself was not checked.
+      Second pass: read the enacted FY2027 appropriation act (P.A. 104-0464,
+      HB 111, approved with item/reduction vetoes June 16, 2026) and the FY2026
+      act (P.A. 104-0003) on ilga.gov. ISBE's articles appropriate "For
+      Reimbursement for the Free Breakfast/Lunch Program" ($26,000,000 for FY2027)
+      but have no Healthy School Meals for All line, and no line in either act
+      mentions "Meals for All". The stand-alone $67 million bills (HB2365,
+      SB1419) were not enacted. "Not funded" is an inference from the absence
+      of a line in the acts (kept confirmed because the acts are the complete
+      appropriation for the year). Funding for 2027-28 (FY2028) is SCH-IL-OQ-03.
     sources:
       - {source: il-105-ilcs-125-2-3, locator: "(b)", quote: "Subject to appropriation, the State Board of Education shall establish the Healthy School Meals for All Program to begin on July 1, 2023."}
+      - {source: il-pa-104-0464, locator: "ISBE article, Section 15 (fiscal year beginning July 1, 2026)", quote: "For Reimbursement for the Free Breakfast/"}
+      - {source: il-pa-104-0003, locator: "ISBE article (fiscal year beginning July 1, 2025)"}
       - {source: il-hb2365-status, locator: "Synopsis; Last Action"}
+      - {source: il-sb1419-status, locator: "Synopsis; Last Action"}
       - {source: il-isbe-ieg-release-2026, locator: "paragraphs 1-4"}
-      - {source: il-hsc-hsmfa-blog, locator: "paragraph 2"}
   - id: SCH-IL-HSMFA-CEP-CONDITION
     statement: >-
       If Illinois funds the Healthy School Meals for All Program, only school
@@ -219,9 +229,10 @@ life_events:
     event: Moving to Illinois from California or New York
     why: A family that ate free under a universal-meals law may have to pay full price in Illinois unless it qualifies or the school is CEP.
     check_rules: [SCH-IL-HSMFA]
-    confidence: secondary
-    open_question: SCH-IL-OQ-01
-    sources: [{source: il-105-ilcs-125-2-3, locator: "(b)"}]
+    confidence: confirmed
+    sources:
+      - {source: il-105-ilcs-125-2-3, locator: "(b)"}
+      - {source: il-pa-104-0464, locator: "ISBE article, Section 15"}
 
 outcome_proof:
   - id: SCH-IL-PROOF-68-02
@@ -252,15 +263,28 @@ open_questions:
     priority: high
     question: Does Illinois's enacted FY2027 budget (school year 2026-27) appropriate any money to the Healthy School Meals for All Program, and if so, which school boards are participating?
     why_it_matters: Decides whether an Illinois family above 185% of poverty pays for meals; it is the main difference from California and New York.
-    checked: [105 ILCS 125/2.3, HB2365 bill status (not enacted), ISBE 2026-27 IEG press release, ISBE FY2027 budget request book (no HSMFA line found), Healthy Schools Campaign and IPHI advocacy pages, news coverage of the FY27 budget]
+    checked: [105 ILCS 125/2.3, Public Act 104-0464 (FY2027 appropriations), Public Act 104-0003 (FY2026 appropriations), HB0111, HB2365 and SB1419 bill status, ISBE 2026-27 IEG press release]
     affects: [SCH-IL-HSMFA, il.isbe.hsmfa_statewide_funded]
-    status: open
+    status: answered
+    answer: >-
+      No. The enacted FY2027 appropriation act, P.A. 104-0464 (HB 111, approved June 16, 2026 with
+      item/reduction vetoes), has no Healthy School Meals for All line; ISBE gets only the existing
+      "Reimbursement for the Free Breakfast/Lunch Program" ($26,000,000). The FY2026 act (P.A.
+      104-0003) has none either, and the stand-alone $67 million bills (HB2365, SB1419) were not
+      enacted. With no appropriation, no school board can participate in the State program in 2026-27.
   - id: SCH-IL-OQ-02
     priority: low
     question: Does Illinois use school meal applications or alternative income forms for state funding counts (Evidence-Based Funding low-income count), as California does for LCFF?
     why_it_matters: Would tell families at CEP schools whether returning an income form matters.
     checked: [ISBE HEA resources page]
     affects: [SCH-IL-HSMFA]
+    status: open
+  - id: SCH-IL-OQ-03
+    priority: medium
+    question: Does Illinois's FY2028 appropriation (school year 2027-28) fund the Healthy School Meals for All Program?
+    why_it_matters: The archive has no value for il.isbe.hsmfa_statewide_funded from July 1, 2027, so Illinois reduced-price and paid cases in 2027-28 are undetermined until the FY2028 budget is read.
+    checked: [none yet - the FY2028 budget is not enacted as of 2026-10-07]
+    affects: [il.isbe.hsmfa_statewide_funded, SCH-IL-HSMFA]
     status: open
 
 claims_checked:
@@ -278,7 +302,8 @@ claims_checked:
       - {source: il-isbe-dc-slides-2026, locator: "slide 16"}
   - claim: Illinois enacted a Healthy School Meals for All program in 2023.
     verdict: partly_verified
-    detail: Enacted (P.A. 103-532, eff. 8-11-23) but only "subject to appropriation"; no statewide funding for 2026-27 was found, so it does not give free meals to all Illinois students.
+    detail: Enacted (P.A. 103-532, eff. 8-11-23) but only "subject to appropriation"; the FY2026 and FY2027 appropriation acts (P.A. 104-0003, P.A. 104-0464) contain no line for it, so it does not give free meals to any Illinois students in 2025-26 or 2026-27.
     sources:
       - {source: il-105-ilcs-125-2-3, locator: "(b)"}
+      - {source: il-pa-104-0464, locator: "ISBE article, Section 15"}
       - {source: il-hb2365-status, locator: "Last Action"}

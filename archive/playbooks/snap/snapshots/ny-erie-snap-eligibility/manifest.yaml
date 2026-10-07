@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://www3.erie.gov/snap/eligibility
+  final_url: https://www3.erie.gov/snap/eligibility
+  status: 200
+  content_type: text/html; charset=utf-8
+  text_sha256: 1ec44530f74f5da0562b3fa557ff3536122655b5a8912e841f6f437a92836afc
+  text: ny-erie-snap-eligibility/2026-10-07.txt
+  raw: ny-erie-snap-eligibility/2026-10-07.html

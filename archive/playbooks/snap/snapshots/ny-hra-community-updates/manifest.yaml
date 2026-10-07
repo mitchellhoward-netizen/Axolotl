@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://www.nyc.gov/site/hra/partners/community-updates.page
+  final_url: https://www.nyc.gov/site/hra/partners/community-updates.page
+  status: 200
+  content_type: text/html;charset=utf-8
+  text_sha256: 05b953844291a9527b7c7602f09bfb0ec07911c6c661c3730b3c99dcf86093bd
+  text: ny-hra-community-updates/2026-10-07.txt
+  raw: ny-hra-community-updates/2026-10-07.html

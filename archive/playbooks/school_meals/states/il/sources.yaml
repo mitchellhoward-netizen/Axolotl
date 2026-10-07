@@ -72,3 +72,44 @@ sources:
     jurisdiction: il
     doc_type: advocacy
     note: Fetched through the r.jina.ai reader (the site answers scripts with an empty 202).
+  - id: il-pa-104-0464
+    retrieved: 2026-10-07
+    url: https://www.ilga.gov/Documents/legislation/publicacts/104/104-0464.htm
+    publisher: Illinois General Assembly
+    title: Public Act 104-0464 (HB 111) - State Fiscal Year 2027 appropriations (with FY2026 supplemental changes to P.A. 104-0003)
+    kind: primary
+    jurisdiction: il
+    doc_type: statute
+    published: 2026-06-16
+    note: >-
+      Enacted FY2027 budget (approved with item/reduction vetoes June 16, 2026; most provisions
+      effective July 1, 2026). The Illinois State Board of Education articles appropriate "For
+      Reimbursement for the Free Breakfast/Lunch Program" but contain no Healthy School Meals for All
+      line; no line in the Act mentions "Meals for All". Large document (about 4.8 MB of text).
+  - id: il-pa-104-0003
+    retrieved: 2026-10-07
+    url: https://www.ilga.gov/Documents/legislation/publicacts/104/104-0003.htm
+    publisher: Illinois General Assembly
+    title: Public Act 104-0003 - State Fiscal Year 2026 appropriations
+    kind: primary
+    jurisdiction: il
+    doc_type: statute
+    published: 2025-06-16
+    note: Enacted FY2026 budget; no Healthy School Meals for All line (only "Reimbursement for the Free Breakfast/Lunch Program").
+  - id: il-hb111-status
+    retrieved: 2026-10-07
+    url: https://ilga.gov/ftp/legislation/104/BillStatus/HTML/10400HB0111.html
+    publisher: Illinois General Assembly
+    title: Bill Status of HB0111 (104th GA) - FY2027 appropriations, Public Act 104-0464
+    kind: primary
+    jurisdiction: il
+    doc_type: other
+  - id: il-sb1419-status
+    retrieved: 2026-10-07
+    url: https://ilga.gov/ftp/legislation/104/BillStatus/HTML/10400SB1419.html
+    publisher: Illinois General Assembly
+    title: Bill Status of SB1419 (104th GA) - $ISBE-Healthy School Meals ($67,000,000 appropriation)
+    kind: primary
+    jurisdiction: il
+    doc_type: other
+    note: Last action 7/02/2025, referred to Assignments (not enacted).

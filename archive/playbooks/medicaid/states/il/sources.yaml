@@ -205,3 +205,39 @@ sources:
     kind: primary
     jurisdiction: il
     doc_type: manual
+  - id: il-iac-89-120-20
+    retrieved: 2026-10-07
+    url: https://www.ilga.gov/ftp/JCAR/AdminCode/089/089001200B00200R.html
+    publisher: Illinois Joint Committee on Administrative Rules (Illinois Administrative Code)
+    title: "89 Ill. Adm. Code 120.20: MANG(AABD) Income Standard"
+    kind: primary
+    jurisdiction: il
+    doc_type: regulation
+    effective_date: 2012-01-01
+  - id: il-iac-89-120-335
+    retrieved: 2026-10-07
+    url: https://www.ilga.gov/ftp/JCAR/AdminCode/089/089001200H03350R.html
+    publisher: Illinois Joint Committee on Administrative Rules (Illinois Administrative Code)
+    title: "89 Ill. Adm. Code 120.335: Exempt Unearned Income"
+    kind: primary
+    jurisdiction: il
+    doc_type: regulation
+    effective_date: 2012-11-26
+  - id: il-iac-89-120-362
+    retrieved: 2026-10-07
+    url: https://www.ilga.gov/ftp/JCAR/AdminCode/089/089001200H03620R.html
+    publisher: Illinois Joint Committee on Administrative Rules (Illinois Administrative Code)
+    title: "89 Ill. Adm. Code 120.362: Exempt Earned Income"
+    kind: primary
+    jurisdiction: il
+    doc_type: regulation
+    effective_date: 1996-12-09
+  - id: il-iac-89-120-370
+    retrieved: 2026-10-07
+    url: https://www.ilga.gov/ftp/JCAR/AdminCode/089/089001200H03700R.html
+    publisher: Illinois Joint Committee on Administrative Rules (Illinois Administrative Code)
+    title: "89 Ill. Adm. Code 120.370: Recognized Employment Expenses"
+    kind: primary
+    jurisdiction: il
+    doc_type: regulation
+    effective_date: 1991-08-12

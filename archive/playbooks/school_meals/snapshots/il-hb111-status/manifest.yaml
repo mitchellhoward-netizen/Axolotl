@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://ilga.gov/ftp/legislation/104/BillStatus/HTML/10400HB0111.html
+  final_url: https://ilga.gov/ftp/legislation/104/BillStatus/HTML/10400HB0111.html
+  status: 200
+  content_type: text/html
+  text_sha256: 8c91e63a34a7a960512834fead0df6560ef4979ac3e71cfb6bf92f37ac551f4f
+  text: il-hb111-status/2026-10-07.txt
+  raw: il-hb111-status/2026-10-07.html

@@ -1,0 +1,104 @@
+Expanded Categorical Eligibility Desk Guide
+Senior or disabled Earned income
+Senior or Dependent All other
+Hh does not pass used in SNAP
+disabled member care costs households
+the 200% GIT budget
+
+Gross Income
+200% N/A 200% 150% 130%
+Test*
+
+Categorically
+YES NO YES YES YES
+Eligible
+
+Must meet
+NO YES NO NO NO
+resource limit
+
+Must meet
+100% Net NO YES NO NO NO
+Income Test
+
+Note: if someone in the household has been disqualified from SNAP due to an intentional program
+violation or other sanction, the household is not categorically eligible for SNAP and must instead
+be evaluated under regular SNAP eligibility rules.
+
+*Court ordered child support paid by a household member is always deducted from the household’s
+gross income before applying the gross income test.
+
+Poverty Guidelines Chart
+effective 10/1/26 - 9/30/27
+
+200% of Poverty 150% of Poverty 130% of Poverty
+Family Size
+Monthly GROSS Income Monthly GROSS Income Monthly GROSS Income
+
+1 $2,660 $1,995 $1,729
+
+2 $3,607 $2,705 $2,345
+
+3 $4,553 $3,415 $2,960
+
+4 $5,500 $4,125 $3,575
+
+5 $6,447 $4,835 $4,191
+
+6 $7,393 $5,545 $4,806
+
+7 $8,340 $6,255 $5,421
+
+8 $9,287 $6,965 $6,037
+
+Each Additional Person +$947 +$710 +$616
+
+Determining a Household’s Categorical Eligibility for SNAP
+Any household with a member who is currently disqualified from SNAP due to an Intentional
+Program Violation (IPV) or sanction is not categorically eligible for SNAP. These households
+may still qualify for SNAP under regular SNAP budgeting rules.
+
+Is any member of the household a senior
+or a person with disabilities?
+OR
+Does the household pay any
+out-of-pocket dependent care costs?
+
+No Yes
+
+Does the household Is the household’s gross monthly income at
+have earned income? or below 200% Federal Poverty Level?
+
+No Yes No Yes
+
+Is the household’s gross monthly
+Income at or below 150% of the Does the household
+Categorically Eligible
+Federal Poverty Level? include a senior or
+disabled member? Do not consider
+household’s resources
+No Yes
+No Yes Do not apply
+Net Income Test
+
+NOT Eligible
+for SNAP
+NOT Eligible
+for SNAP
+Only for senior and
+Is the household’s gross disabled households:
+monthly income at or below NOT Categorically
+130% Federal Poverty Level? Eligible for SNAP, may
+still qualify for SNAP
+No Yes Resource Test required
+Net Income Test required
+Categorically Eligible
+Do not consider
+NOT Eligible household’s resources
+for SNAP
+Do not apply
+Net Income Test
+
+HungerSolutionsNY.org
+9/2026. This material was funded, in part, by the USDA’s Supplemental Nutrition Assistance Program – SNAP.
+This institution is an equal opportunity provider.

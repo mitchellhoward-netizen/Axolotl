@@ -1,0 +1,10 @@
+- retrieved: '2026-10-07'
+  url: https://www.dhcs.ca.gov/file/i25-24-pdf/
+  final_url: https://www.dhcs.ca.gov/file/i25-24-pdf/
+  status: 200
+  content_type: pdf
+  text_sha256: e06ec3ed5bba7a9cbb655b774d7dbb76e9dd021aeff8485bca171eb7010884c6
+  text: ca-dhcs-medil-i25-24/2026-10-07.txt
+  raw: ca-dhcs-medil-i25-24/2026-10-07.pdf
+  fetched_via: headless Chromium (Playwright); dhcs.ca.gov refuses scripted requests
+    (Incapsula)

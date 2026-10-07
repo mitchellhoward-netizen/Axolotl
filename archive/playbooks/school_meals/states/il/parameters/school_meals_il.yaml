@@ -17,22 +17,38 @@ parameters:
           - {source: fns-dcm-demonstration, locator: "table, column DC-M Pilot States since SY 2022-23 (free and reduced price meals)", quote: "Illinois*"}
           - {source: il-isbe-dc-slides-2026, locator: "slide 16, Direct Certification with Federal Medicaid - Free and Reduced-Price Eligibility", quote: "Direct Certification matches include students eligible for both free and reduced-price meal benefits based on their participation in federal Medicaid at the appropriate income levels."}
   - id: il.isbe.hsmfa_statewide_funded
-    description: Whether Illinois's Healthy School Meals for All Program (105 ILCS 125/2.3) has a state appropriation that makes meals free to all students at participating schools in the school year.
+    description: Whether Illinois's Healthy School Meals for All Program (105 ILCS 125/2.3) has a State appropriation for the fiscal year (July 1 - June 30, the school year), so participating school boards can serve free meals to all students with State reimbursement.
     unit: bool
-    open_question: SCH-IL-OQ-01
+    updates: Each year's State appropriation act (ISBE article); look for a Healthy School Meals for All line.
     values:
       - effective_from: 2025-07-01
+        effective_to: 2026-06-30
         value: false
-        confidence: secondary
+        confidence: confirmed
         note: >-
-          The program exists only "subject to appropriation". The stand-alone $67 million
-          appropriation bill (HB2365) was re-referred to Rules on 7/1/2026 without passing,
-          ISBE's 2026-27 meal announcement describes only federal free/reduced eligibility and
-          CEP, and advocates say the state "has yet to allocate" the money. Whether any
-          HSMFA line is in the enacted FY2027 omnibus budget was not checked against the
-          appropriation act itself.
+          FY2026 (SY 2025-26): Public Act 104-0003 has no Healthy School Meals for All line, and the
+          FY2026 changes made by Article 1 of P.A. 104-0464 add none; the stand-alone $67 million bills
+          (HB2365, SB1419) were not enacted. An inference from the absence of a line in the acts.
         sources:
+          - {source: il-pa-104-0003, locator: "ISBE General Revenue Fund grants (only \"For Reimbursement for the Free Breakfast/Lunch Program\")"}
           - {source: il-105-ilcs-125-2-3, locator: "(b)", quote: "Subject to appropriation, the State Board of Education shall establish the Healthy School Meals for All Program to begin on July 1, 2023."}
+          - {source: il-sb1419-status, locator: "Last Action", quote: "7/02/2025 - Senate: Pursuant to Senate Rule 3-9(b) / Referred to Assignments"}
+      - effective_from: 2026-07-01
+        effective_to: 2027-06-30
+        value: false
+        confidence: confirmed
+        note: >-
+          FY2027 (SY 2026-27): the enacted appropriation act, Public Act 104-0464 (HB 111, approved
+          with item/reduction vetoes June 16, 2026), appropriates to ISBE "For Reimbursement for the
+          Free Breakfast/Lunch Program" ($26,000,000, the existing State lunch/breakfast reimbursement)
+          but has no Healthy School Meals for All line; HB2365 was re-referred to Rules on 7/1/2026.
+          An inference from the absence of a line in the act; item vetoes can only reduce lines.
+        sources:
+          - {source: il-pa-104-0464, locator: "ISBE article, Section 15 (General Revenue Fund grants for the fiscal year beginning July 1, 2026)", quote: "For Reimbursement for the Free Breakfast/"}
+          - {source: il-hb111-status, locator: "Last Action; Effective Date July 1, 2026", quote: "Governor Item/Reduction Veto PA 104-0464"}
           - {source: il-hb2365-status, locator: "Last Action", quote: "7/01/2026 - House: Rule 19(b) / Re-referred to Rules Committee"}
           - {source: il-hsc-hsmfa-blog, locator: "paragraph 2", quote: "the state has yet to allocate the $216 million in funds needed to make free breakfast and lunch available to all students"}
-          - {source: il-iphi-hsmfa-overview-2026, locator: "page 1"}
+      - effective_from: 2027-07-01
+        value: null
+        confidence: unresolved
+        open_question: SCH-IL-OQ-03

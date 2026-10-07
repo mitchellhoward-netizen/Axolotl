@@ -1,0 +1,836 @@
+DATE: April 1, 2025
+
+TO: ALL COUNTY WELFARE DIRECTORS Letter No.:25-08
+ALL COUNTY WELFARE ADMINISTRATIVE OFFICERS
+ALL COUNTY MEDI-CAL PROGRAM SPECIALISTS/LIAISONS
+ALL COUNTY HEALTH EXECUTIVES
+ALL COUNTY MENTAL HEALTH DIRECTORS
+ALL COUNTY MEDS LIAISONS
+
+SUBJECT: COUNTY MEDI-CAL PERFORMANCE DATA STANDARDS AND
+CALCULATIONS
+
+REF: ACWDL 24-17
+
+This letter provides additional details on the data sets used to assess performance
+measures and more information on how the Department of Health Care Services
+(DHCS) utilizes California Statewide Automated Welfare System (CalSAWS) data to
+assess performance standards.
+
+Background
+On November 25, 2024, DHCS published the All County Welfare Director’s Letter
+(ACWDL) 24-17, notifying counties of the reinstatement of performance standards and
+enhancements used to evaluate these standards. 42 Code of Federal Regulations
+(CFR) 435.912, requires states to develop performance standards for determining,
+renewing, and redetermining eligibility in an efficient and timely manner for applicants or
+Medi-Cal members.
+
+DHCS will implement a two-pronged process in the assessment of county performance:
+
+1) Performance Standards:
+The performance standard evaluates the timeliness of applications, annual
+redeterminations, and MEDS alert processing. DHCS will use data from Medi-Cal
+applications, Annual redeterminations, and Medi-Cal Eligibility Data System
+(MEDS) alert processing derived from CalSAWS to determine timeliness.
+
+2) Focus Reviews:
+Focused Reviews evaluate the timeliness and accuracy of eligibility
+determinations, annual redeterminations, and MEDS alert processing.
+
+DHCS reviews performance standards data monthly. California performance standards
+are found in the Welfare and Institutions Code (WIC) 14154 (applications and annual
+redeterminations) and WIC 14154.5 (MEDS alert processing).
+
+California Department of Health Care Services State of California
+Medi-Cal Eligibility Division Gavin Newsom, Governor
+1501 Capitol Avenue | Sacramento, CA | 95899-7413
+MS 4607 | Phone (916) 552-9200 | www.dhcs.ca.gov California Health and Human Services Agency
+
+Letter No.:25-08
+Page 2
+April 1, 2025
+
+Performance Measures
+Eligibility performance is measured using the following three standards: application
+processing, annual redetermination processing, and MEDS alert processing. Data is
+collected on a scheduled frequency and on the individual rather than case level.
+
+This letter has three sections, each corresponding to a performance standard
+measurement: Application Processing, Annual Redetermination Processing, and MEDS
+Alerts Processing. If the data measures, calculations, or scope of oversight changes,
+DHCS will update the corresponding section(s).
+
+If you have any questions, or if we can provide further information, please email DHCS
+at COMSCountyPerformanceStandardsQuestions@dhcs.ca.gov.
+
+Sincerely,
+
+Sarah Crow
+Division Chief, Medi-Cal Eligibility
+Department of Health Care Services
+Enclosure (if applicable)
+
+Letter No.:25-08
+Page 3
+April 1, 2025
+
+Section 1 - Application Processing
+Medi-Cal application performance standards are governed by WIC 14154(d), which
+outlines the requirements for application processing as follows:
+
+• Ninety percent of the general applications without applicant errors and are
+complete shall be completed within 45 days.
+• Ninety percent of the applications for Medi-Cal based on disability shall be
+completed within 90 days, excluding delays by the state.
+Note: Delays by the state are defined as Disability Determination Services Division
+(DDSD) caused delays.
+
+In preparation for the reinstatement of county performance standards, DHCS will
+measure application processing using the CalSAWS dataset, which includes the
+Centers for Medicare and Medicaid Services (CMS) Performance Indicators (CMSPI) 12
+data that DHCS receives monthly.
+
+CMSPI Report Indicator 12
+Indicator 12 of the CMSPI Report was developed to satisfy CMS’ requirement to collect
+the processing time for all Medi-Cal applications during any given month, whether the
+applicant was found eligible or ineligible. The CMSPI Indicator 12 Report does not
+report California Work Opportunity and Responsibility to Kids (CalWORKs) applications,
+Inter-County Transfers (e-ICTs or ICTs), Craig vs. Bonta (CvB) referrals, or records
+transferred from Covered California to CalSAWS in a carry-forward status. The CMSPI
+Report Indicator 12 contains individual-level information.
+
+CalSAWS CMSPI Report Indicator 12 Data Definitions
+
+County Code The Identification number of the responsible county, (1-58).
+County Name The name of the county responsible for processing the
+application.
+Case Number The applicant’s case number.
+First Name The applicant’s first name.
+Middle Name The applicant’s middle name.
+Last Name The applicant’s last name.
+Date of Birth The applicant’s date of birth.
+Client Index Number (CIN) This data element identifies a permanent and unique Client
+Index Number (CIN) assigned to every Health Services
+recipient via the daily MEDS batch update process; the one
+exception being for those cases represented by skeleton
+
+Letter No.:25-08
+Page 4
+April 1, 2025
+
+records. Once assigned, the CIN never changes, even when
+a later change is made to the MEDS-ID (from Pseudo to
+Social Security Number [SSN]).
+MAGI vs non-MAGI The financial methodology used to determine eligibility.
+Application Received Date The date the county received the application that resulted in
+an eligibility determination during the reporting month.
+Determination Date The date the eligibility determination was made during the
+reporting month.
+Determination Result The status of the eligibility determination is “Approved” or
+“Denied”.
+Aid Code The approved applicant’s Medi-Cal or CHIP aid code.
+Days Processed The number of days it took to make the final eligibility
+determination.
+Disability Flag Indicates whether a disability is claimed or whether the health
+history in CalSAWS indicates a disability: Y (yes) or N (no).
+
+The status of this flag is not considered when calculating 45-
+day timeliness standards because the individual under review
+is not being evaluated for coverage on the basis of a
+disability.
+
+The status of this flag is considered when calculating the 90-
+day timeliness standard in the event the individual under
+review was denied eligibility and, thus, no final aid code was
+assigned.
+Incomplete Application (IA) If the application is incomplete or has errors, Y (yes) or N
+(no).
+DDSD Delay Indicates if the application is delayed by Disability
+Determination Services Division (DDSD); Y (yes) or N (no).
+
+DHCS defines the complete Medi-Cal application as follows:
+
+Application completeness and applications without errors have the same meaning.
+“Complete” means that all non-optional questions on the application form were
+answered and that all verifications requested from the applicant have been received,
+and that no further action is required from the applicant, and only county action is
+required because the county has the information necessary to make a disposition of
+eligibility or ineligibility. The Single Streamlined application for Insurance Affordability
+Programs identifies optional application questions.
+
+Letter No.:25-08
+Page 5
+April 1, 2025
+
+Note: Counties must perform an ex parte review prior to requesting any documents
+from the applicant.
+
+Performance Standards Data Dashboard - Application Processing
+
+The data dashboard will display application processing timeliness rates that are
+compiled over twelve months, representing activities during the calendar year, from
+January 1 through December 31. The measures are stratified by county and with
+statewide totals at the bottom. The application processing measures section of the data
+dashboard separates applications by non-disabled individuals subject to the 45-day
+processing limit and those disabled individuals subject to the 90-day processing limit.
+The following measures are represented on the data dashboard:
+
+45-Day Performance Standard:
+
+Performance Standard: Ninety percent of non-disability
+45-Day Processing applications shall be completed within 45
+days.
+Operational Definition Includes both MAGI and Non-MAGI
+(Aged, Aged Medically Needy (MN), and
+Aid to Families with Dependent Children
+(AFDC)) individual level determinations of
+eligibility and ineligibility. Identified by the
+presence of a non-disability aid code for
+determinations of eligibility. Both MAGI
+and Non-MAGI determinations of
+ineligibility (no aid code outcome
+present), which are identified by MAGI
+determination type or by non-MAGI
+determination type when the disability
+indicator flag is not set, does not indicate
+“Yes.”
+
+Does not include new applications for
+coverage groups, such as SSI/SSP,
+CalWORKs, foster care, or other
+programs for which DHCS does not
+complete the determination of eligibility. It
+does not include applications transferred
+to CalSAWS as a result of a reported
+
+Letter No.:25-08
+Page 6
+April 1, 2025
+
+change of circumstances, such as
+transfers from Covered California in a
+“carry forward” status, Craig v. Bonta, and
+intercounty transfers.
+Measure: The number of non-disability-based
+Number of Non-Disability Based individuals who submitted complete,
+Individuals with Complete, Error-Free error-free applications. In accordance
+Applications with WIC 14154(d)(1), DHCS excludes
+individuals who submitted incomplete
+applications and applications with errors
+that caused a processing delay beyond
+45 days.
+Measure: The number of non-disability-based
+Number of non-Disability Based individuals whose applications were
+Individuals Completed Within 45 Days finalized within 45 days of receipt of the
+application.
+Measure: Percentage of individual Medi-Cal
+Percentage of non-Disability Based applications processed within 45 days for
+Individuals Complete Within 45 Days non-disability applications.
+Definition: Application Completeness Application completeness and
+(MAGI and Non-MAGI) applications without errors have the same
+meaning.
+“Complete” means that all non-optional
+questions on the application form were
+answered and that all verifications
+requested from the applicant have been
+received, and that no further action is
+required from the applicant, and only
+county action is required because the
+county has the information necessary to
+make a disposition of eligibility or
+ineligibility. The Single Streamlined
+Application for Insurance Affordability
+Programs identifies optional application
+questions.
+
+Letter No.:25-08
+Page 7
+April 1, 2025
+
+Note: Counties must perform an ex parte
+review prior to requesting any documents
+from the applicant.
+
+Calculation Numerator: Number of non-disability-
+based individuals with complete, error-
+free applications processed within 45
+days
+Denominator: Number of non-disability-
+based individuals with complete, error-
+free applications.
+Data Source CalSAWS provides Centers for Medicare
+and Medicaid Services (CMS)
+Performance Indicator 12, Client Index
+Number (CIN) Level Dataset.
+Data Source Frequency Received monthly from CalSAWS on or
+about the 8th of the month.
+Data Set Availability Currently available to counties on the
+CalSAWS SharePoint site on or about the
+8th of the month. Upon implementation of
+CA-270511, the first generated report is
+expected to be available in May 2025. At
+this time, counties will be able to access
+the report through the CalSAWS Web
+Application and will no longer need to go
+to the CalSAWS Web Portal.
+
+County Validation DHCS requests that counties validate the
+data on or before the 18th of each month
+and inform DHCS of any discrepancies
+noted by the county.
+
+90-Day Performance Standard:
+
+Performance Standard: Ninety percent of disability applications
+90 Day Processing shall be completed within 90 days
+Operational Definition Includes non-MAGI (blind and disabled)
+individual level determinations of eligibility
+
+Letter No.:25-08
+Page 8
+April 1, 2025
+
+and ineligibility. Identified by the presence
+of a blind or disability aid code for
+determinations of eligibility. For non-
+MAGI determinations of ineligibility (no
+aid code outcome), identified by a non-
+MAGI determination type, when the
+disability indicator flag is set or indicates
+“Yes”.
+
+It does not include new applications for
+coverage groups, such as SSI/SSP,
+CalWORKs, foster care, or other
+programs for which DHCS does not
+complete the determination of eligibility. It
+does not include applications transferred
+to CalSAWS as a result of a reported
+change of circumstances, such as
+transfers from Covered California in a
+“carry forward” status, Craig v. Bonta, and
+Intercounty transfers.
+Measure: Number of individual Medi-Cal
+Number of Disability Based Individuals applications processed within 90 days for
+with Complete, Error-Free Applications disability applications (blind and
+disabled). In accordance with WIC
+14154(d)(1), DHCS excludes incomplete
+applications and applications with errors,
+and State Disability Determination
+Services delays that caused a delay
+beyond 90 days.
+Measure: Number of disability-based individuals
+Number of Disability Based Individuals whose applications were finalized within
+Completed Within 90 Days 90 days of receipt of the application.
+Measure: Percentage of individual Medi-Cal
+Percentage of Disability Based applications processed within 90 days for
+Individuals Completed Within 90 Days disability applications.
+Definition: Application Completeness Application completeness and
+(Non-MAGI) applications without errors have the same
+meaning.
+
+Letter No.:25-08
+Page 9
+April 1, 2025
+
+“Complete” means that all non-optional
+questions on the application form were
+answered and that all verifications
+requested from the applicant have been
+received, and that no further action is
+required from the applicant, and only
+county action is required because the
+county has the information necessary to
+make a disposition of eligibility or
+ineligibility. The Single Streamlined
+Application for Insurance Affordability
+Programs identifies optional application
+questions.
+Note: Counties must perform an ex parte
+review prior to requesting any documents
+from the applicant.
+Calculation Numerator: Number of Disability based
+individuals with complete, error-free
+applications and excluding DDSD caused
+delays that are processed within 90 days
+
+Denominator: Number of Disability based
+individuals with complete, error free
+applications and excluding DDSD caused
+delays.
+Data Source CalSAWS provided Centers for Medicare
+and Medicaid Services (CMS)
+Performance Indicator 12, Client Index
+Number (CIN) Level Dataset.
+Data Source Frequency Received monthly from CalSAWS on or
+about the 8th of the month.
+Data Set Availability Currently available to counties at the
+CalSAWS SharePoint site on or about the
+8th of the month. Upon implementation of
+CA-270511, the first generated report is
+expected to be available in May 2025. At
+this time, counties will be able to access
+the report through the CalSAWS Web
+
+Letter No.:25-08
+Page 10
+April 1, 2025
+
+Application and will no longer need to go
+to the CalSAWS Web Portal.
+
+County Validation DHCS requests that counties validate on
+or before the 18th of each month and
+inform DHCS of any discrepancies noted
+by the county.
+
+Section 2 - Annual Redetermination Processing
+
+Medi-Cal Annual Redetermination Processing performance standards are governed by
+WIC § 14154(d)(3). However, due to the outdated language in sections A and C of the
+WIC § 14154(d)(3), DHCS will monitor section B only. WIC § 14154(d)(3)(B) requires:
+
+• Ninety percent of the annual redeterminations shall be completed within 60 days
+of the recipient’s annual redetermination date for those redeterminations based
+on forms that are complete and have been returned to the county by the recipient
+in a timely manner.
+
+DHCS will measure annual redetermination standards using the Renewal Master
+Request (RMR) dataset provided by CalSAWS. The RMR is received monthly but
+delayed by approximately 120 days to account for the 90-day Cure Period.
+
+RMR Report
+The RMR report contains annual redetermination data on the total number of
+redeterminations processed, including redeterminations that resulted in continued
+eligibility, discontinuances, the reason for discontinuance, and the number of days for
+fully processed redeterminations. The RMR data provides information at both the case
+and individual levels for MAGI and non-MAGI programs processed by the county. The
+data is organized into two separate sets: one for cases and one for individuals. These
+two data sets are located in different tabs within the RMR.
+
+Case Level Data (First Tab)
+The “case level” tab contains data on cases with active eligibility that have an annual
+redetermination due during the reporting month. Cases with cash-linked eligibility are
+not captured in this dataset. Mixed cases that include cash-linked individuals and non-
+cash-linked individuals are captured in the dataset. Non-cash-linked individuals are
+captured in the Individual Level Tab. Case-level data does not break out MAGI and non-
+MAGI populations.
+
+Letter No.:25-08
+Page 11
+April 1, 2025
+
+Definition
+
+Renewals Due This Month* The total number of annual
+redeterminations due in the reporting
+month.
+
+*Renewals Due This Month: Include all active cases in which an annual redetermination
+was due for the month.
+
+Individual Level Data (Second Tab)
+The “individual level” tab includes annual redeterminations due during the reporting
+month for individuals with active eligibility, excluding those with cash-based or linked
+eligibility. Individuals with annual redeterminations due are categorized based on the
+MAGI or non-MAGI aid code assigned at the time the "Renewal Due" month begins. For
+example, if an individual is non-MAGI eligible when the annual redetermination is due,
+CalSAWS will report the annual redetermination as non-MAGI, even if Medi-Cal
+eligibility continues under MAGI or non-MAGI. CalSAWS should report the annual
+redetermination according to the primary aid code. The primary aid code is the aid code
+that ranks highest in the Medi-Cal aid code hierarchy – please refer to ACWDL 17-03
+for more information on the aid code hierarchy.
+
+CalSAWS RMR Data Definitions
+
+Total number of Renewals Due The total number of annual redeterminations
+due during the reporting month.
+Incomplete Renewal Packet The total number of incomplete annual
+redetermination packets as reported by the
+county.
+Total Number Completed The total number of annual redeterminations
+due that were completed for the reporting
+month. This includes records with continued
+eligibility to include both auto and manual ex
+parte, and discontinued records.
+Note: Annual redeterminations completed
+after the Month 3 Post-Due Month will not
+be included in the Total Number Completed.
+Month Due The total number of annual redeterminations
+that were completed during or before the
+month they are due.
+
+Letter No.:25-08
+Page 12
+April 1, 2025
+
+Month 1 Post-Due Month The total number of annual redeterminations
+completed 1 month after the renewal month.
+Month2 Post-Due Month The total number of annual redeterminations
+completed 2 months after the renewal
+month.
+Month 3 Post-Due Month The total number of annual redeterminations
+completed 3 months after the renewal
+month.
+Total Number of Renewals Completed The total number of annual redeterminations
+Resulting in Continued Eligibility that resulted in continued eligibility. The
+number includes auto ex-parte, manual ex-
+parte, and manual renewals.
+Auto Ex-Parte The total number of completed annual
+redeterminations using the Federal Data
+Services Hub (FDSH).
+Manual Ex-Parte The total number of annual redeterminations
+completed by the county by manually
+verifying data from the Medi-Cal member’s
+record, such as Income and Eligibility
+Verification System (IEVS), CalWORKs, and
+CalFresh data.
+For non-MAGI, this includes verifying stable
+income.
+Beneficiary Provided Information The total number of annual redeterminations
+completed using information provided by the
+Medi-Cal member.
+Total Number of Renewals Completed Total number of completed annual
+Resulting in Discontinuance redeterminations that resulted in the
+discontinuance from the Medi-Cal program.
+Failure to Respond The total number of completed annual
+redeterminations that resulted in
+discontinuance due to Failure to Respond.
+Over Income Total number of completed annual
+redeterminations that resulted in
+discontinuance as a result of excess over
+income.
+Other Reasons The total number of completed annual
+redeterminations that resulted in
+discontinuance for reasons other than
+Failure to Respond or Over Income.
+
+Letter No.:25-08
+Page 13
+April 1, 2025
+
+Reinstatements During the 90-day Cure The total number of individuals who had
+Period their Medi-Cal eligibility re-instated during
+the 90-day Cure Period.
+
+As a reminder, WIC § 14154(d)(3)(B) states that 90% of annual redeterminations shall
+be completed within 60 days of the recipient's annual redetermination date for those
+redeterminations based on completed forms returned to the county in a timely manner.
+Therefore, DHCS considers annual redeterminations adjudicated within two months
+after the redetermination due month.
+
+The performance standard is calculated by adding the three columns titled 1) “Month
+Due” (C) + “Month 1 Post-Due Month” (D) + “Month 2 Post-Due Month” (E). Then divide
+the sum of the three columns (C, D, and E) by the column titled “Total Number of
+Renewals Due” (A). Below is a snippet of the RMR. The columns used for calculating
+the performance standards have an asterisk.
+
+Total Incomplete Completion Timeframe
+Number of Renewal Continued and Discontinued Eligibility
+Renewals Packet
+Due
+Total Number Month Month Month 2 Month 3
+Completed Due 1 Post Post- Post-Due
+(B=C+D+E+F) Due Due Month
+& (B=G+K) Month Month
+(A)* (B) (C)* (D)* (E)* (F)
+
+Reporting Schedule
+The report is due to DHCS on the 8th of the submission month according to the
+following timetable:
+
+Renewal Due Renewals Processed Months CalSAWS Submission
+Month Deadline (8th of the submission
+month)
+January January - April May
+February February – May June
+March March - June July
+April April – July August
+May May-August September
+June June – September October
+
+Letter No.:25-08
+Page 14
+April 1, 2025
+
+July July – October November
+August August – November December
+September September – December January
+October October – January February
+November November – February March
+December December – March April
+
+The annual redetermination date is defined as the last day of the annual
+redetermination due month. The redetermination packet is considered timely if it is
+received by the last date of the redetermination due month.
+
+Performance Standards Data Dashboard - Annual Redetermination Processing
+
+The data dashboard will display annual redetermination timeliness rates that are
+compiled over twelve months, representing activities during the calendar year, from
+January 1 through December 31. The measures are stratified by county and with
+statewide totals at the bottom. The annual redetermination processing measures of the
+data dashboard represent the percentage of redeterminations due that are complete no
+later than two months after the redetermination due month. The following measures are
+represented on the data dashboard:
+
+Performance Standard Ninety percent of annual redeterminations due shall be
+Ninety Percent completed within two months of the annual redetermination
+due month for those redeterminations based on complete
+forms that have been returned to the county in a timely
+manner.
+Operational Definition Includes both MAGI and Non-MAGI individual level annual
+redeterminations of eligibility and ineligibility. Does not
+include redeterminations as a result of a reported change of
+circumstance. For example, reported change (increase of
+income), anticipated change (change in age), or transfers
+from Covered California or Social Security Administration as
+a result of no longer qualifying for CalWORKs or SSI/SSP.
+Measure: Number of Individuals due for annual redetermination. In
+Number of Individuals accordance with WIC 14154(d)(3)(B), DHCS excludes those
+Due for Annual individuals with incomplete annual redetermination forms that
+Redetermination were received by the county no later than the last day of the
+annual redetermination due month which caused a delay
+beyond two months after the annual redetermination due
+month.
+
+Letter No.:25-08
+Page 15
+April 1, 2025
+
+Measure: Number of individuals whose annual redetermination was
+Number Completed complete within two months of the redetermination due
+Within Two Months of month.
+The Redetermination Due
+Month
+Measure: Percentage of annual redeterminations complete within two
+Percentage of Annual months after the annual redetermination due month.
+Redeterminations
+Complete
+Definition: Annual All required annual redetermination forms have been
+redetermination forms provided to the county by the last day of the annual
+timeliness and redetermination due month. The forms received are
+completeness complete, and no further action is required of the beneficiary;
+the county has all the required information to determine
+eligibility. CalSAWS pulls this information from the CalSAWS
+reporting page.
+Calculation Numerator: The sum of the number completed during the due
+month, first-month post-due month, and second-month post-
+due month.
+Denominator: Number of annual redeterminations due.
+Data Source CalSAWS provides the Renewal Master Request data set.
+Data Source Frequency Received monthly from CalSAWS on or about the 8th of the
+month. This dataset is lagged about 120 days to capture all
+90-day cure period activities.
+Data Set Availability Available to counties at the CalSAWS SharePoint site on or
+about the 8th of the month
+County Validation DHCS requests that counties validate on or before the 18th
+of each month and inform DHCS of any discrepancies noted
+by the county.
+
+Letter No.:25-08
+Page 16
+April 1, 2025
+
+Section 3 - MEDS Alert Processing
+
+Regular reconciliation of county and state Medi-Cal eligibility data is essential for
+addressing discrepancies between county systems and MEDS and identifying any
+processing or procedural issues within the systems.
+
+W&I Code Section 14154.5 mandates that counties process MEDS alerts promptly and
+consistently to minimize data discrepancies between MEDS and CalSAWS. MEDS
+alerts notify counties and other partners about potential or existing discrepancies in
+MEDS records.
+
+MEDS Alerts processing performance standards require counties to process MEDS
+alerts that affect eligibility, share of cost, and records that exist on the county’s files but
+not in MEDS.
+
+A. Ninety percent of non-reconciliation MEDS Alerts should be processed by the
+timeframes indicated below.
+B. Ninety-five percent of reconciliation MEDS Alerts should be processed by the
+timeframes indicated below.
+
+MEDS alerts received by the 10th working day of the month shall be processed in time
+for the change to be effective at the beginning of the following month. Any worker alert
+that affects the eligibility or the share of cost that is received after the 10th working day
+of the month shall be processed in time for the change to be effective at the beginning
+of the month after the following month. Counties may refer to ACWDL 23-14E for the list
+of MEDS Alerts that will be monitored under the performance standards.
+
+DHCS will monitor the processing of MEDS alerts using data generated by MEDS, and
+the CalSAWS-generated MEDS Alert dataset, which is received monthly.
+
+MEDS-generated alert data includes current and unresolved MEDS alerts. These alerts
+are transmitted to CalSAWS for assignment to a County Eligibility Worker (CEW) for
+processing. In CalSAWS, the dataset includes both outstanding and processed alerts.
+
+Alerts are categorized based on how frequently they are generated in MEDS and their
+impact on eligibility. Category 1 alerts are the most common and have the most
+immediate negative effects on eligibility, with subsequent categories representing alerts
+that have less immediate negative impacts on eligibility.
+
+Letter No.:25-08
+Page 17
+April 1, 2025
+
+MEDS alerts are generated daily through various independent processes and are
+categorized as follows:
+
+Category 1: Daily update process.
+Category 2: Monthly MEDS renewal process.
+Category 3: Quarterly reconciliation process.
+Category 4: Periodic data matching.
+
+CalSAWS MEDS Alert Data Definitions (SIRFRA 1380)
+
+Alert Number The MEDS Alert number that was generated.
+Alert Completion Indicator CEW selected a manual indicator indicating the alert
+was resolved; Y (yes), or N (no).
+Alert Completion Date The date the CEW marked the alert as resolved.
+CIN This data element identifies a permanent and unique
+Client Index Number (CIN) assigned to every Health
+Services recipient via the daily MEDS batch update
+process; the one exception being for those cases
+represented by skeleton records. Once assigned, the
+CIN never changes, even when a later change is
+made to the MEDS-ID (from Pseudo to Social Security
+Number [SSN]).
+County ID Number The county identification number, (1-58).
+MEDS ID The member's MEDS Identification number.
+CCN Covered California case number. Note: DHCS does
+not utilize this information and will remove this item in
+a future release.
+Aid Code The Medi-Cal aid code assigned to the individual.
+MEDS Creation Date The date MEDS created the alert.
+Alert Created in CalSAWS The date the MEDS alert was created in CalSAWS.
+Alert Create Timestamp The date and time stamp alert were created in
+CalSAWS.
+MEDS Alert Available to The first business day CalSAWS made the alert
+Worker available to the CEW.
+
+Performance Standards Data Dashboard - MEDS Alert Processing Measures
+
+The data dashboard will display MEDS Alert timeliness rates that are complied over
+twelve months, representing activities during the calendar year, from January 1 through
+December 31. The metrics are stratified by county and with statewide totals at the
+
+Letter No.:25-08
+Page 18
+April 1, 2025
+
+bottom. The MEDS Alert processing measures section of the data dashboard
+separates RECON alerts by non-RECON alerts as these two alert types have different
+performance standards. The following measures are represented on the data
+dashboard:
+
+RECON Alerts:
+
+Performance Standard: If received on or before the tenth working day of the month,
+95 Percent ninety five percent of the RECON alerts shall be processed
+by the last day of the month received. If received after the
+tenth working day of the month, ninety five percent of the
+RECON alerts shall be processed by the last day of the
+month following the month of receipt. DHCS utilizes the day
+the eligibility worker receives the alert to determine if the alert
+was received on, before, or after the 10th working day of the
+month.
+Operational Definition Includes RECON alerts identified in ACWDL 23-14E.
+Measure: Number of RECON alerts received
+Number of RECON Alerts
+Received
+Measure: Number of Recon alerts completed.
+Number of Recon Alerts
+Completed
+Measure: Percentage of individual RECON alerts processed.
+Percent of RECON Alerts
+Processed
+Calculation Numerator: Number of RECON alerts processed
+Denominator: Number of RECON alerts received
+Data Source DHCS utilizes a combination of MEDS data and CalSAWS
+data. DHCS provides CalSAWS with a MEDS alert input file
+consisting of all alerts contained in ACWDL 23-14E that were
+generated the prior month, and CalSAWS replies to this file
+with a data set indicating what day an alert was made
+available to the eligibility worker and what day the alert was
+processed or if the alert is unresolved. Unresolved alerts are
+carried over to the next month’s report.
+
+For counties that process alerts in CalSAWS, CalSAWS
+utilizes the eligibility worker alert processed indicator to
+determine what day an alert was processed. For counties
+
+Letter No.:25-08
+Page 19
+April 1, 2025
+
+that process alerts directly in MEDS, DHCS utilizes the
+MEDS database to detect the date when an alert has been
+resolved and no longer regenerates.
+Data Source Frequency CalSAWS provided dataset is received monthly from
+CalSAWS on or about the 8th of the month.
+Data Set Availability Available to counties at the CalSAWS SharePoint site on or
+about the 8th of the month
+County Validation DHCS requests counties validate on or before the 18th of the
+month and inform DHCS of any discrepancies noted by the
+county.
+
+Non-RECON Alerts:
+
+Performance Standard: If received on or before the tenth working day of the month,
+90 Percent ninety percent of the non-RECON alerts shall be processed
+by the last day of the month received. If received after the
+tenth working day of the month, ninety percent of the non-
+RECON alerts shall be processed by the last day of the
+month following the month of receipt. DHCS utilizes the day
+the eligibility worker receives the alert to determine if the alert
+was received on, before, or after the 10th working day of the
+month.
+Operational Definition Includes non-RECON alerts identified in ACWDL 23-14E.
+Measure: Number of non-RECON alerts received
+Number of non-RECON
+Alerts Received
+Measure: Number of non-RECON alerts completed.
+Number of non-RECON
+Alerts Completed
+Measure: Percentage of non-RECON alerts processed.
+Percent of non-RECON
+Alerts Processed
+Calculation Numerator: Number of non-RECON alerts processed
+Denominator: Number of non-RECON alerts received
+Data Source DHCS utilizes a combination of MEDS data and CalSAWS
+data. DHCS provides CalSAWS with a MEDS alert input file
+consisting of all alerts contained in ACWDL 23-14E that were
+generated the prior month, and CalSAWS replies to this file
+
+Letter No.:25-08
+Page 20
+April 1, 2025
+
+with a data set indicating what day an alert was made
+available to the eligibility worker and what day the alert was
+processed or if the alert is unresolved. Unresolved alerts are
+carried over to the next month’s report.
+
+For counties that process alerts in CalSAWS, CalSAWS
+utilizes the eligibility worker alert processed indicator to
+determine what day an alert was processed. For counties
+that process alerts directly in MEDS, DHCS utilizes the
+MEDS database to detect the date when an alert has been
+resolved and no longer regenerates.
+Data Source Frequency CalSAWS provided dataset is received monthly from
+CalSAWS on or about the 8th of the month.
+Data Set Availability Available to counties at the CalSAWS SharePoint site on or
+about the 8th of the month
+County Validation DHCS requests counties validate on or before the 18th of the
+month and inform DHCS of any discrepancies noted by the
+county.
+
+Reconciliation (RECON) MEDS Alerts are notifications generated during the MEDS
+reconciliation process to inform counties of potential discrepancies or mismatches
+between CalSAWS and MEDS.
+
+Non-reconciliation (non-RECON) MEDS Alerts are alerts generated by MEDS to inform
+counties of potential discrepancies but are not related to the quarterly reconciliation
+process.

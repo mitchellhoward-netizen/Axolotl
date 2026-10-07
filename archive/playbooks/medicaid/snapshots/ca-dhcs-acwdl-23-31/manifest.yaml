@@ -1,0 +1,10 @@
+- retrieved: '2026-10-07'
+  url: https://www.dhcs.ca.gov/services/medi-cal/eligibility/letters/Documents/23-31.pdf
+  final_url: https://www.dhcs.ca.gov/services/medi-cal/eligibility/letters/Documents/23-31.pdf
+  status: 200
+  content_type: pdf
+  text_sha256: c1a226dccb23eb4766315c9ac14175ed79ee904bf01b83a14226f0cc927b0956
+  text: ca-dhcs-acwdl-23-31/2026-10-07.txt
+  raw: ca-dhcs-acwdl-23-31/2026-10-07.pdf
+  fetched_via: headless Chromium (Playwright); dhcs.ca.gov refuses scripted requests
+    (Incapsula)

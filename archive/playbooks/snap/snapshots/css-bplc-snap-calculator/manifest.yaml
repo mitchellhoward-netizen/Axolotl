@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://bplc.cssny.org/benefit_tools/snap_calculator
+  final_url: https://bplc.cssny.org/benefit_tools/snap_calculator
+  status: 200
+  content_type: text/html; charset=utf-8
+  text_sha256: 782f60e0f3c54c5f6fca6012f54b830016b43e2c80a547fd24c4b2a696d57a7e
+  text: css-bplc-snap-calculator/2026-10-07.txt
+  raw: css-bplc-snap-calculator/2026-10-07.html

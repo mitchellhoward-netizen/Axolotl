@@ -1,0 +1,9 @@
+- retrieved: '2026-10-07'
+  url: https://www.ilga.gov/Documents/legislation/publicacts/104/104-0464.htm
+  final_url: https://www.ilga.gov/Documents/legislation/publicacts/104/104-0464.htm
+  status: 200
+  content_type: text/html
+  text_sha256: 1055083ed3e2ffb5cf4b5479e2bd7956e6af1ace957965bb42e33cd0c5150aa2
+  text: il-pa-104-0464/2026-10-07.txt
+  raw: null
+  raw_omitted: 9909327 bytes > 6291456; text only

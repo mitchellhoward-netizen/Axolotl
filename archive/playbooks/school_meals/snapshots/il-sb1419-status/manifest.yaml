@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://ilga.gov/ftp/legislation/104/BillStatus/HTML/10400SB1419.html
+  final_url: https://ilga.gov/ftp/legislation/104/BillStatus/HTML/10400SB1419.html
+  status: 200
+  content_type: text/html
+  text_sha256: 79b0ef3d7e637b9743f5b54df40a9893666e3a8e5411a14686795c8b8822d32e
+  text: il-sb1419-status/2026-10-07.txt
+  raw: il-sb1419-status/2026-10-07.html

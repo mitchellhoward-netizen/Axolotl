@@ -1021,6 +1021,40 @@ rows:
     paying heating/cooling (or, after Public Law 119-21, HEAP households with an aged/disabled member), the Utility SUA ($355 upstate) to households
     with two or more other utility bills, the Phone SUA to phone-only households, and nothing when all utilities are in the rent (SNAP-NY-SUA,
     SNAP-NY-HEAP-SUA; in NY-T22 the HEAP payment no longer confers the SUA on a household without an elderly or disabled member).
+- case: SNAP-NY-T17
+  state: ny
+  title: "FY 2027: retiree paying heat upstate \u2014 HT/AC SUA $908 (FY 2027 SUA from secondary sources)"
+  ours:
+    status: eligible
+    tier: null
+    benefit_monthly: 271.0
+    net_income_monthly: 116.5
+    utility_allowance_monthly: 908.0
+  policyengine:
+    status: eligible
+    tier: null
+    benefit_monthly: 261.0
+    net_income_monthly: 148.0
+    utility_allowance_monthly: 877.0
+  agree: false
+  explanation: null
+- case: SNAP-NY-T18
+  state: ny
+  title: "FY 2027: retiree with $6,000 savings (over the $4,750 limit), gross under 200% \u2014 BBCE, $25 minimum"
+  ours:
+    status: eligible
+    tier: null
+    benefit_monthly: 25.0
+    net_income_monthly: 1283.0
+    utility_allowance_monthly: 0.0
+  policyengine:
+    status: eligible
+    tier: null
+    benefit_monthly: 81.0
+    net_income_monthly: 748.0
+    utility_allowance_monthly: 877.0
+  agree: false
+  explanation: null
 - case: SNAP-NY-T19
   state: ny
   title: 'FY 2027: worker earning $1,729 = 130% gross limit (regular rules, no NY figures needed)'
@@ -1166,4 +1200,89 @@ rows:
     net_income_monthly: 510.0
     utility_allowance_monthly: 877.0
   agree: true
+  explanation: null
+- case: SNAP-NY-T24
+  state: ny
+  title: "FY 2027: retiree with SS $2,660 = 200% BBCE limit and $6,000 savings \u2014 categorically eligible, $25 minimum"
+  ours:
+    status: eligible
+    tier: null
+    benefit_monthly: 25.0
+    net_income_monthly: 2443.0
+    utility_allowance_monthly: 0.0
+  policyengine:
+    status: eligible
+    tier: null
+    benefit_monthly: 25.0
+    net_income_monthly: 2443.0
+    utility_allowance_monthly: 877.0
+  agree: true
+  explanation: null
+- case: SNAP-NY-T25
+  state: ny
+  title: "FY 2027: same retiree with SS $2,661 \u2014 $1 over the 200% limit, fails the $4,750 resource limit"
+  ours:
+    status: ineligible
+    tier: null
+    benefit_monthly: 0.0
+    net_income_monthly: 2444.0
+    utility_allowance_monthly: 0.0
+  policyengine:
+    status: ineligible
+    tier: null
+    benefit_monthly: 0.0
+    net_income_monthly: 2444.0
+    utility_allowance_monthly: 877.0
+  agree: true
+  explanation: null
+- case: SNAP-NY-T26
+  state: ny
+  title: 'FY 2027: single worker earning $1,995 = New York 150% BBCE limit (over the $1,729 130% limit)'
+  ours:
+    status: eligible
+    tier: null
+    benefit_monthly: 123.0
+    net_income_monthly: 610.0
+    utility_allowance_monthly: 908.0
+  policyengine:
+    status: eligible
+    tier: null
+    benefit_monthly: 123.0
+    net_income_monthly: 610.0
+    utility_allowance_monthly: 877.0
+  agree: true
+  explanation: null
+- case: SNAP-NY-T27
+  state: ny
+  title: "FY 2027: single worker earning $1,996 \u2014 $1 over the 150% BBCE limit"
+  ours:
+    status: ineligible
+    tier: null
+    benefit_monthly: 0.0
+    net_income_monthly: 610.8
+    utility_allowance_monthly: 908.0
+  policyengine:
+    status: ineligible
+    tier: null
+    benefit_monthly: 0.0
+    net_income_monthly: 611.0
+    utility_allowance_monthly: 877.0
+  agree: true
+  explanation: null
+- case: SNAP-NY-T28
+  state: ny
+  title: "FY 2027: couple of retirees in Brooklyn paying heat \u2014 NYC HT/AC SUA $1,100"
+  ours:
+    status: eligible
+    tier: null
+    benefit_monthly: 329.0
+    net_income_monthly: 774.5
+    utility_allowance_monthly: 1100.0
+  policyengine:
+    status: eligible
+    tier: null
+    benefit_monthly: 262.0
+    net_income_monthly: 998.0
+    utility_allowance_monthly: 877.0
+  agree: false
   explanation: null
