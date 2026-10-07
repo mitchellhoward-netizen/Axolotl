@@ -95,6 +95,43 @@ def countable_income(hh: Household, as_of: date, det: Determination,
     return IncomeBreakdown(unearned, earned, cola, gd, ed, countable, size)
 
 
+def cola_amount(hh: Household, owners: set[str]) -> float:
+    """January Social Security COLA increase of ``owners`` (``facts.ss_cola_increase_monthly``).
+
+    For states whose COLA disregard runs longer than the federal transition
+    months (Illinois: through March); the caller decides the months.
+    """
+    return sum(float(hh.person(pid).facts.get("ss_cola_increase_monthly", 0)) for pid in owners)
+
+
+def countable_income_of(hh: Household, owners: set[str], as_of: date, det: Determination,
+                        general_disregard_pid: str = "federal.ssi.general_income_exclusion_monthly",
+                        rule_id: str = "MSP-FED-INCOME-SSI-METHOD") -> IncomeBreakdown:
+    """``countable_income`` for an explicit set of people (for example the
+    applicant alone, when a state measures an applicant without an
+    ineligible spouse's income). Same SSI-method arithmetic."""
+    unearned = sum(i.monthly for i in hh.incomes
+                   if i.owner in owners and i.kind not in EARNED_KINDS and i.kind not in NOT_COUNTED)
+    earned = sum(i.monthly for i in hh.incomes if i.owner in owners and i.kind in EARNED_KINDS)
+    cola = cola_excluded(hh, owners, as_of, det)
+    unearned = max(0.0, unearned - cola)
+    gd = float(params.use(general_disregard_pid, as_of, det).value)
+    ed = float(params.use("federal.ssi.earned_income_exclusion_monthly", as_of, det).value)
+    unearned_after = max(0.0, unearned - gd)
+    gd_left = max(0.0, gd - unearned)
+    earned_after = max(0.0, earned - gd_left - ed) / 2.0
+    countable = round(unearned_after + earned_after, 2)
+    size = 2 if len(owners) == 2 else 1
+    det.note(rule_id,
+             f"countable income ${countable:,.2f}/mo (people: {', '.join(sorted(owners))}) = unearned ${unearned:,.2f} - ${gd:.0f}"
+             + (f" + (earned ${earned:,.2f} - ${gd_left:.0f} - ${ed:.0f}) / 2" if earned else "")
+             + f"; household size {size}", None)
+    return IncomeBreakdown(unearned, earned, cola, gd, ed, countable, size)
+
+
+TIER_RANK = {"QMB": 3, "SLMB": 2, "QI": 1, None: 0}
+
+
 def has_part_a(hh: Household) -> bool:
     a = hh.applicant
     return a.medicare_part_a or bool(a.facts.get("part_a_buy_in"))
