@@ -1,0 +1,86 @@
+1 | 4 | Amalgamated National Health Fund | NY | 274411485
+1 | 6 | Steelworkers Health and Welfare Fund | PA | 231317409
+1 | 7 | NYC District Council of Carpenters Welfare Fund | NY | 135615576
+1 | 8 | Chicago & Vicinity Laborers' DC Retiree H&W Plan | IL | 465243652
+1 | 13 | SF Culinary Bartenders & Service Employees Welfare Fund | CA | 941645611
+1 | 16 | Oregon Teamster Employers Trust | OR | 936021475
+1 | 17 | Pipe Trades Services MN Welfare Fund | MN | 410761972
+1 | 20 | Electrical Workers' Insurance Fund (IBEW 58) | MI | 381393235
+1 | 21 | Teamsters Local 639 Employers Health Trust | DC | 530209136
+1 | 22 | North Central States Regional Council of Carpenters Health Fund | WI | 396069788
+1 | 24 | Plumbers' & Pipefitters' Welfare Educational Fund (Local 562) | MO | 430657966
+1 | 26 | Iron Workers DC of So. OH & Vicinity Benefit Trust | OH | 310557391
+1 | 29 | Alaska Laborers Health and Security Plan | WA | 916028565
+2 | THE SMART-TD HEALTH & WELFARE PLAN | VA | 800616629 | 73193
+2 | TEAMSTERS BENEFIT TRUST | CA | 942848389 | 7012
+2 | RETIREE'S WELFARE TRUST | WA | 916065367 | 5832
+2 | SIDNEY HILLMAN HEALTH CENTER | NY | 160864443 | 4965
+2 | HEARTLAND HEALTH AND WELLNESS FUND | OH | 316173363 | 4471
+2 | CARPENTERS & JOINERS WELFARE FUND | MN | 416024791 | 4078
+2 | TEAMSTERS AND EMPLOYERS WELFARE TRUST OF ILLINOIS | MO | 366441012 | 3777
+2 | CALIFORNIA IRONWORKERS FIELD WELFARE PLAN | CA | 956042868 | 3322
+2 | OPERATING ENGINEERS' LOCAL 324 HEALTH CARE PLAN | MI | 381940673 | 2977
+2 | SHEET METAL WORKERS LOCAL 104 HEALTH CARE PLAN | CA | 942541328 | 2393
+2 | MINNESOTA LABORERS HEALTH AND WELFARE FUND | MN | 416187750 | 2271
+2 | JOINT BENEFIT TRUST | CA | 946284253 | 2073
+2 | OPERATING ENGINEERS HEALTH AND WELFARE TRUST FUND | CA | 942784001 | 1951
+2 | HEARTLAND HEALTHCARE FUND | MN | 020656066 | 1910
+2 | TEAMSTERS MISCELLANEOUS SECURITY FUND | CA | 956060502 | 1763
+2 | EXCAVATORS UNION LOCAL 731 WELFARE FUND | NY | 131615440 | 1598
+2 | NORTHERN NEW ENGLAND BENEFIT TRUST DBA ALLEGIANT CARE | NH | 026015031 | 1539
+2 | INDIANA LABORERS WELFARE FUND | IN | 350923209 | 1363
+2 | NORTHERN NEVADA OPERATING ENGINEERS HEALTH AND WEL | NV | 886031750 | 1302
+2 | SHEET METAL WORKERS HEALTH FUND OF LOCAL UNION NO. 19 | PA | 231324693 | 1262
+3 | 3 | G.M.P.-Employers Retiree Trust | FL | 236411794
+3 | 8 | UFCW Local 1529 & Contrib. Employers H&W | TN | 620978539
+3 | 12 | Teamsters and Food Employers Security Trust Fund | CA | 956048844
+3 | 14 | IUOE and Pipeline Employers H&W Fund | IL | 237134462
+3 | 15 | OLDC-Ohio Contractors Association Insurance Fund | OH | 316052984
+3 | 17 | The Steamfitters Industry Welfare Fund | NY | 131545680
+3 | 20 | NW Laborers-Employers H&S Trust Fund | WA | 911283260
+3 | 21 | Sheet Metal Workers Local 73 Welfare Fund | IL | 362145881
+3 | 22 | Local 103, I.B.E.W. Health Benefit Plan | MA | 046063733
+3 | 23 | Carpenters Health Fund of West Virginia | WV | 550621800
+3 | 24 | Cement Masons Southern California H&W Fund | CA | 956042883
+3 | 25 | Benefit Fund for Hospital & Health Care Employees, Philadelphia & Vicinity | PA | 232627429
+3 | 26 | MM&P Health and Benefit Plan | MD | 136696938
+3 | 27 | Florida UBC Health Fund | TN | 596134278
+3 | 28 | H&B Trust Fund of the IUOE Local 94, 94A, 94B | NY | 136674743
+3 | 29 | Plumbers & Steamfitters Local 60 H&W Fund | LA | 720450650
+3 | 30 | Teamsters Union 25 Health Services & Insurance Plan | MA | 046374631
+4 | 2 | IN/KY/OH Rgnl Council of Carpenters Welfare Fund | MI | 356042362
+4 | 6 | Major League Baseball Players Welfare Plan | MD | 136058836
+4 | 10 | Building Service 32BJ Health Fund | NY | 132928869
+4 | 12 | NYSA-ILA Welfare Fund | NJ | 135638505
+4 | 15 | Republic Retiree VEBA Medical Plan | PA | 020642820
+4 | 19 | UFCW Local 400 & Employers H&W Fund | WV | 550393244
+4 | 21 | 4th District IBEW Health Fund | WV | 316068797
+4 | 22 | San Diego County Public Safety Retiree Medical Trust | WA | 464728761
+4 | 23 | NECA-IBEW Welfare Trust Fund | IL | 370738564
+4 | 24 | Maritime Association - I.L.A. Welfare Fund | TX | 741721447
+4 | 25 | Xerox Medical Care Plan for Retired Employees | CT | 160468020
+4 | 27 | Connecticut Laborers' Health Fund | CT | 060960814
+4 | 28 | IBEW 292 Health Care Plan | MN | 411384754
+4 | 29 | Insulators and Allied Workers National Medical Fund | FL | 526038498
+4 | 30 | IUOE Welfare Fund of Eastern PA and Delaware | PA | 231402245
+5 | UFCW Unions and Food Employers Benefit Fund (SoCal) | CA | 952301788 | 15688
+5 | Sheet Metal Workers Local 105 Health Reimbursement Plan | CA | 330490874 | 7227
+5 | Eastern Atlantic States Carpenters Health Fund | PA | 226032181 | 6071
+5 | Tri State Joint Fund (Teamsters) | CT | 060850110 | 5085
+5 | N. Atlantic States Carpenters Health Benefits Fund | MA | 046374357 | 4539
+5 | Pipe Fitters Welfare Fund, Local 597 | IL | 362141703 | 3869
+5 | Electrical Insurance Trustees (IBEW L134) | IL | 361033970 | 3652
+5 | FELRA and UFCW VEBA Fund | MD | 521036978 | 3372
+5 | Ohio Operating Engineers Health and Welfare Plan | OH | 314446857 | 3075
+5 | Cleveland Bakers and Teamsters H&W Fund | OH | 340753693 | 2824
+5 | Locals 302 & 612 IUOE Health and Security Plan | WA | 916028570 | 2528
+5 | Southeastern Carpenters and Millwrights Health Plan | TN | 586066597 | 2154
+5 | SoCal Pipe Trades Pensioners & Surviving Spouses Health Fund | CA | 274271742 | 1995
+5 | Mason Tenders' District Council Welfare Fund | NY | 135537605 | 1928
+5 | Milwaukee Drivers Health & Welfare Fund | WI | 396048358 | 1734
+5 | Iron Workers Locals 40, 361 & 417 Health Fund | NY | 135622663 | 1573
+5 | Topping Out Fund of Iron Workers Locals 40, 361 & 417 | NY | 133156507 | 1499
+5 | Harrison Electrical Workers Trust Fund | OR | 936023048 | 1382
+5 | Mid-Atlantic Regional Council of Carpenters Health Fund | MD | 526051383 | 1326
+5 | Suburban Teamsters of Northern Illinois Welfare Fund | IL | 366158494 | 1271
+5 | Local 443 Transportation Health Service & Insurance Plan | CT | 060942913 | 1242
