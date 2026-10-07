@@ -277,6 +277,18 @@ links:
     test: SNAP-X-01
     confidence: confirmed
     sources: [{source: ca-acl-26-04, locator: "SMD Eligibility Reference Table"}]
+  - id: SNAP-CA-LINK-MEDICAID
+    playbook: medicaid
+    relation: >-
+      CalFresh and Medi-Cal can be applied for together: BenefitsCal and the
+      county office take applications for CalFresh "or other programs" at
+      once. Medi-Cal enrolment does not change CalFresh eligibility; Medi-Cal
+      spenddown (share-of-cost) payments are deductible medical costs.
+    test: MCD-X-05
+    confidence: confirmed
+    sources:
+      - {source: ca-acl-26-58, locator: "attached notice: Online: You can also apply for CalFresh or other programs online by going to http://www.benefitscal.com/"}
+      - {source: ecfr-7-273-9, locator: "(d)(3)(v): any cost-sharing or spend down expenses incurred by Medicaid recipients"}
 
 open_questions:
   - id: SNAP-CA-OQ-01

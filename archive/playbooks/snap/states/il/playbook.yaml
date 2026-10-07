@@ -302,6 +302,22 @@ links:
     test: SNAP-X-01
     confidence: confirmed
     sources: [{source: il-idhs-wag-13-01-05, locator: "Standard Medical Deductions"}]
+  - id: SNAP-IL-LINK-MEDICAID
+    playbook: medicaid
+    relation: >-
+      Illinois handles SNAP and medical assistance on combined forms: the
+      redetermination notice is the "Medical, Cash, SNAP and/or State Food"
+      notice (IL444-1893 / IL444-1894), and ABE takes Cash, SNAP and Medical
+      applications together; medical certification periods stay 12 months
+      while SNAP is 6 (or 24 for EDSRP). Medicaid spenddown payments are
+      deductible medical costs for SNAP.
+    test: MCD-X-05
+    confidence: confirmed
+    sources:
+      - {source: il-idhs-mr-26-15, locator: "Medical, Cash, SNAP and/or State Food EZ REDE Notice (IL444-1894); Redetermination Notice (IL444-1893)"}
+      - {source: il-idhs-mr-25-28, locator: "Medical certification periods continue to be 12-months"}
+      - {source: il-idhs-snap-page, locator: "Apply For Cash, SNAP & Medical Assistance"}
+      - {source: ecfr-7-273-9, locator: "(d)(3)(v)"}
 
 open_questions:
   - id: SNAP-IL-OQ-01
