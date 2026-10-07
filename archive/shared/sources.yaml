@@ -44,3 +44,20 @@ sources:
     jurisdiction: federal
     doc_type: statute
     section: "(b) Exclusions from income"
+  - id: ssa-poms-si-02001-020
+    retrieved: 2026-10-07
+    url: https://secure.ssa.gov/poms.nsf/lnx/0502001020
+    publisher: Social Security Administration (POMS)
+    title: SI 02001.020 Title XVI Federal Benefit Rate Increases and Rate Charts
+    kind: primary
+    jurisdiction: federal
+    doc_type: manual
+    section: "11. Federal Benefits Rates (1/24 through 12/26)"
+  - id: ssa-poms-si-01110-003
+    retrieved: 2026-10-07
+    url: https://secure.ssa.gov/poms.nsf/lnx/0501110003
+    publisher: Social Security Administration (POMS)
+    title: SI 01110.003 Resources limits for SSI benefits
+    kind: primary
+    jurisdiction: federal
+    doc_type: manual

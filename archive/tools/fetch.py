@@ -144,8 +144,8 @@ def _html_text(body: bytes) -> str:
     for tag in soup(["script", "style", "noscript", "svg", "iframe"]):
         tag.decompose()
     # Page chrome is dropped only when it is small: some sites (SSA POMS)
-    # wrap the whole document body in a <header> or <form>.
-    for tag in soup(["header", "footer", "nav", "form"]):
+    # wrap the whole document in a <form> (never dropped) or a large <header>.
+    for tag in soup(["header", "footer", "nav"]):
         if len(tag.get_text(" ", strip=True)) < 3000:
             tag.decompose()
     body_el = soup.body or soup
