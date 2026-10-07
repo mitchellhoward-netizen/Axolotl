@@ -20,6 +20,19 @@ parameters:
     keyed_by: "oss code -> category (aged | blind | disabled | all)"
     updates: State budget; SSA publishes the January levels in POMS SI 01415.0xx each year.
     values:
+      - effective_from: 2025-01-01
+        effective_to: 2025-12-31
+        value:
+          A: {aged: 239.94, blind: 324.32, disabled: 239.94}
+          B: {all: 632.07}
+          C: {aged: 368.81, disabled: 368.81}
+          D: {aged: 245.20, blind: 329.58, disabled: 245.20}
+          F: {all: 624.40}
+          J: {all: 32.00}
+        confidence: confirmed
+        note: "Same state levels as 2026; totals were lower because the 2025 FBR was $967 (A aged/disabled total $1,206.94)."
+        sources:
+          - {source: ssa-poms-si-01415-057, locator: "B.2.a Recipient payment levels for California (January 2025): A Aged 967.00 239.94 1206.94; Blind 324.32 1291.32; B All 632.07; C 368.81; D Aged 644.67 245.20 889.87; F 624.40; J 32.00"}
       - effective_from: 2026-01-01
         value:
           A: {aged: 239.94, blind: 324.32, disabled: 239.94}
@@ -42,6 +55,18 @@ parameters:
     keyed_by: "oss code -> categories joined with '/' in alphabetical order (aged/aged, aged/blind, aged/disabled, blind/blind, blind/disabled, disabled/disabled) or all"
     updates: State budget; POMS SI 01415.0xx each January.
     values:
+      - effective_from: 2025-01-01
+        effective_to: 2025-12-31
+        value:
+          A: {aged/aged: 607.83, blind/blind: 833.35, disabled/disabled: 607.83, aged/blind: 747.44, aged/disabled: 607.83, blind/disabled: 747.44}
+          B: {all: 1748.14}
+          C: {aged/aged: 865.57, disabled/disabled: 865.57, aged/disabled: 865.57}
+          D: {aged/aged: 615.70, blind/blind: 841.22, disabled/disabled: 615.70, aged/blind: 755.31, aged/disabled: 615.70, blind/disabled: 755.31}
+          F: {all: 1604.20}
+          J: {all: 64.00}
+        confidence: confirmed
+        sources:
+          - {source: ssa-poms-si-01415-057, locator: "B.2.b Couple payment levels for California (January 2025): A Aged/Aged 1450.00 607.83 2057.83; B All 1748.14; C 865.57; D Aged/Aged 966.67 615.70 1582.37; F 1604.20; J 64.00"}
       - effective_from: 2026-01-01
         value:
           A: {aged/aged: 607.83, blind/blind: 833.35, disabled/disabled: 607.83, aged/blind: 747.44, aged/disabled: 607.83, blind/disabled: 747.44}

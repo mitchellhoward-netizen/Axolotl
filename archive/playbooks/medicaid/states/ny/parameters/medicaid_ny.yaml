@@ -1,0 +1,119 @@
+# New York Medicaid income and resource standards. New York publishes its
+# own monthly tables (GIS 26 MA/05 attachment, "New York State Income and
+# Resource Standards", Rev. 02.05.2026), effective January 1, 2026, so the
+# rules use these tables rather than recomputing from the poverty guidelines.
+# New York applies each year's FPL-based levels from January 1 of that year
+# (GIS 26 MA/05: "effective January 1, 2026"; re-budget back to January 1).
+parameters:
+  - id: ny.medicaid.magi_adult_income_limit_monthly
+    description: New York MAGI income standard (138% FPL) for adults 19-64 without Medicare (and for 19-20 year olds and single/childless adults), monthly.
+    compare_to: >-
+      Monthly MAGI-based household income for the MAGI household size, compared
+      directly. The 138% figure is the 133% adult-group standard plus the
+      5-point MAGI disregard (inference: the chart lists 138% as the "income
+      compared to" level and federal law sets the adult group at 133% + 5%).
+    unit: usd_per_month
+    keyed_by: household_size (1-10; "additional" = each person above 10)
+    updates: New chart by GIS each January-February, effective January 1.
+    values:
+      - effective_from: 2026-01-01
+        value: {1: 1836, 2: 2489, 3: 3142, 4: 3795, 5: 4449, 6: 5102, 7: 5755, 8: 6408, 9: 7061, 10: 7715, additional: 654}
+        confidence: confirmed
+        sources:
+          - source: ny-gis-26-ma-05-att1
+            locator: "New York State Income Standards for MAGI Population, Effective January 1, 2026: 138% FPL Monthly column"
+          - source: ny-gis-26-ma-05-att1
+            locator: "MAGI POPULATION table: Single/Childless Couples ... 138% FPL 1,836 2,489"
+  - id: ny.medicaid.magi_parent_income_limit_monthly
+    description: New York MAGI income standard for parents and caretaker relatives (138% FPL), monthly.
+    compare_to: Monthly MAGI-based household income for the MAGI household size, compared directly.
+    unit: usd_per_month
+    keyed_by: household_size (1-10; "additional" = each person above 10)
+    updates: New chart by GIS each January-February, effective January 1.
+    values:
+      - effective_from: 2026-01-01
+        value: {1: 1836, 2: 2489, 3: 3142, 4: 3795, 5: 4449, 6: 5102, 7: 5755, 8: 6408, 9: 7061, 10: 7715, additional: 654}
+        confidence: confirmed
+        sources:
+          - source: ny-gis-26-ma-05-att1
+            locator: "MAGI POPULATION table: Parents/Caretaker Relatives 138% FPL 1,836 2,489; MAGI 138% FPL monthly column for sizes 3+"
+  - id: ny.medicaid.magi_pregnant_income_limit_monthly
+    description: New York MAGI income standard for pregnant people (223% FPL), monthly; the pregnant person counts as two (herself plus the expected child).
+    compare_to: Monthly MAGI-based household income for the MAGI household size including the unborn child, compared directly.
+    unit: usd_per_month
+    keyed_by: household_size (2-10; "additional" = each person above 10)
+    updates: New chart by GIS each January-February, effective January 1.
+    values:
+      - effective_from: 2026-01-01
+        value: {2: 4022, 3: 5077, 4: 6133, 5: 7189, 6: 8244, 7: 9300, 8: 10355, 9: 11411, 10: 12466, additional: 1056}
+        confidence: confirmed
+        sources:
+          - source: ny-gis-26-ma-05-att1
+            locator: "MAGI POPULATION: Pregnant Consumers 223% FPL N/A 4,022; MAGI chart 223% FPL Monthly column"
+  - id: ny.medicaid.ssi_related_income_limit_monthly
+    description: >-
+      New York Medicaid income level for SSI-related applicants (65 or older,
+      certified blind or certified disabled) living in the community; also the
+      medically needy income level (MNIL) that a spenddown reduces income to.
+      138% FPL from 2023.
+    compare_to: >-
+      Countable monthly income after the $20 SSI-related unearned income
+      disregard (one per couple) and the $65-plus-one-half earned income
+      disregard. Household size is always one or two.
+    unit: usd_per_month
+    keyed_by: household_size (1 = individual, 2 = couple)
+    updates: New chart by GIS each January-February, effective January 1.
+    values:
+      - effective_from: 2025-01-01
+        effective_to: 2025-12-31
+        value: {1: 1800, 2: 2433}
+        confidence: confirmed
+        sources:
+          - source: ny-doh-medicaid-how-to-apply
+            locator: "Net Income for Families and Individuals who are Blind, Disabled or Age 65+; Effective January 1, 2025"
+            quote: "$1,800 ... $2,433"
+      - effective_from: 2026-01-01
+        value: {1: 1836, 2: 2489}
+        confidence: confirmed
+        sources:
+          - source: ny-gis-26-ma-05-att1
+            locator: "Non-MAGI Population: SSI-Related Medicaid Income Level 1,836 2,489"
+          - source: ny-gis-26-ma-05
+            locator: "The revised FPLs are effective January 1, 2026 ... re-budgeted retroactive to January 1, 2026, using the Medically Needy Income Level (MNIL) based on the 2026 FPLs"
+  - id: ny.medicaid.ssi_related_resource_limit
+    description: New York Medicaid resource level for SSI-related applicants (65+, blind or disabled) in the community, and for long-term care Medicaid.
+    compare_to: >-
+      Countable resources (bank accounts, investments, other real property,
+      retirement funds not in periodic payout status) of the applicant and a
+      living-with spouse, as of the first day of the month; the home, one car,
+      household goods, burial spaces and exception/pooled trusts are not counted.
+    unit: usd
+    keyed_by: household_size (1 = individual, 2 = couple)
+    updates: New chart by GIS each January-February, effective January 1.
+    values:
+      - effective_from: 2025-01-01
+        effective_to: 2025-12-31
+        value: {1: 32396, 2: 43781}
+        confidence: confirmed
+        sources:
+          - source: ny-doh-medicaid-how-to-apply
+            locator: "Resource Level (Individuals who are Blind, Disabled or Age 65+ ONLY); Effective January 1, 2025"
+            quote: "$32,396 ... $43,781"
+      - effective_from: 2026-01-01
+        value: {1: 33038, 2: 44796}
+        confidence: confirmed
+        sources:
+          - source: ny-gis-26-ma-05-att1
+            locator: "Non-MAGI Population: SSI-Related Medicaid Income Level ... Resource Level 33,038 44,796"
+  - id: ny.medicaid.ssi_related_unearned_disregard_monthly
+    description: The $20 a month disregard New York applies to SSI-related applicants' unearned income (one per couple; unused remainder goes to earned income).
+    unit: usd_per_month
+    updates: Fixed (SSI general income exclusion).
+    values:
+      - effective_from: 2010-06-01
+        value: 20
+        confidence: confirmed
+        note: "The Medicaid Reference Guide page stating it is marked UPDATED JUNE 2010 (used as the start date here); the 2026 MSP page restates the $20."
+        sources:
+          - source: ny-mrg-income
+            locator: "SSI-Related Disregards, UNEARNED INCOME: Only one $20 disregard is permitted per month per couple"

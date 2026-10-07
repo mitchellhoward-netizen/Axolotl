@@ -1,0 +1,923 @@
+program: disability
+policyengine_us_version: 2.29.14
+run_on: '2026-10-07'
+rows:
+- case: DIS-CA-T01
+  state: ca
+  title: 'Single 70, SS $1,014: federal breakeven, SSP level paid in full'
+  ours:
+    status: eligible
+    ssi_federal_monthly: 0.0
+    state_supplement_monthly: 239.94
+  policyengine:
+    status: eligible
+    ssi_federal_monthly: 0.0
+    state_supplement_monthly: 212.94
+  agree: false
+  explanation: 'PolicyEngine parameter currency, not a logic difference. PolicyEngine stores California''s SSI/SSP payment standards as combined
+    totals with the latest value dated 2025-01-01 (aged/disabled individual $1,206.94, couple $2,057.83, blind $1,291.32, no-cooking $1,335.81)
+    and computes the SSP as standard minus SSI minus countable income. The January 2026 FBR rose $27 (individual) / $41 (couple) while California''s
+    state levels stayed the same (POMS SI 01415.057 vs SI 01415.058: $239.94, $607.83, $324.32, $368.81, $747.44), so PolicyEngine''s 2026 SSP
+    is $27 (individual) or $41 (couple) too low. CDSS''s 2026 May Revision confirms the January 2026 maximum grant of $1,234 / $2,099. For DIS-CA-T04
+    the same $27 gap turns our $1.00 SSP into PolicyEngine''s $0.'
+  ours_federal_minimum:
+    status: ineligible
+    ssi_federal_monthly: 0.0
+    federal_only: true
+  federal_minimum_agrees: true
+- case: DIS-CA-T02
+  state: ca
+  title: 'Single 70, SS $1,015: $1 over the federal breakeven, SSP reduced by $1'
+  ours:
+    status: eligible
+    ssi_federal_monthly: 0.0
+    state_supplement_monthly: 238.94
+  policyengine:
+    status: eligible
+    ssi_federal_monthly: 0.0
+    state_supplement_monthly: 211.94
+  agree: false
+  explanation: 'PolicyEngine parameter currency, not a logic difference. PolicyEngine stores California''s SSI/SSP payment standards as combined
+    totals with the latest value dated 2025-01-01 (aged/disabled individual $1,206.94, couple $2,057.83, blind $1,291.32, no-cooking $1,335.81)
+    and computes the SSP as standard minus SSI minus countable income. The January 2026 FBR rose $27 (individual) / $41 (couple) while California''s
+    state levels stayed the same (POMS SI 01415.057 vs SI 01415.058: $239.94, $607.83, $324.32, $368.81, $747.44), so PolicyEngine''s 2026 SSP
+    is $27 (individual) or $41 (couple) too low. CDSS''s 2026 May Revision confirms the January 2026 maximum grant of $1,234 / $2,099. For DIS-CA-T04
+    the same $27 gap turns our $1.00 SSP into PolicyEngine''s $0.'
+  ours_federal_minimum:
+    status: ineligible
+    ssi_federal_monthly: 0.0
+    federal_only: true
+  federal_minimum_agrees: true
+- case: DIS-CA-T03
+  state: ca
+  title: 'Single 70, SS $1,253.94: excess income equals the SSP level, no SSP'
+  ours:
+    status: ineligible
+    ssi_federal_monthly: 0.0
+    state_supplement_monthly: 0.0
+  policyengine:
+    status: ineligible
+    ssi_federal_monthly: 0.0
+    state_supplement_monthly: 0.0
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: ineligible
+    ssi_federal_monthly: 0.0
+    federal_only: true
+  federal_minimum_agrees: true
+- case: DIS-CA-T04
+  state: ca
+  title: 'Single 70, SS $1,252.94: excess income $1 under the level, SSP $1'
+  ours:
+    status: eligible
+    ssi_federal_monthly: 0.0
+    state_supplement_monthly: 1.0
+  policyengine:
+    status: ineligible
+    ssi_federal_monthly: 0.0
+    state_supplement_monthly: 0.0
+  agree: false
+  explanation: 'PolicyEngine parameter currency, not a logic difference. PolicyEngine stores California''s SSI/SSP payment standards as combined
+    totals with the latest value dated 2025-01-01 (aged/disabled individual $1,206.94, couple $2,057.83, blind $1,291.32, no-cooking $1,335.81)
+    and computes the SSP as standard minus SSI minus countable income. The January 2026 FBR rose $27 (individual) / $41 (couple) while California''s
+    state levels stayed the same (POMS SI 01415.057 vs SI 01415.058: $239.94, $607.83, $324.32, $368.81, $747.44), so PolicyEngine''s 2026 SSP
+    is $27 (individual) or $41 (couple) too low. CDSS''s 2026 May Revision confirms the January 2026 maximum grant of $1,234 / $2,099. For DIS-CA-T04
+    the same $27 gap turns our $1.00 SSP into PolicyEngine''s $0.'
+  ours_federal_minimum:
+    status: ineligible
+    ssi_federal_monthly: 0.0
+    federal_only: true
+  federal_minimum_agrees: true
+- case: DIS-CA-T05
+  state: ca
+  title: Aged 67 working, wages $2,073 (earned breakeven)
+  ours:
+    status: eligible
+    ssi_federal_monthly: 0.0
+    state_supplement_monthly: 239.94
+  policyengine:
+    status: eligible
+    ssi_federal_monthly: 0.0
+    state_supplement_monthly: 212.94
+  agree: false
+  explanation: 'PolicyEngine parameter currency, not a logic difference. PolicyEngine stores California''s SSI/SSP payment standards as combined
+    totals with the latest value dated 2025-01-01 (aged/disabled individual $1,206.94, couple $2,057.83, blind $1,291.32, no-cooking $1,335.81)
+    and computes the SSP as standard minus SSI minus countable income. The January 2026 FBR rose $27 (individual) / $41 (couple) while California''s
+    state levels stayed the same (POMS SI 01415.057 vs SI 01415.058: $239.94, $607.83, $324.32, $368.81, $747.44), so PolicyEngine''s 2026 SSP
+    is $27 (individual) or $41 (couple) too low. CDSS''s 2026 May Revision confirms the January 2026 maximum grant of $1,234 / $2,099. For DIS-CA-T04
+    the same $27 gap turns our $1.00 SSP into PolicyEngine''s $0.'
+  ours_federal_minimum:
+    status: ineligible
+    ssi_federal_monthly: 0.0
+    federal_only: true
+  federal_minimum_agrees: true
+- case: DIS-CA-T06
+  state: ca
+  title: Married couple both 70, SS $600 + $500
+  ours:
+    status: eligible
+    ssi_federal_monthly: 411.0
+    state_supplement_monthly: 607.83
+  policyengine:
+    status: eligible
+    ssi_federal_monthly: 411.0
+    state_supplement_monthly: 566.83
+  agree: false
+  explanation: 'PolicyEngine parameter currency, not a logic difference. PolicyEngine stores California''s SSI/SSP payment standards as combined
+    totals with the latest value dated 2025-01-01 (aged/disabled individual $1,206.94, couple $2,057.83, blind $1,291.32, no-cooking $1,335.81)
+    and computes the SSP as standard minus SSI minus countable income. The January 2026 FBR rose $27 (individual) / $41 (couple) while California''s
+    state levels stayed the same (POMS SI 01415.057 vs SI 01415.058: $239.94, $607.83, $324.32, $368.81, $747.44), so PolicyEngine''s 2026 SSP
+    is $27 (individual) or $41 (couple) too low. CDSS''s 2026 May Revision confirms the January 2026 maximum grant of $1,234 / $2,099. For DIS-CA-T04
+    the same $27 gap turns our $1.00 SSP into PolicyEngine''s $0.'
+  ours_federal_minimum:
+    status: eligible
+    ssi_federal_monthly: 411.0
+    federal_only: true
+  federal_minimum_agrees: true
+- case: DIS-CA-T07
+  state: ca
+  title: 'Couple: aged 70 and blind 60, no income'
+  ours:
+    status: eligible
+    ssi_federal_monthly: 1491.0
+    state_supplement_monthly: 747.44
+  policyengine:
+    status: eligible
+    ssi_federal_monthly: 1491.0
+    state_supplement_monthly: 706.44
+  agree: false
+  explanation: 'PolicyEngine parameter currency, not a logic difference. PolicyEngine stores California''s SSI/SSP payment standards as combined
+    totals with the latest value dated 2025-01-01 (aged/disabled individual $1,206.94, couple $2,057.83, blind $1,291.32, no-cooking $1,335.81)
+    and computes the SSP as standard minus SSI minus countable income. The January 2026 FBR rose $27 (individual) / $41 (couple) while California''s
+    state levels stayed the same (POMS SI 01415.057 vs SI 01415.058: $239.94, $607.83, $324.32, $368.81, $747.44), so PolicyEngine''s 2026 SSP
+    is $27 (individual) or $41 (couple) too low. CDSS''s 2026 May Revision confirms the January 2026 maximum grant of $1,234 / $2,099. For DIS-CA-T04
+    the same $27 gap turns our $1.00 SSP into PolicyEngine''s $0.'
+  ours_federal_minimum:
+    status: eligible
+    ssi_federal_monthly: 1491.0
+    federal_only: true
+  federal_minimum_agrees: true
+- case: DIS-CA-T08
+  state: ca
+  title: 'Aged 68 (SS $500) with ineligible working spouse (wages $1,200): deeming and SI 01320.430'
+  ours:
+    status: eligible
+    ssi_federal_monthly: 443.5
+    state_supplement_monthly: 239.94
+  policyengine:
+    status: eligible
+    ssi_federal_monthly: 443.5
+    state_supplement_monthly: 0.0
+  agree: false
+  explanation: 'Spouse-to-spouse deeming and the state supplement. PolicyEngine''s ca_state_supplement subtracts the whole SPM unit''s countable
+    income (including the ineligible spouse''s deemed earnings) from the payment standard, giving $0. The archive applies POMS SI 01320.430 (Livermore
+    v. Heckler): when the couple''s combined countable income is within the couple FBR, the optional supplement is the lower of the individual
+    and couple levels, capped at the non-deeming supplement, here $239.94. Federal SSI ($443.50) agrees.'
+  ours_federal_minimum:
+    status: eligible
+    ssi_federal_monthly: 443.5
+    federal_only: true
+  federal_minimum_agrees: true
+- case: DIS-CA-T09
+  state: ca
+  title: Single 70, SS $800, savings $2,000
+  ours:
+    status: eligible
+    ssi_federal_monthly: 214.0
+    state_supplement_monthly: 239.94
+  policyengine:
+    status: eligible
+    ssi_federal_monthly: 214.0
+    state_supplement_monthly: 212.94
+  agree: false
+  explanation: 'PolicyEngine parameter currency, not a logic difference. PolicyEngine stores California''s SSI/SSP payment standards as combined
+    totals with the latest value dated 2025-01-01 (aged/disabled individual $1,206.94, couple $2,057.83, blind $1,291.32, no-cooking $1,335.81)
+    and computes the SSP as standard minus SSI minus countable income. The January 2026 FBR rose $27 (individual) / $41 (couple) while California''s
+    state levels stayed the same (POMS SI 01415.057 vs SI 01415.058: $239.94, $607.83, $324.32, $368.81, $747.44), so PolicyEngine''s 2026 SSP
+    is $27 (individual) or $41 (couple) too low. CDSS''s 2026 May Revision confirms the January 2026 maximum grant of $1,234 / $2,099. For DIS-CA-T04
+    the same $27 gap turns our $1.00 SSP into PolicyEngine''s $0.'
+  ours_federal_minimum:
+    status: eligible
+    ssi_federal_monthly: 214.0
+    federal_only: true
+  federal_minimum_agrees: true
+- case: DIS-CA-T10
+  state: ca
+  title: Single 70, SS $800, savings $2,001
+  ours:
+    status: ineligible
+    ssi_federal_monthly: 0.0
+    state_supplement_monthly: 0.0
+  policyengine:
+    status: ineligible
+    ssi_federal_monthly: 0.0
+    state_supplement_monthly: 0.0
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: ineligible
+    ssi_federal_monthly: 0.0
+    federal_only: true
+  federal_minimum_agrees: true
+- case: DIS-CA-T11
+  state: ca
+  title: Single 70, no income, lives in her son's home (VTR, code D)
+  ours:
+    status: eligible
+    ssi_federal_monthly: 662.67
+    state_supplement_monthly: 245.2
+  policyengine:
+    status: eligible
+    ssi_federal_monthly: 662.67
+    state_supplement_monthly: 544.27
+  agree: false
+  explanation: 'California living-arrangement code D (household of another). The archive uses the code D state level $245.20 on top of the FBR
+    less VTR (POMS SI 01415.058 B.2.a: total $907.87; SI SF01415.150). PolicyEngine reduces the federal SSI by the VTR but keeps the own-household
+    payment standard ($1,206.94), so its SSP ($544.27) also replaces the federal one-third reduction. Federal SSI ($662.67) agrees.'
+  ours_federal_minimum:
+    status: eligible
+    ssi_federal_monthly: 662.67
+    federal_only: true
+  federal_minimum_agrees: true
+- case: DIS-CA-T12
+  state: ca
+  title: Blind individual 50, no income
+  ours:
+    status: eligible
+    ssi_federal_monthly: 994.0
+    state_supplement_monthly: 324.32
+  policyengine:
+    status: eligible
+    ssi_federal_monthly: 994.0
+    state_supplement_monthly: 297.32
+  agree: false
+  explanation: 'PolicyEngine parameter currency, not a logic difference. PolicyEngine stores California''s SSI/SSP payment standards as combined
+    totals with the latest value dated 2025-01-01 (aged/disabled individual $1,206.94, couple $2,057.83, blind $1,291.32, no-cooking $1,335.81)
+    and computes the SSP as standard minus SSI minus countable income. The January 2026 FBR rose $27 (individual) / $41 (couple) while California''s
+    state levels stayed the same (POMS SI 01415.057 vs SI 01415.058: $239.94, $607.83, $324.32, $368.81, $747.44), so PolicyEngine''s 2026 SSP
+    is $27 (individual) or $41 (couple) too low. CDSS''s 2026 May Revision confirms the January 2026 maximum grant of $1,234 / $2,099. For DIS-CA-T04
+    the same $27 gap turns our $1.00 SSP into PolicyEngine''s $0.'
+  ours_federal_minimum:
+    status: eligible
+    ssi_federal_monthly: 994.0
+    federal_only: true
+  federal_minimum_agrees: true
+- case: DIS-CA-T13
+  state: ca
+  title: Aged 75 in a room with no cooking facilities (code C, restaurant meals)
+  ours:
+    status: eligible
+    ssi_federal_monthly: 994.0
+    state_supplement_monthly: 368.81
+  policyengine:
+    status: eligible
+    ssi_federal_monthly: 994.0
+    state_supplement_monthly: 341.81
+  agree: false
+  explanation: 'PolicyEngine parameter currency, not a logic difference. PolicyEngine stores California''s SSI/SSP payment standards as combined
+    totals with the latest value dated 2025-01-01 (aged/disabled individual $1,206.94, couple $2,057.83, blind $1,291.32, no-cooking $1,335.81)
+    and computes the SSP as standard minus SSI minus countable income. The January 2026 FBR rose $27 (individual) / $41 (couple) while California''s
+    state levels stayed the same (POMS SI 01415.057 vs SI 01415.058: $239.94, $607.83, $324.32, $368.81, $747.44), so PolicyEngine''s 2026 SSP
+    is $27 (individual) or $41 (couple) too low. CDSS''s 2026 May Revision confirms the January 2026 maximum grant of $1,234 / $2,099. For DIS-CA-T04
+    the same $27 gap turns our $1.00 SSP into PolicyEngine''s $0.'
+  ours_federal_minimum:
+    status: eligible
+    ssi_federal_monthly: 994.0
+    federal_only: true
+  federal_minimum_agrees: true
+- case: DIS-CA-T15
+  state: ca
+  title: Single 70, SS $300, friend pays $400 of rent (PMV)
+  ours:
+    status: eligible
+    ssi_federal_monthly: 362.67
+    state_supplement_monthly: 239.94
+  policyengine:
+    status: eligible
+    ssi_federal_monthly: 362.67
+    state_supplement_monthly: 212.94
+  agree: false
+  explanation: 'PolicyEngine parameter currency, not a logic difference. PolicyEngine stores California''s SSI/SSP payment standards as combined
+    totals with the latest value dated 2025-01-01 (aged/disabled individual $1,206.94, couple $2,057.83, blind $1,291.32, no-cooking $1,335.81)
+    and computes the SSP as standard minus SSI minus countable income. The January 2026 FBR rose $27 (individual) / $41 (couple) while California''s
+    state levels stayed the same (POMS SI 01415.057 vs SI 01415.058: $239.94, $607.83, $324.32, $368.81, $747.44), so PolicyEngine''s 2026 SSP
+    is $27 (individual) or $41 (couple) too low. CDSS''s 2026 May Revision confirms the January 2026 maximum grant of $1,234 / $2,099. For DIS-CA-T04
+    the same $27 gap turns our $1.00 SSP into PolicyEngine''s $0.'
+  ours_federal_minimum:
+    status: eligible
+    ssi_federal_monthly: 362.67
+    federal_only: true
+  federal_minimum_agrees: true
+- case: DIS-CA-T18
+  state: ca
+  title: 'CalFresh link: SSI/SSP recipient in California can now get CalFresh'
+  ours:
+    status: eligible
+    ssi_federal_monthly: 314.0
+    state_supplement_monthly: 239.94
+  policyengine:
+    status: eligible
+    ssi_federal_monthly: 314.0
+    state_supplement_monthly: 212.94
+  agree: false
+  explanation: 'PolicyEngine parameter currency, not a logic difference. PolicyEngine stores California''s SSI/SSP payment standards as combined
+    totals with the latest value dated 2025-01-01 (aged/disabled individual $1,206.94, couple $2,057.83, blind $1,291.32, no-cooking $1,335.81)
+    and computes the SSP as standard minus SSI minus countable income. The January 2026 FBR rose $27 (individual) / $41 (couple) while California''s
+    state levels stayed the same (POMS SI 01415.057 vs SI 01415.058: $239.94, $607.83, $324.32, $368.81, $747.44), so PolicyEngine''s 2026 SSP
+    is $27 (individual) or $41 (couple) too low. CDSS''s 2026 May Revision confirms the January 2026 maximum grant of $1,234 / $2,099. For DIS-CA-T04
+    the same $27 gap turns our $1.00 SSP into PolicyEngine''s $0.'
+  ours_federal_minimum:
+    status: eligible
+    ssi_federal_monthly: 314.0
+    federal_only: true
+  federal_minimum_agrees: true
+- case: DIS-IL-T01
+  state: il
+  title: 'Single 70, SS $1,014, Cook County renter paying utilities: federal breakeven'
+  ours:
+    status: eligible
+    ssi_federal_monthly: 0.0
+    state_supplement_monthly: 11.58
+  policyengine:
+    status: ineligible
+    ssi_federal_monthly: 0.0
+    state_supplement_monthly: 0.0
+  agree: false
+  explanation: PolicyEngine parameter currency. The Illinois AABD grant adjustment is $816.90 for January 2026 and after (IDHS PM 11-01-07); PolicyEngine's
+    grant_amount parameter ends at 2025-01-01 ($788.90, WAG 25-06-01), so every community client's needs are $28 lower in PolicyEngine. That turns
+    the small AABD payments of single SSI recipients ($4.33 - $11.58) into $0 and lowers the others by $28 per person (DIS-IL-T06 couple $56,
+    DIS-IL-T10 $28). Personal allowance, $97 shelter cap, utility allowances, the $25 exemption and federal SSI agree.
+  ours_federal_minimum:
+    status: ineligible
+    ssi_federal_monthly: 0.0
+    federal_only: true
+  federal_minimum_agrees: true
+- case: DIS-IL-T02
+  state: il
+  title: 'Single 70, SS $1,015: $1 over federal breakeven, AABD only'
+  ours:
+    status: eligible
+    ssi_federal_monthly: 0.0
+    state_supplement_monthly: 10.58
+  policyengine:
+    status: ineligible
+    ssi_federal_monthly: 0.0
+    state_supplement_monthly: 0.0
+  agree: false
+  explanation: PolicyEngine parameter currency. The Illinois AABD grant adjustment is $816.90 for January 2026 and after (IDHS PM 11-01-07); PolicyEngine's
+    grant_amount parameter ends at 2025-01-01 ($788.90, WAG 25-06-01), so every community client's needs are $28 lower in PolicyEngine. That turns
+    the small AABD payments of single SSI recipients ($4.33 - $11.58) into $0 and lowers the others by $28 per person (DIS-IL-T06 couple $56,
+    DIS-IL-T10 $28). Personal allowance, $97 shelter cap, utility allowances, the $25 exemption and federal SSI agree.
+  ours_federal_minimum:
+    status: ineligible
+    ssi_federal_monthly: 0.0
+    federal_only: true
+  federal_minimum_agrees: true
+- case: DIS-IL-T03
+  state: il
+  title: 'Single 70, SS $1,024.58: needs exceed income by exactly $1 (AABD minimum)'
+  ours:
+    status: eligible
+    ssi_federal_monthly: 0.0
+    state_supplement_monthly: 1.0
+  policyengine:
+    status: ineligible
+    ssi_federal_monthly: 0.0
+    state_supplement_monthly: 0.0
+  agree: false
+  explanation: PolicyEngine parameter currency. The Illinois AABD grant adjustment is $816.90 for January 2026 and after (IDHS PM 11-01-07); PolicyEngine's
+    grant_amount parameter ends at 2025-01-01 ($788.90, WAG 25-06-01), so every community client's needs are $28 lower in PolicyEngine. That turns
+    the small AABD payments of single SSI recipients ($4.33 - $11.58) into $0 and lowers the others by $28 per person (DIS-IL-T06 couple $56,
+    DIS-IL-T10 $28). Personal allowance, $97 shelter cap, utility allowances, the $25 exemption and federal SSI agree.
+  ours_federal_minimum:
+    status: ineligible
+    ssi_federal_monthly: 0.0
+    federal_only: true
+  federal_minimum_agrees: true
+- case: DIS-IL-T04
+  state: il
+  title: 'Single 70, SS $1,025: needs exceed income by only $0.58, under the $1 minimum'
+  ours:
+    status: ineligible
+    ssi_federal_monthly: 0.0
+    state_supplement_monthly: 0.0
+  policyengine:
+    status: ineligible
+    ssi_federal_monthly: 0.0
+    state_supplement_monthly: 0.0
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: ineligible
+    ssi_federal_monthly: 0.0
+    federal_only: true
+  federal_minimum_agrees: true
+- case: DIS-IL-T05
+  state: il
+  title: 'Aged 67 working, wages $2,073 (federal earned breakeven): AABD earned disregards leave income above needs'
+  ours:
+    status: eligible
+    ssi_federal_monthly: 0.0
+    state_supplement_monthly: 0.0
+  policyengine:
+    status: ineligible
+    ssi_federal_monthly: 0.0
+    state_supplement_monthly: 0.0
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: ineligible
+    ssi_federal_monthly: 0.0
+    federal_only: true
+  federal_minimum_agrees: true
+- case: DIS-IL-T06
+  state: il
+  title: Married couple both 70, SS $600 + $500, Cook County, rent $800, utilities paid
+  ours:
+    status: eligible
+    ssi_federal_monthly: 411.0
+    state_supplement_monthly: 410.6
+  policyengine:
+    status: eligible
+    ssi_federal_monthly: 411.0
+    state_supplement_monthly: 354.6
+  agree: false
+  explanation: PolicyEngine parameter currency. The Illinois AABD grant adjustment is $816.90 for January 2026 and after (IDHS PM 11-01-07); PolicyEngine's
+    grant_amount parameter ends at 2025-01-01 ($788.90, WAG 25-06-01), so every community client's needs are $28 lower in PolicyEngine. That turns
+    the small AABD payments of single SSI recipients ($4.33 - $11.58) into $0 and lowers the others by $28 per person (DIS-IL-T06 couple $56,
+    DIS-IL-T10 $28). Personal allowance, $97 shelter cap, utility allowances, the $25 exemption and federal SSI agree.
+  ours_federal_minimum:
+    status: eligible
+    ssi_federal_monthly: 411.0
+    federal_only: true
+  federal_minimum_agrees: true
+- case: DIS-IL-T07
+  state: il
+  title: 'Aged 68 (SS $500) with ineligible working spouse: SSI deemed, AABD unresolved'
+  ours:
+    status: eligible
+    ssi_federal_monthly: 443.5
+  policyengine:
+    status: eligible
+    ssi_federal_monthly: 443.5
+    state_supplement_monthly: 0.0
+  agree: false
+  explanation: Archive gap, recorded as DIS-IL-OQ-01. For an SSI recipient living with an ineligible spouse, IDHS budgets the spouse as a responsible
+    relative (PM 09-02-03-b); the archive does not encode that budget and leaves the AABD amount undetermined, while PolicyEngine reports $0.
+    Federal SSI ($443.50, after spouse-to-spouse deeming) agrees.
+  ours_federal_minimum:
+    status: eligible
+    ssi_federal_monthly: 443.5
+    federal_only: true
+  federal_minimum_agrees: true
+- case: DIS-IL-T08
+  state: il
+  title: Single 70, SS $800, savings $2,000
+  ours:
+    status: eligible
+    ssi_federal_monthly: 214.0
+    state_supplement_monthly: 11.58
+  policyengine:
+    status: eligible
+    ssi_federal_monthly: 214.0
+    state_supplement_monthly: 0.0
+  agree: false
+  explanation: PolicyEngine parameter currency. The Illinois AABD grant adjustment is $816.90 for January 2026 and after (IDHS PM 11-01-07); PolicyEngine's
+    grant_amount parameter ends at 2025-01-01 ($788.90, WAG 25-06-01), so every community client's needs are $28 lower in PolicyEngine. That turns
+    the small AABD payments of single SSI recipients ($4.33 - $11.58) into $0 and lowers the others by $28 per person (DIS-IL-T06 couple $56,
+    DIS-IL-T10 $28). Personal allowance, $97 shelter cap, utility allowances, the $25 exemption and federal SSI agree.
+  ours_federal_minimum:
+    status: eligible
+    ssi_federal_monthly: 214.0
+    federal_only: true
+  federal_minimum_agrees: true
+- case: DIS-IL-T09
+  state: il
+  title: Single 70, SS $800, savings $2,001
+  ours:
+    status: ineligible
+    ssi_federal_monthly: 0.0
+    state_supplement_monthly: 0.0
+  policyengine:
+    status: ineligible
+    ssi_federal_monthly: 0.0
+    state_supplement_monthly: 0.0
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: ineligible
+    ssi_federal_monthly: 0.0
+    federal_only: true
+  federal_minimum_agrees: true
+- case: DIS-IL-T10
+  state: il
+  title: Single 70, no income, lives in her daughter's home, pays nothing (VTR)
+  ours:
+    status: eligible
+    ssi_federal_monthly: 662.67
+    state_supplement_monthly: 236.48
+  policyengine:
+    status: eligible
+    ssi_federal_monthly: 662.67
+    state_supplement_monthly: 208.48
+  agree: false
+  explanation: PolicyEngine parameter currency. The Illinois AABD grant adjustment is $816.90 for January 2026 and after (IDHS PM 11-01-07); PolicyEngine's
+    grant_amount parameter ends at 2025-01-01 ($788.90, WAG 25-06-01), so every community client's needs are $28 lower in PolicyEngine. That turns
+    the small AABD payments of single SSI recipients ($4.33 - $11.58) into $0 and lowers the others by $28 per person (DIS-IL-T06 couple $56,
+    DIS-IL-T10 $28). Personal allowance, $97 shelter cap, utility allowances, the $25 exemption and federal SSI agree.
+  ours_federal_minimum:
+    status: eligible
+    ssi_federal_monthly: 662.67
+    federal_only: true
+  federal_minimum_agrees: true
+- case: DIS-IL-T11
+  state: il
+  title: Homeowner 70 in DuPage County, property costs $150/mo, pays electricity and gas heat, SS $900
+  ours:
+    status: eligible
+    ssi_federal_monthly: 114.0
+    state_supplement_monthly: 4.33
+  policyengine:
+    status: eligible
+    ssi_federal_monthly: 114.0
+    state_supplement_monthly: 0.0
+  agree: false
+  explanation: PolicyEngine parameter currency. The Illinois AABD grant adjustment is $816.90 for January 2026 and after (IDHS PM 11-01-07); PolicyEngine's
+    grant_amount parameter ends at 2025-01-01 ($788.90, WAG 25-06-01), so every community client's needs are $28 lower in PolicyEngine. That turns
+    the small AABD payments of single SSI recipients ($4.33 - $11.58) into $0 and lowers the others by $28 per person (DIS-IL-T06 couple $56,
+    DIS-IL-T10 $28). Personal allowance, $97 shelter cap, utility allowances, the $25 exemption and federal SSI agree.
+  ours_federal_minimum:
+    status: eligible
+    ssi_federal_monthly: 114.0
+    federal_only: true
+  federal_minimum_agrees: true
+- case: DIS-IL-T15
+  state: il
+  title: 'Medicaid link: SSI recipient in Illinois must apply separately for AABD medical (209(b))'
+  ours:
+    status: eligible
+    ssi_federal_monthly: 314.0
+    state_supplement_monthly: 11.58
+  policyengine:
+    status: eligible
+    ssi_federal_monthly: 314.0
+    state_supplement_monthly: 0.0
+  agree: false
+  explanation: PolicyEngine parameter currency. The Illinois AABD grant adjustment is $816.90 for January 2026 and after (IDHS PM 11-01-07); PolicyEngine's
+    grant_amount parameter ends at 2025-01-01 ($788.90, WAG 25-06-01), so every community client's needs are $28 lower in PolicyEngine. That turns
+    the small AABD payments of single SSI recipients ($4.33 - $11.58) into $0 and lowers the others by $28 per person (DIS-IL-T06 couple $56,
+    DIS-IL-T10 $28). Personal allowance, $97 shelter cap, utility allowances, the $25 exemption and federal SSI agree.
+  ours_federal_minimum:
+    status: eligible
+    ssi_federal_monthly: 314.0
+    federal_only: true
+  federal_minimum_agrees: true
+- case: DIS-NY-T01
+  state: ny
+  title: 'Single 70, Social Security $1,014: countable income equals the FBR (federal breakeven)'
+  ours:
+    status: eligible
+    ssi_federal_monthly: 0.0
+    state_supplement_monthly: 87.0
+  policyengine:
+    status: ineligible
+    ssi_federal_monthly: 0.0
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: ineligible
+    ssi_federal_monthly: 0.0
+    federal_only: true
+  federal_minimum_agrees: true
+- case: DIS-NY-T02
+  state: ny
+  title: 'Single 70, Social Security $1,015: $1 over the federal breakeven, SSP only'
+  ours:
+    status: eligible
+    ssi_federal_monthly: 0.0
+    state_supplement_monthly: 86.0
+  policyengine:
+    status: ineligible
+    ssi_federal_monthly: 0.0
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: ineligible
+    ssi_federal_monthly: 0.0
+    federal_only: true
+  federal_minimum_agrees: true
+- case: DIS-NY-T03
+  state: ny
+  title: 'Single 70, Social Security $1,100: countable $1,080, $1 under the living-alone standard'
+  ours:
+    status: eligible
+    ssi_federal_monthly: 0.0
+    state_supplement_monthly: 1.0
+  policyengine:
+    status: ineligible
+    ssi_federal_monthly: 0.0
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: ineligible
+    ssi_federal_monthly: 0.0
+    federal_only: true
+  federal_minimum_agrees: true
+- case: DIS-NY-T04
+  state: ny
+  title: 'Single 70, Social Security $1,101: countable $1,081 equals the standard of need, no SSP'
+  ours:
+    status: ineligible
+    ssi_federal_monthly: 0.0
+    state_supplement_monthly: 0.0
+  policyengine:
+    status: ineligible
+    ssi_federal_monthly: 0.0
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: ineligible
+    ssi_federal_monthly: 0.0
+    federal_only: true
+  federal_minimum_agrees: true
+- case: DIS-NY-T05
+  state: ny
+  title: 'Aged 67 still working, wages $2,073: earned-income breakeven (countable $994)'
+  ours:
+    status: eligible
+    ssi_federal_monthly: 0.0
+    state_supplement_monthly: 87.0
+  policyengine:
+    status: ineligible
+    ssi_federal_monthly: 0.0
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: ineligible
+    ssi_federal_monthly: 0.0
+    federal_only: true
+  federal_minimum_agrees: true
+- case: DIS-NY-T06
+  state: ny
+  title: 'Aged 67, wages $2,075: $1 of countable income over the earned breakeven'
+  ours:
+    status: eligible
+    ssi_federal_monthly: 0.0
+    state_supplement_monthly: 86.0
+  policyengine:
+    status: ineligible
+    ssi_federal_monthly: 0.0
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: ineligible
+    ssi_federal_monthly: 0.0
+    federal_only: true
+  federal_minimum_agrees: true
+- case: DIS-NY-T07
+  state: ny
+  title: Married couple, both 70, Social Security $600 + $500, living alone
+  ours:
+    status: eligible
+    ssi_federal_monthly: 411.0
+    state_supplement_monthly: 104.0
+  policyengine:
+    status: eligible
+    ssi_federal_monthly: 411.0
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    ssi_federal_monthly: 411.0
+    federal_only: true
+  federal_minimum_agrees: true
+- case: DIS-NY-T08
+  state: ny
+  title: 'Aged 68 (SS $500) with an ineligible 60-year-old working spouse (wages $1,200): income deemed'
+  ours:
+    status: eligible
+    ssi_federal_monthly: 443.5
+  policyengine:
+    status: eligible
+    ssi_federal_monthly: 443.5
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    ssi_federal_monthly: 443.5
+    federal_only: true
+  federal_minimum_agrees: true
+- case: DIS-NY-T09
+  state: ny
+  title: 'Aged 68 (SS $500) with an ineligible spouse earning $400: under $497, nothing deemed'
+  ours:
+    status: eligible
+    ssi_federal_monthly: 514.0
+  policyengine:
+    status: eligible
+    ssi_federal_monthly: 514.0
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    ssi_federal_monthly: 514.0
+    federal_only: true
+  federal_minimum_agrees: true
+- case: DIS-NY-T10
+  state: ny
+  title: Single 70, SS $800, savings exactly $2,000 (at the resource limit)
+  ours:
+    status: eligible
+    ssi_federal_monthly: 214.0
+    state_supplement_monthly: 87.0
+  policyengine:
+    status: eligible
+    ssi_federal_monthly: 214.0
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    ssi_federal_monthly: 214.0
+    federal_only: true
+  federal_minimum_agrees: true
+- case: DIS-NY-T11
+  state: ny
+  title: Single 70, SS $800, savings $2,001 ($1 over the resource limit)
+  ours:
+    status: ineligible
+    ssi_federal_monthly: 0.0
+    state_supplement_monthly: 0.0
+  policyengine:
+    status: ineligible
+    ssi_federal_monthly: 0.0
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: ineligible
+    ssi_federal_monthly: 0.0
+    federal_only: true
+  federal_minimum_agrees: true
+- case: DIS-NY-T12
+  state: ny
+  title: Single 70, no income, lives in her daughter's home and pays nothing (VTR)
+  ours:
+    status: eligible
+    ssi_federal_monthly: 662.67
+    state_supplement_monthly: 23.0
+  policyengine:
+    status: eligible
+    ssi_federal_monthly: 662.67
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    ssi_federal_monthly: 662.67
+    federal_only: true
+  federal_minimum_agrees: true
+- case: DIS-NY-T13
+  state: ny
+  title: Single 70, SS $300, own apartment, a friend pays $400 of rent (ISM under the PMV rule)
+  ours:
+    status: eligible
+    ssi_federal_monthly: 362.67
+    state_supplement_monthly: 87.0
+  policyengine:
+    status: eligible
+    ssi_federal_monthly: 362.67
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    ssi_federal_monthly: 362.67
+    federal_only: true
+  federal_minimum_agrees: true
+- case: DIS-NY-T20
+  state: ny
+  title: 'Child 10, disabled, living with two parents (one earns $3,000): parental deeming'
+  ours:
+    status: eligible
+    ssi_federal_monthly: 994.0
+    state_supplement_monthly: 23.0
+  policyengine:
+    status: eligible
+    ssi_federal_monthly: 994.0
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    ssi_federal_monthly: 994.0
+    federal_only: true
+  federal_minimum_agrees: true
+- case: DIS-NY-T22
+  state: ny
+  title: 'Same household in three states: single 72, SS $800, rents for $500 in Cook County (IL) paying her own utilities'
+  ours:
+    status: eligible
+    ssi_federal_monthly: 214.0
+    state_supplement_monthly: 87.0
+  policyengine:
+    status: eligible
+    ssi_federal_monthly: 214.0
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    ssi_federal_monthly: 214.0
+    federal_only: true
+  federal_minimum_agrees: true
+- case: DIS-NY-T22
+  state: ca
+  title: 'Same household in three states: single 72, SS $800, rents for $500 in Cook County (IL) paying her own utilities'
+  ours:
+    status: eligible
+    ssi_federal_monthly: 214.0
+    state_supplement_monthly: 239.94
+  policyengine:
+    status: eligible
+    ssi_federal_monthly: 214.0
+    state_supplement_monthly: 212.94
+  agree: false
+  explanation: 'PolicyEngine parameter currency, not a logic difference. PolicyEngine stores California''s SSI/SSP payment standards as combined
+    totals with the latest value dated 2025-01-01 (aged/disabled individual $1,206.94, couple $2,057.83, blind $1,291.32, no-cooking $1,335.81)
+    and computes the SSP as standard minus SSI minus countable income. The January 2026 FBR rose $27 (individual) / $41 (couple) while California''s
+    state levels stayed the same (POMS SI 01415.057 vs SI 01415.058: $239.94, $607.83, $324.32, $368.81, $747.44), so PolicyEngine''s 2026 SSP
+    is $27 (individual) or $41 (couple) too low. CDSS''s 2026 May Revision confirms the January 2026 maximum grant of $1,234 / $2,099. For DIS-CA-T04
+    the same $27 gap turns our $1.00 SSP into PolicyEngine''s $0.'
+  ours_federal_minimum:
+    status: eligible
+    ssi_federal_monthly: 214.0
+    federal_only: true
+  federal_minimum_agrees: true
+- case: DIS-NY-T22
+  state: il
+  title: 'Same household in three states: single 72, SS $800, rents for $500 in Cook County (IL) paying her own utilities'
+  ours:
+    status: eligible
+    ssi_federal_monthly: 214.0
+    state_supplement_monthly: 11.58
+  policyengine:
+    status: eligible
+    ssi_federal_monthly: 214.0
+    state_supplement_monthly: 0.0
+  agree: false
+  explanation: PolicyEngine parameter currency. The Illinois AABD grant adjustment is $816.90 for January 2026 and after (IDHS PM 11-01-07); PolicyEngine's
+    grant_amount parameter ends at 2025-01-01 ($788.90, WAG 25-06-01), so every community client's needs are $28 lower in PolicyEngine. That turns
+    the small AABD payments of single SSI recipients ($4.33 - $11.58) into $0 and lowers the others by $28 per person (DIS-IL-T06 couple $56,
+    DIS-IL-T10 $28). Personal allowance, $97 shelter cap, utility allowances, the $25 exemption and federal SSI agree.
+  ours_federal_minimum:
+    status: eligible
+    ssi_federal_monthly: 214.0
+    federal_only: true
+  federal_minimum_agrees: true
+- case: DIS-X-01
+  state: ny
+  title: "Cross-playbook (MSP): SSI recipient 70 with Medicare, SS $800 \u2014 SSI deems Extra Help; same household gets QMB"
+  ours:
+    status: eligible
+    ssi_federal_monthly: 214.0
+    state_supplement_monthly: 87.0
+  policyengine:
+    status: eligible
+    ssi_federal_monthly: 214.0
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    ssi_federal_monthly: 214.0
+    federal_only: true
+  federal_minimum_agrees: true
+- case: DIS-X-02
+  state: ny
+  title: 'Cross-playbook (Medicaid): SSI recipient in New York gets Medicaid without applying'
+  ours:
+    status: eligible
+    ssi_federal_monthly: 514.0
+    state_supplement_monthly: 87.0
+  policyengine:
+    status: eligible
+    ssi_federal_monthly: 514.0
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    ssi_federal_monthly: 514.0
+    federal_only: true
+  federal_minimum_agrees: true
+- case: DIS-X-03
+  state: ny
+  title: 'Cross-playbook (SNAP): household whose only member gets SSI is categorically eligible for SNAP'
+  ours:
+    status: eligible
+    ssi_federal_monthly: 414.0
+    state_supplement_monthly: 87.0
+  policyengine:
+    status: eligible
+    ssi_federal_monthly: 414.0
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    ssi_federal_monthly: 414.0
+    federal_only: true
+  federal_minimum_agrees: true

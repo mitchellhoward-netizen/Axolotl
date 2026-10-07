@@ -1,0 +1,95 @@
+Illinois Department of Human Services
+JB Pritzker, Governor · Dulce M. Quintero, Secretary
+
+Customers
+
+Providers
+
+About
+
+News
+
+Contact
+
+IDHS
+
+About IDHS
+
+Publications
+
+Manuals
+
+Family & Community Services Manuals
+
+Cash, SNAP, and Medical Manual
+
+Policy Manual Chapter Table of Contents
+
+PM 19: Reviewing Eligibility
+
+PM 19-02-00: Special Reviews and Redeterminations (Cash, Medical)
+
+PM 19-02-04: Medical Redeterminations
+
+PM 19-02-04-a: Ex Parte Redeterminations
+
+WAG 19-02-04-a
+
+Ex Parte Redeterminations
+
+Ex parte redetermination is a renewal process used to determine medical eligibility based on reliable information available without requiring customer verification. IES automatically performs this process approximately 75 days before the redetermination due date.
+
+Each customer due for medical redetermination must be evaluated for ex parte eligibility. However, certain medical programs and conditions will exclude customers from being eligible for ex parte redetermination. See PM 19-02-02-b.
+
+Approximately 60 days before their redetermination due date, customers found ex parte eligible will receive a 2381C notice informing them that their medical benefits were automatically redetermined with no action required from them. Ex parte eligible customers' medical benefits will automatically renew approximately 45 days before the redetermination due date for a new 12-month certification period. The new certification period begins at the end of their current certification period.
+
+Note: Under certain circumstances, the certification period may change. See PM 19-02-07 for more information.
+
+Note: If all household members' medical certification dates align, only one 2381C will be sent per household.
+
+Ex Parte Timeline
+
+The following is an approximate timeline for the ex parte process.
+
+Days from the medical redetermination due date:
+
+75 days= Each medical EDG is evaluated for ex parte eligibility.
+
+60 days= Household receives 2381C notice.
+
+45 days= EDGs found ex parte eligible renewed for an additional 12 months.
+
+Ex Parte EDGs that Failed Batch Certification
+
+It is possible for an EDG determined ex parte eligible to fail out of the IES certification batch process and not certify automatically. This would occur approximately 45 days before the redetermination due date. If this occurs, caseworkers must manually certify the EDG in IES. See WAG 19-02-04-a for more information.
+
+Note: IES populates the "REDE received date" for all EDGs determined ex parte eligible in IES. The populated date will be the first day of the month before the redetermination due month. Example: Ex parte EDG with a redetermination due date of 8/31/2024 will be populated with a "REDE received date" of 7/01/2024.
+
+Continuous Eligibility and Ex Parte
+
+Once determined ex parte eligible (approximately 75 days before the redetermination due date), continuous eligibility customers will retain coverage for both their current certification period and their new certification period regardless of changes reported.
+
+Example:75 days before the certification due date, a ten-year-old child due for medical redetermination is found ex parte eligible. 50 days before the redetermination due date, the head of household for the child's case reports a change of income that puts the child over the program income standard. The caseworker processes as a case change, and the child retains coverage for the current and new 12-month certification periods.
+
+Illinois Department of Human Services
+JB Pritzker, Governor · Dulce M. Quintero, Secretary
+
+IDHS Office Locator
+
+IDHS Help Line
+
+1-800-843-6154
+
+1-866-324-5553 TTY
+
+State of Illinois
+
+Accessibility
+
+Privacy
+
+Report Abuse/Neglect
+
+Contact
+
+Outlook Login

@@ -1,0 +1,10 @@
+- retrieved: '2026-10-07'
+  url: https://www.dhcs.ca.gov/services/medicare-premium-payment-buy-in-program/
+  final_url: https://www.dhcs.ca.gov/services/medicare-premium-payment-buy-in-program/
+  status: 200
+  content_type: html
+  text_sha256: 32182a704ac12f11ee0ff88cd22087e03539aa68b608cf2fe103073b0c56b729
+  text: ca-dhcs-buyin-page/2026-10-07.txt
+  raw: ca-dhcs-buyin-page/2026-10-07.html
+  fetched_via: headless Chromium (Playwright) via the session proxy; dhcs.ca.gov refuses
+    scripted requests (Incapsula)

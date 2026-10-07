@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://www.cdss.ca.gov/inforesources/ssi-ssp
+  final_url: https://www.cdss.ca.gov/inforesources/ssi-ssp
+  status: 200
+  content_type: text/html; charset=utf-8
+  text_sha256: ef09cc4748ab09bd8d5675611cc900578682fbd64c9aefc8025dc1a738525ca3
+  text: ca-cdss-ssi-ssp/2026-10-07.txt
+  raw: ca-cdss-ssi-ssp/2026-10-07.html

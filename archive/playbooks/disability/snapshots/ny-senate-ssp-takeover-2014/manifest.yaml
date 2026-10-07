@@ -1,0 +1,10 @@
+- retrieved: '2026-10-07'
+  url: https://www.nysenate.gov/newsroom/articles/2014/andrea-stewart-cousins/state-supplement-program-state-takeover
+  final_url: https://www.nysenate.gov/newsroom/articles/2014/andrea-stewart-cousins/state-supplement-program-state-takeover
+  status: 200
+  content_type: html
+  text_sha256: 3a87a352beb8c07bb28137c0494b8361d4f085642532cf699325e59656f2d8e8
+  text: ny-senate-ssp-takeover-2014/2026-10-07.txt
+  raw: ny-senate-ssp-takeover-2014/2026-10-07.html
+  fetched_via: headless Chromium (Playwright) page load; nysenate.gov returns 403
+    to non-JavaScript clients

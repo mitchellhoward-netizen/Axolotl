@@ -1,0 +1,785 @@
+# Synthetic Illinois households for SNAP. No real people. Expected amounts are
+# monthly dollars; see the case notes and the rule IDs for how each was budgeted.
+program: snap
+scope: il
+cases:
+- id: SNAP-IL-T01
+  title: Single, unemployment $2,152 = Illinois 165% limit (minimum benefit, no net test)
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - threshold
+  household:
+    state: il
+    members:
+    - id: a
+      age: 40
+      relationship: self
+    incomes:
+    - kind: unemployment
+      monthly: 2152
+      owner: a
+    assets: []
+    county: Sangamon
+    expenses:
+      rent: 900
+    facts:
+      utilities: &id001
+      - heating_cooling
+      - electricity
+  expect:
+    status: eligible
+    tier: bbce
+    rules_include:
+    - SNAP-IL-BBCE
+    - SNAP-FED-MIN-BENEFIT
+    amounts:
+      benefit_monthly: 24.0
+      net_income_monthly: 1474.5
+      utility_allowance_monthly: 546.0
+      medical_deduction_monthly: 0.0
+  crosscheck:
+    policyengine: true
+- id: SNAP-IL-T02
+  title: Single, unemployment $2,153 — $1 over 165%
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - threshold
+  household:
+    state: il
+    members:
+    - id: a
+      age: 40
+      relationship: self
+    incomes:
+    - kind: unemployment
+      monthly: 2153
+      owner: a
+    assets: []
+    county: Sangamon
+    expenses:
+      rent: 900
+    facts:
+      utilities: *id001
+  expect:
+    status: ineligible
+    rules_include:
+    - SNAP-IL-BBCE
+    amounts:
+      net_income_monthly: 1476.0
+      utility_allowance_monthly: 546.0
+      medical_deduction_monthly: 0.0
+  crosscheck:
+    policyengine: true
+- id: SNAP-IL-T03
+  title: Couple, unemployment $2,909 = 165% limit for 2
+  as_of: '2026-03-01'
+  tags:
+  - couple
+  - threshold
+  household:
+    state: il
+    members:
+    - id: a
+      age: 45
+      relationship: self
+    - id: b
+      age: 44
+      relationship: spouse
+    incomes:
+    - kind: unemployment
+      monthly: 2909
+      owner: a
+    assets: []
+    county: Sangamon
+    expenses:
+      rent: 1200
+    facts:
+      utilities: *id001
+  expect:
+    status: eligible
+    tier: bbce
+    rules_include:
+    - SNAP-IL-BBCE
+    amounts:
+      benefit_monthly: 24.0
+      net_income_monthly: 2310.0
+      utility_allowance_monthly: 546.0
+      medical_deduction_monthly: 0.0
+  crosscheck:
+    policyengine: true
+- id: SNAP-IL-T04
+  title: Couple, unemployment $2,910 — $1 over 165% for 2
+  as_of: '2026-03-01'
+  tags:
+  - couple
+  - threshold
+  household:
+    state: il
+    members:
+    - id: a
+      age: 45
+      relationship: self
+    - id: b
+      age: 44
+      relationship: spouse
+    incomes:
+    - kind: unemployment
+      monthly: 2910
+      owner: a
+    assets: []
+    county: Sangamon
+    expenses:
+      rent: 1200
+    facts:
+      utilities: *id001
+  expect:
+    status: ineligible
+    rules_include:
+    - SNAP-IL-BBCE
+    amounts:
+      net_income_monthly: 2311.5
+      utility_allowance_monthly: 546.0
+      medical_deduction_monthly: 0.0
+  crosscheck:
+    policyengine: true
+- id: SNAP-IL-T05
+  title: Family of 4 earning $4,421 = 165% limit for 4, $800 child care
+  as_of: '2026-03-01'
+  tags:
+  - family
+  - threshold
+  household:
+    state: il
+    members:
+    - id: a
+      age: 36
+      relationship: self
+    - id: b
+      age: 35
+      relationship: spouse
+    - id: k1
+      age: 6
+      relationship: child
+    - id: k2
+      age: 3
+      relationship: child
+    incomes:
+    - kind: earned
+      monthly: 4421
+      owner: a
+    assets: []
+    county: Cook
+    expenses:
+      rent: 1600
+      dependent_care: 800
+    facts:
+      utilities: *id001
+  expect:
+    status: eligible
+    tier: bbce
+    rules_include:
+    - SNAP-IL-BBCE
+    amounts:
+      benefit_monthly: 461.0
+      net_income_monthly: 1773.8
+      utility_allowance_monthly: 546.0
+      medical_deduction_monthly: 0.0
+    links_include:
+    - school_meals:direct_certification
+  crosscheck:
+    policyengine: true
+- id: SNAP-IL-T06
+  title: Family of 4 earning $4,422 — $1 over 165% for 4
+  as_of: '2026-03-01'
+  tags:
+  - family
+  - threshold
+  household:
+    state: il
+    members:
+    - id: a
+      age: 36
+      relationship: self
+    - id: b
+      age: 35
+      relationship: spouse
+    - id: k1
+      age: 6
+      relationship: child
+    - id: k2
+      age: 3
+      relationship: child
+    incomes:
+    - kind: earned
+      monthly: 4422
+      owner: a
+    assets: []
+    county: Cook
+    expenses:
+      rent: 1600
+      dependent_care: 800
+    facts:
+      utilities: *id001
+  expect:
+    status: ineligible
+    rules_include:
+    - SNAP-IL-BBCE
+    amounts:
+      net_income_monthly: 1774.6
+      utility_allowance_monthly: 546.0
+      medical_deduction_monthly: 0.0
+  crosscheck:
+    policyengine: true
+- id: SNAP-IL-T07
+  title: 'Retiree with $10,000 savings, gross $2,608 = 200% qualifying-member limit: categorically eligible'
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - threshold
+  household:
+    state: il
+    members:
+    - id: a
+      age: 70
+      relationship: self
+    incomes:
+    - kind: social_security
+      monthly: 2608
+      owner: a
+    assets:
+    - kind: cash
+      value: 10000
+      owner: a
+    county: Sangamon
+    expenses:
+      rent: 1500
+    facts:
+      utilities: *id001
+  expect:
+    status: eligible
+    tier: bbce
+    rules_include:
+    - SNAP-IL-BBCE-QM
+    amounts:
+      benefit_monthly: 24.0
+      net_income_monthly: 1558.5
+      utility_allowance_monthly: 546.0
+      medical_deduction_monthly: 0.0
+  crosscheck:
+    policyengine: true
+- id: SNAP-IL-T08
+  title: Retiree with $10,000 savings, gross $2,609 — over 200%, regular resource limit fails
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - threshold
+  household:
+    state: il
+    members:
+    - id: a
+      age: 70
+      relationship: self
+    incomes:
+    - kind: social_security
+      monthly: 2609
+      owner: a
+    assets:
+    - kind: cash
+      value: 10000
+      owner: a
+    county: Sangamon
+    expenses:
+      rent: 1500
+    facts:
+      utilities: *id001
+  expect:
+    status: ineligible
+    rules_include:
+    - SNAP-IL-BBCE-QM
+    - SNAP-FED-RESOURCES
+    amounts:
+      net_income_monthly: 1560.0
+      utility_allowance_monthly: 546.0
+      medical_deduction_monthly: 0.0
+  crosscheck:
+    policyengine: true
+- id: SNAP-IL-T09
+  title: 'Retiree, SS $2,700 (over 200%), modest savings: net test only, passed'
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - edge
+  household:
+    state: il
+    members:
+    - id: a
+      age: 70
+      relationship: self
+    incomes:
+    - kind: social_security
+      monthly: 2700
+      owner: a
+    assets:
+    - kind: cash
+      value: 2000
+      owner: a
+    county: Sangamon
+    expenses:
+      rent: 1900
+      medical: 202.9
+    facts:
+      utilities: *id001
+      part_b_premium_in_medical: true
+  expect:
+    status: eligible
+    tier: regular
+    rules_include:
+    - SNAP-FED-NET-TEST
+    - SNAP-IL-SMD
+    amounts:
+      benefit_monthly: 24.0
+      net_income_monthly: 1019.0
+      utility_allowance_monthly: 546.0
+      medical_deduction_monthly: 185.0
+    links_include:
+    - msp:part_b_in_medical_deduction
+  crosscheck:
+    policyengine: true
+- id: SNAP-IL-T10
+  title: Retiree, medical costs exactly $35 — no deduction
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - threshold
+  household:
+    state: il
+    members:
+    - id: a
+      age: 68
+      relationship: self
+    incomes:
+    - kind: social_security
+      monthly: 1500
+      owner: a
+    assets: []
+    county: Sangamon
+    expenses:
+      rent: 500
+      medical: 35
+    facts:
+      utilities: *id001
+  expect:
+    status: eligible
+    tier: regular
+    rules_include:
+    - SNAP-IL-SMD
+    amounts:
+      benefit_monthly: 29.0
+      net_income_monthly: 896.5
+      utility_allowance_monthly: 546.0
+      medical_deduction_monthly: 0.0
+  crosscheck:
+    policyengine: true
+- id: SNAP-IL-T11
+  title: Retiree, medical costs $36 — $185 Standard Medical Deduction
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - threshold
+  household:
+    state: il
+    members:
+    - id: a
+      age: 68
+      relationship: self
+    incomes:
+    - kind: social_security
+      monthly: 1500
+      owner: a
+    assets: []
+    county: Sangamon
+    expenses:
+      rent: 500
+      medical: 36
+    facts:
+      utilities: *id001
+  expect:
+    status: eligible
+    tier: regular
+    rules_include:
+    - SNAP-IL-SMD
+    amounts:
+      benefit_monthly: 112.0
+      net_income_monthly: 619.0
+      utility_allowance_monthly: 546.0
+      medical_deduction_monthly: 185.0
+  crosscheck:
+    policyengine: true
+- id: SNAP-IL-T12
+  title: Worker with high rent, no qualifying member — shelter capped at $744
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - edge
+  household:
+    state: il
+    members:
+    - id: a
+      age: 40
+      relationship: self
+    incomes:
+    - kind: earned
+      monthly: 1400
+      owner: a
+    assets: []
+    county: Cook
+    expenses:
+      rent: 2200
+    facts:
+      utilities: *id001
+  expect:
+    status: eligible
+    tier: regular
+    rules_include:
+    - SNAP-FED-SHELTER-CAP
+    amounts:
+      benefit_monthly: 246.0
+      net_income_monthly: 171.0
+      utility_allowance_monthly: 546.0
+      medical_deduction_monthly: 0.0
+  crosscheck:
+    policyengine: true
+- id: SNAP-IL-T13
+  title: 'Worker paying $150 child support: excluded from gross, brings $2,250 earnings under 165%'
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - edge
+  household:
+    state: il
+    members:
+    - id: a
+      age: 38
+      relationship: self
+    incomes:
+    - kind: earned
+      monthly: 2250
+      owner: a
+    assets: []
+    county: Sangamon
+    expenses:
+      rent: 1100
+      child_support_paid: 150
+    facts:
+      utilities: *id001
+  expect:
+    status: eligible
+    tier: bbce
+    rules_include:
+    - SNAP-IL-CHILD-SUPPORT
+    - SNAP-IL-BBCE
+    amounts:
+      benefit_monthly: 87.0
+      net_income_monthly: 701.0
+      utility_allowance_monthly: 546.0
+      medical_deduction_monthly: 0.0
+  crosscheck:
+    policyengine: true
+- id: SNAP-IL-T14
+  title: 'Non-elderly household with LIHEAP but no heating bill: Limited Utility Standard, not AC/Heating'
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - edge
+  household:
+    state: il
+    members:
+    - id: a
+      age: 45
+      relationship: self
+    incomes:
+    - kind: earned
+      monthly: 1200
+      owner: a
+    assets: []
+    county: Sangamon
+    expenses:
+      rent: 700
+    facts:
+      utilities:
+      - electricity
+      - water
+      energy_assistance_over_20: true
+  expect:
+    status: eligible
+    tier: regular
+    rules_include:
+    - SNAP-IL-LIHEAP-SUA
+    - SNAP-IL-UTILITY
+    amounts:
+      benefit_monthly: 294.0
+      net_income_monthly: 11.0
+      utility_allowance_monthly: 457.0
+      medical_deduction_monthly: 0.0
+  crosscheck:
+    policyengine: true
+- id: SNAP-IL-T15
+  title: 'Elderly household with LIHEAP and heat included in rent: AC/Heating Standard'
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - other_benefits
+  household:
+    state: il
+    members:
+    - id: a
+      age: 66
+      relationship: self
+    incomes:
+    - kind: social_security
+      monthly: 1300
+      owner: a
+    assets: []
+    county: Sangamon
+    expenses:
+      rent: 800
+    facts:
+      utilities: []
+      energy_assistance_over_20: true
+  expect:
+    status: eligible
+    tier: regular
+    rules_include:
+    - SNAP-IL-LIHEAP-SUA
+    amounts:
+      benefit_monthly: 209.0
+      net_income_monthly: 296.5
+      utility_allowance_monthly: 546.0
+      medical_deduction_monthly: 0.0
+  crosscheck:
+    policyengine: true
+- id: SNAP-IL-T16
+  title: 'Single phone-only renter: Telephone Standard'
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - edge
+  household:
+    state: il
+    members:
+    - id: a
+      age: 30
+      relationship: self
+    incomes:
+    - kind: earned
+      monthly: 1300
+      owner: a
+    assets: []
+    county: Sangamon
+    expenses:
+      rent: 650
+    facts:
+      utilities:
+      - phone
+  expect:
+    status: eligible
+    tier: regular
+    rules_include:
+    - SNAP-IL-UTILITY
+    amounts:
+      benefit_monthly: 137.0
+      net_income_monthly: 535.5
+      utility_allowance_monthly: 67.0
+      medical_deduction_monthly: 0.0
+  crosscheck:
+    policyengine: true
+- id: SNAP-IL-T17
+  title: 'FY 2027: single, unemployment $2,195 = 165% limit'
+  as_of: '2026-11-01'
+  tags:
+  - single
+  - threshold
+  - timing
+  household:
+    state: il
+    members:
+    - id: a
+      age: 40
+      relationship: self
+    incomes:
+    - kind: unemployment
+      monthly: 2195
+      owner: a
+    assets: []
+    county: Sangamon
+    expenses:
+      rent: 900
+    facts:
+      utilities: *id001
+  expect:
+    status: eligible
+    tier: bbce
+    rules_include:
+    - SNAP-IL-BBCE
+    amounts:
+      benefit_monthly: 25.0
+      net_income_monthly: 1508.0
+      utility_allowance_monthly: 565.0
+      medical_deduction_monthly: 0.0
+  crosscheck:
+    policyengine: true
+- id: SNAP-IL-T18
+  title: 'FY 2027: single, unemployment $2,196 — $1 over'
+  as_of: '2026-11-01'
+  tags:
+  - single
+  - threshold
+  - timing
+  household:
+    state: il
+    members:
+    - id: a
+      age: 40
+      relationship: self
+    incomes:
+    - kind: unemployment
+      monthly: 2196
+      owner: a
+    assets: []
+    county: Sangamon
+    expenses:
+      rent: 900
+    facts:
+      utilities: *id001
+  expect:
+    status: ineligible
+    rules_include:
+    - SNAP-IL-BBCE
+    amounts:
+      net_income_monthly: 1509.5
+      utility_allowance_monthly: 565.0
+      medical_deduction_monthly: 0.0
+  crosscheck:
+    policyengine: true
+- id: SNAP-IL-T19
+  title: 'FY 2027: retiree, AC/Heating $565, SMD $185, standard deduction $213'
+  as_of: '2026-11-01'
+  tags:
+  - single
+  - timing
+  household:
+    state: il
+    members:
+    - id: a
+      age: 72
+      relationship: self
+    incomes:
+    - kind: social_security
+      monthly: 1500
+      owner: a
+    assets: []
+    county: Sangamon
+    expenses:
+      rent: 700
+      medical: 90
+    facts:
+      utilities: *id001
+  expect:
+    status: eligible
+    tier: regular
+    rules_include:
+    - SNAP-IL-SMD
+    - SNAP-IL-STANDARD-DEDUCTION
+    amounts:
+      benefit_monthly: 189.0
+      net_income_monthly: 388.0
+      utility_allowance_monthly: 565.0
+      medical_deduction_monthly: 185.0
+  crosscheck:
+    policyengine: true
+- id: SNAP-IL-T20
+  title: 'Disabled SSI recipient and working spouse (not all on SSI): disabled household rules'
+  as_of: '2026-03-01'
+  tags:
+  - couple
+  - other_benefits
+  household:
+    state: il
+    members:
+    - id: a
+      age: 50
+      relationship: self
+      benefits:
+      - ssi
+      disabled: true
+    - id: b
+      age: 48
+      relationship: spouse
+    incomes:
+    - kind: ssi
+      monthly: 400
+      owner: a
+    - kind: earned
+      monthly: 1600
+      owner: b
+    assets: []
+    county: Sangamon
+    expenses:
+      rent: 1000
+    facts:
+      utilities: *id001
+  expect:
+    status: eligible
+    tier: regular
+    amounts:
+      benefit_monthly: 346.0
+      net_income_monthly: 666.5
+      utility_allowance_monthly: 546.0
+      medical_deduction_monthly: 0.0
+    links_include:
+    - disability:ssi_household
+  note: 'Not cross-checked: PolicyEngine computes the SSI amount itself.'
+- id: SNAP-X-02
+  title: 'School meals crossing: Illinois family of 3 on SNAP (children directly certified)'
+  as_of: '2026-03-01'
+  tags:
+  - family
+  - cross_playbook
+  household:
+    state: il
+    members:
+    - id: a
+      age: 34
+      relationship: self
+    - id: k1
+      age: 9
+      relationship: child
+    - id: k2
+      age: 12
+      relationship: child
+    incomes:
+    - kind: earned
+      monthly: 2100
+      owner: a
+    assets: []
+    county: Sangamon
+    expenses:
+      rent: 1100
+    facts:
+      utilities: *id001
+  expect:
+    status: eligible
+    tier: regular
+    rules_include:
+    - SNAP-FED-LINK-SCHOOL-MEALS
+    amounts:
+      benefit_monthly: 565.0
+      net_income_monthly: 731.0
+      utility_allowance_monthly: 546.0
+      medical_deduction_monthly: 0.0
+    links_include:
+    - school_meals:direct_certification
+  crosscheck:
+    policyengine: true

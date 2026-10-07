@@ -1,0 +1,123 @@
+Retroactive MC
+
+To avoid coverage gaps and out-of-pocket expenses, an applicant for MC, CW, SSI/SSP, or RCA may request MC coverage prior to the month of application. Any written request for retroactive coverage must be considered an application.
+
+When adding an individual to an ongoing MC case, the individual’s application date is the date of the request.
+
+For SSI/SSP applicants, the application date is the same date as the Social Security Administration application date, even if SSI/SSP is never approved for the month of application. The application date can be obtained from the [SDX3] screen in MEDS.
+
+For APTC recipients moving to MAGI in a Carry Forward Status (CFS), the Insurance Affordability Program (IAP) transition date will be considered the application date.
+
+Retroactive MC Coverage Periods
+
+For applications submitted prior to January 1, 2027, individuals may be eligible for up to 3 months of retroactive coverage prior to the application month, regardless of the coverage group they are eligible under, provided that all other eligibility requirements are met for each retroactive month.
+
+For applications submitted on or after January 1, 2027, the maximum allowable months for retroactive coverage are reduced for all eligibility groups.
+
+Beginning January 1, 2027, allowable retroactive coverage periods are as follows:
+
+MAGI New Adult Group: Retroactive coverage is limited to one month prior to the month of application (aid codes for this group include M1, M2, 1C, 1J, and 1M).
+
+All Other Medi-Cal Coverage Groups: Retroactive coverage is limited to two months prior to the month of application.
+
+Because applicants may not know which coverage group they are eligible under, they may request up to two months of retroactive coverage. Any months requested by the applicant must be entered in the system. CalSAWS will automatically limit eligibility determinations to the allowable months based on the individual's coverage group.
+
+Example 1: New Adult Group - Application filed January 2027Example 1: New Adult Group - Application filed January 2027Donald applies for MC on 1/20/2027 and is determined eligible under the New Adult Group (aid code M1). Retroactive coverage is limited to one month prior to the month of application. Donald may be eligible for December 2026 if all other requirements are met for that month.
+
+Example 2: All Other Eligibility Groups - Application submitted February 2027Example 2: All Other Eligibility Groups - Application submitted February 2027Daisy, who is a parent or caretaker relative, applies for MC on February 10, 2027. She is determined to be eligible for aid code M3 under the parent/caretaker eligibility group. Daisy may be eligible for retroactive coverage in December 2026 and January 2027 if all other eligibility requirements are met.
+
+Example 3: Application Submitted Prior to January 1, 2027Example 3: Application Submitted Prior to January 1, 2027Miguel applies for MC on December 28, 2026, and is determined eligible for M1 aid code starting in December 2026. Since the MC application was received prior to January 1, 2027, he may request retroactive coverage for up to three months prior to December 2026. If found eligible, retroactive MC may be approved for September, October, and November 2026.
+
+Example 4: Request for Retroactive Coverage Beyond the Allowable PeriodExample 4: Request for Retroactive Coverage Beyond the Allowable PeriodMartha applies for MC in April 2027 and is found eligible for non-MAGI aid code 6H. She requests retroactive MC for January, February, and March 2027. Because retroactive coverage is limited to a maximum of two months for her coverage group, if she is found eligible, February and March 2027 may be approved. Since January is outside of the allowable retroactive period, the system will limit the eligibility determination to February and March 2027.
+
+Retroactive MC Request Time Limit
+
+An application for retroactive MC must be submitted within 12 months from the month of service. If a request for retroactive MC is made for any retroactive months more than 12 months from the date of service, then the retroactive MC request will be denied. When adding a person to an ongoing case the individual’s retroactive MC period is also from the date of service and the individual’s request date.
+
+Example Example Mr. Cobblesworth applied for MC on 4/1/2027. He had medical expenses in March of 2027, but did not apply for Retroactive MC because he thought his insurance would cover the cost. In February 2028, he discovers that his insurance did not pay and applies for Retro. If otherwise eligible, he may be approved for retroactive MC for March 2027, since the request was made within 12 months of the date of service.
+
+Eligibility Conditions
+
+In order to be eligible for retroactive MC, all of the following conditions must be met in each retroactive month:
+
+The applicant would have been eligible for MC had an application been filed.
+
+The applicant received a health care service. (The applicant has medical bills.)
+
+The applicant was not previously denied MC for the month in question unless the denial was due to:
+
+County error, or
+
+Circumstances beyond the applicant’s control.
+
+Verification Requirements
+
+Verification standards apply when evaluating retroactive MC month(s). When an applicant indicates "no change" on the MC 210A and an MC application with verified information is already on file, additional income or eligibility information must not be requested.
+
+Retroactive MC Applications
+
+Eligibility for retroactive MC must always be explored at the point of intake and/or at any time an applicant makes a request. A person applying for retroactive MC must complete a Supplement to Statement of Facts For Retroactive/Restoration (MC 210A). If the application is for retroactive MC coverage only, then an SSApp or any other acceptable MC application/SOF form must be submitted.
+
+Note: For SSI/SSP applicants requesting Retroactive MC, SSBS are to request only the MC 210 A and information and documents that are not available through MEDS/SDX inquiry screens and are necessary to determine eligibility. SSI/SSP applicants are not required to submit the SSApp, but an MC 210 A must still be submitted.
+
+When an Intake SSBS receives an application (e.g. SAWS 2 Plus, etc.) which indicates the individual wants Retroactive MC, they must contact the individual to confirm the request. The confirmation must take place before the SSBS can request the application registration for Retroactive MC. The table below outlines the process for the SSBS:
+
+Exception: Many applications that come from Valley Medical Center (VMC) are for hospitalized individuals and often, additional attempts to contact the applicant may fail. The SSBS must still try to contact the applicant and document the outcome of the attempt (i.e., phoned the applicant but unable to confirm request for Retroactive MC due to the applicant’s unavailability). In these instances, the Retroactive MC application may be registered without confirmation.
+
+If...
+
+Then...
+
+The client is reached and they clarify they do NOT need MC for any months prior to the month of application
+
+Add a Journal entry clearly documenting that per conversation with the client, Retroactive MC is not being requested
+
+The client is reached and they confirm they are requesting Retroactive MC and incurred medical bills for months prior to the month of application
+
+Complete the MC 210 A with the client by phone and obtain an electronic or telephonic signature
+
+Submit the application registration request to Clerical for the required months of Retro MC
+
+Process the Retroactive MC
+
+**If verification is required to disposition the Retroactive application, a request for verification should be sent to the client and the case must remain assigned to the Intake SSBS until the verification due date
+
+**If MC 210 A is received but the client later verbally withdraws their request, add a Journal entry documenting the outcome and send the Application Withdrawal/Cancellation (SCD 166) to be completed and returned by the client
+
+The client is NOT reached
+
+Mail the MC 210 A to the client and allow a 10-day due date for the return.
+
+Clearly document in the Case Journal that an attempt to reach the client by phone was made and that the MC 210 A was mailed
+
+**Intake SSBS must hold the case until the 10-day due date and case comment before transferring it to continuing, OR if the client responds before the due date, the Intake SSBS must disposition the case and case comment before transferring it to continuing
+
+Important: Clerical staff must not complete the application registration for Retroactive MC until the Intake SSBS has requested it.
+
+Requests for retroactive Medi-Cal can be approved in Santa Clara County regardless of residency during the month(s) of request. This will prevent the client from having to apply for ongoing MC in Santa Clara County and retroactive MC in their previous county of residence. Retroactive MC is fee-for-service, so there is no impact to the client's coverage.
+
+Retroactive MC for Mail-In Applications
+
+Anyone requesting retroactive MC using the SSApp or any other acceptable MC application form must also complete the MC 210 A. The SSBS must send the MC 210 A when retroactive MC is requested. The SSBS may assist the client by completing the MC 210 A over the phone. An electronic or telephonic signature for the MC 210 A is acceptable.
+
+Retroactive MC Based on Disability
+
+This section only applies to clients who do not qualify under MAGI MC rules. Individuals applying on the basis of disability must have their disability determined prior to approval of retroactive benefits.
+
+For SSI/SSP pending applications, a determination of MC under any other program must be made for the retroactive months.
+
+The SSBS must:
+
+Record an application for retroactive MC to be kept pending until the State Programs - Disability Determination Service Division (SP-DDSD) determination is received.
+
+Determine eligibility for each retroactive month.
+
+Transfer the case to Continuing in “pending” status, if applicable.
+
+Issue an approval or denial notice, and BIC if necessary, when the disability determination is received.
+
+Related Topics
+
+HIPAA/PII
+
+Application

@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://cdss.ca.gov/Portals/9/IHSS/2026MR_SSI.SSP_GrantAmounts.pdf
+  final_url: https://cdss.ca.gov/Portals/9/IHSS/2026MR_SSI.SSP_GrantAmounts.pdf
+  status: 200
+  content_type: application/pdf
+  text_sha256: fc4eb0ff0e4a82ca910a4ba015c330d74dc373874a5fe1138aa9591ecdf8eb0f
+  text: ca-cdss-2026mr-ssp-grant/2026-10-07.txt
+  raw: ca-cdss-2026mr-ssp-grant/2026-10-07.pdf

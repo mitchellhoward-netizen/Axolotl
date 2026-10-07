@@ -1,0 +1,180 @@
+# California sources for the Medicaid (Medi-Cal) playbook.
+#
+# DHCS (www.dhcs.ca.gov, incl. sps2016.dhcs.ca.gov and the ACWDL/MEDIL
+# letters) sits behind an Incapsula bot wall: scripted requests, the
+# WebFetch research tool and the Wayback Machine all failed on 2026-10-07.
+# No DHCS original could be snapshotted. The California part therefore
+# rests on the Medi-Cal eligibility handbook and charts of the Santa Clara
+# County Social Services Agency (a county that administers Medi-Cal for
+# DHCS), which restate the DHCS letters and name them (ACWDL 25-13, 25-14,
+# 25-20). These are official agency manuals of an administering agency, so
+# they are recorded as primary, but every rule resting on them carries the
+# open question CA-OQ-01 (retrieve the DHCS original). A secondary advocacy
+# summary (Health Consumer Alliance) is kept for cross-checking only.
+sources:
+  - id: ca-scc-mc-update-2025-9-asset-limits
+    retrieved: 2026-10-07
+    url: https://stgenssa.sccgov.org/debs/program_handbooks/medi-cal/assets/00Updates/Updates2025/Medi-Cal_Update_2025-9_Reinstatement_of_the_Asset_Limits_for_Non-MAGI.htm
+    publisher: Santa Clara County Social Services Agency, Department of Employment & Benefits Services
+    title: Medi-Cal Update 2025-9 — Reinstatement of the Asset Limits Test for Non-MAGI Programs (11/25/25; refs ACWDL 25-14, 25-20)
+    kind: primary
+    jurisdiction: ca
+    doc_type: manual
+    published: 2025-11-25
+    effective_date: 2026-01-01
+    note: County restatement of DHCS ACWDL 25-14 and 25-20, which could not be retrieved from dhcs.ca.gov (bot wall).
+  - id: ca-scc-mc-property-limits
+    retrieved: 2026-10-07
+    url: https://stgenssa.sccgov.org/debs/program_handbooks/medi-cal/assets/21Property/PropertyLimits.htm
+    publisher: Santa Clara County Social Services Agency (Medi-Cal Handbook)
+    title: Medi-Cal Handbook — Property Limits
+    kind: primary
+    jurisdiction: ca
+    doc_type: manual
+  - id: ca-scc-chart-property-limits
+    retrieved: 2026-10-07
+    url: https://stgenssa.sccgov.org/debs/program_handbooks/charts/assets/5MediCal/PropLimits.htm
+    publisher: Santa Clara County Social Services Agency (Program Charts)
+    title: Medi-Cal Charts — Property Limits (history 1985 to 2026)
+    kind: primary
+    jurisdiction: ca
+    doc_type: manual
+  - id: ca-scc-chart-fpl-2026
+    retrieved: 2026-10-07
+    url: https://stgenssa.sccgov.org/debs/program_handbooks/charts/assets/5MediCal/FPLMonthIncomeCompare.htm
+    publisher: Santa Clara County Social Services Agency (Program Charts)
+    title: Medi-Cal Charts — Federal Poverty Level Programs Monthly Income Comparison Chart (2026 FPL calculation chart and effective dates)
+    kind: primary
+    jurisdiction: ca
+    doc_type: manual
+  - id: ca-scc-chart-maintenance-need
+    retrieved: 2026-10-07
+    url: https://stgenssa.sccgov.org/debs/program_handbooks/charts/assets/5MediCal/MaintNeed.htm
+    publisher: Santa Clara County Social Services Agency (Program Charts)
+    title: Medi-Cal Charts — Maintenance Need (effective 7/1/89)
+    kind: primary
+    jurisdiction: ca
+    doc_type: manual
+  - id: ca-scc-mc-ad-fpl-program
+    retrieved: 2026-10-07
+    url: https://stgenssa.sccgov.org/debs/program_handbooks/medi-cal/assets/23ABDProg/AandDFPLProg.htm
+    publisher: Santa Clara County Social Services Agency (Medi-Cal Handbook)
+    title: Medi-Cal Handbook — Aged and Disabled Federal Poverty Level (A&D FPL) Program
+    kind: primary
+    jurisdiction: ca
+    doc_type: manual
+  - id: ca-scc-mc-medically-needy
+    retrieved: 2026-10-07
+    url: https://stgenssa.sccgov.org/debs/program_handbooks/medi-cal/assets/19NonMAGILinkMFBU/MedicallyNeedy.htm
+    publisher: Santa Clara County Social Services Agency (Medi-Cal Handbook)
+    title: Medi-Cal Handbook — Medically Needy (AFDC-MN and ABD-MN linkage)
+    kind: primary
+    jurisdiction: ca
+    doc_type: manual
+  - id: ca-scc-mc-share-of-cost
+    retrieved: 2026-10-07
+    url: https://stgenssa.sccgov.org/debs/program_handbooks/medi-cal/assets/27SOC/SOC.htm
+    publisher: Santa Clara County Social Services Agency (Medi-Cal Handbook)
+    title: Medi-Cal Handbook — Share of Cost
+    kind: primary
+    jurisdiction: ca
+    doc_type: manual
+  - id: ca-scc-mc-retroactive
+    retrieved: 2026-10-07
+    url: https://stgenssa.sccgov.org/debs/program_handbooks/medi-cal/assets/05Apps/RetroactiveMC.htm
+    publisher: Santa Clara County Social Services Agency (Medi-Cal Handbook)
+    title: Medi-Cal Handbook — Retroactive MC (including the January 1, 2027 change)
+    kind: primary
+    jurisdiction: ca
+    doc_type: manual
+  - id: ca-scc-mc-timeframes
+    retrieved: 2026-10-07
+    url: https://stgenssa.sccgov.org/debs/program_handbooks/medi-cal/assets/05Apps/TimeframesProcApps.htm
+    publisher: Santa Clara County Social Services Agency (Medi-Cal Handbook)
+    title: Medi-Cal Handbook — Timeframes for Processing Applications
+    kind: primary
+    jurisdiction: ca
+    doc_type: manual
+  - id: ca-scc-mc-application
+    retrieved: 2026-10-07
+    url: https://stgenssa.sccgov.org/debs/program_handbooks/medi-cal/assets/05Apps/Application.htm
+    publisher: Santa Clara County Social Services Agency (Medi-Cal Handbook)
+    title: Medi-Cal Handbook — Application (acceptable application forms)
+    kind: primary
+    jurisdiction: ca
+    doc_type: manual
+  - id: ca-scc-mc-how-to-file
+    retrieved: 2026-10-07
+    url: https://stgenssa.sccgov.org/debs/program_handbooks/medi-cal/assets/05Apps/HowtoFileApp.htm
+    publisher: Santa Clara County Social Services Agency (Medi-Cal Handbook)
+    title: Medi-Cal Handbook — How to File an Application (BenefitsCal, phone, mail, in person, Covered California)
+    kind: primary
+    jurisdiction: ca
+    doc_type: manual
+  - id: ca-scc-mc-redetermination
+    retrieved: 2026-10-07
+    url: https://stgenssa.sccgov.org/debs/program_handbooks/medi-cal/assets/10Redeterminations/Redetermination.htm
+    publisher: Santa Clara County Social Services Agency (Medi-Cal Handbook)
+    title: Medi-Cal Handbook — Redetermination
+    kind: primary
+    jurisdiction: ca
+    doc_type: manual
+  - id: ca-scc-mc-rd-forms
+    retrieved: 2026-10-07
+    url: https://stgenssa.sccgov.org/debs/program_handbooks/medi-cal/assets/10Redeterminations/MCRDForms.htm
+    publisher: Santa Clara County Social Services Agency (Medi-Cal Handbook)
+    title: Medi-Cal Handbook — MC RD Forms (MC 216, MC 210 RV, MC 217)
+    kind: primary
+    jurisdiction: ca
+    doc_type: manual
+  - id: ca-scc-mc-90-day-cure
+    retrieved: 2026-10-07
+    url: https://stgenssa.sccgov.org/debs/program_handbooks/medi-cal/assets/10Redeterminations/90DayCurePeriod.htm
+    publisher: Santa Clara County Social Services Agency (Medi-Cal Handbook)
+    title: Medi-Cal Handbook — The 90-Day Cure Period
+    kind: primary
+    jurisdiction: ca
+    doc_type: manual
+  - id: ca-scc-mc-update-2025-10-expansion-freeze
+    retrieved: 2026-10-07
+    url: https://stgenssa.sccgov.org/debs/program_handbooks/medi-cal/assets/00Updates/Updates2025/2025_Update_Medi-Cal_Expansion_Freeze.htm
+    publisher: Santa Clara County Social Services Agency, Department of Employment & Benefits Services
+    title: Medi-Cal Update 2025-10 — The Medi-Cal Expansion Freeze for Adults 19 and Older Without Satisfactory Immigration Status (12/2/2025; ref ACWDL 25-13)
+    kind: primary
+    jurisdiction: ca
+    doc_type: manual
+    published: 2025-12-02
+    effective_date: 2026-01-01
+    note: County restatement of DHCS ACWDL 25-13 (not retrievable from dhcs.ca.gov).
+  - id: ca-scc-mc-wcer
+    retrieved: 2026-10-07
+    url: https://stgenssa.sccgov.org/debs/program_handbooks/medi-cal/assets/14MAGIMCTax/Work_and_Community_Engagement_Requirement.htm
+    publisher: Santa Clara County Social Services Agency (Medi-Cal Handbook)
+    title: Medi-Cal Handbook — Work and Community Engagement Requirement (preliminary guidance)
+    kind: primary
+    jurisdiction: ca
+    doc_type: manual
+  - id: ca-scc-mc-pension-funds
+    retrieved: 2026-10-07
+    url: https://stgenssa.sccgov.org/debs/program_handbooks/medi-cal/assets/21Property/Pension.htm
+    publisher: Santa Clara County Social Services Agency (Medi-Cal Handbook)
+    title: Medi-Cal Handbook — Pension Funds (IRAs, Keogh)
+    kind: primary
+    jurisdiction: ca
+    doc_type: manual
+  - id: ca-smc-medi-cal-changes-2025-26
+    retrieved: 2026-10-07
+    url: https://www.smcgov.org/media/155530/download
+    publisher: San Mateo County Human Services Agency
+    title: Upcoming Changes to the Medi-Cal Program, July 2025 through June 2026 (member flyer)
+    kind: primary
+    jurisdiction: ca
+    doc_type: agency_page
+  - id: ca-hca-asset-limits-practice-tip-2026
+    retrieved: 2026-10-07
+    url: https://healthconsumer.org/wp/wp-content/uploads/2026/03/Asset-Limits-Practice-Tip-12-2025-March-2026-Update.pdf
+    publisher: Health Consumer Alliance (legal services)
+    title: Practice Tip — Medi-Cal Asset Limits Return (December 2025, March 2026 update)
+    kind: secondary
+    jurisdiction: ca
+    doc_type: advocacy

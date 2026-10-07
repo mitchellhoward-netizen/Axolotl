@@ -1,0 +1,418 @@
+Skip to content
+
+Program Operations Manual System (POMS)
+
+Effective Dates: 03/09/2016 - Present
+Previous | Next
+
+TN 66 (06-24)
+
+DI 13010.035 The Trial Work Period (TWP)
+
+CITATIONS:
+
+Section 222(c)(1) of the Social Security Act, as amended. Regulations section 404.1592
+
+A. Introduction to the TWP
+
+The TWP provision gives a Title II disabled beneficiary the chance to test their ability
+to work and hold a job without the threat of losing benefits. During this period,
+the beneficiary may perform services for remuneration or gain, and still be considered
+disabled. We define “Services” as any activity in employment, or self-employment that
+is performed or is normally performed for pay or profit. We cannot cease disability
+during the TWP based on a beneficiary’s work activity.
+
+B. What is the TWP?
+
+•
+
+An initial determination that carries appeal rights, and is protected by the provisions
+of administrative finality.
+
+•
+
+Consists of nine service months which do not have to be consecutive.
+
+•
+
+Continues only while the beneficiary has a disabling impairment.
+
+NOTE: If a beneficiary returns to work when there is a medical improvement expected (MIE)
+diary, the possibility of medical recovery exists. We must evaluate MIE diary cases
+for medical improvement as soon as the beneficiary returns to work, unless they are
+protected from a medical continuing disability review (CDR) under the Ticket to Work
+program, or under the Protection from Medical Review based on Work Activity provision.
+
+References:
+
+•
+
+DI 13005.001, Field Office Role In Medical Issue Cases
+
+•
+
+DI 13005.005, Basis for Deciding Continuance of Disability
+
+•
+
+DI 13005.005 Medical Improvement Diaries
+
+•
+
+DI 13010.012, Protection from Medical Review Based on Work Activity
+
+•
+
+DI 13010.060, Determining Trial Work Period (TWP) Service Months and Evaluating Subsequent Work
+Activity
+
+•
+
+DI 41001.025, TWP and EPE Provisions of the Law as They Apply to Statutorily Blind Individuals
+
+•
+
+GN 03101.040, Appeals- Initial Determination
+
+•
+
+DI 55025.001, Determining Ticket Status
+
+C. Entitlement to TWP
+
+1. Beneficiaries are entitled to a TWP:
+
+•
+
+Only once during a period of disability for Title II disability beneficiaries.
+
+•
+
+After completing the initial reinstatement period (IRP) and after we reinstate disability
+through the expedited reinstatement (EXR) provisions (see DI 13050.001).
+
+2. Beneficiaries not entitled to a TWP:
+
+•
+
+Any Title XVI only recipient (effective 07/01/1987).
+
+•
+
+Beneficiaries entitled to a freeze only (see DI 10105.025).
+
+•
+
+Beneficiaries already entitled to a TWP during the same period of disability. NOTE: a statutorily blind individual who was eligible for cash benefits, entered into
+freeze status due to work, and then became eligible for cash benefits again is in
+one continuous period of disability.
+
+•
+
+Beneficiaries reinstated through the EXR provisions who have not completed the 24-month
+IRP (see DI 13050.066).
+
+•
+
+Prior to 01/1992, a beneficiary re-entitled to disability insurance benefits (DIB)
+or disabled widow’s benefits (DWB) without serving a waiting period. For work determinations
+made 08/10/2000 and later, see DI 13010.035F.
+
+•
+
+Statutorily blind beneficiaries, age 55 or older, entitled to disability benefits
+while engaging in non-comparable substantial gainful activity (SGA), stopped working
+because of an impairment, and later returned to non-comparable SGA that required no
+significant vocational adjustment, or stopped work for reasons unrelated to an impairment
+(see DI 41001.025).
+
+•
+
+A beneficiary who is receiving continued benefits under section 301 of PL 96-265 (see
+DI 14505.001).
+
+D. When the TWP begins and ends
+
+1. The TWP begins:
+
+The TWP begins no earlier than the latest of the following dates:
+
+•
+
+The month the beneficiary files the application (or protective filing date).
+
+•
+
+The month that a disabled beneficiary becomes first entitled, or is re-entitled, to
+a Title II disability benefit.
+
+•
+
+For EXR cases, the month after the IRP is completed.
+
+•
+
+For a DWB case, 12/1980.
+
+•
+
+For Childhood Disability benefits (CDB), the later of:
+
+the month the beneficiary attains age 18, or
+
+the first month of entitlement to CDB benefits (whether or not a new application is
+needed).
+
+Begin counting the TWP months when the beneficiary returns to work and has earnings
+that meet the definition of services as shown in DI 13010.060, “Determining Trial Work Period (TWP) Service Months and Evaluating Subsequent Work
+Activity.”
+
+EXAMPLE 1: A beneficiary becomes entitled to disability effective 11/2008 based on an application
+filed in 07/2008. We discover that the beneficiary engaged in non-SGA work in 09/2008,
+but earned over the amount for a TWP service month. The work in 09/2008 cannot be
+a TWP service month, because the TWP can not begin before 11/2008 (the Month of Entitlement
+(MOET)).
+
+EXAMPLE 2: A beneficiary becomes entitled to disability effective 01/2008 based on an application
+filed in 09/2008. We discover that the beneficiary engaged in non-SGA level work from
+06/2008 through 11/2008. Since the TWP cannot begin before the month of filing, we
+determine that the work activity from 06/2008 through 08/2008 cannot be considered
+TWP months. We have to evaluate work from 09/2008 through 11/2008 to determine if
+they are TWP service months.
+
+EXAMPLE 3: A beneficiary becomes entitled to disability benefits effective 01/2009, based on
+an application filed in 07/2009. The beneficiary received a final determination notice
+in 08/2009. The beneficiary reports that they worked SGA in 10/2009. We determine
+that work activity was performed after the waiting period and after the final determination; therefore, the TWP provisions apply. Begin counting
+the TWP months with the first month of SGA, 10/2009.
+
+2. The TWP ends:
+
+a. Effective 01/1992 – Rolling TWP applies
+
+Under the rolling 60-month TWP provision, the TWP is complete when nine service months
+fall within a 60 consecutive-month rolling period ending no earlier than 01/1992 (see
+DI 13010.060D).
+
+EXAMPLE 1: A beneficiary returns to work in 11/2007, continues to work, and earns $950 per
+month. Review of their file indicates that they were entitled to a TWP prior to 01/2007,
+and previously completed two months of their TWP in 2004. Since they completed less
+than nine months of trial work under the old TWP provisions as of 01/1992, they are
+entitled to the rolling 60-month TWP provisions. We establish a TWP diary for 05/2008
+because they are close to completing the ninth TWP service month.
+
+EXAMPLE 2: In 02/1992, a beneficiary advises us that they returned to work in 08/1991. They
+stopped work in 02/1992, and earned $800 per month. Review of our records shows that
+they were entitled to a TWP prior to 01/1992, and that they previously completed two
+months of their TWP in 03/1987. In 12/1993, they tell us that they returned to work
+in 08/1993 and is continuing to work. Since they completed less than nine months of
+trial work under the old TWP provisions as of 01/1992, they are entitled to the rolling
+60-month TWP provisions. They completed the ninth service month in 02/1992. The begin
+date of the 60-month period ending 02/1992 is 03/1987.
+
+Counting the service months within the period 03/1987- 02/1992, we see that they completed
+only eight service months, so the TWP continued. When evaluating the work beginning
+in 08/1993, the 60-month period ending 08/1993 begins 09/1988. Counting the service
+months within that period, we see that they only completed eight service months: 08/1991
+through 02/1992 and 08/1993. Rolling to the next service month, 09/1993, we roll back
+60 months to 10/1988 and find that they completed nine service months within the 60-month
+period 10/1988 - 09/1993: 08/1991 through 02/1992, 08/1993, and 09/1993.
+
+b. Prior to 01/1992 – Rolling TWP does not apply
+
+The TWP ends with the ninth month that the beneficiary performed services in the TWP,
+or when the disability ceased for reasons other than work (e.g., medical recovery),
+whichever is earlier. Most beneficiaries are entitled to a TWP beginning with the
+first month of entitlement, but does not mean that they are automatically entitled
+to nine months of trial work.
+
+EXAMPLE 1: A beneficiary entitled to disability benefits 07/1984 based on an application filed
+in 07/1984 (no Medical Improvement Expected (MIE) diary was established, and medical
+recovery has not occurred) began work in 01/1985, and continued in all succeeding
+months. The TWP ends 09/1985.
+
+EXAMPLE 2: A beneficiary entitled 07/1984 based on an application filed in 04/1984, (no MIE
+diary was established) began work 06/1985. In 09/1985, they submitted a medical report
+from their attending physician indicating recovery (i.e., affirmative evidence). Based
+on further medical development, we find medical recovery; cessation of disability
+is 10/1985, and the TWP ends 10/1985.
+
+EXAMPLE 3: A beneficiary entitled 07/1984 based on an application filed in 09/1984 (MIE diary
+was established for 06/1985) began work 01/1985. Evidence supported medical recovery
+in 01/1985. Disability ceased, and the TWP ends 01/1985 (based on a current medical
+cessation).
+
+EXAMPLE 4: A beneficiary entitled 07/1984 based on an application filed in 07/1984. We established
+a MIE diary for 06/1985. They began work in January 1985, and continued working in
+all succeeding months. Since return to work is an indication of possible medical recovery,
+the Disability Determination Services (DDS) conducted a CDR but found that the beneficiary
+was still disabled. As a result, the DDS prepared a continuance determination in 03/1985.
+When we counted the TWP service months, we found that the TWP began 01/1985, which
+is the first month that the beneficiary performed services. The TWP ends 09/1985.
+
+E. When a TWP month is not payable due to fraud or concealment of work activity
+
+1. Handling fraud allegations:
+
+You may discover potential fraud or similar fault situations involving work issues
+in a number of ways: from the Office of the Inspector General (OIG) hotline, anonymous
+tips received in the field office (FO) or referrals from the Disability Determination
+Services (DDS).
+
+If you receive an allegation that identifies concealment of work activity:
+
+•
+
+prepare and adjudicate the work CDR following current procedures found in DI 13010.025; and
+
+•
+
+annotate using the Allegation Referral Intake System ARIS, with the potential overpayment total for the TWP months, and include a separate
+total for any remaining overpayment months.
+
+2. Handling fraud convictions:
+
+If a Federal court convicts a beneficiary of fraudulently concealing work activity
+that occurred during the TWP,they are not eligible to receive payment for any TWP
+months for services performed in or after March 2004, and before the date of the conviction.
+When considering nonpayment of TWP months:
+
+•
+
+The beneficiary is still entitled to a TWP even though they are not eligible for payment
+of benefits during the TWP months covered by the conviction court order.
+
+•
+
+The beneficiary is liable for repayment if we paid them for TWP months that we should
+not have. The amount of the overpayment is subject to appeal but is not subject to waiver rights. We continue to pay all auxiliaries on the account when
+the beneficiary is suspended, but we do not readjust benefits for a family maximum
+for TWP fraud suspension.
+
+References:
+
+•
+
+GN 03101.050, Appeals - Notice of Initial Determination
+
+•
+
+DI 11006.015, Potential Fraud or Similar Fault (FSF) Cases with Work Issues
+
+•
+
+DI 11006.025, Field Office (FO) – Referring Potential Fraud or Similar Fault (FSF)
+Cases for Possible Prosecution
+
+•
+
+DI 13010.037, Trial Work Period (TWP) and Fraud Conviction.
+
+F. Impact of other work incentives on the TWP
+
+Do not apply any work incentive policy rules when determining the existence of service
+months during the TWP. Do not apply: impairment-related work expenses (IRWE), subsidy,
+special conditions, unsuccessful work attempts (UWA), un-incurred business expenses,
+unpaid help, or any other work incentive to determine countable income for the TWP.
+NOTE: Do not apply averaging when calculating TWP months. If you are unable to verify a
+monthly breakdown of earnings (see DI 10505.005F).
+
+G. TWP in a subsequent period of entitlement
+
+1. Work issue determinations made August 10, 2000 and later
+
+Effective 08/10/2000, apply the TWP provision in a subsequent period of entitlement
+to DIB, DWB, or CDB regardless if a new waiting period is served.
+
+EXAMPLE: A beneficiary who filed their application for disability on 01/10/2001 is determined
+to have an actual re-entitlement date, based on a protective filing date of 02/1990.
+We terminated their prior entitlement to disability in 1988. Since 02/1990, they first
+returned to work from: 04/1991 through 12/1991. The TWP protections apply to the 04/1991
+through 12/1991 work activity, because, even though they are a re-entitled disability
+beneficiary who did not serve a new waiting period, we are evaluating their 1991 work
+activity after 08/10/2000, when the expanded provision took effect.
+
+2. Work issue determinations made prior to August 10, 2000
+
+Prior to 08/10/2000, a re-entitled DIB or DWB beneficiary who did not serve a new
+waiting period could only receive a TWP if entitlement existed as of 01/1992 or later.
+Apply the TWP provision for a DIB or DWB in a subsequent period of entitlement if
+they:
+
+•
+
+returned to work 01/1992 or later; or
+
+•
+
+returned to work prior to 01/1992 but the work was not SGA (i.e., disability continued
+after 12/1991).
+
+•
+
+returned to work, but served a defacto TWP (see DI 13010.035B.2.).
+
+3. Work issue determinations made prior to January, 1992
+
+Do not apply TWP provisions for a beneficiary entitled to disability or DWB in a subsequent
+period of entitlement when they did not serve a waiting period (i.e., the beneficiary
+became re-entitled within 60 months of the previous entitlement) if:
+
+•
+
+we find that disability ceased because of work activity before 01/1992; and
+
+•
+
+we made the determination before 08/10/2000.
+
+An exception to this applies when the beneficiary files an application for benefits
+seventeen or more months after onset. The limitation on retroactivity of a claim creates
+a “de facto” waiting period, so we allow a TWP.
+
+H. TWP in simultaneous entitlement to DIB, DWB, or CDB benefits
+
+A beneficiary is entitled to one TWP during a period of entitlement. When a beneficiary
+is simultaneously entitled to two or more Title II disability benefits, they are entitled
+to a separate TWP on each entitlement. If we credit TWP service months on one record
+before the claimant became entitled on another record, the TWP months cannot be charged
+to the subsequent record.
+
+Consequently, the beneficiary could be in a separate work incentive status (e.g.,
+a TWP on one record and Extended Period of Eligibility (EPE) on another) if the entitlement
+dates differ, and they worked between entitlement dates; or, we could find different
+total service months used on different entitlements.
+
+Example: A disabled beneficiary is a parent with child in care (BIC E), and has Medicare (they
+are disabled and over 50, but has a child in their care). They work and use TWP or
+EPE months. When their youngest child is no longer eligible for benefits, we convert
+them to a higher benefit payment (from BIC E to BIC W - disabled widow). Consider
+this transition as one period of disability based on their entitlement as an E who
+is deemed disabled for Medicare DI 25501.360. TWP or EPE months from their E entitlement apply when they are converted to W DI 13010.035H.
+
+The Disability Control File (DCF) presents summary information for dual-entitlement
+claims, and claims with multiple TWPs. Find the summary information for a particular
+claim on the Entitlement Summary (ESUM) Screen (see MSOM CDR 002.006). Use eWork on
+all entitlements; the eWork system propagates the earnings information onto the VERN
+screen onto the DCF.
+
+NOTE: For Medicare Qualified Government Employees (MQGE): If an MQGE becomes insured for
+disability benefits, they are subject to the same disability evaluation and reviews
+as a beneficiary who is entitled to disability based on insured status. For more information
+on MQGE disability claims, see DI 11035.001.
+
+I. Entitlement to an EPE after completing the TWP -
+
+After the TWP is complete, the EPE provisions apply. Effective 01/1992, the EPE begins
+the month immediately following the ninth TWP service month completed within 60 (consecutive)
+months. If a beneficiary is not entitled to a TWP, they cannot be entitled to an EPE.
+For more information on EPE, see DI 13010.210, Extended Period of Eligibility.
+
+To Link to this section - Use this URL:
+http://policy.ssa.gov/poms.nsf/lnx/0413010035
+
+DI 13010.035 - The Trial Work Period (TWP) - 03/09/2016
+
+Batch run: 05/08/2026
+
+Rev:03/09/2016

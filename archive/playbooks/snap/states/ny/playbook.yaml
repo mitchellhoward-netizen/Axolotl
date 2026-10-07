@@ -1,0 +1,468 @@
+schema_version: 2
+program: snap
+scope: ny
+title: SNAP — New York
+last_researched: 2026-10-07
+
+summary:
+  plain_language: >-
+    New York's SNAP uses the federal income limits, allotments and
+    deductions, plus regional utility allowances (New York City, Nassau and
+    Suffolk, rest of state) and broad-based categorical eligibility: a
+    household with a member aged 60+ or disabled, or that pays dependent care,
+    qualifies with gross income up to 200% of the poverty level ($2,608 a
+    month for one person, October 2025 - September 2026) and no resource
+    test; other households with earnings qualify up to 150% ($1,957). Single
+    SSI recipients who live alone are enrolled automatically (NYSCAP), and
+    older and disabled households can use a simplified application with
+    36-month certification (ESAP). Applications go to the county Department
+    of Social Services, or HRA in New York City (ACCESS HRA online).
+  administered_by: >-
+    New York State Office of Temporary and Disability Assistance (OTDA) sets
+    policy; the 58 local social services districts (county DSS offices, and
+    the Human Resources Administration in New York City) take applications
+    and decide eligibility.
+  funded_by: Federal benefits; administrative costs shared by federal, state and local governments.
+  local_names:
+    - {name: SNAP, meaning: "Supplemental Nutrition Assistance Program (formerly food stamps)"}
+    - {name: LDSS, meaning: Local Department of Social Services (county)}
+    - {name: HRA, meaning: New York City Human Resources Administration}
+    - {name: ACCESS HRA, meaning: NYC's online application and case portal}
+    - {name: HT/AC SUA, meaning: Heating/Air Conditioning standard utility allowance}
+    - {name: NYSCAP, meaning: "New York State Combined Application Project (automatic SNAP for single SSI recipients living alone; replaced NYSNIP)"}
+    - {name: ESAP, meaning: Elderly Simplified Application Project}
+    - {name: HEAP, meaning: Home Energy Assistance Program (New York's LIHEAP)}
+  confidence: confirmed
+  sources:
+    - {source: ny-gis-25dc059, locator: "whole document"}
+    - {source: ny-hra-snap-page, locator: "Applicant rights"}
+    - {source: fns-snap-bbce-chart, locator: "New York rows"}
+
+rules:
+  - id: SNAP-NY-STANDARDS
+    statement: >-
+      New York SNAP uses the federal standards for October 2025 - September
+      2026: standard deduction $209 (1-3 people) to $299 (6+), maximum excess
+      shelter deduction $744, maximum allotment $298 for one person, minimum
+      benefit $24, gross limit (130%) $1,696 and net limit (100%) $1,305 for
+      one person, and resource limits of $3,000 ($4,500 with an aged or
+      disabled member) for households that are not categorically eligible.
+    kind: definition
+    effective_from: 2025-10-01
+    effective_to: 2026-09-30
+    parameters: [federal.snap.standard_deduction_monthly, federal.snap.excess_shelter_cap_monthly, federal.snap.max_allotment_monthly, federal.snap.min_benefit_monthly, federal.snap.gross_income_limit_monthly, federal.snap.net_income_limit_monthly, federal.snap.resource_limit]
+    implemented_in: playbooks/snap/states/ny/rules.py:evaluate
+    confidence: confirmed
+    note: New York's FFY 2027 (October 2026) standards GIS was not retrieved; the federal FY 2027 tables apply (SNAP-FED-* rules), but New York's own FY 2027 SUA and BBCE dollar figures are open (SNAP-NY-OQ-01, -02).
+    sources:
+      - {source: ny-gis-25dc059, locator: "Section 2: Deductions/Exclusions; FPL Thresholds as of October 1, 2025; Resource Limit"}
+  - id: SNAP-NY-BBCE-200
+    statement: >-
+      In New York, a SNAP household with a member aged 60 or older or disabled,
+      or that pays out-of-pocket dependent care, and with no SNAP-sanctioned or
+      IPV-disqualified member, is categorically eligible if gross income is at
+      or below 200% of the poverty level ($2,608 a month for one person, $3,525
+      for two, $5,358 for four, October 2025 - September 2026): no resource test
+      applies, and a one- or two-person household gets at least the minimum
+      benefit.
+    kind: eligibility
+    effective_from: 2025-10-01
+    parameters: [ny.snap.bbce_200_income_limit_monthly]
+    overrides: [SNAP-FED-BBCE]
+    implemented_in: playbooks/snap/states/ny/rules.py:bbce
+    confidence: confirmed
+    sources:
+      - {source: ny-gis-25dc059, locator: "footnote *: SNAP households containing any aged or disabled members, and households that pay out-of-pocket dependent care costs, that pass the 200% FPL gross income test ... are categorically eligible ... not subject to a resource test ... minimally, eligible to receive the $24 minimum allotment"}
+      - {source: fns-snap-bbce-chart, locator: "New York: Households with dependent care expenses ... No limit on assets, 200%"}
+  - id: SNAP-NY-BBCE-150
+    statement: >-
+      In New York, a SNAP household with earned income, no member aged 60+ or
+      disabled, no dependent care costs and no sanctioned or IPV member is
+      categorically eligible (no resource test) if gross income is at or below
+      150% of the poverty level ($1,957 a month for one person, $2,644 for two,
+      $4,019 for four, October 2025 - September 2026).
+    kind: eligibility
+    effective_from: 2025-10-01
+    parameters: [ny.snap.bbce_150_income_limit_monthly]
+    overrides: [SNAP-FED-GROSS-TEST]
+    implemented_in: playbooks/snap/states/ny/rules.py:bbce
+    confidence: confirmed
+    sources:
+      - {source: ny-gis-25dc059, locator: "footnote ***: SNAP households with earned income ... must pass the 150% FPL gross income test"}
+      - {source: fns-snap-bbce-chart, locator: "New York: Households with earned income are eligible ... No limit on assets, 150%"}
+  - id: SNAP-NY-NO-BBCE-OTHER
+    statement: >-
+      In New York, a SNAP household with no earned income, no member aged 60+
+      or disabled and no dependent care costs is not covered by broad-based
+      categorical eligibility: it must pass the federal 130% gross test, the
+      100% net test and the $3,000 resource limit.
+    kind: eligibility
+    effective_from: 2025-10-01
+    implemented_in: playbooks/snap/states/ny/rules.py:bbce
+    confidence: confirmed
+    note: Direct inference from the two BBCE groups in the GIS and the FNS chart; neither mentions other households, and the GIS says "A resource test only applies in situations where the household is not categorically eligible."
+    sources:
+      - {source: ny-gis-25dc059, locator: "footnotes * and ***; Resource Limit paragraph"}
+      - {source: fns-snap-bbce-chart, locator: "New York rows"}
+  - id: SNAP-NY-SUA
+    statement: >-
+      In New York (October 2025 - September 2026), SNAP uses regional utility
+      allowances: the Heating/Air Conditioning SUA is $1,062 in New York City,
+      $988 in Nassau and Suffolk and $877 in the rest of the state; the Utility
+      SUA (two or more non-heating utilities) is $419, $388 and $355; the Phone
+      SUA is $32 everywhere.
+    kind: benefit
+    effective_from: 2025-10-01
+    effective_to: 2026-09-30
+    parameters: [ny.snap.heating_cooling_sua_monthly, ny.snap.utility_sua_monthly, ny.snap.phone_sua_monthly]
+    overrides: [SNAP-FED-SUA]
+    implemented_in: playbooks/snap/states/ny/rules.py:utility_allowance
+    confidence: confirmed
+    note: >-
+      The "two or more utilities" condition for the Utility SUA comes from the
+      federal LUA rule (7 CFR 273.9(d)(6)(iii)(A)(3)); New York's own wording
+      of the eligibility conditions for each SUA was not retrieved (OTDA SNAP
+      Source Book unreachable). FNS's SUA table gives different Utility SUA
+      figures (SNAP-NY-CONFLICT-01).
+    sources:
+      - {source: ny-gis-25dc059, locator: "Standard Utility Allowances (SUA) table"}
+      - {source: ecfr-7-273-9, locator: "(d)(6)(iii)(A)(3)"}
+  - id: SNAP-NY-SUA-FY27
+    statement: >-
+      New York's SNAP utility allowances for October 2026 - September 2027
+      have not been established in this archive.
+    kind: benefit
+    effective_from: 2026-10-01
+    confidence: unresolved
+    open_question: SNAP-NY-OQ-02
+  - id: SNAP-NY-HEAP-SUA
+    statement: >-
+      In New York, after Public Law 119-21, a HEAP payment over $20 gives the
+      Heating/Air Conditioning SUA only to SNAP households with a member aged
+      60 or older or disabled; the date New York started applying this (the
+      archive uses November 1, 2025) is not confirmed from an OTDA directive.
+    kind: benefit
+    effective_from: 2025-11-01
+    implemented_in: playbooks/snap/states/ny/rules.py:utility_allowance
+    confidence: unresolved
+    open_question: SNAP-NY-OQ-03
+  - id: SNAP-NY-MEDICAL
+    statement: >-
+      In New York, SNAP households with a member aged 60 or older or disabled
+      deduct that member's actual unreimbursed medical costs above $35 a
+      month; no New York standard medical deduction was found.
+    kind: benefit
+    effective_from: 2025-10-01
+    implemented_in: playbooks/snap/federal/rules.py:federal_medical_deduction
+    confidence: unresolved
+    open_question: SNAP-NY-OQ-04
+    note: FNS's FY 2026 SUA table shows no SMD offset for New York (California's $4 offset is shown), which is consistent with New York having no SMD but does not prove it.
+  - id: SNAP-NY-MSP-MEDICAL-FREEZE
+    statement: >-
+      Whether New York (OTDA directive 02 ADM-07) keeps a SNAP household's
+      medical deduction unchanged until the next recertification after a
+      Medicare Savings Program starts paying the Part B premium is not
+      confirmed; federal rules forbid acting mid-certification on such a
+      change only when acting would require contacting the household.
+    kind: timing
+    effective_from: 2002-01-01
+    confidence: unresolved
+    open_question: SNAP-NY-OQ-05
+    note: >-
+      The MSP playbook cites this freeze from NYSOFA's HIICAP manual. The OTDA
+      directive could not be retrieved (otda.ny.gov unreachable). The
+      effective date is the directive's year as cited, not confirmed.
+  - id: SNAP-NY-NYSCAP
+    statement: >-
+      In New York, single SSI recipients whom SSA lists as living alone are
+      enrolled in SNAP automatically through the New York State Combined
+      Application Project (NYSCAP), without an application or interview; they
+      start at a standard benefit (as low as the minimum) that can be raised by
+      returning the LDSS-4841 information sheet, and the case closes if the
+      benefits are not used within 90 days.
+    kind: procedure
+    effective_from: 2024-12-01
+    confidence: secondary
+    open_question: SNAP-NY-OQ-08
+    note: Rests on Hunger Solutions New York; OTDA directives on NYSCAP were not retrievable. NYSCAP replaced the older NYSNIP by December 1, 2024 (same source).
+    sources:
+      - {source: hsny-nyscap, locator: "NYSCAP automatically enrolls single SSI live-alone recipients ... LDSS-4841 ... within the first 90 days"}
+  - id: SNAP-NY-ESAP
+    statement: >-
+      In New York, SNAP households whose adult members are all aged 60+ or
+      disabled, with no earned income and not in NYSCAP, can use the Elderly
+      Simplified Application Project (ESAP): a 36-month certification period
+      and no interview at recertification (an interview is still required at
+      the first application).
+    kind: procedure
+    effective_from: 2021-12-01
+    confidence: secondary
+    open_question: SNAP-NY-OQ-06
+    note: Rests on Hunger Solutions New York. The ESAP start date and whether New York has applied FNA's 2026 change excluding non-disabled people aged 60-64 from ESAP projects are open.
+    sources:
+      - {source: hsny-esap, locator: "ESAP-eligible households benefit from: 36-month certification period ... No interview at recertification; ESAP Eligibility"}
+  - id: SNAP-NY-ABAWD
+    statement: >-
+      In New York City, HRA began applying the Public Law 119-21 ABAWD rules on
+      November 1, 2025, with ABAWDs required to meet the work requirement from
+      March 1, 2026.
+    kind: timing
+    effective_from: 2025-11-01
+    confidence: confirmed
+    county_varies: true
+    note: Dates for the rest of the state were not found (SNAP-NY-OQ-07).
+    sources:
+      - {source: ny-hra-snap-page, locator: "ABAWD Work Requirement: On November 1, 2025, HRA was required to implement ... beginning March 1, 2026"}
+  - id: SNAP-NY-SSI-AT-SSA
+    statement: >-
+      In New York City, a household in which every member receives or is
+      applying for SSI may apply for SNAP at the Social Security office instead
+      of the SNAP center.
+    kind: procedure
+    effective_from: 2025-10-01
+    confidence: confirmed
+    sources:
+      - {source: ny-hra-snap-page, locator: "If all members of your household are currently receiving Supplemental Security Income (SSI) or plan to apply for SSI, you may apply for SNAP Benefits at the Social Security Office"}
+
+procedure:
+  applications:
+    - id: SNAP-NY-PROC-FORM
+      text: The statewide paper application is OTDA form LDSS-4826; in New York City it can be mailed, faxed or filed in person, or the application can be done online at ACCESS HRA.
+      form_number: LDSS-4826
+      form_name: Application for SNAP (OTDA)
+      url: https://otda.ny.gov/programs/applications/4826.pdf
+      confidence: confirmed
+      sources: [{source: ny-hra-snap-faq, locator: "Print, Mail, or Fax a SNAP Application (link to otda.ny.gov/programs/applications/4826.pdf)"}]
+    - id: SNAP-NY-PROC-ACCESS-HRA
+      text: New York City residents can apply, recertify, upload documents and check status online at ACCESS HRA (nyc.gov/accesshra) or the ACCESS HRA app.
+      channel: online
+      url: https://www.nyc.gov/accesshra
+      county_varies: true
+      confidence: confirmed
+      sources: [{source: ny-hra-snap-page, locator: "To apply for SNAP or manage your case, go to ACCESS HRA"}, {source: ny-hra-snap-faq, locator: "submit online ... ACCESS HRA"}]
+    - id: SNAP-NY-PROC-MYBENEFITS
+      text: Outside New York City, online applications are made through the state's myBenefits portal; this was not confirmed from an OTDA source.
+      channel: online
+      county_varies: true
+      confidence: unresolved
+      open_question: SNAP-NY-OQ-07
+    - id: SNAP-NY-PROC-ESAP-FORM
+      text: ESAP households can use the simplified application/recertification form LDSS-5166.
+      form_number: LDSS-5166
+      confidence: secondary
+      sources: [{source: hsny-esap, locator: "Applying for ESAP"}]
+  documents:
+    - id: SNAP-NY-DOC-SSN
+      text: Each member applying needs a Social Security number or proof of having applied for one; ineligible non-citizen parents can apply for eligible children without giving their own.
+      confidence: confirmed
+      sources: [{source: ny-hra-snap-faq, locator: "Do I need to have a Social Security Number (SSN)"}]
+  filing:
+    - id: SNAP-NY-FILE-NYC
+      text: "In New York City: online (ACCESS HRA), in person at an HRA SNAP Center, by mail or fax (recertifications: Centralized Recertification Mail Unit, P.O. Box 29008, Brooklyn, NY 11202; fax 917-639-2554), or by phone through the DSS OneNumber 718-557-1399."
+      channel: any
+      county_varies: true
+      confidence: confirmed
+      sources: [{source: ny-hra-snap-faq, locator: "My SNAP recertification is due and I can't use ACCESS HRA"}, {source: ny-hra-snap-page, locator: "Applicant rights"}]
+    - id: SNAP-NY-FILE-COUNTY
+      text: Outside New York City, applications go to the county Department of Social Services; addresses and in-person options vary by county.
+      county_varies: true
+      confidence: unresolved
+      open_question: SNAP-NY-OQ-07
+  timelines:
+    - id: SNAP-NY-TIME-INTERVIEW
+      text: After applying or recertifying in New York City, the household must complete an interview, by phone through HRA's On Demand line (929-273-1872, weekdays 8:30-5:00) or in person on request.
+      channel: phone
+      confidence: confirmed
+      sources: [{source: ny-hra-snap-interview, locator: "SNAP Interview Instructions"}]
+  approval_notice:
+    - id: SNAP-NY-NOTICE
+      text: The district sends a notice of decision with the benefit and certification period; NYC households can also see it in ACCESS HRA ("View My Cases") and get a budget letter via ACCESS HRA or 718-557-1399.
+      confidence: confirmed
+      sources: [{source: ny-hra-snap-faq, locator: "How can I get a budget letter? / How can I see the most up to date information"}]
+  renewal:
+    - id: SNAP-NY-RENEW
+      text: Households recertify before the certification period ends (NYC online through ACCESS HRA or by mail/fax/in person); ESAP households recertify every 36 months without an interview.
+      confidence: secondary
+      note: The NYC part is primary (HRA FAQ); the ESAP part rests on Hunger Solutions New York.
+      sources: [{source: ny-hra-snap-faq, locator: "What do I do if I didn't receive a recertification form?"}, {source: hsny-esap, locator: "36-month certification period"}]
+  county_variation:
+    - id: SNAP-NY-COUNTY
+      text: Each county DSS (HRA in New York City) runs SNAP; utility allowances differ by region (NYC, Nassau/Suffolk, rest of state); filing channels and ABAWD start dates differ by district.
+      county_varies: true
+      confidence: confirmed
+      sources: [{source: ny-gis-25dc059, locator: "SUA table by Geographic Area"}, {source: ny-hra-snap-page, locator: "ABAWD Work Requirement"}]
+
+life_events:
+  - id: SNAP-NY-LE-EARNINGS
+    code: income_drop
+    event: A worker's earnings drop (or a household starts working)
+    why: Households with earnings qualify up to 150% FPL with no resource test; without earnings (and no aged/disabled member or dependent care) the 130% gross and $3,000 resource tests apply.
+    check_rules: [SNAP-NY-BBCE-150, SNAP-NY-NO-BBCE-OTHER]
+    confidence: confirmed
+    sources: [{source: ny-gis-25dc059, locator: "footnote ***"}]
+  - id: SNAP-NY-LE-SSI
+    code: benefit_change
+    event: A person living alone starts SSI
+    why: They should be enrolled in SNAP automatically through NYSCAP and can return the LDSS-4841 to raise the benefit.
+    check_rules: [SNAP-NY-NYSCAP]
+    confidence: secondary
+    sources: [{source: hsny-nyscap, locator: "NYSCAP"}]
+  - id: SNAP-NY-LE-MSP
+    code: benefit_change
+    event: MSP (QMB or QI) approval starts paying the Part B premium
+    why: The $202.90 premium leaves the SNAP medical deduction; whether New York waits until recertification (02 ADM-07) is open.
+    check_rules: [SNAP-NY-MSP-MEDICAL-FREEZE, SNAP-NY-MEDICAL]
+    confidence: unresolved
+    open_question: SNAP-NY-OQ-05
+  - id: SNAP-NY-LE-MOVE-COUNTY
+    code: move_county
+    event: Moving between New York City, Long Island and the rest of the state
+    why: The utility allowance changes by region (e.g. HT/AC $1,062 NYC vs $877 upstate in FY 2026), and the case moves to the new district.
+    check_rules: [SNAP-NY-SUA]
+    confidence: confirmed
+    sources: [{source: ny-gis-25dc059, locator: "SUA table"}]
+  - id: SNAP-NY-LE-TURN-60
+    code: turning_65
+    event: A member turns 60 (SNAP's elderly age; the shared code is turning_65)
+    why: The household moves into the 200% BBCE group (no resource test), drops the gross test, and gets the medical and uncapped shelter deductions.
+    check_rules: [SNAP-NY-BBCE-200, SNAP-NY-MEDICAL]
+    confidence: confirmed
+    sources: [{source: ny-gis-25dc059, locator: "footnote *"}]
+
+outcome_proof:
+  - id: SNAP-NY-PROOF-NOTICE
+    evidence: District notice of decision (NYC also shows it in ACCESS HRA "View My Cases")
+    shows: SNAP approved, monthly amount, certification period.
+    how_to_get: Mailed by the district; in NYC via ACCESS HRA or a budget letter (718-557-1399)
+    confidence: confirmed
+    sources: [{source: ny-hra-snap-faq, locator: "budget letter; View My Cases"}]
+
+links:
+  - id: SNAP-NY-LINK-MSP
+    playbook: msp
+    rules: [SNAP-NY-MSP-MEDICAL-FREEZE, SNAP-FED-MSP-PART-B]
+    relation: >-
+      MSP approval removes the $202.90 Part B premium from the SNAP medical
+      deduction; for a one-person upstate household the SNAP benefit falls by
+      about $50 a month once applied (test SNAP-X-01, which models the
+      crossing the MSP playbook reserves as MSP-X-03). Whether New York
+      freezes the deduction until recertification (02 ADM-07) is unresolved.
+    test: SNAP-X-01
+    confidence: confirmed
+    sources: [{source: ecfr-7-273-9, locator: "(d)(3)(v)"}, {source: ecfr-7-273-12, locator: "(c)"}]
+
+open_questions:
+  - id: SNAP-NY-OQ-01
+    priority: high
+    question: What are New York's 200% and 150% FPL BBCE gross income limits for October 2026 - September 2027 (FFY 2027 SNAP standards GIS)?
+    why_it_matters: Households that fail the regular tests (assets over the limit, gross over 130%) can only be decided with these numbers; the evaluator returns undetermined for them after October 1, 2026.
+    checked: [otda.ny.gov GIS 2026 index (unreachable), web search for a county copy of the FFY 2027 GIS]
+    affects: [ny.snap.bbce_200_income_limit_monthly, ny.snap.bbce_150_income_limit_monthly]
+    status: open
+  - id: SNAP-NY-OQ-02
+    priority: high
+    question: What are New York's HT/AC, Utility and Phone SUAs for October 2026 - September 2027?
+    why_it_matters: Every New York household with utility costs needs them; FY 2027 cases with utilities return undetermined.
+    checked: [otda.ny.gov (unreachable), FNS SUA page (FY 2026 table only)]
+    affects: [ny.snap.heating_cooling_sua_monthly, ny.snap.utility_sua_monthly, ny.snap.phone_sua_monthly, SNAP-NY-SUA-FY27]
+    status: open
+  - id: SNAP-NY-OQ-03
+    priority: low
+    question: From what date did New York stop giving the HT/AC SUA on the basis of HEAP alone to households without an aged or disabled member (a search snippet of an OTDA GIS says November 1, 2025)?
+    why_it_matters: Only affects cases dated between July and November 2025.
+    checked: [GIS 25 DC059 (not in its text), web search snippet only]
+    affects: [SNAP-NY-HEAP-SUA]
+    status: open
+  - id: SNAP-NY-OQ-04
+    priority: medium
+    question: Does New York offer a SNAP standard medical deduction, or only actual medical costs over $35?
+    why_it_matters: A standard deduction would raise benefits for older members with small medical bills and change the MSP crossing.
+    checked: [GIS 25 DC059, FNS FY 2026 SUA table (no SMD offset for NY)]
+    affects: [SNAP-NY-MEDICAL]
+    status: open
+  - id: SNAP-NY-OQ-05
+    priority: medium
+    question: Is OTDA 02 ADM-07 (or a later directive) still in force, and does it keep the SNAP medical deduction unchanged until recertification when the MSP starts paying the Part B premium?
+    why_it_matters: Members on SNAP who get MSP need to know when their SNAP will drop; the MSP playbook (MSP-NY-OQ-05) depends on the answer.
+    checked: [otda.ny.gov directives (unreachable), 7 CFR 273.12(c) (federal frame)]
+    affects: [SNAP-NY-MSP-MEDICAL-FREEZE, SNAP-NY-LINK-MSP]
+    status: open
+  - id: SNAP-NY-OQ-06
+    priority: medium
+    question: What does OTDA say about ESAP eligibility now (start date, 36-month period, LDSS-5166), and has New York applied FNA's 2026 modification removing non-disabled people aged 60-64 from ESAP projects?
+    why_it_matters: Decides whether a 60-64-year-old retiree gets a 36-month certification without recertification interviews.
+    checked: [Hunger Solutions New York ESAP page]
+    affects: [SNAP-NY-ESAP]
+    status: open
+  - id: SNAP-NY-OQ-07
+    priority: medium
+    question: Outside New York City, what are the online (myBenefits) and county filing channels, interview practice and ABAWD implementation dates?
+    why_it_matters: Most union retirees outside NYC apply to their county DSS.
+    checked: [HRA pages (NYC only)]
+    affects: [SNAP-NY-PROC-MYBENEFITS, SNAP-NY-FILE-COUNTY, SNAP-NY-ABAWD]
+    status: open
+  - id: SNAP-NY-OQ-08
+    priority: medium
+    question: Confirm NYSCAP rules (eligibility, standard benefit, LDSS-4841, 90-day use rule) from an OTDA directive.
+    why_it_matters: SSI recipients living alone should not be told to file an application.
+    checked: [Hunger Solutions New York NYSCAP page]
+    affects: [SNAP-NY-NYSCAP]
+    status: open
+
+conflicts:
+  - id: SNAP-NY-CONFLICT-01
+    topic: New York Utility SUA amounts by region, October 2025
+    claims:
+      - source: ny-gis-25dc059
+        locator: "SUA table"
+        says: "UTIL SUA: NYC $419, Nassau & Suffolk $388, Rest of State $355."
+      - source: fns-snap-sua-fy26
+        locator: "New York rows, BUA/LUA column"
+        says: "Nassau and Suffolk 419, New York City 419, Rest of New York State 388."
+    handling: >-
+      The archive uses OTDA's directive, which districts budget with; the FNS
+      spreadsheet's New York LUA column looks shifted by one region. HT/AC and
+      Phone amounts agree.
+    affects: [ny.snap.utility_sua_monthly]
+    status: open
+  - id: SNAP-NY-CONFLICT-02
+    topic: Which New York households get 200% FPL BBCE
+    claims:
+      - source: ny-gis-25dc059
+        locator: "footnote *"
+        says: Households with any aged or disabled member, and households paying out-of-pocket dependent care, are categorically eligible up to 200% FPL.
+      - source: fns-snap-bbce-chart
+        locator: "New York rows"
+        says: "Households with dependent care expenses: 200%; households with earned income: 150% (no row for aged/disabled households)."
+    handling: The archive follows OTDA's directive (200% for aged/disabled households too); the FNS chart lists only the two TANF/MOE programs, and aged/disabled households without BBCE would still face only the net test.
+    affects: [SNAP-NY-BBCE-200]
+    status: open
+
+claims_checked:
+  - claim: New York BBCE gross limit is 150% or 200% FPL for elderly/disabled/earned-income households.
+    verdict: corrected
+    detail: 200% applies to households with an aged or disabled member or with dependent care costs; 150% applies to households with earnings and none of those. Households with neither get no BBCE (130% gross, $3,000 resources).
+    sources: [{source: ny-gis-25dc059, locator: "footnotes * and ***"}]
+  - claim: New York SUAs (heating/cooling, utility, phone) differ by region.
+    verdict: verified
+    detail: "FY 2026: HT/AC $1,062 NYC, $988 Nassau-Suffolk, $877 rest; UTIL $419/$388/$355; Phone $32. FY 2027 amounts not retrieved."
+    sources: [{source: ny-gis-25dc059, locator: "SUA table"}]
+  - claim: New York has a standard medical deduction.
+    verdict: unverified
+    detail: None found; the archive uses actual costs over $35 (SNAP-NY-OQ-04).
+  - claim: NYSNAP serves SSI recipients (NY SNAP Combined Application Project).
+    verdict: partly_verified
+    detail: The program is NYSCAP (New York State Combined Application Project), which replaced NYSNIP by December 2024; it auto-enrolls single SSI recipients living alone. Only a secondary source was available.
+    sources: [{source: hsny-nyscap, locator: "NYSCAP"}]
+  - claim: New York has ESAP (elderly simplified application).
+    verdict: partly_verified
+    detail: 36-month certification, no recertification interview, form LDSS-5166; secondary source only.
+    sources: [{source: hsny-esap, locator: "ESAP"}]
+  - claim: Forms LDSS-4826, myBenefits and ACCESS HRA; an interview is required.
+    verdict: partly_verified
+    detail: LDSS-4826 and ACCESS HRA and the interview are confirmed by HRA pages; myBenefits was not confirmed.
+    sources: [{source: ny-hra-snap-faq, locator: "Print, Mail, or Fax"}, {source: ny-hra-snap-interview, locator: "whole page"}]
+  - claim: OTDA 02 ADM-07 freezes the SNAP medical deduction between certifications when the MSP starts paying Part B (cited by the MSP playbook via NYSOFA).
+    verdict: unverified
+    detail: The directive could not be retrieved (otda.ny.gov refused every request). Federal 7 CFR 273.12(c) bars acting mid-certification on medical changes learned from other sources only when verification would require contacting the household; neither confirmed nor refuted for New York.
+    sources: [{source: ecfr-7-273-12, locator: "(c)"}]

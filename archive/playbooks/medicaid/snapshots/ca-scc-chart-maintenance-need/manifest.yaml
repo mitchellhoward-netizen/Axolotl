@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://stgenssa.sccgov.org/debs/program_handbooks/charts/assets/5MediCal/MaintNeed.htm
+  final_url: https://stgenssa.sccgov.org/debs/program_handbooks/charts/assets/5MediCal/MaintNeed.htm
+  status: 200
+  content_type: text/html
+  text_sha256: bfb9206c4e9bc958490437df3afc99e47b555aae359755c54d19a442ec2ae823
+  text: ca-scc-chart-maintenance-need/2026-10-07.txt
+  raw: ca-scc-chart-maintenance-need/2026-10-07.html

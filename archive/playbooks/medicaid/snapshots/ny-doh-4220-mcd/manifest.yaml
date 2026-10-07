@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://healthweb-back.health.ny.gov/forms/doh-4220.pdf
+  final_url: https://healthweb-back.health.ny.gov/forms/doh-4220.pdf
+  status: 200
+  content_type: application/pdf
+  text_sha256: bf57e3d3b3893c5f065bbe35a0291fb5771cbbb4a7e30893ae2f7af5eb5b19f7
+  text: ny-doh-4220-mcd/2026-10-07.txt
+  raw: ny-doh-4220-mcd/2026-10-07.pdf

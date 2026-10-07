@@ -1,0 +1,63 @@
+The 90-Day Cure Period
+
+The 90-Day Cure Period applies to clients who are discontinued for non-compliance in the following situations:
+
+Redetermination
+
+Change in Circumstance
+
+Returned Mail
+
+Individuals who comply within 90 days of discontinuance must have their case rescinded back to the original discontinuance date with no break in aid. The 90-Day Cure Period does not apply to any other situation (i.e., at intake [denial/discontinuance], client requests discontinuance, etc.)
+
+The end of the 90-Day Cure Period is automatically entered on the discontinuance NOA.
+
+If the client complies within the 90-Day Cure Period and the client is found...
+
+Then...
+
+Eligible for MAGI MC,
+
+MC benefits must be restored back to the discontinuance date.
+
+A NOA mailed to the client informing them of restoration and no break in aid.
+
+Document actions in the Journal page.
+
+The original application and renewal dates must be kept in the case once benefits are restored.
+
+Exception: For CICs, the RD date will be extended one year if all required verifications are provided.
+
+Ineligible for MAGI MC,
+
+Refer to MAGI MC Ineligibility
+
+New Application During 90 Day Cure Period
+
+If part of a household applies for MC and there is an existing case still within the 90 Day Cure Period, it must be processed according to the following table:
+
+If...
+
+Then...
+
+Example
+
+The individual(s) applying provide the missing information from the original Redetermination,
+
+The Continuing worker must rescind the existing case, complete the RD, and create a new case for the individual(s) that are applying on their own, per existing business process.
+
+A family is discontinued June 3rd for not providing the 20 year old son’s pay stubs. August 10th, the 20 year old who now files taxes on their own, applies in office for Medi-Cal and includes pay stubs with the application. Because this was the only information missing from the existing case’s Redetermination, it can be rescinded and processed and the continuing worker will remove the 20 year old son from the home and create a new case.
+
+The individual(s) applying do not provide the missing information from the original Redetermination,
+
+The Continuing worker must forward the application to Intake for processing.
+
+A family is discontinued in April for not providing Mom’s pay stubs at Redetermination. In June, the 20 year old daughter who now files taxes on her own, applies for Medi-Cal. Because the daughter’s information is not sufficient to rescind the existing case, the application is forwarded to Intake for processing, and the existing case remains discontinued.
+
+Note: This policy is only for cases discontinued for 90-Day Cure Period reasons. To rescind MC in CalSAWS [Refer to CATS CB 2022-23: How to rescind a program]
+
+Related Topics
+
+Redeterminations
+
+Change in Circumstance

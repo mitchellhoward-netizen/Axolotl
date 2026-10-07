@@ -1,0 +1,117 @@
+Skip to content
+
+Program Operations Manual System (POMS)
+
+Effective Dates: 07/26/2023 - Present
+Previous | Next
+
+TN 53 (07-23)
+
+GN 00205.038 Retirement, Survivor Insurance (RSI) Applications When Claimant Alleges Disability
+
+A. Procedure
+
+1. No disability insurance benefits (DIB) insured status and a title XVI claim is pending
+
+Unless an exception in SI 00601.035B.1. exists, complete a separate title II application. Complete an abbreviated title II
+application if the claimant meets the requirements in GN 00204.009 B.1. If the claimant does not meet all of the requirements, complete a full disability
+application. (See SI 02309.010 for processing the insured status (KZ) diary for title XVI claimants already in current
+pay status.)
+
+2. Title II claim only and no DIB insured status
+
+a. RSI claimant alleges disability and they are or were ineligible for DIB or freeze
+
+If an RSI claimant alleges disability (or a Survivor claimant alleges that the deceased
+numberholder (DNH) was disabled) but is or was ineligible for DIB or freeze because
+they do not have disability insured status, take the following actions.
+
+•
+
+Process the RSI claim.
+
+•
+
+Do not complete an SSA-16-BK or Modernized Claims System (MCS) equivalent (unless
+the claimant insists on filing for DIB).
+
+•
+
+Document the file that you are not pursuing disability benefits (use the RPOC screen
+for MCS applications) and state the reason.
+
+b. DIB insured status could be met based on earlier onset or freeze
+
+If the claimant does not meet DIB insured status based upon an earlier onset or because
+a prior freeze period ended within the past 5 years:
+
+•
+
+complete an SSA-16-BK or MCS equivalent, and
+
+•
+
+forward the DIB claim to the Disability Determination Services (DDS) or program service center (PSC) for the disability determination.
+
+c. Uninsured claimant insists on filing a DIB application
+
+If the uninsured claimant insists on filing a DIB application:
+
+•
+
+complete an SSA-16-BK or MCS abbreviated application, but do not send it for a disability
+determination.
+
+•
+
+process the RIB application, wait one day and trigger the DIB denial.
+
+3. Title II application and onset alleged after first day of fifth month before full
+retirement age
+
+If the claimant does not wish to limit the scope of their application, it is a claim
+for a freeze and DIB, and Retirement Insurance benefits (RIB), auxiliary, or survivor
+benefits.
+
+•
+
+Process the RSI claim if an earlier onset date is not possible and there was no prior
+freeze, or DIB, which ended within 5 years before the month the current disability
+began.
+
+•
+
+Do not complete an SSA-16-BK or MCS equivalent and do not request a disability Earnings
+Computation (EC) or Informational/Certified Earnings Records (ICERS).
+
+•
+
+Document the file (on the RPOC screen for MCS applications) that you are not pursuing
+disability benefits and state the reason.
+
+EXAMPLE: John worked steadily until 01/15/11 when they were in a car accident that paralyzed
+them. Since there is no reason to question the alleged onset date and they will be
+FRA on 04/12/11, no DIB application is completed.
+
+B. References
+
+•
+
+Adjudicating Title II When a Title XVI Application Is Filed, SI 00601.035
+
+•
+
+Disability Insurance Benefits (DIB) and Freeze, DI 11010.000
+
+•
+
+Title II Technical Denials, and Claims Not Requiring a Disability Determination, DI 11010.075
+
+To Link to this section - Use this URL:
+http://policy.ssa.gov/poms.nsf/lnx/0200205038
+
+GN 00205.038 - Retirement, Survivor Insurance (RSI) Applications When Claimant Alleges Disability - 07/26/2023
+
+Batch run: 08/17/2026
+
+Rev:07/26/2023

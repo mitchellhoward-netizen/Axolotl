@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://stgenssa.sccgov.org/debs/program_handbooks/medi-cal/assets/00Updates/Updates2025/2025_Update_Medi-Cal_Expansion_Freeze.htm
+  final_url: https://stgenssa.sccgov.org/debs/program_handbooks/medi-cal/assets/00Updates/Updates2025/2025_Update_Medi-Cal_Expansion_Freeze.htm
+  status: 200
+  content_type: text/html
+  text_sha256: ff9132f9bb5e3d2ef98a6e85e4aa90d694864dc0e011a71c4f003e4e9d7430f2
+  text: ca-scc-mc-update-2025-10-expansion-freeze/2026-10-07.txt
+  raw: ca-scc-mc-update-2025-10-expansion-freeze/2026-10-07.html

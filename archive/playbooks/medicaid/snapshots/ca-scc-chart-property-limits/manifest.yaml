@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://stgenssa.sccgov.org/debs/program_handbooks/charts/assets/5MediCal/PropLimits.htm
+  final_url: https://stgenssa.sccgov.org/debs/program_handbooks/charts/assets/5MediCal/PropLimits.htm
+  status: 200
+  content_type: text/html
+  text_sha256: 4a3cdc771011c8c633e44ca5553954f8d370f0c6bf27f4328a38d78e0e715f3c
+  text: ca-scc-chart-property-limits/2026-10-07.txt
+  raw: ca-scc-chart-property-limits/2026-10-07.html

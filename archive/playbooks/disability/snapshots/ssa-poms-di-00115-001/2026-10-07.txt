@@ -1,0 +1,68 @@
+Skip to content
+
+Program Operations Manual System (POMS)
+
+Effective Dates: 10/11/2012 - Present
+Previous | Next
+
+TN 1 (10-12)
+
+DI 00115.001 Social Security Administration’s (SSA) Disability Programs
+
+A. Overview of SSA’s disability programs
+
+SSA manages two programs that provide benefits based on disability or blindness, the
+Social Security Disability Insurance (SSDI) program and the Supplemental Security
+Income (SSI) disability program. Title II of the Social Security Act (Act) authorizes
+SSDI benefits, and title XVI of the Act authorizes SSI disability benefit payments.
+
+The SSDI program provides benefits to insured disabled or blind adults covered by
+workers’ contributions to the Social Security trust funds. We base these contributions
+on a person’s earnings under the Federal Insurance Contributions Act (FICA). Certain
+family members may also be eligible for benefits from the person’s earnings record.
+
+The SSI disability program makes monthly payments to aged (65 or older), disabled,
+or blind adults and children who have limited income and resources. The payments for
+SSI benefits come from the general fund of the United States Treasury. Many States
+also pay a supplemental benefit to persons in addition to their Federal benefits.
+
+NOTE: Unlike other programs, Social Security pays only for total disability. No benefits
+are payable for partial disability or for short-term disability.
+
+B. SSA responsibilities in the disability programs
+
+SSA is responsible for developing the policies and procedures for disability claims
+under the SSDI and SSI disability programs. SSA implements the disability policies
+and procedures through instructions issued to field offices (FO), the Disability Determination
+Services (DDS), and processing centers (PC). SSA’s Program Operations Manual System
+(POMS) Part 4, Disability Insurance (DI), contains the instructions for processing
+disability claims. Additional instructions for processing SSI disability claims are
+in POMS Part 5, Supplemental Security Income (SSI).
+
+C. Disability application process
+
+The disability process begins when a person files an application for disability benefits
+with Social Security. A person may file an application in person, by telephone, by
+mail, or on the internet at www.socialsecurity.gov . The FO determines if the applicant meets the non-disability criteria for benefits,
+i.e., age, work credits, performance of substantial gainful activity (SGA), and relationship
+to the insured worker. If the applicant meets these requirements, the FO forwards
+the application with any medical information provided by the applicant to the DDS
+in the State that has jurisdiction for the disability determination. See information
+on the DDS and SSA jurisdictions for initial and subsequent cases in DI 20101.001. The DDS determines whether a person is disabled under the Act.
+
+D. State participation in the disability determination process
+
+State agencies (the DDSs) make disability and blindness determinations for SSA. The
+DDSs are responsible for developing medical evidence and making the initial disability
+determination on whether or not a claimant is disabled or blind under the Social Security
+Act. There are 54 DDSs located in the 50 States, the District of Columbia, Puerto
+Rico, Guam, and the Virgin Islands.
+
+To Link to this section - Use this URL:
+http://policy.ssa.gov/poms.nsf/lnx/0400115001
+
+DI 00115.001 - Social Security Administration&rsquo;s (SSA) Disability Programs - 10/11/2012
+
+Batch run: 10/15/2024
+
+Rev:10/11/2012

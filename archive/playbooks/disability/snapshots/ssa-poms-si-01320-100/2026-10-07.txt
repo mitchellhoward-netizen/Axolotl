@@ -1,0 +1,414 @@
+Skip to content
+
+Program Operations Manual System (POMS)
+
+Effective Dates: 05/26/2026 - Present
+Previous | Next
+
+TN 62 (05-26)
+
+SI 01320.100 Items Not Included in Deeming - General
+
+Citation: 20 CFR 416.1161
+
+A. Introduction
+
+Receipts which are not income to an eligible individual for Supplemental Security Income (SSI) purposes also are
+not income to an ineligible spouse, essential person, ineligible parent, sponsor of
+a noncitizen, or ineligible child. (See SI 00810.005 ff. for the definition of income for SSI purposes, and examples of items that are
+not income.) In addition to items which are not income for SSI purposes, there are
+certain items which are excluded
+from the income of an individual whose income is deemed to an SSI applicant/recipient.
+Furthermore, an ineligible child's or an eligible noncitizen's allocation is not reduced
+by any of these excluded items. These exclusions from income used in the deeming computation do not
+always correspond to exclusions of an SSI recipient's own income. For example, one-third of child support payments from an absent parent (SI 00830.420) is excluded for an eligible child, but is not excluded from an ineligible child's
+income for deeming purposes.
+
+B. Policy
+
+Section 1614(f) of the Social Security Act provides that for purposes of determining
+eligibility for and the amount of SSI benefits for an eligible individual living with
+their ineligible spouse or for a child under age 18 living with their parent(s), the
+individual's/child's income (and resources) shall be deemed to include any income
+and resources of the spouse/parent, whether or not available to the individual, except to the extent determined by the
+Commissioner to be inequitable under the circumstances. The statute provides no such authority to the Commissioner for discretion in determining
+the income and resources of the sponsor of a noncitizen or an essential person deemed
+to a noncitizen or a qualified individual.
+
+The following types of income are excluded by Regulation when determining countable
+income of an ineligible spouse or ineligible parent (and spouse of a parent) subject
+to deeming. These types of income are also excluded from the income of an ineligible
+child in a household and from the income of an eligible noncitizen sponsored by an
+ineligible spouse or parent for purposes of reducing the ineligible child and eligible
+noncitizen allocations. Unless otherwise specified below, the following items are not excluded from the income of an essential person or the sponsor of a noncitizen, and
+are subject to deeming:
+
+1.
+
+Income excluded by Federal laws other than the Social Security Act (SI 00830.055); such income is also excluded from the income of an essential person; such income
+may be excluded when determining countable income of the sponsor of a noncitizen,
+but see SI 01320.105 for exceptions in sponsor-to-noncitizen deeming;
+
+2.
+
+Any public income maintenance payments (SI 01320.141), and any income which was counted or excluded in figuring the amount of that payment;
+
+3.
+
+Any of the income of an ineligible spouse, parent, or ineligible child that is used
+by a public income-maintenance program (SI 01320.141) to determine the amount of that program's benefit to someone else;
+
+4.
+
+Any portion of a grant, scholarship, or fellowship used to pay tuition or fees (SI 01320.115);
+
+5.
+
+Money received for providing foster care to an ineligible child (SI 01320.120);
+
+6.
+
+The value of Supplemental Nutrition Assistance Program (SNAP) benefits and the value
+of Department of Agriculture donated foods (SI 01320.125); these are also excluded from the income of an essential person or the sponsor of
+a noncitizen;
+
+7.
+
+Home produce grown for personal consumption (SI 01320.130);
+
+8.
+
+Tax refunds on real property or food purchased by the family (SI 01320.135);
+
+9.
+
+Income used to fulfill an approved plan for achieving self-support (SI 01320.140);
+
+10.
+
+Any income that is used to comply with the terms of court-ordered support or support
+payments enforced under title IV-D of the Social Security Act (SI 01320.145);
+
+11.
+
+The value of in-kind support and maintenance (ISM) (SI 01320.150);
+
+12.
+
+Periodic payments made by a State under a program established before July 1, 1973
+and based solely on duration of residence and attainment of age 65 (SI 01320.155);
+
+13.
+
+Disaster assistance (SI 01320.160); some types of disaster assistance may also be excluded from the income of an essential
+person or the sponsor of a noncitizen.
+
+14.
+
+Infrequent or irregular income (SI 01320.165);
+
+15.
+
+Work expenses of the blind (SI 01320.170);
+
+16.
+
+Income paid under a Federal, State, or local government program (e.g., payments under
+title XX of the Social Security Act) to provide chore, attendant, or homemaker services
+to the eligible individual (SI 01320.175);
+
+17.
+
+Certain home energy assistance and support and maintenance assistance (SI 01320.180); such assistance is also excluded from the income of an essential person or the
+sponsor of a noncitizen;
+
+18.
+
+Any child's earned income up to a monthly and yearly maximum determined by cost-of-living
+indicators (SI 00820.510), provided that the child is a student (SI 01320.185), is excluded from the income of an ineligible child or an eligible noncitizen (who
+is a student child) sponsored by an ineligible spouse or ineligible parent, for purposes
+of reducing the ineligible child or eligible noncitizen allocation.
+
+These exclusions from income subject to deeming are explained in more detail in the
+following subsections. For impairment-related work expenses (IRWE) incurred by a deemor,
+see SI 01320.190.
+
+NOTE: As a result of these exclusions of some types of income from deeming, there may be
+situations where it would be advantageous to a couple if the spouse who has nondeemable
+income does
+not file. For example, if one spouse receives a Veterans Administration (VA) pension
+of $850 which
+is based on need, that pension is not deemable and the other spouse, who has no income,
+would
+receive the full Federal benefit rate (FBR) ($943 as of January 2024). On the other
+hand, if the
+spouse who has the pension also files, that $848 pension would cause a dollar-for-dollar
+reduction
+in the couple FBR ($1415 as of January 2024).
+
+When such a situation occurs, the interviewer should discuss each possibility and
+explain its effect (see SI 00501.154C.). However, the decision to file or withdraw an application is the claimant's responsibility.
+See GN 00204.010 and GN 00204.012 for handling a potential claimant's decision not to file, closing out leads, and
+protecting filing situations. See SI 00601.050 for withdrawal considerations when SSI is involved. See SI 00601.035 .
+
+C. Policy -- items not included in deeming
+
+Item
+
+Ineligible Spouse or Parent, Ineligible Child, or *Eligible Alien
+
+Essential
+Person
+
+Sponsor
+
+Reference
+
+1.
+
+Income excluded by Federal laws other than the Social Security Act
+
+Excluded
+
+Excluded
+
+May be excluded
+
+SI 00830.055
+SI 01320.105
+
+2.
+
+Public Income Maintenance (PIM) Payments
+
+Excluded
+
+Not excluded
+
+Not excluded
+
+SI 01320.141
+
+3.
+
+Income used by a PIM program to determine amount of a payment to someone other than
+SSI recipient
+
+Excluded
+
+Not excluded
+
+Not excluded
+
+SI 01320.141
+
+4.
+
+Grants, scholarships, fellowships
+
+Excluded
+
+Not excluded (unless excluded under 1.)
+
+Not excluded (unless excluded under 1.)
+
+SI 01320.115
+
+5.
+
+Foster care payments
+
+Excluded
+
+Not excluded
+
+Not excluded
+
+SI 01320.120
+
+6.
+
+SNAP benefits and Dept. of Agriculture donated foods
+
+Excluded
+
+Excluded
+
+Excluded
+
+SI 01320.125
+
+7.
+
+Home grown produce
+
+Excluded
+
+Not excluded
+
+Not excluded
+
+SI 01320.125
+
+8.
+
+Tax refunds on real property or food
+
+Excluded
+
+Not excluded
+
+Not excluded
+
+SI 01320.135
+
+9.
+
+Income used in an approved plan for achieving self support (PASS)
+
+Excluded
+
+Not excluded
+
+Not excluded
+
+SI 01320.140
+
+10.
+
+Income used to pay court-ordered or title IV-D support payments
+
+Excluded
+
+Not excluded
+
+Not excluded
+
+SI 01320.145
+
+11.
+
+Value of ISM
+
+Excluded
+
+Not excluded
+
+Not excluded
+
+SI 01320.150
+
+12.
+
+Payments based on age and residence (Alaska residents only)
+
+Excluded (not applicable to children)
+
+Not excluded
+
+Not excluded
+
+SI 01320.155
+SI SEA 00830.830
+
+13.
+
+Disaster assistance
+
+Excluded
+
+May be excluded
+
+May be excluded
+
+SI 01320.160
+
+14.
+
+Infrequent or irregular income
+
+Excluded
+
+Not excluded
+
+Not excluded
+
+SI 01320.165
+
+15.
+
+Work Expenses of the Blind
+
+Excluded
+
+Not excluded
+
+Not excluded
+
+SI 01320.170
+
+16.
+
+Payments to provide in-home support
+
+Excluded
+
+Not excluded
+
+Not excluded
+
+SI 01320.175
+
+17.
+
+Home energy assistance and support and maintenance assistance
+
+Excluded
+
+Excluded
+
+Excluded
+
+SI 01320.180
+
+18.
+
+Child's earned income (up to a monthly and yearly maximum)
+
+Excluded (not applicable to spouses or parents)
+
+Not excluded
+
+Not excluded
+
+SI 01320.185
+
+AND
+
+SI 00820.510
+
+19.
+
+Impairment-related work expenses IRWE
+
+Excluded
+
+Not excluded
+
+Not excluded
+
+SI 01320.190
+
+*For purposes of this chart, Eligible Noncitizen refers only to an eligible noncitizen
+sponsored by an ineligible spouse or ineligible parent whose income is also deeming
+to an eligible individual or eligible child. This chart should not be used to determine
+a noncitizen's income for purposes of determining their own eligible for SSI.
+
+To Link to this section - Use this URL:
+http://policy.ssa.gov/poms.nsf/lnx/0501320100
+
+SI 01320.100 - Items Not Included in Deeming - General - 05/26/2026
+
+Batch run: 05/26/2026
+
+Rev:05/26/2026

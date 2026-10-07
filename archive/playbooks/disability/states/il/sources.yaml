@@ -5,6 +5,7 @@
 # certificate chain), so the AABD rules rest on the IDHS manual.
 sources:
   - id: il-dhs-aabd
+    retrieved: 2026-10-07
     url: https://www.dhs.state.il.us/page.aspx?item=30370
     publisher: Illinois Department of Human Services
     title: Aid to the Aged, Blind, and Disabled (AABD)
@@ -12,6 +13,7 @@ sources:
     jurisdiction: il
     doc_type: agency_page
   - id: il-dhs-pm-03-03-02
+    retrieved: 2026-10-07
     url: https://www.dhs.state.il.us/page.aspx?item=13253
     publisher: Illinois Department of Human Services (Cash, SNAP, and Medical Manual)
     title: PM 03-03-02 SSI and AABD Cash
@@ -19,6 +21,7 @@ sources:
     jurisdiction: il
     doc_type: manual
   - id: il-dhs-pm-11-01-00
+    retrieved: 2026-10-07
     url: https://www.dhs.state.il.us/page.aspx?item=15910
     publisher: Illinois Department of Human Services (Cash, SNAP, and Medical Manual)
     title: PM 11-01-00 AABD Cash Assistance Standard
@@ -26,6 +29,7 @@ sources:
     jurisdiction: il
     doc_type: manual
   - id: il-dhs-wag-11-01-01
+    retrieved: 2026-10-07
     url: https://www.dhs.state.il.us/page.aspx?item=15913
     publisher: Illinois Department of Human Services (Workers' Action Guide)
     title: WAG 11-01-01 Personal Allowance (chart)
@@ -33,6 +37,7 @@ sources:
     jurisdiction: il
     doc_type: manual
   - id: il-dhs-pm-11-01-02
+    retrieved: 2026-10-07
     url: https://www.dhs.state.il.us/page.aspx?item=15931
     publisher: Illinois Department of Human Services (Cash, SNAP, and Medical Manual)
     title: PM 11-01-02 Shelter
@@ -40,6 +45,7 @@ sources:
     jurisdiction: il
     doc_type: manual
   - id: il-dhs-pm-11-01-02-a
+    retrieved: 2026-10-07
     url: https://www.dhs.state.il.us/page.aspx?item=15933
     publisher: Illinois Department of Human Services (Cash, SNAP, and Medical Manual)
     title: PM 11-01-02-a Separate or Shared Living Arrangement
@@ -47,6 +53,7 @@ sources:
     jurisdiction: il
     doc_type: manual
   - id: il-dhs-pm-11-01-03
+    retrieved: 2026-10-07
     url: https://www.dhs.state.il.us/page.aspx?item=15940
     publisher: Illinois Department of Human Services (Cash, SNAP, and Medical Manual)
     title: PM 11-01-03 Utilities
@@ -54,6 +61,7 @@ sources:
     jurisdiction: il
     doc_type: manual
   - id: il-dhs-wag-25-03-03
+    retrieved: 2026-10-07
     url: https://www.dhs.state.il.us/page.aspx?item=12668
     publisher: Illinois Department of Human Services (Workers' Action Guide)
     title: WAG 25-03-03 AABD Fuel and Utility Allowances by Area
@@ -61,6 +69,7 @@ sources:
     jurisdiction: il
     doc_type: manual
   - id: il-dhs-pm-11-01-07
+    retrieved: 2026-10-07
     url: https://www.dhs.state.il.us/page.aspx?item=15948
     publisher: Illinois Department of Human Services (Cash, SNAP, and Medical Manual)
     title: PM 11-01-07 Grant Adjustment
@@ -68,6 +77,7 @@ sources:
     jurisdiction: il
     doc_type: manual
   - id: il-dhs-wag-25-06-01
+    retrieved: 2026-10-07
     url: https://www.dhs.state.il.us/page.aspx?item=19812
     publisher: Illinois Department of Human Services (Workers' Action Guide)
     title: WAG 25-06-01 AABD Grant Adjustment Changes (historical)
@@ -75,6 +85,7 @@ sources:
     jurisdiction: il
     doc_type: manual
   - id: il-dhs-pm-11-01-13
+    retrieved: 2026-10-07
     url: https://www.dhs.state.il.us/page.aspx?item=57230
     publisher: Illinois Department of Human Services (Cash, SNAP, and Medical Manual)
     title: PM 11-01-13 Income Exemption
@@ -82,6 +93,7 @@ sources:
     jurisdiction: il
     doc_type: manual
   - id: il-dhs-pm-11-02-01
+    retrieved: 2026-10-07
     url: https://www.dhs.state.il.us/page.aspx?item=15962
     publisher: Illinois Department of Human Services (Cash, SNAP, and Medical Manual)
     title: PM 11-02-01 Definitions (prospective budgeting)
@@ -89,6 +101,7 @@ sources:
     jurisdiction: il
     doc_type: manual
   - id: il-dhs-pm-11-02-02
+    retrieved: 2026-10-07
     url: https://www.dhs.state.il.us/page.aspx?item=15965
     publisher: Illinois Department of Human Services (Cash, SNAP, and Medical Manual)
     title: PM 11-02-02 Minimum Payment
@@ -96,6 +109,7 @@ sources:
     jurisdiction: il
     doc_type: manual
   - id: il-dhs-pm-11-02-03
+    retrieved: 2026-10-07
     url: https://www.dhs.state.il.us/page.aspx?item=15967
     publisher: Illinois Department of Human Services (Cash, SNAP, and Medical Manual)
     title: PM 11-02-03 Using the AABD Cash Assistance Standard
@@ -103,6 +117,7 @@ sources:
     jurisdiction: il
     doc_type: manual
   - id: il-dhs-pm-11-02-07-e
+    retrieved: 2026-10-07
     url: https://www.dhs.state.il.us/page.aspx?item=56693
     publisher: Illinois Department of Human Services (Cash, SNAP, and Medical Manual)
     title: PM 11-02-07-e Budgeting When Both Spouses Are Applying for or Receiving AABD Cash
@@ -110,6 +125,7 @@ sources:
     jurisdiction: il
     doc_type: manual
   - id: il-dhs-pm-09-02-03-b
+    retrieved: 2026-10-07
     url: https://www.dhs.state.il.us/page.aspx?item=15767
     publisher: Illinois Department of Human Services (Cash, SNAP, and Medical Manual)
     title: PM 09-02-03-b Responsible Relative Living With Unit — AABD Cases
@@ -117,6 +133,7 @@ sources:
     jurisdiction: il
     doc_type: manual
   - id: il-dhs-pm-07-02-01
+    retrieved: 2026-10-07
     url: https://www.dhs.state.il.us/page.aspx?item=14876
     publisher: Illinois Department of Human Services (Cash, SNAP, and Medical Manual)
     title: PM 07-02-01 Asset Limits (AABD)
@@ -124,6 +141,7 @@ sources:
     jurisdiction: il
     doc_type: manual
   - id: il-dhs-drs-report-2011
+    retrieved: 2026-10-07
     url: https://www.dhs.state.il.us/page.aspx?item=58745
     publisher: Illinois Department of Human Services, Division of Rehabilitation Services
     title: Rehabilitation Services Annual Report 2011 (Disability Determination Services)
@@ -132,6 +150,7 @@ sources:
     doc_type: other
     note: Old (2011), but an official IDHS page placing Disability Determination Services in the Division of Rehabilitation Services.
   - id: il-omb-csfa-230
+    retrieved: 2026-10-07
     url: https://omb.illinois.gov/public/gata/csfa/Program.aspx?csfa=230
     publisher: Illinois Governor's Office of Management and Budget (Catalog of State Financial Assistance)
     title: CSFA 444-20-0230 DHS Social Security Disability Insurance — Disability Determination Services

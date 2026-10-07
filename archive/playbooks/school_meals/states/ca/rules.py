@@ -42,10 +42,8 @@ def evaluate(hh: Household, as_of: date) -> Determination:
 
     if participates:
         res = fed.federal_category(hh, as_of, det, dcm_type=dcm_type, dcm_rule="SCH-CA-DCM-MEDI-CAL", dcm_available=lea)
-        if not lea and hh.anyone_receives("medicaid"):
-            det.note("SCH-CA-DCM-MEDI-CAL", "Medi-Cal direct certification runs only through CALPADS, which private schools cannot use", None)
     else:
-        res = fed.FederalResult(tier="paid")
+        res = fed.FederalResult(tier="not_determined")
         det.note("SCH-CA-UNIVERSAL-MEALS", "the LEA does not run the NSLP/SBP; it must still offer the two free meals "
                                            "but gets no federal or state meal reimbursement", None)
 

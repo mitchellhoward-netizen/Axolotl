@@ -1,0 +1,4193 @@
+Skip to content
+
+Program Operations Manual System (POMS)
+
+Effective Dates: 12/23/2024 - Present
+Previous | Next
+
+TN 91 (12-24)
+
+SI 01415.057 Federally Administered Optional Supplementary Payment Programs for January 2025
+
+A. List of States participating in the federally administered optional supplementary
+payment program
+
+The following states participate in federally administered optional supplementary
+payment programs:
+
+State
+
+Reference
+
+California
+
+SI
+01415.057B
+
+Delaware
+
+SI
+01415.057C
+
+District of Columbia
+
+SI
+01415.057D
+
+Hawaii
+
+SI
+01415.057E
+
+Iowa
+
+SI
+01415.057F
+
+Michigan
+
+SI
+01415.057G
+
+Montana
+
+SI
+01415.057H
+
+Nevada
+
+SI
+01415.057I
+
+New Jersey
+
+SI
+01415.057J
+
+Pennsylvania
+
+SI
+01415.057K
+
+Rhode Island
+
+SI
+01415.057L
+
+Vermont
+
+SI
+01415.057M
+
+B. Description of supplements for California
+
+1. Definitions of State living arrangement variations for California
+
+Code
+
+Definition
+
+A
+
+Use optional supplement (OS) code “A” for independent living with cooking facilities
+for an eligible recipient or couple who meet one of the following situations:
+
+•
+
+live in their own household, as defined for Federal living arrangement (FLA) “A” purposes,
+and have cooking and food storage facilities or living arrangement provides meals;
+
+•
+
+a patient in a certified private medical facility where Title XIX does not pay more
+than 50 percent of the cost of care;
+
+•
+
+a blind child under age 18 living in the household of a parent or parents, or is a
+disabled child age 18 or over who meets sharing criteria and is living in the household
+of a parent or parents;
+
+•
+
+a blind recipient who lives in an independent living arrangement with or without cooking
+and food storage facilities; or
+
+•
+
+lives in a private medical facility licensed by the State but not certified under
+Title XIX.
+
+B
+
+Apply OS code “B” for non-medical out-of-home care (NMOHC) when a recipient or couple
+needs non-medical care or supervision in the following living arrangement situations:
+
+Children (under age 18)
+
+•
+
+blind child residing in a State licensed NMOHC facility;
+
+•
+
+blind child residing in the home of a relative who is not a parent and not a legal
+guardian;
+
+•
+
+disabled child residing in a State licensed NMOHC facility;
+
+•
+
+Disabled child residing in the home of a legal guardian who is not a relative;
+
+•
+
+disabled child residing in the home of a relative who is not a parent (Major v. McMahon
+decision); or
+
+•
+
+blind or disabled child in a “certified family” home approved by a licensed home-finding
+agency (“certified family home placement”).
+
+Adults (age 18 and over)
+
+An aged, blind, or disabled recipient:
+
+•
+
+or couple is determined to be in FLA “A” and resides in the home of a relative, legal
+conservator, or guardian;
+
+•
+
+is determined to be in FLA “A” and resides in a State licensed NMOHC facility; or
+
+•
+
+is determined to be in FLA “A” and resides in a family home certified by a family
+home agency under State law.
+
+For California optional supplement (OS) purposes, a relative is defined as a:
+
+•
+
+parent,
+
+•
+
+child,
+
+•
+
+sibling,
+
+•
+
+half-
+
+•
+
+sibling,
+
+•
+
+parent's sibling,
+
+•
+
+sibling's child,
+
+•
+
+first cousin, or
+
+•
+
+any person of the preceding generation denoted by the prefix “grand” or “great.”
+
+C
+
+Independent living without cooking facilities
+
+Apply OS code “C” to aged or disabled recipient or couples who are:
+
+•
+
+not given meals, and
+
+•
+
+do not have access to adequate cooking or food storage facilities as part of a living
+arrangement.
+
+Transients, as defined in SI 00835.060, are also eligible for OS “C.”
+
+A recipient or couple qualifies for OS “C” if any of the following situations exists:
+
+•
+
+Immediate living quarters do not have cooking and food storage facilities that the
+recipient, couple, or another person (who is responsible for preparing their meals)
+can prepare meals on a daily basis;
+
+•
+
+Does not have access to adequate cooking and food storage facilities as part of the
+living arrangement (including cooking and food storage facilities, which are outside
+the immediate living quarters) for the purpose of preparing meals or having them prepared
+on their behalf;
+
+•
+
+Lives in a boarding house that does not have a communal kitchen with adequate cooking
+and food storage facilities that they can access for preparing meals;
+
+•
+
+Lives with friends or relatives in private living quarters in the same house or in
+separate living quarters (for example, “over the garage”) or in a similar situation
+and does not have access to the cooking and food storage facilities in the main residence
+for preparing meals; or
+
+•
+
+Lives in a room and board facility and does not contract with the facility to have
+meals prepared and provided as part of the living arrangement (for example, the Supplemental
+Security Income (SSI) recipient’s arrangement with the facility is to purchase only
+shelter on a monthly basis).
+
+“Adequate” cooking and food storage facilities exist when a recipient or couple has
+access to the following:
+
+•
+
+both a working refrigerator or icebox and a stove without a working oven but with
+at least two working burners. (Do not consider the capacity of the refrigerator or
+icebox when making this determination. Also, do not consider an ice chest to be adequate
+storage.);
+
+•
+
+both a working refrigerator or icebox and a hotplate with at least two burners with
+separate temperature controls, or two one-burner hotplates with temperature controls.
+(Do not consider hotplates without temperature controls used for warming food as “adequate
+cooking facilities.”); or
+
+•
+
+both a working refrigerator or icebox and a stove with a working oven or functioning
+microwave oven in combination with at least one working burner on a stove, or a one-burner
+hotplate with a temperature control.
+
+Eligibility for OS “C” begins in the month the recipient applies for this supplement
+rate, provided they have been without cooking and food storage facilities throughout
+the month.
+
+NOTE: For purposes of OS “C,” “throughout a month” does not mean the recipient must
+lack adequate cooking or food storage facilities from the very first moment of the
+month. The recipient need only lack them from some time on the first day of the month.
+
+If you based eligibility on temporary loss or non-functioning of an appliance, advise
+the recipient of their responsibility to report immediately when the temporary condition
+ceases.
+
+If the recipient provides an expected date when someone will replace or repair the
+appliance, diary the case for re-contact.
+
+Eligibility for this supplementary payment ceases the month following the month in
+which the individual or couple receives meals or adequate cooking and food storage
+facilities are available.
+
+For a couple, comprised of an aged or disabled recipient and a blind recipient, whose
+living arrangement lacks adequate cooking and storage facilities, the couple must
+receive the Supplemental Security Income and State Supplement Payment level for a
+blind, aged, or disabled couple plus the restaurant meals allowance for the disabled
+member of the couple. This living arrangement requires force due payment.
+
+D
+
+Living in the household of another
+
+Apply OS code “D” when an eligible individual or couple is living in the household
+of another and receives food and shelter from that person. Most recipient or couples
+who are subject to a one-third reduction of their Federal SSI payments are eligible
+for OS “D” because the criteria for this supplement level are the same as for charging
+the one-third reduction. However, when the eligible recipient or couple lives in the
+home of a relative (other than a spouse) and needs care and supervision, you must
+obtain certification for non-medical out-of-home care (OS “F”) from the county welfare
+office since this is the highest categorical supplement that a recipient or couple
+can qualify.
+
+E
+
+Disabled child under age 18
+
+Apply OS code “E” to a disabled (not blind) child under age 18 who resides with a
+parent or relative by blood or marriage.
+
+NOTE: Only FLA “A” and “C” are compatible with OS “E.” If the value of the one-third
+reduction (VTR) applies, see code “G.”
+
+F
+
+Non-medical out-of-home care living in the household of another
+
+OS code “F” applies whenever an eligible recipient or couple meets the criteria for
+the non-medical out-of-home care payment rate, and is determined to receive the Federal
+code “B” payment for living in the household of another. For the one-third reduction
+provision, see SI 00835.200.
+
+G
+
+Disabled child under 18 living in the home of another
+
+OS code “G” applies to a disabled (not blind) child under age 18, who resides with
+a parent or relative by blood or marriage, and is determined to receive the Federal
+code “B” payment for living in the household of another person. For the one-third
+reduction provision, see SI 00835.200.
+
+J
+
+Residents of Title XIX facilities
+
+Effective July 1, 1987, apply OS State code “J” to an eligible recipient who is a
+patient in a medical facility where Title XIX pays more than 50 percent of the costs.
+Apply OS State code “J” to supplement Section 1619 cases.
+
+Y
+
+Optional supplementation waived
+
+Use OS code “Y” to indicate that a recipient is eligible for an optional supplement
+but waived their right to receive the supplement.
+
+Z
+
+No supplement cases
+
+Apply OS code “Z” to an eligible recipient who is a patient in a private medical facility
+not certified under Title XIX and not licensed by the State. Include in this category
+those recipients who are residing throughout a month in a publicly operated emergency
+shelter.
+
+For periods prior to July 1, 1987, apply OS code “Z” to an eligible recipient who
+is a patient in a medical facility where Title XIX pays more than 50 percent of the
+costs.
+
+2. Coding and monthly payment levels for California
+
+The following charts display the coding and monthly payment levels for California
+effective January 1, 2025:
+
+a. Recipient payment levels for California
+
+Federal Code
+
+State OS Code
+
+Category
+
+Federal Benefit Rate (FBR)
+
+State Supplement Level
+
+Total Payment Levels
+
+A
+
+A
+
+Aged
+
+967.00
+
+239.94
+
+1206.94
+
+​
+
+​
+
+Blind
+
+967.00
+
+324.32
+
+1291.32
+
+​
+
+​
+
+Disabled
+
+967.00
+
+239.94
+
+1206.94
+
+​
+
+B
+
+All
+
+967.00
+
+632.07
+
+1599.07
+
+​
+
+C
+
+Aged
+
+967.00
+
+368.81
+
+1335.81
+
+​
+
+​
+
+Disabled
+
+967.00
+
+368.81
+
+1335.81
+
+​
+
+E
+
+Disabled
+
+967.00
+
+97.27
+
+1064.27
+
+​
+
+Z
+
+All
+
+967.00
+
+0.00
+
+967.00
+
+B
+
+D
+
+Aged
+
+644.671
+
+245.20
+
+889.87
+
+​
+
+​
+
+Blind
+
+644.671
+
+329.58
+
+974.25
+
+​
+
+​
+
+Disabled
+
+644.671
+
+245.20
+
+889.87
+
+​
+
+F
+
+All
+
+644.671
+
+624.40
+
+1269.07
+
+​
+
+G
+
+Disabled
+
+644.671
+
+102.53
+
+747.20
+
+C
+
+A
+
+Blind
+
+967.00
+
+324.32
+
+1291.32
+
+​
+
+E
+
+Disabled
+
+967.00
+
+97.27
+
+1064.27
+
+​
+
+Z
+
+All
+
+967.00
+
+0.00
+
+967.00
+
+D
+
+J
+
+All
+
+30.002
+
+32.00
+
+62.00
+
+1Not a Federal benefit rate (FBR); the amount represents the FBR less VTR.
+
+2Not the FBR; the amount represents a payment cap to recipients in a Title XIX institution.
+
+NOTE: California is a concurrent category State and permits SSI recipients to receive
+the highest categorical supplement for which they can qualify. For more information
+on multi-category eligibility, see SI 00501.300B.3.
+
+b. Couple payment levels for California
+
+Federal Code
+
+State OS Code
+
+Category
+
+FBR
+
+State Supplement Level
+
+Total Payment Levels
+
+A
+
+A
+
+Aged/Aged
+
+1450.00
+
+607.83
+
+2057.83
+
+​
+
+​
+
+Blind/Blind
+
+1450.00
+
+833.35
+
+2283.35
+
+​
+
+​
+
+Disabled/Disabled
+
+1450.00
+
+607.83
+
+2057.83
+
+​
+
+​
+
+Aged/Blind
+
+1450.00
+
+747.44
+
+2197.44
+
+​
+
+​
+
+Aged/Disabled
+
+1450.00
+
+607.83
+
+2057.83
+
+​
+
+​
+
+Blind/Disabled
+
+1450.00
+
+747.44
+
+2197.44
+
+​
+
+B
+
+All
+
+1450.00
+
+1748.14
+
+3198.14
+
+​
+
+C
+
+Aged/Aged
+
+1450.00
+
+865.57
+
+2315.57
+
+​
+
+​
+
+Disabled/Disabled
+
+1450.00
+
+865.57
+
+2315.57
+
+​
+
+​
+
+Aged/Disabled
+
+1450.00
+
+865.57
+
+2315.57
+
+​
+
+Z
+
+All
+
+1450.00
+
+0.00
+
+1450.00
+
+B
+
+D
+
+Aged/Aged
+
+966.671
+
+615.70
+
+1582.37
+
+​
+
+​
+
+Blind/Blind
+
+966.671
+
+841.22
+
+1807.89
+
+​
+
+​
+
+Disabled/Disabled
+
+966.671
+
+615.70
+
+1582.37
+
+​
+
+​
+
+Aged/Blind
+
+966.671
+
+755.31
+
+1721.98
+
+​
+
+​
+
+Aged/Disabled
+
+966.671
+
+615.70
+
+1582.37
+
+​
+
+​
+
+Blind/Disabled
+
+966.671
+
+755.31
+
+1721.98
+
+​
+
+F
+
+All
+
+966.671
+
+1604.20
+
+2570.87
+
+D
+
+J
+
+All
+
+60.002
+
+64.00
+
+124.00
+
+1Not the federal benefit rate (FBR); the amount represents the FBR less the one-third
+reduction (VTR).
+
+2Not the FBR; the amount represents a payment cap to recipients in a Title XIX institution.
+
+C. Description of supplements for Delaware
+
+1. Definitions of State living arrangement variations for Delaware
+
+Code
+
+Definition
+
+A
+
+Adult residential care facility, assisted living facility, or adult
+foster care home
+
+To be eligible for OS code “A,” the State must provide documentation that a recipient
+is a resident of a certified adult residential care facility, assisted living facility,
+or adult foster care home.
+
+Y
+
+Optional supplementation waived
+
+Use code “Y” to indicate that a recipient is eligible for an optional supplement,
+but has waived their right to receive supplementation.
+
+Z
+
+No supplement cases
+
+Use OS code “Z” for any recipient who is not included in OS categories “A” or “Y.”
+
+Alternately, use OS code “Z” when the recipient is an “intervening” Federal code “A.”
+
+For more information on optional State supplement codes see SM 01301.535.
+
+2. Coding and monthly payment levels for Delaware
+
+The following charts display the coding and monthly payments levels for Delaware effective
+January 1, 2025:
+
+a. Recipient payment levels for Delaware
+
+Federal Code
+
+State OS Code
+
+Category
+
+FBR
+
+State Supplement Level
+
+Total Payment Levels
+
+A
+
+A
+
+All
+
+967.00
+
+140.00
+
+1107.00
+
+Z
+
+All
+
+967.00
+
+0.00
+
+967.00
+
+B
+
+Z
+
+All
+
+644.67
+
+0.00
+
+644.67
+
+C
+
+Z
+
+All
+
+967.00
+
+0.00
+
+967.00
+
+D
+
+Z
+
+All
+
+30.001
+
+0.00
+
+30.00
+
+1Not the FBR; the amount represents a payment cap to recipients in a Title XIX institution.
+
+b. Couple payment levels for Delaware
+
+Federal Code
+
+State OS Code
+
+Category
+
+FBR
+
+State Supplement Level
+
+Total Payment Levels
+
+A
+
+A
+
+All
+
+1450.00
+
+448.00
+
+1898.00
+
+Z
+
+All
+
+1450.00
+
+0.00
+
+1450.00
+
+B
+
+Z
+
+All
+
+966.67
+
+0.00
+
+966.67
+
+D
+
+Z
+
+All
+
+60.001
+
+0.00
+
+60.00
+
+1Not the FBR; the amount represents a payment cap to recipients in a Title XIX institution.
+
+D. Description of supplements for District of Columbia
+
+1. Definitions of State living arrangement variations for the District of Columbia
+
+Code
+
+Definition
+
+A
+
+Adult foster care home with 50 or fewer residents
+
+Use OS code “A” to indicate that you received certification from the District of Columbia,
+Department of Health that the recipient is a resident of an adult foster care home
+with 50 or fewer residents.
+
+B
+
+Adult foster care home with more than 50 residents
+
+Use OS code “B” to indicate that you received certification from the District of Columbia,
+Department of Health that the recipient is a resident of an adult foster care home
+with more than 50 residents.
+
+G
+
+Apply OS code “G” to residents of Title XIX facilities.
+
+Y
+
+Optional supplementation waived
+
+Use OS code “Y” to indicate that a recipient is eligible for an optional supplement,
+but has waived their right to receive such.
+
+Z
+
+No supplement cases
+
+Use OS code “Z” for all recipients not included in OS codes A, B, G, or Y.
+
+2. Coding and monthly payment levels for the District of Columbia
+
+The following charts display the coding and monthly payment levels for the District
+of Columbia effective January 1, 2025:
+
+a. Individual payment levels for the District of Columbia
+
+Federal Code
+
+State OS Code
+
+Category
+
+FBR
+
+State Supplement Level
+
+Total Payment Levels
+
+A
+
+A
+
+All
+
+967.00
+
+678.00
+
+1645.00
+
+B
+
+All
+
+967.00
+
+788.00
+
+1755.00
+
+Z
+
+All
+
+967.00
+
+0.00
+
+967.00
+
+B
+
+Z
+
+All
+
+644.671
+
+0.00
+
+644.67
+
+C
+
+Z
+
+All
+
+967.00
+
+0.00
+
+967.00
+
+D
+
+G
+
+All
+
+30.002
+
+76.00
+
+106.00
+
+1Not the FBR; the amount represents the FBR less the VTR.
+
+2Not the FBR; the amount represents a payment cap to recipients in a Title XIX institution.
+
+b. Couple payment levels for the District of Columbia
+
+Federal Code
+
+State OS Code
+
+Category
+
+FBR
+
+State Supplement Level
+
+Total Payment Levels
+
+A
+
+A
+
+All
+
+1450.00
+
+1711.00
+
+3161.00
+
+B
+
+All
+
+1450.00
+
+1931.00
+
+3381.00
+
+Z
+
+All
+
+1450.00
+
+0.00
+
+1450.00
+
+B
+
+Z
+
+All
+
+966.671
+
+0.00
+
+966.67
+
+D
+
+G
+
+All
+
+60.002
+
+152.00
+
+212.00
+
+1Not the FBR; the amount represents the FBR less the VTR.
+
+2Not the FBR; the amount represents a payment cap to recipients in a Title XIX institution.
+
+E. Description of supplements for Hawaii
+
+1. Definitions of State living arrangement variations for Hawaii
+
+Code
+
+Definition
+
+B
+
+Living in a community care or foster care home
+
+Apply OS code “B” to recipients who are both over age 18 and live in a state approved
+care or foster care home.
+
+D
+
+Living in a certified medical facility
+
+Use OS code “D” for an eligible recipient living in a medical treatment facility where
+Title XIX pays a substantial part (more than 50 percent) of the cost of care.
+
+H
+
+Domiciliary care I (maximum of five residents)
+
+Use OS code “H” for an eligible recipient (including a child) or couple living in
+a domiciliary care facility that provides varying levels of care and services. A domiciliary
+care facility is a private, non-medical facility established and maintained to provide
+personal care and services to aged, infirm, or handicapped persons. The State provides
+SSA with listings of these facilities.
+
+I
+
+Domiciliary care II
+
+OS code “I” is the same as code “H” except the facility provides care for six or more
+residents.
+
+Y
+
+Optional supplementation waived
+
+Use OS code “Y” to indicate that a recipient is eligible for an optional supplement,
+but has waived their right to receive supplementation.
+
+Z
+
+Use OS code “Z” when the recipient is not eligible to receive Hawaii state supplement
+because of the following situations:
+
+•
+
+recipient is living in the household of another;
+
+•
+
+recipient is a patient in a private medical facility that is not certified under Title
+XIX; or
+
+•
+
+recipient is residing throughout a month in a publicly operated emergency shelter.
+
+2. Coding and monthly payment levels for Hawaii
+
+The following charts display the coding and monthly payment levels for Hawaii effective
+January 1, 2025:
+
+a. Recipient payments levels for Hawaii
+
+Federal Code
+
+State OS Code
+
+Category
+
+FBR
+
+State Supplement Level
+
+Total Payment Levels
+
+A
+
+B
+
+All
+
+967.00
+
+784.001
+
+1751.00
+
+H
+
+All
+
+967.00
+
+784.001
+
+1751.00
+
+I
+
+All
+
+967.00
+
+892.001
+
+1859.00
+
+Z
+
+All
+
+967.00
+
+0.00
+
+967.00
+
+B
+
+Z
+
+All
+
+644.67
+
+0.00
+
+644.67
+
+D
+
+D
+
+All
+
+30.002
+
+45.00
+
+75.00
+
+1Rates went into effect October 1, 2024.
+
+2Not the FBR; the amount represents a payment cap to recipients in a Title XIX institution.
+
+b. Couple payment levels for Hawaii
+
+Federal Code
+
+State OS Code
+
+Category
+
+FBR
+
+State Supplement Level
+
+Total Payment Levels
+
+A
+
+B
+
+All
+
+1450.00
+
+1905.001
+
+3355.00
+
+H
+
+All
+
+1450.00
+
+1905.001
+
+3355.00
+
+I
+
+All
+
+1450.00
+
+2121.001
+
+3571.00
+
+Z
+
+All
+
+1450.00
+
+0.00
+
+1450.00
+
+B
+
+Z
+
+All
+
+966.67
+
+0.00
+
+966.67
+
+D
+
+D
+
+All
+
+60.002
+
+90.00
+
+150.00
+
+1Rates went into effect in October 2024.
+
+2Not the FBR; the amount represents a payment cap to recipients in a Title XIX institution.
+
+F. Description of supplements for Iowa
+
+1. Definitions of State living arrangement variations for Iowa
+
+Code
+
+Definition
+
+A
+
+Living in own household (blind only)
+
+Only apply OS code “A” to an eligible blind recipient and the blind member of a couple
+who:
+
+•
+
+does not live in any other State living arrangement variation, does not have an essential
+person (EP); and is not otherwise excepted from supplementation; or
+
+•
+
+is a blind recipient living in a Title XIX facility where Medicaid pays 50 percent or less of
+the cost of their care. Optional supplement code “A” is also compatible with Federal
+codes “A” and “C.”
+
+OS code “A” is the proper code to use with an “intervening” Federal code “A.”
+
+For optional State supplement codes, see SM 01301.535.
+
+B
+
+Living in the household of another (blind only)
+
+OS code “B” is only for an eligible blind recipient and the blind member
+of a couple who does not live in any other State living arrangement variation, lives in the household
+of another for Federal purposes, does not have an EP, and is not otherwise excepted
+from supplementation.
+
+C
+
+Living with a dependent
+
+Use OS code “C” for an eligible recipient or each member of an eligible couple in
+Federal living arrangement “A” or “C”:
+
+•
+
+who has an ineligible spouse, parent, child, or adult child living in the home with
+them, and
+
+•
+
+who is financially dependent upon the eligible recipient as defined by the State Department
+of Human Services.
+
+The payment level for this variation increases by $22 for each blind recipient or
+blind member of a couple to reflect the categorical blind supplement.
+
+D
+
+Living in a family life or boarding home
+
+Use OS code “D” for an eligible recipient or each member of an eligible couple in
+Federal living arrangement “A” who resides in a family life home or boarding home
+licensed by the State Department of Health or certified by the State Department of
+Human Services.
+
+H
+
+Living with a dependent person
+
+Use OS code “H” for an eligible recipient or each member of an eligible couple in
+Federal living arrangement “B”:
+
+•
+
+who has an ineligible spouse, parent, child, or adult child living in the home with
+them, and
+
+•
+
+who is financially dependent upon the eligible recipient as defined by the State Department
+of Human Services.
+
+Increase the payment level for this variation by $22 for each blind recipient or blind
+member of a couple to reflect the categorical blind supplement.
+
+I
+
+Living in a family life or boarding home - eligible recipient or each member of an eligible couple in FLA “B,” who resides
+in a family life home or boarding home licensed by the State Department of Health,
+or certified by the State Department of Human Services.
+
+Y
+
+Optional supplementation waived
+
+Use OS code “Y” to indicate that a recipient is eligible for an optional supplement,
+but waived their right to receive supplementation.
+
+Z
+
+No supplement cases
+
+Use OS code “Z” to address:
+
+•
+
+SSI recipients residing throughout a month in publicly operated emergency shelters;
+
+•
+
+aged or disabled recipients living in their own households or living in the households
+of others;
+
+•
+
+recipients living in medical facilities not certified under Title XIX;
+
+•
+
+recipients whose Federal payments are reduced to $30 or $60 due to living in a Title
+XIX facility; or
+
+•
+
+aged or disabled recipients whose Federal payments are not reduced but who live in
+a Title XIX facility where Medicaid pays 50 percent or less of the cost of care.
+
+NOTE: The State Department of Human Services administers three optional supplementation
+programs:
+
+1.
+
+In-home health related care;
+
+2.
+
+Residential care; and
+
+3.
+
+Supplement for Medicare and Medicaid Eligible.
+
+NOTE: Iowa is a concurrent category State and permits SSI recipients to receive the highest
+categorical supplement for which they can qualify. For more information on multi-category
+eligibility, see SI 00501.300B.3.
+
+Blind recipients (either individuals or member of a couple) whose records include
+an EP have a supplementary payment level that includes $22 for each recipient in addition
+to the FBR and EP increment and must be force paid.
+
+2. Coding and monthly payment levels for Iowa
+
+The following charts display the coding and monthly payment levels for Iowa effective
+January 1, 2025:
+
+a. Recipient payment levels for Iowa
+
+Federal Code
+
+State OS Code
+
+Category
+
+FBR
+
+State Supplement Level
+
+Total Payment Levels
+
+A
+
+A
+
+Blind
+
+967.00
+
+22.00
+
+989.00
+
+C
+
+Aged
+
+967.00
+
+503.00
+
+1470.00
+
+Blind
+
+967.00
+
+525.00
+
+1492.00
+
+Disabled
+
+967.00
+
+503.00
+
+1470.00
+
+D
+
+Aged
+
+967.00
+
+142.00
+
+1109.00
+
+Blind
+
+967.00
+
+164.00
+
+1131.00
+
+Disabled
+
+967.00
+
+142.00
+
+1109.00
+
+Z
+
+All
+
+967.00
+
+0.00
+
+967.00
+
+B
+
+B
+
+Blind
+
+644.671
+
+22.00
+
+666.67
+
+H
+
+Aged
+
+644.671
+
+503.00
+
+1147.67
+
+Blind
+
+644.671
+
+525.00
+
+1169.67
+
+Disabled
+
+644.671
+
+503.00
+
+1147.67
+
+I
+
+Aged
+
+644.671
+
+142.00
+
+786.67
+
+I
+
+Disabled
+
+644.671
+
+142.00
+
+786.67
+
+I
+
+Blind
+
+644.671
+
+164.00
+
+808.67
+
+Z
+
+All
+
+644.671
+
+0.00
+
+644.67
+
+C
+
+A
+
+Blind
+
+967.00
+
+22.00
+
+989.00
+
+C
+
+Blind
+
+967.00
+
+525.00
+
+1492.00
+
+Disabled
+
+967.00
+
+503.00
+
+1470.00
+
+Z
+
+Disabled
+
+967.00
+
+0.00
+
+967.00
+
+D
+
+Z
+
+All
+
+30.002
+
+0.00
+
+30.00
+
+1Not the FBR; the amount represents the FBR less VTR.
+
+2Not the FBR; the amount represents a payment cap to recipients in a Title XIX institution.
+
+NOTE: State-administered programs include recipients receiving:
+
+•
+
+“Residential Care” and a payment based on a per diem rate plus a monthly personal
+allowance;
+
+•
+
+“In-Home Health Care” and a payment based on actual cost of in-home health care plus
+basic Federal benefits; or
+
+•
+
+a supplement for Medicare and Medicaid and a $1 monthly payment.
+
+b. Couple payment levels for Iowa
+
+Federal Code
+
+State OS Code
+
+Category
+
+FBR
+
+State Supplement Level
+
+Total Payment Levels
+
+A
+
+A
+
+Blind/Blind
+
+1450.00
+
+44.00
+
+1494.00
+
+Blind/Aged
+
+1450.00
+
+22.00
+
+1472.00
+
+Blind/Disabled
+
+1450.00
+
+22.00
+
+1472.00
+
+C
+
+Aged/Aged
+
+1450.00
+
+503.00
+
+1953.00
+
+Blind/Blind
+
+1450.00
+
+547.00
+
+1997.00
+
+Disabled/Disabled
+
+1450.00
+
+503.00
+
+1953.00
+
+Aged/Blind
+
+1450.00
+
+525.00
+
+1975.00
+
+Aged/Disabled
+
+1450.00
+
+503.00
+
+1953.00
+
+Blind/Disabled
+
+1450.00
+
+525.00
+
+1975.00
+
+D
+
+Aged/Aged
+
+1450.00
+
+788.00
+
+2238.00
+
+Blind/Blind
+
+1450.00
+
+832.00
+
+2282.00
+
+Disabled/Disabled
+
+1450.00
+
+788.00
+
+2238.00
+
+Aged/Blind
+
+1450.00
+
+810.00
+
+2260.00
+
+Aged/Disabled
+
+1450.00
+
+788.00
+
+2238.00
+
+Blind/Disabled
+
+1450.00
+
+810.00
+
+2260.00
+
+Z
+
+Aged/Aged
+
+1450.00
+
+0.00
+
+1450.00
+
+Disabled/Disabled
+
+1450.00
+
+0.00
+
+1450.00
+
+Aged/Disabled
+
+1450.00
+
+0.00
+
+1450.00
+
+B
+
+B
+
+Blind/Blind
+
+966.671
+
+44.00
+
+1010.67
+
+Blind/Aged
+
+966.671
+
+22.00
+
+988.67
+
+Blind/Disabled
+
+966.671
+
+22.00
+
+988.67
+
+H
+
+Aged/Aged
+
+966.671
+
+503.00
+
+1469.67
+
+Blind/Blind
+
+966.671
+
+547.00
+
+1513.67
+
+Disabled/Disabled
+
+966.671
+
+503.00
+
+1469.67
+
+Aged/Blind
+
+966.671
+
+525.00
+
+1491.67
+
+Aged/Disabled
+
+966.671
+
+503.00
+
+1469.67
+
+Blind/Disabled
+
+966.671
+
+525.00
+
+1491.67
+
+I
+
+Aged/Aged
+
+966.671
+
+788.00
+
+1754.67
+
+Blind/Blind
+
+966.671
+
+832.00
+
+1798.67
+
+Disabled/Disabled
+
+966.671
+
+788.00
+
+1754.67
+
+Aged/Blind
+
+966.671
+
+832.00
+
+1798.67
+
+Aged/Disabled
+
+966.671
+
+788.00
+
+1754.67
+
+Blind/Disabled
+
+966.671
+
+832.00
+
+1798.67
+
+Z
+
+Aged/Aged
+
+966.671
+
+0.00
+
+966.67
+
+Disabled/Disabled
+
+966.671
+
+0.00
+
+966.67
+
+Aged/Disabled
+
+966.671
+
+0.00
+
+966.67
+
+D
+
+Z
+
+All
+
+60.002
+
+0.00
+
+60.00
+
+1Not the FBR; the amount represents the FBR less VTR.
+
+2Not the FBR; the amount represents a payment cap to recipients in a Title XIX institution.
+
+NOTE: State-administered programs include recipients receiving:
+
+•
+
+“Residential Care” and a payment based on a per diem rate plus a monthly personal
+allowance;
+
+•
+
+“In-Home Health Care” and a payment based on actual cost of in-home health care plus
+basic Federal benefits. Treat members of a couple as individuals; or
+
+•
+
+a supplement for Medicare and Medicaid and a $1 monthly payment.
+
+G. Description of supplements for Michigan
+
+1. Definitions of State living arrangement variations for Michigan
+
+Code
+
+Definition
+
+D
+
+Domiciliary care
+
+Use OS code “D” for recipients residing in licensed non-medical facilities that provide
+room, board, and supervision. The State provides a list of these facilities and certifies
+recipients who are residents requiring this level of care.
+
+E
+
+Personal care
+
+Apply OS code “E” to recipients residing in licensed non-medical facilities that provide
+general supervision, physical care, and assistance to residents as they carry out
+the basic activities of daily living. The State provides a list of these facilities
+and certifies the recipients who are residents requiring this level of care. Such
+care situations include, but are not limited to, licensed homes for the aged.
+
+F
+
+Home for the aged
+
+Apply OS code “F” for residents in homes for the aged. The State provides SSA with
+a list of these non-medical facilities for the aged and certifies the recipients who
+are residents that require this level of care.
+
+I
+
+Effective January 1, 1988, OS code “I” applies to the State elected Federal administration
+of an optional State supplementary payment to residents of Title XIX facilities.
+
+Y
+
+Optional supplementation waived
+
+Use OS code “Y” to indicate that a recipient is eligible for an optional supplement,
+but has waived their right to receive supplementation.
+
+Z
+
+No supplement cases
+
+Recipients in Title XIX facilities where Medicaid pays more than 50 percent of the
+cost of care and recipients in medical facilities not certified under Title XIX.
+
+2. Coding and monthly payment levels for Michigan
+
+The following charts display the coding and monthly payment levels for Michigan effective
+January 1, 2025:
+
+a. Recipient payment levels for Michigan
+
+Federal Code
+
+State OS Code
+
+Category
+
+FBR
+
+State Supplement Level
+
+Total Payment Levels
+
+A
+
+D
+
+All
+
+967.00
+
+87.00
+
+1054.00
+
+E
+
+All
+
+967.00
+
+157.50
+
+1124.50
+
+F
+
+All
+
+967.00
+
+179.30
+
+1146.30
+
+D
+
+I
+
+All
+
+30.001
+
+7.00
+
+37.00
+
+Z
+
+All
+
+30.00
+
+0.00
+
+30.00
+
+1Not the FBR; the amount represents a payment cap to recipients in a Title XIX institution.
+
+b. Couple payment levels for Michigan
+
+Federal Code
+
+State OS Code
+
+Category
+
+FBR
+
+State Supplement Level
+
+Total Payment Levels
+
+A
+
+D
+
+All
+
+1450.00
+
+658.00
+
+2108.00
+
+E
+
+All
+
+1450.00
+
+799.00
+
+2249.00
+
+F
+
+All
+
+1450.00
+
+842.60
+
+2292.60
+
+D
+
+I
+
+All
+
+60.001
+
+14.00
+
+74.00
+
+1Not the FBR; the amount represents a payment cap to recipients in a Title XIX
+
+H. Description of supplements for Montana
+
+1. Definitions of State living arrangement variations for Montana
+
+Code
+
+Definition
+
+G
+
+State-certified personal care.
+
+H
+
+State-certified residence in-group home for mentally disabled.
+
+I
+
+State-certified residence in-group home for physically or developmentally disabled.
+
+J
+
+State-certified residence for child and adult foster care.
+
+K
+
+State-certified transitional living for developmentally disabled.
+
+Y
+
+Optional supplementation waived – Use this code to indicate that a recipient is eligible
+for an optional supplement but waived their right to receive supplementation.
+
+Z
+
+No supplement cases – Includes all recipients and couples not certified in State codes
+G, H, I, J, or K.
+
+2. Coding and monthly payment levels for Montana
+
+The following charts display the coding and monthly payment levels for Montana effective
+January 1, 2024:
+
+a. Recipient payment levels for Montana
+
+Federal Code
+
+State OS Code
+
+Category
+
+FBR
+
+State Supplement Level
+
+Total Payment Levels
+
+A
+
+G
+
+All
+
+967.00
+
+94.00
+
+1061.00
+
+H
+
+All
+
+967.00
+
+94.00
+
+1061.00
+
+I
+
+All
+
+967.00
+
+94.00
+
+1061.00
+
+J
+
+All
+
+967.00
+
+52.75
+
+1019.75
+
+K
+
+All
+
+967.00
+
+26.00
+
+993.00
+
+Z
+
+All
+
+967.00
+
+0.00
+
+967.00
+
+B
+
+Z
+
+All
+
+644.671
+
+0.00
+
+644.67
+
+C
+
+Z
+
+All
+
+967.00
+
+0.00
+
+967.00
+
+D
+
+Z
+
+All
+
+30.002
+
+0.00
+
+30.00
+
+1Not the FBR; the amount represents the FBR less VTR.
+
+2Not the FBR; the amount represents a payment cap to recipients in a Title XIX institution.
+
+b. Couple payment levels for Montana
+
+Federal Code
+
+State OS Code
+
+Category
+
+FBR
+
+State Supplement Level
+
+Total Payment Levels
+
+A
+
+G
+
+All
+
+1450.00
+
+193.00
+
+1643.00
+
+H
+
+All
+
+1450.00
+
+193.00
+
+1643.00
+
+I
+
+All
+
+1450.00
+
+193.00
+
+1643.00
+
+J
+
+All
+
+1450.00
+
+110.50
+
+1560.50
+
+K
+
+All
+
+1450.00
+
+57.00
+
+1507.00
+
+Z
+
+All
+
+1450.00
+
+0.00
+
+1450.00
+
+B
+
+Z
+
+All
+
+966.671
+
+0.00
+
+966.67
+
+D
+
+Z
+
+All
+
+60.002
+
+0.00
+
+60.00
+
+1Not the FBR; the amount represents the FBR less VTR.
+
+2Not the FBR; the amount represents a payment cap to recipients in a Title XIX institution.
+
+I. Description of supplements for Nevada
+
+1. Definitions of State living arrangement variations for Nevada
+
+Code
+
+Definition
+
+A
+
+Independent living or living in parental household
+
+Use OS code “A” for an aged or blind eligible recipient who meets one of the following
+situations:
+
+a.
+
+Lives in their own household as defined for Federal living arrangement “A” purposes;
+
+b.
+
+Is a patient in a certified private medical facility where Title XIX does not pay more than 50 percent of the cost of care; or
+
+c.
+
+Is a blind child under age 18 (age 21 for recipients who qualify as a “protected child”)
+living in a parent's household.
+
+Use with an “intervening” Federal code “A.” For optional State supplement codes, see
+SM 01301.535.
+
+B
+
+Living in the household of another
+
+Use OS code “B” for aged or blind recipient who is living in the household of another
+and receiving food and shelter from that person. Aged or blind recipients who are subject
+to a one-third reduction (VTR) of their Federal SSI payment are eligible for optional
+supplement “B” because the criteria for this supplement level are the same as for
+Federal code “B.”
+
+C
+
+Domiciliary care
+
+Apply OS code “C” to aged or blind recipients who the State has certified to live
+in a private non-medical facility or, a residential facility serving 16 or fewer persons
+that provides personal care and services to aged, infirm, or handicapped adult persons
+who are unrelated to the proprietor.
+
+The State licenses these facilities for direct payment. The State provides SSA with
+listings of these facilities.
+
+Y
+
+Optional supplementation waived
+
+Use OS code “Y” to indicate that a recipient is eligible for an optional supplement
+but has waived their right to receive supplementation.
+
+Z
+
+Apply “No Supplement” code “Y” to the following recipients:
+
+•
+
+disabled eligible recipient or disabled member of eligible couple;
+
+•
+
+eligible recipient or member of eligible couple in a medical facility where Title
+XIX pays more than 50 percent of the cost;
+
+•
+
+eligible recipient or member of eligible couple who is a patient in a private medical
+facility, which is not certified under Title XIX; or
+
+•
+
+recipients who are residing throughout a month in publicly operated emergency shelters.
+
+NOTE: Nevada is a concurrent category State and permits SSI recipients to receive the highest
+categorical supplement for which they can qualify. For more information on multi-category
+eligibility, see SI 00501.300B.3.
+
+2. Coding and monthly payment levels for Nevada
+
+The following charts display the coding and monthly payment levels for Nevada effective
+January 1, 2025:
+
+a. Recipient payment levels for Nevada
+
+Federal Code
+
+State OS Code
+
+Category
+
+FBR
+
+State Supplement Level
+
+Total Payment Levels
+
+A
+
+A
+
+Aged
+
+967.00
+
+36.40
+
+1003.40
+
+Blind
+
+967.00
+
+109.30
+
+1076.30
+
+C
+
+Aged
+
+967.00
+
+391.00
+
+1358.00
+
+Blind
+
+967.00
+
+391.00
+
+1358.00
+
+Z
+
+Disabled
+
+967.00
+
+0.00
+
+967.00
+
+B
+
+B
+
+Aged
+
+644.671
+
+24.27
+
+668.94
+
+Blind
+
+644.671
+
+213.96
+
+858.63
+
+Z
+
+Disabled
+
+644.671
+
+0.00
+
+644.67
+
+C
+
+A
+
+Blind
+
+967.00
+
+109.30
+
+1076.30
+
+Z
+
+Disabled
+
+967.00
+
+0.00
+
+967.00
+
+D
+
+Z
+
+All
+
+30.002
+
+0.00
+
+30.00
+
+1Not the FBR; the amount represents the FBR less VTR.
+
+2Not the FBR; the amount represents a payment cap to recipients in a Title XIX institution.
+
+b. Couple payment levels for Nevada
+
+Federal Code
+
+State OS Code
+
+Category
+
+FBR
+
+State Supplement Level
+
+Total Payment Levels
+
+A
+
+A
+
+Aged/Aged
+
+1450.00
+
+74.46
+
+1524.46
+
+Blind/Blind
+
+1450.00
+
+374.60
+
+1824.60
+
+Aged/Blind
+
+1450.00
+
+224.53
+
+1674.53
+
+Aged/
+
+Disabled
+
+1450.00
+
+37.23
+
+1487.23
+
+Blind/
+
+Disabled
+
+1450.00
+
+187.30
+
+1637.30
+
+C
+
+Aged/Aged
+
+1450.00
+
+881.00
+
+2331.00
+
+Blind/Blind
+
+1450.00
+
+881.00
+
+2331.00
+
+Aged/Blind
+
+1450.00
+
+881.00
+
+2331.00
+
+Aged/
+
+Disabled
+
+1450.00
+
+440.50
+
+1890.50
+
+Blind/
+
+Disabled
+
+1450.00
+
+440.50
+
+1890.50
+
+Z
+
+Disabled
+
+1450.00
+
+0.00
+
+1450.00
+
+B
+
+B
+
+Aged/Aged
+
+966.671
+
+49.64
+
+1016.31
+
+Blind/Blind
+
+966.671
+
+531.94
+
+1498.61
+
+Aged/Blind
+
+966.671
+
+290.79
+
+1257.46
+
+Aged/
+
+Disabled
+
+966.671
+
+24.82
+
+991.49
+
+Blind/
+
+Disabled
+
+966.671
+
+265.97
+
+1232.64
+
+Z
+
+Disabled
+
+966.671
+
+0.00
+
+966.67
+
+D
+
+Z
+
+All
+
+60.002
+
+0.00
+
+60.00
+
+1Not the FBR; the amount represents the FBR less VTR.
+
+2Not the FBR; the amount represents a payment cap to recipients in a Title XIX institution.
+
+J. Description of supplements for New Jersey
+
+1. Definitions of State living arrangement variations for New Jersey
+
+Code
+
+Definition
+
+A
+
+Congregate care
+
+Apply OS code “A” to recipients in Federal living arrangement “A.” The living arrangement
+includes:
+
+•
+
+recipients in residential facilities who are under the supervision of the Department
+of Human Services;
+
+•
+
+children and adults in residential facilities (both inside and outside of NJ) who
+are under the supervision of, or placed by the NJ Department of Human Services’ Division
+of Developmental Disabilities (DDD) or Division of Youth and Family Services (DYFS);
+and
+
+•
+
+recipients living in assisted living residences or comprehensive personal care homes
+(CPCH) licensed by the Department of Health and Senior Services.
+
+B
+
+Living alone or with others
+
+Use OS code “B” for recipients whose Federal living arrangements are “A” or “C” and
+who do not meet the requirements defined in other supplementation categories.
+
+You must consider any eligible recipient who meets the requirement for a Federal code
+“A” to be in optional supplement “B” unless they are residing in a residential health
+care facility or living alone with an ineligible spouse.
+
+Likewise, any child meeting the criteria for a Federal code “C” is automatically entitled
+to optional supplement “B.”
+
+This category includes, but is not limited to, recipients who are in one of the following
+situations:
+
+1.
+
+Living physically alone;
+
+2.
+
+Living with others in a private dwelling, but meet some criteria for Federal living
+arrangement “A;” or
+
+3.
+
+Placed in a transitional residency program by the Division of Mental Health and Hospitals,
+Department of Human Services.
+
+Optional supplement code “B” is the proper code to use with an “intervening” Federal
+code “A.” For State supplement codes, see SM 01301.535.
+
+Use OS code “B” to address Section 1619 cases.
+
+C
+
+Living alone with an ineligible spouse
+
+Use OS code “C” when a recipient lives with ONLY their ineligible spouse and NO other
+persons are part of the household. Use Federal criteria to determine an ineligible
+spouse for State supplementation purposes (i.e., a spouse, either by marriage or holding
+out as spouses) who is either not eligible for SSI or who chooses not to apply. If other persons, even minor children, are present in
+the household, you cannot apply this OS code.
+
+It is possible that a claimant and the ineligible spouse live with others and allege
+that they are a separate “household” by virtue of the fact that they eat their meals
+out or have separate purchase and preparation of food. In this instance, you may consider
+an optional supplement “C” as long as no other person is considered part of the “household.”
+There is no couple counterpart in this category.
+
+A transient recipient who co-exists only with an ineligible spouse also qualifies
+as OS code “C.”
+
+Always consider parent(s) with minor children to be in the same household and code
+the case OS code “B.”
+
+D
+
+Living in the household of another
+
+Apply OS code D to recipients who are “living in the household of another” for Federal
+purposes.
+
+I
+
+Licensed residential health care facilities (RHCF)
+
+Apply OS code “I” to recipients living in:
+
+•
+
+attached nursing homes;
+
+•
+
+assisted living residence;
+
+•
+
+CPCH; or
+
+•
+
+“free-standing” licensed residential health care facilities. We paid residents of
+these facilities the OS “A” rate prior to January 1, 2006.
+
+We must base our authorization for this payment on the recipient's verified residence at
+a facility listed in the New Jersey Congregate Care
+Directory.
+
+Only the RHCF section of a multipurpose facility is eligible for the OS code “I” rate.
+Pay residents of the assisted living resident (ALR or CPCH section of a multipurpose
+facility) at the OS code “A” rate. Nursing home residents are in living arrangement
+(“D” or “G”) if Medicaid pays more than 50 percent of the cost of care.
+
+G
+
+Apply OS code “G” effective September 1, 1988, when the State elected Federal administration
+of an optional State supplementary payment to residents of Title XIX facilities.
+
+Y
+
+Optional supplementation waived
+
+Use OS code “Y” to indicate that a recipient is eligible for an optional supplement
+but waived their right to receive supplementation.
+
+Z
+
+No supplement cases
+
+Apply OS code “Z” to recipients:
+
+•
+
+in licensed medical facilities where Medicaid is paying less than 50 percent of the
+cost of care;
+
+•
+
+in publicly operated community residences having 16 or less residents; and
+
+•
+
+residing throughout a month in publicly operated emergency shelters.
+
+You can also apply OS code “Z” to cases that were FLA “D” prior to January 1988, or
+effective December 1, 1996, to children residing in public or private facilities where
+private health insurance paid for their care. For determination of applicability of
+$30 payment limit, see SI 00520.011.
+
+NOTE: All State Supplement payments, except for medicaid facilities, include a Lifeline
+payment which is a utility assistance program for older people and people with disabilities
+that offers an annual benefit amount for individuals who receive SSI.
+
+2. Coding and monthly payment levels for New Jersey
+
+The following charts display the coding and monthly payments levels for New Jersey
+effective January 1, 2025:
+
+a. Recipient payment levels for New Jersey
+
+Federal Code
+
+State OS Code
+
+Category
+
+FBR
+
+State Supplement Level
+
+Total Payment Levels
+
+A
+
+A
+
+All
+
+967.00
+
+150.05
+
+1117.05
+
+B
+
+All
+
+967.00
+
+31.25
+
+998.25
+
+C
+
+Individual
+
+967.00
+
+152.99
+
+1119.99
+
+I
+
+All
+
+967.00
+
+210.05
+
+1177.05
+
+Z
+
+All
+
+967.00
+
+0.00
+
+967.00
+
+B
+
+D
+
+All
+
+644.671
+
+44.31
+
+688.98
+
+C
+
+B
+
+All
+
+967.00
+
+31.25
+
+998.25
+
+D
+
+G
+
+All
+
+30.002
+
+20.00
+
+50.00
+
+Z
+
+All
+
+30.00
+
+0.00
+
+30.00
+
+1Not the FBR; the amount represents the FBR less VTR.
+
+2Not the FBR; the amount represents a payment cap to recipients in a Title XIX institution.
+
+b. Couple payment levels for New Jersey
+
+Federal Code
+
+State OS Code
+
+Category
+
+FBR
+
+State Supplement Level
+
+Total Payment Levels
+
+A
+
+A
+
+All
+
+1450.00
+
+618.35
+
+2068.351
+
+B
+
+All
+
+1450.00
+
+25.35
+
+1475.35
+
+1
+
+I
+
+All
+
+1450.00
+
+738.35
+
+2188.351
+
+Z
+
+All
+
+1450.00
+
+0.00
+
+1450.00
+
+B
+
+D
+
+All
+
+966.672
+
+93.08
+
+1059.751
+
+D
+
+G
+
+All
+
+60.003
+
+40.00
+
+100.00
+
+1This amount is the total of the federal payment, the state supplement amount, and
+the lifeline payment. When added together and divided in half for each member of the
+couple, the result includes a half penny. The total is rounded up to accommodate system
+processing.
+
+2Not the FBR; the amount represents the FBR less VTR.
+
+3Not the FBR; the amount represents a payment cap to recipients in a Title XIX institution.
+
+K. Description of supplements for Pennsylvania
+
+1. Definitions of State living arrangement variations for Pennsylvania
+
+Code
+
+Definition
+
+C
+
+Living with an essential person (EP)
+
+Apply OS code “C” to recipients who are not living in the household of another or
+in a foster care home for adults and who have one or more EP’s as defined under the
+Federal rules.
+
+D
+
+Living in the household of another with an EP
+
+Apply OS code “D” to recipients who live in the household of another and have one
+or more EP’s as defined under the Federal rules.
+
+G
+
+Living in a domiciliary care facility
+
+Apply OS code “G” to adult persons (age 18 and over) certified by the State to reside
+in non-medical residential care facilities.
+
+H
+
+Living in a personal care boarding home (PCBH)
+
+Apply OS code “H” to adult persons (age 18 and over) certified by the State to reside
+in non-medical residential care facilities.
+
+Y
+
+Optional supplementation waived
+
+Use code “Y” to indicate that a recipient is eligible for an optional supplement,
+but waived their right to receive supplementation.
+
+Z
+
+No supplement cases
+
+OS code “Z” includes all recipients who are residing in a medical facility that Title
+XIX pays more than 50 percent of the cost of care and recipients in FLA “A” or FLA
+“B” who receive a State-administered supplement.
+
+2. Coding and monthly payment levels for Pennsylvania
+
+The following charts display the coding and monthly payment levels for Pennsylvania
+effective January 1, 2025:
+
+a. Recipient payment levels for Pennsylvania
+
+Federal Code
+
+State OS Code
+
+Category
+
+FBR
+
+State Supplement Level
+
+Total Payment Levels
+
+A
+
+C
+
+All
+
+1451.001
+
+43.70
+
+1494.70
+
+G
+
+All
+
+967.00
+
+634.30
+
+1601.30
+
+H
+
+All
+
+967.00
+
+639.30
+
+1606.30
+
+Z
+
+All
+
+967.00
+
+0.00
+
+967.00
+
+B
+
+Z
+
+All
+
+644.672
+
+0.00
+
+644.67
+
+D
+
+All
+
+1128.673
+
+43.70
+
+1172.37
+
+C
+
+Z
+
+All
+
+967.00
+
+0.00
+
+967.00
+
+D
+
+Z
+
+All
+
+30.004
+
+0.00
+
+30.00
+
+1Not the FBR; the amount represents the FBR plus EP increment.
+
+2Not the FBR; the amount represents the FBR less VTR.
+
+3Not the FBR; the amount represents the FBR plus EP increment less VTR.
+
+4Not the FBR; the amount represents a payment cap to recipients in a Title XIX institution.
+
+b. Couple payment levels for Pennsylvania
+
+Federal Code
+
+State OS Code
+
+Category
+
+FBR
+
+State Supplement Level
+
+Total Payment Levels
+
+A
+
+C
+
+All
+
+1934.001
+
+68.05
+
+2002.05
+
+G
+
+All
+
+1450.00
+
+1347.40
+
+2797.40
+
+H
+
+All
+
+1450.00
+
+1357.40
+
+2807.40
+
+Z
+
+All
+
+1450.00
+
+0.00
+
+1450.00
+
+B
+
+D
+
+All
+
+1450.672
+
+68.05
+
+1518.72
+
+B
+
+Z
+
+All
+
+966.673
+
+0.00
+
+966.67
+
+D
+
+Z
+
+All
+
+60.004
+
+0.00
+
+60.00
+
+1Not the FBR; the amount represents the FBR plus EP increment.
+
+2Not the FBR; the amount represents the FBR plus EP increment less VTR.
+
+3Not the FBR; the amount represents the FBR less VTR.
+
+4Not the FBR; the amount represents a payment cap to recipients.
+
+NOTE: Apply the payment level for couples in Pennsylvania’s PCBHs only in the month they
+move into the PCBH. You must regard them as individual recipients in the month following
+the month of move. For more information on the payment levels for couples in Pennsylvania’s
+PCBHs, see SI PHI01415.010.
+
+L. Description of supplements for Rhode Island
+
+1. Definitions of State living arrangement variations for Rhode Island
+
+Definitions of State Living Arrangement Variations are as follows:
+
+Code
+
+Definition
+
+D
+
+Residential care or assisted living
+
+Apply OS code “D” only to recipients living in residential care or assisted living
+facilities as certified by the Rhode Island Department of Human Services.
+
+Y
+
+Optional supplementation waived
+
+Use OS code “Y” to indicate that a recipient is eligible for an optional supplement,
+but waived their right to receive supplementation.
+
+Z
+
+No state supplement payable
+
+Use OS code “Z” when the State of Rhode Island does not pay a supplement unless the
+recipient resides in a licensed adult care facility described in category “D” or “F”.
+
+2. Coding and monthly payment levels for Rhode Island
+
+The following charts display the coding and monthly payment levels for Rhode Island
+effective January 1, 2025:
+
+Recipient payment levels for Rhode Island
+
+Federal Code
+
+State OS Code
+
+Category
+
+FBR
+
+State Supplement Level
+
+Total Payment Levels
+
+A
+
+D
+
+All
+
+967.00
+
+332.00
+
+1299.00
+
+Z
+
+All
+
+967.00
+
+0.00
+
+967.00
+
+M. Description of supplements for Vermont
+
+1. Definitions of State living arrangement variations for Vermont
+
+Use this table to view the code and definitions of State living arrangement variations:
+
+Code
+
+Definition
+
+A
+
+Independent living (except Chittenden County)
+
+Apply OS code “A” to several situations including recipients who:
+
+•
+
+are not living in the household of another;
+
+•
+
+are not in a residential or custodial care situation;
+
+•
+
+are under age 18 and live with a parent;
+
+•
+
+reside in a private Title XIX facility where Medicaid is not paying more than 50 percent
+of the cost of care;
+
+•
+
+reside throughout a month in a publicly operated emergency shelter.
+
+B
+
+Independent living in Chittenden County
+
+Apply OS code “B” to all recipients living in situations described in “A” above except
+restricted to residents of Chittenden County.
+
+C
+
+Licensed residential care home or assisted living residence with
+assistive community care services (Level III)
+
+Apply OS code “C” to recipients residing in Level III facilities identified by the
+State. To determine if the facility meets the requirements for OS code “C,” refer
+to the Division of
+Licensing and Protection for Vermont State.
+
+E
+
+Living in the household of another
+
+Apply OS code “E” to recipients who live in the household of another and receive support
+and maintenance from them (subject to the Federal one-third reduction provisions).
+
+G
+
+Licensed residential care home or therapeutic community residence (Level
+IV)
+
+Apply OS code “G” to recipients residing in Level IV facilities identified by the
+State. Apply OS code “G” to recipients residing in Level IV facilities identified
+by the State. To determine if a facility meets the requirements for OS code “G,” refer
+to the Division of
+Licensing and Protection for Vermont State.
+
+H
+
+Custodial care: family home
+
+Apply OS code “H” to recipients who:
+
+•
+
+live in another's home,
+
+•
+
+pay room and board to that home owner, and
+
+•
+
+receive one or more of the services outlined under the custodial care definition.
+
+To qualify as a home under this arrangement, a resident of the home must provide the
+services to two persons or less.
+
+In some cases, the Vermont Department of Disabilities, Aging, and Independent Living
+(DAIL) has established outplacement programs meeting the definition of living arrangement
+(L/A) “H.” To qualify these programs must meet the above requirements.
+
+Custodial care means providing basic room and board, plus personal services such as:
+
+•
+
+help with feeding,
+
+•
+
+dressing,
+
+•
+
+bathing,
+
+•
+
+moving about under normal circumstances, or
+
+•
+
+occasional tray service (tray service two-three times a week), which may include supervision
+for the recipient's protection. Supervision for the recipient's protection deals primarily
+with protection services for retarded and emotionally disturbed recipients.
+
+A person who receives one or more of these personal services is receiving custodial
+care.
+
+I
+
+Apply OS code “I” effective July 1, 1987, when the State elected Federal
+administration of an optional State supplementary payment to residents in Title
+XIX facilities. This includes children under the age of 18 for whom Medicaid alone pays, or is expected
+to pay, over 50 percent of the cost of care for that month.
+
+Y
+
+Optional supplementation waived
+
+Use this OS code “Y” to indicate that a recipient is eligible for an optional supplement,
+but waived their right to receive supplementation.
+
+2. Coding and monthly payment levels for Vermont
+
+The following charts display the coding and monthly payment levels for Vermont effective
+January 1, 2025:
+
+a. Recipient payment levels for Vermont
+
+Federal Code
+
+State OS Code
+
+Category
+
+FBR
+
+State Supplement Level
+
+Total Payment Levels
+
+A
+
+A
+
+All (Except Chittenden County)
+
+967.00
+
+55.68
+
+1022.68
+
+B
+
+All (Restricted to Chittenden County)
+
+967.00
+
+55.68
+
+1022.68
+
+C
+
+All
+
+967.00
+
+51.77
+
+1018.77
+
+G
+
+All
+
+967.00
+
+239.62
+
+1206.62
+
+H
+
+All
+
+967.00
+
+105.60
+
+1072.60
+
+B
+
+E
+
+All
+
+644.67
+
+42.05
+
+686.72
+
+C
+
+A
+
+All (Except Chittenden County)
+
+967.00
+
+55.68
+
+1022.68
+
+B
+
+All (Restricted to Chittenden County)
+
+967.00
+
+55.68
+
+1022.68
+
+D
+
+I
+
+All
+
+30.001
+
+49.93
+
+79.93
+
+1Not the FBR; the amount represents a payment cap to recipients in a Title XIX institution.
+
+b. Couple payment levels for Vermont
+
+Federal Code
+
+State OS Code
+
+Category
+
+FBR
+
+State Supplement Level
+
+Total Payment Levels
+
+A
+
+A
+
+All(Except Chittenden County)
+
+1450.00
+
+105.80
+
+1555.80
+
+B
+
+All (Restricted to Chittenden County)
+
+1450.00
+
+105.80
+
+1555.80
+
+C
+
+All
+
+1450.00
+
+103.54
+
+1553.54
+
+G
+
+All
+
+1450.00
+
+601.40
+
+2051.40
+
+H
+
+All
+
+1450.00
+
+356.12
+
+1806.12
+
+B
+
+E
+
+All
+
+966.671
+
+51.69
+
+1018.36
+
+D
+
+I
+
+All
+
+60.002
+
+99.85
+
+159.85
+
+1Not the FBR; the amount represents the FBR less VTR.
+
+2Not the FBR; the amount represents a payment cap to recipients in a Title XIX institution.
+
+N. Procedure for documenting optional state category determination
+
+1. Documentation requirements for initial claims, pre-effectuation reviews, and redeterminations
+
+You do not need additional documentation unless you have reason to question the situation.
+
+2. Documentation requirements for all other claims events
+
+Unless you have reason to question the situation, document the recipient’s statement
+that supports the optional state category determination on an SSA-795 (Statement of
+Claimant or Other Person), or on an SSA-5002 (Report of Contact).
+
+3. Questionable situations regarding optional State supplements
+
+In questionable situations, review any available evidence that supports the recipient’s
+allegation of their optional State supplement category. Contact other persons with
+knowledge of the recipient’s living situation, if necessary (landlord, homeowner,
+facility manager). Document the file per the instructions on recording evidence in
+GN 00301.285 through GN 00301.289.
+
+To Link to this section - Use this URL:
+http://policy.ssa.gov/poms.nsf/lnx/0501415057
+
+SI 01415.057 - Federally Administered Optional Supplementary Payment Programs for January 2025 - 12/23/2024
+
+Batch run: 02/19/2025
+
+Rev:12/23/2024

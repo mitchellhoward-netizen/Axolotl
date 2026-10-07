@@ -1,0 +1,493 @@
+schema_version: 2
+program: ltc_medicaid
+scope: ca
+title: Long-term care Medi-Cal — California (property limit reinstated 2026, 30-month look-back, spousal impoverishment)
+last_researched: 2026-10-07
+
+summary:
+  plain_language: >-
+    In California, Medi-Cal pays for nursing-home care for people who are 65 or
+    older, blind or disabled. From January 1, 2026 there is again a property
+    (asset) limit: $130,000 for one person ($195,000 for two), after two years
+    (2024-2025) with no limit at all. A spouse at home keeps up to $162,660 in
+    addition, and enough of the resident's income to reach $4,067 a month. The
+    resident keeps $35 a month for personal needs and pays the rest of their
+    income as a "share of cost". Gifts are reviewed for 30 months before the
+    application (not 60), but nothing given away from January 2024 through
+    December 2025 is reviewed, and a gift counts only if the person was over the
+    property limit and gave more than $14,440 (the 2026 average private nursing
+    home rate). The penalty is the gift divided by $14,440, in whole months,
+    counted from the month of the gift, at most 30 months. Home care
+    programs have no transfer penalty.
+  administered_by: >-
+    California Department of Health Care Services (DHCS), Medi-Cal Eligibility Division, sets policy;
+    county social services offices (county eligibility workers) take and decide applications, and DHCS
+    must approve every period of ineligibility.
+  funded_by: Federal and California Medi-Cal funds.
+  local_names:
+    - {name: LTC Medi-Cal, meaning: Medi-Cal coverage of nursing facility (long-term care) services}
+    - {name: Share of cost (SOC), meaning: The resident's monthly payment toward the nursing home}
+    - {name: POI, meaning: "Period of ineligibility for nursing facility level of care (California's transfer penalty)"}
+    - {name: APPR, meaning: Statewide average private pay rate for nursing facility services (the POI divisor)}
+    - {name: MMMNA / CSRA, meaning: Community spouse income and resource protections}
+    - {name: MC 176 PI, meaning: Period of Ineligibility Worksheet}
+    - {name: Non-MAGI Medi-Cal, meaning: The aged/blind/disabled and long-term care programs that have a property test}
+  confidence: confirmed
+  sources:
+    - {source: ca-dhcs-acwdl-25-14, locator: "Purpose and Policy Change"}
+    - {source: ca-dhcs-acwdl-25-18, locator: "whole letter"}
+    - {source: ca-dhcs-acwdl-26-02, locator: "Purpose"}
+    - {source: ca-dhcs-acwdl-26-03, locator: "Purpose"}
+
+rules:
+  - id: LTC-CA-ASSET-TEST
+    statement: >-
+      California applied no property (asset) test to Non-MAGI Medi-Cal, including
+      long-term care, from January 1, 2024 through December 31, 2025, and reinstated
+      the test on January 1, 2026 for applications dated on or after that day and
+      for existing members at their next renewal.
+    kind: eligibility
+    effective_from: 2024-01-01
+    parameters: [ca.medi_cal_ltc.asset_test_applies]
+    implemented_in: playbooks/ltc_medicaid/states/ca/rules.py:evaluate
+    confidence: confirmed
+    sources:
+      - {source: ca-dhcs-acwdl-25-14, locator: "Background; Impacted Populations"}
+      - {source: ca-dhcs-acwdl-25-18, locator: "Background"}
+  - id: LTC-CA-ASSET-LIMIT
+    statement: >-
+      In California from January 1, 2026, a person applying for long-term care
+      Medi-Cal qualifies only if their net non-exempt property is no more than
+      $130,000 for one person ($195,000 for two, plus $65,000 for each additional
+      person up to ten); a person over the limit may spend down the excess by the
+      end of the month in which eligibility is to be established.
+    kind: eligibility
+    effective_from: 2026-01-01
+    parameters: [ca.medi_cal_ltc.asset_limit]
+    implemented_in: playbooks/ltc_medicaid/states/ca/rules.py:evaluate
+    confidence: confirmed
+    note: The Pickle, Disabled Adult Child and Disabled Widow(er) programs stay exempt from the property test for now.
+    sources:
+      - {source: ca-dhcs-acwdl-25-14, locator: "Household Asset Limits for Non-MAGI Programs as of January 1, 2026; Spenddown of Excess Property"}
+      - {source: ca-dhcs-acwdl-26-02, locator: "Property Eligibility"}
+  - id: LTC-CA-CSRA
+    statement: >-
+      In California in 2026, when a nursing-home resident has a spouse at home, the
+      couple may keep combined property up to the resident's $130,000 limit plus a
+      community spouse resource allowance of $162,660; the CSRA applies only to the
+      first month of eligibility, after which the community spouse's own property is
+      not counted.
+    kind: eligibility
+    effective_from: 2026-01-01
+    parameters: [ca.medi_cal_ltc.csra]
+    overrides: [LTC-FED-CSRA]
+    implemented_in: playbooks/ltc_medicaid/states/ca/rules.py:evaluate
+    confidence: confirmed
+    note: ACWDL 26-02 states a single CSRA figure; the archive reads this as California allowing the full federal maximum to every community spouse (no spousal-share computation).
+    sources:
+      - {source: ca-dhcs-acwdl-26-02, locator: "Purpose", quote: "Starting January 1, 2026, the CSRA is $162,660.00"}
+      - {source: ca-dhcs-acwdl-26-02, locator: "Summary of Spousal Impoverishment Policy", quote: "The CSRA applies to the initial month of eligibility only"}
+  - id: LTC-CA-CSRA-TRANSFER-PERIOD
+    statement: >-
+      In California, after a married nursing-home resident is approved, property
+      above $130,000 must be moved out of the resident's name (for example to the
+      community spouse) by the end of the month in which the 90th day after the
+      approval notice falls; property still in the resident's name above $130,000
+      after that is excess property unless undue hardship applies.
+    kind: timing
+    effective_from: 2026-01-01
+    confidence: confirmed
+    sources:
+      - {source: ca-dhcs-acwdl-26-02, locator: "Summary of Spousal Impoverishment Policy", quote: "The CSRA transfer period begins with the initial month of eligibility and ends on the last day of the month in which the 90th day falls"}
+  - id: LTC-CA-SPOUSAL-ALLOCATION
+    statement: >-
+      In California in 2026, a nursing-home resident may allocate income to the
+      spouse at home to bring the community spouse's income, after deducting the
+      community spouse's Medicare and other health insurance premiums, up to the
+      $4,067 minimum monthly maintenance needs allowance.
+    kind: benefit
+    effective_from: 2026-01-01
+    parameters: [ca.medi_cal_ltc.mmmna]
+    overrides: [LTC-FED-MMMNA]
+    implemented_in: playbooks/ltc_medicaid/states/ca/rules.py:evaluate
+    confidence: confirmed
+    sources:
+      - {source: ca-dhcs-acwdl-26-02, locator: "Purpose; Income Eligibility", quote: "When evaluating the community spouse's gross income against the MMMNA, deduct any amounts paid for Medicare and/or other health insurance premiums"}
+  - id: LTC-CA-FAMILY-ALLOWANCE
+    statement: >-
+      In California, the amount of the family allowance for dependants living with
+      the community spouse of a nursing-home resident was not established in the
+      sources retrieved for this archive.
+    kind: benefit
+    effective_from: 2026-01-01
+    overrides: [LTC-FED-FAMILY-ALLOWANCE]
+    implemented_in: playbooks/ltc_medicaid/states/ca/rules.py:evaluate
+    confidence: unresolved
+    open_question: LTC-CA-OQ-05
+  - id: LTC-CA-PNA
+    statement: >-
+      In California, a Medi-Cal nursing-home resident keeps a personal needs
+      allowance of $35 a month; the rest of their countable income is the monthly
+      share of cost paid to the facility.
+    kind: benefit
+    effective_from: 2002-01-01
+    parameters: [ca.medi_cal_ltc.pna]
+    overrides: [LTC-FED-PNA]
+    implemented_in: playbooks/ltc_medicaid/states/ca/rules.py:evaluate
+    confidence: confirmed
+    open_question: LTC-CA-OQ-03
+    note: Primary source is an old DHCS Q&A (2001-2002 figures); a newer statement of the amount was not retrievable.
+    sources:
+      - {source: ca-dhcs-ltc-medi-cal-qa, locator: "married couple answer and share of cost answer", quote: "The spouse in the nursing home is permitted to keep $35 a month for personal needs."}
+  - id: LTC-CA-SOC
+    statement: >-
+      In California, a nursing-home resident on Medi-Cal pays a monthly share of
+      cost equal to their income minus the $35 personal needs allowance, any income
+      allocated to the community spouse and their health insurance premiums; if that
+      share would cover the full monthly cost, Medi-Cal pays nothing toward the
+      facility.
+    kind: benefit
+    effective_from: 2026-01-01
+    overrides: [LTC-FED-POST-ELIGIBILITY]
+    implemented_in: playbooks/ltc_medicaid/states/ca/rules.py:evaluate
+    confidence: confirmed
+    note: The "covers the full cost" consequence is an inference from the share-of-cost method.
+    sources:
+      - {source: ca-dhcs-ltc-medi-cal-qa, locator: "share of cost answer: all (less $35) of the applicant's income is considered his or her share of cost"}
+  - id: LTC-CA-LOOKBACK
+    statement: >-
+      In California, county workers review transfers made by a long-term care
+      Medi-Cal applicant or spouse in a 30-month look-back period that begins with
+      the month before the application month (or before the month of admission for a
+      current member) and runs back 30 months.
+    kind: penalty
+    effective_from: 2026-01-01
+    parameters: [ca.medi_cal_ltc.lookback_months]
+    overrides: [LTC-FED-LOOKBACK]
+    implemented_in: playbooks/ltc_medicaid/states/ca/rules.py:_poi
+    confidence: confirmed
+    sources:
+      - {source: ca-dhcs-acwdl-25-18, locator: "Review of Transfers of Assets; Look-Back Period", quote: "The look-back period begins the month before the Medi-Cal application is submitted for an applicant in LTC."}
+  - id: LTC-CA-TRANSFER-BLACKOUT
+    statement: >-
+      In California, transfers made from January 1, 2024 through December 31, 2025,
+      when there was no property test, are never reviewed and never cause a period
+      of ineligibility; because of this, for applications from July 2026 only months
+      from January 2026 on are reviewed, and the full 30-month review returns for
+      applications on or after July 1, 2028.
+    kind: penalty
+    effective_from: 2026-01-01
+    implemented_in: playbooks/ltc_medicaid/states/ca/rules.py:_poi
+    confidence: confirmed
+    sources:
+      - {source: ca-dhcs-acwdl-25-18, locator: "Transfers On or After January 1, 2024, but Before January 1, 2026; Look-Back Period chart"}
+      - {source: ca-dhcs-acwdl-26-03, locator: "Guidance", quote: "no period of ineligibility shall be calculated for any disqualifying transfers made between January 1, 2024, and December 31, 2025"}
+  - id: LTC-CA-DISQUALIFYING
+    statement: >-
+      In California, a transfer of non-exempt property is a disqualifying transfer
+      only if the person was over the property limit when they made it and the
+      amount transferred was more than the statewide average private pay rate
+      ($14,440 in 2026); transfers of exempt property, and transfers the person shows
+      were made for a reason other than qualifying for Medi-Cal, are not penalized.
+    kind: penalty
+    effective_from: 2026-01-01
+    parameters: [ca.medi_cal_ltc.appr]
+    overrides: [LTC-FED-TRANSFER-EXCEPTIONS]
+    implemented_in: playbooks/ltc_medicaid/states/ca/rules.py:_poi
+    confidence: confirmed
+    sources:
+      - {source: ca-dhcs-acwdl-25-18, locator: "B. New POIs", quote: "A disqualifying transfer occurs when, during an individual's look-back period, they were over the asset limit and made a transfer of nonexempt assets valued more than the statewide APPR"}
+      - {source: ca-dhcs-acwdl-26-03, locator: "Background: Transfers of exempt property ... no period of ineligibility for NFS can be imposed"}
+  - id: LTC-CA-POI
+    statement: >-
+      In California in 2026, the period of ineligibility for nursing facility care
+      after a disqualifying transfer is the amount transferred divided by $14,440 (the
+      2026 average private pay rate), in whole months with no partial month, counted
+      from the month of the transfer and never longer than 30 months; the person
+      keeps restricted Medi-Cal for other services.
+    kind: penalty
+    effective_from: 2026-01-01
+    parameters: [ca.medi_cal_ltc.appr, ca.medi_cal_ltc.max_poi_months]
+    overrides: [LTC-FED-PENALTY-MONTHS, LTC-FED-PENALTY-START, LTC-FED-NO-ROUNDING]
+    implemented_in: playbooks/ltc_medicaid/states/ca/rules.py:_poi
+    confidence: confirmed
+    note: >-
+      The whole-month result and the start in the month of transfer come from ACWDL 25-18 Example 4
+      ($70,000 / $13,000 = 5 months, August through December). Whether the transferred amount is first
+      reduced by any room under the property limit is not stated (LTC-CA-OQ-06). See conflict
+      LTC-CA-CONFLICT-02 on the federal rules.
+    sources:
+      - {source: ca-dhcs-acwdl-25-18, locator: "B. New POIs and Example 4", quote: "the CEW determines that the POI is 5 months long, as no partial month POI are imposed, and would run from August 1, 2026 (the month the disqualifying transfer was made)"}
+      - {source: ca-dhcs-acwdl-26-03, locator: "Purpose"}
+  - id: LTC-CA-POI-PROCESS
+    statement: >-
+      In California, a county may not impose a period of ineligibility without
+      approval from the DHCS Medi-Cal Eligibility Division: the county must first
+      review for undue hardship, then send the MC 176 PI worksheet to DHCS within 10
+      business days, and DHCS decides within 10 business days; the county grants
+      restricted Medi-Cal rather than a full denial.
+    kind: procedure
+    effective_from: 2026-01-01
+    confidence: confirmed
+    sources:
+      - {source: ca-dhcs-acwdl-25-18, locator: "B. New POIs; Periods of Ineligibility"}
+  - id: LTC-CA-UNDUE-HARDSHIP
+    statement: >-
+      In California, no period of ineligibility is imposed if it would endanger the
+      person's life or health, cause eviction from a nursing home, prevent the person
+      from getting care they cannot get without Medi-Cal, force or hasten entry into
+      an institution, or deprive the person of food, clothing, shelter or other
+      necessities.
+    kind: penalty
+    effective_from: 2026-01-01
+    confidence: confirmed
+    sources:
+      - {source: ca-dhcs-acwdl-25-18, locator: "Undue Hardship (WIC 14015.1(b) summarized)"}
+  - id: LTC-CA-NO-POI-COMMUNITY
+    statement: >-
+      In California, a period of ineligibility for transfers applies only to nursing
+      facility level of care; it does not apply to Medi-Cal members in
+      community-based programs such as home care.
+    kind: penalty
+    effective_from: 2026-01-01
+    overrides: [LTC-FED-PENALTY-SCOPE]
+    implemented_in: playbooks/ltc_medicaid/states/ca/rules.py:evaluate
+    confidence: confirmed
+    sources:
+      - {source: ca-dhcs-acwdl-25-18, locator: "Review of Transfers of Assets", quote: "The POI does not apply to Medi-Cal members enrolled in community-based Medi-Cal programs."}
+  - id: LTC-CA-HOME-EQUITY
+    statement: >-
+      Whether California applies the federal home equity limit ($752,000 to
+      $1,130,000 in 2026) to long-term care Medi-Cal before 2028 is unresolved; an
+      advocacy source says California does not apply it yet and must by January 1,
+      2028.
+    kind: eligibility
+    effective_from: 2026-01-01
+    overrides: [LTC-FED-HOME-EQUITY]
+    implemented_in: playbooks/ltc_medicaid/states/ca/rules.py:evaluate
+    confidence: unresolved
+    open_question: LTC-CA-OQ-01
+    sources:
+      - {source: justiceinaging-ca-asset-limit-faq, locator: "What about the home equity limit for long-term care?", quote: "The home equity limit does not apply in California yet. Under H.R.1, California must implement the home equity limit by January 1, 2028."}
+
+procedure:
+  applications:
+    - id: LTC-CA-PROC-APPLY
+      text: >-
+        Apply for long-term care Medi-Cal at the county social services office for
+        the county where the person lives (or the facility is); applications dated on
+        or after January 1, 2026 must report property and provide verification of
+        assets. The application form numbers for Non-MAGI/LTC applicants were not
+        confirmed from a DHCS source.
+      county_varies: true
+      confidence: confirmed
+      open_question: LTC-CA-OQ-07
+      sources: [{source: ca-dhcs-acwdl-25-14, locator: "Application", quote: "will be required to report asset information and provide verification of their assets as part of their eligibility determination"}]
+  documents:
+    - id: LTC-CA-DOC-ASSETS
+      text: >-
+        Counties first check the electronic Asset Verification Program (AVP) report;
+        they ask for more documents about transfers only when the AVP report is not
+        enough to complete the MC 176 PI worksheet, and do not follow up on transfers
+        below the APPR or made while the person was within the property limit.
+      form_number: MC 176 PI
+      form_name: Period of Ineligibility Worksheet
+      confidence: confirmed
+      sources: [{source: ca-dhcs-acwdl-25-18, locator: "Transfers On or After January 1, 2026; Transfers Prior to January 1, 2024"}]
+    - id: LTC-CA-DOC-SPENDDOWN
+      text: Counties must give applicants with excess property the MC 007 form and explain how to spend down property.
+      form_number: MC 007
+      confidence: confirmed
+      sources: [{source: ca-dhcs-acwdl-25-14, locator: "Spenddown of Excess Property"}]
+  timelines:
+    - id: LTC-CA-TIME-POI-REVIEW
+      text: The county sends a proposed POI to DHCS within 10 business days of discovering it; DHCS decides within 10 business days.
+      duration: 10 + 10 business days
+      confidence: confirmed
+      sources: [{source: ca-dhcs-acwdl-25-18, locator: "B. New POIs"}]
+  renewal:
+    - id: LTC-CA-RENEW-2026
+      text: >-
+        Members approved before 2026 face the property test at their first renewal in
+        2026; members dropped for not returning asset information get a 90-day cure
+        period. Married long-term care members approved before 2026 get a CSRA
+        transfer period at that renewal to move property above $130,000 out of the
+        resident's name.
+      confidence: confirmed
+      sources:
+        - {source: ca-dhcs-acwdl-25-14, locator: "Annual Renewal"}
+        - {source: ca-dhcs-acwdl-26-02, locator: "Guidance for Processing Annual Renewals due in 2026"}
+  approval_notice:
+    - id: LTC-CA-NOTICE-RESTRICTED
+      text: A period of ineligibility is shown as restricted Medi-Cal (restricted services codes 950/951) with a Notice of Action; it is not a full denial.
+      confidence: confirmed
+      sources: [{source: ca-dhcs-acwdl-25-18, locator: "Periods of Ineligibility"}]
+
+life_events:
+  - id: LTC-CA-LE-NURSING-HOME
+    code: nursing_home_entry
+    event: Entering a California nursing home and applying for Medi-Cal
+    why: The $130,000 property limit and the 30-month look-back (with the 2024-2025 blackout) apply.
+    check_rules: [LTC-CA-ASSET-LIMIT, LTC-CA-LOOKBACK, LTC-CA-TRANSFER-BLACKOUT]
+    confidence: confirmed
+    sources: [{source: ca-dhcs-acwdl-25-18, locator: "Look-Back Period"}]
+  - id: LTC-CA-LE-HOME-CARE
+    code: home_care_need
+    event: Needing home and community-based care
+    why: The property limit applies, but there is no period of ineligibility for transfers.
+    check_rules: [LTC-CA-NO-POI-COMMUNITY, LTC-CA-ASSET-LIMIT]
+    confidence: confirmed
+    sources: [{source: ca-dhcs-acwdl-25-18, locator: "Review of Transfers of Assets"}]
+  - id: LTC-CA-LE-ASSETS
+    code: asset_change
+    event: Giving away money or property while over the $130,000 limit
+    why: A gift above $14,440 within the look-back while over the limit causes a POI of up to 30 months from the month of the gift.
+    check_rules: [LTC-CA-DISQUALIFYING, LTC-CA-POI]
+    confidence: confirmed
+    sources: [{source: ca-dhcs-acwdl-25-18, locator: "B. New POIs"}]
+  - id: LTC-CA-LE-SPOUSE-DEATH
+    code: spouse_death
+    event: Death of the community spouse
+    why: Property inherited by the resident counts against the $130,000 limit; spousal income allocation ends.
+    check_rules: [LTC-CA-ASSET-LIMIT, LTC-CA-SPOUSAL-ALLOCATION]
+    confidence: confirmed
+    sources: [{source: ca-dhcs-acwdl-26-02, locator: "Summary of Spousal Impoverishment Policy"}]
+  - id: LTC-CA-LE-DIVORCE
+    code: divorce_separation
+    event: Divorce or separation (also registered domestic partners)
+    why: The spousal impoverishment protections apply to married couples and registered domestic partners only while the relationship lasts.
+    check_rules: [LTC-CA-CSRA]
+    confidence: confirmed
+    sources: [{source: ca-dhcs-acwdl-26-02, locator: "Purpose (married couples or registered domestic partners)"}]
+  - id: LTC-CA-LE-MOVE
+    code: move_state
+    event: Moving a parent from California to a nursing home in another state (or into California)
+    why: California's 30-month look-back and $130,000 limit are unusually generous; the other states in the archive use 60 months and much lower limits.
+    check_rules: [LTC-CA-LOOKBACK, LTC-CA-ASSET-LIMIT]
+    confidence: confirmed
+    sources: [{source: ca-dhcs-acwdl-25-18, locator: "Review of Transfers of Assets"}]
+
+outcome_proof:
+  - id: LTC-CA-PROOF-NOA
+    evidence: County Notice of Action approving long-term care Medi-Cal
+    shows: The share of cost, any restricted period (POI) and, for married residents, the CSRA transfer period end date and the property limit.
+    how_to_get: Mailed by the county to the applicant or representative
+    confidence: confirmed
+    sources: [{source: ca-dhcs-acwdl-26-02, locator: "The approval notice of action (NOA) shall include"}]
+
+links:
+  - id: LTC-CA-LINK-MEDICAID
+    playbook: medicaid
+    rules: [LTC-CA-ASSET-LIMIT, LTC-CA-POI]
+    relation: >-
+      The $130,000 property limit is the same one reinstated for all Non-MAGI Medi-Cal;
+      during a POI the person keeps restricted Medi-Cal for other services.
+    test: LTC-X-01
+    confidence: confirmed
+    sources: [{source: ca-dhcs-acwdl-25-14, locator: "Non-MAGI Programs Affected by Reinstatement of Asset Limits"}]
+
+open_questions:
+  - id: LTC-CA-OQ-01
+    priority: high
+    question: Does California apply the federal home equity limit to long-term care Medi-Cal in 2026-2027, and at what amount (the federal minimum $752,000 or the maximum $1,130,000)?
+    why_it_matters: A California homeowner with a valuable house could be wrongly told they qualify, or wrongly told they do not.
+    checked: [ACWDL 25-14, ACWDL 25-18, ACWDL 26-02, ACWDL 26-03, Justice in Aging FAQ]
+    affects: [LTC-CA-HOME-EQUITY]
+    status: open
+  - id: LTC-CA-OQ-02
+    priority: medium
+    question: Under what authority does California keep a 30-month look-back, whole-month POIs and a 30-month cap when federal law has required 60 months and partial months since 2006?
+    why_it_matters: If CMS forces California onto the federal rules, the result for many gifts changes.
+    checked: [ACWDL 25-18 (cites ACWDL 90-01, 22 CCR 50408-50411)]
+    affects: [LTC-CA-LOOKBACK, LTC-CA-POI]
+    status: open
+  - id: LTC-CA-OQ-03
+    priority: medium
+    question: Is the California personal needs allowance still $35 a month in 2026 (Welfare and Institutions Code 14005.12)?
+    why_it_matters: Sets the share of cost.
+    checked: [DHCS LTC Medi-Cal Q&A (old), leginfo.legislature.ca.gov (blocked by Cloudflare)]
+    affects: [ca.medi_cal_ltc.pna, LTC-CA-PNA]
+    status: open
+  - id: LTC-CA-OQ-04
+    priority: medium
+    question: (Input gap) For a transfer under review, how much non-exempt property did the person hold just before the transfer? A transfer is disqualifying only if they were over $130,000.
+    why_it_matters: The agent must ask this before saying a gift will or will not cause a penalty.
+    checked: [ACWDL 25-18]
+    affects: [LTC-CA-DISQUALIFYING]
+    status: open
+  - id: LTC-CA-OQ-05
+    priority: low
+    question: How is the family allowance for dependants of a California community spouse computed in 2026?
+    why_it_matters: Changes the share of cost for residents with dependants at home.
+    checked: [ACWDL 26-02]
+    affects: [LTC-CA-FAMILY-ALLOWANCE]
+    status: open
+  - id: LTC-CA-OQ-06
+    priority: medium
+    question: Is the amount divided by the APPR the full transfer, or only the part that took the person below the property limit (22 CCR 50411 / ACWDL 90-01)?
+    why_it_matters: Example 3 and 4 in ACWDL 25-18 are consistent with either reading; the POI length can differ by many months.
+    checked: [ACWDL 25-18 examples]
+    affects: [LTC-CA-POI]
+    status: open
+  - id: LTC-CA-OQ-07
+    priority: low
+    question: Which application form(s) does DHCS use for long-term care Medi-Cal in 2026 (single streamlined application plus a property supplement?), and can it be filed online through BenefitsCal?
+    why_it_matters: Procedure guidance for families.
+    checked: [ACWDL 25-14 (mentions MC 210 RV and MC 217 renewal forms and a property supplement)]
+    affects: [LTC-CA-PROC-APPLY]
+    status: open
+
+conflicts:
+  - id: LTC-CA-CONFLICT-01
+    topic: Home equity limit in California before 2028
+    claims:
+      - source: usc-42-1396p
+        locator: "(f)(1)(A)"
+        says: Notwithstanding any other provision, a person with home equity above the limit is not eligible for nursing facility or other long-term care services.
+      - source: justiceinaging-ca-asset-limit-faq
+        locator: "What about the home equity limit for long-term care?"
+        says: The home equity limit does not apply in California yet; California must implement it by January 1, 2028.
+    handling: >-
+      The evaluator returns "undetermined" (LTC-CA-OQ-01) when home equity exceeds the federal minimum
+      and no spouse or qualifying child lives in the home, instead of guessing.
+    affects: [LTC-CA-HOME-EQUITY]
+    status: open
+  - id: LTC-CA-CONFLICT-02
+    topic: California's transfer rules versus the Deficit Reduction Act
+    claims:
+      - source: usc-42-1396p
+        locator: "(c)(1)(B)(i), (D)(ii), (E)(iv)"
+        says: 60-month look-back; penalty starts when the person is otherwise eligible and in care; no rounding down of partial months; no maximum.
+      - source: ca-dhcs-acwdl-25-18
+        locator: "Review of Transfers; B. New POIs; Example 4"
+        says: 30-month look-back; POI runs from the month of the transfer; no partial-month POI; maximum 30 months.
+    handling: >-
+      The archive applies California's rules for California households, because they are what the county
+      will do, and records the gap as LTC-CA-OQ-02.
+    affects: [LTC-CA-LOOKBACK, LTC-CA-POI]
+    status: open
+
+claims_checked:
+  - claim: California reinstated an asset limit for Medi-Cal, reported as $130,000 for one person.
+    verdict: verified
+    detail: >-
+      Effective January 1, 2026 (AB 116, Chapter 21, Statutes of 2025): $130,000 for one person, $195,000
+      for two, $65,000 for each additional person up to ten, for Non-MAGI programs including long-term
+      care (Pickle, DAC and DW excepted). A community spouse keeps $162,660 on top.
+    sources: [{source: ca-dhcs-acwdl-25-14, locator: "Purpose; asset limit table"}, {source: ca-dhcs-acwdl-26-02, locator: "Property Eligibility"}]
+  - claim: California historically used a 30-month look-back for nursing facility care, eliminated it with the asset test in 2024; the 2026 position is to be found.
+    verdict: corrected
+    detail: >-
+      The 30-month look-back was not repealed; with no property test in 2024-2025 there were no
+      disqualifying transfers. From 2026 the 30-month look-back applies again, but transfers made in
+      January 2024 - December 2025 are never reviewed, so the review window grows back month by month
+      from July 2026 and reaches the full 30 months for applications from July 1, 2028.
+    sources: [{source: ca-dhcs-acwdl-25-18, locator: "Look-Back Period and chart"}]
+  - claim: California's personal needs allowance is $35.
+    verdict: partly_verified
+    detail: DHCS's (old) long-term care Q&A says $35; no 2026 DHCS statement was retrievable.
+    sources: [{source: ca-dhcs-ltc-medi-cal-qa, locator: "share of cost answer"}]
+  - claim: California's 2026 community spouse resource allowance and MMMNA.
+    verdict: verified
+    detail: CSRA $162,660 and MMMNA $4,067 a month from January 1, 2026 (ACWDL 26-02). 2026 APPR divisor $14,440 (ACWDL 26-03).
+    sources: [{source: ca-dhcs-acwdl-26-02, locator: "Purpose"}, {source: ca-dhcs-acwdl-26-03, locator: "Purpose"}]

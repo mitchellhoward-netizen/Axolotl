@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://stgenssa.sccgov.org/debs/program_handbooks/medi-cal/assets/10Redeterminations/90DayCurePeriod.htm
+  final_url: https://stgenssa.sccgov.org/debs/program_handbooks/medi-cal/assets/10Redeterminations/90DayCurePeriod.htm
+  status: 200
+  content_type: text/html
+  text_sha256: 6acf77922faa8480680e68ce1c687ec2a473c5cfbb2fe0049baf0587721b7038
+  text: ca-scc-mc-90-day-cure/2026-10-07.txt
+  raw: ca-scc-mc-90-day-cure/2026-10-07.html

@@ -13,7 +13,7 @@ sources:
     jurisdiction: ny
     doc_type: agency_page
     note: Its income/resource chart is still the 2025 one ("Effective January 1, 2025"); the 2026 levels are in GIS 26 MA/05.
-  - id: ny-doh-4220
+  - id: ny-doh-4220-mcd
     retrieved: 2026-10-07
     url: https://healthweb-back.health.ny.gov/forms/doh-4220.pdf
     publisher: New York State Department of Health

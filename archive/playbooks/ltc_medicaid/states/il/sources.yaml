@@ -109,3 +109,11 @@ sources:
     jurisdiction: il
     doc_type: guidance
     published: 2020-02-01
+  - id: il-idhs-pm-07-02-04
+    retrieved: 2026-10-07
+    url: https://www.dhs.state.il.us/page.aspx?item=14890
+    publisher: Illinois Department of Human Services
+    title: PM 07-02-04 Real Property
+    kind: primary
+    jurisdiction: il
+    doc_type: manual

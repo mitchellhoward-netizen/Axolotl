@@ -106,7 +106,7 @@ parameters:
       - effective_from: 2002-01-01
         value: 35
         confidence: confirmed
-        open_question: CA-LTC-OQ-03
+        open_question: LTC-CA-OQ-03
         note: The DHCS source is an old Partnership Q&A (figures for 2001-2002). No newer DHCS text was retrievable; Welfare and Institutions Code 14005.12 could not be fetched (Cloudflare). Effective date is the earliest date the source supports, not the date the amount was set.
         sources:
           - {source: ca-dhcs-ltc-medi-cal-qa, locator: "married couple answer; share of cost answer", quote: "The spouse in the nursing home is permitted to keep $35 a month for personal needs."}

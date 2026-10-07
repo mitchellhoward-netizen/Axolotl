@@ -1,0 +1,60 @@
+# Why archive results differ from PolicyEngine US for the Disability playbook
+# (SSI federal amount; California SSP; Illinois AABD cash). New York has no SSP
+# variable in PolicyEngine, so New York rows compare the federal SSI amount only.
+# Federal SSI agrees with PolicyEngine in every household compared.
+# crosscheck/run.py fails on any difference not listed here.
+explanations:
+  - cases: [DIS-CA-T01, DIS-CA-T02, DIS-CA-T04, DIS-CA-T05, DIS-CA-T06, DIS-CA-T07, DIS-CA-T09, DIS-CA-T12, DIS-CA-T13,
+            DIS-CA-T15, DIS-CA-T18, DIS-NY-T22]
+    match: {state: ca}
+    reason: >-
+      PolicyEngine parameter currency, not a logic difference. PolicyEngine
+      stores California's SSI/SSP payment standards as combined totals with
+      the latest value dated 2025-01-01 (aged/disabled individual $1,206.94,
+      couple $2,057.83, blind $1,291.32, no-cooking $1,335.81) and computes the
+      SSP as standard minus SSI minus countable income. The January 2026 FBR
+      rose $27 (individual) / $41 (couple) while California's state levels
+      stayed the same (POMS SI 01415.057 vs SI 01415.058: $239.94, $607.83,
+      $324.32, $368.81, $747.44), so PolicyEngine's 2026 SSP is $27 (individual)
+      or $41 (couple) too low. CDSS's 2026 May Revision confirms the January
+      2026 maximum grant of $1,234 / $2,099. For DIS-CA-T04 the same $27 gap
+      turns our $1.00 SSP into PolicyEngine's $0.
+  - cases: [DIS-CA-T08]
+    match: {state: ca}
+    reason: >-
+      Spouse-to-spouse deeming and the state supplement. PolicyEngine's
+      ca_state_supplement subtracts the whole SPM unit's countable income
+      (including the ineligible spouse's deemed earnings) from the payment
+      standard, giving $0. The archive applies POMS SI 01320.430 (Livermore v.
+      Heckler): when the couple's combined countable income is within the
+      couple FBR, the optional supplement is the lower of the individual and
+      couple levels, capped at the non-deeming supplement, here $239.94.
+      Federal SSI ($443.50) agrees.
+  - cases: [DIS-CA-T11]
+    match: {state: ca}
+    reason: >-
+      California living-arrangement code D (household of another). The
+      archive uses the code D state level $245.20 on top of the FBR less VTR
+      (POMS SI 01415.058 B.2.a: total $907.87; SI SF01415.150). PolicyEngine
+      reduces the federal SSI by the VTR but keeps the own-household payment
+      standard ($1,206.94), so its SSP ($544.27) also replaces the federal
+      one-third reduction. Federal SSI ($662.67) agrees.
+  - cases: [DIS-IL-T01, DIS-IL-T02, DIS-IL-T03, DIS-IL-T06, DIS-IL-T08, DIS-IL-T10, DIS-IL-T11, DIS-IL-T15, DIS-NY-T22]
+    match: {state: il}
+    reason: >-
+      PolicyEngine parameter currency. The Illinois AABD grant adjustment is
+      $816.90 for January 2026 and after (IDHS PM 11-01-07); PolicyEngine's
+      grant_amount parameter ends at 2025-01-01 ($788.90, WAG 25-06-01), so
+      every community client's needs are $28 lower in PolicyEngine. That turns
+      the small AABD payments of single SSI recipients ($4.33 - $11.58) into $0
+      and lowers the others by $28 per person (DIS-IL-T06 couple $56, DIS-IL-T10
+      $28). Personal allowance, $97 shelter cap, utility allowances, the $25
+      exemption and federal SSI agree.
+  - cases: [DIS-IL-T07]
+    match: {state: il}
+    reason: >-
+      Archive gap, recorded as DIS-IL-OQ-01. For an SSI recipient living with
+      an ineligible spouse, IDHS budgets the spouse as a responsible relative
+      (PM 09-02-03-b); the archive does not encode that budget and leaves the
+      AABD amount undetermined, while PolicyEngine reports $0. Federal SSI
+      ($443.50, after spouse-to-spouse deeming) agrees.

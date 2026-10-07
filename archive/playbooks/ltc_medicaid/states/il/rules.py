@@ -27,7 +27,7 @@ from playbooks.ltc_medicaid.federal import rules as fed
 STATE = "il"
 
 
-def _penalty(hh: Household, as_of: date, det: Determination, setting: str) -> bool:
+def _penalty(hh: Household, as_of: date, det: Determination, setting: str) -> bool | None:
     base = fed.baseline_date(hh, as_of)
     months = int(params.use("il.ltc.lookback_months", as_of, det).value)
     start = fed.months_before(base, months)
@@ -42,7 +42,7 @@ def _penalty(hh: Household, as_of: date, det: Determination, setting: str) -> bo
         det.note("LTC-IL-PENALTY-DIVISOR", "the penalty divisor is the facility's (or, for HCBS, the Bureau of Long "
                  "Term Care's) monthly private rate, which was not given", None)
         det.unresolved("LTC-IL-OQ-01" if setting != "nursing_facility" else "LTC-IL-OQ-03")
-        return True
+        return None
     rate = float(rate)
     pm = math.ceil(unc / rate * 100 - 1e-9) / 100.0
     det.amounts["penalty_months"] = pm
@@ -78,10 +78,12 @@ def evaluate(hh: Household, as_of: date) -> Determination:
     if excess:
         det.amounts["excess_resources_applied"] = round(excess, 2)
 
-    if _penalty(hh, as_of, det, setting):
-        if det.status != UNDETERMINED:
-            det.status, det.tier = INELIGIBLE, "transfer_penalty"
-            det.links.append("medicaid:other_services_still_covered")
+    pen = _penalty(hh, as_of, det, setting)
+    if pen is None:
+        return det
+    if pen:
+        det.status, det.tier = INELIGIBLE, "transfer_penalty"
+        det.links.append("medicaid:other_services_still_covered")
         return det
 
     if setting != "nursing_facility":

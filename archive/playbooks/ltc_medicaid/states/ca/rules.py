@@ -27,7 +27,7 @@ STATE = "ca"
 BLACKOUT = (date(2024, 1, 1), date(2025, 12, 31))   # LTC-CA-TRANSFER-BLACKOUT
 
 
-def _poi(hh: Household, as_of: date, det: Determination, limit: float) -> bool:
+def _poi(hh: Household, as_of: date, det: Determination, limit: float) -> bool | None:
     base = fed.baseline_date(hh, as_of)
     months = int(params.use("ca.medi_cal_ltc.lookback_months", as_of, det).value)
     app_month = fed.first_of_month(base)
@@ -60,7 +60,7 @@ def _poi(hh: Household, as_of: date, det: Determination, limit: float) -> bool:
             det.note("LTC-CA-DISQUALIFYING", f"transfer on {t.when}: property held before the transfer not given, so "
                      "whether it was a disqualifying transfer cannot be decided", None)
             det.unresolved("LTC-CA-OQ-04")
-            return True
+            return None
         if t.resources_at_transfer <= limit or t.amount <= appr:
             det.note("LTC-CA-DISQUALIFYING", f"transfer of ${t.amount:,.0f} on {t.when}: not disqualifying "
                      f"(property ${t.resources_at_transfer:,.0f} vs ${limit:,.0f} limit; APPR ${appr:,.0f})", True)
@@ -111,10 +111,12 @@ def evaluate(hh: Household, as_of: date) -> Determination:
         det.note("LTC-CA-ASSET-LIMIT", f"net non-exempt property ${res:,.0f} within the ${limit:,.0f} limit", True)
 
     if setting == "nursing_facility" and applies:
-        if _poi(hh, as_of, det, limit):
-            if det.status != UNDETERMINED:
-                det.status, det.tier = INELIGIBLE, "transfer_penalty"
-                det.links.append("medicaid:other_services_still_covered")
+        pen = _poi(hh, as_of, det, limit)
+        if pen is None:
+            return det
+        if pen:
+            det.status, det.tier = INELIGIBLE, "transfer_penalty"
+            det.links.append("medicaid:other_services_still_covered")
             return det
     elif setting != "nursing_facility":
         det.note("LTC-CA-NO-POI-COMMUNITY", "community-based Medi-Cal programs have no period of ineligibility", None)

@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://stgenssa.sccgov.org/debs/program_handbooks/medi-cal/assets/05Apps/Application.htm
+  final_url: https://stgenssa.sccgov.org/debs/program_handbooks/medi-cal/assets/05Apps/Application.htm
+  status: 200
+  content_type: text/html
+  text_sha256: 207920577ca949caad29b4672af03ed4df7458504b75a4855dbd0eac865aa005
+  text: ca-scc-mc-application/2026-10-07.txt
+  raw: ca-scc-mc-application/2026-10-07.html

@@ -1,0 +1,10 @@
+- retrieved: '2026-10-07'
+  url: https://www.dhcs.ca.gov/individuals/medicare-savings-programs-in-california/
+  final_url: https://www.dhcs.ca.gov/individuals/medicare-savings-programs-in-california/
+  status: 200
+  content_type: html
+  text_sha256: 7af6dca7fc5085d4f8b9cb7b95e109156511dbc05a22ea150439998f53ccf669
+  text: ca-dhcs-msp-page/2026-10-07.txt
+  raw: ca-dhcs-msp-page/2026-10-07.html
+  fetched_via: headless Chromium (Playwright) via the session proxy; dhcs.ca.gov refuses
+    scripted requests (Incapsula)

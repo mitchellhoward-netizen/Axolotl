@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://stgenssa.sccgov.org/debs/program_handbooks/medi-cal/assets/05Apps/RetroactiveMC.htm
+  final_url: https://stgenssa.sccgov.org/debs/program_handbooks/medi-cal/assets/05Apps/RetroactiveMC.htm
+  status: 200
+  content_type: text/html
+  text_sha256: 2f99a04336d073287baceebc58b74ad4c1bde4cd320170a497bff45379971f30
+  text: ca-scc-mc-retroactive/2026-10-07.txt
+  raw: ca-scc-mc-retroactive/2026-10-07.html

@@ -1,0 +1,300 @@
+DATE: January 21, 2025
+
+TO: ALL COUNTY WELFARE DIRECTORS Letter No.:25-01
+ALL COUNTY WELFARE ADMINISTRATIVE OFFICERS
+ALL COUNTY MEDI-CAL PROGRAM SPECIALISTS/LIAISONS
+ALL COUNTY HEALTH EXECUTIVES
+ALL COUNTY MENTAL HEALTH DIRECTORS
+ALL COUNTY MEDS LIAISONS
+
+SUBJECT: 2025 FEDERAL POVERTY LEVELS
+
+The enclosed charts provide the 2025 poverty level ceilings for Medi-Cal, Medi-Cal
+Access Program (MCAP), MCAP-Linked Infants, and County Children’s Health Initiative
+Program (C-CHIP). C-CHIP is available in San Francisco, Santa Clara, and San Mateo
+counties only. These ceilings are derived from the annual Federal Poverty Level (FPL)
+figures updated annually in the Federal Register by the U.S. Department of Health and
+Human Services. In this All County Welfare Directors Letter (ACWDL), the Department
+of Health Care Services (DHCS) is providing 2025 monthly FPL values (Enclosure 1) as
+well as 2025 annual FPL values (Enclosure 2), Program Descriptions by FPL
+(Enclosure 3) and the annual mailer sent to Medi-Cal members who are potentially
+impacted by 2025 FPL figures (Enclosure 4).
+
+Counties must review all denials and discontinuances for the following groups back to
+the date specified for each group and re-evaluate eligibility based on the revised FPL
+figures (see attached enclosures).
+
+• For applicants and recipients of the Medicare Savings Programs (MSP), Qualified
+Medicare Beneficiary, Specified Low-Income Medicare Beneficiary, and Qualified
+Individual who do not receive Title II Retirement Survivors and Disability
+Insurance (RSDI) income, the counties must apply the new FPL figures
+retroactively to January 1, 2025.
+
+• For MSP applicants or recipients who are receiving Title II RSDI income, the
+effective date for the new FPLs is March 1, 2025.
+
+• For individuals who are eligible for the Aged, Blind and Disabled (ABD) FPL
+programs and the 250% Working Disabled Program (WDP), the effective date of
+the revised FPL figures is April 1, 2025.
+
+• For applicants and recipients whose Medi-Cal is determined based upon Modified
+Adjusted Gross Income (MAGI) methodologies, the new FPL figures are effective
+January 1, 2025.
+
+California Department of Health Care Services State of California
+Medi-Cal Eligibility Division Gavin Newsom, Governor
+1501 Capitol Avenue | Sacramento, CA | 95899-7413
+MS 4607 | Phone (916) 552-9200 | www.dhcs.ca.gov California Health and Human Services Agency
+
+Letter No.:25-01
+Page 2
+January 21, 2025
+
+Upon request from the Medi-Cal member, the Medi-Cal member’s parent or legal
+guardian, or the Medi-Cal member’s authorized representative, counties shall
+retroactively change eligibility for the following circumstances:
+
+• Advance Premium Tax Credit (APTC) individuals
+
+o APTC eligible individuals, who are redetermined eligible for Medi-Cal
+using the 2025 FPL figures, may be eligible for retroactive Medi-Cal. The
+county shall only retroactively change eligibility for APTC individuals who
+did not enroll in a Qualified Health Plan (QHP), did not pay a premium, or
+who did enroll in a QHP and pay a premium, but have Medi-Cal covered
+medical or dental expenses that were not covered by their QHP during the
+retroactive period.
+
+o APTC eligible individuals, described above, may be eligible for retroactive
+Medi-Cal out-of-pocket expense reimbursements (Conlan). Please see
+MEDIL I 07-02 for additional information about the Conlan process.
+
+Note: The Centers for Medicare and Medicaid Services has decided that
+there will be no reimbursement for premiums paid to Covered California
+QHPs. The notice sent by DHCS will state that no Covered California QHP
+premium reimbursements will be available. Please see ACWDL 16-08 for
+instructions on determining retroactive Medi-Cal coverage when an
+individual is transitioning from Covered California coverage.
+
+• Individuals with a Share-of-Cost (SOC)
+
+o Individuals who are redetermined eligible with zero SOC or with a resulting
+lower SOC Medi-Cal, when using the 2025 FPLs, who had out of pocket
+expenses for covered medical or dental services, may be eligible for
+retroactive expense reimbursements (Conlan).
+o Please reference the DHCS website and MEDIL I 07-02 for additional
+information about the Conlan process.
+
+Please note: DHCS is coordinating implementation of the 2025 FPLs in the California
+Healthcare Eligibility Enrollment and Retention System (CalHEERS) and California
+Statewide Automated Welfare System (CalSAWS). DHCS anticipates the CalHEERS
+system and CalSAWS system will be updated with the annual 2025 FPL amounts
+during the month of February of 2025.
+
+Letter No.:25-01
+Page 3
+January 21, 2025
+
+DHCS will send a notice to MAGI Medi-Cal members potentially impacted by the
+change to inform them of the FPL increase to allow them an opportunity to request a re-
+evaluation from the county.
+
+If you have other questions on the annual FPL process, please contact the Medi-Cal
+Eligibility Division (MCED) Policy inbox at MCED-Policy@dhcs.ca.gov.
+
+Original Signed By:
+
+Theresa Hasbrouck, Chief
+Policy Development Branch
+
+Enclosures
+
+2025 FPL Calculation Chart (Monthly Values)
+Enclosure 1
+100% FPL MONTHLY FPL VALUES (Rounded up to next higher dollar)
+Family Size Annual FPL Monthly FPL 60% 100% 108% 109% 114% 120% 128% 133% 135% 138% 142%
+1 15650 1305 783 1305 1410 1423 1488 1566 1671 1736 1762 1801 1854
+2 21150 1763 1058 1763 1905 1922 2010 2116 2257 2345 2381 2433 2504
+2 Adults 21150 1763 1058 1763 1905 1922 2010 2116 2257 2345 2381 2433 2504
+3 26650 2221 1333 2221 2399 2421 2532 2666 2843 2954 2999 3065 3154
+4 32150 2680 1608 2680 2895 2922 3056 3216 3431 3565 3618 3699 3806
+5 37650 3138 1883 3138 3390 3421 3578 3766 4017 4174 4237 4331 4456
+6 43150 3596 2158 3596 3884 3920 4100 4316 4603 4783 4855 4963 5107
+7 48650 4055 2433 4055 4380 4420 4623 4866 5191 5394 5475 5596 5759
+8 54150 4513 2708 4513 4875 4920 5145 5416 5777 6003 6093 6228 6409
+9 59650 4971 2983 4971 5369 5419 5667 5966 6363 6612 6711 6860 7059
+10 65150 5430 3258 5430 5865 5919 6191 6516 6951 7222 7331 7494 7711
+11 70650 5888 3533 5888 6360 6418 6713 7066 7537 7832 7949 8126 8361
+12 76150 6346 3808 6346 6854 6918 7235 7616 8123 8441 8568 8758 9012
+Ea Add'l 5500 459 276 459 496 501 524 551 588 611 620 634 652
+
+100% FPL MONTHLY FPL VALUES (Rounded up to next higher dollar)
+Family Size Annual FPL Monthly FPL 150% 160% 185% 200% 202% 208% 213% 250% 266% 322% 400% 600%
+1 15650 1305 1958 2088 2415 2610 2637 2715 2780 3263 3472 4203 5220 7830
+2 21150 1763 2645 2821 3262 3526 3562 3668 3756 4408 4690 5677 7052 10578
+2 Adults 21150 1763 2645 2821 3262 3526 3562 3668 3756 4408 4690 5677 7052 10578
+3 26650 2221 3332 3554 4109 4442 4487 4620 4731 5553 5908 7152 8884 13326
+4 32150 2680 4020 4288 4958 5360 5414 5575 5709 6700 7129 8630 10720 16080
+5 37650 3138 4707 5021 5806 6276 6339 6528 6684 7845 8348 10105 12552 18828
+6 43150 3596 5394 5754 6653 7192 7264 7480 7660 8990 9566 11580 14384 21576
+7 48650 4055 6083 6488 7502 8110 8192 8435 8638 10138 10787 13058 16220 24330
+8 54150 4513 6770 7221 8350 9026 9117 9388 9613 11283 12005 14532 18052 27078
+9 59650 4971 7457 7954 9197 9942 10042 10340 10589 12428 13223 16007 19884 29826
+10 65150 5430 8145 8688 10046 10860 10969 11295 11566 13575 14444 17485 21720 32580
+11 70650 5888 8832 9421 10893 11776 11894 12248 12542 14720 15663 18960 23552 35328
+12 76150 6346 9519 10154 11741 12692 12819 13200 13517 15865 16881 20435 25384 38076
+Ea Add'l 5500 459 689 735 850 918 928 955 978 1148 1221 1478 1836 2754
+
+2025 FPL Calculation Chart (Annual Values)
+Enclosure 2
+100% FPL ANNUAL FPL VALUES (Rounded up to next higher dollar)
+Family Size Annual FPL 60% 100% 108% 109% 114% 120% 128% 133% 135% 138% 142%
+1 15650 9390 15650 16902 17059 17841 18780 20032 20815 21128 21597 22223
+2 21150 12690 21150 22842 23054 24111 25380 27072 28130 28553 29187 30033
+2 Adults 21150 12690 21150 22842 23054 24111 25380 27072 28130 28553 29187 30033
+3 26650 15990 26650 28782 29049 30381 31980 34112 35445 35978 36777 37843
+4 32150 19290 32150 34722 35044 36651 38580 41152 42760 43403 44367 45653
+5 37650 22590 37650 40662 41039 42921 45180 48192 50075 50828 51957 53463
+6 43150 25890 43150 46602 47034 49191 51780 55232 57390 58253 59547 61273
+7 48650 29190 48650 52542 53029 55461 58380 62272 64705 65678 67137 69083
+8 54150 32490 54150 58482 59024 61731 64980 69312 72020 73103 74727 76893
+9 59650 35790 59650 64422 65019 68001 71580 76352 79335 80528 82317 84703
+10 65150 39090 65150 70362 71014 74271 78180 83392 86650 87953 89907 92513
+11 70650 42390 70650 76302 77009 80541 84780 90432 93965 95378 97497 100323
+12 76150 45690 76150 82242 83004 86811 91380 97472 101280 102803 105087 108133
+Ea Add'l 5500 3300 5500 5940 5995 6270 6600 7040 7315 7425 7590 7810
+
+100% FPL ANNUAL FPL VALUES (Rounded up to next higher dollar)
+Family Size Annual FPL 150% 160% 185% 200% 202% 208% 213% 250% 266% 322% 400% 600%
+1 15650 23475 25040 28953 31300 31613 32552 33335 39125 41629 50393 62600 93900
+2 21150 31725 33840 39128 42300 42723 43992 45050 52875 56259 68103 84600 126900
+2 Adults 21150 31725 33840 39128 42300 42723 43992 45050 52875 56259 68103 84600 126900
+3 26650 39975 42640 49303 53300 53833 55432 56765 66625 70889 85813 106600 159900
+4 32150 48225 51440 59478 64300 64943 66872 68480 80375 85519 103523 128600 192900
+5 37650 56475 60240 69653 75300 76053 78312 80195 94125 100149 121233 150600 225900
+6 43150 64725 69040 79828 86300 87163 89752 91910 107875 114779 138943 172600 258900
+7 48650 72975 77840 90003 97300 98273 101192 103625 121625 129409 156653 194600 291900
+8 54150 81225 86640 100178 108300 109383 112632 115340 135375 144039 174363 216600 324900
+9 59650 89475 95440 110353 119300 120493 124072 127055 149125 158669 192073 238600 357900
+10 65150 97725 104240 120528 130300 131603 135512 138770 162875 173299 209783 260600 390900
+11 70650 105975 113040 130703 141300 142713 146952 150485 176625 187929 227493 282600 423900
+12 76150 114225 121840 140878 152300 153823 158392 162200 190375 202559 245203 304600 456900
+Ea Add'l 5500 8250 8800 10175 11000 11110 11440 11715 13750 14630 17710 22000 33000
+
+Program Descriptions by FPL
+Enclosure 3
+
+100% FPL = Qualified Medicare Beneficiary (QMB) Program
+
+108% FPL = ACA Title XXI CHIP Expansion Children Ages 6-19
+
+109% FPL = ACA Parents and Caretaker Relatives
+
+114% FPL = ACA Parents and Caretaker Relatives Not Eligible for the ACA New Adult Group due to non-
+Financial Eligibility Criteria such as 65 years of age or older or Enrollment in Medicare Parts A or B
+(109% FPL, Plus 5% MAGI Disregard)
+
+120% FPL = < Specified Low-Income Medicare Beneficiaries (SLMB)
+
+128% FPL = Disabled Individuals in New Adult Group
+
+133% FPL = ACA Children and Title XXI Expansion Children Ages 6-19
+
+135% FPL = < Qualified Individual 1 Program (QI-1)
+
+138% FPL = ACA New Adults Ages 19-64; and
+= FPL Program for Aged & Disabled
+
+Program Descriptions by FPL
+Enclosure 3
+
+142% FPL = ACA and Title XXI Expansion Children Ages 1-6
+
+160% FPL = ACA Optional Targeted Low-Income Children (OTLIC) Program starting point for premiums
+
+185% FPL = Transitional Medi-Cal (TMC) (Pre-ACA)
+
+200% FPL = Qualified Working Disabled Individuals
+= Refugee Medical Assistance (RMA)
+
+202% FPL = Transitional Medi-Cal (TMC) (Post ACA) *(ACWDL will be released when implemented)
+
+208% FPL = ACA and Title XXI Expansion Infants Ages 0-1
+
+213% FPL = Full-Scope Coverage for ACA Pregnant Persons
+
+Above 213% to = Medi-Cal Access Program (MCAP)
+322% FPL = Medi-Cal Access Infant Program (MCAIP)
+
+250% FPL = Working Disabled Program
+
+266% FPL = ACA OTLIC
+
+Above 266% to = County Children’s Health Initiative Program (C-CHIP)
+FPL
+
+Program Descriptions by FPL
+Enclosure 3
+
+400+% FPL = Unsubsidized Coverage
+
+$35.00 = Maintenance Need for Resident in LTC Facility
+
+Notes: “=” means: eligible if budget unit income is equal to or less than income limit
+“<” means: eligible if budget unit income is less than income limit
+“>” means: eligible if budget unit income is greater than income limit
+
+• MSP includes Qualified Medicare Beneficiary (QMB), Specified Low-Income Beneficiary (SLMB) and Qualified Individual
+(QI-1) Programs.
+
+• For applicants and recipients of the Medicare Savings Programs (MSPs) not receiving RSDI Title II Income, the FPL
+figures are effective January 1, 2025.
+
+• For applicants and recipients of MSPs receiving RSDI Title II income, the new FPL figures are effective March 1, 2025.
+
+You may qualify for no-cost or low-cost Medi-Cal coverage
+under the new 2025 income limits
+
+Dear Covered California Member or Medi-Cal Beneficiary,
+
+Medi-Cal income levels have changed for 2025. You may qualify for no-cost or low-cost
+Medi-Cal and may be able to switch plans if you currently:
+
+• Have Medi-Cal with a Share of Cost
+• Buy medical insurance to end your Medi-Cal Share of Cost
+• Pay a premium (monthly cost) for your Medi-Cal or Covered California plan
+
+There may be financial benefits if you switch plans.
+
+If you want to keep your current health coverage
+If you want to keep the health coverage you have now, you do not need to do anything.
+
+If you qualify for no-cost Medi-Cal
+You may be able to get a refund for some of your past Medi-Cal premiums. If you paid
+for services when you had a Share of Cost, you may also be able to get back some of
+what you paid.
+
+To learn more and find out if you qualify:
+
+• Call your local county office. Tell them you got this letter. Ask for an “eligibility
+redetermination.” To get the phone number for your local county office, call
+1-800-541-5555. You can also find their number on the Department of Health
+Care Services website at: http://dhcs.ca.gov/COL.
+
+If you have a Covered California health plan
+You may qualify for no-cost or low-cost Medi-Cal. You might save money if you switch
+to Medi-Cal. You cannot get a refund for Covered California premiums you paid. But
+you will save money in the future. With Medi-Cal, you may qualify for refunds for certain
+out-of-pocket expenses. You might have to change your health plan and/or your doctor
+if you switch to Medi-Cal.
+
+To learn more and find out if you qualify:
+• Call Covered California at 1-855-312-3250 (TTY: 1-800-889-4500). Tell them
+you got this letter. Ask for an “eligibility redetermination.” The Customer Service
+Representative should explain how to get a redetermination.
+
+Rev: 01/2025
+
+California Department of Health Care Services State of California
+Medi-Cal Eligibility Division Gavin Newsom, Governor
+1501 Capitol Avenue | Sacramento, CA | 95899-7413
+MS 4607 | Phone (916) 552-9200 | www.dhcs.ca.gov California Health and Human Services Agency

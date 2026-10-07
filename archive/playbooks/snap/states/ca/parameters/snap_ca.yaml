@@ -1,0 +1,78 @@
+# California CalFresh numbers that add to or differ from the federal tables.
+# CalFresh uses the federal income limits, allotments, standard deduction,
+# shelter cap and resource limits unchanged (ACIN I-46-25, I-40-26).
+parameters:
+  - id: ca.calfresh.bbce_gross_income_limit_monthly
+    description: CalFresh Modified/Broad-Based Categorical Eligibility (MCE/BBCE) gross income limit, 200% of the poverty level.
+    compare_to: >-
+      Total gross monthly household income. At or below it the household is
+      categorically eligible (no resource test); whether the federal net
+      income test still applies to CalFresh MCE households is open
+      (SNAP-CA-OQ-02).
+    unit: usd_per_month
+    keyed_by: household_size (1-8; additional = each person above 8)
+    updates: Each October 1 (CDSS COLA ACIN).
+    values:
+      - effective_from: 2025-10-01
+        effective_to: 2026-09-30
+        value: {1: 2610, 2: 3526, 3: 4442, 4: 5360, 5: 6276, 6: 7192, 7: 8110, 8: 9026, additional: 918}
+        confidence: confirmed
+        sources:
+          - {source: ca-acin-i-46-25, locator: "Attachment I: Gross Monthly Income Eligibility Standards for MCE/BBCE (200% of Poverty Level)"}
+      - effective_from: 2026-10-01
+        effective_to: 2027-09-30
+        value: {1: 2660, 2: 3608, 3: 4554, 4: 5500, 5: 6448, 6: 7394, 7: 8340, 8: 9288, additional: 948}
+        confidence: confirmed
+        sources:
+          - {source: ca-acin-i-40-26, locator: "Attachment I: Gross Monthly Income Eligibility Standards for MCE/BBCE (200% of Poverty Level)"}
+  - id: ca.calfresh.utility_allowances_monthly
+    description: >-
+      CalFresh Standard Utility Allowance (SUA, heating/cooling, already
+      reduced by the $4 SMD cost-neutrality offset), Limited Utility Allowance
+      (LUA, two or more non-heating utilities) and Telephone Utility Allowance (TUA).
+    unit: usd_per_month
+    keyed_by: "heating_cooling (SUA), limited (LUA), telephone (TUA)"
+    updates: Each October 1.
+    values:
+      - effective_from: 2025-10-01
+        effective_to: 2026-09-30
+        value: {heating_cooling: 663, limited: 170, telephone: 20}
+        confidence: confirmed
+        sources:
+          - {source: ca-acin-i-46-25, locator: "FFY 2026 SUA $663, LUA $170, TUA $20"}
+          - {source: fns-snap-sua-fy26, locator: "California row: HCSUA 663, BUA/LUA 170, Phone 20, SMD Offset 4"}
+      - effective_from: 2026-10-01
+        effective_to: 2027-09-30
+        value: {heating_cooling: 686, limited: 176, telephone: 21}
+        confidence: confirmed
+        sources:
+          - {source: ca-acin-i-40-26, locator: "FFY 2027 SUA $686, LUA $176, TUA $21"}
+  - id: ca.calfresh.standard_medical_deduction_monthly
+    description: CalFresh Standard Medical Deduction (SMD demonstration project) for households with an elderly or disabled member whose verified medical costs are $35.01-$185.00 a month.
+    unit: usd_per_month
+    updates: Set in the FNS demonstration approval (currently through September 30, 2029).
+    values:
+      - effective_from: 2024-10-01
+        effective_to: 2025-09-30
+        value: 150
+        confidence: confirmed
+        sources:
+          - {source: ca-acl-24-59, locator: "Standard Medical Deduction Amount: $35.01 to $185.00 per month will now receive a standard medical deduction of $150"}
+      - effective_from: 2025-10-01
+        effective_to: 2029-09-30
+        value: 150
+        confidence: confirmed
+        sources:
+          - {source: ca-acl-26-04, locator: "SMD Demonstration Project Extension Details; Standard Medical Deduction Amount; SMD Eligibility Reference Table"}
+  - id: ca.calfresh.smd_actual_expense_threshold_monthly
+    description: Verified monthly medical costs above which a CalFresh household may deduct actual costs over $35 instead of the $150 SMD.
+    unit: usd_per_month
+    updates: With the SMD demonstration terms.
+    values:
+      - effective_from: 2024-10-01
+        effective_to: 2029-09-30
+        value: 185
+        confidence: confirmed
+        sources:
+          - {source: ca-acl-26-04, locator: "Households with medical expenses above $185.00 per month may verify and claim actual expenses over $35"}
+          - {source: ca-acl-24-59, locator: "$185.01 a month and over: Eligible to deduct actual expenses over $35.00"}

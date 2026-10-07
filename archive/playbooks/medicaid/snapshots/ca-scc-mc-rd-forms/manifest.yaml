@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://stgenssa.sccgov.org/debs/program_handbooks/medi-cal/assets/10Redeterminations/MCRDForms.htm
+  final_url: https://stgenssa.sccgov.org/debs/program_handbooks/medi-cal/assets/10Redeterminations/MCRDForms.htm
+  status: 200
+  content_type: text/html
+  text_sha256: 78ec681ecb1bafa07db78328531f097cfbe3b85d6571645578eb9be4d51d75a9
+  text: ca-scc-mc-rd-forms/2026-10-07.txt
+  raw: ca-scc-mc-rd-forms/2026-10-07.html

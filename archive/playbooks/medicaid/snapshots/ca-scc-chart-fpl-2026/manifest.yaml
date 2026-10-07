@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://stgenssa.sccgov.org/debs/program_handbooks/charts/assets/5MediCal/FPLMonthIncomeCompare.htm
+  final_url: https://stgenssa.sccgov.org/debs/program_handbooks/charts/assets/5MediCal/FPLMonthIncomeCompare.htm
+  status: 200
+  content_type: text/html
+  text_sha256: 9e6134028a9122dcb5d9c5e698b02b9fb846d779f1d210bcef6c7af7e38e4a97
+  text: ca-scc-chart-fpl-2026/2026-10-07.txt
+  raw: ca-scc-chart-fpl-2026/2026-10-07.html

@@ -32,7 +32,7 @@ def arrangement(hh: Household) -> str:
     arr = hh.facts.get("ny_ssp_living_arrangement")
     if arr:
         return arr
-    unit = {hh.applicant.id} | ({hh.spouse.id} if hh.spouse else set())
+    unit = {hh.applicant.id} | ({fed.spouse_of(hh).id} if fed.spouse_of(hh) else set())
     return "living_alone" if all(m.id in unit for m in hh.members) else "living_with_others"
 
 

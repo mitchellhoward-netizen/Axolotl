@@ -1,0 +1,179 @@
+Skip to content
+
+Program Operations Manual System (POMS)
+
+Effective Dates: 07/25/2014 - Present
+Previous | Next
+
+TN 20 (09-23)
+
+GN 03101.001 Summary of Administrative Review Process
+
+A. Administrative review process defined
+
+A claimant or appointed representative who disagrees with an initial determination
+or decision may request further review under the administrative review process, also
+known as the appeal process. The claimant or appointed representative must request
+a review within 60 days of the decision, or lose the right to further review.
+
+B. Steps in the administrative review process
+
+1. Reconsideration
+
+Reconsideration is the first step in the administrative review process for individuals
+who disagree with the initial determination, unless a hearing is the first level of
+appeal.
+
+We provide the opportunity for an Administrative Law Judge (ALJ) hearing, as the first
+step in the administrative review process, for revised initial determinations on non-medical
+issues and determinations involving a request for waiver of an adjustment or recovery
+of an overpayment. For information on reopenings and appeal rights, see GN 04001.090.
+
+Reconsideration for Title II consists of a case review and disability hearing. The
+method used depends on the issue involved.
+
+•
+
+For nonmedical issues, it is a case review.
+
+•
+
+For medical issues, it is a case review for initial claims, and a disability hearing; which is a face-to-face
+reconsideration for all medical cessation cases.
+
+For more information on reconsideration, see GN 03102.000, and for more information involving medical cessation and adverse reopening determinations,
+see DI 12026.001.
+
+2. Hearing before an ALJ
+
+After we make a reconsideration determination, a hearing before an ALJ is the next
+step of appeal. See GN 03103.000, Hearings.
+
+3. Appeals council (AC) review
+
+If the claimant or appointed representative disagrees with either the ALJ’s decision
+or the dismissal of a hearing request, they may ask the AC to review the action. The
+AC may dismiss or deny the request for review, or the AC may grant the request; and
+either issue a decision or remand the case to an ALJ. The AC may also review an ALJ’s
+decision (within 60 days of the hearing decision or dismissal) on its own motion.
+The AC has final review authority for SSA. See GN 03104.000, Appeals Council Review.
+
+C. Alternative appeals process
+
+1. Expedited appeals process (EAP)
+
+The claimant or appointed representative may request an EAP, but only after appealing
+through the reconsideration step. The claimant or representative can use the EAP in
+cases where they do not dispute SSA's version of the facts in the claim. Rather, they
+may challenge the constitutionality of the law, underlying the determination. See
+GN 03107.000, Expedited Appeals Process.
+
+NOTE: SSA and all parties to the determination must agree to use EAP.
+
+2. Federal court review
+
+The AC review completes the administrative review process. If the claimant or appointed
+representative is still dissatisfied, they may request a judicial review by filing
+a civil action in a federal district court.
+
+D. Considering multiple issues at different steps of appeal
+
+It is possible for a case to have different issues at different steps of appeal.
+
+1. Disposition of the ALJ’s decision
+
+When the ALJ issues a decision and notifies the claimant, or their appointed representative,
+the case goes to the program center (PC) for effectuation of the ALJ’s decision. The
+PC then sends a notice on those issues not addressed by the ALJ. This notice provides
+the claimant or representative with reconsideration, as the next level of appeal.
+The ALJ's notice provides the claimant or representative with the AC’s review, as
+the next step of appeal.
+
+2. New issue before the ALJ
+
+The ALJ may consider a new issue at the hearing, even though it arose after the hearing
+request and not considered in the initial, or reconsidered determination. The ALJ
+notifies all parties to the hearing about the new issue.
+
+E. How we conduct the administrative review process
+
+Administrative reviews are informal and non-adversarial. At each step of the appeals
+process, the claimant can present any helpful information and ask SSA to look at the
+case again. The AC may notify the claimant and other parties of the issues for review.
+SSA considers all information supplied by the claimant, along with information already
+in SSA's files. The claimant may present information personally, or be represented
+by an attorney or another qualified person.
+
+F. Definitions of terms used in administrative review process
+
+1. Administrative finality
+
+Administrative finality refers to a determination or decision being final and binding when rendered, unless
+it is timely appealed; or later reopened and revised.
+
+2. Decision
+
+A decision is the finding issued by an ALJ, or the AC after the claimant's hearing
+or AC review.
+
+3. Merits determination or decision
+
+When used in the context of appeals, merits determination or decision refers to a
+determination or decision that has further administrative and judicial review. See
+GN 03101.120C, Procedure for New Application in Lieu of Appeal.
+
+4. Res judicata
+
+Res judicata is a rule in civil law and administrative policy. Res judicata protects
+SSA from repeatedly considering the same claim (a claim already issued a determination).
+For more information on res judicata, see GN 03101.160. Also, see GN 03101.120, Appeals – FO Interview with Dissatisfied Claimant.
+
+5. Vacate
+
+To vacate means to set aside the previous action. For example, an ALJ or the AC may vacate a
+dismissal of a request for review. The AC may also vacate a dismissal on its own motion.
+See GN 03101.120C, Procedures for New Application in Lieu of Appeal.
+
+G. References
+
+•
+
+GN 03101.010 Time Limit for Filing Administrative Appeals
+
+•
+
+GN 03102.000 Reconsideration (Title II and Entitlement Under Title XVIII)
+
+•
+
+GN 03103.000 Hearings (Title II and Entitlement Under Title XVIII)
+
+•
+
+GN 03104.000 Appeals Council Review (Title II and Entitlement Under Title XVIII)
+
+•
+
+GN 03107.000 Expedited Appeals Process (EAP) (Title II)
+
+•
+
+DI 12005.000 Reconsiderations – Initial Claims
+
+•
+
+DI 12010.000 Hearings Level Review – Initial Claims
+
+•
+
+DI 12026.000 Reconsideration – Disability Hearing for a Medical Cessation/Adverse Medical Reopening
+Determination – Title II and Title XVI
+
+To Link to this section - Use this URL:
+http://policy.ssa.gov/poms.nsf/lnx/0203101001
+
+GN 03101.001 - Summary of Administrative Review Process - 07/25/2014
+
+Batch run: 07/23/2026
+
+Rev:07/25/2014

@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://www.govinfo.gov/content/pkg/CFR-2025-title20-vol2/xml/CFR-2025-title20-vol2-sec404-900.xml
+  final_url: https://www.govinfo.gov/content/pkg/CFR-2025-title20-vol2/xml/CFR-2025-title20-vol2-sec404-900.xml
+  status: 200
+  content_type: application/xml
+  text_sha256: 369797a6cd3d1a5362d1dfe4e6ec5b02912bf4d06b1e8eecaad74f8760478151
+  text: cfr-20-404-900/2026-10-07.txt
+  raw: cfr-20-404-900/2026-10-07.raw

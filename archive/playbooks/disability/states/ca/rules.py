@@ -70,7 +70,7 @@ def evaluate(hh: Household, as_of: date) -> Determination:
     a = hh.applicant
     ssp: float | None = 0.0
     if not r.state_payable:
-        det.note("DIS-CA-SSP-ELIGIBILITY", f"no SSP: ineligible for SSI for a reason other than income ({r.reason})", False)
+        det.note("DIS-CA-SSP-ADMIN", f"no SSP: ineligible for SSI for a reason other than income ({r.reason})", False)
         if r.reason == "immigration status":
             det.links.append("ca_capi:possible")
             det.note("DIS-CA-CAPI", "a non-citizen denied SSI/SSP only because of immigration status may qualify for "
@@ -78,7 +78,7 @@ def evaluate(hh: Household, as_of: date) -> Determination:
     else:
         code = oss_code(hh)
         if r.unit == "couple":
-            cats = [_cat(a, as_of), _cat(hh.spouse, as_of)]
+            cats = [_cat(a, as_of), _cat(fed.spouse_of(hh), as_of)]
         else:
             cats = [_cat(a, as_of)]
         lvl = level(code, cats, as_of, det)

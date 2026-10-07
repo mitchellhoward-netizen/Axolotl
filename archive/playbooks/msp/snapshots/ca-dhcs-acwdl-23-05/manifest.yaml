@@ -1,0 +1,10 @@
+- retrieved: '2026-10-07'
+  url: https://www.dhcs.ca.gov/wp-content/uploads/2025/10/23-05.pdf
+  final_url: https://www.dhcs.ca.gov/wp-content/uploads/2025/10/23-05.pdf
+  status: 200
+  content_type: pdf
+  text_sha256: b9d2a7596280fcd603c20becadd0cf149629926a2c646494b0212ba4597d0e3d
+  text: ca-dhcs-acwdl-23-05/2026-10-07.txt
+  raw: ca-dhcs-acwdl-23-05/2026-10-07.pdf
+  fetched_via: headless Chromium (Playwright) via the session proxy; dhcs.ca.gov refuses
+    scripted requests (Incapsula)

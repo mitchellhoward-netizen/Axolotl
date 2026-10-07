@@ -1,0 +1,790 @@
+schema_version: 2
+program: snap
+scope: federal
+title: Supplemental Nutrition Assistance Program (SNAP) — federal base
+last_researched: 2026-10-07
+
+summary:
+  plain_language: >-
+    SNAP gives low-income households a monthly food benefit on an EBT card.
+    Everyone who lives together and buys and prepares food together is one
+    SNAP household. Most households must pass a gross income test (130% of
+    the poverty level), a net income test (100%) and a resource test ($3,000,
+    or $4,750 from October 2026 when someone is 60 or older or disabled).
+    Households with a member who is 60 or older or disabled skip the gross
+    test and can deduct medical costs over $35 a month and all of their
+    shelter costs above half their income. The benefit is the maximum
+    allotment for the household size minus 30% of net income; eligible one-
+    and two-person households get at least the minimum benefit ($24 a month
+    in FY 2026, $25 in FY 2027). Most states, including New York, California
+    and Illinois, use broad-based categorical eligibility (BBCE) to raise the
+    gross income limit and drop the resource test.
+  administered_by: >-
+    USDA Food and Nutrition Service (renamed Food and Nutrition Administration
+    in 2026) sets the rules and pays benefits; state agencies (and counties in
+    New York and California) take applications and decide eligibility.
+  funded_by: >-
+    Benefits are 100% federal through FY 2027; states pay half of
+    administrative costs through FY 2026 and 75% from FY 2027. From FY 2028
+    states with payment error rates of 6% or more pay 5-15% of benefit costs
+    (Public Law 119-21 sec. 10105; noted only, not modelled).
+  local_names:
+    - {name: SNAP, meaning: Supplemental Nutrition Assistance Program (formerly food stamps)}
+    - {name: BBCE, meaning: "Broad-based categorical eligibility: SNAP eligibility conferred by a TANF/MOE-funded non-cash benefit"}
+    - {name: SUA, meaning: Standard utility allowance used instead of actual utility bills}
+    - {name: ABAWD, meaning: "Able-bodied adult without dependents (3-month time limit)"}
+    - {name: TFP, meaning: Thrifty Food Plan (basis of the maximum allotment)}
+  legal_basis: Food and Nutrition Act of 2008, 7 U.S.C. 2011 et seq. (secs. 2014, 2015, 2017); 7 CFR Parts 271-273; Public Law 119-21 (2025) Title I Subtitle A.
+  confidence: confirmed
+  sources:
+    - {source: fns-snap-eligibility, locator: "whole page"}
+    - {source: fns-snap-elderly-disabled, locator: "whole page"}
+    - {source: pl-119-21-nutrition, locator: "secs. 10101-10108"}
+
+rules:
+  # ------------------------------------------------------------- household
+  - id: SNAP-FED-HOUSEHOLD
+    statement: >-
+      In every state, a SNAP household is everyone who lives together and
+      buys and prepares meals together; spouses and most children under 22
+      living together are one household even if they buy food separately.
+    kind: definition
+    effective_from: 2008-10-01
+    implemented_in: playbooks/snap/federal/rules.py:budget
+    confidence: confirmed
+    note: The evaluator treats every listed member as one SNAP household; separate-household and excluded-member cases are not modelled.
+    sources:
+      - {source: fns-snap-eligibility, locator: "Who is in a SNAP household?"}
+  - id: SNAP-FED-ELDERLY-DISABLED
+    statement: >-
+      In every state, a SNAP household member is "elderly" at age 60 or older,
+      and "disabled" if they receive SSI or Social Security disability or
+      blindness benefits (or certain other government disability benefits);
+      a household with such a member follows the elderly/disabled rules.
+    kind: definition
+    effective_from: 1977-10-01
+    parameters: [federal.snap.elderly_age]
+    implemented_in: playbooks/snap/federal/rules.py:elderly_or_disabled
+    confidence: confirmed
+    sources:
+      - {source: ecfr-7-271-2, locator: "Elderly or disabled member means a member of a household who: (1) Is 60 years of age or older; (2) Receives supplemental security income ..."}
+      - {source: fns-snap-elderly-disabled, locator: "Who is elderly? Who is disabled?"}
+
+  # -------------------------------------------------------- income tests
+  - id: SNAP-FED-GROSS-INCOME
+    statement: >-
+      In every state, SNAP gross income is the household's total non-excluded
+      monthly income before deductions, including wages before the earned
+      income deduction, SSI, and Social Security counted before the Medicare
+      Part B premium is withheld.
+    kind: definition
+    effective_from: 2008-10-01
+    implemented_in: playbooks/snap/federal/rules.py:budget
+    confidence: confirmed
+    note: >-
+      That Social Security is counted before the Part B premium follows from
+      7 CFR 273.9(b) (all income unless excluded) together with 273.9(d)(3)(v),
+      which deducts Medicare premiums as a medical expense; no FNS text states
+      it in those words.
+    sources:
+      - {source: fns-snap-eligibility, locator: "Gross income means a household's total, non-excluded income, before any deductions have been made."}
+      - {source: fns-snap-elderly-disabled, locator: "income includes both earned income such as wages and unearned income such as Supplemental Security Income (SSI)"}
+      - {source: ecfr-7-273-9, locator: "(b) Definition of income; (d)(3)(v) Medicare premiums"}
+  - id: SNAP-FED-GROSS-TEST
+    statement: >-
+      In every state, a SNAP household with no member aged 60 or older or
+      disabled must have gross monthly income at or below 130% of the poverty
+      level unless it is categorically eligible; for October 2025 - September
+      2026 the limit is $1,696 for one person, $2,292 for two and $3,483 for
+      four, and from October 1, 2026 it is $1,729, $2,345 and $3,575.
+    kind: eligibility
+    effective_from: 2025-10-01
+    parameters: [federal.snap.gross_income_limit_monthly]
+    implemented_in: playbooks/snap/federal/rules.py:_run
+    confidence: confirmed
+    sources:
+      - {source: fns-snap-fy26-income-standards, locator: "Table 2"}
+      - {source: fns-snap-fy27-income-standards, locator: "Table 2"}
+      - {source: usc-7-2014, locator: "(c)"}
+  - id: SNAP-FED-GROSS-EXEMPT-ELDERLY-DISABLED
+    statement: >-
+      In every state, a SNAP household that includes a member aged 60 or older
+      or disabled does not have to meet the gross income limit; it only has to
+      meet the net income limit (and the resource limit unless categorically
+      eligible).
+    kind: eligibility
+    effective_from: 1977-10-01
+    implemented_in: playbooks/snap/federal/rules.py:_run
+    confidence: confirmed
+    sources:
+      - {source: fns-snap-elderly-disabled, locator: "a household with an elderly or disabled person only has to meet the net income test"}
+      - {source: usc-7-2014, locator: "(c): households ... which do not include an elderly or disabled member"}
+  - id: SNAP-FED-NET-TEST
+    statement: >-
+      In every state, a SNAP household that is not categorically eligible must
+      have net monthly income (after deductions) at or below 100% of the
+      poverty level: for October 2025 - September 2026 $1,305 for one person,
+      $1,763 for two and $2,680 for four; from October 1, 2026 $1,330, $1,804
+      and $2,750.
+    kind: eligibility
+    effective_from: 2025-10-01
+    parameters: [federal.snap.net_income_limit_monthly]
+    implemented_in: playbooks/snap/federal/rules.py:_run
+    confidence: confirmed
+    sources:
+      - {source: fns-snap-fy26-income-standards, locator: "Table 1"}
+      - {source: fns-snap-fy27-income-standards, locator: "Table 1"}
+  - id: SNAP-FED-RESOURCES
+    statement: >-
+      In every state, a SNAP household that is not categorically eligible may
+      have countable resources (such as cash and bank accounts) of no more than
+      $3,000, or $4,500 (October 2025 - September 2026) and $4,750 (from
+      October 1, 2026) if a member is 60 or older or disabled; the home, most
+      retirement accounts, life insurance cash value and the resources of SSI
+      and TANF recipients do not count.
+    kind: eligibility
+    effective_from: 2025-10-01
+    parameters: [federal.snap.resource_limit]
+    implemented_in: playbooks/snap/federal/rules.py:countable_resources
+    confidence: confirmed
+    sources:
+      - {source: fns-snap-fy26-allotments-deductions, locator: "Table 5: Maximum Asset Limits"}
+      - {source: fns-snap-fy27-allotments-deductions, locator: "Table 5: Maximum Asset Limits"}
+      - {source: fns-snap-elderly-disabled, locator: "What resources can I have ... certain resources are NOT counted"}
+      - {source: ecfr-7-273-8, locator: "(e)(2) cash value of life insurance, pension plans and retirement accounts excluded"}
+  - id: SNAP-FED-CATEGORICAL
+    statement: >-
+      In every state, a household in which every member receives (or is
+      authorized to receive) SSI or TANF cash assistance is categorically
+      eligible for SNAP: the resource, gross income and net income limits are
+      treated as met, and the benefit is still computed from its income and
+      deductions.
+    kind: eligibility
+    effective_from: 1986-01-01
+    implemented_in: playbooks/snap/federal/rules.py:_run
+    confidence: confirmed
+    sources:
+      - {source: ecfr-7-273-2, locator: "(j)(2)(i)(D) and (j)(2)(v): resource, gross and net income limits deemed"}
+      - {source: fns-snap-eligibility, locator: "If all members of your household receive TANF, SSI ... categorically eligible"}
+  - id: SNAP-FED-BBCE
+    statement: >-
+      In states that adopt broad-based categorical eligibility (New York,
+      California and Illinois all do, on different terms), a household that
+      qualifies for a TANF/MOE-funded non-cash benefit is categorically
+      eligible for SNAP, which replaces the 130% gross limit with the state's
+      higher limit and removes the resource test; BBCE cannot make anyone
+      ineligible, and households that do not qualify are tested under the
+      regular rules.
+    kind: eligibility
+    effective_from: 2000-11-21
+    implemented_in: playbooks/snap/federal/rules.py:_run
+    confidence: confirmed
+    note: The effective date is when FNS first allowed non-cash TANF services to confer categorical eligibility (not established here; the date is a placeholder for "long-standing", see SNAP-FED-OQ-07).
+    sources:
+      - {source: fns-snap-bbce-chart, locator: "introduction: BBCE cannot limit eligibility ..."}
+  - id: SNAP-FED-ZERO-BENEFIT
+    statement: >-
+      In every state, a SNAP household of three or more people whose computed
+      benefit is zero or less is not eligible, even if categorically eligible;
+      one- and two-person households that are eligible always get at least the
+      minimum benefit.
+    kind: eligibility
+    effective_from: 2008-10-01
+    implemented_in: playbooks/snap/federal/rules.py:_run
+    confidence: confirmed
+    sources:
+      - {source: ecfr-7-273-10, locator: "(e)(2)(ii)(C) and (e)(2)(iii)"}
+
+  # ---------------------------------------------------------- deductions
+  - id: SNAP-FED-EARNED-DEDUCTION
+    statement: In every state, SNAP deducts 20% of gross earned income.
+    kind: benefit
+    effective_from: 1996-08-22
+    parameters: [federal.snap.earned_income_deduction_percent]
+    implemented_in: playbooks/snap/federal/rules.py:budget
+    confidence: confirmed
+    sources:
+      - {source: fns-snap-eligibility, locator: "A 20% deduction from earned income."}
+      - {source: usc-7-2014, locator: "(e)(2)(B)"}
+  - id: SNAP-FED-STANDARD-DEDUCTION
+    statement: >-
+      In the 48 contiguous states and DC, SNAP gives every household a
+      standard deduction of $209 a month for 1-3 people, $223 for 4, $261 for
+      5 and $299 for 6 or more (October 2025 - September 2026), and $217,
+      $229, $268 and $308 from October 1, 2026.
+    kind: benefit
+    effective_from: 2025-10-01
+    parameters: [federal.snap.standard_deduction_monthly]
+    implemented_in: playbooks/snap/federal/rules.py:budget
+    confidence: confirmed
+    sources:
+      - {source: fns-snap-fy26-allotments-deductions, locator: "Table 2: Standard Deductions"}
+      - {source: fns-snap-fy27-allotments-deductions, locator: "Table 2: Standard Deductions"}
+  - id: SNAP-FED-MEDICAL
+    statement: >-
+      In every state, a SNAP household with a member aged 60 or older or
+      disabled may deduct that member's unreimbursed medical costs above $35 a
+      month, including Medicare premiums (such as the $202.90 Part B premium in
+      2026), other health insurance premiums, prescriptions and medical
+      transportation; states may instead offer a standard medical deduction.
+    kind: benefit
+    effective_from: 1996-08-22
+    parameters: [federal.snap.medical_expense_threshold_monthly, federal.cms.part_b_standard_premium]
+    implemented_in: playbooks/snap/federal/rules.py:federal_medical_deduction
+    confidence: confirmed
+    sources:
+      - {source: ecfr-7-273-9, locator: "(d)(3) Excess medical deduction; (d)(3)(v) Medicare premiums"}
+      - {source: fns-snap-eligibility, locator: "Medical expenses for elderly or disabled members that are more than $35 for the month"}
+  - id: SNAP-FED-DEPENDENT-CARE
+    statement: In every state, SNAP deducts the actual cost of dependent care needed so a household member can work, look for work, or attend training or education.
+    kind: benefit
+    effective_from: 2008-10-01
+    implemented_in: playbooks/snap/federal/rules.py:budget
+    confidence: confirmed
+    sources:
+      - {source: fns-snap-eligibility, locator: "A dependent care deduction when needed for work, training, or education."}
+      - {source: ecfr-7-273-9, locator: "(d)(4)"}
+  - id: SNAP-FED-CHILD-SUPPORT
+    statement: >-
+      In every state, legally obligated child support that a household member
+      pays to or for someone outside the household is excluded from the
+      household's gross income, unless the state has chosen to give a child
+      support deduction from income instead.
+    kind: benefit
+    effective_from: 2002-05-13
+    implemented_in: playbooks/snap/federal/rules.py:budget
+    confidence: confirmed
+    note: >-
+      The exclusion counts for the gross income test as well as the benefit;
+      a deduction only lowers net income. Illinois confirms it uses the
+      exclusion; New York's and California's choices were not established
+      (SNAP-FED-OQ-08) and the evaluator applies the federal default.
+    sources:
+      - {source: ecfr-7-273-9, locator: "(c)(17) exclusion of legally obligated child support paid; (d)(5) Optional child support deduction"}
+      - {source: fns-snap-eligibility, locator: "In some states, legally owed child support payments."}
+  - id: SNAP-FED-EXCESS-SHELTER
+    statement: >-
+      In every state, SNAP deducts the household's shelter costs (rent or
+      mortgage, property taxes, homeowners insurance and a utility allowance or
+      utility costs) that exceed 50% of its income after all other deductions.
+    kind: benefit
+    effective_from: 1996-08-22
+    parameters: [federal.snap.shelter_income_share_percent]
+    implemented_in: playbooks/snap/federal/rules.py:budget
+    confidence: confirmed
+    sources:
+      - {source: ecfr-7-273-9, locator: "(d)(6)(ii) Excess shelter deduction"}
+      - {source: fns-snap-eligibility, locator: "SNAP Excess Shelter Costs Deduction"}
+  - id: SNAP-FED-SHELTER-CAP
+    statement: >-
+      In the 48 contiguous states and DC, the SNAP excess shelter deduction of
+      a household with no member aged 60 or older or disabled is capped at $744
+      a month (October 2025 - September 2026) and $769 (from October 1, 2026).
+    kind: benefit
+    effective_from: 2025-10-01
+    parameters: [federal.snap.excess_shelter_cap_monthly]
+    implemented_in: playbooks/snap/federal/rules.py:budget
+    confidence: confirmed
+    sources:
+      - {source: fns-snap-fy26-allotments-deductions, locator: "Table 3"}
+      - {source: fns-snap-fy27-allotments-deductions, locator: "Table 3"}
+  - id: SNAP-FED-SHELTER-UNCAPPED
+    statement: >-
+      In every state, a SNAP household with a member aged 60 or older or
+      disabled can deduct all of its shelter costs above half of its income;
+      the shelter cap does not apply.
+    kind: benefit
+    effective_from: 1996-08-22
+    implemented_in: playbooks/snap/federal/rules.py:budget
+    confidence: confirmed
+    sources:
+      - {source: fns-snap-eligibility, locator: "For a household with an elderly or disabled member, all shelter costs over half of the household's income may be deducted."}
+      - {source: ecfr-7-273-9, locator: "(d)(6)(ii)"}
+  - id: SNAP-FED-SUA
+    statement: >-
+      In every state that uses standard utility allowances (New York,
+      California and Illinois all do, as mandatory standards), SNAP counts a
+      fixed utility allowance instead of actual bills: a heating/cooling SUA
+      for households that pay heating or cooling separately, a limited
+      allowance for households billed for at least two other utilities, and
+      smaller single-utility or telephone allowances.
+    kind: benefit
+    effective_from: 2025-01-17
+    implemented_in: playbooks/snap/federal/rules.py:utilities_billed
+    confidence: confirmed
+    sources:
+      - {source: ecfr-7-273-9, locator: "(d)(6)(iii)(A)(1)-(3): HCSUA; LUA must include expenses for at least two utilities"}
+      - {source: fns-snap-sua-fy26, locator: "column headings; footnote: * not a mandatory SUA State (none of NY, CA, IL is marked)"}
+  - id: SNAP-FED-SUA-LIHEAP
+    statement: >-
+      Since Public Law 119-21 (July 4, 2025), a LIHEAP or similar energy
+      assistance payment of more than $20 automatically qualifies a SNAP
+      household for the heating/cooling standard utility allowance only if the
+      household has a member aged 60 or older or disabled; other households
+      need their own heating or cooling bill.
+    kind: benefit
+    effective_from: 2025-07-04
+    implemented_in: playbooks/snap/federal/rules.py:energy_assistance_confers_hcsua
+    confidence: confirmed
+    note: States applied the change from different dates (Illinois September 26, 2025; New York and California see their parts).
+    sources:
+      - {source: pl-119-21-nutrition, locator: "sec. 10103(a): inserting \"with an elderly or disabled member\" after \"households\" in 7 U.S.C. 2014(e)(6)(C)(iv)(I)"}
+  - id: SNAP-FED-NO-INTERNET
+    statement: Since Public Law 119-21 (July 4, 2025), internet service fees cannot be counted as a shelter or utility cost for the SNAP excess shelter deduction in any state.
+    kind: benefit
+    effective_from: 2025-07-04
+    implemented_in: playbooks/snap/federal/rules.py:budget
+    confidence: confirmed
+    sources:
+      - {source: pl-119-21-nutrition, locator: "sec. 10104: Any service fee associated with internet connection shall not be used in computing the excess shelter expense deduction"}
+  - id: SNAP-FED-HOMELESS
+    statement: >-
+      In states that choose it, a homeless SNAP household with some shelter
+      costs may take a homeless shelter deduction of $198.99 a month (October
+      2025 - September 2026) or $205.66 (from October 1, 2026) instead of the
+      excess shelter deduction.
+    kind: benefit
+    effective_from: 2025-10-01
+    parameters: [federal.snap.homeless_shelter_deduction_monthly]
+    confidence: confirmed
+    note: Not modelled by the evaluator (homeless households return undetermined, SNAP-FED-OQ-06).
+    sources:
+      - {source: fns-snap-fy26-allotments-deductions, locator: "Table 4"}
+      - {source: fns-snap-fy27-allotments-deductions, locator: "Table 4"}
+      - {source: fns-snap-eligibility, locator: "A standard shelter deduction for homeless households of $205.66."}
+  - id: SNAP-FED-NET-INCOME
+    statement: >-
+      In every state, SNAP net income is gross income minus, in order, the 20%
+      earned income deduction, the standard deduction, excess medical costs,
+      dependent care, child support paid (only in states that deduct it rather
+      than exclude it) and the excess shelter deduction.
+    kind: definition
+    effective_from: 2008-10-01
+    implemented_in: playbooks/snap/federal/rules.py:budget
+    confidence: confirmed
+    sources:
+      - {source: fns-snap-eligibility, locator: "Table 3: How to Calculate SNAP Net Income"}
+      - {source: ecfr-7-273-10, locator: "(e)(1)"}
+
+  # -------------------------------------------------------------- benefit
+  - id: SNAP-FED-BENEFIT
+    statement: >-
+      In every state, the monthly SNAP benefit is the maximum allotment for the
+      household size minus 30% of net income (rounded up to the next dollar);
+      in the 48 states and DC the maximum is $298 for one person, $546 for two
+      and $994 for four (October 2025 - September 2026), and $306, $562 and
+      $1,023 from October 1, 2026.
+    kind: benefit
+    effective_from: 2025-10-01
+    parameters: [federal.snap.max_allotment_monthly, federal.snap.benefit_reduction_percent, federal.snap.max_allotment_cap_monthly]
+    implemented_in: playbooks/snap/federal/rules.py:allotment
+    confidence: confirmed
+    sources:
+      - {source: fns-snap-fy26-allotments-deductions, locator: "Table 1"}
+      - {source: fns-snap-fy27-allotments-deductions, locator: "Table 1"}
+      - {source: ecfr-7-273-10, locator: "(e)(2)(ii)(A)(1): round the 30 percent of net income up to the nearest higher dollar"}
+      - {source: fns-snap-eligibility, locator: "Table 5: Example of SNAP Benefit Calculation"}
+  - id: SNAP-FED-MIN-BENEFIT
+    statement: >-
+      In the 48 states and DC, every eligible one- or two-person SNAP household
+      gets at least $24 a month (October 2025 - September 2026) and $25 (from
+      October 1, 2026), 8% of the one-person maximum allotment.
+    kind: benefit
+    effective_from: 2025-10-01
+    parameters: [federal.snap.min_benefit_monthly]
+    implemented_in: playbooks/snap/federal/rules.py:_run
+    confidence: confirmed
+    sources:
+      - {source: fns-snap-fy26-minimum-allotments, locator: "Table 1"}
+      - {source: fns-snap-fy27-minimum-allotments, locator: "Table 1"}
+      - {source: ecfr-7-273-10, locator: "(e)(2)(ii)(C)"}
+  - id: SNAP-FED-TFP
+    statement: >-
+      Public Law 119-21 fixes the SNAP maximum allotment at the Thrifty Food
+      Plan cost adjusted each October 1 only for inflation (CPI-U for the year
+      ending in June), allows a cost-neutral re-evaluation of the food basket
+      no earlier than October 1, 2027, and caps households of 9 or more at 200%
+      of the four-person maximum ($3,887 for 18 or more people in FY 2027).
+    kind: benefit
+    effective_from: 2025-07-04
+    parameters: [federal.snap.max_allotment_cap_monthly]
+    confidence: confirmed
+    sources:
+      - {source: pl-119-21-nutrition, locator: "sec. 10101, new 7 U.S.C. 2012(u)(2)-(4)"}
+      - {source: fns-snap-fy27-allotments-deductions, locator: "Table 1: 18+ $3,887"}
+
+  # ---------------------------------------------------- non-financial rules
+  - id: SNAP-FED-ABAWD
+    statement: >-
+      Since Public Law 119-21 (July 4, 2025), in every state an able-bodied
+      SNAP recipient aged 18 through 64 who has no child under 14 in the
+      household, is not pregnant, is not unfit for work and is not otherwise
+      exempt can get only 3 months of benefits in 36 months unless working or
+      in a work program at least 80 hours a month; the former exemptions for
+      veterans, homeless people and former foster youth ended, and American
+      Indians, Urban Indians and California Indians were added as exempt.
+    kind: eligibility
+    effective_from: 2025-07-04
+    parameters: [federal.snap.abawd_age_range]
+    implemented_in: playbooks/snap/federal/rules.py:_links_and_notes
+    confidence: confirmed
+    note: The evaluator only flags possible ABAWD status; it does not track the 3-month clock. Each state implemented on its own date (see state parts).
+    sources:
+      - {source: pl-119-21-nutrition, locator: "sec. 10102(a), new 7 U.S.C. 2015(o)(3)(A)-(G)"}
+      - {source: ecfr-7-273-24, locator: "(a)-(b): 3 countable months in 36; 80 hours per month (pre-2025 text)"}
+  - id: SNAP-FED-NONCITIZEN
+    statement: >-
+      Since Public Law 119-21 (July 4, 2025), only U.S. citizens and nationals,
+      lawful permanent residents, Cuban and Haitian entrants and Compact of Free
+      Association residents can be SNAP members in any state (other lawfully
+      present groups such as refugees and asylees who are not permanent
+      residents lost eligibility); an ineligible member's income still counts,
+      less a pro-rata share at state option.
+    kind: eligibility
+    effective_from: 2025-07-04
+    implemented_in: playbooks/snap/federal/rules.py:_run
+    confidence: confirmed
+    note: Existing waiting periods (for example five years for many permanent residents) were not changed by sec. 10108 and are not modelled; non-citizen cases return undetermined.
+    open_question: SNAP-FED-OQ-05
+    sources:
+      - {source: pl-119-21-nutrition, locator: "sec. 10108, new 7 U.S.C. 2015(f)"}
+  - id: SNAP-FED-STATE-COST-SHARE
+    statement: >-
+      Beginning in fiscal year 2028 (October 1, 2027), states with a SNAP
+      payment error rate of 6% or more must pay 5%, 10% or 15% of benefit costs
+      (later for states with very high error rates), and from FY 2027 states
+      pay 75% of administrative costs; this does not change who is eligible or
+      benefit amounts.
+    kind: definition
+    effective_from: 2026-10-01
+    confidence: confirmed
+    sources:
+      - {source: pl-119-21-nutrition, locator: "sec. 10105 (new 7 U.S.C. 2013(a)(2)) and sec. 10106 (7 U.S.C. 2025(a))"}
+
+  # ----------------------------------------------------------- procedure
+  - id: SNAP-FED-PROCESSING
+    statement: >-
+      In every state, the SNAP office must decide an application within 30
+      days, after an interview (usually by phone or in person), and pay
+      benefits back to the application date; households with very little
+      income or cash (for example under $150 income and $100 in liquid
+      resources) must get benefits within 7 days (expedited service).
+    kind: timing
+    effective_from: 2008-10-01
+    confidence: confirmed
+    sources:
+      - {source: fns-snap-eligibility, locator: "What happens when I apply for SNAP? ... within 30 days ... within 7 days"}
+      - {source: ecfr-7-273-2, locator: "(a)(2) application processing; (g) 30-day standard; (i) expedited service"}
+  - id: SNAP-FED-CERTIFICATION
+    statement: >-
+      In every state, SNAP households are certified for a fixed period of up to
+      12 months, or up to 24 months when all adult members are elderly or
+      disabled, and must recertify before it ends; states may use shorter
+      periods.
+    kind: timing
+    effective_from: 2008-10-01
+    confidence: confirmed
+    sources:
+      - {source: ecfr-7-273-10, locator: "(f) Certification periods; (f)(1) households in which all adult members are elderly or disabled"}
+      - {source: ecfr-7-273-14, locator: "(a)-(b) recertification"}
+  - id: SNAP-FED-MEDICAL-CHANGE-MIDPERIOD
+    statement: >-
+      In every state, during a SNAP certification period the agency may not
+      act on a change in a household's medical costs that it learns of from
+      another source if acting would require contacting the household for
+      verification; it may act on such a change only if the information is
+      verified upon receipt.
+    kind: timing
+    effective_from: 2008-10-01
+    confidence: confirmed
+    note: >-
+      This is the federal frame for what happens to the SNAP medical deduction
+      when a Medicare Savings Program starts paying the Part B premium
+      mid-certification (see SNAP-FED-MSP-PART-B and the New York part).
+    sources:
+      - {source: ecfr-7-273-12, locator: "(c) State agency action on changes: shall not act on changes in the medical expenses ... which it learns of from a source other than the household"}
+  - id: SNAP-FED-MSP-PART-B
+    statement: >-
+      In every state, when a Medicare Savings Program (QMB, SLMB or QI) starts
+      paying a SNAP member's Part B premium ($202.90 a month in 2026), the
+      premium is no longer an out-of-pocket medical cost, so the SNAP medical
+      deduction falls and the SNAP benefit can drop by up to about 30 cents for
+      each dollar of deduction lost, once the change is applied.
+    kind: coordination
+    effective_from: 2026-01-01
+    parameters: [federal.cms.part_b_standard_premium]
+    implemented_in: playbooks/snap/federal/rules.py:_links_and_notes
+    confidence: confirmed
+    note: >-
+      Direct inference from 7 CFR 273.9(d)(3) (only costs not paid by insurance
+      or someone else are deductible) and the 30% benefit reduction rate. The
+      MSP gain ($202.90 a month in cash) is always larger than the SNAP loss.
+    sources:
+      - {source: ecfr-7-273-9, locator: "(d)(3)(v) Medicare premiums; (d)(3): medical expenses ... not reimbursable"}
+      - {source: fns-snap-eligibility, locator: "if they are not paid by insurance or someone else"}
+  - id: SNAP-FED-LINK-SCHOOL-MEALS
+    statement: >-
+      In every state, school-age children in a SNAP household are directly
+      certified for free school meals through data matching with the SNAP
+      agency, without a school meal application.
+    kind: coordination
+    effective_from: 2008-10-01
+    implemented_in: playbooks/snap/federal/rules.py:_links_and_notes
+    confidence: confirmed
+    sources:
+      - {source: usc-42-1758-direct-cert, locator: "(b)(4) Direct certification for children in supplemental nutrition assistance program households"}
+
+procedure:
+  applications:
+    - id: SNAP-FED-PROC-STATE
+      text: SNAP is applied for with the state agency of the state where the person lives; each state has its own form and online system, and FNS does not take applications.
+      channel: any
+      confidence: confirmed
+      sources: [{source: fns-snap-eligibility, locator: "How do I apply for SNAP?"}]
+    - id: SNAP-FED-PROC-AUTH-REP
+      text: Someone who cannot go to the office may name an authorized representative in writing to apply and be interviewed for them.
+      confidence: confirmed
+      sources: [{source: fns-snap-eligibility, locator: "you may have another person act as an authorized representative"}]
+    - id: SNAP-FED-PROC-SAME-DAY
+      text: An application can be filed the same day with only name, address and signature; the interview and documents can follow.
+      confidence: confirmed
+      sources: [{source: ecfr-7-273-2, locator: "(c)(1)(iii) Right to same-day filing"}]
+  timelines:
+    - id: SNAP-FED-TIME-30
+      text: Decision within 30 days of the application date; benefits are paid from the application date.
+      duration: 30 days
+      confidence: confirmed
+      sources: [{source: fns-snap-eligibility, locator: "within 30 days"}]
+    - id: SNAP-FED-TIME-EXPEDITED
+      text: Expedited benefits within 7 days for households with under $150 gross income and $100 liquid resources, or whose income plus cash is below rent/mortgage and utilities.
+      duration: 7 days
+      confidence: confirmed
+      sources: [{source: fns-snap-eligibility, locator: "You may be eligible to receive SNAP benefits within 7 days"}]
+  approval_notice:
+    - id: SNAP-FED-NOTICE
+      text: The state sends a notice saying whether the household is eligible, the benefit amount and the certification period; benefits are loaded monthly on an EBT card.
+      confidence: confirmed
+      sources: [{source: fns-snap-eligibility, locator: "How long will I receive SNAP? ... notice"}]
+  renewal:
+    - id: SNAP-FED-RENEW
+      text: Before the certification period ends the household gets a notice to recertify; recertification normally includes an interview.
+      confidence: confirmed
+      sources:
+        - {source: fns-snap-eligibility, locator: "you will receive another notice that says you must recertify"}
+        - {source: ecfr-7-273-14, locator: "(b) recertification process"}
+
+life_events:
+  - id: SNAP-FED-LE-INCOME-DROP
+    code: income_drop
+    event: Job loss, reduced hours, or a pension or benefit ending
+    why: SNAP is budgeted on current monthly income; a drop can create eligibility or raise the benefit, and very low income can qualify for 7-day expedited benefits.
+    check_rules: [SNAP-FED-GROSS-TEST, SNAP-FED-NET-TEST, SNAP-FED-BENEFIT]
+    confidence: confirmed
+    sources: [{source: fns-snap-eligibility, locator: "income limits; 7 days"}]
+  - id: SNAP-FED-LE-RETIREMENT
+    code: retirement
+    event: Retirement (wages replaced by Social Security or a pension)
+    why: Earned income loses the 20% deduction; turning 60 makes the household elderly (no gross test, medical deduction, uncapped shelter).
+    check_rules: [SNAP-FED-EARNED-DEDUCTION, SNAP-FED-ELDERLY-DISABLED]
+    confidence: confirmed
+    sources: [{source: fns-snap-elderly-disabled, locator: "Who is elderly?"}]
+  - id: SNAP-FED-LE-TURNING-60
+    code: turning_65
+    event: A member turns 60 (SNAP's elderly age; the shared event code is turning_65)
+    why: SNAP's elderly rules start at 60, not 65 — the gross test drops away, medical costs over $35 and all excess shelter costs become deductible, and the resource limit rises.
+    check_rules: [SNAP-FED-ELDERLY-DISABLED, SNAP-FED-GROSS-EXEMPT-ELDERLY-DISABLED, SNAP-FED-MEDICAL, SNAP-FED-SHELTER-UNCAPPED]
+    confidence: confirmed
+    sources: [{source: ecfr-7-271-2, locator: "Elderly or disabled member ... 60 years of age or older"}]
+  - id: SNAP-FED-LE-TURNING-65
+    code: turning_65
+    event: A member turns 65
+    why: Since Public Law 119-21 the ABAWD time limit covers ages 18-64; at 65 the person is exempt. Medicare (and the Part B premium as a medical deduction) usually starts.
+    check_rules: [SNAP-FED-ABAWD, SNAP-FED-MEDICAL]
+    confidence: confirmed
+    sources: [{source: pl-119-21-nutrition, locator: "sec. 10102(a): over 65"}]
+  - id: SNAP-FED-LE-DISABILITY
+    code: disability_onset
+    event: A member starts receiving SSI or Social Security disability
+    why: The household becomes an elderly/disabled household (net test only, medical deduction, uncapped shelter); if everyone gets SSI it is categorically eligible.
+    check_rules: [SNAP-FED-ELDERLY-DISABLED, SNAP-FED-CATEGORICAL]
+    confidence: confirmed
+    sources: [{source: ecfr-7-271-2, locator: "Elderly or disabled member (2)-(3)"}]
+  - id: SNAP-FED-LE-SSI-START
+    code: benefit_change
+    event: SSI starts for a member
+    why: SSI is counted as income, but SSI receipt makes the member disabled for SNAP and removes their resources from the test.
+    check_rules: [SNAP-FED-GROSS-INCOME, SNAP-FED-RESOURCES, SNAP-FED-CATEGORICAL]
+    confidence: confirmed
+    sources: [{source: fns-snap-elderly-disabled, locator: "Resources of people who receive SSI ... income includes ... SSI"}]
+  - id: SNAP-FED-LE-MSP
+    code: benefit_change
+    event: A Medicare Savings Program approval starts paying the Part B premium
+    why: The Part B premium leaves the SNAP medical deduction; the SNAP benefit may fall at the next recertification or when the change is applied.
+    check_rules: [SNAP-FED-MSP-PART-B, SNAP-FED-MEDICAL-CHANGE-MIDPERIOD]
+    confidence: confirmed
+    sources: [{source: ecfr-7-273-12, locator: "(c)"}]
+  - id: SNAP-FED-LE-HOUSEHOLD
+    code: household_change
+    event: Someone moves in or out, a baby is born
+    why: Household size changes every limit, the maximum allotment and the standard deduction; a child under 14 exempts adults from the ABAWD limit.
+    check_rules: [SNAP-FED-HOUSEHOLD, SNAP-FED-ABAWD]
+    confidence: confirmed
+    sources: [{source: fns-snap-eligibility, locator: "Who is in a SNAP household?"}]
+  - id: SNAP-FED-LE-RENEWAL
+    code: renewal_due
+    event: Certification period ending
+    why: The household must recertify or benefits stop; medical cost changes are typically applied here.
+    check_rules: [SNAP-FED-CERTIFICATION]
+    confidence: confirmed
+    sources: [{source: ecfr-7-273-14, locator: "(a)"}]
+  - id: SNAP-FED-LE-MOVE
+    code: move_state
+    event: Moving to another state
+    why: SNAP must be applied for in the new state; utility allowances, BBCE limits and medical deduction rules differ by state.
+    check_rules: [SNAP-FED-BBCE, SNAP-FED-SUA]
+    confidence: confirmed
+    sources: [{source: fns-snap-eligibility, locator: "you must apply in the state in which you currently live"}]
+
+outcome_proof:
+  - id: SNAP-FED-PROOF-NOTICE
+    evidence: State notice of eligibility (approval notice)
+    shows: SNAP is approved, with the monthly amount and certification period.
+    how_to_get: Mailed (or posted to the state's online account) after the decision
+    when: Within 30 days of application (7 days if expedited)
+    confidence: confirmed
+    sources: [{source: fns-snap-eligibility, locator: "send you a notice telling you whether or not you are eligible"}]
+  - id: SNAP-FED-PROOF-EBT
+    evidence: EBT card and monthly deposit
+    shows: Benefits are loaded on the EBT card each month.
+    confidence: confirmed
+    sources: [{source: fns-snap-eligibility, locator: "How do I receive SNAP benefits?"}]
+
+links:
+  - id: SNAP-FED-LINK-MSP
+    playbook: msp
+    rules: [SNAP-FED-MSP-PART-B, SNAP-FED-MEDICAL, SNAP-FED-MEDICAL-CHANGE-MIDPERIOD]
+    relation: >-
+      MSP approval removes the Part B premium from the SNAP medical deduction
+      (applied at the next recertification, or earlier if the agency learns it
+      from verified data); the SNAP benefit falls by roughly 30% of the premium
+      lost, which is far less than the $202.90 a month the MSP pays.
+    test: SNAP-X-01
+    confidence: confirmed
+    sources: [{source: ecfr-7-273-9, locator: "(d)(3)(v)"}, {source: ecfr-7-273-12, locator: "(c)"}]
+  - id: SNAP-FED-LINK-SCHOOL-MEALS
+    playbook: school_meals
+    rules: [SNAP-FED-LINK-SCHOOL-MEALS]
+    relation: Children in SNAP households are directly certified for free school meals (no application).
+    test: SNAP-X-02
+    confidence: confirmed
+    sources: [{source: usc-42-1758-direct-cert, locator: "(b)(4)"}]
+  - id: SNAP-FED-LINK-DISABILITY
+    playbook: disability
+    rules: [SNAP-FED-ELDERLY-DISABLED, SNAP-FED-CATEGORICAL]
+    relation: >-
+      SSI or Social Security disability receipt makes a member "disabled" for
+      SNAP (net test only, medical deduction, uncapped shelter); households in
+      which everyone receives SSI are categorically eligible. SNAP does not
+      reduce SSI.
+    test: SNAP-X-03
+    confidence: confirmed
+    sources: [{source: ecfr-7-271-2, locator: "Elderly or disabled member"}, {source: ecfr-7-273-2, locator: "(j)(2)(i)(D)"}]
+
+open_questions:
+  - id: SNAP-FED-OQ-01
+    priority: medium
+    question: Where a state's BBCE rules do not say whether the federal net income test still applies, which rule governs?
+    why_it_matters: Decides whether one- and two-person BBCE households with high shelter-adjusted net income get the minimum benefit.
+    checked: [7 CFR 273.2(j)(2), FNS BBCE chart]
+    affects: [SNAP-FED-BBCE]
+    status: open
+  - id: SNAP-FED-OQ-02
+    priority: low
+    question: Retrieve the signed FNS FY 2026 and FY 2027 COLA memos (usda.gov guidance documents) and the October 3, 2025 ABAWD exceptions memo to confirm the tables and effective dates.
+    why_it_matters: usda.gov refused all requests; the archive relies on FNS's own resource-file tables, which match the CDSS and IDHS restatements.
+    checked: [www.usda.gov/sites/default/files/guidance-documents/fna.snap-cola2027.pdf (403), fns.snap-cola-fy26memo.pdf (403), fns.snap-obbb-abawd-exceptions-implementation.pdf (403)]
+    affects: [federal.snap.abawd_age_range]
+    status: open
+  - id: SNAP-FED-OQ-03
+    priority: low
+    question: What ABAWD age range applied before July 4, 2025 (18-54 under the Fiscal Responsibility Act of 2023, phased in), for test dates before then?
+    why_it_matters: Only matters for back-dated questions.
+    checked: [7 CFR 273.24 (current text)]
+    affects: [federal.snap.abawd_age_range]
+    status: open
+  - id: SNAP-FED-OQ-04
+    priority: medium
+    question: How are vehicles counted as resources in New York, California and Illinois (federal rule counts fair market value over $4,650 unless excluded; BBCE states usually exclude vehicles)?
+    why_it_matters: A household outside BBCE with a car could fail the resource test.
+    checked: [FNS eligibility page (federal vehicle rules)]
+    affects: [SNAP-FED-RESOURCES]
+    status: open
+  - id: SNAP-FED-OQ-05
+    priority: high
+    question: How should households with members who lost eligibility under Public Law 119-21 sec. 10108 (refugees, asylees and others not yet permanent residents) be budgeted, and from what date did each state apply the change?
+    why_it_matters: Mixed-status households are common; the evaluator returns undetermined for them.
+    checked: [Public Law 119-21 sec. 10108, CDSS ACL 25-92 (title), IDHS MR 26.19 (title)]
+    affects: [SNAP-FED-NONCITIZEN]
+    status: open
+  - id: SNAP-FED-OQ-06
+    priority: low
+    question: Model the homeless shelter deduction for each state (all three appear to use it).
+    why_it_matters: Homeless members get a different shelter deduction.
+    checked: [FNS COLA tables]
+    affects: [SNAP-FED-HOMELESS]
+    status: open
+  - id: SNAP-FED-OQ-08
+    priority: low
+    question: Do New York and California treat child support paid as a gross income exclusion (federal default) or as a deduction?
+    why_it_matters: It changes the gross income test for households near the limit that pay child support.
+    checked: [7 CFR 273.9(c)(17), (d)(5); NY GIS 25 DC059; CDSS ACIN I-40-26]
+    affects: [SNAP-FED-CHILD-SUPPORT]
+    status: open
+  - id: SNAP-FED-OQ-07
+    priority: low
+    question: From what date have states been allowed to confer categorical eligibility through TANF/MOE non-cash benefits (BBCE)?
+    why_it_matters: Background only; the rule is long-standing.
+    checked: [FNS BBCE chart]
+    affects: [SNAP-FED-BBCE]
+    status: open
+
+conflicts:
+  - id: SNAP-FED-CONFLICT-01
+    topic: FNS eligibility page example uses the 1-3 person standard deduction for a 4-person household
+    claims:
+      - source: fns-snap-eligibility
+        locator: "Table 3 example"
+        says: "$1,750 - $217 standard deduction for a 4-person household = $1,533"
+      - source: fns-snap-fy27-allotments-deductions
+        locator: "Table 2"
+        says: The FY 2027 standard deduction for 4 people is $229.
+    handling: The archive uses the table ($229); the page example is illustrative and inconsistent with the table.
+    affects: [federal.snap.standard_deduction_monthly]
+    status: resolved
+
+claims_checked:
+  - claim: SNAP gross and net income limits are 130% and 100% of the poverty level, using FNS's own tables from October 1.
+    verdict: verified
+    detail: FY 2026 (Oct 2025-Sep 2026) and FY 2027 tables retrieved; FY 2027 limits equal the 2026 HHS guidelines (e.g. $15,960/12 = $1,330).
+    sources: [{source: fns-snap-fy27-income-standards, locator: "Tables 1-2"}]
+  - claim: Elderly/disabled households have no gross test, an uncapped shelter deduction and a medical deduction over $35 a month.
+    verdict: verified
+    detail: FNS elderly/disabled page and 7 CFR 273.9(d)(3), (d)(6)(ii).
+    sources: [{source: fns-snap-elderly-disabled, locator: "income limits"}, {source: ecfr-7-273-9, locator: "(d)(3)"}]
+  - claim: SNAP elderly household rules start at age 60.
+    verdict: verified
+    detail: 7 CFR 271.2 and the FNS page both say 60. They do not start at 65; 65 is the new upper ABAWD exemption age.
+    sources: [{source: ecfr-7-271-2, locator: "Elderly or disabled member (1)"}]
+  - claim: Public Law 119-21 raised the ABAWD age range, limited LIHEAP-based utility allowances, changed non-citizen eligibility, and adds a state cost share from FY 2028.
+    verdict: verified
+    detail: >-
+      Secs. 10102 (exempts only under 18 or over 65; dependent child under 14;
+      veteran/homeless/foster-youth exemptions removed; Indian exemption
+      added), 10103 (LIHEAP SUA only for elderly/disabled households), 10104
+      (no internet costs), 10105 (state benefit cost share from FY 2028), 10106
+      (75% state administrative share from FY 2027), 10108 (non-citizens).
+    sources: [{source: pl-119-21-nutrition, locator: "secs. 10101-10108"}]
+  - claim: The minimum benefit is for 1-2 person households.
+    verdict: verified
+    detail: $24 (FY 2026) and $25 (FY 2027), 8% of the one-person maximum.
+    sources: [{source: fns-snap-fy27-minimum-allotments, locator: "Table 1"}]

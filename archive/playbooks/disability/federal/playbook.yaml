@@ -1,0 +1,1027 @@
+schema_version: 2
+program: disability
+scope: federal
+title: Disability and SSI — Supplemental Security Income financial rules and the Social Security disability (SSDI) process, federal base
+last_researched: 2026-10-07
+
+summary:
+  plain_language: >-
+    Two federal programs pay people who cannot work because of a disability.
+    Supplemental Security Income (SSI) is a needs-based monthly payment for
+    people who are 65 or older, blind, or disabled and have little income
+    and no more than $2,000 in countable resources ($3,000 for a couple). In
+    2026 the most SSI pays is $994 a month for one person and $1,491 for a
+    couple; other income is subtracted after some of it is excluded (the
+    first $20 of any income, and $65 plus half of the rest of earnings). Many
+    states add a state supplement, and SSI usually brings Medicaid and Extra
+    Help with drug costs. Social Security Disability Insurance (SSDI) is an
+    insurance benefit for workers who have paid enough Social Security tax
+    recently; it starts after a five-month waiting period and brings Medicare
+    after 24 months of benefits. For both, the medical decision is made by a
+    state agency (the Disability Determination Services, DDS) for SSA, and any
+    denial can be appealed within 60 days.
+  administered_by: >-
+    Social Security Administration (SSA) field offices take SSI and SSDI
+    applications and decide the non-medical rules; each state's Disability
+    Determination Services (DDS) decides whether the person is disabled. State
+    supplements are paid by SSA for some states (for example California) and
+    by the state itself in others (New York, Illinois).
+  funded_by: >-
+    SSI is paid from U.S. Treasury general funds; SSDI from the Social Security
+    trust funds (payroll taxes). State supplements are state-funded. DDS costs
+    are paid by SSA.
+  local_names:
+    - {name: SSI, meaning: "Supplemental Security Income (Title XVI of the Social Security Act)"}
+    - {name: SSDI, meaning: "Social Security Disability Insurance; SSA's manuals say DIB (disability insurance benefits, Title II)"}
+    - {name: FBR, meaning: Federal benefit rate (maximum federal SSI payment)}
+    - {name: SSP / OSS, meaning: State supplementary payment / optional state supplement}
+    - {name: ISM, meaning: In-kind support and maintenance (shelter someone else pays for)}
+    - {name: VTR, meaning: Value of the one-third reduction (SSI cut by one-third when living in another person's household)}
+    - {name: PMV, meaning: Presumed maximum value of ISM (one-third of the FBR plus $20)}
+    - {name: SGA, meaning: Substantial gainful activity (the earnings level that shows a person can work)}
+    - {name: TWP, meaning: Trial work period (nine months an SSDI beneficiary can work without losing benefits)}
+    - {name: DDS, meaning: Disability Determination Services (state agency that makes the medical decision)}
+  legal_basis: >-
+    Social Security Act Title XVI (42 U.S.C. 1381 ff.; 20 CFR part 416) for
+    SSI; Title II sec. 223 (42 U.S.C. 423; 20 CFR part 404) for SSDI;
+    Medicare for disabled beneficiaries at 42 U.S.C. 426(b).
+  confidence: confirmed
+  sources:
+    - {source: ssa-poms-di-00115-001, locator: "A. Overview of SSA's disability programs; C. Disability application process; D. State participation"}
+    - {source: ssa-poms-si-00501-001, locator: "B.1 Basic Eligibility Requirements"}
+    - {source: ssa-poms-si-02001-020, locator: "11. Federal Benefits Rates, 01/26 to 12/26"}
+    - {source: ssa-poms-si-01110-003, locator: "Resource limits table"}
+
+rules:
+  # ------------------------------------------------------------- SSI basics
+  - id: DIS-FED-SSI-CATEGORY
+    statement: >-
+      In every state, a person can get SSI only if they are 65 or older,
+      blind, or disabled under SSA's definition; a person who is 65 or older
+      qualifies as aged without any disability decision.
+    kind: eligibility
+    applies_to: [SSI]
+    effective_from: 1974-01-01
+    parameters: [federal.ssi.aged_age]
+    implemented_in: playbooks/disability/federal/rules.py:category
+    confidence: confirmed
+    sources:
+      - {source: ssa-poms-si-00501-001, locator: "B.1 Basic Eligibility Requirements: Age 65 or older, blind, or disabled"}
+  - id: DIS-FED-SSI-NONCITIZEN
+    statement: >-
+      In every state, SSI is paid only to U.S. citizens or nationals and to
+      non-citizens who meet SSI's specific alien-status rules (SI 00502.100);
+      many non-citizens, including many lawful permanent residents, are not
+      eligible for SSI.
+    kind: eligibility
+    applies_to: [SSI]
+    effective_from: 1996-08-22
+    implemented_in: playbooks/disability/federal/rules.py:ssi_federal
+    confidence: confirmed
+    note: The archive takes alien-status eligibility as an input (Person.citizen_or_qualified); the categories in SI 00502.100 are not encoded.
+    sources:
+      - {source: ssa-poms-si-00501-001, locator: "B.1: for benefits payable beginning August 22, 1996, the alien must meet the alien status requirements in SI 00502.100"}
+  - id: DIS-FED-SSI-SGA-INITIAL
+    statement: >-
+      In every state, a non-blind person applying for SSI on the basis of
+      disability who is working with earnings above the substantial gainful
+      activity amount ($1,690 a month in 2026) is found not disabled; this SGA
+      test does not apply to blind SSI applicants or to people who already
+      receive SSI.
+    kind: eligibility
+    applies_to: [SSI]
+    effective_from: 2026-01-01
+    parameters: [federal.ssa.sga_monthly]
+    implemented_in: playbooks/disability/federal/rules.py:ssi_federal
+    confidence: confirmed
+    note: >-
+      20 CFR 416.971 says a person able to do SGA is not disabled; DI 10501.015
+      says blind SSI applicants are not subject to SGA. That SGA does not stop
+      SSI for a current recipient (section 1619 work incentives) is from SSA
+      practice; the Red Book (ssa.gov) could not be retrieved (DIS-FED-OQ-06).
+    sources:
+      - {source: cfr-20-416-971, locator: "If you are able to engage in substantial gainful activity, we will find that you are not disabled."}
+      - {source: ssa-poms-di-10501-015, locator: "Table 2 (2026 $1690); footnote 1: blind individuals under title XVI are not subject to any SGA limitations"}
+    open_question: DIS-FED-OQ-06
+  - id: DIS-FED-SSI-FBR
+    statement: >-
+      In every state in 2026, the SSI federal benefit rate (the most SSI pays
+      before other income is subtracted) is $994 a month for an eligible
+      individual and $1,491 a month for an eligible couple ($967 and $1,450 in
+      2025).
+    kind: benefit
+    applies_to: [SSI]
+    effective_from: 2026-01-01
+    parameters: [federal.ssa.ssi_federal_benefit_rate_monthly]
+    implemented_in: playbooks/disability/federal/rules.py:fbr
+    confidence: confirmed
+    sources:
+      - {source: ssa-poms-si-02001-020, locator: "11. Federal Benefits Rates, 01/26 to 12/26: Individual $994.00; Individual and Spouse $1,491.00"}
+  - id: DIS-FED-SSI-PAYMENT
+    statement: >-
+      In every state, the monthly federal SSI payment equals the federal
+      benefit rate ($994 individual / $1,491 couple in 2026, reduced by
+      one-third when the VTR applies) minus countable income; a person whose
+      countable income is more than the benefit rate gets no federal SSI.
+    kind: benefit
+    applies_to: [SSI]
+    effective_from: 1974-01-01
+    implemented_in: playbooks/disability/federal/rules.py:ssi_federal
+    confidence: confirmed
+    sources:
+      - {source: usc-42-1382, locator: "(b)(1)-(2): payable at the rate of ... reduced by the amount of income, not excluded pursuant to section 1382a(b)"}
+      - {source: cfr-20-416-420, locator: "The amount of the monthly payment will be computed by reducing the benefit rate ... by the amount of countable income"}
+  - id: DIS-FED-SSI-BREAKEVEN
+    statement: >-
+      In every state, SSI's income test is passed when countable income is
+      equal to or less than the federal benefit rate, so a person whose
+      countable income exactly equals the FBR ($994 in 2026, for example gross
+      Social Security of $1,014 with no other income) meets the income test
+      but receives a $0 federal payment.
+    kind: eligibility
+    applies_to: [SSI]
+    effective_from: 1982-04-01
+    implemented_in: playbooks/disability/federal/rules.py:ssi_federal
+    confidence: confirmed
+    note: What a $0-payment "eligible" status brings (Medicaid in 1634 states, SNAP categorical eligibility) is DIS-FED-OQ-01.
+    sources:
+      - {source: ssa-poms-si-02005-001, locator: "C.3 Countable Income (CI): To be ineligible because of CI, an individual's (or couple's) CI in the CM must exceed the FBR ... If the CI is equal to or less than the FBR ... the individual, based on income, is eligible."}
+      - {source: usc-42-1382, locator: "(a)(1)(A): whose income ... is at a rate of not more than $1,752 (or, if greater, the amount determined under section 1382f)"}
+  - id: DIS-FED-SSI-RETRO-BUDGETING
+    statement: >-
+      In every state, SSA decides SSI eligibility for a month on that month's
+      income and resources but generally computes the payment from countable
+      income in the second month before (the budget month), using the
+      current month's benefit rate.
+    kind: timing
+    applies_to: [SSI]
+    effective_from: 1982-04-01
+    implemented_in: playbooks/disability/federal/rules.py:ssi_federal
+    confidence: confirmed
+    note: The evaluator treats the household's stated monthly income as both the eligibility-month and the budget-month income; a member whose income just changed will see the change in the payment two months later.
+    sources:
+      - {source: ssa-poms-si-02005-001, locator: "B. Policy - Retrospective Monthly Accounting: the payment computation ... based on the income in the second month before"}
+      - {source: cfr-20-416-420, locator: "(a) General rule: We generally use the amount of your countable income in the second month prior to the current month"}
+
+  # --------------------------------------------------------------- income
+  - id: DIS-FED-SSI-INCOME-EXCLUSIONS
+    statement: >-
+      In every state, SSI countable income is figured by excluding the first
+      $20 a month of unearned income (any unused part comes off earnings),
+      then $65 of earnings, then one-half of the remaining earnings; a couple
+      gets only one $20 and one $65 exclusion.
+    kind: definition
+    applies_to: [SSI]
+    effective_from: 1974-01-01
+    parameters: [federal.ssi.general_income_exclusion_monthly, federal.ssi.earned_income_exclusion_monthly]
+    implemented_in: playbooks/disability/federal/rules.py:apply_exclusions
+    confidence: confirmed
+    sources:
+      - {source: ssa-poms-si-00810-420, locator: "A.1 Unearned income; A.3 Earned income"}
+      - {source: ssa-poms-si-00820-500, locator: "A.3 order of exclusions d.-g.; A.5 Couples: applied only once to a couple"}
+      - {source: usc-42-1382a, locator: "(b)(2)(A), (b)(4)"}
+  - id: DIS-FED-SSI-IBON
+    statement: >-
+      In every state, the $20 SSI general income exclusion does not apply to
+      income based on need that is funded wholly or partly by the federal
+      government (for example TANF cash), and it is not applied to the value
+      of the one-third reduction.
+    kind: definition
+    applies_to: [SSI]
+    effective_from: 2023-08-08
+    implemented_in: playbooks/disability/federal/rules.py:apply_exclusions
+    confidence: confirmed
+    note: Only TANF is treated as income based on need by the evaluator; VA pension and other need-based payments are not separated (DIS-FED-OQ-05). Effective date is the current POMS text's.
+    sources:
+      - {source: ssa-poms-si-00810-420, locator: "A.1: other than in-kind support and maintenance ... valued at one-third the FBR (i.e., the VTR), and income based on need (IBON); A.2"}
+    open_question: DIS-FED-OQ-05
+  - id: DIS-FED-SSI-SEIE
+    statement: >-
+      In every state in 2026, a blind or disabled SSI student under 22 who
+      regularly attends school can exclude up to $2,410 a month of earnings
+      (no more than $9,730 in the year) before the $20 and $65 exclusions.
+    kind: definition
+    applies_to: [SSI]
+    effective_from: 2026-01-01
+    parameters: [federal.ssi.student_earned_income_exclusion]
+    implemented_in: playbooks/disability/federal/rules.py:person_exclusions
+    confidence: confirmed
+    note: The yearly cap is not tracked by the evaluator.
+    sources:
+      - {source: ssa-poms-si-00820-510, locator: "Table: 2026 $2,410 monthly / $9,730 calendar year"}
+      - {source: ssa-poms-si-00820-500, locator: "A.3.c Earned income of blind or disabled student children up to the SEIE"}
+  - id: DIS-FED-SSI-WORK-EXPENSES
+    statement: >-
+      In every state, SSI also excludes earnings a disabled person uses to pay
+      impairment-related work expenses (subtracted after the $65, before
+      halving) and earnings a blind person uses for work expenses (subtracted
+      after halving).
+    kind: definition
+    applies_to: [SSI]
+    effective_from: 2009-02-23
+    implemented_in: playbooks/disability/federal/rules.py:apply_exclusions
+    confidence: confirmed
+    sources:
+      - {source: ssa-poms-si-00820-500, locator: "A.3.f IRWE; A.3.g one-half; A.3.h blind work expenses"}
+
+  # ------------------------------------------------------------------- ISM
+  - id: DIS-FED-SSI-ISM-FOOD-2024
+    statement: >-
+      Since September 30, 2024, in every state, food that others give an SSI
+      applicant or recipient is no longer counted as in-kind support and
+      maintenance; only shelter (rent, mortgage, property tax, utilities and
+      similar costs) provided by others is counted.
+    kind: definition
+    applies_to: [SSI]
+    effective_from: 2024-09-30
+    implemented_in: playbooks/disability/federal/rules.py:ism_pmv
+    confidence: confirmed
+    note: POMS SI 00835.020 and SI 00835.200 still say "food and shelter"; see DIS-FED-CONFLICT-01.
+    sources:
+      - {source: fr-2024-06464, locator: "DATES: This final rule will be effective September 30, 2024; we will consider only shelter expenses"}
+      - {source: ssa-em-24047-rev, locator: "B.1 Omitting Food from ISM: Effective September 30, 2024, food is no longer part of the ISM calculations"}
+  - id: DIS-FED-SSI-VTR
+    statement: >-
+      In every state, an SSI recipient who lives throughout a month in another
+      person's household and receives shelter from others there without
+      paying a pro rata share has the federal benefit rate reduced by
+      one-third (the VTR: $331.33 for an individual and $497.00 for a couple
+      in 2026), applied in full, with no income exclusion against it and no
+      other ISM counted.
+    kind: benefit
+    applies_to: [SSI]
+    effective_from: 2026-01-01
+    parameters: [federal.ssi.vtr_monthly]
+    implemented_in: playbooks/disability/federal/rules.py:ssi_federal
+    confidence: confirmed
+    note: The evaluator takes "household of another" as an input (facts.living_arrangement); it does not develop pro rata shares.
+    sources:
+      - {source: ssa-poms-si-00835-200, locator: "A.1-A.3, A.6: we reduce the applicable FBR by one-third ... applies in full or not at all ... no additional ISM is countable ... no income exclusions apply to the VTR"}
+      - {source: ssa-poms-si-00835-901, locator: "R. CY 2026: In household of another VTR $331.33; couple $497.00"}
+      - {source: fr-2024-06464, locator: "receive shelter from others living in the household (food removed)"}
+  - id: DIS-FED-SSI-ISM-PMV
+    statement: >-
+      In every state, shelter that someone else provides to an SSI recipient
+      who lives in their own household (or who pays a pro rata share) is
+      counted as unearned income at its actual value, but never more than the
+      presumed maximum value: $351.33 a month for an individual and $517.00
+      for a couple in 2026 (one-third of the FBR plus $20).
+    kind: definition
+    applies_to: [SSI]
+    effective_from: 2026-01-01
+    parameters: [federal.ssi.pmv_monthly]
+    implemented_in: playbooks/disability/federal/rules.py:ism_pmv
+    confidence: confirmed
+    sources:
+      - {source: ssa-poms-si-00835-300, locator: "C.2 Amount of PMV: One-third the FBR ... plus $20; C.3 Rebuttal of the PMV"}
+      - {source: ssa-poms-si-00835-901, locator: "R. CY 2026: In a household PMV $351.33; couple $517.00"}
+  - id: DIS-FED-SSI-PA-HOUSEHOLD
+    statement: >-
+      Since September 30, 2024, in every state, an SSI claimant who lives with
+      at least one other person who receives a public income-maintenance
+      payment (including SNAP) is in a public assistance household, and no
+      in-kind support and maintenance from inside that household is counted.
+    kind: definition
+    applies_to: [SSI]
+    effective_from: 2024-09-30
+    confidence: confirmed
+    note: Not encoded as a separate input; a household in this situation should be entered with no ISM.
+    sources:
+      - {source: ssa-em-24047-rev, locator: "B.2 Expanding the Definition of a Public Assistance (PA) Household and Adding SNAP"}
+  - id: DIS-FED-SSI-MEDICAL-FACILITY
+    statement: >-
+      In every state, an SSI recipient in a medical facility where Medicaid
+      pays more than half the cost of care is limited to a $30 monthly federal
+      benefit rate ($60 for a couple).
+    kind: benefit
+    applies_to: [SSI]
+    effective_from: 1988-07-01
+    parameters: [federal.ssi.medical_facility_payment_monthly]
+    implemented_in: playbooks/disability/federal/rules.py:ssi_federal
+    confidence: confirmed
+    sources:
+      - {source: ssa-poms-si-01415-058, locator: "B.2.a Federal code D: 30.00 (payment cap to recipients in a Title XIX institution)"}
+
+  # ------------------------------------------------------------- couples
+  - id: DIS-FED-SSI-UNIT
+    statement: >-
+      In every state, SSI treats a married applicant living with a spouse who
+      also qualifies (aged, blind or disabled) as an eligible couple; a
+      married applicant living with a spouse who does not qualify has the
+      spouse's income and resources deemed; a child under 18 living with a
+      parent has the parent's income and resources deemed.
+    kind: definition
+    applies_to: [SSI]
+    effective_from: 1974-01-01
+    implemented_in: playbooks/disability/federal/rules.py:ssi_federal
+    confidence: confirmed
+    sources:
+      - {source: ssa-poms-si-00501-001, locator: "B.3 Definition of Eligible Spouse: an individual and spouse must each file an application"}
+      - {source: ssa-poms-si-01320-400, locator: "A. Introduction to deeming of income from an ineligible spouse"}
+      - {source: ssa-poms-si-01320-500, locator: "A. Policy for deeming of income from ineligible parent(s)"}
+  - id: DIS-FED-SSI-COUPLE
+    statement: >-
+      In every state in 2026, an eligible SSI couple's combined countable
+      income (with one $20 and one $65 exclusion) is subtracted from the
+      couple rate of $1,491 a month, and the couple's countable resources must
+      not exceed $3,000.
+    kind: eligibility
+    applies_to: [SSI]
+    effective_from: 2026-01-01
+    parameters: [federal.ssa.ssi_federal_benefit_rate_monthly, federal.ssa.ssi_resource_limit]
+    implemented_in: playbooks/disability/federal/rules.py:ssi_federal
+    confidence: confirmed
+    sources:
+      - {source: usc-42-1382, locator: "(b)(2): an individual who has an eligible spouse ... reduced by the amount of income ... of such individual and spouse"}
+      - {source: ssa-poms-si-02005-001, locator: "D.1.b Eligible Couples: use the couple's combined income, couple's FBR"}
+      - {source: ssa-poms-si-01110-003, locator: "Resource limits: couple $3,000"}
+  - id: DIS-FED-SSI-DEEM-SPOUSE
+    statement: >-
+      In every state in 2026, when an SSI applicant lives with an ineligible
+      spouse, nothing is deemed if the spouse's income (after excluding public
+      assistance and allocations of $497 for each ineligible child, less the
+      child's own income) is $497 a month or less; otherwise the two are
+      budgeted as a couple against $1,491, and the SSI payment is the lower of
+      that couple computation and the applicant's own individual computation.
+    kind: eligibility
+    applies_to: [SSI]
+    effective_from: 2026-01-01
+    parameters: [federal.ssa.ssi_federal_benefit_rate_monthly]
+    implemented_in: playbooks/disability/federal/rules.py:ssi_federal
+    confidence: confirmed
+    note: $497 = couple FBR minus individual FBR (2026). The applicant must first be eligible on their own income.
+    sources:
+      - {source: ssa-poms-si-01320-400, locator: "B.1.b-f; C.2 The SSI benefit under these deeming rules cannot be higher than it would be if deeming did not apply"}
+      - {source: ssa-poms-si-01320-100, locator: "B.2 Any public income maintenance payments ... excluded"}
+  - id: DIS-FED-DEEM-SNAP-PIM
+    statement: >-
+      Since September 30, 2024, in every state, SNAP counts as a public
+      income-maintenance payment for SSI deeming, so when an ineligible spouse
+      or parent receives SNAP, the income used to compute that SNAP benefit is
+      not deemed to the SSI applicant.
+    kind: definition
+    applies_to: [SSI]
+    effective_from: 2024-09-30
+    implemented_in: playbooks/disability/federal/rules.py:ssi_federal
+    confidence: confirmed
+    note: The evaluator excludes all of the spouse's or parent's income when they receive SNAP; SSA excludes income "used to compute" the SNAP payment, which is normally all of it.
+    sources:
+      - {source: ssa-em-24047-rev, locator: "B.2 Deeming: Exclude from deemed income any PIM payment and any income used to compute such payment ... EXAMPLE: Sarah receives SNAP ... Sarah's income from employment does not affect Mike's SSI"}
+  - id: DIS-FED-SSI-DEEM-RESOURCES
+    statement: >-
+      In every state, an SSI applicant living with an ineligible spouse counts
+      the spouse's resources too and must be within the $3,000 couple limit,
+      but the ineligible spouse's IRAs and work pension funds are excluded.
+    kind: eligibility
+    applies_to: [SSI]
+    effective_from: 1987-09-01
+    implemented_in: playbooks/disability/federal/rules.py:countable_resources
+    confidence: confirmed
+    sources:
+      - {source: ssa-poms-si-01330-110, locator: "do not exceed the resource limit for an eligible individual with a spouse"}
+      - {source: ssa-poms-si-01330-120, locator: "A.1.b Pension funds owned by an ineligible spouse are excluded from resources for deeming purposes"}
+  - id: DIS-FED-SSI-DEEM-PARENT
+    statement: >-
+      In every state in 2026, for an SSI child under 18 living with parents,
+      the parents' income after the $20, $65 and one-half exclusions and after
+      a living allowance ($994 for one parent, $1,491 for two) is deemed to the
+      child as unearned income, and parental resources above $2,000 (one
+      parent) or $3,000 (two parents) count as the child's.
+    kind: eligibility
+    applies_to: [SSI]
+    effective_from: 2026-01-01
+    implemented_in: playbooks/disability/federal/rules.py:ssi_federal
+    confidence: confirmed
+    note: Allocations for ineligible children are applied; division among several eligible children is not encoded.
+    sources:
+      - {source: ssa-poms-si-01320-500, locator: "B.2 allocation for ineligible children; B.4 Living allowance; C. Procedure steps 1-9; D.1 add deemed income to the child's unearned income"}
+      - {source: ssa-poms-si-01330-200, locator: "A. Policy: parental resources ... exceed the resource limit of an individual ... or a couple"}
+
+  # ------------------------------------------------------------ resources
+  - id: DIS-FED-SSI-RESOURCES
+    statement: >-
+      In every state, SSI requires countable resources of no more than $2,000
+      for an individual or $3,000 for a couple, measured as of the first moment
+      of the month; the limits have not changed since 1989.
+    kind: eligibility
+    applies_to: [SSI]
+    effective_from: 1989-01-01
+    parameters: [federal.ssa.ssi_resource_limit]
+    implemented_in: playbooks/disability/federal/rules.py:_resource_test
+    confidence: confirmed
+    sources:
+      - {source: ssa-poms-si-01110-003, locator: "Resource limits table, 1/1/89: 2,000 / 3,000"}
+  - id: DIS-FED-SSI-RESOURCE-EXCLUSIONS
+    statement: >-
+      In every state, SSI does not count the home a person lives in
+      (regardless of value), one vehicle used for transportation (regardless
+      of value), household goods and personal effects, burial spaces, up to
+      $1,500 each of burial funds for the person and spouse, and life insurance
+      whose total face value on one person is $1,500 or less; retirement
+      accounts the person can withdraw from do count.
+    kind: definition
+    applies_to: [SSI]
+    effective_from: 2005-04-01
+    parameters: [federal.ssi.burial_funds_exclusion, federal.ssi.life_insurance_face_value_exclusion]
+    implemented_in: playbooks/disability/federal/rules.py:countable_resources
+    confidence: confirmed
+    note: The evaluator does not reduce the $1,500 burial-fund exclusion by excluded life insurance face value, and counts retirement funds at the value given (SSA counts the amount withdrawable after penalties).
+    sources:
+      - {source: ssa-poms-si-01130-100, locator: "B.1 Exclusion of the home: regardless of value"}
+      - {source: ssa-poms-si-01130-200, locator: "A. we exclude completely one automobile per household regardless of value"}
+      - {source: ssa-poms-si-01130-430, locator: "B. Exclude household goods and personal effects from resources, regardless of their dollar value"}
+      - {source: ssa-poms-si-01130-400, locator: "A.1 burial space ... excluded resource, regardless of value"}
+      - {source: ssa-poms-si-01130-410, locator: "C. up to $1,500 each in funds set aside"}
+      - {source: ssa-poms-si-01130-300, locator: "C.2 Limited life insurance exclusion: $1500 in FV per insured individual"}
+      - {source: ssa-poms-si-01120-210, locator: "B. A retirement fund ... is a resource if he/she has the option of withdrawing a lump sum"}
+
+  # ------------------------------------------------ state supplements (general)
+  - id: DIS-FED-SSI-OSS-COMPUTATION
+    statement: >-
+      For a state supplement that SSA pays on a state's behalf, the supplement
+      level is the amount paid to someone whose countable income is not more
+      than the federal benefit rate; countable income above the FBR reduces
+      the supplement dollar for dollar, and a person whose excess income
+      equals or exceeds the level gets no supplement.
+    kind: benefit
+    applies_to: [SSP]
+    effective_from: 1982-04-01
+    confidence: confirmed
+    note: Applies to federally administered supplements (California). New York and Illinois pay their own supplements under their own formulas (state parts).
+    sources:
+      - {source: ssa-poms-si-01401-001, locator: "B.5 State supplement level ... payable to an eligible individual/couple with no countable income in excess of the Federal benefit rate"}
+      - {source: ssa-poms-si-02005-001, locator: "D.2.a-c: If the excess income is less than the CM OSS payment level, the individual/couple is eligible for OSS ... equal to ... not eligible"}
+  - id: DIS-FED-SSI-OSS-DEEMING
+    statement: >-
+      For a state supplement SSA pays on a state's behalf, when an SSI
+      recipient is subject to spouse-to-spouse deeming, the supplement is
+      figured from the couple rate less the couple's combined countable income
+      above the couple FBR, using the lower of the individual and couple
+      supplement levels, and it may not exceed the supplement payable without
+      deeming.
+    kind: benefit
+    applies_to: [SSP]
+    effective_from: 1988-10-01
+    confidence: confirmed
+    sources:
+      - {source: ssa-poms-si-01320-430, locator: "C.3 State Supplement Limitation; C.4 Determining OSS Eligibility; C.5 Determining OSS Payment"}
+  - id: DIS-FED-SSI-MEDICAID-STATE-TYPES
+    statement: >-
+      Whether SSI brings Medicaid depends on the state: in the 34 states plus
+      the District of Columbia with a section 1634 agreement SSA's SSI decision
+      also decides Medicaid (no separate application); the SSI-criteria states
+      (Alaska, Idaho, Kansas, Nebraska, Nevada, Oklahoma, Oregon, Utah and the
+      Northern Mariana Islands) use SSI rules but require a state application;
+      and the eight 209(b) states (Connecticut, Hawaii, Illinois, Minnesota,
+      Missouri, New Hampshire, North Dakota, Virginia) use at least one rule
+      stricter than SSI.
+    kind: coordination
+    applies_to: [SSI, MEDICAID]
+    effective_from: 2026-09-30
+    confidence: confirmed
+    note: Effective date is the current POMS text's (TN 9, 09-26); the state lists have been stable for years but earlier dates were not checked here.
+    sources:
+      - {source: ssa-poms-si-01715-010, locator: "A.1 209(b) States table; A.2 SSI criteria States table; A.3 1634 States: the District of Columbia and the 34 States not mentioned"}
+  - id: DIS-FED-SSI-EXTRA-HELP
+    statement: >-
+      In every state, people who receive SSI are deemed eligible for Extra
+      Help (the Medicare Part D low-income subsidy) and do not need to file an
+      Extra Help application.
+    kind: coordination
+    applies_to: [SSI, EXTRA_HELP]
+    effective_from: 2006-01-01
+    implemented_in: playbooks/disability/federal/rules.py:link_common
+    confidence: confirmed
+    sources:
+      - {source: ssa-poms-hi-03001-005, locator: "A. Extra Help and deemed subsidy eligible (full Medicaid, QMB, SLMB, QI, SSI)"}
+  - id: DIS-FED-SNAP-CATEGORICAL
+    statement: >-
+      In every state, a household in which every member receives or is
+      authorized to receive SSI is categorically eligible for SNAP: its
+      resources and gross and net income are not tested, though the benefit
+      amount is still figured under SNAP rules.
+    kind: coordination
+    applies_to: [SSI, SNAP]
+    effective_from: 2025-01-01
+    implemented_in: playbooks/disability/federal/rules.py:link_common
+    confidence: confirmed
+    note: Effective date is that of the CFR edition consulted (January 1, 2025); the rule is older.
+    sources:
+      - {source: cfr-7-273-2, locator: "(j)(2)(i)(D) Any household in which all members receive or are authorized to receive SSI benefits; (j)(2)(v) deemed factors"}
+  - id: DIS-FED-SSI-FIRST-MONTH
+    statement: >-
+      In every state, SSI is first payable for the month after the month the
+      application is filed (or after the month all requirements are first
+      met, if later); an SSI application never pays for months before it was
+      filed.
+    kind: timing
+    applies_to: [SSI]
+    effective_from: 1999-06-15
+    confidence: confirmed
+    note: A written statement or oral inquiry before the application can protect an earlier filing date (20 CFR 416.340-416.350, not retrieved).
+    sources:
+      - {source: cfr-20-416-335, locator: "the earliest month for which we can pay you benefits is the month following the month you filed the application"}
+
+  # ----------------------------------------------------------------- SSDI
+  - id: DIS-FED-SSDI-DDS
+    statement: >-
+      In every state, SSA's field office decides the non-medical requirements
+      of an SSDI or SSI disability claim (age, work credits, SGA, relationship)
+      and then sends the claim to the state's Disability Determination
+      Services, which gathers medical evidence and decides whether the person
+      is disabled; SSA pays only for total disability, never for partial or
+      short-term disability.
+    kind: procedure
+    applies_to: [SSDI, SSI]
+    effective_from: 2012-10-11
+    implemented_in: playbooks/disability/federal/rules.py:ssdi
+    confidence: confirmed
+    note: The archive does not evaluate the medical criteria (the duration requirement and the five-step sequential evaluation are outside its scope).
+    sources:
+      - {source: ssa-poms-di-00115-001, locator: "A. NOTE: Social Security pays only for total disability; C. Disability application process; D. State participation (54 DDSs)"}
+  - id: DIS-FED-SSDI-MEDICAL-INPUT
+    statement: >-
+      The archive does not decide whether a person meets SSA's medical
+      definition of disability; for SSDI and SSI disability claims that
+      decision is the DDS's, and the archive records it only as an input.
+    kind: procedure
+    applies_to: [SSDI, SSI]
+    effective_from: 2012-10-11
+    implemented_in: playbooks/disability/federal/rules.py:ssdi
+    confidence: confirmed
+    sources:
+      - {source: ssa-poms-di-00115-001, locator: "D. The DDSs are responsible for developing medical evidence and making the initial disability determination"}
+  - id: DIS-FED-SSDI-SGA
+    statement: >-
+      In every state in 2026, a person applying for SSDI whose countable
+      earnings average more than $1,690 a month ($2,830 if statutorily blind)
+      is doing substantial gainful activity and is found not disabled
+      ($1,620 and $2,700 in 2025).
+    kind: eligibility
+    applies_to: [SSDI]
+    effective_from: 2026-01-01
+    parameters: [federal.ssa.sga_monthly]
+    implemented_in: playbooks/disability/federal/rules.py:ssdi
+    confidence: confirmed
+    sources:
+      - {source: ssa-poms-di-10501-015, locator: "B. Table 2 Nonblind: In calendar year 2026 $1690; C. Table 3 Blind: 2026 $2830"}
+  - id: DIS-FED-SSDI-INSURED
+    statement: >-
+      In every state, SSDI is payable only to a worker with disability
+      insured status, generally at least 20 quarters of coverage in the 40
+      quarters ending with the quarter the waiting period begins and fully
+      insured status; this archive cannot compute insured status, which must
+      be read from the person's SSA earnings record (Social Security
+      Statement).
+    kind: eligibility
+    applies_to: [SSDI]
+    effective_from: 2004-08-18
+    implemented_in: playbooks/disability/federal/rules.py:ssdi
+    confidence: confirmed
+    note: Younger workers have a special insured-status test (RS 00301.147, not retrieved); blind workers need only fully insured status.
+    sources:
+      - {source: ssa-poms-rs-00301-120, locator: "A.1 NH Has DIB Insured Status: at least 20 QC's during a 40 quarter period ending with the quarter the waiting period begins; and fully insured; A.2 statutory blindness"}
+  - id: DIS-FED-SSDI-WAITING-PERIOD
+    statement: >-
+      In every state, SSDI cannot start until the worker has been disabled for
+      a waiting period of five full calendar months (beginning no earlier than
+      17 months before the month of filing); entitlement begins with the first
+      full month after the waiting period, so a person disabled on a day other
+      than the first of a month starts the waiting period the next month.
+    kind: timing
+    applies_to: [SSDI]
+    effective_from: 1973-01-01
+    parameters: [federal.ssa.dib_waiting_period_months, federal.ssa.dib_waiting_period_lookback_months]
+    implemented_in: playbooks/disability/federal/rules.py:ssdi
+    confidence: confirmed
+    note: The 17-month look-back limits SSDI retroactivity to about 12 months before filing; the 12-month figure itself (20 CFR 404.621) was not retrieved (DIS-FED-OQ-04).
+    sources:
+      - {source: ssa-poms-di-10105-070, locator: "A. Present rule: 5 full calendar months ... no earlier than 17 months prior to the month of filing ... Entitlement to the DIB begins with the first full calendar month after the waiting period"}
+      - {source: ssa-poms-di-25501-300, locator: "A.2: If we establish the EOD after the first day of the month, the five-month waiting period begins on the first day of the following month"}
+    open_question: DIS-FED-OQ-04
+  - id: DIS-FED-SSDI-ONSET
+    statement: >-
+      In every state, SSA sets the established onset date of disability at the
+      earliest date the evidence and program rules support, because the onset
+      date drives the waiting period, back benefits, the benefit amount and the
+      Medicare start date.
+    kind: procedure
+    applies_to: [SSDI]
+    effective_from: 2023-01-10
+    confidence: confirmed
+    sources:
+      - {source: ssa-poms-di-25501-300, locator: "A.1 General DIB onset rules: We must establish the EOD on the earliest possible date"}
+  - id: DIS-FED-SSDI-MEDICARE-24
+    statement: >-
+      In every state, a person under 65 who has been entitled to SSDI for 24
+      calendar months becomes entitled to Medicare Part A starting with the
+      25th month of entitlement, which also opens Medicare Savings Program
+      eligibility.
+    kind: coordination
+    applies_to: [SSDI, MEDICARE]
+    effective_from: 1973-07-01
+    parameters: [federal.ssa.medicare_disability_entitlement_months]
+    implemented_in: playbooks/disability/federal/rules.py:_medicare_dates
+    confidence: confirmed
+    note: ESRD and ALS have shorter or no waits (not encoded; see the Turning 65 playbook).
+    sources:
+      - {source: usc-42-426, locator: "(b)(2)(A) ... has for 24 calendar months been entitled to ... disability insurance benefits ... beginning with ... the twenty-fifth month of his entitlement"}
+  - id: DIS-FED-SSDI-TWP
+    statement: >-
+      In every state in 2026, an SSDI beneficiary who works keeps benefits
+      during a nine-month trial work period; a month counts as a trial work
+      month if earnings are more than $1,210 ($1,160 in 2025) or, for
+      self-employment, more than 80 hours of work; SSI-only recipients have no
+      trial work period.
+    kind: benefit
+    applies_to: [SSDI]
+    effective_from: 2026-01-01
+    parameters: [federal.ssa.twp_service_month_monthly, federal.ssa.twp_months]
+    implemented_in: playbooks/disability/federal/rules.py:ssdi
+    confidence: confirmed
+    sources:
+      - {source: ssa-poms-di-13010-060, locator: "A. Table of service months: 2026 $1,210 / $1,210 or 80 hours"}
+      - {source: ssa-poms-di-13010-035, locator: "B. nine service months which do not have to be consecutive; C.2 not entitled: Any Title XVI only recipient"}
+  - id: DIS-FED-SSDI-FRA-CONVERSION
+    statement: >-
+      In every state, SSDI benefits convert automatically to retirement
+      benefits at full retirement age (66 for people born 1943-1954, rising by
+      two months a year to 67 for people born in 1960 or later), with no new
+      application; a person past full retirement age files for retirement
+      benefits rather than SSDI.
+    kind: timing
+    applies_to: [SSDI]
+    effective_from: 2002-09-01
+    parameters: [federal.ssa.full_retirement_age_years]
+    implemented_in: playbooks/disability/federal/rules.py:ssdi
+    confidence: confirmed
+    note: The evaluator treats the full-retirement-age month as reached when age in years is at or above FRA; it does not use the exact birth month.
+    sources:
+      - {source: ssa-poms-gn-00201-005, locator: "B.1.a Entitlement Conversions: DIB to RIB conversions ... automatically occur without the beneficiary having to file an application"}
+      - {source: ssa-poms-rs-00615-003, locator: "A.2 chart: 1/2/43 thru 1/1/55 66 years ... 1/2/60 and later 67 years"}
+  - id: DIS-FED-APPEALS
+    statement: >-
+      In every state, a person who disagrees with an SSI or SSDI decision can
+      appeal in four steps — reconsideration, a hearing before an
+      administrative law judge, Appeals Council review, then federal court —
+      and must request each step within 60 days of receiving the notice; SSA
+      presumes the notice arrives 5 days after its date, so the practical
+      deadline is 65 days from the notice date.
+    kind: procedure
+    applies_to: [SSDI, SSI]
+    effective_from: 1980-08-05
+    parameters: [federal.ssa.appeal_period_days, federal.ssa.notice_receipt_presumption_days]
+    confidence: confirmed
+    note: Late requests can be accepted for good cause (GN 03101.020, not retrieved).
+    sources:
+      - {source: cfr-20-404-900, locator: "(a)(1)-(5) initial determination, reconsideration, ALJ hearing, Appeals Council review, Federal court review"}
+      - {source: ssa-poms-gn-03101-010, locator: "A.1 The appeal period is generally 60 days ... presume ... 5 days after the date on the notice"}
+      - {source: ssa-poms-gn-03101-001, locator: "A. must request a review within 60 days of the decision; B.1-3 steps; C.2 Federal court review"}
+      - {source: cfr-20-404-909, locator: "(a)(1) Within 60 days after the date you receive notice"}
+
+procedure:
+  applications:
+    - id: DIS-FED-PROC-SSI-APPLY
+      text: >-
+        Apply for SSI with SSA (a field office interview in person or by
+        phone). SSA prefers to take the claim in its electronic system; the
+        paper application is form SSA-8000-BK, which SSA staff complete with
+        the claimant (it is not a self-help form).
+      form_number: SSA-8000-BK
+      form_name: Application for Supplemental Security Income
+      channel: any
+      confidence: confirmed
+      sources:
+        - {source: ssa-poms-si-00604-001, locator: "A. Introduction; C.1 Who May Complete: The SSA-8000-BK is not a self-help form"}
+    - id: DIS-FED-PROC-SSDI-APPLY
+      text: >-
+        Apply for SSDI with SSA online, by phone, by mail or in person; the
+        paper application is the SSA-16-BK (Application for Disability
+        Insurance Benefits). Filing for SSI also prompts SSA to consider Title
+        II benefits.
+      form_number: SSA-16-BK
+      form_name: Application for Disability Insurance Benefits
+      channel: any
+      confidence: confirmed
+      sources:
+        - {source: ssa-poms-di-00115-001, locator: "C. A person may file an application in person, by telephone, by mail, or on the internet"}
+        - {source: ssa-poms-gn-00205-038, locator: "A.2.b complete an SSA-16-BK or MCS equivalent"}
+  documents:
+    - id: DIS-FED-DOC-3368
+      text: The Adult Disability Report, form SSA-3368, lists the conditions, medical sources, medicines, tests and work history; the DDS uses it to gather evidence.
+      form_number: SSA-3368
+      form_name: Disability Report - Adult
+      confidence: confirmed
+      sources: [{source: ssa-poms-di-11005-020, locator: "A. SSA-3368 (Disability Report - Adult)"}]
+    - id: DIS-FED-DOC-827
+      text: Form SSA-827 authorizes doctors, hospitals and other sources to release medical and other records to SSA and the DDS; SSA explains it at the disability interview.
+      form_number: SSA-827
+      form_name: Authorization to Disclose Information to the Social Security Administration
+      confidence: confirmed
+      sources:
+        - {source: ssa-poms-di-11005-055, locator: "The Form SSA-827 ... is the form we use to obtain medical and non-medical information"}
+        - {source: ssa-poms-di-11005-001, locator: "B.1 obtain and explain the purpose of the SSA-827"}
+    - id: DIS-FED-DOC-WORK
+      text: The claimant must report when work starts or stops, hours worked and earnings, and should name every medical source so the DDS can get the records.
+      confidence: confirmed
+      sources: [{source: ssa-poms-di-11005-001, locator: "B.3 Claimant rights and responsibilities"}]
+  filing:
+    - id: DIS-FED-FILE-RECON
+      text: >-
+        To appeal, ask for reconsideration in writing (form SSA-561-U2, online
+        iAppeal, or a letter) at an SSA office within 60 days of receiving the
+        notice; a phone call alone does not count as the written request.
+      form_number: SSA-561-U2
+      form_name: Request for Reconsideration
+      channel: any
+      confidence: confirmed
+      sources:
+        - {source: ssa-poms-gn-03102-200, locator: "A. online iAppeal submission or calling, visiting, or writing a field office ... An oral request ... does not establish the required writing"}
+        - {source: cfr-20-404-909, locator: "(a)(1)-(2)"}
+    - id: DIS-FED-FILE-HEARING
+      text: After a reconsideration denial, request a hearing before an administrative law judge (form HA-501) within 60 days.
+      form_number: HA-501
+      form_name: Request for Hearing by Administrative Law Judge
+      confidence: confirmed
+      sources: [{source: ssa-poms-gn-03103-010, locator: "A. ... A claimant has 60 days, after receiving notice of a determination or decision, to request a hearing"}]
+    - id: DIS-FED-FILE-AC
+      text: After an ALJ decision, request Appeals Council review (form HA-520) within 60 days; after the Appeals Council, a civil action in federal district court.
+      form_number: HA-520
+      form_name: Request for Review of Hearing Decision/Order
+      confidence: confirmed
+      sources:
+        - {source: ssa-poms-gn-03104-100, locator: "B. requirements; A claimant must submit a request for AC review to us within 60 days"}
+        - {source: ssa-poms-gn-03101-001, locator: "C.2 Federal court review"}
+  timelines:
+    - id: DIS-FED-TIME-SSDI-WAIT
+      text: SSDI pays starting with the sixth full month of disability (after a five-month waiting period), and Medicare Part A starts in the 25th month of SSDI entitlement.
+      duration: 5 months; 24 months
+      confidence: confirmed
+      sources:
+        - {source: ssa-poms-di-10105-070, locator: "A. Present rule"}
+        - {source: usc-42-426, locator: "(b)"}
+    - id: DIS-FED-TIME-SSI-FIRST
+      text: SSI is first payable for the month after the application month.
+      confidence: confirmed
+      sources: [{source: cfr-20-416-335, locator: "earliest month ... the month following the month you filed"}]
+    - id: DIS-FED-TIME-DECISION
+      text: How long DDS medical decisions and each appeal level take was not found in a primary source retrieved here.
+      confidence: unresolved
+      open_question: DIS-FED-OQ-07
+  approval_notice:
+    - id: DIS-FED-NOTICE-SSI-AWARD
+      text: >-
+        SSA sends an SSI award notice. In 1634 states (for example New York and
+        California) it tells the person they will hear from the state about
+        Medicaid; in other states the person must apply to the state.
+      confidence: confirmed
+      sources: [{source: ssa-poms-si-01715-010, locator: "A.3 Notification: In 1634 States, SSA tells SSI-Medicaid eligibles in the SSI award notice that they will hear from their State about Medicaid"}]
+  renewal:
+    - id: DIS-FED-RENEW-REPORT
+      text: SSI and SSDI recipients must report changes in work, earnings and living arrangement; SSA periodically re-checks SSI eligibility (redeterminations) and medical status (continuing disability reviews). The schedule was not sourced here.
+      confidence: unresolved
+      open_question: DIS-FED-OQ-07
+
+life_events:
+  - id: DIS-FED-LE-ONSET
+    code: disability_onset
+    event: A health condition stops or limits work
+    why: Starts the SSDI waiting period and the SSI disability path; the onset date sets back benefits and the Medicare date.
+    check_rules: [DIS-FED-SSDI-WAITING-PERIOD, DIS-FED-SSDI-ONSET, DIS-FED-SSDI-SGA, DIS-FED-SSI-CATEGORY]
+    confidence: confirmed
+    sources: [{source: ssa-poms-di-25501-300, locator: "A.1"}]
+  - id: DIS-FED-LE-INCOME-DROP
+    code: income_drop
+    event: Income falls (job loss, a pension stops, a spouse's earnings drop)
+    why: SSI is reduced dollar for dollar by countable income; a drop can create or raise SSI, and SSA pays on income from two months earlier.
+    check_rules: [DIS-FED-SSI-PAYMENT, DIS-FED-SSI-RETRO-BUDGETING]
+    confidence: confirmed
+    sources: [{source: cfr-20-416-420, locator: "(a)"}]
+  - id: DIS-FED-LE-SPOUSE-DEATH
+    code: spouse_death
+    event: Death of a spouse (or separation)
+    why: The survivor moves from couple to individual rates and limits; deemed income from an ineligible spouse stops after the month of death.
+    check_rules: [DIS-FED-SSI-COUPLE, DIS-FED-SSI-DEEM-SPOUSE]
+    confidence: confirmed
+    sources: [{source: ssa-poms-si-01320-400, locator: "C.1 EXCEPTIONS: months after the month an ineligible spouse dies"}]
+  - id: DIS-FED-LE-MARRIAGE
+    code: marriage
+    event: Marriage, or moving in with a spouse
+    why: A spouse who also qualifies makes a couple ($1,491 couple rate, $3,000 limit); a spouse who does not qualify has income and resources deemed.
+    check_rules: [DIS-FED-SSI-UNIT, DIS-FED-SSI-DEEM-SPOUSE, DIS-FED-SSI-DEEM-RESOURCES]
+    confidence: confirmed
+    sources: [{source: ssa-poms-si-01320-400, locator: "A."}]
+  - id: DIS-FED-LE-HOUSEHOLD
+    code: household_change
+    event: Moving in with family or friends, or someone else starting to pay the rent
+    why: Shelter from others is counted (VTR or PMV); food no longer counts since September 30, 2024.
+    check_rules: [DIS-FED-SSI-VTR, DIS-FED-SSI-ISM-PMV, DIS-FED-SSI-ISM-FOOD-2024, DIS-FED-SSI-PA-HOUSEHOLD]
+    confidence: confirmed
+    sources: [{source: ssa-em-24047-rev, locator: "B.1-B.2"}]
+  - id: DIS-FED-LE-BENEFIT
+    code: benefit_change
+    event: Starting or losing SSDI, Social Security, a pension, SNAP or another benefit
+    why: SSDI and pensions are unearned income for SSI; SSI receipt deems Extra Help and can bring Medicaid and SNAP categorical eligibility.
+    check_rules: [DIS-FED-SSI-INCOME-EXCLUSIONS, DIS-FED-SSI-EXTRA-HELP, DIS-FED-SNAP-CATEGORICAL, DIS-FED-SSI-MEDICAID-STATE-TYPES]
+    confidence: confirmed
+    sources: [{source: ssa-poms-hi-03001-005, locator: "A."}]
+  - id: DIS-FED-LE-65
+    code: turning_65
+    event: Turning 65, or reaching full retirement age
+    why: At 65 SSI is available as aged without a disability decision; SSDI converts to retirement benefits at full retirement age.
+    check_rules: [DIS-FED-SSI-CATEGORY, DIS-FED-SSDI-FRA-CONVERSION]
+    confidence: confirmed
+    sources:
+      - {source: ssa-poms-si-00501-001, locator: "B.1"}
+      - {source: ssa-poms-gn-00201-005, locator: "B.1.a"}
+  - id: DIS-FED-LE-MEDICARE
+    code: medicare_entitlement
+    event: Two years after SSDI starts
+    why: Medicare Part A starts in the 25th month of SSDI entitlement; Part B premiums and the Medicare Savings Programs follow.
+    check_rules: [DIS-FED-SSDI-MEDICARE-24]
+    confidence: confirmed
+    sources: [{source: usc-42-426, locator: "(b)"}]
+
+outcome_proof:
+  - id: DIS-FED-PROOF-SSI-AWARD
+    evidence: SSA SSI award notice
+    shows: That SSI is approved, the monthly amount and the first payment month; in 1634 states it says the state will contact the person about Medicaid.
+    how_to_get: Mailed by SSA; also visible in a my Social Security account
+    confidence: confirmed
+    sources: [{source: ssa-poms-si-01715-010, locator: "A.3 Notification"}]
+  - id: DIS-FED-PROOF-SSDI-AWARD
+    evidence: SSA notice of award for disability insurance benefits
+    shows: Entitlement month, monthly amount and back pay. The notice's contents were not documented from a primary source here.
+    confidence: unresolved
+    open_question: DIS-FED-OQ-03
+  - id: DIS-FED-PROOF-EXTRA-HELP
+    evidence: CMS notice of deemed Extra Help eligibility
+    shows: Extra Help is in place because the person receives SSI.
+    confidence: confirmed
+    sources: [{source: ssa-poms-hi-03001-005, locator: "C. CMS ... Sends notices"}]
+
+links:
+  - id: DIS-LINK-MSP
+    playbook: msp
+    rules: [DIS-FED-SSI-EXTRA-HELP, DIS-FED-SSDI-MEDICARE-24]
+    relation: >-
+      SSI receipt deems Extra Help (MSP-FED-EXTRA-HELP-DEEMED). SSDI leads to
+      Medicare Part A in the 25th month, after which the person can qualify
+      for a Medicare Savings Program; an SSI recipient with Medicare is
+      normally income-eligible for QMB as well (back-link to MSP-LINK-DISABILITY).
+    test: DIS-X-01
+    confidence: confirmed
+    sources:
+      - {source: ssa-poms-hi-03001-005, locator: "A."}
+      - {source: usc-42-426, locator: "(b)"}
+  - id: DIS-LINK-MEDICAID
+    playbook: medicaid
+    rules: [DIS-FED-SSI-MEDICAID-STATE-TYPES]
+    relation: >-
+      SSI brings Medicaid without an application in 1634 states (New York,
+      California); 209(b) states (Illinois) require a separate application
+      and may use stricter rules. The state parts record each state's rule.
+    test: DIS-X-02
+    confidence: confirmed
+    sources: [{source: ssa-poms-si-01715-010, locator: "A.1-A.3"}]
+  - id: DIS-LINK-SNAP
+    playbook: snap
+    rules: [DIS-FED-SNAP-CATEGORICAL]
+    relation: A household in which every member receives SSI is categorically eligible for SNAP (no income or resource test); SSI and SSP count as income in the SNAP benefit computation.
+    test: DIS-X-03
+    confidence: confirmed
+    sources: [{source: cfr-7-273-2, locator: "(j)(2)(i)(D)"}]
+  - id: DIS-LINK-TURNING-65
+    playbook: turning_65
+    rules: [DIS-FED-SSDI-MEDICARE-24, DIS-FED-SSDI-FRA-CONVERSION]
+    relation: >-
+      SSDI entitlement sets the Medicare start (25th month) used by the Turning
+      65 playbook's disability enrollment period (T65-LINK-DISABILITY); SSDI
+      converts to retirement at full retirement age without a new application.
+    test: DIS-X-04
+    confidence: confirmed
+    sources:
+      - {source: usc-42-426, locator: "(b)"}
+      - {source: ssa-poms-gn-00201-005, locator: "B.1.a"}
+
+open_questions:
+  - id: DIS-FED-OQ-01
+    priority: medium
+    question: >-
+      When countable income exactly equals the FBR (eligible under SI 02005.001
+      C.3 but $0 federal payment), does SSA treat the person as an SSI
+      recipient for Medicaid (1634 states), Extra Help and SNAP categorical
+      eligibility, or only for state supplement purposes?
+    why_it_matters: A member at the breakeven could be told they "qualify for SSI" when no check comes, or miss linked Medicaid.
+    checked: [SI 02005.001, 42 U.S.C. 1382(a), SI 01715.010]
+    affects: [DIS-FED-SSI-BREAKEVEN]
+    status: open
+  - id: DIS-FED-OQ-02
+    priority: medium
+    question: Has SSA revised POMS SI 00835.020 / SI 00835.200 (and related ISM sections) for the September 30, 2024 food change, or does EM-24047 remain the operative instruction?
+    why_it_matters: Field staff and advocates quoting POMS may still describe food as ISM.
+    checked: [SI 00835.020 (TN 108 08-23), SI 00835.200 (TN 118 05-24), EM-24047 REV (retention 02/11/2027), 89 FR 21199]
+    affects: [DIS-FED-SSI-ISM-FOOD-2024, DIS-FED-SSI-VTR]
+    status: open
+  - id: DIS-FED-OQ-03
+    priority: low
+    question: Current versions and online availability of SSA-8000, SSA-16, SSA-3368 (i3368), SSA-827 and SSA-561, and the contents of the SSDI award notice — www.ssa.gov forms pages returned HTTP 403 to every retrieval method on 2026-10-07.
+    why_it_matters: The agent links members to forms and tells them what the award letter shows.
+    checked: [ssa.gov/forms/ssa-8000.html, ssa-16.html, ssa-3368.html, ssa-827.html, ssa-561.html (all 403); POMS SI 00604.001, DI 11005.020, DI 11005.055, GN 03102.200]
+    affects: [DIS-FED-PROC-SSI-APPLY, DIS-FED-PROC-SSDI-APPLY, DIS-FED-PROOF-SSDI-AWARD]
+    status: open
+  - id: DIS-FED-OQ-04
+    priority: medium
+    question: Confirm the SSDI retroactivity limit (12 months before the filing month, 20 CFR 404.621) and how it combines with the 17-month waiting-period look-back.
+    why_it_matters: Members who file late lose back months; the agent should say how many.
+    checked: [POMS DI 10105.070]
+    affects: [DIS-FED-SSDI-WAITING-PERIOD]
+    status: open
+  - id: DIS-FED-OQ-05
+    priority: high
+    question: >-
+      Which other unearned-income rules should the evaluator apply — VA
+      pension and other income based on need (no $20), one-third of child
+      support for a child, infrequent/irregular income ($60 a quarter), and
+      exclusions under other federal laws (SI 00830.099)?
+    why_it_matters: A retiree with a VA needs-based pension would be over-paid by $20 a month in the evaluator; other exclusions could change eligibility.
+    checked: [SI 00810.420, SI 00820.500]
+    affects: [DIS-FED-SSI-IBON, DIS-FED-SSI-INCOME-EXCLUSIONS]
+    status: open
+  - id: DIS-FED-OQ-06
+    priority: medium
+    question: >-
+      SSI and SSDI work incentives beyond the TWP — section 1619(a)/(b) (SSI
+      continuing above SGA, Medicaid while working), the SSDI extended period
+      of eligibility, expedited reinstatement — and their 2026 thresholds; the
+      SSA Red Book (ssa.gov/redbook) returned 403.
+    why_it_matters: Members with a disability who work need to know they can keep SSI or Medicaid.
+    checked: [ssa.gov/redbook (403), DI 13010.035, DI 13010.060]
+    affects: [DIS-FED-SSI-SGA-INITIAL, DIS-FED-SSDI-TWP]
+    status: open
+  - id: DIS-FED-OQ-07
+    priority: low
+    question: Primary sources for typical DDS decision times, appeal-level processing times, SSI redetermination frequency and continuing disability review schedules.
+    why_it_matters: Members ask how long the decision will take and when they will be reviewed again.
+    checked: [DI 00115.001, GN 03101.001]
+    affects: [DIS-FED-TIME-DECISION, DIS-FED-RENEW-REPORT]
+    status: open
+
+conflicts:
+  - id: DIS-FED-CONFLICT-01
+    topic: Whether food counts as in-kind support and maintenance
+    claims:
+      - source: ssa-poms-si-00835-020
+        locator: "B.16"
+        says: In-kind support and maintenance (ISM) is unearned income in the form of food, or shelter or any combination of these.
+      - source: ssa-poms-si-00835-200
+        locator: "A.1"
+        says: The VTR applies when a claimant lives in another person's household and receives both food and shelter from others living in the household.
+      - source: fr-2024-06464
+        locator: "DATES; summary"
+        says: Effective September 30, 2024, food is omitted from ISM calculations; only shelter is considered.
+      - source: ssa-em-24047-rev
+        locator: "B.1"
+        says: Effective September 30, 2024, food is no longer part of the ISM calculations; determine pro rata share and ISM using shelter expenses only.
+    handling: >-
+      The archive follows the final rule and EM-24047 (shelter only from
+      September 30, 2024). The POMS pages appear not to have been revised.
+    affects: [DIS-FED-SSI-ISM-FOOD-2024, DIS-FED-SSI-VTR, DIS-FED-SSI-ISM-PMV]
+    status: open
+
+claims_checked:
+  - claim: A September 30, 2024 rule excluded food from in-kind support and maintenance.
+    verdict: verified
+    detail: Final rule 89 FR 21199 (March 27, 2024), effective September 30, 2024; SSA EM-24047 REV gives technician instructions. POMS SI 00835 pages still mention food (DIS-FED-CONFLICT-01).
+    sources:
+      - {source: fr-2024-06464, locator: "DATES"}
+      - {source: ssa-em-24047-rev, locator: "B.1"}
+  - claim: SSA www pages (ssa.gov/oact and others) refuse scripts; secure.ssa.gov/poms.nsf works.
+    verdict: verified
+    detail: ssa.gov forms pages and the Red Book returned 403 to the fetcher and to WebFetch; POMS pages on secure.ssa.gov were retrieved normally.
+  - claim: The SSA appeal steps are reconsideration, ALJ hearing and Appeals Council, each with a 60-day deadline.
+    verdict: verified
+    detail: 20 CFR 404.900 lists the steps (plus federal court); GN 03101.010 gives 60 days from receipt, with receipt presumed 5 days after the notice date.
+    sources:
+      - {source: cfr-20-404-900, locator: "(a)"}
+      - {source: ssa-poms-gn-03101-010, locator: "A.1"}
+  - claim: SSI deems Extra Help; SSDI leads to Part A after 24 months and then to the Medicare Savings Programs.
+    verdict: verified
+    detail: HI 03001.005 lists SSI recipients as deemed subsidy eligibles; 42 U.S.C. 426(b) starts Part A with the 25th month of disability entitlement.
+    sources:
+      - {source: ssa-poms-hi-03001-005, locator: "A."}
+      - {source: usc-42-426, locator: "(b)"}
+  - claim: SSDI converts to retirement at full retirement age.
+    verdict: verified
+    detail: GN 00201.005 B.1.a lists DIB-to-RIB conversion among entitlement conversions that need no application.
+    sources: [{source: ssa-poms-gn-00201-005, locator: "B.1.a"}]
+  - claim: Insured status cannot be computed without the earnings record.
+    verdict: verified
+    detail: RS 00301.120 defines DIB insured status by quarters of coverage in a 40-quarter window and fully insured status, which only SSA's record shows; the archive takes it as an input.
+    sources: [{source: ssa-poms-rs-00301-120, locator: "A.1"}]
+  - claim: 2026 SGA and TWP amounts.
+    verdict: verified
+    detail: SGA $1,690 non-blind / $2,830 blind (DI 10501.015); TWP service month over $1,210 (DI 13010.060).
+    sources:
+      - {source: ssa-poms-di-10501-015, locator: "Tables 2 and 3"}
+      - {source: ssa-poms-di-13010-060, locator: "A."}

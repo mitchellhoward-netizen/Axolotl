@@ -1,0 +1,9 @@
+- retrieved: '2026-10-07'
+  url: https://www.budget.ny.gov/pubs/archive/fy0607archive/fy0607app1/tda.pdf
+  final_url: https://www.budget.ny.gov/pubs/archive/fy0607archive/fy0607app1/tda.pdf
+  status: 200
+  content_type: pdf
+  text_sha256: 20825bce69403c789c98cbeb5b1ea469543e9664a615b40b97ea3773ccbcf471
+  text: ny-budget-otda-2006/2026-10-07.txt
+  raw: ny-budget-otda-2006/2026-10-07.pdf
+  fetched_via: requests with browser user agent (retry after connection reset)

@@ -1,0 +1,207 @@
+# Illinois sources for the Medicaid playbook. IDHS Cash, SNAP and Medical
+# Policy Manual (PM) pages answer scripted requests at www.dhs.state.il.us.
+# The PM pages carry no revision date of their own; their text is what was
+# in force on the snapshot date.
+sources:
+  - id: il-idhs-pm-07-02-01-mcd
+    retrieved: 2026-10-07
+    url: https://www.dhs.state.il.us/page.aspx?item=14876
+    publisher: Illinois Department of Human Services (Cash, SNAP, and Medical Policy Manual)
+    title: "PM 07-02-01: Asset Limits (AABD)"
+    kind: primary
+    jurisdiction: il
+    doc_type: manual
+  - id: il-idhs-pm-15-02-02
+    retrieved: 2026-10-07
+    url: https://www.dhs.state.il.us/page.aspx?item=16329
+    publisher: Illinois Department of Human Services (Cash, SNAP, and Medical Policy Manual)
+    title: "PM 15-02-02: Community Spenddown"
+    kind: primary
+    jurisdiction: il
+    doc_type: manual
+  - id: il-idhs-pm-15-04-01
+    retrieved: 2026-10-07
+    url: https://www.dhs.state.il.us/page.aspx?item=16343
+    publisher: Illinois Department of Human Services (Cash, SNAP, and Medical Policy Manual)
+    title: "PM 15-04-01: Resources (AABD)"
+    kind: primary
+    jurisdiction: il
+    doc_type: manual
+  - id: il-idhs-pm-15-04-03-a
+    retrieved: 2026-10-07
+    url: https://www.dhs.state.il.us/page.aspx?item=16387
+    publisher: Illinois Department of Human Services (Cash, SNAP, and Medical Policy Manual)
+    title: "PM 15-04-03-a: AABD Income Disregard (Community Cases)"
+    kind: primary
+    jurisdiction: il
+    doc_type: manual
+  - id: il-idhs-pm-15-04-03-c
+    retrieved: 2026-10-07
+    url: https://www.dhs.state.il.us/page.aspx?item=16394
+    publisher: Illinois Department of Human Services (Cash, SNAP, and Medical Policy Manual)
+    title: "PM 15-04-03-c: Monthly SSI Benefits"
+    kind: primary
+    jurisdiction: il
+    doc_type: manual
+  - id: il-idhs-pm-15-05-03
+    retrieved: 2026-10-07
+    url: https://www.dhs.state.il.us/page.aspx?item=16446
+    publisher: Illinois Department of Human Services (Cash, SNAP, and Medical Policy Manual)
+    title: "PM 15-05-03: AABD Community (determining countable monthly income)"
+    kind: primary
+    jurisdiction: il
+    doc_type: manual
+  - id: il-idhs-pm-15-06-01-b
+    retrieved: 2026-10-07
+    url: https://www.dhs.state.il.us/page.aspx?item=16460
+    publisher: Illinois Department of Human Services (Cash, SNAP, and Medical Policy Manual)
+    title: "PM 15-06-01-b: ACA Adults"
+    kind: primary
+    jurisdiction: il
+    doc_type: manual
+  - id: il-idhs-pm-15-06-02-a
+    retrieved: 2026-10-07
+    url: https://www.dhs.state.il.us/page.aspx?item=16507
+    publisher: Illinois Department of Human Services (Cash, SNAP, and Medical Policy Manual)
+    title: "PM 15-06-02-a: Community Standard (AABD Medical)"
+    kind: primary
+    jurisdiction: il
+    doc_type: manual
+  - id: il-idhs-pm-15-06-02-c
+    retrieved: 2026-10-07
+    url: https://www.dhs.state.il.us/page.aspx?item=16512
+    publisher: Illinois Department of Human Services (Cash, SNAP, and Medical Policy Manual)
+    title: "PM 15-06-02-c: Using AABD Medical Income Standards"
+    kind: primary
+    jurisdiction: il
+    doc_type: manual
+  - id: il-idhs-wag-25-03-02-2-mcd
+    retrieved: 2026-10-07
+    url: https://www.dhs.state.il.us/page.aspx?item=21741
+    publisher: Illinois Department of Human Services (Cash, SNAP, and Medical Policy Manual)
+    title: "WAG 25-03-02 (2) Medical FPLs (2026 Family Health Plans and AABD Medical/MSP/HBWD income standards)"
+    kind: primary
+    jurisdiction: il
+    doc_type: manual
+  - id: il-idhs-pm-17-01-01
+    retrieved: 2026-10-07
+    url: https://www.dhs.state.il.us/page.aspx?item=16738
+    publisher: Illinois Department of Human Services (Cash, SNAP, and Medical Policy Manual)
+    title: "PM 17-01-01: Time Limits"
+    kind: primary
+    jurisdiction: il
+    doc_type: manual
+  - id: il-idhs-pm-17-02-05-a
+    retrieved: 2026-10-07
+    url: https://www.dhs.state.il.us/page.aspx?item=16925
+    publisher: Illinois Department of Human Services (Cash, SNAP, and Medical Policy Manual)
+    title: "PM 17-02-05-a: Backdating Medical"
+    kind: primary
+    jurisdiction: il
+    doc_type: manual
+  - id: il-idhs-pm-17-02-07
+    retrieved: 2026-10-07
+    url: https://www.dhs.state.il.us/page.aspx?item=83582
+    publisher: Illinois Department of Human Services (Cash, SNAP, and Medical Policy Manual)
+    title: "PM 17-02-07: Medical Certification Period in IES"
+    kind: primary
+    jurisdiction: il
+    doc_type: manual
+  - id: il-idhs-pm-02-04-00-mcd
+    retrieved: 2026-10-07
+    url: https://www.dhs.state.il.us/page.aspx?item=12814
+    publisher: Illinois Department of Human Services (Cash, SNAP, and Medical Policy Manual)
+    title: "PM 02-04-00: Application"
+    kind: primary
+    jurisdiction: il
+    doc_type: manual
+  - id: il-idhs-pm-02-04-01
+    retrieved: 2026-10-07
+    url: https://www.dhs.state.il.us/page.aspx?item=12816
+    publisher: Illinois Department of Human Services (Cash, SNAP, and Medical Policy Manual)
+    title: "PM 02-04-01: Making Application Forms and Pamphlets Available"
+    kind: primary
+    jurisdiction: il
+    doc_type: manual
+  - id: il-idhs-pm-02-06-01-d
+    retrieved: 2026-10-07
+    url: https://www.dhs.state.il.us/page.aspx?item=171628
+    publisher: Illinois Department of Human Services (Cash, SNAP, and Medical Policy Manual)
+    title: "PM 02-06-01-d: Form IL444-2378B"
+    kind: primary
+    jurisdiction: il
+    doc_type: manual
+  - id: il-idhs-pm-19-02-04
+    retrieved: 2026-10-07
+    url: https://www.dhs.state.il.us/page.aspx?item=17390
+    publisher: Illinois Department of Human Services (Cash, SNAP, and Medical Policy Manual)
+    title: "PM 19-02-04: Medical Redeterminations"
+    kind: primary
+    jurisdiction: il
+    doc_type: manual
+  - id: il-idhs-pm-19-02-04-a
+    retrieved: 2026-10-07
+    url: https://www.dhs.state.il.us/page.aspx?item=83829
+    publisher: Illinois Department of Human Services (Cash, SNAP, and Medical Policy Manual)
+    title: "PM 19-02-04-a: Ex Parte Redeterminations"
+    kind: primary
+    jurisdiction: il
+    doc_type: manual
+  - id: il-idhs-pm-19-02-04-g
+    retrieved: 2026-10-07
+    url: https://www.dhs.state.il.us/page.aspx?item=165020
+    publisher: Illinois Department of Human Services (Cash, SNAP, and Medical Policy Manual)
+    title: "PM 19-02-04-g: Medical Redetermination Forms"
+    kind: primary
+    jurisdiction: il
+    doc_type: manual
+  - id: il-idhs-pm-19-02-08
+    retrieved: 2026-10-07
+    url: https://www.dhs.state.il.us/page.aspx?item=161724
+    publisher: Illinois Department of Human Services (Cash, SNAP, and Medical Policy Manual)
+    title: "PM 19-02-08: Noncitizens/Immigrants (redetermination)"
+    kind: primary
+    jurisdiction: il
+    doc_type: manual
+  - id: il-hfs-medical-programs
+    retrieved: 2026-10-07
+    url: https://hfs.illinois.gov/medicalclients/medicalprograms.html
+    publisher: Illinois Department of Healthcare and Family Services
+    title: Medical Programs (program overview page)
+    kind: primary
+    jurisdiction: il
+    doc_type: agency_page
+    note: Overview page with out-of-date figures (ACA Adults "$1,366/individual"; AABD "no more than $2,000 of non-exempt resources"); kept as the source of conflict MCD-IL-CONFLICT-01 and for program names.
+  - id: il-aging-ship-2026-limits
+    retrieved: 2026-10-07
+    url: https://ilaging.illinois.gov/content/dam/soi/en/web/aging/ship/documents/medicaidincomeassetlimits.pdf
+    publisher: Illinois Department on Aging, Senior Health Insurance Program (SHIP)
+    title: 2026 Illinois Medicaid Income Standards & Resource Limits (AABD Medical, MSP, ACA Adult)
+    kind: secondary
+    jurisdiction: il
+    doc_type: guidance
+    note: State counselor handout that itself says its figures are estimates and points to WAG 25-03-02 (2); used only to cross-check.
+  - id: il-idhs-pm-07-02-04-a-mcd
+    retrieved: 2026-10-07
+    url: https://www.dhs.state.il.us/page.aspx?item=14892
+    publisher: Illinois Department of Human Services (Cash, SNAP, and Medical Policy Manual)
+    title: "PM 07-02-04-a: Homestead Property"
+    kind: primary
+    jurisdiction: il
+    doc_type: manual
+  - id: il-idhs-pm-07-02-05
+    retrieved: 2026-10-07
+    url: https://www.dhs.state.il.us/page.aspx?item=14898
+    publisher: Illinois Department of Human Services (Cash, SNAP, and Medical Policy Manual)
+    title: "PM 07-02-05: Motor Vehicles"
+    kind: primary
+    jurisdiction: il
+    doc_type: manual
+  - id: il-idhs-pm-07-02-17
+    retrieved: 2026-10-07
+    url: https://www.dhs.state.il.us/page.aspx?item=14943
+    publisher: Illinois Department of Human Services (Cash, SNAP, and Medical Policy Manual)
+    title: "PM 07-02-17: Annuities and Pensions"
+    kind: primary
+    jurisdiction: il
+    doc_type: manual

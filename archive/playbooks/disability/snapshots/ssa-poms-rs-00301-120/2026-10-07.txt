@@ -1,0 +1,134 @@
+Skip to content
+
+Program Operations Manual System (POMS)
+
+Effective Dates: 08/18/2004 - Present
+Previous | Next
+
+TN 50 (10-23)
+
+RS 00301.120 DIB Insured Status
+
+A. Introduction
+
+1. NH Has DIB Insured Status
+
+NH has DIB insured status if they:
+
+a.
+
+Have at least 20 QC's during a 40 quarter period ending with the quarter the waiting
+period begins; and
+
+b.
+
+Are fully insured in that quarter.
+
+IMPORTANT: If the worker is an alien whose SSN was first assigned on or after January 1, 2004,
+then they must meet additional requirements under Section 211 of the Social Security
+Protection Act of 2004 (Public Law 108-203), to be insured and to establish entitlement
+based on their earnings. See RS 00301.102 for a full discussion of these requirements.
+
+2. Statutory Blindness - Insured Status
+
+An individual disabled because of statutory -blindness may qualify for DIB freeze
+or entitlement to DIB if they have fully insured status only. (See RS 00301.106 and RS 00301.150.)
+
+NOTE: If the worker is an alien whose SSN was first assigned on or after January 1, 2004,
+then they must meet additional requirements under Section 211 of the Social Security
+Protection Act of 2004 to meet insured status. See RS 00301.102 for a full discussion of these requirements.
+
+3. Meeting Tests - First Month of Waiting Period
+
+In the first month of the waiting period:
+
+•
+
+An individual who becomes disabled when they had freeze insured status and remains
+continuously disabled will continue to meet these tests in the first month of the
+waiting period (even if it begins in a quarter after the quarter of onset).
+
+•
+
+An individual will have DIB insured status because the insured status met at onset
+to establish the period of disability (i.e., a freeze) protects the insured status
+the NH has at onset.
+
+4. No Waiting Period
+
+If no waiting period is required for the current period of DIB because a period of
+DIB entitlement or a disability freeze (no cash benefits) terminated within the past
+5 years, then the NH must have DIB insured status in the quarter of the first month
+of entitlement for the current period of DIB.
+
+5. Reference
+
+For the special DIB insured status provision, an alternative to the 20/40 requirement,
+see RS 00301.147.
+
+B. Policy—Requirements for DIB Insured Status
+
+1. 20/40 TEST
+
+a. Period of Disability Considered
+
+The NH will meet the 20/40 Test if:
+
+•
+
+The NH must have at least 20 QC's during a 40-quarter period ending with the quarter
+in which the waiting period begins; or
+
+•
+
+If the NH does not have to serve a waiting period due to the termination of a prior
+period of entitlement to DIB or freeze within the past five years, then they must
+have 20/40 ending with the quarter of the first month of entitlement for the current
+period of disability.
+
+In determining the 40-quarter period, do not count any quarter, all or part of which
+is in a prior freeze or DIB period, except the beginning or ending quarter if they
+are QC's.
+
+b. Period of Disability Disregarded
+
+If the NH's insured status is more advantageous without considering the period of
+disability, the period may be disregarded. When there are two or more prior periods
+of disability, either all must be disregarded or all must be used when determining
+insured status and benefit amount. Non-creditable military wages or RR compensation
+may not be used to establish QC's where the period of disability is disregarded even
+though they may be used to establish a freeze.
+
+2. Fully Insured Test
+
+To meet the fully insured status test, the NH:
+
+a.
+
+Must have enough QC's to be fully insured in first month of waiting period; or
+
+b.
+
+If the NH does not have to serve a waiting period due to the termination of a prior
+period of DIB or freeze within the past five years, then they must be fully insured
+in the quarter of the first month of entitlement for the current period.
+
+C. Example
+
+Guinness T. Lis became disabled on 12/15/77. As of that date, the NH was fully insured
+and had 20 quarters of coverage in the 40-quarter period ending with the 12/77 quarter.
+Although the NH remained continuously disabled and did not work after 12/77, they
+did not file an application for DIB until 7/ 10 /88. Hence, the first month of the
+waiting period is 2/87, the 17th month before the month of filing. Since the application
+for DIB is also an application to establish a “freeze,” a period of disability may
+be established beginning with 12/77. This enables the NH, who met the insured status
+test at onset, to meet the test in 2/87, the first month of their waiting period.
+
+To Link to this section - Use this URL:
+http://policy.ssa.gov/poms.nsf/lnx/0300301120
+
+RS 00301.120 - DIB Insured Status - 08/18/2004
+
+Batch run: 09/04/2026
+
+Rev:08/18/2004

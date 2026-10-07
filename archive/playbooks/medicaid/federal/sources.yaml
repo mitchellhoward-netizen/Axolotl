@@ -126,3 +126,19 @@ sources:
     jurisdiction: federal
     doc_type: statute
     note: Cited for the $7.25 federal minimum wage that sets the community engagement income test (80 x minimum wage).
+  - id: ecfr-42-435-4
+    retrieved: 2026-10-07
+    url: https://www.ecfr.gov/api/renderer/v1/content/enhanced/current/title-42?part=435&section=435.4
+    publisher: Office of the Federal Register (eCFR)
+    title: 42 CFR 435.4 — Definitions and use of terms (dependent child, caretaker relative, MAGI-based terms)
+    kind: primary
+    jurisdiction: federal
+    doc_type: regulation
+  - id: ecfr-42-435-601
+    retrieved: 2026-10-07
+    url: https://www.ecfr.gov/api/renderer/v1/content/enhanced/current/title-42?part=435&section=435.601
+    publisher: Office of the Federal Register (eCFR)
+    title: 42 CFR 435.601 — Application of financial eligibility methodologies (non-MAGI; cash assistance/SSI methodology)
+    kind: primary
+    jurisdiction: federal
+    doc_type: regulation

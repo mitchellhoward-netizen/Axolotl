@@ -1,0 +1,381 @@
+Skip to content
+
+Program Operations Manual System (POMS)
+
+Effective Dates: 06/01/2023 - Present
+Previous | Next
+
+TN 93 (06-23)
+
+DI 11005.055 Completing Form SSA-827 (Authorization to Disclose Information to the Social Security
+Administration (SSA))
+
+CITATIONS:
+
+P.L. 104-191
+the Health Insurance Portability and Accountability Act of 1996 (HIPAA);
+
+45 CFR parts 160
+and 164;
+
+42
+U.S.C. section 290dd-2;
+
+42
+CFR part 2;
+
+38 U.S.C. section 7332;
+
+38 CFR 1.475;
+
+20 U.S.C. section 1232g the Family Education Rights and Privacy Act (FERPA);
+
+34 CFR parts
+99
+and300; and State law.
+
+The Form SSA-827 (Authorization to Disclose Information to the Social Security Administration
+(SSA)) is the form we use to obtain medical and non-medical information required to:
+
+•
+
+process claims and continuing disability reviews, and
+
+•
+
+determine the claimant’s capability of managing benefits.
+
+NOTE: The Health Insurance Portability and Accountability Act (HIPAA) Privacy Rule permits
+disclosure of all medical records; the Privacy Act protects the information SSA collects.
+
+Only claimants residing in Puerto Rico may use Form SSA-827-SP, the Spanish version
+of the form. To view or print Form SSA-827, see OS 15020.110. To view or print Spanish
+language instruction for completing the SSA-827, see the SSA-827–SP-INST
+
+A. Purpose of Form SSA-827
+
+The completed Form SSA-827 serves two purposes in disability claims (and non-disability
+claims when capability is an issue):
+
+1.
+
+The form serves as the claimant’s written request to a medical source or other source
+to release information. These sources include, but are not limited to, the claimant’s:
+
+•
+
+doctors,
+
+•
+
+hospitals,
+
+•
+
+schools,
+
+•
+
+nurses,
+
+•
+
+social workers,
+
+•
+
+friends,
+
+•
+
+employers, and
+
+•
+
+family members.
+
+2.
+
+The form serves as authorization for the claimant’s sources to release information
+to SSA.
+
+Additional details on the purpose of Form SSA-827 are on page 2 of the form. SSA and
+the disability determination services (DDS) send the completed Form SSA-827 to sources,
+including consultative examination sources, with requests for evidence (unless other
+local arrangements apply).
+
+Foreign field offices (FOs) usually obtain a completed Form SSA-827 for U.S. medical
+sources only. You can find instructions for obtaining evidence from foreign sources
+in the international agreements.
+
+B. Procedures for completing Form SSA-827
+
+The following procedures apply to completing Form SSA-827. However, regional instructions
+for completion may vary due to states’ release requirements. Regional offices (ROs)
+may provide specific guidance for completing Form SSA-827.
+
+1. WHOSE records to be disclosed box
+
+The claimant or SSA completes the “WHOSE Records to be Disclosed” box located in the upper right-hand corner of the form.
+
+2. OF WHAT section
+
+The OF WHAT section describes the types of information sources can disclose, including the claimant’s
+medical records, educational records, and other information related to the claimant’s
+ability to perform tasks. Form SSA-827 includes specific permission to release the following:
+
+a.
+
+All records and other information regarding the claimant’s treatment, hospitalization,
+and outpatient care including, and not limited to:
+
+•
+
+sickle cell anemia;
+
+•
+
+gene-related impairments (including genetic test results);
+
+•
+
+drug abuse, alcoholism, or other substance abuse;
+
+•
+
+psychological, psychiatric, or other mental impairment(s) (excludes “psychotherapy
+notes” as defined in 45 CFR 164.501);
+
+•
+
+records that may indicate the presence of a communicable or noncommunicable disease;
+and
+
+•
+
+tests for or records of human immunodeficiency virus/acquired immune deficiency syndrome
+(HIV/AIDS).
+
+b.
+
+Information about how the impairment(s) affects the claimant’s ability to work, complete
+tasks, and perform activities of daily living;
+
+c.
+
+Copies of educational tests or evaluations, including individualized educational programs,
+triennial assessments, psychological and speech evaluations, teachers’ observations,
+and any other records that can help evaluate function; and,
+
+d.
+
+Information created before the claimant signs the authorization and information created
+within 12 months after the authorization’s signature date.
+
+Every Form SSA-827 includes specific permission to release all records to avoid delays
+in processing. Using the form does not imply that the claimant has received treatment
+for drug abuse, alcoholism, sickle cell anemia, HIV/AIDS, or any other communicable
+or noncommunicable disease.
+
+If State law requires the claimant to affirm their informed consent by initialing
+the white spaces to the left of each category of this section, the claimant must use
+a paper Form SSA-827 with a pen and ink signature.
+
+3. FROM WHOM section
+
+The FROM WHOM section contains potential sources of information including, but not limited to,
+the following:
+
+•
+
+consulting examiners used by SSA;
+
+•
+
+social workers and rehabilitation counselors;
+
+•
+
+employers, insurance companies, workers’ compensation programs;
+
+•
+
+all educational sources, such as schools, teachers, records administrators, and counselors;
+
+•
+
+all medical sources (such as hospitals, clinics, labs, physicians, and psychologists)
+including mental health, correctional, addiction treatment, and Department of Veterans
+Affairs (VA) health care facilities; and
+
+•
+
+others who may know about the claimant’s condition, such as family, neighbors, friends,
+and public officials.
+
+4. FROM WHOM box
+
+The FROM WHOM section contains an area labeled, “THIS BOX TO BE COMPLETED BY SSA or DDS (as needed).”
+
+a. Entering specific information in the FROM WHOM box
+
+SSA or DDS may use this area, as needed, to:
+
+•
+
+list specific information about the authorization (for example, the name of a source
+the claimant does or does not want SSA to contact);
+
+•
+
+record specific information about a source when the source refuses to accept a general
+release authorization (for example, the name of the source, dates, and type of treatment);
+and
+
+•
+
+provide additional identification of the claimant (for example, maiden name, alias,
+or the mother’s name for a newborn child’s claim).
+
+b. Claimant restricts Form SSA-827
+
+When a claimant requests to restrict Form SSA-827, follow these steps:
+
+1.
+
+Ensure that the claimant understands the form’s purpose (refer to the first paragraph
+on page 2 of Form SSA-827).
+
+2.
+
+If the claimant objects to any part of the authorization and refuses to sign the form,
+line through the offending words and have the claimant initial the deletion.
+
+IMPORTANT: Do not use the eAuthorization signature process if the claimant requests to write
+anything other than a signature on the form. In that case, have the claimant pen and
+ink sign a paper form.
+
+3.
+
+Mark the checkbox on the Electronic Disability Collect System (EDCS) transfer screen
+or on the eView Edit Document Information screen if the claimant modified Form SSA-827
+or if access to information is restricted. The checkbox alerts the DDS when Form SSA-827
+contains restrictive language.
+
+EXCLUSION: If there is no EDCS case, annotate the “Remarks” space on the paper Form SSA-3367
+(or use a Form SSA-5002 (Report of Contact)).
+
+Sometimes claimants or appointed representatives add restrictive language regarding
+the use of records by the Cooperative Disability Investigation Unit (CDIU) (for example,
+“Not for use by CDIU”). However, adding restrictive language does not prevent the
+DDS from completing required claims development or furnishing such records to the
+CDIU. The CDIU, which is part of the Office of the Inspector General organizational
+structure, is entitled to these records under the Inspector General Act and SSA regulations.
+
+NOTE: When a source refuses to release information to the DDS or CDIU because of the “Not
+for use in the CDIU” or similar annotation on Form SSA-827, the DDS:
+
+•
+
+advises the claimant that failure to provide an unrestricted Form SSA-827 could prevent
+us from developing the evidence necessary to process the claim;
+
+•
+
+informs the claimant that the CDIU has access to the records regardless of the restrictive
+language; and
+
+•
+
+attempts to obtain an unrestricted Form SSA-827.
+
+5. TO WHOM section
+
+The TO WHOM section informs the claimant about the state and federal entities that process the
+disability claim: the Social Security Administration and the state agency authorized
+to process the claim (usually the DDS), including contract copy services, doctors,
+or other professionals consulted during the process. In addition, for international
+claims, the U.S. Department of State Foreign Service Post is involved.
+
+6. PURPOSE section for non-disability capability claims
+
+Authorization for the general release of “all records” is still necessary for non-disability
+claims where the claimant’s capability is an issue. For these claims, in the PURPOSE
+section, check the box before the statement, “Determining whether I am capable of
+managing benefits ONLY.” (For procedures on developing capability, see GN 00502.020 and GN 00502.050A.)
+
+7. EXPIRES WHEN section
+
+The authorization expires 12 months after the date below the signature of the person
+authorizing disclosure. For further details about disclosing information, re-disclosing
+information, and revoking the authorization, see page 2 of Form SSA-827.
+
+By signing Form SSA-827:
+
+•
+
+the claimant authorizes the use of a copy (including an electronic copy) of this form
+for the disclosure of the information;
+
+•
+
+the claimant understands there are circumstances in which we may re-disclose this
+information to other parties (see page 2 of Form SSA-827 for details);
+
+•
+
+the claimant may write to SSA and sources to revoke this authorization at any time
+(see page 2 of Form SSA-827 for details);
+
+•
+
+SSA will supply a copy of this form if the claimant asks. The claimant may ask the
+source to allow inspection (or to get a copy) of the material to be disclosed; and
+
+•
+
+the claimant indicates they read both pages of Form SSA-827 and agrees to disclosures
+from the types of sources listed.
+
+IMPORTANT: Form SSA-827 must include the claimant’s signature and date of signing. Never instruct
+claimants to provide an undated Form SSA-827. If the claimant submits an undated Form
+SSA-827, return it to the claimant for dating.
+
+8. INDIVIDUAL authorizing disclosure box
+
+Have the claimant sign, date, and complete the INDIVIDUAL authorizing disclosure box at the bottom left of Form SSA-827.
+
+For more information about signature requirements for Form SSA-827 or for completing
+this section when the claimant is not signing on their own behalf, see DI 11005.056.
+
+9. IF not signed by subject of disclosure box
+
+If the claimant has not signed Form SSA-827, make sure the appropriate checkbox is
+marked to indicate that a parent of a minor, a guardian, or other personal representative
+signed the form. If a personal representative signed the form, explain the relationship
+to the claimant in the space provided under the checkbox.
+
+10. WITNESS box
+
+We provided a block in this section for the witness signature, address, and phone
+number. We provided a second block, to the right of the first block, for the signature
+of a second witness, if required.
+
+When we attest to the claimant’s signature on Form SSA-827, we document the attestation
+in the witness box see DI 11005.056.
+
+If the claimant signs by mark, the witness signature is required and the witness block
+must be completed.
+
+IMPORTANT: If the field office (FO) receives a non-attested Form SSA-827 without the signature
+of a witness, we continue to process the claim. Do not delay the claim to seek the claimant's witnessed signature unless the claimant signed Form SSA-827 by mark or the FO knows from experience that certain
+sources require a witnessed signature.
+
+To Link to this section - Use this URL:
+http://policy.ssa.gov/poms.nsf/lnx/0411005055
+
+DI 11005.055 - Completing Form SSA-827 (Authorization to Disclose Information to the Social Security Administration (SSA)) - 06/01/2023
+
+Batch run: 04/17/2026
+
+Rev:06/01/2023

@@ -1,0 +1,10 @@
+- retrieved: '2026-10-07'
+  url: https://www.dhcs.ca.gov/services/medi-cal/eligibility/Documents/c188.pdf
+  final_url: https://www.dhcs.ca.gov/services/medi-cal/eligibility/Documents/c188.pdf
+  status: 200
+  content_type: pdf
+  text_sha256: 9a52af7a35f6cacbc1c7ae1016ef7531b6a6c9c8af222ee1cfd53b8d37a5883c
+  text: ca-dhcs-mepm-5l/2026-10-07.txt
+  raw: ca-dhcs-mepm-5l/2026-10-07.pdf
+  fetched_via: headless Chromium (Playwright) via the session proxy; dhcs.ca.gov refuses
+    scripted requests (Incapsula)

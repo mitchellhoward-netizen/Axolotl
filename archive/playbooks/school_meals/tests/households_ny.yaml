@@ -1,0 +1,587 @@
+# Synthetic NY households for the school meals playbook. No real people.
+# Income is in facts.reported_income (amount + pay frequency), as on a meal application.
+program: school_meals
+scope: ny
+cases:
+- id: SCH-NY-T01
+  title: Family of 4, $42,900 a year - free for all students; federal category free
+  as_of: '2026-09-15'
+  tags:
+  - threshold
+  - family
+  household:
+    members:
+    - id: p
+      age: 40
+    - id: q
+      age: 38
+      relationship: spouse
+    - id: c1
+      age: 10
+      relationship: child
+      student: true
+    - id: c2
+      age: 7
+      relationship: child
+      student: true
+    facts:
+      reported_income:
+      - owner: p
+        kind: earned
+        amount: 42900
+        frequency: annual
+    state: ny
+  expect:
+    status: eligible
+    tier: free_universal
+    rules_include:
+    - SCH-NY-UNIVERSAL-MEALS
+    - SCH-FED-INCOME-TEST
+    links_include:
+    - federal_category:free
+    - ny:meal_application_still_collected
+  crosscheck:
+    policyengine: true
+- id: SCH-NY-T02
+  title: Family of 4, $42,901 a year - free for all; federal category reduced
+  as_of: '2026-09-15'
+  tags:
+  - threshold
+  - family
+  household:
+    members:
+    - id: p
+      age: 40
+    - id: q
+      age: 38
+      relationship: spouse
+    - id: c1
+      age: 10
+      relationship: child
+      student: true
+    - id: c2
+      age: 7
+      relationship: child
+      student: true
+    facts:
+      reported_income:
+      - owner: p
+        kind: earned
+        amount: 42901
+        frequency: annual
+    state: ny
+  expect:
+    status: eligible
+    tier: free_universal
+    links_include:
+    - federal_category:reduced
+  crosscheck:
+    policyengine: true
+- id: SCH-NY-T03
+  title: Family of 4, $61,050 a year - free for all; federal category reduced
+  as_of: '2026-09-15'
+  tags:
+  - threshold
+  - family
+  household:
+    members:
+    - id: p
+      age: 40
+    - id: q
+      age: 38
+      relationship: spouse
+    - id: c1
+      age: 10
+      relationship: child
+      student: true
+    - id: c2
+      age: 7
+      relationship: child
+      student: true
+    facts:
+      reported_income:
+      - owner: p
+        kind: earned
+        amount: 61050
+        frequency: annual
+    state: ny
+  expect:
+    status: eligible
+    tier: free_universal
+    links_include:
+    - federal_category:reduced
+  crosscheck:
+    policyengine: true
+- id: SCH-NY-T04
+  title: Family of 4, $61,051 a year - free for all; federal category paid
+  as_of: '2026-09-15'
+  tags:
+  - threshold
+  - family
+  household:
+    members:
+    - id: p
+      age: 40
+    - id: q
+      age: 38
+      relationship: spouse
+    - id: c1
+      age: 10
+      relationship: child
+      student: true
+    - id: c2
+      age: 7
+      relationship: child
+      student: true
+    facts:
+      reported_income:
+      - owner: p
+        kind: earned
+        amount: 61051
+        frequency: annual
+    state: ny
+  expect:
+    status: eligible
+    tier: free_universal
+    links_include:
+    - federal_category:paid
+  crosscheck:
+    policyengine: true
+- id: SCH-NY-T05
+  title: Family of 4 paid monthly $3,576 ($1 over monthly free limit) - federal category reduced
+  as_of: '2026-09-15'
+  tags:
+  - threshold
+  - family
+  household:
+    members:
+    - id: p
+      age: 40
+    - id: q
+      age: 38
+      relationship: spouse
+    - id: c1
+      age: 10
+      relationship: child
+      student: true
+    - id: c2
+      age: 7
+      relationship: child
+      student: true
+    facts:
+      reported_income:
+      - owner: p
+        kind: earned
+        amount: 3576
+        frequency: monthly
+    state: ny
+  expect:
+    status: eligible
+    tier: free_universal
+    links_include:
+    - federal_category:reduced
+  crosscheck:
+    policyengine: true
+- id: SCH-NY-T06
+  title: Family of 4 paid weekly $1,175 (weekly reduced limit) - federal category reduced
+  as_of: '2026-09-15'
+  tags:
+  - threshold
+  - family
+  household:
+    members:
+    - id: p
+      age: 40
+    - id: q
+      age: 38
+      relationship: spouse
+    - id: c1
+      age: 10
+      relationship: child
+      student: true
+    - id: c2
+      age: 7
+      relationship: child
+      student: true
+    facts:
+      reported_income:
+      - owner: p
+        kind: earned
+        amount: 1175
+        frequency: weekly
+    state: ny
+  expect:
+    status: eligible
+    tier: free_universal
+    links_include:
+    - federal_category:reduced
+  crosscheck:
+    policyengine: true
+- id: SCH-NY-T07
+  title: Family of 4 paid weekly $1,176 - federal category paid, still free
+  as_of: '2026-09-15'
+  tags:
+  - threshold
+  - family
+  household:
+    members:
+    - id: p
+      age: 40
+    - id: q
+      age: 38
+      relationship: spouse
+    - id: c1
+      age: 10
+      relationship: child
+      student: true
+    - id: c2
+      age: 7
+      relationship: child
+      student: true
+    facts:
+      reported_income:
+      - owner: p
+        kind: earned
+        amount: 1176
+        frequency: weekly
+    state: ny
+  expect:
+    status: eligible
+    tier: free_universal
+    links_include:
+    - federal_category:paid
+  crosscheck:
+    policyengine: true
+- id: SCH-NY-T08
+  title: Family of 4 on SNAP, $5,000 a month - federal category free by direct certification
+  as_of: '2026-09-15'
+  tags:
+  - family
+  - other_benefits
+  household:
+    members:
+    - id: p
+      age: 40
+      benefits:
+      - snap
+    - id: q
+      age: 38
+      relationship: spouse
+    - id: c1
+      age: 10
+      relationship: child
+      student: true
+    - id: c2
+      age: 7
+      relationship: child
+      student: true
+    facts:
+      reported_income:
+      - owner: p
+        kind: earned
+        amount: 5000
+        frequency: monthly
+    state: ny
+  expect:
+    status: eligible
+    tier: free_universal
+    rules_include:
+    - SCH-FED-DC-SNAP
+    links_include:
+    - federal_category:free
+    - snap:direct_certification
+  crosscheck:
+    policyengine: true
+- id: SCH-NY-T09
+  title: Children on Medicaid, Medicaid-measured income 120% FPL - free by Medicaid direct certification
+  as_of: '2026-09-15'
+  tags:
+  - family
+  - other_benefits
+  household:
+    members:
+    - id: p
+      age: 40
+    - id: q
+      age: 38
+      relationship: spouse
+    - id: c1
+      age: 10
+      relationship: child
+      student: true
+      benefits:
+      - medicaid
+    - id: c2
+      age: 7
+      relationship: child
+      student: true
+      benefits:
+      - medicaid
+    facts:
+      medicaid_income_fpl_percent: 120
+      reported_income:
+      - owner: p
+        kind: earned
+        amount: 39000
+        frequency: annual
+    state: ny
+  expect:
+    status: eligible
+    tier: free_universal
+    rules_include:
+    - SCH-NY-DCM-FREE-ONLY
+    links_include:
+    - federal_category:free
+    - medicaid:direct_certification_free
+  crosscheck:
+    policyengine: true
+- id: SCH-NY-T10
+  title: Family of 4 with $90,000 at a CEP school - free; Household Income Eligibility Form instead of an application
+  as_of: '2026-09-15'
+  tags:
+  - family
+  - edge
+  household:
+    members:
+    - id: p
+      age: 40
+    - id: q
+      age: 38
+      relationship: spouse
+    - id: c1
+      age: 10
+      relationship: child
+      student: true
+    - id: c2
+      age: 7
+      relationship: child
+      student: true
+    facts:
+      school_cep: true
+      reported_income:
+      - owner: p
+        kind: earned
+        amount: 90000
+        frequency: annual
+    state: ny
+  expect:
+    status: eligible
+    tier: free_universal
+    rules_include:
+    - SCH-FED-CEP
+    - SCH-NY-HOUSEHOLD-INCOME-FORM
+    links_include:
+    - route:cep
+    - ny:household_income_eligibility_form
+  crosscheck:
+    policyengine: true
+- id: SCH-NY-T11
+  title: Family of 4 with $90,000, school NOT in the NSLP/SBP - not covered by universal meals; full price
+  as_of: '2026-09-15'
+  tags:
+  - family
+  - edge
+  household:
+    members:
+    - id: p
+      age: 40
+    - id: q
+      age: 38
+      relationship: spouse
+    - id: c1
+      age: 10
+      relationship: child
+      student: true
+    - id: c2
+      age: 7
+      relationship: child
+      student: true
+    facts:
+      school_participates_nslp: false
+      reported_income:
+      - owner: p
+        kind: earned
+        amount: 90000
+        frequency: annual
+    state: ny
+  expect:
+    status: ineligible
+    tier: paid
+    rules_include:
+    - SCH-NY-UNIVERSAL-MEALS
+    - SCH-FED-NSLP-PARTICIPATION
+  crosscheck:
+    policyengine: true
+- id: SCH-NY-T12
+  title: School year 2025-26 (first universal year), family of 4 with $59,479 (over the 2025-26 reduced limit) - free for
+    all; federal category paid
+  as_of: '2025-09-15'
+  tags:
+  - timing
+  - threshold
+  household:
+    members:
+    - id: p
+      age: 40
+    - id: q
+      age: 38
+      relationship: spouse
+    - id: c1
+      age: 10
+      relationship: child
+      student: true
+    - id: c2
+      age: 7
+      relationship: child
+      student: true
+    facts:
+      reported_income:
+      - owner: p
+        kind: earned
+        amount: 59479
+        frequency: annual
+    state: ny
+  expect:
+    status: eligible
+    tier: free_universal
+    rules_include:
+    - SCH-NY-UNIVERSAL-MEALS
+    links_include:
+    - federal_category:paid
+  crosscheck:
+    policyengine: true
+- id: SCH-NY-T13
+  title: Foster child student, family income $80,000 - federal category free
+  as_of: '2026-09-15'
+  tags:
+  - family
+  - other_benefits
+  household:
+    members:
+    - id: p
+      age: 40
+    - id: q
+      age: 38
+      relationship: spouse
+    - id: c1
+      age: 10
+      relationship: child
+      student: true
+      benefits:
+      - foster_care
+    - id: c2
+      age: 7
+      relationship: child
+      student: true
+    facts:
+      reported_income:
+      - owner: p
+        kind: earned
+        amount: 80000
+        frequency: annual
+    state: ny
+  expect:
+    status: eligible
+    tier: free_universal
+    rules_include:
+    - SCH-FED-CATEGORICAL-INDIVIDUAL
+    links_include:
+    - federal_category:free
+  crosscheck:
+    policyengine: true
+- id: SCH-NY-T14
+  title: Single parent and one child, $28,133 a year ($1 over the free limit for 2) - federal category reduced
+  as_of: '2026-09-15'
+  tags:
+  - single
+  - threshold
+  household:
+    members:
+    - id: p
+      age: 33
+    - id: c1
+      age: 8
+      relationship: child
+      student: true
+    facts:
+      reported_income:
+      - owner: p
+        kind: earned
+        amount: 28133
+        frequency: annual
+    state: ny
+  expect:
+    status: eligible
+    tier: free_universal
+    links_include:
+    - federal_category:reduced
+  crosscheck:
+    policyengine: true
+- id: SCH-X-02
+  title: 'Cross-playbook (Medicaid): children on Medicaid, $50,000 a year (Medicaid-measured 152% FPL), no application filed
+    - New York''s Medicaid match certifies free only, so reduced price needs an application'
+  as_of: '2026-09-15'
+  tags:
+  - cross_playbook
+  - cross_state
+  - other_benefits
+  - family
+  household:
+    members:
+    - id: p
+      age: 40
+    - id: q
+      age: 38
+      relationship: spouse
+    - id: c1
+      age: 10
+      relationship: child
+      student: true
+      benefits:
+      - medicaid
+    - id: c2
+      age: 7
+      relationship: child
+      student: true
+      benefits:
+      - medicaid
+    facts:
+      medicaid_income_fpl_percent: 152
+      application_filed: false
+      reported_income:
+      - owner: p
+        kind: earned
+        amount: 50000
+        frequency: annual
+    state: ny
+  expect:
+    status: eligible
+    tier: free_universal
+    rules_include:
+    - SCH-NY-DCM-FREE-ONLY
+    links_include:
+    - federal_category:reduced
+    - route:ny_universal_meals
+    - action:file_application
+  compare_states:
+    ca:
+      status: eligible
+      tier: free_universal
+      rules_include:
+      - SCH-CA-DCM-MEDI-CAL
+      links_include:
+      - federal_category:reduced
+      - medicaid:direct_certification_reduced
+    il:
+      status: eligible
+      tier: reduced
+      rules_include:
+      - SCH-IL-DCM-FREE-REDUCED
+      links_include:
+      - medicaid:direct_certification_reduced
+      - route:dcm_medicaid
+  crosscheck:
+    policyengine: true
+  note: 'Medicaid playbook: the children''s Medicaid eligibility is decided there. Here: CA and IL (DCM-F/RP) certify reduced
+    price from Medicaid data; NY (DCM-F) does not, so the household must apply (the student eats free in NY anyway). Not evaluated
+    with also: because the Medicaid playbook is built in parallel.'

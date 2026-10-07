@@ -31,7 +31,9 @@ def pe_inputs(hh, as_of: date) -> dict:
     spm: dict = {}
     household: dict = {}
     a = hh.applicant.id
-    unit = [a] + ([hh.spouse.id] if hh.spouse else [])
+    from playbooks.disability.federal.rules import spouse_of
+    sp = spouse_of(hh)
+    unit = [a] + ([sp.id] if sp else [])
     la = hh.facts.get("living_arrangement", "own_household")
     for pid in unit:
         p = person.setdefault(pid, {})
@@ -53,15 +55,19 @@ def pe_inputs(hh, as_of: date) -> dict:
             spm[UTILITY_EXPENSE[u]] = 1200.0   # well above any allowance, so PolicyEngine allows the standard amount
         if hh.county:
             household["county_str"] = hh.county.upper().replace(" ", "_") + "_COUNTY_IL"
-    if hh.state == "ca" and hh.facts.get("no_cooking_facilities"):
-        household["living_arrangements_allow_for_food_preparation"] = False
+    if hh.state == "ca":
+        # PolicyEngine's default is "no food preparation" (California code C,
+        # restaurant meals); the archive's default is code A (cooking facilities).
+        household["living_arrangements_allow_for_food_preparation"] = not hh.facts.get("no_cooking_facilities")
     return {"extra_person": person, "extra_spm": spm, "extra_household": household}
 
 
 def read(sim, hh, as_of: date) -> dict:
     period = f"{as_of.year}-{as_of.month:02d}"
     ids = [m.id for m in hh.members]
-    unit = [hh.applicant.id] + ([hh.spouse.id] if hh.spouse else [])
+    from playbooks.disability.federal.rules import spouse_of
+    sp = spouse_of(hh)
+    unit = [hh.applicant.id] + ([sp.id] if sp else [])
     ssi = sim.calculate("ssi", period)
     fed = round(sum(float(ssi[ids.index(pid)]) for pid in unit), 2)
     state = None

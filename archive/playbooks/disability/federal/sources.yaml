@@ -8,6 +8,7 @@
 sources:
   # ------------------------------------------------------------ statute / regs
   - id: usc-42-1382
+    retrieved: 2026-10-07
     url: https://www.govinfo.gov/content/pkg/USCODE-2023-title42/html/USCODE-2023-title42-chap7-subchapXVI-partA-sec1382.htm
     publisher: U.S. Government Publishing Office (United States Code, 2023 edition)
     title: 42 U.S.C. 1382 — Eligibility for SSI benefits
@@ -15,6 +16,7 @@ sources:
     jurisdiction: federal
     doc_type: statute
   - id: usc-42-426
+    retrieved: 2026-10-07
     url: https://www.govinfo.gov/content/pkg/USCODE-2023-title42/html/USCODE-2023-title42-chap7-subchapII-sec426.htm
     publisher: U.S. Government Publishing Office (United States Code, 2023 edition)
     title: 42 U.S.C. 426 — Entitlement to hospital insurance benefits (Medicare Part A after 24 months of disability benefits)
@@ -22,6 +24,7 @@ sources:
     jurisdiction: federal
     doc_type: statute
   - id: cfr-20-404-900
+    retrieved: 2026-10-07
     url: https://www.govinfo.gov/content/pkg/CFR-2025-title20-vol2/xml/CFR-2025-title20-vol2-sec404-900.xml
     publisher: U.S. Government Publishing Office (Code of Federal Regulations, April 1, 2025 edition)
     title: 20 CFR 404.900 — Administrative review process (introduction)
@@ -29,6 +32,7 @@ sources:
     jurisdiction: federal
     doc_type: regulation
   - id: cfr-20-404-909
+    retrieved: 2026-10-07
     url: https://www.govinfo.gov/content/pkg/CFR-2025-title20-vol2/xml/CFR-2025-title20-vol2-sec404-909.xml
     publisher: U.S. Government Publishing Office (Code of Federal Regulations, April 1, 2025 edition)
     title: 20 CFR 404.909 — How to request reconsideration
@@ -36,6 +40,7 @@ sources:
     jurisdiction: federal
     doc_type: regulation
   - id: cfr-20-416-420
+    retrieved: 2026-10-07
     url: https://www.govinfo.gov/content/pkg/CFR-2025-title20-vol2/xml/CFR-2025-title20-vol2-sec416-420.xml
     publisher: U.S. Government Publishing Office (Code of Federal Regulations, April 1, 2025 edition)
     title: 20 CFR 416.420 — Determination of benefits; general (retrospective budgeting)
@@ -43,6 +48,7 @@ sources:
     jurisdiction: federal
     doc_type: regulation
   - id: cfr-20-416-335
+    retrieved: 2026-10-07
     url: https://www.govinfo.gov/content/pkg/CFR-2025-title20-vol2/xml/CFR-2025-title20-vol2-sec416-335.xml
     publisher: U.S. Government Publishing Office (Code of Federal Regulations, April 1, 2025 edition)
     title: 20 CFR 416.335 — Filing in or after the month you meet the requirements for eligibility
@@ -50,6 +56,7 @@ sources:
     jurisdiction: federal
     doc_type: regulation
   - id: cfr-20-416-971
+    retrieved: 2026-10-07
     url: https://www.govinfo.gov/content/pkg/CFR-2025-title20-vol2/xml/CFR-2025-title20-vol2-sec416-971.xml
     publisher: U.S. Government Publishing Office (Code of Federal Regulations, April 1, 2025 edition)
     title: 20 CFR 416.971 — Work activity; general (SSI)
@@ -57,6 +64,7 @@ sources:
     jurisdiction: federal
     doc_type: regulation
   - id: cfr-7-273-2
+    retrieved: 2026-10-07
     url: https://www.govinfo.gov/content/pkg/CFR-2025-title7-vol4/xml/CFR-2025-title7-vol4-sec273-2.xml
     publisher: U.S. Government Publishing Office (Code of Federal Regulations, January 1, 2025 edition)
     title: 7 CFR 273.2 — SNAP office operations and application processing (categorical eligibility of SSI households)
@@ -64,6 +72,7 @@ sources:
     jurisdiction: federal
     doc_type: regulation
   - id: fr-2024-06464
+    retrieved: 2026-10-07
     url: https://www.govinfo.gov/content/pkg/FR-2024-03-27/html/2024-06464.htm
     publisher: Social Security Administration (Federal Register Vol. 89, No. 60)
     title: Omitting Food From In-Kind Support and Maintenance Calculations (final rule)
@@ -73,6 +82,7 @@ sources:
     published: 2024-03-27
     effective_date: 2024-09-30
   - id: ssa-em-24047-rev
+    retrieved: 2026-10-07
     url: https://secure.ssa.gov/apps10/reference.nsf/lnx/01172025095433AMREV
     publisher: Social Security Administration (Emergency Message)
     title: EM-24047 REV — SSI Living Arrangements Regulatory Changes, technician instructions
@@ -84,6 +94,7 @@ sources:
 
   # ----------------------------------------------------------- SSI eligibility
   - id: ssa-poms-si-00501-001
+    retrieved: 2026-10-07
     url: https://secure.ssa.gov/poms.nsf/lnx/0500501001
     publisher: Social Security Administration (POMS)
     title: SI 00501.001 Eligibility Under the Supplemental Security Income Provisions
@@ -91,6 +102,7 @@ sources:
     jurisdiction: federal
     doc_type: manual
   - id: ssa-poms-si-02005-001
+    retrieved: 2026-10-07
     url: https://secure.ssa.gov/poms.nsf/lnx/0502005001
     publisher: Social Security Administration (POMS)
     title: SI 02005.001 Retrospective Monthly Accounting Computation
@@ -98,6 +110,7 @@ sources:
     jurisdiction: federal
     doc_type: manual
   - id: ssa-poms-si-00604-001
+    retrieved: 2026-10-07
     url: https://secure.ssa.gov/poms.nsf/lnx/0500604001
     publisher: Social Security Administration (POMS)
     title: SI 00604.001 Application For Supplemental Security Income, Form SSA-8000-BK
@@ -106,6 +119,7 @@ sources:
     doc_type: manual
   # income
   - id: ssa-poms-si-00810-420
+    retrieved: 2026-10-07
     url: https://secure.ssa.gov/poms.nsf/lnx/0500810420
     publisher: Social Security Administration (POMS)
     title: SI 00810.420 $20 Per Month General Income Exclusion
@@ -113,6 +127,7 @@ sources:
     jurisdiction: federal
     doc_type: manual
   - id: ssa-poms-si-00820-500
+    retrieved: 2026-10-07
     url: https://secure.ssa.gov/poms.nsf/lnx/0500820500
     publisher: Social Security Administration (POMS)
     title: SI 00820.500 Earned Income Exclusions - General
@@ -120,6 +135,7 @@ sources:
     jurisdiction: federal
     doc_type: manual
   - id: ssa-poms-si-00820-510
+    retrieved: 2026-10-07
     url: https://secure.ssa.gov/poms.nsf/lnx/0500820510
     publisher: Social Security Administration (POMS)
     title: SI 00820.510 Student Earned Income Exclusion
@@ -127,6 +143,7 @@ sources:
     jurisdiction: federal
     doc_type: manual
   - id: ssa-poms-si-00835-020
+    retrieved: 2026-10-07
     url: https://secure.ssa.gov/poms.nsf/lnx/0500835020
     publisher: Social Security Administration (POMS)
     title: SI 00835.020 Definitions of Terms Used in Living Arrangements (LA) and In-Kind Support and Maintenance (ISM) Instructions
@@ -135,6 +152,7 @@ sources:
     doc_type: manual
     note: Not yet revised for the September 30, 2024 food change; still defines ISM as "food, or shelter". See conflict DIS-FED-CONFLICT-01.
   - id: ssa-poms-si-00835-200
+    retrieved: 2026-10-07
     url: https://secure.ssa.gov/poms.nsf/lnx/0500835200
     publisher: Social Security Administration (POMS)
     title: SI 00835.200 The One-Third Reduction Provision
@@ -143,6 +161,7 @@ sources:
     doc_type: manual
     note: Effective 11/14/2023 text; still says "food and shelter". Superseded on food by the 2024 final rule (fr-2024-06464) and EM-24047.
   - id: ssa-poms-si-00835-300
+    retrieved: 2026-10-07
     url: https://secure.ssa.gov/poms.nsf/lnx/0500835300
     publisher: Social Security Administration (POMS)
     title: SI 00835.300 Presumed Maximum Value (PMV) Rule
@@ -150,6 +169,7 @@ sources:
     jurisdiction: federal
     doc_type: manual
   - id: ssa-poms-si-00835-901
+    retrieved: 2026-10-07
     url: https://secure.ssa.gov/poms.nsf/lnx/0500835901
     publisher: Social Security Administration (POMS)
     title: SI 00835.901 Values for In-Kind Support and Maintenance for 2006 and Later
@@ -158,6 +178,7 @@ sources:
     doc_type: manual
   # deeming
   - id: ssa-poms-si-01320-100
+    retrieved: 2026-10-07
     url: https://secure.ssa.gov/poms.nsf/lnx/0501320100
     publisher: Social Security Administration (POMS)
     title: SI 01320.100 Items Not Included in Deeming - General
@@ -165,6 +186,7 @@ sources:
     jurisdiction: federal
     doc_type: manual
   - id: ssa-poms-si-01320-150
+    retrieved: 2026-10-07
     url: https://secure.ssa.gov/poms.nsf/lnx/0501320150
     publisher: Social Security Administration (POMS)
     title: SI 01320.150 Deeming - In-Kind Income and Deeming
@@ -172,6 +194,7 @@ sources:
     jurisdiction: federal
     doc_type: manual
   - id: ssa-poms-si-01320-400
+    retrieved: 2026-10-07
     url: https://secure.ssa.gov/poms.nsf/lnx/0501320400
     publisher: Social Security Administration (POMS)
     title: SI 01320.400 Deeming of Income from an Ineligible Spouse
@@ -179,6 +202,7 @@ sources:
     jurisdiction: federal
     doc_type: manual
   - id: ssa-poms-si-01320-430
+    retrieved: 2026-10-07
     url: https://secure.ssa.gov/poms.nsf/lnx/0501320430
     publisher: Social Security Administration (POMS)
     title: SI 01320.430 Effect of Spouse-to-Spouse Deeming on Optional State Supplementation
@@ -186,6 +210,7 @@ sources:
     jurisdiction: federal
     doc_type: manual
   - id: ssa-poms-si-01320-500
+    retrieved: 2026-10-07
     url: https://secure.ssa.gov/poms.nsf/lnx/0501320500
     publisher: Social Security Administration (POMS)
     title: SI 01320.500 Deeming of Income from Ineligible Parent(s)
@@ -193,6 +218,7 @@ sources:
     jurisdiction: federal
     doc_type: manual
   - id: ssa-poms-si-01330-110
+    retrieved: 2026-10-07
     url: https://secure.ssa.gov/poms.nsf/lnx/0501330110
     publisher: Social Security Administration (POMS)
     title: SI 01330.110 Deeming - Meeting Resource Eligibility Requirement - Policy
@@ -200,6 +226,7 @@ sources:
     jurisdiction: federal
     doc_type: manual
   - id: ssa-poms-si-01330-120
+    retrieved: 2026-10-07
     url: https://secure.ssa.gov/poms.nsf/lnx/0501330120
     publisher: Social Security Administration (POMS)
     title: SI 01330.120 Deeming - Spouse-to-Spouse Exclusions from Resources
@@ -207,6 +234,7 @@ sources:
     jurisdiction: federal
     doc_type: manual
   - id: ssa-poms-si-01330-200
+    retrieved: 2026-10-07
     url: https://secure.ssa.gov/poms.nsf/lnx/0501330200
     publisher: Social Security Administration (POMS)
     title: SI 01330.200 Deeming of Resources (parent to child)
@@ -215,6 +243,7 @@ sources:
     doc_type: manual
   # resources
   - id: ssa-poms-si-01130-100
+    retrieved: 2026-10-07
     url: https://secure.ssa.gov/poms.nsf/lnx/0501130100
     publisher: Social Security Administration (POMS)
     title: SI 01130.100 The Home Exclusion
@@ -222,6 +251,7 @@ sources:
     jurisdiction: federal
     doc_type: manual
   - id: ssa-poms-si-01130-200
+    retrieved: 2026-10-07
     url: https://secure.ssa.gov/poms.nsf/lnx/0501130200
     publisher: Social Security Administration (POMS)
     title: SI 01130.200 Automobiles and Other Vehicles Used For Transportation
@@ -229,6 +259,7 @@ sources:
     jurisdiction: federal
     doc_type: manual
   - id: ssa-poms-si-01130-300
+    retrieved: 2026-10-07
     url: https://secure.ssa.gov/poms.nsf/lnx/0501130300
     publisher: Social Security Administration (POMS)
     title: SI 01130.300 Developing Life Insurance Policies
@@ -236,6 +267,7 @@ sources:
     jurisdiction: federal
     doc_type: manual
   - id: ssa-poms-si-01130-400
+    retrieved: 2026-10-07
     url: https://secure.ssa.gov/poms.nsf/lnx/0501130400
     publisher: Social Security Administration (POMS)
     title: SI 01130.400 Burial Spaces
@@ -243,6 +275,7 @@ sources:
     jurisdiction: federal
     doc_type: manual
   - id: ssa-poms-si-01130-410
+    retrieved: 2026-10-07
     url: https://secure.ssa.gov/poms.nsf/lnx/0501130410
     publisher: Social Security Administration (POMS)
     title: SI 01130.410 Burial Funds Exclusion - August 1, 1990 and Continuing
@@ -250,6 +283,7 @@ sources:
     jurisdiction: federal
     doc_type: manual
   - id: ssa-poms-si-01130-430
+    retrieved: 2026-10-07
     url: https://secure.ssa.gov/poms.nsf/lnx/0501130430
     publisher: Social Security Administration (POMS)
     title: SI 01130.430 Household Goods, Personal Effects and Other Personal Property
@@ -257,6 +291,7 @@ sources:
     jurisdiction: federal
     doc_type: manual
   - id: ssa-poms-si-01120-210
+    retrieved: 2026-10-07
     url: https://secure.ssa.gov/poms.nsf/lnx/0501120210
     publisher: Social Security Administration (POMS)
     title: SI 01120.210 Retirement Funds
@@ -265,6 +300,7 @@ sources:
     doc_type: manual
   # state supplementation and Medicaid
   - id: ssa-poms-si-01401-001
+    retrieved: 2026-10-07
     url: https://secure.ssa.gov/poms.nsf/lnx/0501401001
     publisher: Social Security Administration (POMS)
     title: SI 01401.001 General Information about State Supplementation
@@ -272,6 +308,7 @@ sources:
     jurisdiction: federal
     doc_type: manual
   - id: ssa-poms-si-01415-010
+    retrieved: 2026-10-07
     url: https://secure.ssa.gov/poms.nsf/lnx/0501415010
     publisher: Social Security Administration (POMS)
     title: SI 01415.010 Administration of State Supplementary Programs
@@ -279,7 +316,17 @@ sources:
     jurisdiction: federal
     doc_type: manual
     note: Chart carries TN 26 (12-06). It shows New York mandatory and optional as State-administered, which may reflect a later edit of the chart (New York's optional supplement moved from SSA to OTDA on October 1, 2014). See DIS-NY-CONFLICT-01.
+  - id: ssa-poms-si-01415-057
+    retrieved: 2026-10-07
+    url: https://secure.ssa.gov/poms.nsf/lnx/0501415057
+    publisher: Social Security Administration (POMS)
+    title: SI 01415.057 Federally Administered Optional Supplementary Payment Programs for January 2025
+    kind: primary
+    jurisdiction: federal
+    doc_type: manual
+    effective_date: 2025-01-01
   - id: ssa-poms-si-01415-058
+    retrieved: 2026-10-07
     url: https://secure.ssa.gov/poms.nsf/lnx/0501415058
     publisher: Social Security Administration (POMS)
     title: SI 01415.058 Federally Administered Optional Supplementary Payment Programs for January 2026
@@ -288,6 +335,7 @@ sources:
     doc_type: manual
     effective_date: 2026-01-01
   - id: ssa-poms-si-01715-010
+    retrieved: 2026-10-07
     url: https://secure.ssa.gov/poms.nsf/lnx/0501715010
     publisher: Social Security Administration (POMS)
     title: SI 01715.010 Medicaid and the Supplemental Security Income (SSI) Program
@@ -298,6 +346,7 @@ sources:
 
   # ------------------------------------------------------- Title II disability
   - id: ssa-poms-di-00115-001
+    retrieved: 2026-10-07
     url: https://secure.ssa.gov/poms.nsf/lnx/0400115001
     publisher: Social Security Administration (POMS)
     title: DI 00115.001 Social Security Administration's (SSA) Disability Programs
@@ -305,6 +354,7 @@ sources:
     jurisdiction: federal
     doc_type: manual
   - id: ssa-poms-di-10501-015
+    retrieved: 2026-10-07
     url: https://secure.ssa.gov/poms.nsf/lnx/0410501015
     publisher: Social Security Administration (POMS)
     title: DI 10501.015 Tables of SGA Earnings Guidelines and Effective Dates Based on Year of Work Activity
@@ -312,6 +362,7 @@ sources:
     jurisdiction: federal
     doc_type: manual
   - id: ssa-poms-di-13010-035
+    retrieved: 2026-10-07
     url: https://secure.ssa.gov/poms.nsf/lnx/0413010035
     publisher: Social Security Administration (POMS)
     title: DI 13010.035 The Trial Work Period (TWP)
@@ -319,6 +370,7 @@ sources:
     jurisdiction: federal
     doc_type: manual
   - id: ssa-poms-di-13010-060
+    retrieved: 2026-10-07
     url: https://secure.ssa.gov/poms.nsf/lnx/0413010060
     publisher: Social Security Administration (POMS)
     title: DI 13010.060 Determining Trial Work Period (TWP) Service Months and Evaluating Subsequent Work Activity
@@ -326,6 +378,7 @@ sources:
     jurisdiction: federal
     doc_type: manual
   - id: ssa-poms-di-10105-070
+    retrieved: 2026-10-07
     url: https://secure.ssa.gov/poms.nsf/lnx/0410105070
     publisher: Social Security Administration (POMS)
     title: DI 10105.070 Waiting Period for Disability Insurance Benefits (DIB)
@@ -333,6 +386,7 @@ sources:
     jurisdiction: federal
     doc_type: manual
   - id: ssa-poms-rs-00301-120
+    retrieved: 2026-10-07
     url: https://secure.ssa.gov/poms.nsf/lnx/0300301120
     publisher: Social Security Administration (POMS)
     title: RS 00301.120 DIB Insured Status
@@ -340,6 +394,7 @@ sources:
     jurisdiction: federal
     doc_type: manual
   - id: ssa-poms-di-25501-300
+    retrieved: 2026-10-07
     url: https://secure.ssa.gov/poms.nsf/lnx/0425501300
     publisher: Social Security Administration (POMS)
     title: DI 25501.300 Established Onset Dates (EOD) for Disability Insurance Benefit (DIB) Claims
@@ -347,6 +402,7 @@ sources:
     jurisdiction: federal
     doc_type: manual
   - id: ssa-poms-di-11005-001
+    retrieved: 2026-10-07
     url: https://secure.ssa.gov/poms.nsf/lnx/0411005001
     publisher: Social Security Administration (POMS)
     title: DI 11005.001 Field Office Disability Interviews
@@ -354,6 +410,7 @@ sources:
     jurisdiction: federal
     doc_type: manual
   - id: ssa-poms-di-11005-020
+    retrieved: 2026-10-07
     url: https://secure.ssa.gov/poms.nsf/lnx/0411005020
     publisher: Social Security Administration (POMS)
     title: DI 11005.020 Curtailing Completion of the SSA-3368 (Disability Report-Adult) or the SSA-3820 (Disability Report - Child) Forms
@@ -361,6 +418,7 @@ sources:
     jurisdiction: federal
     doc_type: manual
   - id: ssa-poms-di-11005-055
+    retrieved: 2026-10-07
     url: https://secure.ssa.gov/poms.nsf/lnx/0411005055
     publisher: Social Security Administration (POMS)
     title: DI 11005.055 Completing Form SSA-827 (Authorization to Disclose Information to the Social Security Administration (SSA))
@@ -368,6 +426,7 @@ sources:
     jurisdiction: federal
     doc_type: manual
   - id: ssa-poms-gn-00205-038
+    retrieved: 2026-10-07
     url: https://secure.ssa.gov/poms.nsf/lnx/0200205038
     publisher: Social Security Administration (POMS)
     title: GN 00205.038 Retirement, Survivor Insurance (RSI) Applications When Claimant Alleges Disability (names the SSA-16-BK)
@@ -375,6 +434,7 @@ sources:
     jurisdiction: federal
     doc_type: manual
   - id: ssa-poms-gn-00201-005
+    retrieved: 2026-10-07
     url: https://secure.ssa.gov/poms.nsf/lnx/0200201005
     publisher: Social Security Administration (POMS)
     title: GN 00201.005 Title II and Title XVI Applications (entitlement conversions, DIB to RIB)
@@ -383,6 +443,7 @@ sources:
     doc_type: manual
     effective_date: 2026-09-10
   - id: ssa-poms-rs-00615-003
+    retrieved: 2026-10-07
     url: https://secure.ssa.gov/poms.nsf/lnx/0300615003
     publisher: Social Security Administration (POMS)
     title: RS 00615.003 Full Retirement Age
@@ -391,6 +452,7 @@ sources:
     doc_type: manual
   # appeals
   - id: ssa-poms-gn-03101-001
+    retrieved: 2026-10-07
     url: https://secure.ssa.gov/poms.nsf/lnx/0203101001
     publisher: Social Security Administration (POMS)
     title: GN 03101.001 Summary of Administrative Review Process
@@ -398,6 +460,7 @@ sources:
     jurisdiction: federal
     doc_type: manual
   - id: ssa-poms-gn-03101-010
+    retrieved: 2026-10-07
     url: https://secure.ssa.gov/poms.nsf/lnx/0203101010
     publisher: Social Security Administration (POMS)
     title: GN 03101.010 Time Limit for Filing Administrative Appeals
@@ -405,6 +468,7 @@ sources:
     jurisdiction: federal
     doc_type: manual
   - id: ssa-poms-gn-03102-200
+    retrieved: 2026-10-07
     url: https://secure.ssa.gov/poms.nsf/lnx/0203102200
     publisher: Social Security Administration (POMS)
     title: GN 03102.200 Claimant Requests Reconsideration (form SSA-561-U2)
@@ -412,6 +476,7 @@ sources:
     jurisdiction: federal
     doc_type: manual
   - id: ssa-poms-gn-03103-010
+    retrieved: 2026-10-07
     url: https://secure.ssa.gov/poms.nsf/lnx/0203103010
     publisher: Social Security Administration (POMS)
     title: GN 03103.010 The Hearing Process (form HA-501)
@@ -419,6 +484,7 @@ sources:
     jurisdiction: federal
     doc_type: manual
   - id: ssa-poms-gn-03104-100
+    retrieved: 2026-10-07
     url: https://secure.ssa.gov/poms.nsf/lnx/0203104100
     publisher: Social Security Administration (POMS)
     title: GN 03104.100 Requesting Appeals Council Review (form HA-520)

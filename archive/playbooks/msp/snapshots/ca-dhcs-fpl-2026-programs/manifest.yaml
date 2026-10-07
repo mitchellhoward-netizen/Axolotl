@@ -1,0 +1,10 @@
+- retrieved: '2026-10-07'
+  url: https://www.dhcs.ca.gov/services/medi-cal-resources/medi-cal-eligibility-division/all-county-welfare-directors-medi-cal-eligibility-division-information-letters/program-descriptions-by-fpl-enclosure-3/
+  final_url: https://www.dhcs.ca.gov/services/medi-cal-resources/medi-cal-eligibility-division/all-county-welfare-directors-medi-cal-eligibility-division-information-letters/program-descriptions-by-fpl-enclosure-3/
+  status: 200
+  content_type: html
+  text_sha256: 5e1c5884e88413df436fdf9773aa5f246c5e9aedb91090741dbf375dc3b56555
+  text: ca-dhcs-fpl-2026-programs/2026-10-07.txt
+  raw: ca-dhcs-fpl-2026-programs/2026-10-07.html
+  fetched_via: headless Chromium (Playwright) via the session proxy; dhcs.ca.gov refuses
+    scripted requests (Incapsula)

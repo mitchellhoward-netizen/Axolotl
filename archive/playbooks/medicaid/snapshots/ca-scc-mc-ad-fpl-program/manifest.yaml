@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://stgenssa.sccgov.org/debs/program_handbooks/medi-cal/assets/23ABDProg/AandDFPLProg.htm
+  final_url: https://stgenssa.sccgov.org/debs/program_handbooks/medi-cal/assets/23ABDProg/AandDFPLProg.htm
+  status: 200
+  content_type: text/html
+  text_sha256: ccedf9f067048a114e9aa7b78d0ecadeb18f640b4b56666f9b5e8a3cb30af35d
+  text: ca-scc-mc-ad-fpl-program/2026-10-07.txt
+  raw: ca-scc-mc-ad-fpl-program/2026-10-07.html

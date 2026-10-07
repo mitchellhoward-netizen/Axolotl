@@ -1,0 +1,363 @@
+Aged and Disabled Federal Poverty Level (A&D FPL) Program
+
+The Aged and Disabled Federal Poverty Level (A&D FPL) program provides zero SOC MC benefits to aged and disabled individuals who have a SOC under regular Non-MAGI MC budgeting rules. To qualify under this program, the net non-exempt income must be at or below 138% of the FPL after all applicable income deductions and disregards are applied. Eligibility is determined using Medically Needy income and property rules. The A&D FPL Program does not require a separate application. The notice of action advises that eligibility under the A&D FPL Program was evaluated and they do not qualify.
+
+Important: Applicants must be screened for the Pickle program prior to the A&D FPL program.
+
+Eligibility Criteria
+
+Qualified individuals and couples must be 65 and over or determined disabled/ presumptively disabled and not in LTC.
+
+Disabled individuals are not subject to an age limitation. Disabled children must also be evaluated for this program.
+
+Individuals who receive RSDI disability benefits, DO NOT need an additional disability referral to Disability Determination Service Division (DDSD).
+
+Referral of Blind Applicants
+
+Individuals who are blind as determined by SSI/SSP or DDSD may not be considered disabled by Title II regulations. As a result, individuals who were determined blind by SSI/SSP or DDSD and are applying for the A&D FPL program must be referred to DDSD to be evaluated for disability BEFORE benefits under the A&D FPL program can be approved.
+
+DDSD Referral
+
+When making a disability referral to DDSD on a blind individual, a FULL disability packet must be submitted. In item 10 on the “Disability Determination and Transmittal” (MC 221), the SSBS must note: “Referral is for the A&D FPL program. Applicant is currently blind and needs to be evaluated for disability”.
+
+If no comment is provided in Item 10, DDSD may return the referral without an evaluation.
+
+Scope of Benefits and Aid Codes
+
+A&D FPL program Aid Codes are determined according to an individual’s immigration status.
+
+Aid Code
+
+Description
+
+1H
+
+Full-scope FPL Aged Individuals; eligible U.S. Citizens, U.S. Nationals or immigrants with Satisfactory Immigration Status (SIS).
+
+6H
+
+Full-scope FPL Disabled Individuals. Eligible U.S. Citizens, U.S. Nationals or immigrants with SIS.
+
+1U
+
+Restricted FPL Aged Individuals. Eligible immigrants without SIS.
+
+6U
+
+Restricted FPL Disabled Individuals. Eligible immigrants without SIS.
+
+Eligibility Determination for Individuals and Couples
+
+CalSAWS evaluates the individual’s or couple’s eligibility for the A&D FPL program. If a manual determination is necessary, complete the “Aged & Disabled Federal Poverty Level Program Financial Eligibility Worksheet” (**Awaiting DHCS form number for 12/1/20 A&D FPL expansion).
+
+IHSS deductions are not allowed as a medical expense deductions.
+
+The maintenance need level for the number of ineligible family members (i.e., children and/or spouse who are ineligible for the A&D FPL) is allowed as a deduction.
+
+The following rules apply when only one spouse qualifies for the A&D FPL (i.e., the other spouse is neither aged nor disabled, OR the other spouse does not want MC, OR does not want A&D FPL so the spouse who has greater medical needs can qualify for program):
+
+Count both of their income
+
+Allow a Maintenance Need for the ineligible family member (i.e., children and/or spouse who are ineligible for the A&D FPL) as a deduction, and
+
+Use 138% FPL for one.
+
+ExampleExample
+
+A case consists of a married couple with no children. The wife is disabled and receives $900 of RSDI and her husband has unearned income of $685. Her husband is neither disabled nor aged.
+
+A&D FPL Example
+
+Couple’s Income
+
+Computation
+
+Wife’s Income (RSDI)
+
+$900
+
+Husband’s Unearned Income
+
+$685
+
+Total Income
+
+$1,585
+
+Less Income Deduction
+
+-$20
+
+Subtotal
+
+$1,565
+
+Medicare Part B premium disregard (Effective 12/1/20)
+
+$144.60
+
+Subtotal
+
+$1420.4
+
+Less MN Deduction for the IE A&D FPL Spouse
+
+-$600
+
+Subtotal
+
+$820.4
+
+138% FPL for an Individual (FPL effective 1/1/20)
+
+$1468
+
+Results: The total countable income is less than the 138 percent FPL for 2020 and the wife is eligible for the A&D FPL program.
+
+ExampleExample
+
+An aged, single individual applies for Medi-Cal on December 1st, 2020. The individual receives $1500 a month in unearned income and pays a monthly premium of $144.60 for Medicare Part B. The individual’s income is counted as follows for the A&D FPL program.
+
+Individuals Income
+
+Computation
+
+Unearned Income
+
+$1,500
+
+Less Income Deduction
+
+-$20
+
+Medicare Part B premium disregard (Effective 12/1/20)
+
+-$144.60
+
+Subtotal
+
+$1,335.40
+
+138% FPL for an Individual (FPL effective 1/1/20)
+
+$1468
+
+Results: The total countable income is below the 138 percent FPL for 2020 and the individual qualifies for the A&D FPL program. Two months later, the state begins payment of the individual’s Medicare Part B premium. While the individual is no longer paying for their Medicare Part B premium, they have still incurred the expense and thus retain the incurred Medicare Part B premium disregard. The disregard remains active during their eligibility for the A&D FPL program.
+
+ExampleExample
+
+An aged, single individual in the A&D FPL program reports an increase of income. The change in circumstances results in a redetermination of eligibility. The individual was receiving $1500 a month in unearned income but now receives $1700. The individual’s income is counted as follows for the A&D FPL program.
+
+Individuals Income
+
+Computation
+
+Unearned Income
+
+$1,700
+
+Less Income Deduction
+
+-$20
+
+Medicare Part B premium disregard (Effective 12/1/20)
+
+-$144.60
+
+Subtotal
+
+$1,535.40
+
+138% FPL for an Individual (FPL effective 1/1/20)
+
+$1468
+
+Results: The individual no longer qualifies for the A&D FPL program due to an increase in income. The individual will be evaluated for the Medically Needy program and may have a share of cost. The incurred Medicare Part B premium disregard no longer applies, as it is only applicable to the A&D FPL program. The individual will be able to deduct the Medicare Part B premium from the Medically Needy budget once the individual resumes paying for their Medicare Part B premium.
+
+ExampleExample
+
+A disabled, single individual is approved for the 250 percent Working Disabled Program in December 2019. The individual receives $1500 a month in unearned income and the state pays for the individual’s Medicare Part B premium. During the December 2020 MC redetermination, the county evaluates eligibility pursuant to the MC hierarchy. The individual will be assessed for all MC programs until found eligible. The individual’s income is counted as follows for the A&D FPL program.
+
+Individuals Income
+
+Computation
+
+Unearned
+
+$1,500
+
+Less Income Deduction
+
+-$20
+
+Total Unearned Income
+
+$1,480
+
+Earned Income
+
+$35
+
+$65 Earned Income Deduction
+
+-$65
+
+1/2 Earned Income Deduction
+
+-$0
+
+Medicare Part B premium disregard (effective 12/1/20)
+
+-$144.60
+
+Subtotal
+
+$1,335.4
+
+138% FPL for an Individual (FPL effective 1/1/20)
+
+$1468
+
+Results: The total countable income is less than the 138 percent FPL for 2020 and individual now qualifies for the ABD FPL program.
+
+Eligibility For Couples that Fail the First Income Test
+
+Couples whose income exceeds the A&D FPL program limit must be screened and a second budget completed. In this second computation, each spouse is screened individually.
+
+Second Budget
+
+On the second budget, one spouse is screened for the A&D FPL program and the other spouse is considered an ineligible (IE) A&D FPL spouse.The couple can decide which spouse will benefit the most (the spouse who has greater medical needs). A Maintenance Need allocation of $600 is allowed for the needs of the IE A&D FPL spouse. However, only one individual from the couple can be eligible for the program.
+
+Both Spouse’s income will be counted
+
+The A&D FPL income disregard for an individual is used
+
+The 138%FPL for one individual is used.
+
+Switching Status
+
+Couples where both spouses are aged/disabled have the option of switching status between either spouse when both do not qualify together as a couple. There must be a lapse of at least one month of eligibility before an eligible spouse can switch status with the other spouse. The couple must notify the SSBS prior to MEDS cutoff for eligibility to take effect on the first of the following month. If not, eligibility would occur in the future-future month.
+
+ExampleExample
+
+The following is an example of an aged couple. Both are applying for the A&D FPL program but did not pass the first income test; however, one of them passed the second test (still applying as a couple). The husband receives $1,160 from his pension and his wife $1,150 from Social Security Retirement.
+
+A&D FPL First Income Test:
+
+Aged Couple’s Income
+
+Computation
+
+Husband’s Income (Pension)
+
+$1,160
+
+Wife’s Income (SSA)
+
+$1,150
+
+Total Income
+
+$2,310
+
+Less Income Deduction
+
+-$20
+
+Subtotal
+
+$2,290
+
+Less Medicare Part B premium disregards
+
+-$289.2
+
+Subtotal
+
+$2,000.8
+
+138% FPL for a Couple (effective 1/1/20)
+
+$1,983
+
+Not eligible for A&D FPL as a couple
+
+A&D FPL Second Income Test:
+
+Aged Couple’s Income (Second Test)
+
+Computation
+
+Husband’s Income (SSA)
+
+$1,160
+
+Wife’s Income (SSA)
+
+$1,150
+
+Total Income
+
+$2,310
+
+Less Income Deduction
+
+-$20
+
+Subtotal
+
+$2,290
+
+Less Medicare Part B premium disregards
+
+-$289.20
+
+Subtotal
+
+$2,000.80
+
+Less MN Deduction for IE A&D FPL Spouse
+
+-$600
+
+Subtotal
+
+$1,400.8
+
+138% FPL for an Individual (FPL effective 1/1/20)
+
+$1468
+
+Results: The total countable income is less than the 138 percent FPL for 2020 and 1 Spouse is eligible for the A&D FPL program. MC eligibility for the ineligible A&D FPL spouse must be explored under another MC program.
+
+January COLA
+
+The Social Security Cost-of-Living Allowance (COLA) increase in January must be disregarded each year until the effective FPL increases are issued in April.
+
+Note: The COLA increase in Social Security benefits which is received in January is to be disregarded for ALL FEDERAL POVERTY LEVEL PROGRAMS from January through March, if applying the increase will make the individual/couple ineligible for those programs.
+
+MFBU Requirements
+
+If A&D FPL qualified individuals have other family members applying for MC, ALL of the income of the ineligible A&D FPL family member is used. The A&D FPL family member is considered a part of the MFBU for purposes of determing the maintenance need level.
+
+Notices of Action (NOA) Requirements
+
+Approval of Benefits
+
+An approval must be issued when an aged or disabled individual is eligible for A&D FPL.
+
+Discontinuance of Benefits
+
+A proper 10-day NOA is required when discontinuing individuals from the A&D FPL program due either of the following reasons:
+
+Increased income
+
+An individual is no longer disabled.
+
+Related Topics
+
+Pickle Amendment - Lynch v. Rank
+
+Pickle Definitions
+
+Treatment of Income for Pickle

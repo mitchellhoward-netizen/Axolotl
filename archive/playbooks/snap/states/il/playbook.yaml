@@ -1,0 +1,366 @@
+schema_version: 2
+program: snap
+scope: il
+title: SNAP — Illinois
+last_researched: 2026-10-07
+
+summary:
+  plain_language: >-
+    Illinois SNAP (benefits on the Illinois Link card) uses the federal net
+    income limit, allotments, shelter cap and resource limits, and adds:
+    categorical eligibility with no resource test for households with gross
+    income up to 165% of the poverty level ($2,152 a month for one person
+    October 2025 - September 2026, $2,195 from October 2026), or up to 200%
+    ($2,608, then $2,660) when a member is 60+ or disabled; a $185 Standard
+    Medical Deduction for older or disabled members with more than $35 of
+    medical costs; four utility standards (Air Conditioning/Heating $546,
+    then $565); its own standard deduction ($205, then $213, for 1-3 people,
+    $4 under the federal table); and child support paid excluded from income.
+    Since October 2025 most households recertify every 6 months; elderly and
+    disabled households without earnings get 24-month certification (EDSRP).
+    Apply online through ABE or at a Family Community Resource Center.
+  administered_by: Illinois Department of Human Services (IDHS), Division of Family and Community Services, through local Family Community Resource Centers (FCRCs).
+  funded_by: Federal benefits; administrative costs shared by the federal government and the state.
+  local_names:
+    - {name: Link card, meaning: Illinois EBT card}
+    - {name: ABE, meaning: Application for Benefits Eligibility (online portal)}
+    - {name: FCRC, meaning: Family Community Resource Center (local IDHS office)}
+    - {name: Qualifying member, meaning: "IDHS term for an elderly (60+) or disabled member"}
+    - {name: EDSRP, meaning: Elderly and/or Disabled Simplified Redetermination Demonstration Project}
+    - {name: REDE / EZ REDE, meaning: Redetermination (recertification) with / without interview}
+    - {name: IES, meaning: Integrated Eligibility System}
+  confidence: confirmed
+  sources:
+    - {source: il-idhs-snap-page, locator: "whole page"}
+    - {source: il-idhs-mr-26-26, locator: "Summary"}
+    - {source: il-idhs-mr-26-15, locator: "Summary"}
+
+rules:
+  - id: SNAP-IL-STANDARDS
+    statement: >-
+      Illinois SNAP uses the federal net income limit ($1,305 for one person
+      October 2025 - September 2026, $1,330 from October 2026), maximum
+      allotments ($298, then $306 for one person), minimum benefit ($24, then
+      $25), maximum excess shelter deduction ($744, then $769) and resource
+      limits ($3,000; $4,500, then $4,750 with a qualifying member).
+    kind: definition
+    effective_from: 2025-10-01
+    parameters: [federal.snap.net_income_limit_monthly, federal.snap.max_allotment_monthly, federal.snap.min_benefit_monthly, federal.snap.excess_shelter_cap_monthly, federal.snap.resource_limit]
+    implemented_in: playbooks/snap/states/il/rules.py:evaluate
+    confidence: confirmed
+    sources:
+      - {source: il-idhs-mr-25-33, locator: "SNAP Standards; Maximum Monthly Income Eligibility Standards"}
+      - {source: il-idhs-mr-26-26, locator: "SNAP Standard; Maximum SNAP Benefit Amounts; Minimum SNAP Benefits"}
+  - id: SNAP-IL-BBCE
+    statement: >-
+      In Illinois, a SNAP household without a qualifying (60+ or disabled)
+      member and without an IPV-disqualified or work-sanctioned member is
+      categorically eligible if gross income is at or below 165% of the poverty
+      level ($2,152 for one person, $2,909 for two, $4,421 for four, October
+      2025 - September 2026; $2,195, $2,976 and $4,538 from October 1, 2026):
+      no resource test and no net income test apply, and one- and two-person
+      households get at least the minimum benefit.
+    kind: eligibility
+    effective_from: 2025-10-01
+    parameters: [il.snap.bbce_gross_income_limit_monthly]
+    overrides: [SNAP-FED-BBCE, SNAP-FED-GROSS-TEST]
+    implemented_in: playbooks/snap/states/il/rules.py:bbce
+    confidence: confirmed
+    sources:
+      - {source: il-idhs-wag-13-01-01, locator: "Compare gross income to the Gross Income Standard ... A SNAP household of one or two members receive a monthly minimum benefit amount"}
+      - {source: il-idhs-wag-13-01-01-b, locator: "NOTE: The net income test does not apply to Categorically Eligible households"}
+      - {source: il-idhs-mr-25-33, locator: "Maximum Gross Income Standards 165% FPL"}
+      - {source: il-idhs-mr-26-26, locator: "Maximum Gross Income Standards 165% FPL"}
+      - {source: fns-snap-bbce-chart, locator: "Illinois: All households are eligible ... No limit on assets; 165%"}
+  - id: SNAP-IL-BBCE-QM
+    statement: >-
+      In Illinois, a SNAP household with a qualifying member (aged 60+ or
+      disabled) is categorically eligible, with no resource test and no net
+      income test, if gross income is at or below 200% of the poverty level
+      ($2,608 for one person, $3,525 for two, October 2025 - September 2026;
+      $2,660 and $3,607 from October 1, 2026); above that it may still qualify
+      by meeting the net income test and the resource limit.
+    kind: eligibility
+    effective_from: 2025-10-01
+    parameters: [il.snap.bbce_qm_gross_income_limit_monthly]
+    overrides: [SNAP-FED-BBCE]
+    implemented_in: playbooks/snap/states/il/rules.py:bbce
+    confidence: confirmed
+    sources:
+      - {source: il-idhs-mr-25-33, locator: "The SNAP 200% FPL Gross Income Standards ... are used to determine categorical eligibility for qualifying member households"}
+      - {source: il-idhs-wag-13-01-01, locator: "SNAP household with a Qualifying Member with Income Over Gross ... do not deny but determine net monthly income"}
+      - {source: il-idhs-snap-page, locator: "Gross Monthly Income Limit (For those Age 60 or older OR Disabled) (200% FPL)"}
+  - id: SNAP-IL-STANDARD-DEDUCTION
+    statement: >-
+      Illinois budgets a SNAP standard deduction of $205 a month for 1-3
+      people, $219 for 4, $257 for 5 and $295 for 6 or more (October 2025 -
+      September 2026), and $213, $225, $264 and $304 from October 1, 2026,
+      which is $4 less than the federal table for every size.
+    kind: benefit
+    effective_from: 2025-10-01
+    parameters: [il.snap.standard_deduction_monthly]
+    overrides: [SNAP-FED-STANDARD-DEDUCTION]
+    implemented_in: playbooks/snap/federal/rules.py:budget
+    confidence: confirmed
+    note: The reason for the $4 difference is not stated by IDHS (see SNAP-IL-CONFLICT-01).
+    sources:
+      - {source: il-idhs-mr-25-33, locator: "The Standard Deduction amount by SNAP household size"}
+      - {source: il-idhs-mr-26-26, locator: "Standard Deductions"}
+      - {source: il-idhs-wag-25-03-02-1, locator: "SNAP Standard Deductions (10/26)"}
+  - id: SNAP-IL-SMD
+    statement: >-
+      In Illinois, a SNAP household with a qualifying member (60+ or disabled)
+      living in the community that verifies more than $35 a month of medical
+      costs gets a Standard Medical Deduction of $185 a month, or its actual
+      costs over $35 if it verifies that they are higher (group home and CILA
+      residents have a separate standard).
+    kind: benefit
+    effective_from: 2021-12-01
+    parameters: [il.snap.standard_medical_deduction_monthly]
+    overrides: [SNAP-FED-MEDICAL]
+    implemented_in: playbooks/snap/states/il/rules.py:medical_deduction
+    confidence: confirmed
+    note: The evaluator allows the larger of $185 and actual costs over $35; the Administrative Code copy disagrees on the amount (SNAP-IL-CONFLICT-02).
+    sources:
+      - {source: il-idhs-wag-13-01-05, locator: "The Standard Medical Deduction for all other eligible Food Assistance households is $185; Using Actual Medical Expenses Instead of a Standard Medical Deduction"}
+      - {source: il-idhs-pm-13-01-05, locator: "Standard Medical Deductions; Actual Medical Expenses"}
+      - {source: il-idhs-wag-25-03-02-1, locator: "Standard Medical Deduction ... $185 (12/21)"}
+  - id: SNAP-IL-UTILITY
+    statement: >-
+      In Illinois, SNAP uses four utility standards: Air Conditioning/Heating
+      $546 a month (October 2025 - September 2026) and $565 (from October 1,
+      2026) for households billed for heat or air conditioning; Limited Utility
+      $457, then $472, for at least two other utilities (a phone can be one);
+      Single Utility $78, then $80, for one non-phone utility; and Telephone
+      $67, then $69.
+    kind: benefit
+    effective_from: 2025-10-01
+    parameters: [il.snap.utility_standards_monthly]
+    overrides: [SNAP-FED-SUA]
+    implemented_in: playbooks/snap/states/il/rules.py:utility_allowance
+    confidence: confirmed
+    sources:
+      - {source: il-idhs-pm-13-01-08-b, locator: "Allow the SNAP household one of the following utility standards"}
+      - {source: il-idhs-mr-25-33, locator: "SNAP Utility Standards"}
+      - {source: il-idhs-mr-26-26, locator: "SNAP Utility Standards"}
+  - id: SNAP-IL-LIHEAP-SUA
+    statement: >-
+      In Illinois, since September 26, 2025, a LIHEAP payment of $21 or more
+      (in the month of application or the last 12 months) qualifies a SNAP
+      household for the Air Conditioning/Heating Standard only if it has a
+      qualifying member (60+ or disabled); households without one keep it
+      until their next redetermination or a reported utility change.
+    kind: benefit
+    effective_from: 2025-09-26
+    implemented_in: playbooks/snap/states/il/rules.py:utility_allowance
+    confidence: confirmed
+    sources:
+      - {source: il-idhs-mr-25-33, locator: "SNAP Households with LIHEAP"}
+      - {source: il-idhs-pm-13-01-08-b, locator: "a Qualifying Member in the SNAP household receives or has received a LIHEAP payment of $21 or more"}
+  - id: SNAP-IL-CHILD-SUPPORT
+    statement: >-
+      In Illinois, court-ordered child support paid by a SNAP household member
+      is excluded from gross monthly income (including for the gross income
+      test) and is not also allowed as a deduction.
+    kind: benefit
+    effective_from: 2025-10-01
+    overrides: [SNAP-FED-CHILD-SUPPORT]
+    implemented_in: playbooks/snap/federal/rules.py:budget
+    confidence: confirmed
+    sources:
+      - {source: il-idhs-pm-13-01-07, locator: "All court-ordered child support payments are treated as an income exclusion ... It is not allowed as an income deduction"}
+  - id: SNAP-IL-SHELTER
+    statement: >-
+      In Illinois, the SNAP excess shelter deduction is total shelter costs
+      (housing plus the utility standard) above 50% of adjusted income, capped
+      at $769 from October 2026 ($744 before) for households without a
+      qualifying member and uncapped for households with one.
+    kind: benefit
+    effective_from: 2025-10-01
+    parameters: [federal.snap.excess_shelter_cap_monthly]
+    implemented_in: playbooks/snap/federal/rules.py:budget
+    confidence: confirmed
+    sources:
+      - {source: il-idhs-pm-13-01-08, locator: "Excess Shelter Deduction for Households without / with a Qualifying Member"}
+  - id: SNAP-IL-CERTIFICATION
+    statement: >-
+      In Illinois, since October 22, 2025, SNAP households are certified for 6
+      months, alternating redeterminations with an interview (IL444-1893) and
+      "EZ REDEs" without one (IL444-1894); households in which all adults are
+      60+ or disabled and that have no earned income are certified for 24
+      months under the EDSRP demonstration, with no interview at
+      redetermination.
+    kind: timing
+    effective_from: 2025-10-22
+    confidence: confirmed
+    sources:
+      - {source: il-idhs-mr-26-15, locator: "Summary; SNAP Six-Month Redetermination Process; table of forms"}
+      - {source: il-idhs-mr-25-28, locator: "Summary; Who is in EDSRP?"}
+  - id: SNAP-IL-ABAWD
+    statement: >-
+      In Illinois, ABAWDs aged 18-64 without a child aged 13 or younger in the
+      household who are not exempt must work or take part in a work program 80
+      hours a month; February 2026 was the first month that could count toward
+      the 3-month limit (the statewide waiver ran through January 31, 2026),
+      and a person becomes exempt in the month of their 65th birthday.
+    kind: eligibility
+    effective_from: 2026-02-01
+    confidence: confirmed
+    sources:
+      - {source: il-idhs-mr-26-03, locator: "Change to Age Related Exemption; End of SNAP Work Requirement Waiver"}
+  - id: SNAP-IL-MEDICAL-VERIFY
+    statement: >-
+      In Illinois, at each SNAP redetermination workers must re-verify medical
+      expenses that are new, that changed by more than $25, or whose proof is
+      60 days old or older; an expense the household does not verify is not
+      deducted.
+    kind: procedure
+    effective_from: 2026-02-19
+    confidence: confirmed
+    sources:
+      - {source: il-idhs-mr-26-06, locator: "Verification of Medical Expenses; Outdated Medical Expenses"}
+      - {source: il-idhs-pm-19-03-04, locator: "Verification of Medical Expenses"}
+
+procedure:
+  applications:
+    - id: SNAP-IL-PROC-FORM
+      text: Initial applications use form IL444-2378B (or IL444-0683); apply online through ABE or at the local Family Community Resource Center; an interview is required at initial application.
+      form_number: IL444-2378B / IL444-0683
+      channel: any
+      confidence: confirmed
+      note: Form titles were not captured; numbers come from the MR 26.15 table.
+      sources: [{source: il-idhs-mr-26-15, locator: "table: Initial Application (6-month cert period) IL444-2378 B or IL444-0683, Interview Required"}, {source: il-idhs-snap-page, locator: "Apply For Cash, SNAP & Medical Assistance; ABE Customer Support"}]
+  timelines:
+    - id: SNAP-IL-TIME-VERIFY
+      text: Households have 10 calendar days to return requested verifications (Verification Checklist IL444-0267); an approved case must get benefits within 30 days of application or 10 days after the information arrives, whichever is later.
+      duration: 10 days for verifications
+      confidence: confirmed
+      sources: [{source: il-idhs-pm-19-03-04, locator: "Allow the customer 10 calendar days ... 30 calendar days after the date of application"}]
+    - id: SNAP-IL-TIME-EXPEDITED
+      text: Emergency (expedited) SNAP benefits are ready in 5 days or less from the application date.
+      duration: 5 days
+      confidence: confirmed
+      sources: [{source: il-idhs-snap-page, locator: "Emergency SNAP Benefits are benefits that are ready in 5 days or less"}]
+  approval_notice:
+    - id: SNAP-IL-NOTICE
+      text: IDHS sends a Notice of Decision with eligibility, certification period, benefit amount and reporting rules.
+      confidence: confirmed
+      sources: [{source: il-idhs-mr-25-28, locator: "The household receives a Notice of Decision"}]
+  renewal:
+    - id: SNAP-IL-RENEW
+      text: The redetermination form (IL444-1893, or the no-interview EZ REDE IL444-1894) is mailed about 60 days before the certification period ends; EDSRP households renew every 24 months without an interview.
+      confidence: confirmed
+      sources: [{source: il-idhs-mr-26-15, locator: "centrally mailed ... 60 days prior"}, {source: il-idhs-mr-25-28, locator: "approximately 60 days prior to the end of their certification period"}]
+  county_variation:
+    - id: SNAP-IL-COUNTY
+      text: Illinois SNAP is state-administered by IDHS; rules and amounts are statewide, and local FCRCs handle interviews and in-person filing.
+      confidence: confirmed
+      sources: [{source: il-idhs-snap-page, locator: "Your application must be reviewed by IDHS staff at the Family Community Resource Center"}]
+
+life_events:
+  - id: SNAP-IL-LE-TURN-60
+    code: turning_65
+    event: A member turns 60 (the shared code is turning_65)
+    why: The household becomes a qualifying-member household (200% categorical limit, $185 SMD, uncapped shelter) and may qualify for 24-month EDSRP certification.
+    check_rules: [SNAP-IL-BBCE-QM, SNAP-IL-SMD, SNAP-IL-CERTIFICATION]
+    confidence: confirmed
+    sources: [{source: il-idhs-mr-25-28, locator: "A person is considered age 60 in the month they become 60 years old."}]
+  - id: SNAP-IL-LE-TURN-65
+    code: turning_65
+    event: A member turns 65
+    why: Exempt from the ABAWD work requirement from the month of the 65th birthday.
+    check_rules: [SNAP-IL-ABAWD]
+    confidence: confirmed
+    sources: [{source: il-idhs-mr-26-03, locator: "A customer will become exempt in the month of their 65th birthday."}]
+  - id: SNAP-IL-LE-MSP
+    code: benefit_change
+    event: MSP approval starts paying the Part B premium
+    why: "If the remaining medical costs still exceed $35 the $185 SMD continues; if Part B was the only cost, the deduction ends at the next redetermination, where medical expenses must be re-verified."
+    check_rules: [SNAP-IL-SMD, SNAP-IL-MEDICAL-VERIFY]
+    confidence: confirmed
+    sources: [{source: il-idhs-wag-13-01-05, locator: "Standard Medical Deductions"}, {source: il-idhs-mr-26-06, locator: "Verification of Medical Expenses"}]
+  - id: SNAP-IL-LE-RENEWAL
+    code: renewal_due
+    event: 6-month redetermination (or 24-month for EDSRP)
+    why: Missing a redetermination stops benefits; medical costs are re-verified then.
+    check_rules: [SNAP-IL-CERTIFICATION, SNAP-IL-MEDICAL-VERIFY]
+    confidence: confirmed
+    sources: [{source: il-idhs-mr-26-15, locator: "Summary"}]
+
+outcome_proof:
+  - id: SNAP-IL-PROOF-NOTICE
+    evidence: IDHS Notice of Decision
+    shows: SNAP approval, benefit amount and certification period (EDSRP households see a 24-month period).
+    confidence: confirmed
+    sources: [{source: il-idhs-mr-25-28, locator: "Notice of Change (IL444-0360c) was revised to show a 24-month certification period"}]
+
+links:
+  - id: SNAP-IL-LINK-MSP
+    playbook: msp
+    rules: [SNAP-IL-SMD, SNAP-FED-MSP-PART-B]
+    relation: In Illinois a member whose only medical cost is the $202.90 Part B premium gets the $185 SMD; MSP approval ends it (unless other medical costs stay above $35).
+    test: SNAP-X-01
+    confidence: confirmed
+    sources: [{source: il-idhs-wag-13-01-05, locator: "Standard Medical Deductions"}]
+
+open_questions:
+  - id: SNAP-IL-OQ-01
+    priority: medium
+    question: Why is the Illinois standard deduction $4 below the FNS table (an SMD cost-neutrality offset, like California's $4 SUA offset?), and is it approved by FNS?
+    why_it_matters: Changes every Illinois benefit by about $1-2 a month; explains a PolicyEngine difference.
+    checked: [IDHS MR 25.33, MR 26.26, WAG 25-03-02 (1), FNS FY 2026 SUA table (IL SMD offset 0)]
+    affects: [il.snap.standard_deduction_monthly]
+    status: open
+  - id: SNAP-IL-OQ-02
+    priority: medium
+    question: Is the Illinois community Standard Medical Deduction $185 (IDHS manual and chart) or $150 with actual costs above $185 (Illinois Administrative Code 89 IAC 121.63 as copied by Cornell LII)?
+    why_it_matters: $35 a month of deduction (about $10 of benefit) for every older or disabled household with medical costs.
+    checked: [IDHS WAG 13-01-05, WAG 25-03-02 (1), Cornell LII copy of 89 IAC 121.63; ilga.gov unreachable]
+    affects: [il.snap.standard_medical_deduction_monthly, SNAP-IL-SMD]
+    status: open
+
+conflicts:
+  - id: SNAP-IL-CONFLICT-01
+    topic: Illinois standard deduction vs the FNS table
+    claims:
+      - source: il-idhs-mr-26-26
+        locator: "Standard Deductions"
+        says: "1-3 persons $213; 4 $225; 5 $264; 6+ $304 (FY 2027); MR 25.33: $205/$219/$257/$295 (FY 2026)."
+      - source: fns-snap-fy27-allotments-deductions
+        locator: "Table 2"
+        says: "48 States & DC: $217 / $229 / $268 / $308 (FY 2027); FY 2026 table $209 / $223 / $261 / $299."
+    handling: The archive budgets Illinois cases with IDHS's figures (what IES uses) and keeps the federal table for New York and California; reason open (SNAP-IL-OQ-01).
+    affects: [il.snap.standard_deduction_monthly, SNAP-IL-STANDARD-DEDUCTION]
+    status: open
+  - id: SNAP-IL-CONFLICT-02
+    topic: Illinois Standard Medical Deduction amount
+    claims:
+      - source: il-idhs-wag-13-01-05
+        says: The Standard Medical Deduction is $185 ($485 for group home/CILA residents); actual expenses may be used when they exceed the standard.
+      - source: il-admin-code-89-121-63-lii
+        locator: "(c) medical deduction"
+        says: The standard medical deduction is $450 for group home residents and $150 for all other households; households with expenses over $485 / $185 may claim actual costs over $35.
+      - source: il-idhs-wag-13-01-05
+        locator: "Example 4"
+        says: "A CILA resident is allowed the Standard Medical Deduction of $450."
+    handling: The archive uses $185 from the current IDHS chart and manual (dated 12/21), which IES applies; the Administrative Code copy is secondary and may be out of date.
+    affects: [il.snap.standard_medical_deduction_monthly]
+    status: open
+
+claims_checked:
+  - claim: Illinois BBCE threshold.
+    verdict: verified
+    detail: 165% FPL for all households, 200% FPL for households with a qualifying (60+/disabled) member; no asset test and no net income test for categorically eligible households.
+    sources: [{source: il-idhs-mr-26-26, locator: "Maximum Monthly Income Eligibility Standards"}]
+  - claim: Illinois has a Standard Medical Deduction.
+    verdict: partly_verified
+    detail: IDHS says $185 (community) and $485 (group homes); the Administrative Code copy says $150/$450 (conflict SNAP-IL-CONFLICT-02).
+    sources: [{source: il-idhs-wag-13-01-05, locator: "Standard Medical Deductions"}]
+  - claim: Illinois SUA 2026.
+    verdict: verified
+    detail: "AC/Heating $546, Limited $457, Single $78, Telephone $67 from October 2025; $565 / $472 / $80 / $69 from October 2026."
+    sources: [{source: il-idhs-mr-26-26, locator: "SNAP Utility Standards"}]
+  - claim: Illinois ABE application, paper form number, interviews, ESAP-type project, recertification.
+    verdict: partly_verified
+    detail: ABE online, IL444-2378B / IL444-0683 paper forms, interview at application; Illinois has EDSRP (24-month certification, no redetermination interview), not an ESAP by that name; regular households are on 6-month certification since October 22, 2025.
+    sources: [{source: il-idhs-mr-26-15, locator: "table"}, {source: il-idhs-mr-25-28, locator: "Summary"}]

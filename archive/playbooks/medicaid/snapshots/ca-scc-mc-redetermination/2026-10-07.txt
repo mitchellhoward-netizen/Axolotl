@@ -1,0 +1,373 @@
+Redetermination
+
+Individuals eligible for Medi-Cal (MC) are required to complete a redetermination annually and may be required at other times in accordance with general standards established by the Department of Health Care Services (DHCS).
+
+The client must not be requested to provide information that is not relevant to ongoing eligibility or that has already been provided with respect to eligibility criteria not subject to change (i.e. date of birth, social security number, or U.S. citizenship).
+
+Frequency & Timeliness
+
+Individuals or families receiving MC must have an eligibility redetermination (RD) within 12 months of:
+
+An approval of eligibility on any application, reapplication, or restoration that requires a Statement of Facts, or
+
+The last annual RD, or
+
+A (CIC) that triggers an eligibility redetermination.
+
+The first RD must be completed by the last day of the twelfth month counting from the application month as the first month of eligibility. Each RD date after that is set for 12 months.
+
+If the client submits the MC RD on the last day of the 12th month, it is considered timely.
+
+The client is not required to complete the RD sooner than the eleventh month following the initial application, reapplication or most recent RD.
+
+The RD due month does not change if the RD is completed early.
+
+Note: Each case record must contain adequate information with supporting documents to verify an individual's eligibility. All reported eligibility information must be consistent with verifications, case history, and case documents.
+
+MC RD Due Date
+
+The annual MC RD due date is set from the first day of the application month in most cases. The following five examples describe when the RD is due in specific situations.
+
+Example: Applicant is eligible from the first day of the application month
+
+Application date
+
+1/21/2016
+
+Application approved
+
+2/15/2016 (MC eligibility is effective 1/2016)
+
+Eligibility effective date
+
+1/1/2016
+
+12th month ends (RD due)
+
+12/31/2016
+
+Initial 12-month Period
+
+1/2016
+
+2/2016
+
+3/2016 to 11/2016
+
+12/2016
+
+Month 1
+
+Month 2
+
+Months 3 to 11
+
+Month12
+
+Application Month
+
+Approval Month
+
+RD Due Month
+
+Eligible
+
+Eligible
+
+Eligible
+
+Eligible
+
+New 12-month Period
+
+New 12 month period begins
+
+1/2017
+
+Next MC RD due
+
+12/2017
+
+Example: Applicant is eligible for retroactive benefits
+
+The RD due month is set from the application month, even if the person is granted retroactive benefits for any of the three months before the application month.
+
+Application date
+
+1/21/2016
+
+Retro MC Requested
+
+11/2015 & 12/2015
+
+Application approved on
+
+2/12/2016 (MC eligibility effective 11/2015)
+
+Eligibility exists for both Retro months (11/2015 & 12/2015) and application month (1/2016)
+
+12th month ends (RD due)
+
+12/31/2016
+
+Initial 12-Month Period with Retroactive Months
+
+11/2015
+
+12/2015
+
+1/2016
+
+2/2016
+
+3/2016 to 11/2016
+
+12/2016
+
+Retro Month
+
+Retro Month
+
+Month 1
+
+Month 2
+
+Months 3 to 11
+
+Month 12
+
+Retro Eligibility
+
+Retro Eligibility
+
+Application Month Eligible
+
+Approval Month Eligible
+
+Eligible
+
+First RD Due
+
+The retroactive months of 11/2015 and 12/2015 are not counted in the 12-month period because the application was received in 1/2016. The new 12 month period is 1/2016 - 12/2016.
+
+Example: Applicant is not eligible in the month of application
+
+If the applicant does not meet all of the eligibility criteria during the month of application, the RD month is set from the first month in which the applicant meets all eligibility criteria. The first month in which the applicant meets all eligibility criteria is the initial month of eligibility. For example, a Non-MAGI MC applicant who has excess property in the month of application will have to spend down before eligibility criteria are met..
+
+Application date
+
+1/21/2017
+
+No eligibility for 1/2017 & 2/2017
+
+Application approved on
+
+3/2/2017 (MC eligibility effective for 3/2017 & forward)
+
+Initial month of eligibility
+
+3/2017
+
+12th month ends (RD due)
+
+2/2018
+
+Initial 12-month Period
+
+01/2017
+
+02/2017
+
+03/2017
+
+04/2017 to 01/2018
+
+02/2018
+
+MC ineligible
+
+MC ineligible
+
+First Eligible Month
+
+Eligible
+
+First RD due
+
+New 12-month Period
+
+New 12 month period begins
+
+3/2017 - 2/2018
+
+Next MC RD due
+
+2/2018
+
+Example: Family members have different initial eligibility dates
+
+There are situations where one application covers one or more tax households and/or household members who are eligible in the month of application, and others who do not meet eligibility criteria until a later month or are added to the case during the 12-month period.
+
+In these situations, the household members who were determined eligible first will set the MC RD due date for all household members in the case. New members who are added to the case do not get their own separate MC RD due date from other members already in the case. The change in income is considered a Change in Circumstance (CIC).
+
+Application date
+
+1/21/2016
+
+Application approved for two children in OTLIC program
+
+1/2016
+
+Parents are not eligible for MAGI MC in 1/2016 due to income. Parents report decreased income in 2/2016
+
+Parents become eligible for MAGI MC due to decreased income
+
+2/2016
+
+Original 12th month ends
+
+12/31/2016
+
+Original MC RD due for all household members
+
+12/2016
+
+New MC RD due date because of CIC (Report of decreased income allows the parents to receive MC eligibility)
+
+2/2017
+
+Initial 12-month Period
+
+1/2016
+
+2/2016
+
+3/2016 to 11/2016
+
+12/2016
+
+2/2017
+
+Month 1
+
+Month 2
+
+Months 3 to 11
+
+Month 12
+
+Application Month; Children are eligible; Parents are over income for MAGI MC.
+
+Parents are eligible due to less income
+
+All household members are eligible
+
+MC RD due for parents & children
+
+New MC RD due date because of CIC
+
+New 12-month Period
+
+New 12 month period begins
+
+2/2016 - 2/2017
+
+Next MC RD due
+
+2/2017
+
+Example: A household with two children eligible for the CEC program and a third child moves into the home
+
+The household now has three children with different CEC periods.
+
+Application date for parents (Aria & Enzo), child #1 (Lucas) & child #2 (Emma)
+
+1/21/2016
+
+Application approved
+
+2/2/2016 (MC eligibility effective 1/2016)
+
+Child #3 (Chloe) was on MC in another household with a CEC period from
+
+4/2016 - 3/2017
+
+Chloe moves into the home
+
+5/2016
+
+Original MC RD due
+
+12/2016
+
+New MC RD due date because of CIC (Adding Chloe to the home)
+
+5/2017
+
+CEC period for Chloe, Lucas & Emma
+
+6/2016 - 5/2017
+
+New MC RD due date because of CIC (Adding Chloe to the home)
+
+5/2017
+
+MC RD and CalWORKs
+
+MC RD Date when the CalWORKs Case is Discontinued
+
+When a client is discontinued from CW for failure to complete the annual RD, the individuals are placed into aid code 38 pending a MC only determination. During this timeframe:
+
+The case will have an overdue annual RD while the clients continue to receive MC benefits.
+
+Follow the ex parte process (all available information within 90 days can be used to make a MC eligibility evaluation).
+
+If there is not enough information from the ex parte process to complete a MC eligibility determination, then mail out the appropriate MC RD forms to the client during the month after the CW case is discontinued using the same procedures required for processing a MC RD.
+
+Transition the case to ACA (if necessary).
+
+The client must be given at least 30 days to return the MC RD forms or provide the requested information. The ex parte process applies if the MC RD forms are returned or the information is provided timely, but are incomplete.
+
+Upon completion of the MC RD, a new 12-month period is set as follows:
+
+10/2016
+
+11/2016
+
+12/2016
+
+1/2017
+
+2/2017 to 11/2017
+
+12/2017
+
+CW RD disc. for no RD
+
+MC RD pending (aid code 38)
+
+MC RD completed (aid code 38)
+
+New 12-Month period begins
+
+MC eligible
+
+MC RD Due
+
+Note: If there are children in this household, the CEC period for the children is 1/2016 - 12/2016.
+
+MC RD and Former Foster Youth
+
+Former Foster Youth (FFY) clients do not have to meet income and property rules and do not have a SOC. The only requirements for an annual MC RD under the FFY program is confirmation of:
+
+The FFY wants MC to continue, and
+
+California residency.
+
+SSBS may obtain this information by contacting the client by telephone or mailing the MC 250A.
+
+FFY should not receive any of the MC RD forms such as MC 216, MC 210 RV, etc., unless they are part of a household where other household members must complete a Non-Foster Care MC evaluation to continue their MC benefits.
+
+FFY up to age 26 must not be discontinued due to a loss of contact or for not responding to the county at annual MC RD.
+
+Related Topics

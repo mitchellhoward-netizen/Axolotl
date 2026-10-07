@@ -1,0 +1,234 @@
+Skip to content
+
+Program Operations Manual System (POMS)
+
+Effective Dates: 02/07/2017 - Present
+Previous | Next
+
+TN 10 (08-23)
+
+GN 03102.200 Claimant Requests Reconsideration
+
+A. Responsibilities for handling Title II reconsideration requests
+
+A claimant who is dissatisfied with an initial determination may request an appeal
+by either an online iAppeal submission or calling, visiting, or writing a field office
+(FO), or calling the national 800 number network (N8NN). N8NN agents will handle the
+appeal requests per the instructions in TC 03001.020. A wet signature is not required
+on an SSA-561-U2 (Request for Reconsideration) or any other written request for reconsideration.
+An oral request to appeal a determination or decision does not establish the required
+writing for an appeal.
+
+1. Claimant walks into FO
+
+•
+
+If a claimant walks into the FO to request a reconsideration, per the instructions
+on interviewing a dissatisfied claimant in GN 03101.120, conduct the FO interview with the claimant. Include in the interview why the claimant
+is dissatisfied, explain the basis for the initial determination, the right to appeal,
+and the time limit for filing the appeal.
+
+•
+
+Assist the claimant with completing an SSA-561-U2 per the instructions in GN 03102.500 Modernized Claim System(MCS) or GN 03102.225. For reconsiderations on medical denials, see DI 81010.150. For electronic continuing disability review (eCDR) medical cessations, see DI 81010.255.
+
+•
+
+Give the claimant the Document Processing System (DPS) reconsideration acknowledgment
+notice or a date stamped copy of the appeal request. This establishes the writing
+since a signature is not required on the reconsideration form.
+
+•
+
+Transfer a reconsideration that is not within the FO’s jurisdiction to the servicing
+processing center (PC) for processing or to the appropriate Disability Determination
+Service (DDS).
+
+2. Claimant telephones the FO
+
+•
+
+If the claimant telephones the FO to request reconsideration, send the claimant an
+SSA-561-U2 to complete and return to the FO.
+
+•
+
+When the claimant returns the SSA-561-U2, if possible, establish the appeal request
+in MCS.
+
+•
+
+Send the claimant the DPS reconsideration acknowledgement notice or date stamped copy
+of the appeal request.
+
+•
+
+For reconsiderations on medical denials, see DI 81010.150. For eCDR medical cessations, see DI 81010.255.
+
+•
+
+Transfer a reconsideration that is not within the FO’s jurisdiction to the servicing
+PC for processing or to the appropriate DDS.
+
+3. Claimant writes the FO
+
+If the claimant submits the written appeal request via an iAppeal submission, mail,
+fax message, or email message, the FO takes the following actions:
+
+•
+
+Contacts the claimant for an interview to secure all needed information,
+
+•
+
+Establishes the appeal in MCS or establishes paper SSA-561-U2 for MCS exclusions and
+attaches a copy of the written request to any paper SSA-561-U2. For reconsiderations
+on medical denials, see DI 81010.150. For eCDR medical cessations, see DI 81010.255.
+
+•
+
+Sends the claimant the DPS reconsideration acknowledgment notice or a date stamped
+copy of the appeal request. This establishes the writing since a signature is not
+required on the reconsideration form.
+
+•
+
+Transfers a reconsideration that is not within the FO’s jurisdiction to the servicing
+PC for processing or to the appropriate DDS.
+
+•
+
+For information on an iAppeal submission, see GN 03101.125 and GN 03101.127.
+
+B. Miscellaneous reconsideration situations
+
+1. Request for reconsideration involves both Title II and Medicare issues
+
+SSA is responsible for reconsideration requests on Medicare Parts A and B (Health
+Insurance/Supplemental Medical Insurance (HI/SMI)) entitlement. The Centers for Medicare
+and Medicaid Services (CMS) are responsible for reconsideration requests on Medicare
+benefit issues. If a claimant appeals a Medicare benefit issue at the time they appeal
+a Title II or HI/SMI entitlement issue, the FO assists the claimant in completing
+a separate SSA-561-U2 for Title II and HI/SMI entitlement issue(s) and a CMS-2649
+(Request for Reconsideration of part A Health Insurance Benefits) for Medicare benefit
+issues.
+
+2. Reconsideration request from a claimant who speaks Spanish
+
+If the claimant visits the FO, ask the claimant or their interpreter to complete the
+Spanish version of Form SSA-561-U2-SP, see OS 15010.180. Translate into English on
+a regular Form SSA-561-U2, staple both forms together, and if appropriate send the
+forms to the PC with jurisdiction or to the appropriate DDS.
+
+3. Grounds for dismissal of a request for reconsideration
+
+SSA can dismiss a request for reconsideration for a number of reasons. Grounds for
+dismissing a request for reconsideration include, but are not limited to the following
+reasons:
+
+•
+
+request not based on an initial determination,
+
+•
+
+request filed by improper requestor,
+
+•
+
+request filed prematurely,
+
+•
+
+request filed late and good cause for late filing cannot be found, or
+
+•
+
+request filed on a SSA-561-U2 when it is clear that the individual only intended to
+request information, reduction of the overpayment recovery amount, or waiver of the
+overpayment.
+
+4. Claimant asks to withdraw request for reconsideration
+
+Advise the claimant that a reconsideration is a prerequisite for an administrative
+law judge (ALJ) hearing, and that if they withdraw the request, they will lose all
+future appeal rights on the claim or issue and that the initial determination becomes
+final. If the claimant decides to withdraw their request for reconsideration, advise
+them that the withdrawal request must be in writing and include the following information:
+
+•
+
+number holder’s name and social security number,
+
+•
+
+the claimant's name,
+
+•
+
+a statement of why the claimant wishes to withdraw the reconsideration, and
+
+•
+
+a statement that the claimant fully understands the effect of the withdrawal.
+
+If appropriate, send the withdrawal request to the PC with jurisdiction of the request
+for reconsideration. For more information on component responsibility in the reconsideration
+process, see GN 03102.175.
+
+NOTE: Never suggest to a claimant to withdraw their request for reconsideration. Do not
+accept a withdrawal of a reconsideration request if doubt exists about the correctness
+of a benefit payment made.
+
+5. Claimant dies while the request for reconsideration is pending
+
+Determine if there is a person who may be entitled or adversely affected by the determination
+under appeal.
+
+•
+
+If you identify another party to the appeal, ask the person if they wish to proceed
+with the request for reconsideration. If the person does not wish to pursue the appeal,
+obtain a signed statement from the person indicating they fully understand the effect,
+if any, of not pursuing the reconsideration.
+
+•
+
+For reconsiderations under the jurisdiction of a PC, contact the PC to report the
+claimant's death, and advise whether a substitute person wishes to pursue the request
+for reconsideration. Contact the DDS for reconsiderations under their jurisdiction.
+
+C. References
+
+•
+
+DI 12005.000 Reconsideration - Initial Claims
+
+•
+
+GN 03102.225 Preparation of Form SSA-561-U2 (Request for Reconsideration)
+
+•
+
+GN 03102.500 MCS (Modernized Claims System) Claims - Reconsiderations
+
+•
+
+SI 04020.030 Developing and Processing Supplemental Security Income (SSI) Reconsideration Requests
+
+•
+
+TC 03001.020 Handling Appeal Requests
+
+•
+
+MSOM MS 03504.002 MCS Exclusions
+
+To Link to this section - Use this URL:
+http://policy.ssa.gov/poms.nsf/lnx/0203102200
+
+GN 03102.200 - Claimant Requests Reconsideration - 02/07/2017
+
+Batch run: 07/31/2026
+
+Rev:02/07/2017

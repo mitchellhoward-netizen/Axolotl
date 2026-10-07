@@ -1,0 +1,151 @@
+Skip to content
+
+Program Operations Manual System (POMS)
+
+Effective Dates: 05/21/2004 - Present
+Previous | Next
+
+TN 24 (09-02)
+
+RS 00615.003 Full Retirement Age
+
+Full retirement age (FRA) is the age at which unreduced retirement (old-age), spouse's,
+or widow(er)'s benefits may be paid.
+
+A. POLICY - RETIREMENT AND SPOUSE'S BENEFITS
+
+1. People Born 1/1/38 or Earlier
+
+FRA for retirement or spouse's benefits is age 65.
+
+2. People Born 1/2/38 or Later
+
+Use the following chart to determine FRA for retirement or spouse's benefits:
+
+If the Birth Date is...
+
+The FRA is...
+
+1/2/38 thru 1/1/39
+
+65 years and 2 months
+
+1/2/39 thru 1/1/40
+
+65 years and 4 months
+
+1/2/40 thru 1/1/41
+
+65 years and 6 months
+
+1/2/41 thru 1/1/42
+
+65 years and 8 months
+
+1/2/42 thru 1/1/43
+
+65 years and 10 months
+
+1/2/43 thru 1/1/55
+
+66 years
+
+1/2/55 thru 1/1/56
+
+66 years and 2 months
+
+1/2/56 thru 1/1/57
+
+66 years and 4 months
+
+1/2/57 thru 1/1/58
+
+66 years and 6 months
+
+1/2/58 thru 1/1/59
+
+66 years and 8 months
+
+1/2/59 thru 1/1/60
+
+66 years and 10 months
+
+1/2/60 and later
+
+67 years
+
+B. POLICY - WIDOW(ER)'S BENEFITS
+
+1. People Born Before 1/2/1911
+
+FRA for widow(er)'s benefits was age 62
+
+2. People Born from 1/2/1911 Through 1/1/40
+
+FRA for widow(er)'s benefits was age 65.
+
+3. People Born 1/2/40 or Later
+
+FRA for widow(er)'s benefits gradually increases from age 65 and 2 months to age 67.
+Use the following chart to determine FRA for widow(er)'s benefits:
+
+If the Birth Date is...
+
+Then FRA is...
+
+1/2/40 thru 1/1/41
+
+65 years and 2 months
+
+1/2/41 thru 1/1/42
+
+65 years and 4 months
+
+1/2/42 thru 1/1/43
+
+65 years and 6 months
+
+1/2/43 thru 1/1/44
+
+65 years and 8 months
+
+1/2/44 thru 1/1/45
+
+65 years and 10 months
+
+1/2/45 thru 1/1/57
+
+66 years
+
+1/2/57 thru 1/1/58
+
+66 years and 2 months
+
+1/2/58 thru 1/1/59
+
+66 years and 4 months
+
+1/2/59 thru 1/1/60
+
+66 years and 6 months
+
+1/2/60 thru 1/1/61
+
+66 years and 8 months
+
+1/2/61 thru 1/1/62
+
+66 years and 10 months
+
+1/2/62 and later
+
+67 years
+
+To Link to this section - Use this URL:
+http://policy.ssa.gov/poms.nsf/lnx/0300615003
+
+RS 00615.003 - Full Retirement Age - 05/21/2004
+
+Batch run: 02/21/2013
+
+Rev:05/21/2004

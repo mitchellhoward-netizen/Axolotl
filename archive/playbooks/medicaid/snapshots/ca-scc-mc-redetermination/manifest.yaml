@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://stgenssa.sccgov.org/debs/program_handbooks/medi-cal/assets/10Redeterminations/Redetermination.htm
+  final_url: https://stgenssa.sccgov.org/debs/program_handbooks/medi-cal/assets/10Redeterminations/Redetermination.htm
+  status: 200
+  content_type: text/html
+  text_sha256: dff2a3ebedb07270b5dc8fab2cb5a5bbc469661a99e395475b2e25c80dd56531
+  text: ca-scc-mc-redetermination/2026-10-07.txt
+  raw: ca-scc-mc-redetermination/2026-10-07.html

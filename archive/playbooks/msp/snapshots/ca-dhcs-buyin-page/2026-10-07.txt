@@ -1,0 +1,67 @@
+Home Services Medicare Premium Payment (Buy-In) Program
+
+Medicare Premium Payment (Buy-In) Program
+
+The Medicare Premium Payment Program, also known as Medicare Buy-In, allows Medi-Cal to pay Medicare Part A and/or Part B premiums for eligible Medi-Cal members and those who qualify for Medi-Cal programs that help pay for Medicare costs. This program enables Medi-Cal to defer medical costs to Medicare where appropriate.
+
+What is Medicare?
+
+Medicare is a federal health insurance program for the aged (persons age 65 or older) individuals, certain younger individuals with disabilities, and individuals with End Stage Renal Disease (ESRD). Medicare coverage through the state buy-in program may consist of the following:
+
+Part A – Hospital insurance (HI)
+
+Part B – Supplementary Medical insurance (SMI)
+
+Part D – Prescription drug coverage (contribution payment)
+
+Members cannot have Part A Medicare coverage without Part B Medicare coverage. Members must have Part A or Part B coverage to qualify for Part D.
+
+Part A Buy-In Agreement
+
+As of January 1, 2025, the State of California participates in a buy-in agreement with the Centers for Medicare and Medicaid Services (CMS), whereby Medi-Cal automatically pays Medicare Part A premiums, coinsurance, and deductibles for eligible Medi-Cal members who:
+
+Are enrolled in the Qualified Medicare Beneficiary (QMB) program, and
+
+Have Medicare Part B entitlement as reported by the Social Security Administration (SSA).
+
+Medi-Cal members with Part B only, and not Part A, have Medi-Cal coverage for inpatient stays and other Part A services. Under the Part A Buy-In Agreement, for Medi-Cal members with Qualified Medicare Beneficiary eligibility, Medicare will provide primary coverage for hospitalizations and other inpatient benefits covered through Medicare Part A.
+
+Statutory Authority: Social Security Act, Section 1818
+
+DHCS has issued notices to members that are newly eligible for Part A as of January 1, 2025. DHCS has also instructed Medi-Cal Managed Care Plans (MCPs) to support member access to care during the January 2025, transition, particularly for members accessing inpatient services that will be covered by Medicare Part A.
+
+For member questions regarding access to care, please contact your MCP. For member questions regarding Medicare eligibility, please contact your local Social Security Administration (SSA) office or the Health Insurance Counseling & Advocacy Program (HICAP).
+
+Additional information about Part A Buy-In can be found using the link below:
+
+Part A Buy-In Frequently Asked Questions (FAQs)
+
+Medicare Part B Buy-In Agreement
+
+The State of California participates in a buy-in agreement with CMS, whereby Medi-Cal automatically pays Medicare Part B premiums for eligible Medi-Cal members who have Medicare Part B entitlement as reported by SSA.
+
+Statutory Authority: Social Security Act, Section 1843
+
+Medicare Part D State Contribution Payments
+
+Prescription drug coverage costs shifted from Medicaid to Medicare beginning in January 2006 as a result of the 2003 Medicare Prescription Drug, Improvement and Modernization Act (MMA), which created the Medicare Part D prescription drug program. The state is required to pay a Part D premium payment for eligible Medi-Cal members entitled to Part A or Part B coverage.
+
+Statutory Authority:
+Medicare Prescription Drug, Improvement and Modernization Act 2003
+
+The Medicare Premium Payment and Medicare Part D State Contribution Payment programs help to ensure that Medi-Cal is the payer of last resort, which helps ensure Medi-Cal resources are used appropriately and are reserved for costs not covered by Medicare.
+
+State Buy-In Manual – Part A and Part B Transaction Codes
+
+The buy-in transaction codes provide a concise, definitive means of communication between the CMS and the State of California. Most transaction codes require no further action on the part of the State; however, there are instances where additional action by the State is appropriate. See the PDF attachments below for description of any of the transaction codes.
+
+Part A Buy-In and Part B Buy-In/Group Payer Transaction Codes (PDF)
+
+State Medicare Buy-In Program Problem Report (online fillable form)
+
+Please use the form below to report a Medicare buy-in problem to the Buy-In Unit at DHCS. This form is strictly intended for state, county, and federal agencies and is not intended for the general public. Members with a buy-in problem should contact their county eligibility worker for assistance.
+
+State Medicare Buy-In Problem Form
+
+Back to
+TPLRD Home Page

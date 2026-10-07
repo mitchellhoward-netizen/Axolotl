@@ -1,0 +1,492 @@
+# Synthetic CA households for the Disability playbook (SSI, state supplement, SSDI). No real people.
+program: disability
+scope: ca
+cases:
+- id: DIS-CA-T01
+  title: 'Single 70, SS $1,014: federal breakeven, SSP level paid in full'
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - threshold
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 70
+    incomes:
+    - kind: social_security
+      monthly: 1014
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: SSI
+    rules_include:
+    - DIS-FED-SSI-BREAKEVEN
+    - DIS-CA-SSP-AMOUNT
+    open_questions_include:
+    - DIS-FED-OQ-01
+    amounts:
+      ssi_federal_monthly: 0.0
+      state_supplement_monthly: 239.94
+      total_monthly: 239.94
+  crosscheck:
+    policyengine: true
+- id: DIS-CA-T02
+  title: 'Single 70, SS $1,015: $1 over the federal breakeven, SSP reduced by $1'
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - threshold
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 70
+    incomes:
+    - kind: social_security
+      monthly: 1015
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: STATE_SUPPLEMENT_ONLY
+    amounts:
+      ssi_federal_monthly: 0.0
+      state_supplement_monthly: 238.94
+      total_monthly: 238.94
+  crosscheck:
+    policyengine: true
+- id: DIS-CA-T03
+  title: 'Single 70, SS $1,253.94: excess income equals the SSP level, no SSP'
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - threshold
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 70
+    incomes:
+    - kind: social_security
+      monthly: 1253.94
+      owner: a
+    assets: []
+  expect:
+    status: ineligible
+    tier: null
+    amounts:
+      ssi_federal_monthly: 0.0
+      state_supplement_monthly: 0.0
+      total_monthly: 0.0
+  crosscheck:
+    policyengine: true
+  note: 'SI 02005.001 D.2.c: excess income equal to the OSS level makes the person ineligible for OSS.'
+- id: DIS-CA-T04
+  title: 'Single 70, SS $1,252.94: excess income $1 under the level, SSP $1'
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - threshold
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 70
+    incomes:
+    - kind: social_security
+      monthly: 1252.94
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: STATE_SUPPLEMENT_ONLY
+    amounts:
+      ssi_federal_monthly: 0.0
+      state_supplement_monthly: 1.0
+      total_monthly: 1.0
+  crosscheck:
+    policyengine: true
+- id: DIS-CA-T05
+  title: Aged 67 working, wages $2,073 (earned breakeven)
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - threshold
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 67
+    incomes:
+    - kind: earned
+      monthly: 2073
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: SSI
+    amounts:
+      ssi_federal_monthly: 0.0
+      state_supplement_monthly: 239.94
+      total_monthly: 239.94
+  crosscheck:
+    policyengine: true
+- id: DIS-CA-T06
+  title: Married couple both 70, SS $600 + $500
+  as_of: '2026-03-01'
+  tags:
+  - couple
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 70
+    - id: b
+      age: 69
+      relationship: spouse
+    incomes:
+    - kind: social_security
+      monthly: 600
+      owner: a
+    - kind: social_security
+      monthly: 500
+      owner: b
+    assets: []
+  expect:
+    status: eligible
+    tier: SSI
+    rules_include:
+    - DIS-FED-SSI-COUPLE
+    amounts:
+      ssi_federal_monthly: 411.0
+      state_supplement_monthly: 607.83
+      total_monthly: 1018.83
+  crosscheck:
+    policyengine: true
+- id: DIS-CA-T07
+  title: 'Couple: aged 70 and blind 60, no income'
+  as_of: '2026-03-01'
+  tags:
+  - couple
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 70
+    - id: b
+      age: 60
+      relationship: spouse
+      blind: true
+    incomes: []
+    assets: []
+  expect:
+    status: eligible
+    tier: SSI
+    amounts:
+      ssi_federal_monthly: 1491.0
+      state_supplement_monthly: 747.44
+      total_monthly: 2238.44
+  crosscheck:
+    policyengine: true
+  note: 'Aged/blind couple level, code A: $747.44.'
+- id: DIS-CA-T08
+  title: 'Aged 68 (SS $500) with ineligible working spouse (wages $1,200): deeming and SI 01320.430'
+  as_of: '2026-03-01'
+  tags:
+  - couple
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 68
+    - id: b
+      age: 60
+      relationship: spouse
+    incomes:
+    - kind: social_security
+      monthly: 500
+      owner: a
+    - kind: earned
+      monthly: 1200
+      owner: b
+    assets: []
+  expect:
+    status: eligible
+    tier: SSI
+    rules_include:
+    - DIS-FED-SSI-DEEM-SPOUSE
+    - DIS-CA-SSP-DEEMING
+    amounts:
+      ssi_federal_monthly: 443.5
+      state_supplement_monthly: 239.94
+      total_monthly: 683.44
+  crosscheck:
+    policyengine: true
+  note: 'Combined countable 1,047.50 <= couple FBR: no excess, so the SSP is the lower of the individual (239.94) and couple
+    (607.83) levels, capped at the non-deeming SSP 239.94.'
+- id: DIS-CA-T09
+  title: Single 70, SS $800, savings $2,000
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - threshold
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 70
+    incomes:
+    - kind: social_security
+      monthly: 800
+      owner: a
+    assets:
+    - kind: cash
+      value: 2000
+      owner: a
+  expect:
+    status: eligible
+    tier: SSI
+    amounts:
+      ssi_federal_monthly: 214.0
+      state_supplement_monthly: 239.94
+      total_monthly: 453.94
+  crosscheck:
+    policyengine: true
+- id: DIS-CA-T10
+  title: Single 70, SS $800, savings $2,001
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - threshold
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 70
+    incomes:
+    - kind: social_security
+      monthly: 800
+      owner: a
+    assets:
+    - kind: cash
+      value: 2001
+      owner: a
+  expect:
+    status: ineligible
+    tier: null
+    amounts:
+      ssi_federal_monthly: 0.0
+      state_supplement_monthly: 0.0
+      total_monthly: 0.0
+  crosscheck:
+    policyengine: true
+- id: DIS-CA-T11
+  title: Single 70, no income, lives in her son's home (VTR, code D)
+  as_of: '2026-03-01'
+  tags:
+  - edge
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 70
+    - id: s
+      age: 45
+      relationship: child
+    incomes: []
+    assets: []
+    facts:
+      living_arrangement: household_of_another
+  expect:
+    status: eligible
+    tier: SSI
+    rules_include:
+    - DIS-FED-SSI-VTR
+    amounts:
+      ssi_federal_monthly: 662.67
+      state_supplement_monthly: 245.2
+      total_monthly: 907.87
+  crosscheck:
+    policyengine: true
+  note: 'POMS total for code D aged: $907.87.'
+- id: DIS-CA-T12
+  title: Blind individual 50, no income
+  as_of: '2026-03-01'
+  tags:
+  - single
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 50
+      blind: true
+    incomes: []
+    assets: []
+  expect:
+    status: eligible
+    tier: SSI
+    amounts:
+      ssi_federal_monthly: 994.0
+      state_supplement_monthly: 324.32
+      total_monthly: 1318.32
+  crosscheck:
+    policyengine: true
+- id: DIS-CA-T13
+  title: Aged 75 in a room with no cooking facilities (code C, restaurant meals)
+  as_of: '2026-03-01'
+  tags:
+  - edge
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 75
+    incomes: []
+    assets: []
+    facts:
+      no_cooking_facilities: true
+  expect:
+    status: eligible
+    tier: SSI
+    amounts:
+      ssi_federal_monthly: 994.0
+      state_supplement_monthly: 368.81
+      total_monthly: 1362.81
+  crosscheck:
+    policyengine: true
+- id: DIS-CA-T14
+  title: 'Non-citizen 70 denied SSI for immigration status: may get CAPI'
+  as_of: '2026-03-01'
+  tags:
+  - edge
+  - other_benefits
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 70
+      citizen_or_qualified: false
+    incomes:
+    - kind: social_security
+      monthly: 300
+      owner: a
+    assets: []
+  expect:
+    status: ineligible
+    tier: null
+    rules_include:
+    - DIS-CA-CAPI
+    links_include:
+    - ca_capi:possible
+    amounts:
+      ssi_federal_monthly: 0.0
+      state_supplement_monthly: 0.0
+      total_monthly: 0.0
+- id: DIS-CA-T15
+  title: Single 70, SS $300, friend pays $400 of rent (PMV)
+  as_of: '2026-03-01'
+  tags:
+  - edge
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 70
+    incomes:
+    - kind: social_security
+      monthly: 300
+      owner: a
+    assets: []
+    facts:
+      ism_shelter_value_monthly: 400
+  expect:
+    status: eligible
+    tier: SSI
+    rules_include:
+    - DIS-FED-SSI-ISM-PMV
+    amounts:
+      ssi_federal_monthly: 362.67
+      state_supplement_monthly: 239.94
+      total_monthly: 602.61
+  crosscheck:
+    policyengine: true
+- id: DIS-CA-T16
+  title: 'SSDI: blind 45, wages $2,830 (blind SGA, not above), insured status unknown'
+  as_of: '2026-03-01'
+  tags:
+  - threshold
+  - procedure
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 45
+      blind: true
+    incomes:
+    - kind: earned
+      monthly: 2830
+      owner: a
+    assets: []
+    facts:
+      claim: ssdi
+  expect:
+    status: undetermined
+    tier: null
+    rules_include:
+    - DIS-FED-SSDI-SGA
+    - DIS-FED-SSDI-INSURED
+- id: DIS-CA-T17
+  title: 'SSDI: blind 45, wages $2,831, $1 over blind SGA'
+  as_of: '2026-03-01'
+  tags:
+  - threshold
+  - procedure
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 45
+      blind: true
+    incomes:
+    - kind: earned
+      monthly: 2831
+      owner: a
+    assets: []
+    facts:
+      claim: ssdi
+  expect:
+    status: ineligible
+    tier: null
+    rules_include:
+    - DIS-FED-SSDI-SGA
+- id: DIS-CA-T18
+  title: 'CalFresh link: SSI/SSP recipient in California can now get CalFresh'
+  as_of: '2026-03-01'
+  tags:
+  - cross_playbook
+  - other_benefits
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 70
+    incomes:
+    - kind: social_security
+      monthly: 700
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: SSI
+    links_include:
+    - snap:calfresh_open_to_ssi_since_2019
+    - medicaid:automatic_medi_cal_with_ssi_ssp
+    amounts:
+      ssi_federal_monthly: 314.0
+      state_supplement_monthly: 239.94
+      total_monthly: 553.94
+  crosscheck:
+    policyengine: true
+  note: Before June 2019 SSI/SSP recipients were 'cashed out' of CalFresh; the SNAP playbook should not apply that rule.

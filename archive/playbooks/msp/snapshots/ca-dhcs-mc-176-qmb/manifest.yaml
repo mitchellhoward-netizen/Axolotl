@@ -1,0 +1,10 @@
+- retrieved: '2026-10-07'
+  url: https://www.dhcs.ca.gov/formsandpubs/forms/Forms/MC%20176%201QMBSLMBQI.pdf
+  final_url: https://www.dhcs.ca.gov/formsandpubs/forms/Forms/MC%20176%201QMBSLMBQI.pdf
+  status: 200
+  content_type: pdf
+  text_sha256: 415397ddd6e8e37b56da22a43d32c824a725270980c06f3d39a4a681a8ebac5e
+  text: ca-dhcs-mc-176-qmb/2026-10-07.txt
+  raw: ca-dhcs-mc-176-qmb/2026-10-07.pdf
+  fetched_via: headless Chromium (Playwright) via the session proxy; dhcs.ca.gov refuses
+    scripted requests (Incapsula)

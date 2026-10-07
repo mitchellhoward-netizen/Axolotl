@@ -1,0 +1,216 @@
+State of California—Health and Human Services Agency
+Department of Health Care Services
+
+MICHELLE BAASS GAVIN NEWSOM
+DIRECTOR GOVERNOR
+
+DATE: February 24, 2023
+
+TO: ALL COUNTY WELFARE DIRECTORS Letter No.: 23-05
+ALL COUNTY WELFARE ADMINISTRATIVE OFFICERS
+ALL COUNTY MEDI-CAL PROGRAM SPECIALISTS/LIAISONS
+ALL COUNTY HEALTH EXECUTIVES
+ALL COUNTY MENTAL HEALTH DIRECTORS
+ALL COUNTY MEDS LIAISONS
+
+SUBJECT: NEW MEDICARE PART B IMMUNOSUPPRESSIVE DRUG BENEFIT
+
+The purpose of this All County Welfare Directors Letter (ACWDL) is to inform counties
+about the new Medicare Part B Immunosuppressive Drug (Medicare Part B-ID) benefit
+and to outline county responsibilities and actions for individuals whose Medicare
+coverage due to End Stage Renal Disease (ESRD) has expired but who continue to
+need immunosuppressive (anti-rejection) drug coverage.
+
+Background
+
+Currently, individuals who have Medicare Part A and Part B due to ESRD will lose
+ESRD related Medicare coverage 36 months after a successful kidney transplant.
+Starting January 1, 2023, these individuals may receive a limited Part B benefit (i.e.,
+Medicare Part B-ID) that covers only immunosuppressive drugs, if the individual is not
+enrolled in other health coverage. Other health coverage includes group or individual
+health plans or National Health Plans, TRICARE, Medi-Cal or Children's Health
+Insurance Program (CHIP) coverage that includes immunosuppressive drug coverage,
+or Department of Veterans Affairs (VA) coverage.
+
+Note: Per ACWDL 11-02, the state currently offers an Anti-Rejection Medications
+Program that covers drug related costs for eligible individuals for 24 months from the
+date of transplant if the individual is not covered under Medicare, other health coverage
+or full scope Medi-Cal. There are no income or property requirements for this program.
+The eligibility requirements for this program remain unchanged and there is no expected
+crossover between this program and the new Medicare Part B-ID benefit.
+
+Medi-Cal Eligibility Division
+1501 Capitol Avenue, MS 4607
+P.O. Box 997413, Sacramento, CA 95899-7413
+(916) 552-9200 phone • (916) 552-9477 fax
+Internet Address: w ww.dhcs.ca.gov
+
+All County Welfare Directors Letter No.: 23-05
+Page 2
+February 24, 2023
+
+New Medicare Part B-ID Benefit and Implementation
+
+Medicare Part B-ID provides immunosuppressive drug coverage to individuals who
+have exceeded their 36-month ESRD Medicare coverage, are not otherwise eligible for
+Medicare, and do not qualify for or are enrolled in the specified health coverage.
+
+Certain low-income individuals enrolled in Medicare Part B-ID may be eligible for state
+asisistance with Part B-ID premiums and coinsurance under Qualified Medicare
+Beneficiary (QMB), Specified Low-Income Medicare Beneficiary (SLMB), or Qualifying
+Individuals (QI) Medicare Savings Programs (MSP).
+
+Medicare Part B-ID coverage for eligible individuals will start January 1, 2023. The
+Social Security Administration (SSA) will notify individuals of the Medicare Part B-ID
+benefit when their ESRD-related Medicare coverage ends 36 months following a kidney
+transplant. Individuals must apply for Medicare Part B-ID with the SSA and will be
+encouraged to apply for regular Medi-Cal coverage through their local county office.
+Only a few individuals are expected to participate in this benefit due to other Medi-Cal
+full scope coverage options.
+
+Policy
+
+Effective January 1, 2023, targeted Medi-Cal outreach and enrollment screening will be
+required for individuals losing ESRD-related coverage to ensure continuity of care for
+those eligible. The targeted actions include:
+
+1. As these individuals lose their Medicare coverage, an outreach notice shall be
+sent to the individuals to encourage them to apply for Medi-Cal.
+2. Individuals who submit a Medi-Cal application shall be screened for all Medi-Cal
+programs, including Medicare Savings Programs (MSPs) (even though they do
+not have Medicare Part A).
+
+Outreach Notice
+The Department of Health Care Services (DHCS) will send initial contact letters to
+eligible individuals who are not currently in receipt of full scope Medi-Cal and identified
+by the SSA as qualifying for Medicare Part B-ID. These letters will provide guidance and
+instruct individuals to apply for comprehensive Medi-Cal coverage through their local
+county office, the Statewide Automated Welfare System (SAWS) portals, or through the
+Covered California portal. DHCS will publish the initial contact letter in a separate
+Medi-Cal Eligibility Division Information Letter (MEDIL) at a later date.
+
+All County Welfare Directors Letter No.: 23-05
+Page 3
+February 24, 2023
+
+DHCS will send a list of the impacted individuals via a secure email to the
+corresponding counties. The list will include the following data elements to assist the
+county in identifying individuals that may have already submitted an application with the
+county:
+• Client Index Number (CIN)
+• First Name
+• Last Name
+• Date of Birth
+• Mailing Address (including city and zip code)
+• Phone
+• County Code
+• County-ID
+• Primary Aid Code (including in special segments)
+• MSP (Q1, Q2, or Q3) Aid Code
+• Case Number
+• Preferred written language
+• Eligibility Status Code
+• Application Date
+• District Number
+• Eligibility Worker Number
+
+The county is encouraged to conduct local county outreach outside of the initial contact
+letter sent by DHCS through programs. For instance, the DHCS Health Enrollment
+Navigators Project, also known as the Navigators Project, is one such local outreach
+program that many counties (or community-based organizations in coordination with
+counties) already leverage to provide enhanced local outreach, enrollment, retention,
+and navigation assistance for applicants and beneficiaries. If the individual does not
+submit a Medi-Cal application, as instructed, the county is not required to continue with
+the process or take further action.
+
+Medi-Cal Eligibility Determination
+When the county receives an application or if Medicare Part B-ID qualified individuals
+are identified during annual redetermination or a change in circumstances, County
+Eligibility Workers (CEWs) will first determine their eligibility for regular full scope
+Medi-Cal coverage. CEWs shall screen individuals for all Modified Adjusted Gross
+Income (MAGI) and Non-MAGI full scope programs, as described in ACWDL 17-03.
+When determining eligibility for the MAGI New Adult Group, CEWs will treat these
+individuals as if they were ineligible for Medicare coverage.
+
+All County Welfare Directors Letter No.: 23-05
+Page 4
+February 24, 2023
+
+Individuals shall lose their disability status, as well as their Medicare coverage, if they
+do not concurrently have a disability other than ESRD or blindness. CEWs should
+consider this loss of disability status when evaluating for any Medi-Cal programs that
+require disability linkage for eligibility, such as the Aged, Blind or Disabled Federal
+Poverty Level Program or the 250 Percent Working Disabled Program.
+For individuals not eligible for or not wanting full scope Medi-Cal, counties shall
+determine eligibility for the MSP, as described in the Medi-Cal Eligibility Procedures
+Manual (MEPM), Articles 5J (SLMB and QI) and 5L (QMB). When determining eligibility
+for the MSP program, counties will treat the Medicare Part B-ID qualified individuals as
+being eligible for Medicare.
+
+For determination of Medicare Part B-ID eligibility, counties shall follow the existing
+MSP rules except individuals are not required to be Medicare Part A eligible for QMB,
+SLMB or QI. SAWS will provide counties instructions for the system steps required for
+these individuals.
+
+There are no changes to existing policy regarding the MSP Property Determination, per
+Article 9 of the California Code of Regulations. For Medi-Cal eligibility purposes,
+counties shall only count the property of the individual and/or their spouse, as described
+in ACWDL 21-31, until December 31, 2023. The asset test shall be eliminated entirely
+for all Non-MAGI groups starting January 1, 2024, as stated in ACWDL 22-25.
+
+There are no changes to existing policy regarding the MSP Income Determination.
+Counties shall continue to use the income methodology as set forth in MEPM Articles 5J
+and 5L. Medicare and health insurance premiums are not allowed as an income
+deduction for MSPs. Once income is determined, compare net countable income to the
+following Federal Poverty Level (FPL) amounts:
+
+QMB-100% FPL or below for the family size.
+SLMB-120% FPL or below for the family size.
+QI-135% FPL or below for the family size.
+
+SLMB and QI eligibility may be allowed retroactively for up to three months after
+January 1, 2023. The QMB eligibility start date is the month after the county has
+processed the case as described in MEPM Article 5L.
+
+Note: When the individual is ineligible for Medi-Cal or is eligible for Medi-Cal with a
+share of cost, the individual must be screened for eligibility under other insurance
+affordability programs, such as Covered California with premium assistance.
+
+All County Welfare Directors Letter No.: 23-05
+Page 5
+February 24, 2023
+
+Medicare Part B-ID Premium
+Beginning in 2022, and every year thereafter, federal law will determine a monthly
+premium rate in September for the succeeding calendar year for individuals enrolled in
+the Part B-ID benefit. The premium is equal to 15 percent of the monthly actuarial rate
+for enrollees age 65 and over for that succeeding calendar year. For 2023, the Part B-ID
+premium is $97.10.
+
+The Medicare Part B-ID premium is an allowable income deduction per 22 California
+Code of Regulations (CCR) § 50555.2 for individuals that are paying the premium.
+Eligible individuals can seek assistance with their Medicare Part B-ID premiums through
+enrollment in an MSP.
+
+Identifying Individuals with Medicare Part B-ID
+Counties will need to review the information from the Medi-Cal Eligibility Data System
+(MEDS) or Income Eligibility Verification System (IEVS) to identify potentially eligible
+individuals for the Medicare Part B-ID benefit. Counties can identify the population of
+individuals eligible or potentially eligible for Medicare Part B-ID by the following:
+
+• Medicare Part B-ID applicants may have letters from SSA or Medicare identifying
+them as potentially or already classified as eligible.
+• Individuals already classified as eligible will have a Buy-in Eligibility Code of “J” in
+the “BUY-IN-ELIG-CD” field on the MEDS INQB screen or an “I” in the “Basis”
+field on the Medicare Part B line of the MEDS INQB screen, with or without the
+“J” code, may be present.
+
+If you have questions about this letter or about the Medicare Part B-ID benefit, please
+contact Michael Allen by email at Michael.Allen@dhcs.ca.gov or by phone at
+(916) 345-8065.
+
+Original Signed By
+
+Yingjia Huang
+Assistant Deputy Director
+Health Care Benefits and Eligibility

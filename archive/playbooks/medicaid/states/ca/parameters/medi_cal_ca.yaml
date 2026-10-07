@@ -1,0 +1,163 @@
+# California Medi-Cal income and property standards, from the Santa Clara
+# County Social Services Agency Medi-Cal charts and handbook (DHCS originals
+# not retrievable; see sources.yaml and CA-OQ-01). California applies the new
+# year's FPL-based levels on different dates by population: MAGI from
+# January 1, 2026; MSP with RSDI income from March 1, 2026; ABD (Aged &
+# Disabled FPL program) and all other Medi-Cal programs from April 1, 2026.
+parameters:
+  - id: ca.medi_cal.magi_adult_income_limit_monthly
+    description: Medi-Cal MAGI income limit for the ACA new adult group (ages 19-64, 138% FPL), monthly; also the A&D FPL program and full-scope pregnancy level.
+    compare_to: >-
+      Monthly MAGI household income for the MAGI household size, compared
+      directly; 138% is the 133% adult standard plus the 5% MAGI disregard
+      (inference from the chart, which shows the 114% parent level as "109%
+      FPL, Plus 5% MAGI Disregard").
+    unit: usd_per_month
+    keyed_by: household_size (1-12; "additional" = each person above 12)
+    updates: Each year; MAGI levels effective January 1.
+    values:
+      - effective_from: 2026-01-01
+        value: {1: 1836, 2: 2490, 3: 3143, 4: 3795, 5: 4450, 6: 5102, 7: 5755, 8: 6409, 9: 7062, 10: 7715, 11: 8369, 12: 9022, additional: 655}
+        confidence: confirmed
+        sources:
+          - source: ca-scc-chart-fpl-2026
+            locator: "2026 FPL Calculation Chart (Monthly Values), column 138% ACA Adults Ages 19-64, Pregnant Women, A&D FPL"
+          - source: ca-scc-chart-fpl-2026
+            locator: "FPL Effective Date: MAGI applicants/recipients ... January 1, 2026"
+  - id: ca.medi_cal.magi_parent_income_limit_monthly
+    description: Medi-Cal MAGI income limit for parents and caretaker relatives (109% FPL), monthly.
+    compare_to: Monthly MAGI household income for the household size, compared directly (no 5% disregard, because the adult group at 138% is the higher standard for a parent without Medicare).
+    unit: usd_per_month
+    keyed_by: household_size (1-12; "additional" = each person above 12)
+    updates: Each year; MAGI levels effective January 1.
+    values:
+      - effective_from: 2026-01-01
+        value: {1: 1450, 2: 1967, 3: 2482, 4: 2998, 5: 3515, 6: 4030, 7: 4546, 8: 5062, 9: 5578, 10: 6094, 11: 6610, 12: 7126, additional: 517}
+        confidence: confirmed
+        sources:
+          - source: ca-scc-chart-fpl-2026
+            locator: "2026 FPL Calculation Chart, column 109% ACA Parents / Caretaker Relatives"
+  - id: ca.medi_cal.magi_parent_medicare_income_limit_monthly
+    description: Medi-Cal MAGI income limit for parents and caretaker relatives who are enrolled in Medicare Part A or B (109% FPL plus the 5% MAGI disregard = 114%), monthly.
+    compare_to: Monthly MAGI household income for the household size, compared directly; the figure already includes the 5% disregard.
+    unit: usd_per_month
+    keyed_by: household_size (1-12; "additional" = each person above 12)
+    updates: Each year; MAGI levels effective January 1.
+    values:
+      - effective_from: 2026-01-01
+        value: {1: 1517, 2: 2057, 3: 2596, 4: 3135, 5: 3676, 6: 4215, 7: 4754, 8: 5295, 9: 5834, 10: 6373, 11: 6913, 12: 7453, additional: 541}
+        confidence: confirmed
+        sources:
+          - source: ca-scc-chart-fpl-2026
+            locator: "114% ACA Parents and Caretaker Relatives not eligible for the ACA Adult Group due to enrollment in Medicare Part A or B (109% FPL, Plus 5% MAGI Disregard)"
+  - id: ca.medi_cal.magi_pregnant_income_limit_monthly
+    description: Medi-Cal MAGI income limit for pregnant people (213% FPL; full scope up to 138%, pregnancy-related above), monthly.
+    compare_to: Monthly MAGI household income for the household size counting the unborn child(ren), compared directly.
+    unit: usd_per_month
+    keyed_by: household_size (1-5)
+    updates: Each year; MAGI levels effective January 1.
+    values:
+      - effective_from: 2026-01-01
+        value: {1: 2833, 2: 3843, 3: 4851, 4: 5858, 5: 6868}
+        confidence: confirmed
+        sources:
+          - source: ca-scc-chart-fpl-2026
+            locator: "213% ACA Pregnant Women & Infants up to Age 1 column; Above 138% - 213% FPL = Pregnancy Related Medi-Cal"
+  - id: ca.medi_cal.ad_fpl_income_limit_monthly
+    description: Aged & Disabled FPL program income limit (138% FPL), monthly; zero share of cost Medi-Cal for people 65+ or disabled not in long-term care.
+    compare_to: >-
+      Net nonexempt income after the $20 any-income deduction, the
+      $65-plus-one-half earned income deduction, and the Medicare Part B
+      premium disregard; for a couple both 65+/disabled, the couple's income
+      against the 2-person figure.
+    unit: usd_per_month
+    keyed_by: household_size (1 = individual, 2 = couple)
+    open_question: CA-OQ-02
+    updates: Each year; ABD levels effective April 1.
+    values:
+      - effective_from: 2026-01-01
+        effective_to: 2026-03-31
+        value: null
+        confidence: unresolved
+        open_question: CA-OQ-02
+        note: January-March 2026 use the 2025 FPL levels for ABD; the 2025 chart was not retrieved.
+      - effective_from: 2026-04-01
+        value: {1: 1836, 2: 2490}
+        confidence: confirmed
+        sources:
+          - source: ca-scc-chart-fpl-2026
+            locator: "138% column; FPL Effective Date: ABD applicants/recipients, all other MC programs April 1, 2026"
+          - source: ca-scc-mc-ad-fpl-program
+            locator: "net non-exempt income must be at or below 138% of the FPL after all applicable income deductions and disregards"
+  - id: ca.medi_cal.non_magi_income_deduction_monthly
+    description: The $20 income deduction Medi-Cal allows from unearned (then earned) income in Non-MAGI budgets (A&D FPL and Medically Needy).
+    unit: usd_per_month
+    updates: Fixed.
+    values:
+      - effective_from: 2020-12-01
+        value: 20
+        confidence: confirmed
+        note: Start date is the date of the A&D FPL worked examples ("Effective 12/1/20") that show the deduction; the deduction is older.
+        sources:
+          - {source: ca-scc-mc-ad-fpl-program, locator: "A&D FPL Example: Less Income Deduction -$20"}
+  - id: ca.medi_cal.non_magi_asset_test_applies
+    description: Whether Medi-Cal counts property for Non-MAGI programs (aged, blind, disabled, long-term care, MSP), except Pickle, Disabled Adult Child and Disabled Widow(er), which have no asset test.
+    unit: boolean
+    updates: State law (Budget Act of 2021 phase-out; AB 116 of 2025 reinstatement).
+    values:
+      - effective_from: 2022-07-01
+        effective_to: 2023-12-31
+        value: true
+        confidence: confirmed
+        sources:
+          - {source: ca-scc-mc-update-2025-9-asset-limits, locator: "Background: The first phase, effective July 2022, increased the asset limits to $130,000"}
+      - effective_from: 2024-01-01
+        effective_to: 2025-12-31
+        value: false
+        confidence: confirmed
+        sources:
+          - {source: ca-scc-mc-update-2025-9-asset-limits, locator: "Background: The second phase, beginning January 1, 2024, eliminated the asset limits for all Non-MAGI Medi-Cal programs"}
+          - {source: ca-scc-chart-property-limits, locator: "*January 1, 2024, Property Limits were Eliminated through December 31, 2025"}
+      - effective_from: 2026-01-01
+        value: true
+        confidence: confirmed
+        sources:
+          - {source: ca-scc-mc-update-2025-9-asset-limits, locator: "Changes and Implementation Dates: Effective January 1, 2026, the asset limit is reinstated for the Non-MAGI programs, excluding the Pickle, Disabled Adult Child (DAC), and Disabled Widower (DW) programs"}
+          - {source: ca-scc-mc-property-limits, locator: "Effective January 1, 2026, the property limit for Non-MAGI programs is $130,000 for one person"}
+  - id: ca.medi_cal.non_magi_asset_limit
+    description: Medi-Cal Non-MAGI property limit ($130,000 for one person plus $65,000 for each additional person in the Medi-Cal Family Budget Unit, up to 10 people).
+    compare_to: >-
+      Countable property ("property reserve") of the MFBU, which must be equal
+      to or below the limit. Not counted: the principal residence, one
+      (primary) vehicle, household items, retirement funds from which the
+      person receives periodic payments or minimum distributions. Other real
+      property has its own $6,000 net market value limit (not modelled).
+    unit: usd
+    keyed_by: household_size (persons in the MFBU, 1-10)
+    updates: State law; unchanged since July 2022 except for the 2024-2025 elimination.
+    values:
+      - effective_from: 2022-07-01
+        effective_to: 2023-12-31
+        value: {1: 130000, 2: 195000, 3: 260000, 4: 325000, 5: 390000, 6: 455000, 7: 520000, 8: 585000, 9: 650000, 10: 715000}
+        confidence: confirmed
+        note: Sizes 7-10 are computed from the stated $65,000 increment; the chart rows for 1-5 match.
+        sources:
+          - {source: ca-scc-chart-property-limits, locator: "Property Limit July 1, 2022- Dec 31, 2023: $130,000 / $195,000 / $260,000 / $325,000 / $390,000"}
+      - effective_from: 2026-01-01
+        value: {1: 130000, 2: 195000, 3: 260000, 4: 325000, 5: 390000, 6: 455000, 7: 520000, 8: 585000, 9: 650000, 10: 715000}
+        confidence: confirmed
+        note: Sizes 7-10 are computed from the stated $65,000 increment.
+        sources:
+          - {source: ca-scc-mc-property-limits, locator: "Effective January 1, 2026, the property limit for Non-MAGI programs is $130,000 for one person, and $65,000 for each additional person (up to a maximum of 10 people)"}
+          - {source: ca-scc-mc-update-2025-9-asset-limits, locator: "return to the phase one values of $130,000 per individual and $65,000 per additional household member"}
+  - id: ca.medi_cal.maintenance_need_monthly
+    description: Medi-Cal Medically Needy maintenance need level, monthly; net countable income above this is the share of cost.
+    unit: usd_per_month
+    keyed_by: "persons in the MFBU (1-10); 2 = two adults (1 adult and 1 child is $750, not modelled)"
+    updates: The county chart shows the level unchanged since July 1, 1989 (see CA-OQ-04 on the reported, then revoked, plan to raise it to 138% FPL).
+    values:
+      - effective_from: 1989-07-01
+        value: {1: 600, 2: 934, 3: 934, 4: 1100, 5: 1259, 6: 1417, 7: 1550, 8: 1692, 9: 1825, 10: 1959}
+        confidence: confirmed
+        sources:
+          - {source: ca-scc-chart-maintenance-need, locator: "Effective 7/1/89 Current Maintenance Need Chart: 1 individual in all situations $600; 2 adults 934"}

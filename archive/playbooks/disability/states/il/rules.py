@@ -32,7 +32,7 @@ from rulesarchive.household import EARNED_KINDS, Household, Person
 from playbooks.disability.federal import rules as fed
 
 STATE = "il"
-DDS = "the Illinois Department of Human Services, Division of Rehabilitation Services, Bureau of Disability Determination Services"
+DDS = "Disability Determination Services, Illinois Department of Human Services, Division of Rehabilitation Services"
 
 
 def _bucket(n: int) -> str:
@@ -111,18 +111,18 @@ def evaluate(hh: Household, as_of: date) -> Determination:
         det.note("DIS-IL-AABD-ELIGIBILITY", f"no AABD cash: ineligible for SSI for a reason other than income ({r.reason})", False)
     elif fed.living_arrangement(hh) == "medical_facility" or r.unit in ("deemed_spouse", "deemed_parent"):
         aabd = None
-        det.note("DIS-IL-AABD-ELIGIBILITY", "AABD cash for this situation (long-term care, an ineligible spouse or "
+        det.note("DIS-IL-AABD-RELATIVE", "AABD cash for this situation (long-term care, an ineligible spouse or "
                  "parents in the household) is budgeted with responsible-relative rules this archive does not encode", None)
         det.unresolved("DIS-IL-OQ-01")
     else:
         lim = float(params.use("il.aabd.cash_resource_limit", as_of, det)[2 if r.unit == "couple" else 1])
-        owners = {a.id} | ({hh.spouse.id} if r.unit == "couple" else set())
+        owners = {a.id} | ({fed.spouse_of(hh).id} if r.unit == "couple" else set())
         res = fed.countable_resources(hh, owners, as_of, det)
         if res > lim:
             det.note("DIS-IL-AABD-RESOURCES", f"nonexempt resources ${res:,.2f} exceed the AABD cash limit ${lim:,.0f}", False)
         else:
             det.note("DIS-IL-AABD-RESOURCES", f"nonexempt resources ${res:,.2f} within ${lim:,.0f}", True)
-            people = [a] + ([hh.spouse] if r.unit == "couple" else [])
+            people = [a] + ([fed.spouse_of(hh)] if r.unit == "couple" else [])
             share = r.federal_payment / len(people)
             rows = []
             for p in people:

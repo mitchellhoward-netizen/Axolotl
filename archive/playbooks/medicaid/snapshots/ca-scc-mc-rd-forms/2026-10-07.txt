@@ -1,0 +1,305 @@
+MC RD Forms
+
+In general, all MC only clients are required to complete an annual MC RD, with the exception of the following groups:
+
+FFY in aid code 4M
+
+Clients receiving MC through public cash assistance programs:
+
+CalWORKs
+
+Supplemental Security Income/State Supplementary Payment (SSI/SSP)
+
+Foster Care, or
+
+Adoption Assistance Program (AAP).
+
+MC RD Packets
+
+There are four different sets of forms based on the case type for MC RDs:
+
+The MAGI MC RD packet for cases with information that was not e-verified through the Federal HUB.
+
+The Mixed Medi-Cal (both MAGI and Non-MAGI) MC RD packet.
+
+The Non-MAGI MC RD packet.
+
+The LTC MC RD packet.
+
+Clients should NOT be discontinued for not returning the paper MC RD packet if the information has been provided verbally and a telephonic signature has been obtained. Clients can provide the information requested in the packet by mail, by fax, by email, in person, over the phone, or through BenefitsCal.
+
+A signature is required to complete the annual renewal process and may be obtained by:
+
+Obtaining a wet Signature from the client on the renewal forms or
+
+Obtaining an electronic signature via Covered CA or BenfitsCal (when the client completes the MC RD online)
+
+Obtaining a Telephonic Signature
+
+Refer to Job Aid (JA): Electronic Signature (e-Sign) in CalSAWS for detailed system entries.
+
+Exception: The Ex-Parte process can be used to complete a Medi-Cal renewal even if the packet was sent and not returned if there's enough information available to verify all eligibility criteria, and it results in a positive or neutral change.
+
+MAGI MC RD Packet
+
+For MAGI MC only cases, when information is not e-verified the following form will be mailed to the clients:
+
+Form Number
+
+Form Name
+
+Description of Form
+
+MC 216
+
+Medi-Cal Renewal Form
+
+The pre-populated MC 216 will be auto-generated and sent by CalSAWS. The system will pre-populate case information on the form.
+
+NOTE: The additional informational forms listed in Informational MC RD Forms are also sent to the client.
+
+Non-MAGI MC RD Packet
+
+The Non-MAGI MC only MC RD packet (non-LTC) consists of the following form:
+
+Form Number
+
+Form Name
+
+Description of Form
+
+MC 210 RV
+
+Medi-Cal Annual Redetermination form
+
+The MC 210 RV is the main MC RD form for Non-MAGI MC individuals.
+
+NOTE: The additional informational forms listed in Informational MC RD Forms are also sent to the client.
+
+Mixed MC RD Packet
+
+A Mixed MC case consists of both individuals who are MAGI MC eligible and Non-MAGI MC eligible (i.e. a 68-year-old spouse on an ABD program and his/her 60-year-old spouse on MAGI MC).
+
+The following form will be mailed to the client:
+
+Form Number
+
+Form Name
+
+Description of Form
+
+MC 217
+
+Medi-Cal Renewal Form
+
+The prepopulated Mixed Household MC 217 Annual Renewal Form combines the required sections from both the MAGI (MC 216) and Non-MAGI (MC 210 RV) renewal forms for those mixed household members who must complete a prepopulated renewal form if they have not been automatically renewed during ex parte review.
+
+NOTE: The additional informational forms listed in Informational MC RD Forms are also sent to the client.
+
+Long Term Care MC RD Packet
+
+The LTC MC RD Packet consists of the following forms:
+
+Form Number
+
+Form Name
+
+Description of Form
+
+MC 210 RV Notice
+
+Medi-Cal Annual Redetermination Notice
+
+This cover letter explains to a MC client the change to the annual MC annual RD process due to ACA. The informing notice also contains the following information:
+
+Purpose of the annual MC RD.
+
+Requirements of the annual MC RD, and
+
+The due date when required forms must be completed/returned for MC benefits to continue.
+
+Completing the annual MC RD in a timely manner will ensure continuous coverage if all eligibility factors are met, and
+
+Non-cooperation may cause interruption/termination of MC benefits.
+
+MC 210 RV
+
+Medi-cal Annual Redetermination Form
+
+Includes questions currently listed on several different forms, including the MC 262, and the MC 604 IPS. It also includes a section for resources and property information and questions to ensure resources and property are correctly counted.
+
+NOTE: The additional informational forms listed in Informational MC RD Forms are also sent to the client.
+
+Additional forms that were previously sent with the LTC MC RD packet will continue to be sent. The following are the LTC MC RD supplemental forms:
+
+Form Number
+
+Form Name
+
+DHCS 7068
+
+Responsibilities of Guardian/ Conservator or Applicant/ Beneficiary Representative
+
+Note: This supplemental form is required for clients with an Authorized Representative (AR).
+
+MC 004
+
+Nursing Home Patient Information
+
+MC 019
+
+Medi-Cal Information for Beneficiaries
+
+MC 18
+
+Important Notice About Your Medi-Cal Benefits
+
+MC 210 PS
+
+Property Supplement
+
+MC 219
+
+Important Information for Persons Requesting Medi-Cal
+
+Note: A returned, signed copy of the MC 219 is not required; however case comments that the form was sent (or read over the phone) must still be entered in CalSAWS.
+
+PUB 13
+
+Your Rights Under California Welfare Programs
+
+NVRA
+
+Voter Preference Form
+
+GEN 1365
+
+Notice of Language Services
+
+SCD 2610
+
+BenefitsCal Flyer
+
+Informational MC RD Forms
+
+The informational MC forms are sent to all MC clients at least 60 days prior to their MC RD due date. The following are the MC RD informational forms:
+
+Form Number
+
+Form Name
+
+GEN 1365
+
+Notice of Language Services
+
+MC 007
+
+Medi-Cal General Property Limitations
+
+MC 019
+
+Medi-Cal Information for Beneficiaries
+
+MC 219
+
+Important Information for Persons Requesting Medi-Cal
+
+Note: A returned, signed copy of the MC 219 is not required; however case comments that the form was sent (or read over the phone) must still be entered in CalSAWS.
+
+MC 372
+
+Breast and Cervical Cancer Treatment Program (BCCTP) information
+
+PUB 13
+
+Your Rights Under California Welfare Programs
+
+SCD 115
+
+Consent to Exchange/ Release Information - Children’s Health Initiative (CHI)
+
+NVRA
+
+Voter Preference Form
+
+SCD 2610
+
+BenefitsCal Flyer
+
+SCD 2365
+
+Second Harvest Food Bank and CalFresh Outreach Flyer
+
+WIC 2
+
+WIC Outreach Flyer
+
+Foster Care MC RD Forms
+
+Form Number
+
+Form Name
+
+Description of Form
+
+MC 250
+
+Application and Statement of Facts for Child Not Living with A Parent or Relative and for Whom a Public Agency is Assuming Some Financial Responsibility
+
+The MC 250 is used for the annual RD for Foster Care (FC) children.
+
+MC 250A
+
+Application and Statement of Facts for an Individual who is over 18 and under 26 and who was in FC Placement on his or her 18th Birthday
+
+The MC 250 A may be used for clients in the FFY program, aid code 4M.
+
+Note: The MC 250 A is NOT a mandatory form.
+
+Additional MC RD Forms
+
+The following additional forms must be completed at the annual RD, if applicable:
+
+“Student Educational Expenses” (MC 210 S-E)
+
+“Income In-Kind/Housing Verification” (MC 210 S-I)
+
+“SSA Referral Notice” (MC 194), if there is no SSN on file.
+
+Medical Support Forms: (if an absent parent exists and the form was not previously completed or the custodial parent has new information to report.):
+
+“Notice and Agreement for Child, Spousal and Medical Support” (CW 2.1)
+
+“Support Questionnaire” (CW 2.1Q)
+
+“90-Day Status Letter” (MC 179) (if reexamination date is due).
+
+“Referral To/From Social Security” (SCD 169) [Medicare eligibility referral if client is 64 years and 9 months of age.]
+
+“Veteran's Benefits Referral” (MC 05) if not previously completed.
+
+“Insurance Affordability Program - Request for Tax Household Information” (RFTHI)
+
+“Request For Additional Income Information For Medi-Cal” Form (DHCS 7103)
+
+SAWS 2 PLUS
+
+SSBS may use the “Application for Cash Aid, CalFresh, and/or Medi-Cal”
+
+(SAWS 2 PLUS) for both the CW and MC only RD when all the following conditions are met:
+
+The case contains CW and MC only family members,
+
+CW and MC eligibility information/verifications are kept in the same case number and assigned to the same caseload number, and
+
+Both the CW and MC RDs are scheduled and completed in the same month.
+
+Example Example A family consists of both CW and MC only family members. The SSBS schedules the CW/MC annual RD for January 2017 and both are completed with the client on January 10, 2017. The SAWS 2 PLUS is sufficient for both the CW and MC RD.
+
+Notices Of Action at Annual Renewal or Change In Circumstance
+
+A Medi-Cal Notice of Action (NOA) is to be issued to all MC recipients when an eligibility determination is made during annual renewal or a change in circumstance redetermination that results in the resetting of the annual renewal date. The NOA’s will auto-generate in CalSAWS and include the applicable information used in determining eligibility (e.g., Household Size, Marital Status, Monthly Countable Household Income, Countable Property, Blind or Disabled, Citizenship/Immigration Status). The NOA’s will inform the recipient to contact the county within 90 days if any of the information used in the eligibility determination is incorrect.
+
+Related Topics
+
+Redeterminations

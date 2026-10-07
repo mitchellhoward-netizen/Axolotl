@@ -1,0 +1,602 @@
+# Synthetic CA households for the school meals playbook. No real people.
+# Income is in facts.reported_income (amount + pay frequency), as on a meal application.
+program: school_meals
+scope: ca
+cases:
+- id: SCH-CA-T01
+  title: Public school, family of 4 with $42,900 - free for all; federal category free; application still collected
+  as_of: '2026-09-15'
+  tags:
+  - threshold
+  - family
+  household:
+    members:
+    - id: p
+      age: 40
+    - id: q
+      age: 38
+      relationship: spouse
+    - id: c1
+      age: 10
+      relationship: child
+      student: true
+    - id: c2
+      age: 7
+      relationship: child
+      student: true
+    facts:
+      reported_income:
+      - owner: p
+        kind: earned
+        amount: 42900
+        frequency: annual
+    state: ca
+  expect:
+    status: eligible
+    tier: free_universal
+    rules_include:
+    - SCH-CA-UNIVERSAL-MEALS
+    - SCH-CA-APPLICATION-STILL-REQUIRED
+    links_include:
+    - federal_category:free
+    - ca:meal_application_for_lcff
+  crosscheck:
+    policyengine: true
+- id: SCH-CA-T02
+  title: Public school, family of 4 with $42,901 - federal category reduced
+  as_of: '2026-09-15'
+  tags:
+  - threshold
+  - family
+  household:
+    members:
+    - id: p
+      age: 40
+    - id: q
+      age: 38
+      relationship: spouse
+    - id: c1
+      age: 10
+      relationship: child
+      student: true
+    - id: c2
+      age: 7
+      relationship: child
+      student: true
+    facts:
+      reported_income:
+      - owner: p
+        kind: earned
+        amount: 42901
+        frequency: annual
+    state: ca
+  expect:
+    status: eligible
+    tier: free_universal
+    links_include:
+    - federal_category:reduced
+  crosscheck:
+    policyengine: true
+- id: SCH-CA-T03
+  title: Public school, family of 4 with $61,051 - federal category paid, still free
+  as_of: '2026-09-15'
+  tags:
+  - threshold
+  - family
+  household:
+    members:
+    - id: p
+      age: 40
+    - id: q
+      age: 38
+      relationship: spouse
+    - id: c1
+      age: 10
+      relationship: child
+      student: true
+    - id: c2
+      age: 7
+      relationship: child
+      student: true
+    facts:
+      reported_income:
+      - owner: p
+        kind: earned
+        amount: 61051
+        frequency: annual
+    state: ca
+  expect:
+    status: eligible
+    tier: free_universal
+    links_include:
+    - federal_category:paid
+  crosscheck:
+    policyengine: true
+- id: SCH-CA-T04
+  title: Private school in the NSLP, family of 4 with $42,900 - free (federal rules only)
+  as_of: '2026-09-15'
+  tags:
+  - threshold
+  - family
+  household:
+    members:
+    - id: p
+      age: 40
+    - id: q
+      age: 38
+      relationship: spouse
+    - id: c1
+      age: 10
+      relationship: child
+      student: true
+    - id: c2
+      age: 7
+      relationship: child
+      student: true
+    facts:
+      school_type: private
+      reported_income:
+      - owner: p
+        kind: earned
+        amount: 42900
+        frequency: annual
+    state: ca
+  expect:
+    status: eligible
+    tier: free
+    rules_include:
+    - SCH-CA-PRIVATE-SCHOOLS
+  crosscheck:
+    policyengine: true
+- id: SCH-CA-T05
+  title: Private school, family of 4 with $61,050 - reduced price
+  as_of: '2026-09-15'
+  tags:
+  - threshold
+  - family
+  household:
+    members:
+    - id: p
+      age: 40
+    - id: q
+      age: 38
+      relationship: spouse
+    - id: c1
+      age: 10
+      relationship: child
+      student: true
+    - id: c2
+      age: 7
+      relationship: child
+      student: true
+    facts:
+      school_type: private
+      reported_income:
+      - owner: p
+        kind: earned
+        amount: 61050
+        frequency: annual
+    state: ca
+  expect:
+    status: eligible
+    tier: reduced
+  crosscheck:
+    policyengine: true
+- id: SCH-CA-T06
+  title: Private school, family of 4 with $61,051 - full price
+  as_of: '2026-09-15'
+  tags:
+  - threshold
+  - family
+  household:
+    members:
+    - id: p
+      age: 40
+    - id: q
+      age: 38
+      relationship: spouse
+    - id: c1
+      age: 10
+      relationship: child
+      student: true
+    - id: c2
+      age: 7
+      relationship: child
+      student: true
+    facts:
+      school_type: private
+      reported_income:
+      - owner: p
+        kind: earned
+        amount: 61051
+        frequency: annual
+    state: ca
+  expect:
+    status: ineligible
+    tier: paid
+    rules_include:
+    - SCH-CA-PRIVATE-SCHOOLS
+  crosscheck:
+    policyengine: true
+- id: SCH-CA-T07
+  title: Private school, paid weekly $825 - free; $826 would be reduced
+  as_of: '2026-09-15'
+  tags:
+  - threshold
+  - family
+  household:
+    members:
+    - id: p
+      age: 40
+    - id: q
+      age: 38
+      relationship: spouse
+    - id: c1
+      age: 10
+      relationship: child
+      student: true
+    - id: c2
+      age: 7
+      relationship: child
+      student: true
+    facts:
+      school_type: private
+      reported_income:
+      - owner: p
+        kind: earned
+        amount: 825
+        frequency: weekly
+    state: ca
+  expect:
+    status: eligible
+    tier: free
+  crosscheck:
+    policyengine: true
+- id: SCH-CA-T08
+  title: Private school, paid monthly $5,089 ($1 over the monthly reduced limit) - full price
+  as_of: '2026-09-15'
+  tags:
+  - threshold
+  - family
+  household:
+    members:
+    - id: p
+      age: 40
+    - id: q
+      age: 38
+      relationship: spouse
+    - id: c1
+      age: 10
+      relationship: child
+      student: true
+    - id: c2
+      age: 7
+      relationship: child
+      student: true
+    facts:
+      school_type: private
+      reported_income:
+      - owner: p
+        kind: earned
+        amount: 5089
+        frequency: monthly
+    state: ca
+  expect:
+    status: ineligible
+    tier: paid
+  crosscheck:
+    policyengine: true
+- id: SCH-CA-T09
+  title: Public school, children on Medi-Cal at 152% FPL - directly certified reduced price through CALPADS
+  as_of: '2026-09-15'
+  tags:
+  - family
+  - other_benefits
+  household:
+    members:
+    - id: p
+      age: 40
+    - id: q
+      age: 38
+      relationship: spouse
+    - id: c1
+      age: 10
+      relationship: child
+      student: true
+      benefits:
+      - medicaid
+    - id: c2
+      age: 7
+      relationship: child
+      student: true
+      benefits:
+      - medicaid
+    facts:
+      medicaid_income_fpl_percent: 152
+      reported_income:
+      - owner: p
+        kind: earned
+        amount: 50000
+        frequency: annual
+    state: ca
+  expect:
+    status: eligible
+    tier: free_universal
+    rules_include:
+    - SCH-CA-DCM-MEDI-CAL
+    links_include:
+    - federal_category:reduced
+    - medicaid:direct_certification_reduced
+  crosscheck:
+    policyengine: true
+- id: SCH-CA-T10
+  title: Private school, children on Medi-Cal at 152% FPL - no CALPADS match; reduced price only by application
+  as_of: '2026-09-15'
+  tags:
+  - family
+  - other_benefits
+  - edge
+  household:
+    members:
+    - id: p
+      age: 40
+    - id: q
+      age: 38
+      relationship: spouse
+    - id: c1
+      age: 10
+      relationship: child
+      student: true
+      benefits:
+      - medicaid
+    - id: c2
+      age: 7
+      relationship: child
+      student: true
+      benefits:
+      - medicaid
+    facts:
+      medicaid_income_fpl_percent: 152
+      school_type: private
+      reported_income:
+      - owner: p
+        kind: earned
+        amount: 50000
+        frequency: annual
+    state: ca
+  expect:
+    status: eligible
+    tier: reduced
+    rules_include:
+    - SCH-CA-DCM-MEDI-CAL
+    links_include:
+    - route:income_application
+  crosscheck:
+    policyengine: true
+- id: SCH-CA-T11
+  title: Public CEP school, $90,000 - free; Alternative Income Form (by October 31) for LCFF
+  as_of: '2026-09-15'
+  tags:
+  - family
+  - edge
+  household:
+    members:
+    - id: p
+      age: 40
+    - id: q
+      age: 38
+      relationship: spouse
+    - id: c1
+      age: 10
+      relationship: child
+      student: true
+    - id: c2
+      age: 7
+      relationship: child
+      student: true
+    facts:
+      school_cep: true
+      reported_income:
+      - owner: p
+        kind: earned
+        amount: 90000
+        frequency: annual
+    state: ca
+  expect:
+    status: eligible
+    tier: free_universal
+    rules_include:
+    - SCH-FED-CEP
+    - SCH-CA-LCFF-ALT-INCOME-FORM
+    links_include:
+    - route:cep
+    - ca:lcff_alternative_income_form
+  crosscheck:
+    policyengine: true
+- id: SCH-CA-T12
+  title: Public Provision 2 school in a non-base year, $45,000 - free; Alternative Income Form for LCFF
+  as_of: '2026-09-15'
+  tags:
+  - family
+  - edge
+  household:
+    members:
+    - id: p
+      age: 40
+    - id: q
+      age: 38
+      relationship: spouse
+    - id: c1
+      age: 10
+      relationship: child
+      student: true
+    - id: c2
+      age: 7
+      relationship: child
+      student: true
+    facts:
+      school_provision2_nonbase: true
+      reported_income:
+      - owner: p
+        kind: earned
+        amount: 45000
+        frequency: annual
+    state: ca
+  expect:
+    status: eligible
+    tier: free_universal
+    rules_include:
+    - SCH-CA-LCFF-ALT-INCOME-FORM
+    links_include:
+    - ca:lcff_alternative_income_form
+    - federal_category:reduced
+  crosscheck:
+    policyengine: true
+- id: SCH-CA-T13
+  title: Public LEA not in the federal programs, $90,000 - still free under the state meal mandate
+  as_of: '2026-09-15'
+  tags:
+  - family
+  - edge
+  household:
+    members:
+    - id: p
+      age: 40
+    - id: q
+      age: 38
+      relationship: spouse
+    - id: c1
+      age: 10
+      relationship: child
+      student: true
+    - id: c2
+      age: 7
+      relationship: child
+      student: true
+    facts:
+      school_participates_nslp: false
+      reported_income:
+      - owner: p
+        kind: earned
+        amount: 90000
+        frequency: annual
+    state: ca
+  expect:
+    status: eligible
+    tier: free_universal
+    rules_include:
+    - SCH-CA-UNIVERSAL-MEALS
+    links_include:
+    - ca:lcff_alternative_income_form
+  crosscheck:
+    policyengine: true
+- id: SCH-CA-T14
+  title: Public school, CalFresh household with $6,000 a month - federal category free by direct certification
+  as_of: '2026-09-15'
+  tags:
+  - family
+  - other_benefits
+  household:
+    members:
+    - id: p
+      age: 40
+      benefits:
+      - snap
+    - id: q
+      age: 38
+      relationship: spouse
+    - id: c1
+      age: 10
+      relationship: child
+      student: true
+    - id: c2
+      age: 7
+      relationship: child
+      student: true
+    facts:
+      reported_income:
+      - owner: p
+        kind: earned
+        amount: 6000
+        frequency: monthly
+    state: ca
+  expect:
+    status: eligible
+    tier: free_universal
+    rules_include:
+    - SCH-FED-DC-SNAP
+    links_include:
+    - federal_category:free
+    - snap:direct_certification
+  crosscheck:
+    policyengine: true
+- id: SCH-CA-T15
+  title: Private school, foster child student, $90,000 - free
+  as_of: '2026-09-15'
+  tags:
+  - family
+  - other_benefits
+  household:
+    members:
+    - id: p
+      age: 40
+    - id: q
+      age: 38
+      relationship: spouse
+    - id: c1
+      age: 10
+      relationship: child
+      student: true
+      benefits:
+      - foster_care
+    - id: c2
+      age: 7
+      relationship: child
+      student: true
+    facts:
+      school_type: private
+      reported_income:
+      - owner: p
+        kind: earned
+        amount: 90000
+        frequency: annual
+    state: ca
+  expect:
+    status: eligible
+    tier: free
+    rules_include:
+    - SCH-FED-CATEGORICAL-INDIVIDUAL
+  crosscheck:
+    policyengine: true
+- id: SCH-CA-T16
+  title: Charter school, single parent and one child with $40,035 (over the reduced limit for 2) - free for all; federal category
+    paid
+  as_of: '2026-09-15'
+  tags:
+  - single
+  - threshold
+  household:
+    members:
+    - id: p
+      age: 33
+    - id: c1
+      age: 8
+      relationship: child
+      student: true
+    facts:
+      school_type: charter
+      reported_income:
+      - owner: p
+        kind: earned
+        amount: 40035
+        frequency: annual
+    state: ca
+  expect:
+    status: eligible
+    tier: free_universal
+    rules_include:
+    - SCH-CA-UNIVERSAL-MEALS
+    links_include:
+    - federal_category:paid
+  crosscheck:
+    policyengine: true

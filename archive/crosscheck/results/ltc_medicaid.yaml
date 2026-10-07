@@ -1,0 +1,643 @@
+program: ltc_medicaid
+policyengine_us_version: 2.29.14
+run_on: '2026-10-07'
+rows:
+- case: LTC-CA-T01
+  state: ca
+  title: Single nursing-home resident, $130,000 property (at the limit), Social Security $2,200
+  ours:
+    status: eligible
+    tier: home_equity_test
+  policyengine:
+    status: eligible
+    tier: home_equity_test
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: home_equity_test
+  federal_minimum_agrees: true
+- case: LTC-CA-T02
+  state: ca
+  title: Single nursing-home resident, $130,001 property ($1 over)
+  ours:
+    status: eligible
+    tier: home_equity_test
+  policyengine:
+    status: eligible
+    tier: home_equity_test
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: home_equity_test
+  federal_minimum_agrees: true
+- case: LTC-CA-T03
+  state: ca
+  title: Married, spouse at home; couple has $292,660 ($130,000 + $162,660 CSRA, at the maximum)
+  ours:
+    status: eligible
+    tier: home_equity_test
+  policyengine:
+    status: eligible
+    tier: home_equity_test
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: home_equity_test
+  federal_minimum_agrees: true
+- case: LTC-CA-T04
+  state: ca
+  title: Married, couple has $292,661 ($1 over)
+  ours:
+    status: eligible
+    tier: home_equity_test
+  policyengine:
+    status: eligible
+    tier: home_equity_test
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: home_equity_test
+  federal_minimum_agrees: true
+- case: LTC-CA-T05
+  state: ca
+  title: Married, couple has $50,000 (far below the CSRA); community spouse income $1,500 less $202.90 Part B premium
+  ours:
+    status: eligible
+    tier: home_equity_test
+  policyengine:
+    status: eligible
+    tier: home_equity_test
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: home_equity_test
+  federal_minimum_agrees: true
+- case: LTC-CA-T06
+  state: ca
+  title: 'Single, owned $200,000, gave $70,000 to a son on 2026-08-24, applied 2026-09-07: POI of 4 whole months from August 2026'
+  ours:
+    status: eligible
+    tier: home_equity_test
+  policyengine:
+    status: eligible
+    tier: home_equity_test
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: home_equity_test
+  federal_minimum_agrees: true
+- case: LTC-CA-T07
+  state: ca
+  title: 'Single, gave $25,000 in January 2026 while holding $114,000 in total (within the limit): not disqualifying'
+  ours:
+    status: eligible
+    tier: home_equity_test
+  policyengine:
+    status: eligible
+    tier: home_equity_test
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: home_equity_test
+  federal_minimum_agrees: true
+- case: LTC-CA-T08
+  state: ca
+  title: 'Single, gave $100,000 in March 2025 (no property test then): never reviewed'
+  ours:
+    status: eligible
+    tier: home_equity_test
+  policyengine:
+    status: eligible
+    tier: home_equity_test
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: home_equity_test
+  federal_minimum_agrees: true
+- case: LTC-CA-T09
+  state: ca
+  title: Single, $100,000 gift 61 months ago (outside every look-back)
+  ours:
+    status: eligible
+    tier: home_equity_test
+  policyengine:
+    status: eligible
+    tier: home_equity_test
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: home_equity_test
+  federal_minimum_agrees: true
+- case: LTC-CA-T10
+  state: ca
+  title: 'Single, $20,000 gift in February 2026 while over the limit: 1-month POI (February 2026) already over by October'
+  ours:
+    status: eligible
+    tier: home_equity_test
+  policyengine:
+    status: eligible
+    tier: home_equity_test
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: home_equity_test
+  federal_minimum_agrees: true
+- case: LTC-CA-T11
+  state: ca
+  title: 'Single, home equity $900,000, nobody at home: whether California applies the home equity limit is unresolved'
+  ours:
+    status: undetermined
+    tier: home_equity_test
+  policyengine:
+    status: eligible
+    tier: home_equity_test
+  agree: false
+  explanation: 'Archive gap, recorded as unresolved. Whether California applies the home equity limit before 2028 is an open question (LTC-CA-OQ-01,
+    conflict LTC-CA-CONFLICT-01: federal statute 42 U.S.C. 1396p(f) versus Justice in Aging''s statement that California does not apply it yet),
+    so the archive returns "undetermined" for California households with equity above the $752,000 federal minimum and nobody qualifying in the
+    home. PolicyEngine applies its national $1,130,000 limit and finds $900,000 / $760,000 within it.'
+  ours_federal_minimum:
+    status: eligible
+    tier: home_equity_test
+  federal_minimum_agrees: true
+- case: LTC-CA-T15
+  state: ca
+  title: 'Single who gave $600,000 in January 2026 while over the limit: POI capped at 30 months'
+  ours:
+    status: eligible
+    tier: home_equity_test
+  policyengine:
+    status: eligible
+    tier: home_equity_test
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: home_equity_test
+  federal_minimum_agrees: true
+- case: LTC-CA-T16
+  state: ca
+  title: Single on SSI/SSP with Medicare and QMB, $2,000 savings, entering a nursing home
+  ours:
+    status: eligible
+    tier: home_equity_test
+  policyengine:
+    status: eligible
+    tier: home_equity_test
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: home_equity_test
+  federal_minimum_agrees: true
+- case: LTC-IL-T01
+  state: il
+  title: Single nursing-home resident, $17,500 (at the limit), Social Security $2,200
+  ours:
+    status: eligible
+    tier: home_equity_test
+  policyengine:
+    status: eligible
+    tier: home_equity_test
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: home_equity_test
+  federal_minimum_agrees: true
+- case: LTC-IL-T02
+  state: il
+  title: 'Single nursing-home resident, $17,501 ($1 over): excess applied to the first month''s NH credit (spenddown met)'
+  ours:
+    status: eligible
+    tier: home_equity_test
+  policyengine:
+    status: eligible
+    tier: home_equity_test
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: home_equity_test
+  federal_minimum_agrees: true
+- case: LTC-IL-T03
+  state: il
+  title: Married, couple has $160,672 ($143,172 CSRA + $17,500)
+  ours:
+    status: eligible
+    tier: home_equity_test
+  policyengine:
+    status: eligible
+    tier: home_equity_test
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: home_equity_test
+  federal_minimum_agrees: true
+- case: LTC-IL-T04
+  state: il
+  title: Married, couple has $50,000; community spouse income $1,500 (flat CSRA; CSMNA $2,566.50)
+  ours:
+    status: eligible
+    tier: home_equity_test
+  policyengine:
+    status: eligible
+    tier: home_equity_test
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: home_equity_test
+  federal_minimum_agrees: true
+- case: LTC-IL-T05
+  state: il
+  title: 'Married, couple has $400,000: $239,328 excess makes the spenddown far larger than the $9,000 private rate'
+  ours:
+    status: eligible
+    tier: home_equity_test
+  policyengine:
+    status: eligible
+    tier: home_equity_test
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: home_equity_test
+  federal_minimum_agrees: true
+- case: LTC-IL-T06
+  state: il
+  title: 'Single, gave $50,000 in May 2024; facility private rate $9,000: 5.56-month penalty'
+  ours:
+    status: eligible
+    tier: home_equity_test
+  policyengine:
+    status: eligible
+    tier: home_equity_test
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: home_equity_test
+  federal_minimum_agrees: true
+- case: LTC-IL-T07
+  state: il
+  title: Single, $100,000 gift 61 months ago (outside the look-back)
+  ours:
+    status: eligible
+    tier: home_equity_test
+  policyengine:
+    status: eligible
+    tier: home_equity_test
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: home_equity_test
+  federal_minimum_agrees: true
+- case: LTC-IL-T08
+  state: il
+  title: 'Single, home equity $760,000, nobody at home: over Illinois''s $752,000 limit'
+  ours:
+    status: ineligible
+    tier: home_equity_test
+  policyengine:
+    status: eligible
+    tier: home_equity_test
+  agree: false
+  explanation: 'State policy choice, not a logic difference. PolicyEngine uses one national home equity limit, the federal maximum ($1,130,000
+    in 2026, parameter gov.hhs.medicaid.eligibility.long_term_care.home_equity.limit), for every state. Illinois elected the federal minimum:
+    $752,000 for 2026 (IDHS WAG 25-03-02 (2), PM 07-02-04-a). The household''s $760,000 equity is between the two, so Illinois denies long-term
+    care and PolicyEngine does not. Our federal-minimum column (federal maximum limit) matches PolicyEngine.'
+  ours_federal_minimum:
+    status: eligible
+    tier: home_equity_test
+  federal_minimum_agrees: true
+- case: LTC-IL-T08
+  state: ny
+  title: 'Single, home equity $760,000, nobody at home: over Illinois''s $752,000 limit'
+  ours:
+    status: eligible
+    tier: home_equity_test
+  policyengine:
+    status: eligible
+    tier: home_equity_test
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: home_equity_test
+  federal_minimum_agrees: true
+- case: LTC-IL-T08
+  state: ca
+  title: 'Single, home equity $760,000, nobody at home: over Illinois''s $752,000 limit'
+  ours:
+    status: undetermined
+    tier: home_equity_test
+  policyengine:
+    status: eligible
+    tier: home_equity_test
+  agree: false
+  explanation: 'Archive gap, recorded as unresolved. Whether California applies the home equity limit before 2028 is an open question (LTC-CA-OQ-01,
+    conflict LTC-CA-CONFLICT-01: federal statute 42 U.S.C. 1396p(f) versus Justice in Aging''s statement that California does not apply it yet),
+    so the archive returns "undetermined" for California households with equity above the $752,000 federal minimum and nobody qualifying in the
+    home. PolicyEngine applies its national $1,130,000 limit and finds $900,000 / $760,000 within it.'
+  ours_federal_minimum:
+    status: eligible
+    tier: home_equity_test
+  federal_minimum_agrees: true
+- case: LTC-IL-T09
+  state: il
+  title: Married, home equity $760,000 with the spouse living there (limit does not apply)
+  ours:
+    status: eligible
+    tier: home_equity_test
+  policyengine:
+    status: eligible
+    tier: home_equity_test
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: home_equity_test
+  federal_minimum_agrees: true
+- case: LTC-IL-T12
+  state: il
+  title: 'Single with pension $10,000 a month: income covers the $9,000 private rate'
+  ours:
+    status: eligible
+    tier: home_equity_test
+  policyengine:
+    status: eligible
+    tier: home_equity_test
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: home_equity_test
+  federal_minimum_agrees: true
+- case: LTC-IL-T13
+  state: il
+  title: Single on SSI with QMB, $1,000 savings, entering a nursing home
+  ours:
+    status: eligible
+    tier: home_equity_test
+  policyengine:
+    status: eligible
+    tier: home_equity_test
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: home_equity_test
+  federal_minimum_agrees: true
+- case: LTC-NY-T01
+  state: ny
+  title: Single nursing-home resident, $33,038 in savings (at the limit), Social Security $2,200
+  ours:
+    status: eligible
+    tier: home_equity_test
+  policyengine:
+    status: eligible
+    tier: home_equity_test
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: home_equity_test
+  federal_minimum_agrees: true
+- case: LTC-NY-T02
+  state: ny
+  title: Single nursing-home resident, $33,039 in savings ($1 over the limit)
+  ours:
+    status: eligible
+    tier: home_equity_test
+  policyengine:
+    status: eligible
+    tier: home_equity_test
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: home_equity_test
+  federal_minimum_agrees: true
+- case: LTC-NY-T03
+  state: ny
+  title: Married, spouse at home; couple has $100,000; spousal share $50,000 is below the $74,820 floor (CSRA at minimum)
+  ours:
+    status: eligible
+    tier: home_equity_test
+  policyengine:
+    status: eligible
+    tier: home_equity_test
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: home_equity_test
+  federal_minimum_agrees: true
+- case: LTC-NY-T04
+  state: ny
+  title: Married, couple has $158,000; spousal share $79,000 is the CSRA (between min and max); $79,000 left is over $33,038
+  ours:
+    status: eligible
+    tier: home_equity_test
+  policyengine:
+    status: eligible
+    tier: home_equity_test
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: home_equity_test
+  federal_minimum_agrees: true
+- case: LTC-NY-T05
+  state: ny
+  title: Married, $400,000 at the snapshot (CSRA at the $162,660 maximum); couple has since spent down to $195,698
+  ours:
+    status: eligible
+    tier: home_equity_test
+  policyengine:
+    status: eligible
+    tier: home_equity_test
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: home_equity_test
+  federal_minimum_agrees: true
+- case: LTC-NY-T06
+  state: ny
+  title: Single, gave $100,000 to a grandchild 3 years before applying (New York City facility); savings at the limit
+  ours:
+    status: eligible
+    tier: home_equity_test
+  policyengine:
+    status: eligible
+    tier: home_equity_test
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: home_equity_test
+  federal_minimum_agrees: true
+- case: LTC-NY-T06
+  state: ca
+  title: Single, gave $100,000 to a grandchild 3 years before applying (New York City facility); savings at the limit
+  ours:
+    status: eligible
+    tier: home_equity_test
+  policyengine:
+    status: eligible
+    tier: home_equity_test
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: home_equity_test
+  federal_minimum_agrees: true
+- case: LTC-NY-T06
+  state: il
+  title: Single, gave $100,000 to a grandchild 3 years before applying (New York City facility); savings at the limit
+  ours:
+    status: eligible
+    tier: home_equity_test
+  policyengine:
+    status: eligible
+    tier: home_equity_test
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: home_equity_test
+  federal_minimum_agrees: true
+- case: LTC-NY-T07
+  state: ny
+  title: Single, $100,000 gift 61 months before applying (outside the 60-month look-back)
+  ours:
+    status: eligible
+    tier: home_equity_test
+  policyengine:
+    status: eligible
+    tier: home_equity_test
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: home_equity_test
+  federal_minimum_agrees: true
+- case: LTC-NY-T08
+  state: ny
+  title: Married, $80,000 given to the spouse at home last year (exempt transfer)
+  ours:
+    status: eligible
+    tier: home_equity_test
+  policyengine:
+    status: eligible
+    tier: home_equity_test
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: home_equity_test
+  federal_minimum_agrees: true
+- case: LTC-NY-T09
+  state: ny
+  title: 'Married with a dependent child at home: community spouse income $1,000, child no income; income allowance plus family member allowance'
+  ours:
+    status: eligible
+    tier: home_equity_test
+  policyengine:
+    status: eligible
+    tier: home_equity_test
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: home_equity_test
+  federal_minimum_agrees: true
+- case: LTC-NY-T10
+  state: ny
+  title: Single, home equity $1,200,000, nobody living in the home (over the $1,130,000 limit)
+  ours:
+    status: ineligible
+    tier: home_equity_test
+  policyengine:
+    status: ineligible
+    tier: home_equity_test
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: ineligible
+    tier: home_equity_test
+  federal_minimum_agrees: true
+- case: LTC-NY-T11
+  state: ny
+  title: Married, home equity $1,200,000 but the spouse lives in the home (limit does not apply)
+  ours:
+    status: eligible
+    tier: home_equity_test
+  policyengine:
+    status: eligible
+    tier: home_equity_test
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: home_equity_test
+  federal_minimum_agrees: true
+- case: LTC-NY-T12
+  state: ny
+  title: 'Single with $13,038 (room of $20,000 under the level) who gave $50,000 in June 2025: uncompensated value reduced to $30,000'
+  ours:
+    status: eligible
+    tier: home_equity_test
+  policyengine:
+    status: eligible
+    tier: home_equity_test
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: home_equity_test
+  federal_minimum_agrees: true
+- case: LTC-NY-T14
+  state: ny
+  title: 'Single with pension income $16,000 a month: NAMI covers the cost of care'
+  ours:
+    status: eligible
+    tier: home_equity_test
+  policyengine:
+    status: eligible
+    tier: home_equity_test
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: home_equity_test
+  federal_minimum_agrees: true
+- case: LTC-NY-T17
+  state: ny
+  title: Single on SSI and QMB entering a nursing home, $1,000 savings
+  ours:
+    status: eligible
+    tier: home_equity_test
+  policyengine:
+    status: eligible
+    tier: home_equity_test
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: home_equity_test
+  federal_minimum_agrees: true

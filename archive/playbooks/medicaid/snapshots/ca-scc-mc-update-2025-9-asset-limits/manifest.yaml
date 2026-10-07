@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://stgenssa.sccgov.org/debs/program_handbooks/medi-cal/assets/00Updates/Updates2025/Medi-Cal_Update_2025-9_Reinstatement_of_the_Asset_Limits_for_Non-MAGI.htm
+  final_url: https://stgenssa.sccgov.org/debs/program_handbooks/medi-cal/assets/00Updates/Updates2025/Medi-Cal_Update_2025-9_Reinstatement_of_the_Asset_Limits_for_Non-MAGI.htm
+  status: 200
+  content_type: text/html
+  text_sha256: 7d2a1067fe984816726c9ba8d23a5a28734a57177900b8686374e1fdbdbf9367
+  text: ca-scc-mc-update-2025-9-asset-limits/2026-10-07.txt
+  raw: ca-scc-mc-update-2025-9-asset-limits/2026-10-07.html

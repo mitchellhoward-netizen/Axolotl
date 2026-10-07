@@ -1,0 +1,822 @@
+# Synthetic NY households for the Disability playbook (SSI, state supplement, SSDI). No real people.
+program: disability
+scope: ny
+cases:
+- id: DIS-NY-T01
+  title: 'Single 70, Social Security $1,014: countable income equals the FBR (federal breakeven)'
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - threshold
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 70
+    incomes:
+    - kind: social_security
+      monthly: 1014
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: SSI
+    rules_include:
+    - DIS-FED-SSI-BREAKEVEN
+    - DIS-NY-SSP-AMOUNT
+    open_questions_include:
+    - DIS-FED-OQ-01
+    amounts:
+      ssi_federal_monthly: 0.0
+      state_supplement_monthly: 87.0
+      total_monthly: 87.0
+  crosscheck:
+    policyengine: true
+  note: 'Countable $994 = FBR $994: eligible under SI 02005.001 C.3 with $0 federal SSI; NY SSP $1,081 - (0 + 994) = $87.'
+- id: DIS-NY-T02
+  title: 'Single 70, Social Security $1,015: $1 over the federal breakeven, SSP only'
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - threshold
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 70
+    incomes:
+    - kind: social_security
+      monthly: 1015
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: STATE_SUPPLEMENT_ONLY
+    rules_include:
+    - DIS-NY-SSP-AMOUNT
+    amounts:
+      ssi_federal_monthly: 0.0
+      state_supplement_monthly: 86.0
+      total_monthly: 86.0
+  crosscheck:
+    policyengine: true
+  note: 'Countable $995 > $994: no federal SSI; countable $995 < standard $1,081, SSP $86 (SSL 209(1)(a), 209(4)).'
+- id: DIS-NY-T03
+  title: 'Single 70, Social Security $1,100: countable $1,080, $1 under the living-alone standard'
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - threshold
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 70
+    incomes:
+    - kind: social_security
+      monthly: 1100
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: STATE_SUPPLEMENT_ONLY
+    amounts:
+      ssi_federal_monthly: 0.0
+      state_supplement_monthly: 1.0
+      total_monthly: 1.0
+  crosscheck:
+    policyengine: true
+- id: DIS-NY-T04
+  title: 'Single 70, Social Security $1,101: countable $1,081 equals the standard of need, no SSP'
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - threshold
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 70
+    incomes:
+    - kind: social_security
+      monthly: 1101
+      owner: a
+    assets: []
+  expect:
+    status: ineligible
+    tier: null
+    amounts:
+      ssi_federal_monthly: 0.0
+      state_supplement_monthly: 0.0
+      total_monthly: 0.0
+  crosscheck:
+    policyengine: true
+  note: 'SSL 209(1)(a)(ii): eligible only if countable income is not equal to or greater than the standard.'
+- id: DIS-NY-T05
+  title: 'Aged 67 still working, wages $2,073: earned-income breakeven (countable $994)'
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - threshold
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 67
+    incomes:
+    - kind: earned
+      monthly: 2073
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: SSI
+    rules_include:
+    - DIS-FED-SSI-INCOME-EXCLUSIONS
+    amounts:
+      ssi_federal_monthly: 0.0
+      state_supplement_monthly: 87.0
+      total_monthly: 87.0
+  crosscheck:
+    policyengine: true
+  note: (2,073 - 20 - 65) / 2 = 994. Aged applicants have no SGA test.
+- id: DIS-NY-T06
+  title: 'Aged 67, wages $2,075: $1 of countable income over the earned breakeven'
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - threshold
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 67
+    incomes:
+    - kind: earned
+      monthly: 2075
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: STATE_SUPPLEMENT_ONLY
+    amounts:
+      ssi_federal_monthly: 0.0
+      state_supplement_monthly: 86.0
+      total_monthly: 86.0
+  crosscheck:
+    policyengine: true
+- id: DIS-NY-T07
+  title: Married couple, both 70, Social Security $600 + $500, living alone
+  as_of: '2026-03-01'
+  tags:
+  - couple
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 70
+    - id: b
+      age: 69
+      relationship: spouse
+    incomes:
+    - kind: social_security
+      monthly: 600
+      owner: a
+    - kind: social_security
+      monthly: 500
+      owner: b
+    assets: []
+  expect:
+    status: eligible
+    tier: SSI
+    rules_include:
+    - DIS-FED-SSI-COUPLE
+    amounts:
+      ssi_federal_monthly: 411.0
+      state_supplement_monthly: 104.0
+      total_monthly: 515.0
+  crosscheck:
+    policyengine: true
+  note: Couple countable 1,100 - 20 = 1,080; SSI 1,491 - 1,080 = 411; SSP 1,595 - (411 + 1,080) = 104.
+- id: DIS-NY-T08
+  title: 'Aged 68 (SS $500) with an ineligible 60-year-old working spouse (wages $1,200): income deemed'
+  as_of: '2026-03-01'
+  tags:
+  - couple
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 68
+    - id: b
+      age: 60
+      relationship: spouse
+    incomes:
+    - kind: social_security
+      monthly: 500
+      owner: a
+    - kind: earned
+      monthly: 1200
+      owner: b
+    assets: []
+  expect:
+    status: eligible
+    tier: SSI
+    rules_include:
+    - DIS-FED-SSI-DEEM-SPOUSE
+    open_questions_include:
+    - DIS-NY-OQ-01
+    amounts:
+      ssi_federal_monthly: 443.5
+  crosscheck:
+    policyengine: true
+  note: 'Spouse''s $1,200 > $497 (1,491 - 994): couple computation 1,491 - (480 + 567.50) = 443.50, lower than individual
+    514. New York SSP for an ineligible-spouse case is unresolved (DIS-NY-OQ-01), so only the federal amount is pinned.'
+- id: DIS-NY-T09
+  title: 'Aged 68 (SS $500) with an ineligible spouse earning $400: under $497, nothing deemed'
+  as_of: '2026-03-01'
+  tags:
+  - couple
+  - threshold
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 68
+    - id: b
+      age: 60
+      relationship: spouse
+    incomes:
+    - kind: social_security
+      monthly: 500
+      owner: a
+    - kind: earned
+      monthly: 400
+      owner: b
+    assets: []
+  expect:
+    status: eligible
+    tier: SSI
+    rules_include:
+    - DIS-FED-SSI-DEEM-SPOUSE
+    open_questions_include:
+    - DIS-NY-OQ-01
+    amounts:
+      ssi_federal_monthly: 514.0
+  crosscheck:
+    policyengine: true
+- id: DIS-NY-T10
+  title: Single 70, SS $800, savings exactly $2,000 (at the resource limit)
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - threshold
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 70
+    incomes:
+    - kind: social_security
+      monthly: 800
+      owner: a
+    assets:
+    - kind: cash
+      value: 2000
+      owner: a
+  expect:
+    status: eligible
+    tier: SSI
+    rules_include:
+    - DIS-FED-SSI-RESOURCES
+    amounts:
+      ssi_federal_monthly: 214.0
+      state_supplement_monthly: 87.0
+      total_monthly: 301.0
+  crosscheck:
+    policyengine: true
+- id: DIS-NY-T11
+  title: Single 70, SS $800, savings $2,001 ($1 over the resource limit)
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - threshold
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 70
+    incomes:
+    - kind: social_security
+      monthly: 800
+      owner: a
+    assets:
+    - kind: cash
+      value: 2001
+      owner: a
+  expect:
+    status: ineligible
+    tier: null
+    rules_include:
+    - DIS-FED-SSI-RESOURCES
+    amounts:
+      ssi_federal_monthly: 0.0
+      state_supplement_monthly: 0.0
+      total_monthly: 0.0
+  crosscheck:
+    policyengine: true
+- id: DIS-NY-T12
+  title: Single 70, no income, lives in her daughter's home and pays nothing (VTR)
+  as_of: '2026-03-01'
+  tags:
+  - edge
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 70
+    - id: d
+      age: 45
+      relationship: child
+    incomes: []
+    assets: []
+    facts:
+      living_arrangement: household_of_another
+  expect:
+    status: eligible
+    tier: SSI
+    rules_include:
+    - DIS-FED-SSI-VTR
+    - DIS-NY-SSP-AMOUNT
+    amounts:
+      ssi_federal_monthly: 662.67
+      state_supplement_monthly: 23.0
+      total_monthly: 685.67
+  crosscheck:
+    policyengine: true
+  note: FBR 994 - VTR 331.33 = 662.67; living-with-others standard 1,017 - (662.67 + 331.33) = 23.
+- id: DIS-NY-T13
+  title: Single 70, SS $300, own apartment, a friend pays $400 of rent (ISM under the PMV rule)
+  as_of: '2026-03-01'
+  tags:
+  - edge
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 70
+    incomes:
+    - kind: social_security
+      monthly: 300
+      owner: a
+    assets: []
+    facts:
+      ism_shelter_value_monthly: 400
+  expect:
+    status: eligible
+    tier: SSI
+    rules_include:
+    - DIS-FED-SSI-ISM-PMV
+    amounts:
+      ssi_federal_monthly: 362.67
+      state_supplement_monthly: 87.0
+      total_monthly: 449.67
+  crosscheck:
+    policyengine: true
+  note: ISM counted at PMV $351.33; countable 300 + 351.33 - 20 = 631.33; SSI 362.67; SSP 1,081 - 994 = 87.
+- id: DIS-NY-T14
+  title: Disabled 40, already on SSI, wages $1,800 (above SGA, but SGA does not end SSI for a recipient)
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - edge
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 40
+      disabled: true
+      benefits:
+      - ssi
+    incomes:
+    - kind: earned
+      monthly: 1800
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: SSI
+    amounts:
+      ssi_federal_monthly: 136.5
+      state_supplement_monthly: 87.0
+      total_monthly: 223.5
+  note: (1,800 - 85) / 2 = 857.50; SSI 136.50. The SGA bar in this archive applies only to new disabled applicants.
+- id: DIS-NY-T15
+  title: 'Disabled 40, new SSI applicant, wages $1,800: above SGA $1,690, so not disabled'
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - threshold
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 40
+      disabled: true
+    incomes:
+    - kind: earned
+      monthly: 1800
+      owner: a
+    assets: []
+  expect:
+    status: ineligible
+    tier: null
+    rules_include:
+    - DIS-FED-SSI-SGA-INITIAL
+    amounts:
+      ssi_federal_monthly: 0.0
+      state_supplement_monthly: 0.0
+      total_monthly: 0.0
+- id: DIS-NY-T16
+  title: 'Non-citizen 70 who does not meet SSI immigration rules: no SSI, no SSP'
+  as_of: '2026-03-01'
+  tags:
+  - edge
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 70
+      citizen_or_qualified: false
+    incomes:
+    - kind: social_security
+      monthly: 300
+      owner: a
+    assets: []
+  expect:
+    status: ineligible
+    tier: null
+    rules_include:
+    - DIS-FED-SSI-NONCITIZEN
+    amounts:
+      ssi_federal_monthly: 0.0
+      state_supplement_monthly: 0.0
+      total_monthly: 0.0
+- id: DIS-NY-T17
+  title: 'SSDI: disabled 50, insured, wages exactly $1,690 (at SGA, not above), DDS allowed'
+  as_of: '2026-03-01'
+  tags:
+  - threshold
+  - procedure
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 50
+      disabled: true
+      facts:
+        ssdi_insured: true
+        disability_onset: '2025-11-15'
+        ssdi_application_date: '2026-01-10'
+    incomes:
+    - kind: earned
+      monthly: 1690
+      owner: a
+    assets: []
+    facts:
+      claim: ssdi
+  expect:
+    status: eligible
+    tier: SSDI
+    rules_include:
+    - DIS-FED-SSDI-SGA
+    - DIS-FED-SSDI-WAITING-PERIOD
+    - DIS-FED-SSDI-MEDICARE-24
+    links_include:
+    - turning_65:medicare_part_a_after_24_months
+  note: 'Onset 11/15/2025: waiting period December 2025 - April 2026; entitlement May 2026; Medicare Part A May 2028.'
+- id: DIS-NY-T18
+  title: 'SSDI: same worker earning $1,691, $1 over SGA'
+  as_of: '2026-03-01'
+  tags:
+  - threshold
+  - procedure
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 50
+      disabled: true
+      facts:
+        ssdi_insured: true
+    incomes:
+    - kind: earned
+      monthly: 1691
+      owner: a
+    assets: []
+    facts:
+      claim: ssdi
+  expect:
+    status: ineligible
+    tier: null
+    rules_include:
+    - DIS-FED-SSDI-SGA
+- id: DIS-NY-T19
+  title: 'SSDI: insured status not known (earnings record not checked)'
+  as_of: '2026-03-01'
+  tags:
+  - procedure
+  - unresolved
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 55
+      disabled: true
+    incomes: []
+    assets: []
+    facts:
+      claim: ssdi
+  expect:
+    status: undetermined
+    tier: null
+    rules_include:
+    - DIS-FED-SSDI-INSURED
+- id: DIS-NY-T20
+  title: 'Child 10, disabled, living with two parents (one earns $3,000): parental deeming'
+  as_of: '2026-03-01'
+  tags:
+  - family
+  household:
+    state: ny
+    members:
+    - id: p1
+      age: 40
+    - id: p2
+      age: 38
+      relationship: spouse
+    - id: c
+      age: 10
+      relationship: child
+      disabled: true
+    incomes:
+    - kind: earned
+      monthly: 3000
+      owner: p1
+    assets: []
+    facts:
+      applicant: c
+  expect:
+    status: eligible
+    tier: SSI
+    rules_include:
+    - DIS-FED-SSI-DEEM-PARENT
+    amounts:
+      ssi_federal_monthly: 994.0
+      state_supplement_monthly: 23.0
+      total_monthly: 1017.0
+  crosscheck:
+    policyengine: true
+  note: 'Parents: (3,000 - 85)/2 = 1,457.50 < two-parent allowance 1,491: nothing deemed. Child ''living with others'' SSP
+    1,017 - 994 = 23.'
+- id: DIS-NY-T21
+  title: Single 70 in a residential care facility upstate, SS $1,200
+  as_of: '2026-03-01'
+  tags:
+  - edge
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 70
+    incomes:
+    - kind: social_security
+      monthly: 1200
+      owner: a
+    assets: []
+    county: Albany
+    facts:
+      ny_ssp_living_arrangement: residential_care
+  expect:
+    status: eligible
+    tier: STATE_SUPPLEMENT_ONLY
+    rules_include:
+    - DIS-NY-SSP-AMOUNT
+    open_questions_include:
+    - DIS-NY-OQ-02
+    amounts:
+      ssi_federal_monthly: 0.0
+      state_supplement_monthly: 219.0
+      total_monthly: 219.0
+  note: Countable 1,180; residential care (rest of state) standard 1,399 - 1,180 = 219.
+- id: DIS-NY-T22
+  title: 'Same household in three states: single 72, SS $800, rents for $500 in Cook County (IL) paying her own utilities'
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - cross_state
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 72
+    incomes:
+    - kind: social_security
+      monthly: 800
+      owner: a
+    assets: []
+    county: Cook
+    expenses:
+      rent: 500
+    facts:
+      il_utilities_paid:
+      - water
+      - electricity
+      - cooking_fuel
+      - heat_metered_gas
+  expect:
+    status: eligible
+    tier: SSI
+    amounts:
+      ssi_federal_monthly: 214.0
+      state_supplement_monthly: 87.0
+      total_monthly: 301.0
+  compare_states:
+    ca:
+      status: eligible
+      tier: SSI
+      amounts:
+        ssi_federal_monthly: 214.0
+        state_supplement_monthly: 239.94
+        total_monthly: 453.94
+    il:
+      status: eligible
+      tier: SSI
+      amounts:
+        ssi_federal_monthly: 214.0
+        state_supplement_monthly: 11.58
+        total_monthly: 225.58
+  crosscheck:
+    policyengine: true
+  note: 'Federal SSI is $214 everywhere. NY SSP $87 (living alone); CA SSP $239.94 (code A aged); IL AABD cash: needs 62.43
+    + 97 + 24.25 utilities + 816.90 = 1,000.58 minus income (214 + 800 - 25 = 989) = 11.58. Totals: NY $301, CA $453.94, IL
+    $225.58.'
+- id: DIS-X-01
+  title: 'Cross-playbook (MSP): SSI recipient 70 with Medicare, SS $800 — SSI deems Extra Help; same household gets QMB'
+  as_of: '2026-03-01'
+  tags:
+  - cross_playbook
+  - other_benefits
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 800
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: SSI
+    rules_include:
+    - DIS-FED-SSI-EXTRA-HELP
+    links_include:
+    - msp:extra_help_deemed
+    amounts:
+      ssi_federal_monthly: 214.0
+      state_supplement_monthly: 87.0
+      total_monthly: 301.0
+  also:
+  - program: msp
+    expect:
+      status: eligible
+      tier: QMB
+      links_include:
+      - extra_help:deemed
+  crosscheck:
+    policyengine: true
+- id: DIS-X-02
+  title: 'Cross-playbook (Medicaid): SSI recipient in New York gets Medicaid without applying'
+  as_of: '2026-03-01'
+  tags:
+  - cross_playbook
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 70
+    incomes:
+    - kind: social_security
+      monthly: 500
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: SSI
+    rules_include:
+    - DIS-NY-MEDICAID-1634
+    links_include:
+    - medicaid:automatic_with_ssi
+    amounts:
+      ssi_federal_monthly: 514.0
+      state_supplement_monthly: 87.0
+      total_monthly: 601.0
+  crosscheck:
+    policyengine: true
+  note: The Medicaid playbook (built in parallel) should treat an SSI recipient in New York as Medicaid-eligible without a
+    separate application (1634 state).
+- id: DIS-X-03
+  title: 'Cross-playbook (SNAP): household whose only member gets SSI is categorically eligible for SNAP'
+  as_of: '2026-03-01'
+  tags:
+  - cross_playbook
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 70
+    incomes:
+    - kind: social_security
+      monthly: 600
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: SSI
+    links_include:
+    - snap:categorically_eligible_if_all_members_ssi
+    amounts:
+      ssi_federal_monthly: 414.0
+      state_supplement_monthly: 87.0
+      total_monthly: 501.0
+  crosscheck:
+    policyengine: true
+  note: '7 CFR 273.2(j)(2)(i)(D): the SNAP playbook should skip its resource and income limits for this household.'
+- id: DIS-X-04
+  title: 'Cross-playbook (Turning 65): SSDI beneficiary born 1959 reaches 66 and 10 months — converts to retirement'
+  as_of: '2026-03-01'
+  tags:
+  - cross_playbook
+  - timing
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 67
+      disabled: true
+      benefits:
+      - ssdi
+      facts:
+        birth_year: 1959
+    incomes:
+    - kind: social_security
+      monthly: 1800
+      owner: a
+    assets: []
+    facts:
+      claim: ssdi
+  expect:
+    status: eligible
+    tier: RETIREMENT_AFTER_CONVERSION
+    rules_include:
+    - DIS-FED-SSDI-FRA-CONVERSION
+    links_include:
+    - turning_65:ssdi_to_retirement
+  note: 'GN 00201.005 B.1.a: DIB to RIB conversion needs no application. The Turning 65 playbook should not tell this member
+    to file for retirement.'
+- id: DIS-X-05
+  title: 'Cross-playbook (Turning 65 / MSP): SSDI beneficiary entitled since June 2024 — Medicare Part A from June 2026'
+  as_of: '2026-03-01'
+  tags:
+  - cross_playbook
+  - timing
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 58
+      disabled: true
+      benefits:
+      - ssdi
+      facts:
+        ssdi_entitlement_start: '2024-06-01'
+    incomes:
+    - kind: social_security
+      monthly: 1400
+      owner: a
+    assets: []
+    facts:
+      claim: ssdi
+  expect:
+    status: eligible
+    tier: SSDI
+    rules_include:
+    - DIS-FED-SSDI-MEDICARE-24
+    links_include:
+    - turning_65:medicare_part_a_after_24_months
+    - msp:check_after_part_a
+  note: '42 U.S.C. 426(b): Part A from the 25th month of entitlement. Once Part A starts, the MSP playbook applies (MSP-LINK-DISABILITY).'

@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://secure.ssa.gov/apps10/reference.nsf/lnx/01172025095433AMREV
+  final_url: https://secure.ssa.gov/apps10/reference.nsf/lnx/01172025095433AMREV
+  status: 200
+  content_type: text/html; charset=utf-8
+  text_sha256: 8f40a13a0f258dde92358bfc98cb88e11abd49bd59b2a669b493d3d963c17222
+  text: ssa-em-24047-rev/2026-10-07.txt
+  raw: ssa-em-24047-rev/2026-10-07.html

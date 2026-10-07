@@ -241,7 +241,7 @@ def federal_category(hh: Household, as_of: date, det: Determination, *, dcm_type
             det.links.append(f"medicaid:direct_certification_{m}")
             take(m, "dcm_medicaid")
     elif hh.anyone_receives("medicaid"):
-        det.note(dcm_rule, "Medicaid direct certification is not available to this school", None)
+        det.note(dcm_rule, "Medicaid direct certification is not available to this school (in California it runs only through CALPADS, which private schools cannot use)", None)
     if band in ("free", "reduced"):
         take(band, "income_application")
         if res.route == "income_application" and hh.facts.get("application_filed") is False:

@@ -1,0 +1,253 @@
+# Federal SNAP numbers for the 48 contiguous states and DC (all three archive
+# states). FNS publishes them each August for the fiscal year starting
+# October 1. Mapping values are keyed by household size; "additional" is the
+# amount for each person above 8. The FY 2026 income limits use the 2025 HHS
+# poverty guidelines and the FY 2027 limits the 2026 guidelines (FNS tables
+# are used directly, never recomputed from the shared poverty parameter).
+parameters:
+  - id: federal.snap.gross_income_limit_monthly
+    description: SNAP gross monthly income limit, 130% of the poverty level, 48 states and DC.
+    compare_to: >-
+      Total non-excluded gross monthly income of the whole SNAP household,
+      before any deduction (earned income counted before the 20% deduction;
+      Social Security counted before the Medicare premium is withheld). Applies
+      only to households without an elderly or disabled member that are not
+      categorically eligible.
+    unit: usd_per_month
+    keyed_by: household_size (1-8; additional = each person above 8)
+    updates: Each October 1 (FNS COLA tables, published in August).
+    values:
+      - effective_from: 2025-10-01
+        effective_to: 2026-09-30
+        value: {1: 1696, 2: 2292, 3: 2888, 4: 3483, 5: 4079, 6: 4675, 7: 5271, 8: 5867, additional: 596}
+        confidence: confirmed
+        sources:
+          - {source: fns-snap-fy26-income-standards, locator: "Table 2: Gross Monthly Income Limit (130% of Federal Poverty Level), 48 States, DC, Guam, Virgin Islands"}
+      - effective_from: 2026-10-01
+        effective_to: 2027-09-30
+        value: {1: 1729, 2: 2345, 3: 2960, 4: 3575, 5: 4191, 6: 4806, 7: 5421, 8: 6037, additional: 616}
+        confidence: confirmed
+        sources:
+          - {source: fns-snap-fy27-income-standards, locator: "Table 2: Gross Monthly Income Limit (130% of Federal Poverty Level)"}
+          - {source: fns-snap-eligibility, locator: "Table 1: SNAP Income Eligibility Limits - Oct. 1, 2026, through Sept. 30, 2027"}
+  - id: federal.snap.net_income_limit_monthly
+    description: SNAP net monthly income limit, 100% of the poverty level, 48 states and DC.
+    compare_to: >-
+      Net monthly income: gross income minus the earned income, standard,
+      excess medical, dependent care, child support and excess shelter
+      deductions. Does not apply to categorically eligible households.
+    unit: usd_per_month
+    keyed_by: household_size (1-8; additional = each person above 8)
+    updates: Each October 1.
+    values:
+      - effective_from: 2025-10-01
+        effective_to: 2026-09-30
+        value: {1: 1305, 2: 1763, 3: 2221, 4: 2680, 5: 3138, 6: 3596, 7: 4055, 8: 4513, additional: 459}
+        confidence: confirmed
+        sources:
+          - {source: fns-snap-fy26-income-standards, locator: "Table 1: Net Monthly Income Limit (100% of Federal Poverty Level)"}
+      - effective_from: 2026-10-01
+        effective_to: 2027-09-30
+        value: {1: 1330, 2: 1804, 3: 2277, 4: 2750, 5: 3224, 6: 3697, 7: 4170, 8: 4644, additional: 474}
+        confidence: confirmed
+        sources:
+          - {source: fns-snap-fy27-income-standards, locator: "Table 1: Net Monthly Income Limit (100% of Federal Poverty Level)"}
+  - id: federal.snap.max_allotment_monthly
+    description: SNAP maximum monthly allotment (Thrifty Food Plan), 48 states and DC.
+    unit: usd_per_month
+    keyed_by: household_size (1-8; additional = each person above 8, through 17 people in FY 2027)
+    updates: Each October 1, from the Thrifty Food Plan cost for the preceding June.
+    values:
+      - effective_from: 2025-10-01
+        effective_to: 2026-09-30
+        value: {1: 298, 2: 546, 3: 785, 4: 994, 5: 1183, 6: 1421, 7: 1571, 8: 1789, additional: 218}
+        confidence: confirmed
+        sources:
+          - {source: fns-snap-fy26-allotments-deductions, locator: "Table 1: Maximum Monthly Allotment, 48 States & District of Columbia"}
+      - effective_from: 2026-10-01
+        effective_to: 2027-09-30
+        value: {1: 306, 2: 562, 3: 808, 4: 1023, 5: 1217, 6: 1463, 7: 1616, 8: 1841, additional: 225}
+        confidence: confirmed
+        note: FY 2027 caps households of 18 or more at $3,887 (Public Law 119-21 sec. 10101 household ratios); the evaluator applies "additional" only through 17 people.
+        sources:
+          - {source: fns-snap-fy27-allotments-deductions, locator: "Table 1: Maximum Monthly Allotment; 9-17 $225 per additional person; 18+ $3,887"}
+          - {source: fns-snap-cola-page, locator: "Maximum Allotments, Table 1"}
+  - id: federal.snap.max_allotment_cap_monthly
+    description: Maximum allotment for households of 18 or more people (FY 2027 onward; earlier years had no cap).
+    unit: usd_per_month
+    updates: Each October 1.
+    values:
+      - effective_from: 2026-10-01
+        effective_to: 2027-09-30
+        value: 3887
+        confidence: confirmed
+        sources:
+          - {source: fns-snap-fy27-allotments-deductions, locator: "Table 1: 18+ $3,887"}
+          - {source: pl-119-21-nutrition, locator: "sec. 10101, new 7 U.S.C. 2012(u)(2)(I): additional 22 percent per person ... shall not total more than 200 percent"}
+  - id: federal.snap.min_benefit_monthly
+    description: Minimum monthly benefit for eligible 1- and 2-person households (8% of the 1-person maximum allotment).
+    unit: usd_per_month
+    updates: Each October 1.
+    values:
+      - effective_from: 2025-10-01
+        effective_to: 2026-09-30
+        value: 24
+        confidence: confirmed
+        sources:
+          - {source: fns-snap-fy26-minimum-allotments, locator: "Table 1: Minimum Monthly Allotment, 1-2, 48 States & District of Columbia: $24"}
+      - effective_from: 2026-10-01
+        effective_to: 2027-09-30
+        value: 25
+        confidence: confirmed
+        sources:
+          - {source: fns-snap-fy27-minimum-allotments, locator: "Table 1: Minimum Monthly Allotment, 1-2: $25"}
+          - {source: ecfr-7-273-10, locator: "(e)(2)(ii)(C): The minimum benefit is 8 percent of the maximum allotment for a household of one, rounded to the nearest whole dollar"}
+  - id: federal.snap.standard_deduction_monthly
+    description: SNAP standard deduction by household size, 48 states and DC (key 6 = 6 or more people).
+    unit: usd_per_month
+    keyed_by: household_size (1-5; 6 = six or more)
+    updates: Each October 1.
+    values:
+      - effective_from: 2025-10-01
+        effective_to: 2026-09-30
+        value: {1: 209, 2: 209, 3: 209, 4: 223, 5: 261, 6: 299}
+        confidence: confirmed
+        sources:
+          - {source: fns-snap-fy26-allotments-deductions, locator: "Table 2: Standard Deductions, 48 States & District of Columbia"}
+      - effective_from: 2026-10-01
+        effective_to: 2027-09-30
+        value: {1: 217, 2: 217, 3: 217, 4: 229, 5: 268, 6: 308}
+        confidence: confirmed
+        sources:
+          - {source: fns-snap-fy27-allotments-deductions, locator: "Table 2: Standard Deductions"}
+          - {source: fns-snap-eligibility, locator: "A standard deduction of $217 for household sizes of 1 to 3 people"}
+  - id: federal.snap.excess_shelter_cap_monthly
+    description: Maximum excess shelter deduction for households without an elderly or disabled member, 48 states and DC.
+    unit: usd_per_month
+    updates: Each October 1.
+    values:
+      - effective_from: 2025-10-01
+        effective_to: 2026-09-30
+        value: 744
+        confidence: confirmed
+        sources:
+          - {source: fns-snap-fy26-allotments-deductions, locator: "Table 3: Maximum Excess Shelter Deductions: $744"}
+      - effective_from: 2026-10-01
+        effective_to: 2027-09-30
+        value: 769
+        confidence: confirmed
+        sources:
+          - {source: fns-snap-fy27-allotments-deductions, locator: "Table 3: Maximum Excess Shelter Deductions: $769"}
+          - {source: fns-snap-eligibility, locator: "capped at (or limited to) $769 unless one person in the household is elderly or disabled"}
+  - id: federal.snap.homeless_shelter_deduction_monthly
+    description: Homeless shelter deduction (state option), 48 states and DC.
+    unit: usd_per_month
+    updates: Each October 1.
+    values:
+      - effective_from: 2025-10-01
+        effective_to: 2026-09-30
+        value: 198.99
+        confidence: confirmed
+        sources:
+          - {source: fns-snap-fy26-allotments-deductions, locator: "Table 4: Homeless Shelter Deduction: $198.99"}
+      - effective_from: 2026-10-01
+        effective_to: 2027-09-30
+        value: 205.66
+        confidence: confirmed
+        sources:
+          - {source: fns-snap-fy27-allotments-deductions, locator: "Table 4: Homeless Shelter Deduction: $205.66"}
+  - id: federal.snap.resource_limit
+    description: SNAP countable resource limit (households that are not categorically eligible).
+    compare_to: >-
+      Countable resources of all household members (cash, bank accounts,
+      stocks and bonds and similar liquid resources); excludes the home and
+      lot, the cash value of life insurance and pension plans, most retirement
+      accounts, and resources of members who receive SSI or TANF. Vehicles are
+      not modelled (see SNAP-FED-OQ-04).
+    unit: usd
+    keyed_by: "general = households without an elderly or disabled member; elderly_disabled = at least one member 60+ or disabled"
+    updates: Each October 1 (inflation-adjusted in $250 steps).
+    values:
+      - effective_from: 2025-10-01
+        effective_to: 2026-09-30
+        value: {general: 3000, elderly_disabled: 4500}
+        confidence: confirmed
+        sources:
+          - {source: fns-snap-fy26-allotments-deductions, locator: "Table 5: Maximum Asset Limits: $4,500 / $3,000"}
+      - effective_from: 2026-10-01
+        effective_to: 2027-09-30
+        value: {general: 3000, elderly_disabled: 4750}
+        confidence: confirmed
+        sources:
+          - {source: fns-snap-fy27-allotments-deductions, locator: "Table 5: Maximum Asset Limits: $4,750 / $3,000"}
+          - {source: fns-snap-elderly-disabled, locator: "Households may have $3,000 ... or $4,750 ... if at least one member of the household is age 60 or older, or is disabled"}
+  - id: federal.snap.earned_income_deduction_percent
+    description: Share of gross earned income deducted (earned income deduction).
+    unit: percent
+    updates: Statutory.
+    values:
+      - effective_from: 1996-08-22
+        value: 20
+        confidence: confirmed
+        sources:
+          - {source: usc-7-2014, locator: "(e)(2)(B): 20 percent of all earned income"}
+          - {source: fns-snap-eligibility, locator: "A 20% deduction from earned income"}
+  - id: federal.snap.medical_expense_threshold_monthly
+    description: Monthly medical expenses of elderly or disabled members above this amount are deductible.
+    unit: usd_per_month
+    updates: Statutory.
+    values:
+      - effective_from: 1996-08-22
+        value: 35
+        confidence: confirmed
+        sources:
+          - {source: ecfr-7-273-9, locator: "(d)(3): That portion of medical expenses in excess of $35 per month ... incurred by any household member who is elderly or disabled"}
+  - id: federal.snap.shelter_income_share_percent
+    description: Shelter costs above this share of income after all other deductions are deductible (excess shelter deduction).
+    unit: percent
+    updates: Statutory.
+    values:
+      - effective_from: 1996-08-22
+        value: 50
+        confidence: confirmed
+        sources:
+          - {source: ecfr-7-273-9, locator: "(d)(6)(ii): Monthly shelter expenses in excess of 50 percent of the household's income after all other deductions"}
+  - id: federal.snap.benefit_reduction_percent
+    description: Share of net income subtracted from the maximum allotment (expected contribution).
+    unit: percent
+    updates: Statutory.
+    values:
+      - effective_from: 1977-10-01
+        value: 30
+        confidence: confirmed
+        sources:
+          - {source: ecfr-7-273-10, locator: "(e)(2)(ii)(A): maximum SNAP allotment ... reduced by 30 percent of the household's net monthly income"}
+          - {source: usc-7-2017, locator: "(a)"}
+  - id: federal.snap.elderly_age
+    description: Age at which a SNAP household member is "elderly".
+    unit: years
+    updates: Statutory.
+    values:
+      - effective_from: 1977-10-01
+        value: 60
+        confidence: confirmed
+        sources:
+          - {source: ecfr-7-271-2, locator: "Elderly or disabled member means a member of a household who: (1) Is 60 years of age or older"}
+          - {source: fns-snap-elderly-disabled, locator: "In SNAP, you are elderly if you are 60 years or older."}
+  - id: federal.snap.abawd_age_range
+    description: Ages subject to the ABAWD time limit (3 months of benefits in 36 unless working or exempt).
+    unit: years
+    keyed_by: "min / max (inclusive)"
+    updates: Statutory.
+    values:
+      - effective_from: 2025-07-04
+        value: {min: 18, max: 64}
+        confidence: confirmed
+        note: >-
+          The statute exempts people "under 18, or over 65"; FNS's October 3,
+          2025 ABAWD exceptions memo (not retrievable from usda.gov) reads that as
+          ages 18 through 64, as CDSS (ACL 26-58) and IDHS (MR 26.03) both restate
+          in the state parts. Earlier law covered
+          ages 18-54 (SNAP-FED-OQ-03 for dates before 2025-07-04).
+        sources:
+          - {source: pl-119-21-nutrition, locator: "sec. 10102(a), new 7 U.S.C. 2015(o)(3)(A): under 18, or over 65, years of age"}

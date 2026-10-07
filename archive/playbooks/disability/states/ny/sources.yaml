@@ -6,6 +6,7 @@
 # JavaScript) and NY DOH's GIS 26 MA/03 (already in the MSP playbook).
 sources:
   - id: ny-ssl-209
+    retrieved: 2026-10-07
     url: https://www.nysenate.gov/legislation/laws/SOS/209
     publisher: New York State Senate (Consolidated Laws, Social Services Law)
     title: New York Social Services Law § 209 — Eligibility (additional state payments; standard of monthly need)
@@ -14,6 +15,7 @@ sources:
     doc_type: statute
     note: Page lists amendment dates through 2026. Fetched with a headless browser (site requires JavaScript) and imported.
   - id: ny-senate-ssp-takeover-2014
+    retrieved: 2026-10-07
     url: https://www.nysenate.gov/newsroom/articles/2014/andrea-stewart-cousins/state-supplement-program-state-takeover
     publisher: New York State Senate (office of Senator Andrea Stewart-Cousins)
     title: State Supplement Program State Takeover of Administration on October 1, 2014
@@ -23,6 +25,7 @@ sources:
     published: 2014-09-30
     note: A legislator's newsroom post quoting an OTDA notice; OTDA's own pages could not be retrieved. Treated as secondary.
   - id: ny-budget-otda-2006
+    retrieved: 2026-10-07
     url: https://www.budget.ny.gov/pubs/archive/fy0607archive/fy0607app1/tda.pdf
     publisher: New York State Division of the Budget
     title: 2006-07 Executive Budget, Office of Temporary and Disability Assistance (agency presentation)

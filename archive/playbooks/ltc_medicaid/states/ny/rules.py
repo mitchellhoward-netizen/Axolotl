@@ -25,7 +25,7 @@ from playbooks.ltc_medicaid.federal import rules as fed
 STATE = "ny"
 
 
-def _penalty(hh: Household, as_of: date, det: Determination, resources: float, limit: float) -> bool:
+def _penalty(hh: Household, as_of: date, det: Determination, resources: float, limit: float) -> bool | None:
     """Returns True when a transfer penalty period covers ``as_of`` (nursing facility services not paid)."""
     base = fed.baseline_date(hh, as_of)
     months = int(params.use("federal.ltc.lookback_months", as_of, det).value)
@@ -44,7 +44,7 @@ def _penalty(hh: Household, as_of: date, det: Determination, resources: float, l
         det.status = UNDETERMINED
         det.note("LTC-NY-PENALTY-DIVISOR", "facility region not given; the regional rate cannot be chosen", None)
         det.unresolved("LTC-NY-OQ-04")
-        return True
+        return None
     rate = params.use("ny.ltc.regional_rate", as_of, det)[region]
     pm = fed.federal_penalty_months(unc, rate)
     det.amounts["penalty_months"] = pm
@@ -89,10 +89,12 @@ def evaluate(hh: Household, as_of: date) -> Determination:
 
     # transfers
     if setting == "nursing_facility":
-        if _penalty(hh, as_of, det, res, limit):
-            if det.status != UNDETERMINED:
-                det.status, det.tier = INELIGIBLE, "transfer_penalty"
-                det.links.append("medicaid:other_services_still_covered")
+        pen = _penalty(hh, as_of, det, res, limit)
+        if pen is None:
+            return det
+        if pen:
+            det.status, det.tier = INELIGIBLE, "transfer_penalty"
+            det.links.append("medicaid:other_services_still_covered")
             return det
     else:
         det.note("LTC-NY-CBLTC-LOOKBACK", "community-based long-term care: New York's 30-month look-back is enacted "

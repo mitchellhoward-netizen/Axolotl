@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://www.cdss.ca.gov/cdssweb/entres/pdf/PUB417-CDSS_Brochure.pdf
+  final_url: https://www.cdss.ca.gov/cdssweb/entres/pdf/PUB417-CDSS_Brochure.pdf
+  status: 200
+  content_type: application/pdf
+  text_sha256: f4571de46a2e8267ba592d185989d47e50749d6a40727b3b513d4af1525e242a
+  text: ca-cdss-pub417/2026-10-07.txt
+  raw: ca-cdss-pub417/2026-10-07.pdf

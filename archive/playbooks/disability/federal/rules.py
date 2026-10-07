@@ -71,6 +71,14 @@ def add_months(d: date, n: int) -> date:
     return date(d.year + m // 12, m % 12 + 1, 1)
 
 
+def spouse_of(hh: Household) -> Person | None:
+    """The applicant's living-with spouse. A child applicant has no spouse here
+    (Household.spouse would return a parent's spouse)."""
+    if hh.applicant.relationship not in ("self", "spouse"):
+        return None
+    return hh.spouse
+
+
 def fbr(as_of: date, det: Determination, size: int) -> float:
     return float(params.use("federal.ssa.ssi_federal_benefit_rate_monthly", as_of, det)[size])
 
@@ -332,7 +340,7 @@ def ssi_federal(hh: Household, as_of: date, det: Determination) -> SSIResult:
     det.note("DIS-FED-SSI-RETRO-BUDGETING", "income stated for the month is used as the budget month's income "
              "(SSA pays on income from two months earlier)", None)
     la = living_arrangement(hh)
-    spouse = hh.spouse
+    spouse = spouse_of(hh)
     parents = _parents_of_child(hh)
 
     # -------------------------------------------------- unit / deeming choice
@@ -508,7 +516,7 @@ def link_common(det: Determination, r: SSIResult) -> None:
     """Cross-playbook effects of SSI receipt that are the same in every state."""
     if det.status == ELIGIBLE and det.tier == "SSI" and r.federal_payment > 0:
         det.links.append("msp:extra_help_deemed")
-        det.note("DIS-FED-LINK-EXTRA-HELP", "SSI recipients are deemed eligible for Extra Help (Part D LIS)", None)
+        det.note("DIS-FED-SSI-EXTRA-HELP", "SSI recipients are deemed eligible for Extra Help (Part D LIS)", None)
         det.links.append("snap:categorically_eligible_if_all_members_ssi")
 
 

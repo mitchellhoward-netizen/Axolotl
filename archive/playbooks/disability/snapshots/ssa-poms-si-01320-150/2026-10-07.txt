@@ -1,0 +1,98 @@
+Skip to content
+
+Program Operations Manual System (POMS)
+
+Effective Dates: 10/03/2024 - Present
+Previous | Next
+
+TN 38 (10-24)
+
+SI 01320.150 Deeming - In-Kind Income and Deeming
+
+CITATIONS:
+
+Social Security Act, Sec. 1621(c);
+
+Regulations 20 CFR 416.1140, 416.1148 and 416.1161 (a) (11), (b), (c), (d)
+
+A. Policy Principles
+
+1.
+
+In-kind support and maintenance (ISM) furnished to an ineligible spouse or parent
+is not included when determining how much income is deemed, and is not used in determining
+the amount of the allocation for an ineligible child or eligible noncitizen (sponsored
+by an ineligible spouse or parent). However, ISM received by an essential person or
+the sponsor of a noncitizen is not excluded from deeming.
+
+2.
+
+The current market value of any in-kind income, including in-kind earned income (SI 00820.010), which is not in-kind support and maintenance (SI 00835.310), must be included when determining how much income is deemed from an ineligible
+spouse, parent, essential person, or the sponsor of a noncitizen. It is also included
+as income to an ineligible child or an eligible noncitizen (sponsored by an ineligible
+spouse or parent) for purposes of determining the allocation.
+
+3.
+
+If a noncitizen is living in the sponsor's household and is receiving support and
+maintenance in-kind from the sponsor (or the sponsor's spouse), neither the value
+of the one-third reduction (VTR) nor support or maintenance furnished in cash or in
+kind to the noncitizen by the sponsor (to the extent that it reflects income or resources
+which were taken into account in determining the amount of income and resources to
+be deemed to the noncitizen) is income to the noncitizen.
+
+B. Operating Policies
+
+1.
+
+When an eligible individual lives in the same household with someone whose income
+can be deemed to them, any food or shelter that person provides is not income to the
+eligible individual. However, any food or shelter from another source is income, unless
+excluded under another provision (e.g., HEA/SMA). See SI 00835.210 and SI 00835.300.
+
+a.
+
+When an eligible individual living with an ineligible spouse receives ISM and there
+is income to be deemed from the spouse, the value of the eligible individual's ISM
+will not exceed one-sixth the couple Federal Benefit Rate (FBR) plus $10 ($245.83
+effective January 2024). When the ineligible spouse's unearned income is added to
+the eligible individual's unearned income as described in SI 01320.400B.1.e, the eligible individual's ISM is limited to the value given here.
+
+b.
+
+When an eligible individual with an ineligible spouse receives ISM and there is no
+income to be deemed (i.e., the computation is based on an individual computation rather
+than a couple computation as described in SI 01320.400C.2.), the regular ISM rules apply; i.e., the presumed maximum value (PMV) for the eligible
+individual will equal one-third the individual FBR plus $20 ($334.33 effective January
+2024), or, if an eligible alien couple, the PMV will equal one-third the couple FBR
+plus $20 ($491.66 effective January 2024).
+
+2.
+
+When a noncitizen subject to sponsor-to-noncitizen deeming lives in the sponsor's
+household, the noncitizen cannot receive “inside ISM” as defined in SI 00835.020.
+
+C. Related Policies
+
+1.
+
+For the one-third reduction provision and deeming, see SI 00835.210.
+
+2.
+
+For ISM subject to the PMV, see SI 00835.300; for “inside ISM,” see SI 00835.340; for “outside ISM,” see SI 00835.350; for “ISM to one person,” see SI 00835.400.
+
+3.
+
+For ISM provided to a child in an educational or vocational training institution who
+is temporarily absent from his parent's household (i.e., a child away at school),
+see SI 00835.714.
+
+To Link to this section - Use this URL:
+http://policy.ssa.gov/poms.nsf/lnx/0501320150
+
+SI 01320.150 - Deeming - In-Kind Income and Deeming - 10/03/2024
+
+Batch run: 10/03/2024
+
+Rev:10/03/2024

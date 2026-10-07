@@ -1,0 +1,10 @@
+- retrieved: '2026-10-07'
+  url: https://www.dhcs.ca.gov/file/mc14a-eng-2-pdf/
+  final_url: https://www.dhcs.ca.gov/file/mc14a-eng-2-pdf/
+  status: 200
+  content_type: pdf
+  text_sha256: 8f42ba98b1c101b91212a80887e4072cf0fec54a552d08ff2ed047cc3db09996
+  text: ca-dhcs-mc-14a/2026-10-07.txt
+  raw: ca-dhcs-mc-14a/2026-10-07.pdf
+  fetched_via: headless Chromium (Playwright) via the session proxy; dhcs.ca.gov refuses
+    scripted requests (Incapsula)
