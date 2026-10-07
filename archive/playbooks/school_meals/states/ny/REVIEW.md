@@ -4,7 +4,9 @@ For a reviewer who knows New York school nutrition (NYSED Child Nutrition).
 Built 2026-10-07 from NYSED memos (Universal Free Meals, May 13, 2025; DCMP,
 September 8, 2026; 2026-27 Provision 2 base-year IEGs, May 7, 2026), the NYSED
 2026-27 application and IEG chart, NYSED's CEP page and Household Income
-Eligibility Form, a third-party copy of Education Law 915-a, and the FNS
+Eligibility Form, Education Law 915-a (official text from the Senate's Open
+Legislation PDF service since the second pass; the first build used a
+third-party copy), NYSED's SNAP outreach memo (March 30, 2026) and the FNS
 Medicaid demonstration table. NYSED's site serves an incomplete TLS chain; the
 missing GlobalSign intermediate was added to the trust bundle for the fetches.
 
@@ -18,6 +20,14 @@ missing GlobalSign intermediate was added to the trust bundle for the fetches.
 - **Medicaid direct certification is free-only** (FNS table: New York in the
   2012-13 free-only column, no later expansion; NYSED memo "free meal benefits").
 - **CEP threshold 25%**, 4-year cycles, state pays the paid-rate gap for CEP meals.
+- **Statute and date** (second pass): Education Law 915-a, added by Part B of
+  Chapter 56 of the Laws of 2025, effective July 1, 2025 (official text from
+  legislation.nysenate.gov, identical to the copy used before; date from
+  NYSED's SNAP outreach memo).
+- **SNAP outreach**: 8 NYCRR 114.6 (effective January 28, 2026) requires each
+  SFA to use at least one of three strategies (OTDA outreach-provider
+  referral, SNAP materials at registration, referral to the local social
+  services district), per NYSED's March 30, 2026 memo.
 
 ## Assumptions made
 
@@ -29,8 +39,10 @@ missing GlobalSign intermediate was added to the trust bundle for the fetches.
 
 ## Weakest parts
 
-- Education Law 915-a text is a third-party copy (nysenate.gov refuses scripts);
-  rules are confirmed by the NYSED memo (SCH-NY-OQ-03).
+- The text of 8 NYCRR 114.6 itself was not snapshotted; the SNAP outreach rule
+  rests on NYSED's memo describing it. NYSED's 2026-27 pages (Program
+  Operations list of September 8, 2026; reimbursement-rate notice) add nothing
+  that changes household eligibility.
 - Whether New York has applied to move to free and reduced-price Medicaid
   certification for 2025-26 or later (SCH-NY-OQ-01); the FNS page lists rounds
   only through 2024-25.

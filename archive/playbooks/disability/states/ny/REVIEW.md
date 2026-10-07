@@ -38,16 +38,25 @@ numbers in `parameters/ssp_ny.yaml` and the federal parameters; snapshots in
 3. **2026 amounts start January 1, 2026**, although nysenate.gov marks the
    2026 paragraphs "NB Effective December 31, 2026" (DIS-NY-CONFLICT-02).
 4. **The state took over the SSP on October 1, 2014** (not 2012), based on a
-   Senate post quoting OTDA, marked secondary (DIS-NY-CONFLICT-01).
+   Senate post quoting OTDA and on OTDA's SSP regulation, 18 NYCRR Part 398,
+   which took effect that day (both secondary: the regulation was read in
+   Cornell LII's copy; DIS-NY-CONFLICT-01).
 5. **Retrospective budgeting is not modelled**: the stated monthly income is
    treated as the budget month's income.
 
 ## Weakest parts
 
-- **otda.ny.gov could not be reached** (empty replies to scripts, a headless
-  browser and WebFetch). OTDA's SSP page, its 2026 benefit chart and directive
-  14-ADM-07 are missing, so payment mechanics, the SSP-only process and the
-  contact line rest on a 2014 secondary post (DIS-NY-OQ-04).
+- **otda.ny.gov could not be reached** in either pass (first: empty replies;
+  second: an F5 JavaScript challenge to headful Playwright under Xvfb and HTTP
+  503 to WebFetch; the Internet Archive was unreachable). The second pass
+  found OTDA's SSP regulation (18 NYCRR 398-1.1, 398-2.1, 398-4.1) in LII's
+  third-party copy: OTDA administers the SSP, there is **no SSP application**,
+  OTDA acts on SSA's data-exchange (SDX) status codes (including N01, income
+  over the federal rate, which covers SSP-only cases), and eligibility starts
+  the first full month after all criteria are met, after a "mandatory 90-day
+  waiting period" the regulation does not define. DIS-NY-SSP-PAYMENT and
+  DIS-NY-PROC-SSP-ONLY are secondary on that basis; the payment day, method
+  and contact line still rest on the 2014 Senate post (DIS-NY-OQ-04).
 - **SSP for an SSI recipient with an ineligible spouse** is left undetermined
   (DIS-NY-OQ-01); only the federal amount is computed.
 - **Congregate care**: amounts are in statute, but who pays (OTDA or SSA) and
@@ -64,8 +73,9 @@ numbers in `parameters/ssp_ny.yaml` and the federal parameters; snapshots in
 3. After the 2014 takeover, which recipients (family care, residential care,
    enhanced residential care) still get the SSP from SSA?
 4. Does a person with SSP only (no federal SSI) get Medicaid automatically?
-5. What should an SSP-only applicant do after SSA denies SSI for excess income
-   — does OTDA act on SSA's data or need an application?
+5. 18 NYCRR 398-4.1 says no SSP application is accepted and OTDA acts on
+   SSA's SDX data: how long does an SSP-only case (status N01) take after SSA's
+   decision, and what is the "mandatory 90-day waiting period"?
 6. Is the OTDA SSP Customer Support Center number (1-855-488-0541) current?
 
 ## Cross-checks

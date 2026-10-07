@@ -753,7 +753,7 @@ rows:
   explanation: New York utility allowances. PolicyEngine treats New York as a state where every household gets the full Heating/Air Conditioning
     SUA (utility/always_standard = true for NY). OTDA's GIS 25 DC059 has three separate SUAs; the archive gives the HT/AC SUA only to households
     paying heating/cooling (or, after Public Law 119-21, HEAP households with an aged/disabled member), the Utility SUA ($355 upstate) to households
-    with two or more other utility bills, the Phone SUA to phone-only households, and nothing when all utilities are in the rent (SNAP-NY-SUA,
+    with a separate non-heating utility bill, the Phone SUA to phone-only households, and nothing when all utilities are in the rent (SNAP-NY-SUA,
     SNAP-NY-HEAP-SUA; in NY-T22 the HEAP payment no longer confers the SUA on a household without an elderly or disabled member).
 - case: SNAP-NY-T02
   state: ny
@@ -1019,7 +1019,7 @@ rows:
   explanation: New York utility allowances. PolicyEngine treats New York as a state where every household gets the full Heating/Air Conditioning
     SUA (utility/always_standard = true for NY). OTDA's GIS 25 DC059 has three separate SUAs; the archive gives the HT/AC SUA only to households
     paying heating/cooling (or, after Public Law 119-21, HEAP households with an aged/disabled member), the Utility SUA ($355 upstate) to households
-    with two or more other utility bills, the Phone SUA to phone-only households, and nothing when all utilities are in the rent (SNAP-NY-SUA,
+    with a separate non-heating utility bill, the Phone SUA to phone-only households, and nothing when all utilities are in the rent (SNAP-NY-SUA,
     SNAP-NY-HEAP-SUA; in NY-T22 the HEAP payment no longer confers the SUA on a household without an elderly or disabled member).
 - case: SNAP-NY-T17
   state: ny
@@ -1037,7 +1037,11 @@ rows:
     net_income_monthly: 148.0
     utility_allowance_monthly: 877.0
   agree: false
-  explanation: null
+  explanation: 'New York FY 2027 and regional utility allowances. Both households pay heat, so both sides give the HT/AC SUA, but PolicyEngine
+    uses one statewide figure and has no FY 2027 New York value: it budgets $877 (the FY 2026 rest-of-state amount) for an Albany household in
+    November 2026 and for a Brooklyn couple. The archive uses the FY 2027 regional amounts ($908 rest of state, $1,100 New York City; SNAP-NY-SUA-FY27,
+    resting on Hunger Solutions New York''s 2026-27 sheet and CSS''s calculator because OTDA GIS 26 DC045 could not be retrieved). With no shelter
+    cap (elderly members) the extra $31 / $223 of shelter cost lowers net income and raises the benefit by $10 (T17) and $67 (T28).'
 - case: SNAP-NY-T18
   state: ny
   title: "FY 2027: retiree with $6,000 savings (over the $4,750 limit), gross under 200% \u2014 BBCE, $25 minimum"
@@ -1054,7 +1058,11 @@ rows:
     net_income_monthly: 748.0
     utility_allowance_monthly: 877.0
   agree: false
-  explanation: null
+  explanation: New York utility allowances. PolicyEngine treats New York as a state where every household gets the full Heating/Air Conditioning
+    SUA (utility/always_standard = true for NY). OTDA's GIS 25 DC059 has three separate SUAs; the archive gives the HT/AC SUA only to households
+    paying heating/cooling (or, after Public Law 119-21, HEAP households with an aged/disabled member), the Utility SUA ($355 upstate) to households
+    with a separate non-heating utility bill, the Phone SUA to phone-only households, and nothing when all utilities are in the rent (SNAP-NY-SUA,
+    SNAP-NY-HEAP-SUA; in NY-T22 the HEAP payment no longer confers the SUA on a household without an elderly or disabled member).
 - case: SNAP-NY-T19
   state: ny
   title: 'FY 2027: worker earning $1,729 = 130% gross limit (regular rules, no NY figures needed)'
@@ -1074,7 +1082,7 @@ rows:
   explanation: New York utility allowances. PolicyEngine treats New York as a state where every household gets the full Heating/Air Conditioning
     SUA (utility/always_standard = true for NY). OTDA's GIS 25 DC059 has three separate SUAs; the archive gives the HT/AC SUA only to households
     paying heating/cooling (or, after Public Law 119-21, HEAP households with an aged/disabled member), the Utility SUA ($355 upstate) to households
-    with two or more other utility bills, the Phone SUA to phone-only households, and nothing when all utilities are in the rent (SNAP-NY-SUA,
+    with a separate non-heating utility bill, the Phone SUA to phone-only households, and nothing when all utilities are in the rent (SNAP-NY-SUA,
     SNAP-NY-HEAP-SUA; in NY-T22 the HEAP payment no longer confers the SUA on a household without an elderly or disabled member).
 - case: SNAP-NY-T20
   state: ny
@@ -1112,7 +1120,7 @@ rows:
   explanation: New York utility allowances. PolicyEngine treats New York as a state where every household gets the full Heating/Air Conditioning
     SUA (utility/always_standard = true for NY). OTDA's GIS 25 DC059 has three separate SUAs; the archive gives the HT/AC SUA only to households
     paying heating/cooling (or, after Public Law 119-21, HEAP households with an aged/disabled member), the Utility SUA ($355 upstate) to households
-    with two or more other utility bills, the Phone SUA to phone-only households, and nothing when all utilities are in the rent (SNAP-NY-SUA,
+    with a separate non-heating utility bill, the Phone SUA to phone-only households, and nothing when all utilities are in the rent (SNAP-NY-SUA,
     SNAP-NY-HEAP-SUA; in NY-T22 the HEAP payment no longer confers the SUA on a household without an elderly or disabled member).
 - case: SNAP-NY-T23
   state: ny
@@ -1285,4 +1293,8 @@ rows:
     net_income_monthly: 998.0
     utility_allowance_monthly: 877.0
   agree: false
-  explanation: null
+  explanation: 'New York FY 2027 and regional utility allowances. Both households pay heat, so both sides give the HT/AC SUA, but PolicyEngine
+    uses one statewide figure and has no FY 2027 New York value: it budgets $877 (the FY 2026 rest-of-state amount) for an Albany household in
+    November 2026 and for a Brooklyn couple. The archive uses the FY 2027 regional amounts ($908 rest of state, $1,100 New York City; SNAP-NY-SUA-FY27,
+    resting on Hunger Solutions New York''s 2026-27 sheet and CSS''s calculator because OTDA GIS 26 DC045 could not be retrieved). With no shelter
+    cap (elderly members) the extra $31 / $223 of shelter cost lowers net income and raises the benefit by $10 (T17) and $67 (T28).'
