@@ -1,0 +1,72 @@
+# Why archive SNAP results differ from PolicyEngine US (2.29.14).
+# A difference = different status, or benefit amounts more than $1 apart.
+# Each entry names the cases it covers. crosscheck/run.py fails on any difference not listed.
+explanations:
+  - cases: [SNAP-CA-T01, SNAP-CA-T03, SNAP-CA-T05, SNAP-IL-T01, SNAP-IL-T03, SNAP-IL-T05, SNAP-NY-T07]
+    reason: >-
+      Threshold rounding, a PolicyEngine modelling choice. These households sit
+      exactly at the state's published BBCE gross limit. PolicyEngine computes
+      the limit as percent x the 2025 poverty guideline / 12 without rounding
+      (e.g. California 200% for one person = $2,608.33; Illinois 165% = $2,151.88;
+      New York 150% = $1,956.25), so a household at the published figure is $1-2
+      over in PolicyEngine. The states publish whole-dollar limits that the
+      archive uses: CDSS ACIN I-46-25 ($2,610 / $3,526 / $5,360), IDHS MR #25.33
+      ($2,152 / $2,909 / $4,421) and OTDA GIS 25 DC059 ($1,957). Illinois cases
+      also differ by the standard deduction (next entry), which does not change
+      the status.
+  - cases: [SNAP-IL-T17]
+    reason: >-
+      Two PolicyEngine parameter gaps for October 2026. (1) Rounding as above:
+      PolicyEngine's 165% limit is $2,194.50 against IDHS's published $2,195
+      (MR #26.26), so the at-limit household fails in PolicyEngine. (2)
+      PolicyEngine still uses the FY 2026 Illinois AC/Heating standard ($546);
+      IDHS raised it to $565 from October 2026 (MR #26.26).
+  - cases: [SNAP-IL-T11, SNAP-IL-T16, SNAP-NY-T23]
+    match: {state: il}
+    reason: >-
+      Illinois standard deduction. IDHS budgets $205 for 1-3 people in FY 2026
+      (MR #25.33; $213 in FY 2027, MR #26.26), $4 below the FNS table ($209)
+      that PolicyEngine uses for every state; net income is $4-6 higher in the
+      archive and the benefit $2 lower. The reason for Illinois' lower figure
+      is open (SNAP-IL-CONFLICT-01, SNAP-IL-OQ-01).
+  - cases: [SNAP-IL-T19]
+    reason: >-
+      FY 2027 Illinois figures: the archive uses IDHS's October 2026 AC/Heating
+      standard ($565) and standard deduction ($213) from MR #26.26; PolicyEngine
+      has no FY 2027 Illinois utility value (keeps $546) and uses the FNS
+      standard deduction ($217). Net effects partly offset; benefit differs by $4.
+  - cases: [SNAP-CA-T19]
+    reason: >-
+      FY 2027 California SUA: CDSS ACIN I-40-26 raises the SUA to $686 from
+      October 1, 2026; PolicyEngine's California SUA parameter stops at the FY
+      2026 value ($663). The archive's higher utility allowance gives a $7 higher
+      benefit.
+  - cases: [SNAP-IL-T15]
+    reason: >-
+      LIHEAP-conferred utility allowance. The household has heat included in
+      rent but received a LIHEAP payment and has a qualifying (60+) member, so
+      IDHS gives the AC/Heating standard (PM 13-01-08-b; MR #25.33). PolicyEngine
+      has no LIHEAP-receipt input in its SNAP utility logic, so it allows no
+      utility allowance.
+  - cases: [SNAP-NY-T01, SNAP-NY-T16, SNAP-NY-T19, SNAP-NY-T22]
+    reason: >-
+      New York utility allowances. PolicyEngine treats New York as a state where
+      every household gets the full Heating/Air Conditioning SUA
+      (utility/always_standard = true for NY). OTDA's GIS 25 DC059 has three
+      separate SUAs; the archive gives the HT/AC SUA only to households paying
+      heating/cooling (or, after Public Law 119-21, HEAP households with an
+      aged/disabled member), the Utility SUA ($355 upstate) to households with
+      two or more other utility bills, the Phone SUA to phone-only households,
+      and nothing when all utilities are in the rent (SNAP-NY-SUA,
+      SNAP-NY-HEAP-SUA; in NY-T22 the HEAP payment no longer confers the SUA on
+      a household without an elderly or disabled member).
+  - cases: [SNAP-NY-T14]
+    reason: >-
+      New York BBCE scope. PolicyEngine gives every New York household an
+      unlimited asset limit under BBCE (its parameter comment notes the
+      earned-income/dependent-care restriction is "not currently implemented").
+      OTDA's GIS 25 DC059 extends categorical eligibility only to households
+      with earned income (150%) or with an aged/disabled member or dependent
+      care costs (200%); this household has none of these, so the $3,000
+      resource limit applies and its $3,500 savings make it ineligible
+      (SNAP-NY-NO-BBCE-OTHER).

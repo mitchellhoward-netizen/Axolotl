@@ -1,0 +1,771 @@
+schema_version: 2
+program: msp
+scope: ca
+title: Medicare Savings Program — California (Medi-Cal)
+last_researched: 2026-10-07
+
+summary:
+  plain_language: >-
+    In California the Medicare Savings Programs are part of Medi-Cal and are
+    run by the county social services offices. They use the four federal
+    programs: QMB (countable income up to $1,330 a month single or $1,804 for
+    a couple in 2026, which is gross income up to about $1,350 / $1,824 after
+    the $20 deduction) pays Medicare premiums, deductibles and copays; SLMB
+    (below $1,596 / $2,165 countable) and QI (below $1,796 / $2,436) pay the
+    Part B premium ($202.90 a month in 2026). From January 1, 2026 California
+    again has an asset limit for these programs, $130,000 for one person and
+    $195,000 for a couple, after having no asset limit in 2024 and 2025.
+    Since January 2025 California also pays the Part A premium for QMB
+    members who have Part B (the Part A buy-in). Enrolling in QMB, SLMB or QI
+    brings Extra Help with Part D drug costs.
+  administered_by: >-
+    California Department of Health Care Services (DHCS, Medi-Cal Eligibility
+    Division) sets policy through All County Welfare Directors Letters
+    (ACWDLs) and MEDILs; the 58 county social services agencies take
+    applications and decide eligibility (CalSAWS / BenefitsCal).
+  funded_by: >-
+    QMB, SLMB and QDWI are Medi-Cal (federal/state Medicaid match). QI is
+    federally funded within California's yearly allotment (federal rule).
+  local_names:
+    - {name: Medi-Cal, meaning: California's Medicaid program; the MSPs are Medi-Cal programs}
+    - {name: Medicare Premium Payment Program / Buy-In, meaning: DHCS's name for the state paying Medicare premiums}
+    - {name: QI-1, meaning: "California's name for QI in DHCS charts"}
+    - {name: "Aid codes 80 / 8C / 8D / 8A", meaning: "QMB / SLMB / QI / QDWI aid codes in ACWDL 25-14"}
+    - {name: MC 14A, meaning: The short QMB/SLMB/QI application form}
+    - {name: BenefitsCal, meaning: California's online application portal for Medi-Cal and the MSPs}
+  confidence: confirmed
+  sources:
+    - {source: ca-dhcs-msp-page, locator: "whole page"}
+    - {source: ca-dhcs-acwdl-25-27, locator: "MSP 2026 Property Limits"}
+    - {source: ca-dhcs-medil-i25-01, locator: "Background"}
+
+rules:
+  - id: MSP-CA-TIERS
+    statement: >-
+      California offers all four federal Medicare Savings Programs — QMB,
+      SLMB, QI (called QI-1 in DHCS charts) and QDWI — through Medi-Cal, at
+      the federal-minimum income percentages of 100%, 120%, 135% and 200% of
+      the federal poverty level.
+    kind: definition
+    effective_from: 2023-01-01
+    implemented_in: playbooks/msp/states/ca/rules.py:evaluate
+    confidence: confirmed
+    sources:
+      - {source: ca-dhcs-msp-page, locator: "Medicare Savings Programs and What Each Provides (table)"}
+      - {source: ca-dhcs-fpl-2026-programs, locator: "100% FPL = QMB; 120% FPL = < SLMB; 135% FPL = < QI-1; 200% FPL = Qualified Working Disabled Individuals"}
+  - id: MSP-CA-QMB-INCOME
+    statement: >-
+      In California in 2026, a person with Medicare Part A qualifies for QMB
+      if net countable income (after the $20 any income deduction and earned
+      income deductions) is equal to or less than $1,330 a month for one
+      person or $1,804 for a couple, so gross Social Security of up to $1,350
+      (single) or $1,824 (couple) qualifies.
+    kind: eligibility
+    applies_to: [QMB]
+    effective_from: 2026-01-01
+    parameters: [ca.msp.qmb_income_limit_monthly, ca.msp.income_disregard_monthly]
+    overrides: [MSP-FED-QMB-INCOME-FLOOR]
+    implemented_in: playbooks/msp/states/ca/rules.py:_tier
+    confidence: confirmed
+    note: >-
+      DHCS rounds monthly FPL figures up to the next dollar, so the couple
+      standard is $1,804 where the federal table (100% FPL + $20 = $1,824
+      gross) implies $1,803.33 countable; a couple with countable income of
+      exactly $1,804 is QMB in California.
+    sources:
+      - {source: ca-dhcs-fpl-2026-monthly, locator: "100% column; MONTHLY FPL VALUES (Rounded up to next higher dollar)"}
+      - {source: ca-dhcs-acwdl-23-05, locator: "page 4", quote: "compare net countable income to the following Federal Poverty Level (FPL) amounts: QMB-100% FPL or below for the family size."}
+      - {source: ca-dhcs-msp-page, locator: "Qualified Medicare Beneficiary: Monthly – $1,330 / $1,804"}
+  - id: MSP-CA-SLMB-INCOME
+    statement: >-
+      In California in 2026, a person with Medicare Part A whose net
+      countable income is above the QMB standard and less than $1,596 a month
+      (one person) or $2,165 (couple) qualifies for SLMB, which pays the
+      Part B premium; gross Social Security of $1,351 to $1,615 (single)
+      qualifies.
+    kind: eligibility
+    applies_to: [SLMB]
+    effective_from: 2026-01-01
+    parameters: [ca.msp.slmb_income_limit_monthly]
+    overrides: [MSP-FED-SLMB-INCOME]
+    implemented_in: playbooks/msp/states/ca/rules.py:_tier
+    confidence: confirmed
+    note: See MSP-CA-CONFLICT-02 on "less than" versus "or below" at exactly 120%.
+    sources:
+      - {source: ca-dhcs-fpl-2026-programs, locator: "120% FPL = < Specified Low-Income Medicare Beneficiaries (SLMB); Notes: '<' means eligible if budget unit income is less than income limit"}
+      - {source: ca-dhcs-fpl-2026-monthly, locator: "120% column: 1596 / 2165"}
+      - {source: ca-dhcs-mc-14a, locator: "SLMB: Net countable income below 120% of the FPL"}
+  - id: MSP-CA-QI-INCOME
+    statement: >-
+      In California in 2026, a person with Medicare Part A whose net
+      countable income is at least the SLMB standard and less than $1,796 a
+      month (one person) or $2,436 (couple), and who does not have Medi-Cal,
+      qualifies for QI, which pays the Part B premium; gross Social Security
+      of $1,616 to $1,815 (single) qualifies.
+    kind: eligibility
+    applies_to: [QI]
+    effective_from: 2026-01-01
+    parameters: [ca.msp.qi_income_limit_monthly]
+    overrides: [MSP-FED-QI-INCOME]
+    implemented_in: playbooks/msp/states/ca/rules.py:_tier
+    confidence: confirmed
+    sources:
+      - {source: ca-dhcs-fpl-2026-programs, locator: "135% FPL = < Qualified Individual 1 Program (QI-1)"}
+      - {source: ca-dhcs-fpl-2026-monthly, locator: "135% column: 1796 / 2436"}
+      - {source: ca-dhcs-msp-page, locator: "Qualifying Individual (Must Have Medicare Part A and cannot also receive Medi-Cal): Monthly – $1,796 / $2,436"}
+  - id: MSP-CA-INCOME-METHOD
+    statement: >-
+      When California counties count income for QMB, SLMB or QI, they
+      subtract a $20 "any income deduction" (once per budget) and, from
+      earnings, $65 plus one-half of the rest, and they do not deduct Medicare
+      or other health insurance premiums.
+    kind: definition
+    applies_to: [QMB, SLMB, QI]
+    effective_from: 1997-10-22
+    parameters: [ca.msp.income_disregard_monthly, federal.ssi.earned_income_exclusion_monthly]
+    overrides: [MSP-FED-INCOME-SSI-METHOD]
+    implemented_in: playbooks/msp/federal/rules.py:countable_income_of
+    confidence: confirmed
+    sources:
+      - {source: ca-dhcs-mc-14a, locator: "A. Countable income, lines m-s: Subtract $65 ... Divide by 2 ... Minus $20 (any income deduction)"}
+      - {source: ca-dhcs-mepm-5l, locator: "J.2.b) step 4: the $65 and 1/2 deduction; the IRWE deduction; ... the $20 Any Income Deduction"}
+      - {source: ca-dhcs-acwdl-23-05, locator: "page 4", quote: "Medicare and health insurance premiums are not allowed as an income deduction for MSPs."}
+  - id: MSP-CA-NO-EXTRA-DISREGARD
+    statement: >-
+      California does not apply the Aged, Blind and Disabled program's
+      additional income disregards (or its Part B premium disregard) to the
+      Medicare Savings Programs: MSP eligibility uses only the $20 any income
+      deduction and the earned income deductions against 100%, 120% and 135%
+      of the poverty level.
+    kind: definition
+    applies_to: [QMB, SLMB, QI]
+    effective_from: 2023-02-24
+    confidence: confirmed
+    note: >-
+      Inference from ACWDL 23-05 (MSP income methodology unchanged, MEPM
+      Articles 5J/5L, premiums not deductible) and ACWDL 25-26, whose Part B
+      premium disregard is stated for the ABD FPL program only. Answers the
+      brief's question whether California's extra aged/disabled disregards
+      reach the MSPs: no primary source says they do.
+    sources:
+      - {source: ca-dhcs-acwdl-23-05, locator: "page 4, There are no changes to existing policy regarding the MSP Income Determination"}
+      - {source: ca-dhcs-acwdl-25-26, locator: "Medicare Part B Disregard Reminder", quote: "counties must disregard income equal to the amount of the individual's Medicare Part B premium when determining eligibility for the ABD FPL program"}
+  - id: MSP-CA-FPL-EFFECTIVE
+    statement: >-
+      California applies each year's new MSP income standards from January 1
+      for applicants and members without Social Security (RSDI) income, and
+      from March 1 for those who receive RSDI income (for 2026: March 1,
+      2026); until then an RSDI recipient is measured against the previous
+      year's standards.
+    kind: timing
+    applies_to: [QMB, SLMB, QI]
+    effective_from: 2025-01-01
+    parameters: [ca.msp.new_fpl_month_rsdi]
+    implemented_in: playbooks/msp/states/ca/rules.py:_standards_date
+    confidence: confirmed
+    note: See MSP-CA-CONFLICT-01 (ACWDL 25-26 says April 1 for the COLA disregard).
+    sources:
+      - {source: ca-dhcs-acwdl-26-01, locator: "page 1, MSP bullets"}
+      - {source: ca-dhcs-acwdl-25-01, locator: "page 1, MSP bullets"}
+      - {source: ca-dhcs-fpl-2026-programs, locator: "Notes, last paragraph"}
+  - id: MSP-CA-COLA
+    statement: >-
+      In California the January Social Security cost-of-living increase is not
+      counted for the Medicare Savings Programs until the new year's poverty
+      levels take effect for the case (for RSDI recipients, through February
+      2026 under ACWDL 26-01).
+    kind: timing
+    applies_to: [QMB, SLMB, QI]
+    effective_from: 2026-01-01
+    overrides: [MSP-FED-COLA-TRANSITION]
+    implemented_in: playbooks/msp/federal/rules.py:cola_excluded
+    confidence: confirmed
+    note: >-
+      ACWDL 25-26 ties the COLA disregard to the new FPL taking effect and
+      names April 1, 2026; ACWDL 26-01 (later) puts the MSP switch for RSDI
+      cases at March 1. The evaluator uses January-February (the federal
+      transition months), which matches ACWDL 26-01; MSP-CA-CONFLICT-01.
+    sources:
+      - {source: ca-dhcs-acwdl-25-26, locator: "Processing the 2026 SSA COLA for Non-MAGI Eligibility Groups", quote: "The 2026 SSA COLA will be disregarded from the eligibility determination for the Aged, Blind, and Disabled Federal Poverty Level (ABD FPL), and Medicare Savings Programs (MSPs) until the 2026 FPL rates take effect on April 1, 2026"}
+      - {source: ca-dhcs-mc-14a, locator: "footnote: If you received a Title II Social Security cost of living adjustment in January, this amount will not be counted until April."}
+  - id: MSP-CA-COUPLE
+    statement: >-
+      In California, a married applicant living with a spouse is budgeted
+      with the spouse's income against the poverty level for two (Medi-Cal
+      methodology); if that makes the applicant ineligible and the spouse is
+      not an MSP applicant, the county also tries SSI methodology, under which
+      a low-income spouse's income can be exempt and the applicant is measured
+      alone against the poverty level for one.
+    kind: definition
+    applies_to: [QMB, SLMB, QI]
+    effective_from: 1997-10-22
+    overrides: [MSP-FED-COUPLE-INCOME]
+    implemented_in: playbooks/msp/states/ca/rules.py:evaluate
+    confidence: confirmed
+    sources:
+      - {source: ca-dhcs-mepm-5l, locator: "J.2.b) SSI Income Methodology - Overview; J.3.b) steps 1-5 (use the FPL for one ... or the FPL for two)"}
+      - {source: ca-dhcs-mc-14a, locator: "A.2: If you are married and living with your SPOUSE, fill in the MONTHLY unearned income received by your spouse"}
+  - id: MSP-CA-INELIGIBLE-SPOUSE
+    statement: >-
+      In California, under SSI income methodology for an MSP applicant whose
+      spouse is not applying, the spouse's income is exempt if it is no more
+      than the "Standard SSI Allocation"; the 2026 amount of that allocation
+      is not established in this archive.
+    kind: definition
+    applies_to: [QMB, SLMB, QI]
+    effective_from: 1997-10-22
+    parameters: [ca.msp.standard_ssi_allocation_monthly]
+    implemented_in: playbooks/msp/states/ca/rules.py:evaluate
+    confidence: unresolved
+    open_question: MSP-CA-OQ-04
+    sources:
+      - {source: ca-dhcs-mepm-5l, locator: "J.2.b) and J.3.b) step 3"}
+  - id: MSP-CA-ASSET-LIMIT
+    statement: >-
+      In California, from January 1, 2026, a person qualifies for QMB, SLMB,
+      QI or QDWI only if countable property (assets) is no more than $130,000
+      for one person or $195,000 for a couple ($65,000 more for each
+      additional household member, up to ten).
+    kind: eligibility
+    applies_to: [QMB, SLMB, QI, QDWI]
+    effective_from: 2026-01-01
+    parameters: [ca.msp.asset_test_applies, ca.msp.asset_limit]
+    overrides: [MSP-FED-RESOURCES]
+    implemented_in: playbooks/msp/states/ca/rules.py:_asset_test
+    confidence: confirmed
+    sources:
+      - {source: ca-dhcs-acwdl-25-27, locator: "MSP 2026 Property Limits", quote: "Effective January 1, 2026, the asset limits used to determine MSP eligibility are $130,000 for an individual, $195,000 for a couple."}
+      - {source: ca-dhcs-acwdl-25-14, locator: "Policy Change; programs chart incl. QMB (80), QDWI (8A), SLMB (8C), QI (8D); Household Asset Limits table"}
+      - {source: ca-dhcs-msp-page, locator: "Starting January 1, 2026, the asset limits to determine MSP eligibility ..."}
+  - id: MSP-CA-NO-ASSET-TEST-2024-2025
+    statement: >-
+      California had no asset (property) limit for QMB, SLMB, QI or QDWI from
+      January 1, 2024 through December 31, 2025; from July 1, 2022 through
+      December 31, 2023 the limit was $130,000 for one person and $195,000 for
+      two.
+    kind: eligibility
+    applies_to: [QMB, SLMB, QI, QDWI]
+    effective_from: 2022-07-01
+    effective_to: 2025-12-31
+    parameters: [ca.msp.asset_test_applies, ca.msp.asset_limit]
+    implemented_in: playbooks/msp/states/ca/rules.py:_asset_test
+    confidence: confirmed
+    sources:
+      - {source: ca-dhcs-acwdl-22-25, locator: "Purpose; Policy"}
+      - {source: ca-dhcs-acwdl-22-28, locator: "Medicare Savings Program 2023 Property Limits"}
+      - {source: ca-dhcs-acwdl-25-27, locator: "Important"}
+  - id: MSP-CA-ASSET-TRANSITION
+    statement: >-
+      In California, an MSP application filed before January 1, 2026 is
+      decided without the property test even if the decision is made later,
+      and an existing member becomes subject to the reinstated $130,000 /
+      $195,000 limit only at the first annual renewal (or change-in-
+      circumstance redetermination with assets verified ex parte) on or after
+      January 1, 2026; no assets are verified for retroactive months before
+      2026.
+    kind: timing
+    applies_to: [QMB, SLMB, QI, QDWI]
+    effective_from: 2026-01-01
+    parameters: [ca.msp.asset_test_start_application_date]
+    implemented_in: playbooks/msp/states/ca/rules.py:_asset_test
+    confidence: confirmed
+    sources:
+      - {source: ca-dhcs-acwdl-25-14, locator: "Impacted Populations; Application; Examples #1-#4"}
+  - id: MSP-CA-ASSET-CURE-PERIOD
+    statement: >-
+      In California, a Medi-Cal or MSP member whose renewal is due on or after
+      January 1, 2026 and who is cut off for not giving asset information has
+      a 90-day cure period: if the information arrives within 90 days and the
+      person is under the limit, coverage is restored as if it had been
+      timely.
+    kind: procedure
+    applies_to: [QMB, SLMB, QI, QDWI]
+    effective_from: 2026-01-01
+    confidence: confirmed
+    sources:
+      - {source: ca-dhcs-acwdl-25-14, locator: "Annual Renewal, paragraph 3"}
+  - id: MSP-CA-PART-A
+    statement: >-
+      In California a person must have Medicare Part A to qualify for QMB,
+      SLMB or QI (the only exception is a person with the Medicare Part B
+      immunosuppressive-drug benefit, who may get an MSP without Part A).
+    kind: eligibility
+    applies_to: [QMB, SLMB, QI]
+    effective_from: 2023-01-01
+    implemented_in: playbooks/msp/states/ca/rules.py:evaluate
+    confidence: confirmed
+    sources:
+      - {source: ca-dhcs-msp-page, locator: "QMB (Must Be Entitled to Medicare Part A); SLMB (Must Have Medicare Part A)"}
+      - {source: ca-dhcs-acwdl-23-05, locator: "page 4: individuals are not required to be Medicare Part A eligible for QMB, SLMB or QI (Part B-ID)"}
+  - id: MSP-CA-PART-A-BUY-IN
+    statement: >-
+      Since January 1, 2025 California is a Medicare Part A buy-in state:
+      DHCS automatically enrolls full-scope Medi-Cal members who have Part B
+      and qualify for QMB into Part A and pays their Part A premium; whether
+      the buy-in also gives Part A to a QMB-only applicant who is not on
+      Medi-Cal and has no Part A has not been established.
+    kind: coordination
+    applies_to: [QMB]
+    effective_from: 2025-01-01
+    implemented_in: playbooks/msp/states/ca/rules.py:evaluate
+    confidence: unresolved
+    open_question: MSP-CA-OQ-02
+    sources:
+      - {source: ca-dhcs-medil-i25-01, locator: "Background", quote: "Effective January 1, 2025, California has transitioned to a Medicare Part A Buy-In State."}
+      - {source: ca-dhcs-buyin-page, locator: "Part A Buy-In Agreement"}
+      - {source: ca-dhcs-acwdl-26-12, locator: "Part A Buy-in policy changes"}
+  - id: MSP-CA-SSI-AUTO-QMB
+    statement: >-
+      In California, SSI/SSP recipients with full-scope Medi-Cal and Medicare
+      Part B were automatically enrolled in QMB (aid code 80) by DHCS from
+      October 2024 (premium-free Part A) and January 1, 2025 (all), so they do
+      not need to file an MSP application; people who do not receive SSI/SSP
+      must apply.
+    kind: coordination
+    applies_to: [QMB]
+    effective_from: 2025-01-01
+    confidence: confirmed
+    sources:
+      - {source: ca-dhcs-medil-i25-01, locator: "Qualified Medicare Beneficiary (QMB) Program; QMB Program Reminders for the Non-SSI/Non-SSP Individuals"}
+  - id: MSP-CA-QI-NOT-MEDI-CAL
+    statement: >-
+      In California a person cannot have QI while receiving Medi-Cal; whether
+      a person with share-of-cost (medically needy) Medi-Cal is barred from QI
+      has not been established. QMB and SLMB can be held with Medi-Cal.
+    kind: coordination
+    applies_to: [QI]
+    effective_from: 2026-01-01
+    overrides: [MSP-FED-QI-NOT-MEDICAID]
+    implemented_in: playbooks/msp/states/ca/rules.py:evaluate
+    confidence: confirmed
+    note: The share-of-cost case is open (MSP-CA-OQ-01); the evaluator returns undetermined for it.
+    sources:
+      - {source: ca-dhcs-msp-page, locator: "Qualifying Individual (Must Have Medicare Part A and cannot also receive Medi-Cal)"}
+      - {source: usc-42-1396a, locator: "(a)(10)(E)(iv)"}
+  - id: MSP-CA-QDWI
+    statement: >-
+      In California in 2026, QDWI (payment of the Part A premium only) is for
+      people under 65 who lost premium-free Part A because they returned to
+      work and do not receive Medi-Cal, with income up to 200% of the poverty
+      level ($2,660 a month single, $3,608 couple) and, from January 1, 2026,
+      property of no more than $130,000 (single) or $195,000 (couple).
+    kind: eligibility
+    applies_to: [QDWI]
+    effective_from: 2026-01-01
+    parameters: [ca.msp.qdwi_income_limit_monthly, ca.msp.asset_limit]
+    overrides: [MSP-FED-QDWI]
+    implemented_in: playbooks/msp/states/ca/rules.py:_qdwi
+    confidence: confirmed
+    note: >-
+      The $130,000 property limit for QDWI is far above the federal QDWI
+      resource limit (twice the SSI limit, $4,000 / $6,000); ACWDL 25-14 lists
+      QDWI (aid code 8A) among programs with the $130,000 limit. Whether the
+      200% figure is compared to income before or after earned income
+      deductions is open (MSP-CA-OQ-07).
+    sources:
+      - {source: ca-dhcs-msp-page, locator: "Qualified Disabled and Working Individual: Monthly – $2,660 / $3,608"}
+      - {source: ca-dhcs-acwdl-25-14, locator: "programs chart, page 9: Qualified Disabled Working Individual (QWDI) 8A"}
+  - id: MSP-CA-QMB-EFFECTIVE
+    statement: >-
+      In California QMB has no retroactive months and starts the month after
+      eligibility is established; DHCS's procedures manual and county letter
+      say the month after the county approves the case, while the 2026 notice
+      text says the month after the person applies.
+    kind: timing
+    applies_to: [QMB]
+    effective_from: 2023-02-24
+    overrides: [MSP-FED-QMB-EFFECTIVE]
+    confidence: unresolved
+    open_question: MSP-CA-OQ-06
+    sources:
+      - {source: ca-dhcs-mepm-5l, locator: "B.2 Effective Date", quote: "Benefits are effective the first of the month following the date of approval ... There are no retroactive QMB benefits."}
+      - {source: ca-dhcs-acwdl-23-05, locator: "page 4", quote: "The QMB eligibility start date is the month after the county has processed the case as described in MEPM Article 5L."}
+      - {source: ca-dhcs-acwdl-26-12, locator: "QMB Approval snippet", quote: "QMB eligibility starts the month after you apply."}
+  - id: MSP-CA-RETRO
+    statement: >-
+      In California, SLMB and QI can be paid for up to three months before the
+      month of application for applications made before January 1, 2027;
+      for applications on or after January 1, 2027 DHCS's preliminary guidance
+      limits retroactive Medi-Cal coverage for groups other than the MAGI new
+      adult group to two months.
+    kind: timing
+    applies_to: [SLMB, QI]
+    effective_from: 2023-01-01
+    overrides: [MSP-FED-RETRO-SLMB-QI, MSP-FED-RETRO-2027]
+    confidence: confirmed
+    note: >-
+      ACWDL 26-07 does not name the MSPs; applying its two-month limit to SLMB
+      and QI is a direct inference ("all other Medi-Cal eligibility groups"),
+      and the letter is marked preliminary. Answers MSP-FED-OQ-02 for
+      California only.
+    sources:
+      - {source: ca-dhcs-acwdl-23-05, locator: "page 4", quote: "SLMB and QI eligibility may be allowed retroactively for up to three months"}
+      - {source: ca-dhcs-mc-14a, locator: "Do you wish to apply for three months of retroactive coverage for the SLMB and QI programs (there is no retroactive coverage for QMB)."}
+      - {source: ca-dhcs-acwdl-26-07, locator: "Background; Policy Change", quote: "All Other Medi-Cal Eligibility Groups: Retroactive Medi-Cal coverage is limited to 2 months prior to the month of application."}
+  - id: MSP-CA-REPORT-CHANGES
+    statement: >-
+      California Medi-Cal and MSP members must report changes that affect
+      eligibility to the county within 10 days; from January 1, 2026 that
+      includes changes in assets once assets have been used in their
+      determination.
+    kind: procedure
+    effective_from: 2026-01-01
+    confidence: confirmed
+    sources:
+      - {source: ca-dhcs-acwdl-25-14, locator: "Change in Circumstance"}
+
+procedure:
+  applications:
+    - id: MSP-CA-PROC-MC14A
+      text: >-
+        To apply only for an MSP, fill in the MC 14A (QMB, SLMB and QI
+        Application) and mail it to the Medicare Savings Program contact at the
+        county social services office; it asks whether to request three
+        months of retroactive SLMB/QI coverage. The printed dollar figures on
+        the 5/22 form are out of date.
+      form_number: MC 14A
+      form_name: Qualified Medicare Beneficiary (QMB), Specified Low-Income Medicare Beneficiary (SLMB), and Qualifying Individual (QI) Application
+      url: https://www.dhcs.ca.gov/file/mc14a-eng-2-pdf/
+      channel: mail
+      confidence: confirmed
+      sources:
+        - {source: ca-dhcs-msp-page, locator: "If you only want to apply for a Medicare Savings Program, you may fill out the application (MC 14A) and mail it to the Medicare Savings Program contact at your local county office."}
+        - {source: ca-dhcs-mc-14a, locator: "page 1"}
+    - id: MSP-CA-PROC-MEDI-CAL-APP
+      text: >-
+        Alternatively apply for Medi-Cal and the MSPs together (same process
+        as Medi-Cal): online at BenefitsCal.com, with the Medi-Cal application
+        by mail, by phone with the county office, or in person; tell the county
+        which MSP you want.
+      channel: any
+      confidence: confirmed
+      sources: [{source: ca-dhcs-msp-page, locator: "Apply for a Medicare Savings Program, and Medi-Cal, in one of the following ways: Online / By mail / By phone / In Person"}]
+    - id: MSP-CA-PROC-LIS
+      text: An Extra Help application filed with SSA also starts an MSP application with the county (federal MIPPA rule).
+      channel: any
+      confidence: confirmed
+      sources: [{source: ssa-poms-hi-00815-024, locator: "A. Background on MIPPA"}]
+  documents:
+    - id: MSP-CA-DOC-ASSETS
+      text: From January 1, 2026, applicants must report assets and give asset verification (bank statements and similar) as part of the MSP determination.
+      confidence: confirmed
+      sources: [{source: ca-dhcs-acwdl-25-14, locator: "Application", quote: "will be required to report asset information and provide verification of their assets"}]
+    - id: MSP-CA-DOC-INCOME
+      text: The MC 14A asks for monthly Social Security, VA, interest, retirement and other unearned income of the applicant and a living-with spouse, and gross earnings of both.
+      confidence: confirmed
+      sources: [{source: ca-dhcs-mc-14a, locator: "A. Countable income, lines 1-3"}]
+    - id: MSP-CA-DOC-RETRO
+      text: Retroactive months are requested on form MC 210A, which counties complete from information given by phone, in person or otherwise.
+      form_number: MC 210A
+      confidence: confirmed
+      sources: [{source: ca-dhcs-acwdl-26-07, locator: "Reminders: The MC 210A continues to be the required form to initiate a retroactive eligibility determination."}]
+  filing:
+    - id: MSP-CA-FILE-COUNTY
+      text: File with the county social services agency where the person lives; DHCS publishes an MSP county contact list with each county's QMB/SLMB/QI program address and phone.
+      channel: mail
+      county_varies: true
+      url: https://www.dhcs.ca.gov/file/file-190991-pdf/
+      confidence: confirmed
+      sources: [{source: ca-dhcs-msp-county-contacts, locator: "Medicare Savings Program County Contact List"}]
+    - id: MSP-CA-FILE-ONLINE
+      text: Apply online through BenefitsCal (benefitscal.com).
+      channel: online
+      url: https://benefitscal.com/
+      confidence: confirmed
+      sources:
+        - {source: ca-dhcs-msp-page, locator: "Online at BenefitsCal.org"}
+        - {source: ca-dhcs-part-a-buyin-flyer, locator: "Apply online through Benefits Cal: https://benefitscal.com/"}
+    - id: MSP-CA-FILE-HELPLINE
+      text: Medi-Cal Helpline (800) 541-5555; HICAP free Medicare counseling (800) 434-0222.
+      channel: phone
+      confidence: confirmed
+      sources: [{source: ca-dhcs-part-a-buyin-flyer, locator: "Do You Still Have Questions?; More Resources"}]
+  timelines:
+    - id: MSP-CA-TIME-DECISION
+      text: The deadline for the county to decide an MSP application was not found in the California sources reviewed.
+      confidence: unresolved
+      open_question: MSP-CA-OQ-08
+    - id: MSP-CA-TIME-DEDUCTION-STOPS
+      text: After approval it may take up to 4 months for the Part B premium to stop being taken out of the Social Security check; premiums paid during qualifying months may be paid back.
+      duration: up to 4 months
+      confidence: confirmed
+      sources: [{source: ca-dhcs-acwdl-26-12, locator: "QMB / SLMB / QI Approval snippets", quote: "It may take up to 4 months for premiums to stop getting subtracted from your monthly Social Security benefit."}]
+  approval_notice:
+    - id: MSP-CA-NOTICE-NOA
+      text: >-
+        The county sends a Notice of Action (NOA) "About Your Medicare Savings
+        Program Eligibility" naming the program (QMB, SLMB or QI) and its start
+        date; denials and discontinuances give the countable income and limit,
+        or the property amount and limit. DHCS revised the MSP NOA text in
+        ACWDL 26-12 (CalSAWS release 26.11).
+      confidence: confirmed
+      sources:
+        - {source: ca-dhcs-acwdl-26-12, locator: "Specific NOA Snippet Updates; enclosure"}
+        - {source: ca-dhcs-acwdl-25-14, locator: "Notices and Forms; Medi-Cal Denial due to Excess Assets snippet"}
+    - id: MSP-CA-NOTICE-SSA-PART-A
+      text: QMB members enrolled in the Part A buy-in also receive a Medicare Part A buy-in approval letter from SSA.
+      confidence: confirmed
+      sources: [{source: ca-dhcs-medil-i25-01, locator: "QMB Program Reminders for the Non-SSI/Non-SSP Individuals"}]
+  renewal:
+    - id: MSP-CA-RENEW-ANNUAL
+      text: >-
+        MSP eligibility is renewed yearly with the Medi-Cal renewal forms (MC
+        210 RV or pre-populated MC 217); renewals due from January 2026 include
+        a property supplement, and a person discontinued for missing asset
+        information has a 90-day cure period.
+      form_number: MC 210 RV / MC 217
+      confidence: confirmed
+      sources: [{source: ca-dhcs-acwdl-25-14, locator: "Annual Renewal"}]
+  county_variation:
+    - id: MSP-CA-COUNTY
+      text: >-
+        Rules are statewide (DHCS); the 58 county social services agencies
+        take applications, so the MSP mailing address, phone and in-person
+        office differ by county.
+      county_varies: true
+      confidence: confirmed
+      sources: [{source: ca-dhcs-msp-county-contacts, locator: "County Contact List"}]
+
+life_events:
+  - id: MSP-CA-LE-RETIRE
+    code: retirement
+    event: Retirement or a drop in income
+    why: Countable income under $1,796 single / $2,436 couple (2026) qualifies for QI or better, subject to the $130,000 / $195,000 property limit.
+    check_rules: [MSP-CA-QMB-INCOME, MSP-CA-SLMB-INCOME, MSP-CA-QI-INCOME, MSP-CA-ASSET-LIMIT]
+    confidence: confirmed
+    sources: [{source: ca-dhcs-msp-page, locator: "Medicare Savings Programs and What Each Provides"}]
+  - id: MSP-CA-LE-RENEWAL-2026
+    code: renewal_due
+    event: First Medi-Cal/MSP renewal on or after January 1, 2026
+    why: Members who enrolled when there was no asset test must now report assets; over $130,000 / $195,000 ends the MSP, and missing information can be cured within 90 days.
+    check_rules: [MSP-CA-ASSET-TRANSITION, MSP-CA-ASSET-CURE-PERIOD]
+    confidence: confirmed
+    sources: [{source: ca-dhcs-acwdl-25-14, locator: "Impacted Populations; Annual Renewal"}]
+  - id: MSP-CA-LE-ASSETS
+    code: asset_change
+    event: Inheritance, sale of property or large savings change
+    why: From 2026 property above $130,000 (single) / $195,000 (couple) ends MSP eligibility; changes must be reported within 10 days.
+    check_rules: [MSP-CA-ASSET-LIMIT, MSP-CA-REPORT-CHANGES]
+    confidence: confirmed
+    sources: [{source: ca-dhcs-acwdl-25-14, locator: "Change in Circumstance"}]
+  - id: MSP-CA-LE-JANUARY
+    code: cola_january
+    event: January COLA and new poverty levels
+    why: RSDI recipients stay on the prior year's standards (COLA not counted) until March 1; others switch January 1.
+    check_rules: [MSP-CA-FPL-EFFECTIVE, MSP-CA-COLA]
+    confidence: confirmed
+    sources: [{source: ca-dhcs-acwdl-26-01, locator: "page 1"}]
+  - id: MSP-CA-LE-MEDI-CAL
+    code: medicaid_change
+    event: Starting or losing Medi-Cal
+    why: QI cannot be held with Medi-Cal; QMB members with Part B on Medi-Cal get the Part A buy-in.
+    check_rules: [MSP-CA-QI-NOT-MEDI-CAL, MSP-CA-PART-A-BUY-IN]
+    confidence: confirmed
+    sources: [{source: ca-dhcs-msp-page, locator: "QI ... cannot also receive Medi-Cal"}]
+
+outcome_proof:
+  - id: MSP-CA-PROOF-NOA
+    evidence: County Notice of Action approving QMB, SLMB or QI
+    shows: The program and its start date ("<Applicant> is eligible for the ... program starting <date>").
+    how_to_get: Mailed by the county social services agency (or in the BenefitsCal account)
+    confidence: confirmed
+    sources: [{source: ca-dhcs-acwdl-26-12, locator: "QMB / SLMB / QI Approval snippets"}]
+  - id: MSP-CA-PROOF-SSA
+    evidence: Social Security payment no longer reduced by the Part B premium
+    shows: The state buy-in is in effect; the monthly deposit rises by $202.90 (2026). DHCS tells members this may take up to 4 months, and premiums paid in qualifying months may be paid back.
+    how_to_get: my Social Security account, SSA benefit letter, or bank statement
+    when: Up to 4 months after approval
+    confidence: confirmed
+    sources: [{source: ca-dhcs-acwdl-26-12, locator: "Approval snippets: It may take up to 4 months ..."}]
+  - id: MSP-CA-PROOF-PART-A-LETTER
+    evidence: SSA Medicare Part A buy-in approval letter (QMB members without premium-free Part A)
+    shows: The state is paying the Part A premium.
+    confidence: confirmed
+    sources: [{source: ca-dhcs-medil-i25-01, locator: "QMB Program Reminders ... (An example of an SSA approval letter is enclosed)"}]
+
+links:
+  - id: MSP-CA-LINK-MEDICAID
+    playbook: medicaid
+    rules: [MSP-CA-QI-NOT-MEDI-CAL, MSP-CA-PART-A-BUY-IN, MSP-CA-SSI-AUTO-QMB]
+    relation: >-
+      In California QI cannot be held with Medi-Cal; QMB can, and QMB members
+      on full-scope Medi-Cal with Part B get the state Part A buy-in. The same
+      reinstated $130,000 / $195,000 property limit applies to the Medi-Cal
+      ABD programs and the MSPs from 2026.
+    test: MSP-CA-T16
+    confidence: confirmed
+    sources:
+      - {source: ca-dhcs-msp-page, locator: "QI ... cannot also receive Medi-Cal"}
+      - {source: ca-dhcs-acwdl-25-14, locator: "programs chart"}
+  - id: MSP-CA-LINK-EXTRA-HELP
+    playbook: msp
+    rules: [MSP-FED-EXTRA-HELP-DEEMED, MSP-CA-ASSET-LIMIT]
+    relation: >-
+      QMB, SLMB or QI in California deems Extra Help; because California's
+      MSP property limit ($130,000) is far above the Extra Help limit
+      ($16,590), MSP enrollment gives Extra Help to people who would fail
+      Extra Help's own resource test.
+    test: MSP-X-04
+    confidence: confirmed
+    sources:
+      - {source: ssa-poms-hi-03001-005, locator: "A. deemed subsidy eligible"}
+      - {source: ca-dhcs-acwdl-25-27, locator: "MSP 2026 Property Limits"}
+
+open_questions:
+  - id: MSP-CA-OQ-01
+    priority: medium
+    question: Can a California member with share-of-cost (medically needy) Medi-Cal hold QI, or does any Medi-Cal enrollment bar QI?
+    why_it_matters: Retirees just over the ABD FPL limit often have share-of-cost Medi-Cal; QI may be their only Part B premium help.
+    checked: [DHCS MSP page ("cannot also receive Medi-Cal"), ACWDL 23-05, MC 14A, MEPM 5L]
+    affects: [MSP-CA-QI-NOT-MEDI-CAL]
+    status: open
+  - id: MSP-CA-OQ-02
+    priority: high
+    question: >-
+      Can a Californian 65+ who has Part B but no Part A (not enough work
+      quarters) get QMB with the state buying Part A, without first being on
+      full-scope Medi-Cal or enrolling in conditional Part A at SSA?
+    why_it_matters: Part A buy-in states can enroll QMBs in Part A at any time; telling the member the wrong route can cost months of coverage.
+    checked: [MEDIL I 25-01, DHCS Buy-In page, Part A buy-in flyer, ACWDL 26-12; ACWDL 24-20 (link returned "page not found")]
+    affects: [MSP-CA-PART-A-BUY-IN]
+    status: open
+  - id: MSP-CA-OQ-03
+    priority: medium
+    question: How does California set the MSP family size (MFBU) when children or other dependants live in the home, and what did the 2025 letter on "aligning the definition of family size for MSPs" (ACWDL 25-07, now marked obsolete) change?
+    why_it_matters: The limit for a larger family is higher (MC 14A says amounts "may be higher" with a child at home); grandparents raising grandchildren could be wrongly turned away.
+    checked: [MC 14A footnote, MEPM 5L, DHCS 2025 ACWDL index (25-07 listed as obsolete, no link)]
+    affects: [MSP-CA-COUPLE]
+    status: open
+  - id: MSP-CA-OQ-04
+    priority: medium
+    question: What is the current "Standard SSI Allocation" amount California uses when a QMB/SLMB/QI applicant lives with a spouse who is not applying?
+    why_it_matters: Couples where one spouse is younger and without Medicare can qualify under SSI methodology when the couple budget fails.
+    checked: [MEPM Article 5L (amount "provided to counties annually"), MC 176 QMB/SLMB/QI worksheet]
+    affects: [ca.msp.standard_ssi_allocation_monthly, MSP-CA-INELIGIBLE-SPOUSE]
+    status: open
+  - id: MSP-CA-OQ-05
+    priority: medium
+    question: Which assets count toward California's 2026 MSP property limit (home, one vehicle, retirement accounts, burial funds) under the reinstated Article 9 rules?
+    why_it_matters: The evaluator excludes the home, one vehicle and burial spaces as SSI does; the DHCS MSP page lists "vehicles" among assets.
+    checked: [ACWDL 25-14, ACWDL 25-27, DHCS MSP page]
+    affects: [ca.msp.asset_limit, MSP-CA-ASSET-LIMIT]
+    status: open
+  - id: MSP-CA-OQ-06
+    priority: medium
+    question: Does California QMB start the month after the application or the month after the county approves the case?
+    why_it_matters: Tells the member when Medicare cost-sharing protection begins.
+    checked: [MEPM 5L (1997), ACWDL 23-05, ACWDL 26-12 NOA snippet]
+    affects: [MSP-CA-QMB-EFFECTIVE]
+    status: open
+  - id: MSP-CA-OQ-07
+    priority: low
+    question: Is California's QDWI 200% FPL standard compared to income before or after the $65-plus-half earned income deduction?
+    why_it_matters: QDWI applicants are by definition working; the answer changes the effective limit by half of earnings.
+    checked: [DHCS MSP page, ACWDL 26-01 Enclosure 3, MEPM 5L (QDWI is Article 5I, not retrieved)]
+    affects: [ca.msp.qdwi_income_limit_monthly, MSP-CA-QDWI]
+    status: open
+  - id: MSP-CA-OQ-08
+    priority: medium
+    question: What is the county's deadline to decide an MSP application in California (45 days as for other non-disability Medi-Cal?), and is an interview required?
+    why_it_matters: The agent should tell the member when to expect the Notice of Action and when to follow up.
+    checked: [DHCS MSP page, MC 14A, ACWDL 25-14]
+    affects: [MSP-CA-TIME-DECISION]
+    status: open
+
+conflicts:
+  - id: MSP-CA-CONFLICT-01
+    topic: When the 2026 COLA starts counting / new FPL takes effect for MSP cases with Social Security income
+    claims:
+      - {source: ca-dhcs-acwdl-25-26, locator: "Processing the 2026 SSA COLA", says: "COLA disregarded for ABD FPL and MSPs until the 2026 FPL rates take effect on April 1, 2026."}
+      - {source: ca-dhcs-acwdl-26-01, locator: "page 1", says: "For MSP applicants or recipients receiving Title II RSDI income, the effective date for the new FPLs is March 1, 2026."}
+      - {source: ca-dhcs-mc-14a, locator: "footnote", says: "These amounts are expected to increase each year in April; a January COLA will not be counted until April."}
+    handling: >-
+      The evaluator follows ACWDL 26-01 (later and MSP-specific): RSDI cases
+      use the 2025 standards with the COLA excluded through February and the
+      2026 standards with the COLA counted from March 1. A March 2026 case
+      near a limit could come out differently under the April reading.
+    affects: [MSP-CA-FPL-EFFECTIVE, MSP-CA-COLA]
+    status: open
+  - id: MSP-CA-CONFLICT-02
+    topic: Whether income exactly at 120% / 135% FPL qualifies for SLMB / QI
+    claims:
+      - {source: ca-dhcs-acwdl-23-05, locator: "page 4", says: "SLMB-120% FPL or below; QI-135% FPL or below."}
+      - {source: ca-dhcs-fpl-2026-programs, locator: "Notes", says: "SLMB and QI-1 are marked '<' (eligible if income is less than the limit)."}
+      - {source: ca-dhcs-mc-14a, locator: "page 1", says: "SLMB: below 120%; QI: below 135%."}
+    handling: >-
+      The evaluator uses "less than" for SLMB and QI, following the 2026
+      enclosure, the application form and federal law (1902(a)(10)(E)(iii)-(iv)).
+      Test MSP-CA-T04 pins countable income of exactly $1,596 as QI, not SLMB.
+    affects: [MSP-CA-SLMB-INCOME, MSP-CA-QI-INCOME]
+    status: open
+  - id: MSP-CA-CONFLICT-03
+    topic: DHCS page's headline MSP income ceiling
+    claims:
+      - {source: ca-dhcs-msp-page, locator: "intro", says: "Californians with an annual income of less than $22,025 for an individual or $29,864 for a couple are eligible for a Medicare Savings Program (that is 138% FPL)."}
+      - {source: ca-dhcs-msp-page, locator: "table", says: "QI (the highest-income MSP tier) monthly limit $1,796 / annual $21,546 (135% FPL)."}
+      - {source: ca-dhcs-fpl-2026-programs, locator: "135% FPL", says: "QI-1 is < 135% FPL."}
+    handling: >-
+      The evaluator uses the 135% QI standard. The $22,025 headline matches
+      138% FPL (the ABD/Adult Medi-Cal level), not any MSP standard; the
+      agent should not quote it as the MSP limit.
+    affects: [MSP-CA-QI-INCOME]
+    status: open
+  - id: MSP-CA-CONFLICT-04
+    topic: Asset test start date wording
+    claims:
+      - {source: ca-dhcs-acwdl-25-14, locator: "Application", says: "Applicants with an application date after January 1, 2026 must report assets."}
+      - {source: ca-dhcs-acwdl-25-14, locator: "Example #1", says: "The asset test applies ... as the submission date falls on or after January 1, 2026."}
+    handling: The archive applies the test to applications dated on or after January 1, 2026 (a state holiday, so few applications are affected).
+    affects: [MSP-CA-ASSET-TRANSITION]
+    status: open
+  - id: MSP-CA-CONFLICT-05
+    topic: QMB effective date
+    claims:
+      - {source: usc-42-1396a, locator: "(e)(8)", says: "QMB applies to services after the end of the month in which the QMB determination first occurs."}
+      - {source: ca-dhcs-acwdl-23-05, locator: "page 4", says: "QMB starts the month after the county has processed the case."}
+      - {source: ca-dhcs-acwdl-26-12, locator: "QMB Approval snippet", says: "QMB eligibility starts the month after you apply."}
+    handling: Rule MSP-CA-QMB-EFFECTIVE is marked unresolved; the agent should say "the month after the county approves it, or possibly the month after you apply" and point to the Notice of Action's start date.
+    affects: [MSP-CA-QMB-EFFECTIVE]
+    status: open
+
+claims_checked:
+  - claim: California reinstated an asset limit for Medi-Cal, reported as $130,000 for one person.
+    verdict: verified
+    detail: >-
+      Correct, and it applies to the Medicare Savings Programs: from January
+      1, 2026 the limit for QMB, SLMB, QI and QDWI (and the other non-MAGI
+      programs) is $130,000 for one person, $195,000 for two, plus $65,000
+      for each additional person up to ten (ACWDL 25-14, ACWDL 25-27,
+      AB 116). There was no MSP asset limit from January 1, 2024 to December
+      31, 2025. New applicants are tested from January 1, 2026; existing
+      members at their first renewal on or after that date. The Pickle,
+      Disabled Adult Child and Disabled Widow(er) programs stay exempt until
+      January 1, 2027 (ACWDL 26-16). The limit is not the federal MSP limit
+      ($9,950 / $14,910): California has CMS approval to use higher limits.
+    sources:
+      - {source: ca-dhcs-acwdl-25-14, locator: "Policy Change; Impacted Populations; Household Asset Limits table"}
+      - {source: ca-dhcs-acwdl-25-27, locator: "MSP 2026 Property Limits"}
+      - {source: ca-dhcs-acwdl-26-16, locator: "Background"}
+  - claim: California applies additional income disregards for aged/disabled Medi-Cal programs that also apply to the MSPs.
+    verdict: refuted
+    detail: >-
+      No DHCS source applies the ABD FPL program's extra disregards or its
+      Part B premium disregard to the MSPs. MSP income is counted with the
+      $20 any income deduction and $65-plus-half (MEPM 5L, MC 14A), premiums
+      are not deductible (ACWDL 23-05), and the published MSP limits are the
+      plain 100/120/135% FPL figures.
+    sources:
+      - {source: ca-dhcs-acwdl-23-05, locator: "page 4"}
+      - {source: ca-dhcs-acwdl-25-26, locator: "Medicare Part B Disregard Reminder (ABD FPL only)"}
+  - claim: California became a Medicare Part A buy-in state.
+    verdict: verified
+    detail: Effective January 1, 2025 (SB 311, WIC 14005.11); DHCS pays Part A premiums for QMB members with Part B and auto-enrolled SSI/SSP recipients into QMB.
+    sources: [{source: ca-dhcs-medil-i25-01, locator: "Background"}]
+  - claim: California switches to the new year's poverty levels on April 1.
+    verdict: partly_verified
+    detail: >-
+      April 1 is the date for the ABD FPL and 250% Working Disabled programs.
+      For the MSPs it is January 1 (no RSDI income) or March 1 (RSDI income),
+      per ACWDL 26-01, though ACWDL 25-26 and the MC 14A still say April for
+      the COLA (MSP-CA-CONFLICT-01).
+    sources: [{source: ca-dhcs-acwdl-26-01, locator: "page 1-2"}]

@@ -73,7 +73,7 @@ cases:
   crosscheck:
     policyengine: true
 - id: SNAP-IL-T03
-  title: Couple, unemployment $2,909 = 165% limit for 2
+  title: Couple, both on unemployment, $2,909 total = 165% limit for 2
   as_of: '2026-03-01'
   tags:
   - couple
@@ -89,8 +89,11 @@ cases:
       relationship: spouse
     incomes:
     - kind: unemployment
-      monthly: 2909
+      monthly: 2000
       owner: a
+    - kind: unemployment
+      monthly: 909
+      owner: b
     assets: []
     county: Sangamon
     expenses:
@@ -110,7 +113,7 @@ cases:
   crosscheck:
     policyengine: true
 - id: SNAP-IL-T04
-  title: Couple, unemployment $2,910 — $1 over 165% for 2
+  title: Couple, both on unemployment, $2,910 total — $1 over 165% for 2
   as_of: '2026-03-01'
   tags:
   - couple
@@ -126,8 +129,11 @@ cases:
       relationship: spouse
     incomes:
     - kind: unemployment
-      monthly: 2910
+      monthly: 2000
       owner: a
+    - kind: unemployment
+      monthly: 910
+      owner: b
     assets: []
     county: Sangamon
     expenses:

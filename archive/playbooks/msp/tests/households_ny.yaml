@@ -29,6 +29,9 @@ cases:
     - extra_help:deemed
     amounts:
       part_b_premium_paid_monthly: 202.9
+  compare_states:
+    ca: {status: eligible, tier: SLMB}
+    il: {status: eligible, tier: SLMB}
   crosscheck:
     policyengine: true
 - id: MSP-NY-T02
@@ -157,6 +160,9 @@ cases:
     tier: QMB
     rules_include:
     - MSP-NY-COUPLE
+  compare_states:
+    ca: {status: ineligible, tier: null}
+    il: {status: ineligible, tier: null}
   crosscheck:
     policyengine: true
 - id: MSP-NY-T07
@@ -278,6 +284,9 @@ cases:
     tier: QI
     rules_include:
     - MSP-NY-NO-RESOURCE-TEST
+  compare_states:
+    ca: {status: ineligible, tier: null}
+    il: {status: ineligible, tier: null}
   crosscheck:
     policyengine: true
 - id: MSP-NY-T11
@@ -354,6 +363,9 @@ cases:
   expect:
     status: eligible
     tier: QMB
+  compare_states:
+    ca: {status: eligible, tier: QI}
+    il: {status: undetermined, open_questions_include: [MSP-IL-OQ-02]}
   crosscheck:
     policyengine: true
 - id: MSP-NY-T14
@@ -465,6 +477,9 @@ cases:
     tier: QMB
     rules_include:
     - MSP-NY-COUPLE
+  compare_states:
+    ca: {status: undetermined, open_questions_include: [MSP-CA-OQ-04]}
+    il: {status: undetermined, open_questions_include: [MSP-IL-OQ-02]}
   crosscheck:
     policyengine: true
 - id: MSP-NY-T18

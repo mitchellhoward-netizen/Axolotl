@@ -74,7 +74,7 @@ cases:
   crosscheck:
     policyengine: true
 - id: SNAP-NY-T03
-  title: Couple, unemployment $2,292 = 130% limit for 2
+  title: Couple, both on unemployment, $2,292 total = 130% limit for 2
   as_of: '2026-03-01'
   tags:
   - couple
@@ -90,8 +90,11 @@ cases:
       relationship: spouse
     incomes:
     - kind: unemployment
-      monthly: 2292
+      monthly: 1500
       owner: a
+    - kind: unemployment
+      monthly: 792
+      owner: b
     assets: []
     county: Albany
     expenses:
@@ -113,7 +116,7 @@ cases:
   crosscheck:
     policyengine: true
 - id: SNAP-NY-T04
-  title: Couple, unemployment $2,293 — $1 over the limit for 2
+  title: Couple, both on unemployment, $2,293 total — $1 over the limit for 2
   as_of: '2026-03-01'
   tags:
   - couple
@@ -129,8 +132,11 @@ cases:
       relationship: spouse
     incomes:
     - kind: unemployment
-      monthly: 2293
+      monthly: 1500
       owner: a
+    - kind: unemployment
+      monthly: 793
+      owner: b
     assets: []
     county: Albany
     expenses:

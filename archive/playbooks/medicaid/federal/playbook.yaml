@@ -614,6 +614,17 @@ links:
     test: MCD-X-03
     confidence: confirmed
     sources: [{source: ssa-poms-si-01715-010-mcd, locator: "A.1 and A.3"}]
+  - id: MCD-LINK-TURNING-65
+    playbook: turning_65
+    rules: [MCD-FED-ADULT-GROUP, MCD-FED-NONMAGI-GROUPS]
+    relation: >-
+      Turning 65 or becoming entitled to Medicare ends adult-group eligibility,
+      so the person must requalify through the age-based non-MAGI route (with
+      the state's asset test); the turning_65 playbook covers Medicare
+      enrollment and the special enrollment period when Medicaid is lost.
+    test: MCD-X-06
+    confidence: confirmed
+    sources: [{source: ecfr-42-435-119, locator: "(b)(1), (b)(3)"}]
   - id: MCD-LINK-SCHOOL-MEALS
     playbook: school_meals
     rules: [MCD-FED-SCHOOL-MEALS-DC]

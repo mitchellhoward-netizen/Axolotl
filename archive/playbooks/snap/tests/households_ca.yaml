@@ -74,10 +74,10 @@ cases:
   crosscheck:
     policyengine: true
 - id: SNAP-CA-T03
-  title: Couple earning $3,526 = 200% limit for 2, with $200 dependent care
+  title: Single parent with one child earning $3,526 = 200% limit for 2, $200 child care
   as_of: '2026-03-01'
   tags:
-  - couple
+  - family
   - threshold
   household:
     state: ca
@@ -85,9 +85,9 @@ cases:
     - id: a
       age: 30
       relationship: self
-    - id: b
-      age: 29
-      relationship: spouse
+    - id: k1
+      age: 5
+      relationship: child
     incomes:
     - kind: earned
       monthly: 3526
@@ -109,13 +109,15 @@ cases:
       net_income_monthly: 1667.8
       utility_allowance_monthly: 663.0
       medical_deduction_monthly: 0.0
+    links_include:
+    - school_meals:direct_certification
   crosscheck:
     policyengine: true
 - id: SNAP-CA-T04
-  title: Couple earning $3,527 — $1 over the 200% limit for 2
+  title: Single parent with one child earning $3,527 — $1 over the 200% limit for 2
   as_of: '2026-03-01'
   tags:
-  - couple
+  - family
   - threshold
   household:
     state: ca
@@ -123,9 +125,9 @@ cases:
     - id: a
       age: 30
       relationship: self
-    - id: b
-      age: 29
-      relationship: spouse
+    - id: k1
+      age: 5
+      relationship: child
     incomes:
     - kind: earned
       monthly: 3527

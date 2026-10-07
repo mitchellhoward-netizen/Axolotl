@@ -85,6 +85,14 @@ in REVIEW.md if they belong in `shared/`.
    the text you relied on. Some sites (aging.ny.gov, some dhcs.ca.gov pages)
    refuse scripts: fetch them another way, save the file, and use
    `tools.sources import` with `--via` saying how.
+    Routes that worked in the first build: WebFetch (saves PDFs to a file
+    path); a headless Chromium via Playwright with
+    `executable_path=/opt/pw-browsers/chromium-1194/chrome-linux/chrome` for
+    sites behind a bot wall (dhcs.ca.gov); a text reader proxy for pages
+    that block everything else (record it in `--via`; it counts as a copy of
+    the official page, not a secondary source). For sites that serve an
+    incomplete TLS chain (nysed.gov, ilga.gov), add the missing public
+    intermediate to a scratch CA bundle; never turn verification off.
 10. **Check the "earlier research" claims** from the brief that touch your
     playbook, under `claims_checked:` with a verdict.
 

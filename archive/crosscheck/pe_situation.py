@@ -32,7 +32,7 @@ ASSET_VARS = {"cash": "bank_account_assets", "investments": "stock_assets", "ret
 
 
 def build(hh: Household, as_of: date, extra_person: dict | None = None, extra_household: dict | None = None,
-          extra_spm: dict | None = None) -> dict[str, Any]:
+          extra_spm: dict | None = None, extra_tax_unit: dict | None = None) -> dict[str, Any]:
     y = str(as_of.year)
     people: dict[str, Any] = {}
     for m in hh.members:
@@ -72,7 +72,7 @@ def build(hh: Household, as_of: date, extra_person: dict | None = None, extra_ho
     return {
         "people": people,
         "marital_units": marital,
-        "tax_units": {"tu": {"members": ids}},
+        "tax_units": {"tu": {"members": ids, **{k: {y: v} for k, v in (extra_tax_unit or {}).items()}}},
         "spm_units": {"spm": {"members": ids, **{k: {y: v} for k, v in (extra_spm or {}).items()}}},
         "families": {"fam": {"members": ids}},
         "households": {"hh": {"members": ids, "state_code": {y: hh.state.upper()},
