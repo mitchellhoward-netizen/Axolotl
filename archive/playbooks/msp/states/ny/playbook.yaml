@@ -316,12 +316,20 @@ rules:
       In New York, a household that gets SNAP and then has its Part B premium
       paid by the MSP does not have to report the lower medical expense until
       its next SNAP recertification, and its SNAP benefit should not be cut
-      before then; at recertification the benefit may drop by roughly 30 cents
-      per dollar of medical expense removed.
+      before then; at recertification the benefit may drop, but by less than
+      the premium removed.
     kind: coordination
     effective_from: 2026-01-01
     confidence: secondary
-    note: Rests on NYSOFA's description of OTDA directive 02 ADM-07; the directive itself is for the SNAP playbook to confirm.
+    note: >-
+      Rests on NYSOFA's description of OTDA directive 02 ADM-07; the SNAP
+      playbook could not reach OTDA to confirm it (SNAP-NY-MSP-MEDICAL-FREEZE,
+      unresolved). NYSOFA says the drop is "roughly $30" per $100 of medical
+      expense; the SNAP playbook's own budget arithmetic (SNAP-X-01/01B) shows
+      about 45 cents per dollar when the household also has an excess shelter
+      deduction (a smaller medical deduction raises the income half of which
+      is subtracted from shelter costs, so the shelter deduction shrinks too),
+      so no per-dollar figure is stated here.
     open_question: MSP-NY-OQ-05
     sources:
       - {source: nysofa-hiicap-msp-2026, locator: "Important budgeting considerations, SNAP protections"}

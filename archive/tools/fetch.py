@@ -17,8 +17,14 @@ import re
 import subprocess
 import tempfile
 from dataclasses import dataclass
+from pathlib import Path
+
+import warnings
 
 import requests
+from bs4 import XMLParsedAsHTMLWarning
+
+warnings.filterwarnings("ignore", category=XMLParsedAsHTMLWarning)
 
 UA = ("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) "
       "Chrome/130.0 Safari/537.36")
@@ -55,9 +61,33 @@ class Fetched:
         return hashlib.sha256(self.text.encode()).hexdigest()
 
 
+_INTERMEDIATES = Path(__file__).resolve().parent / "ca" / "intermediates.pem"
+_BUNDLE: str | None = None
+
+
+def ca_bundle() -> str:
+    """System CA bundle plus public intermediates some agency sites fail to send.
+
+    nysed.gov and ilga.gov serve incomplete chains, which browsers repair but
+    Python does not. The extra certificates each chain to a system root.
+    """
+    global _BUNDLE
+    if _BUNDLE is None:
+        import os
+
+        import certifi
+
+        base = os.environ.get("REQUESTS_CA_BUNDLE") or os.environ.get("SSL_CERT_FILE") or certifi.where()
+        tmp = tempfile.NamedTemporaryFile("w", suffix=".pem", delete=False)
+        tmp.write(Path(base).read_text() + "\n" + _INTERMEDIATES.read_text())
+        tmp.close()
+        _BUNDLE = tmp.name
+    return _BUNDLE
+
+
 def fetch(url: str, timeout: int = 60) -> Fetched:
     try:
-        r = requests.get(url, headers=HEADERS, timeout=timeout, allow_redirects=True)
+        r = requests.get(url, headers=HEADERS, timeout=timeout, allow_redirects=True, verify=ca_bundle())
     except requests.RequestException as e:
         return Fetched(url, url, 0, "", b"", f"FETCH ERROR: {e}")
     ctype = r.headers.get("content-type", "").lower()

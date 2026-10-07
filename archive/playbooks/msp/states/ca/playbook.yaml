@@ -614,8 +614,15 @@ links:
 open_questions:
   - id: MSP-CA-OQ-01
     priority: medium
-    question: Can a California member with share-of-cost (medically needy) Medi-Cal hold QI, or does any Medi-Cal enrollment bar QI?
-    why_it_matters: Retirees just over the ABD FPL limit often have share-of-cost Medi-Cal; QI may be their only Part B premium help.
+    question: >-
+      Can a California member with share-of-cost (medically needy) Medi-Cal hold QI? And does mere
+      eligibility for full-scope Aged & Disabled FPL Medi-Cal (which reaches 138% FPL, above the QI range)
+      bar QI for someone who has not enrolled in Medi-Cal, as federal law's "not otherwise eligible" wording
+      and PolicyEngine's model suggest?
+    why_it_matters: >-
+      Retirees just over the ABD FPL limit often have share-of-cost Medi-Cal; QI may be their only Part B
+      premium help. If ABD FPL eligibility bars QI, QI-range Californians should be steered to Medi-Cal
+      (which also pays the Part B premium) rather than QI.
     checked: [DHCS MSP page ("cannot also receive Medi-Cal"), ACWDL 23-05, MC 14A, MEPM 5L]
     affects: [MSP-CA-QI-NOT-MEDI-CAL]
     status: open

@@ -1,0 +1,665 @@
+# Synthetic IL households for the Medicaid playbook. No real people.
+program: medicaid
+scope: il
+cases:
+- id: MCD-IL-T01
+  title: Single adult 30, wages $1,835/mo — exactly 138% FPL
+  as_of: '2026-11-02'
+  tags:
+  - single
+  - threshold
+  household:
+    state: il
+    members:
+    - id: a
+      age: 30
+    incomes:
+    - kind: earned
+      monthly: 1835
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: adult_expansion
+    rules_include:
+    - MCD-IL-ACA-ADULT
+  crosscheck:
+    policyengine: true
+- id: MCD-IL-T02
+  title: Single adult 30, wages $1,836/mo — $1 over 138% FPL
+  as_of: '2026-11-02'
+  tags:
+  - single
+  - threshold
+  household:
+    state: il
+    members:
+    - id: a
+      age: 30
+    incomes:
+    - kind: earned
+      monthly: 1836
+      owner: a
+    assets: []
+  expect:
+    status: ineligible
+    rules_include:
+    - MCD-IL-ACA-ADULT
+  crosscheck:
+    policyengine: true
+- id: MCD-IL-T03
+  title: Married parents with one child (household of 3), wages $3,141/mo — at 138% FPL for 3
+  as_of: '2026-11-02'
+  tags:
+  - couple
+  - threshold
+  - family
+  household:
+    state: il
+    members: &id001
+    - id: a
+      age: 30
+      relationship: self
+    - id: b
+      age: 31
+      relationship: spouse
+    - id: c
+      age: 5
+      relationship: child
+    incomes:
+    - kind: earned
+      monthly: 3141
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: parent_caretaker
+    rules_include:
+    - MCD-IL-FAMILYCARE
+  crosscheck:
+    policyengine: true
+- id: MCD-IL-T04
+  title: Married parents with one child, wages $3,142/mo — $1 over 138% FPL for 3
+  as_of: '2026-11-02'
+  tags:
+  - couple
+  - threshold
+  - family
+  household:
+    state: il
+    members: *id001
+    incomes:
+    - kind: earned
+      monthly: 3142
+      owner: a
+    assets: []
+  expect:
+    status: ineligible
+  crosscheck:
+    policyengine: true
+- id: MCD-IL-T05
+  title: Single parent with two children (5 and 8), wages $2,000/mo
+  as_of: '2026-11-02'
+  tags:
+  - family
+  household:
+    state: il
+    members:
+    - id: a
+      age: 35
+    - id: c1
+      age: 5
+      relationship: child
+    - id: c2
+      age: 8
+      relationship: child
+    incomes:
+    - kind: earned
+      monthly: 2000
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: parent_caretaker
+    rules_include:
+    - MCD-IL-FAMILYCARE
+  crosscheck:
+    policyengine: true
+- id: MCD-IL-T06
+  title: Single adult 40, no income
+  as_of: '2026-11-02'
+  tags:
+  - single
+  household:
+    state: il
+    members:
+    - id: a
+      age: 40
+    incomes: []
+    assets: []
+  expect:
+    status: eligible
+    tier: adult_expansion
+  crosscheck:
+    policyengine: true
+- id: MCD-IL-T07
+  title: Single 70-year-old with Medicare, Social Security $1,355.00/mo — at the non-MAGI income limit
+  as_of: '2026-11-02'
+  tags:
+  - single
+  - threshold
+  household:
+    state: il
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 1355
+      owner: a
+    assets:
+    - kind: cash
+      value: 5000
+      owner: a
+  expect:
+    status: eligible
+    tier: aabd
+    rules_include:
+    - MCD-IL-AABD-INCOME
+  crosscheck:
+    policyengine: true
+- id: MCD-IL-T08
+  title: Single 70-year-old, Social Security $1,356.00/mo — $1 over the non-MAGI income limit
+  as_of: '2026-11-02'
+  tags:
+  - single
+  - threshold
+  household:
+    state: il
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 1356
+      owner: a
+    assets:
+    - kind: cash
+      value: 5000
+      owner: a
+  expect:
+    status: eligible
+    tier: aabd_spenddown
+    amounts:
+      spenddown_monthly: 1
+  crosscheck:
+    policyengine: true
+- id: MCD-IL-T09
+  title: Single 70-year-old, Social Security $1,200, savings $17,500 — at the asset limit
+  as_of: '2026-11-02'
+  tags:
+  - single
+  - threshold
+  household:
+    state: il
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 1200
+      owner: a
+    assets:
+    - kind: cash
+      value: 17500
+      owner: a
+  expect:
+    status: eligible
+    tier: aabd
+    rules_include:
+    - MCD-IL-AABD-ASSET
+  crosscheck:
+    policyengine: true
+- id: MCD-IL-T10
+  title: Single 70-year-old, Social Security $1,200, savings $17,501 — $1 over the asset limit
+  as_of: '2026-11-02'
+  tags:
+  - single
+  - threshold
+  household:
+    state: il
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 1200
+      owner: a
+    assets:
+    - kind: cash
+      value: 17501
+      owner: a
+  expect:
+    status: eligible
+    tier: aabd_spenddown
+    amounts:
+      excess_resources: 1
+  crosscheck:
+    policyengine: true
+  note: 'Illinois: excess assets go into spenddown (PM 15-04-01).'
+- id: MCD-IL-T11
+  title: Married couple both 72 with Medicare, Social Security $1,300 + $900, savings $20,000
+  as_of: '2026-11-02'
+  tags:
+  - couple
+  household:
+    state: il
+    members:
+    - id: a
+      age: 72
+      medicare_part_a: true
+      medicare_part_b: true
+    - id: b
+      age: 72
+      relationship: spouse
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 1300
+      owner: a
+    - kind: social_security
+      monthly: 900
+      owner: b
+    assets:
+    - kind: cash
+      value: 20000
+      owner: a
+  expect:
+    status: eligible
+    tier: aabd_spenddown
+    amounts:
+      spenddown_monthly: 372
+      excess_resources: 2500
+  crosscheck:
+    policyengine: true
+- id: MCD-IL-T12
+  title: 'Spenddown / share of cost: single 72-year-old, Social Security $2,500/mo'
+  as_of: '2026-11-02'
+  tags:
+  - single
+  household:
+    state: il
+    members:
+    - id: a
+      age: 72
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 2500
+      owner: a
+    assets:
+    - kind: cash
+      value: 5000
+      owner: a
+  expect:
+    status: eligible
+    tier: aabd_spenddown
+    amounts:
+      spenddown_monthly: 1145
+  crosscheck:
+    policyengine: true
+- id: MCD-IL-T13
+  title: 'Person with Medicare under 65: 55-year-old on SSDI ($1,500/mo) with Medicare — not in the adult group'
+  as_of: '2026-11-02'
+  tags:
+  - single
+  - other_benefits
+  household:
+    state: il
+    members:
+    - id: a
+      age: 55
+      disabled: true
+      benefits:
+      - ssdi
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 1500
+      owner: a
+    assets:
+    - kind: cash
+      value: 3000
+      owner: a
+  expect:
+    status: eligible
+    tier: aabd_spenddown
+    amounts:
+      spenddown_monthly: 145
+    rules_include:
+    - MCD-FED-NONMAGI-GROUPS
+  crosscheck:
+    policyengine: true
+- id: MCD-IL-T14
+  title: Adult applying December 15, 2026 — 3 retroactive months, 12-month renewal
+  as_of: '2026-12-15'
+  tags:
+  - timing
+  household:
+    state: il
+    members:
+    - id: a
+      age: 30
+    incomes:
+    - kind: earned
+      monthly: 1000
+      owner: a
+    assets: []
+    facts:
+      application_date: '2026-12-15'
+  expect:
+    status: eligible
+    tier: adult_expansion
+    amounts:
+      retroactive_months: 3
+      renewal_interval_months: 12
+    rules_include:
+    - MCD-FED-RETRO-3-MONTHS
+  crosscheck:
+    policyengine: false
+- id: MCD-IL-T15
+  title: Adult applying January 5, 2027, working 90 hours — 1 retroactive month, 6-month renewal
+  as_of: '2027-01-05'
+  tags:
+  - timing
+  household:
+    state: il
+    members:
+    - id: a
+      age: 30
+      facts:
+        community_engagement_hours: 90
+    incomes:
+    - kind: earned
+      monthly: 1000
+      owner: a
+    assets: []
+    facts:
+      application_date: '2027-01-05'
+  expect:
+    status: eligible
+    tier: adult_expansion
+    amounts:
+      retroactive_months: 1
+      renewal_interval_months: 6
+    rules_include:
+    - MCD-FED-RETRO-2027
+    - MCD-FED-COMMUNITY-ENGAGEMENT
+  crosscheck:
+    policyengine: false
+  note: 2027 dates use the latest published (2026) state levels until the 2027 tables are added.
+- id: MCD-IL-T16
+  title: 70-year-old applying January 5, 2027 — 2 retroactive months
+  as_of: '2027-01-05'
+  tags:
+  - timing
+  household:
+    state: il
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 1200
+      owner: a
+    assets:
+    - kind: cash
+      value: 1000
+      owner: a
+    facts:
+      application_date: '2027-01-05'
+  expect:
+    status: eligible
+    tier: aabd
+    amounts:
+      retroactive_months: 2
+      renewal_interval_months: 12
+  crosscheck:
+    policyengine: false
+- id: MCD-IL-T17
+  title: Adult 30 with no income and no work activity in February 2027 — fails community engagement
+  as_of: '2027-02-01'
+  tags:
+  - timing
+  - edge
+  household:
+    state: il
+    members:
+    - id: a
+      age: 30
+    incomes: []
+    assets: []
+  expect:
+    status: ineligible
+    rules_include:
+    - MCD-FED-COMMUNITY-ENGAGEMENT
+  crosscheck:
+    policyengine: false
+- id: MCD-IL-T18
+  title: Adult 30, medically frail, no income, February 2027 — excluded from community engagement
+  as_of: '2027-02-01'
+  tags:
+  - timing
+  - edge
+  household:
+    state: il
+    members:
+    - id: a
+      age: 30
+      facts:
+        medically_frail: true
+    incomes: []
+    assets: []
+  expect:
+    status: eligible
+    tier: adult_expansion
+    rules_include:
+    - MCD-FED-CE-EXCLUSIONS
+  crosscheck:
+    policyengine: false
+- id: MCD-IL-T19
+  title: Adult 30 earning $600/mo (over 80 x $7.25 = $580), February 2027 — meets community engagement by income
+  as_of: '2027-02-01'
+  tags:
+  - timing
+  household:
+    state: il
+    members:
+    - id: a
+      age: 30
+    incomes:
+    - kind: earned
+      monthly: 600
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: adult_expansion
+    rules_include:
+    - MCD-FED-COMMUNITY-ENGAGEMENT
+  crosscheck:
+    policyengine: false
+- id: MCD-IL-T20
+  title: Pregnant 28-year-old (household of 2 with the unborn child), income $3,841/mo — at the pregnancy limit
+  as_of: '2026-11-02'
+  tags:
+  - single
+  - threshold
+  household:
+    state: il
+    members:
+    - id: a
+      age: 28
+      pregnant: true
+    incomes:
+    - kind: earned
+      monthly: 3841
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: pregnant
+    rules_include:
+    - MCD-IL-MOMS-BABIES
+  crosscheck:
+    policyengine: false
+  note: 'Not cross-checked: PolicyEngine needs the unborn child count as a separate input.'
+- id: MCD-IL-T21
+  title: Refugee aged 40, wages $1,000/mo, November 2026 (after the October 1, 2026 federal change)
+  as_of: '2026-11-02'
+  tags:
+  - edge
+  household:
+    state: il
+    members:
+    - id: a
+      age: 40
+      citizen_or_qualified: true
+      facts:
+        immigration_status: refugee_asylee
+    incomes:
+    - kind: earned
+      monthly: 1000
+      owner: a
+    assets: []
+  expect:
+    status: undetermined
+    open_questions_include:
+    - MCD-IL-OQ-04
+  crosscheck:
+    policyengine: false
+- id: MCD-IL-T22
+  title: 70-year-old receiving SSI ($994) only, savings $1,000
+  as_of: '2026-11-02'
+  tags:
+  - other_benefits
+  household:
+    state: il
+    members:
+    - id: a
+      age: 70
+      benefits:
+      - ssi
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: ssi
+      monthly: 994
+      owner: a
+    assets:
+    - kind: cash
+      value: 1000
+      owner: a
+  expect:
+    status: eligible
+    tier: aabd
+    rules_include:
+    - MCD-IL-209B
+    links_include:
+    - disability:ssi_medicaid
+  crosscheck:
+    policyengine: true
+- id: MCD-IL-T23
+  title: 'Working 67-year-old with Medicare: Social Security $900 + wages $1,500'
+  as_of: '2026-11-02'
+  tags:
+  - single
+  household:
+    state: il
+    members:
+    - id: a
+      age: 67
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 900
+      owner: a
+    - kind: earned
+      monthly: 1500
+      owner: a
+    assets:
+    - kind: cash
+      value: 2000
+      owner: a
+  expect:
+    status: undetermined
+    open_questions_include:
+    - MCD-IL-OQ-03
+  crosscheck:
+    policyengine: false
+- id: MCD-IL-T24
+  title: Adult 30 in May 2026 — date IDHS started the 2026 standards unknown
+  as_of: '2026-05-01'
+  tags:
+  - unresolved
+  household:
+    state: il
+    members:
+    - id: a
+      age: 30
+    incomes:
+    - kind: earned
+      monthly: 1000
+      owner: a
+    assets: []
+  expect:
+    status: undetermined
+  crosscheck:
+    policyengine: false
+- id: MCD-IL-T25
+  title: Single 70-year-old, SS $1,200, savings $10,000 and a $9,000 car not needed for work or medical travel
+  as_of: '2026-11-02'
+  tags:
+  - edge
+  household:
+    state: il
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 1200
+      owner: a
+    assets:
+    - kind: cash
+      value: 10000
+      owner: a
+    - kind: vehicle
+      value: 9000
+      owner: a
+  expect:
+    status: eligible
+    tier: aabd
+    amounts:
+      countable_resources: 14500
+    rules_include:
+    - MCD-IL-ASSETS-EXEMPT
+  crosscheck:
+    policyengine: false
+  note: '$9,000 car minus the $4,500 exempt value adds $4,500: $14,500 total, under $17,500.'

@@ -60,7 +60,11 @@ Aging's 2026 MSP chart. Rules: `playbook.yaml`; numbers: `parameters/msp_il.yaml
 
 ## Cross-checks
 
-`crosscheck/results/msp.md`: Illinois households run through PolicyEngine US,
-which uses the $20 SSI exclusion, unrounded FPL and the federal resource test
-("at or below"). Every difference is explained in
-`crosscheck/explanations/msp.yaml`.
+`crosscheck/results/msp.md`: 26 Illinois rows (20 Illinois households plus the
+Illinois column of cross-state households) were run through PolicyEngine US
+2.29.14, which uses the $20 SSI exclusion, SSI earned income rules, unrounded
+FPL and "at or below" the federal resource limit. Differences come from the $25
+exemption (band edges shift by $5), the disputed QI-1 top dollar, resources
+exactly at the limit, and the earned-income rule; all are explained in
+`crosscheck/explanations/msp.yaml`. Our federal-minimum column agrees with
+PolicyEngine on every Illinois row.

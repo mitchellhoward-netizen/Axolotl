@@ -1,0 +1,685 @@
+# Synthetic CA households for the Medicaid playbook. No real people.
+program: medicaid
+scope: ca
+cases:
+- id: MCD-CA-T01
+  title: Single adult 30, wages $1,836/mo — exactly 138% FPL
+  as_of: '2026-11-02'
+  tags:
+  - single
+  - threshold
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 30
+    incomes:
+    - kind: earned
+      monthly: 1836
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: adult_expansion
+    rules_include:
+    - MCD-CA-MAGI-ADULT
+  crosscheck:
+    policyengine: true
+- id: MCD-CA-T02
+  title: Single adult 30, wages $1,837/mo — $1 over 138% FPL
+  as_of: '2026-11-02'
+  tags:
+  - single
+  - threshold
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 30
+    incomes:
+    - kind: earned
+      monthly: 1837
+      owner: a
+    assets: []
+  expect:
+    status: ineligible
+    rules_include:
+    - MCD-CA-MAGI-ADULT
+  crosscheck:
+    policyengine: true
+- id: MCD-CA-T03
+  title: Married parents with one child (household of 3), wages $3,143/mo — at 138% FPL for 3
+  as_of: '2026-11-02'
+  tags:
+  - couple
+  - threshold
+  - family
+  household:
+    state: ca
+    members: &id001
+    - id: a
+      age: 30
+      relationship: self
+    - id: b
+      age: 31
+      relationship: spouse
+    - id: c
+      age: 5
+      relationship: child
+    incomes:
+    - kind: earned
+      monthly: 3143
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: adult_expansion
+    rules_include:
+    - MCD-CA-MAGI-ADULT
+  crosscheck:
+    policyengine: true
+  note: California tests parents at 109% first, then the adult group at 138%.
+- id: MCD-CA-T04
+  title: Married parents with one child, wages $3,144/mo — $1 over 138% FPL for 3
+  as_of: '2026-11-02'
+  tags:
+  - couple
+  - threshold
+  - family
+  household:
+    state: ca
+    members: *id001
+    incomes:
+    - kind: earned
+      monthly: 3144
+      owner: a
+    assets: []
+  expect:
+    status: ineligible
+  crosscheck:
+    policyengine: true
+- id: MCD-CA-T05
+  title: Single parent with two children (5 and 8), wages $2,000/mo
+  as_of: '2026-11-02'
+  tags:
+  - family
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 35
+    - id: c1
+      age: 5
+      relationship: child
+    - id: c2
+      age: 8
+      relationship: child
+    incomes:
+    - kind: earned
+      monthly: 2000
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: parent_caretaker
+    rules_include:
+    - MCD-CA-MAGI-PARENT
+  crosscheck:
+    policyengine: true
+- id: MCD-CA-T06
+  title: Single adult 40, no income
+  as_of: '2026-11-02'
+  tags:
+  - single
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 40
+    incomes: []
+    assets: []
+  expect:
+    status: eligible
+    tier: adult_expansion
+  crosscheck:
+    policyengine: true
+- id: MCD-CA-T07
+  title: Single 70-year-old with Medicare, Social Security $2,058.90/mo — at the non-MAGI income limit
+  as_of: '2026-11-02'
+  tags:
+  - single
+  - threshold
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 2058.9
+      owner: a
+    assets:
+    - kind: cash
+      value: 5000
+      owner: a
+  expect:
+    status: eligible
+    tier: aged_disabled_fpl
+    rules_include:
+    - MCD-CA-AD-FPL
+  crosscheck:
+    policyengine: true
+- id: MCD-CA-T08
+  title: Single 70-year-old, Social Security $2,059.90/mo — $1 over the non-MAGI income limit
+  as_of: '2026-11-02'
+  tags:
+  - single
+  - threshold
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 2059.9
+      owner: a
+    assets:
+    - kind: cash
+      value: 5000
+      owner: a
+  expect:
+    status: eligible
+    tier: share_of_cost
+    amounts:
+      share_of_cost_monthly: 1237.0
+  crosscheck:
+    policyengine: true
+  note: 'California: $1 over the A&D FPL limit drops to Medically Needy with a $1,237 share of cost (2,039.90 - 202.90 Part B - 600).'
+- id: MCD-CA-T09
+  title: Single 70-year-old, Social Security $1,200, savings $130,000 — at the asset limit
+  as_of: '2026-11-02'
+  tags:
+  - single
+  - threshold
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 1200
+      owner: a
+    assets:
+    - kind: cash
+      value: 130000
+      owner: a
+  expect:
+    status: eligible
+    tier: aged_disabled_fpl
+    rules_include:
+    - MCD-CA-ASSET-LIMIT
+  crosscheck:
+    policyengine: true
+- id: MCD-CA-T10
+  title: Single 70-year-old, Social Security $1,200, savings $130,001 — $1 over the asset limit
+  as_of: '2026-11-02'
+  tags:
+  - single
+  - threshold
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 1200
+      owner: a
+    assets:
+    - kind: cash
+      value: 130001
+      owner: a
+  expect:
+    status: ineligible
+    rules_include:
+    - MCD-CA-ASSET-LIMIT
+  crosscheck:
+    policyengine: true
+  note: 'California: no property spenddown outside long-term care; must reduce assets.'
+- id: MCD-CA-T11
+  title: Married couple both 72 with Medicare, Social Security $1,300 + $900, savings $20,000
+  as_of: '2026-11-02'
+  tags:
+  - couple
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 72
+      medicare_part_a: true
+      medicare_part_b: true
+    - id: b
+      age: 72
+      relationship: spouse
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 1300
+      owner: a
+    - kind: social_security
+      monthly: 900
+      owner: b
+    assets:
+    - kind: cash
+      value: 20000
+      owner: a
+  expect:
+    status: eligible
+    tier: aged_disabled_fpl
+  crosscheck:
+    policyengine: true
+- id: MCD-CA-T12
+  title: 'Spenddown / share of cost: single 72-year-old, Social Security $2,500/mo'
+  as_of: '2026-11-02'
+  tags:
+  - single
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 72
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 2500
+      owner: a
+    assets:
+    - kind: cash
+      value: 5000
+      owner: a
+  expect:
+    status: eligible
+    tier: share_of_cost
+    amounts:
+      share_of_cost_monthly: 1677.1
+  crosscheck:
+    policyengine: true
+- id: MCD-CA-T13
+  title: 'Person with Medicare under 65: 55-year-old on SSDI ($1,500/mo) with Medicare — not in the adult group'
+  as_of: '2026-11-02'
+  tags:
+  - single
+  - other_benefits
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 55
+      disabled: true
+      benefits:
+      - ssdi
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 1500
+      owner: a
+    assets:
+    - kind: cash
+      value: 3000
+      owner: a
+  expect:
+    status: eligible
+    tier: aged_disabled_fpl
+    rules_include:
+    - MCD-FED-NONMAGI-GROUPS
+  crosscheck:
+    policyengine: true
+- id: MCD-CA-T14
+  title: Adult applying December 15, 2026 — 3 retroactive months, 12-month renewal
+  as_of: '2026-12-15'
+  tags:
+  - timing
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 30
+    incomes:
+    - kind: earned
+      monthly: 1000
+      owner: a
+    assets: []
+    facts:
+      application_date: '2026-12-15'
+  expect:
+    status: eligible
+    tier: adult_expansion
+    amounts:
+      retroactive_months: 3
+      renewal_interval_months: 12
+    rules_include:
+    - MCD-FED-RETRO-3-MONTHS
+  crosscheck:
+    policyengine: false
+- id: MCD-CA-T15
+  title: Adult applying January 5, 2027, working 90 hours — 1 retroactive month, 6-month renewal
+  as_of: '2027-01-05'
+  tags:
+  - timing
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 30
+      facts:
+        community_engagement_hours: 90
+    incomes:
+    - kind: earned
+      monthly: 1000
+      owner: a
+    assets: []
+    facts:
+      application_date: '2027-01-05'
+  expect:
+    status: eligible
+    tier: adult_expansion
+    amounts:
+      retroactive_months: 1
+      renewal_interval_months: 6
+    rules_include:
+    - MCD-FED-RETRO-2027
+    - MCD-FED-COMMUNITY-ENGAGEMENT
+  crosscheck:
+    policyengine: false
+  note: 2027 dates use the latest published (2026) state levels until the 2027 tables are added.
+- id: MCD-CA-T16
+  title: 70-year-old applying January 5, 2027 — 2 retroactive months
+  as_of: '2027-01-05'
+  tags:
+  - timing
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 1200
+      owner: a
+    assets:
+    - kind: cash
+      value: 1000
+      owner: a
+    facts:
+      application_date: '2027-01-05'
+  expect:
+    status: eligible
+    tier: aged_disabled_fpl
+    amounts:
+      retroactive_months: 2
+      renewal_interval_months: 12
+  crosscheck:
+    policyengine: false
+- id: MCD-CA-T17
+  title: Adult 30 with no income and no work activity in February 2027 — fails community engagement
+  as_of: '2027-02-01'
+  tags:
+  - timing
+  - edge
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 30
+    incomes: []
+    assets: []
+  expect:
+    status: ineligible
+    rules_include:
+    - MCD-FED-COMMUNITY-ENGAGEMENT
+  crosscheck:
+    policyengine: false
+- id: MCD-CA-T18
+  title: Adult 30, medically frail, no income, February 2027 — excluded from community engagement
+  as_of: '2027-02-01'
+  tags:
+  - timing
+  - edge
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 30
+      facts:
+        medically_frail: true
+    incomes: []
+    assets: []
+  expect:
+    status: eligible
+    tier: adult_expansion
+    rules_include:
+    - MCD-FED-CE-EXCLUSIONS
+  crosscheck:
+    policyengine: false
+- id: MCD-CA-T19
+  title: Adult 30 earning $600/mo (over 80 x $7.25 = $580), February 2027 — meets community engagement by income
+  as_of: '2027-02-01'
+  tags:
+  - timing
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 30
+    incomes:
+    - kind: earned
+      monthly: 600
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: adult_expansion
+    rules_include:
+    - MCD-FED-COMMUNITY-ENGAGEMENT
+  crosscheck:
+    policyengine: false
+- id: MCD-CA-T20
+  title: Pregnant 28-year-old (household of 2 with the unborn child), income $3,843/mo — at the pregnancy limit
+  as_of: '2026-11-02'
+  tags:
+  - single
+  - threshold
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 28
+      pregnant: true
+    incomes:
+    - kind: earned
+      monthly: 3843
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: pregnant
+    rules_include:
+    - MCD-CA-MAGI-PREGNANT
+  crosscheck:
+    policyengine: false
+  note: 'Not cross-checked: PolicyEngine needs the unborn child count as a separate input.'
+- id: MCD-CA-T21
+  title: Refugee aged 40, wages $1,000/mo, November 2026 (after the October 1, 2026 federal change)
+  as_of: '2026-11-02'
+  tags:
+  - edge
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 40
+      citizen_or_qualified: true
+      facts:
+        immigration_status: refugee_asylee
+    incomes:
+    - kind: earned
+      monthly: 1000
+      owner: a
+    assets: []
+  expect:
+    status: undetermined
+    open_questions_include:
+    - MCD-CA-OQ-05
+  crosscheck:
+    policyengine: false
+- id: MCD-CA-T22
+  title: 70-year-old receiving SSI ($994) only, savings $1,000
+  as_of: '2026-11-02'
+  tags:
+  - other_benefits
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 70
+      benefits:
+      - ssi
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: ssi
+      monthly: 994
+      owner: a
+    assets:
+    - kind: cash
+      value: 1000
+      owner: a
+  expect:
+    status: eligible
+    tier: ssi_recipient
+    links_include:
+    - disability:ssi_medicaid
+  crosscheck:
+    policyengine: true
+- id: MCD-CA-T23
+  title: 'Working 67-year-old with Medicare: Social Security $900 + wages $1,500'
+  as_of: '2026-11-02'
+  tags:
+  - single
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 67
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 900
+      owner: a
+    - kind: earned
+      monthly: 1500
+      owner: a
+    assets:
+    - kind: cash
+      value: 2000
+      owner: a
+  expect:
+    status: eligible
+    tier: aged_disabled_fpl
+  crosscheck:
+    policyengine: false
+- id: MCD-CA-T24
+  title: 70-year-old in February 2026 — 2025 A&D FPL limit (used until March 31, 2026) not in the archive
+  as_of: '2026-02-01'
+  tags:
+  - unresolved
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    incomes:
+    - kind: social_security
+      monthly: 1200
+      owner: a
+    assets: []
+  expect:
+    status: undetermined
+  crosscheck:
+    policyengine: false
+- id: MCD-CA-T25
+  title: Undocumented adult 40 applying March 2026, income $1,000 — restricted scope only (expansion freeze)
+  as_of: '2026-03-01'
+  tags:
+  - edge
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 40
+      citizen_or_qualified: false
+    incomes:
+    - kind: earned
+      monthly: 1000
+      owner: a
+    assets: []
+    facts:
+      application_date: '2026-03-01'
+  expect:
+    status: eligible
+    tier: restricted_scope
+    rules_include:
+    - MCD-CA-EXPANSION-FREEZE
+  crosscheck:
+    policyengine: false
+- id: MCD-CA-T26
+  title: Married couple, wife 70 with Medicare (SS $900), husband 60 not disabled (pension $685) — A&D FPL with spouse deduction
+  as_of: '2026-11-02'
+  tags:
+  - couple
+  household:
+    state: ca
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+    - id: b
+      age: 60
+      relationship: spouse
+    incomes:
+    - kind: social_security
+      monthly: 900
+      owner: a
+    - kind: pension
+      monthly: 685
+      owner: b
+    assets:
+    - kind: cash
+      value: 10000
+      owner: a
+  expect:
+    status: eligible
+    tier: aged_disabled_fpl
+    rules_include:
+    - MCD-CA-AD-FPL-COUPLE
+  crosscheck:
+    policyengine: false

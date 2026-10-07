@@ -3,7 +3,9 @@
 PolicyEngine variable: ``msp_category`` (Person, MONTH) -> NONE | QMB | SLMB | QI.
 It models the federal-minimum tiers (100/120/135% FPL) with a per-state flag
 for whether the asset test applies; it does not model state expansions such
-as New York's 138%/186% levels, QDWI, or the QI/Medicaid exclusion.
+as New York's 138%/186% levels, QDWI, or the QI/Medicaid exclusion. For
+California it keeps the 2024 "no asset test" flag (no 2026 reinstatement);
+for Illinois it applies the $20 SSI exclusion, not Illinois's $25.
 """
 
 from __future__ import annotations
@@ -42,6 +44,11 @@ def federal_minimum(hh, as_of: date) -> dict:
     from playbooks.msp.federal import rules as fed
     from rulesarchive.determination import Determination
 
+    from rulesarchive.params import ParameterUnresolved
+
     asset_test = hh.state not in {"ca", "ny"}   # PolicyEngine parameters/.../asset/applies.yaml (2024-)
-    det = fed.federal_tiers(hh, as_of, Determination("msp", hh.state, as_of), resource_test=asset_test)
+    try:
+        det = fed.federal_tiers(hh, as_of, Determination("msp", hh.state, as_of), resource_test=asset_test)
+    except ParameterUnresolved:   # the federal tables are held for 2026 only
+        return {"status": "undetermined", "tier": None}
     return {"status": det.status, "tier": det.tier}

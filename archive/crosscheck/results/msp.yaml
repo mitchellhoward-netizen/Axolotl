@@ -2,6 +2,717 @@ program: msp
 policyengine_us_version: 2.29.14
 run_on: '2026-10-07'
 rows:
+- case: MSP-CA-T01
+  state: ca
+  title: "Single, Social Security $1,350 gross (countable $1,330 = QMB standard) \u2014 at the QMB limit"
+  ours:
+    status: eligible
+    tier: QMB
+  policyengine:
+    status: eligible
+    tier: QMB
+    countable_income: 1330.0
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: QMB
+  federal_minimum_agrees: true
+- case: MSP-CA-T02
+  state: ca
+  title: "Single, Social Security $1,351 \u2014 $1 over QMB, so SLMB"
+  ours:
+    status: eligible
+    tier: SLMB
+  policyengine:
+    status: eligible
+    tier: SLMB
+    countable_income: 1331.0
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: SLMB
+  federal_minimum_agrees: true
+- case: MSP-CA-T03
+  state: ca
+  title: "Single, Social Security $1,615 (countable $1,595, below the $1,596 SLMB standard) \u2014 top of SLMB"
+  ours:
+    status: eligible
+    tier: SLMB
+  policyengine:
+    status: eligible
+    tier: SLMB
+    countable_income: 1595.0
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: SLMB
+  federal_minimum_agrees: true
+- case: MSP-CA-T04
+  state: ca
+  title: "Single, Social Security $1,616 (countable $1,596 is not below $1,596) \u2014 QI, though the federal table would say SLMB"
+  ours:
+    status: eligible
+    tier: QI
+  policyengine:
+    status: eligible
+    tier: SLMB
+    countable_income: 1596.0
+  agree: false
+  explanation: Boundary at exactly 120% FPL. California's 2026 SLMB standard is "< $1,596" (ACWDL 26-01 Enclosure 3, MC 14A), so countable $1,596
+    is QI. PolicyEngine also uses "less than 120%", but computes 1.2 x $1,330 in float32 (= 1596.0001), so $1,596 passes as SLMB. Our federal-minimum
+    column (federal table "<= $1,616 gross") also says SLMB.
+  ours_federal_minimum:
+    status: eligible
+    tier: SLMB
+  federal_minimum_agrees: true
+- case: MSP-CA-T05
+  state: ca
+  title: "Single, Social Security $1,815 (countable $1,795, below the $1,796 QI standard) \u2014 top of QI"
+  ours:
+    status: eligible
+    tier: QI
+  policyengine:
+    status: ineligible
+    tier: null
+    countable_income: 1795.0
+  agree: false
+  explanation: PolicyEngine excludes QI for anyone it computes as Medicaid-eligible (is_qi_eligible uses is_medicaid_eligible), and it computes
+    these aged Californians (countable $1,795 / $1,597.50) as eligible for Medi-Cal's Aged & Disabled FPL program. The archive bars QI only for
+    a person who has Medi-Cal (MSP-CA-QI-NOT-MEDI-CAL; DHCS page "cannot also receive Medi-Cal"). Whether being merely eligible for ABD FPL Medi-Cal
+    bars QI in California is an open policy point (MSP-CA-OQ-01; 42 U.S.C. 1396a(a)(10)(E)(iv) says "not otherwise eligible").
+  ours_federal_minimum:
+    status: eligible
+    tier: QI
+  federal_minimum_agrees: false
+- case: MSP-CA-T06
+  state: ca
+  title: "Single, Social Security $1,816 \u2014 $1 over QI, not eligible"
+  ours:
+    status: ineligible
+    tier: null
+  policyengine:
+    status: ineligible
+    tier: null
+    countable_income: 1796.0
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: QI
+  federal_minimum_agrees: false
+- case: MSP-CA-T07
+  state: ca
+  title: "Couple, combined Social Security $1,824 (countable $1,804 = DHCS couple QMB standard, rounded up) \u2014 QMB"
+  ours:
+    status: eligible
+    tier: QMB
+  policyengine:
+    status: eligible
+    tier: SLMB
+    countable_income: 1804.0
+  agree: false
+  explanation: 'DHCS rounds monthly FPL up to the next dollar: the 2026 couple QMB standard is $1,804 (ACWDL 26-01 Enclosure 1), so countable
+    $1,804 is QMB. PolicyEngine uses the exact $21,640 / 12 = $1,803.33 and gives SLMB.'
+  ours_federal_minimum:
+    status: eligible
+    tier: QMB
+  federal_minimum_agrees: false
+- case: MSP-CA-T08
+  state: ca
+  title: "Couple, combined $1,825 \u2014 $1 over couple QMB, SLMB"
+  ours:
+    status: eligible
+    tier: SLMB
+  policyengine:
+    status: eligible
+    tier: SLMB
+    countable_income: 1805.0
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: SLMB
+  federal_minimum_agrees: true
+- case: MSP-CA-T09
+  state: ca
+  title: "Couple, combined $2,456 (countable $2,436, not below the couple QI standard) \u2014 not eligible"
+  ours:
+    status: ineligible
+    tier: null
+  policyengine:
+    status: ineligible
+    tier: null
+    countable_income: 2436.0
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: ineligible
+    tier: null
+  federal_minimum_agrees: true
+- case: MSP-CA-T10
+  state: ca
+  title: "Single, Social Security $1,500, savings exactly $130,000 \u2014 at the 2026 property limit, SLMB"
+  ours:
+    status: eligible
+    tier: SLMB
+  policyengine:
+    status: eligible
+    tier: SLMB
+    countable_income: 1480.0
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: SLMB
+  federal_minimum_agrees: true
+- case: MSP-CA-T11
+  state: ca
+  title: "Single, Social Security $1,500, savings $130,001 (new 2026 application) \u2014 over the reinstated property limit"
+  ours:
+    status: ineligible
+    tier: null
+  policyengine:
+    status: eligible
+    tier: SLMB
+    countable_income: 1480.0
+  agree: false
+  explanation: California reinstated the MSP property limit ($130,000 / $195,000) on January 1, 2026 (ACWDL 25-14, ACWDL 25-27). PolicyEngine's
+    savings_programs/eligibility/asset/applies.yaml sets CA to false from 2024 and has no 2026 entry, so it ignores the $130,001 savings.
+  ours_federal_minimum:
+    status: eligible
+    tier: SLMB
+  federal_minimum_agrees: true
+- case: MSP-CA-T12
+  state: ca
+  title: "Member who applied in November 2025 with $250,000 savings, renewal not yet due \u2014 property not yet considered, SLMB"
+  ours:
+    status: eligible
+    tier: SLMB
+  policyengine:
+    status: eligible
+    tier: SLMB
+    countable_income: 1480.0
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: SLMB
+  federal_minimum_agrees: true
+- case: MSP-CA-T14
+  state: ca
+  title: "June 2025 (no property test in 2024-2025), Social Security $1,500 and $250,000 savings \u2014 SLMB under the 2025 standards"
+  ours:
+    status: eligible
+    tier: SLMB
+  policyengine:
+    status: eligible
+    tier: SLMB
+    countable_income: 1480.0
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: undetermined
+    tier: null
+  federal_minimum_agrees: false
+- case: MSP-CA-T15
+  state: ca
+  title: "Working 67-year-old: Social Security $900 + wages $1,200 \u2014 countable $1,447.50 after $20 and $65-plus-half, SLMB"
+  ours:
+    status: eligible
+    tier: SLMB
+  policyengine:
+    status: eligible
+    tier: SLMB
+    countable_income: 1447.5
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: SLMB
+  federal_minimum_agrees: true
+- case: MSP-CA-T18
+  state: ca
+  title: "Medi-Cal member, Social Security $1,200 \u2014 QMB alongside Medi-Cal"
+  ours:
+    status: eligible
+    tier: QMB
+  policyengine:
+    status: eligible
+    tier: QMB
+    countable_income: 1180.0
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: QMB
+  federal_minimum_agrees: true
+- case: MSP-CA-T20
+  state: ca
+  title: "Same household in March 2026 \u2014 2026 standards and the COLA counted, SLMB"
+  ours:
+    status: eligible
+    tier: SLMB
+  policyengine:
+    status: eligible
+    tier: SLMB
+    countable_income: 1340.0
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: SLMB
+  federal_minimum_agrees: true
+- case: MSP-CA-T24
+  state: ca
+  title: "66-year-old with no Medicare at all \u2014 not eligible"
+  ours:
+    status: ineligible
+    tier: null
+  policyengine:
+    status: eligible
+    tier: QMB
+    countable_income: 1080.0
+  agree: false
+  explanation: 'Input-model difference (as MSP-NY-T11): PolicyEngine infers Medicare from age 65+ and has no Part A input; the archive requires
+    Part A (DHCS MSP page "Must Be Entitled to Medicare Part A").'
+  ours_federal_minimum:
+    status: ineligible
+    tier: null
+  federal_minimum_agrees: false
+- case: MSP-CA-T27
+  state: ca
+  title: "Cross-state: single retiree, Social Security $1,500 and $50,000 savings \u2014 SLMB in California, QMB in New York, not eligible in\
+    \ Illinois (resources)"
+  ours:
+    status: eligible
+    tier: SLMB
+  policyengine:
+    status: eligible
+    tier: SLMB
+    countable_income: 1480.0
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: SLMB
+  federal_minimum_agrees: true
+- case: MSP-CA-T27
+  state: ny
+  title: "Cross-state: single retiree, Social Security $1,500 and $50,000 savings \u2014 SLMB in California, QMB in New York, not eligible in\
+    \ Illinois (resources)"
+  ours:
+    status: eligible
+    tier: QMB
+  policyengine:
+    status: eligible
+    tier: SLMB
+    countable_income: 1480.0
+  agree: false
+  explanation: 'New York policy (compare_states row): New York''s QMB runs to 138% FPL with no resource test (GIS 26 MA/05), so countable $1,480
+    is QMB; PolicyEngine applies the federal 100% QMB line and gives SLMB.'
+  ours_federal_minimum:
+    status: eligible
+    tier: SLMB
+  federal_minimum_agrees: true
+- case: MSP-CA-T27
+  state: il
+  title: "Cross-state: single retiree, Social Security $1,500 and $50,000 savings \u2014 SLMB in California, QMB in New York, not eligible in\
+    \ Illinois (resources)"
+  ours:
+    status: ineligible
+    tier: null
+  policyengine:
+    status: ineligible
+    tier: null
+    countable_income: 1480.0
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: ineligible
+    tier: null
+  federal_minimum_agrees: true
+- case: MSP-CA-T28
+  state: ca
+  title: "SSI/SSP recipient: Social Security $400 + SSI/SSP (not counted) \u2014 QMB"
+  ours:
+    status: eligible
+    tier: QMB
+  policyengine:
+    status: eligible
+    tier: QMB
+    countable_income: 380.0
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: QMB
+  federal_minimum_agrees: true
+- case: MSP-IL-T01
+  state: il
+  title: "Single, Social Security $1,355 (countable $1,330 after the $25 exemption) \u2014 at the QMB limit"
+  ours:
+    status: eligible
+    tier: QMB
+  policyengine:
+    status: eligible
+    tier: SLMB
+    countable_income: 1335.0
+  agree: false
+  explanation: Illinois exempts the first $25 of income per applicant (PM 06-12-01-c, PM 15-04-03-a), not SSI's $20. Countable income is $1,330
+    (single) / $1,803 (couple, two $25 exemptions), at the QMB standard; PolicyEngine subtracts $20 once and gets $1,335 / $1,833, so SLMB.
+  ours_federal_minimum:
+    status: eligible
+    tier: SLMB
+  federal_minimum_agrees: true
+- case: MSP-IL-T02
+  state: il
+  title: "Single, Social Security $1,356 \u2014 $1 over QMB, SLIB (SLMB)"
+  ours:
+    status: eligible
+    tier: SLMB
+  policyengine:
+    status: eligible
+    tier: SLMB
+    countable_income: 1336.0
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: SLMB
+  federal_minimum_agrees: true
+- case: MSP-IL-T03
+  state: il
+  title: "Single, Social Security $1,620 (countable $1,595) \u2014 top of the SLIB band"
+  ours:
+    status: eligible
+    tier: SLMB
+  policyengine:
+    status: eligible
+    tier: QI
+    countable_income: 1600.0
+  agree: false
+  explanation: '$25 exemption: Illinois countable income is $1,595, the top of the WAG SLIB band; PolicyEngine''s $20 gives $1,600, which is QI.'
+  ours_federal_minimum:
+    status: eligible
+    tier: QI
+  federal_minimum_agrees: true
+- case: MSP-IL-T04
+  state: il
+  title: "Single, Social Security $1,621 (countable $1,596) \u2014 $1 over SLIB, QI-1"
+  ours:
+    status: eligible
+    tier: QI
+  policyengine:
+    status: eligible
+    tier: QI
+    countable_income: 1601.0
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: QI
+  federal_minimum_agrees: true
+- case: MSP-IL-T05
+  state: il
+  title: "Single, Social Security $1,819 (countable $1,794) \u2014 top of the published QI-1 band"
+  ours:
+    status: eligible
+    tier: QI
+  policyengine:
+    status: ineligible
+    tier: null
+    countable_income: 1799.0
+  agree: false
+  explanation: '$25 exemption: Illinois countable income is $1,794, the top of the WAG QI-1 band; PolicyEngine''s $20 gives $1,799, above 135%
+    FPL ($1,795.50).'
+  ours_federal_minimum:
+    status: ineligible
+    tier: null
+  federal_minimum_agrees: true
+- case: MSP-IL-T06
+  state: il
+  title: "Single, Social Security $1,820 (countable $1,795) \u2014 above the WAG QI-1 band but within the PM's 'equal to or less than 135%': unresolved"
+  ours:
+    status: undetermined
+    tier: null
+  policyengine:
+    status: ineligible
+    tier: null
+    countable_income: 1800.0
+  agree: false
+  explanation: Illinois countable income $1,795 is $1 above the WAG QI-1 band but within PM 06-14-01-b's "equal to or less than 135% FPL"; the
+    archive returns undetermined (MSP-IL-OQ-03). PolicyEngine ($20 exclusion, countable $1,800) says ineligible.
+  ours_federal_minimum:
+    status: ineligible
+    tier: null
+  federal_minimum_agrees: true
+- case: MSP-IL-T07
+  state: il
+  title: "Single, Social Security $1,821 (countable $1,796) \u2014 over 135% FPL, not eligible"
+  ours:
+    status: ineligible
+    tier: null
+  policyengine:
+    status: ineligible
+    tier: null
+    countable_income: 1801.0
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: ineligible
+    tier: null
+  federal_minimum_agrees: true
+- case: MSP-IL-T08
+  state: il
+  title: "Couple, both on Medicare, combined Social Security $1,853 (two $25 exemptions, countable $1,803) \u2014 at the couple QMB limit"
+  ours:
+    status: eligible
+    tier: QMB
+  policyengine:
+    status: eligible
+    tier: SLMB
+    countable_income: 1833.0
+  agree: false
+  explanation: Illinois exempts the first $25 of income per applicant (PM 06-12-01-c, PM 15-04-03-a), not SSI's $20. Countable income is $1,330
+    (single) / $1,803 (couple, two $25 exemptions), at the QMB standard; PolicyEngine subtracts $20 once and gets $1,335 / $1,833, so SLMB.
+  ours_federal_minimum:
+    status: eligible
+    tier: SLMB
+  federal_minimum_agrees: true
+- case: MSP-IL-T09
+  state: il
+  title: "Couple, combined $1,854 (countable $1,804) \u2014 $1 over couple QMB, SLIB"
+  ours:
+    status: eligible
+    tier: SLMB
+  policyengine:
+    status: eligible
+    tier: SLMB
+    countable_income: 1834.0
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: SLMB
+  federal_minimum_agrees: true
+- case: MSP-IL-T10
+  state: il
+  title: "Applicant (SS $1,300) with a 62-year-old spouse without Medicare and a $600 pension \u2014 2-person standard, one $25 exemption, SLIB"
+  ours:
+    status: eligible
+    tier: SLMB
+  policyengine:
+    status: eligible
+    tier: SLMB
+    countable_income: 1880.0
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: SLMB
+  federal_minimum_agrees: true
+- case: MSP-IL-T11
+  state: il
+  title: "Single, Social Security $1,200, resources $9,949 \u2014 just under the resource limit, QMB"
+  ours:
+    status: eligible
+    tier: QMB
+  policyengine:
+    status: eligible
+    tier: QMB
+    countable_income: 1180.0
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: QMB
+  federal_minimum_agrees: true
+- case: MSP-IL-T12
+  state: il
+  title: "Single, Social Security $1,200, resources exactly $9,950 \u2014 Illinois manual says both 'less than' and 'higher than' the limit: unresolved"
+  ours:
+    status: undetermined
+    tier: null
+  policyengine:
+    status: eligible
+    tier: QMB
+    countable_income: 1180.0
+  agree: false
+  explanation: 'Resources exactly $9,950: PM 06-12-01 requires assets "less than" the standard while PM 06-12-01-a bars only resources "higher
+    than" it, so the archive returns undetermined (MSP-IL-OQ-01); PolicyEngine uses "<=" and gives QMB.'
+  ours_federal_minimum:
+    status: eligible
+    tier: QMB
+  federal_minimum_agrees: true
+- case: MSP-IL-T13
+  state: il
+  title: "Single, Social Security $1,200, resources $9,951 \u2014 over the resource limit, not eligible"
+  ours:
+    status: ineligible
+    tier: null
+  policyengine:
+    status: ineligible
+    tier: null
+    countable_income: 1180.0
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: ineligible
+    tier: null
+  federal_minimum_agrees: true
+- case: MSP-IL-T14
+  state: il
+  title: "Couple, combined Social Security $1,800, resources $14,911 \u2014 over the couple resource limit"
+  ours:
+    status: ineligible
+    tier: null
+  policyengine:
+    status: ineligible
+    tier: null
+    countable_income: 1780.0
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: ineligible
+    tier: null
+  federal_minimum_agrees: true
+- case: MSP-IL-T15
+  state: il
+  title: "Working 67-year-old: Social Security $900 + wages $400 \u2014 AABD earned disregard, QMB"
+  ours:
+    status: eligible
+    tier: QMB
+  policyengine:
+    status: eligible
+    tier: QMB
+    countable_income: 1047.5
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: QMB
+  federal_minimum_agrees: true
+- case: MSP-IL-T16
+  state: il
+  title: "Working 67-year-old: Social Security $900 + wages $1,500 \u2014 Illinois AABD counting gives $2,325 (over), SSI counting gives QI: unresolved"
+  ours:
+    status: undetermined
+    tier: null
+  policyengine:
+    status: eligible
+    tier: QI
+    countable_income: 1597.5
+  agree: false
+  explanation: Earned income. Illinois counts MSP income with AABD rules ($25 exemption, then $20 plus one-half of the next $60 of earnings, PM
+    08-02-03-a), which here leaves the person over the QI-1 band; SSI methodology ($65 plus one-half, what PolicyEngine and federal law use) gives
+    a qualifying tier. The archive returns undetermined (MSP-IL-OQ-02, conflict MSP-IL-CONFLICT-04) instead of picking one.
+  ours_federal_minimum:
+    status: eligible
+    tier: QI
+  federal_minimum_agrees: true
+- case: MSP-IL-T20
+  state: il
+  title: "AABD Medical recipient, Social Security $1,200 \u2014 QMB alongside Medicaid"
+  ours:
+    status: eligible
+    tier: QMB
+  policyengine:
+    status: eligible
+    tier: QMB
+    countable_income: 1180.0
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: QMB
+  federal_minimum_agrees: true
+- case: MSP-IL-T22
+  state: il
+  title: "Same household in April 2026 \u2014 COLA counted, SLIB"
+  ours:
+    status: eligible
+    tier: SLMB
+  policyengine:
+    status: eligible
+    tier: SLMB
+    countable_income: 1360.0
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: SLMB
+  federal_minimum_agrees: true
+- case: MSP-IL-T26
+  state: il
+  title: "SSI recipient: Social Security $500 + SSI $494 (SSI not counted) \u2014 QMB"
+  ours:
+    status: eligible
+    tier: QMB
+  policyengine:
+    status: eligible
+    tier: QMB
+    countable_income: 480.0
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: QMB
+  federal_minimum_agrees: true
+- case: MSP-IL-T28
+  state: il
+  title: "Cross-state: single retiree, Social Security $1,500 and $12,000 savings \u2014 not eligible in Illinois (resources), SLMB in California,\
+    \ QMB in New York"
+  ours:
+    status: ineligible
+    tier: null
+  policyengine:
+    status: ineligible
+    tier: null
+    countable_income: 1480.0
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: ineligible
+    tier: null
+  federal_minimum_agrees: true
+- case: MSP-IL-T28
+  state: ca
+  title: "Cross-state: single retiree, Social Security $1,500 and $12,000 savings \u2014 not eligible in Illinois (resources), SLMB in California,\
+    \ QMB in New York"
+  ours:
+    status: eligible
+    tier: SLMB
+  policyengine:
+    status: eligible
+    tier: SLMB
+    countable_income: 1480.0
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: SLMB
+  federal_minimum_agrees: true
+- case: MSP-IL-T28
+  state: ny
+  title: "Cross-state: single retiree, Social Security $1,500 and $12,000 savings \u2014 not eligible in Illinois (resources), SLMB in California,\
+    \ QMB in New York"
+  ours:
+    status: eligible
+    tier: QMB
+  policyengine:
+    status: eligible
+    tier: SLMB
+    countable_income: 1480.0
+  agree: false
+  explanation: 'New York policy (compare_states row): New York''s QMB runs to 138% FPL with no resource test (GIS 26 MA/05), so countable $1,480
+    is QMB; PolicyEngine applies the federal 100% QMB line and gives SLMB.'
+  ours_federal_minimum:
+    status: eligible
+    tier: SLMB
+  federal_minimum_agrees: true
 - case: MSP-NY-T01
   state: ny
   title: Single, Social Security $1,500 gross, well under QMB
@@ -16,6 +727,38 @@ rows:
   explanation: New York policy, not a logic difference. PolicyEngine models only the federal-minimum tiers (QMB <=100%, SLMB <120%, QI <135% FPL);
     New York set QMB at <=138% and QI at >138%-<=186% FPL from 2023 (GIS 22 MA/10; 2026 chart in GIS 26 MA/05). Our federal-minimum column matches
     PolicyEngine on every one of these households, so the shared income counting agrees.
+  ours_federal_minimum:
+    status: eligible
+    tier: SLMB
+  federal_minimum_agrees: true
+- case: MSP-NY-T01
+  state: ca
+  title: Single, Social Security $1,500 gross, well under QMB
+  ours:
+    status: eligible
+    tier: SLMB
+  policyengine:
+    status: eligible
+    tier: SLMB
+    countable_income: 1480.0
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: eligible
+    tier: SLMB
+  federal_minimum_agrees: true
+- case: MSP-NY-T01
+  state: il
+  title: Single, Social Security $1,500 gross, well under QMB
+  ours:
+    status: eligible
+    tier: SLMB
+  policyengine:
+    status: eligible
+    tier: SLMB
+    countable_income: 1480.0
+  agree: true
+  explanation: null
   ours_federal_minimum:
     status: eligible
     tier: SLMB
@@ -108,6 +851,38 @@ rows:
     status: ineligible
     tier: null
   federal_minimum_agrees: true
+- case: MSP-NY-T06
+  state: ca
+  title: "Couple, combined gross $2,509 \u2014 at the couple QMB limit"
+  ours:
+    status: ineligible
+    tier: null
+  policyengine:
+    status: ineligible
+    tier: null
+    countable_income: 2489.0
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: ineligible
+    tier: null
+  federal_minimum_agrees: true
+- case: MSP-NY-T06
+  state: il
+  title: "Couple, combined gross $2,509 \u2014 at the couple QMB limit"
+  ours:
+    status: ineligible
+    tier: null
+  policyengine:
+    status: ineligible
+    tier: null
+    countable_income: 2489.0
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: ineligible
+    tier: null
+  federal_minimum_agrees: true
 - case: MSP-NY-T07
   state: ny
   title: "Couple, combined gross $2,510 \u2014 just over couple QMB"
@@ -178,6 +953,38 @@ rows:
     status: ineligible
     tier: null
   federal_minimum_agrees: true
+- case: MSP-NY-T10
+  state: ca
+  title: "Single retiree, SS $1,200 + pension $1,000, $250,000 in savings \u2014 QI because NY has no asset test"
+  ours:
+    status: ineligible
+    tier: null
+  policyengine:
+    status: ineligible
+    tier: null
+    countable_income: 2180.0
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: ineligible
+    tier: null
+  federal_minimum_agrees: true
+- case: MSP-NY-T10
+  state: il
+  title: "Single retiree, SS $1,200 + pension $1,000, $250,000 in savings \u2014 QI because NY has no asset test"
+  ours:
+    status: ineligible
+    tier: null
+  policyengine:
+    status: ineligible
+    tier: null
+    countable_income: 2180.0
+  agree: true
+  explanation: null
+  ours_federal_minimum:
+    status: ineligible
+    tier: null
+  federal_minimum_agrees: true
 - case: MSP-NY-T11
   state: ny
   title: "Single 66-year-old without Part A (no Buy-in) \u2014 not eligible"
@@ -210,6 +1017,43 @@ rows:
   explanation: New York policy, not a logic difference. PolicyEngine models only the federal-minimum tiers (QMB <=100%, SLMB <120%, QI <135% FPL);
     New York set QMB at <=138% and QI at >138%-<=186% FPL from 2023 (GIS 22 MA/10; 2026 chart in GIS 26 MA/05). Our federal-minimum column matches
     PolicyEngine on every one of these households, so the shared income counting agrees.
+  ours_federal_minimum:
+    status: eligible
+    tier: QI
+  federal_minimum_agrees: true
+- case: MSP-NY-T13
+  state: ca
+  title: "Working 67-year-old: SS $900 + wages $1,500 \u2014 gross $2,400 but QMB after earned income disregards"
+  ours:
+    status: eligible
+    tier: QI
+  policyengine:
+    status: ineligible
+    tier: null
+    countable_income: 1597.5
+  agree: false
+  explanation: PolicyEngine excludes QI for anyone it computes as Medicaid-eligible (is_qi_eligible uses is_medicaid_eligible), and it computes
+    these aged Californians (countable $1,795 / $1,597.50) as eligible for Medi-Cal's Aged & Disabled FPL program. The archive bars QI only for
+    a person who has Medi-Cal (MSP-CA-QI-NOT-MEDI-CAL; DHCS page "cannot also receive Medi-Cal"). Whether being merely eligible for ABD FPL Medi-Cal
+    bars QI in California is an open policy point (MSP-CA-OQ-01; 42 U.S.C. 1396a(a)(10)(E)(iv) says "not otherwise eligible").
+  ours_federal_minimum:
+    status: eligible
+    tier: QI
+  federal_minimum_agrees: false
+- case: MSP-NY-T13
+  state: il
+  title: "Working 67-year-old: SS $900 + wages $1,500 \u2014 gross $2,400 but QMB after earned income disregards"
+  ours:
+    status: undetermined
+    tier: null
+  policyengine:
+    status: eligible
+    tier: QI
+    countable_income: 1597.5
+  agree: false
+  explanation: Earned income. Illinois counts MSP income with AABD rules ($25 exemption, then $20 plus one-half of the next $60 of earnings, PM
+    08-02-03-a), which here leaves the person over the QI-1 band; SSI methodology ($65 plus one-half, what PolicyEngine and federal law use) gives
+    a qualifying tier. The archive returns undetermined (MSP-IL-OQ-02, conflict MSP-IL-CONFLICT-04) instead of picking one.
   ours_federal_minimum:
     status: eligible
     tier: QI
@@ -262,6 +1106,43 @@ rows:
   explanation: New York policy, not a logic difference. PolicyEngine models only the federal-minimum tiers (QMB <=100%, SLMB <120%, QI <135% FPL);
     New York set QMB at <=138% and QI at >138%-<=186% FPL from 2023 (GIS 22 MA/10; 2026 chart in GIS 26 MA/05). Our federal-minimum column matches
     PolicyEngine on every one of these households, so the shared income counting agrees.
+  ours_federal_minimum:
+    status: eligible
+    tier: SLMB
+  federal_minimum_agrees: true
+- case: MSP-NY-T17
+  state: ca
+  title: "Couple where only the applicant has Medicare; spouse (62) earns $2,000 \u2014 household of two, QMB"
+  ours:
+    status: undetermined
+    tier: null
+  policyengine:
+    status: eligible
+    tier: SLMB
+    countable_income: 1947.5
+  agree: false
+  explanation: The applicant's spouse has no Medicare and earns $2,000. California first budgets the couple against the FPL for two (SLMB here,
+    which is PolicyEngine's answer) but MEPM 5L then allows SSI methodology, under which a low-income ineligible spouse's income is exempt and
+    the applicant could be QMB; the "Standard SSI Allocation" amount is not in the archive (MSP-CA-OQ-04), so the archive returns undetermined
+    rather than guess the better tier.
+  ours_federal_minimum:
+    status: eligible
+    tier: SLMB
+  federal_minimum_agrees: true
+- case: MSP-NY-T17
+  state: il
+  title: "Couple where only the applicant has Medicare; spouse (62) earns $2,000 \u2014 household of two, QMB"
+  ours:
+    status: undetermined
+    tier: null
+  policyengine:
+    status: eligible
+    tier: SLMB
+    countable_income: 1947.5
+  agree: false
+  explanation: Earned income. Illinois counts MSP income with AABD rules ($25 exemption, then $20 plus one-half of the next $60 of earnings, PM
+    08-02-03-a), which here leaves the person over the QI-1 band; SSI methodology ($65 plus one-half, what PolicyEngine and federal law use) gives
+    a qualifying tier. The archive returns undetermined (MSP-IL-OQ-02, conflict MSP-IL-CONFLICT-04) instead of picking one.
   ours_federal_minimum:
     status: eligible
     tier: SLMB

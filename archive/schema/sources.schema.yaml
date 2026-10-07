@@ -40,4 +40,16 @@ properties:
         effective_date: {$ref: 'common.schema.yaml#/$defs/date'}
         published: {$ref: 'common.schema.yaml#/$defs/date'}
         retrieved: {$ref: 'common.schema.yaml#/$defs/date'}
+        volatile:
+          type: array
+          items: {type: string}
+          description: >-
+            Regexes for lines that change without the content changing (news
+            tickers, related-links boxes). tools/check_changes.py ignores
+            matching lines when comparing with the snapshot.
+        ends_at:
+          type: string
+          description: >-
+            Regex for the first line after the real content (e.g. a "Related
+            Releases" box); check_changes ignores it and everything below.
         note: {type: string}

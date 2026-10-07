@@ -46,6 +46,9 @@ from tools.fetch import fetch  # noqa: E402
 from tools.sources import read_manifest  # noqa: E402
 
 REPORTS = ARCHIVE_ROOT / "reports"
+# Pages some sites return (with HTTP 200) instead of the content when they block a client.
+BOT_WALL = re.compile(r"think that you are a bot|request unsuccessful\. incapsula|access denied|just a moment\.\.\.|"
+                      r"enable javascript and cookies|captcha|request unblock", re.I)
 NUMBER = re.compile(r"\$\s?\d|\d[\d,]*\.\d\d|\b\d{1,3}(,\d{3})+\b|\d+\s?%")
 
 
@@ -100,15 +103,38 @@ def check_one(part: Part, src: dict) -> Result:
         return Result(part, src, "no_snapshot", "no saved snapshot")
     snap = good[-1]
     f = fetch(src["url"])
+    if f.ok and BOT_WALL.search(f.text[:3000]) and not BOT_WALL.search(
+            (part.snapshot_root / snap["text"]).read_text()[:3000]):
+        f.status = 403   # a block page, not the content
+    if f.ok and snap.get("fetched_via"):
+        # Imported by another route (browser, reader, converted file): a direct
+        # fetch is not comparable text, so this needs a person or the same route.
+        return Result(part, src, "manual", f"snapshot {snap['retrieved']} was imported via {snap['fetched_via']}; "
+                      "re-fetch the same way and compare", final_url=f.final_url)
     if not f.ok:
         status = "manual" if snap.get("fetched_via") else "fetch_failed"
         why = f"HTTP {f.status}" if f.status else f.text[:200]
         return Result(part, src, status, f"{why}; snapshot {snap['retrieved']}" +
                       (f" was imported via {snap['fetched_via']}" if snap.get("fetched_via") else ""))
-    if f.text_sha256 == snap["text_sha256"]:
+    vol = [re.compile(v, re.I) for v in src.get("volatile", []) or []]
+    end = re.compile(src["ends_at"], re.I) if src.get("ends_at") else None
+
+    def clean(t: str) -> str:
+        out = []
+        for ln in t.splitlines():
+            if end is not None and end.search(ln):
+                break
+            if not any(v.search(ln) for v in vol):
+                out.append(ln)
+        return "\n".join(out)
+
+    vol = vol or ([end] if end else [])   # any cleaning configured
+    if f.text_sha256 == snap["text_sha256"] or (vol and clean(f.text) == clean(
+            (part.snapshot_root / snap["text"]).read_text())):
         return Result(part, src, "unchanged", f"same as snapshot {snap['retrieved']}", final_url=f.final_url)
-    old = (part.snapshot_root / snap["text"]).read_text().splitlines()
-    new = f.text.splitlines()
+    old = clean((part.snapshot_root / snap["text"]).read_text()).splitlines() if vol else \
+        (part.snapshot_root / snap["text"]).read_text().splitlines()
+    new = clean(f.text).splitlines() if vol else f.text.splitlines()
     diff = [ln for ln in difflib.unified_diff(old, new, lineterm="", n=0) if not ln.startswith(("---", "+++", "@@"))]
     numbers = [ln for ln in diff if NUMBER.search(ln)]
     out_dir = REPORTS / "fetched" / date.today().isoformat()

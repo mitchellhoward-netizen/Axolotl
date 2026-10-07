@@ -352,6 +352,17 @@ outcome_proof:
     sources: [{source: il-idhs-pm-07-02-20-d, locator: "Example 3"}]
 
 links:
+  - id: LTC-IL-LINK-MSP
+    playbook: msp
+    relation: >-
+      Illinois nursing-home residents (and Department on Aging in-home clients)
+      can hold QMB/SLIB alongside long-term-care Medicaid, with HFS paying their
+      Medicare premiums; the community spouse maintenance allowance is not
+      deducted from the resident's income for the MSP test (see MSP-IL-LTC-SPOUSE).
+    confidence: confirmed
+    sources:
+      - {source: il-idhs-pm-06-12-01-b, locator: "last paragraph"}
+      - {source: il-idhs-pm-06-12-02-b, locator: "live in a long term care or sheltered care facility"}
   - id: LTC-IL-LINK-MEDICAID
     playbook: medicaid
     rules: [LTC-IL-RESOURCES]

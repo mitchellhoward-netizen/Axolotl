@@ -18,3 +18,99 @@ explanations:
       archive requires Part A entitlement (42 U.S.C. 1396d(p)(1)(A)); in New
       York this person could get QMB by using the Part A Buy-in (case
       MSP-NY-T12).
+  - cases: [MSP-CA-T27, MSP-IL-T28]
+    match: {state: ny}
+    reason: >-
+      New York policy (compare_states row): New York's QMB runs to 138% FPL with
+      no resource test (GIS 26 MA/05), so countable $1,480 is QMB; PolicyEngine
+      applies the federal 100% QMB line and gives SLMB.
+  # ------------------------------------------------------------- California
+  - cases: [MSP-CA-T04]
+    match: {state: ca}
+    reason: >-
+      Boundary at exactly 120% FPL. California's 2026 SLMB standard is
+      "< $1,596" (ACWDL 26-01 Enclosure 3, MC 14A), so countable $1,596 is QI.
+      PolicyEngine also uses "less than 120%", but computes 1.2 x $1,330 in
+      float32 (= 1596.0001), so $1,596 passes as SLMB. Our federal-minimum
+      column (federal table "<= $1,616 gross") also says SLMB.
+  - cases: [MSP-CA-T05, MSP-NY-T13]
+    match: {state: ca}
+    reason: >-
+      PolicyEngine excludes QI for anyone it computes as Medicaid-eligible
+      (is_qi_eligible uses is_medicaid_eligible), and it computes these aged
+      Californians (countable $1,795 / $1,597.50) as eligible for Medi-Cal's
+      Aged & Disabled FPL program. The archive bars QI only for a person who
+      has Medi-Cal (MSP-CA-QI-NOT-MEDI-CAL; DHCS page "cannot also receive
+      Medi-Cal"). Whether being merely eligible for ABD FPL Medi-Cal bars QI
+      in California is an open policy point (MSP-CA-OQ-01; 42 U.S.C.
+      1396a(a)(10)(E)(iv) says "not otherwise eligible").
+  - cases: [MSP-CA-T07]
+    match: {state: ca}
+    reason: >-
+      DHCS rounds monthly FPL up to the next dollar: the 2026 couple QMB
+      standard is $1,804 (ACWDL 26-01 Enclosure 1), so countable $1,804 is QMB.
+      PolicyEngine uses the exact $21,640 / 12 = $1,803.33 and gives SLMB.
+  - cases: [MSP-CA-T11]
+    match: {state: ca}
+    reason: >-
+      California reinstated the MSP property limit ($130,000 / $195,000) on
+      January 1, 2026 (ACWDL 25-14, ACWDL 25-27). PolicyEngine's
+      savings_programs/eligibility/asset/applies.yaml sets CA to false from
+      2024 and has no 2026 entry, so it ignores the $130,001 savings.
+  - cases: [MSP-CA-T24]
+    match: {state: ca}
+    reason: >-
+      Input-model difference (as MSP-NY-T11): PolicyEngine infers Medicare
+      from age 65+ and has no Part A input; the archive requires Part A
+      (DHCS MSP page "Must Be Entitled to Medicare Part A").
+  - cases: [MSP-NY-T17]
+    match: {state: ca}
+    reason: >-
+      The applicant's spouse has no Medicare and earns $2,000. California
+      first budgets the couple against the FPL for two (SLMB here, which is
+      PolicyEngine's answer) but MEPM 5L then allows SSI methodology, under
+      which a low-income ineligible spouse's income is exempt and the
+      applicant could be QMB; the "Standard SSI Allocation" amount is not in
+      the archive (MSP-CA-OQ-04), so the archive returns undetermined rather
+      than guess the better tier.
+  # --------------------------------------------------------------- Illinois
+  - cases: [MSP-IL-T01, MSP-IL-T08]
+    match: {state: il}
+    reason: >-
+      Illinois exempts the first $25 of income per applicant (PM 06-12-01-c,
+      PM 15-04-03-a), not SSI's $20. Countable income is $1,330 (single) /
+      $1,803 (couple, two $25 exemptions), at the QMB standard; PolicyEngine
+      subtracts $20 once and gets $1,335 / $1,833, so SLMB.
+  - cases: [MSP-IL-T03]
+    match: {state: il}
+    reason: >-
+      $25 exemption: Illinois countable income is $1,595, the top of the WAG
+      SLIB band; PolicyEngine's $20 gives $1,600, which is QI.
+  - cases: [MSP-IL-T05]
+    match: {state: il}
+    reason: >-
+      $25 exemption: Illinois countable income is $1,794, the top of the WAG
+      QI-1 band; PolicyEngine's $20 gives $1,799, above 135% FPL ($1,795.50).
+  - cases: [MSP-IL-T06]
+    match: {state: il}
+    reason: >-
+      Illinois countable income $1,795 is $1 above the WAG QI-1 band but
+      within PM 06-14-01-b's "equal to or less than 135% FPL"; the archive
+      returns undetermined (MSP-IL-OQ-03). PolicyEngine ($20 exclusion,
+      countable $1,800) says ineligible.
+  - cases: [MSP-IL-T12]
+    match: {state: il}
+    reason: >-
+      Resources exactly $9,950: PM 06-12-01 requires assets "less than" the
+      standard while PM 06-12-01-a bars only resources "higher than" it, so
+      the archive returns undetermined (MSP-IL-OQ-01); PolicyEngine uses
+      "<=" and gives QMB.
+  - cases: [MSP-IL-T16, MSP-NY-T13, MSP-NY-T17]
+    match: {state: il}
+    reason: >-
+      Earned income. Illinois counts MSP income with AABD rules ($25
+      exemption, then $20 plus one-half of the next $60 of earnings, PM
+      08-02-03-a), which here leaves the person over the QI-1 band; SSI
+      methodology ($65 plus one-half, what PolicyEngine and federal law use)
+      gives a qualifying tier. The archive returns undetermined
+      (MSP-IL-OQ-02, conflict MSP-IL-CONFLICT-04) instead of picking one.

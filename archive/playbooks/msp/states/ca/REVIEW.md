@@ -50,7 +50,9 @@ with a headless browser and imported. Rules: `playbook.yaml`; numbers:
 - **Part A for a QMB-only applicant without Part A**: whether DHCS buys in Part A
   outside full-scope Medi-Cal (MSP-CA-OQ-02). ACWDL 24-20 (the buy-in letter) was
   not retrievable ("page not found").
-- **QI with share-of-cost Medi-Cal** (MSP-CA-OQ-01).
+- **QI versus Medi-Cal** (MSP-CA-OQ-01): share-of-cost members, and whether mere
+  eligibility for ABD FPL Medi-Cal (to 138% FPL) bars QI. PolicyEngine treats it as
+  barring QI; the archive bars QI only for people who have Medi-Cal.
 - **Decision deadline** not found (MSP-CA-OQ-08).
 - MEPM Article 5L dates from 1997; it is still cited by ACWDL 23-05 but its
   amounts are old.
@@ -69,8 +71,10 @@ with a headless browser and imported. Rules: `playbook.yaml`; numbers:
 
 ## Cross-checks
 
-`crosscheck/results/msp.md`: California households run through PolicyEngine
-US. PolicyEngine models the federal tiers with exact (unrounded) FPL and treats
-California as having no MSP asset test from 2024 (it does not model the 2026
-reinstatement). Differences are listed and explained in
-`crosscheck/explanations/msp.yaml`.
+`crosscheck/results/msp.md`: 25 California rows (19 California households plus
+the California column of cross-state households) were run through PolicyEngine
+US 2.29.14. Differences, all explained in `crosscheck/explanations/msp.yaml`:
+DHCS's rounded-up couple standard ($1,804); the 2026 asset reinstatement
+(PolicyEngine keeps CA's 2024 "no asset test" flag); PolicyEngine barring QI for
+anyone eligible for ABD FPL Medi-Cal; a float32 artefact at exactly 120% FPL;
+Part A inferred from age; and the unresolved ineligible-spouse allocation.
