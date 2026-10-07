@@ -33,7 +33,10 @@ def _comparable(case):
             and not a.get("facts", {}).get("lost_part_a_due_to_work")
             and not a.get("facts", {}).get("chooses_qi_over_medicaid")
             and not a.get("facts", {}).get("part_a_buy_in")
-            and all(i["kind"] != "ssi" for i in hh.get("incomes", [])))
+            and all(i["kind"] != "ssi" for i in hh.get("incomes", []))
+            # The site has an input for health insurance premiums (MSP-NY-HEALTH-PREMIUMS)
+            # but not for support paid (MSP-NY-SUPPORT-PAID, unresolved).
+            and not any(m.get("facts", {}).get("support_paid_monthly") for m in hh["members"]))
 
 
 @pytest.mark.skipif(NODE is None, reason="node not installed")
@@ -45,7 +48,9 @@ def test_calculator_matches_archive_on_ny_households():
         earned = sum(i["monthly"] for i in hh["incomes"] if i["kind"] in ("earned", "self_employment"))
         unearned = sum(i["monthly"] for i in hh["incomes"] if i["kind"] not in ("earned", "self_employment"))
         a = hh["members"][0]
+        premiums = sum(float(m.get("facts", {}).get("health_insurance_premiums_monthly", 0) or 0) for m in hh["members"])
         inputs.append({"couple": len(hh["members"]) == 2, "onMedicare": 1, "unearned": unearned, "earned": earned,
+                       "premiums": premiums,
                        "partA": a.get("medicare_part_a", False), "medicaid": "medicaid" in a.get("benefits", []),
                        "reimbursed": 0})
     script = (
@@ -65,3 +70,28 @@ def test_calculator_matches_archive_on_ny_households():
         archive = det.tier if det.status == "eligible" else "ineligible"
         site_tier = {"over": "ineligible", "needs_part_a": "ineligible"}.get(tier, tier)
         assert site_tier == archive, f"{case['id']}: site {tier}, archive {det.status}/{det.tier}"
+
+
+@pytest.mark.skipif(NODE is None, reason="node not installed")
+def test_fund_estimate_uses_research_numbers():
+    """The fund estimate's middle case follows the documented formula and research inputs."""
+    rules = json.loads(export_site_data.OUT.read_text())
+    script = (
+        "import vm from 'node:vm'; import fs from 'node:fs';"
+        "const sb = {}; vm.createContext(sb);"
+        f"vm.runInContext(fs.readFileSync({json.dumps(str(REPO / 'public/msp-calc.js'))}, 'utf8'), sb);"
+        f"const rules = JSON.parse(fs.readFileSync({json.dumps(str(export_site_data.OUT))}, 'utf8'));"
+        "console.log(JSON.stringify(sb.MSPCalc.fund(rules, {retirees: 10000, reimbursed: 0.5, pension: '500_999', fee: 0.2})));"
+    )
+    r = json.loads(subprocess.run([NODE, "--input-type=module", "-e", script], capture_output=True, text=True, check=True).stdout)
+    est = rules["estimates"]
+    e = est["eligible_share_by_pension"]["500_999"]["share"]
+    a = est["take_up_among_eligible"]["middle"]
+    share = e * (1 - a) / (1 - e * a)
+    pool = round(10000 * share)
+    enrolled = round(pool * est["enroll_after_outreach"]["middle"])
+    assert r["pool"]["middle"] == pool
+    assert r["enrolled"]["middle"] == enrolled
+    assert r["saved"]["middle"] == round(enrolled * rules["values"]["part_b_premium_monthly"] * 12 * 0.5)
+    assert r["pool"]["low"] <= r["pool"]["middle"] <= r["pool"]["high"]
+    assert r["saved"]["low"] <= r["saved"]["middle"] <= r["saved"]["high"]

@@ -26,6 +26,13 @@ in `playbook.yaml` with its source and locator; every number is in
 - **Part B late-enrollment penalty removal** now rests on SSA POMS HI 00815.001
   and HI 00815.039 and 42 CFR 407.47(g) (MSP-NY-OQ-04 answered).
 
+- Health insurance premiums other than Part B (Medigap, union/retiree plan,
+  Part D, dental, long-term care) are deducted after the SSI disregards for
+  every MSP tier (11 OHIP/ADM-2 p. 4; MRG SSI-related budgeting pp. 231,
+  239-241, 251-252). The evaluator reads
+  `Person.facts["health_insurance_premiums_monthly"]` for the applicant and a
+  living-with spouse (MSP-NY-HEALTH-PREMIUMS, tests T25-T29).
+
 ## Assumptions made
 
 1. **Countable income is compared to the standard after the $20 disregard**, so
@@ -73,6 +80,12 @@ in `playbook.yaml` with its source and locator; every number is in
   tiers. We used it only for budgeting methods (disregards, couples), not for
   limits.
 
+- Court-ordered support paid by an adult applicant (MSP-NY-SUPPORT-PAID,
+  MSP-NY-OQ-07): the DOH-4328 asks for it, but no primary text deducts it
+  outside the allocation steps for households with children. The evaluator
+  returns undetermined when it would change the result
+  (`Person.facts["support_paid_monthly"]`, tests T30-T31).
+
 ## Questions for a New York benefits expert
 
 1. After an MSP approval, how soon does the LDSS/HRA open the eMedNY Buy-In
@@ -88,6 +101,12 @@ in `playbook.yaml` with its source and locator; every number is in
    Health, and does an online application avoid mailing the DOH-4328?
 6. Is there a current DOH directive on automatic QMB for SSI recipients?
 7. Do districts treat "Income Below 186% FPL" (DOH page) as "at or below"?
+
+- Do districts deduct court-ordered support the applicant pays when budgeting
+  an adult MSP case, and is a Part A premium (Part A Buy-in) deducted as a
+  health insurance premium (MSP-NY-OQ-07, MSP-NY-OQ-08)?
+- Infrequent/irregular income: $30/$60 per quarter (MRG) or $10/$20 per
+  month (18 NYCRR 360-4.6(a)(2)(x)) (MSP-NY-CONFLICT-04)?
 
 ## Cross-checks
 

@@ -36,8 +36,29 @@ RULES = ["MSP-NY-QMB-INCOME", "MSP-NY-QI-INCOME", "MSP-NY-NO-RESOURCE-TEST", "MS
          "MSP-NY-COUPLE", "MSP-NY-PART-A", "MSP-NY-QI-NOT-MEDICAID", "MSP-FED-EXTRA-HELP-DEEMED"]
 
 
+RESEARCH = ARCHIVE_ROOT / "research" / "msp_ny_eligibility"
+
+
+def estimates() -> dict:
+    """Eligibility by pension size (ACS PUMS) and the outreach assumptions, for the fund estimate."""
+    import yaml
+
+    est = json.loads((RESEARCH / "estimates.json").read_text())
+    ass = yaml.safe_load((RESEARCH / "assumptions.yaml").read_text())
+    g = est["groups"]
+    bands = ["with_pension", "under_500", "500_999", "1000_1499", "1500_1999", "2000_plus"]
+    out = {
+        "eligible_share_by_pension": {b: {"share": g[b]["share_under_line"], "moe90": g[b]["moe90"]} for b in bands},
+        "eligible_source": est["source"],
+    }
+    for key in ("take_up_among_eligible", "enroll_after_outreach", "months_until_savings", "retained_per_year"):
+        out[key] = {k: ass[key][k] for k in ("low", "middle", "high")}
+    return out
+
+
 def build(as_of: date) -> dict:
-    out: dict = {"state": "ny", "as_of": as_of.isoformat(), "rules": RULES, "values": {}, "provenance": {}}
+    out: dict = {"state": "ny", "as_of": as_of.isoformat(), "rules": RULES, "values": {}, "provenance": {},
+                 "estimates": estimates()}
     for key, pid in FIELDS.items():
         pv = params.get(pid, as_of)
         value = pv.value

@@ -1,0 +1,64 @@
+# Assumptions behind the website's fund estimate (tools/site/msp-ny.json).
+#
+# These are estimates, not rules: each says where it comes from and how sure
+# we are. The eligibility shares come from estimate.py (ACS 2024 PUMS); the
+# rest from the research summarized here (checked 2026-10-07). Replace them
+# with pilot data as soon as there is any.
+
+eligible_share_by_pension:
+  description: >-
+    Share of New Yorkers 65+ on Medicare, with the given monthly retirement
+    income, whose countable income is under New York's QI line (186% FPL).
+    From estimates.json (ACS 2024 1-year PUMS, replicate-weight margins).
+  source: estimates.json
+  caveats:
+    - Retirement income is somewhat under-reported in surveys (O'Hara & Bee 2016, Census working paper 2016-01, ~87% ACS/IRS agreement on pension income), so these lean high.
+    - New York also deducts health insurance premiums other than Part B (union fund premiums included; 11 OHIP/ADM-2), which the survey does not capture, so for retirees who pay a premium these lean low.
+
+take_up_among_eligible:
+  description: Share of people eligible for an MSP who are already enrolled.
+  low: 0.40
+  middle: 0.55
+  high: 0.65
+  confidence: low
+  sources:
+    - Urban Institute (Caswell & Waidmann, May 2026), "Medicaid Participation among Medicare Savings Program Eligibles, 2021-2023" — 64.3% QMB, 62.5% SLMB, 55.9% QI eligibles (national; self-reported Medicaid as the proxy). https://www.urban.org/research/publication/medicaid-participation-among-medicare-savings-program-eligibles-2021-2023
+    - Kotb et al., JAMA Network Open (Oct 2025) — 56.7% enrolled nationally, 2018-20; states ranged 41.5% to 72.9%. https://pmc.ncbi.nlm.nih.gov/articles/PMC12495494/
+    - MACPAC / Caswell & Waidmann (2017), Appendix Table A4 — New York 37.8% (QMB+SLMB, 2009-10, before the 2023 expansion). https://www.macpac.gov/wp-content/uploads/2017/08/MSP-Enrollees-and-Eligible-Non-Enrollees.pdf
+  note: The middle follows recent national figures; the low end reflects New York's older, lower estimate.
+
+enroll_after_outreach:
+  description: >-
+    Share of eligible, not-enrolled retirees who end up enrolled after a
+    letter from their fund and help applying by text.
+  low: 0.05
+  middle: 0.15
+  high: 0.25
+  confidence: low (no published MSP trial; anchored on a SNAP trial)
+  sources:
+    - GAO-04-363 (2004), pp. 10 and 16-17 — SSA's mass MSP letters added 0.5% of recipients (0.3% in New York); SSA demonstration 7 to 26 enrollees per 1,000 letters, highest where staff filled out applications. https://www.gao.gov/assets/gao-04-363.pdf
+    - Finkelstein & Notowidigdo (NBER w24652, 2018; QJE 2019) — elderly likely-eligible non-enrollees in SNAP: 6% control, 11% information only, 18% information plus application assistance.
+  note: The 25% high depends on the fund being a trusted sender and the benefit being worth about $2,435 a year; it is above the evidence.
+
+months_until_savings:
+  description: Months from a yes to the fund's reimbursement stopping (decision plus Medicare buy-in processing).
+  low: 2
+  middle: 4
+  high: 6
+  confidence: moderate
+  sources:
+    - New York DOH-4328 instructions — decision within 45 days.
+    - GAO-04-363, p. 16 — "it typically takes about 3 months before enrollment is reported" in SSA records.
+    - Medicare Rights Center, "Using MSPs to enroll in Part B" (2026, secondary) — "it may take three to four months before your benefits take effect."
+    - California ACWDL 26-12 (archive msp/ca) — buy-in "up to 4 months".
+
+retained_per_year:
+  description: Share of enrollees still enrolled a year later.
+  low: 0.83
+  middle: 0.89
+  high: 0.95
+  confidence: low-moderate
+  sources:
+    - KFF (Chidambaram & Burns, 2022) — of partial-benefit duals newly enrolled in 2018, 17% lost coverage for one or more months, 11% for more than 3 months. https://www.kff.org/medicaid/potential-effects-of-the-proposed-medicaid-eligibility-rule-for-newly-enrolled-medicare-medicaid-enrollees/
+    - Medicare Rights Center (July 2023) — New York counties outside NYC auto-renew MSP for people on fixed Social Security income.
+  note: Excludes deaths.

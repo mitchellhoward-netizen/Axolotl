@@ -670,6 +670,225 @@ cases:
     status: undetermined
   crosscheck:
     policyengine: false
+- id: MSP-NY-T25
+  title: "Single, pension+SS $1,956 gross with a $100/mo union retiree plan premium: $1,936 - $100 = $1,836, at the QMB limit (QI without the premium)"
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - threshold
+  - edge
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+      facts:
+        health_insurance_premiums_monthly: 100
+    incomes:
+    - kind: social_security
+      monthly: 1456
+      owner: a
+    - kind: pension
+      monthly: 500
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: QMB
+    rules_include:
+    - MSP-NY-HEALTH-PREMIUMS
+    - MSP-NY-QMB-INCOME
+  crosscheck:
+    policyengine: false
+- id: MSP-NY-T26
+  title: "Same as T25 but $1,957 gross: $1,837 after the $100 retiree premium, $1 over QMB, so QI"
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - threshold
+  - edge
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+      facts:
+        health_insurance_premiums_monthly: 100
+    incomes:
+    - kind: social_security
+      monthly: 1457
+      owner: a
+    - kind: pension
+      monthly: 500
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: QI
+    rules_include:
+    - MSP-NY-HEALTH-PREMIUMS
+  crosscheck:
+    policyengine: false
+- id: MSP-NY-T27
+  title: "Single, $2,594 gross with a $100 retiree plan premium: $2,474 countable, at the QI limit (ineligible without the premium)"
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - threshold
+  - edge
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+      facts:
+        health_insurance_premiums_monthly: 100
+    incomes:
+    - kind: social_security
+      monthly: 2094
+      owner: a
+    - kind: pension
+      monthly: 500
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: QI
+    rules_include:
+    - MSP-NY-HEALTH-PREMIUMS
+    - MSP-NY-QI-INCOME
+  crosscheck:
+    policyengine: false
+- id: MSP-NY-T28
+  title: "Same as T27 but $2,595 gross: $2,475 after the premium, $1 over QI"
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - threshold
+  - edge
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+      facts:
+        health_insurance_premiums_monthly: 100
+    incomes:
+    - kind: social_security
+      monthly: 2095
+      owner: a
+    - kind: pension
+      monthly: 500
+      owner: a
+    assets: []
+  expect:
+    status: ineligible
+    rules_include:
+    - MSP-NY-HEALTH-PREMIUMS
+  crosscheck:
+    policyengine: false
+- id: MSP-NY-T29
+  title: "Couple, $2,609 gross; spouse pays a $100 Medigap premium: $2,589 - $100 = $2,489, at the couple QMB limit"
+  as_of: '2026-03-01'
+  tags:
+  - couple
+  - threshold
+  - edge
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 72
+      medicare_part_a: true
+      medicare_part_b: true
+    - id: b
+      age: 70
+      relationship: spouse
+      medicare_part_a: true
+      medicare_part_b: true
+      facts:
+        health_insurance_premiums_monthly: 100
+    incomes:
+    - kind: social_security
+      monthly: 1600
+      owner: a
+    - kind: social_security
+      monthly: 1009
+      owner: b
+    assets: []
+  expect:
+    status: eligible
+    tier: QMB
+    rules_include:
+    - MSP-NY-HEALTH-PREMIUMS
+    - MSP-NY-COUPLE
+  crosscheck:
+    policyengine: false
+- id: MSP-NY-T30
+  title: "Single, $1,900 gross, pays $50/mo court-ordered spousal support: QI without deducting it, QMB with it - undetermined (MSP-NY-OQ-07)"
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - threshold
+  - edge
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+      facts:
+        support_paid_monthly: 50
+    incomes:
+    - kind: social_security
+      monthly: 1900
+      owner: a
+    assets: []
+  expect:
+    status: undetermined
+    rules_include:
+    - MSP-NY-SUPPORT-PAID
+    open_questions_include:
+    - MSP-NY-OQ-07
+  crosscheck:
+    policyengine: false
+- id: MSP-NY-T31
+  title: "Single, $1,500 gross, pays $100/mo support: QMB either way, so the open support question does not matter"
+  as_of: '2026-03-01'
+  tags:
+  - single
+  - threshold
+  - edge
+  household:
+    state: ny
+    members:
+    - id: a
+      age: 70
+      medicare_part_a: true
+      medicare_part_b: true
+      facts:
+        support_paid_monthly: 100
+    incomes:
+    - kind: social_security
+      monthly: 1500
+      owner: a
+    assets: []
+  expect:
+    status: eligible
+    tier: QMB
+    rules_include:
+    - MSP-NY-SUPPORT-PAID
+  crosscheck:
+    policyengine: false
 - id: MSP-X-01
   title: "Cross-playbook (Extra Help): SS $1,700, $40,000 savings \u2014 QMB deems Extra Help though she would fail the Extra\
     \ Help asset test applying directly"

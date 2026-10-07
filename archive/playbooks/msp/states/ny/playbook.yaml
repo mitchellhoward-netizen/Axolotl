@@ -121,6 +121,130 @@ rules:
       - {source: ny-doh-msp-2026, locator: "Note: Medicaid allows a $20 deduction from applicant's gross monthly income"}
       - {source: ny-mrg-income, locator: "SSI-Related Disregards: EARNED INCOME ($65 and 1/2); UNEARNED INCOME (one $20 per couple)"}
       - {source: nysofa-hiicap-msp-2026, locator: "Important budgeting considerations: Medicaid rules for counting income under the DAB category ... are used for MSP applications"}
+  - id: MSP-NY-HEALTH-PREMIUMS
+    statement: >-
+      When New York decides Medicare Savings Program eligibility (QMB, QI and
+      QDWI alike), health insurance premiums the applicant or a living-with
+      spouse pays, other than the Medicare Part B premium, are deducted from
+      income after the $20 and earned income disregards; this includes
+      Medigap, union or retiree health plan, prescription drug (Part D),
+      dental and long-term care insurance premiums, so a person whose gross
+      income is over the QMB or QI limit can still qualify once those
+      premiums are subtracted.
+    kind: definition
+    applies_to: [QMB, QI, QDWI]
+    effective_from: 1999-08-01
+    implemented_in: playbooks/msp/states/ny/rules.py:evaluate
+    confidence: confirmed
+    note: >-
+      The Medicaid Reference Guide pages carrying this rule are dated August
+      1999 (premium deduction for SSI-related budgeting) and February 2005
+      (SSI-related budgeting is used for the MSP); 11 OHIP/ADM-2 (March 11,
+      2011) applies it to "MSP cases" without distinguishing tiers, and the
+      current DOH-4328 (11/23) still asks for the amount. The MRG lists the
+      qualifying policies as "Medicare Parts A & B, Blue Cross, Blue Shield,
+      Major Medical insurance, dental insurance, prescription drug insurance,
+      long term care insurance, union health fund premiums, and other hospital
+      and medical insurance"; that a Medicare Advantage plan premium or a
+      vision-only policy counts is an inference from "other hospital and
+      medical insurance", not stated. The MRG orders the deduction from
+      unearned income first (after the $20) and any remainder from earned
+      income after the $65-and-half; for countable income the result is the
+      same as subtracting the premiums from the total, which is what the
+      evaluator does (floored at zero). Income-protection and per-day hospital
+      indemnity policies "may be considered" only if assignable and
+      cost-effective; the evaluator does not model that case. The amount is
+      the premium actually paid by the person (household fact
+      health_insurance_premiums_monthly); a premium paid by a former employer
+      or union fund is not paid by the person.
+    sources:
+      - {source: ny-adm-11-ohip-02, locator: "III.A, page 4", quote: "Health insurance premiums other than Medicare Part B are an allowable income deduction for MSP cases"}
+      - {source: ny-mrg-income, locator: "SSI-RELATED BUDGETING METHODOLOGY, HEALTH INSURANCE PREMIUMS (pp. 239-241)", quote: "In determining eligibility for SSI-related persons, health insurance premiums are deducted if they are paid by the A/R."}
+      - {source: ny-mrg-income, locator: "SSI-RELATED BUDGETING METHODOLOGY, Policy (p. 231)", quote: "SSI-related budgeting is used for Medicaid A/Rs for whom payment or part payment of the Medicare premiums, coinsurance and deductibles is made."}
+      - {source: ny-mrg-income, locator: "SSI-RELATED BUDGETING METHODOLOGY, DETERMINATION OF ELIGIBILITY, steps B-3 and B-4 (pp. 251-252)", quote: "Deduct health insurance premiums if paid from unearned income."}
+      - {source: ny-doh-4328, locator: "MEDICARE INFORMATION", quote: "Do you or your spouse pay any health insurance premiums other than Medicare?"}
+      - {source: ny-doh-4328-instructions, locator: "Step 5", quote: "Proof of any other health insurance premium that you pay other than Medicare"}
+      - {source: ny-nycrr-360-4-6-lii, locator: "360-4.6(a)(2)(vii)", quote: "health insurance premiums"}
+      - {source: nysofa-hiicap-msp-2026, locator: "Income limits ... Ask a Medicaid counselor about whether you can subtract certain expenses from your income."}
+  - id: MSP-NY-PART-B-NOT-DEDUCTED
+    statement: >-
+      In New York the Medicare Part B premium itself (the amount withheld
+      from Social Security) is not deducted from income when Medicare Savings
+      Program eligibility is decided; income is counted before the Part B
+      withholding, and only other health insurance premiums are subtracted.
+    kind: definition
+    applies_to: [QMB, QI, QDWI]
+    effective_from: 2011-03-11
+    implemented_in: playbooks/msp/states/ny/rules.py:evaluate
+    confidence: confirmed
+    note: >-
+      Effective date is the directive's date; the DOH-4328 asks only about
+      premiums "other than Medicare". The Medicare Part A premium paid by a
+      person using the Part A Buy-in is not addressed by any source found
+      (MSP-NY-OQ-08); the evaluator does not deduct it.
+    open_question: MSP-NY-OQ-08
+    sources:
+      - {source: ny-adm-11-ohip-02, locator: "III.A, page 4", quote: "Health insurance premiums other than Medicare Part B are an allowable income deduction for MSP cases"}
+      - {source: ny-mrg-income, locator: "MEDICARE SAVINGS PROGRAM, Interpretation (p. 167)", quote: "the Medicare premium cannot be applied in whole or in part to reduce excess income"}
+      - {source: ny-doh-4328, locator: "MEDICARE INFORMATION", quote: "health insurance premiums other than Medicare"}
+  - id: MSP-NY-SUPPORT-PAID
+    statement: >-
+      Whether New York deducts court-ordered child or spousal support that an
+      adult Medicare Savings Program applicant pays is not established: the
+      DOH-4328 asks for the monthly amount, but the Medicaid Reference Guide
+      deducts support paid only when income is allocated to children in the
+      household, and the regulation's list of disregards for people 65 or
+      older, blind or disabled does not include it.
+    kind: definition
+    applies_to: [QMB, QI]
+    effective_from: 2009-11-01
+    implemented_in: playbooks/msp/states/ny/rules.py:evaluate
+    confidence: unresolved
+    note: >-
+      The evaluator does not deduct support paid; when deducting it would
+      change the tier or eligibility it returns undetermined with
+      MSP-NY-OQ-07. The agent should tell a member who pays support and is
+      near a limit to report it on the DOH-4328 and let the district decide.
+      Support RECEIVED is countable income (one-third of support received by
+      a disabled child is disregarded; not relevant to retirees).
+    open_question: MSP-NY-OQ-07
+    sources:
+      - {source: ny-doh-4328, locator: "MEDICARE INFORMATION", quote: "Do you or your spouse pay child/spousal support?"}
+      - {source: ny-mrg-income, locator: "ALLOCATION, Interpretation (1)(c) (p. 235)", quote: "after deducting any court-ordered support paid by the non-SSI-related spouse from his/her unearned income"}
+      - {source: ny-mrg-income, locator: "SSI-RELATED BUDGETING METHODOLOGY, DETERMINATION OF ELIGIBILITY, steps B-3 to B-5 (pp. 251-252)"}
+      - {source: ny-nycrr-360-4-6-lii, locator: "360-4.6(a)(2)(i)-(xxiv)"}
+  - id: MSP-NY-RETIREE-DISREGARDS
+    statement: >-
+      When New York decides Medicare Savings Program eligibility it does not
+      count, among other items, German, Austrian or Netherlands reparation
+      payments for Nazi persecution, Japanese-American and Aleut restitution
+      payments, VA Aid and Attendance, housebound and unusual medical expense
+      payments, the reduced $90 VA pension, Agent Orange settlement payments,
+      refunds of real estate or food taxes from a public agency, income tax
+      refunds, legal fees and other expenses of obtaining an income payment,
+      volunteer stipends under the Domestic Volunteer Service Act (for
+      example the senior companion and foster grandparent programs), and
+      interest or dividends from most resources.
+    kind: definition
+    applies_to: [QMB, QI, QDWI]
+    effective_from: 2011-06-01
+    confidence: confirmed
+    note: >-
+      Selected from the Medicaid Reference Guide's SSI-related disregards list
+      (pages dated 2005-2011) for items a union retiree plausibly has; the
+      list is longer. Not modelled in the evaluator: a household should not
+      list these payments as income. Interest/dividend income is countable
+      only from the resources the MRG's DIVIDENDS AND INTEREST section names;
+      which ones was not extracted here. Withholding to recover an
+      overpayment is excluded only when the person had Medicaid at the time
+      and the overpaid amount was counted for Medicaid, so a Social Security
+      overpayment recovery is generally still counted (inference from the
+      MRG wording). The infrequent or irregular income amounts differ between
+      the MRG and the regulation (MSP-NY-CONFLICT-04).
+    sources:
+      - {source: ny-mrg-income, locator: "SSI-RELATED DISREGARDS (pp. 220-230): PERSECUTION PAYMENTS; VETERANS; REDUCED (LIMITED) $90 VETERANS' ADMINISTRATION PENSION; VIETNAM VETERANS - Agent Orange; REFUNDS; INCOME TAX REFUNDS; EXPENSES OF OBTAINING INCOME; VOLUNTEER PROGRAM PAYMENTS; INTEREST/DIVIDEND INCOME; OVERPAYMENTS", quote: "Payments to veterans for Aid & Attendance (A&A) or payments for Unusual Medical Expenses (UME)."}
+      - {source: ny-mrg-income, locator: "SSI-RELATED DISREGARDS, Interpretation (p. 230)", quote: "The types of income listed previously are not considered in determining eligibility for Medicaid for the SSI-related category."}
+      - {source: ny-nycrr-360-4-6-lii, locator: "360-4.6(a)(2)(ii), (viii), (ix), (xxii)", quote: "all reparations payments received from the Federal Republic of Germany"}
   - id: MSP-NY-COUPLE
     statement: >-
       In New York, when two spouses live together, Medicare Savings Program
@@ -680,6 +804,33 @@ open_questions:
     checked: [NYSOFA HIICAP Module 9]
     affects: [MSP-NY-ESTATE]
     status: open
+  - id: MSP-NY-OQ-07
+    priority: medium
+    question: >-
+      Does New York deduct court-ordered child or spousal support that an
+      adult (or a living-with spouse) pays when budgeting the Medicare Savings
+      Program, and if so is it deducted for QMB and QI alike? The DOH-4328
+      asks for the amount, but the MRG deducts support paid only in the
+      allocation/deeming steps for households with children, and 18 NYCRR
+      360-4.6(a)(2) does not list it.
+    why_it_matters: >-
+      A member near the QMB or QI limit who pays support could be told the
+      wrong tier; the evaluator returns undetermined in those cases.
+    checked: [DOH-4328 and instructions, Medicaid Reference Guide income chapter (SUPPORT PAYMENTS, SSI-RELATED DISREGARDS, ALLOCATION, DEEMING, DETERMINATION OF ELIGIBILITY), 18 NYCRR 360-4.6 (LII copy), 11 OHIP/ADM-2, NYSOFA HIICAP Module 9, web search for a DOH GIS on support paid]
+    affects: [MSP-NY-SUPPORT-PAID]
+    status: open
+  - id: MSP-NY-OQ-08
+    priority: low
+    question: >-
+      Is a Medicare Part A premium paid by a person entering through the Part
+      A Buy-in (or a QI applicant who pays Part A) deducted as a health
+      insurance premium in New York MSP budgeting? 11 OHIP/ADM-2 excludes
+      only "Medicare Part B"; the MRG list of qualifying premiums names
+      "Medicare Parts A & B".
+    why_it_matters: Rare among union retirees, but it could move a person from QI to QMB.
+    checked: [11 OHIP/ADM-2, Medicaid Reference Guide HEALTH INSURANCE PREMIUMS, DOH-4328]
+    affects: [MSP-NY-PART-B-NOT-DEDUCTED]
+    status: open
 
 conflicts:
   - id: MSP-NY-CONFLICT-01
@@ -734,6 +885,23 @@ conflicts:
     affects: [MSP-NY-QDWI]
     status: resolved
 
+  - id: MSP-NY-CONFLICT-04
+    topic: Size of the infrequent or irregular income disregard
+    claims:
+      - source: ny-mrg-income
+        locator: "SSI-RELATED DISREGARDS, INFREQUENT OR IRREGULAR INCOME (p. 224.1, updated June 2011)"
+        says: The first $30 of earned income and the first $60 of unearned income in a calendar quarter is disregarded if received infrequently or irregularly.
+      - source: ny-nycrr-360-4-6-lii
+        locator: "360-4.6(a)(2)(x)"
+        says: Infrequently or irregularly received income up to $20 of unearned income per month and $10 of earned income per month is disregarded.
+    handling: >-
+      Not modelled (a household's income is entered as regular monthly
+      amounts). The MRG is the later, operational instruction to districts;
+      the LII copy of the regulation may lag. A benefits expert should
+      confirm which amount districts apply.
+    affects: [MSP-NY-RETIREE-DISREGARDS]
+    status: open
+
 claims_checked:
   - claim: New York has no asset test for the Medicare Savings Program.
     verdict: verified
@@ -759,3 +927,31 @@ claims_checked:
     verdict: verified
     detail: QMB and QI are deemed eligible for Extra Help by CMS (federal rule); QDWI is not.
     sources: [{source: ssa-poms-hi-03001-005, locator: "A."}]
+  - claim: >-
+      The DOH-4328 questions about other health insurance premiums and
+      child/spousal support suggest New York deducts health insurance premiums
+      (union retiree plan, Medigap, Part D) and court-ordered support when
+      deciding MSP eligibility.
+    verdict: partly_verified
+    detail: >-
+      Premiums: verified. 11 OHIP/ADM-2 says health insurance premiums other
+      than Medicare Part B are an allowable income deduction for MSP cases,
+      and the MRG's SSI-related budgeting (used for the MSP) deducts premiums
+      paid for hospital, medical, dental, drug, long-term care and union
+      health fund coverage. The Part B premium itself is not deducted.
+      Support paid: not verified for an adult applicant (MSP-NY-OQ-07).
+    sources:
+      - {source: ny-adm-11-ohip-02, locator: "III.A, page 4"}
+      - {source: ny-mrg-income, locator: "SSI-RELATED BUDGETING METHODOLOGY, HEALTH INSURANCE PREMIUMS"}
+  - claim: >-
+      NYSOFA: "You may qualify even if your income is slightly higher. Ask a
+      Medicaid counselor about whether you can subtract certain expenses from
+      your income."
+    verdict: verified
+    detail: >-
+      The expense New York's primary sources clearly subtract for the MSP is
+      health insurance premiums other than Part B (MSP-NY-HEALTH-PREMIUMS);
+      certain income is also not counted at all (MSP-NY-RETIREE-DISREGARDS).
+    sources:
+      - {source: nysofa-hiicap-msp-2026, locator: "Income limits"}
+      - {source: ny-adm-11-ohip-02, locator: "III.A, page 4"}
