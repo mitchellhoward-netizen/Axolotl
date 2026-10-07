@@ -48,7 +48,7 @@ explanations:
       IDHS gives the AC/Heating standard (PM 13-01-08-b; MR #25.33). PolicyEngine
       has no LIHEAP-receipt input in its SNAP utility logic, so it allows no
       utility allowance.
-  - cases: [SNAP-NY-T01, SNAP-NY-T16, SNAP-NY-T19, SNAP-NY-T22]
+  - cases: [SNAP-NY-T01, SNAP-NY-T16, SNAP-NY-T18, SNAP-NY-T19, SNAP-NY-T22]
     reason: >-
       New York utility allowances. PolicyEngine treats New York as a state where
       every household gets the full Heating/Air Conditioning SUA
@@ -56,10 +56,22 @@ explanations:
       separate SUAs; the archive gives the HT/AC SUA only to households paying
       heating/cooling (or, after Public Law 119-21, HEAP households with an
       aged/disabled member), the Utility SUA ($355 upstate) to households with
-      two or more other utility bills, the Phone SUA to phone-only households,
+      a separate non-heating utility bill, the Phone SUA to phone-only households,
       and nothing when all utilities are in the rent (SNAP-NY-SUA,
       SNAP-NY-HEAP-SUA; in NY-T22 the HEAP payment no longer confers the SUA on
       a household without an elderly or disabled member).
+  - cases: [SNAP-NY-T17, SNAP-NY-T28]
+    reason: >-
+      New York FY 2027 and regional utility allowances. Both households pay
+      heat, so both sides give the HT/AC SUA, but PolicyEngine uses one
+      statewide figure and has no FY 2027 New York value: it budgets $877 (the
+      FY 2026 rest-of-state amount) for an Albany household in November 2026
+      and for a Brooklyn couple. The archive uses the FY 2027 regional amounts
+      ($908 rest of state, $1,100 New York City; SNAP-NY-SUA-FY27, resting on
+      Hunger Solutions New York's 2026-27 sheet and CSS's calculator because
+      OTDA GIS 26 DC045 could not be retrieved). With no shelter cap (elderly
+      members) the extra $31 / $223 of shelter cost lowers net income and
+      raises the benefit by $10 (T17) and $67 (T28).
   - cases: [SNAP-NY-T14]
     reason: >-
       New York BBCE scope. PolicyEngine gives every New York household an

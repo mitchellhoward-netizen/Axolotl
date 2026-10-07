@@ -293,7 +293,7 @@ open_questions:
     priority: low
     question: Retrieve the official text of Education Law 915-a (nysenate.gov refuses scripted requests) to replace the third-party copy.
     why_it_matters: Statute text is cited from public.law; rules are confirmed by the NYSED memo.
-    checked: [www.nysenate.gov (Cloudflare 403 to scripts and headless Chromium), legislation.nysenate.gov Open Legislation PDF, NYSED SNAP outreach memo of March 30, 2026]
+    checked: [www.nysenate.gov (Cloudflare 403 to scripts and headless Chromium), legislation.nysenate.gov Open Legislation PDF, "NYSED SNAP outreach memo of March 30, 2026"]
     affects: [SCH-NY-UNIVERSAL-MEALS]
     status: answered
     answer: >-
