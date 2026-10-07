@@ -1,0 +1,19 @@
+fund,retirees,avg_benefit,band,likely_missing,unclaimed_per_year,fund_pays_share_of_part_b,fund_saving_ceiling,note,source
+1199SEIU National Benefit Fund (hospital & nursing home),82266,1027,1000_1499,6065,14768188,0.5,7384094,50% of standard Part B for Wage Class I/II retirees (generally 10+ yrs) and spouses; NYC government retirees excluded,funds_1199.md 4-11
+IATSE National (H&W pays $240/quarter toward Part B),2938,670,500_999,480,1168106,0.39,460564,national; flat $80/mo toward Part B,funds_trades.md
+"National Retirement Fund (Workers United), Legacy",86306,147,under_500,28141,68516791,0.0,0,national fund; closed Local 15 Part B-equal pension supplement only,funds_industrial.md
+1199SEIU Home Care,32333,75,under_500,10542,25668591,0.0,0,no retiree health (Home Care Benefit Fund SPD 2025),funds_1199.md 19
+"UNITE HERE Retirement Fund, Legacy",27230,355,under_500,8879,21617410,0.0,0,14 states; closed Local 15 supplement only,funds_industrial.md
+32BJ,35057,584,500_999,5725,13938152,0.0,0,retiree health 62 to 65 only,funds_service.md
+Amalgamated Insurance Fund retirement plan,15226,78,under_500,4965,12087649,0.0,0,national; no Part B payment found,funds_industrial.md
+Hotel Trades Council,18708,786,500_999,3055,7438028,0.0,0,post-65 coverage via Health Centers; retiree pays Part B; Part D rule risk,funds_service.md
+UFCW Local One,7613,492,under_500,2482,6043825,0.0,0,retiree benefit ends at 65,funds_service.md
+IUE-CWA,6824,363,under_500,2225,5417452,0.0,0,national; not found,funds_industrial.md
+32BJ North,4678,468,under_500,1525,3713781,0.0,0,see 32BJ,funds_service.md
+ATU Division 1181 (school bus),5979,856,500_999,976,2377163,0.0,0,"fund pays Part B deductible + 20%, not the premium",funds_trades.md
+DC 37 Local 389 Home Care,2992,166,under_500,976,2375295,0.0,0,no retiree health found; critical status,funds_service.md
+JIB Employees Security Fund (IBEW Local 3 M&S),2874,283,under_500,937,2281617,0.0,0,drug/dental/optical only,funds_trades.md
+UFCW Local 1500,5444,545,500_999,889,2164455,0.0,0,not found,funds_service.md
+Laundry Workers (Workers United),2540,287,under_500,828,2016461,0.0,0,not found,funds_industrial.md
+32BJ School Workers,3987,536,500_999,651,1585173,0.0,0,see 32BJ,funds_service.md
+Local 1102,1525,156,under_500,497,1210670,0.0,0,no retiree health found,funds_service.md
