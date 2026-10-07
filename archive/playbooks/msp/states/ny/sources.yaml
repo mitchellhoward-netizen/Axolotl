@@ -126,3 +126,29 @@ sources:
     jurisdiction: ny
     doc_type: directive
     published: 2023-05-26
+  - id: ny-adm-11-ohip-02
+    retrieved: 2026-10-07
+    url: https://healthweb-back.health.ny.gov/health_care/medicaid/publications/docs/adm/11adm-2.pdf
+    publisher: New York State Department of Health, Office of Health Insurance Programs
+    title: 11 OHIP/ADM-2 — Automated Enrollment into the Medicare Savings Program in Upstate New York under MIPPA
+    kind: primary
+    jurisdiction: ny
+    doc_type: directive
+    published: 2011-03-11
+    note: >-
+      Describes the 2011 tiers (QMB 100%, SLIMB 120%, QI 135% FPL); used here
+      for its statement of MSP budgeting policy on other health insurance
+      premiums (page 4), which later directives were not found to change.
+  - id: ny-nycrr-360-4-6-lii
+    retrieved: 2026-10-07
+    url: https://www.law.cornell.edu/regulations/new-york/18-NYCRR-360-4.6
+    publisher: Legal Information Institute, Cornell Law School (copy of 18 NYCRR)
+    title: 18 NYCRR 360-4.6 — Net available income and resources (Medicaid income disregards) (third-party copy)
+    kind: secondary
+    jurisdiction: ny
+    doc_type: regulation
+    note: >-
+      Third-party hosting of the DOH Medicaid regulation; the official NYCRR
+      (govt.westlaw.com) refused scripted requests in this build (see the SNAP
+      and disability playbooks). Used only to cross-check the Medicaid
+      Reference Guide, which cites this section.

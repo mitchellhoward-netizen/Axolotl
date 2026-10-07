@@ -308,15 +308,14 @@
     const lang = form.dataset.lang;
     const out = (k) => form.querySelector(`[data-out="${k}"]`);
     const update = () => {
-      const share = Number(form.elements.eligibleShare.value) / 100;
-      out("share").textContent = `${Math.round(share * 100)}%`;
       const t = calc.fundText(rules, {
         retirees: form.elements.retirees.value,
         reimbursed: Number(form.elements.reimbursed.value),
-        eligibleShare: share,
+        pension: form.elements.pension.value,
         fee: 0.2,
       }, tpl, lang);
-      for (const k of ["eligible", "gross", "fee", "net", "retirees", "perRetiree"]) show(out(k), t[k]);
+      for (const k of ["pool", "poolRange", "enrolled", "enrolledRange", "saved", "savedRange", "fee", "net",
+        "retirees", "perRetiree", "ceiling", "timing"]) show(out(k), t[k]);
     };
     form.addEventListener("input", update);
     form.addEventListener("submit", (e) => e.preventDefault());
@@ -336,6 +335,7 @@
         onMedicare: Number(form.elements.onMedicare.value),
         unearned: form.elements.unearned.value,
         earned: form.elements.earned.value,
+        premiums: form.elements.premiums.value,
         reimbursed: Number(form.elements.reimbursed.value),
         partA: form.elements.partA.value === "yes",
         medicaid: form.elements.medicaid.value === "yes",

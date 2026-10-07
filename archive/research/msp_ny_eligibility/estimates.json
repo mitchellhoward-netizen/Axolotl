@@ -1,0 +1,57 @@
+{
+  "source": "ACS 2024 1-year PUMS, New York (psam_p36.csv)",
+  "url": "https://www2.census.gov/programs-surveys/acs/data/pums/2024/1-Year/csv_pny.zip",
+  "computed": "2026-10-07",
+  "line": "186% of the 2024 HHS poverty guideline",
+  "universe": "New Yorkers 65+ reporting Medicare",
+  "groups": {
+    "all": {
+      "share_under_line": 0.4087,
+      "moe90": 0.0056,
+      "people": 3566459,
+      "sample_rows": 47227
+    },
+    "with_pension": {
+      "share_under_line": 0.1926,
+      "moe90": 0.0065,
+      "people": 1693459,
+      "sample_rows": 23791
+    },
+    "no_pension_all": {
+      "share_under_line": 0.6041,
+      "moe90": 0.0076,
+      "people": 1873000,
+      "sample_rows": 23436
+    },
+    "under_500": {
+      "share_under_line": 0.5181,
+      "moe90": 0.0161,
+      "people": 382253,
+      "sample_rows": 5271
+    },
+    "500_999": {
+      "share_under_line": 0.3025,
+      "moe90": 0.0142,
+      "people": 281224,
+      "sample_rows": 3933
+    },
+    "1000_1499": {
+      "share_under_line": 0.1503,
+      "moe90": 0.0176,
+      "people": 194501,
+      "sample_rows": 2771
+    },
+    "1500_1999": {
+      "share_under_line": 0.0626,
+      "moe90": 0.0147,
+      "people": 143706,
+      "sample_rows": 2115
+    },
+    "2000_plus": {
+      "share_under_line": 0.007,
+      "moe90": 0.0019,
+      "people": 691775,
+      "sample_rows": 9701
+    }
+  }
+}

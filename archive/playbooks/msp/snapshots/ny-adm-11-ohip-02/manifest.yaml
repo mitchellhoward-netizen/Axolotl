@@ -1,0 +1,8 @@
+- retrieved: '2026-10-07'
+  url: https://healthweb-back.health.ny.gov/health_care/medicaid/publications/docs/adm/11adm-2.pdf
+  final_url: https://healthweb-back.health.ny.gov/health_care/medicaid/publications/docs/adm/11adm-2.pdf
+  status: 200
+  content_type: application/pdf
+  text_sha256: ecd16e2ad8e0bb41df8defba2a7379b91e2ed13b9c201c8a62a18ed0c939d4b9
+  text: ny-adm-11-ohip-02/2026-10-07.txt
+  raw: ny-adm-11-ohip-02/2026-10-07.pdf

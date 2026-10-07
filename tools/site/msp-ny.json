@@ -77,5 +77,54 @@
         "ny-doh-msp-2026"
       ]
     }
+  },
+  "estimates": {
+    "eligible_share_by_pension": {
+      "with_pension": {
+        "share": 0.1926,
+        "moe90": 0.0065
+      },
+      "under_500": {
+        "share": 0.5181,
+        "moe90": 0.0161
+      },
+      "500_999": {
+        "share": 0.3025,
+        "moe90": 0.0142
+      },
+      "1000_1499": {
+        "share": 0.1503,
+        "moe90": 0.0176
+      },
+      "1500_1999": {
+        "share": 0.0626,
+        "moe90": 0.0147
+      },
+      "2000_plus": {
+        "share": 0.007,
+        "moe90": 0.0019
+      }
+    },
+    "eligible_source": "ACS 2024 1-year PUMS, New York (psam_p36.csv)",
+    "take_up_among_eligible": {
+      "low": 0.4,
+      "middle": 0.55,
+      "high": 0.65
+    },
+    "enroll_after_outreach": {
+      "low": 0.05,
+      "middle": 0.15,
+      "high": 0.25
+    },
+    "months_until_savings": {
+      "low": 2,
+      "middle": 4,
+      "high": 6
+    },
+    "retained_per_year": {
+      "low": 0.83,
+      "middle": 0.89,
+      "high": 0.95
+    }
   }
 }

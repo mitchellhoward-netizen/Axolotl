@@ -1,0 +1,770 @@
+STATE OF NEW YORK
+DEPARTMENT OF HEALTH
+Corning Tower The Governor Nelson A. Rockefeller Empire State Plaza Albany, New York 12237
+www.health.ny.gov
+
+Nirav R. Shah, M.D., M.P.H. Sue Kelly
+Commissioner Executive Deputy Commissioner
+
+ADMINISTRATIVE DIRECTIVE TRANSMITTAL: 11 OHIP/ADM-2
+
+TO: Commissioners of DIVISION: Office of Health
+Social Services Insurance Programs
+
+DATE: March 11, 2011
+
+SUBJECT: Automated Enrollment into the Medicare Savings Program in Upstate
+New York under the Medicare Improvements for Patients and Providers
+Act of 2008 (MIPPA)
+
+SUGGESTED Local District Commissioners
+DISTRIBUTION: Medicaid Staff
+Temporary Assistance Staff
+Staff Development Coordinators
+Fair Hearing Staff
+
+CONTACT Local District Liaison:
+PERSON: Upstate: (518)474-8887
+New York City: (212)417-4500
+
+ATTACHMENTS: Attachment I - DOH-4496, Medicare Savings Program Request
+for Information
+Attachment II - OHIP-0037, Option to Receive Medicare
+Savings Program (MSP) Benefit
+Attachment III - OHIP-0026, Explanation of the Excess
+Income Program
+Attachment IV - OHIP-0035, Request for Information Cover
+Letter
+Attachment V - OHIP-0014, Notice of Transition of Your
+MA/FHP/FHP-PAP/FPBP and/or MSP Coverage (County A)
+Attachment VI – OHIP-0015, Notice of Transition of Your
+MA/FHP/FHP-PAP/FPBP and/or MSP Coverage (County B)
+Attachment VII – OHIP-0051, Notice of Medicare Savings
+Program Case Opened in Error
+
+FILING REFERENCES
+
+Previous Releases Dept. Regs. Soc. Serv. Manual Ref. Misc. Ref.
+ADMs/INFs Cancelled Law & Other
+Legal Ref.
+
+10 OHIP/ADM-3 Sec. 1144. 08 OHIP/LCM-1
+08 OHIP/ADM-4 [42 U.S.C. GIS 05 MA/024
+05 OMM/ADM-5 1320b-14]of GIS 04 MA/013
+10 OHIP/INF-3 the Social
+Security Act
+PL 110-275,
+Section 113
+
+Date: March 11, 2011
+
+Trans. No. 11 OHIP/ADM-2 Page No. 2
+
+I. Purpose
+
+The purpose of this Office of Health Insurance Programs Administrative
+Directive (OHIP/ADM) is to advise local departments of social services
+(LDSS) of changes to the implementation of Section 113 of the Medicare
+Improvements for Patients and Providers Act of 2008 (MIPPA), which
+requires applications for the federal Low Income Subsidy program to be
+considered an application for the Medicare Savings Program (MSP).
+
+II. BACKGROUND
+
+The Low Income Subsidy (also known as “Extra Help”) is a Medicare
+benefit program administered by the Social Security Administration
+(SSA) to help low income Medicare beneficiaries pay for prescription
+drug costs associated with their Medicare Part D benefits. The
+Medicare Savings Program is a Medicaid benefit that helps Medicare
+beneficiaries pay for costs associated with Medicare Part A and Part
+B. As part of an effort to decrease barriers to enrollment, Section
+113 of the MIPPA states that an application to SSA for the Low Income
+Subsidy (LIS) program for Medicare Part D benefits will also be used
+to initiate an application for benefits under the Medicare Savings
+Program. This statutory requirement is intended to improve enrollment
+in both the Medicare Part D Low Income Subsidy program, administered
+by the Social Security Administration, and the Medicare Savings
+Program, administered by the states.
+
+III. PROGRAM IMPLICATIONS
+
+Beginning January 1, 2010, with the consent of the applicant, SSA
+began transmitting data received from the LIS “Extra Help” application
+to the State for consideration of the applicant's eligibility for the
+Medicare Savings Program. The State receives this information via an
+electronic file from SSA each day that SSA makes LIS eligibility
+determinations. This data must be treated as if the individual had
+applied for the MSP directly to the Medicaid program.
+
+To minimize the workload this increase in MSP applications has created
+for local departments of social services, the New York State
+Department of Health (NYSDOH) is automating as much of the application
+process as possible. By automating this process, the LDSS are
+relieved of the responsibility for review and determination of
+benefits for the majority of MSP applications received from SSA.
+
+Upon receipt of the file from SSA, each application will be matched
+against the Welfare Management System (WMS). If a Client
+Identification Number (CIN) exists in WMS for the individual, it will
+be used to register the application, barring certain circumstances.
+When a match in WMS is not found, a CIN will be generated for the
+applicant. Once the application is registered, it will be
+automatically accepted or denied, or listed on an Exception Report for
+manual processing.
+
+Date: March 11, 2011
+
+Trans. No. 11 OHIP/ADM-2 Page No. 3
+
+A. Applications Accepted through the Automated Process
+
+Eligible applications from SSA indicating a net income level below
+135% of the current Federal Poverty Level (FPL) will trigger an
+automatic opening of a MSP case by the State, using new opening
+codes created for this purpose. (Refer to Section VI.) Cases
+will be authorized based upon the date of application to SSA, not
+the date the application is received by the State.
+
+The net income level indicated on the SSA file will be compared to
+the current Federal Poverty Levels to determine the applicant’s
+MSP category: Qualified Medicare Beneficiary (QMB) 100% FPL;
+Specified Low Income Medicare Beneficiary (SLIMB) 120% FPL; or
+Qualifying Individual (QI) 135% FPL. Income information will not
+be stored on the Medicaid Budget Logic (MBL) system.
+
+Note: LIS application data sent by SSA to the State has been
+verified by SSA and is sufficient for documentation of identity,
+income, residence and citizenship.
+
+Individuals determined eligible for MSP benefits based on the
+income information received from SSA will be sent an acceptance
+notice by the State through the Client Notice System (CNS). The
+notice will inform the individual of their MSP category. The
+acceptance notice will include the revised “Medicare Savings
+Program Request for Information” form (Attachment I), which is
+designed to collect additional demographic and financial
+information not collected on the LIS application, or for the
+recipient to report a change in circumstances.
+
+The “Medicare Savings Program Request for Information” form may be
+completed by the MSP recipient and returned to the local district.
+Recipients may use this form to request consideration for
+retroactive MSP coverage, if applicable, to provide information
+about other health insurance premiums paid, or to report income
+information. The recipient will be instructed to return the form
+to his or her LDSS office, and the LDSS will be responsible for
+acting on information received on this form in a timely manner.
+Returning the “Medicare Savings Program Request for Information”
+form is optional for cases that were opened through the automated
+process. If the individual does not return the form, they will
+continue to receive the benefit indicated on their acceptance
+notice.
+
+Additional financial information provided by the recipient may
+affect the MSP level of benefits the individual is entitled to
+receive. If the income reported on the “Medicare Savings Program
+Request for Information” form supports a different MSP category
+than the MSP category determined through the automated process,
+verification of income must be provided prior to changing the MSP
+level. When a change in MSP category is indicated, the LDSS
+district must change the MSP code in WMS and in eMedNY and send
+the appropriate undercare notice.
+
+Date: March 11, 2011
+
+Trans. No. 11 OHIP/ADM-2 Page No. 4
+
+Recipients may indicate on the returned “Medicare Savings Program
+Request for Information” form that they are paying health
+insurance premiums other than Medicare. Health insurance premiums
+other than Medicare Part B are an allowable income deduction for
+MSP cases; however, SSA does not collect this information on the
+LIS application. If the individual indicates and provides proof
+that they pay such premiums, an MBL budget must be calculated to
+determine if a change in MSP category is appropriate. If a change
+in category is indicated, the district must process the change and
+send the appropriate notice.
+
+Recipients may use the “Medicare Savings Program Request for
+Information” form to request retroactive MSP benefits. The policy
+for retroactive MSP benefits has not changed. Individuals
+eligible for QMB are not entitled to retroactive benefits.
+Recipients eligible for SLIMB and QI may be entitled to
+retroactive benefits for three months prior to the date of the LIS
+application if they are otherwise eligible. Retroactive QI
+benefits may not be provided for a previous calendar year.
+
+Recipients may indicate on the “Medicare Savings Program Request
+for Information” form that they would like to apply for full
+Medicaid benefits. In this case, the local district must send the
+Access NY Health Care application and Supplement A, if applicable,
+to the MSP recipient. The recipient must complete the application
+and comply with all current procedures for applying for Medicaid
+benefits.
+
+New QMB, SLIMB and QI cases should be selected for annual renewal
+according to the current renewal process. QI cases will be
+authorized through 12/31/2049, as they are currently.
+
+Automated eMedNY Implications
+
+The State will enter all necessary transactions in eMedNY to
+create Medicare coverage and Buy-In date spans for applications
+accepted through the automated process. For all MSP categories,
+the “Begin Date” for Medicare Part A and Part B coverage will be
+the first day of the month of application to SSA for LIS. The
+Medicare coverage “Begin Date” can be updated by the LDSS if
+retroactive benefits are authorized.
+
+For individuals found eligible for SLIMB and QI benefits, the MSP
+Buy-In “Begin Date” will be the first day of the month of
+application to SSA for LIS. For those found eligible for QMB
+benefits, the MSP Buy-In “Begin Date” will be the first day of the
+month following the month of application to SSA for LIS. Buy-In
+date spans in eMedNY will be generated by the State and can be
+identified by the Transaction Source Code of “5” (NYSDOH) on the
+Third Party Resource page.
+
+Through the automated process a non-photo Common Benefit
+Identification Card (CBIC) will be issued based on the default
+card code of “N” on screen 5 in WMS to all applicants determined
+to be eligible for QMB benefits. SLIMB and QI cases will default
+to a card code of “X” and a CBIC will not be issued. LDSS-3209,
+“Application Turnaround Document (APTAD),” will be created for any
+cases opened through the automated process.
+
+Date: March 11, 2011
+
+Trans. No. 11 OHIP/ADM-2 Page No. 5
+
+B. Applications Denied through the Automated Process
+
+Some applications transmitted to the State from SSA for MSP
+benefits will be denied through the automated process.
+Applications denied using the automated process will include
+individuals who are:
+
+• FPL; or reported on the SSA file as having income in excess
+of 135% of the
+• denied by SSA as not in receipt of Medicare.
+
+These applicants will be sent a denial notice by the State through
+CNS which will include contact information for the appropriate
+local district. If the applicant is denied MSP benefits for
+excess income, the denial notice will indicate the net income
+derived from the percentage of the Federal Poverty Level for the
+applicant as reported on the SSA file, and compare this amount to
+the highest income level for the Medicaid Savings Program, which
+is 135% of the FPL. The notice will also state that the applicant
+may request a Fair Hearing if he or she disagrees with the
+decision made by the State. (Refer to Section V. for information
+about Fair Hearings.)
+
+IV. REQUIRED ACTION
+
+Each local district will receive a daily Benefits Issuance and Control
+System (BICS) report, WINR5531, of MSP applications received from SSA.
+The report will include name, Client Identification Number (CIN) and
+case number for each application, date of application for LIS, and
+will indicate whether the application was automatically accepted,
+denied, or exceptioned for manual review by the district. An MSP
+application will not be registered if the applicant already has an
+active Medicaid and/or MSP case. (See Section IV.A.1.)
+
+Case numbers assigned through the automated process will contain a
+unique identifier to distinguish them from cases derived through other
+sources and will begin with the letters “LI”. The case number format
+will be LIYYDDD999, where YY is year, DDD is Julian day, and 999 is
+sequence number. The “Office” will be identified as “LIS”, the “Unit”
+will be “MSP”, and the “Worker” will be “NYSSA”. The application will
+remain in “Pend” status for three business days. While the
+application is in “Pend” status, the LDSS may change the case number,
+office, unit, or worker but cannot cancel the case.
+
+A. Applications Exceptioned
+
+Some applications transmitted to the State from SSA will require
+manual review and determination of benefits by the local district.
+These applications and the reason for the exception will appear on
+the BICS WINR5531 report sent to each local district. All
+exceptioned applications appearing on the WINR5531 report must be
+reviewed for MSP eligibility. The LDSS must send the appropriate
+MSP acceptance or a denial notice using current CNS notices once a
+determination of benefits is completed.
+
+Date: March 11, 2011
+
+Trans. No. 11 OHIP/ADM-2 Page No. 6
+
+1. Types of Exceptioned Applications Requiring Manual Processing
+
+a. Individuals already in receipt of MSP (MSPI Value present)
+
+For individuals who are already in receipt of MSP
+benefits, no action is required to be taken.
+
+b. Individuals already in receipt of Medicaid without MSP
+
+For individuals who are in receipt of Medicaid, but not in
+receipt of MSP benefits, districts must review the
+information in the current case record to ascertain
+whether the applicant should have been determined eligible
+for MSP. If found eligible, the district must accrete the
+individual to the Medicare Savings Program and send the
+appropriate notice. (Refer to Section IV.A.2. of this
+ADM.) If after reviewing the case, the individual is
+determined to be ineligible for MSP, the LDSS must deny
+MSP benefits to the individual and send the appropriate
+notice. The current Medicaid case would remain unchanged.
+
+Some individuals who are in receipt of Medicaid may be
+using their Medicare premium as a deduction from income in
+order to qualify for full Medicaid or to reduce their
+spenddown obligation under the Excess Income Program. In
+either case, the LDSS must offer these individuals the
+choice to either participate in the Medicare Savings
+Program or to continue using their Medicare premium to
+qualify for Medicaid. This choice must be offered even if
+the individual has previously stated his or her selection.
+Attached is OHIP-0037, “Option to Receive Medicare Savings
+Program (MSP) Benefit” (Attachment II), that must be sent
+to these individuals allowing them to indicate their
+choice. This form should be sent with OHIP-0026,
+“Explanation of the Excess Income Program” (Attachment
+III).
+
+If the individual does not return the completed form, the
+Medicaid case would remain unchanged and no further action
+would be required. If the recipient returns the form and
+requests payment of Part B premiums, the district must
+recalculate Medicaid eligibility, accrete the individual
+to the Medicare Savings Program and send the appropriate
+MSP acceptance notice and change in eligibility notice.
+(Refer to Section IV.A.2. of this ADM.)
+
+c. Individuals with an “M” suffix on the Health Insurance
+Claim Number (HICN)
+
+Most individuals who are eligible for Medicare Part B are
+also eligible for premium free Part A coverage. However,
+some individuals who are eligible for Medicare Part B do
+not have credit for sufficient work quarters to qualify
+for free Medicare Part A. An “M” suffix on the HICN
+indicates an individual does not have sufficient work
+credit for premium free Medicare Part A.
+
+Date: March 11, 2011
+
+Trans. No. 11 OHIP/ADM-2 Page No. 7
+
+Some individuals are eligible for Medicaid payment of
+their Medicare Part A premium through the Part A Buy-In
+program. Refer to GIS 04 MA/013 for more information on
+Medicare Part A Buy-In procedures.
+
+If an active case exists for the individual, LDSS must
+review the file to determine whether the applicant is
+eligible for the Part A Buy-In program. If the individual
+qualifies for payment of their Medicare Part A premium
+through the Part A Buy-In program, a QMB case should be
+opened and an acceptance notice sent using Reason Code
+X54, Accept Medicare Buy-In Program (QMB). If the
+applicant is not eligible for payment of their Part A
+premium, the application for MSP benefits should be denied
+and a notice sent using Reason Code X52, Deny Medicare
+Buy-In Program (QMB). The current Medicaid case would
+remain unchanged.
+
+If this is a new applicant, LDSS staff must mail the
+“Medicare Savings Program Request for Information” form
+(Attachment I) with the “Request for Information Cover
+Letter” (Attachment IV) to the individual. If the
+applicant does not return the completed form, LDSS must
+send manual denial notice OHIP-0036, “Notice of Denial for
+Medicare Savings Program (Application Received from SSA).”
+
+d. Applications with blank income fields on the SSA file
+
+For new applicants whose income information on the SSA
+file is blank (income field is not completed), the LDSS
+must obtain from the applicant the information necessary
+to process the application. The LDSS must send DOH-4496,
+“Medicare Savings Program Request for Information”
+(Attachment I) with the “Request for Information Cover
+Letter” (Attachment IV) to obtain income information and
+verification necessary to process the application. Once
+the district obtains the necessary income information, a
+MBL budget must be created. An acceptance or a denial
+notice must be sent using current CNS notices once a
+determination of benefits is completed. Applicants who do
+not return the form must be sent manual denial notice
+OHIP-0036, “Notice of Denial for Medicare Savings Program
+(Application Received from SSA).”
+
+Applicants who indicate they have no income ($0 reported
+on the SSA file) will not appear on the daily BICS
+WINR5531 report. These applications will be processed
+automatically since income information was provided by the
+individual and verified by SSA.
+
+2. Manual eMedNY Implications
+
+The LDSS is responsible for processing all MSP applications
+accepted following manual review and for any requests for
+retroactive coverage. The LDSS is also responsible for the
+manual review and determination of benefits for applications
+appearing as exceptioned on the WINR5531 report.
+
+Date: March 11, 2011
+
+Trans. No. 11 OHIP/ADM-2 Page No. 8
+
+a. The LDSS must enter all necessary information in the
+eMedNY Buy-In screens, including the appropriate MSP code
+used to indicate the category of MSP awarded: QMB, SLIMB
+or QI.
+
+b. For all MSP categories, the “Begin Dates” for Medicare
+Part A and Part B coverage are to be entered as the first
+day of the month of application for LIS, unless the
+district has obtained more accurate information from the
+applicant, or if the applicant has been determined
+eligible for retroactive payment of premiums.
+
+c. For individuals found eligible for SLIMB and QI, the MSP
+Buy-In “Begin Date” is equal to the first day of the month
+of application to SSA for LIS, unless the applicant is
+determined eligible for retroactive payment of premiums.
+For those found eligible for QMB, the MSP Buy-In “Begin
+Date” is equal to the first day of the month following the
+month of application for LIS. A Common Benefit
+Identification Card must be issued to all QMB recipients.
+
+d. For individuals found eligible for QMB, a card code of “N”
+must be entered so these recipients will receive a non-
+photo CBIC. For those determined to be eligible for SLIMB
+and QI, a card code of “X” must be entered so a CBIC is
+not issued.
+
+The application date for new MSP applications sent to the
+State by SSA is equal to the date the individual applied for
+LIS benefits at SSA. This date is reflected on screen 1 of
+WMS as the “Application Date.” The date an eligibility
+determination is performed is reflected on screen 1 of WMS as
+the “Transaction Date.”
+
+Note: The LDSS must determine eligibility for all
+applications on the Exception Report promptly, generally
+within 45 days of the date that the district receives the
+information from the State. Under certain circumstances,
+additional time for determination of eligibility may be
+required, such as in the case of a delay on the part of the
+applicant, or in the case of an administrative or other
+emergency that could not be controlled by the district.
+
+B. Cases Incorrectly Assigned to a District
+
+If the LDSS identifies a case opened through the automated process
+that was assigned to the district incorrectly, the district must
+transfer the case to the appropriate district in accordance with
+current protocols. In this situation, the assigned district must
+contact the correct district to obtain its agreement to transfer
+the case and coordinate closing the incorrectly assigned case with
+the opening of a new case in the correct district.
+
+This process must take place in a manner that allows coverage to
+continue without interruption, and the manual notice OHIP-0014,
+“Notice of Transition of Your Medicaid/Family Health Plus/Family
+Health Plus-Premium Assistance Program/Family Planning Benefit
+Program and/or Medicare Savings Program Coverage (County A),” must
+
+Date: March 11, 2011
+
+Trans. No. 11 OHIP/ADM-2 Page No. 9
+
+be sent to the recipient (Attachment V). If the assigned district
+does not obtain agreement from the other district to open the
+case, the assigned district must maintain the opened case until
+the district of fiscal responsibility is determined through a Fair
+Hearing. Once a case is successfully transferred to the correct
+district, the new district must send manual notice OHIP-0015,
+“Notice of Transition of Your Medicaid/Family Health Plus/Family
+Health Plus-Premium Assistance Program/Family Planning Benefit
+Program and/or Medicare Savings Program Coverage (County B)”
+(Attachment VI) to the recipient.
+
+C. Duplicate Cases
+
+There may be instances when the automated process does not
+recognize an existing CIN in WMS for an individual whose
+application appears on the SSA file. A new case may be registered
+with a new CIN for an individual.
+
+1. Original Case is Active
+
+In the event that the LDSS discovers that a duplicate case/CIN
+was opened through the automated process, the LDSS must
+consolidate cases/CINs.
+
+• Close the newly created case.
+• Close the Medicare Buy-In span established by the
+automated process.
+• Consolidate the CINs assigned to the individual.
+• Retain the CIN of the original case.
+• Delete the newly created CIN.
+
+A new manual notice, OHIP-0051, “Notice of Medicare Savings
+Program Case Opened in Error” (Attachment VII) informs the
+recipient that a duplicate case was opened in error through
+the automated process. The notice also advises whether the
+individual will receive MSP benefits under the original Client
+Identification Number. In addition, districts must take the
+following actions, depending upon the benefits the individual
+is currently receiving.
+
+a. For active cases with MSP only or active Medicaid with
+MSP, and a duplicate case is opened for MSP:
+
+• Send OHIP-0051, “Notice of Medicare Savings Program
+Case Opened in Error” (Attachment VII). Enter the
+effective date, name and CIN for the discontinued case.
+o Check the first box indicating the CIN under which
+the individual will continue to receive MSP
+benefits. Enter the CIN for the retained case.
+• If a CBIC was issued for the duplicate case, the bottom
+section of the notice must be completed.
+o If the duplicate case was for QMB, check the box
+saying the discontinued CBIC will no longer work,
+and enter the CIN found on that card.
+
+Date: March 11, 2011
+
+Trans. No. 11 OHIP/ADM-2 Page No. 10
+
+o If the recipient was issued a card on the original
+case, check the box instructing the recipient to
+keep the original card, and enter the CIN for that
+card.
+
+b. For active Medicaid only cases (no spenddown) without MSP
+benefits, and a duplicate case is opened for MSP, review
+the existing case for MSP eligibility.
+
+• If MSP eligible:
+o Enter the MSP code in WMS under the retained CIN.
+o Create a Buy-In span in eMedNY for MSP under the
+retained case.
+o Send OHIP-0051, “Notice of Medicare Savings Program
+Case Opened in Error.” Enter the effective date,
+name and CIN for the discontinued case.
+o The recipient will receive MSP benefits under the
+retained CIN.
+ Check the first box indicating the CIN under
+which the individual will receive benefits.
+Enter the CIN for the retained case.
+o If a CBIC was issued for the duplicate case, the
+bottom section of the notice must be completed.
+ If the duplicate case is for QMB, check the box
+saying the discontinued card will no longer work,
+and enter the CIN found on that card.
+ If the recipient was issued a card on the
+original case, check the box instructing the
+individual to keep the original benefit card, and
+enter the CIN for that card.
+
+• If not MSP eligible:
+o Send OHIP-0051, “Notice of Medicare Savings Program
+Case Opened in Error.” Enter the effective date,
+name and CIN for the discontinued case.
+ Check the second box stating the individual will
+continue to receive Medicaid under the retained
+CIN and enter the CIN for that case.
+ Check the first indented box and enter the net
+income and MSP limit of 135% FPL.
+o If a CBIC was issued for the duplicate case, the
+bottom section of the notice must be completed.
+ If the duplicate case was for QMB, check the box
+saying the discontinued CIBC will no longer work,
+and enter the CIN found on that card.
+ If the recipient was issued a card on the
+original case, check the box instructing the
+individual to keep the original benefit card, and
+enter the CIN for that card.
+o The original Medicaid case will remain unchanged.
+
+c. For active Medicaid cases having a spenddown:
+
+• Send OHIP-0051, “Notice of Medicare Savings Program
+Case Opened in Error.” Enter the effective date, name
+and CIN for the discontinued case.
+
+Date: March 11, 2011
+
+Trans. No. 11 OHIP/ADM-2 Page No. 11
+
+o Check the second box stating the individual will
+continue to receive Medicaid under the retained CIN
+and enter the CIN for that case.
+o Check the second indented box indicating the option
+to choose to participate in the Excess Income
+Program or MSP.
+• If a CBIC was issued for the duplicate case, the bottom
+section of the notice must be completed.
+o If the duplicate case was for QMB, check the box
+saying the discontinued CBIC will no longer work,
+and enter the CIN found on that card.
+o If the client was issued a CBIC on the original
+case, check the box instructing them to keep the
+original CBIC, and enter the CIN for that card.
+• Send OHIP-0037, “Option to Receive Medicare Savings
+Program (MSP) Benefit.”
+• Send OHIP-0026, “Explanation of the Excess Income
+Program.”
+• If OHIP-0037 is returned, make all necessary
+adjustments to the case and send the appropriate notice
+to the individual.
+• If the individual does not return OHIP-0037, the
+original (retained) Medicaid case will remain
+unchanged.
+
+d. For active Medicaid only cases in WMS, and the MSP
+application on the SSA file is denied using a duplicate
+CIN:
+
+• Send OHIP-0051, “Notice of Medicare Savings Program
+Case Opened in Error.”
+• The recipient will continue to receive Medicaid under
+the retained CIN.
+o Check the second box stating the individual will
+continue to receive Medicaid under the retained CIN
+and enter the CIN for that case.
+
+e. For active cases with MSP only or active Medicaid with
+MSP, and the MSP application on the SSA file is denied
+using a duplicate CIN:
+
+• The recipient will continue to receive benefits under
+the retained CIN.
+• Check the first box indicating the CIN under which the
+individual will continue to receive MSP benefits.
+Enter the CIN for the retained case.
+• If the individual is also in receipt of Medicaid
+coverage, check the box indicating the CIN under which
+the individual will continue to receive Medicaid
+coverage.
+
+Date: March 11, 2011
+
+Trans. No. 11 OHIP/ADM-2 Page No. 12
+
+2. Original Case is Closed
+
+The LDSS must consolidate cases/CINs when it discovers that a
+duplicate case/CIN was created through the automated process and
+the original case is closed.
+
+• Consolidate the CINs assigned to the individual.
+• Retain the CIN of the original case.
+• Delete the newly created CIN.
+
+a. For closed cases and the MSP application on the SSA file is
+denied using a duplicate CIN, no further actions are required
+to be taken.
+
+b. For closed cases and the MSP application on the SSA file is
+opened using a duplicate CIN, districts must also take the
+following actions:
+
+• Reopen the original case.
+• Transfer the MSP data to the original case in WMS and
+eMedNY.
+• Enter the MSP indicator on Screen 3.
+• Create a Buy-In transaction in eMedNY.
+• Send OHIP-0051, “Notice of Medicare Savings Program Case
+Opened in Error.” Enter the effective date, name and CIN
+for the discontinued case.
+• The recipient will receive MSP benefits under the retained
+CIN.
+o Check the first box indicating the CIN under which the
+individual will receive benefits. Enter CIN for the
+retained case.
+• If a CBIC was issued with the duplicate CIN, the bottom
+section of the notice must be completed.
+o If the duplicate case was for QMB, check the box saying
+the discontinued CBIC will no longer work, and enter
+the CIN found on that card.
+o If the new case is for QMB, the client will be issued a
+CBIC with their original CIN. Check the box instructing
+them to keep that CBIC, and enter the CIN for that
+card.
+
+V. FAIR HEARINGS
+
+The LDSS is responsible for Fair Hearings requested on any MSP
+application received and processed through the SSA file. If an
+individual requests a Fair Hearing, the district must obtain a copy of
+the notice sent by CNS. The notices will be available via
+WEBCOINS/COLD through CentraPort. Since MBL budgets are not produced
+for cases accepted or denied through the automated process, the
+district must obtain the information provided on the SSA file. This
+information may be obtained by contacting the NYSDOH Third Party
+Liability (TPL) Unit in the Division of Coverage and Enrollment and
+requesting a “MIPPA Report” for the applicant.
+
+Date: March 11, 2011
+
+Trans. No. 11 OHIP/ADM-2 Page No. 13
+
+The TPL Unit will provide the district with the application
+information that was received by SSA and a written affidavit
+explaining the automated MSP enrollment process for use at the Fair
+Hearing. The Third Party Liability Unit may be contacted by calling
+(518)473-5330, or by email at jxm24@health.state.ny.us. Fair Hearing
+staff are aware of the State’s automated procedure for processing
+these applications.
+
+If a case is remanded to the district for follow-up with the applicant
+after the hearing, it is not necessary to require the individual to
+complete an MSP application. The district may ask for verification of
+the item(s) disputed in the hearing in order to redetermine MSP
+eligibility.
+
+VI. NOTICE REQUIREMENTS
+
+New Client Notice System (CNS) acceptance and denial notices have been
+developed to be used for the automated processing of MSP applications
+received from SSA.
+
+The new acceptance notices include a copy of the DOH-4496, “Medicare
+Savings Program Request for Information,” for applicants/recipients
+(A/Rs) to use if they wish to submit additional financial or
+demographic information not collected on the LIS application. The
+form also allows the A/R to request consideration for retroactive
+coverage. A/Rs are instructed to return completed forms to the local
+district office for processing. The LDSS must review and process
+these forms in a timely manner following established procedures.
+Returning the “Medicare Savings Program Request for Information” form
+is voluntary for cases that are opened through the automated process.
+Failure by the individual to return this form is not grounds for
+terminating MSP coverage.
+
+The following new notices and reason codes have been created for
+applications accepted and denied through the automated process:
+
+Reason Code 892: Accept QMB from LIS Application
+Reason Code 893: Accept SLIMB from LIS Application
+Reason Code 894: Accept QI from LIS Application
+Reason Code 848: Deny MSP from LIS Application Over Income
+Reason Code 849: Deny MSP from LIS Application Not Medicare
+
+Existing CNS or manual notices are to be used for cases manually
+reviewed by the district from the Exception Report.
+
+VII. EFFECTIVE DATE
+
+The effective date of this ADM is February 21, 2011.
+
+Jason A. Helgerson
+Medicaid Director
+Deputy Commissioner
+Office of Health Insurance Programs

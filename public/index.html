@@ -127,9 +127,9 @@
     </section>
     <section class="section t-noon" id="estimate" aria-labelledby="estimate-title">
       <div class="wrap">
-        <h2 id="estimate-title">Your number, <em>in a minute.</em></h2>
-        <p class="lead">An educated guess from three numbers you already know, using New York’s 2026 limits and the 2026 Part B premium. The free scan swaps the guess for a count from your own files.</p>
-        <form class="calc" data-calc="fund" data-lang="en" data-tpl="{&quot;perRetiree&quot;:&quot;Each approved retiree is worth {amount} a year to your fund, every year they stay enrolled.&quot;}" novalidate>
+        <h2 id="estimate-title">Your number, <em>grounded in the data.</em></h2>
+        <p class="lead">Three things you already know. The rest comes from New York’s 2026 rules, Census data on New York retirees, and published research on enrollment. Every assumption is listed below, and the free scan replaces it with your own files.</p>
+        <form class="calc" data-calc="fund" data-lang="en" data-tpl="{&quot;range&quot;:&quot;{low} to {high}&quot;,&quot;ceiling&quot;:&quot;If all {count} enrolled: {amount} a year.&quot;,&quot;perRetiree&quot;:&quot;Each enrolled retiree saves your fund {amount} a year, every year they stay enrolled.&quot;,&quot;timing&quot;:&quot;Savings start about {months} months after a retiree says yes, and about {retained} stay enrolled each year. We handle the renewals.&quot;}" novalidate>
           <div class="calc-inputs">
             <div class="field">
               <label for="fund-retirees">Retirees you reimburse for Part B</label>
@@ -140,31 +140,37 @@
               <select id="fund-reimbursed" name="reimbursed"><option value="0.5" selected>Half</option><option value="1">All of it</option><option value="0.25">A quarter</option><option value="0.75">Three quarters</option></select>
             </div>
             <div class="field">
-              <label for="fund-eligible">Share likely under New York’s limit <output for="fund-eligible" data-out="share">10%</output></label>
-              <input id="fund-eligible" name="eligibleShare" type="range" min="1" max="40" step="1" value="10" aria-describedby="fund-eligible-hint" />
-              <span class="hint" id="fund-eligible-hint">Your guess. The limit is about $2,494 a month for one person or $3,375 for a couple, counting Social Security before Medicare is taken out, pensions and other income. Savings and a home don’t count.</span>
+              <label for="fund-pension">Typical monthly pension your retirees get</label>
+              <select id="fund-pension" name="pension" aria-describedby="fund-pension-hint"><option value="with_pension" selected>Not sure</option><option value="under_500">Under $500</option><option value="500_999">$500 to $999</option><option value="1000_1499">$1,000 to $1,499</option><option value="1500_1999">$1,500 to $1,999</option><option value="2000_plus">$2,000 or more</option></select>
+              <span class="hint" id="fund-pension-hint">Pension size is the biggest driver. Among New Yorkers 65 and older on Medicare with a pension, about half of those getting under $500 a month are under New York’s limit, and almost none above $2,000.</span>
             </div>
           </div>
           <div class="calc-results brief-card" aria-live="polite">
-            <h3 class="brief-eyebrow">A year, if each of them is approved</h3>
+            <h3 class="brief-eyebrow">What to expect in a year</h3>
             <ul class="brief-rows brief-rows-money">
-              <li><span class="brief-v" data-out="eligible">200</span><span class="brief-l">Retirees likely to qualify</span></li>
-              <li><span class="brief-v" data-out="gross">$243,480</span><span class="brief-l">Premiums New York would pay instead of you</span></li>
-              <li><span class="brief-v" data-out="fee">$48,696</span><span class="brief-l">Our fee, 20% of that</span></li>
-              <li><span class="brief-v" data-out="net">$194,784</span><span class="brief-l">What your fund keeps</span></li>
-              <li><span class="brief-v" data-out="retirees">$243,480</span><span class="brief-l">Back in retirees’ checks</span></li>
+              <li><span class="brief-v" data-out="pool">194</span><span class="brief-l">Retirees likely eligible and not enrolled<span class="brief-note" data-out="poolRange">148 to 260</span></span></li>
+              <li><span class="brief-v" data-out="enrolled">29</span><span class="brief-l">Likely to enroll after your letter and our help<span class="brief-note" data-out="enrolledRange">7 to 65</span></span></li>
+              <li><span class="brief-v" data-out="saved">$35,305</span><span class="brief-l">Premiums New York pays instead of you, a year<span class="brief-note" data-out="savedRange">$8,522 to $79,131</span></span></li>
+              <li><span class="brief-v" data-out="fee">$7,061</span><span class="brief-l">Our fee, 20% of that</span></li>
+              <li><span class="brief-v" data-out="net">$28,244</span><span class="brief-l">What your fund keeps, a year</span></li>
+              <li><span class="brief-v" data-out="retirees">$35,305</span><span class="brief-l">Back in retirees’ checks, a year</span></li>
             </ul>
-            <p class="calc-line" data-out="perRetiree">Each approved retiree is worth $1,217 a year to your fund, every year they stay enrolled.</p>
-            <p class="brief-note">This is the ceiling, not a promise. Not everyone says yes, and approvals take a few months.</p>
+            <p class="calc-line" data-out="perRetiree">Each enrolled retiree saves your fund $1,217 a year, every year they stay enrolled.</p>
+            <p class="calc-line" data-out="ceiling">If all 194 enrolled: $236,176 a year.</p>
+            <p class="brief-note" data-out="timing">Savings start about 4 months after a retiree says yes, and about 89% stay enrolled each year. We handle the renewals.</p>
           </div>
         </form>
         <noscript><p class="calc-noscript">Turn on JavaScript to change the numbers. The figures shown are for the example inputs.</p></noscript>
+        <details class="calc-methods">
+          <summary>How we estimate this</summary>
+          <ul class="plain-list"><li>Who qualifies: Census Bureau, American Community Survey 2024, New York microdata. We apply New York’s MSP income rules to New Yorkers 65 and older on Medicare and group them by total pension income (every pension combined, so slightly higher than your fund’s alone). The ranges include the survey’s margin of error.</li><li>Two things the survey misses pull in opposite directions. Surveys under-report pensions a little, which makes our share too high. New York also subtracts health insurance premiums a retiree pays, including union fund premiums, which makes it too low.</li><li>Already enrolled: about 55% of eligible people are enrolled (range 40% to 65%), from the Urban Institute’s 2021–23 national estimates and MACPAC’s earlier New York estimate. People already enrolled are usually no longer on your reimbursement.</li><li>Enrolled through outreach: 15% of the people we reach (range 5% to 25%). This is the weakest number. No published trial measures it for the MSP. Mass letters from Social Security added under 1% (GAO, 2004). Letters with help applying reached 18% in a randomized trial for older adults and SNAP (Finkelstein and Notowidigdo, 2019).</li><li>Timing and renewals: decisions within 45 days and about 3 months for Medicare’s records to update (GAO); 11% to 17% of new enrollees lose coverage within a year (KFF).</li></ul>
+        </details>
         <div class="calc-scan">
-          <h3>What the free scan adds</h3>
-          <ul class="plain-list"><li>The real count from your own files, instead of a guess</li><li>Who they are, so one letter reaches the right retirees</li><li>Premiums you reimburse that the state or another plan already pays</li></ul>
+          <h3>What the free scan replaces</h3>
+          <ul class="plain-list"><li>The pension guess, with each retiree’s real pension and household from your files</li><li>The enrollment guess, with who is already enrolled</li><li>Then a list, so one letter reaches the right retirees</li></ul>
           <a class="button primary" href="#school-contact">Get your real number</a>
         </div>
-        <script type="application/json" id="msp-rules">{"state":"ny","as_of":"2026-10-07","rules":["MSP-NY-QMB-INCOME","MSP-NY-QI-INCOME","MSP-NY-NO-RESOURCE-TEST","MSP-NY-DISREGARD","MSP-NY-COUPLE","MSP-NY-PART-A","MSP-NY-QI-NOT-MEDICAID","MSP-FED-EXTRA-HELP-DEEMED"],"values":{"part_b_premium_monthly":202.9,"part_b_deductible_yearly":283,"income_disregard_monthly":20,"earned_exclusion_monthly":65,"qmb_standard_monthly":{"1":1836,"2":2489},"qi_standard_monthly":{"1":2474,"2":3355}},"provenance":{"part_b_premium_monthly":{"parameter":"federal.cms.part_b_standard_premium","effective_from":"2026-01-01","confidence":"confirmed","sources":["cms-2026-part-a-b-premiums"]},"part_b_deductible_yearly":{"parameter":"federal.cms.part_b_deductible","effective_from":"2026-01-01","confidence":"confirmed","sources":["cms-2026-part-a-b-premiums"]},"income_disregard_monthly":{"parameter":"ny.msp.income_disregard_monthly","effective_from":"2026-01-01","confidence":"confirmed","sources":["ny-doh-msp-2026","ny-mrg-income"]},"earned_exclusion_monthly":{"parameter":"federal.ssi.earned_income_exclusion_monthly","effective_from":"1974-01-01","confidence":"confirmed","sources":["usc-42-1382a"]},"qmb_standard_monthly":{"parameter":"ny.msp.qmb_income_limit_monthly","effective_from":"2026-01-01","confidence":"confirmed","sources":["ny-gis-26-ma-05-att1","ny-doh-msp-2026"]},"qi_standard_monthly":{"parameter":"ny.msp.qi_income_limit_monthly","effective_from":"2026-01-01","confidence":"confirmed","sources":["ny-gis-26-ma-05-att1","ny-doh-msp-2026"]}}}</script>
+        <script type="application/json" id="msp-rules">{"state":"ny","as_of":"2026-10-07","rules":["MSP-NY-QMB-INCOME","MSP-NY-QI-INCOME","MSP-NY-NO-RESOURCE-TEST","MSP-NY-DISREGARD","MSP-NY-COUPLE","MSP-NY-PART-A","MSP-NY-QI-NOT-MEDICAID","MSP-FED-EXTRA-HELP-DEEMED"],"values":{"part_b_premium_monthly":202.9,"part_b_deductible_yearly":283,"income_disregard_monthly":20,"earned_exclusion_monthly":65,"qmb_standard_monthly":{"1":1836,"2":2489},"qi_standard_monthly":{"1":2474,"2":3355}},"provenance":{"part_b_premium_monthly":{"parameter":"federal.cms.part_b_standard_premium","effective_from":"2026-01-01","confidence":"confirmed","sources":["cms-2026-part-a-b-premiums"]},"part_b_deductible_yearly":{"parameter":"federal.cms.part_b_deductible","effective_from":"2026-01-01","confidence":"confirmed","sources":["cms-2026-part-a-b-premiums"]},"income_disregard_monthly":{"parameter":"ny.msp.income_disregard_monthly","effective_from":"2026-01-01","confidence":"confirmed","sources":["ny-doh-msp-2026","ny-mrg-income"]},"earned_exclusion_monthly":{"parameter":"federal.ssi.earned_income_exclusion_monthly","effective_from":"1974-01-01","confidence":"confirmed","sources":["usc-42-1382a"]},"qmb_standard_monthly":{"parameter":"ny.msp.qmb_income_limit_monthly","effective_from":"2026-01-01","confidence":"confirmed","sources":["ny-gis-26-ma-05-att1","ny-doh-msp-2026"]},"qi_standard_monthly":{"parameter":"ny.msp.qi_income_limit_monthly","effective_from":"2026-01-01","confidence":"confirmed","sources":["ny-gis-26-ma-05-att1","ny-doh-msp-2026"]}},"estimates":{"eligible_share_by_pension":{"with_pension":{"share":0.1926,"moe90":0.0065},"under_500":{"share":0.5181,"moe90":0.0161},"500_999":{"share":0.3025,"moe90":0.0142},"1000_1499":{"share":0.1503,"moe90":0.0176},"1500_1999":{"share":0.0626,"moe90":0.0147},"2000_plus":{"share":0.007,"moe90":0.0019}},"eligible_source":"ACS 2024 1-year PUMS, New York (psam_p36.csv)","take_up_among_eligible":{"low":0.4,"middle":0.55,"high":0.65},"enroll_after_outreach":{"low":0.05,"middle":0.15,"high":0.25},"months_until_savings":{"low":2,"middle":4,"high":6},"retained_per_year":{"low":0.83,"middle":0.89,"high":0.95}}}</script>
       </div>
     </section>
     <section class="section t-golden" id="scan" aria-labelledby="scan-title">
@@ -186,7 +192,7 @@
             <ul class="plain-list"><li>Medical records</li><li>Social Security numbers</li><li>Bank details</li></ul>
           </div>
         </div>
-        <p class="scan-estimate"><span class="highlight">Our estimate for a fund with 50,000 retirees on a 50% Part B reimbursement and modest pensions: roughly $3–9 million a year in premiums the state would pay. The scan replaces it with your number.</span></p>
+        <p class="scan-estimate"><span class="highlight">For a fund with 50,000 retirees on a 50% Part B reimbursement and pensions mostly under $500, the estimate above comes to about $3 million a year in premiums the state would pay (range $0.8–6.2 million). The scan replaces it with your number.</span></p>
         <a class="button primary" href="#school-contact">Get a free scan</a>
       </div>
     </section>

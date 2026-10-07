@@ -460,25 +460,21 @@ const rulesScript = () =>
 /** One data-tpl attribute carrying the page's templates (as JSON) to site.js. */
 const tplAttrs = (tpl, keys) => `data-tpl="${esc(JSON.stringify(Object.fromEntries(keys.map((k) => [k, tpl[k]]))))}"`;
 
-const FUND_DEFAULTS = { retirees: 2000, reimbursed: 0.5, eligibleShare: 0.1, fee: 0.2 };
+const FUND_DEFAULTS = { retirees: 2000, reimbursed: 0.5, pension: 'with_pension', fee: 0.2 };
 
 function fundCalcSection(s) {
   const c = at(s, 'fundCalc');
-  const v = mspRules.values;
-  const money = (n, cents = false) => MSPCalc.money(s.lang, n, cents);
-  const hint = c.eligibleHint
-    .replace('{single}', money(v.qi_standard_monthly['1'] + v.income_disregard_monthly))
-    .replace('{couple}', money(v.qi_standard_monthly['2'] + v.income_disregard_monthly));
   const t = MSPCalc.fundText(mspRules, FUND_DEFAULTS, c, s.lang);
-  const outRows = ['eligible', 'gross', 'fee', 'net', 'retirees']
-    .map((k) => `<li><span class="brief-v" data-out="${k}">${esc(t[k])}</span><span class="brief-l">${esc(c.out[k])}</span></li>`)
-    .join('\n              ');
+  const row = (k, rangeKey) =>
+    `<li><span class="brief-v" data-out="${k}">${esc(t[k])}</span><span class="brief-l">${esc(c.out[k])}${
+      rangeKey ? `<span class="brief-note" data-out="${rangeKey}">${esc(t[rangeKey])}</span>` : ''
+    }</span></li>`;
   return `
     <section class="section t-noon" id="estimate" aria-labelledby="estimate-title">
       <div class="wrap">
         <h2 id="estimate-title">${payoff(c.h2Plain, c.h2Em)}</h2>
         <p class="lead">${esc(c.lead)}</p>
-        <form class="calc" data-calc="fund" data-lang="${s.lang}" ${tplAttrs(c, ['perRetiree'])} novalidate>
+        <form class="calc" data-calc="fund" data-lang="${s.lang}" ${tplAttrs(c, ['range', 'ceiling', 'perRetiree', 'timing'])} novalidate>
           <div class="calc-inputs">
             <div class="field">
               <label for="fund-retirees">${esc(c.retireesLabel)}</label>
@@ -489,21 +485,31 @@ function fundCalcSection(s) {
               <select id="fund-reimbursed" name="reimbursed">${options(c.shareOptions, FUND_DEFAULTS.reimbursed)}</select>
             </div>
             <div class="field">
-              <label for="fund-eligible">${esc(c.eligibleLabel)} <output for="fund-eligible" data-out="share">${Math.round(FUND_DEFAULTS.eligibleShare * 100)}%</output></label>
-              <input id="fund-eligible" name="eligibleShare" type="range" min="1" max="40" step="1" value="${Math.round(FUND_DEFAULTS.eligibleShare * 100)}" aria-describedby="fund-eligible-hint" />
-              <span class="hint" id="fund-eligible-hint">${esc(hint)}</span>
+              <label for="fund-pension">${esc(c.pensionLabel)}</label>
+              <select id="fund-pension" name="pension" aria-describedby="fund-pension-hint">${options(c.pensionOptions, FUND_DEFAULTS.pension)}</select>
+              <span class="hint" id="fund-pension-hint">${esc(c.pensionHint)}</span>
             </div>
           </div>
           <div class="calc-results brief-card" aria-live="polite">
             <h3 class="brief-eyebrow">${esc(c.resultsTitle)}</h3>
             <ul class="brief-rows brief-rows-money">
-              ${outRows}
+              ${row('pool', 'poolRange')}
+              ${row('enrolled', 'enrolledRange')}
+              ${row('saved', 'savedRange')}
+              ${row('fee')}
+              ${row('net')}
+              ${row('retirees')}
             </ul>
             <p class="calc-line" data-out="perRetiree">${esc(t.perRetiree)}</p>
-            <p class="brief-note">${esc(c.caveat)}</p>
+            <p class="calc-line" data-out="ceiling">${esc(t.ceiling)}</p>
+            <p class="brief-note" data-out="timing">${esc(t.timing)}</p>
           </div>
         </form>
         <noscript><p class="calc-noscript">${esc(c.noScript)}</p></noscript>
+        <details class="calc-methods">
+          <summary>${esc(c.methodsTitle)}</summary>
+          <ul class="plain-list">${c.methods.map((m) => `<li>${esc(m)}</li>`).join('')}</ul>
+        </details>
         <div class="calc-scan">
           <h3>${esc(c.scanTitle)}</h3>
           <ul class="plain-list">${c.scanItems.map((i) => `<li>${esc(i)}</li>`).join('')}</ul>
@@ -514,7 +520,7 @@ function fundCalcSection(s) {
     </section>`;
 }
 
-const MEMBER_DEFAULTS = { couple: false, onMedicare: 1, unearned: 2050, earned: 0, reimbursed: 0.5, partA: true, medicaid: false };
+const MEMBER_DEFAULTS = { couple: false, onMedicare: 1, unearned: 2050, earned: 0, premiums: 0, reimbursed: 0.5, partA: true, medicaid: false };
 const MEMBER_TPL = ['QMB', 'QI', 'over', 'needs_part_a', 'medicaid', 'gain', 'gainNone', 'extraHelp', 'premiumOne', 'premiumEach'];
 
 function memberCalcSection(s) {
@@ -545,6 +551,11 @@ function memberCalcSection(s) {
               <label for="m-wages">${esc(c.wagesLabel)}</label>
               <input id="m-wages" name="earned" type="number" inputmode="decimal" min="0" step="1" value="${d.earned}" aria-describedby="m-wages-hint" />
               <span class="hint" id="m-wages-hint">${esc(c.wagesHint)}</span>
+            </div>
+            <div class="field">
+              <label for="m-premiums">${esc(c.premiumsLabel)}</label>
+              <input id="m-premiums" name="premiums" type="number" inputmode="decimal" min="0" step="1" value="${d.premiums}" aria-describedby="m-premiums-hint" />
+              <span class="hint" id="m-premiums-hint">${esc(c.premiumsHint)}</span>
             </div>
             <div class="field">
               <label for="m-fund">${esc(c.fundLabel)}</label>
