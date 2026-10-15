@@ -2,7 +2,9 @@
  * Renders the static site from the per-language strings files.
  *
  *     npm run build:site      # write public/index.html and public/es.html
- *                             # (school districts), public/funds.html and
+ *                             # (the idea), public/schools.html and
+ *                             # public/es/schools.html (school districts),
+ *                             # public/funds.html and
  *                             # public/es/funds.html (union funds), and
  *                             # public/members.html, public/es/members.html
  *     npm run check:site      # fail if the committed HTML is not what the
@@ -55,6 +57,14 @@ const localized = (s, href) => (s.lang === 'es' ? (href === '/' ? '/es' : `/es${
  *  union fund page lives at /funds, and /members is for the retirees a fund
  *  sends to us, so its section links point back at /funds. */
 function navFor(s, page) {
+  if (page === 'home') {
+    return [
+      [at(s, 'home.nav.why'), '#why'],
+      [at(s, 'home.nav.how'), '#how'],
+      [at(s, 'home.nav.schools'), localized(s, '/schools')],
+      [at(s, 'home.nav.funds'), localized(s, '/funds')],
+    ];
+  }
   if (page === 'schools') {
     return [
       [at(s, 'schools.nav.outcomes'), '#outcomes'],
@@ -102,7 +112,7 @@ function header(s, { page, cta, ctaLabel, langHref }) {
 
 function footer(s, { page, langHref }) {
   const home = localized(s, '/');
-  const f = page === 'schools' ? at(s, 'schools.footer') : at(s, 'footer');
+  const f = page === 'home' ? at(s, 'home.footer') : page === 'schools' ? at(s, 'schools.footer') : at(s, 'footer');
   const links = f.links
     .map((l) => `<li><a href="${l.href}">${esc(l.label)}</a></li>`)
     .join('');
@@ -195,7 +205,120 @@ function pathCard(c) {
           </article>`;
 }
 
-// ── the homepage: for school districts ───────────────────────────────────────
+// ── the homepage: the idea ───────────────────────────────────────────────────
+//
+// Stranded alignment, for people who are not AI-native: an institution's
+// results depend on the people it serves; the outcomes in between are ones
+// both want and nobody can afford to reach; a helper per person, sponsored by
+// the institution and working for the person, reaches them. Names in,
+// outcomes out. /schools and /funds carry the specifics.
+
+function homeSections(s) {
+  const k = at(s, 'home');
+
+  const h = k.hero;
+  const hero = `
+    <section class="hero hero-schools hero-fund" id="top" aria-labelledby="hero-title">
+      <div class="wrap split hero-fund-split">
+        <div class="split-copy">
+          <p class="schools-eyebrow">${esc(h.eyebrow)}</p>
+          <h1 id="hero-title">${payoff(h.h1Plain, h.h1Em)}</h1>
+          <p class="lead">${esc(h.sub)}</p>
+          <div class="hero-actions">
+            <a class="button primary" href="#school-contact">${esc(h.primary)}</a>
+            <a class="text-link" href="#how">${esc(h.secondary)}</a>
+          </div>
+          <p class="trust-line">${esc(h.trust)}</p>
+        </div>
+        ${briefCard(h.story, 'story-title')}
+      </div>
+    </section>`;
+
+  const d = k.depend;
+  const depend = `
+    <section class="section t-day" aria-labelledby="depend-title">
+      <div class="wrap">
+        <h2 id="depend-title">${payoff(d.h2Plain, d.h2Em)}</h2>
+        <p class="lead">${esc(d.lead)}</p>
+        <div class="scan-lists">
+          <div>
+            <h3>${esc(d.dependLabel)}</h3>
+            <ul class="plain-list">${d.depends.map((i) => `<li>${esc(i)}</li>`).join('')}</ul>
+          </div>
+          <div>
+            <h3>${esc(d.stuckLabel)}</h3>
+            <ul class="plain-list">${d.stuck.map((i) => `<li>${esc(i)}</li>`).join('')}</ul>
+          </div>
+        </div>
+      </div>
+    </section>`;
+
+  const w = k.why;
+  const why = `
+    <section class="section t-noon" id="why" aria-labelledby="why-title">
+      <div class="wrap">
+        <h2 id="why-title">${payoff(w.h2Plain, w.h2Em)}</h2>
+        <p class="lead">${esc(w.lead)}</p>
+        <div class="scan-cards">${cardGrid(w.cards)}</div>
+        <p class="scan-estimate"><span class="highlight">${esc(w.changed)}</span></p>
+        <p class="network-note">${esc(w.note)}</p>
+      </div>
+    </section>`;
+
+  const st = k.steps;
+  const steps = `
+    <section class="section t-night-deep" id="how" aria-labelledby="how-title">
+      <div class="wrap">
+        <h2 id="how-title">${payoff(st.h2Plain, st.h2Em)}</h2>
+        <p class="lead">${esc(st.lead)}</p>
+        <ol class="fly-steps">
+          ${st.items.map((i) => `<li><strong>${esc(i.tag)}</strong><span>${esc(i.text)}</span></li>`).join('\n          ')}
+        </ol>
+      </div>
+    </section>`;
+
+  const hp = k.helper;
+  const helper = `
+    <section class="section t-day" aria-labelledby="helper-title">
+      <div class="wrap">
+        <h2 id="helper-title">${payoff(hp.h2Plain, hp.h2Em)}</h2>
+        <p class="lead">${esc(hp.lead)}</p>
+        ${cardGrid(hp.items)}
+        <p class="scan-estimate"><span class="highlight">${esc(hp.closer)}</span></p>
+      </div>
+    </section>`;
+
+  const rules = `
+    <section class="section" aria-labelledby="rules-title">
+      <div class="wrap">
+        <h2 id="rules-title">${esc(k.rules.h2)}</h2>
+        ${cardGrid(k.rules.items)}
+      </div>
+    </section>`;
+
+  const wh = k.where;
+  const where = `
+    <section class="section t-golden" aria-labelledby="where-title">
+      <div class="wrap">
+        <h2 id="where-title">${esc(wh.h2)}</h2>
+        <p class="lead">${esc(wh.lead)}</p>
+        <div class="scan-cards">
+          <div class="never-grid">
+          ${wh.cards
+            .map(
+              (c) =>
+                `<article><h3>${esc(c.title)}</h3><p>${esc(c.body)}</p><p><a class="text-link" href="${c.href.startsWith('#') ? c.href : localized(s, c.href)}">${esc(c.link)}</a></p></article>`,
+            )
+            .join('\n          ')}
+          </div>
+        </div>
+      </div>
+    </section>`;
+
+  return [hero, depend, why, steps, helper, rules, where, contactForm(k.form, 'home')].join('');
+}
+
+// ── /schools: for school districts ───────────────────────────────────────────
 //
 // Outcomes a district is already paid for that wait on a family: Medicaid
 // consent for students with IEPs, the low-income count its funding formula
@@ -807,9 +930,9 @@ function document(s, { page, title, description, canonical, alts, body, langHref
       href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/site.css?v=19" />
-    <script src="/msp-calc.js?v=19" defer></script>
-    <script src="/site.js?v=19" defer></script>
+    <link rel="stylesheet" href="/site.css?v=20" />
+    <script src="/msp-calc.js?v=20" defer></script>
+    <script src="/site.js?v=20" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main">${esc(at(s, 'a11y.skip'))}</a>
@@ -854,25 +977,42 @@ async function render() {
   const es = await load('es');
 
   const pages = [];
-  for (const [s, dir, share, shareFunds] of [
-    [en, '', 'share.png', 'share-funds.png'],
-    [es, 'es', 'share-es.png', 'share-funds-es.png'],
+  for (const [s, dir, share, shareSchools, shareFunds] of [
+    [en, '', 'share.png', 'share-schools.png', 'share-funds.png'],
+    [es, 'es', 'share-es.png', 'share-schools-es.png', 'share-funds-es.png'],
   ]) {
-    // The homepage, for school districts.
+    // The homepage: the idea, for any institution whose results depend on its people.
     pages.push({
       file: dir ? `${dir}.html` : 'index.html',
+      html: document(s, {
+        page: 'home',
+        title: at(s, 'home.meta.title'),
+        description: at(s, 'home.meta.description'),
+        canonical: dir ? '/es' : '/',
+        alts: [['en', '/'], ['es', '/es'], ['x-default', '/']],
+        body: homeSections(s),
+        langHref: dir ? '/' : '/es',
+        cta: '#school-contact',
+        ctaLabel: at(s, 'home.nav.join'),
+        shareAlt: at(s, 'home.meta.shareAlt'),
+        share,
+      }),
+    });
+    // /schools, for school districts and charter networks.
+    pages.push({
+      file: dir ? `${dir}/schools.html` : 'schools.html',
       html: document(s, {
         page: 'schools',
         title: at(s, 'schools.meta.title'),
         description: at(s, 'schools.meta.description'),
-        canonical: dir ? '/es' : '/',
-        alts: [['en', '/'], ['es', '/es'], ['x-default', '/']],
+        canonical: dir ? '/es/schools' : '/schools',
+        alts: [['en', '/schools'], ['es', '/es/schools']],
         body: schoolSections(s),
-        langHref: dir ? '/' : '/es',
+        langHref: dir ? '/schools' : '/es/schools',
         cta: '#school-contact',
         ctaLabel: at(s, 'schools.nav.join'),
         shareAlt: at(s, 'schools.meta.shareAlt'),
-        share,
+        share: shareSchools,
       }),
     });
     // /funds, for union benefit funds that reimburse Part B.

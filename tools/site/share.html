@@ -1,7 +1,7 @@
 <!doctype html>
 <!--
   Source for the social cards: public/share.png and public/share-es.png (the
-  school homepage), public/share-funds.png and public/share-funds-es.png (/funds).
+  homepage), public/share-schools*.png (/schools) and public/share-funds*.png (/funds).
 
   Rendered by scripts/build-share.mjs at exactly 1200x630 (the Open Graph size),
   in both languages, from the same design tokens as the site. It is a standalone
@@ -159,8 +159,10 @@
       const params = new URLSearchParams(location.search);
       const lang = params.get('lang') === 'es' ? 'es' : 'en';
       const s = (await import(STRINGS[lang])).default;
-      // The homepage card is for school districts; ?page=funds draws the /funds card.
-      const hero = params.get('page') === 'funds' ? s.hero : s.schools.hero;
+      // ?page=schools draws the /schools card and ?page=funds the /funds card;
+      // anything else draws the homepage's.
+      const page = params.get('page');
+      const hero = page === 'funds' ? s.hero : page === 'schools' ? s.schools.hero : s.home.hero;
 
       document.documentElement.lang = s.lang;
       document.getElementById('headline').textContent = hero.h1;

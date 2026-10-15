@@ -24,16 +24,6 @@
       "permanent": true
     },
     {
-      "source": "/schools",
-      "destination": "/",
-      "permanent": false
-    },
-    {
-      "source": "/es/schools",
-      "destination": "/es",
-      "permanent": false
-    },
-    {
       "source": "/employers",
       "destination": "/",
       "permanent": false

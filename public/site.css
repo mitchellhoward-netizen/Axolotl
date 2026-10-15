@@ -2662,9 +2662,9 @@ p {
   color: var(--on-night-faint);
 }
 
-/* The source note under a table on a light section (the school homepage's
-   outcomes): the night-section color is too faint on paper. */
-.t-day .network-note {
+/* A source note on a light section: the night-section color is too faint
+   on paper. */
+:is(.t-day, .t-noon, .t-golden) .network-note {
   color: var(--muted);
 }
 

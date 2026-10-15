@@ -28,23 +28,24 @@ executing a consequential action without an explicit parent `YES`.
 
 ### The website is generated — do not hand-edit the HTML
 
-`public/index.html` (the homepage, for school districts),
-`public/funds.html` (for funds that reimburse Medicare Part B premiums),
+`public/index.html` (the homepage: the idea, for any institution whose
+results depend on the people it serves), `public/schools.html` (for school
+districts), `public/funds.html` (for funds that reimburse Medicare Part B premiums),
 `public/members.html` (for the retirees a fund sends to us) and their Spanish
-copies under `public/es*` are **built**, not written. The school copy lives
-under `schools` in the strings files; the fund copy is everything else. All copy lives in
+copies under `public/es*` are **built**, not written. The homepage copy lives
+under `home` and the school copy under `schools` in the strings files; the fund copy is everything else. All copy lives in
 `tools/site/strings.en.mjs` and `tools/site/strings.es.mjs`; the structure lives
 in `tools/site/build.mjs`. Edit the strings, then run:
 
 ```sh
-npm run build:site     # regenerate the six pages
+npm run build:site     # regenerate the eight pages
 npm run check:site     # fail if the committed HTML is not what the strings say
 npm run check          # secrets, phone-mockup fit, site drift, typecheck
 ```
 
 The build writes plain static HTML, so nothing changes about how the site is
 served: Vercel serves `public/` as-is, with `cleanUrls`, so `/es` is
-`public/es.html`, `/members` is `public/members.html` and `/funds` is `public/funds.html` (`/employers` and `/schools` redirect to `/`). The orb's preview
+`public/es.html`, `/members` is `public/members.html`, `/schools` is `public/schools.html` and `/funds` is `public/funds.html` (`/employers` redirects to `/`). The orb's preview
 server (`node scripts/serve-site.mjs`, declared in `.amp/services.yaml`)
 reproduces those clean URLs; it serves files only, so forms on the preview show
 their error state rather than pretending to store a signup.
@@ -77,11 +78,11 @@ default result. `python -m tools.export_site_data --check` and
 Re-export after the archive's MSP numbers change (each January), then rebuild.
 
 Social cards are generated too: `node scripts/build-share.mjs` renders
-`public/share.png` and `public/share-es.png` (the school homepage) and
-`public/share-funds.png` and `public/share-funds-es.png` (/funds) from
+`public/share.png` and `public/share-es.png` (the homepage),
+`public/share-schools*.png` (/schools) and `public/share-funds*.png` (/funds) from
 `tools/site/share.html`, which reads the same strings. Re-run it after changing the hero copy.
 
-Website signups (a member's phone number from /members, and the scan request on the school homepage and on /funds, both posted as `kind: "school"` with a message that starts with `[schools]` or `[funds]`) go through one
+Website signups (a member's phone number from /members, and the contact form on the homepage, /schools and /funds, all posted as `kind: "school"` with a message that starts with `[home]`, `[schools]` or `[funds]`) go through one
 endpoint, `/api/waitlist`, with a `kind` field. Validation and storage are shared
 between the Vercel function (`api/waitlist.ts`) and the long-lived host
 (`src/integrations/web.ts`) via `src/integrations/waitlist.ts`. The table needs

@@ -1,7 +1,7 @@
 /**
  * Renders the social cards from tools/site/share.html: public/share.png and
- * public/share-es.png for the school homepage, public/share-funds.png and
- * public/share-funds-es.png for /funds.
+ * public/share-es.png for the homepage, public/share-schools*.png for /schools
+ * and public/share-funds*.png for /funds.
  *
  *     node scripts/build-share.mjs
  *
@@ -82,10 +82,12 @@ if (!chrome) {
 
 await new Promise((resolve) => server.listen(PORT, resolve));
 
-// The homepage (school districts) and /funds each get a card, in both languages.
+// The homepage, /schools and /funds each get a card, in both languages.
 const CARDS = [
-  ['en', 'schools', 'share.png'],
-  ['es', 'schools', 'share-es.png'],
+  ['en', 'home', 'share.png'],
+  ['es', 'home', 'share-es.png'],
+  ['en', 'schools', 'share-schools.png'],
+  ['es', 'schools', 'share-schools-es.png'],
   ['en', 'funds', 'share-funds.png'],
   ['es', 'funds', 'share-funds-es.png'],
 ];

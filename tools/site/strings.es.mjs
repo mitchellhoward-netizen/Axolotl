@@ -408,7 +408,7 @@ export default {
   footer: {
     tagline: 'Que pague quien debe pagar, para fondos sindicales y sus miembros',
     links: [
-      { label: 'Para escuelas', href: '/es' },
+      { label: 'Para escuelas', href: '/es/schools' },
       { label: 'Para miembros', href: '/es/members' },
       { label: 'Privacidad', href: '/privacy' },
       { label: 'Seguridad y confianza', href: '/security' },
@@ -628,6 +628,163 @@ export default {
     footer: {
       tagline: 'Ayuda para las familias, fondos para las escuelas que las atienden',
       links: [
+        { label: 'Para fondos sindicales', href: '/es/funds' },
+        { label: 'Privacidad', href: '/privacy' },
+        { label: 'Seguridad y confianza', href: '/security' },
+      ],
+    },
+  },
+
+  // ── la página principal: la idea ──────────────────────────────────────────────
+  // Misma forma y mismas fuentes que strings.en.mjs.
+  home: {
+    meta: {
+      title: 'Mycelium: resultados que todos quieren, por fin a su alcance',
+      description:
+        'Un niño que llega a la escuela, una familia que mantiene su cobertura médica, un jubilado que recibe la ayuda que le corresponde: sus resultados dependen de las personas a quienes sirve. Mycelium le da a cada persona un ayudante, un agente de IA que usted patrocina y que trabaja para ella, en su idioma, con su sí. Usted paga cuando se logra el resultado.',
+      shareAlt: 'Mycelium: todos quieren el mismo resultado. Hasta ahora, no era trabajo de nadie.',
+    },
+
+    nav: {
+      why: 'Por qué se atora',
+      how: 'Cómo funciona',
+      schools: 'Escuelas',
+      funds: 'Fondos sindicales',
+      join: 'Hablemos',
+    },
+
+    hero: {
+      eyebrow: 'Para escuelas, fondos de beneficios y las personas a quienes sirven',
+      h1Plain: 'Todos quieren el mismo resultado.',
+      h1Em: 'Hasta ahora, no era trabajo de nadie.',
+      h1: 'Todos quieren el mismo resultado. Hasta ahora, no era trabajo de nadie.',
+      sub: 'Un niño que llega a la escuela. Una familia que mantiene su cobertura médica. Un jubilado que recibe la ayuda que le corresponde. Sus resultados dependen de las personas a quienes sirve, y los de ellas dependen de atravesar un laberinto de formularios y oficinas. Mycelium le da a cada persona un ayudante: un agente de IA que usted patrocina, que trabaja para ella, en su idioma. Usted paga cuando se logra el resultado.',
+      primary: 'Hablemos',
+      secondary: 'Ver cómo funciona',
+      trust: 'Trabajamos con escuelas y fondos sindicales de beneficios. Nada avanza sin el sí de la persona.',
+      story: {
+        eyebrow: 'Una familia, un ayudante',
+        example: 'Un ejemplo',
+        rows: [
+          { v: 'Día 1', l: 'La escuela escribe: aquí hay un ayudante para su familia', note: 'Después de la quinta falta, no de la decimoquinta.' },
+          { v: 'Semana 1', l: 'Cobertura médica renovada', note: 'La renovación había llegado a una dirección vieja. Se resurte el inhalador.' },
+          { v: 'Semana 2', l: 'Una forma de llegar a la escuela', note: 'Un pase de transporte, y un vecino que maneja por la misma ruta.' },
+          { v: 'Periodo', l: 'De vuelta a más del 90% de asistencia', note: 'La escuela paga por eso. Nunca vio lo demás.' },
+        ],
+        foot: 'Entran nombres, salen resultados: la escuela ofreció ayuda a partir de sus registros de asistencia, y solo ve si la asistencia mejoró.',
+      },
+      folder: {
+        label: 'Una familia, un ayudante · Ejemplo',
+        statuses: { done: 'Listo', waiting: 'Esperando un sí' },
+        rows: [
+          { label: 'Cobertura médica renovada', detail: 'La renovación llegó a una dirección vieja.', status: 'done' },
+          { label: 'Cómo llegar a la escuela', detail: 'Un pase de transporte y un vecino.', status: 'done' },
+          { label: 'Más del 90% de asistencia', detail: 'Lo que la escuela paga.', status: 'done' },
+          { label: 'Comidas escolares gratis', detail: 'Ayuda para comida, con la familia.', status: 'waiting' },
+        ],
+      },
+    },
+
+    depend: {
+      h2Plain: 'Sus resultados dependen',
+      h2Em: 'de su gente.',
+      lead: 'A una escuela la financian según la asistencia y según cuántos estudiantes de bajos ingresos cuenta. Un fondo de beneficios paga primas que cubriría un programa estatal. Lo que a usted le pagan y le miden llega muy dentro de la vida de las personas. Lo que su personal puede hacer termina en su puerta. En medio hay resultados que usted y su gente quieren por igual.',
+      dependLabel: 'De qué dependen sus resultados',
+      depends: [
+        'De que un niño llegue a la escuela',
+        'De que una familia esté inscrita en ayuda para comida',
+        'De que la cobertura médica de un niño esté al día',
+        'De que un jubilado solicite la ayuda que le corresponde',
+      ],
+      stuckLabel: 'Dónde se atora',
+      stuck: [
+        'Un transporte que no llegó',
+        'Una renovación enviada a una dirección vieja',
+        'Un formulario que nadie explicó, en un idioma que nadie hablaba',
+        'Una oficina que solo abre en horas de trabajo',
+      ],
+    },
+
+    why: {
+      h2Plain: 'Por qué no pasa.',
+      h2Em: 'Alineación varada.',
+      lead: 'Lo llamamos alineación varada: resultados que una institución y las personas a quienes sirve quieren por igual, pero que nunca pasan porque alcanzarlos cuesta más de lo que cualquiera puede gastar. Cada caso es pequeño y queda entre oficinas, así que no es trabajo de nadie. Un administrador de casos escolar típico lleva de 110 a 125 estudiantes.',
+      cards: [
+        { title: 'Cartas y portales', body: 'Le dicen a la gente qué hacer. Llegan a todos y cambian poco, porque la información sola rara vez mueve a alguien.' },
+        { title: 'Coordinadores y administradores de casos', body: 'Hacen el trabajo con las personas, y funciona. Pero una persona solo puede llevar a cierto número de familias.' },
+        { title: 'Un ayudante para cada persona', body: 'Hace el trabajo con cada persona, las veces que haga falta, para todos a quienes usted sirve. Eso es nuevo.' },
+      ],
+      changed: 'Qué cambió: en un experimento, ocho minutos de ayuda para llenar la solicitud federal de ayuda estudiantil subieron la inscripción universitaria de 34% a 42%. La información sola no cambió nada. Un agente de IA ahora puede pasar esos ocho minutos con cada familia.',
+      note: 'Carga de los administradores de casos: un estudio financiado por el National Institute of Justice. Solicitud de ayuda estudiantil: el experimento de H&R Block de Bettinger, Long, Oreopoulos y Sanbonmatsu, resumido por J-PAL.',
+    },
+
+    steps: {
+      h2Plain: 'Cómo funciona.',
+      h2Em: 'Nada avanza sin un sí.',
+      lead: 'Mycelium trabaja dentro de su institución y en la vida de las personas. Aprende lo que usted necesita de su personal, y hace el trabajo con cada persona.',
+      items: [
+        { tag: 'Aprender', text: 'Trabajamos con su personal para conocer sus metas, sus reglas y cómo se financia, y nos conectamos a los sistemas que ya usa.' },
+        { tag: 'Ofrecer', text: 'Entran nombres: sus propios registros muestran quién podría necesitar ayuda. Usted envía un mensaje ofreciendo un ayudante, desde un nombre en el que la gente ya confía.' },
+        { tag: 'Ayudar', text: 'El ayudante de cada persona trabaja con ella por mensaje de texto o WhatsApp, en su idioma, y con las agencias y oficinas a su alrededor.' },
+        { tag: 'Sí', text: 'Nada se presenta, firma ni comparte hasta que la persona dice que sí a exactamente lo que va a pasar.' },
+        { tag: 'Informar', text: 'Salen resultados: usted ve resultados, no la vida de la gente. Los casos difíciles van a su personal.' },
+        { tag: 'Ver', text: 'Cuando cuarenta familias tienen el mismo problema, usted se entera. El problema de una familia es un caso. Cuarenta son una decisión de política.' },
+      ],
+    },
+
+    helper: {
+      h2Plain: 'Un ayudante que le pertenece a la persona,',
+      h2Em: 'patrocinado por usted.',
+      lead: 'La IA personal le llegará a la mayoría como les llegaron los asesores financieros y los buenos abogados: a quienes más trabas tienen, al último. Las instituciones pueden cambiar eso. El ayudante que usted patrocina trabaja para la persona, en lo que le esté complicando la vida, y en sus metas solo donde ella esté de acuerdo. Usted aporta cuatro cosas que ninguna tienda de apps puede.',
+      items: [
+        { title: 'Una razón para pagar', body: 'Usted pierde dinero y metas cuando estos resultados no pasan.' },
+        { title: 'Los registros', body: 'Usted puede ver quién necesita ayuda antes de que lo pida.' },
+        { title: 'Confianza', body: 'La gente ya lee lo que usted le envía.' },
+        { title: 'Permiso', body: 'Las oficinas rechazarán a los agentes que lleguen sin invitación. El que usted patrocina entra.' },
+      ],
+      closer: 'Cuando otras instituciones sirven a la misma familia, pueden patrocinar el mismo ayudante. Un ayudante en lugar de siete portales.',
+    },
+
+    rules: {
+      h2: 'Las reglas que no doblamos',
+      items: [
+        { title: 'Solo resultados buenos para ambos', body: 'Usted elige el resultado. Lo tomamos solo si también es bueno para las personas a quienes sirve.' },
+        { title: 'Entran nombres, salen resultados', body: 'Usted ve resultados, no vidas. Sabe más solo cuando la persona está de acuerdo.' },
+        { title: 'Nada sin un sí', body: 'Nada se envía, firma ni presenta hasta que la persona dice que sí a exactamente lo que va a pasar.' },
+        { title: 'Límites por escrito', body: 'Cada ayudante tiene reglas que protegen a la persona, como nunca presionar a un niño enfermo para que vaya a la escuela.' },
+      ],
+    },
+
+    where: {
+      h2: 'Dónde trabajamos',
+      lead: 'Empezamos donde los resultados son más claros y las personas tienen más que ganar.',
+      cards: [
+        { title: 'Escuelas', body: 'Asistencia, consentimiento de Medicaid para estudiantes con IEP, inscripción en ayuda para comida y salud que cuenta para sus fondos, estudiantes sin vivienda estable.', link: 'Para escuelas', href: '/schools' },
+        { title: 'Fondos sindicales de beneficios', body: 'Primas de la Parte B de Medicare que pagaría Nueva York, con el sí de cada jubilado y renovadas cada año.', link: 'Para fondos sindicales', href: '/funds' },
+        { title: 'Su resultado', body: 'Si sus resultados dependen de las personas a quienes sirve, díganos cuál.', link: 'Hablemos', href: '#school-contact' },
+      ],
+    },
+
+    form: {
+      h2: 'Empiece con un resultado',
+      lead: 'Cuéntenos qué le miden. Revisamos sus datos gratis, le mostramos lo que está varado, y empezamos con un resultado. Usted paga cuando se mueve.',
+      nameLabel: 'Su nombre',
+      roleLabel: 'Su cargo',
+      fundLabel: 'Organización',
+      emailLabel: 'Correo del trabajo',
+      messageLabel: '¿A quién sirve y qué resultado le importa más?',
+      messageHint: '(opcional)',
+      submit: 'Enviar',
+      note: 'Usaremos estos datos para responderle. Por favor no incluya registros personales de nadie.',
+      success: 'Gracias. Le responderemos al correo que nos dio.',
+      error: 'No pudimos guardar su mensaje. Inténtelo de nuevo.',
+      generic: 'Por favor llene todos los campos.',
+    },
+
+    footer: {
+      tagline: 'Resultados que todos quieren, por fin a su alcance',
+      links: [
+        { label: 'Para escuelas', href: '/es/schools' },
         { label: 'Para fondos sindicales', href: '/es/funds' },
         { label: 'Privacidad', href: '/privacy' },
         { label: 'Seguridad y confianza', href: '/security' },

@@ -439,7 +439,7 @@ export default {
   footer: {
     tagline: 'The right payer, for union funds and their members',
     links: [
-      { label: 'For schools', href: '/' },
+      { label: 'For schools', href: '/schools' },
       { label: 'For members', href: '/members' },
       { label: 'Privacy', href: '/privacy' },
       { label: 'Security and trust', href: '/security' },
@@ -671,6 +671,167 @@ export default {
     footer: {
       tagline: 'Help for families, funding for the schools that serve them',
       links: [
+        { label: 'For union funds', href: '/funds' },
+        { label: 'Privacy', href: '/privacy' },
+        { label: 'Security and trust', href: '/security' },
+      ],
+    },
+  },
+
+  // ── the homepage: the idea ───────────────────────────────────────────────────
+  // Stranded alignment in plain words, for people who are not AI-native.
+  // Sources: case manager loads, NIJ-funded study (ojp.gov/pdffiles1/nij/grants/304457.pdf);
+  // FAFSA help, Bettinger, Long, Oreopoulos and Sanbonmatsu, H&R Block experiment (J-PAL).
+  home: {
+    meta: {
+      title: 'Mycelium: outcomes everyone wants, finally within reach',
+      description:
+        'A kid getting to school, a family keeping its coverage, a retiree getting help they qualify for: your results depend on the people you serve. Mycelium gives each person a helper, an AI agent you sponsor that works for them, in their language, with their yes. You pay when the outcome happens.',
+      shareAlt: 'Mycelium: everyone wants the same outcome. Until now, it was nobody’s job.',
+    },
+
+    nav: {
+      why: 'Why it’s stuck',
+      how: 'How it works',
+      schools: 'Schools',
+      funds: 'Union funds',
+      join: 'Talk to us',
+    },
+
+    hero: {
+      eyebrow: 'For schools, benefit funds and the people they serve',
+      h1Plain: 'Everyone wants the same outcome.',
+      h1Em: 'Until now, it was nobody’s job.',
+      // The social card (share.html) draws the headline as one line of plain text.
+      h1: 'Everyone wants the same outcome. Until now, it was nobody’s job.',
+      sub: 'A kid getting to school. A family keeping its health coverage. A retiree getting help they qualify for. Your results depend on the people you serve, and theirs depend on getting through a maze of forms and offices. Mycelium gives each person a helper: an AI agent you sponsor, that works for them, in their language. You pay when the outcome happens.',
+      primary: 'Talk to us',
+      secondary: 'See how it works',
+      trust: 'Working with schools and union benefit funds. Nothing moves without the person’s yes.',
+      story: {
+        eyebrow: 'One family, one helper',
+        example: 'An example',
+        rows: [
+          { v: 'Day 1', l: 'The school texts: here’s a helper for your family', note: 'After the fifth absence, not the fifteenth.' },
+          { v: 'Week 1', l: 'Health coverage renewed', note: 'The renewal had gone to an old address. The inhaler gets refilled.' },
+          { v: 'Week 2', l: 'A way to school', note: 'A transit pass, and a neighbor who drives the same route.' },
+          { v: 'Term', l: 'Back above 90% attendance', note: 'The school pays for that. It never saw the rest.' },
+        ],
+        foot: 'Names in, outcomes out: the school offered help from its attendance records, and sees only whether attendance improved.',
+      },
+      // The social card's ledger.
+      folder: {
+        label: 'One family, one helper · Example',
+        statuses: { done: 'Done', waiting: 'Waiting for a yes' },
+        rows: [
+          { label: 'Health coverage renewed', detail: 'The renewal had gone to an old address.', status: 'done' },
+          { label: 'A way to school', detail: 'A transit pass and a neighbor’s ride.', status: 'done' },
+          { label: 'Back above 90% attendance', detail: 'What the school pays for.', status: 'done' },
+          { label: 'Free school meals', detail: 'Food assistance, applied with the family.', status: 'waiting' },
+        ],
+      },
+    },
+
+    depend: {
+      h2Plain: 'Your results depend',
+      h2Em: 'on your people.',
+      lead: 'A school is funded by attendance and by how many low-income students it counts. A benefit fund pays premiums a state program would cover. What you’re paid for and measured on reaches deep into people’s lives. What your staff can do stops at your door. In between are outcomes you and your people both want.',
+      dependLabel: 'What your results depend on',
+      depends: [
+        'Whether a kid gets to school',
+        'Whether a family is enrolled in food assistance',
+        'Whether a child’s health coverage is current',
+        'Whether a retiree applies for help they qualify for',
+      ],
+      stuckLabel: 'Where it gets stuck',
+      stuck: [
+        'A ride that didn’t come',
+        'A renewal sent to an old address',
+        'A form nobody explained, in a language nobody spoke',
+        'An office that’s only open during work hours',
+      ],
+    },
+
+    why: {
+      h2Plain: 'Why it doesn’t happen.',
+      h2Em: 'Stranded alignment.',
+      lead: 'We call it stranded alignment: outcomes an institution and the people it serves both want, that never happen because reaching them costs more than anyone can spend. Each case is small and sits between offices, so it’s nobody’s job. A typical school case manager carries 110 to 125 students.',
+      cards: [
+        { title: 'Letters and portals', body: 'Tell people what to do. They reach everyone and change little, because information alone rarely moves anyone.' },
+        { title: 'Coordinators and case managers', body: 'Do the work with people, and it works. But one person can only carry so many families.' },
+        { title: 'A helper for every person', body: 'Does the work with each person, as often as it takes, for everyone you serve. That’s new.' },
+      ],
+      changed: 'What changed: in one experiment, eight minutes of help filling out the federal student aid form raised college enrollment from 34% to 42%. Information alone did nothing. An AI agent can now spend those eight minutes with every family.',
+      note: 'Case manager loads: a study funded by the National Institute of Justice. Student aid form: the H&R Block experiment by Bettinger, Long, Oreopoulos and Sanbonmatsu, summarized by J-PAL.',
+    },
+
+    steps: {
+      h2Plain: 'How it works.',
+      h2Em: 'Nothing moves without a yes.',
+      lead: 'Mycelium works inside your institution and out in people’s lives. It learns what you need from your staff, and does the work with each person.',
+      items: [
+        { tag: 'Learn', text: 'We work with your staff to learn your goals, your rules and how you’re funded, and connect to the systems you already use.' },
+        { tag: 'Offer', text: 'Names in: your own records show who could use help. You send one message offering a helper, from a name people already trust.' },
+        { tag: 'Help', text: 'Each person’s helper works with them by text or WhatsApp, in their language, and with the agencies and offices around them.' },
+        { tag: 'Yes', text: 'Nothing is filed, signed or shared until the person says yes to exactly what will happen.' },
+        { tag: 'Report', text: 'Outcomes out: you see results, not people’s lives. Hard cases go to your staff.' },
+        { tag: 'See', text: 'When forty families hit the same problem, you hear about it. One family’s problem is a case. Forty is a policy decision.' },
+      ],
+    },
+
+    helper: {
+      h2Plain: 'A helper that belongs to the person,',
+      h2Em: 'sponsored by you.',
+      lead: 'Personal AI will reach most people the way financial advisors and good lawyers did: the people with the most friction last. Institutions can change that. The helper you sponsor works for the person, on anything making life harder, and on your goals only where they agree. You bring four things no app store can.',
+      items: [
+        { title: 'A reason to pay', body: 'You lose money and miss goals when these outcomes don’t happen.' },
+        { title: 'The records', body: 'You can see who needs help before they ask.' },
+        { title: 'Trust', body: 'People already read what you send them.' },
+        { title: 'Permission', body: 'Offices will turn away agents that show up uninvited. The one you sponsor gets let in.' },
+      ],
+      closer: 'When other institutions serve the same family, they can sponsor the same helper. One helper instead of seven portals.',
+    },
+
+    rules: {
+      h2: 'The rules we don’t bend',
+      items: [
+        { title: 'Only outcomes good for both', body: 'You choose the outcome. We take it on only if it’s good for the people you serve too.' },
+        { title: 'Names in, outcomes out', body: 'You see results, not lives. You learn more only when the person agrees.' },
+        { title: 'Nothing without a yes', body: 'Nothing is sent, signed or filed until the person says yes to exactly what will happen.' },
+        { title: 'Written limits', body: 'Every helper has rules that protect the person, like never pressuring a sick child to go to school.' },
+      ],
+    },
+
+    where: {
+      h2: 'Where we work',
+      lead: 'We start where the outcomes are clearest and the people have the most to gain.',
+      cards: [
+        { title: 'Schools', body: 'Attendance, Medicaid consent for students with IEPs, food and health enrollment that counts toward your funding, students without stable housing.', link: 'For schools', href: '/schools' },
+        { title: 'Union benefit funds', body: 'Medicare Part B premiums New York would pay, enrolled with each retiree’s yes and renewed every year.', link: 'For union funds', href: '/funds' },
+        { title: 'Your outcome', body: 'If your results depend on the people you serve, tell us which one.', link: 'Talk to us', href: '#school-contact' },
+      ],
+    },
+
+    form: {
+      h2: 'Start with one outcome',
+      lead: 'Tell us what you’re measured on. We’ll look at your data for free, show you what’s stranded, and start with one outcome. You pay when it moves.',
+      nameLabel: 'Your name',
+      roleLabel: 'Your role',
+      fundLabel: 'Organization',
+      emailLabel: 'Work email',
+      messageLabel: 'Who do you serve, and which outcome matters most?',
+      messageHint: '(optional)',
+      submit: 'Send',
+      note: "We'll use these details to reply. Please don't include anyone's personal records.",
+      success: "Thanks. We'll reply to the email you gave us.",
+      error: "We couldn't save your message. Please try again.",
+      generic: 'Please fill in every field.',
+    },
+
+    footer: {
+      tagline: 'Outcomes everyone wants, finally within reach',
+      links: [
+        { label: 'For schools', href: '/schools' },
         { label: 'For union funds', href: '/funds' },
         { label: 'Privacy', href: '/privacy' },
         { label: 'Security and trust', href: '/security' },
