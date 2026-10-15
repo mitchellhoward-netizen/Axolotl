@@ -207,38 +207,69 @@ function pathCard(c) {
 
 // ── the homepage: the idea ───────────────────────────────────────────────────
 //
-// Stranded alignment, for people who are not AI-native: an institution's
-// results depend on the people it serves; the outcomes in between are ones
-// both want and nobody can afford to reach; a helper per person, sponsored by
-// the institution and working for the person, reaches them. Names in,
-// outcomes out. /schools and /funds carry the specifics.
+// One school day, dawn to night, carrying stranded alignment for people who are
+// not AI-native: every empty seat is money (8:30), everyone wants the kid in
+// school but it is nobody's job (10:15), a helper for every family does the
+// work with them (12:10), the school sees outcomes, not lives (3:40), the
+// helper belongs to the family (6:30), and the day ends handled (9:40). Each
+// section carries its time and its own light. /schools and /funds carry the
+// specifics.
 
 function homeSections(s) {
   const k = at(s, 'home');
+  const lang = s.lang;
 
+  // A rendered phone from home.phones (scripts/build-phone.mjs). Until the art
+  // has been rendered for the first time, size it like the other 328px renders.
+  const phone = (i, extra = '') => {
+    const t = k.phones[i];
+    const size = art[lang]?.[`home${i}`] ?? { width: 328, height: 670 };
+    const alt = `${k.phoneAltPrefix} ${t.turns.map((turn) => `${turn.out ? k.phoneYou : 'Mycelium'}: ${turn.out ?? turn.in}`).join(' ')}`;
+    return device(`home-${i + 1}-${lang}.webp`, size, alt, extra);
+  };
+  const chip = (c) =>
+    `<p class="time-chip"><span class="time-chip-time">${esc(c.time)}</span><span class="time-chip-label">${esc(c.label)}</span></p>`;
+  const check = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12l5 5 9-10" /></svg>';
+
+  // 7:15 AM. The school sends one message; a family says yes.
   const h = k.hero;
   const hero = `
-    <section class="hero hero-schools hero-fund" id="top" aria-labelledby="hero-title">
-      <div class="wrap split hero-fund-split">
-        <div class="split-copy">
-          <p class="schools-eyebrow">${esc(h.eyebrow)}</p>
-          <h1 id="hero-title">${payoff(h.h1Plain, h.h1Em)}</h1>
-          <p class="lead">${esc(h.sub)}</p>
-          <div class="hero-actions">
-            <a class="button primary" href="#school-contact">${esc(h.primary)}</a>
-            <a class="text-link" href="#how">${esc(h.secondary)}</a>
-          </div>
-          <p class="trust-line">${esc(h.trust)}</p>
+    <section class="hero t-morning" id="top" aria-labelledby="hero-title">
+      <div class="sun" aria-hidden="true"></div>
+      <div class="clutter" aria-hidden="true">
+        <span class="paper paper-slip"><i></i><i></i><i></i><b></b></span>
+        <span class="paper paper-menu"><i></i><i></i><i></i><i></i></span>
+        <span class="paper paper-note"></span>
+        <span class="paper paper-card"><i></i><i></i></span>
+      </div>
+      <div class="wrap hero-copy">
+        ${chip(h.chip)}
+        <div class="agents" aria-hidden="true">
+          <div class="agents-track">${h.agents.map((a) => `<span>${esc(a)}</span>`).join('')}<span class="agents-parents">${esc(h.agentsLast)} <s>${esc(h.agentsStrike)}</s></span><span>${esc(h.agents[0])}</span></div>
         </div>
-        ${briefCard(h.story, 'story-title')}
+        <h1 id="hero-title">${payoff(h.h1Plain, h.h1Em)}</h1>
+        <p class="lead">${esc(h.sub)}</p>
+        <div class="hero-actions">
+          <a class="button primary" href="#school-contact">${esc(h.primary)}</a>
+          <a class="text-link" href="#bell">${esc(h.secondary)}</a>
+        </div>
+        <p class="trust-line">${esc(h.trust)}</p>
+      </div>
+      <div class="hero-stage">
+        ${phone(1, 'loading="lazy" ').replace(/alt="[^"]*"/, 'alt=""')}
+        ${phone(5, 'loading="lazy" ').replace(/alt="[^"]*"/, 'alt=""')}
+        <span aria-hidden="true" hidden></span>
+        ${phone(0, 'fetchpriority="high" ')}
       </div>
     </section>`;
 
+  // 8:30 AM. First bell: every empty seat is money.
   const d = k.depend;
-  const depend = `
-    <section class="section t-day" aria-labelledby="depend-title">
+  const bell = `
+    <section class="section t-day" id="bell" aria-labelledby="bell-title">
       <div class="wrap">
-        <h2 id="depend-title">${payoff(d.h2Plain, d.h2Em)}</h2>
+        ${chip(d.chip)}
+        <h2 id="bell-title">${payoff(d.h2Plain, d.h2Em)}</h2>
         <p class="lead">${esc(d.lead)}</p>
         <table class="year-table money-table">
           <caption class="sr-only">${esc(d.caption)}</caption>
@@ -261,10 +292,12 @@ function homeSections(s) {
       </div>
     </section>`;
 
+  // 10:15 AM. The front office: everyone wants it, nobody can afford to do it.
   const w = k.why;
-  const why = `
+  const office = `
     <section class="section t-noon" id="why" aria-labelledby="why-title">
       <div class="wrap">
+        ${chip(w.chip)}
         <h2 id="why-title">${payoff(w.h2Plain, w.h2Em)}</h2>
         <p class="lead">${esc(w.lead)}</p>
         <div class="scan-cards">${cardGrid(w.cards)}</div>
@@ -273,57 +306,138 @@ function homeSections(s) {
       </div>
     </section>`;
 
-  const st = k.steps;
-  const steps = `
-    <section class="section t-night-deep" id="how" aria-labelledby="how-title">
-      <div class="wrap">
-        <h2 id="how-title">${payoff(st.h2Plain, st.h2Em)}</h2>
-        <p class="lead">${esc(st.lead)}</p>
-        <ol class="fly-steps">
-          ${st.items.map((i) => `<li><strong>${esc(i.tag)}</strong><span>${esc(i.text)}</span></li>`).join('\n          ')}
-        </ol>
+  // 12:10 PM. The helper at work, four threads.
+  const wk = k.week;
+  const week = `
+    <section class="section t-afternoon" id="week" aria-labelledby="week-title">
+      <div class="wrap center-head">
+        ${chip(wk.chip)}
+        <h2 id="week-title">${payoff(wk.h2Plain, wk.h2Em)}</h2>
+        <p class="lead">${esc(wk.lead)}</p>
       </div>
-    </section>`;
-
-  const hp = k.helper;
-  const helper = `
-    <section class="section t-day" aria-labelledby="helper-title">
       <div class="wrap">
-        <h2 id="helper-title">${payoff(hp.h2Plain, hp.h2Em)}</h2>
-        <p class="lead">${esc(hp.lead)}</p>
-        ${cardGrid(hp.items)}
-        <p class="scan-estimate"><span class="highlight">${esc(hp.closer)}</span></p>
-      </div>
-    </section>`;
-
-  const rules = `
-    <section class="section" aria-labelledby="rules-title">
-      <div class="wrap">
-        <h2 id="rules-title">${esc(k.rules.h2)}</h2>
-        ${cardGrid(k.rules.items)}
-      </div>
-    </section>`;
-
-  const wh = k.where;
-  const where = `
-    <section class="section t-golden" aria-labelledby="where-title">
-      <div class="wrap">
-        <h2 id="where-title">${esc(wh.h2)}</h2>
-        <p class="lead">${esc(wh.lead)}</p>
-        <div class="scan-cards">
-          <div class="never-grid">
-          ${wh.cards
+        <div class="carousel" data-carousel>
+          <button class="carousel-arrow carousel-prev" type="button" aria-label="${esc(wk.prev)}" hidden>
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14.5 5 8 12l6.5 7" /></svg>
+          </button>
+          <ul class="carousel-track" tabindex="0" aria-label="${esc(wk.trackLabel)}">
+          ${wk.cards
             .map(
-              (c) =>
-                `<article><h3>${esc(c.title)}</h3><p>${esc(c.body)}</p><p><a class="text-link" href="${c.href.startsWith('#') ? c.href : localized(s, c.href)}">${esc(c.link)}</a></p></article>`,
+              (c, i) => `<li class="week-card">
+            ${phone(i + 1, 'loading="lazy" ')}
+            <p class="week-time">${esc(k.phones[i + 1].time)}</p>
+            <h3>${esc(c.title)}</h3>
+            <p>${esc(c.money)}</p>
+          </li>`,
             )
             .join('\n          ')}
-          </div>
+          </ul>
+          <button class="carousel-arrow carousel-next" type="button" aria-label="${esc(wk.next)}" hidden>
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9.5 5 16 12l-6.5 7" /></svg>
+          </button>
+        </div>
+        <p class="caption">${esc(k.caption)}</p>
+      </div>
+    </section>`;
+
+  // 3:40 PM. The school's side: names in, outcomes out.
+  const sc = k.school;
+  const school = `
+    <section class="section t-golden" id="how" aria-labelledby="how-title">
+      <div class="wrap split">
+        <div class="split-copy">
+          ${chip(sc.chip)}
+          <h2 id="how-title">${payoff(sc.h2Plain, sc.h2Em)}</h2>
+          <p class="lead">${esc(sc.lead)}</p>
+          <ol class="step-grid">
+            ${sc.steps.map((st) => `<li><span class="step-tag">${esc(st.tag)}</span>${esc(st.text)}</li>`).join('\n            ')}
+          </ol>
+        </div>
+        ${briefCard(sc.ledger, 'ledger-title')}
+      </div>
+    </section>`;
+
+  // 6:30 PM. Dinner: the helper belongs to the family.
+  const hp = k.helper;
+  const dinner = `
+    <section class="section t-dusk t-dusk-long" id="helper" aria-labelledby="helper-title">
+      <div class="wrap split circle-split">
+        <figure class="fund-phone">
+          ${phone(5, 'loading="lazy" ')}
+          <figcaption class="caption">${esc(k.caption)}</figcaption>
+        </figure>
+        <div class="split-copy">
+          ${chip(hp.chip)}
+          <h2 id="helper-title">${payoff(hp.h2Plain, hp.h2Em)}</h2>
+          <p class="lead">${esc(hp.lead)}</p>
+          <ol class="step-grid">
+            ${hp.items.map((it) => `<li><span class="step-tag">${esc(it.title)}</span>${esc(it.body)}</li>`).join('\n            ')}
+          </ol>
+          <p><span class="highlight">${esc(hp.closer)}</span></p>
         </div>
       </div>
     </section>`;
 
-  return [hero, depend, why, steps, helper, rules, where, contactForm(k.form, 'home')].join('');
+  // 9:40 PM. The day's summary, the rules, and where to start.
+  const n = k.night;
+  const night = `
+    <section class="section t-night" id="night" aria-labelledby="night-title">
+      <div class="stars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="wrap split">
+        <div class="split-copy">
+          ${chip(n.chip)}
+          <h2 id="night-title">${payoff(n.h2Plain, n.h2Em)}</h2>
+          <p class="lead">${esc(n.lead)}</p>
+        </div>
+        <div>
+          <p class="sum-label">${esc(n.sumLabel)}</p>
+          <ul class="summary">
+          ${n.summary
+            .map(
+              (it) => `<li class="${it.done ? 'is-done' : 'is-waiting'}">
+              <span class="sum-mark">${it.done ? check : ''}</span>
+              <span class="sum-text"><strong>${esc(it.title)}</strong><span>${esc(it.detail)}</span></span>
+              <span class="sr-only">${esc(it.done ? n.doneLabel : n.waitingLabel)}</span>
+            </li>`,
+            )
+            .join('\n          ')}
+          </ul>
+          <p class="caption">${esc(k.caption)}</p>
+        </div>
+      </div>
+      <div class="wrap promises">
+        ${k.rules.map((r) => `<article class="glass promise"><h3>${esc(r.title)}</h3><p>${esc(r.body)}</p></article>`).join('\n        ')}
+      </div>
+      <div class="wrap promise-links">
+        <a class="text-link" href="/security">${esc(n.securityLink)}</a>
+        <a class="text-link" href="/privacy">${esc(n.privacyLink)}</a>
+      </div>
+      <div class="wrap join" id="join" aria-labelledby="join-title">
+        <h2 id="join-title">${payoff(n.joinPlain, n.joinEm)}</h2>
+        <p class="lead">${esc(n.joinLead)}</p>
+        <a class="button primary" href="#school-contact">${esc(h.primary)}</a>
+      </div>
+    </section>`;
+
+  // Where it works today, then the form, under the night sky.
+  const wh = k.where;
+  const where = `
+    <section class="section t-night-deep section-band" aria-labelledby="where-title">
+      <div class="wrap band">
+        <h2 id="where-title">${esc(wh.h2)}</h2>
+        <p class="lead">${esc(wh.lead)}</p>
+      </div>
+      <div class="wrap promises">
+        ${wh.cards
+          .map(
+            (c) =>
+              `<article class="glass promise"><h3>${esc(c.title)}</h3><p>${esc(c.body)}</p><p><a class="text-link" href="${c.href.startsWith('#') ? c.href : localized(s, c.href)}">${esc(c.link)}</a></p></article>`,
+          )
+          .join('\n        ')}
+      </div>
+    </section>`;
+
+  return [hero, bell, office, week, school, dinner, night, where, contactForm(k.form, 'home', 't-night-deep')].join('');
 }
 
 // ── /schools: for school districts ───────────────────────────────────────────
@@ -491,9 +605,9 @@ function schoolSections(s) {
 /** The scan request form. Both the school and fund pages post it as kind
  *  "school" (see site.js); `source` prefixes the message so the two can be told
  *  apart in the signups table. */
-function contactForm(fm, source) {
+function contactForm(fm, source, tone = '') {
   return `
-    <section class="section" id="school-contact" aria-labelledby="school-contact-title">
+    <section class="section${tone ? ` ${tone}` : ''}" id="school-contact" aria-labelledby="school-contact-title">
       <div class="wrap contact-grid">
         <div>
           <h2 id="school-contact-title">${esc(fm.h2)}</h2>
@@ -938,9 +1052,9 @@ function document(s, { page, title, description, canonical, alts, body, langHref
       href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/site.css?v=20" />
-    <script src="/msp-calc.js?v=20" defer></script>
-    <script src="/site.js?v=20" defer></script>
+    <link rel="stylesheet" href="/site.css?v=21" />
+    <script src="/msp-calc.js?v=21" defer></script>
+    <script src="/site.js?v=21" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main">${esc(at(s, 'a11y.skip'))}</a>

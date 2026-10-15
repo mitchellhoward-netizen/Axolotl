@@ -50,9 +50,10 @@ server (`node scripts/serve-site.mjs`, declared in `.amp/services.yaml`)
 reproduces those clean URLs; it serves files only, so forms on the preview show
 their error state rather than pretending to store a signup.
 
-The two phones on /funds (a retiree's yes on her Part B premium, then
-her approval and yearly renewal) are **rendered device images**, not
-markup: `scripts/build-phone.mjs` draws the staged conversation at the iPhone's
+The phones on the homepage (six threads of a family's helper through one
+school day, `home.phones`) and the two on /funds (a retiree's yes on her
+Part B premium, then her approval and yearly renewal) are **rendered device
+images**, not markup: `scripts/build-phone.mjs` draws the staged conversation at the iPhone's
 own logical size in SF Pro, screenshots it at 3x, and composites it into Apple's
 official bezel (downloaded on demand into the gitignored `.cache/`; the raw bezel
 and font are never committed, only the finished `public/phone-<lang>.webp`).

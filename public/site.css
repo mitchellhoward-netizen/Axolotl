@@ -558,6 +558,24 @@ p {
   color: #7a2e1c;
 }
 
+/* The homepage's 6:30 PM section holds a phone and a longer argument, so the
+   light stays warm for longer and turns to night only at the very bottom,
+   where the 9:40 PM section picks it up. */
+.t-dusk-long {
+  background: linear-gradient(180deg, var(--golden) 0%, #eaab90 32%, #d29a92 62%, #a77892 86%, var(--dusk) 100%);
+  padding-bottom: 168px;
+}
+
+.t-dusk-long .step-tag {
+  color: var(--ink);
+  opacity: 0.72;
+}
+
+.t-dusk-long .lead,
+.t-dusk-long .caption {
+  color: var(--muted);
+}
+
 .t-night,
 .t-night-deep,
 .site-footer {

@@ -678,16 +678,19 @@ export default {
     },
   },
 
-  // ── the homepage: the idea ───────────────────────────────────────────────────
-  // Stranded alignment in plain words, for people who are not AI-native.
-  // Sources: case manager loads, NIJ-funded study (ojp.gov/pdffiles1/nij/grants/304457.pdf);
-  // FAFSA help, Bettinger, Long, Oreopoulos and Sanbonmatsu, H&R Block experiment (J-PAL).
+  // ── the homepage: one school day, dawn to night ──────────────────────────────
+  // Stranded alignment in plain words, told as a school day. Every phone is a
+  // fictional family and school, marked as an example. Sources:
+  //   Oakland: EdSource 2025. LCFF: CDE 2025–26. NYC Medicaid: NYC Comptroller 2026.
+  //   Case manager loads: NIJ-funded study (ojp.gov/pdffiles1/nij/grants/304457.pdf).
+  //   FAFSA help: Bettinger, Long, Oreopoulos and Sanbonmatsu, via J-PAL.
+  //   Medicaid consent: 34 CFR 300.154. SNAP decisions within 30 days: 7 CFR 273.2(g).
   home: {
     meta: {
-      title: 'Mycelium: when the people you serve do better, your budget does too',
+      title: 'Mycelium: when families do better, schools do too',
       description:
-        'A school’s funding depends on whether kids get to school and whether families are enrolled in the programs they qualify for. A fund’s costs depend on whether retirees apply for help. Mycelium gives each person a helper, an AI agent you sponsor that works for them, with their yes. When their outcome lands, so does yours, and that’s when you pay.',
-      shareAlt: 'Mycelium: when the people you serve do better, your budget does too.',
+        'Every day a student misses, a school loses funding. Every family that never enrolls in food assistance or Medicaid is a student the school isn’t paid for. Mycelium gives every family a helper, sponsored by their school: an AI agent that works for them, by text, in their language. Families get what they qualify for. Schools get paid when the outcome lands.',
+      shareAlt: 'Mycelium: when families do better, schools do too.',
     },
 
     nav: {
@@ -699,122 +702,272 @@ export default {
     },
 
     hero: {
-      eyebrow: 'For schools, benefit funds and the people they serve',
-      h1Plain: 'When the people you serve do better,',
-      h1Em: 'your budget does too.',
+      chip: { time: '7:15 AM', label: 'A school day' },
+      agents: [
+        'Sales teams have agents.',
+        'Hedge funds have agents.',
+        'Lawyers have agents.',
+        'Recruiters have agents.',
+        'Support desks have agents.',
+        'Startups have agents.',
+      ],
+      agentsLast: 'Families have',
+      agentsStrike: 'a stack of forms.',
+      h1Plain: 'When families do better,',
+      h1Em: 'schools do too.',
       // The social card (share.html) draws the headline as one line of plain text.
-      h1: 'When the people you serve do better, your budget does too.',
-      sub: 'Every day a student misses, the school loses funding. Every family that never enrolls in food assistance is a student the school isn’t paid for. Every retiree who never applies for help is a premium the fund pays itself. These outcomes matter to the people you serve and to your budget, and nobody has the hours to do the work with each person. Mycelium gives each person a helper: an AI agent you sponsor, that works for them, in their language. You pay when the outcome happens.',
+      h1: 'When families do better, schools do too.',
+      sub: 'Every day a student misses, the school loses funding. Every family that never enrolls in food assistance or Medicaid is a student the school isn’t paid for. Mycelium gives every family a helper, sponsored by their school: an AI agent that works for them, by text, in their language. Families get what they qualify for. Schools get paid when the outcome lands.',
       primary: 'Talk to us',
-      secondary: 'See how it works',
-      trust: 'Working with schools and union benefit funds. Nothing moves without the person’s yes.',
-      story: {
-        eyebrow: 'One family, one helper',
-        example: 'An example',
-        rows: [
-          { v: 'Day 1', l: 'The school texts: here’s a helper for your family', note: 'After the fifth absence, not the fifteenth.' },
-          { v: 'Week 1', l: 'Health coverage renewed', note: 'The renewal had gone to an old address. The inhaler gets refilled.' },
-          { v: 'Week 2', l: 'A way to school', note: 'A transit pass, and a neighbor who drives the same route.' },
-          { v: 'Term', l: 'Back above 90% attendance', note: 'Days the school is funded for again. It never saw the rest.' },
-        ],
-        foot: 'Names in, outcomes out: the school offered help from its attendance records, and sees only whether attendance improved.',
-      },
+      secondary: 'Follow one school day',
+      trust: 'Nothing goes out without the family’s yes. In English or Spanish.',
       // The social card's ledger.
       folder: {
-        label: 'One family, one helper · Example',
+        label: 'Lincoln Elementary, today · Example',
         statuses: { done: 'Done', waiting: 'Waiting for a yes' },
         rows: [
-          { label: 'Health coverage renewed', detail: 'The renewal had gone to an old address.', status: 'done' },
-          { label: 'A way to school', detail: 'A transit pass and a neighbor’s ride.', status: 'done' },
-          { label: 'Back above 90% attendance', detail: 'Days the school is funded for again.', status: 'done' },
-          { label: 'Food assistance', detail: 'And a student the school is now paid for.', status: 'waiting' },
+          { label: 'Maya’s Medi-Cal renewed', detail: 'The renewal had gone to an old address.', status: 'done' },
+          { label: 'A transit pass', detail: 'For the mornings the bus doesn’t come.', status: 'done' },
+          { label: 'Leo’s Medicaid consent', detail: 'Speech therapy the school can now bill.', status: 'done' },
+          { label: 'CalFresh application', detail: 'Submitted. The county decides in 30 days.', status: 'waiting' },
         ],
       },
     },
 
+    phoneAltPrefix: 'Example text conversation with Mycelium, a family’s helper.',
+    phoneYou: 'Parent',
+    caption: 'Example conversations. Fictional school and family.',
+
+    // The phones (scripts/build-phone.mjs renders each one). 0 is the hero,
+    // 1-4 the midday carousel, 5 the dinner-time thread. A thread has to be
+    // long enough to fill the screen; the build fails if one is short.
+    phones: [
+      {
+        meta: 'Today',
+        time: '7:15 AM',
+        turns: [
+          { in: 'Hi, it’s Mycelium, Lincoln Elementary’s family helper. Maya has missed a few mornings. Is anything making school harder? Rides, forms, health coverage, anything.' },
+          { out: 'Her inhaler ran out and the pharmacy says her Medi-Cal isn’t active' },
+          { in: 'That usually means the renewal went to an old address. What’s your address now?' },
+          { out: '88 Pine Ave apt 3. We moved' },
+          { in: 'Thanks. The renewal is filled in. Reply YES and I’ll send it to the county.' },
+          { out: 'YES' },
+          { in: 'Sent. I’ll text you the day it’s active so you can pick up her inhaler.' },
+        ],
+      },
+      {
+        meta: 'Tuesday',
+        time: '7:02 AM',
+        turns: [
+          { out: 'Bus didn’t come again. Maya is going to be late' },
+          { in: 'Sorry. Route 12 has run late all week. Your family qualifies for a free student transit pass, good on the 7:10 city bus from Pine and 3rd.' },
+          { in: 'I filled in the pass application. Reply YES and I’ll send it to the district.' },
+          { out: 'YES' },
+          { in: 'Sent. The pass comes in the mail this week.' },
+          { in: 'Want me to tell the front office Maya is on her way?' },
+          { out: 'Yes please' },
+          { in: 'Done. They marked her as running late, not absent.' },
+          { out: 'Thank you' },
+          { in: 'Of course. I’ll check Friday that the pass came.' },
+        ],
+      },
+      {
+        meta: 'Thursday',
+        time: '9:10 AM',
+        turns: [
+          { in: 'Good news: the county renewed Maya’s Medi-Cal. It’s active again as of today.' },
+          { out: 'Omg finally' },
+          { in: 'The pharmacy on 3rd can fill her inhaler this afternoon. Want me to call and ask them to have it ready?' },
+          { out: 'Yes please' },
+          { in: 'Done. It’ll be ready after 2.' },
+          { in: 'Medi-Cal renews every year. I’ll text you before the next one so it doesn’t lapse again.' },
+          { out: 'You’re a lifesaver' },
+          { in: 'If her asthma keeps her home again, tell me. I can let the school know and get you a doctor’s note.' },
+          { out: 'Ok will do' },
+          { in: 'I’ll check in Monday to see how she’s feeling.' },
+        ],
+      },
+      {
+        meta: 'Thursday',
+        time: '12:10 PM',
+        turns: [
+          { in: 'One more thing. With your new rent, your family likely qualifies for CalFresh: money for groceries every month. It also means free school meals for Maya and Leo, with no form.' },
+          { out: 'How long does it take' },
+          { in: 'About eight minutes, by text. I already have your address and income from the renewal.' },
+          { out: 'ok lets do it' },
+          { in: 'Three questions. How many people live with you, counting you?' },
+          { out: '4. me, my mom, Maya and Leo' },
+          { in: 'Thanks. I filled in the application. Reply YES and I’ll submit it to the county.' },
+          { out: 'YES' },
+          { in: 'Submitted. The county has 30 days to decide, and I’ll keep an eye on it.' },
+        ],
+      },
+      {
+        meta: 'Friday',
+        time: '3:20 PM',
+        turns: [
+          { in: 'Leo’s school can bill Medi-Cal for the speech therapy he already gets. They need your OK once.' },
+          { in: 'It doesn’t change his therapy, it never costs you anything, and you can take it back anytime.' },
+          { out: 'Does it use up his benefits?' },
+          { in: 'No. By law it can’t reduce his coverage or raise what you pay.' },
+          { out: 'ok then sure' },
+          { in: 'Here’s the consent, filled in with Leo’s details. Reply YES to sign it and I’ll send it to the school.' },
+          { out: 'YES' },
+          { in: 'Signed and sent. The school confirmed they have it.' },
+          { out: 'That was easy' },
+          { in: 'That’s the idea.' },
+        ],
+      },
+      {
+        meta: 'Today',
+        time: '6:30 PM',
+        turns: [
+          { out: 'Random question. My landlord says rent goes up $200 in January. Is there any help for that?' },
+          { in: 'There might be. Your county runs a rental assistance program, and with four people at your income you’re likely under its limit.' },
+          { in: 'I can check the details and fill in the application with you this weekend. Want me to?' },
+          { out: 'Yes. Does the school see this?' },
+          { in: 'No. The school only sees what it asked about, like whether Maya is getting to school. This stays between us unless you say otherwise.' },
+          { out: 'ok good' },
+          { in: 'Saturday morning, then. Have your lease handy.' },
+          { out: 'Will do. Goodnight' },
+        ],
+      },
+    ],
+
+    // 8:30 AM
     depend: {
-      h2Plain: 'Their outcomes',
-      h2Em: 'are your budget.',
-      lead: 'What a school is funded for, and what a fund pays out, depends on what happens in people’s lives. Your staff’s work stops at your door. In between are outcomes the people you serve want, and that bring money in or keep it from going out.',
-      caption: 'How a family’s outcome changes an institution’s money, and where it gets stuck',
-      head: ['When this happens for a family', 'What it means for your budget', 'Where it gets stuck'],
+      chip: { time: '8:30 AM', label: 'First bell' },
+      h2Plain: 'Every empty seat',
+      h2Em: 'is money.',
+      lead: 'Attendance gets taken, and in California and Texas, schools are paid by the day. A family that never enrolls in the programs it qualifies for is a student the school isn’t paid for. What a school is funded for reaches deep into family life. What its staff can do stops at the classroom door.',
+      caption: 'How a family’s outcome changes a school’s money, and where it gets stuck',
+      head: ['When this happens for a family', 'What it means for the school’s budget', 'Where it gets stuck'],
       rows: [
         { life: 'A kid gets to school', money: 'Schools in California and Texas are funded by daily attendance. Oakland lost about $90 for every absent student, every day.', stuck: 'A ride that didn’t come, an inhaler that ran out' },
         { life: 'A family enrolls in food assistance or Medicaid', money: 'The student is counted as low-income, and the school gets more per student. In a high-poverty California district, up to about $9,750 a year.', stuck: 'A form nobody explained, in a language nobody spoke' },
         { life: 'A parent signs the Medicaid consent for their child’s therapy', money: 'The school can bill Medicaid for services it already provides. New York City left $431.6 million unclaimed in three years.', stuck: 'A form that went home in a backpack' },
-        { life: 'A retiree enrolls in a Medicare Savings Program', money: 'The state pays the Part B premium the fund was reimbursing, about $1,200 a year for each retiree on a half reimbursement.', stuck: 'A renewal sent to an old address' },
       ],
-      note: 'Oakland: EdSource, 2025. California LCFF supplemental and concentration grants, CDE 2025–26; the count averages three years, so it phases in. New York City: NYC Comptroller follow-up audit, 2026. Part B: the 2026 standard premium, $202.90 a month.',
+      note: 'Oakland: EdSource, 2025. California LCFF supplemental and concentration grants, CDE 2025–26; the count averages three years, so it phases in. New York City: NYC Comptroller follow-up audit, 2026.',
     },
 
+    // 10:15 AM
     why: {
-      h2Plain: 'Why it doesn’t happen.',
-      h2Em: 'Stranded alignment.',
-      lead: 'We call it stranded alignment: outcomes an institution and the people it serves both want, that never happen because reaching them costs more than anyone can spend. Each case is small and sits between offices, so it’s nobody’s job. A typical school case manager carries 110 to 125 students.',
+      chip: { time: '10:15 AM', label: 'The front office' },
+      h2Plain: 'Everyone wants the kid in school.',
+      h2Em: 'It’s nobody’s job.',
+      lead: 'The parent wants it. The teacher wants it. The school is paid for it. We call this stranded alignment: outcomes a school and its families both want, that never happen because reaching them costs more than anyone can spend. Each case is small and sits between offices. A typical school case manager carries 110 to 125 students.',
       cards: [
-        { title: 'Letters and portals', body: 'Tell people what to do. They reach everyone and change little, because information alone rarely moves anyone.' },
-        { title: 'Coordinators and case managers', body: 'Do the work with people, and it works. But one person can only carry so many families.' },
-        { title: 'A helper for every person', body: 'Does the work with each person, as often as it takes, for everyone you serve. That’s new.' },
+        { title: 'Letters home', body: 'Tell families what to do. They reach everyone and change little, because information alone rarely moves anyone.' },
+        { title: 'Coordinators and case managers', body: 'Do the work with families, and it works. But one person can only carry so many.' },
+        { title: 'A helper for every family', body: 'Does the work with each family, as often as it takes, for every student. That’s new.' },
       ],
       changed: 'What changed: in one experiment, eight minutes of help filling out the federal student aid form raised college enrollment from 34% to 42%. Information alone did nothing. An AI agent can now spend those eight minutes with every family.',
       note: 'Case manager loads: a study funded by the National Institute of Justice. Student aid form: the H&R Block experiment by Bettinger, Long, Oreopoulos and Sanbonmatsu, summarized by J-PAL.',
     },
 
-    steps: {
-      h2Plain: 'How it works.',
-      h2Em: 'Nothing moves without a yes.',
-      lead: 'Mycelium works inside your institution and out in people’s lives. It learns what you need from your staff, and does the work with each person.',
-      items: [
-        { tag: 'Learn', text: 'We work with your staff to learn your goals, your rules and how you’re funded, and connect to the systems you already use.' },
-        { tag: 'Offer', text: 'Names in: your own records show who could use help. You send one message offering a helper, from a name people already trust.' },
-        { tag: 'Help', text: 'Each person’s helper works with them by text or WhatsApp, in their language, and with the agencies and offices around them.' },
-        { tag: 'Yes', text: 'Nothing is filed, signed or shared until the person says yes to exactly what will happen.' },
-        { tag: 'Report', text: 'Outcomes out: you see results, not people’s lives. Hard cases go to your staff.' },
-        { tag: 'See', text: 'When forty families hit the same problem, you hear about it. One family’s problem is a case. Forty is a policy decision.' },
+    // 12:10 PM
+    week: {
+      chip: { time: '12:10 PM', label: 'Midday' },
+      h2Plain: 'It works with every family.',
+      h2Em: 'All week.',
+      lead: 'Rides, renewals, applications, consents. Each one is small. Each one is something the family needed, and something the school is paid for.',
+      prev: 'Previous',
+      next: 'Next',
+      trackLabel: 'A family’s week, one conversation at a time',
+      cards: [
+        { title: 'A way to school', money: 'A day attended instead of a day lost.' },
+        { title: 'Coverage, renewed', money: 'An inhaler refilled, and fewer sick days.' },
+        { title: 'Food help, in eight minutes', money: 'Groceries for the family. A student the school now counts.' },
+        { title: 'A consent, signed once', money: 'Therapy the school already gives, now billable.' },
       ],
     },
 
+    // 3:40 PM
+    school: {
+      chip: { time: '3:40 PM', label: 'After the bell' },
+      h2Plain: 'Names in.',
+      h2Em: 'Outcomes out.',
+      lead: 'Mycelium works inside the school too. It learns your goals, rules and funding from your staff, and connects to the systems you already use. Your records show who could use help. You see the results you pay for, never the eviction notice or the sick grandparent.',
+      steps: [
+        { tag: '01 · Learn', text: 'Your goals, rules and funding, from your staff' },
+        { tag: '02 · Offer', text: 'One message from the school: here’s a helper for your family' },
+        { tag: '03 · Help', text: 'By text, in their language, with every office around them' },
+        { tag: '04 · Report', text: 'What changed and what it’s worth. Hard cases go to your staff' },
+      ],
+      ledger: {
+        eyebrow: 'Lincoln Elementary, this month',
+        example: 'An example',
+        rows: [
+          { v: '212', l: 'Medicaid consents returned', note: 'Therapy the school already provides, now billable.' },
+          { v: '87', l: 'Families newly counted', note: 'Enrolled in CalFresh or Medi-Cal, then matched.' },
+          { v: '64', l: 'Students back above 90% attendance', note: 'Days the school is funded for again.' },
+          { v: '40', l: 'Families lost the same bus stop', note: 'One family’s problem is a case. Forty is a policy decision.' },
+        ],
+        foot: 'You pay a fixed fee for each outcome, agreed up front. Nothing for families who say no.',
+      },
+    },
+
+    // 6:30 PM
     helper: {
-      h2Plain: 'A helper that belongs to the person,',
-      h2Em: 'sponsored by you.',
-      lead: 'Personal AI will reach most people the way financial advisors and good lawyers did: the people with the most friction last. Institutions can change that. The helper you sponsor works for the person, on anything making life harder, and on your goals only where they agree. You bring four things no app store can.',
+      chip: { time: '6:30 PM', label: 'Dinner' },
+      h2Plain: 'The helper belongs to the family.',
+      h2Em: 'The school sponsors it.',
+      lead: 'It works for the family, on anything making life harder, and on the school’s goals only where the family agrees. Personal AI would otherwise reach families the way financial advisors did: the ones with the most friction last. Schools have what it takes to change that.',
       items: [
-        { title: 'A reason to pay', body: 'Their outcomes are your funding. You lose money when they don’t happen.' },
-        { title: 'The records', body: 'You can see who needs help before they ask.' },
-        { title: 'Trust', body: 'People already read what you send them.' },
-        { title: 'Permission', body: 'Offices will turn away agents that show up uninvited. The one you sponsor gets let in.' },
+        { title: 'A reason to pay', body: 'The school loses money when these outcomes don’t happen' },
+        { title: 'The records', body: 'It can see who needs help before they ask' },
+        { title: 'Trust', body: 'Families already read what the school sends' },
+        { title: 'Permission', body: 'Offices turn away agents that show up uninvited. The one the school sponsors gets let in' },
       ],
-      closer: 'When other institutions serve the same family, they can sponsor the same helper. One helper instead of seven portals.',
+      closer: 'When the health plan or the county serves the same family, they can sponsor the same helper. One helper instead of seven portals.',
     },
 
-    rules: {
-      h2: 'The rules we don’t bend',
-      items: [
-        { title: 'Only outcomes good for both', body: 'You choose the outcome. We take it on only if it’s good for the people you serve too.' },
-        { title: 'Names in, outcomes out', body: 'You see results, not lives. You learn more only when the person agrees.' },
-        { title: 'Nothing without a yes', body: 'Nothing is sent, signed or filed until the person says yes to exactly what will happen.' },
-        { title: 'Written limits', body: 'Every helper has rules that protect the person, like never pressuring a sick child to go to school.' },
+    // 9:40 PM
+    night: {
+      chip: { time: '9:40 PM', label: 'Kids are asleep' },
+      h2Plain: 'Everything’s',
+      h2Em: 'handled.',
+      lead: 'Instead of a stack of letters home and a list of families nobody reached, one summary: what got done, what the school is paid for, and what’s still waiting on a yes.',
+      sumLabel: 'Lincoln Elementary, today',
+      doneLabel: 'Done',
+      waitingLabel: 'Waiting',
+      summary: [
+        { done: true, title: 'Maya’s Medi-Cal renewed', detail: 'County approved · inhaler filled' },
+        { done: true, title: 'A transit pass for Maya', detail: 'Marked late, not absent' },
+        { done: true, title: 'Leo’s Medicaid consent', detail: 'Signed · the school can bill his therapy' },
+        { done: false, title: 'CalFresh for the family', detail: 'Submitted · the county decides in 30 days' },
       ],
+      securityLink: 'Read every limit, in plain words',
+      privacyLink: 'How we handle information',
+      joinPlain: 'Tomorrow,',
+      joinEm: 'start with one outcome.',
+      joinLead: 'Tell us what you’re measured on. We’ll look at your data for free, show you what’s stranded, and start with one outcome at a few schools. You pay when it moves.',
     },
+
+    rules: [
+      { title: 'Their yes sends it.', body: 'Nothing is filed, signed or shared until the family says yes to exactly what will happen.' },
+      { title: 'Only outcomes good for both.', body: 'The school picks the outcome. We take it on only if it’s good for the family too.' },
+      { title: 'Names in, outcomes out.', body: 'The school sees results, not lives. It learns more only when the family agrees.' },
+    ],
 
     where: {
       h2: 'Where we work',
-      lead: 'We start where the outcomes are clearest and the people have the most to gain.',
+      lead: 'Schools first. The same gap shows up wherever an institution’s money depends on its people’s lives.',
       cards: [
         { title: 'Schools', body: 'Attendance, Medicaid consent for students with IEPs, food and health enrollment that counts toward your funding, students without stable housing.', link: 'For schools', href: '/schools' },
         { title: 'Union benefit funds', body: 'Medicare Part B premiums New York would pay, enrolled with each retiree’s yes and renewed every year.', link: 'For union funds', href: '/funds' },
-        { title: 'Your outcome', body: 'If your results depend on the people you serve, tell us which one.', link: 'Talk to us', href: '#school-contact' },
+        { title: 'Your outcome', body: 'If your money depends on the people you serve, tell us which outcome.', link: 'Talk to us', href: '#school-contact' },
       ],
     },
 
     form: {
-      h2: 'Start with one outcome',
-      lead: 'Tell us what you’re measured on. We’ll look at your data for free, show you what’s stranded, and start with one outcome. You pay when it moves.',
+      h2: 'Talk to us',
+      lead: 'Tell us who you serve and what you’re measured on. We’ll reply within two business days.',
       nameLabel: 'Your name',
       roleLabel: 'Your role',
-      fundLabel: 'Organization',
+      fundLabel: 'School, district or organization',
       emailLabel: 'Work email',
-      messageLabel: 'Who do you serve, and which outcome matters most?',
+      messageLabel: 'Which outcome matters most to you?',
       messageHint: '(optional)',
       submit: 'Send',
       note: "We'll use these details to reply. Please don't include anyone's personal records.",
@@ -824,7 +977,7 @@ export default {
     },
 
     footer: {
-      tagline: 'When the people you serve do better, so does your budget',
+      tagline: 'When families do better, schools do too',
       links: [
         { label: 'For schools', href: '/schools' },
         { label: 'For union funds', href: '/funds' },
