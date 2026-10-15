@@ -404,7 +404,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; letter-spacing: -0.0
       <p>La quinta falta de un niño ya está en los registros de la escuela. Hoy dispara un aviso de ausentismo. Con Mycelium dispara una oferta de la escuela, en el idioma de la familia: un ayudante que trabaja en lo que sea que mantiene al niño en casa, porque la verdadera barrera casi siempre es algo que la escuela nunca ha visto.</p>
       <p style="margin-top:16px">La escuela paga solo cuando la asistencia mejora, medida contra el año anterior de cada estudiante y desplegada escuela por escuela para que la mejora sea real. Nada por adelantado.</p>
       <form class="scan" onsubmit="return false">
-        <div class="figure" id="scan-figure" aria-live="polite">$947K<small id="scan-sub">que podría recuperar al año Pajaro Valley Unified, según sus informes públicos</small></div>
+        <div class="figure" id="scan-figure" aria-live="polite">$244K<small id="scan-sub">que podría recuperar al año Pajaro Valley Unified, según sus informes públicos</small></div>
         <div class="pick">
           <label for="district" class="vh">Busque su distrito</label>
           <input id="district" type="search" placeholder="Escriba cualquier distrito escolar de California" autocomplete="off" spellcheck="false" role="combobox" aria-expanded="false" aria-controls="scan-matches" aria-autocomplete="list">
@@ -413,10 +413,10 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; letter-spacing: -0.0
         <p class="quick" id="scan-quick">O pruebe <button type="button" data-pick="4469799">Pajaro Valley</button>, <button type="button" data-pick="0161259">Oakland</button>, <button type="button" data-pick="1062166">Fresno</button> o <button type="button" data-pick="fund">un fondo de beneficios</button>.</p>
         <div class="lines" id="scan-lines">
           <div><span>3,865 estudiantes con ausentismo crónico, uno de cada cuatro contactado, 3 días más cada uno, a $84 por día</span><b>$244K</b></div>
-          <div><span>77 estudiantes más de bajos ingresos contados, uno de cada doscientos inscritos, a $9,139 cada uno</span><b>$704K</b></div>
+          <div><span>Fuera de la cifra: si uno de cada doscientos inscritos es de bajos ingresos y no está contado, 77 estudiantes a $9,139 cada uno</span><b>$704K</b></div>
           <div><span>Cada 1% de asistencia vale</span><b>$2.2M</b></div>
         </div>
-        <p class="assume">Los conteos de estudiantes salen del archivo estatal de ausentismo crónico 2024–25 y los valores por día y por estudiante del financiamiento LCFF 2024–25 de cada distrito. El uno de cada cuatro, los tres días y el uno de cada doscientos son supuestos nuestros, puestos bajos a propósito; la aritmética está arriba para que usted la rehaga. Los distritos financiados por impuestos locales muestran $0, porque la asistencia no mueve su dinero estatal. Las cifras de los fondos salen de informes anuales públicos.</p>
+        <p class="assume">Los conteos de estudiantes salen del archivo estatal de ausentismo crónico 2024–25 y los valores por día y por estudiante del financiamiento LCFF 2024–25 de cada distrito. El uno de cada cuatro y los tres días son supuestos nuestros, puestos bajos a propósito: <a href="https://toddrogers.scholars.harvard.edu/resource/reducingstudentabsencesatscalepdf">una carta por correo, sola</a>, recuperó 1.1 días por estudiante en un ensayo aleatorio con 28,000 hogares. La línea de estudiantes no contados no tiene estudio detrás, así que queda fuera de la cifra. A un distrito con matrícula en descenso se le paga por la asistencia del año anterior, así que la mejora llega un año tarde. Los distritos financiados por impuestos locales muestran $0, porque la asistencia no mueve su dinero estatal. Las cifras de los fondos salen de informes anuales públicos. La aritmética está arriba para que usted la rehaga.</p>
       </form>
     </div>
   </div>
@@ -545,9 +545,9 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; letter-spacing: -0.0
     var reached = Math.round(absent * A.reach), days = reached * A.days, uncounted = Math.round(enrolled * A.uncounted);
     if (basic) { show('$0', 'en dinero estatal para ' + name + ', que se financia con impuestos locales', [[num(absent) + ' estudiantes con ausentismo crónico', rate + '%'], ['Un día más de asistencia le trae al distrito', '$0'], ['El lado de las familias sigue en pie; el del presupuesto no', '']]); return; }
     var att = days * perDay, cnt = uncounted * perCounted;
-    show(money(att + cnt), 'que podría recuperar al año ' + name + ', según sus informes públicos', [
+    show(money(att), 'que podría recuperar al año ' + name + ', según sus informes públicos', [
       [num(absent) + ' estudiantes con ausentismo crónico, uno de cada cuatro contactado, ' + A.days + ' días más cada uno, a $' + perDay + ' por día', money(att)],
-      [num(uncounted) + ' estudiantes más de bajos ingresos contados, uno de cada doscientos inscritos, a $' + num(perCounted) + ' cada uno', money(cnt)],
+      ['Fuera de la cifra: si uno de cada doscientos inscritos es de bajos ingresos y no está contado, ' + num(uncounted) + ' estudiantes a $' + num(perCounted) + ' cada uno', money(cnt)],
       ['Cada 1% de asistencia vale', money(perPoint)]
     ]);
   }

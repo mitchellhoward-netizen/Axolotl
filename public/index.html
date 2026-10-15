@@ -404,7 +404,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; letter-spacing: -0.0
       <p>A child's fifth absence is already in the school's records. Today it triggers a truancy notice. With Mycelium it triggers an offer from the school, in the family's language: a helper that works on whatever is keeping the child home, because the real barrier is usually something the school has never seen.</p>
       <p style="margin-top:16px">The school pays only when attendance improves, measured against each student's own prior year and rolled out school by school so the gain is real. Nothing up front.</p>
       <form class="scan" onsubmit="return false">
-        <div class="figure" id="scan-figure" aria-live="polite">$947K<small id="scan-sub">Pajaro Valley Unified could recover each year, worked from its own public filings</small></div>
+        <div class="figure" id="scan-figure" aria-live="polite">$244K<small id="scan-sub">Pajaro Valley Unified could recover each year, worked from its own public filings</small></div>
         <div class="pick">
           <label for="district" class="vh">Find your district</label>
           <input id="district" type="search" placeholder="Type any California school district" autocomplete="off" spellcheck="false" role="combobox" aria-expanded="false" aria-controls="scan-matches" aria-autocomplete="list">
@@ -413,10 +413,10 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; letter-spacing: -0.0
         <p class="quick" id="scan-quick">Or try <button type="button" data-pick="4469799">Pajaro Valley</button>, <button type="button" data-pick="0161259">Oakland</button>, <button type="button" data-pick="1062166">Fresno</button>, or <button type="button" data-pick="fund">a benefit fund</button>.</p>
         <div class="lines" id="scan-lines">
           <div><span>3,865 chronically absent students, one in four reached, 3 more days each, at $84 a day</span><b>$244K</b></div>
-          <div><span>77 more low-income students counted, one in two hundred enrolled, at $9,139 each</span><b>$704K</b></div>
+          <div><span>Not in the figure: if one in two hundred enrolled students is low-income and uncounted, 77 students at $9,139 each</span><b>$704K</b></div>
           <div><span>Each 1% of attendance is worth</span><b>$2.2M</b></div>
         </div>
-        <p class="assume">Student counts come from the state's 2024–25 chronic absenteeism file and the per-day and per-student values from each district's 2024–25 LCFF funding. The one-in-four reach, the three days and the one-in-two-hundred uncounted are our assumptions, set low on purpose; the arithmetic is above so you can redo it. Districts funded by local property tax show $0, because attendance doesn't move their state money. Fund figures come from public annual filings.</p>
+        <p class="assume">Student counts come from the state's 2024–25 chronic absenteeism file and the per-day and per-student values from each district's 2024–25 LCFF funding. The one-in-four reach and the three days are our assumptions, set low on purpose: <a href="https://toddrogers.scholars.harvard.edu/resource/reducingstudentabsencesatscalepdf">a mailed letter alone</a> recovered 1.1 days per student in a randomized trial of 28,000 households. The uncounted-student line has no study behind it, so it stays out of the figure. A district in declining enrollment is paid on last year's attendance, so a gain arrives a year late. Districts funded by local property tax show $0, because attendance doesn't move their state money. Fund figures come from public annual filings. The arithmetic is above so you can redo it.</p>
       </form>
     </div>
   </div>
@@ -545,9 +545,9 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; letter-spacing: -0.0
     var reached = Math.round(absent * A.reach), days = reached * A.days, uncounted = Math.round(enrolled * A.uncounted);
     if (basic) { show('$0', 'in state money for ' + name + ', which is funded by local property tax', [[num(absent) + ' chronically absent students', rate + '%'], ['Another day of attendance brings the district', '$0'], ['The families\' side of the case still stands; the budget side doesn\'t', '']]); return; }
     var att = days * perDay, cnt = uncounted * perCounted;
-    show(money(att + cnt), name + ' could recover each year, worked from its own public filings', [
+    show(money(att), name + ' could recover each year, worked from its own public filings', [
       [num(absent) + ' chronically absent students, one in four reached, ' + A.days + ' more days each, at $' + perDay + ' a day', money(att)],
-      [num(uncounted) + ' more low-income students counted, one in two hundred enrolled, at $' + num(perCounted) + ' each', money(cnt)],
+      ['Not in the figure: if one in two hundred enrolled students is low-income and uncounted, ' + num(uncounted) + ' students at $' + num(perCounted) + ' each', money(cnt)],
       ['Each 1% of attendance is worth', money(perPoint)]
     ]);
   }
