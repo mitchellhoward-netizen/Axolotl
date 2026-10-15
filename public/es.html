@@ -165,7 +165,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; letter-spacing: -0.0
 .showcase .stack .soft { color: var(--muted); }
 .showcase .stack .cap { display: inline-block; background: var(--accent); color: var(--accent-ink); padding: 0 0.06em; margin-right: 0.08em; line-height: 0.82; }
 .showcase .object {
-  position: absolute; right: 4vw; top: calc(var(--gap-section) - 1.5vw); width: min(44vw, 560px);
+  position: absolute; right: 4vw; top: calc(var(--gap-section) + 0.95 * var(--step-poster)); width: min(44vw, 560px);
   transform: rotate(-4deg); z-index: 1;
 }
 .showcase .facts { padding: 48px var(--m) 0; }
@@ -217,7 +217,8 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; letter-spacing: -0.0
 .theirs { padding: var(--gap-section) var(--m) 0; }
 .theirs h2 { font-size: var(--step-poster); line-height: 0.9; max-width: 10ch; }
 .theirs .body { margin-top: 56px; row-gap: 48px; }
-.theirs .lede { grid-column: 1 / span 5; font-size: var(--step-lead); line-height: 1.35; max-width: 28ch; }
+.theirs .photo { grid-column: 1 / span 5; margin: 0; aspect-ratio: 4 / 5; overflow: hidden; background: var(--surface); }
+.theirs .photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; display: block; }
 .theirs .list { grid-column: 7 / span 6; display: grid; gap: 36px; }
 .theirs .item h3 { font-family: var(--text); font-weight: 500; font-size: var(--step-lead); line-height: 1.2; letter-spacing: 0; }
 .theirs .item p { margin-top: 8px; max-width: 40ch; color: var(--ink); }
@@ -228,7 +229,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; letter-spacing: -0.0
 .theirs .facts a { color: inherit; text-decoration: none; }
 .theirs .facts a:hover { text-decoration: underline; text-underline-offset: 3px; }
 .theirs .why > p + p { margin-top: 0; }
-@media (max-width: 1023px) { .theirs .lede, .theirs .list, .theirs .why { grid-column: 1 / span 12; } }
+@media (max-width: 1023px) { .theirs .photo, .theirs .list, .theirs .why { grid-column: 1 / span 12; } .theirs .photo { aspect-ratio: 3 / 2; } }
 
 /* ============ HOW IT WORKS: lines that step across ============ */
 .how { padding: var(--gap-section) var(--m); display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; row-gap: 56px; }
@@ -342,8 +343,6 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; letter-spacing: -0.0
 @media (prefers-reduced-motion: no-preference) {
   .js [data-rise] { opacity: 0; transform: translateY(22px); animation: rise var(--t-reveal) var(--ease-out) forwards; animation-delay: calc(var(--i, 0) * 90ms + 120ms); }
   @keyframes rise { to { opacity: 1; transform: none; } }
-  .js [data-enter] { opacity: 0; transform: translateY(24px); transition: opacity var(--t-reveal) var(--ease-out), transform var(--t-reveal) var(--ease-out); transition-delay: calc(var(--i, 0) * 80ms); }
-  .js [data-enter].in { opacity: 1; transform: none; }
   .js .intro .photos figure { transition: transform 1.2s var(--ease-soft); transform: scale(0.96); }
   .js .intro .photos figure.in { transform: none; }
 }
@@ -372,7 +371,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; letter-spacing: -0.0
     <span class="l2">de sus familias.</span>
   </h1></div>
   <div class="photo" aria-hidden="true"><img src="assets/myc-fan-lomas.jpg" width="1280" height="851" alt="" fetchpriority="high"><img src="assets/dend-fan-single.jpg" width="1280" height="1763" alt="" style="object-position: 50% 40%"><img src="assets/dend-field-solnhofen.jpg" width="1280" height="850" alt="" style="object-position: 50% 35%"><img src="assets/dend-tree-pyrolusite.jpg" width="1075" height="1657" alt="" style="object-position: 50% 30%"></div>
-  <p class="support" data-rise style="--i:1">A una escuela la financia la asistencia. Un fondo de beneficios paga primas que el estado cubriría. Ambas cosas se deciden en los hogares, donde ninguna institución llega. Mycelium le da a cada persona un ayudante: una IA que le escribe por mensaje en su idioma, pagada por la institución, que trabaja para ella.</p>
+  <p class="support" data-rise style="--i:1">La asistencia y los beneficios se deciden en casa. Mycelium le da a cada persona un ayudante ahí: una IA que escribe en su idioma, pagada por usted, que trabaja para ella.</p>
   <div class="action" data-rise style="--i:2"><a class="button" href="#close">Vea cuánto podría recuperar</a></div>
 </section>
 
@@ -407,8 +406,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; letter-spacing: -0.0
   </div>
   <div class="facts grid">
     <div data-enter style="--i:4">
-      <p>La quinta falta de un niño ya está en los registros de la escuela. Hoy dispara un aviso de ausentismo. Con Mycelium dispara una oferta de la escuela, en el idioma de la familia: un ayudante que trabaja en lo que sea que mantiene al niño en casa, porque la verdadera barrera casi siempre es algo que la escuela nunca ha visto.</p>
-      <p style="margin-top:16px">La escuela paga solo cuando la asistencia mejora, medida contra el año anterior de cada estudiante y desplegada escuela por escuela para que la mejora sea real. Nada por adelantado.</p>
+      <p>La quinta falta ya está en los registros de la escuela. Hoy dispara un aviso de ausentismo. Con Mycelium dispara una oferta, en el idioma de la familia, de un ayudante que trabaja en lo que sea que mantiene al niño en casa. La escuela paga solo cuando la asistencia mejora.</p>
       <form class="scan" onsubmit="return false">
         <div class="figure" id="scan-figure" aria-live="polite">$244K<small id="scan-sub">que podría recuperar al año Pajaro Valley Unified, según sus informes públicos</small></div>
         <div class="pick">
@@ -422,7 +420,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; letter-spacing: -0.0
           <div><span>Fuera de la cifra: si uno de cada doscientos inscritos es de bajos ingresos y no está contado, 77 estudiantes a $9,139 cada uno</span><b>$704K</b></div>
           <div><span>Cada 1% de asistencia vale</span><b>$2.2M</b></div>
         </div>
-        <p class="assume">Los conteos de estudiantes salen del archivo estatal de ausentismo crónico 2024–25 y los valores por día y por estudiante del financiamiento LCFF 2024–25 de cada distrito. El uno de cada cuatro y los tres días son supuestos nuestros, puestos bajos a propósito: <a href="https://toddrogers.scholars.harvard.edu/resource/reducingstudentabsencesatscalepdf">una carta por correo, sola</a>, recuperó 1.1 días por estudiante en un ensayo aleatorio con 28,000 hogares. La línea de estudiantes no contados no tiene estudio detrás, así que queda fuera de la cifra. A un distrito con matrícula en descenso se le paga por la asistencia del año anterior, así que la mejora llega un año tarde. Los distritos financiados por impuestos locales muestran $0, porque la asistencia no mueve su dinero estatal. Las cifras de los fondos salen de informes anuales públicos. La aritmética está arriba para que usted la rehaga.</p>
+        <p class="assume">Conteos del archivo estatal de ausentismo 2024–25; valores del financiamiento LCFF 2024–25 de cada distrito. El alcance y los días son supuestos nuestros, por debajo de lo que <a href="https://toddrogers.scholars.harvard.edu/resource/reducingstudentabsencesatscalepdf">una carta por correo, sola</a>, recuperó en un ensayo aleatorio. Los no contados quedan fuera de la cifra; los distritos de impuestos locales muestran $0; a los de matrícula en descenso se les paga un año tarde.</p>
       </form>
     </div>
   </div>
@@ -432,16 +430,16 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; letter-spacing: -0.0
 <section class="theirs" aria-label="Lo que recibe la persona">
   <h2 data-enter>El ayudante es suyo.</h2>
   <div class="grid body">
-    <p class="lede" data-enter style="--i:1">La institución lo paga porque su presupuesto mejora. La persona lo usa porque trabaja para ella. Esas dos cosas solo coinciden si el ayudante es honesto sobre de qué lado está, así que lo construimos para que sea de la persona.</p>
+    <figure class="photo"><img src="assets/dend-tree-pyrolusite.jpg" width="1075" height="1657" alt="Una dendrita en forma de árbol, negra y ocre, sobre piedra crema" loading="lazy"></figure>
     <div class="list">
-      <div class="item" data-enter style="--i:2"><h3>Ayuda con cualquier cosa.</h3><p>El autobús, la renovación de Medi-Cal, el aviso de corte de luz, la reunión del IEP, el formulario que el condado nunca explicó. No solo lo único por lo que paga la institución. La barrera para eso casi siempre es otra cosa.</p></div>
-      <div class="item" data-enter style="--i:3"><h3>Responde ante ellos.</h3><p>Nunca presiona a una niña enferma para que vaya a clase. Nunca le cuenta a la escuela los motivos de una familia; la escuela recibe patrones en conjunto, nunca la historia de nadie. Le dice que no a la institución antes que a la familia, y esa regla está escrita donde las dos pueden leerla.</p></div>
-      <div class="item" data-enter style="--i:4"><h3>Pueden decir que no.</h3><p>Nada se tramita, se llama ni se envía sin un sí a esa acción exacta. Si dicen alto, se detiene. Si rechazan la oferta, la escuela no se entera de nada más que eso.</p></div>
-      <div class="item" data-enter style="--i:5"><h3>Ya está en su bolsillo.</h3><p>Llega por mensaje de texto o por WhatsApp, lo que la familia ya use. Nada que descargar, ni portal, ni contraseña que olvidar. Su personal tampoco recibe nada nuevo que manejar.</p></div>
-      <div class="item" data-enter style="--i:6"><h3>Se queda con ellos.</h3><p>Primero lo patrocina una escuela. Cuando más adelante un fondo sindical, una clínica o un colegio patrocina a la misma persona, el ayudante ya está ahí, ya tiene confianza, ya conoce la situación.</p></div>
+      <div class="item" data-enter style="--i:2"><h3>Ayuda con cualquier cosa.</h3><p>El autobús, la renovación de Medi-Cal, el aviso de corte, la reunión del IEP. No solo lo que a usted le pagan.</p></div>
+      <div class="item" data-enter style="--i:3"><h3>Responde ante ellos.</h3><p>Nunca le cuenta a la escuela los motivos de una familia, y le dice que no a la institución antes que a la familia.</p></div>
+      <div class="item" data-enter style="--i:4"><h3>Pueden decir que no.</h3><p>Nada se tramita ni se envía sin un sí a esa acción exacta. Si dice basta, se detiene.</p></div>
+      <div class="item" data-enter style="--i:5"><h3>Ya está en su bolsillo.</h3><p>Mensaje de texto o WhatsApp, lo que ya usen. Nada que descargar, y nada nuevo para su personal.</p></div>
+      <div class="item" data-enter style="--i:6"><h3>Se queda con ellos.</h3><p>Cuando más adelante un fondo, una clínica o un colegio patrocina a la misma persona, el ayudante ya está ahí.</p></div>
     </div>
     <div class="why" data-enter style="--i:7">
-      <p>A la brecha que esto cierra la llamamos alineación varada: resultados que una institución y una persona quieren por igual, y que nadie perseguía porque ayudar a una persona a la vez costaba más de lo que nadie podía recuperar. La evidencia de que lo que los mueve es la ayuda, no la información:</p>
+      <p>A la brecha la llamamos alineación varada: resultados que ambos lados quieren y que nadie podía costear persona por persona. La evidencia de que la cierra la ayuda, no la información:</p>
       <ul class="facts">
         <li><a href="https://www.povertyactionlab.org/print/pdf/node/2133?lang=en">Un folleto sobre ayuda financiera no cambió nada. Sentarse con la familia a terminar el formulario subió la inscripción universitaria 8 puntos.</a></li>
         <li><a href="https://www.nber.org/system/files/working_papers/w24652/w24652.pdf">Una carta que decía "usted califica" duplicó la inscripción en un beneficio. Una persona que lo tramitó la triplicó.</a></li>
@@ -457,19 +455,19 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; letter-spacing: -0.0
 <section class="how" id="how" aria-label="Cómo funciona">
   <div class="stage" data-enter style="--i:0">
     <h2>Primero leemos cómo le financian.</h2>
-    <p>Su fórmula de financiamiento y sus registros, línea por línea. Encontramos cada dólar que depende de algo en la vida de una persona: la asistencia de un distrito, las primas de Medicare de un fondo. La cifra va primero, gratis.</p>
+    <p>Su fórmula de financiamiento y sus registros, línea por línea: cada dólar que depende de algo en la vida de una persona. La cifra va primero, gratis.</p>
   </div>
   <div class="stage" data-enter style="--i:1">
     <div class="line">Luego ensaya con el año pasado.</div>
-    <p>Antes de que el ayudante le escriba a nadie, corre sobre los registros del año pasado. Usted ve a quién habría contactado y qué habría dicho. Lo corrige y decide cuándo está listo.</p>
+    <p>Primero corre con los registros del año pasado. Usted ve a quién habría llegado y qué habría dicho, y decide cuándo está listo.</p>
   </div>
   <div class="stage" data-enter style="--i:2">
     <div class="line">Usted lo ofrece. La familia dice que sí.</div>
-    <p>Una quinta falta, o un afiliado que cumple 65 años, envía una oferta de parte suya en su idioma. Dicen que sí o no. Su personal ve solo los casos que necesitan a una persona.</p>
+    <p>Una quinta falta, o un miembro que cumple 65, envía una oferta suya en su idioma. Su personal ve solo los casos que necesitan a una persona.</p>
   </div>
   <div class="stage" data-enter style="--i:3">
     <div class="line">Paga cuando el resultado mejora.</div>
-    <p>Días de asistencia recuperados contra el año anterior de cada estudiante, o primas que ahora paga el estado en lugar de usted. Se despliega escuela por escuela y se mide contra las familias que aún no lo reciben, para que vea la mejora antes de ampliarla. Nuestra parte es un cuarto de lo recuperado; el resto queda con usted.</p>
+    <p>Días de asistencia contra el año anterior de cada estudiante, o primas que ahora paga el estado en lugar de usted, medidos escuela por escuela contra las familias que aún no lo reciben. Nuestra parte es un cuarto de lo recuperado.</p>
   </div>
 </section>
 
@@ -479,16 +477,16 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; letter-spacing: -0.0
 <!-- FEATURES -->
 <section class="fields" aria-label="Lo que ve la escuela">
   <div class="field light">
-    <p class="why" data-enter>Piense en el seguro médico. Su empleador lo paga, el médico trabaja para usted, y su empleador gana cuando usted está bien sin ver nunca su expediente. El mismo arreglo, hoy al alcance de cada familia y cada jubilado.</p>
+    <p class="why" data-enter>Como el seguro médico: su empleador paga, el médico trabaja para usted, y su empleador gana sin ver nunca su expediente.</p>
     <h2 data-enter style="--i:1">Trabaja para la familia.</h2>
   </div>
   <div class="field mid mirror">
-    <p class="why" data-enter>La escuela ve a quién se le ofreció un ayudante, según sus propios registros, y si la asistencia mejoró. Ve patrones en conjunto, como cuarenta familias en la misma ruta de autobús recortada, que es una política que puede arreglar, pero nunca los motivos de nadie. Y ve cada regla que sigue el ayudante, por escrito, antes de que nada salga en vivo.</p>
+    <p class="why" data-enter>A quién se le ofreció un ayudante, según sus propios registros, y si la asistencia mejoró. Patrones en conjunto, como cuarenta familias en una misma ruta recortada. Cada regla que sigue el ayudante, por escrito, antes de salir en vivo.</p>
     <h2 data-enter style="--i:1">La escuela ve resultados.</h2>
   </div>
   <div class="field dark">
     <figure class="field-photo" data-enter style="--i:1"><img src="assets/dend-fan-single.jpg" width="1280" height="1763" alt="Una sola dendrita negra abriéndose en abanico sobre caliza clara" loading="lazy" style="object-position: 50% 35%"></figure>
-    <p class="why" data-enter>Nunca ve la dirección, el aviso de desalojo, la pregunta migratoria ni al abuelo enfermo. Nunca ve un mensaje salvo que la familia decida compartirlo, ni nada sobre una familia que no dijo que sí. Esto está garantizado en el sistema, no en una instrucción. Los datos estudiantiles quedan bajo las reglas de funcionario escolar de FERPA y el CA-NDPA de California, y nunca se usan para entrenar modelos.</p>
+    <p class="why" data-enter>Nunca la dirección, el aviso de desalojo, la pregunta migratoria ni al abuelo enfermo. Nada sobre una familia que no dijo que sí. Garantizado en el sistema, no en una instrucción; los datos estudiantiles quedan bajo FERPA y CA-NDPA y nunca entrenan modelos.</p>
     <h2 data-enter style="--i:1">Nunca los motivos.</h2>
   </div>
 </section>
