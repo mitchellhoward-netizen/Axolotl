@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Mycelium</title>
 <meta name="description" content="Escuelas y fondos de beneficios patrocinan un ayudante para cada persona a la que sirven. Trabaja para la persona. Usted paga cuando el resultado se mueve.">
-<meta property="og:title" content="Mycelium — Su presupuesto vive en una red que no ve.">
+<meta property="og:title" content="Mycelium — Sus resultados dependen de sus familias.">
 <meta property="og:description" content="Escuelas y fondos de beneficios patrocinan un ayudante para cada persona a la que sirven. Trabaja para la persona. Usted paga cuando el resultado se mueve.">
 <meta property="og:image" content="https://www.try-mycelium.com/assets/og.jpg">
 <meta property="og:url" content="https://www.try-mycelium.com/es">
@@ -104,32 +104,31 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; letter-spacing: -0.0
 }
 .hero .l1 { display: block; color: var(--field-1-ink); padding-bottom: 0.06em; }
 .hero .l2 { display: block; color: var(--ink); padding-top: 0.06em; }
-.hero .slot {
-  display: inline-block; vertical-align: baseline; height: 0.92em; width: 3em;
-  margin: 0 0.18em; transform: translateY(0.09em); overflow: hidden; background: var(--surface);
+.hero .photo {
+  position: absolute; right: var(--m); top: calc(50% + 0.95em); bottom: 48px; width: 42vw;
+  overflow: hidden; background: var(--surface); font-size: var(--step-poster);
 }
-.hero .slot { position: relative; }
-.hero .slot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 60%; opacity: 0; }
-.hero .slot img:first-child { opacity: 1; }
+.hero .photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 60%; opacity: 0; }
+.hero .photo img:first-child { opacity: 1; }
 @media (prefers-reduced-motion: no-preference) {
-  .js .hero .slot img { animation: cycle 10s linear infinite; }
-  .js .hero .slot img:nth-child(1) { animation-delay: 0s; }
-  .js .hero .slot img:nth-child(2) { animation-delay: 2.5s; }
-  .js .hero .slot img:nth-child(3) { animation-delay: 5s; }
-  .js .hero .slot img:nth-child(4) { animation-delay: 7.5s; }
+  .js .hero .photo img { animation: cycle 10s linear infinite; }
+  .js .hero .photo img:nth-child(1) { animation-delay: 0s; }
+  .js .hero .photo img:nth-child(2) { animation-delay: 2.5s; }
+  .js .hero .photo img:nth-child(3) { animation-delay: 5s; }
+  .js .hero .photo img:nth-child(4) { animation-delay: 7.5s; }
   @keyframes cycle { 0% { opacity: 0; } 8% { opacity: 1; } 25% { opacity: 1; } 33% { opacity: 0; } 100% { opacity: 0; } }
 }
 .hero .support {
-  position: absolute; left: var(--m); bottom: 56px; max-width: 42ch;
-  color: var(--ink); font-size: var(--step-lead); line-height: 1.35; text-wrap: pretty;
+  position: absolute; left: var(--m); bottom: 124px; max-width: 40ch;
+  color: var(--ink); font-size: var(--step-body); line-height: 1.4; text-wrap: pretty;
 }
-.hero .action { position: absolute; right: var(--m); bottom: 56px; }
+.hero .action { position: absolute; left: var(--m); bottom: 48px; }
 @media (max-width: 767px) {
-  .hero { grid-template-rows: 46svh 54svh; }
-  .hero .sentence-wrap { top: 46svh; }
-  .hero .sentence { font-size: clamp(1.8rem, 10vw, 2.5rem); }
-  .hero .slot { display: block; width: 100%; height: 2.2em; margin: 0.25em 0; transform: none; }
-  .hero .support { bottom: 96px; font-size: 16px; max-width: 28ch; }
+  .hero { grid-template-rows: 38svh 62svh; }
+  .hero .sentence-wrap { top: 38svh; }
+  .hero .sentence { font-size: clamp(1.8rem, 9vw, 2.5rem); }
+  .hero .photo { left: var(--m); right: var(--m); width: auto; top: calc(38svh + 2.3em); bottom: auto; height: 16svh; font-size: clamp(1.8rem, 9vw, 2.5rem); }
+  .hero .support { bottom: 96px; font-size: 16px; max-width: 30ch; }
   .hero .action { left: var(--m); right: var(--m); bottom: 24px; }
   .hero .action .button { width: 100%; }
 }
@@ -223,6 +222,12 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; letter-spacing: -0.0
 .theirs .item h3 { font-family: var(--text); font-weight: 500; font-size: var(--step-lead); line-height: 1.2; letter-spacing: 0; }
 .theirs .item p { margin-top: 8px; max-width: 40ch; color: var(--ink); }
 .theirs .why { grid-column: 1 / span 7; font-size: var(--step-body); line-height: 1.55; color: var(--muted); max-width: 60ch; }
+.theirs .facts { list-style: none; margin: 20px 0; padding: 0; display: grid; gap: 14px; }
+.theirs .facts li { color: var(--ink); padding-left: 1.2em; text-indent: -1.2em; }
+.theirs .facts li::before { content: "→"; display: inline-block; width: 1.2em; text-indent: 0; color: var(--accent); }
+.theirs .facts a { color: inherit; text-decoration: none; }
+.theirs .facts a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.theirs .why > p + p { margin-top: 0; }
 @media (max-width: 1023px) { .theirs .lede, .theirs .list, .theirs .why { grid-column: 1 / span 12; } }
 
 /* ============ HOW IT WORKS: lines that step across ============ */
@@ -363,9 +368,10 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; letter-spacing: -0.0
   <div class="field-top"></div>
   <div class="field-bottom"></div>
   <div class="sentence-wrap"><h1 class="sentence" data-rise style="--i:0">
-    <span class="l1">Su dinero vive en una</span>
-    <span class="l2"><span class="slot"><img src="assets/myc-fan-lomas.jpg" width="1280" height="851" alt="red" fetchpriority="high"><img src="assets/dend-fan-single.jpg" width="1280" height="1763" alt="" style="object-position: 50% 40%"><img src="assets/dend-field-solnhofen.jpg" width="1280" height="850" alt="" style="object-position: 50% 35%"><img src="assets/dend-tree-pyrolusite.jpg" width="1075" height="1657" alt="" style="object-position: 50% 30%"></span>que no ve.</span>
+    <span class="l1">Sus resultados dependen</span>
+    <span class="l2">de sus familias.</span>
   </h1></div>
+  <div class="photo" aria-hidden="true"><img src="assets/myc-fan-lomas.jpg" width="1280" height="851" alt="" fetchpriority="high"><img src="assets/dend-fan-single.jpg" width="1280" height="1763" alt="" style="object-position: 50% 40%"><img src="assets/dend-field-solnhofen.jpg" width="1280" height="850" alt="" style="object-position: 50% 35%"><img src="assets/dend-tree-pyrolusite.jpg" width="1075" height="1657" alt="" style="object-position: 50% 30%"></div>
   <p class="support" data-rise style="--i:1">A una escuela la financia la asistencia. Un fondo de beneficios paga primas que el estado cubriría. Ambas cosas se deciden en los hogares, donde ninguna institución llega. Mycelium le da a cada persona un ayudante: una IA que le escribe por mensaje en su idioma, pagada por la institución, que trabaja para ella.</p>
   <div class="action" data-rise style="--i:2"><a class="button" href="#close">Vea cuánto podría recuperar</a></div>
 </section>
@@ -434,7 +440,16 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; letter-spacing: -0.0
       <div class="item" data-enter style="--i:5"><h3>Ya está en su bolsillo.</h3><p>Llega por mensaje de texto o por WhatsApp, lo que la familia ya use. Nada que descargar, ni portal, ni contraseña que olvidar. Su personal tampoco recibe nada nuevo que manejar.</p></div>
       <div class="item" data-enter style="--i:6"><h3>Se queda con ellos.</h3><p>Primero lo patrocina una escuela. Cuando más adelante un fondo sindical, una clínica o un colegio patrocina a la misma persona, el ayudante ya está ahí, ya tiene confianza, ya conoce la situación.</p></div>
     </div>
-    <p class="why" data-enter style="--i:7">A la brecha que esto cierra la llamamos alineación varada: resultados que una institución y una persona quieren por igual, y que nadie perseguía porque ayudar a una persona a la vez costaba más de lo que nadie podía recuperar. Los programas mejor dirigidos le asignan a <a href="https://www.communitiesinschools.org/">un trabajador social entre 110 y 125 estudiantes</a>, así que uno para cada familia nunca fue costeable. Y lo que funciona es la ayuda, no la información: en <a href="https://academic.oup.com/qje/article/127/3/1205/1921970">el experimento más grande sobre esto</a>, ocho minutos de ayuda práctica con un formulario de ayuda financiera subieron la inscripción universitaria ocho puntos porcentuales, mientras que un folleto con la misma información no cambió nada. Un ayudante hace que esos ocho minutos sean costeables para todos. La institución paga porque su cifra mejora; la persona recibe una ayuda que nunca habría podido comprar.</p>
+    <div class="why" data-enter style="--i:7">
+      <p>A la brecha que esto cierra la llamamos alineación varada: resultados que una institución y una persona quieren por igual, y que nadie perseguía porque ayudar a una persona a la vez costaba más de lo que nadie podía recuperar. La evidencia de que lo que los mueve es la ayuda, no la información:</p>
+      <ul class="facts">
+        <li><a href="https://www.povertyactionlab.org/print/pdf/node/2133?lang=en">Un folleto sobre ayuda financiera no cambió nada. Sentarse con la familia a terminar el formulario subió la inscripción universitaria 8 puntos.</a></li>
+        <li><a href="https://www.nber.org/system/files/working_papers/w24652/w24652.pdf">Una carta que decía "usted califica" duplicó la inscripción en un beneficio. Una persona que lo tramitó la triplicó.</a></li>
+        <li><a href="https://toddrogers.scholars.harvard.edu/resource/robinsonleedearingrogers2018reducingabsenteeismintheearlygradespdf">Mensajes personales a las familias recuperan asistencia por $5 a $11 el día, el doble en familias que hablan otro idioma.</a></li>
+        <li><a href="https://campustechnology.com/articles/2017/03/07/using-ai-chatbots-to-freeze-summer-melt-in-higher-ed.aspx">Un ayudante por texto atendió 200,000 mensajes. Menos de uno de cada cien necesitó a una persona.</a></li>
+      </ul>
+      <p>Nadie ha hecho el ensayo en que un solo ayudante, el de la familia, hace las cuatro cosas. El nuestro está hecho para serlo: se ofrece escuela por escuela y se mide contra las familias que aún no lo recibieron, así que para junio usted lo sabe.</p>
+    </div>
   </div>
 </section>
 
@@ -454,7 +469,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; letter-spacing: -0.0
   </div>
   <div class="stage" data-enter style="--i:3">
     <div class="line">Paga cuando el resultado mejora.</div>
-    <p>Días de asistencia recuperados contra el año anterior de cada estudiante, o primas que ahora paga el estado en lugar de usted. Se despliega escuela por escuela, para que vea la mejora antes de ampliarla. Nuestra parte es un cuarto de lo recuperado; el resto queda con usted.</p>
+    <p>Días de asistencia recuperados contra el año anterior de cada estudiante, o primas que ahora paga el estado en lugar de usted. Se despliega escuela por escuela y se mide contra las familias que aún no lo reciben, para que vea la mejora antes de ampliarla. Nuestra parte es un cuarto de lo recuperado; el resto queda con usted.</p>
   </div>
 </section>
 
