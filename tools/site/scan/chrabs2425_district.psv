@@ -1,0 +1,988 @@
+0110017|Alameda|Alameda County Office of Education|TA|215|124|57.7
+0131617|Alameda|California School for the Deaf-Fremont (State Special Schl)|TA|295|68|23.1
+0161119|Alameda|Alameda Unified|TA|9455|1101|11.6
+0161127|Alameda|Albany City Unified|TA|3755|401|10.7
+0161143|Alameda|Berkeley Unified|TA|9303|1198|12.9
+0161150|Alameda|Castro Valley Unified|TA|9722|1189|12.2
+0161168|Alameda|Emery Unified|TA|626|164|26.2
+0161176|Alameda|Fremont Unified|TA|33792|3599|10.7
+0161192|Alameda|Hayward Unified|TA|18025|4793|26.6
+0161200|Alameda|Livermore Valley Joint Unified|TA|13150|1694|12.9
+0161218|Alameda|Mountain House Elementary|TA|18|5|27.8
+0161234|Alameda|Newark Unified|TA|4802|1144|23.8
+0161242|Alameda|New Haven Unified|TA|10341|2116|20.5
+0161259|Alameda|Oakland Unified|TA|35065|11280|32.2
+0161275|Alameda|Piedmont City Unified|TA|2470|125|5.1
+0161291|Alameda|San Leandro Unified|TA|9175|1920|20.9
+0161309|Alameda|San Lorenzo Unified|TA|8251|2024|24.5
+0175093|Alameda|Dublin Unified|TA|13094|1181|9.0
+0175101|Alameda|Pleasanton Unified|TA|13570|1069|7.9
+0175119|Alameda|Sunol Glen Unified|TA|241|21|8.7
+0210025|Alpine|Alpine County Office of Education|TA|*|*|*
+0261333|Alpine|Alpine County Unified|TA|61|14|23.0
+0310033|Amador|Amador County Office of Education|TA|38|19|50.0
+0373981|Amador|Amador County Unified|TA|4173|1016|24.3
+0410041|Butte|Butte County Office of Education|TA|141|79|56.0
+0461382|Butte|Bangor Union Elementary|TA|94|25|26.6
+0461408|Butte|Biggs Unified|TA|563|99|17.6
+0461424|Butte|Chico Unified|TA|12655|2259|17.9
+0461432|Butte|Durham Unified|TA|1065|148|13.9
+0461457|Butte|Golden Feather Union Elementary|TA|81|27|33.3
+0461499|Butte|Manzanita Elementary|TA|309|32|10.4
+0461507|Butte|Oroville City Elementary|TA|2119|794|37.5
+0461515|Butte|Oroville Union High|TA|2274|697|30.7
+0461523|Butte|Palermo Union Elementary|TA|1413|273|19.3
+0461531|Butte|Paradise Unified|TA|1832|520|28.4
+0461549|Butte|Thermalito Union Elementary|TA|1603|254|15.8
+0473379|Butte|Pioneer Union Elementary|TA|49|23|46.9
+0475507|Butte|Gridley Unified|TA|2087|434|20.8
+0510058|Calaveras|Calaveras County Office of Education|TA|52|31|59.6
+0561556|Calaveras|Bret Harte Union High|TA|611|124|20.3
+0561564|Calaveras|Calaveras Unified|TA|3005|1016|33.8
+0561572|Calaveras|Mark Twain Union Elementary|TA|778|180|23.1
+0561580|Calaveras|Vallecito Union|TA|615|122|19.8
+0610066|Colusa|Colusa County Office of Education|TA|72|45|62.5
+0661598|Colusa|Colusa Unified|TA|1505|242|16.1
+0661606|Colusa|Maxwell Unified|TA|350|29|8.3
+0661614|Colusa|Pierce Joint Unified|TA|1471|219|14.9
+0661622|Colusa|Williams Unified|TA|1337|271|20.3
+0710074|Contra Costa|Contra Costa County Office of Education|TA|279|123|44.1
+0761630|Contra Costa|Acalanes Union High|TA|5437|644|11.8
+0761648|Contra Costa|Antioch Unified|TA|15860|5311|33.5
+0761655|Contra Costa|Brentwood Union|TA|10378|1453|14.0
+0761663|Contra Costa|Byron Union Elementary|TA|1231|255|20.7
+0761671|Contra Costa|Canyon Elementary|TA|69|12|17.4
+0761697|Contra Costa|John Swett Unified|TA|1254|346|27.6
+0761705|Contra Costa|Knightsen Elementary|TA|674|94|13.9
+0761713|Contra Costa|Lafayette Elementary|TA|3270|138|4.2
+0761721|Contra Costa|Liberty Union High|TA|8399|1813|21.6
+0761739|Contra Costa|Martinez Unified|TA|3849|481|12.5
+0761747|Contra Costa|Moraga Elementary|TA|1834|71|3.9
+0761754|Contra Costa|Mt. Diablo Unified|TA|30053|6305|21.0
+0761762|Contra Costa|Oakley Union Elementary|TA|5285|1038|19.6
+0761770|Contra Costa|Orinda Union|TA|2609|132|5.1
+0761788|Contra Costa|Pittsburg Unified|TA|11041|3526|31.9
+0761796|Contra Costa|West Contra Costa Unified|TA|26100|7237|27.7
+0761804|Contra Costa|San Ramon Valley Unified|TA|28964|2223|7.7
+0761812|Contra Costa|Walnut Creek Elementary|TA|3705|356|9.6
+0810082|Del Norte|Del Norte County Office of Education|TA|54|49|90.7
+0861820|Del Norte|Del Norte County Unified|TA|3472|905|26.1
+0910090|El Dorado|El Dorado County Office of Education|TA|238|96|40.3
+0961838|El Dorado|Buckeye Union Elementary|TA|3335|200|6.0
+0961846|El Dorado|Camino Union Elementary|TA|386|47|12.2
+0961853|El Dorado|El Dorado Union High|TA|6365|912|14.3
+0961879|El Dorado|Gold Oak Union Elementary|TA|417|102|24.5
+0961887|El Dorado|Gold Trail Union Elementary|TA|499|67|13.4
+0961895|El Dorado|Indian Diggings Elementary|TA|13|3|23.1
+0961903|El Dorado|Lake Tahoe Unified|TA|3625|1073|29.6
+0961911|El Dorado|Latrobe|TA|140|10|7.1
+0961929|El Dorado|Mother Lode Union Elementary|TA|866|138|15.9
+0961945|El Dorado|Pioneer Union|TA|310|68|21.9
+0961952|El Dorado|Placerville Union Elementary|TA|1259|242|19.2
+0961960|El Dorado|Pollock Pines Elementary|TA|607|140|23.1
+0961978|El Dorado|Rescue Union Elementary|TA|3629|295|8.1
+0961986|El Dorado|Silver Fork Elementary|TA|11|1|9.1
+0973783|El Dorado|Black Oak Mine Unified|TA|1015|234|23.1
+1010108|Fresno|Fresno County Office of Education|TA|882|418|47.4
+1062026|Fresno|Big Creek Elementary|TA|22|6|27.3
+1062042|Fresno|Burrel Union Elementary|TA|103|13|12.6
+1062109|Fresno|Clay Joint Elementary|TA|246|0|0.0
+1062117|Fresno|Clovis Unified|TA|44109|6817|15.5
+1062125|Fresno|Coalinga-Huron Unified|TA|4582|1301|28.4
+1062158|Fresno|Fowler Unified|TA|2643|437|16.5
+1062166|Fresno|Fresno Unified|TA|70126|22157|31.6
+1062257|Fresno|Kingsburg Joint Union High|TA|1223|192|15.7
+1062265|Fresno|Kings Canyon Joint Unified|TA|9564|807|8.4
+1062281|Fresno|Laton Joint Unified|TA|627|78|12.4
+1062331|Fresno|Orange Center|TA|279|64|22.9
+1062356|Fresno|Pacific Union Elementary|TA|345|58|16.8
+1062364|Fresno|Parlier Unified|TA|3314|553|16.7
+1062372|Fresno|Pine Ridge Elementary|TA|73|26|35.6
+1062380|Fresno|Raisin City Elementary|TA|272|20|7.4
+1062414|Fresno|Sanger Unified|TA|12445|1680|13.5
+1062430|Fresno|Selma Unified|TA|6072|1176|19.4
+1062513|Fresno|Washington Colony Elementary|TA|432|82|19.0
+1062539|Fresno|West Park Elementary|TA|305|125|41.0
+1062547|Fresno|Westside Elementary|TA|137|14|10.2
+1073809|Fresno|Firebaugh-Las Deltas Unified|TA|2285|281|12.3
+1073965|Fresno|Central Unified|TA|16626|3735|22.5
+1073999|Fresno|Kerman Unified|TA|5397|902|16.7
+1075127|Fresno|Mendota Unified|TA|4101|464|11.3
+1075234|Fresno|Golden Plains Unified|TA|1421|385|27.1
+1075275|Fresno|Sierra Unified|TA|1324|420|31.7
+1075408|Fresno|Riverdale Joint Unified|TA|1470|168|11.4
+1075598|Fresno|Caruthers Unified|TA|1767|238|13.5
+1076778|Fresno|Washington Unified|TA|2445|525|21.5
+1110116|Glenn|Glenn County Office of Education|TA|103|58|56.3
+1162554|Glenn|Capay Joint Union Elementary|TA|215|26|12.1
+1162596|Glenn|Lake Elementary|TA|202|8|4.0
+1162638|Glenn|Plaza Elementary|TA|215|7|3.3
+1162646|Glenn|Princeton Joint Unified|TA|127|20|15.7
+1162653|Glenn|Stony Creek Joint Unified|TA|62|30|48.4
+1162661|Glenn|Willows Unified|TA|1456|236|16.2
+1175481|Glenn|Orland Joint Unified|TA|2269|313|13.8
+1176562|Glenn|Hamilton Unified|TA|726|81|11.2
+1210124|Humboldt|Humboldt County Office of Education|TA|408|294|72.1
+1262679|Humboldt|Arcata Elementary|TA|510|177|34.7
+1262687|Humboldt|Northern Humboldt Union High|TA|1661|577|34.7
+1262695|Humboldt|Big Lagoon Union Elementary|TA|16|8|50.0
+1262703|Humboldt|Blue Lake Union Elementary|TA|160|14|8.8
+1262729|Humboldt|Bridgeville Elementary|TA|42|9|21.4
+1262737|Humboldt|Cuddeback Union Elementary|TA|165|5|3.0
+1262745|Humboldt|Cutten Elementary|TA|563|51|9.1
+1262794|Humboldt|Fieldbrook Elementary|TA|93|16|17.2
+1262810|Humboldt|Fortuna Union High|TA|1069|302|28.3
+1262828|Humboldt|Freshwater Elementary|TA|284|32|11.3
+1262836|Humboldt|Garfield Elementary|TA|81|11|13.6
+1262851|Humboldt|Green Point Elementary|TA|*|*|*
+1262885|Humboldt|Hydesville Elementary|TA|226|30|13.3
+1262893|Humboldt|Jacoby Creek Elementary|TA|463|38|8.2
+1262901|Humboldt|Klamath-Trinity Joint Unified|TA|978|639|65.3
+1262919|Humboldt|Kneeland Elementary|TA|25|3|12.0
+1262927|Humboldt|Loleta Union Elementary|TA|86|46|53.5
+1262935|Humboldt|Maple Creek Elementary|TA|*|*|*
+1262950|Humboldt|McKinleyville Union Elementary|TA|896|226|25.2
+1262968|Humboldt|Orick Elementary|TA|*|*|*
+1262976|Humboldt|Pacific Union Elementary|TA|547|129|23.6
+1262984|Humboldt|Peninsula Union|TA|77|48|62.3
+1263008|Humboldt|Rio Dell Elementary|TA|326|65|19.9
+1263024|Humboldt|Scotia Union Elementary|TA|197|30|15.2
+1263032|Humboldt|South Bay Union Elementary|TA|350|58|16.6
+1263040|Humboldt|Southern Humboldt Joint Unified|TA|690|316|45.8
+1263057|Humboldt|Trinidad Union Elementary|TA|169|28|16.6
+1275374|Humboldt|Ferndale Unified|TA|495|59|11.9
+1275382|Humboldt|Mattole Unified|TA|49|10|20.4
+1275515|Humboldt|Eureka City Schools|TA|3574|954|26.7
+1276802|Humboldt|Fortuna Elementary|TA|1063|168|15.8
+1310132|Imperial|Imperial County Office of Education|TA|398|182|45.7
+1363073|Imperial|Brawley Elementary|TA|4003|1105|27.6
+1363081|Imperial|Brawley Union High|TA|2093|546|26.1
+1363099|Imperial|Calexico Unified|TA|8221|2982|36.3
+1363107|Imperial|Calipatria Unified|TA|1128|239|21.2
+1363115|Imperial|Central Union High|TA|4164|718|17.2
+1363123|Imperial|El Centro Elementary|TA|5204|908|17.4
+1363131|Imperial|Heber Elementary|TA|1190|160|13.4
+1363149|Imperial|Holtville Unified|TA|1626|244|15.0
+1363164|Imperial|Imperial Unified|TA|4903|753|15.4
+1363172|Imperial|Magnolia Union Elementary|TA|131|3|2.3
+1363180|Imperial|McCabe Union Elementary|TA|1122|82|7.3
+1363198|Imperial|Meadows Union|TA|359|38|10.6
+1363206|Imperial|Mulberry Elementary|TA|62|0|0.0
+1363214|Imperial|San Pasqual Valley Unified|TA|604|205|33.9
+1363222|Imperial|Seeley Union Elementary|TA|329|37|11.2
+1363230|Imperial|Westmorland Union Elementary|TA|333|113|33.9
+1410140|Inyo|Inyo County Office of Education|TA|14|13|92.9
+1463248|Inyo|Big Pine Unified|TA|161|71|44.1
+1463271|Inyo|Death Valley Unified|TA|31|11|35.5
+1463289|Inyo|Lone Pine Unified|TA|296|78|26.4
+1463297|Inyo|Owens Valley Unified|TA|107|32|29.9
+1463305|Inyo|Round Valley Joint Elementary|TA|69|10|14.5
+1476687|Inyo|Bishop Unified|TA|1953|485|24.8
+1510157|Kern|Kern County Office of Education|TA|1540|748|48.6
+1563313|Kern|Arvin Union|TA|2866|383|13.4
+1563321|Kern|Bakersfield City|TA|29733|5616|18.9
+1563339|Kern|Beardsley Elementary|TA|2169|641|29.6
+1563354|Kern|Blake Elementary|TA|26|12|46.2
+1563362|Kern|Panama-Buena Vista Union|TA|20214|3779|18.7
+1563370|Kern|Buttonwillow Union Elementary|TA|298|63|21.1
+1563388|Kern|Caliente Union Elementary|TA|44|12|27.3
+1563404|Kern|Delano Union Elementary|TA|4547|246|5.4
+1563412|Kern|Delano Joint Union High|TA|4078|775|19.0
+1563420|Kern|Di Giorgio Elementary|TA|241|12|5.0
+1563438|Kern|Edison Elementary|TA|1172|146|12.5
+1563446|Kern|Elk Hills Elementary|TA|171|21|12.3
+1563461|Kern|Fairfax Elementary|TA|2809|216|7.7
+1563479|Kern|Fruitvale Elementary|TA|3178|265|8.3
+1563487|Kern|General Shafter Elementary|TA|178|19|10.7
+1563503|Kern|Greenfield Union|TA|9311|1777|19.1
+1563529|Kern|Kern High|TA|43872|7933|18.1
+1563545|Kern|Kernville Union Elementary|TA|815|297|36.4
+1563552|Kern|Lakeside Union|TA|1803|405|22.5
+1563560|Kern|Lamont Elementary|TA|2679|336|12.5
+1563578|Kern|Richland Union Elementary|TA|2543|516|20.3
+1563586|Kern|Linns Valley-Poso Flat Union|TA|22|5|22.7
+1563594|Kern|Lost Hills Union Elementary|TA|301|33|11.0
+1563610|Kern|Maple Elementary|TA|287|20|7.0
+1563628|Kern|Maricopa Unified|TA|314|100|31.8
+1563651|Kern|McKittrick Elementary|TA|62|0|0.0
+1563669|Kern|Midway Elementary|TA|66|8|12.1
+1563677|Kern|Mojave Unified|TA|3211|1652|51.4
+1563685|Kern|Muroc Joint Unified|TA|1928|626|32.5
+1563693|Kern|Norris Elementary|TA|4322|409|9.5
+1563719|Kern|Pond Union Elementary|TA|183|4|2.2
+1563750|Kern|Rosedale Union Elementary|TA|6395|483|7.6
+1563768|Kern|Semitropic Elementary|TA|143|5|3.5
+1563776|Kern|Southern Kern Unified|TA|3834|1007|26.3
+1563784|Kern|South Fork Union|TA|374|68|18.2
+1563792|Kern|Standard Elementary|TA|3458|1120|32.4
+1563800|Kern|Taft City|TA|2503|332|13.3
+1563818|Kern|Taft Union High|TA|1181|288|24.4
+1563826|Kern|Tehachapi Unified|TA|4328|1219|28.2
+1563834|Kern|Vineland Elementary|TA|687|99|14.4
+1563842|Kern|Wasco Union Elementary|TA|3596|421|11.7
+1563859|Kern|Wasco Union High|TA|1818|360|19.8
+1573544|Kern|Rio Bravo-Greeley Union Elementary|TA|1092|148|13.6
+1573742|Kern|Sierra Sands Unified|TA|5224|1415|27.1
+1573908|Kern|McFarland Unified|TA|3374|302|9.0
+1575168|Kern|El Tejon Unified|TA|754|105|13.9
+1610165|Kings|Kings County Office of Education|TA|448|255|56.9
+1663875|Kings|Armona Union Elementary|TA|1084|126|11.6
+1663883|Kings|Central Union Elementary|TA|1641|56|3.4
+1663891|Kings|Corcoran Joint Unified|TA|3298|662|20.1
+1663917|Kings|Hanford Elementary|TA|5652|672|11.9
+1663925|Kings|Hanford Joint Union High|TA|4184|813|19.4
+1663958|Kings|Kit Carson Union Elementary|TA|363|52|14.3
+1663966|Kings|Lakeside Union Elementary|TA|261|33|12.6
+1663974|Kings|Lemoore Union Elementary|TA|3179|484|15.2
+1663982|Kings|Lemoore Union High|TA|1974|318|16.1
+1673932|Kings|Reef-Sunset Unified|TA|2722|428|15.7
+1710173|Lake|Lake County Office of Education|TA|51|34|66.7
+1764014|Lake|Kelseyville Unified|TA|1899|389|20.5
+1764022|Lake|Konocti Unified|TA|4227|1914|45.3
+1764030|Lake|Lakeport Unified|TA|1420|452|31.8
+1764048|Lake|Lucerne Elementary|TA|315|127|40.3
+1764055|Lake|Middletown Unified|TA|1511|476|31.5
+1776976|Lake|Upper Lake Unified|TA|992|320|32.3
+1810181|Lassen|Lassen County Office of Education|TA|*|*|*
+1864089|Lassen|Big Valley Joint Unified|TA|123|30|24.4
+1864105|Lassen|Janesville Union Elementary|TA|331|46|13.9
+1864113|Lassen|Johnstonville Elementary|TA|216|26|12.0
+1864139|Lassen|Lassen Union High|TA|863|217|25.1
+1864162|Lassen|Ravendale-Termo Elementary|TA|*|*|*
+1864170|Lassen|Richmond Elementary|TA|195|11|5.6
+1864188|Lassen|Shaffer Union Elementary|TA|258|69|26.7
+1864196|Lassen|Susanville Elementary|TA|1047|263|25.1
+1864204|Lassen|Westwood Unified|TA|195|63|32.3
+1875036|Lassen|Fort Sage Unified|TA|125|62|49.6
+1910199|Los Angeles|Los Angeles County Office of Education|TA|2002|432|21.6
+1964212|Los Angeles|ABC Unified|TA|17906|2126|11.9
+1964246|Los Angeles|Antelope Valley Union High|TA|21300|6040|28.4
+1964261|Los Angeles|Arcadia Unified|TA|9313|438|4.7
+1964279|Los Angeles|Azusa Unified|TA|6269|1671|26.7
+1964287|Los Angeles|Baldwin Park Unified|TA|9600|1812|18.9
+1964295|Los Angeles|Bassett Unified|TA|2901|564|19.4
+1964303|Los Angeles|Bellflower Unified|TA|9958|2141|21.5
+1964311|Los Angeles|Beverly Hills Unified|TA|3203|458|14.3
+1964329|Los Angeles|Bonita Unified|TA|10188|1178|11.6
+1964337|Los Angeles|Burbank Unified|TA|14426|2071|14.4
+1964345|Los Angeles|Castaic Union|TA|1955|257|13.1
+1964352|Los Angeles|Centinela Valley Union High|TA|5544|1575|28.4
+1964378|Los Angeles|Charter Oak Unified|TA|4455|916|20.6
+1964394|Los Angeles|Claremont Unified|TA|6254|815|13.0
+1964436|Los Angeles|Covina-Valley Unified|TA|11352|1898|16.7
+1964444|Los Angeles|Culver City Unified|TA|6666|700|10.5
+1964451|Los Angeles|Downey Unified|TA|22942|4690|20.4
+1964469|Los Angeles|Duarte Unified|TA|3020|569|18.8
+1964477|Los Angeles|Eastside Union Elementary|TA|3298|1285|39.0
+1964485|Los Angeles|East Whittier City Elementary|TA|7670|876|11.4
+1964501|Los Angeles|El Monte City|TA|7202|590|8.2
+1964519|Los Angeles|El Monte Union High|TA|7428|1462|19.7
+1964527|Los Angeles|El Rancho Unified|TA|7038|1474|20.9
+1964535|Los Angeles|El Segundo Unified|TA|3507|305|8.7
+1964550|Los Angeles|Garvey Elementary|TA|4393|492|11.2
+1964568|Los Angeles|Glendale Unified|TA|26117|3347|12.8
+1964576|Los Angeles|Glendora Unified|TA|6445|622|9.7
+1964584|Los Angeles|Gorman Joint|TA|125|26|20.8
+1964592|Los Angeles|Hawthorne|TA|6607|1551|23.5
+1964600|Los Angeles|Hermosa Beach City Elementary|TA|1431|106|7.4
+1964626|Los Angeles|Hughes-Elizabeth Lakes Union Elementary|TA|202|42|20.8
+1964634|Los Angeles|Inglewood Unified|TA|5985|2105|35.2
+1964642|Los Angeles|Keppel Union Elementary|TA|2727|711|26.1
+1964659|Los Angeles|La Canada Unified|TA|4047|197|4.9
+1964667|Los Angeles|Lancaster Elementary|TA|14926|4652|31.2
+1964683|Los Angeles|Las Virgenes Unified|TA|9927|1034|10.4
+1964691|Los Angeles|Lawndale Elementary|TA|4454|826|18.5
+1964709|Los Angeles|Lennox|TA|4050|821|20.3
+1964717|Los Angeles|Little Lake City Elementary|TA|3632|541|14.9
+1964725|Los Angeles|Long Beach Unified|TA|64119|16878|26.3
+1964733|Los Angeles|Los Angeles Unified|TA|381399|96925|25.4
+1964758|Los Angeles|Los Nietos|TA|1273|190|14.9
+1964774|Los Angeles|Lynwood Unified|TA|11025|3533|32.0
+1964790|Los Angeles|Monrovia Unified|TA|5026|820|16.3
+1964808|Los Angeles|Montebello Unified|TA|19752|3475|17.6
+1964816|Los Angeles|Mountain View Elementary|TA|4609|765|16.6
+1964832|Los Angeles|Newhall|TA|6207|582|9.4
+1964840|Los Angeles|Norwalk-La Mirada Unified|TA|14576|2899|19.9
+1964857|Los Angeles|Palmdale Elementary|TA|17963|5355|29.8
+1964865|Los Angeles|Palos Verdes Peninsula Unified|TA|10336|1078|10.4
+1964873|Los Angeles|Paramount Unified|TA|12068|2719|22.5
+1964881|Los Angeles|Pasadena Unified|TA|14149|3302|23.3
+1964907|Los Angeles|Pomona Unified|TA|19658|4972|25.3
+1964931|Los Angeles|Rosemead Elementary|TA|2390|150|6.3
+1964964|Los Angeles|San Marino Unified|TA|3250|83|2.6
+1964980|Los Angeles|Santa Monica-Malibu Unified|TA|8836|1459|16.5
+1964998|Los Angeles|Saugus Union|TA|9340|477|5.1
+1965029|Los Angeles|South Pasadena Unified|TA|4754|314|6.6
+1965037|Los Angeles|South Whittier Elementary|TA|2336|416|17.8
+1965045|Los Angeles|Sulphur Springs Union|TA|5351|686|12.8
+1965052|Los Angeles|Temple City Unified|TA|5448|423|7.8
+1965060|Los Angeles|Torrance Unified|TA|22428|2222|9.9
+1965078|Los Angeles|Valle Lindo Elementary|TA|925|147|15.9
+1965094|Los Angeles|West Covina Unified|TA|7965|969|12.2
+1965102|Los Angeles|Westside Union Elementary|TA|9538|2118|22.2
+1965110|Los Angeles|Whittier City|TA|5461|1131|20.7
+1965128|Los Angeles|Whittier Union High|TA|9969|2229|22.4
+1965136|Los Angeles|William S. Hart Union High|TA|20757|2950|14.2
+1965151|Los Angeles|Wilsona Elementary|TA|1349|445|33.0
+1973437|Los Angeles|Compton Unified|TA|17145|2091|12.2
+1973445|Los Angeles|Hacienda la Puente Unified|TA|15863|3021|19.0
+1973452|Los Angeles|Rowland Unified|TA|12067|1910|15.8
+1973460|Los Angeles|Walnut Valley Unified|TA|14472|1020|7.0
+1975291|Los Angeles|San Gabriel Unified|TA|4605|553|12.0
+1975309|Los Angeles|Acton-Agua Dulce Unified|TA|1116|327|29.3
+1975333|Los Angeles|Manhattan Beach Unified|TA|6105|548|9.0
+1975341|Los Angeles|Redondo Beach Unified|TA|9560|842|8.8
+1975713|Los Angeles|Alhambra Unified|TA|14989|1449|9.7
+1976869|Los Angeles|Wiseburn Unified|TA|2561|227|8.9
+2010207|Madera|Madera County Superintendent of Schools|TA|427|198|46.4
+2065177|Madera|Alview-Dairyland Union Elementary|TA|414|39|9.4
+2065185|Madera|Bass Lake Joint Union Elementary|TA|844|221|26.2
+2065193|Madera|Chowchilla Elementary|TA|2243|243|10.8
+2065201|Madera|Chowchilla Union High|TA|1125|246|21.9
+2065243|Madera|Madera Unified|TA|20496|5006|24.4
+2065276|Madera|Raymond-Knowles Union Elementary|TA|92|31|33.7
+2075580|Madera|Golden Valley Unified|TA|3106|331|10.7
+2075606|Madera|Chawanakee Unified|TA|1101|207|18.8
+2076414|Madera|Yosemite Unified|TA|1446|519|35.9
+2110215|Marin|Marin County Office of Education|TA|332|173|52.1
+2165300|Marin|Bolinas-Stinson Union|TA|109|29|26.6
+2165318|Marin|Miller Creek Elementary|TA|1791|176|9.8
+2165334|Marin|Kentfield Elementary|TA|1025|55|5.4
+2165342|Marin|Laguna Joint Elementary|TA|*|*|*
+2165359|Marin|Lagunitas Elementary|TA|164|34|20.7
+2165367|Marin|Larkspur-Corte Madera|TA|1184|101|8.5
+2165391|Marin|Mill Valley Elementary|TA|2335|169|7.2
+2165409|Marin|Nicasio|TA|36|6|16.7
+2165417|Marin|Novato Unified|TA|7364|948|12.9
+2165425|Marin|Reed Union Elementary|TA|1067|99|9.3
+2165433|Marin|Ross Elementary|TA|341|36|10.6
+2165458|Marin|San Rafael City Elementary|TA|4500|517|11.5
+2165466|Marin|San Rafael City High|TA|2731|465|17.0
+2165474|Marin|Sausalito Marin City|TA|273|83|30.4
+2165482|Marin|Tamalpais Union High|TA|4555|674|14.8
+2173361|Marin|Shoreline Unified|TA|474|96|20.3
+2175002|Marin|Ross Valley Elementary|TA|1711|156|9.1
+2210223|Mariposa|Mariposa County Office of Education|TA|56|26|46.4
+2265532|Mariposa|Mariposa County Unified|TA|1751|564|32.2
+2310231|Mendocino|Mendocino County Office of Education|TA|90|48|53.3
+2365540|Mendocino|Anderson Valley Unified|TA|391|125|32.0
+2365557|Mendocino|Arena Union Elementary|TA|258|118|45.7
+2365565|Mendocino|Fort Bragg Unified|TA|1711|476|27.8
+2365573|Mendocino|Manchester Union Elementary|TA|38|14|36.8
+2365581|Mendocino|Mendocino Unified|TA|431|117|27.1
+2365599|Mendocino|Point Arena Joint Union High|TA|144|87|60.4
+2365607|Mendocino|Round Valley Unified|TA|467|204|43.7
+2365615|Mendocino|Ukiah Unified|TA|6039|1468|24.3
+2365623|Mendocino|Willits Unified|TA|1605|687|42.8
+2373866|Mendocino|Potter Valley Community Unified|TA|274|38|13.9
+2373916|Mendocino|Laytonville Unified|TA|330|119|36.1
+2375218|Mendocino|Leggett Valley Unified|TA|117|39|33.3
+2410249|Merced|Merced County Office of Education|TA|1653|833|50.4
+2465631|Merced|Atwater Elementary|TA|5126|475|9.3
+2465649|Merced|Ballico-Cressey Elementary|TA|49|5|10.2
+2465680|Merced|El Nido Elementary|TA|163|8|4.9
+2465698|Merced|Hilmar Unified|TA|2349|278|11.8
+2465722|Merced|Le Grand Union Elementary|TA|354|43|12.1
+2465730|Merced|Le Grand Union High|TA|519|49|9.4
+2465748|Merced|Livingston Union|TA|2618|357|13.6
+2465755|Merced|Los Banos Unified|TA|11480|2624|22.9
+2465763|Merced|McSwain Union Elementary|TA|951|73|7.7
+2465771|Merced|Merced City Elementary|TA|11652|2623|22.5
+2465789|Merced|Merced Union High|TA|11329|3090|27.3
+2465813|Merced|Plainsburg Union Elementary|TA|111|17|15.3
+2465821|Merced|Planada Elementary|TA|917|60|6.5
+2465839|Merced|Snelling-Merced Falls Union Elementary|TA|65|13|20.0
+2465862|Merced|Weaver Union|TA|3245|655|20.2
+2465870|Merced|Winton|TA|1891|281|14.9
+2473619|Merced|Gustine Unified|TA|1669|471|28.2
+2473726|Merced|Merced River Union Elementary|TA|308|39|12.7
+2475317|Merced|Dos Palos Oro Loma Joint Unified|TA|2369|604|25.5
+2475366|Merced|Delhi Unified|TA|2359|321|13.6
+2565896|Modoc|Surprise Valley Joint Unified|TA|92|10|10.9
+2573585|Modoc|Modoc Joint Unified|TA|799|119|14.9
+2573593|Modoc|Tulelake Basin Joint Unified|TA|495|99|20.0
+2610264|Mono|Mono County Office of Education|TA|20|8|40.0
+2673668|Mono|Eastern Sierra Unified|TA|362|87|24.0
+2673692|Mono|Mammoth Unified|TA|1147|280|24.4
+2710272|Monterey|Monterey County Office of Education|TA|492|244|49.6
+2765961|Monterey|Alisal Union|TA|7511|1193|15.9
+2765979|Monterey|Bradley Union Elementary|TA|57|10|17.5
+2765987|Monterey|Carmel Unified|TA|2202|319|14.5
+2765995|Monterey|Chualar Union|TA|252|39|15.5
+2766027|Monterey|Graves Elementary|TA|33|3|9.1
+2766035|Monterey|Greenfield Union Elementary|TA|3418|363|10.6
+2766050|Monterey|King City Union|TA|2612|461|17.6
+2766068|Monterey|South Monterey County Joint Union High|TA|2729|492|18.0
+2766076|Monterey|Lagunita Elementary|TA|63|6|9.5
+2766084|Monterey|Mission Union Elementary|TA|130|9|6.9
+2766092|Monterey|Monterey Peninsula Unified|TA|9839|1405|14.3
+2766134|Monterey|Pacific Grove Unified|TA|1804|272|15.1
+2766142|Monterey|Salinas City Elementary|TA|8529|1691|19.8
+2766159|Monterey|Salinas Union High|TA|16102|2523|15.7
+2766167|Monterey|San Antonio Union Elementary|TA|147|23|15.6
+2766175|Monterey|San Ardo Union Elementary|TA|79|15|19.0
+2766183|Monterey|San Lucas Union Elementary|TA|76|13|17.1
+2766191|Monterey|Santa Rita Union Elementary|TA|3209|440|13.7
+2766225|Monterey|Spreckels Union Elementary|TA|860|76|8.8
+2766233|Monterey|Washington Union Elementary|TA|767|48|6.3
+2773825|Monterey|North Monterey County Unified|TA|4471|1044|23.4
+2775150|Monterey|Big Sur Unified|TA|11|3|27.3
+2775440|Monterey|Soledad Unified|TA|4869|1083|22.2
+2775473|Monterey|Gonzales Unified|TA|2002|522|26.1
+2810280|Napa|Napa County Office of Education|TA|115|57|49.6
+2866241|Napa|Calistoga Joint Unified|TA|795|134|16.9
+2866258|Napa|Howell Mountain Elementary|TA|88|26|29.5
+2866266|Napa|Napa Valley Unified|TA|16358|3045|18.6
+2866282|Napa|Pope Valley Union Elementary|TA|48|30|62.5
+2866290|Napa|Saint Helena Unified|TA|1104|102|9.2
+2910298|Nevada|Nevada County Office of Education|TA|68|39|57.4
+2966316|Nevada|Chicago Park Elementary|TA|124|20|16.1
+2966324|Nevada|Clear Creek Elementary|TA|177|23|13.0
+2966332|Nevada|Grass Valley Elementary|TA|1132|298|26.3
+2966340|Nevada|Nevada City Elementary|TA|721|133|18.4
+2966357|Nevada|Nevada Joint Union High|TA|2634|700|26.6
+2966373|Nevada|Pleasant Ridge Union Elementary|TA|1260|196|15.6
+2966407|Nevada|Union Hill Elementary|TA|147|11|7.5
+2966415|Nevada|Twin Ridges Elementary|TA|107|48|44.9
+2976877|Nevada|Penn Valley Union Elementary|TA|528|149|28.2
+3010306|Orange|Orange County Department of Education|TA|3313|1528|46.1
+3064766|Orange|Lowell Joint|TA|3038|331|10.9
+3066423|Orange|Anaheim Elementary|TA|14355|2979|20.8
+3066431|Orange|Anaheim Union High|TA|26738|6496|24.3
+3066449|Orange|Brea-Olinda Unified|TA|5859|614|10.5
+3066456|Orange|Buena Park Elementary|TA|3860|632|16.4
+3066464|Orange|Capistrano Unified|TA|40941|5766|14.1
+3066472|Orange|Centralia Elementary|TA|4134|479|11.6
+3066480|Orange|Cypress Elementary|TA|3340|260|7.8
+3066498|Orange|Fountain Valley Elementary|TA|6142|463|7.5
+3066506|Orange|Fullerton Elementary|TA|11483|1041|9.1
+3066514|Orange|Fullerton Joint Union High|TA|12788|2002|15.7
+3066522|Orange|Garden Grove Unified|TA|38094|5141|13.5
+3066530|Orange|Huntington Beach City Elementary|TA|4657|428|9.2
+3066548|Orange|Huntington Beach Union High|TA|14162|2501|17.7
+3066555|Orange|Laguna Beach Unified|TA|2339|248|10.6
+3066563|Orange|La Habra City Elementary|TA|4372|615|14.1
+3066589|Orange|Magnolia Elementary|TA|4975|792|15.9
+3066597|Orange|Newport-Mesa Unified|TA|18080|2436|13.5
+3066613|Orange|Ocean View|TA|6814|808|11.9
+3066621|Orange|Orange Unified|TA|23204|3633|15.7
+3066647|Orange|Placentia-Yorba Linda Unified|TA|22387|3037|13.6
+3066670|Orange|Santa Ana Unified|TA|36401|6753|18.6
+3066696|Orange|Savanna Elementary|TA|1779|290|16.3
+3066746|Orange|Westminster|TA|8103|884|10.9
+3073635|Orange|Saddleback Valley Unified|TA|23105|3131|13.6
+3073643|Orange|Tustin Unified|TA|21898|2362|10.8
+3073650|Orange|Irvine Unified|TA|39417|3567|9.0
+3073924|Orange|Los Alamitos Unified|TA|8854|892|10.1
+3110314|Placer|Placer County Office of Education|TA|147|54|36.7
+3166779|Placer|Alta-Dutch Flat Union Elementary|TA|106|17|16.0
+3166787|Placer|Auburn Union Elementary|TA|1432|377|26.3
+3166795|Placer|Colfax Elementary|TA|362|79|21.8
+3166803|Placer|Dry Creek Joint Elementary|TA|6917|970|14.0
+3166829|Placer|Eureka Union|TA|3540|196|5.5
+3166837|Placer|Foresthill Union Elementary|TA|493|96|19.5
+3166845|Placer|Loomis Union Elementary|TA|2382|180|7.6
+3166852|Placer|Newcastle Elementary|TA|170|11|6.5
+3166886|Placer|Placer Hills Union Elementary|TA|784|108|13.8
+3166894|Placer|Placer Union High|TA|3875|581|15.0
+3166910|Placer|Roseville City Elementary|TA|12877|1350|10.5
+3166928|Placer|Roseville Joint Union High|TA|11252|1455|12.9
+3166944|Placer|Tahoe-Truckee Unified|TA|4033|578|14.3
+3166951|Placer|Western Placer Unified|TA|8259|1259|15.2
+3175085|Placer|Rocklin Unified|TA|11893|1123|9.4
+3210322|Plumas|Plumas County Office of Education|TA|24|21|87.5
+3266969|Plumas|Plumas Unified|TA|1733|528|30.5
+3310330|Riverside|Riverside County Office of Education|TA|1159|658|56.8
+3331625|Riverside|California School for the Deaf-Riverside (State Special Schl)|TA|363|107|29.5
+3366977|Riverside|Alvord Unified|TA|17122|3765|22.0
+3366985|Riverside|Banning Unified|TA|4450|1303|29.3
+3366993|Riverside|Beaumont Unified|TA|12902|2732|21.2
+3367033|Riverside|Corona-Norco Unified|TA|50794|6993|13.8
+3367041|Riverside|Desert Center Unified|TA|30|12|40.0
+3367058|Riverside|Desert Sands Unified|TA|24303|7191|29.6
+3367082|Riverside|Hemet Unified|TA|23405|7916|33.8
+3367090|Riverside|Jurupa Unified|TA|18385|4740|25.8
+3367116|Riverside|Menifee Union|TA|12858|1469|11.4
+3367124|Riverside|Moreno Valley Unified|TA|32271|8584|26.6
+3367157|Riverside|Nuview Union|TA|1641|309|18.8
+3367173|Riverside|Palm Springs Unified|TA|19935|5883|29.5
+3367181|Riverside|Palo Verde Unified|TA|2721|849|31.2
+3367199|Riverside|Perris Elementary|TA|4904|1449|29.5
+3367207|Riverside|Perris Union High|TA|11216|3357|29.9
+3367215|Riverside|Riverside Unified|TA|39400|7335|18.6
+3367231|Riverside|Romoland Elementary|TA|5077|1116|22.0
+3367249|Riverside|San Jacinto Unified|TA|10831|2807|25.9
+3373676|Riverside|Coachella Valley Unified|TA|16294|5898|36.2
+3375176|Riverside|Lake Elsinore Unified|TA|21460|5200|24.2
+3375192|Riverside|Temecula Valley Unified|TA|27186|4636|17.1
+3375200|Riverside|Murrieta Valley Unified|TA|22318|4187|18.8
+3375242|Riverside|Val Verde Unified|TA|19862|5329|26.8
+3410348|Sacramento|Sacramento County Office of Education|TA|1279|513|40.1
+3467280|Sacramento|Arcohe Union Elementary|TA|588|100|17.0
+3467314|Sacramento|Elk Grove Unified|TA|65299|12902|19.8
+3467322|Sacramento|Elverta Joint Elementary|TA|235|44|18.7
+3467330|Sacramento|Folsom-Cordova Unified|TA|22456|2711|12.1
+3467348|Sacramento|Galt Joint Union Elementary|TA|3531|532|15.1
+3467355|Sacramento|Galt Joint Union High|TA|1982|372|18.8
+3467413|Sacramento|River Delta Joint Unified|TA|1787|438|24.5
+3467421|Sacramento|Robla Elementary|TA|2002|477|23.8
+3467439|Sacramento|Sacramento City Unified|TA|37887|9552|25.2
+3467447|Sacramento|San Juan Unified|TA|41283|9870|23.9
+3473973|Sacramento|Center Joint Unified|TA|4940|1149|23.3
+3475283|Sacramento|Natomas Unified|TA|11659|2593|22.2
+3476505|Sacramento|Twin Rivers Unified|TA|24033|7308|30.4
+3510355|San Benito|San Benito County Office of Education|TA|79|52|65.8
+3567454|San Benito|Bitterwater-Tully Elementary|TA|35|15|42.9
+3567462|San Benito|Cienega Union Elementary|TA|21|2|9.5
+3567470|San Benito|Hollister|TA|6161|1203|19.5
+3567488|San Benito|Jefferson Elementary|TA|*|*|*
+3567504|San Benito|North County Joint Union Elementary|TA|778|30|3.9
+3567520|San Benito|Panoche Elementary|TA|*|*|*
+3567538|San Benito|San Benito High|TA|3475|592|17.0
+3567553|San Benito|Southside Elementary|TA|273|36|13.2
+3567561|San Benito|Tres Pinos Union Elementary|TA|63|14|22.2
+3567579|San Benito|Willow Grove Union Elementary|TA|23|8|34.8
+3575259|San Benito|Aromas - San Juan Unified|TA|995|187|18.8
+3610363|San Bernardino|San Bernardino County Office of Education|TA|2983|1658|55.6
+3667587|San Bernardino|Adelanto Elementary|TA|8295|2731|32.9
+3667595|San Bernardino|Alta Loma Elementary|TA|5750|583|10.1
+3667611|San Bernardino|Barstow Unified|TA|6670|3184|47.7
+3667637|San Bernardino|Bear Valley Unified|TA|2287|615|26.9
+3667645|San Bernardino|Central Elementary|TA|4594|877|19.1
+3667652|San Bernardino|Chaffey Joint Union High|TA|22490|6907|30.7
+3667678|San Bernardino|Chino Valley Unified|TA|26604|4134|15.5
+3667686|San Bernardino|Colton Joint Unified|TA|19194|4248|22.1
+3667694|San Bernardino|Cucamonga Elementary|TA|2552|603|23.6
+3667702|San Bernardino|Etiwanda Elementary|TA|14124|1392|9.9
+3667710|San Bernardino|Fontana Unified|TA|34024|8178|24.0
+3667736|San Bernardino|Helendale Elementary|TA|752|176|23.4
+3667777|San Bernardino|Morongo Unified|TA|7680|2325|30.3
+3667785|San Bernardino|Mountain View Elementary|TA|3481|482|13.8
+3667793|San Bernardino|Mt. Baldy Joint Elementary|TA|116|12|10.3
+3667801|San Bernardino|Needles Unified|TA|983|225|22.9
+3667819|San Bernardino|Ontario-Montclair|TA|18339|1835|10.0
+3667827|San Bernardino|Oro Grande|TA|100|20|20.0
+3667843|San Bernardino|Redlands Unified|TA|20123|4505|22.4
+3667850|San Bernardino|Rialto Unified|TA|24037|5560|23.1
+3667868|San Bernardino|Rim of the World Unified|TA|3011|913|30.3
+3667876|San Bernardino|San Bernardino City Unified|TA|46581|13809|29.6
+3667892|San Bernardino|Trona Joint Unified|TA|276|112|40.6
+3667918|San Bernardino|Victor Elementary|TA|12756|3881|30.4
+3667934|San Bernardino|Victor Valley Union High|TA|12322|2744|22.3
+3667959|San Bernardino|Yucaipa-Calimesa Joint Unified|TA|8105|2073|25.6
+3673858|San Bernardino|Baker Valley Unified|TA|128|19|14.8
+3673890|San Bernardino|Silver Valley Unified|TA|2406|445|18.5
+3673957|San Bernardino|Snowline Joint Unified|TA|8579|2555|29.8
+3675044|San Bernardino|Hesperia Unified|TA|24602|8559|34.8
+3675051|San Bernardino|Lucerne Valley Unified|TA|1250|332|26.6
+3675069|San Bernardino|Upland Unified|TA|9847|1621|16.5
+3675077|San Bernardino|Apple Valley Unified|TA|14466|4543|31.4
+3710371|San Diego|San Diego County Office of Education|TA|1650|566|34.3
+3767967|San Diego|Alpine Union Elementary|TA|1476|333|22.6
+3767983|San Diego|Borrego Springs Unified|TA|367|91|24.8
+3767991|San Diego|Cajon Valley Union|TA|17019|4465|26.2
+3768007|San Diego|Cardiff Elementary|TA|653|42|6.4
+3768023|San Diego|Chula Vista Elementary|TA|23291|3138|13.5
+3768031|San Diego|Coronado Unified|TA|2868|316|11.0
+3768049|San Diego|Dehesa Elementary|TA|481|66|13.7
+3768056|San Diego|Del Mar Union Elementary|TA|3636|245|6.7
+3768080|San Diego|Encinitas Union Elementary|TA|4363|370|8.5
+3768098|San Diego|Escondido Union|TA|14307|3345|23.4
+3768106|San Diego|Escondido Union High|TA|6442|1516|23.5
+3768114|San Diego|Fallbrook Union Elementary|TA|5267|872|16.6
+3768122|San Diego|Fallbrook Union High|TA|2042|552|27.0
+3768130|San Diego|Grossmont Union High|TA|16839|4277|25.4
+3768155|San Diego|Jamul-Dulzura Union Elementary|TA|638|55|8.6
+3768163|San Diego|Julian Union Elementary|TA|316|24|7.6
+3768171|San Diego|Julian Union High|TA|123|40|32.5
+3768189|San Diego|Lakeside Union Elementary|TA|4629|728|15.7
+3768197|San Diego|La Mesa-Spring Valley|TA|11014|2288|20.8
+3768205|San Diego|Lemon Grove|TA|3237|828|25.6
+3768213|San Diego|Mountain Empire Unified|TA|1821|680|37.3
+3768221|San Diego|National Elementary|TA|4168|1033|24.8
+3768296|San Diego|Poway Unified|TA|34931|3539|10.1
+3768304|San Diego|Ramona City Unified|TA|5075|1155|22.8
+3768312|San Diego|Rancho Santa Fe Elementary|TA|524|68|13.0
+3768338|San Diego|San Diego Unified|TA|98281|18903|19.2
+3768346|San Diego|San Dieguito Union High|TA|12180|1272|10.4
+3768353|San Diego|San Pasqual Union Elementary|TA|559|24|4.3
+3768361|San Diego|Santee|TA|6250|623|10.0
+3768379|San Diego|San Ysidro Elementary|TA|4421|1269|28.7
+3768387|San Diego|Solana Beach Elementary|TA|2705|97|3.6
+3768395|San Diego|South Bay Union|TA|3846|1058|27.5
+3768403|San Diego|Spencer Valley Elementary|TA|45|7|15.6
+3768411|San Diego|Sweetwater Union High|TA|35284|7678|21.8
+3768437|San Diego|Vallecitos Elementary|TA|207|18|8.7
+3768452|San Diego|Vista Unified|TA|18550|3481|18.8
+3773551|San Diego|Carlsbad Unified|TA|10874|1582|14.5
+3773569|San Diego|Oceanside Unified|TA|15423|3963|25.7
+3773791|San Diego|San Marcos Unified|TA|19192|2748|14.3
+3775416|San Diego|Warner Unified|TA|222|11|5.0
+3775614|San Diego|Valley Center-Pauma Unified|TA|3735|1089|29.2
+3776851|San Diego|Bonsall Unified|TA|2282|339|14.9
+3810389|San Francisco|San Francisco County Office of Education|TA|347|276|79.5
+3868478|San Francisco|San Francisco Unified|TA|50052|11968|23.9
+3910397|San Joaquin|San Joaquin County Office of Education|TA|2633|1124|42.7
+3968502|San Joaquin|Escalon Unified|TA|2749|371|13.5
+3968544|San Joaquin|Jefferson Elementary|TA|3272|355|10.8
+3968569|San Joaquin|Lincoln Unified|TA|8695|2131|24.5
+3968577|San Joaquin|Linden Unified|TA|2396|383|16.0
+3968585|San Joaquin|Lodi Unified|TA|27669|6725|24.3
+3968593|San Joaquin|Manteca Unified|TA|26354|5920|22.5
+3968619|San Joaquin|New Hope Elementary|TA|175|39|22.3
+3968627|San Joaquin|New Jerusalem Elementary|TA|19|1|5.3
+3968635|San Joaquin|Oak View Union Elementary|TA|377|27|7.2
+3968650|San Joaquin|Ripon Unified|TA|3436|259|7.5
+3968676|San Joaquin|Stockton Unified|TA|32927|10831|32.9
+3975499|San Joaquin|Tracy Joint Unified|TA|14064|2966|21.1
+3976760|San Joaquin|Lammersville Joint Unified|TA|8230|618|7.5
+3977388|San Joaquin|Banta Unified|TA|224|79|35.3
+4010405|San Luis Obispo|San Luis Obispo County Office of Education|TA|146|96|65.8
+4068700|San Luis Obispo|Atascadero Unified|TA|4377|1249|28.5
+4068726|San Luis Obispo|Cayucos Elementary|TA|192|14|7.3
+4068759|San Luis Obispo|Lucia Mar Unified|TA|9903|1536|15.5
+4068791|San Luis Obispo|Pleasant Valley Joint Union Elementary|TA|60|4|6.7
+4068809|San Luis Obispo|San Luis Coastal Unified|TA|7832|1430|18.3
+4068825|San Luis Obispo|San Miguel Joint Union|TA|710|104|14.6
+4068833|San Luis Obispo|Shandon Joint Unified|TA|287|80|27.9
+4068841|San Luis Obispo|Templeton Unified|TA|2264|285|12.6
+4075457|San Luis Obispo|Paso Robles Joint Unified|TA|6474|1433|22.1
+4075465|San Luis Obispo|Coast Unified|TA|503|94|18.7
+4110413|San Mateo|San Mateo County Office of Education|TA|122|44|36.1
+4168858|San Mateo|Bayshore Elementary|TA|356|49|13.8
+4168866|San Mateo|Belmont-Redwood Shores Elementary|TA|3996|386|9.7
+4168874|San Mateo|Brisbane Elementary|TA|486|53|10.9
+4168882|San Mateo|Burlingame Elementary|TA|3465|288|8.3
+4168890|San Mateo|Cabrillo Unified|TA|2593|406|15.7
+4168908|San Mateo|Hillsborough City Elementary|TA|1251|41|3.3
+4168916|San Mateo|Jefferson Elementary|TA|5112|665|13.0
+4168924|San Mateo|Jefferson Union High|TA|3780|816|21.6
+4168932|San Mateo|Pacifica|TA|2679|335|12.5
+4168940|San Mateo|La Honda-Pescadero Unified|TA|278|75|27.0
+4168957|San Mateo|Las Lomitas Elementary|TA|1178|60|5.1
+4168965|San Mateo|Menlo Park City Elementary|TA|2735|147|5.4
+4168973|San Mateo|Millbrae Elementary|TA|2153|196|9.1
+4168981|San Mateo|Portola Valley Elementary|TA|506|22|4.3
+4168999|San Mateo|Ravenswood City Elementary|TA|1565|560|35.8
+4169005|San Mateo|Redwood City Elementary|TA|6583|1151|17.5
+4169013|San Mateo|San Bruno Park Elementary|TA|2060|421|20.4
+4169021|San Mateo|San Carlos Elementary|TA|2911|135|4.6
+4169039|San Mateo|San Mateo-Foster City|TA|10144|1646|16.2
+4169047|San Mateo|San Mateo Union High|TA|8890|1257|14.1
+4169062|San Mateo|Sequoia Union High|TA|8658|1687|19.5
+4169070|San Mateo|South San Francisco Unified|TA|7812|1150|14.7
+4169088|San Mateo|Woodside Elementary|TA|392|36|9.2
+4210421|Santa Barbara|Santa Barbara County Office of Education|TA|147|69|46.9
+4269104|Santa Barbara|Ballard Elementary|TA|116|18|15.5
+4269112|Santa Barbara|Blochman Union Elementary|TA|213|10|4.7
+4269120|Santa Barbara|Santa Maria-Bonita|TA|17954|2291|12.8
+4269138|Santa Barbara|Buellton Union Elementary|TA|554|92|16.6
+4269146|Santa Barbara|Carpinteria Unified|TA|1940|382|19.7
+4269161|Santa Barbara|Cold Spring Elementary|TA|198|14|7.1
+4269179|Santa Barbara|College Elementary|TA|193|16|8.3
+4269195|Santa Barbara|Goleta Union Elementary|TA|3456|353|10.2
+4269203|Santa Barbara|Guadalupe Union Elementary|TA|1386|210|15.2
+4269211|Santa Barbara|Hope Elementary|TA|876|78|8.9
+4269229|Santa Barbara|Lompoc Unified|TA|9210|2257|24.5
+4269245|Santa Barbara|Los Olivos Elementary|TA|163|14|8.6
+4269252|Santa Barbara|Montecito Union Elementary|TA|405|30|7.4
+4269260|Santa Barbara|Orcutt Union Elementary|TA|4269|650|15.2
+4269310|Santa Barbara|Santa Maria Joint Union High|TA|9161|2013|22.0
+4269328|Santa Barbara|Santa Ynez Valley Union High|TA|819|173|21.1
+4269336|Santa Barbara|Solvang Elementary|TA|622|81|13.0
+4269344|Santa Barbara|Vista del Mar Union|TA|68|14|20.6
+4275010|Santa Barbara|Cuyama Joint Unified|TA|171|30|17.5
+4276786|Santa Barbara|Santa Barbara Unified|TA|12164|2459|20.2
+4310439|Santa Clara|Santa Clara County Office of Education|TA|1057|446|42.2
+4369369|Santa Clara|Alum Rock Union Elementary|TA|7598|1536|20.2
+4369377|Santa Clara|Berryessa Union Elementary|TA|6094|704|11.6
+4369385|Santa Clara|Cambrian|TA|1037|61|5.9
+4369393|Santa Clara|Campbell Union|TA|435|67|15.4
+4369401|Santa Clara|Campbell Union High|TA|8624|1145|13.3
+4369419|Santa Clara|Cupertino Union|TA|14040|772|5.5
+4369427|Santa Clara|East Side Union High|TA|20361|4279|21.0
+4369435|Santa Clara|Evergreen Elementary|TA|8672|826|9.5
+4369450|Santa Clara|Franklin-McKinley Elementary|TA|5952|1167|19.6
+4369468|Santa Clara|Fremont Union High|TA|9551|1060|11.1
+4369484|Santa Clara|Gilroy Unified|TA|10470|2248|21.5
+4369492|Santa Clara|Lakeside Joint|TA|69|8|11.6
+4369500|Santa Clara|Loma Prieta Joint Union Elementary|TA|426|34|8.0
+4369518|Santa Clara|Los Altos Elementary|TA|3467|187|5.4
+4369526|Santa Clara|Los Gatos Union Elementary|TA|2833|156|5.5
+4369534|Santa Clara|Los Gatos-Saratoga Union High|TA|3081|296|9.6
+4369542|Santa Clara|Luther Burbank|TA|462|97|21.0
+4369575|Santa Clara|Moreland|TA|3971|480|12.1
+4369583|Santa Clara|Morgan Hill Unified|TA|8061|1674|20.8
+4369591|Santa Clara|Mountain View Whisman|TA|4787|519|10.8
+4369609|Santa Clara|Mountain View-Los Altos Union High|TA|4501|499|11.1
+4369617|Santa Clara|Mount Pleasant Elementary|TA|1144|256|22.4
+4369625|Santa Clara|Oak Grove Elementary|TA|8861|1549|17.5
+4369633|Santa Clara|Orchard Elementary|TA|785|153|19.5
+4369641|Santa Clara|Palo Alto Unified|TA|10372|1058|10.2
+4369666|Santa Clara|San Jose Unified|TA|25216|5850|23.2
+4369674|Santa Clara|Santa Clara Unified|TA|14884|2248|15.1
+4369682|Santa Clara|Saratoga Union Elementary|TA|1685|83|4.9
+4369690|Santa Clara|Sunnyvale|TA|5965|564|9.5
+4369708|Santa Clara|Union Elementary|TA|5506|332|6.0
+4373387|Santa Clara|Milpitas Unified|TA|10397|985|9.5
+4410447|Santa Cruz|Santa Cruz County Office of Education|TA|1103|201|18.2
+4469732|Santa Cruz|Bonny Doon Union Elementary|TA|98|28|28.6
+4469757|Santa Cruz|Happy Valley Elementary|TA|107|20|18.7
+4469765|Santa Cruz|Live Oak Elementary|TA|1540|201|13.1
+4469773|Santa Cruz|Mountain Elementary|TA|146|15|10.3
+4469781|Santa Cruz|Pacific Elementary|TA|176|34|19.3
+4469799|Santa Cruz|Pajaro Valley Unified|TA|15311|3865|25.2
+4469807|Santa Cruz|San Lorenzo Valley Unified|TA|1972|397|20.1
+4469815|Santa Cruz|Santa Cruz City Elementary|TA|1810|238|13.1
+4469823|Santa Cruz|Santa Cruz City High|TA|4412|867|19.7
+4469849|Santa Cruz|Soquel Union Elementary|TA|1553|184|11.8
+4475432|Santa Cruz|Scotts Valley Unified|TA|2158|242|11.2
+4510454|Shasta|Shasta County Office of Education|TA|216|69|31.9
+4569856|Shasta|Anderson Union High|TA|1533|511|33.3
+4569872|Shasta|Bella Vista Elementary|TA|363|56|15.4
+4569880|Shasta|Black Butte Union Elementary|TA|267|94|35.2
+4569914|Shasta|Cascade Union Elementary|TA|1099|273|24.8
+4569922|Shasta|Castle Rock Union Elementary|TA|43|17|39.5
+4569948|Shasta|Columbia Elementary|TA|793|63|7.9
+4569955|Shasta|Cottonwood Union Elementary|TA|954|183|19.2
+4569971|Shasta|Enterprise Elementary|TA|3592|497|13.8
+4569989|Shasta|Fall River Joint Unified|TA|1199|382|31.9
+4569997|Shasta|French Gulch-Whiskeytown Elementary|TA|20|7|35.0
+4570003|Shasta|Grant Elementary|TA|615|56|9.1
+4570011|Shasta|Happy Valley Union Elementary|TA|511|61|11.9
+4570029|Shasta|Igo, Ono, Platina Union Elementary|TA|37|0|0.0
+4570045|Shasta|Junction Elementary|TA|435|67|15.4
+4570052|Shasta|Millville Elementary|TA|216|30|13.9
+4570078|Shasta|North Cow Creek Elementary|TA|273|10|3.7
+4570086|Shasta|Oak Run Elementary|TA|27|10|37.0
+4570094|Shasta|Pacheco Union Elementary|TA|739|104|14.1
+4570110|Shasta|Redding Elementary|TA|2953|453|15.3
+4570128|Shasta|Shasta Union Elementary|TA|108|3|2.8
+4570136|Shasta|Shasta Union High|TA|4328|1027|23.7
+4570169|Shasta|Whitmore Union Elementary|TA|71|1|1.4
+4573700|Shasta|Mountain Union Elementary|TA|82|35|42.7
+4575267|Shasta|Gateway Unified|TA|2346|646|27.5
+4670177|Sierra|Sierra-Plumas Joint Unified|TA|410|80|19.5
+4710470|Siskiyou|Siskiyou County Office of Education|TA|76|47|61.8
+4770185|Siskiyou|Big Springs Union Elementary|TA|166|59|35.5
+4770193|Siskiyou|Bogus Elementary|TA|23|14|60.9
+4770201|Siskiyou|Butteville Union Elementary|TA|169|32|18.9
+4770227|Siskiyou|Delphic Elementary|TA|*|*|*
+4770243|Siskiyou|Dunsmuir Elementary|TA|74|31|41.9
+4770250|Siskiyou|Dunsmuir Joint Union High|TA|63|33|52.4
+4770318|Siskiyou|Gazelle Union Elementary|TA|35|10|28.6
+4770326|Siskiyou|Grenada Elementary|TA|216|26|12.0
+4770334|Siskiyou|Happy Camp Union Elementary|TA|84|45|53.6
+4770359|Siskiyou|Hornbrook Elementary|TA|35|6|17.1
+4770367|Siskiyou|Junction Elementary|TA|37|18|48.6
+4770375|Siskiyou|Klamath River Union Elementary|TA|*|*|*
+4770383|Siskiyou|Little Shasta Elementary|TA|18|1|5.6
+4770409|Siskiyou|McCloud Union Elementary|TA|60|28|46.7
+4770417|Siskiyou|Montague Elementary|TA|193|28|14.5
+4770425|Siskiyou|Mt. Shasta Union Elementary|TA|12|8|66.7
+4770458|Siskiyou|Seiad Elementary|TA|22|9|40.9
+4770466|Siskiyou|Siskiyou Union High|TA|489|172|35.2
+4770482|Siskiyou|Weed Union Elementary|TA|309|104|33.7
+4770490|Siskiyou|Willow Creek Elementary|TA|50|11|22.0
+4770508|Siskiyou|Yreka Union Elementary|TA|924|220|23.8
+4770516|Siskiyou|Yreka Union High|TA|679|206|30.3
+4773684|Siskiyou|Butte Valley Unified|TA|329|76|23.1
+4776455|Siskiyou|Scott Valley Unified|TA|621|117|18.8
+4810488|Solano|Solano County Office of Education|TA|535|241|45.0
+4870524|Solano|Benicia Unified|TA|4404|567|12.9
+4870532|Solano|Dixon Unified|TA|3078|680|22.1
+4870540|Solano|Fairfield-Suisun Unified|TA|20961|5239|25.0
+4870565|Solano|Travis Unified|TA|5632|900|16.0
+4870573|Solano|Vacaville Unified|TA|11800|1662|14.1
+4870581|Solano|Vallejo City Unified|TA|9814|3547|36.1
+4910496|Sonoma|Sonoma County Office of Education|TA|341|173|50.7
+4970599|Sonoma|Alexander Valley Union Elementary|TA|115|9|7.8
+4970607|Sonoma|West Sonoma County Union High|TA|1590|438|27.5
+4970615|Sonoma|Bellevue Union|TA|1733|341|19.7
+4970623|Sonoma|Bennett Valley Union Elementary|TA|899|94|10.5
+4970649|Sonoma|Cinnabar Elementary|TA|20|1|5.0
+4970656|Sonoma|Cloverdale Unified|TA|1322|290|21.9
+4970672|Sonoma|Dunham Elementary|TA|*|*|*
+4970680|Sonoma|Forestville Union Elementary|TA|71|20|28.2
+4970698|Sonoma|Fort Ross Elementary|TA|20|13|65.0
+4970706|Sonoma|Geyserville Unified|TA|199|47|23.6
+4970714|Sonoma|Gravenstein Union Elementary|TA|39|8|20.5
+4970722|Sonoma|Guerneville Elementary|TA|14|2|14.3
+4970730|Sonoma|Harmony Union Elementary|TA|74|25|33.8
+4970763|Sonoma|Horicon Elementary|TA|74|25|33.8
+4970789|Sonoma|Kenwood|TA|126|16|12.7
+4970797|Sonoma|Liberty Elementary|TA|56|2|3.6
+4970805|Sonoma|Mark West Union Elementary|TA|437|48|11.0
+4970813|Sonoma|Monte Rio Union Elementary|TA|70|23|32.9
+4970821|Sonoma|Montgomery Elementary|TA|25|7|28.0
+4970839|Sonoma|Oak Grove Union Elementary|TA|91|8|8.8
+4970847|Sonoma|Old Adobe Union|TA|308|46|14.9
+4970854|Sonoma|Petaluma City Elementary|TA|1774|326|18.4
+4970862|Sonoma|Petaluma Joint Union High|TA|4350|841|19.3
+4970870|Sonoma|Piner-Olivet Union Elementary|TA|269|52|19.3
+4970888|Sonoma|Kashia Elementary|TA|*|*|*
+4970896|Sonoma|Rincon Valley Union Elementary|TA|1308|151|11.5
+4970904|Sonoma|Roseland|TA|1662|265|15.9
+4970912|Sonoma|Santa Rosa Elementary|TA|3287|784|23.9
+4970920|Sonoma|Santa Rosa High|TA|9536|2606|27.3
+4970938|Sonoma|Sebastopol Union Elementary|TA|504|67|13.3
+4970953|Sonoma|Sonoma Valley Unified|TA|3120|557|17.9
+4970961|Sonoma|Twin Hills Union Elementary|TA|309|53|17.2
+4970979|Sonoma|Two Rock Union|TA|136|8|5.9
+4970995|Sonoma|Waugh Elementary|TA|801|60|7.5
+4971001|Sonoma|West Side Union Elementary|TA|131|15|11.5
+4971019|Sonoma|Wilmar Union Elementary|TA|248|10|4.0
+4971035|Sonoma|Wright Elementary|TA|763|109|14.3
+4973882|Sonoma|Cotati-Rohnert Park Unified|TA|6488|1318|20.3
+4975358|Sonoma|Windsor Unified|TA|3718|671|18.0
+4975390|Sonoma|Healdsburg Unified|TA|1257|298|23.7
+5010504|Stanislaus|Stanislaus County Office of Education|TA|1059|543|51.3
+5071043|Stanislaus|Ceres Unified|TA|13582|2198|16.2
+5071050|Stanislaus|Chatom Union|TA|591|23|3.9
+5071068|Stanislaus|Denair Unified|TA|617|152|24.6
+5071076|Stanislaus|Empire Union Elementary|TA|2978|702|23.6
+5071084|Stanislaus|Gratton Elementary|TA|26|0|0.0
+5071092|Stanislaus|Hart-Ransom Union Elementary|TA|712|104|14.6
+5071134|Stanislaus|Keyes Union|TA|755|109|14.4
+5071142|Stanislaus|Knights Ferry Elementary|TA|107|10|9.3
+5071167|Stanislaus|Modesto City Elementary|TA|15110|2413|16.0
+5071175|Stanislaus|Modesto City High|TA|15649|3893|24.9
+5071209|Stanislaus|Paradise Elementary|TA|61|7|11.5
+5071217|Stanislaus|Patterson Joint Unified|TA|6315|1273|20.2
+5071233|Stanislaus|Roberts Ferry Union Elementary|TA|32|0|0.0
+5071266|Stanislaus|Salida Union Elementary|TA|2125|257|12.1
+5071274|Stanislaus|Shiloh Elementary|TA|26|5|19.2
+5071282|Stanislaus|Stanislaus Union Elementary|TA|3542|539|15.2
+5071290|Stanislaus|Sylvan Union Elementary|TA|8298|1241|15.0
+5071324|Stanislaus|Valley Home Joint Elementary|TA|194|5|2.6
+5073601|Stanislaus|Newman-Crows Landing Unified|TA|3170|594|18.7
+5075549|Stanislaus|Hughson Unified|TA|2294|362|15.8
+5075556|Stanislaus|Riverbank Unified|TA|2491|575|23.1
+5075564|Stanislaus|Oakdale Joint Unified|TA|5194|905|17.4
+5075572|Stanislaus|Waterford Unified|TA|1789|329|18.4
+5075739|Stanislaus|Turlock Unified|TA|13949|2883|20.7
+5110512|Sutter|Sutter County Office of Education|TA|407|217|53.3
+5171357|Sutter|Brittan Elementary|TA|547|100|18.3
+5171365|Sutter|Browns Elementary|TA|155|1|0.6
+5171373|Sutter|East Nicolaus Joint Union High|TA|314|52|16.6
+5171381|Sutter|Franklin Elementary|TA|512|30|5.9
+5171399|Sutter|Live Oak Unified|TA|2175|355|16.3
+5171407|Sutter|Marcum-Illinois Union Elementary|TA|180|7|3.9
+5171415|Sutter|Meridian Elementary|TA|88|7|8.0
+5171423|Sutter|Nuestro Elementary|TA|179|19|10.6
+5171431|Sutter|Pleasant Grove Joint Union|TA|165|17|10.3
+5171449|Sutter|Sutter Union High|TA|763|149|19.5
+5171456|Sutter|Winship-Robbins|TA|117|17|14.5
+5171464|Sutter|Yuba City Unified|TA|11955|2261|18.9
+5210520|Tehama|Tehama County Department of Education|TA|97|29|29.9
+5271472|Tehama|Antelope Elementary|TA|735|87|11.8
+5271498|Tehama|Corning Union Elementary|TA|2085|236|11.3
+5271506|Tehama|Corning Union High|TA|1109|215|19.4
+5271522|Tehama|Evergreen Union|TA|1097|147|13.4
+5271530|Tehama|Flournoy Union Elementary|TA|35|9|25.7
+5271548|Tehama|Gerber Union Elementary|TA|423|80|18.9
+5271555|Tehama|Kirkwood Elementary|TA|110|0|0.0
+5271563|Tehama|Lassen View Union Elementary|TA|370|25|6.8
+5271571|Tehama|Los Molinos Unified|TA|587|118|20.1
+5271621|Tehama|Red Bluff Union Elementary|TA|1909|389|20.4
+5271639|Tehama|Red Bluff Joint Union High|TA|1740|398|22.9
+5271647|Tehama|Reeds Creek Elementary|TA|201|16|8.0
+5271654|Tehama|Richfield Elementary|TA|261|6|2.3
+5310538|Trinity|Trinity County Office of Education|TA|*|*|*
+5371662|Trinity|Burnt Ranch Elementary|TA|89|0|0.0
+5371670|Trinity|Coffee Creek Elementary|TA|*|*|*
+5371696|Trinity|Douglas City Elementary|TA|167|10|6.0
+5371738|Trinity|Junction City Elementary|TA|68|1|1.5
+5371746|Trinity|Lewiston Elementary|TA|76|18|23.7
+5371761|Trinity|Trinity Center Elementary|TA|13|4|30.8
+5373833|Trinity|Southern Trinity Joint Unified|TA|73|13|17.8
+5375028|Trinity|Mountain Valley Unified|TA|362|56|15.5
+5376513|Trinity|Trinity Alps Unified|TA|667|195|29.2
+5410546|Tulare|Tulare County Office of Education|TA|1249|543|43.5
+5471795|Tulare|Allensworth Elementary|TA|125|31|24.8
+5471803|Tulare|Alpaugh Unified|TA|377|74|19.6
+5471811|Tulare|Alta Vista Elementary|TA|554|95|17.1
+5471829|Tulare|Buena Vista Elementary|TA|182|32|17.6
+5471837|Tulare|Burton Elementary|TA|2457|263|10.7
+5471852|Tulare|Columbine Elementary|TA|179|0|0.0
+5471860|Tulare|Cutler-Orosi Joint Unified|TA|3924|439|11.2
+5471894|Tulare|Ducor Union Elementary|TA|140|23|16.4
+5471902|Tulare|Earlimart Elementary|TA|1447|244|16.9
+5471944|Tulare|Hope Elementary|TA|242|20|8.3
+5471951|Tulare|Hot Springs Elementary|TA|*|*|*
+5471969|Tulare|Kings River Union Elementary|TA|401|17|4.2
+5471985|Tulare|Liberty Elementary|TA|885|59|6.7
+5471993|Tulare|Lindsay Unified|TA|4052|531|13.1
+5472009|Tulare|Monson-Sultana Joint Union Elementary|TA|441|31|7.0
+5472017|Tulare|Oak Valley Union Elementary|TA|577|26|4.5
+5472025|Tulare|Outside Creek Elementary|TA|134|18|13.4
+5472033|Tulare|Palo Verde Union Elementary|TA|541|51|9.4
+5472041|Tulare|Pixley Union Elementary|TA|866|73|8.4
+5472058|Tulare|Pleasant View Elementary|TA|474|74|15.6
+5472082|Tulare|Richgrove Elementary|TA|494|63|12.8
+5472090|Tulare|Rockford Elementary|TA|312|33|10.6
+5472108|Tulare|Saucelito Elementary|TA|78|10|12.8
+5472116|Tulare|Sequoia Union Elementary|TA|43|2|4.7
+5472132|Tulare|Springville Union Elementary|TA|341|79|23.2
+5472140|Tulare|Stone Corral Elementary|TA|127|17|13.4
+5472157|Tulare|Strathmore Union Elementary|TA|746|102|13.7
+5472173|Tulare|Sundale Union Elementary|TA|835|38|4.6
+5472181|Tulare|Sunnyside Union Elementary|TA|330|48|14.5
+5472199|Tulare|Terra Bella Union Elementary|TA|735|135|18.4
+5472207|Tulare|Three Rivers Union Elementary|TA|96|3|3.1
+5472215|Tulare|Tipton Elementary|TA|500|75|15.0
+5472223|Tulare|Traver Joint Elementary|TA|247|50|20.2
+5472231|Tulare|Tulare City|TA|9626|1173|12.2
+5472249|Tulare|Tulare Joint Union High|TA|5426|700|12.9
+5472256|Tulare|Visalia Unified|TA|28265|5340|18.9
+5472264|Tulare|Waukena Joint Union Elementary|TA|226|46|20.4
+5472298|Tulare|Woodville Union Elementary|TA|377|35|9.3
+5475325|Tulare|Farmersville Unified|TA|2436|430|17.7
+5475523|Tulare|Porterville Unified|TA|13025|2440|18.7
+5475531|Tulare|Dinuba Unified|TA|6479|1247|19.2
+5476794|Tulare|Woodlake Unified|TA|2163|241|11.1
+5476836|Tulare|Exeter Unified|TA|2708|409|15.1
+5510553|Tuolumne|Tuolumne County Superintendent of Schools|TA|110|60|54.5
+5572306|Tuolumne|Belleview Elementary|TA|158|27|17.1
+5572348|Tuolumne|Columbia Union|TA|492|111|22.6
+5572355|Tuolumne|Curtis Creek Elementary|TA|431|111|25.8
+5572363|Tuolumne|Jamestown Elementary|TA|466|52|11.2
+5572371|Tuolumne|Sonora Elementary|TA|666|115|17.3
+5572389|Tuolumne|Sonora Union High|TA|1014|317|31.3
+5572397|Tuolumne|Soulsbyville Elementary|TA|517|91|17.6
+5572405|Tuolumne|Summerville Elementary|TA|475|103|21.7
+5572413|Tuolumne|Summerville Union High|TA|539|134|24.9
+5572421|Tuolumne|Twain Harte|TA|281|68|24.2
+5575184|Tuolumne|Big Oak Flat-Groveland Unified|TA|288|93|32.3
+5610561|Ventura|Ventura County Office of Education|TA|619|307|49.6
+5672447|Ventura|Briggs Elementary|TA|466|61|13.1
+5672454|Ventura|Fillmore Unified|TA|3759|757|20.1
+5672462|Ventura|Hueneme Elementary|TA|6888|1306|19.0
+5672470|Ventura|Mesa Union Elementary|TA|605|30|5.0
+5672504|Ventura|Mupu Elementary|TA|177|15|8.5
+5672512|Ventura|Ocean View|TA|2120|418|19.7
+5672520|Ventura|Ojai Unified|TA|2065|525|25.4
+5672538|Ventura|Oxnard|TA|13279|2718|20.5
+5672546|Ventura|Oxnard Union High|TA|16294|4118|25.3
+5672553|Ventura|Pleasant Valley|TA|6022|634|10.5
+5672561|Ventura|Rio Elementary|TA|5373|1114|20.7
+5672579|Ventura|Santa Clara Elementary|TA|55|0|0.0
+5672603|Ventura|Simi Valley Unified|TA|15719|2799|17.8
+5672611|Ventura|Somis Union|TA|277|17|6.1
+5672652|Ventura|Ventura Unified|TA|14634|2391|16.3
+5673759|Ventura|Conejo Valley Unified|TA|16020|2000|12.5
+5673874|Ventura|Oak Park Unified|TA|4491|296|6.6
+5673940|Ventura|Moorpark Unified|TA|5653|704|12.5
+5676828|Ventura|Santa Paula Unified|TA|4685|894|19.1
+5710579|Yolo|Yolo County Office of Education|TA|266|153|57.5
+5772678|Yolo|Davis Joint Unified|TA|7876|1170|14.9
+5772686|Yolo|Esparto Unified|TA|1022|199|19.5
+5772694|Yolo|Washington Unified|TA|7569|1696|22.4
+5772702|Yolo|Winters Joint Unified|TA|1681|322|19.2
+5772710|Yolo|Woodland Joint Unified|TA|9362|1960|20.9
+5810587|Yuba|Yuba County Office of Education|TA|278|153|55.0
+5872728|Yuba|Camptonville Elementary|TA|50|9|18.0
+5872736|Yuba|Marysville Joint Unified|TA|10603|2175|20.5
+5872744|Yuba|Plumas Lake Elementary|TA|1779|148|8.3
+5872751|Yuba|Wheatland|TA|1348|140|10.4
+5872769|Yuba|Wheatland Union High|TA|1179|224|19.0
