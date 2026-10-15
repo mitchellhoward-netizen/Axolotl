@@ -541,6 +541,33 @@ function schoolSections(s) {
       </div>
     </section>`;
 
+
+  const d = k.district;
+  const dj = JSON.stringify(d).replace(/</g, '\\u003c');
+  const district = `
+    <section class="section t-day" id="district" aria-labelledby="district-title">
+      <div class="wrap">
+        <h2 id="district-title">${payoff(d.h2Plain, d.h2Em)}</h2>
+        <p class="lead">${esc(d.lead)}</p>
+        <form class="district-scan" onsubmit="return false">
+          <div class="figure" id="scan-figure" aria-live="polite">$244K<small id="scan-sub">${esc(d.sub.replace('{name}', 'Pajaro Valley Unified'))}</small></div>
+          <div class="pick">
+            <label for="district-input" class="sr-only">${esc(d.label)}</label>
+            <input id="district-input" type="search" placeholder="${esc(d.placeholder)}" autocomplete="off" spellcheck="false" role="combobox" aria-expanded="false" aria-controls="scan-matches" aria-autocomplete="list">
+            <ul class="matches" id="scan-matches" role="listbox"></ul>
+          </div>
+          <p class="quick" id="scan-quick">${esc(d.quick)} <button type="button" data-pick="4469799">${esc(d.quickNames[0])}</button>, <button type="button" data-pick="0161259">${esc(d.quickNames[1])}</button>, <button type="button" data-pick="1062166">${esc(d.quickNames[2])}</button>.</p>
+          <div class="lines" id="scan-lines">
+            <div><span>${esc(d.line1.replace('{absent}', '3,865').replace('{days}', '3').replace('{perDay}', '84'))}</span><b>$244K</b></div>
+            <div><span>${esc(d.line2.replace('{uncounted}', '77').replace('{perCounted}', '9,139'))}</span><b>$704K</b></div>
+            <div><span>${esc(d.line3)}</span><b>$2.2M</b></div>
+          </div>
+          <p class="assume">${esc(d.assume)}</p>
+        </form>
+        <script type="application/json" id="district-strings">${dj}</script>
+      </div>
+    </section>`;
+
   const sc = k.scan;
   const scan = `
     <section class="section t-golden" id="scan" aria-labelledby="scan-title">
@@ -598,7 +625,7 @@ function schoolSections(s) {
       </div>
     </section>`;
 
-  return [hero, outcomes, example, steps, different, never, scan, pilot, contactForm(k.form, 'schools'), fundsBand].join('');
+  return [hero, outcomes, district, example, steps, different, never, scan, pilot, contactForm(k.form, 'schools'), fundsBand].join('');
 }
 
 /** The scan request form. Both the school and fund pages post it as kind
@@ -1051,9 +1078,9 @@ function document(s, { page, title, description, canonical, alts, body, langHref
       href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/site.css?v=21" />
+    <link rel="stylesheet" href="/site.css?v=22" />
     <script src="/msp-calc.js?v=21" defer></script>
-    <script src="/site.js?v=21" defer></script>
+    <script src="/site.js?v=22" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main">${esc(at(s, 'a11y.skip'))}</a>

@@ -30,9 +30,9 @@
       href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/site.css?v=21" />
+    <link rel="stylesheet" href="/site.css?v=22" />
     <script src="/msp-calc.js?v=21" defer></script>
-    <script src="/site.js?v=21" defer></script>
+    <script src="/site.js?v=22" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -124,6 +124,28 @@
           </tbody>
         </table>
         <p class="network-note">Medicaid: NYC Comptroller follow-up audit, July 2026. Consent: district survey by AASA, AESA and NAME, reported by K-12 Dive, 2023. Under IDEA, a district needs a parent’s one-time written consent before it first bills Medicaid for a child’s services (34 CFR 300.154). Chronic absence: AEI, reported by K-12 Dive, 2025. LCFF: California Department of Education, 2025–26.</p>
+      </div>
+    </section>
+    <section class="section t-day" id="district" aria-labelledby="district-title">
+      <div class="wrap">
+        <h2 id="district-title">Find your district. <em>See what attendance is worth.</em></h2>
+        <p class="lead">Every California district, from the state’s 2024–25 chronic absenteeism file and its 2024–25 LCFF funding. Type a district or pick one.</p>
+        <form class="district-scan" onsubmit="return false">
+          <div class="figure" id="scan-figure" aria-live="polite">$244K<small id="scan-sub">Pajaro Valley Unified could recover each year, worked from its own public filings</small></div>
+          <div class="pick">
+            <label for="district-input" class="sr-only">Find your district</label>
+            <input id="district-input" type="search" placeholder="Type any California school district" autocomplete="off" spellcheck="false" role="combobox" aria-expanded="false" aria-controls="scan-matches" aria-autocomplete="list">
+            <ul class="matches" id="scan-matches" role="listbox"></ul>
+          </div>
+          <p class="quick" id="scan-quick">Or try <button type="button" data-pick="4469799">Pajaro Valley</button>, <button type="button" data-pick="0161259">Oakland</button>, <button type="button" data-pick="1062166">Fresno</button>.</p>
+          <div class="lines" id="scan-lines">
+            <div><span>3,865 chronically absent students, one in four reached, 3 more days each, at $84 a day</span><b>$244K</b></div>
+            <div><span>Not in the figure: if one in two hundred enrolled students is low-income and uncounted, 77 students at $9,139 each</span><b>$704K</b></div>
+            <div><span>Each 1% of attendance is worth</span><b>$2.2M</b></div>
+          </div>
+          <p class="assume">Counts from the state’s 2024–25 absenteeism file; values from each district’s 2024–25 LCFF funding. The reach and days are our assumptions, set below what a mailed letter alone recovered in a randomized trial (Rogers &amp; Feller, 28,000 households). Uncounted students stay out of the figure; property-tax-funded districts show $0; declining-enrollment districts are paid a year late.</p>
+        </form>
+        <script type="application/json" id="district-strings">{"h2Plain":"Find your district.","h2Em":"See what attendance is worth.","lead":"Every California district, from the state’s 2024–25 chronic absenteeism file and its 2024–25 LCFF funding. Type a district or pick one.","label":"Find your district","placeholder":"Type any California school district","quick":"Or try","quickNames":["Pajaro Valley","Oakland","Fresno"],"sub":"{name} could recover each year, worked from its own public filings","line1":"{absent} chronically absent students, one in four reached, {days} more days each, at ${perDay} a day","line2":"Not in the figure: if one in two hundred enrolled students is low-income and uncounted, {uncounted} students at ${perCounted} each","line3":"Each 1% of attendance is worth","basicSub":"in state money for {name}, which is funded by local property tax","basicLine1":"{absent} chronically absent students","basicLine2":"Another day of attendance brings the district","basicLine3":"The families’ side of the case still stands; the budget side doesn’t","offline":"The district list didn’t load","assume":"Counts from the state’s 2024–25 absenteeism file; values from each district’s 2024–25 LCFF funding. The reach and days are our assumptions, set below what a mailed letter alone recovered in a randomized trial (Rogers & Feller, 28,000 households). Uncounted students stay out of the figure; property-tax-funded districts show $0; declining-enrollment districts are paid a year late."}</script>
       </div>
     </section>
     <section class="section t-noon" id="example" aria-labelledby="example-title">

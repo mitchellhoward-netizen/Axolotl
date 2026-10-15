@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Mycelium</title>
-<meta name="description" content="Schools and benefit funds sponsor a helper for each person they serve. It works for the person. You pay when the outcome moves.">
-<meta property="og:title" content="Mycelium — Your outcomes depend on your families doing well.">
-<meta property="og:description" content="Schools and benefit funds sponsor a helper for each person they serve. It works for the person. You pay when the outcome moves.">
+<meta name="description" content="Every family at your school gets its own helper: an AI, by text, in their language, that works for them. You pay a quarter of the attendance funding it recovers.">
+<meta property="og:title" content="Mycelium — A helper for every family at your school.">
+<meta property="og:description" content="Every family at your school gets its own helper: an AI, by text, in their language, that works for them. You pay a quarter of the attendance funding it recovers.">
 <meta property="og:image" content="https://www.try-mycelium.com/assets/og.jpg">
 <meta property="og:url" content="https://www.try-mycelium.com/">
 <meta property="og:site_name" content="Mycelium">
@@ -346,6 +346,25 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; letter-spacing: -0.0
   .js .intro .photos figure { transition: transform 1.2s var(--ease-soft); transform: scale(0.96); }
   .js .intro .photos figure.in { transform: none; }
 }
+
+.hero .action { display: flex; gap: 12px; flex-wrap: wrap; align-items: stretch; }
+.hero .action .door { display: inline-flex; align-items: center; min-height: 52px; padding: 0 20px; font: inherit; font-weight: 500; color: var(--ink); background: var(--surface); text-decoration: none; }
+.hero .action .door:hover { background: #352e29; }
+.wedge { padding: var(--gap-section) var(--m); display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; row-gap: 40px; }
+.wedge h2 { grid-column: 1 / span 12; font-size: var(--step-poster); line-height: 0.9; letter-spacing: -0.02em; }
+.wedge .text { grid-column: 1 / span 5; font-size: var(--step-lead); line-height: 1.4; max-width: 34ch; }
+.wedge .text p + p { margin-top: 16px; }
+.wedge .text a { color: var(--accent); text-decoration: underline; text-underline-offset: 4px; }
+.wedge .obj { grid-column: 7 / span 6; }
+.wedge .figure { font-family: var(--display); font-size: var(--step-head); line-height: 1; margin-top: 28px; letter-spacing: -0.02em; }
+.wedge .figure-sub { font-size: var(--step-body); color: var(--muted); margin-top: 8px; max-width: 40ch; }
+@media (max-width: 1023px) { .wedge .text, .wedge .obj { grid-column: 1 / span 12; } }
+.theirs .facts li small { display: block; color: var(--muted); font-size: var(--step-small); margin-top: 2px; }
+.founders { padding: var(--gap-section) var(--m); display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; }
+.founders h2 { grid-column: 1 / span 12; font-size: var(--step-head); line-height: 1; letter-spacing: -0.02em; }
+.founders p { grid-column: 1 / span 7; margin-top: 24px; font-size: var(--step-lead); line-height: 1.4; }
+@media (max-width: 1023px) { .founders p { grid-column: 1 / span 12; } }
+@media (max-width: 767px) { .where h2 { font-size: 2rem; } .hero .action .door { width: 100%; justify-content: center; } .hero .photo { height: 11svh; } .hero .support { bottom: 150px; } .hero .action { bottom: 24px; } }
 </style>
 </head>
 <body>
@@ -353,8 +372,9 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; letter-spacing: -0.0
 <header class="nav" id="nav">
   <a class="mark" href="#top">Mycelium</a>
   <ul>
+    <li><a href="/schools">School districts</a></li>
+    <li><a href="/funds">Benefit funds</a></li>
     <li><a href="#how">How it works</a></li>
-    <li><a href="#where">Who it's for</a></li>
     <li><a href="/es" lang="es" hreflang="es">Español</a></li>
   </ul>
   <a class="nav-action" href="#close">Get your number</a>
@@ -367,31 +387,34 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; letter-spacing: -0.0
   <div class="field-top"></div>
   <div class="field-bottom"></div>
   <div class="sentence-wrap"><h1 class="sentence" data-rise style="--i:0">
-    <span class="l1">Your outcomes depend on</span>
-    <span class="l2">your families doing well.</span>
+    <span class="l1">A helper for every family</span>
+    <span class="l2">at your school.</span>
   </h1></div>
   <div class="photo" aria-hidden="true"><img src="assets/myc-fan-lomas.jpg" width="1280" height="851" alt="" fetchpriority="high"><img src="assets/dend-fan-single.jpg" width="1280" height="1763" alt="" style="object-position: 50% 40%"><img src="assets/dend-field-solnhofen.jpg" width="1280" height="850" alt="" style="object-position: 50% 35%"><img src="assets/dend-tree-pyrolusite.jpg" width="1075" height="1657" alt="" style="object-position: 50% 30%"></div>
-  <p class="support" data-rise style="--i:1">Attendance and benefits are decided at home. Mycelium gives each person a helper there: an AI that texts in their language, paid by you, working for them.</p>
-  <div class="action" data-rise style="--i:2"><a class="button" href="#close">See what you could recover</a></div>
+  <p class="support" data-rise style="--i:1">An AI, by text, in their language, that works for them. A fifth absence triggers an offer instead of a letter. You pay a quarter of the attendance funding it recovers, nothing up front.</p>
+  <div class="action" data-rise style="--i:2"><a class="button" href="/schools">For school districts</a><a class="door" href="/funds">Benefit funds: Part B premiums the state would pay →</a></div>
 </section>
 
-<!-- INTRO -->
-<section class="intro" aria-label="Why it's stuck">
-  <div class="pin"><p>A family's bus route, benefits paperwork and work schedule decide whether a child gets to school. For a century the only help was a caseworker with a hundred-plus students. Today the school sends a letter.</p></div>
-  <div class="photos" aria-hidden="false">
+<!-- THE BET -->
+<section class="intro" aria-label="The bet">
+  <div class="pin"><p>Attendance, benefits and renewals are decided at home, where no institution can be. The only thing that ever moved them was hands-on help, and help was never affordable. Now it costs a few dollars.</p></div>
+  <div class="photos">
     <figure class="p1"><img src="assets/dend-fan-single.jpg" width="1280" height="1763" alt="A single black dendrite fanning across pale limestone" loading="lazy"></figure>
     <figure class="p2"><img src="assets/dend-field-solnhofen.jpg" width="1280" height="850" alt="A field of manganese dendrites on Solnhofen limestone" loading="lazy"></figure>
     <figure class="p3 tint"><img src="assets/dend-tree-pyrolusite.jpg" width="1075" height="1657" alt="A tree-shaped dendrite in black and ochre on cream stone" loading="lazy"></figure>
   </div>
 </section>
 
-<!-- SHOWCASE -->
-<section class="showcase" aria-label="Not a letter">
-  <div class="stack">
-    <span class="soft" data-enter style="--i:0"><span class="cap">A</span> fifth absence.</span>
-    <h2 data-enter style="--i:1">Not a letter.</h2>
+<!-- SCHOOLS FIRST -->
+<section class="wedge" id="schools" aria-label="Schools first.">
+  <h2>Schools first.</h2>
+  <div class="text">
+    <p>A child's fifth absence triggers a truancy letter today. With Mycelium it triggers an offer from the school, in the family's language: a helper that works on whatever is keeping the child home. The school pays a quarter of the attendance funding it recovers, nothing up front.</p>
+    <p>The thread stays with the family, under FERPA. The school sees attendance and patterns in aggregate; never a reason, and never another institution.</p>
+    <div class="figure">$244K</div>
+    <p class="figure-sub">what Pajaro Valley Unified could recover each year, worked from its own public filings. <a href="/schools#district">Find your district</a></p>
   </div>
-  <div class="object" data-enter style="--i:3">
+  <div class="obj">
     <div class="thread" data-ui aria-label="A text conversation between a parent and the helper">
       <div class="who">From Maya's school · in Spanish or English</div>
       <div class="msgs">
@@ -402,26 +425,6 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; letter-spacing: -0.0
         <div class="m">No. The school only sees what it asked about: whether Maya is getting to school. This stays between us unless you say otherwise.</div>
       </div>
       <div class="note">The school sees attendance improve. It never sees the thread.</div>
-    </div>
-  </div>
-  <div class="facts grid">
-    <div data-enter style="--i:4">
-      <p>The fifth absence is already in the school's records. Today it triggers a truancy notice. With Mycelium it triggers an offer, in the family's language, from a helper that works on whatever is keeping the child home. The school pays only when attendance improves.</p>
-      <form class="scan" onsubmit="return false">
-        <div class="figure" id="scan-figure" aria-live="polite">$244K<small id="scan-sub">Pajaro Valley Unified could recover each year, worked from its own public filings</small></div>
-        <div class="pick">
-          <label for="district" class="vh">Find your district</label>
-          <input id="district" type="search" placeholder="Type any California school district" autocomplete="off" spellcheck="false" role="combobox" aria-expanded="false" aria-controls="scan-matches" aria-autocomplete="list">
-          <ul class="matches" id="scan-matches" role="listbox"></ul>
-        </div>
-        <p class="quick" id="scan-quick">Or try <button type="button" data-pick="4469799">Pajaro Valley</button>, <button type="button" data-pick="0161259">Oakland</button>, <button type="button" data-pick="1062166">Fresno</button>, or <button type="button" data-pick="fund">a benefit fund</button>.</p>
-        <div class="lines" id="scan-lines">
-          <div><span>3,865 chronically absent students, one in four reached, 3 more days each, at $84 a day</span><b>$244K</b></div>
-          <div><span>Not in the figure: if one in two hundred enrolled students is low-income and uncounted, 77 students at $9,139 each</span><b>$704K</b></div>
-          <div><span>Each 1% of attendance is worth</span><b>$2.2M</b></div>
-        </div>
-        <p class="assume">Counts from the state's 2024–25 absenteeism file; values from each district's 2024–25 LCFF funding. The reach and days are our assumptions, set below what <a href="https://toddrogers.scholars.harvard.edu/resource/reducingstudentabsencesatscalepdf">a mailed letter alone</a> recovered in a randomized trial. Uncounted students stay out of the figure; property-tax-funded districts show $0; declining-enrollment districts are paid a year late.</p>
-      </form>
     </div>
   </div>
 </section>
@@ -436,20 +439,21 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; letter-spacing: -0.0
       <div class="item" data-enter style="--i:3"><h3>It answers to them.</h3><p>It never tells the school a family's reasons, and it says no to the institution before it says no to the family.</p></div>
       <div class="item" data-enter style="--i:4"><h3>They can say no.</h3><p>Nothing is filed or sent without a yes on that exact action. Stop, and it stops.</p></div>
       <div class="item" data-enter style="--i:5"><h3>It's already in their pocket.</h3><p>Text or WhatsApp, whichever they already use. Nothing to download, and nothing new for your staff.</p></div>
-      <div class="item" data-enter style="--i:6"><h3>It stays with them.</h3><p>When a fund, a clinic or a college later sponsors the same person, the helper is already there.</p></div>
+      <div class="item" data-enter style="--i:6"><h3>It stays with them.</h3><p>If they want it to. When a fund, a clinic or a college later offers the same person a helper, they can bring theirs.</p></div>
     </div>
     <div class="why" data-enter style="--i:7">
-      <p>We call the gap stranded alignment: outcomes both sides want that nobody could afford to pursue one person at a time. The evidence that help, not information, closes it:</p>
+      <p>The evidence that help, not information, is what moves outcomes:</p>
       <ul class="facts">
-        <li><a href="https://www.povertyactionlab.org/print/pdf/node/2133?lang=en">A brochure about financial aid did nothing. Sitting with the family to finish the form raised college enrollment 8 points.</a></li>
-        <li><a href="https://www.nber.org/system/files/working_papers/w24652/w24652.pdf">A letter saying "you qualify" doubled benefit enrollment. A person who filed it tripled it.</a></li>
-        <li><a href="https://toddrogers.scholars.harvard.edu/resource/robinsonleedearingrogers2018reducingabsenteeismintheearlygradespdf">Personal messages to families recover attendance for $5 to $11 a day, twice as much for families who speak another language.</a></li>
-        <li><a href="https://campustechnology.com/articles/2017/03/07/using-ai-chatbots-to-freeze-summer-melt-in-higher-ed.aspx">One text helper handled 200,000 messages. Fewer than one in a hundred needed a person.</a></li>
+        <li><a href="https://www.povertyactionlab.org/print/pdf/node/2133?lang=en">A brochure about financial aid did nothing. Sitting with the family to finish the form raised college enrollment 8 points.<small>Bettinger, Long, Oreopoulos & Sanbonmatsu, randomized, 26,000 families</small></a></li>
+        <li><a href="https://www.nber.org/system/files/working_papers/w24652/w24652.pdf">A letter saying "you qualify" doubled benefit enrollment. A person who filed it tripled it.<small>Finkelstein & Notowidigdo, randomized, 31,000 seniors</small></a></li>
+        <li><a href="https://toddrogers.scholars.harvard.edu/resource/robinsonleedearingrogers2018reducingabsenteeismintheearlygradespdf">Personal messages to families recover attendance for $5 to $11 a day, twice as much for families who speak another language.<small>Robinson, Lee, Dearing & Rogers, randomized, California K–5</small></a></li>
+        <li><a href="https://campustechnology.com/articles/2017/03/07/using-ai-chatbots-to-freeze-summer-melt-in-higher-ed.aspx">One text helper handled 200,000 messages. Fewer than one in a hundred needed a person.<small>Georgia State University, randomized, 3,100 students</small></a></li>
       </ul>
       <p>No one has run the trial where one helper, the family's own, does all four. Ours is built to be it: offered school by school, measured against the families not yet offered, so by June you know.</p>
     </div>
   </div>
 </section>
+
 
 <!-- HOW IT WORKS -->
 <section class="how" id="how" aria-label="How it works">
@@ -467,55 +471,49 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; letter-spacing: -0.0
   </div>
   <div class="stage" data-enter style="--i:3">
     <div class="line">You pay when the outcome moves.</div>
-    <p>Attendance days against each student's prior year, or premiums the state now pays instead of you, measured school by school against families not yet offered. Our share is a quarter of what's recovered.</p>
+    <p>Attendance days against each student's prior year, measured school by school against families not yet offered. For a fund, premiums the state now pays instead of you. Our share is a quarter of what's recovered.</p>
+  </div>
+</section>
+
+
+<!-- FUNDS -->
+<section class="fields" aria-label="The same helper, another sponsor">
+  <div class="field light">
+    <p class="why">A retiree whose fund reimburses her Medicare Part B premium often qualifies for New York's Medicare Savings Program, which pays it instead. Most never apply. The helper asks, files with her yes, and renews it every year. She keeps $202.90 a month; the fund stops paying $2,435 a year. <a href="/funds">For benefit funds →</a></p>
+    <h2>Same helper.<br>Different sponsor.</h2>
   </div>
 </section>
 
 <!-- BAND -->
 <figure class="band tint" aria-label="A field of manganese dendrites on Solnhofen limestone"><img src="assets/dend-field-solnhofen.jpg" width="1280" height="850" alt="" loading="lazy" style="object-position: 50% 40%"></figure>
 
-<!-- FEATURES -->
-<section class="fields" aria-label="What the school sees">
-  <div class="field light">
-    <p class="why" data-enter>Like health insurance: your employer pays, the doctor works for you, and your employer benefits without ever seeing your chart.</p>
-    <h2 data-enter style="--i:1">Works for the family.</h2>
-  </div>
-  <div class="field mid mirror">
-    <p class="why" data-enter>Who was offered a helper, from its own records, and whether attendance improved. Patterns in aggregate, like forty families on one cut bus route. Every rule the helper follows, in writing, before it goes live.</p>
-    <h2 data-enter style="--i:1">The school sees outcomes.</h2>
-  </div>
-  <div class="field dark">
-    <figure class="field-photo" data-enter style="--i:1"><img src="assets/dend-fan-single.jpg" width="1280" height="1763" alt="A single black dendrite fanning across pale limestone" loading="lazy" style="object-position: 50% 35%"></figure>
-    <p class="why" data-enter>Never the address, the eviction notice, the immigration question or the sick grandparent. Nothing about a family that didn't say yes. Enforced in the system, not a prompt; student data stays under FERPA and CA-NDPA and is never used to train models.</p>
-    <h2 data-enter style="--i:1">Never the reasons.</h2>
-  </div>
-</section>
-
-<!-- LIST -->
-<section class="where" id="where" aria-label="Who it's for">
-  <h2 data-enter>Anywhere the money depends on the member.</h2>
-  <p class="lede">Institutions, the outcome each is paid on, and where Mycelium works today.</p>
+<!-- WHERE IT GOES -->
+<section class="where" id="where" aria-label="Where it goes">
+  <h2 data-enter>Then anywhere money depends on a person.</h2>
+  <p class="lede">We call the gap stranded alignment: outcomes an institution and a person both want, that nobody could afford to pursue one person at a time. The institutions change. The person keeps the helper, if they choose to.</p>
   <div class="body grid">
     <div class="table">
-      <div class="row" data-enter style="--i:1"><span class="k">Now, in California</span><span>School districts</span><span class="v">attendance days</span></div>
-      <div class="row" data-enter style="--i:2"><span class="k">Now, in New York</span><span>Union benefit funds</span><span class="v">Part B premiums</span></div>
-      <div class="row group" data-enter style="--i:3"><span class="k">Next</span><span>Community health centers</span><span class="v">Medicaid renewals</span></div>
-      <div class="row" data-enter style="--i:4"><span class="k">Next</span><span>Hospitals</span><span class="v">readmissions</span></div>
-      <div class="row" data-enter style="--i:5"><span class="k">Next</span><span>Community colleges</span><span class="v">completion</span></div>
-      <div class="row" data-enter style="--i:6"><span class="k">Next</span><span>Disability insurers</span><span class="v">claims moved</span></div>
+      <div class="row"><span class="k">Now, California</span><span>School districts</span><span class="v">attendance days</span></div>
+      <div class="row"><span class="k">Now, New York</span><span>Union benefit funds</span><span class="v">Part B premiums</span></div>
+      <div class="row group"><span class="k">Next</span><span>Community health centers</span><span class="v">Medicaid renewals</span></div>
+      <div class="row"><span class="k">Next</span><span>Hospitals</span><span class="v">readmissions</span></div>
+      <div class="row"><span class="k">Next</span><span>Community colleges</span><span class="v">completion</span></div>
     </div>
   </div>
 </section>
 
-<!-- BAND -->
-<figure class="band tall" aria-label="A single dendrite fanning across pale limestone"><img src="assets/dend-fan-single.jpg" width="1280" height="1763" alt="" loading="lazy" style="object-position: 50% 45%"></figure>
+<!-- FOUNDERS -->
+<section class="founders" aria-label="Founders">
+  <h2>Built by Mitch Howard and Sarah Xu.</h2>
+  <p>Mitch spent four years in Providence ESL classrooms and a Fulbright year teaching in Mexico, then ran private-equity partnerships at Clay, where he worked with Sarah. We started Mycelium because the help that works was never affordable, and now it is.</p>
+</section>
 
 <!-- CLOSE -->
 <section class="close" id="close" aria-label="Get your number">
   <h2 data-enter>Now you can see it.</h2>
   <div class="foot">
-    <p data-enter style="--i:1">Send us your filings. Within a week we send back what's recoverable, by line, and what the helper would have said to the first forty people it reached last year.</p>
-    <a class="button" data-enter style="--i:2" href="mailto:hello@try-mycelium.com?subject=Scan%20my%20filings&body=Institution%3A%20%0AState%3A%20%0AYour%20role%3A%20">Send us your filings</a>
+    <p data-enter style="--i:1">Districts: send us your filings and within a week we send back what's recoverable, by line. Funds: send your Part B reimbursement count.</p>
+    <a class="button" data-enter style="--i:2" href="mailto:hello@try-mycelium.com?subject=Mycelium">Write to the founders</a>
   </div>
 </section>
 
@@ -542,54 +540,6 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; letter-spacing: -0.0
 
 <script>
 (function(){
-  // The live thing: district scan, from the state's own files (see tools/site/scan)
-  var figure = document.getElementById('scan-figure'), sub = document.getElementById('scan-sub'), lines = document.getElementById('scan-lines');
-  var input = document.getElementById('district'), list = document.getElementById('scan-matches'), quick = document.getElementById('scan-quick');
-  var fund = { fig: '$11M', sub: 'a large New York benefit fund could recover each year, from its public annual filings', lines: [['Medicare Part B premiums it reimburses that the state would cover','$11M'],['Eligible retirees who never applied to the state program','about 40%'],['Recovered when the retiree says yes and the helper files','per approval']] };
-  var A = null, rows = [], active = -1;
-  function money(n){ if (n >= 1e7) return '$' + (n/1e6).toFixed(0) + 'M'; if (n >= 1e6) return '$' + (n/1e6).toFixed(1) + 'M'; if (n >= 1e3) return '$' + Math.round(n/1e3) + 'K'; return '$' + Math.round(n); }
-  function num(n){ return n.toLocaleString('en-US'); }
-  function show(fig, s, ls){
-    figure.firstChild.nodeValue = fig; sub.textContent = s; lines.innerHTML = '';
-    ls.forEach(function(p){ var row = document.createElement('div'); var sp = document.createElement('span'); sp.textContent = p[0]; var b = document.createElement('b'); b.textContent = p[1]; row.appendChild(sp); row.appendChild(b); lines.appendChild(row); });
-  }
-  function district(r){
-    var name = r[1], enrolled = r[3], absent = r[4], rate = r[5], perDay = r[6], perCounted = r[7], perPoint = r[8], basic = r[9];
-    var reached = Math.round(absent * A.reach), days = reached * A.days, uncounted = Math.round(enrolled * A.uncounted);
-    if (basic) { show('$0', 'in state money for ' + name + ', which is funded by local property tax', [[num(absent) + ' chronically absent students', rate + '%'], ['Another day of attendance brings the district', '$0'], ['The families\' side of the case still stands; the budget side doesn\'t', '']]); return; }
-    var att = days * perDay, cnt = uncounted * perCounted;
-    show(money(att), name + ' could recover each year, worked from its own public filings', [
-      [num(absent) + ' chronically absent students, one in four reached, ' + A.days + ' more days each, at $' + perDay + ' a day', money(att)],
-      ['Not in the figure: if one in two hundred enrolled students is low-income and uncounted, ' + num(uncounted) + ' students at $' + num(perCounted) + ' each', money(cnt)],
-      ['Each 1% of attendance is worth', money(perPoint)]
-    ]);
-  }
-  function pick(id){
-    if (id === 'fund') { input.value = 'A large New York benefit fund'; show(fund.fig, fund.sub, fund.lines); return; }
-    var r = rows.filter(function(r){ return r[0] === id; })[0]; if (!r) return;
-    input.value = r[1]; district(r);
-  }
-  function close(){ list.innerHTML = ''; active = -1; input.setAttribute('aria-expanded', 'false'); }
-  function search(){
-    var q = input.value.trim().toLowerCase(); close(); if (q.length < 2 || !rows.length) return;
-    var hits = rows.map(function(r){ var n = r[1].toLowerCase(), c = r[2].toLowerCase(); var k = n.indexOf(q) === 0 ? 0 : n.indexOf(q) > 0 ? 1 : c.indexOf(q) === 0 ? 2 : -1; return [k, r]; }).filter(function(h){ return h[0] >= 0; }).sort(function(x, y){ return x[0] - y[0] || y[1][3] - x[1][3]; }).slice(0, 8).map(function(h){ return h[1]; });
-    hits.forEach(function(r){ var li = document.createElement('li'); li.setAttribute('role', 'option'); li.dataset.id = r[0]; li.textContent = r[1]; var sm = document.createElement('small'); sm.textContent = r[2]; li.appendChild(sm); li.addEventListener('mousedown', function(e){ e.preventDefault(); pick(r[0]); close(); }); list.appendChild(li); });
-    input.setAttribute('aria-expanded', hits.length ? 'true' : 'false');
-  }
-  if (input) {
-    fetch('/scan-data.json').then(function(r){ return r.json(); }).then(function(d){ A = d.assumptions; rows = d.districts; }).catch(function(){ input.placeholder = 'The district list didn\'t load'; });
-    input.addEventListener('input', search);
-    input.addEventListener('focus', function(){ if (rows.length && input.value) search(); });
-    input.addEventListener('blur', close);
-    input.addEventListener('keydown', function(e){
-      var items = list.children; if (!items.length) return;
-      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); active = (active + (e.key === 'ArrowDown' ? 1 : items.length - 1)) % items.length; for (var i = 0; i < items.length; i++) items[i].setAttribute('aria-selected', i === active ? 'true' : 'false'); }
-      else if (e.key === 'Enter') { e.preventDefault(); var li = items[active >= 0 ? active : 0]; pick(li.dataset.id); close(); }
-      else if (e.key === 'Escape') close();
-    });
-    quick.addEventListener('click', function(e){ var b = e.target.closest('button'); if (b) pick(b.dataset.pick); });
-  }
-
   // Section entrances, once
   if ('IntersectionObserver' in window) {
     var io = new IntersectionObserver(function(es){ es.forEach(function(e){ if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }); }, { threshold: 0.15 });

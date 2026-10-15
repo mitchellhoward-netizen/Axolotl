@@ -350,3 +350,54 @@
     update();
   });
 })();
+
+
+/* The district picker on /schools: searches public/scan-data.json, built by
+   tools/site/scan/build.py from the state's own files, and recomputes the
+   arithmetic from the assumptions shipped in that JSON. */
+(() => {
+  const input = document.getElementById("district-input");
+  if (!input) return;
+  const L = JSON.parse(document.getElementById("district-strings").textContent);
+  const figure = document.getElementById("scan-figure"), sub = document.getElementById("scan-sub"), lines = document.getElementById("scan-lines");
+  const list = document.getElementById("scan-matches"), quick = document.getElementById("scan-quick");
+  let A = null, rows = [], active = -1;
+  const money = (n) => n >= 1e7 ? "$" + (n / 1e6).toFixed(0) + "M" : n >= 1e6 ? "$" + (n / 1e6).toFixed(1) + "M" : n >= 1e3 ? "$" + Math.round(n / 1e3) + "K" : "$" + Math.round(n);
+  const num = (n) => n.toLocaleString("en-US");
+  const fill = (t, m) => t.replace(/\{(\w+)\}/g, (_, k) => m[k]);
+  const show = (fig, s, ls) => {
+    figure.firstChild.nodeValue = fig; sub.textContent = s; lines.innerHTML = "";
+    for (const [a, b] of ls) { const row = document.createElement("div"); const sp = document.createElement("span"); sp.textContent = a; const bb = document.createElement("b"); bb.textContent = b; row.append(sp, bb); lines.append(row); }
+  };
+  const district = (r) => {
+    const [, name, , enrolled, absent, rate, perDay, perCounted, perPoint, basic] = r;
+    const reached = Math.round(absent * A.reach), days = reached * A.days, uncounted = Math.round(enrolled * A.uncounted);
+    if (basic) { show("$0", fill(L.basicSub, { name }), [[fill(L.basicLine1, { absent: num(absent) }), rate + "%"], [L.basicLine2, "$0"], [L.basicLine3, ""]]); return; }
+    const att = days * perDay, cnt = uncounted * perCounted;
+    show(money(att), fill(L.sub, { name }), [
+      [fill(L.line1, { absent: num(absent), days: A.days, perDay }), money(att)],
+      [fill(L.line2, { uncounted: num(uncounted), perCounted: num(perCounted) }), money(cnt)],
+      [L.line3, money(perPoint)],
+    ]);
+  };
+  const pick = (id) => { const r = rows.find((r) => r[0] === id); if (!r) return; input.value = r[1]; district(r); };
+  const close = () => { list.innerHTML = ""; active = -1; input.setAttribute("aria-expanded", "false"); };
+  const search = () => {
+    const q = input.value.trim().toLowerCase(); close(); if (q.length < 2 || !rows.length) return;
+    const hits = rows.map((r) => { const n = r[1].toLowerCase(), c = r[2].toLowerCase(); const k = n.indexOf(q) === 0 ? 0 : n.indexOf(q) > 0 ? 1 : c.indexOf(q) === 0 ? 2 : -1; return [k, r]; })
+      .filter((h) => h[0] >= 0).sort((x, y) => x[0] - y[0] || y[1][3] - x[1][3]).slice(0, 8).map((h) => h[1]);
+    for (const r of hits) { const li = document.createElement("li"); li.setAttribute("role", "option"); li.dataset.id = r[0]; li.textContent = r[1]; const sm = document.createElement("small"); sm.textContent = r[2]; li.append(sm); li.addEventListener("mousedown", (e) => { e.preventDefault(); pick(r[0]); close(); }); list.append(li); }
+    input.setAttribute("aria-expanded", hits.length ? "true" : "false");
+  };
+  fetch("/scan-data.json").then((r) => r.json()).then((d) => { A = d.assumptions; rows = d.districts; }).catch(() => { input.placeholder = L.offline; });
+  input.addEventListener("input", search);
+  input.addEventListener("focus", () => { if (rows.length && input.value) search(); });
+  input.addEventListener("blur", close);
+  input.addEventListener("keydown", (e) => {
+    const items = list.children; if (!items.length) return;
+    if (e.key === "ArrowDown" || e.key === "ArrowUp") { e.preventDefault(); active = (active + (e.key === "ArrowDown" ? 1 : items.length - 1)) % items.length; for (let i = 0; i < items.length; i++) items[i].setAttribute("aria-selected", i === active ? "true" : "false"); }
+    else if (e.key === "Enter") { e.preventDefault(); pick(items[active >= 0 ? active : 0].dataset.id); close(); }
+    else if (e.key === "Escape") close();
+  });
+  quick.addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) pick(b.dataset.pick); });
+})();
