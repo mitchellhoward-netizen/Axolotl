@@ -1,6 +1,6 @@
 {
   "device": "iPhone 17 Pro",
-  "copyHash": "c5970122e67dc9d4",
+  "copyHash": "0f9b9f833b1dad31",
   "art": {
     "en": {
       "yes": {
@@ -10,6 +10,30 @@
       "week": {
         "width": 328,
         "height": 670
+      },
+      "home0": {
+        "width": 336,
+        "height": 687
+      },
+      "home1": {
+        "width": 336,
+        "height": 687
+      },
+      "home2": {
+        "width": 336,
+        "height": 687
+      },
+      "home3": {
+        "width": 336,
+        "height": 687
+      },
+      "home4": {
+        "width": 336,
+        "height": 687
+      },
+      "home5": {
+        "width": 336,
+        "height": 687
       }
     },
     "es": {
@@ -20,6 +44,30 @@
       "week": {
         "width": 328,
         "height": 670
+      },
+      "home0": {
+        "width": 336,
+        "height": 687
+      },
+      "home1": {
+        "width": 336,
+        "height": 687
+      },
+      "home2": {
+        "width": 336,
+        "height": 687
+      },
+      "home3": {
+        "width": 336,
+        "height": 687
+      },
+      "home4": {
+        "width": 336,
+        "height": 687
+      },
+      "home5": {
+        "width": 336,
+        "height": 687
       }
     }
   }
