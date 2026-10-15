@@ -738,7 +738,7 @@ export default {
     phoneYou: 'Parent',
     caption: 'Example conversations. Fictional school and family.',
 
-    // The phones (scripts/build-phone.mjs renders each one, on GitHub). 0 is the hero,
+    // The phones (scripts/build-phone.mjs renders each one, on a GitHub runner). 0 is the hero,
     // 1-4 the midday carousel, 5 the dinner-time thread. A thread has to be
     // long enough to fill the screen; the build fails if one is short.
     phones: [
