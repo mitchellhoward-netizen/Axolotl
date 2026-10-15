@@ -26,19 +26,28 @@ executing a consequential action without an explicit parent `YES`.
 - Add providers by importing them in `src/index.ts` and listing them in the `Spectrum({ providers: [...] })` config.
 - Outgoing message content uses the builders documented in the skill (text, attachment, voice, contact, richlink, poll, group, custom).
 
-### The website is generated — do not hand-edit the HTML
+### The website: the homepage is hand-written, the rest is generated
 
-`public/index.html` (the homepage: the idea, for any institution whose
-results depend on the people it serves), `public/schools.html` (for school
-districts), `public/funds.html` (for funds that reimburse Medicare Part B premiums),
-`public/members.html` (for the retirees a fund sends to us) and their Spanish
-copies under `public/es*` are **built**, not written. The homepage copy lives
-under `home` and the school copy under `schools` in the strings files; the fund copy is everything else. All copy lives in
+`public/index.html` (`/`) and `public/es.html` (`/es`) are the homepage, written
+by hand and kept in step with each other by hand: edit both when you change
+copy. The two are one self-contained file each (styles and script inline), with
+the photographs in `public/assets/` and their licences in
+`public/assets/CREDITS.md` (Wikimedia Commons, CC BY / BY-SA; keep the credit
+line in the footer). The homepage was built with the taste-skill process
+(headlines two lines at every width, no eyebrow labels, no hairlines, one accent
+on the action) — keep to that when editing. `public/assets/og.jpg` is the
+sharing image for both languages.
+
+`public/schools.html` (for school districts), `public/funds.html` (for funds
+that reimburse Medicare Part B premiums), `public/members.html` (for the
+retirees a fund sends to us) and their Spanish copies under `public/es/` are
+**built**, not written. The school copy lives under `schools` in the strings
+files; the fund copy is everything else. All copy lives in
 `tools/site/strings.en.mjs` and `tools/site/strings.es.mjs`; the structure lives
 in `tools/site/build.mjs`. Edit the strings, then run:
 
 ```sh
-npm run build:site     # regenerate the eight pages
+npm run build:site     # regenerate the six generated pages
 npm run check:site     # fail if the committed HTML is not what the strings say
 npm run check          # secrets, phone-mockup fit, site drift, typecheck
 ```
@@ -50,7 +59,7 @@ server (`node scripts/serve-site.mjs`, declared in `.amp/services.yaml`)
 reproduces those clean URLs; it serves files only, so forms on the preview show
 their error state rather than pretending to store a signup.
 
-The phones on the homepage (six threads of a family's helper through one
+The phones on /schools (six threads of a family's helper through one
 school day, `home.phones`) and the two on /funds (a retiree's yes on her
 Part B premium, then her approval and yearly renewal) are **rendered device
 images**, not markup: `scripts/build-phone.mjs` draws the staged conversation at the iPhone's
@@ -78,10 +87,9 @@ default result. `python -m tools.export_site_data --check` and
 `archive/tests/test_site_calculator.py` fail if the site and the archive drift.
 Re-export after the archive's MSP numbers change (each January), then rebuild.
 
-Social cards are generated too: `node scripts/build-share.mjs` renders
-`public/share.png` and `public/share-es.png` (the homepage),
+Social cards for the generated pages are generated too: `node scripts/build-share.mjs` renders
 `public/share-schools*.png` (/schools) and `public/share-funds*.png` (/funds) from
-`tools/site/share.html`, which reads the same strings. Re-run it after changing the hero copy.
+`tools/site/share.html`, which reads the same strings. Re-run it after changing their hero copy. The homepage uses `public/assets/og.jpg`.
 
 Website signups (a member's phone number from /members, and the contact form on the homepage, /schools and /funds, all posted as `kind: "school"` with a message that starts with `[home]`, `[schools]` or `[funds]`) go through one
 endpoint, `/api/waitlist`, with a `kind` field. Validation and storage are shared
