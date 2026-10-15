@@ -1,337 +1,533 @@
 <!doctype html>
 <html lang="es">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Mycelium: cuando a las familias les va mejor, a las escuelas también</title>
-    <meta name="description" content="Cada día que un estudiante falta, la escuela pierde fondos. Cada familia que nunca se inscribe en ayuda para comida o Medicaid es un estudiante por el que a la escuela no le pagan. Mycelium le da a cada familia un ayudante patrocinado por su escuela: un agente de IA que trabaja para ella, por mensaje de texto, en su idioma. Las familias reciben lo que les corresponde. Las escuelas cobran cuando se logra el resultado." />
-    <meta name="theme-color" content="#FAD6B6" />
-    <link rel="canonical" href="https://www.try-mycelium.com/es" />
-    <link rel="alternate" hreflang="en" href="https://www.try-mycelium.com/" />
-    <link rel="alternate" hreflang="es" href="https://www.try-mycelium.com/es" />
-    <link rel="alternate" hreflang="x-default" href="https://www.try-mycelium.com/" />
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Mycelium" />
-    <meta property="og:url" content="https://www.try-mycelium.com/es" />
-    <meta property="og:locale" content="es_US" />
-    <meta property="og:locale:alternate" content="en_US" />
-    <meta property="og:title" content="Mycelium: cuando a las familias les va mejor, a las escuelas también" />
-    <meta property="og:description" content="Cada día que un estudiante falta, la escuela pierde fondos. Cada familia que nunca se inscribe en ayuda para comida o Medicaid es un estudiante por el que a la escuela no le pagan. Mycelium le da a cada familia un ayudante patrocinado por su escuela: un agente de IA que trabaja para ella, por mensaje de texto, en su idioma. Las familias reciben lo que les corresponde. Las escuelas cobran cuando se logra el resultado." />
-    <meta property="og:image" content="https://www.try-mycelium.com/share-es.png" />
-    <meta property="og:image:alt" content="Mycelium: cuando a las familias les va mejor, a las escuelas también." />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:image" content="https://www.try-mycelium.com/share-es.png" />
-    <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="/site.css?v=21" />
-    <script src="/msp-calc.js?v=21" defer></script>
-    <script src="/site.js?v=21" defer></script>
-  </head>
-  <body>
-    <a class="skip-link" href="#main">Saltar al contenido</a>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mycelium</title>
+<meta name="description" content="Escuelas y fondos de beneficios patrocinan un ayudante para cada persona a la que sirven. Trabaja para la persona. Usted paga cuando el resultado se mueve.">
+<meta property="og:title" content="Mycelium — Su presupuesto vive en una red que no ve.">
+<meta property="og:description" content="Escuelas y fondos de beneficios patrocinan un ayudante para cada persona a la que sirven. Trabaja para la persona. Usted paga cuando el resultado se mueve.">
+<meta property="og:image" content="https://www.try-mycelium.com/assets/og.jpg">
+<meta property="og:url" content="https://www.try-mycelium.com/es">
+<meta property="og:site_name" content="Mycelium">
+<link rel="canonical" href="https://www.try-mycelium.com/es">
+<link rel="alternate" hreflang="x-default" href="https://www.try-mycelium.com/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="alternate" hreflang="en" href="https://www.try-mycelium.com/">
+<script>document.documentElement.classList.add('js')</script>
+<link rel="preconnect" href="https://api.fontshare.com">
+<link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=gambarino@400&f[]=general-sans@400,500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #1a1512;
+  --surface: #2a2420;
+  --ink: #e9e2d3;
+  --muted: #b3a894;
+  --accent: #ff4a1f;
+  --accent-ink: #1a1512;
+  --field-1: #e9e2d3;
+  --field-1-ink: #1a1512;
+  --field-1-muted: #5a5047;
 
-  <header class="site-header">
-    <div class="wrap header-bar">
-      <a class="brand" href="/es" aria-label="Inicio de Mycelium">
-        <img src="/mark.svg" alt="" width="44" height="44" />
-        <span>Mycelium</span>
-      </a>
-      <div class="header-actions">
-        <a class="button primary header-cta" href="#school-contact">Hablemos</a>
-        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Menú">
-          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 6h18M3 12h18M3 18h18" /></svg>
-        </button>
+  --display: 'Gambarino', 'Instrument Serif', 'Iowan Old Style', Georgia, serif;
+  --text: 'General Sans', 'Instrument Sans', 'Helvetica Neue', Arial, sans-serif;
+
+  --step-small: clamp(0.8125rem, 0.79rem + 0.1vw, 0.875rem);
+  --step-body: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
+  --step-lead: clamp(1.25rem, 1.1rem + 0.7vw, 1.625rem);
+  --step-head: clamp(2rem, 1.3rem + 3.2vw, 4rem);
+  --step-poster: clamp(3.2rem, 9.5vw, 9.6rem);
+
+  --m: clamp(20px, 2.2vw, 32px);
+  --gap-section: clamp(120px, 14vw, 220px);
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-soft: cubic-bezier(0.33, 1, 0.68, 1);
+  --t-press: 140ms;
+  --t-hover: 180ms;
+  --t-reveal: 800ms;
+}
+* { box-sizing: border-box; }
+html { overflow-x: clip; scroll-behavior: smooth; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font-family: var(--text); font-size: var(--step-body); line-height: 1.5;
+  -webkit-font-smoothing: antialiased; overflow-x: clip;
+}
+img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; }
+h1, h2, h3, p { margin: 0; }
+h1, h2, h3 { font-family: var(--display); font-weight: 400; letter-spacing: -0.02em; line-height: 0.92; text-wrap: balance; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+::selection { background: var(--accent); color: var(--accent-ink); }
+
+.wrap { padding-inline: var(--m); }
+.grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; }
+
+/* Buttons: one shape, square corners, flat */
+.button {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 56px; padding: 0 28px; background: var(--accent); color: var(--accent-ink);
+  font-family: var(--text); font-weight: 500; font-size: var(--step-body); text-decoration: none;
+  border: 0; cursor: pointer; white-space: nowrap;
+  transition: transform var(--t-press) var(--ease-out), background-color var(--t-hover) ease;
+}
+.button:hover { background: #ff6a45; }
+.button:active { transform: translateY(1px) scale(0.985); }
+
+/* Nav: one quiet row, takes the ink of the chapter beneath it */
+.nav {
+  position: fixed; inset: 0 0 auto 0; z-index: 50; height: 72px;
+  display: flex; align-items: center; justify-content: space-between; gap: 24px;
+  padding-inline: var(--m); color: var(--ink); background: var(--bg);
+  transition: color 300ms ease, background-color 300ms ease;
+}
+.nav.on-light { color: var(--field-1-ink); background: var(--field-1); }
+.nav .mark { font-family: var(--display); font-size: var(--step-lead); text-decoration: none; letter-spacing: -0.01em; }
+.nav ul { display: flex; gap: 28px; list-style: none; margin: 0; padding: 0; font-size: var(--step-body); }
+.nav ul a { text-decoration: none; position: relative; }
+.nav ul a::after { content: ""; position: absolute; left: 0; right: 100%; bottom: -4px; height: 2px; background: currentColor; transition: right var(--t-hover) var(--ease-out); }
+.nav ul a:hover::after { right: 0; }
+.nav .nav-action { text-decoration: underline; text-underline-offset: 5px; text-decoration-thickness: 2px; font-weight: 500; }
+@media (max-width: 767px) { .nav ul { display: none; } }
+
+/* ============ HERO: the sentence is the layout, across two fields ============ */
+.hero { position: relative; min-height: 100svh; display: grid; grid-template-rows: 1fr 1fr; }
+.hero .field-top { background: var(--field-1); }
+.hero .field-bottom { background: var(--bg); }
+.hero .sentence-wrap { position: absolute; left: var(--m); right: var(--m); top: 50%; transform: translateY(calc(-50% - 0.12em)); font-size: var(--step-poster); }
+.hero .sentence {
+  font-family: var(--display); font-size: var(--step-poster); line-height: 0.92; letter-spacing: -0.02em;
+  font-weight: 400; text-wrap: balance;
+}
+.hero .l1 { display: block; color: var(--field-1-ink); padding-bottom: 0.06em; }
+.hero .l2 { display: block; color: var(--ink); padding-top: 0.06em; }
+.hero .slot {
+  display: inline-block; vertical-align: baseline; height: 0.92em; width: 3em;
+  margin: 0 0.18em; transform: translateY(0.09em); overflow: hidden; background: var(--surface);
+}
+.hero .slot { position: relative; }
+.hero .slot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 60%; opacity: 0; }
+.hero .slot img:first-child { opacity: 1; }
+@media (prefers-reduced-motion: no-preference) {
+  .js .hero .slot img { animation: cycle 20s linear infinite; }
+  .js .hero .slot img:nth-child(1) { animation-delay: 0s; }
+  .js .hero .slot img:nth-child(2) { animation-delay: 5s; }
+  .js .hero .slot img:nth-child(3) { animation-delay: 10s; }
+  .js .hero .slot img:nth-child(4) { animation-delay: 15s; }
+  @keyframes cycle { 0% { opacity: 0; } 6% { opacity: 1; } 25% { opacity: 1; } 31% { opacity: 0; } 100% { opacity: 0; } }
+}
+.hero .support {
+  position: absolute; left: var(--m); bottom: 56px; max-width: 42ch;
+  color: var(--ink); font-size: var(--step-lead); line-height: 1.35; text-wrap: pretty;
+}
+.hero .action { position: absolute; right: var(--m); bottom: 56px; }
+@media (max-width: 767px) {
+  .hero { grid-template-rows: 46svh 54svh; }
+  .hero .sentence-wrap { top: 46svh; }
+  .hero .sentence { font-size: clamp(1.8rem, 10vw, 2.5rem); }
+  .hero .slot { display: block; width: 100%; height: 2.2em; margin: 0.25em 0; transform: none; }
+  .hero .support { bottom: 96px; font-size: 16px; max-width: 28ch; }
+  .hero .action { left: var(--m); right: var(--m); bottom: 24px; }
+  .hero .action .button { width: 100%; }
+}
+
+/* ============ INTRO: pinned statement, photographs pass ============ */
+.intro { position: relative; height: 230svh; }
+.intro .pin { position: sticky; top: 0; height: 100svh; display: flex; align-items: center; z-index: 2; pointer-events: none; }
+.intro .pin p {
+  margin-left: var(--m); width: min(44vw, 46ch);
+  font-size: clamp(1.4rem, 1.1rem + 1vw, 2rem); line-height: 1.2; color: var(--ink); text-wrap: pretty;
+}
+.intro .photos { position: absolute; inset: 0; z-index: 1; }
+.intro .photos figure { position: absolute; margin: 0; }
+.intro .photos img { width: 100%; height: 100%; object-fit: cover; }
+.intro .p1 { right: 5vw; top: 6svh; width: 26vw; aspect-ratio: 4 / 5; }
+.intro .p2 { right: var(--m); top: 86svh; width: 50vw; aspect-ratio: 16 / 10; }
+.intro .p3 { left: 56vw; top: 176svh; width: 15vw; aspect-ratio: 1 / 1; }
+.intro .p3 img { object-position: 50% 30%; }
+@media (max-width: 767px) {
+  .intro { height: auto; padding: 120px 0 0; }
+  .intro .pin { position: static; height: auto; display: block; pointer-events: auto; }
+  .intro .pin p { width: calc(100% - 2 * var(--m)); font-size: clamp(1.25rem, 6vw, 1.5rem); }
+  .intro .photos { position: static; display: flex; flex-direction: column; gap: 40px; margin-top: 64px; }
+  .intro .photos figure { position: static; }
+  .intro .p1 { width: 64%; margin-left: var(--m); }
+  .intro .p2 { width: 78%; margin-left: auto; margin-right: var(--m); }
+  .intro .p3 { width: 52%; margin-left: var(--m); }
+}
+
+/* ============ SHOWCASE: object in front of type ============ */
+.showcase { position: relative; overflow: hidden; padding: var(--gap-section) 0 0; }
+.showcase .stack { position: relative; z-index: 3; padding-inline: var(--m); white-space: nowrap; }
+.showcase .stack > * { display: block; font-family: var(--display); font-weight: 400; font-size: var(--step-poster); line-height: 0.88; letter-spacing: -0.02em; margin: 0; }
+.showcase .stack .soft { color: var(--muted); }
+.showcase .stack .cap { display: inline-block; background: var(--accent); color: var(--accent-ink); padding: 0 0.06em; margin-right: 0.08em; line-height: 0.82; }
+.showcase .object {
+  position: absolute; right: 4vw; top: calc(var(--gap-section) - 1.5vw); width: min(44vw, 560px);
+  transform: rotate(-4deg); z-index: 1;
+}
+.showcase .facts { padding: 48px var(--m) 0; }
+.showcase .facts > * { grid-column: 1 / span 6; }
+@media (max-width: 1023px) { .showcase .facts > * { grid-column: 1 / span 12; } .showcase .object { position: relative; right: auto; top: auto; width: min(82vw, 560px); margin: 24px 0 0 auto; } }
+@media (max-width: 767px) {
+  .showcase .stack > * { font-size: 15vw; }
+  .showcase .object { position: relative; right: auto; top: auto; width: 82vw; margin: 24px 0 0 auto; transform: rotate(-3deg); }
+}
+
+/* The thread: a real interface fragment */
+[data-ui].thread {
+  background: var(--field-1); color: var(--field-1-ink); padding: 22px 22px 18px; box-shadow: 0 30px 60px rgba(0,0,0,0.35);
+  font-size: var(--step-small); line-height: 1.4;
+}
+[data-ui].thread .who { font-size: var(--step-small); color: var(--field-1-muted); margin-bottom: 14px; }
+[data-ui].thread .msgs { display: flex; flex-direction: column; gap: 10px; }
+[data-ui].thread .m { max-width: 86%; padding: 10px 13px; border-radius: 16px 16px 16px 4px; background: #d9d1c0; }
+[data-ui].thread .m.me { align-self: flex-end; background: var(--bg); color: var(--ink); border-radius: 16px 16px 4px 16px; }
+[data-ui].thread .note { font-size: var(--step-small); color: var(--field-1-muted); margin-top: 14px; }
+
+/* The live thing: the district scan */
+.scan { margin-top: 32px; }
+.scan .vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.scan select { margin-top: 20px; }
+.scan select {
+  width: 100%; min-height: 56px; padding: 0 16px; font: inherit; color: var(--ink); background: var(--surface);
+  border: 0; appearance: none; -webkit-appearance: none; cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath d='M1 1l6 6 6-6' fill='none' stroke='%23e9e2d3' stroke-width='2'/%3E%3C/svg%3E");
+  background-position: calc(100% - 18px) 50%; background-repeat: no-repeat;
+}
+.scan .figure { font-family: var(--display); font-size: var(--step-head); line-height: 1; margin-top: 8px; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+.scan .figure small { display: block; font-family: var(--text); font-size: var(--step-body); color: var(--muted); margin-top: 8px; letter-spacing: 0; }
+.scan .lines { margin-top: 20px; display: grid; gap: 10px; font-size: var(--step-body); }
+.scan .lines div { display: flex; justify-content: space-between; gap: 16px; }
+.scan .lines b { font-weight: 500; font-variant-numeric: tabular-nums; }
+.scan .assume { margin-top: 18px; font-size: var(--step-small); color: var(--muted); }
+
+/* ============ HOW IT WORKS: lines that step across ============ */
+.how { padding: var(--gap-section) var(--m); display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; row-gap: 56px; }
+.how .stage { grid-column-end: span 12; }
+.how .stage:nth-child(1) { grid-column-start: 1; }
+.how .stage:nth-child(2) { grid-column-start: 3; grid-column-end: 13; }
+.how .stage:nth-child(3) { grid-column-start: 5; grid-column-end: 13; }
+.how .stage:nth-child(4) { grid-column-start: 7; grid-column-end: 13; }
+.how .stage h2, .how .stage .line { font-family: var(--display); font-weight: 400; font-size: var(--step-head); line-height: 1; letter-spacing: -0.02em; margin: 0; }
+.how .stage:nth-child(4) .line { color: var(--accent); }
+.how .stage p { margin: 12px 0 0; max-width: 34ch; font-size: var(--step-body); color: var(--muted); }
+@media (max-width: 767px) {
+  .how { row-gap: 40px; }
+  .how .stage, .how .stage:nth-child(2), .how .stage:nth-child(3), .how .stage:nth-child(4) { grid-column: 1 / span 12; }
+  .how .stage:nth-child(2) { padding-left: 6vw; }
+  .how .stage:nth-child(3) { padding-left: 12vw; }
+  .how .stage:nth-child(4) { padding-left: 18vw; }
+  .how .stage h2, .how .stage .line { font-size: 8.4vw; }
+  .how .stage p { font-size: 16px; }
+}
+
+/* Tinted pictures: the accent as ground, the dendrite multiplied through it */
+.tint { background: var(--accent); }
+.tint img { mix-blend-mode: multiply; filter: grayscale(1) contrast(1.15); }
+
+/* ============ BANDS: one picture, nothing on it ============ */
+.band { position: relative; height: 78svh; overflow: clip; margin: 0; }
+.band img { width: 100%; height: 100%; object-fit: cover; }
+.band.tall { height: 100svh; }
+@media (max-width: 767px) { .band { height: 56svh; } .band.tall { height: 70svh; } }
+
+/* ============ FEATURES: statements on colour fields ============ */
+.fields .field { position: relative; min-height: 76svh; padding: 28px; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; }
+.fields .field.light { background: var(--field-1); color: var(--field-1-ink); }
+.fields .field.dark { background: var(--bg); color: var(--ink); }
+.fields .field.mid { background: var(--surface); color: var(--ink); }
+.fields .field .why { grid-column: 8 / span 4; align-self: start; max-width: 30ch; font-size: var(--step-body); line-height: 1.5; }
+.fields .field .field-photo { grid-column: 8 / span 5; grid-row: 1; margin: 0 0 28px; aspect-ratio: 4 / 5; }
+.fields .field .field-photo img { width: 100%; height: 100%; object-fit: cover; }
+.fields .field .field-photo + .why { grid-row: 2; }
+.fields .field .field-photo ~ h2 { grid-row: 3; }
+.fields .field h2 { grid-column: 1 / span 10; align-self: end; font-size: var(--step-poster); line-height: 0.9; }
+.fields .field.mirror .why { grid-column: 2 / span 4; }
+.fields .field.mirror h2 { grid-column: 3 / span 10; text-align: right; }
+@media (max-width: 767px) {
+  .fields .field { min-height: 64svh; padding: 20px 16px; }
+  .fields .field .why, .fields .field.mirror .why { grid-column: 1 / span 10; font-size: 16px; }
+  .fields .field.mirror .why { grid-column: 3 / span 10; text-align: right; }
+  .fields .field h2, .fields .field.mirror h2 { grid-column: 1 / span 12; text-align: left; font-size: 13vw; }
+  .fields .field .field-photo { grid-column: 3 / span 10; }
+  .fields .field .field-photo ~ h2 { margin-top: 40px; }
+}
+
+/* ============ LIST: statement, table pushed right ============ */
+.where { padding: var(--gap-section) var(--m) calc(var(--gap-section) * 0.5); }
+.where h2 { font-size: var(--step-head); line-height: 0.98; text-indent: 3vw; max-width: 24ch; }
+.where .lede { margin-top: 20px; max-width: 46ch; color: var(--muted); }
+.where .body { margin-top: 64px; }
+.where .name { grid-column: 7 / span 1; font-size: var(--step-small); color: var(--muted); padding-top: 2px; }
+.where .table { grid-column: 7 / span 6; display: grid; gap: 26px; align-content: start; font-size: var(--step-body); }
+.where .row { display: grid; grid-template-columns: 34% 1fr auto; gap: 20px; align-items: baseline; }
+.where .row .k { color: var(--muted); }
+.where .row .v { text-align: right; white-space: nowrap; }
+.where .row.group { margin-top: 18px; }
+@media (max-width: 1023px) {
+  .where .name { display: none; }
+  .where .table { grid-column: 1 / span 12; }
+}
+@media (max-width: 767px) {
+  .where h2 { font-size: 9.5vw; text-indent: 0; }
+  .where .body { margin-top: 48px; }
+  .where .row { grid-template-columns: 1fr auto; }
+  .where .row .k { grid-column: 1 / span 2; }
+}
+
+/* ============ CTA: the idea again, inverted ============ */
+.close { position: relative; min-height: 90svh; background: var(--field-1); color: var(--field-1-ink); padding: var(--m); display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; align-content: space-between; }
+.close h2 { grid-column: 1 / span 12; font-size: var(--step-poster); line-height: 0.9; margin-top: 10vh; max-width: 10ch; }
+.close .foot { grid-column: 1 / span 12; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; align-items: end; margin-bottom: 16px; }
+.close .foot p { grid-column: 1 / span 5; font-size: var(--step-lead); line-height: 1.35; }
+.close .foot .button { grid-column: 10 / span 3; justify-self: end; }
+@media (max-width: 767px) {
+  .close { min-height: 80svh; padding: 20px; }
+  .close h2 { font-size: 15vw; }
+  .close .foot p { grid-column: 1 / span 12; font-size: 17px; }
+  .close .foot .button { grid-column: 1 / span 12; width: 100%; justify-self: stretch; }
+}
+
+/* ============ FOOTER: invitation over a cropped name ============ */
+.footer { position: relative; overflow: hidden; min-height: 100svh; background: var(--bg); color: var(--ink); padding: 160px var(--m) 0; display: flex; flex-direction: column; }
+.footer .top { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; }
+.footer .invite { grid-column: 1 / span 7; }
+.footer .invite h2 { font-size: var(--step-head); line-height: 0.95; max-width: 14ch; }
+.footer .invite .button { margin-top: 28px; }
+.footer .links { grid-column: 10 / span 3; display: flex; flex-direction: column; gap: 10px; font-size: var(--step-body); }
+.footer .links a { text-decoration: none; }
+.footer .links a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.footer .legal { margin-top: auto; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 24px; font-size: var(--step-small); color: var(--muted); padding-top: 120px; }
+.footer .legal a { color: inherit; }
+.footer .name { font-family: var(--display); font-size: 28vw; line-height: 0.8; white-space: nowrap; transform: translateY(30%); letter-spacing: -0.03em; margin-top: 8px; }
+@media (max-width: 767px) {
+  .footer { padding-top: 96px; }
+  .footer .invite { grid-column: 1 / span 12; }
+  .footer .invite h2 { font-size: 11vw; }
+  .footer .invite .button { width: 100%; }
+  .footer .links { grid-column: 1 / span 12; flex-direction: row; flex-wrap: wrap; gap: 16px; margin-top: 32px; }
+  .footer .name { font-size: 34vw; }
+}
+
+/* ============ Motion ============ */
+@media (prefers-reduced-motion: no-preference) {
+  .js [data-rise] { opacity: 0; transform: translateY(22px); animation: rise var(--t-reveal) var(--ease-out) forwards; animation-delay: calc(var(--i, 0) * 90ms + 120ms); }
+  @keyframes rise { to { opacity: 1; transform: none; } }
+  .js [data-enter] { opacity: 0; transform: translateY(24px); transition: opacity var(--t-reveal) var(--ease-out), transform var(--t-reveal) var(--ease-out); transition-delay: calc(var(--i, 0) * 80ms); }
+  .js [data-enter].in { opacity: 1; transform: none; }
+  .js .intro .photos figure { transition: transform 1.2s var(--ease-soft); transform: scale(0.96); }
+  .js .intro .photos figure.in { transform: none; }
+}
+</style>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <a class="mark" href="#top">Mycelium</a>
+  <ul>
+    <li><a href="#how">Cómo funciona</a></li>
+    <li><a href="#where">Para quién</a></li>
+    <li><a href="/" lang="en" hreflang="en">English</a></li>
+  </ul>
+  <a class="nav-action" href="#close">Pida su cifra</a>
+</header>
+
+<main id="top">
+
+<!-- HERO -->
+<section class="hero" aria-label="Mycelium">
+  <div class="field-top"></div>
+  <div class="field-bottom"></div>
+  <div class="sentence-wrap"><h1 class="sentence" data-rise style="--i:0">
+    <span class="l1">Su dinero vive en una</span>
+    <span class="l2"><span class="slot"><img src="assets/myc-fan-lomas.jpg" width="1280" height="851" alt="red" fetchpriority="high"><img src="assets/dend-fan-single.jpg" width="1280" height="1763" alt="" style="object-position: 50% 40%"><img src="assets/dend-field-solnhofen.jpg" width="1280" height="850" alt="" style="object-position: 50% 35%"><img src="assets/dend-tree-pyrolusite.jpg" width="1075" height="1657" alt="" style="object-position: 50% 30%"></span>que no ve.</span>
+  </h1></div>
+  <p class="support" data-rise style="--i:1">A una escuela la financia la asistencia. Un fondo de beneficios paga primas que el estado cubriría. Ambas cosas se deciden en los hogares, donde ninguna institución llega. Mycelium le da a cada persona un ayudante: una IA que le escribe por mensaje en su idioma, pagada por la institución, que trabaja para ella.</p>
+  <div class="action" data-rise style="--i:2"><a class="button" href="#close">Vea cuánto podría recuperar</a></div>
+</section>
+
+<!-- INTRO -->
+<section class="intro" aria-label="Por qué está atascado">
+  <div class="pin"><p>La ruta del autobús, los trámites de beneficios y el horario de trabajo de una familia deciden si un niño llega a la escuela. Durante un siglo la única ayuda fue un trabajador social con cuatrocientas familias. Hoy la escuela manda una carta.</p></div>
+  <div class="photos" aria-hidden="false">
+    <figure class="p1"><img src="assets/dend-fan-single.jpg" width="1280" height="1763" alt="Una sola dendrita negra abriéndose en abanico sobre caliza clara" loading="lazy"></figure>
+    <figure class="p2"><img src="assets/dend-field-solnhofen.jpg" width="1280" height="850" alt="Un campo de dendritas de manganeso en caliza de Solnhofen" loading="lazy"></figure>
+    <figure class="p3 tint"><img src="assets/dend-tree-pyrolusite.jpg" width="1075" height="1657" alt="Una dendrita en forma de árbol, negra y ocre, sobre piedra crema" loading="lazy"></figure>
+  </div>
+</section>
+
+<!-- SHOWCASE -->
+<section class="showcase" aria-label="No una carta">
+  <div class="stack">
+    <span class="soft" data-enter style="--i:0"><span class="cap">L</span>a quinta falta.</span>
+    <h2 data-enter style="--i:1">No una carta.</h2>
+  </div>
+  <div class="object" data-enter style="--i:3">
+    <div class="thread" data-ui aria-label="Una conversación por mensajes entre una madre y el ayudante">
+      <div class="who">De la escuela de Maya · en español o inglés</div>
+      <div class="msgs">
+        <div class="m">Hola — soy un ayudante de la escuela de Maya. Maya ha faltado cinco días. No le escribimos por eso; queremos ayudar con lo que haga difíciles las mañanas. ¿Quiere intentarlo?</div>
+        <div class="m me">sí. el autobús de la ruta 12 no pasa</div>
+        <div class="m">La ruta 12 tiene menos salidas desde agosto. Su familia califica para un pase de transporte estudiantil gratis, y el autobús de las 7:10 en Pine y 3rd la deja a las 7:40. Responda SÍ y yo tramito el pase.</div>
+        <div class="m me">SÍ. ¿la escuela ve esto?</div>
+        <div class="m">No. La escuela solo ve lo que preguntó: si Maya está llegando a clase. Esto queda entre nosotros, salvo que usted diga lo contrario.</div>
       </div>
+      <div class="note">La escuela ve que la asistencia mejora. Nunca ve la conversación.</div>
     </div>
-    <nav class="site-nav" id="site-nav" aria-label="Navegación principal">
-      <div class="wrap">
-        <ul><li><a href="#why">Por qué se atora</a></li><li><a href="#how">Cómo funciona</a></li><li><a href="/es/schools">Escuelas</a></li><li><a href="/es/funds">Fondos sindicales</a></li></ul>
-        <a class="nav-lang" href="/" hreflang="en" lang="en">English</a>
-      </div>
-    </nav>
-  </header>
-    <main id="main">
-
-    <section class="hero t-morning" id="top" aria-labelledby="hero-title">
-      <div class="sun" aria-hidden="true"></div>
-      <div class="clutter" aria-hidden="true">
-        <span class="paper paper-slip"><i></i><i></i><i></i><b></b></span>
-        <span class="paper paper-menu"><i></i><i></i><i></i><i></i></span>
-        <span class="paper paper-note"></span>
-        <span class="paper paper-card"><i></i><i></i></span>
-      </div>
-      <div class="wrap hero-copy">
-        <p class="time-chip"><span class="time-chip-time">7:15 AM</span><span class="time-chip-label">Un día de escuela</span></p>
-        <div class="agents" aria-hidden="true">
-          <div class="agents-track"><span>Los equipos de ventas tienen agentes.</span><span>Los fondos de inversión tienen agentes.</span><span>Los abogados tienen agentes.</span><span>Los reclutadores tienen agentes.</span><span>Los centros de soporte tienen agentes.</span><span>Las startups tienen agentes.</span><span class="agents-parents">Las familias tienen <s>una pila de formularios.</s></span><span>Los equipos de ventas tienen agentes.</span></div>
+  </div>
+  <div class="facts grid">
+    <div data-enter style="--i:4">
+      <p>La quinta falta de un niño ya está en los registros de la escuela. Hoy dispara un aviso de ausentismo. Con Mycelium dispara una oferta de la escuela, en el idioma de la familia: un ayudante que trabaja en lo que sea que mantiene al niño en casa, porque la verdadera barrera casi siempre es algo que la escuela nunca ha visto.</p>
+      <p style="margin-top:16px">La escuela paga solo cuando la asistencia mejora, comparada con familias similares a las que el ayudante no llegó. Nada por adelantado.</p>
+      <form class="scan" onsubmit="return false">
+        <div class="figure" id="scan-figure" aria-live="polite">$1.56M<small id="scan-sub">que pierde cada año la institución de abajo, según sus informes públicos</small></div>
+        <label for="district" class="vh">Institución</label>
+        <select id="district" name="district">
+          <option value="pvusd" selected>Pajaro Valley Unified</option>
+          <option value="ousd">Oakland Unified</option>
+          <option value="fusd">Fresno Unified</option>
+          <option value="fund">Un fondo de beneficios grande de Nueva York</option>
+        </select>
+        <div class="lines" id="scan-lines">
+          <div><span>Días de asistencia recuperados</span><b>$1.2M</b></div>
+          <div><span>Estudiantes de bajos ingresos recién contados</span><b>$360K</b></div>
+          <div><span>Cada 1% de asistencia vale</span><b>$2.4M</b></div>
         </div>
-        <h1 id="hero-title">Cuando a las familias les va mejor, <em>a las escuelas también.</em></h1>
-        <p class="lead">Cada día que un estudiante falta, la escuela pierde fondos. Cada familia que nunca se inscribe en ayuda para comida o Medicaid es un estudiante por el que a la escuela no le pagan. Mycelium le da a cada familia un ayudante patrocinado por su escuela: un agente de IA que trabaja para ella, por mensaje de texto, en su idioma. Las familias reciben lo que les corresponde. Las escuelas cobran cuando se logra el resultado.</p>
-        <div class="hero-actions">
-          <a class="button primary" href="#school-contact">Hablemos</a>
-          <a class="text-link" href="#bell">Seguir un día de escuela</a>
-        </div>
-        <p class="trust-line">Nada sale sin el sí de la familia. En inglés o español.</p>
-      </div>
-      <div class="hero-stage">
-        <img class="device" src="/home-2-es.webp?v=0f9b9f833b1dad31" width="336" height="687" alt="" decoding="async" loading="lazy" />
-        <img class="device" src="/home-6-es.webp?v=0f9b9f833b1dad31" width="336" height="687" alt="" decoding="async" loading="lazy" />
-        <span aria-hidden="true" hidden></span>
-        <img class="device" src="/home-1-es.webp?v=0f9b9f833b1dad31" width="336" height="687" alt="Conversación de ejemplo con Mycelium, el ayudante de una familia. Mycelium: Hola, soy Mycelium, el ayudante para familias de la Primaria Lincoln. Maya ha faltado algunas mañanas. ¿Algo le complica ir a la escuela? Transporte, formularios, seguro médico. Mamá: Se le acabó el inhalador y en la farmacia dicen que su Medi-Cal no está activo Mycelium: Eso pasa cuando la renovación llega a una dirección vieja. ¿Cuál es su dirección ahora? Mamá: 88 Pine Ave apt 3. Nos mudamos Mycelium: Gracias. La renovación está lista. Responda SÍ y la envío al condado. Mamá: SÍ Mycelium: Enviada. Le escribo el día que esté activa. Mamá: Muchas gracias" decoding="async" fetchpriority="high" />
-      </div>
-    </section>
-    <section class="section t-day" id="bell" aria-labelledby="bell-title">
-      <div class="wrap">
-        <p class="time-chip"><span class="time-chip-time">8:30 AM</span><span class="time-chip-label">Primera campana</span></p>
-        <h2 id="bell-title">Cada asiento vacío <em>es dinero.</em></h2>
-        <p class="lead">Se toma asistencia, y en California y Texas a las escuelas les pagan por día. Una familia que nunca se inscribe en los programas que le corresponden es un estudiante por el que a la escuela no le pagan. Lo que a una escuela le financian llega muy dentro de la vida familiar. Lo que su personal puede hacer termina en la puerta del salón.</p>
-        <table class="year-table money-table">
-          <caption class="sr-only">Cómo el resultado de una familia cambia el dinero de una escuela, y dónde se atora</caption>
-          <thead>
-            <tr><th scope="col">Cuando esto pasa para una familia</th><th scope="col">Qué significa para el presupuesto de la escuela</th><th scope="col">Dónde se atora</th></tr>
-          </thead>
-          <tbody>
-          <tr>
-            <td data-label="Cuando esto pasa para una familia">Un niño llega a la escuela</td>
-            <td data-label="Qué significa para el presupuesto de la escuela">En California y Texas a las escuelas las financian por asistencia diaria. Oakland perdió cerca de $90 por cada estudiante ausente, cada día.</td>
-            <td data-label="Dónde se atora">Un transporte que no llegó, un inhalador que se acabó</td>
-          </tr>
-          <tr>
-            <td data-label="Cuando esto pasa para una familia">Una familia se inscribe en ayuda para comida o Medicaid</td>
-            <td data-label="Qué significa para el presupuesto de la escuela">El estudiante cuenta como de bajos ingresos, y la escuela recibe más por estudiante. En un distrito de California con mucha pobreza, hasta cerca de $9,750 al año.</td>
-            <td data-label="Dónde se atora">Un formulario que nadie explicó, en un idioma que nadie hablaba</td>
-          </tr>
-          <tr>
-            <td data-label="Cuando esto pasa para una familia">Una madre o un padre firma el consentimiento de Medicaid para la terapia de su hijo</td>
-            <td data-label="Qué significa para el presupuesto de la escuela">La escuela puede facturar a Medicaid servicios que ya da. La ciudad de Nueva York dejó sin cobrar $431.6 millones en tres años.</td>
-            <td data-label="Dónde se atora">Un formulario que se fue a casa en una mochila</td>
-          </tr>
-          </tbody>
-        </table>
-        <p class="network-note">Oakland: EdSource, 2025. Subvenciones suplementarias y de concentración de LCFF en California, CDE 2025–26; el conteo promedia tres años, así que crece poco a poco. Nueva York: auditoría de seguimiento del Contralor de NYC, 2026.</p>
-      </div>
-    </section>
-    <section class="section t-noon" id="why" aria-labelledby="why-title">
-      <div class="wrap">
-        <p class="time-chip"><span class="time-chip-time">10:15 AM</span><span class="time-chip-label">La oficina</span></p>
-        <h2 id="why-title">Todos quieren al niño en la escuela. <em>No es trabajo de nadie.</em></h2>
-        <p class="lead">La mamá lo quiere. La maestra lo quiere. A la escuela le pagan por eso. Lo llamamos alineación varada: resultados que una escuela y sus familias quieren por igual, pero que nunca pasan porque alcanzarlos cuesta más de lo que cualquiera puede gastar. Cada caso es pequeño y queda entre oficinas. Un administrador de casos escolar típico lleva de 110 a 125 estudiantes.</p>
-        <div class="scan-cards"><div class="never-grid">
-          <article><h3>Cartas a casa</h3><p>Les dicen a las familias qué hacer. Llegan a todos y cambian poco, porque la información sola rara vez mueve a alguien.</p></article>
-          <article><h3>Coordinadores y administradores de casos</h3><p>Hacen el trabajo con las familias, y funciona. Pero una persona solo puede llevar a cierto número.</p></article>
-          <article><h3>Un ayudante para cada familia</h3><p>Hace el trabajo con cada familia, las veces que haga falta, para cada estudiante. Eso es nuevo.</p></article>
-        </div></div>
-        <p class="scan-estimate"><span class="highlight">Qué cambió: en un experimento, ocho minutos de ayuda para llenar la solicitud federal de ayuda estudiantil subieron la inscripción universitaria de 34% a 42%. La información sola no cambió nada. Un agente de IA ahora puede pasar esos ocho minutos con cada familia.</span></p>
-        <p class="network-note">Carga de los administradores de casos: un estudio financiado por el National Institute of Justice. Solicitud de ayuda estudiantil: el experimento de H&amp;R Block de Bettinger, Long, Oreopoulos y Sanbonmatsu, resumido por J-PAL.</p>
-      </div>
-    </section>
-    <section class="section t-afternoon" id="week" aria-labelledby="week-title">
-      <div class="wrap center-head">
-        <p class="time-chip"><span class="time-chip-time">12:10 PM</span><span class="time-chip-label">Mediodía</span></p>
-        <h2 id="week-title">Trabaja con cada familia. <em>Toda la semana.</em></h2>
-        <p class="lead">Transporte, renovaciones, solicitudes, consentimientos. Cada uno es pequeño. Cada uno es algo que la familia necesitaba, y algo por lo que a la escuela le pagan.</p>
-      </div>
-      <div class="wrap">
-        <div class="carousel" data-carousel>
-          <button class="carousel-arrow carousel-prev" type="button" aria-label="Anterior" hidden>
-            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14.5 5 8 12l6.5 7" /></svg>
-          </button>
-          <ul class="carousel-track" tabindex="0" aria-label="La semana de una familia, una conversación a la vez">
-          <li class="week-card">
-            <img class="device" src="/home-2-es.webp?v=0f9b9f833b1dad31" width="336" height="687" alt="Conversación de ejemplo con Mycelium, el ayudante de una familia. Mamá: Otra vez no pasó el autobús. Maya va a llegar tarde Mycelium: Lo siento. La ruta 12 ha llegado tarde toda la semana. Su familia califica para un pase de transporte estudiantil gratis, válido en el autobús de las 7:10 desde Pine y 3rd. Mycelium: Llené la solicitud del pase. Responda SÍ y la envío al distrito. Mamá: SÍ Mycelium: Enviada. El pase llega por correo esta semana. Mycelium: ¿Quiere que avise a la oficina que Maya va en camino? Mamá: Sí por favor Mycelium: Listo. La marcaron como retrasada, no ausente. Mamá: Gracias Mycelium: Con gusto. El viernes reviso que haya llegado el pase." decoding="async" loading="lazy" />
-            <p class="week-time">7:02 AM</p>
-            <h3>Cómo llegar a la escuela</h3>
-            <p>Un día de asistencia en lugar de un día perdido.</p>
-          </li>
-          <li class="week-card">
-            <img class="device" src="/home-3-es.webp?v=0f9b9f833b1dad31" width="336" height="687" alt="Conversación de ejemplo con Mycelium, el ayudante de una familia. Mycelium: Buenas noticias: el condado renovó el Medi-Cal de Maya. Está activo otra vez desde hoy. Mamá: Por fin Mycelium: La farmacia de la 3rd puede surtir su inhalador esta tarde. ¿Quiere que llame para que lo tengan listo? Mamá: Sí por favor Mycelium: Listo. Estará después de las 2. Mycelium: Medi-Cal se renueva cada año. Le escribo antes de la próxima para que no se venza otra vez. Mamá: Me salvó la vida Mycelium: Si el asma la deja en casa otra vez, avíseme. Puedo avisar a la escuela y conseguirle una nota del doctor. Mamá: Ok, así lo haré Mycelium: El lunes le pregunto cómo sigue." decoding="async" loading="lazy" />
-            <p class="week-time">9:10 AM</p>
-            <h3>Cobertura renovada</h3>
-            <p>Un inhalador surtido, y menos días enfermo.</p>
-          </li>
-          <li class="week-card">
-            <img class="device" src="/home-4-es.webp?v=0f9b9f833b1dad31" width="336" height="687" alt="Conversación de ejemplo con Mycelium, el ayudante de una familia. Mycelium: Una cosa más. Con su nueva renta, su familia probablemente califica para CalFresh: dinero para comida cada mes. Además Maya y Leo tendrían comidas escolares gratis, sin formulario. Mamá: Cuánto tiempo toma Mycelium: Unos ocho minutos, por texto. Ya tengo su dirección y sus ingresos de la renovación. Mamá: ok hagámoslo Mycelium: Tres preguntas. ¿Cuántas personas viven con usted, contándola a usted? Mamá: 4. yo, mi mamá, Maya y Leo Mycelium: Gracias. Llené la solicitud. Responda SÍ y la envío al condado. Mamá: SÍ Mycelium: Enviada. El condado tiene 30 días para decidir, y yo le doy seguimiento." decoding="async" loading="lazy" />
-            <p class="week-time">12:10 PM</p>
-            <h3>Ayuda para comida, en ocho minutos</h3>
-            <p>Comida para la familia. Un estudiante que la escuela ahora cuenta.</p>
-          </li>
-          <li class="week-card">
-            <img class="device" src="/home-5-es.webp?v=0f9b9f833b1dad31" width="336" height="687" alt="Conversación de ejemplo con Mycelium, el ayudante de una familia. Mycelium: La escuela de Leo puede facturar a Medi-Cal la terapia del habla que ya recibe. Necesitan su autorización una sola vez. Mycelium: No cambia su terapia, nunca le cuesta nada y la puede retirar cuando quiera. Mamá: ¿Se gastan sus beneficios? Mycelium: No. Por ley no puede reducir su cobertura ni subir lo que usted paga. Mamá: ok entonces sí Mycelium: Aquí está el consentimiento, lleno con los datos de Leo. Responda SÍ para firmarlo y lo envío a la escuela. Mamá: SÍ Mycelium: Firmado y enviado. La escuela confirmó que lo tiene. Mamá: Qué fácil Mycelium: Esa es la idea." decoding="async" loading="lazy" />
-            <p class="week-time">3:20 PM</p>
-            <h3>Un consentimiento, firmado una vez</h3>
-            <p>Terapia que la escuela ya da, ahora facturable.</p>
-          </li>
-          </ul>
-          <button class="carousel-arrow carousel-next" type="button" aria-label="Siguiente" hidden>
-            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9.5 5 16 12l-6.5 7" /></svg>
-          </button>
-        </div>
-        <p class="caption">Conversaciones de ejemplo. Escuela y familia ficticias.</p>
-      </div>
-    </section>
-    <section class="section t-golden" id="how" aria-labelledby="how-title">
-      <div class="wrap split">
-        <div class="split-copy">
-          <p class="time-chip"><span class="time-chip-time">3:40 PM</span><span class="time-chip-label">Después de la campana</span></p>
-          <h2 id="how-title">Entran nombres. <em>Salen resultados.</em></h2>
-          <p class="lead">Mycelium también trabaja dentro de la escuela. Aprende sus metas, reglas y fondos de su personal, y se conecta a los sistemas que ya usa. Sus registros muestran quién podría necesitar ayuda. Usted ve los resultados por los que paga, nunca el aviso de desalojo ni la abuela enferma.</p>
-          <ol class="step-grid">
-            <li><span class="step-tag">01 · Aprender</span>Sus metas, reglas y fondos, de su personal</li>
-            <li><span class="step-tag">02 · Ofrecer</span>Un mensaje de la escuela: aquí hay un ayudante para su familia</li>
-            <li><span class="step-tag">03 · Ayudar</span>Por texto, en su idioma, con cada oficina a su alrededor</li>
-            <li><span class="step-tag">04 · Informar</span>Qué cambió y cuánto vale. Los casos difíciles van a su personal</li>
-          </ol>
-        </div>
-        <article class="brief-card" aria-labelledby="ledger-title">
-            <p class="door-label"><span id="ledger-title">Primaria Lincoln, este mes</span><span>Un ejemplo</span></p>
-            <ul class="brief-rows brief-rows-money"><li><span class="brief-v">212</span><span class="brief-l">Consentimientos de Medicaid devueltos<span class="brief-note">Terapias que la escuela ya da, ahora facturables.</span></span></li><li><span class="brief-v">87</span><span class="brief-l">Familias contadas por primera vez<span class="brief-note">Inscritas en CalFresh o Medi-Cal y luego reconocidas.</span></span></li><li><span class="brief-v">64</span><span class="brief-l">Estudiantes de vuelta a más del 90% de asistencia<span class="brief-note">Días por los que la escuela vuelve a recibir fondos.</span></span></li><li><span class="brief-v">40</span><span class="brief-l">Familias perdieron la misma parada de autobús<span class="brief-note">El problema de una familia es un caso. Cuarenta son una decisión de política.</span></span></li></ul>
-            <p class="brief-foot">Usted paga una tarifa fija por cada resultado, acordada de antemano. Nada por las familias que dicen que no.</p>
-          </article>
-      </div>
-    </section>
-    <section class="section t-dusk t-dusk-long" id="helper" aria-labelledby="helper-title">
-      <div class="wrap split circle-split">
-        <figure class="fund-phone">
-          <img class="device" src="/home-6-es.webp?v=0f9b9f833b1dad31" width="336" height="687" alt="Conversación de ejemplo con Mycelium, el ayudante de una familia. Mamá: Pregunta. Mi casero dice que la renta sube $200 en enero. ¿Hay alguna ayuda para eso? Mycelium: Puede que sí. Su condado tiene un programa de ayuda para la renta, y con cuatro personas y sus ingresos probablemente está por debajo del límite. Mycelium: Puedo revisar los detalles y llenar la solicitud con usted este fin de semana. ¿Quiere? Mamá: Sí. ¿La escuela ve esto? Mycelium: No. La escuela solo ve lo que preguntó, como si Maya está llegando a clases. Esto queda entre nosotros a menos que usted diga otra cosa. Mamá: ok qué bueno Mycelium: Entonces el sábado en la mañana. Tenga a la mano su contrato de renta. Mamá: Va. Buenas noches" decoding="async" loading="lazy" />
-          <figcaption class="caption">Conversaciones de ejemplo. Escuela y familia ficticias.</figcaption>
-        </figure>
-        <div class="split-copy">
-          <p class="time-chip"><span class="time-chip-time">6:30 PM</span><span class="time-chip-label">La cena</span></p>
-          <h2 id="helper-title">El ayudante le pertenece a la familia. <em>La escuela lo patrocina.</em></h2>
-          <p class="lead">Trabaja para la familia, en lo que le esté complicando la vida, y en las metas de la escuela solo donde la familia esté de acuerdo. De otro modo, la IA personal les llegaría a las familias como les llegaron los asesores financieros: a las que más trabas tienen, al último. Las escuelas tienen lo necesario para cambiar eso.</p>
-          <ol class="step-grid">
-            <li><span class="step-tag">Una razón para pagar</span>La escuela pierde dinero cuando estos resultados no pasan</li>
-            <li><span class="step-tag">Los registros</span>Puede ver quién necesita ayuda antes de que lo pida</li>
-            <li><span class="step-tag">Confianza</span>Las familias ya leen lo que la escuela envía</li>
-            <li><span class="step-tag">Permiso</span>Las oficinas rechazan a los agentes que llegan sin invitación. El que la escuela patrocina entra</li>
-          </ol>
-          <p><span class="highlight">Cuando el plan de salud o el condado sirven a la misma familia, pueden patrocinar el mismo ayudante. Un ayudante en lugar de siete portales.</span></p>
-        </div>
-      </div>
-    </section>
-    <section class="section t-night" id="night" aria-labelledby="night-title">
-      <div class="stars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-      <div class="wrap split">
-        <div class="split-copy">
-          <p class="time-chip"><span class="time-chip-time">9:40 PM</span><span class="time-chip-label">Los niños duermen</span></p>
-          <h2 id="night-title">Todo <em>resuelto.</em></h2>
-          <p class="lead">En lugar de una pila de cartas a casa y una lista de familias a las que nadie llegó, un resumen: qué se hizo, por qué le pagan a la escuela y qué sigue esperando un sí.</p>
-        </div>
-        <div>
-          <p class="sum-label">Primaria Lincoln, hoy</p>
-          <ul class="summary">
-          <li class="is-done">
-              <span class="sum-mark"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12l5 5 9-10" /></svg></span>
-              <span class="sum-text"><strong>Medi-Cal de Maya renovado</strong><span>El condado aprobó · inhalador surtido</span></span>
-              <span class="sr-only">Listo</span>
-            </li>
-          <li class="is-done">
-              <span class="sum-mark"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12l5 5 9-10" /></svg></span>
-              <span class="sum-text"><strong>Un pase de transporte para Maya</strong><span>Marcada como retrasada, no ausente</span></span>
-              <span class="sr-only">Listo</span>
-            </li>
-          <li class="is-done">
-              <span class="sum-mark"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12l5 5 9-10" /></svg></span>
-              <span class="sum-text"><strong>Consentimiento de Medicaid de Leo</strong><span>Firmado · la escuela puede facturar su terapia</span></span>
-              <span class="sr-only">Listo</span>
-            </li>
-          <li class="is-waiting">
-              <span class="sum-mark"></span>
-              <span class="sum-text"><strong>CalFresh para la familia</strong><span>Enviado · el condado decide en 30 días</span></span>
-              <span class="sr-only">Esperando</span>
-            </li>
-          </ul>
-          <p class="caption">Conversaciones de ejemplo. Escuela y familia ficticias.</p>
-        </div>
-      </div>
-      <div class="wrap promises">
-        <article class="glass promise"><h3>Su sí lo envía.</h3><p>Nada se presenta, firma ni comparte hasta que la familia dice que sí a exactamente lo que va a pasar.</p></article>
-        <article class="glass promise"><h3>Solo resultados buenos para ambos.</h3><p>La escuela elige el resultado. Lo tomamos solo si también es bueno para la familia.</p></article>
-        <article class="glass promise"><h3>Entran nombres, salen resultados.</h3><p>La escuela ve resultados, no vidas. Sabe más solo cuando la familia está de acuerdo.</p></article>
-      </div>
-      <div class="wrap promise-links">
-        <a class="text-link" href="/security">Lea cada límite, en palabras sencillas</a>
-        <a class="text-link" href="/privacy">Cómo manejamos la información</a>
-      </div>
-      <div class="wrap join" id="join" aria-labelledby="join-title">
-        <h2 id="join-title">Mañana, <em>empiece con un resultado.</em></h2>
-        <p class="lead">Cuéntenos qué le miden. Revisamos sus datos gratis, le mostramos lo que está varado, y empezamos con un resultado en algunas escuelas. Usted paga cuando se mueve.</p>
-        <a class="button primary" href="#school-contact">Hablemos</a>
-      </div>
-    </section>
-    <section class="section t-night-deep section-band" aria-labelledby="where-title">
-      <div class="wrap band">
-        <h2 id="where-title">Dónde trabajamos</h2>
-        <p class="lead">Escuelas primero. La misma brecha aparece donde el dinero de una institución depende de la vida de su gente.</p>
-      </div>
-      <div class="wrap promises">
-        <article class="glass promise"><h3>Escuelas</h3><p>Asistencia, consentimiento de Medicaid para estudiantes con IEP, inscripción en ayuda para comida y salud que cuenta para sus fondos, estudiantes sin vivienda estable.</p><p><a class="text-link" href="/es/schools">Para escuelas</a></p></article>
-        <article class="glass promise"><h3>Fondos sindicales de beneficios</h3><p>Primas de la Parte B de Medicare que pagaría Nueva York, con el sí de cada jubilado y renovadas cada año.</p><p><a class="text-link" href="/es/funds">Para fondos sindicales</a></p></article>
-        <article class="glass promise"><h3>Su resultado</h3><p>Si su dinero depende de las personas a quienes sirve, díganos qué resultado.</p><p><a class="text-link" href="#school-contact">Hablemos</a></p></article>
-      </div>
-    </section>
-    <section class="section t-night-deep" id="school-contact" aria-labelledby="school-contact-title">
-      <div class="wrap contact-grid">
-        <div>
-          <h2 id="school-contact-title">Hablemos</h2>
-          <p class="lead">Cuéntenos a quién sirve y qué le miden. Le respondemos en dos días hábiles.</p>
-          <form id="school-form" novalidate data-source="home" data-error="Por favor llene todos los campos.">
-            <div class="field">
-              <label for="school-name">Su nombre</label>
-              <input id="school-name" name="name" type="text" autocomplete="name" maxlength="120" required aria-describedby="school-error" />
-            </div>
-            <div class="field">
-              <label for="school-role">Su cargo</label>
-              <input id="school-role" name="role" type="text" autocomplete="organization-title" maxlength="120" required aria-describedby="school-error" />
-            </div>
-            <div class="field">
-              <label for="school-district">Escuela, distrito u organización</label>
-              <input id="school-district" name="school" type="text" autocomplete="organization" maxlength="160" required aria-describedby="school-error" />
-            </div>
-            <div class="field">
-              <label for="school-email">Correo del trabajo</label>
-              <input id="school-email" name="email" type="email" autocomplete="email" maxlength="254" required aria-describedby="school-error" />
-            </div>
-            <div class="field">
-              <label for="school-message">¿Qué resultado le importa más? <span class="hint">(opcional)</span></label>
-              <textarea id="school-message" name="message" maxlength="1980" rows="4" aria-describedby="school-error"></textarea>
-            </div>
-            <button class="button primary" type="submit">Enviar</button>
-            <p class="form-note">Usaremos estos datos para responderle. Por favor no incluya registros personales de nadie.</p>
-            <p class="form-error" id="school-error" role="alert" hidden>No pudimos guardar su mensaje. Inténtelo de nuevo.</p>
-          </form>
-          <div class="form-success" id="school-sent" role="status" tabindex="-1" hidden>
-            <p>Gracias. Le responderemos al correo que nos dio.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-    </main>
-
-  <footer class="site-footer">
-    <div class="wrap footer-grid">
-      <div>
-        <a class="brand brand-footer" href="/es">
-          <img src="/mark.svg" alt="" width="44" height="44" />
-          <span>Mycelium</span>
-        </a>
-        <p>Cuando a las familias les va mejor, a las escuelas también</p>
-      </div>
-      <nav aria-label="Pie de página">
-        <ul>
-          <li><a href="/es/schools">Para escuelas</a></li><li><a href="/es/funds">Para fondos sindicales</a></li><li><a href="/privacy">Privacidad</a></li><li><a href="/security">Seguridad y confianza</a></li>
-          <li><a href="/" hreflang="en" lang="en">English</a></li>
-        </ul>
-      </nav>
+        <p class="assume">Para los distritos suponemos que se llega a la mitad de los estudiantes con ausentismo crónico y que cada uno vuelve cinco días más al año. Para los fondos, las cifras salen de sus informes anuales públicos. Su propia cifra es un análisis gratuito.</p>
+      </form>
     </div>
-  </footer>
-  </body>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how" aria-label="Cómo funciona">
+  <div class="stage" data-enter style="--i:0">
+    <h2>Primero leemos cómo le financian.</h2>
+    <p>Su fórmula de financiamiento y sus registros, línea por línea. Encontramos cada dólar que depende de algo en la vida de una persona: la asistencia de un distrito, las primas de Medicare de un fondo. La cifra va primero, gratis.</p>
+  </div>
+  <div class="stage" data-enter style="--i:1">
+    <div class="line">Luego ensaya con el año pasado.</div>
+    <p>Antes de que el ayudante le escriba a nadie, corre sobre los registros del año pasado. Usted ve a quién habría contactado y qué habría dicho. Lo corrige y decide cuándo está listo.</p>
+  </div>
+  <div class="stage" data-enter style="--i:2">
+    <div class="line">Usted lo ofrece. La familia dice que sí.</div>
+    <p>Una quinta falta, o un afiliado que cumple 65 años, envía una oferta de parte suya en su idioma. Dicen que sí o no. Su personal ve solo los casos que necesitan a una persona.</p>
+  </div>
+  <div class="stage" data-enter style="--i:3">
+    <div class="line">Paga cuando el resultado mejora.</div>
+    <p>Días de asistencia recuperados, o primas que ahora paga el estado en lugar de usted, comparados con personas similares a las que el ayudante no llegó. Nuestra parte es un cuarto de lo recuperado; el resto queda con usted.</p>
+  </div>
+</section>
+
+<!-- BAND -->
+<figure class="band tint" aria-label="Un campo de dendritas de manganeso en caliza de Solnhofen"><img src="assets/dend-field-solnhofen.jpg" width="1280" height="850" alt="" loading="lazy" style="object-position: 50% 40%"></figure>
+
+<!-- FEATURES -->
+<section class="fields" aria-label="Lo que ve la escuela">
+  <div class="field light">
+    <p class="why" data-enter>Piense en el seguro médico. Su empleador lo paga, el médico trabaja para usted, y su empleador gana cuando usted está bien sin ver nunca su expediente. El mismo arreglo, hoy al alcance de cada familia y cada jubilado.</p>
+    <h2 data-enter style="--i:1">Trabaja para la familia.</h2>
+  </div>
+  <div class="field mid mirror">
+    <p class="why" data-enter>La escuela ve a quién se le ofreció un ayudante, según sus propios registros, y si la asistencia mejoró. Ve patrones, como cuarenta familias en la misma ruta de autobús recortada, que es una política que puede arreglar. Y ve cada regla que sigue el ayudante, por escrito, antes de que nada salga en vivo.</p>
+    <h2 data-enter style="--i:1">La escuela ve resultados.</h2>
+  </div>
+  <div class="field dark">
+    <figure class="field-photo" data-enter style="--i:1"><img src="assets/dend-fan-single.jpg" width="1280" height="1763" alt="Una sola dendrita negra abriéndose en abanico sobre caliza clara" loading="lazy" style="object-position: 50% 35%"></figure>
+    <p class="why" data-enter>Nunca ve la dirección, el aviso de desalojo, la pregunta migratoria ni al abuelo enfermo. Nunca ve un mensaje salvo que la familia decida compartirlo, ni nada sobre una familia que no dijo que sí. Esto está garantizado en el sistema, no en una instrucción. Los datos estudiantiles quedan bajo las reglas de funcionario escolar de FERPA y el CA-NDPA de California, y nunca se usan para entrenar modelos.</p>
+    <h2 data-enter style="--i:1">Nunca la historia.</h2>
+  </div>
+</section>
+
+<!-- LIST -->
+<section class="where" id="where" aria-label="Para quién">
+  <h2 data-enter>Donde el dinero depende del afiliado.</h2>
+  <p class="lede">Instituciones, el resultado por el que paga cada una, y dónde trabaja Mycelium hoy.</p>
+  <div class="body grid">
+    <div class="table">
+      <div class="row" data-enter style="--i:1"><span class="k">Ahora, en California</span><span>Distritos escolares</span><span class="v">días de asistencia</span></div>
+      <div class="row" data-enter style="--i:2"><span class="k">Ahora, en Nueva York</span><span>Fondos de beneficios sindicales</span><span class="v">primas de la Parte B</span></div>
+      <div class="row group" data-enter style="--i:3"><span class="k">Después</span><span>Centros de salud comunitarios</span><span class="v">renovaciones de Medicaid</span></div>
+      <div class="row" data-enter style="--i:4"><span class="k">Después</span><span>Hospitales</span><span class="v">reingresos</span></div>
+      <div class="row" data-enter style="--i:5"><span class="k">Después</span><span>Colegios comunitarios</span><span class="v">graduación</span></div>
+      <div class="row" data-enter style="--i:6"><span class="k">Después</span><span>Aseguradoras de discapacidad</span><span class="v">reclamos trasladados</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- BAND -->
+<figure class="band tall" aria-label="Una sola dendrita abriéndose en abanico sobre caliza clara"><img src="assets/dend-fan-single.jpg" width="1280" height="1763" alt="" loading="lazy" style="object-position: 50% 45%"></figure>
+
+<!-- CLOSE -->
+<section class="close" id="close" aria-label="Pida su cifra">
+  <h2 data-enter>Ahora sí la ve.</h2>
+  <div class="foot">
+    <p data-enter style="--i:1">Envíenos sus informes. En una semana le devolvemos cuánto es recuperable, línea por línea, y qué le habría dicho el ayudante a las primeras cuarenta personas que contactó el año pasado.</p>
+    <a class="button" data-enter style="--i:2" href="mailto:hello@try-mycelium.com?subject=Analicen%20mis%20informes&body=Instituci%C3%B3n%3A%20%0AEstado%3A%20%0ASu%20cargo%3A%20">Envíenos sus informes</a>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="top">
+    <div class="invite">
+      <h2>Hable con los fundadores.</h2>
+      <a class="button" href="mailto:hello@try-mycelium.com?subject=Mycelium">Hable con los fundadores</a>
+    </div>
+    <div class="links">
+      <a href="mailto:hello@try-mycelium.com">hello@try-mycelium.com</a>
+      <a href="https://try-mycelium.com">try-mycelium.com</a>
+      <a href="/" lang="en" hreflang="en">English</a>
+    </div>
+  </div>
+  <div class="legal">
+    <span>Mycelium lo construyen Mitch Howard y Sarah Xu, antes en Clay. © 2026 Mycelium · San Francisco y Nueva York</span>
+    <span>Fotografías de Wikimedia Commons: <a href="https://commons.wikimedia.org/wiki/File:Rhizomorph_(5211991289).jpg">Alex Lomas, CC BY 2.0</a> · <a href="https://commons.wikimedia.org/wiki/File:Dendrit.jpg">Ivtorov, CC BY-SA 4.0</a> · <a href="https://commons.wikimedia.org/wiki/File:Pyrolusite_(Solnhofen_Bavi%C3%A8re_-_Allemagne).jpg">Parent Géry, CC BY-SA 3.0</a> · <a href="https://commons.wikimedia.org/wiki/File:Pyrolusite_-_dendrites_de_mangan%C3%A8se_1.JPG">Parent Géry, CC BY-SA 3.0</a> · <a href="https://commons.wikimedia.org/wiki/File:Manganese_Dendrites_(6735677997).jpg">GorissM, CC BY-SA 2.0</a></span>
+  </div>
+  <div class="name" aria-hidden="true">Mycelium</div>
+</footer>
+
+<script>
+(function(){
+  // The live thing: district scan
+  var data = {
+    pvusd: { fig: '$1.56M', lines: [['Días de asistencia recuperados','$1.2M'],['Estudiantes de bajos ingresos recién contados','$360K'],['Cada 1% de asistencia vale','$2.4M']] },
+    ousd:  { fig: '$3.7M',  lines: [['Días de asistencia recuperados','$2.9M'],['Estudiantes de bajos ingresos recién contados','$800K'],['Cada 1% de asistencia vale','$5.6M']] },
+    fusd:  { fig: '$6.3M',  lines: [['Días de asistencia recuperados','$5.0M'],['Estudiantes de bajos ingresos recién contados','$1.3M'],['Cada 1% de asistencia vale','$9.8M']] },
+    fund:  { fig: '$11M',   lines: [['Primas de Medicare Parte B que reembolsa y que el estado cubriría','$11M'],['Jubilados elegibles que nunca solicitaron el programa estatal','cerca del 40%'],['Se recupera cuando el jubilado dice que sí y el ayudante tramita','por aprobación']] }
+  };
+  var sel = document.getElementById('district');
+  if (sel) sel.addEventListener('change', function(){
+    var d = data[sel.value]; if (!d) return;
+    var f = document.getElementById('scan-figure');
+    f.firstChild.nodeValue = d.fig;
+    var l = document.getElementById('scan-lines'); l.innerHTML = '';
+    d.lines.forEach(function(p){ var row = document.createElement('div'); var s = document.createElement('span'); s.textContent = p[0]; var b = document.createElement('b'); b.textContent = p[1]; row.appendChild(s); row.appendChild(b); l.appendChild(row); });
+  });
+
+  // Section entrances, once
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function(es){ es.forEach(function(e){ if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }); }, { threshold: 0.15 });
+    document.querySelectorAll('[data-enter], .intro .photos figure').forEach(function(el){ io.observe(el); });
+  } else {
+    document.querySelectorAll('[data-enter]').forEach(function(el){ el.classList.add('in'); });
+  }
+
+  // Colour by chapter: the fixed nav takes the ink of the chapter beneath it
+  var nav = document.getElementById('nav');
+  var lights = document.querySelectorAll('.hero .field-top, .field.light, .close');
+  function tick(){
+    var y = 36, on = false;
+    lights.forEach(function(el){ var r = el.getBoundingClientRect(); if (r.top <= y && r.bottom > y) on = true; });
+    nav.classList.toggle('on-light', on);
+  }
+  tick(); window.addEventListener('scroll', tick, { passive: true }); window.addEventListener('resize', tick);
+})();
+</script>
+</body>
 </html>

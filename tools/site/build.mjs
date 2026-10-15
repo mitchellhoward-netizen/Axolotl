@@ -1,8 +1,7 @@
 /**
  * Renders the static site from the per-language strings files.
  *
- *     npm run build:site      # write public/index.html and public/es.html
- *                             # (the idea), public/schools.html and
+ *     npm run build:site      # write public/schools.html and
  *                             # public/es/schools.html (school districts),
  *                             # public/funds.html and
  *                             # public/es/funds.html (union funds), and
@@ -1103,23 +1102,9 @@ async function render() {
     [en, '', 'share.png', 'share-schools.png', 'share-funds.png'],
     [es, 'es', 'share-es.png', 'share-schools-es.png', 'share-funds-es.png'],
   ]) {
-    // The homepage: the idea, for any institution whose results depend on its people.
-    pages.push({
-      file: dir ? `${dir}.html` : 'index.html',
-      html: document(s, {
-        page: 'home',
-        title: at(s, 'home.meta.title'),
-        description: at(s, 'home.meta.description'),
-        canonical: dir ? '/es' : '/',
-        alts: [['en', '/'], ['es', '/es'], ['x-default', '/']],
-        body: homeSections(s),
-        langHref: dir ? '/' : '/es',
-        cta: '#school-contact',
-        ctaLabel: at(s, 'home.nav.join'),
-        shareAlt: at(s, 'home.meta.shareAlt'),
-        share,
-      }),
-    });
+    // The homepage (public/index.html and public/es.html) is hand-written, not
+    // generated: see "The website" in AGENTS.md. The generator builds the six
+    // pages below only.
     // /schools, for school districts and charter networks.
     pages.push({
       file: dir ? `${dir}/schools.html` : 'schools.html',
