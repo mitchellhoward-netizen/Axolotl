@@ -73,7 +73,8 @@
     "test:authorization": "tsx scripts/test-authorization.ts",
     "eval:reliability": "tsx scripts/eval-reliability.ts",
     "test:form-targets": "tsx scripts/test-form-targets.ts",
-    "test:memory": "tsx scripts/test-memory-recall.ts"
+    "test:memory": "tsx scripts/test-memory-recall.ts",
+    "build:scan": "python3 tools/site/scan/build.py"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.128.0",

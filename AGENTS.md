@@ -91,6 +91,14 @@ Social cards for the generated pages are generated too: `node scripts/build-shar
 `public/share-schools*.png` (/schools) and `public/share-funds*.png` (/funds) from
 `tools/site/share.html`, which reads the same strings. Re-run it after changing their hero copy. The homepage uses `public/assets/og.jpg`.
 
+The district picker on the homepage (`#district`, the "live scan") searches
+`public/scan-data.json`, one compact row per California district built from the
+state's own chronic-absenteeism and LCFF files by `tools/site/scan/build.py`
+(`npm run build:scan`; sources and model in `tools/site/scan/README.md`). The
+page recomputes the arithmetic from the three assumptions in that JSON, so the
+numbers on the page and the assumptions paragraph must change together.
+Basic-aid districts show $0 on purpose.
+
 Website signups (a member's phone number from /members, and the contact form on the homepage, /schools and /funds, all posted as `kind: "school"` with a message that starts with `[home]`, `[schools]` or `[funds]`) go through one
 endpoint, `/api/waitlist`, with a `kind` field. Validation and storage are shared
 between the Vercel function (`api/waitlist.ts`) and the long-lived host

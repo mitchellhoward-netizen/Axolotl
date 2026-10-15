@@ -191,13 +191,22 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; letter-spacing: -0.0
 /* The live thing: the district scan */
 .scan { margin-top: 32px; }
 .scan .vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
-.scan select { margin-top: 20px; }
-.scan select {
+.scan .pick { position: relative; margin-top: 20px; }
+.scan input[type=search] {
   width: 100%; min-height: 56px; padding: 0 16px; font: inherit; color: var(--ink); background: var(--surface);
-  border: 0; appearance: none; -webkit-appearance: none; cursor: pointer;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath d='M1 1l6 6 6-6' fill='none' stroke='%23e9e2d3' stroke-width='2'/%3E%3C/svg%3E");
-  background-position: calc(100% - 18px) 50%; background-repeat: no-repeat;
+  border: 0; border-radius: 0; appearance: none; -webkit-appearance: none;
 }
+.scan input[type=search]::placeholder { color: var(--muted); }
+.scan input[type=search]::-webkit-search-cancel-button { -webkit-appearance: none; }
+.scan input[type=search]:focus { outline: 2px solid var(--accent); outline-offset: 0; }
+.scan .matches { position: absolute; left: 0; right: 0; top: 100%; z-index: 5; margin: 0; padding: 0; list-style: none; background: var(--surface); max-height: 320px; overflow: auto; }
+.scan .matches:empty { display: none; }
+.scan .matches li { padding: 12px 16px; cursor: pointer; display: flex; justify-content: space-between; gap: 16px; }
+.scan .matches li small { color: var(--muted); white-space: nowrap; }
+.scan .matches li:hover, .scan .matches li[aria-selected=true] { background: var(--bg); }
+.scan .quick { margin-top: 10px; font-size: var(--step-small); color: var(--muted); }
+.scan .quick button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+.scan .quick button:hover { color: var(--ink); }
 .scan .figure { font-family: var(--display); font-size: var(--step-head); line-height: 1; margin-top: 8px; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
 .scan .figure small { display: block; font-family: var(--text); font-size: var(--step-body); color: var(--muted); margin-top: 8px; letter-spacing: 0; }
 .scan .lines { margin-top: 20px; display: grid; gap: 10px; font-size: var(--step-body); }
@@ -395,20 +404,19 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; letter-spacing: -0.0
       <p>A child's fifth absence is already in the school's records. Today it triggers a truancy notice. With Mycelium it triggers an offer from the school, in the family's language: a helper that works on whatever is keeping the child home, because the real barrier is usually something the school has never seen.</p>
       <p style="margin-top:16px">The school pays only when attendance improves, measured against each student's own prior year and rolled out school by school so the gain is real. Nothing up front.</p>
       <form class="scan" onsubmit="return false">
-        <div class="figure" id="scan-figure" aria-live="polite">$1.56M<small id="scan-sub">the institution below could recover each year, worked from its own public filings</small></div>
-        <label for="district" class="vh">Institution</label>
-        <select id="district" name="district">
-          <option value="pvusd" selected>Pajaro Valley Unified</option>
-          <option value="ousd">Oakland Unified</option>
-          <option value="fusd">Fresno Unified</option>
-          <option value="fund">A large New York benefit fund</option>
-        </select>
-        <div class="lines" id="scan-lines">
-          <div><span>4,200 chronically absent students, half reached, 5 more days each, at $81 a day</span><b>$850K</b></div>
-          <div><span>80 more low-income students counted, at $8,650 each</span><b>$700K</b></div>
-          <div><span>Each 1% of attendance is worth</span><b>$2.4M</b></div>
+        <div class="figure" id="scan-figure" aria-live="polite">$947K<small id="scan-sub">Pajaro Valley Unified could recover each year, worked from its own public filings</small></div>
+        <div class="pick">
+          <label for="district" class="vh">Find your district</label>
+          <input id="district" type="search" placeholder="Type any California school district" autocomplete="off" spellcheck="false" role="combobox" aria-expanded="false" aria-controls="scan-matches" aria-autocomplete="list">
+          <ul class="matches" id="scan-matches" role="listbox"></ul>
         </div>
-        <p class="assume">Student counts, per-day and per-student values come from each district's 2025–26 LCAP; the reach and the five days are our assumptions, and the arithmetic is above so you can redo it. Fund figures come from public annual filings. Your own figure is a free scan.</p>
+        <p class="quick" id="scan-quick">Or try <button type="button" data-pick="4469799">Pajaro Valley</button>, <button type="button" data-pick="0161259">Oakland</button>, <button type="button" data-pick="1062166">Fresno</button>, or <button type="button" data-pick="fund">a benefit fund</button>.</p>
+        <div class="lines" id="scan-lines">
+          <div><span>3,865 chronically absent students, one in four reached, 3 more days each, at $84 a day</span><b>$244K</b></div>
+          <div><span>77 more low-income students counted, one in two hundred enrolled, at $9,139 each</span><b>$704K</b></div>
+          <div><span>Each 1% of attendance is worth</span><b>$2.2M</b></div>
+        </div>
+        <p class="assume">Student counts come from the state's 2024–25 chronic absenteeism file and the per-day and per-student values from each district's 2024–25 LCFF funding. The one-in-four reach, the three days and the one-in-two-hundred uncounted are our assumptions, set low on purpose; the arithmetic is above so you can redo it. Districts funded by local property tax show $0, because attendance doesn't move their state money. Fund figures come from public annual filings.</p>
       </form>
     </div>
   </div>
@@ -521,21 +529,53 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; letter-spacing: -0.0
 
 <script>
 (function(){
-  // The live thing: district scan
-  var data = {
-    pvusd: { fig: '$1.56M', lines: [['4,200 chronically absent students, half reached, 5 more days each, at $81 a day','$850K'],['80 more low-income students counted, at $8,650 each','$700K'],['Each 1% of attendance is worth','$2.4M']] },
-    ousd:  { fig: '$3.7M',  lines: [['9,100 chronically absent students, half reached, 5 more days each, at $90 a day','$2.1M'],['170 more low-income students counted, at about $9,600 each','$1.6M'],['Each 1% of attendance is worth','$5.5M']] },
-    fusd:  { fig: '$6.3M',  lines: [['14,900 chronically absent students, half reached, 5 more days each, at $88 a day','$3.3M'],['345 more low-income students counted, at about $8,800 each','$3.0M'],['Each 1% of attendance is worth','$10.8M']] },
-    fund:  { fig: '$11M',   lines: [['Medicare Part B premiums it reimburses that the state would cover','$11M'],['Eligible retirees who never applied to the state program','about 40%'],['Recovered when the retiree says yes and the helper files','per approval']] }
-  };
-  var sel = document.getElementById('district');
-  if (sel) sel.addEventListener('change', function(){
-    var d = data[sel.value]; if (!d) return;
-    var f = document.getElementById('scan-figure');
-    f.firstChild.nodeValue = d.fig;
-    var l = document.getElementById('scan-lines'); l.innerHTML = '';
-    d.lines.forEach(function(p){ var row = document.createElement('div'); var s = document.createElement('span'); s.textContent = p[0]; var b = document.createElement('b'); b.textContent = p[1]; row.appendChild(s); row.appendChild(b); l.appendChild(row); });
-  });
+  // The live thing: district scan, from the state's own files (see tools/site/scan)
+  var figure = document.getElementById('scan-figure'), sub = document.getElementById('scan-sub'), lines = document.getElementById('scan-lines');
+  var input = document.getElementById('district'), list = document.getElementById('scan-matches'), quick = document.getElementById('scan-quick');
+  var fund = { fig: '$11M', sub: 'a large New York benefit fund could recover each year, from its public annual filings', lines: [['Medicare Part B premiums it reimburses that the state would cover','$11M'],['Eligible retirees who never applied to the state program','about 40%'],['Recovered when the retiree says yes and the helper files','per approval']] };
+  var A = null, rows = [], active = -1;
+  function money(n){ if (n >= 1e7) return '$' + (n/1e6).toFixed(0) + 'M'; if (n >= 1e6) return '$' + (n/1e6).toFixed(1) + 'M'; if (n >= 1e3) return '$' + Math.round(n/1e3) + 'K'; return '$' + Math.round(n); }
+  function num(n){ return n.toLocaleString('en-US'); }
+  function show(fig, s, ls){
+    figure.firstChild.nodeValue = fig; sub.textContent = s; lines.innerHTML = '';
+    ls.forEach(function(p){ var row = document.createElement('div'); var sp = document.createElement('span'); sp.textContent = p[0]; var b = document.createElement('b'); b.textContent = p[1]; row.appendChild(sp); row.appendChild(b); lines.appendChild(row); });
+  }
+  function district(r){
+    var name = r[1], enrolled = r[3], absent = r[4], rate = r[5], perDay = r[6], perCounted = r[7], perPoint = r[8], basic = r[9];
+    var reached = Math.round(absent * A.reach), days = reached * A.days, uncounted = Math.round(enrolled * A.uncounted);
+    if (basic) { show('$0', 'in state money for ' + name + ', which is funded by local property tax', [[num(absent) + ' chronically absent students', rate + '%'], ['Another day of attendance brings the district', '$0'], ['The families\' side of the case still stands; the budget side doesn\'t', '']]); return; }
+    var att = days * perDay, cnt = uncounted * perCounted;
+    show(money(att + cnt), name + ' could recover each year, worked from its own public filings', [
+      [num(absent) + ' chronically absent students, one in four reached, ' + A.days + ' more days each, at $' + perDay + ' a day', money(att)],
+      [num(uncounted) + ' more low-income students counted, one in two hundred enrolled, at $' + num(perCounted) + ' each', money(cnt)],
+      ['Each 1% of attendance is worth', money(perPoint)]
+    ]);
+  }
+  function pick(id){
+    if (id === 'fund') { input.value = 'A large New York benefit fund'; show(fund.fig, fund.sub, fund.lines); return; }
+    var r = rows.filter(function(r){ return r[0] === id; })[0]; if (!r) return;
+    input.value = r[1]; district(r);
+  }
+  function close(){ list.innerHTML = ''; active = -1; input.setAttribute('aria-expanded', 'false'); }
+  function search(){
+    var q = input.value.trim().toLowerCase(); close(); if (q.length < 2 || !rows.length) return;
+    var hits = rows.map(function(r){ var n = r[1].toLowerCase(), c = r[2].toLowerCase(); var k = n.indexOf(q) === 0 ? 0 : n.indexOf(q) > 0 ? 1 : c.indexOf(q) === 0 ? 2 : -1; return [k, r]; }).filter(function(h){ return h[0] >= 0; }).sort(function(x, y){ return x[0] - y[0] || y[1][3] - x[1][3]; }).slice(0, 8).map(function(h){ return h[1]; });
+    hits.forEach(function(r){ var li = document.createElement('li'); li.setAttribute('role', 'option'); li.dataset.id = r[0]; li.textContent = r[1]; var sm = document.createElement('small'); sm.textContent = r[2]; li.appendChild(sm); li.addEventListener('mousedown', function(e){ e.preventDefault(); pick(r[0]); close(); }); list.appendChild(li); });
+    input.setAttribute('aria-expanded', hits.length ? 'true' : 'false');
+  }
+  if (input) {
+    fetch('/scan-data.json').then(function(r){ return r.json(); }).then(function(d){ A = d.assumptions; rows = d.districts; }).catch(function(){ input.placeholder = 'The district list didn\'t load'; });
+    input.addEventListener('input', search);
+    input.addEventListener('focus', function(){ if (rows.length && input.value) search(); });
+    input.addEventListener('blur', close);
+    input.addEventListener('keydown', function(e){
+      var items = list.children; if (!items.length) return;
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); active = (active + (e.key === 'ArrowDown' ? 1 : items.length - 1)) % items.length; for (var i = 0; i < items.length; i++) items[i].setAttribute('aria-selected', i === active ? 'true' : 'false'); }
+      else if (e.key === 'Enter') { e.preventDefault(); var li = items[active >= 0 ? active : 0]; pick(li.dataset.id); close(); }
+      else if (e.key === 'Escape') close();
+    });
+    quick.addEventListener('click', function(e){ var b = e.target.closest('button'); if (b) pick(b.dataset.pick); });
+  }
 
   // Section entrances, once
   if ('IntersectionObserver' in window) {
