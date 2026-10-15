@@ -41,7 +41,11 @@ sharing image for both languages.
 `public/schools.html` (for school districts), `public/funds.html` (for funds
 that reimburse Medicare Part B premiums), `public/members.html` (for the
 retirees a fund sends to us) and their Spanish copies under `public/es/` are
-**built**, not written. The school copy lives under `schools` in the strings
+**built**, not written. /schools is rendered through `buyerDocument()` with
+`public/buyer.css`, which is the homepage's inline stylesheet extracted (plus a
+few buyer-page pieces at the end): change the homepage's styles first, then
+re-copy the shared part. /funds and /members still use the older `site.css`
+shell until they are moved over. The school copy lives under `schools` in the strings
 files; the fund copy is everything else. All copy lives in
 `tools/site/strings.en.mjs` and `tools/site/strings.es.mjs`; the structure lives
 in `tools/site/build.mjs`. Edit the strings, then run:

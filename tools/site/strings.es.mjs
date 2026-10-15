@@ -419,153 +419,99 @@ export default {
   // Misma forma y mismas fuentes que strings.en.mjs.
   schools: {
     meta: {
-      title: 'Mycelium: los niños reciben la ayuda, los distritos reciben los fondos',
+      title: 'Mycelium para distritos escolares: un ayudante para cada familia',
       description:
-        'Medicaid para estudiantes con IEP, el conteo de bajos ingresos que usa su fórmula de financiamiento, la asistencia: cada uno depende de que una familia firme un formulario, se inscriba o llegue a la escuela. Mycelium trabaja con cada familia por mensaje de texto, en inglés o español, con su sí. Los distritos pagan una tarifa fija por resultado.',
-      shareAlt:
-        'El registro mensual de un distrito de ejemplo en Mycelium: consentimientos de Medicaid devueltos, familias contadas por primera vez, estudiantes de vuelta en clase.',
+        'La quinta falta de un niño dispara una oferta de la escuela, en el idioma de la familia: un ayudante por mensaje que trabaja en lo que sea que mantiene al niño en casa. Usted paga un cuarto del financiamiento por asistencia que recupera, nada por adelantado.',
+      shareAlt: 'Una conversación por mensaje entre una madre y el ayudante de la escuela de Maya: el autobús de la ruta 12, un pase de tránsito gratuito, un sí.',
     },
-
     nav: {
-      outcomes: 'En qué trabajamos',
+      outcomes: 'Lo que usted ve',
       how: 'Cómo funciona',
-      funds: 'Para fondos sindicales',
-      join: 'Revisión gratis',
+      funds: 'Fondos de beneficios',
+      join: 'Pida su cifra',
     },
-
     hero: {
-      eyebrow: 'Para distritos escolares y redes de escuelas chárter',
-      h1Plain: 'Los niños reciben la ayuda.',
-      h1Em: 'Su distrito recibe los fondos.',
-      h1: 'Los niños reciben la ayuda. Su distrito recibe los fondos.',
-      sub: 'Medicaid para estudiantes con IEP, el conteo de bajos ingresos que usa su fórmula de financiamiento, la asistencia: cada uno depende de que una familia firme un formulario, se inscriba en un programa o llegue a la escuela. Ninguna oficina tiene las horas para hacerlo con cada familia. Mycelium sí, por mensaje de texto, en inglés o español, y nada se envía sin el sí de la madre o el padre. Usted paga una tarifa fija solo por los resultados que se logran.',
-      primary: 'Pedir una revisión gratis',
-      secondary: 'Ver en qué trabajamos',
-      trust: 'Para distritos y redes chárter en California, Nueva York e Illinois. Nada si nada cambia.',
-      ledger: {
-        eyebrow: 'Registro mensual',
-        example: 'Distrito de ejemplo',
-        rows: [
-          { v: '212', l: 'Consentimientos de Medicaid devueltos', note: 'Estudiantes con IEP. Terapias que el distrito ya da, ahora facturables.' },
-          { v: '87', l: 'Familias contadas por primera vez', note: 'Inscritas en CalFresh o Medi-Cal y luego reconocidas en el conteo de bajos ingresos.' },
-          { v: '64', l: 'Estudiantes de vuelta a más del 90% de asistencia', note: 'Después de resolver un transporte, una receta o un formulario.' },
-          { v: '130', l: 'Familias decidiendo', note: 'Respondieron y lo están pensando. Nada avanza sin un sí.' },
-        ],
-        foot: 'Un ejemplo, no un cliente.',
-      },
+      h1a: 'La quinta falta trae',
+      h1b: 'ayuda, no una carta.',
+      h1: 'La quinta falta trae ayuda, no una carta.',
+      sub: 'Mycelium le da a cada familia de su escuela un ayudante por mensaje, en su idioma, que trabaja en lo que sea que mantiene al niño en casa. Usted paga un cuarto del financiamiento por asistencia que recupera, nada por adelantado.',
+      primary: 'Pida su cifra',
+      secondary: 'Busque su distrito',
       folder: {
-        label: 'Registro mensual · Distrito de ejemplo',
-        statuses: { done: 'Listo', waiting: 'Esperando un sí' },
+        label: 'De la escuela de Maya · en español o inglés',
+        statuses: { done: 'Tramitado', waiting: 'Esperando un sí' },
         rows: [
-          { label: '212 consentimientos', detail: 'Medicaid para los servicios del IEP.', status: 'done' },
-          { label: '87 familias contadas', detail: 'Inscritas en CalFresh o Medi-Cal y reconocidas.', status: 'done' },
-          { label: '64 estudiantes en clase', detail: 'Más del 90% de asistencia en el periodo.', status: 'done' },
-          { label: '130 familias decidiendo', detail: 'Respondieron. Nada avanza sin un sí.', status: 'waiting' },
+          { label: 'Pase de tránsito estudiantil gratuito', detail: 'La ruta 12 se recortó; el autobús de las 7:10 la deja a las 7:40.', status: 'done' },
+          { label: 'Renovación de Medi-Cal', detail: 'Vence en marzo. Nada se envía sin un sí.', status: 'waiting' },
         ],
       },
     },
-
-    outcomes: {
-      h2Plain: 'El dinero existe.',
-      h2Em: 'El papeleo se interpone.',
-      lead: 'A los distritos se les deben fondos por estudiantes que ya atienden. Llegan solo cuando una familia firma, se inscribe o se presenta, y el trabajo para lograrlo es un formulario, una llamada o un transporte a la vez. Su personal sabe hacer cada uno. Nadie tiene las horas para hacerlo con cada familia. Estos son los resultados en los que trabajamos.',
-      stats: {
-        eyebrow: 'Datos públicos',
-        example: 'Fuentes públicas',
-        rows: [
-          { v: '$431.6M', l: 'En Medicaid que las escuelas de la ciudad de Nueva York no cobraron, 2023–25', note: 'Contralor de NYC, 2026. Cerca de la mitad de las sesiones de terapia elegibles nunca se facturaron.' },
-          { v: '26–50%', l: 'De los formularios de consentimiento de Medicaid incompletos, en un tercio de los distritos encuestados', note: 'AASA, AESA y NAME, 2022.' },
-          { v: '22.6%', l: 'De los estudiantes de EE. UU. con ausentismo crónico en 2025', note: 'AEI, 45 estados. Era 15.4% en 2019.' },
-          { v: '$14.66B', l: 'En subvenciones suplementarias y de concentración de LCFF en California, 2025–26', note: 'CDE. Siguen a cada estudiante contado como de bajos ingresos, aprendiz de inglés o en cuidado temporal.' },
-        ],
-      },
-      caption: 'Los resultados en los que trabaja Mycelium, qué los detiene y quién gana',
-      head: ['Resultado', 'Qué lo detiene', 'Qué recibe el distrito', 'Qué recibe la familia'],
+    thread: {
+      who: 'De la escuela de Maya · en español o inglés',
+      msgs: [
+        ['in', 'Hola, soy un ayudante de la escuela de Maya. La escuela notó que Maya faltó cinco días. No estoy aquí para meterla en problemas; estoy para ayudar con lo que sea que complica las mañanas. ¿Quiere intentarlo?'],
+        ['me', 'sí. el autobús de la ruta 12 no pasa'],
+        ['in', 'La ruta 12 se recortó desde agosto. Su familia califica para un pase de tránsito estudiantil gratuito, y el autobús de las 7:10 en Pine y 3rd la deja a las 7:40. Responda SÍ y tramito el pase.'],
+        ['me', 'SÍ. ¿la escuela ve esto?'],
+        ['in', 'No. La escuela solo ve lo que preguntó: si Maya está llegando a la escuela. Esto queda entre nosotros a menos que usted diga otra cosa.'],
+      ],
+      note: 'La escuela ve que la asistencia mejora. Nunca ve la conversación.',
+      h2a: 'Hoy,',
+      h2b: 'una carta.',
+      p1: 'Ya está en sus registros. Con Mycelium dispara en cambio una oferta de la escuela: un ayudante que averigua qué está realmente en medio, el autobús, la renovación de Medi-Cal, el aviso de corte, la reunión del IEP, y lo resuelve, con el sí de la familia en cada acción.',
+      p2: 'La conversación se queda con la familia, bajo las reglas de funcionario escolar de FERPA. Usted ve la asistencia y patrones en conjunto, como cuarenta familias en una misma ruta recortada; nunca un motivo, y nunca otra institución.',
+    },
+    how: {
+      steps: [
+        ['Primero leemos cómo lo financian.', 'Su LCAP y su archivo de asistencia, línea por línea: cada dólar que depende de que un niño esté en su asiento. La cifra va primero, gratis.'],
+        ['Luego ensaya con el año pasado.', 'Antes de escribirle a nadie, corre con los registros del año pasado. Usted ve a quién habría llegado y qué habría dicho, y decide cuándo está listo.'],
+        ['Usted lo ofrece. La familia dice que sí.', 'Una quinta falta envía una oferta suya, en el idioma de la familia. Dicen que sí o no. Su equipo de asistencia ve solo los casos que necesitan a una persona.'],
+        ['Paga cuando la asistencia mejora.', 'Días recuperados contra el año anterior de cada estudiante, desplegado escuela por escuela y medido contra las escuelas que aún no lo reciben. Nuestra parte es un cuarto del financiamiento recuperado; el resto queda con usted.'],
+      ],
+    },
+    sees: {
+      a: { h2: 'Lo que usted ve.', p: 'A quién se le ofreció un ayudante, según sus propios registros, y si la asistencia mejoró. Patrones en conjunto. Cada regla que sigue el ayudante, por escrito, antes de que nada salga en vivo. Un informe mensual que su junta puede leer.' },
+      b: { h2: 'Lo que nunca ve.', p: 'La dirección, el aviso de desalojo, la pregunta migratoria, el abuelo enfermo. Ningún mensaje, salvo que la familia decida compartirlo. Nada sobre una familia que no dijo que sí.' },
+      c: { h2: 'Lo que firmamos primero.', p: 'El Acuerdo de Privacidad de Datos Estudiantiles de California antes de ver un solo registro. Las reglas de funcionario escolar de FERPA y el CA-NDPA. Los datos estudiantiles nunca entrenan modelos y nunca pasan a otra institución.' },
+    },
+    trial: {
+      h2a: 'Medido',
+      h2b: 'para su junta.',
+      lead: 'Los estudiantes con ausentismo crónico mejoran solos algunos años. La medición está hecha para que eso no cuente como nuestro.',
+      items: [
+        'Cada estudiante contra su propio año anterior, no contra un promedio del distrito.',
+        'Se ofrece escuela por escuela, así que cada mes hay escuelas que aún no lo reciben con las cuales comparar.',
+        'Informe mensual: familias contactadas, en qué idioma, cuántas respondieron, días recuperados por escuela, financiamiento recuperado por línea.',
+        'Si la asistencia no mejora, no paga nada. No hay cuota de plataforma ni mínimo.',
+      ],
+    },
+    more: {
+      h2: 'Primero la asistencia.',
       rows: [
-        {
-          outcome: 'Medicaid para estudiantes con IEP',
-          blocked: 'El consentimiento único de la madre o el padre, un número de Medicaid en el expediente',
-          district: 'Reembolso por terapias y servicios que ya ofrece',
-          family: 'Los mismos servicios. El consentimiento no cambia nada de lo que recibe el niño y se puede retirar.',
-        },
-        {
-          outcome: 'El conteo de bajos ingresos',
-          blocked: 'Familias elegibles para SNAP o Medicaid (CalFresh o Medi-Cal en California) que nunca se inscribieron o nunca fueron reconocidas',
-          district: 'Fondos de la fórmula por cada estudiante contado: LCFF en California, Foundation Aid en Nueva York, Evidence-Based Funding en Illinois',
-          family: 'Ayuda para comida, cobertura médica y comidas escolares gratis',
-        },
-        {
-          outcome: 'Asistencia',
-          blocked: 'Un transporte, un formulario médico, una cobertura vencida, una mudanza',
-          district: 'Días de aprendizaje, y fondos basados en asistencia en California y Texas',
-          family: 'Un niño de vuelta en clase',
-        },
-        {
-          outcome: 'Estudiantes sin vivienda estable',
-          blocked: 'Familias que no saben que vivir con parientes puede contar bajo la ley McKinney-Vento',
-          district: 'Los estudiantes correctos identificados, y el apoyo que exige la ley llegando a ellos',
-          family: 'Transporte a la misma escuela, comidas gratis e inscripción sin los papeles de siempre',
-        },
+        ['Días de asistencia', 'Un transporte, un formulario de salud, una cobertura vencida, una mudanza', 'Financiamiento por asistencia, por día'],
+        ['El conteo de bajos ingresos', 'Familias elegibles para CalFresh o Medi-Cal que nunca se inscribieron o nunca fueron emparejadas', 'Subvenciones suplementarias y de concentración por cada estudiante contado'],
+        ['Medicaid para estudiantes con IEP', 'El consentimiento único de un padre y un número de Medicaid en el expediente', 'Reembolso por terapias que usted ya brinda'],
       ],
-      note: 'Medicaid: auditoría de seguimiento del Contralor de NYC, julio de 2026. Consentimiento: encuesta de distritos de AASA, AESA y NAME, publicada por K-12 Dive, 2023. Bajo IDEA, un distrito necesita el consentimiento escrito, una sola vez, de la madre o el padre antes de facturar a Medicaid por primera vez los servicios de un niño (34 CFR 300.154). Ausentismo crónico: AEI, publicado por K-12 Dive, 2025. LCFF: Departamento de Educación de California, 2025–26.',
+      head: ['Resultado', 'Qué está en medio', 'Qué recibe el distrito'],
+      note: 'Dos líneas más esperan a las mismas familias. Empezamos con la asistencia porque el estado la paga por día y la medición es limpia; las otras dos corren con el mismo ayudante y el mismo sí.',
     },
-
-    example: {
-      h2Plain: 'Una familia,',
-      h2Em: 'bien contada.',
-      lead: 'En un distrito de California donde más del 55% de los estudiantes son de bajos ingresos, una familia que se inscribe en CalFresh o Medi-Cal es reconocida por el estado, y su estudiante cuenta para LCFF. La familia recibe ayuda con la comida y la cobertura médica. El distrito recibe fondos que ya debía tener.',
-      brief: {
-        eyebrow: 'Lo que vale un reconocimiento',
-        example: 'California, estimación',
-        rows: [
-          { v: '~$9,750', l: 'Al año para el distrito, cuando se completa', note: 'Subvenciones suplementaria (20%) y de concentración (65%) sobre una base promedio de $11,465. El conteo promedia tres años, así que crece poco a poco.' },
-          { v: 'Anual', l: 'El estudiante se reconoce de nuevo', note: 'Mientras la familia siga inscrita. Sin formulario de comidas que perseguir.' },
-          { v: '$0', l: 'Lo que la familia nos paga', note: 'Pagan los distritos. Las familias nunca.' },
-          { v: 'Fija', l: 'Nuestra tarifa por el resultado, acordada de antemano', note: 'Nada si la familia no se inscribe.' },
-        ],
-        foot: 'Estimaciones con tarifas públicas. La revisión gratis las reemplaza con los números de su distrito.',
-      },
-    },
-
-    steps: {
-      h2Plain: 'Cada familia, hasta el final.',
-      h2Em: 'Nada avanza sin un sí.',
-      lead: 'Mycelium lleva un registro al día de dónde está cada familia en cada resultado: probablemente elegible, contactada, de acuerdo, solicitud enviada, confirmada. Avanza a una familia solo cuando está seguro. Cuando no lo está, decide una persona de su equipo o del nuestro.',
-      items: [
-        { tag: 'Mapa', text: 'Leemos cómo se financia su distrito y dónde se atoran los resultados: la fórmula de su estado, su facturación a Medicaid, sus datos de inscripción y asistencia.' },
-        { tag: 'Encontrar', text: 'Entran nombres: los estudiantes cuyas familias probablemente son elegibles, les falta un consentimiento o están faltando a clases.' },
-        { tag: 'Contactar', text: 'Su distrito envía un mensaje con nuestro número. Las familias responden por texto en inglés o español, a cualquier hora.' },
-        { tag: 'Sí', text: 'Nada se firma ni se envía hasta que la madre o el padre responde SÍ a exactamente lo que va a pasar.' },
-        { tag: 'Confirmar', text: 'Seguimos cada caso hasta el resultado: el consentimiento en el expediente, la aprobación, el reconocimiento, el estudiante de vuelta en clase.' },
-        { tag: 'Informar', text: 'Salen resultados: un registro mensual por escuela de lo que cambió y cuánto vale, con los casos difíciles en manos de su personal.' },
+    evidence: {
+      h2: 'Por qué la ayuda funciona donde las cartas no.',
+      facts: [
+        ['Un folleto sobre ayuda financiera no cambió nada. Sentarse con la familia a terminar el formulario subió la inscripción universitaria 8 puntos.', 'Bettinger, Long, Oreopoulos y Sanbonmatsu, aleatorio, 26,000 familias', 'https://www.povertyactionlab.org/print/pdf/node/2133?lang=en'],
+        ['Una carta que decía “usted califica” duplicó la inscripción en un beneficio. Una persona que lo tramitó la triplicó.', 'Finkelstein y Notowidigdo, aleatorio, 31,000 adultos mayores', 'https://www.nber.org/system/files/working_papers/w24652/w24652.pdf'],
+        ['Mensajes personales a las familias recuperan asistencia por $5 a $11 el día, el doble en familias que hablan otro idioma.', 'Robinson, Lee, Dearing y Rogers, aleatorio, California K–5', 'https://toddrogers.scholars.harvard.edu/resource/robinsonleedearingrogers2018reducingabsenteeismintheearlygradespdf'],
+        ['Un ayudante por texto atendió 200,000 mensajes. Menos de uno de cada cien necesitó a una persona.', 'Georgia State University, aleatorio, 3,100 estudiantes', 'https://campustechnology.com/articles/2017/03/07/using-ai-chatbots-to-freeze-summer-melt-in-higher-ed.aspx'],
       ],
+      bet: 'Nadie ha hecho el ensayo en que un solo ayudante, el de la familia, hace las cuatro cosas. El suyo sería ese: ofrecido escuela por escuela, medido contra las escuelas que aún no lo reciben, así que para junio usted lo sabe.',
     },
-
-    different: {
-      h2Plain: 'Por qué esto no se hace',
-      h2Em: 'ya.',
-      items: [
-        { title: 'Cada caso es pequeño. Hay miles.', body: 'Un formulario, una llamada, un transporte. Su personal sabe hacer cada uno. Nadie tiene las horas para hacerlo con cada familia, cada mes.' },
-        { title: 'El trabajo está fuera de la escuela', body: 'La ayuda para comida, la cobertura médica y el transporte pasan por oficinas del condado y del estado. Trabajamos con las familias en todas ellas.' },
-        { title: 'Solo la familia puede firmar', body: 'Ningún cruce de datos puede inscribir a nadie ni dar consentimiento. Lo hacemos con la madre o el padre, a partir de un mensaje en el que confían porque vino de su escuela.' },
-        { title: 'Usted paga por resultados', body: 'Una tarifa fija por resultado, acordada de antemano. Nada por el contacto, nada por las familias que dicen que no.' },
-      ],
+    close: {
+      h2: 'Ahora puede verlo.',
+      p: 'Envíenos su LCAP y su archivo de asistencia, o solo el nombre de su distrito. En una semana le devolvemos lo recuperable, línea por línea, y lo que el ayudante le habría dicho a las primeras cuarenta familias que contactó el año pasado.',
     },
-
-    never: {
-      h2: 'Lo que nunca hacemos',
-      items: [
-        { title: 'Actuar sin un sí', body: 'Nada se envía, firma o presenta hasta que la madre o el padre responde SÍ a exactamente lo que va a pasar.' },
-        { title: 'Compartir el caso de una familia', body: 'El distrito ve resultados y totales. Sabe más solo cuando la familia está de acuerdo, y solo lo que necesita.' },
-        { title: 'Tocar la educación de un estudiante', body: 'Nunca cambiamos un IEP, una asignación, una calificación ni un servicio.' },
-        { title: 'Cobrar a las familias', body: 'Las familias nunca nos pagan. Firmamos el acuerdo de privacidad de datos estudiantiles de su estado antes de ver un solo registro.' },
-      ],
-    },
-
-
     district: {
       h2Plain: 'Busque su distrito.',
-      h2Em: 'Vea cuánto vale la asistencia.',
+      h2Em: '',
       lead: 'Cada distrito de California, según el archivo estatal de ausentismo crónico 2024–25 y su financiamiento LCFF 2024–25. Escriba un distrito o elija uno.',
       label: 'Busque su distrito',
       placeholder: 'Escriba cualquier distrito escolar de California',
@@ -582,47 +528,6 @@ export default {
       offline: 'La lista de distritos no cargó',
       assume: 'Conteos del archivo estatal de ausentismo 2024–25; valores del financiamiento LCFF 2024–25 de cada distrito. El alcance y los días son supuestos nuestros, por debajo de lo que una carta por correo, sola, recuperó en un ensayo aleatorio (Rogers y Feller, 28,000 hogares). Los no contados quedan fuera de la cifra; los distritos de impuestos locales muestran $0; a los de matrícula en descenso se les paga un año tarde.',
     },
-    scan: {
-      h2Plain: 'Empiece con una revisión gratis',
-      h2Em: 'de sus propios datos.',
-      lead: 'En 30 días le mostramos, en dólares, lo que está esperando a las familias de su distrito, resultado por resultado, y cuántos estudiantes hay detrás de cada número.',
-      cards: [
-        { title: 'Lo que recibe', body: 'Para cada resultado: cuántos estudiantes probablemente están afectados, cuánto vale al año y qué escuelas tienen más. Ningún nombre sale del distrito a menos que usted lo pida.' },
-        { title: 'Lo que da', body: 'Un archivo de estudiantes sin identificar, bajo su acuerdo de privacidad de datos, y un contacto en la oficina del distrito.' },
-        { title: 'Lo que cuesta', body: 'Nada. Si quiere que contactemos a las familias, usted envía un mensaje y paga solo por resultados.' },
-      ],
-      dataLabel: 'Lo que pedimos',
-      data: [
-        'Grado, escuela e idioma del hogar',
-        'Si tiene IEP y los servicios de cada IEP',
-        'Situación de Medicaid y de comidas gratis, y cómo se determinó',
-        'Días inscrito y días ausente',
-      ],
-      neverLabel: 'Lo que nunca necesitamos',
-      never: ['Números de Seguro Social', 'Expedientes médicos', 'Calificaciones o expedientes disciplinarios'],
-      estimate: 'Para un distrito de California por encima del 55%, cada 100 estudiantes contados por primera vez valen cerca de $975,000 al año cuando se completa. La revisión lo reemplaza con su número.',
-    },
-
-    pilot: {
-      h2: 'Empiece con un resultado en algunas escuelas',
-      lead: 'Elija el resultado que más le importa y algunas escuelas. Usted envía un mensaje. Nosotros contactamos a las familias, seguimos cada caso y le informamos cada mes.',
-      feesHead: ['Qué', 'Nuestra tarifa'],
-      fees: [
-        ['Un consentimiento de Medicaid devuelto para un estudiante con IEP', 'Una tarifa fija, acordada de antemano'],
-        ['Una familia inscrita y contada por primera vez', 'Una tarifa fija, acordada de antemano'],
-        ['Un estudiante con ausentismo crónico de vuelta a más del 90% durante un periodo completo', 'Una tarifa fija, acordada de antemano'],
-        ['Una familia que no responde, no es elegible o dice que no', 'Nada'],
-      ],
-      measuresLabel: 'Lo que informamos cada mes',
-      measures: [
-        'Familias contactadas, en qué idioma, y cuántas respondieron',
-        'Consentimientos devueltos, inscripciones aprobadas y estudiantes reconocidos',
-        'Asistencia de los estudiantes con quienes trabajamos',
-        'Fondos estimados ganados, por escuela',
-      ],
-      guardrail: 'Si nada cambia, el piloto no le cuesta nada al distrito.',
-    },
-
     form: {
       h2: 'Pida una revisión gratis',
       lead: 'Cuéntenos sobre su distrito. Le respondemos en dos días hábiles con el acuerdo de datos y la lista de datos.',
@@ -638,13 +543,11 @@ export default {
       error: 'No pudimos guardar su solicitud. Inténtelo de nuevo.',
       generic: 'Por favor llene todos los campos.',
     },
-
     fundsBand: {
       h2: '¿Administra un fondo sindical?',
       body: 'Mycelium también ayuda a los fondos a dejar de pagar primas de la Parte B de Medicare que pagaría Nueva York, con el sí de cada jubilado.',
       link: 'Para fondos sindicales',
     },
-
     footer: {
       tagline: 'Ayuda para las familias, fondos para las escuelas que las atienden',
       links: [

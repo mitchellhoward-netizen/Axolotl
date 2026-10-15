@@ -441,196 +441,155 @@ function homeSections(s) {
 
 // ── /schools: for school districts ───────────────────────────────────────────
 //
-// Outcomes a district is already paid for that wait on a family: Medicaid
-// consent for students with IEPs, the low-income count its funding formula
-// uses, attendance, students without stable housing. Copy lives under
-// `schools` in the strings files; the hero shows an example monthly ledger.
+// The buyer page behind the homepage's first door, in the homepage's design
+// (public/buyer.css is the homepage's stylesheet, extracted). Attendance
+// first: the fifth absence, Maya's thread, the district picker, how it works,
+// what the school sees and never, the trial design, the evidence, the ask.
+// Copy lives under `schools` in the strings files.
+
+const IMGS = {
+  cycle: '<img src="/assets/myc-fan-lomas.jpg" width="1280" height="851" alt="" fetchpriority="high"><img src="/assets/dend-fan-single.jpg" width="1280" height="1763" alt="" style="object-position: 50% 40%"><img src="/assets/dend-field-solnhofen.jpg" width="1280" height="850" alt="" style="object-position: 50% 35%"><img src="/assets/dend-tree-pyrolusite.jpg" width="1075" height="1657" alt="" style="object-position: 50% 30%">',
+};
+
+function thread(t) {
+  return `<div class="thread" data-ui aria-label="${esc(t.who)}">
+      <div class="who">${esc(t.who)}</div>
+      <div class="msgs">${t.msgs.map(([k, m]) => `<div class="m${k === 'me' ? ' me' : ''}">${esc(m)}</div>`).join('')}</div>
+      <div class="note">${esc(t.note)}</div>
+    </div>`;
+}
 
 function schoolSections(s) {
   const k = at(s, 'schools');
-
-  const h = k.hero;
-  const hero = `
-    <section class="hero hero-schools hero-fund" id="top" aria-labelledby="hero-title">
-      <div class="wrap split hero-fund-split">
-        <div class="split-copy">
-          <p class="schools-eyebrow">${esc(h.eyebrow)}</p>
-          <h1 id="hero-title">${payoff(h.h1Plain, h.h1Em)}</h1>
-          <p class="lead">${esc(h.sub)}</p>
-          <div class="hero-actions">
-            <a class="button primary" href="#school-contact">${esc(h.primary)}</a>
-            <a class="text-link" href="#outcomes">${esc(h.secondary)}</a>
-          </div>
-          <p class="trust-line">${esc(h.trust)}</p>
-        </div>
-        ${briefCard(h.ledger, 'ledger-title')}
-      </div>
-    </section>`;
-
-  const o = k.outcomes;
-  const outcomes = `
-    <section class="section t-day" id="outcomes" aria-labelledby="outcomes-title">
-      <div class="wrap">
-        <div class="split money-split">
-          <div class="split-copy">
-            <h2 id="outcomes-title">${payoff(o.h2Plain, o.h2Em)}</h2>
-            <p class="lead">${esc(o.lead)}</p>
-          </div>
-          ${briefCard(o.stats, 'outcomes-stats-title')}
-        </div>
-        <table class="year-table money-table">
-          <caption class="sr-only">${esc(o.caption)}</caption>
-          <thead>
-            <tr>${o.head.map((c) => `<th scope="col">${esc(c)}</th>`).join('')}</tr>
-          </thead>
-          <tbody>
-          ${o.rows
-            .map(
-              (r) => `<tr>
-            <td data-label="${esc(o.head[0])}">${esc(r.outcome)}</td>
-            <td data-label="${esc(o.head[1])}">${esc(r.blocked)}</td>
-            <td data-label="${esc(o.head[2])}">${esc(r.district)}</td>
-            <td data-label="${esc(o.head[3])}">${esc(r.family)}</td>
-          </tr>`,
-            )
-            .join('\n          ')}
-          </tbody>
-        </table>
-        <p class="network-note">${esc(o.note)}</p>
-      </div>
-    </section>`;
-
-  const e = k.example;
-  const example = `
-    <section class="section t-noon" id="example" aria-labelledby="example-title">
-      <div class="wrap split">
-        <div class="split-copy">
-          <h2 id="example-title">${payoff(e.h2Plain, e.h2Em)}</h2>
-          <p class="lead">${esc(e.lead)}</p>
-        </div>
-        ${briefCard(e.brief, 'example-brief-title')}
-      </div>
-    </section>`;
-
-  const st = k.steps;
-  const steps = `
-    <section class="section t-night-deep" id="how" aria-labelledby="how-title">
-      <div class="wrap">
-        <h2 id="how-title">${payoff(st.h2Plain, st.h2Em)}</h2>
-        <p class="lead">${esc(st.lead)}</p>
-        <ol class="fly-steps">
-          ${st.items.map((i) => `<li><strong>${esc(i.tag)}</strong><span>${esc(i.text)}</span></li>`).join('\n          ')}
-        </ol>
-      </div>
-    </section>`;
-
-  const df = k.different;
-  const different = `
-    <section class="section t-day" aria-labelledby="different-title">
-      <div class="wrap">
-        <h2 id="different-title">${payoff(df.h2Plain, df.h2Em)}</h2>
-        ${cardGrid(df.items)}
-      </div>
-    </section>`;
-
-  const never = `
-    <section class="section" aria-labelledby="never-title">
-      <div class="wrap">
-        <h2 id="never-title">${esc(k.never.h2)}</h2>
-        ${cardGrid(k.never.items)}
-      </div>
-    </section>`;
-
-
-  const d = k.district;
+  const h = k.hero, t = k.thread, d = k.district;
   const dj = JSON.stringify(d).replace(/</g, '\\u003c');
+  const hero = `
+<section class="hero" id="top" aria-label="Mycelium">
+  <div class="field-top"></div>
+  <div class="field-bottom"></div>
+  <div class="sentence-wrap"><h1 class="sentence" data-rise style="--i:0">
+    <span class="l1">${esc(h.h1a)}</span>
+    <span class="l2">${esc(h.h1b)}</span>
+  </h1></div>
+  <div class="photo" aria-hidden="true">${IMGS.cycle}</div>
+  <p class="support" data-rise style="--i:1">${esc(h.sub)}</p>
+  <div class="action" data-rise style="--i:2"><a class="button" href="#close">${esc(h.primary)}</a><a class="door" href="#district">${esc(h.secondary)}</a></div>
+</section>`;
+  const showcase = `
+<section class="wedge" id="letter" aria-label="${esc(t.h2a)} ${esc(t.h2b)}">
+  <h2>${esc(t.h2a)}<br>${esc(t.h2b)}</h2>
+  <div class="text">
+    <p>${esc(t.p1)}</p>
+    <p>${esc(t.p2)}</p>
+  </div>
+  <div class="obj">${thread(t)}</div>
+</section>`;
   const district = `
-    <section class="section t-day" id="district" aria-labelledby="district-title">
-      <div class="wrap">
-        <h2 id="district-title">${payoff(d.h2Plain, d.h2Em)}</h2>
-        <p class="lead">${esc(d.lead)}</p>
-        <form class="district-scan" onsubmit="return false">
-          <div class="figure" id="scan-figure" aria-live="polite">$244K<small id="scan-sub">${esc(d.sub.replace('{name}', 'Pajaro Valley Unified'))}</small></div>
-          <div class="pick">
-            <label for="district-input" class="sr-only">${esc(d.label)}</label>
-            <input id="district-input" type="search" placeholder="${esc(d.placeholder)}" autocomplete="off" spellcheck="false" role="combobox" aria-expanded="false" aria-controls="scan-matches" aria-autocomplete="list">
-            <ul class="matches" id="scan-matches" role="listbox"></ul>
-          </div>
-          <p class="quick" id="scan-quick">${esc(d.quick)} <button type="button" data-pick="4469799">${esc(d.quickNames[0])}</button>, <button type="button" data-pick="0161259">${esc(d.quickNames[1])}</button>, <button type="button" data-pick="1062166">${esc(d.quickNames[2])}</button>.</p>
-          <div class="lines" id="scan-lines">
-            <div><span>${esc(d.line1.replace('{absent}', '3,865').replace('{days}', '3').replace('{perDay}', '84'))}</span><b>$244K</b></div>
-            <div><span>${esc(d.line2.replace('{uncounted}', '77').replace('{perCounted}', '9,139'))}</span><b>$704K</b></div>
-            <div><span>${esc(d.line3)}</span><b>$2.2M</b></div>
-          </div>
-          <p class="assume">${esc(d.assume)}</p>
-        </form>
-        <script type="application/json" id="district-strings">${dj}</script>
-      </div>
-    </section>`;
-
-  const sc = k.scan;
-  const scan = `
-    <section class="section t-golden" id="scan" aria-labelledby="scan-title">
-      <div class="wrap">
-        <h2 id="scan-title">${payoff(sc.h2Plain, sc.h2Em)}</h2>
-        <p class="lead">${esc(sc.lead)}</p>
-        <div class="scan-cards">${cardGrid(sc.cards)}</div>
-        <div class="scan-lists">
-          <div>
-            <h3>${esc(sc.dataLabel)}</h3>
-            <ul class="plain-list">${sc.data.map((i) => `<li>${esc(i)}</li>`).join('')}</ul>
-          </div>
-          <div>
-            <h3>${esc(sc.neverLabel)}</h3>
-            <ul class="plain-list">${sc.never.map((i) => `<li>${esc(i)}</li>`).join('')}</ul>
-          </div>
-        </div>
-        <p class="scan-estimate"><span class="highlight">${esc(sc.estimate)}</span></p>
-        <a class="button primary" href="#school-contact">${esc(h.primary)}</a>
-      </div>
-    </section>`;
-
-  const p = k.pilot;
-  const pilot = `
-    <section class="section section-sheet" aria-labelledby="pilot-title">
-      <div class="wrap">
-        <h2 id="pilot-title">${esc(p.h2)}</h2>
-        <p class="lead">${esc(p.lead)}</p>
-        <table class="year-table connect-table">
-          <caption class="sr-only">${esc(p.h2)}</caption>
-          <thead>
-            <tr><th scope="col">${esc(p.feesHead[0])}</th><th scope="col">${esc(p.feesHead[1])}</th></tr>
-          </thead>
-          <tbody>
-          ${p.fees
-            .map(([a, b]) => `<tr><td data-label="${esc(p.feesHead[0])}">${esc(a)}</td><td data-label="${esc(p.feesHead[1])}">${esc(b)}</td></tr>`)
-            .join('\n          ')}
-          </tbody>
-        </table>
-        <h3>${esc(p.measuresLabel)}</h3>
-        <ul class="plain-list wide">
-          ${p.measures.map((i) => `<li>${esc(i)}</li>`).join('\n          ')}
-        </ul>
-        <p><span class="highlight">${esc(p.guardrail)}</span></p>
-      </div>
-    </section>`;
-
-  const band = k.fundsBand;
-  const fundsBand = `
-    <section class="section t-night-deep section-band" aria-labelledby="funds-band-title">
-      <div class="wrap band">
-        <h2 id="funds-band-title">${esc(band.h2)}</h2>
-        <p class="lead">${esc(band.body)}</p>
-        <a class="text-link" href="${localized(s, '/funds')}">${esc(band.link)}</a>
-      </div>
-    </section>`;
-
-  return [hero, outcomes, district, example, steps, different, never, scan, pilot, contactForm(k.form, 'schools'), fundsBand].join('');
+<section class="scan-section" id="district" aria-labelledby="district-title">
+  <h2 id="district-title">${esc(d.h2Plain)}</h2>
+  <p class="lede">${esc(d.lead)}</p>
+  <form class="scan" onsubmit="return false">
+    <div class="figure" id="scan-figure" aria-live="polite">$244K<small id="scan-sub">${esc(d.sub.replace('{name}', 'Pajaro Valley Unified'))}</small></div>
+    <div class="pick">
+      <label for="district-input" class="vh">${esc(d.label)}</label>
+      <input id="district-input" type="search" placeholder="${esc(d.placeholder)}" autocomplete="off" spellcheck="false" role="combobox" aria-expanded="false" aria-controls="scan-matches" aria-autocomplete="list">
+      <ul class="matches" id="scan-matches" role="listbox"></ul>
+    </div>
+    <p class="quick" id="scan-quick">${esc(d.quick)} <button type="button" data-pick="4469799">${esc(d.quickNames[0])}</button>, <button type="button" data-pick="0161259">${esc(d.quickNames[1])}</button>, <button type="button" data-pick="1062166">${esc(d.quickNames[2])}</button>.</p>
+    <div class="lines" id="scan-lines">
+      <div><span>${esc(d.line1.replace('{absent}', '3,865').replace('{days}', '3').replace('{perDay}', '84'))}</span><b>$244K</b></div>
+      <div><span>${esc(d.line2.replace('{uncounted}', '77').replace('{perCounted}', '9,139'))}</span><b>$704K</b></div>
+      <div><span>${esc(d.line3)}</span><b>$2.2M</b></div>
+    </div>
+    <p class="assume">${esc(d.assume)}</p>
+  </form>
+  <script type="application/json" id="district-strings">${dj}</script>
+</section>`;
+  const how = `
+<section class="how" id="how" aria-label="${esc(k.nav.how)}">
+  ${k.how.steps.map(([line, p], i) => `<div class="stage">
+    ${i === 0 ? `<h2>${esc(line)}</h2>` : `<div class="line">${esc(line)}</div>`}
+    <p>${esc(p)}</p>
+  </div>`).join('\n  ')}
+</section>`;
+  const sees = `
+<section class="fields" id="sees" aria-label="${esc(k.nav.outcomes)}">
+  <div class="field light">
+    <p class="why">${esc(k.sees.a.p)}</p>
+    <h2>${esc(k.sees.a.h2)}</h2>
+  </div>
+  <div class="field mid mirror">
+    <p class="why">${esc(k.sees.b.p)}</p>
+    <h2>${esc(k.sees.b.h2)}</h2>
+  </div>
+  <div class="field dark">
+    <figure class="field-photo"><img src="/assets/dend-fan-single.jpg" width="1280" height="1763" alt="" loading="lazy" style="object-position: 50% 35%"></figure>
+    <p class="why">${esc(k.sees.c.p)}</p>
+    <h2>${esc(k.sees.c.h2)}</h2>
+  </div>
+</section>`;
+  const trial = `
+<section class="theirs" id="trial" aria-label="${esc(k.trial.h2a)} ${esc(k.trial.h2b)}">
+  <h2>${esc(k.trial.h2a)}<br>${esc(k.trial.h2b)}</h2>
+  <div class="grid body">
+    <figure class="photo"><img src="/assets/dend-tree-pyrolusite.jpg" width="1075" height="1657" alt="" loading="lazy"></figure>
+    <div class="list">
+      <p class="item-lede">${esc(k.trial.lead)}</p>
+      ${k.trial.items.map((i) => `<div class="item"><p>${esc(i)}</p></div>`).join('\n      ')}
+    </div>
+    <div class="why">
+      <p>${esc(k.evidence.h2)}</p>
+      <ul class="facts">
+        ${k.evidence.facts.map(([f, src, url]) => `<li><a href="${url}">${esc(f)}<small>${esc(src)}</small></a></li>`).join('\n        ')}
+      </ul>
+      <p>${esc(k.evidence.bet)}</p>
+    </div>
+  </div>
+</section>`;
+  const more = `
+<section class="where" id="more" aria-label="${esc(k.more.h2)}">
+  <h2>${esc(k.more.h2)}</h2>
+  <div class="body grid">
+    <div class="table">
+      ${k.more.rows.map(([a, b, c], i) => `<div class="row${i === 0 ? '' : ''}"><span class="k">${esc(a)}</span><span>${esc(b)}</span><span class="v">${esc(c)}</span></div>`).join('\n      ')}
+    </div>
+  </div>
+  <p class="lede">${esc(k.more.note)}</p>
+</section>`;
+  const band = `
+<figure class="band tint" aria-hidden="true"><img src="/assets/dend-field-solnhofen.jpg" width="1280" height="850" alt="" loading="lazy" style="object-position: 50% 40%"></figure>`;
+  const close = `
+<section class="close" id="close" aria-label="${esc(k.close.h2)}">
+  <h2>${esc(k.close.h2)}</h2>
+  <div class="foot">
+    <p>${esc(k.close.p)}</p>
+  </div>
+  ${buyerForm(k.form, 'schools')}
+</section>`;
+  const bandLink = k.fundsBand;
+  const funds = `
+<section class="founders" aria-label="${esc(bandLink.h2)}">
+  <h2>${esc(bandLink.h2)}</h2>
+  <p>${esc(bandLink.body)} <a href="${localized(s, '/funds')}">${esc(bandLink.link)} →</a></p>
+</section>`;
+  return [hero, showcase, district, how, sees, trial, more, band, close, funds].join('\n');
 }
 
 /** The scan request form. Both the school and fund pages post it as kind
  *  "school" (see site.js); `source` prefixes the message so the two can be told
  *  apart in the signups table. */
+function buyerForm(fm, source) {
+  return `<form id="school-form" class="ask" novalidate data-source="${source}" data-error="${esc(fm.generic)}">
+      <div class="field"><label for="school-name">${esc(fm.nameLabel)}</label><input id="school-name" name="name" type="text" autocomplete="name" maxlength="120" required aria-describedby="school-error"></div>
+      <div class="field"><label for="school-role">${esc(fm.roleLabel)}</label><input id="school-role" name="role" type="text" autocomplete="organization-title" maxlength="120" required aria-describedby="school-error"></div>
+      <div class="field"><label for="school-district">${esc(fm.fundLabel)}</label><input id="school-district" name="school" type="text" autocomplete="organization" maxlength="160" required aria-describedby="school-error"></div>
+      <div class="field"><label for="school-email">${esc(fm.emailLabel)}</label><input id="school-email" name="email" type="email" autocomplete="email" maxlength="254" required aria-describedby="school-error"></div>
+      <div class="field wide"><label for="school-message">${esc(fm.messageLabel)} <span class="hint">${esc(fm.messageHint)}</span></label><textarea id="school-message" name="message" maxlength="1980" rows="3" aria-describedby="school-error"></textarea></div>
+      <div class="field wide"><button class="button" type="submit">${esc(fm.submit)}</button><p class="form-note">${esc(fm.note)}</p><p class="form-error" id="school-error" role="alert" hidden>${esc(fm.error)}</p></div>
+    </form>
+    <div class="form-success" id="school-sent" role="status" tabindex="-1" hidden><p>${esc(fm.success)}</p></div>`;
+}
+
 function contactForm(fm, source, tone = '') {
   return `
     <section class="section${tone ? ` ${tone}` : ''}" id="school-contact" aria-labelledby="school-contact-title">
@@ -1041,6 +1000,93 @@ function memberCalcSection(s) {
 }
 
 
+
+// ── buyer document shell: the homepage's chrome ─────────────────────────────
+
+function buyerDocument(s, { title, description, canonical, alts, body, langHref, share, shareAlt, nav, ctaLabel, ctaHref }) {
+  const alt = alts.map(([hreflang, href]) => `<link rel="alternate" hreflang="${hreflang}" href="${SITE}${href}" />`).join('\n');
+  const other = s.lang === 'en' ? 'es' : 'en';
+  const legal = s.lang === 'en'
+    ? 'Mycelium is built by Mitch Howard and Sarah Xu, formerly of Clay. © 2026 Mycelium · San Francisco and New York'
+    : 'Mycelium lo construyen Mitch Howard y Sarah Xu, antes en Clay. © 2026 Mycelium · San Francisco y Nueva York';
+  const photos = s.lang === 'en' ? 'Photographs from Wikimedia Commons' : 'Fotografías de Wikimedia Commons';
+  const talk = s.lang === 'en' ? 'Talk to the founders.' : 'Hable con los fundadores.';
+  const talkBtn = s.lang === 'en' ? 'Talk to the founders' : 'Hablar con los fundadores';
+  return `<!doctype html>
+<html lang="${s.lang}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>${esc(title)}</title>
+<meta name="description" content="${esc(description)}">
+<meta property="og:title" content="${esc(title)}">
+<meta property="og:description" content="${esc(description)}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Mycelium">
+<meta property="og:url" content="${SITE}${canonical}">
+<meta property="og:image" content="${SITE}/${share}">
+<meta property="og:image:alt" content="${esc(shareAlt)}">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="${SITE}${canonical}">
+${alt}
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#1a1512">
+<script>document.documentElement.classList.add('js')</script>
+<link rel="preconnect" href="https://api.fontshare.com">
+<link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=gambarino@400&f[]=general-sans@400,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/buyer.css?v=1">
+<script src="/msp-calc.js?v=21" defer></script>
+<script src="/site.js?v=23" defer></script>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <a class="mark" href="${localized(s, '/')}">Mycelium</a>
+  <ul>
+    ${nav.map(([label, href]) => `<li><a href="${href}">${esc(label)}</a></li>`).join('\n    ')}
+    <li><a href="${langHref}" lang="${other}" hreflang="${other}">${esc(at(s, 'nav.langSwitch'))}</a></li>
+  </ul>
+  <a class="nav-action" href="${ctaHref}">${esc(ctaLabel)}</a>
+</header>
+
+<main id="top">
+${body}
+</main>
+
+<footer class="footer">
+  <div class="top">
+    <div class="invite">
+      <h2>${talk}</h2>
+      <a class="button" href="mailto:hello@try-mycelium.com?subject=Mycelium">${talkBtn}</a>
+    </div>
+    <div class="links">
+      <a href="mailto:hello@try-mycelium.com">hello@try-mycelium.com</a>
+      <a href="https://try-mycelium.com">try-mycelium.com</a>
+      <a href="${langHref}" lang="${other}" hreflang="${other}">${esc(at(s, 'nav.langSwitch'))}</a>
+    </div>
+  </div>
+  <div class="legal">
+    <span>${legal}</span>
+    <span>${photos}: <a href="https://commons.wikimedia.org/wiki/File:Rhizomorph_(5211991289).jpg">Alex Lomas, CC BY 2.0</a> · <a href="https://commons.wikimedia.org/wiki/File:Dendrit.jpg">Ivtorov, CC BY-SA 4.0</a> · <a href="https://commons.wikimedia.org/wiki/File:Pyrolusite_(Solnhofen_Bavi%C3%A8re_-_Allemagne).jpg">Parent Géry, CC BY-SA 3.0</a> · <a href="https://commons.wikimedia.org/wiki/File:Pyrolusite_-_dendrites_de_mangan%C3%A8se_1.JPG">Parent Géry, CC BY-SA 3.0</a> · <a href="https://commons.wikimedia.org/wiki/File:Manganese_Dendrites_(6735677997).jpg">GorissM, CC BY-SA 2.0</a></span>
+  </div>
+  <div class="name" aria-hidden="true">Mycelium</div>
+</footer>
+
+<script>
+(function(){
+  var nav = document.getElementById('nav');
+  var lights = document.querySelectorAll('.hero .field-top, .field.light, .close');
+  function tick(){ var y = 36, on = false; lights.forEach(function(el){ var r = el.getBoundingClientRect(); if (r.top <= y && r.bottom > y) on = true; }); nav.classList.toggle('on-light', on); }
+  tick(); window.addEventListener('scroll', tick, { passive: true }); window.addEventListener('resize', tick);
+})();
+</script>
+</body>
+</html>
+`;
+}
+
 // ── document shell ───────────────────────────────────────────────────────────
 
 function document(s, { page, title, description, canonical, alts, body, langHref, cta, ctaLabel = at(s, 'nav.join'), shareAlt, share }) {
@@ -1135,16 +1181,16 @@ async function render() {
     // /schools, for school districts and charter networks.
     pages.push({
       file: dir ? `${dir}/schools.html` : 'schools.html',
-      html: document(s, {
-        page: 'schools',
+      html: buyerDocument(s, {
         title: at(s, 'schools.meta.title'),
         description: at(s, 'schools.meta.description'),
         canonical: dir ? '/es/schools' : '/schools',
         alts: [['en', '/schools'], ['es', '/es/schools']],
         body: schoolSections(s),
         langHref: dir ? '/schools' : '/es/schools',
-        cta: '#school-contact',
+        nav: [[at(s, 'schools.nav.outcomes'), '#sees'], [at(s, 'schools.nav.how'), '#how'], [at(s, 'schools.nav.funds'), localized(s, '/funds')]],
         ctaLabel: at(s, 'schools.nav.join'),
+        ctaHref: '#close',
         shareAlt: at(s, 'schools.meta.shareAlt'),
         share: shareSchools,
       }),
