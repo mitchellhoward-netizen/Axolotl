@@ -165,7 +165,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; letter-spacing: -0.0
 .showcase .stack .soft { color: var(--muted); }
 .showcase .stack .cap { display: inline-block; background: var(--accent); color: var(--accent-ink); padding: 0 0.06em; margin-right: 0.08em; line-height: 0.82; }
 .showcase .object {
-  position: absolute; right: 4vw; top: calc(var(--gap-section) - 1.5vw); width: min(44vw, 560px);
+  position: absolute; right: 4vw; top: calc(var(--gap-section) + 0.95 * var(--step-poster)); width: min(44vw, 560px);
   transform: rotate(-4deg); z-index: 1;
 }
 .showcase .facts { padding: 48px var(--m) 0; }
@@ -217,7 +217,8 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; letter-spacing: -0.0
 .theirs { padding: var(--gap-section) var(--m) 0; }
 .theirs h2 { font-size: var(--step-poster); line-height: 0.9; max-width: 10ch; }
 .theirs .body { margin-top: 56px; row-gap: 48px; }
-.theirs .lede { grid-column: 1 / span 5; font-size: var(--step-lead); line-height: 1.35; max-width: 28ch; }
+.theirs .photo { grid-column: 1 / span 5; margin: 0; aspect-ratio: 4 / 5; overflow: hidden; background: var(--surface); }
+.theirs .photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; display: block; }
 .theirs .list { grid-column: 7 / span 6; display: grid; gap: 36px; }
 .theirs .item h3 { font-family: var(--text); font-weight: 500; font-size: var(--step-lead); line-height: 1.2; letter-spacing: 0; }
 .theirs .item p { margin-top: 8px; max-width: 40ch; color: var(--ink); }
@@ -228,7 +229,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; letter-spacing: -0.0
 .theirs .facts a { color: inherit; text-decoration: none; }
 .theirs .facts a:hover { text-decoration: underline; text-underline-offset: 3px; }
 .theirs .why > p + p { margin-top: 0; }
-@media (max-width: 1023px) { .theirs .lede, .theirs .list, .theirs .why { grid-column: 1 / span 12; } }
+@media (max-width: 1023px) { .theirs .photo, .theirs .list, .theirs .why { grid-column: 1 / span 12; } .theirs .photo { aspect-ratio: 3 / 2; } }
 
 /* ============ HOW IT WORKS: lines that step across ============ */
 .how { padding: var(--gap-section) var(--m); display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; row-gap: 56px; }
@@ -342,8 +343,6 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; letter-spacing: -0.0
 @media (prefers-reduced-motion: no-preference) {
   .js [data-rise] { opacity: 0; transform: translateY(22px); animation: rise var(--t-reveal) var(--ease-out) forwards; animation-delay: calc(var(--i, 0) * 90ms + 120ms); }
   @keyframes rise { to { opacity: 1; transform: none; } }
-  .js [data-enter] { opacity: 0; transform: translateY(24px); transition: opacity var(--t-reveal) var(--ease-out), transform var(--t-reveal) var(--ease-out); transition-delay: calc(var(--i, 0) * 80ms); }
-  .js [data-enter].in { opacity: 1; transform: none; }
   .js .intro .photos figure { transition: transform 1.2s var(--ease-soft); transform: scale(0.96); }
   .js .intro .photos figure.in { transform: none; }
 }
@@ -372,7 +371,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; letter-spacing: -0.0
     <span class="l2">your families doing well.</span>
   </h1></div>
   <div class="photo" aria-hidden="true"><img src="assets/myc-fan-lomas.jpg" width="1280" height="851" alt="" fetchpriority="high"><img src="assets/dend-fan-single.jpg" width="1280" height="1763" alt="" style="object-position: 50% 40%"><img src="assets/dend-field-solnhofen.jpg" width="1280" height="850" alt="" style="object-position: 50% 35%"><img src="assets/dend-tree-pyrolusite.jpg" width="1075" height="1657" alt="" style="object-position: 50% 30%"></div>
-  <p class="support" data-rise style="--i:1">A school is funded by attendance. A benefit fund pays premiums the state would cover. Both are decided in people's homes, where no institution can reach. Mycelium gives each person a helper: an AI that texts with them in their language, paid for by the institution, working for them.</p>
+  <p class="support" data-rise style="--i:1">Attendance and benefits are decided at home. Mycelium gives each person a helper there: an AI that texts in their language, paid by you, working for them.</p>
   <div class="action" data-rise style="--i:2"><a class="button" href="#close">See what you could recover</a></div>
 </section>
 
@@ -407,8 +406,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; letter-spacing: -0.0
   </div>
   <div class="facts grid">
     <div data-enter style="--i:4">
-      <p>A child's fifth absence is already in the school's records. Today it triggers a truancy notice. With Mycelium it triggers an offer from the school, in the family's language: a helper that works on whatever is keeping the child home, because the real barrier is usually something the school has never seen.</p>
-      <p style="margin-top:16px">The school pays only when attendance improves, measured against each student's own prior year and rolled out school by school so the gain is real. Nothing up front.</p>
+      <p>The fifth absence is already in the school's records. Today it triggers a truancy notice. With Mycelium it triggers an offer, in the family's language, from a helper that works on whatever is keeping the child home. The school pays only when attendance improves.</p>
       <form class="scan" onsubmit="return false">
         <div class="figure" id="scan-figure" aria-live="polite">$244K<small id="scan-sub">Pajaro Valley Unified could recover each year, worked from its own public filings</small></div>
         <div class="pick">
@@ -422,7 +420,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; letter-spacing: -0.0
           <div><span>Not in the figure: if one in two hundred enrolled students is low-income and uncounted, 77 students at $9,139 each</span><b>$704K</b></div>
           <div><span>Each 1% of attendance is worth</span><b>$2.2M</b></div>
         </div>
-        <p class="assume">Student counts come from the state's 2024–25 chronic absenteeism file and the per-day and per-student values from each district's 2024–25 LCFF funding. The one-in-four reach and the three days are our assumptions, set low on purpose: <a href="https://toddrogers.scholars.harvard.edu/resource/reducingstudentabsencesatscalepdf">a mailed letter alone</a> recovered 1.1 days per student in a randomized trial of 28,000 households. The uncounted-student line has no study behind it, so it stays out of the figure. A district in declining enrollment is paid on last year's attendance, so a gain arrives a year late. Districts funded by local property tax show $0, because attendance doesn't move their state money. Fund figures come from public annual filings. The arithmetic is above so you can redo it.</p>
+        <p class="assume">Counts from the state's 2024–25 absenteeism file; values from each district's 2024–25 LCFF funding. The reach and days are our assumptions, set below what <a href="https://toddrogers.scholars.harvard.edu/resource/reducingstudentabsencesatscalepdf">a mailed letter alone</a> recovered in a randomized trial. Uncounted students stay out of the figure; property-tax-funded districts show $0; declining-enrollment districts are paid a year late.</p>
       </form>
     </div>
   </div>
@@ -432,16 +430,16 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; letter-spacing: -0.0
 <section class="theirs" aria-label="What the person gets">
   <h2 data-enter>The helper is theirs.</h2>
   <div class="grid body">
-    <p class="lede" data-enter style="--i:1">The institution pays for it because its budget moves. The person uses it because it works for them. Those two things only line up if the helper is honest about whose side it's on, so we built it to be the person's.</p>
+    <figure class="photo"><img src="assets/dend-tree-pyrolusite.jpg" width="1075" height="1657" alt="A tree-shaped dendrite in black and ochre on cream stone" loading="lazy"></figure>
     <div class="list">
-      <div class="item" data-enter style="--i:2"><h3>It helps with anything.</h3><p>The bus, the Medi-Cal renewal, the shutoff notice, the IEP meeting, the form the county never explained. Not just the one thing the institution is paid on. The barrier to that one thing is usually something else anyway.</p></div>
-      <div class="item" data-enter style="--i:3"><h3>It answers to them.</h3><p>It never pressures a child to school when she's sick. It never tells the school a family's reasons; the school gets patterns in aggregate, never anyone's story. It says no to the institution before it says no to the family, and that rule is written down where both can read it.</p></div>
-      <div class="item" data-enter style="--i:4"><h3>They can say no.</h3><p>Nothing is filed, called or sent without a yes on that exact action. Stop, and it stops. Decline the offer, and the school hears nothing but that.</p></div>
-      <div class="item" data-enter style="--i:5"><h3>It's already in their pocket.</h3><p>It arrives by text message or WhatsApp, whichever the family already uses. Nothing to download, no portal, no login to forget. Your staff get nothing new to run either.</p></div>
-      <div class="item" data-enter style="--i:6"><h3>It stays with them.</h3><p>A school sponsors it first. When a union fund, a clinic or a college later sponsors the same person, the helper is already there, already trusted, already knows the situation.</p></div>
+      <div class="item" data-enter style="--i:2"><h3>It helps with anything.</h3><p>The bus, the Medi-Cal renewal, the shutoff notice, the IEP meeting. Not just the thing you're paid on.</p></div>
+      <div class="item" data-enter style="--i:3"><h3>It answers to them.</h3><p>It never tells the school a family's reasons, and it says no to the institution before it says no to the family.</p></div>
+      <div class="item" data-enter style="--i:4"><h3>They can say no.</h3><p>Nothing is filed or sent without a yes on that exact action. Stop, and it stops.</p></div>
+      <div class="item" data-enter style="--i:5"><h3>It's already in their pocket.</h3><p>Text or WhatsApp, whichever they already use. Nothing to download, and nothing new for your staff.</p></div>
+      <div class="item" data-enter style="--i:6"><h3>It stays with them.</h3><p>When a fund, a clinic or a college later sponsors the same person, the helper is already there.</p></div>
     </div>
     <div class="why" data-enter style="--i:7">
-      <p>We call the gap this closes stranded alignment: outcomes an institution and a person both want, that nobody pursued because helping one person at a time cost more than anyone could capture. The evidence that help, not information, is what moves them:</p>
+      <p>We call the gap stranded alignment: outcomes both sides want that nobody could afford to pursue one person at a time. The evidence that help, not information, closes it:</p>
       <ul class="facts">
         <li><a href="https://www.povertyactionlab.org/print/pdf/node/2133?lang=en">A brochure about financial aid did nothing. Sitting with the family to finish the form raised college enrollment 8 points.</a></li>
         <li><a href="https://www.nber.org/system/files/working_papers/w24652/w24652.pdf">A letter saying "you qualify" doubled benefit enrollment. A person who filed it tripled it.</a></li>
@@ -457,19 +455,19 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; letter-spacing: -0.0
 <section class="how" id="how" aria-label="How it works">
   <div class="stage" data-enter style="--i:0">
     <h2>First we read how you're funded.</h2>
-    <p>Your funding formula and your records, line by line. We find every dollar that depends on something in a person's life: a district's attendance, a fund's Medicare premiums. The number comes first, free.</p>
+    <p>Your funding formula and your records, line by line: every dollar that depends on something in a person's life. The number comes first, free.</p>
   </div>
   <div class="stage" data-enter style="--i:1">
     <div class="line">Then it rehearses on last year.</div>
-    <p>Before the helper texts anyone, it runs on last year's records. You see who it would have reached and what it would have said. You correct it and decide when it's ready.</p>
+    <p>It runs on last year's records first. You see who it would have reached and what it would have said, then decide when it's ready.</p>
   </div>
   <div class="stage" data-enter style="--i:2">
     <div class="line">You offer it. The family says yes.</div>
-    <p>A fifth absence, or a member turning 65, sends an offer from you in their language. They say yes or they don't. Your staff see only the cases that need a person.</p>
+    <p>A fifth absence, or a member turning 65, sends an offer from you in their language. Your staff see only the cases that need a person.</p>
   </div>
   <div class="stage" data-enter style="--i:3">
     <div class="line">You pay when the outcome moves.</div>
-    <p>Attendance days recovered against each student's own prior year, or premiums the state now pays instead of you. Rolled out school by school and measured against the families not yet offered, so you see the gain before you scale it. Our share is a quarter of what's recovered; the rest stays with you.</p>
+    <p>Attendance days against each student's prior year, or premiums the state now pays instead of you, measured school by school against families not yet offered. Our share is a quarter of what's recovered.</p>
   </div>
 </section>
 
@@ -479,16 +477,16 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; letter-spacing: -0.0
 <!-- FEATURES -->
 <section class="fields" aria-label="What the school sees">
   <div class="field light">
-    <p class="why" data-enter>Think of health insurance. Your employer pays for it, the doctor works for you, and your employer benefits when you're well without ever seeing your chart. Same arrangement, now affordable for every family and every retiree.</p>
+    <p class="why" data-enter>Like health insurance: your employer pays, the doctor works for you, and your employer benefits without ever seeing your chart.</p>
     <h2 data-enter style="--i:1">Works for the family.</h2>
   </div>
   <div class="field mid mirror">
-    <p class="why" data-enter>The school sees who was offered a helper, from its own records, and whether attendance improved. It sees patterns in aggregate, like forty families on the same cut bus route, which is a policy it can fix, but never anyone's reasons. And it sees every rule the helper follows, in writing, before anything goes live.</p>
+    <p class="why" data-enter>Who was offered a helper, from its own records, and whether attendance improved. Patterns in aggregate, like forty families on one cut bus route. Every rule the helper follows, in writing, before it goes live.</p>
     <h2 data-enter style="--i:1">The school sees outcomes.</h2>
   </div>
   <div class="field dark">
     <figure class="field-photo" data-enter style="--i:1"><img src="assets/dend-fan-single.jpg" width="1280" height="1763" alt="A single black dendrite fanning across pale limestone" loading="lazy" style="object-position: 50% 35%"></figure>
-    <p class="why" data-enter>It never sees the address, the eviction notice, the immigration question or the sick grandparent. It never sees a message unless the family chooses to share it, and nothing about a family that didn't say yes. This is enforced in the system, not in a prompt. Student data stays under FERPA's school-official rules and California's CA-NDPA, and is never used to train models.</p>
+    <p class="why" data-enter>Never the address, the eviction notice, the immigration question or the sick grandparent. Nothing about a family that didn't say yes. Enforced in the system, not a prompt; student data stays under FERPA and CA-NDPA and is never used to train models.</p>
     <h2 data-enter style="--i:1">Never the reasons.</h2>
   </div>
 </section>
