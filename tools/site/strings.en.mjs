@@ -753,6 +753,7 @@ export default {
           { in: 'Thanks. The renewal is filled in. Reply YES and I’ll send it to the county.' },
           { out: 'YES' },
           { in: 'Sent. I’ll text you the day it’s active so you can pick up her inhaler.' },
+          { out: 'Thank you so much' },
         ],
       },
       {

@@ -700,6 +700,7 @@ export default {
           { in: 'Gracias. La renovación está lista. Responda SÍ y la envío al condado.' },
           { out: 'SÍ' },
           { in: 'Enviada. Le escribo el día que esté activa.' },
+          { out: 'Muchas gracias' },
         ],
       },
       {
