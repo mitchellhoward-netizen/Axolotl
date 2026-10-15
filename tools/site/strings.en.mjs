@@ -684,10 +684,10 @@ export default {
   // FAFSA help, Bettinger, Long, Oreopoulos and Sanbonmatsu, H&R Block experiment (J-PAL).
   home: {
     meta: {
-      title: 'Mycelium: outcomes everyone wants, finally within reach',
+      title: 'Mycelium: when the people you serve do better, your budget does too',
       description:
-        'A kid getting to school, a family keeping its coverage, a retiree getting help they qualify for: your results depend on the people you serve. Mycelium gives each person a helper, an AI agent you sponsor that works for them, in their language, with their yes. You pay when the outcome happens.',
-      shareAlt: 'Mycelium: everyone wants the same outcome. Until now, it was nobody’s job.',
+        'A school’s funding depends on whether kids get to school and whether families are enrolled in the programs they qualify for. A fund’s costs depend on whether retirees apply for help. Mycelium gives each person a helper, an AI agent you sponsor that works for them, with their yes. When their outcome lands, so does yours, and that’s when you pay.',
+      shareAlt: 'Mycelium: when the people you serve do better, your budget does too.',
     },
 
     nav: {
@@ -700,11 +700,11 @@ export default {
 
     hero: {
       eyebrow: 'For schools, benefit funds and the people they serve',
-      h1Plain: 'Everyone wants the same outcome.',
-      h1Em: 'Until now, it was nobody’s job.',
+      h1Plain: 'When the people you serve do better,',
+      h1Em: 'your budget does too.',
       // The social card (share.html) draws the headline as one line of plain text.
-      h1: 'Everyone wants the same outcome. Until now, it was nobody’s job.',
-      sub: 'A kid getting to school. A family keeping its health coverage. A retiree getting help they qualify for. Your results depend on the people you serve, and theirs depend on getting through a maze of forms and offices. Mycelium gives each person a helper: an AI agent you sponsor, that works for them, in their language. You pay when the outcome happens.',
+      h1: 'When the people you serve do better, your budget does too.',
+      sub: 'Every day a student misses, the school loses funding. Every family that never enrolls in food assistance is a student the school isn’t paid for. Every retiree who never applies for help is a premium the fund pays itself. These outcomes matter to the people you serve and to your budget, and nobody has the hours to do the work with each person. Mycelium gives each person a helper: an AI agent you sponsor, that works for them, in their language. You pay when the outcome happens.',
       primary: 'Talk to us',
       secondary: 'See how it works',
       trust: 'Working with schools and union benefit funds. Nothing moves without the person’s yes.',
@@ -715,7 +715,7 @@ export default {
           { v: 'Day 1', l: 'The school texts: here’s a helper for your family', note: 'After the fifth absence, not the fifteenth.' },
           { v: 'Week 1', l: 'Health coverage renewed', note: 'The renewal had gone to an old address. The inhaler gets refilled.' },
           { v: 'Week 2', l: 'A way to school', note: 'A transit pass, and a neighbor who drives the same route.' },
-          { v: 'Term', l: 'Back above 90% attendance', note: 'The school pays for that. It never saw the rest.' },
+          { v: 'Term', l: 'Back above 90% attendance', note: 'Days the school is funded for again. It never saw the rest.' },
         ],
         foot: 'Names in, outcomes out: the school offered help from its attendance records, and sees only whether attendance improved.',
       },
@@ -726,30 +726,25 @@ export default {
         rows: [
           { label: 'Health coverage renewed', detail: 'The renewal had gone to an old address.', status: 'done' },
           { label: 'A way to school', detail: 'A transit pass and a neighbor’s ride.', status: 'done' },
-          { label: 'Back above 90% attendance', detail: 'What the school pays for.', status: 'done' },
-          { label: 'Free school meals', detail: 'Food assistance, applied with the family.', status: 'waiting' },
+          { label: 'Back above 90% attendance', detail: 'Days the school is funded for again.', status: 'done' },
+          { label: 'Food assistance', detail: 'And a student the school is now paid for.', status: 'waiting' },
         ],
       },
     },
 
     depend: {
-      h2Plain: 'Your results depend',
-      h2Em: 'on your people.',
-      lead: 'A school is funded by attendance and by how many low-income students it counts. A benefit fund pays premiums a state program would cover. What you’re paid for and measured on reaches deep into people’s lives. What your staff can do stops at your door. In between are outcomes you and your people both want.',
-      dependLabel: 'What your results depend on',
-      depends: [
-        'Whether a kid gets to school',
-        'Whether a family is enrolled in food assistance',
-        'Whether a child’s health coverage is current',
-        'Whether a retiree applies for help they qualify for',
+      h2Plain: 'Their outcomes',
+      h2Em: 'are your budget.',
+      lead: 'What a school is funded for, and what a fund pays out, depends on what happens in people’s lives. Your staff’s work stops at your door. In between are outcomes the people you serve want, and that bring money in or keep it from going out.',
+      caption: 'How a family’s outcome changes an institution’s money, and where it gets stuck',
+      head: ['When this happens for a family', 'What it means for your budget', 'Where it gets stuck'],
+      rows: [
+        { life: 'A kid gets to school', money: 'Schools in California and Texas are funded by daily attendance. Oakland lost about $90 for every absent student, every day.', stuck: 'A ride that didn’t come, an inhaler that ran out' },
+        { life: 'A family enrolls in food assistance or Medicaid', money: 'The student is counted as low-income, and the school gets more per student. In a high-poverty California district, up to about $9,750 a year.', stuck: 'A form nobody explained, in a language nobody spoke' },
+        { life: 'A parent signs the Medicaid consent for their child’s therapy', money: 'The school can bill Medicaid for services it already provides. New York City left $431.6 million unclaimed in three years.', stuck: 'A form that went home in a backpack' },
+        { life: 'A retiree enrolls in a Medicare Savings Program', money: 'The state pays the Part B premium the fund was reimbursing, about $1,200 a year for each retiree on a half reimbursement.', stuck: 'A renewal sent to an old address' },
       ],
-      stuckLabel: 'Where it gets stuck',
-      stuck: [
-        'A ride that didn’t come',
-        'A renewal sent to an old address',
-        'A form nobody explained, in a language nobody spoke',
-        'An office that’s only open during work hours',
-      ],
+      note: 'Oakland: EdSource, 2025. California LCFF supplemental and concentration grants, CDE 2025–26; the count averages three years, so it phases in. New York City: NYC Comptroller follow-up audit, 2026. Part B: the 2026 standard premium, $202.90 a month.',
     },
 
     why: {
@@ -784,7 +779,7 @@ export default {
       h2Em: 'sponsored by you.',
       lead: 'Personal AI will reach most people the way financial advisors and good lawyers did: the people with the most friction last. Institutions can change that. The helper you sponsor works for the person, on anything making life harder, and on your goals only where they agree. You bring four things no app store can.',
       items: [
-        { title: 'A reason to pay', body: 'You lose money and miss goals when these outcomes don’t happen.' },
+        { title: 'A reason to pay', body: 'Their outcomes are your funding. You lose money when they don’t happen.' },
         { title: 'The records', body: 'You can see who needs help before they ask.' },
         { title: 'Trust', body: 'People already read what you send them.' },
         { title: 'Permission', body: 'Offices will turn away agents that show up uninvited. The one you sponsor gets let in.' },
@@ -829,7 +824,7 @@ export default {
     },
 
     footer: {
-      tagline: 'Outcomes everyone wants, finally within reach',
+      tagline: 'When the people you serve do better, so does your budget',
       links: [
         { label: 'For schools', href: '/schools' },
         { label: 'For union funds', href: '/funds' },

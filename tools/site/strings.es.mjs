@@ -639,10 +639,10 @@ export default {
   // Misma forma y mismas fuentes que strings.en.mjs.
   home: {
     meta: {
-      title: 'Mycelium: resultados que todos quieren, por fin a su alcance',
+      title: 'Mycelium: cuando a su gente le va mejor, a su presupuesto también',
       description:
-        'Un niño que llega a la escuela, una familia que mantiene su cobertura médica, un jubilado que recibe la ayuda que le corresponde: sus resultados dependen de las personas a quienes sirve. Mycelium le da a cada persona un ayudante, un agente de IA que usted patrocina y que trabaja para ella, en su idioma, con su sí. Usted paga cuando se logra el resultado.',
-      shareAlt: 'Mycelium: todos quieren el mismo resultado. Hasta ahora, no era trabajo de nadie.',
+        'Los fondos de una escuela dependen de que los niños lleguen a clase y de que las familias estén inscritas en los programas que les corresponden. Los costos de un fondo dependen de que los jubilados soliciten ayuda. Mycelium le da a cada persona un ayudante, un agente de IA que usted patrocina y que trabaja para ella, con su sí. Cuando se logra su resultado, se logra el de usted, y es entonces cuando paga.',
+      shareAlt: 'Mycelium: cuando a su gente le va mejor, a su presupuesto también.',
     },
 
     nav: {
@@ -655,10 +655,10 @@ export default {
 
     hero: {
       eyebrow: 'Para escuelas, fondos de beneficios y las personas a quienes sirven',
-      h1Plain: 'Todos quieren el mismo resultado.',
-      h1Em: 'Hasta ahora, no era trabajo de nadie.',
-      h1: 'Todos quieren el mismo resultado. Hasta ahora, no era trabajo de nadie.',
-      sub: 'Un niño que llega a la escuela. Una familia que mantiene su cobertura médica. Un jubilado que recibe la ayuda que le corresponde. Sus resultados dependen de las personas a quienes sirve, y los de ellas dependen de atravesar un laberinto de formularios y oficinas. Mycelium le da a cada persona un ayudante: un agente de IA que usted patrocina, que trabaja para ella, en su idioma. Usted paga cuando se logra el resultado.',
+      h1Plain: 'Cuando a las personas a quienes sirve les va mejor,',
+      h1Em: 'a su presupuesto también.',
+      h1: 'Cuando a su gente le va mejor, a su presupuesto también.',
+      sub: 'Cada día que un estudiante falta, la escuela pierde fondos. Cada familia que nunca se inscribe en ayuda para comida es un estudiante por el que a la escuela no le pagan. Cada jubilado que nunca solicita ayuda es una prima que el fondo paga solo. Estos resultados le importan a la gente a quien sirve y a su presupuesto, y nadie tiene las horas para hacer el trabajo con cada persona. Mycelium le da a cada persona un ayudante: un agente de IA que usted patrocina, que trabaja para ella, en su idioma. Usted paga cuando se logra el resultado.',
       primary: 'Hablemos',
       secondary: 'Ver cómo funciona',
       trust: 'Trabajamos con escuelas y fondos sindicales de beneficios. Nada avanza sin el sí de la persona.',
@@ -669,7 +669,7 @@ export default {
           { v: 'Día 1', l: 'La escuela escribe: aquí hay un ayudante para su familia', note: 'Después de la quinta falta, no de la decimoquinta.' },
           { v: 'Semana 1', l: 'Cobertura médica renovada', note: 'La renovación había llegado a una dirección vieja. Se resurte el inhalador.' },
           { v: 'Semana 2', l: 'Una forma de llegar a la escuela', note: 'Un pase de transporte, y un vecino que maneja por la misma ruta.' },
-          { v: 'Periodo', l: 'De vuelta a más del 90% de asistencia', note: 'La escuela paga por eso. Nunca vio lo demás.' },
+          { v: 'Periodo', l: 'De vuelta a más del 90% de asistencia', note: 'Días por los que la escuela vuelve a recibir fondos. Nunca vio lo demás.' },
         ],
         foot: 'Entran nombres, salen resultados: la escuela ofreció ayuda a partir de sus registros de asistencia, y solo ve si la asistencia mejoró.',
       },
@@ -679,30 +679,25 @@ export default {
         rows: [
           { label: 'Cobertura médica renovada', detail: 'La renovación llegó a una dirección vieja.', status: 'done' },
           { label: 'Cómo llegar a la escuela', detail: 'Un pase de transporte y un vecino.', status: 'done' },
-          { label: 'Más del 90% de asistencia', detail: 'Lo que la escuela paga.', status: 'done' },
-          { label: 'Comidas escolares gratis', detail: 'Ayuda para comida, con la familia.', status: 'waiting' },
+          { label: 'Más del 90% de asistencia', detail: 'Días con fondos otra vez.', status: 'done' },
+          { label: 'Ayuda para comida', detail: 'Y un estudiante por el que ahora le pagan.', status: 'waiting' },
         ],
       },
     },
 
     depend: {
-      h2Plain: 'Sus resultados dependen',
-      h2Em: 'de su gente.',
-      lead: 'A una escuela la financian según la asistencia y según cuántos estudiantes de bajos ingresos cuenta. Un fondo de beneficios paga primas que cubriría un programa estatal. Lo que a usted le pagan y le miden llega muy dentro de la vida de las personas. Lo que su personal puede hacer termina en su puerta. En medio hay resultados que usted y su gente quieren por igual.',
-      dependLabel: 'De qué dependen sus resultados',
-      depends: [
-        'De que un niño llegue a la escuela',
-        'De que una familia esté inscrita en ayuda para comida',
-        'De que la cobertura médica de un niño esté al día',
-        'De que un jubilado solicite la ayuda que le corresponde',
+      h2Plain: 'Los resultados de ellos',
+      h2Em: 'son su presupuesto.',
+      lead: 'Lo que a una escuela le financian, y lo que un fondo paga, depende de lo que pasa en la vida de las personas. El trabajo de su personal termina en su puerta. En medio hay resultados que la gente a quien sirve quiere, y que traen dinero o evitan que se vaya.',
+      caption: 'Cómo el resultado de una familia cambia el dinero de una institución, y dónde se atora',
+      head: ['Cuando esto pasa para una familia', 'Qué significa para su presupuesto', 'Dónde se atora'],
+      rows: [
+        { life: 'Un niño llega a la escuela', money: 'En California y Texas a las escuelas las financian por asistencia diaria. Oakland perdió cerca de $90 por cada estudiante ausente, cada día.', stuck: 'Un transporte que no llegó, un inhalador que se acabó' },
+        { life: 'Una familia se inscribe en ayuda para comida o Medicaid', money: 'El estudiante cuenta como de bajos ingresos, y la escuela recibe más por estudiante. En un distrito de California con mucha pobreza, hasta cerca de $9,750 al año.', stuck: 'Un formulario que nadie explicó, en un idioma que nadie hablaba' },
+        { life: 'Una madre o un padre firma el consentimiento de Medicaid para la terapia de su hijo', money: 'La escuela puede facturar a Medicaid servicios que ya da. La ciudad de Nueva York dejó sin cobrar $431.6 millones en tres años.', stuck: 'Un formulario que se fue a casa en una mochila' },
+        { life: 'Un jubilado se inscribe en un Programa de Ahorros de Medicare', money: 'El estado paga la prima de la Parte B que el fondo reembolsaba, cerca de $1,200 al año por jubilado con medio reembolso.', stuck: 'Una renovación enviada a una dirección vieja' },
       ],
-      stuckLabel: 'Dónde se atora',
-      stuck: [
-        'Un transporte que no llegó',
-        'Una renovación enviada a una dirección vieja',
-        'Un formulario que nadie explicó, en un idioma que nadie hablaba',
-        'Una oficina que solo abre en horas de trabajo',
-      ],
+      note: 'Oakland: EdSource, 2025. Subvenciones suplementarias y de concentración de LCFF en California, CDE 2025–26; el conteo promedia tres años, así que crece poco a poco. Nueva York: auditoría de seguimiento del Contralor de NYC, 2026. Parte B: la prima estándar de 2026, $202.90 al mes.',
     },
 
     why: {
@@ -737,7 +732,7 @@ export default {
       h2Em: 'patrocinado por usted.',
       lead: 'La IA personal le llegará a la mayoría como les llegaron los asesores financieros y los buenos abogados: a quienes más trabas tienen, al último. Las instituciones pueden cambiar eso. El ayudante que usted patrocina trabaja para la persona, en lo que le esté complicando la vida, y en sus metas solo donde ella esté de acuerdo. Usted aporta cuatro cosas que ninguna tienda de apps puede.',
       items: [
-        { title: 'Una razón para pagar', body: 'Usted pierde dinero y metas cuando estos resultados no pasan.' },
+        { title: 'Una razón para pagar', body: 'Los resultados de ellos son sus fondos. Usted pierde dinero cuando no pasan.' },
         { title: 'Los registros', body: 'Usted puede ver quién necesita ayuda antes de que lo pida.' },
         { title: 'Confianza', body: 'La gente ya lee lo que usted le envía.' },
         { title: 'Permiso', body: 'Las oficinas rechazarán a los agentes que lleguen sin invitación. El que usted patrocina entra.' },
@@ -782,7 +777,7 @@ export default {
     },
 
     footer: {
-      tagline: 'Resultados que todos quieren, por fin a su alcance',
+      tagline: 'Cuando a su gente le va mejor, a su presupuesto también',
       links: [
         { label: 'Para escuelas', href: '/es/schools' },
         { label: 'Para fondos sindicales', href: '/es/funds' },

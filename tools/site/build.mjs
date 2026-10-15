@@ -240,16 +240,24 @@ function homeSections(s) {
       <div class="wrap">
         <h2 id="depend-title">${payoff(d.h2Plain, d.h2Em)}</h2>
         <p class="lead">${esc(d.lead)}</p>
-        <div class="scan-lists">
-          <div>
-            <h3>${esc(d.dependLabel)}</h3>
-            <ul class="plain-list">${d.depends.map((i) => `<li>${esc(i)}</li>`).join('')}</ul>
-          </div>
-          <div>
-            <h3>${esc(d.stuckLabel)}</h3>
-            <ul class="plain-list">${d.stuck.map((i) => `<li>${esc(i)}</li>`).join('')}</ul>
-          </div>
-        </div>
+        <table class="year-table money-table">
+          <caption class="sr-only">${esc(d.caption)}</caption>
+          <thead>
+            <tr>${d.head.map((c) => `<th scope="col">${esc(c)}</th>`).join('')}</tr>
+          </thead>
+          <tbody>
+          ${d.rows
+            .map(
+              (r) => `<tr>
+            <td data-label="${esc(d.head[0])}">${esc(r.life)}</td>
+            <td data-label="${esc(d.head[1])}">${esc(r.money)}</td>
+            <td data-label="${esc(d.head[2])}">${esc(r.stuck)}</td>
+          </tr>`,
+            )
+            .join('\n          ')}
+          </tbody>
+        </table>
+        <p class="network-note">${esc(d.note)}</p>
       </div>
     </section>`;
 
