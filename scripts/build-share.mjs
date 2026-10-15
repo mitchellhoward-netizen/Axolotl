@@ -1,5 +1,7 @@
 /**
- * Renders public/share.png and public/share-es.png from tools/site/share.html.
+ * Renders the social cards from tools/site/share.html: public/share.png and
+ * public/share-es.png for the school homepage, public/share-funds.png and
+ * public/share-funds-es.png for /funds.
  *
  *     node scripts/build-share.mjs
  *
@@ -80,8 +82,16 @@ if (!chrome) {
 
 await new Promise((resolve) => server.listen(PORT, resolve));
 
-for (const lang of ['en', 'es']) {
-  const out = path.join(ROOT, 'public', lang === 'es' ? 'share-es.png' : 'share.png');
+// The homepage (school districts) and /funds each get a card, in both languages.
+const CARDS = [
+  ['en', 'schools', 'share.png'],
+  ['es', 'schools', 'share-es.png'],
+  ['en', 'funds', 'share-funds.png'],
+  ['es', 'funds', 'share-funds-es.png'],
+];
+
+for (const [lang, page, file] of CARDS) {
+  const out = path.join(ROOT, 'public', file);
   const args = [
     '--headless=new',
     '--disable-gpu',
@@ -94,7 +104,7 @@ for (const lang of ['en', 'es']) {
     `--window-size=${WIDTH},${HEIGHT + 200}`,
     `--screenshot=${out}`,
     `--virtual-time-budget=8000`,
-    `http://localhost:${PORT}/tools/site/share.html?lang=${lang}`,
+    `http://localhost:${PORT}/tools/site/share.html?lang=${lang}&page=${page}`,
   ];
   await new Promise((resolve, reject) => {
     const child = spawn(chrome, args, { stdio: 'inherit' });

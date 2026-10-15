@@ -2662,6 +2662,12 @@ p {
   color: var(--on-night-faint);
 }
 
+/* The source note under a table on a light section (the school homepage's
+   outcomes): the night-section color is too faint on paper. */
+.t-day .network-note {
+  color: var(--muted);
+}
+
 @media (max-width: 899px) {
   .door-pair,
   .staff-pair,

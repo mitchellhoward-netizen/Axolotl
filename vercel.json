@@ -42,16 +42,6 @@
       "source": "/es/employers",
       "destination": "/es",
       "permanent": false
-    },
-    {
-      "source": "/funds",
-      "destination": "/",
-      "permanent": false
-    },
-    {
-      "source": "/es/funds",
-      "destination": "/es",
-      "permanent": false
     }
   ],
   "rewrites": [
