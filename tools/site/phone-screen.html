@@ -426,7 +426,8 @@
       // 'circles' is the group chat the families coordinate in, and 'weekcol' is
       // one of the four threads of the week section (?i=0..3).
       const asked = params.get('screen');
-      const which = ['week', 'circles', 'weekcol'].includes(asked) ? asked : 'yes';
+      // 'home' is one of the homepage's school-day threads (?i=0..5).
+      const which = ['week', 'circles', 'weekcol', 'home'].includes(asked) ? asked : 'yes';
       const s = (await import(`/tools/site/strings.${lang}.mjs`)).default;
 
       document.documentElement.lang = s.lang;
@@ -494,6 +495,10 @@
       if (which === 'week') {
         thread.append(metaRow(s.hero.phone.meta, s.hero.phone.metaTime));
         renderThread(s.hero.phone.thread);
+      } else if (which === 'home') {
+        const t = s.home.phones[Number(params.get('i') ?? 0)] ?? s.home.phones[0];
+        thread.append(metaRow(t.meta, t.time));
+        renderThread(t.turns);
       } else if (which === 'weekcol') {
         const col = s.week.cols[Number(params.get('i') ?? 0)] ?? s.week.cols[0];
         thread.append(metaRow(s.week.meta, col.time));

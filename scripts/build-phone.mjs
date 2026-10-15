@@ -56,13 +56,23 @@ const DEVICE = {
 };
 
 /**
- * Two screens, both rendered per language:
- *   yes  — the approval and the yearly renewal, after the retiree's YES (how.phone)
- *   week — the hero: a retiree's Part B premium moved to the state (hero.phone)
+ * Screens, all rendered per language:
+ *   yes   — /funds: the approval and the yearly renewal (how.phone)
+ *   week  — /funds hero: a retiree's Part B premium moved to the state (hero.phone)
+ *   home* — the homepage's school day, a family's helper at work (home.phones)
  */
 const SCREENS = [
   { key: 'yes', screen: 'yes', file: (lang) => `phone-${lang}.webp` },
   { key: 'week', screen: 'week', file: (lang) => `hero-phone-${lang}.webp` },
+  // The homepage's school day: a family's helper at work (home.phones). 0 is the
+  // hero's centre phone, 1-4 the midday carousel, 5 the dinner-time thread.
+  ...[0, 1, 2, 3, 4, 5].map((i) => ({
+    key: `home${i}`,
+    screen: 'home',
+    i,
+    displayWidth: 328,
+    file: (lang) => `home-${i + 1}-${lang}.webp`,
+  })),
 ];
 
 /** Screen-space rects -> percentages of the shipped image, so the page can put
@@ -310,6 +320,7 @@ const stringsHash = async () => {
       JSON.stringify({
         phone: mod.how.phone,
         hero: mod.hero.phone,
+        home: mod.home.phones,
         statuses: mod.statuses,
       }),
     );
