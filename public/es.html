@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Mycelium</title>
-<meta name="description" content="Escuelas y fondos de beneficios patrocinan un ayudante para cada persona a la que sirven. Trabaja para la persona. Usted paga cuando el resultado se mueve.">
-<meta property="og:title" content="Mycelium — Sus resultados dependen de sus familias.">
-<meta property="og:description" content="Escuelas y fondos de beneficios patrocinan un ayudante para cada persona a la que sirven. Trabaja para la persona. Usted paga cuando el resultado se mueve.">
+<meta name="description" content="Cada familia de su escuela tiene su propio ayudante: una IA, por mensaje, en su idioma, que trabaja para ella. Usted paga un cuarto del financiamiento por asistencia que recupera.">
+<meta property="og:title" content="Mycelium — Un ayudante para cada familia de su escuela.">
+<meta property="og:description" content="Cada familia de su escuela tiene su propio ayudante: una IA, por mensaje, en su idioma, que trabaja para ella. Usted paga un cuarto del financiamiento por asistencia que recupera.">
 <meta property="og:image" content="https://www.try-mycelium.com/assets/og.jpg">
 <meta property="og:url" content="https://www.try-mycelium.com/es">
 <meta property="og:site_name" content="Mycelium">
@@ -346,6 +346,25 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; letter-spacing: -0.0
   .js .intro .photos figure { transition: transform 1.2s var(--ease-soft); transform: scale(0.96); }
   .js .intro .photos figure.in { transform: none; }
 }
+
+.hero .action { display: flex; gap: 12px; flex-wrap: wrap; align-items: stretch; }
+.hero .action .door { display: inline-flex; align-items: center; min-height: 52px; padding: 0 20px; font: inherit; font-weight: 500; color: var(--ink); background: var(--surface); text-decoration: none; }
+.hero .action .door:hover { background: #352e29; }
+.wedge { padding: var(--gap-section) var(--m); display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; row-gap: 40px; }
+.wedge h2 { grid-column: 1 / span 12; font-size: var(--step-poster); line-height: 0.9; letter-spacing: -0.02em; }
+.wedge .text { grid-column: 1 / span 5; font-size: var(--step-lead); line-height: 1.4; max-width: 34ch; }
+.wedge .text p + p { margin-top: 16px; }
+.wedge .text a { color: var(--accent); text-decoration: underline; text-underline-offset: 4px; }
+.wedge .obj { grid-column: 7 / span 6; }
+.wedge .figure { font-family: var(--display); font-size: var(--step-head); line-height: 1; margin-top: 28px; letter-spacing: -0.02em; }
+.wedge .figure-sub { font-size: var(--step-body); color: var(--muted); margin-top: 8px; max-width: 40ch; }
+@media (max-width: 1023px) { .wedge .text, .wedge .obj { grid-column: 1 / span 12; } }
+.theirs .facts li small { display: block; color: var(--muted); font-size: var(--step-small); margin-top: 2px; }
+.founders { padding: var(--gap-section) var(--m); display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; }
+.founders h2 { grid-column: 1 / span 12; font-size: var(--step-head); line-height: 1; letter-spacing: -0.02em; }
+.founders p { grid-column: 1 / span 7; margin-top: 24px; font-size: var(--step-lead); line-height: 1.4; }
+@media (max-width: 1023px) { .founders p { grid-column: 1 / span 12; } }
+@media (max-width: 767px) { .where h2 { font-size: 2rem; } .hero .action .door { width: 100%; justify-content: center; } .hero .photo { height: 11svh; } .hero .support { bottom: 150px; } .hero .action { bottom: 24px; } }
 </style>
 </head>
 <body>
@@ -353,8 +372,9 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; letter-spacing: -0.0
 <header class="nav" id="nav">
   <a class="mark" href="#top">Mycelium</a>
   <ul>
+    <li><a href="/es/schools">Distritos escolares</a></li>
+    <li><a href="/es/funds">Fondos de beneficios</a></li>
     <li><a href="#how">Cómo funciona</a></li>
-    <li><a href="#where">Para quién</a></li>
     <li><a href="/" lang="en" hreflang="en">English</a></li>
   </ul>
   <a class="nav-action" href="#close">Pida su cifra</a>
@@ -367,31 +387,34 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; letter-spacing: -0.0
   <div class="field-top"></div>
   <div class="field-bottom"></div>
   <div class="sentence-wrap"><h1 class="sentence" data-rise style="--i:0">
-    <span class="l1">Sus resultados dependen</span>
-    <span class="l2">de sus familias.</span>
+    <span class="l1">Un ayudante para cada</span>
+    <span class="l2">familia de su escuela.</span>
   </h1></div>
   <div class="photo" aria-hidden="true"><img src="assets/myc-fan-lomas.jpg" width="1280" height="851" alt="" fetchpriority="high"><img src="assets/dend-fan-single.jpg" width="1280" height="1763" alt="" style="object-position: 50% 40%"><img src="assets/dend-field-solnhofen.jpg" width="1280" height="850" alt="" style="object-position: 50% 35%"><img src="assets/dend-tree-pyrolusite.jpg" width="1075" height="1657" alt="" style="object-position: 50% 30%"></div>
-  <p class="support" data-rise style="--i:1">La asistencia y los beneficios se deciden en casa. Mycelium le da a cada persona un ayudante ahí: una IA que escribe en su idioma, pagada por usted, que trabaja para ella.</p>
-  <div class="action" data-rise style="--i:2"><a class="button" href="#close">Vea cuánto podría recuperar</a></div>
+  <p class="support" data-rise style="--i:1">Una IA, por mensaje, en su idioma, que trabaja para ella. La quinta falta dispara una oferta en vez de una carta. Usted paga un cuarto del financiamiento por asistencia que recupera, nada por adelantado.</p>
+  <div class="action" data-rise style="--i:2"><a class="button" href="/es/schools">Para distritos escolares</a><a class="door" href="/es/funds">Fondos de beneficios: primas de Parte B que el estado pagaría →</a></div>
 </section>
 
-<!-- INTRO -->
-<section class="intro" aria-label="Por qué está atascado">
-  <div class="pin"><p>La ruta del autobús, los trámites de beneficios y el horario de trabajo de una familia deciden si un niño llega a la escuela. Durante un siglo la única ayuda fue un trabajador social con más de cien estudiantes. Hoy la escuela manda una carta.</p></div>
-  <div class="photos" aria-hidden="false">
-    <figure class="p1"><img src="assets/dend-fan-single.jpg" width="1280" height="1763" alt="Una sola dendrita negra abriéndose en abanico sobre caliza clara" loading="lazy"></figure>
-    <figure class="p2"><img src="assets/dend-field-solnhofen.jpg" width="1280" height="850" alt="Un campo de dendritas de manganeso en caliza de Solnhofen" loading="lazy"></figure>
+<!-- THE BET -->
+<section class="intro" aria-label="La apuesta">
+  <div class="pin"><p>La asistencia, los beneficios y las renovaciones se deciden en casa, donde ninguna institución puede estar. Lo único que alguna vez los movió fue la ayuda práctica, y la ayuda nunca fue costeable. Hoy cuesta unos pocos dólares.</p></div>
+  <div class="photos">
+    <figure class="p1"><img src="assets/dend-fan-single.jpg" width="1280" height="1763" alt="Una sola dendrita negra abriéndose sobre caliza clara" loading="lazy"></figure>
+    <figure class="p2"><img src="assets/dend-field-solnhofen.jpg" width="1280" height="850" alt="Un campo de dendritas de manganeso sobre caliza de Solnhofen" loading="lazy"></figure>
     <figure class="p3 tint"><img src="assets/dend-tree-pyrolusite.jpg" width="1075" height="1657" alt="Una dendrita en forma de árbol, negra y ocre, sobre piedra crema" loading="lazy"></figure>
   </div>
 </section>
 
-<!-- SHOWCASE -->
-<section class="showcase" aria-label="No una carta">
-  <div class="stack">
-    <span class="soft" data-enter style="--i:0"><span class="cap">L</span>a quinta falta.</span>
-    <h2 data-enter style="--i:1">No una carta.</h2>
+<!-- SCHOOLS FIRST -->
+<section class="wedge" id="schools" aria-label="Primero las escuelas.">
+  <h2>Primero las escuelas.</h2>
+  <div class="text">
+    <p>Hoy la quinta falta de un niño dispara una carta de ausentismo. Con Mycelium dispara una oferta de la escuela, en el idioma de la familia: un ayudante que trabaja en lo que sea que mantiene al niño en casa. La escuela paga un cuarto del financiamiento por asistencia que recupera, nada por adelantado.</p>
+    <p>La conversación se queda con la familia, bajo FERPA. La escuela ve la asistencia y patrones en conjunto; nunca un motivo, y nunca otra institución.</p>
+    <div class="figure">$244K</div>
+    <p class="figure-sub">lo que Pajaro Valley Unified podría recuperar al año, según sus propios informes públicos. <a href="/es/schools#district">Busque su distrito</a></p>
   </div>
-  <div class="object" data-enter style="--i:3">
+  <div class="obj">
     <div class="thread" data-ui aria-label="Una conversación por mensajes entre una madre y el ayudante">
       <div class="who">De la escuela de Maya · en español o inglés</div>
       <div class="msgs">
@@ -402,26 +425,6 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; letter-spacing: -0.0
         <div class="m">No. La escuela solo ve lo que preguntó: si Maya está llegando a clase. Esto queda entre nosotros, salvo que usted diga lo contrario.</div>
       </div>
       <div class="note">La escuela ve que la asistencia mejora. Nunca ve la conversación.</div>
-    </div>
-  </div>
-  <div class="facts grid">
-    <div data-enter style="--i:4">
-      <p>La quinta falta ya está en los registros de la escuela. Hoy dispara un aviso de ausentismo. Con Mycelium dispara una oferta, en el idioma de la familia, de un ayudante que trabaja en lo que sea que mantiene al niño en casa. La escuela paga solo cuando la asistencia mejora.</p>
-      <form class="scan" onsubmit="return false">
-        <div class="figure" id="scan-figure" aria-live="polite">$244K<small id="scan-sub">que podría recuperar al año Pajaro Valley Unified, según sus informes públicos</small></div>
-        <div class="pick">
-          <label for="district" class="vh">Busque su distrito</label>
-          <input id="district" type="search" placeholder="Escriba cualquier distrito escolar de California" autocomplete="off" spellcheck="false" role="combobox" aria-expanded="false" aria-controls="scan-matches" aria-autocomplete="list">
-          <ul class="matches" id="scan-matches" role="listbox"></ul>
-        </div>
-        <p class="quick" id="scan-quick">O pruebe <button type="button" data-pick="4469799">Pajaro Valley</button>, <button type="button" data-pick="0161259">Oakland</button>, <button type="button" data-pick="1062166">Fresno</button> o <button type="button" data-pick="fund">un fondo de beneficios</button>.</p>
-        <div class="lines" id="scan-lines">
-          <div><span>3,865 estudiantes con ausentismo crónico, uno de cada cuatro contactado, 3 días más cada uno, a $84 por día</span><b>$244K</b></div>
-          <div><span>Fuera de la cifra: si uno de cada doscientos inscritos es de bajos ingresos y no está contado, 77 estudiantes a $9,139 cada uno</span><b>$704K</b></div>
-          <div><span>Cada 1% de asistencia vale</span><b>$2.2M</b></div>
-        </div>
-        <p class="assume">Conteos del archivo estatal de ausentismo 2024–25; valores del financiamiento LCFF 2024–25 de cada distrito. El alcance y los días son supuestos nuestros, por debajo de lo que <a href="https://toddrogers.scholars.harvard.edu/resource/reducingstudentabsencesatscalepdf">una carta por correo, sola</a>, recuperó en un ensayo aleatorio. Los no contados quedan fuera de la cifra; los distritos de impuestos locales muestran $0; a los de matrícula en descenso se les paga un año tarde.</p>
-      </form>
     </div>
   </div>
 </section>
@@ -436,20 +439,21 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; letter-spacing: -0.0
       <div class="item" data-enter style="--i:3"><h3>Responde ante ellos.</h3><p>Nunca le cuenta a la escuela los motivos de una familia, y le dice que no a la institución antes que a la familia.</p></div>
       <div class="item" data-enter style="--i:4"><h3>Pueden decir que no.</h3><p>Nada se tramita ni se envía sin un sí a esa acción exacta. Si dice basta, se detiene.</p></div>
       <div class="item" data-enter style="--i:5"><h3>Ya está en su bolsillo.</h3><p>Mensaje de texto o WhatsApp, lo que ya usen. Nada que descargar, y nada nuevo para su personal.</p></div>
-      <div class="item" data-enter style="--i:6"><h3>Se queda con ellos.</h3><p>Cuando más adelante un fondo, una clínica o un colegio patrocina a la misma persona, el ayudante ya está ahí.</p></div>
+      <div class="item" data-enter style="--i:6"><h3>Se queda con ellos.</h3><p>Si ellos quieren. Cuando más adelante un fondo, una clínica o un colegio le ofrece un ayudante a la misma persona, puede llevarse el suyo.</p></div>
     </div>
     <div class="why" data-enter style="--i:7">
-      <p>A la brecha la llamamos alineación varada: resultados que ambos lados quieren y que nadie podía costear persona por persona. La evidencia de que la cierra la ayuda, no la información:</p>
+      <p>La evidencia de que lo que mueve los resultados es la ayuda, no la información:</p>
       <ul class="facts">
-        <li><a href="https://www.povertyactionlab.org/print/pdf/node/2133?lang=en">Un folleto sobre ayuda financiera no cambió nada. Sentarse con la familia a terminar el formulario subió la inscripción universitaria 8 puntos.</a></li>
-        <li><a href="https://www.nber.org/system/files/working_papers/w24652/w24652.pdf">Una carta que decía "usted califica" duplicó la inscripción en un beneficio. Una persona que lo tramitó la triplicó.</a></li>
-        <li><a href="https://toddrogers.scholars.harvard.edu/resource/robinsonleedearingrogers2018reducingabsenteeismintheearlygradespdf">Mensajes personales a las familias recuperan asistencia por $5 a $11 el día, el doble en familias que hablan otro idioma.</a></li>
-        <li><a href="https://campustechnology.com/articles/2017/03/07/using-ai-chatbots-to-freeze-summer-melt-in-higher-ed.aspx">Un ayudante por texto atendió 200,000 mensajes. Menos de uno de cada cien necesitó a una persona.</a></li>
+        <li><a href="https://www.povertyactionlab.org/print/pdf/node/2133?lang=en">Un folleto sobre ayuda financiera no cambió nada. Sentarse con la familia a terminar el formulario subió la inscripción universitaria 8 puntos.<small>Bettinger, Long, Oreopoulos y Sanbonmatsu, aleatorio, 26,000 familias</small></a></li>
+        <li><a href="https://www.nber.org/system/files/working_papers/w24652/w24652.pdf">Una carta que decía "usted califica" duplicó la inscripción en un beneficio. Una persona que lo tramitó la triplicó.<small>Finkelstein y Notowidigdo, aleatorio, 31,000 adultos mayores</small></a></li>
+        <li><a href="https://toddrogers.scholars.harvard.edu/resource/robinsonleedearingrogers2018reducingabsenteeismintheearlygradespdf">Mensajes personales a las familias recuperan asistencia por $5 a $11 el día, el doble en familias que hablan otro idioma.<small>Robinson, Lee, Dearing y Rogers, aleatorio, California K–5</small></a></li>
+        <li><a href="https://campustechnology.com/articles/2017/03/07/using-ai-chatbots-to-freeze-summer-melt-in-higher-ed.aspx">Un ayudante por texto atendió 200,000 mensajes. Menos de uno de cada cien necesitó a una persona.<small>Georgia State University, aleatorio, 3,100 estudiantes</small></a></li>
       </ul>
       <p>Nadie ha hecho el ensayo en que un solo ayudante, el de la familia, hace las cuatro cosas. El nuestro está hecho para serlo: se ofrece escuela por escuela y se mide contra las familias que aún no lo recibieron, así que para junio usted lo sabe.</p>
     </div>
   </div>
 </section>
+
 
 <!-- HOW IT WORKS -->
 <section class="how" id="how" aria-label="Cómo funciona">
@@ -467,55 +471,49 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; letter-spacing: -0.0
   </div>
   <div class="stage" data-enter style="--i:3">
     <div class="line">Paga cuando el resultado mejora.</div>
-    <p>Días de asistencia contra el año anterior de cada estudiante, o primas que ahora paga el estado en lugar de usted, medidos escuela por escuela contra las familias que aún no lo reciben. Nuestra parte es un cuarto de lo recuperado.</p>
+    <p>Días de asistencia contra el año anterior de cada estudiante, medidos escuela por escuela contra las familias que aún no lo reciben. Para un fondo, primas que ahora paga el estado en lugar de usted. Nuestra parte es un cuarto de lo recuperado.</p>
+  </div>
+</section>
+
+
+<!-- FUNDS -->
+<section class="fields" aria-label="El mismo ayudante, otro patrocinador">
+  <div class="field light">
+    <p class="why">Una jubilada cuyo fondo le reembolsa la prima de Medicare Parte B suele calificar para el Programa de Ahorros de Medicare de Nueva York, que la paga en su lugar. La mayoría nunca solicita. El ayudante pregunta, tramita con su sí y lo renueva cada año. Ella se queda con $202.90 al mes; el fondo deja de pagar $2,435 al año. <a href="/es/funds">Para fondos de beneficios →</a></p>
+    <h2>Mismo ayudante.<br>Otro pagador.</h2>
   </div>
 </section>
 
 <!-- BAND -->
-<figure class="band tint" aria-label="Un campo de dendritas de manganeso en caliza de Solnhofen"><img src="assets/dend-field-solnhofen.jpg" width="1280" height="850" alt="" loading="lazy" style="object-position: 50% 40%"></figure>
+<figure class="band tint" aria-label="Un campo de dendritas de manganeso sobre caliza de Solnhofen"><img src="assets/dend-field-solnhofen.jpg" width="1280" height="850" alt="" loading="lazy" style="object-position: 50% 40%"></figure>
 
-<!-- FEATURES -->
-<section class="fields" aria-label="Lo que ve la escuela">
-  <div class="field light">
-    <p class="why" data-enter>Como el seguro médico: su empleador paga, el médico trabaja para usted, y su empleador gana sin ver nunca su expediente.</p>
-    <h2 data-enter style="--i:1">Trabaja para la familia.</h2>
-  </div>
-  <div class="field mid mirror">
-    <p class="why" data-enter>A quién se le ofreció un ayudante, según sus propios registros, y si la asistencia mejoró. Patrones en conjunto, como cuarenta familias en una misma ruta recortada. Cada regla que sigue el ayudante, por escrito, antes de salir en vivo.</p>
-    <h2 data-enter style="--i:1">La escuela ve resultados.</h2>
-  </div>
-  <div class="field dark">
-    <figure class="field-photo" data-enter style="--i:1"><img src="assets/dend-fan-single.jpg" width="1280" height="1763" alt="Una sola dendrita negra abriéndose en abanico sobre caliza clara" loading="lazy" style="object-position: 50% 35%"></figure>
-    <p class="why" data-enter>Nunca la dirección, el aviso de desalojo, la pregunta migratoria ni al abuelo enfermo. Nada sobre una familia que no dijo que sí. Garantizado en el sistema, no en una instrucción; los datos estudiantiles quedan bajo FERPA y CA-NDPA y nunca entrenan modelos.</p>
-    <h2 data-enter style="--i:1">Nunca los motivos.</h2>
-  </div>
-</section>
-
-<!-- LIST -->
-<section class="where" id="where" aria-label="Para quién">
-  <h2 data-enter>Donde el dinero depende del afiliado.</h2>
-  <p class="lede">Instituciones, el resultado por el que paga cada una, y dónde trabaja Mycelium hoy.</p>
+<!-- WHERE IT GOES -->
+<section class="where" id="where" aria-label="Hacia dónde va">
+  <h2 data-enter>Luego, donde el dinero dependa de la persona.</h2>
+  <p class="lede">A la brecha la llamamos alineación varada: resultados que una institución y una persona quieren por igual, y que nadie podía costear persona por persona. Las instituciones cambian. La persona conserva su ayudante, si así lo decide.</p>
   <div class="body grid">
     <div class="table">
-      <div class="row" data-enter style="--i:1"><span class="k">Ahora, en California</span><span>Distritos escolares</span><span class="v">días de asistencia</span></div>
-      <div class="row" data-enter style="--i:2"><span class="k">Ahora, en Nueva York</span><span>Fondos de beneficios sindicales</span><span class="v">primas de la Parte B</span></div>
-      <div class="row group" data-enter style="--i:3"><span class="k">Después</span><span>Centros de salud comunitarios</span><span class="v">renovaciones de Medicaid</span></div>
-      <div class="row" data-enter style="--i:4"><span class="k">Después</span><span>Hospitales</span><span class="v">reingresos</span></div>
-      <div class="row" data-enter style="--i:5"><span class="k">Después</span><span>Colegios comunitarios</span><span class="v">graduación</span></div>
-      <div class="row" data-enter style="--i:6"><span class="k">Después</span><span>Aseguradoras de discapacidad</span><span class="v">reclamos trasladados</span></div>
+      <div class="row"><span class="k">Hoy, California</span><span>Distritos escolares</span><span class="v">días de asistencia</span></div>
+      <div class="row"><span class="k">Hoy, Nueva York</span><span>Fondos de beneficios sindicales</span><span class="v">primas de Parte B</span></div>
+      <div class="row group"><span class="k">Después</span><span>Centros de salud comunitarios</span><span class="v">renovaciones de Medicaid</span></div>
+      <div class="row"><span class="k">Después</span><span>Hospitales</span><span class="v">reingresos</span></div>
+      <div class="row"><span class="k">Después</span><span>Colegios comunitarios</span><span class="v">graduación</span></div>
     </div>
   </div>
 </section>
 
-<!-- BAND -->
-<figure class="band tall" aria-label="Una sola dendrita abriéndose en abanico sobre caliza clara"><img src="assets/dend-fan-single.jpg" width="1280" height="1763" alt="" loading="lazy" style="object-position: 50% 45%"></figure>
+<!-- FOUNDERS -->
+<section class="founders" aria-label="Fundadores">
+  <h2>Creado por Mitch Howard y Sarah Xu.</h2>
+  <p>Mitch pasó cuatro años en aulas de ESL en Providence y un año Fulbright enseñando en México, y luego dirigió las alianzas con fondos de capital privado en Clay, donde trabajó con Sarah. Empezamos Mycelium porque la ayuda que funciona nunca fue costeable, y ahora lo es.</p>
+</section>
 
 <!-- CLOSE -->
 <section class="close" id="close" aria-label="Pida su cifra">
-  <h2 data-enter>Ahora sí la ve.</h2>
+  <h2 data-enter>Ahora puede verlo.</h2>
   <div class="foot">
-    <p data-enter style="--i:1">Envíenos sus informes. En una semana le devolvemos cuánto es recuperable, línea por línea, y qué le habría dicho el ayudante a las primeras cuarenta personas que contactó el año pasado.</p>
-    <a class="button" data-enter style="--i:2" href="mailto:hello@try-mycelium.com?subject=Analicen%20mis%20informes&body=Instituci%C3%B3n%3A%20%0AEstado%3A%20%0ASu%20cargo%3A%20">Envíenos sus informes</a>
+    <p data-enter style="--i:1">Distritos: envíennos sus informes y en una semana les devolvemos lo recuperable, línea por línea. Fondos: envíen su conteo de reembolsos de Parte B.</p>
+    <a class="button" data-enter style="--i:2" href="mailto:hello@try-mycelium.com?subject=Mycelium">Escríbanles a los fundadores</a>
   </div>
 </section>
 
@@ -542,54 +540,6 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; letter-spacing: -0.0
 
 <script>
 (function(){
-  // The live thing: district scan, from the state's own files (see tools/site/scan)
-  var figure = document.getElementById('scan-figure'), sub = document.getElementById('scan-sub'), lines = document.getElementById('scan-lines');
-  var input = document.getElementById('district'), list = document.getElementById('scan-matches'), quick = document.getElementById('scan-quick');
-  var fund = { fig: '$11M', sub: 'que podría recuperar al año un fondo de beneficios grande de Nueva York, según sus informes anuales públicos', lines: [['Primas de Medicare Parte B que reembolsa y que el estado cubriría','$11M'],['Jubilados elegibles que nunca solicitaron el programa estatal','cerca del 40%'],['Se recupera cuando el jubilado dice que sí y el ayudante tramita','por aprobación']] };
-  var A = null, rows = [], active = -1;
-  function money(n){ if (n >= 1e7) return '$' + (n/1e6).toFixed(0) + 'M'; if (n >= 1e6) return '$' + (n/1e6).toFixed(1) + 'M'; if (n >= 1e3) return '$' + Math.round(n/1e3) + 'K'; return '$' + Math.round(n); }
-  function num(n){ return n.toLocaleString('en-US'); }
-  function show(fig, s, ls){
-    figure.firstChild.nodeValue = fig; sub.textContent = s; lines.innerHTML = '';
-    ls.forEach(function(p){ var row = document.createElement('div'); var sp = document.createElement('span'); sp.textContent = p[0]; var b = document.createElement('b'); b.textContent = p[1]; row.appendChild(sp); row.appendChild(b); lines.appendChild(row); });
-  }
-  function district(r){
-    var name = r[1], enrolled = r[3], absent = r[4], rate = r[5], perDay = r[6], perCounted = r[7], perPoint = r[8], basic = r[9];
-    var reached = Math.round(absent * A.reach), days = reached * A.days, uncounted = Math.round(enrolled * A.uncounted);
-    if (basic) { show('$0', 'en dinero estatal para ' + name + ', que se financia con impuestos locales', [[num(absent) + ' estudiantes con ausentismo crónico', rate + '%'], ['Un día más de asistencia le trae al distrito', '$0'], ['El lado de las familias sigue en pie; el del presupuesto no', '']]); return; }
-    var att = days * perDay, cnt = uncounted * perCounted;
-    show(money(att), 'que podría recuperar al año ' + name + ', según sus informes públicos', [
-      [num(absent) + ' estudiantes con ausentismo crónico, uno de cada cuatro contactado, ' + A.days + ' días más cada uno, a $' + perDay + ' por día', money(att)],
-      ['Fuera de la cifra: si uno de cada doscientos inscritos es de bajos ingresos y no está contado, ' + num(uncounted) + ' estudiantes a $' + num(perCounted) + ' cada uno', money(cnt)],
-      ['Cada 1% de asistencia vale', money(perPoint)]
-    ]);
-  }
-  function pick(id){
-    if (id === 'fund') { input.value = 'Un fondo de beneficios grande de Nueva York'; show(fund.fig, fund.sub, fund.lines); return; }
-    var r = rows.filter(function(r){ return r[0] === id; })[0]; if (!r) return;
-    input.value = r[1]; district(r);
-  }
-  function close(){ list.innerHTML = ''; active = -1; input.setAttribute('aria-expanded', 'false'); }
-  function search(){
-    var q = input.value.trim().toLowerCase(); close(); if (q.length < 2 || !rows.length) return;
-    var hits = rows.map(function(r){ var n = r[1].toLowerCase(), c = r[2].toLowerCase(); var k = n.indexOf(q) === 0 ? 0 : n.indexOf(q) > 0 ? 1 : c.indexOf(q) === 0 ? 2 : -1; return [k, r]; }).filter(function(h){ return h[0] >= 0; }).sort(function(x, y){ return x[0] - y[0] || y[1][3] - x[1][3]; }).slice(0, 8).map(function(h){ return h[1]; });
-    hits.forEach(function(r){ var li = document.createElement('li'); li.setAttribute('role', 'option'); li.dataset.id = r[0]; li.textContent = r[1]; var sm = document.createElement('small'); sm.textContent = r[2]; li.appendChild(sm); li.addEventListener('mousedown', function(e){ e.preventDefault(); pick(r[0]); close(); }); list.appendChild(li); });
-    input.setAttribute('aria-expanded', hits.length ? 'true' : 'false');
-  }
-  if (input) {
-    fetch('/scan-data.json').then(function(r){ return r.json(); }).then(function(d){ A = d.assumptions; rows = d.districts; }).catch(function(){ input.placeholder = 'La lista de distritos no cargó'; });
-    input.addEventListener('input', search);
-    input.addEventListener('focus', function(){ if (rows.length && input.value) search(); });
-    input.addEventListener('blur', close);
-    input.addEventListener('keydown', function(e){
-      var items = list.children; if (!items.length) return;
-      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); active = (active + (e.key === 'ArrowDown' ? 1 : items.length - 1)) % items.length; for (var i = 0; i < items.length; i++) items[i].setAttribute('aria-selected', i === active ? 'true' : 'false'); }
-      else if (e.key === 'Enter') { e.preventDefault(); var li = items[active >= 0 ? active : 0]; pick(li.dataset.id); close(); }
-      else if (e.key === 'Escape') close();
-    });
-    quick.addEventListener('click', function(e){ var b = e.target.closest('button'); if (b) pick(b.dataset.pick); });
-  }
-
   // Section entrances, once
   if ('IntersectionObserver' in window) {
     var io = new IntersectionObserver(function(es){ es.forEach(function(e){ if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }); }, { threshold: 0.15 });

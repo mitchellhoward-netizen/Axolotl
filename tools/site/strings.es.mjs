@@ -562,6 +562,26 @@ export default {
       ],
     },
 
+
+    district: {
+      h2Plain: 'Busque su distrito.',
+      h2Em: 'Vea cuánto vale la asistencia.',
+      lead: 'Cada distrito de California, según el archivo estatal de ausentismo crónico 2024–25 y su financiamiento LCFF 2024–25. Escriba un distrito o elija uno.',
+      label: 'Busque su distrito',
+      placeholder: 'Escriba cualquier distrito escolar de California',
+      quick: 'O pruebe',
+      quickNames: ['Pajaro Valley', 'Oakland', 'Fresno'],
+      sub: 'que podría recuperar al año {name}, según sus informes públicos',
+      line1: '{absent} estudiantes con ausentismo crónico, uno de cada cuatro contactado, {days} días más cada uno, a ${perDay} por día',
+      line2: 'Fuera de la cifra: si uno de cada doscientos inscritos es de bajos ingresos y no está contado, {uncounted} estudiantes a ${perCounted} cada uno',
+      line3: 'Cada 1% de asistencia vale',
+      basicSub: 'en dinero estatal para {name}, que se financia con impuestos locales',
+      basicLine1: '{absent} estudiantes con ausentismo crónico',
+      basicLine2: 'Un día más de asistencia le trae al distrito',
+      basicLine3: 'El lado de las familias sigue en pie; el del presupuesto no',
+      offline: 'La lista de distritos no cargó',
+      assume: 'Conteos del archivo estatal de ausentismo 2024–25; valores del financiamiento LCFF 2024–25 de cada distrito. El alcance y los días son supuestos nuestros, por debajo de lo que una carta por correo, sola, recuperó en un ensayo aleatorio (Rogers y Feller, 28,000 hogares). Los no contados quedan fuera de la cifra; los distritos de impuestos locales muestran $0; a los de matrícula en descenso se les paga un año tarde.',
+    },
     scan: {
       h2Plain: 'Empiece con una revisión gratis',
       h2Em: 'de sus propios datos.',

@@ -605,6 +605,29 @@ export default {
       ],
     },
 
+
+    // The district picker: every California district, from the state's own
+    // files (tools/site/scan). The page recomputes the arithmetic from the
+    // assumptions shipped in public/scan-data.json.
+    district: {
+      h2Plain: 'Find your district.',
+      h2Em: 'See what attendance is worth.',
+      lead: 'Every California district, from the state’s 2024–25 chronic absenteeism file and its 2024–25 LCFF funding. Type a district or pick one.',
+      label: 'Find your district',
+      placeholder: 'Type any California school district',
+      quick: 'Or try',
+      quickNames: ['Pajaro Valley', 'Oakland', 'Fresno'],
+      sub: '{name} could recover each year, worked from its own public filings',
+      line1: '{absent} chronically absent students, one in four reached, {days} more days each, at ${perDay} a day',
+      line2: 'Not in the figure: if one in two hundred enrolled students is low-income and uncounted, {uncounted} students at ${perCounted} each',
+      line3: 'Each 1% of attendance is worth',
+      basicSub: 'in state money for {name}, which is funded by local property tax',
+      basicLine1: '{absent} chronically absent students',
+      basicLine2: 'Another day of attendance brings the district',
+      basicLine3: 'The families’ side of the case still stands; the budget side doesn’t',
+      offline: 'The district list didn’t load',
+      assume: 'Counts from the state’s 2024–25 absenteeism file; values from each district’s 2024–25 LCFF funding. The reach and days are our assumptions, set below what a mailed letter alone recovered in a randomized trial (Rogers & Feller, 28,000 households). Uncounted students stay out of the figure; property-tax-funded districts show $0; declining-enrollment districts are paid a year late.',
+    },
     scan: {
       h2Plain: 'Start with a free scan',
       h2Em: 'of your own data.',
