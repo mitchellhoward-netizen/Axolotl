@@ -458,160 +458,100 @@ export default {
   // Everything else is marked as an example or an estimate.
   schools: {
     meta: {
-      title: 'Mycelium: kids get the help, districts get the funding',
+      title: 'Mycelium for school districts: a helper for every family',
       description:
-        'Medicaid for students with IEPs, the low-income count your funding formula uses, attendance: each waits on a family signing a form, enrolling or getting to school. Mycelium works with every family by text, in English or Spanish, with their yes. Districts pay a fixed fee per outcome.',
-      shareAlt:
-        'An example district’s monthly ledger from Mycelium: Medicaid consents returned, families newly counted, students back in class.',
+        'A child’s fifth absence triggers an offer from the school, in the family’s language: a helper by text that works on whatever keeps the child home. You pay a quarter of the attendance funding it recovers, nothing up front.',
+      shareAlt: 'A text thread between a parent and the helper from Maya’s school: the bus on route 12, a free transit pass, a yes.',
     },
-
     nav: {
-      outcomes: 'What we work on',
+      outcomes: 'What you see',
       how: 'How it works',
-      funds: 'For union funds',
-      join: 'Get a free scan',
+      funds: 'Benefit funds',
+      join: 'Get your number',
     },
-
     hero: {
-      eyebrow: 'For school districts and charter networks',
-      h1Plain: 'Kids get the help.',
-      h1Em: 'Your district gets the funding.',
-      // The social card (share.html) draws the headline as one line of plain text.
-      h1: 'Kids get the help. Your district gets the funding.',
-      sub: 'Medicaid for students with IEPs, the low-income count your funding formula uses, attendance: each one waits on a family signing a form, enrolling in a program or getting to school. No office has the hours to do that with every family. Mycelium does, by text, in English or Spanish, and nothing is sent without the parent’s yes. You pay a fixed fee only for outcomes that happen.',
-      primary: 'Get a free scan',
-      secondary: 'See what we work on',
-      trust: 'For districts and charter networks in California, New York and Illinois. Nothing if nothing changes.',
-      ledger: {
-        eyebrow: 'Monthly ledger',
-        example: 'Example district',
-        rows: [
-          { v: '212', l: 'Medicaid consents returned', note: 'Students with IEPs. Therapy the district already provides, now billable.' },
-          { v: '87', l: 'Families newly counted', note: 'Enrolled in CalFresh or Medi-Cal, then matched for the low-income count.' },
-          { v: '64', l: 'Students back above 90% attendance', note: 'After a ride, a refill or a form was sorted out.' },
-          { v: '130', l: 'Families deciding', note: 'They answered and are thinking it over. Nothing moves without a yes.' },
-        ],
-        foot: 'An example, not a client.',
-      },
-      // The social card's ledger. An example, not a client.
+      h1a: 'A fifth absence triggers',
+      h1b: 'help, not a letter.',
+      h1: 'A fifth absence triggers help, not a letter.',
+      sub: 'Mycelium gives each family at your school a helper by text, in their language, that works on whatever keeps the child home. You pay a quarter of the attendance funding it recovers, nothing up front.',
+      primary: 'Get your number',
+      secondary: 'Find your district',
+      // The social card (share.html) draws this ledger; an example, not a client.
       folder: {
-        label: 'Monthly ledger · Example district',
-        // The card's status pills. The shared `statuses` are left alone: the
-        // phone art's fingerprint covers them.
-        statuses: { done: 'Done', waiting: 'Waiting for a yes' },
+        label: 'From Maya’s school · in Spanish or English',
+        statuses: { done: 'Filed', waiting: 'Waiting for a yes' },
         rows: [
-          { label: '212 consents returned', detail: 'Medicaid for services on students’ IEPs.', status: 'done' },
-          { label: '87 families counted', detail: 'Enrolled in CalFresh or Medi-Cal and matched.', status: 'done' },
-          { label: '64 students back in class', detail: 'Above 90% attendance for the term.', status: 'done' },
-          { label: '130 families deciding', detail: 'They answered. Nothing moves without a yes.', status: 'waiting' },
+          { label: 'Free student transit pass', detail: 'Route 12 was cut back; the 7:10 city bus gets her there by 7:40.', status: 'done' },
+          { label: 'Medi-Cal renewal', detail: 'Due in March. Nothing sent without a yes.', status: 'waiting' },
         ],
       },
     },
-
-    outcomes: {
-      h2Plain: 'The money is there.',
-      h2Em: 'The paperwork is in the way.',
-      lead: 'Districts are owed funding for students they already serve. It arrives only when a family signs, enrolls or shows up, and the work to get there is a form, a call or a ride at a time. Your coordinators know how to do every one of them. Nobody has the hours to do them for every family. These are the outcomes we work on.',
-      stats: {
-        eyebrow: 'On the record',
-        example: 'Public sources',
-        rows: [
-          { v: '$431.6M', l: 'Medicaid New York City schools didn’t claim, 2023–25', note: 'NYC Comptroller, 2026. About half of eligible therapy sessions were never billed.' },
-          { v: '26–50%', l: 'Of Medicaid consent forms incomplete, for a third of districts surveyed', note: 'AASA, AESA and NAME, 2022.' },
-          { v: '22.6%', l: 'Of US students chronically absent in 2025', note: 'AEI, 45 states. It was 15.4% in 2019.' },
-          { v: '$14.66B', l: 'California’s LCFF supplemental and concentration grants, 2025–26', note: 'CDE. They follow every student counted as low-income, an English learner or in foster care.' },
-        ],
-      },
-      caption: 'The outcomes Mycelium works on, what is in the way, and who gains',
-      head: ['Outcome', 'What’s in the way', 'What the district gets', 'What the family gets'],
+    thread: {
+      who: 'From Maya’s school · in Spanish or English',
+      msgs: [
+        ['in', 'Hi — this is a helper from Maya’s school. The school noticed Maya’s missed five days. I’m not here to get her in trouble; I’m here to help with whatever’s making mornings hard. Want to try?'],
+        ['me', 'yes. the bus on route 12 keeps not showing up'],
+        ['in', 'Route 12’s been cut back since August. Your family qualifies for a free student transit pass, and the 7:10 city bus from Pine and 3rd gets her there by 7:40. Reply YES and I’ll file the pass.'],
+        ['me', 'YES. does the school see this?'],
+        ['in', 'No. The school only sees what it asked about: whether Maya is getting to school. This stays between us unless you say otherwise.'],
+      ],
+      note: 'The school sees attendance improve. It never sees the thread.',
+      h2a: 'Today,',
+      h2b: 'a letter.',
+      p1: 'It is already in your records. With Mycelium it triggers an offer from the school instead: a helper that finds out what is actually in the way, the bus, the Medi-Cal renewal, the shutoff notice, the IEP meeting, and does the thing, with the family’s yes on each action.',
+      p2: 'The thread stays with the family, under FERPA’s school-official rules. You see attendance and patterns in aggregate, like forty families on one cut bus route; never a reason, and never another institution.',
+    },
+    how: {
+      steps: [
+        ['First we read how you’re funded.', 'Your LCAP and your attendance file, line by line: every dollar that depends on a child being in a seat. The number comes first, free.'],
+        ['Then it rehearses on last year.', 'Before it texts anyone, it runs on last year’s records. You see who it would have reached and what it would have said, and you decide when it’s ready.'],
+        ['You offer it. The family says yes.', 'A fifth absence sends an offer from you, in the family’s language. They say yes or they don’t. Your attendance team sees only the cases that need a person.'],
+        ['You pay when attendance moves.', 'Days recovered against each student’s own prior year, rolled out school by school and measured against the schools not yet offered. Our share is a quarter of the funding recovered; the rest stays with you.'],
+      ],
+    },
+    sees: {
+      a: { h2: 'What you see.', p: 'Who was offered a helper, from your own records, and whether attendance improved. Patterns in aggregate. Every rule the helper follows, in writing, before anything goes live. A monthly report your board can read.' },
+      b: { h2: 'What you never see.', p: 'The address, the eviction notice, the immigration question, the sick grandparent. Any message, unless the family chooses to share it. Anything about a family that didn’t say yes.' },
+      c: { h2: 'What we sign first.', p: 'The California Student Data Privacy Agreement before we see a single record. FERPA’s school-official rules and CA-NDPA. Student data is never used to train models and never leaves to another institution.' },
+    },
+    trial: {
+      h2a: 'Measured',
+      h2b: 'for your board.',
+      lead: 'Chronically absent students improve on their own some years. The measurement is built so that doesn’t count as ours.',
+      items: [
+        'Each student against their own prior year, not against a district average.',
+        'Offered school by school, so every month there are schools not yet offered to compare against.',
+        'Reported monthly: families reached, in which language, how many answered, days recovered by school, funding recovered by line.',
+        'If attendance doesn’t move, you pay nothing. There is no platform fee and no minimum.',
+      ],
+    },
+    more: {
+      h2: 'Attendance first.',
       rows: [
-        {
-          outcome: 'Medicaid for students with IEPs',
-          blocked: 'A parent’s one-time consent, a Medicaid number on file',
-          district: 'Reimbursement for therapy and services it already provides',
-          family: 'The same services. Consent changes nothing the child receives and can be withdrawn.',
-        },
-        {
-          outcome: 'The low-income count',
-          blocked: 'Families eligible for SNAP or Medicaid (CalFresh or Medi-Cal in California) who never enrolled, or never got matched',
-          district: 'Formula funding for each student counted: LCFF in California, Foundation Aid in New York, Evidence-Based Funding in Illinois',
-          family: 'Food benefits, health coverage and free school meals',
-        },
-        {
-          outcome: 'Attendance',
-          blocked: 'A ride, a health form, coverage that lapsed, a move',
-          district: 'Days of learning, and attendance-based funding in California and Texas',
-          family: 'A kid back in class',
-        },
-        {
-          outcome: 'Students without stable housing',
-          blocked: 'Families who don’t know that staying with relatives can count under McKinney-Vento',
-          district: 'The right students identified, and the support the law requires reaching them',
-          family: 'A ride to the same school, free meals, and enrollment without the usual papers',
-        },
+        ['Attendance days', 'A ride, a health form, coverage that lapsed, a move', 'Attendance-based funding, by the day'],
+        ['The low-income count', 'Families eligible for CalFresh or Medi-Cal who never enrolled or were never matched', 'Supplemental and concentration grants for each student counted'],
+        ['Medicaid for students with IEPs', 'A parent’s one-time consent and a Medicaid number on file', 'Reimbursement for therapy you already provide'],
       ],
-      note: 'Medicaid: NYC Comptroller follow-up audit, July 2026. Consent: district survey by AASA, AESA and NAME, reported by K-12 Dive, 2023. Under IDEA, a district needs a parent’s one-time written consent before it first bills Medicaid for a child’s services (34 CFR 300.154). Chronic absence: AEI, reported by K-12 Dive, 2025. LCFF: California Department of Education, 2025–26.',
+      head: ['Outcome', 'What’s in the way', 'What the district gets'],
+      note: 'Two more lines wait on the same families. We start with attendance because the state pays for it by the day and the measurement is clean; the other two run on the same helper and the same yes.',
     },
-
-    example: {
-      h2Plain: 'One family,',
-      h2Em: 'counted right.',
-      lead: 'In a California district where more than 55% of students are low-income, a family that enrolls in CalFresh or Medi-Cal is matched by the state, and their student counts for LCFF. The family gets help with groceries and health coverage. The district gets funding it was already meant to have.',
-      brief: {
-        eyebrow: 'What one match is worth',
-        example: 'California, estimate',
-        rows: [
-          { v: '~$9,750', l: 'A year to the district, once it phases in', note: 'Supplemental (20%) plus concentration (65%) grants on an average base of $11,465. The count averages three years, so it builds up.' },
-          { v: 'Yearly', l: 'The student is matched again', note: 'While the family stays enrolled. No meal form to chase.' },
-          { v: '$0', l: 'What the family pays us', note: 'Districts pay. Families never do.' },
-          { v: 'Fixed', l: 'Our fee for the outcome, agreed up front', note: 'Nothing if the family doesn’t enroll.' },
-        ],
-        foot: 'Estimates from public rates. The free scan replaces them with your district’s numbers.',
-      },
-    },
-
-    steps: {
-      h2Plain: 'Every family, followed through.',
-      h2Em: 'Nothing moves without a yes.',
-      lead: 'Mycelium keeps a live record of where each family stands on each outcome: likely eligible, contacted, agreed, filed, confirmed. It moves a family forward only when it’s sure. When it isn’t, a person on your team or ours decides.',
-      items: [
-        { tag: 'Map', text: 'We read how your district is funded and where outcomes stall: your state’s formula, your Medicaid claiming, your enrollment and attendance data.' },
-        { tag: 'Find', text: 'Names in: the students whose families are likely eligible, missing a consent or slipping on attendance.' },
-        { tag: 'Reach', text: 'Your district sends one message with our number. Families text back in English or Spanish, at any hour.' },
-        { tag: 'Yes', text: 'Nothing is signed or filed until the parent replies YES to exactly what will happen.' },
-        { tag: 'Confirm', text: 'We follow each case to the result: the consent on file, the approval, the match, the student back in class.' },
-        { tag: 'Report', text: 'Outcomes out: a monthly ledger by school of what changed and what it’s worth, with the hard cases handed to your coordinators.' },
+    evidence: {
+      h2: 'Why help works where letters don’t.',
+      facts: [
+        ['A brochure about financial aid did nothing. Sitting with the family to finish the form raised college enrollment 8 points.', 'Bettinger, Long, Oreopoulos & Sanbonmatsu, randomized, 26,000 families', 'https://www.povertyactionlab.org/print/pdf/node/2133?lang=en'],
+        ['A letter saying “you qualify” doubled benefit enrollment. A person who filed it tripled it.', 'Finkelstein & Notowidigdo, randomized, 31,000 seniors', 'https://www.nber.org/system/files/working_papers/w24652/w24652.pdf'],
+        ['Personal messages to families recover attendance for $5 to $11 a day, twice as much for families who speak another language.', 'Robinson, Lee, Dearing & Rogers, randomized, California K–5', 'https://toddrogers.scholars.harvard.edu/resource/robinsonleedearingrogers2018reducingabsenteeismintheearlygradespdf'],
+        ['One text helper handled 200,000 messages. Fewer than one in a hundred needed a person.', 'Georgia State University, randomized, 3,100 students', 'https://campustechnology.com/articles/2017/03/07/using-ai-chatbots-to-freeze-summer-melt-in-higher-ed.aspx'],
       ],
+      bet: 'No one has run the trial where one helper, the family’s own, does all four. Yours would be it: offered school by school, measured against the schools not yet offered, so by June you know.',
     },
-
-    different: {
-      h2Plain: 'Why this isn’t done',
-      h2Em: 'already.',
-      items: [
-        { title: 'Each case is small. There are thousands.', body: 'A form, a call, a ride. Your staff know how to do every one. Nobody has the hours to do them for every family, every month.' },
-        { title: 'The work sits outside the school', body: 'Food benefits, health coverage and transit run through county and state offices. We work with families across all of them.' },
-        { title: 'Only the family can sign', body: 'No data match can enroll anyone or give consent. We get it done with the parent, from a message they trust because it came from their school.' },
-        { title: 'You pay for results', body: 'A fixed fee per outcome, agreed up front. Nothing for outreach, nothing for families who say no.' },
-      ],
+    close: {
+      h2: 'Now you can see it.',
+      p: 'Send us your LCAP and your attendance file, or just your district’s name. Within a week we send back what’s recoverable, by line, and what the helper would have said to the first forty families it reached last year.',
     },
-
-    never: {
-      h2: 'What we never do',
-      items: [
-        { title: 'Act without a yes', body: 'Nothing is sent, signed or filed until a parent replies YES to exactly what will happen.' },
-        { title: 'Share a family’s case', body: 'The district sees outcomes and totals. It learns more only when the family agrees, and only what it needs.' },
-        { title: 'Touch a student’s education', body: 'We never change an IEP, a placement, a grade or a service.' },
-        { title: 'Charge families', body: 'Families never pay us. We sign your state’s student data privacy agreement before we see a single record.' },
-      ],
-    },
-
-
-    // The district picker: every California district, from the state's own
-    // files (tools/site/scan). The page recomputes the arithmetic from the
-    // assumptions shipped in public/scan-data.json.
     district: {
       h2Plain: 'Find your district.',
-      h2Em: 'See what attendance is worth.',
+      h2Em: '',
       lead: 'Every California district, from the state’s 2024–25 chronic absenteeism file and its 2024–25 LCFF funding. Type a district or pick one.',
       label: 'Find your district',
       placeholder: 'Type any California school district',
@@ -628,47 +568,6 @@ export default {
       offline: 'The district list didn’t load',
       assume: 'Counts from the state’s 2024–25 absenteeism file; values from each district’s 2024–25 LCFF funding. The reach and days are our assumptions, set below what a mailed letter alone recovered in a randomized trial (Rogers & Feller, 28,000 households). Uncounted students stay out of the figure; property-tax-funded districts show $0; declining-enrollment districts are paid a year late.',
     },
-    scan: {
-      h2Plain: 'Start with a free scan',
-      h2Em: 'of your own data.',
-      lead: 'In 30 days we show you, in dollars, what’s waiting on families in your district, outcome by outcome, and how many students are behind each number.',
-      cards: [
-        { title: 'What you get', body: 'For each outcome: how many students are likely affected, what it’s worth a year, and which schools have the most. No names leave the district unless you ask.' },
-        { title: 'What you give', body: 'A de-identified student file under your data privacy agreement, and one contact in your district office.' },
-        { title: 'What it costs', body: 'Nothing. If you want families reached, you send one message and pay only for outcomes.' },
-      ],
-      dataLabel: 'What we ask for',
-      data: [
-        'Grade, school and home language',
-        'IEP status and the services on each IEP',
-        'Medicaid and free-meal status, and how it was determined',
-        'Days enrolled and days absent',
-      ],
-      neverLabel: 'What we never need',
-      never: ['Social Security numbers', 'Health records', 'Grades or discipline records'],
-      estimate: 'For a California district above the 55% line, every 100 students newly counted is worth about $975,000 a year once it phases in. The scan replaces that with your number.',
-    },
-
-    pilot: {
-      h2: 'Start with one outcome at a few schools',
-      lead: 'Pick the outcome that matters most and a few schools. You send one message. We reach families, follow every case through and report every month.',
-      feesHead: ['What', 'Our fee'],
-      fees: [
-        ['A Medicaid consent returned for a student with an IEP', 'A fixed fee, agreed up front'],
-        ['A family newly enrolled and counted', 'A fixed fee, agreed up front'],
-        ['A chronically absent student back above 90% for a full term', 'A fixed fee, agreed up front'],
-        ['A family that doesn’t answer, isn’t eligible or says no', 'Nothing'],
-      ],
-      measuresLabel: 'What we report every month',
-      measures: [
-        'Families reached, in which language, and how many answered',
-        'Consents returned, enrollments approved and students matched',
-        'Attendance for the students we worked with',
-        'Estimated funding gained, by school',
-      ],
-      guardrail: 'If nothing changes, the pilot costs the district nothing.',
-    },
-
     form: {
       h2: 'Request a free scan',
       lead: 'Tell us about your district. We’ll reply within two business days with the data agreement and the data list.',
@@ -684,13 +583,11 @@ export default {
       error: "We couldn't save your request. Please try again.",
       generic: 'Please fill in every field.',
     },
-
     fundsBand: {
       h2: 'Run a union benefit fund?',
       body: 'Mycelium also helps funds stop paying Medicare Part B premiums that New York would pay, with each retiree’s yes.',
       link: 'For union funds',
     },
-
     footer: {
       tagline: 'Help for families, funding for the schools that serve them',
       links: [
