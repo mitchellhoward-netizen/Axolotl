@@ -1,7 +1,11 @@
 /**
  * Renders the static site from the per-language strings files.
  *
- *     npm run build:site      # write public/index.html, public/es.html,
+ *     npm run build:site      # write public/index.html and public/es.html
+ *                             # (the idea), public/schools.html and
+ *                             # public/es/schools.html (school districts),
+ *                             # public/funds.html and
+ *                             # public/es/funds.html (union funds), and
  *                             # public/members.html, public/es/members.html
  *     npm run check:site      # fail if the committed HTML is not what the
  *                             # strings would produce (drift check, used by CI)
@@ -46,20 +50,41 @@ const fill = (template, vars) =>
 
 // ── shared pieces ────────────────────────────────────────────────────────────
 
-/** The header. `prefix` is '' on the home page and '/' elsewhere, so the
- *  section links keep working from a page that does not have those sections.
- *  `ctaLabel` names the header button: a pilot on the fund pages, a text on
- *  /members. */
-function header(s, { prefix, cta, ctaLabel, langHref }) {
-  // Section links point at this language's home page, so /es/members does not
-  // send a Spanish reader to the English page.
-  const home = s.lang === 'es' ? '/es' : '/';
-  const base = prefix ? home : '';
-  const nav = [
+/** This language's URL for a page: localized('/funds') is '/es/funds' in Spanish. */
+const localized = (s, href) => (s.lang === 'es' ? (href === '/' ? '/es' : `/es${href}`) : href);
+
+/** The nav links for each kind of page. The school pages are the homepage; the
+ *  union fund page lives at /funds, and /members is for the retirees a fund
+ *  sends to us, so its section links point back at /funds. */
+function navFor(s, page) {
+  if (page === 'home') {
+    return [
+      [at(s, 'home.nav.why'), '#why'],
+      [at(s, 'home.nav.how'), '#how'],
+      [at(s, 'home.nav.schools'), localized(s, '/schools')],
+      [at(s, 'home.nav.funds'), localized(s, '/funds')],
+    ];
+  }
+  if (page === 'schools') {
+    return [
+      [at(s, 'schools.nav.outcomes'), '#outcomes'],
+      [at(s, 'schools.nav.how'), '#how'],
+      [at(s, 'schools.nav.funds'), localized(s, '/funds')],
+    ];
+  }
+  const base = page === 'funds' ? '' : localized(s, '/funds');
+  return [
     [at(s, 'nav.money'), `${base}#money`],
     [at(s, 'nav.how'), `${base}#how`],
-    [at(s, 'nav.members'), s.lang === 'es' ? '/es/members' : '/members'],
-  ]
+    [at(s, 'nav.members'), localized(s, '/members')],
+  ];
+}
+
+/** The header. `ctaLabel` names the header button: a scan on the school and
+ *  fund pages, a text on /members. */
+function header(s, { page, cta, ctaLabel, langHref }) {
+  const home = localized(s, '/');
+  const nav = navFor(s, page)
     .map(([label, href]) => `<li><a href="${href}">${esc(label)}</a></li>`)
     .join('');
   return `
@@ -85,9 +110,10 @@ function header(s, { prefix, cta, ctaLabel, langHref }) {
   </header>`;
 }
 
-function footer(s, { langHref }) {
-  const home = s.lang === 'es' ? '/es' : '/';
-  const links = at(s, 'footer.links')
+function footer(s, { page, langHref }) {
+  const home = localized(s, '/');
+  const f = page === 'home' ? at(s, 'home.footer') : page === 'schools' ? at(s, 'schools.footer') : at(s, 'footer');
+  const links = f.links
     .map((l) => `<li><a href="${l.href}">${esc(l.label)}</a></li>`)
     .join('');
   return `
@@ -98,7 +124,7 @@ function footer(s, { langHref }) {
           <img src="/mark.svg" alt="" width="44" height="44" />
           <span>Mycelium</span>
         </a>
-        <p>${esc(at(s, 'footer.tagline'))}</p>
+        <p>${esc(f.tagline)}</p>
       </div>
       <nav aria-label="${esc(at(s, 'a11y.footerNav'))}">
         <ul>
@@ -179,13 +205,339 @@ function pathCard(c) {
           </article>`;
 }
 
-// ── the homepage: for union benefit funds ────────────────────────────────────
+// ── the homepage: the idea ───────────────────────────────────────────────────
+//
+// Stranded alignment, for people who are not AI-native: an institution's
+// results depend on the people it serves; the outcomes in between are ones
+// both want and nobody can afford to reach; a helper per person, sponsored by
+// the institution and working for the person, reaches them. Names in,
+// outcomes out. /schools and /funds carry the specifics.
+
+function homeSections(s) {
+  const k = at(s, 'home');
+
+  const h = k.hero;
+  const hero = `
+    <section class="hero hero-schools hero-fund" id="top" aria-labelledby="hero-title">
+      <div class="wrap split hero-fund-split">
+        <div class="split-copy">
+          <p class="schools-eyebrow">${esc(h.eyebrow)}</p>
+          <h1 id="hero-title">${payoff(h.h1Plain, h.h1Em)}</h1>
+          <p class="lead">${esc(h.sub)}</p>
+          <div class="hero-actions">
+            <a class="button primary" href="#school-contact">${esc(h.primary)}</a>
+            <a class="text-link" href="#how">${esc(h.secondary)}</a>
+          </div>
+          <p class="trust-line">${esc(h.trust)}</p>
+        </div>
+        ${briefCard(h.story, 'story-title')}
+      </div>
+    </section>`;
+
+  const d = k.depend;
+  const depend = `
+    <section class="section t-day" aria-labelledby="depend-title">
+      <div class="wrap">
+        <h2 id="depend-title">${payoff(d.h2Plain, d.h2Em)}</h2>
+        <p class="lead">${esc(d.lead)}</p>
+        <table class="year-table money-table">
+          <caption class="sr-only">${esc(d.caption)}</caption>
+          <thead>
+            <tr>${d.head.map((c) => `<th scope="col">${esc(c)}</th>`).join('')}</tr>
+          </thead>
+          <tbody>
+          ${d.rows
+            .map(
+              (r) => `<tr>
+            <td data-label="${esc(d.head[0])}">${esc(r.life)}</td>
+            <td data-label="${esc(d.head[1])}">${esc(r.money)}</td>
+            <td data-label="${esc(d.head[2])}">${esc(r.stuck)}</td>
+          </tr>`,
+            )
+            .join('\n          ')}
+          </tbody>
+        </table>
+        <p class="network-note">${esc(d.note)}</p>
+      </div>
+    </section>`;
+
+  const w = k.why;
+  const why = `
+    <section class="section t-noon" id="why" aria-labelledby="why-title">
+      <div class="wrap">
+        <h2 id="why-title">${payoff(w.h2Plain, w.h2Em)}</h2>
+        <p class="lead">${esc(w.lead)}</p>
+        <div class="scan-cards">${cardGrid(w.cards)}</div>
+        <p class="scan-estimate"><span class="highlight">${esc(w.changed)}</span></p>
+        <p class="network-note">${esc(w.note)}</p>
+      </div>
+    </section>`;
+
+  const st = k.steps;
+  const steps = `
+    <section class="section t-night-deep" id="how" aria-labelledby="how-title">
+      <div class="wrap">
+        <h2 id="how-title">${payoff(st.h2Plain, st.h2Em)}</h2>
+        <p class="lead">${esc(st.lead)}</p>
+        <ol class="fly-steps">
+          ${st.items.map((i) => `<li><strong>${esc(i.tag)}</strong><span>${esc(i.text)}</span></li>`).join('\n          ')}
+        </ol>
+      </div>
+    </section>`;
+
+  const hp = k.helper;
+  const helper = `
+    <section class="section t-day" aria-labelledby="helper-title">
+      <div class="wrap">
+        <h2 id="helper-title">${payoff(hp.h2Plain, hp.h2Em)}</h2>
+        <p class="lead">${esc(hp.lead)}</p>
+        ${cardGrid(hp.items)}
+        <p class="scan-estimate"><span class="highlight">${esc(hp.closer)}</span></p>
+      </div>
+    </section>`;
+
+  const rules = `
+    <section class="section" aria-labelledby="rules-title">
+      <div class="wrap">
+        <h2 id="rules-title">${esc(k.rules.h2)}</h2>
+        ${cardGrid(k.rules.items)}
+      </div>
+    </section>`;
+
+  const wh = k.where;
+  const where = `
+    <section class="section t-golden" aria-labelledby="where-title">
+      <div class="wrap">
+        <h2 id="where-title">${esc(wh.h2)}</h2>
+        <p class="lead">${esc(wh.lead)}</p>
+        <div class="scan-cards">
+          <div class="never-grid">
+          ${wh.cards
+            .map(
+              (c) =>
+                `<article><h3>${esc(c.title)}</h3><p>${esc(c.body)}</p><p><a class="text-link" href="${c.href.startsWith('#') ? c.href : localized(s, c.href)}">${esc(c.link)}</a></p></article>`,
+            )
+            .join('\n          ')}
+          </div>
+        </div>
+      </div>
+    </section>`;
+
+  return [hero, depend, why, steps, helper, rules, where, contactForm(k.form, 'home')].join('');
+}
+
+// ── /schools: for school districts ───────────────────────────────────────────
+//
+// Outcomes a district is already paid for that wait on a family: Medicaid
+// consent for students with IEPs, the low-income count its funding formula
+// uses, attendance, students without stable housing. Copy lives under
+// `schools` in the strings files; the hero shows an example monthly ledger.
+
+function schoolSections(s) {
+  const k = at(s, 'schools');
+
+  const h = k.hero;
+  const hero = `
+    <section class="hero hero-schools hero-fund" id="top" aria-labelledby="hero-title">
+      <div class="wrap split hero-fund-split">
+        <div class="split-copy">
+          <p class="schools-eyebrow">${esc(h.eyebrow)}</p>
+          <h1 id="hero-title">${payoff(h.h1Plain, h.h1Em)}</h1>
+          <p class="lead">${esc(h.sub)}</p>
+          <div class="hero-actions">
+            <a class="button primary" href="#school-contact">${esc(h.primary)}</a>
+            <a class="text-link" href="#outcomes">${esc(h.secondary)}</a>
+          </div>
+          <p class="trust-line">${esc(h.trust)}</p>
+        </div>
+        ${briefCard(h.ledger, 'ledger-title')}
+      </div>
+    </section>`;
+
+  const o = k.outcomes;
+  const outcomes = `
+    <section class="section t-day" id="outcomes" aria-labelledby="outcomes-title">
+      <div class="wrap">
+        <div class="split money-split">
+          <div class="split-copy">
+            <h2 id="outcomes-title">${payoff(o.h2Plain, o.h2Em)}</h2>
+            <p class="lead">${esc(o.lead)}</p>
+          </div>
+          ${briefCard(o.stats, 'outcomes-stats-title')}
+        </div>
+        <table class="year-table money-table">
+          <caption class="sr-only">${esc(o.caption)}</caption>
+          <thead>
+            <tr>${o.head.map((c) => `<th scope="col">${esc(c)}</th>`).join('')}</tr>
+          </thead>
+          <tbody>
+          ${o.rows
+            .map(
+              (r) => `<tr>
+            <td data-label="${esc(o.head[0])}">${esc(r.outcome)}</td>
+            <td data-label="${esc(o.head[1])}">${esc(r.blocked)}</td>
+            <td data-label="${esc(o.head[2])}">${esc(r.district)}</td>
+            <td data-label="${esc(o.head[3])}">${esc(r.family)}</td>
+          </tr>`,
+            )
+            .join('\n          ')}
+          </tbody>
+        </table>
+        <p class="network-note">${esc(o.note)}</p>
+      </div>
+    </section>`;
+
+  const e = k.example;
+  const example = `
+    <section class="section t-noon" id="example" aria-labelledby="example-title">
+      <div class="wrap split">
+        <div class="split-copy">
+          <h2 id="example-title">${payoff(e.h2Plain, e.h2Em)}</h2>
+          <p class="lead">${esc(e.lead)}</p>
+        </div>
+        ${briefCard(e.brief, 'example-brief-title')}
+      </div>
+    </section>`;
+
+  const st = k.steps;
+  const steps = `
+    <section class="section t-night-deep" id="how" aria-labelledby="how-title">
+      <div class="wrap">
+        <h2 id="how-title">${payoff(st.h2Plain, st.h2Em)}</h2>
+        <p class="lead">${esc(st.lead)}</p>
+        <ol class="fly-steps">
+          ${st.items.map((i) => `<li><strong>${esc(i.tag)}</strong><span>${esc(i.text)}</span></li>`).join('\n          ')}
+        </ol>
+      </div>
+    </section>`;
+
+  const df = k.different;
+  const different = `
+    <section class="section t-day" aria-labelledby="different-title">
+      <div class="wrap">
+        <h2 id="different-title">${payoff(df.h2Plain, df.h2Em)}</h2>
+        ${cardGrid(df.items)}
+      </div>
+    </section>`;
+
+  const never = `
+    <section class="section" aria-labelledby="never-title">
+      <div class="wrap">
+        <h2 id="never-title">${esc(k.never.h2)}</h2>
+        ${cardGrid(k.never.items)}
+      </div>
+    </section>`;
+
+  const sc = k.scan;
+  const scan = `
+    <section class="section t-golden" id="scan" aria-labelledby="scan-title">
+      <div class="wrap">
+        <h2 id="scan-title">${payoff(sc.h2Plain, sc.h2Em)}</h2>
+        <p class="lead">${esc(sc.lead)}</p>
+        <div class="scan-cards">${cardGrid(sc.cards)}</div>
+        <div class="scan-lists">
+          <div>
+            <h3>${esc(sc.dataLabel)}</h3>
+            <ul class="plain-list">${sc.data.map((i) => `<li>${esc(i)}</li>`).join('')}</ul>
+          </div>
+          <div>
+            <h3>${esc(sc.neverLabel)}</h3>
+            <ul class="plain-list">${sc.never.map((i) => `<li>${esc(i)}</li>`).join('')}</ul>
+          </div>
+        </div>
+        <p class="scan-estimate"><span class="highlight">${esc(sc.estimate)}</span></p>
+        <a class="button primary" href="#school-contact">${esc(h.primary)}</a>
+      </div>
+    </section>`;
+
+  const p = k.pilot;
+  const pilot = `
+    <section class="section section-sheet" aria-labelledby="pilot-title">
+      <div class="wrap">
+        <h2 id="pilot-title">${esc(p.h2)}</h2>
+        <p class="lead">${esc(p.lead)}</p>
+        <table class="year-table connect-table">
+          <caption class="sr-only">${esc(p.h2)}</caption>
+          <thead>
+            <tr><th scope="col">${esc(p.feesHead[0])}</th><th scope="col">${esc(p.feesHead[1])}</th></tr>
+          </thead>
+          <tbody>
+          ${p.fees
+            .map(([a, b]) => `<tr><td data-label="${esc(p.feesHead[0])}">${esc(a)}</td><td data-label="${esc(p.feesHead[1])}">${esc(b)}</td></tr>`)
+            .join('\n          ')}
+          </tbody>
+        </table>
+        <h3>${esc(p.measuresLabel)}</h3>
+        <ul class="plain-list wide">
+          ${p.measures.map((i) => `<li>${esc(i)}</li>`).join('\n          ')}
+        </ul>
+        <p><span class="highlight">${esc(p.guardrail)}</span></p>
+      </div>
+    </section>`;
+
+  const band = k.fundsBand;
+  const fundsBand = `
+    <section class="section t-night-deep section-band" aria-labelledby="funds-band-title">
+      <div class="wrap band">
+        <h2 id="funds-band-title">${esc(band.h2)}</h2>
+        <p class="lead">${esc(band.body)}</p>
+        <a class="text-link" href="${localized(s, '/funds')}">${esc(band.link)}</a>
+      </div>
+    </section>`;
+
+  return [hero, outcomes, example, steps, different, never, scan, pilot, contactForm(k.form, 'schools'), fundsBand].join('');
+}
+
+/** The scan request form. Both the school and fund pages post it as kind
+ *  "school" (see site.js); `source` prefixes the message so the two can be told
+ *  apart in the signups table. */
+function contactForm(fm, source) {
+  return `
+    <section class="section" id="school-contact" aria-labelledby="school-contact-title">
+      <div class="wrap contact-grid">
+        <div>
+          <h2 id="school-contact-title">${esc(fm.h2)}</h2>
+          <p class="lead">${esc(fm.lead)}</p>
+          <form id="school-form" novalidate data-source="${source}" data-error="${esc(fm.generic)}">
+            <div class="field">
+              <label for="school-name">${esc(fm.nameLabel)}</label>
+              <input id="school-name" name="name" type="text" autocomplete="name" maxlength="120" required aria-describedby="school-error" />
+            </div>
+            <div class="field">
+              <label for="school-role">${esc(fm.roleLabel)}</label>
+              <input id="school-role" name="role" type="text" autocomplete="organization-title" maxlength="120" required aria-describedby="school-error" />
+            </div>
+            <div class="field">
+              <label for="school-district">${esc(fm.fundLabel)}</label>
+              <input id="school-district" name="school" type="text" autocomplete="organization" maxlength="160" required aria-describedby="school-error" />
+            </div>
+            <div class="field">
+              <label for="school-email">${esc(fm.emailLabel)}</label>
+              <input id="school-email" name="email" type="email" autocomplete="email" maxlength="254" required aria-describedby="school-error" />
+            </div>
+            <div class="field">
+              <label for="school-message">${esc(fm.messageLabel)} <span class="hint">${esc(fm.messageHint)}</span></label>
+              <textarea id="school-message" name="message" maxlength="1980" rows="4" aria-describedby="school-error"></textarea>
+            </div>
+            <button class="button primary" type="submit">${esc(fm.submit)}</button>
+            <p class="form-note">${esc(fm.note)}</p>
+            <p class="form-error" id="school-error" role="alert" hidden>${esc(fm.error)}</p>
+          </form>
+          <div class="form-success" id="school-sent" role="status" tabindex="-1" hidden>
+            <p>${esc(fm.success)}</p>
+          </div>
+        </div>
+      </div>
+    </section>`;
+}
+
+// ── /funds: for union benefit funds ──────────────────────────────────────────
 //
 // One product: Part B premiums a fund reimburses that New York's Medicare
 // Savings Program would pay. Two phones carry it: the retiree's yes in the
 // hero, and the approval and yearly renewal further down.
 
-function homeSections(s) {
+function fundSections(s) {
   const size = art[s.lang];
   const h = at(s, 'hero');
   const hero = `
@@ -344,44 +696,7 @@ function homeSections(s) {
       </div>
     </section>`;
 
-  const fm = at(s, 'form');
-  const form = `
-    <section class="section" id="school-contact" aria-labelledby="school-contact-title">
-      <div class="wrap contact-grid">
-        <div>
-          <h2 id="school-contact-title">${esc(fm.h2)}</h2>
-          <p class="lead">${esc(fm.lead)}</p>
-          <form id="school-form" novalidate data-source="funds" data-error="${esc(fm.generic)}">
-            <div class="field">
-              <label for="school-name">${esc(fm.nameLabel)}</label>
-              <input id="school-name" name="name" type="text" autocomplete="name" maxlength="120" required aria-describedby="school-error" />
-            </div>
-            <div class="field">
-              <label for="school-role">${esc(fm.roleLabel)}</label>
-              <input id="school-role" name="role" type="text" autocomplete="organization-title" maxlength="120" required aria-describedby="school-error" />
-            </div>
-            <div class="field">
-              <label for="school-district">${esc(fm.fundLabel)}</label>
-              <input id="school-district" name="school" type="text" autocomplete="organization" maxlength="160" required aria-describedby="school-error" />
-            </div>
-            <div class="field">
-              <label for="school-email">${esc(fm.emailLabel)}</label>
-              <input id="school-email" name="email" type="email" autocomplete="email" maxlength="254" required aria-describedby="school-error" />
-            </div>
-            <div class="field">
-              <label for="school-message">${esc(fm.messageLabel)} <span class="hint">${esc(fm.messageHint)}</span></label>
-              <textarea id="school-message" name="message" maxlength="1980" rows="4" aria-describedby="school-error"></textarea>
-            </div>
-            <button class="button primary" type="submit">${esc(fm.submit)}</button>
-            <p class="form-note">${esc(fm.note)}</p>
-            <p class="form-error" id="school-error" role="alert" hidden>${esc(fm.error)}</p>
-          </form>
-          <div class="form-success" id="school-sent" role="status" tabindex="-1" hidden>
-            <p>${esc(fm.success)}</p>
-          </div>
-        </div>
-      </div>
-    </section>`;
+  const form = contactForm(at(s, 'form'), 'funds');
 
   const mb = at(s, 'membersBand');
   const membersBand = `
@@ -588,7 +903,7 @@ function memberCalcSection(s) {
 
 // ── document shell ───────────────────────────────────────────────────────────
 
-function document(s, { title, description, canonical, alts, body, prefix, langHref, cta, ctaLabel = at(s, 'nav.join'), shareAlt, share }) {
+function document(s, { page, title, description, canonical, alts, body, langHref, cta, ctaLabel = at(s, 'nav.join'), shareAlt, share }) {
   const alt = alts
     .map(([hreflang, href]) => `<link rel="alternate" hreflang="${hreflang}" href="${SITE}${href}" />`)
     .join('\n    ');
@@ -623,17 +938,17 @@ function document(s, { title, description, canonical, alts, body, prefix, langHr
       href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/site.css?v=18" />
-    <script src="/msp-calc.js?v=18" defer></script>
-    <script src="/site.js?v=18" defer></script>
+    <link rel="stylesheet" href="/site.css?v=20" />
+    <script src="/msp-calc.js?v=20" defer></script>
+    <script src="/site.js?v=20" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main">${esc(at(s, 'a11y.skip'))}</a>
-${header(s, { prefix, cta, ctaLabel, langHref })}
+${header(s, { page, cta, ctaLabel, langHref })}
     <main id="main">
 ${body}
     </main>
-${footer(s, { prefix, langHref })}
+${footer(s, { page, langHref })}
 ${cta === '#join' ? `    <a class="sticky-join" id="sticky-join" href="#join" hidden>${esc(ctaLabel)}</a>
 ` : ''}  </body>
 </html>
@@ -670,39 +985,74 @@ async function render() {
   const es = await load('es');
 
   const pages = [];
-  for (const [s, dir, share] of [
-    [en, '', 'share.png'],
-    [es, 'es', 'share-es.png'],
+  for (const [s, dir, share, shareSchools, shareFunds] of [
+    [en, '', 'share.png', 'share-schools.png', 'share-funds.png'],
+    [es, 'es', 'share-es.png', 'share-schools-es.png', 'share-funds-es.png'],
   ]) {
+    // The homepage: the idea, for any institution whose results depend on its people.
     pages.push({
       file: dir ? `${dir}.html` : 'index.html',
       html: document(s, {
-        title: at(s, 'meta.title'),
-        description: at(s, 'meta.description'),
+        page: 'home',
+        title: at(s, 'home.meta.title'),
+        description: at(s, 'home.meta.description'),
         canonical: dir ? '/es' : '/',
         alts: [['en', '/'], ['es', '/es'], ['x-default', '/']],
         body: homeSections(s),
-        prefix: '',
         langHref: dir ? '/' : '/es',
         cta: '#school-contact',
-        shareAlt: at(s, 'meta.shareAlt'),
+        ctaLabel: at(s, 'home.nav.join'),
+        shareAlt: at(s, 'home.meta.shareAlt'),
         share,
+      }),
+    });
+    // /schools, for school districts and charter networks.
+    pages.push({
+      file: dir ? `${dir}/schools.html` : 'schools.html',
+      html: document(s, {
+        page: 'schools',
+        title: at(s, 'schools.meta.title'),
+        description: at(s, 'schools.meta.description'),
+        canonical: dir ? '/es/schools' : '/schools',
+        alts: [['en', '/schools'], ['es', '/es/schools']],
+        body: schoolSections(s),
+        langHref: dir ? '/schools' : '/es/schools',
+        cta: '#school-contact',
+        ctaLabel: at(s, 'schools.nav.join'),
+        shareAlt: at(s, 'schools.meta.shareAlt'),
+        share: shareSchools,
+      }),
+    });
+    // /funds, for union benefit funds that reimburse Part B.
+    pages.push({
+      file: dir ? `${dir}/funds.html` : 'funds.html',
+      html: document(s, {
+        page: 'funds',
+        title: at(s, 'meta.title'),
+        description: at(s, 'meta.description'),
+        canonical: dir ? '/es/funds' : '/funds',
+        alts: [['en', '/funds'], ['es', '/es/funds']],
+        body: fundSections(s),
+        langHref: dir ? '/funds' : '/es/funds',
+        cta: '#school-contact',
+        shareAlt: at(s, 'meta.shareAlt'),
+        share: shareFunds,
       }),
     });
     pages.push({
       file: dir ? `${dir}/members.html` : 'members.html',
       html: document(s, {
+        page: 'members',
         title: at(s, 'members.meta.title'),
         description: at(s, 'members.meta.description'),
         canonical: dir ? '/es/members' : '/members',
         alts: [['en', '/members'], ['es', '/es/members']],
         body: membersPageSections(s),
-        prefix: '/',
         langHref: dir ? '/members' : '/es/members',
         cta: '#join',
         ctaLabel: at(s, 'nav.joinMembers'),
         shareAlt: at(s, 'members.meta.shareAlt'),
-        share,
+        share: shareFunds,
       }),
     });
   }

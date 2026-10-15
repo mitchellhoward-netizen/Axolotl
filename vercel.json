@@ -24,32 +24,12 @@
       "permanent": true
     },
     {
-      "source": "/schools",
-      "destination": "/",
-      "permanent": false
-    },
-    {
-      "source": "/es/schools",
-      "destination": "/es",
-      "permanent": false
-    },
-    {
       "source": "/employers",
       "destination": "/",
       "permanent": false
     },
     {
       "source": "/es/employers",
-      "destination": "/es",
-      "permanent": false
-    },
-    {
-      "source": "/funds",
-      "destination": "/",
-      "permanent": false
-    },
-    {
-      "source": "/es/funds",
       "destination": "/es",
       "permanent": false
     }

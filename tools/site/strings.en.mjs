@@ -439,9 +439,398 @@ export default {
   footer: {
     tagline: 'The right payer, for union funds and their members',
     links: [
+      { label: 'For schools', href: '/schools' },
       { label: 'For members', href: '/members' },
       { label: 'Privacy', href: '/privacy' },
       { label: 'Security and trust', href: '/security' },
     ],
+  },
+
+  // ── the homepage: for school districts ───────────────────────────────────────
+  // One idea: funding and help a district is already owed wait on a family
+  // signing, enrolling or getting to school. Mycelium does that work with each
+  // family, with their yes, and the district pays per outcome. Sources:
+  //   NYC Comptroller follow-up audit, July 2026 (Medicaid, FY2023–25)
+  //   AASA/AESA/NAME district survey, Dec 2022, via K-12 Dive, Jan 2023 (consent)
+  //   AEI 45-state analysis via K-12 Dive, 2025 (chronic absence)
+  //   CDE 2025–26 P-2 Fingertip Facts and LCFF overview (LCFF grants)
+  //   34 CFR 300.154(d) (one-time parental consent to bill Medicaid)
+  // Everything else is marked as an example or an estimate.
+  schools: {
+    meta: {
+      title: 'Mycelium: kids get the help, districts get the funding',
+      description:
+        'Medicaid for students with IEPs, the low-income count your funding formula uses, attendance: each waits on a family signing a form, enrolling or getting to school. Mycelium works with every family by text, in English or Spanish, with their yes. Districts pay a fixed fee per outcome.',
+      shareAlt:
+        'An example district’s monthly ledger from Mycelium: Medicaid consents returned, families newly counted, students back in class.',
+    },
+
+    nav: {
+      outcomes: 'What we work on',
+      how: 'How it works',
+      funds: 'For union funds',
+      join: 'Get a free scan',
+    },
+
+    hero: {
+      eyebrow: 'For school districts and charter networks',
+      h1Plain: 'Kids get the help.',
+      h1Em: 'Your district gets the funding.',
+      // The social card (share.html) draws the headline as one line of plain text.
+      h1: 'Kids get the help. Your district gets the funding.',
+      sub: 'Medicaid for students with IEPs, the low-income count your funding formula uses, attendance: each one waits on a family signing a form, enrolling in a program or getting to school. No office has the hours to do that with every family. Mycelium does, by text, in English or Spanish, and nothing is sent without the parent’s yes. You pay a fixed fee only for outcomes that happen.',
+      primary: 'Get a free scan',
+      secondary: 'See what we work on',
+      trust: 'For districts and charter networks in California, New York and Illinois. Nothing if nothing changes.',
+      ledger: {
+        eyebrow: 'Monthly ledger',
+        example: 'Example district',
+        rows: [
+          { v: '212', l: 'Medicaid consents returned', note: 'Students with IEPs. Therapy the district already provides, now billable.' },
+          { v: '87', l: 'Families newly counted', note: 'Enrolled in CalFresh or Medi-Cal, then matched for the low-income count.' },
+          { v: '64', l: 'Students back above 90% attendance', note: 'After a ride, a refill or a form was sorted out.' },
+          { v: '130', l: 'Families deciding', note: 'They answered and are thinking it over. Nothing moves without a yes.' },
+        ],
+        foot: 'An example, not a client.',
+      },
+      // The social card's ledger. An example, not a client.
+      folder: {
+        label: 'Monthly ledger · Example district',
+        // The card's status pills. The shared `statuses` are left alone: the
+        // phone art's fingerprint covers them.
+        statuses: { done: 'Done', waiting: 'Waiting for a yes' },
+        rows: [
+          { label: '212 consents returned', detail: 'Medicaid for services on students’ IEPs.', status: 'done' },
+          { label: '87 families counted', detail: 'Enrolled in CalFresh or Medi-Cal and matched.', status: 'done' },
+          { label: '64 students back in class', detail: 'Above 90% attendance for the term.', status: 'done' },
+          { label: '130 families deciding', detail: 'They answered. Nothing moves without a yes.', status: 'waiting' },
+        ],
+      },
+    },
+
+    outcomes: {
+      h2Plain: 'The money is there.',
+      h2Em: 'The paperwork is in the way.',
+      lead: 'Districts are owed funding for students they already serve. It arrives only when a family signs, enrolls or shows up, and the work to get there is a form, a call or a ride at a time. Your coordinators know how to do every one of them. Nobody has the hours to do them for every family. These are the outcomes we work on.',
+      stats: {
+        eyebrow: 'On the record',
+        example: 'Public sources',
+        rows: [
+          { v: '$431.6M', l: 'Medicaid New York City schools didn’t claim, 2023–25', note: 'NYC Comptroller, 2026. About half of eligible therapy sessions were never billed.' },
+          { v: '26–50%', l: 'Of Medicaid consent forms incomplete, for a third of districts surveyed', note: 'AASA, AESA and NAME, 2022.' },
+          { v: '22.6%', l: 'Of US students chronically absent in 2025', note: 'AEI, 45 states. It was 15.4% in 2019.' },
+          { v: '$14.66B', l: 'California’s LCFF supplemental and concentration grants, 2025–26', note: 'CDE. They follow every student counted as low-income, an English learner or in foster care.' },
+        ],
+      },
+      caption: 'The outcomes Mycelium works on, what is in the way, and who gains',
+      head: ['Outcome', 'What’s in the way', 'What the district gets', 'What the family gets'],
+      rows: [
+        {
+          outcome: 'Medicaid for students with IEPs',
+          blocked: 'A parent’s one-time consent, a Medicaid number on file',
+          district: 'Reimbursement for therapy and services it already provides',
+          family: 'The same services. Consent changes nothing the child receives and can be withdrawn.',
+        },
+        {
+          outcome: 'The low-income count',
+          blocked: 'Families eligible for SNAP or Medicaid (CalFresh or Medi-Cal in California) who never enrolled, or never got matched',
+          district: 'Formula funding for each student counted: LCFF in California, Foundation Aid in New York, Evidence-Based Funding in Illinois',
+          family: 'Food benefits, health coverage and free school meals',
+        },
+        {
+          outcome: 'Attendance',
+          blocked: 'A ride, a health form, coverage that lapsed, a move',
+          district: 'Days of learning, and attendance-based funding in California and Texas',
+          family: 'A kid back in class',
+        },
+        {
+          outcome: 'Students without stable housing',
+          blocked: 'Families who don’t know that staying with relatives can count under McKinney-Vento',
+          district: 'The right students identified, and the support the law requires reaching them',
+          family: 'A ride to the same school, free meals, and enrollment without the usual papers',
+        },
+      ],
+      note: 'Medicaid: NYC Comptroller follow-up audit, July 2026. Consent: district survey by AASA, AESA and NAME, reported by K-12 Dive, 2023. Under IDEA, a district needs a parent’s one-time written consent before it first bills Medicaid for a child’s services (34 CFR 300.154). Chronic absence: AEI, reported by K-12 Dive, 2025. LCFF: California Department of Education, 2025–26.',
+    },
+
+    example: {
+      h2Plain: 'One family,',
+      h2Em: 'counted right.',
+      lead: 'In a California district where more than 55% of students are low-income, a family that enrolls in CalFresh or Medi-Cal is matched by the state, and their student counts for LCFF. The family gets help with groceries and health coverage. The district gets funding it was already meant to have.',
+      brief: {
+        eyebrow: 'What one match is worth',
+        example: 'California, estimate',
+        rows: [
+          { v: '~$9,750', l: 'A year to the district, once it phases in', note: 'Supplemental (20%) plus concentration (65%) grants on an average base of $11,465. The count averages three years, so it builds up.' },
+          { v: 'Yearly', l: 'The student is matched again', note: 'While the family stays enrolled. No meal form to chase.' },
+          { v: '$0', l: 'What the family pays us', note: 'Districts pay. Families never do.' },
+          { v: 'Fixed', l: 'Our fee for the outcome, agreed up front', note: 'Nothing if the family doesn’t enroll.' },
+        ],
+        foot: 'Estimates from public rates. The free scan replaces them with your district’s numbers.',
+      },
+    },
+
+    steps: {
+      h2Plain: 'Every family, followed through.',
+      h2Em: 'Nothing moves without a yes.',
+      lead: 'Mycelium keeps a live record of where each family stands on each outcome: likely eligible, contacted, agreed, filed, confirmed. It moves a family forward only when it’s sure. When it isn’t, a person on your team or ours decides.',
+      items: [
+        { tag: 'Map', text: 'We read how your district is funded and where outcomes stall: your state’s formula, your Medicaid claiming, your enrollment and attendance data.' },
+        { tag: 'Find', text: 'Names in: the students whose families are likely eligible, missing a consent or slipping on attendance.' },
+        { tag: 'Reach', text: 'Your district sends one message with our number. Families text back in English or Spanish, at any hour.' },
+        { tag: 'Yes', text: 'Nothing is signed or filed until the parent replies YES to exactly what will happen.' },
+        { tag: 'Confirm', text: 'We follow each case to the result: the consent on file, the approval, the match, the student back in class.' },
+        { tag: 'Report', text: 'Outcomes out: a monthly ledger by school of what changed and what it’s worth, with the hard cases handed to your coordinators.' },
+      ],
+    },
+
+    different: {
+      h2Plain: 'Why this isn’t done',
+      h2Em: 'already.',
+      items: [
+        { title: 'Each case is small. There are thousands.', body: 'A form, a call, a ride. Your staff know how to do every one. Nobody has the hours to do them for every family, every month.' },
+        { title: 'The work sits outside the school', body: 'Food benefits, health coverage and transit run through county and state offices. We work with families across all of them.' },
+        { title: 'Only the family can sign', body: 'No data match can enroll anyone or give consent. We get it done with the parent, from a message they trust because it came from their school.' },
+        { title: 'You pay for results', body: 'A fixed fee per outcome, agreed up front. Nothing for outreach, nothing for families who say no.' },
+      ],
+    },
+
+    never: {
+      h2: 'What we never do',
+      items: [
+        { title: 'Act without a yes', body: 'Nothing is sent, signed or filed until a parent replies YES to exactly what will happen.' },
+        { title: 'Share a family’s case', body: 'The district sees outcomes and totals. It learns more only when the family agrees, and only what it needs.' },
+        { title: 'Touch a student’s education', body: 'We never change an IEP, a placement, a grade or a service.' },
+        { title: 'Charge families', body: 'Families never pay us. We sign your state’s student data privacy agreement before we see a single record.' },
+      ],
+    },
+
+    scan: {
+      h2Plain: 'Start with a free scan',
+      h2Em: 'of your own data.',
+      lead: 'In 30 days we show you, in dollars, what’s waiting on families in your district, outcome by outcome, and how many students are behind each number.',
+      cards: [
+        { title: 'What you get', body: 'For each outcome: how many students are likely affected, what it’s worth a year, and which schools have the most. No names leave the district unless you ask.' },
+        { title: 'What you give', body: 'A de-identified student file under your data privacy agreement, and one contact in your district office.' },
+        { title: 'What it costs', body: 'Nothing. If you want families reached, you send one message and pay only for outcomes.' },
+      ],
+      dataLabel: 'What we ask for',
+      data: [
+        'Grade, school and home language',
+        'IEP status and the services on each IEP',
+        'Medicaid and free-meal status, and how it was determined',
+        'Days enrolled and days absent',
+      ],
+      neverLabel: 'What we never need',
+      never: ['Social Security numbers', 'Health records', 'Grades or discipline records'],
+      estimate: 'For a California district above the 55% line, every 100 students newly counted is worth about $975,000 a year once it phases in. The scan replaces that with your number.',
+    },
+
+    pilot: {
+      h2: 'Start with one outcome at a few schools',
+      lead: 'Pick the outcome that matters most and a few schools. You send one message. We reach families, follow every case through and report every month.',
+      feesHead: ['What', 'Our fee'],
+      fees: [
+        ['A Medicaid consent returned for a student with an IEP', 'A fixed fee, agreed up front'],
+        ['A family newly enrolled and counted', 'A fixed fee, agreed up front'],
+        ['A chronically absent student back above 90% for a full term', 'A fixed fee, agreed up front'],
+        ['A family that doesn’t answer, isn’t eligible or says no', 'Nothing'],
+      ],
+      measuresLabel: 'What we report every month',
+      measures: [
+        'Families reached, in which language, and how many answered',
+        'Consents returned, enrollments approved and students matched',
+        'Attendance for the students we worked with',
+        'Estimated funding gained, by school',
+      ],
+      guardrail: 'If nothing changes, the pilot costs the district nothing.',
+    },
+
+    form: {
+      h2: 'Request a free scan',
+      lead: 'Tell us about your district. We’ll reply within two business days with the data agreement and the data list.',
+      nameLabel: 'Your name',
+      roleLabel: 'Your role',
+      fundLabel: 'District or network',
+      emailLabel: 'Work email',
+      messageLabel: 'How many students, in which state, and which outcome matters most to you?',
+      messageHint: '(optional)',
+      submit: 'Send',
+      note: "We'll use these details to reply. Please don't include student records.",
+      success: "Your request is saved. We'll reply to the email you gave us.",
+      error: "We couldn't save your request. Please try again.",
+      generic: 'Please fill in every field.',
+    },
+
+    fundsBand: {
+      h2: 'Run a union benefit fund?',
+      body: 'Mycelium also helps funds stop paying Medicare Part B premiums that New York would pay, with each retiree’s yes.',
+      link: 'For union funds',
+    },
+
+    footer: {
+      tagline: 'Help for families, funding for the schools that serve them',
+      links: [
+        { label: 'For union funds', href: '/funds' },
+        { label: 'Privacy', href: '/privacy' },
+        { label: 'Security and trust', href: '/security' },
+      ],
+    },
+  },
+
+  // ── the homepage: the idea ───────────────────────────────────────────────────
+  // Stranded alignment in plain words, for people who are not AI-native.
+  // Sources: case manager loads, NIJ-funded study (ojp.gov/pdffiles1/nij/grants/304457.pdf);
+  // FAFSA help, Bettinger, Long, Oreopoulos and Sanbonmatsu, H&R Block experiment (J-PAL).
+  home: {
+    meta: {
+      title: 'Mycelium: when the people you serve do better, your budget does too',
+      description:
+        'A school’s funding depends on whether kids get to school and whether families are enrolled in the programs they qualify for. A fund’s costs depend on whether retirees apply for help. Mycelium gives each person a helper, an AI agent you sponsor that works for them, with their yes. When their outcome lands, so does yours, and that’s when you pay.',
+      shareAlt: 'Mycelium: when the people you serve do better, your budget does too.',
+    },
+
+    nav: {
+      why: 'Why it’s stuck',
+      how: 'How it works',
+      schools: 'Schools',
+      funds: 'Union funds',
+      join: 'Talk to us',
+    },
+
+    hero: {
+      eyebrow: 'For schools, benefit funds and the people they serve',
+      h1Plain: 'When the people you serve do better,',
+      h1Em: 'your budget does too.',
+      // The social card (share.html) draws the headline as one line of plain text.
+      h1: 'When the people you serve do better, your budget does too.',
+      sub: 'Every day a student misses, the school loses funding. Every family that never enrolls in food assistance is a student the school isn’t paid for. Every retiree who never applies for help is a premium the fund pays itself. These outcomes matter to the people you serve and to your budget, and nobody has the hours to do the work with each person. Mycelium gives each person a helper: an AI agent you sponsor, that works for them, in their language. You pay when the outcome happens.',
+      primary: 'Talk to us',
+      secondary: 'See how it works',
+      trust: 'Working with schools and union benefit funds. Nothing moves without the person’s yes.',
+      story: {
+        eyebrow: 'One family, one helper',
+        example: 'An example',
+        rows: [
+          { v: 'Day 1', l: 'The school texts: here’s a helper for your family', note: 'After the fifth absence, not the fifteenth.' },
+          { v: 'Week 1', l: 'Health coverage renewed', note: 'The renewal had gone to an old address. The inhaler gets refilled.' },
+          { v: 'Week 2', l: 'A way to school', note: 'A transit pass, and a neighbor who drives the same route.' },
+          { v: 'Term', l: 'Back above 90% attendance', note: 'Days the school is funded for again. It never saw the rest.' },
+        ],
+        foot: 'Names in, outcomes out: the school offered help from its attendance records, and sees only whether attendance improved.',
+      },
+      // The social card's ledger.
+      folder: {
+        label: 'One family, one helper · Example',
+        statuses: { done: 'Done', waiting: 'Waiting for a yes' },
+        rows: [
+          { label: 'Health coverage renewed', detail: 'The renewal had gone to an old address.', status: 'done' },
+          { label: 'A way to school', detail: 'A transit pass and a neighbor’s ride.', status: 'done' },
+          { label: 'Back above 90% attendance', detail: 'Days the school is funded for again.', status: 'done' },
+          { label: 'Food assistance', detail: 'And a student the school is now paid for.', status: 'waiting' },
+        ],
+      },
+    },
+
+    depend: {
+      h2Plain: 'Their outcomes',
+      h2Em: 'are your budget.',
+      lead: 'What a school is funded for, and what a fund pays out, depends on what happens in people’s lives. Your staff’s work stops at your door. In between are outcomes the people you serve want, and that bring money in or keep it from going out.',
+      caption: 'How a family’s outcome changes an institution’s money, and where it gets stuck',
+      head: ['When this happens for a family', 'What it means for your budget', 'Where it gets stuck'],
+      rows: [
+        { life: 'A kid gets to school', money: 'Schools in California and Texas are funded by daily attendance. Oakland lost about $90 for every absent student, every day.', stuck: 'A ride that didn’t come, an inhaler that ran out' },
+        { life: 'A family enrolls in food assistance or Medicaid', money: 'The student is counted as low-income, and the school gets more per student. In a high-poverty California district, up to about $9,750 a year.', stuck: 'A form nobody explained, in a language nobody spoke' },
+        { life: 'A parent signs the Medicaid consent for their child’s therapy', money: 'The school can bill Medicaid for services it already provides. New York City left $431.6 million unclaimed in three years.', stuck: 'A form that went home in a backpack' },
+        { life: 'A retiree enrolls in a Medicare Savings Program', money: 'The state pays the Part B premium the fund was reimbursing, about $1,200 a year for each retiree on a half reimbursement.', stuck: 'A renewal sent to an old address' },
+      ],
+      note: 'Oakland: EdSource, 2025. California LCFF supplemental and concentration grants, CDE 2025–26; the count averages three years, so it phases in. New York City: NYC Comptroller follow-up audit, 2026. Part B: the 2026 standard premium, $202.90 a month.',
+    },
+
+    why: {
+      h2Plain: 'Why it doesn’t happen.',
+      h2Em: 'Stranded alignment.',
+      lead: 'We call it stranded alignment: outcomes an institution and the people it serves both want, that never happen because reaching them costs more than anyone can spend. Each case is small and sits between offices, so it’s nobody’s job. A typical school case manager carries 110 to 125 students.',
+      cards: [
+        { title: 'Letters and portals', body: 'Tell people what to do. They reach everyone and change little, because information alone rarely moves anyone.' },
+        { title: 'Coordinators and case managers', body: 'Do the work with people, and it works. But one person can only carry so many families.' },
+        { title: 'A helper for every person', body: 'Does the work with each person, as often as it takes, for everyone you serve. That’s new.' },
+      ],
+      changed: 'What changed: in one experiment, eight minutes of help filling out the federal student aid form raised college enrollment from 34% to 42%. Information alone did nothing. An AI agent can now spend those eight minutes with every family.',
+      note: 'Case manager loads: a study funded by the National Institute of Justice. Student aid form: the H&R Block experiment by Bettinger, Long, Oreopoulos and Sanbonmatsu, summarized by J-PAL.',
+    },
+
+    steps: {
+      h2Plain: 'How it works.',
+      h2Em: 'Nothing moves without a yes.',
+      lead: 'Mycelium works inside your institution and out in people’s lives. It learns what you need from your staff, and does the work with each person.',
+      items: [
+        { tag: 'Learn', text: 'We work with your staff to learn your goals, your rules and how you’re funded, and connect to the systems you already use.' },
+        { tag: 'Offer', text: 'Names in: your own records show who could use help. You send one message offering a helper, from a name people already trust.' },
+        { tag: 'Help', text: 'Each person’s helper works with them by text or WhatsApp, in their language, and with the agencies and offices around them.' },
+        { tag: 'Yes', text: 'Nothing is filed, signed or shared until the person says yes to exactly what will happen.' },
+        { tag: 'Report', text: 'Outcomes out: you see results, not people’s lives. Hard cases go to your staff.' },
+        { tag: 'See', text: 'When forty families hit the same problem, you hear about it. One family’s problem is a case. Forty is a policy decision.' },
+      ],
+    },
+
+    helper: {
+      h2Plain: 'A helper that belongs to the person,',
+      h2Em: 'sponsored by you.',
+      lead: 'Personal AI will reach most people the way financial advisors and good lawyers did: the people with the most friction last. Institutions can change that. The helper you sponsor works for the person, on anything making life harder, and on your goals only where they agree. You bring four things no app store can.',
+      items: [
+        { title: 'A reason to pay', body: 'Their outcomes are your funding. You lose money when they don’t happen.' },
+        { title: 'The records', body: 'You can see who needs help before they ask.' },
+        { title: 'Trust', body: 'People already read what you send them.' },
+        { title: 'Permission', body: 'Offices will turn away agents that show up uninvited. The one you sponsor gets let in.' },
+      ],
+      closer: 'When other institutions serve the same family, they can sponsor the same helper. One helper instead of seven portals.',
+    },
+
+    rules: {
+      h2: 'The rules we don’t bend',
+      items: [
+        { title: 'Only outcomes good for both', body: 'You choose the outcome. We take it on only if it’s good for the people you serve too.' },
+        { title: 'Names in, outcomes out', body: 'You see results, not lives. You learn more only when the person agrees.' },
+        { title: 'Nothing without a yes', body: 'Nothing is sent, signed or filed until the person says yes to exactly what will happen.' },
+        { title: 'Written limits', body: 'Every helper has rules that protect the person, like never pressuring a sick child to go to school.' },
+      ],
+    },
+
+    where: {
+      h2: 'Where we work',
+      lead: 'We start where the outcomes are clearest and the people have the most to gain.',
+      cards: [
+        { title: 'Schools', body: 'Attendance, Medicaid consent for students with IEPs, food and health enrollment that counts toward your funding, students without stable housing.', link: 'For schools', href: '/schools' },
+        { title: 'Union benefit funds', body: 'Medicare Part B premiums New York would pay, enrolled with each retiree’s yes and renewed every year.', link: 'For union funds', href: '/funds' },
+        { title: 'Your outcome', body: 'If your results depend on the people you serve, tell us which one.', link: 'Talk to us', href: '#school-contact' },
+      ],
+    },
+
+    form: {
+      h2: 'Start with one outcome',
+      lead: 'Tell us what you’re measured on. We’ll look at your data for free, show you what’s stranded, and start with one outcome. You pay when it moves.',
+      nameLabel: 'Your name',
+      roleLabel: 'Your role',
+      fundLabel: 'Organization',
+      emailLabel: 'Work email',
+      messageLabel: 'Who do you serve, and which outcome matters most?',
+      messageHint: '(optional)',
+      submit: 'Send',
+      note: "We'll use these details to reply. Please don't include anyone's personal records.",
+      success: "Thanks. We'll reply to the email you gave us.",
+      error: "We couldn't save your message. Please try again.",
+      generic: 'Please fill in every field.',
+    },
+
+    footer: {
+      tagline: 'When the people you serve do better, so does your budget',
+      links: [
+        { label: 'For schools', href: '/schools' },
+        { label: 'For union funds', href: '/funds' },
+        { label: 'Privacy', href: '/privacy' },
+        { label: 'Security and trust', href: '/security' },
+      ],
+    },
   },
 };
