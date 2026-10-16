@@ -77,13 +77,15 @@ export const fakeIncomeForm: FormMap = {
  * agent's form/submit steps here) call `receive`; the parent's own link calls `attest`. */
 export class FakeReplica implements Replica {
   readonly id = 'fake';
-  readonly formId = fakeIncomeForm.id;
+  readonly formId: string;
   private subs: Submission[] = [];
   private attested = false;
   private events: ReplicaEvent[] = [];
   private n = 0;
 
-  constructor(private readonly opts: { requireAttestation?: boolean } = {}) {}
+  constructor(private readonly opts: { requireAttestation?: boolean; formId?: string } = {}) {
+    this.formId = opts.formId ?? fakeIncomeForm.id;
+  }
 
   async start(): Promise<{ url: string; parentUrl: (token: string) => string; close: () => Promise<void> }> {
     return { url: 'fake://income-form', parentUrl: (t) => `fake://income-form/attest/${t}`, close: async () => {} };
