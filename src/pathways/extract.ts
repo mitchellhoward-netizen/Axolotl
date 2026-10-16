@@ -544,11 +544,12 @@ export function extractFacts(text: string, ctx: ExtractContext): Extraction {
       }
     }
     if (placed) continue;
-    // 3. "Actually, 2,300": the newest fact this value fits.
+    // 3. "Actually, 2,300": the newest fact this value fits. Only a typed value (a number, a
+    // date) can land on a fact with no word naming it: any clause would "fit" a free-text fact.
     if (correction) {
       for (const key of ctx.recent) {
         const slot = slotOf.get(key);
-        if (!slot || taken.has(key)) continue;
+        if (!slot || taken.has(key) || !['number', 'date'].includes(slot.spec.kind)) continue;
         const p = valueFor(slot, clause, c, { ...ctx, asked: [key] }, { cued: false, askedBooleans: slot.spec.kind === 'boolean' ? 1 : 0 });
         if (p && place(slot, p, quote)) break;
       }
@@ -571,7 +572,7 @@ export function extractFacts(text: string, ctx: ExtractContext): Extraction {
  * ("can you help", "do I have to") is a question. */
 export function questionFree(text: string): string[] {
   return text
-    .split(/(?<=[^A-Z][.!?])\s+|\n+|(?=¿)/)
+    .split(/(?<=[^A-Z][.!?])(?<!\b(?:St|Dr|Ave|Blvd|Rd|Ln|Ct|Apt|Mr|Mrs|Ms|Jr|Sr|No|Mt|Ft|Sta|Sto)\.)\s+|\n+|(?=¿)/)
     .map((s) => s.trim())
     .filter(Boolean)
     .filter((s) => !(/[?¿]/.test(s) || QUESTION_SENTENCE.test(fold(s))));

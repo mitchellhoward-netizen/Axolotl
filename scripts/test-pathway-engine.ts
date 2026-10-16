@@ -803,3 +803,28 @@ test('household parsers: roster, incomes, each child, addresses', async () => {
   for (const y of ['yes, send it', 'sí, mándalo', 'sí, está bien', 'go ahead', 'yes please']) assert.ok(clearYes(y), y);
   for (const n of ['yes but change the grade', 'no', 'yes, 4 people', 'send it to my sister']) assert.ok(!clearYes(n), n);
 });
+
+test('messier parents: "St." is not a sentence end, an unnamed correction never lands on free text, "let me check" keeps the form', async () => {
+  const h = await import('../src/pathways/household.js');
+  assert.deepEqual(h.sentences('Adrián goes to St. Example Parish School. Joaquín too.'), ['Adrián goes to St. Example Parish School.', 'Joaquín too.']);
+  // A school sentence after the roster adds nobody.
+  const roster = h.parseRoster('It\'s me (40) and my kid Adrián García-López (10). Adrián goes to St. Example Parish School.')!;
+  assert.deepEqual(roster.map((r) => r.rel), ['self', 'child']);
+  // "Ah, perdón, me equivoqué: son $4,167, no $4,267" corrects the income, not the case number.
+  const slots: Slot[] = [slot('household.case_number', 'string'), slot('household.size', 'number')];
+  const ex = extractFacts('Ah, perdón, me equivoqué: son $4,167, no $4,267.', { lang: 'es', slots, asked: [], recent: ['household.case_number'] });
+  assert.ok(!ex.facts.some((f) => f.key === 'household.case_number'));
+  // After "let me check", what they send next comes back to the form, never the agent's menu.
+  const { say, state } = await launch('ca.psusd.linq');
+  await say('school lunch income form help');
+  await say("No, we don't get CalFresh or Medi-Cal.");
+  await say("I'm Brenda López.");
+  await say("It's me (34) and my kid Leonardo Villaseñor (10).");
+  assert.match((await say("Hmm, I'm not sure, let me check."))!, /no rush[\s\S]*How much do you make/);
+  assert.equal(state.pathway!.stage, 'paused');
+  const back = await say('My email is brenda@example.test.');
+  assert.ok(back, 'not handed to the normal agent');
+  assert.match(back!, /How much do you make/);
+  const next = (await say('I make $1,800 a month.'))!;
+  assert.match(next, /Any other income for you/);
+});

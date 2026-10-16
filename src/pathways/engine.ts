@@ -380,7 +380,10 @@ export class PathwayEngine {
         // or "what do you mean?" brings the session back (or a plain answer after "I don't
         // know", which is what we asked them to send).
         const ex = this.read(text, s, pathway, rec, s.pauseReason === 'dont_know');
-        if (RESUME.test(t) || ex.facts.length || FORM_HELP.test(t) || CONFUSED.test(t)) {
+        // After "let me check", whatever they send next that isn't a question of their own is
+        // for us: the form is still what we're doing together.
+        const forUs = s.pauseReason === 'dont_know' && !ex.question;
+        if (RESUME.test(t) || ex.facts.length || FORM_HELP.test(t) || CONFUSED.test(t) || forUs) {
           s.pauseReason = undefined;
           s.stage = s.pausedFrom ?? 'asking';
           s.pausedFrom = undefined;
@@ -501,7 +504,9 @@ export class PathwayEngine {
       lang: s.lang,
       slots,
       asked: s.stage === 'proposed' || !bare ? [] : s.lastAsked.filter((k) => !people || !PEOPLE_KEY.test(k)),
-      recent: s.recent.filter((k) => !people || !PEOPLE_KEY.test(k)),
+      // In people mode a bare "actually, it's $1,650" is read by the income parser, which knows
+      // which income it corrects; nothing else takes an unnamed correction.
+      recent: people ? [] : s.recent,
       cueFor: (key) => hintFor(hints.cues, key),
     });
     if (people) ex.facts.push(...this.readPeople(text, s, pathway, rec, bare && s.stage !== 'proposed'));
@@ -766,7 +771,7 @@ export class PathwayEngine {
       kept.push(f);
       s.recent = [f.key, ...s.recent.filter((k) => k !== f.key)].slice(0, 20);
       if (prev && !same(prev.value, f.value) && !/\.(has_income|income_done)$|^household\.(roster|incomes_complete|income_reported)$/.test(f.key)) {
-        changes.push({ label: this.factLabel(pathway, rec, f.key, s.lang), from: this.show(prev.value, s.lang), to: this.show(f.value, s.lang) });
+        changes.push({ label: this.factLabel(pathway, rec, f.key, s.lang), from: this.showFact(f.key, prev.value, s.lang), to: this.showFact(f.key, f.value, s.lang) });
       }
     }
     // A value we already had isn't news: only what changed counts as read.
@@ -1301,6 +1306,15 @@ export class PathwayEngine {
 
   /** A fact by the label of the field it fills ("monthly income"), else by its key. */
   private factLabel(pathway: Pathway, rec: FamilyRecord, key: FactKey, lang: Lang): string {
+    // An income by whose it is ("your income", "Ricardo's income").
+    const inc = /^income\.(\d+)\.(amount|frequency|kind|owner)$/.exec(key);
+    if (inc && this.registry.hints(pathway.id).people) {
+      const owner = rec.get<string>(`income.${inc[1]}.owner`)?.value;
+      const name = owner && owner !== SELF ? rec.get<string>(`member.${owner}.first_name`)?.value : undefined;
+      const what = { amount: lang === 'es' ? 'ingreso' : 'income', frequency: lang === 'es' ? 'frecuencia del ingreso' : 'how often the income is paid', kind: lang === 'es' ? 'tipo de ingreso' : 'kind of income', owner: lang === 'es' ? 'dueño del ingreso' : 'whose income it is' }[inc[2] as 'amount'];
+      if (lang === 'es') return name ? `el ${what} de ${name}` : `su ${what}`;
+      return name ? `${name}'s ${what}` : `your ${what}`;
+    }
     const fill = pathway.form.fill(this.usable(pathway, rec), this.asOf());
     const field = Object.entries(fill.sources).find(([, ks]) => ks.includes(key))?.[0];
     this.sessionRecord = rec.toJSON();
@@ -1315,6 +1329,12 @@ export class PathwayEngine {
     if (Array.isArray(v)) return v.join(', ');
     if (typeof v === 'number') return v.toLocaleString('en-US');
     return String(v);
+  }
+
+  private showFact(key: FactKey, v: unknown, lang: Lang): string {
+    if (/^income\.\d+\.amount$/.test(key) && typeof v === 'number') return money(v);
+    if (/^income\.\d+\.frequency$/.test(key) && typeof v === 'string') return FREQ_WORDS[lang][v] ?? v;
+    return this.show(v, lang);
   }
 
   /** A value as the parent should read it. The digest binds the raw fill; this is its words. */

@@ -99,10 +99,14 @@ export function parsePersonName(text: string, asked: boolean): PersonName | unde
 /** Sentences, keeping "A." initials and "$1,200.50" whole. */
 export function sentences(text: string): string[] {
   return text
-    .split(/(?<=[^A-Z][.!?])\s+|\n+/)
+    .split(SENTENCE_BREAK)
     .map((s) => s.trim())
     .filter(Boolean);
 }
+
+/** Where a sentence ends: after . ! ? and a space, but not after an initial ("A.") or an
+ * abbreviation in a street or a school name ("St. Example Parish School", "Dr.", "Apt."). */
+export const SENTENCE_BREAK = /(?<=[^A-Z][.!?])(?<!\b(?:St|Dr|Ave|Blvd|Rd|Ln|Ct|Apt|Mr|Mrs|Ms|Jr|Sr|No|Mt|Ft|Sta|Sto)\.)\s+|\n+/;
 
 /** Is this sentence a question (never a source of facts)? */
 export function isQuestion(sentence: string): boolean {
@@ -146,7 +150,7 @@ export function parseRoster(text: string): RosterItem[] | undefined {
     const parts = s.split(/\s*,\s*|\s+(?:and|y|plus|e)\s+|\s*;\s*/i).filter(Boolean);
     const items = parts.map(parseRosterItem).filter((x): x is RosterItem => Boolean(x));
     // In a list of people, a bare word with no relationship and no age is not a person.
-    const listed = items.filter((it) => it.rel || it.age !== undefined || items.length === 1);
+    const listed = items.filter((it) => it.rel || it.age !== undefined || (items.length === 1 && sentences(text).length === 1));
     out.push(...listed);
   }
   return out.length ? out : undefined;

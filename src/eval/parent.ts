@@ -457,8 +457,9 @@ export class ScriptedParent implements SimulatedParent {
         parts.push(this.lang === 'es' ? 'Mmm, no estoy segura, déjeme ver.' : "Hmm, I'm not sure, let me check.");
         continue;
       }
-      this.deferred.delete(key);
+      // The answer they went to check is the one they give now (say() looks it up again).
       const said = this.say(q.topic, member, t);
+      this.deferred.delete(key);
       if (!said) continue;
       parts.push(said.text);
       keys.push(said.key);
@@ -520,6 +521,9 @@ export class ScriptedParent implements SimulatedParent {
     const idx = this.rec.incomeIndexes();
     const owned = member ? idx.filter((n) => this.rec.get(`income.${n}.owner`)?.value === member) : idx;
     const wantsOther = /\b(other|else|more|another|otro|otra|mas|algun)\b/.test(t);
+    // An income they said they'd check comes first when asked again.
+    const owed = owned.find((n) => this.deferred.has(`income.${n}.amount`));
+    if (owed !== undefined) return owed;
     const next = owned.find((n) => !this.answered.has(`income.${n}.amount`));
     if (next !== undefined) return next;
     if (wantsOther) return undefined;
