@@ -403,6 +403,41 @@ SUN Bucks; one Medi-Cal renewal can count every school-age sibling.
 
 # Part 7. Where things stand (2026-10-16)
 
+**The conversation experience is largely built. Don't redo it.** Before proposing any change to
+how the helper talks, check this list and the commits behind it (`git log --all --grep=ux`,
+`--grep=onboarding`, `--grep=consent`). Raw text in eval transcripts is the engine's output
+*before* this layer; a parent's phone shows it after.
+- **Multi-bubble replies with typing pacing** (`src/agent/bubbles.ts`, `sendBubbles` in
+  `src/index.ts`): 1–3 short bubbles, never mid-sentence, lists and consent kept whole, no
+  "Got it!"/ack-only bubbles, markdown stripped per bubble.
+- **Progressive disclosure:** one anchor answer plus an offer, the parent drives the depth.
+- **No narration or stalls:** no "hang tight / one sec" bubbles, no "let me pull that up";
+  bounded progress with a way out; never a failure without a next step; never a flat refusal.
+- **Onboarding:** trust-first, introduces itself in both languages, says what happens to their
+  data, asks the language last, never repeats once done, never jumps to programs too early.
+- **Reactions:** removed by Mitch's choice (no emoji, no axolotl). `reactions.ts` rules (sparing,
+  never on a hard message) stay for if they return.
+- **Consent (decided 2026-10-16, commit `7ec9f9a`): no codes, no all-caps YES.** The parent answers
+  the way they'd answer a person ("sí", "dale", "send it", 👍). Underneath, a yes runs only the
+  exact proposal shown (digest), within a day; anything changed is shown again first; an
+  unclear yes gets one "want me to go ahead?"; Jev reads the ambiguous ones. Parent-facing copy:
+  "Want me to submit it? Or tell me what to change." **Don't reintroduce `YES <code>`.**
+- **Corrections:** "yes + a change" handled; a typo correction doesn't restart the work.
+- **Continuity and memory:** conversation history in Postgres, a running summary, bounded
+  recall, the family's own words kept as aliases; one reply per text (dedupe).
+- **Done means confirmed**, and the pathway engine's "sent, not confirmed yet" when there's no
+  confirmation.
+- **The pathway engine already uses the district record:** students' names, student numbers,
+  birth dates and grades come from it; the parent is asked only what the district can't know
+  (who else lives at home, income, their own name).
+
+**Genuinely open in the pathway conversation** (from held-out failures, not guesses):
+- Corrections to names with accents and capitals ("Morales con mayúscula") land in the wrong
+  field and loop. Top failure.
+- A clear "no other income" occasionally re-asked, then handed off.
+- A "send it when you have it" pause followed by the same question again.
+- Nothing starts a pathway in production yet (the first message a family receives is not wired).
+
 **The build stance.** Build what gets more valuable as models improve (the trust layer, institutional
 pathways, family context, per-portal knowledge and tests); rent what gets cheaper (the general agent, the
 browser). **Code owns each job; models only read and write text.** Sort portals by authority: Tier 1, the

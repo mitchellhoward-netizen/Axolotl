@@ -160,8 +160,8 @@ Small changes that close real exposure before any pilot. Each needs a test.
 3. **Bind YES to the exact values.** Compute a hash of the approved values (and the target
    URL and form id). Store it in the consent log with the values (or an encrypted copy,
    per `docs/RETENTION.md`). Execute only if the values about to be submitted hash the
-   same; if anything changed, show the review again. Reuse Benny's `YES <code>` pattern
-   where it fits. *Test:* changing one value after YES blocks submission.
+   same; if anything changed, show the review again. Mitch decided on 2026-10-16: no codes, a clear yes in the
+   parent's own words (see VISION.md Part 7 and commit `7ec9f9a`). *Test:* changing one value after YES blocks submission.
 4. **Fix Stagehand read-back.** Re-read the form map *after* filling, and match each
    field to its own value, not "any field". Fill radio and checkbox groups.
    *Test:* testworld form with a radio group; read-back catches a wrong value.
