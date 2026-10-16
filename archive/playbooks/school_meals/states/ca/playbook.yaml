@@ -295,7 +295,7 @@ life_events:
   - id: SCH-CA-LE-SCHOOL-YEAR
     code: school_year_start
     event: New school year in a California public school
-    why: Meals are free regardless; the family should still return the meal application or Alternative Income Form (by October 31 for LCFF) because it funds the school. A meal application or Universal Benefit Application can also unlock SUN Bucks and fee waivers; an Alternative Income Form cannot (ca-cde-alt-income-forms, snapshot 2026-10-07, "Note: Alternative Income Forms may no longer be used for SUN Bucks").
+    why: Meals are free regardless; the family should still return the meal application or Alternative Income Form (by October 31 for LCFF) because it funds the school. A meal application or Universal Benefit Application can also unlock SUN Bucks and fee waivers; an Alternative Income Form cannot (source ca-cde-alt-income-forms, snapshot 2026-10-07, which says Alternative Income Forms may no longer be used for SUN Bucks).
     check_rules: [SCH-CA-UNIVERSAL-MEALS, SCH-CA-LCFF-DEADLINE]
     confidence: confirmed
     sources: [{source: ca-cde-alt-income-forms, locator: "Alternative Income Form Benefits to Households; Key Dates"}]
