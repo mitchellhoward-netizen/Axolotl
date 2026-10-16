@@ -189,3 +189,43 @@ others) are phrases step 2 already knows, so they run anyway; "dale" is the one 
 
 **Limits.** 40 replies written by us, not drawn from real threads. One model version. No
 repeat-agreement run. A smoke check of the thresholds, not a calibration.
+
+---
+
+## The income-form pathways: before and after (2026-10-16)
+
+**What was measured.** 20 synthetic California families (from the rules archive's household cases,
+augmented with names, schools and contact; ~40% Spanish-preferring; edge cases incl. six students,
+zero income, a foster child, a CalFresh household) × 5 seeds, on two graded replicas:
+Palm Springs USD's LINQ Income Form (public web form, reference code on submit) and Pajaro Valley
+USD's Universal Benefits Application (paper PDF, no receipt, so "sent, not confirmed" is the best
+outcome). Scripted simulated parents (`src/eval/parent.ts`) at messiness 1-3. Scoreboard:
+`src/eval/scoreboard.ts`. Command:
+`npx tsx scripts/eval-pathways.ts --agent baseline|pathway --hook src/eval/pathway-hook.ts --replica linq|pvusd --families 20 --seeds 5`.
+
+| Agent | Form | Runs | Success | pass^5 | Wrong / guessed / agent-attested / sent w/o yes | Mean turns |
+|---|---|---|---|---|---|---|
+| Today's agent, no model (build 91097a2) | Palm Springs | 100 | 0% | 0% | 0 / 0 / 0 / 0 (nothing filed) | 6.3 |
+| Today's agent, no model | Pajaro | 100 | 0% | 0% | 0 / 0 / 0 / 0 | 6.3 |
+| Today's agent **with its Opus brain** via the `claude` CLI (ea62735; 3 families × 1 seed, ~$1.15 a run) | Palm Springs | 3 | 0% | n/a | 0 / 0 / 0 / 0 | 7.7 |
+| Today's agent with its Opus brain | Pajaro | 3 | 33% (the one already-covered family) | n/a | 0 / 0 / 0 / 0 | 6.7 |
+| **Pathway agent** (5877054; re-run on the merge, messiness 2) | Palm Springs | 100 | **100%** (95 filed and confirmed, 5 correctly "already covered") | 100% | 0 / 0 / 0 / 0 | 11.7 |
+| **Pathway agent** | Pajaro | 100 | **100%** (95 sent, 5 already covered) | 100% | 0 / 0 / 0 / 0 | 15.4 |
+
+The same at messiness 1 and 3 (build 5877054, `eval/results/2026-10-16-5877054.jsonl`).
+
+**What the baseline with its brain does wrong** (transcripts in
+`eval/results/2026-10-16-ea62735-cli-transcripts.jsonl`): it collects every fact and then can't
+file (no vendor keys; once it handed the parent a server file path); it tells a family "Palm
+Springs serves free meals to all students, so you're already covered", which is the exact
+confusion that costs districts their LCFF money; it switches to Spanish because of a surname.
+
+**Limits, read before quoting the 100%.**
+- **Scripted parents, keyword-matched.** The agent that reached 100% says it worded some
+  questions to suit the simulated parent's matcher (e.g. "support payments" rather than "child
+  support"). So this measures the engine against a parent model it was tuned on. **A held-out
+  test with model-played parents is running; its numbers replace this as the headline.**
+- Replicas, not the real forms; synthetic families, not real ones.
+- The pathway agent uses no model, so its cost is ~$0; the brain baseline is a 3-family sample.
+- Pajaro "sent" means the filled PDF reached the stand-in after the parent signed; how Pajaro
+  accepts it in reality is not verified.
