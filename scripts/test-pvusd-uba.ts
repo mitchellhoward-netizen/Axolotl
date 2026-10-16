@@ -166,16 +166,25 @@ test('sensitive facts count only from the parent or the district', () => {
   assert.equal(h.values['race.american_indian_alaska_native'], true);
 });
 
-test('more than five students is reported, not dropped', () => {
-  const r = garcia();
-  for (let k = 0; k < 4; k++) {
-    for (const [f, v] of Object.entries({ first_name: `Kid${k}`, last_name: 'García', relationship: 'child', dob: '2014-01-01', student: true, school: 'Ohlone Elementary', grade: '6', foster: false, homeless: false, migrant: false })) {
-      r.set(`member.k${k}.${f}`, v, said(String(v)));
+test('a sixth student goes on a second copy of page 1; more than ten is reported, not dropped', async () => {
+  const kids = (r: ReturnType<typeof garcia>, n: number) => {
+    for (let k = 0; k < n; k++) {
+      for (const [f, v] of Object.entries({ first_name: `Kid${k}`, last_name: 'García', relationship: 'child', dob: '2014-01-01', student: true, school: 'Ohlone Elementary', grade: '6', foster: false, homeless: false, migrant: false })) {
+        r.set(`member.k${k}.${f}`, v, said(String(v)));
+      }
     }
-  }
-  const f = fill(r, AS_OF);
-  assert.ok(f.missing.includes('form.students.over_5'));
+    return r;
+  };
+  const f = fill(kids(garcia(), 4), AS_OF);
+  assert.ok(!f.missing.some((m) => m.startsWith('form.')), f.missing.join(', '));
   assert.equal(f.values['student.4.first_name'], 'Kid2');
+  assert.equal(f.values['student.5.first_name'], 'Kid3');
+  assert.deepEqual(PVUSD_UBA_PDF.pagesFor('en', f.values), [0, 0, 1], 'page 1 twice, then page 2');
+  const map = overlayMap('en');
+  assert.equal(map['student.5.first_name']!.page, 0);
+  assert.equal((map['student.5.first_name'] as { copy?: number }).copy, 1);
+  assert.equal(map['student.5.first_name']!.kind === 'text' && map['student.0.first_name']!.kind === 'text' && map['student.5.first_name']!.y === map['student.0.first_name']!.y, true, 'row 6 sits where row 1 does, on the second copy');
+  assert.ok(fill(kids(garcia(), 9), AS_OF).missing.includes('form.students.over_10'));
 });
 
 test('two incomes in one box on different schedules are asked as one', () => {

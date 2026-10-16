@@ -110,7 +110,7 @@ export const MEALS_FORM_HINTS: PathwayHints = {
       es: 'Ahora mismo, ¿la familia está sin hogar fijo propio, por ejemplo con otras personas, en un motel, un refugio o un carro?',
     },
     migrant: {
-      en: 'In the last three years, has the family moved for farm work, fishing or food processing (what schools call "migrant")?',
+      en: 'In the last three years, has the family moved for farm work, fishing or food processing (schools call this "migrant")?',
       es: 'En los últimos tres años, ¿la familia se mudó por trabajo agrícola, la pesca o el procesamiento de alimentos (lo que la escuela llama "migrante")?',
     },
   },

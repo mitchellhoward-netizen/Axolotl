@@ -278,12 +278,13 @@ export function parseIncomes(text: string, members: MemberRef[]): IncomeReading 
       if (!money.length) continue;
       const m = money[0]!;
       const freq = m.value.frequency;
+      if (freq === 'hourly') continue; // a rate, not what the form asks; the engine asks for the paycheck
       found = true;
       out.incomes.push({
         ...(owner ? { owner } : {}),
         ...(kindIn(c) ?? kindIn(f) ? { kind: kindIn(c) ?? kindIn(f) } : {}),
         amount: m.value.amount,
-        ...(freq && freq !== 'ambiguous' && freq !== 'hourly' ? { frequency: freq } : {}),
+        ...(freq && freq !== 'ambiguous' ? { frequency: freq } : {}),
         ...(freq === 'ambiguous' ? { ambiguousFrequency: true } : {}),
         quote: sentence.trim(),
       });

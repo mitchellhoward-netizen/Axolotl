@@ -24,6 +24,7 @@ import {
   parseRoster,
   sentences,
   splitName,
+  relWord,
   type MemberRef,
   type Rel,
 } from './household.js';
@@ -557,6 +558,23 @@ export class PathwayEngine {
       }
     }
 
+    // Another member's name, when we asked for it ("What's your partner's first and last name?").
+    const other = L.map((k) => /^member\.([^.]+)\.first_name$/.exec(k)?.[1]).find((id) => id && id !== SELF);
+    if (other) {
+      const n = parsePersonName(text, true);
+      if (n) {
+        put(`member.${other}.first_name`, n.first, text.trim());
+        if (n.last) put(`member.${other}.last_name`, n.last, text.trim());
+        if (n.mi) put(`member.${other}.middle_initial`, n.mi, text.trim());
+      }
+    }
+    const otherLast = L.length === 1 ? /^member\.([^.]+)\.last_name$/.exec(L[0]!)?.[1] : undefined;
+    if (otherLast && otherLast !== SELF) {
+      const n = parsePersonName(text, true);
+      const last = n?.last ?? (n && !n.ambiguous && text.trim().split(/\s+/).length <= 3 ? text.trim().replace(/[.!]+$/, '') : undefined);
+      if (last) put(`member.${otherLast}.last_name`, last, text.trim());
+    }
+
     // Who lives at home.
     if (L.includes('household.roster')) {
       const items = parseRoster(text);
@@ -689,7 +707,9 @@ export class PathwayEngine {
         id = refs.find((m) => m.first && fold(m.first) === f)?.id;
       }
       if (!id) {
-        if (!it.name) continue; // "my husband" with no name: asked again below
+        // "the kids": the district's students. "My husband" with no name: a member whose
+        // name we ask next.
+        if (!it.name && (it.rel === 'child' || !it.rel)) continue;
         const rel: Rel = it.rel ?? 'other';
         id = rel === 'spouse' ? nextId('q') : rel === 'child' ? nextId('c') : nextId('g');
       }
@@ -854,6 +874,11 @@ export class PathwayEngine {
       return { text: R.rephrase(askText, example), phase: 'clarifying' };
     }
     if (FORM_HELP.test(t)) return { text: R.keepGoing(askText), phase: 'clarifying' };
+    // "$18 an hour": the form wants what each paycheck is, and we don't multiply hours we
+    // weren't told.
+    if (/\b(an?|per|la|por) (hour|hora)\b|\/\s?(hr|hour)\b|\bhourly\b/.test(t) && asked.some((a) => /has_income|income_done|incomes_complete|^income\./.test(a.key))) {
+      return { text: R.askPaycheck, phase: 'clarifying' };
+    }
     if (ex.declined && asked.length) {
       if (asked.some((a) => isRequired(a.spec, rec) || this.peopleRequired(pathway, a.key))) {
         s.stage = 'handoff_offered';
@@ -1137,6 +1162,9 @@ export class PathwayEngine {
     for (const id of use.get<string[]>('household.roster')?.value ?? []) {
       if (id === SELF) continue;
       const first = this.nameOf(use, id);
+      if (!first && !has(`member.${id}.first_name`)) {
+        return { keys: [`member.${id}.first_name`, `member.${id}.last_name`], text: R.askNameOf(relWord(use.get<string>(`member.${id}.relationship`)?.value, s.lang)) };
+      }
       if (first && !has(`member.${id}.last_name`)) return { keys: [`member.${id}.last_name`], text: R.askLastName(first, false) };
     }
 

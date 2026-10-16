@@ -828,3 +828,21 @@ test('messier parents: "St." is not a sentence end, an unnamed correction never 
   const next = (await say('I make $1,800 a month.'))!;
   assert.match(next, /Any other income for you/);
 });
+
+test('real parents say it other ways: "my husband" with no name, an hourly wage', async () => {
+  const { say, rec } = await launch('ca.psusd.linq');
+  await say('school lunch income form help');
+  await say('no');
+  await say('Rosa Pérez');
+  const ask = (await say('just me, my husband and the kids'))!;
+  assert.match(ask, /your partner's first and last name/, 'a person with no name is asked, never left out');
+  assert.deepEqual(rec().get('household.roster')?.value, ['p', 'q', 'c1']);
+  await say('Luis Pérez');
+  assert.equal(rec().get('member.q.first_name')?.value, 'Luis');
+  assert.equal(rec().get('member.q.last_name')?.value, 'Pérez');
+  const r = (await say('I get $18 an hour'))!;
+  assert.match(r, /one paycheck/, 'an hourly rate is not a paycheck: asked, not multiplied');
+  assert.equal(rec().incomeIndexes().length, 0);
+  assert.match((await say('about $1,400 every two weeks'))!, /Any other income for you/);
+  assert.equal(rec().get('income.0.frequency')?.value, 'biweekly');
+});

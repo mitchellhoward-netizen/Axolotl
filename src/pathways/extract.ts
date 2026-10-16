@@ -76,7 +76,7 @@ export function fold(s: string): string {
   return s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
 }
 
-const CORRECTION = /^(actually|sorry|oops|wait|correction|i meant|no,|nope,|my bad|perdon|en realidad|me equivoque|quise decir|corrijo|mejor dicho|disculpa)\b|\b(i meant|quise decir|not .{1,20} but|me equivoque)\b/;
+const CORRECTION = /^(actually|sorry|oops|wait|correction|i meant|no,|nope,|my bad|perdon|en realidad|me equivoque|quise decir|corrijo|mejor dicho|disculpa)\b|\b(i meant|quise decir|not .{1,20} but|me equivoque|should be|is wrong|isn'?t right|debe ser|deberia ser|esta mal)\b/;
 const DONT_KNOW = /\b(i don'?t know|i dont know|dunno|not sure|no idea|no se|no lo se|ni idea|no estoy segur[oa]|no me acuerdo|i don'?t remember)\b/;
 const DECLINED = /\b(rather not|prefer not|i'?d prefer not|don'?t want to (say|share|answer|tell)|prefiero no|no quiero (decir|contestar|compartir)(lo)?)\b|^(skip|skip it|skip this|pass|paso|saltar)[.!]?$/;
 const WHY = /\b(why|what for|what is that for|what'?s that for|por ?que|para que)\b/;
@@ -324,7 +324,8 @@ const LEXICON: Array<[RegExp, RegExp]> = [
   [/^age$/, /\b(years old|age|edad|anos)\b/],
   [/grade$/, /\b(grade|grado|kinder|kindergarten|tk|preschool|preescolar)\b/],
   [/email$/, /@|\b(e-?mail|correo)\b/],
-  [/phone$/, /\b(phone|cell|mobile|telefono|celular)\b/],
+  // "My number is (831) 555-0100": the value itself must be a phone number (3-3-4 digits).
+  [/phone$/, /\b(phone|cell|mobile|number|numero|telefono|celular|text me|call me|llamar|llameme)\b/],
   [/^(size|household_size|people|members|member_count|count)$/, /\b(people|persons|of us|family of|household|personas|somos|en (la|mi|nuestra) casa)\b/],
   [/(calfresh|snap|food_stamps)$/, BENEFIT_WORDS[0]![1]],
   [/(medi_cal|medical|medicaid)$/, BENEFIT_WORDS[1]![1]],

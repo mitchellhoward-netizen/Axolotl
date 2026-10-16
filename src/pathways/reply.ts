@@ -68,6 +68,8 @@ export interface Replies {
   askOwner(amount: string): string;
   askLastName(first: string, self: boolean): string;
   askWhich(flag: string): string;
+  askNameOf(rel: string): string;
+  askPaycheck: string;
   askAddress: string;
   you: string;
   your(field: string): string;
@@ -139,6 +141,8 @@ const en: Replies = {
   askLastName: (first, self) => (self ? `Just so I get it right on the form: what's your last name, ${first}?` : `Just so I get it right on the form: what's ${first}'s last name?`),
   askWhich: (flag) => `Which of the children ${flag}?`,
   askAddress: "What's your home address? The street, the city and the ZIP code.",
+  askNameOf: (rel) => `What's your ${rel}'s first and last name? It goes on the form.`,
+  askPaycheck: 'Thanks. The form asks for the pay itself, not the hourly rate. About how much is one paycheck before taxes, and how often do you get paid?',
   you: 'You',
   your: (field) => `Your ${field}`,
   of: (name, field) => `${name} — ${field}`,
@@ -207,6 +211,8 @@ const es: Replies = {
   askLastName: (first, self) => (self ? `Para ponerlo bien en el formulario: ¿cuál es su apellido, ${first}?` : `Para ponerlo bien en el formulario: ¿cuál es el apellido de ${first}?`),
   askWhich: (flag) => `¿Cuál de los niños ${flag}?`,
   askAddress: '¿Cuál es la dirección de su casa? La calle, la ciudad y el código postal.',
+  askNameOf: (rel) => `¿Cuál es el nombre y apellido de su ${rel}? Va en el formulario.`,
+  askPaycheck: 'Gracias. El formulario pide el pago, no la tarifa por hora. ¿Más o menos cuánto es un cheque antes de impuestos, y cada cuánto le pagan?',
   you: 'Usted',
   your: (field) => `Su ${field}`,
   of: (name, field) => `${name} — ${field}`,

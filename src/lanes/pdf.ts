@@ -25,6 +25,8 @@ export interface PdfTemplate {
   path: string;
   /** Source page indexes per language, in output order. */
   pages: Partial<Record<Lang, number[]>>;
+  /** The pages for this fill, when it can need more (a second copy of page 1). */
+  pagesFor?: (lang: Lang, values: Record<string, FieldValue>) => number[];
   overlay: (lang: Lang) => OverlayMap;
   /** What to tell the parent once the filled form is in their hands. */
   summary?: Text;
@@ -83,7 +85,7 @@ export class PdfLane implements LaneRunner {
     const leaked = fill.attestations.filter((a) => a in fill.values);
     if (leaked.length) return fail(`attestation fields in values: ${leaked.join(', ')}`);
     const lang: Lang = tpl.pages[ctx.lang] ? ctx.lang : 'en';
-    const pages = tpl.pages[lang]!;
+    const pages = tpl.pagesFor?.(lang, fill.values) ?? tpl.pages[lang]!;
 
     const blank = new Uint8Array(await readFile(tpl.path));
     const drawn = await drawOverlay(blank, tpl.overlay(lang), fill.values, { formId: form.id, lang, pages });
