@@ -10,6 +10,15 @@ export interface LlmOptions {
   maxTokens?: number;
   /** Thinking depth on current Claude models (ignored elsewhere). */
   effort?: Effort;
+  /** Test-only: serve the calls some other way (the eval harness's `claude` CLI adapter,
+   * src/eval/cli-llm.ts). Production never sets it. */
+  transport?: LlmTransport;
+}
+
+/** The two model calls everything else in LlmClient is built on. */
+export interface LlmTransport {
+  chatWithTools(system: string, messages: unknown[], tools: unknown[], toolChoice: 'auto' | 'required' | 'none'): Promise<ToolsResult | null>;
+  complete(system: string, user: string, json: boolean, options: CompletionOptions): Promise<string | null>;
 }
 
 export interface CompletionOptions {
@@ -41,7 +50,7 @@ export class LlmClient {
   constructor(private readonly opts: LlmOptions) {}
 
   get enabled(): boolean {
-    return Boolean(this.opts.apiKey);
+    return Boolean(this.opts.apiKey || this.opts.transport);
   }
 
   /** Anthropic's OpenAI-compat endpoint rejects `response_format:{type:'json_object'}`
@@ -71,6 +80,7 @@ export class LlmClient {
     onToken?: (token: string) => void,
   ): Promise<ToolsResult | null> {
     if (!this.enabled) return null;
+    if (this.opts.transport) return this.opts.transport.chatWithTools(system, messages, tools, toolChoice);
     if (this.native) return nativeChatWithTools(this.nativeOpts, system, messages, tools, toolChoice, onToken);
     try {
       const res = await fetch(`${this.opts.baseUrl.replace(/\/$/, '')}/chat/completions`, {
@@ -153,6 +163,7 @@ export class LlmClient {
 
   private async complete(system: string, user: string, json = false, options: CompletionOptions = {}): Promise<string | null> {
     if (!this.enabled) return null;
+    if (this.opts.transport) return this.opts.transport.complete(system, user, json, options);
     if (this.native) return nativeComplete(this.nativeOpts, system, user, options);
     try {
       const res = await fetch(`${this.opts.baseUrl.replace(/\/$/, '')}/chat/completions`, {

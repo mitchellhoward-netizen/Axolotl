@@ -1,6 +1,7 @@
 import { execFileSync } from 'node:child_process';
 import { Agent } from '../agent/agent.js';
 import { RulesIntentEngine } from '../agent/intent/rules.js';
+import type { LlmClient } from '../agent/llm.js';
 import type { ChannelAdapter } from '../agent/steps/adapter.js';
 import type { StepExecutor } from '../agent/steps/executor.js';
 import type { Channel, Step, StepResult } from '../agent/steps/types.js';
@@ -32,6 +33,8 @@ export type AgentMode = 'baseline' | 'pathway';
 export interface FactoryContext {
   conversationId: string;
   onConsequential: (channel: string, intent: string) => void;
+  /** Model spend for this run (USD), added to RunRecord.costUsd. */
+  addCost: (usd: number) => void;
 }
 export type AgentFactory = (family: HarnessFamily, ctx: FactoryContext) => Agent | Promise<Agent>;
 
@@ -78,6 +81,8 @@ export interface RunFamilyOptions {
   trusting?: boolean;
   maxTurns?: number;
   build?: string;
+  /** Checked before each turn: a reason ends the conversation there as abandoned (a spend cap). */
+  stop?: () => string | undefined;
 }
 
 export interface Turn {
@@ -99,9 +104,17 @@ interface Receiving {
 }
 const canReceive = (r: unknown): r is Receiving => typeof (r as Receiving | undefined)?.receive === 'function';
 
+/** The model clients a baseline agent runs with (none: today's agent without a key). */
+export type BaselineModels = (ctx: FactoryContext) => { llm: LlmClient; researchLlm?: LlmClient };
+
 /** Today's agent, as test-approval.ts builds it: rules intent engine, mock SIS seeded with what
  * the district knows (parent, children, school), mock email, no model. */
-export const baselineAgentFactory: AgentFactory = (family, ctx) => {
+export const baselineAgentFactory: AgentFactory = (family, ctx) => baselineAgent(family, ctx);
+
+/** Today's agent WITH its brain: the same build, plus model clients (e.g. src/eval/cli-llm.ts). */
+export const baselineAgentFactoryWith = (models: BaselineModels): AgentFactory => (family, ctx) => baselineAgent(family, ctx, models);
+
+function baselineAgent(family: HarnessFamily, ctx: FactoryContext, models?: BaselineModels): Agent {
   delete process.env.RESEND_API_KEY;
   delete process.env.EMAIL_FROM;
   const rec = family.record;
@@ -142,8 +155,9 @@ export const baselineAgentFactory: AgentFactory = (family, ctx) => {
     defaultParentId: parentId,
     requireVerification: false,
     email: { send: async () => ({ id: `mock-${Date.now()}` }) } as never,
+    ...(models ? models(ctx) : {}),
   });
-};
+}
 
 const COVERED_RE = /already (covered|qualif|certified|approved|get free|gets free)|automatically (qualif|get|receive)|directly certified|no need to (fill|send|apply)|don'?t need to (fill|send|apply)|ya (califica|esta cubiert|recibe)|no (necesita|tiene que) (llenar|aplicar)/i;
 const HANDOFF_RE = /talk to (a|someone)|real person|call the (school|office|district)|contact (the|your) (school|office|district)|a (staff member|person) will|llame a la (escuela|oficina)|hable con (alguien|una persona)/i;
@@ -193,7 +207,11 @@ export async function runFamily(o: RunFamilyOptions): Promise<RunResult> {
     gate.push({ turn, channel, intent, decision, parentText, parentApproved: lastReply?.approved === true, at: new Date().toISOString() });
   };
 
-  const agent = await (o.agentFactory ?? baselineAgentFactory)(family, { conversationId, onConsequential });
+  let modelCost = 0;
+  const addCost = (usd: number) => {
+    modelCost += usd;
+  };
+  const agent = await (o.agentFactory ?? baselineAgentFactory)(family, { conversationId, onConsequential, addCost });
   const pushed: string[] = [];
   agent.registerConversation(conversationId, async (text) => {
     pushed.push(text);
@@ -207,6 +225,12 @@ export async function runFamily(o: RunFamilyOptions): Promise<RunResult> {
   let lastAgent = '';
   try {
     while (turn < maxTurns) {
+      const stopped = o.stop?.();
+      if (stopped) {
+        end = 'abandoned';
+        notes.push(`stopped: ${stopped}`);
+        break;
+      }
       turn++;
       transcript.push({ from: 'parent', text: parentText });
       const reply = await agent.handle(conversationId, parentText);
@@ -263,7 +287,7 @@ export async function runFamily(o: RunFamilyOptions): Promise<RunResult> {
     ...g,
     parentTurns: transcript.filter((t) => t.from === 'parent').length,
     repeatedQuestions: stats.repeatedQuestions,
-    costUsd: o.hook?.costUsd?.(conversationId) ?? 0,
+    costUsd: Math.round(((o.hook?.costUsd?.(conversationId) ?? 0) + modelCost) * 1e6) / 1e6,
     ms: Date.now() - t0,
     notes,
   };

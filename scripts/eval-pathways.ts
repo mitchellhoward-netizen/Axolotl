@@ -13,6 +13,13 @@
  * --hook <module>            a module whose default export (or `hook`) is a PathwayHook
  * --out <dir>                results directory (default eval/results)
  * --build <id>               override the git build id
+ * --llm none|cli             none (default): today's agent without a model key (its scripted
+ *                            fallback). cli: today's agent WITH its brain, the model calls served
+ *                            by the `claude` CLI (src/eval/cli-llm.ts; test-only, see its header)
+ * --model <id>               the brain's model with --llm cli (default: production's DEFAULT_CLAUDE_MODEL)
+ * --budget <usd>             with --llm cli: stop starting new runs once this much is spent (default 5)
+ * --run-budget <usd>         with --llm cli: end a conversation before its next turn (as abandoned, noted) once it has cost this much (default 2.5)
+ * --transcripts <file>       append each run's transcript and tool calls as JSON lines
  * --verbose                  keep the agent's console logs and print transcripts
  * --no-write                 print only
  */
@@ -21,7 +28,11 @@ import { pathToFileURL } from 'node:url';
 import { ArchiveClient } from '../src/archive/client.js';
 import { makeFamilies } from '../src/eval/families.js';
 import { FakeReplica, fakeIncomeForm } from '../src/eval/fake.js';
-import { gitBuild, runFamily, type PathwayHook } from '../src/eval/runner.js';
+import { appendFileSync } from 'node:fs';
+import { DEFAULT_CLAUDE_MODEL, DEFAULT_CLAUDE_SMALL_MODEL } from '../src/agent/model-policy.js';
+import type { ToolCall } from '../src/agent/llm.js';
+import { cliLlmClient } from '../src/eval/cli-llm.js';
+import { baselineAgentFactoryWith, gitBuild, runFamily, type AgentFactory, type PathwayHook } from '../src/eval/runner.js';
 import { aggregate, markdownTable, writeResults } from '../src/eval/scoreboard.js';
 import type { FormMap, Pathway, Replica, RunRecord } from '../src/pathways/types.js';
 
@@ -124,28 +135,64 @@ async function main(): Promise<void> {
     if (!hook) throw new Error(`${a.hook} exports no PathwayHook`);
   }
 
+  // --llm cli: the production model tiers (model-policy.ts chatModel / smallModel), via the CLI.
+  const llmMode = (a.llm as string) ?? 'none';
+  if (llmMode !== 'none' && llmMode !== 'cli') throw new Error(`--llm none|cli, not ${llmMode}`);
+  const budget = Number(a.budget ?? 5);
+  const runBudget = Number(a['run-budget'] ?? 2.5);
+  let spent = 0;
+  let runSpent = 0;
+  let toolCalls: ToolCall[] = [];
+  let agentFactory: AgentFactory | undefined;
+  if (llmMode === 'cli') {
+    if (mode !== 'baseline') throw new Error('--llm cli is for --agent baseline');
+    const model = (a.model as string) ?? DEFAULT_CLAUDE_MODEL;
+    agentFactory = baselineAgentFactoryWith((ctx) => {
+      const onCost = (usd: number) => {
+        spent += usd;
+        runSpent += usd;
+        ctx.addCost(usd);
+      };
+      const onToolCall = (c: ToolCall) => toolCalls.push(c);
+      // chatModel(): the frontier model at medium effort; smallModel(): Haiku at low effort.
+      const llm = cliLlmClient({ model, effort: 'medium', onCost, onToolCall }).client;
+      const researchLlm = cliLlmClient({ model: DEFAULT_CLAUDE_SMALL_MODEL, effort: 'low', onCost }).client;
+      return { llm, researchLlm };
+    });
+  }
+  const transcripts = typeof a.transcripts === 'string' ? a.transcripts : undefined;
+
   const archive = new ArchiveClient();
   const families = await makeFamilies(nFamilies, { archive });
   const runs: RunRecord[] = [];
   const log = console.log;
   const warn = console.warn;
   try {
-    for (const family of families) {
+    outer: for (const family of families) {
       for (let seed = 1; seed <= seeds; seed++) {
+        if (llmMode === 'cli' && spent >= budget) {
+          log(`budget reached ($${spent.toFixed(2)} of $${budget}): stopping before ${family.id} seed ${seed}`);
+          break outer;
+        }
+        toolCalls = [];
+        runSpent = 0;
         if (!verbose) {
           console.log = () => {};
           console.warn = () => {};
         }
         let res;
         try {
-          res = await runFamily({ family, seed, mode, hook, pathway, form, replica, messiness, trusting: a.trusting === true, maxTurns, build });
+          res = await runFamily({ family, seed, mode, hook, pathway, form, replica, messiness, trusting: a.trusting === true, maxTurns, build, agentFactory, stop: llmMode === 'cli' ? () => (runSpent >= runBudget ? `run cost cap $${runBudget} reached` : undefined) : undefined });
         } finally {
           console.log = log;
           console.warn = warn;
         }
         runs.push(res.record);
         const r = res.record;
-        log(`${r.family} seed ${seed} [${family.lang}/${family.persona}] → ${r.outcome}  wrong ${r.wrongFields.length} missing ${r.missingFields.length} guessed ${r.guessedFacts.length}${r.sentWithoutYes ? ' SENT-WITHOUT-YES' : ''}${r.agentAttested ? ' AGENT-ATTESTED' : ''}  turns ${r.parentTurns}  ${r.ms} ms`);
+        log(`${r.family} seed ${seed} [${family.lang}/${family.persona}] → ${r.outcome}  wrong ${r.wrongFields.length} missing ${r.missingFields.length} guessed ${r.guessedFacts.length}${r.sentWithoutYes ? ' SENT-WITHOUT-YES' : ''}${r.agentAttested ? ' AGENT-ATTESTED' : ''}  turns ${r.parentTurns}  ${r.ms} ms${llmMode === 'cli' ? `  $${r.costUsd.toFixed(3)} (total $${spent.toFixed(2)})  tools: ${toolCalls.map((c) => c.name).join(',') || 'none'}` : ''}`);
+        if (transcripts) {
+          appendFileSync(transcripts, JSON.stringify({ build, pathway: r.pathway, family: r.family, seed, llm: llmMode, outcome: r.outcome, costUsd: r.costUsd, notes: r.notes, transcript: res.transcript, gate: res.gate, toolCalls: toolCalls.map((c) => ({ name: c.name, arguments: c.arguments })), submission: res.submission ? { fields: res.submission.fields, reference: res.submission.reference ?? null } : null }) + '\n');
+        }
         if (verbose) for (const t of res.transcript) log(`   ${t.from === 'parent' ? 'P' : 'A'}: ${t.text.replace(/\n+/g, ' ⏎ ').slice(0, 300)}`);
       }
     }

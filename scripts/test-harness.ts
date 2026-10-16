@@ -349,3 +349,32 @@ test('runner: pathway mode needs a hook, and calls it', async () => {
   assert.equal(res.record.lane, 'direct');
   assert.equal(res.record.costUsd, 0.01);
 });
+
+// ── The CLI model adapter (src/eval/cli-llm.ts): its envelope and transcript, no model call ──
+
+test('cli-llm: the JSON envelope parses back into tool calls, leniently', async () => {
+  const { parseEnvelope } = await import('../src/eval/cli-llm.js');
+  const tools = [{ type: 'function', function: { name: 'save_profile', parameters: {} } }];
+  const r = parseEnvelope('{"text":"Hi\nthere","tool_calls":[{"name":"save_profile","arguments":{"a":"x}"}}]} trailing }', tools)!;
+  assert.equal(r.calls?.length, 1);
+  assert.equal(r.calls![0]!.name, 'save_profile');
+  assert.deepEqual(JSON.parse(r.calls![0]!.arguments), { a: 'x}' });
+  assert.equal(parseEnvelope('{"text":"Hello"}', tools)?.text, 'Hello');
+  assert.equal(parseEnvelope('Just text, {no json}', tools)?.text, 'Just text, {no json}');
+  // An unknown tool is dropped, not run.
+  assert.equal(parseEnvelope('{"tool_calls":[{"name":"rm_rf","arguments":{}}],"text":"ok"}', tools)?.calls, undefined);
+  // A broken envelope is a failed call (the brain retries), never raw JSON to the parent.
+  assert.equal(parseEnvelope('{"text":"broken', tools), null);
+});
+
+test('cli-llm: history renders through production translation, tool calls and results tagged', async () => {
+  const { renderTranscript } = await import('../src/eval/cli-llm.js');
+  const t = renderTranscript([
+    { role: 'user', content: 'hi' },
+    { role: 'assistant', content: null, tool_calls: [{ id: 'a', function: { name: 'save_profile', arguments: '{"x":1}' } }] },
+    { role: 'tool', tool_call_id: 'a', content: '{"result":"ok"}' },
+  ]);
+  assert.match(t, /<user>\nhi\n<\/user>/);
+  assert.match(t, /<tool_call>\{"id":"a","name":"save_profile","arguments":\{"x":1\}\}<\/tool_call>/);
+  assert.match(t, /<tool_result id="a">\{"result":"ok"\}<\/tool_result>/);
+});

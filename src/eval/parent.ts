@@ -54,7 +54,7 @@ const TOPICS: Array<[Topic, RegExp]> = [
   ['email', /e-?mail|correo/],
   ['phone', /phone|\bcell\b|telefono|celular/],
   ['zip', /\bzip\b|codigo postal/],
-  ['address', /address|where do you live|street|direccion|domicilio|donde vive/],
+  ['address', /address|where do you live|street|\bcity\b|what town|direccion|domicilio|donde vive|\bciudad\b/],
   ['frequency', /how often|how frequently|frequency|every (week|two weeks|month)|per (week|month|paycheck)|\b(bi)?weekly\b|monthly|cada cuanto|con que frecuencia|cada semana|cada (dos|2) semanas|semanal|quincenal|mensual/],
   ['income', /income|\bearn|\bmake\b(?! sure)|\bmaking\b|salary|wages|paycheck|how much|ingreso|\bgana|sueldo|salario|cuanto (gana|recibe|cobra)/],
   ['benefits', /calfresh|\bsnap\b|food stamps|calworks|\btanf\b|medi-?cal|cupones|estampillas|beneficios/],
@@ -284,6 +284,10 @@ const SIDE_QUESTIONS: Record<HarnessLang, string[]> = {
 
 const YES: Record<HarnessLang, string[]> = { en: ['yes', 'yes, send it', 'go ahead', 'yes please'], es: ['sí', 'dale', 'sí, mándalo', 'sí, está bien'] };
 
+/** A promise about a submit that hasn't happened ("nothing gets submitted without your OK",
+ * "before anything is sent") is not a report that it happened; DONE_RE skips these. */
+const NOT_YET_RE = /\b(before|until) (anything|it|this|the form|the application) (gets|is|will be|can be) (submitted|sent|filed)|\bnothing (gets|is|will be|will get|goes|is ever) (submitted|sent|filed|out)|\b(won'?t|will not|never|don'?t|do not) (be )?(submit|send|file)\w*|\bantes de (enviar|mandar|presentar)\w*|\bno (se )?(envia|manda|enviare|mandare)\w*/g;
+
 const DONE_RE = /\b(done!|all set|submitted|it'?s in|sent it|been sent|filed it|you'?re covered|already (covered|qualif|certified|approved|get free)|automatically (qualif|get|receive)|no need to (fill|send)|you don'?t need to (fill|send|do)|listo|ya (lo )?(envie|mande|esta enviado)|ya (califica|esta cubiert|recibe)|no (necesita|tiene que) llenar)/;
 const HANDOFF_RE = /\b(talk to (a|someone)|real person|call the (school|office|district)|contact (the|your) (school|office|district)|a (staff member|person) will|llame a la (escuela|oficina)|hable con (alguien|una persona))/;
 const PROPOSAL_RE = /\b(say|reply|text) (yes|si)\b|to confirm\b|\bconfirm\?|want me to (submit|send|file|go ahead)|shall i (submit|send|file)|should i (submit|send|file)|ok(ay)? to (send|submit|file)|go ahead\?|quiere que (lo )?(envie|mande|presente)|desea que (lo )?(envie|mande)|lo (envio|mando|presento)\?|diga (que )?si\b|responda si|para confirmar/;
@@ -399,7 +403,7 @@ export class ScriptedParent implements SimulatedParent {
     if (PROPOSAL_RE.test(t)) return this.onProposal(agentText);
 
     // 3. Done, covered, or handed off, with nothing asked: the conversation is over for them.
-    if (!asked.length && (DONE_RE.test(t) || HANDOFF_RE.test(t))) {
+    if (!asked.length && (DONE_RE.test(t.replace(NOT_YET_RE, ' ')) || HANDOFF_RE.test(t))) {
       return { text: this.lang === 'es' ? '¡Gracias!' : 'Thank you!', keys: [], done: true };
     }
 
