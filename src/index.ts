@@ -47,6 +47,7 @@ import { reactionFor } from "./agent/reactions.js";
 import { provisionFamilyInbox, parseSchoolDomain, parseMailingAddress, forwardingAddressMessage } from "./integrations/email-triage/provision.js";
 import { getFamilyInbox } from "./integrations/email-triage/store.js";
 import { logConsent } from "./integrations/consent.js";
+import { SECRET_KEY } from "./agent/steps/approval.js";
 
 // ── Single-instance guard ──────────────────────────────────────────────────────
 // Running two identical bot instances against the same Spectrum line makes BOTH
@@ -167,10 +168,11 @@ setFillCompleteHandler(async (info) => {
   // thread and dies on the vendor's clock). Falls back to naming no link rather than a raw one.
   const review = reviewUrlFor(info.reviewScreenshotUrl);
   // The screenshot is the last screen only; on a long form that is the bottom of the page.
-  // The parent approves every value, so list every value in the thread itself.
+  // The parent approves every value, so list every value in the thread itself, none cut off:
+  // the YES is armed only when every value was in the message (steps/approval.ts).
   const values = Object.entries((info.meta?.values as Record<string, string> | undefined) ?? {});
   const entered = values.length
-    ? `\n\nWhat I entered:\n${values.slice(0, 25).map(([k, v]) => `• ${k}: ${v}`).join('\n')}${values.length > 25 ? `\n• …and ${values.length - 25} more` : ''}`
+    ? `\n\nWhat I entered:\n${values.map(([k, v]) => `• ${k}: ${SECRET_KEY.test(k) ? '(hidden)' : v}`).join('\n')}`
     : '';
   // Any public site can be filled now, so the parent sees which one before saying YES.
   let site = '';

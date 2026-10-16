@@ -50,8 +50,18 @@ That is also the simplest verification — run it twice and confirm the second r
 ### 1.2 What it keeps, and why
 
 - **`consent_event` — kept forever (7 years).** It is the audit trail of what a parent approved and
-  the record that a deletion happened. It holds ids, counts, dates and action names, **never family
-  content**. Deleting it would destroy the evidence that we never acted without consent.
+  the record that a deletion happened. Deleting it would destroy the evidence that we never acted
+  without consent.
+  - **Approved actions (`action:*` rows) now hold family content.** Since the YES gate was bound to
+    the exact proposal (`src/agent/steps/approval.ts`), each approved step's row stores the plain
+    values the parent approved (form values, email subject and body), the proposal digest, the code
+    they replied with and when it was shown (Mitch, 2026-10-16: "plain values + hash"). Secrets
+    (passwords, one-time codes, SSNs) are never stored; the no-database fallback logs the row
+    without values or body.
+  - **Open, for Mitch:** how long those values are kept, and who can read them. Keeping them the
+    full 7 years with the rest of this table is the current behaviour, not a decision. Options:
+    prune values (keep the digest) after a shorter window, or encrypt them as the life store does.
+  - Other rows (onboarding, deletions) still hold ids, counts, dates and action names only.
 - **`family_inbox`** — the forwarding address and its monitoring consent, which live as long as the
   account does.
 - **`guardian`, `student`, `family_profile`, `case_record`, `family_memory`** — these leave through

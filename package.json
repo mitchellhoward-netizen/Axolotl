@@ -53,6 +53,7 @@
     "test:pdf-email": "tsx scripts/test-pdf-email.ts",
     "test:intention": "tsx scripts/test-intention.ts",
     "test:consent": "tsx scripts/test-consent.ts",
+    "test:approval": "tsx --test scripts/test-approval.ts",
     "test:gating": "tsx scripts/test-gating.ts",
     "test:bubbles": "tsx scripts/test-bubbles.ts",
     "test:language": "tsx scripts/test-language.ts",

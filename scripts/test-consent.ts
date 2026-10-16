@@ -112,15 +112,18 @@ async function main(): Promise<void> {
 
   // 2. A strict consent reply DOES execute (via the mock email provider).
   agent.setStateForTest(ID, { phase: 'confirming', collected: {}, pendingSteps: [makeEmailStep()] } as ConversationState);
+  agent.showProposalForTest(ID); // a YES approves only what the parent was shown
   const yes = await agent.handle(ID, 'submit it');
   check('"submit it" executes (returns "Done!")', yes.text.includes('Done!'), yes.text.slice(0, 60));
   check('"submit it" clears pending steps after execution', !agent.getStateForTest(ID)?.pendingSteps?.length);
 
   // 3. "submit it" to a context with a stray affirmative word (e.g. "go") — only whole-message match counts.
   agent.setStateForTest(ID, { phase: 'confirming', collected: {}, pendingSteps: [makeEmailStep()] } as ConversationState);
+  agent.showProposalForTest(ID);
   const okWord = await agent.handle(ID, 'go');
   check('whole-message "go" is a valid consent', okWord.text.includes('Done!'), okWord.text.slice(0, 60));
   agent.setStateForTest(ID, { phase: 'confirming', collected: {}, pendingSteps: [makeEmailStep()] } as ConversationState);
+  agent.showProposalForTest(ID);
   const okThanks2 = await agent.handle(ID, 'yes please');
   check('"yes please" is a valid consent', okThanks2.text.includes('Done!'), okThanks2.text.slice(0, 60));
 
@@ -178,6 +181,7 @@ async function main(): Promise<void> {
 
     // (g) and the plain path still works: a bare YES executes exactly once
     amendAgent.setStateForTest(ID, { phase: 'confirming', collected: {}, pendingSteps: [makeEmailStep()] });
+    amendAgent.showProposalForTest(ID);
     const g = await amendAgent.handle(ID, 'yes');
     check('a bare YES still executes the pending step', g.text.includes('Done!') && outbox.length === 1, g.text.slice(0, 60));
   }

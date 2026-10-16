@@ -3,6 +3,7 @@ import type { CollectedSlots } from '../domain/slots.js';
 import type { CaseRecord, FamilyProfile } from '../domain/types.js';
 import type { FamilyMemory } from '../domain/memory.js';
 import type { Step } from './steps/types.js';
+import type { ApprovalStamp } from './steps/approval.js';
 import type { MckinneyState } from './mckinney.js';
 import type { OnboardingState } from './onboarding.js';
 import type { AttendanceState } from './attendance.js';
@@ -47,6 +48,9 @@ export interface ConversationState {
   lastAction?: string;
   /** Steps the brain has planned but not yet executed — awaiting parent consent. */
   pendingSteps?: Step[];
+  /** What the parent was shown for `pendingSteps`: its digest, code and expiry. A YES runs the
+   * steps only while they still digest the same (see steps/approval.ts). */
+  pendingApproval?: ApprovalStamp;
   /** A form fill the agent has kicked off but not yet shared for review (e.g. an async
    * Skyvern fill). Kept so a back-reference ("that form") and the generic-menu guard know
    * we're mid-flow — and so the pending fill can be persisted durably. */

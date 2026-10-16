@@ -26,6 +26,7 @@
  * stray "ok thanks" or "what about the bus?" from firing a stale submission.
  */
 import type { Step } from './types.js';
+import { SECRET_KEY } from './approval.js';
 
 export type CanonicalField = 'first_name' | 'last_name' | 'grade' | 'email' | 'phone' | 'address' | 'dob';
 
@@ -293,19 +294,37 @@ export function applyAmendmentToSteps(steps: Step[] | undefined, amendment: Amen
   return { applied, unapplied };
 }
 
-/** Keys we never echo back to a parent or into a proposal summary. */
-const SECRET_KEY = /password|passwd|pwd|otp|code|secret|token|cvv|ssn/i;
+/** One line per value. A secret is named but never echoed, so the parent still sees that it goes. */
+function valueLines(entries: Array<[string, string]>): string[] {
+  return entries.map(([k, v]) => `  - ${k}: ${SECRET_KEY.test(k) ? '(hidden)' : v}`);
+}
 
-/** The proposal in plain text, so an amended step is shown before it is approved again. */
+/** The proposal in plain text: every value that will be sent, so a YES approves exactly this. */
 export function describeProposal(steps: Step[] | undefined): string {
   return (steps ?? [])
     .map((step) => {
       if (step.channel === 'submit') {
         const p = step.payload as { channel: 'submit'; url: string; values?: Record<string, string> };
-        const lines = Object.entries(p.values ?? {})
-          .filter(([k]) => !SECRET_KEY.test(k))
-          .map(([k, v]) => `  - ${k}: ${v}`);
+        const lines = valueLines(Object.entries(p.values ?? {}));
         return `Submit the form at ${p.url}${lines.length ? `\n${lines.join('\n')}` : ''}`;
+      }
+      if (step.payload.channel === 'browser') {
+        const p = step.payload;
+        const lines = valueLines(p.fields.map((f) => [f.label, f.value]));
+        return `${p.submit ? 'Fill and submit' : 'Fill'} the form at ${p.url}${lines.length ? `\n${lines.join('\n')}` : ''}`;
+      }
+      if (step.payload.channel === 'form') {
+        const lines = valueLines(Object.entries(step.payload.fields));
+        return `Send form ${step.payload.formId}${lines.length ? `\n${lines.join('\n')}` : ''}`;
+      }
+      if (step.payload.channel === 'account') {
+        const p = step.payload;
+        const lines = valueLines([
+          ...(p.identifier ? ([['sign-in', p.identifier]] as Array<[string, string]>) : []),
+          ...(p.fields ?? []).map((f) => [f.label, f.value] as [string, string]),
+          ...(p.password ? ([['password', p.password]] as Array<[string, string]>) : []),
+        ]);
+        return `${p.phase === 'signup' ? 'Create an account' : p.phase === 'login' ? 'Sign in' : 'Verify the account'} at ${p.url}${lines.length ? `\n${lines.join('\n')}` : ''}`;
       }
       if (step.channel === 'email') {
         const p = step.payload as { channel: 'email'; subject: string; body: string };

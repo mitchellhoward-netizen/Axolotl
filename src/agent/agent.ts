@@ -70,6 +70,18 @@ import {
   describeProposal,
   describeShortly,
 } from './steps/consent.js';
+import {
+  checkApproval,
+  consentRecord,
+  invitesYes,
+  newApprovalCode,
+  parseApprovalReply,
+  proposalDigest,
+  shownIn,
+  stampApproval,
+  withApprovalCode,
+  type ApprovalCheck,
+} from './steps/approval.js';
 import { finalizePendingForFamily } from '../integrations/connections/index.js';
 import { getEmailsByStatus, setEmailStatus } from '../integrations/email-triage/store.js';
 import { LLM_TOOLS, LIFE_TOOL_NAMES, runTool, systemPrompt, pendingActionsSummary, fillEvidenceLine, type ToolDeps } from './tools.js';
@@ -231,7 +243,66 @@ export class Agent {
   }
 
   async handle(conversationId: string, text: string, life?: LifeTools): Promise<AgentTurn> {
-    return this.lifeTools.run(life, () => this.handleTurn(conversationId, text));
+    const turn = await this.lifeTools.run(life, () => this.handleTurn(conversationId, text));
+    return { ...turn, text: this.armApproval(conversationId, turn.text) };
+  }
+
+  /**
+   * Every message to the parent passes through here (the turn's reply and sendToConversation).
+   * A message that asks for a YES and shows every value of the pending proposal arms it: the
+   * digest of exactly those steps, a fresh code, an expiry (steps/approval.ts). One that asks for
+   * a YES without showing everything gets the full proposal added, so no YES is ever uninformed.
+   * A message that doesn't ask for a YES leaves the proposal armed but stale, so only
+   * `YES <code>` can approve it after that.
+   */
+  private armApproval(conversationId: string, text: string): string {
+    const state = this.store.getState(conversationId);
+    if (!state) return text;
+    const steps = state.pendingSteps;
+    if (!steps?.some((s) => s.requiresConsent)) {
+      delete state.pendingApproval;
+      return text;
+    }
+    const now = Date.now();
+    const stamp = state.pendingApproval;
+    const current = stamp && stamp.hash === proposalDigest(steps) && now <= stamp.expiresAt ? stamp : undefined;
+    if (!invitesYes(text)) {
+      if (current) current.stale = true;
+      else delete state.pendingApproval;
+      return text;
+    }
+    if (shownIn([text], steps)) {
+      const code = current?.code ?? newApprovalCode(stamp?.code);
+      state.pendingApproval = { ...stampApproval(steps, now), code };
+      return withApprovalCode(text, code);
+    }
+    if (current?.code) {
+      current.stale = false;
+      return withApprovalCode(text, current.code);
+    }
+    const full = `${text}\n\nExactly what I'll do:\n${describeProposal(steps)}`;
+    if (!shownIn([full], steps)) {
+      delete state.pendingApproval;
+      return text;
+    }
+    const code = newApprovalCode(stamp?.code);
+    state.pendingApproval = { ...stampApproval(steps, now), code };
+    return withApprovalCode(full, code);
+  }
+
+  /** The reply when a YES can't run the proposal as it stands. Nothing executes; the proposal
+   * stays staged, and armApproval adds the code (and the values, if this message lacks them). */
+  private approvalRefusal(reason: Exclude<ApprovalCheck, { ok: true }>['reason'], steps: Step[] | undefined): string {
+    switch (reason) {
+      case 'expired':
+        return `That was a while ago, so nothing has gone yet. Here it is again:\n\n${describeProposal(steps)}\n\nReply YES if it's all still right, or tell me what to change.`;
+      case 'wrong_code':
+        return `That code doesn't match what's waiting, so I haven't done anything. I've still got ${describeShortly(steps)}. Reply YES to go ahead with it, or tell me what to change.`;
+      case 'needs_code':
+        return `Just to be sure which one you mean: I've still got ${describeShortly(steps)}. Reply YES to go ahead with it, or tell me what to change.`;
+      default:
+        return `Before I do anything, here is exactly what I'll do:\n\n${describeProposal(steps)}\n\nReply YES if it's all right, or tell me what to change.`;
+    }
   }
 
   /** A separately handled life command cannot leave an old school approval armed. */
@@ -239,7 +310,7 @@ export class Agent {
     const state = this.store.getState(conversationId);
     if (!state) return;
     if (state.pendingSteps) this.closeSkyvernSessions(state.pendingSteps);
-    delete state.pendingSteps; delete state.pendingPlan;
+    delete state.pendingSteps; delete state.pendingApproval; delete state.pendingPlan;
     delete state.pendingCall; delete state.awaitingCallDemo; delete state.awaitingCallClarify;
     state.phase = 'idle'; state.collected = {};
   }
@@ -282,19 +353,32 @@ export class Agent {
       // never fire a stale submission. We clear the LIVE `state.pendingSteps` — not just write a new
       // object via save() — so nothing downstream (advance/brain) can ever see it again.
       if (state.pendingSteps?.some((s) => s.requiresConsent)) {
-        if (isStrictConsent(text)) {
+        const reply = parseApprovalReply(text, isStrictConsent);
+        if (reply) {
+          // A YES runs only the proposal the parent was shown: same digest, within its lifetime,
+          // with the right code (or a bare yes answering the proposal directly). Anything else
+          // re-shows it and runs nothing.
+          const approval = checkApproval(state.pendingSteps, state.pendingApproval, Date.now(), reply);
+          if (!approval.ok) {
+            console.log(`[consent] YES refused: ${approval.reason}`);
+            return { text: this.approvalRefusal(approval.reason, state.pendingSteps), phase: 'confirming', resolved: true };
+          }
           const steps = state.pendingSteps;
+          const stamp = state.pendingApproval!;
           state.pendingSteps = undefined;
-          // Record the consent BEFORE executing — the parent's strict YES is the
-          // authorization for every step we are about to run.
+          state.pendingApproval = undefined;
+          // Record the consent BEFORE executing — the parent's YES is the authorization for
+          // every step we are about to run. The log keeps the approved values and the digest.
           const familyId = this.store.getParentId(conversationId) ?? this.opts.defaultParentId ?? '';
           for (const s of steps) {
             if (!s.requiresConsent) continue;
             void logConsent(familyId, `action:${s.intent || s.channel}`, {
               channel: s.channel,
               intent: s.intent,
-              url: s.payload.channel === 'submit' ? s.payload.url : s.payload.channel === 'account' ? s.payload.url : undefined,
+              url: s.payload.channel === 'submit' ? s.payload.url : s.payload.channel === 'account' ? s.payload.url : s.payload.channel === 'browser' ? s.payload.url : undefined,
               target: s.counterparty?.email ?? s.counterparty?.name ?? undefined,
+              ...consentRecord(s),
+              approval: { proposal: stamp.hash, code: reply.kind === 'code' ? reply.code : null, shownAt: new Date(stamp.shownAt).toISOString() },
             });
           }
           const results = await this.runSteps(steps, this.resolveMode(), state);
@@ -309,6 +393,7 @@ export class Agent {
         if (isStrictDecline(text)) {
           this.closeSkyvernSessions(state.pendingSteps);
           state.pendingSteps = undefined;
+          state.pendingApproval = undefined;
           state.completedFill = undefined;
           state.phase = 'idle';
           this.save(conversationId, { phase: 'idle', collected: {}, pendingSteps: undefined }, state);
@@ -388,6 +473,7 @@ export class Agent {
         // "reply yes/no". This is what stops a stray "ok thanks" firing a stale submission.
         this.closeSkyvernSessions(state.pendingSteps);
         state.pendingSteps = undefined;
+        state.pendingApproval = undefined;
         state.completedFill = undefined;
         state.phase = 'idle';
         this.save(conversationId, { phase: 'idle', collected: {}, pendingSteps: undefined }, state);
@@ -709,6 +795,11 @@ export class Agent {
     this.store.ensure(conversationId, this.opts.defaultParentId ?? '');
     this.store.setState(conversationId, state);
   }
+  /** Test/dev hook: send the pending proposal's review as the parent would see it (arming it). */
+  showProposalForTest(conversationId: string): string {
+    const steps = this.store.getState(conversationId)?.pendingSteps;
+    return this.armApproval(conversationId, `${describeProposal(steps)}\n\nReply YES to go ahead, or tell me what to change.`);
+  }
   /** Test/dev hook: read a conversation's current state. */
   getStateForTest(conversationId: string): ConversationState | undefined {
     return this.store.getState(conversationId);
@@ -800,9 +891,12 @@ export class Agent {
 
   /** Register the messenger for a conversation (the family's iMessage space). */
   registerConversation(conversationId: string, send: (text: string) => Promise<void>): void {
+    // Every message sent outside a turn's reply (fill reviews, follow-ups, nudges) comes through
+    // here, so this is where it arms or stales the pending approval.
     const logged = (text: string) => {
-      console.log(`[out] ${text}`);
-      return send(text);
+      const armed = this.armApproval(conversationId, text);
+      console.log(`[out] ${armed}`);
+      return send(armed);
     };
     this.spaceMessengers.set(conversationId, logged);
     this.parentSender = logged; // keep the in-band path working too
@@ -890,6 +984,7 @@ export class Agent {
     // needed and would otherwise bill until it timed out.
     this.closeSkyvernSessions(record.state.pendingSteps?.filter((s) => !(s.payload.channel === 'submit' && s.payload.skyvernSessionId === input.skyvernSessionId)));
     record.state.pendingSteps = [step];
+    delete record.state.pendingApproval; // armed when the review reaches the parent
     record.state.phase = 'confirming';
     record.state.completedFill = {
       url: input.url,
@@ -1273,6 +1368,8 @@ export class Agent {
     if (next.onboarded === undefined) next.onboarded = prev.onboarded;
     if (next.emailProofSent === undefined) next.emailProofSent = prev.emailProofSent;
     if (next.completedFill === undefined) next.completedFill = prev.completedFill;
+    // The stamp belongs to the steps; armApproval and checkApproval re-verify the digest.
+    if (next.pendingApproval === undefined && next.pendingSteps) next.pendingApproval = prev.pendingApproval;
     this.store.setState(conversationId, next);
   }
 

@@ -25,7 +25,9 @@ export async function logConsent(
   if (!familyId) return;
   const c = getSupabase();
   if (!c) {
-    console.log(`[consent] ${familyId} ${kind} ${detail ? JSON.stringify(detail) : ''}`.trim());
+    // Approved values and message bodies belong in the consent table, not in the process log.
+    const { values: _v, body: _b, ...loggable } = detail ?? {};
+    console.log(`[consent] ${familyId} ${kind} ${detail ? JSON.stringify(loggable) : ''}`.trim());
     return;
   }
   try {
