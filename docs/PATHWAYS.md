@@ -275,7 +275,8 @@ The first run is the **baseline of today's agent** (before), committed with its 
 ## 6. Decisions (Mitch, 2026-10-16)
 
 1. **Replica districts:** Pajaro Valley Unified, plus two more chosen as good ICP (see
-   `docs/REPLICA-DISTRICTS.md` once it lands).
+   `docs/REPLICA-DISTRICTS.md`): San Bernardino City Unified and Palm Springs Unified. One PDF
+   on paper, one logged-in portal, one public web form with a reference code.
 2. **California only** for the launch pathways.
 3. **The archive bridge:** "whatever is best." Built as a long-lived Python worker inside the
    agent's container (`archive/rulesarchive/serve.py` ↔ `src/archive/client.ts`): a cold start is
