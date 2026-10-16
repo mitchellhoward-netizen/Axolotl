@@ -6,7 +6,10 @@ FROM node:22-slim
 WORKDIR /app
 
 # Local-only document text extraction/OCR; no document vendor API required.
-RUN apt-get update && apt-get install -y --no-install-recommends poppler-utils tesseract-ocr tesseract-ocr-eng util-linux \
+# python3 + PyYAML run the rules archive worker (archive/rulesarchive/serve.py), which the agent
+# calls for eligibility (src/archive/client.ts). Bookworm's python3 is 3.11; the archive's 497
+# cases pass on it.
+RUN apt-get update && apt-get install -y --no-install-recommends poppler-utils tesseract-ocr tesseract-ocr-eng util-linux python3 python3-yaml \
     && rm -rf /var/lib/apt/lists/*
 
 COPY package.json package-lock.json ./
