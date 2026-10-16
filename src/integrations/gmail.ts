@@ -1,5 +1,5 @@
 import 'dotenv/config';
-import type { EmailMessage, EmailProvider, EmailReceipt } from './email.js';
+import { attachmentBase64, type EmailMessage, type EmailProvider, type EmailReceipt } from './email.js';
 import { getSupabase } from './db.js';
 import { SecretBox, secretBox } from '../lib/secret-box.js';
 import { signState } from '../lib/signed-state.js';
@@ -138,7 +138,10 @@ function wrapBase64(b64: string, width = 76): string {
   return out.join('\r\n');
 }
 
-function rfc2822Message(msg: EmailMessage): string {
+/** Attachment bytes already resolved to base64 (see `attachmentBase64`). */
+type ResolvedAttachment = { filename: string; contentType: string; base64: string };
+
+export function rfc2822Message(msg: EmailMessage, attachments: ResolvedAttachment[] = []): string {
   // From: omit when unknown (Gmail sets it to the authenticated account), so we
   // never emit a bogus "From: me". Subject is RFC 2047-encoded for non-ASCII, and
   // the body is base64 (Content-Transfer-Encoding) so accented/emoji text survives.
@@ -147,10 +150,31 @@ function rfc2822Message(msg: EmailMessage): string {
   lines.push(`To: ${msg.to}`);
   lines.push(`Subject: ${encodeHeader(msg.subject.replace(/[\r\n]/g, ' '))}`);
   lines.push('MIME-Version: 1.0');
-  lines.push('Content-Type: text/plain; charset=UTF-8');
-  lines.push('Content-Transfer-Encoding: base64');
-  lines.push('');
-  lines.push(wrapBase64(Buffer.from(msg.body, 'utf8').toString('base64')));
+  const textPart = [
+    'Content-Type: text/plain; charset=UTF-8',
+    'Content-Transfer-Encoding: base64',
+    '',
+    wrapBase64(Buffer.from(msg.body, 'utf8').toString('base64')),
+  ];
+  if (!attachments.length) {
+    lines.push(...textPart);
+    return lines.join('\r\n');
+  }
+  // With attachments: multipart/mixed, so the approved file actually goes out with the email.
+  const boundary = `axl-${Date.now().toString(36)}-${Math.random().toString(36).slice(2)}`;
+  lines.push(`Content-Type: multipart/mixed; boundary="${boundary}"`, '', `--${boundary}`, ...textPart);
+  for (const a of attachments) {
+    const name = encodeHeader(a.filename.replace(/["\r\n]/g, ''));
+    lines.push(
+      `--${boundary}`,
+      `Content-Type: ${a.contentType.replace(/[\r\n]/g, '')}; name="${name}"`,
+      `Content-Disposition: attachment; filename="${name}"`,
+      'Content-Transfer-Encoding: base64',
+      '',
+      wrapBase64(a.base64),
+    );
+  }
+  lines.push(`--${boundary}--`);
   return lines.join('\r\n');
 }
 
@@ -163,7 +187,14 @@ export class GmailEmailProvider implements EmailProvider {
 
   async send(msg: EmailMessage): Promise<EmailReceipt> {
     const token = await this.getAccessToken();
-    const raw = Buffer.from(rfc2822Message({ ...msg, from: this.from || msg.from }), 'utf8').toString('base64url');
+    const attachments = await Promise.all(
+      (msg.attachments ?? []).map(async (a) => ({
+        filename: a.filename,
+        contentType: a.contentType || 'application/octet-stream',
+        base64: await attachmentBase64(a),
+      })),
+    );
+    const raw = Buffer.from(rfc2822Message({ ...msg, from: this.from || msg.from }, attachments), 'utf8').toString('base64url');
     const res = await fetch('https://gmail.googleapis.com/gmail/v1/users/me/messages/send', {
       method: 'POST',
       headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },

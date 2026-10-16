@@ -327,11 +327,13 @@ export function describeProposal(steps: Step[] | undefined): string {
         return `${p.phase === 'signup' ? 'Create an account' : p.phase === 'login' ? 'Sign in' : 'Verify the account'} at ${p.url}${lines.length ? `\n${lines.join('\n')}` : ''}`;
       }
       if (step.channel === 'email') {
-        const p = step.payload as { channel: 'email'; subject: string; body: string };
+        const p = step.payload as { channel: 'email'; subject: string; body: string; attachments?: Array<{ filename: string }> };
+        // Every attached file is named before YES: the parent approves what goes out, not just the prose.
+        const files = (p.attachments ?? []).map((a) => a.filename);
         return `Email to ${step.counterparty.email ?? step.counterparty.name ?? 'the school'}\n  Subject: ${p.subject}\n${p.body
           .split('\n')
           .map((l) => `  ${l}`)
-          .join('\n')}`;
+          .join('\n')}${files.length ? `\n  Attached: ${files.join(', ')}` : ''}`;
       }
       if (step.channel === 'call') {
         const p = step.payload as { channel: 'call'; objective: { goal: string } };

@@ -2,6 +2,16 @@ import 'dotenv/config';
 import type { Stagehand, StagehandBrowser, Page, StagehandCreateOptions } from '@browserbasehq/stagehand';
 import { createDeepseekGenerate } from './stagehand-llm.js';
 import { createOpenAIResponsesGenerate, askVision } from './stagehand-openai.js';
+import {
+  FORM_MAP_JS,
+  planFill,
+  readBack,
+  clicksFor,
+  detectConfirmation,
+  type FormMap,
+  type OptionGroup,
+  type ReadBackMiss,
+} from './browser-formmap.js';
 
 /**
  * Browser "hands" layer (Stagehand). Env-gated and graceful: every call returns a
@@ -152,90 +162,33 @@ export async function browserExtract(
   }
 }
 
-/** Normalize a label/name for fuzzy matching. */
-function normLabel(s: string): string {
-  return s.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
-}
-
 /** One natural-language instruction to fill ALL fields at once (fewer LLM calls). */
 function buildFillInstruction(fields: Array<{ label: string; value: string }>): string {
   const lines = fields.map((f) => `- ${f.label}: ${f.value}`);
   return `Fill this form with exactly these values:\n${lines.join('\n')}\nFill every one of these fields with its value. Do not submit.`;
 }
 
-interface FormField {
-  label: string;
-  value: string;
-  selector?: string;
-  type?: string;
-}
-
-/** A radio/checkbox option group: a question with selectable options. */
-interface OptionGroup {
-  question: string;
-  type: 'radio' | 'checkbox';
-  options: Array<{ label: string; selector: string }>;
-}
-
-interface FormMap {
-  fields: FormField[];
-  optionGroups: OptionGroup[];
-}
-
 /**
- * Read every form field (text/select/textarea → fillable) plus radio/checkbox
- * option groups straight from the DOM (deterministic, fast). Resolves the question
- * via aria-labelledby so Google Form fields get real labels, not generic 'Your answer'.
- * Assigns data-axl so we can fill/check by selector.
+ * Read every form field (text/select/textarea → fillable) plus radio/checkbox option groups
+ * straight from the DOM (deterministic, fast). The script and the matching logic live in
+ * browser-formmap.ts so they can be tested without a browser.
  */
 async function getFormMap(page: Page): Promise<FormMap> {
-  const JS = `(() => {
-    const out = [];
-    const groups = {};
-    let n = 0;
-    const questionOf = (el) => {
-      const lid = (el.getAttribute('aria-labelledby') || el.getAttribute('aria-describedby')) || '';
-      if (lid) { const ref = document.getElementById(lid.split(' ')[0]); if (ref) return (ref.textContent || '').trim(); }
-      return '';
-    };
-    document.querySelectorAll('input, select, textarea').forEach((el) => {
-      const t = (el.type || '').toLowerCase();
-      if (['hidden','submit','button','checkbox','radio','file'].indexOf(t) !== -1) return;
-      el.setAttribute('data-axl', String(n));
-      const q = questionOf(el) || el.getAttribute('aria-label') || el.placeholder || (el.labels && el.labels[0] ? el.labels[0].textContent : '') || el.getAttribute('name') || '';
-      if (q.trim()) out.push({ label: (q || '').replace(/\\s*\\*\\s*$/, '').trim(), selector: '[data-axl="' + n + '"]', type: el.tagName.toLowerCase() === 'select' ? 'select' : (t || 'text'), value: el.value || '' });
-      n++;
-    });
-    return { fields: out, optionGroups: Object.values(groups) };
-  })()`;
   try {
-    return (await (page as unknown as { evaluate: (expr: string) => Promise<unknown> }).evaluate(JS)) as FormMap;
+    return (await (page as unknown as { evaluate: (expr: string) => Promise<unknown> }).evaluate(FORM_MAP_JS)) as FormMap;
   } catch {
     return { fields: [], optionGroups: [] };
   }
 }
 
-/** Find the field whose label best matches the target label. */
-function findField(state: FormField[], label: string): FormField | undefined {
-  const target = normLabel(label).split(' ').filter(Boolean);
-  if (!target.length) return undefined;
-  let best: FormField | undefined;
-  let bestScore = 0;
-  for (const item of state) {
-    const dl = normLabel(item.label);
-    if (!dl) continue;
-    const overlap = target.filter((t) => dl.includes(t)).length;
-    const score = overlap / target.length;
-    if (score > bestScore) {
-      bestScore = score;
-      best = item;
-    }
+/** Click each option that must change state for a radio/checkbox group. */
+async function fillGroup(page: Page, group: OptionGroup, select: Set<string>): Promise<boolean> {
+  try {
+    for (const sel of clicksFor(group, select)) await page.locator(sel).click();
+    return true;
+  } catch {
+    return false;
   }
-  return bestScore >= 0.6 ? best : undefined;
-}
-
-function sameValue(a: string, b: string): boolean {
-  return normLabel(a) === normLabel(b);
 }
 
 /** Deterministically fill one field by selector (text → fill, select → selectOption). */
@@ -274,54 +227,52 @@ async function findSelectorByLabel(page: Page, label: string): Promise<string | 
 }
 
 /**
- * Fill form fields by natural-language label. Strategy: read the fields + their DOM
- * selectors straight from the DOM (deterministic, fast), fill via page.locator().fill()
- * where we can match a label; fall back to one natural-language act for the rest.
- * Then machine-verify by reading the values back and self-heal any misses.
+ * Fill form fields by natural-language label. Strategy: read the fields, their DOM selectors
+ * and the radio/checkbox groups straight from the DOM, plan which element each value goes
+ * into (each element claimed once), fill text/selects via locator().fill()/selectOption() and
+ * groups by clicking options; fall back to placeholder/name matching, then one
+ * natural-language act for the rest. Then RE-READ the form and check each value against its
+ * own element (readBack), retry the misses once, and report what still does not match.
  * NEVER submits — submission stays behind the consent gate upstream.
  */
 export async function browserFill(
   fields: Array<{ label: string; value: string }>,
-): Promise<BrowserResult<{ filled: number; verified?: boolean; mismatches?: Array<{ label: string; value: string }>; url?: string }>> {
+): Promise<BrowserResult<{ filled: number; verified?: boolean; mismatches?: ReadBackMiss[]; url?: string }>> {
   const h = await getPage();
   if (!h) return { ok: false, reason: 'browser not configured' };
   const pageUrl = (await h.page.url().catch(() => '')) as string;
   if (!fields.length) return { ok: true, data: { filled: 0, verified: true, mismatches: [], url: pageUrl } };
   try {
-    let form = await getFormMap(h.page);
-    const used = new Set<string>();
+    const before = await getFormMap(h.page);
+    const plan = planFill(before, fields);
     const leftovers: Array<{ label: string; value: string }> = [];
+    const used = new Set<string>();
 
-    for (const f of fields) {
-      // Text/select/textarea → deterministic fill. Escalate: label → selector
-      // (placeholder/name) → natural-language act for the rest.
-      const target = findField(form.fields, f.label);
-      if (target?.selector && target.type && !used.has(target.selector) && (await fillByType(h.page, target.selector, target.type, f.value))) {
-        used.add(target.selector);
+    for (const t of plan.targets) {
+      if (t.kind === 'group') {
+        if (!(await fillGroup(h.page, t.group, t.select))) leftovers.push(t.want);
+      } else if (t.field.selector && t.field.type && (await fillByType(h.page, t.field.selector, t.field.type, t.want.value))) {
+        used.add(t.field.selector);
       } else {
-        const altSel = await findSelectorByLabel(h.page, f.label);
-        if (altSel && !used.has(altSel) && (await fillByType(h.page, altSel, 'text', f.value))) {
-          used.add(altSel);
-        } else {
-          leftovers.push(f);
-        }
+        leftovers.push(t.want);
       }
+    }
+    for (const f of plan.unmatched) {
+      const altSel = await findSelectorByLabel(h.page, f.label);
+      if (!(altSel && !used.has(altSel) && (await fillByType(h.page, altSel, 'text', f.value)))) leftovers.push(f);
     }
     if (leftovers.length) await h.stagehand.act(buildFillInstruction(leftovers));
 
-    if (form.fields.length === 0) return { ok: true, data: { filled: fields.length, verified: false, mismatches: [], url: pageUrl } };
+    // Nothing readable on the page: we cannot check any value, so say so (verified: false).
+    if (before.fields.length === 0 && before.optionGroups.length === 0) {
+      return { ok: true, data: { filled: fields.length, verified: false, mismatches: [], url: pageUrl } };
+    }
 
-    const isFilled = (f: { label: string; value: string }) => {
-      const dom = findField(form.fields, f.label);
-      if (dom && sameValue(dom.value, f.value)) return true;
-      return form.fields.some((item) => sameValue(item.value, f.value));
-    };
-
-    let mismatches = fields.filter((f) => !isFilled(f));
+    // Read-back against the form AS IT IS NOW, each value against its own element.
+    let mismatches = readBack(await getFormMap(h.page), fields, plan);
     if (mismatches.length) {
       await h.stagehand.act(buildFillInstruction(mismatches));
-      form = await getFormMap(h.page);
-      mismatches = fields.filter((f) => !isFilled(f));
+      mismatches = readBack(await getFormMap(h.page), fields, plan);
     }
 
     return {
@@ -434,17 +385,21 @@ async function captureResponseLink(page: Page): Promise<string> {
  * Submit the form on the current page and capture the post-submit response link,
  * so we can hand the parent the "filled form" link. Returns the response link.
  */
-export async function browserSubmit(): Promise<BrowserResult<{ responseLink: string; confirmed: boolean }>> {
+export async function browserSubmit(): Promise<
+  BrowserResult<{ responseLink: string; confirmed: boolean; reference?: string; confirmationText?: string }>
+> {
   const h = await getPage();
   if (!h) return { ok: false, reason: 'browser not configured' };
   const sub = await browserAct('click the submit button');
   if (!sub.ok) return { ok: false, reason: sub.reason };
   await h.page.waitForTimeout(5000); // let the confirmation page load
-  const confirmed = (await (h.page as unknown as { evaluate: (expr: string) => Promise<unknown> }).evaluate(
-    `(() => /thank you for your response|your response has been recorded|response submitted|has been submitted|submitted successfully/i.test((document.body && document.body.innerText) || ''))()`,
-  )) as boolean;
+  const text = (await (h.page as unknown as { evaluate: (expr: string) => Promise<unknown> })
+    .evaluate(`(() => ((document.body && document.body.innerText) || '').slice(0, 20000))()`)
+    .catch(() => '')) as string;
+  // Done means confirmed: only the page's own confirmation words or a printed reference count.
+  const seen = detectConfirmation(text);
   const responseLink = await captureResponseLink(h.page);
-  return { ok: true, data: { responseLink, confirmed } };
+  return { ok: true, data: { responseLink, confirmed: seen.confirmed, reference: seen.reference, confirmationText: seen.quote } };
 }
 
 export async function browserClose(): Promise<void> {

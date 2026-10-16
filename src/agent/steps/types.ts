@@ -25,9 +25,25 @@ export interface Counterparty {
   phone?: string;
 }
 
+/**
+ * A file sent with an approved email step (e.g. a filled PDF). Either inline bytes or a local
+ * path; the consent proposal lists every filename before the parent's YES.
+ */
+export type EmailStepAttachment = { filename: string; contentType: string } & (
+  | { contentBase64: string; path?: undefined }
+  | { path: string; contentBase64?: undefined }
+);
+
 /** Channel-specific content, discriminated on `channel`. */
 export type StepPayload =
-  | { channel: 'email'; subject: string; body: string; target?: string; district?: string }
+  | {
+      channel: 'email';
+      subject: string;
+      body: string;
+      target?: string;
+      district?: string;
+      attachments?: EmailStepAttachment[];
+    }
   | { channel: 'text'; body: string }
   | { channel: 'form'; formId: string; fields: Record<string, string> }
   | { channel: 'call'; objective: CallBrief }

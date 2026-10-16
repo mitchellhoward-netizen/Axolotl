@@ -50,7 +50,20 @@ import {
   normalizeContactPhone,
   saveFamilyContact,
 } from '../integrations/family-contacts.js';
-import { familyInfoPatch, familyInfoLine, formValuesFor, missingBasics, childFor, FAMILY_INFO_TOOL_PROPERTIES, CHILD_TOOL_PROPERTIES } from './family-info.js';
+import {
+  familyInfoPatch,
+  familyInfoLine,
+  formValuesFor,
+  formValuesForForm,
+  formAsksFor,
+  profileKeyFor,
+  allProfileLabels,
+  HEALTH_LABELS,
+  missingBasics,
+  childFor,
+  FAMILY_INFO_TOOL_PROPERTIES,
+  CHILD_TOOL_PROPERTIES,
+} from './family-info.js';
 
 export interface ToolDeps {
   life?: LifeTools;
@@ -300,7 +313,7 @@ export const LLM_TOOLS = [
           url: { type: 'string', description: 'The application form itself (the page with the input fields), not the program landing page.' },
           program: { type: 'string', description: 'The program or form name, e.g. "CKC After School 2026-27". Lets a form that worked before be reused.' },
           school: { type: 'string', description: 'The school or district the form belongs to, if known.' },
-          child: { type: 'string', description: 'Which child the form is for (first name). Their details on file are added automatically.' },
+          child: { type: 'string', description: 'Which child the form is for (first name). The details on file that this form asks for are added automatically (only identity and contact basics for a form not seen before; health details only when the form asks for them). To include another fact on file, put the form\'s label for it in `values`; the value on file is used.' },
           values: {
             type: 'object',
             additionalProperties: { type: 'string' },
@@ -967,15 +980,36 @@ export async function runTool(name: string, args: Record<string, unknown>, deps:
       if ((deps.profile?.children?.length ?? 0) > 1 && !childFor(deps.profile, childName)) {
         return `Which child is this form for? Pass \`child\` (one of: ${deps.profile!.children.map((c) => c.name).join(', ')}).`;
       }
-      // Everything on file first; anything the model passes from this conversation is newer and wins.
-      const values = {
-        ...formValuesFor(deps.profile, childName),
-        ...Object.fromEntries(
-          Object.entries((args.values ?? {}) as Record<string, unknown>)
-            .map(([k, v]) => [k.trim(), String(v ?? '').trim()] as const)
-            .filter(([k, v]) => k && v),
-        ),
-      };
+      // Minimum data (VISION §8): the form gets only the facts its fields ask for. Until portal
+      // maps exist, a stored recipe's labels say what it asks for; without one, identity and
+      // contact basics only. Health facts need the form's OWN labels (the model-authored
+      // fills/controls/selects), not the list of names we happened to send last time.
+      const recipe = await getFormRecipe(url).catch(() => undefined);
+      const pageLabels = recipe
+        ? [...recipe.fills.map((f) => f.label), ...recipe.controls.map((c) => c.label), ...recipe.selects.map((s) => s.name)]
+        : undefined;
+      const formLabels = recipe ? [...pageLabels!, ...(recipe.verified?.valueKeys ?? [])] : undefined;
+      const onFile = formValuesFor(deps.profile, childName);
+      const values: Record<string, string> = formValuesForForm(deps.profile, childName, formLabels, pageLabels);
+      // The model's values: the family profile WINS over anything the model passes for a fact
+      // on file. A model label that names an on-file fact only signals the form asks for it
+      // (health facts still need the form's own labels). Values for labels not on file are
+      // allowed and marked, so the review can show they came from the conversation.
+      const modelSupplied: string[] = [];
+      const profileLabels = allProfileLabels();
+      for (const [rawK, rawV] of Object.entries((args.values ?? {}) as Record<string, unknown>)) {
+        const k = rawK.trim();
+        const v = String(rawV ?? '').trim();
+        if (!k || !v) continue;
+        const pk = profileKeyFor(k, profileLabels);
+        if (pk && onFile[pk]) {
+          if (!HEALTH_LABELS.has(pk) || (pageLabels?.length && formAsksFor(pk, pageLabels))) values[pk] = onFile[pk]!;
+          continue;
+        }
+        if (pk && HEALTH_LABELS.has(pk) && !(pageLabels?.length && formAsksFor(pk, pageLabels))) continue;
+        values[k] = v;
+        modelSupplied.push(k);
+      }
       if (!Object.keys(values).length) return 'Pass the values to type into the form (from the family profile and this conversation).';
       const stillMissing = missingBasics(deps.profile, childName);
       const program = String(args.program ?? '').trim() || undefined;
@@ -988,7 +1022,8 @@ export async function runTool(name: string, args: Record<string, unknown>, deps:
         formUrl: url,
         values,
         program,
-        meta: { conversationId: deps.conversationId ?? '', school },
+        // `modelSupplied`: labels whose value came from the conversation, not the family record.
+        meta: { conversationId: deps.conversationId ?? '', school, ...(modelSupplied.length ? { modelSupplied: JSON.stringify(modelSupplied) } : {}) },
       });
       if (!res.ok || !res.runId) {
         // Specific, actionable failures instead of a generic snag. "no_form" is the one we

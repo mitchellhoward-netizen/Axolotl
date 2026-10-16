@@ -201,6 +201,152 @@ export function formValuesFor(profile: FamilyProfile | undefined, childName?: st
   return Object.fromEntries(Object.entries(out).filter((e): e is [string, string] => Boolean(e[1])));
 }
 
+// ── Minimum data: only what this form's fields ask for (VISION §8) ──────────
+
+/** Health facts. Sent ONLY when the form's own labels ask for them; never by default. */
+export const HEALTH_LABELS = new Set(['Allergies', 'Medical conditions / notes']);
+
+/**
+ * Identity + contact basics: what we send when we know nothing about the form's fields (no
+ * recipe yet). No health, gender, other guardians, emergency contacts or pickups.
+ */
+export const BASIC_LABELS = new Set([
+  'Student first name',
+  'Student last name',
+  'Grade',
+  'Student date of birth',
+  'School',
+  'Parent/guardian first name',
+  'Parent/guardian last name',
+  'Parent/guardian phone',
+  'Parent/guardian email',
+  'Home street address',
+  'City',
+  'State',
+  'ZIP code',
+]);
+
+/** Which form labels ask for each profile fact. Patterns run on a normalized label. */
+function conceptFor(key: string): RegExp {
+  const g = key.match(/^Parent\/guardian (\d) (name|relationship|phone|email)$/);
+  if (g) {
+    const which = `(${g[1]}|second|other|additional|secondary)`;
+    const what = g[2] === 'name' ? 'name' : g[2] === 'phone' ? '(phone|cell|mobile|telephone)' : g[2] === 'email' ? 'e ?mail' : 'relationship';
+    return new RegExp(`(${which} (parent|guardian)|(parent|guardian) ${which}).*${what}|${what}.*(${which} (parent|guardian)|(parent|guardian) ${which})`);
+  }
+  const e = key.match(/^Emergency contact (\d) (name|relationship|phone)$/);
+  if (e) {
+    const what = e[2] === 'phone' ? '(phone|cell|mobile|telephone|number)' : e[2];
+    return new RegExp(`emergency.*${what}|${what}.*emergency`);
+  }
+  switch (key) {
+    case 'Student first name':
+      return /^(student|child|kid|camper|participant)?\s*(first|given)?\s*name$|(student|child|camper|participant).*(first|given|full)?\s*name|^first name$|^full name$/;
+    case 'Student last name':
+      return /(student|child|camper|participant).*(last|family|sur)\s*name|(student|child|camper|participant).*\bname\b|^(last|family|sur) ?name$|^full name$/;
+    case 'Grade':
+      return /\bgrade\b/;
+    case 'Student date of birth':
+      return /birth|\bdob\b|birthday/;
+    case 'Student gender':
+      return /gender|\bsex\b/;
+    case 'Previous school':
+      return /(previous|prior|last|former) school|school .*attended/;
+    case 'Allergies':
+      return /allerg/;
+    case 'Medical conditions / notes':
+      // Not bare "condition" ("terms and conditions") or "health" ("health insurance").
+      return /(medical|health) (conditions?|concerns?|issues?|notes?|history|info|information|problems?|needs|alerts?)|medications?|diagnos|chronic/;
+    case 'School':
+      return /^(?!.*(previous|prior|former|last)).*\bschool\b/;
+    case 'Parent/guardian first name':
+      return /(parent|guardian|mother|father).*name|^first name$|^full name$|your name/;
+    case 'Parent/guardian last name':
+      return /(parent|guardian|mother|father).*name|^(last|family|sur) ?name$|^full name$|your name/;
+    case 'Parent/guardian phone':
+      return /^(?!.*(emergency|second|other|additional|2)).*(phone|cell|mobile|telephone)/;
+    case 'Parent/guardian email':
+      return /^(?!.*(second|other|additional|2)).*e ?mail/;
+    case 'Home street address':
+      return /address|street/;
+    case 'City':
+      return /\bcity\b|\btown\b/;
+    case 'State':
+      return /^state$|\bstate\b(?!.*(id|issued))/;
+    case 'ZIP code':
+      return /\bzip|postal/;
+    case 'Language spoken at home':
+      return /language/;
+    case 'Authorized pickup':
+      return /pick ?up|release to|authorized/;
+    default:
+      return new RegExp(`^${normFormLabel(key).replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}$`);
+  }
+}
+
+function normFormLabel(s: string): string {
+  return s.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+}
+
+/** Does any of the form's labels ask for this profile fact? */
+export function formAsksFor(key: string, labels: string[]): boolean {
+  const k = normFormLabel(key);
+  const re = conceptFor(key);
+  return labels.some((l) => {
+    const n = normFormLabel(l);
+    return n === k || re.test(n);
+  });
+}
+
+/** The profile fact a label names, if any (used to stop a model value overriding the profile). */
+export function profileKeyFor(label: string, keys: string[]): string | undefined {
+  const n = normFormLabel(label);
+  return keys.find((k) => normFormLabel(k) === n) ?? keys.find((k) => conceptFor(k).test(n));
+}
+
+/**
+ * The form's view of the family: only the profile facts its fields ask for.
+ *
+ * - `formLabels` known (a stored recipe's labels): each fact is sent only if a label asks for it.
+ *   Health facts (allergies, medical notes) follow the same rule — `healthLabels` are the labels
+ *   that may unlock them (by default the same list), so a list of names WE sent last time can
+ *   be excluded from unlocking health facts.
+ * - `formLabels` undefined (no recipe yet): identity + contact basics only, never health.
+ */
+export function formValuesForForm(
+  profile: FamilyProfile | undefined,
+  childName: string | undefined,
+  formLabels: string[] | undefined,
+  healthLabels: string[] | undefined = formLabels,
+): Record<string, string> {
+  const all = formValuesFor(profile, childName);
+  const out: Record<string, string> = {};
+  for (const [k, v] of Object.entries(all)) {
+    const keep = HEALTH_LABELS.has(k)
+      ? Boolean(healthLabels?.length) && formAsksFor(k, healthLabels!)
+      : formLabels
+        ? formAsksFor(k, formLabels)
+        : BASIC_LABELS.has(k);
+    if (keep) out[k] = v;
+  }
+  return out;
+}
+
+/** Every label formValuesFor can produce (with or without a value on file). */
+export function allProfileLabels(): string[] {
+  const base = [
+    ...BASIC_LABELS,
+    ...HEALTH_LABELS,
+    'Student gender',
+    'Previous school',
+    'Language spoken at home',
+    'Authorized pickup',
+  ];
+  for (const n of [2, 3]) for (const f of ['name', 'relationship', 'phone', 'email']) base.push(`Parent/guardian ${n} ${f}`);
+  for (const n of [1, 2, 3]) for (const f of ['name', 'relationship', 'phone']) base.push(`Emergency contact ${n} ${f}`);
+  return base;
+}
+
 /** What most enrollment and program forms require, that we do not have yet. */
 export function missingBasics(profile: FamilyProfile | undefined, childName?: string): string[] {
   const child = childFor(profile, childName);
