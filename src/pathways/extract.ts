@@ -533,7 +533,16 @@ export function extractFacts(text: string, ctx: ExtractContext): Extraction {
         if (f) f.named = true;
       }
     }
-    if (placed) continue;
+    // One value named for several people ("born 1959-08-18" with two children whose birth dates
+    // we could take): whose it is isn't ours to pick, so nobody gets it unless it was asked.
+    const fromThis = facts.filter((f) => f.quote === quote);
+    const leafs = fromThis.map((f) => leaf(f.key));
+    for (const f of fromThis) {
+      if (/^member\./.test(f.key) && leafs.filter((l) => l === leaf(f.key)).length > 1 && !ctx.asked.includes(f.key)) {
+        facts.splice(facts.indexOf(f), 1);
+      }
+    }
+    if (placed && facts.some((f) => f.quote === quote)) continue;
     // 2. A plain answer to what we asked.
     for (const key of ctx.asked) {
       const slot = slotOf.get(key);

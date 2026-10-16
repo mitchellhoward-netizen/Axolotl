@@ -305,3 +305,26 @@ test('a side message the old router cannot help with goes back to the form (agen
   assert.doesNotMatch(r.text, /not sure I can help with that|What do you need\?/);
   assert.match(r.text, /CalFresh/);
 });
+
+test('one date named for several people goes to nobody (the regex readers once gave two children a grandfather\'s birth date)', async () => {
+  const { extractFacts } = await import('../src/pathways/extract.js');
+  const spec = { key: 'member.<m>.dob', kind: 'date' as const, required: true, sources: ['parent' as const], ask: { en: '', es: '' } };
+  const ex = extractFacts('my dad is 67, born 1959-08-18', { lang: 'en', slots: [{ key: 'member.c1.dob', spec }, { key: 'member.c2.dob', spec }], asked: [], recent: [] });
+  assert.deepEqual(ex.facts, []);
+});
+
+test('a parent who asks why someone in the home is not on the LINQ summary is told why', async () => {
+  const { say, state } = await launch(scripted({}));
+  await say('lunch income form please');
+  await say('no');
+  await say('Araceli Villaseñor');
+  await say("It's me, my husband Ricardo Villaseñor (38), my dad Pedro Villaseñor (70) and my kid Leonardo Villaseñor (10).");
+  await say('I make $3,575 a month.');
+  let p = (await say("No, that's all."))!;
+  for (let i = 0; i < 8 && !/Here is everything/.test(p); i++) p = (await say('no'))!;
+  assert.match(p, /Here is everything/);
+  assert.doesNotMatch(p, /Pedro/);
+  const r = (await say("why isn't my dad Pedro on there?"))!;
+  assert.match(r, /Pedro is counted/);
+  assert.equal(state.pathway!.stage, 'proposed');
+});

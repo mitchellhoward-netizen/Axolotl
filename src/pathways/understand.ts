@@ -362,7 +362,19 @@ export function parseUnderstanding(raw: unknown, input: UnderstandInput): Unders
     return out;
   });
   const noIncome = each(t.no_income, NoIncomeZ, () => true);
-  const facts = each(t.facts, FactZ, (x) => grounded(msg, x.key, x.value, input.people));
+  // A fact's value is checked by its kind: a choice (yes/no, an option, a list) needs only its
+  // quote; how often, the words' own frequency; whose income, a known person; text, its words.
+  const shapeOf = (k: string) => k.replace(/^member\.[^.]+\./, 'member.<m>.').replace(/^income\.\d+\./, 'income.<n>.');
+  const kindOf = (k: string) => input.specs.find((sp) => sp.key === k || sp.key === shapeOf(k))?.kind;
+  const factOk = (x: FactRead) => {
+    const leaf = x.key.split('.').pop() ?? '';
+    if (leaf === 'frequency') return typeof x.value === 'string' && said(x.quote).length === 1 && said(x.quote)[0] === x.value;
+    if (leaf === 'owner') return typeof x.value === 'string';
+    const kind = kindOf(x.key);
+    if (kind === 'boolean' || kind === 'enum' || kind === 'list') return true;
+    return grounded(msg, x.key, x.value, input.people);
+  };
+  const facts = each(t.facts, FactZ, factOk);
   const corrections = each(t.corrections, CorrectionZ, (x) => (input.proposal ?? []).some((l) => l.line === x.line) && (grounded(msg, 'value', x.value) || numbersIn(x.value).some((n) => numbersIn(msg).includes(n))));
   const lang = t.language === 'en' || t.language === 'es' ? t.language : 'other';
   return { intent: t.intent, alsoAsks: t.also_asks === true, language: lang, people, incomes, noIncome, facts, corrections, dropped };

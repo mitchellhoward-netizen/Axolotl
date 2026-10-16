@@ -74,8 +74,11 @@ export interface Replies {
   askWhich(flag: string): string;
   askNameOf(rel: string): string;
   askRelation(name: string): string;
+  noInitialBox(first: string, mi: string): string;
   askPaycheck: string;
   askAddress: string;
+  /** The parts of the address still missing (city, state, zip). */
+  askAddressRest(parts: string[]): string;
   you: string;
   your(field: string): string;
   of(name: string, field: string): string;
@@ -148,7 +151,9 @@ const en: Replies = {
   askLastName: (first, self) => (self ? `Just so I get it right on the form: what's your last name, ${first}?` : `Just so I get it right on the form: what's ${first}'s last name?`),
   askWhich: (flag) => `Which of the children ${flag}?`,
   askAddress: "What's your home address? The street, the city and the ZIP code.",
+  askAddressRest: (parts) => `Thanks. And the ${join(parts.map((p) => ({ city: 'city', state: 'state', zip: 'ZIP code' })[p] ?? p), 'and')}?`,
   askNameOf: (rel) => `What's your ${rel}'s first and last name? It goes on the form.`,
+  noInitialBox: (first, mi) => `I have ${first}'s middle initial (${mi}), but this form has no box for it, so it isn't on the list.`,
   askRelation: (name) => `How is ${name || 'they'} related to you: your partner, your child, a parent, or someone else?`,
   askPaycheck: 'Thanks. The form asks for the pay itself, not the hourly rate. About how much is one paycheck before taxes, and how often do you get paid?',
   you: 'You',
@@ -221,7 +226,9 @@ const es: Replies = {
   askLastName: (first, self) => (self ? `Para ponerlo bien en el formulario: ¿cuál es su apellido, ${first}?` : `Para ponerlo bien en el formulario: ¿cuál es el apellido de ${first}?`),
   askWhich: (flag) => `¿Cuál de los niños ${flag}?`,
   askAddress: '¿Cuál es la dirección de su casa? La calle, la ciudad y el código postal.',
+  askAddressRest: (parts) => `Gracias. ¿Y ${join(parts.map((p) => ({ city: 'la ciudad', state: 'el estado', zip: 'el código postal' })[p] ?? p), 'y')}?`,
   askNameOf: (rel) => `¿Cuál es el nombre y apellido de su ${rel}? Va en el formulario.`,
+  noInitialBox: (first, mi) => `Tengo la inicial del segundo nombre de ${first} (${mi}), pero este formulario no tiene dónde ponerla, así que no aparece en la lista.`,
   askRelation: (name) => `¿Qué es ${name || 'esa persona'} de usted: su pareja, su hijo o hija, su papá o mamá, u otra persona?`,
   askPaycheck: 'Gracias. El formulario pide el pago, no la tarifa por hora. ¿Más o menos cuánto es un cheque antes de impuestos, y cada cuánto le pagan?',
   you: 'Usted',

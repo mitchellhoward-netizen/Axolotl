@@ -13,7 +13,7 @@ import {
 } from '../agent/decide.js';
 import { checkApproval, consentRecord, shownIn, stampApproval, type ApprovalStamp } from '../agent/steps/approval.js';
 import type { Step, StepPayload } from '../agent/steps/types.js';
-import { acceptModelFacts, extractFacts, fold, lexiconCue, type Extraction, type Found, type ModelExtractor, type Slot } from './extract.js';
+import { acceptModelFacts, extractFacts, fold, lexiconCue, parseFrequency, type Extraction, type Found, type ModelExtractor, type Slot } from './extract.js';
 import {
   SELF,
   isQuestion,
@@ -301,6 +301,8 @@ export class PathwayEngine {
   private readonly live = new Map<string, Live>();
 
   private understander?: Understander;
+  /** Said with the next reply (set while reading a message). */
+  private notes: string[] = [];
   private understandTimeoutMs?: number;
 
   constructor(private readonly opts: PathwayEngineOptions = {}) {
@@ -362,6 +364,7 @@ export class PathwayEngine {
     s.turn++;
     const rec = FamilyRecord.fromJSON(s.record);
     const t = fold(text.trim());
+    this.notes = [];
 
     // 1. Gates. A person in danger or upset gets the normal agent, not the next question.
     const gate = regexGate(text);
@@ -512,7 +515,12 @@ export class PathwayEngine {
 
     // A question asked alongside the answer that no FAQ covers: say so, never guess.
     const unanswered = m && (m.alsoAsks || m.intent === 'question') && !faq.length && ex.question ? R.notSure : '';
-    const prefix = [changes.length ? R.corrected(changes) : '', ...faq, unanswered].filter(Boolean).join(' ') || undefined;
+    if (s.stage === 'proposed') {
+      const nl = this.notListed(s, pathway, rec, text, m);
+      if (nl) this.notes.push(nl);
+    }
+    const notes = this.notes.splice(0);
+    const prefix = [changes.length ? R.corrected(changes) : '', ...notes, ...faq, unanswered].filter(Boolean).join(' ') || undefined;
     return this.advance(conversationId, s, pathway, rec, prefix);
   }
 
@@ -684,6 +692,12 @@ export class PathwayEngine {
       }
       refs.set(p.ref, id);
       if (!listed.includes(id)) listed.push(id);
+      // "Elena A" as a first name is a first name and an initial.
+      const split = p.first_name ? /^(.*\S)\s+([A-Za-zÀ-ÿ])\.?$/u.exec(p.first_name.trim()) : null;
+      if (split) {
+        p.first_name = split[1]!;
+        p.middle_initial ??= split[2]!.toUpperCase();
+      }
       if (p.first_name && may(`member.${id}.first_name`)) put(`member.${id}.first_name`, p.first_name, p.quote);
       if (p.last_name && may(`member.${id}.last_name`)) put(`member.${id}.last_name`, p.last_name, p.quote);
       if (p.middle_initial && may(`member.${id}.middle_initial`)) put(`member.${id}.middle_initial`, p.middle_initial, p.quote);
@@ -813,6 +827,16 @@ export class PathwayEngine {
           if (mi) put(key, mi.toUpperCase(), c.quote);
           continue;
         }
+        // "Diego K" for Diego's first name: the initial, not a new first name. A form with no box
+        // for it shows no change, so the parent is told why.
+        const fm = /^member\.([^.]+)\.first_name$/.exec(key);
+        const split = fm ? /^(.*\S)\s+([A-Za-zÀ-ÿ])\.?$/u.exec(c.value.trim()) : null;
+        if (fm && split && fold(split[1]!) === fold(rec.get<string>(key)?.value ?? '\u0000')) {
+          const miKey = `member.${fm[1]}.middle_initial`;
+          if (fold(rec.get<string>(miKey)?.value ?? '') !== fold(split[2]!)) put(miKey, split[2]!.toUpperCase(), c.quote);
+          if (!Object.values(fill.sources).some((ks) => ks.includes(miKey))) this.notes.push(this.r(s).noInitialBox(split[1]!, split[2]!.toUpperCase()));
+          continue;
+        }
         const one = extractFacts(c.value, { lang: s.lang, slots: [{ key, spec }], asked: [key], recent: [] });
         const hit = one.facts.find((x) => x.key === key);
         if (hit) put(key, hit.value, c.quote);
@@ -830,7 +854,10 @@ export class PathwayEngine {
     const keys = new Set(mx.facts.map((f) => f.key));
     // When the model read nothing about people or money, the regex readers' reading stands.
     const modelTouched = mx.facts.some((f) => STRUCT.test(f.key));
-    const extra = ['answer', 'correction', 'approve'].includes(m.intent) ? det.facts.filter((f) => !keys.has(f.key) && (!STRUCT.test(f.key) || !modelTouched)) : [];
+    // And they never change a value already recorded: a correction is the model's to read (it
+    // sees the summary); the regex readers once put a grandfather's birth date on two children.
+    const rec = FamilyRecord.fromJSON(s.record);
+    const extra = ['answer', 'correction', 'approve'].includes(m.intent) ? det.facts.filter((f) => !keys.has(f.key) && !rec.has(f.key) && (!STRUCT.test(f.key) || !modelTouched)) : [];
     return {
       facts: [...mx.facts, ...extra],
       correction: det.correction || mx.correction,
@@ -986,6 +1013,13 @@ export class PathwayEngine {
         if (rec.get('household.income_reported')?.value !== true) put('household.income_reported', true, inc.quote);
         if (owner && !rec.has(`member.${owner}.has_income`)) put(`member.${owner}.has_income`, true, inc.quote);
       }
+      // "Once a month" to "how often is the $300?".
+      const freqOnly = L.map((k) => /^income\.(\d+)\.frequency$/.exec(k)?.[1]).find((x) => x !== undefined);
+      if (freqOnly !== undefined && !reading.incomes.length) {
+        const f = parseFrequency(fold(text));
+        const opts = specFor(pathway.facts, `income.${freqOnly}.frequency`)?.options ?? [];
+        if (f && opts.includes(f)) put(`income.${freqOnly}.frequency`, f, quoteAll);
+      }
       // The answer to "whose is it?".
       if (askedOwnerOf !== undefined) {
         const o = /^(mine|me|yo|mio|mia|my own|it'?s mine|es mio|es mia)\b/.test(fold(text.trim())) ? SELF : reading.incomes[0]?.owner ?? undefined;
@@ -1018,6 +1052,14 @@ export class PathwayEngine {
         }
       }
     }
+
+    // The rest of an address we asked for by part ("and the state?").
+    if (L.includes('contact.state') && /\b(ca|calif|california)\b/.test(fold(text))) put('contact.state', 'CA', quoteAll);
+    if (L.includes('contact.zip')) {
+      const zip = /\b(9\d{4})\b/.exec(text)?.[1];
+      if (zip) put('contact.zip', zip, quoteAll);
+    }
+    if (L.length === 1 && L[0] === 'contact.city' && /^[\p{L} .'-]{2,40}$/u.test(text.trim())) put('contact.city', text.trim().replace(/[.!]+$/, ''), quoteAll);
 
     // The address, wherever it comes.
     const addr = parseAddress(text);
@@ -1191,6 +1233,23 @@ export class PathwayEngine {
     }
   }
 
+  /** Someone in the home the parent names on a proposal that has no line for them (the LINQ
+   * form lists only students and two parents): what the pathway says about it, or undefined. */
+  private notListed(s: PathwaySession, pathway: Pathway, rec: FamilyRecord, text: string, m?: Understanding): string | undefined {
+    const say = this.registry.hints(pathway.id).notListed?.[s.lang];
+    if (!say || !s.proposal) return undefined;
+    const roster = rec.get<string[]>('household.roster')?.value ?? [];
+    const shown = Object.keys((s.proposal.step.payload as { fields: Record<string, string> }).fields).map((l) => fold(l)).join(' | ');
+    const f = fold(text);
+    const absent = roster.filter((id) => {
+      const first = this.nameOf(rec, id);
+      if (!first || id === SELF || shown.includes(fold(first))) return false;
+      const named = new RegExp(`(^|[^a-z])${escapeRe(fold(first))}($|[^a-z])`).test(f);
+      return named || Boolean(m?.people.some((p) => p.ref === id));
+    });
+    return absent.length ? say.replace(/\{names\}/g, this.r(s).list(absent.map((id) => this.nameOf(rec, id)!))) : undefined;
+  }
+
   /** Answers to side questions about the form, in the family's language. */
   private faq(text: string, s: PathwaySession, pathway: Pathway, skip: string[] = []): string[] {
     const entries: FaqEntry[] = this.registry.hints(pathway.id).faq ?? [];
@@ -1231,6 +1290,9 @@ export class PathwayEngine {
       }
       // "What exactly will you put on the form?": show it again, every line.
       if (SHOW_ME.test(t)) return this.propose(s, pathway, rec, undefined, (p) => p);
+      // "My dad isn't on there": someone in the home that this form doesn't list by name.
+      const notListed = this.notListed(s, pathway, rec, text, m);
+      if (notListed) return { text: `${notListed}\n\n${R.proposalUnclear}`, phase: 'confirming' };
       if (m) {
         // The model's reading of a reply to the proposal. A yes counts only as the clear-yes
         // rule would have it: approve, no correction, no value in the message, nothing asked;
@@ -1243,17 +1305,7 @@ export class PathwayEngine {
           this.pause(s, 'asking');
           return { text: R.declined, phase: 'idle' };
         } else if (m.intent === 'correction' || m.corrections.length || WRONG.test(t)) {
-          // "My dad isn't on there": someone in the home that this form doesn't list by name.
-          const notListed = hints.notListed?.[s.lang];
-          const roster = rec.get<string[]>('household.roster')?.value ?? [];
-          const shown = Object.keys((s.proposal.step.payload as { fields: Record<string, string> }).fields).join(' ');
-          const absent = m.people
-            .map((p) => rec.memberIds().find((id) => id === p.ref || fold(rec.get<string>(`member.${id}.first_name`)?.value ?? '\u0000') === fold(p.first_name ?? '\u0001')))
-            .filter((id): id is string => Boolean(id) && roster.includes(id!) && !shown.includes(this.nameOf(rec, id!) ?? '\u0000'))
-            .map((id) => this.nameOf(rec, id)!);
-          if (notListed && absent.length && !m.corrections.length) {
-            return { text: `${notListed.replace(/\{names\}/g, R.list([...new Set(absent)]))}\n\n${R.proposalUnclear}`, phase: 'confirming' };
-          }
+          if (this.notes.length) return { text: `${this.notes.splice(0).join(' ')}\n\n${R.proposalUnclear}`, phase: 'confirming' };
           s.proposal.unclear = (s.proposal.unclear ?? 0) + 1;
           if (s.proposal.unclear > 3) return this.offerHandoff(s);
           return { text: R.whichLine, phase: 'confirming' };
@@ -1633,7 +1685,12 @@ export class PathwayEngine {
 
     // 6. Where they live.
     const addr = ['contact.street', 'contact.city', 'contact.state', 'contact.zip'];
-    if (spec('contact.street') && isRequired(spec('contact.street')!, use) && addr.some((k) => !has(k))) return { keys: addr.filter((k) => !has(k)), text: R.askAddress, example: ex('contact.street') };
+    if (spec('contact.street') && isRequired(spec('contact.street')!, use) && addr.some((k) => !has(k))) {
+      const missing = addr.filter((k) => !has(k));
+      // Part of it already in: ask only for the rest ("and the state?"), not the whole address again.
+      if (has('contact.street')) return { keys: missing, text: R.askAddressRest(missing.map((k) => k.split('.')[1]!)), example: ex('contact.street') };
+      return { keys: missing, text: R.askAddress, example: ex('contact.street') };
+    }
     return undefined;
   }
 
