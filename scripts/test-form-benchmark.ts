@@ -35,8 +35,10 @@ const CKC = 'https://docs.google.com/forms/d/e/1FAIpQLSd6KaS8fLGLY8T_QuRJkcYh2fm
 const GFORM = 'https://docs.google.com/forms/d/e/1FAIpQLSfRnWKflaGL76N0UG9r222aktVFaiB0bLQejxv0MYlSvNw6xQ/viewform';
 const CAPITOLA = 'https://www.cityofcapitola.gov/DocumentCenter/View/212/Scholarship-Application--Spanish';
 const GKIBASE = 'https://app.mycareconnect.io/carewait/gki';
-const GKI_EMAIL = 'mitchgrom16@gmail.com';
-const GKI_PASS = 'AxolotlGKI2026!';
+// The test account's login comes from the environment, never the repo. (It was committed here
+// until 2026-10-16; that password must be rotated.)
+const GKI_EMAIL = process.env.GKI_EMAIL ?? '';
+const GKI_PASS = process.env.GKI_PASS ?? '';
 const SPINSC = 'https://www.spinsc.org/ourstory#contact';
 const ENCOMPASS = 'https://www.encompasscs.org/contact_us';
 const CDR_FORM = 'https://childcare.santacruzcoe.org/child-care-referral-form/';
@@ -91,6 +93,7 @@ async function gformFillTask(): Promise<{ pass: boolean; detail: string }> {
 
 // Tier 3 — account-gated portal (Go Kids): login + fill eligibility step 1.
 async function gkiReachTask(): Promise<{ pass: boolean; detail: string }> {
+  if (!GKI_EMAIL || !GKI_PASS) return { pass: false, detail: 'skipped: set GKI_EMAIL and GKI_PASS' };
   await browserOpen(GKIBASE);
   await browserWait(9000);
   await browserClickByText('Returning Families');
