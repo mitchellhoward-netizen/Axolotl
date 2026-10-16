@@ -82,6 +82,17 @@ export class FamilyRecord {
     return [...out].sort((a, b) => a - b);
   }
 
+  /** Plain data, for the conversation state. */
+  toJSON(): { state: ArchiveHousehold['state']; facts: Array<[FactKey, Fact]> } {
+    return { state: this.state, facts: [...this.facts.entries()] };
+  }
+
+  static fromJSON(data: { state: ArchiveHousehold['state']; facts: Array<[FactKey, Fact]> }): FamilyRecord {
+    const rec = new FamilyRecord(data.state);
+    for (const [k, f] of data.facts) rec.facts.set(k, f);
+    return rec;
+  }
+
   /** The values for these keys, only if every one is sourced. Otherwise: which are missing. */
   sourcedValues(keys: FactKey[]): { ok: true; values: Record<FactKey, unknown> } | { ok: false; missing: FactKey[] } {
     const missing = keys.filter((k) => !this.facts.has(k));

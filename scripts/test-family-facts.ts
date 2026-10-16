@@ -24,6 +24,13 @@ test('a fact needs a source; a parent fact keeps their words; a derived fact nam
   assert.equal(r.get('household.size')?.value, 1);
 });
 
+test('a record survives a save and load', () => {
+  const r = new FamilyRecord('ca');
+  r.set('member.p.age', 40, parent("I'm 40"));
+  const back = FamilyRecord.fromJSON(JSON.parse(JSON.stringify(r)));
+  assert.deepEqual(back.get('member.p.age'), r.get('member.p.age'));
+});
+
 test('a correction replaces the value and returns the old one', () => {
   const r = new FamilyRecord('ca');
   r.set('income.0.amount', 2000, parent('about 2000 a month'));
