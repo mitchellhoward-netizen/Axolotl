@@ -246,3 +246,75 @@ looping, and falls back into the old router mid-form. Failing transcripts:
 - The pathway agent uses no model, so its cost is ~$0; the brain baseline is a 3-family sample.
 - Pajaro "sent" means the filled PDF reached the stand-in after the parent signed; how Pajaro
   accepts it in reality is not verified.
+
+---
+
+## A model reads each reply: the understanding layer (2026-10-16, build 08cc194)
+
+**What changed.** The pathway engine now reads every parent message with the small model
+(Haiku 4.5; `src/pathways/understand.ts`), the deterministic readers as fast path and fallback.
+Code still owns the task: what is asked, what is recorded, what the form says and when it is sent.
+
+- **Input (minimal):** the question just asked (its words and concrete fact keys), the message,
+  the people known (ids, first/last name, relationship, student), the pathway's fact kinds and
+  options, and the proposal's numbered lines when one is pending. No birth dates, IDs, schools,
+  incomes or contact details unless they are on a pending proposal.
+- **Output:** strict JSON validated item by item (zod): intent (answer, approve, decline,
+  correction, question, unsure, wants_person, stop, off_topic, crisis), people (by id or new1…),
+  incomes with whose they are, no-income per person, other facts by key, corrections by line,
+  the message's language.
+- **Guards:** every item's quote must be a verbatim span of the message, and its value must be in
+  the message (a name's words, an amount's digits, an email, a phone's digits; a frequency only
+  as the words say it), or it is dropped. The engine then applies its own rules: spec types and
+  sources, the district record changes only on a correction, sensitive facts only when asked or
+  named, new people only once we asked who lives at home, relationships never assumed (asked).
+  The regex readers never change a recorded value beside the model.
+- **Yes:** a summary yes from the model counts only as intent approve with no correction, no
+  value, no question, and only through the digest gate; with Jev keyed, Jev reads it instead.
+- **Fallbacks:** a failure, timeout or unreadable answer → the deterministic readers alone.
+- **Structural fixes:** the person offer accepts "ok sure, connect me" (no loop); a paused form is
+  never handed to the old router's "not sure I can help" or meals menu; language never flips on a
+  name answer.
+
+**Protocol.** Dev set = families 1-10 (makeFamilies order), iterated on only; held-out = families
+11-20, run once on the frozen, committed build (08cc194, clean). LLM parent unchanged.
+
+**Dev progression (LLM parent, model reader via the `claude` CLI; `eval/results/dev/`):**
+
+| Build | Families | Palm Springs | Pajaro | Wrong / guessed / no-yes |
+|---|---|---|---|---|
+| 125a7cd (before) | 1-10 | 4/10 | 3/10 | 0 / 0 / 0 |
+| 5aa6597 | 1-5 | 4/5 | 4/5 | 0 / 2 / 0 |
+| 56a3127 (a zod bug dropped every person; discarded) | 6-10 | 0/5 | 1/5 | 0 / 0 / 0 |
+| 6eaa2a3 | 6-10 | 2/5 | 3/5 | 2 / 0 / 0 |
+| 2d53e8f | 1-10 | 6/10 | 9/10 | 3 / 0 / 0 |
+| b5d73e0 | 1-10 | 7/10 | 7/10 | 6 / 0 / 0 |
+
+**Held-out (the headline), families 11-20, 1 seed, build 08cc194:**
+
+| Form | Success | Outcomes | Wrong / missing / guessed | Agent-attested | Sent w/o yes | Mean turns | Cost/run |
+|---|---|---|---|---|---|---|---|
+| Palm Springs | **8/10** (125a7cd: 1/10) | 8 filed and confirmed, 1 abandoned, 1 handoff | 0 / 0 / 0 | 0 | 0 | 9.7 | $0.22 |
+| Pajaro | **8/10** (125a7cd: 0/10) | 8 sent (unconfirmed by design), 2 abandoned | 0 / 0 / 0 | 0 | 0 | 15.9 | $0.29 |
+
+Cost/run includes the LLM parent (~$0.07). The reader: 227 calls, 0 failed, $0.016 a call and a
+median ~20 s through the CLI (a process per call); on the API it is ~2.3K input and ~0.3K output
+tokens a call (≈ $0.004 uncached), latency not measured here.
+
+**Scripted parents still 100%:** without the model 100/100 on each form (messiness 2, 5 seeds,
+`2026-10-16-08cc194.jsonl`); with it 10/10 on each (families 1-10, 1 seed,
+`2026-10-16-08cc194-scripted-model.jsonl`).
+
+**What still fails on held-out** (`2026-10-16-08cc194-llm-heldout-failures.jsonl`):
+- *Summary corrections written as raw text* (3 of 4): the parent asks for accents and capitals
+  ("es jesús con acento", "Morales con mayúscula", "leticia h. garcía-López"), and a correction
+  lands with its label ("Dirección: 4634 fictional ct", "Jesús — primer nombre: Jesús"), as a
+  first name ("Elena Morales"), or as the signer's name instead of the person, so the signer
+  question repeats. Nothing was sent, but this is the next fix: a correction value must be the
+  value only, a signer is a person, and capitals or accents on a name are not new facts.
+- *"No, just that one job. My husband Kenji doesn't have income"*: read as Kenji's, not also as
+  the parent's "no other income", so the question repeated until a person was offered.
+
+**Limits.** 10 families per form, one seed, one parent model; replicas and synthetic families.
+The reader ran through the CLI, not the production API path. Spend for this work: ~$23 (dev
+$15.0, held-out $5.0, scripted-with-model $2.8, probes).
