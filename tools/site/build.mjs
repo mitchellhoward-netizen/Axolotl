@@ -1131,6 +1131,85 @@ function fundBuyerSections(s) {
   return [hero, wedge, rule, calc, how, theirs, fees, band, close, members].join('\n');
 }
 
+// ── /members in the homepage's design ────────────────────────────────────────
+
+function memberCalcBuyer(s) {
+  const c = at(s, 'members.calc');
+  const t = MSPCalc.memberText(mspRules, MEMBER_DEFAULTS, c, s.lang);
+  const d = MEMBER_DEFAULTS;
+  const field = (id, label, control, hint) => `<div class="field"${id === 'm-medicare' ? ' data-when-couple' : ''}><label for="${id}">${esc(label)}</label>${control}${hint ? `<span class="hint" id="${id}-hint">${esc(hint)}</span>` : ''}</div>`;
+  return `
+<section class="scan-section calc-section" id="check" aria-labelledby="check-title">
+  <h2 id="check-title">${esc(c.h2)}</h2>
+  <p class="lede">${esc(c.lead)}</p>
+  <form class="scan calc" data-calc="member" data-lang="${s.lang}" ${tplAttrs(c, MEMBER_TPL)} novalidate>
+    <div class="inputs two">
+      ${field('m-household', c.householdLabel, `<select id="m-household" name="household">${options(c.householdOptions, d.couple ? '2' : '1')}</select>`)}
+      ${field('m-medicare', c.medicareLabel, `<select id="m-medicare" name="onMedicare">${options(c.medicareOptions, d.onMedicare)}</select>`)}
+      ${field('m-income', c.incomeLabel, `<input id="m-income" name="unearned" type="number" inputmode="decimal" min="0" step="1" value="${d.unearned}" aria-describedby="m-income-hint">`, c.incomeHint)}
+      ${field('m-wages', c.wagesLabel, `<input id="m-wages" name="earned" type="number" inputmode="decimal" min="0" step="1" value="${d.earned}" aria-describedby="m-wages-hint">`, c.wagesHint)}
+      ${field('m-premiums', c.premiumsLabel, `<input id="m-premiums" name="premiums" type="number" inputmode="decimal" min="0" step="1" value="${d.premiums}" aria-describedby="m-premiums-hint">`, c.premiumsHint)}
+      ${field('m-fund', c.fundLabel, `<select id="m-fund" name="reimbursed">${options(c.fundOptions, d.reimbursed)}</select>`)}
+      ${field('m-parta', c.partALabel, `<select id="m-parta" name="partA">${options(c.yesNo, 'yes')}</select>`)}
+      ${field('m-medicaid', c.medicaidLabel, `<select id="m-medicaid" name="medicaid">${options(c.noYes, 'no')}</select>`)}
+    </div>
+    <div class="result" aria-live="polite">
+      <p class="headline" data-out="headline">${esc(t.headline)}</p>
+      <p data-out="gain"${t.gain ? '' : ' hidden'}>${esc(t.gain)}</p>
+      <p data-out="extra"${t.extra ? '' : ' hidden'}>${esc(t.extra)}</p>
+      <p class="assume">${esc(c.note)}</p>
+      <a class="button" href="#close">${esc(c.cta)}</a>
+    </div>
+  </form>
+  <noscript><p class="assume">${esc(c.noScript)}</p></noscript>
+  ${rulesScript()}
+</section>`;
+}
+
+function membersBuyerSections(s) {
+  const m = at(s, 'members');
+  const hero = `
+<section class="hero" id="top" aria-label="Mycelium">
+  <div class="field-top"></div>
+  <div class="field-bottom"></div>
+  <div class="sentence-wrap"><h1 class="sentence" data-rise style="--i:0">
+    <span class="l1">${esc(m.hero.h1Plain)}</span>
+    <span class="l2">${esc(m.hero.h1Em)}</span>
+  </h1></div>
+  <div class="photo" aria-hidden="true">${IMGS.cycle}</div>
+  <p class="support" data-rise style="--i:1">${esc(m.hero.sub)}</p>
+  <div class="action" data-rise style="--i:2"><a class="button" href="#close">${esc(m.hero.primary)}</a><a class="door" href="#check">${esc(m.calc.h2)}</a></div>
+</section>`;
+  const calc = memberCalcBuyer(s);
+  const help = `
+<section class="theirs" id="help" aria-label="${esc(m.help.h2)}">
+  <h2>${esc(m.help.h2)}.</h2>
+  <div class="grid body">
+    <figure class="photo"><img src="/assets/dend-tree-pyrolusite.jpg" width="1075" height="1657" alt="" loading="lazy"></figure>
+    <div class="list">
+      ${m.help.items.map((i) => `<div class="item"><h3>${esc(i.title)}.</h3><p>${esc(i.body)}</p></div>`).join('\n      ')}
+    </div>
+    <div class="why">
+      <p>${esc(m.rules.h2)}:</p>
+      <ul class="facts">
+        ${m.rules.items.map((i) => `<li>${esc(i.title)}. <small>${esc(i.body)}</small></li>`).join('\n        ')}
+      </ul>
+    </div>
+  </div>
+</section>`;
+  const band = `
+<figure class="band tint" aria-hidden="true"><img src="/assets/dend-field-solnhofen.jpg" width="1280" height="850" alt="" loading="lazy" style="object-position: 50% 40%"></figure>`;
+  const close = `
+<section class="close" id="close" aria-label="${esc(m.join.h2)}">
+  <h2>${esc(m.join.h2)}</h2>
+  <div class="foot">
+    <p>${esc(m.join.lead)}</p>
+  </div>
+  <div class="ask join">${joinForm(s, 'join')}</div>
+</section>`;
+  return [hero, calc, help, band, close].join('\n');
+}
+
 // ── buyer document shell: the homepage's chrome ─────────────────────────────
 
 function buyerDocument(s, { title, description, canonical, alts, body, langHref, share, shareAlt, nav, ctaLabel, ctaHref }) {
@@ -1166,7 +1245,7 @@ ${alt}
 <link rel="preconnect" href="https://api.fontshare.com">
 <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
 <link href="https://api.fontshare.com/v2/css?f[]=gambarino@400&f[]=general-sans@400,500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/buyer.css?v=5">
+<link rel="stylesheet" href="/buyer.css?v=11">
 <script src="/msp-calc.js?v=21" defer></script>
 <script src="/site.js?v=23" defer></script>
 </head>
@@ -1344,16 +1423,16 @@ async function render() {
     });
     pages.push({
       file: dir ? `${dir}/members.html` : 'members.html',
-      html: document(s, {
-        page: 'members',
+      html: buyerDocument(s, {
         title: at(s, 'members.meta.title'),
         description: at(s, 'members.meta.description'),
         canonical: dir ? '/es/members' : '/members',
         alts: [['en', '/members'], ['es', '/es/members']],
-        body: membersPageSections(s),
+        body: membersBuyerSections(s),
         langHref: dir ? '/members' : '/es/members',
-        cta: '#join',
+        nav: [[at(s, 'members.calc.h2'), '#check'], [at(s, 'members.help.h2'), '#help'], [at(s, 'nav.money'), localized(s, '/funds') + '#money']],
         ctaLabel: at(s, 'nav.joinMembers'),
+        ctaHref: '#close',
         shareAlt: at(s, 'members.meta.shareAlt'),
         share: shareFunds,
       }),

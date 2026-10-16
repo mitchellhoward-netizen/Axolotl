@@ -395,7 +395,7 @@ export default {
       noScript: 'Active JavaScript para cambiar las respuestas. El cálculo corresponde a las respuestas de ejemplo.',
     },
     join: {
-      h2: 'Reciba un mensaje de nosotros',
+      h2: 'Le escribimos.',
       lead: 'Deje su número y le escribimos. En inglés o en español.',
     },
   },
