@@ -382,3 +382,40 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; letter-spacing: -0.0
 #more .table { grid-column: 1 / span 12; gap: 22px; }
 #more .table .row { grid-template-columns: 3fr 5fr 4fr; }
 #trial h2 { max-width: 14ch; }
+
+/* ---- /funds pieces ---- */
+.scan-section .scan .lines small, .scan-section .who-table small { display: block; color: var(--muted); font-size: var(--step-small); margin-top: 2px; }
+.who-table { grid-column: 1 / span 12; margin-top: 48px; display: grid; gap: 18px; font-size: var(--step-body); }
+.who-table .row { display: grid; grid-template-columns: 4fr 3fr 3fr 4fr; gap: 24px; align-items: start; }
+.who-table .row.head { color: var(--muted); font-size: var(--step-small); }
+.who-table .row .k { color: var(--ink); }
+.who-table .row .v { color: var(--muted); }
+.scan-section > .assume { grid-column: 1 / span 12; margin-top: 18px; font-size: var(--step-small); color: var(--muted); max-width: 70ch; }
+@media (max-width: 1023px) { .who-table .row { grid-template-columns: 1fr; gap: 4px; } .who-table .row.head { display: none; } .who-table { gap: 24px; } }
+.calc-section .scan { grid-column: 1 / span 7; }
+.calc-section .inputs { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px 24px; margin: 24px 0 8px; }
+.calc-section .field { display: grid; gap: 8px; }
+.calc-section label { font-size: var(--step-small); color: var(--muted); }
+.calc-section input, .calc-section select { width: 100%; min-height: 52px; padding: 0 14px; font: inherit; color: var(--ink); background: var(--surface); border: 0; border-radius: 0; appearance: none; -webkit-appearance: none; }
+.calc-section select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath d='M1 1l6 6 6-6' fill='none' stroke='%23e9e2d3' stroke-width='2'/%3E%3C/svg%3E"); background-position: calc(100% - 14px) 50%; background-repeat: no-repeat; padding-right: 36px; }
+.calc-section input:focus, .calc-section select:focus { outline: 2px solid var(--accent); outline-offset: 0; }
+.calc-section .hint { grid-column: 1 / span 3; font-size: var(--step-small); color: var(--muted); max-width: 70ch; }
+.calc-section .figure { margin-top: 28px; }
+.calc-section .methods { grid-column: 1 / span 7; margin-top: 28px; font-size: var(--step-small); color: var(--muted); }
+.calc-section .methods summary { cursor: pointer; color: var(--ink); }
+.calc-section .methods ul { padding-left: 1.2em; margin-top: 12px; display: grid; gap: 8px; max-width: 70ch; }
+@media (max-width: 1023px) { .calc-section .scan, .calc-section .methods { grid-column: 1 / span 12; } }
+@media (max-width: 767px) { .calc-section .inputs { grid-template-columns: 1fr; } .calc-section .hint { grid-column: auto; } }
+.how .stage h2 + .line { margin-top: 24px; }
+.calc-section .hint { margin: 0 0 8px; }
+#fees .table { grid-column: 1 / span 12; }
+#fees .table .row { grid-template-columns: 1fr 1fr; align-items: start; }
+#fees .table .row .v { text-align: left; white-space: normal; color: var(--ink); }
+#fees .table .row.group .v { color: var(--muted); }
+.calc-section h2, #rule h2 { font-size: var(--step-head); line-height: 1; }
+#never h2, #close h2 { max-width: 14ch; }
+.scan-section small, .scan-section > .assume, .scan .assume, .calc-section .methods, .calc-section label, .calc-section .hint, .who-table .row.head, .theirs .facts li small { font-size: 1rem; }
+.how { row-gap: 40px; }
+#rule { padding-bottom: calc(var(--gap-section) * 0.5); }
+#fees { padding-top: calc(var(--gap-section) * 0.6); }
+#fees .body { margin-top: 40px; }

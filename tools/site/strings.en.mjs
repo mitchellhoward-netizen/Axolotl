@@ -56,6 +56,13 @@ export default {
   // One idea: get the right payer to pay, from the member's side. Every figure
   // below is in the money map with its source; examples are marked as examples.
   hero: {
+    // The buyer page (/funds) in the homepage's design: two-line headline,
+    // one sentence, two doors.
+    h1a: 'Your fund pays premiums',
+    h1b: 'the state would pay.',
+    sub2: 'Many retirees on your Part B reimbursement qualify for New York’s Medicare Savings Program, which pays the whole premium. Most never apply. Mycelium enrolls them by text with their yes, renews it every year, and takes a fifth of what you stop paying.',
+    primary2: 'Get your number',
+    data: 'We sign a HIPAA business associate agreement before we see a file. The fund sees totals and the reimbursements to stop, timed to when Social Security stops the deduction; it never sees a retiree’s thread.',
     eyebrow: 'For funds that reimburse Part B',
     h1Plain: 'Your fund reimburses Part B premiums',
     h1Em: 'the state would pay.',
