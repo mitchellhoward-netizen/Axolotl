@@ -13,7 +13,7 @@ import {
 } from '../agent/decide.js';
 import { checkApproval, consentRecord, shownIn, stampApproval, type ApprovalStamp } from '../agent/steps/approval.js';
 import type { Step, StepPayload } from '../agent/steps/types.js';
-import { acceptModelFacts, extractFacts, fold, type Extraction, type Found, type ModelExtractor, type Slot } from './extract.js';
+import { acceptModelFacts, extractFacts, fold, lexiconCue, type Extraction, type Found, type ModelExtractor, type Slot } from './extract.js';
 import {
   SELF,
   isQuestion,
@@ -30,6 +30,7 @@ import {
 } from './household.js';
 import { pathways as defaultRegistry, type FaqEntry, type PathwayHints, type PathwayRegistry } from './registry.js';
 import { replies, type Replies } from './reply.js';
+import type { Understander, Understanding, UnderstandInput } from './understand.js';
 import type { AttestHow, FactSpec, FieldValue, FormFill, Lang, LaneKind, LaneResult, LaneRunner, Pathway, Text } from './types.js';
 
 /**
@@ -103,8 +104,10 @@ export interface PathwaySession {
   attesting?: { fields: string[]; how?: string; asked: number };
   offered?: string[];
   pausedFrom?: PathwayStage;
-  /** "dont_know": the parent will text the answer later, so a plain answer resumes. */
-  pauseReason?: 'dont_know';
+  /** "dont_know": the parent will text the answer later, so a plain answer resumes. "crisis":
+   * a person in danger or upset; only "continue" brings the form back. "side": a question
+   * about something else, handed to the normal agent. */
+  pauseReason?: 'dont_know' | 'crisis' | 'side';
   outcome?: PathwayOutcome;
   lane?: LaneKind;
   result?: LaneResult;
@@ -134,17 +137,25 @@ export interface PathwayEngineOptions {
   isNo?: (text: string) => boolean;
   /** Where an approval is recorded (the agent passes logConsent). */
   logConsent?: (conversationId: string, detail: Record<string, unknown>) => void;
+  /** Reads each message with a small model (understand.ts). Without it, or when it fails or
+   * times out, the deterministic readers are the whole reading. */
+  understander?: Understander;
+  /** How long to wait for it before reading deterministically. Default 6 s. */
+  understandTimeoutMs?: number;
 }
 
 // ── gates ────────────────────────────────────────────────────────────────────
 
 const CRISIS = /\b(suicid\w*|kill (myself|me)|end my life|want to die|wanna die|hurt (myself|me)|self[- ]harm|not safe (at home|here)|he hits|she hits|hits me|beats me|abus\w+|overdos\w*|me quiero morir|quiero morir(me)?|matarme|suicidarme|hacerme dano|no estoy a salvo|me pega|me golpea|violencia|abuso)\b/;
 const DISTRESS = /\b(overwhelmed|can'?t do this|can'?t take (it|this)|i'?m crying|so stressed|falling apart|i give up|desperate|panic\w*|no puedo mas|estoy llorando|agobiad[oa]|desesperad[oa]|estresad[oa]|ya no aguanto)\b/;
-const PERSON = /\b((talk|speak|chat) (to|with) (a |an |some |a real )?(person|human|someone|somebody|agent|people)|real person|a human|hablar con (una persona|alguien|un humano|una persona real)|quiero (una persona|un humano))\b/;
+const PERSON = /\b((talk|talking|speak|speaking|chat) (to|with) (a |an |some |a real )?(person|human|someone|somebody|agent|people)|real person|a human|connect me (to|with)|conect(a|e)me|comunic(a|e)me con|hablar con (una persona|alguien|un humano|una persona real)|quiero (una persona|un humano))\b/;
+/** A yes to "want me to connect you with a person?", however it starts. */
+const AFFIRM = /^(y|yes|yeah|yep|yup|sure|ok|okay|k|please|si|claro|dale|ándale|andale|bueno|esta bien|go ahead|connect|conect\w*|do it|that'?d help|that would help)\b/;
+const NEGATE = /^(no|nope|nah|not now|no gracias|no thanks)\b/;
 const STOP = /^(stop|not now|later|pause|let me think|i'?ll do it later|ahorita no|despues|luego|mas tarde|ahora no)\b[\s.!]*$/;
 const RESUME = /^(continue|let'?s continue|go on|keep going|resume|let'?s (do|finish) (it|this)|let'?s go|ok let'?s (do|finish) (it|this)|sigamos|seguir|continuar|continuemos|seguimos|vamos|terminemos)\b/;
 const RESET = /^(\/reset|reset|start over|fresh start|start again)\b/;
-const ATTESTED = /^(done|signed|i signed( it)?|i did( it)?|did it|ok|okay|yes|yep|all set|finished|listo|ya|ya firme|firme|firmado|hecho|lo hice|ya lo hice|si)\b/;
+const ATTESTED = /^(done|signed|i signed( it)?|i did( it)?|did it|ok|okay|yes|yep|all set|finished|listo|ya|ya firme|firme|firmado|hecho|lo hice|ya lo hice|si)\b|\b(i (just |have |already )?signed|signed (it|the)|i checked the box|ya (lo )?firme|lo firme|ya esta firmad[oa])\b/;
 /** "I'm not sure what you mean": the question, not the answer, was the problem. */
 const CONFUSED = /\b(not sure what you mean|what do you mean|i don'?t understand|don'?t get (it|what)|confus\w+|no entiendo|no le entiendo|no te entiendo|que quiere decir|que quieres decir|que significa|no se a que se refiere)\b/;
 /** "What exactly are you going to put on the form?": show the proposal again. */
@@ -175,10 +186,12 @@ const YES_CORE = new Set(['yes', 'yeah', 'yep', 'yup', 'sure', 'ok', 'okay', 'si
 const YES_WORDS = new Set([
   ...YES_CORE, 'please', 'go', 'ahead', 'send', 'it', 'submit', 'file', 'do', 'sounds', 'looks', 'good', 'great', 'perfect', 'thats', 'right', 'fine', 'all',
   'thanks', 'thank', 'you', 'por', 'favor', 'mandalo', 'envialo', 'esta', 'bien', 'perfecto', 'adelante', 'de', 'acuerdo', 'gracias', 'todo', 'hazlo', 'that', 'is',
+  // "Yeah that all looks right to me, send it", "yes send it i already said it looks good".
+  'to', 'me', 'everything', 'everythings', 'as', 'shown', 'its', 'just', 'now', 'i', 'already', 'said', 'mandale', 'manda', 'ya', 'correcto', 'listo', 'ahora', 'awesome',
 ]);
 export function clearYes(text: string): boolean {
   const words = fold(text).replace(/[^a-z\s]/g, ' ').split(/\s+/).filter(Boolean);
-  if (!words.length || words.length > 8) return false;
+  if (!words.length || words.length > 12) return false;
   return words.every((w) => YES_WORDS.has(w)) && words.some((w) => YES_CORE.has(w));
 }
 
@@ -284,7 +297,11 @@ export class PathwayEngine {
   private readonly env: NodeJS.ProcessEnv;
   private readonly live = new Map<string, Live>();
 
+  private understander?: Understander;
+  private understandTimeoutMs?: number;
+
   constructor(private readonly opts: PathwayEngineOptions = {}) {
+    this.understander = opts.understander;
     this.registry = opts.registry ?? defaultRegistry;
     this.now = opts.now ?? (() => new Date());
     this.env = opts.env ?? process.env;
@@ -341,13 +358,23 @@ export class PathwayEngine {
     }
     s.turn++;
     const rec = FamilyRecord.fromJSON(s.record);
-    this.updateLang(s, text, rec, state.profile?.locale);
-    const R = this.r(s);
     const t = fold(text.trim());
 
     // 1. Gates. A person in danger or upset gets the normal agent, not the next question.
     const gate = regexGate(text);
-    if (gate === 'crisis' || gate === 'distress') return this.pause(s);
+    // The model reads every message the words alone don't settle (a clear yes to a proposal,
+    // a gate, the signature step and the "what's next" offer are settled by code).
+    const settled =
+      gate !== undefined ||
+      s.stage === 'attesting' ||
+      s.stage === 'offered_next' ||
+      (s.stage === 'paused' && s.pauseReason === 'crisis') ||
+      (s.stage === 'proposed' && (this.isYes(text) || this.isNo(text))) ||
+      (s.stage === 'handoff_offered' && (this.isYes(text) || this.isNo(text) || AFFIRM.test(t) || NEGATE.test(t) || PERSON.test(t)));
+    const m = settled ? undefined : await this.understand(text, s, pathway, rec);
+    this.updateLang(s, text, rec, state.profile?.locale, m?.language);
+    const R = this.r(s);
+    if (gate === 'crisis' || gate === 'distress') return this.pause(s, s.stage, 'crisis');
     if (gate === 'reset') return this.close(s, 'abandoned');
     if (gate === 'person') {
       this.close(s, 'handoff');
@@ -357,9 +384,19 @@ export class PathwayEngine {
       this.pause(s);
       return { text: R.paused, phase: 'idle' };
     }
+    // The model's gates: the same, read from how it was said.
+    if (m?.intent === 'crisis') return this.pause(s, s.stage, 'crisis');
+    if (m?.intent === 'wants_person' && s.stage !== 'paused') {
+      this.close(s, 'handoff');
+      return { text: R.handoff, phase: 'done' };
+    }
+    if (m?.intent === 'stop' && s.stage !== 'paused' && !this.hasModelFacts(m)) {
+      this.pause(s);
+      return { text: R.paused, phase: 'idle' };
+    }
 
     // The parent wrote first: say what this is, read anything they told us, and ask.
-    if (!s.introduced) return this.opening(conversationId, s, pathway, rec, text);
+    if (!s.introduced) return this.opening(conversationId, s, pathway, rec, text, m);
 
     // Jev runs beside extraction; only consulted when the words alone don't settle it.
     const second = this.secondGate(text, s, pathway);
@@ -379,30 +416,38 @@ export class PathwayEngine {
         // While paused the normal agent has the conversation, so a bare "yes" or "4" is its
         // answer, not ours. Only "continue", a fact the message names, "help me with the form"
         // or "what do you mean?" brings the session back (or a plain answer after "I don't
-        // know", which is what we asked them to send).
+        // know", which is what we asked them to send). With the model: a message it reads as
+        // facts or a correction for this form is ours too (never after a crisis).
         const ex = this.read(text, s, pathway, rec, s.pauseReason === 'dont_know');
+        const mx = m && s.pauseReason !== 'crisis' ? this.fromModel(m, text, s, pathway, rec) : undefined;
         // After "let me check", whatever they send next that isn't a question of their own is
         // for us: the form is still what we're doing together.
-        const forUs = s.pauseReason === 'dont_know' && !ex.question;
-        if (RESUME.test(t) || ex.facts.length || FORM_HELP.test(t) || CONFUSED.test(t) || forUs) {
+        const forUs = s.pauseReason === 'dont_know' && (m ? m.intent !== 'off_topic' && m.intent !== 'question' : !ex.question);
+        const modelForUs = Boolean(mx && (mx.facts.length || m!.intent === 'correction'));
+        if (RESUME.test(t) || ex.facts.length || FORM_HELP.test(t) || CONFUSED.test(t) || forUs || modelForUs) {
           s.pauseReason = undefined;
           s.stage = s.pausedFrom ?? 'asking';
           s.pausedFrom = undefined;
-          if (!ex.facts.length) return this.resume(conversationId, s, pathway, rec);
+          if (!ex.facts.length && !mx?.facts.length && !(forUs && m)) return this.resume(conversationId, s, pathway, rec);
           break; // carry on below with this message
         }
         return undefined;
       }
       case 'handoff_offered': {
-        if (this.isYes(text)) {
+        // "Yes", "ok sure, have them call me", "sí, conéctame": a person it is.
+        if (this.isYes(text) || AFFIRM.test(t) || PERSON.test(t) || m?.intent === 'approve' || m?.intent === 'wants_person') {
           this.close(s, 'handoff');
           return { text: R.handoff, phase: 'done' };
         }
-        if (this.isNo(text)) {
-          s.stage = 'asking';
+        const bareNo = this.isNo(text) || RESUME.test(t) || (NEGATE.test(t) && t.replace(NEGATE, '').replace(/[^a-z0-9]+/g, '').length === 0);
+        if (bareNo || (m?.intent === 'decline' && !this.hasModelFacts(m))) {
+          s.stage = s.proposal ? 'proposed' : 'asking';
           for (const k of s.lastAsked) s.asked[k] = 1;
+          if (s.proposal) return this.propose(s, pathway, rec, undefined, (p) => p);
           return this.advance(conversationId, s, pathway, rec);
         }
+        // "No, it's Javier Castillo": not a person, and the rest of it is an answer.
+        if (NEGATE.test(t)) for (const k of s.lastAsked) s.asked[k] = 1;
         s.stage = s.proposal ? 'proposed' : 'asking';
         break;
       }
@@ -424,9 +469,11 @@ export class PathwayEngine {
       }
     }
 
-    // 2. Extraction.
-    const ex = s.stage === 'proposed' ? this.readCorrections(text, s, pathway, rec) : this.read(text, s, pathway, rec, true);
-    if (!ex.facts.length && this.opts.extractor) {
+    // 2. Extraction: the model's reading first, the deterministic readers beside it (and
+    // instead of it, when there is no model or it failed).
+    let ex = s.stage === 'proposed' ? this.readCorrections(text, s, pathway, rec) : this.read(text, s, pathway, rec, true);
+    if (m) ex = this.merge(ex, this.fromModel(m, text, s, pathway, rec), m, s);
+    else if (!ex.facts.length && this.opts.extractor) {
       const slots = this.slots(pathway, rec, s);
       try {
         const found = await this.opts.extractor.extract({
@@ -446,12 +493,12 @@ export class PathwayEngine {
 
     if (!ex.facts.length) {
       const g = await second;
-      if (g === 'crisis' || g === 'distress') return this.pause(s);
+      if (g === 'crisis' || g === 'distress') return this.pause(s, s.stage, 'crisis');
       if (g === 'person') {
         this.close(s, 'handoff');
         return { text: R.handoff, phase: 'done' };
       }
-      return this.nothingRead(conversationId, s, pathway, rec, text, ex, g, faq);
+      return this.nothingRead(conversationId, s, pathway, rec, text, ex, g, faq, m);
     }
 
     // Progress on a question resets its count: "never a third time" is about failing, not
@@ -460,7 +507,9 @@ export class PathwayEngine {
     const incomeMoved = ex.facts.some((f) => /^income\./.test(f.key));
     for (const k of asked) if (keys.has(k) || (incomeMoved && /\.(income_done|has_income)$|^household\.incomes_complete$/.test(k))) s.asked[k] = 0;
 
-    const prefix = [changes.length ? R.corrected(changes) : '', ...faq].filter(Boolean).join(' ') || undefined;
+    // A question asked alongside the answer that no FAQ covers: say so, never guess.
+    const unanswered = m && (m.alsoAsks || m.intent === 'question') && !faq.length && ex.question ? R.notSure : '';
+    const prefix = [changes.length ? R.corrected(changes) : '', ...faq, unanswered].filter(Boolean).join(' ') || undefined;
     return this.advance(conversationId, s, pathway, rec, prefix);
   }
 
@@ -469,7 +518,7 @@ export class PathwayEngine {
   /** The family's language: an explicit choice wins; the first message sets it; after that
    * Spanish is sticky and English flips to Spanish only on Spanish words, never on a name
    * ("Mía", "José") or a school. */
-  private updateLang(s: PathwaySession, text: string, rec: FamilyRecord, profile?: Lang): void {
+  private updateLang(s: PathwaySession, text: string, rec: FamilyRecord, profile?: Lang, model?: Lang | 'other'): void {
     const choice = explicitLocaleChoice(text);
     if (choice) {
       s.lang = choice;
@@ -477,10 +526,17 @@ export class PathwayEngine {
     }
     const stripped = this.withoutNames(text, rec);
     if (!s.introduced) {
-      s.lang = detectLocale(stripped) === 'es' ? 'es' : profile === 'es' ? 'es' : s.lang;
+      const det = detectLocale(stripped) === 'es' ? 'es' : 'en';
+      // The model reads a mixed message better than word lists; it decides when it can.
+      const read = model === 'es' || model === 'en' ? model : det;
+      s.lang = read === 'es' ? 'es' : profile === 'es' ? 'es' : s.lang;
       return;
     }
-    if (s.lang === 'en' && detectLocale(stripped) === 'es') s.lang = 'es';
+    // An answer to "what's your name?" or "who lives with you?" is mostly names ("efraín h.
+    // reyes, my husband"): it says nothing about the family's language.
+    if (s.stage === 'asking' && s.lastAsked.some((k) => /\.(first_name|last_name)$|^household\.roster$/.test(k))) return;
+    // English flips to Spanish only when the words say so and the model (if any) agrees.
+    if (s.lang === 'en' && detectLocale(stripped) === 'es' && model !== 'en' && model !== 'other') s.lang = 'es';
   }
 
   private withoutNames(text: string, rec: FamilyRecord): string {
@@ -492,6 +548,290 @@ export class PathwayEngine {
     for (const n of names) out = out.replace(new RegExp(`(^|[^\\p{L}])${escapeRe(n)}(?=$|[^\\p{L}])`, 'giu'), '$1');
     // A capitalized word inside a sentence is a name we don't know yet.
     return out.replace(/(?<=[\p{L},]\s+)\p{Lu}[\p{L}'’-]*/gu, '');
+  }
+
+  // ── the model's reading (understand.ts) ────────────────────────────────────
+
+  /** Use a model to read messages (or stop: `undefined`). */
+  setUnderstander(u: Understander | undefined, opts: { timeoutMs?: number } = {}): void {
+    this.understander = u;
+    if (opts.timeoutMs !== undefined) this.understandTimeoutMs = opts.timeoutMs;
+  }
+
+  /** Back to the form after the normal agent couldn't help with a side message (its "I'm not
+   * sure I can help with that" or a menu would only confuse a parent mid-form). Never after a
+   * crisis pause: then the normal agent keeps the conversation. */
+  async backToForm(conversationId: string, state: { pathway?: PathwaySession }): Promise<EngineTurn | undefined> {
+    const s = state.pathway;
+    if (!s || s.stage !== 'paused' || s.pauseReason === 'crisis') return undefined;
+    const pathway = this.registry.pathway(s.id);
+    if (!pathway) return undefined;
+    const rec = FamilyRecord.fromJSON(s.record);
+    s.stage = s.pausedFrom ?? 'asking';
+    s.pausedFrom = undefined;
+    s.pauseReason = undefined;
+    const t = await this.resume(conversationId, s, pathway, rec);
+    return { ...t, text: `${this.r(s).notHere}\n\n${t.text}` };
+  }
+
+  /** Ask the model what this message says, with only what it needs (understand.ts). A model
+   * that fails or is slow reads nothing: the deterministic readers carry the turn. */
+  private async understand(text: string, s: PathwaySession, pathway: Pathway, rec: FamilyRecord): Promise<Understanding | undefined> {
+    const u = this.understander;
+    if (!u) return undefined;
+    const stage: UnderstandInput['stage'] = !s.introduced ? 'opening' : s.stage === 'paused' ? 'paused' : s.stage === 'proposed' ? 'proposed' : s.stage === 'handoff_offered' ? 'handoff_offered' : 'asking';
+    const asked = s.lastAsked
+      .map((key) => ({ key, spec: specFor(pathway.facts, key) }))
+      .filter((x): x is { key: string; spec: FactSpec } => Boolean(x.spec))
+      .map((x) => ({ key: x.key, kind: x.spec.kind, ...(x.spec.options ? { options: x.spec.options } : {}) }));
+    const ids = [SELF, ...rec.memberIds().filter((id) => id !== SELF)];
+    const people = ids.map((id) => ({
+      id,
+      ...(rec.get<string>(`member.${id}.first_name`) ? { first: rec.get<string>(`member.${id}.first_name`)!.value } : {}),
+      ...(rec.get<string>(`member.${id}.last_name`) ? { last: rec.get<string>(`member.${id}.last_name`)!.value } : {}),
+      relationship: id === SELF ? 'self' : rec.get<string>(`member.${id}.relationship`)?.value,
+      ...(rec.get<boolean>(`member.${id}.student`)?.value === true ? { student: true } : {}),
+    }));
+    const specs = pathway.facts.filter((f) => f.sources.includes('parent') && f.ask.en).map((f) => ({ key: f.key, kind: f.kind, ...(f.options ? { options: f.options } : {}) }));
+    const R = this.r(s);
+    let question = s.lastAskText;
+    let proposal: UnderstandInput['proposal'];
+    if (s.stage === 'proposed' && s.proposal) {
+      const fields = (s.proposal.step.payload as { fields: Record<string, string> }).fields;
+      proposal = Object.entries(fields).map(([label, v], i) => ({ line: i + 1, text: `${label}: ${v}` }));
+      question = R.proposalUnclear;
+    } else if (s.stage === 'handoff_offered') question = R.handoffOffer;
+    const input: UnderstandInput = { message: text, lang: s.lang, stage, ...(question ? { question } : {}), asked, people, specs, ...(proposal ? { proposal } : {}) };
+    const ctl = new AbortController();
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    try {
+      return await Promise.race([
+        u.understand(input, { signal: ctl.signal }),
+        new Promise<undefined>((res) => {
+          timer = setTimeout(() => {
+            ctl.abort();
+            res(undefined);
+          }, this.understandTimeoutMs ?? this.opts.understandTimeoutMs ?? 6000);
+        }),
+      ]);
+    } catch {
+      return undefined;
+    } finally {
+      if (timer) clearTimeout(timer);
+    }
+  }
+
+  private hasModelFacts(m: Understanding): boolean {
+    return Boolean(m.people.length || m.incomes.length || m.noIncome.length || m.facts.length || m.corrections.length);
+  }
+
+  /**
+   * The model's reading → facts the engine can record, by the engine's rules. People get the
+   * archive's ids (a new spouse is q, a child c#, anyone else g#), and only once we've asked
+   * who lives at home; an income needs whose it is (or is asked); a sensitive fact counts only
+   * when we asked it or the words name it; a fact we already have changes only when it was
+   * asked again or the parent is correcting. Every fact keeps the parent's quote.
+   */
+  private fromModel(m: Understanding, text: string, s: PathwaySession, pathway: Pathway, rec: FamilyRecord): { facts: Found[]; correction: boolean } {
+    const out: Found[] = [];
+    const put = (key: FactKey, value: unknown, quote: string) => {
+      if (!specFor(pathway.facts, key) || out.some((f) => f.key === key)) return;
+      out.push({ key, value, quote, named: true });
+    };
+    const stage = s.stage === 'paused' ? s.pausedFrom ?? 'asking' : s.stage;
+    const L = stage === 'proposed' ? [] : s.lastAsked;
+    const correcting = m.intent === 'correction' || stage === 'proposed';
+    const may = (k: FactKey) => !rec.has(k) || correcting || L.includes(k);
+    const known = new Set([SELF, ...rec.memberIds()]);
+    const roster = rec.get<string[]>('household.roster')?.value;
+    const rosterAsked = L.includes('household.roster');
+    const used = new Set(rec.memberIds());
+    const nextId = (rel: string | undefined) => {
+      if (rel === 'spouse' && !used.has('q')) return 'q';
+      const p = rel === 'child' ? 'c' : 'g';
+      let k = 1;
+      while (used.has(`${p}${k}`)) k++;
+      return `${p}${k}`;
+    };
+    const refs = new Map<string, string>();
+    const resolve = (ref: string | undefined): string | undefined => {
+      if (!ref) return undefined;
+      const r = ref.trim();
+      if (r === SELF || /^(me|self|yo|i)$/i.test(r)) return SELF;
+      if (refs.has(r)) return refs.get(r);
+      if (known.has(r)) return r;
+      const byName = rec.memberIds().find((id) => fold(rec.get<string>(`member.${id}.first_name`)?.value ?? '\u0000') === fold(r));
+      return byName;
+    };
+
+    // 1. People: names, relationship, age; and who lives at home.
+    const listed: string[] = [];
+    const added: string[] = [];
+    for (const p of m.people) {
+      let id = p.relationship === 'self' ? SELF : resolve(p.ref);
+      if (!id && p.first_name) id = rec.memberIds().find((x) => fold(rec.get<string>(`member.${x}.first_name`)?.value ?? '\u0000') === fold(p.first_name!));
+      if (!id) {
+        // Someone new: only once we've asked who lives here (or are adding to that list), and
+        // never "the kids" with no name (the district's students are already known).
+        if (!(rosterAsked || roster)) continue;
+        if (!p.first_name && (!p.relationship || p.relationship === 'child')) continue;
+        id = nextId(p.relationship);
+        used.add(id);
+        added.push(id);
+      }
+      refs.set(p.ref, id);
+      if (!listed.includes(id)) listed.push(id);
+      if (p.first_name && may(`member.${id}.first_name`)) put(`member.${id}.first_name`, p.first_name, p.quote);
+      if (p.last_name && may(`member.${id}.last_name`)) put(`member.${id}.last_name`, p.last_name, p.quote);
+      if (p.middle_initial && may(`member.${id}.middle_initial`)) put(`member.${id}.middle_initial`, p.middle_initial, p.quote);
+      if (!rec.has(`member.${id}.relationship`)) put(`member.${id}.relationship`, id === SELF ? 'self' : p.relationship ?? 'other', p.quote);
+      if (p.age !== undefined && !rec.has(`member.${id}.dob`) && may(`member.${id}.age`)) put(`member.${id}.age`, p.age, p.quote);
+    }
+    if (rosterAsked && listed.length) {
+      // The parent is in the home even when they listed only the others, and so is every
+      // student the district knows unless the parent says otherwise.
+      const ids = [SELF, ...listed.filter((id) => id !== SELF)];
+      for (const id of rec.memberIds()) if (rec.get<boolean>(`member.${id}.student`)?.value === true && !ids.includes(id)) ids.push(id);
+      put('household.roster', ids, text.trim());
+    } else if (roster && added.length) {
+      put('household.roster', [...roster, ...added], m.people.find((p) => added.includes(refs.get(p.ref) ?? ''))?.quote ?? text.trim());
+    }
+    const inHome = new Set([SELF, ...(roster ?? []), ...listed]);
+
+    // 2. Money, by whose it is.
+    const askedOwner = L.map((k) => /^member\.([^.]+)\.(has_income|income_done)$/.exec(k)?.[1]).find(Boolean);
+    const askedWork = L.some((k) => /\.has_income$/.test(k));
+    const freqAsked = L.map((k) => /^income\.(\d+)\.frequency$/.exec(k)?.[1]).find((x) => x !== undefined);
+    const existing = rec.incomeIndexes().map((n) => ({
+      n,
+      owner: rec.get<string>(`income.${n}.owner`)?.value,
+      amount: rec.get<number>(`income.${n}.amount`)?.value,
+      frequency: rec.get<string>(`income.${n}.frequency`)?.value,
+    }));
+    let next = existing.length ? Math.max(...existing.map((e) => e.n)) + 1 : 0;
+    const ownersNow = new Set(existing.map((e) => e.owner).filter(Boolean));
+    for (const inc of m.incomes) {
+      if (inc.frequency === 'hourly') continue; // a rate: the engine asks for the paycheck
+      let owner = inc.owner === 'unknown' ? undefined : resolve(inc.owner);
+      if (!owner && askedOwner) owner = askedOwner;
+      if (owner && !inHome.has(owner) && !known.has(owner)) owner = undefined;
+      if (inc.replaces !== undefined) {
+        const hit = existing.find((e) => e.amount === inc.replaces && (!owner || !e.owner || e.owner === owner));
+        if (hit) {
+          put(`income.${hit.n}.amount`, inc.amount, inc.quote);
+          if (inc.frequency && inc.frequency !== hit.frequency) put(`income.${hit.n}.frequency`, inc.frequency, inc.quote);
+          continue;
+        }
+      }
+      // "How often is the $1,100?" answered with the amount again.
+      if (freqAsked !== undefined && inc.frequency && existing.find((e) => String(e.n) === freqAsked)?.amount === inc.amount) {
+        put(`income.${freqAsked}.frequency`, inc.frequency, inc.quote);
+        continue;
+      }
+      // Said again: fill in only what that income lacks.
+      const dup = existing.find((e) => e.amount === inc.amount && (!owner || !e.owner || e.owner === owner));
+      if (dup) {
+        if (inc.frequency && !dup.frequency) put(`income.${dup.n}.frequency`, inc.frequency, inc.quote);
+        if (!dup.owner && owner) put(`income.${dup.n}.owner`, owner, inc.quote);
+        if (inc.kind && !rec.has(`income.${dup.n}.kind`)) put(`income.${dup.n}.kind`, inc.kind, inc.quote);
+        continue;
+      }
+      const n = next++;
+      if (owner) put(`income.${n}.owner`, owner, inc.quote);
+      put(`income.${n}.amount`, inc.amount, inc.quote);
+      if (inc.frequency) put(`income.${n}.frequency`, inc.frequency, inc.quote);
+      const kind = inc.kind ?? (askedWork && owner === askedOwner ? 'earned' : undefined);
+      if (kind) put(`income.${n}.kind`, kind, inc.quote);
+      if (rec.get('household.income_reported')?.value !== true) put('household.income_reported', true, inc.quote);
+      if (owner) {
+        ownersNow.add(owner);
+        if (rec.get(`member.${owner}.has_income`)?.value !== true) put(`member.${owner}.has_income`, true, inc.quote);
+      }
+    }
+    for (const ni of m.noIncome) {
+      const id = resolve(ni.person);
+      if (!id || !inHome.has(id)) continue;
+      const has = ownersNow.has(id);
+      if (!has && (ni.scope === 'none' || !rec.has(`member.${id}.has_income`))) put(`member.${id}.has_income`, false, ni.quote);
+      put(`member.${id}.income_done`, true, ni.quote);
+    }
+
+    // 3. Everything else the form takes (benefits, each child's status, the address…).
+    const STRUCT = /^member\.[^.]+\.(first_name|last_name|middle_initial|relationship|age|has_income|income_done)$|^household\.(roster|income_reported)$|^income\.\d+\.amount$/;
+    for (const f of m.facts) {
+      if (STRUCT.test(f.key)) continue;
+      const mm = /^member\.([^.]+)\.(.+)$/.exec(f.key);
+      let key = f.key;
+      if (mm) {
+        const id = resolve(mm[1]);
+        if (!id) continue;
+        key = `member.${id}.${mm[2]}`;
+      }
+      if (/^income\./.test(key) && !L.includes(key)) continue;
+      if (key === 'household.incomes_complete' && !L.includes(key)) continue;
+      const spec = specFor(pathway.facts, key);
+      if (!spec || !spec.sources.includes('parent')) continue;
+      let value: unknown = f.value;
+      if (/^income\.\d+\.owner$/.test(key)) value = resolve(String(f.value));
+      if (value === undefined) continue;
+      if (spec.kind === 'enum' && typeof value === 'string') value = value.trim().toLowerCase();
+      if (spec.kind === 'list' && typeof value === 'string') value = [value];
+      if (spec.kind === 'number' && typeof value === 'string' && /^\d+(\.\d+)?$/.test(value.trim())) value = Number(value);
+      if (spec.kind === 'string' && typeof value === 'string') value = value.trim();
+      if (!acceptModelFacts(text, [{ key, value, quote: f.quote }], [{ key, spec }]).length) continue;
+      if (spec.kind === 'list' && spec.options && !(value as string[]).every((v) => spec.options!.includes(v))) continue;
+      // Sensitive facts: asked, or named in the parent's words. Never inferred.
+      if (spec.sensitive && !L.includes(key)) {
+        const flag = /\.(foster|homeless|migrant)$/.exec(key)?.[1];
+        const cue = flag ? FLAG_WORDS[flag] : hintFor(this.registry.hints(pathway.id).cues, key) ?? lexiconCue(key);
+        if (!cue || !cue.test(fold(f.quote))) continue;
+      }
+      if (!may(key)) continue;
+      put(key, value, f.quote);
+      const flag = /^member\.([^.]+)\.foster$/.exec(key);
+      if (flag && value === true) put(`member.${flag[1]}.benefits`, [...new Set([...(rec.get<string[]>(`member.${flag[1]}.benefits`)?.value ?? []), 'foster_care'])], f.quote);
+    }
+
+    // 4. Lines of the proposal the parent says are wrong.
+    if (stage === 'proposed' && s.proposal && m.corrections.length) {
+      const fill = s.proposal.fill;
+      const ids = Object.keys(fill.values);
+      for (const c of m.corrections) {
+        const id = ids[c.line - 1];
+        if (!id) continue;
+        const keys = (fill.sources[id] ?? []).filter((k) => specFor(pathway.facts, k)?.sources.includes('parent'));
+        const key = keys[0];
+        if (!key) continue;
+        const spec = specFor(pathway.facts, key)!;
+        if (/middle_initial$/.test(key)) {
+          const mi = /^\s*([A-Za-zÀ-ÿ])\.?\s*$/.exec(c.value)?.[1] ?? splitName(c.value)?.mi;
+          if (mi) put(key, mi.toUpperCase(), c.quote);
+          continue;
+        }
+        const one = extractFacts(c.value, { lang: s.lang, slots: [{ key, spec }], asked: [key], recent: [] });
+        const hit = one.facts.find((x) => x.key === key);
+        if (hit) put(key, hit.value, c.quote);
+        else if (spec.kind === 'string') put(key, c.value.trim(), c.quote);
+      }
+    }
+    return { facts: out, correction: correcting && out.length > 0 };
+  }
+
+  /** The model's facts first; the deterministic readers add what it didn't cover, except the
+   * household's people and money (where the regex readers make the mistakes the model was
+   * brought in for: "Oh right!" as a name, "no income from him" on the parent). */
+  private merge(det: Extraction, mx: { facts: Found[]; correction: boolean }, m: Understanding, s: PathwaySession): Extraction {
+    const STRUCT = /^member\.[^.]+\.(first_name|last_name|middle_initial|relationship|age|has_income|income_done)$|^income\.|^household\.(roster|incomes_complete|income_reported)$/;
+    const keys = new Set(mx.facts.map((f) => f.key));
+    const extra = ['answer', 'correction', 'approve'].includes(m.intent) ? det.facts.filter((f) => !keys.has(f.key) && !STRUCT.test(f.key)) : [];
+    return {
+      facts: [...mx.facts, ...extra],
+      correction: det.correction || mx.correction,
+      dontKnow: m.intent === 'unsure',
+      declined: m.intent === 'decline' && s.stage !== 'proposed',
+      question: m.intent === 'question' || m.intent === 'off_topic' || (m.alsoAsks && det.question),
+      whyAsked: det.whyAsked,
+    };
   }
 
   // ── reading the message ────────────────────────────────────────────────────
@@ -823,6 +1163,7 @@ export class PathwayEngine {
     ex: Extraction,
     g: GateLabel | undefined,
     faq: string[],
+    m?: Understanding,
   ): Promise<EngineTurn | undefined> {
     const R = this.r(s);
     const hints = this.registry.hints(pathway.id);
@@ -839,13 +1180,34 @@ export class PathwayEngine {
       }
       // "What exactly will you put on the form?": show it again, every line.
       if (SHOW_ME.test(t)) return this.propose(s, pathway, rec, undefined, (p) => p);
+      if (m) {
+        // The model's reading of a reply to the proposal. A yes counts only as the clear-yes
+        // rule would have it: approve, no correction, no value in the message, nothing asked;
+        // and only through the digest gate (approve() re-checks exactly what was shown). When
+        // Jev is configured, Jev reads the yes instead (below).
+        if (m.intent === 'approve' && !m.corrections.length && !this.hasModelFacts(m) && !/\d/.test(text) && !m.alsoAsks && !WRONG.test(t)) {
+          if (!jevEnabled(this.env)) return this.approve(conversationId, s, pathway, rec, 'read as a plain yes (model)');
+        } else if (m.intent === 'decline' && !m.corrections.length) {
+          s.proposal = undefined;
+          this.pause(s, 'asking');
+          return { text: R.declined, phase: 'idle' };
+        } else if (m.intent === 'correction' || m.corrections.length || WRONG.test(t)) {
+          s.proposal.unclear = (s.proposal.unclear ?? 0) + 1;
+          if (s.proposal.unclear > 3) return this.offerHandoff(s);
+          return { text: R.whichLine, phase: 'confirming' };
+        } else if (m.intent === 'question' || m.alsoAsks) {
+          s.proposal.stamp.stale = false;
+          return { text: `${R.notSure}\n\n${R.proposalUnclear}`, phase: 'confirming' };
+        } else if (m.intent === 'off_topic') return this.pause(s, s.stage, 'side');
+        else if (m.intent === 'unsure') return { text: R.proposalRephrase, phase: 'confirming' };
+      }
       // "X is wrong" that we couldn't tie to a line: ask which, never guess.
       if (WRONG.test(t)) {
         s.proposal.unclear = (s.proposal.unclear ?? 0) + 1;
         if (s.proposal.unclear > 3) return this.offerHandoff(s);
         return { text: R.whichLine, phase: 'confirming' };
       }
-      if (ex.question && !ex.whyAsked) return this.pause(s);
+      if (ex.question && !ex.whyAsked) return this.pause(s, s.stage, 'side');
       const d = await this.readYes(s, text);
       if (d && approvesYes(d)) return this.approve(conversationId, s, pathway, rec, `read as yes (${d.confidence.toFixed(2)})`);
       if (d && probablyYes(d) && !s.proposal.confirmAsked) {
@@ -887,13 +1249,18 @@ export class PathwayEngine {
       s.skipped.push(...asked.map((a) => a.key));
       return this.advance(conversationId, s, pathway, rec, R.skipped);
     }
+    if (m) {
+      // A question about the form we have no answer for: say so, and ask again (not counted).
+      if (m.intent === 'question' && !ex.dontKnow) return { text: `${R.notSure}\n\n${askText}`, phase: 'clarifying' };
+      if (m.intent === 'off_topic') return this.pause(s, s.stage, 'side');
+    }
     if (ex.dontKnow) {
       this.pause(s, 'asking');
       s.pauseReason = 'dont_know';
       const where = asked.map((a) => hintFor(hints.where, a.key)?.[s.lang]).find(Boolean);
       return { text: hints.people ? R.dontKnowAsk(askText, where) : R.dontKnow, phase: 'idle' };
     }
-    if (g === 'off_topic' || g === 'stop' || ex.question) return this.pause(s);
+    if (g === 'off_topic' || g === 'stop' || ex.question) return this.pause(s, s.stage, 'side');
     // Not an answer we can read: ask again with an example (counted), or offer a person.
     return this.ask(s, pathway, rec, { keys: asked.map((a) => a.key), ...(s.lastAskBase ? { text: s.lastAskBase } : {}), example }, (q) => R.didntCatch(q, example));
   }
@@ -1459,9 +1826,10 @@ export class PathwayEngine {
 
   /** The first message of a session: what the form is, then the first question. A question in
    * the parent's opening ("what is this?") is answered by it, never read as an answer. */
-  private async opening(conversationId: string, s: PathwaySession, pathway: Pathway, rec: FamilyRecord, text: string): Promise<EngineTurn> {
+  private async opening(conversationId: string, s: PathwaySession, pathway: Pathway, rec: FamilyRecord, text: string, m?: Understanding): Promise<EngineTurn> {
+    let ex = this.read(text, s, pathway, rec, false);
+    if (m) ex = this.merge(ex, this.fromModel(m, text, s, pathway, rec), m, s);
     s.introduced = true;
-    const ex = this.read(text, s, pathway, rec, false);
     const changes = this.apply(conversationId, s, pathway, rec, text, ex);
     const faq = this.faq(text, s, pathway, ['what', 'must', 'help']);
     const R = this.r(s);
@@ -1637,10 +2005,10 @@ export class PathwayEngine {
 
   // ── small helpers ──────────────────────────────────────────────────────────
 
-  private pause(s: PathwaySession, from: PathwayStage = s.stage): undefined {
+  private pause(s: PathwaySession, from: PathwayStage = s.stage, reason?: PathwaySession['pauseReason']): undefined {
     if (s.stage !== 'paused') s.pausedFrom = from;
     s.stage = 'paused';
-    s.pauseReason = undefined;
+    s.pauseReason = reason;
     // A yes to a proposal from before the pause would answer something else: it re-shows.
     if (s.proposal) s.proposal.stamp.stale = true;
     return undefined;

@@ -11,6 +11,8 @@ import type { PathwaySession } from '../pathways/engine.js';
 import type { Agent } from '../agent/agent.js';
 import type { GradeContext } from './scoreboard.js';
 import type { HookContext, PathwayHook } from './runner.js';
+import { cliLlmClient } from './cli-llm.js';
+import { modelUnderstander } from '../pathways/understand.js';
 
 /**
  * The pathway engine, plugged into the harness (`--agent pathway --hook src/eval/pathway-hook.ts`).
@@ -59,6 +61,41 @@ function paperDelivery(inner: LaneRunner, ctx: HookContext): LaneRunner {
 
 const sessions = new Map<string, Agent>();
 
+/** The understanding layer's accounting per conversation (model spend, calls, latency). */
+export interface UnderstandStats {
+  costUsd: number;
+  calls: number;
+  failures: number;
+  ms: number[];
+}
+const understandStats = new Map<string, UnderstandStats>();
+
+/** PATHWAY_UNDERSTANDER=cli: the engine reads each message with the small model (Haiku), served
+ * by the `claude` CLI (src/eval/cli-llm.ts strips the session's identity from its environment,
+ * so no account detail reaches the model). Unset: the deterministic readers only. */
+function harnessUnderstander(conversationId: string) {
+  const mode = process.env.PATHWAY_UNDERSTANDER ?? 'none';
+  if (mode === 'none') return undefined;
+  if (mode !== 'cli') throw new Error(`PATHWAY_UNDERSTANDER=none|cli, not ${mode}`);
+  const st: UnderstandStats = { costUsd: 0, calls: 0, failures: 0, ms: [] };
+  understandStats.set(conversationId, st);
+  const model = process.env.PATHWAY_UNDERSTAND_MODEL ?? 'claude-haiku-4-5';
+  const { transport } = cliLlmClient({ model, timeoutMs: 120_000, onCost: (usd) => void (st.costUsd += usd) });
+  return modelUnderstander({
+    timeoutMs: 120_000,
+    complete: (system, user, signal) => transport.complete(system, user, true, { signal }),
+    onCall: ({ ms, ok }) => {
+      st.calls++;
+      st.ms.push(ms);
+      if (!ok) st.failures++;
+    },
+  });
+}
+
+export function understandStatsFor(conversationId: string): UnderstandStats | undefined {
+  return understandStats.get(conversationId);
+}
+
 const hook: PathwayHook = {
   name: 'pathway-engine',
 
@@ -66,6 +103,9 @@ const hook: PathwayHook = {
     const pathway = ctx.pathway;
     if (!pathway) throw new Error('the pathway hook needs --replica linq or pvusd (a pathway to run)');
     sessions.set(ctx.conversationId, agent);
+    const u = harnessUnderstander(ctx.conversationId);
+    // The CLI is slower than the API (a process per call): give it room before falling back.
+    if (u) agent.setPathwayUnderstander(u, { timeoutMs: 120_000 });
 
     if (pathway.lanes[0] === 'direct') {
       if (!ctx.replicaUrl) throw new Error('the direct lane needs a running replica');
@@ -91,6 +131,10 @@ const hook: PathwayHook = {
     // The parent writes first in the harness (their opening line), so the district's opening
     // message isn't sent: the engine's first reply says what the form is and asks.
     await agent.startPathway(ctx.conversationId, pathway.id, districtSeed(ctx.family.record), { announce: false });
+  },
+
+  costUsd(conversationId) {
+    return understandStats.get(conversationId)?.costUsd ?? 0;
   },
 
   record(conversationId) {

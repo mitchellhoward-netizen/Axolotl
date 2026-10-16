@@ -265,6 +265,10 @@ export function parseIncomes(text: string, members: MemberRef[]): IncomeReading 
       continue;
     }
     if (NO_INCOME_AT_ALL.test(f)) {
+      // "my partner Gurpreet doesn't work, so no income from him" is about one person, not the
+      // household: never read as "nobody has income" (and not put on whoever we asked about).
+      const other = ownerIn(f, members);
+      if ((other && other !== SELF) || /\b(he|him|his|she|her|they|them|el|ella|ellos|partner|husband|wife|spouse|esposo|esposa|pareja|marido)\b/.test(f)) continue;
       out.noIncomeAtAll = true;
       continue;
     }
@@ -341,7 +345,7 @@ const STATES: Record<string, string> = { california: 'CA', calif: 'CA', 'ca.': '
 export function parseAddress(text: string): Address | undefined {
   // One sentence at a time, and the street number is a number of its own (not "$5,088").
   for (const s of sentences(text)) {
-    const m = /(?<![$\d,.])\b(\d{1,6}\s+[A-Za-zÀ-ÖØ-öø-ÿ0-9.'#\- ]+?)\s*,\s*([A-Za-zÀ-ÖØ-öø-ÿ.'\- ]+?)\s*,?\s+(CA|California|Calif\.?|[A-Z]{2})\.?,?\s+(\d{5})(?:-\d{4})?\b/.exec(s);
+    const m = /(?<![$\d,.])\b(\d{1,6}\s+[A-Za-zÀ-ÖØ-öø-ÿ0-9.'#\- ]+?)\s*,\s*([A-Za-zÀ-ÖØ-öø-ÿ.'\- ]+?)\s*,?\s+([Cc][Aa]|[Cc]alifornia|[Cc]alif\.?|[A-Z]{2})\.?,?\s+(\d{5})(?:-\d{4})?\b/.exec(s);
     if (!m) continue;
     const st = STATES[m[3]!.toLowerCase()] ?? m[3]!.toUpperCase();
     return { street: m[1]!.trim(), city: m[2]!.trim(), state: st, zip: m[4]! };

@@ -7,6 +7,11 @@
  * --agent baseline|pathway   today's agent, or the pathway engine (needs --hook <module>)
  * --replica fake|linq|pvusd  fake is the harness's own stand-in; linq/pvusd load the real replicas
  * --families N --seeds K     N families (20 by default), K repeats each (pass^K)
+ * --offset N                 skip the first N families (makeFamilies order): --offset 10 --families 10
+ *                            is families 11-20 (the held-out set; 1-10 is the dev set)
+ * --understand none|cli      the pathway engine's model reader (src/pathways/understand.ts): none
+ *                            (default) is the deterministic readers only; cli is the small model
+ *                            (Haiku) via the `claude` CLI. Its spend counts toward --budget
  * --messiness 0-3            the scripted parent's mess (default 1)
  * --trusting                the parent says yes to a proposal that shows no values (default: asks to see them)
  * --max-turns N             per conversation (default 30)
@@ -98,6 +103,11 @@ async function main(): Promise<void> {
   const mode = (a.agent as string) ?? 'baseline';
   if (mode !== 'baseline' && mode !== 'pathway') throw new Error(`--agent baseline|pathway, not ${mode}`);
   const nFamilies = Number(a.families ?? 20);
+  const offset = Number(a.offset ?? 0);
+  const understand = (a.understand as string) ?? 'none';
+  if (understand !== 'none' && understand !== 'cli') throw new Error(`--understand none|cli, not ${understand}`);
+  // Read by the hook when it installs the engine's reader (src/eval/pathway-hook.ts).
+  process.env.PATHWAY_UNDERSTANDER = understand;
   const seeds = Number(a.seeds ?? 1);
   const which = (a.replica as string) ?? 'fake';
   const messiness = Number(a.messiness ?? 1) as 0 | 1 | 2 | 3;
@@ -133,10 +143,12 @@ async function main(): Promise<void> {
   }
 
   let hook: PathwayHook | undefined;
+  let statsFor: ((conversationId: string) => { costUsd: number; calls: number; failures: number; ms: number[] } | undefined) | undefined;
   if (mode === 'pathway') {
     if (typeof a.hook !== 'string') throw new Error('--agent pathway needs --hook <module> exporting a PathwayHook (the engine plugs in there)');
     const mod = (await import(pathToFileURL(path.resolve(a.hook)).href)) as { default?: PathwayHook; hook?: PathwayHook };
     hook = mod.hook ?? mod.default;
+    statsFor = (mod as { understandStatsFor?: typeof statsFor }).understandStatsFor;
     if (!hook) throw new Error(`${a.hook} exports no PathwayHook`);
   }
 
@@ -168,13 +180,14 @@ async function main(): Promise<void> {
   const parentMode = (a.parent as string) ?? 'scripted';
   if (parentMode !== 'scripted' && parentMode !== 'llm') throw new Error(`--parent scripted|llm, not ${parentMode}`);
   const parentModel = (a['parent-model'] as string) ?? 'claude-haiku-4-5';
-  const metered = llmMode === 'cli' || parentMode === 'llm';
+  const metered = llmMode === 'cli' || parentMode === 'llm' || understand === 'cli';
+
   const transcripts = typeof a.transcripts === 'string' ? a.transcripts : undefined;
 
   const archive = new ArchiveClient();
   // Families live in the replica's district: a Palm Springs form lists Palm Springs schools.
   const district = which === 'linq' ? 'psusd' : which === 'pvusd' ? 'pvusd' : undefined;
-  const families = await makeFamilies(nFamilies, { archive, ...(district ? { district } : {}) });
+  const families = (await makeFamilies(offset + nFamilies, { archive, ...(district ? { district } : {}) })).slice(offset);
   const runs: RunRecord[] = [];
   const log = console.log;
   const warn = console.warn;
@@ -209,6 +222,13 @@ async function main(): Promise<void> {
           console.warn = warn;
         }
         const r = res.record;
+        const us = statsFor?.(`eval:${family.id}:${seed}`);
+        if (us) {
+          // The engine's reader is part of the run's cost (the runner already added it to costUsd).
+          spent += us.costUsd;
+          const sorted = [...us.ms].sort((x, y) => x - y);
+          r.notes.push(`understand:${us.calls} calls, ${us.failures} failed, $${us.costUsd.toFixed(4)}, median ${sorted[Math.floor(sorted.length / 2)] ?? 0} ms`);
+        }
         if (llmP) {
           // The parent's spend is the run's cost too (the pathway agent itself calls no model).
           const pc = llmP.costUsd() + openingCost;

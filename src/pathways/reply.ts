@@ -51,6 +51,10 @@ export interface Replies {
   next(titles: string[]): string;
   paused: string;
   resume: string;
+  /** A question about the form we have no sure answer to. */
+  notSure: string;
+  /** Back to the form after a message the helper can't help with here. */
+  notHere: string;
   interrupted(proposal: string): string;
   cantAsk(labels: string[]): string;
   yes: string;
@@ -123,6 +127,8 @@ const en: Replies = {
   next: (titles) => `I can also help with ${join(titles, 'and')}. Want to do that next?`,
   paused: "No problem. I'll keep what you've told me. Just say continue when you're ready.",
   resume: "Let's pick up where we left off.",
+  notSure: "Good question. I don't have a sure answer to that one and I don't want to guess; the school office can tell you.",
+  notHere: "I can't help with that one here; the school office is the best place to ask.",
   interrupted: (proposal) => `Something interrupted that on my side, and nothing is confirmed. Here it is again:\n\n${proposal}`,
   cantAsk: (labels) => `I need ${join(labels, 'and')} from the school's records, not from you, so I'll pass this to a person to finish.`,
   yes: 'Yes',
@@ -193,6 +199,8 @@ const es: Replies = {
   next: (titles) => `También le puedo ayudar con ${join(titles, 'y')}. ¿Lo hacemos?`,
   paused: 'Claro. Guardo lo que me dijo. Escriba seguir cuando quiera continuar.',
   resume: 'Sigamos donde nos quedamos.',
+  notSure: 'Buena pregunta. No tengo una respuesta segura y no quiero adivinar; la oficina de la escuela le puede decir.',
+  notHere: 'Con eso no le puedo ayudar aquí; la oficina de la escuela es el mejor lugar para preguntar.',
   interrupted: (proposal) => `Algo lo interrumpió de mi lado, y no hay nada confirmado. Aquí está otra vez:\n\n${proposal}`,
   cantAsk: (labels) => `Necesito ${join(labels, 'y')} de los registros de la escuela, no de usted, así que le paso esto a una persona para terminarlo.`,
   yes: 'Sí',

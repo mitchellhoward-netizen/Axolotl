@@ -91,6 +91,8 @@ import { findSkillFor, skillSummary } from './skills.js';
 import type { LifeTools } from './personal.js';
 import { AsyncLocalStorage } from 'node:async_hooks';
 import { PathwayEngine } from '../pathways/engine.js';
+import { llmUnderstander, type Understander } from '../pathways/understand.js';
+import { smallModel } from './model-policy.js';
 import type { FamilyRecord } from '../family/facts.js';
 
 /** During onboarding the brain may ONLY collect fields (save_profile) + log/now —
@@ -193,6 +195,20 @@ export interface AgentOptions {
   email?: EmailProvider;
   /** The pathway engine (src/pathways/engine.ts). Defaults to one on the process registry. */
   pathwayEngine?: PathwayEngine;
+  /** Reads each pathway message with a small model (src/pathways/understand.ts). Default: the
+   * small model (Haiku) when an Anthropic key is configured; `null` turns it off. */
+  pathwayUnderstander?: Understander | null;
+}
+
+/** The pathway engine's reader in production: the small model, Anthropic only (a parent's words
+ * are never sent to another provider for this), off with PATHWAY_UNDERSTAND=false. */
+function defaultPathwayUnderstander(): Understander | undefined {
+  if (process.env.PATHWAY_UNDERSTAND === 'false' || !process.env.ANTHROPIC_API_KEY) return undefined;
+  const spec = smallModel();
+  if (!spec.apiKey || !/anthropic/i.test(spec.baseUrl)) return undefined;
+  return llmUnderstander(new LlmClient({ apiKey: spec.apiKey, baseUrl: spec.baseUrl, model: spec.model, maxTokens: 1024 }), {
+    timeoutMs: Number(process.env.PATHWAY_UNDERSTAND_TIMEOUT_MS ?? 6000),
+  });
 }
 
 const HELP_TEXT = [
@@ -246,6 +262,8 @@ export class Agent {
       opts.pathwayEngine ??
       new PathwayEngine({
         now: this.now,
+        understander: opts.pathwayUnderstander === null ? undefined : (opts.pathwayUnderstander ?? defaultPathwayUnderstander()),
+        understandTimeoutMs: Number(process.env.PATHWAY_UNDERSTAND_TIMEOUT_MS ?? 6000),
         isYes: isStrictConsent,
         isNo: isStrictDecline,
         logConsent: (conversationId, detail) =>
@@ -254,6 +272,11 @@ export class Agent {
   }
 
   private readonly pathwayEngine: PathwayEngine;
+
+  /** Read pathway messages with this model (the harness passes its CLI transport). */
+  setPathwayUnderstander(u: Understander | undefined, opts: { timeoutMs?: number } = {}): void {
+    this.pathwayEngine.setUnderstander(u, opts);
+  }
 
   /**
    * Start a pathway for this conversation (the harness and the brain call this). `seedRecord`
@@ -271,8 +294,33 @@ export class Agent {
   }
 
   async handle(conversationId: string, text: string, life?: LifeTools): Promise<AgentTurn> {
-    const turn = await this.lifeTools.run(life, () => this.handleTurn(conversationId, text));
+    let turn = await this.lifeTools.run(life, () => this.handleTurn(conversationId, text));
+    turn = await this.keepPathway(conversationId, turn);
     return { ...turn, text: this.armApproval(conversationId, turn.text) };
+  }
+
+  /**
+   * While a form is open (paused for a side message), the old router's "I'm not sure I can help
+   * with that" or its meals menu would only lose the parent: they are mid-form, and the meals
+   * menu would start a second, different flow. So instead the engine says it can't help with
+   * that here and goes back to the form. A real answer from the normal agent stands, and a
+   * crisis pause is never overridden.
+   */
+  private async keepPathway(conversationId: string, turn: AgentTurn): Promise<AgentTurn> {
+    const state = this.store.getState(conversationId);
+    const s = state?.pathway;
+    if (!state || !s || s.stage !== 'paused' || s.pauseReason === 'crisis') return turn;
+    const menu = turn.text === UNKNOWN_TEXT || state.intent === 'request_meal_voucher' || /^(What do you need\?|¿Qué necesita\?)/.test(turn.text) || /^I'm not sure I can help with that/.test(turn.text);
+    if (!menu) return turn;
+    if (state.intent === 'request_meal_voucher') {
+      state.intent = undefined;
+      state.collected = {};
+      state.phase = 'idle';
+    }
+    const back = await this.pathwayEngine.backToForm(conversationId, state);
+    if (!back) return turn;
+    this.store.appendHistory(conversationId, 'assistant', back.text);
+    return back;
   }
 
   /**
