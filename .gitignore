@@ -18,3 +18,6 @@ web/waitlist.json
 
 # Apple bezel / SF Pro downloads used to build the phone mockup
 .cache/
+
+# Python bytecode
+__pycache__/

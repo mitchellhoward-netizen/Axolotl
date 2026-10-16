@@ -147,3 +147,34 @@ worth deciding whether it should degrade quietly or fail loudly.
    is the end-to-end number we still do not have.
 3. Then wire `run_with: "code"` for this form and re-run, to test whether compilation actually moves
    the warm path. That is the whole reason for measuring a baseline.
+
+---
+
+## The YES check: Jev as the second check on a bare yes (2026-10-16)
+
+**What was measured.** `decide('yes_to_exact_values')` (`src/agent/decide.ts`) on 40 labeled
+parent replies (18 approvals, 22 not; English and Spanish, including "ok thanks", "yes but change
+the grade to 2", "hold on, let me check with my husband"), each asked against two requests ("the
+email ready to send", "the form ready to submit"): 80 live calls.
+
+- **Command:** `NODE_USE_ENV_PROXY=1 JEV_ENABLED=true npx tsx scripts/calibrate-yes.ts`
+- **Model:** `jev-1.13.0` (pinned). **Build:** branch `claude/youthful-keller-x8kyyz` at `70f34de` plus the uncommitted decide.ts/veto change, committed right after this run.
+- **Errors:** 0 of 80. **Median latency:** 176 ms. **Cost:** about 360 input tokens a call (~$0.000015).
+
+| Use | Threshold | Non-yeses let through | Real yeses let through |
+|---|---|---|---|
+| Jev as the approver | 0.50 | 0 / 44 | 25 / 36 |
+| Jev as the approver | 0.98 (the plan's number) | 0 / 44 | 7 / 36 |
+| **Jev as a veto (what the gate does)** | not-approve ≥ 0.90 | 2 / 44 ("yes, and also email the nurse") | 34 / 36 (stops "dale") |
+
+**What it means.** Jev is sure when something is *not* a yes ("ok thanks" 0.98, "I guess?" 1.00)
+and unsure about short yeses ("ok" scores 0.66 not-approve, "submit it" 0.40 approve). As the
+approver at 0.98 it would ask most parents for the code and protect nothing the gate's
+whole-message regex doesn't already reject. So the gate uses it as a veto: a bare yes that passed
+the regex **and** the proposal digest runs unless Jev is ≥ 0.90 sure it isn't an approval, or Jev
+can't answer (no key, error, timeout: then the parent is asked for `YES <code>`). The one miss
+("yes, and also email the nurse") never reaches Jev, because the regex rejects it first.
+
+**Limits.** 40 replies written by us, not drawn from real threads. One model version. No
+repeat-agreement run yet. This is a smoke check of the threshold, not a calibration: the sprint's
+Jev calibration on labeled real turns (days 8–11) replaces it.

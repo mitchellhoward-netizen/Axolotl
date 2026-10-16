@@ -82,6 +82,7 @@ import {
   withApprovalCode,
   type ApprovalCheck,
 } from './steps/approval.js';
+import { decide as askJev, jevEnabled, vetoesYes, yesQuestion } from './decide.js';
 import { finalizePendingForFamily } from '../integrations/connections/index.js';
 import { getEmailsByStatus, setEmailStatus } from '../integrations/email-triage/store.js';
 import { LLM_TOOLS, LIFE_TOOL_NAMES, runTool, systemPrompt, pendingActionsSummary, fillEvidenceLine, type ToolDeps } from './tools.js';
@@ -362,6 +363,15 @@ export class Agent {
           if (!approval.ok) {
             console.log(`[consent] YES refused: ${approval.reason}`);
             return { text: this.approvalRefusal(approval.reason, state.pendingSteps), phase: 'confirming', resolved: true };
+          }
+          // The calibrated second check: Jev can stop a bare "yes" (sure it is not an approval, or
+          // unable to answer), never allow one the digest refused.
+          // `YES <code>` names the proposal outright, so it needs no reading.
+          if (reply.kind === 'bare' && jevEnabled()) {
+            const d = await askJev('yes_to_exact_values', yesQuestion(`Reply YES to approve ${describeShortly(state.pendingSteps)}.`, text));
+            if (vetoesYes(d)) {
+              return { text: this.approvalRefusal('needs_code', state.pendingSteps), phase: 'confirming', resolved: true };
+            }
           }
           const steps = state.pendingSteps;
           const stamp = state.pendingApproval!;
