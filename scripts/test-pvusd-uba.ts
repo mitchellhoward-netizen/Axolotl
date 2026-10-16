@@ -284,19 +284,25 @@ test('precheck: a CalFresh household is told it likely already qualifies', async
   assert.ok(res.determination?.links.includes('snap:direct_certification'));
 });
 
-test('precheck: Medi-Cal at 152% FPL counts as covered; a foster child too', async () => {
+test('precheck: Medi-Cal at 152% FPL on the district\'s match counts as covered; a foster child is filed with the box checked', async () => {
   const cases = await archive.cases('school_meals', 'ca');
   const t09 = familyFromCase(cases.find((x) => x.id === 'SCH-CA-T09')!).family!;
   assert.equal((await pvusdUba.precheck!(t09.record, archive, t09.asOf)).file, false);
+  // "We have Medi-Cal" from the parent, without the district's match: whose isn't known, so file.
+  const parentOnly = familyFromCase(cases.find((x) => x.id === 'SCH-CA-T09')!).family!.record;
+  parentOnly.set('household.medicaid_income_fpl_percent', 152, said('152'));
+  assert.equal((await pvusdUba.precheck!(parentOnly, archive, t09.asOf)).file, true);
+  // A child's own status is a box on this form (as on USDA's household application): the form
+  // is how the school learns it, so it is filed with the box checked.
   const r = garcia();
   r.set('member.sofia.foster', true, said('she is my foster daughter'));
-  assert.equal((await pvusdUba.precheck!(r, archive, AS_OF)).file, false);
+  assert.equal((await pvusdUba.precheck!(r, archive, AS_OF)).file, true);
 });
 
 test('precheck: the Garcias (no programs) should file', async () => {
+  // Mateo is migrant in this family: still filed, with the migrant box checked.
   const res = await pvusdUba.precheck!(garcia(), archive, AS_OF);
-  // Mateo is migrant in this family: covered. Without that, they file.
-  assert.equal(res.file, false);
+  assert.equal(res.file, true, res.why.en);
   const r = garcia();
   r.set('member.mateo.migrant', false, said('no'));
   const res2 = await pvusdUba.precheck!(r, archive, AS_OF);

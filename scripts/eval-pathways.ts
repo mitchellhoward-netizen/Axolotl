@@ -125,7 +125,9 @@ async function main(): Promise<void> {
   }
 
   const archive = new ArchiveClient();
-  const families = await makeFamilies(nFamilies, { archive });
+  // Families live in the replica's district: a Palm Springs form lists Palm Springs schools.
+  const district = which === 'linq' ? 'psusd' : which === 'pvusd' ? 'pvusd' : undefined;
+  const families = await makeFamilies(nFamilies, { archive, ...(district ? { district } : {}) });
   const runs: RunRecord[] = [];
   const log = console.log;
   const warn = console.warn;

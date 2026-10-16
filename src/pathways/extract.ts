@@ -40,6 +40,9 @@ export interface Found {
   value: unknown;
   /** The parent's words this came from. */
   quote: string;
+  /** The words named this fact ("her school is…"), not just answered what we asked. Only a
+   * named fact may change what the district's record says (with a correction). */
+  named?: boolean;
 }
 
 export interface Extraction {
@@ -335,6 +338,7 @@ const LEXICON: Array<[RegExp, RegExp]> = [
   [/migrant$/, /\b(migrant|migrante|migratori[oa])\b/],
   [/school$/, /\b(school|escuela)\b/],
   [/address$/, /\b(address|street|live at|direccion|vivimos en)\b/],
+  [/case_number$/, /\b(case (number|#|no)|numero de caso|# de caso)\b/],
 ];
 
 export function lexiconCue(key: FactKey): RegExp | undefined {
@@ -443,6 +447,11 @@ function valueFor(slot: Slot, clause: string, c: string, ctx: ExtractContext, ho
       return items.length ? { value: items } : undefined;
     }
     case 'string': {
+      if (/case_number$/.test(l)) {
+        const m = /\b([a-z]{0,3}-?\d[\d-]{3,18}\d)\b/i.exec(clause);
+        if (m) return { value: m[1]!.toUpperCase() };
+        if (!asked) return undefined;
+      }
       if (/email$/.test(l)) {
         const e = parseEmail(clause);
         return e ? { value: e } : undefined;
@@ -505,7 +514,9 @@ export function extractFacts(text: string, ctx: ExtractContext): Extraction {
     return true;
   };
 
-  for (const clause of splitClauses(text)) {
+  // A question is never an answer: "what is this school lunch form?" is not a school.
+  const statements = questionFree(text);
+  for (const clause of statements.flatMap((s) => splitClauses(s))) {
     const c = fold(clause);
     const quote = clause.trim();
     let placed = false;
@@ -515,7 +526,11 @@ export function extractFacts(text: string, ctx: ExtractContext): Extraction {
       const cue = ctx.cueFor?.(slot.key) ?? lexiconCue(slot.key);
       if (!cue || !cue.test(c)) continue;
       const p = valueFor(slot, clause, c, ctx, { cued: true, askedBooleans });
-      if (p && place(slot, p, quote)) placed = true;
+      if (p && place(slot, p, quote)) {
+        placed = true;
+        const f = facts.find((x) => x.key === slot.key);
+        if (f) f.named = true;
+      }
     }
     if (placed) continue;
     // 2. A plain answer to what we asked.
@@ -550,6 +565,18 @@ export function extractFacts(text: string, ctx: ExtractContext): Extraction {
     whyAsked: question && WHY.test(full),
   };
 }
+
+/** The message without its question sentences ("what is this form? Ana goes to Ohlone" →
+ * "Ana goes to Ohlone"). A sentence ending in "?", opening with "¿", or led by a question word
+ * ("can you help", "do I have to") is a question. */
+export function questionFree(text: string): string[] {
+  return text
+    .split(/(?<=[^A-Z][.!?])\s+|\n+|(?=¿)/)
+    .map((s) => s.trim())
+    .filter(Boolean)
+    .filter((s) => !(/[?¿]/.test(s) || QUESTION_SENTENCE.test(fold(s))));
+}
+const QUESTION_SENTENCE = /^(why|what|how|when|where|who|which|can you|could you|would you|do you|does|is it|is this|are you|will|should i|do i|por ?que|para que|que es|como|cuando|donde|quien|cual|me puede|puede usted|tengo que)\b/;
 
 /** A model's facts count only if each quote is really in the message and the value has the
  * fact's type. Anything else is dropped: the parent didn't say it. */

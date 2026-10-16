@@ -2,7 +2,7 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { PVUSD_UBA_PDF } from '../forms/ca-pvusd-uba-2026.js';
 import { drawOverlay, readBack, type OverlayMap, type OverlayRecord } from '../forms/pdf-overlay.js';
-import type { FieldValue, FormFill, FormMap, Lang, LaneResult, LaneRunner, Text } from '../pathways/types.js';
+import type { AttestHow, FieldValue, FormFill, FormMap, Lang, LaneResult, LaneRunner, Text } from '../pathways/types.js';
 
 /**
  * Lane C/F for a flat PDF: draw the approved fill onto the blank form's page images, hand the
@@ -75,7 +75,7 @@ export class PdfLane implements LaneRunner {
     this.templates = opts.templates ?? DEFAULT_TEMPLATES;
   }
 
-  async run(form: FormMap, fill: FormFill, ctx: { lang: Lang; attest: (fields: string[]) => Promise<void> }): Promise<PdfLaneResult> {
+  async run(form: FormMap, fill: FormFill, ctx: { lang: Lang; attest: (fields: string[], how?: AttestHow) => Promise<void> }): Promise<PdfLaneResult> {
     const fail = (detail: string, extra: Partial<PdfLaneResult> = {}): PdfLaneResult => ({ status: 'failed', readBack: {}, parentSummary: FAILED, detail, ...extra });
     const tpl = this.templates.find((t) => t.formId === form.id);
     if (!tpl) return fail(`no PDF template for ${form.id}`);
@@ -110,7 +110,7 @@ export class PdfLane implements LaneRunner {
 
     // The signature and date are the parent's. We never mark them.
     try {
-      await ctx.attest(fill.attestations.length ? fill.attestations : ['signature', 'date']);
+      await ctx.attest(fill.attestations.length ? fill.attestations : ['signature', 'date'], filePath ? { file: filePath } : undefined);
     } catch (e) {
       return { status: 'handoff', readBack: back.values, parentSummary: DECLINED, detail: `parent did not attest: ${(e as Error).message}`, pdf: drawn.bytes, path: filePath, record: back };
     }

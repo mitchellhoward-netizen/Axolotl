@@ -111,6 +111,13 @@ export function isStudent(rec: FamilyRecord, id: string, asOf: string): { studen
   return { student: false, needs: `member.${id}.student` };
 }
 
+/** A US phone number written one way, "(831) 555-0100", however it was typed. */
+export function phoneText(raw: string): string {
+  const d = raw.replace(/\D/g, '');
+  const ten = d.length === 11 && d.startsWith('1') ? d.slice(1) : d;
+  return ten.length === 10 ? `(${ten.slice(0, 3)}) ${ten.slice(3, 6)}-${ten.slice(6)}` : raw.trim();
+}
+
 export function fill(rec: FamilyRecord, asOf: string): FormFill {
   const values: Record<string, FieldValue> = {};
   const sources: Record<string, FactKey[]> = {};
@@ -254,7 +261,7 @@ export function fill(rec: FamilyRecord, asOf: string): FormFill {
     put('adult.city_state_zip', `${city.trim()}, ${st.trim().toUpperCase()} ${String(zip).trim()}`, ['contact.city', 'contact.state', 'contact.zip']);
   }
   const phone = need<string>('contact.phone');
-  if (phone !== undefined) put('adult.phone', String(phone).trim(), ['contact.phone']);
+  if (phone !== undefined) put('adult.phone', phoneText(String(phone)), ['contact.phone']);
 
   // Page 2, optional: only from the parent's own words, never inferred.
   const eth = val<string>('household.ethnicity', ['parent']);

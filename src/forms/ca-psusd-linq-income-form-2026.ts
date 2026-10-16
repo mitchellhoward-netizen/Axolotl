@@ -123,8 +123,24 @@ export interface LinqIncomeFill extends FormFill {
   derived: Record<string, string>;
 }
 
-/** A FormMap whose fill also says what it derived. */
-export type LinqIncomeFormMap = Omit<FormMap, 'fill'> & { mode: IncomeMode; fill(rec: FamilyRecord, asOf: string): LinqIncomeFill };
+/** A FormMap whose fill also says what it derived, and how a value reads to a parent. */
+export type LinqIncomeFormMap = Omit<FormMap, 'fill'> & {
+  mode: IncomeMode;
+  fill(rec: FamilyRecord, asOf: string): LinqIncomeFill;
+  /** A value in words a parent can check: a school's name for its option, a band's dollars. */
+  display(id: string, value: FieldValue, lang: 'en' | 'es', values: Record<string, FieldValue>): string | undefined;
+};
+
+const dollars = (n: number) => `$${n.toLocaleString('en-US')}`;
+
+/** "band_1" for a household of 4 → "$0 to $42,900 a year". */
+export function bandText(band: string, size: number, lang: 'en' | 'es'): string | undefined {
+  const b = incomeBands(size).find((x) => x.value === band);
+  if (!b) return undefined;
+  const year = lang === 'es' ? 'al año' : 'a year';
+  if (b.max === undefined) return lang === 'es' ? `más de ${dollars(b.min - 1)} ${year}` : `over ${dollars(b.min - 1)} ${year}`;
+  return lang === 'es' ? `de ${dollars(b.min)} a ${dollars(b.max)} ${year}` : `${dollars(b.min)} to ${dollars(b.max)} ${year}`;
+}
 
 export function makeLinqIncomeForm(mode: IncomeMode = PSUSD_INCOME_MODE): LinqIncomeFormMap {
   return {
@@ -132,6 +148,12 @@ export function makeLinqIncomeForm(mode: IncomeMode = PSUSD_INCOME_MODE): LinqIn
     title: `Palm Springs USD Income Form 2026-27 (LINQ Connect, income ${mode})`,
     languages: ['en', 'es'],
     mode,
+    display(id, value, lang, values) {
+      if (/^student\.\d+\.school$/.test(id) && typeof value === 'string') return PSUSD_SCHOOLS[value] ?? value;
+      if (id === 'income_range' && typeof value === 'string') return bandText(value, Number(values.household_size), lang);
+      if (id === 'total_income' && typeof value === 'string') return `${dollars(Number(value))} ${lang === 'es' ? 'al año' : 'a year'}`;
+      return undefined;
+    },
     fill(rec: FamilyRecord, _asOf: string): LinqIncomeFill {
       // The form version fixes the guideline year (2026-27), so asOf does not pick the table.
       const values: Record<string, FieldValue> = {};
@@ -172,12 +194,14 @@ export function makeLinqIncomeForm(mode: IncomeMode = PSUSD_INCOME_MODE): LinqIn
           if (g) put(`student.${i}.grade`, g, [`member.${id}.grade`]);
           else missing.push(`member.${id}.grade`);
         }
-        // School is optional on the form; a school we can't find in the list is asked again.
-        const school = val<string>(`member.${id}.school`);
-        if (school !== undefined) {
-          const opt = schoolOption(String(school));
+        // School is optional on the form. A school the parent named that isn't in the list is
+        // asked again; the district's own record of a school the list doesn't carry (a charter
+        // or private school) leaves the optional box blank rather than stop the form.
+        const schoolFact = rec.get<string>(`member.${id}.school`);
+        if (schoolFact !== undefined) {
+          const opt = schoolOption(String(schoolFact.value));
           if (opt) put(`student.${i}.school`, opt, [`member.${id}.school`]);
-          else missing.push(`member.${id}.school`);
+          else if (schoolFact.source.kind !== 'district') missing.push(`member.${id}.school`);
         }
       });
 

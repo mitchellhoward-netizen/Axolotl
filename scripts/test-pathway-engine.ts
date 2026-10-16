@@ -209,7 +209,7 @@ test('a correction updates the fact, is said back, and re-shows the proposal', a
 test('Spanish, start to finish', async () => {
   const { engine, state, lane, say } = setup();
   const first = await engine.start('conv-1', state, 'fake.meals', { lang: 'es' });
-  assert.match(first.text, /Te puedo ayudar con el formulario de comidas/);
+  assert.match(first.text, /Le puedo ayudar con el formulario de comidas/);
   assert.match(first.text, /recibe CalFresh/);
   assert.match((await say('no tenemos'))!, /Cuántas personas/);
   assert.match((await say('somos cinco'))!, /Cuánto gana/);
@@ -218,7 +218,7 @@ test('Spanish, start to finish', async () => {
   assert.match(p, /Personas en casa: 5/);
   assert.match(p, /Ingreso mensual: \$1,800/);
   assert.match(p, /Recibe CalFresh: No/);
-  assert.match(p, /¿Quieres que lo envíe\?/);
+  assert.match(p, /¿Quiere que lo envíe\?/);
   const done = (await say('sí'))!;
   assert.match(done, /^Listo\./);
   assert.match(done, /La escuela tiene tu formulario/);
@@ -342,7 +342,7 @@ test('attestations are the parent\'s: the engine waits for their turn', async ()
   await say('4');
   await say('2100 a month');
   const ask = (await say('yes'))!;
-  assert.match(ask, /your own signature on: I certify this is true/);
+  assert.match(ask, /your own signature: I certify this is true/);
   assert.equal(state.pathway!.stage, 'attesting');
   assert.equal(lane.attested.length, 0, 'not completed by the engine');
   await new Promise((r) => setTimeout(r, 10));
@@ -507,7 +507,7 @@ test('a child\'s name and birth date in one question; dates and pay in Spanish; 
   const rec2 = FamilyRecord.fromJSON(state.pathway!.record);
   assert.equal(rec2.get('income.0.amount')?.value, 600);
   assert.equal(rec2.get('income.0.frequency')?.value, 'biweekly');
-  assert.match(q3, /personal, así que comparte solo lo que quieras/);
+  assert.match(q3, /personal, así que comparta solo lo que quiera/);
   assert.match(q3, /cuidado de crianza/);
   assert.match(q3, /reciben comidas gratis automáticamente/);
   const p = (await say('no'))!;
@@ -624,4 +624,182 @@ test('through Agent.handle: the hook gives the engine the turn, and the yes runs
   assert.match(done.text, /^Done\./);
   assert.equal(lane.calls.length, 1);
   assert.equal(agent.getStateForTest('agent-conv')?.pathway?.outcome, 'done_confirmed');
+});
+
+// ── the launch pathways (Palm Springs' LINQ form, Pajaro's UBA) ──────────────
+
+/** A launch pathway on its own registry, seeded the way a district starts it: the students'
+ * names, birth dates, schools and grades from the student system, nothing about income. */
+async function launch(id: 'ca.psusd.linq' | 'ca.pvusd.uba', o: { school?: string; lang?: 'en' | 'es' } = {}) {
+  const { registerLaunchPathways } = await import('../src/pathways/index.js');
+  const registry = registerLaunchPathways(new PathwayRegistry());
+  const lane = new FakeLane({ attest: ['certify'] });
+  (lane as { kind: string }).kind = id === 'ca.psusd.linq' ? 'direct' : 'pdf';
+  registry.registerLane(lane);
+  const engine = new PathwayEngine({
+    registry,
+    env: ENV,
+    archive: () => ({ evaluate: async () => { throw new Error('no archive in this test'); } }) as unknown as ArchiveClient,
+    now: () => new Date('2026-10-16T17:00:00Z'),
+  });
+  const seed = new FamilyRecord('ca');
+  const sis = { kind: 'district' as const, ref: 'sis:c1' };
+  seed.set('member.c1.student', true, sis);
+  seed.set('member.c1.relationship', 'child', sis);
+  seed.set('member.c1.first_name', 'Leonardo', sis);
+  seed.set('member.c1.last_name', 'Villaseñor', sis);
+  seed.set('member.c1.dob', '2016-02-25', sis);
+  seed.set('member.c1.grade', '5', sis);
+  seed.set('member.c1.school', o.school ?? 'Katherine Finchy Elementary School', sis);
+  seed.set('member.c1.student_id', '5738907', sis);
+  const state: { pathway?: PathwaySession; profile?: { locale?: 'en' | 'es' } } = {};
+  await engine.start('conv-l', state, id, { seed, announce: false, ...(o.lang ? { lang: o.lang } : {}) });
+  const say = async (text: string) => (await engine.turn('conv-l', state, text))?.text;
+  const rec = () => FamilyRecord.fromJSON(state.pathway!.record);
+  return { engine, state, lane, say, rec };
+}
+
+test('bug 1: families are made in the replica\'s district, and the LINQ form takes a school by name', async () => {
+  const { makeFamilies } = await import('../src/eval/families.js');
+  const { PSUSD_SCHOOLS, schoolOption, caPsusdLinqIncomeForm2026 } = await import('../src/forms/ca-psusd-linq-income-form-2026.js');
+  const { ArchiveClient } = await import('../src/archive/client.js');
+  const archive = new ArchiveClient();
+  try {
+    const fams = await makeFamilies(20, { archive, district: 'psusd' });
+    const listed = new Set(Object.values(PSUSD_SCHOOLS));
+    for (const f of fams) {
+      assert.equal(f.district, 'psusd');
+      for (const id of f.record.memberIds()) {
+        const school = f.record.get<string>(`member.${id}.school`)?.value;
+        // Public-school children go to a school on Palm Springs' list (private and charter
+        // schools in the archive's cases keep their own names).
+        if (school && !/Example/.test(school)) assert.ok(listed.has(school), `${f.id}: ${school} is not on Palm Springs' list`);
+      }
+    }
+  } finally {
+    archive.close();
+  }
+  assert.equal(schoolOption('Katherine Finchy Elementary School'), 'psusd-finchy');
+  assert.equal(schoolOption('katherine finchy elementary'), 'psusd-finchy');
+  assert.equal(schoolOption('psusd-finchy'), 'psusd-finchy');
+  // A school the district has on record but the list doesn't carry (a charter) leaves the
+  // optional box blank; one the parent named that isn't on the list is asked again.
+  const r = new FamilyRecord('ca');
+  r.set('member.c1.student', true, { kind: 'district', ref: 'sis' });
+  r.set('member.c1.school', 'Example Charter Academy', { kind: 'district', ref: 'sis' });
+  assert.ok(!caPsusdLinqIncomeForm2026.fill(r, '2026-10-16').missing.includes('member.c1.school'));
+  r.set('member.c1.school', 'Ohlone Elementary', { kind: 'parent', ref: 't', quote: 'Ohlone Elementary' });
+  assert.ok(caPsusdLinqIncomeForm2026.fill(r, '2026-10-16').missing.includes('member.c1.school'));
+});
+
+test('bug 2: the opening question is never a fact, the district\'s school stands, and the first reply says what the form is', async () => {
+  const { say, rec, state } = await launch('ca.psusd.linq');
+  const first = (await say('what is this school lunch income form and do I have to do it? can you help'))!;
+  assert.equal(rec().get('member.c1.school')?.value, 'Katherine Finchy Elementary School', 'a question is not an answer');
+  assert.equal(rec().get('member.c1.school')?.source.kind, 'district');
+  assert.ok(!/changed/.test(first), 'nothing to say back: nothing changed');
+  assert.match(first, /Palm Springs Unified's Income Form/);
+  assert.match(first, /school's funding/, 'what it is for');
+  assert.match(first, /don't have to/, '"do I have to?" is answered');
+  assert.match(first, /CalFresh/, 'and the first question follows');
+  assert.equal(state.pathway!.lang, 'en');
+  // An unclear message never overwrites the district's record; only a plain correction would.
+  await say('Leonardo goes to Ohlone Elementary I think');
+  assert.equal(rec().get('member.c1.school')?.value, 'Katherine Finchy Elementary School');
+  // Spanish openings get the introduction in Spanish, and a name with an accent doesn't flip English.
+  const es = await launch('ca.pvusd.uba');
+  const intro = (await es.say('¿Qué es este formulario de ingresos del almuerzo? ¿Tengo que llenarlo? ¿Me ayuda?'))!;
+  assert.equal(es.state.pathway!.lang, 'es');
+  assert.match(intro, /Solicitud de Beneficios Universales/);
+  assert.match(intro, /No es obligatorio/);
+  const en = await launch('ca.psusd.linq');
+  await en.say('I got a paper about school lunch income, can you help?');
+  await en.say("No, we don't get CalFresh or Medi-Cal.");
+  await en.say("I'm Mía López.");
+  assert.equal(en.state.pathway!.lang, 'en', 'an accented name is not Spanish');
+});
+
+test('bug 3: patient with "what do you mean?", answers questions about the form, never hands a paused session to a menu', async () => {
+  const { say, state } = await launch('ca.psusd.linq');
+  await say('school lunch income form help');
+  const r1 = (await say("I'm not sure what you mean."))!;
+  assert.match(r1, /another way/, 'said another way');
+  assert.match(r1, /CalFresh/);
+  assert.notEqual(state.pathway!.stage, 'handoff_offered', 'no person offered after one misunderstanding');
+  const r2 = (await say('Also, does this affect my immigration status?'))!;
+  assert.match(r2, /doesn't ask about immigration status/);
+  assert.match(r2, /CalFresh/, 'and the form question again');
+  assert.equal(state.pathway!.asked['member.p.benefits'], 1, 'answering their question is not asking again');
+  // A side question the form can't answer goes to the normal agent; "help me with the form"
+  // brings the session straight back instead of the agent's menu.
+  assert.equal(await say('when is picture day?'), undefined);
+  assert.equal(state.pathway!.stage, 'paused');
+  const back = await say('So can you help me fill out the form?');
+  assert.ok(back, 'the engine answers, not the generic menu');
+  assert.match(back!, /CalFresh/);
+  const back2 = await say("No, we don't get CalFresh or Medi-Cal.");
+  assert.match(back2!, /first and last name/);
+});
+
+test('the household conversation: name, who lives here, each adult\'s income, then a proposal the parent can check line by line', async () => {
+  const { say, rec, state, lane } = await launch('ca.psusd.linq');
+  await say('Palm Springs Unified sent me an income form for school meals. Can you help me do it?');
+  assert.match((await say("No, we don't get CalFresh or Medi-Cal."))!, /first and last name/);
+  assert.match((await say("I'm Araceli M. Villaseñor."))!, /Who lives in your home/);
+  assert.equal(rec().get('member.p.middle_initial')?.value, 'M');
+  const inc = (await say("It's me (40), my husband Ricardo Villaseñor (38) and my kid Leonardo Villaseñor (10). We live at 12 Main St, Palm Springs, CA 92262."))!;
+  assert.deepEqual(rec().get('household.roster')?.value, ['p', 'q', 'c1'], "the archive's ids; the district's student keeps his");
+  assert.equal(rec().get('member.q.first_name')?.value, 'Ricardo');
+  assert.ok(!rec().memberIds().some((id) => /^g/.test(id)), 'the address sentence is not a person');
+  assert.match(inc, /How much do you make/);
+  // A wrong number, corrected in the next message with the next answer.
+  await say('I make $3,775 a month.');
+  await say("Oh wait, I got that wrong: it's $3,575, not $3,775. That's all the income we have.");
+  assert.equal(rec().get('income.0.amount')?.value, 3575);
+  assert.equal(rec().get('income.0.kind')?.value, 'earned');
+  assert.equal(rec().get('member.p.income_done')?.value, true);
+  assert.match((await say("No, Ricardo doesn't have any income."))!, /anyone else/);
+  const p = (await say("That's all the income we have."))!;
+  assert.match(p, /Here is everything the form will say/);
+  assert.match(p, /Leonardo — school: Katherine Finchy Elementary School/, 'a school by its name, not its code');
+  assert.match(p, /Leonardo — date of birth: February 25, 2016/, 'a date in words');
+  assert.match(p, /People in your home: 3/);
+  // $3,575 a month is $42,900 a year: over the free limit for 3 ($35,516), under reduced.
+  assert.match(p, /Yearly household income range: \$35,517 to \$50,542 a year/);
+  assert.match(p, /Ricardo — first name: Ricardo/);
+  assert.equal(lane.calls.length, 0);
+  // "yes, send it" is a yes; the lane gets exactly the fill shown.
+  const ask = (await say('yes, send it'))!;
+  assert.match(ask, /your own signature/);
+  assert.equal(lane.calls.length, 1);
+  assert.equal(lane.calls[0]!.values.household_size, '3');
+  assert.equal(lane.calls[0]!.values['student.0.school'], 'psusd-finchy');
+  assert.equal(state.pathway!.stage, 'attesting');
+});
+
+test('household parsers: roster, incomes, each child, addresses', async () => {
+  const h = await import('../src/pathways/household.js');
+  assert.deepEqual(h.parsePersonName("I'm Elena A. García-López.", true), { first: 'Elena', last: 'García-López', mi: 'A' });
+  assert.deepEqual(h.parsePersonName('Me llamo Maricel Dela Cruz', true), { first: 'Maricel', last: 'Dela Cruz' });
+  assert.equal(h.parsePersonName('José Luis García', true)?.ambiguous, true, 'which part is the last name is asked, not guessed');
+  assert.equal(h.parsePersonName("I'm not sure what you mean.", true), undefined);
+  const roster = h.parseRoster('Vivimos yo (40), mi esposo Rogelio Muñoz (38) y mi hijo/a Natalia Muñoz (10).')!;
+  assert.deepEqual(roster.map((r) => [r.rel, r.name?.first, r.age]), [['self', undefined, 40], ['spouse', 'Rogelio', 38], ['child', 'Natalia', 10]]);
+  const members = [{ id: 'p', rel: 'self', first: 'Juana' }, { id: 'q', rel: 'spouse', first: 'Efraín' }, { id: 'g1', rel: 'parent', first: 'Francisco' }];
+  const a = h.parseIncomes('My husband Efraín makes $620 every week.', members);
+  assert.deepEqual(a.incomes.map((i) => [i.owner, i.kind, i.amount, i.frequency]), [['q', 'earned', 620, 'weekly']]);
+  const b = h.parseIncomes('Mi mamá Francisco recibe de SSI, $1,100 al mes.', members);
+  assert.deepEqual(b.incomes.map((i) => [i.owner, i.kind, i.amount, i.frequency]), [['g1', 'ssi', 1100, 'monthly']]);
+  assert.ok(h.parseIncomes("We don't have any income right now, nobody's working.", members).noIncomeAtAll);
+  assert.ok(h.parseIncomes("That's all the income we have.", members).thatsAll);
+  assert.deepEqual(h.parseIncomes("Oh wait, I got that wrong: it's $1,650, not $1,750.", members).corrections.map((c) => [c.from, c.to]), [[1750, 1650]]);
+  const kids = [{ id: 'c1', first: 'Julián' }, { id: 'c2', first: 'Camila' }];
+  assert.deepEqual(h.parseFlag('No, none of them are migrant. Julián goes to Ohlone.', kids, /migrant/), { c1: false, c2: false });
+  assert.deepEqual(h.parseFlag('Yes, Julián and Camila are migrant.', kids, /migrant/), { c1: true, c2: true });
+  assert.deepEqual(h.parseFlag('Sí, Julián es migrante.', kids, /migrante/), { c1: true, c2: false });
+  assert.equal(h.parseFlag('yes', kids), undefined, 'a bare yes with two children: we ask which');
+  assert.deepEqual(h.parseAddress('I make $5,088 a month. We live at 5157 Ejemplo St, Watsonville, CA 95076.'), { street: '5157 Ejemplo St', city: 'Watsonville', state: 'CA', zip: '95076' });
+  const { clearYes } = await import('../src/pathways/engine.js');
+  for (const y of ['yes, send it', 'sí, mándalo', 'sí, está bien', 'go ahead', 'yes please']) assert.ok(clearYes(y), y);
+  for (const n of ['yes but change the grade', 'no', 'yes, 4 people', 'send it to my sister']) assert.ok(!clearYes(n), n);
 });

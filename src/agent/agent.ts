@@ -259,13 +259,14 @@ export class Agent {
    * Start a pathway for this conversation (the harness and the brain call this). `seedRecord`
    * is what we already know, every fact with its source. Returns the first message to send.
    */
-  async startPathway(conversationId: string, pathwayId: string, seedRecord?: FamilyRecord): Promise<AgentTurn> {
+  async startPathway(conversationId: string, pathwayId: string, seedRecord?: FamilyRecord, opts: { announce?: boolean } = {}): Promise<AgentTurn> {
     const record = this.store.ensure(conversationId, this.store.getParentId(conversationId) ?? this.opts.defaultParentId ?? '');
     const t = await this.pathwayEngine.start(conversationId, record.state, pathwayId, {
       seed: seedRecord,
       lang: resolveLocale(record.state.profile?.locale),
+      ...(opts.announce === false ? { announce: false } : {}),
     });
-    this.store.appendHistory(conversationId, 'assistant', t.text);
+    if (t.text) this.store.appendHistory(conversationId, 'assistant', t.text);
     return t;
   }
 

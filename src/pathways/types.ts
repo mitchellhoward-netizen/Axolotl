@@ -72,12 +72,19 @@ export interface LaneResult {
   detail?: string;
 }
 
+/** Where the parent completes an attestation: their own link to the form, or the filled file
+ * to print and sign. The engine puts it in the message that asks them. */
+export interface AttestHow {
+  link?: string;
+  file?: string;
+}
+
 export interface LaneRunner {
   kind: LaneKind;
   /** Run an approved fill. Never runs without the parent's yes (the caller holds the gate).
-   * Attestations are not ours: `attest` asks the parent to complete them and resolves when
-   * they did (or rejects when they won't). */
-  run(form: FormMap, fill: FormFill, ctx: { lang: Lang; attest: (fields: string[]) => Promise<void> }): Promise<LaneResult>;
+   * Attestations are not ours: `attest` asks the parent to complete them (at `how`) and
+   * resolves when they did (or rejects when they won't). */
+  run(form: FormMap, fill: FormFill, ctx: { lang: Lang; attest: (fields: string[], how?: AttestHow) => Promise<void> }): Promise<LaneResult>;
 }
 
 // ── The pathway ──────────────────────────────────────────────────────────────

@@ -33,6 +33,35 @@ export interface PathwayHints {
   cues?: Record<FactKey, RegExp>;
   /** A parent's message that starts this pathway when no session is active. */
   trigger?: RegExp;
+  /** What the form is and why, said in the first message of a session (with "do I have to?"). */
+  intro?: Text;
+  /** The form's name in a sentence ("Palm Springs Unified's Income Form"). Default: its title. */
+  introName?: Text;
+  /** The household mode: the parent's name, who lives at home, each adult's income, each
+   * child's status and the address are asked in that order and read by household.ts. Member
+   * ids follow the archive (p, q, c1…, g1…). */
+  people?: boolean;
+  /** Side questions about the form, answered in place ("does this affect my immigration
+   * status?"). Matched on question sentences (or any sentence, with `statement`), accents off. */
+  faq?: FaqEntry[];
+  /** What a good answer looks like, for "I didn't catch that" and "what do you mean?". */
+  examples?: Record<FactKey, Text>;
+  /** Where to find a fact the parent doesn't have at hand ("it's on your CalFresh letter"). */
+  where?: Record<FactKey, Text>;
+  /** The household question for each child's status (foster, homeless, migrant). */
+  flagAsk?: Record<string, Text>;
+  /** Field labels by the field id's last part ("dob" → "date of birth"), shown after whose it is. */
+  fieldLabels?: Record<string, Text>;
+  /** Optional facts the form has a place for, asked once before the proposal. */
+  optional?: FactKey[];
+}
+
+export interface FaqEntry {
+  id: string;
+  match: RegExp;
+  answer: Text;
+  /** Also answer when it's said, not asked ("my son is sick tomorrow"). */
+  statement?: boolean;
 }
 
 interface Entry {
