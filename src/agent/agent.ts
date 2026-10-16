@@ -90,6 +90,8 @@ import { assessKnowledgeNode } from './verify.js';
 import { findSkillFor, skillSummary } from './skills.js';
 import type { LifeTools } from './personal.js';
 import { AsyncLocalStorage } from 'node:async_hooks';
+import { PathwayEngine } from '../pathways/engine.js';
+import type { FamilyRecord } from '../family/facts.js';
 
 /** During onboarding the brain may ONLY collect fields (save_profile) + log/now —
  * no web search, no get_school_info, no browser. Research + the email happen AFTER
@@ -189,6 +191,8 @@ export interface AgentOptions {
   researchLlm?: LlmClient;
   /** Email sender. Defaults to a mock that just logs. */
   email?: EmailProvider;
+  /** The pathway engine (src/pathways/engine.ts). Defaults to one on the process registry. */
+  pathwayEngine?: PathwayEngine;
 }
 
 const HELP_TEXT = [
@@ -238,6 +242,31 @@ export class Agent {
     // pick a REAL sender straight from the ambient env, which is how a test run once sent
     // mail to a school address. See src/agent/steps/registry.ts.
     this.executor = new StepExecutor(buildAdapters(process.env, { email: opts.email }));
+    this.pathwayEngine =
+      opts.pathwayEngine ??
+      new PathwayEngine({
+        now: this.now,
+        isYes: isStrictConsent,
+        isNo: isStrictDecline,
+        logConsent: (conversationId, detail) =>
+          void logConsent(this.store.getParentId(conversationId) ?? this.opts.defaultParentId ?? '', `action:pathway:${String(detail.pathway)}`, detail),
+      });
+  }
+
+  private readonly pathwayEngine: PathwayEngine;
+
+  /**
+   * Start a pathway for this conversation (the harness and the brain call this). `seedRecord`
+   * is what we already know, every fact with its source. Returns the first message to send.
+   */
+  async startPathway(conversationId: string, pathwayId: string, seedRecord?: FamilyRecord): Promise<AgentTurn> {
+    const record = this.store.ensure(conversationId, this.store.getParentId(conversationId) ?? this.opts.defaultParentId ?? '');
+    const t = await this.pathwayEngine.start(conversationId, record.state, pathwayId, {
+      seed: seedRecord,
+      lang: resolveLocale(record.state.profile?.locale),
+    });
+    this.store.appendHistory(conversationId, 'assistant', t.text);
+    return t;
   }
 
   async handle(conversationId: string, text: string, life?: LifeTools): Promise<AgentTurn> {
@@ -610,6 +639,20 @@ export class Agent {
       // a one-line English reply can't flip the family back. See nextLocale().
       if (state.profile) {
         state.profile = { ...state.profile, locale: nextLocale(state.profile.locale, text) };
+      }
+
+      // ── Pathway session (src/pathways/engine.ts) ────────────────────────────
+      // After the consent gate, before every other flow: while a pathway is active (or a
+      // registered pathway's trigger starts one), the engine owns the turn. It returns nothing
+      // when it hands the turn back (a crisis, a side question, a paused session), and the
+      // normal agent answers as before. Its proposal is bound to the parent's yes by the same
+      // digest as pendingSteps, kept in state.pathway.
+      {
+        const pt = await this.pathwayEngine.turn(conversationId, state, text);
+        if (pt) {
+          this.store.appendHistory(conversationId, 'assistant', pt.text);
+          return pt;
+        }
       }
 
       let turn: AgentTurn;
@@ -1413,6 +1456,8 @@ export class Agent {
     if (next.onboarded === undefined) next.onboarded = prev.onboarded;
     if (next.emailProofSent === undefined) next.emailProofSent = prev.emailProofSent;
     if (next.completedFill === undefined) next.completedFill = prev.completedFill;
+    // A paused pathway session survives the normal agent's turns.
+    if (next.pathway === undefined) next.pathway = prev.pathway;
     // The stamp belongs to the steps; armApproval and checkApproval re-verify the digest.
     if (next.pendingApproval === undefined && next.pendingSteps) next.pendingApproval = prev.pendingApproval;
     this.store.setState(conversationId, next);
