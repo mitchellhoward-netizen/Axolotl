@@ -571,7 +571,7 @@ function schoolSections(s) {
   </div>
 </section>`;
   const more = `
-<section class="where" id="more" aria-label="${esc(k.more.h2)}">
+<section class="where paper" id="more" aria-label="${esc(k.more.h2)}">
   <h2>${esc(k.more.h2)}</h2>
   <div class="body grid">
     <div class="table">
@@ -1270,7 +1270,7 @@ ${alt}
 <link rel="preconnect" href="https://api.fontshare.com">
 <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
 <link href="https://api.fontshare.com/v2/css?f[]=gambarino@400&f[]=general-sans@400,500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/buyer.css?v=13">
+<link rel="stylesheet" href="/buyer.css?v=14">
 <script src="/msp-calc.js?v=21" defer></script>
 <script src="/site.js?v=25" defer></script>
 </head>
@@ -1311,7 +1311,7 @@ ${body}
 <script>
 (function(){
   var nav = document.getElementById('nav');
-  var lights = document.querySelectorAll('.hero .field-top, .field.light, .close');
+  var lights = document.querySelectorAll('.hero .field-top, .field.light, .close, .paper');
   function tick(){ var y = 36, on = false; lights.forEach(function(el){ var r = el.getBoundingClientRect(); if (r.top <= y && r.bottom > y) on = true; }); nav.classList.toggle('on-light', on); }
   tick(); window.addEventListener('scroll', tick, { passive: true }); window.addEventListener('resize', tick);
 })();

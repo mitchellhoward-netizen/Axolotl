@@ -443,3 +443,8 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; letter-spacing: -0.0
 #more .table .row.head span, #more .table .row.head .k { color: var(--muted); font-size: 1rem; }
 @media (max-width: 1023px) { #more .table .row.head { display: none; } }
 .scan .lines b { white-space: nowrap; }
+
+/* A dark section set on paper: same cream and ink as the close, tokens swapped locally so every child follows. */
+.paper { background: var(--field-1); color: var(--field-1-ink); --ink: var(--field-1-ink); --muted: #463e33; --surface: #ddd4c2; }
+.theirs.paper { padding-bottom: var(--gap-section); }
+.where.paper { padding-bottom: var(--gap-section); }

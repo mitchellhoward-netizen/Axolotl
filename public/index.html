@@ -295,6 +295,10 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; letter-spacing: -0.0
 .where .row .v { text-align: right; white-space: nowrap; }
 .where .row.group { margin-top: 18px; }
 .where .lede.net { margin-top: 56px; max-width: 52ch; color: var(--ink); }
+/* A dark section set on paper: same cream and ink as the close, tokens swapped locally so every child follows. */
+.paper { background: var(--field-1); color: var(--field-1-ink); --ink: var(--field-1-ink); --muted: #463e33; --surface: #ddd4c2; }
+.theirs.paper { padding-bottom: var(--gap-section); }
+.where.paper { padding-bottom: var(--gap-section); }
 @media (max-width: 1023px) {
   .where .name { display: none; }
   .where .table { grid-column: 1 / span 12; }
@@ -431,7 +435,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; letter-spacing: -0.0
 </section>
 
 <!-- FOR THE PERSON -->
-<section class="theirs" aria-label="What the person gets">
+<section class="theirs paper" aria-label="What the person gets">
   <h2 data-enter>The helper is theirs.</h2>
   <div class="grid body">
     <figure class="photo"><img src="assets/dend-tree-pyrolusite.jpg" width="1075" height="1657" alt="A tree-shaped dendrite in black and ochre on cream stone" loading="lazy"></figure>
@@ -544,7 +548,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; letter-spacing: -0.0
 
   // Colour by chapter: the fixed nav takes the ink of the chapter beneath it
   var nav = document.getElementById('nav');
-  var lights = document.querySelectorAll('.hero .field-top, .field.light, .close');
+  var lights = document.querySelectorAll('.hero .field-top, .field.light, .close, .paper');
   function tick(){
     var y = 36, on = false;
     lights.forEach(function(el){ var r = el.getBoundingClientRect(); if (r.top <= y && r.bottom > y) on = true; });
