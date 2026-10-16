@@ -45,6 +45,9 @@ export interface HookContext {
   parentUrl?: (token: string) => string;
   /** Ask the parent to complete attestations themselves (LaneRunner's `attest`). */
   attest: (fields: string[]) => Promise<void>;
+  /** What the parent's own hands do when they attest (open their link, sign the page). The
+   * simulated parent runs it when it agrees to sign; the agent never does. */
+  onParentAttest: (action: (fields: string[]) => Promise<void>) => void;
 }
 
 /** The seam for the pathway engine. Everything is optional except `install`. */
@@ -160,7 +163,9 @@ export async function runFamily(o: RunFamilyOptions): Promise<RunResult> {
   const family = o.family;
   const conversationId = `eval:${family.id}:${o.seed}`;
   const maxTurns = o.maxTurns ?? 30;
-  const notes: string[] = [`expected:${family.expectOutcome}`];
+  // A form with no confirmation at all (Pajaro's paper UBA) is at best "sent, not confirmed".
+  const expectedEnd = family.expectOutcome === 'done_confirmed' && o.pathway?.confirmation.kind === 'none' ? 'sent_unconfirmed' : family.expectOutcome;
+  const notes: string[] = [`expected:${expectedEnd}`];
   const gate: GateEntry[] = [];
   const transcript: Turn[] = [];
   const form = o.pathway?.form ?? o.form;
@@ -172,9 +177,11 @@ export async function runFamily(o: RunFamilyOptions): Promise<RunResult> {
   replica?.reset();
   const started = replica ? await replica.start() : undefined;
   let parentAttested = false;
-  const attest = async (_fields: string[]) => {
+  let parentAction: ((fields: string[]) => Promise<void>) | undefined;
+  const attest = async (fields: string[]) => {
     parentAttested = true;
     if (canReceive(replica)) replica.attest?.('parent');
+    await parentAction?.(fields);
   };
 
   const parent: SimulatedParent = o.parent ? o.parent(attest) : scriptedParent({ family, seed: o.seed, messiness: o.messiness, trusting: o.trusting, attest });
@@ -193,7 +200,7 @@ export async function runFamily(o: RunFamilyOptions): Promise<RunResult> {
   });
   instrument(agent, { onConsequential, replica: canReceive(replica) ? replica : undefined });
   if (o.hook) {
-    await o.hook.install(agent, { family, conversationId, asOf: family.asOf, pathway: o.pathway, replica, replicaUrl: started?.url, parentUrl: started?.parentUrl, attest });
+    await o.hook.install(agent, { family, conversationId, asOf: family.asOf, pathway: o.pathway, replica, replicaUrl: started?.url, parentUrl: started?.parentUrl, attest, onParentAttest: (a) => (parentAction = a) });
   }
 
   let end: GradeContext['end'] | undefined;

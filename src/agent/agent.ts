@@ -355,9 +355,10 @@ export class Agent {
     state.completedFill = undefined;
     const summary = results.map((r) => r.parentSummary).join('\n');
     this.save(conversationId, { phase: 'done', collected: {}, pendingSteps: undefined }, state);
-    // "Done!" only when nothing failed; a failed send already says what happened.
-    const failed = results.some((r) => r.status === 'failed');
-    return { text: failed ? summary : `Done!\n${summary}`, phase: 'done', resolved: true };
+    // "Done!" only when every step is done (confirmed). A failed or unconfirmed send already
+    // says what happened, and "Done!" in front of "I didn't get a confirmation" is a lie.
+    const allDone = results.length > 0 && results.every((r) => r.status === 'done');
+    return { text: allDone ? `Done!\n${summary}` : summary, phase: 'done', resolved: true };
   }
 
   /**

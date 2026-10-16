@@ -83,7 +83,7 @@ export class FakeReplica implements Replica {
   private events: ReplicaEvent[] = [];
   private n = 0;
 
-  constructor(private readonly opts: { requireAttestation?: boolean; formId?: string } = {}) {
+  constructor(private readonly opts: { requireAttestation?: boolean; formId?: string; /** false: the institution gives no receipt (a paper form). */ confirms?: boolean } = {}) {
     this.formId = opts.formId ?? fakeIncomeForm.id;
   }
 
@@ -107,7 +107,7 @@ export class FakeReplica implements Replica {
     const ok = this.attested || this.opts.requireAttestation === false;
     if (!ok) this.events.push({ at, kind: 'validation_error', detail: 'certification required', by });
     this.events.push({ at, kind: 'submit', detail: ok ? 'accepted' : 'rejected: not certified', by });
-    const reference = ok ? `FAKE-${String(++this.n).padStart(4, '0')}` : undefined;
+    const reference = ok && this.opts.confirms !== false ? `FAKE-${String(++this.n).padStart(4, '0')}` : undefined;
     if (reference) this.events.push({ at, kind: 'confirm', detail: reference, by });
     const sub: Submission = { replica: this.id, formId: this.formId, fields: { ...fields }, attestedBy: this.attested ? this.attestedBy : 'none', reference, at, events: [...this.events] };
     this.subs.push(sub);

@@ -99,8 +99,10 @@ async function main(): Promise<void> {
     // Palm Springs' public web form: the graded copy, and its form map in the district's mode.
     const { LinqIncomeFormReplica } = await import('../src/replicas/linq-income-form.js');
     const { makeLinqIncomeForm, PSUSD_INCOME_MODE } = await import('../src/forms/ca-psusd-linq-income-form-2026.js');
+    const { psusdLinq } = await import('../src/pathways/ca-psusd-linq.js');
     replica = new LinqIncomeFormReplica({ incomeMode: PSUSD_INCOME_MODE });
-    form = makeLinqIncomeForm(PSUSD_INCOME_MODE);
+    pathway = psusdLinq;
+    form = psusdLinq.form ?? makeLinqIncomeForm(PSUSD_INCOME_MODE);
   } else {
     const mods = REPLICA_MODULES[which];
     if (!mods) throw new Error(`--replica fake|linq|pvusd, not ${which}`);
@@ -111,7 +113,7 @@ async function main(): Promise<void> {
     // A paper form (Pajaro's PDF) has no web copy to submit to: the in-process stand-in
     // receives what the agent would file, graded against the real form's map.
     if (!d.replica && which !== 'pvusd') throw new Error(`no replica found for "${which}" (looked in ${mods.join(', ')}; loaded: ${d.loaded.join(', ') || 'none'})`);
-    replica = d.replica ?? new FakeReplica({ requireAttestation: true, formId: form.id });
+    replica = d.replica ?? new FakeReplica({ requireAttestation: true, formId: form.id, confirms: false });
   }
 
   let hook: PathwayHook | undefined;
