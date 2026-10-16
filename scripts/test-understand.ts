@@ -328,3 +328,24 @@ test('a parent who asks why someone in the home is not on the LINQ summary is to
   assert.match(r, /Pedro is counted/);
   assert.equal(state.pathway!.stage, 'proposed');
 });
+
+test('"Elena A. García-López" on her first-name line is an initial, not a new first name', async () => {
+  const u = scripted({
+    'my name should be Araceli M. Villaseñor': (i) => {
+      const line = i.proposal!.find((l) => /^You — first name/.test(l.text))!.line;
+      return { intent: 'correction', corrections: [{ line, value: 'Araceli M. Villaseñor', quote: 'Araceli M. Villaseñor' }] };
+    },
+  });
+  const { say, rec } = await launch(u);
+  await say('lunch income form please');
+  await say('no');
+  await say('Araceli Villaseñor');
+  await say("It's me and my kid Leonardo Villaseñor (10).");
+  await say('I make $3,575 a month.');
+  let p = (await say("No, that's all."))!;
+  for (let i = 0; i < 6 && !/Here is everything/.test(p); i++) p = (await say('no'))!;
+  const r = (await say('my name should be Araceli M. Villaseñor'))!;
+  assert.equal(rec().get('member.p.first_name')?.value, 'Araceli');
+  assert.equal(rec().get('member.p.middle_initial')?.value, 'M');
+  assert.match(r, /no box for it/);
+});

@@ -797,6 +797,8 @@ export class PathwayEngine {
       if (spec.kind === 'list' && typeof value === 'string') value = [value];
       if (spec.kind === 'number' && typeof value === 'string' && /^\d+(\.\d+)?$/.test(value.trim())) value = Number(value);
       if (spec.kind === 'string' && typeof value === 'string') value = value.trim();
+      // The state as forms write it.
+      if (key === 'contact.state' && typeof value === 'string') value = /^calif(ornia)?\.?$/i.test(value) ? 'CA' : /^[a-z]{2}$/i.test(value) ? value.toUpperCase() : value;
       if (!acceptModelFacts(text, [{ key, value, quote: f.quote }], [{ key, spec }]).length) continue;
       if (spec.kind === 'list' && spec.options && !(value as string[]).every((v) => spec.options!.includes(v))) continue;
       // Sensitive facts: asked, or named in the parent's words. Never inferred.
@@ -829,12 +831,14 @@ export class PathwayEngine {
         }
         // "Diego K" for Diego's first name: the initial, not a new first name. A form with no box
         // for it shows no change, so the parent is told why.
+        // ("Elena A. García-López" on her first-name line is the same: the name she has, plus an
+        // initial.)
         const fm = /^member\.([^.]+)\.first_name$/.exec(key);
-        const split = fm ? /^(.*\S)\s+([A-Za-zÀ-ÿ])\.?$/u.exec(c.value.trim()) : null;
-        if (fm && split && fold(split[1]!) === fold(rec.get<string>(key)?.value ?? '\u0000')) {
+        const named = fm ? splitName(c.value.trim().replace(/^(\S+)\s+([A-Za-zÀ-ÿ])\.?$/u, '$1 $2. X')) : undefined;
+        if (fm && named?.mi && fold(named.first) === fold(rec.get<string>(key)?.value ?? '\u0000')) {
           const miKey = `member.${fm[1]}.middle_initial`;
-          if (fold(rec.get<string>(miKey)?.value ?? '') !== fold(split[2]!)) put(miKey, split[2]!.toUpperCase(), c.quote);
-          if (!Object.values(fill.sources).some((ks) => ks.includes(miKey))) this.notes.push(this.r(s).noInitialBox(split[1]!, split[2]!.toUpperCase()));
+          if (fold(rec.get<string>(miKey)?.value ?? '') !== fold(named.mi)) put(miKey, named.mi, c.quote);
+          if (!Object.values(fill.sources).some((ks) => ks.includes(miKey))) this.notes.push(this.r(s).noInitialBox(named.first, named.mi));
           continue;
         }
         const one = extractFacts(c.value, { lang: s.lang, slots: [{ key, spec }], asked: [key], recent: [] });
