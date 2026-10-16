@@ -150,7 +150,7 @@ export function systemPrompt(specs: UnderstandInput['specs']): string {
     '# Facts this form takes (keys use the person ids; <m> is a person id)',
     facts,
     '',
-    '# Output: ONE JSON object, nothing else (no code fence)',
+    '# Output: ONE JSON object on one line, compact (no spaces between items, no code fence), nothing else',
     '{"intent": "...", "also_asks": false, "language": "en" | "es" | "other",',
     ' "people": [{"ref": "p", "first_name": "...", "last_name": "...", "middle_initial": "A", "relationship": "self|spouse|child|parent|other", "age": 40, "quote": "..."}],',
     ' "incomes": [{"owner": "p", "amount": 1100, "frequency": "weekly|biweekly|twice_monthly|monthly|annual|hourly", "kind": "' + INCOME_KINDS.join('|') + '", "replaces": null, "quote": "..."}],',

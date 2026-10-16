@@ -829,7 +829,7 @@ export class PathwayEngine {
     const STRUCT = /^member\.[^.]+\.(first_name|last_name|middle_initial|relationship|age|has_income|income_done)$|^income\.|^household\.(roster|incomes_complete|income_reported)$/;
     const keys = new Set(mx.facts.map((f) => f.key));
     // When the model read nothing about people or money, the regex readers' reading stands.
-    const modelTouched = mx.facts.some((f) => STRUCT.test(f.key)) || m.people.length > 0 || m.incomes.length > 0 || m.noIncome.length > 0;
+    const modelTouched = mx.facts.some((f) => STRUCT.test(f.key));
     const extra = ['answer', 'correction', 'approve'].includes(m.intent) ? det.facts.filter((f) => !keys.has(f.key) && (!STRUCT.test(f.key) || !modelTouched)) : [];
     return {
       facts: [...mx.facts, ...extra],
@@ -1243,6 +1243,17 @@ export class PathwayEngine {
           this.pause(s, 'asking');
           return { text: R.declined, phase: 'idle' };
         } else if (m.intent === 'correction' || m.corrections.length || WRONG.test(t)) {
+          // "My dad isn't on there": someone in the home that this form doesn't list by name.
+          const notListed = hints.notListed?.[s.lang];
+          const roster = rec.get<string[]>('household.roster')?.value ?? [];
+          const shown = Object.keys((s.proposal.step.payload as { fields: Record<string, string> }).fields).join(' ');
+          const absent = m.people
+            .map((p) => rec.memberIds().find((id) => id === p.ref || fold(rec.get<string>(`member.${id}.first_name`)?.value ?? '\u0000') === fold(p.first_name ?? '\u0001')))
+            .filter((id): id is string => Boolean(id) && roster.includes(id!) && !shown.includes(this.nameOf(rec, id!) ?? '\u0000'))
+            .map((id) => this.nameOf(rec, id)!);
+          if (notListed && absent.length && !m.corrections.length) {
+            return { text: `${notListed.replace(/\{names\}/g, R.list([...new Set(absent)]))}\n\n${R.proposalUnclear}`, phase: 'confirming' };
+          }
           s.proposal.unclear = (s.proposal.unclear ?? 0) + 1;
           if (s.proposal.unclear > 3) return this.offerHandoff(s);
           return { text: R.whichLine, phase: 'confirming' };

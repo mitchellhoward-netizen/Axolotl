@@ -52,6 +52,9 @@ export interface PathwayHints {
   flagAsk?: Record<string, Text>;
   /** Field labels by the field id's last part ("dob" → "date of birth"), shown after whose it is. */
   fieldLabels?: Record<string, Text>;
+  /** Said when the parent asks why someone in the home isn't on the proposal and the form has no
+   * line for them ("{names}" is replaced). */
+  notListed?: Text;
   /** Optional facts the form has a place for, asked once before the proposal. */
   optional?: FactKey[];
 }

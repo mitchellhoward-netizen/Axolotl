@@ -134,9 +134,9 @@ const en: Replies = {
   cantAsk: (labels) => `I need ${join(labels, 'and')} from the school's records, not from you, so I'll pass this to a person to finish.`,
   yes: 'Yes',
   no: 'No',
-  askSelfName: "First, what's your first and last name? It goes on the form as the adult filling it out.",
+  askSelfName: "First, what's your first and last name (and middle initial, if you have one)? It goes on the form as the adult filling it out.",
   askRoster: (kids) =>
-    `Who lives in your home with you? Please give me everyone's first and last name, and their age${kids.length ? `, including ${join(kids, 'and')}` : ''}: a partner, grandparents, other children, anyone who shares the rent and food.`,
+    `Who lives in your home with you? Please give me everyone's first and last name (and middle initial, if they have one), and their age${kids.length ? `, including ${join(kids, 'and')}` : ''}: a partner, grandparents, other children, anyone who shares the rent and food.`,
   askIncomeSelf: 'Now income. How much do you make from work, before taxes? If you have no income, just say none.',
   askIncomeOf: (name) => `Does ${name} have income from work? If so, how much does ${name} make before taxes?`,
   askMoreIncomeSelf: 'Any other income for you, like support payments, SSI, unemployment or another job? If not, just say no.',
@@ -207,9 +207,9 @@ const es: Replies = {
   cantAsk: (labels) => `Necesito ${join(labels, 'y')} de los registros de la escuela, no de usted, así que le paso esto a una persona para terminarlo.`,
   yes: 'Sí',
   no: 'No',
-  askSelfName: 'Primero, ¿cuál es su nombre y apellido? Va en el formulario como el adulto que lo llena.',
+  askSelfName: 'Primero, ¿cuál es su nombre y apellido (y la inicial de su segundo nombre, si tiene)? Va en el formulario como el adulto que lo llena.',
   askRoster: (kids) =>
-    `¿Quiénes viven en su casa con usted? Por favor deme el nombre, el apellido y la edad de cada persona${kids.length ? `, incluyendo a ${join(kids, 'y')}` : ''}: pareja, abuelos, otros niños, todos los que comparten la renta y la comida.`,
+    `¿Quiénes viven en su casa con usted? Por favor deme el nombre, el apellido (y la inicial del segundo nombre, si tiene) y la edad de cada persona${kids.length ? `, incluyendo a ${join(kids, 'y')}` : ''}: pareja, abuelos, otros niños, todos los que comparten la renta y la comida.`,
   askIncomeSelf: 'Ahora los ingresos. ¿Cuánto gana usted en su trabajo, antes de impuestos? Si no tiene ingresos, dígame que ninguno.',
   askIncomeOf: (name) => `¿${name} tiene ingresos de un trabajo? Si es así, ¿cuánto gana ${name} antes de impuestos?`,
   askMoreIncomeSelf: '¿Tiene usted otro ingreso, como manutención, SSI, desempleo u otro trabajo? Si no, dígame que no.',

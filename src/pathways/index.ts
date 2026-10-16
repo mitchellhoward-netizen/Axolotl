@@ -164,6 +164,10 @@ const PVUSD_HINTS: PathwayHints = {
 
 const PSUSD_HINTS: PathwayHints = {
   ...MEALS_FORM_HINTS,
+  notListed: {
+    en: '{names} is counted: this form lists only the students and up to two parents by name. Everyone else in the home is in "People in your home", and their income is in the yearly household income range.',
+    es: '{names} sí cuenta: este formulario solo lleva por nombre a los estudiantes y hasta dos padres. Todos los demás en la casa están en "Personas en su casa", y sus ingresos en el rango de ingresos del hogar al año.',
+  },
   introName: { en: "Palm Springs Unified's Income Form", es: 'el Formulario de Ingresos de Palm Springs Unified' },
   intro: {
     en: "It tells the district your household's income range so your child counts for the school's funding (it pays for things like tutoring and counselors). You don't have to fill it out, but it helps your child's school, it's private, and it doesn't change your child's free meals.",
