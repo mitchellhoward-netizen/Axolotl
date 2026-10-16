@@ -373,13 +373,14 @@
     const [, name, , enrolled, absent, rate, perDay, perCounted, perPoint, basic, kind, trend] = r;
     const when = kind === "c" ? L.trendCharter : trend == null ? L.trendNone : trend < 0 ? fill(L.trendDown, { pct: Math.abs(trend) }) : fill(L.trendUp, { pct: trend });
     const reached = Math.round(absent * A.reach), days = reached * A.days, uncounted = Math.round(enrolled * A.uncounted);
-    if (basic) { show("$0", fill(L.basicSub, { name }), [[fill(L.basicLine1, { absent: num(absent) }), rate + "%"], [L.basicLine2, "$0"], [L.basicLine3, ""]]); return; }
+    const cost = [fill(L.line3, { enrolled: num(enrolled) }), money(enrolled * L.priceBase) + "–" + money(enrolled * L.priceTop)];
+    if (basic) { show("$0", fill(L.basicSub, { name }), [[fill(L.basicLine1, { absent: num(absent) }), rate + "%"], [L.basicLine2, "$0"], cost, [L.basicLine3, ""]]); return; }
     const att = days * perDay, cnt = uncounted * perCounted;
-    show(money(att), fill(L.sub, { name }), [
-      [fill(L.line1, { absent: num(absent), days: A.days, perDay }), money(att)],
-      [fill(L.line2, { uncounted: num(uncounted), perCounted: num(perCounted) }), money(cnt)],
-      [L.line3, money(perPoint)],
-      [when, ""],
+    show(money(att + cnt), fill(L.sub, { name }), [
+      [fill(L.line1, { uncounted: num(uncounted), perCounted: num(perCounted) }), money(cnt)],
+      [fill(L.line2, { absent: num(absent), days: A.days, perDay }), money(att)],
+      cost,
+      [fill(L.line4, { perPoint: money(perPoint) }) + " " + when, ""],
     ]);
   };
   const pick = (id) => { const r = rows.find((r) => r[0] === id); if (!r) return; input.value = r[1]; district(r); };

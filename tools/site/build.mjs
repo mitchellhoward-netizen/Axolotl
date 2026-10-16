@@ -449,7 +449,28 @@ function homeSections(s) {
 
 // Pajaro Valley's funded-ADA change since 2023-24, from public/scan-data.json (the
 // static default line; the page recomputes it live).
-const PVUSD_TREND = Math.abs(JSON.parse(readFileSync(path.join(OUT, 'scan-data.json'), 'utf8')).districts.find((r) => r[0] === '4469799')[11]);
+// The picker's default (Pajaro Valley), worked the same way site.js works it,
+// so the static page and the live picker can't disagree.
+const SCAN = JSON.parse(readFileSync(path.join(OUT, 'scan-data.json'), 'utf8'));
+const scanMoney = (n) => n >= 1e7 ? '$' + (n / 1e6).toFixed(0) + 'M' : n >= 1e6 ? '$' + (n / 1e6).toFixed(1) + 'M' : n >= 1e3 ? '$' + Math.round(n / 1e3) + 'K' : '$' + Math.round(n);
+function scanDefault(d, id = '4469799') {
+  const A = SCAN.assumptions;
+  const [, name, , enrolled, absent, , perDay, perCounted, perPoint, , , trend] = SCAN.districts.find((r) => r[0] === id);
+  const num = (n) => n.toLocaleString('en-US');
+  const fill = (t, m) => t.replace(/\{(\w+)\}/g, (_, k) => m[k]);
+  const days = Math.round(absent * A.reach) * A.days, uncounted = Math.round(enrolled * A.uncounted);
+  const att = days * perDay, cnt = uncounted * perCounted;
+  const when = trend < 0 ? fill(d.trendDown, { pct: Math.abs(trend) }) : fill(d.trendUp, { pct: trend });
+  return {
+    name, total: scanMoney(att + cnt),
+    lines: [
+      [fill(d.line1, { uncounted: num(uncounted), perCounted: num(perCounted) }), scanMoney(cnt)],
+      [fill(d.line2, { absent: num(absent), days: A.days, perDay }), scanMoney(att)],
+      [fill(d.line3, { enrolled: num(enrolled) }), scanMoney(enrolled * d.priceBase) + '–' + scanMoney(enrolled * d.priceTop)],
+      [fill(d.line4, { perPoint: scanMoney(perPoint) }) + ' ' + when, ''],
+    ],
+  };
+}
 
 const IMGS = {
   cycle: '<img src="/assets/myc-fan-lomas.jpg" width="1280" height="851" alt="" fetchpriority="high"><img src="/assets/dend-fan-single.jpg" width="1280" height="1763" alt="" style="object-position: 50% 40%"><img src="/assets/dend-field-solnhofen.jpg" width="1280" height="850" alt="" style="object-position: 50% 35%"><img src="/assets/dend-tree-pyrolusite.jpg" width="1075" height="1657" alt="" style="object-position: 50% 30%">',
@@ -467,6 +488,7 @@ function schoolSections(s) {
   const k = at(s, 'schools');
   const h = k.hero, t = k.thread, d = k.district;
   const dj = JSON.stringify(d).replace(/</g, '\\u003c');
+  const def = scanDefault(d);
   const hero = `
 <section class="hero" id="top" aria-label="Mycelium">
   <div class="field-top"></div>
@@ -493,7 +515,7 @@ function schoolSections(s) {
   <h2 id="district-title">${esc(d.h2Plain)}</h2>
   <p class="lede">${esc(d.lead)}</p>
   <form class="scan" onsubmit="return false">
-    <div class="figure" id="scan-figure" aria-live="polite">$244K<small id="scan-sub">${esc(d.sub.replace('{name}', 'Pajaro Valley Unified'))}</small></div>
+    <div class="figure" id="scan-figure" aria-live="polite">${def.total}<small id="scan-sub">${esc(d.sub.replace('{name}', def.name))}</small></div>
     <div class="pick">
       <label for="district-input" class="vh">${esc(d.label)}</label>
       <input id="district-input" type="search" placeholder="${esc(d.placeholder)}" autocomplete="off" spellcheck="false" role="combobox" aria-expanded="false" aria-controls="scan-matches" aria-autocomplete="list">
@@ -501,10 +523,7 @@ function schoolSections(s) {
     </div>
     <p class="quick" id="scan-quick">${esc(d.quick)} <button type="button" data-pick="4469799">${esc(d.quickNames[0])}</button>, <button type="button" data-pick="0161259">${esc(d.quickNames[1])}</button>, <button type="button" data-pick="1062166">${esc(d.quickNames[2])}</button>.</p>
     <div class="lines" id="scan-lines">
-      <div><span>${esc(d.line1.replace('{absent}', '3,865').replace('{days}', '3').replace('{perDay}', '84'))}</span><b>$244K</b></div>
-      <div><span>${esc(d.line2.replace('{uncounted}', '77').replace('{perCounted}', '9,139'))}</span><b>$704K</b></div>
-      <div><span>${esc(d.line3)}</span><b>$2.2M</b></div>
-      <div><span>${esc(d.trendDown.replace('{pct}', String(PVUSD_TREND)))}</span><b></b></div>
+      ${def.lines.map(([a, b]) => `<div><span>${esc(a)}</span><b>${esc(b)}</b></div>`).join('\n      ')}
     </div>
     <p class="assume">${esc(d.assume)}</p>
   </form>
@@ -556,7 +575,8 @@ function schoolSections(s) {
   <h2>${esc(k.more.h2)}</h2>
   <div class="body grid">
     <div class="table">
-      ${k.more.rows.map(([a, b, c], i) => `<div class="row${i === 0 ? '' : ''}"><span class="k">${esc(a)}</span><span>${esc(b)}</span><span class="v">${esc(c)}</span></div>`).join('\n      ')}
+      <div class="row head"><span class="k">${esc(k.more.head[0])}</span><span>${esc(k.more.head[1])}</span><span class="v">${esc(k.more.head[2])}</span></div>
+      ${k.more.rows.map(([a, b, c]) => `<div class="row"><span class="k">${esc(a)}</span><span>${esc(b)}</span><span class="v">${esc(c)}</span></div>`).join('\n      ')}
     </div>
   </div>
   <p class="lede">${esc(k.more.note)}</p>
@@ -577,7 +597,7 @@ function schoolSections(s) {
   <h2>${esc(bandLink.h2)}</h2>
   <p>${esc(bandLink.body)} <a href="${localized(s, '/funds')}">${esc(bandLink.link)} →</a></p>
 </section>`;
-  return [hero, showcase, district, how, sees, trial, more, band, close, funds].join('\n');
+  return [hero, showcase, more, district, how, sees, trial, band, close, funds].join('\n');
 }
 
 /** The scan request form. Both the school and fund pages post it as kind
@@ -1250,9 +1270,9 @@ ${alt}
 <link rel="preconnect" href="https://api.fontshare.com">
 <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
 <link href="https://api.fontshare.com/v2/css?f[]=gambarino@400&f[]=general-sans@400,500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/buyer.css?v=11">
+<link rel="stylesheet" href="/buyer.css?v=13">
 <script src="/msp-calc.js?v=21" defer></script>
-<script src="/site.js?v=24" defer></script>
+<script src="/site.js?v=25" defer></script>
 </head>
 <body>
 
