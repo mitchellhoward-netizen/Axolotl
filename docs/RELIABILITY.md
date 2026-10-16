@@ -220,11 +220,28 @@ file (no vendor keys; once it handed the parent a server file path); it tells a 
 Springs serves free meals to all students, so you're already covered", which is the exact
 confusion that costs districts their LCFF money; it switches to Spanish because of a surname.
 
-**Limits, read before quoting the 100%.**
+**Held-out: parents played by a model (the headline).** Same 20 families, 1 seed each, parents
+played by claude-haiku-4-5 from the true facts only (`--parent llm`, `src/eval/llm-parent.ts`),
+which nothing in the agent was tuned against. Build 125a7cd, $3.05 for 40 runs:
+
+| Form | Success | Wrong / missing / guessed | Agent-attested | Sent w/o yes | Mean turns |
+|---|---|---|---|---|---|
+| Palm Springs | **25%** (4 filed and confirmed, 1 already covered; 13 abandoned, 2 handoff) | 0 / 0 / 0 | 0 | 0 | 10.6 |
+| Pajaro | **15%** (3 sent, 1 covered; 14 abandoned, 2 handoff) | 0 / 1 / 0 | 0 | 0 | 15.1 |
+
+So the scripted 100% was overfit. It stayed safe (no wrong value, no guess, nothing signed or
+sent without the parent) but it doesn't understand ordinary replies: a yes in a sentence ("Yes,
+that all looks right. Go ahead and send it", "si dale manda"), a name with extra words ("ortiz,
+igual que yo"), an interjection taken as a name ("Oh right!" → first name "Oh"), "no income" put
+on the wrong person, rosters without "me", corrections to the summary, the person-handoff offer
+looping, and falls back into the old router mid-form. Failing transcripts:
+`eval/results/2026-10-16-125a7cd-llm-parent-failures.jsonl`.
+
+**Limits, read before quoting any of this.**
 - **Scripted parents, keyword-matched.** The agent that reached 100% says it worded some
   questions to suit the simulated parent's matcher (e.g. "support payments" rather than "child
   support"). So this measures the engine against a parent model it was tuned on. **A held-out
-  test with model-played parents is running; its numbers replace this as the headline.**
+  test with model-played parents replaced it as the headline (above).**
 - Replicas, not the real forms; synthetic families, not real ones.
 - The pathway agent uses no model, so its cost is ~$0; the brain baseline is a 3-family sample.
 - Pajaro "sent" means the filled PDF reached the stand-in after the parent signed; how Pajaro
