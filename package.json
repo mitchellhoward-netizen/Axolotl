@@ -57,6 +57,7 @@
     "test:archive": "tsx --test scripts/test-archive.ts",
     "test:family": "tsx --test scripts/test-family-facts.ts",
     "test:linq": "tsx --test scripts/test-linq-replica.ts",
+    "test:pvusd-uba": "tsx --test scripts/test-pvusd-uba.ts",
     "compare:intents": "tsx scripts/compare-intents.ts",
     "test:consent": "tsx scripts/test-consent.ts",
     "test:approval": "tsx --test scripts/test-approval.ts",
