@@ -1,5 +1,6 @@
 import type { ArchiveCase, ArchiveClient } from '../archive/client.js';
 import { FamilyRecord, schoolMealsHousehold, type FactSource, type PayFrequency } from '../family/facts.js';
+import { PSUSD_SCHOOLS } from '../forms/ca-psusd-linq-income-form-2026.js';
 
 /**
  * Synthetic families for the harness, made from the rules archive's own household cases
@@ -200,9 +201,11 @@ const DISTRICTS: Record<DistrictId, {
     name: 'Palm Springs Unified School District',
     cities: [{ city: 'Palm Springs', zip: '92262' }, { city: 'Cathedral City', zip: '92234' }, { city: 'Desert Hot Springs', zip: '92240' }],
     area: '760',
-    elementary: ['Cathedral City Elementary', 'Julius Corsini Elementary', 'Two Bunch Palms Elementary', 'Rio Vista Elementary', 'Bubbling Wells Elementary', 'Agua Caliente Elementary'],
-    middle: ['Raymond Cree Middle School', 'Desert Springs Middle School', 'Nellie N. Coffman Middle School', 'Painted Hills Middle School'],
-    high: ['Palm Springs High School', 'Cathedral City High School', 'Desert Hot Springs High School'],
+    // The schools the district's form lists (src/forms/ca-psusd-linq-income-form-2026.ts), so a
+    // family's school is one the form can take.
+    elementary: Object.values(PSUSD_SCHOOLS).filter((n) => /Elementary/.test(n)),
+    middle: Object.values(PSUSD_SCHOOLS).filter((n) => /Middle/.test(n)),
+    high: Object.values(PSUSD_SCHOOLS).filter((n) => /High/.test(n)),
   },
 };
 
@@ -396,6 +399,9 @@ async function buildFamily(
   put('contact.city', place.city);
   put('contact.state', 'CA');
   put('contact.zip', place.zip);
+  // The adult who fills out and signs the form is the parent in the conversation (the form's
+  // printed name is theirs).
+  put('contact.signer', p);
   put('household.language', o.lang);
   put('household.district', o.district, district('district'));
 

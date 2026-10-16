@@ -6,7 +6,7 @@ import { directLane } from '../lanes/direct.js';
 import { PdfLane } from '../lanes/pdf.js';
 import { pathways as registry } from '../pathways/registry.js';
 import { registerLaunchPathways } from '../pathways/index.js';
-import type { FormFill, FormMap, Lang, LaneResult, LaneRunner } from '../pathways/types.js';
+import type { AttestHow, FormFill, FormMap, Lang, LaneResult, LaneRunner } from '../pathways/types.js';
 import type { PathwaySession } from '../pathways/engine.js';
 import type { Agent } from '../agent/agent.js';
 import type { GradeContext } from './scoreboard.js';
@@ -23,8 +23,10 @@ import type { HookContext, PathwayHook } from './runner.js';
 
 registerLaunchPathways(registry);
 
-/** What a district sends when it starts the helper for a family. Nothing about income. */
-const DISTRICT_FIELDS = ['first_name', 'last_name', 'dob', 'school', 'grade', 'student_id'];
+/** What a district sends when it starts the helper for a family: each student's name (with
+ * the middle initial the student system keeps), birth date, school, grade and ID. Nothing about
+ * income or the rest of the household. */
+const DISTRICT_FIELDS = ['first_name', 'last_name', 'middle_initial', 'dob', 'school', 'grade', 'student_id'];
 
 function districtSeed(truth: FamilyRecord): FamilyRecord {
   const seed = new FamilyRecord(truth.state);
@@ -45,7 +47,7 @@ function districtSeed(truth: FamilyRecord): FamilyRecord {
 function paperDelivery(inner: LaneRunner, ctx: HookContext): LaneRunner {
   return {
     kind: inner.kind,
-    async run(form: FormMap, fill: FormFill, lc: { lang: Lang; attest: (fields: string[]) => Promise<void> }): Promise<LaneResult> {
+    async run(form: FormMap, fill: FormFill, lc: { lang: Lang; attest: (fields: string[], how?: AttestHow) => Promise<void> }): Promise<LaneResult> {
       const result = await inner.run(form, fill, lc);
       const receiver = ctx.replica as unknown as { receive?: (f: Record<string, unknown>, by: 'parent') => unknown } | undefined;
       // The parent carries the signed paper in. Only what the PDF actually holds arrives.
@@ -86,7 +88,9 @@ const hook: PathwayHook = {
       registry.registerLane(paperDelivery(new PdfLane({ outDir }), ctx));
     }
 
-    await agent.startPathway(ctx.conversationId, pathway.id, districtSeed(ctx.family.record));
+    // The parent writes first in the harness (their opening line), so the district's opening
+    // message isn't sent: the engine's first reply says what the form is and asks.
+    await agent.startPathway(ctx.conversationId, pathway.id, districtSeed(ctx.family.record), { announce: false });
   },
 
   record(conversationId) {

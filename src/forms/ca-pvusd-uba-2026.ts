@@ -56,6 +56,8 @@ import type { OverlayField, OverlayMap } from './pdf-overlay.js';
 
 export const FORM_ID = 'ca.pvusd.uba.2026';
 export const ROWS = 5;
+/** Copies of page 1 the form may use: "if you need more rows, use another page 1". */
+export const COPIES = 2;
 export const FREQUENCIES = ['weekly', 'biweekly', 'twice_monthly', 'monthly'] as const;
 export type FormFrequency = (typeof FREQUENCIES)[number];
 export const ATTESTATIONS = ['signature', 'date'];
@@ -66,9 +68,9 @@ const OTHER_FIELDS = ['last_name', 'first_name', 'mi', 'work_amount', 'work_freq
 
 /** Every field id on the form that we may fill. */
 export const FIELD_IDS: string[] = [
-  ...Array.from({ length: ROWS }, (_, i) => STUDENT_FIELDS.map((f) => `student.${i}.${f}`)).flat(),
+  ...Array.from({ length: ROWS * COPIES }, (_, i) => STUDENT_FIELDS.map((f) => `student.${i}.${f}`)).flat(),
   'case_number',
-  ...Array.from({ length: ROWS }, (_, j) => OTHER_FIELDS.map((f) => `other.${j}.${f}`)).flat(),
+  ...Array.from({ length: ROWS * COPIES }, (_, j) => OTHER_FIELDS.map((f) => `other.${j}.${f}`)).flat(),
   'adult.printed_name',
   'adult.email',
   'adult.street',
@@ -111,6 +113,13 @@ export function isStudent(rec: FamilyRecord, id: string, asOf: string): { studen
   return { student: false, needs: `member.${id}.student` };
 }
 
+/** A US phone number written one way, "(831) 555-0100", however it was typed. */
+export function phoneText(raw: string): string {
+  const d = raw.replace(/\D/g, '');
+  const ten = d.length === 11 && d.startsWith('1') ? d.slice(1) : d;
+  return ten.length === 10 ? `(${ten.slice(0, 3)}) ${ten.slice(3, 6)}-${ten.slice(6)}` : raw.trim();
+}
+
 export function fill(rec: FamilyRecord, asOf: string): FormFill {
   const values: Record<string, FieldValue> = {};
   const sources: Record<string, FactKey[]> = {};
@@ -141,8 +150,9 @@ export function fill(rec: FamilyRecord, asOf: string): FormFill {
     if (s.needs) missing.push(s.needs);
     (s.student ? students : others).push(id);
   }
-  if (students.length > ROWS) missing.push('form.students.over_5');
-  if (others.length > ROWS) missing.push('form.others.over_5');
+  // Rows 6-10 go on a second copy of page 1; past that the family needs a person's help.
+  if (students.length > ROWS * COPIES) missing.push('form.students.over_10');
+  if (others.length > ROWS * COPIES) missing.push('form.others.over_10');
 
   const names = (prefix: string, id: string) => {
     const last = need<string>(`member.${id}.last_name`);
@@ -196,7 +206,7 @@ export function fill(rec: FamilyRecord, asOf: string): FormFill {
     put(freqField, entries[0]!.frequency, entries.map((e) => `income.${e.n}.frequency`));
   };
 
-  students.slice(0, ROWS).forEach((id, i) => {
+  students.slice(0, ROWS * COPIES).forEach((id, i) => {
     const p = `student.${i}`;
     names(p, id);
     // Foster / homeless / migrant: sensitive, only from the parent or the district.
@@ -220,7 +230,7 @@ export function fill(rec: FamilyRecord, asOf: string): FormFill {
     income(id, 'student', `${p}.income_amount`, `${p}.income_frequency`);
   });
 
-  others.slice(0, ROWS).forEach((id, j) => {
+  others.slice(0, ROWS * COPIES).forEach((id, j) => {
     const p = `other.${j}`;
     names(p, id);
     for (const col of ['work', 'assistance', 'other'] as const) income(id, col, `${p}.${col}_amount`, `${p}.${col}_frequency`);
@@ -254,7 +264,7 @@ export function fill(rec: FamilyRecord, asOf: string): FormFill {
     put('adult.city_state_zip', `${city.trim()}, ${st.trim().toUpperCase()} ${String(zip).trim()}`, ['contact.city', 'contact.state', 'contact.zip']);
   }
   const phone = need<string>('contact.phone');
-  if (phone !== undefined) put('adult.phone', String(phone).trim(), ['contact.phone']);
+  if (phone !== undefined) put('adult.phone', phoneText(String(phone)), ['contact.phone']);
 
   // Page 2, optional: only from the parent's own words, never inferred.
   const eth = val<string>('household.ethnicity', ['parent']);
@@ -386,23 +396,28 @@ const PAD = 8; // px inside a cell
 export function overlayMap(lang: Lang): OverlayMap {
   const L = LAYOUT[lang];
   const map: OverlayMap = {};
+  let copy = 0;
   const text = (field: string, [l, r]: [number, number], baselinePx: number, extra: Partial<Extract<OverlayField, { kind: 'text' }>> = {}) => {
-    map[field] = { kind: 'text', page: L.page1, x: X(l + PAD), y: Y(baselinePx), w: X(r - l - 2 * PAD), size: L.size, ...extra };
+    map[field] = { kind: 'text', page: L.page1, ...(copy ? { copy } : {}), x: X(l + PAD), y: Y(baselinePx), w: X(r - l - 2 * PAD), size: L.size, ...extra };
   };
   const freq = (field: string, xs: [number, number, number, number], yPx: number) => {
-    map[field] = { kind: 'choice', page: L.page1, options: Object.fromEntries(FREQUENCIES.map((f, k) => [f, { x: X(xs[k]!), y: Y(yPx) }])) };
+    map[field] = { kind: 'choice', page: L.page1, ...(copy ? { copy } : {}), options: Object.fromEntries(FREQUENCIES.map((f, k) => [f, { x: X(xs[k]!), y: Y(yPx) }])) };
   };
-  for (let i = 0; i < ROWS; i++) {
+  for (let n = 0; n < ROWS * COPIES; n++) {
+    // Row n sits in row n % 5 of copy n / 5 of page 1.
+    copy = Math.floor(n / ROWS);
+    const i = n % ROWS;
     const base = L.studentTop(i) + L.base;
-    for (const f of ['last_name', 'first_name', 'mi', 'school', 'grade', 'income_amount'] as const) text(`student.${i}.${f}`, L.sCols[f], base);
-    text(`student.${i}.dob`, L.sCols.dob, base, { format: L.dob });
-    for (const f of ['foster', 'homeless', 'migrant'] as const) map[`student.${i}.${f}`] = { kind: 'check', page: L.page1, x: X(L.sChecks[f]), y: Y(L.studentBox(i)) };
-    freq(`student.${i}.income_frequency`, L.sFreq, L.studentBox(i));
+    for (const f of ['last_name', 'first_name', 'mi', 'school', 'grade', 'income_amount'] as const) text(`student.${n}.${f}`, L.sCols[f], base);
+    text(`student.${n}.dob`, L.sCols.dob, base, { format: L.dob });
+    for (const f of ['foster', 'homeless', 'migrant'] as const) map[`student.${n}.${f}`] = { kind: 'check', page: L.page1, ...(copy ? { copy } : {}), x: X(L.sChecks[f]), y: Y(L.studentBox(i)) };
+    freq(`student.${n}.income_frequency`, L.sFreq, L.studentBox(i));
 
     const ob = L.otherTop(i) + L.base;
-    for (const f of ['last_name', 'first_name', 'mi', 'work_amount', 'assistance_amount', 'other_amount'] as const) text(`other.${i}.${f}`, L.oCols[f], ob);
-    for (const c of ['work', 'assistance', 'other'] as const) freq(`other.${i}.${c}_frequency`, L.oFreq[c], L.otherBox(i));
+    for (const f of ['last_name', 'first_name', 'mi', 'work_amount', 'assistance_amount', 'other_amount'] as const) text(`other.${n}.${f}`, L.oCols[f], ob);
+    for (const c of ['work', 'assistance', 'other'] as const) freq(`other.${n}.${c}_frequency`, L.oFreq[c], L.otherBox(i));
   }
+  copy = 0;
   map.case_number = { kind: 'text', page: L.page1, x: X(L.caseNumber.x), y: Y(L.caseNumber.y), w: X(L.caseNumber.right - L.caseNumber.x), size: L.size + 1 };
   for (const [f, c] of Object.entries(L.contact)) map[`adult.${f}`] = { kind: 'text', page: L.page1, x: X(c.left), y: Y(c.y), w: X(c.right - c.left), size: L.size + 1 };
   map.ethnicity = { kind: 'choice', page: L.page2, options: Object.fromEntries(Object.entries(L.ethnicity).map(([k, [x, y]]) => [k, { x: X(x), y: Y(y) }])) };
@@ -415,5 +430,11 @@ export const PVUSD_UBA_PDF = {
   formId: FORM_ID,
   path: path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../bench/forms/pvusd-uba-2026.pdf'),
   pages: { en: [0, 1], es: [2, 3] } as Record<Lang, number[]>,
+  /** A sixth student or other member on: page 1 twice, then page 2. */
+  pagesFor(lang: Lang, values: Record<string, FieldValue>): number[] {
+    const [p1, p2] = lang === 'es' ? [2, 3] : [0, 1];
+    const second = Object.keys(values).some((k) => /^(student|other)\.(\d+)\./.test(k) && Number(/^(?:student|other)\.(\d+)\./.exec(k)![1]) >= ROWS);
+    return second ? [p1, p1, p2] : [p1, p2];
+  },
   overlay: overlayMap,
 };

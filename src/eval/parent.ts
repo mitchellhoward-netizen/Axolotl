@@ -161,6 +161,7 @@ const FREQ: Record<HarnessLang, Record<PayFrequency, string>> = {
   es: { weekly: 'cada semana', biweekly: 'cada dos semanas', twice_monthly: 'dos veces al mes', monthly: 'al mes', annual: 'al año' },
 };
 const money = (n: number) => `$${n.toLocaleString('en-US')}`;
+const PER_YEAR: Record<PayFrequency, number> = { weekly: 52, biweekly: 26, twice_monthly: 24, monthly: 12, annual: 1 };
 
 function sayDate(iso: string, lang: HarnessLang, style: 'words' | 'us' | 'es_slash'): string {
   const [y, m, d] = iso.split('-').map(Number) as [number, number, number];
@@ -460,8 +461,9 @@ export class ScriptedParent implements SimulatedParent {
         parts.push(this.lang === 'es' ? 'Mmm, no estoy segura, déjeme ver.' : "Hmm, I'm not sure, let me check.");
         continue;
       }
-      this.deferred.delete(key);
+      // The answer they went to check is the one they give now (say() looks it up again).
       const said = this.say(q.topic, member, t);
+      this.deferred.delete(key);
       if (!said) continue;
       parts.push(said.text);
       keys.push(said.key);
@@ -523,10 +525,21 @@ export class ScriptedParent implements SimulatedParent {
     const idx = this.rec.incomeIndexes();
     const owned = member ? idx.filter((n) => this.rec.get(`income.${n}.owner`)?.value === member) : idx;
     const wantsOther = /\b(other|else|more|another|otro|otra|mas|algun)\b/.test(t);
+    // An income they said they'd check comes first when asked again.
+    const owed = owned.find((n) => this.deferred.has(`income.${n}.amount`));
+    if (owed !== undefined) return owed;
     const next = owned.find((n) => !this.answered.has(`income.${n}.amount`));
     if (next !== undefined) return next;
     if (wantsOther) return undefined;
+    // Asked about one person's income again: that person's, never someone else's.
+    if (member) return owned[0];
     return this.lastIncome ?? owned[0];
+  }
+
+  /** Asked about one person who has no income at all. */
+  private noIncomeOf(member: string | undefined): boolean {
+    if (!member || this.v('household.income_reported') === false) return false;
+    return !this.rec.incomeIndexes().some((n) => this.rec.get(`income.${n}.owner`)?.value === member);
   }
 
   private keyFor(topic: Topic, member: string | undefined, t: string): FactKey {
@@ -540,7 +553,9 @@ export class ScriptedParent implements SimulatedParent {
       case 'student_id': return `member.${m}.student_id`;
       case 'income': {
         const n = this.incomeFor(member, t);
-        return n === undefined ? 'household.income.other' : `income.${n}.amount`;
+        if (n === undefined && this.noIncomeOf(member)) return `member.${member}.no_income`;
+        // "Any other income for Ricardo?" and "for you?" are different questions.
+        return n === undefined ? (member ? `member.${member}.income.other` : 'household.income.other') : `income.${n}.amount`;
       }
       case 'frequency': {
         const n = this.lastIncome ?? this.incomeFor(member, t);
@@ -639,6 +654,14 @@ export class ScriptedParent implements SimulatedParent {
         return { key, text: es ? `El número de estudiante de ${first} es ${id}.` : `${first}'s student ID is ${id}.` };
       }
       case 'income': {
+        if (topic === 'income' && this.noIncomeOf(member)) {
+          // A parent asked about one person's income answers for that person.
+          const who = member === this.self();
+          return {
+            key: `member.${member}.no_income`,
+            text: es ? (who ? 'No, yo no tengo ingresos.' : `No, ${first} no tiene ingresos.`) : who ? "No, I don't have any income." : `No, ${first} doesn't have any income.`,
+          };
+        }
         if (this.v('household.income_reported') === false) {
           for (const k of ['household.income.other']) this.answered.add(k);
           return { key: 'household.income_reported', text: es ? 'Ahorita no tenemos ningún ingreso, nadie está trabajando.' : "We don't have any income right now, nobody's working." };
@@ -779,6 +802,11 @@ export class ScriptedParent implements SimulatedParent {
         if (!id) return 'unknown';
         const first = norm(String(this.v(`member.${id}.first_name`) ?? ''));
         const last = norm(String(this.v(`member.${id}.last_name`) ?? ''));
+        // "Middle initial: N" / "inicial del segundo nombre: N" is checked against the initial.
+        if (/initial|inicial/.test(l)) {
+          const mi = String(this.v(`member.${id}.middle_initial`) ?? '');
+          return { ok: norm(v).replace(/[^a-z]/g, '') === norm(mi), key: `member.${id}.middle_initial`, truth: mi || (this.lang === 'es' ? 'ninguna' : 'none') };
+        }
         if (/first|nombre de pila|primer nombre/.test(l)) return { ok: v.trim() === first, key: `member.${id}.first_name`, truth: String(this.v(`member.${id}.first_name`)) };
         if (/last|surname|apellido/.test(l)) return { ok: v.trim() === last, key: `member.${id}.last_name`, truth: String(this.v(`member.${id}.last_name`)) };
         return { ok: v.includes(first) && v.includes(last), key: `member.${id}.first_name`, truth: this.fullName(id) };
@@ -820,6 +848,15 @@ export class ScriptedParent implements SimulatedParent {
       case 'income':
       case 'frequency': {
         const idx = this.rec.incomeIndexes();
+        // A range ("$0 to $42,900 a year") is right when the household's yearly total is in it.
+        const range = /\$?\s*([\d,]+)\s*(?:to|-|–|a|hasta)\s*\$?\s*([\d,]+)/.exec(v) ?? undefined;
+        const over = /\b(?:over|more than|above|mas de)\s*\$?\s*([\d,]+)/.exec(v) ?? undefined;
+        if (topic === 'income' && (range || over)) {
+          const total = this.v('household.income_reported') === false ? 0 : idx.reduce((sum, n) => sum + this.v<number>(`income.${n}.amount`)! * PER_YEAR[this.v<PayFrequency>(`income.${n}.frequency`)!], 0);
+          const num = (x: string) => Number(x.replace(/,/g, ''));
+          const ok = range ? total >= num(range[1]!) && total <= num(range[2]!) : total > num(over![1]!);
+          return { ok, key: idx.length ? `income.${idx[0]}.amount` : 'household.income_reported', truth: `${money(Math.round(total))}${this.lang === 'es' ? ' al año' : ' a year'}` };
+        }
         if (this.v('household.income_reported') === false) {
           const nums = numbers(value).filter((x) => x > 0);
           return { ok: nums.length === 0, key: 'household.income_reported', truth: '$0' };

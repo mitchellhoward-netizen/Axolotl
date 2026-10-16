@@ -166,16 +166,25 @@ test('sensitive facts count only from the parent or the district', () => {
   assert.equal(h.values['race.american_indian_alaska_native'], true);
 });
 
-test('more than five students is reported, not dropped', () => {
-  const r = garcia();
-  for (let k = 0; k < 4; k++) {
-    for (const [f, v] of Object.entries({ first_name: `Kid${k}`, last_name: 'García', relationship: 'child', dob: '2014-01-01', student: true, school: 'Ohlone Elementary', grade: '6', foster: false, homeless: false, migrant: false })) {
-      r.set(`member.k${k}.${f}`, v, said(String(v)));
+test('a sixth student goes on a second copy of page 1; more than ten is reported, not dropped', async () => {
+  const kids = (r: ReturnType<typeof garcia>, n: number) => {
+    for (let k = 0; k < n; k++) {
+      for (const [f, v] of Object.entries({ first_name: `Kid${k}`, last_name: 'García', relationship: 'child', dob: '2014-01-01', student: true, school: 'Ohlone Elementary', grade: '6', foster: false, homeless: false, migrant: false })) {
+        r.set(`member.k${k}.${f}`, v, said(String(v)));
+      }
     }
-  }
-  const f = fill(r, AS_OF);
-  assert.ok(f.missing.includes('form.students.over_5'));
+    return r;
+  };
+  const f = fill(kids(garcia(), 4), AS_OF);
+  assert.ok(!f.missing.some((m) => m.startsWith('form.')), f.missing.join(', '));
   assert.equal(f.values['student.4.first_name'], 'Kid2');
+  assert.equal(f.values['student.5.first_name'], 'Kid3');
+  assert.deepEqual(PVUSD_UBA_PDF.pagesFor('en', f.values), [0, 0, 1], 'page 1 twice, then page 2');
+  const map = overlayMap('en');
+  assert.equal(map['student.5.first_name']!.page, 0);
+  assert.equal((map['student.5.first_name'] as { copy?: number }).copy, 1);
+  assert.equal(map['student.5.first_name']!.kind === 'text' && map['student.0.first_name']!.kind === 'text' && map['student.5.first_name']!.y === map['student.0.first_name']!.y, true, 'row 6 sits where row 1 does, on the second copy');
+  assert.ok(fill(kids(garcia(), 9), AS_OF).missing.includes('form.students.over_10'));
 });
 
 test('two incomes in one box on different schedules are asked as one', () => {
@@ -284,19 +293,25 @@ test('precheck: a CalFresh household is told it likely already qualifies', async
   assert.ok(res.determination?.links.includes('snap:direct_certification'));
 });
 
-test('precheck: Medi-Cal at 152% FPL counts as covered; a foster child too', async () => {
+test('precheck: Medi-Cal at 152% FPL on the district\'s match counts as covered; a foster child is filed with the box checked', async () => {
   const cases = await archive.cases('school_meals', 'ca');
   const t09 = familyFromCase(cases.find((x) => x.id === 'SCH-CA-T09')!).family!;
   assert.equal((await pvusdUba.precheck!(t09.record, archive, t09.asOf)).file, false);
+  // "We have Medi-Cal" from the parent, without the district's match: whose isn't known, so file.
+  const parentOnly = familyFromCase(cases.find((x) => x.id === 'SCH-CA-T09')!).family!.record;
+  parentOnly.set('household.medicaid_income_fpl_percent', 152, said('152'));
+  assert.equal((await pvusdUba.precheck!(parentOnly, archive, t09.asOf)).file, true);
+  // A child's own status is a box on this form (as on USDA's household application): the form
+  // is how the school learns it, so it is filed with the box checked.
   const r = garcia();
   r.set('member.sofia.foster', true, said('she is my foster daughter'));
-  assert.equal((await pvusdUba.precheck!(r, archive, AS_OF)).file, false);
+  assert.equal((await pvusdUba.precheck!(r, archive, AS_OF)).file, true);
 });
 
 test('precheck: the Garcias (no programs) should file', async () => {
+  // Mateo is migrant in this family: still filed, with the migrant box checked.
   const res = await pvusdUba.precheck!(garcia(), archive, AS_OF);
-  // Mateo is migrant in this family: covered. Without that, they file.
-  assert.equal(res.file, false);
+  assert.equal(res.file, true, res.why.en);
   const r = garcia();
   r.set('member.mateo.migrant', false, said('no'));
   const res2 = await pvusdUba.precheck!(r, archive, AS_OF);

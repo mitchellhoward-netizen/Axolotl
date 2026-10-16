@@ -18,10 +18,12 @@ import type { FieldValue } from '../pathways/types.js';
  * The record is built inside the drawing loop, from what was actually put on the page.
  */
 
+/** `copy`: which copy of the source page (0 = the first), when a form is filled on two copies of
+ * the same page (a second page 1 for the sixth student on). `pages` then lists the page twice. */
 export type OverlayField =
-  | { kind: 'text'; page: number; x: number; y: number; w?: number; size?: number; format?: (v: string) => string }
-  | { kind: 'check'; page: number; x: number; y: number; size?: number }
-  | { kind: 'choice'; page: number; options: Record<string, { x: number; y: number }>; size?: number };
+  | { kind: 'text'; page: number; copy?: number; x: number; y: number; w?: number; size?: number; format?: (v: string) => string }
+  | { kind: 'check'; page: number; copy?: number; x: number; y: number; size?: number }
+  | { kind: 'choice'; page: number; copy?: number; options: Record<string, { x: number; y: number }>; size?: number };
 
 export type OverlayMap = Record<string, OverlayField>;
 
@@ -72,7 +74,14 @@ export async function drawOverlay(
   const out = await PDFDocument.create();
   const copied = await out.copyPages(src, keep);
   copied.forEach((p) => out.addPage(p));
-  const outIndex = new Map(keep.map((srcIdx, i) => [srcIdx, i]));
+  // Output index of each copy of each source page ("0:0" is the first copy of page 0).
+  const outIndex = new Map<string, number>();
+  const seen = new Map<number, number>();
+  keep.forEach((srcIdx, i) => {
+    const n = seen.get(srcIdx) ?? 0;
+    seen.set(srcIdx, n + 1);
+    outIndex.set(`${srcIdx}:${n}`, i);
+  });
   const font = await out.embedFont(StandardFonts.Helvetica);
 
   const drawn: DrawnMark[] = [];
@@ -80,8 +89,8 @@ export async function drawOverlay(
   const unencodable: string[] = [];
   const unmapped: string[] = [];
 
-  const pageFor = (field: string, srcPage: number): { page: PDFPage; idx: number } | undefined => {
-    const idx = outIndex.get(srcPage);
+  const pageFor = (field: string, srcPage: number, copy = 0): { page: PDFPage; idx: number } | undefined => {
+    const idx = outIndex.get(`${srcPage}:${copy}`);
     if (idx === undefined) {
       unmapped.push(field);
       return undefined;
@@ -108,7 +117,7 @@ export async function drawOverlay(
         unencodable.push(field);
         continue;
       }
-      const at = pageFor(field, spec.page);
+      const at = pageFor(field, spec.page, spec.copy);
       if (!at) continue;
       let size = spec.size ?? DEFAULT_SIZE;
       if (spec.w) {
@@ -119,7 +128,7 @@ export async function drawOverlay(
       drawn.push({ field, page: at.idx, x: spec.x, y: spec.y, size, text });
     } else if (spec.kind === 'check') {
       if (value !== true) continue;
-      const at = pageFor(field, spec.page);
+      const at = pageFor(field, spec.page, spec.copy);
       if (!at) continue;
       const size = spec.size ?? 7;
       cross(at.page, spec.x, spec.y, size);
@@ -131,7 +140,7 @@ export async function drawOverlay(
         unmapped.push(`${field}=${value}`);
         continue;
       }
-      const at = pageFor(field, spec.page);
+      const at = pageFor(field, spec.page, spec.copy);
       if (!at) continue;
       const size = spec.size ?? 7;
       cross(at.page, opt.x, opt.y, size);

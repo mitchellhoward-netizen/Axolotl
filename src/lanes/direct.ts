@@ -8,7 +8,7 @@
  * Honesty rules: 'done' only with a reference code read off the institution's page; readBack is
  * what the review page showed, not what we sent; attestation fields are never posted by us.
  */
-import type { FieldValue, FormFill, FormMap, Lang, LaneResult, LaneRunner, Text } from '../pathways/types.js';
+import type { AttestHow, FieldValue, FormFill, FormMap, Lang, LaneResult, LaneRunner, Text } from '../pathways/types.js';
 
 export interface DirectLaneOptions {
   /** The form's base URL (the replica's `url`). */
@@ -85,7 +85,7 @@ export function directLane(opts: DirectLaneOptions): LaneRunner {
   const reads = opts.statusReads ?? 5;
   const wait = opts.statusWaitMs ?? 100;
 
-  async function attempt(form: FormMap, fill: FormFill, ctx: { lang: Lang; attest: (fields: string[]) => Promise<void> }): Promise<LaneResult | 'session_expired'> {
+  async function attempt(form: FormMap, fill: FormFill, ctx: { lang: Lang; attest: (fields: string[], how?: AttestHow) => Promise<void> }): Promise<LaneResult | 'session_expired'> {
     const http = new Session(`${base}/`, f);
     const first = await http.request(`/?lang=${ctx.lang}`);
     if (first.status !== 200) return { status: 'failed', readBack: {}, parentSummary: summary("The form didn't open.", 'El formulario no se abrió.'), detail: `GET / → ${first.status}` };
@@ -143,7 +143,7 @@ export function directLane(opts: DirectLaneOptions): LaneRunner {
       const link = parentUrl(pendingToken);
       try {
         await opts.onParentLink?.(link, fill.attestations);
-        await ctx.attest(fill.attestations);
+        await ctx.attest(fill.attestations, { link });
       } catch (e) {
         return {
           status: 'handoff',

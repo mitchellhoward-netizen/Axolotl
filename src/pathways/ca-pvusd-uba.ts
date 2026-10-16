@@ -20,7 +20,7 @@ const anyStudent = (rec: FamilyRecord) => rec.memberIds().some((id) => rec.get<b
 const anyOnProgram = (rec: FamilyRecord) =>
   rec.memberIds().some((id) => (rec.get<string[]>(`member.${id}.benefits`)?.value ?? []).some((b) => ['snap', 'tanf', 'medicaid'].includes(b)));
 
-export const PVUSD_UBA_FACTS: FactSpec[] = [
+const BASE_FACTS: FactSpec[] = [
   // Everyone in the household, by name (the form has no household-size box: the rows are the count).
   { key: 'member.<m>.first_name', kind: 'string', required: true, sources: ANY, ask: { en: "What's their first name?", es: '¿Cuál es su nombre?' } },
   { key: 'member.<m>.last_name', kind: 'string', required: true, sources: ANY, ask: { en: "And their last name?", es: '¿Y su apellido?' } },
@@ -51,7 +51,7 @@ export const PVUSD_UBA_FACTS: FactSpec[] = [
   { key: 'household.case_number', kind: 'string', required: anyOnProgram, sources: NO_DERIVED, ask: { en: "What's the case number on your CalFresh, CalWORKs or Medi-Cal letter?", es: '¿Cuál es el número de caso en su carta de CalFresh, CalWORKs o Medi-Cal?' } },
   { key: 'household.medicaid_income_fpl_percent', kind: 'number', required: false, sources: ['district', 'document'], ask: { en: '', es: '' } },
   // Income.
-  { key: 'household.income_reported', kind: 'boolean', required: true, sources: ['parent', 'document'], ask: { en: 'Does anyone in the home have income: work, child support, benefits, a pension?', es: '¿Alguien en su hogar tiene ingresos: trabajo, manutención, beneficios, una pensión?' } },
+  { key: 'household.income_reported', kind: 'boolean', required: true, sources: ['parent', 'document', 'derived'], ask: { en: 'Does anyone in the home have income: work, child support, benefits, a pension?', es: '¿Alguien en su hogar tiene ingresos: trabajo, manutención, beneficios, una pensión?' } },
   { key: 'income.<n>.owner', kind: 'string', required: true, sources: NO_DERIVED, ask: { en: 'Whose income is it?', es: '¿De quién es ese ingreso?' } },
   { key: 'income.<n>.kind', kind: 'enum', options: Object.keys(INCOME_COLUMN), required: true, sources: NO_DERIVED, ask: { en: 'Is that from work, from assistance or child support, or something else like a pension or Social Security?', es: '¿Es de trabajo, de asistencia o manutención, u otra cosa como una pensión o el Seguro Social?' } },
   { key: 'income.<n>.amount', kind: 'number', required: true, sources: NO_DERIVED, ask: { en: 'How much is each payment, before deductions?', es: '¿Cuánto es cada pago, antes de deducciones?' } },
@@ -61,8 +61,10 @@ export const PVUSD_UBA_FACTS: FactSpec[] = [
     key: 'income.<n>.frequency', kind: 'enum', options: [...FREQUENCIES], required: true, sources: NO_DERIVED,
     ask: { en: 'How often is it paid: every week, every two weeks, twice a month, or once a month?', es: '¿Con qué frecuencia se paga: cada semana, cada dos semanas, dos veces al mes o una vez al mes?' },
   },
-  // The adult who signs, and how to reach them (the SUN Bucks card is mailed).
-  { key: 'contact.signer', kind: 'string', required: true, sources: ['parent'], ask: { en: 'Which adult will sign the form?', es: '¿Qué adulto va a firmar el formulario?' } },
+  // The adult who signs, and how to reach them (the SUN Bucks card is mailed). The adult
+  // signing is the parent in the conversation (they sign with their own hand at the end, and
+  // the proposal shows their printed name first), so it is derived, not asked.
+  { key: 'contact.signer', kind: 'string', required: true, sources: ['parent', 'derived'], ask: { en: 'Which adult will fill out and sign the form?', es: '¿Qué adulto va a llenar el formulario?' } },
   { key: 'contact.street', kind: 'string', required: true, sources: NO_DERIVED, ask: { en: "What's your street address?", es: '¿Cuál es su dirección?' } },
   { key: 'contact.city', kind: 'string', required: true, sources: NO_DERIVED, ask: { en: 'Which city?', es: '¿En qué ciudad?' } },
   { key: 'contact.state', kind: 'string', required: true, sources: NO_DERIVED, ask: { en: 'Which state?', es: '¿En qué estado?' } },
@@ -80,6 +82,32 @@ export const PVUSD_UBA_FACTS: FactSpec[] = [
   },
 ];
 
+/**
+ * Facts the household conversation records on the way (the engine's people mode): who lives at
+ * home, how old the adults are, whether each adult has income and has told us all of it, and
+ * whether anyone else does. The forms don't print them; they are what makes "every income in
+ * the home" and "everyone who lives here" true rather than assumed.
+ */
+export const PEOPLE_FACTS: FactSpec[] = [
+  {
+    key: 'household.roster', kind: 'list', required: false, sources: ['parent'],
+    ask: { en: 'Who lives in your home with you?', es: '¿Quiénes viven en su casa con usted?' },
+  },
+  { key: 'member.<m>.age', kind: 'number', required: false, sources: ['parent', 'district'], ask: { en: 'How old are they?', es: '¿Cuántos años tiene?' } },
+  { key: 'member.<m>.has_income', kind: 'boolean', required: false, sources: ['parent'], ask: { en: 'Do they have income from work?', es: '¿Tiene ingresos de un trabajo?' } },
+  { key: 'member.<m>.income_done', kind: 'boolean', required: false, sources: ['parent'], ask: { en: 'Any other income for them?', es: '¿Tiene otro ingreso?' } },
+  { key: 'household.incomes_complete', kind: 'boolean', required: false, sources: ['parent'], ask: { en: 'Does anyone else in the home have income?', es: '¿Alguien más en la casa tiene ingresos?' } },
+];
+
+/** SNAP (CalFresh) or TANF (CalWORKs): the household is categorically eligible, and the state's
+ * direct certification match covers the children (7 CFR 245.6(b)). No archive call is needed to
+ * know there's nothing to file; the archive confirms it when the household is complete. */
+export function onSnapOrTanf(rec: FamilyRecord): boolean {
+  return rec.memberIds().some((id) => (rec.get<string[]>(`member.${id}.benefits`)?.value ?? []).some((b) => b === 'snap' || b === 'tanf'));
+}
+
+export const PVUSD_UBA_FACTS: FactSpec[] = [...BASE_FACTS, ...PEOPLE_FACTS];
+
 const ALREADY: Text = {
   en: 'Your child likely already qualifies without this form. Let me confirm with Pajaro Valley Food & Nutrition Services (831-786-2325) before we fill anything in.',
   es: 'Es probable que su hijo ya califique sin este formulario. Déjeme confirmarlo con Servicios de Alimentos y Nutrición de Pajaro Valley (831-786-2325) antes de llenar nada.',
@@ -96,9 +124,22 @@ const UNCHECKED: Text = {
 /** Archive results that mean "covered without this form" (school_meals/federal/rules.py). */
 const COVERED_RULES = new Set(['SCH-FED-CATEGORICAL-PROGRAM', 'SCH-FED-CATEGORICAL-INDIVIDUAL', 'SCH-FED-DC-SNAP', 'SCH-CA-DCM-MEDI-CAL']);
 
-export function coveredByDetermination(d: Determination): boolean {
-  if (d.links.some((l) => l === 'snap:direct_certification' || l.startsWith('medicaid:direct_certification_'))) return true;
-  return d.reasons.some((r) => r.passed === true && COVERED_RULES.has(r.rule));
+export function coveredByDetermination(d: Determination, opts: { formTakesOwnStatus?: boolean; medicaidMatched?: boolean } = {}): boolean {
+  // Medi-Cal covers a child through the state's match of the CHILD's Medi-Cal record (CALPADS
+  // DCM). "Someone in the home has Medi-Cal" doesn't say whose, so only the district's own match
+  // (household.medicaid_income_fpl_percent from the district) counts; otherwise we file.
+  const medicaid = opts.medicaidMatched !== false;
+  if (d.links.some((l) => l === 'snap:direct_certification' || (medicaid && l.startsWith('medicaid:direct_certification_')))) return true;
+  // A form with foster / homeless / migrant boxes is how that status reaches the school, so a
+  // child covered only by their own status is filed, with the box checked.
+  return d.reasons.some(
+    (r) => r.passed === true && COVERED_RULES.has(r.rule) && !(opts.formTakesOwnStatus && r.rule === 'SCH-FED-CATEGORICAL-INDIVIDUAL') && (medicaid || r.rule !== 'SCH-CA-DCM-MEDI-CAL'),
+  );
+}
+
+/** The district matched the household's Medi-Cal (the CALPADS DCM percent is its record). */
+export function medicaidMatched(rec: FamilyRecord): boolean {
+  return rec.get('household.medicaid_income_fpl_percent')?.source.kind === 'district';
 }
 
 export const pvusdUba: Pathway = {
@@ -110,28 +151,23 @@ export const pvusdUba: Pathway = {
   facts: PVUSD_UBA_FACTS,
 
   async precheck(rec, archive: ArchiveClient, asOf) {
-    // The archive decides "covered" for the household; each student's own foster, homeless
-    // or migrant status is checked too, because the archive looks at one target student.
-    const students = rec.memberIds().filter((id) => isStudent(rec, id, asOf).student);
-    const ownStatus = students.some((id) =>
-      (['foster', 'homeless', 'migrant'] as const).some((f) => {
-        const fact = rec.get<boolean>(`member.${id}.${f}`);
-        return fact?.value === true && SENSITIVE_SOURCES.includes(fact.source.kind);
-      }),
-    );
+    // A child's own foster, homeless or migrant status is a box on this form (USDA's household
+    // application has the same boxes): we file with it checked, because the form is how the
+    // school learns it, rather than send the family to call. CalFresh or CalWORKs: covered,
+    // whatever else we learn (the archive confirms it when the household is complete).
+    void isStudent;
+    void SENSITIVE_SOURCES;
     const projection = schoolMealsHousehold(rec, asOf);
-    if (!projection.household) {
-      if (ownStatus) return { file: false, why: ALREADY };
-      return { file: true, why: UNCHECKED };
-    }
+    if (!projection.household) return onSnapOrTanf(rec) ? { file: false, why: ALREADY } : { file: true, why: UNCHECKED };
     let determination: Determination;
     try {
       determination = await archive.evaluate('school_meals', projection.household, asOf);
     } catch (e) {
-      if (e instanceof ArchiveUnavailable) return { file: !ownStatus, why: ownStatus ? ALREADY : UNCHECKED };
+      if (e instanceof ArchiveUnavailable) return onSnapOrTanf(rec) ? { file: false, why: ALREADY } : { file: true, why: UNCHECKED };
       throw e;
     }
-    if (ownStatus || coveredByDetermination(determination)) return { file: false, why: ALREADY, determination };
+    if (onSnapOrTanf(rec)) return { file: false, why: ALREADY, determination };
+    if (coveredByDetermination(determination, { formTakesOwnStatus: true, medicaidMatched: medicaidMatched(rec) })) return { file: false, why: ALREADY, determination };
     return { file: true, why: FILE, determination };
   },
 

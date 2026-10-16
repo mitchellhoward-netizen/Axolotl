@@ -1,8 +1,7 @@
 import { ArchiveUnavailable, type ArchiveClient, type Determination } from '../archive/client.js';
 import { schoolMealsHousehold, type FamilyRecord } from '../family/facts.js';
 import { makeLinqIncomeForm, PSUSD_INCOME_MODE } from '../forms/ca-psusd-linq-income-form-2026.js';
-import { REFERENCE_PATTERN } from '../replicas/linq-income-form.js';
-import { coveredByDetermination, PVUSD_UBA_FACTS } from './ca-pvusd-uba.js';
+import { coveredByDetermination, medicaidMatched, onSnapOrTanf, PEOPLE_FACTS, PVUSD_UBA_FACTS } from './ca-pvusd-uba.js';
 import type { FactSpec, Pathway, Text } from './types.js';
 
 /**
@@ -17,6 +16,7 @@ import type { FactSpec, Pathway, Text } from './types.js';
 const SHARED = new Set([
   'member.<m>.first_name',
   'member.<m>.last_name',
+  'member.<m>.middle_initial',
   'member.<m>.relationship',
   'member.<m>.dob',
   'member.<m>.student',
@@ -26,6 +26,8 @@ const SHARED = new Set([
   'household.case_number',
   'household.medicaid_income_fpl_percent',
   'household.income_reported',
+  'income.<n>.owner',
+  'income.<n>.kind',
   'income.<n>.amount',
   'income.<n>.frequency',
 ]);
@@ -48,6 +50,7 @@ export const PSUSD_LINQ_FACTS: FactSpec[] = [
     sources: ['parent', 'derived'],
     ask: { en: 'How many people live in your home, counting you?', es: '¿Cuántas personas viven en su hogar, contándose usted?' },
   },
+  ...PEOPLE_FACTS,
 ];
 
 const ALREADY: Text = {
@@ -73,15 +76,15 @@ export const psusdLinq: Pathway = {
 
   async precheck(rec, archive: ArchiveClient, asOf) {
     const projection = schoolMealsHousehold(rec, asOf);
-    if (!projection.household) return { file: true, why: UNCHECKED };
+    if (!projection.household) return onSnapOrTanf(rec) ? { file: false, why: ALREADY } : { file: true, why: UNCHECKED };
     let determination: Determination;
     try {
       determination = await archive.evaluate('school_meals', projection.household, asOf);
     } catch (e) {
-      if (e instanceof ArchiveUnavailable) return { file: true, why: UNCHECKED };
+      if (e instanceof ArchiveUnavailable) return onSnapOrTanf(rec) ? { file: false, why: ALREADY } : { file: true, why: UNCHECKED };
       throw e;
     }
-    if (coveredByDetermination(determination)) return { file: false, why: ALREADY, determination };
+    if (onSnapOrTanf(rec) || coveredByDetermination(determination, { medicaidMatched: medicaidMatched(rec) })) return { file: false, why: ALREADY, determination };
     return { file: true, why: FILE, determination };
   },
 
@@ -89,7 +92,8 @@ export const psusdLinq: Pathway = {
   lanes: ['direct'],
   confirmation: {
     kind: 'reference',
-    pattern: REFERENCE_PATTERN,
+    // The code itself (six letters and digits), as the lane reads it off LINQ's page.
+    pattern: /^[A-Z0-9]{6}$/,
     describe: { en: 'The reference code LINQ shows when the form is filed.', es: 'El código de referencia que muestra LINQ al enviar el formulario.' },
   },
   // The district's separate LINQ UBA gets SUN Bucks; CalFresh when the archive says likely eligible.
