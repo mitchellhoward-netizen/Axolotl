@@ -132,6 +132,13 @@ const REL_WORDS: Array<[Rel, RegExp]> = [
   ['parent', /\b(mom|mother|mum|dad|father|mama|papa|madre|padre|mother-in-law|father-in-law|suegra|suegro)\b/],
   ['other', /\b(grandma|grandmother|grandpa|grandfather|abuela|abuelo|brother|sister|cousin|aunt|uncle|nephew|niece|friend|roommate|tenant|hermano|hermana|primo|prima|tia|tio|sobrino|sobrina|amigo|amiga|nieto|nieta|grandson|granddaughter)\b/],
 ];
+/** How someone is related to the parent, when the words say it ("he's my husband", "mi papá"). */
+export function parseRel(text: string): Rel | undefined {
+  const f = fold(text);
+  const hits = REL_WORDS.filter(([r, re]) => r !== 'self' && re.test(f)).map(([r]) => r);
+  return hits.length === 1 ? hits[0] : undefined;
+}
+
 const ROSTER_LEAD = /^(?:it'?s|its|there'?s|there are|we are|we'?re|just|only|vivimos|somos|viven|en (?:mi|la|nuestra) casa (?:viven|vivimos|somos)|solo|nada mas)\s*:?\s*/i;
 const MY = /^(?:my|our|mi|mis|nuestro|nuestra|the|el|la)\s+/i;
 

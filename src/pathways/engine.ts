@@ -25,6 +25,7 @@ import {
   sentences,
   splitName,
   relWord,
+  parseRel,
   type MemberRef,
   type Rel,
 } from './household.js';
@@ -241,6 +242,8 @@ function humanize(id: string): string {
 }
 
 function same(a: unknown, b: unknown): boolean {
+  // "Watsonville" and "watsonville" are the same answer, not a correction.
+  if (typeof a === 'string' && typeof b === 'string') return a.trim().toLowerCase() === b.trim().toLowerCase();
   return JSON.stringify(a) === JSON.stringify(b);
 }
 
@@ -684,7 +687,9 @@ export class PathwayEngine {
       if (p.first_name && may(`member.${id}.first_name`)) put(`member.${id}.first_name`, p.first_name, p.quote);
       if (p.last_name && may(`member.${id}.last_name`)) put(`member.${id}.last_name`, p.last_name, p.quote);
       if (p.middle_initial && may(`member.${id}.middle_initial`)) put(`member.${id}.middle_initial`, p.middle_initial, p.quote);
-      if (!rec.has(`member.${id}.relationship`)) put(`member.${id}.relationship`, id === SELF ? 'self' : p.relationship ?? 'other', p.quote);
+      // A relationship only as the parent said it: unsaid, it is asked ("How is Javier related
+      // to you?"), never assumed.
+      if (!rec.has(`member.${id}.relationship`) && (id === SELF || p.relationship)) put(`member.${id}.relationship`, id === SELF ? 'self' : p.relationship!, p.quote);
       if (p.age !== undefined && !rec.has(`member.${id}.dob`) && may(`member.${id}.age`)) put(`member.${id}.age`, p.age, p.quote);
     }
     if (rosterAsked && listed.length) {
@@ -915,6 +920,13 @@ export class PathwayEngine {
       if (last) put(`member.${otherLast}.last_name`, last, text.trim());
     }
 
+    // How someone is related to the parent, when we asked.
+    const relAsked = L.length === 1 ? /^member\.([^.]+)\.relationship$/.exec(L[0]!)?.[1] : undefined;
+    if (relAsked) {
+      const rel = parseRel(text);
+      if (rel) put(`member.${relAsked}.relationship`, rel, text.trim());
+    }
+
     // Who lives at home.
     if (L.includes('household.roster')) {
       const items = parseRoster(text);
@@ -1136,8 +1148,45 @@ export class PathwayEngine {
     }
     // A value we already had isn't news: only what changed counts as read.
     ex.facts = kept;
+    this.reId(rec, s);
     s.record = rec.toJSON();
     return changes;
+  }
+
+  /** Someone listed before we knew how they're related ("javier castillo 38") got an id of
+   * their own (g1). Once the parent says how, they move to the archive's id for it (a spouse is
+   * q, a child c#), with every fact and its source unchanged. */
+  private reId(rec: FamilyRecord, s: PathwaySession): void {
+    for (const id of rec.memberIds()) {
+      if (!/^g\d+$/.test(id)) continue;
+      const rel = rec.get<string>(`member.${id}.relationship`);
+      if (!rel || rel.source.kind !== 'parent') continue;
+      const ids = rec.memberIds();
+      let to: string | undefined;
+      if (rel.value === 'spouse' && !ids.includes('q')) to = 'q';
+      else if (rel.value === 'child') {
+        let k = 1;
+        while (ids.includes(`c${k}`)) k++;
+        to = `c${k}`;
+      }
+      if (!to) continue;
+      const swap = (k: string) => k.replace(new RegExp(`^member\\.${id}\\.`), `member.${to}.`);
+      for (const k of rec.keys()) {
+        if (!k.startsWith(`member.${id}.`)) continue;
+        const f = rec.get(k)!;
+        rec.delete(k);
+        rec.set(swap(k), f.value, f.source, f.at);
+      }
+      for (const k of rec.keys()) {
+        const f = rec.get(k)!;
+        if (k === 'household.roster' && Array.isArray(f.value)) rec.set(k, (f.value as string[]).map((x) => (x === id ? to : x)), f.source, f.at);
+        else if ((/^income\.\d+\.owner$/.test(k) || k === 'contact.signer') && f.value === id) rec.set(k, to, f.source, f.at);
+      }
+      s.lastAsked = s.lastAsked.map(swap);
+      s.recent = s.recent.map(swap);
+      s.skipped = s.skipped.map(swap);
+      s.asked = Object.fromEntries(Object.entries(s.asked).map(([k, v]) => [swap(k), v]));
+    }
   }
 
   /** Answers to side questions about the form, in the family's language. */
@@ -1260,7 +1309,7 @@ export class PathwayEngine {
       const where = asked.map((a) => hintFor(hints.where, a.key)?.[s.lang]).find(Boolean);
       return { text: hints.people ? R.dontKnowAsk(askText, where) : R.dontKnow, phase: 'idle' };
     }
-    if (g === 'off_topic' || g === 'stop' || ex.question) return this.pause(s, s.stage, 'side');
+    if (g === 'off_topic' || g === 'stop' || (ex.question && !m)) return this.pause(s, s.stage, 'side');
     // Not an answer we can read: ask again with an example (counted), or offer a person.
     return this.ask(s, pathway, rec, { keys: asked.map((a) => a.key), ...(s.lastAskBase ? { text: s.lastAskBase } : {}), example }, (q) => R.didntCatch(q, example));
   }
@@ -1529,6 +1578,7 @@ export class PathwayEngine {
     for (const id of use.get<string[]>('household.roster')?.value ?? []) {
       if (id === SELF) continue;
       const first = this.nameOf(use, id);
+      if (!has(`member.${id}.relationship`) && spec(`member.<m>.relationship`)) return { keys: [`member.${id}.relationship`], text: R.askRelation(first ?? '') };
       if (!first && !has(`member.${id}.first_name`)) {
         return { keys: [`member.${id}.first_name`, `member.${id}.last_name`], text: R.askNameOf(relWord(use.get<string>(`member.${id}.relationship`)?.value, s.lang)) };
       }

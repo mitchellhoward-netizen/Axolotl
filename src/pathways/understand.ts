@@ -178,26 +178,46 @@ export function userPrompt(input: UnderstandInput): string {
 const str = z.string().trim().min(1).max(200);
 const opt = <T extends z.ZodTypeAny>(t: T) => t.nullish().transform((v) => (v === null ? undefined : v));
 const Quote = z.string().min(1).max(600);
+/** A word the model used for one of ours ("wages" → earned), or undefined: a field it filled
+ * with something else is left out, not the whole item. */
+const SYNONYMS: Record<string, string> = {
+  wages: 'earned', wage: 'earned', salary: 'earned', work: 'earned', job: 'earned', employment: 'earned', earnings: 'earned', paycheck: 'earned',
+  self_employed: 'self_employment', business: 'self_employment', own_business: 'self_employment',
+  disability: 'ssdi', retirement: 'pension', calworks: 'public_assistance', tanf: 'public_assistance', welfare: 'public_assistance',
+  bi_weekly: 'biweekly', every_two_weeks: 'biweekly', fortnightly: 'biweekly', semimonthly: 'twice_monthly', semi_monthly: 'twice_monthly', yearly: 'annual', annually: 'annual', per_hour: 'hourly',
+  husband: 'spouse', wife: 'spouse', partner: 'spouse', son: 'child', daughter: 'child', kid: 'child', stepchild: 'child', mother: 'parent', father: 'parent', mom: 'parent', dad: 'parent', me: 'self',
+};
+const oneOf = <T extends readonly string[]>(xs: T) =>
+  z
+    .unknown()
+    .transform((v): T[number] | undefined => {
+      if (typeof v !== 'string') return undefined;
+      const k = v.trim().toLowerCase().replace(/[\s-]+/g, '_');
+      const m = (xs as readonly string[]).includes(k) ? k : SYNONYMS[k];
+      return m && (xs as readonly string[]).includes(m) ? (m as T[number]) : undefined;
+    });
+/** A number, or a string that is only one ("1,100", "$2200", "38"). */
+const num = z.preprocess((v) => (typeof v === 'string' && /^\s*\$?\s*[\d,]+(\.\d+)?\s*$/.test(v) ? Number(v.replace(/[$,\s]/g, '')) : v), z.number());
 const PersonZ = z.object({
   ref: str,
   first_name: opt(str),
   last_name: opt(str),
   middle_initial: opt(z.string().trim().max(3)),
-  relationship: opt(z.enum(RELATIONSHIPS)),
-  age: opt(z.number().int().min(0).max(120)),
+  relationship: oneOf(RELATIONSHIPS),
+  age: opt(num.pipe(z.number().int().min(0).max(120))).catch(undefined),
   quote: Quote,
 });
 const IncomeZ = z.object({
-  owner: z.string().trim().default('unknown'),
-  amount: z.number().positive().max(10_000_000),
-  frequency: opt(z.enum(INCOME_FREQUENCIES)),
-  kind: opt(z.enum(INCOME_KINDS)),
-  replaces: opt(z.number().positive()),
+  owner: z.unknown().transform((v) => (typeof v === 'string' && v.trim() ? v.trim() : 'unknown')),
+  amount: num.pipe(z.number().positive().max(10_000_000)),
+  frequency: oneOf(INCOME_FREQUENCIES),
+  kind: oneOf(INCOME_KINDS),
+  replaces: opt(num.pipe(z.number().positive())).catch(undefined),
   quote: Quote,
 });
-const NoIncomeZ = z.object({ person: str, scope: z.enum(['none', 'no_more']).default('none'), quote: Quote });
+const NoIncomeZ = z.object({ person: str, scope: z.enum(['none', 'no_more']).catch('none'), quote: Quote });
 const FactZ = z.object({ key: str, value: z.union([z.string(), z.number(), z.boolean(), z.array(z.string())]), quote: Quote });
-const CorrectionZ = z.object({ line: z.number().int().positive(), value: z.string().trim().min(1).max(200), quote: Quote });
+const CorrectionZ = z.object({ line: num.pipe(z.number().int().positive()), value: z.union([z.string(), z.number()]).transform((v) => String(v).trim()).pipe(z.string().min(1).max(200)), quote: Quote });
 const TopZ = z.object({
   intent: z.enum(INTENTS),
   also_asks: z.boolean().optional(),

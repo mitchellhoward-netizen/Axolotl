@@ -59,6 +59,12 @@ export class FamilyRecord {
     return this.facts.has(key);
   }
 
+  /** Forget a fact (used only to move a member's facts to their archive id, keeping each
+   * fact's value and source). */
+  delete(key: FactKey): boolean {
+    return this.facts.delete(key);
+  }
+
   keys(): FactKey[] {
     return [...this.facts.keys()];
   }

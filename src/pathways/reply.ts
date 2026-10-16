@@ -73,6 +73,7 @@ export interface Replies {
   askLastName(first: string, self: boolean): string;
   askWhich(flag: string): string;
   askNameOf(rel: string): string;
+  askRelation(name: string): string;
   askPaycheck: string;
   askAddress: string;
   you: string;
@@ -148,6 +149,7 @@ const en: Replies = {
   askWhich: (flag) => `Which of the children ${flag}?`,
   askAddress: "What's your home address? The street, the city and the ZIP code.",
   askNameOf: (rel) => `What's your ${rel}'s first and last name? It goes on the form.`,
+  askRelation: (name) => `How is ${name || 'they'} related to you: your partner, your child, a parent, or someone else?`,
   askPaycheck: 'Thanks. The form asks for the pay itself, not the hourly rate. About how much is one paycheck before taxes, and how often do you get paid?',
   you: 'You',
   your: (field) => `Your ${field}`,
@@ -220,6 +222,7 @@ const es: Replies = {
   askWhich: (flag) => `¿Cuál de los niños ${flag}?`,
   askAddress: '¿Cuál es la dirección de su casa? La calle, la ciudad y el código postal.',
   askNameOf: (rel) => `¿Cuál es el nombre y apellido de su ${rel}? Va en el formulario.`,
+  askRelation: (name) => `¿Qué es ${name || 'esa persona'} de usted: su pareja, su hijo o hija, su papá o mamá, u otra persona?`,
   askPaycheck: 'Gracias. El formulario pide el pago, no la tarifa por hora. ¿Más o menos cuánto es un cheque antes de impuestos, y cada cuánto le pagan?',
   you: 'Usted',
   your: (field) => `Su ${field}`,
