@@ -1,6 +1,6 @@
 # Pathways: the forms, the programs, and the agent built around them
 
-**Status: a proposal for Mitch to review before it is built (2026-10-16).** Read `VISION.md`,
+**Status: architecture agreed with Mitch on 2026-10-16 (decisions in §6); being built.** Read `VISION.md`,
 `AGENT-PLAN.md` and `SPRINT-PLAN.md` first. This document does three things:
 
 1. Takes stock of what the repo already knows about forms and public programs. It is more than it
@@ -40,7 +40,7 @@ archive, it has nothing to feed it.
 | McKinney-Vento (transport, immediate enrollment) | ✗ | Scripted 2-step flow that **submits nothing** (`src/agent/mckinney.ts:24-26`); rights cited (`src/knowledge/rights.ts:35-50`) | District liaison (form or email; varies) |
 | Attendance barriers / bus pass | ✗ | Barrier diagnosis + drafted message, demo (`src/agent/attendance.ts`); district `busPasses` contact | District transportation request (varies) |
 | Special ed (IEP/504), English learners, after-school, summer meals | ✗ | Entitlement or rights text only (`src/knowledge/entitlements.ts`) | Assessment request letter; assessment-plan consent signature |
-| **SUN Bucks / Summer EBT** | ✗. Mentioned only as "the meal form unlocks it" (`school_meals/states/ca/playbook.yaml:18,42,297`) | ✗ | Not verified how CA families who aren't directly certified get it |
+| **SUN Bucks / Summer EBT** | ✗. Mentioned only as "the meal form unlocks it" (`school_meals/states/ca/playbook.yaml:18,42,297`), which is **wrong for the AIF** (§1.3) | ✗ | Universal Benefits Application or meal application, through the school |
 | WIC, LIHEAP, Head Start, CHIP, child-care subsidy, Lifeline, EITC/CTC, FAFSA/CADAA, enrollment/re-registration, immunization | ✗ (some appear as words in `archive/rulesarchive/household.py:57-62`) | ✗ (child-care waitlist probed in the bench) | — |
 
 **Cross-program links already in the archive** (`links:` blocks): CalFresh → free meals by
@@ -48,7 +48,32 @@ categorical eligibility and direct certification; Medi-Cal → direct certificat
 reduced, via CALPADS, `ca/playbook.yaml:332-346`); MSP → Extra Help; disability → Medicaid, MSP,
 SNAP. This is the "what it opens next" the sprint plan asks for, already written and sourced.
 
-### 1.3 Forms and portals probed
+### 1.3 SUN Bucks: the AIF does not count (checked 2026-10-16)
+
+- **An Alternative Income Form does not qualify a child for SUN Bucks.** CDE: "SUN Bucks
+  eligibility determinations cannot be made using the Alternative Income Form (AIF)"
+  (cde.ca.gov/ls/nu/sunbucks.asp, reviewed 2026-09-29); "Alternative Income Forms may no longer
+  be used for SUN Bucks" (cde.ca.gov/fg/aa/pa/altincomeforms.asp). California's 2024 waiver was
+  not renewed for 2025.
+- **What does count:** a Universal Benefits Application (UBA) or a meal application, returned to
+  the school (never to CDE or CDSS). At a CEP school, a family that isn't directly certified
+  needs a UBA every year. Berkeley USD's cover sheet: "The Household Income Form does NOT
+  qualify for SUN Bucks"; "some households will complete both."
+- **Automatic:** CalFresh, CalWORKs, Medi-Cal at or under 185% FPL, and children directly
+  certified, foster, homeless or migrant in CALPADS at an NSLP school.
+- $120 per child, once, on a mailed EBT card, to be spent within 122 days. The summer 2026
+  deadline (Aug 31, 2026) has passed, so filing now is for summer 2027. **Not verified:** the
+  2027 rules and deadline aren't published yet.
+- **For the pathway:** where a district accepts the UBA for the LCFF count (the archive lists
+  it next to the AIF templates, `ca/playbook.yaml:242-252`), **the UBA is the better form**:
+  one form counts the child for the district and gets the family SUN Bucks. Where only the AIF
+  is offered, the helper says what the AIF does and doesn't do, and offers the UBA too. It
+  never says "the income form also gets you SUN Bucks" about an AIF.
+- Sources: cde.ca.gov/ls/nu/sunbucks.asp; cde.ca.gov/fg/aa/pa/altincomeforms.asp;
+  cdss.ca.gov/sun-bucks/how-to-get-sun-bucks; cdss.ca.gov/sun-bucks/who-is-eligible;
+  fns.usda.gov SEBT 01-2025; berkeleyschools.net UBA (March 2026).
+
+### 1.4 Forms and portals probed
 
 | Form | Kind | How far we got |
 |---|---|---|
@@ -66,7 +91,7 @@ The quirk taxonomy in `bench/form-quirks.json` (account-gated, benefits portal, 
 enrollment, embedded form builder, fillable PDF, Facebook embed, CAPTCHA, file upload,
 bilingual) is good and is kept below.
 
-### 1.4 Harness and scoreboard
+### 1.5 Harness and scoreboard
 
 None of the scoreboard metrics are measured today: no wrong-field count (nothing grades a field),
 no guessed-fact count (no value carries a source), no attestation check, no pass^k, no cost per
@@ -247,17 +272,17 @@ The first run is the **baseline of today's agent** (before), committed with its 
 | 4–9 | Pathway engine + pipeline; `ca.lcff_aif` end to end; offer CalFresh / SUN Bucks next from the archive's links | One family, one yes, the form filed and confirmed on the replica, the next benefit offered, in English and Spanish |
 | 8–11 | Second pathway: the attendance barrier (bus pass / McKinney-Vento transport) | Both pass on replicas |
 
-## 6. Decisions for Mitch
+## 6. Decisions (Mitch, 2026-10-16)
 
-1. **Which district's AIF is replica 1?** (AGENT-PLAN open question 3, still open.) A district
-   with a CEP school and its own form is the better test; Pajaro Valley is already on the site.
-2. **CA only for the launch pathways?** The archive has NY and IL too, but the school wedge and
-   the AIF are California.
-3. **The archive bridge:** CLI (recommended) or service.
-4. **SUN Bucks in California:** how a non-directly-certified family gets it needs verifying
-   before "opens next" can promise it.
-5. **Recording real portals** for lane 2 scripts (AGENT-PLAN open question 2); blocks Phase 5,
-   not the AIF.
+1. **Replica districts:** Pajaro Valley Unified, plus two more chosen as good ICP (see
+   `docs/REPLICA-DISTRICTS.md` once it lands).
+2. **California only** for the launch pathways.
+3. **The archive bridge:** "whatever is best." Built as a long-lived Python worker inside the
+   agent's container (`archive/rulesarchive/serve.py` ↔ `src/archive/client.ts`): a cold start is
+   about 0.6 s, a warm call well under 50 ms, nothing extra to deploy.
+4. **SUN Bucks:** checked (§1.3). It changes which form to file.
+5. **Recording real portals** for lane 2 scripts: still open (AGENT-PLAN question 2); blocks
+   Phase 5, not the AIF.
 
 Separately: a real test-account password was committed in `scripts/test-form-benchmark.ts`
 (2026-09-24). It now reads from the environment, but it is still in git history and **must be
