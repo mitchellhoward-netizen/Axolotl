@@ -7,13 +7,14 @@
  *   (behind the cloud proxy, add NODE_USE_ENV_PROXY=1: Node's fetch ignores HTTPS_PROXY otherwise)
  *
  * The number that matters is false approvals at the act threshold: a reply that is not a yes
- * which Jev would let through. The digest gate still holds either way; this is the second check.
+ * which Jev would run. The digest still holds either way: nothing runs that wasn't shown.
  */
 import { decide, jevEnabled, thresholdsFor, vetoesYes, yesQuestion } from '../src/agent/decide.js';
 
+/** Exactly what the agent tells Jev it asked (Agent.askedLine). */
 const ASKED = [
-  'Reply YES to approve the email ready to send.',
-  'Reply YES to approve the form ready to submit.',
+  'We asked the parent: want me to go ahead with the email ready to send, exactly as shown?',
+  'We asked the parent: want me to go ahead with the form ready to submit, exactly as shown?',
 ];
 
 /** [reply, is it a clear approval?] English and Spanish, the messy ways parents answer. */
@@ -58,7 +59,12 @@ async function main(): Promise<void> {
     medianMs: ms[Math.floor(ms.length / 2)],
     thresholds: [at(0.5), at(0.9), at(0.95), at(t.act)],
     act: t.act,
-    // As the gate uses it: a veto on a yes the regex and digest already accepted.
+    // A reply we don't recognise: runs at act, one "want me to go ahead?" in the 0.5-act band.
+    readAsYes: {
+      runs: { yeses: `${ok.filter((r) => r.label && r.answer === 'approve' && r.p >= t.act).length}/${ok.filter((r) => r.label).length}`, nonYeses: [...new Set(ok.filter((r) => !r.label && r.answer === 'approve' && r.p >= t.act).map((r) => r.reply))] },
+      asksOnce: [...new Set(ok.filter((r) => r.answer === 'approve' && r.p >= 0.5 && r.p < t.act).map((r) => `${r.reply}${r.label ? '' : ' (not a yes)'}`))],
+    },
+    // A phrase we do recognise: Jev can only veto it.
     veto: {
       at: t.veto,
       nonYesesStopped: `${ok.filter((r) => !r.label && r.vetoed).length}/${ok.filter((r) => !r.label).length}`,
@@ -67,7 +73,7 @@ async function main(): Promise<void> {
     },
   }, null, 2));
   const missed = ok.filter((r) => r.label && !(r.answer === 'approve' && r.confidence >= t.act));
-  console.log(`\nYeses that would be asked for the code at ${t.act}: ${[...new Set(missed.map((r) => r.reply))].join(' | ') || 'none'}`);
+  console.log(`\nYeses Jev alone would not run at ${t.act} (most are phrases the gate already knows): ${[...new Set(missed.map((r) => r.reply))].join(' | ') || 'none'}`);
 }
 
 main().catch((e) => {

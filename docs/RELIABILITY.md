@@ -150,31 +150,42 @@ worth deciding whether it should degrade quietly or fail loudly.
 
 ---
 
-## The YES check: Jev as the second check on a bare yes (2026-10-16)
+## The yes check: how a parent's yes is read (2026-10-16)
 
-**What was measured.** `decide('yes_to_exact_values')` (`src/agent/decide.ts`) on 40 labeled
-parent replies (18 approvals, 22 not; English and Spanish, including "ok thanks", "yes but change
-the grade to 2", "hold on, let me check with my husband"), each asked against two requests ("the
-email ready to send", "the form ready to submit"): 80 live calls.
+> **Status: good for now, not the final configuration** (Mitch, 2026-10-16). The aim is that a
+> parent says yes the way they would to a person and it gets done; no codes, no all-caps YES.
+> The thresholds below were set on 40 replies we wrote. Revisit them on labeled real turns
+> (sprint days 8–11) before calling this done.
+
+**How it works** (`src/agent/agent.ts` gate, `src/agent/steps/approval.ts`, `src/agent/decide.ts`):
+
+1. **The floor, invisible to the parent:** nothing runs unless it is exactly what the parent was
+   shown (same values, same recipient; a digest), within a day. If anything changed, the new
+   version is shown first. If another message went out in between, a "yes" gets one line,
+   "Just to check: want me to go ahead with the email ready to send?"
+2. **A phrase we know** ("yes", "go ahead", "send it", "sí", "dale", "👍"): runs. Jev can stop it
+   only when it is ≥ 0.90 sure it isn't an approval, and then only once (one check in a sentence;
+   the next yes phrase runs). Jev being down never blocks it.
+3. **Anything else** ("sounds good, send it", "claro que sí", "yes thank you so much"): Jev reads
+   it. ≥ 0.98 sure it's a yes → runs. 0.50–0.98 → one "want me to go ahead?". Otherwise it is
+   treated as a different message. Without Jev, these never run.
+
+**What was measured.** `decide('yes_to_exact_values')` on 40 labeled replies (18 approvals,
+22 not; English and Spanish, incl. "ok thanks", "yes but change the grade to 2", "hold on, let me
+check with my husband"), each against two requests, with the wording the agent sends Jev.
 
 - **Command:** `NODE_USE_ENV_PROXY=1 JEV_ENABLED=true npx tsx scripts/calibrate-yes.ts`
-- **Model:** `jev-1.13.0` (pinned). **Build:** branch `claude/youthful-keller-x8kyyz` at `70f34de` plus the uncommitted decide.ts/veto change, committed right after this run.
-- **Errors:** 0 of 80. **Median latency:** 176 ms. **Cost:** about 360 input tokens a call (~$0.000015).
+- **Model:** `jev-1.13.0` (pinned). **Calls:** 80, **errors** 0, **median** 177 ms, ~360 input tokens a call.
 
-| Use | Threshold | Non-yeses let through | Real yeses let through |
-|---|---|---|---|
-| Jev as the approver | 0.50 | 0 / 44 | 25 / 36 |
-| Jev as the approver | 0.98 (the plan's number) | 0 / 44 | 7 / 36 |
-| **Jev as a veto (what the gate does)** | not-approve ≥ 0.90 | 2 / 44 ("yes, and also email the nurse") | 34 / 36 (stops "dale") |
+| Jev reading a reply on its own | Real yeses it would run | Non-yeses it would run |
+|---|---|---|
+| ≥ 0.98 (what step 3 uses) | 30 / 36 | **0 / 44** |
+| ≥ 0.50 | 34 / 36 | 0 / 44 |
 
-**What it means.** Jev is sure when something is *not* a yes ("ok thanks" 0.98, "I guess?" 1.00)
-and unsure about short yeses ("ok" scores 0.66 not-approve, "submit it" 0.40 approve). As the
-approver at 0.98 it would ask most parents for the code and protect nothing the gate's
-whole-message regex doesn't already reject. So the gate uses it as a veto: a bare yes that passed
-the regex **and** the proposal digest runs unless Jev is ≥ 0.90 sure it isn't an approval, or Jev
-can't answer (no key, error, timeout: then the parent is asked for `YES <code>`). The one miss
-("yes, and also email the nurse") never reaches Jev, because the regex rejects it first.
+The six yeses below 0.98 ("ok", "send it", "submit it", "dale" and one wording each of two
+others) are phrases step 2 already knows, so they run anyway; "dale" is the one Jev gets wrong
+(≥ 0.90 "not a yes"), hence the one-check rule. The wording of the question matters: asked as
+"Reply YES to approve the email", the same model ran only 7/36 yeses at 0.98.
 
 **Limits.** 40 replies written by us, not drawn from real threads. One model version. No
-repeat-agreement run yet. This is a smoke check of the threshold, not a calibration: the sprint's
-Jev calibration on labeled real turns (days 8–11) replaces it.
+repeat-agreement run. A smoke check of the thresholds, not a calibration.

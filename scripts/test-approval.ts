@@ -1,6 +1,7 @@
 /**
- * A parent's YES is bound to the exact proposal they were shown (src/agent/steps/approval.ts,
- * wired into the gate at the top of Agent.handleTurn). Run: npm run test:approval
+ * A parent's yes is bound to the exact proposal they were shown (src/agent/steps/approval.ts,
+ * wired into the gate at the top of Agent.handleTurn), and they never type anything but their
+ * answer: no codes. Run: npm run test:approval
  */
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
@@ -10,15 +11,7 @@ import { MockCalendarProvider } from '../src/integrations/calendar.js';
 import { MockMealsProvider } from '../src/integrations/meals.js';
 import { MockSis } from '../src/integrations/sis.js';
 import { createSeedDb, provisionFamily } from '../src/seed.js';
-import {
-  checkApproval,
-  consentRecord,
-  parseApprovalReply,
-  proposalDigest,
-  shownIn,
-  stampApproval,
-  withApprovalCode,
-} from '../src/agent/steps/approval.js';
+import { checkApproval, consentRecord, invitesYes, proposalDigest, shownIn, stampApproval } from '../src/agent/steps/approval.js';
 import { describeProposal } from '../src/agent/steps/consent.js';
 import type { Step } from '../src/agent/steps/types.js';
 
@@ -81,22 +74,12 @@ function makeAgent(): { agent: Agent; outbox: unknown[] } {
   return { agent, outbox };
 }
 
-const codeIn = (text: string) => /YES (\d{4})/.exec(text)?.[1];
-
-test('parses YES <code> in either order, and never reads a field change as a code', () => {
-  const bare = (t: string) => /^(yes|go|ok)$/i.test(t);
-  assert.deepEqual(parseApprovalReply('YES 4821', bare), { kind: 'code', code: '4821' });
-  assert.deepEqual(parseApprovalReply('yes, 4821.', bare), { kind: 'code', code: '4821' });
-  assert.deepEqual(parseApprovalReply('4821 yes', bare), { kind: 'code', code: '4821' });
-  assert.deepEqual(parseApprovalReply('sí 4821', bare), { kind: 'code', code: '4821' });
-  assert.deepEqual(parseApprovalReply('yes', bare), { kind: 'bare' });
-  assert.equal(parseApprovalReply('yes grade 2', bare), null);
-  assert.equal(parseApprovalReply('yes use 456 Oak Ave', bare), null);
-});
-
-test('writes the code into the message’s own invitation', () => {
-  assert.equal(withApprovalCode('Reply YES to submit, or tell me what to change.', '0042'), 'Reply YES 0042 to submit, or tell me what to change.');
-  assert.match(withApprovalCode('Here it is.', '0042'), /Reply YES 0042 to go ahead/);
+test('only a real invitation counts as asking for approval', () => {
+  assert.ok(invitesYes('Want me to submit it? Or tell me what to change.'));
+  assert.ok(invitesYes('Tell me what to change, or say yes and I\u2019ll go ahead.'));
+  assert.ok(invitesYes('Reply YES to submit.'));
+  assert.ok(!invitesYes('Want me to look up the bus times too?'));
+  assert.ok(!invitesYes('Reminder: picture day is Friday.'));
 });
 
 test('the digest changes with any consequential value and ignores the vendor session', () => {
@@ -109,15 +92,13 @@ test('the digest changes with any consequential value and ignores the vendor ses
   assert.notEqual(proposalDigest([a]), proposalDigest([c]));
 });
 
-test('checkApproval: not shown, changed, expired, wrong code, stale', () => {
+test('checkApproval: not shown, changed, expired, stale', () => {
   const steps = [submitStep({ first: 'Patrick' })];
-  const stamp = { ...stampApproval(steps, 1_000), code: '1111' };
+  const stamp = stampApproval(steps, 1_000);
   assert.deepEqual(checkApproval(steps, undefined, 1_000), { ok: false, reason: 'not_shown' });
   assert.deepEqual(checkApproval([submitStep({ first: 'Pat' })], stamp, 1_000), { ok: false, reason: 'changed' });
   assert.deepEqual(checkApproval(steps, stamp, stamp.expiresAt + 1), { ok: false, reason: 'expired' });
-  assert.deepEqual(checkApproval(steps, stamp, 1_000, { kind: 'code', code: '2222' }), { ok: false, reason: 'wrong_code' });
-  assert.deepEqual(checkApproval(steps, { ...stamp, stale: true }, 1_000), { ok: false, reason: 'needs_code' });
-  assert.deepEqual(checkApproval(steps, { ...stamp, stale: true }, 1_000, { kind: 'code', code: '1111' }), { ok: true });
+  assert.deepEqual(checkApproval(steps, { ...stamp, stale: true }, 1_000), { ok: false, reason: 'stale' });
   assert.deepEqual(checkApproval(steps, stamp, 1_000), { ok: true });
 });
 
@@ -141,83 +122,78 @@ test('a zip code is shown; a password is named but never echoed or logged', () =
   assert.equal(record.digest, proposalDigest([step]));
 });
 
-test('an unshown proposal: YES runs nothing, re-shows every value with a code, then YES <code> runs it', async () => {
+test('an unshown proposal: yes runs nothing and shows every value; the next yes runs it', async () => {
   const { agent, outbox } = makeAgent();
   agent.setStateForTest(ID, { phase: 'confirming', collected: {}, pendingSteps: [emailStep()] });
   const first = await agent.handle(ID, 'yes');
   assert.equal(outbox.length, 0);
   assert.ok(!first.text.includes('Done!'));
   assert.match(first.text, /Please evaluate Emma for speech\./);
-  const code = codeIn(first.text);
-  assert.ok(code, first.text);
-  const second = await agent.handle(ID, `YES ${code}`);
+  assert.doesNotMatch(first.text, /\bYES \d{4}\b/, 'no codes');
+  const second = await agent.handle(ID, 'yes');
   assert.ok(second.text.includes('Done!'), second.text);
   assert.equal(outbox.length, 1);
 });
 
-test('changing one value after the review blocks the submission and re-shows it', async () => {
+test('a shown proposal runs on a plain yes, in English or Spanish', async () => {
+  for (const reply of ['yes', 'go ahead', 'send it', 'sí', 'dale', '👍']) {
+    const { agent, outbox } = makeAgent();
+    agent.setStateForTest(ID, { phase: 'confirming', collected: {}, pendingSteps: [emailStep()] });
+    agent.showProposalForTest(ID);
+    const r = await agent.handle(ID, reply);
+    assert.ok(r.text.includes('Done!'), `${reply}: ${r.text.slice(0, 80)}`);
+    assert.equal(outbox.length, 1, reply);
+  }
+});
+
+test('changing one value after the review blocks the send and shows the new version', async () => {
   const { agent, outbox } = makeAgent();
   agent.setStateForTest(ID, { phase: 'confirming', collected: {}, pendingSteps: [emailStep()] });
-  const shown = agent.showProposalForTest(ID);
-  const code = codeIn(shown)!;
+  agent.showProposalForTest(ID);
   // Something rewrites the staged body after the parent saw it.
   const live = agent.getStateForTest(ID)!.pendingSteps![0]!;
   (live.payload as { body: string }).body = 'Please evaluate Emma and her brother.';
-  const reply = await agent.handle(ID, `YES ${code}`);
+  const reply = await agent.handle(ID, 'yes');
   assert.equal(outbox.length, 0, 'nothing sent');
   assert.ok(!reply.text.includes('Done!'));
   assert.match(reply.text, /her brother/, 'the changed proposal is shown');
-  const fresh = codeIn(reply.text);
-  assert.ok(fresh && fresh !== code, 'a new code for the new proposal');
-  assert.ok((await agent.handle(ID, `YES ${fresh}`)).text.includes('Done!'));
+  assert.ok((await agent.handle(ID, 'yes')).text.includes('Done!'));
   assert.equal(outbox.length, 1);
 });
 
-test('an expired approval re-shows the proposal and runs nothing', async () => {
+test('an expired approval shows the proposal again and runs nothing', async () => {
   const { agent, outbox } = makeAgent();
   agent.setStateForTest(ID, { phase: 'confirming', collected: {}, pendingSteps: [emailStep()] });
-  const code = codeIn(agent.showProposalForTest(ID))!;
+  agent.showProposalForTest(ID);
   agent.getStateForTest(ID)!.pendingApproval!.expiresAt = Date.now() - 1;
-  const reply = await agent.handle(ID, `YES ${code}`);
+  const reply = await agent.handle(ID, 'yes');
   assert.equal(outbox.length, 0);
   assert.match(reply.text, /while ago/);
   assert.equal(agent.getStateForTest(ID)?.pendingSteps?.length, 1, 'still staged');
 });
 
-test('a wrong code runs nothing and keeps the proposal', async () => {
-  const { agent, outbox } = makeAgent();
-  agent.setStateForTest(ID, { phase: 'confirming', collected: {}, pendingSteps: [emailStep()] });
-  const code = codeIn(agent.showProposalForTest(ID))!;
-  const wrong = code === '0000' ? '0001' : '0000';
-  const reply = await agent.handle(ID, `YES ${wrong}`);
-  assert.equal(outbox.length, 0);
-  assert.match(reply.text, /doesn't match/);
-  assert.equal(codeIn(reply.text), code, 'the real code is given again');
-  assert.equal(agent.getStateForTest(ID)?.pendingSteps?.length, 1);
-});
-
-test('after another message goes out, a bare yes needs the code; YES <code> still works', async () => {
+test('after an unrelated message goes out, a yes gets one check in a sentence, then runs', async () => {
   const { agent, outbox } = makeAgent();
   const sent: string[] = [];
   agent.registerConversation(ID, async (t) => { sent.push(t); });
   agent.setStateForTest(ID, { phase: 'confirming', collected: {}, pendingSteps: [emailStep()] });
-  const code = codeIn(agent.showProposalForTest(ID))!;
+  agent.showProposalForTest(ID);
   await agent.sendToConversation(ID, 'Reminder: picture day is Friday.');
-  const bare = await agent.handle(ID, 'yes');
-  assert.equal(outbox.length, 0, 'a bare yes after an unrelated message runs nothing');
-  assert.equal(codeIn(bare.text), code);
-  const coded = await agent.handle(ID, `yes ${code}`);
-  assert.ok(coded.text.includes('Done!'), coded.text);
+  const check = await agent.handle(ID, 'yes');
+  assert.equal(outbox.length, 0, 'the yes might have been about picture day');
+  assert.match(check.text, /want me to go ahead with the email ready to send\?/i);
+  const r = await agent.handle(ID, 'yes');
+  assert.ok(r.text.includes('Done!'), r.text);
   assert.equal(outbox.length, 1);
 });
 
-test('a review sent through the messenger is armed with the code in its text', async () => {
+test('a review sent through the messenger arms the proposal without changing the text', async () => {
   const { agent } = makeAgent();
   const sent: string[] = [];
   agent.registerConversation(ID, async (t) => { sent.push(t); });
   agent.setStateForTest(ID, { phase: 'confirming', collected: {}, pendingSteps: [submitStep({ grade: '1', city: 'Soquel' })] });
-  await agent.sendToConversation(ID, 'I filled the form.\n\nWhat I entered:\n• grade: 1\n• city: Soquel\n\nReply YES to submit, or tell me what to change.');
-  const code = codeIn(sent[0]!);
-  assert.ok(code, sent[0]);
-  assert.equal(agent.getStateForTest(ID)?.pendingApproval?.code, code);
+  const review = 'I filled the form.\n\nWhat I entered:\n• grade: 1\n• city: Soquel\n\nWant me to submit it? Or tell me what to change.';
+  await agent.sendToConversation(ID, review);
+  assert.equal(sent[0], review);
+  assert.ok(agent.getStateForTest(ID)?.pendingApproval);
 });

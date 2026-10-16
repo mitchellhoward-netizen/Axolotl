@@ -10,9 +10,9 @@ import { JEV_MODEL, JEV_URL, type JevResponse } from './intent/jev.js';
  * (no key, timeout, an error status, an answer outside the choices) is `unsure` and never `act`:
  * a decision that could not be made is a reason to ask, not to go ahead.
  *
- * Jev is a check on code, not a replacement for it. On the YES gate the proposal digest
- * (steps/approval.ts) is the primary guard; Jev can only stop a bare "yes", never approve one
- * the digest refused.
+ * On the yes gate the proposal digest (steps/approval.ts) is the primary guard: nothing runs
+ * that the parent wasn't shown. Within that, Jev reads how they answered, so a parent can say
+ * yes the way they would to a person.
  */
 
 export type DecisionType = 'yes_to_exact_values' | 'field_sourced' | 'page_matches_step';
@@ -28,8 +28,9 @@ export interface Thresholds {
 
 /** Per-decision thresholds. Override with DECIDE_THRESHOLDS='{"yes_to_exact_values":{"act":0.99}}'. */
 export const DEFAULT_THRESHOLDS: Record<DecisionType, Thresholds> = {
-  // veto 0.90: measured 2026-10-16 on jev-1.13.0 (scripts/calibrate-yes.ts, docs/RELIABILITY.md):
-  // non-yeses score 0.90-1.00 "not_approve"; whole-message yeses like "ok" or "go" score up to 0.78.
+  // act 0.98: a reply we don't recognise runs only when Jev is this sure it is a yes. veto 0.90:
+  // stops a phrase we do recognise only when Jev is this sure it isn't. Measured on jev-1.13.0
+  // (scripts/calibrate-yes.ts, docs/RELIABILITY.md). Good for now, not final (Mitch, 2026-10-16).
   yes_to_exact_values: { act: 0.98, handoff: 0.3, veto: 0.9 },
   field_sourced: { act: 0.97, handoff: 0.3 },
   page_matches_step: { act: 0.95, handoff: 0.3 },
@@ -189,11 +190,14 @@ export function approvesYes(d: Decision<'approve' | 'not_approve'>): boolean {
   return d.answer === 'approve' && d.verdict === 'act';
 }
 
-/** Jev as the second check on a whole-message yes the gate already accepted: stop it when Jev
- * is sure it is not an approval, or when Jev could not answer. Then the parent is asked for the
- * code. On jev-1.13.0, requiring `approvesYes` here would have asked for the code on 29 of 36
- * plain yeses ("ok", "go ahead", "submit it") and caught nothing the regex let through. */
+/** Leaning yes but not sure: worth one "want me to go ahead?" rather than dropping it. */
+export function probablyYes(d: Decision<'approve' | 'not_approve'>): boolean {
+  return d.answer === 'approve' && d.confidence >= 0.5 && !approvesYes(d);
+}
+
+/** Jev as the second check on a whole-message yes the gate already accepted ("yes", "dale"):
+ * stop it only when Jev is sure it is not an approval. Jev being down or unsure doesn't block a
+ * plain yes; the phrase and the proposal digest already make it clear. */
 export function vetoesYes(d: Decision<'approve' | 'not_approve'>, env: NodeJS.ProcessEnv = process.env): boolean {
-  if (d.answer === 'unsure') return true;
   return d.answer === 'not_approve' && d.confidence >= (thresholdsFor('yes_to_exact_values', env).veto ?? 0.9);
 }

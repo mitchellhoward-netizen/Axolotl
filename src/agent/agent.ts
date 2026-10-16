@@ -74,15 +74,12 @@ import {
   checkApproval,
   consentRecord,
   invitesYes,
-  newApprovalCode,
-  parseApprovalReply,
   proposalDigest,
   shownIn,
   stampApproval,
-  withApprovalCode,
   type ApprovalCheck,
 } from './steps/approval.js';
-import { decide as askJev, jevEnabled, vetoesYes, yesQuestion } from './decide.js';
+import { approvesYes, decide as askJev, jevEnabled, probablyYes, vetoesYes, yesQuestion } from './decide.js';
 import { finalizePendingForFamily } from '../integrations/connections/index.js';
 import { getEmailsByStatus, setEmailStatus } from '../integrations/email-triage/store.js';
 import { LLM_TOOLS, LIFE_TOOL_NAMES, runTool, systemPrompt, pendingActionsSummary, fillEvidenceLine, type ToolDeps } from './tools.js';
@@ -249,12 +246,13 @@ export class Agent {
   }
 
   /**
-   * Every message to the parent passes through here (the turn's reply and sendToConversation).
-   * A message that asks for a YES and shows every value of the pending proposal arms it: the
-   * digest of exactly those steps, a fresh code, an expiry (steps/approval.ts). One that asks for
-   * a YES without showing everything gets the full proposal added, so no YES is ever uninformed.
-   * A message that doesn't ask for a YES leaves the proposal armed but stale, so only
-   * `YES <code>` can approve it after that.
+   * Every message to the parent passes through here (the turn's reply and anything sent through
+   * the registered messenger). A message that asks the parent to approve and shows every value
+   * of the pending proposal arms it: the digest of exactly those steps and an expiry
+   * (steps/approval.ts). One that asks without showing everything gets the full proposal added,
+   * so no yes is ever uninformed. One that asks about the proposal by name keeps it fresh. Any
+   * other message leaves it stale, so a later "yes" gets one line checking which thing they mean.
+   * The parent never sees any of this: no codes, nothing to type but their answer.
    */
   private armApproval(conversationId: string, text: string): string {
     const state = this.store.getState(conversationId);
@@ -273,37 +271,92 @@ export class Agent {
       return text;
     }
     if (shownIn([text], steps)) {
-      const code = current?.code ?? newApprovalCode(stamp?.code);
-      state.pendingApproval = { ...stampApproval(steps, now), code };
-      return withApprovalCode(text, code);
+      state.pendingApproval = { ...stampApproval(steps, now), confirmAsked: current?.confirmAsked };
+      return text;
     }
-    if (current?.code) {
-      current.stale = false;
-      return withApprovalCode(text, current.code);
+    if (current) {
+      // Asks for a yes without the values: fresh only if it names this proposal.
+      current.stale = !text.includes(describeShortly(steps));
+      return text;
     }
     const full = `${text}\n\nExactly what I'll do:\n${describeProposal(steps)}`;
     if (!shownIn([full], steps)) {
       delete state.pendingApproval;
       return text;
     }
-    const code = newApprovalCode(stamp?.code);
-    state.pendingApproval = { ...stampApproval(steps, now), code };
-    return withApprovalCode(full, code);
+    state.pendingApproval = stampApproval(steps, now);
+    return full;
   }
 
-  /** The reply when a YES can't run the proposal as it stands. Nothing executes; the proposal
-   * stays staged, and armApproval adds the code (and the values, if this message lacks them). */
-  private approvalRefusal(reason: Exclude<ApprovalCheck, { ok: true }>['reason'], steps: Step[] | undefined): string {
+  /** The reply when a yes can't run the proposal as it stands. Nothing executes; the proposal
+   * stays staged and is shown again where it changed. */
+  private approvalRefusal(reason: Exclude<ApprovalCheck, { ok: true }>['reason'] | 'confirm', steps: Step[] | undefined): string {
     switch (reason) {
       case 'expired':
-        return `That was a while ago, so nothing has gone yet. Here it is again:\n\n${describeProposal(steps)}\n\nReply YES if it's all still right, or tell me what to change.`;
-      case 'wrong_code':
-        return `That code doesn't match what's waiting, so I haven't done anything. I've still got ${describeShortly(steps)}. Reply YES to go ahead with it, or tell me what to change.`;
-      case 'needs_code':
-        return `Just to be sure which one you mean: I've still got ${describeShortly(steps)}. Reply YES to go ahead with it, or tell me what to change.`;
+        return `That was a while ago, so nothing has gone yet. Here it is again:\n\n${describeProposal(steps)}\n\nWant me to go ahead? Or tell me what to change.`;
+      case 'stale':
+      case 'confirm':
+        return `Just to check: want me to go ahead with ${describeShortly(steps)}?`;
       default:
-        return `Before I do anything, here is exactly what I'll do:\n\n${describeProposal(steps)}\n\nReply YES if it's all right, or tell me what to change.`;
+        return `Before I do anything, here is exactly what I'll do:\n\n${describeProposal(steps)}\n\nWant me to go ahead? Or tell me what to change.`;
     }
+  }
+
+  /** Run a proposal the parent approved. The consent row is written first: it is the
+   * authorization for every step, and keeps the approved values and the digest. */
+  private async runApproved(conversationId: string, state: ConversationState, how: string): Promise<AgentTurn> {
+    const steps = state.pendingSteps!;
+    const stamp = state.pendingApproval!;
+    state.pendingSteps = undefined;
+    state.pendingApproval = undefined;
+    const familyId = this.store.getParentId(conversationId) ?? this.opts.defaultParentId ?? '';
+    for (const s of steps) {
+      if (!s.requiresConsent) continue;
+      void logConsent(familyId, `action:${s.intent || s.channel}`, {
+        channel: s.channel,
+        intent: s.intent,
+        url: s.payload.channel === 'submit' ? s.payload.url : s.payload.channel === 'account' ? s.payload.url : s.payload.channel === 'browser' ? s.payload.url : undefined,
+        target: s.counterparty?.email ?? s.counterparty?.name ?? undefined,
+        ...consentRecord(s),
+        approval: { proposal: stamp.hash, how, shownAt: new Date(stamp.shownAt).toISOString() },
+      });
+    }
+    const results = await this.runSteps(steps, this.resolveMode(), state);
+    // The staged fill has been acted on; the evidence line must not outlive it.
+    state.completedFill = undefined;
+    const summary = results.map((r) => r.parentSummary).join('\n');
+    this.save(conversationId, { phase: 'done', collected: {}, pendingSteps: undefined }, state);
+    // "Done!" only when nothing failed; a failed send already says what happened.
+    const failed = results.some((r) => r.status === 'failed');
+    return { text: failed ? summary : `Done!\n${summary}`, phase: 'done', resolved: true };
+  }
+
+  /**
+   * A reply that isn't a phrase we know: "sounds good, send it", "claro que sí", "yes thank you
+   * so much". Jev reads it. Sure it's a yes → do it. Probably a yes → ask once, in a sentence.
+   * Anything else → undefined, and the caller carries on as before.
+   */
+  private async readAsYes(conversationId: string, state: ConversationState, text: string): Promise<AgentTurn | undefined> {
+    if (!jevEnabled()) return undefined;
+    const d = await askJev('yes_to_exact_values', yesQuestion(this.askedLine(state.pendingSteps), text));
+    const approval = checkApproval(state.pendingSteps, state.pendingApproval, Date.now());
+    const hold = (reason: Exclude<ApprovalCheck, { ok: true }>['reason'] | 'confirm'): AgentTurn => {
+      if ((reason === 'stale' || reason === 'confirm') && state.pendingApproval) state.pendingApproval.stale = false;
+      return { text: this.approvalRefusal(reason, state.pendingSteps), phase: 'confirming', resolved: true };
+    };
+    if (approvesYes(d)) {
+      return approval.ok ? this.runApproved(conversationId, state, `read as yes (${d.confidence.toFixed(2)})`) : hold(approval.reason);
+    }
+    if (probablyYes(d) && state.pendingApproval && !state.pendingApproval.confirmAsked) {
+      state.pendingApproval.confirmAsked = true;
+      return hold(approval.ok || approval.reason === 'stale' ? 'confirm' : approval.reason);
+    }
+    return undefined;
+  }
+
+  /** What Jev is told we asked: the action in plain words, never the values. */
+  private askedLine(steps: Step[] | undefined): string {
+    return `We asked the parent: want me to go ahead with ${describeShortly(steps)}, exactly as shown?`;
   }
 
   /** A separately handled life command cannot leave an old school approval armed. */
@@ -354,51 +407,27 @@ export class Agent {
       // never fire a stale submission. We clear the LIVE `state.pendingSteps` — not just write a new
       // object via save() — so nothing downstream (advance/brain) can ever see it again.
       if (state.pendingSteps?.some((s) => s.requiresConsent)) {
-        const reply = parseApprovalReply(text, isStrictConsent);
-        if (reply) {
-          // A YES runs only the proposal the parent was shown: same digest, within its lifetime,
-          // with the right code (or a bare yes answering the proposal directly). Anything else
-          // re-shows it and runs nothing.
-          const approval = checkApproval(state.pendingSteps, state.pendingApproval, Date.now(), reply);
+        // A clear yes runs the proposal, but only the one the parent was shown: same digest,
+        // within its lifetime, and not overtaken by another message (steps/approval.ts). If it
+        // changed, it is shown again; nothing runs on values the parent hasn't seen.
+        if (isStrictConsent(text)) {
+          const approval = checkApproval(state.pendingSteps, state.pendingApproval, Date.now());
           if (!approval.ok) {
-            console.log(`[consent] YES refused: ${approval.reason}`);
+            console.log(`[consent] yes held: ${approval.reason}`);
+            if (approval.reason === 'stale' && state.pendingApproval) state.pendingApproval.stale = false;
             return { text: this.approvalRefusal(approval.reason, state.pendingSteps), phase: 'confirming', resolved: true };
           }
-          // The calibrated second check: Jev can stop a bare "yes" (sure it is not an approval, or
-          // unable to answer), never allow one the digest refused.
-          // `YES <code>` names the proposal outright, so it needs no reading.
-          if (reply.kind === 'bare' && jevEnabled()) {
-            const d = await askJev('yes_to_exact_values', yesQuestion(`Reply YES to approve ${describeShortly(state.pendingSteps)}.`, text));
+          // Second check: Jev can stop a yes it is sure is not an approval. It never allows one
+          // the digest refused, and Jev being down doesn't block a plain "yes". Once we have
+          // asked "want me to go ahead?", a yes phrase answers it (Jev misreads "dale").
+          if (jevEnabled() && !state.pendingApproval?.confirmAsked) {
+            const d = await askJev('yes_to_exact_values', yesQuestion(this.askedLine(state.pendingSteps), text));
             if (vetoesYes(d)) {
-              return { text: this.approvalRefusal('needs_code', state.pendingSteps), phase: 'confirming', resolved: true };
+              state.pendingApproval!.confirmAsked = true;
+              return { text: this.approvalRefusal('confirm', state.pendingSteps), phase: 'confirming', resolved: true };
             }
           }
-          const steps = state.pendingSteps;
-          const stamp = state.pendingApproval!;
-          state.pendingSteps = undefined;
-          state.pendingApproval = undefined;
-          // Record the consent BEFORE executing — the parent's YES is the authorization for
-          // every step we are about to run. The log keeps the approved values and the digest.
-          const familyId = this.store.getParentId(conversationId) ?? this.opts.defaultParentId ?? '';
-          for (const s of steps) {
-            if (!s.requiresConsent) continue;
-            void logConsent(familyId, `action:${s.intent || s.channel}`, {
-              channel: s.channel,
-              intent: s.intent,
-              url: s.payload.channel === 'submit' ? s.payload.url : s.payload.channel === 'account' ? s.payload.url : s.payload.channel === 'browser' ? s.payload.url : undefined,
-              target: s.counterparty?.email ?? s.counterparty?.name ?? undefined,
-              ...consentRecord(s),
-              approval: { proposal: stamp.hash, code: reply.kind === 'code' ? reply.code : null, shownAt: new Date(stamp.shownAt).toISOString() },
-            });
-          }
-          const results = await this.runSteps(steps, this.resolveMode(), state);
-          // The staged fill has been acted on; the evidence line must not outlive it.
-          state.completedFill = undefined;
-          const summary = results.map((r) => r.parentSummary).join('\n');
-          this.save(conversationId, { phase: 'done', collected: {}, pendingSteps: undefined }, state);
-          // "Done!" only when nothing failed; a failed send already says what happened.
-          const failed = results.some((r) => r.status === 'failed');
-          return { text: failed ? summary : `Done!\n${summary}`, phase: 'done', resolved: true };
+          return this.runApproved(conversationId, state, 'clear yes');
         }
         if (isStrictDecline(text)) {
           this.closeSkyvernSessions(state.pendingSteps);
@@ -425,21 +454,24 @@ export class Agent {
                 `Updated — ${applied.join('; ')}.`,
                 unapplied.length ? `I couldn't place: ${unapplied.join('; ')}.` : '',
                 describeProposal(state.pendingSteps),
-                'Reply YES and I\u2019ll go ahead, or tell me what else to change.',
+                'Want me to go ahead? Or tell me what else to change.',
               ].filter(Boolean);
               return { text: notes.join('\n\n'), phase: 'confirming', resolved: true };
             }
             // We understood a change but it does not fit this proposal: say so, keep it staged.
             return {
-              text: `I've still got ${describeShortly(state.pendingSteps)}, but I couldn't change ${unapplied.join('; ')}. Tell me what to change, or reply YES and I\u2019ll go ahead as it is.`,
+              text: `I've still got ${describeShortly(state.pendingSteps)}, but I couldn't change ${unapplied.join('; ')}. Tell me what to change, or say yes and I\u2019ll go ahead as it is.`,
               phase: 'confirming',
               resolved: true,
             };
           }
-          // Affirmation plus words we can't read as a change ("yes what about the other one?").
+          // Affirmation plus words we can't read as a change. "yes send it" or "yes thank you so
+          // much" is a yes; "yes what about the other one?" is not. Jev tells them apart.
+          const read = await this.readAsYes(conversationId, state, text);
+          if (read) return read;
           // Do not guess and do not expire: keep the proposal staged and ask one short question.
           return {
-            text: `I've still got ${describeShortly(state.pendingSteps)} — did you want to change something in it? Tell me what to change, or reply YES and I\u2019ll go ahead.`,
+            text: `I've still got ${describeShortly(state.pendingSteps)} — did you want to change something in it? Tell me what to change, or say yes and I\u2019ll go ahead.`,
             phase: 'confirming',
             resolved: true,
           };
@@ -459,12 +491,12 @@ export class Agent {
                 `Updated — ${applied.join('; ')}.`,
                 unapplied.length ? `I couldn't place: ${unapplied.join('; ')}.` : '',
                 describeProposal(state.pendingSteps),
-                'Reply YES and I\u2019ll go ahead, or tell me what else to change.',
+                'Want me to go ahead? Or tell me what else to change.',
               ].filter(Boolean);
               return { text: notes.join('\n\n'), phase: 'confirming', resolved: true };
             }
             return {
-              text: `I've still got ${describeShortly(state.pendingSteps)}, but I couldn't change ${unapplied.join('; ')}. Tell me what to change, or reply YES and I\u2019ll go ahead as it is.`,
+              text: `I've still got ${describeShortly(state.pendingSteps)}, but I couldn't change ${unapplied.join('; ')}. Tell me what to change, or say yes and I\u2019ll go ahead as it is.`,
               phase: 'confirming',
               resolved: true,
             };
@@ -473,11 +505,14 @@ export class Agent {
           // the work, ask which field, and never guess a field or execute. Expiring here would be
           // the same silent destruction we are fixing, just for a vaguer message.
           return {
-            text: `I've still got ${describeShortly(state.pendingSteps)} — tell me which field to change (for example "change the last name to Howard"), or reply YES and I\u2019ll go ahead as it is.`,
+            text: `I've still got ${describeShortly(state.pendingSteps)} — tell me which field to change (for example "change the last name to Howard"), or say yes and I\u2019ll go ahead as it is.`,
             phase: 'confirming',
             resolved: true,
           };
         }
+        // Not a phrase we know, not a no, not a field change: Jev reads it (see readAsYes).
+        const read = await this.readAsYes(conversationId, state, text);
+        if (read) return read;
         // Not a clear yes/no and not an amendment: the parent changed subject or wasn't consenting.
         // Expire on the LIVE object and fall through to respond to the NEW message — never loop on
         // "reply yes/no". This is what stops a stray "ok thanks" firing a stale submission.
@@ -669,7 +704,7 @@ export class Agent {
             return { text: `Got it — I set a reminder for each so nothing slips:\n${list}`, phase: 'done' };
           }
           return {
-            text: `Here's what I'll send to the school for:\n${list}\n\nReply YES and I'll send it (I'll show nothing else without your OK).`,
+            text: `Here's what I'll send to the school for:\n${list}\n\nWant me to send it? (I'll send nothing without your OK.)`,
             phase: 'confirming',
           };
         }
@@ -808,7 +843,7 @@ export class Agent {
   /** Test/dev hook: send the pending proposal's review as the parent would see it (arming it). */
   showProposalForTest(conversationId: string): string {
     const steps = this.store.getState(conversationId)?.pendingSteps;
-    return this.armApproval(conversationId, `${describeProposal(steps)}\n\nReply YES to go ahead, or tell me what to change.`);
+    return this.armApproval(conversationId, `${describeProposal(steps)}\n\nWant me to go ahead? Or tell me what to change.`);
   }
   /** Test/dev hook: read a conversation's current state. */
   getStateForTest(conversationId: string): ConversationState | undefined {
@@ -1951,7 +1986,7 @@ export class Agent {
         const plan = this.buildPlan(intent, collected, ctx);
         return {
           turn: {
-            text: `${plan.summary}\n\nReply YES to confirm or NO to change.`,
+            text: `${plan.summary}\n\nSay yes to confirm, or no to change it.`,
             suggestions: yesNo(),
             phase: 'confirming',
           },
@@ -2301,7 +2336,7 @@ export class Agent {
         const plan = this.buildPlan(name, collected, ctx);
         return {
           turn: {
-            text: `${plan.summary}\n\nReply YES to confirm or NO to change.`,
+            text: `${plan.summary}\n\nSay yes to confirm, or no to change it.`,
             suggestions: yesNo(),
             phase: 'confirming',
           },
@@ -2421,7 +2456,7 @@ function isBackReference(text: string): boolean {
  */
 function isStrictConsent(text: string): boolean {
   const t = text.trim().toLowerCase().replace(/[.!?]+$/, '');
-  return /^(y|yes|yeah|yep|yup|sure|ok|okay|kk|confirm|do it|go ahead|go ahead and do it|go|please|absolutely|definitely|submit|submit it|submit it now|yes please|go for it|do it now)\s*$/.test(t);
+  return /^(y|yes|yeah|yep|yup|sure|ok|okay|kk|confirm|do it|go ahead|go ahead and do it|go|please|absolutely|definitely|submit|submit it|submit it now|yes please|go for it|do it now|send it|yes send it|please send it|yes do it|yes submit it|yes go ahead|ok go ahead|okay go ahead|sounds good|looks good|s[ií]|s[ií] por favor|dale|claro|claro que s[ií]|[aá]ndale|👍[🏻-🏿]?)\s*$/u.test(t);
 }
 
 /** Strict, whole-message refusal for a pending consequential action. */

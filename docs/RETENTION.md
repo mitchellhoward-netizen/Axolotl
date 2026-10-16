@@ -54,8 +54,8 @@ That is also the simplest verification — run it twice and confirm the second r
   without consent.
   - **Approved actions (`action:*` rows) now hold family content.** Since the YES gate was bound to
     the exact proposal (`src/agent/steps/approval.ts`), each approved step's row stores the plain
-    values the parent approved (form values, email subject and body), the proposal digest, the code
-    they replied with and when it was shown (Mitch, 2026-10-16: "plain values + hash"). Secrets
+    values the parent approved (form values, email subject and body), the proposal digest, how
+    the yes was read (a known phrase, or Jev's reading and confidence) and when it was shown (Mitch, 2026-10-16: "plain values + hash"). Secrets
     (passwords, one-time codes, SSNs) are never stored; the no-database fallback logs the row
     without values or body.
   - **Open, for Mitch:** how long those values are kept, and who can read them. Keeping them the

@@ -6,7 +6,7 @@
  */
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { approvesYes, decide, jevEnabled, thresholdsFor, vetoesYes, yesQuestion, type DecisionLog } from '../src/agent/decide.js';
+import { approvesYes, decide, jevEnabled, probablyYes, thresholdsFor, vetoesYes, yesQuestion, type DecisionLog } from '../src/agent/decide.js';
 import { Agent } from '../src/agent/agent.js';
 import { RulesIntentEngine } from '../src/agent/intent/rules.js';
 import { MockCalendarProvider } from '../src/integrations/calendar.js';
@@ -51,7 +51,8 @@ test('every failure is unsure and asks; none of them approves', async () => {
     assert.equal(d.answer, 'unsure', name);
     assert.equal(d.verdict, 'ask', name);
     assert.equal(approvesYes(d as never), false, name);
-    assert.equal(vetoesYes(d as never), true, `${name}: an unanswered check vetoes`);
+    assert.equal(vetoesYes(d as never), false, `${name}: Jev down doesn't block a plain yes`);
+    assert.equal(probablyYes(d as never), false, name);
   }
 });
 
@@ -102,7 +103,7 @@ function emailStep(): Step {
     status: 'awaiting_consent',
   };
 }
-function staged(): { agent: Agent; outbox: unknown[]; code: string } {
+function staged(): { agent: Agent; outbox: unknown[] } {
   const outbox: unknown[] = [];
   const db = createSeedDb();
   db.parents.push({ id: 'parent-maya', phone: '15555550100', email: '', firstName: 'Maya', lastName: 'Lee', studentIds: [] });
@@ -118,8 +119,8 @@ function staged(): { agent: Agent; outbox: unknown[]; code: string } {
     email: { send: async (m: unknown) => { outbox.push(m); return { id: 'mock-1' }; } } as never,
   });
   agent.setStateForTest(ID, { phase: 'confirming', collected: {}, pendingSteps: [emailStep()] });
-  const code = /YES (\d{4})/.exec(agent.showProposalForTest(ID))![1]!;
-  return { agent, outbox, code };
+  agent.showProposalForTest(ID);
+  return { agent, outbox };
 }
 
 async function withJev<T>(f: typeof fetch, run: (calls: { n: number }) => Promise<T>): Promise<T> {
@@ -136,23 +137,37 @@ async function withJev<T>(f: typeof fetch, run: (calls: { n: number }) => Promis
   }
 }
 
-test('veto: only a confident no or no answer stops a yes', () => {
-  const d = (answer: 'approve' | 'not_approve', confidence: number) => ({ type: 'yes_to_exact_values' as const, answer, confidence, probabilities: {}, verdict: 'ask' as const, inputTokens: 0, ms: 0 });
+test('veto: only a confident no stops a plain yes; probablyYes is the 0.5-0.98 band', () => {
+  const d = (answer: 'approve' | 'not_approve', confidence: number) => ({ type: 'yes_to_exact_values' as const, answer, confidence, probabilities: {}, verdict: (confidence >= 0.98 ? 'act' : 'ask') as 'act' | 'ask', inputTokens: 0, ms: 0 });
   assert.equal(vetoesYes(d('not_approve', 0.95)), true);
   assert.equal(vetoesYes(d('not_approve', 0.66)), false, '"ok" on jev-1.13.0');
   assert.equal(vetoesYes(d('approve', 0.3)), false);
+  assert.equal(probablyYes(d('approve', 0.76)), true, '"yes thanks" on jev-1.13.0');
+  assert.equal(probablyYes(d('approve', 0.99)), false, 'sure is not "probably"');
 });
 
-test('gate: Jev sure a bare yes is not an approval runs nothing and asks for the code', async () => {
-  const { agent, outbox, code } = staged();
+test('gate: a plain yes Jev is sure is not an approval runs nothing and asks once, in a sentence', async () => {
+  const { agent, outbox } = staged();
   await withJev(jev('not_approve', 0.95), async () => {
     const r = await agent.handle(ID, 'ok');
     assert.equal(outbox.length, 0);
-    assert.match(r.text, new RegExp(`YES ${code}`));
+    assert.match(r.text, /want me to go ahead with the email ready to send\?/i);
   });
 });
 
-test('gate: a plain yes Jev is lukewarm about still runs (Jev is a veto, not the approver)', async () => {
+test('gate: after one check, a yes phrase answers it even if Jev misreads it ("dale")', async () => {
+  const { agent, outbox } = staged();
+  await withJev(jev('not_approve', 0.94), async () => {
+    const first = await agent.handle(ID, 'dale');
+    assert.equal(outbox.length, 0);
+    assert.match(first.text, /want me to go ahead/i);
+    const second = await agent.handle(ID, 'dale');
+    assert.ok(second.text.includes('Done!'), second.text);
+    assert.equal(outbox.length, 1);
+  });
+});
+
+test('gate: a plain yes Jev is lukewarm about still runs (Jev is a veto there)', async () => {
   const { agent, outbox } = staged();
   await withJev(jev('not_approve', 0.66), async () => {
     const r = await agent.handle(ID, 'yes');
@@ -161,16 +176,53 @@ test('gate: a plain yes Jev is lukewarm about still runs (Jev is a veto, not the
   });
 });
 
-test('gate: Jev down means a bare yes needs the code; YES <code> never asks Jev', async () => {
-  const { agent, outbox, code } = staged();
-  const down = (async () => new Response('', { status: 503 })) as unknown as typeof fetch;
-  await withJev(down, async (calls) => {
-    await agent.handle(ID, 'yes');
-    assert.equal(outbox.length, 0);
-    const before = calls.n;
-    const r = await agent.handle(ID, `YES ${code}`);
-    assert.ok(r.text.includes('Done!'), r.text);
-    assert.equal(calls.n, before, 'no Jev call for a coded YES');
+test('gate: Jev down never blocks a plain yes', async () => {
+  const { agent, outbox } = staged();
+  await withJev((async () => new Response('', { status: 503 })) as unknown as typeof fetch, async () => {
+    assert.ok((await agent.handle(ID, 'yes')).text.includes('Done!'));
     assert.equal(outbox.length, 1);
   });
+});
+
+test('gate: "sounds good, send it" runs when Jev is sure it is a yes', async () => {
+  const { agent, outbox } = staged();
+  await withJev(jev('approve', 1.0), async () => {
+    const r = await agent.handle(ID, 'sounds good, thank you, send it over');
+    assert.ok(r.text.includes('Done!'), r.text);
+    assert.equal(outbox.length, 1);
+  });
+});
+
+test('gate: "yes thank you so much" is not mistaken for a change when Jev reads it as a yes', async () => {
+  const { agent, outbox } = staged();
+  await withJev(jev('approve', 0.99), async () => {
+    const r = await agent.handle(ID, 'yes thank you so much');
+    assert.ok(r.text.includes('Done!'), r.text);
+    assert.equal(outbox.length, 1);
+  });
+});
+
+test('gate: a probable yes gets one "want me to go ahead?", then a yes runs it', async () => {
+  const { agent, outbox } = staged();
+  await withJev(jev('approve', 0.76), async () => {
+    const r = await agent.handle(ID, 'yes thanks');
+    assert.equal(outbox.length, 0);
+    assert.match(r.text, /want me to go ahead/i);
+    assert.equal(agent.getStateForTest(ID)?.pendingSteps?.length, 1, 'still staged');
+  });
+  assert.ok((await agent.handle(ID, 'yes')).text.includes('Done!'));
+  assert.equal(outbox.length, 1);
+});
+
+test('gate: something Jev reads as not a yes runs nothing (and without Jev, nothing either)', async () => {
+  const { agent, outbox } = staged();
+  await withJev(jev('not_approve', 0.98), async () => {
+    const r = await agent.handle(ID, 'hold on, let me check with my husband');
+    assert.equal(outbox.length, 0);
+    assert.ok(!r.text.includes('Done!'));
+  });
+  const b = staged();
+  const r = await b.agent.handle(ID, 'sounds good, send it over');
+  assert.equal(b.outbox.length, 0, 'without Jev, an unrecognised reply never sends');
+  assert.ok(!r.text.includes('Done!'));
 });

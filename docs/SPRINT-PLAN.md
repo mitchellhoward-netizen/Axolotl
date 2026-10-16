@@ -54,7 +54,7 @@ Secondary: built once pathways exist, after the two launch pathways if time allo
 
 | Days | What | Done when |
 |---|---|---|
-| 1–2 | **Foundation:** the Phase 1 trust fixes; Jev ported and `decide.ts`; scoreboard and harness skeleton | Tests pass; YES is bound to the exact values (`YES <code>`), Jev the calibrated second check |
+| 1–2 | **Foundation:** the Phase 1 trust fixes; Jev ported and `decide.ts`; scoreboard and harness skeleton | Tests pass; a yes runs only the exact values shown (digest, invisible to the parent; no codes, Mitch 2026-10-16), Jev reads how they said it |
 | 2–5 | **Income form replica** of a real California district's alternative income form, 20 synthetic families, scripted and simulated parents. **Baseline of today's agent** | "Before" numbers committed with build hash |
 | 4–9 | **Pathway engine + turn pipeline.** Income-form pathway end to end; SUN Bucks/CalFresh offered next; school Q&A pathway | One family, one yes, the form filed and confirmed, the next benefit offered, English and Spanish |
 | 8–11 | **Attendance-barrier pathway** (the bus pass); Jev calibrated on labeled turns | Both launch pathways pass on replicas |

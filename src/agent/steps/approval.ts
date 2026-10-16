@@ -1,4 +1,4 @@
-import { createHash, randomInt } from 'node:crypto';
+import { createHash } from 'node:crypto';
 import type { Step } from './types.js';
 
 /**
@@ -9,6 +9,11 @@ import type { Step } from './types.js';
  * if the steps about to execute digest the same, within the approval's lifetime. Anything else
  * (a value changed after the review, a proposal staged without being shown, an approval left
  * open for days) re-shows the proposal and asks again. The gate fails closed.
+ *
+ * None of this is the parent's job. They answer the way they would answer a person ("yes",
+ * "sounds good, send it", "dale"); the binding happens underneath. (Mitch, 2026-10-16: no codes,
+ * no all-caps YES. If it's clear they want it done, do it. This configuration is good for now,
+ * not final; see docs/RELIABILITY.md, "The YES check".)
  */
 
 export interface ApprovalStamp {
@@ -16,11 +21,11 @@ export interface ApprovalStamp {
   hash: string;
   shownAt: number;
   expiresAt: number;
-  /** The code the parent replies with ("YES 4821"), naming this proposal and no other. */
-  code?: string;
-  /** A message went out after the proposal that did not re-show it, so a bare "yes" may be
-   * answering that message instead. Only `YES <code>` approves a stale stamp. */
+  /** A message went out after the proposal that did not mention it, so a "yes" may be answering
+   * that message instead. We check once, in a sentence, which one they mean. */
   stale?: boolean;
+  /** We already asked "want me to go ahead?" once for a reply that was probably a yes. */
+  confirmAsked?: boolean;
 }
 
 /** How long a shown proposal stays approvable. A day: long enough to answer after work. */
@@ -69,57 +74,22 @@ export function stampApproval(steps: Step[] | undefined, now = Date.now(), env: 
   return { hash: proposalDigest(steps), shownAt: now, expiresAt: now + approvalTtlMs(env) };
 }
 
-/** Four digits: easy to type on a phone, and never mistaken for a field change ("yes grade 2"). */
-export function newApprovalCode(previous?: string): string {
-  let code: string;
-  do code = String(randomInt(0, 10_000)).padStart(4, '0');
-  while (code === previous);
-  return code;
-}
-
-export type ApprovalReply = { kind: 'code'; code: string } | { kind: 'bare' } | null;
-
-const AFFIRM = '(?:y|yes|yeah|yep|ok|okay|confirm|approve|approved|go|go ahead|s[ií])';
-const WITH_CODE = new RegExp(`^${AFFIRM}[\\s,:#-]*(\\d{4})$`, 'i');
-const CODE_FIRST = new RegExp(`^(\\d{4})[\\s,:-]*${AFFIRM}$`, 'i');
-
-/** Reads a reply as `YES <code>` (either order) or as a bare affirmation. `isBare` is the agent's
- * whole-message consent test, passed in so the two never disagree. */
-export function parseApprovalReply(text: string, isBare: (t: string) => boolean): ApprovalReply {
-  const t = text.trim().replace(/[.!?]+$/, '').trim();
-  const m = WITH_CODE.exec(t) ?? CODE_FIRST.exec(t);
-  if (m) return { kind: 'code', code: m[1]! };
-  return isBare(t) ? { kind: 'bare' } : null;
-}
-
-/** Writes the code into the message's own "Reply YES" invitation, or adds one. */
-export function withApprovalCode(text: string, code: string): string {
-  if (new RegExp(`\\bYES ${code}\\b`).test(text)) return text;
-  const re = /\b(reply|text|send|answer)( with)? yes\b(?! \d{4})/gi;
-  if (re.test(text)) return text.replace(re, (_m, verb: string, w: string | undefined) => `${verb}${w ?? ''} YES ${code}`);
-  return `${text}\n\nReply YES ${code} to go ahead, or tell me what to change.`;
-}
-
-/** Does the message invite a YES at all? Then it is about the pending proposal. */
+/** Does the message ask the parent to approve something? Narrow on purpose: "want me to look up
+ * the bus times?" is not an invitation to run the staged proposal. */
 export function invitesYes(text: string): boolean {
-  return /\b(reply|text|send|answer)( with)? yes\b/i.test(text);
+  return /\b(reply|say|text|answer)( with)? yes\b|\bwant me to (go ahead|send|submit|file|make the call|call|fill)\b|\b(ok|okay|good) to (send|submit|go)\b|\bshall i (send|submit|go ahead)\b/i.test(
+    text,
+  );
 }
 
-export type ApprovalCheck = { ok: true } | { ok: false; reason: 'not_shown' | 'changed' | 'expired' | 'wrong_code' | 'needs_code' };
+export type ApprovalCheck = { ok: true } | { ok: false; reason: 'not_shown' | 'changed' | 'expired' | 'stale' };
 
-/** May these steps run on this reply, given now? A code must match the stamp's; a bare yes counts
- * only while the proposal is the last thing the parent was shown. */
-export function checkApproval(
-  steps: Step[] | undefined,
-  stamp: ApprovalStamp | undefined,
-  now = Date.now(),
-  reply: Exclude<ApprovalReply, null> = { kind: 'bare' },
-): ApprovalCheck {
+/** May these steps run on a yes given now? Only while they are what the parent was last shown. */
+export function checkApproval(steps: Step[] | undefined, stamp: ApprovalStamp | undefined, now = Date.now()): ApprovalCheck {
   if (!stamp) return { ok: false, reason: 'not_shown' };
   if (now > stamp.expiresAt) return { ok: false, reason: 'expired' };
   if (proposalDigest(steps) !== stamp.hash) return { ok: false, reason: 'changed' };
-  if (reply.kind === 'code' && reply.code !== stamp.code) return { ok: false, reason: 'wrong_code' };
-  if (reply.kind === 'bare' && stamp.stale) return { ok: false, reason: 'needs_code' };
+  if (stamp.stale) return { ok: false, reason: 'stale' };
   return { ok: true };
 }
 

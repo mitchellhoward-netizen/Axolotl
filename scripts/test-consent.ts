@@ -145,7 +145,7 @@ async function main(): Promise<void> {
     check('"yes last name Howard" keeps the step staged (does NOT expire it)', amendAgent.getStateForTest(ID)?.pendingSteps?.length === 1);
     check('...applies the amendment to the staged payload', values().child_last_name === 'Howard', JSON.stringify(values()));
     check('...does NOT execute anything', !a.text.includes('Done!') && outbox.length === 0, a.text.slice(0, 60));
-    check('...re-shows the changed proposal and asks for YES again', /Howard/.test(a.text) && /reply yes/i.test(a.text), a.text.slice(0, 160));
+    check('...re-shows the changed proposal and asks for YES again', /Howard/.test(a.text) && /go ahead|say yes/i.test(a.text), a.text.slice(0, 160));
 
     // (b) an address amendment
     amendAgent.setStateForTest(ID, { phase: 'confirming', collected: {}, pendingSteps: [makeSubmitStep()] });
@@ -157,7 +157,7 @@ async function main(): Promise<void> {
     amendAgent.setStateForTest(ID, { phase: 'confirming', collected: {}, pendingSteps: [makeSubmitStep()] });
     const c = await amendAgent.handle(ID, 'yes but change the grade to 2');
     check('"yes but change the grade to 2" applies the change', values().grade === '2', JSON.stringify(values()));
-    check('...and asks for a fresh YES because the proposal changed', amendAgent.getStateForTest(ID)?.pendingSteps?.length === 1 && !c.text.includes('Done!') && /reply yes/i.test(c.text));
+    check('...and asks for a fresh YES because the proposal changed', amendAgent.getStateForTest(ID)?.pendingSteps?.length === 1 && !c.text.includes('Done!') && /go ahead|say yes/i.test(c.text));
 
     // (d) extra words that are NOT an amendment: do not guess, do not expire
     amendAgent.setStateForTest(ID, { phase: 'confirming', collected: {}, pendingSteps: [makeSubmitStep()] });
@@ -204,7 +204,7 @@ async function main(): Promise<void> {
     check('"change the last name to Howard" keeps the step staged', crAgent.getStateForTest(ID)?.pendingSteps?.length === 1, a.text.slice(0, 90));
     check('...applies the change to the staged payload', values().child_last_name === 'Howard', JSON.stringify(values()));
     check('...does NOT execute anything', !a.text.includes('Done!') && outbox.length === 0, a.text.slice(0, 60));
-    check('...re-shows the changed proposal and asks for YES', /Howard/.test(a.text) && /reply yes/i.test(a.text), a.text.slice(0, 160));
+    check('...re-shows the changed proposal and asks for YES', /Howard/.test(a.text) && /go ahead|say yes/i.test(a.text), a.text.slice(0, 160));
 
     // (b) another phrasing, and the earlier edit must not be lost
     const b = await crAgent.handle(ID, 'actually make it grade 2');
