@@ -513,7 +513,7 @@ export default {
         ['First we read how you’re funded.', 'Your LCAP and your attendance file, line by line: every dollar that depends on a child being in a seat. The number comes first, free.'],
         ['Then it rehearses on last year.', 'Before it texts anyone, it runs on last year’s records. You see who it would have reached and what it would have said, and you decide when it’s ready.'],
         ['You offer it. The family says yes.', 'A fifth absence sends an offer from you, in the family’s language. They say yes or they don’t. Your attendance team sees only the cases that need a person.'],
-        ['You pay when funded ADA moves.', 'Days recovered against each student’s own prior year, counted only once they reach your funded ADA, so a district paid on last year or the three-year average owes nothing until the state pays it. A fiscal-year term and a not-to-exceed cap, agreed up front. Our share is a quarter of the funding recovered; the rest stays with you.'],
+        ['You pay on funded ADA.', 'Days recovered against each student’s own prior year, counted only once they reach your funded ADA, so a district paid on last year or the three-year average owes nothing until the state pays it. A fiscal-year term and a not-to-exceed cap, agreed up front. Our share is a quarter of the funding recovered; the rest stays with you.'],
       ],
     },
     sees: {
