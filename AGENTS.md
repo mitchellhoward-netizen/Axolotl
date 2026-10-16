@@ -102,7 +102,7 @@ The homepage is written for investors and routes buyers on its first screen
 is the proof the mechanism generalizes, the thesis and the founders come last.
 
 The district picker on /schools (`#district`, `schools.district` in the
-strings, markup in `build.mjs`, styles in `site.css`, behaviour in `site.js`)
+strings, markup in `build.mjs`, styles in `buyer.css`, behaviour in `site.js`)
 searches `public/scan-data.json`, one compact row per California district and
 charter school built from the state's own chronic-absenteeism and LCFF files by
 `tools/site/scan/build.py` (`npm run build:scan`; sources and model in
@@ -110,7 +110,7 @@ charter school built from the state's own chronic-absenteeism and LCFF files by
 assumptions in that JSON, so the numbers in the strings' default lines and the
 assumptions paragraph must change together. Basic-aid districts show $0 on
 purpose, and each row carries a funded-ADA trend so the page can say whether a
-district is likely paid on this year's attendance or on last year's. The homepage quotes one figure from it ($244K, Pajaro Valley) by hand.
+district is likely paid on this year's attendance or on last year's. The headline is the total of the low-income count and attendance lines, with the price ($5.60 a student a year, $2.40 more on certified results; `priceBase`/`priceTop` in the strings) beside it; `scanDefault()` in `build.mjs` works the static default the same way `site.js` does. The homepage quotes one figure from it ($947K, Pajaro Valley) by hand.
 
 Website signups (a member's phone number from /members, and the contact form on the homepage, /schools and /funds, all posted as `kind: "school"` with a message that starts with `[home]`, `[schools]` or `[funds]`) go through one
 endpoint, `/api/waitlist`, with a `kind` field. Validation and storage are shared
