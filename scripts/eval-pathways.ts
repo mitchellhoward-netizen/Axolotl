@@ -19,6 +19,10 @@
  * --model <id>               the brain's model with --llm cli (default: production's DEFAULT_CLAUDE_MODEL)
  * --budget <usd>             with --llm cli: stop starting new runs once this much is spent (default 5)
  * --run-budget <usd>         with --llm cli: end a conversation before its next turn (as abandoned, noted) once it has cost this much (default 2.5)
+ * --parent scripted|llm     scripted (default): the keyword-matching parent (src/eval/parent.ts).
+ *                            llm: a parent played by a model (src/eval/llm-parent.ts), the held-out
+ *                            test; its spend counts toward --budget and each run's costUsd
+ * --parent-model <id>        the LLM parent's model (default claude-haiku-4-5)
  * --transcripts <file>       append each run's transcript and tool calls as JSON lines
  * --verbose                  keep the agent's console logs and print transcripts
  * --no-write                 print only
@@ -32,8 +36,9 @@ import { appendFileSync } from 'node:fs';
 import { DEFAULT_CLAUDE_MODEL, DEFAULT_CLAUDE_SMALL_MODEL } from '../src/agent/model-policy.js';
 import type { ToolCall } from '../src/agent/llm.js';
 import { cliLlmClient } from '../src/eval/cli-llm.js';
+import { llmParent, llmParentOpening, type LlmParent } from '../src/eval/llm-parent.js';
 import { baselineAgentFactoryWith, gitBuild, runFamily, type AgentFactory, type PathwayHook } from '../src/eval/runner.js';
-import { aggregate, markdownTable, writeResults } from '../src/eval/scoreboard.js';
+import { aggregate, markdownTable, succeeded, writeResults } from '../src/eval/scoreboard.js';
 import type { FormMap, Pathway, Replica, RunRecord } from '../src/pathways/types.js';
 
 function args(argv: string[]): Record<string, string | boolean> {
@@ -160,6 +165,10 @@ async function main(): Promise<void> {
       return { llm, researchLlm };
     });
   }
+  const parentMode = (a.parent as string) ?? 'scripted';
+  if (parentMode !== 'scripted' && parentMode !== 'llm') throw new Error(`--parent scripted|llm, not ${parentMode}`);
+  const parentModel = (a['parent-model'] as string) ?? 'claude-haiku-4-5';
+  const metered = llmMode === 'cli' || parentMode === 'llm';
   const transcripts = typeof a.transcripts === 'string' ? a.transcripts : undefined;
 
   const archive = new ArchiveClient();
@@ -172,7 +181,7 @@ async function main(): Promise<void> {
   try {
     outer: for (const family of families) {
       for (let seed = 1; seed <= seeds; seed++) {
-        if (llmMode === 'cli' && spent >= budget) {
+        if (metered && spent >= budget) {
           log(`budget reached ($${spent.toFixed(2)} of $${budget}): stopping before ${family.id} seed ${seed}`);
           break outer;
         }
@@ -182,18 +191,35 @@ async function main(): Promise<void> {
           console.log = () => {};
           console.warn = () => {};
         }
+        // The LLM parent's first text is made before the run (opening() is sync).
+        let llmP: LlmParent | undefined;
+        let parentFactory: ((attest: (fields: string[]) => Promise<void>) => LlmParent) | undefined;
+        let openingCost = 0;
+        if (parentMode === 'llm') {
+          const po = { family, seed, model: parentModel };
+          const op = await llmParentOpening(po);
+          openingCost = op.costUsd;
+          parentFactory = (attest) => (llmP = llmParent({ ...po, attest, opening: op.text }));
+        }
         let res;
         try {
-          res = await runFamily({ family, seed, mode, hook, pathway, form, replica, messiness, trusting: a.trusting === true, maxTurns, build, agentFactory, stop: llmMode === 'cli' ? () => (runSpent >= runBudget ? `run cost cap $${runBudget} reached` : undefined) : undefined });
+          res = await runFamily({ parent: parentFactory, family, seed, mode, hook, pathway, form, replica, messiness, trusting: a.trusting === true, maxTurns, build, agentFactory, stop: llmMode === 'cli' ? () => (runSpent >= runBudget ? `run cost cap $${runBudget} reached` : undefined) : undefined });
         } finally {
           console.log = log;
           console.warn = warn;
         }
-        runs.push(res.record);
         const r = res.record;
-        log(`${r.family} seed ${seed} [${family.lang}/${family.persona}] → ${r.outcome}  wrong ${r.wrongFields.length} missing ${r.missingFields.length} guessed ${r.guessedFacts.length}${r.sentWithoutYes ? ' SENT-WITHOUT-YES' : ''}${r.agentAttested ? ' AGENT-ATTESTED' : ''}  turns ${r.parentTurns}  ${r.ms} ms${llmMode === 'cli' ? `  $${r.costUsd.toFixed(3)} (total $${spent.toFixed(2)})  tools: ${toolCalls.map((c) => c.name).join(',') || 'none'}` : ''}`);
+        if (llmP) {
+          // The parent's spend is the run's cost too (the pathway agent itself calls no model).
+          const pc = llmP.costUsd() + openingCost;
+          spent += pc;
+          r.costUsd = Math.round((r.costUsd + pc) * 1e6) / 1e6;
+          r.notes.push(`parent-cost:$${pc.toFixed(4)}`, `parent-style:${llmP.style}`);
+        }
+        runs.push(r);
+        log(`${r.family} seed ${seed} [${family.lang}/${family.persona}] → ${r.outcome}  wrong ${r.wrongFields.length} missing ${r.missingFields.length} guessed ${r.guessedFacts.length}${r.sentWithoutYes ? ' SENT-WITHOUT-YES' : ''}${r.agentAttested ? ' AGENT-ATTESTED' : ''}  turns ${r.parentTurns}  ${r.ms} ms${metered ? `  $${r.costUsd.toFixed(3)} (total $${spent.toFixed(2)})` : ''}${llmMode === 'cli' ? `  tools: ${toolCalls.map((c) => c.name).join(',') || 'none'}` : ''}`);
         if (transcripts) {
-          appendFileSync(transcripts, JSON.stringify({ build, pathway: r.pathway, family: r.family, seed, llm: llmMode, outcome: r.outcome, costUsd: r.costUsd, notes: r.notes, transcript: res.transcript, gate: res.gate, toolCalls: toolCalls.map((c) => ({ name: c.name, arguments: c.arguments })), submission: res.submission ? { fields: res.submission.fields, reference: res.submission.reference ?? null } : null }) + '\n');
+          appendFileSync(transcripts, JSON.stringify({ build, pathway: r.pathway, family: r.family, seed, llm: llmMode, parent: r.parent, success: succeeded(r), wrong: r.wrongFields, missing: r.missingFields, outcome: r.outcome, costUsd: r.costUsd, notes: r.notes, transcript: res.transcript, gate: res.gate, toolCalls: toolCalls.map((c) => ({ name: c.name, arguments: c.arguments })), submission: res.submission ? { fields: res.submission.fields, reference: res.submission.reference ?? null } : null }) + '\n');
         }
         if (verbose) for (const t of res.transcript) log(`   ${t.from === 'parent' ? 'P' : 'A'}: ${t.text.replace(/\n+/g, ' ⏎ ').slice(0, 300)}`);
       }

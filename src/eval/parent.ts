@@ -925,19 +925,6 @@ export function scriptedParent(o: ParentOptions): SimulatedParent {
   return new ScriptedParent(o);
 }
 
-// ── The LLM-simulated parent (interface only, for now) ───────────────────────
 
-/**
- * A parent played by a small model, for conversation quality on a subset (SPRINT-PLAN budget).
- * Same interface as the scripted parent, so the runner takes either. Not built yet: it needs
- * a model client and a cost meter; the scripted parent stays the source of field-level scores.
- */
-export interface LlmParentOptions extends ParentOptions {
-  model: string;
-  /** Returns the model's reply and its cost, given a system prompt and the conversation. */
-  complete: (system: string, turns: Array<{ role: 'agent' | 'parent'; text: string }>) => Promise<{ text: string; costUsd: number }>;
-}
-
-export function llmParent(_o: LlmParentOptions): SimulatedParent & { costUsd(): number } {
-  throw new Error('llmParent: not implemented yet (scripted parents only for now)');
-}
+// The LLM-simulated parent lives in its own file (it needs a model transport).
+export { llmParent, llmParentOpening, renderTruth, type LlmParent, type LlmParentOptions } from './llm-parent.js';
