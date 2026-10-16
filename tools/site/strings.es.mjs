@@ -39,6 +39,11 @@ export default {
   },
 
   hero: {
+    h1a: 'Su fondo paga primas',
+    h1b: 'que el estado pagaría.',
+    sub2: 'Muchos jubilados en su reembolso de Parte B califican para el Programa de Ahorros de Medicare de Nueva York, que paga toda la prima. La mayoría nunca solicita. Mycelium los inscribe por mensaje con su sí, lo renueva cada año y se queda con un quinto de lo que usted deja de pagar.',
+    primary2: 'Pida su cifra',
+    data: 'Firmamos un acuerdo de socio comercial HIPAA antes de ver un archivo. El fondo ve totales y los reembolsos que debe detener, sincronizados con el momento en que el Seguro Social deja de descontar; nunca ve la conversación de un jubilado.',
     eyebrow: 'Para fondos que reembolsan la Parte B',
     h1Plain: 'Su fondo reembolsa primas de la Parte B',
     h1Em: 'que pagaría el estado.',
@@ -81,8 +86,8 @@ export default {
   },
 
   money: {
-    h2Plain: 'Cuatro de cada diez',
-    h2Em: 'nunca lo solicitan.',
+    h2Plain: 'Cuatro de diez',
+    h2Em: 'nunca solicitan.',
     lead: 'El Programa de Ahorros de Medicare de Nueva York paga toda la prima de la Parte B a un jubilado que recibe hasta unos $2,494 al mes antes de descuentos, o $3,375 una pareja, y los ahorros no cuentan. Cerca de 4 de cada 10 personas que califican no están inscritas. Cuando una de ellas está en su reembolso, su fondo paga una prima que cubriría el estado.',
     stats: {
       eyebrow: 'La regla',
@@ -214,7 +219,7 @@ export default {
   },
 
   scan: {
-    h2Plain: 'Empiece con una revisión gratis',
+    h2Plain: 'Empiece con una revisión',
     h2Em: 'de sus propios datos.',
     lead: 'En 30 días le mostramos, en dólares, cuánto de su reembolso de la Parte B pagaría Nueva York, y cuántos jubilados hay detrás de esa cifra.',
     cards: [

@@ -1001,6 +1001,136 @@ function memberCalcSection(s) {
 
 
 
+// ── /funds in the homepage's design ──────────────────────────────────────────
+
+function fundCalcBuyer(s) {
+  const c = at(s, 'fundCalc');
+  const t = MSPCalc.fundText(mspRules, FUND_DEFAULTS, c, s.lang);
+  const line = (k, rangeKey) => `<div><span>${esc(c.out[k])}${rangeKey ? ` <small data-out="${rangeKey}">${esc(t[rangeKey])}</small>` : ''}</span><b data-out="${k}">${esc(t[k])}</b></div>`;
+  return `
+<section class="scan-section calc-section" id="estimate" aria-labelledby="estimate-title">
+  <h2 id="estimate-title">${esc(c.h2Plain)} ${esc(c.h2Em)}</h2>
+  <p class="lede">${esc(c.lead)}</p>
+  <form class="scan calc" data-calc="fund" data-lang="${s.lang}" ${tplAttrs(c, ['range', 'ceiling', 'perRetiree', 'timing'])} novalidate>
+    <div class="inputs">
+      <div class="field"><label for="fund-retirees">${esc(c.retireesLabel)}</label><input id="fund-retirees" name="retirees" type="number" inputmode="numeric" min="0" step="1" value="${FUND_DEFAULTS.retirees}"></div>
+      <div class="field"><label for="fund-reimbursed">${esc(c.shareLabel)}</label><select id="fund-reimbursed" name="reimbursed">${options(c.shareOptions, FUND_DEFAULTS.reimbursed)}</select></div>
+      <div class="field"><label for="fund-pension">${esc(c.pensionLabel)}</label><select id="fund-pension" name="pension" aria-describedby="fund-pension-hint">${options(c.pensionOptions, FUND_DEFAULTS.pension)}</select></div>
+    </div>
+    <p class="hint" id="fund-pension-hint">${esc(c.pensionHint)}</p>
+    <div class="figure" aria-live="polite"><span data-out="net">${esc(t.net)}</span><small>${esc(c.out.net)}</small></div>
+    <div class="lines">
+      ${line('pool', 'poolRange')}
+      ${line('enrolled', 'enrolledRange')}
+      ${line('saved', 'savedRange')}
+      ${line('fee')}
+      ${line('retirees')}
+    </div>
+    <p class="assume"><span data-out="perRetiree">${esc(t.perRetiree)}</span> <span data-out="ceiling">${esc(t.ceiling)}</span> <span data-out="timing">${esc(t.timing)}</span></p>
+  </form>
+  <details class="methods"><summary>${esc(c.methodsTitle)}</summary><ul>${c.methods.map((m) => `<li>${esc(m)}</li>`).join('')}</ul></details>
+  ${rulesScript()}
+</section>`;
+}
+
+function fundBuyerSections(s) {
+  const h = at(s, 'hero'), money = at(s, 'money'), after = at(s, 'after'), never = at(s, 'never'), diff = at(s, 'different'), pilot = at(s, 'pilot'), scan = at(s, 'scan'), fm = at(s, 'form'), mb = at(s, 'membersBand');
+  const ph = h.phone;
+  const hero = `
+<section class="hero" id="top" aria-label="Mycelium">
+  <div class="field-top"></div>
+  <div class="field-bottom"></div>
+  <div class="sentence-wrap"><h1 class="sentence" data-rise style="--i:0">
+    <span class="l1">${esc(h.h1a)}</span>
+    <span class="l2">${esc(h.h1b)}</span>
+  </h1></div>
+  <div class="photo" aria-hidden="true">${IMGS.cycle}</div>
+  <p class="support" data-rise style="--i:1">${esc(h.sub2)}</p>
+  <div class="action" data-rise style="--i:2"><a class="button" href="#close">${esc(h.primary2)}</a><a class="door" href="#money">${esc(h.secondary)}</a></div>
+</section>`;
+  const thread = `<div class="thread" data-ui aria-label="${esc(ph.alt)}">
+      <div class="who">${esc(ph.meta)} · ${esc(ph.metaTime)}</div>
+      <div class="msgs">${ph.thread.map((m) => m.out ? `<div class="m me">${esc(m.out)}</div>` : `<div class="m">${esc(m.in)}</div>`).join('')}</div>
+    </div>`;
+  const wedge = `
+<section class="wedge" id="money" aria-label="${esc(money.h2Plain)} ${esc(money.h2Em)}">
+  <h2>${esc(money.h2Plain)}<br>${esc(money.h2Em)}</h2>
+  <div class="text">
+    <p>${esc(money.lead)}</p>
+    <p>${esc(h.data)}</p>
+  </div>
+  <div class="obj">${thread}</div>
+</section>`;
+  const rule = `
+<section class="scan-section" id="rule" aria-label="${esc(money.stats.eyebrow)}">
+  <h2>${esc(money.stats.eyebrow)}.</h2>
+  <p class="lede">${esc(money.stats.example)}</p>
+  <div class="scan">
+    <div class="lines">
+      ${money.stats.rows.map((r) => `<div><span>${esc(r.l)} <small>${esc(r.note)}</small></span><b>${esc(r.v)}</b></div>`).join('\n      ')}
+    </div>
+  </div>
+  <div class="who-table">
+    <div class="row head">${money.head.map((c) => `<span>${esc(c)}</span>`).join('')}</div>
+    ${money.rows.map((r) => `<div class="row"><span class="k">${esc(r.when)}</span><span>${esc(r.now)}</span><span>${esc(r.should)}</span><span class="v">${esc(r.member)}</span></div>`).join('\n    ')}
+  </div>
+  <p class="assume">${esc(money.note)}</p>
+</section>`;
+  const calc = fundCalcBuyer(s);
+  const how = `
+<section class="how" id="how" aria-label="${esc(after.h2Plain)} ${esc(after.h2Em)}">
+  ${after.brief.rows.map((r, i) => `<div class="stage">
+    ${i === 0 ? `<h2>${esc(after.h2Plain)} ${esc(after.h2Em)}</h2>` : ''}
+    <div class="line">${esc(r.l)}</div>
+    <p>${esc(r.v)}. ${esc(r.note)}</p>
+  </div>`).join('\n  ')}
+</section>`;
+  const theirs = `
+<section class="theirs" id="never" aria-label="${esc(never.h2)}">
+  <h2>${esc(never.h2)}.</h2>
+  <div class="grid body">
+    <figure class="photo"><img src="/assets/dend-tree-pyrolusite.jpg" width="1075" height="1657" alt="" loading="lazy"></figure>
+    <div class="list">
+      ${never.items.map((i) => `<div class="item"><h3>${esc(i.title)}.</h3><p>${esc(i.body)}</p></div>`).join('\n      ')}
+    </div>
+    <div class="why">
+      <p>${esc(diff.h2Plain)} ${esc(diff.h2Em)}</p>
+      <ul class="facts">
+        ${diff.items.map((i) => `<li>${esc(i.h)}. <small>${esc(i.p)}</small></li>`).join('\n        ')}
+      </ul>
+    </div>
+  </div>
+</section>`;
+  const fees = `
+<section class="where" id="fees" aria-label="${esc(pilot.h2)}">
+  <h2>${esc(pilot.h2)}.</h2>
+  <p class="lede">${esc(pilot.lead)}</p>
+  <div class="body grid">
+    <div class="table">
+      ${pilot.fees.map(([a, c]) => `<div class="row"><span class="k">${esc(a)}</span><span class="v">${esc(c)}</span></div>`).join('\n      ')}
+      <div class="row group"><span class="k">${esc(pilot.measuresLabel)}</span><span class="v">${pilot.measures.map(esc).join('; ')}</span></div>
+    </div>
+  </div>
+  <p class="lede">${esc(pilot.guardrail)}</p>
+</section>`;
+  const band = `
+<figure class="band tint" aria-hidden="true"><img src="/assets/dend-field-solnhofen.jpg" width="1280" height="850" alt="" loading="lazy" style="object-position: 50% 40%"></figure>`;
+  const close = `
+<section class="close" id="close" aria-label="${esc(scan.h2Plain)}">
+  <h2>${esc(scan.h2Plain)}</h2>
+  <div class="foot">
+    <p>${esc(scan.lead)}</p>
+  </div>
+  ${buyerForm(fm, 'funds')}
+</section>`;
+  const members = `
+<section class="founders" aria-label="${esc(mb.h2)}">
+  <h2>${esc(mb.h2)}</h2>
+  <p>${esc(mb.body)} <a href="${localized(s, '/members')}">${esc(mb.link)} →</a></p>
+</section>`;
+  return [hero, wedge, rule, calc, how, theirs, fees, band, close, members].join('\n');
+}
+
 // ── buyer document shell: the homepage's chrome ─────────────────────────────
 
 function buyerDocument(s, { title, description, canonical, alts, body, langHref, share, shareAlt, nav, ctaLabel, ctaHref }) {
@@ -1036,7 +1166,7 @@ ${alt}
 <link rel="preconnect" href="https://api.fontshare.com">
 <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
 <link href="https://api.fontshare.com/v2/css?f[]=gambarino@400&f[]=general-sans@400,500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/buyer.css?v=1">
+<link rel="stylesheet" href="/buyer.css?v=5">
 <script src="/msp-calc.js?v=21" defer></script>
 <script src="/site.js?v=23" defer></script>
 </head>
@@ -1198,15 +1328,16 @@ async function render() {
     // /funds, for union benefit funds that reimburse Part B.
     pages.push({
       file: dir ? `${dir}/funds.html` : 'funds.html',
-      html: document(s, {
-        page: 'funds',
+      html: buyerDocument(s, {
         title: at(s, 'meta.title'),
         description: at(s, 'meta.description'),
         canonical: dir ? '/es/funds' : '/funds',
         alts: [['en', '/funds'], ['es', '/es/funds']],
-        body: fundSections(s),
+        body: fundBuyerSections(s),
         langHref: dir ? '/funds' : '/es/funds',
-        cta: '#school-contact',
+        nav: [[at(s, 'nav.money'), '#money'], [at(s, 'nav.how'), '#how'], [at(s, 'nav.members'), localized(s, '/members')]],
+        ctaLabel: at(s, 'hero.primary2'),
+        ctaHref: '#close',
         shareAlt: at(s, 'meta.shareAlt'),
         share: shareFunds,
       }),
