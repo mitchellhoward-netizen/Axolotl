@@ -471,7 +471,7 @@ export default {
         ['Primero leemos cómo lo financian.', 'Su LCAP y su archivo de asistencia, línea por línea: cada dólar que depende de que un niño esté en su asiento. La cifra va primero, gratis.'],
         ['Luego ensaya con el año pasado.', 'Antes de escribirle a nadie, corre con los registros del año pasado. Usted ve a quién habría llegado y qué habría dicho, y decide cuándo está listo.'],
         ['Usted lo ofrece. La familia dice que sí.', 'Una quinta falta envía una oferta suya, en el idioma de la familia. Dicen que sí o no. Su equipo de asistencia ve solo los casos que necesitan a una persona.'],
-        ['Paga cuando la ADA financiada sube.', 'Días recuperados contra el año anterior de cada estudiante, contados solo cuando llegan a su ADA financiada, así que un distrito que cobra por el año pasado o el promedio de tres años no debe nada hasta que el estado le pague. Un plazo de un año fiscal y un tope máximo, acordados por adelantado. Nuestra parte es un cuarto del financiamiento recuperado; el resto queda con usted.'],
+        ['Paga sobre ADA financiada.', 'Días recuperados contra el año anterior de cada estudiante, contados solo cuando llegan a su ADA financiada, así que un distrito que cobra por el año pasado o el promedio de tres años no debe nada hasta que el estado le pague. Un plazo de un año fiscal y un tope máximo, acordados por adelantado. Nuestra parte es un cuarto del financiamiento recuperado; el resto queda con usted.'],
       ],
     },
     sees: {
