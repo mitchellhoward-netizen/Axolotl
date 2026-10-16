@@ -7,6 +7,7 @@ import type { ApprovalStamp } from './steps/approval.js';
 import type { MckinneyState } from './mckinney.js';
 import type { OnboardingState } from './onboarding.js';
 import type { AttendanceState } from './attendance.js';
+import type { PathwaySession } from '../pathways/engine.js';
 
 export type AgentPhase = 'idle' | 'clarifying' | 'confirming' | 'done';
 
@@ -73,6 +74,10 @@ export interface ConversationState {
   /** A rolling, compressed summary of the conversation so the brain keeps the
    * thread even past the windowed history (ChatGPT-like continuity). */
   summary?: string;
+  /** An active pathway session (src/pathways/engine.ts): its id, the family record it has
+   * built (every fact with its source), how often each fact was asked, and where it is. While
+   * it is active and not paused, the engine handles the turn. */
+  pathway?: PathwaySession;
 }
 
 export function initialState(): ConversationState {
