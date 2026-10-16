@@ -58,6 +58,7 @@
     "test:family": "tsx --test scripts/test-family-facts.ts",
     "test:linq": "tsx --test scripts/test-linq-replica.ts",
     "test:pvusd-uba": "tsx --test scripts/test-pvusd-uba.ts",
+    "test:honesty": "tsx --test scripts/test-honesty.ts",
     "compare:intents": "tsx scripts/compare-intents.ts",
     "test:consent": "tsx scripts/test-consent.ts",
     "test:approval": "tsx --test scripts/test-approval.ts",
@@ -101,6 +102,7 @@
     "@types/node": "^22",
     "@types/pg": "^8.23.1",
     "@types/ws": "^8.18.1",
+    "cheerio": "^1.2.0",
     "prisma": "^8.0.0-rc.12",
     "tsx": "^4",
     "typescript": "^5"
