@@ -61,6 +61,7 @@
     "test:honesty": "tsx --test scripts/test-honesty.ts",
     "test:harness": "tsx --test scripts/test-harness.ts",
     "test:pathway-engine": "tsx --test scripts/test-pathway-engine.ts",
+    "test:understand": "tsx --test scripts/test-understand.ts",
     "eval:pathways": "tsx scripts/eval-pathways.ts",
     "compare:intents": "tsx scripts/compare-intents.ts",
     "test:consent": "tsx scripts/test-consent.ts",

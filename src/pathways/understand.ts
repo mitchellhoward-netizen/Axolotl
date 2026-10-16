@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import type { LlmClient } from '../agent/llm.js';
 import type { FactKey } from '../family/facts.js';
-import { fold, FREQ_ANY } from './extract.js';
+import { fold, parseFrequency, splitClauses } from './extract.js';
 import type { FactSpec, Lang } from './types.js';
 
 /**
@@ -190,6 +190,7 @@ const SYNONYMS: Record<string, string> = {
 const oneOf = <T extends readonly string[]>(xs: T) =>
   z
     .unknown()
+    .optional()
     .transform((v): T[number] | undefined => {
       if (typeof v !== 'string') return undefined;
       const k = v.trim().toLowerCase().replace(/[\s-]+/g, '_');
@@ -208,7 +209,7 @@ const PersonZ = z.object({
   quote: Quote,
 });
 const IncomeZ = z.object({
-  owner: z.unknown().transform((v) => (typeof v === 'string' && v.trim() ? v.trim() : 'unknown')),
+  owner: z.unknown().optional().transform((v) => (typeof v === 'string' && v.trim() ? v.trim() : 'unknown')),
   amount: num.pipe(z.number().positive().max(10_000_000)),
   frequency: oneOf(INCOME_FREQUENCIES),
   kind: oneOf(INCOME_KINDS),
@@ -251,6 +252,8 @@ export function quoted(message: string, quote: string): boolean {
   const q = norm(quote.replace(/^["'“”‘’]+|["'“”‘’]+$/g, ''));
   return q.length > 0 && norm(message).includes(q);
 }
+
+const sentencesOf = (s: string) => splitClauses(s);
 
 /** Words for numbers people text ("somos cuatro", "four of us"). */
 const WORD_NUMBERS: Record<string, number> = {
@@ -345,10 +348,15 @@ export function parseUnderstanding(raw: unknown, input: UnderstandInput): Unders
     else if (p.age !== undefined) dropped++;
     return q;
   });
-  const freqSaid = FREQ_ANY.test(fold(msg)) && !/\bquincena(l|s)?\b|cada (quince|15) dias/.test(fold(msg));
+  // How often an income is paid counts only when the words say that frequency: in its quote,
+  // or (when the quote has none) as the one frequency the whole message names.
+  const said = (q: string) => [...new Set(sentencesOf(q).map((c) => parseFrequency(fold(c))).filter(Boolean))];
+  const inMessage = said(msg);
   const incomes = each(t.incomes, IncomeZ, (x) => grounded(msg, 'amount', x.amount)).map((x) => {
     const out: IncomeItem = { owner: x.owner || 'unknown', amount: x.amount, quote: x.quote };
-    if (x.frequency && x.frequency !== 'unknown' && (freqSaid || x.frequency === 'hourly')) out.frequency = x.frequency;
+    const inQuote = said(x.quote);
+    const words = inQuote.length ? inQuote : inMessage;
+    if (x.frequency && x.frequency !== 'unknown' && words.length === 1 && words[0] === x.frequency) out.frequency = x.frequency;
     if (x.kind) out.kind = x.kind;
     if (x.replaces !== undefined && numbersIn(msg).includes(x.replaces)) out.replaces = x.replaces;
     return out;

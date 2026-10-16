@@ -373,7 +373,7 @@ export class PathwayEngine {
       s.stage === 'offered_next' ||
       (s.stage === 'paused' && s.pauseReason === 'crisis') ||
       (s.stage === 'proposed' && (this.isYes(text) || this.isNo(text))) ||
-      (s.stage === 'handoff_offered' && (this.isYes(text) || this.isNo(text) || AFFIRM.test(t) || NEGATE.test(t) || PERSON.test(t)));
+      (s.stage === 'handoff_offered' && (this.isYes(text) || this.isNo(text) || PERSON.test(t)));
     const m = settled ? undefined : await this.understand(text, s, pathway, rec);
     this.updateLang(s, text, rec, state.profile?.locale, m?.language);
     const R = this.r(s);
@@ -828,7 +828,9 @@ export class PathwayEngine {
   private merge(det: Extraction, mx: { facts: Found[]; correction: boolean }, m: Understanding, s: PathwaySession): Extraction {
     const STRUCT = /^member\.[^.]+\.(first_name|last_name|middle_initial|relationship|age|has_income|income_done)$|^income\.|^household\.(roster|incomes_complete|income_reported)$/;
     const keys = new Set(mx.facts.map((f) => f.key));
-    const extra = ['answer', 'correction', 'approve'].includes(m.intent) ? det.facts.filter((f) => !keys.has(f.key) && !STRUCT.test(f.key)) : [];
+    // When the model read nothing about people or money, the regex readers' reading stands.
+    const modelTouched = mx.facts.some((f) => STRUCT.test(f.key)) || m.people.length > 0 || m.incomes.length > 0 || m.noIncome.length > 0;
+    const extra = ['answer', 'correction', 'approve'].includes(m.intent) ? det.facts.filter((f) => !keys.has(f.key) && (!STRUCT.test(f.key) || !modelTouched)) : [];
     return {
       facts: [...mx.facts, ...extra],
       correction: det.correction || mx.correction,
