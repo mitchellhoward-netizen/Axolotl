@@ -103,13 +103,14 @@ is the proof the mechanism generalizes, the thesis and the founders come last.
 
 The district picker on /schools (`#district`, `schools.district` in the
 strings, markup in `build.mjs`, styles in `site.css`, behaviour in `site.js`)
-searches `public/scan-data.json`, one compact row per California district built
-from the state's own chronic-absenteeism and LCFF files by
+searches `public/scan-data.json`, one compact row per California district and
+charter school built from the state's own chronic-absenteeism and LCFF files by
 `tools/site/scan/build.py` (`npm run build:scan`; sources and model in
 `tools/site/scan/README.md`). The page recomputes the arithmetic from the three
 assumptions in that JSON, so the numbers in the strings' default lines and the
 assumptions paragraph must change together. Basic-aid districts show $0 on
-purpose. The homepage quotes one figure from it ($244K, Pajaro Valley) by hand.
+purpose, and each row carries a funded-ADA trend so the page can say whether a
+district is likely paid on this year's attendance or on last year's. The homepage quotes one figure from it ($244K, Pajaro Valley) by hand.
 
 Website signups (a member's phone number from /members, and the contact form on the homepage, /schools and /funds, all posted as `kind: "school"` with a message that starts with `[home]`, `[schools]` or `[funds]`) go through one
 endpoint, `/api/waitlist`, with a `kind` field. Validation and storage are shared

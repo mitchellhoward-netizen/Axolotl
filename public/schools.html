@@ -25,7 +25,7 @@
 <link href="https://api.fontshare.com/v2/css?f[]=gambarino@400&f[]=general-sans@400,500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/buyer.css?v=11">
 <script src="/msp-calc.js?v=21" defer></script>
-<script src="/site.js?v=23" defer></script>
+<script src="/site.js?v=24" defer></script>
 </head>
 <body>
 
@@ -69,7 +69,7 @@
 
 <section class="scan-section" id="district" aria-labelledby="district-title">
   <h2 id="district-title">Find your district.</h2>
-  <p class="lede">Every California district, from the state’s 2024–25 chronic absenteeism file and its 2024–25 LCFF funding. Type a district or pick one.</p>
+  <p class="lede">Every California district and charter, from the state’s 2024–25 chronic absenteeism file and its 2024–25 LCFF funding. Type a name or pick one.</p>
   <form class="scan" onsubmit="return false">
     <div class="figure" id="scan-figure" aria-live="polite">$244K<small id="scan-sub">Pajaro Valley Unified could recover each year, worked from its own public filings</small></div>
     <div class="pick">
@@ -82,10 +82,11 @@
       <div><span>3,865 chronically absent students, one in four reached, 3 more days each, at $84 a day</span><b>$244K</b></div>
       <div><span>Not in the figure: if one in two hundred enrolled students is low-income and uncounted, 77 students at $9,139 each</span><b>$704K</b></div>
       <div><span>Each 1% of attendance is worth</span><b>$2.2M</b></div>
+      <div><span>Funded attendance fell 5.7% from 2023–24, so this district is likely paid on last year or the three-year average: the gain arrives a year late, and we are paid only when it does.</span><b></b></div>
     </div>
     <p class="assume">Counts from the state’s 2024–25 absenteeism file; values from each district’s 2024–25 LCFF funding. The reach and days are our assumptions, set below what a mailed letter alone recovered in a randomized trial (Rogers &amp; Feller, 28,000 households). Uncounted students stay out of the figure; property-tax-funded districts show $0; declining-enrollment districts are paid a year late.</p>
   </form>
-  <script type="application/json" id="district-strings">{"h2Plain":"Find your district.","h2Em":"","lead":"Every California district, from the state’s 2024–25 chronic absenteeism file and its 2024–25 LCFF funding. Type a district or pick one.","label":"Find your district","placeholder":"Type any California school district","quick":"Or try","quickNames":["Pajaro Valley","Oakland","Fresno"],"sub":"{name} could recover each year, worked from its own public filings","line1":"{absent} chronically absent students, one in four reached, {days} more days each, at ${perDay} a day","line2":"Not in the figure: if one in two hundred enrolled students is low-income and uncounted, {uncounted} students at ${perCounted} each","line3":"Each 1% of attendance is worth","basicSub":"in state money for {name}, which is funded by local property tax","basicLine1":"{absent} chronically absent students","basicLine2":"Another day of attendance brings the district","basicLine3":"The families’ side of the case still stands; the budget side doesn’t","offline":"The district list didn’t load","assume":"Counts from the state’s 2024–25 absenteeism file; values from each district’s 2024–25 LCFF funding. The reach and days are our assumptions, set below what a mailed letter alone recovered in a randomized trial (Rogers & Feller, 28,000 households). Uncounted students stay out of the figure; property-tax-funded districts show $0; declining-enrollment districts are paid a year late."}</script>
+  <script type="application/json" id="district-strings">{"h2Plain":"Find your district.","h2Em":"","label":"Find your district","placeholder":"Type any California school district","quick":"Or try","quickNames":["Pajaro Valley","Oakland","Fresno"],"sub":"{name} could recover each year, worked from its own public filings","line1":"{absent} chronically absent students, one in four reached, {days} more days each, at ${perDay} a day","line2":"Not in the figure: if one in two hundred enrolled students is low-income and uncounted, {uncounted} students at ${perCounted} each","line3":"Each 1% of attendance is worth","basicSub":"in state money for {name}, which is funded by local property tax","basicLine1":"{absent} chronically absent students","basicLine2":"Another day of attendance brings the district","basicLine3":"The families’ side of the case still stands; the budget side doesn’t","offline":"The district list didn’t load","charterTag":"charter","trendDown":"Funded attendance fell {pct}% from 2023–24, so this district is likely paid on last year or the three-year average: the gain arrives a year late, and we are paid only when it does.","trendUp":"Funded attendance rose {pct}% from 2023–24, so this district is likely paid on this year’s attendance.","trendCharter":"A charter is paid on this year’s attendance, so the gain and our share land in the same year.","trendNone":"No 2023–24 row for this district, so we can’t say which year it’s paid on.","lead":"Every California district and charter, from the state’s 2024–25 chronic absenteeism file and its 2024–25 LCFF funding. Type a name or pick one.","assume":"Counts from the state’s 2024–25 absenteeism file; values from each district’s 2024–25 LCFF funding. The reach and days are our assumptions, set below what a mailed letter alone recovered in a randomized trial (Rogers & Feller, 28,000 households). Uncounted students stay out of the figure; property-tax-funded districts show $0; declining-enrollment districts are paid a year late."}</script>
 </section>
 
 <section class="how" id="how" aria-label="How it works">

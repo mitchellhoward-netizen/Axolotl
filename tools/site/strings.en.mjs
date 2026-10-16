@@ -560,7 +560,6 @@ export default {
     district: {
       h2Plain: 'Find your district.',
       h2Em: '',
-      lead: 'Every California district, from the state’s 2024–25 chronic absenteeism file and its 2024–25 LCFF funding. Type a district or pick one.',
       label: 'Find your district',
       placeholder: 'Type any California school district',
       quick: 'Or try',
@@ -574,6 +573,12 @@ export default {
       basicLine2: 'Another day of attendance brings the district',
       basicLine3: 'The families’ side of the case still stands; the budget side doesn’t',
       offline: 'The district list didn’t load',
+      charterTag: 'charter',
+      trendDown: 'Funded attendance fell {pct}% from 2023–24, so this district is likely paid on last year or the three-year average: the gain arrives a year late, and we are paid only when it does.',
+      trendUp: 'Funded attendance rose {pct}% from 2023–24, so this district is likely paid on this year’s attendance.',
+      trendCharter: 'A charter is paid on this year’s attendance, so the gain and our share land in the same year.',
+      trendNone: 'No 2023–24 row for this district, so we can’t say which year it’s paid on.',
+      lead: 'Every California district and charter, from the state’s 2024–25 chronic absenteeism file and its 2024–25 LCFF funding. Type a name or pick one.',
       assume: 'Counts from the state’s 2024–25 absenteeism file; values from each district’s 2024–25 LCFF funding. The reach and days are our assumptions, set below what a mailed letter alone recovered in a randomized trial (Rogers & Feller, 28,000 households). Uncounted students stay out of the figure; property-tax-funded districts show $0; declining-enrollment districts are paid a year late.',
     },
     form: {

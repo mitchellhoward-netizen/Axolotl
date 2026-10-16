@@ -40,13 +40,15 @@ def load_absent(path):
     return out
 
 def load_lcff(path):
+    """Districts keyed by county+district code; charters keyed by the full
+    14-digit CDS code (county + 5-digit district + 7-digit school)."""
     wb = openpyxl.load_workbook(path, read_only=True)
-    ws = wb[[n for n in wb.sheetnames if "ANR1" in n][0]]
+    ws = wb[[n for n in wb.sheetnames if "ANR1" in n or "AN R1" in n][0]]
     out = {}
     for r in ws.iter_rows(min_row=7, values_only=True):
-        if r[0] is None or r[2] != "0000000":
+        if r[0] is None or not r[2]:
             continue
-        cds = f"{r[0]}{r[1]}"
+        cds = f"{r[0]}{r[1]}" if r[2] == "0000000" else f"{r[0]}{int(r[1]):05d}{r[2]}"
         ada = r[9] or 0
         if not ada:
             continue
@@ -82,17 +84,41 @@ def model(a, l):
         per_point=per_point,
     )
 
+def load_charters(path):
+    out = {}
+    for line in path.read_text().splitlines():
+        cds, county, authorizer, name, enroll, count, rate = line.split("|")
+        if enroll == "*" or count == "*":
+            continue
+        out[cds] = dict(county=county, name=name, enrollment=int(enroll),
+                        absent=int(count), rate=float(rate))
+    return out
+
 def main():
     absent = load_absent(HERE / "chrabs2425_district.psv")
+    charters = load_charters(HERE / "chrabs2425_charter.psv")
     lcff = load_lcff(HERE / "lcffsummary2425.xlsx")
+    prior = load_lcff(HERE / "lcffsummary2324.xlsx")
     records = []
-    for cds, a in absent.items():
-        l = lcff.get(cds)
-        if not l or "County Office" in a["name"] or a["enrollment"] < 300:
-            continue
-        m = model(a, l)
-        records.append(dict(
-            id=cds, name=a["name"], county=a["county"],
+    # Funded ADA is the greater of this year, last year and the three-year
+    # average. We don't have current-year ADA, so the flag is a trend: if a
+    # district's funded ADA fell from 2023-24, it is likely being paid on last
+    # year or the average, and a recovered day arrives a year late. Charters
+    # are paid on current-year ADA by rule.
+    def trend(cds, l):
+        p = prior.get(cds)
+        if not p:
+            return None
+        return round((l["ada"] - p["ada"]) / p["ada"] * 100, 1)
+    for kind, src in (("d", absent), ("c", charters)):
+        for cds, a in src.items():
+            l = lcff.get(cds)
+            if not l or "County Office" in a["name"] or a["enrollment"] < 300:
+                continue
+            m = model(a, l)
+            records.append(dict(
+                id=cds, name=a["name"], county=a["county"], kind=kind,
+                trend=0.0 if kind == "c" else trend(cds, l),
             filed=dict(enrollment=a["enrollment"], absent=a["absent"], rate=a["rate"],
                        ada=round(l["ada"]), upp=round(l["upp"] * 100, 1),
                        lcff=round(l["base"] + l["supp"] + l["conc"])),
@@ -106,8 +132,12 @@ def main():
     # The page recomputes the arithmetic from the filed numbers and the
     # assumptions, so each district ships as a compact row:
     # [id, name, county, enrollment, absent, rate, $/day, $/counted student, $/point, basic aid]
+    # ... plus kind ("d" district, "c" charter) and the funded-ADA trend since
+    # 2023-24 in percent (0 for charters: paid on current-year ADA; null when
+    # the district had no 2023-24 row).
     rows = [[r["id"], r["name"], r["county"], r["filed"]["enrollment"], r["filed"]["absent"],
-             r["filed"]["rate"], r["per_day"], r["per_counted"], r["per_point"], 1 if r["basic_aid"] else 0]
+             r["filed"]["rate"], r["per_day"], r["per_counted"], r["per_point"], 1 if r["basic_aid"] else 0,
+             r["kind"], r["trend"]]
             for r in records]
     out = dict(year=YEAR, assumptions=dict(reach=REACH, days=DAYS, uncounted=UNCOUNTED,
                school_days=SCHOOL_DAYS), districts=rows)
@@ -125,6 +155,12 @@ def main():
         mid = [r for r in records if 10000 <= r["filed"]["enrollment"] <= 40000 and not r["basic_aid"]]
         for r in sorted(mid, key=lambda r: -r["total"])[:25]:
             print(f"  {r['total']/1e6:6.1f}M  {r['name']:<40} {r['county']:<16} enr {r['filed']['enrollment']:>6}  abs {r['filed']['rate']:>5}%  upp {r['filed']['upp']:>5}%")
+        hh = [r for r in records if r["kind"] == "d" and r["trend"] is not None and r["trend"] < 0]
+        cur = [r for r in records if r["kind"] == "d" and r["trend"] is not None and r["trend"] >= 0]
+        print(f"\n{len(hh)} districts with falling funded ADA (likely paid on last year / 3-yr average), {len(cur)} rising or flat (likely current-year); {sum(1 for r in records if r['kind']=='c')} charters")
+        print("\nTop 15 charters by recoverable dollars")
+        for r in sorted([r for r in records if r["kind"] == "c"], key=lambda r: -r["total"])[:15]:
+            print(f"  {r['total']/1e3:6.0f}K  {r['name']:<48} {r['county']:<14} enr {r['filed']['enrollment']:>6}  abs {r['filed']['rate']:>5}%")
         ba = [r for r in records if r["basic_aid"]]
         print(f"\n{len(ba)} basic-aid districts (attendance moves no state money), e.g. " + ", ".join(r["name"] for r in sorted(ba, key=lambda r: -r['filed']['enrollment'])[:8]))
         for n in ("Pajaro Valley Unified", "Oakland Unified", "Fresno Unified", "Santa Cruz City Schools", "Los Angeles Unified"):

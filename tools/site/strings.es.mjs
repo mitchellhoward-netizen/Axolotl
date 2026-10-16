@@ -518,7 +518,6 @@ export default {
     district: {
       h2Plain: 'Busque su distrito.',
       h2Em: '',
-      lead: 'Cada distrito de California, según el archivo estatal de ausentismo crónico 2024–25 y su financiamiento LCFF 2024–25. Escriba un distrito o elija uno.',
       label: 'Busque su distrito',
       placeholder: 'Escriba cualquier distrito escolar de California',
       quick: 'O pruebe',
@@ -532,6 +531,12 @@ export default {
       basicLine2: 'Un día más de asistencia le trae al distrito',
       basicLine3: 'El lado de las familias sigue en pie; el del presupuesto no',
       offline: 'La lista de distritos no cargó',
+      charterTag: 'chárter',
+      trendDown: 'La asistencia financiada cayó {pct}% desde 2023–24, así que a este distrito probablemente se le paga por el año pasado o el promedio de tres años: la mejora llega un año tarde, y a nosotros se nos paga solo cuando llega.',
+      trendUp: 'La asistencia financiada subió {pct}% desde 2023–24, así que a este distrito probablemente se le paga por la asistencia de este año.',
+      trendCharter: 'A una escuela chárter se le paga por la asistencia de este año, así que la mejora y nuestra parte caen en el mismo año.',
+      trendNone: 'No hay fila de 2023–24 para este distrito, así que no podemos decir por qué año se le paga.',
+      lead: 'Cada distrito y escuela chárter de California, según el archivo estatal de ausentismo crónico 2024–25 y su financiamiento LCFF 2024–25. Escriba un nombre o elija uno.',
       assume: 'Conteos del archivo estatal de ausentismo 2024–25; valores del financiamiento LCFF 2024–25 de cada distrito. El alcance y los días son supuestos nuestros, por debajo de lo que una carta por correo, sola, recuperó en un ensayo aleatorio (Rogers y Feller, 28,000 hogares). Los no contados quedan fuera de la cifra; los distritos de impuestos locales muestran $0; a los de matrícula en descenso se les paga un año tarde.',
     },
     form: {
