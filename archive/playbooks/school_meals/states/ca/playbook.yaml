@@ -19,7 +19,8 @@ summary:
     food benefits, test and college application fee waivers). Schools that
     do not collect meal applications (CEP schools, Provision 2 schools in
     non-base years, schools outside the federal programs) use an Alternative
-    Income Form instead; it must reach the school by October 31 to count
+    Income Form instead (which does not count for SUN Bucks; a Universal
+    Benefit Application does); it must reach the school by October 31 to count
     for that year's LCFF. California also directly certifies students for
     free AND reduced-price meals from Medi-Cal records, through CALPADS.
   administered_by: >-
@@ -294,7 +295,7 @@ life_events:
   - id: SCH-CA-LE-SCHOOL-YEAR
     code: school_year_start
     event: New school year in a California public school
-    why: Meals are free regardless; the family should still return the meal application or Alternative Income Form (by October 31 for LCFF) because it funds the school and can unlock SUN Bucks and fee waivers.
+    why: Meals are free regardless; the family should still return the meal application or Alternative Income Form (by October 31 for LCFF) because it funds the school. A meal application or Universal Benefit Application can also unlock SUN Bucks and fee waivers; an Alternative Income Form cannot (ca-cde-alt-income-forms, snapshot 2026-10-07, "Note: Alternative Income Forms may no longer be used for SUN Bucks").
     check_rules: [SCH-CA-UNIVERSAL-MEALS, SCH-CA-LCFF-DEADLINE]
     confidence: confirmed
     sources: [{source: ca-cde-alt-income-forms, locator: "Alternative Income Form Benefits to Households; Key Dates"}]
