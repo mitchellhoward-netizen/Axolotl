@@ -2,6 +2,13 @@
 
 This is a [Spectrum](https://photon.codes/docs/spectrum-ts) app, pinned to `spectrum-ts@^12.8.0`. The entry point is `src/index.ts`, which configures the imessage provider(s) and runs the echo loop.
 
+## Read first
+
+**`docs/VISION.md`** is the why behind everything here: stranded alignment, the diffusion
+thesis, the school edge, the helper's scope and rules, pricing and the network. Read it before
+building. **`docs/AGENT-PLAN.md`** is the engineering plan for the agent, starting with
+assumptions to verify.
+
 ## Agent codebase (the parent↔school agent)
 
 This app is an **Axolotl** parent-facing agent: a parent texts a need and the agent navigates to the
