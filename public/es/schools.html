@@ -25,7 +25,7 @@
 <link href="https://api.fontshare.com/v2/css?f[]=gambarino@400&f[]=general-sans@400,500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/buyer.css?v=11">
 <script src="/msp-calc.js?v=21" defer></script>
-<script src="/site.js?v=23" defer></script>
+<script src="/site.js?v=24" defer></script>
 </head>
 <body>
 
@@ -69,7 +69,7 @@
 
 <section class="scan-section" id="district" aria-labelledby="district-title">
   <h2 id="district-title">Busque su distrito.</h2>
-  <p class="lede">Cada distrito de California, según el archivo estatal de ausentismo crónico 2024–25 y su financiamiento LCFF 2024–25. Escriba un distrito o elija uno.</p>
+  <p class="lede">Cada distrito y escuela chárter de California, según el archivo estatal de ausentismo crónico 2024–25 y su financiamiento LCFF 2024–25. Escriba un nombre o elija uno.</p>
   <form class="scan" onsubmit="return false">
     <div class="figure" id="scan-figure" aria-live="polite">$244K<small id="scan-sub">que podría recuperar al año Pajaro Valley Unified, según sus informes públicos</small></div>
     <div class="pick">
@@ -82,10 +82,11 @@
       <div><span>3,865 estudiantes con ausentismo crónico, uno de cada cuatro contactado, 3 días más cada uno, a $84 por día</span><b>$244K</b></div>
       <div><span>Fuera de la cifra: si uno de cada doscientos inscritos es de bajos ingresos y no está contado, 77 estudiantes a $9,139 cada uno</span><b>$704K</b></div>
       <div><span>Cada 1% de asistencia vale</span><b>$2.2M</b></div>
+      <div><span>La asistencia financiada cayó 5.7% desde 2023–24, así que a este distrito probablemente se le paga por el año pasado o el promedio de tres años: la mejora llega un año tarde, y a nosotros se nos paga solo cuando llega.</span><b></b></div>
     </div>
     <p class="assume">Conteos del archivo estatal de ausentismo 2024–25; valores del financiamiento LCFF 2024–25 de cada distrito. El alcance y los días son supuestos nuestros, por debajo de lo que una carta por correo, sola, recuperó en un ensayo aleatorio (Rogers y Feller, 28,000 hogares). Los no contados quedan fuera de la cifra; los distritos de impuestos locales muestran $0; a los de matrícula en descenso se les paga un año tarde.</p>
   </form>
-  <script type="application/json" id="district-strings">{"h2Plain":"Busque su distrito.","h2Em":"","lead":"Cada distrito de California, según el archivo estatal de ausentismo crónico 2024–25 y su financiamiento LCFF 2024–25. Escriba un distrito o elija uno.","label":"Busque su distrito","placeholder":"Escriba cualquier distrito escolar de California","quick":"O pruebe","quickNames":["Pajaro Valley","Oakland","Fresno"],"sub":"que podría recuperar al año {name}, según sus informes públicos","line1":"{absent} estudiantes con ausentismo crónico, uno de cada cuatro contactado, {days} días más cada uno, a ${perDay} por día","line2":"Fuera de la cifra: si uno de cada doscientos inscritos es de bajos ingresos y no está contado, {uncounted} estudiantes a ${perCounted} cada uno","line3":"Cada 1% de asistencia vale","basicSub":"en dinero estatal para {name}, que se financia con impuestos locales","basicLine1":"{absent} estudiantes con ausentismo crónico","basicLine2":"Un día más de asistencia le trae al distrito","basicLine3":"El lado de las familias sigue en pie; el del presupuesto no","offline":"La lista de distritos no cargó","assume":"Conteos del archivo estatal de ausentismo 2024–25; valores del financiamiento LCFF 2024–25 de cada distrito. El alcance y los días son supuestos nuestros, por debajo de lo que una carta por correo, sola, recuperó en un ensayo aleatorio (Rogers y Feller, 28,000 hogares). Los no contados quedan fuera de la cifra; los distritos de impuestos locales muestran $0; a los de matrícula en descenso se les paga un año tarde."}</script>
+  <script type="application/json" id="district-strings">{"h2Plain":"Busque su distrito.","h2Em":"","label":"Busque su distrito","placeholder":"Escriba cualquier distrito escolar de California","quick":"O pruebe","quickNames":["Pajaro Valley","Oakland","Fresno"],"sub":"que podría recuperar al año {name}, según sus informes públicos","line1":"{absent} estudiantes con ausentismo crónico, uno de cada cuatro contactado, {days} días más cada uno, a ${perDay} por día","line2":"Fuera de la cifra: si uno de cada doscientos inscritos es de bajos ingresos y no está contado, {uncounted} estudiantes a ${perCounted} cada uno","line3":"Cada 1% de asistencia vale","basicSub":"en dinero estatal para {name}, que se financia con impuestos locales","basicLine1":"{absent} estudiantes con ausentismo crónico","basicLine2":"Un día más de asistencia le trae al distrito","basicLine3":"El lado de las familias sigue en pie; el del presupuesto no","offline":"La lista de distritos no cargó","charterTag":"chárter","trendDown":"La asistencia financiada cayó {pct}% desde 2023–24, así que a este distrito probablemente se le paga por el año pasado o el promedio de tres años: la mejora llega un año tarde, y a nosotros se nos paga solo cuando llega.","trendUp":"La asistencia financiada subió {pct}% desde 2023–24, así que a este distrito probablemente se le paga por la asistencia de este año.","trendCharter":"A una escuela chárter se le paga por la asistencia de este año, así que la mejora y nuestra parte caen en el mismo año.","trendNone":"No hay fila de 2023–24 para este distrito, así que no podemos decir por qué año se le paga.","lead":"Cada distrito y escuela chárter de California, según el archivo estatal de ausentismo crónico 2024–25 y su financiamiento LCFF 2024–25. Escriba un nombre o elija uno.","assume":"Conteos del archivo estatal de ausentismo 2024–25; valores del financiamiento LCFF 2024–25 de cada distrito. El alcance y los días son supuestos nuestros, por debajo de lo que una carta por correo, sola, recuperó en un ensayo aleatorio (Rogers y Feller, 28,000 hogares). Los no contados quedan fuera de la cifra; los distritos de impuestos locales muestran $0; a los de matrícula en descenso se les paga un año tarde."}</script>
 </section>
 
 <section class="how" id="how" aria-label="Cómo funciona">

@@ -370,7 +370,8 @@
     for (const [a, b] of ls) { const row = document.createElement("div"); const sp = document.createElement("span"); sp.textContent = a; const bb = document.createElement("b"); bb.textContent = b; row.append(sp, bb); lines.append(row); }
   };
   const district = (r) => {
-    const [, name, , enrolled, absent, rate, perDay, perCounted, perPoint, basic] = r;
+    const [, name, , enrolled, absent, rate, perDay, perCounted, perPoint, basic, kind, trend] = r;
+    const when = kind === "c" ? L.trendCharter : trend == null ? L.trendNone : trend < 0 ? fill(L.trendDown, { pct: Math.abs(trend) }) : fill(L.trendUp, { pct: trend });
     const reached = Math.round(absent * A.reach), days = reached * A.days, uncounted = Math.round(enrolled * A.uncounted);
     if (basic) { show("$0", fill(L.basicSub, { name }), [[fill(L.basicLine1, { absent: num(absent) }), rate + "%"], [L.basicLine2, "$0"], [L.basicLine3, ""]]); return; }
     const att = days * perDay, cnt = uncounted * perCounted;
@@ -378,6 +379,7 @@
       [fill(L.line1, { absent: num(absent), days: A.days, perDay }), money(att)],
       [fill(L.line2, { uncounted: num(uncounted), perCounted: num(perCounted) }), money(cnt)],
       [L.line3, money(perPoint)],
+      [when, ""],
     ]);
   };
   const pick = (id) => { const r = rows.find((r) => r[0] === id); if (!r) return; input.value = r[1]; district(r); };
@@ -386,7 +388,7 @@
     const q = input.value.trim().toLowerCase(); close(); if (q.length < 2 || !rows.length) return;
     const hits = rows.map((r) => { const n = r[1].toLowerCase(), c = r[2].toLowerCase(); const k = n.indexOf(q) === 0 ? 0 : n.indexOf(q) > 0 ? 1 : c.indexOf(q) === 0 ? 2 : -1; return [k, r]; })
       .filter((h) => h[0] >= 0).sort((x, y) => x[0] - y[0] || y[1][3] - x[1][3]).slice(0, 8).map((h) => h[1]);
-    for (const r of hits) { const li = document.createElement("li"); li.setAttribute("role", "option"); li.dataset.id = r[0]; li.textContent = r[1]; const sm = document.createElement("small"); sm.textContent = r[2]; li.append(sm); li.addEventListener("mousedown", (e) => { e.preventDefault(); pick(r[0]); close(); }); list.append(li); }
+    for (const r of hits) { const li = document.createElement("li"); li.setAttribute("role", "option"); li.dataset.id = r[0]; li.textContent = r[1]; const sm = document.createElement("small"); sm.textContent = r[10] === "c" ? r[2] + " · " + L.charterTag : r[2]; li.append(sm); li.addEventListener("mousedown", (e) => { e.preventDefault(); pick(r[0]); close(); }); list.append(li); }
     input.setAttribute("aria-expanded", hits.length ? "true" : "false");
   };
   fetch("/scan-data.json").then((r) => r.json()).then((d) => { A = d.assumptions; rows = d.districts; }).catch(() => { input.placeholder = L.offline; });

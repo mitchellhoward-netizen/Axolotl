@@ -22,7 +22,7 @@
  */
 
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
-import { existsSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import vm from 'node:vm';
@@ -447,6 +447,10 @@ function homeSections(s) {
 // what the school sees and never, the trial design, the evidence, the ask.
 // Copy lives under `schools` in the strings files.
 
+// Pajaro Valley's funded-ADA change since 2023-24, from public/scan-data.json (the
+// static default line; the page recomputes it live).
+const PVUSD_TREND = Math.abs(JSON.parse(readFileSync(path.join(OUT, 'scan-data.json'), 'utf8')).districts.find((r) => r[0] === '4469799')[11]);
+
 const IMGS = {
   cycle: '<img src="/assets/myc-fan-lomas.jpg" width="1280" height="851" alt="" fetchpriority="high"><img src="/assets/dend-fan-single.jpg" width="1280" height="1763" alt="" style="object-position: 50% 40%"><img src="/assets/dend-field-solnhofen.jpg" width="1280" height="850" alt="" style="object-position: 50% 35%"><img src="/assets/dend-tree-pyrolusite.jpg" width="1075" height="1657" alt="" style="object-position: 50% 30%">',
 };
@@ -500,6 +504,7 @@ function schoolSections(s) {
       <div><span>${esc(d.line1.replace('{absent}', '3,865').replace('{days}', '3').replace('{perDay}', '84'))}</span><b>$244K</b></div>
       <div><span>${esc(d.line2.replace('{uncounted}', '77').replace('{perCounted}', '9,139'))}</span><b>$704K</b></div>
       <div><span>${esc(d.line3)}</span><b>$2.2M</b></div>
+      <div><span>${esc(d.trendDown.replace('{pct}', String(PVUSD_TREND)))}</span><b></b></div>
     </div>
     <p class="assume">${esc(d.assume)}</p>
   </form>
@@ -1247,7 +1252,7 @@ ${alt}
 <link href="https://api.fontshare.com/v2/css?f[]=gambarino@400&f[]=general-sans@400,500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/buyer.css?v=11">
 <script src="/msp-calc.js?v=21" defer></script>
-<script src="/site.js?v=23" defer></script>
+<script src="/site.js?v=24" defer></script>
 </head>
 <body>
 
