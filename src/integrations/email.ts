@@ -1,8 +1,18 @@
 import { readFile } from 'node:fs/promises';
 
+/** A file to attach: a local `path`, or inline `contentBase64` bytes. */
 export interface EmailAttachment {
   filename: string;
-  path: string;
+  path?: string;
+  contentBase64?: string;
+  contentType?: string;
+}
+
+/** An attachment's bytes as base64, from inline content or its file. */
+export async function attachmentBase64(a: EmailAttachment): Promise<string> {
+  if (a.contentBase64) return a.contentBase64;
+  if (!a.path) throw new Error(`attachment ${a.filename} has neither content nor a path`);
+  return (await readFile(a.path)).toString('base64');
 }
 
 export interface EmailMessage {
@@ -36,10 +46,11 @@ export class ResendEmailProvider implements EmailProvider {
   async send(msg: EmailMessage): Promise<EmailReceipt> {
     const attachments = msg.attachments?.length
       ? await Promise.all(
-          msg.attachments.map(async (a) => {
-            const buf = await readFile(a.path);
-            return { filename: a.filename, content: buf.toString('base64') };
-          }),
+          msg.attachments.map(async (a) => ({
+            filename: a.filename,
+            content: await attachmentBase64(a),
+            ...(a.contentType ? { content_type: a.contentType } : {}),
+          })),
         )
       : undefined;
     const res = await fetch('https://api.resend.com/emails', {

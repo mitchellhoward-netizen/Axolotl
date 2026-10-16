@@ -71,11 +71,11 @@ Axolotl tells parents it can do things — email the school, fill and submit for
 | "record_getting / start_initiative" | `src/agent/tools.ts:478`, `:487` | real (env) | `src/integrations/family-memory.ts` (Supabase) | ok |
 | "recall_history: Search the ENTIRE conversation history" | `src/agent/tools.ts:496` | real | `InMemoryStore.getHistory` + Supabase conversation store | ok |
 | "set_reminder: Set a reminder to MESSAGE THE PARENT at a time" | `src/agent/tools.ts:505` | real (env) | `FollowUpEngine` + `followup-store.ts` | ok |
-| "Sent the request to the school." (email step result) | `src/agent/steps/adapters/email.ts:30` | real (env) — demo caveat | Sends to the resolved counterparty; in demo that is `demo-liaison@example.com` | ok (see M4) |
-| **"Submitted the form to the school."** (form step result) | `src/agent/steps/adapters/form.ts:49` | **mock** | `FormAdapter` only POSTs to `FORM_ENDPOINT` if set (**unset**), else **emails the raw fields** to the counterparty (or does nothing if no email) and reports success (`src/agent/steps/adapters/form.ts:25-49`) | **MUST CHANGE** (M5) |
+| "Sent the request to the school." (email step result) | `src/agent/steps/adapters/email.ts:58-62` | real (env) — demo caveat | Sends to the resolved counterparty; in demo that is `demo-liaison@example.com`. An email that **carries attachments** (a filled form) is a submission by email: it reports "sent, not confirmed" (`email.ts:48-56`, status `awaiting_reply`), and the consent proposal names every attachment (`src/agent/steps/consent.ts:317`). Gmail now sends attachments as multipart instead of dropping them (`src/integrations/gmail.ts:163`) | ok (see M4) |
+| "Submitted the form to the school. Confirmation: …" (form step result) | `src/agent/steps/adapters/form.ts:69-75` | real only with a reference | `FormAdapter` says "submitted" only when `FORM_ENDPOINT` returns a confirmation/reference (`referenceFromResponse`, `form.ts:11`). A bare 2xx (`form.ts:58-67`) and the email fallback (`form.ts:89-98`) are "sent, not confirmed" (`awaiting_reply`, action `sent_unconfirmed`) with honest wording; nothing wired → `failed` | fixed (M5) |
 | "I called {who} and it's handled." (call step result) | `src/agent/steps/adapters/call.ts:46` | real (env) / **mock fallback** | `MockVoiceProvider` returns `disposition:'resolved'` with fabricated text when Retell is unset (`src/integrations/voice.ts:21-31`) | **MUST CHANGE** (M10) |
-| "✅ Submitted — here's the confirmation" | `src/agent/steps/adapters/submit.ts:36` | real (env) | Skyvern Phase B or Stagehand `browserSubmit` (`src/integrations/browser.ts:427`) | ok |
-| "Filled and submitted the form / Filled the form (not submitted)." | `src/agent/steps/adapters/browser.ts:60-62` | real (env) | `browserFill` + gated `browserSubmit` | ok |
+| "✅ Submitted — here's the confirmation" | `src/agent/steps/adapters/submit.ts:58-71`, `:96-102` | real (env) | Skyvern Phase B (site confirmation only, M12) or Stagehand `browserSubmit`, which now reads the page's own confirmation words or a printed reference (`detectConfirmation`, `src/integrations/browser-formmap.ts:311`; `browser.ts:400`). The reference is the site's, never a made-up `submit-<timestamp>`. Unconfirmed → "sent, not confirmed" (`submit.ts:37`, `:87`) | ok |
+| "Submitted, and the site confirmed it / Filled the form (not submitted)." | `src/agent/steps/adapters/browser.ts:61-101` | real (env) | `browserFill` + gated `browserSubmit`. "Submitted" only when `sub.data.confirmed` (`browser.ts:83`); the fabricated `browser-<timestamp>` reference is gone. Read-back is per field against the map read AFTER the fill, radio/checkbox groups are filled (`browser-formmap.ts:215`, `:264`), and a read-back mismatch blocks the submit (`browser.ts:49`) | ok |
 
 ---
 
@@ -103,10 +103,14 @@ These are the **MUST CHANGE** items. Each shows the exact current wording and a 
 - **Why it's misleading:** when `AGENT_MODE !== 'live'`, `resolveCounterparty` returns `{ name: 'Demo School Liaison', email: 'demo-liaison@example.com', phone: '+15550001111' }` (`src/agent/agent.ts:784`). The agent then reports `"Sent the request to the school."` (`src/agent/steps/adapters/email.ts:30`) while the instruction forbids revealing it was a demo. Same risk for calls.
 - **Suggested:** keep the honesty rule but add an explicit carve-out: `"Never pretend a message/call/form reached the real school if it did not — if a step was a demo or sent to a placeholder, say so plainly."` And either run production with `AGENT_MODE=live` or make demo mode visibly labelled.
 
-### M5 — `FormAdapter` reports "Submitted the form to the school" without submitting
-- **Wording:** `` parentSummary: `Submitted the form to ${step.counterparty.name ?? 'the school'}.` `` — `src/agent/steps/adapters/form.ts:49`
-- **Why it's false:** with `FORM_ENDPOINT` unset (default), `FormAdapter` does not POST anywhere — it **emails the raw field key/values** to the counterparty (or returns `status:'done'` with no `referenceId` at all if there is no email), then reports the form as submitted (`src/agent/steps/adapters/form.ts:25-49`). This is the path the planner uses for absence / meal / conference steps (`src/agent/steps/planner.ts:22-38`).
-- **Suggested:** return `"I sent the form details to {contact} — that's not an official submission; want me to fill the school's real form instead?"` and only say "submitted" when a real endpoint/`referenceId` exists.
+### M5 — `FormAdapter` reports "Submitted the form to the school" without submitting — **fixed (Phase 1, fix 5)**
+- **Was:** `` parentSummary: `Submitted the form to ${step.counterparty.name ?? 'the school'}.` `` on any 2xx from `FORM_ENDPOINT` (with a made-up `form-<timestamp>` reference), and `status:'done'` when it only emailed the raw fields to the counterparty. This is the path the planner uses for absence / meal / conference steps (`src/agent/steps/planner.ts:22-38`).
+- **Now:** "done means confirmed" (`docs/VISION.md` §8), across every adapter, via one helper (`src/agent/steps/adapters/outcome.ts`):
+  - `status:'done'` + action `submitted` only with an observed confirmation: the endpoint's reference (`form.ts:11`, `:69`), the site's confirmation page or printed reference (`browser.ts:83-101`, `submit.ts:58-71`, `:96-102`).
+  - Otherwise `status:'awaiting_reply'` + action `sent_unconfirmed`, a chase scheduled (default one day), and wording that says so: *"I sent the form to {contact}, but I didn't get a confirmation yet, so I can't say it went through. I'll check back on it. …"* The email fallback says *"That isn't an official submission, and I don't have a confirmation from them yet."*
+  - No adapter invents a reference id any more (`browser-`, `submit-`, `skyvern-submit-`, `form-<timestamp>` removed).
+- **Still open:** `src/agent/agent.ts:306` prefixes the YES reply with "Done!" whenever no step **failed**, so an `awaiting_reply` summary is still introduced by "Done!". That line should prefix "Done!" only when every result is `done` (owned by the consent/approval work, not changed here).
+- **Test:** `scripts/test-honesty.ts` (bare 2xx, reference, email fallback, no made-up ids).
 
 ### M6 — "The delta between entitled and what they're ACTUALLY receiving"
 - **Wording:** `"MISSION … figure out the delta between what {child} is entitled to … and what they're ACTUALLY receiving — then DO the steps to close it."` — `src/agent/tools.ts:1145`
@@ -186,7 +190,8 @@ These are the **MUST CHANGE** items. Each shows the exact current wording and a 
 
 ### 5. Form fill / submit — real and consent-gated (Skyvern + Stagehand), with one mock leak
 - **Real:** `skyvern_fill_form` fires an async, fill-only Skyvern task; submit is a **separate** consent-gated step (`src/integrations/skyvern.ts:246`; `SubmitAdapter` at `src/agent/steps/adapters/submit.ts`). Stagehand `browserFill`/`browserSubmit` are real when `BROWSER_BACKEND=stagehand` (`src/integrations/browser.ts:273`, `:427`). The consent gate is code-level (`src/agent/steps/executor.ts:20`).
-- **Mock leak:** the planner's `form` channel (`src/agent/steps/planner.ts:22-38`) goes through `FormAdapter`, which does **not** submit a form and yet reports "Submitted the form to the school." (`src/agent/steps/adapters/form.ts:49`) — **M5**.
+- **Mock leak (fixed):** the planner's `form` channel (`src/agent/steps/planner.ts:22-38`) goes through `FormAdapter`, which used to report "Submitted the form to the school." after only emailing the fields. It now reports "sent, not confirmed" unless the endpoint returns a reference — **M5**.
+- **Minimum data:** `skyvern_fill_form` sends only the profile facts the form's stored recipe asks for (`formValuesForForm`, `src/agent/family-info.ts:316`; `src/agent/tools.ts:987`); with no recipe, identity and contact basics only. Allergies and medical notes go only when the form's own labels ask for them. The family profile wins over a model-passed value for a fact on file; model-only labels are allowed and passed as `meta.modelSupplied`.
 - **Verdict:** fill/submit `real`; the `FormAdapter` claim `MUST CHANGE`.
 
 ### 6. SIS / enrollment-data access — **mock**, and unreachable
@@ -215,7 +220,7 @@ Capabilities marked `real (env)` depend on credentials. Presence was checked **w
 | `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `GOOGLE_REDIRECT_URI` | unset | Gmail connect unavailable → email sends from Axolotl, not the parent |
 | `SCHOOL_CALL_NUMBER` | **SET** | `index.ts:352` dials the **sender** instead of the school |
 | `AGENT_MODE` | unset → **demo** | counterparties become `demo-liaison@example.com` / `+15550001111` (`src/agent/agent.ts:784`) |
-| `FORM_ENDPOINT` | unset | the planner's `form` channel only emails fields yet reports "Submitted" (M5) |
+| `FORM_ENDPOINT` | unset | the planner's `form` channel emails the fields and reports "sent, not confirmed" (M5, fixed) |
 
 ---
 
@@ -227,7 +232,7 @@ Capabilities marked `real (env)` depend on credentials. Presence was checked **w
 | M2 | "then text you what they said" (call outcome) | `onboarding.ts:144` | soften, or wire the Retell webhook |
 | M3 | "it sends from you" / "from their connected Gmail" | `onboarding.ts:143`, `tools.ts:1130` | make it conditional on Gmail being connected |
 | M4 | "Don't announce you're … a demo" + demo counterparty | `tools.ts:1118`, `agent.ts:784` | add a no-false-success rule; label demo mode |
-| M5 | "Submitted the form to the school." | `steps/adapters/form.ts:49` | only claim submitted with a real endpoint/reference |
+| M5 | "Submitted the form to the school." | `steps/adapters/form.ts:69` | **fixed:** submitted only with the endpoint's reference; otherwise "sent, not confirmed" |
 | M6 | "what they're ACTUALLY receiving" | `tools.ts:1145` | reframe as likely-eligible, not observed |
 | M7 | baseline programs stated as available | `tools.ts:1101` | attribute as general, offer to confirm |
 | M8 | "fill perfectly forever after" | `tools.ts:1109` | soften to "layout saved" |
@@ -235,4 +240,4 @@ Capabilities marked `real (env)` depend on credentials. Presence was checked **w
 | M10 | "I called {who} and it's handled." (mock fallback) | `steps/adapters/call.ts:46`, `voice.ts:21` | mock must report failure, never fabricated success |
 | M11 | "leave a voicemail" | `onboarding.ts:30` | drop unless implemented |
 
-**The strongest, honest part of the product** is research (`web_search`/`web_fetch`/knowledge graph) plus the **code-level consent gate** — those are real. **The most urgent fixes** are the four that can tell a parent a real school was contacted when it wasn't: **M1** (portal access that doesn't exist), **M2** (call outcomes that never return), **M4** (demo mode reported as real) and **M5** (form "submitted" when only emailed).
+**The strongest, honest part of the product** is research (`web_search`/`web_fetch`/knowledge graph) plus the **code-level consent gate** — those are real. **The most urgent fixes** are the four that can tell a parent a real school was contacted when it wasn't: **M1** (portal access that doesn't exist), **M2** (call outcomes that never return), **M4** (demo mode reported as real) and **M5** (form "submitted" when only emailed; fixed in Phase 1).
