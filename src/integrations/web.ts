@@ -151,6 +151,8 @@ function connectPage(token: string, label: string): string {
  *   POST /api/inquiry    → a question from the contact form
  *   POST /api/call-me    → { phone } places a demo voice call to that number
  */
+let notifyTimes: number[] = [];
+
 export function startWebServer(
   opts: {
     placeCall?: (phone: string, info?: PlaceCallInfo) => Promise<PlaceCallResult>;
@@ -158,6 +160,8 @@ export function startWebServer(
     emailLlm?: LlmClient;
     benny?: BennyMessaging;
     ready?: () => Promise<boolean>;
+    /** Texts the one configured number (NOTIFY_PHONE) from the Axolotl line. Used by /api/notify. */
+    notify?: (text: string) => Promise<boolean>;
   } = {},
   port: number = Number(process.env.WEB_PORT) || 3000,
 ): Server {
@@ -456,6 +460,43 @@ export function startWebServer(
       }
 
       // "Talk to your assistant" — place a demo voice call to the visitor's number.
+      // Rep alerts from a Clay workflow (the Recur demo). Bearer NOTIFY_SECRET; the recipient is fixed by
+      // NOTIFY_PHONE on this host, so a caller can choose the words but never the number. 30 texts an hour.
+      if (req.method === 'POST' && url.pathname === '/api/notify') {
+        const secret = process.env.NOTIFY_SECRET ?? '';
+        const got = String(req.headers.authorization ?? '').replace(/^Bearer /, '');
+        const ok = secret.length > 0 && got.length === secret.length && timingSafeEqual(Buffer.from(got), Buffer.from(secret));
+        if (!ok) {
+          res.writeHead(401, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ ok: false, error: 'unauthorized' }));
+          return;
+        }
+        const now = Date.now();
+        notifyTimes = notifyTimes.filter((t) => now - t < 3_600_000);
+        if (notifyTimes.length >= 30) {
+          res.writeHead(429, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ ok: false, error: 'rate limited' }));
+          return;
+        }
+        let body = '';
+        for await (const chunk of req) {
+          body += String(chunk);
+          if (body.length > 8000) break;
+        }
+        const { text } = JSON.parse(body || '{}') as { text?: string };
+        const msg = String(text ?? '').trim().slice(0, 600);
+        if (!msg || !opts.notify) {
+          res.writeHead(msg ? 503 : 400, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ ok: false, error: msg ? 'messaging not ready' : 'text is required' }));
+          return;
+        }
+        notifyTimes.push(now);
+        const sent = await opts.notify(msg).catch(() => false);
+        res.writeHead(sent ? 200 : 502, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ ok: sent }));
+        return;
+      }
+
       if (req.method === 'POST' && url.pathname === '/api/call-me') {
         let body = '';
         for await (const chunk of req) body += String(chunk);
