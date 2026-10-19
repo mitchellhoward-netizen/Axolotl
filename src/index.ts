@@ -279,7 +279,10 @@ async function withBrief(vars: Record<string, unknown>): Promise<Record<string, 
 }
 
 let messagingReady = false;
+// Filled once the iMessage line is up (below); /api/notify answers 503 until then.
+let notifyRep: ((text: string) => Promise<boolean>) | undefined;
 startWebServer({
+  notify: (text) => (notifyRep ? notifyRep(text) : Promise.resolve(false)),
   benny,
   ready: async () => {
     if (!messagingReady) return false;
@@ -347,6 +350,13 @@ try {
 // the Axolotl line to the contact and sends the approved text exactly as the parent saw it.
 if (app) {
   const texter = imessage(app);
+  const repPhone = process.env.NOTIFY_PHONE ?? '';
+  if (repPhone) {
+    notifyRep = async (text) => {
+      const space = await texter.space.create(repPhone);
+      return Boolean(await space.send(text));
+    };
+  }
   agent.setContactSender(async ({ phone, body }) => {
     const space = await texter.space.create(phone);
     if (!(await space.send(body))) throw new Error('Message was not accepted');
