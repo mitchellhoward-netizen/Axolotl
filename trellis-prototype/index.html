@@ -1,0 +1,543 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Trellis · Every Referral, Worked</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Layout: Trellis homepage rhythm — centered white hero, product card on a green field, stone work band, navy proof band, pricing, green application band. Tokens from careers.runtrellis.com/styles.css. */
+:root {
+  --ink: #111111; --ink-2: #34322c; --muted: #716c5d; --muted-2: #87826f;
+  --line: #d9d8cf; --line-soft: #ecece8; --stone: #f7f7f5; --white: #ffffff;
+  --teal-900: #2e5d70; --teal-800: #327188; --teal-700: #398ba1; --teal-300: #8bc7d5; --teal-100: #dbeef2; --teal-50: #f1f9fa;
+  --amber-700: #8a5a12; --amber-100: #f6ead3; --amber-50: #fbf6ec;
+  --sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  --mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --radius: 14px; --ease: cubic-bezier(.2,.7,.2,1);
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--white); color: var(--ink); font-family: var(--sans); font-size: 16px; line-height: 1.55; letter-spacing: .01em; -webkit-font-smoothing: antialiased; }
+h1, h2, h3 { margin: 0; font-weight: 500; letter-spacing: -.025em; }
+p { margin: 0; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+[hidden] { display: none !important; }
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; border-radius: 6px; }
+section[id] { scroll-margin-top: 72px; }
+.wrap { max-width: 1160px; margin: 0 auto; padding-left: max(20px, env(safe-area-inset-left, 0px)); padding-right: max(20px, env(safe-area-inset-right, 0px)); }
+@media (min-width: 760px) { .wrap { padding-left: max(40px, env(safe-area-inset-left, 0px)); padding-right: max(40px, env(safe-area-inset-right, 0px)); } }
+.mono { font-family: var(--mono); }
+
+/* Buttons: one accent (ink) on the action, everything else is a plain link */
+.btn { display: inline-flex; align-items: center; gap: 8px; height: 46px; padding: 0 22px; border-radius: 999px; background: var(--ink); color: #fff; font-size: 15px; font-weight: 600; letter-spacing: .02em; transition: background .2s, box-shadow .2s, transform .2s var(--ease); white-space: nowrap; }
+.btn:hover { background: #2a2a2a; box-shadow: 0 8px 22px -10px rgba(17,17,17,.55); }
+.btn:active { transform: translateY(1px); }
+.btn--sm { height: 38px; padding: 0 16px; font-size: 14px; }
+.btn--light { background: #fff; color: var(--ink); }
+.btn--light:hover { background: var(--teal-50); }
+.btn[disabled] { opacity: .45; cursor: default; box-shadow: none; }
+.link { font-size: 15px; font-weight: 500; color: var(--ink-2); border-bottom: 1px solid transparent; transition: border-color .2s; }
+.link:hover { border-bottom-color: currentColor; }
+
+/* Nav */
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 50; background: #fff; }
+.nav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 40; background: rgba(255,255,255,.88); backdrop-filter: saturate(1.4) blur(14px); -webkit-backdrop-filter: saturate(1.4) blur(14px); }
+.nav .wrap { height: 64px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.brand { display: inline-flex; align-items: center; gap: 9px; }
+.brand svg { width: 22px; height: 20px; }
+.brand span { font-family: var(--mono); font-weight: 600; font-size: 13px; letter-spacing: .03em; text-transform: uppercase; }
+.nav .proto { font-size: 13px; color: var(--muted); margin-right: 18px; }
+@media (max-width: 640px) { .nav .proto { display: none; } }
+
+/* Hero — centered, like runtrellis.com */
+.hero { text-align: center; padding-block: clamp(56px, 9vw, 112px) clamp(36px, 5vw, 56px); }
+.hero h1 { font-size: clamp(28px, 5.6vw, 66px); line-height: 1.04; letter-spacing: -.035em; max-width: 17ch; margin-inline: auto; text-wrap: balance; }
+.hero p { margin: 22px auto 0; max-width: 56ch; font-size: clamp(16px, 1.4vw, 18.5px); line-height: 1.6; color: var(--ink-2); text-wrap: pretty; }
+.hero .acts { margin-top: 32px; display: flex; justify-content: center; align-items: center; gap: 22px; flex-wrap: wrap; }
+
+/* Green field + run card (careers.runtrellis.com component) */
+.field-green { position: relative; isolation: isolate; overflow: hidden; border-radius: 26px; padding: clamp(20px, 5vw, 64px) clamp(14px, 4vw, 48px);
+  background:
+    radial-gradient(70% 60% at 18% 8%, rgba(214,233,220,.9) 0%, rgba(214,233,220,0) 60%),
+    radial-gradient(60% 70% at 100% 100%, #0b2f29 0%, rgba(11,47,41,0) 70%),
+    radial-gradient(80% 80% at 70% 30%, #4f8371 0%, rgba(79,131,113,0) 70%),
+    linear-gradient(165deg, #9cbcab 0%, #3f6f5f 45%, #12382f 100%); }
+.field-green::after { content: ""; position: absolute; inset: 0; z-index: -1; background-image: var(--grain); opacity: .22; mix-blend-mode: overlay; pointer-events: none; }
+.run { max-width: 560px; margin: 0 auto; background: rgba(255,255,255,.97); border-radius: var(--radius); box-shadow: 0 1px 0 rgba(255,255,255,.6) inset, 0 30px 60px -24px rgba(6,28,24,.55), 0 0 0 1px rgba(17,17,17,.06); padding: 18px 18px 0; text-align: left; }
+.run__head { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.run__head b { font-family: var(--mono); font-size: 11.5px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; }
+.live { display: inline-flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: 11px; color: var(--teal-900); background: var(--teal-50); border: 1px solid var(--teal-100); padding: 2px 8px; border-radius: 999px; white-space: nowrap; }
+.live i { width: 6px; height: 6px; border-radius: 50%; background: var(--teal-700); animation: blink 1.4s steps(2,start) infinite; }
+.live.wait { color: var(--amber-700); background: var(--amber-50); border-color: var(--amber-100); }
+.live.wait i { background: #c08a2c; }
+.live.done i { animation: none; }
+@keyframes blink { to { opacity: .25 } }
+.run__meta { font-family: var(--mono); font-size: 11.5px; color: var(--muted-2); margin: 6px 0 12px; }
+.steps { list-style: none; margin: 0; padding: 0; }
+.steps li { display: grid; grid-template-columns: 22px 1fr auto; gap: 12px; align-items: start; padding: 10px 0; border-top: 1px solid var(--line-soft); opacity: .34; transition: opacity .45s var(--ease); }
+.steps li > div { min-width: 0; }
+.steps b { display: block; font-weight: 500; font-size: 14.5px; }
+.steps small { display: block; font-size: 12.5px; color: var(--muted); margin-top: 1px; }
+.steps time { font-family: var(--mono); font-size: 12px; color: var(--muted-2); padding-top: 2px; white-space: nowrap; }
+.ico { width: 18px; height: 18px; margin-top: 2px; border-radius: 50%; border: 1.5px solid var(--line); position: relative; }
+.steps li.on, .steps li.ok, .steps li.gap, .steps li.ask { opacity: 1; }
+.steps li.on .ico { border-color: var(--teal-700); border-top-color: transparent; animation: spin .8s linear infinite; }
+.steps li.ok .ico { background: var(--teal-700); border-color: var(--teal-700); }
+.steps li.ok .ico::after { content: ""; position: absolute; left: 5px; top: 2px; width: 4px; height: 8px; border: solid #fff; border-width: 0 1.6px 1.6px 0; transform: rotate(45deg); }
+.steps li.gap .ico { background: #c08a2c; border-color: #c08a2c; }
+.steps li.gap .ico::after { content: "!"; position: absolute; inset: 0; display: grid; place-items: center; color: #fff; font: 600 11px/1 var(--mono); }
+.steps li.ask .ico { border-color: #c08a2c; border-style: dashed; }
+.steps li.gap small, .steps li.ask small { color: var(--amber-700); }
+@keyframes spin { to { transform: rotate(360deg) } }
+.gate { grid-column: 2 / -1; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 8px; }
+.gate span { font-size: 12.5px; color: var(--muted); }
+.run__foot { display: flex; justify-content: space-between; align-items: end; gap: 12px; margin: 4px -18px 0; padding: 14px 18px 16px; background: var(--stone); border-radius: 0 0 var(--radius) var(--radius); }
+.run__foot small { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.run__foot strong { display: block; font-family: var(--mono); font-weight: 500; font-size: 26px; letter-spacing: -.02em; margin-top: 2px; font-variant-numeric: tabular-nums; }
+.run__foot s { display: block; font-family: var(--mono); font-size: 16px; color: var(--muted-2); margin-top: 6px; text-align: right; }
+.field-green .caption { margin-top: 16px; text-align: center; font-family: var(--mono); font-size: 12px; color: rgba(255,255,255,.86); }
+.field-green .caption button { color: #fff; text-decoration: underline; text-underline-offset: 3px; }
+
+/* Sections */
+.band { padding-block: clamp(64px, 9vw, 120px); }
+.band--stone { background: var(--stone); }
+.band h2 { font-size: clamp(30px, 3.8vw, 48px); line-height: 1.06; letter-spacing: -.03em; max-width: 15ch; text-wrap: balance; }
+.lede { margin-top: 18px; font-size: 17px; line-height: 1.6; color: var(--ink-2); max-width: 46ch; }
+.two { display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(32px, 6vw, 80px); align-items: start; }
+.two > * { min-width: 0; }
+
+/* Gap check tool */
+.gc { background: #fff; border-radius: var(--radius); box-shadow: 0 24px 60px -32px rgba(17,17,17,.35), 0 0 0 1px rgba(17,17,17,.07); overflow: hidden; }
+.gc__body { padding: 18px; display: grid; gap: 12px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { font-size: 13px; padding: 6px 12px; border-radius: 999px; background: var(--stone); color: var(--ink-2); transition: background .2s, color .2s; }
+.chip:hover { background: var(--line-soft); }
+.chip[aria-pressed="true"] { background: var(--teal-50); color: var(--teal-900); box-shadow: inset 0 0 0 1px var(--teal-300); }
+.gc textarea { width: 100%; min-height: 150px; resize: vertical; border: 0; border-radius: 10px; padding: 12px 14px; font: 12.5px/1.6 var(--mono); color: var(--ink-2); background: var(--stone); }
+.gc textarea:focus { outline: 2px solid var(--teal-300); background: #fff; }
+.gc__row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; }
+.gc__file { font-size: 13px; color: var(--muted); display: inline-flex; align-items: center; gap: 8px; }
+.gc__file input { font-size: 12.5px; max-width: 210px; }
+.gc__warn { font-size: 13px; color: var(--amber-700); background: var(--amber-50); border-radius: 8px; padding: 8px 10px; }
+.gc__status { font-size: 13px; color: var(--muted); min-height: 1.2em; }
+.gc__status.is-busy::before { content: ""; display: inline-block; width: 12px; height: 12px; margin-right: 8px; vertical-align: -1px; border-radius: 50%; border: 1.5px solid var(--teal-700); border-top-color: transparent; animation: spin .8s linear infinite; }
+.gc__mode { font-size: 12.5px; color: var(--muted); }
+#gcMode { display: none; }
+.res { background: var(--stone); }
+.res__sum { display: grid; gap: 8px; padding: 18px 18px 10px; }
+.res__sum h3 { font-size: 18px; letter-spacing: -.01em; }
+.res__sum p { font-size: 14px; color: var(--ink-2); }
+.res__chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag { font-family: var(--mono); font-size: 11px; padding: 2px 8px; border-radius: 999px; background: var(--teal-50); color: var(--teal-900); white-space: nowrap; display: inline-block; }
+.tag--gap { background: var(--amber-50); color: var(--amber-700); }
+.tag--muted { background: #fff; color: var(--muted); }
+.res__items { list-style: none; margin: 0; padding: 0 18px 8px; max-height: 300px; overflow: auto; }
+.res__items li { display: grid; grid-template-columns: 1fr auto; gap: 2px 12px; padding: 9px 0; }
+.res__items b { font-weight: 500; font-size: 14px; }
+.res__items small { grid-column: 1 / -1; font-size: 12.5px; color: var(--muted); }
+.res__fax { padding: 6px 18px 16px; }
+.res__fax > span { font-family: var(--mono); font-size: 11px; letter-spacing: .05em; text-transform: uppercase; color: var(--teal-800); }
+.fax { font: 12.5px/1.65 var(--mono); color: var(--ink-2); background: #fff; border-radius: 10px; padding: 14px 16px; white-space: pre-wrap; overflow-wrap: anywhere; margin: 8px 0 0; max-height: 220px; overflow: auto; }
+.res__actions { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; margin-top: 12px; }
+.res__actions .btn--ghost, .res__actions button { font-size: 14px; font-weight: 500; color: var(--ink-2); }
+.res__note { padding: 0 18px 16px; font-size: 12px; color: var(--muted); }
+
+/* Navy proof band, as on runtrellis.com */
+.navy { position: relative; isolation: isolate; color: #fff; overflow: hidden; padding-block: clamp(72px, 10vw, 128px);
+  background: radial-gradient(70% 90% at 50% 120%, #5f8fcf 0%, rgba(95,143,207,0) 60%), linear-gradient(180deg, #08142e 0%, #10295a 45%, #2a5698 85%, #4a78b8 100%); }
+.navy::after { content: ""; position: absolute; inset: 0; z-index: -1; background-image: var(--grain); opacity: .25; mix-blend-mode: overlay; pointer-events: none; }
+.navy h2 { color: #fff; text-align: center; margin-inline: auto; max-width: 16ch; font-size: clamp(30px, 3.8vw, 48px); line-height: 1.06; letter-spacing: -.03em; text-wrap: balance; }
+.stats { margin-top: clamp(40px, 6vw, 72px); display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 32px; text-align: center; }
+.stats strong { display: block; font-size: clamp(34px, 4vw, 52px); font-weight: 500; letter-spacing: -.03em; line-height: 1; }
+.stats span { display: block; margin-top: 12px; font-size: 15px; color: rgba(255,255,255,.82); max-width: 26ch; margin-inline: auto; }
+.stats em { display: block; margin-top: 8px; font-style: normal; font-size: 12px; color: rgba(255,255,255,.5); }
+
+/* Pricing */
+.prices { list-style: none; margin: 32px 0 0; padding: 0; display: grid; gap: 18px; }
+.prices li { display: grid; grid-template-columns: 112px 1fr; gap: 16px; align-items: baseline; }
+.prices strong { font-size: 34px; font-weight: 500; letter-spacing: -.03em; font-variant-numeric: tabular-nums; }
+.prices span { font-size: 15.5px; color: var(--ink-2); }
+.prices span b { color: var(--ink); font-weight: 600; }
+.calc { background: var(--stone); border-radius: 20px; padding: clamp(20px, 3vw, 32px); }
+.calc h3 { font-size: 20px; letter-spacing: -.015em; }
+.calc__in { margin-top: 18px; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.calc label { display: grid; gap: 6px; font-size: 13px; color: var(--muted); }
+.calc input { height: 44px; border: 0; border-radius: 10px; padding: 0 12px; font: 16px var(--mono); color: var(--ink); background: #fff; width: 100%; }
+.calc input:focus { outline: 2px solid var(--teal-300); }
+.calc__out { margin-top: 22px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.calc__out strong { display: block; font-size: 30px; font-weight: 500; letter-spacing: -.03em; font-variant-numeric: tabular-nums; }
+.calc__out span { font-size: 13px; color: var(--muted); }
+.calc__note { margin-top: 18px; font-size: 14.5px; color: var(--ink-2); }
+.small { margin-top: 18px; font-size: 13px; color: var(--muted); max-width: 52ch; }
+
+/* Application on the green field */
+.apply { padding-block: clamp(64px, 9vw, 120px); }
+.apply .field-green { padding: clamp(28px, 6vw, 72px); }
+.apply__grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 5vw, 64px); align-items: start; color: #fff; }
+.apply__grid > * { min-width: 0; }
+.apply h2 { color: #fff; font-size: clamp(30px, 3.8vw, 48px); line-height: 1.06; letter-spacing: -.03em; max-width: 19ch; text-wrap: balance; }
+.apply .lede { color: rgba(255,255,255,.86); }
+.deal { list-style: none; margin: 28px 0 0; padding: 0; display: grid; gap: 14px; }
+.deal li { display: grid; grid-template-columns: 22px 1fr; gap: 12px; font-size: 15.5px; color: rgba(255,255,255,.9); }
+.deal li::before { content: ""; width: 16px; height: 16px; margin-top: 4px; border-radius: 50%; background: rgba(255,255,255,.92); box-shadow: inset 0 0 0 4px #4f8371; }
+.form { background: #fff; color: var(--ink); border-radius: var(--radius); padding: clamp(18px, 3vw, 28px); display: grid; gap: 14px; box-shadow: 0 30px 60px -28px rgba(6,28,24,.6); }
+.form label { display: grid; gap: 6px; font-size: 13px; font-weight: 500; color: var(--ink-2); }
+.form input, .form select, .form textarea { border: 0; border-radius: 10px; padding: 0 12px; height: 44px; font: 15px var(--sans); color: var(--ink); background: var(--stone); width: 100%; }
+.form textarea { height: auto; min-height: 80px; padding: 10px 12px; resize: vertical; }
+.form input:focus, .form select:focus, .form textarea:focus { outline: 2px solid var(--teal-300); background: #fff; }
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.err { font-size: 13px; color: #a2401f; min-height: 1em; }
+.form .note { font-size: 12px; color: var(--muted); }
+.done h3 { font-size: 22px; letter-spacing: -.015em; }
+.done p { margin-top: 8px; font-size: 15px; color: var(--ink-2); }
+
+footer { background: #111; color: rgba(255,255,255,.72); font-size: 12.5px; padding-block: 22px; }
+footer .wrap { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+
+@media (max-width: 900px) {
+  .two, .apply__grid { grid-template-columns: 1fr; }
+  .stats { grid-template-columns: 1fr; gap: 36px; }
+}
+@media (max-width: 520px) {
+  .calc__in, .calc__out, .row2 { grid-template-columns: 1fr; }
+  .prices li { grid-template-columns: 92px 1fr; }
+  .steps li { grid-template-columns: 20px 1fr; }
+  .steps time { grid-column: 2; padding-top: 0; }
+}
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+</style>
+
+</head>
+<body>
+<header class="nav"><div class="wrap">
+  <a class="brand" href="#top" aria-label="Trellis AI"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 22" fill="currentColor"><path d="M 3.92 14.2 L 10.69 14.2 C 10.7 14.2 10.7 14.2 10.71 14.19 C 10.71 14.19 10.72 14.19 10.72 14.18 L 12.27 11.48 C 12.27 11.48 12.27 11.47 12.28 11.47 C 12.28 11.47 12.29 11.46 12.29 11.46 L 14.25 11.46 C 14.26 11.46 14.26 11.47 14.27 11.47 C 14.27 11.47 14.28 11.48 14.28 11.48 C 14.29 11.49 14.29 11.49 14.29 11.5 C 14.29 11.5 14.29 11.51 14.28 11.52 L 11.73 15.96 C 11.73 15.97 11.73 15.97 11.72 15.98 C 11.72 15.98 11.71 15.98 11.71 15.98 L 2.87 15.98 C 2.87 15.98 2.86 15.98 2.85 15.98 C 2.85 15.97 2.85 15.97 2.84 15.96 L 0.01 11 C 0 11 0 10.99 0 10.99 C 0 10.98 0 10.97 0.01 10.97 L 1 9.25 C 1 9.24 1.01 9.24 1.01 9.23 C 1.02 9.23 1.03 9.23 1.03 9.23 C 1.04 9.23 1.04 9.23 1.05 9.23 C 1.05 9.24 1.06 9.24 1.06 9.25 L 3.89 14.18 C 3.89 14.19 3.89 14.19 3.9 14.19 C 3.9 14.2 3.91 14.2 3.92 14.2 Z"/><path d="M 15.16 11.98 L 16.14 13.71 C 16.15 13.72 16.15 13.72 16.15 13.73 C 16.15 13.74 16.15 13.74 16.14 13.74 L 13.3 18.72 C 13.29 18.73 13.29 18.73 13.29 18.74 C 13.28 18.74 13.28 18.74 13.27 18.74 L 4.45 18.74 C 4.45 18.74 4.44 18.74 4.44 18.74 C 4.43 18.73 4.43 18.73 4.42 18.72 L 3.44 16.98 C 3.44 16.97 3.43 16.97 3.43 16.96 C 3.43 16.96 3.44 16.95 3.44 16.95 C 3.44 16.94 3.44 16.94 3.45 16.94 C 3.45 16.93 3.46 16.93 3.46 16.93 L 12.26 16.93 C 12.27 16.93 12.27 16.93 12.28 16.93 C 12.28 16.93 12.28 16.92 12.29 16.92 L 15.11 11.98 C 15.11 11.97 15.11 11.97 15.12 11.97 C 15.12 11.96 15.13 11.96 15.13 11.96 C 15.14 11.96 15.14 11.96 15.15 11.97 C 15.15 11.97 15.16 11.97 15.16 11.98 Z"/><path d="M 16.73 14.73 L 17.72 16.46 C 17.72 16.46 17.72 16.47 17.72 16.47 C 17.72 16.48 17.72 16.48 17.72 16.49 L 14.87 21.46 C 14.87 21.46 14.86 21.47 14.86 21.47 C 14.85 21.47 14.85 21.48 14.84 21.48 L 6.03 21.48 C 6.02 21.48 6.02 21.47 6.01 21.47 C 6 21.47 6 21.46 6 21.46 L 5.01 19.74 C 5.01 19.74 5.01 19.73 5.01 19.73 C 5.01 19.72 5.01 19.72 5.01 19.71 C 5.02 19.71 5.02 19.7 5.03 19.7 C 5.03 19.7 5.04 19.69 5.04 19.69 L 13.82 19.69 C 13.82 19.69 13.83 19.69 13.83 19.69 C 13.84 19.69 13.84 19.68 13.85 19.68 L 16.67 14.73 C 16.68 14.72 16.68 14.72 16.69 14.71 C 16.69 14.71 16.7 14.71 16.7 14.71 C 16.71 14.71 16.71 14.71 16.72 14.71 C 16.72 14.72 16.73 14.72 16.73 14.73 Z"/><path d="M 6.03 0.5 L 7.99 0.5 C 8 0.5 8 0.5 8.01 0.51 C 8.02 0.51 8.02 0.52 8.03 0.52 C 8.03 0.53 8.03 0.54 8.03 0.54 C 8.03 0.55 8.03 0.56 8.03 0.57 L 3.64 8.23 C 3.64 8.24 3.64 8.24 3.64 8.25 C 3.64 8.26 3.64 8.27 3.64 8.27 L 6.44 13.18 C 6.45 13.19 6.45 13.19 6.45 13.2 C 6.45 13.21 6.45 13.22 6.44 13.22 C 6.44 13.23 6.43 13.24 6.43 13.24 C 6.42 13.24 6.41 13.24 6.41 13.24 L 4.46 13.24 C 4.45 13.24 4.45 13.24 4.44 13.24 C 4.43 13.24 4.43 13.23 4.42 13.22 L 1.58 8.26 C 1.58 8.26 1.58 8.25 1.58 8.24 C 1.58 8.23 1.58 8.22 1.58 8.22 L 5.99 0.52 C 5.99 0.52 6 0.51 6 0.51 C 6.01 0.5 6.02 0.5 6.03 0.5 Z"/><path d="M 6.78 8.26 L 9.6 13.2 C 9.6 13.2 9.6 13.21 9.6 13.21 C 9.6 13.22 9.6 13.23 9.6 13.23 C 9.59 13.23 9.59 13.24 9.58 13.24 C 9.58 13.24 9.57 13.24 9.57 13.24 L 7.6 13.24 C 7.59 13.25 7.58 13.24 7.58 13.24 C 7.58 13.24 7.57 13.23 7.57 13.23 L 4.72 8.27 C 4.72 8.26 4.72 8.26 4.72 8.25 C 4.72 8.25 4.72 8.24 4.72 8.24 L 9.14 0.52 C 9.14 0.51 9.15 0.51 9.15 0.5 C 9.15 0.5 9.16 0.5 9.17 0.5 L 11.14 0.5 C 11.15 0.5 11.15 0.5 11.16 0.5 C 11.16 0.51 11.16 0.51 11.17 0.52 C 11.17 0.52 11.17 0.53 11.17 0.53 C 11.17 0.54 11.17 0.54 11.17 0.55 L 6.78 8.23 C 6.77 8.24 6.77 8.24 6.77 8.25 C 6.77 8.25 6.77 8.26 6.78 8.26 Z"/><path d="M 12.3 0.5 L 17.99 0.5 C 17.99 0.5 18 0.5 18 0.5 C 18.01 0.51 18.01 0.51 18.01 0.52 L 19.01 2.26 C 19.01 2.27 19.01 2.27 19.01 2.28 C 19.01 2.28 19.01 2.29 19.01 2.29 C 19.01 2.3 19 2.3 19 2.3 C 18.99 2.31 18.99 2.31 18.98 2.31 L 13.31 2.31 C 13.3 2.31 13.3 2.31 13.29 2.31 C 13.29 2.31 13.29 2.32 13.28 2.32 L 9.9 8.24 C 9.9 8.24 9.89 8.25 9.89 8.25 C 9.89 8.26 9.9 8.26 9.9 8.27 L 11.45 10.98 C 11.45 10.98 11.45 10.99 11.45 10.99 C 11.45 11 11.45 11.01 11.45 11.01 L 10.46 12.74 C 10.46 12.74 10.45 12.75 10.45 12.75 C 10.44 12.75 10.44 12.76 10.43 12.76 C 10.43 12.76 10.42 12.75 10.42 12.75 C 10.41 12.75 10.41 12.74 10.41 12.74 L 7.85 8.27 C 7.85 8.27 7.85 8.26 7.85 8.26 C 7.85 8.25 7.85 8.25 7.85 8.24 L 12.28 0.52 C 12.28 0.51 12.28 0.51 12.29 0.5 C 12.29 0.5 12.3 0.5 12.3 0.5 Z"/><path d="M 18.79 16.45 L 15.41 10.53 C 15.4 10.53 15.4 10.52 15.39 10.52 C 15.39 10.51 15.38 10.51 15.37 10.51 L 12.29 10.51 C 12.28 10.51 12.27 10.51 12.27 10.51 C 12.26 10.5 12.26 10.5 12.25 10.49 L 11.29 8.79 C 11.28 8.78 11.28 8.78 11.28 8.77 C 11.28 8.76 11.28 8.76 11.29 8.75 C 11.29 8.74 11.3 8.74 11.3 8.73 C 11.31 8.73 11.31 8.73 11.32 8.73 L 16.39 8.73 C 16.4 8.73 16.41 8.73 16.41 8.73 C 16.42 8.74 16.43 8.74 16.43 8.75 L 20.85 16.47 C 20.85 16.48 20.85 16.48 20.85 16.49 C 20.85 16.5 20.85 16.5 20.85 16.51 L 18 21.48 C 18 21.49 17.99 21.49 17.99 21.5 C 17.98 21.5 17.97 21.5 17.97 21.5 L 16 21.5 C 15.99 21.5 15.98 21.5 15.98 21.5 C 15.97 21.49 15.97 21.49 15.96 21.48 C 15.96 21.47 15.96 21.47 15.96 21.46 C 15.96 21.45 15.96 21.45 15.96 21.44 L 18.79 16.49 C 18.79 16.48 18.8 16.48 18.8 16.47 C 18.8 16.46 18.79 16.46 18.79 16.45 Z"/><path d="M 12.3 6 L 17.97 6 C 17.98 6 17.98 6 17.99 6 C 18 6.01 18 6.01 18.01 6.02 L 22.42 13.73 C 22.42 13.74 22.42 13.74 22.42 13.75 C 22.42 13.76 22.42 13.77 22.42 13.78 L 21.45 15.46 C 21.45 15.47 21.44 15.48 21.43 15.48 C 21.43 15.48 21.42 15.49 21.41 15.49 C 21.4 15.49 21.39 15.48 21.39 15.48 C 21.38 15.48 21.37 15.47 21.37 15.46 L 16.98 7.8 C 16.98 7.79 16.97 7.79 16.96 7.78 C 16.96 7.78 16.95 7.78 16.94 7.78 L 11.34 7.78 C 11.34 7.78 11.33 7.77 11.32 7.77 C 11.31 7.76 11.31 7.76 11.3 7.75 C 11.3 7.74 11.29 7.74 11.29 7.73 C 11.29 7.72 11.3 7.71 11.3 7.7 L 12.26 6.02 C 12.26 6.01 12.27 6.01 12.28 6 C 12.28 6 12.29 6 12.3 6 Z"/><path d="M 13.86 3.26 L 19.56 3.26 C 19.57 3.26 19.57 3.26 19.58 3.26 C 19.58 3.27 19.59 3.27 19.59 3.28 L 24 10.98 C 24 10.99 24 10.99 24 11 C 24 11 24 11.01 24 11.02 L 23 12.75 C 23 12.75 22.99 12.76 22.99 12.76 C 22.98 12.76 22.98 12.76 22.97 12.76 C 22.97 12.76 22.96 12.76 22.95 12.76 C 22.95 12.76 22.95 12.75 22.94 12.75 L 18.54 5.06 C 18.54 5.05 18.54 5.05 18.53 5.05 C 18.53 5.04 18.52 5.04 18.51 5.04 L 12.88 5.04 C 12.87 5.04 12.87 5.04 12.86 5.04 C 12.86 5.03 12.85 5.03 12.85 5.02 C 12.85 5.02 12.85 5.01 12.85 5.01 C 12.85 5 12.85 5 12.85 4.99 L 13.83 3.28 C 13.84 3.27 13.84 3.27 13.85 3.26 C 13.85 3.26 13.86 3.26 13.86 3.26 Z"/></svg><span>Trellis AI</span></a>
+  <div><span class="proto">Prototype · sample data</span><a class="btn btn--sm" href="#apply">Apply as a founding partner</a></div>
+</div></header>
+
+<main id="top">
+  <section class="hero"><div class="wrap">
+    <h1>Every referral, worked<br> before your payer asks.</h1>
+    <p>Trellis reads the referrals that hit your fax, finds what’s missing, chases the referring office, verifies benefits and submits the prior auth. Your team handles only the exceptions, and you pay only for finished cases.</p>
+    <div class="acts"><a class="btn" href="#check">Check one of your referrals</a><a class="link" href="#pricing">See pricing</a></div>
+  </div></section>
+
+  <div class="wrap">
+    <div class="field-green">
+      <div class="run" aria-label="Agent run on a sample referral">
+        <div class="run__head"><b>Trellis Execute</b><span class="live wait" id="live"><i></i><span id="liveText">Waiting on you</span></span></div>
+        <div class="run__meta">Patient A · referral #51907 · Ocrevus</div>
+        <ol class="steps" id="steps">
+          <li class="ok"><span class="ico"></span><div><b>Referral received</b><small>Fax · 18 pages · auto-triaged</small></div><time>00:00</time></li>
+          <li class="ok"><span class="ico"></span><div><b>Clinical data extracted</b><small>Dx G35 · MRI · Hep B panel · prior therapies</small></div><time>00:38</time></li>
+          <li class="ok"><span class="ico"></span><div><b>Medical benefit verified</b><small>Buy-and-bill · PA required · test claim in 5s</small></div><time>00:44</time></li>
+          <li class="gap"><span class="ico"></span><div><b>Visit note missing</b><small>Payer policy needs a neurology note from the last 6 months</small></div><time>00:51</time></li>
+          <li class="ask" id="gateRow"><span class="ico"></span><div><b>Follow-up drafted to Bayview Neurology</b><small>Needs your OK before it goes out</small></div><time>01:20</time>
+            <div class="gate" id="gate"><button class="btn btn--sm" id="approveBtn" type="button">Approve and send</button><span>Nothing leaves without a yes.</span></div>
+          </li>
+          <li><span class="ico"></span><div><b>Visit note received</b><small>Matched to Patient A automatically</small></div><time>Day 2</time></li>
+          <li><span class="ico"></span><div><b>Letter of medical necessity</b><small>Drafted against payer policy</small></div><time>Day 2</time></li>
+          <li><span class="ico"></span><div><b>Prior auth submitted</b><small>Payer portal · computer-use agent</small></div><time>Day 2</time></li>
+        </ol>
+        <div class="run__foot">
+          <div><small>Your team’s time</small><strong id="teamTime">0 min</strong></div>
+          <div><small>Typical today</small><s>30–40 days</s></div>
+        </div>
+      </div>
+      <p class="caption">Simulated run on a fictional patient · <button type="button" id="replay">Replay</button></p>
+    </div>
+  </div>
+
+  <section class="band" id="check"><div class="wrap two">
+    <div>
+      <h2>Paste a referral. See what’s missing.</h2>
+      <p class="lede">Trellis reads the packet the way a payer will, lists what’s there and what isn’t, and drafts the follow-up to the referring office. Try a sample, or paste a referral with names and IDs removed.</p>
+      <p class="small" id="gcCaption">Runs live on Claude when this page is opened in Claude. Elsewhere, the samples show saved results.</p>
+    </div>
+    <div class="gc">
+      <div class="gc__body">
+        <div class="chips" role="group" aria-label="Sample referrals">
+          <button class="chip" type="button" data-sample="ocrevus" aria-pressed="false">Ocrevus · neurology</button>
+          <button class="chip" type="button" data-sample="ivig" aria-pressed="false">IVIG · immunology</button>
+          <button class="chip" type="button" data-sample="entyvio" aria-pressed="false">Entyvio · GI</button>
+        </div>
+        <label for="gcText" class="gc__mode">Referral text</label>
+        <textarea id="gcText" spellcheck="false" placeholder="Paste a de-identified referral packet, or pick a sample."></textarea>
+        <div class="gc__row">
+          <label class="gc__file" id="gcFileWrap" hidden>Or a photo of the fax <input type="file" id="gcFile" accept="image/*" multiple></label>
+          <span class="gc__mode"><span class="live" id="gcMode"><i></i><span id="gcModeText">Live</span></span></span>
+          <button class="btn btn--sm" type="button" id="gcBtn">Check this referral</button>
+        </div>
+        <p class="gc__warn" id="gcWarn" hidden>This looks like it may contain a date of birth or member ID. Remove patient identifiers first.</p>
+        <p class="gc__status" id="gcStatus" role="status" aria-live="polite"></p>
+      </div>
+      <div class="res" id="gcRes" hidden></div>
+    </div>
+  </div></section>
+
+  <section class="navy"><div class="wrap">
+    <h2>Patients start in days, not weeks.</h2>
+    <div class="stats">
+      <div><strong>2–3 days</strong><span>from referral to treatment, down from 30–40</span><em>Trellis</em></div>
+      <div><strong>10 minutes</strong><span>from a new referral to a submitted prior auth</span><em>runtrellis.com</em></div>
+      <div><strong>1 minute</strong><span>of your team’s time on Patient A: one approval</span><em>This example</em></div>
+    </div>
+  </div></section>
+
+  <section class="band" id="pricing"><div class="wrap two">
+    <div>
+      <h2>Pay only for finished cases.</h2>
+      <ul class="prices">
+        <li><strong>$0</strong><span><b>Your first 10 cases.</b> Then every referral is still read and checked for free.</span></li>
+        <li><strong>$40</strong><span><b>Per case made ready:</b> packet complete, benefits verified.</span></li>
+        <li><strong>$60</strong><span><b>Per prior auth submitted.</b> Billed on submission, because approval is the payer’s call.</span></li>
+        <li><strong>$0</strong><span><b>For cases escalated to your team, or that fail.</b></span></li>
+      </ul>
+      <p class="small">$500 monthly minimum. No seats, no setup fee, cancel anytime. Six or more sites? We price per case at volume. Prices are assumptions for this prototype.</p>
+    </div>
+    <div class="calc">
+      <h3>What it costs at your volume</h3>
+      <div class="calc__in">
+        <label for="cRef">New referrals a month<input type="number" id="cRef" value="40" min="0"></label>
+        <label for="cPa">% needing prior auth<input type="number" id="cPa" value="70" min="0" max="100"></label>
+        <label for="cStuck">% that stall on paperwork<input type="number" id="cStuck" value="30" min="0" max="100"></label>
+        <label for="cRev">Drug revenue per patient, monthly ($)<input type="number" id="cRev" value="10000" min="0" step="500"></label>
+      </div>
+      <div class="calc__out">
+        <div><strong id="oCost">$3.3K</strong><span>Trellis a month, for finished cases only</span></div>
+        <div><strong id="oRisk">$216K</strong><span>first-year revenue at risk each month (A: 15% of stalled referrals never start)</span></div>
+      </div>
+    </div>
+  </div></section>
+
+  <section class="apply" id="apply"><div class="wrap">
+    <div class="field-green">
+      <div class="apply__grid">
+        <div>
+          <h2>Three spots. One free quarter.</h2>
+          <p class="lede">We’re choosing three independent infusion centers and home infusion pharmacies to run Trellis free for a quarter, and to measure it together.</p>
+          <ul class="deal">
+            <li>Trellis free for the quarter, with a direct line to our CEO.</li>
+            <li>A Referral-to-Treatment Scorecard in your name: days to first infusion, referrals recovered, hours saved. Show it to referring physicians, or anyone who asks how well you run.</li>
+            <li>We ask for your starting numbers, a 15-minute check-in each month, and permission to share the results.</li>
+          </ul>
+        </div>
+        <div>
+          <form class="form" id="fpForm" novalidate>
+            <div class="row2">
+              <label for="fpName">Your name<input type="text" id="fpName" autocomplete="off" placeholder="Dana Reyes"></label>
+              <label for="fpRole">Role<input type="text" id="fpRole" autocomplete="off" placeholder="Owner"></label>
+            </div>
+            <label for="fpOrg">Organization<input type="text" id="fpOrg" autocomplete="off" placeholder="Harbor Infusion Center"></label>
+            <div class="row2">
+              <label for="fpType">You run<select id="fpType"><option>An infusion center</option><option>A home infusion pharmacy</option><option>A practice that infuses</option><option>Something else</option></select></label>
+              <label for="fpSites">Locations<select id="fpSites"><option>1</option><option>2–5</option><option>6 or more</option></select></label>
+            </div>
+            <div class="row2">
+              <label for="fpRefs">New referrals a month<select id="fpRefs"><option>Under 20</option><option selected>20–60</option><option>60–150</option><option>150+</option></select></label>
+              <label for="fpSys">Main system<select id="fpSys"><option>WeInfuse</option><option>CareTend</option><option>Another EHR</option><option>Paper and fax</option></select></label>
+            </div>
+            <label for="fpPain">What slows your referrals down most?<textarea id="fpPain" placeholder="Missing visit notes, benefits calls, copay programs…"></textarea></label>
+            <p class="err" id="fpErr" role="alert"></p>
+            <button class="btn" type="submit">Apply for a founding spot</button>
+            <p class="note">Prototype: nothing is sent. In production, each application is enriched in Clay and routed by fit and size.</p>
+          </form>
+          <div class="form done" id="fpDone" hidden><h3>Application received.</h3><p id="fpMsg"></p></div>
+        </div>
+      </div>
+    </div>
+  </div></section>
+</main>
+
+<footer><div class="wrap"><span>Prototype by Mitchell Howard for Trellis. Patient A, payer rules, prices and outside communication are mocked.</span><span>Sample data only</span></div></footer>
+
+<script>
+(function () {
+  var steps = Array.prototype.slice.call(document.querySelectorAll('#steps li'));
+  var live = document.getElementById('live'), liveText = document.getElementById('liveText');
+  var gate = document.getElementById('gate'), approve = document.getElementById('approveBtn'), teamTime = document.getElementById('teamTime');
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var D = reduce ? 40 : 700, timers = [];
+  var INIT = steps.map(function (li) { return li.className; });
+  function later(fn, ms) { timers.push(setTimeout(fn, ms)); }
+  function setLive(t, c) { liveText.textContent = t; live.className = 'live' + (c ? ' ' + c : ''); }
+  function reset() { timers.forEach(clearTimeout); timers = []; steps.forEach(function (li, i) { li.className = INIT[i]; }); gate.hidden = false; approve.disabled = false; teamTime.textContent = '0 min'; setLive('Waiting on you', 'wait'); }
+  function play(from) {
+    var i = from;
+    (function next() {
+      if (i >= steps.length) { setLive('Submitted', 'done'); return; }
+      steps[i].className = 'on';
+      later(function () { steps[i].className = 'ok'; i++; next(); }, D);
+    })();
+  }
+  approve.addEventListener('click', function () {
+    approve.disabled = true; gate.hidden = true; steps[4].className = 'ok'; teamTime.textContent = '1 min'; setLive('Live run');
+    later(function () { play(5); }, reduce ? 60 : 500);
+  });
+  document.getElementById('replay').addEventListener('click', reset);
+
+  // Calculator
+  function num(id) { var v = parseFloat(document.getElementById(id).value); return isFinite(v) && v >= 0 ? v : 0; }
+  function money(v) { return v >= 1e6 ? '$' + (v / 1e6).toFixed(1) + 'M' : v >= 1e4 ? '$' + Math.round(v / 1e3) + 'K' : v >= 1e3 ? '$' + (v / 1e3).toFixed(1) + 'K' : '$' + Math.round(v); }
+  function calc() {
+    var refs = num('cRef'), pa = Math.min(num('cPa'), 100) / 100;
+    var cost = Math.max(500, refs * 40 + refs * pa * 60);
+    var risk = refs * Math.min(num('cStuck'), 100) / 100 * 0.15 * num('cRev') * 12;
+    document.getElementById('oCost').textContent = money(cost);
+    document.getElementById('oRisk').textContent = money(risk);
+  }
+  ['cRef', 'cPa', 'cStuck', 'cRev'].forEach(function (id) { document.getElementById(id).addEventListener('input', calc); });
+  calc();
+
+  // Founding partner application (simulated)
+  var form = document.getElementById('fpForm');
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var name = document.getElementById('fpName').value.trim(), org = document.getElementById('fpOrg').value.trim();
+    if (!name || !org) { document.getElementById('fpErr').textContent = 'Add your name and organization.'; return; }
+    var big = document.getElementById('fpSites').value === '6 or more';
+    form.hidden = true; document.getElementById('fpDone').hidden = false;
+    document.getElementById('fpMsg').textContent = 'Thanks, ' + name.split(' ')[0] + '. ' + (big ? 'With six or more locations, our team will reach out about a group rollout.' : 'Mac will reach out within two business days if ' + org + ' is a fit for one of the three spots.') + ' (Prototype: nothing was sent.)';
+  });
+})();
+</script>
+<script>
+(function () {
+  var SAMPLES = {
+    ocrevus: "FAX · FROM: Bayview Neurology Associates · TO: Harbor Infusion Center · 18 pages\nREFERRAL #51907 · Date sent: 10/28\n\nINFUSION ORDER\nDrug: Ocrevus (ocrelizumab) 600 mg IV every 6 months (initial 300 mg x2, 2 weeks apart)\nPremeds: methylprednisolone 100 mg IV, diphenhydramine 50 mg, acetaminophen 650 mg\nOrdering physician: [Neurologist], MD · signed 10/27\nDiagnosis: Relapsing-remitting multiple sclerosis, ICD-10 G35\n\nINSURANCE\nCommercial PPO · member ID on file (card front/back attached)\n\nCLINICAL\nMRI brain w/wo contrast (03/2026): new T2 lesions, one enhancing lesion\nHepatitis B screening (HBsAg, anti-HBc): negative, 09/2026\nPrior DMTs: Tecfidera (2021-2023, breakthrough relapse), Aubagio (2023-2025, intolerance)\n\nOFFICE NOTES\nMost recent neurology office visit note enclosed: dated 08/2025\n\nDemographics sheet attached.",
+    ivig: "FAX · FROM: Lakeside Immunology · TO: Harbor Infusion Center · 9 pages\nREFERRAL #51914\n\nORDER\nIVIG (Gammagard Liquid) 400 mg/kg IV every 4 weeks\nDiagnosis: Common variable immunodeficiency, ICD-10 D83.9\nOrdering physician: [Immunologist], MD · signature line blank\n\nINSURANCE\nMedicare Part B + supplemental · card attached\n\nCLINICAL\nHistory: recurrent sinusitis and two pneumonias in the past 12 months\nOffice visit note 10/2026 enclosed\nWeight: 78 kg (dose calc attached)\n\nLabs: none enclosed. Note says 'IgG levels drawn, results to follow.'\nVaccine response titers: not mentioned.",
+    entyvio: "FAX · FROM: Coastal GI Partners · TO: Harbor Infusion Center · 14 pages\nREFERRAL #51911\n\nORDER\nEntyvio (vedolizumab) 300 mg IV at weeks 0, 2, 6, then every 8 weeks\nDiagnosis: Ulcerative colitis, moderate to severe, ICD-10 K51.90\nOrdering physician: [Gastroenterologist], MD · signed 10/30\n\nINSURANCE\nCommercial HMO · card attached\n\nCLINICAL\nColonoscopy report 09/2026: Mayo endoscopic score 3\nOffice visit note 10/2026: 6-8 bloody stools/day despite therapy\nPrior therapy: mesalamine (2024-2026), prednisone course x2, failed\nTB screening (QuantiFERON) 10/2026: negative\nCBC, CMP 10/2026 enclosed"
+  };
+  var FALLBACK = {
+    ocrevus: { drug: "Ocrevus (ocrelizumab)", indication: "Relapsing MS (G35)", benefit: "Medical benefit (buy-and-bill)", payer: "Commercial PPO", ready: false, summary: "Almost complete. The newest visit note is 14 months old; most payers want one from the last 6 months.", items: [
+      { name: "Signed infusion order", status: "found", evidence: "Ocrevus 600 mg q6mo, signed 10/27", why: "Required for every PA" },
+      { name: "Diagnosis with ICD-10", status: "found", evidence: "Relapsing-remitting MS, G35", why: "Must match an approved indication" },
+      { name: "Insurance card", status: "found", evidence: "Commercial PPO, card front/back attached", why: "Needed to run benefits" },
+      { name: "MRI showing disease activity", status: "found", evidence: "03/2026: new T2 and enhancing lesion", why: "Supports medical necessity" },
+      { name: "Hepatitis B screening", status: "found", evidence: "HBsAg and anti-HBc negative, 09/2026", why: "Required before first dose" },
+      { name: "Prior therapy history", status: "found", evidence: "Tecfidera and Aubagio, with reasons stopped", why: "Many plans require prior DMTs" },
+      { name: "Recent neurology visit note", status: "missing", evidence: "Newest note is dated 08/2025", why: "Plans typically want a note within 6 months" }],
+      followup: { to: "Bayview Neurology Associates", fax: "Hi Bayview team,\n\nThank you for referral #51907 for Ocrevus. To submit prior authorization we need one more document:\n\n• The most recent neurology office visit note (within the last 6 months) documenting current disease activity\n\nEverything else in the packet is complete. Please fax it back referencing #51907 and we will submit the same day.\n\nThank you,\nIntake team" } },
+    ivig: { drug: "IVIG (Gammagard Liquid)", indication: "Common variable immunodeficiency (D83.9)", benefit: "Medical benefit (buy-and-bill)", payer: "Medicare Part B + supplemental", ready: false, summary: "Not ready. The order is unsigned and the IgG levels and vaccine response titers that establish CVID are missing.", items: [
+      { name: "Signed infusion order", status: "missing", evidence: "Signature line blank", why: "Unsigned orders can't be submitted" },
+      { name: "Diagnosis with ICD-10", status: "found", evidence: "CVID, D83.9", why: "Must match a covered indication" },
+      { name: "Insurance card", status: "found", evidence: "Medicare Part B card attached", why: "Needed to run benefits" },
+      { name: "Recent office visit note", status: "found", evidence: "Note dated 10/2026", why: "Documents current need" },
+      { name: "Serum IgG levels", status: "missing", evidence: "'Results to follow', none enclosed", why: "Low IgG is core to approval" },
+      { name: "Vaccine response titers", status: "missing", evidence: "Not mentioned", why: "Shows impaired antibody response" },
+      { name: "Infection history", status: "found", evidence: "Recurrent sinusitis, two pneumonias in 12 months", why: "Supports medical necessity" },
+      { name: "Weight and dose calculation", status: "found", evidence: "78 kg, calculation attached", why: "Needed to verify dosing" }],
+      followup: { to: "Lakeside Immunology", fax: "Hi Lakeside team,\n\nThank you for referral #51914 for IVIG. Before we can submit prior authorization we need:\n\n• A signed copy of the IVIG order (the signature line is blank)\n• Serum IgG levels (the packet notes results are pending)\n• Vaccine response titers (pre- and post-vaccination), if available\n\nPlease fax them back referencing #51914.\n\nThank you,\nIntake team" } },
+    entyvio: { drug: "Entyvio (vedolizumab)", indication: "Ulcerative colitis, moderate to severe (K51.90)", benefit: "Medical benefit (buy-and-bill)", payer: "Commercial HMO", ready: true, summary: "Complete. Order, diagnosis, disease severity, failed prior therapy and TB screening are all in the packet. Ready for prior auth.", items: [
+      { name: "Signed infusion order", status: "found", evidence: "Entyvio 300 mg, signed 10/30", why: "Required for every PA" },
+      { name: "Diagnosis with ICD-10", status: "found", evidence: "UC moderate to severe, K51.90", why: "Must match an approved indication" },
+      { name: "Insurance card", status: "found", evidence: "Commercial HMO card attached", why: "Needed to run benefits" },
+      { name: "Disease severity documented", status: "found", evidence: "Mayo score 3; 6-8 bloody stools/day", why: "Plans require moderate-severe disease" },
+      { name: "Failed conventional therapy", status: "found", evidence: "Mesalamine and two prednisone courses", why: "Step therapy is usually required" },
+      { name: "TB screening", status: "found", evidence: "QuantiFERON negative, 10/2026", why: "Commonly required for biologics" },
+      { name: "Recent office visit note", status: "found", evidence: "Note dated 10/2026", why: "Documents current need" }],
+      followup: { to: "Coastal GI Partners", fax: "" } }
+  };
+
+  var text = document.getElementById('gcText'), btn = document.getElementById('gcBtn'), status = document.getElementById('gcStatus');
+  var res = document.getElementById('gcRes'), warn = document.getElementById('gcWarn');
+  var fileWrap = document.getElementById('gcFileWrap'), fileIn = document.getElementById('gcFile');
+  var modeText = document.getElementById('gcModeText'), mode = document.getElementById('gcMode'), caption = document.getElementById('gcCaption');
+  var chips = Array.prototype.slice.call(document.querySelectorAll('[data-sample]'));
+  var current = null, sample = null, ctl = null;
+
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function setMode(live) {
+    modeText.textContent = live ? 'Live' : 'Samples only';
+    mode.className = 'live' + (live ? '' : ' is-wait');
+    caption.textContent = live ? 'Runs on Claude · checks typical payer criteria, not one plan’s exact policy' : 'Live checks need the Claude viewer · samples show saved results';
+  }
+  setMode(false);
+  if (window.claude && claude.use) {
+    claude.use('sample').then(function (s) {
+      sample = s; setMode(!!s);
+      if (s && s.limits) s.limits().then(function (l) { if (l && l.images) { fileWrap.hidden = false; fileIn.accept = l.images.mediaTypes.join(','); } }).catch(function () {});
+    }).catch(function () { setMode(false); });
+  }
+
+  chips.forEach(function (c) {
+    c.addEventListener('click', function () {
+      current = c.getAttribute('data-sample'); text.value = SAMPLES[current];
+      chips.forEach(function (o) { o.setAttribute('aria-pressed', o === c ? 'true' : 'false'); });
+      warn.hidden = true; status.textContent = 'Sample loaded. Click “Check this referral”.';
+    });
+  });
+  text.addEventListener('input', function () {
+    current = null; chips.forEach(function (o) { o.setAttribute('aria-pressed', 'false'); });
+    warn.hidden = !/(\bDOB\b|date of birth|\b\d{1,2}\/\d{1,2}\/(19|20)\d{2}\b|member id[:#\s]*[A-Z0-9]{6,})/i.test(text.value);
+  });
+
+  var PROMPT = "You are an experienced intake coordinator at an independent infusion center. Read the referral packet below (fax text and/or photos). Identify the drug ordered, then decide what a typical commercial or Medicare payer requires before approving prior authorization for that drug at an infusion center. Check the packet for each required item. Use only what is in the packet as evidence and never invent values. Never repeat patient names, dates of birth or member IDs; say 'the patient'.\n\nReply with only JSON in this shape:\n{\"drug\": string, \"indication\": string, \"benefit\": \"Medical benefit (buy-and-bill)\" | \"Pharmacy benefit\" | \"Unclear\", \"payer\": string (plan type if stated, else \"Not stated\"), \"ready\": boolean (true only if nothing required is missing or unclear), \"summary\": string (max 30 words, plain English, for the center's owner), \"items\": [{\"name\": string, \"status\": \"found\" | \"missing\" | \"unclear\", \"evidence\": string (max 14 words, quoting or describing the packet), \"why\": string (max 10 words)}], \"followup\": {\"to\": string (referring office as written, else \"Referring office\"), \"fax\": string (max 110 words, a polite fax asking only for the missing or unclear items, citing the referral number if present, signed 'Intake team'; empty string if ready)}}\nList 5 to 8 items, most important first. If the text is not a referral, set drug to \"Not a referral\", items to [] and explain in summary.\n\nREFERRAL PACKET:\n";
+
+  function tag(st) {
+    if (st === 'found') return '<span class="tag">Found</span>';
+    if (st === 'missing') return '<span class="tag tag--gap">Missing</span>';
+    return '<span class="tag tag--muted">Unclear</span>';
+  }
+  function render(r, source) {
+    var items = Array.isArray(r.items) ? r.items : [];
+    var gaps = items.filter(function (i) { return i.status !== 'found'; }).length;
+    var verdict = r.ready || gaps === 0 ? '<span class="tag">Ready for prior auth</span>' : '<span class="tag tag--gap">' + gaps + (gaps === 1 ? ' gap' : ' gaps') + ' to close</span>';
+    var html = '<div class="res__sum"><div class="res__chips">' + verdict + '<span class="tag tag--muted">' + esc(r.benefit || 'Benefit unclear') + '</span><span class="tag tag--muted">' + esc(r.payer || 'Payer not stated') + '</span></div>' +
+      '<h3>' + esc(r.drug) + (r.indication ? ' · <span style="color:var(--muted);font-weight:400">' + esc(r.indication) + '</span>' : '') + '</h3><p>' + esc(r.summary) + '</p></div>';
+    html += '<ul class="res__items">' + items.map(function (i) { return '<li><b>' + esc(i.name) + '</b>' + tag(i.status) + '<small>' + esc(i.evidence) + (i.why ? ' · ' + esc(i.why) : '') + '</small></li>'; }).join('') + '</ul>';
+    var fax = r.followup && r.followup.fax;
+    if (fax) {
+      html += '<div class="res__fax"><span class="mono-label" style="color:var(--teal-800)">Follow-up to ' + esc(r.followup.to || 'referring office') + ' · drafted</span><pre class="fax" id="gcFax">' + esc(fax) + '</pre>' +
+        '<div class="res__actions"><a class="btn btn--sm" href="#apply">Have Trellis send and chase it</a><button class="link" type="button" id="gcCopy">Copy draft</button></div></div>';
+    } else if (items.length) {
+      html += '<div class="res__fax"><div class="res__actions"><a class="btn btn--sm" href="#apply">Have Trellis submit the prior auth</a><span style="font-size:12.5px;color:var(--muted)">Nothing to chase on this one.</span></div></div>';
+    }
+    html += '<p class="res__note">' + (source === 'live' ? 'Checked live by Claude just now.' : 'Saved result for this sample. Open the page in Claude to run live checks on your own referrals.') + ' Requirements reflect typical payer criteria for this drug, not a specific plan’s policy.</p>';
+    res.innerHTML = html; res.hidden = false;
+    var copy = document.getElementById('gcCopy');
+    if (copy) copy.addEventListener('click', function () {
+      var t = document.getElementById('gcFax').textContent;
+      var ok = function () { copy.textContent = 'Copied'; };
+      try { navigator.clipboard.writeText(t).then(ok, function () { selectFax(); }); } catch (e) { selectFax(); }
+    });
+  }
+  function selectFax() { var el = document.getElementById('gcFax'); var r = document.createRange(); r.selectNodeContents(el); var s = window.getSelection(); s.removeAllRanges(); s.addRange(r); }
+
+  var COPY = { not_granted: 'Live checks are turned off for this page. The samples still show saved results.', sampling_disabled: 'Claude isn’t available on this account. The samples still show saved results.', rate_limited: 'Too many checks at once. Wait a minute and try again.', session_expired: 'Sign in to Claude again to run a live check.', image_rejected: 'That photo couldn’t be read. Try a JPEG or PNG under 20 MB.', refused: 'Claude declined to read this text. Try a different referral.', invalid_json: 'The answer came back garbled. Click check again.', prompt_too_large: 'That packet is too long. Paste the order, insurance and clinical pages only.' };
+
+  btn.addEventListener('click', function () {
+    var val = text.value.trim(), files = fileIn.files && fileIn.files.length ? fileIn.files : null;
+    if (!val && !files) { status.textContent = 'Paste a referral or pick a sample first.'; return; }
+    if (!sample) {
+      if (current && FALLBACK[current]) { render(FALLBACK[current], 'saved'); status.textContent = ''; return; }
+      status.textContent = 'Live checks run when this page is open in Claude. Pick a sample to see a saved result.'; return;
+    }
+    if (ctl) ctl.abort(); ctl = new AbortController();
+    btn.disabled = true; status.className = 'gc__status is-busy'; status.textContent = 'Reading the packet the way a payer would…'; res.hidden = true;
+    var opts = { signal: ctl.signal };
+    if (files) opts.images = files;
+    sample.json(PROMPT + (val || '(See attached photos of the fax.)'), opts).then(function (r) {
+      if (!r || typeof r !== 'object') throw { code: 'invalid_json' };
+      render(r, 'live'); status.className = 'gc__status'; status.textContent = '';
+    }).catch(function (e) {
+      status.className = 'gc__status';
+      if (e && e.code === 'cancelled') { status.textContent = ''; return; }
+      if (current && FALLBACK[current] && e && (e.code === 'not_granted' || e.code === 'sampling_disabled')) { render(FALLBACK[current], 'saved'); }
+      status.textContent = (e && COPY[e.code]) || 'Something went wrong reaching Claude. Try again.';
+    }).then(function () { btn.disabled = false; });
+  });
+
+})();
+</script>
+
+
+</body>
+</html>
